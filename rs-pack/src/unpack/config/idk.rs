@@ -34,6 +34,8 @@ fn model_name(registry: &UnpackedPacks, id: u16) -> String {
 
 pub fn emit_idk_props(
     def: &IdkTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
@@ -59,7 +61,7 @@ pub fn emit_idk_props(
             super::model_ref(id, "idk", cat.clone(), registry);
         }
         for (slot, &id) in heads.iter().enumerate() {
-            if def.opcode_order.contains(&(60 + slot as u8)) {
+            if opcode == 60 + slot as u8 {
                 super::model_ref(id, "idk_head", cat.clone(), registry);
             }
         }
@@ -81,14 +83,14 @@ pub fn emit_idk_props(
     }
 
     #[cfg(before_647)]
-    if def.opcode_order.contains(&1) {
+    if opcode == 1 {
         let value = bodytype_name(def.body_type as u8)
             .map(str::to_string)
             .unwrap_or_else(|| (def.body_type as u8).to_string());
         p.push((1, "type".into(), value));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&1) {
+    if opcode == 1 {
         p.push((1, "bodypart".into(), (def.body_type as u8).to_string()));
     }
 
@@ -133,7 +135,7 @@ pub fn emit_idk_props(
     }
 
     for (slot, &model_id) in heads.iter().enumerate() {
-        if def.opcode_order.contains(&((60 + slot) as u8)) {
+        if opcode == (60 + slot) as u8 {
             p.push((
                 (60 + slot) as u8,
                 format!("head{}", slot + 1),
@@ -141,5 +143,8 @@ pub fn emit_idk_props(
             ));
         }
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

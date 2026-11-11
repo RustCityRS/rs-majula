@@ -53,32 +53,26 @@ impl CacheType for DbRowType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                3 => {
-                    let len = buf.g1() as usize;
-                    let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
-                    let mut columns = vec![None; len].into_boxed_slice();
-                    loop {
-                        let column = buf.g1() as usize;
-                        if column == 0xFF {
-                            break;
-                        }
-                        types[column] = read_array(buf, Packet::g1);
-                        columns[column] = Some(DbRowType::decode_values(buf, &types[column]));
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            3 => {
+                let len = buf.g1() as usize;
+                let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
+                let mut columns = vec![None; len].into_boxed_slice();
+                loop {
+                    let column = buf.g1() as usize;
+                    if column == 0xFF {
+                        break;
                     }
-                    self.types = Some(types);
-                    self.columns = Some(columns);
+                    types[column] = read_array(buf, Packet::g1);
+                    columns[column] = Some(DbRowType::decode_values(buf, &types[column]));
                 }
-                4 => self.table = buf.g2(),
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("dbrow", code),
+                self.types = Some(types);
+                self.columns = Some(columns);
             }
+            4 => self.table = buf.g2(),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("dbrow", code),
         }
     }
 

@@ -7,7 +7,6 @@ pub struct MsiType {
     pub colour: i32,
     pub locsize: bool,
     pub nosprite: bool,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for MsiType {
@@ -20,24 +19,16 @@ impl CacheType for MsiType {
             colour: 0,
             locsize: false,
             nosprite: false,
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.sprite = buf.g2(),
-                2 => self.colour = buf.g3(),
-                3 => self.locsize = true,
-                4 => self.nosprite = true,
-                _ => crate::unknown_opcode!("msi", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.sprite = buf.g2(),
+            2 => self.colour = buf.g3(),
+            3 => self.locsize = true,
+            4 => self.nosprite = true,
+            _ => crate::unknown_opcode!("msi", code),
         }
     }
 }

@@ -57,8 +57,6 @@ pub struct SeqTypeRaw {
     #[cfg(since_647)]
     pub op20: Vec<(u8, u16, u16)>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
-    pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
 impl CacheType for SeqTypeRaw {
@@ -102,102 +100,90 @@ impl CacheType for SeqTypeRaw {
             #[cfg(since_647)]
             op20: Vec::new(),
             debugname: Box::default(),
-            opcode_order: Vec::new(),
-            raw_opcodes: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            let start = buf.pos;
-            self.opcode_order.push(code);
-            match code {
-                1 => self.decode_frames(buf),
-                2 => self.loops = Some(buf.g2()),
-                3 => {
-                    let count = buf.g1() as usize;
-                    let mut walkmerge = Vec::with_capacity(count + 1);
-                    for _ in 0..count {
-                        walkmerge.push(buf.g1() as i32);
-                    }
-                    #[cfg(before_647)]
-                    walkmerge.push(9999999);
-                    self.walkmerge = Some(walkmerge.into_boxed_slice());
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.decode_frames(buf),
+            2 => self.loops = Some(buf.g2()),
+            3 => {
+                let count = buf.g1() as usize;
+                let mut walkmerge = Vec::with_capacity(count + 1);
+                for _ in 0..count {
+                    walkmerge.push(buf.g1() as i32);
                 }
                 #[cfg(before_647)]
-                4 => self.reachforward = true,
-                5 => self.priority = buf.g1(),
-                6 => self.replaceheldleft = Some(buf.g2()),
-                7 => self.replaceheldright = Some(buf.g2()),
-                8 => self.maxloops = buf.g1(),
-                #[cfg(since_244)]
-                9 => self.preanim_move = Some(buf.g1()),
-                #[cfg(since_244)]
-                10 => self.postanim_move = Some(buf.g1()),
-                #[cfg(since_244)]
-                11 => self.duplicatebehaviour = Some(buf.g1()),
-                #[cfg(since_647)]
-                12 => {
-                    let count = buf.g1() as usize;
-                    self.iframes = Some(
-                        Self::read_frames(buf, count)
-                            .into_iter()
-                            .map(Some)
-                            .collect(),
-                    );
-                }
-                #[cfg(since_647)]
-                13 => {
-                    let len = buf.g2() as usize;
-                    let mut synths = Vec::with_capacity(len);
-                    for _ in 0..len {
-                        let size = buf.g1() as usize;
-                        if size > 0 {
-                            let head = buf.g3();
-                            let mut tail = Vec::with_capacity(size - 1);
-                            for _ in 0..(size - 1) {
-                                tail.push(buf.g2());
-                            }
-                            synths.push(Some(SeqSynth {
-                                head,
-                                tail: tail.into_boxed_slice(),
-                            }));
-                        } else {
-                            synths.push(None);
-                        }
-                    }
-                    self.synths = Some(synths.into_boxed_slice());
-                }
-                #[cfg(since_647)]
-                14 => self.a_bool9 = true,
-                #[cfg(since_647)]
-                15 => self.tween = true,
-                #[cfg(since_647)]
-                16 => self.a_bool8 = true,
-                #[cfg(since_647)]
-                18 => self.sound_vorbis = true,
-                #[cfg(since_647)]
-                19 => {
-                    let idx = buf.g1();
-                    let val = buf.g1();
-                    self.op19.push((idx, val));
-                }
-                #[cfg(since_647)]
-                20 => {
-                    let idx = buf.g1();
-                    let a = buf.g2();
-                    let b = buf.g2();
-                    self.op20.push((idx, a, b));
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("seq", code),
+                walkmerge.push(9999999);
+                self.walkmerge = Some(walkmerge.into_boxed_slice());
             }
-            self.raw_opcodes
-                .push((code, buf.data[start..buf.pos].to_vec()));
+            #[cfg(before_647)]
+            4 => self.reachforward = true,
+            5 => self.priority = buf.g1(),
+            6 => self.replaceheldleft = Some(buf.g2()),
+            7 => self.replaceheldright = Some(buf.g2()),
+            8 => self.maxloops = buf.g1(),
+            #[cfg(since_244)]
+            9 => self.preanim_move = Some(buf.g1()),
+            #[cfg(since_244)]
+            10 => self.postanim_move = Some(buf.g1()),
+            #[cfg(since_244)]
+            11 => self.duplicatebehaviour = Some(buf.g1()),
+            #[cfg(since_647)]
+            12 => {
+                let count = buf.g1() as usize;
+                self.iframes = Some(
+                    Self::read_frames(buf, count)
+                        .into_iter()
+                        .map(Some)
+                        .collect(),
+                );
+            }
+            #[cfg(since_647)]
+            13 => {
+                let len = buf.g2() as usize;
+                let mut synths = Vec::with_capacity(len);
+                for _ in 0..len {
+                    let size = buf.g1() as usize;
+                    if size > 0 {
+                        let head = buf.g3();
+                        let mut tail = Vec::with_capacity(size - 1);
+                        for _ in 0..(size - 1) {
+                            tail.push(buf.g2());
+                        }
+                        synths.push(Some(SeqSynth {
+                            head,
+                            tail: tail.into_boxed_slice(),
+                        }));
+                    } else {
+                        synths.push(None);
+                    }
+                }
+                self.synths = Some(synths.into_boxed_slice());
+            }
+            #[cfg(since_647)]
+            14 => self.a_bool9 = true,
+            #[cfg(since_647)]
+            15 => self.tween = true,
+            #[cfg(since_647)]
+            16 => self.a_bool8 = true,
+            #[cfg(since_647)]
+            18 => self.sound_vorbis = true,
+            #[cfg(since_647)]
+            19 => {
+                let idx = buf.g1();
+                let val = buf.g1();
+                self.op19.push((idx, val));
+            }
+            #[cfg(since_647)]
+            20 => {
+                let idx = buf.g1();
+                let a = buf.g2();
+                let b = buf.g2();
+                self.op20.push((idx, a, b));
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("seq", code),
         }
     }
 

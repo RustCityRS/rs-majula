@@ -25,34 +25,28 @@ impl CacheType for ControllerType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                1 => {
-                    let count = buf.g1() as usize;
-                    let mut vars = Vec::with_capacity(count);
-                    for _ in 0..count {
-                        let id = buf.g2();
-                        let value = if buf.g1() == 1 {
-                            ParamValue::String(buf.gjstr(STRING_TERMINATOR).into_boxed_str())
-                        } else {
-                            ParamValue::Int(buf.g4s())
-                        };
-                        vars.push((id, value));
-                    }
-                    self.vars = vars.into_boxed_slice();
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => {
+                let count = buf.g1() as usize;
+                let mut vars = Vec::with_capacity(count);
+                for _ in 0..count {
+                    let id = buf.g2();
+                    let value = if buf.g1() == 1 {
+                        ParamValue::String(buf.gjstr(STRING_TERMINATOR).into_boxed_str())
+                    } else {
+                        ParamValue::Int(buf.g4s())
+                    };
+                    vars.push((id, value));
                 }
-                2 => {
-                    let count = buf.g1() as usize;
-                    self.varbits = (0..count).map(|_| (buf.g2(), buf.g4s())).collect();
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("controller", code),
+                self.vars = vars.into_boxed_slice();
             }
+            2 => {
+                let count = buf.g1() as usize;
+                self.varbits = (0..count).map(|_| (buf.g2(), buf.g4s())).collect();
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("controller", code),
         }
     }
 

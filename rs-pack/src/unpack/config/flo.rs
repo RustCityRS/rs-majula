@@ -6,13 +6,15 @@ use std::collections::HashMap;
 
 pub fn emit_flo_props(
     def: &FloTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     _registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
-        if def.opcode_order.contains(&1) {
+        if opcode == 1 {
             p.push((1, "colour".into(), format!("0x{:06X}", def.colour)));
         }
         if let Some(texture) = def.texture {
@@ -31,13 +33,13 @@ pub fn emit_flo_props(
     }
     #[cfg(since_647)]
     {
-        if def.opcode_order.contains(&1) {
+        if opcode == 1 {
             p.push((1, "colour".into(), format!("0x{:x}", def.colour)));
         }
-        if def.opcode_order.contains(&2) {
+        if opcode == 2 {
             p.push((2, "unknown2".into(), def.texture_u8_raw.to_string()));
         }
-        if def.opcode_order.contains(&3) {
+        if opcode == 3 {
             let material = _registry.reference("texture", def.texture_u16_raw);
             p.push((3, "material".into(), material));
         }
@@ -50,31 +52,34 @@ pub fn emit_flo_props(
         if def.op8_flomark {
             p.push((8, "unknown8".into(), "yes".into()));
         }
-        if def.opcode_order.contains(&9) {
+        if opcode == 9 {
             let v = def.op9_u16;
             p.push((9, "texturescale".into(), v.to_string()));
         }
         if def.op10_bool34_false {
             p.push((10, "unknown10".into(), "yes".into()));
         }
-        for v in &def.op11_values {
+        if let Some(v) = def.op11_values.last() {
             p.push((11, "priority".into(), v.to_string()));
         }
         if def.op12_bool33_true {
             p.push((12, "smoothedges".into(), "yes".into()));
         }
-        if def.opcode_order.contains(&13) {
+        if opcode == 13 {
             let v = def.op13_u24;
             p.push((13, "waterfogcolour".into(), format!("0x{v:x}")));
         }
-        if def.opcode_order.contains(&14) {
+        if opcode == 14 {
             let v = def.op14_u8;
             p.push((14, "waterfogscale".into(), v.to_string()));
         }
-        if def.opcode_order.contains(&16) {
+        if opcode == 16 {
             let v = def.op16_u8;
             p.push((16, "waterfogoffset".into(), v.to_string()));
         }
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

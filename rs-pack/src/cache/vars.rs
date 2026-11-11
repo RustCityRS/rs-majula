@@ -22,17 +22,11 @@ impl CacheType for VarsType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("vars", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("vars", code),
         }
     }
 

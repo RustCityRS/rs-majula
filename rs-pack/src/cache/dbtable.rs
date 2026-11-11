@@ -81,40 +81,34 @@ impl CacheType for DbTableType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                1 => {
-                    let len = buf.g1() as usize;
-                    let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
-                    let mut defaults = vec![None; len].into_boxed_slice();
-                    loop {
-                        let info = buf.g1();
-                        if info == 0xFF {
-                            break;
-                        }
-                        let column = (info & 0x7F) as usize;
-                        types[column] = read_array(buf, Packet::g1);
-                        if (info & 0x80) != 0 {
-                            defaults[column] = Some(DbTableType::decode_values(buf, &types[column]))
-                        }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => {
+                let len = buf.g1() as usize;
+                let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
+                let mut defaults = vec![None; len].into_boxed_slice();
+                loop {
+                    let info = buf.g1();
+                    if info == 0xFF {
+                        break;
                     }
-                    self.types = Some(types);
-                    self.defaults = Some(defaults);
+                    let column = (info & 0x7F) as usize;
+                    types[column] = read_array(buf, Packet::g1);
+                    if (info & 0x80) != 0 {
+                        defaults[column] = Some(DbTableType::decode_values(buf, &types[column]))
+                    }
                 }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                251 => {
-                    self.columns = Some(read_array(buf, |buf| {
-                        buf.gjstr(STRING_TERMINATOR).into_boxed_str()
-                    }));
-                }
-                252 => self.props = Some(read_array(buf, Packet::g1)),
-                _ => crate::unknown_opcode!("dbtable", code),
+                self.types = Some(types);
+                self.defaults = Some(defaults);
             }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            251 => {
+                self.columns = Some(read_array(buf, |buf| {
+                    buf.gjstr(STRING_TERMINATOR).into_boxed_str()
+                }));
+            }
+            252 => self.props = Some(read_array(buf, Packet::g1)),
+            _ => crate::unknown_opcode!("dbtable", code),
         }
     }
 

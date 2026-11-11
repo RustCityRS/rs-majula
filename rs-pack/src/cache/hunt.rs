@@ -85,68 +85,62 @@ impl CacheType for HuntType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.hunt_type = HuntModeType::try_from(buf.g1()).unwrap(),
+            2 => self.check_vis = HuntCheckVis::try_from(buf.g1()).unwrap(),
+            3 => self.check_nottoostrong = HuntCheckNotTooStrong::try_from(buf.g1()).unwrap(),
+            4 => self.check_notbusy = HuntCheckNotBusy::On,
+            5 => self.find_keephunting = HuntFindKeepHunting::On,
+            6 => self.find_newmode = NpcMode::try_from(buf.g1()).unwrap(),
+            7 => self.nobodynear = HuntNobodyNear::try_from(buf.g1()).unwrap(),
+            8 => self.check_notcombat = Some(buf.g2()),
+            9 => self.check_notcombat_self = Some(buf.g2()),
+            10 => self.check_afk = HuntCheckAfk::Off,
+            11 => self.rate = buf.g2(),
+            12 => self.check_category = Some(buf.g2()),
+            13 => self.check_npc = Some(buf.g2()),
+            14 => self.check_obj = Some(buf.g2()),
+            15 => self.check_loc = Some(buf.g2()),
+            16 => {
+                let inv = buf.g2();
+                let obj = buf.g2();
+                let condition = buf.gjstr(STRING_TERMINATOR);
+                let value = buf.g4s();
+                self.check_inv = Some(HuntCheckInv {
+                    inv,
+                    obj,
+                    condition,
+                    value,
+                });
             }
-            match code {
-                1 => self.hunt_type = HuntModeType::try_from(buf.g1()).unwrap(),
-                2 => self.check_vis = HuntCheckVis::try_from(buf.g1()).unwrap(),
-                3 => self.check_nottoostrong = HuntCheckNotTooStrong::try_from(buf.g1()).unwrap(),
-                4 => self.check_notbusy = HuntCheckNotBusy::On,
-                5 => self.find_keephunting = HuntFindKeepHunting::On,
-                6 => self.find_newmode = NpcMode::try_from(buf.g1()).unwrap(),
-                7 => self.nobodynear = HuntNobodyNear::try_from(buf.g1()).unwrap(),
-                8 => self.check_notcombat = Some(buf.g2()),
-                9 => self.check_notcombat_self = Some(buf.g2()),
-                10 => self.check_afk = HuntCheckAfk::Off,
-                11 => self.rate = buf.g2(),
-                12 => self.check_category = Some(buf.g2()),
-                13 => self.check_npc = Some(buf.g2()),
-                14 => self.check_obj = Some(buf.g2()),
-                15 => self.check_loc = Some(buf.g2()),
-                16 => {
-                    let inv = buf.g2();
-                    let obj = buf.g2();
-                    let condition = buf.gjstr(STRING_TERMINATOR);
-                    let value = buf.g4s();
-                    self.check_inv = Some(HuntCheckInv {
-                        inv,
-                        obj,
-                        condition,
-                        value,
-                    });
-                }
-                17 => {
-                    let inv = buf.g2();
-                    let param = buf.g2();
-                    let condition = buf.gjstr(STRING_TERMINATOR);
-                    let value = buf.g4s();
-                    self.check_invparam = Some(HuntCheckInvParam {
-                        inv,
-                        param,
-                        condition,
-                        value,
-                    });
-                }
-                18 => {
-                    let inv = buf.g2();
-                    let category = buf.g2();
-                    let condition = buf.gjstr(STRING_TERMINATOR);
-                    let value = buf.g4s();
-                    self.check_invcat = Some(HuntCheckInvCat {
-                        inv,
-                        category,
-                        condition,
-                        value,
-                    });
-                }
-                19..=21 => self.decode_check_var(buf),
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("hunt", code),
+            17 => {
+                let inv = buf.g2();
+                let param = buf.g2();
+                let condition = buf.gjstr(STRING_TERMINATOR);
+                let value = buf.g4s();
+                self.check_invparam = Some(HuntCheckInvParam {
+                    inv,
+                    param,
+                    condition,
+                    value,
+                });
             }
+            18 => {
+                let inv = buf.g2();
+                let category = buf.g2();
+                let condition = buf.gjstr(STRING_TERMINATOR);
+                let value = buf.g4s();
+                self.check_invcat = Some(HuntCheckInvCat {
+                    inv,
+                    category,
+                    condition,
+                    value,
+                });
+            }
+            19..=21 => self.decode_check_var(buf),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("hunt", code),
         }
     }
 

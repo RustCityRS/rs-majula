@@ -49,7 +49,6 @@ pub struct SpotAnimTypeRaw {
     #[cfg(since_647)]
     pub retex_s: Option<Box<[u16]>>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for SpotAnimTypeRaw {
@@ -89,70 +88,62 @@ impl CacheType for SpotAnimTypeRaw {
             #[cfg(since_647)]
             retex_s: None,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.model = buf.g2(),
+            2 => self.anim = Some(buf.g2()),
+            #[cfg(before_647)]
+            3 => self.hasalpha = true,
+            4 => self.resizeh = buf.g2(),
+            5 => self.resizev = buf.g2(),
+            6 => self.angle = buf.g2(),
+            7 => self.ambient = buf.g1(),
+            8 => self.contrast = buf.g1(),
+            #[cfg(since_647)]
+            9 => self.op9 = true,
+            #[cfg(since_647)]
+            10 => self.op10 = true,
+            #[cfg(since_647)]
+            11 => self.op11 = true,
+            #[cfg(since_647)]
+            12 => self.op12 = true,
+            #[cfg(since_647)]
+            13 => self.op13 = true,
+            #[cfg(since_647)]
+            14 => self.op14 = Some(buf.g1()),
+            #[cfg(since_647)]
+            15 => self.op15 = Some(buf.g2()),
+            #[cfg(since_647)]
+            16 => {
+                let param = buf.g4s();
+                self.op16 = (param != -1).then_some(param);
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.model = buf.g2(),
-                2 => self.anim = Some(buf.g2()),
-                #[cfg(before_647)]
-                3 => self.hasalpha = true,
-                4 => self.resizeh = buf.g2(),
-                5 => self.resizev = buf.g2(),
-                6 => self.angle = buf.g2(),
-                7 => self.ambient = buf.g1(),
-                8 => self.contrast = buf.g1(),
-                #[cfg(since_647)]
-                9 => self.op9 = true,
-                #[cfg(since_647)]
-                10 => self.op10 = true,
-                #[cfg(since_647)]
-                11 => self.op11 = true,
-                #[cfg(since_647)]
-                12 => self.op12 = true,
-                #[cfg(since_647)]
-                13 => self.op13 = true,
-                #[cfg(since_647)]
-                14 => self.op14 = Some(buf.g1()),
-                #[cfg(since_647)]
-                15 => self.op15 = Some(buf.g2()),
-                #[cfg(since_647)]
-                16 => {
-                    let param = buf.g4s();
-                    self.op16 = (param != -1).then_some(param);
-                }
-                #[cfg(since_647)]
-                40 | 41 => {
-                    let (s, d) = if code == 40 {
-                        (&mut self.recol_s, &mut self.recol_d)
-                    } else {
-                        (&mut self.retex_s, &mut self.retex_d)
-                    };
-                    read_pairs(buf, d, s);
-                }
-                #[cfg(before_647)]
-                40..=49 => {
-                    self.recol_s
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 40] = buf.g2()
-                }
-                #[cfg(before_647)]
-                50..=59 => {
-                    self.recol_d
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 50] = buf.g2();
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("spotanim", code),
+            #[cfg(since_647)]
+            40 | 41 => {
+                let (s, d) = if code == 40 {
+                    (&mut self.recol_s, &mut self.recol_d)
+                } else {
+                    (&mut self.retex_s, &mut self.retex_d)
+                };
+                read_pairs(buf, d, s);
             }
+            #[cfg(before_647)]
+            40..=49 => {
+                self.recol_s
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 40] =
+                    buf.g2()
+            }
+            #[cfg(before_647)]
+            50..=59 => {
+                self.recol_d
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 50] =
+                    buf.g2();
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("spotanim", code),
         }
     }
 

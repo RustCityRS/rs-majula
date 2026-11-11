@@ -7,7 +7,17 @@ pub trait CacheType: Sized {
     type Context;
 
     fn new(id: u16) -> Self;
-    fn decode(&mut self, buf: &mut Packet);
+    fn decode(&mut self, buf: &mut Packet) {
+        while buf.remaining() > 0 {
+            let code = buf.g1();
+            if code == 0 {
+                break;
+            }
+            self.decode_opcode(buf, code);
+        }
+    }
+
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8);
     fn post_decode(_types: &mut Vec<Self>, _ctx: &Self::Context) {}
 
     /// The name configs and scripts know the record by. Client records carry

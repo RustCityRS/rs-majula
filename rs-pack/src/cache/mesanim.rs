@@ -21,17 +21,11 @@ impl CacheType for MesAnimType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                1..=4 => self.len[code as usize - 1] = Some(buf.g2()),
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("mesanim", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1..=4 => self.len[code as usize - 1] = Some(buf.g2()),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("mesanim", code),
         }
     }
 

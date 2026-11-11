@@ -22,6 +22,8 @@ use std::collections::HashSet;
 
 pub fn emit_varp_props(
     def: &VarPlayerTypeRaw,
+    code: u8,
+    _data: &[u8],
     _registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
@@ -32,31 +34,24 @@ pub fn emit_varp_props(
         VarPlayerScope::Temp => {}
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&2) {
+    if code == 2 {
         p.push((2, "type".into(), char_to_type_name(def.var_type as u8)));
     }
     #[cfg(since_647)]
     if !def.protect {
         p.push((4, "protect".into(), "no".into()));
     }
-    if def.opcode_order.contains(&5) || def.clientcode != 0 {
+    if code == 5 {
         p.push((5, "clientcode".into(), def.clientcode.to_string()));
     }
     #[cfg(since_647)]
-    if def.transmit || _registry.transmit_varps.contains(&(def.id as u32)) {
+    if def.transmit {
         p.push((6, "transmit".into(), "yes".into()));
     }
-    #[cfg(since_647)]
-    let mut order = def.opcode_order.clone();
-    #[cfg(since_647)]
-    if !def.transmit && _registry.transmit_varps.contains(&(def.id as u32)) && !order.is_empty() {
-        order.push(6);
-    }
-    #[cfg(before_647)]
-    let order = def.opcode_order.as_slice();
-    #[cfg(since_647)]
-    let order = order.as_slice();
-    super::reorder_by_opcode(order, p)
+    p.into_iter()
+        .filter(|(opcode, _, _)| *opcode == code)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }
 
 #[cfg(since_647)]

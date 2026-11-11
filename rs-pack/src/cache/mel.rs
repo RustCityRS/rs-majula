@@ -42,7 +42,6 @@ pub struct MelType {
     pub polygonoutlinedash: Option<(u8, u8, u8)>,
     pub textoffset: (i16, i16),
     pub params: Vec<(i32, ParamValue)>,
-    pub opcode_order: Vec<u8>,
 }
 
 fn read_show_var(buf: &mut Packet) -> ShowVar {
@@ -81,57 +80,49 @@ impl CacheType for MelType {
             polygonoutlinedash: None,
             textoffset: (0, 0),
             params: Vec::new(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.sprite = Some(buf.g2()),
+            2 => self.mouseovergraphic = Some(buf.g2()),
+            3 => self.text = buf.gjstr(STRING_TERMINATOR),
+            4 => self.textcolour = buf.g3(),
+            5 => self.textmouseovercolour = Some(buf.g3()),
+            6 => self.textsize = buf.g1(),
+            7 => self.show = buf.g1(),
+            8 => self.mapfunction = buf.g1(),
+            9 => self.showvar1 = Some(read_show_var(buf)),
+            10..=14 => self.ops[code as usize - 10] = Some(buf.gjstr(STRING_TERMINATOR)),
+            15 => {
+                let count = buf.g1() as usize;
+                let points = (0..count).map(|_| (buf.g2s(), buf.g2s())).collect();
+                let fill = buf.g4s();
+                let palette = (0..buf.g1()).map(|_| buf.g4s()).collect();
+                let outline = (0..count).map(|_| buf.g1s()).collect();
+                self.polygon = Some(Polygon {
+                    points,
+                    fill,
+                    palette,
+                    outline,
+                });
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.sprite = Some(buf.g2()),
-                2 => self.mouseovergraphic = Some(buf.g2()),
-                3 => self.text = buf.gjstr(STRING_TERMINATOR),
-                4 => self.textcolour = buf.g3(),
-                5 => self.textmouseovercolour = Some(buf.g3()),
-                6 => self.textsize = buf.g1(),
-                7 => self.show = buf.g1(),
-                8 => self.mapfunction = buf.g1(),
-                9 => self.showvar1 = Some(read_show_var(buf)),
-                10..=14 => self.ops[code as usize - 10] = Some(buf.gjstr(STRING_TERMINATOR)),
-                15 => {
-                    let count = buf.g1() as usize;
-                    let points = (0..count).map(|_| (buf.g2s(), buf.g2s())).collect();
-                    let fill = buf.g4s();
-                    let palette = (0..buf.g1()).map(|_| buf.g4s()).collect();
-                    let outline = (0..count).map(|_| buf.g1s()).collect();
-                    self.polygon = Some(Polygon {
-                        points,
-                        fill,
-                        palette,
-                        outline,
-                    });
+            16 => self.notlistable = true,
+            17 => self.opbase = buf.gjstr(STRING_TERMINATOR),
+            18 => self.worldmaparrow = Some(buf.g2()),
+            19 => self.category = Some(buf.g2()),
+            20 => self.showvar2 = Some(read_show_var(buf)),
+            21 => self.textbackgroundoutline = buf.g4s(),
+            22 => self.textbackgroundfill.push(buf.g4s()),
+            23 => self.polygonoutlinedash = Some((buf.g1(), buf.g1(), buf.g1())),
+            24 => self.textoffset = (buf.g2s(), buf.g2s()),
+            249 => {
+                for _ in 0..buf.g1() {
+                    self.params.push(ParamType::decode_param(buf));
                 }
-                16 => self.notlistable = true,
-                17 => self.opbase = buf.gjstr(STRING_TERMINATOR),
-                18 => self.worldmaparrow = Some(buf.g2()),
-                19 => self.category = Some(buf.g2()),
-                20 => self.showvar2 = Some(read_show_var(buf)),
-                21 => self.textbackgroundoutline = buf.g4s(),
-                22 => self.textbackgroundfill.push(buf.g4s()),
-                23 => self.polygonoutlinedash = Some((buf.g1(), buf.g1(), buf.g1())),
-                24 => self.textoffset = (buf.g2s(), buf.g2s()),
-                249 => {
-                    for _ in 0..buf.g1() {
-                        self.params.push(ParamType::decode_param(buf));
-                    }
-                }
-                _ => crate::unknown_opcode!("mel", code),
             }
+            _ => crate::unknown_opcode!("mel", code),
         }
     }
 }

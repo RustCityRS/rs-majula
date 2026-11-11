@@ -24,7 +24,6 @@ pub struct VarPlayerTypeRaw {
     pub clientcode: u16,
     pub transmit: bool,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for VarPlayerTypeRaw {
@@ -39,26 +38,18 @@ impl CacheType for VarPlayerTypeRaw {
             clientcode: 0,
             transmit: false,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.scope = VarPlayerScope::try_from(buf.g1()).unwrap(),
-                2 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                4 => self.protect = false,
-                5 => self.clientcode = buf.g2(),
-                6 => self.transmit = true,
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("varp", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.scope = VarPlayerScope::try_from(buf.g1()).unwrap(),
+            2 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
+            4 => self.protect = false,
+            5 => self.clientcode = buf.g2(),
+            6 => self.transmit = true,
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("varp", code),
         }
     }
 

@@ -37,7 +37,6 @@ pub struct IdkTypeRaw {
     pub retex_d: Option<Box<[u16]>>,
     pub heads: Option<Box<[u16]>>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for IdkTypeRaw {
@@ -57,50 +56,42 @@ impl CacheType for IdkTypeRaw {
             retex_d: None,
             heads: None,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.body_type = BodyType::try_from(buf.g1()).unwrap(),
+            2 => self.models = Some(read_array(buf, Packet::g2)),
+            3 => self.disable = true,
+            #[cfg(before_647)]
+            40..=49 => {
+                self.recol_s
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 40] =
+                    buf.g2();
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.body_type = BodyType::try_from(buf.g1()).unwrap(),
-                2 => self.models = Some(read_array(buf, Packet::g2)),
-                3 => self.disable = true,
-                #[cfg(before_647)]
-                40..=49 => {
-                    self.recol_s
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 40] = buf.g2();
-                }
-                #[cfg(since_647)]
-                40 | 41 => {
-                    let (s, d) = if code == 40 {
-                        (&mut self.recol_s, &mut self.recol_d)
-                    } else {
-                        (&mut self.retex_s, &mut self.retex_d)
-                    };
-                    read_pairs(buf, s, d);
-                }
-                #[cfg(before_647)]
-                50..=59 => {
-                    self.recol_d
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 50] = buf.g2();
-                }
-                60..=69 => {
-                    self.heads
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 60] = buf.g2();
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("idk", code),
+            #[cfg(since_647)]
+            40 | 41 => {
+                let (s, d) = if code == 40 {
+                    (&mut self.recol_s, &mut self.recol_d)
+                } else {
+                    (&mut self.retex_s, &mut self.retex_d)
+                };
+                read_pairs(buf, s, d);
             }
+            #[cfg(before_647)]
+            50..=59 => {
+                self.recol_d
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 50] =
+                    buf.g2();
+            }
+            60..=69 => {
+                self.heads
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 60] =
+                    buf.g2();
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("idk", code),
         }
     }
 

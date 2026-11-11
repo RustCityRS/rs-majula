@@ -5,7 +5,6 @@ pub struct CursorType {
     pub id: u16,
     pub sprite: u16,
     pub hotspot: (u8, u8),
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for CursorType {
@@ -16,22 +15,14 @@ impl CacheType for CursorType {
             id,
             sprite: 0,
             hotspot: (0, 0),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.sprite = buf.g2(),
-                2 => self.hotspot = (buf.g1(), buf.g1()),
-                _ => crate::unknown_opcode!("cursor", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.sprite = buf.g2(),
+            2 => self.hotspot = (buf.g1(), buf.g1()),
+            _ => crate::unknown_opcode!("cursor", code),
         }
     }
 }

@@ -18,6 +18,8 @@ fn command_text(command: &QuickChatCommand, packs: &UnpackedPacks) -> String {
 
 pub fn emit_quickchatphrase_props(
     def: &QuickChatPhraseType,
+    opcode: u8,
+    _data: &[u8],
     packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
@@ -49,8 +51,11 @@ pub fn emit_quickchatphrase_props(
             packs.reference("chatphrase", id + first),
         ));
     }
-    if def.opcode_order.contains(&4) {
+    if opcode == 4 {
         p.push((4, "unsearchable".into(), "yes".into()));
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

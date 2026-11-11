@@ -5,6 +5,8 @@ use std::collections::HashMap;
 
 pub fn emit_quickchatcat_props(
     def: &QuickChatCatType,
+    opcode: u8,
+    _data: &[u8],
     packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
@@ -22,8 +24,11 @@ pub fn emit_quickchatcat_props(
             p.push((code, key.into(), format!("{target},{shortcut}")));
         }
     }
-    if def.opcode_order.contains(&4) {
+    if opcode == 4 {
         p.push((4, "unsearchable".into(), "yes".into()));
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

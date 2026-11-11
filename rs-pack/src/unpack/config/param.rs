@@ -4,19 +4,21 @@ use std::collections::HashMap;
 
 pub fn emit_param_props(
     def: &ParamTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if def.opcode_order.contains(&1) {
+    if opcode == 1 {
         p.push((1, "type".into(), char_to_type_name(def.var_type as u8)));
     }
     #[cfg(before_647)]
-    if def.opcode_order.contains(&2) {
+    if opcode == 2 {
         p.push((2, "defaultint".into(), def.default_int.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&2) {
+    if opcode == 2 {
         let ty = char_to_type_name(def.var_type as u8);
         p.push((
             2,
@@ -35,7 +37,10 @@ pub fn emit_param_props(
     }
     #[cfg(before_647)]
     let _ = registry;
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }
 
 pub(super) fn char_to_type_name(c: u8) -> String {

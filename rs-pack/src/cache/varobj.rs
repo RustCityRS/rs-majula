@@ -24,20 +24,14 @@ impl CacheType for VarObjType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => {
+                self.start_bit = buf.g1();
+                self.end_bit = buf.g1();
             }
-            match code {
-                1 => {
-                    self.start_bit = buf.g1();
-                    self.end_bit = buf.g1();
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("varobj", code),
-            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("varobj", code),
         }
     }
 

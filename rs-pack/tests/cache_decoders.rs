@@ -1,19 +1,11 @@
 use rs_io::Packet;
 use rs_pack::ParamValue;
 #[cfg(since_647)]
-use rs_pack::cache::bas::BasType;
-#[cfg(since_647)]
-#[cfg(since_647)]
-#[cfg(since_647)]
-use rs_pack::cache::billboard::BillboardType;
-#[cfg(since_647)]
 use rs_pack::cache::dbrow::{DbRowType, DbRowValue};
 #[cfg(since_647)]
 use rs_pack::cache::r#enum::{EnumType, EnumTypeRaw};
 #[cfg(since_647)]
 use rs_pack::cache::flo::{FloType, FloTypeRaw};
-#[cfg(since_647)]
-use rs_pack::cache::flu::FluType;
 use rs_pack::cache::hunt::HuntType;
 #[cfg(since_647)]
 use rs_pack::cache::idk::IdkTypeRaw;
@@ -27,10 +19,6 @@ use rs_pack::cache::obj::ObjTypeRaw;
 use rs_pack::cache::obj::{ObjContext, ObjType};
 #[cfg(since_647)]
 use rs_pack::cache::param::{ParamType, ParamTypeRaw};
-#[cfg(since_647)]
-use rs_pack::cache::particleeffector::ParticleEffectorType;
-#[cfg(since_647)]
-use rs_pack::cache::particleemitter::ParticleEmitterType;
 use rs_pack::cache::provider::CacheType;
 #[cfg(since_647)]
 use rs_pack::cache::provider::TypeProvider;
@@ -80,8 +68,8 @@ use rs_pack::unpack::config::particleeffector::emit_particleeffector_props;
 use rs_pack::unpack::config::particleemitter::emit_particleemitter_props;
 #[cfg(since_647)]
 use rs_pack::unpack::config::{
-    UnpackedPacks, r#enum::emit_enum_props, flo::emit_flo_props, flu::emit_flu_props,
-    idk::emit_idk_props, param::emit_param_props,
+    UnpackedPacks, decode_record, r#enum::emit_enum_props, flo::emit_flo_props,
+    flu::emit_flu_props, idk::emit_idk_props, param::emit_param_props,
 };
 use std::{collections::HashMap, fs, path::Path};
 
@@ -200,10 +188,24 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
         (empty.inputtype, empty.outputtype),
         (ScriptVarType::Int, ScriptVarType::Int)
     );
-    assert!(emit_enum_props(&empty, &mut registry, &HashMap::new()).is_empty());
-    let explicit: EnumTypeRaw = decode(&[1, b'i', 2, b'i', 4, 0, 0, 0, 0, 0]);
+    assert!(
+        decode_record(
+            &mut Packet::from([0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_enum_props
+        )
+        .is_empty()
+    );
     assert_eq!(
-        emit_enum_props(&explicit, &mut registry, &HashMap::new()),
+        decode_record(
+            &mut Packet::from([1, b'i', 2, b'i', 4, 0, 0, 0, 0, 0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_enum_props
+        ),
         [
             ("inputtype".into(), "int".into()),
             ("outputtype".into(), "int".into()),
@@ -212,17 +214,36 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
     );
     let empty: ParamTypeRaw = decode(&[0]);
     assert_eq!(empty.var_type, ScriptVarType::Int);
-    assert!(emit_param_props(&empty, &mut registry, &HashMap::new()).is_empty());
-    let explicit: ParamTypeRaw = decode(&[1, b'i', 2, 0, 0, 0, 0, 0]);
+    assert!(
+        decode_record(
+            &mut Packet::from([0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_param_props
+        )
+        .is_empty()
+    );
     assert_eq!(
-        emit_param_props(&explicit, &mut registry, &HashMap::new()),
+        decode_record(
+            &mut Packet::from([1, b'i', 2, 0, 0, 0, 0, 0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_param_props
+        ),
         [
             ("type".into(), "int".into()),
             ("default".into(), "0".into()),
         ]
     );
-    let idk: IdkTypeRaw = decode(&[1, 0, 60, 0, 0, 62, 255, 255, 0]);
-    let props = emit_idk_props(&idk, &mut registry, &HashMap::new());
+    let props = decode_record(
+        &mut Packet::from([1, 0, 60, 0, 0, 62, 255, 255, 0].to_vec()),
+        0,
+        &HashMap::new(),
+        &mut registry,
+        emit_idk_props,
+    );
     assert_eq!(
         props
             .iter()
@@ -232,7 +253,13 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
     );
     let flo: FloTypeRaw = decode(&[1, 0, 0, 0, 2, 0, 3, 1, 0, 0]);
     assert_eq!(
-        emit_flo_props(&flo, &mut registry, &HashMap::new()),
+        decode_record(
+            &mut Packet::from([1, 0, 0, 0, 2, 0, 3, 1, 0, 0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_flo_props
+        ),
         [
             ("colour".into(), "0x0".into()),
             ("unknown2".into(), "0".into()),
@@ -242,13 +269,24 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
     assert_eq!(FloType::from(flo).texture, Some(256));
     let flo: FloTypeRaw = decode(&[3, 255, 255, 0]);
     assert_eq!(
-        emit_flo_props(&flo, &mut registry, &HashMap::new()),
+        decode_record(
+            &mut Packet::from([3, 255, 255, 0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_flo_props
+        ),
         [("material".into(), "null".into())]
     );
     assert_eq!(FloType::from(flo).texture, None);
-    let flu: FluType = decode(&[1, 0, 0, 0, 2, 255, 255, 3, 0, 0, 0]);
     assert_eq!(
-        emit_flu_props(&flu, &mut registry, &HashMap::new()),
+        decode_record(
+            &mut Packet::from([1, 0, 0, 0, 2, 255, 255, 3, 0, 0, 0].to_vec()),
+            0,
+            &HashMap::new(),
+            &mut registry,
+            emit_flu_props
+        ),
         [
             ("colour".into(), "0x0".into()),
             ("material".into(), "null".into()),
@@ -312,14 +350,6 @@ fn params_share_type_key_value_order() {
     assert_eq!(npc.debugname(), "test");
     assert_eq!(obj.debugname(), "test");
     assert_eq!(raw.debugname(), "test");
-    for codes in [&loc.opcode_order, &npc.opcode_order, &obj.opcode_order] {
-        assert_eq!(codes.as_slice(), [249, 249, 249, 250]);
-    }
-    for records in [&loc.raw_opcodes, &npc.raw_opcodes, &obj.raw_opcodes] {
-        assert_eq!(records[0].1.as_slice(), &data[1..18]);
-        assert_eq!(records[1].1.as_slice(), &data[19..28]);
-        assert_eq!(records[2].1.as_slice(), &[0]);
-    }
     let entries = raw.params.as_ref().unwrap();
     assert_eq!(entries.len(), 3);
     assert_eq!(entries[0].0, 0x12345);
@@ -394,7 +424,6 @@ fn loc_models_preserve_shapes_and_groups() {
         assert_eq!(models[1].shape as i8, -1);
     }
     assert_eq!(loc.width, 3);
-    assert_eq!(loc.opcode_order, [1, 14]);
     let mut locs = vec![loc];
     LocTypeRaw::post_decode(&mut locs, &());
     assert_eq!(locs[0].active, Some(u8::from(cfg!(before_647))));
@@ -597,10 +626,16 @@ fn bas_anims_keep_their_names_weights_and_order() {
     ];
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(&path);
-    let text: String = emit_bas_props(&decode::<BasType>(&data), &mut packs, &HashMap::new())
-        .iter()
-        .map(|(key, value)| format!("{key}={value}\n"))
-        .collect();
+    let text: String = decode_record(
+        &mut Packet::from(data.to_vec()),
+        0,
+        &HashMap::new(),
+        &mut packs,
+        emit_bas_props,
+    )
+    .iter()
+    .map(|(key, value)| format!("{key}={value}\n"))
+    .collect();
     assert_eq!(
         text,
         "readyanim_l=human_climbing\nrunanim=human_climbing\n\
@@ -656,11 +691,15 @@ fn particles_keep_their_keys_in_cache_order_and_repeats() {
             6, 0xff, 0x33, 0x33, 0x00, 0, 0, 0, 1, 0
         ]
     );
-    let mut def = ParticleEmitterType::new(0);
-    def.decode(&mut Packet::from(emitter));
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(&path);
-    let props = emit_particleemitter_props(&def, &mut packs, &HashMap::new());
+    let props = decode_record(
+        &mut Packet::from(emitter),
+        0,
+        &HashMap::new(),
+        &mut packs,
+        emit_particleemitter_props,
+    );
     let expected = [
         ("speedcontrol", "2,-6"),
         ("linkcolourchannels", "no"),
@@ -685,9 +724,13 @@ fn particles_keep_their_keys_in_cache_order_and_repeats() {
             4, 1, 0, 0, 1, 0x99, 3, 0, 0, 0, 98, 0, 0, 0, 0, 0xff, 0xff, 0xff, 0xd6, 9, 6, 2, 0
         ]
     );
-    let mut def = ParticleEffectorType::new(0);
-    def.decode(&mut Packet::from(effector));
-    let props = emit_particleeffector_props(&def, &mut packs, &HashMap::new());
+    let props = decode_record(
+        &mut Packet::from(effector),
+        0,
+        &HashMap::new(),
+        &mut packs,
+        emit_particleeffector_props,
+    );
     let expected = [
         ("falloff", "1,409"),
         ("forcedirection", "98,0,-42"),
@@ -727,9 +770,13 @@ fn billboards_keep_their_keys_in_cache_order() {
     let first = vec![2, 0, 50, 0, 51, 3, 0, 4, 1, 7, 5, 2, 6, 1, 2, 0xdf, 0];
     assert_eq!(entries, [first.clone(), Vec::new(), vec![1, 0, 3, 0]]);
 
-    let mut def = BillboardType::new(0);
-    def.decode(&mut Packet::from(first));
-    let props = emit_billboard_props(&def, &mut UnpackedPacks::new(), &HashMap::new());
+    let props = decode_record(
+        &mut Packet::from(first),
+        0,
+        &HashMap::new(),
+        &mut UnpackedPacks::new(),
+        emit_billboard_props,
+    );
     let expected = [
         ("size", "50,51"),
         ("unknown3", "0"),

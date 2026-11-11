@@ -30,24 +30,18 @@ impl CacheType for StructTypeRaw {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                249 => {
-                    let count = buf.g1() as usize;
-                    let params = self.params.get_or_insert_with(Vec::new);
-                    params.reserve(count);
-                    for _ in 0..count {
-                        params.push(ParamType::decode_param(buf));
-                    }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            249 => {
+                let count = buf.g1() as usize;
+                let params = self.params.get_or_insert_with(Vec::new);
+                params.reserve(count);
+                for _ in 0..count {
+                    params.push(ParamType::decode_param(buf));
                 }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("struct", code),
             }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("struct", code),
         }
     }
 

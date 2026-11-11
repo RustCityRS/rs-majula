@@ -19,33 +19,11 @@ fn replace_held(value: u16, packs: &UnpackedPacks) -> String {
 
 pub fn emit_seq_props(
     def: &SeqTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     _registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    if def.raw_opcodes.len() > 1
-        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
-    {
-        #[cfg(since_647)]
-        let sound_vorbis = def.sound_vorbis;
-        return super::emit_repeated::<SeqTypeRaw>(
-            def.id,
-            &def.raw_opcodes,
-            _registry,
-            _reverse_hsl,
-            emit_seq_props,
-            false,
-            |value| {
-                value.opcode_order.clear();
-                value.raw_opcodes.clear();
-                #[cfg(since_647)]
-                {
-                    value.op19.clear();
-                    value.op20.clear();
-                    value.sound_vorbis = sound_vorbis;
-                }
-            },
-        );
-    }
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
@@ -145,7 +123,7 @@ pub fn emit_seq_props(
         }
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&2) || def.loops.is_some() {
+    if opcode == 2 {
         p.push((
             2,
             "loops".into(),
@@ -161,11 +139,11 @@ pub fn emit_seq_props(
             .join(",");
         p.push((3, "walkmerge".into(), labels));
     }
-    if def.opcode_order.contains(&5) || def.priority != 5 {
+    if opcode == 5 {
         p.push((5, "priority".into(), def.priority.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&6) || def.replaceheldleft.is_some() {
+    if opcode == 6 {
         p.push((
             6,
             "replaceheldleft".into(),
@@ -173,18 +151,18 @@ pub fn emit_seq_props(
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&7) || def.replaceheldright.is_some() {
+    if opcode == 7 {
         p.push((
             7,
             "replaceheldright".into(),
             replace_held(def.replaceheldright.unwrap_or(u16::MAX), _registry),
         ));
     }
-    if def.opcode_order.contains(&8) || def.maxloops != 99 {
+    if opcode == 8 {
         p.push((8, "maxloops".into(), def.maxloops.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&9) {
+    if opcode == 9 {
         let value = match def.preanim_move.unwrap_or(u8::MAX) {
             0 => "delaymove".to_owned(),
             1 => "delayanim".to_owned(),
@@ -195,7 +173,7 @@ pub fn emit_seq_props(
         p.push((9, "preanim_move".into(), value));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&10) {
+    if opcode == 10 {
         let value = match def.postanim_move.unwrap_or(u8::MAX) {
             0 => "delaymove".to_owned(),
             1 => "abortanim".to_owned(),
@@ -205,7 +183,7 @@ pub fn emit_seq_props(
         p.push((10, "postanim_move".into(), value));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&11) || def.duplicatebehaviour.unwrap_or(2) != 2 {
+    if opcode == 11 {
         let value = match def.duplicatebehaviour.unwrap_or(2) {
             0 => "ignore".to_owned(),
             1 => "reset".to_owned(),
@@ -258,12 +236,15 @@ pub fn emit_seq_props(
         p.push((16, "unknown16".into(), "yes".into()));
     }
     #[cfg(since_647)]
-    for (idx, val) in &def.op19 {
+    if let Some((idx, val)) = def.op19.last() {
         p.push((19, "soundvolume".into(), format!("{idx},{val}")));
     }
     #[cfg(since_647)]
-    for (idx, a, b) in &def.op20 {
+    if let Some((idx, a, b)) = def.op20.last() {
         p.push((20, "soundrandomrate".into(), format!("{idx},{a},{b}")));
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

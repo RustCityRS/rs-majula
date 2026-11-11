@@ -296,8 +296,6 @@ pub struct LocTypeRaw {
     pub op178: u8,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
-    pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
 impl CacheType for LocTypeRaw {
@@ -427,222 +425,210 @@ impl CacheType for LocTypeRaw {
             op178: 0,
             params: None,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
-            raw_opcodes: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.models = Some(read_models(buf, code)),
+            2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            #[cfg(since_254)]
+            5 => {
+                self.models = Some(read_models(buf, code));
+                #[cfg(since_647)]
+                {
+                    self.hd_models = Some(read_models(buf, code));
+                }
             }
-            let start = buf.pos;
-            self.opcode_order.push(code);
-            match code {
-                1 => self.models = Some(read_models(buf, code)),
-                2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                #[cfg(since_254)]
-                5 => {
-                    self.models = Some(read_models(buf, code));
-                    #[cfg(since_647)]
-                    {
-                        self.hd_models = Some(read_models(buf, code));
-                    }
+            14 => self.width = buf.g1(),
+            15 => self.length = buf.g1(),
+            17 => {
+                self.blockwalk = false;
+                #[cfg(since_647)]
+                {
+                    self.interact_type = 0;
                 }
-                14 => self.width = buf.g1(),
-                15 => self.length = buf.g1(),
-                17 => {
-                    self.blockwalk = false;
-                    #[cfg(since_647)]
-                    {
-                        self.interact_type = 0;
-                    }
-                }
-                18 => self.blockrange = false,
-                19 => {
-                    let active = buf.g1();
-                    self.active = Some(if cfg!(before_647) {
-                        (active == 1) as u8
-                    } else {
-                        active
-                    });
-                }
-                21 => self.hillskew = 1,
-                22 => self.sharelight = true,
-                23 => self.occlude = true,
-                24 => {
-                    let anim = buf.g2();
-                    self.anim = (cfg!(before_647) || anim != u16::MAX).then_some(anim);
-                }
-                25 => self.hasalpha = true,
-                #[cfg(since_647)]
-                27 => self.interact_type = 1,
-                28 => self.wallwidth = buf.g1(),
-                29 => self.ambient = buf.g1s(),
-                30..=34 => {
-                    let op = buf.gjstr(STRING_TERMINATOR);
-                    self.op
-                        .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
-                        [code as usize - 30] = Some(op.into_boxed_str());
-                }
-                39 => self.contrast = buf.g1s(),
-                40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-                #[cfg(since_647)]
-                41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
-                #[cfg(since_647)]
-                42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
-                #[cfg(before_647)]
-                60 => self.mapfunction = Some(buf.g2()),
-                61 => self.category = Some(buf.g2()),
-                62 => self.mirror = true,
-                64 => self.shadow = false,
-                65 => self.resizex = buf.g2(),
-                66 => self.resizey = buf.g2(),
-                67 => self.resizez = buf.g2(),
-                #[cfg(before_647)]
-                68 => self.mapscene = Some(buf.g2()),
-                69 => self.forceapproach = ForceApproach::try_from(buf.g1()).unwrap(),
-                70 => self.offsetx = buf.g2s(),
-                71 => self.offsety = buf.g2s(),
-                72 => self.offsetz = buf.g2s(),
-                73 => self.forcedecor = true,
-                #[cfg(since_245_2)]
-                74 => self.breakroutefinding = true,
-                #[cfg(since_254)]
-                75 => self.raiseobject = Some(buf.g1()),
-                #[cfg(since_289)]
-                77 => self.decode_multiloc(buf, false),
-                #[cfg(since_647)]
-                78 => {
-                    self.ambient_sfx_id = Some(buf.g2());
-                    self.ambient_sfx_range = buf.g1();
-                }
-                #[cfg(since_647)]
-                79 => {
-                    self.sfx_random_pri = buf.g2() as i32;
-                    self.sfx_random_sec = buf.g2() as i32;
-                    self.ambient_sfx_range = buf.g1();
-                    self.sfx_random_ids = Some(read_array(buf, Packet::g2));
-                }
-                #[cfg(since_647)]
-                81 => {
-                    self.hillskew = 2;
-                    self.hillskew_param = Some((buf.g1() as i32) * 256);
-                }
-                #[cfg(since_647)]
-                82 => self.hide_minimap = true,
-                #[cfg(since_647)]
-                88 => self.minimap_visible = false,
-                #[cfg(since_647)]
-                89 => self.blocks_npcs = false,
-                #[cfg(since_647)]
-                90 => self.unknown_90 = true,
-                #[cfg(since_647)]
-                91 => self.members_only = true,
-                #[cfg(since_647)]
-                92 => self.decode_multiloc(buf, true),
-                #[cfg(since_647)]
-                93 => {
-                    self.hillskew = 3;
-                    self.hillskew_param = Some(buf.g2() as i32);
-                }
-                #[cfg(since_647)]
-                94 => self.hillskew = 4,
-                #[cfg(since_647)]
-                95 => {
-                    self.hillskew = 5;
-                    let param = buf.g2s() as i32;
-                    self.hillskew_param = (param != -1).then_some(param);
-                }
-                #[cfg(since_647)]
-                97 => self.unknown_97 = true,
-                #[cfg(since_647)]
-                98 => self.unknown_98 = true,
-                #[cfg(since_647)]
-                99 => self.cursor_op1 = Some((buf.g1(), buf.g2())),
-                #[cfg(since_647)]
-                100 => self.cursor_op2 = Some((buf.g1(), buf.g2())),
-                #[cfg(since_647)]
-                101 => self.mapfunction = Some(buf.g1() as u16),
-                #[cfg(since_647)]
-                102 => self.msi_id = Some(buf.g2()),
-                #[cfg(since_647)]
-                103 => self.occlude = false,
-                #[cfg(since_647)]
-                104 => self.interaction_side_flags = buf.g1(),
-                #[cfg(since_647)]
-                105 => self.unknown_105 = true,
-                #[cfg(since_647)]
-                106 => {
-                    let count = buf.g1() as usize;
-                    let mut ids = Vec::with_capacity(count);
-                    let mut weights = Vec::with_capacity(count);
-                    for _ in 0..count {
-                        ids.push(buf.g2());
-                        weights.push(buf.g1());
-                    }
-                    self.random_anim_ids = Some(ids.into_boxed_slice());
-                    self.random_anim_weights = Some(weights.into_boxed_slice());
-                }
-                #[cfg(since_647)]
-                107 => self.map_element = Some(buf.g2()),
-                #[cfg(since_647)]
-                150..=154 => {
-                    let slot = (code - 150) as usize;
-                    let s = buf.gjstr(STRING_TERMINATOR);
-                    self.members_op[slot] = if s.is_empty() {
-                        None
-                    } else {
-                        Some(s.into_boxed_str())
-                    };
-                }
-                #[cfg(since_647)]
-                160 => self.quest_ids = Some(read_array(buf, Packet::g2)),
-                #[cfg(since_647)]
-                162 => {
-                    self.hillskew = 3;
-                    let param = buf.g4s();
-                    self.hillskew_param = (param != -1).then_some(param);
-                }
-                #[cfg(since_647)]
-                163 => self.op163 = [buf.g1s(), buf.g1s(), buf.g1s(), buf.g1s()],
-                #[cfg(since_647)]
-                164 => self.op164 = buf.g2s(),
-                #[cfg(since_647)]
-                165 => self.op165 = buf.g2s(),
-                #[cfg(since_647)]
-                166 => self.op166 = buf.g2s(),
-                #[cfg(since_647)]
-                167 => self.op167 = buf.g2() as i32,
-                #[cfg(since_647)]
-                168 => self.bgsound_vorbis = true,
-                #[cfg(since_647)]
-                169 => self.randomsound_vorbis = true,
-                #[cfg(since_647)]
-                170 => self.op170 = buf.gsmart1or2(),
-                #[cfg(since_647)]
-                171 => self.op171 = buf.gsmart1or2(),
-                #[cfg(since_647)]
-                173 => self.op173 = (buf.g2(), buf.g2()),
-                #[cfg(since_647)]
-                177 => self.unknown_177 = true,
-                #[cfg(since_647)]
-                178 => self.op178 = buf.g1(),
-                249 => {
-                    ParamType::decode_params(
-                        buf,
-                        self.params
-                            .get_or_insert_with(|| Box::new(FxHashMap::default())),
-                    );
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("loc", code),
             }
-            self.raw_opcodes
-                .push((code, buf.data[start..buf.pos].to_vec()));
+            18 => self.blockrange = false,
+            19 => {
+                let active = buf.g1();
+                self.active = Some(if cfg!(before_647) {
+                    (active == 1) as u8
+                } else {
+                    active
+                });
+            }
+            21 => self.hillskew = 1,
+            22 => self.sharelight = true,
+            23 => self.occlude = true,
+            24 => {
+                let anim = buf.g2();
+                self.anim = (cfg!(before_647) || anim != u16::MAX).then_some(anim);
+            }
+            25 => self.hasalpha = true,
+            #[cfg(since_647)]
+            27 => self.interact_type = 1,
+            28 => self.wallwidth = buf.g1(),
+            29 => self.ambient = buf.g1s(),
+            30..=34 => {
+                let op = buf.gjstr(STRING_TERMINATOR);
+                self.op
+                    .get_or_insert_with(|| vec![None; 5].into_boxed_slice())[code as usize - 30] =
+                    Some(op.into_boxed_str());
+            }
+            39 => self.contrast = buf.g1s(),
+            40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
+            #[cfg(since_647)]
+            41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
+            #[cfg(since_647)]
+            42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
+            #[cfg(before_647)]
+            60 => self.mapfunction = Some(buf.g2()),
+            61 => self.category = Some(buf.g2()),
+            62 => self.mirror = true,
+            64 => self.shadow = false,
+            65 => self.resizex = buf.g2(),
+            66 => self.resizey = buf.g2(),
+            67 => self.resizez = buf.g2(),
+            #[cfg(before_647)]
+            68 => self.mapscene = Some(buf.g2()),
+            69 => self.forceapproach = ForceApproach::try_from(buf.g1()).unwrap(),
+            70 => self.offsetx = buf.g2s(),
+            71 => self.offsety = buf.g2s(),
+            72 => self.offsetz = buf.g2s(),
+            73 => self.forcedecor = true,
+            #[cfg(since_245_2)]
+            74 => self.breakroutefinding = true,
+            #[cfg(since_254)]
+            75 => self.raiseobject = Some(buf.g1()),
+            #[cfg(since_289)]
+            77 => self.decode_multiloc(buf, false),
+            #[cfg(since_647)]
+            78 => {
+                self.ambient_sfx_id = Some(buf.g2());
+                self.ambient_sfx_range = buf.g1();
+            }
+            #[cfg(since_647)]
+            79 => {
+                self.sfx_random_pri = buf.g2() as i32;
+                self.sfx_random_sec = buf.g2() as i32;
+                self.ambient_sfx_range = buf.g1();
+                self.sfx_random_ids = Some(read_array(buf, Packet::g2));
+            }
+            #[cfg(since_647)]
+            81 => {
+                self.hillskew = 2;
+                self.hillskew_param = Some((buf.g1() as i32) * 256);
+            }
+            #[cfg(since_647)]
+            82 => self.hide_minimap = true,
+            #[cfg(since_647)]
+            88 => self.minimap_visible = false,
+            #[cfg(since_647)]
+            89 => self.blocks_npcs = false,
+            #[cfg(since_647)]
+            90 => self.unknown_90 = true,
+            #[cfg(since_647)]
+            91 => self.members_only = true,
+            #[cfg(since_647)]
+            92 => self.decode_multiloc(buf, true),
+            #[cfg(since_647)]
+            93 => {
+                self.hillskew = 3;
+                self.hillskew_param = Some(buf.g2() as i32);
+            }
+            #[cfg(since_647)]
+            94 => self.hillskew = 4,
+            #[cfg(since_647)]
+            95 => {
+                self.hillskew = 5;
+                let param = buf.g2s() as i32;
+                self.hillskew_param = (param != -1).then_some(param);
+            }
+            #[cfg(since_647)]
+            97 => self.unknown_97 = true,
+            #[cfg(since_647)]
+            98 => self.unknown_98 = true,
+            #[cfg(since_647)]
+            99 => self.cursor_op1 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            100 => self.cursor_op2 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            101 => self.mapfunction = Some(buf.g1() as u16),
+            #[cfg(since_647)]
+            102 => self.msi_id = Some(buf.g2()),
+            #[cfg(since_647)]
+            103 => self.occlude = false,
+            #[cfg(since_647)]
+            104 => self.interaction_side_flags = buf.g1(),
+            #[cfg(since_647)]
+            105 => self.unknown_105 = true,
+            #[cfg(since_647)]
+            106 => {
+                let count = buf.g1() as usize;
+                let mut ids = Vec::with_capacity(count);
+                let mut weights = Vec::with_capacity(count);
+                for _ in 0..count {
+                    ids.push(buf.g2());
+                    weights.push(buf.g1());
+                }
+                self.random_anim_ids = Some(ids.into_boxed_slice());
+                self.random_anim_weights = Some(weights.into_boxed_slice());
+            }
+            #[cfg(since_647)]
+            107 => self.map_element = Some(buf.g2()),
+            #[cfg(since_647)]
+            150..=154 => {
+                let slot = (code - 150) as usize;
+                let s = buf.gjstr(STRING_TERMINATOR);
+                self.members_op[slot] = if s.is_empty() {
+                    None
+                } else {
+                    Some(s.into_boxed_str())
+                };
+            }
+            #[cfg(since_647)]
+            160 => self.quest_ids = Some(read_array(buf, Packet::g2)),
+            #[cfg(since_647)]
+            162 => {
+                self.hillskew = 3;
+                let param = buf.g4s();
+                self.hillskew_param = (param != -1).then_some(param);
+            }
+            #[cfg(since_647)]
+            163 => self.op163 = [buf.g1s(), buf.g1s(), buf.g1s(), buf.g1s()],
+            #[cfg(since_647)]
+            164 => self.op164 = buf.g2s(),
+            #[cfg(since_647)]
+            165 => self.op165 = buf.g2s(),
+            #[cfg(since_647)]
+            166 => self.op166 = buf.g2s(),
+            #[cfg(since_647)]
+            167 => self.op167 = buf.g2() as i32,
+            #[cfg(since_647)]
+            168 => self.bgsound_vorbis = true,
+            #[cfg(since_647)]
+            169 => self.randomsound_vorbis = true,
+            #[cfg(since_647)]
+            170 => self.op170 = buf.gsmart1or2(),
+            #[cfg(since_647)]
+            171 => self.op171 = buf.gsmart1or2(),
+            #[cfg(since_647)]
+            173 => self.op173 = (buf.g2(), buf.g2()),
+            #[cfg(since_647)]
+            177 => self.unknown_177 = true,
+            #[cfg(since_647)]
+            178 => self.op178 = buf.g1(),
+            249 => {
+                ParamType::decode_params(
+                    buf,
+                    self.params
+                        .get_or_insert_with(|| Box::new(FxHashMap::default())),
+                );
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("loc", code),
         }
     }
 

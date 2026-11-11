@@ -2,7 +2,7 @@
 use super::ModelCategory;
 use super::UnpackedPacks;
 #[cfg(since_647)]
-use super::order::emit_params;
+use super::emit_params;
 use crate::cache::obj::ObjTypeRaw;
 use std::collections::HashMap;
 
@@ -27,29 +27,15 @@ fn obj_name(registry: &UnpackedPacks, id: u16) -> String {
 
 pub fn emit_obj_props(
     def: &ObjTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    if def.raw_opcodes.len() > 1
-        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
-    {
-        return super::emit_repeated::<ObjTypeRaw>(
-            def.id,
-            &def.raw_opcodes,
-            registry,
-            _reverse_hsl,
-            emit_obj_props,
-            false,
-            |value| {
-                value.opcode_order.clear();
-                value.raw_opcodes.clear();
-            },
-        );
-    }
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
-        if def.opcode_order.contains(&1) {
+        if opcode == 1 {
             super::model_ref(def.model, "obj", ModelCategory::Obj, registry);
         }
         for id in [
@@ -79,31 +65,31 @@ pub fn emit_obj_props(
             p.push((10, "code10".into(), super::seq_ref(seq, registry)));
         }
     }
-    if def.opcode_order.contains(&1) || def.model != 0 {
+    if opcode == 1 {
         p.push((1, "model".into(), model_name(registry, def.model)));
     }
     if let Some(name) = &def.name {
         p.push((2, "name".into(), name.to_string()));
     }
-    if def.opcode_order.contains(&4) || def.zoom2d != 2000 {
+    if opcode == 4 {
         p.push((4, "2dzoom".into(), def.zoom2d.to_string()));
     }
-    if def.opcode_order.contains(&5) || def.xan2d != 0 {
+    if opcode == 5 {
         p.push((5, "2dxan".into(), def.xan2d.to_string()));
     }
-    if def.opcode_order.contains(&6) || def.yan2d != 0 {
+    if opcode == 6 {
         p.push((6, "2dyan".into(), def.yan2d.to_string()));
     }
-    if def.opcode_order.contains(&7) || def.xof2d != 0 {
+    if opcode == 7 {
         p.push((7, "2dxof".into(), def.xof2d.to_string()));
     }
-    if def.opcode_order.contains(&8) || def.yof2d != 0 {
+    if opcode == 8 {
         p.push((8, "2dyof".into(), def.yof2d.to_string()));
     }
     if def.stackable {
         p.push((11, "stackable".into(), "yes".into()));
     }
-    if def.opcode_order.contains(&12) || def.cost != 1 {
+    if opcode == 12 {
         p.push((12, "cost".into(), def.cost.to_string()));
     }
     if def.members {
@@ -113,7 +99,7 @@ pub fn emit_obj_props(
     if let Some(multistack) = def.multistack {
         p.push((18, "multistack".into(), obj_name(registry, multistack)));
     }
-    if def.opcode_order.contains(&23) || def.manwear.unwrap_or(0) != 0 {
+    if opcode == 23 {
         p.push((23, "manwear".into(), {
             let name = model_name(registry, def.manwear.unwrap_or(0));
             #[cfg(before_647)]
@@ -121,14 +107,14 @@ pub fn emit_obj_props(
             name
         }));
     }
-    if def.opcode_order.contains(&24) || def.manwear2.unwrap_or(0) != 0 {
+    if opcode == 24 {
         p.push((
             24,
             "manwear2".into(),
             model_name(registry, def.manwear2.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&25) || def.womanwear.unwrap_or(0) != 0 {
+    if opcode == 25 {
         p.push((25, "womanwear".into(), {
             let name = model_name(registry, def.womanwear.unwrap_or(0));
             #[cfg(before_647)]
@@ -136,7 +122,7 @@ pub fn emit_obj_props(
             name
         }));
     }
-    if def.opcode_order.contains(&26) || def.womanwear2.unwrap_or(0) != 0 {
+    if opcode == 26 {
         p.push((
             26,
             "womanwear2".into(),
@@ -145,14 +131,14 @@ pub fn emit_obj_props(
     }
     for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
         if let Some(text) = opt
-            && def.opcode_order.contains(&(30 + slot as u8))
+            && opcode == 30 + slot as u8
         {
             p.push((30 + slot as u8, format!("op{}", slot + 1), text.to_string()));
         }
     }
     for (slot, opt) in def.iop.as_deref().unwrap_or_default().iter().enumerate() {
         if let Some(text) = opt
-            && def.opcode_order.contains(&(35 + slot as u8))
+            && opcode == 35 + slot as u8
         {
             p.push((
                 35 + slot as u8,
@@ -203,62 +189,62 @@ pub fn emit_obj_props(
     if def.stockmarket {
         p.push((65, "stockmarket".into(), "yes".into()));
     }
-    if def.opcode_order.contains(&78) || def.manwear3.unwrap_or(0) != 0 {
+    if opcode == 78 {
         p.push((
             78,
             "manwear3".into(),
             model_name(registry, def.manwear3.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&79) || def.womanwear3.unwrap_or(0) != 0 {
+    if opcode == 79 {
         p.push((
             79,
             "womanwear3".into(),
             model_name(registry, def.womanwear3.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&90) || def.manhead.unwrap_or(0) != 0 {
+    if opcode == 90 {
         p.push((
             90,
             "manhead".into(),
             model_name(registry, def.manhead.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&91) || def.womanhead.unwrap_or(0) != 0 {
+    if opcode == 91 {
         p.push((
             91,
             "womanhead".into(),
             model_name(registry, def.womanhead.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&92) || def.manhead2.unwrap_or(0) != 0 {
+    if opcode == 92 {
         p.push((
             92,
             "manhead2".into(),
             model_name(registry, def.manhead2.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&93) || def.womanhead2.unwrap_or(0) != 0 {
+    if opcode == 93 {
         p.push((
             93,
             "womanhead2".into(),
             model_name(registry, def.womanhead2.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&95) || def.zan2d != 0 {
+    if opcode == 95 {
         p.push((95, "2dzan".into(), def.zan2d.to_string()));
     }
-    if def.opcode_order.contains(&96) || def.dummyitem as u8 != 0 {
+    if opcode == 96 {
         p.push((96, "dummyitem".into(), (def.dummyitem as u8).to_string()));
     }
-    if def.opcode_order.contains(&97) || def.certlink.unwrap_or(0) != 0 {
+    if opcode == 97 {
         p.push((
             97,
             "certlink".into(),
             obj_name(registry, def.certlink.unwrap_or(0)),
         ));
     }
-    if def.opcode_order.contains(&98) || def.certtemplate.unwrap_or(0) != 0 {
+    if opcode == 98 {
         p.push((
             98,
             "certtemplate".into(),
@@ -267,10 +253,10 @@ pub fn emit_obj_props(
     }
     if let (Some(countobj), Some(countco)) = (&def.countobj, &def.countco) {
         for (slot, (obj, count)) in countobj.iter().zip(countco.iter()).enumerate() {
-            let opcode = 100 + slot as u8;
-            if def.opcode_order.contains(&opcode) || *obj != 0 || *count != 0 {
+            let code = 100 + slot as u8;
+            if opcode == code {
                 p.push((
-                    opcode,
+                    code,
                     format!("count{}", slot + 1),
                     format!("{},{}", obj_name(registry, *obj), count),
                 ));
@@ -278,7 +264,7 @@ pub fn emit_obj_props(
         }
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&110) || def.resizex.unwrap_or(128) != 128 {
+    if opcode == 110 {
         p.push((
             110,
             "resizex".into(),
@@ -286,7 +272,7 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&111) || def.resizey.unwrap_or(128) != 128 {
+    if opcode == 111 {
         p.push((
             111,
             "resizey".into(),
@@ -294,7 +280,7 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&112) || def.resizez.unwrap_or(128) != 128 {
+    if opcode == 112 {
         p.push((
             112,
             "resizez".into(),
@@ -302,15 +288,15 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&113) || def.ambient != 0 {
+    if opcode == 113 {
         p.push((113, "ambient".into(), def.ambient.to_string()));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&114) || def.contrast != 0 {
+    if opcode == 114 {
         p.push((114, "contrast".into(), def.contrast.to_string()));
     }
     #[cfg(since_289)]
-    if def.opcode_order.contains(&115) || def.team != 0 {
+    if opcode == 115 {
         p.push((115, "team".into(), def.team.to_string()));
     }
     #[cfg(since_647)]
@@ -322,11 +308,7 @@ pub fn emit_obj_props(
         p.push((122, "lenttemplate".into(), obj_name(registry, lenttemplate)));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&125)
-        || def.manwear_xoff != 0
-        || def.manweary != 0
-        || def.manwear_zoff != 0
-    {
+    if opcode == 125 {
         p.push((
             125,
             "manwearoff".into(),
@@ -334,11 +316,7 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&126)
-        || def.womanwear_xoff != 0
-        || def.womanweary != 0
-        || def.womanwear_zoff != 0
-    {
+    if opcode == 126 {
         p.push((
             126,
             "womanwearoff".into(),
@@ -387,7 +365,7 @@ pub fn emit_obj_props(
         }
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&134) || def.picksizeshift != 0 {
+    if opcode == 134 {
         p.push((134, "picksizeshift".into(), def.picksizeshift.to_string()));
     }
     #[cfg(since_647)]
@@ -403,11 +381,12 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_647)]
-    p.extend(emit_params(
-        &def.raw_opcodes,
-        def.params.as_deref(),
-        registry,
-    ));
+    if opcode == 249 {
+        p.extend(emit_params(_data, registry));
+    }
 
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

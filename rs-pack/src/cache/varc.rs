@@ -62,17 +62,11 @@ impl CacheType for VarClientType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            match code {
-                1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                2 => self.scope = VarPlayerScope::Perm,
-                _ => crate::unknown_opcode!("varc", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
+            2 => self.scope = VarPlayerScope::Perm,
+            _ => crate::unknown_opcode!("varc", code),
         }
     }
 

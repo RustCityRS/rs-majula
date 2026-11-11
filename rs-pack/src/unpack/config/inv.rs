@@ -5,11 +5,13 @@ use std::collections::HashMap;
 
 pub fn emit_inv_props(
     def: &InvTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
-    if def.opcode_order.contains(&1) {
+    if opcode == 1 {
         let s = match def.scope {
             InvScope::Temp => "temp".to_string(),
             InvScope::Perm => "perm".to_string(),
@@ -17,7 +19,7 @@ pub fn emit_inv_props(
         };
         props.push(("scope".into(), s));
     }
-    if def.opcode_order.contains(&2) {
+    if opcode == 2 {
         props.push(("size".into(), def.size.to_string()));
     }
     if def.stackall {

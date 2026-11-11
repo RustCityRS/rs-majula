@@ -58,7 +58,6 @@ pub struct ParamTypeRaw {
     pub autodisable: bool,
     pub default_str: Option<Box<str>>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for ParamTypeRaw {
@@ -72,25 +71,17 @@ impl CacheType for ParamTypeRaw {
             autodisable: true,
             default_str: None,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                2 => self.default_int = buf.g4s(),
-                4 => self.autodisable = false,
-                5 => self.default_str = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("param", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
+            2 => self.default_int = buf.g4s(),
+            4 => self.autodisable = false,
+            5 => self.default_str = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("param", code),
         }
     }
 

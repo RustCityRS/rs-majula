@@ -29,28 +29,29 @@ fn anim_key(code: u8) -> String {
 
 pub fn emit_bas_props(
     def: &BasType,
+    opcode: u8,
+    _data: &[u8],
     packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    let has = |code| def.opcode_order.contains(&code);
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if has(1) {
+    if opcode == 1 {
         let ready = packs.reference("seq", def.readyanim.unwrap_or(u16::MAX));
         let walk = packs.reference("seq", def.walkanim.unwrap_or(u16::MAX));
         p.push((1, "readyanim".into(), format!("{ready},{walk}")));
     }
-    for (code, anim) in &def.anims {
+    if let Some((code, anim)) = def.anims.last() {
         p.push((*code, anim_key(*code), packs.reference("seq", *anim)));
     }
-    if has(26) {
+    if opcode == 26 {
         let (x, z) = def.rotate;
         p.push((26, "hillrotate".into(), format!("{x},{z}")));
     }
-    for (slot, values) in &def.transform {
+    if let Some((slot, values)) = def.transform.last() {
         let values = values.map(|v| v.to_string()).join(",");
         p.push((27, "transform".into(), format!("{slot},{values}")));
     }
-    if has(28) {
+    if opcode == 28 {
         let values: Vec<_> = def
             .op28
             .iter()
@@ -68,7 +69,7 @@ pub fn emit_bas_props(
         (35, "pitchmax", def.pitchmax.to_string()),
         (36, "pitch", def.pitch.to_string()),
     ] {
-        if has(code) {
+        if opcode == code {
             p.push((code, key.into(), value));
         }
     }
@@ -82,16 +83,19 @@ pub fn emit_bas_props(
     if def.noshadow {
         p.push((53, "unknown53".into(), "no".into()));
     }
-    if has(54) {
+    if opcode == 54 {
         let (a, b) = def.op54;
         p.push((54, "hillrotatelimit".into(), format!("{a},{b}")));
     }
-    for (slot, value) in &def.op55 {
+    if let Some((slot, value)) = def.op55.last() {
         p.push((55, "unknown55".into(), format!("{slot},{value}")));
     }
-    for (slot, values) in &def.slotoffset {
+    if let Some((slot, values)) = def.slotoffset.last() {
         let values = values.map(|v| v.to_string()).join(",");
         p.push((56, "slotoffset".into(), format!("{slot},{values}")));
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

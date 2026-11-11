@@ -42,7 +42,6 @@ pub struct FloTypeRaw {
     #[cfg(since_647)]
     pub op16_u8: u8,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for FloTypeRaw {
@@ -78,57 +77,49 @@ impl CacheType for FloTypeRaw {
             #[cfg(since_647)]
             op16_u8: 127,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.colour = buf.g3(),
-                2 => {
-                    let v = buf.g1();
-                    self.texture = Some(v as u16);
-                    #[cfg(since_647)]
-                    {
-                        self.texture_u8_raw = v;
-                    }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.colour = buf.g3(),
+            2 => {
+                let v = buf.g1();
+                self.texture = Some(v as u16);
+                #[cfg(since_647)]
+                {
+                    self.texture_u8_raw = v;
                 }
-                #[cfg(before_647)]
-                3 => self.overlay = true,
-                #[cfg(since_647)]
-                3 => {
-                    let v = buf.g2();
-                    self.texture = (v != u16::MAX).then_some(v);
-                    self.texture_u16_raw = v;
-                }
-                5 => self.occlude = false,
-                6 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                #[cfg(since_647)]
-                7 => self.water_color = Some(buf.g3()),
-                #[cfg(since_647)]
-                8 => self.op8_flomark = true,
-                #[cfg(since_647)]
-                9 => self.op9_u16 = buf.g2(),
-                #[cfg(since_647)]
-                10 => self.op10_bool34_false = true,
-                #[cfg(since_647)]
-                11 => self.op11_values.push(buf.g1()),
-                #[cfg(since_647)]
-                12 => self.op12_bool33_true = true,
-                #[cfg(since_647)]
-                13 => self.op13_u24 = buf.g3() as u32,
-                #[cfg(since_647)]
-                14 => self.op14_u8 = buf.g1(),
-                #[cfg(since_647)]
-                16 => self.op16_u8 = buf.g1(),
-                _ => crate::unknown_opcode!("flo", code),
             }
+            #[cfg(before_647)]
+            3 => self.overlay = true,
+            #[cfg(since_647)]
+            3 => {
+                let v = buf.g2();
+                self.texture = (v != u16::MAX).then_some(v);
+                self.texture_u16_raw = v;
+            }
+            5 => self.occlude = false,
+            6 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            #[cfg(since_647)]
+            7 => self.water_color = Some(buf.g3()),
+            #[cfg(since_647)]
+            8 => self.op8_flomark = true,
+            #[cfg(since_647)]
+            9 => self.op9_u16 = buf.g2(),
+            #[cfg(since_647)]
+            10 => self.op10_bool34_false = true,
+            #[cfg(since_647)]
+            11 => self.op11_values.push(buf.g1()),
+            #[cfg(since_647)]
+            12 => self.op12_bool33_true = true,
+            #[cfg(since_647)]
+            13 => self.op13_u24 = buf.g3() as u32,
+            #[cfg(since_647)]
+            14 => self.op14_u8 = buf.g1(),
+            #[cfg(since_647)]
+            16 => self.op16_u8 = buf.g1(),
+            _ => crate::unknown_opcode!("flo", code),
         }
     }
 

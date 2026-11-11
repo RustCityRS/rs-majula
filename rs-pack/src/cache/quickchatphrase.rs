@@ -56,7 +56,6 @@ pub struct QuickChatPhraseType {
     pub text: Option<Box<str>>,
     pub responses: Box<[u16]>,
     pub commands: Box<[QuickChatCommand]>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for QuickChatPhraseType {
@@ -68,34 +67,26 @@ impl CacheType for QuickChatPhraseType {
             text: None,
             responses: Box::default(),
             commands: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.text = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            2 => self.responses = read_array(buf, Packet::g2),
+            3 => {
+                self.commands = read_array(buf, |buf| {
+                    let id = buf.g2();
+                    let params = QuickChatDynamicCommand::from_id(id)
+                        .params
+                        .iter()
+                        .map(|_| buf.g2())
+                        .collect();
+                    QuickChatCommand { id, params }
+                });
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.text = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                2 => self.responses = read_array(buf, Packet::g2),
-                3 => {
-                    self.commands = read_array(buf, |buf| {
-                        let id = buf.g2();
-                        let params = QuickChatDynamicCommand::from_id(id)
-                            .params
-                            .iter()
-                            .map(|_| buf.g2())
-                            .collect();
-                        QuickChatCommand { id, params }
-                    });
-                }
-                4 => {}
-                _ => crate::unknown_opcode!("quickchatphrase", code),
-            }
+            4 => {}
+            _ => crate::unknown_opcode!("quickchatphrase", code),
         }
     }
 }

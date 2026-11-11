@@ -10,7 +10,6 @@ pub struct BillboardType {
     pub unused: u8,
     pub blend_src: u8,
     pub blend_dst: u8,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for BillboardType {
@@ -25,29 +24,21 @@ impl CacheType for BillboardType {
             unused: 0,
             blend_src: 2,
             blend_dst: 1,
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.material = read_optional_id(buf),
+            2 => {
+                self.width_minus_one = buf.g2();
+                self.height_minus_one = buf.g2();
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.material = read_optional_id(buf),
-                2 => {
-                    self.width_minus_one = buf.g2();
-                    self.height_minus_one = buf.g2();
-                }
-                3 => self.unused = buf.g1(),
-                4 => self.blend_src = buf.g1(),
-                5 => self.blend_dst = buf.g1(),
-                6 | 7 => {}
-                _ => crate::unknown_opcode!("billboard", code),
-            }
+            3 => self.unused = buf.g1(),
+            4 => self.blend_src = buf.g1(),
+            5 => self.blend_dst = buf.g1(),
+            6 | 7 => {}
+            _ => crate::unknown_opcode!("billboard", code),
         }
     }
 }

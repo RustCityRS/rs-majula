@@ -17,7 +17,6 @@ pub struct HitmarkType {
     pub replacemode: Option<u8>,
     pub damageyof: i16,
     pub fadeout: Option<u16>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for HitmarkType {
@@ -39,34 +38,26 @@ impl CacheType for HitmarkType {
             replacemode: None,
             damageyof: 0,
             fadeout: None,
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.damagefont = Some(buf.g2()),
-                2 => self.damagecolour = buf.g3(),
-                3 => self.classgraphic = Some(buf.g2()),
-                4 => self.leftgraphic = Some(buf.g2()),
-                5 => self.middlegraphic = Some(buf.g2()),
-                6 => self.rightgraphic = Some(buf.g2()),
-                7 => self.scrolltooffsetx = buf.g2s(),
-                8 => self.damageformat = read_versioned_str(buf),
-                9 => self.sticktime = buf.g2(),
-                10 => self.scrolltooffsety = buf.g2s(),
-                11 => self.fadeout = Some(0),
-                12 => self.replacemode = Some(buf.g1()),
-                13 => self.damageyof = buf.g2s(),
-                14 => self.fadeout = Some(buf.g2()),
-                _ => crate::unknown_opcode!("hitmark", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.damagefont = Some(buf.g2()),
+            2 => self.damagecolour = buf.g3(),
+            3 => self.classgraphic = Some(buf.g2()),
+            4 => self.leftgraphic = Some(buf.g2()),
+            5 => self.middlegraphic = Some(buf.g2()),
+            6 => self.rightgraphic = Some(buf.g2()),
+            7 => self.scrolltooffsetx = buf.g2s(),
+            8 => self.damageformat = read_versioned_str(buf),
+            9 => self.sticktime = buf.g2(),
+            10 => self.scrolltooffsety = buf.g2s(),
+            11 => self.fadeout = Some(0),
+            12 => self.replacemode = Some(buf.g1()),
+            13 => self.damageyof = buf.g2s(),
+            14 => self.fadeout = Some(buf.g2()),
+            _ => crate::unknown_opcode!("hitmark", code),
         }
     }
 }

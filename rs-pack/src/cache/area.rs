@@ -37,20 +37,14 @@ impl CacheType for AreaType {
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => {
+                buf.g3();
             }
-            match code {
-                1 => {
-                    buf.g3();
-                }
-                2 => self.trigger = true,
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("area", code),
-            }
+            2 => self.trigger = true,
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("area", code),
         }
     }
 

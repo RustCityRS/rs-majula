@@ -1,6 +1,6 @@
 use super::UnpackedPacks;
 #[cfg(since_647)]
-use super::order::emit_params;
+use super::emit_params;
 use crate::cache::loc::LocTypeRaw;
 #[cfg(since_647)]
 use crate::types::loc_shape_key;
@@ -8,32 +8,11 @@ use std::collections::HashMap;
 
 pub fn emit_loc_props(
     def: &LocTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    if def.raw_opcodes.len() > 1
-        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
-    {
-        #[cfg(since_647)]
-        let (bgsound_vorbis, randomsound_vorbis) = (def.bgsound_vorbis, def.randomsound_vorbis);
-        return super::emit_repeated::<LocTypeRaw>(
-            def.id,
-            &def.raw_opcodes,
-            registry,
-            _reverse_hsl,
-            emit_loc_props,
-            cfg!(before_647),
-            |value| {
-                value.opcode_order.clear();
-                value.raw_opcodes.clear();
-                #[cfg(since_647)]
-                {
-                    value.bgsound_vorbis = bgsound_vorbis;
-                    value.randomsound_vorbis = randomsound_vorbis;
-                }
-            },
-        );
-    }
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
@@ -44,7 +23,7 @@ pub fn emit_loc_props(
                 .collect::<Vec<_>>();
             let mut models = Vec::new();
             super::push_loc_model_refs(def.id, &pairs, registry, &mut models);
-            let code = if def.opcode_order.contains(&5) { 5 } else { 1 };
+            let code = if opcode == 5 { 5 } else { 1 };
             p.extend(models.into_iter().map(|(key, value)| (code, key, value)));
         }
         if let Some(desc) = &def.desc {
@@ -66,7 +45,7 @@ pub fn emit_loc_props(
         if let Some(value) = def.mapscene {
             p.push((68, "mapscene".into(), value.to_string()));
         }
-        if def.opcode_order.contains(&69) {
+        if opcode == 69 {
             let value = def.forceapproach as u8;
             let dir = match value {
                 14 => "north",
@@ -103,14 +82,14 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    let model_code = if def.hd_models.is_some() { 5 } else { 1 };
+    let model_code = if opcode == 5 { 5 } else { 1 };
     #[cfg(since_647)]
     for (key, models) in [
         (
             if model_code == 5 { "modelhd" } else { "model" },
             &def.models,
         ),
-        ("modelsd", &def.hd_models),
+        ("modelsd", if opcode == 5 { &def.hd_models } else { &None }),
     ] {
         for group in models.as_deref().unwrap_or_default() {
             let shape = loc_shape_key(group.shape);
@@ -128,11 +107,11 @@ pub fn emit_loc_props(
         p.push((2, "name".into(), name.to_string()));
     }
 
-    if def.opcode_order.contains(&14) || def.width != 1 {
+    if opcode == 14 {
         p.push((14, "width".into(), def.width.to_string()));
     }
 
-    if def.opcode_order.contains(&15) || def.length != 1 {
+    if opcode == 15 {
         p.push((15, "length".into(), def.length.to_string()));
     }
 
@@ -145,7 +124,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&19) || def.active.is_some() {
+    if opcode == 19 {
         let active = match def.active.unwrap_or(0) {
             0 => "no".to_owned(),
             1 => "yes".to_owned(),
@@ -168,7 +147,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(before_647)]
-    if def.opcode_order.contains(&24) || def.anim.is_some() {
+    if opcode == 24 {
         let name = registry
             .config_name("seq", def.anim.unwrap_or(u16::MAX) as u32)
             .map(|s| s.to_string())
@@ -176,7 +155,7 @@ pub fn emit_loc_props(
         p.push((24, "anim".into(), name));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&24) || def.anim.is_some() {
+    if opcode == 24 {
         p.push((
             24,
             "anim".into(),
@@ -193,11 +172,11 @@ pub fn emit_loc_props(
         p.push((27, "blockwalk".into(), "yes".into()));
     }
 
-    if def.opcode_order.contains(&28) || def.wallwidth != 16 {
+    if opcode == 28 {
         p.push((28, "wallwidth".into(), def.wallwidth.to_string()));
     }
 
-    if def.opcode_order.contains(&29) || def.ambient != 0 {
+    if opcode == 29 {
         p.push((29, "ambient".into(), def.ambient.to_string()));
     }
 
@@ -207,7 +186,7 @@ pub fn emit_loc_props(
         }
     }
 
-    if def.opcode_order.contains(&39) || def.contrast != 0 {
+    if opcode == 39 {
         p.push((39, "contrast".into(), def.contrast.to_string()));
     }
 
@@ -251,20 +230,20 @@ pub fn emit_loc_props(
         p.push((64, "shadow".into(), "no".into()));
     }
 
-    if def.opcode_order.contains(&65) || def.resizex != 128 {
+    if opcode == 65 {
         p.push((65, "resizex".into(), def.resizex.to_string()));
     }
 
-    if def.opcode_order.contains(&66) || def.resizey != 128 {
+    if opcode == 66 {
         p.push((66, "resizey".into(), def.resizey.to_string()));
     }
 
-    if def.opcode_order.contains(&67) || def.resizez != 128 {
+    if opcode == 67 {
         p.push((67, "resizez".into(), def.resizez.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&69) || def.forceapproach as u8 != 0 {
+    if opcode == 69 {
         p.push((69, "forceapproach".into(), def.forceapproach.config_str()));
     }
 
@@ -274,7 +253,7 @@ pub fn emit_loc_props(
         (71, "offsety", def.offsety),
         (72, "offsetz", def.offsetz),
     ] {
-        if def.opcode_order.contains(&code) || value != 0 {
+        if opcode == code {
             p.push((code, key.into(), (value as u16).to_string()));
         }
     }
@@ -284,7 +263,7 @@ pub fn emit_loc_props(
         (71, "offsety", def.offsety),
         (72, "offsetz", def.offsetz),
     ] {
-        if def.opcode_order.contains(&code) || value != 0 {
+        if opcode == code {
             p.push((code, key.into(), value.to_string()));
         }
     }
@@ -299,7 +278,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&75) || def.raiseobject.is_some() {
+    if opcode == 75 {
         let raise = match def.raiseobject.unwrap_or(0) {
             0 => "no".to_owned(),
             1 => "yes".to_owned(),
@@ -310,8 +289,7 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if let Some(multiloc) = &def.multiloc {
-        let has_default =
-            def.opcode_order.contains(&92) || multiloc.last().copied().unwrap_or(-1) != -1;
+        let has_default = (opcode == 92) || multiloc.last().copied().unwrap_or(-1) != -1;
         p.extend(super::multi_lines(
             (if has_default { 92 } else { 77 }, "multiloc"),
             "loc",
@@ -448,7 +426,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&101) || def.mapfunction.unwrap_or(0) != 0 {
+    if opcode == 101 {
         p.push((
             101,
             "mapfunction".into(),
@@ -462,12 +440,12 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&103) {
+    if opcode == 103 {
         p.push((103, "occlude".into(), "no".into()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&104) || def.interaction_side_flags != 255 {
+    if opcode == 104 {
         p.push((
             104,
             "bgsoundvolume".into(),
@@ -521,7 +499,7 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&163) || def.op163 != [0; 4] {
+    if opcode == 163 {
         p.push((
             163,
             "tint".into(),
@@ -533,37 +511,37 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&164) || def.op164 != 0 {
+    if opcode == 164 {
         p.push((164, "unknown164".into(), def.op164.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&165) || def.op165 != 0 {
+    if opcode == 165 {
         p.push((165, "unknown165".into(), def.op165.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&166) || def.op166 != 0 {
+    if opcode == 166 {
         p.push((166, "unknown166".into(), def.op166.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&167) || def.op167 != 0 {
+    if opcode == 167 {
         p.push((167, "raiseobjectgrounddecor".into(), def.op167.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&170) || def.op170 != 960 {
+    if opcode == 170 {
         p.push((170, "unknown170".into(), def.op170.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&171) || def.op171 != 0 {
+    if opcode == 171 {
         p.push((171, "unknown171".into(), def.op171.to_string()));
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&173) || def.op173 != (256, 256) {
+    if opcode == 173 {
         p.push((
             173,
             "bgsoundrate".into(),
@@ -577,24 +555,29 @@ pub fn emit_loc_props(
     }
 
     #[cfg(since_647)]
-    if def.opcode_order.contains(&178) || def.op178 != 0 {
+    if opcode == 178 {
         p.push((178, "bgsounddropoffrange".into(), def.op178.to_string()));
     }
 
     #[cfg(since_647)]
-    p.extend(emit_params(
-        &def.raw_opcodes,
-        def.params.as_deref(),
-        registry,
-    ));
+    if opcode == 249 {
+        p.extend(emit_params(_data, registry));
+    }
 
     #[cfg(since_647)]
     {
-        super::reorder_by_opcode(&def.opcode_order, p)
+        p.into_iter()
+            .filter(|(code, _, _)| *code == opcode)
+            .map(|(_, key, value)| (key, value))
+            .collect()
     }
     #[cfg(before_647)]
     {
-        let mut props = super::reorder_by_opcode(&def.opcode_order, p);
+        let mut props: Vec<_> = p
+            .into_iter()
+            .filter(|(code, _, _)| *code == opcode)
+            .map(|(_, key, value)| (key, value))
+            .collect();
         let model_ids = def
             .models
             .as_deref()
@@ -602,7 +585,7 @@ pub fn emit_loc_props(
             .iter()
             .map(|m| m.model)
             .collect::<Vec<_>>();
-        if def.opcode_order.contains(&40)
+        if (opcode == 40)
             && let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d)
         {
             for (i, (&s, &d)) in src.iter().zip(dst.iter()).enumerate() {

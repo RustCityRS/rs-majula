@@ -13,36 +13,37 @@ fn condition(var: &ShowVar, packs: &UnpackedPacks) -> String {
 
 pub fn emit_mel_props(
     def: &MelType,
+    opcode: u8,
+    _data: &[u8],
     packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    let has = |code| def.opcode_order.contains(&code);
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    if has(1) {
+    if opcode == 1 {
         p.push((
             1,
             "sprite".into(),
             packs.reference("sprites", def.sprite.unwrap()),
         ));
     }
-    if has(2) {
+    if opcode == 2 {
         let sprite = packs.reference("sprites", def.mouseovergraphic.unwrap());
         p.push((2, "mouseovergraphic".into(), sprite));
     }
-    if has(3) {
+    if opcode == 3 {
         p.push((3, "text".into(), def.text.clone()));
     }
-    if has(4) {
+    if opcode == 4 {
         p.push((4, "textcolour".into(), format_colour(def.textcolour)));
     }
-    if has(5) {
+    if opcode == 5 {
         let colour = format_colour(def.textmouseovercolour.unwrap());
         p.push((5, "textmouseovercolour".into(), colour));
     }
-    if has(6) {
+    if opcode == 6 {
         p.push((6, "textsize".into(), def.textsize.to_string()));
     }
-    if has(7) {
+    if opcode == 7 {
         let show = match def.show {
             0 => "none",
             1 => "map",
@@ -52,7 +53,7 @@ pub fn emit_mel_props(
         };
         p.push((7, "show".into(), show.into()));
     }
-    if has(8) {
+    if opcode == 8 {
         let value = match def.mapfunction {
             0 => "no",
             1 => "yes",
@@ -89,14 +90,14 @@ pub fn emit_mel_props(
     if def.notlistable {
         p.push((16, "listable".into(), "no".into()));
     }
-    if has(17) {
+    if opcode == 17 {
         p.push((17, "opbase".into(), def.opbase.clone()));
     }
-    if has(18) {
+    if opcode == 18 {
         let sprite = packs.reference("sprites", def.worldmaparrow.unwrap());
         p.push((18, "worldmaparrow".into(), sprite));
     }
-    if has(19) {
+    if opcode == 19 {
         p.push((
             19,
             "category".into(),
@@ -106,21 +107,26 @@ pub fn emit_mel_props(
     if let Some(var) = &def.showvar2 {
         p.push((20, "condition2".into(), condition(var, packs)));
     }
-    if has(21) {
+    if opcode == 21 {
         let colour = format_colour(def.textbackgroundoutline);
         p.push((21, "textbackgroundoutline".into(), colour));
     }
-    for colour in &def.textbackgroundfill {
+    if let Some(colour) = def.textbackgroundfill.last() {
         p.push((22, "textbackgroundfill".into(), format_colour(*colour)));
     }
-    if has(23) {
+    if opcode == 23 {
         let (a, b, c) = def.polygonoutlinedash.unwrap();
         p.push((23, "polygonoutlinedash".into(), format!("{a},{b},{c}")));
     }
-    if has(24) {
+    if opcode == 24 {
         let (x, y) = def.textoffset;
         p.push((24, "textoffset".into(), format!("{x},{y}")));
     }
-    p.extend(super::emit_param_list(&def.params, packs));
-    super::reorder_by_opcode(&def.opcode_order, p)
+    if opcode == 249 {
+        p.extend(super::emit_params(_data, packs));
+    }
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

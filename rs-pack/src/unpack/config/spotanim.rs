@@ -6,6 +6,8 @@ use std::collections::HashMap;
 
 pub fn emit_spotanim_props(
     def: &SpotAnimTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
@@ -20,7 +22,7 @@ pub fn emit_spotanim_props(
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
-        if def.opcode_order.contains(&1) {
+        if opcode == 1 {
             super::model_ref(def.model, "spotanim", ModelCategory::Spotanim, registry);
         }
         if def.hasalpha {
@@ -42,7 +44,7 @@ pub fn emit_spotanim_props(
             }
         }
     }
-    if def.opcode_order.contains(&1) {
+    if opcode == 1 {
         let name = registry
             .config_name("model", def.model as u32)
             .map(|s| s.to_string())
@@ -56,22 +58,22 @@ pub fn emit_spotanim_props(
             .unwrap_or_else(|| format!("seq_{}", anim));
         p.push((2, "anim".into(), name));
     }
-    if def.opcode_order.contains(&4) || def.resizeh != 128 {
+    if opcode == 4 {
         p.push((4, "resizeh".into(), def.resizeh.to_string()));
     }
-    if def.opcode_order.contains(&5) || def.resizev != 128 {
+    if opcode == 5 {
         p.push((5, "resizev".into(), def.resizev.to_string()));
     }
-    if def.opcode_order.contains(&6) || def.angle != 0 {
+    if opcode == 6 {
         #[cfg(before_647)]
         p.push((6, "angle".into(), def.angle.to_string()));
         #[cfg(since_647)]
         p.push((6, "rotation".into(), def.angle.to_string()));
     }
-    if def.opcode_order.contains(&7) || def.ambient != 0 {
+    if opcode == 7 {
         p.push((7, "ambient".into(), def.ambient.to_string()));
     }
-    if def.opcode_order.contains(&8) || def.contrast != 0 {
+    if opcode == 8 {
         p.push((8, "contrast".into(), def.contrast.to_string()));
     }
     #[cfg(since_647)]
@@ -87,13 +89,13 @@ pub fn emit_spotanim_props(
                 p.push((code, key.into(), "yes".into()));
             }
         }
-        if def.opcode_order.contains(&14) {
+        if opcode == 14 {
             p.push((14, "unknown14".into(), def.op14.unwrap().to_string()));
         }
-        if def.opcode_order.contains(&15) {
+        if opcode == 15 {
             p.push((15, "unknown15".into(), def.op15.unwrap().to_string()));
         }
-        if def.opcode_order.contains(&16) {
+        if opcode == 16 {
             p.push((16, "unknown16".into(), def.op16.unwrap_or(-1).to_string()));
         }
         for (i, (&s, &d)) in recol_d.iter().zip(recol_s).enumerate() {
@@ -107,5 +109,8 @@ pub fn emit_spotanim_props(
             p.push((41, format!("retex{n}d"), registry.named("texture", d)));
         }
     }
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

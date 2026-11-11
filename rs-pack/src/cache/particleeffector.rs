@@ -9,7 +9,6 @@ pub struct ParticleEffectorType {
     pub falloff_type: u8,
     pub falloff: i32,
     pub effect_type: u8,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for ParticleEffectorType {
@@ -24,29 +23,21 @@ impl CacheType for ParticleEffectorType {
             falloff_type: 0,
             falloff: 0,
             effect_type: 0,
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.angle = buf.g2(),
+            2 => self.unused = buf.g1(),
+            3 => self.force = [buf.g4s(), buf.g4s(), buf.g4s()],
+            4 => {
+                self.falloff_type = buf.g1();
+                self.falloff = buf.g4s();
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.angle = buf.g2(),
-                2 => self.unused = buf.g1(),
-                3 => self.force = [buf.g4s(), buf.g4s(), buf.g4s()],
-                4 => {
-                    self.falloff_type = buf.g1();
-                    self.falloff = buf.g4s();
-                }
-                6 => self.effect_type = buf.g1(),
-                8..=10 => {}
-                _ => crate::unknown_opcode!("particleeffector", code),
-            }
+            6 => self.effect_type = buf.g1(),
+            8..=10 => {}
+            _ => crate::unknown_opcode!("particleeffector", code),
         }
     }
 }

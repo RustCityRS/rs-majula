@@ -2,7 +2,7 @@
 use super::ModelCategory;
 use super::UnpackedPacks;
 #[cfg(since_647)]
-use super::order::emit_params;
+use super::emit_params;
 use crate::cache::npc::NpcTypeRaw;
 use std::collections::HashMap;
 
@@ -34,31 +34,11 @@ fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
 
 pub fn emit_npc_props(
     def: &NpcTypeRaw,
+    opcode: u8,
+    _data: &[u8],
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    if def.raw_opcodes.len() > 1
-        && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
-    {
-        #[cfg(since_647)]
-        let vorbis = def.vorbis;
-        return super::emit_repeated::<NpcTypeRaw>(
-            def.id,
-            &def.raw_opcodes,
-            registry,
-            _reverse_hsl,
-            emit_npc_props,
-            false,
-            |value| {
-                value.opcode_order.clear();
-                value.raw_opcodes.clear();
-                #[cfg(since_647)]
-                {
-                    value.vorbis = vorbis;
-                }
-            },
-        );
-    }
     let mut p: Vec<(u8, String, String)> = Vec::new();
     #[cfg(before_647)]
     {
@@ -77,7 +57,7 @@ pub fn emit_npc_props(
         if let Some(anim) = def.walkanim {
             let anim = super::seq_ref(anim, registry);
             p.push((14, "walkanim".into(), anim.clone()));
-            if def.opcode_order.contains(&17) {
+            if opcode == 17 {
                 let anims = [
                     anim,
                     super::seq_ref(def.walkanim_b.unwrap_or(u16::MAX), registry),
@@ -109,7 +89,7 @@ pub fn emit_npc_props(
     if let Some(name) = &def.name {
         p.push((2, "name".into(), name.to_string()));
     }
-    if def.opcode_order.contains(&12) || def.size != 1 {
+    if opcode == 12 {
         p.push((12, "size".into(), def.size.to_string()));
     }
     for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
@@ -173,17 +153,17 @@ pub fn emit_npc_props(
     if !def.minimap {
         p.push((93, "minimap".into(), "no".into()));
     }
-    if def.opcode_order.contains(&95) || def.vislevel.is_some() {
+    if opcode == 95 {
         if cfg!(before_647) && def.vislevel == Some(0) {
             p.push((95, "vislevel".into(), "hide".into()));
         } else {
             p.push((95, "vislevel".into(), def.vislevel.unwrap_or(0).to_string()));
         }
     }
-    if def.opcode_order.contains(&97) || def.resizeh != 128 {
+    if opcode == 97 {
         p.push((97, "resizeh".into(), def.resizeh.to_string()));
     }
-    if def.opcode_order.contains(&98) || def.resizev != 128 {
+    if opcode == 98 {
         p.push((98, "resizev".into(), def.resizev.to_string()));
     }
     #[cfg(since_244)]
@@ -191,15 +171,15 @@ pub fn emit_npc_props(
         p.push((99, "alwaysontop".into(), "yes".into()));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&100) || def.ambient != 0 {
+    if opcode == 100 {
         p.push((100, "ambient".into(), def.ambient.to_string()));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&101) || def.contrast != 0 {
+    if opcode == 101 {
         p.push((101, "contrast".into(), def.contrast.to_string()));
     }
     #[cfg(since_244)]
-    if def.opcode_order.contains(&102) || def.headicon.is_some() {
+    if opcode == 102 {
         p.push((
             102,
             "headicon".into(),
@@ -207,13 +187,12 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_289)]
-    if def.opcode_order.contains(&103) || def.turnspeed != 32 {
+    if opcode == 103 {
         p.push((103, "turnspeed".into(), def.turnspeed.to_string()));
     }
     #[cfg(since_647)]
     if let Some(transforms) = &def.transforms {
-        let has_default =
-            def.opcode_order.contains(&118) || transforms.last().copied().unwrap_or(-1) != -1;
+        let has_default = (opcode == 118) || transforms.last().copied().unwrap_or(-1) != -1;
         p.extend(super::multi_lines(
             (if has_default { 118 } else { 106 }, "multinpc"),
             "npc",
@@ -239,10 +218,7 @@ pub fn emit_npc_props(
         p.push((111, "spotshadow".into(), "no".into()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&113)
-        || def.primary_shadow_colour != 0
-        || def.secondary_shadow_colour != 0
-    {
+    if opcode == 113 {
         p.push((
             113,
             "spotshadowcolour".into(),
@@ -253,10 +229,7 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&114)
-        || def.primary_shadow_modifier != -96
-        || def.secondary_shadow_modifier != -16
-    {
+    if opcode == 114 {
         p.push((
             114,
             "spotshadowtrans".into(),
@@ -267,7 +240,7 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&119) || def.walkmask != 0 {
+    if opcode == 119 {
         p.push((119, "unknown119".into(), def.walkmask.to_string()));
     }
     #[cfg(since_647)]
@@ -285,7 +258,7 @@ pub fn emit_npc_props(
         p.push((123, "overlayheight".into(), height.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&125) || def.respawn_direction != 4 {
+    if opcode == 125 {
         p.push((125, "respawndir".into(), def.respawn_direction.to_string()));
     }
     #[cfg(since_647)]
@@ -293,7 +266,7 @@ pub fn emit_npc_props(
         p.push((127, "bas".into(), registry.reference("bas", render_emote)));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&128) || def.op128 != 0 {
+    if opcode == 128 {
         let mode = match def.op128 {
             0 => "crawl".to_owned(),
             1 => "walk".to_owned(),
@@ -303,12 +276,7 @@ pub fn emit_npc_props(
         p.push((128, "defaultmovemode".into(), mode));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&134)
-        || def.idle_sound.is_some()
-        || def.crawl_sound.is_some()
-        || def.walk_sound.is_some()
-        || def.run_sound.is_some()
-    {
+    if opcode == 134 {
         let kind = if def.vorbis { "vorbis" } else { "synth" };
         let sounds = [
             def.idle_sound,
@@ -360,7 +328,7 @@ pub fn emit_npc_props(
         p.push((139, "unknown139".into(), sprite_id.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&140) || def.ambient_sound_volume != 255 {
+    if opcode == 140 {
         p.push((
             140,
             "bgsoundvolume".into(),
@@ -394,12 +362,7 @@ pub fn emit_npc_props(
         }
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&155)
-        || def.hue != 0
-        || def.saturation != 0
-        || def.lightness != 0
-        || def.opacity != 0
-    {
+    if opcode == 155 {
         p.push((
             155,
             "tint".into(),
@@ -431,7 +394,7 @@ pub fn emit_npc_props(
         p.push((163, "roughbounding".into(), slayer_type.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&164) || def.sound_rate_min != 256 || def.sound_rate_max != 256 {
+    if opcode == 164 {
         p.push((
             164,
             "bgsoundrate".into(),
@@ -439,11 +402,11 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&165) || def.pick_size_shift != 0 {
+    if opcode == 165 {
         p.push((165, "unknown165".into(), def.pick_size_shift.to_string()));
     }
     #[cfg(since_647)]
-    if def.opcode_order.contains(&168) || def.sound_range_min != 0 {
+    if opcode == 168 {
         p.push((
             168,
             "bgsounddropoffrange".into(),
@@ -451,11 +414,12 @@ pub fn emit_npc_props(
         ));
     }
     #[cfg(since_647)]
-    p.extend(emit_params(
-        &def.raw_opcodes,
-        def.params.as_deref(),
-        registry,
-    ));
+    if opcode == 249 {
+        p.extend(emit_params(_data, registry));
+    }
 
-    super::reorder_by_opcode(&def.opcode_order, p)
+    p.into_iter()
+        .filter(|(code, _, _)| *code == opcode)
+        .map(|(_, key, value)| (key, value))
+        .collect()
 }

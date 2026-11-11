@@ -34,7 +34,6 @@ pub struct ParticleEmitterType {
     pub target_size_percent: u8,
     pub unused29: i16,
     pub size_range: [u16; 2],
-    pub opcode_order: Vec<u8>,
 }
 
 fn effector_list(buf: &mut Packet) -> Vec<u16> {
@@ -79,59 +78,51 @@ impl CacheType for ParticleEmitterType {
             target_size_percent: 100,
             unused29: 0,
             size_range: [0; 2],
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.angles = [buf.g2(), buf.g2(), buf.g2(), buf.g2()],
+            2 => self.unused2 = buf.g1(),
+            3 => self.speed = [buf.g4s(), buf.g4s()],
+            4 => {
+                self.speed_change_type = buf.g1();
+                self.speed_change = buf.g1s();
             }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.angles = [buf.g2(), buf.g2(), buf.g2(), buf.g2()],
-                2 => self.unused2 = buf.g1(),
-                3 => self.speed = [buf.g4s(), buf.g4s()],
-                4 => {
-                    self.speed_change_type = buf.g1();
-                    self.speed_change = buf.g1s();
-                }
-                5 => self.size = buf.g2(),
-                6 => self.colour = [buf.g4s() as u32, buf.g4s() as u32],
-                7 => self.lifetime = [buf.g2(), buf.g2()],
-                8 => self.rate = [buf.g2(), buf.g2()],
-                9 => self.effectors = effector_list(buf),
-                10 => self.effectors10 = effector_list(buf),
-                12 => self.priority12 = buf.g1s(),
-                13 => self.priority13 = buf.g1s(),
-                14 => self.max_particles = buf.g2(),
-                15 => self.material = Some(buf.g2()),
-                16 => {
-                    self.cycle_start = buf.g1();
-                    self.cycle_offset = Some(buf.g2());
-                    self.cycle_duration = Some(buf.g2());
-                    self.cycle_repeat = buf.g1();
-                }
-                17 => self.material17 = Some(buf.g2()),
-                18 => self.target_colour = buf.g4s() as u32,
-                19 => self.colour_percent = buf.g1(),
-                20 => self.alpha_percent = buf.g1(),
-                21 => self.speed_percent = buf.g1(),
-                22 => {
-                    let speed = buf.g4s();
-                    self.target_speed = (speed != -1).then_some(speed);
-                }
-                23 => self.size_percent = buf.g1(),
-                25 => self.effectors25 = effector_list(buf),
-                27 => self.target_size = Some(buf.g2()),
-                28 => self.target_size_percent = buf.g1(),
-                29 => self.unused29 = buf.g2s(),
-                31 => self.size_range = [buf.g2(), buf.g2()],
-                24 | 26 | 30 | 32..=34 => {}
-                _ => crate::unknown_opcode!("particleemitter", code),
+            5 => self.size = buf.g2(),
+            6 => self.colour = [buf.g4s() as u32, buf.g4s() as u32],
+            7 => self.lifetime = [buf.g2(), buf.g2()],
+            8 => self.rate = [buf.g2(), buf.g2()],
+            9 => self.effectors = effector_list(buf),
+            10 => self.effectors10 = effector_list(buf),
+            12 => self.priority12 = buf.g1s(),
+            13 => self.priority13 = buf.g1s(),
+            14 => self.max_particles = buf.g2(),
+            15 => self.material = Some(buf.g2()),
+            16 => {
+                self.cycle_start = buf.g1();
+                self.cycle_offset = Some(buf.g2());
+                self.cycle_duration = Some(buf.g2());
+                self.cycle_repeat = buf.g1();
             }
+            17 => self.material17 = Some(buf.g2()),
+            18 => self.target_colour = buf.g4s() as u32,
+            19 => self.colour_percent = buf.g1(),
+            20 => self.alpha_percent = buf.g1(),
+            21 => self.speed_percent = buf.g1(),
+            22 => {
+                let speed = buf.g4s();
+                self.target_speed = (speed != -1).then_some(speed);
+            }
+            23 => self.size_percent = buf.g1(),
+            25 => self.effectors25 = effector_list(buf),
+            27 => self.target_size = Some(buf.g2()),
+            28 => self.target_size_percent = buf.g1(),
+            29 => self.unused29 = buf.g2s(),
+            31 => self.size_range = [buf.g2(), buf.g2()],
+            24 | 26 | 30 | 32..=34 => {}
+            _ => crate::unknown_opcode!("particleemitter", code),
         }
     }
 }

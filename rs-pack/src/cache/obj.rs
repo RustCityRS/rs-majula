@@ -175,8 +175,6 @@ pub struct ObjTypeRaw {
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
-    pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
 impl ObjTypeRaw {
@@ -352,155 +350,143 @@ impl CacheType for ObjTypeRaw {
             respawnrate: 100,
             params: None,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
-            raw_opcodes: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            let start = buf.pos;
-            self.opcode_order.push(code);
-            match code {
-                1 => self.model = buf.g2(),
-                2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                4 => self.zoom2d = buf.g2(),
-                5 => self.xan2d = buf.g2(),
-                6 => self.yan2d = buf.g2(),
-                7 => self.xof2d = buf.g2s(),
-                8 => self.yof2d = buf.g2s(),
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.model = buf.g2(),
+            2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            4 => self.zoom2d = buf.g2(),
+            5 => self.xan2d = buf.g2(),
+            6 => self.yan2d = buf.g2(),
+            7 => self.xof2d = buf.g2s(),
+            8 => self.yof2d = buf.g2s(),
+            #[cfg(before_647)]
+            9 => self.code9 = true, // animHasAlpha from code10?
+            #[cfg(before_647)]
+            10 => self.code10 = Some(buf.g2()), // seq?
+            11 => self.stackable = true,
+            12 => self.cost = buf.g4s(),
+            13 => self.wearpos = Some(WearPos::try_from(buf.g1()).unwrap()),
+            14 => self.wearpos2 = Some(WearPos::try_from(buf.g1()).unwrap()),
+            15 => self.tradeable = false,
+            16 => self.members = true,
+            #[cfg(since_647)]
+            17 => self.objvar = Some(read_array(buf, Packet::g2)),
+            #[cfg(since_647)]
+            18 => self.multistack = Some(buf.g2()),
+            23 => {
+                self.manwear = Some(buf.g2());
                 #[cfg(before_647)]
-                9 => self.code9 = true, // animHasAlpha from code10?
-                #[cfg(before_647)]
-                10 => self.code10 = Some(buf.g2()), // seq?
-                11 => self.stackable = true,
-                12 => self.cost = buf.g4s(),
-                13 => self.wearpos = Some(WearPos::try_from(buf.g1()).unwrap()),
-                14 => self.wearpos2 = Some(WearPos::try_from(buf.g1()).unwrap()),
-                15 => self.tradeable = false,
-                16 => self.members = true,
-                #[cfg(since_647)]
-                17 => self.objvar = Some(read_array(buf, Packet::g2)),
-                #[cfg(since_647)]
-                18 => self.multistack = Some(buf.g2()),
-                23 => {
-                    self.manwear = Some(buf.g2());
-                    #[cfg(before_647)]
-                    {
-                        self.manweary = buf.g1s();
-                    }
+                {
+                    self.manweary = buf.g1s();
                 }
-                24 => self.manwear2 = Some(buf.g2()),
-                25 => {
-                    self.womanwear = Some(buf.g2());
-                    #[cfg(before_647)]
-                    {
-                        self.womanweary = buf.g1s();
-                    }
-                }
-                26 => self.womanwear2 = Some(buf.g2()),
-                27 => self.wearpos3 = Some(WearPos::try_from(buf.g1()).unwrap()),
-                30..=34 => {
-                    let op = buf.gjstr(STRING_TERMINATOR);
-                    self.op
-                        .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
-                        [code as usize - 30] = Some(op.into_boxed_str());
-                }
-                35..=39 => {
-                    let op = buf.gjstr(STRING_TERMINATOR);
-                    self.iop
-                        .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
-                        [code as usize - 35] = Some(op.into_boxed_str());
-                }
-                40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-                #[cfg(since_647)]
-                41 => read_pairs(buf, &mut self.retex_d, &mut self.retex_s),
-                #[cfg(since_647)]
-                42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
-                #[cfg(since_647)]
-                65 => self.stockmarket = true,
-                75 => self.weight = buf.g2s(),
-                78 => self.manwear3 = Some(buf.g2()),
-                79 => self.womanwear3 = Some(buf.g2()),
-                90 => self.manhead = Some(buf.g2()),
-                91 => self.womanhead = Some(buf.g2()),
-                92 => self.manhead2 = Some(buf.g2()),
-                93 => self.womanhead2 = Some(buf.g2()),
-                94 => self.category = Some(buf.g2()),
-                95 => self.zan2d = buf.g2(),
-                96 => self.dummyitem = DummyItem::try_from(buf.g1()).unwrap(),
-                97 => self.certlink = Some(buf.g2()),
-                98 => self.certtemplate = Some(buf.g2()),
-                100..=109 => {
-                    self.countobj
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 100] = buf.g2();
-                    self.countco
-                        .get_or_insert_with(|| vec![0; 10].into_boxed_slice())
-                        [code as usize - 100] = buf.g2();
-                }
-                #[cfg(since_244)]
-                110 => self.resizex = Some(buf.g2()),
-                #[cfg(since_244)]
-                111 => self.resizey = Some(buf.g2()),
-                #[cfg(since_244)]
-                112 => self.resizez = Some(buf.g2()),
-                #[cfg(since_244)]
-                113 => self.ambient = buf.g1s(),
-                #[cfg(since_244)]
-                114 => self.contrast = buf.g1s(),
-                #[cfg(since_289)]
-                115 => self.team = buf.g1(),
-                #[cfg(since_647)]
-                121 => self.lentlink = Some(buf.g2()),
-                #[cfg(since_647)]
-                122 => self.lenttemplate = Some(buf.g2()),
-                #[cfg(since_647)]
-                125 => {
-                    self.manwear_xoff = buf.g1() as i8;
-                    self.manweary = buf.g1() as i8;
-                    self.manwear_zoff = buf.g1() as i8;
-                }
-                #[cfg(since_647)]
-                126 => {
-                    self.womanwear_xoff = buf.g1() as i8;
-                    self.womanweary = buf.g1() as i8;
-                    self.womanwear_zoff = buf.g1() as i8;
-                }
-                #[cfg(since_647)]
-                127 => self.cursor1 = Some((buf.g1(), buf.g2())),
-                #[cfg(since_647)]
-                128 => self.cursor2 = Some((buf.g1(), buf.g2())),
-                #[cfg(since_647)]
-                129 => self.icursor1 = Some((buf.g1(), buf.g2())),
-                #[cfg(since_647)]
-                130 => self.icursor2 = Some((buf.g1(), buf.g2())),
-                #[cfg(since_647)]
-                132 => self.quests = Some(read_array(buf, Packet::g2)),
-                #[cfg(since_647)]
-                134 => self.picksizeshift = buf.g1(),
-                #[cfg(since_647)]
-                139 => self.boughtlink = Some(buf.g2()),
-                #[cfg(since_647)]
-                140 => self.boughttemplate = Some(buf.g2()),
-                201 => self.respawnrate = buf.g2(),
-                249 => {
-                    ParamType::decode_params(
-                        buf,
-                        self.params
-                            .get_or_insert_with(|| Box::new(FxHashMap::default())),
-                    );
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("obj", code),
             }
-            self.raw_opcodes
-                .push((code, buf.data[start..buf.pos].to_vec()));
+            24 => self.manwear2 = Some(buf.g2()),
+            25 => {
+                self.womanwear = Some(buf.g2());
+                #[cfg(before_647)]
+                {
+                    self.womanweary = buf.g1s();
+                }
+            }
+            26 => self.womanwear2 = Some(buf.g2()),
+            27 => self.wearpos3 = Some(WearPos::try_from(buf.g1()).unwrap()),
+            30..=34 => {
+                let op = buf.gjstr(STRING_TERMINATOR);
+                self.op
+                    .get_or_insert_with(|| vec![None; 5].into_boxed_slice())[code as usize - 30] =
+                    Some(op.into_boxed_str());
+            }
+            35..=39 => {
+                let op = buf.gjstr(STRING_TERMINATOR);
+                self.iop
+                    .get_or_insert_with(|| vec![None; 5].into_boxed_slice())[code as usize - 35] =
+                    Some(op.into_boxed_str());
+            }
+            40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
+            #[cfg(since_647)]
+            41 => read_pairs(buf, &mut self.retex_d, &mut self.retex_s),
+            #[cfg(since_647)]
+            42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
+            #[cfg(since_647)]
+            65 => self.stockmarket = true,
+            75 => self.weight = buf.g2s(),
+            78 => self.manwear3 = Some(buf.g2()),
+            79 => self.womanwear3 = Some(buf.g2()),
+            90 => self.manhead = Some(buf.g2()),
+            91 => self.womanhead = Some(buf.g2()),
+            92 => self.manhead2 = Some(buf.g2()),
+            93 => self.womanhead2 = Some(buf.g2()),
+            94 => self.category = Some(buf.g2()),
+            95 => self.zan2d = buf.g2(),
+            96 => self.dummyitem = DummyItem::try_from(buf.g1()).unwrap(),
+            97 => self.certlink = Some(buf.g2()),
+            98 => self.certtemplate = Some(buf.g2()),
+            100..=109 => {
+                self.countobj
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 100] =
+                    buf.g2();
+                self.countco
+                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 100] =
+                    buf.g2();
+            }
+            #[cfg(since_244)]
+            110 => self.resizex = Some(buf.g2()),
+            #[cfg(since_244)]
+            111 => self.resizey = Some(buf.g2()),
+            #[cfg(since_244)]
+            112 => self.resizez = Some(buf.g2()),
+            #[cfg(since_244)]
+            113 => self.ambient = buf.g1s(),
+            #[cfg(since_244)]
+            114 => self.contrast = buf.g1s(),
+            #[cfg(since_289)]
+            115 => self.team = buf.g1(),
+            #[cfg(since_647)]
+            121 => self.lentlink = Some(buf.g2()),
+            #[cfg(since_647)]
+            122 => self.lenttemplate = Some(buf.g2()),
+            #[cfg(since_647)]
+            125 => {
+                self.manwear_xoff = buf.g1() as i8;
+                self.manweary = buf.g1() as i8;
+                self.manwear_zoff = buf.g1() as i8;
+            }
+            #[cfg(since_647)]
+            126 => {
+                self.womanwear_xoff = buf.g1() as i8;
+                self.womanweary = buf.g1() as i8;
+                self.womanwear_zoff = buf.g1() as i8;
+            }
+            #[cfg(since_647)]
+            127 => self.cursor1 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            128 => self.cursor2 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            129 => self.icursor1 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            130 => self.icursor2 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            132 => self.quests = Some(read_array(buf, Packet::g2)),
+            #[cfg(since_647)]
+            134 => self.picksizeshift = buf.g1(),
+            #[cfg(since_647)]
+            139 => self.boughtlink = Some(buf.g2()),
+            #[cfg(since_647)]
+            140 => self.boughttemplate = Some(buf.g2()),
+            201 => self.respawnrate = buf.g2(),
+            249 => {
+                ParamType::decode_params(
+                    buf,
+                    self.params
+                        .get_or_insert_with(|| Box::new(FxHashMap::default())),
+                );
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("obj", code),
         }
     }
 

@@ -35,7 +35,6 @@ pub struct InvTypeRaw {
     pub runweight: bool,
     pub dummyinv: bool,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
 }
 
 impl CacheType for InvTypeRaw {
@@ -56,30 +55,22 @@ impl CacheType for InvTypeRaw {
             runweight: false,
             dummyinv: false,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
-            }
-            self.opcode_order.push(code);
-            match code {
-                1 => self.scope = InvScope::try_from(buf.g1()).unwrap(),
-                2 => self.size = buf.g2(),
-                3 => self.stackall = true,
-                4 => self.decode_stock(buf),
-                5 => self.restock = true,
-                6 => self.allstock = true,
-                7 => self.protect = false,
-                8 => self.runweight = true,
-                9 => self.dummyinv = true,
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("inv", code),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.scope = InvScope::try_from(buf.g1()).unwrap(),
+            2 => self.size = buf.g2(),
+            3 => self.stackall = true,
+            4 => self.decode_stock(buf),
+            5 => self.restock = true,
+            6 => self.allstock = true,
+            7 => self.protect = false,
+            8 => self.runweight = true,
+            9 => self.dummyinv = true,
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("inv", code),
         }
     }
 

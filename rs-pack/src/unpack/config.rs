@@ -37,7 +37,7 @@ use crate::cache::msi::MsiType;
 use crate::cache::npc::NpcTypeRaw;
 use crate::cache::obj::ObjTypeRaw;
 #[cfg(since_647)]
-use crate::cache::param::ParamTypeRaw;
+use crate::cache::param::{ParamType, ParamTypeRaw};
 #[cfg(since_647)]
 use crate::cache::particleeffector::ParticleEffectorType;
 #[cfg(since_647)]
@@ -66,7 +66,6 @@ use crate::pack::util::placeholder_prefix;
 use crate::types::LocShape;
 #[cfg(since_647)]
 use crate::types::ParamValue;
-use order::reorder_by_opcode;
 use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
@@ -83,13 +82,11 @@ use std::fs::File;
 #[cfg(since_647)]
 use std::io::BufWriter;
 use std::io::{self, Write};
-use std::mem::replace;
 use std::path::Path;
 use std::rc::Rc;
 #[cfg(before_647)]
 use tracing::debug;
 
-#[cfg(since_647)]
 #[cfg(since_647)]
 pub mod bas;
 #[cfg(since_647)]
@@ -115,7 +112,6 @@ pub mod mel;
 pub mod msi;
 pub mod npc;
 pub mod obj;
-mod order;
 #[cfg(since_647)]
 pub mod param;
 #[cfg(since_647)]
@@ -169,7 +165,19 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
             decode_record::<LocTypeRaw>(buf, id, hsl, packs, loc::emit_loc_props)
         }),
         ("varp", |buf, id, hsl, packs| {
-            decode_record::<VarPlayerTypeRaw>(buf, id, hsl, packs, varp::emit_varp_props)
+            let props =
+                decode_record::<VarPlayerTypeRaw>(buf, id, hsl, packs, varp::emit_varp_props);
+            #[cfg(since_647)]
+            let props = {
+                let mut props = props;
+                if packs.transmit_varps.contains(&(id as u32))
+                    && !props.iter().any(|(key, _)| key == "transmit")
+                {
+                    props.push(("transmit".into(), "yes".into()));
+                }
+                props
+            };
+            props
         }),
         #[cfg(since_647)]
         ("varpstr", |buf, _, _, _| {
@@ -916,16 +924,29 @@ fn texture_ref(id: u16, packs: &mut UnpackedPacks) -> String {
         .unwrap_or_else(|| format!("texture_{id}"))
 }
 
-fn decode_record<T: CacheType>(
+pub fn decode_record<T: CacheType>(
     buf: &mut Packet,
     id: u16,
     hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
-    emit: impl Fn(&T, &mut UnpackedPacks, &HashMap<u16, u16>) -> Vec<(String, String)>,
+    emit: impl Fn(&T, u8, &[u8], &mut UnpackedPacks, &HashMap<u16, u16>) -> Vec<(String, String)>,
 ) -> Vec<(String, String)> {
+    let start = buf.pos;
     let mut def = T::new(id);
+    // Resolve types and flags that can follow the properties they describe.
     def.decode(buf);
-    emit(&def, packs, hsl)
+    buf.pos = start;
+    let mut props = Vec::new();
+    while buf.remaining() > 0 {
+        let code = buf.g1();
+        if code == 0 {
+            break;
+        }
+        let start = buf.pos;
+        def.decode_opcode(buf, code);
+        props.extend(emit(&def, code, &buf.data[start..buf.pos], packs, hsl));
+    }
+    props
 }
 
 fn decode_entry(
@@ -1172,43 +1193,13 @@ fn recol_value(value: u16, other: u16, reverse_hsl: &HashMap<u16, u16>) -> u16 {
     value
 }
 
-fn has_repeated_opcodes(order: &[u8]) -> bool {
-    let mut seen = [false; 256];
-    order
-        .iter()
-        .any(|&code| replace(&mut seen[code as usize], true))
-}
-
-fn emit_repeated<T: CacheType>(
-    id: u16,
-    records: &[(u8, Vec<u8>)],
-    packs: &mut UnpackedPacks,
-    reverse_hsl: &HashMap<u16, u16>,
-    emit: impl Fn(&T, &mut UnpackedPacks, &HashMap<u16, u16>) -> Vec<(String, String)>,
-    defer_recolours: bool,
-    clear: impl Fn(&mut T),
-) -> Vec<(String, String)> {
-    let mut props = Vec::new();
-    let mut value = T::new(id);
-    for (code, raw) in records
-        .iter()
-        .filter(|(code, _)| !defer_recolours || *code != 40)
-        .chain(
-            records
-                .iter()
-                .filter(|(code, _)| defer_recolours && *code == 40),
-        )
-    {
-        let mut data = Vec::with_capacity(raw.len() + 2);
-        data.push(*code);
-        data.extend_from_slice(raw);
-        data.push(0);
-        clear(&mut value);
-        value.decode(&mut Packet::from(data));
-        let emitted = emit(&value, packs, reverse_hsl);
-        props.extend(emitted);
-    }
-    props
+#[cfg(since_647)]
+fn emit_params(data: &[u8], packs: &UnpackedPacks) -> Vec<(u8, String, String)> {
+    let mut buf = Packet::from(data.to_vec());
+    let params: Vec<_> = (0..buf.g1())
+        .map(|_| ParamType::decode_param(&mut buf))
+        .collect();
+    emit_param_list(&params, packs)
 }
 
 #[cfg(test)]
@@ -1288,8 +1279,8 @@ mod tests {
             &hsl,
         );
         assert_eq!(props.iter().filter(|(key, _)| key == "name").count(), 2);
-        assert_eq!(props[props.len() - 2].0, "retex1s");
-        assert_eq!(props[props.len() - 1].0, "retex1d");
+        assert_eq!(props[0].0, "retex1s");
+        assert_eq!(props[1].0, "retex1d");
     }
 
     #[test]

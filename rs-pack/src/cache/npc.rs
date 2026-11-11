@@ -281,8 +281,6 @@ pub struct NpcTypeRaw {
     pub sound_range_min: u8,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Box<str>,
-    pub opcode_order: Vec<u8>,
-    pub raw_opcodes: Vec<(u8, Vec<u8>)>,
 }
 
 impl CacheType for NpcTypeRaw {
@@ -444,203 +442,191 @@ impl CacheType for NpcTypeRaw {
             sound_range_min: 0,
             params: None,
             debugname: Box::default(),
-            opcode_order: Vec::new(),
-            raw_opcodes: Vec::new(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code = buf.g1();
-            if code == 0 {
-                break;
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.models = Some(read_array(buf, Packet::g2)),
+            2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            12 => self.size = buf.g1(),
+            #[cfg(before_647)]
+            13 => self.readyanim = Some(buf.g2()),
+            #[cfg(before_647)]
+            14 => self.walkanim = Some(buf.g2()),
+            #[cfg(before_254)]
+            16 => self.hasalpha = true,
+            #[cfg(before_647)]
+            17 => {
+                self.walkanim = Some(buf.g2());
+                self.walkanim_b = Some(buf.g2());
+                self.walkanim_r = Some(buf.g2());
+                self.walkanim_l = Some(buf.g2());
             }
-            let start = buf.pos;
-            self.opcode_order.push(code);
-            match code {
-                1 => self.models = Some(read_array(buf, Packet::g2)),
-                2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
-                12 => self.size = buf.g1(),
-                #[cfg(before_647)]
-                13 => self.readyanim = Some(buf.g2()),
-                #[cfg(before_647)]
-                14 => self.walkanim = Some(buf.g2()),
-                #[cfg(before_254)]
-                16 => self.hasalpha = true,
-                #[cfg(before_647)]
-                17 => {
-                    self.walkanim = Some(buf.g2());
-                    self.walkanim_b = Some(buf.g2());
-                    self.walkanim_r = Some(buf.g2());
-                    self.walkanim_l = Some(buf.g2());
-                }
-                18 => self.category = Some(buf.g2()),
-                19 => self.timer = Some(buf.g2()),
-                20 => self.respawnrate = buf.g2(),
-                21 => self.regenrate = buf.g2(),
-                22 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
-                23 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
-                24 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
-                25 => self.huntmode = Some(buf.g1() as u16),
-                26 => self.wanderrange = buf.g2(),
-                27 => self.maxrange = Some(buf.g2()),
-                28 => self.huntrange = buf.g1(),
-                29 => self.attackrange = buf.g1(),
-                30..=34 => {
-                    let op = buf.gjstr(STRING_TERMINATOR);
-                    self.op
-                        .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
-                        [code as usize - 30] = Some(op.into_boxed_str());
-                }
-                35 => self.decode_patrol(buf),
-                36 => self.members = true,
-                37 => self.givechase = false,
-                40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-                #[cfg(since_647)]
-                41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
-                #[cfg(since_647)]
-                42 => self.colour_palette = Some(read_array(buf, Packet::g1)),
-                60 => self.heads = Some(read_array(buf, Packet::g2)),
-                74 => self.attack = buf.g2(),
-                75 => self.defence = buf.g2(),
-                76 => self.strength = buf.g2(),
-                77 => self.hitpoints = buf.g2(),
-                78 => self.ranged = buf.g2(),
-                79 => self.magic = buf.g2(),
-                #[cfg(before_647)]
-                90 => self.resizex = Some(buf.g2()),
-                #[cfg(before_647)]
-                91 => self.resizey = Some(buf.g2()),
-                #[cfg(before_647)]
-                92 => self.resizez = Some(buf.g2()),
-                93 => self.minimap = false,
-                95 => self.vislevel = Some(buf.g2()),
-                97 => self.resizeh = buf.g2(),
-                98 => self.resizev = buf.g2(),
-                #[cfg(since_244)]
-                99 => self.alwaysontop = true,
-                #[cfg(since_244)]
-                100 => self.ambient = buf.g1s(),
-                #[cfg(since_244)]
-                101 => self.contrast = buf.g1s(),
-                #[cfg(since_244)]
-                102 => self.headicon = Some(buf.g2()),
-                #[cfg(since_289)]
-                103 => self.turnspeed = buf.g2(),
-                #[cfg(since_647)]
-                106 => self.decode_multinpc(buf, false),
-                #[cfg(since_647)]
-                107 => self.clickable = false,
-                #[cfg(since_647)]
-                109 => self.slowwalk = false,
-                #[cfg(since_647)]
-                111 => self.animateidle = false,
-                #[cfg(since_647)]
-                113 => {
-                    self.primary_shadow_colour = buf.g2s();
-                    self.secondary_shadow_colour = buf.g2s();
-                }
-                #[cfg(since_647)]
-                114 => {
-                    self.primary_shadow_modifier = buf.g1s();
-                    self.secondary_shadow_modifier = buf.g1s();
-                }
-                #[cfg(since_647)]
-                118 => self.decode_multinpc(buf, true),
-                #[cfg(since_647)]
-                119 => self.walkmask = buf.g1s(),
-                #[cfg(since_647)]
-                121 => {
-                    self.translations = Some(read_array(buf, |buf| {
-                        (buf.g1(), [buf.g1s(), buf.g1s(), buf.g1s()])
-                    }));
-                }
-                #[cfg(since_647)]
-                122 => self.hitbar_sprite = Some(buf.g2()),
-                #[cfg(since_647)]
-                123 => self.height = Some(buf.g2()),
-                #[cfg(since_647)]
-                125 => self.respawn_direction = buf.g1s(),
-                #[cfg(since_647)]
-                127 => self.render_emote = Some(buf.g2()),
-                #[cfg(since_647)]
-                128 => self.op128 = buf.g1(),
-                #[cfg(since_647)]
-                134 => {
-                    self.idle_sound = read_optional_id(buf);
-                    self.crawl_sound = read_optional_id(buf);
-                    self.walk_sound = read_optional_id(buf);
-                    self.run_sound = read_optional_id(buf);
-                    self.sound_distance = buf.g1();
-                }
-                #[cfg(since_647)]
-                135 => {
-                    self.primary_cursor_op = Some(buf.g1());
-                    self.primary_cursor = Some(buf.g2());
-                }
-                #[cfg(since_647)]
-                136 => {
-                    self.secondary_cursor_op = Some(buf.g1());
-                    self.secondary_cursor = Some(buf.g2());
-                }
-                #[cfg(since_647)]
-                137 => self.attack_cursor = Some(buf.g2()),
-                #[cfg(since_647)]
-                138 => self.army_icon = Some(buf.g2()),
-                #[cfg(since_647)]
-                139 => self.sprite_id = Some(buf.g2()),
-                #[cfg(since_647)]
-                140 => self.ambient_sound_volume = buf.g1(),
-                #[cfg(since_647)]
-                141 => self.visible_priority = true,
-                #[cfg(since_647)]
-                142 => self.mapfunction = Some(buf.g2()),
-                #[cfg(since_647)]
-                143 => self.invisible_priority = true,
-                #[cfg(since_647)]
-                150..=154 => {
-                    let slot = (code - 150) as usize;
-                    self.members_op[slot] = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
-                }
-                #[cfg(since_647)]
-                155 => {
-                    self.hue = buf.g1s();
-                    self.saturation = buf.g1s();
-                    self.lightness = buf.g1s();
-                    self.opacity = buf.g1s();
-                }
-                #[cfg(since_647)]
-                158 => self.main_option_index = Some(1),
-                #[cfg(since_647)]
-                159 => self.main_option_index = Some(0),
-                #[cfg(since_647)]
-                160 => self.campaigns = Some(read_array(buf, Packet::g2s)),
-                #[cfg(since_647)]
-                162 => self.vorbis = true,
-                #[cfg(since_647)]
-                163 => self.slayer_type = Some(buf.g1()),
-                #[cfg(since_647)]
-                164 => {
-                    self.sound_rate_min = buf.g2() as i32;
-                    self.sound_rate_max = buf.g2() as i32;
-                }
-                #[cfg(since_647)]
-                165 => self.pick_size_shift = buf.g1(),
-                #[cfg(since_647)]
-                168 => self.sound_range_min = buf.g1(),
-                249 => {
-                    ParamType::decode_params(
-                        buf,
-                        self.params
-                            .get_or_insert_with(|| Box::new(FxHashMap::default())),
-                    );
-                }
-                250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
-                _ => crate::unknown_opcode!("npc", code),
+            18 => self.category = Some(buf.g2()),
+            19 => self.timer = Some(buf.g2()),
+            20 => self.respawnrate = buf.g2(),
+            21 => self.regenrate = buf.g2(),
+            22 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
+            23 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
+            24 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
+            25 => self.huntmode = Some(buf.g1() as u16),
+            26 => self.wanderrange = buf.g2(),
+            27 => self.maxrange = Some(buf.g2()),
+            28 => self.huntrange = buf.g1(),
+            29 => self.attackrange = buf.g1(),
+            30..=34 => {
+                let op = buf.gjstr(STRING_TERMINATOR);
+                self.op
+                    .get_or_insert_with(|| vec![None; 5].into_boxed_slice())[code as usize - 30] =
+                    Some(op.into_boxed_str());
             }
-            self.raw_opcodes
-                .push((code, buf.data[start..buf.pos].to_vec()));
+            35 => self.decode_patrol(buf),
+            36 => self.members = true,
+            37 => self.givechase = false,
+            40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
+            #[cfg(since_647)]
+            41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
+            #[cfg(since_647)]
+            42 => self.colour_palette = Some(read_array(buf, Packet::g1)),
+            60 => self.heads = Some(read_array(buf, Packet::g2)),
+            74 => self.attack = buf.g2(),
+            75 => self.defence = buf.g2(),
+            76 => self.strength = buf.g2(),
+            77 => self.hitpoints = buf.g2(),
+            78 => self.ranged = buf.g2(),
+            79 => self.magic = buf.g2(),
+            #[cfg(before_647)]
+            90 => self.resizex = Some(buf.g2()),
+            #[cfg(before_647)]
+            91 => self.resizey = Some(buf.g2()),
+            #[cfg(before_647)]
+            92 => self.resizez = Some(buf.g2()),
+            93 => self.minimap = false,
+            95 => self.vislevel = Some(buf.g2()),
+            97 => self.resizeh = buf.g2(),
+            98 => self.resizev = buf.g2(),
+            #[cfg(since_244)]
+            99 => self.alwaysontop = true,
+            #[cfg(since_244)]
+            100 => self.ambient = buf.g1s(),
+            #[cfg(since_244)]
+            101 => self.contrast = buf.g1s(),
+            #[cfg(since_244)]
+            102 => self.headicon = Some(buf.g2()),
+            #[cfg(since_289)]
+            103 => self.turnspeed = buf.g2(),
+            #[cfg(since_647)]
+            106 => self.decode_multinpc(buf, false),
+            #[cfg(since_647)]
+            107 => self.clickable = false,
+            #[cfg(since_647)]
+            109 => self.slowwalk = false,
+            #[cfg(since_647)]
+            111 => self.animateidle = false,
+            #[cfg(since_647)]
+            113 => {
+                self.primary_shadow_colour = buf.g2s();
+                self.secondary_shadow_colour = buf.g2s();
+            }
+            #[cfg(since_647)]
+            114 => {
+                self.primary_shadow_modifier = buf.g1s();
+                self.secondary_shadow_modifier = buf.g1s();
+            }
+            #[cfg(since_647)]
+            118 => self.decode_multinpc(buf, true),
+            #[cfg(since_647)]
+            119 => self.walkmask = buf.g1s(),
+            #[cfg(since_647)]
+            121 => {
+                self.translations = Some(read_array(buf, |buf| {
+                    (buf.g1(), [buf.g1s(), buf.g1s(), buf.g1s()])
+                }));
+            }
+            #[cfg(since_647)]
+            122 => self.hitbar_sprite = Some(buf.g2()),
+            #[cfg(since_647)]
+            123 => self.height = Some(buf.g2()),
+            #[cfg(since_647)]
+            125 => self.respawn_direction = buf.g1s(),
+            #[cfg(since_647)]
+            127 => self.render_emote = Some(buf.g2()),
+            #[cfg(since_647)]
+            128 => self.op128 = buf.g1(),
+            #[cfg(since_647)]
+            134 => {
+                self.idle_sound = read_optional_id(buf);
+                self.crawl_sound = read_optional_id(buf);
+                self.walk_sound = read_optional_id(buf);
+                self.run_sound = read_optional_id(buf);
+                self.sound_distance = buf.g1();
+            }
+            #[cfg(since_647)]
+            135 => {
+                self.primary_cursor_op = Some(buf.g1());
+                self.primary_cursor = Some(buf.g2());
+            }
+            #[cfg(since_647)]
+            136 => {
+                self.secondary_cursor_op = Some(buf.g1());
+                self.secondary_cursor = Some(buf.g2());
+            }
+            #[cfg(since_647)]
+            137 => self.attack_cursor = Some(buf.g2()),
+            #[cfg(since_647)]
+            138 => self.army_icon = Some(buf.g2()),
+            #[cfg(since_647)]
+            139 => self.sprite_id = Some(buf.g2()),
+            #[cfg(since_647)]
+            140 => self.ambient_sound_volume = buf.g1(),
+            #[cfg(since_647)]
+            141 => self.visible_priority = true,
+            #[cfg(since_647)]
+            142 => self.mapfunction = Some(buf.g2()),
+            #[cfg(since_647)]
+            143 => self.invisible_priority = true,
+            #[cfg(since_647)]
+            150..=154 => {
+                let slot = (code - 150) as usize;
+                self.members_op[slot] = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str());
+            }
+            #[cfg(since_647)]
+            155 => {
+                self.hue = buf.g1s();
+                self.saturation = buf.g1s();
+                self.lightness = buf.g1s();
+                self.opacity = buf.g1s();
+            }
+            #[cfg(since_647)]
+            158 => self.main_option_index = Some(1),
+            #[cfg(since_647)]
+            159 => self.main_option_index = Some(0),
+            #[cfg(since_647)]
+            160 => self.campaigns = Some(read_array(buf, Packet::g2s)),
+            #[cfg(since_647)]
+            162 => self.vorbis = true,
+            #[cfg(since_647)]
+            163 => self.slayer_type = Some(buf.g1()),
+            #[cfg(since_647)]
+            164 => {
+                self.sound_rate_min = buf.g2() as i32;
+                self.sound_rate_max = buf.g2() as i32;
+            }
+            #[cfg(since_647)]
+            165 => self.pick_size_shift = buf.g1(),
+            #[cfg(since_647)]
+            168 => self.sound_range_min = buf.g1(),
+            249 => {
+                ParamType::decode_params(
+                    buf,
+                    self.params
+                        .get_or_insert_with(|| Box::new(FxHashMap::default())),
+                );
+            }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("npc", code),
         }
     }
 
