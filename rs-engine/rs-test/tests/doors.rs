@@ -26,6 +26,7 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use std::fs;
@@ -36,6 +37,11 @@ const DOOR_OPEN: u16 = 81;
 const GATE_OPEN: u16 = 67;
 const LOCKED: u16 = 2402;
 const THIEVING: usize = 17;
+const HITPOINTS: usize = 3;
+/// Holds the life points, shifted by one.
+const LIFE: u16 = 1240;
+/// The locked side of `picklock6` at 2610,3316.
+const SIDE: (u16, u16) = (2610, 3316);
 
 fn op_loc(client: &mut HarnessClient, prot: ClientProt, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
@@ -287,6 +293,63 @@ fn ardougnes_level_one_locked_door_picks_from_outside() {
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[THIEVING];
         assert_eq!(xp, 38, "3.8 xp");
         assert_eq!(coord(engine, client.pid), (2673, 0, 3308), "through, east");
+    });
+}
+
+/// 289's trap on a lock costs a tenth of the current hitpoints
+/// (`divide(stat(hitpoints), 10)`); 2011 counts life points, ten to a
+/// hitpoint, so 990 life points lose 90. `picklock6` (289's `loc_2556`) at
+/// 2610,3316 springs its trap on 289's 32-250 of 256 roll: 7 picks in 8 at
+/// 1 Thieving. 89 Hitpoints cap the natural recovery under the 990 set here,
+/// so the trap is the only change.
+#[test]
+fn a_trapped_lock_costs_a_tenth_of_the_life_points() {
+    runner::on_loaded_engine(|engine| {
+        assert_eq!(loc_at(engine, "picklock6", 2610, 3316), Some(2));
+        let door = (loc_id(engine, "picklock6"), 2610, 3316);
+        let mut client = visitor(engine, "trapped", SIDE.0, SIDE.1);
+        let life = |engine: &Engine, pid| {
+            (engine.harness_player(pid).unwrap().vars.get(LIFE).as_int() >> 1) & 0x7FFF
+        };
+        let mut lost = None;
+        for _ in 0..12 {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            player.stats.levels[THIEVING] = 1;
+            player.stats.base_levels[THIEVING] = 1;
+            player.stats.levels[HITPOINTS] = 89;
+            player.stats.base_levels[HITPOINTS] = 89;
+            let lp = player.vars.get(LIFE).as_int();
+            player.vars.set(LIFE, VarValue::Int((lp & 1) | 990 << 1));
+            engine.cycle();
+            client.packets();
+            op_loc(&mut client, ClientProt::OpLoc2, door);
+            let pid = client.pid;
+            let (mut was, mut drops, mut said) = (life(engine, pid), Vec::new(), Vec::new());
+            for _ in 0..6 {
+                said.extend(run(engine, &mut client, 1).0);
+                let now = life(engine, pid);
+                if now < was {
+                    drops.push(was - now);
+                }
+                was = now;
+            }
+            assert_eq!(
+                said.first().map(String::as_str),
+                Some("You attempt to pick the lock.")
+            );
+            if said
+                .iter()
+                .any(|s| s == "You have activated a trap on the lock.")
+            {
+                lost = Some(drops);
+                break;
+            }
+        }
+        assert_eq!(
+            lost,
+            Some(vec![90]),
+            "a trap in twelve picks, for 90 of 990"
+        );
     });
 }
 

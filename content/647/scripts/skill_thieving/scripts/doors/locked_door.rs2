@@ -148,7 +148,8 @@ if ($locked = true) {
     if(db_getfieldcount($data, locked_door:trap_successchance) > 0) {
         if (stat_random(thieving, db_getfield($data, locked_door:trap_successchance, 0)) = false) {
             mes("You have activated a trap on the lock.");
-            queue(damage_player, 0, divide(stat(hitpoints), 10));
+            // 289's tenth of the current hitpoints; 2011 counts life points, ten to a hitpoint
+            queue(damage_player, 0, calc((%life_points / 100) * 10));
             return;
         }
     }
