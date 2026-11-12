@@ -638,7 +638,17 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         )];
         let mut squire_face = vec![npc_face(engine, "tutorial3_squire")];
         let mut goblin = vec![npc_tile(engine, "tutorial3_goblin")];
-        let mut dragon = vec![npc_tile(engine, "tutorial3_dragon_initial")];
+        // The dragon is tutorial3_dragon_reverse (8860) while it backs away in shot 8.
+        let dragon_now = |engine: &Engine| {
+            let reverse = npc_tile(engine, "tutorial3_dragon_reverse");
+            (
+                reverse.or_else(|| npc_tile(engine, "tutorial3_dragon_initial")),
+                reverse.is_some(),
+            )
+        };
+        let (tile, reverse) = dragon_now(engine);
+        let mut dragon = vec![tile];
+        let mut reversed = vec![reverse];
         // Shot 10 holds until s003 is continued (1.7 s to 5.5 s in seven 2010-2011 recordings):
         // eight ticks of it here, more than any timer of ours ran, with nothing ending it.
         let mut held = 0;
@@ -653,7 +663,9 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             ticks.push((now, packets, npc_tile(engine, "tutorial3_squire")));
             squire_face.push(npc_face(engine, "tutorial3_squire"));
             goblin.push(npc_tile(engine, "tutorial3_goblin"));
-            dragon.push(npc_tile(engine, "tutorial3_dragon_initial"));
+            let (tile, reverse) = dragon_now(engine);
+            dragon.push(tile);
+            reversed.push(reverse);
             assert_ne!(now, 0, "the cutscene ends only when s003 is continued");
             if now == 10 {
                 held += 1;
@@ -695,20 +707,46 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             ],
             "the dragon runs to the wall from shot 4's first tick"
         );
-        // It keeps that tile through shot 8 and stands on (28, 19) as shot 10 opens (4KO2h2xPtdM
-        // @44.1-46.4 against @52.2-52.8, and its minimap after the cutscene @55-104).
+        // It keeps that tile through shots 5 to 7, tutorial3_dragon_reverse from two ticks before
+        // shot 8. In shot 8 it backs away from Sir Vant at a run, moving from the shot's first
+        // tick: a size-5 npc steps along x, then z, so two tiles west, two north and one north,
+        // on (28, 21) from the shot's third tick (4KO2h2xPtdM @44.1-46.4, every 0.2 s). As shot
+        // 9 opens it is tutorial3_dragon_initial again on (28, 19), where shot 10 has it (@46.3,
+        // @52.2-52.8, and the minimap @55-104).
+        let eight = shots_start(&ticks, 8);
         let nine = shots_start(&ticks, 9);
         let ten = shots_start(&ticks, 10);
         assert!(
-            dragon[four + 4..=nine]
+            dragon[four + 4..eight]
                 .iter()
                 .all(|tile| tile.map(|tile| local(engine, tile)) == Some((30, 18))),
-            "the dragon over Sir Vant through shot 8"
+            "the dragon over Sir Vant until shot 8"
         );
+        assert!(
+            reversed[..eight - 2].iter().all(|reverse| !reverse),
+            "tutorial3_dragon_initial until it backs away"
+        );
+        let back: Vec<(Option<(u16, u16)>, bool)> = (eight - 2..=nine)
+            .map(|at| (dragon[at].map(|tile| local(engine, tile)), reversed[at]))
+            .collect();
         assert_eq!(
-            dragon[ten - 1].map(|tile| local(engine, tile)),
-            Some((28, 19)),
-            "the dragon north-west of Sir Vant a tick before shot 10 opens"
+            back,
+            vec![
+                (Some((30, 18)), true),
+                (Some((30, 18)), true),
+                (Some((28, 18)), true),
+                (Some((28, 20)), true),
+                (Some((28, 21)), true),
+                (Some((28, 21)), true),
+                (Some((28, 19)), false),
+            ],
+            "the dragon backs away through shot 8 and is put on (28, 19) as shot 9 opens"
+        );
+        assert!(
+            (nine..ten).all(|at| {
+                dragon[at].map(|tile| local(engine, tile)) == Some((28, 19)) && !reversed[at]
+            }),
+            "the dragon north-west of Sir Vant through shot 9"
         );
         // Shot 9: the goblin's "Ooh, shiny!" with its clip; shot 10: Sir Vant's s003 with his.
         let shiny = ticks[nine..nine + 9]

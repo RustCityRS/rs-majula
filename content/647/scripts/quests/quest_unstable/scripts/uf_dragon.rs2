@@ -96,8 +96,9 @@ p_delay(0);
 %tutorial3_cutscene_tracker = 4;
 // It sets off as shot 4 opens, running (see above), to the wall over Sir Vant: (30, 18), seven
 // tiles south, there on the fourth tick as 2011's is 2.44-2.54 s in. Filmed from (30, 18) and
-// from (28, 19) through shots 4, 6 and 8's cameras, ours matches 4KO2 @26-46 from (30, 18) and
-// stands about two tiles too far west from (28, 19). It is on (28, 19) from shot 10 (below).
+// from (28, 19) through shots 4 and 6's cameras, ours matches 4KO2 @26-41 from (30, 18) and
+// stands about two tiles too far west from (28, 19). It backs away in shot 8 and is on (28, 19)
+// from shot 10 (below).
 if (npc_find(~uf_cellar_coord(32, 27), tutorial3_dragon_initial, 4, 0) = true) {
     npc_run(1);
     npc_walk(~uf_cellar_coord(30, 18));
@@ -176,19 +177,55 @@ p_delay(6);
 // (frames on skeleton base_0, the player's and the squire's; 51 frames, 102 cycles): played on
 // the player in-client (ufpanic) its jump peaks 0.5 s in, as 2011's does 0.5 s into the shot.
 anim(seq_12270, 0);
-p_delay(3);
-%tutorial3_cutscene_tracker = 8;
-// Shot 8 (@44.1-46.5): the dragon close, turning away from the wall, wings folded. In shot 10
-// (@51.9-53.7) it faces Sir Vant again from two tiles further west and one north, (28, 19): filmed
-// from both tiles through shot 10's camera, ours matches 4KO2 @52.2 and @52.8 from (28, 19) and
-// not from (30, 18), and 4KO2's minimap has its dot there after the cutscene (@55-104:
-// uf_cellar.rs2). Its wings are still moving @52.2, so it is taken to step there while shot 9
-// shows the goblin (below); the move itself is in no frame. Fitted, not read from a source.
-if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
-    npc_facesquare(~uf_cellar_coord(37, 24));
+p_delay(1);
+// Shot 8 (4KO2h2xPtdM @44.1-46.4): the dragon backs away from Sir Vant. Cache 786 has a dragon
+// for that: tutorial3_dragon_reverse (8860), the same model turned half round, so that walking
+// away it faces what it leaves. Filmed standing through shot 8's camera (8860 and 8858 on the
+// tiles about, facing north and south), 8860 on (28, 21) facing north is 2011's picture from
+// @45.4 on; no other tile or kind filmed is.
+// 2011's frames, every 0.2 s from the cut: the head is low and side-on, towards Sir Vant, at the
+// cut and @44.3; towards the camera @44.5-44.9; side-on again from @45.1, drawing north. A
+// size-5 npc steps along x first, then z, never diagonally: from (30, 18) to (28, 21) that is
+// west twice, then north three times. Facing west 8860's head is towards the camera, which is
+// east of it; facing north its head is south, side-on. 2011 has the head towards the camera for
+// about one tick, and two tiles west in a tick is a run. Walked and run in-client through shot
+// 8's camera (ufnpcwalk), a walk has the head towards the camera for two ticks; a run that
+// starts moving a tick before the cut has 2011's pictures in 2011's order about a tick early.
+// So 8860 is turned north as it takes 8858's place (8858 faces Sir Vant, due south of its middle
+// tile; the model turned half round, north keeps the head on him), and it is sent running a tick
+// before the cut, so that it moves from the cut's tick (an npc_walk from this script moves the
+// npc on the next tick). Filmed in the cutscene itself, the head is side-on at the cut, towards
+// the camera 0.4 to 0.8 s after it and side-on from 1.0 s, as 2011's is. It then stands on
+// (28, 21) from about 2.0 s after the cut; 2011's has stopped drawing north by about 1.2 s. The
+// three tiles north after the two west take two ticks at a run; 2011's whole way takes about two.
+// The run and its timing are fitted to those frames, not read from a source; when 2011 changed
+// the dragon's kind, and whether its large npcs stepped diagonally, the recording does not show.
+if (npc_find(~uf_cellar_coord(30, 18), tutorial3_dragon_initial, 3, 0) = true) {
+    npc_changetype(tutorial3_dragon_reverse, ^uf_cellar_obj_duration);
+    npc_facesquare(~uf_cellar_coord(32, 24));
 }
+p_delay(0);
+if (npc_find(~uf_cellar_coord(30, 18), tutorial3_dragon_reverse, 3, 0) = true) {
+    npc_run(1);
+    npc_walk(~uf_cellar_coord(28, 21));
+}
+p_delay(0);
+%tutorial3_cutscene_tracker = 8;
 p_delay(3);
 %tutorial3_cutscene_tracker = 9;
+// In shot 10 (@51.9-53.7) the dragon faces Sir Vant from (28, 19): filmed from (28, 19) and
+// (30, 18) through shot 10's camera, ours matches 4KO2 @52.2 and @52.8 from (28, 19), and 4KO2's
+// minimap has its dot there after the cutscene (@55-104: uf_cellar.rs2). Shot 8's last frame
+// (@46.3, one frame at 10 a second) has it whole, head north and jaws open, about there: the
+// picture 8858 gives facing north (filmed on (28, 18); 8860's jaws are shut). So it is taken to
+// be 8858 again and put on (28, 19) as shot 9 opens, keeping the facing its walk left it. Whether
+// 2011 moved it by a teleport: no source says; one frame shows it there 0.9 s after it stood on
+// (28, 21).
+if (npc_find(~uf_cellar_coord(28, 21), tutorial3_dragon_reverse, 3, 0) = true) {
+    npc_run(0);
+    npc_changetype(tutorial3_dragon_initial, ^uf_cellar_obj_duration);
+    npc_tele(~uf_cellar_coord(28, 19));
+}
 // Shot 9 (4KO2h2xPtdM 46.41-51.83, the cut measured to 10 ms against ours): goblin 8862 drops in
 // from above beside the stone pillar (in the air at the frame's top @46.5, arms up @46.7, landed
 // crouched @46.83), stands there side-on, starts to turn and walk @48.73-48.80, says "Ooh, shiny!"
@@ -224,13 +261,10 @@ if (npc_find(~uf_cellar_coord(33, 13), tutorial3_goblin, 3, 0) = true) {
     npc_say("Ooh, shiny!");
     ~speech_line(vorbis_1215);
 }
-// The dragon's two steps to (28, 19) (see shot 8), asked for here so that it stands there a tick
-// before shot 10 opens and has turned back to Sir Vant by then.
-if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
-    npc_walk(~uf_cellar_coord(28, 19));
-}
 p_delay(2);
-if (npc_find(~uf_cellar_coord(32, 20), tutorial3_dragon_initial, 6, 0) = true) {
+// The dragon turns back to Sir Vant a tick before shot 10 opens: its wings are still moving
+// @52.2. When 2011 turned it, shot 9 does not show.
+if (npc_find(~uf_cellar_coord(28, 19), tutorial3_dragon_initial, 3, 0) = true) {
     npc_facesquare(~uf_cellar_coord(32, 16));
 }
 if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 2, 0) = true) {
