@@ -104,6 +104,14 @@ impl ScriptPlayer for ActivePlayer {
         self.player.last_target_com.unwrap_or(-1)
     }
 
+    /// Returns the tile the last ground target was aimed at, or `-1` if none.
+    #[cfg(since_647)]
+    fn last_coord(&self) -> i32 {
+        self.player
+            .last_coord
+            .map_or(-1, |coord| coord.packed() as i32)
+    }
+
     /// Returns the item type ID from the last interaction, or `-1` if none.
     ///
     /// # Call Stack

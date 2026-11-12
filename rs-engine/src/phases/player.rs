@@ -922,7 +922,7 @@ impl Engine {
                     }
                 }
             }
-            InteractionTarget::Player { .. } => {}
+            InteractionTarget::Player { .. } | InteractionTarget::Coord { .. } => {}
         }
 
         if let Some(com) = active.player.interaction.target_subject_com {
@@ -1164,8 +1164,10 @@ impl Engine {
             if let Some(target) = &active.player.interaction.target
                 && let Some(target_op) = active.player.interaction.target_op
             {
+                // A tile has only an approach trigger.
                 let op_trigger = target_op.wrapping_add(7);
                 let trigger_name = ServerTriggerType::try_from(op_trigger)
+                    .or_else(|_| ServerTriggerType::try_from(target_op))
                     .map(|t| format!("{:?}", t).to_lowercase())
                     .unwrap_or_else(|_| format!("unknown_{}", op_trigger));
 
@@ -1183,6 +1185,11 @@ impl Engine {
                         .and_then(|n| engine().npcs().get_by_id(n.npc.uid.id()))
                         .map_or_else(|| nid.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Player { pid } => pid.to_string(),
+                    InteractionTarget::Coord { .. } => active
+                        .player
+                        .interaction
+                        .target_subject_com
+                        .map_or_else(String::new, |com| format!("{}:{}", com >> 16, com & 0xFFFF)),
                 };
                 active.message_game(&format!("No trigger for [{},{}]", trigger_name, debugname));
             }

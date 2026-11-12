@@ -131,6 +131,10 @@ pub enum ServerTriggerType {
     OpPlayer9 = 192,
     #[cfg(since_647)]
     OpPlayer10 = 193,
+    // A component aimed at a tile (APCOORDT). A tile is only approached: 201,
+    // where an op trigger would be, stays unmapped.
+    #[cfg(since_647)]
+    ApCoordT = 194,
     AiApPlayer1 = 101,
     AiApPlayer2 = 102,
     AiApPlayer3 = 103,
@@ -375,6 +379,13 @@ impl ServerTriggerType {
         matches!(self, Self::InvButtonD)
     }
 
+    /// Returns whether this trigger type provides `last_coord`, the tile a
+    /// ground target was aimed at.
+    #[cfg(since_647)]
+    pub(crate) fn allows_last_coord(self) -> bool {
+        matches!(self, Self::ApCoordT)
+    }
+
     /// Returns whether this trigger type provides `last_useitem` (the item that was used).
     ///
     /// Identical set to [`allows_last_use`](Self::allows_last_use) -- all `*U` triggers.
@@ -591,6 +602,17 @@ mod tests {
         }
     }
 
+    /// A ground target has only an approach trigger, the one trigger that
+    /// gives `last_coord`.
+    #[cfg(since_647)]
+    #[test]
+    fn ground_target_is_approach_only() {
+        assert_eq!(ServerTriggerType::ApCoordT as u8, 194);
+        assert!(ServerTriggerType::try_from(194 + 7).is_err());
+        assert!(ServerTriggerType::ApCoordT.allows_last_coord());
+        assert!(!ServerTriggerType::ApLocT.allows_last_coord());
+    }
+
     #[allow(clippy::clone_on_copy)]
     #[test]
     fn clone_and_copy() {
@@ -805,9 +827,9 @@ mod compiler_contract {
         // Guards against losing coverage silently: a variant deleted here, or a
         // keyword the compiler stops emitting, moves one of these counts.
         // The five `InvButton6..10` variants, the player ops 6-10,
-        // `Area`/`AreaExit` and the controllers' `AiConQueue`/`AiConTimer`
-        // exist only from rev 647.
-        let expected = if cfg!(since_647) { (162, 8) } else { (143, 8) };
+        // `Area`/`AreaExit`, the controllers' `AiConQueue`/`AiConTimer` and
+        // `ApCoordT` exist only from rev 647.
+        let expected = if cfg!(since_647) { (163, 8) } else { (143, 8) };
         assert_eq!(
             (matched, name_keyed),
             expected,

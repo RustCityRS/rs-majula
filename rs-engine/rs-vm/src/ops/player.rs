@@ -660,6 +660,18 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(player.last_targetcom());
         });
 
+        // 5025
+        // The tile 647's ground target (`[apcoordt]`) was aimed at.
+        #[cfg(since_647)]
+        active_player!(m, LAST_COORD => |s, player| {
+            if let Some(trigger) = s.trigger && !trigger.allows_last_coord() {
+                return Err(ScriptError::Runtime(
+                    format!("{} is not safe to use in this trigger: {:?}", LAST_COORD, s.trigger)
+                ))
+            }
+            s.push_int(player.last_coord());
+        });
+
         // 2057
         active_player!(m, LAST_USEITEM => |s, player| {
             if let Some(trigger) = s.trigger && !trigger.allows_last_useitem() {

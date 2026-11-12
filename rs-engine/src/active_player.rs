@@ -2013,6 +2013,7 @@ impl ActivePlayer {
             Target::Player(pid) => engine
                 .get_player(pid)
                 .map_or(Cow::Borrowed("?"), |p| Cow::Owned(p.uid().username())),
+            Target::Coord { x, z } => Cow::Owned(format!("the tile at {x}, {z}")),
         };
         self.watch
             .note_fmt(engine.clock, format_args!("{verb} {with} on {on}"));

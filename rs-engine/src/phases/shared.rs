@@ -34,6 +34,7 @@ impl Engine {
     /// * `Player` -> `ScriptSubject::Player` with the player's UID.
     /// * `Loc` -> `ScriptSubject::Loc` with packed coordinate, ID, shape,
     ///   angle, and layer.
+    /// * `Coord` -> none: a tile is no entity (its script reads `last_coord`).
     ///
     /// # Returns
     ///
@@ -69,13 +70,14 @@ impl Engine {
                 layer: *layer,
                 serial: *serial,
             })),
+            InteractionTarget::Coord { .. } => None,
         }
     }
 
     /// Resolves the current world coordinate of an interaction target.
     ///
     /// For entity targets (Player, Npc), looks up the entity's live
-    /// coordinate. For static targets (Obj, Loc), returns the stored
+    /// coordinate. For static targets (Obj, Loc, Coord), returns the stored
     /// coordinate directly. Returns `(0, 0, 0)` if the entity no longer
     /// exists.
     pub(crate) fn target_coord(target: &InteractionTarget) -> CoordGrid {
@@ -90,6 +92,7 @@ impl Engine {
                 .unwrap_or(CoordGrid::new(0, 0, 0)),
             InteractionTarget::Obj { coord, .. } => *coord,
             InteractionTarget::Loc { coord, .. } => *coord,
+            InteractionTarget::Coord { coord } => *coord,
         }
     }
 
@@ -111,6 +114,7 @@ impl Engine {
     /// * **Loc:** The exact loc that was targeted (by serial) must still be
     ///   in the world at the stored coordinate and layer, still be the
     ///   expected type (a change cancels), and share the same Y-level.
+    /// * **Coord:** Must share the same Y-level.
     ///
     /// # Returns
     ///
@@ -210,6 +214,7 @@ impl Engine {
                     false
                 }
             }
+            InteractionTarget::Coord { coord } => coord.y() == y,
         }
     }
 
@@ -220,7 +225,9 @@ impl Engine {
     /// targets, checks both shape -2 (default reach) and shape -1
     /// (diagonal reach). For Loc targets, incorporates the loc's
     /// dimensions, shape, angle, and `forceapproach` flag. For entity
-    /// targets, uses a default 1x1 or NxN reach check.
+    /// targets, uses a default 1x1 or NxN reach check. A Coord target is
+    /// reached on the tile itself, which the 647 client walks onto (shape -4
+    /// in `SocketStream.method1697`).
     ///
     /// # Returns
     ///
@@ -319,6 +326,10 @@ impl Engine {
                     false
                 }
             }
+            InteractionTarget::Coord { coord } => {
+                coord.y() == y
+                    && rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -1, 0)
+            }
         }
     }
 
@@ -345,7 +356,7 @@ impl Engine {
         let size = pathing.size;
 
         match target {
-            InteractionTarget::Obj { coord, .. } => {
+            InteractionTarget::Obj { coord, .. } | InteractionTarget::Coord { coord } => {
                 if coord.y() != y {
                     return false;
                 }
@@ -565,7 +576,7 @@ impl Engine {
         };
 
         match target {
-            InteractionTarget::Obj { coord, .. } => {
+            InteractionTarget::Obj { coord, .. } | InteractionTarget::Coord { coord } => {
                 if naive || (x == coord.x() && z == coord.z()) {
                     pathing.queue_waypoint(*coord);
                     return None;

@@ -530,6 +530,8 @@
 [command,last_targetslot]()(int)
 // info: The component an item was dragged onto (647's drag carries both ends)
 [command,last_targetcom]()(component)
+// info: The tile a ground target was aimed at, in [apcoordt]
+[command,last_coord]()(coord)
 // info: Set the player's walktrigger
 [command,walktrigger](walktrigger $trigger)
 // info: Set the secondary player's walktrigger

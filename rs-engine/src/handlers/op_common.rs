@@ -25,6 +25,8 @@ pub mod action_target {
     pub const HELD: u16 = 0x10;
     #[cfg(since_647)]
     pub const HELD: u16 = 0x20;
+    #[cfg(since_647)]
+    pub const COORD: u16 = 0x40;
 }
 
 pub fn component(active: &ActivePlayer, com: ComId) -> Result<&'static IfType, ScriptError> {

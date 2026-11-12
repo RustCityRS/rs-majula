@@ -978,9 +978,11 @@ impl AntiCheat {
                 (pid as usize) < MAX_PLAYERS && area.players.contains(pid)
                     || self.lately_lost(on, clock)
             }
-            // Locs are in the map the client loads; objs only come with the
-            // zones it's sent.
-            Target::Loc { x, z, .. } => lately(&|zones| zones.in_map(x, z)),
+            // Locs and tiles are in the map the client loads; objs only come
+            // with the zones it's sent.
+            Target::Loc { x, z, .. } | Target::Coord { x, z } => {
+                lately(&|zones| zones.in_map(x, z))
+            }
             Target::Obj { x, z, .. } => lately(&|zones| zones.was_sent(x, z)),
             Target::Item(_) => true,
         };
@@ -997,6 +999,7 @@ impl AntiCheat {
                 Target::Loc { id, x, z } => format!("loc {id} at {x}, {z}"),
                 Target::Obj { id, x, z } => format!("obj {id} on the floor at {x}, {z}"),
                 Target::Item(_) => "an item".to_owned(),
+                Target::Coord { x, z } => format!("the tile at {x}, {z}"),
             };
             self.caught(
                 "clicked_unseen",

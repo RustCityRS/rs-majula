@@ -15,6 +15,10 @@
 //!
 //! 647's player ops 6-10 (OPPLAYER6-10, past 289's five) approach the other
 //! player as ops 1-5 do, for `[applayerN]` and then `[opplayerN]`.
+//!
+//! A ground target (APCOORDT) aims a component at a tile, which the player
+//! approaches for the component's `[apcoordt]`. A component that can't aim at
+//! tiles, an item, or a tile the client could not have shown is refused.
 
 #![cfg(since_647)]
 
@@ -25,6 +29,7 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::InteractionTarget;
+use rs_grid::CoordGrid;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_vm::ops::test::calls_for;
@@ -43,6 +48,13 @@ const FIRE_TILE: (u16, u16) = (3221, 3219);
 
 /// The `object_id` the client sends for a source holding no item.
 const NO_OBJ: i32 = 0xFFFF;
+
+/// `xmas10_snowball:throw_operation`, the 2010 snowball's thrower, which
+/// aims at a player or a tile (`targetmask=player,coord`).
+const SNOWBALL: i32 = (1061 << 16) | 8;
+
+/// Lumbridge's spawn, with open ground east of it (see `pathfinding.rs`).
+const SPAWN: (u16, u16) = (3222, 3218);
 
 fn obj(engine: &Engine, name: &str) -> u16 {
     *engine
@@ -133,6 +145,135 @@ fn player_ops_6_to_10_approach_the_player() {
                 "op {op}"
             );
         }
+    });
+}
+
+/// Aims `com` at tile `x, z`, as `Statics1.do_action` writes APCOORDT for
+/// TGT_GROUND. A static component's child id, the slot, is -1.
+fn aim(client: &mut HarnessClient, com: i32, obj: i32, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.p2_alt1(x as i32)
+        .p2(0xFFFF)
+        .p2_alt2(obj)
+        .p2_alt2(z as i32)
+        .p4(com);
+    client.send(ClientProt::ApCoordT, &p.finish());
+}
+
+/// Opens the snowball's interface, which the next tick's output mounts.
+fn open_snowball(engine: &mut Engine, pid: u16) {
+    engine.harness_open_main(pid, (SNOWBALL >> 16) as u16);
+    engine.cycle();
+}
+
+/// Whether the player is aiming at `tile`, for `[apcoordt]` keyed on `com`.
+fn aiming(engine: &Engine, pid: u16, com: i32, tile: CoordGrid) -> bool {
+    let player = engine.harness_player(pid).unwrap();
+    matches!(player.interaction.target, Some(InteractionTarget::Coord { coord }) if coord == tile)
+        && player.interaction.target_op == Some(ServerTriggerType::ApCoordT as u8)
+        && player.interaction.target_subject_com == Some(com)
+        && player.last_coord == Some(tile)
+}
+
+/// A ground target approaches its tile. With no `[apcoordt]` for the
+/// snowball, the player walks onto it and nothing interesting happens.
+#[test]
+fn a_ground_target_approaches_its_tile() {
+    runner::on_loaded_engine(|engine| {
+        let (x, z) = SPAWN;
+        let tile = CoordGrid::new(x + 3, 0, z);
+        let mut client = player_at(engine, "ap_coord_t", x, z);
+        open_snowball(engine, client.pid);
+        aim(&mut client, SNOWBALL, NO_OBJ, tile.x(), tile.z());
+        engine.harness_inputs();
+        assert!(
+            aiming(engine, client.pid, SNOWBALL, tile),
+            "aims at the tile"
+        );
+
+        let mut messages = Vec::new();
+        for _ in 0..6 {
+            engine.cycle();
+            messages.extend(HarnessClient::game_messages(&client.packets()));
+        }
+        let player = engine.harness_player(client.pid).unwrap();
+        assert_eq!(player.pathing.coord, tile, "walked onto the tile");
+        assert!(
+            messages
+                .iter()
+                .any(|(_, m)| m == "Nothing interesting happens."),
+            "{messages:?}"
+        );
+        assert!(engine.script_errors.take().is_empty());
+    });
+}
+
+/// A ground target the client could not have sent is refused: a component
+/// closed or not aiming at tiles, one holding an obj, a tile off the scene
+/// (or past the map, which a packed coord would wrap onto another), a
+/// delayed player, and a tile no zone is in, beside a region.
+#[test]
+fn a_ground_target_is_refused_where_the_client_could_not_aim() {
+    runner::on_loaded_engine(|engine| {
+        let tinderbox = obj(engine, "tinderbox") as i32;
+        // modern:wind_strike aims at npcs and players, not tiles.
+        let spell = (192 << 16) | 25;
+        let (x, z) = SPAWN;
+        let refused = [
+            ("its interface is closed", false, SNOWBALL, NO_OBJ, x + 3),
+            ("wind strike aims at no tile", true, spell, NO_OBJ, x + 3),
+            ("an item aims at no tile", true, SNOWBALL, tinderbox, x + 3),
+            ("off the scene", true, SNOWBALL, NO_OBJ, x + 100),
+            ("past the map", true, SNOWBALL, NO_OBJ, x + 0x4000),
+        ];
+        for (case, open, com, obj, tx) in refused {
+            let mut client = player_at(engine, "ap_coord_t_refused", x, z);
+            if open {
+                open_snowball(engine, client.pid);
+            }
+            aim(&mut client, com, obj, tx, z);
+            engine.harness_inputs();
+            let player = engine.harness_player(client.pid).unwrap();
+            assert_eq!(player.interaction.target_op, None, "{case}");
+            assert_eq!(player.last_coord, None, "{case}");
+        }
+
+        let mut client = player_at(engine, "ap_coord_t_delayed", x, z);
+        open_snowball(engine, client.pid);
+        engine.harness_player_mut(client.pid).unwrap().state.delayed = true;
+        aim(&mut client, SNOWBALL, NO_OBJ, x + 3, z);
+        engine.harness_inputs();
+        let player = engine.harness_player(client.pid).unwrap();
+        assert_eq!(player.interaction.target_op, None, "a delayed player");
+
+        // A region of Lumbridge's spawn zone: its own tile is aimed at, the
+        // empty slot east of it is not.
+        let mut client = player_at(engine, "ap_coord_t_region", x, z);
+        let uid = engine
+            .harness_region_create(1, 1, 1)
+            .expect("a free region");
+        let source = CoordGrid::new(x & !7, 0, z & !7);
+        engine
+            .harness_region_set(uid, 0, 0, 0, source, 0)
+            .expect("the zone copies");
+        let inside = engine
+            .harness_region_coord(uid, 0, (x & 7) as i32, (z & 7) as i32)
+            .unwrap();
+        engine.harness_telejump(client.pid, inside.x(), 0, inside.z());
+        engine.cycle();
+        open_snowball(engine, client.pid);
+        let void = CoordGrid::new(inside.x() + 6, 0, inside.z());
+        aim(&mut client, SNOWBALL, NO_OBJ, void.x(), void.z());
+        engine.harness_inputs();
+        let player = engine.harness_player(client.pid).unwrap();
+        assert_eq!(player.interaction.target_op, None, "a tile in no zone");
+        let own = CoordGrid::new(inside.x() + 1, 0, inside.z());
+        aim(&mut client, SNOWBALL, NO_OBJ, own.x(), own.z());
+        engine.harness_inputs();
+        assert!(
+            aiming(engine, client.pid, SNOWBALL, own),
+            "its own region's tile"
+        );
     });
 }
 

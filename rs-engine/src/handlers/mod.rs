@@ -1,4 +1,6 @@
 pub mod anticheat;
+#[cfg(since_647)]
+pub mod apcoordt;
 pub mod chat_setmode;
 pub mod client_cheat;
 #[cfg(since_647)]

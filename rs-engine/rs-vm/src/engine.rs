@@ -919,6 +919,11 @@ pub trait ScriptPlayer {
     #[cfg(since_647)]
     fn last_targetcom(&self) -> i32;
 
+    /// Returns the tile the last ground target was aimed at, packed, or `-1`
+    /// if none.
+    #[cfg(since_647)]
+    fn last_coord(&self) -> i32;
+
     /// Returns the item type ID from the last interaction.
     ///
     /// # Returns

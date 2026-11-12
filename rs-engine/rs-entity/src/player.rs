@@ -220,6 +220,8 @@ pub struct PlayerCold {
     pub last_target_slot: Option<u16>,
     #[cfg(since_647)]
     pub last_target_com: Option<i32>,
+    #[cfg(since_647)]
+    pub last_coord: Option<CoordGrid>,
     pub last_use_slot: Option<u16>,
     pub last_item: Option<u16>,
     pub last_use_item: Option<u16>,
@@ -379,6 +381,8 @@ impl Player {
                 last_target_slot: None,
                 #[cfg(since_647)]
                 last_target_com: None,
+                #[cfg(since_647)]
+                last_coord: None,
                 last_use_slot: None,
                 last_item: None,
                 last_use_item: None,

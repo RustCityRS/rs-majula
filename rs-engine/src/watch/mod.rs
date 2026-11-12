@@ -120,6 +120,7 @@ pub enum Target {
     Obj { id: u16, x: u16, z: u16 },
     Player(u16),
     Item(u16),
+    Coord { x: u16, z: u16 },
 }
 
 /// What a world asks its recording task to do.

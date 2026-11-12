@@ -1,8 +1,8 @@
 use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{
-    ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName,
-    FriendSetRank, UrlRequest, WorldlistFetch,
+    ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName, FriendSetRank,
+    UrlRequest, WorldlistFetch,
 };
 use rs_vm::ScriptError;
 use tracing::debug;
@@ -19,7 +19,6 @@ macro_rules! unsupported {
 }
 
 unsupported!(
-    ApCoordT => "ground-target script triggers",
     ClanJoinchatLeavechat => "friends chat",
     ClanKickUser => "friends chat",
     ClanchannelKickUser => "clan channels",
