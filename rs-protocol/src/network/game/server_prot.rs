@@ -561,6 +561,7 @@ server_prot! {
     UrlOpen = 125,
     SpotanimSpecific = 126,
     IfMovesub = 127,
+    LogoutFull = 128,
     IfSetNpcHead = 129,
     IfSetRecol = 132,
 }

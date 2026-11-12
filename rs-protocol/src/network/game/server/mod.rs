@@ -103,6 +103,8 @@ pub mod loc_merge;
 #[cfg(since_647)]
 pub mod loc_prefetch;
 pub mod logout;
+#[cfg(since_647)]
+pub mod logout_full;
 pub mod map_anim;
 pub mod map_projanim;
 #[cfg(since_647)]

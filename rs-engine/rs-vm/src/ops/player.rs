@@ -1101,8 +1101,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2075
+        #[cfg(before_647)]
         protected_active_player_mut!(m, P_LOGOUT => |_s, player| {
             player.logout(true);
+        });
+
+        // 2075 at 647 takes where the client lands: the lobby when it came through it (true),
+        // or the login screen always (false).
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_LOGOUT => |s, player| {
+            if s.pop_int() == 1 {
+                player.logout(true);
+            } else {
+                player.logout_full();
+            }
         });
 
         // 2076

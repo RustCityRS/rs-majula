@@ -1301,6 +1301,10 @@ pub trait ScriptPlayer {
     ///   `false` if forced by the server.
     fn logout(&mut self, requested: bool);
 
+    /// Requests a logout that lands on the login screen (rev-647 `p_logout(false)`).
+    #[cfg(since_647)]
+    fn logout_full(&mut self);
+
     /// Prevents the player from logging out until the specified tick.
     ///
     /// # Arguments

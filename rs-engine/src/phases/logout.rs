@@ -128,6 +128,10 @@ impl Engine {
                     }
                     active.player.logout_requested = false;
                     active.player.logout_idle_requested = false;
+                    #[cfg(since_647)]
+                    {
+                        active.player.logout_full = false;
+                    }
                     continue;
                 }
                 active.logout();
