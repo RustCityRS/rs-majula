@@ -1731,6 +1731,13 @@ fn the_dragon_is_put_to_sleep() {
             .collect();
         sent_shots.dedup();
         assert_eq!(sent_shots, vec![101, 102, 103, 104, 105, 106, 107, 0]);
+        // No hint points at Sir Vant after it: 4KO2h2xPtdM has no ring at the player's feet
+        // (@245.2-248.2) and no arrow over him (@247.2-251.2).
+        assert!(
+            hints(&packets).iter().all(|hint| hint.1 != 1),
+            "{:?}",
+            hints(&packets)
+        );
         // Stage 2's cellar is built in 106's black: 2011's "Loading - please wait." @233.
         let at_shot = |n: i32| {
             packets

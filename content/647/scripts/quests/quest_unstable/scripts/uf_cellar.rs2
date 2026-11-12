@@ -96,9 +96,6 @@ if ($p >= 90 & $p < 117) {
     npc_add(~uf_cellar_coord(25, 30), tutorial3_knight, 0);
     npc_setmode(none);
     npc_facesquare(~uf_cellar_coord(24, 30));
-    if ($p = 93) {
-        hint_npc_slot(0, 0, ^uf_hint_ring);
-    }
     ~uf_bag_by_pillars;
 }
 if ($p >= 10 & $p < 45) {
