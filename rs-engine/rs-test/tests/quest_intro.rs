@@ -80,18 +80,11 @@ fn at_the_window(engine: &mut Engine, name: &str) -> (HarnessClient, Packets, Ve
     (client, talk.packets, talk.texts)
 }
 
-/// A click on a quest_intro component: `p4(com) p2_alt3(obj) p2_alt1(slot)`, no obj or slot.
-/// The client sends the op the component transmits: the rewards' "Click here to show" is the
-/// background's op 10 (`transmitop=10`), the rest op 1.
+/// IF_BUTTON1 on a quest_intro component: `p4(com) p2_alt3(obj) p2_alt1(slot)`, no obj or slot.
 fn click(engine: &mut Engine, client: &mut HarnessClient, c: u16) -> Vec<(u16, Vec<u8>)> {
     let mut p = ClientPacket::new();
     p.p4(com(c)).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    let prot = if c == 31 {
-        ClientProt::IfButton10
-    } else {
-        ClientProt::IfButton1
-    };
-    client.send(prot, &p.finish());
+    client.send(ClientProt::IfButton1, &p.finish());
     let mut packets = Vec::new();
     for _ in 0..2 {
         engine.cycle();
@@ -228,7 +221,7 @@ fn click_here_to_show_reveals_the_items_and_the_rewards() {
         assert!(hidden.contains(&(com(58), false)), "{hidden:?}");
         assert!(scripts(&items).contains(&(2828, vec!["A pot, a bucket.".to_string()])));
 
-        let rewards = click(engine, &mut client, 31);
+        let rewards = click(engine, &mut client, 30);
         let want =
             "1 Quest Point, 300 Cooking XP, 500 coins, 20 sardines and access to the cook's range.";
         assert_eq!(text_of(&rewards, 66).as_deref(), Some(want));

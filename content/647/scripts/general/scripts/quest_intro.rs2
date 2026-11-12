@@ -32,7 +32,7 @@ if_setgraphic(quest_intro:quest_icon, struct_param($quest, param_952));
 if_addresumebutton(quest_intro:startyes_layer);
 if_addresumebutton(quest_intro:startno_layer);
 if_addresumebutton(quest_intro:items_hidden_button_txt);
-if_addresumebutton(quest_intro:background);
+if_addresumebutton(quest_intro:hidden_button_txt);
 if_addresumebutton(quest_intro:objective_set);
 if_addresumebutton(quest_intro:objective_text);
 def_string $text = "";
@@ -57,7 +57,7 @@ while (true) {
             if_sethide(quest_intro:items_text_details_layer, false);
             if_settext(quest_intro:items_field, $text);
             runclientscript("script2828($text)");
-        case quest_intro:background :
+        case quest_intro:hidden_button_txt :
             $text = struct_param($quest, param_951);
             if_sethide(quest_intro:hide_show_layer, true);
             if_sethide(quest_intro:text_details_layer, false);
