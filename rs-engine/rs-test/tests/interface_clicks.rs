@@ -49,6 +49,25 @@ fn drag(com: i32, slot: u16, obj: u16, com2: i32, slot2: u16, obj2: u16) -> Vec<
     p.finish()
 }
 
+/// URL_REQUEST, as `openurl` sends it: the website module, the page and
+/// whether it is a signed-in page.
+fn link(module: &str, page: &str, secure: i32) -> Vec<u8> {
+    let mut p = ClientPacket::new();
+    p.pjstr(module).pjstr(page).p1(secure);
+    p.finish()
+}
+
+/// The URLs a tick has the client open.
+fn opened(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
+    engine.cycle();
+    client
+        .packets()
+        .into_iter()
+        .filter(|(prot, _)| *prot == ServerProt::UrlOpen as u16)
+        .map(|(_, url)| String::from_utf8(url).unwrap())
+        .collect()
+}
+
 fn target(com: i32, slot: u16, obj: u16, slot2: u16, obj2: u16) -> Vec<u8> {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
@@ -312,5 +331,41 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             None,
             "reopening a sub must not revive its old event permissions"
         );
+    });
+}
+
+#[test]
+fn a_link_opens_its_page_on_the_website() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("link_checks").unwrap();
+        engine.cycle();
+        client.packets();
+
+        assert!(engine.set_site_origin("https://example.org/ https://www.example.org"));
+        client.send(ClientProt::UrlRequest, &link("forum", "forums.ws", 0));
+        client.send(ClientProt::UrlRequest, &link("www", "parents.ws", 0));
+        assert_eq!(
+            opened(engine, &mut client),
+            ["https://example.org/m=forum/forums.ws"],
+            "one link a tick"
+        );
+        client.send(ClientProt::UrlRequest, &link("www", "parents.ws", 0));
+        assert_eq!(
+            opened(engine, &mut client),
+            ["https://example.org/parents.ws"]
+        );
+
+        client.send(ClientProt::UrlRequest, &link("forum", "forums.ws", 1));
+        client.send(ClientProt::UrlRequest, &link("forum", "../admin", 0));
+        assert!(
+            opened(engine, &mut client).is_empty(),
+            "links no interface offers"
+        );
+
+        assert!(!engine.set_site_origin(""));
+        client.send(ClientProt::UrlRequest, &link("forum", "forums.ws", 0));
+        assert!(opened(engine, &mut client).is_empty(), "no website");
+        assert!(engine.script_errors.take().is_empty());
     });
 }

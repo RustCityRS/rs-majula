@@ -564,7 +564,7 @@ before `migrate`).
 | `--tcp-port <PORT>` | `43584 + node_id` (`43594`); 647: `39991 + node_id` (`40001`) | The game protocol port. |
 | `--private-key <PATH>` | `.keys/private.pem` | The RSA private key for the login handshake. |
 | `--real-ip-header <NAME>` | unset | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
-| `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`) | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. |
+| `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`) | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. On 647, in-game links (the advisor's forums, the members' game warning and so on) open on the first, and open nothing when unset. |
 
 **Database**
 

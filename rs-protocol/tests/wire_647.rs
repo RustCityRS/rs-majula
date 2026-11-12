@@ -1348,3 +1348,20 @@ fn reflection_checker_matches_client() {
     }
     p.done(bytes.len());
 }
+
+/// Client (URL_OPEN, 125, var-byte; `MapAreaConfig.java:441`): `rgdata` of the
+/// whole frame, read as CP-1252, is the URL the browser opens.
+#[test]
+fn url_open_matches_client() {
+    use rs_protocol::network::game::server::url_open::UrlOpen;
+    let url = "https://example.org/m=clan-forum/threads.ws?threadid=1A2B";
+    let message = UrlOpen { url };
+    assert_eq!(UrlOpen::PROT as u8, 125);
+    let bytes = encode(&message);
+    assert_eq!(
+        bytes,
+        url.as_bytes(),
+        "the URL, with no length or terminator"
+    );
+    assert_eq!(message.sizeof(), bytes.len());
+}

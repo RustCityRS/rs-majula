@@ -558,6 +558,7 @@ server_prot! {
     VarcStrLarge = 119,
     ObjCount = 121,
     RunClientScript = 122,
+    UrlOpen = 125,
     SpotanimSpecific = 126,
     IfMovesub = 127,
     IfSetNpcHead = 129,

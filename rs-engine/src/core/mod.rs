@@ -127,6 +127,8 @@ pub struct Engine {
     pub client_pathfinder: bool,
     pub(crate) input_paths: InputPaths,
     pub staff_isolation: bool,
+    #[cfg(since_647)]
+    pub(crate) site_origin: Option<String>,
     pub player_list: PlayerList,
     pub npc_list: NpcList,
     pub zones: ZoneMap,
@@ -312,6 +314,8 @@ impl Engine {
             client_pathfinder,
             input_paths: InputPaths::default(),
             staff_isolation: !cfg!(debug_assertions),
+            #[cfg(since_647)]
+            site_origin: None,
             player_list: PlayerList::new(),
             npc_list: NpcList::new(),
             zones,

@@ -199,6 +199,8 @@ pub mod update_zone_full_follows;
 pub mod update_zone_partial_enclosed;
 pub mod update_zone_partial_follows;
 #[cfg(since_647)]
+pub mod url_open;
+#[cfg(since_647)]
 pub mod varbit_large;
 #[cfg(since_647)]
 pub mod varbit_small;

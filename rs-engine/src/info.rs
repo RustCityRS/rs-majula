@@ -1556,6 +1556,8 @@ mod client_decode_tests {
             pending_path: None,
             #[cfg(since_647)]
             reflection: Default::default(),
+            #[cfg(since_647)]
+            last_link: None,
         }
     }
 

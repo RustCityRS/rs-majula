@@ -61,6 +61,8 @@ pub mod tut_clickside;
 #[cfg(since_647)]
 pub mod unsupported;
 #[cfg(since_647)]
+pub mod url_request;
+#[cfg(since_647)]
 pub mod window_status;
 
 use crate::active_player::ActivePlayer;

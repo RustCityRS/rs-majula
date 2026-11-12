@@ -6,7 +6,7 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 use rs_ver::STRING_TERMINATOR;
 
-#[client_prot(VarByte { min: 3 }, ClientEvent)]
+#[client_prot(VarByte { min: 3 }, UserEvent)]
 pub struct UrlRequest {
     pub url: String,
     pub text: String,

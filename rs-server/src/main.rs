@@ -887,6 +887,14 @@ async fn bootstrap(
         db_rx,
     );
     engine.replay_tx = replay_tx;
+    #[cfg(since_647)]
+    if let Some(origins) = &args.site_origin
+        && !engine.set_site_origin(origins)
+    {
+        warn!(
+            "--site-origin {origins:?}: in-game links need an http or https origin of at most 200 characters, so they open nothing"
+        );
+    }
     engine.set_pathfinder_threads(args.pathfinder_threads as usize)?;
     if let Some(isolation) = args.staff_isolation {
         engine.staff_isolation = isolation;

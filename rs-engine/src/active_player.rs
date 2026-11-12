@@ -407,6 +407,8 @@ pub struct ActivePlayer {
     pub(crate) pending_path: Option<PendingPath>,
     #[cfg(since_647)]
     pub(crate) reflection: ReflectionChecks,
+    #[cfg(since_647)]
+    pub(crate) last_link: Option<u32>,
 }
 
 /// The interface a component is on. From 647 a component is addressed as
@@ -503,6 +505,8 @@ impl ActivePlayer {
             pending_path: None,
             #[cfg(since_647)]
             reflection: ReflectionChecks::default(),
+            #[cfg(since_647)]
+            last_link: None,
         }
     }
 
