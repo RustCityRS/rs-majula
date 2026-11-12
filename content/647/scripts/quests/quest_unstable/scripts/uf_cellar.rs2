@@ -475,6 +475,19 @@ if (npc_find(coord, $npc, 40, 0) = true) {
     npc_walk(~uf_cellar_coord($x, $z));
 }
 
+// ::ufnpcto <npc> <type> <x> <z> turns a cellar npc into another type and walks it to a tile on
+// the same tick: for fitting Sir Vant's change of stance and place in the sleep cutscene's shot 101.
+[debugproc,ufnpcto](npc $npc, npc $type, int $x, int $z)
+if (region_findbycoord(coord) = false) {
+    mes("Not in a cellar: ::ufcellar first.");
+    return;
+}
+if (npc_find(coord, $npc, 40, 0) = true) {
+    npc_setmode(none);
+    npc_changetype($type, 200);
+    npc_walk(~uf_cellar_coord($x, $z));
+}
+
 // The cellar from the sleep cutscene's end (varp 281 93) on. Cache 786's world map area
 // tutorial3_2 (clientscript 2785 picks it from 93; tutorial3_3, from 120, keeps these three
 // subareas) draws the start room's east half, local x 32-39, z 8-23, from the square's x 56-63,

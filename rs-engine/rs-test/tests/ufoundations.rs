@@ -1668,6 +1668,7 @@ fn the_dragon_is_put_to_sleep() {
             .collect();
         let mut packets = first;
         let mut trail: Vec<(i32, Option<(u16, u16)>)> = Vec::new();
+        let mut vant: Vec<(u16, u16)> = Vec::new();
         for _ in 0..120 {
             let talk = converse(engine, &mut client, &[], 1);
             texts.extend(talk.texts);
@@ -1675,6 +1676,11 @@ fn the_dragon_is_put_to_sleep() {
             let now = shot(engine, &client);
             let tile = npc_tile(engine, "tutorial3_dragon_initial").map(|t| local(engine, t));
             trail.push((now, tile));
+            if now == 101 {
+                vant.extend(
+                    npc_tile(engine, "tutorial3_knight_distracting").map(|t| local(engine, t)),
+                );
+            }
             if now == 106 {
                 break;
             }
@@ -1709,6 +1715,11 @@ fn the_dragon_is_put_to_sleep() {
             "{texts:?}"
         );
         assert!(sent_text(&packets, "Grub's up! Shoo!"));
+        // Shot 101: Sir Vant is in the doorway as he shouts and a tile west of it, by its west
+        // post, two ticks on (4KO2h2xPtdM @203.67 in the doorway, @204.37 beside the post).
+        assert_eq!(vant.first(), Some(&(32, 16)), "{vant:?}");
+        assert_eq!(vant.get(2), Some(&(31, 16)), "{vant:?}");
+        assert_eq!(vant.last(), Some(&(31, 16)), "{vant:?}");
         // 2011's shots (4KO2h2xPtdM, cuts @202.67, 206.27, 211.04, 215.35, 216.45): clientscript
         // 2762's 101 to 105, the fade 106, then 107. Varc 1007 by VARC_SMALL,
         // `p1_alt2 value, p2_alt1 varc`.

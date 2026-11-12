@@ -65,13 +65,18 @@ p_delay(3);
 if_close;
 ~uf_cutscene_open;
 %tutorial3_cutscene_tracker = 101;
-// Shot 101 (6 ticks): Sir Vant at the wall, "Grub's up! Shoo!" (@204-205, V23 clip 850), his back
-// to the camera and his face to the dragon over the wall (@205.6).
+// Shot 101 (6 ticks): Sir Vant at the wall, "Grub's up! Shoo!" (from @203.27, V23 clip 850). He is
+// in the doorway to @203.67, steps out of it to the west (@203.87-204.37) and stops a tile along
+// the wall, his feet by the doorway's west post. From @204.47 to the cut he is down behind his
+// shield there, sword upright (@204.87-206.17): which seq that crouch is, no source says. Not his
+// 8848-8854 stances nor seq 12226-12230, 12233, 12267, 12268 or 12272 (in-client takes); 12229 has
+// the pose but rises after half a second. Here he stands at the tile.
 p_delay(0);
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 2, 0) = true) {
     npc_facesquare(~uf_cellar_coord(30, 21));
     npc_say("Grub's up! Shoo!");
     ~speech_line(vorbis_850);
+    npc_walk(~uf_cellar_coord(31, 16));
 }
 p_delay(4);
 // Shot 102 (8 ticks, @206.27-211.04): 2762's 102, high, moving north and looking south at the
