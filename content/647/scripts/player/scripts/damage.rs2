@@ -18,7 +18,8 @@ if ($dealt < 0) {
 }
 %life_points = calc(%life_points - $dealt);
 def_int $max = calc(stat_base(hitpoints) * 10);
-damage(uid, $type, $dealt, $soaked, calc(%life_points * 255 / $max));
+// Life points over the base level's (a boosted hitpoints level) still fill the bar.
+damage(uid, $type, $dealt, $soaked, min(255, calc(%life_points * 255 / $max)));
 
 [proc,damage_self](int $amount)
 ~damage_self_hitmark($amount, ^hitmark_damage);

@@ -81,3 +81,13 @@ assert_eq(~worn_absorb(^hitmark_ranged), 0);
 assert_eq(~damage_soaked(450, ^hitmark_ranged), 0);
 inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
 assert_eq(~worn_absorb(^hitmark_ranged), 11);
+
+// Life points over the base level's ten to a hitpoint still paint a full bar:
+// the bar's fill is a byte, and the hit is painted, not refused.
+[label,test_life_points_over_the_base_paint_a_full_bar]
+setup_player("test_player");
+def_int $max = calc(stat_base(hitpoints) * 10);
+%life_points = calc($max * 2);
+~player_damage(^hitmark_damage, 10);
+assert_eq(%life_points, calc($max * 2 - 10));
+assert_called_with("damage", "3,10,0,255");

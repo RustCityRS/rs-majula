@@ -27,6 +27,9 @@ const NO_DELAY: i32 = 0;
 /// A full health bar.
 const FULL: u32 = 255;
 
+/// The most a two-byte smart carries: a larger damage or soak is written as this.
+const SMART_MAX: u16 = 32767;
+
 /// The most a hit takes: a soaked hit's five smarts, its delay and its health bar.
 const MAX_SIZE: usize = 12;
 
@@ -52,9 +55,10 @@ impl Hit {
     /// mark and damage, the soak mark and the amount soaked; void-634
     /// `HitSplat.write`). `bright` is the view of its receiver and dealer;
     /// anyone else sees it darker, and sees no splat for a hit of nothing
-    /// (32766), only the health bar. Both views are the same length.
+    /// (32766), only the health bar. Both views are the same length (cache
+    /// 786's hitmarks all darken to a one-byte smart).
     pub fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>, bright: bool) {
-        if !bright && self.damage == 0 {
+        if !bright && self.damage == 0 && self.soak == 0 {
             buf.psmart1or2(HIT_NONE);
         } else {
             let darker = |mark: i32| {
@@ -68,10 +72,10 @@ impl Hit {
                 buf.psmart1or2(HIT_DOUBLE);
             }
             buf.psmart1or2(darker(self.hitmark as i32));
-            buf.psmart1or2(self.damage as i32);
+            buf.psmart1or2(self.damage.min(SMART_MAX) as i32);
             if self.soak > 0 {
                 buf.psmart1or2(darker(HITMARK_SOAK));
-                buf.psmart1or2(self.soak as i32);
+                buf.psmart1or2(self.soak.min(SMART_MAX) as i32);
             }
         }
         buf.psmart1or2(NO_DELAY);
@@ -82,5 +86,60 @@ impl Hit {
         let mut buf = Packet::from([0u8; MAX_SIZE]);
         self.encode(&mut buf, bright);
         buf.pos
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn smarts(hit: &Hit, bright: bool) -> Vec<i32> {
+        let mut buf = Packet::from([0u8; MAX_SIZE]);
+        hit.encode(&mut buf, bright);
+        let len = buf.pos;
+        buf.pos = 0;
+        let mut out = Vec::new();
+        while buf.pos < len - 1 {
+            out.push(buf.gsmart1or2());
+        }
+        out
+    }
+
+    #[test]
+    fn a_hit_past_a_smart_is_written_as_the_most_a_smart_carries() {
+        let hit = Hit {
+            hitmark: 3,
+            damage: u16::MAX,
+            soak: 40000,
+            health: 255,
+        };
+        assert_eq!(smarts(&hit, true), [32767, 3, 32767, 5, 32767, 0]);
+    }
+
+    #[test]
+    fn both_views_are_one_length() {
+        for hitmark in 0..=27 {
+            for damage in [0, 1, 127, 128, u16::MAX] {
+                for soak in [0, 1, 127, 128, u16::MAX] {
+                    let hit = Hit {
+                        hitmark,
+                        damage,
+                        soak,
+                        health: 0,
+                    };
+                    assert_eq!(hit.sizeof(false), hit.sizeof(true));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn a_bystander_sees_no_splat_for_a_hit_of_nothing() {
+        let hit = Hit {
+            hitmark: 8,
+            ..Hit::default()
+        };
+        assert_eq!(smarts(&hit, false), [HIT_NONE, 0]);
+        assert_eq!(smarts(&hit, true), [8, 0, 0]);
     }
 }
