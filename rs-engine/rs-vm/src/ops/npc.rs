@@ -61,6 +61,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, NPC_ANIM => |s, npc| {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{seq},{delay}");
+                test::record_call(NPC_ANIM, "npc_anim", &arg);
+            }
             npc.anim((seq != -1).then_some(seq as u16), delay);
         });
 
