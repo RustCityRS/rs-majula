@@ -598,8 +598,8 @@ mod tests {
     }
 }
 
-/// Ported from rs-native 2026-09-03. Kept in its own module because this
-/// file already has a `tests` module; the two test different things.
+/// Holds the trigger numbering against the compiler's table; `tests` pins
+/// the values the engine dispatches on.
 #[cfg(test)]
 mod compiler_contract {
     use super::*;
@@ -611,9 +611,7 @@ mod compiler_contract {
     /// is found by name, and content invokes it by the id it resolved to at
     /// compile time (`~proc()`, `p_queue`, `settimer`, the `walktrigger`
     /// command). We keep discriminants for them anyway so the numbering stays
-    /// aligned with the compiler's, and because both reference servers
-    /// (`ref/rs-majula`, `ref/ultraviolet-jordan-rs-server`) number them the
-    /// same way. Nothing may ever dispatch on these bytes.
+    /// aligned with the compiler's. Nothing may ever dispatch on these bytes.
     const NAME_KEYED: &[&str] = &[
         "proc",
         "label",

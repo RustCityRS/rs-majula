@@ -267,14 +267,15 @@ struct MapsquareData {
 
 /// Rev-647 mapsquares are stored as JS5 compression containers
 /// (`[type:1][len:4][payload]`, gzip or uncompressed) by the cache bridge.
+///
+/// # Panics
+/// On a container that does not decompress: the map decoders read unchecked,
+/// so a broken pack stops the load here.
 #[cfg(since_647)]
 fn decompress_map(data: &[u8]) -> Packet {
     match decompress(data) {
         Ok(bytes) => Packet::from(bytes.to_vec()),
-        Err(e) => {
-            tracing::warn!("Failed to decompress map data: {e}");
-            Packet::new(0)
-        }
+        Err(e) => panic!("Corrupt mapsquare container in the server pack: {e}"),
     }
 }
 
@@ -1354,5 +1355,24 @@ pub fn change_loc_collision(
                 rsmod::change_floor(x, z, y, add);
             }
         }
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod tests {
+    use super::decompress_map;
+    use rs_io::js5::compression::{CompressionType, compress};
+
+    #[test]
+    fn a_mapsquare_container_decompresses_whole() {
+        let container = compress(&[1, 2, 3], CompressionType::Gzip).unwrap();
+        let packet = decompress_map(&container);
+        assert_eq!(packet.len(), 3);
+    }
+
+    #[test]
+    #[should_panic(expected = "Corrupt mapsquare container")]
+    fn a_broken_mapsquare_container_stops_the_load() {
+        decompress_map(&[]);
     }
 }
