@@ -12,6 +12,9 @@
 //! decoded them with the 225-era layouts -- 8 bytes of a 15-byte frame -- and
 //! looked the source up as a pre-647 spell component, so every one of these
 //! was dropped.
+//!
+//! 647's player ops 6-10 (OPPLAYER6-10, past 289's five) approach the other
+//! player as ops 1-5 do, for `[applayerN]` and then `[opplayerN]`.
 
 #![cfg(since_647)]
 
@@ -89,6 +92,47 @@ fn a_targeted_op_takes_its_source_from_the_packet() {
         item_on_player(engine);
         forged_item_is_dropped(engine);
         a_forged_spell_source_is_dropped(engine);
+    });
+}
+
+/// A player op, its packet, and how the client writes ctrl and the pid.
+type PlayerOp = (u8, ClientProt, fn(&mut ClientPacket, i32));
+
+/// Each OPPLAYER6-10, written as `Statics1.do_action` does, approaches the
+/// other player for that op's `[applayerN]`.
+#[test]
+fn player_ops_6_to_10_approach_the_player() {
+    runner::on_loaded_engine(|engine| {
+        let sends: [PlayerOp; 5] = [
+            (6, ClientProt::OpPlayer6, |p, id| _ = p.p1(0).p2_alt2(id)),
+            (7, ClientProt::OpPlayer7, |p, id| _ = p.p1_alt2(0).p2(id)),
+            (8, ClientProt::OpPlayer8, |p, id| _ = p.p1(0).p2_alt1(id)),
+            (9, ClientProt::OpPlayer9, |p, id| _ = p.p2(id).p1_alt1(0)),
+            (10, ClientProt::OpPlayer10, |p, id| _ = p.p1_alt2(0).p2(id)),
+        ];
+        let (x, z) = TILE;
+        let mut client = player_at(engine, "op_player_n", x, z);
+        let other = engine
+            .harness_login_returning("op_player_target")
+            .expect("second login");
+        engine.harness_telejump(other.pid, x + 1, 0, z);
+        engine.cycle();
+        for (op, prot, write) in sends {
+            let mut p = ClientPacket::new();
+            write(&mut p, other.pid as i32);
+            client.send(prot, &p.finish());
+            engine.harness_inputs();
+            let interaction = &engine.harness_player(client.pid).unwrap().interaction;
+            let Some(InteractionTarget::Player { pid }) = interaction.target else {
+                panic!("op {op} targets no player");
+            };
+            assert_eq!(pid, other.pid, "op {op} targets the other player");
+            assert_eq!(
+                interaction.target_op,
+                ServerTriggerType::ap_player(op).map(|t| t as u8),
+                "op {op}"
+            );
+        }
     });
 }
 

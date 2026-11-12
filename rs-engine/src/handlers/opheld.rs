@@ -216,18 +216,10 @@ fn handle(
     active.player.move_request = false; // uses the dueling ring op to move whilst busy & queue pending: https://youtu.be/GPfN3Isl2rM
     active.player.info.clear_face_entity_player();
 
-    let trigger = match op {
-        1 => ServerTriggerType::OpHeld1,
-        2 => ServerTriggerType::OpHeld2,
-        3 => ServerTriggerType::OpHeld3,
-        4 => ServerTriggerType::OpHeld4,
-        5 => ServerTriggerType::OpHeld5,
-        _ => {
-            return Err(ScriptError::Client(format!(
-                "Trigger not found for op: {}",
-                op
-            )));
-        }
+    let Some(trigger) = u8::try_from(op).ok().and_then(ServerTriggerType::op_held) else {
+        return Err(ScriptError::Client(format!(
+            "Trigger not found for op: {op}"
+        )));
     };
 
     let result = engine_mut().run_script_by_trigger(

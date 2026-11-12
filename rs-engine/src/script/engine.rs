@@ -371,13 +371,8 @@ impl ScriptEngine for Engine {
     }
 
     fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: u16, slot: u16) {
-        let trigger = match op {
-            1 => ServerTriggerType::OpHeld1,
-            2 => ServerTriggerType::OpHeld2,
-            3 => ServerTriggerType::OpHeld3,
-            4 => ServerTriggerType::OpHeld4,
-            5 => ServerTriggerType::OpHeld5,
-            _ => return,
+        let Some(trigger) = u8::try_from(op).ok().and_then(ServerTriggerType::op_held) else {
+            return;
         };
         let category = self
             .cache

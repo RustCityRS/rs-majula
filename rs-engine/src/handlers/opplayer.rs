@@ -9,6 +9,16 @@ use rs_protocol::network::game::client::opplayer3::OpPlayer3;
 use rs_protocol::network::game::client::opplayer4::OpPlayer4;
 #[cfg(since_254)]
 use rs_protocol::network::game::client::opplayer5::OpPlayer5;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer6::OpPlayer6;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer7::OpPlayer7;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer8::OpPlayer8;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer9::OpPlayer9;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opplayer10::OpPlayer10;
 use rs_vm::ScriptError;
 use rs_vm::trigger::ServerTriggerType;
 
@@ -83,16 +93,51 @@ impl ClientGameHandler for OpPlayer5 {
     }
 }
 
-/// Shared handler for player-on-player operations (ops 1-5).
+#[cfg(since_647)]
+impl ClientGameHandler for OpPlayer6 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(6, self.pid, active)
+    }
+}
+
+#[cfg(since_647)]
+impl ClientGameHandler for OpPlayer7 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(7, self.pid, active)
+    }
+}
+
+#[cfg(since_647)]
+impl ClientGameHandler for OpPlayer8 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(8, self.pid, active)
+    }
+}
+
+#[cfg(since_647)]
+impl ClientGameHandler for OpPlayer9 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(9, self.pid, active)
+    }
+}
+
+#[cfg(since_647)]
+impl ClientGameHandler for OpPlayer10 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(10, self.pid, active)
+    }
+}
+
+/// Shared handler for player-on-player operations (ops 1-5, and from 647 6-10).
 ///
 /// Processes a right-click menu operation on another player (e.g., trade, follow,
 /// challenge). Validates the target player exists and is within the active player's
-/// build area, then sets up an approach-style interaction (`ApPlayer1`-`ApPlayer5`)
+/// build area, then sets up an approach-style interaction (`ApPlayer1`-`ApPlayer10`)
 /// that will trigger the corresponding script once the active player reaches the target.
 ///
 /// # Arguments
 ///
-/// * `op` - The operation number (1-5), corresponding to a right-click menu option.
+/// * `op` - The operation number (1-10), corresponding to a right-click menu option.
 /// * `pid` - The player ID (slot index) of the target player.
 /// * `active` - The active player whose client sent this message.
 ///
@@ -108,7 +153,7 @@ impl ClientGameHandler for OpPlayer5 {
 ///
 /// # Call Stack
 ///
-/// **Called by:** `OpPlayer1::handle` through `OpPlayer5::handle`
+/// **Called by:** `OpPlayer1::handle` through `OpPlayer10::handle`
 /// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 fn handle(op: u8, pid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     active.watch_op(Op::Player { op, pid });
@@ -123,12 +168,8 @@ fn handle(op: u8, pid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         return Ok(());
     }
 
-    let mode = match op {
-        1 => ServerTriggerType::ApPlayer1,
-        2 => ServerTriggerType::ApPlayer2,
-        3 => ServerTriggerType::ApPlayer3,
-        4 => ServerTriggerType::ApPlayer4,
-        _ => ServerTriggerType::ApPlayer5,
+    let Some(mode) = ServerTriggerType::ap_player(op) else {
+        return Ok(());
     };
 
     let target = InteractionTarget::Player { pid };

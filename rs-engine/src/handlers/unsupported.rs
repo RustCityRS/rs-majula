@@ -2,9 +2,9 @@ use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{
     ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName,
-    FriendSetRank, MessagePrivate, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6,
-    OpPlayer7, OpPlayer8, OpPlayer9, OpPlayer10, ReflectionCheckReply, ResumePClanforumqfcDialog,
-    ResumePHslDialog, ResumePNameDialog, ResumePObjDialog, UrlRequest, WorldlistFetch,
+    FriendSetRank, MessagePrivate, MessageQuickchatPrivate, MessageQuickchatPublic,
+    ReflectionCheckReply, ResumePClanforumqfcDialog, ResumePHslDialog, ResumePNameDialog,
+    ResumePObjDialog, UrlRequest, WorldlistFetch,
 };
 use rs_vm::ScriptError;
 use tracing::debug;
@@ -30,11 +30,6 @@ unsupported!(
     MessagePrivate => "647 private messaging through ether",
     MessageQuickchatPrivate => "quick chat",
     MessageQuickchatPublic => "quick chat",
-    OpPlayer6 => "player operation 6 triggers",
-    OpPlayer7 => "player operation 7 triggers",
-    OpPlayer8 => "player operation 8 triggers",
-    OpPlayer9 => "player operation 9 triggers",
-    OpPlayer10 => "player operation 10 triggers",
     ReflectionCheckReply => "pending reflection checks",
     ResumePClanforumqfcDialog => "clan-forum dialogs",
     ResumePHslDialog => "colour dialogs",

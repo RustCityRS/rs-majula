@@ -1084,10 +1084,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2077
         // https://x.com/JagexAsh/status/1791472651623370843
         protected_active_player_mut!(m, P_OPLOC => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid oploc: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_loc) else {
+                return Err(ScriptError::Runtime(format!("Invalid oploc: {op}")));
+            };
 
             let loc = s.active_loc
                 .ok_or_else(|| ScriptError::Runtime("no active_loc".into()))?;
@@ -1099,7 +1099,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
 
             if let Some(ops) = &loc_type.op {
-                if ops.get(op as usize).is_none_or(|o| o.is_none()) {
+                if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
                     return Ok(());
                 }
             } else {
@@ -1117,21 +1117,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             ) {
                 player.queue_waypoint(loc.coord);
             }
-            player.set_interaction_loc(
-                loc,
-                loc_type.width,
-                loc_type.length,
-                ServerTriggerType::ApLoc1 as u8 + op as u8,
-            );
+            player.set_interaction_loc(loc, loc_type.width, loc_type.length, mode as u8);
         });
 
         // 2078
         // https://x.com/JagexAsh/status/1791472651623370843
         protected_active_player_mut!(m, P_OPNPC => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid opnpc: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_npc) else {
+                return Err(ScriptError::Runtime(format!("Invalid opnpc: {op}")));
+            };
 
             let npc_uid = get_active_npc::<E>(s, s.int_operand() != 0)?.uid();
             let id = npc_uid.id();
@@ -1142,7 +1137,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::NpcNotFound(id as i32))?;
 
             if let Some(ops) = &npc_type.op {
-                if ops.get(op as usize).is_none_or(|o| o.is_none()) {
+                if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
                     return Ok(());
                 }
             } else {
@@ -1150,7 +1145,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
 
             player.stopaction()?;
-            player.set_interaction_npc(npc_uid.nid(), ServerTriggerType::ApNpc1 as u8 + op as u8);
+            player.set_interaction_npc(npc_uid.nid(), mode as u8);
         });
 
         // 2079
@@ -1173,10 +1168,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1791472651623370843
         // https://x.com/JagexAsh/status/1790684996480442796
         protected_active_player_mut!(m, P_OPOBJ => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid opobj: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_obj) else {
+                return Err(ScriptError::Runtime(format!("Invalid opobj: {op}")));
+            };
 
             let obj = s.active_obj
                 .ok_or_else(|| ScriptError::Runtime("no active_obj".into()))?;
@@ -1187,7 +1182,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
 
             if let Some(ops) = &obj_type.op {
-                if ops.get(op as usize).is_none_or(|o| o.is_none()) {
+                if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
                     return Ok(());
                 }
             } else {
@@ -1196,25 +1191,22 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.queue_waypoint(obj.coord);
-            player.set_interaction_obj(obj.coord, obj.id, obj.serial, ServerTriggerType::ApObj1 as u8 + op as u8);
+            player.set_interaction_obj(obj.coord, obj.id, obj.serial, mode as u8);
         });
 
         // 2081
         protected_active_player_mut!(m, P_OPPLAYER => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid opplayer: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_player) else {
+                return Err(ScriptError::Runtime(format!("Invalid opplayer: {op}")));
+            };
 
             let Some(target) = s.active_player2 else {
                 return Ok(());
             };
 
             player.stopaction()?;
-            player.set_interaction_player(
-                target.pid(),
-                ServerTriggerType::ApPlayer1 as u8 + op as u8,
-            );
+            player.set_interaction_player(target.pid(), mode as u8);
         });
 
         // 2082

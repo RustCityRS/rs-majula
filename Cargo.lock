@@ -3026,9 +3026,9 @@ dependencies = [
 
 [[package]]
 name = "rs-runec"
-version = "0.5.17"
+version = "0.5.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6eba672877290909c8e69083d3ca0c6a294c4a422f9b26ebf320da79a113f241"
+checksum = "2f3f272267a079c35613178bebf5bd3329f7ae68d00c0807a1d36ec5c27a6b25"
 dependencies = [
  "anyhow",
  "clap",
@@ -3905,9 +3905,9 @@ dependencies = [
 
 [[package]]
 name = "sysinfo"
-version = "0.40.1"
+version = "0.40.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e8a3edbe0394ce115f3917a00349dd242be09eb5a091ed509eaf67b55cfb8a8"
+checksum = "a86bac2f7d06e6384984118ad727f5694110f0ec44d924d05c8fdec3d030bee6"
 dependencies = [
  "libc",
  "memchr",

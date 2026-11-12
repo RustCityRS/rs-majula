@@ -185,12 +185,8 @@ fn handle(
         }
     }
 
-    let mode = match op {
-        1 => ServerTriggerType::ApObj1,
-        2 => ServerTriggerType::ApObj2,
-        3 => ServerTriggerType::ApObj3,
-        4 => ServerTriggerType::ApObj4,
-        _ => ServerTriggerType::ApObj5,
+    let Some(mode) = ServerTriggerType::ap_obj(op) else {
+        return Ok(());
     };
 
     let target = InteractionTarget::Obj {

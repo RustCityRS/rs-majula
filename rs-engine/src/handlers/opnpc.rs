@@ -177,12 +177,8 @@ fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         }
     }
 
-    let mode = match op {
-        1 => ServerTriggerType::ApNpc1,
-        2 => ServerTriggerType::ApNpc2,
-        3 => ServerTriggerType::ApNpc3,
-        4 => ServerTriggerType::ApNpc4,
-        _ => ServerTriggerType::ApNpc5,
+    let Some(mode) = ServerTriggerType::ap_npc(op) else {
+        return Ok(());
     };
 
     let target = InteractionTarget::Npc { nid };

@@ -170,23 +170,11 @@ fn handle(
     }
 
     let trigger = match op {
-        0 => ServerTriggerType::IfButton,
-        1 => ServerTriggerType::InvButton1,
-        2 => ServerTriggerType::InvButton2,
-        3 => ServerTriggerType::InvButton3,
-        4 => ServerTriggerType::InvButton4,
-        5 => ServerTriggerType::InvButton5,
-        #[cfg(since_647)]
-        6 => ServerTriggerType::InvButton6,
-        #[cfg(since_647)]
-        7 => ServerTriggerType::InvButton7,
-        #[cfg(since_647)]
-        8 => ServerTriggerType::InvButton8,
-        #[cfg(since_647)]
-        9 => ServerTriggerType::InvButton9,
-        #[cfg(since_647)]
-        10 => ServerTriggerType::InvButton10,
-        _ => return Err(ScriptError::Client(format!("Invalid interface op: {op}"))),
+        0 => Some(ServerTriggerType::IfButton),
+        _ => ServerTriggerType::inv_button(op),
+    };
+    let Some(trigger) = trigger else {
+        return Err(ScriptError::Client(format!("Invalid interface op: {op}")));
     };
     let protect = component_protected(active, com);
     let result = engine_mut().run_script_by_trigger(

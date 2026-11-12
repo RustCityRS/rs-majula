@@ -184,12 +184,8 @@ fn handle(
         return Ok(());
     }
 
-    let mode = match op {
-        1 => ServerTriggerType::ApLoc1,
-        2 => ServerTriggerType::ApLoc2,
-        3 => ServerTriggerType::ApLoc3,
-        4 => ServerTriggerType::ApLoc4,
-        _ => ServerTriggerType::ApLoc5,
+    let Some(mode) = ServerTriggerType::ap_loc(op) else {
+        return Ok(());
     };
 
     let target = loc_target(CoordGrid::new(x, y, z), loc);

@@ -111,6 +111,26 @@ pub enum ServerTriggerType {
     OpPlayer5 = 98,
     OpPlayerU = 99,
     OpPlayerT = 100,
+    #[cfg(since_647)]
+    ApPlayer6 = 182,
+    #[cfg(since_647)]
+    ApPlayer7 = 183,
+    #[cfg(since_647)]
+    ApPlayer8 = 184,
+    #[cfg(since_647)]
+    ApPlayer9 = 185,
+    #[cfg(since_647)]
+    ApPlayer10 = 186,
+    #[cfg(since_647)]
+    OpPlayer6 = 189,
+    #[cfg(since_647)]
+    OpPlayer7 = 190,
+    #[cfg(since_647)]
+    OpPlayer8 = 191,
+    #[cfg(since_647)]
+    OpPlayer9 = 192,
+    #[cfg(since_647)]
+    OpPlayer10 = 193,
     AiApPlayer1 = 101,
     AiApPlayer2 = 102,
     AiApPlayer3 = 103,
@@ -204,6 +224,52 @@ pub enum ServerTriggerType {
 }
 
 impl ServerTriggerType {
+    /// The approach trigger for npc op `op` (1-5).
+    pub fn ap_npc(op: u8) -> Option<Self> {
+        Self::numbered(Self::ApNpc1, op)
+    }
+
+    /// The approach trigger for loc op `op` (1-5).
+    pub fn ap_loc(op: u8) -> Option<Self> {
+        Self::numbered(Self::ApLoc1, op)
+    }
+
+    /// The approach trigger for obj op `op` (1-5).
+    pub fn ap_obj(op: u8) -> Option<Self> {
+        Self::numbered(Self::ApObj1, op)
+    }
+
+    /// The approach trigger for player op `op`: 1-5, and from 647 6-10.
+    pub fn ap_player(op: u8) -> Option<Self> {
+        match op {
+            #[cfg(since_647)]
+            6..=10 => Self::numbered(Self::ApPlayer6, op - 5),
+            _ => Self::numbered(Self::ApPlayer1, op),
+        }
+    }
+
+    /// The trigger for held obj op `op` (1-5).
+    pub fn op_held(op: u8) -> Option<Self> {
+        Self::numbered(Self::OpHeld1, op)
+    }
+
+    /// The trigger for inventory button op `op`: 1-5, and from 647 6-10.
+    pub fn inv_button(op: u8) -> Option<Self> {
+        match op {
+            #[cfg(since_647)]
+            6..=10 => Self::numbered(Self::InvButton6, op - 5),
+            _ => Self::numbered(Self::InvButton1, op),
+        }
+    }
+
+    /// The `n`th (1-5) of the five triggers numbered from `first`.
+    fn numbered(first: Self, n: u8) -> Option<Self> {
+        if !(1..=5).contains(&n) {
+            return None;
+        }
+        Self::try_from(first as u8 + n - 1).ok()
+    }
+
     /// Returns whether this trigger type provides `last_use` (the item used on the target).
     ///
     /// Only `*U` (use-item-on) trigger variants return `true`. Scripts accessing
@@ -495,6 +561,36 @@ mod tests {
         assert!(ServerTriggerType::InvButton10.allows_last_item());
     }
 
+    /// Op `n` of each family is its `n`th trigger, player and inventory
+    /// button ops up to 10 from 647, and a player op's trigger is 7 past its
+    /// approach.
+    #[test]
+    fn numbered_op_triggers() {
+        type Family = (fn(u8) -> Option<ServerTriggerType>, &'static str, u8);
+        let ten = if cfg!(since_647) { 10 } else { 5 };
+        let families: [Family; 6] = [
+            (ServerTriggerType::ap_npc, "ApNpc", 5),
+            (ServerTriggerType::ap_loc, "ApLoc", 5),
+            (ServerTriggerType::ap_obj, "ApObj", 5),
+            (ServerTriggerType::ap_player, "ApPlayer", ten),
+            (ServerTriggerType::op_held, "OpHeld", 5),
+            (ServerTriggerType::inv_button, "InvButton", ten),
+        ];
+        for (trigger, name, last) in families {
+            assert_eq!(trigger(0), None, "{name}0");
+            for n in 1..=last {
+                let found = trigger(n).map(|t| format!("{t:?}"));
+                assert_eq!(found, Some(format!("{name}{n}")));
+            }
+            assert_eq!(trigger(last + 1), None, "{name} past {last}");
+        }
+        for op in 1..=ten {
+            let ap = ServerTriggerType::ap_player(op).unwrap() as u8;
+            let trigger = ServerTriggerType::try_from(ap + 7).unwrap();
+            assert_eq!(format!("{trigger:?}"), format!("OpPlayer{op}"));
+        }
+    }
+
     #[allow(clippy::clone_on_copy)]
     #[test]
     fn clone_and_copy() {
@@ -708,9 +804,10 @@ mod compiler_contract {
 
         // Guards against losing coverage silently: a variant deleted here, or a
         // keyword the compiler stops emitting, moves one of these counts.
-        // The five `InvButton6..10` variants, `Area`/`AreaExit` and the
-        // controllers' `AiConQueue`/`AiConTimer` exist only from rev 647.
-        let expected = if cfg!(since_647) { (152, 8) } else { (143, 8) };
+        // The five `InvButton6..10` variants, the player ops 6-10,
+        // `Area`/`AreaExit` and the controllers' `AiConQueue`/`AiConTimer`
+        // exist only from rev 647.
+        let expected = if cfg!(since_647) { (162, 8) } else { (143, 8) };
         assert_eq!(
             (matched, name_keyed),
             expected,
