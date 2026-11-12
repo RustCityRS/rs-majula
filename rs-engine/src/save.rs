@@ -62,9 +62,6 @@ pub struct PlayerProfile {
     /// in: the region's exit coord, else the map tile the player came from.
     /// `None` outside region space, and always before 647.
     pub exit: Option<CoordGrid>,
-    /// Rev-647: display name claimed via `p_setdisplayname`. Loaded with the
-    /// profile but written only by the claim itself (never by the profile
-    /// save), and absent from the binary `.sav` fallback format.
     #[cfg(since_647)]
     pub display_name: Option<String>,
 }
