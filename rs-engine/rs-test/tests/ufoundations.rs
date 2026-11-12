@@ -2361,6 +2361,20 @@ fn the_way_out_to_lumbridge() {
             .iter()
             .position(|t| t.contains("Congratulations, you've reached level 2."));
         assert!(level.is_some() && level < roddeck, "{boxes:?}");
+        // 2011's forced breaks: the next sentence starts the box's next line.
+        for line in [
+            "Once more should suffice.",
+            "Congratulations, you've reached level 2.",
+        ] {
+            assert!(boxes.iter().any(|t| t == line), "{line}: {boxes:?}");
+        }
+        // The swing's line is a box, and the first break-off's too.
+        assert!(
+            boxes
+                .iter()
+                .any(|t| t == "You swing your pick at the rock."),
+            "{boxes:?}"
+        );
         assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
         // The Task System's How To Train and Level (425) once the boxes are closed, its line alone
         // (a first Task), and no Skill in Mining (3518) popup (4KO2h2xPtdM @569-577).
@@ -2439,7 +2453,9 @@ fn the_way_out_to_lumbridge() {
             let here = engine.harness_player(client.pid).unwrap().pathing.coord;
             (here.x(), here.z())
         };
-        assert_eq!(side(engine, &client), at(13, 35));
+        // The first time the move goes on into Explorer Jack's cellar (@588.5 the player stands
+        // on (9, 36)).
+        assert_eq!(side(engine, &client), at(9, 36));
         for x in [15, 13] {
             oploc1(
                 &mut client,
@@ -2447,7 +2463,7 @@ fn the_way_out_to_lumbridge() {
                 rx,
                 rz,
             );
-            let again = cycles(engine, &mut client, 8);
+            let again = cycles(engine, &mut client, 12);
             assert_eq!(side(engine, &client), at(x, 35));
             assert!(
                 !rs_test::talk::settexts(&again)
@@ -2456,7 +2472,37 @@ fn the_way_out_to_lumbridge() {
             );
         }
 
-        // The ladder up: Explorer Jack's house, the quest's end.
+        // Sir Vant and Roddeck come through the hole after the player: Sir Vant to (10, 45) by
+        // the ladder, Roddeck to (12, 40), as themselves again (4KO2h2xPtdM @585-597).
+        let mut trail = Vec::new();
+        for _ in 0..50 {
+            cycles(engine, &mut client, 1);
+            let vant = npc_tile(engine, "tutorial3_knight_waitingforbattle")
+                .or_else(|| npc_tile(engine, "tutorial3_knight_walkoverrocks"));
+            let roddeck = roddeck_tile(engine)
+                .or_else(|| npc_tile(engine, "tutorial3_advisor_walkoverrocks"));
+            trail.push((
+                vant.map(|t| local(engine, t)),
+                roddeck.map(|t| local(engine, t)),
+            ));
+        }
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            Some(at(10, 45)),
+            "{trail:?}"
+        );
+        assert_eq!(roddeck_tile(engine), Some(at(12, 40)), "{trail:?}");
+        // And there they stay: the talks before the hole left both in wander mode, which walks an
+        // npc back to the tile it was added on.
+        cycles(engine, &mut client, 40);
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            Some(at(10, 45))
+        );
+        assert_eq!(roddeck_tile(engine), Some(at(12, 40)));
+
+        // The ladder up: s078 from Sir Vant, then Explorer Jack's house, the quest's end
+        // (@597-603).
         engine.harness_telejump(client.pid, origin.0 + 6, 0, origin.1 + 44);
         cycles(engine, &mut client, 3);
         let (lx, lz) = at(6, 45);
@@ -2466,6 +2512,10 @@ fn the_way_out_to_lumbridge() {
             lx,
             lz,
         );
+        let thanks = until_box(engine, &mut client, "Thank you again for your help", 10);
+        assert!(speech(&thanks).contains(&704), "s078's clip");
+        assert_eq!(progress(engine, &client), 170, "not up before the line");
+        converse(engine, &mut client, &[], 1);
         let up = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 1000, "the quest complete");
         // The house is a large copy of Lumbridge: 2011's minimap shows the town all round it,
@@ -2963,6 +3013,20 @@ fn until_box(
     panic!("no chat box said {needle:?} in {max} ticks");
 }
 
+/// A login once through the hole finds Sir Vant and Roddeck where they followed to.
+#[test]
+fn through_the_hole_sir_vant_and_roddeck_wait_in_the_kitchen() {
+    runner::on_loaded_engine(|engine| {
+        let client = at_stage(engine, "uf_follow_in", 170);
+        let origin = player_origin(engine, &client);
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            Some((origin.0 + 10, origin.1 + 45))
+        );
+        assert_eq!(roddeck_tile(engine), Some((origin.0 + 12, origin.1 + 40)));
+    });
+}
+
 /// A click on the floor shuts a chat box and drops the script waiting on it. What a line leads
 /// to still happens: the plan's last line opens the quest list, and eating the drugged meat has
 /// Sir Vant's s018 (first E4MP65bl3sI 2011-01-15 @312), with the meat kept.
@@ -3039,7 +3103,8 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
         converse(engine, &mut client, &[], 120);
         cycles(engine, &mut client, 4);
         oploc1(&mut client, rock, px, pz);
-        until_box(engine, &mut client, "You have reached level 2 Mining.", 120);
+        // Within a few ticks of the swing: its box, which has no continue, must not hold the level's up.
+        until_box(engine, &mut client, "You have reached level 2 Mining.", 12);
         assert_eq!(progress(engine, &client), 140, "under the level's box");
         walk_near(engine, &mut client);
         let after = cycles(engine, &mut client, 4);

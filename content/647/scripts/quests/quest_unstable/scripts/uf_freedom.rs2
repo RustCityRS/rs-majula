@@ -14,11 +14,16 @@
 // user's account of 2011, and 4KO2's minimap: uf_house_build); Explorer Jack stands in it on
 // (3204, 3241) as in the static world (n50_50).
 
-// The ladder up (loc 45784 on local (6, 21)).
+// The ladder up (loc 45784 on local (6, 21)). Its click brings s078 from Sir Vant (V70, clip
+// 704), who stands four tiles east of the player; the climb follows the box's continue
+// (4KO2h2xPtdM 2011-04-30 @597-603).
 [oploc1,tutorial3_cellar_ladder_exit]
 if (%tutorial < 170) {
     return;
 }
+~speech_line(vorbis_704);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Thank you again for your help with the dragon. You'll receive a little reward for completing the quest when you get outside.");
+clearsofttimer(uf_follow);
 anim(human_reachforladder, 0);
 p_delay(0);
 ~uf_house_enter;
