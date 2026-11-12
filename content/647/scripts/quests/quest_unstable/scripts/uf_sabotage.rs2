@@ -40,7 +40,7 @@ if (%tutorial >= 96 & %tutorial < 115) {
     if (%tutorial3_leftpillar = 2 & %tutorial3_rightpillar = 2) {
         // s034 (V73, clip 931): both pillars ready.
         ~speech_line(vorbis_931);
-        ~chatnpc("<p,neutral>Thanks, that's perfect. Now, hand me a tinderbox.");
+        ~chatnpc("<p,neutral>Thanks, that's perfect.|Now, hand me a tinderbox.");
         return;
     }
     if (%tutorial = 96) {
@@ -206,7 +206,7 @@ if ($item = tutorial3_rag_oily) {
 if ($item = tutorial3_rag) {
     // s031a (promi6pWj8k @627), V105 (clip 750).
     ~speech_line(vorbis_750);
-    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You're supposed to soak the rag in oil first. Try using the rag with the oil can.");
+    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You're supposed to soak the rag in oil first.|Try using the rag with the oil can.");
     return;
 }
 if ($item = tutorial3_bigcloth | $item = tutorial3_bigcloth_oily) {

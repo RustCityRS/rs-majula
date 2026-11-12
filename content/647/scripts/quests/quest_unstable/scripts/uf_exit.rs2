@@ -132,13 +132,13 @@ if (%tutorial < 145) {
     // without this talk (uf_blockage_failed).
     if (~uf_mining = true) {
         ~speech_line(vorbis_3174);
-        ~chatnpc("<p,neutral>So, your aim is to get a Mining level of 2? Okay, I'll find you something to train on.");
+        ~chatnpc("<p,neutral>So, your aim is to get a Mining level of 2?|Okay, I'll find you something to train on.");
         ~speech_line(vorbis_1067);
         ~chatnpc("<p,neutral>Ah, I have something! You can practice mining on the rocks that fell into my cellar when the roof collapsed.");
         %tutorial3_tool = 1;
     } else {
         ~speech_line(vorbis_3172);
-        ~chatnpc("<p,neutral>So, your aim is to get a Woodcutting level of 2? Okay, I'll find you something to train on.");
+        ~chatnpc("<p,neutral>So, your aim is to get a Woodcutting level of 2?|Okay, I'll find you something to train on.");
         ~speech_line(vorbis_1101);
         ~chatnpc("<p,neutral>Ah, I have something! You can practice chopping those roots growing through the wall.");
         %tutorial3_tool = 3;
@@ -230,14 +230,14 @@ anim(null, 0);
 if ($rocks = true & stat_base(mining) < 2) {
     p_delay(2);
     ~speech_line(vorbis_1531);
-    ~mesbox("You'll need a Mining level of 2 to clear the rocks. Your Mining level is 1.");
+    ~mesbox("You'll need a Mining level of 2 to clear the rocks.|Your Mining level is 1.");
     ~uf_blockage_failed;
     return;
 }
 if ($rocks = false & stat_base(woodcutting) < 2) {
     p_delay(2);
     ~speech_line(vorbis_1353);
-    ~mesbox("You find that you'll need a Woodcutting level of 2 to clear the roots. Your Woodcutting level is 1.");
+    ~mesbox("You find that you'll need a Woodcutting level of 2 to clear the roots.|Your Woodcutting level is 1.");
     ~uf_blockage_failed;
     return;
 }
@@ -295,6 +295,10 @@ if_sethide(stats:advice_layer, false);
 // successfully chop will yield some chippings and 42 experience ... Gaining 83 experience ...
 // will allow you to reach level 2"). s063 / s064, s065m / s065 the first time ("Once more should
 // suffice.", unvoiced), s065a after; the first chippings bring s066 / s067 (R73 / R74).
+// The boxes (4KO2h2xPtdM 2011-04-30, Qh_-AMJpVd0 2011-05-10, fE0GdVcmJ9E 2011-01-23): the swing's
+// line is a chat box with no continue, the break-off lines message boxes with one. On the swing
+// that brings the level its box follows the swing's (Qh_-AMJpVd0 @398.19 -> @400.93); whether
+// s065a shows then no frame tells: it stays a chat line here.
 [oploc1,tutorial3_training_rock_1_withop] ~uf_practice(true);
 [oploc1,tutorial3_training_rock_2_withop] ~uf_practice(true);
 [oploc1,tutorial3_training_rock_3_withop] ~uf_practice(true);
@@ -308,43 +312,66 @@ if_sethide(stats:advice_layer, false);
 if ($rocks = true) {
     anim(human_mining_bronze_pickaxe, 0);
     ~speech_line(vorbis_1431);
-    mes("You swing your pick at the rock.");
+    ~mesbox_np("You swing your pick at the rock.");
 } else {
     anim(human_woodcutting_bronze_hatchet, 0);
     ~speech_line(vorbis_1684);
-    mes("You swing your hatchet at the root.");
+    ~mesbox_np("You swing your hatchet at the root.");
 }
 p_delay(3);
 anim(null, 0);
 def_boolean $first = false;
+def_int $level = 0;
 if ($rocks = true) {
     if (inv_total(inv, tutorial3_chippings_stone) = 0 & stat(mining) < 2) {
         $first = true;
     }
     inv_add(inv, tutorial3_chippings_stone, 1);
+    $level = stat_base(mining);
     stat_advance(mining, 420);
     if ($first = true) {
-        mes("You break off some bits of rock, gaining 42 Mining experience. Once more should suffice.");
-        ~speech_line(vorbis_3176);
-        ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>You've mined a few stone chippings from that rock. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from mining once you're out of this cellar.");
-    } else {
+        queue(uf_chippings_line, 0, 0);
+        ~mesbox("You break off some bits of rock, gaining 42 Mining experience.|Once more should suffice.");
+    } else if (stat_base(mining) > $level) {
+        // The swing's box off: the level's (levelup.rs2) waits behind an open one.
+        if_close;
         ~speech_line(vorbis_1482);
         mes("You break off some more bits of rock.");
+    } else {
+        ~speech_line(vorbis_1482);
+        ~mesbox("You break off some more bits of rock.");
     }
 } else {
     if (inv_total(inv, tutorial3_chippings_wood) = 0 & stat(woodcutting) < 2) {
         $first = true;
     }
     inv_add(inv, tutorial3_chippings_wood, 1);
+    $level = stat_base(woodcutting);
     stat_advance(woodcutting, 420);
     if ($first = true) {
-        mes("You break off some bits of wood, gaining 42 Woodcutting experience. Once more should suffice.");
-        ~speech_line(vorbis_3171);
-        ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>You've chopped off a few wood chippings from that root. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from cutting wood once you're out of this cellar.");
-    } else {
+        queue(uf_chippings_line, 0, 0);
+        ~mesbox("You break off some bits of wood, gaining 42 Woodcutting experience.|Once more should suffice.");
+    } else if (stat_base(woodcutting) > $level) {
+        // The swing's box off: the level's (levelup.rs2) waits behind an open one.
+        if_close;
         ~speech_line(vorbis_1777);
         mes("You break off some more bits of wood.");
+    } else {
+        ~speech_line(vorbis_1777);
+        ~mesbox("You break off some more bits of wood.");
     }
+}
+
+// Roddeck's word on the first chippings (s066 / s067), once the break-off box is gone: by its
+// continue (Qh_-AMJpVd0 2011-05-10: the box @391.58, its continue clicked @392.62, Roddeck
+// @393.22), or by a click on the floor, which would drop a line waiting behind the box.
+[queue,uf_chippings_line]
+if (~uf_mining = true) {
+    ~speech_line(vorbis_3176);
+    ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>You've mined a few stone chippings from that rock. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from mining once you're out of this cellar.");
+} else {
+    ~speech_line(vorbis_3171);
+    ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>You've chopped off a few wood chippings from that root. The chippings are now in your inventory - they're not particularly useful, but you'll get more useful goods from cutting wood once you're out of this cellar.");
 }
 
 // Level 2 at the practice spot (150), on the continue of the level's box (levelup.rs2): the
@@ -363,7 +390,7 @@ if (~uf_mining = true & $stat = mining & stat_base(mining) >= 2) {
     ~uf_task_tab;
     ~uf_task_pin;
     ~speech_line(vorbis_1074);
-    ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Congratulations, you've reached level 2. You should now be able to mine through the rocks in the damaged wall.");
+    ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Congratulations, you've reached level 2.|You should now be able to mine through the rocks in the damaged wall.");
     return;
 }
 if (~uf_mining = false & $stat = woodcutting & stat_base(woodcutting) >= 2) {
@@ -372,7 +399,7 @@ if (~uf_mining = false & $stat = woodcutting & stat_base(woodcutting) >= 2) {
     ~uf_task_tab;
     ~uf_task_pin;
     ~speech_line(vorbis_1142);
-    ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Congratulations, you've reached level 2. You should now be able to chop through the tree roots in the damaged wall.");
+    ~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Congratulations, you've reached level 2.|You should now be able to chop through the tree roots in the damaged wall.");
 }
 
 // The level's box gone by a click on the floor: its continue runs ~uf_levelled itself, and this
@@ -407,6 +434,11 @@ if (inv_total(worn, $tool) > 0) {
 // and 2011's frames (@582.9-583.5) show a raised knee with the arms down. No source names the seq.
 // Back into the cellar the same way from the other side: no recording shows it, ours.
 // That the popup waits on the box by a queue: ours.
+// Past the wall the move goes on into Explorer Jack's cellar: the box is up from @583.54 to its
+// continue @588.77, and the player stands on (9, 36) by @588.5 (minimap), four tiles west and one
+// north of the tile behind the rocks. When they got there and by what kind of move no frame
+// shows: here a second forced move at a walk, the first one over. The roots' hole is in no
+// recording: the same offsets from it.
 [oploc1,tutorial3_mine_wall_end] ~uf_through_hole;
 [oploc1,tutorial3_vine_wall_end] ~uf_through_hole;
 
@@ -433,6 +465,8 @@ if (coordx(coord) < coordx(loc_coord)) {
 if (%tutorial >= 170) {
     return;
 }
+p_exactmove(movecoord(loc_coord, -1, 0, 0), movecoord(loc_coord, -5, 0, 1), 0, 120, ^exact_west);
+softtimer(uf_follow, 1);
 if (~uf_mining = true) {
     ~uf_tool_back(bronze_pickaxe);
     ~speech_line(vorbis_1632);
@@ -454,3 +488,150 @@ if (~uf_mining = true) {
 
 [queue,uf_exit_popup]
 %varclient_1425 = 3514;
+
+// Sir Vant and Roddeck come through the hole after the player and wait in Explorer Jack's cellar.
+// 4KO2h2xPtdM (2011-04-30), read off the minimap every half second, local tiles:
+// - Sir Vant, at a run: (22, 38) @585.0, (20, 40) @585.5, west along z 40 to (16, 40) @587.0,
+//   (15, 39), south to (15, 35) by @589.0; he stands there to @589.5; through the wall a tile a
+//   tick, (12, 35) by @591.0; north to (12, 37) at a walk by @592.5; then at a run to (10, 45),
+//   where he stands from @596.
+// - Roddeck, at a walk: (23, 32) @585.0, (21, 30) @586.5, (18, 30) @588.0, (17, 34) @590.0,
+//   (15, 35) @591.0, through the wall to (12, 35) by @593.0, north to (12, 40), where he stands
+//   from @597.
+// Both are on their way by @585.0 (earlier frames show neither): they leave as the player comes
+// out of the hole. Neither waits for the ladder's click (@593.0).
+// Through the wall they are cache 786's tutorial3_knight_walkoverrocks (8853) and
+// tutorial3_advisor_walkoverrocks (8863), whose walk is a hop (bas_1617, seq 12280): the names
+// say so, and Sir Vant leans forward as he comes out (@591.5-592.0); no frame is clear enough to
+// prove the seq. The hole's loc blocks the tile, so they are placed across it a tile a tick.
+// The roots' way is in no recording: the same route to its hole, then the same tiles.
+// A timer on the player moves each by where it stands, so one held up a tick goes on.
+// It runs for as long as the player is in the cellar. A talk leaves an npc in the engine's wander
+// mode (chat.rs2's chatnpc sets playerfaceclose, and the engine falls back to the type's default
+// mode after it), and wander walks an npc back to the tile it was added on, behind the wall: each
+// tick puts a wandering one back to none, and a step it took on its way again.
+[softtimer,uf_follow]
+if (%tutorial < 165 | %tutorial >= 1000 | region_findbycoord(coord) = false) {
+    clearsofttimer(uf_follow);
+    return;
+}
+def_int $hole = 35;
+if (~uf_mining = false) {
+    $hole = 38;
+}
+~uf_follow_vant($hole);
+~uf_follow_roddeck($hole);
+
+[proc,uf_follow_find](npc $standing, npc $hopping)(boolean)
+if (npc_find(~uf_cellar_coord(18, 38), $standing, 20, 0) = true) {
+    return(true);
+}
+return(npc_find(~uf_cellar_coord(18, 38), $hopping, 20, 0));
+
+// To the ladder.
+[proc,uf_follow_vant](int $hole)
+if (~uf_follow_find(tutorial3_knight_waitingforbattle, tutorial3_knight_walkoverrocks) = false) {
+    return;
+}
+if (npc_getmode = wander) {
+    npc_setmode(none);
+}
+def_coord $origin = ~uf_cellar_coord(0, 0);
+def_int $x = calc(coordx(npc_coord) - coordx($origin));
+def_int $z = calc(coordz(npc_coord) - coordz($origin));
+if ($x > 15) {
+    npc_run(1);
+    if ($x > 22) {
+        npc_walk(~uf_cellar_coord(22, 38));
+    } else if ($x > 20) {
+        npc_walk(~uf_cellar_coord(20, 40));
+    } else if ($x > 16) {
+        npc_walk(~uf_cellar_coord(16, 40));
+    } else {
+        npc_walk(~uf_cellar_coord(15, $hole));
+    }
+    return;
+}
+if ($x = 15 & $z ! $hole) {
+    npc_walk(~uf_cellar_coord(15, $hole));
+    return;
+}
+if ($x > 12) {
+    npc_run(0);
+    ~uf_follow_through($x, $hole, tutorial3_knight_walkoverrocks);
+    return;
+}
+if (npc_type = tutorial3_knight_walkoverrocks) {
+    npc_changetype(tutorial3_knight_waitingforbattle, ^uf_cellar_obj_duration);
+}
+if ($z < 37) {
+    npc_walk(~uf_cellar_coord(12, 37));
+    return;
+}
+if ($x = 10 & $z = 45) {
+    npc_run(0);
+    return;
+}
+npc_run(1);
+npc_walk(~uf_cellar_coord(10, 45));
+
+// To the shelves.
+[proc,uf_follow_roddeck](int $hole)
+if (~uf_follow_find(roddeck_8867, tutorial3_advisor_walkoverrocks) = false) {
+    return;
+}
+if (npc_getmode = wander) {
+    npc_setmode(none);
+}
+def_coord $origin = ~uf_cellar_coord(0, 0);
+def_int $x = calc(coordx(npc_coord) - coordx($origin));
+def_int $z = calc(coordz(npc_coord) - coordz($origin));
+if ($x > 23) {
+    npc_walk(~uf_cellar_coord(23, 32));
+    return;
+}
+if ($x > 21) {
+    npc_walk(~uf_cellar_coord(21, 30));
+    return;
+}
+if ($x > 18) {
+    npc_walk(~uf_cellar_coord(18, 30));
+    return;
+}
+if ($x = 18 | ($x = 17 & $z < 34)) {
+    npc_walk(~uf_cellar_coord(17, 34));
+    return;
+}
+if ($x > 15 | ($x = 15 & $z ! $hole)) {
+    npc_walk(~uf_cellar_coord(15, $hole));
+    return;
+}
+if ($x > 12) {
+    ~uf_follow_through($x, $hole, tutorial3_advisor_walkoverrocks);
+    return;
+}
+if (npc_type = tutorial3_advisor_walkoverrocks) {
+    npc_changetype(roddeck_8867, ^uf_cellar_obj_duration);
+}
+if ($x = 12 & $z = 40) {
+    return;
+}
+npc_walk(~uf_cellar_coord(12, 40));
+
+// From the tile east of the hole (15) onto it, off it, and a step on.
+[proc,uf_follow_through](int $x, int $hole, npc $hopping)
+if ($x = 15) {
+    npc_changetype($hopping, ^uf_cellar_obj_duration);
+    npc_tele(~uf_cellar_coord(14, $hole));
+} else if ($x = 14) {
+    npc_tele(~uf_cellar_coord(13, $hole));
+} else {
+    npc_walk(~uf_cellar_coord(12, $hole));
+}
+
+// Spoken to on their way through the wall.
+[opnpc1,tutorial3_knight_walkoverrocks] ~uf_vant_exit;
+
+[opnpc1,tutorial3_advisor_walkoverrocks]
+~speech_line(vorbis_1065);
+~chatnpc("<p,neutral>Great! We can climb through the hole in the wall now. Thank you.");

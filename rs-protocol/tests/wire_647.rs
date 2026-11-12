@@ -459,6 +459,17 @@ fn logout_matches_client() {
     assert_eq!(Logout.sizeof(), 0);
 }
 
+/// Client LOGOUT_FULL (`ServerProt.java`: id 128, size 0; `MapAreaConfig.java:1056`): reads
+/// nothing and goes to the login screen, from the lobby or not (`MSITypeList.method2035(false)`).
+#[test]
+fn logout_full_matches_client() {
+    use rs_protocol::network::game::server::logout_full::LogoutFull;
+    use rs_protocol::network::game::server_prot::ServerProt;
+    assert_eq!(ServerProt::LogoutFull as u8, 128);
+    assert!(encode(&LogoutFull).is_empty());
+    assert_eq!(LogoutFull.sizeof(), 0);
+}
+
 /// Client VORBIS_SPEECH_STOP (`ServerProt.java`: id 66, size 0; `MapAreaConfig.java:401`):
 /// reads nothing and stops every queued voice-over clip.
 #[test]

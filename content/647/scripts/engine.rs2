@@ -281,8 +281,9 @@
 [command,uid]()(player_uid)
 // info: Get the secondary player's UID to use in finduid/p_finduid later
 [command,.uid]()(player_uid)
-// info: Request the player to log out
-[command,p_logout]
+// info: Request the player to log out: where the client places it, the lobby when it came
+// through it ($lobby true, LOGOUT), or the login screen always (false, 647's LOGOUT_FULL)
+[command,p_logout](boolean $lobby)
 // info: Prevent logout for a duration
 [command,p_preventlogout](string $message, int $duration)
 // info: Prevent logout for a duration on the secondary pointer

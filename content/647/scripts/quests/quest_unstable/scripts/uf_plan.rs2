@@ -249,4 +249,4 @@ if_closesub(chattop:chatoverlay);
 
 [proc,uf_high_wall]
 ~speech_line(vorbis_755);
-~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You'll never get over the wall there. Try going to the eastern end where it's lower.");
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You'll never get over the wall there.|Try going to the eastern end where it's lower.");

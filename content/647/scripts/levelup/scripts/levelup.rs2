@@ -70,7 +70,9 @@ spotanim_pl(levelup_anim, 124, 0);
 // none), so none plays.
 // 289 plays the stat's second jingle at a level that unlocks something
 // (levelup_unlocks.enum). 2011's "changes ... to be slightly more complex,
-// whenever the skill reaches level 50" (2011 wiki, Skills).
+// whenever the skill reaches level 50" (2011 wiki, Skills, 15 May 2011): the
+// second jingles are the ones with more notes. No 2011 recording at hand has a
+// level-up that tells the two rules apart (each is level 4 or below).
 // def_enum $unlocks_levels = db_getfield($unlock_row, levelup:unlocks_levels, 0);
 // def_boolean $has_unlocks = false;
 // if ($unlocks_levels ! null) {

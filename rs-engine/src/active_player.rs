@@ -278,6 +278,8 @@ use rs_protocol::network::game::server::last_login_info::LastLoginInfo;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::logout::Logout;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::logout_full::LogoutFull;
 use rs_protocol::network::game::server::message_game::MessageGame;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::message_public;
@@ -1729,6 +1731,13 @@ impl ActivePlayer {
     pub fn logout(&mut self) {
         self.watch_end();
         self.player.logout_sent = true;
+        // The player's own Exit to Login: past the lobby. Every other logout is the client's
+        // to place (the lobby when it came from it).
+        #[cfg(since_647)]
+        if self.player.logout_full && self.player.logout_requested {
+            self.write(LogoutFull);
+            return;
+        }
         self.write(Logout);
     }
 

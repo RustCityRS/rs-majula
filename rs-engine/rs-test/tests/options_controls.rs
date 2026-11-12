@@ -12,7 +12,8 @@
 //!   logout button as the logout tab's Exit to Login (182 com10).
 //! - Exit to Lobby (182 com5), and five idle minutes, send LOGOUT (62): 2011's
 //!   client takes a connection closed without it for a lost one and
-//!   reconnects.
+//!   reconnects. Exit to Login (com10) sends LOGOUT_FULL (128), which the
+//!   client takes to the login screen even when it came through the lobby.
 //! - `::readerstall` sends one IF_SETTEXT whose body fills 2011's client
 //!   packet buffer (15000 bytes): the client takes it only once its 15000-byte
 //!   socket buffer is full, which empties it, so its reader thread stalls and
@@ -241,6 +242,23 @@ fn exit_to_lobby_sends_logout() {
         engine.cycle();
         let packets = click(engine, &mut client, com(182, 5));
         assert!(logged_out(&packets), "told to log out");
+    });
+}
+
+#[test]
+fn exit_to_login_sends_logout_full() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "loginward");
+        engine.harness_open_side(client.pid, 182);
+        engine.cycle();
+        let packets = click(engine, &mut client, com(182, 10));
+        assert!(
+            packets
+                .iter()
+                .any(|(op, _)| *op == ServerProt::LogoutFull as u16),
+            "told to log out to the login screen"
+        );
+        assert!(!logged_out(&packets), "and not to the lobby");
     });
 }
 

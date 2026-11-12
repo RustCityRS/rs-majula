@@ -140,7 +140,7 @@ if (~uf_kit_held = 3) {
 } else {
     // s005a (E4MP65bl3sI 2011-01-15 @200), V86 (clip 988).
     ~speech_line(vorbis_988);
-    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait! You're not properly armed. Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
+    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait! You're not properly armed.|Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
 }
 return(false);
 

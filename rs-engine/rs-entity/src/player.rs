@@ -152,6 +152,8 @@ pub struct Player {
     pub chat_filters: u8,
     pub logout_requested: bool,
     pub logout_idle_requested: bool,
+    #[cfg(since_647)]
+    pub logout_full: bool,
     pub logout_prevented_until: Option<u32>,
     pub logout_prevented_message: Option<Box<str>>,
     pub logout_sent: bool,
@@ -316,6 +318,8 @@ impl Player {
             chat_filters: 0,
             logout_requested: false,
             logout_idle_requested: false,
+            #[cfg(since_647)]
+            logout_full: false,
             #[cfg(since_647)]
             pending_login: true,
             #[cfg(since_647)]

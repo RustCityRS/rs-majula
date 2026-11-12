@@ -752,6 +752,12 @@ impl ScriptPlayer for ActivePlayer {
         self.player.logout_requested = requested;
     }
 
+    #[cfg(since_647)]
+    fn logout_full(&mut self) {
+        self.player.logout_requested = true;
+        self.player.logout_full = true;
+    }
+
     /// Prevents the player from logging out until the specified tick.
     ///
     /// # Call Stack

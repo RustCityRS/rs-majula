@@ -535,6 +535,10 @@ impl Engine {
         active.watch.anticheat.resumed();
         active.player.logout_requested = false;
         active.player.logout_idle_requested = false;
+        #[cfg(since_647)]
+        {
+            active.player.logout_full = false;
+        }
         active.player.logout_sent = false;
         active.player.disconnected_at = None;
         active.player.last_response = clock;

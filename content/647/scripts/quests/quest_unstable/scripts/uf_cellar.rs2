@@ -143,10 +143,18 @@ if ($p >= 117) {
     // After the roof came down: Roddeck's cellar in the region, Sir Vant by the rubble, Roddeck
     // out of his cupboard (uf_collapse.rs2).
     ~uf_cellar_collapsed;
-    npc_add(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 0);
-    npc_setmode(none);
-    npc_add(~uf_cellar_coord(26, 33), roddeck_8867, 0);
-    npc_setmode(none);
+    if ($p >= 170) {
+        // Through the hole after the player, by the ladder and the shelves (uf_exit.rs2).
+        npc_add(~uf_cellar_coord(10, 45), tutorial3_knight_waitingforbattle, 0);
+        npc_setmode(none);
+        npc_add(~uf_cellar_coord(12, 40), roddeck_8867, 0);
+        npc_setmode(none);
+    } else {
+        npc_add(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 0);
+        npc_setmode(none);
+        npc_add(~uf_cellar_coord(26, 33), roddeck_8867, 0);
+        npc_setmode(none);
+    }
     if (%tutorial = 117) {
         %tutorial = 125;
     }
