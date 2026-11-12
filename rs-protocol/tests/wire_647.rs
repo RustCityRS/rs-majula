@@ -995,7 +995,30 @@ fn update_inv_full_matches_client() {
         }
         assert_eq!(slots, [(995, 100_000), (-1, 0), (1351, 1)]);
         p.done(bytes.len());
+        assert_eq!(inv.sizeof(), bytes.len());
     }
+}
+
+/// An inventory of nothing but large stacks is the longest there is: the
+/// packet's buffer is sized by `sizeof`, so it may never come up short.
+#[test]
+fn update_inv_full_of_large_stacks_is_sized_whole() {
+    use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
+    let inv = UpdateInvFull {
+        inv_id: 93,
+        other: false,
+        capacity: 28,
+        slots: vec![
+            Some(InvItem {
+                id: 554,
+                count: 1_000,
+            });
+            28
+        ],
+    };
+    let bytes = encode(&inv);
+    assert_eq!(bytes.len(), 5 + 28 * 7);
+    assert_eq!(inv.sizeof(), bytes.len());
 }
 
 #[test]

@@ -153,8 +153,16 @@ impl ServerProtMessage for UpdateInvFull {
     }
 
     fn sizeof(&self) -> usize {
-        // 5-byte header + 3–7 bytes per slot; oversize slightly so the
-        // buffer is never under-allocated for sparse / dense inventories.
-        (3 + self.capacity as usize * 7).max(64)
+        size_of_val(&self.inv_id)
+            + size_of_val(&self.other)
+            + size_of_val(&self.capacity)
+            + self
+                .slots
+                .iter()
+                .map(|slot| match slot {
+                    Some(item) if item.count >= 255 => 7,
+                    _ => 3,
+                })
+                .sum::<usize>()
     }
 }
