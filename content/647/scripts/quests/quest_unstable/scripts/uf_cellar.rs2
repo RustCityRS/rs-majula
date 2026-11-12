@@ -172,7 +172,7 @@ if (p_finduid(uid) = false) { return; }
 // l57_77.jm2 places its bag, bowl, pillars, walls, cupboard and ladder, and the square is not part
 // of the static world. The copy's (0,0) is the region's (16,16): the client's cutscene camera paths
 // (cs2 2764) add 16 to every point (design note 8.2), so the square's 8x8 zones sit two zones in.
-// A region nobody has been in for 50 ticks is freed; a player who logs out in it comes back to the
+// A region goes the tick its last player leaves; a player who logs out in it comes back to the
 // tile they came from, and login builds them a fresh cellar.
 [proc,uf_cellar_enter_at](int $x, int $z)
 region_create(4, 10, 10);
@@ -207,7 +207,7 @@ p_telejump(~uf_cellar_coord($x, $z));
 return(region_getcoord(0, calc(16 + $x), calc(16 + $z)));
 
 // ::ufcellar <x> <z> builds a cellar and puts you on its local tile (<x>, <z>); ::ufcellarleave
-// puts you back in Lumbridge (the copy goes 50 ticks later). For matching 2011's recordings tile
+// puts you back in Lumbridge (the copy goes as you leave). For matching 2011's recordings tile
 // by tile.
 [debugproc,ufcellar](int $x, int $z)
 if_close;

@@ -468,13 +468,18 @@ impl Engine {
 /// * `cursor` -- The id the list added last; the scan starts just after it.
 /// * `upper` -- Exclusive upper bound of the scan before it wraps.
 /// * `lower` -- First id checked after wrapping: 1 for pids, so pid 0 is
-///   never handed out, and 0 for nids.
+///   never handed out, and 0 for nids and region slots.
 /// * `is_free` -- Whether an id's slot is empty.
 ///
 /// # Call Stack
 ///
-/// **Called by:** `PlayerList::next_pid`, `NpcList::next_nid`.
-fn next_free_id(cursor: u16, upper: u16, lower: u16, is_free: impl Fn(u16) -> bool) -> Option<u16> {
+/// **Called by:** `PlayerList::next_pid`, `NpcList::next_nid`, `Regions::allocate`.
+pub(crate) fn next_free_id(
+    cursor: u16,
+    upper: u16,
+    lower: u16,
+    is_free: impl Fn(u16) -> bool,
+) -> Option<u16> {
     for i in (cursor + 1)..upper {
         if is_free(i) {
             return Some(i);

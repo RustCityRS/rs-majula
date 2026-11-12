@@ -1,5 +1,5 @@
 use crate::console::home_for;
-use crate::core::{Engine, PendingZoneEvent};
+use crate::core::{Engine, PendingZoneEvent, next_free_id};
 use crate::map::{
     BLOCK_MAP_SQUARE, GameMap, LINK_BELOW, MAPSQUARE, REMOVE_ROOFS, SquareTemplate,
     apply_loc_collision, change_loc_collision,
@@ -24,9 +24,6 @@ const LARGE_Z: u16 = 5248;
 const SMALL_SLOTS: usize = 51 * 27;
 const SLOTS: usize = SMALL_SLOTS + 25 * 28;
 const QUARANTINE: u32 = 500;
-/// How long a region stays with nobody in it, counting from its creation
-/// until someone comes, before it is freed: time for a script to build one
-/// and bring its players.
 pub(crate) const FREE_AFTER: u32 = 50;
 const NONE: u32 = u32::MAX;
 const SQUARES: usize = 64;
@@ -64,6 +61,10 @@ impl Layout {
 
     const fn stride(&self) -> u16 {
         self.tiles + PADDING
+    }
+
+    const fn count(&self) -> u16 {
+        self.columns * self.rows
     }
 }
 
@@ -166,8 +167,9 @@ const fn rotate_loc(x: u8, z: u8, width: u8, length: u8, angle: u8, rotation: u8
 /// exit to, the zones copied onto its slot of region space, the active locs
 /// on the map by the zone column their south-west tile stands on (a turned
 /// zone can put one west or south of the region, in the padding), how many
-/// zones past its own zone the longest loc copied so far can block, and the
-/// last tick a player was in it (its creation until one is).
+/// zones past its own zone the longest loc copied so far can block, the last
+/// tick a player was in it (its creation until one is) and whether one has
+/// been.
 pub struct Region {
     pub uid: RegionUid,
     zones: u16,
@@ -179,6 +181,7 @@ pub struct Region {
     statics: FxHashMap<(i16, i16), Vec<(CoordGrid, LocSerial)>>,
     spill: u16,
     seen: u32,
+    entered: bool,
 }
 
 impl Region {
@@ -205,11 +208,13 @@ struct Slot {
     freed: Option<u32>,
 }
 
-/// Every slot of region space, each size handed out lowest id first, the
-/// order the instancing page numbers them in, and a freed slot never within
-/// [`QUARANTINE`] ticks of its freeing.
+/// Every slot of region space and the last one each size handed out. Each
+/// size goes round its slots in the order the instancing page numbers them,
+/// from #1, as OSRS does, passing over any in use or within [`QUARANTINE`]
+/// ticks of its freeing.
 pub struct Regions {
     slots: Box<[Slot]>,
+    last: [u16; 2],
     squares: FxHashMap<(u16, u16), SquareTemplate>,
 }
 
@@ -217,6 +222,7 @@ impl Default for Regions {
     fn default() -> Regions {
         Regions {
             slots: (0..SLOTS).map(|_| Slot::default()).collect(),
+            last: [SMALL.count() - 1, LARGE.count() - 1],
             squares: FxHashMap::default(),
         }
     }
@@ -278,23 +284,25 @@ impl Regions {
         ))
     }
 
-    /// Takes the lowest free slot for a region of `levels` levels and `east`
-    /// x `north` zones: a small one if it fits, else a large one.
+    /// Takes the next free slot after the last one its size handed out, for
+    /// a region of `levels` levels and `east` x `north` zones: a small one if
+    /// it fits, else a large one.
     fn allocate(&mut self, levels: u8, east: u16, north: u16, clock: u32) -> Option<RegionUid> {
         let small = SMALL.tiles >> 3;
-        let layout = if east > small || north > small {
-            &LARGE
+        let (layout, size) = if east > small || north > small {
+            (&LARGE, 1)
         } else {
-            &SMALL
+            (&SMALL, 0)
         };
-        let count = (layout.columns * layout.rows) as usize;
-        let id = (layout.first..layout.first + count).find(|&id| {
-            let slot = &self.slots[id];
+        let index = next_free_id(self.last[size], layout.count(), 0, |index| {
+            let slot = &self.slots[layout.first + index as usize];
             slot.region.is_none()
                 && slot
                     .freed
                     .is_none_or(|freed| clock.wrapping_sub(freed) >= QUARANTINE)
         })?;
+        self.last[size] = index;
+        let id = layout.first + index as usize;
         let slot = &mut self.slots[id];
         slot.generation = (slot.generation + 1) & 0xFFFFF;
         let zones = layout.tiles >> 3;
@@ -310,6 +318,7 @@ impl Regions {
             statics: FxHashMap::default(),
             spill: 1,
             seen: clock,
+            entered: false,
         });
         Some(uid)
     }
@@ -895,8 +904,9 @@ impl Engine {
         }
     }
 
-    /// Frees each region nobody has been in for [`FREE_AFTER`] ticks, a new
-    /// one counting from its creation.
+    /// Frees each region its last player left this tick, as OSRS deletes an
+    /// instance once its last player leaves, and each one no player came to
+    /// within [`FREE_AFTER`] ticks of its creation.
     pub(crate) fn free_empty_regions(&mut self) {
         let clock = self.clock;
         for active in self.player_list.players.iter().flatten() {
@@ -905,6 +915,7 @@ impl Engine {
                 .and_then(|slot| self.regions.slots[slot].region.as_mut())
             {
                 region.seen = clock;
+                region.entered = true;
             }
         }
         let empty: Vec<RegionUid> = self
@@ -912,7 +923,13 @@ impl Engine {
             .slots
             .iter()
             .filter_map(|slot| slot.region.as_ref())
-            .filter(|region| clock.wrapping_sub(region.seen) >= FREE_AFTER)
+            .filter(|region| {
+                if region.entered {
+                    region.seen != clock
+                } else {
+                    clock.wrapping_sub(region.seen) >= FREE_AFTER
+                }
+            })
             .map(|region| region.uid)
             .collect();
         for uid in empty {
@@ -921,12 +938,12 @@ impl Engine {
     }
 
     /// Frees region `uid`: any players in it leave by its way out, or home,
-    /// its npcs and controllers are deleted, its zones, and those of the
-    /// padding west and south of it its turned locs reach, lose their objs,
-    /// locs, pending events and free-to-play marks, and its collision goes
-    /// now, so nothing later this tick can add, place or teleport anything
-    /// into it. Its zones go at cleanup. Its slot waits out [`QUARANTINE`]
-    /// before the next region.
+    /// its npcs, controllers and delayed drops are deleted, its zones, and
+    /// those of the padding west and south of it its turned locs reach, lose
+    /// their objs, locs, pending events and free-to-play marks, and its
+    /// collision goes now, so nothing later this tick can add, place or
+    /// teleport anything into it. Its zones go at cleanup. Its slot waits out
+    /// [`QUARANTINE`] before the next region.
     ///
     /// Zone presence moves with every step and teleport, so the zones' lists
     /// hold everything standing in the region.
@@ -962,6 +979,13 @@ impl Engine {
             self.deactivate_npc(nid);
         }
         self.controllers.remove_where(inside);
+        let mut next = self.obj_delayed_queue.head();
+        while let Some(idx) = next {
+            next = self.obj_delayed_queue.next();
+            if inside(self.obj_delayed_queue.get(idx).coord) {
+                self.obj_delayed_queue.unlink(idx);
+            }
+        }
         for events in self.pending_zone_events.values_mut() {
             events.retain(|event| {
                 !inside(match event {
@@ -1266,23 +1290,36 @@ mod tests {
         );
     }
 
+    fn free(regions: &mut Regions, slot: usize, clock: u32) {
+        regions.slots[slot].region = None;
+        regions.slots[slot].freed = Some(clock);
+    }
+
     #[test]
-    fn slots_go_lowest_free_first_once_out_of_quarantine() {
+    fn slots_go_round_past_ones_in_use_or_in_quarantine() {
         let mut regions = Regions::default();
-        let first = regions.allocate(4, 16, 16, 0).unwrap();
-        let second = regions.allocate(4, 16, 16, 0).unwrap();
-        assert_eq!((first.slot(), second.slot()), (0, 1));
+        let lap: Vec<_> = (0..SMALL_SLOTS)
+            .map(|_| regions.allocate(1, 1, 1, 0).unwrap())
+            .collect();
+        assert!(
+            lap.iter()
+                .enumerate()
+                .all(|(slot, uid)| uid.slot() as usize == slot)
+        );
         let large = regions.allocate(1, 17, 1, 0).unwrap();
         assert_eq!(large.slot() as usize, SMALL_SLOTS);
-        let slot = first.slot() as usize;
-        regions.slots[slot].region = None;
-        regions.slots[slot].freed = Some(10);
-        let third = regions.allocate(4, 16, 16, 9 + QUARANTINE).unwrap();
-        assert_eq!(third.slot(), 2);
-        let fourth = regions.allocate(4, 16, 16, 10 + QUARANTINE).unwrap();
-        assert_eq!(fourth.slot(), first.slot());
-        assert_ne!(fourth, first);
-        assert!(regions.get(first).is_none());
-        assert!(regions.get(fourth).is_some());
+        assert!(regions.allocate(1, 1, 1, 0).is_none());
+
+        free(&mut regions, 1, 10);
+        free(&mut regions, 2, 10);
+        assert!(regions.allocate(1, 1, 1, 9 + QUARANTINE).is_none());
+        let reused = regions.allocate(1, 1, 1, 10 + QUARANTINE).unwrap();
+        assert_eq!(reused.slot(), 1);
+        assert_ne!(reused, lap[1]);
+        assert!(regions.get(lap[1]).is_none());
+
+        free(&mut regions, 1, 20);
+        let next = regions.allocate(1, 1, 1, 20 + QUARANTINE).unwrap();
+        assert_eq!(next.slot(), 2, "the freed slot behind it waits a lap");
     }
 }

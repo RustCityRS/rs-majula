@@ -12,8 +12,8 @@
 npc_add(controller_coord, horror_dagganoth_jr, 50);
 npc_damage(^hitmark_damage, last_int);
 
-// A region is found by any of its tiles and by its uid, and freed once
-// nobody has been in it for 50 ticks, counting from its creation.
+// A region is found by any of its tiles and by its uid, and freed 50 ticks
+// after its creation if no player comes.
 [label,test_region_find_and_free]
 def_coord $origin = region_create(4, 16, 16)
 def_region_uid $uid = region_uid
@@ -37,6 +37,41 @@ region_set(0, 0, 0, 0_50_50_16_16, 0)
 p_telejump(movecoord($origin, 4, 0, 4))
 test_tick(60)
 assert_true(region_findbycoord($origin))
+
+// A region goes the tick its last player leaves, as OSRS deletes an
+// instance.
+[label,test_a_region_goes_when_its_last_player_leaves]
+def_player_uid $player = setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+def_region_uid $uid = region_uid
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+test_tick(5)
+assert_true(region_findbyuid($uid))
+assert_true(p_finduid($player))
+p_telejump(0_50_50_20_20)
+test_tick(1)
+assert_false(region_findbyuid($uid))
+
+// A drop still on its way when the region's last player leaves goes with
+// the region, rather than landing in its freed slot.
+[label,test_a_delayed_drop_goes_with_its_region]
+def_player_uid $player = setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+inv_add(inv, coins, 20)
+inv_dropitem_delayed(inv, $inside, coins, 10, 1000, 3)
+test_tick(5)
+assert_true(obj_find($inside, coins))
+assert_true(p_finduid($player))
+def_coord $later = movecoord($inside, 1, 0, 0)
+inv_dropitem_delayed(inv, $later, coins, 10, 1000, 3)
+p_telejump(0_50_50_20_20)
+test_tick(5)
+assert_false(obj_find($later, coins))
 
 // region_getcoord takes the level, then the tiles east and north.
 [label,test_region_getcoord_takes_the_level_first]
@@ -66,7 +101,7 @@ assert_true(coord = $copy)
 // Its own region lets a player in; once left and freed, its old tiles stay
 // out of reach.
 [label,test_region_teleports_need_their_region]
-setup_player("test_player")
+def_player_uid $player = setup_player("test_player")
 p_telejump(0_50_50_20_20)
 def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
 region_set(0, 0, 0, 0_50_50_16_16, 0)
@@ -75,6 +110,7 @@ assert_true(coord = $inside)
 p_telejump(0_50_50_20_20)
 test_tick(60)
 assert_false(region_findbycoord($inside))
+assert_true(p_finduid($player))
 p_telejump($inside)
 assert_true(coord = 0_50_50_20_20)
 
@@ -118,7 +154,7 @@ assert_true(region_getcoord(0, 0, 0) = $first)
 // An npc added in a region for 0 ticks stays until the region goes, as the
 // leaked KBD instance adds its dragon; outside a region 0 is 1 tick.
 [label,test_an_npc_added_in_a_region_for_0_ticks_stays]
-setup_player("test_player")
+def_player_uid $player = setup_player("test_player")
 def_coord $origin = region_create(1, 1, 1)
 region_set(0, 0, 0, 0_50_50_16_16, 0)
 p_telejump(movecoord($origin, 2, 0, 2))
@@ -129,6 +165,7 @@ def_npc_uid $outside = npc_uid;
 test_tick(20)
 assert_true(npc_finduid($man))
 assert_false(npc_finduid($outside))
+assert_true(p_finduid($player))
 p_telejump(0_50_50_20_20)
 test_tick(60)
 assert_false(npc_finduid($man))

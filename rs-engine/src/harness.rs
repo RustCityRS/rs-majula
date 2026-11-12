@@ -534,8 +534,8 @@ impl Engine {
         self.region_coord(uid, level, x, z).ok()
     }
 
-    /// Frees region `uid` now, as the engine does once nobody has been in it
-    /// for a while.
+    /// Frees region `uid` now, as the engine does once its last player
+    /// leaves.
     pub fn harness_region_free(&mut self, uid: RegionUid) {
         self.free_region(uid);
     }

@@ -1141,7 +1141,7 @@
 [command,date_runeday]()(int)
 
 // Region ops (5200-5299)
-// info: Get access to the region (instance) covering $coord
+// info: Get access to the region (instance) covering $coord now. A later region can take a freed one's slot, so to come back to a region keep its region_uid for region_findbyuid
 [command,region_findbycoord](coord $coord)(boolean)
 // info: Get access to the region (instance) covering $coord as the secondary region
 [command,.region_findbycoord](coord $coord)(boolean)
@@ -1149,7 +1149,7 @@
 [command,region_getcoord](int $levelOffset, int $xOffset, int $zOffset)(coord)
 // info: Get the coord $xOffset, $zOffset tiles from the secondary region's south-west corner on level $levelOffset
 [command,.region_getcoord](int $levelOffset, int $xOffset, int $zOffset)(coord)
-// info: Create a region of $levels levels and $zonesEast x $zonesNorth zones, get access to it and its south-west corner: a 128x128 slot if it fits (16x16 zones), else a 320x320 one (40x40). Once nobody has been in it for 50 ticks it is freed with everything in it
+// info: Create a region of $levels levels and $zonesEast x $zonesNorth zones, get access to it and its south-west corner: a 128x128 slot if it fits (16x16 zones), else a 320x320 one (40x40). It is freed with everything in it the tick its last player leaves, or 50 ticks after its creation if no player comes
 [command,region_create](int $levels, int $zonesEast, int $zonesNorth)(coord)
 // info: Create a region as region_create does, as the secondary region
 [command,.region_create](int $levels, int $zonesEast, int $zonesNorth)(coord)

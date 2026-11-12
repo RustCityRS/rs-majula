@@ -63,8 +63,7 @@ p_telejump(~instance_tile($source, $from, $rotation, %config43_3));
 mes("Turned <tostring($rotation)>.");
 
 // ::instanceleave takes you back to the tile you entered the instance from,
-// where logging out in it would. The region goes once nobody has been in it
-// for 50 ticks.
+// where logging out in it would. The region goes the tick you leave it.
 [debugproc,instanceleave]
 if_close;
 if (p_finduid(uid) = false) { return; }

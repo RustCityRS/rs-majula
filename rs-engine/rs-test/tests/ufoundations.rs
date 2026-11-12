@@ -13,7 +13,7 @@
 //!   shot 5 the dragon's fireball burns him: he is gone a tick after it lands, his kit lies on
 //!   (32, 13) and the ladder on (32, 12) is the burnt one; in shot 7 the player panics, seq 12270
 //!   (refs GAPS 18, timed against 4KO2h2xPtdM).
-//! - A region nobody is in is freed after 50 ticks; logging back in mid-tutorial builds a fresh one
+//! - A region is freed the tick its last player leaves; logging back in mid-tutorial builds a fresh one
 //!   at the start tile (no source says where 2011 put them).
 
 #![cfg(since_647)]
@@ -1177,9 +1177,9 @@ fn at_stage(engine: &mut Engine, name: &str, stage: i32) -> HarnessClient {
     client.packets();
     create_character(engine, &mut client);
     cheat(&mut client, &format!("~ufstage {stage}"));
-    // The creation's cellar, left empty, is freed after 50 ticks: then its Sir Vant and the rest
-    // are gone, and npc lookups find this cellar's.
-    let packets = cycles(engine, &mut client, 56);
+    // The creation's cellar goes the tick the player leaves it, with its Sir Vant and the rest,
+    // so npc lookups find this cellar's.
+    let packets = cycles(engine, &mut client, 5);
     assert_eq!(progress(engine, &client), stage);
     if (10..45).contains(&stage) {
         assert!(
