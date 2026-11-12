@@ -3027,6 +3027,97 @@ fn through_the_hole_sir_vant_and_roddeck_wait_in_the_kitchen() {
     });
 }
 
+/// The roots' way out, the hole on (14, 38): the player's move goes on to (9, 39), Roddeck has his
+/// hatchet back, and Sir Vant and Roddeck come through that hole to the tiles the rocks' way
+/// brings them to.
+#[test]
+fn the_roots_way_out_brings_them_through_too() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = at_stage(engine, "uf_roots", 150);
+        set_varbit(engine, &client, "tutorial3_tool", 2);
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = StaffModLevel::Maintainer;
+        cheat(&mut client, "~ufstage 160");
+        cycles(engine, &mut client, 5);
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = StaffModLevel::Normal;
+        assert_eq!(progress(engine, &client), 160);
+        let origin = player_origin(engine, &client);
+        let at = |x: u16, z: u16| (origin.0 + x, origin.1 + z);
+        let axe = obj_id(engine, "bronze_axe");
+        give(engine, &client, 0, axe, 1);
+        let (hx, hz) = at(14, 38);
+        assert!(
+            loc_ids(engine, hx, hz).contains(&loc_id(engine, "tutorial3_vine_wall_end")),
+            "the roots' hole is open"
+        );
+        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 38);
+        cycles(engine, &mut client, 3);
+        oploc1(
+            &mut client,
+            loc_id(engine, "tutorial3_vine_wall_end"),
+            hx,
+            hz,
+        );
+        // Where the two stand each tick from the click on, as world tiles.
+        let mut hole = Vec::new();
+        let mut trail = Vec::new();
+        for _ in 0..80 {
+            hole.extend(cycles(engine, &mut client, 1));
+            let vant = npc_tile(engine, "tutorial3_knight_waitingforbattle")
+                .or_else(|| npc_tile(engine, "tutorial3_knight_walkoverrocks"));
+            let roddeck = roddeck_tile(engine)
+                .or_else(|| npc_tile(engine, "tutorial3_advisor_walkoverrocks"));
+            trail.push((vant, roddeck));
+        }
+        assert_eq!(progress(engine, &client), 170, "To Freedom!");
+        assert!(slot_of(engine, &client, axe).is_none());
+        assert!(
+            rs_test::talk::settexts(&hole)
+                .iter()
+                .any(|(_, t)| t.contains("Roddeck retrieves his hatchet from you."))
+        );
+        let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!((here.x(), here.z()), at(9, 39));
+        assert!(
+            !rsmod::is_flagged(here.x(), here.z(), 0, 0x100 | 0x200000),
+            "the tile the move ends on is floor"
+        );
+        let through = [Some(at(14, 38)), Some(at(13, 38))];
+        assert!(
+            trail.iter().any(|(vant, _)| through.contains(vant)),
+            "Sir Vant through the roots' hole: {trail:?}"
+        );
+        assert!(
+            trail.iter().any(|(_, roddeck)| through.contains(roddeck)),
+            "Roddeck through the roots' hole: {trail:?}"
+        );
+        let rocks = [Some(at(14, 35)), Some(at(13, 35))];
+        assert!(
+            !trail
+                .iter()
+                .any(|(vant, roddeck)| rocks.contains(vant) || rocks.contains(roddeck)),
+            "neither by the rocks' way: {trail:?}"
+        );
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            Some(at(10, 45)),
+            "{trail:?}"
+        );
+        assert_eq!(roddeck_tile(engine), Some(at(12, 40)), "{trail:?}");
+        cycles(engine, &mut client, 40);
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            Some(at(10, 45))
+        );
+        assert_eq!(roddeck_tile(engine), Some(at(12, 40)));
+    });
+}
+
 /// A click on the floor shuts a chat box and drops the script waiting on it. What a line leads
 /// to still happens: the plan's last line opens the quest list, and eating the drugged meat has
 /// Sir Vant's s018 (first E4MP65bl3sI 2011-01-15 @312), with the meat kept.
