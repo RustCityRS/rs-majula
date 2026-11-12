@@ -16,6 +16,7 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_entity::MoveSpeed;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 
@@ -80,8 +81,9 @@ fn a_button_on_a_closed_interface_does_nothing(engine: &mut Engine) {
     let orb = hash(RUN_ORB, 1);
     client.send(ClientProt::IfButton1, &button1(orb));
     engine.cycle();
-    assert!(
-        engine.harness_player(client.pid).unwrap().run,
+    assert_eq!(
+        engine.harness_player(client.pid).unwrap().move_speed,
+        MoveSpeed::Run,
         "the orb turns run on"
     );
 
@@ -90,8 +92,9 @@ fn a_button_on_a_closed_interface_does_nothing(engine: &mut Engine) {
     assert!(!open(engine, client.pid, RUN_ORB));
     client.send(ClientProt::IfButton1, &button1(orb));
     engine.cycle();
-    assert!(
-        engine.harness_player(client.pid).unwrap().run,
+    assert_eq!(
+        engine.harness_player(client.pid).unwrap().move_speed,
+        MoveSpeed::Run,
         "a click on the closed orb runs nothing"
     );
 }

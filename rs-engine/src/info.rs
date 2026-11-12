@@ -1405,7 +1405,8 @@ impl NpcInfo {
                 .pbit::<3>(&mut self.buf, renderer.add_direction(nid) as i32);
             self.bw.pbit::<5>(&mut self.buf, z);
             self.bw.pbit::<14>(&mut self.buf, ntype as i32);
-            self.bw.pbit::<1>(&mut self.buf, 0);
+            self.bw
+                .pbit::<1>(&mut self.buf, (s.flags & NpcSnapshot::JUMP != 0) as i32);
         }
         renderer.ready_low(nid);
         renderer.write_low_block_for(&mut self.updates, nid, self.observer);

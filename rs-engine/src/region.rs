@@ -1038,7 +1038,7 @@ impl Engine {
         {
             return;
         }
-        active.player.pathing.jump = true;
+        active.player.jump();
         let block_walk = active.player.block_walk;
         Engine::refresh_presence(
             &mut self.zones,

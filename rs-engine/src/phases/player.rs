@@ -5,7 +5,6 @@ use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
 use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
-use rs_entity::MoveSpeed;
 use rs_entity::interaction::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
@@ -181,6 +180,7 @@ impl Engine {
             // energy hit zero: push the now-disabled run state to the client orb
             active.sync_run();
         }
+        active.player.validate_distance_walked();
 
         let block_walk = active.player.block_walk;
         Engine::refresh_presence(
@@ -1202,21 +1202,15 @@ impl Engine {
     /// Processes one tick of movement for the player along its queued
     /// waypoints.
     ///
-    /// Sets the player's move speed to `Run` or `Walk` based on the
-    /// player's current run toggle, then delegates to
-    /// [`PathingEntity::process_movement`].
+    /// Sets the tick's move speed
+    /// ([`update_move_speed`](rs_entity::Player::update_move_speed)), then
+    /// delegates to [`PathingEntity::process_movement`].
     ///
     /// Movement is skipped entirely (returning `false`) when the player has a
     /// pending move-click while [`busy`](rs_entity::Player::busy) and still has
     /// a non-empty primary or engine queue: a player cannot walk out from under
     /// a queued action with a modal open, behavior confirmed as far back as
     /// 2005.
-    ///
-    /// Before 647 a player runs when run or temprun is set and a script has
-    /// set a run animation (`runanim`). At 647 the appearance always carries
-    /// one, and temprun flips run for that walk (`run XOR temprun`): the
-    /// client sets it only while ctrl is held (`ProgressBarElement.method1322`,
-    /// key 82).
     ///
     /// # Safety Note
     ///
@@ -1240,12 +1234,7 @@ impl Engine {
             return false;
         }
 
-        #[cfg(before_647)]
-        let run =
-            active.player.info.runanim.is_some() && (active.player.run || active.player.temprun);
-        #[cfg(since_647)]
-        let run = active.player.run != active.player.temprun;
-        active.player.pathing.move_speed = if run { MoveSpeed::Run } else { MoveSpeed::Walk };
+        active.player.update_move_speed();
 
         let members = engine().members;
         let steps_taken = active.player.pathing.process_movement(
@@ -1255,7 +1244,7 @@ impl Engine {
         );
 
         if !steps_taken {
-            active.player.temprun = false;
+            active.player.temp_move_speed = None;
         }
 
         steps_taken

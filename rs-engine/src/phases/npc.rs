@@ -268,6 +268,7 @@ impl Engine {
         if prev_coord != active.npc.pathing.coord {
             active.npc.pathing.last_movement = self.clock + 1;
         }
+        active.npc.pathing.validate_distance_walked();
 
         if active.npc.active {
             let block_walk = active.block_walk();

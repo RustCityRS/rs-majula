@@ -3799,16 +3799,18 @@ impl ActivePlayer {
         );
     }
 
-    /// Synchronizes the client's `run` varp with the player's current `run`
-    /// flag.
+    /// Synchronizes the client's `run` varp with the player's run toggle.
     ///
-    /// The engine stores run state as a plain `player.run` bool, but the client
-    /// run orb is driven by a varp. Whenever the engine flips run on its own --
+    /// The engine keeps the toggle as `player.move_speed`, but the client run
+    /// orb is driven by a varp. Whenever the engine flips run on its own --
     /// the `P_RUN` script op, or run energy hitting zero in
     /// `Player::update_energy` -- this pushes the new value so the orb stays in
     /// sync. No-ops silently if the cache has no `run` varp.
     pub fn sync_run(&mut self) {
-        self.set_varp_by_name("option_run", self.player.run as i32);
+        self.set_varp_by_name(
+            "option_run",
+            (self.player.move_speed == MoveSpeed::Run) as i32,
+        );
     }
 }
 
@@ -4391,7 +4393,7 @@ impl EnginePlayer for ActivePlayer {
         self.update_runenergy(self.player.runenergy);
         self.reset_anims();
         self.player.pathing.tele = true;
-        self.player.pathing.jump = true;
+        self.player.jump();
         Ok(())
     }
 
@@ -4731,36 +4733,38 @@ impl EnginePlayer for ActivePlayer {
     /// * `coord` - The destination coordinate.
     ///
     /// # Side Effects
-    /// * Sets `player.jump = true` and delegates to [`tele`](Self::tele).
+    /// * Makes it a jump ([`Player::jump`]) and delegates to [`tele`](Self::tele).
     ///
     /// # Call Stack
     /// **Calls:** [`tele`](Self::tele)
     fn tele_jump(&mut self, coord: CoordGrid) {
         self.tele(coord);
-        self.player.pathing.jump = true;
+        self.player.jump();
     }
 
     /// Teleports the player to the given coordinate.
     ///
     /// If the target zone is not allocated, reports an invalid teleport
     /// instead of teleporting. If the destination is on a different level,
-    /// a jump flag is set.
+    /// it is a jump.
     ///
     /// # Arguments
     /// * `coord` - The destination coordinate.
     ///
     /// # Side Effects
     /// * Sets `player.pathing.coord` and `player.pathing.tele = true`.
-    /// * Sets `player.jump = true` when changing levels.
+    /// * Makes it a jump ([`Player::jump`]) when changing levels.
     /// * Moves the player's zone presence and collision there now.
     /// * Rev-647: going from the map into region space, keeps the tile it
     ///   left as the player's way back.
     fn tele(&mut self, coord: CoordGrid) {
-        #[cfg(since_647)]
         let from = self.player.pathing.coord;
         match self.player.pathing.teleport(coord) {
             None => self.invalid_teleport(),
             Some((look_x, look_z)) => {
+                if coord.y() != from.y() {
+                    self.player.jump();
+                }
                 self.cancel_input_path();
                 #[cfg(since_647)]
                 if coord.x() >= REGION_X && from.x() < REGION_X {

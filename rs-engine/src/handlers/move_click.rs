@@ -1,6 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::core::engine;
 use crate::handlers::ClientGameHandler;
+use rs_entity::MoveSpeed;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
@@ -99,8 +100,8 @@ impl ClientGameHandler for MoveOpClick {
 /// trigger runs; otherwise the server computes a path to the final destination
 /// using the rsmod pathfinder.
 ///
-/// Every click sets temporary run (ctrl-click to run); only non-operation clicks
-/// clear pending actions.
+/// Every click sets the route's temporary speed (ctrl-click); only
+/// non-operation clicks clear pending actions.
 ///
 /// # Arguments
 ///
@@ -118,7 +119,10 @@ impl ClientGameHandler for MoveOpClick {
 ///
 /// * Updates the player's waypoint queue and sets `move_clicked`, which the
 ///   input phase reads (see `Engine::post_process`).
-/// * Sets the temp run flag. For non-op clicks, clears pending actions.
+/// * Sets `temp_move_speed`: ctrl runs before 647, and at 647 takes the
+///   other speed from the player's own, as the client inverts run while ctrl
+///   is held (`ProgressBarElement.method1322`, key 82). A temporary run needs
+///   1% energy. For non-op clicks, clears pending actions.
 /// * With client-side pathfinding, processes the walk trigger.
 ///
 /// # Call Stack
@@ -161,14 +165,16 @@ fn handle(
         active.clear_pending_action()?;
     }
 
-    // ctrl-click temporarily runs for this move; a normal click leaves
-    // temp-run off (so movement follows the persistent run toggle). Low
-    // energy (<100) cancels a ctrl temp-run.
-    active.player.temprun = if active.player.runenergy < 100 && ctrl {
-        false
+    #[cfg(before_647)]
+    let speed = MoveSpeed::Run;
+    #[cfg(since_647)]
+    let speed = if active.player.move_speed == MoveSpeed::Run {
+        MoveSpeed::Walk
     } else {
-        ctrl
+        MoveSpeed::Run
     };
+    active.player.temp_move_speed =
+        (ctrl && (speed == MoveSpeed::Walk || active.player.runenergy >= 100)).then_some(speed);
 
     active.player.move_clicked = true;
 

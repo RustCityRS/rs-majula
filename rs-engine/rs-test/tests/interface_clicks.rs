@@ -6,6 +6,7 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_entity::MoveSpeed;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
@@ -127,8 +128,9 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         );
         client.send(ClientProt::IfButton1, &button(RUN_ORB, u16::MAX, u16::MAX));
         engine.harness_inputs();
-        assert!(
-            engine.harness_player(client.pid).unwrap().run,
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().move_speed,
+            MoveSpeed::Run,
             "cache-defined static button is enabled"
         );
         client.send(

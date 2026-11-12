@@ -7,9 +7,7 @@ use crate::state::EntityState;
 use rs_cam::CamQueue;
 use rs_grid::CoordGrid;
 use rs_hero::HeroPoints;
-#[cfg(since_647)]
-use rs_info::PlayerInfoProt;
-use rs_info::{EntityMasks, FocusKind};
+use rs_info::{EntityMasks, FocusKind, PlayerInfoProt};
 use rs_inv::Inventory;
 #[cfg(since_647)]
 use rs_pack::cache::area::{NO_AREAS, TileAreas};
@@ -78,29 +76,21 @@ pub const CHAT_MODE_PUBLIC: u8 = 0;
 #[cfg(since_647)]
 pub const CHAT_MODE_CLAN: u8 = 1;
 
-/// Rev-647 move types, as the MoveType and TempMoveType blocks carry them
-/// (`Class244.method1590`).
-#[cfg(since_647)]
-pub const MOVE_TYPE_WALK: u8 = 1;
-#[cfg(since_647)]
-pub const MOVE_TYPE_RUN: u8 = 2;
-/// Place the player on the new tile instead of moving it there
-/// (`PlayerEntity.method4080`).
-#[cfg(since_647)]
-pub const MOVE_TYPE_TELEPORT: u8 = 127;
-
 /// The movement speed mode of an entity, determining how many tiles it moves per tick.
+/// The values are 647's move types, as the MoveType and TempMoveType blocks carry
+/// them (`Class244.method1590`).
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MoveSpeed {
-    /// Entity does not move (e.g., during a cutscene or when locked in place).
-    Stationary = 0,
     /// Entity moves one tile every other tick (half speed).
-    Crawl = 1,
+    Crawl = 0,
     /// Entity moves one tile per tick (normal speed).
-    Walk = 2,
+    Walk = 1,
     /// Entity moves two tiles per tick (double speed).
-    Run = 3,
+    Run = 2,
+    /// A jump: placed on its new tile instead of moving there
+    /// (`PlayerEntity.method4080`), and no steps that tick.
+    Instant = 127,
 }
 
 /// A player entity in the game world with full game state.
@@ -131,10 +121,10 @@ pub struct Player {
     pub staff_mod_level: StaffModLevel,
     pub is_member: bool,
     pub run_step: Option<Direction>,
-    pub run: bool,
-    pub temprun: bool,
+    pub move_speed: MoveSpeed,
+    pub temp_move_speed: Option<MoveSpeed>,
     #[cfg(since_647)]
-    pub client_move_type: Option<u8>,
+    pub client_move_type: Option<MoveSpeed>,
     #[cfg(since_647)]
     pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
@@ -295,8 +285,8 @@ impl Player {
             staff_mod_level: StaffModLevel::Normal,
             is_member: true,
             run_step: None,
-            run: false,
-            temprun: false,
+            move_speed: MoveSpeed::Walk,
+            temp_move_speed: None,
             #[cfg(since_647)]
             client_move_type: None,
             #[cfg(since_647)]
@@ -917,9 +907,10 @@ impl Player {
     ///
     /// Increments the `last_afk_zone` counter (capped at 1000). If the player is still
     /// within one of the two tracked AFK zones, does nothing. Otherwise, records the
-    /// current position as a new AFK zone. On teleport (`jump == true`), the second zone
-    /// slot is set directly; on walk, the second zone inherits the first and the first
-    /// is updated.
+    /// current position as a new AFK zone. On a jump (`MoveSpeed::Instant`), the second
+    /// zone slot is set directly; otherwise, a move made a jump by its distance included,
+    /// the second zone inherits the first and the first is updated, as upstream's
+    /// `moveSpeed === INSTANT && jump`.
     ///
     /// # Side Effects
     /// * Updates `self.last_afk_zone`, `self.afk_zones`, and `self.afk_event_ready`.
@@ -934,7 +925,7 @@ impl Player {
             self.pathing.coord.z().wrapping_sub(10),
         )
         .packed();
-        if self.pathing.jump {
+        if self.pathing.move_speed == MoveSpeed::Instant && self.pathing.jump {
             self.afk_zones[1] = coord;
         } else {
             self.afk_zones[1] = self.afk_zones[0];
@@ -984,8 +975,8 @@ impl Player {
     ///
     /// Always resets: info masks, walk step, jump flag, teleport flag, move_clicked, walk/run
     /// directions, last coordinate, steps taken, protect flag, opcalled flag,
-    /// ap_range_called flag, and movement speed (based on the `run` flag).
-    /// Also calls `set_face_entity` to update the face-entity mask.
+    /// ap_range_called flag and a jump's `MoveSpeed::Instant`. Also calls
+    /// `set_face_entity` to update the face-entity mask.
     ///
     /// # Side Effects
     /// * Mutates pathing, info, state, and interaction fields.
@@ -1005,15 +996,46 @@ impl Player {
         if self.interaction.ap_range_called {
             self.interaction.ap_range_called = false;
         }
-        let move_speed = if self.run {
-            MoveSpeed::Run
+        if self.pathing.move_speed == MoveSpeed::Instant {
+            self.pathing.move_speed = self.move_speed;
+        }
+        self.set_face_entity();
+    }
+
+    /// A jump (`p_telejump`, a level change, a reconnect): clients place the
+    /// player on its new tile instead of moving it there, and it takes no
+    /// steps this tick.
+    pub fn jump(&mut self) {
+        self.pathing.jump = true;
+        self.pathing.move_speed = MoveSpeed::Instant;
+    }
+
+    /// Marks a move of more than two tiles this tick as a jump, as upstream's
+    /// `validateDistanceWalked` does, unless it was a forced move
+    /// (`p_exactmove`).
+    pub fn validate_distance_walked(&mut self) {
+        if self.info.masks & PlayerInfoProt::ExactMove as u16 == 0 {
+            self.pathing.validate_distance_walked();
+        }
+    }
+
+    /// Sets the speed the player's steps take this tick: the route's
+    /// temporary speed (a ctrl-click, `p_temprun`) or the player's own. A
+    /// jump keeps `Instant` for its tick. Before 647 a player without a run
+    /// animation walks: none set yet, or a script took it away
+    /// (`runanim(null)`).
+    pub fn update_move_speed(&mut self) {
+        if self.pathing.move_speed == MoveSpeed::Instant {
+            return;
+        }
+        let speed = self.temp_move_speed.unwrap_or(self.move_speed);
+        #[cfg(before_647)]
+        let speed = if self.info.runanim.is_some_and(|anim| anim != u16::MAX) {
+            speed
         } else {
             MoveSpeed::Walk
         };
-        if self.pathing.move_speed != move_speed {
-            self.pathing.move_speed = move_speed;
-        }
-        self.set_face_entity();
+        self.pathing.move_speed = speed;
     }
 
     /// Recovers or depletes the player's run energy for the current tick.
@@ -1030,10 +1052,10 @@ impl Player {
     ///   carried run weight in kilograms (`runweight / 1000`), clamped to
     ///   `0..=64`: `floor(67 + 67 * weight / 64)`, floored at 0.
     ///
-    /// When energy is exhausted, run mode is forced off; when it drops below
-    /// 1% (100 units), the temporary ctrl-run flag is cleared so the player
-    /// reverts to walking. The depleted value itself is transmitted to the
-    /// client later in the tick by the engine's run-energy stat sync.
+    /// When energy is exhausted, run mode is forced off; below 1% (100 units)
+    /// a temporary run is cancelled too. The depleted value itself is
+    /// transmitted to the client later in the tick by the engine's run-energy
+    /// stat sync.
     ///
     /// This type lives in `rs-entity` and has no access to the config cache,
     /// so it cannot write the client's `run` varp directly. Instead, a `true`
@@ -1045,7 +1067,8 @@ impl Player {
     /// signaling the caller to sync the `run` varp. `false` otherwise.
     ///
     /// # Side Effects
-    /// * Mutates `self.runenergy`, and may clear `self.run` / `self.temprun`.
+    /// * Mutates `self.runenergy`, and may set `self.move_speed` to a walk or
+    ///   cancel a temporary run.
     ///
     /// # Call Stack
     /// **Called by:** `Engine::process_player`
@@ -1071,12 +1094,12 @@ impl Player {
         // Only signal a varp sync on the actual on->off transition, so a player
         // running at empty energy does not re-transmit the run varp every tick.
         let mut run_disabled = false;
-        if self.runenergy == 0 && self.run {
-            self.run = false;
+        if self.runenergy == 0 && self.move_speed == MoveSpeed::Run {
+            self.move_speed = MoveSpeed::Walk;
             run_disabled = true;
         }
-        if self.runenergy < 100 {
-            self.temprun = false;
+        if self.runenergy < 100 && self.temp_move_speed == Some(MoveSpeed::Run) {
+            self.temp_move_speed = None;
         }
         run_disabled
     }
@@ -1112,12 +1135,14 @@ impl Player {
     /// applies the step, so the override wins and a MoveType sent this tick
     /// already counts.
     ///
-    /// So the stored type has to follow `run` however it changes -- the run
-    /// orb, `p_run`, or energy running out mid-run -- and any step at another
+    /// So the stored type has to follow `move_speed` however it changes -- the
+    /// run orb, `p_run`, or energy running out mid-run -- and any step at another
     /// speed needs the override: the odd last tile of a run is a walk, a
-    /// ctrl-click run with run off is a run, and a teleport is 127. Without it
-    /// the client walks a teleported player to the new tile, and plays a run
-    /// as a walk to a tile two away.
+    /// ctrl-click run with run off is a run, and a jump is `Instant` (127),
+    /// a move of more than two tiles included
+    /// ([`validate_distance_walked`](Self::validate_distance_walked)). Without
+    /// it the client plays a run as a walk to a tile two away. Any other
+    /// teleport is a walk, which a forced move carries to its end tile.
     ///
     /// # Side Effects
     /// * May set `info.move_type`/`info.temp_move_type` and their mask bits.
@@ -1128,56 +1153,158 @@ impl Player {
     /// movement and run changes has had its turn for the tick.
     #[cfg(since_647)]
     pub fn sync_move_types(&mut self) {
-        let stored = if self.run {
-            MOVE_TYPE_RUN
-        } else {
-            MOVE_TYPE_WALK
-        };
-        if self.client_move_type != Some(stored) {
-            self.client_move_type = Some(stored);
-            self.info.move_type = Some(stored);
+        if self.client_move_type != Some(self.move_speed) {
+            self.client_move_type = Some(self.move_speed);
+            self.info.move_type = Some(self.move_speed as u8);
             self.info.masks |= PlayerInfoProt::MoveType as u16;
         }
         let step = if self.pathing.tele {
-            // 289's `p_teleport` is not a jump: its client walks a move of up
-            // to two tiles (`move(x, z, jump)` queues it as a step), which is
-            // how a door's walk-through looks. 647's client plays any move not
-            // marked 127 as a step (`Class244.method1590`), so only a jump or
-            // a longer move is placed.
-            let (dx, dz) = (
-                self.pathing.coord.x() as i32 - self.pathing.last_coord.x() as i32,
-                self.pathing.coord.z() as i32 - self.pathing.last_coord.z() as i32,
-            );
-            // A forced move ends on a tile any distance off, and the client
-            // has to carry the model there itself: a move marked 127 puts the
-            // model on the end tile at once (`PlayerEntity.method4080`), and
-            // the forced move's lead-in then slides it back to the start
-            // (`Statics1.method2277`). As a step the model stays where it is
-            // until the forced move takes it.
-            let forced = self.info.masks & PlayerInfoProt::ExactMove as u16 != 0;
-            if !self.pathing.jump && (forced || (dx.abs() <= 2 && dz.abs() <= 2)) {
-                MOVE_TYPE_WALK
+            if self.pathing.jump {
+                MoveSpeed::Instant
             } else {
-                MOVE_TYPE_TELEPORT
+                MoveSpeed::Walk
             }
         } else if self.pathing.run_dir != -1 {
-            MOVE_TYPE_RUN
+            MoveSpeed::Run
         } else if self.pathing.walk_dir != -1 {
-            MOVE_TYPE_WALK
+            MoveSpeed::Walk
         } else {
             return;
         };
-        if step != stored {
-            self.info.temp_move_type = Some(step);
+        if step != self.move_speed {
+            self.info.temp_move_type = Some(step as u8);
             self.info.masks |= PlayerInfoProt::TempMoveType as u16;
         }
+    }
+}
+
+#[cfg(test)]
+mod move_speed_tests {
+    use super::*;
+    use std::iter;
+
+    fn make_player() -> Player {
+        let uid = PlayerUid::new("test".into(), 1);
+        let vars = VarSet::new(iter::empty());
+        Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
+    }
+
+    /// A ctrl-click's speed holds for its route either way: a run with run
+    /// off, and at 647 a walk with run on.
+    #[test]
+    fn a_temporary_speed_wins_for_its_route() {
+        let mut p = make_player();
+        p.info.runanim = Some(824);
+        for (own, temp) in [
+            (MoveSpeed::Walk, MoveSpeed::Run),
+            (MoveSpeed::Run, MoveSpeed::Walk),
+        ] {
+            p.move_speed = own;
+            p.temp_move_speed = Some(temp);
+            p.update_move_speed();
+            assert_eq!(p.pathing.move_speed, temp);
+            p.temp_move_speed = None;
+            p.update_move_speed();
+            assert_eq!(p.pathing.move_speed, own);
+        }
+    }
+
+    /// `runanim(null)` is how 289 content stops a player running (the
+    /// Fishing Trawler's sinking boat, `~playerwalk`); the reference walks
+    /// them at `runanim === -1`.
+    #[cfg(before_647)]
+    #[test]
+    fn no_run_animation_walks() {
+        let mut p = make_player();
+        p.move_speed = MoveSpeed::Run;
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "none set yet");
+        p.info.runanim = Some(824);
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Run);
+        p.info.runanim = Some(u16::MAX);
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "runanim(null)");
+        p.move_speed = MoveSpeed::Walk;
+        p.temp_move_speed = Some(MoveSpeed::Run);
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "a ctrl-click too");
+    }
+
+    /// A jump keeps `Instant` through the movement phase, so the player takes
+    /// no steps that tick, and the tick's reset gives it its own speed back.
+    #[test]
+    fn a_jump_takes_no_steps_on_its_tick() {
+        rsmod::allocate_if_absent(3222, 3222, 0);
+        rsmod::allocate_if_absent(3224, 3222, 0);
+        let mut p = make_player();
+        p.info.runanim = Some(824);
+        p.move_speed = MoveSpeed::Run;
+        p.pathing.queue_waypoint(CoordGrid::new(3226, 0, 3222));
+        p.jump();
+        p.update_move_speed();
+        assert!(
+            !p.pathing
+                .process_movement(true, &mut p.info, FocusKind::Player)
+        );
+        assert_eq!(p.pathing.coord, CoordGrid::new(3222, 0, 3222));
+        p.reset_pathing_entity();
+        p.update_move_speed();
+        assert!(
+            p.pathing
+                .process_movement(true, &mut p.info, FocusKind::Player)
+        );
+        assert_eq!(
+            p.pathing.coord,
+            CoordGrid::new(3224, 0, 3222),
+            "runs the next"
+        );
+    }
+
+    /// A move of more than two tiles in a tick is a jump, as upstream's
+    /// `validateDistanceWalked`, unless it was a forced move; but not a jump's
+    /// `Instant`, so it takes its steps.
+    #[test]
+    fn a_move_of_more_than_two_tiles_is_a_jump() {
+        for (x, forced, jump) in [
+            (3224, false, false),
+            (3225, false, true),
+            (3225, true, false),
+        ] {
+            let mut p = make_player();
+            p.pathing.jump = false;
+            p.pathing.coord = CoordGrid::new(x, 0, 3222);
+            if forced {
+                p.info.masks |= PlayerInfoProt::ExactMove as u16;
+            }
+            p.validate_distance_walked();
+            assert_eq!(p.pathing.jump, jump, "to {x}, forced {forced}");
+            assert_eq!(p.pathing.move_speed, MoveSpeed::Walk);
+        }
+    }
+
+    /// Footprint to footprint: a 2x2 npc three tiles on leaves a gap of two.
+    #[test]
+    fn a_big_entity_measures_from_its_edge() {
+        let mut pathing = PathingEntity::new(
+            CoordGrid::new(3222, 0, 3222),
+            2,
+            MoveRestrict::Normal,
+            MoveStrategy::Naive,
+        );
+        pathing.jump = false;
+        pathing.coord = CoordGrid::new(3225, 0, 3222);
+        pathing.validate_distance_walked();
+        assert!(!pathing.jump);
+        pathing.coord = CoordGrid::new(3226, 0, 3222);
+        pathing.validate_distance_walked();
+        assert!(pathing.jump);
     }
 }
 
 #[cfg(all(test, since_647))]
 mod move_type_tests {
     use super::*;
-    use rs_info::PlayerInfoProt;
     use std::iter;
 
     fn make_player() -> Player {
@@ -1210,7 +1337,7 @@ mod move_type_tests {
     fn the_first_update_of_a_session_sends_the_stored_type() {
         let mut p = make_player();
         tick(&mut p, -1, -1, false);
-        assert_eq!(stored(&p), Some(MOVE_TYPE_WALK));
+        assert_eq!(stored(&p), Some(MoveSpeed::Walk as u8));
         tick(&mut p, -1, -1, false);
         assert_eq!(stored(&p), None, "unchanged, so not resent");
     }
@@ -1219,13 +1346,13 @@ mod move_type_tests {
     fn toggling_run_resends_the_stored_type() {
         let mut p = make_player();
         tick(&mut p, -1, -1, false);
-        p.run = true;
+        p.move_speed = MoveSpeed::Run;
         tick(&mut p, 1, 1, false);
-        assert_eq!(stored(&p), Some(MOVE_TYPE_RUN));
+        assert_eq!(stored(&p), Some(MoveSpeed::Run as u8));
         assert_eq!(temp(&p), None, "a run step at run mode needs no override");
-        p.run = false;
+        p.move_speed = MoveSpeed::Walk;
         tick(&mut p, 1, -1, false);
-        assert_eq!(stored(&p), Some(MOVE_TYPE_WALK));
+        assert_eq!(stored(&p), Some(MoveSpeed::Walk as u8));
         assert_eq!(temp(&p), None);
     }
 
@@ -1235,94 +1362,95 @@ mod move_type_tests {
     #[test]
     fn a_run_step_on_the_tick_energy_runs_out_is_still_a_run() {
         let mut p = make_player();
-        p.run = true;
+        p.move_speed = MoveSpeed::Run;
         tick(&mut p, -1, -1, false);
         p.runenergy = 50;
         p.pathing.steps_taken = 2;
         assert!(p.update_energy());
         tick(&mut p, 1, 1, false);
-        assert_eq!(stored(&p), Some(MOVE_TYPE_WALK));
-        assert_eq!(temp(&p), Some(MOVE_TYPE_RUN));
+        assert_eq!(stored(&p), Some(MoveSpeed::Walk as u8));
+        assert_eq!(temp(&p), Some(MoveSpeed::Run as u8));
     }
 
     #[test]
     fn the_odd_last_tile_of_a_run_is_a_walk() {
         let mut p = make_player();
-        p.run = true;
+        p.move_speed = MoveSpeed::Run;
         tick(&mut p, 1, -1, false);
-        assert_eq!(temp(&p), Some(MOVE_TYPE_WALK));
+        assert_eq!(temp(&p), Some(MoveSpeed::Walk as u8));
     }
 
     #[test]
     fn a_ctrl_click_run_with_run_off_is_a_run() {
         let mut p = make_player();
         tick(&mut p, 1, 1, false);
-        assert_eq!(temp(&p), Some(MOVE_TYPE_RUN));
+        assert_eq!(temp(&p), Some(MoveSpeed::Run as u8));
     }
 
     #[test]
-    fn a_teleport_is_placed_not_walked() {
-        for run in [false, true] {
-            let mut p = make_player();
-            p.run = run;
-            p.pathing.coord = CoordGrid::new(3232, 0, 3222);
-            tick(&mut p, -1, -1, true);
-            assert_eq!(temp(&p), Some(MOVE_TYPE_TELEPORT), "run={run}");
+    fn a_jump_is_placed() {
+        for speed in [MoveSpeed::Walk, MoveSpeed::Run] {
+            for x in [3223, 3232] {
+                let mut p = make_player();
+                p.move_speed = speed;
+                p.pathing.jump = true;
+                p.pathing.coord = CoordGrid::new(x, 0, 3222);
+                tick(&mut p, -1, -1, true);
+                let want = Some(MoveSpeed::Instant as u8);
+                assert_eq!(temp(&p), want, "{speed:?} to {x}");
+            }
         }
     }
 
-    /// 289's door walk-through: `p_teleport` one tile, not a jump. 289's
-    /// client walks it; 647's walks it unless told 127.
+    /// A door's step: `p_teleport` one tile, walked as 289's client walks it.
     #[test]
-    fn a_short_teleport_that_is_not_a_jump_is_walked() {
-        for run in [false, true] {
+    fn a_door_step_is_walked() {
+        for speed in [MoveSpeed::Walk, MoveSpeed::Run] {
             let mut p = make_player();
-            p.run = run;
-            // A new player's first placement is a jump; a door's step is not.
+            p.move_speed = speed;
             p.pathing.jump = false;
             p.pathing.coord = CoordGrid::new(3223, 0, 3222);
+            p.validate_distance_walked();
             tick(&mut p, -1, -1, true);
-            let want = if run { Some(MOVE_TYPE_WALK) } else { None };
-            assert_eq!(temp(&p), want, "run={run}: a walk step");
+            let want = (speed == MoveSpeed::Run).then_some(MoveSpeed::Walk as u8);
+            assert_eq!(temp(&p), want, "{speed:?}");
         }
+    }
+
+    /// A `p_teleport` more than two tiles off is a jump by its distance.
+    #[test]
+    fn a_long_teleport_is_placed() {
         let mut p = make_player();
-        p.pathing.coord = CoordGrid::new(3223, 0, 3222);
-        p.pathing.jump = true;
+        p.pathing.jump = false;
+        p.pathing.coord = CoordGrid::new(3232, 0, 3222);
+        p.validate_distance_walked();
         tick(&mut p, -1, -1, true);
-        assert_eq!(temp(&p), Some(MOVE_TYPE_TELEPORT), "a jump is placed");
+        assert_eq!(temp(&p), Some(MoveSpeed::Instant as u8));
     }
 
     /// `p_exactmove` over a wall three tiles deep: the player is on the far
-    /// tile at once, and the client is left to move the model there.
+    /// tile at once, and the forced move carries the model there.
     #[test]
     fn a_forced_move_of_any_length_is_not_placed() {
-        for run in [false, true] {
+        for speed in [MoveSpeed::Walk, MoveSpeed::Run] {
             let mut p = make_player();
-            p.run = run;
+            p.move_speed = speed;
             p.pathing.jump = false;
             p.pathing.coord = CoordGrid::new(3222, 0, 3225);
             p.info.masks = PlayerInfoProt::ExactMove as u16;
             p.info.temp_move_type = None;
             p.pathing.tele = true;
+            p.validate_distance_walked();
             p.sync_move_types();
-            let want = if run { Some(MOVE_TYPE_WALK) } else { None };
-            assert_eq!(temp(&p), want, "run={run}: a step, not 127");
+            let want = (speed == MoveSpeed::Run).then_some(MoveSpeed::Walk as u8);
+            assert_eq!(temp(&p), want, "{speed:?}: a step, not 127");
         }
-        let mut p = make_player();
-        p.pathing.jump = false;
-        p.pathing.coord = CoordGrid::new(3222, 0, 3225);
-        tick(&mut p, -1, -1, true);
-        assert_eq!(
-            temp(&p),
-            Some(MOVE_TYPE_TELEPORT),
-            "with no forced move it is placed"
-        );
     }
 
     #[test]
     fn standing_still_sends_no_override() {
         let mut p = make_player();
-        p.run = true;
+        p.move_speed = MoveSpeed::Run;
         tick(&mut p, -1, -1, false);
         assert_eq!(temp(&p), None);
     }
@@ -1438,6 +1566,28 @@ mod afk_zone_tests {
         player.pathing.coord = CoordGrid::new(3300, 0, 3300);
         player.update_afk_zones();
         assert!(!player.zones_afk());
+    }
+
+    /// Only a jump's `Instant` drops the zone the player left, as upstream's
+    /// `moveSpeed === INSTANT && jump`: a move that is a jump by its distance
+    /// keeps it.
+    #[test]
+    fn only_a_real_jump_drops_the_zone_left() {
+        let uid = PlayerUid::new("test".into(), 1);
+        let varps = VarSet::new(iter::empty());
+        let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
+        player.update_afk_zones();
+        let first = player.afk_zones[0];
+
+        player.pathing.coord = CoordGrid::new(3300, 0, 3300);
+        player.pathing.jump = true;
+        player.update_afk_zones();
+        assert_eq!(player.afk_zones[1], first, "kept");
+
+        player.pathing.coord = CoordGrid::new(3400, 0, 3400);
+        player.jump();
+        player.update_afk_zones();
+        assert_eq!(player.afk_zones[1], player.afk_zones[0], "dropped");
     }
 }
 
@@ -2348,27 +2498,27 @@ mod energy_tests {
         assert_eq!(p.runenergy, 0);
     }
 
-    // ---- run / temprun side effects ----
+    // ---- run toggle / temporary speed side effects ----
 
     #[test]
-    fn zero_energy_disables_run_and_temprun() {
+    fn zero_energy_disables_run_and_a_temporary_run() {
         let mut p = make_player();
         p.runenergy = 50;
-        p.run = true;
-        p.temprun = true;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Run);
         p.pathing.steps_taken = 2;
         p.runweight = 0; // depletes 50 -> 0
         assert!(p.update_energy(), "on->off transition signals a varp sync");
         assert_eq!(p.runenergy, 0);
-        assert!(!p.run, "run forced off at 0 energy");
-        assert!(!p.temprun, "temprun cleared below 100");
+        assert_eq!(p.move_speed, MoveSpeed::Walk, "run forced off at 0 energy");
+        assert_eq!(p.temp_move_speed, None, "temporary run cancelled below 100");
     }
 
     #[test]
     fn zero_energy_with_run_already_off_does_not_signal() {
         let mut p = make_player();
         p.runenergy = 50;
-        p.run = false; // already walking
+        p.move_speed = MoveSpeed::Walk; // already walking
         p.pathing.steps_taken = 2;
         p.runweight = 0; // depletes 50 -> 0
         assert!(
@@ -2376,34 +2526,52 @@ mod energy_tests {
             "no transition means no redundant varp sync"
         );
         assert_eq!(p.runenergy, 0);
-        assert!(!p.run);
+        assert_eq!(p.move_speed, MoveSpeed::Walk);
     }
 
     #[test]
-    fn low_energy_clears_temprun_but_keeps_run() {
+    fn low_energy_cancels_a_temporary_run_but_keeps_run() {
         let mut p = make_player();
         p.runenergy = 150;
-        p.run = true;
-        p.temprun = true;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Run);
         p.pathing.steps_taken = 2;
         p.runweight = 0; // 150 - 67 = 83, below 100 but above 0
         assert!(!p.update_energy(), "run still on -> no sync signal");
         assert_eq!(p.runenergy, 83);
-        assert!(p.run, "run stays enabled while energy > 0");
-        assert!(!p.temprun, "temprun cleared below 100");
+        assert_eq!(
+            p.move_speed,
+            MoveSpeed::Run,
+            "run stays on while energy > 0"
+        );
+        assert_eq!(p.temp_move_speed, None, "temporary run cancelled below 100");
+    }
+
+    /// At 647 a ctrl-click with run on walks; low energy is no reason to run
+    /// instead.
+    #[test]
+    fn low_energy_keeps_a_temporary_walk() {
+        let mut p = make_player();
+        p.runenergy = 50;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Walk);
+        p.pathing.steps_taken = 1;
+        p.update_energy();
+        assert!(p.runenergy < 100);
+        assert_eq!(p.temp_move_speed, Some(MoveSpeed::Walk));
     }
 
     #[test]
     fn healthy_energy_preserves_flags() {
         let mut p = make_player();
         p.runenergy = 5000;
-        p.run = true;
-        p.temprun = true;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Run);
         p.pathing.steps_taken = 2;
         p.runweight = 0; // 5000 - 67 = 4933, well above 100
         assert!(!p.update_energy());
-        assert!(p.run);
-        assert!(p.temprun);
+        assert_eq!(p.move_speed, MoveSpeed::Run);
+        assert_eq!(p.temp_move_speed, Some(MoveSpeed::Run));
     }
 }
 

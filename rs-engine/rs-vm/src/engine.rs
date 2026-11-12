@@ -1834,7 +1834,7 @@ pub trait ScriptPlayer {
     /// Sets the player's run mode.
     ///
     /// # Arguments
-    /// * `run` - The run mode flag (`0` = walk, `1` = run, `2` = temporary run).
+    /// * `run` - `1` to run, anything else to walk.
     fn run(&mut self, run: u8);
 
     /// Forces the player to run for the current movement only.

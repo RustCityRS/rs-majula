@@ -89,7 +89,8 @@ impl PathingEntity {
     /// Processes one tick of movement, consuming waypoints and producing direction outputs.
     ///
     /// Handles crawl speed (moves every other tick), walk speed (one step), and run speed
-    /// (two steps). Updates `walk_dir`, `run_dir`, and `steps_taken` accordingly.
+    /// (two steps), and takes no steps on a jump's tick (`MoveSpeed::Instant`). Updates
+    /// `walk_dir`, `run_dir`, and `steps_taken` accordingly.
     ///
     /// # Arguments
     /// * `members` - Whether this world loads members-only areas; forwarded to
@@ -113,7 +114,7 @@ impl PathingEntity {
         info: &mut EntityMasks,
         kind: FocusKind,
     ) -> bool {
-        if self.move_restrict == MoveRestrict::NoMove {
+        if self.move_restrict == MoveRestrict::NoMove || self.move_speed == MoveSpeed::Instant {
             return false;
         }
 
@@ -521,6 +522,26 @@ impl PathingEntity {
         }
 
         None
+    }
+
+    /// Marks a move of more than two tiles this tick, footprint to footprint,
+    /// as a jump, so clients place the entity instead of walking it
+    /// (upstream's `validateDistanceWalked`).
+    pub fn validate_distance_walked(&mut self) {
+        let size = self.size as i32;
+        let distance = CoordGrid::distance_to(
+            self.coord.x() as i32,
+            self.coord.z() as i32,
+            size,
+            size,
+            self.last_coord.x() as i32,
+            self.last_coord.z() as i32,
+            size,
+            size,
+        );
+        if distance > 2 {
+            self.jump = true;
+        }
     }
 
     /// Resets the pathing state for this entity.

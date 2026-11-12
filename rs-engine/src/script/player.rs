@@ -6,7 +6,7 @@ use crate::region::REGION_X;
 use rs_cam::CamKind;
 use rs_db::transfer;
 use rs_entity::PlayerUid;
-use rs_entity::{InteractionTarget, ObjSerial};
+use rs_entity::{InteractionTarget, MoveSpeed, ObjSerial};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::VarValue;
@@ -1636,24 +1636,28 @@ impl ScriptPlayer for ActivePlayer {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** sets `self.player.run`, `ActivePlayer::sync_run`
+    /// **Calls:** sets `self.player.move_speed`, `ActivePlayer::sync_run`
     fn run(&mut self, run: u8) {
-        self.player.run = run == 1;
+        self.player.move_speed = if run == 1 {
+            MoveSpeed::Run
+        } else {
+            MoveSpeed::Walk
+        };
         self.sync_run();
     }
 
     /// Forces the player to run for the current movement only.
     ///
-    /// Sets the same `temprun` flag a ctrl-click sets. The movement phase
-    /// applies it as `MoveSpeed::Run` and clears it once the player stops
-    /// moving, so the persistent run toggle and the run orb are left alone.
+    /// Sets the route's temporary speed to a run, as a ctrl-click with run off
+    /// does. The movement phase clears it once the player stops moving, so the
+    /// run toggle and the run orb are left alone.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    /// **Calls:** sets `self.player.temprun`
+    /// **Calls:** sets `self.player.temp_move_speed`
     fn temprun(&mut self) {
-        self.player.temprun = true;
+        self.player.temp_move_speed = Some(MoveSpeed::Run);
     }
 
     /// Stops the player's current action and clears interaction state.
