@@ -37,6 +37,8 @@ use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 use rs_protocol::network::game::client::pack_coord;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::if_settext::IfSetText;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::reflection_checker::ReflectionCheck;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_stat::get_exp_by_level;
 use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
@@ -108,7 +110,7 @@ impl ClientGameHandler for ClientCheat {
             StaffModLevel::Normal => cheat_normal(cmd, args, active),
             StaffModLevel::PlayerModerator => cheat_player_moderator(cmd, args, active),
             StaffModLevel::JagexModerator => cheat_jagex_moderator(cmd, args, active),
-            StaffModLevel::Maintainer => cheat_maintainer(cmd, args, active),
+            StaffModLevel::Maintainer => cheat_maintainer(cmd, args, &input, active),
         }
     }
 }
@@ -121,6 +123,7 @@ impl ClientGameHandler for ClientCheat {
 ///
 /// * `cmd` - The lowercased command name (first token of the cheat input).
 /// * `args` - An iterator over the remaining space-separated argument tokens.
+/// * `input` - The cheat as typed, for arguments whose case matters.
 /// * `active` - The active player executing the cheat command.
 ///
 /// # Returns
@@ -140,6 +143,7 @@ impl ClientGameHandler for ClientCheat {
 fn cheat_maintainer(
     cmd: &str,
     mut args: Split<'_, char>,
+    #[cfg_attr(before_647, expect(unused_variables))] input: &str,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     match cmd {
@@ -159,6 +163,8 @@ fn cheat_maintainer(
         "bots" => cheat_spawn_bots(active),
         "localbots" => cheat_spawn_local_bots(active),
         "readerstall" => cheat_reader_stall(active),
+        #[cfg(since_647)]
+        "reflect" => cheat_reflect(input, active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
         _ if engine()
@@ -718,6 +724,45 @@ fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     active.message_game(&format!(
         "The client read the {MAX_PACKET_SIZE}-byte packet without stalling: run ::readerstall again."
     ));
+    Ok(())
+}
+
+/// Has the client read a field's int value, a field's modifiers, or a method's
+/// modifiers (the method given with its parameter classes) and say what it
+/// got. The names keep the case they were typed in, as the client's classes
+/// have it.
+///
+/// Usage: `::reflect field <class> <field>`, `::reflect fieldmods <class>
+/// <field>` or `::reflect methodmods <class> <method> [<param class>...]`.
+#[cfg(since_647)]
+fn cheat_reflect(input: &str, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let usage = "Usage: ::reflect field|fieldmods <class> <field>, or ::reflect methodmods <class> <method> [<param class>...]";
+    let mut args = input.split(' ').skip(1);
+    let (Some(kind), Some(class), Some(member)) = (args.next(), args.next(), args.next()) else {
+        active.message_game(usage);
+        return Ok(());
+    };
+    let (class, member) = (class.to_string(), member.to_string());
+    let check = match kind.to_lowercase().as_str() {
+        "field" => ReflectionCheck::FieldValue {
+            class,
+            field: member,
+        },
+        "fieldmods" => ReflectionCheck::FieldModifiers {
+            class,
+            field: member,
+        },
+        "methodmods" => ReflectionCheck::MethodModifiers {
+            class,
+            method: member,
+            params: args.map(str::to_string).collect(),
+        },
+        _ => {
+            active.message_game(usage);
+            return Ok(());
+        }
+    };
+    active.reflection_check(vec![check]);
     Ok(())
 }
 

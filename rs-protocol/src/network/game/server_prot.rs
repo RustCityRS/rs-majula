@@ -479,6 +479,7 @@ server_prot! {
     CamLookat = 26,
     VarbitSmall = 28,
     CamForceangle = 29,
+    ReflectionChecker = 31,
     MessageQuickchatFriendchat = 32,
     IfSetText = 34,
     LastLoginInfo = 35,

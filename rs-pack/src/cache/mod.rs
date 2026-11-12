@@ -33,6 +33,8 @@ use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
 #[cfg(since_647)]
+use quickchatphrase::QuickChatPhraseProvider;
+#[cfg(since_647)]
 use rs_crypto::huffman::Huffman;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
@@ -195,6 +197,8 @@ pub struct CacheStore {
     pub varconbits: VarbitTypeProvider,
     #[cfg(since_647)]
     pub controllers: ControllerTypeProvider,
+    #[cfg(since_647)]
+    pub chatphrases: QuickChatPhraseProvider,
 }
 
 pub use crate::types::ScriptVarType;

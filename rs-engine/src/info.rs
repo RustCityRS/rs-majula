@@ -1554,6 +1554,8 @@ mod client_decode_tests {
             watch: Box::default(),
             capture: None,
             pending_path: None,
+            #[cfg(since_647)]
+            reflection: Default::default(),
         }
     }
 

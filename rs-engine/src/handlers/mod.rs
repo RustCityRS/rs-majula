@@ -23,6 +23,8 @@ pub mod ignorelist_del;
 pub mod map_build_complete;
 pub mod message_private;
 pub mod message_public;
+#[cfg(since_647)]
+pub mod message_quickchat;
 pub mod move_click;
 pub mod no_timeout;
 pub mod op_common;
@@ -44,6 +46,8 @@ pub mod opplayert;
 pub mod opplayeru;
 #[cfg(rev = "225")]
 pub mod rebuild_get_maps;
+#[cfg(since_647)]
+pub mod reflection_check_reply;
 pub mod resume_p_countdialog;
 #[cfg(since_647)]
 pub mod resume_p_dialogs;

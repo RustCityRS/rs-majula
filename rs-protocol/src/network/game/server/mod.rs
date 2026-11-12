@@ -142,6 +142,8 @@ pub mod player_info;
 pub mod rebuild_normal;
 #[cfg(since_647)]
 pub mod rebuild_region;
+#[cfg(since_647)]
+pub mod reflection_checker;
 #[cfg(before_647)]
 pub mod reset_anims;
 #[cfg(before_647)]

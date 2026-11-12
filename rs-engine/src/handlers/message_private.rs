@@ -1,23 +1,22 @@
-// TODO(647): port with the chat/social milestone — rev-647 private chat is
-// name-addressed with a huffman-compressed body, not the user37/wordpack
-// format handled here.
-#[cfg(before_647)]
 use crate::active_player::ActivePlayer;
 #[cfg(before_647)]
 use crate::clients::client_ether::EtherOutbound;
-#[cfg(before_647)]
 use crate::core::engine;
 #[cfg(before_647)]
-use crate::counters::{self, AutoBan, CHAT_PRIVATE, COUNTERS};
-#[cfg(before_647)]
+use crate::counters::AutoBan;
+use crate::counters::{self, CHAT_PRIVATE, COUNTERS};
 use crate::handlers::ClientGameHandler;
-#[cfg(before_647)]
+#[cfg(since_647)]
+use crate::handlers::message_public::{MAX_CHAT_CHARS, decode_chat, filtered_chat};
 use rs_protocol::network::game::client::message_private::MessagePrivate;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::message_private_echo::MessagePrivateEcho;
 #[cfg(before_647)]
 use rs_util::base37::is_valid_userhash;
+#[cfg(since_647)]
+use rs_util::base37::to_userhash;
 #[cfg(before_647)]
 use rs_util::wordpack::{pack, unpack};
-#[cfg(before_647)]
 use rs_vm::ScriptError;
 #[cfg(before_647)]
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
@@ -93,6 +92,42 @@ impl ClientGameHandler for MessagePrivate {
         active.last_social = Some(engine.clock);
         counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
         active.log_chat(Some(self.user37 as u64), text);
+        Ok(())
+    }
+}
+
+/// Handles the `MessagePrivate` client protocol message.
+///
+/// Rev 647 names the friend and sends the text huffman-compressed, at most 80
+/// characters, one message per tick shared with public chat. A muted player's
+/// message is dropped, as is one for a name not on the friends list. The
+/// sender gets the filtered text back as `MESSAGE_PRIVATE_ECHO`; 647's ether
+/// relay is not built yet, so the message goes no further.
+#[cfg(since_647)]
+impl ClientGameHandler for MessagePrivate {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        let clock = engine().clock;
+        let chars = self.chars as usize;
+        if active.last_social == Some(clock) || !(1..=MAX_CHAT_CHARS).contains(&chars) {
+            return Ok(());
+        }
+        if active.is_muted() {
+            counters::add(&COUNTERS.chat_muted[CHAT_PRIVATE], 1);
+            return Ok(());
+        }
+        let target37 = to_userhash(&self.name);
+        if !active.friends.contains(&(target37 as i64)) {
+            return Ok(());
+        }
+
+        let text = decode_chat(self.bytes, chars)?;
+        active.write(MessagePrivateEcho {
+            recipient: self.name,
+            message_data: filtered_chat(&text),
+        });
+        active.last_social = Some(clock);
+        counters::add(&COUNTERS.chat[CHAT_PRIVATE], 1);
+        active.log_chat(Some(target37), text);
         Ok(())
     }
 }

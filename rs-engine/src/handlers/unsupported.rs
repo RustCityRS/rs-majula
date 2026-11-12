@@ -2,8 +2,7 @@ use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{
     ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName,
-    FriendSetRank, MessagePrivate, MessageQuickchatPrivate, MessageQuickchatPublic,
-    ReflectionCheckReply, UrlRequest, WorldlistFetch,
+    FriendSetRank, UrlRequest, WorldlistFetch,
 };
 use rs_vm::ScriptError;
 use tracing::debug;
@@ -26,10 +25,6 @@ unsupported!(
     ClanchannelKickUser => "clan channels",
     CreateCheckName => "lobby name checks",
     FriendSetRank => "friends-chat ranks",
-    MessagePrivate => "647 private messaging through ether",
-    MessageQuickchatPrivate => "quick chat",
-    MessageQuickchatPublic => "quick chat",
-    ReflectionCheckReply => "pending reflection checks",
     UrlRequest => "URL request routing",
     WorldlistFetch => "world-list service",
 );

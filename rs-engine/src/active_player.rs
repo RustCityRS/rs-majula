@@ -3,6 +3,8 @@ use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
 use crate::core::{Engine, OtherPlayers, engine, engine_mut};
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use crate::handlers::reflection_check_reply::ReflectionChecks;
 use crate::pathfinding::PendingPath;
 use crate::phases::logout::TIMEOUT_NO_RESPONSE;
 use crate::phases::shared::EntityId;
@@ -403,6 +405,8 @@ pub struct ActivePlayer {
     pub watch: Box<Watch>,
     pub(crate) capture: Option<Vec<Vec<u8>>>,
     pub(crate) pending_path: Option<PendingPath>,
+    #[cfg(since_647)]
+    pub(crate) reflection: ReflectionChecks,
 }
 
 /// The interface a component is on. From 647 a component is addressed as
@@ -497,6 +501,8 @@ impl ActivePlayer {
             watch: Box::default(),
             capture: None,
             pending_path: None,
+            #[cfg(since_647)]
+            reflection: ReflectionChecks::default(),
         }
     }
 

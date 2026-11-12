@@ -1,37 +1,55 @@
 use super::decode::read_array;
 use super::provider::CacheType;
+use crate::pack::packed_data::PackedData;
+use anyhow::Result;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rustc_hash::FxHashMap;
 
 /// A value the sender of a phrase fills in, as the client's
 /// `QuickChatDynamicCommand` lists them: its id, its name in a phrase's text,
-/// and the config table of each parameter a phrase gives it.
+/// the bytes the sender's client writes for it and the bytes its receivers
+/// read, and the config table of each parameter a phrase gives it.
 pub struct QuickChatDynamicCommand {
     pub id: u16,
     pub name: &'static str,
+    pub encode_bytes: usize,
+    pub decode_bytes: usize,
     pub params: &'static [&'static str],
 }
 
 pub const DYNAMIC_COMMANDS: &[QuickChatDynamicCommand] = &[
-    QuickChatDynamicCommand::new(0, "listdialog", &["enum"]),
-    QuickChatDynamicCommand::new(1, "objdialog", &[]),
-    QuickChatDynamicCommand::new(2, "countdialog", &[]),
-    QuickChatDynamicCommand::new(4, "stat_base", &["stat"]),
-    QuickChatDynamicCommand::new(6, "enum_string", &["enum", "varp"]),
-    QuickChatDynamicCommand::new(7, "enum_string_clan", &["enum"]),
-    QuickChatDynamicCommand::new(8, "tostring_varp", &["varp"]),
-    QuickChatDynamicCommand::new(9, "tostring_varbit", &["varpbit"]),
-    QuickChatDynamicCommand::new(10, "objtradedialog", &[]),
-    QuickChatDynamicCommand::new(11, "enum_string_statbase", &["enum", "stat"]),
-    QuickChatDynamicCommand::new(12, "acc_getcount_world", &[]),
-    QuickChatDynamicCommand::new(13, "acc_getmeancombatlevel", &[]),
-    QuickChatDynamicCommand::new(14, "tostring_shared", &["vars"]),
-    QuickChatDynamicCommand::new(15, "activecombatlevel", &[]),
+    QuickChatDynamicCommand::new(0, "listdialog", 2, 2, &["enum"]),
+    QuickChatDynamicCommand::new(1, "objdialog", 2, 2, &[]),
+    QuickChatDynamicCommand::new(2, "countdialog", 4, 4, &[]),
+    QuickChatDynamicCommand::new(4, "stat_base", 1, 1, &["stat"]),
+    QuickChatDynamicCommand::new(6, "enum_string", 0, 4, &["enum", "varp"]),
+    QuickChatDynamicCommand::new(7, "enum_string_clan", 0, 1, &["enum"]),
+    QuickChatDynamicCommand::new(8, "tostring_varp", 0, 4, &["varp"]),
+    QuickChatDynamicCommand::new(9, "tostring_varbit", 0, 4, &["varpbit"]),
+    QuickChatDynamicCommand::new(10, "objtradedialog", 2, 2, &[]),
+    QuickChatDynamicCommand::new(11, "enum_string_statbase", 0, 1, &["enum", "stat"]),
+    QuickChatDynamicCommand::new(12, "acc_getcount_world", 0, 1, &[]),
+    QuickChatDynamicCommand::new(13, "acc_getmeancombatlevel", 0, 1, &[]),
+    QuickChatDynamicCommand::new(14, "tostring_shared", 0, 4, &["vars"]),
+    QuickChatDynamicCommand::new(15, "activecombatlevel", 0, 1, &[]),
 ];
 
 impl QuickChatDynamicCommand {
-    const fn new(id: u16, name: &'static str, params: &'static [&'static str]) -> Self {
-        Self { id, name, params }
+    const fn new(
+        id: u16,
+        name: &'static str,
+        encode_bytes: usize,
+        decode_bytes: usize,
+        params: &'static [&'static str],
+    ) -> Self {
+        Self {
+            id,
+            name,
+            encode_bytes,
+            decode_bytes,
+            params,
+        }
     }
 
     pub fn from_id(id: u16) -> &'static Self {
@@ -88,5 +106,29 @@ impl CacheType for QuickChatPhraseType {
             4 => {}
             _ => crate::unknown_opcode!("quickchatphrase", code),
         }
+    }
+}
+
+/// The phrases a quick chat message can name, by the id the client sends (the
+/// global archive's from `QUICKCHAT_GLOBAL_FIRST`). One with no text is not
+/// one: the client fails to decode it.
+pub struct QuickChatPhraseProvider(FxHashMap<u16, QuickChatPhraseType>);
+
+impl QuickChatPhraseProvider {
+    pub fn from_indexed_bytes(dat: &[u8], idx: &[u8]) -> Result<Self> {
+        let phrases = PackedData::entries(dat, idx)?
+            .filter(|(_, data)| !data.is_empty())
+            .map(|(id, data)| {
+                let mut phrase = QuickChatPhraseType::new(id);
+                phrase.decode(&mut Packet::from(data.to_vec()));
+                (id, phrase)
+            })
+            .filter(|(_, phrase)| phrase.text.is_some())
+            .collect();
+        Ok(Self(phrases))
+    }
+
+    pub fn get(&self, id: u16) -> Option<&QuickChatPhraseType> {
+        self.0.get(&id)
     }
 }

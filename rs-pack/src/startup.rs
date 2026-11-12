@@ -21,6 +21,7 @@ use crate::cache::npc::NpcTypeRaw;
 use crate::cache::obj::{ObjContext, ObjTypeRaw};
 use crate::cache::param::{ParamType, ParamTypeRaw};
 use crate::cache::provider::{CacheType, TypeProvider};
+use crate::cache::quickchatphrase::QuickChatPhraseProvider;
 use crate::cache::script::ScriptProvider;
 use crate::cache::seq::SeqTypeRaw;
 use crate::cache::spotanim::SpotAnimTypeRaw;
@@ -218,6 +219,8 @@ fn load_cache(
     let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
     let varconbits = load_config::<VarbitType, _>(assets, "varconbit", ())?;
     let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
+    let phrases = client_config(assets, "quickchatphrase")?;
+    let chatphrases = QuickChatPhraseProvider::from_indexed_bytes(&phrases.dat, &phrases.idx)?;
 
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
@@ -276,6 +279,7 @@ fn load_cache(
         varcons,
         varconbits,
         controllers,
+        chatphrases,
     }))
 }
 

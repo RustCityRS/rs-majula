@@ -1291,3 +1291,60 @@ fn hint_arrow_entity_matches_client() {
         (4, 10, 0, Some(2047))
     );
 }
+
+/// Client (REFLECTION_CHECKER, 31, var-short; `AClass23_Sub2.method3077`):
+/// `g1 count`, `g4 id`, then per check `g1 kind` and its names: a field
+/// check's class and field, a method check's class, method, `g1` parameter
+/// count and parameter classes.
+#[test]
+fn reflection_checker_matches_client() {
+    use rs_protocol::network::game::server::reflection_checker::{
+        ReflectionCheck, ReflectionChecker,
+    };
+    let checks = [
+        ReflectionCheck::FieldValue {
+            class: "Statics1".into(),
+            field: "staff_modlevel".into(),
+        },
+        ReflectionCheck::FieldModifiers {
+            class: "client".into(),
+            field: "aBool1".into(),
+        },
+        ReflectionCheck::MethodModifiers {
+            class: "Statics1".into(),
+            method: "crc".into(),
+            params: vec!["[B".into(), "int".into(), "int".into()],
+        },
+    ];
+    let message = ReflectionChecker {
+        id: -2,
+        checks: &checks,
+    };
+    assert_eq!(ReflectionChecker::PROT as u8, 31);
+    let bytes = encode(&message);
+    assert_eq!(bytes.len(), message.sizeof());
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!((p.g1(), p.g4s()), (3, -2), "count, id");
+    for check in &checks {
+        let (kind, class, member) = (p.g1(), p.gjstr(), p.gjstr());
+        match check {
+            ReflectionCheck::FieldValue { class: c, field } => {
+                assert_eq!((kind, &class, &member), (0, c, field))
+            }
+            ReflectionCheck::FieldModifiers { class: c, field } => {
+                assert_eq!((kind, &class, &member), (2, c, field))
+            }
+            ReflectionCheck::MethodModifiers {
+                class: c,
+                method,
+                params,
+            } => {
+                assert_eq!((kind, &class, &member), (4, c, method));
+                let count = p.g1();
+                let got: Vec<String> = (0..count).map(|_| p.gjstr()).collect();
+                assert_eq!(&got, params);
+            }
+        }
+    }
+    p.done(bytes.len());
+}
