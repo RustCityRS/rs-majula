@@ -51433,6 +51433,32 @@ desc=Its scales seem to be made of bronze.
 // 289's
 wanderrange=5
 maxrange=20
+attack=112
+defence=112
+strength=112
+magic=100
+attackrange=10
+respawnrate=60
+huntrange=3
+huntmode=ranged
+param=stabdefence,50
+param=slashdefence,70
+param=crushdefence,70
+param=magicdefence,30
+param=rangedefence,90
+param=damagetype,^slash_style
+param=attack_sound,dragon_attack
+param=defend_sound,dragon_hit
+param=death_sound,dragon_death
+param=death_drop,dragon_bones
+// 2011's life points (2011 wiki, Bronze dragon, 18 May 2011). 289's times ten is 1120.
+hitpoints=1220
+// 2011's skeleton (bas_1851: seq 14250, frame group 3315). These three share
+// its frame group in cache 786; which is which is void-634's (metal_dragon_attack,
+// _defend, _death).
+param=attack_anim,seq_14247
+param=defend_anim,seq_14249
+param=death_anim,seq_14248
 
 // 1591
 [iron_dragon]
@@ -51455,6 +51481,32 @@ desc=Its scales seem to be made of iron.
 // 289's
 wanderrange=5
 maxrange=20
+attack=165
+defence=165
+strength=165
+magic=100
+attackrange=10
+respawnrate=60
+huntrange=3
+huntmode=ranged
+param=stabdefence,50
+param=slashdefence,70
+param=crushdefence,70
+param=magicdefence,30
+param=rangedefence,90
+param=damagetype,^slash_style
+param=attack_sound,dragon_attack
+param=defend_sound,dragon_hit
+param=death_sound,dragon_death
+param=death_drop,dragon_bones
+// 2011's life points (2011 wiki, Iron dragon, 18 May 2011). 289's times ten is 1650.
+hitpoints=1650
+// 2011's skeleton (bas_1851: seq 14250, frame group 3315). These three share
+// its frame group in cache 786; which is which is void-634's (metal_dragon_attack,
+// _defend, _death).
+param=attack_anim,seq_14247
+param=defend_anim,seq_14249
+param=death_anim,seq_14248
 
 // 1592
 [steel_dragon]
@@ -51478,6 +51530,32 @@ desc=Its scales seem to be made of steel.
 // 289's
 wanderrange=5
 maxrange=20
+attack=215
+defence=215
+strength=215
+magic=100
+attackrange=10
+respawnrate=60
+huntrange=3
+huntmode=ranged
+param=stabdefence,50
+param=slashdefence,70
+param=crushdefence,70
+param=magicdefence,30
+param=rangedefence,90
+param=damagetype,^slash_style
+param=attack_sound,dragon_attack
+param=defend_sound,dragon_hit
+param=death_sound,dragon_death
+param=death_drop,dragon_bones
+// 2011's life points (2011 wiki, Steel dragon, 22 May 2011). 289's times ten is 2100.
+hitpoints=2100
+// 2011's skeleton (bas_1851: seq 14250, frame group 3315). These three share
+// its frame group in cache 786; which is which is void-634's (metal_dragon_attack,
+// _defend, _death).
+param=attack_anim,seq_14247
+param=defend_anim,seq_14249
+param=death_anim,seq_14248
 
 // 1593
 [dog_wild]

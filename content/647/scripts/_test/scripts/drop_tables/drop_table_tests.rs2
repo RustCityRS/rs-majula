@@ -81,3 +81,32 @@ npc_heropoints(50)
 npc_queue(3, 0, 0)
 test_tick(5)
 assert_true(obj_find($at, bones))
+
+// Brimhaven Dungeon's metal dragons keep 289's ids in 2011 (1590-1592) and
+// 289's tables. A bronze dragon: 2011's life points (2011 wiki), its dragon
+// bones and five bronze bars, every time.
+[label,test_a_bronze_dragon_drops_dragon_bones_and_bronze_bars]
+setup_player("test_player")
+p_telejump(0_50_50_48_30)
+npc_add(movecoord(coord, 3, 0, 0), bronze_dragon, 50)
+assert_eq(npc_stat(hitpoints), 1220)
+assert_eq(npc_param(death_drop), dragon_bones)
+def_coord $at = npc_coord;
+npc_heropoints(100)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, dragon_bones))
+assert_true(obj_find($at, bronze_bar))
+
+// A steel dragon: its dragon bones and five steel bars.
+[label,test_a_steel_dragon_drops_dragon_bones_and_steel_bars]
+setup_player("test_player")
+p_telejump(0_50_50_48_40)
+npc_add(movecoord(coord, 3, 0, 0), steel_dragon, 50)
+assert_eq(npc_stat(hitpoints), 2100)
+def_coord $at = npc_coord;
+npc_heropoints(100)
+npc_queue(3, 0, 0)
+test_tick(5)
+assert_true(obj_find($at, dragon_bones))
+assert_true(obj_find($at, steel_bar))
