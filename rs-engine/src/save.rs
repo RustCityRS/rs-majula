@@ -283,11 +283,11 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
     sav.p2(profile.z);
     sav.p1(profile.y);
 
-    for i in 0..7 {
-        sav.p1(profile.body[i] as u8);
+    for &part in &profile.body {
+        sav.p1(part as u8);
     }
-    for i in 0..5 {
-        sav.p1(profile.colors[i]);
+    for &color in &profile.colors {
+        sav.p1(color);
     }
     sav.p1(profile.gender);
 

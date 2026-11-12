@@ -163,21 +163,19 @@ impl SkeletonBase {
         let mut out = Vec::with_capacity(count * 6);
 
         out.push(self.bone_count);
-        for i in 0..count {
-            out.push(self.transform_types[i]);
+        out.extend_from_slice(&self.transform_types[..count]);
+        for &flag in &self.parent_flags[..count] {
+            out.push(if flag { 1 } else { 0 });
         }
-        for i in 0..count {
-            out.push(if self.parent_flags[i] { 1 } else { 0 });
+        for &label in &self.labels[..count] {
+            out.push((label >> 8) as u8);
+            out.push(label as u8);
         }
-        for i in 0..count {
-            out.push((self.labels[i] >> 8) as u8);
-            out.push(self.labels[i] as u8);
+        for group in &self.label_groups[..count] {
+            out.push(group.len() as u8);
         }
-        for i in 0..count {
-            out.push(self.label_groups[i].len() as u8);
-        }
-        for i in 0..count {
-            out.extend_from_slice(&self.label_groups[i]);
+        for group in &self.label_groups[..count] {
+            out.extend_from_slice(group);
         }
 
         out

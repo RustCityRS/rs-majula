@@ -1095,14 +1095,14 @@ impl ScriptPlayer for ActivePlayer {
                 _ => -1,
             }
         }
-        for i in 0..7 {
+        for (i, part) in self.player.body.iter_mut().enumerate() {
             if gender == 1 {
-                self.player.body[i] = male_to_female(self.player.body[i]);
+                *part = male_to_female(*part);
             } else if i == 1 {
                 // Switching to male resets the jaw/beard slot to the default.
-                self.player.body[i] = 14;
+                *part = 14;
             } else {
-                self.player.body[i] = female_to_male(self.player.body[i]);
+                *part = female_to_male(*part);
             }
         }
         self.player.gender = gender;
