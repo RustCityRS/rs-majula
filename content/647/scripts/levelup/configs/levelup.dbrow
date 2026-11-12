@@ -3,6 +3,12 @@
 // (both void-634's LevelUp.kt). flash_bit is the stat's bit of
 // %skill_stat_flash (varp 1179, clientscript 970); icon its index in 2011's
 // skill menu (varbit 4757's icons, varp 965's guides, varp 1230's details).
+//
+// The jingles: levelup_jingle below level 50, unlocks_jingle from 50 (levelup.rs2). 289 gives
+// ranged and defence one jingle for both; 2011's "every skill" changes at 50 (2011 wiki, Skills),
+// and cache 786 holds their second ones next to the first (58 `advance ranged2`, 38 `advance
+// defense2`, 289's files by their notes, each with more notes than the first), so they play
+// from 50. Agility has one in 289 and none is known in cache 786: one jingle.
 
 [levelup_attack]
 table=levelup
@@ -43,7 +49,7 @@ data=body,interface_740:text3
 data=message,"Congratulations, you just advanced a ranged level."
 data=level_prefix,You have now reached level
 data=levelup_jingle,advance ranged
-data=unlocks_jingle,advance ranged
+data=unlocks_jingle,advance ranged2
 data=unlocks_levels,levelup_unlocks_ranged
 data=title_text,"Congratulations! You've just advanced a Ranged level!"
 data=flash_bit,3
@@ -73,7 +79,7 @@ data=body,interface_740:text3
 data=message,"Congratulations, you just advanced a defence level."
 data=level_prefix,You have now reached level
 data=levelup_jingle,advance defense
-data=unlocks_jingle,advance defense
+data=unlocks_jingle,advance defense2
 data=unlocks_levels,levelup_unlocks_defence
 data=title_text,"Congratulations! You've just advanced a Defence level!"
 data=flash_bit,2

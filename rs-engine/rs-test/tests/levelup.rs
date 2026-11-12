@@ -246,6 +246,44 @@ fn from_level_50_a_level_plays_the_second_jingle() {
     });
 }
 
+/// "Every skill" changes at 50 (the same page): ranged and defence, which 289 gives one jingle
+/// each, play the second ones cache 786 holds for them (58 `advance ranged2`, 38 `advance
+/// defense2`) from level 50, and the first below it.
+#[test]
+fn ranged_and_defence_change_at_level_50_too() {
+    runner::on_loaded_engine(|engine| {
+        for (name, stat, first) in [("fiftyr", 4, 57), ("fiftyd", 1, 37)] {
+            engine.harness_reset();
+            let mut client = engine.harness_login_returning(name).expect("login");
+            engine.cycle();
+            client.packets();
+
+            engine.harness_add_xp(client.pid, stat, 922_240);
+            let mut played = Vec::new();
+            for _ in 0..3 {
+                engine.cycle();
+                played.extend(jingles(&client.packets()));
+            }
+            assert_eq!(played, [first], "the first jingle at level 49");
+            let mut p = ClientPacket::new();
+            p.p2(0xFFFF).p4_alt2((LEVELUP as i32) << 16 | 3);
+            client.send(ClientProt::ResumePauseButton, &p.finish());
+            for _ in 0..2 {
+                engine.cycle();
+            }
+            client.packets();
+
+            engine.harness_add_xp(client.pid, stat, 1_013_330 - 922_240);
+            let mut played = Vec::new();
+            for _ in 0..3 {
+                engine.cycle();
+                played.extend(jingles(&client.packets()));
+            }
+            assert_eq!(played, [first + 1], "the second jingle at level 50");
+        }
+    });
+}
+
 /// A stat's level-up flash (varp 1179, `skill_stat_flash`) lasts only while
 /// the player stays logged in (2011 wiki, Update:Level-up Messages, 21 May
 /// 2008), so it is not saved; void-634 saved it.
