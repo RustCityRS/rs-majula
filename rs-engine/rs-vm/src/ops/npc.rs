@@ -132,6 +132,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
+            #[cfg(before_647)]
+            let amount = u16::from(s.pop_int_as::<u8>()?);
+            #[cfg(since_647)]
             let amount = s.pop_int_as::<u16>()?;
             let damage_type = s.pop_int_as::<u8>()?;
             #[cfg(since_647)]
