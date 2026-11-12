@@ -185,15 +185,17 @@ assert_false(region_findbycoord($origin))
 assert_false(controller_findexact($origin, controller_0))
 
 // A controller added for a duration goes when an npc added for it would.
+// The npc is found by its uid: it wanders, so it may have left its tile.
 [label,test_controller_despawns_like_an_npc]
 controller_add(0_50_50_20_23, controller_0, 3)
 npc_add(0_50_50_20_24, horror_dagganoth_jr, 3)
+def_npc_uid $npc = npc_uid;
 test_tick(2)
 assert_true(controller_findexact(0_50_50_20_23, controller_0))
-assert_true(npc_findexact(0_50_50_20_24, horror_dagganoth_jr))
+assert_true(npc_finduid($npc))
 test_tick(1)
 assert_false(controller_findexact(0_50_50_20_23, controller_0))
-assert_false(npc_findexact(0_50_50_20_24, horror_dagganoth_jr))
+assert_false(npc_finduid($npc))
 
 // A region's controller can stand on a tile no zone was copied to.
 [label,test_controller_stands_anywhere_in_its_region]
