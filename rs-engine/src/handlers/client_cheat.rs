@@ -10,6 +10,7 @@ use rs_db::{ModAction, log_type, transfer};
 use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
+use rs_io::Packet;
 #[cfg(since_647)]
 use rs_io::cp1252::encode_string;
 use rs_pack::cache::category::CategoryType;
@@ -28,11 +29,15 @@ use rs_pack::cache::r#struct::StructType;
 use rs_pack::cache::varp::VarPlayerType;
 use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{DummyItem, LocAngle, LocShape, NpcStat, PlayerStat};
+use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::pack_coord;
+use rs_protocol::network::game::server::ServerProtMessage;
+use rs_protocol::network::game::server::if_settext::IfSetText;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_stat::get_exp_by_level;
 use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
 #[cfg(before_647)]
@@ -153,6 +158,7 @@ fn cheat_maintainer(
         "slowreboot" => cheat_slow_reboot(&mut args),
         "bots" => cheat_spawn_bots(active),
         "localbots" => cheat_spawn_local_bots(active),
+        "readerstall" => cheat_reader_stall(active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
         _ if engine()
@@ -679,6 +685,38 @@ fn cheat_spawn_local_bots(active: &mut ActivePlayer) -> Result<(), ScriptError> 
     let spawned = spawn_bots(active.player.pathing.coord, 2048, 15);
     active.message_game(&format!(
         "Spawned {spawned} bots in a 15x15 area around you."
+    ));
+    Ok(())
+}
+
+/// Sends one packet whose body fills the client's packet buffer,
+/// [`MAX_PACKET_SIZE`] bytes: filler text on the first layer component, which
+/// never draws text. From build 600 to 647 the client can only take a body
+/// that size once its socket buffer is full, and taking it empties the buffer,
+/// so its reader thread stalls and the client reconnects 15 s later. The line
+/// behind it is only read if it didn't.
+///
+/// Usage: `::readerstall`.
+fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let Some(com) = engine()
+        .interfaces()
+        .types
+        .iter()
+        .filter(|(_, com)| com.layer)
+        .map(|(&id, _)| id)
+        .min()
+    else {
+        return Ok(());
+    };
+    #[cfg(before_647)]
+    let com = com as u16;
+    let text = "x".repeat(MAX_PACKET_SIZE - IfSetText { com, text: "" }.sizeof());
+    let message = IfSetText { com, text: &text };
+    let mut body = Packet::new(message.sizeof());
+    message.encode(&mut body);
+    active.write_varshort_unchecked(ServerProt::IfSetText as u8, [&body.data[..body.pos], &[]]);
+    active.message_game(&format!(
+        "The client read the {MAX_PACKET_SIZE}-byte packet without stalling: run ::readerstall again."
     ));
     Ok(())
 }

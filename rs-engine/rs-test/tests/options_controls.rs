@@ -13,6 +13,10 @@
 //! - Exit to Lobby (182 com5), and five idle minutes, send LOGOUT (62): 2011's
 //!   client takes a connection closed without it for a lost one and
 //!   reconnects.
+//! - `::readerstall` sends one IF_SETTEXT whose body fills 2011's client
+//!   packet buffer (15000 bytes): the client takes it only once its 15000-byte
+//!   socket buffer is full, which empties it, so its reader thread stalls and
+//!   15 s later the client reconnects.
 //!
 //! A tab button is IF_BUTTON1, `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
@@ -237,6 +241,30 @@ fn exit_to_lobby_sends_logout() {
         engine.cycle();
         let packets = click(engine, &mut client, com(182, 5));
         assert!(logged_out(&packets), "told to log out");
+    });
+}
+
+#[test]
+fn readerstall_fills_the_client_socket_buffer() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "stallfan");
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = StaffModLevel::Maintainer;
+        cheat(&mut client, "readerstall");
+        engine.cycle();
+        let packets = client.packets();
+        let stall = packets
+            .iter()
+            .position(|(op, body)| *op == ServerProt::IfSetText as u16 && body.len() == 15000)
+            .expect("an IF_SETTEXT whose body fills the client's 15000-byte buffer");
+        assert!(
+            messages(&packets[stall..])
+                .iter()
+                .any(|m| m.contains("::readerstall")),
+            "a retry line behind it, shown only when the client didn't stall"
+        );
     });
 }
 

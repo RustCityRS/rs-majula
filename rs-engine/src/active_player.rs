@@ -2540,12 +2540,20 @@ impl ActivePlayer {
         if 1 + 2 + size > MAX_PACKET_SIZE {
             return;
         }
+        self.write_varshort_unchecked(prot, parts);
+    }
+
+    /// [`write_varshort_parts`](Self::write_varshort_parts) without the size
+    /// check, for `::readerstall`'s body the size of the client's whole packet
+    /// buffer.
+    pub(crate) fn write_varshort_unchecked(&mut self, prot: u8, parts: [&[u8]; 2]) {
         let handle = &mut self.handle;
         let opcode = (prot as u32 + handle.isaac_encode.next_int()) as u8;
         let rest = handle.gather_varshort(opcode, parts);
-        self.watch.server(engine().clock, prot, rest);
+        let engine = engine();
+        self.watch.server(engine.clock, prot, rest);
         self.watch.remember(prot, 2, rest);
-        if !engine().gather_output {
+        if !engine.gather_output {
             self.handle.flush();
         }
     }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the vanilla 647 client with the repository's login and JS5 RSA key."""
+"""Rebuild the vanilla 647 client with the repository's login and JS5 RSA key and 648's socket reader fix."""
 
 import argparse
 import hashlib
@@ -7,9 +7,13 @@ import io
 import re
 import struct
 import subprocess
+import sys
 from pathlib import Path
 from urllib.request import urlopen
 from zipfile import ZipFile
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from patch_client_reader import fix_reader  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = "https://archive.openrs2.org/clients/31063.dat"
@@ -55,15 +59,18 @@ def main():
 
     output = io.BytesIO()
     with ZipFile(io.BytesIO(original)) as source, ZipFile(output, "w") as patched:
+        reader, fixed = fix_reader(source)
         for entry in source.infolist():
             data = source.read(entry)
             if entry.filename in MODULI:
                 data = patch_modulus(data, MODULI[entry.filename], modulus)
+            if entry.filename == reader:
+                data = fixed
             patched.writestr(entry, data)
 
     with ZipFile(io.BytesIO(original)) as source, ZipFile(output) as patched:
         changed = {name for name in source.namelist() if source.read(name) != patched.read(name)}
-        if changed != MODULI.keys():
+        if changed != MODULI.keys() | {reader}:
             raise ValueError(f"Unexpected changed entries: {changed}")
 
     if args.check:
@@ -73,10 +80,10 @@ def main():
             for name in patched.namelist():
                 if existing.read(name) != patched.read(name):
                     raise ValueError(f"Unexpected client data: {name}")
-        print("Verified: only the login and JS5 RSA modulus constants differ from vanilla 647")
+        print("Verified: only the RSA modulus constants and the socket reader check differ from vanilla 647")
     else:
         args.output.write_bytes(output.getvalue())
-        print(f"Wrote {args.output}: only the login and JS5 RSA modulus constants changed")
+        print(f"Wrote {args.output}: only the RSA modulus constants and the socket reader check changed")
 
 
 if __name__ == "__main__":

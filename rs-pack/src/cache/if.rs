@@ -38,6 +38,7 @@ pub struct IfType {
     pub x: i16,
     pub y: i16,
     pub scrolls: bool,
+    pub layer: bool,
     #[cfg(since_647)]
     pub active_properties: u32,
 }
@@ -108,6 +109,7 @@ impl From<IfTypeRaw> for IfType {
             x: 0,
             y: 0,
             scrolls: false,
+            layer: raw.com_type == IfComponentType::Layer,
             #[cfg(since_647)]
             active_properties: raw.active_properties,
         }
