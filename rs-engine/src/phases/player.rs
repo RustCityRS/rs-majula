@@ -106,6 +106,25 @@ impl Engine {
 
         active.player.state.check_delay(self.clock);
 
+        #[cfg(since_254)]
+        if active
+            .player
+            .state
+            .active_script
+            .as_ref()
+            .is_some_and(|s| s.execution == ExecutionState::MapBuildPending)
+            && (!active.player.state.delayed || active.map_build_complete())
+        {
+            active.player.state.delayed = false;
+            active
+                .player
+                .state
+                .active_script
+                .as_mut()
+                .unwrap()
+                .execution = ExecutionState::Suspended;
+        }
+
         // - resume suspended script
         if !active.player.state.delayed
             && active

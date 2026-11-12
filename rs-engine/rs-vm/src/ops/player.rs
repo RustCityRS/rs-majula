@@ -935,6 +935,30 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.execution = ExecutionState::StringDialog;
         });
 
+        // 3514
+        #[cfg(since_647)]
+        protected_active_player!(m, P_NAMEDIALOG => |s, _player| {
+            s.execution = ExecutionState::NameDialog;
+        });
+
+        // 3533
+        #[cfg(since_647)]
+        protected_active_player!(m, P_OBJDIALOG => |s, _player| {
+            s.execution = ExecutionState::ObjDialog;
+        });
+
+        // 3534
+        #[cfg(since_647)]
+        protected_active_player!(m, P_HSLDIALOG => |s, _player| {
+            s.execution = ExecutionState::HslDialog;
+        });
+
+        // 3535
+        #[cfg(since_647)]
+        protected_active_player!(m, P_CLANFORUMQFCDIALOG => |s, _player| {
+            s.execution = ExecutionState::ClanforumqfcDialog;
+        });
+
         // 3517
         // Suspends until the display-name DB check completes; the saves phase
         // resumes the script with last_int (1 = set, 0 = taken, -1 = error)
@@ -1822,6 +1846,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let from = halfsq(player.coord(), 1);
             let source = -(player.uid().pid() as i16) - 1;
             tail.send::<E>(player.coord().y(), from, to, source, target, wearpos)?;
+        });
+
+        #[cfg(since_254)]
+        protected_active_player_mut!(m, P_LOADDELAY => |s, player| {
+            if !player.map_build_complete() {
+                player.delay(engine::<E>().clock() + 100);
+                s.execution = ExecutionState::MapBuildPending;
+            }
         });
     }
 }

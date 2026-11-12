@@ -1093,6 +1093,8 @@ pub enum ExecutionState {
     Finished,
     /// Suspended to wait for a player movement or interaction to complete.
     Suspended,
+    #[cfg(since_254)]
+    MapBuildPending,
     /// Suspended because the player pressed the pause button during a message dialog.
     PauseButton,
     /// Suspended while waiting for the player to enter a number in a count dialog.
@@ -1101,6 +1103,20 @@ pub enum ExecutionState {
     /// (`p_stringdialog`), resumed by RESUME_P_STRINGDIALOG.
     #[cfg(since_647)]
     StringDialog,
+    /// Rev-647: waiting for a name (`p_namedialog`), resumed by RESUME_P_NAMEDIALOG.
+    #[cfg(since_647)]
+    NameDialog,
+    /// Rev-647: waiting for an obj from the stockmarket search (`p_objdialog`),
+    /// resumed by RESUME_P_OBJDIALOG.
+    #[cfg(since_647)]
+    ObjDialog,
+    /// Rev-647: waiting for a colour (`p_hsldialog`), resumed by RESUME_P_HSLDIALOG.
+    #[cfg(since_647)]
+    HslDialog,
+    /// Rev-647: waiting for a clan-forum quick find code (`p_clanforumqfcdialog`),
+    /// resumed by RESUME_P_CLANFORUMQFCDIALOG.
+    #[cfg(since_647)]
+    ClanforumqfcDialog,
     /// Rev-647: suspended while waiting for the display-name DB check
     /// requested by `p_setdisplayname`.
     #[cfg(since_647)]
@@ -1109,6 +1125,23 @@ pub enum ExecutionState {
     NpcSuspended,
     /// Suspended to wait for a world-level event to complete.
     WorldSuspended,
+}
+
+impl ExecutionState {
+    /// Waiting on the player's answer to a dialog, which opening or closing a
+    /// modal abandons.
+    pub fn awaits_input(self) -> bool {
+        match self {
+            Self::PauseButton | Self::CountDialog => true,
+            #[cfg(since_647)]
+            Self::StringDialog
+            | Self::NameDialog
+            | Self::ObjDialog
+            | Self::HslDialog
+            | Self::ClanforumqfcDialog => true,
+            _ => false,
+        }
+    }
 }
 
 /// A typed argument passed to a script invocation.

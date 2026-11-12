@@ -46,6 +46,8 @@ pub mod opplayeru;
 pub mod rebuild_get_maps;
 pub mod resume_p_countdialog;
 #[cfg(since_647)]
+pub mod resume_p_dialogs;
+#[cfg(since_647)]
 pub mod resume_p_string_dialog;
 pub mod resume_pause_button;
 pub mod send_snapshot;

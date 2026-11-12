@@ -1043,6 +1043,10 @@ pub trait ScriptPlayer {
     /// 5000 bytes.
     fn buffer_full(&self) -> bool;
 
+    /// Returns whether the client has finished its map build and no rebuild is due.
+    #[cfg(since_254)]
+    fn map_build_complete(&self) -> bool;
+
     /// Makes the player say a message as overhead forced chat.
     ///
     /// # Arguments

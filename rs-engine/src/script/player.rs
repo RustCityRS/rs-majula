@@ -23,6 +23,11 @@ use rsmod::PathRequest;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 impl ScriptPlayer for ActivePlayer {
+    #[cfg(since_254)]
+    fn map_build_complete(&self) -> bool {
+        !self.player.build_area.loading && !self.needs_rebuild()
+    }
+
     /// Returns this player's unique identifier.
     ///
     /// # Call Stack

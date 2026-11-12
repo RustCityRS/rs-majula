@@ -135,6 +135,8 @@ pub struct BuildArea {
     pub zones_settled: Option<u64>,
     pub mapsquares: Vec<u16>,
     pub origin: CoordGrid,
+    #[cfg(since_254)]
+    pub loading: bool,
     pub players: IdBitSet,
     pub npcs: IdBitSet,
     pub appearances: Box<[u32; MAX_PLAYERS]>,
@@ -175,6 +177,8 @@ impl BuildArea {
             zones_settled: None,
             mapsquares: Vec::with_capacity(3 * 3),
             origin: CoordGrid::new(0, 0, 0),
+            #[cfg(since_254)]
+            loading: false,
             players: IdBitSet::new(MAX_PLAYERS, BuildArea::PREFERRED_PLAYERS as usize),
             npcs: IdBitSet::new(MAX_NPCS, BuildArea::PREFERRED_NPCS as usize),
             appearances: Box::new([0; MAX_PLAYERS]),
@@ -240,6 +244,10 @@ impl BuildArea {
         self.players.clear();
         self.npcs.clear();
         self.appearances.fill(0);
+        #[cfg(since_254)]
+        {
+            self.loading = false;
+        }
         #[cfg(since_647)]
         {
             self.rebuild = false;
@@ -304,6 +312,10 @@ impl BuildArea {
         }
 
         self.origin = CoordGrid::from(coord.packed());
+        #[cfg(since_254)]
+        {
+            self.loading = true;
+        }
         self.loaded_zones.clear();
         self.zones_settled = None;
     }

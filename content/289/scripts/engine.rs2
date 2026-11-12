@@ -171,6 +171,8 @@
 [command,p_countdialog]
 // info: Requires protected access - delay this script/the player for $delay cycles
 [command,p_delay](int $delay)
+// info: Requires protected access - wait for the client to build its scene, up to 100 ticks
+[command,p_loaddelay]
 // info: Requires protected access - delay this script/the secondary player for $delay cycles
 [command,.p_delay](int $delay)
 // info: Requires protected access - run the opheld $op trigger for the item at $slot in $inv

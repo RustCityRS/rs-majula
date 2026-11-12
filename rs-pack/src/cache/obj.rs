@@ -31,11 +31,17 @@ pub struct ObjType {
     pub wearpos3: Option<WearPos>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
+    #[cfg(since_647)]
+    pub stockmarket: bool,
     pub weight: i16,
     pub category: Option<u16>,
     pub dummyitem: DummyItem,
     pub certlink: Option<u16>,
     pub certtemplate: Option<u16>,
+    #[cfg(since_647)]
+    pub lenttemplate: Option<u16>,
+    #[cfg(since_647)]
+    pub boughttemplate: Option<u16>,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     #[cfg(since_647)]
@@ -60,11 +66,17 @@ impl From<ObjTypeRaw> for ObjType {
             wearid: raw.wearid,
             op: raw.op,
             iop: raw.iop,
+            #[cfg(since_647)]
+            stockmarket: raw.stockmarket,
             weight: raw.weight,
             category: raw.category,
             dummyitem: raw.dummyitem,
             certlink: raw.certlink,
             certtemplate: raw.certtemplate,
+            #[cfg(since_647)]
+            lenttemplate: raw.lenttemplate,
+            #[cfg(since_647)]
+            boughttemplate: raw.boughttemplate,
             respawnrate: raw.respawnrate,
             params: raw.params,
             #[cfg(since_647)]

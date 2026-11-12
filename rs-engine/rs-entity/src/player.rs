@@ -18,7 +18,6 @@ use rs_stat::Stats;
 use rs_var::VarSet;
 use rs_vm::ComId;
 pub use rs_vm::PlayerUid;
-use rs_vm::state::ExecutionState;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::ops::{Deref, DerefMut};
 
@@ -605,23 +604,21 @@ impl Player {
         }
     }
 
-    /// Clears the active script if it is suspended waiting for a count dialog or
-    /// pause button input.
+    /// Clears the active script if it is suspended waiting for the player's
+    /// answer to a dialog (a pause button, count, string, name, obj, colour or
+    /// quick find code).
     ///
     /// This is called when a modal interface is opened, which invalidates any
     /// suspended dialog script that was waiting for player input.
     ///
     /// # Side Effects
     /// * Sets `self.state.active_script` to `None` if the script's execution state
-    ///   is `CountDialog` or `PauseButton`.
+    ///   `awaits_input`.
     /// * Clears `self.resume_buttons`, since the resume targets belonged to the
     ///   script being discarded.
     pub fn clear_suspended_script(&mut self) {
         if let Some(s) = &self.state.active_script
-            && matches!(
-                s.execution,
-                ExecutionState::CountDialog | ExecutionState::PauseButton
-            )
+            && s.execution.awaits_input()
         {
             self.state.active_script = None;
             self.resume_buttons = None;

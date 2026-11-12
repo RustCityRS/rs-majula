@@ -182,8 +182,14 @@
 [command,p_arrivedelay]
 // info: Requires protected access - open a number input dialog
 [command,p_countdialog]
-// info: Requires protected access - open a name input dialog (suspends until client responds)
+// info: Requires protected access - wait for the name the player enters (meslayer_mode8); last_string is the name
 [command,p_namedialog]
+// info: Requires protected access - wait for the obj the player picks in the stockmarket search (objdialog); last_int is the obj
+[command,p_objdialog]
+// info: Requires protected access - wait for the colour the player picks (a clan or skillcape colour picker); last_int is its hsl
+[command,p_hsldialog]
+// info: Requires protected access - wait for the clan-forum quick find code the player enters (clan_qfc_input); last_string is the code, or "" for none
+[command,p_clanforumqfcdialog]
 [command,p_stringdialog]
 [command,p_setdisplayname](string $name)
 [command,p_get_suggestion](int $index)(string)
@@ -191,6 +197,8 @@
 [command,p_prev_suggestions]
 // info: Requires protected access - delay this script/the player for $delay cycles
 [command,p_delay](int $delay)
+// info: Requires protected access - wait for the client to build its scene, up to 100 ticks
+[command,p_loaddelay]
 // info: Requires protected access - delay this script/the secondary player for $delay cycles
 [command,.p_delay](int $delay)
 // info: Requires protected access - run the opheld $op trigger for the item at $slot in $inv

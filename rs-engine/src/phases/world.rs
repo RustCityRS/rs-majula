@@ -75,6 +75,12 @@ impl Engine {
         let result = engine_mut().runescript_vm_execute(&mut script);
         self.release_protected_players(&mut script);
 
+        #[cfg(since_254)]
+        let result = match result {
+            ExecutionState::MapBuildPending => ExecutionState::Suspended,
+            other => other,
+        };
+
         match result {
             ExecutionState::WorldSuspended => {
                 let delay = script.pop_int();

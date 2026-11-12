@@ -2571,6 +2571,16 @@ impl ActivePlayer {
         });
     }
 
+    pub(crate) fn needs_rebuild(&self) -> bool {
+        let area = &self.player.build_area;
+        let coord = self.player.pathing.coord;
+        #[cfg(since_647)]
+        if area.rebuild || (coord.x() >= REGION_X) != area.dynamic {
+            return true;
+        }
+        area.needs_rebuild(&coord)
+    }
+
     /// Sends the rebuild (map region) packet to the client if the player has
     /// moved far enough to require a new build area.
     ///
@@ -2584,16 +2594,12 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Updates the player's build area origin and mapsquare list.
     pub fn rebuild_normal(&mut self, reconnecting: bool) {
+        if !self.needs_rebuild() && !reconnecting {
+            return;
+        }
         let coord = self.player.pathing.coord;
         #[cfg(since_647)]
         let dynamic = coord.x() >= REGION_X;
-        #[cfg(since_647)]
-        let forced = self.player.build_area.rebuild || dynamic != self.player.build_area.dynamic;
-        #[cfg(before_647)]
-        let forced = false;
-        if !self.player.build_area.needs_rebuild(&coord) && !reconnecting && !forced {
-            return;
-        }
         self.player.build_area.rebuild_normal(&coord);
         let base = self.map_base();
         self.watch.anticheat.rebuilt(base, engine().clock);

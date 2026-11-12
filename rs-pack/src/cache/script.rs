@@ -464,6 +464,8 @@ pub const APPLYDESIGN: u16 = 2251;
 #[cfg(since_647)]
 pub const IF_OPENTOP: u16 = 3512;
 #[cfg(since_647)]
+pub const P_NAMEDIALOG: u16 = 3514;
+#[cfg(since_647)]
 pub const LAST_STRING: u16 = 3515;
 #[cfg(since_647)]
 pub const P_STRINGDIALOG: u16 = 3516;
@@ -483,6 +485,12 @@ pub const MUSIC_PLAYJINGLE: u16 = 3523;
 pub const MUSIC_PLAYSONG: u16 = 3524;
 #[cfg(since_647)]
 pub const GETWINDOWMODE: u16 = 3529;
+#[cfg(since_647)]
+pub const P_OBJDIALOG: u16 = 3533;
+#[cfg(since_647)]
+pub const P_HSLDIALOG: u16 = 3534;
+#[cfg(since_647)]
+pub const P_CLANFORUMQFCDIALOG: u16 = 3535;
 #[cfg(since_647)]
 pub const RUNCLIENTSCRIPT: u16 = 5000;
 #[cfg(since_647)]
@@ -594,6 +602,8 @@ pub const P_TRANSMOGRIFY: u16 = 2152;
 pub const P_TEMPRUN: u16 = 2153;
 #[cfg(since_647)]
 pub const P_PROJANIM_HALFSQ: u16 = 2154;
+#[cfg(since_254)]
+pub const P_LOADDELAY: u16 = 2155;
 
 // ── Npc ops (2500-2999) ─────────────────────────────────────────────────────
 

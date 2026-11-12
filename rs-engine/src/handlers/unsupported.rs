@@ -3,8 +3,7 @@ use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{
     ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName,
     FriendSetRank, MessagePrivate, MessageQuickchatPrivate, MessageQuickchatPublic,
-    ReflectionCheckReply, ResumePClanforumqfcDialog, ResumePHslDialog, ResumePNameDialog,
-    ResumePObjDialog, UrlRequest, WorldlistFetch,
+    ReflectionCheckReply, UrlRequest, WorldlistFetch,
 };
 use rs_vm::ScriptError;
 use tracing::debug;
@@ -31,10 +30,6 @@ unsupported!(
     MessageQuickchatPrivate => "quick chat",
     MessageQuickchatPublic => "quick chat",
     ReflectionCheckReply => "pending reflection checks",
-    ResumePClanforumqfcDialog => "clan-forum dialogs",
-    ResumePHslDialog => "colour dialogs",
-    ResumePNameDialog => "name dialogs",
-    ResumePObjDialog => "object dialogs",
     UrlRequest => "URL request routing",
     WorldlistFetch => "world-list service",
 );
