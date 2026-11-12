@@ -31,7 +31,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::zone_prot::ZoneProt;
 use rs_test::runner;
-use rs_test::talk::{converse, talk_to};
+use rs_test::talk::{converse, converse_until, talk_to};
 use rs_vm::subject::ScriptSubject;
 
 /// Square 57_77's south-west tile.
@@ -143,6 +143,21 @@ fn npc_tile(engine: &Engine, name: &str) -> Option<(u16, u16)> {
         .flatten()
         .find(|n| n.npc.uid.id() == id)
         .map(|n| (n.npc.pathing.coord.x(), n.npc.pathing.coord.z()))
+}
+
+/// The world tile of the tutorial's Roddeck: the one in a region copy, not Lumbridge's (one npc
+/// type, 8867).
+fn roddeck_tile(engine: &Engine) -> Option<(u16, u16)> {
+    let id = *engine.cache.npcs.debugnames.get("roddeck_8867").unwrap();
+    engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .filter(|n| n.npc.uid.id() == id)
+        .map(|n| n.npc.pathing.coord)
+        .find(|coord| engine.regions.source(*coord).is_some())
+        .map(|coord| (coord.x(), coord.z()))
 }
 
 /// An npc's tile and its spawn tile as the cellar's local (x, z), and its mode.
@@ -1654,8 +1669,16 @@ fn the_dragon_is_put_to_sleep() {
             origin.0 + 17,
             origin.1 + 35,
         );
-        // The meat shows in the bowl once it is put there (4KO2h2xPtdM @200.2 to @223.65).
-        let first = cycles(engine, &mut client, 4);
+        // The meat shows in the bowl once it is put there, three ticks into the player's
+        // animation (4KO2h2xPtdM @197.45-199.0; in the bowl @200.2 to @223.65).
+        let early = cycles(engine, &mut client, 2);
+        assert_eq!(varbit_named(engine, &client, "tutorial3_meatplacement"), 0);
+        assert!(
+            slot_of(engine, &client, meat).is_some(),
+            "still in the hand"
+        );
+        let mut first = early;
+        first.extend(cycles(engine, &mut client, 4));
         assert_eq!(
             varbit_named(engine, &client, "tutorial3_meatplacement"),
             1,
@@ -2026,7 +2049,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
                 now,
                 sent_text(&sent, "Wow!"),
                 loc_ids(engine, dx, dz).contains(&door_open),
-                npc_tile(engine, "tutorial3_advisor_walkoverrocks").is_some(),
+                roddeck_tile(engine).is_some(),
                 s038,
             ));
             vant.push(npc_trace(engine, "tutorial3_knight_waitingforbattle"));
@@ -2193,7 +2216,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         // Roddeck walks from his cupboard to the player's side (the minimap @428.5 and @431: his
         // dot a tile south and a tile east of the player's).
         assert_eq!(
-            npc_tile(engine, "tutorial3_advisor_walkoverrocks").map(|t| local(engine, t)),
+            roddeck_tile(engine).map(|t| local(engine, t)),
             Some((26, 33)),
             "Roddeck beside the player"
         );
@@ -2202,7 +2225,7 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         // default again, here the cupboard.
         cycles(engine, &mut client, 100);
         assert_eq!(
-            npc_tile(engine, "tutorial3_advisor_walkoverrocks").map(|t| local(engine, t)),
+            roddeck_tile(engine).map(|t| local(engine, t)),
             Some((26, 33)),
             "Roddeck stays beside the player"
         );
@@ -2270,10 +2293,7 @@ fn the_way_out_to_lumbridge() {
         );
         assert_eq!(progress(engine, &client), 128, "Discover an Exit");
 
-        talk_to(
-            &mut client,
-            npc_nid(engine, "tutorial3_advisor_walkoverrocks"),
-        );
+        talk_to(&mut client, npc_nid(engine, "roddeck_8867"));
         let choice = converse(engine, &mut client, &["I'll mine through the rocks."], 160);
         assert!(choice.said("Roddeck gives you a pickaxe."));
         assert_eq!(progress(engine, &client), 135);
@@ -2306,10 +2326,7 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(varbit(engine, &client, 8589), 3518, "Skill in Mining");
         engine.harness_telejump(client.pid, origin.0 + 31, 0, origin.1 + 32);
         cycles(engine, &mut client, 3);
-        talk_to(
-            &mut client,
-            npc_nid(engine, "tutorial3_advisor_walkoverrocks"),
-        );
+        talk_to(&mut client, npc_nid(engine, "roddeck_8867"));
         let spot = converse(engine, &mut client, &[], 200);
         assert!(spot.said("You can practice mining on the rocks that fell into my cellar"));
         assert_eq!(progress(engine, &client), 145);
@@ -2415,6 +2432,29 @@ fn the_way_out_to_lumbridge() {
             .get(POPUP_TASK)
             .as_int();
         assert_eq!(popup, 3514, "TASK COMPLETE! Discover an Exit");
+
+        // The hole both ways: out on the kitchen's side, back on the cellar's, out again, and
+        // Roddeck's box only the first time.
+        let side = |engine: &Engine, client: &HarnessClient| {
+            let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+            (here.x(), here.z())
+        };
+        assert_eq!(side(engine, &client), at(13, 35));
+        for x in [15, 13] {
+            oploc1(
+                &mut client,
+                loc_id(engine, "tutorial3_mine_wall_end"),
+                rx,
+                rz,
+            );
+            let again = cycles(engine, &mut client, 8);
+            assert_eq!(side(engine, &client), at(x, 35));
+            assert!(
+                !rs_test::talk::settexts(&again)
+                    .iter()
+                    .any(|(_, t)| t.contains("Roddeck retrieves"))
+            );
+        }
 
         // The ladder up: Explorer Jack's house, the quest's end.
         engine.harness_telejump(client.pid, origin.0 + 6, 0, origin.1 + 44);
@@ -2523,6 +2563,200 @@ fn the_way_out_to_lumbridge() {
             3521,
             "The Journey Begins"
         );
+    });
+}
+
+/// A player who left the game in Explorer Jack's house copy, back in one: the world tile of the
+/// copy's (0, 0) less the real house's, as (dx, dz).
+fn house_login(engine: &mut Engine, name: &str) -> (HarnessClient, (i32, i32)) {
+    engine.harness_reset();
+    let mut client = engine
+        .harness_login_returning_at(name, 3207, 3240)
+        .expect("login");
+    cycles(engine, &mut client, 3);
+    let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+    let source = engine.regions.source(here).expect("in a house copy");
+    assert_eq!((source.x(), source.z()), (3207, 3240), "by the trapdoor");
+    let offset = (
+        i32::from(here.x()) - i32::from(source.x()),
+        i32::from(here.z()) - i32::from(source.z()),
+    );
+    (client, offset)
+}
+
+/// Whether an npc of a type stands within `distance` tiles of the player.
+fn npc_near(engine: &Engine, client: &HarnessClient, name: &str, distance: i32) -> bool {
+    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let me = engine.harness_player(client.pid).unwrap().pathing.coord;
+    engine.npc_list.npcs.iter().flatten().any(|n| {
+        let at = n.npc.pathing.coord;
+        n.npc.uid.id() == id
+            && (i32::from(at.x()) - i32::from(me.x())).abs() <= distance
+            && (i32::from(at.z()) - i32::from(me.z())).abs() <= distance
+    })
+}
+
+/// A click on the floor at world (x, z).
+fn walk_to(client: &mut HarnessClient, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.p2_alt1(i32::from(x)).p1_alt1(0).p2(i32::from(z));
+    client.send(ClientProt::MoveGameClick, &p.finish());
+}
+
+/// Explorer Jack's house after the quest (4KO2h2xPtdM 2011-04-30 @636-678, Qh_-AMJpVd0
+/// 2011-05-10 @428-467): Sir Vant in the doorway until the talk, which any of the three starts;
+/// he leaves and the door shuts; Open on it walks the player out of the copy under "As you
+/// leave, Roddeck wanders off home.", into Lumbridge with The Journey Begins done.
+#[test]
+fn explorer_jacks_house_and_the_door_out() {
+    runner::on_loaded_engine(|engine| {
+        let (mut client, (dx, dz)) = house_login(engine, "uf_house");
+        let at = |x: u16, z: u16| ((i32::from(x) + dx) as u16, (i32::from(z) + dz) as u16);
+        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 3520);
+        assert!(
+            is_open(engine, &client, 182),
+            "the logout panel in its slot"
+        );
+        assert_eq!(
+            npc_tile(engine, "tutorial3_knight_waitingforbattle"),
+            Some(at(3204, 3244)),
+            "Sir Vant in the doorway"
+        );
+        let door = loc_id(engine, "door_45476");
+        let (door_x, door_z) = at(3204, 3245);
+        assert!(
+            !loc_ids(engine, door_x, door_z).contains(&door),
+            "the door open"
+        );
+
+        // Roddeck before the talk: his one line of it.
+        talk_to(&mut client, npc_nid(engine, "roddeck_8867"));
+        let roddeck = converse(engine, &mut client, &[], 20);
+        assert!(roddeck.said("At last, we're out!"), "{:?}", roddeck.texts);
+        assert!(!roddeck.said("my mission is accomplished"));
+        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+
+        // Sir Vant: the talk from his own line on.
+        talk_to(
+            &mut client,
+            npc_nid(engine, "tutorial3_knight_waitingforbattle"),
+        );
+        let vant = converse(engine, &mut client, &[], 60);
+        assert!(!vant.said("Good grief!"), "{:?}", vant.texts);
+        assert!(!vant.said("At last, we're out!"), "{:?}", vant.texts);
+        assert!(vant.said("Well, my mission is accomplished now"));
+        assert!(vant.said("I'd better head back to Falador."));
+        assert!(vant.said("Look at the Rewards tab for a Task to learn more."));
+        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 3);
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 3521);
+        cycles(engine, &mut client, 8);
+        assert!(
+            !npc_near(engine, &client, "tutorial3_knight_waitingforbattle", 30),
+            "Sir Vant gone"
+        );
+        assert!(
+            loc_ids(engine, door_x, door_z).contains(&door),
+            "the door shut behind him: {:?}",
+            loc_ids(engine, door_x, door_z)
+        );
+        // Jack has no more to say in here.
+        talk_to(&mut client, npc_nid(engine, "tutorial3_explorer_jack"));
+        let jack = converse(engine, &mut client, &[], 10);
+        assert!(jack.texts.is_empty(), "{:?}", jack.texts);
+
+        // Open: the box with no continue, the walk out, Lumbridge.
+        oploc1(&mut client, door, door_x, door_z);
+        let out = cycles(engine, &mut client, 14);
+        assert!(
+            rs_test::talk::settexts(&out)
+                .iter()
+                .any(|(_, t)| t.replace("<br>", " ") == "As you leave, Roddeck wanders off home."),
+            "{:?}",
+            rs_test::talk::settexts(&out)
+        );
+        let moved = out
+            .iter()
+            .position(|(op, _)| *op == ServerProt::CamMoveto as u16)
+            .expect("the camera outside the door");
+        let reset = out
+            .iter()
+            .rposition(|(op, _)| *op == ServerProt::CamReset as u16)
+            .expect("the camera given back");
+        assert!(moved < reset);
+        let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!((here.x(), here.z()), (3204, 3247), "outside the real door");
+        assert!(engine.regions.source(here).is_none(), "out of the copy");
+        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 5);
+        assert!(popup_at(&out, 3521).is_some(), "The Journey Begins");
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 4091, "nothing pinned");
+        assert!(!is_open(engine, &client, 214) && !is_open(engine, &client, 215));
+    });
+}
+
+/// Leaving before the talk: Explorer Jack calls the player back in (his line 3178; what 2011
+/// did at the door then, no recording shows).
+#[test]
+fn explorer_jack_wants_a_word_first() {
+    runner::on_loaded_engine(|engine| {
+        let (mut client, (dx, dz)) = house_login(engine, "uf_house_early");
+        let at = |x: u16, z: u16| ((i32::from(x) + dx) as u16, (i32::from(z) + dz) as u16);
+        let (x, z) = at(3204, 3246);
+        walk_to(&mut client, x, z);
+        let word = converse(engine, &mut client, &[], 30);
+        assert_eq!(
+            word.texts
+                .iter()
+                .filter(|t| t.as_str() == "before you go.")
+                .count(),
+            1,
+            "{:?}",
+            word.texts
+        );
+        cycles(engine, &mut client, 4);
+        let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+        let source = engine.regions.source(here).expect("still in the copy");
+        assert!(
+            (3202..=3207).contains(&source.x()) && (3239..=3244).contains(&source.z()),
+            "back inside: {source:?}"
+        );
+        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 0);
+    });
+}
+
+/// A finished player logging in anywhere else is past the house (varbit 6494 was not saved
+/// before), and the mid-tutorial state on varp 1261 is saved now: the tool the way out is
+/// worked with (6495), the pillars (6496, 6497), the house's step (6494).
+#[test]
+fn the_tutorials_state_outlives_a_logout() {
+    use rs_pack::cache::varp::VarPlayerScope;
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine
+            .harness_login_returning("uf_long_done")
+            .expect("login");
+        cycles(engine, &mut client, 3);
+        assert_eq!(varbit_named(engine, &client, "tutorial3_postquest"), 5);
+        let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert!(engine.regions.source(here).is_none());
+        assert!(
+            is_open(engine, &client, 182),
+            "the logout panel in its slot"
+        );
+        for name in [
+            "tutorial3_postquest",
+            "tutorial3_tool",
+            "tutorial3_leftpillar",
+            "tutorial3_rightpillar",
+        ] {
+            let bit = *engine.cache.varbits.debugnames.get(name).unwrap();
+            let base = engine.cache.varbits.get_by_id(bit).unwrap().basevar;
+            assert_eq!(
+                engine.cache.varps.get_by_id(base).map(|v| v.scope),
+                Some(VarPlayerScope::Perm),
+                "{name} saved"
+            );
+        }
     });
 }
 
@@ -2692,5 +2926,266 @@ fn the_way_out_is_walkable_from_roddeck() {
         for tile in [(25, 34), (26, 33), (27, 38)] {
             assert!(seen.contains(&tile), "{tile:?} is floor:\n{map}");
         }
+    });
+}
+
+fn set_varbit(engine: &mut Engine, client: &HarnessClient, name: &str, value: u32) {
+    let id = *engine.cache.varbits.debugnames.get(name).unwrap();
+    let bit = engine.cache.varbits.get_by_id(id).unwrap();
+    let (basevar, start) = (bit.basevar, u32::from(bit.start_bit));
+    let width = u32::from(bit.end_bit - bit.start_bit) + 1;
+    let mask = (((1u64 << width) - 1) as u32) << start;
+    let player = engine.harness_player_mut(client.pid).unwrap();
+    let old = player.vars.get(basevar).as_int() as u32;
+    player.vars.set(
+        basevar,
+        VarValue::Int(((old & !mask) | (value << start)) as i32),
+    );
+}
+
+/// Plays on, continuing every other chat box, until the one that says `needle` is open, and
+/// leaves that one unanswered.
+fn until_box(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    needle: &str,
+    max: usize,
+) -> Vec<(u16, Vec<u8>)> {
+    let mut packets = Vec::new();
+    for _ in 0..max {
+        let talk = converse_until(engine, client, needle, 1);
+        let found = talk.said(needle);
+        packets.extend(talk.packets);
+        if found {
+            return packets;
+        }
+    }
+    panic!("no chat box said {needle:?} in {max} ticks");
+}
+
+/// A click on the floor shuts a chat box and drops the script waiting on it. What a line leads
+/// to still happens: the plan's last line opens the quest list, and eating the drugged meat has
+/// Sir Vant's s018 (first E4MP65bl3sI 2011-01-15 @312), with the meat kept.
+#[test]
+fn walking_off_the_plans_last_line_still_opens_the_quest_list() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = at_stage(engine, "uf_walk_plan", 45);
+        talk_to(
+            &mut client,
+            npc_nid(engine, "tutorial3_knight_waitingforbattle"),
+        );
+        let plan = converse_until(
+            engine,
+            &mut client,
+            "Once you've got the drugged meat you'll need to climb over the wall next to me.",
+            300,
+        );
+        assert!(
+            plan.said("Once you've got the drugged meat"),
+            "{:?}",
+            plan.texts
+        );
+        assert_eq!(progress(engine, &client), 50);
+        assert_eq!(popup_at(&plan.packets, 3505), None, "not under the line");
+        walk_near(engine, &mut client);
+        let after = cycles(engine, &mut client, 4);
+        assert!(
+            popup_at(&after, 3505).is_some(),
+            "TASK COMPLETE! once the box is gone"
+        );
+        assert!(is_open(engine, &client, 190), "the quest list tab");
+        assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
+
+        let meat = obj_id(engine, "tutorial3_meat");
+        give(engine, &client, 5, meat, 1);
+        held1(&mut client, meat, 5);
+        let eat = converse(engine, &mut client, &[], 30);
+        assert!(
+            eat.said("Are you mad? Don't eat that! It's raw, and it's covered in sleeping potion!"),
+            "{:?}",
+            eat.texts
+        );
+        assert_eq!(speech(&eat.packets), vec![930]);
+        assert_eq!(slot_of(engine, &client, meat), Some(5), "the meat is kept");
+    });
+}
+
+/// The level's box (s068) comes once: a click on the floor at it still brings Roddeck's word and
+/// the Task tab on Breaking Through. And a wielded pickaxe goes back to Roddeck as one in the pack
+/// does.
+#[test]
+fn walking_off_the_level_box_still_reaches_roddecks_word() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = at_stage(engine, "uf_walk_level", 135);
+        let origin = player_origin(engine, &client);
+        let pickaxe = obj_id(engine, "bronze_pickaxe");
+        give(engine, &client, 0, pickaxe, 1);
+        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
+        cycles(engine, &mut client, 3);
+        let (rx, rz) = (origin.0 + 14, origin.1 + 35);
+        let wall = loc_id(engine, "tutorial3_mine_wall_start");
+        oploc1(&mut client, wall, rx, rz);
+        assert!(
+            converse(engine, &mut client, &[], 60)
+                .said("You'll need a Mining level of 2 to clear the rocks.")
+        );
+        assert_eq!(progress(engine, &client), 140);
+
+        engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
+        cycles(engine, &mut client, 3);
+        let rock = loc_id(engine, "tutorial3_training_rock_1_multi");
+        let (px, pz) = (origin.0 + 17, origin.1 + 38);
+        oploc1(&mut client, rock, px, pz);
+        converse(engine, &mut client, &[], 120);
+        cycles(engine, &mut client, 4);
+        oploc1(&mut client, rock, px, pz);
+        until_box(engine, &mut client, "You have reached level 2 Mining.", 120);
+        assert_eq!(progress(engine, &client), 140, "under the level's box");
+        walk_near(engine, &mut client);
+        let after = cycles(engine, &mut client, 4);
+        assert_eq!(progress(engine, &client), 150, "the box gone by a walk");
+        assert_eq!(varbit(engine, &client, PINNED_TASK), 3516);
+        assert!(
+            rs_test::talk::settexts(&after)
+                .iter()
+                .any(|(_, t)| t.contains("Congratulations, you've reached level 2.")),
+            "Roddeck's word"
+        );
+        converse(engine, &mut client, &[], 30);
+
+        // The pickaxe in the hand.
+        wear(&mut client, pickaxe, 0);
+        cycles(engine, &mut client, 2);
+        let worn_inv = *engine.cache.invs.debugnames.get("worn").unwrap();
+        let pid = client.pid;
+        let wielded = move |engine: &Engine| {
+            let player = engine.harness_player(pid).unwrap();
+            player
+                .invs
+                .get(&worn_inv)
+                .is_some_and(|inv| (0..14u16).any(|s| inv.get(s).map(|o| o.obj) == Some(pickaxe)))
+        };
+        assert!(
+            slot_of(engine, &client, pickaxe).is_none() && wielded(engine),
+            "wielded"
+        );
+        engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
+        cycles(engine, &mut client, 3);
+        oploc1(&mut client, wall, rx, rz);
+        assert!(
+            converse(engine, &mut client, &[], 120)
+                .said("You succeed in clearing the rocks from the hole.")
+        );
+        assert_eq!(progress(engine, &client), 160);
+        oploc1(
+            &mut client,
+            loc_id(engine, "tutorial3_mine_wall_end"),
+            rx,
+            rz,
+        );
+        cycles(engine, &mut client, 8);
+        assert_eq!(progress(engine, &client), 170);
+        assert!(!wielded(engine), "Roddeck has his pickaxe");
+        assert!(slot_of(engine, &client, pickaxe).is_none());
+    });
+}
+
+/// The same for the cutscenes, whose chat boxes do not stop a click on the floor (interface 899
+/// is a plain layer): each one's ending still runs. The dragon's s003 and the sleep's s020.
+#[test]
+fn walking_off_a_cutscenes_line_still_ends_the_cutscene() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = at_stage(engine, "uf_walk_dragon", 7);
+        talk_to(
+            &mut client,
+            npc_nid(engine, "tutorial3_knight_waitingforbattle"),
+        );
+        until_box(engine, &mut client, "I need some help over here!", 300);
+        assert_eq!(shot(engine, &client), 10);
+        walk_near(engine, &mut client);
+        let after = cycles(engine, &mut client, 4);
+        assert_eq!(shot(engine, &client), 0, "the camera released");
+        assert!(!is_open(engine, &client, CUTSCENES));
+        assert_eq!(progress(engine, &client), 10);
+        assert!(popup_at(&after, 3500).is_some());
+
+        let mut client = at_stage(engine, "uf_walk_sleep", 80);
+        let origin = player_origin(engine, &client);
+        let meat = obj_id(engine, "tutorial3_meat");
+        give(engine, &client, 0, meat, 1);
+        engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
+        cycles(engine, &mut client, 3);
+        use_on_loc(
+            &mut client,
+            meat,
+            0,
+            loc_id(engine, "tutorial3_foodbowl_west"),
+            origin.0 + 17,
+            origin.1 + 35,
+        );
+        until_box(engine, &mut client, "Well done. Come out of hiding", 400);
+        assert_eq!(progress(engine, &client), 93);
+        assert_ne!(shot(engine, &client), 0);
+        walk_near(engine, &mut client);
+        let after = cycles(engine, &mut client, 4);
+        assert_eq!(shot(engine, &client), 0, "the camera released");
+        assert!(!is_open(engine, &client, CUTSCENES));
+        assert!(popup_at(&after, 3510).is_some());
+    });
+}
+
+/// Lit fuses and no collapse (a build where a click on the floor under "It's burning! Run!" lost
+/// the rest): the cellar is built with the fuses unlit again. Then the fire with every line
+/// walked away from: the roof still comes down, the cutscene still ends on Sir Vant's request
+/// for the kit, and Sabotage! still completes.
+#[test]
+fn walking_off_its_burning_still_brings_the_roof_down() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = at_stage(engine, "uf_walk_fire", 115);
+        set_varbit(engine, &client, "tutorial3_leftpillar", 3);
+        set_varbit(engine, &client, "tutorial3_rightpillar", 3);
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = StaffModLevel::Maintainer;
+        cheat(&mut client, "~ufstage 115");
+        cycles(engine, &mut client, 5);
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .staff_mod_level = StaffModLevel::Normal;
+        assert_eq!(varbit_named(engine, &client, "tutorial3_leftpillar"), 2);
+        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 2);
+
+        let origin = player_origin(engine, &client);
+        let tinderbox = obj_id(engine, "tinderbox");
+        give(engine, &client, 0, tinderbox, 1);
+        engine.harness_telejump(client.pid, origin.0 + 25, 0, origin.1 + 35);
+        cycles(engine, &mut client, 3);
+        use_on_loc(
+            &mut client,
+            tinderbox,
+            0,
+            loc_id(engine, "tutorial3_pillar_wooden_right"),
+            origin.0 + 24,
+            origin.1 + 39,
+        );
+        until_box(engine, &mut client, "It's burning! Run!", 30);
+        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 3);
+        walk_near(engine, &mut client);
+        until_box(engine, &mut client, "Ah, here you are, Roddeck.", 120);
+        assert_eq!(progress(engine, &client), 125);
+        assert_eq!(shot(engine, &client), 204);
+        assert_eq!(varbit_named(engine, &client, "tutorial3_rightpillar"), 5);
+        walk_near(engine, &mut client);
+        let mut ask = until_box(engine, &mut client, "squire's kit back", 8);
+        assert_eq!(shot(engine, &client), 0, "the camera released");
+        // The release's own tick is a delay, when a click on the floor does nothing.
+        ask.extend(cycles(engine, &mut client, 2));
+        assert_eq!(popup_at(&ask, 3512), None, "not under Sir Vant's request");
+        walk_near(engine, &mut client);
+        let after = cycles(engine, &mut client, 4);
+        assert!(!is_open(engine, &client, CUTSCENES));
+        assert!(popup_at(&after, 3512).is_some(), "TASK COMPLETE! Sabotage!");
     });
 }

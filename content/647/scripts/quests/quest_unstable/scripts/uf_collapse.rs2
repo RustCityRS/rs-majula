@@ -28,8 +28,19 @@ anim(human_createfire, 0);
 p_delay(1);
 %tutorial3_rightpillar = 3;
 %tutorial3_leftpillar = 3;
+// The rest waits in the queue, which runs once the line's box is gone: by its continue, or by a
+// click on the floor, which drops this script where it waits.
+queue(uf_collapse, 0, 0);
 ~speech_line(vorbis_881);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,shock>It's burning! Run!");
+
+[queue,uf_collapse]
+if (%tutorial ! 115 | %tutorial3_rightpillar ! 3) {
+    return;
+}
+if (region_findbycoord(coord) = false) {
+    return;
+}
 p_walk(~uf_cellar_coord(30, 26));
 p_delay(1);
 ~uf_cutscene_open;
@@ -84,17 +95,25 @@ if (loc_find(~uf_cellar_coord(37, 30), tutorial3_wardrobe_door_closed) = true) {
     loc_change(tutorial3_wardrobe_door_open, 20);
 }
 p_delay(0);
-npc_add(~uf_cellar_coord(36, 30), tutorial3_advisor_walkoverrocks, 0);
+// Roddeck is npc 8867: he walks with his stick (4KO2h2xPtdM @416.7-419.1), and of cache 786's two
+// Roddecks (one model) only 8867's bas has that walk, seq 9954. The other, 8863
+// tutorial3_advisor_walkoverrocks, has one seq for walk and run, 12280, a hop with the knees up.
+npc_add(~uf_cellar_coord(36, 30), roddeck_8867, 0);
 npc_setmode(none);
 npc_walk(~uf_cellar_coord(26, 33));
 p_delay(4);
+// The ending waits in the queue, which runs once the last box is gone: by its continue, or by a
+// click on the floor during any of the three, which drops this script with the cutscene open.
+queue(uf_collapse_end, 0, 0);
 // s038-s040 (IwS6rBpkcyE @340; 4KO2h2xPtdM @419.1), V1, R43, V56 (clips 763, 1102, 785).
 ~speech_line(vorbis_763);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Ah, here you are, Roddeck. The White Knights got your message and sent me to slay your dragon.");
 ~speech_line(vorbis_1102);
-~chatnpc_specific("Roddeck", tutorial3_advisor_walkoverrocks, "<p,neutral>Thank you both very much! It's had me trapped in the cupboard for ages. I'd completely lost control of it.");
+~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Thank you both very much! It's had me trapped in the cupboard for ages. I'd completely lost control of it.");
 ~speech_line(vorbis_785);
 ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Next time, get a puppy!");
+
+[queue,uf_collapse_end]
 // This cutscene's release has Sir Vant's next line with it (4KO2h2xPtdM 2011-04-30, frame by
 // frame): "Next time, get a puppy!" reads "Please wait..." @426.9-427.13; @427.16 the minimap is
 // back and the kit-ask box is open in the same frame, the camera on its way back; the side panel
@@ -105,8 +124,11 @@ p_delay(4);
 ~uf_cutscene_end;
 ~uf_task_tab;
 ~uf_task_pin;
+queue(uf_collapse_popup, 0, 0);
 p_pausebutton;
 if_close;
+
+[queue,uf_collapse_popup]
 %varclient_1425 = 3512;
 
 // After the roof comes down, Roddeck's cellar, west of the start room,

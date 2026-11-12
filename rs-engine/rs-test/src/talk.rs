@@ -144,6 +144,27 @@ pub fn converse(
     choices: &[&str],
     max: usize,
 ) -> Conversation {
+    converse_to(engine, client, choices, None, max)
+}
+
+/// As [`converse`], but it stops with the chat box that says `needle` still
+/// open and unanswered: where a player may click the floor instead.
+pub fn converse_until(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    needle: &str,
+    max: usize,
+) -> Conversation {
+    converse_to(engine, client, &[], Some(needle), max)
+}
+
+fn converse_to(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    choices: &[&str],
+    stop_at: Option<&str>,
+    max: usize,
+) -> Conversation {
     let mut out = Conversation::default();
     let mut latest: HashMap<u32, String> = HashMap::new();
     let mut next = 0;
@@ -188,6 +209,9 @@ pub fn converse(
         } else if let Some(&iface) = CHAT_BOXES.iter().find(|i| player.is_interface_open(**i)) {
             idle = 0;
             seen = true;
+            if stop_at.is_some_and(|needle| out.said(needle)) {
+                break;
+            }
             resume(client, iface, continue_button(engine, iface));
         } else if seen {
             idle += 1;

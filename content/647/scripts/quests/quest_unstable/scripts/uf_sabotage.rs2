@@ -196,11 +196,11 @@ if ($item = tutorial3_rag_oily) {
     }
     inv_del(inv, tutorial3_rag_oily, 1);
     ~uf_pillar_set($his, 1);
-    ~speech_line(vorbis_1698);
-    ~objbox(tutorial3_rag_oily, "You wrap the oily rag around the pillar.", 250, 0, 0);
     if (%tutorial3_leftpillar >= 1 & %tutorial3_rightpillar >= 1 & %tutorial < 105) {
         %tutorial = 105;
     }
+    ~speech_line(vorbis_1698);
+    ~objbox(tutorial3_rag_oily, "You wrap the oily rag around the pillar.", 250, 0, 0);
     return;
 }
 if ($item = tutorial3_rag) {
@@ -230,11 +230,11 @@ if ($item = tutorial3_fuse_1 | $item = tutorial3_fuse_2) {
     }
     inv_del(inv, $item, 1);
     ~uf_pillar_set($his, 2);
-    ~speech_line(vorbis_1621);
-    ~objbox($item, "You attach the fuse to the pillar.", 250, 0, 0);
     if (%tutorial3_leftpillar = 2 & %tutorial3_rightpillar = 2 & %tutorial < 110) {
         %tutorial = 110;
     }
+    ~speech_line(vorbis_1621);
+    ~objbox($item, "You attach the fuse to the pillar.", 250, 0, 0);
     return;
 }
 if ($item = tinderbox) {

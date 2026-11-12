@@ -282,6 +282,9 @@ p_delay(0);
 // @53.3-53.6 and is gone @53.7 with the camera's release.
 // His shock chathead: ranked first of nine against 4KO2's s003 frames by shape (0.096 against
 // 0.157 next) and by DINOv2 (0.068 against 0.075).
+// The ending waits in the queue, which runs once the box is gone: by its continue, or by a click
+// on the floor, which drops this script with the cutscene open.
+queue(uf_dragon_end, 0, 0);
 split_init("<p,shock>I need some help over here!", 380, 4, q8_full);
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
     ~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
@@ -289,6 +292,11 @@ if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
 }
 p_pausebutton;
 if_close;
+
+[queue,uf_dragon_end]
+if (%tutorial >= 10 | region_findbycoord(coord) = false) {
+    return;
+}
 ~uf_cutscene_release;
 if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_battle, 2, 0) = true) {
     npc_changetype(tutorial3_knight_waitingforbattle, ^uf_cellar_obj_duration);

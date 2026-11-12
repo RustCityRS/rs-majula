@@ -28,6 +28,12 @@ if ($unlock_row = null) {
     return;
 }
 def_int $level = stat_base($stat);
+// Unstable Foundations' practice: Roddeck's word and the Task tab follow the level's box below.
+// Queued as well, and first: a click on the floor shuts that box and drops this script, and the
+// level comes once (the user's play-through, 2026-11-12).
+if (%tutorial >= 140 & %tutorial < 150) {
+    queue(uf_level_box_gone, 0, 0);
+}
 // Task 425 "How To Train and Level" at Mining 2 (tasks/task_system.rs2), queued behind the boxes.
 if ($stat = mining & $level >= 2 & %task_tut4_how_to_2 = 0) {
     queue(task_how_to_train_and_level, 0, 0);

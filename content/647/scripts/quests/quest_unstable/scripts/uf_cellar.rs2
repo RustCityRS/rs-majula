@@ -85,6 +85,11 @@ if ($p >= 90) {
     // The start room as stage 2 has it, from the sleep cutscene on (uf_cellar_stage2).
     ~uf_cellar_stage2;
 }
+if ($p < 117 & (%tutorial3_rightpillar > 2 | %tutorial3_leftpillar > 2)) {
+    // Out with the fuses alight and the roof still up: the fuses unlit, to light again.
+    %tutorial3_rightpillar = 2;
+    %tutorial3_leftpillar = 2;
+}
 if ($p >= 90 & $p < 117) {
     // Asleep on its nest, as the sleep cutscene leaves it (uf_sleep.rs2), until the roof comes
     // down on it.
@@ -140,11 +145,13 @@ if ($p >= 117) {
     ~uf_cellar_collapsed;
     npc_add(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 0);
     npc_setmode(none);
-    npc_add(~uf_cellar_coord(26, 33), tutorial3_advisor_walkoverrocks, 0);
+    npc_add(~uf_cellar_coord(26, 33), roddeck_8867, 0);
     npc_setmode(none);
     if (%tutorial = 117) {
         %tutorial = 125;
     }
+    %tutorial3_rightpillar = 5;
+    %tutorial3_leftpillar = 5;
     if (%tutorial >= 160) {
         if (loc_find(~uf_cellar_coord(14, 35), tutorial3_mine_wall_start) = true & %tutorial3_tool <= 1) {
             loc_change(tutorial3_mine_wall_end, ^uf_cellar_obj_duration);

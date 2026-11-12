@@ -23,8 +23,11 @@ if (%tutorial ! 80) {
     ~displaymessage(^dm_default);
     return;
 }
-anim(human_pickuptable, 0);
-p_delay(0);
+// The player takes the meat out, crouches and puts it in the bowl: seq 12283 (cache 786: 3.0 s,
+// the right hand holding obj 15277, the meat). 4KO2h2xPtdM: the meat is in the hand @197.45, in
+// the bowl @199.0, and s019 opens @199.07, three ticks after the first frame.
+anim(seq_12283, 0);
+p_delay(2);
 inv_del(inv, tutorial3_meat, 1);
 %tutorial3_meatplacement = 1;
 %tutorial = 82;
@@ -199,11 +202,19 @@ p_delay(1);
 %tutorial = 93;
 ~uf_task_tab;
 ~uf_task_pin;
+// The ending waits in the queue, which runs once the box is gone: by its continue, or by a click
+// on the floor, which drops this script with the cutscene open.
+queue(uf_sleep_end, 0, 0);
 ~speech_line(vorbis_958);
 split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we're doing next.", 380, 4, q8_full);
 ~chatnpc_page("Sir Vant", tutorial3_knight, 0);
 p_pausebutton;
 if_close;
+
+[queue,uf_sleep_end]
+if (region_findbycoord(coord) = false) {
+    return;
+}
 // s020 continued @244.6 ("Please wait..." to @244.8): the camera back on the player in the hole
 // and the minimap back @244.9, and in that frame TASK COMPLETE! Put the Dragon to Sleep starts
 // to open (full by @245.6). 4KO2h2xPtdM shows no banner over shot 107 (@236-244.8). They walk

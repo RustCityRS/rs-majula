@@ -1148,7 +1148,14 @@ impl Player {
                 self.pathing.coord.x() as i32 - self.pathing.last_coord.x() as i32,
                 self.pathing.coord.z() as i32 - self.pathing.last_coord.z() as i32,
             );
-            if !self.pathing.jump && dx.abs() <= 2 && dz.abs() <= 2 {
+            // A forced move ends on a tile any distance off, and the client
+            // has to carry the model there itself: a move marked 127 puts the
+            // model on the end tile at once (`PlayerEntity.method4080`), and
+            // the forced move's lead-in then slides it back to the start
+            // (`Statics1.method2277`). As a step the model stays where it is
+            // until the forced move takes it.
+            let forced = self.info.masks & PlayerInfoProt::ExactMove as u16 != 0;
+            if !self.pathing.jump && (forced || (dx.abs() <= 2 && dz.abs() <= 2)) {
                 MOVE_TYPE_WALK
             } else {
                 MOVE_TYPE_TELEPORT
@@ -1283,6 +1290,33 @@ mod move_type_tests {
         p.pathing.jump = true;
         tick(&mut p, -1, -1, true);
         assert_eq!(temp(&p), Some(MOVE_TYPE_TELEPORT), "a jump is placed");
+    }
+
+    /// `p_exactmove` over a wall three tiles deep: the player is on the far
+    /// tile at once, and the client is left to move the model there.
+    #[test]
+    fn a_forced_move_of_any_length_is_not_placed() {
+        for run in [false, true] {
+            let mut p = make_player();
+            p.run = run;
+            p.pathing.jump = false;
+            p.pathing.coord = CoordGrid::new(3222, 0, 3225);
+            p.info.masks = PlayerInfoProt::ExactMove as u16;
+            p.info.temp_move_type = None;
+            p.pathing.tele = true;
+            p.sync_move_types();
+            let want = if run { Some(MOVE_TYPE_WALK) } else { None };
+            assert_eq!(temp(&p), want, "run={run}: a step, not 127");
+        }
+        let mut p = make_player();
+        p.pathing.jump = false;
+        p.pathing.coord = CoordGrid::new(3222, 0, 3225);
+        tick(&mut p, -1, -1, true);
+        assert_eq!(
+            temp(&p),
+            Some(MOVE_TYPE_TELEPORT),
+            "with no forced move it is placed"
+        );
     }
 
     #[test]

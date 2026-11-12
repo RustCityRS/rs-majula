@@ -69,6 +69,13 @@ if (%tutorial < 7) {
     // the quest's end until that talk (4KO2h2xPtdM 2011-04-30 @607-640), where 4098 gives 1000
     // The Journey Begins (3521), the Task after it (in-client runs 19 and 20 showed 3521).
     %varplayerbit_8576 = 3520;
+} else if (%tutorial = 1000 & %tutorial3_postquest >= 5) {
+    // Out of Explorer Jack's house: nothing pinned, the list the area's (Qh_-AMJpVd0 2011-05-10
+    // @467, "Lumbridge/Draynor Progress").
+    %varplayerbit_8576 = 4091;
+    %varplayerbit_8577 = 0;
+    ~task_area_here;
+    ~task_refresh;
 } else if (%tutorial >= 135 & %tutorial <= 160) {
     // The way out, the tool held: the panel's overview (a null-like pin, cs2 3973) until
     // level 2, then the blockage Task's summary (4KO2h2xPtdM @532 and @571.2; U9ajh4bwWsI

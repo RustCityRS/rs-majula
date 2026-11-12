@@ -63,12 +63,11 @@ if (%tutorial >= 45 & %tutorial <= 49) {
         }
     }
     ~uf_task_pin;
+    // The quest list opens once this line's box is gone: by its continue, or by a click on the
+    // floor, which drops this script where it waits.
+    queue(uf_plan_unlock, 0, 0);
     ~speech_line(vorbis_726);
     ~chatnpcnoturn("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
-    ~uf_open_tab(3);
-    %varplayerbit_3756 = 4;
-    %varclient_1425 = 3505;
-    ~uf_task_tab;
     return;
 }
 if (%tutorial < 80) {
@@ -197,6 +196,21 @@ inv_del(inv, tutorial3_plank, 1);
 // from Unstable Foundations' own range (1.8 s, three footstep synths), is 2011's: in-client
 // (ufrest12 player_12274 +3.5-4.1) the player rises with both arms spread and comes down with
 // them out, as @180.5 and @181.0.
+[queue,uf_plan_unlock]
+if (%tutorial ! 50) {
+    return;
+}
+~uf_open_tab(3);
+%varplayerbit_3756 = 4;
+%varclient_1425 = 3505;
+~uf_task_tab;
+
+// s018 (E4MP65bl3sI 2011-01-15 @312, five recordings to 2011-05-21), V3 (clip 930); the wiki's
+// longer line (Drugged meat, 2011-04-23) is in no recording.
+[opheld1,tutorial3_meat]
+~speech_line(vorbis_930);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Are you mad? Don't eat that! It's raw, and it's covered in sleeping potion!");
+
 [proc,uf_climb_wall]
 ~agility_exactmove(seq_12274, 30, 2, coord, movecoord(coord, 0, 0, 3), 30, 100, ^exact_north, false);
 %tutorial = 80;

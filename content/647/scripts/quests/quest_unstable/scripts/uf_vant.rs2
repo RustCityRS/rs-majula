@@ -56,8 +56,12 @@ if (%tutorial = 7) {
 ~chatnpcnoturn("<p,neutral>Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!");
 %tutorial = 15;
 ~uf_task_pin;
+queue(uf_vant_assist_done, 0, 0);
 ~speech_line(vorbis_807);
 ~chatnpcnoturn("<p,neutral>I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!");
+
+// Once the line's box is gone, by its continue or by a click on the floor.
+[queue,uf_vant_assist_done]
 queue(uf_gear_hint, 2, 0);
 
 [proc,uf_vant_hello]

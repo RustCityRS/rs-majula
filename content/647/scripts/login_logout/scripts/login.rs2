@@ -50,6 +50,15 @@ if (%tutorial < 1000) {
     ~uf_start;
     return;
 }
+if (%tutorial3_postquest < 5) {
+    if (coord = 0_50_50_7_40) {
+        // Left the game in Explorer Jack's house copy (uf_freedom.rs2): back into one.
+        ~uf_house_return;
+    } else {
+        // Long out of the house: varbit 6494 was not saved before it could say so.
+        %tutorial3_postquest = 5;
+    }
+}
 // 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
 // island; here only one the player entered (%tutorial past 0): 2011's new
 // players spawn on the island without entering it (tutorial.rs2).
@@ -151,6 +160,9 @@ if (getwindowmode = 1) {
     if (~tab_unlocked(13) = true) { if_opensub(emotes, toplevel:side13) } else { if_closesub(toplevel:side13) }
     if (~tab_unlocked(14) = true) { if_opensub(music_v3, toplevel:side14) } else { if_closesub(toplevel:side14) }
     if (~tab_unlocked(15) = true) { if_opensub(notes, toplevel:side15) } else { if_closesub(toplevel:side15) }
+    // The frame's logout button shows side slot 99 (clientscripts getsideicon and getsidelayer);
+    // void-634 opens interface 182 there as its logout_tab.
+    if_opensub(logout, toplevel:side99)
 } else {
     if (~tab_unlocked(0) = true) { if_opensub(combat_side, toplevel_fullscreen:side0) } else { if_closesub(toplevel_fullscreen:side0) }
     if (~tab_unlocked(1) = true) { if_opensub(task_side, toplevel_fullscreen:side1) } else { if_closesub(toplevel_fullscreen:side1) }
@@ -168,6 +180,7 @@ if (getwindowmode = 1) {
     if (~tab_unlocked(13) = true) { if_opensub(emotes, toplevel_fullscreen:side13) } else { if_closesub(toplevel_fullscreen:side13) }
     if (~tab_unlocked(14) = true) { if_opensub(music_v3, toplevel_fullscreen:side14) } else { if_closesub(toplevel_fullscreen:side14) }
     if (~tab_unlocked(15) = true) { if_opensub(notes, toplevel_fullscreen:side15) } else { if_closesub(toplevel_fullscreen:side15) }
+    if_opensub(logout, toplevel_fullscreen:side99)
 }
 
 // The Task System's tab: the set for where the player stands, and its six slots.
