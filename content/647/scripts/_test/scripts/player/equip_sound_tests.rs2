@@ -1,0 +1,63 @@
+#testscript
+
+[label,test_equip_sound_successful_changes]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+assert_true(oc_param(rune_platebody, param_0) = equip_metal_body);
+assert_true(oc_param(rune_kiteshield, param_0) = equip_shield);
+assert_true(oc_param(wooden_shield, param_0) = equip_wood);
+assert_true(oc_param(leather_armour, param_0) = equip_leather);
+assert_true(oc_param(amulet_of_power, param_0) = equip_fun);
+inv_add(inv, bronze_sword, 1);
+~equip(0);
+assert_eq(inv_total(worn, bronze_sword), 1);
+assert_called_with("sound_synth", "2248,1,0");
+assert_called("sound_synth", 1);
+
+// Swapping items plays only the incoming item's sound.
+inv_add(inv, plainstaff, 1);
+~equip(0);
+assert_eq(inv_total(worn, plainstaff), 1);
+assert_called_with("sound_synth", "2247,1,0");
+assert_called("sound_synth", 2);
+~unequip(^wearpos_rhand);
+assert_eq(inv_total(worn, plainstaff), 0);
+assert_called("sound_synth", 3);
+
+// Adding to worn ammunition also counts as one equipment change.
+inv_clear(inv);
+inv_setslot(worn, ^wearpos_quiver, bronze_arrow, 10);
+inv_add(inv, bronze_arrow, 5);
+~equip(0);
+assert_eq(inv_total(worn, bronze_arrow), 15);
+assert_called_with("sound_synth", "2244,1,0");
+assert_called("sound_synth", 4);
+
+[label,test_equip_sound_refused_changes]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+inv_setslot(worn, ^wearpos_rhand, bronze_sword, 1);
+inv_setslot(worn, ^wearpos_lhand, wooden_shield, 1);
+inv_add(inv, logs, 27);
+inv_add(inv, bronze_2h_sword, 1);
+~unequip(^wearpos_lhand);
+assert_eq(inv_total(worn, wooden_shield), 1);
+~equip(27);
+assert_eq(inv_total(worn, bronze_2h_sword), 0);
+assert_eq(inv_total(inv, bronze_2h_sword), 1);
+~equip(0);
+inv_clear(inv);
+~equip(0);
+assert_called("sound_synth", 0);
+
+[label,test_equip_sound_elemental_shield_removes_once]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+inv_setslot(worn, ^wearpos_lhand, elemental_shield, 1);
+~unequip(^wearpos_lhand);
+assert_eq(inv_total(worn, elemental_shield), 0);
+assert_called_with("sound_synth", "1539,1,0");
+assert_called("sound_synth", 1);

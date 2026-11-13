@@ -92,6 +92,9 @@ if (p_finduid(uid) = true) {
         mes("You don't have enough free space to do that.")
         return
     }
+    if ($obj ! elemental_shield) {
+        sound_synth(oc_param($obj, param_0), 1, 0);
+    }
     // 289's island hook (player/scripts/equip.rs2): the sword and shield
     // move its combat lesson on.
     // todo: this needs a better home...
@@ -155,6 +158,9 @@ if (p_finduid(uid) = true) {
         return
     }
     inv_moveitem(worn, inv, $obj, sub($count, $overflow))
+    if ($obj ! elemental_shield) {
+        sound_synth(oc_param($obj, param_0), 1, 0);
+    }
     ~unequip_effect($obj, ^true)
 }
 

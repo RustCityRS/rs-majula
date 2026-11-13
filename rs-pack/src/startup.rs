@@ -108,8 +108,7 @@ pub fn pack_all(
     members: bool,
 ) -> Result<PackResult> {
     let start = Instant::now();
-    // Checking config names registers new ones, so everything that reads the
-    // registries starts after it, from names loaded once.
+    // Validate config names before packing or compiling against the registries.
     let config_files = pack::ConfigFiles::new(&content_dir.join("scripts"));
     pack::check_configs(&config_files, pack_dir, verify)?;
     let asset_names = names::AssetNames::load(pack_dir)?;

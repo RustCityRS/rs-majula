@@ -36,7 +36,7 @@ if ($amount > 0) {
     ~human_hit_sound;
 } else {
     ~player_damage(^hitmark_block, 0);
-    sound_synth(%armourhitsound, 0, 20);
+    sound_synth(%armourhitsound, 1, 20);
 }
 
 if (%life_points = 0) {

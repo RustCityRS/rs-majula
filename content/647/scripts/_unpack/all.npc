@@ -4888,6 +4888,8 @@ param=retreat,70
 category=unicorn
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2849
+// Combat defaults from [unicorn].
+param=death_sound,unicorn_death
 
 // 134
 [poisonspider]
@@ -14583,6 +14585,19 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin], [goblin_red_soldier_2].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=120
+attack=3
+defence=4
+param=attackbonus,12
+param=strengthbonus,12
+param=damagetype,^stab_style
+param=attackrate,6
 
 // 445
 [goblin_445]
@@ -14624,6 +14639,19 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=120
+attack=3
+defence=4
+param=attackbonus,12
+param=strengthbonus,12
+param=damagetype,^stab_style
+param=attackrate,6
 
 // 446
 [giant_rat_446]
@@ -14640,6 +14668,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 447
 [jailguard_two_patrol]
@@ -33881,6 +33916,16 @@ cursorattack=cursor_attack
 desc=He rules the, er, roost.
 // 289's
 wanderrange=5
+// Combat defaults from [chicken].
+// http://138.197.104.72:8090/wiki/Rooster
+param=attack_anim,lore_chicken_attack
+param=defend_anim,lore_chicken_defend
+param=death_anim,lore_chicken_death
+param=attack_sound,chicken_attack
+param=defend_sound,chicken_hit
+param=death_sound,chicken_death
+param=damagetype,^stab_style
+hitpoints=70
 
 // 1019
 [elemental_fire]
@@ -39036,6 +39081,8 @@ param=slashdefence,5
 param=crushdefence,1
 param=magicdefence,10
 param=rangedefence,10
+// Combat defaults from [kalphite_worker].
+param=attack_anim,kalphite_update_jaws_attack
 
 // 1157
 [kalphite_lord_chamber]
@@ -45051,6 +45098,8 @@ param=death_anim,unicorn_rework_death
 param=attack_sound,cow_attack
 param=defend_sound,horse_hit
 param=retreat,50
+// Combat defaults from [unicorn].
+param=death_sound,unicorn_death
 
 // 1329
 [black_unicorn_foal]
@@ -45079,6 +45128,8 @@ param=death_anim,unicorn_rework_death
 param=attack_sound,cow_attack
 param=defend_sound,horse_hit
 param=retreat,50
+// Combat defaults from [unicorn].
+param=death_sound,unicorn_death
 
 // 1330
 [viking_wolf]
@@ -47744,6 +47795,16 @@ unknown119=3
 cursorattack=cursor_attack
 desc=He rules the, er, roost.
 wanderrange=5
+// Combat defaults from [chicken].
+// http://138.197.104.72:8090/wiki/Rooster
+param=attack_anim,lore_chicken_attack
+param=defend_anim,lore_chicken_defend
+param=death_anim,lore_chicken_death
+param=attack_sound,chicken_attack
+param=defend_sound,chicken_hit
+param=death_sound,chicken_death
+param=damagetype,^stab_style
+hitpoints=50
 
 // 1404
 [misc_rabbit]
@@ -47758,6 +47819,21 @@ unknown119=3
 cursorattack=cursor_attack
 desc=A cute bunny rabbit.
 wanderrange=5
+// Combat defaults from [regicide_rabbit].
+param=attack_anim,rabbit_update_attack
+param=defend_anim,rabbit_update_defend
+param=death_anim,rabbit_update_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+hitpoints=50
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
 
 // 1405
 [0_43_42_memberfish]
@@ -50332,6 +50408,10 @@ model1=model_21154
 unknown119=3
 cursorattack=cursor_attack
 desc=Eeek! A ghost!
+// Combat defaults from [ghost].
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 1550
 [chompybird]
@@ -51411,6 +51491,16 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Young but still dangerous.
 wanderrange=4
+// Combat defaults from [babybluedragon].
+// http://138.197.104.72:8090/wiki/Baby_red_dragon
+param=attack_anim,bdrag_attack
+param=defend_anim,bdrag_block
+param=death_anim,bdrag_death
+param=attack_sound,babydragon_attack
+param=defend_sound,babydragon_hit
+param=death_sound,babydragon_death
+param=damagetype,^slash_style
+hitpoints=500
 
 // 1590
 [bronze_dragon]
@@ -51569,6 +51659,16 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Looks like it's got Rabies!
 wanderrange=10
+// Combat defaults from [guarddog].
+// http://138.197.104.72:8090/wiki/Wild_dog
+param=attack_anim,dog_update_medium_dog_attack
+param=defend_anim,dog_update_medium_dog_defend
+param=death_anim,dog_update_medium_dog_death
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=damagetype,^crush_style
+hitpoints=620
 
 // 1594
 [dog_wild_2]
@@ -51592,6 +51692,16 @@ unknown119=3
 cursorattack=cursor_attack
 desc=An unsuitable pet
 wanderrange=10
+// Combat defaults from [guarddog].
+// http://138.197.104.72:8090/wiki/Wild_dog
+param=attack_anim,dog_update_medium_dog_attack
+param=defend_anim,dog_update_medium_dog_defend
+param=death_anim,dog_update_medium_dog_death
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=damagetype,^crush_style
+hitpoints=620
 
 // 1595
 [tribesman_doorman]
@@ -53027,6 +53137,13 @@ model2=model_17439
 unknown119=3
 cursorattack=cursor_attack
 desc=Bigger than your average moss giant.
+// Combat defaults from [mossgiant].
+param=attack_anim,giant_update_moss_attack
+param=defend_anim,giant_update_moss_defend
+param=death_anim,seq_4659
+param=attack_sound,moss_giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 1682
 [roving_golrie]
@@ -55251,6 +55368,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1770
 [goblin_unarmed_melee_2]
@@ -55290,6 +55421,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1771
 [goblin_unarmed_melee_3]
@@ -55323,6 +55468,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1772
 [goblin_unarmed_melee_4]
@@ -55360,6 +55519,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1773
 [goblin_unarmed_melee_5]
@@ -55391,6 +55564,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1774
 [goblin_unarmed_melee_6]
@@ -55427,6 +55614,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1775
 [goblin_unarmed_melee_7]
@@ -55463,6 +55664,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1776
 [goblin_unarmed_melee_8]
@@ -55490,6 +55705,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 1777
 [roving_update_female_woodelf]
@@ -62168,6 +62397,18 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat], [giantrat1].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+hitpoints=100
+attack=6
+strength=5
+defence=2
+param=damagetype,^stab_style
 
 // 2092
 [dwarf_city_secretary_purple_pewter]
@@ -63157,6 +63398,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=A member of the Black Guard, a special division of the dwarven army.
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 2131
 [dwarf_city_black_guard2]
@@ -63186,6 +63434,13 @@ head2=model_51629
 unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 2132
 [dwarf_city_black_guard3]
@@ -63217,6 +63472,13 @@ head2=model_51629
 unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 2133
 [dwarf_city_black_guard4]
@@ -63244,6 +63506,13 @@ head2=model_51629
 unknown119=2
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 2134
 [dwarf_city_berserker1]
@@ -66681,6 +66950,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2275
 [goblin_unarmed_melee_in_2]
@@ -66722,6 +67005,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2276
 [goblin_unarmed_melee_in_3]
@@ -66755,6 +67052,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2277
 [goblin_unarmed_melee_in_4]
@@ -66790,6 +67101,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2278
 [goblin_unarmed_melee_in_5]
@@ -66821,6 +67146,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2279
 [goblin_unarmed_melee_in_6]
@@ -66861,6 +67200,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2280
 [goblin_unarmed_melee_in_7]
@@ -66893,6 +67246,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2281
 [goblin_unarmed_melee_in_8]
@@ -66920,6 +67287,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2282
 [rd_observer_room_1]
@@ -67737,6 +68118,17 @@ model1=model_23890
 unknown119=3
 cursorattack=cursor_attack
 desc=Young, but still beefy.
+// Combat defaults from [cow].
+// http://138.197.104.72:8090/wiki/Cow_calf
+param=attack_anim,cow_update_attack
+param=defend_anim,cow_update_defend
+param=death_anim,cow_update_death
+param=attack_sound,calf_attack
+param=defend_sound,calf_hit
+param=death_sound,calf_death
+param=damagetype,^crush_style
+hitpoints=69
+category=cow
 
 // 2311
 [sheepdog]
@@ -70847,6 +71239,12 @@ model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
 desc=A horror from the ocean depths...
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 2456
 [dungeon_dagganoth_lighter]
@@ -70869,6 +71267,12 @@ model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
 desc=A horror from the ocean depths...
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 2457
 [dungeon_dagganoth_magic_monster]
@@ -71507,6 +71911,20 @@ model1=model_20315
 model2=model_20313
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [jungle_spider].
+param=attack_sound,small_rock_crab_attack
+param=defend_sound,small_rock_crab_hit
+param=death_sound,small_rock_crab_death
+hitpoints=500
+attack=35
+strength=37
+defence=35
+param=stabdefence,20
+param=slashdefence,20
+param=crushdefence,10
+param=magicdefence,17
+param=rangedefence,20
+param=damagetype,^stab_style
 
 // 2492
 [tbwcu_spider_appear]
@@ -75588,6 +76006,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2679
 [goblin_2679]
@@ -75622,6 +76054,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2680
 [goblin_2680]
@@ -75654,6 +76100,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2681
 [goblin_2681]
@@ -75694,6 +76154,20 @@ respawnrate=140
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=50
+param=attackbonus,-21
+param=strengthbonus,-15
+param=stabdefence,-15
+param=slashdefence,-15
+param=crushdefence,-15
+param=magicdefence,-15
+param=rangedefence,-15
 
 // 2682
 [rat_indoors]
@@ -77918,6 +78392,12 @@ model6=model_185
 model7=model_518
 unknown119=0
 cursorattack=cursor_attack
+// Combat defaults from [black_knight].
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=death_anim,human_death
+param=defend_sound,steel
+param=death_sound,black_knight_death
 
 // 2778
 [varrock_granny_1]
@@ -80393,6 +80873,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 2888
 [dungeon_dagganoth_mainroom_deeper]
@@ -80414,6 +80900,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 2889
 [dagannoth_rock_lobster_2x2]
@@ -87949,6 +88441,10 @@ model8=model_2988
 unknown119=3
 cursorattack=cursor_attack
 desc=Loves mining.
+// Combat defaults from [dwarf_normal].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
 
 // 3220
 [fai_falador_dwarf_normal2]
@@ -87975,6 +88471,10 @@ model7=model_2986
 model8=model_2991
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [dwarf_normal].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
 
 // 3221
 [fai_falador_dwarf_normal3]
@@ -88152,6 +88652,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=One of Gielinor's many citizens.
+// Combat defaults from [woman].
+hitpoints=70
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
 
 // 3227
 [atjun_del]
@@ -89022,6 +89529,8 @@ param=death_anim,human_death
 param=defend_sound,barbarian_hit
 param=death_sound,barbarian_death
 category=barbarian
+// Combat defaults from [fai_barbarian_4].
+param=attack_sound,warhammer_crush
 
 // 3248
 [fai_barbarian_3]
@@ -89238,6 +89747,8 @@ param=death_anim,human_death
 param=defend_sound,barbarian_hit
 param=death_sound,barbarian_death
 category=barbarian
+// Combat defaults from [fai_barbarian_4].
+param=attack_sound,warhammer_crush
 
 // 3252
 [fai_barbarian_7]
@@ -89485,6 +89996,8 @@ param=death_anim,human_death
 param=defend_sound,barbarian_hit
 param=death_sound,barbarian_death
 category=barbarian
+// Combat defaults from [fai_barbarian_4].
+param=attack_sound,warhammer_crush
 
 // 3257
 [fai_barbarian_12]
@@ -90134,6 +90647,10 @@ model6=model_2985
 head1=model_51676
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [dwarf_normal].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
 
 // 3271
 [fai_dwarf_worker_04]
@@ -90233,6 +90750,10 @@ model6=model_2985
 head1=model_51654
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [dwarf_normal].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
 
 // 3274
 [fai_dwarf_worker_07]
@@ -90307,6 +90828,10 @@ head1=model_51662
 unknown119=3
 cursorattack=cursor_attack
 desc=A dwarven worker.
+// Combat defaults from [dwarf_normal].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
 
 // 3276
 [fai_black_guard_01]
@@ -93140,6 +93665,16 @@ cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=A large dim looking humanoid.
 wanderrange=3
+// Combat defaults from [ogre2].
+param=death_anim,ogre_death
+param=death_sound,giant_death
+hitpoints=600
+attack=43
+strength=43
+defence=43
+param=attackbonus,22
+param=strengthbonus,20
+param=attackrate,6
 
 // 3420
 [100_pirate_mogre_guard]
@@ -96745,6 +97280,13 @@ model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
 desc=He doesn't look very welcoming.
+// Combat defaults from [hobgoblin].
+param=attack_anim,hobgoblin_attackunarmed
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 3584
 [poh_troll]
@@ -97188,6 +97730,13 @@ model1=model_3559
 unknown119=3
 cursorattack=cursor_attack
 desc=Arrghhh... A ghast!
+// Combat defaults from [ghast_vis].
+param=attack_anim,ghast_attack
+param=defend_anim,ghast_block
+param=death_anim,ghast_death
+param=attack_sound,ghast_attack
+param=defend_sound,ghast_hit
+param=death_sound,ghast_death
 
 // 3610
 [ghast_3610]
@@ -97212,6 +97761,13 @@ model1=model_3559
 unknown119=3
 cursorattack=cursor_attack
 desc=Arrghhh... A ghast!
+// Combat defaults from [ghast_vis].
+param=attack_anim,ghast_attack
+param=defend_anim,ghast_block
+param=death_anim,ghast_death
+param=attack_sound,ghast_attack
+param=defend_sound,ghast_hit
+param=death_sound,ghast_death
 
 // 3611
 [ghast_3611]
@@ -97236,6 +97792,13 @@ model1=model_3559
 unknown119=3
 cursorattack=cursor_attack
 desc=Arrghhh... A ghast!
+// Combat defaults from [ghast_vis].
+param=attack_anim,ghast_attack
+param=defend_anim,ghast_block
+param=death_anim,ghast_death
+param=attack_sound,ghast_attack
+param=defend_sound,ghast_hit
+param=death_sound,ghast_death
 
 // 3612
 [giant_snail]
@@ -97450,6 +98013,10 @@ model7=model_21133
 unknown119=3
 cursorattack=cursor_attack
 desc=I wonder if he'd let me borrow his hatchet?
+// Combat defaults from [zombie_armed].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 3623
 [npc_3623]
@@ -110976,6 +111543,13 @@ model3=model_17430
 model4=model_17466
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [cyclops].
+param=attack_anim,giant_update_basic_attack
+param=defend_anim,giant_update_basic_defend
+param=death_anim,giant_update_basic_death
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 4293
 [warguild_food_shopkeeper]
@@ -112297,6 +112871,13 @@ name=Snake
 model1=model_3002
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [snake].
+param=attack_anim,snake_attack
+param=defend_anim,snake_block
+param=death_anim,snake_death
+param=attack_sound,snake_attack
+param=defend_sound,snake_hit
+param=death_sound,snake_death
 
 // 4344
 [harmless_island_monkey]
@@ -112353,6 +112934,16 @@ model1=model_18898
 unknown119=3
 cursorattack=cursor_attack
 desc=It's all white by me.
+// Combat defaults from [bat].
+// http://138.197.104.72:8090/wiki/Albino_bat
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
+param=damagetype,^stab_style
+hitpoints=330
 
 // 4346
 [harmless_island_crab]
@@ -113110,6 +113701,10 @@ name=Ghost
 model1=model_21154
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [ghost].
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 4388
 [sos_death_ghost2]
@@ -113123,6 +113718,13 @@ name=Ghost
 model1=model_21148
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 4389
 [sos_fam_fleshcrawler]
@@ -113227,6 +113829,10 @@ model6=model_21073
 model7=model_21136
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_armed].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 4394
 [sos_fam_zombie_armed]
@@ -113253,6 +113859,10 @@ model6=model_21073
 model7=model_21132
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie2].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 4395
 [sos_fam_giantrat]
@@ -113270,6 +113880,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 4396
 [sos_fam_rat]
@@ -113406,6 +114023,13 @@ model1=model_24613
 unknown119=3
 cursorattack=cursor_attack
 desc=Incey wincey... with a nasty bite.
+// Combat defaults from [spider].
+param=attack_anim,small_spider_update_attack
+param=defend_anim,small_spider_update_defend
+param=death_anim,small_spider_update_death
+param=attack_sound,small_spider_attack
+param=defend_sound,small_spider_hit
+param=death_sound,small_spider_death
 
 // 4402
 [sos_pest_scorpion]
@@ -113681,6 +114305,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 4410
 [sos_war_goblin_armed2]
@@ -113716,6 +114346,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 4411
 [sos_war_goblin_helmet2]
@@ -113745,6 +114381,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 4412
 [sos_war_goblin_green_soldier_2]
@@ -113781,6 +114423,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 4413
 [sos_war_wolf]
@@ -114378,6 +115026,13 @@ model1=model_23901
 unknown119=3
 cursorattack=cursor_attack
 desc=Aww, how cute.
+// Combat defaults from [regicide_rabbit].
+param=attack_anim,rabbit_update_attack
+param=defend_anim,rabbit_update_defend
+param=death_anim,rabbit_update_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
 
 // 4448
 [fairy2_rabbit2]
@@ -114396,6 +115051,13 @@ name=Rabbit
 model1=model_23901
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [regicide_rabbit].
+param=attack_anim,rabbit_update_attack
+param=defend_anim,rabbit_update_defend
+param=death_anim,rabbit_update_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
 
 // 4449
 [fairy2_butterfly1]
@@ -115524,6 +116186,19 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin], [goblin_red_soldier_2].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=120
+attack=3
+defence=4
+param=attackbonus,12
+param=strengthbonus,12
+param=damagetype,^stab_style
+param=attackrate,6
 
 // 4491
 [goblin_green_soldier_7]
@@ -119703,6 +120378,16 @@ name=Baby red dragon
 model1=model_57939
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [babybluedragon].
+// http://138.197.104.72:8090/wiki/Baby_red_dragon
+param=attack_anim,bdrag_attack
+param=defend_anim,bdrag_block
+param=death_anim,bdrag_death
+param=attack_sound,babydragon_attack
+param=defend_sound,babydragon_hit
+param=death_sound,babydragon_death
+param=damagetype,^slash_style
+hitpoints=500
 
 // 4668
 [babyreddragon3]
@@ -119716,6 +120401,16 @@ name=Baby red dragon
 model1=model_57939
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [babybluedragon].
+// http://138.197.104.72:8090/wiki/Baby_red_dragon
+param=attack_anim,bdrag_attack
+param=defend_anim,bdrag_block
+param=death_anim,bdrag_death
+param=attack_sound,babydragon_attack
+param=defend_sound,babydragon_hit
+param=death_sound,babydragon_death
+param=damagetype,^slash_style
+hitpoints=500
 
 // 4669
 [red_dragon2]
@@ -125302,6 +125997,13 @@ model1=model_49779
 model2=model_49777
 unknown119=7
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 4899
 [aide_tutor_cooking]
@@ -125654,6 +126356,20 @@ name=Earth elemental
 model1=model_18649
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [elemental_earth].
+param=attack_anim,earth_elemental_rework_attack
+param=defend_anim,earth_elemental_rework_defend
+param=death_anim,earth_elemental_rework_death
+param=attack_sound,earth_elemental_attack
+param=defend_sound,earth_elemental_hit
+param=death_sound,earth_elemental_death
+hitpoints=350
+attack=20
+strength=35
+defence=35
+ranged=30
+magic=10
+param=attackrate,6
 
 // 4911
 [elem1_qip_earth_elemental_rock_version_rock]
@@ -125886,6 +126602,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 4923
 [giant_rat_4923]
@@ -125917,6 +126640,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 4924
 [giant_rat_4924]
@@ -125932,6 +126662,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 4926
 [giant_rat_4926]
@@ -125978,6 +126715,18 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat], [giantrat1].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+hitpoints=100
+attack=6
+strength=5
+defence=2
+param=damagetype,^stab_style
 
 // 4928
 [dungeon_rat_4928]
@@ -126351,6 +127100,22 @@ model3=model_61022
 unknown119=3
 cursorattack=cursor_attack
 desc=Some oversized vermin, blessed by Zamorak.
+// Combat defaults from [blessed_giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+hitpoints=300
+attack=5
+param=strengthbonus,-24
+param=stabdefence,-24
+param=slashdefence,-24
+param=crushdefence,-24
+param=magicdefence,-24
+param=rangedefence,-24
+param=damagetype,^stab_style
 
 // 4942
 [newbiegiantrat2]
@@ -126431,6 +127196,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 4945
 [sos_fam_giantrat3]
@@ -126446,6 +127218,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 4946
 [skillcapes_firemaster]
@@ -133832,6 +134611,17 @@ model6=model_21076
 model7=model_21140
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_unarmed].
+param=attack_anim,zombie_attack
+param=defend_anim,zombie_block
+param=death_anim,zombie_update_death_normal
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
+hitpoints=220
+attack=8
+strength=9
+defence=10
 
 // 5300
 [zombie_unarmed_city3]
@@ -133902,6 +134692,17 @@ model6=model_20986
 model7=model_21036
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_unarmed].
+param=attack_anim,zombie_attack
+param=defend_anim,zombie_block
+param=death_anim,zombie_update_death_normal
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
+hitpoints=220
+attack=8
+strength=9
+defence=10
 
 // 5302
 [zombie_unarmed_city5]
@@ -133927,6 +134728,17 @@ model6=model_20986
 model7=model_21036
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_unarmed].
+param=attack_anim,zombie_attack
+param=defend_anim,zombie_block
+param=death_anim,zombie_update_death_normal
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
+hitpoints=220
+attack=8
+strength=9
+defence=10
 
 // 5303
 [zombie_unarmed_city6]
@@ -134586,6 +135398,10 @@ name=Zombie
 model1=model_20948
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_armed].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 5318
 [zombie_armed_city3]
@@ -136614,6 +137430,13 @@ model1=model_21147
 unknown119=3
 cursorattack=cursor_attack
 desc=Eeek! A ghost!
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 5370
 [sos_death_ghost_c]
@@ -136627,6 +137450,13 @@ name=Ghost
 model1=model_21143
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 5371
 [sos_death_ghost_d]
@@ -136640,6 +137470,13 @@ name=Ghost
 model1=model_21144
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 5375
 [sos_fam_zombie_unarmed2]
@@ -136757,6 +137594,10 @@ model7=model_21031
 unknown119=3
 cursorattack=cursor_attack
 desc=Dead man walking.
+// Combat defaults from [zombie_armed].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 5378
 [sos_fam_zombie2_c]
@@ -136784,6 +137625,10 @@ model6=model_21073
 model7=model_21136
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_armed].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 5379
 [sos_fam_zombie_armed2]
@@ -136811,6 +137656,10 @@ model7=model_21029
 unknown119=3
 cursorattack=cursor_attack
 desc=The walking dead.
+// Combat defaults from [zombie2].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 5380
 [sos_fam_zombie_armed3]
@@ -136837,6 +137686,10 @@ model6=model_21073
 model7=model_21136
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [zombie_armed].
+param=attack_sound,zombie_attack
+param=defend_sound,zombie_hit
+param=death_sound,zombie_death
 
 // 5381
 [barrows_skeleton_unarmed2]
@@ -146265,6 +147118,21 @@ name=Rabbit
 model1=model_23901
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [regicide_rabbit].
+param=attack_anim,rabbit_update_attack
+param=defend_anim,rabbit_update_defend
+param=death_anim,rabbit_update_death
+param=attack_sound,rabbit_attack
+param=defend_sound,rabbit_hit
+param=death_sound,rabbit_death
+hitpoints=50
+param=attackbonus,-47
+param=strengthbonus,-42
+param=stabdefence,-42
+param=slashdefence,-42
+param=crushdefence,-42
+param=magicdefence,-42
+param=rangedefence,-42
 
 // 5830
 [dorgesh_dark_wizard]
@@ -148287,6 +149155,13 @@ unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=One of Gielinor's many citizens.
+// Combat defaults from [woman].
+hitpoints=70
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
 
 // 5925
 [qip_soa_newspaperseller]
@@ -151575,6 +152450,13 @@ model3=model_17440
 model4=model_17466
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [cyclops].
+param=attack_anim,giant_update_basic_attack
+param=defend_anim,giant_update_basic_defend
+param=death_anim,giant_update_basic_death
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 6080
 [cyclops_6080]
@@ -151634,6 +152516,13 @@ model4=model_17467
 unknown119=3
 cursorattack=cursor_attack
 desc=A one-eyed woman eater.
+// Combat defaults from [cyclops].
+param=attack_anim,giant_update_basic_attack
+param=defend_anim,giant_update_basic_defend
+param=death_anim,giant_update_basic_death
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 6082
 [dragonslayer_ned_on_ship]
@@ -151834,6 +152723,15 @@ model2=model_18890
 model3=model_18895
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [dragonslayer_giantrat_1_key].
+// http://138.197.104.72:8090/wiki/Zombie_rat
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+hitpoints=50
 
 // 6090
 [dragonslayer_giantrat_3]
@@ -151862,6 +152760,15 @@ model2=model_18889
 model3=model_18896
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [dragonslayer_giantrat_1_key].
+// http://138.197.104.72:8090/wiki/Zombie_rat
+param=attack_anim,giant_rat_update_attack
+param=defend_anim,giant_rat_update_defend
+param=death_anim,giant_rat_update_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
+hitpoints=50
 
 // 6091
 [dragonslayer_skeleton_1_key]
@@ -152085,6 +152992,22 @@ head1=model_21394
 unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
+hitpoints=250
+attack=13
+strength=13
+defence=18
+param=stabdefence,5
+param=slashdefence,5
+param=crushdefence,5
+param=magicdefence,-5
+param=rangedefence,5
 
 // 6096
 [dragonslayer_ghost_3]
@@ -152101,6 +153024,22 @@ head1=model_39057
 unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
+hitpoints=250
+attack=13
+strength=13
+defence=18
+param=stabdefence,5
+param=slashdefence,5
+param=crushdefence,5
+param=magicdefence,-5
+param=rangedefence,5
 
 // 6097
 [dragonslayer_ghost_4]
@@ -152118,6 +153057,22 @@ unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=Eeek! A ghost!
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
+hitpoints=250
+attack=13
+strength=13
+defence=18
+param=stabdefence,5
+param=slashdefence,5
+param=crushdefence,5
+param=magicdefence,-5
+param=rangedefence,5
 
 // 6098
 [dragonslayer_ghost_5]
@@ -152134,6 +153089,22 @@ head1=model_38963
 unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
+hitpoints=250
+attack=13
+strength=13
+defence=18
+param=stabdefence,5
+param=slashdefence,5
+param=crushdefence,5
+param=magicdefence,-5
+param=rangedefence,5
 
 // 6099
 [dragonslayer_zombie_1_key]
@@ -154149,6 +155120,25 @@ model6=model_185
 model7=model_518
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [black_knight].
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=death_anim,human_death
+param=defend_sound,steel
+param=death_sound,black_knight_death
+hitpoints=420
+attack=25
+strength=25
+defence=25
+param=attackbonus,18
+param=strengthbonus,16
+param=stabdefence,73
+param=slashdefence,76
+param=crushdefence,70
+param=magicdefence,-11
+param=rangedefence,72
+param=damagetype,^slash_style
+param=attackrate,5
 
 // 6190
 [kr_keep_guard_hair]
@@ -155445,6 +156435,10 @@ model2=model_40111
 unknown119=3
 cursorattack=cursor_attack
 desc=Green and aggressive.
+// Combat defaults from [jogre].
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 6269
 [cyclops_6269]
@@ -155473,6 +156467,13 @@ model4=model_28271
 unknown119=3
 cursorattack=cursor_attack
 desc=A one-eyed man-eater.
+// Combat defaults from [cyclops].
+param=attack_anim,giant_update_basic_attack
+param=defend_anim,giant_update_basic_defend
+param=death_anim,giant_update_basic_death
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 6270
 [cyclops_6270]
@@ -155488,6 +156489,13 @@ model3=model_28270
 model4=model_28271
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [cyclops].
+param=attack_anim,giant_update_basic_attack
+param=defend_anim,giant_update_basic_defend
+param=death_anim,giant_update_basic_death
+param=attack_sound,giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
 
 // 6271
 [godwars_ancient_ork1]
@@ -155558,6 +156566,13 @@ model1=model_49781
 unknown119=3
 cursorattack=cursor_attack
 desc=An ugly, smelly creature.
+// Combat defaults from [hobgoblin].
+param=attack_anim,hobgoblin_attackunarmed
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 6276
 [spiritual_ranger_6276]
@@ -155625,6 +156640,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 6280
 [godwars_goblin2]
@@ -155659,6 +156680,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 6281
 [godwars_goblin3]
@@ -155727,6 +156754,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 6283
 [godwars_goblin5]
@@ -157744,6 +158777,10 @@ model2=model_20313
 unknown119=3
 cursorattack=cursor_attack
 desc=A barely visible deadly jungle spider.
+// Combat defaults from [jungle_spider].
+param=attack_sound,small_rock_crab_attack
+param=defend_sound,small_rock_crab_hit
+param=death_sound,small_rock_crab_death
 
 // 6377
 [roots_spider_02]
@@ -157766,6 +158803,10 @@ model1=model_20315
 model2=model_20313
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [jungle_spider].
+param=attack_sound,small_rock_crab_attack
+param=defend_sound,small_rock_crab_hit
+param=death_sound,small_rock_crab_death
 
 // 6378
 [roots_bird_toucan]
@@ -165057,6 +166098,11 @@ model6=model_21202
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 6765
 [skeleton_6765]
@@ -165074,6 +166120,11 @@ model6=model_21200
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 6766
 [skeleton_6766]
@@ -165091,6 +166142,11 @@ model6=model_21205
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 6767
 [skeleton_6767]
@@ -165108,6 +166164,11 @@ model6=model_21199
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 6768
 [skeleton_6768]
@@ -165125,6 +166186,11 @@ model6=model_21188
 unknown119=3
 cursorattack=cursor_attack
 desc=Heartless, in every sense of the word.
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 6769
 [doorman]
@@ -169932,6 +170998,23 @@ model1=model_17452
 model2=model_17437
 unknown119=1
 cursorattack=cursor_attack
+// Combat defaults from [firegiant].
+param=attack_anim,giant_update_fire_attack
+param=defend_anim,giant_update_fire_defend
+param=death_anim,giant_update_fire_death
+param=attack_sound,moss_giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
+hitpoints=1110
+attack=65
+strength=65
+defence=65
+param=attackbonus,29
+param=strengthbonus,31
+param=slashdefence,3
+param=crushdefence,2
+param=damagetype,^slash_style
+param=attackrate,5
 
 // 7004
 [dsd_firegiant2]
@@ -169946,6 +171029,23 @@ model1=model_17451
 model2=model_17435
 unknown119=1
 cursorattack=cursor_attack
+// Combat defaults from [firegiant_big2].
+param=attack_anim,giant_update_fire_attack
+param=defend_anim,giant_update_fire_defend
+param=death_anim,giant_update_fire_death
+param=attack_sound,moss_giant_attack
+param=defend_sound,giant_hit
+param=death_sound,giant_death
+hitpoints=1110
+attack=65
+strength=65
+defence=65
+param=attackbonus,29
+param=strengthbonus,31
+param=slashdefence,3
+param=crushdefence,2
+param=damagetype,^slash_style
+param=attackrate,5
 
 // 7005
 [dsd_wolfpack_leader]
@@ -187317,6 +188417,16 @@ model1=model_52567
 unknown119=3
 cursorattack=cursor_attack
 desc=Could do with gaining a few pounds.
+// Combat defaults from [bat].
+// http://138.197.104.72:8090/wiki/Warped_bat
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
+param=damagetype,^stab_style
+hitpoints=85
 
 // 7923
 [lumbcat_tomb_wraith_ranged_01]
@@ -188522,6 +189632,13 @@ name=Ghost
 model1=model_21148
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 7999
 [sum1_ghost2]
@@ -188535,6 +189652,13 @@ name=Ghost
 model1=model_21143
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [house_ghost].
+param=attack_anim,ghost_update_normal_attack
+param=defend_anim,seq_5533
+param=death_anim,ghost_update_normal_death
+param=attack_sound,ghost_attack
+param=defend_sound,ghost_hit
+param=death_sound,ghost_death
 
 // 8000
 [sum1_goth_leprechaun]
@@ -199515,6 +200639,16 @@ unknown119=3
 cursor1=1,cursor_talkto
 cursorattack=cursor_attack
 desc=A large dim looking humanoid.
+// Combat defaults from [ogre2].
+param=death_anim,ogre_death
+param=death_sound,giant_death
+hitpoints=600
+attack=43
+strength=43
+defence=43
+param=attackbonus,22
+param=strengthbonus,20
+param=attackrate,6
 
 // 8659
 [thchomp_rantz_multi]
@@ -201455,6 +202589,13 @@ head2=model_51629
 unknown119=3
 cursorattack=cursor_attack
 desc=A member of the Black Guard, a special division of the dwarven army.
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 8773
 [black_guard_8773]
@@ -201471,6 +202612,13 @@ head1=model_51622
 head2=model_51648
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 8774
 [black_guard_8774]
@@ -201487,6 +202635,13 @@ head1=model_51622
 head2=model_51648
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [fai_black_guard_01].
+param=attack_anim,dwarf_attack
+param=defend_anim,dwarf_block
+param=death_anim,dwarf_death
+param=attack_sound,warhammer_crush
+param=defend_sound,dwarf_hit
+param=death_sound,dwarf_death
 
 // 8775
 [npc_8775]
@@ -207081,6 +208236,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 9098
 [dagannoth_9098]
@@ -207102,6 +208263,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 9099
 [evq_escort_vargas_lying]
@@ -207735,6 +208902,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 9129
 [dagannoth_9129]
@@ -207756,6 +208929,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 9130
 [goblin_squad__light___blue_9130]
@@ -207804,6 +208983,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 9133
 [dagannoth_9133]
@@ -207825,6 +209010,12 @@ name=Dagannoth
 model1=model_4587
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [horror_dagganoth_jr].
+param=defend_anim,horror_dagannoth_defend
+param=death_anim,horror_dagannoth_death
+param=defend_sound,null
+param=death_sound,null
+// Defend and death sounds are embedded in the sequences.
 
 // 9134
 [evq_battle_blocking]
@@ -224613,6 +225804,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10179
 [earth_warrior_10179]
@@ -224626,6 +225824,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10180
 [earth_warrior_10180]
@@ -224639,6 +225844,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10181
 [earth_warrior_10181]
@@ -224652,6 +225864,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10182
 [earth_warrior_10182]
@@ -224665,6 +225884,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10183
 [earth_warrior_10183]
@@ -224678,6 +225904,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10184
 [earth_warrior_10184]
@@ -224691,6 +225924,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10185
 [earth_warrior_10185]
@@ -224704,6 +225944,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10186
 [earth_warrior_10186]
@@ -224717,6 +225964,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10187
 [earth_warrior_10187]
@@ -224730,6 +225984,13 @@ name=Earth warrior
 model1=model_32091
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [earthwarrior].
+param=attack_anim,human_blunt_pound
+param=defend_anim,human_blunt_block
+param=death_anim,human_death
+param=attack_sound,warhammer_crush
+param=defend_sound,blade5
+param=death_sound,black_knight_death
 
 // 10188
 [hellhound_10188]
@@ -224743,6 +226004,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10189
 [hellhound_10189]
@@ -224756,6 +226024,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10190
 [hellhound_10190]
@@ -224769,6 +226044,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10191
 [hellhound_10191]
@@ -224782,6 +226064,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10192
 [hellhound_10192]
@@ -224795,6 +226084,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10193
 [hellhound_10193]
@@ -224808,6 +226104,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10194
 [hellhound_10194]
@@ -224821,6 +226124,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10195
 [hellhound_10195]
@@ -224834,6 +226144,13 @@ name=Hellhound
 model1=model_26256
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hellhound].
+param=attack_anim,dog_update_hellhound_godwars_attack
+param=defend_anim,dog_update_skeleton_hellhound_defend
+param=death_anim,dog_update_hellhound_godwars_death
+param=attack_sound,dog_attack
+param=defend_sound,dog_hit
+param=death_sound,dog_death
 
 // 10196
 [necromancer_10196]
@@ -225675,6 +226992,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10237
 [hobgoblin_10237]
@@ -225702,6 +227026,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10238
 [hobgoblin_10238]
@@ -225729,6 +227060,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10239
 [hobgoblin_10239]
@@ -225756,6 +227094,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10240
 [hobgoblin_10240]
@@ -225783,6 +227128,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10241
 [hobgoblin_10241]
@@ -225810,6 +227162,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10242
 [hobgoblin_10242]
@@ -225837,6 +227196,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10243
 [hobgoblin_10243]
@@ -225864,6 +227230,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10244
 [hobgoblin_10244]
@@ -225891,6 +227264,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10245
 [hobgoblin_10245]
@@ -225918,6 +227298,13 @@ model1=model_49779
 model2=model_49776
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [hobgoblin_armed].
+param=attack_anim,hobgoblin_attack
+param=defend_anim,hobgoblin_block
+param=death_anim,hobgoblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_champion_attack
+param=death_sound,goblin_death
 
 // 10246
 [forgotten_warrior]
@@ -230275,6 +231662,13 @@ model3=model_17384
 model4=model_17388
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [lesser_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10493
 [lesser_demon_10493]
@@ -230293,6 +231687,13 @@ model3=model_17384
 model4=model_17388
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [lesser_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10494
 [lesser_demon_10494]
@@ -230311,6 +231712,13 @@ model3=model_17385
 model4=model_17388
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [lesser_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10495
 [lesser_demon_10495]
@@ -230329,6 +231737,13 @@ model3=model_17386
 model4=model_17388
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [lesser_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10496
 [rand_dungeon_spider_1]
@@ -232583,6 +233998,11 @@ model6=model_21201
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10630
 [skeleton_10630]
@@ -232602,6 +234022,11 @@ model6=model_21201
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10631
 [skeleton_10631]
@@ -232620,6 +234045,11 @@ model5=model_21199
 model6=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10632
 [skeleton_10632]
@@ -232639,6 +234069,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10633
 [skeleton_10633]
@@ -232656,6 +234091,11 @@ model4=model_21180
 model5=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10634
 [skeleton_10634]
@@ -232675,6 +234115,11 @@ model6=model_21204
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10635
 [skeleton_10635]
@@ -232693,6 +234138,11 @@ model5=model_21200
 model6=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10636
 [skeleton_10636]
@@ -232712,6 +234162,11 @@ model6=model_21199
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10637
 [skeleton_10637]
@@ -232731,6 +234186,11 @@ model6=model_21201
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10638
 [skeleton_10638]
@@ -232750,6 +234210,11 @@ model6=model_21202
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10639
 [skeleton_10639]
@@ -232769,6 +234234,11 @@ model6=model_21202
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10640
 [skeleton_10640]
@@ -232788,6 +234258,11 @@ model6=model_21205
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10641
 [skeleton_10641]
@@ -232807,6 +234282,11 @@ model6=model_21199
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10642
 [skeleton_10642]
@@ -232826,6 +234306,11 @@ model6=model_21205
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10643
 [skeleton_10643]
@@ -232845,6 +234330,11 @@ model6=model_21201
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10644
 [skeleton_10644]
@@ -232864,6 +234354,11 @@ model6=model_21204
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10645
 [skeleton_10645]
@@ -232883,6 +234378,11 @@ model6=model_21205
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10646
 [skeleton_10646]
@@ -232902,6 +234402,11 @@ model6=model_21201
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10647
 [skeleton_10647]
@@ -232921,6 +234426,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10648
 [skeleton_10648]
@@ -232940,6 +234450,11 @@ model6=model_21199
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10649
 [skeleton_10649]
@@ -232959,6 +234474,11 @@ model6=model_21202
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10650
 [skeleton_10650]
@@ -232978,6 +234498,11 @@ model6=model_21199
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10651
 [skeleton_10651]
@@ -232997,6 +234522,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10652
 [skeleton_10652]
@@ -233015,6 +234545,11 @@ model5=model_21199
 model6=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10653
 [skeleton_10653]
@@ -233034,6 +234569,11 @@ model6=model_21202
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10654
 [skeleton_10654]
@@ -233053,6 +234593,11 @@ model6=model_21205
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10655
 [skeleton_10655]
@@ -233072,6 +234617,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10656
 [skeleton_10656]
@@ -233091,6 +234641,11 @@ model6=model_21199
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10657
 [skeleton_10657]
@@ -233110,6 +234665,11 @@ model6=model_21202
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10658
 [skeleton_10658]
@@ -233129,6 +234689,11 @@ model6=model_21199
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10659
 [skeleton_10659]
@@ -233148,6 +234713,11 @@ model6=model_21205
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10660
 [skeleton_10660]
@@ -233167,6 +234737,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10661
 [skeleton_10661]
@@ -233185,6 +234760,11 @@ model5=model_21202
 model6=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10662
 [skeleton_10662]
@@ -233204,6 +234784,11 @@ model6=model_21204
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10663
 [skeleton_10663]
@@ -233223,6 +234808,11 @@ model6=model_21205
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10664
 [skeleton_10664]
@@ -233242,6 +234832,11 @@ model6=model_21202
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10665
 [skeleton_10665]
@@ -233261,6 +234856,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10666
 [skeleton_10666]
@@ -233280,6 +234880,11 @@ model6=model_21204
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10667
 [skeleton_10667]
@@ -233299,6 +234904,11 @@ model6=model_21205
 model7=model_21187
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10668
 [skeleton_10668]
@@ -233318,6 +234928,11 @@ model6=model_21202
 model7=model_21186
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [skeleton_unarmed].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10669
 [skeleton_10669]
@@ -233337,6 +234952,11 @@ model6=model_21200
 model7=model_21188
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10670
 [skeleton_10670]
@@ -233350,6 +234970,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10671
 [skeleton_10671]
@@ -233363,6 +234988,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10672
 [skeleton_10672]
@@ -233376,6 +235006,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10673
 [skeleton_10673]
@@ -233389,6 +235024,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10674
 [skeleton_10674]
@@ -233402,6 +235042,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10675
 [skeleton_10675]
@@ -233415,6 +235060,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10676
 [skeleton_10676]
@@ -233428,6 +235078,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10677
 [skeleton_10677]
@@ -233441,6 +235096,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10678
 [skeleton_10678]
@@ -233454,6 +235114,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10679
 [skeleton_10679]
@@ -233467,6 +235132,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10680
 [skeleton_10680]
@@ -233480,6 +235150,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10681
 [skeleton_10681]
@@ -233493,6 +235168,11 @@ name=Skeleton
 model1=model_34398
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10682
 [skeleton_10682]
@@ -233506,6 +235186,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10683
 [skeleton_10683]
@@ -233519,6 +235204,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10684
 [skeleton_10684]
@@ -233532,6 +235222,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10685
 [skeleton_10685]
@@ -233545,6 +235240,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10686
 [skeleton_10686]
@@ -233558,6 +235258,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10687
 [skeleton_10687]
@@ -233571,6 +235276,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10688
 [skeleton_10688]
@@ -233584,6 +235294,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10689
 [skeleton_10689]
@@ -233597,6 +235312,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10690
 [skeleton_10690]
@@ -233610,6 +235330,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10691
 [skeleton_10691]
@@ -233623,6 +235348,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10692
 [skeleton_10692]
@@ -233636,6 +235366,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10693
 [skeleton_10693]
@@ -233649,6 +235384,11 @@ name=Skeleton
 model1=model_21193
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [sos_death_skeleton_unarmed2].
+param=defend_anim,skeleton_update_defend
+param=death_anim,skeleton_update_death
+param=defend_sound,skelly_hit
+param=death_sound,skeleton_death
 
 // 10694
 [rand_crawling_hand]
@@ -234035,6 +235775,13 @@ model3=model_17384
 model4=model_17399
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [greater_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,demon_death
+param=attack_sound,synth_397
+param=defend_sound,black_demon_hit
+param=death_sound,demon_death
 
 // 10719
 [greater_demon_10719]
@@ -234065,6 +235812,13 @@ model3=model_17386
 model4=model_17400
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [greater_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,demon_death
+param=attack_sound,synth_397
+param=defend_sound,black_demon_hit
+param=death_sound,demon_death
 
 // 10720
 [greater_demon_10720]
@@ -234091,6 +235845,13 @@ model3=model_17386
 model4=model_17399
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [greater_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,demon_death
+param=attack_sound,synth_397
+param=defend_sound,black_demon_hit
+param=death_sound,demon_death
 
 // 10721
 [greater_demon_10721]
@@ -234109,6 +235870,13 @@ model3=model_17385
 model4=model_17400
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [greater_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,demon_death
+param=attack_sound,synth_397
+param=defend_sound,black_demon_hit
+param=death_sound,demon_death
 
 // 10722
 [black_demon_10722]
@@ -234137,6 +235905,13 @@ model3=model_17384
 model4=model_17399
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [black_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10723
 [black_demon_10723]
@@ -234165,6 +235940,13 @@ model3=model_17386
 model4=model_17400
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [black_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10724
 [black_demon_10724]
@@ -234193,6 +235975,13 @@ model3=model_17387
 model4=model_17399
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [black_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10725
 [black_demon_10725]
@@ -234221,6 +236010,13 @@ model3=model_17385
 model4=model_17400
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [black_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 
 // 10726
 [rand_guard_dog_1]
@@ -237435,6 +239231,13 @@ name=Giant bat
 model1=model_18898
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [bat].
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
 
 // 10911
 [giant_bat_10911]
@@ -237448,6 +239251,13 @@ name=Giant bat
 model1=model_18898
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [bat].
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
 
 // 10912
 [giant_bat_10912]
@@ -237461,6 +239271,13 @@ name=Giant bat
 model1=model_18898
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [bat].
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
 
 // 10913
 [giant_bat_10913]
@@ -237474,6 +239291,13 @@ name=Giant bat
 model1=model_18898
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [bat].
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
 
 // 10914
 [giant_bat_10914]
@@ -237487,6 +239311,13 @@ name=Giant bat
 model1=model_18898
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [bat].
+param=attack_anim,bat_rework_attack
+param=defend_anim,bat_rework_defend
+param=death_anim,bat_rework_death
+param=attack_sound,bat_attack
+param=defend_sound,bat_hit
+param=death_sound,bat_death
 
 // 10915
 [rand_heavy_guard_1_asleep_with_key]
@@ -242386,6 +244217,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 11260
 [slayc_goblin_2]
@@ -242413,6 +244250,19 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
+hitpoints=120
+attack=3
+defence=4
+param=attackbonus,12
+param=strengthbonus,12
+param=damagetype,^stab_style
+param=attackrate,6
 
 // 11261
 [slayc_goblin_3]
@@ -242437,6 +244287,12 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [goblin_armed].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 11262
 [slayc_wolf_1]
@@ -242460,6 +244316,12 @@ name=Wolf
 model1=model_26265
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [wolf].
+param=attack_anim,dog_update_wolf_attack
+param=defend_anim,dog_update_wolf_defend
+param=death_anim,dog_update_wolf_death
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
 
 // 11263
 [slayc_wolf_2]
@@ -242479,6 +244341,12 @@ name=Wolf
 model1=model_26266
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [wolf].
+param=attack_anim,dog_update_wolf_attack
+param=defend_anim,dog_update_wolf_defend
+param=death_anim,dog_update_wolf_death
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
 
 // 11264
 [ravenous_vampire]
@@ -259494,6 +261362,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 12349
 [giant_rat_12349]
@@ -259509,6 +261384,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 12350
 [giant_rat_12350]
@@ -259524,6 +261406,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 12351
 [giant_rat_12351]
@@ -259539,6 +261428,13 @@ defaultmode=wander
 wanderrange=15
 maxrange=17
 respawnrate=140
+// Combat defaults from [giantrat].
+param=attack_anim,giantrat_attack
+param=defend_anim,giantrat_block
+param=death_anim,giantrat_death
+param=attack_sound,rat_attack
+param=defend_sound,rat_hit
+param=death_sound,rat_death
 
 // 12352
 [1st4h_giantspider1]
@@ -260072,6 +261968,17 @@ name=Cow calf
 model1=model_23890
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [cow].
+// http://138.197.104.72:8090/wiki/Cow_calf
+param=attack_anim,cow_update_attack
+param=defend_anim,cow_update_defend
+param=death_anim,cow_update_death
+param=attack_sound,calf_attack
+param=defend_sound,calf_hit
+param=death_sound,calf_death
+param=damagetype,^crush_style
+hitpoints=69
+category=cow
 
 // 12365
 [cow_12365]
@@ -260117,6 +262024,17 @@ name=Cow calf
 model1=model_23890
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [cow].
+// http://138.197.104.72:8090/wiki/Cow_calf
+param=attack_anim,cow_update_attack
+param=defend_anim,cow_update_defend
+param=death_anim,cow_update_death
+param=attack_sound,calf_attack
+param=defend_sound,calf_hit
+param=death_sound,calf_death
+param=damagetype,^crush_style
+hitpoints=69
+category=cow
 
 // 12367
 [1st4h_guard_goblin]
@@ -272268,6 +274186,19 @@ model3=model_17386
 model4=model_17388
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [lesser_demon].
+param=attack_anim,demon_attack
+param=defend_anim,demon_block
+param=death_anim,qip_ds_delrith_banished
+param=attack_sound,synth_397
+param=defend_sound,demon_hit
+param=death_sound,demon_death
+hitpoints=790
+attack=68
+strength=70
+defence=71
+param=magicdefence,-10
+param=damagetype,^slash_style
 
 // 13230
 [apmeken_demon_passive]
@@ -280466,6 +282397,12 @@ model6=model_24448
 head1=model_24209
 unknown119=3
 cursorattack=cursor_attack
+// Combat defaults from [goblin].
+param=defend_anim,slice_surface_goblin_defend
+param=death_anim,slice_surface_goblin_death
+param=attack_sound,goblin_attack
+param=defend_sound,goblin_hit
+param=death_sound,goblin_death
 
 // 13616
 [goblin_13616]

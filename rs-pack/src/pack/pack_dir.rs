@@ -46,28 +46,9 @@ impl PrivatePack {
                 .filter(|line| !original.lines().any(|old| old == *line))
                 .collect();
             bail!(
-                "{name} changed during compilation with --verify true:\n{}",
+                "{name} changed during compilation; packing cannot add registry entries:\n{}",
                 added.join("\n")
             );
-        }
-        Ok(())
-    }
-
-    /// Swaps file `name` into `pack` as the compile left it, if it changed.
-    #[cfg(any(since_647, test))]
-    pub fn pin(&self, pack: &Path, name: &str, verify: bool) -> Result<()> {
-        if verify {
-            return self.check_unchanged(pack, name);
-        }
-        let Ok(pinned) = fs::read(self.dir.join(name)) else {
-            return Ok(());
-        };
-        let shipped = pack.join(name);
-        if fs::read(&shipped).is_ok_and(|old| old == pinned) {
-            return Ok(());
-        }
-        if let Err(e) = replace(&shipped, &pinned) {
-            warn!("Couldn't update {}: {e}", shipped.display());
         }
         Ok(())
     }
@@ -81,25 +62,7 @@ impl Drop for PrivatePack {
     }
 }
 
-/// Writes `path` by renaming a finished file over it, so readers in every
-/// world see the old contents or the new, never part of them.
-pub fn replace(path: &Path, contents: &[u8]) -> io::Result<()> {
-    let mut tmp = path.as_os_str().to_owned();
-    tmp.push(format!(
-        ".{}-{}.tmp",
-        process::id(),
-        NEXT.fetch_add(1, Ordering::Relaxed)
-    ));
-    let tmp = PathBuf::from(tmp);
-    let written = fs::write(&tmp, contents).and_then(|()| fs::rename(&tmp, path));
-    if written.is_err() {
-        let _ = fs::remove_file(&tmp);
-    }
-    written
-}
-
-/// Copies the files of `pack` into `to`, less any another world's
-/// [`replace`] is still writing.
+/// Copies registry files without unfinished temporary files.
 fn copy_files(pack: &Path, to: &Path) -> io::Result<()> {
     for entry in fs::read_dir(pack)? {
         let entry = entry?;
@@ -118,7 +81,7 @@ mod tests {
     use runec::clientscript;
 
     #[test]
-    fn clientscript_growth_is_rejected_before_pinning() {
+    fn clientscript_growth_is_rejected_without_writing_registries() {
         let dir = env::temp_dir().join(format!("rs-majula-clientscript-ids-{}", process::id()));
         let scripts = dir.join("scripts");
         let pack = dir.join("pack");
@@ -141,7 +104,7 @@ mod tests {
         private.check_unchanged(&pack, "clientscript.pack").unwrap();
         clientscript::compile_directory(&scripts, private.path()).unwrap();
         let error = private
-            .pin(&pack, "clientscript.pack", true)
+            .check_unchanged(&pack, "clientscript.pack")
             .unwrap_err()
             .to_string();
         assert!(error.contains("1=[proc,new_script]"), "{error}");
@@ -149,8 +112,6 @@ mod tests {
             fs::read_to_string(pack.join("clientscript.pack")).unwrap(),
             "0=[proc,existing]\n"
         );
-        private.pin(&pack, "clientscript.pack", false).unwrap();
-        private.check_unchanged(&pack, "clientscript.pack").unwrap();
         fs::remove_dir_all(&dir).unwrap();
     }
 }

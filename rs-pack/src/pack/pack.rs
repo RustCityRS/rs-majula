@@ -674,11 +674,8 @@ pub fn pack_configs(
     pack_config_files(&files, pack_dir, verify)
 }
 
-/// Checks the config names against the registries, registering the new names
-/// of server-only types. Everything that reads the registries runs after.
+/// Checks config names against the existing registries.
 pub fn check_configs(files: &ConfigFiles, pack_dir: &Path, verify: bool) -> Result<()> {
-    // Registering names rewrites registries, so the check is recorded against
-    // them as it leaves them.
     let check = Stage::new(
         "config names",
         vec![
@@ -687,7 +684,7 @@ pub fn check_configs(files: &ConfigFiles, pack_dir: &Path, verify: bool) -> Resu
         ],
     );
     check.unit(0, &files.with_ext(FileCache::TEXT_EXTS), || {
-        validate_config_packs(files.read(), pack_dir, verify)?;
+        validate_config_packs(files.read(), pack_dir)?;
         PackRegistry::load(pack_dir)?.check_content(files.read())?;
         Ok(Vec::new())
     })?;

@@ -1,16 +1,15 @@
 use crate::pack::incremental::{Hash, Key, Lookups, Registry, answer};
 use crate::pack::pack::FileCache;
-use crate::pack::pack_dir::replace;
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::placeholder_prefix;
 use anyhow::{Result, bail};
 use runec::symbol::identifier_form;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::fs;
 use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
-use tracing::{debug, info};
+use tracing::debug;
 
 #[cfg(before_647)]
 pub type PackId = u16;
@@ -726,13 +725,8 @@ fn load_component_hashes(path: &Path, interfaces: &PackFile) -> HashMap<String, 
     map
 }
 
-const AUTO_REGISTER: &[&str] = &[
-    "area", "varobj", "hunt", "varn", "vars", "mesanim", "struct", "param", "inv", "enum",
-    "dbtable", "dbrow",
-];
-
-/// Require pack files, then register new server names when verification is disabled.
-pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path, verify: bool) -> Result<()> {
+/// Require an existing pack file for each config kind.
+pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path) -> Result<()> {
     let mut errors = Vec::new();
     for &ext in FileCache::TEXT_EXTS {
         let kind = match ext {
@@ -757,79 +751,6 @@ pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path, verify: bool) -> R
     if !errors.is_empty() {
         bail!("missing config pack files:\n{}", errors.join("\n"));
     }
-    for &ext in AUTO_REGISTER {
-        let pack_path = pack_dir.join(format!("{ext}.pack"));
-        let mut pack = PackFile::load(&pack_path)?;
-        let missing: Vec<_> = crawl_config_names(fc, ext)
-            .into_iter()
-            .filter(|name| pack.get_by_debugname(name).is_none())
-            .collect();
-        if missing.is_empty() {
-            continue;
-        }
-        if verify {
-            for name in missing {
-                errors.push(format!("{ext}.pack: section [{name}] is not registered"));
-            }
-            continue;
-        }
-        let added = missing.len();
-        for name in missing {
-            let id = pack.max;
-            pack.id_to_debugname.insert(id, name.clone());
-            pack.debugname_to_id.insert(name, id);
-            pack.max = id + 1;
-        }
-        save_pack_file(&pack_path, &pack)?;
-        info!(
-            "  {ext}.pack: registered {added} new names (total: {})",
-            pack.max
-        );
-    }
-    if !errors.is_empty() {
-        bail!(
-            "unregistered config sections (new IDs require --verify false and a server-only type):\n{}",
-            errors.join("\n")
-        );
-    }
-    Ok(())
-}
-
-/// Crawl all `[name]` sections from config files of a given extension.
-/// Matches 2004scape `crawlConfigNames()`.
-fn crawl_config_names(fc: &FileCache, ext: &str) -> Vec<String> {
-    let mut names = Vec::new();
-    let mut seen = HashSet::new();
-    for path in fc.collect(ext) {
-        let Some(text) = fc.read(path) else {
-            continue;
-        };
-        for line in text.lines() {
-            let line = line.split("//").next().unwrap_or("").trim();
-            if let Some(name) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
-                let name = name.trim();
-                if seen.insert(name.to_string()) {
-                    names.push(name.to_string());
-                }
-            }
-        }
-    }
-    names
-}
-
-/// Write a pack file back to disk (sorted by ID).
-pub(crate) fn save_pack_file(path: &Path, pack: &PackFile) -> Result<()> {
-    let mut lines: Vec<(PackId, &str)> = pack
-        .id_to_debugname
-        .iter()
-        .map(|(&id, name)| (id, name.as_str()))
-        .collect();
-    lines.sort_by_key(|(id, _)| *id);
-    let content: String = lines
-        .iter()
-        .map(|(id, name)| format!("{id}={name}\n"))
-        .collect();
-    replace(path, content.as_bytes())?;
     Ok(())
 }
 
@@ -922,7 +843,7 @@ mod tests {
     }
 
     #[test]
-    fn configs_require_pack_files_before_registering_names() {
+    fn configs_require_existing_pack_files() {
         let dir = env::temp_dir().join(format!("rs-majula-missing-packs-{}", process::id()));
         let scripts = dir.join("scripts");
         fs::create_dir_all(&scripts).unwrap();
@@ -961,15 +882,17 @@ mod tests {
     }
 
     #[test]
-    fn new_config_ids_require_verify_false() {
+    fn new_config_ids_are_rejected_without_writing_registries() {
         let dir = env::temp_dir().join(format!("rs-majula-config-ids-{}", process::id()));
         let scripts = dir.join("scripts");
         fs::create_dir_all(&scripts).unwrap();
-        let kinds: Vec<_> = AUTO_REGISTER
-            .iter()
-            .copied()
-            .filter(|ext| FileCache::TEXT_EXTS.contains(ext))
-            .collect();
+        let kinds: Vec<_> = [
+            "area", "varobj", "hunt", "varn", "vars", "mesanim", "struct", "param", "inv", "enum",
+            "dbtable", "dbrow",
+        ]
+        .into_iter()
+        .filter(|ext| FileCache::TEXT_EXTS.contains(ext))
+        .collect();
         for ext in &kinds {
             fs::write(dir.join(format!("{ext}.pack")), "0=existing\n").unwrap();
             fs::write(
@@ -979,34 +902,21 @@ mod tests {
             .unwrap();
         }
         let files = ConfigFiles::new(&scripts);
-        let error = check_configs(&files, &dir, true).unwrap_err().to_string();
-        for ext in &kinds {
-            assert!(
-                error.contains(&format!("{ext}.pack: section [new_name]")),
-                "{error}"
-            );
-            assert_eq!(
-                fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
-                "0=existing\n"
-            );
+        for verify in [false, true] {
+            let error = check_configs(&files, &dir, verify).unwrap_err().to_string();
+            for ext in &kinds {
+                assert!(
+                    error.contains(&format!(
+                        "section [new_name] is not registered in {ext}.pack"
+                    )),
+                    "{error}"
+                );
+                assert_eq!(
+                    fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                    "0=existing\n"
+                );
+            }
         }
-        check_configs(&files, &dir, false).unwrap();
-        check_configs(&files, &dir, true).unwrap();
-        for ext in &kinds {
-            assert_eq!(
-                fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
-                "0=existing\n1=new_name\n"
-            );
-        }
-        fs::write(dir.join("npc.pack"), "").unwrap();
-        fs::write(scripts.join("custom.npc"), "[missing_npc]\n").unwrap();
-        let error = check_configs(&ConfigFiles::new(&scripts), &dir, false)
-            .unwrap_err()
-            .to_string();
         fs::remove_dir_all(&dir).unwrap();
-        assert!(
-            error.contains("section [missing_npc] is not registered in npc.pack"),
-            "{error}"
-        );
     }
 }
