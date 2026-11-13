@@ -17,7 +17,7 @@ use rs_test::runner;
 const KNOWN: &[(u16, &str)] = &[
     // 2011's resting (the musician's Listen-to): post-289, with the VM's
     // other 2011-only commands (plan 2.6).
-    (5010, "p_rest"),
+    (2183, "p_rest"),
 ];
 
 #[test]
