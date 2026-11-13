@@ -697,156 +697,148 @@ fn cheese_brings_the_mouse_and_the_magnet_unlocks_the_back_door() {
 
 /// The fountain gives the shed's key, the key lets a player into the shed where the
 /// experiment waits, and the ball is not taken while it lives.
-#[test]
-fn the_fountain_hides_the_shed_key_and_the_experiment_guards_the_ball() {
-    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
-    runner::on_loaded_engine(|engine| {
-        let mut client = login(engine, "wh_shed", UNLOCKED);
-        fighter(engine, &client);
-        tele(engine, &mut client, (FOUNTAIN.0 - 1, FOUNTAIN.1));
-        let t = op_loc2(engine, &mut client, "witchfountain", FOUNTAIN);
-        says(
-            &t,
-            &[
-                "You search for the secret compartment mentioned in the diary. Inside it you find a small key. You take the key.",
-            ],
-        );
-        assert_eq!(held(engine, &client, "witches_shedkey"), 1);
-        let t = op_loc2(engine, &mut client, "witchfountain", FOUNTAIN);
-        tells(&t, "There is nothing in the fountain.");
-        assert_eq!(held(engine, &client, "witches_shedkey"), 1);
+fn the_shed_and_its_guard(engine: &mut Engine) {
+    let mut client = login(engine, "wh_shed", UNLOCKED);
+    fighter(engine, &client);
+    tele(engine, &mut client, (FOUNTAIN.0 - 1, FOUNTAIN.1));
+    let t = op_loc2(engine, &mut client, "witchfountain", FOUNTAIN);
+    says(
+        &t,
+        &[
+            "You search for the secret compartment mentioned in the diary. Inside it you find a small key. You take the key.",
+        ],
+    );
+    assert_eq!(held(engine, &client, "witches_shedkey"), 1);
+    let t = op_loc2(engine, &mut client, "witchfountain", FOUNTAIN);
+    tells(&t, "There is nothing in the fountain.");
+    assert_eq!(held(engine, &client, "witches_shedkey"), 1);
 
-        let outside = (SHED_DOOR.0 - 1, SHED_DOOR.1);
-        tele(engine, &mut client, outside);
-        let t = op_loc1(engine, &mut client, "witchsheddoor", SHED_DOOR);
-        tells(&t, "The shed door is locked.");
-        assert_eq!(coord(engine, &client), outside);
+    let outside = (SHED_DOOR.0 - 1, SHED_DOOR.1);
+    tele(engine, &mut client, outside);
+    let t = op_loc1(engine, &mut client, "witchsheddoor", SHED_DOOR);
+    tells(&t, "The shed door is locked.");
+    assert_eq!(coord(engine, &client), outside);
 
-        use_on_loc(
-            engine,
-            &mut client,
-            "witches_shedkey",
-            "witchsheddoor",
-            SHED_DOOR,
-        );
-        assert_eq!(coord(engine, &client), SHED_DOOR, "into the shed");
-        let globs = npcs(engine, "shapeshifterglob");
-        assert_eq!(globs.len(), 1, "the experiment: {globs:?}");
-        assert_eq!((globs[0].1, globs[0].2), (2935, 3462), "289's tile");
+    use_on_loc(
+        engine,
+        &mut client,
+        "witches_shedkey",
+        "witchsheddoor",
+        SHED_DOOR,
+    );
+    assert_eq!(coord(engine, &client), SHED_DOOR, "into the shed");
+    let globs = npcs(engine, "shapeshifterglob");
+    assert_eq!(globs.len(), 1, "the experiment: {globs:?}");
+    assert_eq!((globs[0].1, globs[0].2), (2935, 3462), "289's tile");
 
-        let t = take_ball(engine, &mut client);
-        tells(
-            &t,
-            "The shapeshifter glares at you. You feel slightly weakened.",
-        );
-        assert_eq!(held(engine, &client, "ball"), 0, "the ball stays");
-        let level = engine.harness_player(client.pid).unwrap().stats.levels[ATTACK];
-        assert!(level < 99, "attack is drained: {level}");
+    let t = take_ball(engine, &mut client);
+    tells(
+        &t,
+        "The shapeshifter glares at you. You feel slightly weakened.",
+    );
+    assert_eq!(held(engine, &client, "ball"), 0, "the ball stays");
+    let level = engine.harness_player(client.pid).unwrap().stats.levels[ATTACK];
+    assert!(level < 99, "attack is drained: {level}");
 
-        // Leaving and unlocking the door again swaps the experiment for a fresh one.
-        settle(engine, &mut client, 4);
-        engine.harness_telejump(client.pid, outside.0, 0, outside.1);
-        settle(engine, &mut client, 3);
-        use_on_loc(
-            engine,
-            &mut client,
-            "witches_shedkey",
-            "witchsheddoor",
-            SHED_DOOR,
-        );
-        let all: usize = FORMS.iter().map(|f| npcs(engine, f).len()).sum();
-        assert_eq!(all, 1, "one experiment");
-        leave(engine, &mut client);
-    });
+    // Leaving and unlocking the door again swaps the experiment for a fresh one.
+    settle(engine, &mut client, 4);
+    engine.harness_telejump(client.pid, outside.0, 0, outside.1);
+    settle(engine, &mut client, 3);
+    use_on_loc(
+        engine,
+        &mut client,
+        "witches_shedkey",
+        "witchsheddoor",
+        SHED_DOOR,
+    );
+    let all: usize = FORMS.iter().map(|f| npcs(engine, f).len()).sum();
+    assert_eq!(all, 1, "one experiment");
+    leave(engine, &mut client);
 }
 
 /// The experiment dies four times, a form stronger each time, and only then is the ball the
 /// player's to take.
-#[test]
-fn the_experiment_takes_four_forms_before_the_ball_is_free() {
-    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
-    runner::on_loaded_engine(|engine| {
-        let mut client = login(engine, "wh_fight", UNLOCKED);
-        fighter(engine, &client);
-        give(engine, &client, 0, "witches_shedkey");
-        tele(engine, &mut client, (SHED_DOOR.0 - 1, SHED_DOOR.1));
-        use_on_loc(
-            engine,
-            &mut client,
-            "witches_shedkey",
-            "witchsheddoor",
-            SHED_DOOR,
-        );
-        assert_eq!(coord(engine, &client), SHED_DOOR, "into the shed");
+fn the_four_forms(engine: &mut Engine) {
+    let mut client = login(engine, "wh_fight", UNLOCKED);
+    fighter(engine, &client);
+    give(engine, &client, 0, "witches_shedkey");
+    tele(engine, &mut client, (SHED_DOOR.0 - 1, SHED_DOOR.1));
+    use_on_loc(
+        engine,
+        &mut client,
+        "witches_shedkey",
+        "witchsheddoor",
+        SHED_DOOR,
+    );
+    assert_eq!(coord(engine, &client), SHED_DOOR, "into the shed");
 
-        let last = "You finally kill the shapeshifter once and for all.";
-        let mut said: Vec<String> = Vec::new();
-        let mut seen = Vec::new();
-        let mut target = None;
-        for tick in 0..400 {
-            let alive = FORMS
-                .iter()
-                .find_map(|f| npcs(engine, f).first().map(|&(nid, ..)| (*f, nid)));
-            if let Some((form, nid)) = alive {
-                if seen.last() != Some(&form) {
-                    seen.push(form);
-                }
-                // 1 life point, and defence 1 so a swing lands: the test is each death's
-                // trigger, not the fight's dice.
-                let stats = &mut engine.get_npc_mut(nid).unwrap().npc.stats.levels;
-                stats[NpcStat::Hitpoints as usize] = 1;
-                stats[NpcStat::Defence as usize] = 1;
-                if target != Some(nid) || tick % 8 == 0 {
-                    target = Some(nid);
-                    let mut p = ClientPacket::new();
-                    p.p1_alt2(0).p2_alt3(nid as i32);
-                    client.send(ClientProt::OpNpc2, &p.finish());
-                }
+    let last = "You finally kill the shapeshifter once and for all.";
+    let mut said: Vec<String> = Vec::new();
+    let mut seen = Vec::new();
+    let mut target = None;
+    for tick in 0..400 {
+        let alive = FORMS
+            .iter()
+            .find_map(|f| npcs(engine, f).first().map(|&(nid, ..)| (*f, nid)));
+        if let Some((form, nid)) = alive {
+            if seen.last() != Some(&form) {
+                seen.push(form);
             }
-            engine.cycle();
-            said.extend(
-                HarnessClient::game_messages(&client.packets())
-                    .into_iter()
-                    .map(|(_, t)| t),
-            );
-            if said.iter().any(|m| m == last) {
-                break;
+            // 1 life point, and defence 1 so a swing lands: the test is each death's
+            // trigger, not the fight's dice.
+            let stats = &mut engine.get_npc_mut(nid).unwrap().npc.stats.levels;
+            stats[NpcStat::Hitpoints as usize] = 1;
+            stats[NpcStat::Defence as usize] = 1;
+            if target != Some(nid) || tick % 8 == 0 {
+                target = Some(nid);
+                let mut p = ClientPacket::new();
+                p.p1_alt2(0).p2_alt3(nid as i32);
+                client.send(ClientProt::OpNpc2, &p.finish());
             }
         }
-        assert_eq!(seen, FORMS, "each form in turn");
-        let lines: Vec<&str> = said
-            .iter()
-            .map(String::as_str)
-            .filter(|m| m.contains("shapeshifter"))
-            .collect();
-        assert_eq!(
-            lines,
-            [
-                "The shapeshifters' body begins to deform!",
-                "The shapeshifter turns into a spider!",
-                "The shapeshifters' body begins to twist!",
-                "The shapeshifter turns into a bear!",
-                "The shapeshifters' body pulses!",
-                "The shapeshifter turns into a wolf!",
-                last,
-            ]
+        engine.cycle();
+        said.extend(
+            HarnessClient::game_messages(&client.packets())
+                .into_iter()
+                .map(|(_, t)| t),
         );
-        assert_eq!(stage(engine, &client), DEFEATED);
-        settle(engine, &mut client, 3);
+        if said.iter().any(|m| m == last) {
+            break;
+        }
+    }
+    assert_eq!(seen, FORMS, "each form in turn");
+    let lines: Vec<&str> = said
+        .iter()
+        .map(String::as_str)
+        .filter(|m| m.contains("shapeshifter"))
+        .collect();
+    assert_eq!(
+        lines,
+        [
+            "The shapeshifters' body begins to deform!",
+            "The shapeshifter turns into a spider!",
+            "The shapeshifters' body begins to twist!",
+            "The shapeshifter turns into a bear!",
+            "The shapeshifters' body pulses!",
+            "The shapeshifter turns into a wolf!",
+            last,
+        ]
+    );
+    assert_eq!(stage(engine, &client), DEFEATED);
+    settle(engine, &mut client, 3);
 
-        take_ball(engine, &mut client);
-        assert_eq!(held(engine, &client, "ball"), 1, "the boy's ball");
+    take_ball(engine, &mut client);
+    assert_eq!(held(engine, &client, "ball"), 1, "the boy's ball");
 
-        // The shed's door now opens without the key.
-        tele(engine, &mut client, SHED_DOOR);
-        op_loc1(engine, &mut client, "witchsheddoor", SHED_DOOR);
-        assert_eq!(
-            coord(engine, &client),
-            (SHED_DOOR.0 - 1, SHED_DOOR.1),
-            "out of the shed"
-        );
-        leave(engine, &mut client);
-    });
+    // The shed's door now opens without the key.
+    tele(engine, &mut client, SHED_DOOR);
+    op_loc1(engine, &mut client, "witchsheddoor", SHED_DOOR);
+    assert_eq!(
+        coord(engine, &client),
+        (SHED_DOOR.0 - 1, SHED_DOOR.1),
+        "out of the shed"
+    );
+    leave(engine, &mut client);
 }
 
 /// The four forms' stats: 289's levels, its hitpoints as life points, and the 2011 wiki's 550
@@ -904,24 +896,30 @@ fn the_witch_catches_a_player_in_the_open_and_not_behind_a_hedge() {
         // South of a hedge_term on her patrol's line: she passes both ways and sees nothing.
         let hidden = (2915, 3460);
         tele(engine, &mut client, hidden);
-        let mut nearest = u16::MAX;
-        for tick in 0..80 {
+        // Where she is on her patrol depends on the case before: wait until she has been well
+        // to both sides of the player, so has walked past.
+        let (mut west, mut east) = (false, false);
+        for tick in 0..400 {
+            if west && east {
+                break;
+            }
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
             engine.cycle();
             client.packets();
             let (_, x, _) = npcs(engine, "nora_t_hagg")[0];
-            nearest = nearest.min(x.abs_diff(hidden.0));
+            west |= x + 4 <= hidden.0;
+            east |= x >= hidden.0 + 4;
             assert_eq!(coord(engine, &client), hidden, "hidden behind the hedge");
         }
-        assert!(nearest <= 1, "she walked past: {nearest}");
+        assert!(west && east, "she walked past: west {west}, east {east}");
         assert_eq!(stage(engine, &client), UNLOCKED);
 
         // Three tiles west there is no hedge between them.
         let open = (2912, 3460);
         tele(engine, &mut client, open);
-        for tick in 0..80 {
+        for tick in 0..400 {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
@@ -940,7 +938,7 @@ fn the_witch_catches_a_player_in_the_open_and_not_behind_a_hedge() {
         // Having read the diary after unlocking the door, the stage is kept (289).
         set_stage(engine, &client, READ_DIARY);
         tele(engine, &mut client, open);
-        for tick in 0..80 {
+        for tick in 0..400 {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
@@ -1055,5 +1053,17 @@ fn the_boy_takes_his_ball_back() {
         let t = talk(engine, &mut client, &[]);
         says(&t, &["Thank you for getting my ball back!"]);
         leave(engine, &mut client);
+    });
+}
+
+/// The shed, in the order a player meets it: the experiment guards the ball, then dies four
+/// times and the ball is taken. One case, so the ball the second half takes is on its crate
+/// for the first (it is a ground spawn and takes its time to come back).
+#[test]
+fn the_shed_from_its_key_to_the_ball() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        the_shed_and_its_guard(engine);
+        the_four_forms(engine);
     });
 }
