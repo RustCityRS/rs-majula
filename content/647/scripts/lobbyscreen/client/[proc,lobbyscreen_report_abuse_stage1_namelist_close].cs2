@@ -1,0 +1,7 @@
+// 3391
+[proc,lobbyscreen_report_abuse_stage1_namelist_close]
+if_closesubclient(lobbyscreen:com_43);
+if_sethide(lobbyscreen:report_abuse_stage1_namelist, true);
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(1);
+}

@@ -1,0 +1,11 @@
+// 1229
+[clientscript,tzhaar_fightcave_op](int $int0, component $component1, component $component2, component $component3)
+if ($int0 ! 1) {
+    return;
+}
+if_setonop($component2, null);
+if_setontimer($component1, null);
+if_clearops($component2);
+if_sethide($component2, true);
+if_sethide($component3, true);
+if_sethide($component1, true);

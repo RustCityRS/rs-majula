@@ -3,6 +3,7 @@ use crate::audit;
 use crate::cases::{Case, Change, Decision, Dismissal};
 use crate::users::{Role, name_key};
 use serde::Serialize;
+use std::cmp::Reverse;
 use std::collections::{BTreeMap, HashMap};
 
 /// How many of someone's overturned appeals are listed.
@@ -183,7 +184,7 @@ pub fn of(
             + a.comments
             + a.dismissed
             + a.appeals_decided;
-        (std::cmp::Reverse(done), name_key(&a.name))
+        (Reverse(done), name_key(&a.name))
     });
     out
 }
@@ -193,6 +194,8 @@ mod tests {
     use super::*;
     use crate::cases::{Appeal, Cases, Priority, Resolution};
     use crate::users::now_ms;
+    use std::env;
+    use std::fs;
     use std::net::{IpAddr, Ipv4Addr};
 
     fn entry(actor: &str, action: &str, ok: bool) -> audit::Entry {
@@ -210,7 +213,7 @@ mod tests {
 
     #[test]
     fn activity_counts_commands_cases_and_appeals() {
-        let path = std::env::temp_dir().join(format!("rs-console-activity-{}.jsonl", now_ms()));
+        let path = env::temp_dir().join(format!("rs-console-activity-{}.jsonl", now_ms()));
         let cases = Cases::open(path.clone());
         let opened = cases
             .create("Kim", "Spam".into(), "Bob".into(), Priority::Normal, vec![])
@@ -298,7 +301,7 @@ mod tests {
                 .iter()
                 .all(|a| a.last_active_ms.is_none() && a.pickups == 0)
         );
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]

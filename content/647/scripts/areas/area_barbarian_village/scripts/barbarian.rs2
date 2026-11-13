@@ -1,0 +1,38 @@
+// 289's barbarian talks; 2011's Barbarian Village has 17 barbarians
+// (3246-3263, Talk-to on op1 in cache 786; their own names are void-634's)
+// of 289's barbarian category, so the category's op1 takes them all. The 2011
+// wiki (Barbarian, 2011-05-18) says they "almost always respond with
+// hostility" and attack, and quotes four lines ("Wanna fight?", "You come to
+// fight, ja?", "You don't belong here outlander!", "What!?"), three of them
+// not 289's; it gives no full list, so 289's stay.
+[opnpc1,_barbarian]
+
+~chatplayer("<p,happy>Hello!");
+
+switch_int(random(11)) {
+    case 0 :
+    ~chatnpc("<p,neutral>Hello!");
+    case 1 :
+    ~mesbox("The barbarian grunts.");
+    case 2 :
+    ~chatnpc("<p,happy>Good day, my dear fellow.");
+    case 3 :
+    ~chatnpc("<p,angry>Ugh!");
+    case 4 :
+    ~mesbox("The barbarian ignores you.");
+    case 5 :
+    ~chatnpc("<p,angry>Grr!");
+    case 6 :
+    ~chatnpc("<p,angry>Wanna fight?");
+    npc_setmode(opplayer2);
+    case 7 :
+    ~chatnpc("<p,angry>I'm a little busy right now.|We're getting ready for our next barbarian raid!");
+    case 8 :
+    ~chatnpc("<p,angry>Go away!|This is our village!");
+    case 9 :
+    ~chatnpc("<p,quiz>Who are you?");
+    ~chatplayer("<p,happy>I'm a bold adventurer!");
+    ~chatnpc("<p,quiz>You don't look very strong...");
+    case 10 :
+    ~chatnpc("<p,quiz>Beer?");
+}

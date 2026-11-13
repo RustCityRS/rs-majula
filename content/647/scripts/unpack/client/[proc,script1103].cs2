@@ -1,0 +1,12 @@
+// 1103
+[proc,script1103]()(boolean)
+if (%skill_multi_num = 1) {
+    return(false);
+}
+if (%skill_multi_num = 9) {
+    return(false);
+}
+if (%skill_multi_num = 12) {
+    return(false);
+}
+return(true);

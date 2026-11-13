@@ -10,14 +10,10 @@ use rs_io::Packet;
 #[cfg(since_254)]
 use rs_protocol_macros::client_prot;
 
-/// The game frame's width: the client packs a spot as `y * 765 + x`.
-#[cfg(since_254)]
+#[cfg(before_647)]
 const FRAME_WIDTH: u32 = 765;
-/// A packed spot meaning the cursor is off the game frame.
-#[cfg(since_254)]
+#[cfg(before_647)]
 const OUTSIDE: u32 = 0x7ffff;
-
-/// Where the cursor is: a spot on the game frame, or off it.
 #[cfg(since_254)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Cursor {
@@ -25,9 +21,8 @@ pub enum Cursor {
     Outside,
 }
 
-#[cfg(since_254)]
+#[cfg(before_647)]
 impl Cursor {
-    /// From the client's packed `y * 765 + x`.
     pub const fn unpack(pos: u32) -> Self {
         if pos == OUTSIDE {
             return Cursor::Outside;
@@ -39,20 +34,26 @@ impl Cursor {
     }
 }
 
-/// Where the cursor went at a sample.
+#[cfg(since_647)]
+impl Cursor {
+    pub const fn unpack(pos: u32) -> Self {
+        let (x, y) = (pos as i16, (pos >> 16) as i16);
+        if x < 0 || y < 0 {
+            return Cursor::Outside;
+        }
+        Cursor::At { x, y }
+    }
+}
 #[cfg(since_254)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MouseMoved {
     By { dx: i8, dy: i8 },
     To(Cursor),
 }
-
-/// One cursor sample, after `still` samples where it stood still. The
-/// client samples every 50ms and only sends the changes.
 #[cfg(since_254)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct MouseSample {
-    pub still: u16,
+    pub gap: u16,
     pub moved: MouseMoved,
 }
 
@@ -62,11 +63,9 @@ pub struct EventMouseMove {
     pub samples: Vec<MouseSample>,
 }
 
-#[cfg(since_254)]
+#[cfg(before_647)]
 impl ClientProtMessage for EventMouseMove {
     fn decode(buf: &mut Packet, len: usize) -> Self {
-        // Each sample is 2, 3 or 4 bytes, told by its first: a body cut
-        // short keeps the samples before.
         let mut samples = Vec::with_capacity(len >> 1);
         while buf.pos < len {
             let first = buf.data[buf.pos];
@@ -77,7 +76,7 @@ impl ClientProtMessage for EventMouseMove {
                 }
                 let v = buf.g2();
                 MouseSample {
-                    still: v >> 12,
+                    gap: (v >> 12) + 1,
                     moved: MouseMoved::By {
                         dx: ((v >> 6) & 0x3f) as i8 - 32,
                         dy: (v & 0x3f) as i8 - 32,
@@ -89,7 +88,7 @@ impl ClientProtMessage for EventMouseMove {
                 }
                 let v = buf.g3() as u32;
                 MouseSample {
-                    still: ((v >> 19) & 0x7) as u16,
+                    gap: ((v >> 19) & 0x7) as u16 + 1,
                     moved: MouseMoved::To(Cursor::unpack(v & OUTSIDE)),
                 }
             } else {
@@ -98,8 +97,59 @@ impl ClientProtMessage for EventMouseMove {
                 }
                 let v = buf.g4s() as u32;
                 MouseSample {
-                    still: ((v >> 19) & 0x7ff) as u16,
+                    gap: ((v >> 19) & 0x7ff) as u16 + 1,
                     moved: MouseMoved::To(Cursor::unpack(v & OUTSIDE)),
+                }
+            };
+            samples.push(sample);
+        }
+        EventMouseMove { samples }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for EventMouseMove {
+    fn decode(buf: &mut Packet, len: usize) -> Self {
+        let mut samples = Vec::with_capacity(len >> 1);
+        while buf.pos < len {
+            let first = buf.data[buf.pos];
+            let size = match first {
+                0..=127 => 2,
+                128..=191 => 3,
+                192..=223 => 5,
+                _ => 6,
+            };
+            if len - buf.pos < size {
+                break;
+            }
+            let sample = match size {
+                2 => {
+                    let val = buf.g2();
+                    MouseSample {
+                        gap: val >> 12,
+                        moved: MouseMoved::By {
+                            dx: ((val >> 6) & 0x3f) as i8 - 32,
+                            dy: (val & 0x3f) as i8 - 32,
+                        },
+                    }
+                }
+                3 => MouseSample {
+                    gap: (buf.g1() & 0x1f) as u16,
+                    moved: MouseMoved::By {
+                        dx: buf.g1().wrapping_sub(128) as i8,
+                        dy: buf.g1().wrapping_sub(128) as i8,
+                    },
+                },
+                _ => {
+                    let gap = if size == 5 {
+                        (buf.g1() & 0x1f) as u16
+                    } else {
+                        buf.g2() & 0x1fff
+                    };
+                    MouseSample {
+                        gap,
+                        moved: MouseMoved::To(Cursor::unpack(buf.g4s() as u32)),
+                    }
                 }
             };
             samples.push(sample);

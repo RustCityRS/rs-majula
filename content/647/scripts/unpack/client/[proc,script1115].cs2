@@ -1,0 +1,17 @@
+// 1115
+[proc,script1115]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %atvar_pipe_shortcut);
+$int0 = calc($int0 + %atvar_pick_berry);
+$int0 = calc($int0 + %atvar_spottier_cape);
+$int0 = calc($int0 + %atvar_addy_helm);
+$int0 = calc($int0 + %atvar_153_kudos);
+$int0 = calc($int0 + %atvar_wild_pie);
+$int0 = calc($int0 + %atvar_air_battlestaff);
+$int0 = calc($int0 + %atvar_sos_sceptre);
+$int0 = calc($int0 + %atvar_poh_stone);
+$int0 = calc($int0 + %atvar_teletab_varrock);
+$int0 = calc($int0 + %atvar_change_gauntlets);
+$int0 = calc($int0 + %atvar_waka_canoe);
+$int0 = calc($int0 + %atvar_ancient_teleport);
+return($int0);

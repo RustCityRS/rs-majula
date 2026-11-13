@@ -1,0 +1,9 @@
+// 4015
+[clientscript,script4015]
+if (if_gethide(task_main:area_list) = true) {
+    if_sethide(task_main:area_list, false);
+    if_sethide(task_main:area_scroll, false);
+} else {
+    if_sethide(task_main:area_list, true);
+    if_sethide(task_main:area_scroll, true);
+}

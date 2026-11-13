@@ -1,0 +1,192 @@
+// 838:0
+[universe]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=sidebook_build(event_com, sidebook:titlelayer, sidebook:textlayer)
+onvarctransmit=sidebook_build(sidebook:universe, sidebook:titlelayer, sidebook:textlayer){sidebook_currentpage}
+
+// 838:1
+[titlelayer]
+type=layer
+height=28
+widthmode=minus
+xmode=abs_centre
+layer=universe
+
+// 838:2
+[textlayer]
+type=layer
+y=31
+height=211
+widthmode=minus
+xmode=abs_centre
+layer=universe
+
+// 838:3
+[com_3]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=textlayer
+graphic=tradebacking_dark
+tiling=yes
+colour=0x000000
+
+// 838:4
+[com_4]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=titlelayer
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 838:5
+[title]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=titlelayer
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 838:6
+[close]
+type=graphic
+x=6
+width=16
+height=16
+xmode=abs_right
+ymode=abs_centre
+layer=titlelayer
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+
+// 838:7
+[buttons]
+type=layer
+height=16
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+
+// 838:8
+[com_8]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=buttons
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 838:9
+[page_]
+type=graphic
+x=15
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=buttons
+graphic="catcon_catapult_arrows,2"
+colour=0x000000
+transmitop=1
+op1=Next page
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
+onop=script2066(event_op, sidebook:universe, sidebook:titlelayer, sidebook:textlayer)
+
+// 838:10
+[com_10]
+type=graphic
+x=-15
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=buttons
+graphic="catcon_catapult_arrows,0"
+colour=0x000000
+transmitop=1
+op1=Previous page
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,1")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,0")
+onop=script2067(event_op, sidebook:universe, sidebook:titlelayer, sidebook:textlayer)
+
+// 838:11
+[page__]
+type=graphic
+x=47
+width=20
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=buttons
+graphic="gnome_copter_arrows,2"
+colour=0x000000
+transmitop=1
+op1=Final page
+onmouseover=graphic_swapper(event_com, "gnome_copter_arrows,3")
+onmouseleave=graphic_swapper(event_com, "gnome_copter_arrows,2")
+onop=script2069(event_op, sidebook:universe, sidebook:titlelayer, sidebook:textlayer)
+
+// 838:12
+[com_12]
+type=graphic
+x=-47
+width=20
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=buttons
+graphic="gnome_copter_arrows,0"
+colour=0x000000
+transmitop=1
+op1=First page
+onmouseover=graphic_swapper(event_com, "gnome_copter_arrows,1")
+onmouseleave=graphic_swapper(event_com, "gnome_copter_arrows,0")
+onop=script2068(event_op, sidebook:universe, sidebook:titlelayer, sidebook:textlayer)
+
+// 838:13
+[com_13]
+type=graphic
+y=28
+height=3
+widthmode=minus
+xmode=abs_centre
+graphic="v2_stone_borders,33"
+tiling=yes
+colour=0x000000
+
+// 838:14
+[com_14]
+type=graphic
+y=16
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+graphic="v2_stone_borders,33"
+tiling=yes
+colour=0x000000

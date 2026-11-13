@@ -1,0 +1,13 @@
+// 4586
+[proc,clan_keyword_construct](component $component0, component $component1, int $int2, int $int3)
+def_enum $enum4 = null;
+if ($int2 > 0 & $int3 > 0) {
+    $enum4 = enum(int, enum, enum_3703, $int2);
+    if ($enum4 ! null) {
+        if_settext($component0, enum(int, string, $enum4, $int3));
+        if_sethide($component1, false);
+        return;
+    }
+}
+if_settext($component0, "");
+if_sethide($component1, true);

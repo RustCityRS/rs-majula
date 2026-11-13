@@ -1,0 +1,5 @@
+// 2503
+[clientscript,script2503]
+if (%mob_client_formation > 0 & %mob_client_formation <= 9) {
+    if_settext(interface_291:formation_text, enum(int, string, enum_2403, %mob_client_formation));
+}

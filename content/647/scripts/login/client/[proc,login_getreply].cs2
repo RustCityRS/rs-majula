@@ -1,0 +1,7 @@
+// 2948
+[proc,login_getreply]()(int)
+if (unknown_command_5420 = true) {
+    return(login_reply);
+} else {
+    return(unknown_command_5617);
+}

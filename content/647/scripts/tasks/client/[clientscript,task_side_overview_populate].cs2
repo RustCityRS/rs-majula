@@ -1,0 +1,20 @@
+// 3976
+[clientscript,task_side_overview_populate](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+~deltooltip_action(task_side:tasks_tooltip);
+%varclient_1416 = $int1;
+if_sethide(task_side:hints_layer, true);
+if_sethide(task_side:rewards_layer, true);
+if_sethide(task_side:details_layer, false);
+if_sethide(task_side:summary_layer, false);
+if (~script3999($int0) = 1) {
+    if (%varplayerbit_8588 = 4094) {
+        ~task_side_overview_populate(%varplayerbit_8587);
+    } else {
+        return;
+    }
+} else {
+    ~task_side_overview_populate($int0);
+}

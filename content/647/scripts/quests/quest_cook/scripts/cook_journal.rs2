@@ -1,0 +1,74 @@
+// Cook's Assistant's journal after the rework, as void-634 has it
+// (CooksAssistant): the rework's ingredients, each struck through once given;
+// the quest's 2011 name.
+[label,questlist_cook]
+def_string $text;
+
+if (%cookquest = 0) {
+    $text = "@dbl@I can start this quest by speaking to the @dre@Cook @dbl@in the|@dre@kitchen @dbl@of @dre@Lumbridge Castle.";
+} else if (%cookquest = 1) {
+    $text = "@dbl@It's the @dre@Duke of Lumbridge's @dbl@birthday and I have to help|@dbl@his @dre@Cook @dbl@make him a @dre@birthday cake. @dbl@To do this I need to|@dbl@bring the cook the following ingredients:||";
+    if (%cookquest_milk = ^true) {
+        $text = append($text, "@str@I have given the cook a bucket of top-quality milk.|");
+    } else if (inv_total(inv, cook_milk) > 0) {
+        $text = append($text, "@dbl@I have found a @dre@bucket of top-quality milk @dbl@to give to the cook.|");
+    } else {
+        $text = append($text, "@dbl@I need to find a @dre@bucket of top-quality milk.|");
+    }
+    if (%cookquest_flour = ^true) {
+        $text = append($text, "@str@I have given the cook a pot of extra fine flour.|");
+    } else if (inv_total(inv, cook_flour) > 0) {
+        $text = append($text, "@dbl@I have found a @dre@pot of extra fine flour @dbl@to give to the cook.|");
+    } else {
+        $text = append($text, "@dbl@I need to find a @dre@pot of extra fine flour.|");
+    }
+    if (%cookquest_egg = ^true) {
+        $text = append($text, "@str@I have given the cook a super large egg.|");
+    } else if (inv_total(inv, cook_egg) > 0) {
+        $text = append($text, "@dbl@I have found a @dre@super large egg @dbl@to give to the cook.|");
+    } else {
+        $text = append($text, "@dbl@I need to find a @dre@super large egg.|");
+    }
+    if (%cookquest_milk = ^true & %cookquest_flour = ^true & %cookquest_egg = ^true) {
+        $text = append($text, "|@str@According to the cook, I can find the ingredients in the|@str@vicinity of Lumbridge. he has noted certain possible|@str@locations of the ingredients on my world map.||@dbl@I just need to talk to the @dre@cook @dbl@now to claim my reward!");
+    } else {
+        $text = append($text, "|@dbl@According to the @dre@cook, @dbl@I can find the ingredients in the|@dbl@vicinity of @dre@Lumbridge. @dbl@he has noted certain possible|@dbl@locations of the ingredients on my world map.");
+    }
+} else {
+    $text = "@str@It was the Duke of Lumbridge's birthday, but his cook had|@str@forgotten to buy the ingredients he needed to bake a|@str@birthday cake. I brought the cook an egg, a pot of flour|@str@and a bucket of milk and the cook made a delicious-looking|@str@cake with them||@str@As a reward he now lets me use his high quality range|@str@which lets me burn things less whenever I wish to cook there||@red@QUEST COMPLETE!";
+}
+
+~quest_journal("Cook's Assistant", $text);
+
+// 289's journal, which 2011's rework replaced:
+// [label,questlist_cook]
+// def_string $text;
+
+// if(%cookquest = 0) {
+//     $text = "@dbl@I can start this quest by speaking to the @dre@Cook@dbl@ in the|@dre@Kitchen@dbl@ on the ground floor of @dre@Lumbridge Castle@dbl@.";
+// } else if(%cookquest = 1) {
+//     // https://github.com/Indio3/quest-journals/blob/master/quest_cook/qca_02b.jpg?raw=true
+//     // https://github.com/Indio3/quest-journals/blob/master/quest_cook/qca_07.jpg
+//     $text = "@dbl@It's the @dre@Duke of Lumbridges'@dbl@ birthday and I have to help @dbl@his @dre@Cook@dbl@ make him a birthday cake. To do this I need to @dbl@bring him the following ingredients:|";
+//     if(inv_total(inv, bucket_of_milk) > 0) {
+//         $text = append($text, "@str@I have a bucket of milk with me|");
+//     } else {
+//         $text = append($text, "@dbl@a @dre@bucket@dbl@ of @dre@milk|");
+//     }
+
+//     if(inv_total(inv, egg) > 0) {
+//         $text = append($text, "@str@I have an egg with me|");
+//     } else {
+//         $text = append($text, "@dbl@an @dre@egg|");
+//     }
+
+//     if(inv_total(inv, pot_of_flour) > 0) {
+//         $text = append($text, "@str@I have a pot of flour with me");
+//     } else {
+//         $text = append($text, "@dbl@a @dre@pot@dbl@ of @dre@flour|");
+//     }
+// } else {
+//     $text = "@str@It was the Duke of Lumbridge's birthday, but his cook had @str@forgotten to buy the ingredients he needed to make him a @str@cake. I brought the cook an egg, some flour and some milk @str@and the cook made a delicious looking cake with them.||@str@As a reward he now lets me use his high quality range which|@str@lets me burn things less whenever I wish to cook there.|@red@QUEST COMPLETE!";
+// }
+
+// ~quest_journal("The Cook's Quest", $text);

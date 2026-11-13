@@ -1,3 +1,4 @@
+use super::access::{check_conflict, may_see};
 use super::live;
 use crate::audit::Event;
 use crate::cases::Change;
@@ -9,6 +10,8 @@ use axum::Json;
 use axum::extract::{Query, State};
 use rs_admin_api::{Kick, ModAction, ModOutcome, Moderate, path};
 use serde::{Deserialize, Serialize};
+use std::iter;
+use std::slice;
 use std::sync::Arc;
 use tracing::warn;
 
@@ -74,7 +77,7 @@ pub async fn search(
                     .cloned()
                     .map(|mut player| {
                         // Nobody watches staff above them live.
-                        if !super::access::may_see(&staff, player.staff_level) {
+                        if !may_see(&staff, player.staff_level) {
                             player.replay = None;
                         }
                         FoundPlayer {
@@ -293,9 +296,7 @@ pub(super) async fn moderate_one(
     for world in app.worlds.online() {
         let replies: Vec<Reply<ModOutcome>> = app
             .worlds
-            .command(std::slice::from_ref(&world), path::MODERATE, |_| {
-                body.clone()
-            })
+            .command(slice::from_ref(&world), path::MODERATE, |_| body.clone())
             .await;
         if let Some(Reply {
             result: Outcome::Answered { answer },
@@ -429,12 +430,12 @@ pub async fn moderate(
     }
 
     if matches!(action, ModAction::Unmute | ModAction::Unban) {
-        super::access::check_conflict(&app, &staff, &name, "lift their mute or ban").await?;
+        check_conflict(&app, &staff, &name, "lift their mute or ban").await?;
     }
 
     let mut results: Vec<Moderated> = Vec::with_capacity(1 + also.len());
     let mut offences = Vec::new();
-    for (i, target) in std::iter::once(&name).chain(&also).enumerate() {
+    for (i, target) in iter::once(&name).chain(&also).enumerate() {
         let reason = if i == 0 {
             reason.clone()
         } else {

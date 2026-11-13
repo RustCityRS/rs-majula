@@ -17,6 +17,7 @@ use rs_admin_api::{
 };
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use std::collections::HashSet;
 use std::sync::Arc;
 
 /// Rows per page.
@@ -511,7 +512,7 @@ pub async fn link_chain(
         .await
         .map_err(unavailable)?;
     // Nearest first, so whoever an account was reached through comes before it.
-    let mut hidden = std::collections::HashSet::new();
+    let mut hidden = HashSet::new();
     let shown = chain
         .into_iter()
         .filter(|c| {

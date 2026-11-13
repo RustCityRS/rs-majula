@@ -1,0 +1,9 @@
+// 2349
+[proc,xbows_rune_update](component $component0, obj $obj1, int $int2)
+if (~magic_runecount($obj1, null) >= $int2) {
+    if_setcolour($component0, 0x00cc00);
+    if_settext($component0, "<tostring($int2)>/<tostring($int2)>");
+} else {
+    if_setcolour($component0, 0xc00000);
+    if_settext($component0, "<~magic_tostring(~magic_runecount($obj1, null))>/<tostring($int2)>");
+}

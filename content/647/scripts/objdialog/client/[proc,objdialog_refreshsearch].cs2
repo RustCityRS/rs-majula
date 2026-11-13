@@ -1,0 +1,12 @@
+// 576
+[proc,objdialog_refreshsearch]
+if_setobject(objdialog:objgraphic, null, -1);
+cc_deleteall(objdialog:resultlist);
+if (string_length(%meslayerinput) > 0) {
+    if_sethide(objdialog:resultlist_hide, true);
+    ~objdialog_dosearch(%meslayerinput);
+} else {
+    if_sethide(objdialog:resultlist_hide, false);
+    if_setscrollsize(objdialog:resultlist, 0, 15);
+    ~objdialog_doscrollbar;
+}

@@ -1,0 +1,8 @@
+// 2832
+[clientscript,player_kit_hair_colourbutton](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+basecolour(0, $int1);
+%playerdesign3_haircol = $int1;
+~player_kit_hair_redraw;

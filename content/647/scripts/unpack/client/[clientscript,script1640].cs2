@@ -1,0 +1,16 @@
+// 1640
+[clientscript,script1640](component $component0, component $component1, fontmetrics $fontmetrics2)
+def_string $string0 = %varclient_1793;
+def_int $int3 = if_getwidth($component0);
+if (parawidth("<$string0> ", $int3, $fontmetrics2) > $int3) {
+    while (parawidth("<$string0>... ", ^max_32bit_int, $fontmetrics2) > $int3) {
+        $string0 = substring($string0, 0, calc(string_length($string0) - 1));
+    }
+    $string0 = "<$string0>...";
+    if_setonmouserepeat($component0, "addtooltip(event_com, $component1, %varclient_1793, 25, 5000)");
+    if_setonmouseleave($component0, "deltooltip($component1)");
+} else {
+    if_setonmouserepeat($component0, null);
+    if_setonmouseleave($component0, null);
+}
+if_settext($component0, $string0);

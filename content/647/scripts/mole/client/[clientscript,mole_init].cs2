@@ -1,0 +1,5 @@
+// 830
+[clientscript,mole_init](component $component0, component $component1)
+if_setmodelanim($component1, mole_mud_splat_interface);
+if_setonvartransmit($component0, "mole_darkness($component0){goblin_caves}");
+~mole_darkness($component0);

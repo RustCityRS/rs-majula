@@ -1,0 +1,19 @@
+// 179
+[proc,chat_alert_get](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        return(%chat_alert_game);
+    case 2 :
+        return(%chat_alert_public);
+    case 3 :
+        return(%chat_alert_private);
+    case 4 :
+        return(%chat_alert_clan);
+    case 5 :
+        return(%chat_alert_trade);
+    case 6 :
+        return(%varclient_49);
+    case 7 :
+        return(%chat_alert_friendschat);
+}
+return(0);

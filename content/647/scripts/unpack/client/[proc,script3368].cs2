@@ -1,0 +1,6 @@
+// 3368
+[proc,script3368](int $int0)
+if_settext(toplevel:xpsplat_text, "<tostring_localised($int0, true)>xp");
+if_settext(toplevel_fullscreen:xpsplat_text, "<tostring_localised($int0, true)>xp");
+if_setontimer(toplevel:xpbaselayer, "script3369(toplevel:xpbaselayer, clientclock)");
+if_setontimer(toplevel_fullscreen:xpbaselayer, "script3370(toplevel_fullscreen:xpbaselayer, clientclock)");

@@ -1,0 +1,6 @@
+// 145
+[clientscript,script145](component $component0, int $int1)
+if (clientclock >= $int1) {
+    if_setontimer($component0, null);
+    if_sethide($component0, true);
+}

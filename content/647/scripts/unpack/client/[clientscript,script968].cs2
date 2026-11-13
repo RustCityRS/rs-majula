@@ -1,0 +1,7 @@
+// 968
+[clientscript,script968](component $component0)
+if (~script970($component0) = 1) {
+    if_setontimer($component0, "script969($component0)");
+} else {
+    if_setontimer($component0, null);
+}

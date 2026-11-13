@@ -1,0 +1,64 @@
+// 4249
+[proc,script4249](int $int0)
+if (%varplayerbit_9030 = 0) {
+    ~script4248("", 0, 0, 0, ^black, verdana_11pt_regular_multiline);
+    return;
+}
+if (%varplayerbit_8587 = 419 & if_gethide(task_side:complete_layer) = false) {
+    return;
+}
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 1;
+def_int $int4 = 0;
+if ($int0 = 1) {
+    if (%varplayerbit_8587 = 419 & if_gethide(task_side:summary_layer) = true) {
+        $string0 = "Click on the first Task in the list for details of how to complete it.";
+    } else if (%varplayerbit_8587 = 420 & if_gethide(task_side:summary_layer) = true) {
+        $string0 = "Click on the Task which is now first in the list.";
+    }
+    if (getwindowmode >= 2) {
+        $int1 = 180;
+        $int2 = 165;
+        $int4 = 1;
+        if (if_getwidth(toplevel_fullscreen:main_game_container) < 997) {
+            $int2 = calc($int2 + 40);
+        }
+    } else {
+        $int1 = 207;
+        $int2 = 156;
+    }
+} else {
+    ~script4089;
+    if (%varplayerbit_8587 = 419) {
+        $string0 = "Click here to show the Task window.";
+    }
+    if (getwindowmode >= 2) {
+        if (if_getwidth(toplevel_fullscreen:main_game_container) > 997) {
+            $int1 = 288;
+            $int2 = 39;
+            $int3 = 2;
+            $int4 = 1;
+        } else {
+            $int1 = 51;
+            $int2 = 77;
+            $int3 = 2;
+            $int4 = 1;
+        }
+    } else {
+        $int1 = 210;
+        $int2 = 254;
+    }
+}
+if (%varplayerbit_9030 = 0) {
+    $string0 = "";
+}
+if (if_hassuboverlay(toplevel:mainoverlay, tutorial4_cameracontrols) = true | if_hassuboverlay(toplevel_fullscreen:mainoverlay, tutorial4_cameracontrols) = true) {
+    $string0 = "";
+}
+if ($int4 = 0) {
+    ~script4247($string0, $int1, $int2, $int3, ^white, verdana_11pt_regular_multiline);
+} else {
+    ~script4248($string0, $int1, $int2, $int3, ^white, verdana_11pt_regular_multiline);
+}

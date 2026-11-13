@@ -1,0 +1,620 @@
+// 83:0
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+transmitop=10
+op10= 
+
+// 83:1
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+transmitop=10
+op10= 
+
+// 83:2
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 83:3
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 83:4
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 83:5
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 83:6
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 83:7
+[com_7]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:8
+[com_8]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:9
+[com_9]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:10
+[com_10]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:11
+[content_layer]
+type=layer
+width=512
+height=334
+
+// 83:12
+[vm_museum_map_scroll]
+type=model
+x=-18
+y=-133
+width=550
+height=537
+layer=content_layer
+model=model_25513
+modelorigin=0,-2
+modelzoom=655
+transmitop=10
+op10= 
+
+// 83:13
+[vm_map_close]
+type=graphic
+x=478
+y=8
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 83:14
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:15
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:16
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:17
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:18
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:19
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:20
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:21
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 83:22
+[vm_lvl_0]
+type=layer
+width=512
+height=334
+layer=content_layer
+transmitop=10
+op10= 
+
+// 83:23
+[vm_museum_map_level_0]
+type=model
+x=100
+y=6
+width=338
+height=325
+layer=vm_lvl_0
+model=model_25517
+modelorigin=5,0
+modelzoom=655
+transmitop=10
+op10= 
+
+// 83:24
+[vm_map_arrowheads]
+type=model
+x=292
+y=73
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Arrowheads display", 25, 180)
+
+// 83:25
+[vm_map_saranthium_coin]
+type=model
+x=225
+y=176
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Saranthium coin display", 25, 180)
+
+// 83:26
+[vm_map_senntisten_coin]
+type=model
+x=225
+y=123
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Senntisten coin display", 25, 180)
+
+// 83:27
+[vm_map_jewllery]
+type=model
+x=225
+y=23
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Jewellery display", 25, 180)
+
+// 83:28
+[vm_map_pottery]
+type=model
+x=226
+y=74
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Pottery display", 25, 180)
+
+// 83:29
+[vm_map_saradomin_symbol_ancient]
+type=model
+x=292
+y=122
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Ancient Saradomin symbol display", 25, 180)
+
+// 83:30
+[vm_map_saradomin_symbol_old]
+type=model
+x=293
+y=177
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Old Saradomin symbol display", 25, 180)
+
+// 83:31
+[vm_map_tablet]
+type=model
+x=355
+y=121
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Zaros tablet display", 25, 180)
+
+// 83:32
+[vm_map_talisman]
+type=model
+x=354
+y=177
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Ancient talisman display", 25, 180)
+
+// 83:33
+[vm_map_vase]
+type=model
+x=291
+y=24
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Vase display", 25, 180)
+
+// 83:34
+[vm_map_soil_layers]
+type=model
+x=156
+y=176
+width=38
+height=48
+layer=vm_lvl_0
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2448
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_digsite:tooltip)
+onmouserepeat=addtooltip(event_com, vm_map_digsite:tooltip, "Soil layers display", 25, 180)
+
+// 83:35
+[lvl0_level_down_1_1]
+type=text
+x=117
+y=35
+width=100
+height=88
+layer=vm_lvl_0
+textfont=b12_full
+text=Stairs to<br>Natural History<br>exhibit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1,10
+op1=Stairs to Natural History exhibit
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 83:36
+[lvl0_level_up_1]
+type=text
+x=342
+y=17
+width=100
+height=73
+layer=vm_lvl_0
+textfont=b12_full
+text=Stairs to<br>Timeline<br>exhibit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1,10
+op1=Stairs to Timeline exhibit
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 83:37
+[digsite_cleaning_area]
+type=text
+x=165
+y=260
+width=208
+height=43
+layer=vm_lvl_0
+textfont=b12_full
+text=Dig Site cleaning area
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 83:38
+[lvl0_level_up]
+type=text
+x=5
+width=89
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=vm_lvl_0
+textfont=b12_full
+text=Level up
+textalignh=right
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1,10
+op1=Stairs to Timeline exhibit
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 83:39
+[lvl0_level_down_1]
+type=text
+x=5
+width=89
+height=32
+ymode=abs_bottom
+layer=vm_lvl_0
+textfont=b12_full
+text=Level down
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1,10
+op1=Stairs to Natural History exhibit
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 83:40
+[tooltip]
+type=layer
+x=157
+y=103
+width=167
+height=125
+layer=content_layer

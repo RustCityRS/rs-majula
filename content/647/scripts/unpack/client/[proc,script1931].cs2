@@ -1,0 +1,21 @@
+// 1931
+[proc,script1931](component $component0)(int)
+if ($component0 = sc_reward_shop:volatile_layer) {
+    return(1);
+}
+if ($component0 = sc_reward_shop:tool_layer) {
+    return(2);
+}
+if ($component0 = sc_reward_shop:body_layer) {
+    return(3);
+}
+if ($component0 = sc_reward_shop:legs_layer) {
+    return(4);
+}
+if ($component0 = sc_reward_shop:head_layer) {
+    return(5);
+}
+if ($component0 = sc_reward_shop:weapon_layer) {
+    return(6);
+}
+return(0);

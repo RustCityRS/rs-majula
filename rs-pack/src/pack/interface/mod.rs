@@ -1,56 +1,74 @@
-use std::collections::HashMap;
-use std::path::Path;
-
+#[cfg(since_647)]
+use crate::archive::{self, ArchiveVersions};
+#[cfg(since_647)]
+use crate::cache::r#if::{
+    DEFAULT_COLOUR, HOOK_NAMES, IfTypeRaw, OpKey, SIZE_MODES, TARGET_MASK, TEXT_ALIGN_H,
+    TEXT_ALIGN_V, X_MODES, Y_MODES, hook_transmit_list, mode_value,
+};
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
+#[cfg(before_647)]
 use crate::config_crc;
+#[cfg(since_647)]
+use crate::pack::incremental::{Stage, dir_key, files_under, stats_key};
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
+#[cfg(before_647)]
 use crate::pack::pack::collect_if_files;
+#[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::parse_hex;
-use crate::types::{Font, IfButtonType, IfComparator, IfComponentType, IfScriptOp, PlayerStat};
+#[cfg(before_647)]
+use crate::pack::util::{parse_hex, verify_crc};
+use crate::types::IfComponentType;
+#[cfg(before_647)]
+use crate::types::{Font, IfButtonType, IfComparator, IfScriptOp, PlayerStat};
 use anyhow::Result;
-use rs_io::crc;
+#[cfg(since_647)]
+use anyhow::{Context, anyhow, bail, ensure};
+#[cfg(since_647)]
+use rs_io::js5::encode_group_entries;
+#[cfg(since_647)]
+use runec::clientscript::{self, HookValue, component_hook};
+#[cfg(since_647)]
+use runec::sources::roots;
+#[cfg(since_647)]
+use runec::symbol::SymbolRegistry;
+#[cfg(since_647)]
+use std::collections::BTreeMap;
+use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
+#[cfg(before_647)]
+use std::str::FromStr;
+#[cfg(since_647)]
+use std::sync::OnceLock;
+#[cfg(before_647)]
 use tracing::debug;
 
-fn name_to_type(name: &str) -> IfComponentType {
-    IfComponentType::from_config_str(name)
-}
-
-fn name_to_button_type(name: &str) -> IfButtonType {
-    IfButtonType::from_config_str(name)
-}
-
-fn name_to_comparator(name: &str) -> IfComparator {
-    IfComparator::from_config_str(name)
-}
-
-fn name_to_script(name: &str) -> IfScriptOp {
-    IfScriptOp::from_config_str(name)
-}
-
-fn name_to_stat(name: &str) -> PlayerStat {
-    PlayerStat::from_config_str(name)
-}
-
-fn name_to_font(name: &str) -> Font {
-    Font::from_config_str(name)
-}
-
+#[cfg(before_647)]
 fn get_colour(val: Option<&String>) -> &str {
     val.map(|s| s.as_str()).unwrap_or("0")
 }
 
+#[cfg(before_647)]
 fn get_string(val: Option<&String>) -> &str {
     val.map(|s| s.as_str()).unwrap_or("")
 }
 
+#[cfg(before_647)]
 fn get_bool(val: Option<&String>) -> bool {
     val.map(|v| v == "yes").unwrap_or(false)
 }
 
-fn get_num<T: std::str::FromStr>(val: Option<&String>, default: T) -> T {
+#[cfg(before_647)]
+fn get_num<T: FromStr>(val: Option<&String>, default: T) -> T {
     val.and_then(|v| v.parse::<T>().ok()).unwrap_or(default)
 }
 
+#[cfg(before_647)]
 fn count_script_ops(src: &HashMap<String, String>, j: usize) -> usize {
     let mut count = 0;
     for k in 1..=20 {
@@ -74,7 +92,8 @@ fn count_script_ops(src: &HashMap<String, String>, j: usize) -> usize {
     count
 }
 
-fn parse_margin<T: std::str::FromStr>(margin: &str, defaultx: T, defaulty: T) -> (T, T) {
+#[cfg(before_647)]
+fn parse_margin<T: FromStr>(margin: &str, defaultx: T, defaulty: T) -> (T, T) {
     let parts: Vec<&str> = margin.split(',').collect();
     (
         parts
@@ -88,6 +107,7 @@ fn parse_margin<T: std::str::FromStr>(margin: &str, defaultx: T, defaulty: T) ->
     )
 }
 
+#[cfg(before_647)]
 fn parse_slot_offset(slot: &str) -> (u16, u16, &str) {
     let parts: Vec<&str> = slot.split(':').collect();
     let sprite = parts.first().copied().unwrap_or("");
@@ -111,6 +131,7 @@ fn parse_slot_offset(slot: &str) -> (u16, u16, &str) {
     (x, y, sprite)
 }
 
+#[cfg(before_647)]
 fn parse_action_flags(action_target: &str) -> u16 {
     let targets: Vec<&str> = action_target.split(',').collect();
     let mut flags = 0u16;
@@ -127,12 +148,14 @@ fn parse_action_flags(action_target: &str) -> u16 {
     flags
 }
 
+#[cfg(before_647)]
 struct Component {
     root: Option<String>,
     children: Vec<u16>,
     src: HashMap<String, String>,
 }
 
+#[cfg(before_647)]
 pub fn pack_interfaces(
     source_dir: &Path,
     registry: &PackRegistry,
@@ -287,13 +310,13 @@ pub fn pack_interfaces(
 
         // server only
         server.pjstr(registry.interface.get_by_id(id).unwrap());
-        server.pbool(src.get("type").map(|t| t == "overlay").unwrap_or(false));
+        server.p1(src.get("type").map(|t| t == "overlay").unwrap_or(false) as u8);
 
-        let com_type = name_to_type(src.get("type").unwrap());
+        let com_type = IfComponentType::from_config_str(src.get("type").unwrap());
         client.p1(com_type as u8);
         server.p1(com_type as u8);
 
-        let button_type = name_to_button_type(get_string(src.get("buttontype")));
+        let button_type = IfButtonType::from_config_str(get_string(src.get("buttontype")));
         client.p1(button_type as u8);
         server.p1(button_type as u8);
 
@@ -329,7 +352,8 @@ pub fn pack_interfaces(
         for j in 1..=comparator_count {
             let script_val = src.get(&format!("script{j}")).unwrap();
             let parts: Vec<&str> = script_val.split(',').collect();
-            let comparator = name_to_comparator(parts.first().copied().unwrap_or("")) as u8;
+            let comparator =
+                IfComparator::from_config_str(parts.first().copied().unwrap_or("")) as u8;
             let value = parts
                 .get(1)
                 .and_then(|v| v.parse::<i16>().ok())
@@ -387,13 +411,13 @@ pub fn pack_interfaces(
                         })
                     };
                     let op_name = arg(0);
-                    client.p2(name_to_script(op_name) as u16);
-                    server.p2(name_to_script(op_name) as u16);
+                    client.p2(IfScriptOp::from_config_str(op_name) as u16);
+                    server.p2(IfScriptOp::from_config_str(op_name) as u16);
 
                     match op_name {
                         "stat_level" | "stat_base_level" | "stat_xp" | "stat_xp_remaining" => {
-                            client.p2(name_to_stat(arg(1)) as u16);
-                            server.p2(name_to_stat(arg(1)) as u16);
+                            client.p2(PlayerStat::from_config_str(arg(1)) as u16);
+                            server.p2(PlayerStat::from_config_str(arg(1)) as u16);
                         }
                         "inv_count" | "inv_contains" => {
                             let com_link = registry
@@ -459,7 +483,7 @@ pub fn pack_interfaces(
                                 registry.varbit.get_by_debugname(arg(1)).unwrap_or_else(|| {
                                     panic!(
                                         "Error packing interfaces
-{} references unknown varbit '{}'",
+{} references unknown varpbit '{}'",
                                         describe(),
                                         arg(1)
                                     )
@@ -494,9 +518,9 @@ pub fn pack_interfaces(
         // Type-specific fields
         if com_type == IfComponentType::Layer {
             client.p2(get_num(src.get("scroll"), 0));
-            client.pbool(get_bool(src.get("hide")));
+            client.p1(get_bool(src.get("hide")) as u8);
             server.p2(get_num(src.get("scroll"), 0));
-            server.pbool(get_bool(src.get("hide")));
+            server.p1(get_bool(src.get("hide")) as u8);
 
             #[cfg(rev = "225")]
             {
@@ -522,16 +546,16 @@ pub fn pack_interfaces(
         }
 
         if com_type == IfComponentType::Inv {
-            client.pbool(get_bool(src.get("draggable")));
-            client.pbool(get_bool(src.get("interactable")));
-            client.pbool(get_bool(src.get("usable")));
+            client.p1(get_bool(src.get("draggable")) as u8);
+            client.p1(get_bool(src.get("interactable")) as u8);
+            client.p1(get_bool(src.get("usable")) as u8);
             #[cfg(since_245_2)]
-            client.pbool(get_bool(src.get("swappable")));
-            server.pbool(get_bool(src.get("draggable")));
-            server.pbool(get_bool(src.get("interactable")));
-            server.pbool(get_bool(src.get("usable")));
+            client.p1(get_bool(src.get("swappable")) as u8);
+            server.p1(get_bool(src.get("draggable")) as u8);
+            server.p1(get_bool(src.get("interactable")) as u8);
+            server.p1(get_bool(src.get("usable")) as u8);
             #[cfg(since_245_2)]
-            server.pbool(get_bool(src.get("swappable")));
+            server.p1(get_bool(src.get("swappable")) as u8);
 
             if let Some(margin) = src.get("margin") {
                 let (x, y) = parse_margin(margin, 0, 0);
@@ -549,8 +573,8 @@ pub fn pack_interfaces(
             for j in 1..=20 {
                 let slot_key = format!("slot{j}");
                 if let Some(slot) = src.get(&slot_key) {
-                    client.pbool(true);
-                    server.pbool(true);
+                    client.p1(1);
+                    server.p1(1);
                     let (x, y, sprite) = parse_slot_offset(slot);
                     client.p2(x);
                     client.p2(y);
@@ -559,8 +583,8 @@ pub fn pack_interfaces(
                     server.p2(y);
                     server.pjstr(sprite);
                 } else {
-                    client.pbool(false);
-                    server.pbool(false);
+                    client.p1(0);
+                    server.p1(0);
                 }
             }
 
@@ -571,20 +595,20 @@ pub fn pack_interfaces(
         }
 
         if com_type == IfComponentType::Rect {
-            client.pbool(get_bool(src.get("fill")));
-            server.pbool(get_bool(src.get("fill")));
+            client.p1(get_bool(src.get("fill")) as u8);
+            server.p1(get_bool(src.get("fill")) as u8);
         }
 
         if com_type == IfComponentType::Text {
-            client.pbool(get_bool(src.get("center")));
-            client.p1(name_to_font(src.get("font").unwrap()) as u8);
-            client.pbool(get_bool(src.get("shadowed")));
+            client.p1(get_bool(src.get("center")) as u8);
+            client.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
+            client.p1(get_bool(src.get("shadowed")) as u8);
             client.pjstr(get_string(src.get("text")));
             client.pjstr(get_string(src.get("activetext")));
 
-            server.pbool(get_bool(src.get("center")));
-            server.p1(name_to_font(src.get("font").unwrap()) as u8);
-            server.pbool(get_bool(src.get("shadowed")));
+            server.p1(get_bool(src.get("center")) as u8);
+            server.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
+            server.p1(get_bool(src.get("shadowed")) as u8);
             server.pjstr(get_string(src.get("text")));
             server.pjstr(get_string(src.get("activetext")));
         }
@@ -691,16 +715,16 @@ pub fn pack_interfaces(
         }
 
         if com_type == IfComponentType::InvText {
-            client.pbool(get_bool(src.get("center")));
-            client.p1(name_to_font(src.get("font").unwrap()) as u8);
-            client.pbool(get_bool(src.get("shadowed")));
+            client.p1(get_bool(src.get("center")) as u8);
+            client.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
+            client.p1(get_bool(src.get("shadowed")) as u8);
             parse_hex(get_colour(src.get("colour")), |v| {
                 client.p4(v);
             });
 
-            server.pbool(get_bool(src.get("center")));
-            server.p1(name_to_font(src.get("font").unwrap()) as u8);
-            server.pbool(get_bool(src.get("shadowed")));
+            server.p1(get_bool(src.get("center")) as u8);
+            server.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
+            server.p1(get_bool(src.get("shadowed")) as u8);
             parse_hex(get_colour(src.get("colour")), |v| {
                 server.p4(v);
             });
@@ -711,8 +735,8 @@ pub fn pack_interfaces(
             server.p2(x);
             server.p2(y);
 
-            client.pbool(get_bool(src.get("interactable")));
-            server.pbool(get_bool(src.get("interactable")));
+            client.p1(get_bool(src.get("interactable")) as u8);
+            server.p1(get_bool(src.get("interactable")) as u8);
 
             for j in 1..=5 {
                 client.pjstr(get_string(src.get(&format!("option{j}"))));
@@ -748,11 +772,7 @@ pub fn pack_interfaces(
     }
 
     if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::INTERFACE;
-        if crc != expected {
-            panic!("CRC mismatch ['interface']: Got: {crc}, Expected: {expected}");
-        }
+        verify_crc("interface", &client.dat, config_crc::INTERFACE);
     }
 
     Ok(PackedFile {
@@ -761,11 +781,524 @@ pub fn pack_interfaces(
     })
 }
 
+#[cfg(before_647)]
 fn load_order(path: &Path) -> Result<Vec<u16>> {
-    let content = std::fs::read_to_string(path)?;
+    let content = fs::read_to_string(path)?;
     Ok(content
         .lines()
         .filter(|l| !l.trim().is_empty())
         .filter_map(|l| l.trim().parse::<u16>().ok())
         .collect())
+}
+
+#[cfg(since_647)]
+pub fn pack_archive(
+    store: &mut PackedCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+    versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
+) -> Result<()> {
+    let aid = archive::INTERFACES;
+    let format = archive::archive_format(aid).unwrap();
+    let if_files = names.files(&content_dir.join("interfaces"), "interface", &["if3"])?;
+    let gids: Vec<_> = if_files.iter().map(|(gid, _)| *gid).collect();
+    let name_hashes = load_name_hashes(pack_dir, aid, &gids);
+    let scripts = content_dir.join(
+        archive::archive_format(archive::CLIENTSCRIPT)
+            .unwrap()
+            .content_dir,
+    );
+    let stage = Stage::new(
+        "interfaces",
+        vec![
+            versions_dep(versions, aid),
+            (
+                "clientscripts".to_owned(),
+                stats_key(&files_under(&roots(&scripts))),
+            ),
+            ("pack".to_owned(), dir_key(pack_dir, &[])),
+        ],
+    );
+    let registry = OnceLock::new();
+    let mut prepared = stage.groups(
+        names,
+        &if_files,
+        |path| vec![path.clone()],
+        |gid, path, names| {
+            let registry = match registry.get() {
+                Some(registry) => registry,
+                None => {
+                    let built = clientscript::registry_with_scripts(&scripts, pack_dir)?;
+                    registry.get_or_init(|| built)
+                }
+            };
+            let components = parse_components(&fs::read_to_string(path)?, gid, names, registry)
+                .with_context(|| path.display().to_string())?;
+            let entries: Vec<(u32, Vec<u8>)> = components
+                .iter()
+                .map(|(position, comp)| (*position, encode_component(comp)))
+                .collect();
+            let refs: Vec<(u32, &[u8])> = entries
+                .iter()
+                .map(|(position, data)| (*position, data.as_slice()))
+                .collect();
+            let data = encode_group_entries(&refs);
+            let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
+            group.fit_files(entries.len());
+            Ok(group)
+        },
+    )?;
+    stage.finish(Vec::new());
+    for group in &mut prepared {
+        group.name_hash = name_hashes.get(&group.id).copied().unwrap_or(-1);
+    }
+
+    insert_archive(
+        store,
+        aid,
+        format,
+        versions,
+        prepared,
+        "from .if3 text files",
+    )?;
+
+    Ok(())
+}
+
+#[cfg(since_647)]
+pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
+    let mut out = PackedData::default();
+
+    out.p1(comp.version);
+    let mut type_byte = comp.com_type as u8;
+    if comp.com_name.is_some() {
+        type_byte |= 0x80;
+    }
+    out.p1(type_byte);
+    if let Some(ref name) = comp.com_name {
+        out.pjstr(name);
+    }
+
+    out.p2(comp.client_code);
+    out.p2(comp.x as u16);
+    out.p2(comp.y as u16);
+    out.p2(comp.width);
+    out.p2(comp.height);
+    out.p1(comp.width_mode as u8);
+    out.p1(comp.height_mode as u8);
+    out.p1(comp.x_mode as u8);
+    out.p1(comp.y_mode as u8);
+
+    out.p2(comp.parent_id.unwrap_or(u16::MAX));
+    out.p1(comp.flags);
+
+    let var2: i32 = if comp.version == 255 {
+        -1
+    } else {
+        comp.version as i32
+    };
+
+    if comp.com_type == IfComponentType::Layer {
+        out.p2(comp.scroll_width);
+        out.p2(comp.scroll);
+        if var2 < 0 {
+            out.p1(comp.no_click_through as u8);
+        }
+    }
+
+    if comp.com_type == IfComponentType::Graphic {
+        out.p4(comp.graphic.unwrap_or(-1));
+        out.p2(comp.angle_2d);
+        let sf = comp.tiling as u8 | ((comp.alpha as u8) << 1);
+        out.p1(sf);
+        out.p1(comp.trans);
+        out.p1(comp.outline);
+        out.p4(comp.graphic_shadow);
+        out.p1(comp.vflip as u8);
+        out.p1(comp.hflip as u8);
+        out.p4(comp.colour);
+    }
+
+    if comp.com_type == IfComponentType::Model {
+        out.p2(comp.model as u16);
+        out.p1(comp.model_flags);
+        let position_set = comp.model_flags & 1 != 0;
+        let a_bool_19 = comp.model_flags & 2 != 0;
+        if position_set {
+            out.p2(comp.model_origin_x as u16);
+            out.p2(comp.model_origin_y as u16);
+            out.p2(comp.xan);
+            out.p2(comp.yan);
+            out.p2(comp.model_zan);
+            out.p2(comp.zoom as u16);
+        } else if a_bool_19 {
+            out.p2(comp.model_origin_x as u16);
+            out.p2(comp.model_origin_y as u16);
+            out.p2(comp.sprite_y_offset as u16);
+            out.p2(comp.xan);
+            out.p2(comp.yan);
+            out.p2(comp.model_zan);
+            out.p1(comp.zoom as u8);
+        }
+        out.p2(comp.anim as u16);
+        if comp.width_mode != 0 {
+            out.p2(comp.dynamic_width);
+        }
+        if comp.height_mode != 0 {
+            out.p2(comp.dynamic_height);
+        }
+    }
+
+    if comp.com_type == IfComponentType::Text {
+        out.p2(comp.font as u16);
+        out.pjstr(&comp.text);
+        out.p1(comp.text_style);
+        out.p1(comp.text_halign);
+        out.p1(comp.text_valign);
+        out.p1(comp.shadowed as u8);
+        out.p4(comp.colour);
+        out.p1(comp.trans);
+    }
+
+    if comp.com_type == IfComponentType::Rect {
+        out.p4(comp.colour);
+        out.p1(comp.fill as u8);
+        out.p1(comp.trans);
+    }
+
+    if comp.com_type == IfComponentType::Line {
+        out.p1(comp.line_width);
+        out.p4(comp.colour);
+        out.p1(comp.line_rtl as u8);
+    }
+
+    out.p3(comp.active_properties as i32);
+
+    for opkey in &comp.opkeys {
+        let rate = if opkey.rate_duration == -1 {
+            4095u32
+        } else {
+            opkey.rate_duration as u32 & 0xFFF
+        };
+        let header = ((opkey.index + 1) << 4) | ((rate >> 8) as u8 & 0xF);
+        let next = (rate & 0xFF) as u8;
+        out.p1(header);
+        out.p1(next);
+        out.p1(opkey.code as u8);
+        out.p1(opkey.mask as u8);
+    }
+    out.p1(0); // opkey terminator
+
+    out.pjstr(&comp.op_base);
+    let ops_packed = (comp.ops.len() as u8 & 0xF) | (comp.op_cursor_count << 4);
+    out.p1(ops_packed);
+    for op in &comp.ops {
+        out.pjstr(op);
+    }
+    if comp.op_cursor_count > 0 && !comp.op_cursors.is_empty() {
+        out.p1(comp.op_cursors[0].0);
+        out.p2(comp.op_cursors[0].1);
+    }
+    if comp.op_cursor_count > 1 && comp.op_cursors.len() > 1 {
+        out.p1(comp.op_cursors[1].0);
+        out.p2(comp.op_cursors[1].1);
+    }
+
+    out.pjstr(&comp.pause_text);
+    out.p1(comp.drag_deadzone);
+    out.p1(comp.drag_deadtime);
+    out.p1(comp.drag_renderbehavior);
+    out.pjstr(&comp.target_verb);
+
+    let target_mask = (comp.active_properties >> 11) & 0x7F;
+    if target_mask != 0 {
+        out.p2(comp.target_object_id.unwrap_or(u16::MAX));
+        out.p2(comp.target_enter_cursor.unwrap_or(u16::MAX));
+        out.p2(comp.target_leave_cursor.unwrap_or(u16::MAX));
+    }
+
+    for hook in &comp.hooks {
+        encode_hook(&mut out, hook);
+    }
+
+    for list in &comp.transmit_lists {
+        encode_transmitlist(&mut out, list);
+    }
+
+    out.dat
+}
+
+#[cfg(since_647)]
+fn encode_hook(out: &mut PackedData, hook: &Option<Vec<HookValue>>) {
+    match hook {
+        None => out.p1(0),
+        Some(args) => {
+            out.p1(args.len() as u8);
+            for arg in args {
+                match arg {
+                    HookValue::Int(v) => {
+                        out.p1(0);
+                        out.p4(*v);
+                    }
+                    HookValue::String(s) => {
+                        out.p1(1);
+                        out.pjstr(s);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[cfg(since_647)]
+fn encode_transmitlist(out: &mut PackedData, list: &Option<Vec<i32>>) {
+    match list {
+        None => out.p1(0),
+        Some(ids) => {
+            out.p1(ids.len() as u8);
+            for &id in ids {
+                out.p4(id);
+            }
+        }
+    }
+}
+
+/// Components by their position in the group.
+#[cfg(since_647)]
+pub fn parse_components(
+    text: &str,
+    group: u32,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<BTreeMap<u32, IfTypeRaw>> {
+    let mut components: BTreeMap<u32, IfTypeRaw> = BTreeMap::new();
+    let mut current = None;
+    for line in text.lines() {
+        if line.is_empty() || line.starts_with("//") {
+            continue;
+        }
+        if let Some(header) = line.strip_prefix('[').and_then(|v| v.strip_suffix(']')) {
+            let position = names.component_id(group, header)?;
+            let comp = IfTypeRaw {
+                id: position as u16,
+                root_layer: group as i32,
+                version: u8::MAX,
+                model: -1,
+                anim: -1,
+                font: -1,
+                ..IfTypeRaw::default()
+            };
+            ensure!(
+                components.insert(position, comp).is_none(),
+                "Duplicate component {header}"
+            );
+            current = Some(position);
+            continue;
+        }
+        let comp = current
+            .and_then(|position| components.get_mut(&position))
+            .with_context(|| format!("Property outside a component: {line}"))?;
+        let (key, value) = line
+            .split_once('=')
+            .with_context(|| format!("Invalid line: {line}"))?;
+        parse_property(comp, key, value, group, names, registry)
+            .with_context(|| format!("Invalid line: {line}"))?;
+    }
+    for comp in components.values_mut() {
+        comp.op_cursor_count = comp.op_cursors.len() as u8;
+        // Without a placement a model is only its id: all of these stay zero.
+        if comp.com_type == IfComponentType::Model
+            && comp.model_flags & 2 == 0
+            && (comp.model_origin_x != 0
+                || comp.model_origin_y != 0
+                || comp.xan != 0
+                || comp.yan != 0
+                || comp.model_zan != 0
+                || comp.zoom != 0)
+        {
+            comp.model_flags |= 1;
+        }
+    }
+    Ok(components)
+}
+
+#[cfg(since_647)]
+fn parse_property(
+    comp: &mut IfTypeRaw,
+    key: &str,
+    value: &str,
+    group: u32,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<()> {
+    let mode =
+        |modes: &[&str]| mode_value(modes, value).with_context(|| format!("Unknown mode: {value}"));
+    let reference =
+        |kind: &str| -> Result<i32> { Ok(names.resolve(kind, value.trim_matches('"'))? as i32) };
+    let colour = || -> Result<i32> {
+        let digits = value.strip_prefix("0x").context("Expected a hex colour")?;
+        Ok(u32::from_str_radix(digits, 16)? as i32)
+    };
+    match key {
+        "type" => {
+            comp.com_type = match value {
+                "layer" => IfComponentType::Layer,
+                "rectangle" => IfComponentType::Rect,
+                "text" => {
+                    comp.colour = DEFAULT_COLOUR;
+                    IfComponentType::Text
+                }
+                "graphic" => {
+                    comp.colour = DEFAULT_COLOUR;
+                    IfComponentType::Graphic
+                }
+                "model" => {
+                    comp.zoom = 100;
+                    IfComponentType::Model
+                }
+                "line" => {
+                    comp.line_width = 1;
+                    IfComponentType::Line
+                }
+                _ => bail!("Unknown component type"),
+            }
+        }
+        "name" => comp.com_name = Some(value.into()),
+        "clientcode" => comp.client_code = value.parse()?,
+        "x" => comp.x = value.parse()?,
+        "y" => comp.y = value.parse()?,
+        "width" => comp.width = value.parse()?,
+        "height" => comp.height = value.parse()?,
+        "widthmode" => comp.width_mode = mode(&SIZE_MODES)? as i8,
+        "heightmode" => comp.height_mode = mode(&SIZE_MODES)? as i8,
+        "xmode" => comp.x_mode = mode(&X_MODES)? as i8,
+        "ymode" => comp.y_mode = mode(&Y_MODES)? as i8,
+        "layer" => comp.parent_id = Some(names.component_id(group, value)? as u16),
+        "hide" => comp.flags |= 1,
+        "scrollwidth" => comp.scroll_width = value.parse()?,
+        "scrollheight" => comp.scroll = value.parse()?,
+        "noclickthrough" => comp.no_click_through = true,
+        "graphic" => {
+            let graphic = reference("sprites")?;
+            comp.graphic = (graphic != -1).then_some(graphic);
+        }
+        "2dangle" => comp.angle_2d = value.parse()?,
+        "tiling" => comp.tiling = true,
+        "alpha" => comp.alpha = true,
+        "trans" => comp.trans = value.parse()?,
+        "outline" => comp.outline = value.parse()?,
+        "graphicshadow" => comp.graphic_shadow = value.parse()?,
+        "vflip" => comp.vflip = true,
+        "hflip" => comp.hflip = true,
+        "colour" => comp.colour = colour()?,
+        "fill" => comp.fill = true,
+        "model" => comp.model = reference("model")?,
+        "modelorigin" => {
+            let (x, y) = value.split_once(',').context("Expected x,y")?;
+            comp.model_origin_x = x.parse()?;
+            comp.model_origin_y = y.parse()?;
+        }
+        "modelangle" => {
+            let mut angles = value.split(',');
+            let mut angle =
+                || -> Result<u16> { Ok(angles.next().context("Expected x,y,z")?.parse()?) };
+            comp.xan = angle()?;
+            comp.yan = angle()?;
+            comp.model_zan = angle()?;
+        }
+        "modelzoom" => comp.zoom = value.parse()?,
+        "modeloffset" => {
+            comp.sprite_y_offset = value.parse()?;
+            comp.model_flags |= 2;
+        }
+        "modelanim" => comp.anim = reference("seq")?,
+        "modelorthog" => comp.model_flags |= 4,
+        "modelnodepth" => comp.model_flags |= 8,
+        "modelobjwidth" => comp.dynamic_width = value.parse()?,
+        "modelobjheight" => comp.dynamic_height = value.parse()?,
+        "textfont" => comp.font = reference("fontmetrics")?,
+        "text" => comp.text = value.to_owned(),
+        "textlineheight" => comp.text_style = value.parse()?,
+        "textalignh" => comp.text_halign = mode(&TEXT_ALIGN_H)?,
+        "textalignv" => comp.text_valign = mode(&TEXT_ALIGN_V)?,
+        "textshadow" => comp.shadowed = true,
+        "linewid" => comp.line_width = value.parse()?,
+        "linedirection" => comp.line_rtl = true,
+        "pausebutton" => comp.active_properties |= 1,
+        "transmitop" => {
+            for op in value.split(',') {
+                comp.active_properties |= 1 << op.parse::<u32>()?;
+            }
+        }
+        "targetmask" => {
+            for target in value.split(',') {
+                let bit = TARGET_MASK
+                    .iter()
+                    .position(|name| *name == target)
+                    .with_context(|| format!("Unknown target: {target}"))?;
+                comp.active_properties |= 1 << (11 + bit);
+            }
+        }
+        "dragdepth" => comp.active_properties |= value.parse::<u32>()? << 18,
+        "candrop" => comp.active_properties |= 1 << 21,
+        "targetable" => comp.active_properties |= 1 << 22,
+        "opbase" => comp.op_base = value.to_owned(),
+        "pausetext" => comp.pause_text = value.to_owned(),
+        "dragdeadzone" => comp.drag_deadzone = value.parse()?,
+        "dragdeadtime" => comp.drag_deadtime = value.parse()?,
+        "dragrenderbehaviour" => comp.drag_renderbehavior = value.parse()?,
+        "targetverb" => comp.target_verb = value.to_owned(),
+        "targetobj" => {
+            let id = reference("obj")? as u16;
+            comp.target_object_id = (id != u16::MAX).then_some(id);
+        }
+        "targetcursor2" => {
+            let id = reference("cursor")? as u16;
+            comp.target_enter_cursor = (id != u16::MAX).then_some(id);
+        }
+        "targetcursor3" => {
+            let id = reference("cursor")? as u16;
+            comp.target_leave_cursor = (id != u16::MAX).then_some(id);
+        }
+        _ => {
+            if let Some(op) = key.strip_prefix("opkey") {
+                let mut parts = value.split(',');
+                let code = parts.next().context("Expected code,mask")?.parse()?;
+                let mask = parts.next().context("Expected code,mask")?.parse()?;
+                comp.opkeys.push(OpKey {
+                    index: op.parse::<u8>()? - 1,
+                    rate_duration: parts.next().map_or(Ok(0), str::parse)?,
+                    code,
+                    mask,
+                });
+            } else if let Some(op) = key.strip_prefix("opcursor") {
+                comp.op_cursors
+                    .push((op.parse()?, reference("cursor")? as u16));
+            } else if let Some(op) = key
+                .strip_prefix("op")
+                .and_then(|op| op.parse::<usize>().ok())
+            {
+                ensure!(op >= 1, "Ops count from 1");
+                if comp.ops.len() < op {
+                    comp.ops.resize(op, String::new());
+                }
+                comp.ops[op - 1] = value.to_owned();
+            } else if let Some(hook) = HOOK_NAMES.iter().position(|name| *name == key) {
+                let list = hook_transmit_list(hook);
+                let (values, transmits) =
+                    component_hook(value, list.map(|(_, kind)| kind), registry)
+                        .map_err(|error| anyhow!(error))?;
+                comp.hooks[hook] = Some(values);
+                if let Some((list, _)) = list
+                    && !transmits.is_empty()
+                {
+                    comp.transmit_lists[list] = Some(transmits);
+                }
+            } else {
+                bail!("Unknown property");
+            }
+        }
+    }
+    Ok(())
 }

@@ -1,0 +1,7803 @@
+// 0
+[mcannon]
+transmit=yes
+scope=perm
+
+// 1
+[mcannonmulti]
+scope=perm
+
+// 2
+[dropcannon]
+scope=perm
+
+// 3
+[rockthrower]
+scope=perm
+
+// 4
+[ownedmcannon]
+scope=perm
+type=coord
+
+// 5
+[grail]
+transmit=yes
+scope=perm
+
+// 6
+[varplayer_6]
+
+// 7
+[varplayer_7]
+
+// 8
+[varplayer_8]
+
+// 9
+[varplayer_9]
+
+// 10
+[cogquest]
+transmit=yes
+scope=perm
+
+// 11
+[fishingcompo]
+transmit=yes
+scope=perm
+
+// 12
+[garlicpipe]
+scope=perm
+
+// 13
+[hemenster_pipe_stashed]
+type=boolean
+scope=perm
+
+// 14
+[arthur]
+transmit=yes
+scope=perm
+
+// 15
+[excalibur_components_progress]
+scope=perm
+
+// 16
+[arhein_crate_coord]
+type=coord
+scope=perm
+
+// 17
+[arenaquest]
+transmit=yes
+scope=perm
+
+// 18
+[musicplay]
+
+// 19
+[musicloop]
+
+// 20
+[musicmulti_1]
+transmit=yes
+scope=perm
+protect=no
+
+// 21
+[musicmulti_2]
+transmit=yes
+scope=perm
+protect=no
+
+// 22
+[musicmulti_3]
+transmit=yes
+scope=perm
+protect=no
+
+// 23
+[musicmulti_4]
+transmit=yes
+scope=perm
+protect=no
+
+// 24
+[musicmulti_5]
+transmit=yes
+scope=perm
+protect=no
+
+// 25
+[musicmulti_6]
+transmit=yes
+scope=perm
+protect=no
+
+// 26
+[ikov]
+transmit=yes
+scope=perm
+
+// 27
+[ikov_dungeon]
+scope=perm
+
+// 28
+[ikov_icearrowchest_coord]
+type=coord
+scope=perm
+
+// 29
+[cookquest]
+transmit=yes
+scope=perm
+
+// 2011's rework (15 December 2009): each ingredient given, and whether Millie
+// Miller has set the millstones for extra fine flour (void-634 cooks_assistant
+// vars).
+// 30
+[drunkmonkquest]
+transmit=yes
+scope=perm
+
+// 31
+[doricquest]
+transmit=yes
+scope=perm
+
+// 32
+[haunted]
+transmit=yes
+scope=perm
+
+// 289's lever bits (quest_haunted.rs2) on the cache's varp 33, as 289's id:
+// 2011's levers A-F are multilocs on its bits 1-6 (varbits 1788-1793), so the
+// client must see it.
+// 33
+[ernestlever]
+scope=perm
+transmit=yes
+
+// 2011's basement doors (quest_haunted.loc): multilocs on bits 0-8 of the
+// cache's varp 668 (varbits 1794-1802), a door with Open where the levers let
+// it open. Recomputed after every pull.
+// 34
+[haunted_manor_fountain_poisoned]
+scope=perm
+
+// 35
+[varplayer_35]
+
+// 36
+[damagetype]
+protect=no
+
+// 37
+[damagestyle]
+protect=no
+
+// 38
+[lastcombat]
+protect=no
+
+// 39
+[lastcombat_pvp]
+protect=no
+
+// 40
+[eat_delay]
+transmit=no
+scope=temp
+protect=no
+
+// 41
+[aggressive_npc]
+// The server keys of 289's combat varps (protect, type, scope), as 289 has them --
+// most in its rev-225 unpack. 647 names them at 289's ids where the 2011 client
+// does not read the varp, or reads it the same way (com_mode 43, poison 102,
+// option_nodef 172, sa_energy 300, sa_attack 301); 289's transmit is the cache's.
+
+type=npc_uid
+protect=no
+
+// 42
+[frozen]
+
+// 43
+[com_mode]
+transmit=yes
+protect=no
+
+// 44
+[com_stabattack]
+protect=no
+
+// 45
+[com_stabdef]
+protect=no
+
+// 46
+[com_slashattack]
+protect=no
+
+// 47
+[com_slashdef]
+protect=no
+
+// 48
+[com_crushattack]
+protect=no
+
+// 49
+[com_crushdef]
+protect=no
+
+// 50
+[com_magicattack]
+protect=no
+
+// 51
+[com_magicdef]
+protect=no
+
+// 52
+[com_rangeattack]
+protect=no
+
+// 53
+[com_rangedef]
+protect=no
+
+// 54
+[com_attackanim]
+protect=no
+type=seq
+
+// 55
+[com_defendanim]
+protect=no
+type=seq
+
+// 289's armourhitsound is its varp 375; 786's varp 375 is the client's, so this
+// one is server-only.
+// 56
+[com_attacksound]
+protect=no
+type=synth
+
+// 57
+[com_maxhit]
+protect=no
+
+// 58
+[action_delay]
+
+// 59
+[varplayer_59]
+scope=perm
+
+// 60
+[sheepherderquest]
+transmit=yes
+scope=perm
+
+// 61
+[sheepherdervar]
+scope=perm
+
+// 62
+[goblinquest]
+transmit=yes
+
+// 63
+[runemysteries]
+transmit=yes
+scope=perm
+
+// 64
+[exit_essence_mine_coord]
+scope=perm
+type=coord
+
+// 65
+[waterfall_quest]
+transmit=yes
+scope=perm
+
+// 66
+[varplayer_66]
+scope=perm
+protect=no
+
+// 67
+[hetty]
+// 289's hetty (Witch's Potion), on the cache's varp 67. Cache 786's quest 178 ("Witch's
+// Potion", 0 quest points) counts it from 1 to 3, as 289's stages do, and Hetty's cauldron
+// (loc 2024) reads it, offering "Drink-from" only at 2 (cauldron_14339): so it is
+// transmitted. 2011's miniquest has no quest list row (clientscript 2193).
+transmit=yes
+scope=perm
+
+// 68
+[biohazard]
+transmit=yes
+scope=perm
+
+// 69
+[bioerrand]
+scope=perm
+
+// 70
+[biodummy]
+scope=perm
+
+// 71
+[hunt]
+transmit=yes
+scope=perm
+
+// 72
+[hunt_store_employed]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Pirate's Treasure: 1 = Luthas has hired the player (289's id 72).
+scope=perm
+
+// 73
+[crate_bananas]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Pirate's Treasure: bananas in Luthas's crate (289's id 73).
+scope=perm
+
+// 74
+[crate_rum]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Pirate's Treasure: 1 = rum in Luthas's crate, 2 = in Wydin's store (289's id 74).
+scope=perm
+
+// 75
+[journey_number]
+transmit=yes
+
+// 76
+[scorpcatcher]
+transmit=yes
+scope=perm
+
+// 77
+[barcrawl]
+transmit=yes
+
+// 78
+[pk_skull]
+protect=no
+scope=perm
+
+// 79
+[varplayer_79]
+// 2011's Task System, On the Run: the last tick's tile (tasks/task_system.rs2), set in a soft
+// timer.
+protect=no
+
+// 80
+[druidquest]
+transmit=yes
+scope=perm
+
+// 81
+[varplayer_81]
+
+// 82
+[prayer_guild]
+scope=perm
+
+// 289's prayer0-14 are, at 2011, bits 0-14 of varp 1395, which 2011's
+// prayer book reads (clientscript 2296: varbits 5942-5956, in 289's order):
+// prayer.varbit.
+// [prayer0]
+// transmit=yes
+// protect=no
+//
+// [prayer1]
+// transmit=yes
+// protect=no
+//
+// [prayer2]
+// transmit=yes
+// protect=no
+//
+// [prayer3]
+// transmit=yes
+// protect=no
+//
+// [prayer4]
+// transmit=yes
+// protect=no
+//
+// [prayer5]
+// transmit=yes
+// protect=no
+//
+// [prayer6]
+// transmit=yes
+// protect=no
+//
+// [prayer7]
+// transmit=yes
+// protect=no
+//
+// [prayer8]
+// transmit=yes
+// protect=no
+//
+// [prayer9]
+// transmit=yes
+// protect=no
+//
+// [prayer10]
+// transmit=yes
+// protect=no
+//
+// [prayer11]
+// transmit=yes
+// protect=no
+//
+// [prayer12]
+// transmit=yes
+// protect=no
+//
+// [prayer13]
+// transmit=yes
+// protect=no
+//
+// [prayer14]
+// transmit=yes
+// protect=no
+
+// 2011's active prayers, a bit each (void-634 activated_prayers). Unprotected,
+// as 289's prayer0-14 were.
+// 83
+[prayer0]
+
+// 84
+[prayer1]
+
+// 85
+[varplayer_85]
+
+// 86
+[varplayer_86]
+
+// 87
+[varplayer_87]
+
+// 88
+[varplayer_88]
+
+// 89
+[varplayer_89]
+
+// 90
+[varplayer_90]
+
+// 91
+[varplayer_91]
+
+// 92
+[prayer9]
+
+// 93
+[prayer10]
+
+// 94
+[prayer11]
+
+// 95
+[prayer12]
+
+// 96
+[varplayer_96]
+
+// 97
+[varplayer_97]
+
+// 98
+[prayer_drain_counter]
+protect=no
+
+// 99
+[prayer_drain_effect]
+protect=no
+
+// 100
+[prayer_drain_resistance]
+protect=no
+
+// 101
+[qp]
+transmit=yes
+
+// 102
+[poison]
+transmit=yes
+scope=perm
+
+// 103
+[stunned]
+
+// 104
+[varplayer_104]
+
+// 105
+[varplayer_105]
+transmit=yes
+
+// 106
+[player_map]
+transmit=yes
+
+// 107
+[prieststart]
+transmit=yes
+scope=perm
+
+// The coffin's skull (varbit restless_ghost_coffin, 2129) and the swamp
+// rocks' (rocks_restless_ghost, 2130) are bits of varp 728, which the 2011
+// coffin (15061) and rocks (47713) read as multilocs (cache 786); void-634
+// keeps both (persist = true).
+// 108
+[lastcastspell]
+transmit=yes
+protect=no
+
+// 109
+[trawler]
+
+// 110
+[varplayer_110]
+
+// 111
+[treequest]
+transmit=yes
+scope=perm
+
+// 112
+[itgronigen]
+transmit=yes
+scope=perm
+
+// 113
+[itkeepgatelock]
+scope=perm
+
+// 114
+[varplayer_114]
+
+// 115
+[bankcert]
+transmit=yes
+
+// 116
+[zombiequeen]
+transmit=yes
+scope=perm
+
+// 117
+[varplayer_117]
+
+// 118
+[shop]
+transmit=yes
+// 289's shop vars. `shop` is 2011's varp 118: the client draws the open
+// shop's stock from the inventory it names (clientscript 2716), so setting it
+// is what shows the shop. The others are the server's.
+type=inv
+scope=temp
+
+// 119
+[pk_predator1]
+protect=no
+type=player_uid
+
+// 120
+[pk_predator2]
+protect=no
+type=player_uid
+
+// 121
+[pk_predator3]
+protect=no
+type=player_uid
+
+// 122
+[squire]
+transmit=yes
+scope=perm
+
+// 123
+[pk_binder]
+protect=no
+type=player_uid
+
+// 124
+[varplayer_124]
+
+// 125
+[varplayer_125]
+
+// 126
+[varplayer_126]
+
+// 127
+[shop_buy]
+type=int
+scope=temp
+
+// 128
+[shop_sell]
+type=int
+scope=temp
+
+// 129
+[shop_haggle]
+type=int
+scope=temp
+
+// 130
+[spy]
+transmit=yes
+scope=perm
+
+// 131
+[itexamlevel]
+transmit=yes
+scope=perm
+
+// 132
+[itexam_errands]
+scope=perm
+
+// 133
+[itexam_bits]
+scope=perm
+
+// 134
+[varplayer_134]
+
+// 135
+[itdigsitemulti]
+
+// 136
+[varplayer_136]
+
+// 137
+[varplayer_137]
+
+// 138
+[varplayer_138]
+
+// 139
+[legendsquest]
+transmit=yes
+
+// 140
+[varplayer_140]
+
+// 141
+[varplayer_141]
+
+// 142
+[varplayer_142]
+
+// 143
+[score_gnomeball_game]
+transmit=yes
+
+// 144
+[rjquest]
+scope=perm
+
+// 145
+[phoenixgang]
+transmit=yes
+scope=perm
+
+// 146
+[blackarmgang]
+transmit=yes
+scope=perm
+
+// 147
+[zanaris]
+transmit=yes
+
+// 148
+[crestquest]
+transmit=yes
+scope=perm
+
+// 149
+[crest_spells_levers_gauntlets]
+scope=perm
+
+// 150
+[grandtree]
+transmit=yes
+scope=perm
+
+// 151
+[daconia_rock_root]
+scope=perm
+
+// 152
+[femi_help]
+scope=perm
+
+// 153
+[pilot_journey]
+transmit=yes
+
+// 154
+[shantay_jail_progress]
+
+// 155
+[varplayer_155]
+
+// 156
+[targetcount]
+transmit=yes
+
+// 157
+[targetscore]
+transmit=yes
+
+// 158
+[targethit]
+transmit=yes
+
+// 159
+[seaslugquest]
+transmit=yes
+scope=perm
+
+// 160
+[imp]
+transmit=yes
+scope=perm
+
+// 161
+[upass]
+transmit=yes
+scope=perm
+
+// 162
+[ibanmulti]
+transmit=yes
+scope=perm
+
+// 163
+[open_book]
+type=obj
+
+// 164
+[book_page]
+
+// 165
+[elenaquest]
+transmit=yes
+// Two quest varps 289 defines only in its rev-225 unpack (_unpack/225/all.varp),
+// with no quest file of their own: Plague City and Waterfall Quest.
+scope=perm
+
+// 166
+[option_brightness]
+clientcode=1
+
+// 167
+[option_jingles]
+clientcode=2
+
+// 168
+[option_music]
+clientcode=3
+
+// 169
+[option_sounds]
+clientcode=4
+
+// 170
+[option_mouse]
+clientcode=5
+// 289's game_options.varp, on 2011's same varps (cache 786: 170 has
+// clientcode 5 and 171 clientcode 6, the two the 2011 client still acts on,
+// Class323.method2062; clientscripts 83, 89 and 90 split private chat on 287
+// above 0). Set from the options tab and chat setup, which run unprotected.
+
+transmit=yes
+scope=perm
+protect=no
+
+// 171
+[option_chat]
+clientcode=6
+transmit=yes
+scope=perm
+protect=no
+
+// 172
+[option_nodef]
+transmit=yes
+protect=no
+scope=perm
+
+// 173
+[option_run]
+clientcode=7
+transmit=yes
+// Varp 173, the run orb's mode. The cache layer supplies clientcode=7 and
+// transmit; this only opens it to the unprotected resync in run.rs2, as 289's
+// interface_controls/configs/player_controls.varp does.
+protect=no
+
+// 174
+[marketthief]
+scope=perm
+
+// 175
+[junglepotion]
+transmit=yes
+scope=perm
+
+// 176
+[dragonquest]
+transmit=yes
+
+// 177
+[dragonquestvar]
+transmit=yes
+
+// 178
+[vampire]
+// 289's vampire, on its id, 178. Cache 786 reads its bits 0-1 as the quest's
+// stage (varbit 6914; clientscript 2193 completes it at 3), so 289's stages
+// 0-3 hold as they were, and the client must see it.
+scope=perm
+transmit=yes
+
+// 2011: the Count staked, Morgan not yet told (2011 wiki, Vampire Slayer:
+// "The quest used to end when you killed Count Draynor, but now, you must
+// speak to Morgan to finish it completely."). Server-only: which of varp
+// 178's other bits 2011 used for it, if any, is unknown.
+// 179
+[sheep]
+// 289's sheep, on the cache's varp 179, which cache 786's quest 173 ("Sheep
+// Shearer") counts from 1 to 21, as 289's does. The cache does not transmit
+// it and no clientscript reads it: 2011's miniquest has no quest list row
+// (clientscript 2193), so it stays the server's, as 289's was.
+scope=perm
+
+// Whether the player has tried to shear The Thing, so Fred will hear of it
+// (void-634's the_thing_interacted). Server-only.
+// 180
+[fluffs]
+transmit=yes
+scope=perm
+
+// 181
+[fluffs_crate]
+type=coord
+scope=perm
+
+// 182
+[cat_growth]
+scope=perm
+
+// 183
+[dragon_ned_hired]
+// 289's Dragon Slayer varps (quests/quest_dragon/configs/quest_dragon.varp),
+// as far as the content ported so far reads them. dragon_ned_hired keeps
+// 289's id, 183: cache 786 does not transmit varp 183 and no clientscript
+// reads it, and 2011's Dragon Slayer is still varp 176 from 1 to 10 (cache
+// 786 quest config "Dragon Slayer"), as 289's dragonquest is.
+type=int
+scope=perm
+
+// 184
+[dragon_oracle]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Dragon Slayer: what the Oracle and Thalzar's door know (289's id 184).
+type=int
+scope=perm
+
+// 185
+[dragon_wall]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Dragon Slayer: 1 = the player found Crandor's secret door (289's id 185).
+type=int
+scope=perm
+
+// 186
+[dragon_shield]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Dragon Slayer: 1 = told of the Duke's shield (289's id 186).
+type=int
+scope=perm
+
+// 187
+[dragon_goblin]
+type=int
+scope=perm
+
+// 188
+[heroquest]
+transmit=yes
+
+// 189
+[dragon_guildmaster]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// flag lives here instead of a new id above the cache's range.
+// Dragon Slayer: 1 = the Guildmaster has told Crandor's story (no 289 varp; 189 is unused in 289 and 786).
+type=int
+scope=perm
+
+// 190
+[dragon_door]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// Dragon Slayer: the Oracle's four items used on Thalzar's door, one bit each (magic_door.rs2;
+// 190 is unused in 289 and 786).
+type=int
+scope=perm
+
+// 191
+[dragon_wormbrain_beaten]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// Dragon Slayer: the map_clock tick Wormbrain was last beaten and dropped his piece (wormbrain.rs2;
+// 191 is unused in 289 and 786).
+type=int
+scope=perm
+
+// 192
+[murderquest]
+transmit=yes
+scope=perm
+
+// 193
+[murder_poisonproof_progress]
+scope=perm
+
+// 194
+[murder_evidence]
+scope=perm
+
+// 195
+[murdersus]
+scope=perm
+
+// 196
+[varplayer_196]
+
+// 197
+[desertrescue]
+transmit=yes
+scope=perm
+
+// 198
+[desertrescue_map_mechanisms]
+scope=perm
+
+// 199
+[dragon_ship_planks]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// Dragon Slayer: planks nailed over the Lady Lumbridge's hole, 0 to 3 (289 counted them in
+// dragonquestvar, varp 177, which cache 786 transmits; 199 is unused in 289 and 786).
+type=int
+scope=perm
+
+// 200
+[totemquest]
+transmit=yes
+scope=perm
+
+// 201
+[handelmort_traps_disabled]
+scope=perm
+
+// 202
+[hopper_full]
+scope=perm
+
+// 203
+[flour]
+
+// 204
+[macro_event]
+protect=no
+
+// 205
+[macro_event_uid]
+protect=no
+type=npc_uid
+
+// 206
+[macro_whirlpool_counter]
+
+// 207
+[macro_gas_counter]
+
+// 208
+[macro_ent_counter]
+
+// 209
+[macro_event_target_coord]
+type=coord
+scope=perm
+
+// 210
+[smithbars]
+
+// 211
+[modified_smith]
+
+// 212
+[itwatchtower]
+transmit=yes
+scope=perm
+
+// 213
+[itwatchtower_bits]
+scope=perm
+
+// 214
+[gutanoth_gold]
+scope=perm
+
+// 215
+[varplayer_215]
+
+// 216
+[varplayer_216]
+
+// 217
+[pk_prey1]
+protect=no
+type=player_uid
+
+// 218
+[pk_prey2]
+protect=no
+type=player_uid
+
+// 219
+[death]
+
+// 220
+[varplayer_220]
+
+// 221
+[varplayer_221]
+
+// 222
+[demonstart]
+// 289's demonstart, on its id, 222: cache 786 splits it into Demon Slayer's
+// varbits (2561 the stage, 2562-2566 the incantation's order, 2567
+// Silverlight, 2568 the drain key, 2569 Delrith summoned, 6922 the sword
+// case), which 2011's quest list and multilocs read, so the client must see it.
+scope=perm
+transmit=yes
+
+// void-634's demon_slayer_bones (demon_slayer.vars.toml): the bones Traiborn
+// still wants. Server-only. 0 until he asks; ^demon_bones_given once he has
+// all 25.
+// 223
+[hazeelcultquest]
+transmit=yes
+scope=perm
+
+// 224
+[hazeelcult_valves]
+scope=perm
+
+// 225
+[hazeelcult_side]
+scope=perm
+
+// 226
+[ballquest]
+transmit=yes
+scope=perm
+
+// 227
+[gnome_cocktail_bits1]
+
+// 228
+[gnome_cocktail_bits2]
+
+// 229
+[gnome_batta_bits1]
+
+// 230
+[gnome_batta_bits2]
+
+// 231
+[gnome_bowl_bits1]
+
+// 232
+[gnome_bowl_bits2]
+
+// 233
+[gnome_crunchies_bits1]
+
+// 234
+[gnome_crunchies_bits2]
+
+// 235
+[varplayer_235]
+
+// 236
+[varplayer_236]
+
+// 237
+[varplayer_237]
+
+// 238
+[varplayer_238]
+
+// 239
+[varplayer_239]
+
+// 240
+[varplayer_240]
+
+// 241
+[varplayer_241]
+
+// 242
+[varplayer_242]
+
+// 243
+[varplayer_243]
+
+// 244
+[varplayer_244]
+
+// 245
+[varplayer_245]
+
+// 246
+[varplayer_246]
+
+// 247
+[varplayer_247]
+
+// 248
+[varplayer_248]
+
+// 249
+[varplayer_249]
+
+// 250
+[varplayer_250]
+
+// 251
+[varplayer_251]
+
+// 252
+[varplayer_252]
+
+// 253
+[varplayer_253]
+
+// 254
+[varplayer_254]
+
+// 255
+[varplayer_255]
+
+// 256
+[thread_used]
+scope=perm
+
+// 257
+[tradepartner]
+type=player_uid
+protect=no
+
+// 258
+[tradestatus]
+type=int
+protect=no
+
+// 2011: "Trade modified" over an offer, the player's own (varp 1042) and the
+// other's (1043), which clientscript 141 shows over trademain's offers (com39,
+// com40) when either is 1 (void-634 offer_modified, other_offer_modified; the
+// 2011 wiki, Trading: a removed item marks the trade modified). The cache
+// transmits both. Each player marks the other's, as 289's trade varps are
+// written, so neither is protected.
+// 259
+[attack]
+transmit=yes
+
+// 260
+[temp]
+scope=temp
+protect=no
+
+// 261
+[if1]
+// The stat picked on the lamp (cache 786 varp 261: the lamp's Confirm,
+// interface 134 com2, redraws on it, vartransmit_list=261). 289's is its
+// %xplamp (varp 79 in 289's cache); 647's %xplamp is varp 531, the Maze's.
+transmit=yes
+
+// 262
+[if2]
+transmit=yes
+
+// 263
+[if3]
+transmit=yes
+
+// 264
+[gnome_course_progress]
+transmit=yes
+scope=perm
+
+// 265
+[barbarian_course_progress]
+transmit=yes
+scope=perm
+
+// 266
+[wilderness_course_progress]
+transmit=yes
+scope=perm
+
+// 267
+[magearena]
+protect=no
+scope=perm
+
+// 268
+[saramage]
+scope=perm
+
+// 269
+[guthmage]
+scope=perm
+
+// 270
+[zamomage]
+scope=perm
+
+// 271
+[varplayer_271]
+
+// 272
+[magearena_charge]
+scope=perm
+
+// 273
+[princequest]
+transmit=yes
+scope=perm
+
+// 274
+[prince_keystatus]
+scope=perm
+
+// 275
+[varplayer_275]
+type=namedobj
+scope=perm
+
+// 276
+[follower_uid]
+type=npc_uid
+scope=temp
+
+// 277
+[dragonresist]
+scope=perm
+
+// 278
+[varplayer_278]
+
+// 279
+[varplayer_279]
+
+// 280
+[varplayer_280]
+
+// 281
+[tutorial]
+transmit=yes
+// Varps saved with the player. Laid over _unpack/all.varp.
+
+scope=perm
+
+// 282
+[rotten_tomato_delay]
+type=int
+
+// 283
+[varplayer_283]
+transmit=yes
+
+// 284
+[duel2accept]
+type=player_uid
+protect=no
+
+// 285
+[duelstatus]
+transmit=yes
+type=int
+protect=no
+
+// 286
+[dueloptions]
+transmit=yes
+protect=no
+
+// 287
+[option_pm]
+transmit=yes
+scope=perm
+protect=no
+
+// 288
+[iban_staff_charges]
+scope=perm
+
+// 289
+[varplayer_289]
+
+// 290
+[ring_of_recoil]
+scope=perm
+
+// 291
+[ring_of_forging]
+scope=perm
+
+// 292
+[trail_status]
+scope=perm
+
+// 293
+[chompybird]
+transmit=yes
+scope=perm
+
+// likely used for all kinds of quest info
+// 294
+[chompybird_kills]
+transmit=yes
+scope=perm
+
+// 295
+[currentsong]
+type=midi
+scope=temp
+protect=no
+
+// 296
+[musicstart]
+scope=temp
+protect=no
+
+// 297
+[musiclength]
+transmit=yes
+
+// 298
+[musicmulti_7]
+transmit=yes
+scope=perm
+protect=no
+
+// 299
+[elemental_workshop_bits]
+transmit=yes
+scope=perm
+
+// 300
+[sa_energy]
+transmit=yes
+scope=perm
+
+// 301
+[sa_attack]
+transmit=yes
+protect=no
+
+// 302
+[priestperil]
+transmit=yes
+scope=perm
+
+// 303
+[varplayer_303]
+
+// 304
+[bankinsert]
+clientcode=9
+transmit=yes
+
+// 305
+[ghast_delay]
+protect=no
+
+// 306
+[mortmyre]
+
+// 307
+[druidspirit]
+transmit=yes
+scope=perm
+
+// 308
+[druidspirit_bits]
+scope=perm
+
+// 309
+[agilityarena_varbit]
+transmit=yes
+
+// 310
+[varplayer_310]
+
+// 311
+[musicmulti_8]
+transmit=yes
+scope=perm
+protect=no
+
+// 312
+[varplayer_312]
+
+// 313
+[emote_access]
+transmit=yes
+scope=perm
+
+// 289's xplamp, the maze's reward left: 2011 transmits it as varp 531, which
+// mazetimer (209) draws as "<value> %" (clientscript 116).
+// 314
+[death_equiproom]
+transmit=yes
+scope=perm
+
+// 315
+[death_map]
+scope=perm
+
+// 316
+[death_bits]
+scope=perm
+
+// 317
+[troll_quest]
+transmit=yes
+scope=perm
+
+// 318
+[troll_varbit]
+transmit=yes
+scope=perm
+
+// 319
+[varplayer_319]
+
+// 320
+[tbwt_main]
+scope=perm
+transmit=yes
+
+// 289's Tai Bwo Wannai Trio sub-varps (321-325 at 289). Their 2011 client
+// ids are not known, so these are server-only (2181 up), and a server-only
+// varp is never sent: the client has 2181 varps.
+// 321
+[tbwt_tiadeche]
+scope=perm
+
+// 322
+[tbwt_lubufu]
+transmit=yes
+scope=perm
+
+// 323
+[tbwt_tamayu]
+scope=perm
+
+// 324
+[varplayer_324]
+scope=perm
+
+// 325
+[varplayer_325]
+
+// 326
+[varplayer_326]
+
+// 327
+[varplayer_327]
+
+// 328
+[regicide_quest]
+transmit=yes
+scope=perm
+
+// 329
+[regicide_bits]
+scope=perm
+
+// 330
+[regicide_still_total]
+transmit=yes
+protect=no
+
+// 331
+[regicide_still_settings]
+transmit=yes
+protect=no
+
+// 332
+[varplayer_332]
+
+// 333
+[skill_guide_skill]
+type=stat
+scope=temp
+protect=no
+
+// 334
+[varplayer_334]
+
+// 335
+[eadgar_quest]
+transmit=yes
+scope=perm
+
+// 336
+[eadgar_bits]
+scope=perm
+
+// 337
+[eadgar_grain]
+scope=perm
+
+// 338
+[eadgar_chickens]
+scope=perm
+
+// 339
+[morttonquest]
+transmit=yes
+scope=perm
+protect=no
+
+// 340
+[morttonmulti]
+scope=perm
+protect=no
+
+// 341
+[mortton_current_shade]
+protect=no
+type=obj
+
+// 342
+[temple_sanctity]
+protect=no
+
+// 343
+[temple_repaired_p]
+transmit=yes
+protect=no
+
+// 344
+[temple_resources_p]
+transmit=yes
+protect=no
+
+// 345
+[temple_sanctity_p]
+transmit=yes
+protect=no
+
+// 346
+[musicmulti_9]
+transmit=yes
+scope=perm
+protect=no
+
+// 347
+[viking]
+transmit=yes
+scope=perm
+
+// 348
+[viking_bits]
+scope=perm
+
+// 349
+[draugen_butterfly_uid]
+type=npc_uid
+
+// 350
+[godbook_multi]
+scope=perm
+
+// 351
+[deephorror]
+transmit=yes
+scope=perm
+
+// 352
+[varplayer_352]
+
+// 353
+[boardgames_runelink_rank]
+transmit=yes
+
+// 354
+[boardgames_draughts_rank]
+transmit=yes
+
+// 355
+[boardgames_varbit]
+transmit=yes
+
+// 356
+[boardgames_varbit2]
+transmit=yes
+
+// 357
+[varplayer_357]
+
+// 358
+[varplayer_358]
+
+// 359
+[misc_quest]
+transmit=yes
+
+// 360
+[varplayer_360]
+
+// 361
+[misc_varbit_1]
+
+// 362
+[misc_varbit_2]
+transmit=yes
+
+// 363
+[misc_varbit_3]
+transmit=yes
+
+// 364
+[varplayer_364]
+
+// 365
+[mm_main]
+transmit=yes
+
+// 366
+[varplayer_366]
+
+// 367
+[varplayer_367]
+
+// 368
+[varplayer_368]
+
+// 369
+[varplayer_369]
+
+// 370
+[varplayer_370]
+
+// 371
+[varplayer_371]
+
+// 372
+[mm_gnomes]
+
+// 373
+[varplayer_373]
+
+// 374
+[varplayer_374]
+
+// 375
+[armourhitsound]
+protect=no
+type=synth
+
+// 376
+[varplayer_376]
+
+// 377
+[castlewars_zamorak]
+transmit=yes
+
+// 378
+[castlewars_saradomin]
+transmit=yes
+
+// 379
+[castlewars_main]
+transmit=yes
+
+// 380
+[castlewars_timer]
+transmit=yes
+
+// 381
+[varplayer_381]
+
+// 382
+[hauntedmine]
+transmit=yes
+
+// 383
+[hauntedmine_bits]
+transmit=yes
+
+// 384
+[varplayer_384]
+
+// 385
+[troll_love]
+transmit=yes
+
+// 386
+[varplayer_386]
+
+// 387
+[routequest]
+transmit=yes
+
+// 388
+[routequestmulti]
+
+// 389
+[varplayer_389]
+
+// 390
+[varplayer_390]
+
+// 391
+[trawler_water_overlay]
+transmit=yes
+
+// 392
+[varplayer_392]
+
+// 393
+[karam_dungeon_varbit]
+
+// 394
+[slayer_count]
+transmit=yes
+
+// 395
+[varplayer_395]
+
+// 396
+[waa_varbits]
+
+// 397
+[display_mode]
+transmit=no
+scope=temp
+protect=no
+
+// 398
+[vampire_count_slain]
+scope=perm
+
+// 399
+[fenk_quest]
+transmit=yes
+
+// 400
+[fenk_flags]
+transmit=yes
+
+// 401
+[demon_slayer_bones]
+scope=perm
+
+// 402
+[varplayer_402]
+transmit=yes
+
+// 403
+[roving_elves_bits]
+
+// 404
+[random_event_gift_event]
+scope=perm
+
+// 405
+[macro_mime_costume_points]
+scope=perm
+
+// 406
+[tutorial_progress_overlay]
+transmit=yes
+
+// 407
+[cookquest_milk]
+scope=perm
+
+// 408
+[ahoy_varbits_1]
+transmit=yes
+
+// 409
+[cookquest_flour]
+scope=perm
+
+// 410
+[cookquest_egg]
+scope=perm
+
+// 411
+[cookquest_millie]
+scope=perm
+
+// 412
+[tbwt_bits]
+scope=perm
+
+// 413
+[smithing_bar]
+scope=temp
+type=obj
+
+// 414
+[musicmulti_10]
+transmit=yes
+scope=perm
+protect=no
+
+// 415
+[varplayer_415]
+scope=temp
+protect=no
+
+// 416
+[varplayer_416]
+transmit=yes
+
+// 417
+[onesmallfavourmulti]
+
+// 418
+[skill_creation_saved]
+scope=perm
+protect=no
+
+// 419
+[varplayer_419]
+scope=perm
+
+// 420
+[the_thing_interacted]
+scope=perm
+
+// 421
+[priestperil_mausoleum]
+scope=perm
+
+// 422
+[varplayer_422]
+
+// 423
+[mdaughter_var]
+transmit=yes
+
+// 424
+[varplayer_424]
+
+// 425
+[goblin_caves]
+transmit=yes
+
+// 426
+[varplayer_426]
+
+// 427
+[varplayer_427]
+transmit=yes
+
+// 428
+[varplayer_428]
+
+// 429
+[varplayer_429]
+
+// 430
+[varplayer_430]
+
+// 431
+[varplayer_431]
+
+// 432
+[varplayer_432]
+
+// 433
+[dwarfrock_main]
+transmit=yes
+
+// 434
+[varplayer_434]
+
+// 435
+[main_feud_var]
+transmit=yes
+
+// 436
+[feud_var_multi]
+
+// 437
+[golem_quest]
+transmit=yes
+
+// 438
+[varplayer_438]
+
+// 439
+[alternate_spells]
+transmit=yes
+
+// 440
+[deserttreasuremain]
+transmit=yes
+
+// 441
+[deserttreasurevarbit]
+
+// 442
+[deserttreasurevarbit2]
+
+// 443
+[ics_little_multi]
+
+// 444
+[varplayer_444]
+
+// 445
+[main_ics_var]
+transmit=yes
+
+// 446
+[ics_little_multi_extra]
+
+// 447
+[varplayer_447]
+
+// 448
+[follower_obj]
+transmit=yes
+
+// 449
+[tog_minigame]
+transmit=yes
+
+// 450
+[tog_xp_before_return]
+transmit=yes
+
+// 451
+[varplayer_451]
+transmit=yes
+
+// 452
+[barrows]
+
+// 453
+[barrows_kills]
+transmit=yes
+
+// 454
+[varplayer_454]
+
+// 455
+[zombie_ogre]
+transmit=yes
+
+// 456
+[varplayer_456]
+transmit=yes
+
+// 457
+[varplayer_457]
+
+// 458
+[varplayer_458]
+
+// 459
+[varplayer_459]
+
+// 460
+[varplayer_460]
+
+// 461
+[varplayer_461]
+
+// 462
+[varplayer_462]
+
+// 463
+[lastdegrade]
+transmit=yes
+// 2011's world map key (interface_worldmap): varbit 5367 its order, 6174-6177
+// its four Hide/Show options. Its buttons run unprotected (on 755, the map
+// itself), so protect=no. Not saved, as cache 786 has it: no dated recording
+// or Jagex page shows the key's settings outliving a logout (void-634 saves
+// them).
+protect=no
+
+// 464
+[musicmulti_11]
+transmit=yes
+scope=perm
+protect=no
+
+// 465
+[lost_tribe]
+transmit=yes
+
+// 466
+[cutscene_var]
+transmit=yes
+
+// 467
+[varplayer_467]
+
+// 468
+[varplayer_468]
+
+// 469
+[varplayer_469]
+
+// 470
+[keldagrim_temp_var]
+
+// 471
+[varplayer_471]
+
+// 472
+[varplayer_472]
+
+// 473
+[varplayer_473]
+
+// 474
+[varplayer_474]
+
+// 475
+[varplayer_475]
+
+// 476
+[varplayer_476]
+
+// 477
+[varplayer_477]
+
+// 478
+[varplayer_478]
+
+// 479
+[varplayer_479]
+
+// 480
+[varplayer_480]
+
+// 481
+[varplayer_481]
+
+// 482
+[giantdwarf_main]
+transmit=yes
+
+// 483
+[varplayer_483]
+
+// 484
+[varplayer_484]
+
+// 485
+[varplayer_485]
+
+// 486
+[abyssal_pouches1]
+
+// 487
+[varplayer_487]
+
+// 488
+[varplayer_488]
+
+// 489
+[varplayer_489]
+
+// 490
+[varplayer_490]
+
+// 491
+[abyssal_warp]
+
+// 492
+[varplayer_492]
+transmit=yes
+
+// 493
+[roguesden_puzzle]
+
+// 494
+[varplayer_494]
+
+// 495
+[varplayer_495]
+
+// 496
+[recruitmentdrive]
+transmit=yes
+
+// 497
+[rd_rooms_tempvar]
+
+// 498
+[rd_rooms_tempvar2]
+
+// 499
+[magic_carpet_var]
+
+// 500
+[varplayer_500]
+
+// 501
+[varplayer_501]
+
+// 502
+[farming_varp_1]
+
+// 503
+[farming_varp_2]
+
+// 504
+[farming_varp_3]
+
+// 505
+[farming_varp_4]
+
+// 506
+[farming_varp_5]
+
+// 507
+[farming_varp_6]
+transmit=yes
+
+// 508
+[farming_varp_7]
+
+// 509
+[farming_varp_8]
+
+// 510
+[farming_varp_9]
+
+// 511
+[varplayer_511]
+
+// 512
+[farming_varp_11]
+
+// 513
+[varplayer_513]
+
+// 514
+[varplayer_514]
+
+// 515
+[farming_varp_14]
+
+// 516
+[varplayer_516]
+
+// 517
+[varplayer_517]
+transmit=yes
+
+// 518
+[mourning_quest_bits]
+transmit=yes
+
+// 519
+[varplayer_519]
+
+// 520
+[dagganoth_area_project]
+
+// 521
+[forget_main_var]
+transmit=yes
+
+// 522
+[varplayer_522]
+
+// 523
+[varplayer_523]
+
+// 524
+[forget_puzzle_var]
+transmit=yes
+
+// 525
+[forget_puzzle_var2]
+transmit=yes
+
+// 526
+[varplayer_526]
+
+// 527
+[varplayer_527]
+
+// 528
+[varplayer_528]
+
+// 529
+[varplayer_529]
+
+// 530
+[varplayer_530]
+
+// 531
+[macro_transmit]
+transmit=yes
+scope=perm
+
+// 532
+[shop_currency]
+transmit=yes
+type=obj
+scope=temp
+
+// 533
+[tai_bwo_cleanup]
+transmit=yes
+
+// 534
+[tai_bwo_villagerchat]
+
+// 535
+[tbw_cleanup_temp]
+transmit=yes
+
+// 536
+[varplayer_536]
+
+// 537
+[varplayer_537]
+
+// 538
+[varplayer_538]
+
+// 539
+[varplayer_539]
+
+// 540
+[roguetrader_var]
+
+// 541
+[varplayer_541]
+
+// 542
+[varplayer_542]
+
+// 543
+[blast_furnace_readings]
+transmit=yes
+
+// 544
+[varplayer_544]
+
+// 545
+[blast_furnace_1]
+transmit=yes
+
+// 546
+[blast_furnace_2]
+transmit=yes
+
+// 547
+[blast_furnace_3]
+transmit=yes
+
+// 548
+[blast_furnace_4]
+
+// 549
+[blast_furnace_5]
+transmit=yes
+
+// 550
+[varplayer_550]
+
+// 551
+[varplayer_551]
+
+// 552
+[varplayer_552]
+
+// 553
+[garden_varp_1]
+transmit=yes
+
+// 554
+[garden_varp_2]
+
+// 555
+[varplayer_555]
+
+// 556
+[varplayer_556]
+
+// 557
+[varplayer_557]
+
+// 558
+[varplayer_558]
+
+// 559
+[varplayer_559]
+
+// 560
+[tzhaar_fightpit_remaining]
+transmit=yes
+
+// 561
+[varplayer_561]
+
+// 562
+[varplayer_562]
+
+// 563
+[bankpin_2]
+transmit=yes
+
+// 564
+[varplayer_564]
+
+// 565
+[varplayer_565]
+
+// 566
+[varplayer_566]
+
+// 567
+[varplayer_567]
+
+// 568
+[twocats_varbit]
+transmit=yes
+
+// 569
+[cat_name]
+transmit=yes
+
+// 570
+[varplayer_570]
+
+// 571
+[quest_wanted]
+transmit=yes
+
+// 572
+[quest_wanted2]
+
+// 573
+[varplayer_573]
+
+// 574
+[mourning_quest_part2]
+transmit=yes
+
+// 575
+[varplayer_575]
+
+// 576
+[varplayer_576]
+
+// 577
+[varplayer_577]
+
+// 578
+[varplayer_578]
+
+// 579
+[mourning_quest_light_doors]
+
+// 580
+[mourning_quest_beams1]
+
+// 581
+[mourning_quest_beams2]
+
+// 582
+[mourning_quest_beams3]
+
+// 583
+[mourning_quest_beams4]
+
+// 584
+[mourning_quest_beams5]
+
+// 585
+[mourning_quest_beams6]
+
+// 586
+[mourning_quest_vert_beams1]
+
+// 587
+[mourning_quest_vert_beams2]
+
+// 588
+[mourning_quest_vert_beams3]
+
+// 589
+[mourning_quest_vert_beams4]
+
+// 590
+[mourning_quest_vert_beams5]
+
+// 591
+[mourning_quest_beam_cross1]
+
+// 592
+[mourning_quest_beam_cross2]
+
+// 593
+[varplayer_593]
+
+// 594
+[mourning_part2_basevar2]
+
+// 595
+[varplayer_595]
+
+// 596
+[varplayer_596]
+
+// 597
+[rimmington_extras_var]
+
+// 598
+[musicmulti_12]
+transmit=yes
+scope=perm
+protect=no
+
+// 599
+[desert]
+
+// 600
+[varplayer_600]
+transmit=yes
+
+// 601
+[deal_var]
+
+// 602
+[agrith_quest_varp]
+transmit=yes
+
+// 603
+[varplayer_603]
+
+// 604
+[makinghistory]
+transmit=yes
+
+// 605
+[varplayer_605]
+
+// 606
+[varplayer_606]
+
+// 607
+[main_ratcatch_var]
+transmit=yes
+
+// 608
+[varplayer_608]
+
+// 609
+[ratcatch_var_multi]
+
+// 610
+[ratcatch_var_temp1]
+
+// 611
+[ratcatch_var_temp2]
+
+// 612
+[varplayer_612]
+
+// 613
+[varplayer_613]
+
+// 614
+[varplayer_614]
+
+// 615
+[farming_tools]
+transmit=yes
+
+// 616
+[elid_main]
+transmit=yes
+
+// 617
+[champions_defeated]
+transmit=yes
+
+// 618
+[varplayer_618]
+
+// 619
+[varplayer_619]
+
+// 620
+[varplayer_620]
+transmit=yes
+
+// 621
+[varplayer_621]
+transmit=yes
+
+// 622
+[devious_base]
+transmit=yes
+
+// 623
+[win05_var]
+
+// 624
+[magictraining]
+transmit=yes
+
+// 625
+[magictraining2]
+transmit=yes
+
+// 626
+[varplayer_626]
+
+// 627
+[varplayer_627]
+
+// 628
+[magictraining5]
+
+// 629
+[magictraining6]
+
+// 630
+[varplayer_630]
+
+// 631
+[varplayer_631]
+
+// 632
+[varplayer_632]
+
+// 633
+[varplayer_633]
+
+// 634
+[varplayer_634]
+
+// 635
+[handsand]
+transmit=yes
+
+// 636
+[handsand_transmit]
+
+// 637
+[varplayer_637]
+
+// 638
+[swansong_temp]
+transmit=yes
+
+// 639
+[varplayer_639]
+transmit=yes
+
+// 640
+[agility_pyramid]
+
+// 641
+[enakh_quest_expositbits]
+transmit=yes
+
+// 642
+[enakh_multivarbits]
+
+// 643
+[enakh_varbits]
+
+// 644
+[boardgames_runesquares_va]
+transmit=yes
+
+// 645
+[boardgames_runesquares_vb]
+transmit=yes
+
+// 646
+[boardgames_runesquares_ha]
+transmit=yes
+
+// 647
+[boardgames_runesquares_hb]
+transmit=yes
+
+// 648
+[boardgames_runesquares_rank]
+transmit=yes
+
+// 649
+[boardgames_runeversi_rank]
+transmit=yes
+
+// 650
+[varplayer_650]
+
+// 651
+[varplayer_651]
+
+// 652
+[varplayer_652]
+
+// 653
+[varplayer_653]
+
+// 654
+[varplayer_654]
+
+// 655
+[varplayer_655]
+transmit=yes
+
+// 656
+[fever_cannon_var]
+
+// 657
+[fever_extra_var]
+
+// 658
+[fever_storage_var]
+
+// 659
+[varplayer_659]
+
+// 660
+[varplayer_660]
+
+// 661
+[slayer_killerwatt_var]
+
+// 662
+[musicmulti_13]
+transmit=yes
+scope=perm
+protect=no
+
+// 663
+[varplayer_663]
+
+// 664
+[varplayer_664]
+
+// 665
+[ogre_area_extra]
+
+// 666
+[varplayer_666]
+
+// 667
+[elenaquest_extra_bits]
+
+// 668
+[ernestdoors]
+scope=perm
+transmit=yes
+
+// 289's, on its id, 34, which cache 786 neither transmits nor reads.
+// 669
+[varplayer_669]
+
+// 670
+[varplayer_670]
+
+// 671
+[fairytale_multi]
+transmit=yes
+
+// 672
+[varplayer_672]
+
+// 673
+[romeo_juliet_multi]
+
+// 674
+[canoeing_river_lum]
+
+// 675
+[canoeing_menu]
+
+// 676
+[varplayer_676]
+
+// 677
+[varplayer_677]
+
+// 678
+[varplayer_678]
+transmit=yes
+
+// 679
+[varplayer_679]
+transmit=yes
+
+// 680
+[hundred_dave]
+transmit=yes
+
+// 681
+[hundred_dwarf]
+transmit=yes
+
+// 682
+[varplayer_682]
+
+// 683
+[varplayer_683]
+transmit=yes
+
+// 684
+[varplayer_684]
+transmit=yes
+
+// 685
+[hundred_ilm_var_1]
+transmit=yes
+
+// 686
+[varplayer_686]
+
+// 687
+[varplayer_687]
+
+// 688
+[varplayer_688]
+
+// 689
+[varplayer_689]
+
+// 690
+[varplayer_690]
+
+// 691
+[varplayer_691]
+
+// 692
+[varplayer_692]
+
+// 693
+[varplayer_693]
+
+// 694
+[varplayer_694]
+
+// 695
+[millcheck_multi]
+scope=perm
+transmit=yes
+
+// 696
+[macro_digger_var]
+
+// 697
+[macro_digger_var_2]
+
+// 698
+[macro_digger_var_3]
+
+// 699
+[macro_digger_var_4]
+
+// 700
+[templetrek_main_var]
+transmit=yes
+
+// 701
+[varplayer_701]
+
+// 702
+[varplayer_702]
+
+// 703
+[varplayer_703]
+
+// 704
+[myreque_2_main_var]
+
+// 705
+[myreque2_multivar]
+transmit=yes
+
+// 706
+[varplayer_706]
+
+// 707
+[varplayer_707]
+
+// 708
+[varplayer_708]
+
+// 709
+[soulbane]
+transmit=yes
+
+// 710
+[soulbane2]
+
+// 711
+[soulbane_unprotected]
+
+// 712
+[soulbane_unprotected2]
+
+// 713
+[varplayer_713]
+
+// 714
+[rag_quest]
+transmit=yes
+
+// 715
+[varplayer_715]
+
+// 716
+[rag_bone_2]
+
+// 717
+[varplayer_717]
+
+// 718
+[varplayer_718]
+
+// 719
+[varplayer_719]
+transmit=yes
+
+// 720
+[abyssal_pouches2]
+
+// 721
+[musicmulti_14]
+transmit=yes
+scope=perm
+protect=no
+
+// 722
+[varplayer_722]
+
+// 723
+[swansong_quest]
+transmit=yes
+
+// 724
+[varplayer_724]
+
+// 725
+[varplayer_725]
+
+// 726
+[varplayer_726]
+
+// 727
+[macro_pinball_var]
+transmit=yes
+
+// 728
+[restless_ghost_control]
+scope=perm
+transmit=yes
+
+// 729
+[misc_varbit_4]
+transmit=yes
+
+// 730
+[royal_questvarbits]
+transmit=yes
+
+// 731
+[royal_varbits]
+
+// 732
+[varplayer_732]
+
+// 733
+[varplayer_733]
+
+// 734
+[varplayer_734]
+
+// 735
+[varplayer_735]
+
+// 736
+[varplayer_736]
+
+// 737
+[varplayer_737]
+
+// 738
+[poh_house_data]
+transmit=yes
+
+// 739
+[varplayer_739]
+
+// 740
+[varplayer_740]
+transmit=yes
+
+// 741
+[varplayer_741]
+
+// 742
+[varplayer_742]
+
+// 743
+[varplayer_743]
+
+// 744
+[varplayer_744]
+
+// 745
+[varplayer_745]
+
+// 746
+[varplayer_746]
+
+// 747
+[varplayer_747]
+
+// 748
+[varplayer_748]
+
+// 749
+[varplayer_749]
+
+// 750
+[varplayer_750]
+
+// 751
+[varplayer_751]
+
+// 752
+[varplayer_752]
+
+// 753
+[varplayer_753]
+
+// 754
+[varplayer_754]
+
+// 755
+[varplayer_755]
+
+// 756
+[varplayer_756]
+
+// 757
+[varplayer_757]
+
+// 758
+[varplayer_758]
+
+// 759
+[varplayer_759]
+
+// 760
+[varplayer_760]
+
+// 761
+[varplayer_761]
+
+// 762
+[varplayer_762]
+
+// 763
+[varplayer_763]
+
+// 764
+[varplayer_764]
+
+// 765
+[varplayer_765]
+
+// 766
+[varplayer_766]
+
+// 767
+[varplayer_767]
+
+// 768
+[varplayer_768]
+
+// 769
+[varplayer_769]
+
+// 770
+[varplayer_770]
+
+// 771
+[varplayer_771]
+
+// 772
+[varplayer_772]
+
+// 773
+[varplayer_773]
+
+// 774
+[varplayer_774]
+
+// 775
+[varplayer_775]
+
+// 776
+[varplayer_776]
+
+// 777
+[varplayer_777]
+
+// 778
+[varplayer_778]
+
+// 779
+[varplayer_779]
+
+// 780
+[varplayer_780]
+
+// 781
+[varplayer_781]
+
+// 782
+[varplayer_782]
+
+// 783
+[varplayer_783]
+
+// 784
+[varplayer_784]
+
+// 785
+[varplayer_785]
+
+// 786
+[varplayer_786]
+
+// 787
+[warguild_tokens]
+transmit=yes
+
+// 788
+[warguild_games]
+transmit=yes
+
+// 789
+[varplayer_789]
+
+// 790
+[varplayer_790]
+
+// 791
+[varplayer_791]
+transmit=yes
+
+// 792
+[varplayer_792]
+
+// 793
+[war_strength_kegs]
+transmit=yes
+
+// 794
+[dttd_base]
+transmit=yes
+
+// 795
+[varplayer_795]
+
+// 796
+[varplayer_796]
+
+// 797
+[dttd_temp]
+
+// 798
+[brew_var_1]
+
+// 799
+[brew_var_2]
+
+// 800
+[brew_var_3]
+
+// 801
+[varplayer_801]
+
+// 802
+[sos_emote]
+transmit=yes
+
+// 803
+[varplayer_803]
+
+// 804
+[varplayer_804]
+
+// 805
+[macro_bee_pos_1]
+transmit=yes
+
+// 806
+[macro_bee_pos_2]
+
+// 807
+[macro_bee_pos_3]
+transmit=yes
+
+// 808
+[varplayer_808]
+
+// 809
+[varplayer_809]
+transmit=yes
+
+// 810
+[queencure_multi]
+transmit=yes
+
+// 811
+[varplayer_811]
+
+// 812
+[varplayer_812]
+
+// 813
+[varplayer_813]
+
+// 814
+[varplayer_814]
+
+// 815
+[varplayer_815]
+
+// 816
+[fairyrings_multi]
+transmit=yes
+
+// 817
+[varplayer_817]
+
+// 818
+[varplayer_818]
+
+// 819
+[varplayer_819]
+
+// 820
+[ntk_urn]
+
+// 821
+[ntk_var2]
+transmit=yes
+
+// 822
+[ntk_var_temp]
+transmit=yes
+
+// 823
+[lunar_quest]
+transmit=yes
+
+// 824
+[lunar_quest1]
+
+// 825
+[lunar_quest2]
+
+// 826
+[lunar_quest3]
+
+// 827
+[lunar_quest4]
+
+// 828
+[lunar_quest5]
+
+// 829
+[varplayer_829]
+
+// 830
+[farming_varp_16]
+
+// 831
+[varplayer_831]
+
+// 832
+[varplayer_832]
+
+// 833
+[varplayer_833]
+
+// 834
+[xbows_pouch1]
+transmit=yes
+
+// 835
+[xbows_pouch2]
+transmit=yes
+
+// 836
+[varplayer_836]
+
+// 837
+[aluft_minigame]
+
+// 838
+[varplayer_838]
+
+// 839
+[varplayer_839]
+
+// 840
+[aluft_temp]
+
+// 841
+[varplayer_841]
+
+// 842
+[spy_cauldron]
+
+// 843
+[varplayer_843]
+
+// 844
+[eyeglo_var1]
+transmit=yes
+
+// 845
+[eyeglo_var2]
+transmit=yes
+
+// 846
+[varplayer_846]
+
+// 847
+[varplayer_847]
+
+// 848
+[eyeglo_temp3]
+transmit=yes
+
+// 849
+[eyeglo_unlock_a]
+
+// 850
+[eyeglo_operate1_a]
+transmit=yes
+
+// 851
+[eyeglo_operate2_a]
+transmit=yes
+
+// 852
+[eyeglo_operate2_b]
+transmit=yes
+
+// 853
+[eyeglo_operate3_a]
+transmit=yes
+
+// 854
+[eyeglo_operate3_b]
+transmit=yes
+
+// 855
+[eyeglo_operate3_c]
+transmit=yes
+
+// 856
+[eyeglo_coin_selected]
+transmit=yes
+
+// 857
+[varplayer_857]
+
+// 858
+[varplayer_858]
+
+// 859
+[varplayer_859]
+
+// 860
+[varplayer_860]
+
+// 861
+[varplayer_861]
+
+// 862
+[varplayer_862]
+
+// 863
+[varplayer_863]
+
+// 864
+[varplayer_864]
+
+// 865
+[varplayer_865]
+
+// 866
+[varplayer_866]
+
+// 867
+[varplayer_867]
+
+// 868
+[varplayer_868]
+
+// 869
+[myreque_3_main_var]
+transmit=yes
+
+// 870
+[myreque3_multivar]
+
+// 871
+[varplayer_871]
+
+// 872
+[option_areasounds]
+clientcode=10
+
+// 873
+[varplayer_873]
+
+// 874
+[quest_slug2]
+transmit=yes
+
+// 875
+[varplayer_875]
+
+// 876
+[varplayer_876]
+
+// 877
+[varplayer_877]
+
+// 878
+[varplayer_878]
+
+// 879
+[varplayer_879]
+
+// 880
+[varplayer_880]
+
+// 881
+[varplayer_881]
+
+// 882
+[varplayer_882]
+
+// 883
+[varplayer_883]
+
+// 884
+[varplayer_884]
+
+// 885
+[varplayer_885]
+
+// 886
+[varplayer_886]
+
+// 887
+[varplayer_887]
+
+// 888
+[varplayer_888]
+
+// 889
+[varplayer_889]
+
+// 890
+[varplayer_890]
+
+// 891
+[varplayer_891]
+
+// 892
+[varplayer_892]
+
+// 893
+[varplayer_893]
+
+// 894
+[varplayer_894]
+
+// 895
+[varplayer_895]
+
+// 896
+[elemental_quest_2_bits]
+transmit=yes
+
+// 897
+[elemental_quest_2_bits_2]
+
+// 898
+[elemental_quest_2_temp]
+transmit=yes
+
+// 899
+[varplayer_899]
+
+// 900
+[varplayer_900]
+transmit=yes
+
+// 901
+[varplayer_901]
+
+// 902
+[varplayer_902]
+
+// 903
+[varplayer_903]
+transmit=yes
+
+// 904
+[qp_total]
+transmit=yes
+
+// 905
+[myarm_quest]
+transmit=yes
+
+// 906
+[musicmulti_15]
+transmit=yes
+scope=perm
+protect=no
+
+// 907
+[tourtrap_qip_var]
+
+// 908
+[varplayer_908]
+
+// 909
+[varplayer_909]
+
+// 910
+[varplayer_910]
+
+// 911
+[hw06_ghosts_var_2]
+
+// 912
+[zep_var]
+transmit=yes
+
+// 913
+[zep_if_var]
+transmit=yes
+
+// 914
+[varplayer_914]
+
+// 915
+[varplayer_915]
+
+// 916
+[varplayer_916]
+
+// 917
+[hunt_pitfall_states_basevar1]
+
+// 918
+[hunt_pitfall_states_basevar2]
+
+// 919
+[hunting_trail_basevar1]
+
+// 920
+[hunting_trail_basevar2]
+
+// 921
+[hunting_trail_basevar3]
+
+// 922
+[hunting_trail_basevar4]
+
+// 923
+[hunting_trail_basevar5]
+
+// 924
+[hunting_trail_basevar6]
+
+// 925
+[hunting_trail_basevar7]
+
+// 926
+[hunting_trail_basevar8]
+
+// 927
+[varplayer_927]
+
+// 928
+[varplayer_928]
+
+// 929
+[varplayer_929]
+
+// 930
+[varplayer_930]
+
+// 931
+[varplayer_931]
+
+// 932
+[varplayer_932]
+
+// 933
+[varplayer_933]
+
+// 934
+[eaglepeak]
+transmit=yes
+
+// 935
+[eaglepeak2]
+
+// 936
+[watchtower_rework_var]
+
+// 937
+[varplayer_937]
+
+// 938
+[varplayer_938]
+
+// 939
+[anma_base_1]
+transmit=yes
+
+// 940
+[varplayer_940]
+
+// 941
+[holiday_event_var_1]
+
+// 942
+[gublinch_event]
+
+// 943
+[varplayer_943]
+
+// 944
+[varplayer_944]
+
+// 945
+[varplayer_945]
+transmit=yes
+
+// 946
+[barbarianassault4]
+transmit=yes
+
+// 947
+[barbarianassault5]
+transmit=yes
+
+// 948
+[barbarianassault6]
+transmit=yes
+
+// 949
+[barbarianassault7]
+
+// 950
+[varplayer_950]
+
+// 951
+[varplayer_951]
+
+// 952
+[varplayer_952]
+
+// 953
+[varplayer_953]
+
+// 954
+[varplayer_954]
+
+// 955
+[varplayer_955]
+
+// 956
+[varplayer_956]
+
+// 957
+[varplayer_957]
+
+// 958
+[varplayer_958]
+
+// 959
+[varplayer_959]
+
+// 960
+[varplayer_960]
+
+// 961
+[varplayer_961]
+
+// 962
+[varplayer_962]
+
+// 963
+[varplayer_963]
+
+// 964
+[contact_master]
+transmit=yes
+
+// 965
+[skill_guide_v2]
+transmit=yes
+protect=no
+
+// 966
+[varplayer_966]
+
+// 967
+[varplayer_967]
+
+// 968
+[peng_var]
+transmit=yes
+
+// 969
+[peng_var2]
+
+// 970
+[fris_r1]
+transmit=yes
+
+// 971
+[fris_r2]
+
+// 972
+[varplayer_972]
+
+// 973
+[varplayer_973]
+
+// 974
+[osman_var]
+
+// 975
+[varplayer_975]
+
+// 976
+[shadow_maj]
+
+// 977
+[tol_main]
+transmit=yes
+
+// 978
+[tol_main2]
+
+// 979
+[varplayer_979]
+
+// 980
+[brain_quest_var]
+transmit=yes
+
+// 981
+[brain_extra_var]
+
+// 982
+[brain_extra_var_2]
+
+// 983
+[ramble_main_var]
+
+// 984
+[follower_food_track_1]
+transmit=yes
+
+// 985
+[follower_food_track_2]
+transmit=yes
+
+// 986
+[follower_food_track_3]
+transmit=yes
+
+// 987
+[dorgesh_kaan_1]
+
+// 988
+[dorgesh_kaan_2]
+
+// 989
+[varplayer_989]
+
+// 990
+[dorgesh_light_bulbs_base_1]
+
+// 991
+[dorgesh_light_bulbs_base_2]
+
+// 992
+[surok_main]
+transmit=yes
+
+// 993
+[varplayer_993]
+
+// 994
+[olaf_var]
+transmit=yes
+
+// 995
+[olaf_extra_var]
+
+// 996
+[olaf2_extra_var]
+
+// 997
+[slice_base]
+transmit=yes
+
+// 998
+[varplayer_998]
+
+// 999
+[varplayer_999]
+
+// 1000
+[atjun_tasks_1]
+transmit=yes
+
+// 1001
+[atjun_tasks_2]
+transmit=yes
+
+// 1002
+[atjun_tasks_3]
+transmit=yes
+
+// 1003
+[dream_main]
+transmit=yes
+
+// 1004
+[dream_main2]
+
+// 1005
+[dream_main3]
+
+// 1006
+[varplayer_1006]
+
+// 1007
+[varplayer_1007]
+
+// 1008
+[varplayer_1008]
+
+// 1009
+[musicmulti_16]
+transmit=yes
+scope=perm
+protect=no
+
+// 1010
+[vm]
+transmit=yes
+
+// 1011
+[vm_displays]
+transmit=yes
+
+// 1012
+[varplayer_1012]
+
+// 1013
+[varplayer_1013]
+
+// 1014
+[varplayer_1014]
+
+// 1015
+[varplayer_1015]
+
+// 1016
+[grim_main]
+transmit=yes
+
+// 1017
+[grim_second]
+
+// 1018
+[ii_player]
+transmit=yes
+
+// 1019
+[varplayer_1019]
+
+// 1020
+[varplayer_1020]
+
+// 1021
+[varplayer_1021]
+transmit=yes
+
+// 1022
+[varplayer_1022]
+
+// 1023
+[brut_base_1]
+transmit=yes
+
+// 1024
+[varplayer_1024]
+
+// 1025
+[varplayer_1025]
+
+// 1026
+[varplayer_1026]
+
+// 1027
+[varplayer_1027]
+
+// 1028
+[varplayer_1028]
+
+// 1029
+[varplayer_1029]
+
+// 1030
+[varplayer_1030]
+
+// 1031
+[varplayer_1031]
+
+// 1032
+[varplayer_1032]
+
+// 1033
+[varplayer_1033]
+
+// 1034
+[varplayer_1034]
+
+// 1035
+[varplayer_1035]
+
+// 1036
+[varplayer_1036]
+
+// 1037
+[pattern_varp]
+transmit=yes
+
+// 1038
+[varplayer_1038]
+
+// 1039
+[varplayer_1039]
+
+// 1040
+[varplayer_1040]
+
+// 1041
+[varplayer_1041]
+
+// 1042
+[traderemoved]
+transmit=yes
+protect=no
+
+// 1043
+[traderemoved_other]
+transmit=yes
+protect=no
+
+// 1044
+[pest2]
+
+// 1045
+[cws_var]
+transmit=yes
+
+// 1046
+[cws_var_2]
+transmit=yes
+
+// 1047
+[cws_var_3]
+transmit=yes
+
+// 1048
+[godwars]
+transmit=yes
+
+// 1049
+[kr_varp1]
+transmit=yes
+
+// 1050
+[kr_varp2]
+transmit=yes
+
+// 1051
+[kr_varp3]
+transmit=yes
+
+// 1052
+[varplayer_1052]
+
+// 1053
+[varplayer_1053]
+
+// 1054
+[varplayer_1054]
+transmit=yes
+
+// 1055
+[varplayer_1055]
+transmit=yes
+
+// 1056
+[varplayer_1056]
+transmit=yes
+
+// 1057
+[gimp_temp_var]
+transmit=yes
+
+// 1058
+[varplayer_1058]
+transmit=yes
+
+// 1059
+[varplayer_1059]
+
+// 1060
+[varplayer_1060]
+
+// 1061
+[varplayer_1061]
+
+// 1062
+[varplayer_1062]
+
+// 1063
+[pog_var1]
+transmit=yes
+
+// 1064
+[pog_var2]
+
+// 1065
+[pog_coin_display1_obj]
+transmit=yes
+
+// 1066
+[pog_coin_display2_1_obj]
+transmit=yes
+
+// 1067
+[pog_coin_display2_2_obj]
+transmit=yes
+
+// 1068
+[pog_coin_target1_1_obj]
+transmit=yes
+
+// 1069
+[pog_coin_target1_2_obj]
+transmit=yes
+
+// 1070
+[pog_coin_target2_obj]
+transmit=yes
+
+// 1071
+[atvar_task1]
+transmit=yes
+
+// 1072
+[atvar_task2]
+transmit=yes
+
+// 1073
+[atvar_task3]
+transmit=yes
+
+// 1074
+[varplayer_1074]
+
+// 1075
+[varplayer_1075]
+
+// 1076
+[varplayer_1076]
+
+// 1077
+[roots]
+transmit=yes
+
+// 1078
+[varplayer_1078]
+
+// 1079
+[varplayer_1079]
+
+// 1080
+[varplayer_1080]
+
+// 1081
+[atvar_date_var]
+transmit=yes
+
+// 1082
+[varplayer_1082]
+
+// 1083
+[loot_var]
+transmit=yes
+
+// 1084
+[varplayer_1084]
+
+// 1085
+[hw07_main]
+transmit=yes
+
+// 1086
+[varplayer_1086]
+
+// 1087
+[assist_var]
+transmit=yes
+
+// 1088
+[assist_xp_cap_var]
+transmit=yes
+
+// 1089
+[varplayer_1089]
+
+// 1090
+[varplayer_1090]
+
+// 1091
+[varplayer_1091]
+
+// 1092
+[assist_stat_magic]
+transmit=yes
+
+// 1093
+[assist_stat_crafting]
+
+// 1094
+[lotg_base]
+transmit=yes
+
+// 1095
+[lotg_base_2]
+transmit=yes
+
+// 1096
+[varplayer_1096]
+
+// 1097
+[varplayer_1097]
+
+// 1098
+[varplayer_1098]
+
+// 1099
+[varplayer_1099]
+
+// 1100
+[varplayer_1100]
+
+// 1101
+[varplayer_1101]
+
+// 1102
+[varplayer_1102]
+
+// 1103
+[varplayer_1103]
+
+// 1104
+[musicmulti_17]
+transmit=yes
+scope=perm
+protect=no
+
+// 1105
+[varplayer_1105]
+transmit=yes
+
+// 1106
+[varplayer_1106]
+
+// 1107
+[varplayer_1107]
+
+// 1108
+[varplayer_1108]
+transmit=yes
+
+// 1109
+[varplayer_1109]
+transmit=yes
+
+// 1110
+[varplayer_1110]
+transmit=yes
+
+// 1111
+[varplayer_1111]
+transmit=yes
+
+// 1112
+[varplayer_1112]
+transmit=yes
+
+// 1113
+[varplayer_1113]
+transmit=yes
+
+// 1114
+[varplayer_1114]
+transmit=yes
+
+// 1117
+[varplayer_1117]
+
+// 1118
+[varplayer_1118]
+transmit=yes
+
+// 1119
+[varplayer_1119]
+
+// 1120
+[varplayer_1120]
+
+// 1121
+[varplayer_1121]
+
+// 1122
+[varplayer_1122]
+
+// 1123
+[varplayer_1123]
+
+// 1124
+[varplayer_1124]
+
+// 1125
+[varplayer_1125]
+
+// 1126
+[varplayer_1126]
+
+// 1127
+[varplayer_1127]
+
+// 1128
+[varplayer_1128]
+
+// 1129
+[varplayer_1129]
+
+// 1130
+[varplayer_1130]
+
+// 1131
+[varplayer_1131]
+
+// 1132
+[varplayer_1132]
+
+// 1133
+[varplayer_1133]
+
+// 1134
+[varplayer_1134]
+
+// 1135
+[varplayer_1135]
+
+// 1136
+[musicmulti_18]
+transmit=yes
+scope=perm
+protect=no
+
+// 1137
+[varplayer_1137]
+
+// 1138
+[varplayer_1138]
+
+// 1139
+[varplayer_1139]
+
+// 1140
+[varplayer_1140]
+
+// 1141
+[varplayer_1141]
+
+// 1142
+[varplayer_1142]
+
+// 1143
+[varplayer_1143]
+
+// 1144
+[varplayer_1144]
+
+// 1145
+[varplayer_1145]
+
+// 1146
+[gravestone]
+transmit=yes
+
+// 1147
+[clanwars]
+transmit=yes
+
+// 1148
+[varplayer_1148]
+
+// 1149
+[clanwars_challengeuid]
+transmit=yes
+
+// 1150
+[varplayer_1150]
+
+// 1151
+[varplayer_1151]
+
+// 1152
+[varplayer_1152]
+
+// 1153
+[varplayer_1153]
+
+// 1154
+[varplayer_1154]
+
+// 1155
+[varplayer_1155]
+
+// 1156
+[worldmap_lastclick]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// The world map's last press (CLICKWORLDMAP), for the double-click that sets the
+// marker (interface_worldmap).
+type=coord
+protect=no
+
+// 1157
+[worldmap_lastclick_clock]
+// Server-only, as 1156: the tick of the world map's last press.
+type=int
+protect=no
+
+// 1158
+[varplayer_1158]
+transmit=yes
+
+// 1159
+[playerdesign2_col]
+transmit=yes
+// 2011's world map marker, "Your marker" (interface_worldmap). Set and cleared
+// from the map's buttons and CLICKWORLDMAP, which run unprotected. Not saved,
+// as cache 786 has it: no dated recording or Jagex page shows a marker
+// outliving a logout (void-634 saves it).
+type=coord
+protect=no
+
+// 1160
+[lore_incubators_var]
+transmit=yes
+
+// 1161
+[scab_temp_1]
+transmit=yes
+
+// 1162
+[varplayer_1162]
+
+// 1163
+[scab_component_clicked]
+transmit=yes
+
+// 1164
+[scab_thief_clicked]
+transmit=yes
+
+// 1165
+[scab_1]
+transmit=yes
+
+// 1166
+[varplayer_1166]
+
+// 1167
+[varplayer_1167]
+
+// 1168
+[varplayer_1168]
+
+// 1169
+[varplayer_1169]
+
+// 1170
+[varplayer_1170]
+
+// 1171
+[lore_general_var_1]
+
+// 1172
+[varplayer_1172]
+
+// 1173
+[varplayer_1173]
+
+// 1174
+[lore_npc_head]
+transmit=yes
+
+// 1175
+[lore_npc_stats]
+transmit=yes
+
+// 1176
+[lore_timer_var]
+transmit=yes
+
+// 1177
+[lore_spell_points]
+transmit=yes
+
+// 1178
+[wolf_var]
+transmit=yes
+
+// 1179
+[skill_stat_flash]
+transmit=yes
+protect=no
+
+// 1180
+[musicmulti_19]
+transmit=yes
+scope=perm
+protect=no
+
+// 1181
+[dsd_main]
+transmit=yes
+
+// 1182
+[varplayer_1182]
+
+// 1183
+[farming_varp_17]
+
+// 1184
+[afr_base]
+transmit=yes
+
+// 1185
+[afr_extra]
+
+// 1186
+[varplayer_1186]
+
+// 1187
+[varplayer_1187]
+
+// 1188
+[varplayer_1188]
+
+// 1189
+[music_v3_temp]
+transmit=yes
+
+// 1190
+[catcon_1]
+transmit=yes
+
+// 1191
+[catcon_2]
+transmit=yes
+
+// 1192
+[catcon_3]
+transmit=yes
+
+// 1193
+[catcon_4]
+transmit=yes
+
+// 1194
+[varplayer_1194]
+
+// 1195
+[rabbit_main]
+transmit=yes
+
+// 1196
+[varplayer_1196]
+
+// 1197
+[varplayer_1197]
+
+// 1198
+[varplayer_1198]
+
+// 1199
+[varplayer_1199]
+transmit=yes
+
+// 1200
+[varplayer_1200]
+
+// 1201
+[easter08_shared2]
+transmit=yes
+
+// 1202
+[musicmulti_20]
+transmit=yes
+scope=perm
+protect=no
+
+// 1203
+[sops_integer1]
+
+// 1204
+[ken_var1]
+transmit=yes
+
+// 1205
+[easter08_shared1]
+transmit=yes
+
+// 1206
+[varplayer_1206]
+
+// 1207
+[varplayer_1207]
+
+// 1208
+[varplayer_1208]
+
+// 1209
+[varplayer_1209]
+transmit=yes
+
+// 1210
+[varplayer_1210]
+
+// 1211
+[varplayer_1211]
+
+// 1212
+[varplayer_1212]
+
+// 1213
+[varplayer_1213]
+
+// 1214
+[varplayer_1214]
+
+// 1215
+[hvh_temps_2]
+transmit=yes
+
+// 1216
+[varplayer_1216]
+
+// 1217
+[varplayer_1217]
+
+// 1218
+[myreque4_main_var]
+transmit=yes
+
+// 1219
+[myreque4_2nd_var]
+
+// 1220
+[varplayer_1220]
+
+// 1221
+[varplayer_1221]
+
+// 1222
+[varplayer_1222]
+
+// 1223
+[varplayer_1223]
+
+// 1224
+[varplayer_1224]
+
+// 1225
+[icemt_base]
+transmit=yes
+
+// 1226
+[varplayer_1226]
+
+// 1227
+[dillo_var1]
+transmit=yes
+
+// 1228
+[varplayer_1228]
+
+// 1229
+[varplayer_1229]
+
+// 1230
+[level_up_details]
+transmit=yes
+protect=no
+
+// 1231
+[gamearea_master]
+transmit=yes
+
+// 1232
+[smki_1]
+transmit=yes
+
+// 1233
+[varplayer_1233]
+
+// 1234
+[varplayer_1234]
+
+// 1235
+[varplayer_1235]
+
+// 1236
+[rocko_var_1]
+transmit=yes
+
+// 1237
+[rocko_var_2]
+
+// 1238
+[varplayer_1238]
+
+// 1239
+[rocko_harry_hand_varp]
+
+// 1240
+[varplayer_1240]
+transmit=yes
+scope=perm
+
+// 1241
+[fov_status]
+transmit=yes
+
+// 1242
+[varplayer_1242]
+transmit=yes
+
+// 1243
+[varplayer_1243]
+
+// 1244
+[zq_temp]
+
+// 1245
+[login_once_checks]
+
+// 1246
+[varplayer_1246]
+transmit=yes
+scope=perm
+
+// 1247
+[varplayer_1247]
+transmit=yes
+scope=perm
+
+// 1248
+[varplayer_1248]
+transmit=yes
+scope=perm
+
+// 1249
+[last_bank_amount]
+// 2011: the last amount entered for Withdraw-X or Deposit-X, which 2011's
+// client offers back as Withdraw-<n> (clientscript 1453 reads varp 1249;
+// void-634 last_bank_amount, kept across logins).
+scope=perm
+transmit=yes
+
+// 2011's bank tabs: how many items each of tabs 1-8 holds (varbits
+// 4885-4892, void-634 bank_tab_1..8, kept across logins) and the tab on view
+// (varbit 4893). The bank's items keep their tab order across logins, so the
+// counts must too.
+// 1250
+[varplayer_1250]
+
+// 1251
+[varplayer_1251]
+
+// 1252
+[varplayer_1252]
+
+// 1253
+[varplayer_1253]
+transmit=yes
+
+// 1254
+[tutorial2_tasks2]
+transmit=yes
+
+// 1255
+[tutorial2_tracking]
+transmit=yes
+scope=perm
+
+// 1256
+[varplayer_1256]
+transmit=yes
+
+// 1257
+[varplayer_1257]
+transmit=yes
+
+// 1258
+[varplayer_1258]
+transmit=yes
+
+// 1259
+[varplayer_1259]
+
+// 1260
+[varplayer_1260]
+
+// 1261
+[chathead_var]
+transmit=yes
+scope=perm
+
+// 1262
+[varplayer_1262]
+
+// 1263
+[varplayer_1263]
+
+// 1264
+[varplayer_1264]
+
+// 1265
+[varplayer_1265]
+
+// 1266
+[varplayer_1266]
+
+// 1267
+[varplayer_1267]
+transmit=yes
+
+// 1268
+[varplayer_1268]
+
+// 1269
+[varplayer_1269]
+
+// 1270
+[area_environment_varp_1]
+
+// 1271
+[sum1_var1]
+transmit=yes
+
+// 1272
+[sum1_var2]
+
+// 1273
+[varplayer_1273]
+
+// 1274
+[hist_main]
+transmit=yes
+
+// 1275
+[hist_main2]
+
+// 1276
+[rcguild_temp]
+transmit=yes
+
+// 1277
+[varplayer_1277]
+
+// 1278
+[varplayer_1278]
+transmit=yes
+
+// 1279
+[varplayer_1279]
+
+// 1280
+[varplayer_1280]
+
+// 1281
+[varplayer_1281]
+
+// 1282
+[firedup_1]
+transmit=yes
+
+// 1283
+[firedup_2]
+transmit=yes
+
+// 1284
+[varplayer_1284]
+
+// 1285
+[varplayer_1285]
+
+// 1286
+[varplayer_1286]
+
+// 1287
+[firedup_6]
+
+// 1288
+[firedup_7]
+transmit=yes
+
+// 1289
+[varplayer_1289]
+transmit=yes
+
+// 1290
+[varplayer_1290]
+
+// 1291
+[varplayer_1291]
+
+// 1292
+[varplayer_1292]
+
+// 1293
+[varplayer_1293]
+
+// 1294
+[varplayer_1294]
+
+// 1295
+[varplayer_1295]
+
+// 1296
+[varplayer_1296]
+
+// 1297
+[varplayer_1297]
+
+// 1298
+[varplayer_1298]
+
+// 1299
+[varplayer_1299]
+
+// 1300
+[crcs_temp_multi]
+
+// 1301
+[varplayer_1301]
+
+// 1302
+[varplayer_1302]
+
+// 1303
+[peng_spy_switch]
+transmit=yes
+
+// 1304
+[varplayer_1304]
+
+// 1305
+[clanwars_rules]
+transmit=yes
+
+// 1306
+[sum2_var1]
+transmit=yes
+
+// 1307
+[varplayer_1307]
+
+// 1308
+[varplayer_1308]
+
+// 1309
+[varplayer_1309]
+
+// 1311
+[zemo_base1]
+transmit=yes
+
+// 1312
+[zemo_base2]
+
+// 1313
+[varplayer_1313]
+
+// 1314
+[varplayer_1314]
+
+// 1315
+[varplayer_1315]
+
+// 1316
+[varplayer_1316]
+
+// 1317
+[varplayer_1317]
+transmit=yes
+
+// 1318
+[varplayer_1318]
+
+// 1319
+[varplayer_1319]
+
+// 1320
+[varplayer_1320]
+
+// 1321
+[varplayer_1321]
+
+// 1322
+[varplayer_1322]
+
+// 1323
+[varplayer_1323]
+
+// 1324
+[varplayer_1324]
+
+// 1325
+[varplayer_1325]
+
+// 1326
+[varplayer_1326]
+
+// 1327
+[swept1]
+transmit=yes
+
+// 1328
+[swept2]
+transmit=yes
+
+// 1329
+[varplayer_1329]
+
+// 1330
+[lucien2_main_var]
+transmit=yes
+
+// 1331
+[sc_temp]
+
+// 1332
+[sc_score_clay_gathered]
+transmit=yes
+
+// 1333
+[sc_score_clay_deposited]
+transmit=yes
+
+// 1334
+[sc_score_clay_processed]
+transmit=yes
+
+// 1335
+[sc_score_clay_taken]
+transmit=yes
+
+// 1336
+[varplayer_1336]
+
+// 1337
+[sc_score_damage_inflicted]
+transmit=yes
+
+// 1338
+[varplayer_1338]
+
+// 1339
+[sc_debug_npcs_visible]
+
+// 1340
+[varplayer_1340]
+
+// 1341
+[varplayer_1341]
+
+// 1342
+[varplayer_1342]
+
+// 1343
+[varplayer_1343]
+
+// 1344
+[varplayer_1344]
+
+// 1345
+[varplayer_1345]
+
+// 1346
+[varplayer_1346]
+
+// 1347
+[varplayer_1347]
+
+// 1348
+[lucien2_second_var]
+transmit=yes
+
+// 1349
+[lucien2_third_var]
+
+// 1350
+[lucien2_fourth_var]
+
+// 1351
+[varplayer_1351]
+
+// 1352
+[lucien2_sixth_var]
+
+// 1353
+[lucien2_weight]
+
+// 1354
+[luc2_temp_varp_no_protect]
+
+// 1355
+[arena_var2]
+
+// 1356
+[varplayer_1356]
+
+// 1357
+[varplayer_1357]
+transmit=yes
+
+// 1358
+[varplayer_1358]
+transmit=yes
+
+// 1359
+[varplayer_1359]
+transmit=yes
+
+// 1360
+[varplayer_1360]
+transmit=yes
+
+// 1361
+[atfal_task2]
+transmit=yes
+
+// 1362
+[varplayer_1362]
+
+// 1363
+[varplayer_1363]
+transmit=yes
+// The make-X number panel writes skill_creation_amount while the dialogue
+// holds the player's script paused with protected access, so the varp its
+// varbits live in takes writes without it, as 289's button-set varps do.
+protect=no
+
+// The player's make-X amount, kept across logouts: void-634 saves
+// skill_creation_amount (persist = true). Varp 1363 itself is not saved, as
+// character creation's varbits share it (character_creation_female and
+// others, which cc_open_interface does not reset). Server-only: past the
+// cache's 2,181 varps.
+// The number panel's buttons write it while the dialogue holds the player's
+// script paused, as they write varp 1363: it takes writes without access.
+// 1364
+[varplayer_1364]
+
+// 1365
+[motwl_xmas08]
+transmit=yes
+
+// 1366
+[motwl_temp]
+transmit=yes
+
+// 1367
+[varplayer_1367]
+
+// 1368
+[varplayer_1368]
+
+// 1369
+[varplayer_1369]
+
+// 1370
+[phoenix_main_var]
+transmit=yes
+
+// 1371
+[phoenix_dungeon_var]
+
+// 1372
+[varplayer_1372]
+transmit=yes
+
+// 1373
+[varplayer_1373]
+transmit=yes
+
+// 1374
+[varplayer_1374]
+transmit=yes
+
+// 1375
+[varplayer_1375]
+
+// 1376
+[varplayer_1376]
+transmit=yes
+
+// 1377
+[snp_main]
+transmit=yes
+
+// 1378
+[varplayer_1378]
+
+// 1379
+[snp_temp]
+
+// 1380
+[snp_idle]
+transmit=yes
+
+// 1381
+[musicmulti_21]
+transmit=yes
+scope=perm
+protect=no
+
+// 1382
+[varplayer_1382]
+
+// 1383
+[varplayer_1383]
+transmit=yes
+
+// 1384
+[varplayer_1384]
+transmit=yes
+
+// 1385
+[varplayer_1385]
+
+// 1386
+[eviltree_varp_1]
+transmit=yes
+
+// 1387
+[eviltree_varp_2]
+
+// 1388
+[varplayer_1388]
+
+// 1389
+[varplayer_1389]
+
+// 1390
+[chosen_base]
+transmit=yes
+
+// 1391
+[chosen_bits]
+
+// 1392
+[varplayer_1392]
+
+// 1393
+[varplayer_1393]
+transmit=yes
+
+// 1394
+[musicmulti_22]
+transmit=yes
+scope=perm
+protect=no
+
+// 1395
+[activated_prayers]
+transmit=yes
+protect=no
+
+// 1396
+[varplayer_1396]
+
+// 1397
+[varplayer_1397]
+transmit=yes
+
+// 1398
+[varplayer_1398]
+
+// 1399
+[varplayer_1399]
+
+// 1400
+[varplayer_1400]
+
+// 1401
+[varplayer_1401]
+
+// 1402
+[varplayer_1402]
+transmit=yes
+
+// 1403
+[glomem_basevar]
+transmit=yes
+
+// 1404
+[easter09]
+transmit=yes
+
+// 1405
+[varplayer_1405]
+
+// 1406
+[varplayer_1406]
+
+// 1407
+[mah1_perm1]
+transmit=yes
+
+// 1408
+[mah1_perm2]
+
+// 1409
+[varplayer_1409]
+
+// 1410
+[pvpwild_main]
+transmit=yes
+
+// 1411
+[varplayer_1411]
+
+// 1412
+[varplayer_1412]
+
+// 1413
+[varplayer_1413]
+
+// 1414
+[varplayer_1414]
+transmit=yes
+
+// 1415
+[mom2_base1]
+transmit=yes
+
+// 1416
+[mom2_base2]
+
+// 1417
+[varplayer_1417]
+transmit=yes
+
+// 1418
+[arena_cutscene]
+
+// 1419
+[varplayer_1419]
+
+// 1420
+[peng_rak_main]
+transmit=yes
+
+// 1421
+[peng_rak_temp]
+
+// 1422
+[peng_rak_temp2]
+transmit=yes
+
+// 1423
+[peng_rak_hunting1]
+
+// 1424
+[peng_rak_hunting2]
+
+// 1425
+[peng_rak_hunting3]
+
+// 1426
+[peng_rak_hunting_joint1]
+
+// 1427
+[peng_rak_hunting_joint2]
+
+// 1428
+[peng_rak_hunting_joint3]
+
+// 1429
+[peng_rak_hunting_joint4]
+
+// 1430
+[varplayer_1430]
+
+// 1431
+[varplayer_1431]
+transmit=yes
+
+// 1432
+[sops_rem_temp]
+
+// 1433
+[varplayer_1433]
+
+// 1434
+[musicmulti_23]
+transmit=yes
+scope=perm
+protect=no
+
+// 1435
+[varplayer_1435]
+
+// 1436
+[trawler_activity_base]
+transmit=yes
+
+// 1437
+[varplayer_1437]
+transmit=yes
+
+// 1438
+[varplayer_1438]
+transmit=yes
+
+// 1439
+[notes_selected]
+transmit=yes
+
+// 1440
+[notes_colours_base0]
+transmit=yes
+
+// 1441
+[notes_colours_base1]
+transmit=yes
+
+// 1442
+[varplayer_1442]
+transmit=yes
+
+// 1443
+[varplayer_1443]
+
+// 1444
+[varplayer_1444]
+transmit=yes
+
+// 1445
+[varplayer_1445]
+transmit=yes
+
+// 1446
+[varplayer_1446]
+
+// 1447
+[varplayer_1447]
+transmit=yes
+
+// 1448
+[varplayer_1448]
+transmit=yes
+
+// 1449
+[varplayer_1449]
+
+// 1450
+[varplayer_1450]
+transmit=yes
+
+// 1451
+[varplayer_1451]
+transmit=yes
+
+// 1452
+[varplayer_1452]
+transmit=yes
+
+// 1453
+[varplayer_1453]
+transmit=yes
+
+// 1454
+[varplayer_1454]
+transmit=yes
+
+// 1455
+[varplayer_1455]
+transmit=yes
+
+// 1456
+[varplayer_1456]
+
+// 1457
+[varplayer_1457]
+
+// 1458
+[varplayer_1458]
+
+// 1459
+[varplayer_1459]
+
+// 1460
+[varplayer_1460]
+
+// 1461
+[varplayer_1461]
+
+// 1462
+[varplayer_1462]
+
+// 1463
+[varplayer_1463]
+
+// 1464
+[varplayer_1464]
+
+// 1465
+[varplayer_1465]
+
+// 1466
+[varplayer_1466]
+
+// 1467
+[varplayer_1467]
+
+// 1468
+[varplayer_1468]
+
+// 1469
+[varplayer_1469]
+transmit=yes
+
+// 1470
+[varplayer_1470]
+
+// 1471
+[varplayer_1471]
+
+// 1472
+[varplayer_1472]
+
+// 1473
+[varplayer_1473]
+
+// 1474
+[varplayer_1474]
+
+// 1475
+[mah3_base1]
+transmit=yes
+
+// 1476
+[mah3_temp1]
+transmit=yes
+
+// 1477
+[varplayer_1477]
+
+// 1478
+[varplayer_1478]
+
+// 1479
+[varplayer_1479]
+
+// 1480
+[varplayer_1480]
+
+// 1481
+[varplayer_1481]
+
+// 1482
+[varplayer_1482]
+
+// 1483
+[varplayer_1483]
+
+// 1484
+[varplayer_1484]
+
+// 1485
+[varplayer_1485]
+transmit=yes
+
+// 1486
+[varplayer_1486]
+transmit=yes
+
+// 1487
+[varplayer_1487]
+transmit=yes
+
+// 1488
+[varplayer_1488]
+transmit=yes
+
+// 1489
+[varplayer_1489]
+transmit=yes
+
+// 1490
+[varplayer_1490]
+transmit=yes
+
+// 1491
+[varplayer_1491]
+transmit=yes
+
+// 1492
+[varplayer_1492]
+
+// 1493
+[lore_general_varp_1]
+transmit=yes
+
+// 1494
+[varplayer_1494]
+transmit=yes
+
+// 1495
+[rcguild_activity_base]
+transmit=yes
+
+// 1496
+[shop_sample]
+transmit=yes
+type=inv
+scope=temp
+
+// 1497
+[varplayer_1497]
+
+// 1498
+[ra3_base]
+transmit=yes
+
+// 1499
+[varplayer_1499]
+
+// 1500
+[varplayer_1500]
+
+// 1501
+[varplayer_1501]
+transmit=yes
+
+// 1502
+[varplayer_1502]
+transmit=yes
+
+// 1503
+[varplayer_1503]
+
+// 1504
+[varplayer_1504]
+
+// 1505
+[varplayer_1505]
+
+// 1506
+[objective_random]
+transmit=yes
+
+// 1507
+[objective_random2]
+transmit=yes
+
+// 1508
+[objective_random3]
+transmit=yes
+
+// 1509
+[varplayer_1509]
+
+// 1510
+[advisor_bits]
+transmit=yes
+
+// 1511
+[varplayer_1511]
+
+// 1512
+[varplayer_1512]
+
+// 1513
+[varplayer_1513]
+
+// 1514
+[varplayer_1514]
+
+// 1515
+[varplayer_1515]
+
+// 1516
+[varplayer_1516]
+
+// 1517
+[varplayer_1517]
+
+// 1518
+[varplayer_1518]
+
+// 1519
+[varplayer_1519]
+
+// 1520
+[varplayer_1520]
+
+// 1521
+[varplayer_1521]
+
+// 1522
+[varplayer_1522]
+
+// 1523
+[varplayer_1523]
+
+// 1524
+[varplayer_1524]
+
+// 1525
+[varplayer_1525]
+
+// 1526
+[varplayer_1526]
+
+// 1527
+[varplayer_1527]
+
+// 1528
+[varplayer_1528]
+
+// 1529
+[varplayer_1529]
+
+// 1530
+[varplayer_1530]
+
+// 1531
+[varplayer_1531]
+
+// 1532
+[varplayer_1532]
+
+// 1533
+[varplayer_1533]
+
+// 1534
+[varplayer_1534]
+
+// 1535
+[varplayer_1535]
+
+// 1536
+[varplayer_1536]
+
+// 1537
+[varplayer_1537]
+
+// 1538
+[varplayer_1538]
+
+// 1539
+[varplayer_1539]
+
+// 1540
+[varplayer_1540]
+
+// 1541
+[varplayer_1541]
+
+// 1542
+[varplayer_1542]
+
+// 1543
+[varplayer_1543]
+
+// 1544
+[varplayer_1544]
+
+// 1545
+[varplayer_1545]
+
+// 1546
+[varplayer_1546]
+
+// 1547
+[varplayer_1547]
+
+// 1548
+[varplayer_1548]
+
+// 1549
+[varplayer_1549]
+
+// 1550
+[varplayer_1550]
+
+// 1551
+[varplayer_1551]
+
+// 1552
+[varplayer_1552]
+
+// 1553
+[wc_update09_varp1]
+transmit=yes
+
+// 1554
+[varplayer_1554]
+transmit=yes
+
+// 1555
+[varplayer_1555]
+transmit=yes
+
+// 1556
+[varplayer_1556]
+
+// 1557
+[varplayer_1557]
+
+// 1558
+[wtl_varp1]
+transmit=yes
+
+// 1559
+[wtl_varp2]
+
+// 1560
+[wtl_varp3]
+transmit=yes
+
+// 1561
+[varplayer_1561]
+transmit=yes
+
+// 1562
+[varplayer_1562]
+transmit=yes
+
+// 1563
+[varplayer_1563]
+transmit=yes
+
+// 1564
+[varplayer_1564]
+transmit=yes
+
+// 1565
+[varplayer_1565]
+transmit=yes
+
+// 1566
+[hw09_base]
+
+// 1567
+[hw09_furniture]
+
+// 1568
+[hw09_furniture2]
+
+// 1569
+[hw09_furniture3]
+
+// 1570
+[hw09_furniture4]
+
+// 1571
+[varplayer_1571]
+
+// 1572
+[champions_banners]
+
+// 1573
+[champions_rewards]
+transmit=yes
+
+// 1574
+[varplayer_1574]
+
+// 1575
+[varplayer_1575]
+
+// 1576
+[tg09_base]
+
+// 1577
+[mah4_base1]
+transmit=yes
+
+// 1578
+[mah4_base2]
+
+// 1579
+[mah4_base3]
+
+// 1580
+[mah4_base4]
+
+// 1581
+[varplayer_1581]
+
+// 1582
+[varplayer_1582]
+transmit=yes
+
+// 1583
+[curse_perm1]
+transmit=yes
+
+// 1584
+[varplayer_1584]
+transmit=yes
+
+// 1585
+[varplayer_1585]
+
+// 1586
+[varplayer_1586]
+
+// 1587
+[varplayer_1587]
+transmit=yes
+
+// 1588
+[evq_basevar1]
+transmit=yes
+
+// 1589
+[varplayer_1589]
+
+// 1590
+[varplayer_1590]
+
+// 1591
+[varplayer_1591]
+
+// 1592
+[varplayer_1592]
+
+// 1593
+[varplayer_1593]
+transmit=yes
+
+// 1594
+[varplayer_1594]
+
+// 1595
+[varplayer_1595]
+
+// 1596
+[musicmulti_24]
+transmit=yes
+scope=perm
+protect=no
+
+// 1597
+[xmas09_mastervar]
+transmit=yes
+
+// 1598
+[xmas09_puzzlevar]
+
+// 1599
+[xmas09_tempvar]
+
+// 1600
+[nom_main]
+transmit=yes
+
+// 1601
+[varplayer_1601]
+
+// 1602
+[varplayer_1602]
+
+// 1603
+[varplayer_1603]
+
+// 1604
+[varplayer_1604]
+
+// 1605
+[barbarianassault8]
+transmit=yes
+
+// 1606
+[varplayer_1606]
+
+// 1607
+[varplayer_1607]
+
+// 1608
+[varplayer_1608]
+
+// 1609
+[varplayer_1609]
+
+// 1610
+[rm_main]
+transmit=yes
+
+// 1611
+[rm_temp_var]
+transmit=yes
+
+// 1612
+[rm_temp_var2]
+transmit=yes
+
+// 1613
+[varplayer_1613]
+
+// 1614
+[varplayer_1614]
+
+// 1615
+[varplayer_1615]
+
+// 1616
+[varplayer_1616]
+
+// 1617
+[varplayer_1617]
+
+// 1618
+[musicmulti_25]
+transmit=yes
+scope=perm
+protect=no
+
+// 1619
+[musicmulti_26]
+transmit=yes
+scope=perm
+protect=no
+
+// 1620
+[musicmulti_27]
+transmit=yes
+scope=perm
+protect=no
+
+// 1621
+[playlist_0_and_1]
+transmit=yes
+
+// 1622
+[varplayer_1622]
+transmit=yes
+
+// 1623
+[varplayer_1623]
+transmit=yes
+
+// 1624
+[varplayer_1624]
+transmit=yes
+
+// 1625
+[varplayer_1625]
+transmit=yes
+
+// 1626
+[varplayer_1626]
+transmit=yes
+
+// 1627
+[varplayer_1627]
+
+// 1628
+[sfa]
+transmit=yes
+
+// 1629
+[sfa_temp]
+transmit=yes
+
+// 1630
+[sfa_shards]
+
+// 1631
+[sfa_shards2]
+
+// 1632
+[sfa_hunt]
+transmit=yes
+
+// 1633
+[sfa_timers]
+transmit=yes
+
+// 1634
+[varplayer_1634]
+
+// 1635
+[varplayer_1635]
+
+// 1636
+[varplayer_1636]
+
+// 1637
+[varplayer_1637]
+
+// 1638
+[varplayer_1638]
+
+// 1639
+[varplayer_1639]
+
+// 1640
+[varplayer_1640]
+
+// 1641
+[statue_main]
+
+// 1642
+[statue_replica_main]
+
+// 1644
+[doublexp_perm1]
+transmit=yes
+scope=perm
+
+// 1645
+[varplayer_1645]
+
+// 1646
+[lumbcat_base]
+transmit=yes
+
+// 1647
+[lumbcat_in_quest_for_client]
+transmit=yes
+
+// 1648
+[varplayer_1648]
+
+// 1649
+[varplayer_1649]
+
+// 1650
+[varplayer_1650]
+
+// 1651
+[varplayer_1651]
+
+// 1652
+[dob_day]
+transmit=yes
+
+// 1653
+[dob_month]
+transmit=yes
+
+// 1654
+[dob_year]
+transmit=yes
+
+// 1655
+[varplayer_1655]
+
+// 1656
+[varplayer_1656]
+
+// 1657
+[varplayer_1657]
+
+// 1658
+[varplayer_1658]
+transmit=yes
+
+// 1659
+[varplayer_1659]
+
+// 1660
+[varplayer_1660]
+transmit=yes
+
+// 1661
+[varplayer_1661]
+transmit=yes
+
+// 1662
+[fishcomp_perm8]
+transmit=yes
+
+// 1663
+[varplayer_1663]
+
+// 1664
+[varplayer_1664]
+transmit=yes
+
+// 1665
+[varplayer_1665]
+
+// 1666
+[varplayer_1666]
+
+// 1667
+[varplayer_1667]
+
+// 1668
+[varplayer_1668]
+
+// 1669
+[easter10_var1]
+transmit=yes
+
+// 1670
+[easter10_var2]
+transmit=yes
+
+// 1671
+[varplayer_1671]
+
+// 1672
+[varplayer_1672]
+
+// 1673
+[varplayer_1673]
+
+// 1674
+[easter10_resourcegame_turncount]
+transmit=yes
+
+// 1675
+[varplayer_1675]
+transmit=yes
+
+// 1676
+[varplayer_1676]
+transmit=yes
+
+// 1677
+[varplayer_1677]
+transmit=yes
+
+// 1678
+[varplayer_1678]
+transmit=yes
+
+// 1679
+[varplayer_1679]
+transmit=yes
+
+// 1680
+[varplayer_1680]
+transmit=yes
+
+// 1681
+[easter10_resourcegame_totalworkers]
+transmit=yes
+
+// 1682
+[varplayer_1682]
+transmit=yes
+
+// 1683
+[varplayer_1683]
+transmit=yes
+
+// 1684
+[varplayer_1684]
+transmit=yes
+
+// 1685
+[easter10_resourcegame_errortextflag]
+transmit=yes
+
+// 1686
+[easter10_resourcegame_totalchoc]
+transmit=yes
+
+// 1687
+[easter10_resourcegame_totalnuts]
+transmit=yes
+
+// 1688
+[easter10_resourcegame_totalfruit]
+transmit=yes
+
+// 1689
+[easter10_resourcegame_totalfc]
+transmit=yes
+
+// 1690
+[easter10_resourcegame_totaltegg]
+transmit=yes
+
+// 1691
+[easter10_resourcegame_totalnegg]
+transmit=yes
+
+// 1692
+[easter10_resourcegame_chocgenerated]
+transmit=yes
+
+// 1693
+[easter10_resourcegame_nutsgenerated]
+transmit=yes
+
+// 1694
+[easter10_resourcegame_fruitgenerated]
+transmit=yes
+
+// 1695
+[easter10_resourcegame_fcgenerated]
+transmit=yes
+
+// 1696
+[easter10_resourcegame_negggenerated]
+transmit=yes
+
+// 1697
+[easter10_resourcegame_tegggenerated]
+transmit=yes
+
+// 1698
+[easter10_resourcegame_randomeventflag]
+transmit=yes
+
+// 1699
+[varplayer_1699]
+
+// 1700
+[easter10_conveyorstatus]
+transmit=yes
+
+// 1701
+[easter10_conveyoritemsent]
+transmit=yes
+
+// 1702
+[varplayer_1702]
+
+// 1703
+[easter10_conveyorcorrectitems]
+transmit=yes
+
+// 1704
+[varplayer_1704]
+
+// 1705
+[varplayer_1705]
+
+// 1706
+[varplayer_1706]
+
+// 1707
+[varplayer_1707]
+
+// 1737
+[varplayer_1737]
+
+// 1742
+[varplayer_1742]
+
+// 1747
+[varplayer_1747]
+transmit=yes
+
+// 1753
+[varplayer_1753]
+
+// 1754
+[varplayer_1754]
+
+// 1755
+[varplayer_1755]
+
+// 1756
+[varplayer_1756]
+
+// 1757
+[varplayer_1757]
+
+// 1758
+[varplayer_1758]
+
+// 1759
+[varplayer_1759]
+
+// 1760
+[varplayer_1760]
+
+// 1761
+[varplayer_1761]
+
+// 1762
+[varplayer_1762]
+
+// 1763
+[varplayer_1763]
+
+// 1764
+[varplayer_1764]
+
+// 1765
+[varplayer_1765]
+
+// 1766
+[varplayer_1766]
+
+// 1767
+[varplayer_1767]
+
+// 1768
+[varplayer_1768]
+
+// 1769
+[varplayer_1769]
+
+// 1770
+[varplayer_1770]
+
+// 1771
+[varplayer_1771]
+
+// 1772
+[varplayer_1772]
+
+// 1773
+[varplayer_1773]
+
+// 1774
+[varplayer_1774]
+
+// 1775
+[rand_perm_int_02]
+transmit=yes
+
+// 1776
+[varplayer_1776]
+transmit=yes
+
+// 1777
+[varplayer_1777]
+
+// 1778
+[varplayer_1778]
+
+// 1779
+[varplayer_1779]
+transmit=yes
+
+// 1780
+[varplayer_1780]
+transmit=yes
+
+// 1781
+[varplayer_1781]
+
+// 1782
+[varplayer_1782]
+
+// 1783
+[varplayer_1783]
+
+// 1784
+[varplayer_1784]
+
+// 1785
+[varplayer_1785]
+
+// 1786
+[varplayer_1786]
+
+// 1787
+[varplayer_1787]
+
+// 1788
+[varplayer_1788]
+
+// 1789
+[varplayer_1789]
+
+// 1790
+[varplayer_1790]
+
+// 1791
+[varplayer_1791]
+
+// 1792
+[varplayer_1792]
+
+// 1793
+[varplayer_1793]
+
+// 1794
+[varplayer_1794]
+
+// 1795
+[rand_gate_stone_coord]
+transmit=yes
+
+// 1796
+[varplayer_1796]
+
+// 1797
+[varplayer_1797]
+
+// 1798
+[varplayer_1798]
+
+// 1799
+[varplayer_1799]
+
+// 1800
+[varplayer_1800]
+
+// 1801
+[xp_counter]
+transmit=yes
+
+// 1802
+[varplayer_1802]
+transmit=yes
+
+// 1803
+[varplayer_1803]
+
+// 1804
+[varplayer_1804]
+
+// 1805
+[tutorial3_voice_enabled]
+transmit=yes
+
+// 1806
+[varplayer_1806]
+
+// 1807
+[varplayer_1807]
+
+// 1808
+[varplayer_1808]
+
+// 1809
+[varplayer_1809]
+
+// 1810
+[varplayer_1810]
+
+// 1811
+[thigui_main]
+transmit=yes
+
+// 1812
+[thigui_values]
+
+// 1813
+[thigui_hanky]
+
+// 1814
+[varplayer_1814]
+
+// 1815
+[varplayer_1815]
+
+// 1816
+[varplayer_1816]
+
+// 1817
+[varplayer_1817]
+
+// 1818
+[varplayer_1818]
+
+// 1819
+[ft3_main]
+transmit=yes
+
+// 1820
+[ft3_second]
+
+// 1821
+[ft3_third]
+
+// 1822
+[ft3_temp]
+
+// 1823
+[varplayer_1823]
+
+// 1824
+[varplayer_1824]
+
+// 1825
+[varplayer_1825]
+
+// 1826
+[varplayer_1826]
+
+// 1827
+[varplayer_1827]
+
+// 1828
+[varplayer_1828]
+
+// 1829
+[varplayer_1829]
+
+// 1830
+[varplayer_1830]
+
+// 1831
+[varplayer_1831]
+
+// 1832
+[varplayer_1832]
+
+// 1833
+[elem_3_bits_1]
+
+// 1834
+[elem_3_bits_2]
+transmit=yes
+
+// 1835
+[elem_3_turn_count]
+
+// 1836
+[varplayer_1836]
+
+// 1837
+[varplayer_1837]
+
+// 1838
+[varplayer_1838]
+
+// 1839
+[csi_temp1]
+
+// 1840
+[varplayer_1840]
+transmit=yes
+
+// 1841
+[csi_perm1]
+transmit=yes
+
+// 1842
+[varplayer_1842]
+transmit=yes
+
+// 1843
+[varplayer_1843]
+
+// 1844
+[vkq1_varp1]
+transmit=yes
+
+// 1845
+[vkq1_varp_temp1]
+
+// 1846
+[vkq1_varp_temp2]
+
+// 1847
+[varplayer_1847]
+
+// 1848
+[varplayer_1848]
+
+// 1849
+[lovestory]
+transmit=yes
+
+// 1850
+[varplayer_1850]
+
+// 1851
+[varplayer_1851]
+transmit=yes
+
+// 1852
+[varplayer_1852]
+
+// 1853
+[varplayer_1853]
+
+// 1854
+[varplayer_1854]
+
+// 1855
+[varplayer_1855]
+
+// 1856
+[varplayer_1856]
+transmit=yes
+
+// 1857
+[varplayer_1857]
+
+// 1858
+[varplayer_1858]
+
+// 1859
+[varplayer_1859]
+
+// 1860
+[varplayer_1860]
+
+// 1861
+[vkq2_main]
+transmit=yes
+
+// 1862
+[vkq2_puzzles]
+
+// 1863
+[varplayer_1863]
+
+// 1864
+[musicmulti_29]
+transmit=yes
+scope=perm
+protect=no
+
+// 1865
+[musicmulti_30]
+transmit=yes
+scope=perm
+protect=no
+
+// 1866
+[varplayer_1866]
+
+// 1867
+[varplayer_1867]
+
+// 1868
+[varplayer_1868]
+
+// 1869
+[varplayer_1869]
+
+// 1870
+[conq_base_temp]
+transmit=yes
+
+// 1871
+[conq_base_1]
+transmit=yes
+
+// 1872
+[conq_base_2]
+transmit=yes
+
+// 1873
+[conq_base_3]
+transmit=yes
+
+// 1874
+[conq_base_4]
+transmit=yes
+
+// 1875
+[conq_highscore]
+transmit=yes
+
+// 1876
+[varplayer_1876]
+
+// 1877
+[conq_unprotected_temp]
+transmit=yes
+
+// 1878
+[doublexp_runningtotal]
+transmit=yes
+scope=perm
+
+// 289's emote_access (2011 keeps its id, 313, and its bits: the mime's glass
+// wall, glass box, climb rope and lean are bits 0-3, the emotes tab's varbits
+// 1367-1370).
+// 1879
+[varplayer_1879]
+
+// 1880
+[varplayer_1880]
+
+// 1881
+[varplayer_1881]
+
+// 1882
+[varplayer_1882]
+
+// 1883
+[varplayer_1883]
+
+// 1884
+[atvar_chest_varp2]
+
+// 1885
+[atvar_chest_varp3]
+
+// 1886
+[varplayer_1886]
+transmit=yes
+
+// 1887
+[varplayer_1887]
+transmit=yes
+
+// 1888
+[misc_total_resource]
+transmit=yes
+
+// 1889
+[romcom_main]
+transmit=yes
+
+// 1890
+[vkq3_grid_1]
+transmit=yes
+
+// 1891
+[vkq3_grid_2]
+transmit=yes
+
+// 1892
+[vkq3_grid_3]
+transmit=yes
+
+// 1893
+[vkq3_active_piece]
+transmit=yes
+
+// 1894
+[varplayer_1894]
+
+// 1895
+[varplayer_1895]
+
+// 1896
+[varplayer_1896]
+
+// 1897
+[varplayer_1897]
+
+// 1898
+[varplayer_1898]
+
+// 1899
+[varplayer_1899]
+
+// 1900
+[varplayer_1900]
+
+// 1901
+[varplayer_1901]
+
+// 1902
+[varplayer_1902]
+
+// 1903
+[varplayer_1903]
+
+// 1904
+[varplayer_1904]
+
+// 1905
+[varplayer_1905]
+
+// 1906
+[vkq3_varp1]
+transmit=yes
+
+// 1907
+[vkq3_puzzles]
+
+// 1908
+[varplayer_1908]
+
+// 1909
+[vkq3_varp_temp1]
+transmit=yes
+
+// 1910
+[varplayer_1910]
+
+// 1911
+[varplayer_1911]
+
+// 1912
+[varplayer_1912]
+
+// 1913
+[varplayer_1913]
+
+// 1914
+[varplayer_1914]
+
+// 1915
+[varplayer_1915]
+
+// 1916
+[varplayer_1916]
+
+// 1917
+[varplayer_1917]
+
+// 1918
+[varplayer_1918]
+
+// 1919
+[varplayer_1919]
+
+// 1920
+[varplayer_1920]
+
+// 1921
+[hw10_var]
+transmit=yes
+
+// 1922
+[varplayer_1922]
+
+// 1923
+[varplayer_1923]
+
+// 1924
+[varplayer_1924]
+
+// 1925
+[varplayer_1925]
+
+// 1926
+[varplayer_1926]
+
+// 1927
+[varplayer_1927]
+
+// 1928
+[varplayer_1928]
+
+// 1929
+[varplayer_1929]
+
+// 1930
+[varplayer_1930]
+
+// 1931
+[ecosystem_var_1]
+
+// 1932
+[ecosystem_var_2]
+
+// 1933
+[varplayer_1933]
+
+// 1934
+[varplayer_1934]
+transmit=yes
+
+// 1935
+[varplayer_1935]
+transmit=yes
+
+// 1936
+[ecosystem_temp_1]
+
+// 1937
+[ecosystem_temp_2]
+
+// 1938
+[ecosystem_temp_3]
+
+// 1939
+[ecosystem_temp_4]
+
+// 1940
+[ecosystem_temp_5]
+
+// 1941
+[varplayer_1941]
+
+// 1942
+[varplayer_1942]
+
+// 1943
+[ecosystem_trail_1]
+
+// 1944
+[ecosystem_trail_2]
+
+// 1945
+[ecosystem_trail_3]
+
+// 1946
+[varplayer_1946]
+
+// 1947
+[varplayer_1947]
+
+// 1948
+[varplayer_1948]
+
+// 1949
+[varplayer_1949]
+
+// 1950
+[desert_quest_series_1]
+transmit=yes
+
+// 1951
+[varplayer_1951]
+
+// 1952
+[varplayer_1952]
+
+// 1953
+[varplayer_1953]
+
+// 1954
+[varplayer_1954]
+
+// 1955
+[varplayer_1955]
+
+// 1956
+[varplayer_1956]
+transmit=yes
+
+// 1957
+[varplayer_1957]
+transmit=yes
+
+// 1958
+[varplayer_1958]
+transmit=yes
+
+// 1959
+[varplayer_1959]
+transmit=yes
+
+// 1960
+[varplayer_1960]
+transmit=yes
+
+// 1961
+[varplayer_1961]
+transmit=yes
+
+// 1962
+[varplayer_1962]
+transmit=yes
+
+// 1963
+[varplayer_1963]
+transmit=yes
+
+// 1964
+[varplayer_1964]
+transmit=yes
+
+// 1965
+[varplayer_1965]
+transmit=yes
+
+// 1966
+[varplayer_1966]
+transmit=yes
+
+// 1967
+[varplayer_1967]
+
+// 1968
+[varplayer_1968]
+transmit=yes
+
+// 1969
+[varplayer_1969]
+transmit=yes
+
+// 1970
+[varplayer_1970]
+transmit=yes
+
+// 1971
+[varplayer_1971]
+transmit=yes
+
+// 1972
+[varplayer_1972]
+transmit=yes
+
+// 1973
+[varplayer_1973]
+transmit=yes
+
+// 1974
+[varplayer_1974]
+transmit=yes
+
+// 1975
+[varplayer_1975]
+transmit=yes
+
+// 1976
+[varplayer_1976]
+transmit=yes
+
+// 1977
+[varplayer_1977]
+transmit=yes
+
+// 1978
+[varplayer_1978]
+transmit=yes
+
+// 1979
+[varplayer_1979]
+transmit=yes
+
+// 1980
+[varplayer_1980]
+transmit=yes
+
+// 1981
+[varplayer_1981]
+transmit=yes
+
+// 1982
+[varplayer_1982]
+transmit=yes
+
+// 1983
+[varplayer_1983]
+transmit=yes
+
+// 1984
+[varplayer_1984]
+transmit=yes
+
+// 1985
+[varplayer_1985]
+transmit=yes
+
+// 1986
+[varplayer_1986]
+transmit=yes
+
+// 1987
+[varplayer_1987]
+transmit=yes
+
+// 1988
+[varplayer_1988]
+transmit=yes
+
+// 1989
+[varplayer_1989]
+transmit=yes
+
+// 1990
+[varplayer_1990]
+transmit=yes
+
+// 1991
+[varplayer_1991]
+transmit=yes
+
+// 1992
+[varplayer_1992]
+transmit=yes
+
+// 1993
+[varplayer_1993]
+transmit=yes
+
+// 1994
+[varplayer_1994]
+transmit=yes
+
+// 1995
+[varplayer_1995]
+transmit=yes
+
+// 1996
+[varplayer_1996]
+transmit=yes
+
+// 1997
+[varplayer_1997]
+transmit=yes
+
+// 1998
+[varplayer_1998]
+transmit=yes
+
+// 1999
+[varplayer_1999]
+transmit=yes
+
+// 2000
+[varplayer_2000]
+transmit=yes
+
+// 2001
+[varplayer_2001]
+transmit=yes
+
+// 2002
+[varplayer_2002]
+transmit=yes
+
+// 2003
+[varplayer_2003]
+transmit=yes
+
+// 2004
+[varplayer_2004]
+transmit=yes
+
+// 2005
+[varplayer_2005]
+transmit=yes
+
+// 2006
+[varplayer_2006]
+transmit=yes
+
+// 2007
+[varplayer_2007]
+transmit=yes
+
+// 2008
+[varplayer_2008]
+transmit=yes
+
+// 2009
+[varplayer_2009]
+transmit=yes
+
+// 2010
+[varplayer_2010]
+transmit=yes
+
+// 2011
+[varplayer_2011]
+transmit=yes
+
+// 2012
+[varplayer_2012]
+transmit=yes
+
+// 2013
+[varplayer_2013]
+transmit=yes
+
+// 2014
+[varplayer_2014]
+transmit=yes
+
+// 2015
+[varplayer_2015]
+transmit=yes
+
+// 2016
+[varplayer_2016]
+transmit=yes
+
+// 2017
+[varplayer_2017]
+transmit=yes
+
+// 2018
+[varplayer_2018]
+transmit=yes
+
+// 2019
+[musicmulti_31]
+transmit=yes
+scope=perm
+protect=no
+
+// 2020
+[apmeken_mastervar]
+transmit=yes
+
+// 2021
+[varplayer_2021]
+
+// 2022
+[apmeken_secondvar]
+
+// 2023
+[apmeken_thirdvar]
+
+// 2024
+[varplayer_2024]
+
+// 2025
+[varplayer_2025]
+
+// 2026
+[varplayer_2026]
+
+// 2027
+[varplayer_2027]
+
+// 2028
+[varplayer_2028]
+
+// 2029
+[varplayer_2029]
+
+// 2030
+[warguild_tokens2]
+transmit=yes
+
+// 2031
+[varplayer_2031]
+
+// 2032
+[xmas10_base]
+
+// 2033
+[varplayer_2033]
+transmit=yes
+
+// 2034
+[xmas10_temp]
+transmit=yes
+
+// 2035
+[varplayer_2035]
+
+// 2036
+[varplayer_2036]
+
+// 2037
+[ra4_base]
+transmit=yes
+
+// 2038
+[ra4_base2]
+
+// 2039
+[varplayer_2039]
+
+// 2040
+[godwars2_perm]
+transmit=yes
+
+// 2041
+[varplayer_2041]
+
+// 2042
+[varplayer_2042]
+
+// 2043
+[varplayer_2043]
+
+// 2044
+[varplayer_2044]
+transmit=yes
+
+// 2045
+[varplayer_2045]
+
+// 2046
+[glo3_var1]
+transmit=yes
+
+// 2047
+[glo3_var2]
+
+// 2048
+[glo3_vartemp]
+
+// 2049
+[construction_shortcuts]
+
+// 2050
+[varplayer_2050]
+
+// 2051
+[elem_4_bits_1]
+transmit=yes
+
+// 2052
+[elem_4_bits_2]
+transmit=yes
+
+// 2053
+[elem_4_bits_3]
+
+// 2054
+[elem_4_temp]
+
+// 2055
+[elem_4_truely_temp]
+
+// 2056
+[varplayer_2056]
+
+// 2057
+[varplayer_2057]
+
+// 2058
+[artisan_varp_1]
+
+// 2059
+[artisan_varp_2]
+
+// 2060
+[artisan_varp_3]
+transmit=yes
+
+// 2061
+[varplayer_2061]
+transmit=yes
+
+// 2062
+[artisan_varp_5]
+transmit=yes
+
+// 2063
+[artisan_varp_6]
+transmit=yes
+
+// 2064
+[artisan_varp_1_temp]
+transmit=yes
+
+// 2065
+[varplayer_2065]
+
+// 2066
+[varplayer_2066]
+transmit=yes
+
+// 2067
+[artisan_varp_4_temp]
+transmit=yes
+
+// 2068
+[tog_xp_before_return_billions]
+transmit=yes
+
+// 2069
+[varplayer_2069]
+
+// 2070
+[varplayer_2070]
+
+// 2071
+[varplayer_2071]
+
+// 2072
+[varplayer_2072]
+
+// 2073
+[varplayer_2073]
+
+// 2074
+[varplayer_2074]
+
+// 2075
+[varplayer_2075]
+
+// 2076
+[varplayer_2076]
+
+// 2077
+[acs_tempint_1]
+transmit=yes
+
+// 2078
+[varplayer_2078]
+
+// 2079
+[acs_varp_1]
+transmit=yes
+
+// 2080
+[acs_varp_2]
+
+// 2081
+[acs_temp_1]
+
+// 2082
+[tutorial4_tasks]
+transmit=yes
+
+// 2083
+[varplayer_2083]
+transmit=yes
+
+// 2084
+[varplayer_2084]
+
+// 2085
+[lunarfm_main]
+
+// 2086
+[lunarfm_main2]
+
+// 2087
+[lunarfm_main3]
+
+// 2088
+[lunarfm_main4]
+transmit=yes
+
+// 2089
+[varplayer_2089]
+transmit=yes
+
+// 2090
+[varplayer_2090]
+
+// 2091
+[varplayer_2091]
+
+// 2092
+[varplayer_2092]
+
+// 2093
+[clan_custom_motif_base_varp]
+transmit=yes
+
+// 2094
+[clan_custom_motif_colour1_varp]
+transmit=yes
+
+// 2095
+[clan_custom_motif_colour2_varp]
+transmit=yes
+
+// 2096
+[clan_custom_colour1_varp]
+transmit=yes
+
+// 2097
+[clan_custom_colour2_varp]
+transmit=yes
+
+// 2098
+[varplayer_2098]
+transmit=yes
+
+// 2099
+[varplayer_2099]
+transmit=yes
+
+// 2100
+[varplayer_2100]
+transmit=yes
+
+// 2101
+[varplayer_2101]
+transmit=yes
+
+// 2102
+[varplayer_2102]
+transmit=yes
+
+// 2103
+[varplayer_2103]
+transmit=yes
+
+// 2104
+[varplayer_2104]
+transmit=yes
+
+// 2105
+[varplayer_2105]
+transmit=yes
+
+// 2106
+[varplayer_2106]
+transmit=yes
+
+// 2107
+[varplayer_2107]
+transmit=yes
+
+// 2108
+[varplayer_2108]
+transmit=yes
+
+// 2109
+[varplayer_2109]
+transmit=yes
+
+// 2110
+[varplayer_2110]
+transmit=yes
+
+// 2111
+[varplayer_2111]
+transmit=yes
+
+// 2112
+[varplayer_2112]
+transmit=yes
+
+// 2113
+[varplayer_2113]
+transmit=yes
+
+// 2114
+[varplayer_2114]
+transmit=yes
+
+// 2115
+[varplayer_2115]
+transmit=yes
+
+// 2116
+[varplayer_2116]
+
+// 2117
+[varplayer_2117]
+
+// 2118
+[varplayer_2118]
+
+// 2119
+[varplayer_2119]
+
+// 2120
+[varplayer_2120]
+transmit=yes
+
+// 2121
+[varplayer_2121]
+transmit=yes
+
+// 2122
+[varplayer_2122]
+transmit=yes
+
+// 2123
+[varplayer_2123]
+transmit=yes
+
+// 2124
+[varplayer_2124]
+transmit=yes
+
+// 2125
+[varplayer_2125]
+transmit=yes
+
+// 2126
+[varplayer_2126]
+transmit=yes
+
+// 2127
+[varplayer_2127]
+transmit=yes
+
+// 2128
+[clan_event_current_varp]
+transmit=yes
+
+// 2129
+[varplayer_2129]
+
+// 2130
+[varplayer_2130]
+
+// 2131
+[varplayer_2131]
+
+// 2132
+[clan_custom_vote_numbers_varp]
+transmit=yes
+
+// 2133
+[clan_custom_vote_varp]
+transmit=yes
+
+// 2134
+[clan_custom_vote_cast_varp]
+transmit=yes
+
+// 2135
+[varplayer_2135]
+
+// 2136
+[varplayer_2136]
+transmit=yes
+
+// 2137
+[varplayer_2137]
+
+// 2138
+[clan_keyword_main1_varp]
+transmit=yes
+
+// 2139
+[clan_keyword_main2_varp]
+transmit=yes
+
+// 2140
+[clan_keyword_main3_varp]
+transmit=yes
+
+// 2141
+[clan_keyword_main4_varp]
+transmit=yes
+
+// 2142
+[clan_keyword_main5_varp]
+transmit=yes
+
+// 2143
+[clansettings_clanmate_job_varp]
+
+// 2144
+[varplayer_2144]
+
+// 2145
+[varplayer_2145]
+
+// 2146
+[varplayer_2146]
+
+// 2147
+[varplayer_2147]
+
+// 2148
+[varplayer_2148]
+
+// 2149
+[clan_flag_varp]
+transmit=yes
+
+// 2150
+[varplayer_2150]
+
+// 2151
+[clan_rcw_transmit]
+transmit=yes
+
+// 2152
+[varplayer_2152]
+
+// 2153
+[varplayer_2153]
+
+// 2154
+[varplayer_2154]
+
+// 2155
+[varplayer_2155]
+
+// 2156
+[varplayer_2156]
+
+// 2157
+[varplayer_2157]
+
+// 2158
+[varplayer_2158]
+
+// 2159
+[varplayer_2159]
+transmit=yes
+
+// 2160
+[varplayer_2160]
+
+// 2161
+[varplayer_2161]
+
+// 2162
+[varplayer_2162]
+
+// 2163
+[varplayer_2163]
+
+// 2164
+[varplayer_2164]
+
+// 2165
+[varplayer_2165]
+
+// 2166
+[varplayer_2166]
+
+// 2167
+[varplayer_2167]
+
+// 2168
+[varplayer_2168]
+
+// 2169
+[easter11_base]
+transmit=yes
+
+// 2170
+[varplayer_2170]
+
+// 2171
+[varplayer_2171]
+
+// 2172
+[varplayer_2172]
+transmit=yes
+
+// 2173
+[varplayer_2173]
+transmit=yes
+
+// 2174
+[varplayer_2174]
+transmit=yes
+
+// 2175
+[clan_event_notifications]
+transmit=yes
+
+// 2176
+[varplayer_2176]
+
+// 2177
+[varplayer_2177]
+
+// 2178
+[varplayer_2178]
+
+// 2179
+[varplayer_2179]
+
+// 2180
+[varplayer_2180]
+
+// 0
+[varplayer_2181]
+type=string
+
+// 1
+[varplayer_2182]
+type=string
+
+// 2
+[varplayer_2183]
+type=string
+
+// 3
+[varplayer_2184]
+type=string
+
+// 4
+[varplayer_2185]
+type=string
+
+// 5
+[varplayer_2186]
+type=string
+
+// 6
+[varplayer_2187]
+type=string
+
+// 7
+[varplayer_2188]
+type=string
+
+// 8
+[varplayer_2189]
+type=string
+

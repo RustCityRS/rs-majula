@@ -1,8 +1,10 @@
+#[cfg(since_647)]
+use crate::engine::ProjAnimHalfsq;
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
-use crate::{NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
+use crate::{ComId, NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
 use rs_grid::CoordGrid;
-use rs_inv::{Inventory, STACK_LIMIT, StackMode};
+use rs_inv::{Inventory, Item, STACK_LIMIT, StackMode};
 use rs_pack::ParamValue;
 use rs_pack::cache::dbrow::DbRowType;
 use rs_pack::cache::r#enum::EnumType;
@@ -15,11 +17,12 @@ use rs_pack::cache::midi::MidiType;
 use rs_pack::cache::npc::NpcType;
 use rs_pack::cache::obj::ObjType;
 use rs_pack::cache::param::ParamType;
-use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::Script;
 use rs_pack::cache::seq::SeqType;
 use rs_pack::cache::spotanim::SpotAnimType;
 use rs_pack::cache::r#struct::StructType;
+#[cfg(since_647)]
+use rs_pack::cache::{provider::CacheType, varobj::VarObjType};
 use std::sync::Arc;
 
 pub const LOOTDROP_DURATION: u64 = (200 * 3) >> 1;
@@ -44,37 +47,87 @@ pub(crate) fn require_inv_access(state: &ScriptState, inv: &InvType, idx: usize)
         && inv.scope != InvScope::Shared
     {
         return Err(ScriptError::Runtime(format!(
-            "Inv: {:?} requires protected access!",
-            inv.debugname()
+            "Inv: {} requires protected access!",
+            inv.debugname
         )));
     }
     Ok(())
 }
 
-/// Drops `count` of object `id` on the ground at `coord`, splitting the way the
-/// inventory and obj opcodes expect: a non-stackable object (or a lone item) is
-/// dropped as individual single-count piles, while a stackable amount is dropped
-/// as one combined pile.
+/// Drops `item` on the ground at `coord`, splitting the way the inventory and
+/// obj opcodes expect: a non-stackable object (or a lone item) is dropped as
+/// individual single-count piles, each with the item's varobjs, while a
+/// stackable amount is dropped as one combined pile.
 ///
 /// Returns the serial of the last pile, the one a script's active obj becomes,
 /// or `None` if nothing was dropped.
 pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
     coord: CoordGrid,
-    id: u16,
-    count: u32,
+    item: Item,
     stackable: bool,
     receiver: Option<PlayerUid>,
     duration: u64,
 ) -> Result<Option<ObjSerial>> {
     let mut serial = None;
-    if !stackable || count == 1 {
-        for _ in 0..count {
-            serial = Some(engine_mut::<E>().add_obj(coord, id, 1, receiver, duration)?);
+    if !stackable || item.num == 1 {
+        for _ in 0..item.num {
+            let pile = Item { num: 1, ..item };
+            serial = Some(engine_mut::<E>().add_obj(coord, pile, receiver, duration)?);
         }
     } else {
-        serial = Some(engine_mut::<E>().add_obj(coord, id, count, receiver, duration)?);
+        serial = Some(engine_mut::<E>().add_obj(coord, item, receiver, duration)?);
     }
     Ok(serial)
+}
+
+/// What [`Inventory::delete_with_vars`] took, ready to put down: the items
+/// without varobjs as one, then each with its own.
+pub(crate) fn taken_items(
+    obj: u16,
+    completed: u32,
+    with_vars: Vec<Item>,
+) -> impl Iterator<Item = Item> {
+    let plain = completed - with_vars.iter().map(|item| item.num).sum::<u32>();
+    (plain > 0)
+        .then(|| Item::new(obj, plain))
+        .into_iter()
+        .chain(with_vars)
+}
+
+/// Pops a varobj id from the script stack and looks up its [`VarObjType`].
+#[cfg(since_647)]
+pub(crate) fn pop_varobj<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static VarObjType> {
+    let id = state.pop_int();
+    engine::<E>()
+        .varobjs()
+        .get_by_id(id as u16)
+        .ok_or(ScriptError::VarObjNotFound(id))
+}
+
+/// Errors unless obj `obj` lists `varobj` in its `objvar`.
+#[cfg(since_647)]
+pub(crate) fn require_objvar<E: ScriptEngine + 'static>(
+    obj: u16,
+    varobj: &VarObjType,
+) -> Result<()> {
+    let obj_type = engine::<E>()
+        .objs()
+        .get_by_id(obj)
+        .ok_or(ScriptError::ObjNotFound(obj as i32))?;
+    if obj_type
+        .objvar
+        .as_deref()
+        .is_some_and(|vars| vars.contains(&varobj.id))
+    {
+        return Ok(());
+    }
+    Err(ScriptError::Runtime(format!(
+        "Obj {} has no varobj {}",
+        obj_type.debugname,
+        varobj.debugname()
+    )))
 }
 
 /// Returns the uid held in the chosen active player slot.
@@ -524,6 +577,53 @@ pub(crate) fn pop_count(state: &mut ScriptState) -> Result<u32> {
     Ok(count.clamp(0, i32::MAX) as u32)
 }
 
+/// Whether something at `from` may be put at `to`: see
+/// [`ScriptEngine::region_allows`], with either region the script selected.
+#[cfg(since_647)]
+pub(crate) fn region_allows<E: ScriptEngine + 'static>(
+    state: &ScriptState,
+    from: CoordGrid,
+    to: CoordGrid,
+) -> bool {
+    let engine = engine::<E>();
+    engine.region_allows(from, to, state.active_region)
+        || state.active_region2.is_some() && engine.region_allows(from, to, state.active_region2)
+}
+
+#[cfg(before_647)]
+#[allow(clippy::extra_unused_type_parameters)]
+pub(crate) fn region_allows<E: ScriptEngine + 'static>(
+    _state: &ScriptState,
+    _from: CoordGrid,
+    _to: CoordGrid,
+) -> bool {
+    true
+}
+
+/// Whether `player` may be put at `to` ([`region_allows`]), telling it so
+/// when not.
+pub(crate) fn teleport_allowed<E: ScriptEngine + 'static>(
+    state: &ScriptState,
+    player: &mut impl ScriptPlayer,
+    to: CoordGrid,
+) -> bool {
+    let allowed = region_allows::<E>(state, player.coord(), to);
+    if !allowed {
+        player.invalid_teleport();
+    }
+    allowed
+}
+
+/// Pops an interface component. Before 647 it is the component's own id,
+/// which must fit a `u16`.
+pub(crate) fn pop_com(state: &mut ScriptState) -> Result<ComId> {
+    #[cfg(before_647)]
+    let com = ComId::from(state.pop_int_as::<u16>()?);
+    #[cfg(since_647)]
+    let com = state.pop_int();
+    Ok(com)
+}
+
 pub(crate) fn pop_coord(state: &mut ScriptState) -> Result<CoordGrid> {
     let coord = state.pop_int();
     if coord < 0 {
@@ -764,7 +864,7 @@ pub(crate) fn pop_obj<E: ScriptEngine + 'static>(
 /// A static reference to the [`LocType`] definition.
 ///
 /// # Panics / Errors
-/// Returns `ScriptError::ObjNotFound` if no object type exists with the popped ID.
+/// Returns `ScriptError::LocNotFound` if no loc type exists with the popped ID.
 pub(crate) fn pop_loc<E: ScriptEngine + 'static>(
     state: &mut ScriptState,
 ) -> Result<&'static LocType> {
@@ -772,7 +872,7 @@ pub(crate) fn pop_loc<E: ScriptEngine + 'static>(
     engine::<E>()
         .locs()
         .get_by_id(id as u16)
-        .ok_or(ScriptError::ObjNotFound(id))
+        .ok_or(ScriptError::LocNotFound(id))
 }
 
 /// Pops an integer from the script stack and looks up the corresponding [`ParamType`] from the cache.
@@ -855,6 +955,108 @@ pub(crate) fn pop_spotanim<E: ScriptEngine + 'static>(
         .spotanims()
         .get_by_id(id as u16)
         .ok_or(ScriptError::SpotanimNotFound(id))
+}
+
+/// The half square at the centre of a `size` square whose south-west tile
+/// is `coord`.
+#[cfg(since_647)]
+pub(crate) fn halfsq(coord: CoordGrid, size: u8) -> (u16, u16) {
+    (
+        (coord.x() << 1) + size as u16,
+        (coord.z() << 1) + size as u16,
+    )
+}
+
+/// Pops a BAS wearpos, or -1 for none.
+#[cfg(since_647)]
+pub(crate) fn pop_wearpos(state: &mut ScriptState) -> Result<Option<u8>> {
+    match state.pop_int() {
+        -1 => Ok(None),
+        wearpos @ 0..=63 => Ok(Some(wearpos as u8)),
+        wearpos => Err(ScriptError::Runtime(format!("Invalid wearpos: {wearpos}"))),
+    }
+}
+
+/// The spotanim, heights, delays, peak and arc every halfsq projanim command
+/// ends with, popped before the arguments that say where it flies.
+#[cfg(since_647)]
+pub(crate) struct ProjAnimTail {
+    spotanim: u16,
+    src_height: i32,
+    dst_height: u8,
+    start: u16,
+    end: u16,
+    peak: u8,
+    arc: u16,
+}
+
+#[cfg(since_647)]
+pub(crate) fn pop_projanim_tail<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<ProjAnimTail> {
+    let arc = state.pop_int_as::<u16>()?;
+    let peak = state.pop_int_as::<u8>()?;
+    let end = state.pop_int_as::<u16>()?;
+    let start = state.pop_int_as::<u16>()?;
+    let dst_height = state.pop_int_as::<u8>()?;
+    let src_height = state.pop_int();
+    let spotanim = pop_spotanim::<E>(state)?.id;
+    Ok(ProjAnimTail {
+        spotanim,
+        src_height,
+        dst_height,
+        start,
+        end,
+        peak,
+        arc,
+    })
+}
+
+#[cfg(since_647)]
+impl ProjAnimTail {
+    /// Casts the projectile from half square `from` to `to` on `level`. With
+    /// a wearpos the client takes the start height as a signed offset.
+    pub(crate) fn send<E: ScriptEngine + 'static>(
+        self,
+        level: u8,
+        from: (u16, u16),
+        to: (u16, u16),
+        source: i16,
+        target: i16,
+        wearpos: Option<u8>,
+    ) -> Result<()> {
+        let delta = |from: u16, to: u16| {
+            let delta = to as i32 - from as i32;
+            i8::try_from(delta).map_err(|_| {
+                ScriptError::Runtime(format!("Projectile too long: {delta} half squares"))
+            })
+        };
+        let src_height = match wearpos {
+            Some(_) => i8::try_from(self.src_height)
+                .map(|height| height as u8)
+                .ok(),
+            None => u8::try_from(self.src_height).ok(),
+        }
+        .ok_or_else(|| ScriptError::Runtime(format!("Invalid fromHeight: {}", self.src_height)))?;
+        engine_mut::<E>().map_proj_anim_halfsq(ProjAnimHalfsq {
+            level,
+            x: from.0,
+            z: from.1,
+            dx: delta(from.0, to.0)?,
+            dz: delta(from.1, to.1)?,
+            source,
+            target,
+            wearpos,
+            spotanim: self.spotanim,
+            src_height,
+            dst_height: self.dst_height,
+            start: self.start,
+            end: self.end,
+            peak: self.peak,
+            arc: self.arc,
+        });
+        Ok(())
+    }
 }
 
 /// Pops an integer from the script stack and looks up the corresponding [`StructType`] from the cache.

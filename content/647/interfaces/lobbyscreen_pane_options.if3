@@ -1,0 +1,778 @@
+// 911:0
+[universe]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 911:1
+[contents]
+type=layer
+width=501
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+
+// 911:2
+[options_client_if]
+type=layer
+height=307
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+
+// 911:3
+[back_button]
+type=layer
+width=52
+height=22
+xmode=abs_centre
+ymode=abs_bottom
+layer=options_client_if
+hide=yes
+
+// 911:4
+[back_button_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=back_button
+textfont=verdana_13pt_regular
+text=Back
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+onmouseover=text_colour_swapper(event_com, 0xfafafa)
+onmouseleave=text_colour_swapper(event_com, 0xebe0bc)
+
+// 911:5
+[sound_layer]
+type=layer
+width=476
+height=106
+xmode=abs_centre
+ymode=abs_bottom
+layer=options_client_if
+
+// 911:6
+[volume_text]
+type=text
+x=5
+y=5
+width=10
+height=16
+widthmode=minus
+layer=sound_layer
+textfont=verdana_13pt_regular
+text=Volume
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 911:7
+[com_7]
+type=layer
+width=476
+height=81
+xmode=abs_centre
+ymode=abs_bottom
+layer=sound_layer
+
+// 911:8
+[sound_bg]
+type=layer
+width=365
+height=81
+layer=com_7
+op10= 
+
+// 911:9
+[music_text]
+type=text
+x=13
+y=11
+width=90
+height=12
+layer=com_7
+textfont=verdana_11pt_regular
+text=Music
+textshadow=yes
+colour=0xebe0bc
+
+// 911:10
+[sound_effects_text]
+type=text
+x=13
+y=34
+width=90
+height=12
+layer=com_7
+textfont=verdana_11pt_regular
+text=Sound Effects
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 911:11
+[area_sounds_text]
+type=text
+x=13
+y=56
+width=90
+height=12
+layer=com_7
+textfont=verdana_11pt_regular
+text=Area Sounds
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 911:12
+[music_container]
+type=layer
+x=98
+y=11
+width=144
+height=16
+layer=com_7
+noclickthrough=yes
+op10=   
+
+// 911:13
+[sound_container]
+type=layer
+x=98
+y=34
+width=144
+height=16
+layer=com_7
+noclickthrough=yes
+op10=  
+
+// 911:14
+[bgsound_container]
+type=layer
+x=98
+y=56
+width=144
+height=16
+layer=com_7
+noclickthrough=yes
+op10=   
+
+// 911:15
+[com_15]
+type=layer
+width=106
+heightmode=minus
+xmode=abs_right
+layer=com_7
+op10=  
+
+// 911:16
+[com_16]
+type=layer
+width=106
+height=61
+xmode=abs_right
+ymode=abs_centre
+layer=com_7
+op10= 
+
+// 911:17
+[stereo_text]
+type=text
+x=269
+y=21
+width=48
+height=12
+layer=com_7
+textfont=verdana_11pt_regular
+text=Stereo
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 911:18
+[stereo_button]
+type=graphic
+x=317
+y=22
+width=15
+height=15
+layer=com_7
+graphic=graphic_2533
+colour=0xffffffff
+op10=          
+onclick=loginscreen_stereo(1, lobbyscreen_pane_options:mono_button, lobbyscreen_pane_options:stereo_button)
+
+// 911:19
+[mono_text]
+type=text
+x=269
+y=44
+width=48
+height=12
+layer=com_7
+textfont=verdana_11pt_regular
+text=Mono
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 911:20
+[mono_button]
+type=graphic
+x=317
+y=45
+width=15
+height=15
+layer=com_7
+graphic=graphic_2533
+colour=0xffffffff
+op10=           
+onclick=loginscreen_stereo(0, lobbyscreen_pane_options:mono_button, lobbyscreen_pane_options:stereo_button)
+
+// 911:21
+[com_21]
+type=text
+height=27
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_16
+textfont=p11_full
+text=Animated<br>background
+textlineheight=13
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xb2aa9f
+op10= 
+
+// 911:22
+[com_22]
+type=graphic
+width=57
+height=35
+xmode=abs_centre
+layer=com_16
+colour=0xffffffff
+op10= 
+
+// 911:23
+[com_23]
+type=rectangle
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=com_15
+hide=yes
+colour=0x443f39
+fill=yes
+op10=    
+
+// 911:24
+[com_24]
+type=graphic
+width=8
+height=8
+layer=com_15
+graphic="lobby_smlframe,0"
+colour=0xffffffff
+op10=    
+
+// 911:25
+[com_25]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+layer=com_15
+graphic="lobby_smlframe,1"
+tiling=yes
+colour=0xffffffff
+op10=    
+
+// 911:26
+[com_26]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+ymode=abs_bottom
+layer=com_15
+graphic="lobby_smlframe,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=    
+
+// 911:27
+[com_27]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+layer=com_15
+graphic="lobby_smlframe,2"
+tiling=yes
+colour=0xffffffff
+op10=    
+
+// 911:28
+[com_28]
+type=graphic
+width=8
+height=8
+ymode=abs_bottom
+layer=com_15
+graphic="lobby_smlframe,0"
+vflip=yes
+colour=0xffffffff
+op10=    
+
+// 911:29
+[com_29]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+layer=com_15
+graphic="lobby_smlframe,0"
+hflip=yes
+colour=0xffffffff
+op10=    
+
+// 911:30
+[com_30]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+xmode=abs_right
+layer=com_15
+graphic="lobby_smlframe,2"
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=    
+
+// 911:31
+[com_31]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=com_15
+graphic="lobby_smlframe,1"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=    
+
+// 911:32
+[com_32]
+type=graphic
+width=128
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bgsound_container
+graphic=login_lobby_sliderbase
+colour=0xffffffff
+op10=   
+
+// 911:33
+[bgsound_min]
+type=layer
+width=32
+heightmode=minus
+layer=bgsound_container
+noclickthrough=yes
+op10= 
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider, 0, 2)
+
+// 911:34
+[bgsound_max]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=bgsound_container
+noclickthrough=yes
+op10=   
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider, -1, 2)
+
+// 911:35
+[bgsound_dragzone]
+type=layer
+width=112
+heightmode=minus
+xmode=abs_centre
+layer=bgsound_container
+noclickthrough=yes
+op10=   
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider, event_mousex, 2)
+
+// 911:36
+[bgsound_slider]
+type=layer
+width=16
+height=16
+ymode=abs_centre
+layer=bgsound_dragzone
+noclickthrough=yes
+op10=  
+dragdeadtime=2
+ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:bgsound_dragzone, event_com, event_mousex, 2)
+
+// 911:37
+[com_37]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=bgsound_slider
+graphic=login_lobby_sliderbutton
+colour=0xffffffff
+op10=  
+
+// 911:38
+[com_38]
+type=graphic
+width=128
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=sound_container
+graphic=login_lobby_sliderbase
+colour=0xffffffff
+op10=  
+
+// 911:39
+[sound_min]
+type=layer
+width=32
+heightmode=minus
+layer=sound_container
+noclickthrough=yes
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider, 0, 0)
+
+// 911:40
+[sound_max]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=sound_container
+noclickthrough=yes
+op10=  
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider, -1, 0)
+
+// 911:41
+[sound_dragzone]
+type=layer
+width=112
+heightmode=minus
+xmode=abs_centre
+layer=sound_container
+noclickthrough=yes
+op10=  
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider, event_mousex, 0)
+
+// 911:42
+[sound_slider]
+type=layer
+width=16
+height=16
+ymode=abs_centre
+layer=sound_dragzone
+noclickthrough=yes
+op10= 
+dragdeadtime=2
+ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:sound_dragzone, event_com, event_mousex, 0)
+
+// 911:43
+[com_43]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=sound_slider
+graphic=login_lobby_sliderbutton
+colour=0xffffffff
+op10= 
+
+// 911:44
+[com_44]
+type=graphic
+width=128
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=music_container
+graphic=login_lobby_sliderbase
+colour=0xffffffff
+op10=   
+
+// 911:45
+[music_min]
+type=layer
+width=32
+heightmode=minus
+layer=music_container
+noclickthrough=yes
+op10= 
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider, 0, 1)
+
+// 911:46
+[music_max]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=music_container
+noclickthrough=yes
+op10=   
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider, -1, 1)
+
+// 911:47
+[music_dragzone]
+type=layer
+width=112
+heightmode=minus
+xmode=abs_centre
+layer=music_container
+noclickthrough=yes
+op10=   
+onclick=loginscreen_slider_click(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider, event_mousex, 1)
+
+// 911:48
+[music_slider]
+type=layer
+width=16
+height=16
+ymode=abs_centre
+layer=music_dragzone
+noclickthrough=yes
+op10=  
+dragdeadtime=2
+ondragcomplete=loginscreen_slider_drag(lobbyscreen_pane_options:music_dragzone, event_com, event_mousex, 1)
+
+// 911:49
+[com_49]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=music_slider
+graphic=login_lobby_sliderbutton
+colour=0xffffffff
+op10=  
+
+// 911:50
+[com_50]
+type=rectangle
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=sound_bg
+hide=yes
+colour=0x443f39
+fill=yes
+op10=   
+
+// 911:51
+[com_51]
+type=graphic
+width=8
+height=8
+layer=sound_bg
+graphic="lobby_smlframe,0"
+colour=0xffffffff
+op10=   
+
+// 911:52
+[com_52]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+layer=sound_bg
+graphic="lobby_smlframe,1"
+tiling=yes
+colour=0xffffffff
+op10=   
+
+// 911:53
+[com_53]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+ymode=abs_bottom
+layer=sound_bg
+graphic="lobby_smlframe,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=   
+
+// 911:54
+[com_54]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+layer=sound_bg
+graphic="lobby_smlframe,2"
+tiling=yes
+colour=0xffffffff
+op10=   
+
+// 911:55
+[com_55]
+type=graphic
+width=8
+height=8
+ymode=abs_bottom
+layer=sound_bg
+graphic="lobby_smlframe,0"
+vflip=yes
+colour=0xffffffff
+op10=   
+
+// 911:56
+[com_56]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+layer=sound_bg
+graphic="lobby_smlframe,0"
+hflip=yes
+colour=0xffffffff
+op10=   
+
+// 911:57
+[com_57]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+xmode=abs_right
+layer=sound_bg
+graphic="lobby_smlframe,2"
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=   
+
+// 911:58
+[com_58]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=sound_bg
+graphic="lobby_smlframe,1"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=   
+
+// 911:59
+[dropdown]
+type=layer
+width=100
+height=50
+hide=yes
+noclickthrough=yes
+op10= 
+
+// 911:60
+[dropdown_background]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=dropdown
+colour=0x2e2b26
+fill=yes
+op10= 
+
+// 911:61
+[com_61]
+type=rectangle
+width=1
+heightmode=minus
+layer=dropdown
+colour=0xb2aa9f
+
+// 911:62
+[com_62]
+type=rectangle
+width=1
+heightmode=minus
+xmode=abs_right
+layer=dropdown
+colour=0xb2aa9f
+
+// 911:63
+[com_63]
+type=rectangle
+height=1
+widthmode=minus
+ymode=abs_bottom
+layer=dropdown
+colour=0xb2aa9f
+
+// 911:64
+[dropdown_list]
+type=layer
+x=1
+width=18
+height=1
+widthmode=minus
+heightmode=minus
+layer=dropdown
+op10= 
+
+// 911:65
+[dropdown_scrollbar]
+type=layer
+x=1
+width=16
+height=1
+heightmode=minus
+xmode=abs_right
+layer=dropdown
+op10= 

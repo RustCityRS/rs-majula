@@ -1,4 +1,5 @@
-use crate::engine::engine;
+use crate::core::{Engine, engine, engine_mut};
+use crate::phases::shared::EntityId;
 use rs_entity::{EntityLifeTime, Npc, NpcUid};
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
@@ -115,7 +116,7 @@ impl ActiveNpc {
     /// exceeds the current value.
     ///
     /// # Arguments
-    /// * `amount` - The amount of damage to deal.
+    /// * `amount` - The amount of damage to deal; at 647, in life points.
     /// * `damage_type` - The damage type identifier (e.g. melee, ranged, magic).
     ///
     /// # Side Effects
@@ -123,18 +124,29 @@ impl ActiveNpc {
     /// * Populates the damage info fields (`damage_taken`, `damage_type`,
     ///   `damage_current`, `damage_base`) and sets the `NpcInfoProt::Damage`
     ///   mask for the next info update.
-    pub fn damage(&mut self, amount: u8, damage_type: u8) {
-        let amount = amount as u16;
+    pub fn damage(&mut self, amount: u16, damage_type: u8) {
         let current = self.npc.stats.levels[NpcStat::Hitpoints as usize];
         let taken = if current.saturating_sub(amount) == 0 {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] = 0;
-            current as u8
+            current
         } else {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] = current.saturating_sub(amount);
-            amount as u8
+            amount
         };
-        let remaining = self.npc.stats.levels[NpcStat::Hitpoints as usize] as u8;
-        let base = self.npc.stats.base_levels[NpcStat::Hitpoints as usize] as u8;
+        #[cfg(before_647)]
+        let (remaining, base) = (
+            self.npc.stats.levels[NpcStat::Hitpoints as usize] as u8,
+            self.npc.stats.base_levels[NpcStat::Hitpoints as usize] as u8,
+        );
+        // 2011's npc hitpoints are life points (2011 wiki, Constitution), which
+        // pass a byte, so the bar's fill is worked out here and sent as a share
+        // of 255.
+        #[cfg(since_647)]
+        let (remaining, base) = {
+            let current = self.npc.stats.levels[NpcStat::Hitpoints as usize] as u32;
+            let base = self.npc.stats.base_levels[NpcStat::Hitpoints as usize].max(1) as u32;
+            ((current * 255 / base).min(255) as u8, u8::MAX)
+        };
 
         #[cfg(since_244)]
         if self.npc.info.apply_damage2(
@@ -331,6 +343,15 @@ impl ActiveNpc {
                     CoordGrid::fine(look_z, self.npc.pathing.size),
                     false,
                 );
+                if self.npc.active {
+                    let block_walk = self.block_walk();
+                    Engine::refresh_presence(
+                        &mut engine_mut().zones,
+                        &mut self.npc.pathing,
+                        EntityId::Npc(self.npc.uid.nid()),
+                        block_walk,
+                    );
+                }
             }
         }
     }

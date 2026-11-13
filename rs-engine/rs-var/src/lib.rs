@@ -1,4 +1,5 @@
 use rs_pack::cache::{ScriptVarType, VarValue};
+use std::ops::{Index, IndexMut};
 
 /// Type-aware variable storage container backed by a [`Vec<VarValue>`].
 ///
@@ -8,14 +9,30 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 /// [`ScriptVarType::Obj`], [`ScriptVarType::Npc`],
 /// [`ScriptVarType::Coord`], and [`ScriptVarType::Boolean`].
 ///
-/// `VarSet` is used in two contexts:
+/// `VarSet` stores entity and world variables, including:
 /// - **Player variables (varps):** stored on each [`Player`] and accessed by
 ///   the VM through the `PlayerEngine::get_var` / `PlayerEngine::set_var`
 ///   trait methods.
 /// - **NPC variables (varns):** stored on each [`ActiveNpc`] and accessed by
 ///   the VM through the `NpcEngine::get_var` / `NpcEngine::set_var` trait
 ///   methods.
+/// - **Client variables (varcs):** stored on each player, with integer and
+///   string IDs mapped to separate slots by the cache provider.
 pub struct VarSet(Vec<VarValue>);
+
+impl Index<usize> for VarSet {
+    type Output = VarValue;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.0[index]
+    }
+}
+
+impl IndexMut<usize> for VarSet {
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        &mut self.0[index]
+    }
+}
 
 impl VarSet {
     /// Creates a new `VarSet` by mapping each [`ScriptVarType`] to its
@@ -35,9 +52,9 @@ impl VarSet {
     ///   from `cache.varps` type definitions.
     /// - `Engine::add_npc_spawned` (rs-engine/src/engine.rs) -- NPC varns from
     ///   `cache.varns` type definitions.
-    /// - `GameMap` NPC loading (rs-engine/src/game_map.rs) -- NPC varns during
+    /// - `GameMap` NPC loading (rs-engine/src/map.rs) -- NPC varns during
     ///   map deserialization.
-    /// - `Player::new` (rs-engine/src/player_save.rs) -- player varps during
+    /// - `Player::new` (rs-engine/src/save.rs) -- player varps during
     ///   player construction.
     ///
     /// **Calls:** [`VarValue::default_for`] for each type.
@@ -66,7 +83,7 @@ impl VarSet {
     ///   (rs-engine/src/active_player.rs) -- reads varp values for client sync.
     /// - NPC hunt phase checks (rs-engine/src/phases/npc.rs) -- reads varps
     ///   and varns during hunt condition evaluation.
-    /// - Player save serialization (rs-engine/src/player_save.rs) -- reads
+    /// - Player save serialization (rs-engine/src/save.rs) -- reads
     ///   each permanent varp for persistence.
     #[inline]
     pub fn get(&self, id: u16) -> &VarValue {
@@ -153,10 +170,11 @@ impl VarSet {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::iter;
 
     #[test]
     fn new_empty_iterator() {
-        let vs = VarSet::new(std::iter::empty());
+        let vs = VarSet::new(iter::empty());
         assert_eq!(vs.len(), 0);
         assert!(vs.is_empty());
     }

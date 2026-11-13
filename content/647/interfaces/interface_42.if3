@@ -1,0 +1,340 @@
+// 42:0
+[model]
+type=model
+width=483
+height=322
+xmode=abs_centre
+ymode=abs_centre
+model=model_47690
+modelorigin=0,170
+modelzoom=416
+
+// 42:1
+[mob_colour1]
+type=text
+x=38
+y=12
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:2
+[mob_colour2]
+type=text
+x=241
+y=12
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:3
+[mob_colour3]
+type=text
+x=38
+y=125
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:4
+[mob_colour4]
+type=text
+x=241
+y=125
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:5
+[mob_squad1]
+type=text
+x=38
+y=31
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:6
+[mob_squad2]
+type=text
+x=241
+y=31
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:7
+[mob_squad3]
+type=text
+x=38
+y=144
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:8
+[mob_squad4]
+type=text
+x=241
+y=144
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:9
+[mob_kill1]
+type=text
+x=38
+y=50
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:10
+[mob_kill2]
+type=text
+x=241
+y=50
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:11
+[mob_kill3]
+type=text
+x=38
+y=163
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:12
+[mob_kill4]
+type=text
+x=241
+y=163
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:13
+[com_13]
+type=text
+x=38
+y=69
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:14
+[com_14]
+type=text
+x=241
+y=69
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:15
+[summary]
+type=text
+x=36
+y=307
+width=445
+height=16
+textfont=p12_full
+text=A breakdown of scores for the scenario that just ended.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 42:16
+[title]
+type=text
+y=54
+width=283
+height=19
+xmode=abs_centre
+textfont=b12_full
+text=Scenario Scores
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 42:17
+[content_layer]
+type=layer
+x=31
+y=75
+width=437
+height=240
+scrollheight=602
+
+// 42:18
+[com_18]
+type=text
+x=38
+y=182
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:19
+[mob_spear]
+type=text
+x=241
+y=182
+width=176
+height=14
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:20
+[mob_status1]
+type=text
+x=38
+y=87
+width=176
+height=28
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:21
+[mob_status2]
+type=text
+x=241
+y=87
+width=176
+height=28
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:22
+[mob_status3]
+type=text
+x=38
+y=201
+width=176
+height=28
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:23
+[mob_status4]
+type=text
+x=241
+y=201
+width=176
+height=28
+layer=content_layer
+textfont=p12_full
+text=Getting Status....
+textalignv=centre
+textshadow=yes
+
+// 42:24
+[com_24]
+type=line
+x=29
+y=120
+width=392
+layer=content_layer
+colour=0x333333
+
+// 42:25
+[com_25]
+type=line
+x=228
+y=15
+width=1
+height=208
+layer=content_layer
+colour=0x333333
+
+// 42:26
+[close_button]
+type=graphic
+x=380
+y=49
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click

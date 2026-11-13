@@ -1,0 +1,747 @@
+// 334:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 334:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 334:2
+[com_2]
+type=graphic
+y=6
+width=32
+height=250
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 334:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 334:4
+[com_4]
+type=graphic
+x=480
+y=6
+width=32
+height=250
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 334:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 334:6
+[closebutton]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 334:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 334:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 334:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 334:10
+[com_10]
+type=graphic
+y=44
+width=469
+height=32
+xmode=abs_centre
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 334:11
+[com_11]
+type=graphic
+x=13
+y=46
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 334:12
+[com_12]
+type=graphic
+x=468
+y=46
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 334:13
+[com_13]
+type=graphic
+x=240
+y=58
+width=32
+height=32
+graphic="v2_stone_borders,14"
+colour=0xffffffff
+opbase= 
+
+// 334:14
+[com_14]
+type=graphic
+x=241
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,11"
+colour=0xffffffff
+
+// 334:15
+[com_15]
+type=graphic
+x=19
+y=81
+width=234
+height=32
+graphic="v2_stone_borders,33"
+tiling=yes
+
+// 334:16
+[com_16]
+type=graphic
+x=19
+y=254
+width=234
+height=32
+graphic="v2_stone_borders,33"
+tiling=yes
+
+// 334:17
+[com_17]
+type=graphic
+x=259
+y=81
+width=234
+height=32
+graphic="v2_stone_borders,33"
+tiling=yes
+
+// 334:18
+[com_18]
+type=graphic
+x=259
+y=254
+width=234
+height=32
+graphic="v2_stone_borders,33"
+tiling=yes
+
+// 334:19
+[com_19]
+type=graphic
+x=239
+y=64
+width=32
+height=224
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0xffffffff
+
+// 334:20
+[com_20]
+type=graphic
+x=239
+y=283
+width=34
+height=36
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0xffffffff
+
+// 334:21
+[trade2accept]
+type=rectangle
+x=188
+y=295
+width=65
+height=25
+colour=0x0f0105
+fill=yes
+transmitop=1
+op1=Accept
+
+// 334:22
+[trade2decline]
+type=rectangle
+x=259
+y=295
+width=67
+height=24
+colour=0x0f0105
+fill=yes
+transmitop=1
+op1=Decline
+
+// 334:23
+[com_23]
+type=graphic
+x=184
+y=290
+width=32
+height=32
+graphic="v2_stone_borders,18"
+colour=0xffffffff
+opbase= 
+
+// 334:24
+[com_24]
+type=graphic
+x=296
+y=290
+width=32
+height=32
+graphic="v2_stone_borders,19"
+colour=0xffffffff
+
+// 334:25
+[com_25]
+type=graphic
+x=216
+y=276
+width=32
+height=32
+graphic="v2_stone_borders,8"
+colour=0xffffffff
+
+// 334:26
+[com_26]
+type=graphic
+x=264
+y=276
+width=32
+height=32
+graphic="v2_stone_borders,8"
+colour=0xffffffff
+
+// 334:27
+[com_27]
+type=graphic
+x=239
+y=277
+width=32
+height=32
+graphic="v2_stone_borders,22"
+colour=0xffffffff
+
+// 334:28
+[com_28]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 334:29
+[com_29]
+type=graphic
+x=172
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,11"
+colour=0xffffffff
+
+// 334:30
+[com_30]
+type=graphic
+x=241
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,11"
+colour=0xffffffff
+
+// 334:31
+[com_31]
+type=graphic
+x=310
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,11"
+colour=0xffffffff
+
+// 334:32
+[com_32]
+type=text
+x=19
+y=63
+width=234
+height=19
+textfont=b12_full
+text=You are about to give:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 334:33
+[com_33]
+type=text
+x=258
+y=63
+width=235
+height=19
+textfont=b12_full
+text=You will receive:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 334:34
+[trade2title]
+type=text
+y=28
+width=474
+height=16
+xmode=abs_centre
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ffff
+onload=trade_confirm_init
+oninvtransmit=trade_confirm_init{tradeoffer}
+
+// 334:35
+[com_35]
+type=text
+y=44
+width=474
+height=11
+xmode=abs_centre
+textfont=p11_full
+text=There is <col=ff0000>NO WAY<col=ffffff> to reverse a trade if you change your mind.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 334:36
+[com_36]
+type=text
+x=187
+y=297
+width=67
+height=20
+textfont=p12_full
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00c000
+
+// 334:37
+[com_37]
+type=text
+x=259
+y=298
+width=68
+height=19
+textfont=p12_full
+text=Decline
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc00000
+
+// 334:38
+[out]
+type=layer
+x=20
+y=83
+width=232
+height=171
+
+// 334:39
+[out_left]
+type=layer
+width=100
+heightmode=minus
+ymode=abs_centre
+layer=out
+
+// 334:40
+[out_right]
+type=layer
+width=100
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=out
+
+// 334:41
+[out_dragzone]
+type=layer
+width=60
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=out
+candrop=yes
+
+// 334:42
+[out_dragger]
+type=layer
+width=6
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=out_dragzone
+dragdepth=1
+
+// 334:43
+[com_43]
+type=rectangle
+width=2
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=out_dragger
+colour=0x000000
+fill=yes
+trans=175
+
+// 334:44
+[com_44]
+type=rectangle
+x=1
+width=1
+height=4
+ymode=abs_centre
+layer=out_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:45
+[com_45]
+type=rectangle
+width=1
+height=2
+ymode=abs_centre
+layer=out_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:46
+[com_46]
+type=rectangle
+x=1
+width=1
+height=4
+xmode=abs_right
+ymode=abs_centre
+layer=out_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:47
+[com_47]
+type=rectangle
+width=1
+height=2
+xmode=abs_right
+ymode=abs_centre
+layer=out_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:48
+[out_loan_layer]
+type=layer
+x=19
+y=256
+width=235
+height=34
+hide=yes
+
+// 334:49
+[in]
+type=layer
+x=260
+y=83
+width=232
+height=171
+
+// 334:50
+[out_loan]
+type=text
+widthmode=minus
+heightmode=minus
+layer=out_loan_layer
+textfont=p12_full
+textlineheight=17
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 334:51
+[in_loan_layer]
+type=layer
+x=259
+y=256
+width=235
+height=34
+hide=yes
+
+// 334:52
+[in_loan]
+type=text
+widthmode=minus
+heightmode=minus
+layer=in_loan_layer
+textfont=p12_full
+textlineheight=17
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 334:53
+[com_53]
+type=text
+x=20
+y=288
+width=164
+height=15
+textfont=b12_full
+text=Trading with:
+textlineheight=14
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x00ffff
+transmitop=10
+op10= 
+
+// 334:54
+[tradeopponent]
+type=text
+x=20
+y=303
+width=164
+height=15
+textfont=b12_full
+textlineheight=14
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x00ffff
+transmitop=10
+op10= 
+onload=script1571(event_com, tradeconfirm:tooltip, b12_full)
+onvarcstrtransmit=script1571(event_com, tradeconfirm:tooltip, b12_full){varclient_1722}
+
+// 334:55
+[trade_removed_warning_right]
+type=text
+x=328
+y=290
+width=165
+height=29
+hide=yes
+textfont=b12_full
+text=Trade modified
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+
+// 334:56
+[tooltip_bounding_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 334:57
+[tooltip]
+type=layer
+x=66
+y=293
+width=57
+height=16
+layer=tooltip_bounding_layer
+
+// 334:58
+[in_left]
+type=layer
+width=100
+heightmode=minus
+ymode=abs_centre
+layer=in
+
+// 334:59
+[in_right]
+type=layer
+width=100
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=in
+
+// 334:60
+[in_dragzone]
+type=layer
+width=60
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=in
+candrop=yes
+
+// 334:61
+[in_dragger]
+type=layer
+width=6
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=in_dragzone
+dragdepth=1
+
+// 334:62
+[com_62]
+type=rectangle
+width=2
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=in_dragger
+colour=0x000000
+fill=yes
+trans=175
+
+// 334:63
+[com_63]
+type=rectangle
+x=1
+width=1
+height=4
+ymode=abs_centre
+layer=in_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:64
+[com_64]
+type=rectangle
+width=1
+height=2
+ymode=abs_centre
+layer=in_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:65
+[com_65]
+type=rectangle
+x=1
+width=1
+height=4
+xmode=abs_right
+ymode=abs_centre
+layer=in_dragger
+colour=0xc8af96
+fill=yes
+trans=200
+
+// 334:66
+[com_66]
+type=rectangle
+width=1
+height=2
+xmode=abs_right
+ymode=abs_centre
+layer=in_dragger
+colour=0xc8af96
+fill=yes
+trans=200

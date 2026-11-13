@@ -1,0 +1,438 @@
+// 126:0
+[left]
+type=layer
+width=8199
+widthmode=proportion
+heightmode=minus
+ymode=abs_centre
+
+// 126:1
+[right]
+type=layer
+width=8199
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+
+// 126:2
+[rake]
+type=layer
+y=12
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=left
+
+// 126:3
+[rake_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=rake
+textfont=p12_full
+text=Rake
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:4
+[rake_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=rake
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,10
+opbase=<col=ff9040>Rake
+op1=Store
+op10=Examine
+onload=farming_tools_side_update(event_com, rake, farming_tools_side:rake_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, rake, farming_tools_side:rake_name){inv}
+
+// 126:5
+[dibber]
+type=layer
+y=12
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=right
+
+// 126:6
+[dibber_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=dibber
+textfont=p12_full
+text=Dibber
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:7
+[dibber_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=dibber
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,10
+opbase=<col=ff9040>Dibber
+op1=Store
+op10=Examine
+onload=farming_tools_side_update(event_com, dibber, farming_tools_side:dibber_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, dibber, farming_tools_side:dibber_name){inv}
+
+// 126:8
+[spade]
+type=layer
+y=60
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=left
+
+// 126:9
+[spade_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=spade
+textfont=p12_full
+text=Spade
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:10
+[spade_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=spade
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,10
+opbase=<col=ff9040>Spade
+op1=Store
+op10=Examine
+onload=farming_tools_side_update(event_com, spade, farming_tools_side:spade_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, spade, farming_tools_side:spade_name){inv}
+
+// 126:11
+[secateurs]
+type=layer
+y=60
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=right
+
+// 126:12
+[secateurs_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=secateurs
+textfont=p12_full
+text=Secateurs
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:13
+[secateurs_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=secateurs
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,10
+opbase=<col=ff9040>Secateurs
+op1=Store
+op10=Examine
+onload=farming_tools_side_update(event_com, secateurs, farming_tools_side:secateurs_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, secateurs, farming_tools_side:secateurs_name){inv}
+
+// 126:14
+[wateringcan]
+type=layer
+y=108
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=left
+
+// 126:15
+[wateringcan_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=wateringcan
+textfont=p12_full
+text=Watering can
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:16
+[wateringcan_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=wateringcan
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,10
+opbase=<col=ff9040>Watering Can
+op1=Store
+op10=Examine
+onload=farming_tools_side_update(event_com, watering_can_dummy, farming_tools_side:wateringcan_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, watering_can_dummy, farming_tools_side:wateringcan_name){inv}
+
+// 126:17
+[trowel]
+type=layer
+y=108
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=right
+
+// 126:18
+[trowel_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=trowel
+textfont=p12_full
+text=Trowel
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:19
+[trowel_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=trowel
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,10
+opbase=<col=ff9040>Trowel
+op1=Store
+op10=Examine
+onload=farming_tools_side_update(event_com, gardening_trowel, farming_tools_side:trowel_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, gardening_trowel, farming_tools_side:trowel_name){inv}
+
+// 126:20
+[buckets]
+type=layer
+y=156
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=right
+
+// 126:21
+[buckets_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=buckets
+textfont=p12_full
+text=Bucket
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:22
+[buckets_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=buckets
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Bucket
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=farming_tools_side_update(event_com, bucket_empty, farming_tools_side:buckets_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, bucket_empty, farming_tools_side:buckets_name){inv}
+
+// 126:23
+[scarecrow]
+type=layer
+y=156
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=left
+
+// 126:24
+[scarecrow_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=scarecrow
+textfont=p12_full
+text=Scarecrow
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:25
+[scarecrow_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=scarecrow
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Scarecrow
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=farming_tools_side_update(event_com, scarecrow_complete, farming_tools_side:scarecrow_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, scarecrow_complete, farming_tools_side:scarecrow_name){inv}
+
+// 126:26
+[compost]
+type=layer
+y=204
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=left
+
+// 126:27
+[compost_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=compost
+textfont=p12_full
+text=Compost
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:28
+[compost_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=compost
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Compost
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=farming_tools_side_update(event_com, bucket_compost, farming_tools_side:compost_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, bucket_compost, farming_tools_side:compost_name){inv}
+
+// 126:29
+[supercompost]
+type=layer
+y=204
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=right
+
+// 126:30
+[supercompost_name]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=supercompost
+textfont=p12_full
+text=Supercompost
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 126:31
+[supercompost_store]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=supercompost
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Supercompost
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=farming_tools_side_update(event_com, bucket_supercompost, farming_tools_side:supercompost_name)
+onmouseover=script3927(event_com)
+oninvtransmit=farming_tools_side_update(event_com, bucket_supercompost, farming_tools_side:supercompost_name){inv}

@@ -1,0 +1,18 @@
+// 3139
+[proc,script3139](int $int0)
+if (%worldselect_1stfavourite = $int0) {
+    ~script1857(~script1854);
+    ~script1858(0);
+} else if (%worldselect_2ndfavourite = $int0) {
+    ~script1858(0);
+}
+%worldselect_1stfavourite = ~script1853;
+%worldselect_2ndfavourite = ~script1854;
+~lobby_worldswitcher_drawlist;
+def_string $string0 = "Your changes cannot be saved because<br>you are using the unsigned client.";
+if (unknown_command_5420 = true) {
+    ~script3143(1, $string0);
+} else {
+    ~script3143(0, "World <tostring($int0)> has been removed from your favourites.");
+}
+~script3065(1);

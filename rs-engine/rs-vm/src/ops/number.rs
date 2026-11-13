@@ -3,8 +3,9 @@ use crate::engine::{ScriptEngine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::util::RUNEDAY_EPOCH_DAYS;
 use crate::{handlers, none};
-use rs_pack::cache::script::*;
-use rs_util::bits::{clearbit_range, setbit_range, setbit_range_toint};
+use rs_util::bits::{clearbit_range, getbit_range, setbit_range, setbit_range_toint};
+use runec::opcodes::*;
+use std::f64::consts::PI;
 
 /// Registers arithmetic, bitwise, trigonometric, and random number opcodes.
 ///
@@ -206,7 +207,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let c = s.pop_int();
             let b = s.pop_int();
             let a = s.pop_int();
-            s.push_int(clearbit_range(c, b, a));
+            s.push_int(clearbit_range(a, b, c));
         });
 
         // 4623
@@ -214,8 +215,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let c = s.pop_int();
             let b = s.pop_int();
             let a = s.pop_int();
-            let r: i32 = 31i32.wrapping_sub(c);
-            s.push_int(((a.wrapping_shl(r as u32) as u32) >> (b.wrapping_add(r) as u32)) as i32);
+            s.push_int(getbit_range(a, b, c));
         });
 
         // 4624
@@ -230,14 +230,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4625
         none!(m, SIN_DEG => |s| {
             let a = s.pop_int();
-            let rad = (a as f64) * std::f64::consts::PI / (180.0 * 65536.0);
+            let rad = (a as f64) * PI / (180.0 * 65536.0);
             s.push_int((rad.sin() * 65536.0) as i32);
         });
 
         // 4626
         none!(m, COS_DEG => |s| {
             let a = s.pop_int();
-            let rad = (a as f64) * std::f64::consts::PI / (180.0 * 65536.0);
+            let rad = (a as f64) * PI / (180.0 * 65536.0);
             s.push_int((rad.cos() * 65536.0) as i32);
         });
 
@@ -246,7 +246,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let b = s.pop_int();
             let a = s.pop_int();
             let rad = (a as f64).atan2(b as f64);
-            s.push_int((rad * 180.0 * 65536.0 / std::f64::consts::PI) as i32);
+            s.push_int((rad * 180.0 * 65536.0 / PI) as i32);
         });
 
         // 4628

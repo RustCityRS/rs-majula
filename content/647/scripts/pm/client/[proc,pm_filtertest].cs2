@@ -1,0 +1,20 @@
+// 91
+[proc,pm_filtertest](int $int0)(boolean)
+switch_int (chat_gethistorytype($int0)) {
+    case ^chattype_modprivatechat :
+        return(true);
+    case ^chattype_privatechat, ^chattype_quickchat_private_incoming :
+        if (chat_getfilter_private = ^chatfilter_on) {
+            return(true);
+        }
+        if (chat_getfilter_private = ^chatfilter_friends & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
+        if (chat_getfilter_private < 2) {
+            return(true);
+        }
+        return(false);
+}
+return(false);

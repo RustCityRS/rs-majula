@@ -1,0 +1,17 @@
+// 2741
+[proc,script2741]
+def_string $string0 = "Confirm";
+def_string $string1 = "Continue";
+def_int $int0 = calc(stringwidth($string0, p12_full) + 30);
+~script3965(playerdesign4:confirm, $string0, $int0, "");
+~playerdesign4_button(playerdesign4:com_115, $string1, calc(stringwidth($string1, p12_full) + 30), "");
+$string1 = "Back";
+$int0 = calc($int0 + 55);
+~playerdesign4_button(playerdesign4:back, $string1, calc(stringwidth($string1, p12_full) + 30), "");
+if (%character_creation_multipage = 1 & %character_creation_page = 0) {
+    if_setposition(playerdesign4:com_115, 20, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    if_setposition(playerdesign4:back, 0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+} else {
+    if_setposition(playerdesign4:com_115, $int0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    if_setposition(playerdesign4:back, $int0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+}

@@ -1,0 +1,12 @@
+// 4325
+[proc,clan_flag_highlight](int $int0, component $component1, int $int2)
+def_int $int3 = 0;
+while ($int3 < $int2) {
+    if (cc_find($component1, $int3) = true) {
+        cc_setgraphic("aif_smalltabs_whole,0");
+    }
+    $int3 = calc($int3 + 1);
+}
+if (cc_find($component1, $int0) = true) {
+    cc_setgraphic("aif_smalltabs_whole,3");
+}

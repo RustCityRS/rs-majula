@@ -1,0 +1,36 @@
+// 724:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=main_layer
+colour=0x000000
+fill=yes
+
+// 724:1
+[com_1]
+type=model
+x=-2
+y=1
+width=337
+height=431
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+model=model_46224
+modelorigin=-7,126
+modelangle=209,0,0
+modelzoom=544
+modelanim=seq_11560
+onload=set_spinner(0, 9, 0, event_com)
+
+// 724:2
+[main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+noclickthrough=yes

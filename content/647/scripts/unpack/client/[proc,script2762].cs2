@@ -1,0 +1,57 @@
+// 2762
+[proc,script2762](component $component0, coord $coord1)
+switch_int (%tutorial3_cutscene_tracker) {
+    case 101 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_35_13, $coord1), 450, ~tutorial3_coord(0_57_77_35_13, $coord1), 500, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_36_13, $coord1), 600, ~tutorial3_coord(0_57_77_36_13, $coord1), 550, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_29_19, $coord1), 350, ~tutorial3_coord(0_57_77_29_19, $coord1), 375, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_32_17, $coord1), 350, ~tutorial3_coord(0_57_77_32_17, $coord1), 375, 0);
+        cam_movealong(0, 0, 300, 400, 1, 0);
+    case 102 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_29_25, $coord1), 600, ~tutorial3_coord(0_57_77_29_26, $coord1), 600, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_30_30, $coord1), 700, ~tutorial3_coord(0_57_77_30_29, $coord1), 700, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_30_15, $coord1), 400, ~tutorial3_coord(0_57_77_30_13, $coord1), 400, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_30_18, $coord1), 400, ~tutorial3_coord(0_57_77_30_18, $coord1), 400, 0);
+        cam_movealong(0, 0, 250, 200, 1, 0);
+    case 103 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_31_21, $coord1), 700, ~tutorial3_coord(0_57_77_32_22, $coord1), 650, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_32_26, $coord1), 650, ~tutorial3_coord(0_57_77_32_26, $coord1), 650, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_32_35, $coord1), 5, ~tutorial3_coord(0_57_77_32_35, $coord1), 5, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_32_40, $coord1), 5, ~tutorial3_coord(0_57_77_32_40, $coord1), 5, 0);
+        cam_movealong(0, 0, 200, 200, 1, 0);
+    case 104 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_21_37, $coord1), 300, ~tutorial3_coord(0_57_77_21_36, $coord1), 300, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_23_34, $coord1), 300, ~tutorial3_coord(0_57_77_22_34, $coord1), 300, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_32_29, $coord1), 250, ~tutorial3_coord(0_57_77_32_29, $coord1), 250, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_32_29, $coord1), 250, ~tutorial3_coord(0_57_77_32_29, $coord1), 250, 0);
+        cam_movealong(0, 0, 100, 50, 1, 0);
+    case 105 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_32_31, $coord1), 700, ~tutorial3_coord(0_57_77_32_35, $coord1), 700, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_27_35, $coord1), 700, ~tutorial3_coord(0_57_77_28_35, $coord1), 700, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_18_35, $coord1), 5, ~tutorial3_coord(0_57_77_18_35, $coord1), 5, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_18_35, $coord1), 5, ~tutorial3_coord(0_57_77_18_35, $coord1), 5, 0);
+        cam_movealong(0, 0, 80, 50, 1, 0);
+    case 106 :
+        ~tutorial3_fadeout(^black, 40, $component0);
+    case 107 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_31_30, $coord1), 350, ~tutorial3_coord(0_57_77_31_31, $coord1), 350, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_27_37, $coord1), 550, ~tutorial3_coord(0_57_77_28_37, $coord1), 550, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_27_30, $coord1), 300, ~tutorial3_coord(0_57_77_27_30, $coord1), 300, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_20_30, $coord1), 350, ~tutorial3_coord(0_57_77_20_30, $coord1), 350, 0);
+        cam_movealong(0, 0, 120, 40, 1, 0);
+    case default :
+        cam_smoothreset;
+}

@@ -1,11 +1,13 @@
-use std::path::Path;
-
+#[cfg(before_647)]
+use crate::archive::JagArchive;
 use rs_io::Packet;
-use rs_io::jag::{JagCompression, JagFile};
+use rs_io::jag::JagFile;
+use std::fs;
+use std::path::Path;
 use tracing::debug;
 
 fn read_lines(path: &Path) -> Vec<String> {
-    let Ok(text) = std::fs::read_to_string(path) else {
+    let Ok(text) = fs::read_to_string(path) else {
         return Vec::new();
     };
     text.lines()
@@ -21,7 +23,7 @@ pub fn pack_wordenc(content_dir: &Path) -> Vec<u8> {
     }
 
     let order_path = wordenc_dir.join("meta").join("wordenc.order");
-    let order: Vec<String> = std::fs::read_to_string(&order_path)
+    let order: Vec<String> = fs::read_to_string(&order_path)
         .unwrap_or_else(|e| panic!("Missing wordenc order file {}: {e}", order_path.display()))
         .lines()
         .map(|l| l.trim())
@@ -42,7 +44,7 @@ pub fn pack_wordenc(content_dir: &Path) -> Vec<u8> {
     }
 
     debug!("Packed wordenc into Jag ({} entries)", order.len());
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Wordenc.compression())
 }
 
 fn encode_badenc(wordenc_dir: &Path) -> Vec<u8> {

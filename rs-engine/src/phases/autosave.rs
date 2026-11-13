@@ -1,8 +1,9 @@
 use crate::clients::client_db::DbRequest;
-use crate::engine::Engine;
-use crate::player_save::{extract_profile, save_binary};
-use crate::script_errors::FLUSH_TICKS;
+use crate::core::Engine;
+use crate::save::save_binary;
+use crate::script::errors::FLUSH_TICKS;
 use rs_vm::engine::ScriptPlayer;
+use std::mem;
 use tracing::info;
 
 /// Number of ticks between autosave cycles. At 600ms per tick this is
@@ -41,7 +42,7 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** `Engine::cycle`
-    /// **Calls:** `extract_profile`, `save_binary`, `DbRequest::Save`
+    /// **Calls:** `Engine::profile_of`, `save_binary`, `DbRequest::Save`
     pub(crate) fn autosave(&mut self) {
         let mut players = 0;
         for &pid in self.player_list.processing.iter() {
@@ -60,7 +61,7 @@ impl Engine {
             && let Some(tx) = &self.db_tx
         {
             let _ = tx.send(DbRequest::Logs {
-                logs: std::mem::take(&mut self.logs),
+                logs: mem::take(&mut self.logs),
             });
         }
 
@@ -101,7 +102,7 @@ impl Engine {
                     continue;
                 }
                 if let Some(tx) = &self.db_tx {
-                    let profile = extract_profile(&active.player, self.cache);
+                    let profile = self.profile_of(active);
                     let binary = save_binary(&profile, self.cache);
                     let _ = tx.send(DbRequest::Save {
                         user37: active.uid().username37(),

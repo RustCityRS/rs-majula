@@ -1,0 +1,30 @@
+// 2303
+[proc,topstat_prayer_button_update]
+if (~bool_to_int(%topstat_prayer_button_client) = 1) {
+    if_setgraphic(topstat_prayer:topstat_circle_prayer, "topstat_fill_full,5");
+    if (%prayer_mode = 1) {
+        if_setop(topstat_prayer:topstat_background_prayer, 1, "Turn curses off");
+    } else {
+        if_setop(topstat_prayer:topstat_background_prayer, 1, "Turn prayers off");
+    }
+} else {
+    if_setgraphic(topstat_prayer:topstat_circle_prayer, "topstat_fill_full,1");
+    if (%prayer_mode = 1) {
+        if_setop(topstat_prayer:topstat_background_prayer, 1, "Turn quick curses on");
+    } else {
+        if_setop(topstat_prayer:topstat_background_prayer, 1, "Turn quick prayers on");
+    }
+}
+if (getwindowmode >= 2) {
+    if_setgraphic(topstat_prayer:topstat_background_prayer, graphic_1207);
+    if_setposition(topstat_prayer:topstat_circle_prayer, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_prayer:com_3, 25, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_prayer:from_define_101, 3, 15, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_prayer:topstat_graphic_prayer, 31, 7, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setgraphic(topstat_prayer:topstat_background_prayer, graphic_1206);
+    if_setposition(topstat_prayer:topstat_circle_prayer, 1, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_prayer:com_3, 1, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_prayer:from_define_101, 31, 15, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(topstat_prayer:topstat_graphic_prayer, 7, 7, ^setpos_abs_left, ^setpos_abs_top);
+}

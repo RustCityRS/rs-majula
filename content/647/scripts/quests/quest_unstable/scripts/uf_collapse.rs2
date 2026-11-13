@@ -1,0 +1,209 @@
+// Unstable Foundations: the fire, the roof coming down on the dragon, and Roddeck (varp 281
+// 115 -> 125), as 4KO2h2xPtdM (2011-04-30) shows it (refs GAPS 21):
+// - @390-394 the player lights the far pillar's fuse, Sir Vant his; s037 "It's burning! Run!"
+//   @392.1 (V51, clip 881); @395-396 the player runs south;
+// - the cutscene: the minimap black @396.23; shot 201, a fixed view of the nest from the east
+//   (cs2 tutorial3_explosion), both pillars burning, the dragon asleep, @396.33-405.97 (16 ticks);
+//   the black from @405.97, shot 203's fade-in from @409.64 (6 ticks: the client rebuilding the
+//   map, the advisor button appearing ~408);
+// - shot 203, the rubble from the east, @409.64-415.05 (9 ticks): the player on (25, 34) with
+//   their back to the camera and Sir Vant on (27, 38), both looking at the rubble; no pillar
+//   stands; "Wow!" over his head from @412.4-412.6 (5 ticks in) to @414.4-414.6 (V97, clip 782);
+// - shot 204 from @415.05, from the cupboard door (37, 30) round to the player's tile (25, 34):
+//   the door open @415.4-415.6 (a tick in), Roddeck there from @416.3-416.5 (two ticks in),
+//   walking to (26, 33) beside the player; s038 @419.0-419.2 (seven ticks in), s039, s040; the
+//   minimap back @427.16 with s041.
+// The tiles: shot 203 set beside in-client placements (tools/quest-video/uf_collapse_probe.py)
+// for the player; the minimap @428.5 and @431 for Sir Vant and Roddeck. The minimap is turned
+// about 5.7 degrees there, so the two pillar squares, 8 tiles apart, give the scale and the
+// turn: Sir Vant's dot reads 3.78 tiles north and 1.94 east of the player's (4 and 2), Roddeck's
+// 1.27 south and 1.08 east (1 and 1).
+// The rubble over the nest after the collapse: which locs, no source found yet.
+
+[proc,uf_light_pillars]
+if (region_findbycoord(coord) = false) {
+    return;
+}
+anim(human_createfire, 0);
+p_delay(1);
+%tutorial3_rightpillar = 3;
+%tutorial3_leftpillar = 3;
+// The rest waits in the queue, which runs once the line's box is gone: by its continue, or by a
+// click on the floor, which drops this script where it waits.
+queue(uf_collapse, 0, 0);
+~speech_line(vorbis_881);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,shock>It's burning! Run!");
+
+[queue,uf_collapse]
+if (%tutorial ! 115 | %tutorial3_rightpillar ! 3) {
+    return;
+}
+if (region_findbycoord(coord) = false) {
+    return;
+}
+p_walk(~uf_cellar_coord(30, 26));
+p_delay(1);
+~uf_cutscene_open;
+%tutorial = 117;
+%tutorial3_cutscene_tracker = 201;
+p_delay(1);
+%tutorial3_rightpillar = 4;
+%tutorial3_leftpillar = 4;
+p_delay(11);
+~uf_collapse_rocks;
+p_delay(1);
+// The roof falls: the screen goes black while the cellar changes. The advisor button comes back
+// under the black (4KO2h2xPtdM 2011-04-30: none @406.5, there @408.5), which cache 786 shows from
+// %tutorial = 125 (clientscript 1886, run as varp 281 arrives). Which of 125-127 ("Return the
+// Squire's Gear" runs to 127): no source; the lowest.
+%tutorial = 125;
+%tutorial3_cutscene_tracker = 202;
+p_delay(0);
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_sleeping, 8, 0) = true) {
+    npc_del;
+}
+~uf_cellar_collapsed;
+// No pillar stands in 2011's shots 203 and 204 or after them (@410-431). The pillars' tiles
+// (24, 31) and (24, 39) are outside the zones the collapse swaps and their multiloc has no state
+// past the burning 4, so a value past its list shows no loc. How 2011 took them away: no source.
+%tutorial3_rightpillar = 5;
+%tutorial3_leftpillar = 5;
+p_teleport(~uf_cellar_coord(25, 34));
+facesquare(~uf_cellar_coord(19, 34));
+// Sir Vant is added on his new place, as a login after the collapse finds him (uf_cellar.rs2):
+// an npc's place is the tile it was added on, and his kind (wanderrange 0) walks back to it,
+// which a teleport from his place by the pillars had him doing within 8 ticks (ufoundations.rs).
+if (npc_find(~uf_cellar_coord(25, 30), tutorial3_knight, 3, 0) = true) {
+    npc_del;
+}
+npc_add(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 0);
+npc_setmode(none);
+npc_facesquare(~uf_cellar_coord(19, 35));
+p_delay(4);
+// Shot 203: the rubble; Sir Vant's "Wow!".
+%tutorial3_cutscene_tracker = 203;
+p_delay(4);
+if (npc_find(~uf_cellar_coord(27, 38), tutorial3_knight_waitingforbattle, 3, 0) = true) {
+    npc_say("Wow!");
+    ~speech_line(vorbis_782);
+}
+p_delay(3);
+// Shot 204: Roddeck out of his cupboard, its door a tick in and Roddeck a tick after it.
+%tutorial3_cutscene_tracker = 204;
+p_delay(0);
+if (loc_find(~uf_cellar_coord(37, 30), tutorial3_wardrobe_door_closed) = true) {
+    loc_change(tutorial3_wardrobe_door_open, 20);
+}
+p_delay(0);
+// Roddeck is npc 8867: he walks with his stick (4KO2h2xPtdM @416.7-419.1), and of cache 786's two
+// Roddecks (one model) only 8867's bas has that walk, seq 9954. The other, 8863
+// tutorial3_advisor_walkoverrocks, has one seq for walk and run, 12280, a hop with the knees up.
+npc_add(~uf_cellar_coord(36, 30), roddeck_8867, 0);
+npc_setmode(none);
+npc_walk(~uf_cellar_coord(26, 33));
+p_delay(4);
+// The ending waits in the queue, which runs once the last box is gone: by its continue, or by a
+// click on the floor during any of the three, which drops this script with the cutscene open.
+queue(uf_collapse_end, 0, 0);
+// s038-s040 (IwS6rBpkcyE @340; 4KO2h2xPtdM @419.1), V1, R43, V56 (clips 763, 1102, 785).
+~speech_line(vorbis_763);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Ah, here you are, Roddeck. The White Knights got your message and sent me to slay your dragon.");
+~speech_line(vorbis_1102);
+~chatnpc_specific("Roddeck", roddeck_8867, "<p,neutral>Thank you both very much! It's had me trapped in the cupboard for ages. I'd completely lost control of it.");
+~speech_line(vorbis_785);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Next time, get a puppy!");
+
+[queue,uf_collapse_end]
+// This cutscene's release has Sir Vant's next line with it (4KO2h2xPtdM 2011-04-30, frame by
+// frame): "Next time, get a puppy!" reads "Please wait..." @426.9-427.13; @427.16 the minimap is
+// back and the kit-ask box is open in the same frame, the camera on its way back; the side panel
+// turns to the Task, Return the Squire's Gear, @427.66, a tick on; the kit-ask box goes @428.96
+// and TASK COMPLETE! Sabotage! opens from @429.06, after it, not with the release.
+~uf_cutscene_release;
+~uf_vant_kit_ask;
+~uf_cutscene_end;
+~uf_task_tab;
+~uf_task_pin;
+queue(uf_collapse_popup, 0, 0);
+p_pausebutton;
+if_close;
+
+[queue,uf_collapse_popup]
+%varclient_1425 = 3512;
+
+// After the roof comes down, Roddeck's cellar, west of the start room,
+// joins the region (2011's minimap shows the room beside the start room only from the exit stage,
+// 4KO2h2xPtdM sampled every 15 s; refs GAPS 15). The rebuild is the black "Please wait" screen.
+// After the collapse the square's south-west 24x24 (Explorer Jack's cellar, the damaged wall with
+// its rocks and roots, the practice room) stands 24 tiles north of where the map has it, in place
+// of the nest's side of the cellar: cache 786's world map area tutorial3_3 (varp 281 120 on,
+// clientscript 2785) draws source 3648-3671, 4928-4951 at 0-23, 24-47, where tutorial3_1 and _2
+// keep that place's own tiles. So in 2011 the rocks are a short walk from Roddeck with no climb
+// (4KO2h2xPtdM 2011-04-30 @526-542, ~8 s). Here those zones go to the copy's zone rows 3-5.
+// The roof comes down on the nest over the last 1.1 s of the shot (4KO2h2xPtdM 2011-04-30
+// @404.87-405.97, every frame). Cache 786's spotanim_2150 (model_49343, seq_12244) is its pair of
+// dark boulders and spotanim_2149 (model_49342, seq_12245) its column of grey rocks. The
+// recording's client drew 10 frames a second. Each rock was played alone in the client beside
+// the first pair of boulders and set against those frames, then the whole fall: the tiles are the
+// ones whose rocks show where the recording's do (in a 623 px wide view the grey column on
+// (17, 31) is within 2 px where the tiles either side are 9 px or more off, and the one on
+// (16, 36) within 3 px where (17, 36) is 3 to 6 px off; the boulders on (18, 34) land behind
+// the dragon, so only their fall places them). The last argument is the wait in client
+// cycles of 20 ms: the order is the recording's and each wait is right to 2 or 3 cycles, which
+// is as close as 10 frames a second allow. Whether 2011 sent waits or spread the rocks over
+// ticks the recording does not show.
+[proc,uf_collapse_rocks]
+spotanim_map(spotanim_2149, ~uf_cellar_coord(17, 31), 0, 0);
+spotanim_map(spotanim_2150, ~uf_cellar_coord(24, 37), 0, 2);
+spotanim_map(spotanim_2149, ~uf_cellar_coord(16, 36), 0, 10);
+spotanim_map(spotanim_2149, ~uf_cellar_coord(23, 33), 0, 14);
+spotanim_map(spotanim_2150, ~uf_cellar_coord(21, 32), 0, 22);
+spotanim_map(spotanim_2150, ~uf_cellar_coord(18, 34), 0, 33);
+spotanim_map(spotanim_2150, ~uf_cellar_coord(21, 38), 0, 44);
+
+[proc,uf_cellar_collapsed]
+def_int $level = 0;
+def_int $a = 0;
+def_int $b = 0;
+while ($level < 4) {
+    $a = 0;
+    while ($a < 3) {
+        $b = 0;
+        while ($b < 3) {
+            region_set($level, calc(2 + $a), calc(5 + $b), movecoord(0_57_77_0_0, calc($a * 8), $level, calc($b * 8)), 0);
+            $b = calc($b + 1);
+        }
+        $a = calc($a + 1);
+    }
+    $level = calc($level + 1);
+}
+
+// "Return the Squire's Gear" (Task 3513, 120-127): s041 (IwS6rBpkcyE @357, 24/31), V5 (clip 705);
+// still wearing it, s041c (7_neJ6mCLXc @358), V4 (clip 3169).
+// The page only: the collapse's ending waits on it once interface 899 has closed.
+[proc,uf_vant_kit_ask]
+if (~uf_kit_worn > 0) {
+    ~speech_line(vorbis_3169);
+    split_init("<p,neutral>I'd like my squire's kit back so I can return it to the poor chap's family. Take it off and hand it to me, please. I'd like my tinderbox and oil can too.", 380, 4, q8_full);
+} else {
+    ~speech_line(vorbis_705);
+    split_init("<p,neutral>Before we go any further, could I have my squire's kit back, please? I ought to return it to the poor chap's family. I'd like my tinderbox and oil can too.", 380, 4, q8_full);
+}
+~chatnpc_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
+
+// Each piece handed to Sir Vant: s041a (V76, clip 744) until the last, then s043 (V? clip: the
+// box "Right, I think that's everything. Now we just need a new way out of the cellar.").
+[proc,uf_return_item](obj $item)
+if ($item ! bronze_platebody & $item ! bronze_sq_shield & $item ! bronze_sword & $item ! tinderbox & $item ! tutorial3_oilcan) {
+    // V57 (clip 908).
+    ~speech_line(vorbis_908);
+    ~chatnpc("<p,neutral>No thanks. Drop it on the floor if you don't need it.");
+    return;
+}
+inv_del(inv, $item, 1);
+if (~uf_kit_held = 0 & inv_total(inv, tinderbox) = 0 & inv_total(inv, tutorial3_oilcan) = 0) {
+    ~uf_kit_returned;
+    return;
+}
+~speech_line(vorbis_744);
+~chatnpc("<p,neutral>Thanks. Keep 'em coming, please.");

@@ -1,1371 +1,1316 @@
 use crate::EntityMasks;
+use rs_grid::CoordGrid;
 use rs_io::Packet;
+#[cfg(since_647)]
+use rs_protocol::network::game::info::hit::Hit;
+use rs_protocol::network::game::info::npc::{
+    anim::NpcInfoAnim, changetype::NpcInfoChangeType, damage::NpcInfoDamage,
+    face_coord::NpcInfoFaceCoord, face_entity::NpcInfoFaceEntity, say::NpcInfoSay,
+    spotanim::NpcInfoSpotAnim,
+};
+use rs_protocol::network::game::info::player::{
+    anim::PlayerInfoAnim, appearance::PlayerInfoAppearance, chat::PlayerInfoChat,
+    damage::PlayerInfoDamage, exactmove::PlayerInfoExactMove, face_coord::PlayerInfoFaceCoord,
+    face_entity::PlayerInfoFaceEntity, say::PlayerInfoSay, spotanim::PlayerInfoSpotAnim,
+};
+#[cfg(since_647)]
+use rs_protocol::network::game::info::player::{
+    move_type::PlayerInfoMoveType, temp_move_type::PlayerInfoTempMoveType,
+};
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+use rs_protocol::network::game::info_prot_message::InfoMessage;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::npc_info::add_direction;
+use std::mem;
 
 const MAX_PLAYERS: usize = 2048;
 #[cfg(before_254)]
 const MAX_NPCS: usize = 8192;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 const MAX_NPCS: usize = 16384;
+#[cfg(since_647)]
+const MAX_NPCS: usize = 32768;
 
-#[cfg(rev = "225")]
-const PLAYER_PROT_COUNT: usize = 8;
-#[cfg(since_244)]
-const PLAYER_PROT_COUNT: usize = 9; // +1 for the Damage2 fixed slot
+#[cfg(before_647)]
+const SLOT_SIZE: usize = 8;
+// Two soaked hits are the largest block: a count, then per hit 32767, mark,
+// damage, soak mark, soak, delay and health bar (1 + 2 * 10 bytes).
+#[cfg(since_647)]
+const SLOT_SIZE: usize = 24;
+#[cfg(since_647)]
+const DEFAULT_MOVE_TYPE: u8 = 1;
 
-#[cfg(rev = "225")]
-const NPC_PROT_COUNT: usize = 7;
-#[cfg(since_244)]
-const NPC_PROT_COUNT: usize = 8; // +1 for the Damage2 fixed slot
+/// The size a player faces from, and before 647 an npc.
+const ONE_TILE: u8 = 1;
 
-/// An 8-byte inline buffer that stores a single pre-serialized protocol field
-/// in big-endian format.
-///
-/// `Slot` avoids heap allocation for fixed-size info-update fields (animations,
-/// face targets, damage, spot-anims, etc.) by keeping the encoded bytes and
-/// their length directly on the stack. Variable-length fields such as
-/// appearance, chat, and say data are stored separately in `Vec` buffers.
-///
-/// # Side Effects
-///
-/// None -- `Slot` is a pure data container with no external side effects.
+/// The mask header an add's size estimate counts.
+const LOW_HEADER: usize = 1;
+
+/// One entity's block, encoded.
 #[derive(Clone, Copy)]
 #[repr(C)]
 struct Slot {
-    data: [u8; 8],
+    data: [u8; SLOT_SIZE],
     len: u8,
 }
 
 impl Slot {
-    const EMPTY: Self = Self {
-        data: [0; 8],
-        len: 0,
-    };
-
-    /// Checks whether this slot contains serialized data.
-    ///
-    /// A slot is considered set when its `len` field is greater than zero,
-    /// meaning one of the `set_*` methods has been called to store a value.
-    ///
-    /// # Returns
-    ///
-    /// `true` if this slot holds data (`len > 0`), `false` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `PlayerRenderer::has`, `NpcRenderer::has` for
-    /// fixed-size protocol fields.
-    #[inline(always)]
-    const fn is_set(&self) -> bool {
-        self.len > 0
-    }
-
-    /// Returns the serialized bytes this slot holds (`data[0..len]`).
-    ///
-    /// Used when pre-coalescing an entity's high-definition update block so
-    /// the bytes are guaranteed identical to what [`Slot::write_to`] emits.
+    /// The encoded block (`data[..len]`), empty when the slot holds none.
     #[inline(always)]
     fn bytes(&self) -> &[u8] {
-        unsafe { self.data.get_unchecked(0..self.len as usize) }
+        unsafe { self.data.get_unchecked(..self.len as usize) }
     }
 
-    /// Writes the serialized slot data into a packet buffer.
-    ///
-    /// Copies exactly `self.len` bytes from the internal `data` array into
-    /// `buf` via `Packet::pdata`. This should only be called on slots where
-    /// `is_set()` returns `true`; calling it on an empty slot writes zero
-    /// bytes harmlessly.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to append data into.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `PlayerRenderer::write`, `NpcRenderer::write` when
-    /// dispatching fixed-size protocol fields.
-    ///
-    /// **Calls:** `Packet::pdata`.
+    /// Encodes `block` in place of the one the slot held.
     #[inline(always)]
-    fn write_to(&self, buf: &mut Packet) {
-        buf.pdata(&self.data, 0, self.len as usize);
-    }
-
-    /// Stores a single 2-byte big-endian value into the slot.
-    ///
-    /// Sets `len` to 2 and writes the big-endian representation of `a` into
-    /// `data[0..2]`.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - The 16-bit unsigned value to serialize.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the first 2 bytes of `data` and sets `len` to 2.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `PlayerRenderer::compute_info` (FaceEntity),
-    /// `NpcRenderer::compute_info` (FaceEntity, ChangeType),
-    /// `PlayerRenderer::cache_face_entity`, `NpcRenderer::cache_face_entity`.
-    /// # Safety
-    ///
-    /// The `data` buffer is 8 bytes and all writes stay within bounds (max 6 bytes).
-    /// `#[repr(C)]` guarantees `data` is at offset 0 so pointer arithmetic is valid.
-    #[inline(always)]
-    const fn set_p2(&mut self, a: u16) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u16, a.to_be());
-        }
-        self.len = 2;
-    }
-
-    /// Stores a 2-byte big-endian value followed by a 1-byte value into the slot.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - The 16-bit unsigned value to serialize first (e.g. animation id).
-    /// * `b` - The 8-bit unsigned value to serialize second (e.g. animation delay).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
-    #[inline(always)]
-    const fn set_p2_p1(&mut self, a: u16, b: u8) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u16, a.to_be());
-            core::ptr::write(ptr.add(2), b);
-        }
-        self.len = 3;
-    }
-
-    /// Stores four individual bytes into the slot.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - First byte (e.g. damage taken).
-    /// * `b` - Second byte (e.g. damage type).
-    /// * `c` - Third byte (e.g. current hitpoints).
-    /// * `d` - Fourth byte (e.g. base hitpoints).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
-    #[inline(always)]
-    const fn set_p1_p1_p1_p1(&mut self, a: u8, b: u8, c: u8, d: u8) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u32, u32::from_ne_bytes([a, b, c, d]));
-        }
-        self.len = 4;
-    }
-
-    /// Stores two 2-byte big-endian values into the slot.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - First 16-bit value (e.g. face x coordinate).
-    /// * `b` - Second 16-bit value (e.g. face z coordinate).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
-    #[inline(always)]
-    const fn set_p2_p2(&mut self, a: u16, b: u16) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(
-                ptr as *mut u32,
-                u32::from_ne_bytes([(a >> 8) as u8, a as u8, (b >> 8) as u8, b as u8]),
-            );
-        }
-        self.len = 4;
-    }
-
-    /// Stores a 2-byte big-endian value followed by a 4-byte big-endian value.
-    ///
-    /// # Arguments
-    ///
-    /// * `a` - The 16-bit unsigned value (e.g. spot-anim id).
-    /// * `b` - The 32-bit signed value (e.g. packed spot-anim height and delay).
-    ///
-    /// # Safety
-    ///
-    /// All writes are within the 8-byte `data` buffer.
-    #[inline(always)]
-    const fn set_p2_p4(&mut self, a: u16, b: i32) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u16, a.to_be());
-            core::ptr::write_unaligned(ptr.add(2) as *mut i32, b.to_be());
-        }
-        self.len = 6;
+    fn set(&mut self, block: &impl InfoMessage) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        block.encode(&mut buf);
+        self.len = buf.pos as u8;
     }
 }
 
-/// Pre-computed player info update storage for efficient network serialization.
+/// Encodes a block that can outgrow a [`Slot`] in place of the one `bytes`
+/// held.
+#[inline(always)]
+fn set_bytes(bytes: &mut Option<Vec<u8>>, block: &impl InfoMessage) {
+    let bytes = bytes.get_or_insert_with(Vec::new);
+    bytes.clear();
+    bytes.resize(block.sizeof(), 0);
+    block.encode(&mut Packet::from(&mut bytes[..]));
+}
+
+/// Blocks as their bits in the mask header (`masks`) and as where they sit
+/// in the order the client reads them (`order`, a bit per `to_index`).
+#[derive(Clone, Copy, Default)]
+struct Blocks {
+    masks: u16,
+    order: u16,
+}
+
+impl Blocks {
+    const fn player(prot: PlayerInfoProt) -> Blocks {
+        Blocks {
+            masks: prot as u16,
+            order: 1 << prot.to_index(),
+        }
+    }
+
+    const fn npc(prot: NpcInfoProt) -> Blocks {
+        Blocks {
+            masks: prot as u16,
+            order: 1 << prot.to_index(),
+        }
+    }
+
+    const fn with(self, other: Blocks) -> Blocks {
+        Blocks {
+            masks: self.masks | other.masks,
+            order: self.order | other.order,
+        }
+    }
+
+    const fn without(self, other: Blocks) -> Blocks {
+        Blocks {
+            masks: self.masks & !other.masks,
+            order: self.order & !other.order,
+        }
+    }
+}
+
+/// Where an entity's update block sits in this tick's block buffer.
+#[derive(Clone, Copy, Default)]
+struct Span {
+    start: u32,
+    end: u32,
+}
+
+impl Span {
+    const fn new(start: usize, end: usize) -> Span {
+        Span {
+            start: start as u32,
+            end: end as u32,
+        }
+    }
+}
+
+/// Which way an entity faces for an observer that adds it: the entity it
+/// faces, if any, and the tile it faces, noted in the info phase.
+#[derive(Clone, Copy, Default)]
+struct LowFace<C> {
+    entity: Option<u16>,
+    coord: C,
+}
+
+/// The fine coords an entity of `size` tiles at `coord` faces: this tick's
+/// face coord, else its orientation, else its own.
+fn facing(info: &EntityMasks, coord: CoordGrid, size: u8) -> (u16, u16) {
+    info.face_x
+        .zip(info.face_z)
+        .or_else(|| info.orientation_x.zip(info.orientation_z))
+        .unwrap_or((
+            CoordGrid::fine(coord.x(), size),
+            CoordGrid::fine(coord.z(), size),
+        ))
+}
+
+/// A player at `coord` facing fine coords `x`, `z`.
+fn face_coord(
+    x: u16,
+    z: u16,
+    #[cfg_attr(before_647, allow(unused_variables))] coord: CoordGrid,
+) -> PlayerInfoFaceCoord {
+    PlayerInfoFaceCoord {
+        x,
+        z,
+        #[cfg(since_647)]
+        from_x: CoordGrid::fine(coord.x(), ONE_TILE),
+        #[cfg(since_647)]
+        from_z: CoordGrid::fine(coord.z(), ONE_TILE),
+    }
+}
+
+/// The player a block is written for and, before 647, where its client's
+/// build area starts: an exact move is sent relative to it.
+#[derive(Clone, Copy, Default)]
+pub struct Observer {
+    pub pid: u16,
+    #[cfg(before_647)]
+    pub origin: CoordGrid,
+}
+
+/// A player's exact move this tick in world tiles, for each observer to get
+/// relative to its build area.
+#[cfg(before_647)]
+#[derive(Clone, Copy, Default)]
+struct ExactMove {
+    start_x: u16,
+    start_z: u16,
+    end_x: u16,
+    end_z: u16,
+    begin: u16,
+    finish: u16,
+    dir: u8,
+}
+
+#[cfg(before_647)]
+impl ExactMove {
+    fn of(info: &EntityMasks) -> ExactMove {
+        ExactMove {
+            start_x: info.exactmove_start_x.unwrap(),
+            start_z: info.exactmove_start_z.unwrap(),
+            end_x: info.exactmove_end_x.unwrap(),
+            end_z: info.exactmove_end_z.unwrap(),
+            begin: info.exactmove_begin.unwrap(),
+            finish: info.exactmove_finish.unwrap(),
+            dir: info.exactmove_dir.unwrap(),
+        }
+    }
+
+    /// The move as a client whose build area starts at `origin` reads it.
+    fn block(&self, origin: CoordGrid) -> PlayerInfoExactMove {
+        let (x, z) = (origin.zone_origin_x(), origin.zone_origin_z());
+        PlayerInfoExactMove {
+            start_x: (self.start_x - x) as u8,
+            start_z: (self.start_z - z) as u8,
+            end_x: (self.end_x - x) as u8,
+            end_z: (self.end_z - z) as u8,
+            begin: self.begin,
+            finish: self.finish,
+            dir: self.dir,
+        }
+    }
+}
+
+/// An entity's hits this tick and who sees each bright (its receiver, if a
+/// player, and its dealer, if a player), with where the hits sit in the
+/// entity's high block, so a bright view can be written in their place.
+#[cfg(since_647)]
+#[derive(Clone, Copy, Default)]
+struct HitView {
+    hits: [Hit; 2],
+    count: u8,
+    bright: [[Option<u16>; 2]; 2],
+    offset: u16,
+    len: u16,
+}
+
+#[cfg(since_647)]
+impl HitView {
+    fn hits(&self) -> &[Hit] {
+        &self.hits[..self.count as usize]
+    }
+
+    /// The hits `observer` sees bright, a bit each.
+    fn bright(&self, observer: u16) -> u8 {
+        let mut bright = 0;
+        for (i, who) in self.bright[..self.count as usize].iter().enumerate() {
+            if who.contains(&Some(observer)) {
+                bright |= 1 << i;
+            }
+        }
+        bright
+    }
+}
+
+/// `block` with its `len` bytes at `offset` replaced by what `write` writes.
+#[cfg(since_647)]
+#[cold]
+#[inline(never)]
+fn splice(buf: &mut Packet, block: &[u8], offset: u16, len: u16, write: impl FnOnce(&mut Packet)) {
+    let (offset, len) = (offset as usize, len as usize);
+    buf.pdata(block, 0, offset);
+    write(buf);
+    buf.pdata(block, offset + len, block.len() - offset - len);
+}
+
+/// Each hit's dealer, in [`hits`]' order.
+#[cfg(since_647)]
+fn hit_sources(info: &EntityMasks, first: bool, second: bool) -> [Option<u16>; 2] {
+    match (first, second) {
+        (true, true) => [info.damage_source, info.damage2_source],
+        (true, false) => [info.damage_source, None],
+        (false, true) => [info.damage2_source, None],
+        (false, false) => [None, None],
+    }
+}
+
+#[cfg(since_647)]
+fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
+    let mut out = [Hit::default(); 2];
+    let mut n = 0;
+    if first {
+        out[n] = Hit {
+            hitmark: info.damage_type.unwrap_or(0),
+            damage: info.damage_taken.unwrap_or(0),
+            soak: info.damage_soak.unwrap_or(0),
+            health: Hit::health(
+                info.damage_current.unwrap_or(0),
+                info.damage_base.unwrap_or(0),
+            ),
+        };
+        n += 1;
+    }
+    if second {
+        out[n] = Hit {
+            hitmark: info.damage2_type.unwrap_or(0),
+            damage: info.damage2_taken.unwrap_or(0),
+            soak: info.damage2_soak.unwrap_or(0),
+            health: Hit::health(
+                info.damage2_current.unwrap_or(0),
+                info.damage2_base.unwrap_or(0),
+            ),
+        };
+        n += 1;
+    }
+    (out, n)
+}
+
+/// Every player's info blocks this tick, encoded once in the info phase and
+/// copied into each observer's packet.
 ///
-/// `PlayerRenderer` maintains a set of 2048 player slots, one per possible
-/// player index, where each slot holds pre-serialized protocol field data.
-/// Fixed-size fields (Anim, FaceEntity, Damage, FaceCoord, SpotAnim) are
-/// stored in inline [`Slot`] buffers, while variable-length fields
-/// (Appearance, Say, Chat) use heap-allocated `Vec<u8>` buffers.
-///
-/// Two accumulated byte-size counters (`highs` and `lows`) track the total
-/// serialized size of high-definition and low-definition updates per player,
-/// enabling the info output phase to perform capacity checks before writing.
-///
-/// # Call Stack
-///
-/// **Called by:** Owned by `PlayerInfo` in `rs-engine/src/info.rs`. Methods
-/// are invoked during the info phase (`rs-engine/src/phases/info.rs`),
-/// player info output (`rs-engine/src/info.rs`), cleanup phase
-/// (`rs-engine/src/phases/cleanup.rs`), and player logout
-/// (`rs-engine/src/engine.rs`).
+/// Fixed-size blocks live in inline [`Slot`]s, one row per block in the
+/// client's read order, while the appearance, say and chat use `Vec<u8>`
+/// buffers. Each player's blocks are also kept together under their mask
+/// header in one high block, with its length (`highs`) and the most an add's
+/// blocks take (`lows`) for the output phase's capacity checks.
 pub struct PlayerRenderer {
-    fixed: Box<[[Slot; MAX_PLAYERS]; PLAYER_PROT_COUNT]>,
+    fixed: Box<[[Slot; MAX_PLAYERS]; PlayerInfoProt::COUNT]>,
     appearances: Vec<Option<Vec<u8>>>,
     says: Vec<Option<Vec<u8>>>,
     chats: Vec<Option<Vec<u8>>>,
-    high_blocks: Vec<Vec<u8>>,
+    #[cfg(since_647)]
+    chatted: Box<[u64; MAX_PLAYERS >> 6]>,
+    #[cfg(before_647)]
+    exact_moves: Box<[ExactMove; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    move_types: Box<[u8; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    hit_views: Vec<HitView>,
+    #[cfg(since_647)]
+    regions: Box<[u32; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    next_regions: Box<[u32; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    region_moves: Box<[u64; MAX_PLAYERS >> 6]>,
+    blocks: Vec<u8>,
+    spans: Box<[Span; MAX_PLAYERS]>,
     highs: Box<[u16; MAX_PLAYERS]>,
     lows: Box<[u16; MAX_PLAYERS]>,
+    ticks: Box<[Blocks; MAX_PLAYERS]>,
+    low_faces: Box<[LowFace<PlayerInfoFaceCoord>; MAX_PLAYERS]>,
+    appearance_clocks: Box<[Option<u32>; MAX_PLAYERS]>,
     written: Vec<u16>,
 }
 
 impl PlayerRenderer {
-    /// Creates a new `PlayerRenderer` with all slots initialized to empty.
-    ///
-    /// Allocates the fixed-size slot arrays on the heap via `Box`, and
-    /// initializes the variable-length appearance, say, and chat vectors
-    /// with `None` for all 2048 player indices. All high-def and low-def
-    /// byte-size counters start at zero.
-    ///
-    /// # Returns
-    ///
-    /// A fully initialized `PlayerRenderer` with no pre-computed data.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Engine` constructor in `rs-engine/src/engine.rs`.
     #[inline]
     pub fn new() -> PlayerRenderer {
         PlayerRenderer {
-            fixed: Box::new([[Slot::EMPTY; MAX_PLAYERS]; PLAYER_PROT_COUNT]),
+            fixed: unsafe { Box::new_zeroed().assume_init() },
             appearances: vec![None; MAX_PLAYERS],
             says: vec![None; MAX_PLAYERS],
             chats: vec![None; MAX_PLAYERS],
-            high_blocks: vec![Vec::new(); MAX_PLAYERS],
+            #[cfg(since_647)]
+            chatted: Box::new([0; MAX_PLAYERS >> 6]),
+            #[cfg(before_647)]
+            exact_moves: Box::new([ExactMove::default(); MAX_PLAYERS]),
+            #[cfg(since_647)]
+            move_types: Box::new([DEFAULT_MOVE_TYPE; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            hit_views: vec![HitView::default(); MAX_PLAYERS],
+            #[cfg(since_647)]
+            regions: Box::new([0; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            next_regions: Box::new([0; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            region_moves: Box::new([0; MAX_PLAYERS >> 6]),
+            blocks: Vec::new(),
+            spans: Box::new([Span::default(); MAX_PLAYERS]),
             highs: Box::new([0; MAX_PLAYERS]),
             lows: Box::new([0; MAX_PLAYERS]),
+            ticks: Box::new([Blocks::default(); MAX_PLAYERS]),
+            low_faces: Box::new([LowFace::default(); MAX_PLAYERS]),
+            appearance_clocks: Box::new([None; MAX_PLAYERS]),
             written: Vec::new(),
         }
     }
 
-    /// Pre-computes and serializes all active info masks for a player.
-    ///
-    /// Iterates over every flag set in `info.masks` and serializes the
-    /// corresponding field data into the appropriate slot or variable-length
-    /// buffer for the given player index. Also accumulates the total
-    /// high-definition and low-definition byte sizes (including the mask
-    /// header) into `self.highs[pid]` and `self.lows[pid]`.
-    ///
-    /// Returns immediately if `info.masks` is zero (no updates pending).
-    ///
-    /// # Arguments
-    ///
-    /// * `pid` - The player index (0..2048) identifying which slot to populate.
-    /// * `info` - The entity masks containing the raw field values to serialize.
-    ///
-    /// # Side Effects
-    ///
-    /// Writes serialized data into the fixed slots and/or variable-length
-    /// buffers for `pid`. Updates `self.highs[pid]` and `self.lows[pid]`
-    /// with the total byte sizes. Variable-length buffers (appearance, say,
-    /// chat) are reused if already allocated, avoiding repeated heap
-    /// allocation.
-    ///
-    /// # Panics
-    ///
-    /// Panics if required `Option` fields in `info` are `None` when their
-    /// corresponding mask bit is set (e.g. `info.anim_delay` when Anim mask
-    /// is active).
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Info phase in `rs-engine/src/phases/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`, `Slot::set_p2_p1`, `Slot::set_p1_p1_p1_p1`,
-    /// `Slot::set_p2_p2`, `Slot::set_p2_p4`, `Self::header`.
-    /// # Safety
-    ///
-    /// `pid` must be < `MAX_PLAYERS` (2048). This is guaranteed by the engine
-    /// which only passes valid player indices from `active_players`.
-    #[inline]
-    pub fn compute_info(&mut self, pid: usize, info: &EntityMasks) {
-        let masks = info.masks;
+    /// Notes what an observer adding player `pid` this tick gets besides its
+    /// blocks: which way it faces, and which appearance it has. Once a tick
+    /// in the info phase, so an add doesn't read the player;
+    /// [`ready_low`](Self::ready_low) writes the blocks it notes.
+    #[inline(always)]
+    pub fn cache_low(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) {
+        let next = Self::low_face(info, coord);
+        let face = &mut self.low_faces[pid as usize];
+        face.entity = next.entity;
+        if next.coord.x != CoordGrid::fine(coord.x(), ONE_TILE)
+            || next.coord.z != CoordGrid::fine(coord.z(), ONE_TILE)
+        {
+            face.coord = next.coord;
+        }
+        self.appearance_clocks[pid as usize] = info.last_appearance;
+    }
 
+    /// Caches the facing blocks (and on 647 the move type) that
+    /// [`cache_low`](Self::cache_low) noted for player `pid`, for its adds.
+    #[inline(always)]
+    pub fn ready_low(&mut self, pid: u16) {
+        self.cache_face(pid, self.low_faces[pid as usize]);
+        #[cfg(since_647)]
+        self.cache_move_type(pid);
+    }
+
+    /// Which appearance player `pid` has this tick, if it has one.
+    #[inline(always)]
+    pub fn appearance_clock(&self, pid: u16) -> Option<u32> {
+        self.appearance_clocks[pid as usize]
+    }
+
+    /// Records the 18-bit region (`level << 16 | x >> 6 << 8 | z >> 6`)
+    /// player `pid` is in this tick. Every client keeps a region for each slot
+    /// it doesn't track, so one that moved is sent to all of them this tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn track_region(&mut self, pid: u16, region: u32) {
+        let idx = pid as usize;
+        if region != self.regions[idx] {
+            self.next_regions[idx] = region;
+            self.region_moves[idx >> 6] |= 1 << (idx & 63);
+        }
+    }
+
+    /// The region every client has for slot `pid`, as of last tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn last_region(&self, pid: u16) -> u32 {
+        self.regions[pid as usize]
+    }
+
+    /// The region slot `pid` is in this tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn region(&self, pid: u16) -> u32 {
+        let idx = pid as usize;
+        if (self.region_moves[idx >> 6] >> (idx & 63)) & 1 != 0 {
+            self.next_regions[idx]
+        } else {
+            self.regions[idx]
+        }
+    }
+
+    /// The slots whose region moved this tick, one bit each.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn region_moves(&self) -> &[u64] {
+        &self.region_moves[..]
+    }
+
+    /// Every slot's region as of last tick, for a new client's first
+    /// `PLAYER_INFO` state.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn regions(&self) -> &[u32] {
+        &self.regions[..]
+    }
+
+    /// The slots whose player spoke this tick, one bit each.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn chatted(&self) -> &[u64] {
+        &self.chatted[..]
+    }
+
+    /// What player `pid` said this tick, as `MESSAGE_PUBLIC` carries it after
+    /// the pid.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn chat(&self, pid: u16) -> &[u8] {
+        self.chats[pid as usize].as_deref().unwrap_or_default()
+    }
+
+    /// Encodes player `pid`'s blocks this tick (`info.masks`) into its slots
+    /// and, under their mask header, its high block, and notes their sizes.
+    /// From 647 chat is no block: it is kept for [`chat`](Self::chat).
+    #[inline]
+    pub fn compute_info(&mut self, pid: usize, info: &EntityMasks, coord: CoordGrid) {
+        let masks = info.masks;
+        let masks = if masks & PlayerInfoProt::FaceCoord as u16 != 0
+            && info.face_x.zip(info.face_z).is_none_or(|(x, z)| {
+                x == CoordGrid::fine(coord.x(), ONE_TILE)
+                    && z == CoordGrid::fine(coord.z(), ONE_TILE)
+            }) {
+            masks & !(PlayerInfoProt::FaceCoord as u16)
+        } else {
+            masks
+        };
         if masks == 0 {
             return;
         }
-
         self.written.push(pid as u16);
-        unsafe { self.compute_info_inner(pid, masks, info) }
-    }
 
-    #[inline(always)]
-    unsafe fn compute_info_inner(&mut self, pid: usize, masks: u16, info: &EntityMasks) {
-        unsafe {
-            let mut highs: u16 = 0;
-            let mut lows: u16 = 0;
+        let mut order = 0;
+        if masks & PlayerInfoProt::Appearance as u16 != 0 {
+            let bytes = info.last_appearance_info.as_deref().unwrap();
+            set_bytes(&mut self.appearances[pid], &PlayerInfoAppearance { bytes });
+            order |= 1 << PlayerInfoProt::Appearance.to_index();
+        }
+        if masks & PlayerInfoProt::Anim as u16 != 0 {
+            let anim = PlayerInfoAnim {
+                seq: info.anim_id.unwrap_or(u16::MAX),
+                delay: info.anim_delay.unwrap_or(0),
+            };
+            order |= self.set(PlayerInfoProt::Anim, pid, &anim);
+        }
+        if masks & PlayerInfoProt::FaceEntity as u16 != 0 {
+            let entity = info.face_entity.unwrap_or(u16::MAX);
+            order |= self.set(
+                PlayerInfoProt::FaceEntity,
+                pid,
+                &PlayerInfoFaceEntity { entity },
+            );
+        }
+        if masks & PlayerInfoProt::Say as u16 != 0 {
+            let say = info.say.as_deref().unwrap();
+            set_bytes(&mut self.says[pid], &PlayerInfoSay { say });
+            order |= 1 << PlayerInfoProt::Say.to_index();
+        }
+        #[cfg(before_647)]
+        if masks & PlayerInfoProt::Damage as u16 != 0 {
+            let damage = PlayerInfoDamage {
+                damage: info.damage_taken.unwrap() as u8,
+                damage_type: info.damage_type.unwrap(),
+                current: info.damage_current.unwrap(),
+                base: info.damage_base.unwrap(),
+            };
+            order |= self.set(PlayerInfoProt::Damage, pid, &damage);
+        }
+        if masks & PlayerInfoProt::FaceCoord as u16 != 0 {
+            let here = (
+                CoordGrid::fine(coord.x(), ONE_TILE),
+                CoordGrid::fine(coord.z(), ONE_TILE),
+            );
+            let (x, z) = info.face_x.zip(info.face_z).unwrap_or(here);
+            order |= self.set(PlayerInfoProt::FaceCoord, pid, &face_coord(x, z, coord));
+        }
+        if masks & PlayerInfoProt::Chat as u16 != 0 {
+            let chat = PlayerInfoChat {
+                colour: info.chat_colour.unwrap(),
+                effects: info.chat_effects.unwrap(),
+                ignored: info.chat_ignored.unwrap(),
+                bytes: info.chat_bytes.as_deref().unwrap(),
+            };
+            set_bytes(&mut self.chats[pid], &chat);
+            #[cfg(before_647)]
+            {
+                order |= 1 << PlayerInfoProt::Chat.to_index();
+            }
+            #[cfg(since_647)]
+            {
+                self.chatted[pid >> 6] |= 1 << (pid & 63);
+            }
+        }
+        if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
+            let spotanim = PlayerInfoSpotAnim {
+                spotanim: info.spotanim.unwrap_or(u16::MAX),
+                height: info.spotanim_height.unwrap_or(0),
+                delay: info.spotanim_delay.unwrap_or(0),
+            };
+            order |= self.set(PlayerInfoProt::SpotAnim, pid, &spotanim);
+        }
+        if masks & PlayerInfoProt::ExactMove as u16 != 0 {
+            #[cfg(before_647)]
+            {
+                self.exact_moves[pid] = ExactMove::of(info);
+                order |= 1 << PlayerInfoProt::ExactMove.to_index();
+            }
+            // The client adds these to the player's own tile, where the move
+            // has already put him (`Class244`, mask 0x4000): tile offsets
+            // from `coord`, not world coordinates.
+            #[cfg(since_647)]
+            {
+                let offset = |tile: Option<u16>, here: u16| {
+                    (i32::from(tile.unwrap_or(here)) - i32::from(here)) as u8
+                };
+                let exactmove = PlayerInfoExactMove {
+                    start_x: offset(info.exactmove_start_x, coord.x()),
+                    start_z: offset(info.exactmove_start_z, coord.z()),
+                    end_x: offset(info.exactmove_end_x, coord.x()),
+                    end_z: offset(info.exactmove_end_z, coord.z()),
+                    begin: info.exactmove_begin.unwrap_or(0),
+                    finish: info.exactmove_finish.unwrap_or(0),
+                    dir: info.exactmove_dir.unwrap_or(0),
+                };
+                order |= self.set(PlayerInfoProt::ExactMove, pid, &exactmove);
+            }
+        }
+        #[cfg(all(since_244, before_647))]
+        if masks & PlayerInfoProt::Damage2 as u16 != 0 {
+            let damage = PlayerInfoDamage {
+                damage: info.damage2_taken.unwrap() as u8,
+                damage_type: info.damage2_type.unwrap(),
+                current: info.damage2_current.unwrap(),
+                base: info.damage2_base.unwrap(),
+            };
+            order |= self.set(PlayerInfoProt::Damage2, pid, &damage);
+        }
+        #[cfg(since_647)]
+        {
+            if masks & PlayerInfoProt::MoveType as u16 != 0 {
+                let move_type = info.move_type.unwrap_or(0);
+                self.move_types[pid] = move_type;
+                order |= self.set(
+                    PlayerInfoProt::MoveType,
+                    pid,
+                    &PlayerInfoMoveType { move_type },
+                );
+            }
+            if masks & PlayerInfoProt::TempMoveType as u16 != 0 {
+                let move_type = info.temp_move_type.unwrap_or(0);
+                order |= self.set(
+                    PlayerInfoProt::TempMoveType,
+                    pid,
+                    &PlayerInfoTempMoveType { move_type },
+                );
+            }
+            let first = masks & PlayerInfoProt::Damage as u16 != 0;
+            let second = masks & PlayerInfoProt::Damage2 as u16 != 0;
+            if first || second {
+                let (hits, count) = hits(info, first, second);
+                let damage = PlayerInfoDamage {
+                    hits: &hits[..count],
+                    bright: 0,
+                };
+                order |= self.set(PlayerInfoProt::Damage, pid, &damage);
+                // The player takes each hit, so sees it bright, as its
+                // dealer does.
+                let me = Some(pid as u16);
+                self.hit_views[pid] = HitView {
+                    hits,
+                    count: count as u8,
+                    bright: hit_sources(info, first, second).map(|by| [me, by]),
+                    offset: 0,
+                    len: 0,
+                };
+            }
+        }
+        if order == 0 {
+            return;
+        }
+        self.ticks[pid] = Blocks { masks, order };
 
-            if masks & PlayerInfoProt::Appearance as u16 != 0 {
-                let bytes = info.last_appearance_info.as_ref().unwrap();
-                let len = 1 + bytes.len();
-                let slot = self.appearances.get_unchecked_mut(pid);
-                match slot {
-                    Some(v) => {
-                        v.clear();
-                        v.push(bytes.len() as u8);
-                        v.extend_from_slice(bytes);
-                    }
-                    None => {
-                        let mut buf = Vec::with_capacity(len);
-                        buf.push(bytes.len() as u8);
-                        buf.extend_from_slice(bytes);
-                        *slot = Some(buf);
-                    }
-                }
-                highs += len as u16;
-                lows += len as u16;
+        let mut blocks = mem::take(&mut self.blocks);
+        let start = blocks.len();
+        let (header, len) = PlayerInfoProt::header(masks);
+        blocks.extend_from_slice(&header[..len]);
+        let mut bits = order;
+        while bits != 0 {
+            let index = bits.trailing_zeros() as usize;
+            bits &= bits - 1;
+            blocks.extend_from_slice(self.bytes(index, pid));
+            #[cfg(since_647)]
+            if index == PlayerInfoProt::Damage.to_index() {
+                let len = self.fixed[index][pid].len as usize;
+                let view = &mut self.hit_views[pid];
+                view.offset = (blocks.len() - len - start) as u16;
+                view.len = len as u16;
             }
-            if masks & PlayerInfoProt::Anim as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::Anim.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p2_p1(info.anim_id.unwrap_or(u16::MAX), info.anim_delay.unwrap());
-                highs += 3;
-            }
-            if masks & PlayerInfoProt::FaceEntity as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p2(info.face_entity.unwrap_or(u16::MAX));
-                highs += 2;
-                lows += 2;
-            }
-            if masks & PlayerInfoProt::Say as u16 != 0 {
-                let say = info.say.as_ref().unwrap();
-                let bytes = say.as_bytes();
-                let len = bytes.len() + 1;
-                let slot = self.says.get_unchecked_mut(pid);
-                match slot {
-                    Some(v) => {
-                        v.clear();
-                        v.extend_from_slice(bytes);
-                        v.push(10);
-                    }
-                    None => {
-                        let mut buf = Vec::with_capacity(len);
-                        buf.extend_from_slice(bytes);
-                        buf.push(10);
-                        *slot = Some(buf);
-                    }
-                }
-                highs += len as u16;
-            }
-            if masks & PlayerInfoProt::Damage as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::Damage.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p1_p1_p1_p1(
-                        info.damage_taken.unwrap(),
-                        info.damage_type.unwrap(),
-                        info.damage_current.unwrap(),
-                        info.damage_base.unwrap(),
-                    );
-                highs += 4;
-            }
-            if masks & PlayerInfoProt::FaceCoord as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p2_p2(info.face_x.unwrap(), info.face_z.unwrap());
-                highs += 4;
-                lows += 4;
-            }
-            if masks & PlayerInfoProt::Chat as u16 != 0 {
-                let chat = info.chat_bytes.as_ref().unwrap();
-                let len = 4 + chat.len();
-                let slot = self.chats.get_unchecked_mut(pid);
-                match slot {
-                    Some(v) => {
-                        v.clear();
-                        v.push(info.chat_colour.unwrap());
-                        v.push(info.chat_effects.unwrap());
-                        v.push(info.chat_ignored.unwrap());
-                        v.push(chat.len() as u8);
-                        v.extend_from_slice(chat);
-                    }
-                    None => {
-                        let mut buf = Vec::with_capacity(len);
-                        buf.push(info.chat_colour.unwrap());
-                        buf.push(info.chat_effects.unwrap());
-                        buf.push(info.chat_ignored.unwrap());
-                        buf.push(chat.len() as u8);
-                        buf.extend_from_slice(chat);
-                        *slot = Some(buf);
-                    }
-                }
-                highs += len as u16;
-            }
-            if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p2_p4(
-                        info.spotanim.unwrap(),
-                        ((info.spotanim_height.unwrap() as i32) << 16)
-                            | info.spotanim_delay.unwrap() as i32,
-                    );
-                highs += 6;
-            }
-            if masks & PlayerInfoProt::ExactMove as u16 != 0 {
-                highs += 9;
-            }
-            #[cfg(since_244)]
-            if masks & PlayerInfoProt::Damage2 as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(PlayerInfoProt::Damage2.to_index())
-                    .get_unchecked_mut(pid)
-                    .set_p1_p1_p1_p1(
-                        info.damage2_taken.unwrap(),
-                        info.damage2_type.unwrap(),
-                        info.damage2_current.unwrap(),
-                        info.damage2_base.unwrap(),
-                    );
-                highs += 4;
-            }
+        }
+        let high = blocks.len() - start;
+        self.spans[pid] = Span::new(start, blocks.len());
+        self.blocks = blocks;
+        #[cfg(before_647)]
+        let high = if masks & PlayerInfoProt::ExactMove as u16 != 0 {
+            high + PlayerInfoExactMove::default().sizeof()
+        } else {
+            high
+        };
+        self.highs[pid] = high as u16;
 
-            if highs > 0 {
-                *self.highs.get_unchecked_mut(pid) = highs + Self::header(masks);
-            }
-
-            if lows > 0 {
-                let header = Self::header(
-                    PlayerInfoProt::Appearance as u16
-                        | PlayerInfoProt::FaceEntity as u16
-                        | PlayerInfoProt::FaceCoord as u16,
-                );
-                let appearance_len = self
-                    .appearances
-                    .get_unchecked(pid)
-                    .as_ref()
-                    .map_or(0, |v| v.len()) as u16;
-                *self.lows.get_unchecked_mut(pid) = header + appearance_len + 2 + 4;
-            }
-
-            // Pre-coalesce the high-definition update block once per tick. This
-            // is the exact byte sequence `PlayerInfo::write_blocks` would emit
-            // for `masks`, EXCEPT the trailing `ExactMove` field, which depends
-            // on the observing player's build-area origin and is appended by the
-            // encoder per observer. The mask header is computed from the FULL
-            // `masks` (including the ExactMove bit and the BigInfo rule), so it
-            // is byte-identical whether or not ExactMove is appended.
-            let blk = self.high_blocks.get_unchecked_mut(pid);
-            blk.clear();
-            if masks > 0xff {
-                let v = masks | PlayerInfoProt::BigInfo as u16;
-                blk.push(v as u8);
-                blk.push((v >> 8) as u8);
-            } else {
-                blk.push(masks as u8);
-            }
-            if masks & PlayerInfoProt::Appearance as u16 != 0 {
-                if let Some(bytes) = self.appearances.get_unchecked(pid) {
-                    blk.extend_from_slice(bytes);
-                }
-            }
-            if masks & PlayerInfoProt::Anim as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(PlayerInfoProt::Anim.to_index())
-                        .get_unchecked(pid)
-                        .bytes(),
-                );
-            }
-            if masks & PlayerInfoProt::FaceEntity as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(PlayerInfoProt::FaceEntity.to_index())
-                        .get_unchecked(pid)
-                        .bytes(),
-                );
-            }
-            if masks & PlayerInfoProt::Say as u16 != 0 {
-                if let Some(bytes) = self.says.get_unchecked(pid) {
-                    blk.extend_from_slice(bytes);
-                }
-            }
-            if masks & PlayerInfoProt::Damage as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(PlayerInfoProt::Damage.to_index())
-                        .get_unchecked(pid)
-                        .bytes(),
-                );
-            }
-            if masks & PlayerInfoProt::FaceCoord as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(PlayerInfoProt::FaceCoord.to_index())
-                        .get_unchecked(pid)
-                        .bytes(),
-                );
-            }
-            if masks & PlayerInfoProt::Chat as u16 != 0 {
-                if let Some(bytes) = self.chats.get_unchecked(pid) {
-                    blk.extend_from_slice(bytes);
-                }
-            }
-            if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(PlayerInfoProt::SpotAnim.to_index())
-                        .get_unchecked(pid)
-                        .bytes(),
-                );
-            }
-            #[cfg(since_244)]
-            if masks & PlayerInfoProt::Damage2 as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(PlayerInfoProt::Damage2.to_index())
-                        .get_unchecked(pid)
-                        .bytes(),
-                );
-            }
+        if masks
+            & (PlayerInfoProt::Appearance as u16
+                | PlayerInfoProt::FaceEntity as u16
+                | PlayerInfoProt::FaceCoord as u16)
+            != 0
+        {
+            let appearance = self.appearances[pid].as_ref().map_or(0, Vec::len);
+            self.lows[pid] = (appearance + Self::low_facing()) as u16;
         }
     }
 
-    /// Returns the pre-coalesced high-definition block prefix for a player:
-    /// the mask header plus all fields except observer-relative `ExactMove`.
-    ///
-    /// The encoder writes this with a single `pdata`, then appends `ExactMove`
-    /// itself if its mask bit is set. See [`compute_info`](Self::compute_info).
+    /// Returns the precomputed high-definition block for a player.
+    /// Before 647 it leaves out an exact move, which is relative to the
+    /// observer.
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
-        unsafe { self.high_blocks.get_unchecked(id as usize) }
-    }
-
-    /// Writes the pre-computed data for a specific protocol field to a packet buffer.
-    ///
-    /// Dispatches on `prot` to select the correct storage: variable-length
-    /// buffers for Appearance, Say, and Chat, or the inline fixed slot for
-    /// all other protocol types. The raw bytes are copied directly into
-    /// `buf` without further encoding.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to write into.
-    /// * `id` - The player index identifying which slot to read from.
-    /// * `prot` - The protocol field type to write.
-    ///
-    /// # Side Effects
-    ///
-    /// Appends bytes to `buf`. Does not modify any renderer state.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (`write_blocks`).
-    ///
-    /// **Calls:** `Packet::pdata`, `Slot::write_to`.
-    /// # Safety
-    ///
-    /// `id` must be < `MAX_PLAYERS` and `prot.to_index()` < `PLAYER_PROT_COUNT`.
-    #[inline(always)]
-    pub fn write(&self, buf: &mut Packet, id: u16, prot: PlayerInfoProt) {
-        let idx = id as usize;
         unsafe {
-            match prot {
-                PlayerInfoProt::Appearance => {
-                    if let Some(bytes) = self.appearances.get_unchecked(idx) {
-                        buf.pdata(bytes, 0, bytes.len());
-                    }
-                }
-                PlayerInfoProt::Say => {
-                    if let Some(bytes) = self.says.get_unchecked(idx) {
-                        buf.pdata(bytes, 0, bytes.len());
-                    }
-                }
-                PlayerInfoProt::Chat => {
-                    if let Some(bytes) = self.chats.get_unchecked(idx) {
-                        buf.pdata(bytes, 0, bytes.len());
-                    }
-                }
-                _ => {
-                    self.fixed
-                        .get_unchecked(prot.to_index())
-                        .get_unchecked(idx)
-                        .write_to(buf);
-                }
-            }
+            let span = *self.spans.get_unchecked(id as usize);
+            self.blocks
+                .get_unchecked(span.start as usize..span.end as usize)
         }
     }
 
-    /// Writes exact-move data inline to a packet buffer.
-    ///
-    /// Unlike other protocol fields, exact-move is not pre-computed into a
-    /// slot because its 9-byte payload exceeds the 8-byte `Slot` capacity.
-    /// Instead, the caller provides all values and they are written directly
-    /// into the packet using individual `p1` and `p2` calls.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to write into.
-    /// * `start_x` - Starting x coordinate delta (1 byte).
-    /// * `start_z` - Starting z coordinate delta (1 byte).
-    /// * `end_x` - Ending x coordinate delta (1 byte).
-    /// * `end_z` - Ending z coordinate delta (1 byte).
-    /// * `begin` - Start tick of the movement (2 bytes).
-    /// * `finish` - End tick of the movement (2 bytes).
-    /// * `dir` - Direction/angle of movement (1 byte).
-    ///
-    /// # Side Effects
-    ///
-    /// Appends 9 bytes to `buf`. Does not modify any renderer state.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (`write_blocks`).
-    ///
-    /// **Calls:** `Packet::p1`, `Packet::p2`.
-    #[allow(clippy::too_many_arguments)]
+    /// Writes player `pid`'s blocks this tick as `observer` sees them: the
+    /// high block, but a player doesn't get its own chat back, and an exact
+    /// move is relative to the observer's build area.
+    #[cfg(before_647)]
+    #[inline(always)]
+    pub fn write_high_block_for(&self, buf: &mut Packet, pid: u16, observer: Observer) {
+        let tick = self.ticks[pid as usize];
+        let blocks = if pid == observer.pid {
+            tick.without(Blocks::player(PlayerInfoProt::Chat))
+        } else {
+            tick
+        };
+        if blocks.masks != tick.masks || tick.masks & PlayerInfoProt::ExactMove as u16 != 0 {
+            self.write_blocks(buf, pid, blocks, observer);
+        } else {
+            let block = self.high_block(pid);
+            buf.pdata(block, 0, block.len());
+        }
+    }
+
+    /// Writes a player's high block as `observer` sees it: the block carries
+    /// every hit as a bystander sees it, and the hits `observer` took or
+    /// dealt are written bright in their place.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn write_high_block_for(&self, buf: &mut Packet, pid: u16, observer: Observer) {
+        let block = self.high_block(pid);
+        let view = &self.hit_views[pid as usize];
+        let bright = view.bright(observer.pid);
+        if bright == 0 {
+            buf.pdata(block, 0, block.len());
+        } else {
+            splice(buf, block, view.offset, view.len, |buf| {
+                PlayerInfoDamage {
+                    hits: view.hits(),
+                    bright,
+                }
+                .encode(buf)
+            });
+        }
+    }
+
+    /// Writes what `observer` gets of player `pid` as it adds it: this tick's
+    /// blocks, which way the player faces (and on 647 its move type), and
+    /// its appearance if `appearance`.
     #[inline]
-    pub fn write_exactmove(
+    pub fn write_low_block_for(
         &self,
         buf: &mut Packet,
-        start_x: u8,
-        start_z: u8,
-        end_x: u8,
-        end_z: u8,
-        begin: u16,
-        finish: u16,
-        dir: u8,
+        pid: u16,
+        observer: Observer,
+        appearance: bool,
     ) {
-        buf.p1(start_x);
-        buf.p1(start_z);
-        buf.p1(end_x);
-        buf.p1(end_z);
-        buf.p2(begin);
-        buf.p2(finish);
-        buf.p1(dir);
+        let mut blocks = self.ticks[pid as usize].with(Blocks::player(PlayerInfoProt::FaceCoord));
+        if self.low_faces[pid as usize].entity.is_some() {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::FaceEntity));
+        }
+        #[cfg(since_647)]
+        {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::MoveType));
+        }
+        let appearance_block = Blocks::player(PlayerInfoProt::Appearance);
+        blocks = if appearance {
+            blocks.with(appearance_block)
+        } else {
+            blocks.without(appearance_block)
+        };
+        self.write_blocks(buf, pid, blocks, observer);
     }
 
-    /// Checks whether pre-computed data exists for a specific protocol field.
-    ///
-    /// For variable-length fields (Appearance, Say, Chat), checks that the
-    /// `Option<Vec<u8>>` is `Some` and non-empty. For fixed-size fields,
-    /// delegates to `Slot::is_set`.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to check.
-    /// * `prot` - The protocol field type to check.
-    ///
-    /// # Returns
-    ///
-    /// `true` if serialized data is available for the given player and
-    /// protocol, `false` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (low-definition update checks).
-    ///
-    /// **Calls:** `Slot::is_set`.
+    /// Writes what a session replay's keyframe shows of player `pid`: which
+    /// way it faces, cached for the tick as for an add, and its appearance
+    /// if it has one.
+    pub fn write_keyframe_block(
+        &mut self,
+        buf: &mut Packet,
+        pid: u16,
+        info: &EntityMasks,
+        coord: CoordGrid,
+    ) {
+        let face = Self::low_face(info, coord);
+        self.cache_face(pid, face);
+        let mut blocks = Blocks::player(PlayerInfoProt::FaceCoord);
+        if face.entity.is_some() {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::FaceEntity));
+        }
+        if self.has(pid, PlayerInfoProt::Appearance) {
+            blocks = blocks.with(Blocks::player(PlayerInfoProt::Appearance));
+        }
+        self.write_blocks(buf, pid, blocks, Observer::default());
+    }
+
+    /// Writes `blocks` of player `pid` under their mask header, in the order
+    /// the client reads them, as `observer` sees them.
+    fn write_blocks(&self, buf: &mut Packet, pid: u16, blocks: Blocks, observer: Observer) {
+        let (header, len) = PlayerInfoProt::header(blocks.masks);
+        buf.pdata(&header, 0, len);
+        let mut order = blocks.order;
+        while order != 0 {
+            let index = order.trailing_zeros() as usize;
+            order &= order - 1;
+            #[cfg(before_647)]
+            if index == PlayerInfoProt::ExactMove.to_index() {
+                self.exact_moves[pid as usize]
+                    .block(observer.origin)
+                    .encode(buf);
+                continue;
+            }
+            #[cfg(since_647)]
+            if index == PlayerInfoProt::Damage.to_index() {
+                let view = &self.hit_views[pid as usize];
+                PlayerInfoDamage {
+                    hits: view.hits(),
+                    bright: view.bright(observer.pid),
+                }
+                .encode(buf);
+                continue;
+            }
+            let bytes = self.bytes(index, pid as usize);
+            buf.pdata(bytes, 0, bytes.len());
+        }
+    }
+
+    /// Encodes `block` as player `pid`'s `prot` block, and returns its bit in
+    /// the read order.
     #[inline(always)]
-    pub fn has(&self, id: u16, prot: PlayerInfoProt) -> bool {
+    fn set(&mut self, prot: PlayerInfoProt, pid: usize, block: &impl InfoMessage) -> u16 {
+        let index = prot.to_index();
+        self.fixed[index][pid].set(block);
+        1 << index
+    }
+
+    /// Player `pid`'s encoded block at `index` in the read order, empty when
+    /// it has none.
+    #[inline(always)]
+    fn bytes(&self, index: usize, pid: usize) -> &[u8] {
         unsafe {
-            match prot {
-                PlayerInfoProt::Appearance => self
+            match index {
+                i if i == PlayerInfoProt::Appearance.to_index() => self
                     .appearances
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                PlayerInfoProt::Say => self
-                    .says
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                PlayerInfoProt::Chat => self
-                    .chats
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                _ => self
-                    .fixed
-                    .get_unchecked(prot.to_index())
-                    .get_unchecked(id as usize)
-                    .is_set(),
+                    .get_unchecked(pid)
+                    .as_deref()
+                    .unwrap_or_default(),
+                i if i == PlayerInfoProt::Say.to_index() => {
+                    self.says.get_unchecked(pid).as_deref().unwrap_or_default()
+                }
+                #[cfg(before_647)]
+                i if i == PlayerInfoProt::Chat.to_index() => {
+                    self.chats.get_unchecked(pid).as_deref().unwrap_or_default()
+                }
+                _ => self.fixed.get_unchecked(index).get_unchecked(pid).bytes(),
             }
         }
     }
 
-    /// Caches a face-entity value for low-definition updates.
-    ///
-    /// Writes the entity target into the FaceEntity slot so it persists
-    /// across ticks for players entering the viewport who need the cached
-    /// low-definition state. This is separate from `compute_info`, which
-    /// handles the per-tick high-definition update.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to update.
-    /// * `entity` - The entity id the player is facing, or `u16::MAX` for none.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the FaceEntity slot for the given player.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info low-definition output in
-    /// `rs-engine/src/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`.
     #[inline(always)]
-    pub fn cache_face_entity(&mut self, id: u16, entity: u16) {
-        self.written.push(id);
-        unsafe {
-            let slot = self
-                .fixed
-                .as_mut_ptr()
-                .add(PlayerInfoProt::FaceEntity.to_index());
-            (*slot)
-                .as_mut_ptr()
-                .add(id as usize)
-                .as_mut()
-                .unwrap_unchecked()
-                .set_p2(entity);
+    fn has(&self, pid: u16, prot: PlayerInfoProt) -> bool {
+        !self.bytes(prot.to_index(), pid as usize).is_empty()
+    }
+
+    fn low_face(info: &EntityMasks, coord: CoordGrid) -> LowFace<PlayerInfoFaceCoord> {
+        let (x, z) = facing(info, coord, ONE_TILE);
+        LowFace {
+            entity: info.face_entity,
+            coord: face_coord(x, z, coord),
         }
     }
 
-    /// Caches face-coordinate values for low-definition updates.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to update.
-    /// * `x` - The x coordinate the player is facing toward.
-    /// * `z` - The z coordinate the player is facing toward.
-    ///
-    /// # Safety
-    ///
-    /// `id` must be < `MAX_PLAYERS`.
+    /// The header and facing blocks an add carries besides the appearance
+    /// and this tick's blocks.
+    fn low_facing() -> usize {
+        let facing = LOW_HEADER
+            + PlayerInfoFaceEntity { entity: 0 }.sizeof()
+            + PlayerInfoFaceCoord::default().sizeof();
+        #[cfg(since_647)]
+        let facing = facing + PlayerInfoMoveType { move_type: 0 }.sizeof();
+        facing
+    }
+
+    /// Caches the blocks for which way player `pid` faces, for this tick's
+    /// adds, unless it has them this tick.
     #[inline(always)]
-    pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16) {
-        self.written.push(id);
-        unsafe {
-            let slot = self
-                .fixed
-                .as_mut_ptr()
-                .add(PlayerInfoProt::FaceCoord.to_index());
-            (*slot)
-                .as_mut_ptr()
-                .add(id as usize)
-                .as_mut()
-                .unwrap_unchecked()
-                .set_p2_p2(x, z);
+    fn cache_face(&mut self, pid: u16, face: LowFace<PlayerInfoFaceCoord>) {
+        if let Some(entity) = face.entity
+            && !self.has(pid, PlayerInfoProt::FaceEntity)
+        {
+            self.written.push(pid);
+            self.set(
+                PlayerInfoProt::FaceEntity,
+                pid as usize,
+                &PlayerInfoFaceEntity { entity },
+            );
         }
+        if !self.has(pid, PlayerInfoProt::FaceCoord) {
+            self.written.push(pid);
+            self.set(PlayerInfoProt::FaceCoord, pid as usize, &face.coord);
+        }
+    }
+
+    #[cfg(since_647)]
+    #[inline(always)]
+    fn cache_move_type(&mut self, pid: u16) {
+        let move_type = self.move_types[pid as usize];
+        let slot = &mut self.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize];
+        if slot.bytes().is_empty() {
+            self.written.push(pid);
+        }
+        slot.set(&PlayerInfoMoveType { move_type });
     }
 
     /// Returns the total pre-computed high-definition byte size for a player.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to query.
-    ///
-    /// # Returns
-    ///
-    /// The total byte count for a high-definition update, or zero if none pending.
     #[inline(always)]
     pub const fn highdefinitions(&self, id: u16) -> usize {
         unsafe { *self.highs.as_ptr().add(id as usize) as usize }
     }
 
-    /// Returns the total pre-computed low-definition byte size for a player.
-    ///
-    /// This includes the mask header plus Appearance, FaceEntity, and
-    /// FaceCoord field sizes. A return value of zero means no low-definition
-    /// update is pending for this player.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to query.
-    ///
-    /// # Returns
-    ///
-    /// The total byte count that would be written for a low-definition
-    /// update, or zero if none is pending.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player info output in `rs-engine/src/info.rs`
-    /// (capacity checks before writing low-def blocks).
+    /// The most an add's blocks take besides this tick's: the mask header,
+    /// the appearance and which way the player faces.
     #[inline(always)]
     pub const fn lowdefinitions(&self, id: u16) -> usize {
         unsafe { *self.lows.as_ptr().add(id as usize) as usize }
     }
 
-    /// Clears per-tick temporary data for every player written this tick.
-    ///
-    /// Drains the internal `written` list (player indices recorded by
-    /// `compute_info` and `cache_face_*`) and, for each entry, resets the
-    /// high-definition byte-size counter and clears every temporary
-    /// protocol slot (Anim, FaceEntity, Damage, FaceCoord, SpotAnim) back
-    /// to `Slot::EMPTY`. Also clears the variable-length Say and Chat
-    /// buffers. Appearance data and low-definition counters are preserved
-    /// because they persist across ticks. Players that were never written
-    /// this tick cost nothing.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs` and resets fixed slots and variable-length
-    /// buffers for every written index; empties `self.written`. Does not
-    /// deallocate variable-length buffers; they are cleared in place for
-    /// reuse.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Cleanup phase in `rs-engine/src/phases/cleanup.rs`.
+    /// Clears the blocks of every player written this tick. Appearances and
+    /// add sizes persist; players never written this tick cost nothing.
     #[inline]
     pub fn remove_temporary(&mut self) {
-        let written = std::mem::take(&mut self.written);
+        let written = mem::take(&mut self.written);
         for &pid in &written {
             let idx = pid as usize;
-            unsafe {
-                *self.highs.get_unchecked_mut(idx) = 0;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::Anim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::Damage.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(PlayerInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                if let Some(v) = self.says.get_unchecked_mut(idx) {
-                    v.clear();
-                }
-                if let Some(v) = self.chats.get_unchecked_mut(idx) {
-                    v.clear();
-                }
-                self.high_blocks.get_unchecked_mut(idx).clear();
+            self.highs[idx] = 0;
+            for slots in self.fixed.iter_mut() {
+                slots[idx].len = 0;
             }
+            if let Some(say) = &mut self.says[idx] {
+                say.clear();
+            }
+            if let Some(chat) = &mut self.chats[idx] {
+                chat.clear();
+            }
+            #[cfg(since_647)]
+            {
+                self.chatted[idx >> 6] &= !(1 << (idx & 63));
+                self.hit_views[idx].count = 0;
+            }
+            self.spans[idx] = Span::default();
+            self.ticks[idx] = Blocks::default();
         }
+        self.blocks.clear();
         self.written = written;
         self.written.clear();
+        #[cfg(since_647)]
+        for (w, bits) in self.region_moves.iter_mut().enumerate() {
+            while *bits != 0 {
+                let idx = (w << 6) | bits.trailing_zeros() as usize;
+                self.regions[idx] = self.next_regions[idx];
+                *bits &= *bits - 1;
+            }
+        }
     }
 
-    /// Performs a full cleanup of all renderer data for a player.
-    ///
-    /// Called when a player logs out or is otherwise permanently removed
-    /// from the game. Resets both byte-size counters to zero and drops
-    /// the appearance buffer by setting it to `None`, freeing its heap
-    /// allocation.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The player index to fully clean up.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs[id]` and `self.lows[id]`. Drops the appearance
-    /// `Vec` for the given index.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Player logout handling in `rs-engine/src/engine.rs`.
+    /// Drops everything kept for a player that logged out.
     #[inline]
     pub fn remove_permanent(&mut self, id: u16) {
         let idx = id as usize;
-        unsafe {
-            *self.highs.get_unchecked_mut(idx) = 0;
-            *self.lows.get_unchecked_mut(idx) = 0;
-            *self.appearances.get_unchecked_mut(idx) = None;
+        #[cfg(since_647)]
+        {
+            self.move_types[idx] = DEFAULT_MOVE_TYPE;
         }
-    }
-
-    /// Computes the mask header size based on the combined mask value.
-    ///
-    /// If the mask value fits in a single byte (0x00..0xFF), the header is
-    /// 1 byte. Otherwise, 2 bytes are needed to encode the full mask.
-    ///
-    /// # Arguments
-    ///
-    /// * `masks` - The combined bitmask of all active protocol flags.
-    ///
-    /// # Returns
-    ///
-    /// `1` if `masks` fits in a single byte, `2` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Self::compute_info` when computing total byte sizes.
-    #[inline(always)]
-    const fn header(masks: u16) -> u16 {
-        if masks > 0xff { 2 } else { 1 }
+        self.low_faces[idx] = LowFace::default();
+        self.highs[idx] = 0;
+        self.lows[idx] = 0;
+        self.spans[idx] = Span::default();
+        self.appearances[idx] = None;
     }
 }
 
-/// Pre-computed NPC info update storage for efficient network serialization.
-///
-/// `NpcRenderer` maintains a set of NPC slots, one per possible NPC
-/// index, where each slot holds pre-serialized protocol field data. Fixed-size
-/// fields (Anim, FaceEntity, Damage, ChangeType, SpotAnim, FaceCoord) are
-/// stored in inline [`Slot`] buffers, while the variable-length Say field
-/// uses a heap-allocated `Vec<u8>` buffer.
-///
-/// A byte-size counter (`highs`) tracks the serialized size of each NPC's
-/// high-definition update, and a low-definition update is never more than
-/// [`LOW_LEN`](Self::LOW_LEN), so the info output phase can check capacity
-/// before writing.
-///
-/// This mirrors [`PlayerRenderer`] but with NPC-specific protocol types
-/// (7 protocols instead of 8) and a larger index space.
-///
-/// # Call Stack
-///
-/// **Called by:** Owned by `NpcInfo` in `rs-engine/src/info.rs`. Methods
-/// are invoked during the info phase (`rs-engine/src/phases/info.rs`),
-/// NPC info output (`rs-engine/src/info.rs`), cleanup phase
-/// (`rs-engine/src/phases/cleanup.rs`), and NPC despawn/removal
-/// (`rs-engine/src/engine.rs`).
+/// Every NPC's info blocks this tick, encoded once in the info phase and
+/// copied into each observer's packet: [`PlayerRenderer`]'s layout over the
+/// NPC blocks and index space.
 pub struct NpcRenderer {
-    fixed: Box<[[Slot; MAX_NPCS]; NPC_PROT_COUNT]>,
+    fixed: Box<[[Slot; MAX_NPCS]; NpcInfoProt::COUNT]>,
     says: Vec<Option<Vec<u8>>>,
-    high_blocks: Vec<Vec<u8>>,
+    #[cfg(since_647)]
+    hit_views: Vec<HitView>,
+    blocks: Vec<u8>,
+    spans: Box<[Span; MAX_NPCS]>,
     highs: Box<[u16; MAX_NPCS]>,
+    ticks: Box<[Blocks; MAX_NPCS]>,
+    low_faces: Box<[LowFace<NpcInfoFaceCoord>; MAX_NPCS]>,
+    #[cfg(since_647)]
+    add_directions: Box<[u8; MAX_NPCS]>,
     written: Vec<u16>,
 }
 
 impl NpcRenderer {
-    /// Creates a new `NpcRenderer` with all slots initialized to empty.
-    ///
-    /// Allocates the fixed-size slot arrays on the heap via `Box`, and
-    /// initializes the variable-length say vector with `None` for all
-    /// NPC indices. All high-def byte-size counters start at zero.
-    ///
-    /// # Returns
-    ///
-    /// A fully initialized `NpcRenderer` with no pre-computed data.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Engine` constructor in `rs-engine/src/engine.rs`.
     #[inline]
     pub fn new() -> NpcRenderer {
         NpcRenderer {
-            fixed: Box::new([[Slot::EMPTY; MAX_NPCS]; NPC_PROT_COUNT]),
+            fixed: unsafe { Box::new_zeroed().assume_init() },
             says: vec![None; MAX_NPCS],
-            high_blocks: vec![Vec::new(); MAX_NPCS],
+            #[cfg(since_647)]
+            hit_views: vec![HitView::default(); MAX_NPCS],
+            blocks: Vec::new(),
+            spans: Box::new([Span::default(); MAX_NPCS]),
             highs: Box::new([0; MAX_NPCS]),
+            ticks: Box::new([Blocks::default(); MAX_NPCS]),
+            low_faces: Box::new([LowFace::default(); MAX_NPCS]),
+            #[cfg(since_647)]
+            add_directions: Box::new([0; MAX_NPCS]),
             written: Vec::new(),
         }
     }
 
-    /// Pre-computes and serializes all active info masks for an NPC.
-    ///
-    /// Iterates over every flag set in `info.masks` and serializes the
-    /// corresponding field data into the appropriate slot or variable-length
-    /// buffer for the given NPC index. Also accumulates the total
-    /// high-definition byte size (including the mask header) into
-    /// `self.highs[nid]`.
-    ///
-    /// Returns immediately if `info.masks` is zero (no updates pending).
-    ///
-    /// # Arguments
-    ///
-    /// * `nid` - The NPC index identifying which slot to populate.
-    /// * `info` - The entity masks containing the raw field values to serialize.
-    ///
-    /// # Side Effects
-    ///
-    /// Writes serialized data into the fixed slots and/or variable-length
-    /// buffers for `nid`. Updates `self.highs[nid]` with the total
-    /// byte size. The say buffer is reused if already
-    /// allocated, avoiding repeated heap allocation.
-    ///
-    /// # Panics
-    ///
-    /// Panics if required `Option` fields in `info` are `None` when their
-    /// corresponding mask bit is set (e.g. `info.anim_delay` when Anim mask
-    /// is active).
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Info phase in `rs-engine/src/phases/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`, `Slot::set_p2_p1`, `Slot::set_p1_p1_p1_p1`,
-    /// `Slot::set_p2_p2`, `Slot::set_p2_p4`, `Self::header`.
-    /// # Safety
-    ///
-    /// `nid` must be < `MAX_NPCS`. This is guaranteed by the engine
-    /// which only passes valid NPC indices from `active_npcs`.
+    /// Notes what an observer adding NPC `nid` this tick gets besides its
+    /// blocks: which way it faces, and on 647 the facing its add entry
+    /// carries. Once a tick in the info phase, so an add doesn't read the
+    /// NPC; [`ready_low`](Self::ready_low) writes the blocks it notes.
+    #[inline(always)]
+    pub fn cache_low(
+        &mut self,
+        nid: u16,
+        info: &EntityMasks,
+        coord: CoordGrid,
+        #[cfg_attr(before_647, allow(unused_variables))] size: u8,
+    ) {
+        #[cfg(before_647)]
+        let size = ONE_TILE;
+        self.low_faces[nid as usize] = Self::low_face(info, coord, size);
+        #[cfg(since_647)]
+        {
+            let facing = info
+                .face_x
+                .zip(info.face_z)
+                .or_else(|| info.orientation_x.zip(info.orientation_z))
+                .map(|(fx, fz)| {
+                    (
+                        CoordGrid::fine(coord.x(), size) as i32 - fx as i32,
+                        CoordGrid::fine(coord.z(), size) as i32 - fz as i32,
+                    )
+                });
+            self.add_directions[nid as usize] = add_direction(facing);
+        }
+    }
+
+    /// Caches the facing blocks [`cache_low`](Self::cache_low) noted for NPC
+    /// `nid`, for its adds.
+    #[inline(always)]
+    pub fn ready_low(&mut self, nid: u16) {
+        self.cache_face(nid, self.low_faces[nid as usize]);
+    }
+
+    /// Which way NPC `nid` faces in its add entry this tick.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn add_direction(&self, nid: u16) -> u8 {
+        self.add_directions[nid as usize]
+    }
+
+    /// Encodes NPC `nid`'s blocks this tick (`info.masks`) into its slots
+    /// and, under their mask header, its high block, and notes its size.
     #[inline]
     pub fn compute_info(&mut self, nid: usize, info: &EntityMasks) {
         let masks = info.masks;
-
         if masks == 0 {
             return;
         }
-
         self.written.push(nid as u16);
-        unsafe { self.compute_info_inner(nid, masks, info) }
-    }
 
-    #[inline(always)]
-    unsafe fn compute_info_inner(&mut self, nid: usize, masks: u16, info: &EntityMasks) {
-        unsafe {
-            let mut highs: u16 = 0;
-
-            if masks & NpcInfoProt::Anim as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::Anim.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p2_p1(info.anim_id.unwrap_or(u16::MAX), info.anim_delay.unwrap());
-                highs += 3;
-            }
-            if masks & NpcInfoProt::FaceEntity as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p2(info.face_entity.unwrap_or(u16::MAX));
-                highs += 2;
-            }
-            if masks & NpcInfoProt::Say as u16 != 0 {
-                let say = info.say.as_ref().unwrap();
-                let bytes = say.as_bytes();
-                let len = bytes.len() + 1;
-                let slot = self.says.get_unchecked_mut(nid);
-                match slot {
-                    Some(v) => {
-                        v.clear();
-                        v.extend_from_slice(bytes);
-                        v.push(10);
-                    }
-                    None => {
-                        let mut buf = Vec::with_capacity(len);
-                        buf.extend_from_slice(bytes);
-                        buf.push(10);
-                        *slot = Some(buf);
-                    }
-                }
-                highs += len as u16;
-            }
-            if masks & NpcInfoProt::Damage as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::Damage.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p1_p1_p1_p1(
-                        info.damage_taken.unwrap(),
-                        info.damage_type.unwrap(),
-                        info.damage_current.unwrap(),
-                        info.damage_base.unwrap(),
-                    );
-                highs += 4;
-            }
-            if masks & NpcInfoProt::ChangeType as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::ChangeType.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p2(info.changetype.unwrap());
-                highs += 2;
-            }
-            if masks & NpcInfoProt::SpotAnim as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p2_p4(
-                        info.spotanim.unwrap(),
-                        ((info.spotanim_height.unwrap() as i32) << 16)
-                            | info.spotanim_delay.unwrap() as i32,
-                    );
-                highs += 6;
-            }
-            if masks & NpcInfoProt::FaceCoord as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p2_p2(info.face_x.unwrap(), info.face_z.unwrap());
-                highs += 4;
-            }
-            #[cfg(since_244)]
-            if masks & NpcInfoProt::Damage2 as u16 != 0 {
-                self.fixed
-                    .get_unchecked_mut(NpcInfoProt::Damage2.to_index())
-                    .get_unchecked_mut(nid)
-                    .set_p1_p1_p1_p1(
-                        info.damage2_taken.unwrap(),
-                        info.damage2_type.unwrap(),
-                        info.damage2_current.unwrap(),
-                        info.damage2_base.unwrap(),
-                    );
-                highs += 4;
-            }
-
-            if highs > 0 {
-                *self.highs.get_unchecked_mut(nid) = highs + Self::header(masks);
-            }
-
-            // Pre-coalesce the full high-definition update block once per tick.
-            // NPC high-def blocks have no observer-relative fields, so the byte
-            // sequence is identical for every observer and matches exactly what
-            // `NpcInfo::write_blocks` would emit for `masks`. The mask header is
-            // always a single byte (the max NPC mask 0xFE fits in 8 bits).
-            let blk = self.high_blocks.get_unchecked_mut(nid);
-            blk.clear();
-            blk.push(masks as u8);
-            #[cfg(since_244)]
-            if masks & NpcInfoProt::Damage2 as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::Damage2.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
-            }
-            if masks & NpcInfoProt::Anim as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::Anim.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
-            }
-            if masks & NpcInfoProt::FaceEntity as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::FaceEntity.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
-            }
-            if masks & NpcInfoProt::Say as u16 != 0 {
-                if let Some(bytes) = self.says.get_unchecked(nid) {
-                    blk.extend_from_slice(bytes);
-                }
-            }
-            if masks & NpcInfoProt::Damage as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::Damage.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
-            }
-            if masks & NpcInfoProt::ChangeType as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::ChangeType.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
-            }
-            if masks & NpcInfoProt::SpotAnim as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::SpotAnim.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
-            }
-            if masks & NpcInfoProt::FaceCoord as u16 != 0 {
-                blk.extend_from_slice(
-                    self.fixed
-                        .get_unchecked(NpcInfoProt::FaceCoord.to_index())
-                        .get_unchecked(nid)
-                        .bytes(),
-                );
+        let mut order = 0;
+        if masks & NpcInfoProt::Anim as u16 != 0 {
+            let anim = NpcInfoAnim {
+                seq: info.anim_id.unwrap_or(u16::MAX),
+                delay: info.anim_delay.unwrap_or(0),
+            };
+            order |= self.set(NpcInfoProt::Anim, nid, &anim);
+        }
+        if masks & NpcInfoProt::FaceEntity as u16 != 0 {
+            let entity = info.face_entity.unwrap_or(u16::MAX);
+            order |= self.set(NpcInfoProt::FaceEntity, nid, &NpcInfoFaceEntity { entity });
+        }
+        if masks & NpcInfoProt::Say as u16 != 0 {
+            let say = info.say.as_deref().unwrap();
+            set_bytes(&mut self.says[nid], &NpcInfoSay { say });
+            order |= 1 << NpcInfoProt::Say.to_index();
+        }
+        #[cfg(before_647)]
+        if masks & NpcInfoProt::Damage as u16 != 0 {
+            let damage = NpcInfoDamage {
+                damage: info.damage_taken.unwrap() as u8,
+                damage_type: info.damage_type.unwrap(),
+                current: info.damage_current.unwrap(),
+                base: info.damage_base.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::Damage, nid, &damage);
+        }
+        if masks & NpcInfoProt::ChangeType as u16 != 0 {
+            let ntype = info.changetype.unwrap();
+            order |= self.set(NpcInfoProt::ChangeType, nid, &NpcInfoChangeType { ntype });
+        }
+        if masks & NpcInfoProt::SpotAnim as u16 != 0 {
+            let spotanim = NpcInfoSpotAnim {
+                spotanim: info.spotanim.unwrap_or(u16::MAX),
+                height: info.spotanim_height.unwrap_or(0),
+                delay: info.spotanim_delay.unwrap_or(0),
+            };
+            order |= self.set(NpcInfoProt::SpotAnim, nid, &spotanim);
+        }
+        if masks & NpcInfoProt::FaceCoord as u16 != 0 {
+            let coord = NpcInfoFaceCoord {
+                x: info.face_x.unwrap(),
+                z: info.face_z.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::FaceCoord, nid, &coord);
+        }
+        #[cfg(all(since_244, before_647))]
+        if masks & NpcInfoProt::Damage2 as u16 != 0 {
+            let damage = NpcInfoDamage {
+                damage: info.damage2_taken.unwrap() as u8,
+                damage_type: info.damage2_type.unwrap(),
+                current: info.damage2_current.unwrap(),
+                base: info.damage2_base.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::Damage2, nid, &damage);
+        }
+        #[cfg(since_647)]
+        {
+            let first = masks & NpcInfoProt::Damage as u16 != 0;
+            let second = masks & NpcInfoProt::Damage2 as u16 != 0;
+            if first || second {
+                let (hits, count) = hits(info, first, second);
+                let damage = NpcInfoDamage {
+                    hits: &hits[..count],
+                    bright: 0,
+                };
+                order |= self.set(NpcInfoProt::Damage, nid, &damage);
+                // Only a hit's dealer sees an npc's hit bright.
+                self.hit_views[nid] = HitView {
+                    hits,
+                    count: count as u8,
+                    bright: hit_sources(info, first, second).map(|by| [by, None]),
+                    offset: 0,
+                    len: 0,
+                };
             }
         }
+        self.ticks[nid] = Blocks { masks, order };
+
+        let mut blocks = mem::take(&mut self.blocks);
+        let start = blocks.len();
+        let (header, len) = NpcInfoProt::header(masks);
+        blocks.extend_from_slice(&header[..len]);
+        let mut bits = order;
+        while bits != 0 {
+            let index = bits.trailing_zeros() as usize;
+            bits &= bits - 1;
+            blocks.extend_from_slice(self.bytes(index, nid));
+            #[cfg(since_647)]
+            if index == NpcInfoProt::Damage.to_index() {
+                let len = self.fixed[index][nid].len as usize;
+                let view = &mut self.hit_views[nid];
+                view.offset = (blocks.len() - len - start) as u16;
+                view.len = len as u16;
+            }
+        }
+        self.highs[nid] = (blocks.len() - start) as u16;
+        self.spans[nid] = Span::new(start, blocks.len());
+        self.blocks = blocks;
     }
 
     /// Returns the pre-coalesced full high-definition block for an NPC (mask
-    /// header + every field), written by the encoder with a single `pdata`.
-    /// See [`compute_info`](Self::compute_info).
+    /// header + every block), written by the encoder with a single `pdata`.
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
-        unsafe { self.high_blocks.get_unchecked(id as usize) }
+        unsafe {
+            let span = *self.spans.get_unchecked(id as usize);
+            self.blocks
+                .get_unchecked(span.start as usize..span.end as usize)
+        }
     }
 
-    /// Writes the pre-computed data for a specific protocol field to a packet buffer.
-    ///
-    /// Dispatches on `prot` to select the correct storage: the variable-length
-    /// buffer for Say, or the inline fixed slot for all other protocol types.
-    /// The raw bytes are copied directly into `buf` without further encoding.
-    ///
-    /// # Arguments
-    ///
-    /// * `buf` - The target packet buffer to write into.
-    /// * `id` - The NPC index identifying which slot to read from.
-    /// * `prot` - The protocol field type to write.
-    ///
-    /// # Side Effects
-    ///
-    /// Appends bytes to `buf`. Does not modify any renderer state.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info output in `rs-engine/src/info.rs`
-    /// (`write_blocks`).
-    ///
-    /// **Calls:** `Packet::pdata`, `Slot::write_to`.
+    /// Writes an NPC's high block as `observer` (a pid) sees it: on 647 the
+    /// hits they dealt bright, the rest as a bystander sees them.
     #[inline(always)]
-    pub fn write(&self, buf: &mut Packet, id: u16, prot: NpcInfoProt) {
-        unsafe {
-            match prot {
-                NpcInfoProt::Say => {
-                    if let Some(bytes) = self.says.get_unchecked(id as usize) {
-                        buf.pdata(bytes, 0, bytes.len());
+    pub fn write_high_block_for(
+        &self,
+        buf: &mut Packet,
+        nid: u16,
+        #[cfg_attr(before_647, allow(unused_variables))] observer: u16,
+    ) {
+        let block = self.high_block(nid);
+        #[cfg(since_647)]
+        {
+            let view = &self.hit_views[nid as usize];
+            let bright = view.bright(observer);
+            if bright != 0 {
+                splice(buf, block, view.offset, view.len, |buf| {
+                    NpcInfoDamage {
+                        hits: view.hits(),
+                        bright,
                     }
+                    .encode(buf)
+                });
+                return;
+            }
+        }
+        buf.pdata(block, 0, block.len());
+    }
+
+    /// Writes what `observer` gets of NPC `nid` as it adds it: this tick's
+    /// blocks and which way the NPC faces.
+    #[inline]
+    pub fn write_low_block_for(&self, buf: &mut Packet, nid: u16, observer: u16) {
+        let mut blocks = self.ticks[nid as usize].with(Blocks::npc(NpcInfoProt::FaceCoord));
+        if self.low_faces[nid as usize].entity.is_some() {
+            blocks = blocks.with(Blocks::npc(NpcInfoProt::FaceEntity));
+        }
+        self.write_blocks(buf, nid, blocks, observer);
+    }
+
+    /// Writes what a session replay's keyframe shows of NPC `nid`: which way
+    /// it faces, cached for the tick as for an add.
+    pub fn write_keyframe_block(
+        &mut self,
+        buf: &mut Packet,
+        nid: u16,
+        info: &EntityMasks,
+        coord: CoordGrid,
+    ) {
+        let face = Self::low_face(info, coord, ONE_TILE);
+        self.cache_face(nid, face);
+        let mut blocks = Blocks::npc(NpcInfoProt::FaceCoord);
+        if face.entity.is_some() {
+            blocks = blocks.with(Blocks::npc(NpcInfoProt::FaceEntity));
+        }
+        self.write_blocks(buf, nid, blocks, 0);
+    }
+
+    /// Writes `blocks` of NPC `nid` under their mask header, in the order the
+    /// client reads them, as `observer` (a pid) sees them.
+    fn write_blocks(
+        &self,
+        buf: &mut Packet,
+        nid: u16,
+        blocks: Blocks,
+        #[cfg_attr(before_647, allow(unused_variables))] observer: u16,
+    ) {
+        let (header, len) = NpcInfoProt::header(blocks.masks);
+        buf.pdata(&header, 0, len);
+        let mut order = blocks.order;
+        while order != 0 {
+            let index = order.trailing_zeros() as usize;
+            order &= order - 1;
+            #[cfg(since_647)]
+            if index == NpcInfoProt::Damage.to_index() {
+                let view = &self.hit_views[nid as usize];
+                NpcInfoDamage {
+                    hits: view.hits(),
+                    bright: view.bright(observer),
                 }
-                _ => {
-                    self.fixed
-                        .get_unchecked(prot.to_index())
-                        .get_unchecked(id as usize)
-                        .write_to(buf);
-                }
+                .encode(buf);
+                continue;
+            }
+            let bytes = self.bytes(index, nid as usize);
+            buf.pdata(bytes, 0, bytes.len());
+        }
+    }
+
+    /// Encodes `block` as NPC `nid`'s `prot` block, and returns its bit in
+    /// the read order.
+    #[inline(always)]
+    fn set(&mut self, prot: NpcInfoProt, nid: usize, block: &impl InfoMessage) -> u16 {
+        let index = prot.to_index();
+        self.fixed[index][nid].set(block);
+        1 << index
+    }
+
+    /// NPC `nid`'s encoded block at `index` in the read order, empty when it
+    /// has none.
+    #[inline(always)]
+    fn bytes(&self, index: usize, nid: usize) -> &[u8] {
+        unsafe {
+            if index == NpcInfoProt::Say.to_index() {
+                self.says.get_unchecked(nid).as_deref().unwrap_or_default()
+            } else {
+                self.fixed.get_unchecked(index).get_unchecked(nid).bytes()
             }
         }
     }
 
-    /// Checks whether pre-computed data exists for a specific protocol field.
-    ///
-    /// For the variable-length Say field, checks that the `Option<Vec<u8>>`
-    /// is `Some` and non-empty. For all fixed-size fields, delegates to
-    /// `Slot::is_set`.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to check.
-    /// * `prot` - The protocol field type to check.
-    ///
-    /// # Returns
-    ///
-    /// `true` if serialized data is available for the given NPC and
-    /// protocol, `false` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info output in `rs-engine/src/info.rs`
-    /// (low-definition update checks).
-    ///
-    /// **Calls:** `Slot::is_set`.
     #[inline(always)]
-    pub fn has(&self, id: u16, prot: NpcInfoProt) -> bool {
-        unsafe {
-            match prot {
-                NpcInfoProt::Say => self
-                    .says
-                    .get_unchecked(id as usize)
-                    .as_ref()
-                    .is_some_and(|v| !v.is_empty()),
-                _ => self
-                    .fixed
-                    .get_unchecked(prot.to_index())
-                    .get_unchecked(id as usize)
-                    .is_set(),
-            }
+    fn has(&self, nid: u16, prot: NpcInfoProt) -> bool {
+        !self.bytes(prot.to_index(), nid as usize).is_empty()
+    }
+
+    fn low_face(info: &EntityMasks, coord: CoordGrid, size: u8) -> LowFace<NpcInfoFaceCoord> {
+        let (x, z) = facing(info, coord, size);
+        LowFace {
+            entity: info.face_entity,
+            coord: NpcInfoFaceCoord { x, z },
         }
     }
 
-    /// Caches a face-entity value for low-definition updates.
-    ///
-    /// Writes the entity target into the FaceEntity slot so it persists
-    /// across ticks for NPCs entering the viewport who need the cached
-    /// low-definition state. This is separate from `compute_info`, which
-    /// handles the per-tick high-definition update.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to update.
-    /// * `entity` - The entity id the NPC is facing, or `u16::MAX` for none.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the FaceEntity slot for the given NPC.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info low-definition output in
-    /// `rs-engine/src/info.rs`.
-    ///
-    /// **Calls:** `Slot::set_p2`.
+    /// Caches the blocks for which way NPC `nid` faces, for this tick's adds,
+    /// unless it has them this tick.
     #[inline(always)]
-    pub fn cache_face_entity(&mut self, id: u16, entity: u16) {
-        self.written.push(id);
-        unsafe {
-            let slot = self
-                .fixed
-                .as_mut_ptr()
-                .add(NpcInfoProt::FaceEntity.to_index());
-            (*slot)
-                .as_mut_ptr()
-                .add(id as usize)
-                .as_mut()
-                .unwrap_unchecked()
-                .set_p2(entity);
+    fn cache_face(&mut self, nid: u16, face: LowFace<NpcInfoFaceCoord>) {
+        if let Some(entity) = face.entity
+            && !self.has(nid, NpcInfoProt::FaceEntity)
+        {
+            self.written.push(nid);
+            self.set(
+                NpcInfoProt::FaceEntity,
+                nid as usize,
+                &NpcInfoFaceEntity { entity },
+            );
         }
-    }
-
-    /// Caches face-coordinate values for low-definition NPC updates.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to update.
-    /// * `x` - The x coordinate the NPC is facing toward.
-    /// * `z` - The z coordinate the NPC is facing toward.
-    ///
-    /// # Side Effects
-    ///
-    /// Overwrites the FaceCoord slot for the given NPC.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC info low-definition output in
-    /// `rs-engine/src/info.rs`.
-    ///
-    #[inline(always)]
-    pub fn cache_face_coord(&mut self, id: u16, x: u16, z: u16) {
-        self.written.push(id);
-        unsafe {
-            let slot = self
-                .fixed
-                .as_mut_ptr()
-                .add(NpcInfoProt::FaceCoord.to_index());
-            (*slot)
-                .as_mut_ptr()
-                .add(id as usize)
-                .as_mut()
-                .unwrap_unchecked()
-                .set_p2_p2(x, z);
+        if !self.has(nid, NpcInfoProt::FaceCoord) {
+            self.written.push(nid);
+            self.set(NpcInfoProt::FaceCoord, nid as usize, &face.coord);
         }
     }
 
@@ -1377,117 +1322,210 @@ impl NpcRenderer {
     /// The most a low-definition update can be: the face coord is always
     /// sent, and the face entity with it when the NPC has one, under one
     /// mask header.
-    pub const LOW_LEN: usize =
-        Self::header(NpcInfoProt::FaceEntity as u16 | NpcInfoProt::FaceCoord as u16) as usize
-            + 2
-            + 4;
+    pub const LOW_LEN: usize = LOW_HEADER + size_of::<u16>() + 2 * size_of::<u16>();
 
-    /// Clears per-tick temporary data for every NPC written this tick.
-    ///
-    /// Drains the internal `written` list (NPC indices recorded by
-    /// `compute_info` and `cache_face_*`) and, for each entry, resets the
-    /// high-definition byte-size counter and clears every temporary
-    /// protocol slot (Anim, FaceEntity, Damage, ChangeType, SpotAnim,
-    /// FaceCoord) back to `Slot::EMPTY`. Also clears the variable-length
-    /// Say buffer. NPCs that were never written this tick cost nothing.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs` and resets fixed slots and variable-length
-    /// buffers for every written index; empties `self.written`. Does not
-    /// deallocate variable-length buffers; they are cleared in place for
-    /// reuse.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** Cleanup phase in `rs-engine/src/phases/cleanup.rs`.
+    /// Clears the blocks of every NPC written this tick. NPCs never written
+    /// this tick cost nothing.
     #[inline]
     pub fn remove_temporary(&mut self) {
-        let written = std::mem::take(&mut self.written);
+        let written = mem::take(&mut self.written);
         for &nid in &written {
             let idx = nid as usize;
-            unsafe {
-                *self.highs.get_unchecked_mut(idx) = 0;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::Anim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceEntity.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                if let Some(v) = self.says.get_unchecked_mut(idx) {
-                    v.clear();
-                }
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::Damage.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::ChangeType.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::SpotAnim.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                *self
-                    .fixed
-                    .get_unchecked_mut(NpcInfoProt::FaceCoord.to_index())
-                    .get_unchecked_mut(idx) = Slot::EMPTY;
-                self.high_blocks.get_unchecked_mut(idx).clear();
+            self.highs[idx] = 0;
+            for slots in self.fixed.iter_mut() {
+                slots[idx].len = 0;
             }
+            if let Some(say) = &mut self.says[idx] {
+                say.clear();
+            }
+            #[cfg(since_647)]
+            {
+                self.hit_views[idx].count = 0;
+            }
+            self.spans[idx] = Span::default();
+            self.ticks[idx] = Blocks::default();
         }
+        self.blocks.clear();
         self.written = written;
         self.written.clear();
     }
 
-    /// Performs a full cleanup of all renderer data for an NPC.
-    ///
-    /// Called when an NPC despawns or is otherwise permanently removed
-    /// from the game. Resets the byte-size counter to zero. Unlike
-    /// `PlayerRenderer::remove_permanent`, no variable-length buffer
-    /// is dropped here because NPCs do not have persistent appearance
-    /// data.
-    ///
-    /// # Arguments
-    ///
-    /// * `id` - The NPC index to fully clean up.
-    ///
-    /// # Side Effects
-    ///
-    /// Zeroes `self.highs[id]`.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** NPC despawn/removal handling in
-    /// `rs-engine/src/engine.rs`.
+    /// Drops everything kept for an NPC that despawned.
     #[inline]
     pub fn remove_permanent(&mut self, id: u16) {
         let idx = id as usize;
-        unsafe {
-            *self.highs.get_unchecked_mut(idx) = 0;
+        #[cfg(since_647)]
+        {
+            self.says[idx] = None;
         }
+        self.highs[idx] = 0;
+        self.spans[idx] = Span::default();
+    }
+}
+
+#[cfg(test)]
+mod face_tests {
+    use super::*;
+
+    #[test]
+    fn facing_the_current_tile_preserves_the_previous_direction() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        let coord = CoordGrid::new(3222, 0, 3218);
+        let (x, z) = (
+            CoordGrid::fine(coord.x(), ONE_TILE),
+            CoordGrid::fine(coord.z(), ONE_TILE),
+        );
+        info.focus_player(x + 2, z, true);
+        r.compute_info(7, &info, coord);
+        r.cache_low(7, &info, coord);
+        let east = r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7).to_vec();
+        #[cfg(before_647)]
+        assert_eq!(east, [0x19, 0x2F, 0x19, 0x25]);
+        #[cfg(since_647)]
+        assert_eq!(east, [0x30, 0x80]);
+
+        r.remove_temporary();
+        info.reset();
+        info.focus_player(x, z, true);
+        r.compute_info(7, &info, coord);
+        r.cache_low(7, &info, coord);
+        assert!(
+            r.high_block(7).is_empty(),
+            "no angle update for the player's own tile"
+        );
+        r.ready_low(7);
+        assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), east);
+
+        r.remove_temporary();
+        info.masks |= PlayerInfoProt::Anim as u16;
+        info.anim_id = Some(733);
+        info.anim_delay = Some(0);
+        r.compute_info(7, &info, coord);
+        assert_eq!(r.ticks[7].masks, PlayerInfoProt::Anim as u16);
+        assert!(!r.has(7, PlayerInfoProt::FaceCoord));
+        assert!(r.has(7, PlayerInfoProt::Anim));
+
+        r.remove_temporary();
+        info.reset();
+        info.focus_player(x, z - 2, true);
+        r.compute_info(7, &info, coord);
+        #[cfg(before_647)]
+        assert_eq!(
+            r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7),
+            [0x19, 0x2D, 0x19, 0x23]
+        );
+        #[cfg(since_647)]
+        assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), [0, 0x80]);
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod move_type_tests {
+    use super::*;
+
+    fn move_type_block(r: &PlayerRenderer, pid: u16) -> Option<u8> {
+        r.has(pid, PlayerInfoProt::MoveType)
+            .then(|| r.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize].data[0])
     }
 
-    /// Computes the mask header size based on the combined mask value.
-    ///
-    /// If the mask value fits in a single byte (0x00..0xFF), the header is
-    /// 1 byte. Otherwise, 2 bytes are needed to encode the full mask.
-    ///
-    /// # Arguments
-    ///
-    /// * `masks` - The combined bitmask of all active protocol flags.
-    ///
-    /// # Returns
-    ///
-    /// `1` if `masks` fits in a single byte, `2` otherwise.
-    ///
-    /// # Call Stack
-    ///
-    /// **Called by:** `Self::compute_info` when computing total byte sizes.
-    #[inline(always)]
-    const fn header(masks: u16) -> u16 {
-        if masks > 0xff { 2 } else { 1 }
+    #[test]
+    fn an_added_player_carries_the_move_type_sent_ticks_earlier() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::MoveType as u16;
+        info.move_type = Some(2);
+        r.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        assert_eq!(move_type_block(&r, 7), Some(2));
+
+        r.remove_temporary();
+        assert_eq!(move_type_block(&r, 7), None, "the tick's block is gone");
+
+        r.cache_move_type(7);
+        assert_eq!(
+            move_type_block(&r, 7),
+            Some(2),
+            "and the add still says run"
+        );
+    }
+
+    #[test]
+    fn chat_is_kept_for_message_public_and_makes_no_block() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::Chat as u16;
+        info.chat_bytes = Some(vec![2, 0x48, 0x69].into_boxed_slice());
+        info.chat_colour = Some(3);
+        info.chat_effects = Some(1);
+        info.chat_ignored = Some(2);
+        r.compute_info(70, &info, CoordGrid::new(3222, 0, 3218));
+        assert_eq!(r.chat(70), [3, 1, 2, 2, 0x48, 0x69]);
+        assert_eq!(r.chatted()[1], 1 << 6);
+        assert_eq!(r.highdefinitions(70), 0, "chat alone is no update block");
+
+        r.remove_temporary();
+        assert!(r.chat(70).is_empty());
+        assert_eq!(r.chatted()[1], 0);
+    }
+
+    #[test]
+    fn a_slot_freed_by_logout_goes_back_to_walk() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::MoveType as u16;
+        info.move_type = Some(2);
+        r.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        r.remove_temporary();
+        r.remove_permanent(7);
+        r.cache_move_type(7);
+        assert_eq!(move_type_block(&r, 7), Some(DEFAULT_MOVE_TYPE));
+    }
+
+    #[test]
+    fn observer_caches_do_not_change_the_ticks_update_block() {
+        let mut player = PlayerRenderer::new();
+        let mut npc = NpcRenderer::new();
+        let coord = CoordGrid::new(3222, 0, 3218);
+        let mut info = EntityMasks::new();
+        info.last_appearance_info = Some(vec![1, 2, 3].into_boxed_slice());
+        info.masks = PlayerInfoProt::Appearance as u16;
+        player.compute_info(7, &info, coord);
+        player.remove_temporary();
+
+        info.masks = PlayerInfoProt::MoveType as u16;
+        info.move_type = Some(2);
+        player.compute_info(7, &info, coord);
+        assert_eq!(player.high_block(7), &[0x8, 2]);
+        player.cache_face(
+            7,
+            LowFace {
+                entity: Some(42),
+                coord: face_coord(6445, 6437, coord),
+            },
+        );
+        player.cache_move_type(7);
+        assert_eq!(player.high_block(7), &[0x8, 2]);
+        assert_eq!(player.highdefinitions(7), 2);
+        assert!(player.has(7, PlayerInfoProt::Appearance));
+
+        info.masks = NpcInfoProt::ChangeType as u16;
+        info.changetype = Some(4231);
+        npc.compute_info(9, &info);
+        assert_eq!(npc.high_block(9), &[0x2, 0x10, 0x87]);
+        npc.cache_face(
+            9,
+            LowFace {
+                entity: Some(42),
+                coord: NpcInfoFaceCoord { x: 6445, z: 6437 },
+            },
+        );
+        assert_eq!(npc.high_block(9), &[0x2, 0x10, 0x87]);
+        assert_eq!(npc.highdefinitions(9), 3);
+
+        player.remove_temporary();
+        npc.remove_temporary();
+        assert!(player.high_block(7).is_empty());
+        assert!(npc.high_block(9).is_empty());
+        assert!(player.has(7, PlayerInfoProt::Appearance));
     }
 }

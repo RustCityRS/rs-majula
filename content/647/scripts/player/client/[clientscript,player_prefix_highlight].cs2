@@ -1,0 +1,16 @@
+// 2143
+[clientscript,player_prefix_highlight](int $int0)
+def_int $int1 = 0;
+while ($int1 <= enum_getoutputcount(enum_1093)) {
+    if (cc_find(player_prefix:prefix_list, $int1) = true) {
+        if (~player_prefix_check($int1) = 1) {
+            cc_setcolour(0x11ff00);
+        } else {
+            cc_setcolour(0xff1100);
+        }
+    }
+    $int1 = calc(1 + $int1);
+}
+if (cc_find(player_prefix:prefix_list, $int0) = true) {
+    cc_setcolour(^white);
+}

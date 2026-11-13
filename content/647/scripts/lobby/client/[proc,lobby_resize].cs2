@@ -1,0 +1,11 @@
+// 4041
+[proc,lobby_resize]
+def_int $int0 = 0;
+if (getwindowmode < 2) {
+    if_setsize(lobbyscreen:com_245, 0, 0, ^setsize_minus, ^setsize_minus);
+} else {
+    if_setsize(lobbyscreen:com_245, 956, 503, ^setsize_abs, ^setsize_abs);
+}
+if (detailget_maxscreensize = 2 & getwindowmode ! ^windowmode_small) {
+    if_setsize(lobbyscreen:com_245, 800, 503, ^setsize_abs, ^setsize_abs);
+}

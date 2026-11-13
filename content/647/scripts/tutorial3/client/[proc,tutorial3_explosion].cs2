@@ -1,0 +1,33 @@
+// 2763
+[proc,tutorial3_explosion](component $component0, coord $coord1)
+switch_int (%tutorial3_cutscene_tracker) {
+    case 201 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_33_35, $coord1), 600, ~tutorial3_coord(0_57_77_34_35, $coord1), 600, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_36_35, $coord1), 550, ~tutorial3_coord(0_57_77_36_35, $coord1), 600, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, 0);
+        cam_movealong(0, 0, 200, 75, 1, 0);
+    case 202 :
+        ~tutorial3_fadeout(^black, 10, $component0);
+    case 203 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_36_35, $coord1), 550, ~tutorial3_coord(0_57_77_36_35, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_35_35, $coord1), 750, ~tutorial3_coord(0_57_77_35_35, $coord1), 750, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, ~tutorial3_coord(0_57_77_18_35, $coord1), 200, 0);
+        cam_movealong(0, 0, 50, 25, 1, 0);
+        ~tutorial3_fadein(75, $component0);
+    case 204 :
+        spline_new(0, 2);
+        spline_addpoint(0, 0, ~tutorial3_coord(0_57_77_31_38, $coord1), 550, ~tutorial3_coord(0_57_77_32_38, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~tutorial3_coord(0_57_77_34_39, $coord1), 550, ~tutorial3_coord(0_57_77_33_39, $coord1), 550, 0);
+        spline_new(1, 2);
+        spline_addpoint(1, 0, ~tutorial3_coord(0_57_77_37_30, $coord1), 400, ~tutorial3_coord(0_57_77_36_30, $coord1), 400, 0);
+        spline_addpoint(1, 1, ~tutorial3_coord(0_57_77_25_34, $coord1), 400, ~tutorial3_coord(0_57_77_26_33, $coord1), 400, 0);
+        cam_movealong(0, 0, 150, 220, 1, 0);
+    case default :
+        cam_smoothreset;
+}

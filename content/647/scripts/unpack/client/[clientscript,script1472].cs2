@@ -1,0 +1,6 @@
+// 1472
+[clientscript,script1472]
+if (%varclient_190 = true) {
+    if_setop(bank_v2_main:bank_search_button, 1, "Search");
+    if_setonop(bank_v2_main:bank_search_button, "bank_v2_search");
+}

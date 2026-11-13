@@ -1,0 +1,12 @@
+// 2861
+[proc,script2861]
+if (%machinima_livecamera_targetmode = 0) {
+    %machinima_livecamera_lookatheight = calc(%machinima_livecamera_lookatheight - 25);
+    if (%machinima_livecamera_lookatheight <= 25) {
+        %machinima_livecamera_lookatheight = 25;
+    }
+} else if (%machinima_livecamera_targetmode = 1) {
+    %machinima_livecamera_lookatpositioncoord = movecoord(%machinima_livecamera_lookatpositioncoord, 0, 0, -1);
+} else {
+    cam_dec_x;
+}

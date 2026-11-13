@@ -1,0 +1,7 @@
+// 2908
+[clientscript,ii_timer_display](component $component0)
+if (%ii_affinity_time_left = 0) {
+    if_sethide($component0, true);
+} else {
+    if_sethide($component0, false);
+}

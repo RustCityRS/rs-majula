@@ -1,0 +1,54 @@
+// 736
+[proc,arrow_set](component $component0, int $int1, component $component2, int $int3)
+def_component $component4 = toplevel_fullscreen:arrow;
+def_component $component5 = toplevel:com_188;
+def_component $component6 = toplevel:com_201;
+if ($component0 = null) {
+    if_sethide($component4, true);
+    if_setposition($component4, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setontimer(toplevel_fullscreen:stones_off, null);
+    if_sethide($component5, true);
+    if_sethide($component6, true);
+    if_setposition($component5, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component6, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setontimer(toplevel:backhmid1, null);
+    return;
+}
+if_sethide($component4, false);
+~script2755($component0, $int1, $component4);
+if_setontimer(toplevel_fullscreen:stones_off, "script2754($component0, $int1, $component4)");
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (cc_find($component2, $int3) = true | $int3 = -1 & if_find($component2) = true) {
+    $int7, $int8 = ~cc_getx_absolute, ~cc_gety_absolute;
+    $int9, $int10 = cc_getwidth, cc_getheight;
+} else {
+    return;
+}
+def_component $component11 = if_getlayer($component5);
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+$int12, $int13 = ~if_getx_absolute($component11), ~if_gety_absolute($component11);
+$int14, $int15 = if_getwidth($component11), if_getheight($component11);
+$int16, $int17 = calc($int12 + $int14), calc($int13 + $int15);
+def_int $int18 = 0;
+def_int $int19 = 0;
+if (calc($int7 + $int9) >= $int12 & $int7 <= $int16 & calc($int8 + $int10) >= $int13 & $int8 <= $int17) {
+    $component4 = $component5;
+} else {
+    $component4 = $component6;
+    $component11 = if_getlayer($component6);
+    $int12, $int13 = ~if_getx_absolute($component11), ~if_gety_absolute($component11);
+    $int14, $int15 = if_getwidth($component11), if_getheight($component11);
+    $int16, $int17 = calc($int12 + $int14), calc($int13 + $int15);
+}
+$int18, $int19 = calc($int7 - $int12), calc($int8 - $int13);
+if_sethide($component4, false);
+~script1176($component4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15);
+if_setontimer(toplevel:backhmid1, "script836($component4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15)");

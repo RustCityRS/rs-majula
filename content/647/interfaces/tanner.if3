@@ -1,0 +1,652 @@
+// 324:0
+[background]
+type=layer
+x=-1
+y=-2
+width=512
+height=334
+transmitop=10
+op10=  
+
+// 324:1
+[tanning_a]
+type=layer
+x=39
+y=57
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:2
+[tanning_b]
+type=layer
+x=151
+y=57
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:3
+[tanning_c]
+type=layer
+x=263
+y=57
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:4
+[tanning_d]
+type=layer
+x=375
+y=57
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:5
+[tanning_e]
+type=layer
+x=39
+y=185
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:6
+[tanning_f]
+type=layer
+x=151
+y=185
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:7
+[tanning_g]
+type=layer
+x=263
+y=185
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:8
+[tanning_h]
+type=layer
+x=375
+y=185
+width=96
+height=128
+transmitop=1,2,3,4,5
+op1=Tan <col=FF981F>1
+op2=Tan <col=FF981F>5
+op3=Tan <col=FF981F>10
+op4=Tan <col=FF981F>X
+op5=Tan <col=FF981F>All
+
+// 324:9
+[tanning_a_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_a
+model=null
+modelzoom=528
+
+// 324:10
+[tanning_b_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_b
+model=null
+modelzoom=528
+
+// 324:11
+[tanning_c_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_c
+model=null
+modelzoom=528
+
+// 324:12
+[tanning_d_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_d
+model=null
+modelzoom=528
+
+// 324:13
+[tanning_e_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_e
+model=null
+modelzoom=528
+
+// 324:14
+[tanning_f_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_f
+model=null
+modelzoom=528
+
+// 324:15
+[tanning_g_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_g
+model=null
+modelzoom=528
+
+// 324:16
+[tanning_h_model]
+type=model
+y=-22
+width=70
+height=75
+xmode=abs_centre
+ymode=abs_centre
+layer=tanning_h
+model=null
+modelzoom=528
+
+// 324:17
+[tanning_a_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_a
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:18
+[tanning_b_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_b
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:19
+[tanning_c_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_c
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:20
+[tanning_d_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_d
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:21
+[tanning_e_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_e
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:22
+[tanning_f_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_f
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:23
+[tanning_g_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_g
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:24
+[tanning_h_text]
+type=text
+y=82
+width=96
+height=28
+layer=tanning_h
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=script1191(event_com, p11_full)
+
+// 324:25
+[tanning_a_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_a
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:26
+[tanning_b_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_b
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:27
+[tanning_c_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_c
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:28
+[tanning_d_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_d
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:29
+[tanning_e_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_e
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:30
+[tanning_f_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_f
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:31
+[tanning_g_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_g
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:32
+[tanning_h_price]
+type=text
+y=111
+width=96
+height=14
+layer=tanning_h
+textfont=p12_full
+text=Cost
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 324:33
+[com_33]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+layer=background
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=   
+
+// 324:34
+[com_34]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=background
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:35
+[com_35]
+type=graphic
+y=53
+width=32
+height=241
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:36
+[com_36]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:37
+[com_37]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:38
+[com_38]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+layer=background
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:39
+[com_39]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:40
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=   
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 324:41
+[com_41]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:42
+[com_42]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:43
+[com_43]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:44
+[com_44]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+layer=background
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:45
+[com_45]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:46
+[com_46]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 324:47
+[title]
+type=text
+x=15
+y=26
+width=477
+height=24
+layer=background
+textfont=b12_full
+text=What hides would you like tanning?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=tanning_open
+oninvtransmit=tanning_open{inv}
+onvarctransmit=tanning_cost{tanning_cost}

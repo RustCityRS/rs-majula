@@ -1,0 +1,12 @@
+// 1507
+[clientscript,script1507](int $int0, idkit $idkit1)
+if ($int0 ! 1) {
+    return;
+}
+if (gender = 1) {
+    baseidkit(13, $idkit1);
+} else {
+    baseidkit(6, $idkit1);
+}
+%playerdesign3_feet = $idkit1;
+~player_kit_feet_redraw;

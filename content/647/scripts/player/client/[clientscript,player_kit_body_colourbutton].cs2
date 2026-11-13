@@ -1,0 +1,13 @@
+// 1515
+[clientscript,player_kit_body_colourbutton](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+if ($int2 = 1) {
+    basecolour(1, $int1);
+    %playerdesign3_torsocol = $int1;
+} else if ($int2 = 2) {
+    basecolour(2, $int1);
+    %playerdesign3_legscol = $int1;
+}
+~player_kit_body_redraw;

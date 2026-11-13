@@ -1,0 +1,583 @@
+// 138:0
+[contents]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=gnomeglider_init
+onvartransmit=gnomeglider_update{pilot_journey}
+
+// 138:1
+[gnomemap]
+type=model
+x=1
+width=506
+height=318
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+model=model_3048
+modelorigin=2,-14
+modelangle=503,1,0
+modelzoom=585
+
+// 138:2
+[grandtree]
+type=model
+x=54
+y=33
+width=70
+height=80
+layer=contents
+model=model_3043
+modelorigin=0,-6
+modelangle=539,2044,0
+modelzoom=1061
+
+// 138:3
+[mountains]
+type=model
+x=235
+y=29
+width=77
+height=55
+layer=contents
+model=model_3030
+modelorigin=0,3
+modelangle=424,8,0
+modelzoom=2073
+
+// 138:4
+[varrock]
+type=model
+x=394
+y=40
+width=64
+height=45
+layer=contents
+model=model_3038
+modelorigin=-17,-12
+modelangle=506,2043,0
+modelzoom=1438
+
+// 138:5
+[al_kharid]
+type=model
+x=406
+y=149
+width=77
+height=44
+layer=contents
+model=model_3025
+modelorigin=1,-6
+modelangle=470,8,0
+modelzoom=887
+
+// 138:6
+[com_6]
+type=model
+x=59
+y=145
+width=37
+height=43
+layer=contents
+model=model_3043
+modelorigin=0,-3
+modelangle=512,0,0
+modelzoom=2000
+
+// 138:7
+[com_7]
+type=model
+x=75
+y=145
+width=37
+height=43
+layer=contents
+model=model_3043
+modelorigin=0,-3
+modelangle=512,0,0
+modelzoom=2000
+
+// 138:8
+[com_8]
+type=model
+x=91
+y=145
+width=37
+height=43
+layer=contents
+model=model_3043
+modelorigin=0,-3
+modelangle=512,0,0
+modelzoom=2000
+
+// 138:9
+[karamja]
+type=model
+x=219
+y=224
+width=44
+height=56
+layer=contents
+model=model_3047
+modelorigin=1,-12
+modelangle=469,11,0
+modelzoom=851
+
+// 138:10
+[com_10]
+type=model
+x=47
+y=238
+width=54
+height=66
+layer=contents
+model=model_5730
+modelorigin=4,4
+modelangle=416,29,0
+modelzoom=1200
+
+// 138:11
+[grand_tree]
+type=text
+x=30
+y=109
+width=140
+height=17
+layer=contents
+textfont=q8_full
+text=Ta Quir Priw
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:12
+[com_12]
+type=text
+x=29
+y=183
+width=140
+height=17
+layer=contents
+textfont=q8_full
+text=Priw Gnomo<br>Andralo
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:13
+[varrocktext2]
+type=text
+x=374
+y=89
+width=103
+height=17
+layer=contents
+textfont=q8_full
+text=Lemanto Andra
+colour=0x2b1c0f
+
+// 138:14
+[mountainstext]
+type=text
+x=173
+y=31
+width=90
+height=17
+layer=contents
+textfont=q8_full
+text=Sindarpos
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:15
+[jungle]
+type=text
+x=199
+y=282
+width=83
+height=17
+layer=contents
+textfont=q8_full
+text=Gandius
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:16
+[deserttext]
+type=text
+x=335
+y=137
+width=95
+height=17
+layer=contents
+textfont=q8_full
+text=Kar-Hewo
+textalignh=centre
+colour=0x3b1c0f
+
+// 138:17
+[com_17]
+type=text
+x=24
+y=223
+width=100
+height=17
+layer=contents
+textfont=q8_full
+text=Lemantolly
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:18
+[com_18]
+type=text
+x=70
+y=237
+width=60
+height=17
+layer=contents
+textfont=q8_full
+text=Undri
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:19
+[com_19]
+type=layer
+x=20
+y=140
+width=155
+height=66
+layer=contents
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:com_6, model_3045)
+onmouseleave=model_swapper(glidermap:com_6, model_3043)
+
+// 138:20
+[com_20]
+type=layer
+x=20
+y=140
+width=155
+height=66
+layer=contents
+onmouseover=model_swapper(glidermap:com_7, model_3045)
+onmouseleave=model_swapper(glidermap:com_7, model_3043)
+
+// 138:21
+[com_21]
+type=layer
+x=20
+y=140
+width=155
+height=66
+layer=contents
+onmouseover=model_swapper(glidermap:com_8, model_3045)
+onmouseleave=model_swapper(glidermap:com_8, model_3043)
+
+// 138:22
+[jungle_button]
+type=model
+x=214
+y=220
+width=59
+height=81
+layer=contents
+model=null
+modelzoom=400
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:karamja, model_3029)
+onmouseleave=model_swapper(glidermap:karamja, model_3047)
+
+// 138:23
+[grandtree_button]
+type=model
+x=41
+y=32
+width=101
+height=106
+layer=contents
+model=null
+modelzoom=400
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:grandtree, model_3045)
+onmouseleave=model_swapper(glidermap:grandtree, model_3043)
+
+// 138:24
+[mountains_button]
+type=model
+x=185
+y=29
+width=139
+height=56
+layer=contents
+model=null
+modelzoom=400
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:mountains, model_3036)
+onmouseleave=model_swapper(glidermap:mountains, model_3030)
+
+// 138:25
+[varrock_button]
+type=model
+x=373
+y=41
+width=102
+height=65
+layer=contents
+model=null
+modelorigin=45,14
+modelzoom=400
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:varrock, model_3026)
+onmouseleave=model_swapper(glidermap:varrock, model_3038)
+
+// 138:26
+[desert_button]
+type=model
+x=360
+y=139
+width=127
+height=61
+layer=contents
+model=null
+modelzoom=10
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:al_kharid, model_3027)
+onmouseleave=model_swapper(glidermap:al_kharid, model_3025)
+
+// 138:27
+[com_27]
+type=model
+x=27
+y=216
+width=90
+height=100
+layer=contents
+model=null
+modelangle=416,29,0
+modelzoom=1200
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:com_10, model_5731)
+onmouseleave=model_swapper(glidermap:com_10, model_5730)
+
+// 138:28
+[close]
+type=graphic
+x=28
+y=14
+width=26
+height=23
+xmode=abs_right
+layer=contents
+hide=yes
+graphic="close_buttons,4"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 138:29
+[com_29]
+type=model
+x=54
+y=36
+width=73
+height=219
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-14,7
+modelangle=267,469,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+
+// 138:30
+[com_30]
+type=model
+x=41
+y=28
+width=89
+height=253
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=25,-44
+modelangle=255,1584,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+
+// 138:31
+[varrockgo]
+type=model
+x=90
+y=46
+width=317
+height=61
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=33,22
+modelangle=365,2031,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+
+// 138:32
+[crashback]
+type=model
+x=33
+y=19
+width=168
+height=291
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-4,26
+modelangle=435,364,0
+modelzoom=650
+modelanim=human_blown_end_getup_priority
+
+// 138:33
+[crashgo]
+type=model
+x=36
+y=59
+width=163
+height=313
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-7,-46
+modelangle=412,1401,0
+modelzoom=650
+modelanim=human_blown_end_getup_priority
+
+// 138:34
+[jungleback]
+type=model
+x=102
+y=35
+width=165
+height=206
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=2,20
+modelangle=430,306,0
+modelzoom=832
+modelanim=human_blown_end_getup_priority
+
+// 138:35
+[junglego]
+type=model
+x=83
+y=67
+width=178
+height=209
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-12,-28
+modelangle=405,1319,0
+modelzoom=832
+modelanim=human_blown_end_getup_priority
+
+// 138:36
+[mountainback]
+type=model
+x=126
+y=53
+width=177
+height=52
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-112,13
+modelangle=494,982,0
+modelzoom=689
+modelanim=seq_786
+
+// 138:37
+[mountaingo]
+type=model
+x=103
+y=70
+width=176
+height=47
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=112,1
+modelangle=404,2039,0
+modelzoom=689
+modelanim=seq_786
+
+// 138:38
+[desertback]
+type=model
+x=136
+y=101
+width=314
+height=116
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-33,-17
+modelangle=375,1126,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+
+// 138:39
+[desertgo]
+type=model
+x=116
+y=67
+width=301
+height=119
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=22,19
+modelangle=425,105,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+
+// 138:40
+[com_40]
+type=model
+x=80
+y=53
+width=53
+height=131
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-17,-91
+modelangle=659,1467,0
+modelzoom=689
+modelanim=seq_786
+
+// 138:41
+[com_41]
+type=model
+x=40
+y=46
+width=55
+height=149
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=18,99
+modelangle=415,443,0
+modelzoom=689
+modelanim=seq_786

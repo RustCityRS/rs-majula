@@ -18,6 +18,7 @@ rs-var = { workspace = true }
 rs-stat = { workspace = true }
 rs-info = { workspace = true }
 rs-pack = { workspace = true }
+rs-runec = { workspace = true }
 rs-crypto = { workspace = true }
 rs-io = { workspace = true }
 rs-protocol = { workspace = true }
@@ -32,6 +33,11 @@ rustc-hash = { workspace = true }
 serde_json = { workspace = true }
 flate2 = { workspace = true }
 zstd = { workspace = true }
+
+[features]
+# The headless harness: socketless players and the engine-typed `#testscript`
+# commands. Enabled by `rs-test`; the server binary never builds it.
+harness = []
 
 [build-dependencies]
 rs-ver = { workspace = true }

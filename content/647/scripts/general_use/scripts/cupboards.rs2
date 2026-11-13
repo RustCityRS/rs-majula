@@ -1,0 +1,97 @@
+[oploc1,_cupboard_closed] @open_cupboard(~cupboards_use_message);
+[oploc1,_cupboard_opened] @search_cupboard;
+[oploc2,_cupboard_opened] @close_cupboard(~cupboards_use_message);
+
+// fight arena
+[oploc2,cupboardopen] @search_cupboard;
+[oploc3,cupboardopen] @close_cupboard(false);
+
+// ranging guild
+// this cupboard is not accessible
+[oploc2,cupboardopen_high] @search_cupboard;
+[oploc3,cupboardopen_high] @close_cupboard(false);
+
+// sorcerers tower
+[oploc2,cupboardopen_big] @search_cupboard;
+[oploc3,cupboardopen_big] @close_cupboard(false);
+
+// 2011's cupboards on 289's spots (general_use/configs/cupboards.loc): the
+// Ranging Guild's opens with 289's ops, the Exam Centre's with Close on op1
+// and Search on op2.
+[oploc2,cupboardopen_gloffset] @search_cupboard;
+[oploc3,cupboardopen_gloffset] @close_cupboard(false);
+[oploc1,qip_digsite_cupboardopen] @close_cupboard(false);
+[oploc2,qip_digsite_cupboardopen] @search_cupboard;
+
+[label,search_cupboard]
+//mes(~coord_tostring(loc_coord));
+switch_coord (loc_coord) {
+    case 2_46_52_40_8 : // falador castle sir vyvin room
+        if(%squire >= 5) {
+                // Vyvin will stop you (if he can!) from searching the cupboard after this point of the quest
+                // regardless of whether you have the portrait or not, but also not before it
+                if(~vyvin_distracted = false) {
+                    return;
+                } else if(inv_total(inv, knights_portrait) = 0 & inv_total(bank, knights_portrait) = 0) {
+                    ~mesbox("You find a small portrait in here which you take.");
+                    inv_add(inv, knights_portrait, 1);
+                    return;
+                }
+            }
+            ~mesbox("There is just a load of junk in here.");
+    // 2011: Morgan's garlic is in drawers a tile north of 289's cupboard, and
+    // Alrena's cupboard is a wardrobe a tile north of 289's (cache 786 map:
+    // drawers_46250 at 1_48_51_24_5, wardrobe_2524 at 0_40_52_14_7; 289's
+    // 1_48_51_24_4 and 0_40_52_14_6). The messages are 289's.
+    case 1_48_51_24_5 : mes("You search the cupboard."); @cupboard_take_garlic; // draynor morgans house level 1
+    case 0_40_52_14_7 : @elena_search_cupboard; // alrenas house for plague city
+    case 0_52_52_26_4 : @exam_centre_cupboard_jar; // exam centre specimen jar cupboard
+    case 0_42_53_10_12, 0_40_49_29_46, 0_41_53_36_34 : mes("You search the cupboard but find nothing."); // sorcerers tower, fight arena, ranging guild
+    case default : mes("The cupboard is empty.");
+}
+
+// 289's cupboard sounds take void-634's ids (obj.sounds.toml: cupboard_open
+// 58, cupboard_close 57).
+[label,open_cupboard](boolean $message)
+p_arrivedelay;
+anim(human_openchest,0);
+sound_synth(cupboard_open, 1, 0);
+loc_prefetchall(loc_coord, loc_param(cupboard_other), loc_shape);
+p_delay(0);
+// Temp note: dur does not need updated
+loc_change(loc_param(cupboard_other), 300);
+if ($message = true) {
+    mes("You open the cupboard.");
+}
+
+[label,close_cupboard](boolean $message)
+p_arrivedelay;
+anim(human_closechest, 0);
+sound_synth(cupboard_close, 1, 0);
+loc_prefetchall(loc_coord, loc_param(cupboard_other), loc_shape);
+p_delay(0);
+// Temp note: dur does not need updated
+loc_change(loc_param(cupboard_other), 300);
+if ($message = true) {
+    mes("You close the cupboard.");
+}
+
+[proc,cupboards_use_message]()(boolean)
+switch_loc (loc_type) {
+    // 2011: Morgan's drawers (cupboards.loc) stand for 289's garlic cupboard,
+    // and cache 786 names Alrena's cupboard (2524, 2525) Wardrobe.
+    case drawers_46250, drawers_12961, alrenascupboardshut, alrenascupboardopen, legends_cupboard : return(true);
+    case default : return(false);
+}
+
+[label,cupboard_take_garlic]
+if (inv_itemspace(inv, garlic, 1, inv_size(inv)) = true) {
+    if (inv_total(inv, garlic) = 0) {
+        mes("You find a clove of garlic that you take."); // https://web.archive.org/web/20050313104458/http://server6.uploadit.org/files/Nishkid64-cupboard.JPG
+    } else {
+        mes("You take a clove of garlic.");
+    }
+    inv_add(inv, garlic, 1);
+} else {
+    ~mesbox("The cupboard contains garlic, but you don't|have room to hold it at the moment.");
+}

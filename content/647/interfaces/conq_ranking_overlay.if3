@@ -1,0 +1,15 @@
+// 1009:0
+[highscore_text]
+type=text
+width=300
+height=32
+xmode=abs_centre
+textfont=welcome_font_tiny
+text=Conquest Ranking: 1000
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+onload=conq_ranking_overlay_onload(event_com)
+onvartransmit=conq_update_ranking_overlay(event_com){conq_highscore}
+ontimer=conq_ranking_overlay_ontimer(event_com)

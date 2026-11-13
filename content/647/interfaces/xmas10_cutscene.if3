@@ -1,0 +1,9 @@
+// 1059:0
+[control]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=xmas10_salty_cutscene_cs(event_com)
+onvarctransmit=xmas10_salty_cutscene_cs(event_com){xmas10_salty_cutscene_tracker}

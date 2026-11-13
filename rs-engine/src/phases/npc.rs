@@ -1,7 +1,7 @@
 use crate::active_npc::ActiveNpc;
-use crate::engine::{Engine, NpcEvent, NpcEventKind};
-use crate::engine::{engine, engine_mut};
-use crate::phases::shared::EntityId;
+use crate::core::{Engine, NpcEvent, NpcEventKind};
+use crate::core::{engine, engine_mut};
+use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
 use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
 #[cfg(target_arch = "x86_64")]
@@ -13,12 +13,11 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::hunt::{HuntType, check_hunt_condition};
 use rs_pack::types::*;
 use rs_vm::engine::{ScriptEngine, ScriptNpc};
-use rs_vm::state::{ExecutionState, ScriptArgument};
+use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
-use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 #[cfg(target_arch = "x86_64")]
 use std::mem::size_of;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -68,7 +67,7 @@ impl Engine {
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `npc_process_hunt`, `npc_consume_hunt_target`,
     ///   `npc_process_regen`, `npc_process_timers`, `npc_process_queue`,
-    ///   `npc_process_movement_interaction`, `check_zones_and_collision`
+    ///   `npc_process_movement_interaction`, `refresh_presence`
     pub(crate) fn npcs(&mut self) {
         // - npc events (ai_spawn, ai_despawn)
         self.process_npc_events();
@@ -96,7 +95,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let nid = nids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during npc processing for nid {nid}: {msg}");
                     self.emergency_deactivate_npc(nid);
                     start += 1;
@@ -148,7 +147,7 @@ impl Engine {
             Ok(Ok(_)) => {}
             Ok(Err(e)) => error!("error running npc event script for npc {nid}: {e}"),
             Err(panic) => {
-                let msg = crate::phases::shared::panic_message(&panic);
+                let msg = panic_message(&panic);
                 error!("panic in npc event script for npc {nid}: {msg}");
             }
         }
@@ -269,15 +268,17 @@ impl Engine {
         if prev_coord != active.npc.pathing.coord {
             active.npc.pathing.last_movement = self.clock + 1;
         }
+        active.npc.pathing.validate_distance_walked();
 
-        Engine::check_zones_and_collision(
-            &mut self.zones,
-            prev_coord,
-            active.npc.pathing.coord,
-            EntityId::Npc(nid),
-            active.npc.pathing.size,
-            active.block_walk(),
-        );
+        if active.npc.active {
+            let block_walk = active.block_walk();
+            Engine::refresh_presence(
+                &mut self.zones,
+                &mut active.npc.pathing,
+                EntityId::Npc(nid),
+                block_walk,
+            );
+        }
     }
 
     // ----
@@ -306,6 +307,7 @@ impl Engine {
     fn respawn_npc(zones: &mut ZoneMap, active: *mut ActiveNpc, cache: &CacheStore) {
         let active = unsafe { &mut *active };
         active.npc.pathing.coord = active.npc.spawn_coord;
+        active.npc.pathing.presence = active.npc.spawn_coord;
         active.npc.active = true;
         active.npc.lifecycle_at = None;
         active.npc.state.delayed = false;
@@ -447,7 +449,7 @@ impl Engine {
         let uid = active.npc.uid;
         let type_id = uid.id();
         let category = active.npc.category.map(|c| c as i32);
-        let trigger = (ServerTriggerType::AiTimer, Some(type_id), category);
+        let trigger = (ServerTriggerType::AiTimer, Some(type_id as i32), category);
         if engine()
             .script_by_key(trigger.0, trigger.1, trigger.2)
             .is_some()
@@ -509,31 +511,26 @@ impl Engine {
                     .and_then(|t| t.category)
                     .map(|c| c as i32);
 
-                let last_int = request.args.as_ref().and_then(|args| {
-                    args.iter().find_map(|a| match a {
-                        ScriptArgument::Int(v) => Some(*v),
-                        _ => None,
-                    })
-                });
-
-                let trigger = ServerTriggerType::try_from(request.script_id as u8);
-                if let Ok(trigger) = trigger {
-                    if let Some(script) = engine().script_by_key(trigger, Some(type_id), category) {
-                        let mut state = engine_mut().build_state(
-                            script,
-                            Some(ScriptSubject::Npc(uid)),
-                            None,
-                            request.args,
-                        );
-                        state.last_int = last_int;
-                        if let Err(e) = engine_mut().run_script_by_state(
-                            state,
-                            Some(ScriptSubject::Npc(uid)),
-                            None,
-                            None,
-                        ) {
-                            error!("error running queue script for npc {}: {e}", uid.nid());
-                        }
+                let last_int = request.last_int();
+                if let Some(script) = engine().queued_script(&request, type_id, category) {
+                    let mut state = engine_mut().build_state(
+                        script,
+                        Some(ScriptSubject::Npc(uid)),
+                        None,
+                        request.args,
+                    );
+                    state.last_int = last_int;
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
+                    if let Err(e) = engine_mut().run_script_by_state(
+                        state,
+                        Some(ScriptSubject::Npc(uid)),
+                        None,
+                        None,
+                    ) {
+                        error!("error running queue script for npc {}: {e}", uid.nid());
                     }
                 }
 
@@ -742,14 +739,7 @@ impl Engine {
                         Some(InteractionTarget::Player { pid: tp }) if tp == pid
                     );
 
-                    if !is_current_target
-                        && !rsmod::is_zone_flagged(
-                            player_coord.x(),
-                            player_coord.z(),
-                            player_coord.y(),
-                            ZoneFlag::Multi as u8,
-                        )
-                    {
+                    if !is_current_target && !engine.multiway(player_coord) {
                         if let Some(varp_id) = hunt.check_notcombat {
                             if player.player.vars.len() > varp_id as usize {
                                 let last_combat = player.player.vars.get(varp_id).as_int();
@@ -1189,7 +1179,7 @@ impl Engine {
                     .and_then(|t| t.category)
                     .map(|c| c as i32);
                 if let Err(e) = engine_mut().run_script_by_trigger(
-                    (trigger, Some(type_id), category),
+                    (trigger, Some(type_id as i32), category),
                     Some(ScriptSubject::Npc(uid)),
                     None,
                     None,
@@ -1728,7 +1718,7 @@ impl Engine {
                     let type_id = active.npc.uid.id();
                     let category = active.npc.category.map(|c| c as i32);
                     if let Err(e) = engine_mut().run_script_by_trigger(
-                        (trigger, Some(type_id), category),
+                        (trigger, Some(type_id as i32), category),
                         Some(ScriptSubject::Npc(uid)),
                         target_subject,
                         None,
@@ -1756,7 +1746,7 @@ impl Engine {
                 if let Some(trigger) = trigger {
                     let category = active.npc.category.map(|c| c as i32);
                     if let Err(e) = engine_mut().run_script_by_trigger(
-                        (trigger, Some(type_id), category),
+                        (trigger, Some(type_id as i32), category),
                         Some(ScriptSubject::Npc(uid)),
                         target_subject,
                         None,

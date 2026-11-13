@@ -1,0 +1,743 @@
+// 28:0
+[background]
+type=layer
+x=-1
+y=-2
+width=512
+height=334
+transmitop=10
+op10=     
+
+// 28:1
+[com_1]
+type=model
+x=16
+y=26
+width=64
+height=45
+layer=perfect_gold_layer
+model=model_9091
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:2
+[com_2]
+type=text
+x=4
+y=5
+width=93
+height=14
+layer=perfect_gold_layer
+textfont=p12_full
+text=Perfect gold: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:3
+[coal]
+type=text
+x=368
+y=297
+width=123
+height=17
+textfont=p12_full
+text=Coal to add: %2
+textalignh=right
+textshadow=yes
+colour=0xff981f
+onload=blast_furnace_coal(event_com)
+onvartransmit=blast_furnace_coal(event_com){blast_furnace_readings}
+
+// 28:4
+[com_4]
+type=text
+x=36
+y=77
+width=22
+height=14
+layer=perfect_gold_layer
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:5
+[com_5]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+layer=background
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=      
+
+// 28:6
+[com_6]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=background
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:7
+[com_7]
+type=graphic
+y=53
+width=32
+height=241
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:8
+[com_8]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,4"
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:9
+[com_9]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:10
+[com_10]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+layer=background
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:11
+[com_11]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:12
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=      
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 28:13
+[com_13]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:14
+[com_14]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,5"
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:15
+[com_15]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:16
+[com_16]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+layer=background
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:17
+[com_17]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,9"
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:18
+[com_18]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,10"
+colour=0x000000
+transmitop=10
+op10=      
+
+// 28:19
+[title]
+type=text
+x=22
+y=31
+width=470
+height=20
+layer=background
+textfont=b12_full
+text=Blast Furnace Bar Stock
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=blast_furnace_bar_stock
+onvartransmit=blast_furnace_bar_stock{blast_furnace_1, blast_furnace_2, blast_furnace_3, blast_furnace_4, blast_furnace_5}
+
+// 28:20
+[content_layer]
+type=layer
+x=21
+y=54
+width=468
+height=262
+
+// 28:21
+[bf_goldmodel]
+type=model
+x=6
+y=26
+width=64
+height=45
+layer=gold
+model=model_9088
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:22
+[bf_gold]
+type=text
+x=5
+y=5
+width=70
+height=25
+layer=gold
+textfont=p12_full
+text=Gold: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:23
+[bf_goldall]
+type=text
+x=26
+y=77
+width=22
+height=14
+layer=gold
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:24
+[bf_silvermodel]
+type=model
+x=5
+y=26
+width=64
+height=45
+layer=silver
+model=model_9093
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:25
+[bf_silver]
+type=text
+x=4
+y=5
+width=70
+height=25
+layer=silver
+textfont=p12_full
+text=Silver: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:26
+[bf_silverall]
+type=text
+x=25
+y=77
+width=22
+height=14
+layer=silver
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:27
+[bf_runitemodel]
+type=model
+x=7
+y=26
+width=64
+height=45
+layer=runite
+model=model_9092
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:28
+[bf_runite]
+type=text
+x=4
+y=5
+width=70
+height=25
+layer=runite
+textfont=p12_full
+text=Runite: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:29
+[bf_runiteall]
+type=text
+x=31
+y=77
+width=22
+height=14
+layer=runite
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:30
+[bf_adamantitemodel]
+type=model
+x=10
+y=26
+width=64
+height=45
+layer=adamantite
+model=model_9086
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:31
+[bf_adamantite]
+type=text
+x=-2
+y=2
+width=93
+height=25
+layer=adamantite
+textfont=p12_full
+text=Adamantite: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:32
+[bf_adamantiteall]
+type=text
+x=32
+y=77
+width=22
+height=14
+layer=adamantite
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:33
+[bf_mithrilmodel]
+type=model
+x=5
+y=26
+width=64
+height=45
+layer=mithril
+model=model_9090
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:34
+[bf_mithril]
+type=text
+x=4
+y=5
+width=70
+height=25
+layer=mithril
+textfont=p12_full
+text=Mithril: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:35
+[bf_mithrilall]
+type=text
+x=25
+y=77
+width=22
+height=14
+layer=mithril
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:36
+[bf_steelmodel]
+type=model
+x=7
+y=25
+width=64
+height=45
+layer=steel
+model=model_9094
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:37
+[bf_steel]
+type=text
+x=4
+y=4
+width=70
+height=25
+layer=steel
+textfont=p12_full
+text=Steel: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:38
+[bf_steelall]
+type=text
+x=27
+y=76
+width=22
+height=14
+layer=steel
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:39
+[bf_iron]
+type=text
+x=3
+y=5
+width=70
+height=25
+layer=iron
+textfont=p12_full
+text=Iron: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:40
+[bf_ironmodel]
+type=model
+x=6
+y=26
+width=64
+height=45
+layer=iron
+model=model_9089
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:41
+[bf_ironall]
+type=text
+x=26
+y=77
+width=22
+height=14
+layer=iron
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:42
+[bf_bronze]
+type=text
+x=2
+y=6
+width=71
+height=25
+layer=bronze
+textfont=p12_full
+text=Bronze: %1
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take 1
+
+// 28:43
+[bf_bronzemodel]
+type=model
+x=7
+y=27
+width=64
+height=45
+layer=bronze
+model=model_9087
+modelorigin=0,5
+modelangle=219,1341,0
+modelzoom=400
+transmitop=1
+op1=Take 1
+
+// 28:44
+[bf_bronzeall]
+type=text
+x=27
+y=78
+width=22
+height=14
+layer=bronze
+textfont=p12_full
+text=(All)
+textalignh=centre
+textshadow=yes
+colour=0x999999
+transmitop=1
+op1=Take All
+
+// 28:45
+[bronze]
+type=layer
+width=78
+height=97
+layer=content_layer
+
+// 28:46
+[iron]
+type=layer
+x=85
+y=1
+width=78
+height=97
+layer=content_layer
+
+// 28:47
+[steel]
+type=layer
+x=172
+y=2
+width=78
+height=97
+layer=content_layer
+
+// 28:48
+[mithril]
+type=layer
+x=262
+y=1
+width=78
+height=97
+layer=content_layer
+
+// 28:49
+[adamantite]
+type=layer
+x=351
+y=1
+width=88
+height=97
+layer=content_layer
+
+// 28:50
+[runite]
+type=layer
+y=121
+width=78
+height=97
+layer=content_layer
+
+// 28:51
+[silver]
+type=layer
+x=86
+y=121
+width=78
+height=97
+layer=content_layer
+
+// 28:52
+[gold]
+type=layer
+x=173
+y=121
+width=78
+height=97
+layer=content_layer
+
+// 28:53
+[perfect_gold_layer]
+type=layer
+x=251
+y=121
+width=105
+height=101
+layer=content_layer
+hide=yes

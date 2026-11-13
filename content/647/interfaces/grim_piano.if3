@@ -1,0 +1,792 @@
+// 535:0
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 535:1
+[background]
+type=rectangle
+x=-3
+y=-1
+width=520
+height=336
+layer=content_layer
+colour=0x2b2b14
+fill=yes
+
+// 535:2
+[piano]
+type=model
+x=37
+y=16
+width=443
+height=384
+layer=content_layer
+model=model_25890
+modelorigin=-18,19
+modelangle=143,0,0
+modelzoom=867
+
+// 535:3
+[piano_open_compartment]
+type=layer
+x=-1
+y=1
+width=515
+height=336
+layer=content_layer
+hide=yes
+
+// 535:4
+[piano_keys]
+type=layer
+x=57
+y=177
+width=400
+height=120
+layer=content_layer
+
+// 535:5
+[key1]
+type=model
+x=107
+y=209
+width=32
+height=41
+layer=content_layer
+model=model_25892
+modelorigin=116,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:6
+[key2]
+type=model
+x=129
+y=206
+width=37
+height=44
+layer=content_layer
+model=model_25903
+modelorigin=93,6
+modelangle=143,0,0
+modelzoom=867
+
+// 535:7
+[key3]
+type=model
+x=151
+y=209
+width=29
+height=41
+layer=content_layer
+model=model_25905
+modelorigin=75,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:8
+[key5]
+type=model
+x=191
+y=206
+width=31
+height=44
+layer=content_layer
+model=model_25909
+modelorigin=34,6
+modelangle=143,0,0
+modelzoom=867
+
+// 535:9
+[key4]
+type=model
+x=172
+y=209
+width=24
+height=41
+layer=content_layer
+model=model_25907
+modelorigin=56,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:10
+[key6]
+type=model
+x=215
+y=206
+width=25
+height=44
+layer=content_layer
+model=model_25911
+modelorigin=13,6
+modelangle=143,0,0
+modelzoom=867
+
+// 535:11
+[key9]
+type=model
+x=269
+y=206
+width=32
+height=44
+layer=content_layer
+model=model_25917
+modelorigin=-45,6
+modelangle=143,0,0
+modelzoom=867
+
+// 535:12
+[key8]
+type=model
+x=254
+y=209
+width=23
+height=41
+layer=content_layer
+model=model_25915
+modelorigin=-25,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:13
+[key7]
+type=model
+x=236
+y=209
+width=19
+height=41
+layer=content_layer
+model=model_25913
+modelorigin=-5,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:14
+[key14]
+type=model
+x=372
+y=207
+width=36
+height=41
+layer=content_layer
+model=model_25901
+modelorigin=-150,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:15
+[key13]
+type=model
+x=353
+y=204
+width=33
+height=44
+layer=content_layer
+model=model_25899
+modelorigin=-129,6
+modelangle=143,0,0
+modelzoom=867
+
+// 535:16
+[key12]
+type=model
+x=326
+y=205
+width=38
+height=44
+layer=content_layer
+model=model_25897
+modelorigin=-105,6
+modelangle=143,0,0
+modelzoom=867
+
+// 535:17
+[key11]
+type=model
+x=311
+y=208
+width=32
+height=41
+layer=content_layer
+model=model_25895
+modelorigin=-87,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:18
+[key10]
+type=model
+x=296
+y=208
+width=25
+height=41
+layer=content_layer
+model=model_25893
+modelorigin=-68,5
+modelangle=143,0,0
+modelzoom=867
+
+// 535:19
+[demo_button]
+type=model
+x=403
+y=207
+width=23
+height=14
+layer=content_layer
+model=model_25886
+modelorigin=-175,12
+modelangle=143,0,0
+modelzoom=867
+
+// 535:20
+[piano_close]
+type=graphic
+x=467
+y=26
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 535:21
+[playdem]
+type=rectangle
+x=405
+y=201
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Press
+
+// 535:22
+[open_compartment_layer]
+type=layer
+x=192
+y=42
+width=130
+height=80
+layer=content_layer
+hide=yes
+
+// 535:23
+[compartment_layer]
+type=layer
+x=192
+y=42
+width=130
+height=80
+layer=content_layer
+hide=yes
+
+// 535:24
+[lc]
+type=rectangle
+x=107
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower C
+onmouseover=model_swapper(grim_piano:key1, model_25902)
+onmouseleave=model_swapper(grim_piano:key1, model_25892)
+
+// 535:25
+[ld]
+type=rectangle
+x=129
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower D
+onmouseover=model_swapper(grim_piano:key2, model_25904)
+onmouseleave=model_swapper(grim_piano:key2, model_25903)
+
+// 535:26
+[le]
+type=rectangle
+x=150
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower E
+onmouseover=model_swapper(grim_piano:key3, model_25906)
+onmouseleave=model_swapper(grim_piano:key3, model_25905)
+
+// 535:27
+[lf]
+type=rectangle
+x=171
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower F
+onmouseover=model_swapper(grim_piano:key4, model_25908)
+onmouseleave=model_swapper(grim_piano:key4, model_25907)
+
+// 535:28
+[lg]
+type=rectangle
+x=192
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower G
+onmouseover=model_swapper(grim_piano:key5, model_25910)
+onmouseleave=model_swapper(grim_piano:key5, model_25909)
+
+// 535:29
+[la]
+type=rectangle
+x=213
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower A
+onmouseover=model_swapper(grim_piano:key6, model_25912)
+onmouseleave=model_swapper(grim_piano:key6, model_25911)
+
+// 535:30
+[lb]
+type=rectangle
+x=234
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Lower B
+onmouseover=model_swapper(grim_piano:key7, model_25914)
+onmouseleave=model_swapper(grim_piano:key7, model_25913)
+
+// 535:31
+[uc]
+type=rectangle
+x=255
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper C
+onmouseover=model_swapper(grim_piano:key8, model_25916)
+onmouseleave=model_swapper(grim_piano:key8, model_25915)
+
+// 535:32
+[ud]
+type=rectangle
+x=276
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper D
+onmouseover=model_swapper(grim_piano:key9, model_25918)
+onmouseleave=model_swapper(grim_piano:key9, model_25917)
+
+// 535:33
+[ue]
+type=rectangle
+x=297
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper E
+onmouseover=model_swapper(grim_piano:key10, model_25891)
+onmouseleave=model_swapper(grim_piano:key10, model_25893)
+
+// 535:34
+[uf]
+type=rectangle
+x=318
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper F
+onmouseover=model_swapper(grim_piano:key11, model_25894)
+onmouseleave=model_swapper(grim_piano:key11, model_25895)
+
+// 535:35
+[ug]
+type=rectangle
+x=339
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper G
+onmouseover=model_swapper(grim_piano:key12, model_25896)
+onmouseleave=model_swapper(grim_piano:key12, model_25897)
+
+// 535:36
+[ua]
+type=rectangle
+x=360
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper A
+onmouseover=model_swapper(grim_piano:key13, model_25898)
+onmouseleave=model_swapper(grim_piano:key13, model_25899)
+
+// 535:37
+[ub]
+type=rectangle
+x=381
+y=222
+width=20
+height=20
+layer=content_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Upper B
+onmouseover=model_swapper(grim_piano:key14, model_25900)
+onmouseleave=model_swapper(grim_piano:key14, model_25901)
+
+// 535:38
+[piano_open]
+type=model
+x=37
+y=16
+width=443
+height=384
+layer=piano_open_compartment
+model=model_25889
+modelorigin=-18,19
+modelangle=143,0,0
+modelzoom=867
+
+// 535:39
+[opencompartment]
+type=rectangle
+x=14
+y=8
+width=91
+height=41
+layer=open_compartment_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Open
+opcursor0=cursor_open
+
+// 535:40
+[searchcompartment]
+type=rectangle
+x=14
+y=8
+width=91
+height=41
+layer=compartment_layer
+colour=0xffff00
+fill=yes
+trans=250
+transmitop=1
+op1=Search
+opcursor0=cursor_search
+
+// 535:41
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 535:42
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 535:43
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 535:44
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 535:45
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 535:46
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 535:47
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 535:48
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 535:49
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 535:50
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 535:51
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 535:52
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 535:53
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 535:54
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 535:55
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 535:56
+[com_56]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 535:57
+[com_57]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 535:58
+[com_58]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 535:59
+[com_59]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

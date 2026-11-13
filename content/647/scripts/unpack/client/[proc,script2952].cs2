@@ -1,0 +1,52 @@
+// 2952
+[proc,script2952](component $component0, component $component1, int $int2)
+def_string $string0 = "";
+def_string $string1 = "";
+switch_int ($int2) {
+    case 3 :
+        $string0 = "accountappeal";
+        $string1 = "passwordchoice.ws";
+        if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        if_setonclick($component1, "login_popup_close");
+    case 4 :
+        $string0 = "ticketing";
+        $string1 = "inbox.ws";
+        if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        if_setonclick($component1, "login_popup_close");
+    case 11 :
+        $string0 = "password_history";
+        $string1 = "password.ws";
+        if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        if_setonclick($component1, "login_popup_close");
+    case 18 :
+        $string0 = "accountappeal";
+        $string1 = "lockchoice.ws";
+        if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        if_setonclick($component1, "login_popup_close");
+    case 30 :
+        if (unknown_command_5420 = true) {
+            $string1 = "slu.ws";
+            if_setonclick($component0, "loginscreen_link_nologin($string1, false)");
+        } else {
+            $string0 = "dob";
+            $string1 = "set_members_dob.ws";
+            if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        }
+        if_setonclick($component1, "login_popup_close");
+    case 31 :
+        $string0 = "displaynames";
+        $string1 = "name.ws";
+        if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        if_setonclick($component1, "login_popup_close");
+    case 32, 12, 19 :
+        $string0 = "dob";
+        $string1 = "set_members_dob.ws";
+        if_setonclick($component0, "loginscreen_link($string0, $string1, true)");
+        if_setonclick($component1, "login_popup_close");
+    case 21 :
+        if_setonclick($component0, "login_hop_abort");
+        if_setonclick($component1, null);
+    case default :
+        if_setonclick($component0, null);
+        if_setonclick($component1, "login_popup_close");
+}

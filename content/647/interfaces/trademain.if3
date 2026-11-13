@@ -1,0 +1,649 @@
+// 335:0
+[com_0]
+type=graphic
+x=7
+y=25
+width=498
+height=302
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 335:1
+[com_1]
+type=graphic
+x=-13
+y=51
+width=32
+height=251
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 335:2
+[com_2]
+type=graphic
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 335:3
+[com_3]
+type=graphic
+x=492
+y=52
+width=32
+height=250
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 335:4
+[com_4]
+type=graphic
+x=32
+y=7
+width=448
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 335:5
+[com_5]
+type=graphic
+x=32
+y=314
+width=448
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 335:6
+[com_6]
+type=graphic
+y=302
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 335:7
+[com_7]
+type=graphic
+x=480
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 335:8
+[com_8]
+type=graphic
+x=480
+y=302
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 335:9
+[com_9]
+type=graphic
+x=11
+y=35
+width=490
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 335:10
+[com_10]
+type=graphic
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 335:11
+[com_11]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 335:12
+[closebutton]
+type=graphic
+x=485
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 335:13
+[com_13]
+type=rectangle
+x=6
+y=300
+width=499
+height=27
+colour=0x000000
+fill=yes
+trans=200
+
+// 335:14
+[com_14]
+type=graphic
+x=241
+y=54
+width=32
+height=244
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+
+// 335:15
+[tradetitle]
+type=text
+x=96
+y=30
+width=302
+height=16
+textfont=b12_full
+text=Trading With: Unknown
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=script172
+onvartransmit=script141{traderemoved, traderemoved_other}
+
+// 335:16
+[accept_button]
+type=layer
+x=223
+y=124
+width=65
+height=32
+transmitop=1
+op1=Accept
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 335:17
+[accept_text]
+type=text
+x=223
+y=124
+width=65
+height=32
+textfont=p12_full
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00c000
+
+// 335:18
+[decline_button]
+type=layer
+x=223
+y=164
+width=65
+height=32
+transmitop=1
+op1=Decline
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 335:19
+[decline_text]
+type=text
+x=223
+y=164
+width=65
+height=32
+textfont=p12_full
+text=Decline
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc00000
+
+// 335:20
+[com_20]
+type=rectangle
+x=213
+y=66
+width=91
+height=47
+colour=0x221717
+fill=yes
+
+// 335:21
+[free_space_text]
+type=text
+x=215
+y=79
+width=82
+height=30
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:22
+[free_space_name]
+type=text
+x=215
+y=70
+width=82
+height=15
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9820
+onvarcstrtransmit=script1571(event_com, trademain:tooltip_layer, p11_full){varclient_1722}
+
+// 335:23
+[com_23]
+type=graphic
+x=238
+y=47
+width=40
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 335:24
+[com_24]
+type=graphic
+x=207
+y=61
+width=32
+height=32
+graphic="v2_stone_borders,18"
+colour=0xffffffff
+
+// 335:25
+[com_25]
+type=graphic
+x=274
+y=61
+width=32
+height=32
+graphic="v2_stone_borders,19"
+colour=0xffffffff
+
+// 335:26
+[com_26]
+type=graphic
+x=207
+y=85
+width=32
+height=32
+graphic="v2_stone_borders,20"
+colour=0xffffffff
+
+// 335:27
+[com_27]
+type=graphic
+x=274
+y=85
+width=32
+height=32
+graphic="v2_stone_borders,21"
+colour=0xffffffff
+
+// 335:28
+[com_28]
+type=graphic
+x=239
+y=97
+width=35
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 335:29
+[com_29]
+type=graphic
+x=6
+y=285
+width=499
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 335:30
+[your_offer_layer]
+type=layer
+x=12
+y=72
+width=177
+height=223
+
+// 335:31
+[your_offer_layer_flashy]
+type=layer
+x=12
+y=72
+width=177
+height=223
+
+// 335:32
+[other_offer_layer_back]
+type=layer
+x=322
+y=72
+width=177
+height=223
+onload=script937
+
+// 335:33
+[other_offer_layer]
+type=layer
+x=322
+y=72
+width=177
+height=223
+
+// 335:34
+[other_offer_layer_flashy]
+type=layer
+x=322
+y=72
+width=177
+height=223
+
+// 335:35
+[com_35]
+type=text
+x=311
+y=56
+width=171
+height=14
+textfont=p12_full
+text=Trader's Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:36
+[com_36]
+type=text
+x=56
+y=56
+width=119
+height=14
+textfont=p12_full
+text=Your Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:37
+[tradestatus]
+type=text
+y=281
+width=400
+height=15
+xmode=abs_centre
+textfont=p12_full
+text=Waiting for other player
+textalignh=centre
+textshadow=yes
+
+// 335:38
+[bowl_guests]
+type=layer
+x=466
+y=22
+width=32
+height=32
+hide=yes
+
+// 335:39
+[trade_removed_warning_left]
+type=text
+x=10
+y=32
+width=88
+height=16
+hide=yes
+textfont=p11_full
+text=Trade modified
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 335:40
+[trade_removed_warning_right]
+type=text
+x=395
+y=32
+width=88
+height=16
+hide=yes
+textfont=p11_full
+text=Trade modified
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 335:41
+[trade_balance_indicator]
+type=layer
+y=7
+width=14
+height=27
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+onload=trade_balance_indicator(trademain:myvalue, trademain:theirvalue, trademain:balance, trademain:arrow, trademain:header)
+onvarctransmit=trade_balance_indicator(trademain:myvalue, trademain:theirvalue, trademain:balance, trademain:arrow, trademain:header){varclient_729, varclient_697}
+
+// 335:42
+[header]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=trade_balance_indicator
+textfont=p11_full
+text=Wealth transfer:
+textalignh=centre
+textshadow=yes
+colour=0xbebe5e
+
+// 335:43
+[myvalue]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=trade_balance_indicator
+textfont=p11_full
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+
+// 335:44
+[theirvalue]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=trade_balance_indicator
+textfont=p11_full
+textalignh=right
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+
+// 335:45
+[balance]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=trade_balance_indicator
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+
+// 335:46
+[arrow]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=trade_balance_indicator
+hide=yes
+graphic="catcon_catapult_arrows,0"
+
+// 335:47
+[your_loan_offer_layer]
+type=layer
+x=191
+y=204
+width=60
+height=76
+onload=script507(trademain:your_loan_offer_layer, trademain:your_loan_offer_item, trademain:your_loan_offer_duration, trademain:your_loan_offer_fakebutton, trademain:other_loan_offer_layer, trademain:other_loan_offer_item, trademain:other_loan_offer_duration)
+
+// 335:48
+[other_loan_offer_layer]
+type=layer
+x=261
+y=204
+width=60
+height=76
+
+// 335:49
+[com_49]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 335:50
+[com_50]
+type=text
+height=16
+widthmode=minus
+layer=other_loan_offer_layer
+textfont=p11_full
+text=Loan:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:51
+[tooltip_layer]
+type=layer
+x=10
+y=10
+width=10
+height=10
+layer=com_49
+
+// 335:52
+[other_loan_offer_item]
+type=graphic
+y=14
+width=36
+height=32
+xmode=abs_centre
+layer=other_loan_offer_layer
+colour=0xffffffff
+
+// 335:53
+[other_loan_offer_duration]
+type=text
+height=30
+widthmode=minus
+ymode=abs_bottom
+layer=other_loan_offer_layer
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:54
+[com_54]
+type=text
+height=16
+widthmode=minus
+layer=your_loan_offer_layer
+textfont=p11_full
+text=Loan:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:55
+[your_loan_offer_fakebutton]
+type=layer
+y=2
+width=4
+height=28
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=your_loan_offer_layer
+
+// 335:56
+[your_loan_offer_item]
+type=graphic
+y=14
+width=36
+height=32
+xmode=abs_centre
+layer=your_loan_offer_layer
+colour=0xffffffff
+
+// 335:57
+[your_loan_offer_duration]
+type=text
+y=1
+height=30
+widthmode=minus
+ymode=abs_bottom
+layer=your_loan_offer_layer
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f

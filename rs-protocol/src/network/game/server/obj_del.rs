@@ -12,10 +12,23 @@ pub struct ObjDel {
     pub id: u16,
 }
 
+#[cfg(before_647)]
 impl ServerProtMessage for ObjDel {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
         buf.p2(self.id);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord) + size_of_val(&self.id)
+    }
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for ObjDel {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt2(self.coord);
+        buf.p2_alt3(self.id);
     }
 
     fn sizeof(&self) -> usize {

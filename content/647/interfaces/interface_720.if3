@@ -1,0 +1,38 @@
+// 720:0
+[com_0]
+type=graphic
+x=20
+y=19
+width=462
+height=297
+graphic=tradebacking
+colour=0x000000
+
+// 720:1
+[com_1]
+type=graphic
+x=460
+y=26
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 720:2
+[com_2]
+type=text
+x=93
+y=80
+width=316
+height=157
+textfont=quill_oblique_large
+text=Here, the player will see an interface anim of the chocatrice hatching.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00

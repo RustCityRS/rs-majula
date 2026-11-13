@@ -1,0 +1,7 @@
+// 4281
+[clientscript,clan_join_invite_onload]
+if (activeclansettings_find_listened = true) {
+    ~script4283;
+} else {
+    if_setonclansettingstransmit(clan_join_invite:content_layer, "script4282");
+}

@@ -1,0 +1,30 @@
+// 1942
+[proc,script1942]
+if (%sc_panic_direction = 0) {
+    %sc_panic_transparent = min(255, calc(%sc_panic_transparent + 6));
+    if (%sc_panic_transparent = 255) {
+        %sc_panic_direction = 1;
+    }
+} else if (%sc_panic_direction = 1) {
+    %sc_panic_transparent = max(60, calc(%sc_panic_transparent - 6));
+    if (%sc_panic_transparent = 60) {
+        %sc_panic_direction = 0;
+    }
+}
+if_settrans(sc_in_game_overlay:panic_highlight_rect, %sc_panic_transparent);
+if (%sc_panic_flash_counter < 4) {
+    if (if_gethide(sc_in_game_overlay:panic_text) = true) {
+        %sc_panic_frame_count = min(20, calc(%sc_panic_frame_count + 1));
+        if (%sc_panic_frame_count = 20) {
+            %sc_panic_frame_count = 0;
+            if_sethide(sc_in_game_overlay:panic_text, false);
+        }
+    } else {
+        %sc_panic_frame_count = min(35, calc(%sc_panic_frame_count + 1));
+        if (%sc_panic_frame_count = 35) {
+            %sc_panic_frame_count = 0;
+            if_sethide(sc_in_game_overlay:panic_text, true);
+            %sc_panic_flash_counter = min(4, calc(%sc_panic_flash_counter + 1));
+        }
+    }
+}

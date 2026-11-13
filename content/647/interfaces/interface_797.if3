@@ -1,0 +1,285 @@
+// 797:0
+[zsmoke_rush]
+type=graphic
+x=16
+y=31
+width=24
+height=24
+graphic="magicon2,10"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,10", "magicoff2,10", 50, "Smoke Rush", "A single target smoke attack", chaosrune, 2, deathrune, 2, firerune, 1, airrune, 1)
+
+// 797:1
+[zshadow_rush]
+type=graphic
+x=50
+y=31
+width=24
+height=24
+graphic="magicon2,18"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,18", "magicoff2,18", 52, "Shadow Rush", "A single target shadow attack", chaosrune, 2, deathrune, 2, airrune, 1, soulrune, 1)
+
+// 797:2
+[zblood_rush]
+type=graphic
+x=84
+y=31
+width=24
+height=24
+graphic="magicon2,14"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,14", "magicoff2,14", 56, "Blood Rush", "A single target blood attack", chaosrune, 2, deathrune, 2, bloodrune, 1, null, 0)
+
+// 797:3
+[zice_rush]
+type=graphic
+x=118
+y=31
+width=24
+height=24
+graphic="magicon2,6"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,6", "magicoff2,6", 58, "Ice Rush", "A single target ice attack", chaosrune, 2, deathrune, 2, waterrune, 2, null, 0)
+
+// 797:4
+[zsmoke_burst]
+type=graphic
+x=16
+y=82
+width=24
+height=24
+graphic="magicon2,11"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,11", "magicoff2,11", 62, "Smoke Burst", "A multi-target smoke attack", chaosrune, 4, deathrune, 2, firerune, 2, airrune, 2)
+
+// 797:5
+[zshadow_burst]
+type=graphic
+x=50
+y=82
+width=24
+height=24
+graphic="magicon2,19"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,19", "magicoff2,19", 64, "Shadow Burst", "A multi-target shadow attack", chaosrune, 4, deathrune, 2, airrune, 1, soulrune, 2)
+
+// 797:6
+[zblood_burst]
+type=graphic
+x=84
+y=82
+width=24
+height=24
+graphic="magicon2,15"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,15", "magicoff2,15", 68, "Blood Burst", "A multi-target blood attack", chaosrune, 4, deathrune, 2, bloodrune, 2, null, 0)
+
+// 797:7
+[zice_burst]
+type=graphic
+x=118
+y=82
+width=24
+height=24
+graphic="magicon2,7"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,7", "magicoff2,7", 70, "Ice Burst", "A multi-target ice attack", chaosrune, 4, deathrune, 2, waterrune, 4, null, 0)
+
+// 797:8
+[zsmoke_blitz]
+type=graphic
+x=16
+y=141
+width=24
+height=24
+graphic="magicon2,12"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,12", "magicoff2,12", 74, "Smoke Blitz", "A single target strong smoke attack", deathrune, 2, bloodrune, 2, firerune, 2, airrune, 2)
+
+// 797:9
+[zshadow_blitz]
+type=graphic
+x=50
+y=142
+width=24
+height=24
+graphic="magicon2,20"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,20", "magicoff2,20", 76, "Shadow Blitz", "A single target strong shadow attack", deathrune, 2, bloodrune, 2, airrune, 2, soulrune, 2)
+
+// 797:10
+[zblood_blitz]
+type=graphic
+x=84
+y=142
+width=24
+height=24
+graphic="magicon2,16"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,16", "magicoff2,16", 80, "Blood Blitz", "A single target strong blood attack", deathrune, 2, bloodrune, 4, null, 0, null, 0)
+
+// 797:11
+[zice_blitz]
+type=graphic
+x=118
+y=142
+width=24
+height=24
+graphic="magicon2,8"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,8", "magicoff2,8", 82, "Ice Blitz", "A single target strong ice attack", deathrune, 2, bloodrune, 2, waterrune, 3, null, 0)
+
+// 797:12
+[zsmoke_barrage]
+type=graphic
+x=16
+y=198
+width=24
+height=24
+graphic="magicon2,13"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,13", "magicoff2,13", 86, "Smoke Barrage", "A multi-target smoke attack", deathrune, 4, bloodrune, 2, firerune, 4, airrune, 4)
+
+// 797:13
+[zshadow_barrage]
+type=graphic
+x=50
+y=198
+width=24
+height=24
+graphic="magicon2,21"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,21", "magicoff2,21", 88, "Shadow Barrage", "A multi-target strong shadow attack", deathrune, 4, bloodrune, 2, airrune, 4, soulrune, 3)
+
+// 797:14
+[zblood_barrage]
+type=graphic
+x=84
+y=198
+width=24
+height=24
+graphic="magicon2,17"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,17", "magicoff2,17", 92, "Blood Barrage", "A multi-target strong blood attack", deathrune, 4, bloodrune, 4, soulrune, 1, null, 0)
+
+// 797:15
+[zice_barrage]
+type=graphic
+x=118
+y=198
+width=24
+height=24
+graphic="magicon2,9"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,9", "magicoff2,9", 94, "Ice Barrage", "A multi-target strong ice attack", deathrune, 4, bloodrune, 2, waterrune, 6, null, 0)
+
+// 797:16
+[pvpw_rush]
+type=graphic
+x=152
+y=31
+width=24
+height=24
+graphic="magicon2,44"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,44", "magicoff2,44", 61, "Miasmic Rush", "A single target miasmic attack", pvpw_staff, 1, chaosrune, 2, earthrune, 1, soulrune, 1)
+
+// 797:17
+[pvpw_burst]
+type=graphic
+x=152
+y=82
+width=24
+height=24
+graphic="magicon2,45"
+colour=0x000000
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,45", "magicoff2,45", 73, "Miasmic Burst", "A multi-target miasmic attack", pvpw_staff, 1, chaosrune, 4, earthrune, 2, soulrune, 2)
+
+// 797:18
+[pvpw_blitz]
+type=graphic
+x=152
+y=142
+width=24
+height=24
+graphic="magicon2,43"
+colour=0x000000
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,43", "magicoff2,43", 85, "Miasmic Blitz", "A single target strong miasmic attack", pvpw_staff, 1, bloodrune, 2, earthrune, 3, soulrune, 2)
+
+// 797:19
+[pvpw_barrage]
+type=graphic
+x=152
+y=198
+width=24
+height=24
+graphic="magicon2,42"
+colour=0x000000
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, interface_797:tooltip, "magicon2,42", "magicoff2,42", 97, "Miasmic Barrage", "A multi-target strong miasmic attack", pvpw_staff, 1, bloodrune, 4, earthrune, 4, soulrune, 4)
+
+// 797:20
+[clans_webcam1]
+type=text
+x=127
+y=241
+width=60
+height=16
+textfont=p12_full
+text=Cancel
+textalignh=centre
+textshadow=yes
+colour=0x808080
+transmitop=1
+op1=Cancel
+onmouseover=text_colour_swapper(event_com, 0xc8c8c8)
+onmouseleave=text_colour_swapper(event_com, 0x808080)
+
+// 797:21
+[tooltip]
+type=layer
+width=190
+height=261

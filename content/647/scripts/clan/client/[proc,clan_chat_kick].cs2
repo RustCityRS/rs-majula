@@ -1,0 +1,40 @@
+// 4466
+[proc,clan_chat_kick](string $string0)
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+$int0 = activeclanchannel_getuserslot($string0);
+if ($int0 >= 0) {
+    if ($int0 = -1) {
+        return;
+    }
+    $int1 = activeclanchannel_getuserrank($int0);
+    $int2 = activeclanchannel_getuserslot(removetags(chat_playername));
+    if ($int2 >= 0) {
+        if ($int2 = $int0) {
+            mes_typed(^chattype_clanmessage, 0, "You cannot temporarily ban yourself.");
+            return;
+        }
+        $int3 = activeclanchannel_getuserrank($int2);
+        if ($int2 = -1) {
+            return;
+        }
+        if ($int3 > activeclanchannel_getrankkick) {
+            if ($int1 > -1) {
+                mes_typed(^chattype_clanmessage, 0, "You can only temporarily ban guests.");
+                mes_typed(^chattype_clanmessage, 0, "A clan admin can remove your clanmate.");
+            } else if ($int3 > $int1) {
+                activeclanchannel_kickuser(activeclanchannel_getuserslot($string0));
+                chat_setmode(2);
+                chat_sendpublic("[Attempting to kick/ban <$string0> from this channel.]");
+            } else {
+                mes_typed(^chattype_clanmessage, 0, "You can only kick people with a lower rank than yourself.");
+            }
+        } else {
+            mes_typed(^chattype_clanmessage, 0, "You do not have sufficient rank to kick.");
+        }
+    }
+} else {
+    mes_typed(^chattype_clanmessage, 0, "Could not find that guest to kick from your Clan Chat.");
+}

@@ -1,0 +1,862 @@
+// 596:0
+[alpha_fade]
+type=graphic
+x=-1
+y=-1
+width=320
+height=326
+xmode=abs_centre
+ymode=abs_centre
+layer=main
+graphic=alpha_dropshadow
+alpha=yes
+colour=0x010101
+
+// 596:1
+[background]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=border
+graphic=window_texture
+tiling=yes
+
+// 596:2
+[popup_small_button_shadow]
+type=rectangle
+x=1
+y=1
+width=1
+height=1
+widthmode=minus
+heightmode=minus
+layer=popup_small_button
+colour=0x000000
+fill=yes
+
+// 596:3
+[border]
+type=layer
+width=266
+height=265
+xmode=abs_centre
+ymode=abs_centre
+layer=main
+op10= 
+
+// 596:4
+[main]
+type=layer
+width=400
+height=400
+xmode=abs_centre
+ymode=abs_centre
+op10= 
+
+// 596:5
+[popup]
+type=layer
+width=2000
+height=1000
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+noclickthrough=yes
+
+// 596:6
+[body]
+type=layer
+width=266
+height=265
+xmode=abs_centre
+ymode=abs_centre
+layer=main
+noclickthrough=yes
+op10= 
+
+// 596:7
+[popup_body]
+type=layer
+width=250
+height=154
+xmode=abs_centre
+ymode=abs_centre
+layer=popup
+
+// 596:8
+[popup_border]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_body
+op10=      
+
+// 596:9
+[login_bg_gfx]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_border
+graphic=window_texture
+tiling=yes
+
+// 596:10
+[popup_throbber]
+type=graphic
+y=7
+width=111
+height=111
+xmode=abs_centre
+layer=popup_body
+graphic="loading_wheel_1,0"
+alpha=yes
+colour=0xffffffff
+
+// 596:11
+[popup_text]
+type=text
+y=105
+width=20
+height=42
+widthmode=minus
+xmode=abs_centre
+layer=popup_body
+textfont=verdana_11pt_regular
+text=Logging In - Please Wait
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 596:12
+[popup_small_button]
+type=layer
+y=5
+width=80
+height=26
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_body
+hide=yes
+
+// 596:13
+[popup_small_button_left]
+type=graphic
+width=25
+height=25
+layer=popup_small_button
+graphic="set_but_end_1,0"
+colour=0xffffffff
+
+// 596:14
+[popup_small_button_mid]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=popup_small_button
+graphic="set_but_fill_1,0"
+tiling=yes
+colour=0xffffffff
+op10= 
+
+// 596:15
+[popup_small_button_right]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=popup_small_button
+graphic="set_but_end_1,0"
+hflip=yes
+colour=0xffffffff
+op10= 
+
+// 596:16
+[popup_small_button_text]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_small_button
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 596:17
+[popup_top_left]
+type=graphic
+width=38
+height=72
+layer=popup_border
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=      
+
+// 596:18
+[popup_bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=popup_border
+hflip=yes
+colour=0xffffffff
+op10=       
+
+// 596:19
+[popup_top_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+layer=popup_border
+graphic="corner_frame_2,2"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=      
+
+// 596:20
+[popup_bottom_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=popup_border
+graphic="corner_frame_2,2"
+tiling=yes
+colour=0xffffffff
+op10=       
+
+// 596:21
+[popup_top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=popup_border
+vflip=yes
+colour=0xffffffff
+op10=       
+
+// 596:22
+[popup_bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=popup_border
+colour=0xffffffff
+op10=        
+
+// 596:23
+[popup_left_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+layer=popup_border
+graphic="corner_frame_1,1"
+hflip=yes
+
+// 596:24
+[popup_right_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=popup_border
+graphic="corner_frame_1,1"
+
+// 596:25
+[top_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+layer=border
+graphic="corner_frame_2,0"
+tiling=yes
+colour=0xffffffff
+op10= 
+
+// 596:26
+[bottom_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_2,2"
+tiling=yes
+colour=0xffffffff
+op10=  
+
+// 596:27
+[left_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+layer=border
+graphic="corner_frame_5,0"
+tiling=yes
+hflip=yes
+
+// 596:28
+[right_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=border
+graphic="corner_frame_5,0"
+tiling=yes
+
+// 596:29
+[bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=border
+hflip=yes
+colour=0xffffffff
+op10=  
+
+// 596:30
+[bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=border
+colour=0xffffffff
+op10=   
+
+// 596:31
+[top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=border
+colour=0xffffffff
+op10=  
+
+// 596:32
+[top_left]
+type=graphic
+width=38
+height=72
+layer=border
+hflip=yes
+colour=0xffffffff
+op10= 
+
+// 596:33
+[com_33]
+type=text
+y=11
+width=2
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=body
+textfont=verdana_15pt_regular
+text=Login
+textalignh=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 596:34
+[com_34]
+type=rectangle
+y=38
+width=219
+height=1
+xmode=abs_centre
+layer=body
+colour=0x161513
+
+// 596:35
+[com_35]
+type=rectangle
+y=39
+width=219
+height=1
+xmode=abs_centre
+layer=body
+colour=0x2d2d2d
+
+// 596:36
+[username_title]
+type=text
+x=26
+y=41
+width=268
+height=19
+xmode=abs_centre
+layer=body
+textfont=verdana_11pt_regular
+text=Username/Email:
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 596:37
+[username_input_group]
+type=layer
+x=23
+y=59
+width=218
+height=27
+layer=body
+onmouseover=loginscreen_button_highlight(login:username_bg_left, graphic_3817, login:username_bg_mid, graphic_3818, login:username_bg_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(login:username_bg_left, graphic_3814, login:username_bg_mid, graphic_3815, login:username_bg_right, graphic_3816)
+onclick=login_focus(3)
+
+// 596:38
+[password_title]
+type=text
+x=26
+y=87
+width=268
+height=19
+xmode=abs_centre
+layer=body
+textfont=verdana_11pt_regular
+text=Password:
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 596:39
+[password_input_group]
+type=layer
+x=23
+y=105
+width=218
+height=27
+layer=body
+onmouseover=loginscreen_button_highlight(login:password_bg_left, graphic_3817, login:password_bg_mid, graphic_3818, login:password_bg_right, graphic_3819)
+onmouseleave=loginscreen_button_highlight(login:password_bg_left, graphic_3814, login:password_bg_mid, graphic_3815, login:password_bg_right, graphic_3816)
+onclick=login_focus(4)
+
+// 596:40
+[com_40]
+type=rectangle
+y=146
+width=219
+height=1
+xmode=abs_centre
+layer=body
+colour=0x161513
+
+// 596:41
+[com_41]
+type=rectangle
+y=147
+width=219
+height=1
+xmode=abs_centre
+layer=body
+colour=0x2d2d2d
+
+// 596:42
+[login_button]
+type=layer
+y=162
+width=180
+height=26
+xmode=abs_centre
+layer=body
+op10= 
+onmouseover=loginscreen_button_highlight(login:login_button_left, "set_but_end_3,1", login:login_button_mid, "set_but_fill_3,1", login:login_button_right, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(login:login_button_left, "set_but_end_3,0", login:login_button_mid, "set_but_fill_3,0", login:login_button_right, "set_but_end_3,0")
+onclick=login_dologin
+
+// 596:43
+[login_button_shadow]
+type=rectangle
+x=1
+y=1
+width=1
+height=1
+widthmode=minus
+heightmode=minus
+layer=login_button
+colour=0x000000
+fill=yes
+
+// 596:44
+[forgot_password_layer]
+type=layer
+y=195
+width=72
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=body
+onmouseover=login_link_highlight(login:forgot_password_layer, login:forgot_password_text, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(login:forgot_password_layer, login:forgot_password_text, verdana_11pt_regular, 0)
+onclick=loginscreen_link("accountappeal", "passwordchoice.ws", true)
+
+// 596:45
+[com_45]
+type=rectangle
+y=220
+width=219
+height=1
+xmode=abs_centre
+layer=body
+colour=0x161513
+
+// 596:46
+[complete_text10]
+type=rectangle
+y=221
+width=219
+height=1
+xmode=abs_centre
+layer=body
+colour=0x2d2d2d
+
+// 596:47
+[forgot_password_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=forgot_password_layer
+textfont=verdana_11pt_regular
+text=<u=C8C8C8>Recover Your Password
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+op10= 
+
+// 596:48
+[login_button_left]
+type=graphic
+width=25
+height=25
+layer=login_button
+graphic="set_but_end_3,0"
+colour=0xffffffff
+op10= 
+
+// 596:49
+[login_button_mid]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=login_button
+graphic="set_but_fill_3,0"
+colour=0xffffffff
+op10=  
+
+// 596:50
+[login_button_right]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=login_button
+graphic="set_but_end_3,0"
+hflip=yes
+colour=0xffffffff
+op10=  
+
+// 596:51
+[login_button_text_shadow]
+type=text
+x=1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=login_button
+textfont=verdana_13pt_regular
+text=Log In
+textalignh=centre
+textalignv=centre
+colour=0xc0b154
+
+// 596:52
+[login_button_text]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=login_button
+textfont=verdana_13pt_regular
+text=Log In
+textalignh=centre
+textalignv=centre
+colour=0x000000
+op10= 
+
+// 596:53
+[create_button]
+type=layer
+y=222
+width=71
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=body
+onmouseover=login_link_highlight(login:create_button, login:create_button_text, verdana_11pt_regular, 1)
+onmouseleave=login_link_highlight(login:create_button, login:create_button_text, verdana_11pt_regular, 0)
+onclick=login_register
+
+// 596:54
+[create_button_text]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=create_button
+textfont=verdana_11pt_regular
+text=<u=C8C8C8>Create Account Now
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+
+// 596:55
+[popup_big_button]
+type=layer
+y=5
+width=80
+height=26
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_body
+hide=yes
+
+// 596:56
+[popup_big_button_shadow]
+type=rectangle
+x=1
+y=1
+width=1
+height=1
+widthmode=minus
+heightmode=minus
+layer=popup_big_button
+colour=0x000000
+fill=yes
+
+// 596:57
+[popup_big_button_left]
+type=graphic
+width=25
+height=25
+layer=popup_big_button
+graphic="set_but_end_1,0"
+
+// 596:58
+[popup_big_button_mid]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=popup_big_button
+graphic="set_but_fill_1,0"
+tiling=yes
+
+// 596:59
+[popup_big_button_right]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=popup_big_button
+graphic="set_but_end_1,0"
+hflip=yes
+
+// 596:60
+[popup_big_button_text]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_big_button
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 596:61
+[username_bg_left]
+type=graphic
+width=16
+height=27
+layer=username_input_group
+graphic=graphic_3814
+
+// 596:62
+[username_bg_mid]
+type=graphic
+x=16
+width=32
+height=27
+widthmode=minus
+layer=username_input_group
+graphic=graphic_3815
+tiling=yes
+
+// 596:63
+[username_bg_right]
+type=graphic
+width=16
+height=27
+xmode=abs_right
+layer=username_input_group
+graphic=graphic_3816
+
+// 596:64
+[username_layer]
+type=layer
+width=1
+widthmode=minus
+heightmode=minus
+layer=username_input_group
+
+// 596:65
+[username]
+type=text
+x=6
+width=11
+widthmode=minus
+heightmode=minus
+layer=username_layer
+textfont=verdana_11pt_regular
+textalignv=centre
+colour=0xebe0bc
+onclick=script3236(event_mousex, login:username, login:username_caret, 3, login:username_layer)
+
+// 596:66
+[username_caret]
+type=rectangle
+x=6
+y=4
+width=1
+height=19
+layer=username_input_group
+hide=yes
+colour=0xebe0bc
+fill=yes
+
+// 596:67
+[password_bg_left]
+type=graphic
+width=16
+height=27
+layer=password_input_group
+graphic=graphic_3814
+
+// 596:68
+[password_bg_mid]
+type=graphic
+x=16
+width=32
+height=27
+widthmode=minus
+layer=password_input_group
+graphic=graphic_3815
+tiling=yes
+
+// 596:69
+[password_bg_right]
+type=graphic
+width=16
+height=27
+xmode=abs_right
+layer=password_input_group
+graphic=graphic_3816
+
+// 596:70
+[password_layer]
+type=layer
+width=1
+widthmode=minus
+heightmode=minus
+layer=password_input_group
+
+// 596:71
+[password]
+type=text
+x=6
+width=11
+widthmode=minus
+heightmode=minus
+layer=password_layer
+textfont=verdana_11pt_regular
+textalignv=centre
+colour=0xebe0bc
+onclick=script3236(event_mousex, login:password, login:password_caret, 4, login:password_layer)
+
+// 596:72
+[password_caret]
+type=rectangle
+x=6
+y=4
+width=1
+height=19
+layer=password_input_group
+hide=yes
+colour=0xebe0bc
+fill=yes

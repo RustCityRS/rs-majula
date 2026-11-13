@@ -1,0 +1,11 @@
+// 2636
+[clientscript,script2636]
+if (%varplayerbit_6357 = 2) {
+    if_settargetverb(mob_side_command:button4, "Attack wall");
+    if_settargetverb(mob_side_command:button5, "Collect");
+} else if (%varplayerbit_6357 = 4) {
+    if_settargetverb(mob_side_command:button4, "Rescue");
+    if_settargetverb(mob_side_command:button5, "Steal");
+} else if (%varplayerbit_6357 = 3) {
+    if_settargetverb(mob_side_command:button4, "Collect gold");
+}

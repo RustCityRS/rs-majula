@@ -1,0 +1,3 @@
+// 4047
+[clientscript,warguild_update_tokens_combat](component $component0)
+if_settext($component0, tostring(%warguild_tokens_combat));

@@ -1,0 +1,55 @@
+// 1633
+[proc,friendschat_kick](string $string0)
+$string0 = lowercase(removetags($string0));
+def_int $int0 = string_length($string0);
+def_int $int1 = 0;
+$string0 = ~find_and_replace($string0, "_", " ");
+$string0 = ~find_and_replace($string0, "-", " ");
+$string0 = ~find_and_replace($string0, " ", " ");
+while (string_indexof_string($string0, " ", 0) = 0 & $int0 > 0) {
+    $string0 = substring($string0, 1, $int0);
+    $int0 = string_length($string0);
+}
+while (string_indexof_string($string0, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string0 = substring($string0, 0, calc($int0 - 1));
+    $int0 = string_length($string0);
+}
+while (string_indexof_string($string0, " ", 0) = 0 & $int0 > 0) {
+    $string0 = substring($string0, 1, $int0);
+    $int0 = string_length($string0);
+}
+while (string_indexof_string($string0, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string0 = substring($string0, 0, calc($int0 - 1));
+    $int0 = string_length($string0);
+}
+def_string $string1 = lowercase(removetags(chat_playername));
+$int0 = string_length($string1);
+$string1 = ~find_and_replace($string1, "_", " ");
+$string1 = ~find_and_replace($string1, "-", " ");
+$string1 = ~find_and_replace($string1, " ", " ");
+while (string_indexof_string($string1, " ", 0) = 0 & $int0 > 0) {
+    $string1 = substring($string1, 1, $int0);
+    $int0 = string_length($string1);
+}
+while (string_indexof_string($string0, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string1 = substring($string1, 0, calc($int0 - 1));
+    $int0 = string_length($string1);
+}
+while (string_indexof_string($string1, " ", 0) = 0 & $int0 > 0) {
+    $string1 = substring($string1, 1, $int0);
+    $int0 = string_length($string1);
+}
+while (string_indexof_string($string1, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string1 = substring($string1, 0, calc($int0 - 1));
+    $int0 = string_length($string1);
+}
+if (compare($string0, "") ! 0) {
+    if (compare($string0, $string1) = 0) {
+        ~friendschat_kick_mes("You cannot kick or ban yourself.");
+        return;
+    }
+    clan_kickuser($string0);
+    $string0 = ~script1814($string0);
+    chat_setmode(1);
+    chat_sendpublic("[Attempting to kick/ban <$string0> from this Friends Chat.]");
+}

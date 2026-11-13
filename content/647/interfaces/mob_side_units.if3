@@ -1,0 +1,1023 @@
+// 39:0
+[squad1]
+type=layer
+x=12
+y=20
+width=82
+height=43
+layer=content_layer
+
+// 39:1
+[tooltip]
+type=layer
+width=190
+height=261
+layer=tooltip_bound
+
+// 39:2
+[next_unit]
+type=layer
+x=12
+y=235
+width=170
+height=24
+layer=content_layer
+transmitop=1
+op1=View next squad
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_units:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view next squad.", 50, 150)
+
+// 39:3
+[squad2]
+type=layer
+x=100
+y=20
+width=82
+height=43
+layer=content_layer
+
+// 39:4
+[content_layer]
+type=layer
+width=190
+height=261
+
+// 39:5
+[next_unit_text]
+type=text
+width=170
+height=24
+layer=next_unit
+textfont=b12_full
+text=View next squad
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9935
+
+// 39:6
+[unit10]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad10
+graphic="mob_unit_heads,3"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_10{mob_side_unit_head_10}
+
+// 39:7
+[text_10]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad10
+textfont=p11_full
+text=#10
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:8
+[race_10]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad10
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:9
+[unit10_cross]
+type=graphic
+x=1
+y=8
+width=35
+height=35
+layer=squad10
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_10{mob_side_unit_cross_10}
+
+// 39:10
+[unit10_button]
+type=model
+x=57
+width=23
+height=20
+layer=squad10
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=   
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:11
+[unit10_hand]
+type=graphic
+x=59
+y=3
+width=16
+height=13
+layer=squad10
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:12
+[unit8]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad8
+graphic="mob_unit_heads,2"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_8{mob_side_unit_head_8}
+
+// 39:13
+[text_8]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad8
+textfont=p11_full
+text=#8
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:14
+[race_8]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad8
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:15
+[unit8_cross]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad8
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_8{mob_side_unit_cross_8}
+
+// 39:16
+[unit8_button]
+type=model
+x=57
+width=23
+height=20
+layer=squad8
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=   
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:17
+[unit8_hand]
+type=graphic
+x=59
+y=3
+width=16
+height=13
+layer=squad8
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:18
+[unit9]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad9
+graphic="mob_unit_heads,3"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_9{mob_side_unit_head_9}
+
+// 39:19
+[text_9]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad9
+textfont=p11_full
+text=#9
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:20
+[race_9]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad9
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:21
+[unit9_cross]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad9
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_9{mob_side_unit_cross_9}
+
+// 39:22
+[unit9_button]
+type=model
+x=55
+width=23
+height=20
+layer=squad9
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=   
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:23
+[unit9_hand]
+type=graphic
+x=58
+y=3
+width=16
+height=13
+layer=squad9
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:24
+[unit7]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad7
+graphic="mob_unit_heads,4"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_7{mob_side_unit_head_7}
+
+// 39:25
+[text_7]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad7
+textfont=p11_full
+text=#7
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:26
+[race_7]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad7
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:27
+[unit7_cross]
+type=graphic
+y=8
+width=35
+height=35
+layer=squad7
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_7{mob_side_unit_cross_7}
+
+// 39:28
+[unit7_button]
+type=model
+x=54
+width=23
+height=20
+layer=squad7
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=   
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:29
+[unit7_hand]
+type=graphic
+x=57
+y=3
+width=16
+height=13
+layer=squad7
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:30
+[unit6]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad6
+graphic="mob_unit_heads,4"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_6{mob_side_unit_head_6}
+
+// 39:31
+[text_6]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad6
+textfont=p11_full
+text=#6
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:32
+[race_6]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad6
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:33
+[unit6_cross]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad6
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_6{mob_side_unit_cross_6}
+
+// 39:34
+[unit6_button]
+type=model
+x=57
+width=23
+height=20
+layer=squad6
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=   
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:35
+[unit6_hand]
+type=graphic
+x=59
+y=3
+width=16
+height=13
+layer=squad6
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:36
+[unit4]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad4
+graphic="mob_unit_heads,1"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_4{mob_side_unit_head_4}
+
+// 39:37
+[text_4]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad4
+textfont=p11_full
+text=#4
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:38
+[unit4_cross]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad4
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_4{mob_side_unit_cross_4}
+
+// 39:39
+[race_4]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad4
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:40
+[unit4_button]
+type=model
+x=57
+width=23
+height=20
+layer=squad4
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=  
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:41
+[unit4_hand]
+type=graphic
+x=59
+y=3
+width=16
+height=13
+layer=squad4
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:42
+[unit5]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad5
+graphic="mob_unit_heads,3"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_5{mob_side_unit_head_5}
+
+// 39:43
+[text_5]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad5
+textfont=p11_full
+text=#5
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:44
+[race_5]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad5
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:45
+[unit5_cross]
+type=graphic
+y=8
+width=35
+height=35
+layer=squad5
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_5{mob_side_unit_cross_5}
+
+// 39:46
+[unit5_button]
+type=model
+x=56
+width=23
+height=20
+layer=squad5
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10=   
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:47
+[unit5_hand]
+type=graphic
+x=58
+y=3
+width=16
+height=13
+layer=squad5
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:48
+[unit3]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad3
+graphic="mob_unit_heads,1"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_3{mob_side_unit_head_3}
+
+// 39:49
+[text_3]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad3
+textfont=p11_full
+text=#3
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:50
+[race_3]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad3
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:51
+[unit3_cross]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad3
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_3{mob_side_unit_cross_3}
+
+// 39:52
+[unit3_button]
+type=model
+x=56
+width=23
+height=20
+layer=squad3
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10= 
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:53
+[unit3_hand]
+type=graphic
+x=58
+y=3
+width=16
+height=13
+layer=squad3
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:54
+[squad3]
+type=layer
+x=12
+y=63
+width=82
+height=43
+layer=content_layer
+
+// 39:55
+[squad4]
+type=layer
+x=100
+y=63
+width=82
+height=43
+layer=content_layer
+
+// 39:56
+[squad5]
+type=layer
+x=12
+y=106
+width=82
+height=43
+layer=content_layer
+
+// 39:57
+[squad6]
+type=layer
+x=100
+y=106
+width=82
+height=43
+layer=content_layer
+
+// 39:58
+[squad7]
+type=layer
+x=12
+y=149
+width=82
+height=43
+layer=content_layer
+
+// 39:59
+[squad8]
+type=layer
+x=100
+y=149
+width=82
+height=43
+layer=content_layer
+
+// 39:60
+[squad9]
+type=layer
+x=12
+y=192
+width=82
+height=43
+layer=content_layer
+
+// 39:61
+[squad10]
+type=layer
+x=100
+y=192
+width=82
+height=43
+layer=content_layer
+
+// 39:62
+[unit2]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad2
+graphic="mob_unit_heads,1"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_2{mob_side_unit_head_2}
+
+// 39:63
+[text_2]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad2
+textfont=p11_full
+text=#2
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:64
+[race_2]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad2
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:65
+[unit2_cross]
+type=graphic
+y=7
+width=35
+height=35
+layer=squad2
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_2{mob_side_unit_cross_2}
+
+// 39:66
+[unit2_button]
+type=model
+x=57
+width=23
+height=20
+layer=squad2
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+transmitop=10
+op10= 
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:67
+[unit2_hand]
+type=graphic
+x=59
+y=3
+width=16
+height=13
+layer=squad2
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:68
+[unit1]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad1
+graphic="mob_unit_heads,1"
+colour=0xffffffff
+transmitop=1
+op1=Go to and activate
+onmouseover=mob_unit_mouseover(event_com)
+onmouseleave=mob_unit_mouseleave(event_com, mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to view squad and activate.", 50, 150)
+onvarctransmit=mob_set_head_1{mob_side_unit_head_1}
+
+// 39:69
+[text_1]
+type=text
+x=35
+y=7
+width=12
+height=12
+layer=squad1
+textfont=p11_full
+text=#1
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:70
+[race_1]
+type=text
+x=35
+y=19
+width=47
+height=12
+layer=squad1
+textfont=p11_full
+text=--------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 39:71
+[unit1_cross]
+type=graphic
+y=6
+width=35
+height=35
+layer=squad1
+colour=0xffffffff
+transmitop=10
+op10= 
+onvarctransmit=mob_set_cross_1{mob_side_unit_cross_1}
+
+// 39:72
+[unit1_button]
+type=model
+x=55
+width=23
+height=20
+layer=squad1
+model=model_47694
+modelorigin=-1,1
+modelangle=500,0,0
+modelzoom=1824
+onmouseleave=deltooltip(mob_side_units:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_units:tooltip, "Click to activate squad.", 50, 150)
+
+// 39:73
+[unit1_hand]
+type=graphic
+x=57
+y=3
+width=16
+height=13
+layer=squad1
+graphic=graphic_1943
+colour=0xffffffff
+transmitop=1
+op1=Activate
+onmouseover=graphic_swapper(event_com, graphic_1944)
+onmouseleave=graphic_swapper(event_com, graphic_1943)
+
+// 39:74
+[top_title]
+type=text
+x=20
+y=3
+width=150
+height=16
+layer=content_layer
+textfont=b12_full
+text=My Squads
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+transmitop=10
+op10= 
+onload=mob_side_units_onload
+
+// 39:75
+[tooltip_bound]
+type=layer
+width=190
+height=261

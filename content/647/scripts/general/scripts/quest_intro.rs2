@@ -1,0 +1,74 @@
+// 2011's quest-start window: interface 178, quest_intro (cache 786). Accepting a quest opened it
+// where 289 and void-634 ask in the chat box. The 2011-05-20 Cook's Assistant recording (YouTube
+// PnoZkxqcszs, 84-86s) and the 2011-05-04 Ernest the Chicken recording (sbY-Uq0JI4M, 26-36s) show
+// it: the quest's name, "Start point:", "Start requirements:", "Required items:" and "Rewards:"
+// behind "Click here to show", "Combat:", the quest's picture, "Start this quest?" Yes / No and
+// "Mark on map".
+//
+// The text is the quest's cache struct: param_845 the name, param_948 the start point, param_949
+// the required items, param_950 combat, param_951 the rewards, param_952 the picture (cache
+// struct_512's 2379 is the 50x50 chef's hat the Cook's recording shows). No clientscript fills
+// the window or calls its layout procs (script2827 for the requirements row, 2828 for the
+// items, 4074 for the rewards: each sizes its row and adds a scrollbar past 48 px), so the server
+// sets the text and runs them.
+//
+// Every button on it is a resume button of the paused dialogue. "Click here to show" and "Mark on
+// map" are answered here and the window waits again; Yes returns true and No false, the window
+// closed. (A separate [if_button] script could not run: the paused dialogue keeps its protected
+// access.) What "Mark on map" marks is not known; its tick is %varplayerbit_6924, which the window's own
+// [clientscript,quest_intro_tickbox] draws (0 ticked, as both recordings open it; Ernest's player has it off).
+[proc,quest_intro](struct $quest)(boolean)
+if_openmain(quest_intro);
+if_settext(quest_intro:quest_field, struct_param($quest, param_845));
+if_settext(quest_intro:start_point_field, struct_param($quest, param_948));
+// Start requirements: every quest that opens this window so far has none, and its recording
+// shows "None.". How 2011 listed real requirements (its structs' param_859 quests and
+// param_871 skill/level pairs) is not known yet.
+def_string $requirements = "None.";
+if_settext(quest_intro:req_field, $requirements);
+runclientscript("script2827($requirements)");
+if_settext(quest_intro:combat_field, struct_param($quest, param_950));
+if_setgraphic(quest_intro:quest_icon, struct_param($quest, param_952));
+if_addresumebutton(quest_intro:startyes_layer);
+if_addresumebutton(quest_intro:startno_layer);
+if_addresumebutton(quest_intro:items_hidden_button_txt);
+if_addresumebutton(quest_intro:hidden_button_txt);
+if_addresumebutton(quest_intro:objective_set);
+if_addresumebutton(quest_intro:objective_text);
+def_string $text = "";
+while (true) {
+    p_pausebutton;
+    switch_component (last_com) {
+        case quest_intro:startyes_layer :
+            if_close;
+            // Ernest the Chicken, 2011-05-04 (38.1s): with "Mark on map" off, the quest starts
+            // with this message. With it on (Cook's Assistant, 2011-05-20) nothing is said.
+            if (%varplayerbit_6924 = 1) {
+                mes("The quest area marking has been cleared.");
+            }
+            return(true);
+        case quest_intro:startno_layer :
+            if_close;
+            return(false);
+        // "Click here to show": the row's text in place of the button (Ernest's recording, 28-34s).
+        case quest_intro:items_hidden_button_txt :
+            $text = struct_param($quest, param_949);
+            if_sethide(quest_intro:items_hide_show_layer, true);
+            if_sethide(quest_intro:items_text_details_layer, false);
+            if_settext(quest_intro:items_field, $text);
+            runclientscript("script2828($text)");
+        case quest_intro:hidden_button_txt :
+            $text = struct_param($quest, param_951);
+            if_sethide(quest_intro:hide_show_layer, true);
+            if_sethide(quest_intro:text_details_layer, false);
+            if_settext(quest_intro:rewards_field, $text);
+            runclientscript("script4074($text)");
+        case quest_intro:objective_set, quest_intro:objective_text :
+            if (%varplayerbit_6924 = 0) {
+                %varplayerbit_6924 = 1;
+            } else {
+                %varplayerbit_6924 = 0;
+            }
+    }
+}
+return(false);

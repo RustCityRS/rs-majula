@@ -1,0 +1,9 @@
+// 2577
+[clientscript,script2577](component $component0, int $int1, int $int2)
+if (inv_total(inv, coins) < $int1) {
+    if_setcolour($component0, 0xcc0000);
+} else if (stat_base(construction) < $int2) {
+    if_setcolour($component0, 0xcccc00);
+} else {
+    if_setcolour($component0, 0x00cc00);
+}

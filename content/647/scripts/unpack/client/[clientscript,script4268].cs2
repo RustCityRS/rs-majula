@@ -1,0 +1,225 @@
+// 4268
+[clientscript,script4268](int $int0)
+switch_int ($int0) {
+    case 1 :
+        if_settext(lunarfm_rewards_new:name, "Teleport to South Falador");
+    case 2 :
+        if_settext(lunarfm_rewards_new:name, "Repair Rune Pouch");
+    case 3 :
+        if_settext(lunarfm_rewards_new:name, "Teleport to North Ardougne");
+    case 4 :
+        if_settext(lunarfm_rewards_new:name, "Remote Farming");
+    case 5 :
+        if_settext(lunarfm_rewards_new:name, "Spiritualise Food");
+    case 6 :
+        if_settext(lunarfm_rewards_new:name, "Make Leather");
+    case 7 :
+        if_settext(lunarfm_rewards_new:name, "Disruption Shield");
+    case 8 :
+        if_settext(lunarfm_rewards_new:name, "Vengeance Group");
+    case 9 :
+        if_settext(lunarfm_rewards_new:name, "Let it Rain Seeds!");
+    case 10 :
+        if_settext(lunarfm_rewards_new:name, "Gimme Herbs!");
+    case 11 :
+        if_settext(lunarfm_rewards_new:name, "Vial My Herbs!");
+    case 12 :
+        if_settext(lunarfm_rewards_new:name, "Turn Lunar Lumber into Runes!");
+    case 13 :
+        if_settext(lunarfm_rewards_new:name, "Reduce the Fish I Burn!");
+    case 14 :
+        if_settext(lunarfm_rewards_new:name, "More Planks, Please!");
+}
+switch_int ($int0) {
+    case 1 :
+        if_settext(lunarfm_rewards_new:description, "Teleports you to the south of Falador.");
+    case 2 :
+        if_settext(lunarfm_rewards_new:description, "Use on a degraded pouch to repair it and improve its strength, so it takes longer to degrade.");
+    case 3 :
+        if_settext(lunarfm_rewards_new:description, "Teleports you to the north of Ardougne.");
+    case 4 :
+        if_settext(lunarfm_rewards_new:description, "View the status of farming patches and cure any disease from a distance.");
+    case 5 :
+        if_settext(lunarfm_rewards_new:description, "Cast on ordinary food and feed it to your familiar to heal it, boost its combat stats and extend its timer.");
+    case 6 :
+        if_settext(lunarfm_rewards_new:description, "Cast on hides to turn them into leather. This will convert 5 hides at a time.");
+    case 7 :
+        if_settext(lunarfm_rewards_new:description, "Nullifies the next hit you receive from another player. This works against players only, not against monsters.");
+    case 8 :
+        if_settext(lunarfm_rewards_new:description, "When cast, those nearby get to rebound damage.<br>After learning this last spell, your current produce will be reduced by <~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ",")> and the remainder can be spent on wishes.");
+    case 9 :
+        if_settext(lunarfm_rewards_new:description, "Seeds will appear on the floor. Be quick to pick up the ones you want.");
+    case 10 :
+        if_settext(lunarfm_rewards_new:description, "Puts a load of grimy herbs in your inventory.");
+    case 11 :
+        if_settext(lunarfm_rewards_new:description, "Takes all the clean herbs in your inventory and turns them into unfinished potions of that herb type. This will work on noted herbs of up to 50 at a time.");
+    case 12 :
+        if_settext(lunarfm_rewards_new:description, "Turns all lunar lumber in your inventory into runes. You'll need a full inventory of logs.");
+    case 13 :
+        if_settext(lunarfm_rewards_new:description, "For the next thirty minutes, you'll find that you burn fewer fish.");
+    case 14 :
+        if_settext(lunarfm_rewards_new:description, "This will be active for the next twenty minutes: when casting Plank Make, you will have a chance of receiving additional planks.");
+}
+switch_int ($int0) {
+    case 1 :
+        if (%lunarfm_spells_unlocked < 1) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 72 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 2 :
+        if (%lunarfm_spells_unlocked < 2) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 75 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 3 :
+        if (%lunarfm_spells_unlocked < 3) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 76 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 4 :
+        if (%lunarfm_spells_unlocked < 4) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 78 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 5 :
+        if (%lunarfm_spells_unlocked < 5) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 80 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 6 :
+        if (%lunarfm_spells_unlocked < 6) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 83 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 7 :
+        if (%lunarfm_spells_unlocked < 7) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 90 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case 8 :
+        if (%lunarfm_spells_unlocked < 8) {
+            if_settext(lunarfm_rewards_new:extra_info, "Requires level 95 Magic to cast. You must unlock the spells in order.");
+        } else {
+            if_settext(lunarfm_rewards_new:extra_info, "Learned!");
+        }
+    case default :
+        if (%lunarfm_spells_unlocked < 8) {
+            if_settext(lunarfm_rewards_new:extra_info, "You must unlock all the spells before you can use wishes.");
+        }
+}
+if ($int0 < 9) {
+    if_sethide(lunarfm_rewards_new:spell_icon_layer, false);
+} else {
+    if_sethide(lunarfm_rewards_new:spell_icon_layer, true);
+}
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,42");
+    case 2 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,43");
+    case 3 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,44");
+    case 4 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,45");
+    case 5 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,47");
+    case 6 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,46");
+    case 7 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,48");
+    case 8 :
+        if_setgraphic(lunarfm_rewards_new:spell_icon, "lunar_magic_on,49");
+}
+if_sethide(lunarfm_rewards_new:spells_button_falador, true);
+if_sethide(lunarfm_rewards_new:spells_button_rune, true);
+if_sethide(lunarfm_rewards_new:spells_button_ardougne, true);
+if_sethide(lunarfm_rewards_new:spells_button_remote, true);
+if_sethide(lunarfm_rewards_new:spells_button_spiritualise, true);
+if_sethide(lunarfm_rewards_new:spells_button_leather, true);
+if_sethide(lunarfm_rewards_new:spells_button_shield, true);
+if_sethide(lunarfm_rewards_new:spells_button_vengeance, true);
+if_sethide(lunarfm_rewards_new:wishes_button_seeds, true);
+if_sethide(lunarfm_rewards_new:wishes_button_herbs, true);
+if_sethide(lunarfm_rewards_new:wishes_button_vials, true);
+if_sethide(lunarfm_rewards_new:wishes_button_runes, true);
+if_sethide(lunarfm_rewards_new:wishes_button_fish, true);
+if_sethide(lunarfm_rewards_new:wishes_button_planks, true);
+switch_int ($int0) {
+    case 1 :
+        if (%lunarfm_spells_unlocked < 1) {
+            if_sethide(lunarfm_rewards_new:spells_button_falador, false);
+        }
+    case 2 :
+        if (%lunarfm_spells_unlocked < 2) {
+            if_sethide(lunarfm_rewards_new:spells_button_rune, false);
+        }
+    case 3 :
+        if (%lunarfm_spells_unlocked < 3) {
+            if_sethide(lunarfm_rewards_new:spells_button_ardougne, false);
+        }
+    case 4 :
+        if (%lunarfm_spells_unlocked < 4) {
+            if_sethide(lunarfm_rewards_new:spells_button_remote, false);
+        }
+    case 5 :
+        if (%lunarfm_spells_unlocked < 5) {
+            if_sethide(lunarfm_rewards_new:spells_button_spiritualise, false);
+        }
+    case 6 :
+        if (%lunarfm_spells_unlocked < 6) {
+            if_sethide(lunarfm_rewards_new:spells_button_leather, false);
+        }
+    case 7 :
+        if (%lunarfm_spells_unlocked < 7) {
+            if_sethide(lunarfm_rewards_new:spells_button_shield, false);
+        }
+    case 8 :
+        if (%lunarfm_spells_unlocked < 8) {
+            if_sethide(lunarfm_rewards_new:spells_button_vengeance, false);
+        }
+    case 9 :
+        if (%lunarfm_spells_unlocked > 7) {
+            if_sethide(lunarfm_rewards_new:wishes_button_seeds, false);
+        }
+    case 10 :
+        if (%lunarfm_spells_unlocked > 7) {
+            if_sethide(lunarfm_rewards_new:wishes_button_herbs, false);
+        }
+    case 11 :
+        if (%lunarfm_spells_unlocked > 7) {
+            if_sethide(lunarfm_rewards_new:wishes_button_vials, false);
+        }
+    case 12 :
+        if (%lunarfm_spells_unlocked > 7) {
+            if_sethide(lunarfm_rewards_new:wishes_button_runes, false);
+        }
+    case 13 :
+        if (%lunarfm_spells_unlocked > 7) {
+            if_sethide(lunarfm_rewards_new:wishes_button_fish, false);
+        }
+    case 14 :
+        if (%lunarfm_spells_unlocked > 7) {
+            if_sethide(lunarfm_rewards_new:wishes_button_planks, false);
+        }
+}
+if_sethide(lunarfm_rewards_new:falador_selected_layer, true);
+if_sethide(lunarfm_rewards_new:rune_selected_layer, true);
+if_sethide(lunarfm_rewards_new:ardougne_selected_layer, true);
+if_sethide(lunarfm_rewards_new:remote_selected_layer, true);
+if_sethide(lunarfm_rewards_new:spirit_selected_layer, true);
+if_sethide(lunarfm_rewards_new:leather_selected_layer, true);
+if_sethide(lunarfm_rewards_new:shield_selected_layer, true);
+if_sethide(lunarfm_rewards_new:vengeance_selected_layer, true);
+if_sethide(lunarfm_rewards_new:seed_selected_layer, true);
+if_sethide(lunarfm_rewards_new:herb_selected_layer, true);
+if_sethide(lunarfm_rewards_new:vial_selected_layer, true);
+if_sethide(lunarfm_rewards_new:runes_selected_layer, true);
+if_sethide(lunarfm_rewards_new:burn_selected_layer, true);
+if_sethide(lunarfm_rewards_new:plank_selected_layer, true);

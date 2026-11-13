@@ -1,0 +1,80 @@
+// 3364
+[proc,script3364](component $component0, int $int1, component $component2, string $string0, int $int3, int $int4, int $int5, int $int6)
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_component $component15 = null;
+if ($int1 = -1 & if_find($component0) = true | cc_find($component0, $int1) = true) {
+    if (%tooltip_time < calc(clientclock + $int3)) {
+        if (%tooltip_time < clientclock) {
+            %tooltip_time = clientclock;
+        }
+        %tooltip_time = calc(%tooltip_time + 2);
+        return;
+    }
+    %tooltip_time = calc(clientclock + $int3 + 10);
+    if (%tooltip_built ! 1) {
+        $int7 = calc(~cc_getx_absolute + $int5);
+        $int8 = calc(~cc_gety_absolute + cc_getheight + $int6);
+        $component15 = if_getlayer($component2);
+        if ($component15 ! null & $int4 >= if_getwidth($component15)) {
+            $int4 = if_getwidth($component15);
+        }
+        $int13 = calc(4 + parawidth($string0, calc($int4 - 4), p12_full));
+        $int14 = calc(4 + 13 * paraheight($string0, calc($int4 - 4), p12_full) + 3);
+        if ($component15 ! null) {
+            $int9 = calc($int7 - if_getscrollx($component15));
+            $int10 = calc($int8 - if_getscrolly($component15));
+            if ($int9 < 0) {
+                $int7 = if_getscrollx($component15);
+                $int9 = 0;
+            }
+            if ($int10 < 0) {
+                $int8 = if_getscrolly($component15);
+                $int10 = 0;
+            }
+            if ($int9 > 0) {
+                $int11 = calc($int9 - if_getwidth($component15) + $int13);
+                if ($int11 > 0) {
+                    $int7 = calc($int7 - $int11);
+                }
+            }
+            if ($int10 > 0) {
+                $int12 = calc($int10 - if_getheight($component15) + $int14);
+                if ($int12 > 0) {
+                    $int8 = calc($int8 - $int12 - cc_getheight - 10);
+                }
+            }
+        }
+        if ($int7 < 0) {
+            $int7 = 0;
+        }
+        if ($int8 < 0) {
+            $int8 = 0;
+        }
+        if_setsize($component2, $int13, $int14, ^setsize_abs, ^setsize_abs);
+        if_setposition($component2, $int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+        cc_deleteall($component2);
+        cc_create($component2, ^iftype_rectangle, 0);
+        cc_setsize(if_getwidth($component2), if_getheight($component2), ^setsize_abs, ^setsize_abs);
+        cc_setfill(true);
+        cc_setcolour(0xffffa0);
+        cc_create($component2, ^iftype_rectangle, 1);
+        cc_setsize(if_getwidth($component2), if_getheight($component2), ^setsize_abs, ^setsize_abs);
+        cc_setfill(false);
+        cc_setcolour(^black);
+        cc_create($component2, ^iftype_text, 2);
+        cc_setsize(calc($int4 - 4), if_getheight($component2), ^setsize_abs, ^setsize_abs);
+        cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext($string0);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_setcolour(^black);
+        %tooltip_built = 1;
+    }
+}

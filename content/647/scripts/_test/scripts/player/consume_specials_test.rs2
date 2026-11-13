@@ -1,0 +1,33 @@
+// Specials tests (stew / curry). Both leave an empty bowl (next_obj_stage=bowl)
+// and heal via the db path (2011-wiki LP: stew 110, curry 190). The kebab
+// (random outcomes) is compile-gated by this run but not asserted here — its
+// inline inv_delslot needs the last_slot trigger context the harness doesn't
+// provide, so the random table is verified in-client. Reuses ~food_heal from
+// consume_test.rs2 (compiled globally).
+
+#testscript
+
+[label,test_special_stew]
+setup_player("test_player")
+assert_eq(oc_param(stew, next_obj_stage), bowl_empty)
+assert_eq(~food_heal(stew), 110)
+
+[label,test_special_curry]
+setup_player("test_player")
+assert_eq(oc_param(curry, next_obj_stage), bowl_empty)
+assert_eq(~food_heal(curry), 190)
+
+// Integration: the stew/curry heal routes to the life-points pool.
+[label,test_eat_stew_heals_110]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(stew)
+assert_eq(%life_points, 210)
+
+[label,test_eat_curry_heals_190]
+setup_player("test_player")
+stat_add(hitpoints, 98, 0)
+%life_points = 100
+~consume_effect_apply(curry)
+assert_eq(%life_points, 290)

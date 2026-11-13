@@ -1,0 +1,46 @@
+// 2581
+[proc,graphics_options_detailget](struct $struct0)(int)
+switch_struct ($struct0) {
+    case struct_830 :
+        if (unknown_command_6102 = true | detailget_toolkit ! 0) {
+            return(~bool_to_int(detailget_removeroofs_option));
+        }
+        return(-1);
+    case struct_831 :
+        return(~bool_to_int(detailget_grounddecor_on));
+    case struct_833 :
+        return(detailget_idleanims);
+    case struct_834 :
+        return(~bool_to_int(detailget_flickering_on));
+    case struct_836 :
+        return(~bool_to_int(unknown_command_6110));
+    case struct_837 :
+        return(unknown_command_6111);
+    case struct_838 :
+        return(~bool_to_int(detailget_lightdetail_high));
+    case struct_839 :
+        return(~bool_to_int(detailget_waterdetail_high));
+    case struct_840 :
+        return(~bool_to_int(detailget_fog_on));
+    case struct_841 :
+        return(detailget_antialiasing);
+    case struct_842 :
+        return(detailget_particles);
+    case struct_843 :
+        return(~bool_to_int(detailget_groundblending));
+    case struct_844 :
+        if (unknown_command_6133 = true) {
+            return(~bool_to_int(%option_cursor));
+        }
+        return(-1);
+    case struct_845 :
+        return(%selectedresolution);
+    case struct_908 :
+        return(detailget_cpuusage);
+    case struct_963 :
+        return(~bool_to_int(detailget_texturing));
+    case struct_1009 :
+        return(detailget_maxscreensize);
+    case default :
+        return(-2);
+}

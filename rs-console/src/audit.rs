@@ -1,12 +1,15 @@
 use crate::users::now_ms;
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, VecDeque};
-use std::io::{BufRead, BufReader, Read, Seek, SeekFrom, Write};
+use std::fs::{self, File, OpenOptions};
+use std::io::{self, BufRead, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
+use std::mem;
 use std::net::IpAddr;
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::mpsc::{self, Receiver, Sender};
-use std::sync::{Arc, Condvar, Mutex};
+use std::sync::{Arc, Condvar, Mutex, MutexGuard};
+use std::thread::Builder;
 use tracing::{error, info, warn};
 
 /// How many of the newest entries are kept in memory; older pages read
@@ -184,7 +187,7 @@ impl Audit {
             recent: VecDeque::with_capacity(cache),
             cache,
         };
-        match std::fs::File::open(&path) {
+        match File::open(&path) {
             Ok(file) => {
                 let mut reader = BufReader::new(file);
                 let mut line = Vec::new();
@@ -229,7 +232,7 @@ impl Audit {
                     }
                 }
             }
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+            Err(e) if e.kind() == ErrorKind::NotFound => {}
             Err(e) => error!("Couldn't open the audit log {}: {}", path.display(), e),
         }
         info!(
@@ -241,7 +244,7 @@ impl Audit {
         let written = Arc::new(Written::default());
         let (queue, entries) = mpsc::channel();
         let writer = (path.clone(), inner.clone(), written.clone());
-        std::thread::Builder::new()
+        Builder::new()
             .name("audit".into())
             .spawn(move || keep_writing(writer.0, &writer.1, &writer.2, &entries))
             .expect("starting the audit writer");
@@ -316,7 +319,7 @@ impl Audit {
             let mut lookups = self.lookups.lock().unwrap_or_else(|e| e.into_inner());
             lookups.retain(|(actor, target), l| {
                 if !l.pending.is_empty() && (all || now.saturating_sub(l.since_ms) >= GATHER_MS) {
-                    let mut pending = std::mem::take(&mut l.pending);
+                    let mut pending = mem::take(&mut l.pending);
                     pending.sort_by_key(|a| LOOKUPS.iter().position(|(b, _)| a == b));
                     let (action, detail) = match pending[..] {
                         [one] => (one, String::new()),
@@ -461,13 +464,13 @@ impl Audit {
     }
 
     /// Entries `lo..=hi`, oldest first, from the file.
-    fn read_block(&self, lo: u64, hi: u64) -> std::io::Result<Vec<Entry>> {
+    fn read_block(&self, lo: u64, hi: u64) -> io::Result<Vec<Entry>> {
         let (starts, (from, to)) = {
             let inner = self.lock();
             let starts: Vec<u64> = inner.offsets[lo as usize - 1..hi as usize].to_vec();
             (starts, inner.span(lo, hi))
         };
-        let mut file = std::fs::File::open(&self.path)?;
+        let mut file = File::open(&self.path)?;
         file.seek(SeekFrom::Start(from))?;
         let mut bytes = vec![0; (to - from) as usize];
         file.read_exact(&mut bytes)?;
@@ -484,7 +487,7 @@ impl Audit {
             .collect())
     }
 
-    fn lock(&self) -> std::sync::MutexGuard<'_, Inner> {
+    fn lock(&self) -> MutexGuard<'_, Inner> {
         self.inner.lock().unwrap_or_else(|e| e.into_inner())
     }
 }
@@ -537,14 +540,11 @@ fn keep_writing(
 }
 
 /// Appends `bytes` to `path` and syncs them to disk.
-fn append_bytes(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
+fn append_bytes(path: &Path, bytes: &[u8]) -> io::Result<()> {
     if let Some(dir) = path.parent() {
-        std::fs::create_dir_all(dir)?;
+        fs::create_dir_all(dir)?;
     }
-    let mut file = std::fs::OpenOptions::new()
-        .create(true)
-        .append(true)
-        .open(path)?;
+    let mut file = OpenOptions::new().create(true).append(true).open(path)?;
     file.write_all(bytes)?;
     file.sync_data()
 }
@@ -552,6 +552,7 @@ fn append_bytes(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
     use std::net::Ipv4Addr;
 
     #[test]
@@ -577,7 +578,7 @@ mod tests {
 
     #[test]
     fn lookups_made_together_share_one_entry_and_repeats_none() {
-        let path = std::env::temp_dir().join(format!("rs-console-lookups-{}.jsonl", now_ms()));
+        let path = env::temp_dir().join(format!("rs-console-lookups-{}.jsonl", now_ms()));
         let ip = IpAddr::V4(Ipv4Addr::LOCALHOST);
         let audit = Audit::open(path.clone());
         let look = |action, target: &str| {
@@ -611,12 +612,12 @@ mod tests {
                 (Some("p2"), "timeline_viewed", ""),
             ]
         );
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
     fn entries_survive_a_restart_and_page_newest_first() {
-        let path = std::env::temp_dir().join(format!("rs-console-audit-{}.jsonl", now_ms()));
+        let path = env::temp_dir().join(format!("rs-console-audit-{}.jsonl", now_ms()));
         let ip = IpAddr::V4(Ipv4Addr::LOCALHOST);
         let audit = Audit::open(path.clone());
         for i in 0..5 {
@@ -631,11 +632,11 @@ mod tests {
         let older = reopened.page(Some(page[1].id), 10, |_| true);
         assert_eq!(older.len(), 3);
         assert_eq!(older[0].target.as_deref(), Some("p2"));
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     fn temp_path(name: &str) -> PathBuf {
-        std::env::temp_dir().join(format!("rs-console-audit-{name}-{}.jsonl", now_ms()))
+        env::temp_dir().join(format!("rs-console-audit-{name}-{}.jsonl", now_ms()))
     }
 
     fn targets(entries: &[Entry]) -> Vec<(u64, String)> {
@@ -683,7 +684,7 @@ mod tests {
                 [(500, "p500".into()), (400, "p400".into())]
             );
         }
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -702,6 +703,6 @@ mod tests {
             targets(&reopened.page(None, 10, |_| true)),
             [(2, "p2".into()), (1, "p1".into())]
         );
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 }

@@ -2,14 +2,14 @@ use rs_grid::CoordGrid;
 use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use rs_vm::trigger::ServerTriggerType;
-use rs_vm::{LocSerial, ObjSerial};
+use rs_vm::{ComId, LocSerial, ObjSerial};
 
 /// Represents the target of an entity's interaction action.
 ///
 /// An interaction target identifies what an entity (player or NPC) is trying to
-/// interact with -- a ground object, a placed location, another NPC, or another
-/// player. The variant determines how the interaction engine resolves approach
-/// range, pathfinding, and which script triggers fire.
+/// interact with -- a ground object, a placed location, another NPC, another
+/// player, or a tile. The variant determines how the interaction engine
+/// resolves approach range, pathfinding, and which script triggers fire.
 #[derive(Debug, Clone, Copy)]
 pub enum InteractionTarget {
     /// A ground object target, identified by its coordinate, type id, and the
@@ -35,17 +35,19 @@ pub enum InteractionTarget {
     Npc { nid: u16 },
     /// A player target, identified by its player index.
     Player { pid: u16 },
+    /// A tile a component was aimed at (647's ground target).
+    Coord { coord: CoordGrid },
 }
 
 impl InteractionTarget {
     /// Returns the grid coordinate of this target.
     ///
-    /// For `Obj` and `Loc` targets, returns the stored coordinate. For `Npc` and
-    /// `Player` targets, returns the origin `(0, 0, 0)` because their position is
-    /// resolved dynamically from the entity's pathing state.
+    /// For `Obj`, `Loc` and `Coord` targets, returns the stored coordinate. For
+    /// `Npc` and `Player` targets, returns the origin `(0, 0, 0)` because their
+    /// position is resolved dynamically from the entity's pathing state.
     pub const fn coord(&self) -> CoordGrid {
         match self {
-            Self::Obj { coord, .. } | Self::Loc { coord, .. } => *coord,
+            Self::Obj { coord, .. } | Self::Loc { coord, .. } | Self::Coord { coord } => *coord,
             _ => CoordGrid::new(0, 0, 0),
         }
     }
@@ -61,14 +63,14 @@ impl InteractionTarget {
     /// Returns the fine (sub-tile) center coordinate of this target for face-direction
     /// calculations, or `None` when it must be resolved from a live entity.
     ///
-    /// `Obj` targets return the fine center of a 1x1 tile; `Loc` targets return the fine
-    /// center accounting for width and length. `Npc` and `Player` targets return `None`:
-    /// the variant stores only an index, so the coordinate cannot be derived here -- the
-    /// caller must read it from the target's live pathing position (see
-    /// `Engine::resolve_pathing_face`).
+    /// `Obj` and `Coord` targets return the fine center of a 1x1 tile; `Loc` targets
+    /// return the fine center accounting for width and length. `Npc` and `Player`
+    /// targets return `None`: the variant stores only an index, so the coordinate cannot
+    /// be derived here -- the caller must read it from the target's live pathing
+    /// position (see `Engine::resolve_pathing_face`).
     pub const fn fine_coord(&self) -> Option<(u16, u16)> {
         match self {
-            Self::Obj { coord, .. } => {
+            Self::Obj { coord, .. } | Self::Coord { coord } => {
                 Some((CoordGrid::fine(coord.x(), 1), CoordGrid::fine(coord.z(), 1)))
             }
             Self::Loc {
@@ -95,13 +97,15 @@ pub struct InteractionState {
     pub target: Option<InteractionTarget>,
     pub target_op: Option<u8>,
     pub target_subject_type: Option<u16>,
-    pub target_subject_com: Option<u16>,
+    pub target_subject_com: Option<ComId>,
     pub ap_range: Option<u16>,
     pub ap_range_called: bool,
     pub target_x: i32,
     pub target_z: i32,
     pub last_path_src: u32,
     pub last_path_dst: u32,
+    #[cfg(since_647)]
+    pub script_focus: Option<InteractionTarget>,
 }
 
 impl InteractionState {
@@ -120,6 +124,8 @@ impl InteractionState {
             target_x: -1,
             target_z: -1,
             last_path_src: 0,
+            #[cfg(since_647)]
+            script_focus: None,
             last_path_dst: 0,
         }
     }
@@ -140,7 +146,9 @@ impl InteractionState {
             InteractionTarget::Obj { id, .. } | InteractionTarget::Loc { id, .. } => {
                 self.target_subject_type = Some(*id);
             }
-            InteractionTarget::Npc { .. } | InteractionTarget::Player { .. } => {
+            InteractionTarget::Npc { .. }
+            | InteractionTarget::Player { .. }
+            | InteractionTarget::Coord { .. } => {
                 self.target_subject_type = None;
             }
         }
@@ -198,7 +206,13 @@ impl InteractionState {
     /// Marks the mask if the value changed.
     pub fn set_face_entity(&self, info: &mut EntityMasks, kind: FocusKind) {
         let temp = info.face_entity;
-        if let Some(target) = self.target {
+        // 647: a player stays turned to the npc or player its op script was started on for as
+        // long as that script is suspended (see `script_focus`).
+        #[cfg(since_647)]
+        let target = self.target.or(self.script_focus);
+        #[cfg(before_647)]
+        let target = self.target;
+        if let Some(target) = target {
             match &target {
                 InteractionTarget::Player { pid } => {
                     info.set_face_entity_check(kind, *pid + 32768);
@@ -342,6 +356,17 @@ mod tests {
     #[test]
     fn loc_fine_coord_is_some() {
         assert_eq!(loc_target(3100, 3200).fine_coord(), Some((6201, 6401)));
+    }
+
+    #[test]
+    fn a_coord_target_is_a_still_tile_with_no_type() {
+        let coord = CoordGrid::new(3225, 0, 3230);
+        let target = InteractionTarget::Coord { coord };
+        assert!(!target.is_pathing_entity());
+        assert_eq!(target.coord(), coord);
+        let mut state = InteractionState::new();
+        assert_eq!(state.set(target, 0), Some((6451, 6461)));
+        assert_eq!(state.target_subject_type, None);
     }
 
     #[test]

@@ -1,0 +1,108 @@
+// 129
+[proc,ignore_update]
+cc_deleteall(friends2:ignorebox);
+def_int $int0 = ignore_count;
+if ($int0 < 0) {
+    if_settext(friends2:loadingmes, "Loading Ignore List.<br>Please wait.");
+    if_sethide(friends2:loadingmes, false);
+    if_settext(friends2:ignore_info, "");
+    return;
+}
+if_settext(friends2:ignore_info, "<tostring($int0)> / <tostring(100)>");
+if_settext(friends2:loadingmes, "");
+if_sethide(friends2:loadingmes, true);
+def_component $component1 = friends2:ignorebox;
+def_component $component2 = friends2:ignorebox_rectangles;
+def_component $component3 = friends2:ignorebox_scrolling_layer;
+def_component $component4 = friends2:ignorescroll;
+def_int $int5 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string3 = "";
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 15;
+def_int $int11 = calc(if_getheight($component3) / $int10);
+cc_deleteall($component1);
+cc_deleteall($component2);
+while ($int5 < $int0) {
+    $int8 = calc($int5 * 2);
+    $int9 = calc($int5 * $int10);
+    $string0, $string1 = ignore_getname($int5);
+    if (compare($string1, "") ! 0) {
+        $int6 = 1;
+    } else {
+        $int6 = 0;
+    }
+    if ($int6 = 1) {
+        $string2 = "      <$string0>";
+    } else {
+        $string2 = $string0;
+    }
+    cc_create(friends2:ignorebox, ^iftype_text, $int8);
+    cc_setsize(168, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(0xa4997d);
+    cc_settextfont(verdana_11pt_regular);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    if ($int6 = 1) {
+        cc_settext("      <$string2>");
+    } else {
+        cc_settext($string2);
+    }
+    cc_settext($string2);
+    cc_setopbase("<col=ffffff><$string0>");
+    cc_setop(1, "Remove");
+    cc_setonop("ignore_op(ignore_getname_unfiltered($int5))");
+    if ($int6 = 1) {
+        $int7 = calc(stringwidth("Last known as: <$string1>", verdana_11pt_regular) + 8);
+        if ($int7 > if_getwidth(friends2:ignorebox)) {
+            $string3 = "Last known as:<br><$string1>";
+        } else {
+            $string3 = "Last known as: <$string1>";
+        }
+        cc_setonmouserepeat("script1594(friends2:tooltip_layer, event_com, event_comsubid, $string3, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:tooltip_layer)");
+    }
+    cc_create(friends2:ignorebox, ^iftype_graphic, calc($int8 + 1));
+    cc_setgraphic(friends_changed_name);
+    cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int6 = 0) {
+        cc_sethide(true);
+    }
+    if (calc($int5 % 2) ! 0) {
+        cc_create(friends2:ignorebox_rectangles, ^iftype_rectangle, if_getnextsubid($component2));
+        cc_setsize(16384, $int10, ^setsize_rel, ^setsize_abs);
+        cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setcolour(0x232220);
+        cc_setfill(true);
+        cc_settrans(128);
+    }
+    $int5 = calc($int5 + 1);
+}
+while ($int5 < $int11) {
+    $int9 = calc($int5 * $int10);
+    if (calc($int5 % 2) ! 0) {
+        cc_create(friends2:ignorebox_rectangles, ^iftype_rectangle, if_getnextsubid($component2));
+        cc_setsize(16384, $int10, ^setsize_rel, ^setsize_abs);
+        cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setcolour(0x232220);
+        cc_setfill(true);
+        cc_settrans(128);
+    }
+    $int5 = calc($int5 + 1);
+}
+def_int $int12 = 0;
+def_int $int13 = 0;
+$int12 = if_getscrolly($component3);
+$int13 = calc($int5 * $int10);
+if_setscrollsize($component3, if_getwidth($component3), $int13);
+if ($int12 > $int13) {
+    $int12 = $int13;
+}
+~scrollbar_resize($component4, $component3, $int12);

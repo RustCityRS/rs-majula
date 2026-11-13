@@ -1,5 +1,10 @@
 use crate::state::ScriptState;
-use rs_pack::cache::script::LAST;
+
+/// One past the highest opcode a handler can take.
+#[cfg(before_647)]
+const LAST: u16 = 11000;
+#[cfg(since_647)]
+const LAST: u16 = 50101;
 
 /// A script opcode handler function pointer.
 ///
@@ -16,10 +21,10 @@ pub type Handler = fn(&mut ScriptState) -> crate::Result<()>;
 /// opcodes at runtime.
 ///
 /// # Call Stack
-/// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/engine.rs)
+/// **Called by:** `Engine::new` via `register_ops` (rs-engine/src/script/mod.rs)
 /// **Used by:** `vm::execute` (rs-vm/src/vm.rs)
 pub struct OpsRegistry {
-    table: Box<[Option<Handler>; LAST as usize]>,
+    table: Box<[Option<Handler>]>,
     count: usize,
 }
 
@@ -30,7 +35,9 @@ impl OpsRegistry {
     /// An `OpsRegistry` with zero registered handlers and a table of `LAST` empty slots.
     pub fn new() -> Self {
         Self {
-            table: Box::new([const { None }; LAST as usize]),
+            // Built on the heap: at rev 647 the table is ~400 KB, which a
+            // `Box::new([None; LAST])` would first lay out on the stack.
+            table: vec![None; LAST as usize].into_boxed_slice(),
             count: 0,
         }
     }
@@ -47,7 +54,7 @@ impl OpsRegistry {
     ///
     /// # Panics
     /// Panics if `opcode as usize` is out of bounds for the internal table.
-    pub(crate) fn insert(&mut self, opcode: u16, handler: Handler) {
+    pub fn insert(&mut self, opcode: u16, handler: Handler) {
         let slot = &mut self.table[opcode as usize];
         if slot.is_none() {
             self.count += 1;
@@ -67,8 +74,8 @@ impl OpsRegistry {
     /// # Side Effects
     /// Updates the internal handler count to reflect newly added (not replaced) entries.
     pub fn extend(&mut self, other: OpsRegistry) {
-        for (i, slot) in other.table.into_iter().enumerate() {
-            if let Some(handler) = slot {
+        for (i, slot) in other.table.iter().enumerate() {
+            if let Some(handler) = *slot {
                 if self.table[i].is_none() {
                     self.count += 1;
                 }
@@ -80,22 +87,30 @@ impl OpsRegistry {
     /// Looks up the handler registered for the given opcode.
     ///
     /// # Arguments
-    /// * `opcode` - The opcode to look up. Must be less than `LAST`.
+    /// * `opcode` - The opcode to look up.
     ///
     /// # Returns
     /// `Some(handler)` if a handler is registered for this opcode, or `None` if the
-    /// slot is empty.
+    /// slot is empty or the opcode is at or past `LAST`.
     ///
-    /// # Safety
-    /// Uses `get_unchecked` internally for performance -- the caller must ensure
-    /// `opcode` is within bounds (less than `LAST`). An out-of-bounds opcode causes
-    /// undefined behavior.
+    /// The opcode comes from compiled script bytes, not from this crate, so it is
+    /// bounds-checked: an opcode the table has no slot for (a `#testscript`
+    /// command compiled against a smaller table, or a corrupt script) is an
+    /// unknown opcode, never a read past the table.
     ///
     /// # Call Stack
     /// **Called by:** `vm::execute` during opcode dispatch
     #[inline(always)]
     pub(crate) fn get(&self, opcode: u16) -> Option<Handler> {
-        unsafe { *self.table.get_unchecked(opcode as usize) }
+        self.table.get(opcode as usize).copied().flatten()
+    }
+
+    /// Whether a handler is registered for the given opcode.
+    ///
+    /// # Call Stack
+    /// **Called by:** the rs-test guard that every compiled script's opcodes run.
+    pub fn contains(&self, opcode: u16) -> bool {
+        self.get(opcode).is_some()
     }
 
     /// Returns the number of opcodes that have registered handlers.
@@ -164,6 +179,13 @@ mod tests {
     fn get_missing_returns_none() {
         let ops = OpsRegistry::new();
         assert!(ops.get(42).is_none());
+    }
+
+    #[test]
+    fn get_past_the_table_returns_none() {
+        let ops = OpsRegistry::new();
+        assert!(ops.get(LAST).is_none());
+        assert!(ops.get(u16::MAX).is_none());
     }
 
     #[test]

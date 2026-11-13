@@ -3,7 +3,7 @@ use crate::register::OpsRegistry;
 use crate::util::{pop_param, pop_struct};
 use crate::{handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::script::STRUCT_PARAM;
+use runec::opcodes::STRUCT_PARAM;
 
 /// Registers the struct/param lookup opcode for reading typed parameters
 /// from cache-defined struct definitions.

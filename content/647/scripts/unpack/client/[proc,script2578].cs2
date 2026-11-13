@@ -1,0 +1,7 @@
+// 2578
+[proc,script2578]
+if_setcolour(mob_squad_exchange:resupply_text, 0x666666);
+if_setgraphic(mob_squad_exchange:resupply, "warning_icons,1");
+if_clearops(mob_squad_exchange:resupply);
+if_setonop(mob_squad_exchange:resupply, null);
+if_setonclick(mob_squad_exchange:resupply, "script2606(event_com)");

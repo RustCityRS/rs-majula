@@ -1,0 +1,20 @@
+// 819
+[clientscript,script819]
+if (%lore_npc_head ! null & %lore_npc_head ! hans) {
+    if_setnpchead(lore_cats_side:lore_chathead, %lore_npc_head);
+} else {
+    if_setmodel(lore_cats_side:lore_chathead, null);
+}
+if (%cat_namevar_set = 1) {
+    if_settext(lore_cats_side:lore_name, ~script821);
+} else if (%follower_obj ! null) {
+    if_settext(lore_cats_side:lore_name, oc_name(%follower_obj));
+} else {
+    if_settext(lore_cats_side:lore_name, "");
+}
+if (%lore_interface_boolean > 50) {
+    %lore_interface_boolean = calc(%lore_interface_boolean - 50);
+    if_setmodelanim(lore_cats_side:lore_chathead, enum(int, seq, enum_1275, %lore_interface_boolean));
+} else {
+    if_setmodelanim(lore_cats_side:lore_chathead, enum(int, seq, enum_1276, %lore_interface_boolean));
+}

@@ -1,0 +1,11 @@
+// 599
+[clientscript,stock_offercount_10]
+if (%varplayer_1113 = 0) {
+    if (%stock_offercount_visible <= 2147483637) {
+        %stock_offercount_visible = calc(%stock_offercount_visible + 10);
+    }
+} else {
+    %stock_offercount_visible = 10;
+}
+if_settext(stockmarket:offercount, tostring_localised(%stock_offercount_visible, true));
+~sm_offercount_settimer;

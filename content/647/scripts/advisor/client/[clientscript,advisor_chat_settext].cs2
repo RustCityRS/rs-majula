@@ -1,0 +1,7 @@
+// 1763
+[clientscript,advisor_chat_settext]
+if_settext(advisor_tutorial_chat:title, %varclient_1716);
+if_settext(advisor_tutorial_chat:body, %varclient_1717);
+if_settext(advisor_tutorial_chat:com_8, %varclient_1718);
+if_settext(advisor_tutorial_chat:com_9, %varclient_1719);
+if_settext(advisor_tutorial_chat:graphic_text, "");

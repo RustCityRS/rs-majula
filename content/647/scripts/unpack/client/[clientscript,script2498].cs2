@@ -1,0 +1,6 @@
+// 2498
+[clientscript,script2498]
+%mob_client_formation = %varplayerbit_6350;
+if (%mob_client_formation > 0 & %mob_client_formation <= 9) {
+    ~mob_formation_click(enum(int, component, enum_2400, %mob_client_formation));
+}

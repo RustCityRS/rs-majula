@@ -1,0 +1,70 @@
+#testscript
+
+// void-634 paints a combat hit with its style's hitmark (melee, ranged, magic:
+// 0-2), a critical one (over 10 life points and over 90% of the attacker's
+// max hit) with its crit (+10), and a ring of recoil's with the reflect mark
+// (4) -- CombatHitsplats and Weapon.mark; cache 786's hitmarks 0-2 and 4 each
+// carry an icon, and 10-12 the same icons in another font. A queued hit
+// carries its hitmark with the damage (skill_combat/scripts/hitmark.rs2).
+
+[label,test_a_combat_hit_carries_its_style]
+assert_eq(~hit_mark(~combat_hit(50, ^hitmark_melee, 100)), 0)
+assert_eq(~hit_mark(~combat_hit(50, ^hitmark_ranged, 100)), 1)
+assert_eq(~hit_mark(~combat_hit(50, ^hitmark_magic, 100)), 2)
+assert_eq(~hit_damage(~combat_hit(50, ^hitmark_magic, 100)), 50)
+assert_eq(~hit_mark(~combat_hit(12, ^hitmark_reflect, 0)), 4)
+
+// Over 90% of the max hit is a crit, but not 10 life points or under.
+[label,test_a_hit_near_the_max_is_critical]
+assert_eq(~hit_mark(~combat_hit(91, ^hitmark_melee, 100)), 10)
+assert_eq(~hit_mark(~combat_hit(90, ^hitmark_melee, 100)), 0)
+assert_eq(~hit_mark(~combat_hit(10, ^hitmark_ranged, 10)), 1)
+assert_eq(~hit_mark(~combat_hit(140, ^hitmark_magic, 150)), 12)
+
+// A bare damage, as 289's other callers queue it, is a plain hit, and no
+// damage is a miss.
+[label,test_a_bare_damage_is_a_plain_hit]
+assert_eq(~hit_mark(37), 3)
+assert_eq(~hit_damage(37), 37)
+assert_eq(~hit_mark(0), 8)
+assert_eq(~hit_mark(~combat_hit(0, ^hitmark_melee, 100)), 8)
+
+// An npc's melee hit paints the melee mark on the player: 37 of 100 life
+// points leaves the bar at 63% (160 of 255).
+[label,test_an_npc_melee_hit_paints_the_melee_mark]
+setup_player("test_player")
+%life_points = 100
+queue(combat_damage_player, 0, ~combat_hit(37, ^hitmark_melee, 100))
+test_tick(2)
+assert_eq(%life_points, 63)
+assert_called_with("damage", "0,37,0,160")
+
+// A player's ranged hit paints the ranged mark on the npc.
+[label,test_a_ranged_hit_paints_the_ranged_mark_on_an_npc]
+setup_player("test_player")
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
+npc_queue(2, ~combat_hit(40, ^hitmark_ranged, 100), 0)
+test_tick(2)
+assert_eq(npc_stat(hitpoints), 1160)
+assert_called_with("npc_damage", "1,40")
+
+// A critical magic hit paints the magic crit.
+[label,test_a_critical_magic_hit_paints_the_magic_crit]
+setup_player("test_player")
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
+npc_queue(2, ~combat_hit(95, ^hitmark_magic, 100), 0)
+test_tick(2)
+assert_called_with("npc_damage", "12,95")
+
+// A hit an npc's queue queues again is still the player's: the second queue
+// carries the player who queued the first.
+[ai_queue19,horror_dagganoth_jr] npc_queue(20, last_int, 0);
+[ai_queue20,horror_dagganoth_jr] npc_damage(^hitmark_damage, last_int);
+
+[label,test_a_hit_queued_twice_is_still_the_players]
+setup_player("test_player")
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
+npc_queue(19, 40, 0)
+test_tick(3)
+assert_eq(npc_stat(hitpoints), 1160)
+assert_called_with("npc_hit_by", tostring(calc(uid & 2047)))

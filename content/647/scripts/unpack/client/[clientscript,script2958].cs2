@@ -1,0 +1,27 @@
+// 2958
+[clientscript,script2958](component $component0, obj $obj1, int $int2, component $component3)
+def_component $component4 = if_getlayer($component0);
+def_int $int5 = 0;
+switch_obj ($obj1) {
+    case 3doseadvanced_hunter_potion :
+        $int5 = %varplayerbit_8399;
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosefarming_potion :
+        $int5 = %varplayerbit_8400;
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosesaradomin_potion :
+        $int5 = %varplayerbit_8403;
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3doseguthix_potion :
+        $int5 = %varplayerbit_8402;
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosezamorak_potion :
+        $int5 = %varplayerbit_8404;
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+    case 3dosescentless_potion :
+        $int5 = %varplayerbit_8401;
+        if_settext($component3, "<oc_name($obj1)><br>(<tostring($int5)>/<tostring($int2)>)");
+}
+if_setobject_nonum($component0, $obj1, -1);
+if_setoutline($component0, 1);
+if_setmouseovercursor($component3, cursor_farming);

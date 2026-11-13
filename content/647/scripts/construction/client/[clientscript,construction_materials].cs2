@@ -1,0 +1,138 @@
+// 1864
+[clientscript,construction_materials](int $int0, obj $obj1, int $int2, int $int3)
+if ($int0 ! 1) {
+    return;
+}
+switch_int ($int2) {
+    case 12 :
+        switch_int ($int3) {
+            case 0 :
+                mes("Rick: <tostring(enum(int, int, enum_238, 1))> coins.");
+            case 1 :
+                mes("Maid: <tostring(enum(int, int, enum_238, 3))> coins.");
+            case 2 :
+                mes("Cook: <tostring(enum(int, int, enum_238, 5))> coins.");
+            case 3 :
+                mes("Butler: <tostring(enum(int, int, enum_238, 6))> coins.");
+            case 4 :
+                mes("Demon Butler: <tostring(enum(int, int, enum_238, 8))> coins.");
+        }
+        return;
+    case 0 :
+        switch_obj ($obj1) {
+            case poh_garden_centrepiece_3 :
+                $obj1 = poh_dummy_garden;
+            case poh_armchair_7 :
+                $obj1 = poh_dummy_parlour;
+            case poh_stove_7 :
+                $obj1 = poh_dummy_kitchen;
+            case poh_dining_table_7 :
+                $obj1 = poh_dummy_dining_room;
+            case poh_workbench_5 :
+                $obj1 = poh_dummy_workshop;
+            case poh_bed_7 :
+                $obj1 = poh_dummy_bedroom;
+            case poh_stairs_marble :
+                $obj1 = poh_dummy_hall1;
+            case poh_ranging_game_2 :
+                $obj1 = poh_dummy_games_room;
+            case poh_combat_ring_5 :
+                $obj1 = poh_dummy_combat_room;
+            case poh_spiralstairs_marble :
+                $obj1 = poh_dummy_hall2;
+            case poh_lectern_7 :
+                $obj1 = poh_dummy_study;
+            case poh_cos_room_cape_rack_magic_stone :
+                $obj1 = poh_dummy_costume_room;
+            case gilded_altar :
+                $obj1 = poh_dummy_chapel;
+            case poh_teleport_centrepiece_3 :
+                $obj1 = poh_dummy_portalroom;
+            case poh_formal_garden_centrepiece_5 :
+                $obj1 = poh_dummy_formal_garden;
+            case poh_throne_7 :
+                $obj1 = poh_dummy_throneroom;
+            case poh_oubliette_spikes :
+                $obj1 = poh_dummy_oubliette;
+            case poh_dungeon_door_steel :
+                $obj1 = poh_dummy_dungeon_corridor;
+            case poh_dungeon_door_oak :
+                $obj1 = poh_dummy_dungeon_pit;
+            case poh_treasure_mahogany :
+                $obj1 = poh_dummy_dungeon_treasure;
+        }
+        mes("<oc_name($obj1)>: <tostring_localised(oc_cost($obj1), true)> coins.");
+        return;
+    case 14, 15 :
+        return;
+}
+def_obj $objarray0(6);
+def_int $intarray1(6);
+def_int $int4 = 0;
+if (oc_param($obj1, param_211) ! null) {
+    $objarray0(0) = oc_param($obj1, param_211);
+    $intarray1(0) = oc_param($obj1, param_212);
+    $int4 = calc($int4 + 1);
+}
+if (oc_param($obj1, param_213) ! null) {
+    $objarray0(1) = oc_param($obj1, param_213);
+    $intarray1(1) = oc_param($obj1, param_214);
+    $int4 = calc($int4 + 1);
+}
+if (oc_param($obj1, param_215) ! null) {
+    $objarray0(2) = oc_param($obj1, param_215);
+    $intarray1(2) = oc_param($obj1, param_216);
+    $int4 = calc($int4 + 1);
+}
+if (oc_param($obj1, param_217) ! null) {
+    $objarray0(3) = oc_param($obj1, param_217);
+    $intarray1(3) = oc_param($obj1, param_218);
+    $int4 = calc($int4 + 1);
+}
+if (oc_param($obj1, param_219) ! null) {
+    $objarray0(4) = oc_param($obj1, param_219);
+    $intarray1(4) = oc_param($obj1, param_220);
+    $int4 = calc($int4 + 1);
+}
+if (oc_param($obj1, param_221) ! null) {
+    $objarray0(5) = oc_param($obj1, param_221);
+    $intarray1(5) = oc_param($obj1, param_222);
+    $int4 = calc($int4 + 1);
+}
+switch_int ($int4) {
+    case 1 :
+        mes("<oc_name($obj1)>:");
+        mes("<tostring_localised($intarray1(0), true)> x <oc_name($objarray0(0))>");
+    case 2 :
+        mes("<oc_name($obj1)>:");
+        mes("<tostring_localised($intarray1(0), true)> x <oc_name($objarray0(0))>");
+        mes("<tostring_localised($intarray1(1), true)> x <oc_name($objarray0(1))>");
+    case 3 :
+        mes("<oc_name($obj1)>:");
+        mes("<tostring_localised($intarray1(0), true)> x <oc_name($objarray0(0))>");
+        mes("<tostring_localised($intarray1(1), true)> x <oc_name($objarray0(1))>");
+        mes("<tostring_localised($intarray1(2), true)> x <oc_name($objarray0(2))>");
+    case 4 :
+        mes("<oc_name($obj1)>:");
+        mes("<tostring_localised($intarray1(0), true)> x <oc_name($objarray0(0))>");
+        mes("<tostring_localised($intarray1(1), true)> x <oc_name($objarray0(1))>");
+        mes("<tostring_localised($intarray1(2), true)> x <oc_name($objarray0(2))>");
+        mes("<tostring_localised($intarray1(3), true)> x <oc_name($objarray0(3))>");
+    case 5 :
+        mes("<oc_name($obj1)>:");
+        mes("<tostring_localised($intarray1(0), true)> x <oc_name($objarray0(0))>");
+        mes("<tostring_localised($intarray1(1), true)> x <oc_name($objarray0(1))>");
+        mes("<tostring_localised($intarray1(2), true)> x <oc_name($objarray0(2))>");
+        mes("<tostring_localised($intarray1(3), true)> x <oc_name($objarray0(3))>");
+        mes("<tostring_localised($intarray1(4), true)> x <oc_name($objarray0(4))>");
+    case 6 :
+        mes("<oc_name($obj1)>:");
+        mes("<tostring_localised($intarray1(0), true)> x <oc_name($objarray0(0))>");
+        mes("<tostring_localised($intarray1(1), true)> x <oc_name($objarray0(1))>");
+        mes("<tostring_localised($intarray1(2), true)> x <oc_name($objarray0(2))>");
+        mes("<tostring_localised($intarray1(3), true)> x <oc_name($objarray0(3))>");
+        mes("<tostring_localised($intarray1(4), true)> x <oc_name($objarray0(4))>");
+        mes("<tostring_localised($intarray1(5), true)> x <oc_name($objarray0(5))>");
+    case default :
+        mes(oc_name($obj1));
+}

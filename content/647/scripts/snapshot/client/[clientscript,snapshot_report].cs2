@@ -1,0 +1,15 @@
+// 135
+[clientscript,snapshot_report](int $int0)
+def_int $int1 = -1;
+if (string_length(%snapshot_name) > 0) {
+    chat_sendabusereport(%snapshot_name, $int0, %snapshot_mute, "");
+}
+if (compare(%snapshot_name, chat_playername_unfiltered) = 0) {
+    ~script675;
+    return;
+}
+if (ignore_test(%snapshot_name) = false & compare(%snapshot_name, chat_playername_unfiltered) ! 0) {
+    ~script221;
+} else {
+    ~script675;
+}

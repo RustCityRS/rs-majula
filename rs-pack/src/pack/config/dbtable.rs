@@ -1,23 +1,24 @@
-use std::collections::HashMap;
-
+#[cfg(since_647)]
+use super::client_table;
+use super::config_entry;
+use super::param::resolve_typed_value;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackFile, PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util;
+use crate::pack::util::parse_csv_values;
 use crate::types::ScriptVarType;
 use anyhow::Result;
-use tracing::debug;
-use util::parse_csv_values;
+use std::collections::HashMap;
 
 const PROP_INDEXED: u8 = 0x1;
-const PROP_REQUIRED: u8 = 0x2;
-const PROP_LIST: u8 = 0x4;
+pub(super) const PROP_REQUIRED: u8 = 0x2;
+pub(super) const PROP_LIST: u8 = 0x4;
 const PROP_CLIENTSIDE: u8 = 0x8;
 
-struct ColumnDef {
-    name: String,
-    types: Vec<u8>,
-    props: u8,
+pub(super) struct ColumnDef {
+    pub name: String,
+    pub types: Vec<u8>,
+    pub props: u8,
     defaults: Vec<String>,
 }
 
@@ -27,22 +28,16 @@ pub fn pack_dbtables(
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
     let pack = PackFile::load(&registry.pack_dir().join("dbtable.pack"))?;
-    let files = file_cache.collect("dbtable");
-    debug!("  Found {} .dbtable files", files.len());
-    let configs = parse_config_sections_cached(file_cache, "dbtable", constants);
-    debug!("  Parsed {} dbtable configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, "dbtable", constants)?;
 
     let mut server = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown dbtable id: {}", id);
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown dbtable config: {}", debugname);
+        let Some((debugname, props)) = config_entry("dbtable", &pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         let mut columns: Vec<ColumnDef> = Vec::new();
@@ -50,9 +45,7 @@ pub fn pack_dbtables(
         // First pass: parse column definitions
         for (key, value) in props {
             if key == "column" {
-                if let Some(col) = parse_column_def(value) {
-                    columns.push(col);
-                }
+                columns.push(parse_column_def(value));
             }
         }
 
@@ -88,7 +81,7 @@ pub fn pack_dbtables(
                         if type_char == b's' {
                             server.pjstr(val);
                         } else {
-                            server.p4(val.parse::<i32>().unwrap_or(0));
+                            server.p4(resolve_typed_value(val, type_char, registry));
                         }
                     }
                 }
@@ -115,23 +108,22 @@ pub fn pack_dbtables(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_647)]
+    let client = None;
+
+    #[cfg(since_647)]
+    let client = Some(client_table(file_cache, "dbtable", &pack, constants)?);
+
+    Ok(PackedFile { server, client })
 }
 
-fn parse_column_def(value: &str) -> Option<ColumnDef> {
-    let parts: Vec<&str> = value.split(',').map(|s| s.trim()).collect();
-    if parts.is_empty() {
-        return None;
-    }
-
-    let name = parts[0].to_string();
+pub(super) fn parse_column_def(value: &str) -> ColumnDef {
+    let mut parts = value.split(',').map(str::trim);
+    let name = parts.next().unwrap().to_string();
     let mut types = Vec::new();
     let mut props = 0u8;
 
-    for &part in &parts[1..] {
+    for part in parts {
         match part {
             "INDEXED" => props |= PROP_INDEXED,
             "REQUIRED" => props |= PROP_REQUIRED,
@@ -143,10 +135,10 @@ fn parse_column_def(value: &str) -> Option<ColumnDef> {
         }
     }
 
-    Some(ColumnDef {
+    ColumnDef {
         name,
         types,
         props,
         defaults: Vec::new(),
-    })
+    }
 }

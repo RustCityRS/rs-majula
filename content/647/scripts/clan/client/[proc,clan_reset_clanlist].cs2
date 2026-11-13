@@ -1,0 +1,23 @@
+// 4589
+[proc,clan_reset_clanlist]
+cc_deleteall(clan_chat:clanlist);
+cc_deleteall(clan_chat:clan_rectangles);
+cc_deleteall(clan_chat:clan_list_rank_layer);
+cc_deleteall(clan_chat:clan_list_world_layer);
+cc_deleteall(clan_chat:clan_list_world_icon_layer);
+cc_deleteall(clan_chat:clan_list_button_layer);
+if_sethide(clan_chat:drag_layer, true);
+if_sethide(clan_chat:clan_info_layer, false);
+if_settext(clan_chat:clan_info_txt, "You are not currently in a Clan Chat channel.");
+if_sethide(clan_chat:clanlistscrollbar, true);
+if_sethide(clan_chat:kick_button_layer, false);
+~script4469;
+if_setgraphic(clan_chat:clan_join_affinedchat_button_gfx, "aif_clanchat_icons,13");
+if_sethide(clan_chat:selected_highlight_layer, true);
+if_setsize(clan_chat:clan_list_button_popout_layer, 1, 19, ^setsize_abs, ^setsize_abs);
+%clan_chat_selected_slot = -1;
+%clan_channel_selected_name = "";
+if_settext(clan_chat:clan_name, "");
+def_string $string0 = "Join your clan chat channel.";
+if_setonmouserepeat(clan_chat:clan_join_affinedchat_button, "aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+if_setop(clan_chat:clan_join_affinedchat_button, 1, "Join Clan Chat channel");

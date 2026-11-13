@@ -1,0 +1,39 @@
+[logout,_]()(boolean)
+// 289's logout hooks (login_logout/logout.rs2), as their systems are ported.
+~set_antifire_logout; // TODO: should be timer
+~macro_event_logout;
+return(true);
+
+// 289's logout button (logout:try_logout) is two in 2011's logout tab (logout, 182): button1
+// "Exit to Lobby" and button2 "Exit to Login" (cache 786's clientscript logout_init, 1104). Both
+// take 289's checks. The client places LOGOUT (62) itself, in the lobby when it came through it,
+// and LOGOUT_FULL (128) on the login screen always (deob 647 MapAreaConfig.java:331 and :1056,
+// MSITypeList.method2035).
+// [if_button,logout:try_logout]
+[if_button,logout:button1]
+if_close;
+if (p_finduid(uid) = true) {
+    if (~logout_allowed = true) {
+        p_logout(true);
+    }
+}
+
+[if_button,logout:button2]
+if_close;
+if (p_finduid(uid) = true) {
+    if (~logout_allowed = true) {
+        p_logout(false);
+    }
+}
+
+[proc,logout_allowed]()(boolean)
+if (~in_duel_arena(coord) = true) {
+    mes("You can't log out during a duel."); //https://youtu.be/xLE8au7T50Q?t=227
+    return(false);
+}
+
+if (~inzone_coord_pair_table(gnomeball_zones, coord) = true) {
+    mes("You can't log out on a gnomeball pitch."); // osrs
+    return(false);
+}
+return(true);

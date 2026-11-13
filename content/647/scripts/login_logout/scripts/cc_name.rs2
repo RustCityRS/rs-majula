@@ -1,0 +1,128 @@
+[queue,cc_open_name]
+runclientscript("script3943()")
+if_sethide(playerdesign4:com_155, false)
+if_sethide(playerdesign4:com_156, true)
+
+[if_button,playerdesign4:confirm]
+if (p_finduid(uid) = true) {
+    runclientscript("script3943()")
+    if_sethide(playerdesign4:com_155, false)
+    if_sethide(playerdesign4:com_156, true)
+    @cc_name_loop;
+}
+
+//TODO
+[proc,create_check_username](string $input)(boolean)
+return(true);
+
+
+[label,cc_name_loop]
+p_stringdialog
+def_string $name = last_string;
+if (~create_check_username($name) = false) {
+    p_prev_suggestions
+    %varclient_1849 = ""
+    if_settext(playerdesign4:please_enter_text, "Invalid Name")
+    if_sethide(playerdesign4:com_155, true)
+    if_sethide(playerdesign4:com_156, false)
+    if_sethide(playerdesign4:previous_suggestions, true)
+    ~cc_send_suggestions();
+    runclientscript("script3943()")
+    %varclient_1849 = ""
+    %login_caret = string_length("")
+    runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, \"\", 16)")
+    @cc_name_loop;
+}
+p_setdisplayname($name);
+def_int $result = last_int;
+def_string $formatted = last_string;
+if ($result = 1) {
+    queue(character_created, 0, 0);
+} else {
+    %varclient_1849 = $formatted
+    if_settext(playerdesign4:please_enter_text, "'<$formatted>' is not available.")
+    if_sethide(playerdesign4:com_155, true)
+    if_sethide(playerdesign4:com_156, false)
+    if_sethide(playerdesign4:previous_suggestions, true)
+    ~cc_send_suggestions();
+    runclientscript("script3943()")
+    %varclient_1849 = $formatted
+    %login_caret = string_length($formatted)
+    runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, $formatted, 16)")
+    @cc_name_loop;
+}
+
+//Continue button
+[if_button,playerdesign4:continue]
+if (p_finduid(uid) = true) {
+    runclientscript("script3945(0, 1, 1)");
+}
+
+// More suggestions button
+[if_button,playerdesign4:more_suggestions]
+if (p_finduid(uid) = true) {
+    p_request_more_suggestions;
+    queue(cc_more_suggestions, 1, 0);
+}
+// Previous suggestions button
+[if_button,playerdesign4:previous_suggestions]
+if (p_finduid(uid) = true) {
+    p_prev_suggestions
+    ~cc_send_suggestions();
+}
+
+// Sending more suggestions
+[queue,cc_more_suggestions]
+~cc_send_suggestions();
+if_sethide(playerdesign4:previous_suggestions, false)
+
+[if_button,playerdesign4:suggestion_1]
+if (p_finduid(uid) = true) {
+    runclientscript("script3945(1, 1, 0)")
+}
+
+[if_button,playerdesign4:suggestion_2]
+if (p_finduid(uid) = true) {
+    runclientscript("script3945(2, 1, 0)")
+}
+
+[if_button,playerdesign4:suggestion_3]
+if (p_finduid(uid) = true) {
+    runclientscript("script3945(3, 1, 0)")
+}
+
+
+[proc,cc_send_suggestions]()
+def_string $s0 = p_get_suggestion(0);
+def_string $s1 = p_get_suggestion(1);
+def_string $s2 = p_get_suggestion(2);
+// varc_str 331-336: used by CS2 3945 when user clicks a suggestion (delayed OK — clicks are future ticks)
+%varclient_1850 = $s0
+%varclient_1851 = $s1
+%varclient_1852 = $s2
+%varclient_1853 = ^string_empty
+%varclient_1854 = ^string_empty
+%varclient_1855 = ^string_empty
+// display text immediately (if_settext is not delayed like a string varc)
+if_settext(playerdesign4:suggestion_1, $s0)
+if_settext(playerdesign4:suggestion_2, $s1)
+if_settext(playerdesign4:suggestion_3, $s2)
+// set button ops immediately via script params (not delayed)
+runclientscript("script3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^string_empty)")
+
+[queue,character_created]
+allowdesign(^false)
+// Unstable Foundations starts: quest config 131 (all.quest) starts varp 281 at 5 and completes it
+// at 1000 (docs/647-unstable-foundations.md 1.2). 1001, set before, is no value the cache reads.
+%tutorial = 5;
+// The account took Unstable Foundations: cache 786 reads %tutorial_version = 3 for the quest
+// list's row arrow (clientscript 1661), the advisor button hidden until %tutorial reaches 125
+// (clientscript 1886) and Sir Vant in Falador afterwards (npc 8854's multivar). Where 2011 set it:
+// no source; here with the quest's start. 4KO2h2xPtdM (2011-04-30) has no advisor button @80.
+%tutorial_version = 3;
+setgender(%character_creation_female);
+applydesign;
+buildappearance(worn)
+~open_game_frame()
+~login_finish()
+~uf_start;

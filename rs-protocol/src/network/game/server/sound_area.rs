@@ -23,9 +23,13 @@ pub struct SoundArea {
     pub sound: u16,
     pub info: u8,
     pub delay: u8,
+    #[cfg(since_647)]
+    pub volume: u8,
+    #[cfg(since_647)]
+    pub speed: u16,
 }
 
-#[cfg(since_289)]
+#[cfg(all(since_289, before_647))]
 impl ServerProtMessage for SoundArea {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
@@ -35,5 +39,26 @@ impl ServerProtMessage for SoundArea {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.coord) + size_of_val(&self.sound) + size_of_val(&self.info)
+    }
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for SoundArea {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1(self.coord);
+        buf.p2(self.sound);
+        buf.p1(self.info);
+        buf.p1(self.delay);
+        buf.p1(self.volume);
+        buf.p2(self.speed);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord)
+            + size_of_val(&self.sound)
+            + size_of_val(&self.info)
+            + size_of_val(&self.delay)
+            + size_of_val(&self.volume)
+            + size_of_val(&self.speed)
     }
 }

@@ -1,0 +1,1084 @@
+// 903:0
+[main]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+
+// 903:1
+[com_1]
+type=layer
+width=512
+height=334
+
+// 903:2
+[com_2]
+type=rectangle
+x=131
+y=8
+width=252
+height=302
+layer=com_1
+colour=0x000000
+fill=yes
+transmitop=10
+op10=  
+
+// 903:3
+[com_3]
+type=rectangle
+x=132
+y=9
+width=252
+height=302
+layer=com_1
+colour=0x000000
+fill=yes
+trans=120
+transmitop=10
+op10=   
+
+// 903:4
+[com_4]
+type=rectangle
+x=133
+y=10
+width=252
+height=302
+layer=com_1
+colour=0x000000
+fill=yes
+trans=150
+transmitop=10
+op10=    
+
+// 903:5
+[com_5]
+type=rectangle
+x=134
+y=11
+width=252
+height=302
+layer=com_1
+colour=0x000000
+fill=yes
+trans=180
+transmitop=10
+op10=     
+
+// 903:6
+[com_6]
+type=rectangle
+x=135
+y=12
+width=252
+height=302
+layer=com_1
+colour=0x000000
+fill=yes
+trans=210
+transmitop=10
+op10=      
+
+// 903:7
+[background_3]
+type=graphic
+y=30
+width=237
+height=70
+xmode=abs_centre
+layer=com_1
+graphic=graphic_2042
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:8
+[background_4]
+type=graphic
+y=100
+width=237
+height=157
+xmode=abs_centre
+layer=com_1
+graphic=km_middlefillcolour
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 903:9
+[background_5]
+type=graphic
+y=32
+width=237
+height=46
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 903:10
+[top_1]
+type=graphic
+y=8
+width=190
+height=32
+xmode=abs_centre
+layer=com_1
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:11
+[left_1]
+type=graphic
+x=-123
+y=-10
+width=32
+height=244
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:12
+[bottom_1]
+type=graphic
+y=12
+width=192
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:13
+[right_1]
+type=graphic
+x=123
+y=-10
+width=32
+height=241
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:14
+[top_left_1]
+type=graphic
+x=-110
+y=8
+width=32
+height=32
+xmode=abs_centre
+layer=com_1
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:15
+[top_right_1]
+type=graphic
+x=111
+y=8
+width=32
+height=32
+xmode=abs_centre
+layer=com_1
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:16
+[bottom_left_1]
+type=graphic
+x=-110
+y=24
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:17
+[bottom_right_1]
+type=graphic
+x=111
+y=24
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:18
+[exit_button]
+type=graphic
+x=110
+y=11
+width=16
+height=16
+xmode=abs_centre
+layer=com_1
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+
+// 903:19
+[title_2]
+type=text
+y=12
+width=200
+height=24
+xmode=abs_centre
+layer=com_1
+textfont=b12_full
+text=Contents of the Cart
+textalignh=centre
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10= 
+
+// 903:20
+[short_planks]
+type=layer
+y=-80
+width=182
+height=80
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10= 
+
+// 903:21
+[long_planks]
+type=layer
+y=-38
+width=182
+height=80
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10=  
+
+// 903:22
+[diagonal_planks]
+type=layer
+y=4
+width=182
+height=80
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10=   
+
+// 903:23
+[tooth_planks]
+type=layer
+y=46
+width=182
+height=80
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10=    
+
+// 903:24
+[groove_planks]
+type=layer
+y=88
+width=182
+height=80
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10=     
+
+// 903:25
+[curved_planks]
+type=layer
+y=130
+width=182
+height=80
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10=      
+
+// 903:26
+[com_26]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=curved_planks
+colour=0x000000
+transmitop=10
+op10=      
+
+// 903:27
+[com_27]
+type=rectangle
+y=-22
+width=174
+height=34
+xmode=abs_centre
+ymode=abs_centre
+layer=curved_planks
+colour=0x463d32
+fill=yes
+transmitop=10
+op10=  
+
+// 903:28
+[com_28]
+type=rectangle
+y=34
+width=174
+height=1
+xmode=abs_centre
+layer=curved_planks
+colour=0x9999ff
+trans=210
+transmitop=10
+op10=       
+
+// 903:29
+[com_29]
+type=rectangle
+y=1
+width=174
+height=1
+xmode=abs_centre
+layer=curved_planks
+colour=0xcdcccb
+trans=200
+transmitop=10
+op10=        
+
+// 903:30
+[com_30]
+type=rectangle
+y=2
+width=176
+height=32
+xmode=abs_centre
+layer=curved_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=       
+
+// 903:31
+[com_31]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+xmode=abs_right
+layer=curved_planks
+graphic="km_woodicons,1"
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 903:32
+[com_32]
+type=text
+x=8
+y=4
+width=32
+height=32
+widthmode=minus
+layer=curved_planks
+textfont=p12_full
+text=Curved Planks
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10=      
+
+// 903:33
+[curve_count]
+type=text
+x=20
+y=17
+width=120
+height=36
+layer=curved_planks
+textfont=b12_full
+text=x2
+textalignh=right
+textshadow=yes
+colour=0xffcd37
+transmitop=10
+op10=         
+
+// 903:34
+[curve_button]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=curved_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=1,2,3,4,10
+op1=Withdraw 1
+op2=Withdraw 5
+op3=Withdraw 10
+op4=Withdraw X
+op10= 
+onmouseover=if_settrans(255, event_com)
+onmouseleave=if_settrans(200, event_com)
+
+// 903:35
+[com_35]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=groove_planks
+colour=0x000000
+transmitop=10
+op10=     
+
+// 903:36
+[com_36]
+type=rectangle
+y=34
+width=174
+height=1
+xmode=abs_centre
+layer=groove_planks
+colour=0x9999ff
+trans=210
+transmitop=10
+op10=      
+
+// 903:37
+[com_37]
+type=rectangle
+y=1
+width=174
+height=1
+xmode=abs_centre
+layer=groove_planks
+colour=0xcdcccb
+trans=200
+transmitop=10
+op10=       
+
+// 903:38
+[com_38]
+type=rectangle
+y=2
+width=176
+height=32
+xmode=abs_centre
+layer=groove_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=      
+
+// 903:39
+[com_39]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+xmode=abs_right
+layer=groove_planks
+graphic="km_woodicons,3"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 903:40
+[com_40]
+type=text
+x=8
+y=4
+width=32
+height=32
+widthmode=minus
+layer=groove_planks
+textfont=p12_full
+text=Groove-Cut Planks
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10=     
+
+// 903:41
+[groove_count]
+type=text
+x=20
+y=17
+width=120
+height=36
+layer=groove_planks
+textfont=b12_full
+text=x299
+textalignh=right
+textshadow=yes
+colour=0xffcd37
+transmitop=10
+op10=        
+
+// 903:42
+[groove_button]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=groove_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=1,2,3,4,10
+op1=Withdraw 1
+op2=Withdraw 5
+op3=Withdraw 10
+op4=Withdraw X
+op10= 
+onmouseover=if_settrans(255, event_com)
+onmouseleave=if_settrans(200, event_com)
+
+// 903:43
+[com_43]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=tooth_planks
+colour=0x000000
+transmitop=10
+op10=    
+
+// 903:44
+[com_44]
+type=rectangle
+y=34
+width=174
+height=1
+xmode=abs_centre
+layer=tooth_planks
+colour=0x9999ff
+trans=210
+transmitop=10
+op10=     
+
+// 903:45
+[com_45]
+type=rectangle
+y=1
+width=174
+height=1
+xmode=abs_centre
+layer=tooth_planks
+colour=0xcdcccb
+trans=200
+transmitop=10
+op10=      
+
+// 903:46
+[com_46]
+type=rectangle
+y=2
+width=176
+height=32
+xmode=abs_centre
+layer=tooth_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=     
+
+// 903:47
+[com_47]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+xmode=abs_right
+layer=tooth_planks
+graphic="km_woodicons,4"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 903:48
+[com_48]
+type=text
+x=8
+y=4
+width=32
+height=32
+widthmode=minus
+layer=tooth_planks
+textfont=p12_full
+text=Tooth-Cut Planks
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10=    
+
+// 903:49
+[tooth_count]
+type=text
+x=20
+y=17
+width=120
+height=36
+layer=tooth_planks
+textfont=b12_full
+text=x2
+textalignh=right
+textshadow=yes
+colour=0x00cc00
+transmitop=10
+op10=       
+
+// 903:50
+[tooth_button]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=tooth_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=1,2,3,4,10
+op1=Withdraw 1
+op2=Withdraw 5
+op3=Withdraw 10
+op4=Withdraw X
+op10= 
+onmouseover=if_settrans(255, event_com)
+onmouseleave=if_settrans(200, event_com)
+
+// 903:51
+[com_51]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=diagonal_planks
+colour=0x000000
+transmitop=10
+op10=   
+
+// 903:52
+[com_52]
+type=rectangle
+y=34
+width=174
+height=1
+xmode=abs_centre
+layer=diagonal_planks
+colour=0x9999ff
+trans=210
+transmitop=10
+op10=    
+
+// 903:53
+[com_53]
+type=rectangle
+y=1
+width=174
+height=1
+xmode=abs_centre
+layer=diagonal_planks
+colour=0xcdcccb
+trans=200
+transmitop=10
+op10=     
+
+// 903:54
+[com_54]
+type=rectangle
+y=2
+width=176
+height=32
+xmode=abs_centre
+layer=diagonal_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=    
+
+// 903:55
+[com_55]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+xmode=abs_right
+layer=diagonal_planks
+graphic="km_woodicons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 903:56
+[com_56]
+type=text
+x=8
+y=4
+width=32
+height=32
+widthmode=minus
+layer=diagonal_planks
+textfont=p12_full
+text=Diagonal-Cut Planks
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10=   
+
+// 903:57
+[diag_count]
+type=text
+x=20
+y=17
+width=120
+height=36
+layer=diagonal_planks
+textfont=b12_full
+text=x2
+textalignh=right
+textshadow=yes
+colour=0xffcd37
+transmitop=10
+op10=      
+
+// 903:58
+[diag_button]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=diagonal_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=1,2,3,4,10
+op1=Withdraw 1
+op2=Withdraw 5
+op3=Withdraw 10
+op4=Withdraw X
+op10= 
+onmouseover=if_settrans(255, event_com)
+onmouseleave=if_settrans(200, event_com)
+
+// 903:59
+[com_59]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=long_planks
+colour=0x000000
+transmitop=10
+op10=  
+
+// 903:60
+[com_60]
+type=rectangle
+y=1
+width=174
+height=34
+xmode=abs_centre
+layer=long_planks
+colour=0x463d32
+fill=yes
+transmitop=10
+op10=  
+
+// 903:61
+[com_61]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=short_planks
+colour=0x463d32
+fill=yes
+transmitop=10
+op10=  
+
+// 903:62
+[com_62]
+type=rectangle
+y=34
+width=174
+height=1
+xmode=abs_centre
+layer=long_planks
+colour=0x9999ff
+trans=210
+transmitop=10
+op10=   
+
+// 903:63
+[com_63]
+type=rectangle
+y=1
+width=174
+height=1
+xmode=abs_centre
+layer=long_planks
+colour=0xcdcccb
+trans=200
+transmitop=10
+op10=    
+
+// 903:64
+[com_64]
+type=rectangle
+y=2
+width=176
+height=32
+xmode=abs_centre
+layer=long_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=   
+
+// 903:65
+[com_65]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+xmode=abs_right
+layer=long_planks
+graphic="km_woodicons,5"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 903:66
+[com_66]
+type=text
+x=8
+y=4
+width=32
+height=32
+widthmode=minus
+layer=long_planks
+textfont=p12_full
+text=Long Planks
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10=  
+
+// 903:67
+[long_count]
+type=text
+x=20
+y=17
+width=120
+height=36
+layer=long_planks
+textfont=b12_full
+text=x200
+textalignh=right
+textshadow=yes
+colour=0xffcd00
+transmitop=10
+op10=     
+
+// 903:68
+[long_button]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=long_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=1,2,3,4,10
+op1=Withdraw 1
+op2=Withdraw 5
+op3=Withdraw 10
+op4=Withdraw X
+op10= 
+onmouseover=if_settrans(255, event_com)
+onmouseleave=if_settrans(200, event_com)
+
+// 903:69
+[com_69]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=short_planks
+colour=0x463d32
+fill=yes
+transmitop=10
+op10= 
+
+// 903:70
+[com_70]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=short_planks
+colour=0x000000
+transmitop=10
+op10=  
+
+// 903:71
+[com_71]
+type=rectangle
+y=1
+width=174
+height=1
+xmode=abs_centre
+layer=short_planks
+colour=0xcdcccb
+trans=200
+transmitop=10
+op10=   
+
+// 903:72
+[com_72]
+type=rectangle
+y=2
+width=176
+height=32
+xmode=abs_centre
+layer=short_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=  
+
+// 903:73
+[com_73]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+xmode=abs_right
+layer=short_planks
+graphic="km_woodicons,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 903:74
+[com_74]
+type=text
+x=8
+y=4
+width=32
+height=32
+widthmode=minus
+layer=short_planks
+textfont=p12_full
+text=Short Planks
+textshadow=yes
+colour=0xff9900
+transmitop=10
+op10= 
+
+// 903:75
+[short_count]
+type=text
+x=20
+y=17
+width=120
+height=36
+layer=short_planks
+textfont=b12_full
+text=x20
+textalignh=right
+textshadow=yes
+colour=0xff3300
+transmitop=10
+op10=    
+
+// 903:76
+[short_button]
+type=rectangle
+width=176
+height=36
+xmode=abs_centre
+layer=short_planks
+colour=0x000000
+fill=yes
+trans=200
+transmitop=1,2,3,4,10
+op1=Withdraw 1
+op2=Withdraw 5
+op3=Withdraw 10
+op4=Withdraw X
+op10= 
+onmouseover=if_settrans(255, event_com)
+onmouseleave=if_settrans(200, event_com)

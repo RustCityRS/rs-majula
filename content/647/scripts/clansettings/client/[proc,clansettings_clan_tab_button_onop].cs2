@@ -1,0 +1,8 @@
+// 4297
+[proc,clansettings_clan_tab_button_onop]
+if_sethide(clansettings:clan_tab_layer, false);
+if_sethide(clansettings:clanmate_tab_layer, true);
+if (activeclansettings_find_affined = true) {
+    ~script4501(clansettings:com_128, enum(int, string, enum_3725, calc(activeclansettings_getranktalk + 1)));
+    ~script4501(clansettings:com_142, enum(int, string, enum_3716, activeclansettings_getrankkick));
+}

@@ -1,0 +1,37 @@
+// [if_button,prayer:prayer_protectfrommagic]
+// 2011's prayer book is one component, its prayers by slot: prayer.rs2's
+// [if_button1,prayer:prayer_buttons] comes here.
+[label,prayer_button_protectfrommagic]
+if_close;
+if (p_finduid(uid) = true) {
+    @activate_prayer_protectfrommagic;
+}
+%varplayerbit_5954 = %varplayerbit_5954;
+
+[label,activate_prayer_protectfrommagic]
+p_clearpendingaction;
+def_dbrow $data = ~get_prayer_data(^prayer_protectfrommagic);
+if ($data = null) {
+    return;
+}
+if (%varplayerbit_5954 = ^true) {
+    %varplayerbit_5954 = ^false;
+    ~prayer_deactivate(^prayer_protectfrommagic);
+    return;
+}
+if (~prayer_checks($data) = false) {
+    %varplayerbit_5954 = ^false;
+    return;
+}
+def_int $levelreq = db_getfield($data, prayers:level, 0);
+if (stat_base(prayer) < $levelreq){
+    %varplayerbit_5954 = ^false;
+    // sound_synth(prayer_off, 1, 0);
+    // 2011's client plays prayer_off itself (clientscript 2295).
+    // ~mesbox("You need a @dbl@Prayer level of <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
+    // 2011's wording: the prayer's struct (enum 2279, param 738).
+    ~mesbox("You need a Prayer level of at least <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
+    return;
+}
+%varplayerbit_5954 = ^true;
+~prayer_activate($data);

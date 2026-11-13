@@ -1,0 +1,126 @@
+// XP-counter orb + Bonus-XP event — rev-647 (2011). All logic is content, via
+// %-vars directly. Every XP award that should register on the orb goes through
+// ~givexp below, which grants the XP and counts it in the same breath.
+//
+// There is deliberately NO engine hook behind the counter. `[advancestat,<stat>]`
+// is the level-up trigger (that is its meaning in every revision — see
+// content/{225,244,245.2,254,274,289}/scripts/levelup/scripts/levelup.rs2, which
+// hang @levelup off it), and the engine enqueues it with NO arguments, so a handler
+// declaring `(int $xp)` reads a silently zero-filled local. A counter built on it
+// therefore adds 0, on level-up only. This file used to do exactly that.
+//
+// xp_counter (varp 1801)           — orb running total; the client renders it / 10.
+// doublexp_setupflag (varbit 7232) — Bonus-XP event active flag.
+// doublexp_timetotal (varbit 7233) — elapsed game-minutes logged in this session.
+// doublexp_runningtotal (varp 1878) — cumulative bonus XP; the orb hover shows it / 10.
+
+// Canonical XP grant (naming from osrs-rs2 `~givexp(skill,amount)`). Skills/combat
+// call this instead of stat_advance so Bonus XP is applied AT GRANT TIME (a post-grant
+// hook can't re-grant — the player is out of the world array mid-tick) and so the
+// orb counter sees the amount actually awarded. $xp is the base award in the engine's
+// XP units (e.g. firemaking productexp); the counter is fed the multiplied total.
+//
+// Bonus-XP edge cases — wiki "Bonus XP Weekend/March 2011" — and how each is honoured:
+//  * Fixed/bulk XP (lamps, quest rewards): NOT routed through givexp. They call
+//    stat_advance directly, so they receive NO bonus. This split is givexp's whole
+//    purpose, and is the rev-647 rule ("experience lamps, quest rewards ... did not
+//    receive a bonus"). Such a grant does not move the orb counter either; when that
+//    content lands, the orb total it should show has to be added here — 647 counts
+//    lamp/quest XP on the orb, it just does not multiply it.
+//  * Methods that already grant their own bonus (Goldsmith gauntlets, Sacred clay,
+//    Gilded Altar, Ectofuntus, …): when that content lands it computes its award and
+//    calls stat_advance directly — no double-dip. (None exist in our content yet.)
+//  * Summoning pouch-making is floored at 1.1x while summoning the familiars gets the
+//    full bonus: when Summoning is ported, pouch-making must grant via a 1.1x path,
+//    NOT plain givexp. (No Summoning yet — TODO.)
+//
+// Must be called from a PROTECTED context (it writes the protected %xp_counter, and
+// %doublexp_runningtotal during an event). All skilling/combat grants are protected
+// (p_oploc/p_opobj/queues), so this holds; do not call givexp from an unprotected
+// trigger.
+[proc,givexp](stat $stat, int $xp)
+def_int $mult = ~doublexp_multiplier();
+if ($mult = 1000) {
+    stat_advance($stat, $xp);
+    // Orb running total. Stored x10 (the client shows xp_counter / 10 while skill
+    // XP is raw).
+    %xp_counter = calc(%xp_counter + $xp * 10);
+    return;
+}
+def_int $total = calc($xp * $mult / 1000);
+def_int $bonus = calc($total - $xp);
+// Accumulate the bonus pool for the orb hover ("Bonus: N xp", cs2 776 shows it / 10).
+// Stored x10 to match xp_counter's scale (both client displays divide by 10).
+%doublexp_runningtotal = calc(%doublexp_runningtotal + $bonus * 10);
+stat_advance($stat, $total);
+// The counter follows the XP actually awarded, bonus included — the orb and the
+// skill's own total move by the same amount.
+%xp_counter = calc(%xp_counter + $total * 10);
+// Push a rebuild of the bonus popup so it shows the latest WITHOUT needing to
+// close/reopen the orb. cs2 776 is the exact builder the orb toggle calls
+// (cs2 811 line 23: `~script_776`); re-running it refreshes an open popup and is
+// harmless when closed (776 is gated on %doublexp_setupflag and writes into hidden
+// components). 647 itself refreshed this on re-hover (onmouseover); this is a
+// server-push equivalent so it stays live while training.
+runclientscript("script776()");
+
+// Bonus-XP multiplier (x1000), mirroring clientscript 338 EXACTLY so the server grant
+// equals the multiplier the client displays. Time-based decay 2.7x -> 1.1x over 10h of
+// game time (%doublexp_timetotal = elapsed minutes). Returns 1000 (1.0x, no change)
+// when the event is inactive. Source: wiki "Bonus XP Weekend/March 2011" + cs2 338.
+[proc,doublexp_multiplier]()(int)
+if (%doublexp_setupflag = 0) {
+    return(1000);
+}
+return(~script338(16));
+
+// Advance the Bonus-XP elapsed clock once per game-minute while the event is active.
+// Started/reset by [login] via settimer(doublexp_elapsed, 100) — 100 ticks = 1 min.
+// The client derives the hover multiplier (cs2 338) and HH:MM from this varbit.
+[timer,doublexp_elapsed]
+if (%doublexp_setupflag = 1) {
+    %doublexp_timetotal = calc(%doublexp_timetotal + 1);
+    // Refresh the open bonus popup each game-minute so Elapsed + Multiplier tick
+    // live (the multiplier decays every 30 min; without this the popup is stale
+    // until reopened). Same rebuild as the orb toggle (cs2 776).
+    runclientscript("script776()");
+}
+
+// Orb "Reset XP Total" (op8 on the XP orb), one per gameframe. op1 "Toggle XP Total"
+// is handled entirely client-side (clientscript 811), so it needs no server trigger.
+[if_button8,toplevel:xpx2smallbutton]
+if (p_finduid(uid) = false) {
+    return;
+}
+%xp_counter = 0;
+
+[if_button8,toplevel_fullscreen:xpx2smallbutton]
+if (p_finduid(uid) = false) {
+    return;
+}
+%xp_counter = 0;
+
+// Dev: `::doublexp` toggles the Bonus-XP event (lights the orb + hover); `::doublexp
+// <minutes>` jumps elapsed straight to a value so the multiplier decay is visible at
+// once. The actual XP multiply happens at grant time in ~givexp (above), driven by
+// %doublexp_setupflag + the ~doublexp_multiplier table.
+// See docs/engine-parity/xp-counter-and-bonus-xp.md.
+[debugproc,doublexp](int $minutes)
+if (p_finduid(uid) = false) {
+    return;
+}
+if ($minutes > 0) {
+    %doublexp_setupflag = 1;
+    %doublexp_timetotal = $minutes;
+    mes("Double XP: ON (elapsed <tostring($minutes)>m)");
+    return;
+}
+if (%doublexp_setupflag = 1) {
+    %doublexp_setupflag = 0;
+    mes("Double XP: OFF");
+} else {
+    %doublexp_setupflag = 1;
+    %doublexp_timetotal = 0;
+    %doublexp_runningtotal = 0;
+    mes("Double XP: ON");
+}

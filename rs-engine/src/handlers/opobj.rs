@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{in_build_area, zone_obj};
 use crate::watch::Op;
@@ -10,6 +10,8 @@ use rs_protocol::network::game::client::opobj2::OpObj2;
 use rs_protocol::network::game::client::opobj3::OpObj3;
 use rs_protocol::network::game::client::opobj4::OpObj4;
 use rs_protocol::network::game::client::opobj5::OpObj5;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opobj6::OpObj6;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::trigger::ServerTriggerType;
@@ -81,6 +83,20 @@ impl ClientGameHandler for OpObj4 {
 impl ClientGameHandler for OpObj5 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(5, self.x, self.z, self.obj, active)
+    }
+}
+
+/// Handles the `OpObj6` client protocol message: Examine. The client sends
+/// only the obj type, and walks nowhere; the answer is the type's `desc`.
+#[cfg(since_647)]
+impl ClientGameHandler for OpObj6 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_op(Op::Other);
+        let desc = engine().objs().get_by_id(self.obj);
+        if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
+            active.message_game(desc);
+        }
+        Ok(())
     }
 }
 
@@ -169,12 +185,8 @@ fn handle(
         }
     }
 
-    let mode = match op {
-        1 => ServerTriggerType::ApObj1,
-        2 => ServerTriggerType::ApObj2,
-        3 => ServerTriggerType::ApObj3,
-        4 => ServerTriggerType::ApObj4,
-        _ => ServerTriggerType::ApObj5,
+    let Some(mode) = ServerTriggerType::ap_obj(op) else {
+        return Ok(());
     };
 
     let target = InteractionTarget::Obj {

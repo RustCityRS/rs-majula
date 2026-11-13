@@ -1,0 +1,270 @@
+// 1060:0
+[reset_end1]
+type=graphic
+y=-1
+width=31
+height=36
+layer=reset_button_layer
+graphic="set_but_end_2,0"
+transmitop=1
+op1=Reset score
+
+// 1060:1
+[reset_mid]
+type=graphic
+x=27
+y=-1
+width=64
+height=36
+layer=reset_button_layer
+graphic="set_but_fill_2,0"
+transmitop=1
+op1=Reset score
+
+// 1060:2
+[reset_end2]
+type=graphic
+x=90
+y=-1
+width=27
+height=36
+layer=reset_button_layer
+graphic="set_but_end_2,3"
+transmitop=1
+op1=Reset score
+
+// 1060:3
+[directions]
+type=layer
+x=7687
+y=-3713
+width=190
+height=261
+xmode=proportion_left
+ymode=proportion_bottom
+layer=layer_6
+
+// 1060:4
+[score_text]
+type=text
+x=263
+y=2191
+width=118
+height=32
+xmode=proportion_left
+ymode=proportion_top
+layer=layer_6
+textfont=quill_oblique_large
+textshadow=yes
+
+// 1060:5
+[layer_6]
+type=layer
+x=7
+y=7
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+
+// 1060:6
+[reset_button_layer]
+type=layer
+x=160
+y=3454
+width=119
+height=34
+xmode=proportion_left
+ymode=proportion_top
+layer=layer_6
+noclickthrough=yes
+onmouseover=script4080
+onmouseleave=script4081
+onop=script4082
+onclickrepeat=script4082
+onrelease=script4081
+
+// 1060:7
+[com_7]
+type=text
+x=6
+y=-1
+width=106
+height=38
+layer=reset_button_layer
+textfont=quill_oblique_large
+text=Reset
+textalignh=centre
+textshadow=yes
+
+// 1060:8
+[layer_5]
+type=layer
+x=1300
+y=10239
+width=167
+height=45
+xmode=proportion_left
+ymode=proportion_bottom
+layer=directions
+
+// 1060:9
+[layer_1]
+type=layer
+width=62795
+height=43697
+widthmode=proportion
+heightmode=proportion
+layer=layer_5
+noclickthrough=yes
+
+// 1060:10
+[layer_2]
+type=layer
+x=-52
+y=4
+width=46
+height=32
+xmode=abs_centre
+layer=layer_5
+
+// 1060:11
+[left_graphic]
+type=graphic
+y=-3
+width=43
+height=39
+layer=layer_2
+graphic="login_lobby_favorite_button_v2,1"
+
+// 1060:12
+[com_12]
+type=graphic
+x=11
+y=6
+width=20
+height=21
+layer=layer_2
+graphic=gold_arrow_1
+2dangle=16384
+
+// 1060:13
+[left]
+type=rectangle
+x=-721
+y=-833
+width=47
+height=37
+xmode=proportion_left
+ymode=proportion_top
+layer=layer_2
+colour=0x0d0503
+trans=255
+transmitop=1
+op1=Left
+onmouseover=graphic_swapper(xmas10_seal_scoring:left_graphic, "login_lobby_favorite_button_v2,2")
+onmouseleave=graphic_swapper(xmas10_seal_scoring:left_graphic, "login_lobby_favorite_button_v2,1")
+onop=graphic_swapper(xmas10_seal_scoring:left_graphic, "login_lobby_favorite_button_v2,0")
+onclickrepeat=graphic_swapper(xmas10_seal_scoring:left_graphic, "login_lobby_favorite_button_v2,0")
+onrelease=graphic_swapper(xmas10_seal_scoring:left_graphic, "login_lobby_favorite_button_v2,1")
+
+// 1060:14
+[layer_3]
+type=layer
+y=4
+width=46
+height=32
+xmode=abs_centre
+layer=layer_5
+
+// 1060:15
+[straight_graphic]
+type=graphic
+x=1
+y=-3
+width=43
+height=39
+layer=layer_3
+graphic="login_lobby_favorite_button_v2,1"
+
+// 1060:16
+[com_16]
+type=graphic
+x=12
+y=6
+width=20
+height=21
+layer=layer_3
+graphic=gold_arrow_1
+
+// 1060:17
+[straight]
+type=rectangle
+x=-357
+y=-773
+width=47
+height=37
+xmode=proportion_left
+ymode=proportion_top
+layer=layer_3
+colour=0x0d0503
+trans=255
+transmitop=1
+op1=Straight-on
+onmouseover=graphic_swapper(xmas10_seal_scoring:straight_graphic, "login_lobby_favorite_button_v2,2")
+onmouseleave=graphic_swapper(xmas10_seal_scoring:straight_graphic, "login_lobby_favorite_button_v2,1")
+onop=graphic_swapper(xmas10_seal_scoring:straight_graphic, "login_lobby_favorite_button_v2,0")
+onclickrepeat=graphic_swapper(xmas10_seal_scoring:straight_graphic, "login_lobby_favorite_button_v2,0")
+onrelease=graphic_swapper(xmas10_seal_scoring:straight_graphic, "login_lobby_favorite_button_v2,1")
+
+// 1060:18
+[layer_4]
+type=layer
+x=54
+y=4
+width=47
+height=33
+xmode=abs_centre
+layer=layer_5
+
+// 1060:19
+[right_graphic]
+type=graphic
+y=-3
+width=43
+height=39
+layer=layer_4
+graphic="login_lobby_favorite_button_v2,1"
+
+// 1060:20
+[com_20]
+type=graphic
+x=12
+y=6
+width=20
+height=21
+layer=layer_4
+graphic=gold_arrow_1
+2dangle=49152
+
+// 1060:21
+[right]
+type=rectangle
+x=-721
+y=-773
+width=47
+height=37
+xmode=proportion_left
+ymode=proportion_top
+layer=layer_4
+colour=0x0d0503
+trans=255
+transmitop=1
+op1=Right
+onmouseover=graphic_swapper(xmas10_seal_scoring:right_graphic, "login_lobby_favorite_button_v2,2")
+onmouseleave=graphic_swapper(xmas10_seal_scoring:right_graphic, "login_lobby_favorite_button_v2,1")
+onop=graphic_swapper(xmas10_seal_scoring:right_graphic, "login_lobby_favorite_button_v2,0")
+onclickrepeat=graphic_swapper(xmas10_seal_scoring:right_graphic, "login_lobby_favorite_button_v2,0")
+onrelease=graphic_swapper(xmas10_seal_scoring:right_graphic, "login_lobby_favorite_button_v2,1")

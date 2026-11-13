@@ -1,9 +1,9 @@
 use crate::engine::ScriptEngine;
 use crate::register::OpsRegistry;
 use crate::util::{cert, pop_obj, pop_param, uncert};
-use crate::{ScriptError, handlers, none};
+use crate::{handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// Registers object config (OC) opcodes for querying static item definitions
 /// from the cache, such as cost, name, equipment slots, and parameters.
@@ -16,7 +16,7 @@ use rs_pack::cache::script::*;
 /// - **Equipment:** `OC_WEARPOS`, `OC_WEARPOS2`, `OC_WEARPOS3`
 /// - **Certificates:** `OC_CERT`, `OC_UNCERT`
 /// - **Params:** `OC_PARAM`
-/// - **Interactions:** `OC_IOP` (stub)
+/// - **Interactions:** `OC_IOP`
 ///
 /// # Call Stack
 ///
@@ -45,7 +45,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4203
         none!(m, OC_DEBUGNAME => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_string(obj.debugname().unwrap_or("null"));
+            s.push_string(&obj.debugname);
         });
 
         // 4204
@@ -55,8 +55,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 4205
-        none!(m, OC_IOP => |_s| {
-            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        none!(m, OC_IOP => |s| {
+            let op = s.pop_int();
+            let obj = pop_obj::<E>(s)?;
+            let name = obj.iop
+                .as_ref()
+                .and_then(|ops| ops.get(op.wrapping_sub(1) as usize))
+                .and_then(|op| op.as_deref())
+                .unwrap_or("");
+            s.push_string(name);
         });
 
         // 4206
@@ -68,7 +75,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4207
         none!(m, OC_NAME => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_string(obj.name.as_deref().unwrap_or(obj.debugname().unwrap_or("null")));
+            s.push_string(obj.name.as_deref().unwrap_or(&obj.debugname));
         });
 
         // 4209

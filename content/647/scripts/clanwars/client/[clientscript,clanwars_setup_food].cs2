@@ -1,0 +1,11 @@
+// 1831
+[clientscript,clanwars_setup_food](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_nofood = false) {
+    %clanwars_rulevarc_nofood = true;
+} else {
+    %clanwars_rulevarc_nofood = false;
+}
+~clanwars_resynch_food;

@@ -1,13 +1,13 @@
-use std::collections::HashMap;
-
-use anyhow::Result;
-use tracing::debug;
-
+#[cfg(since_647)]
+use super::client_table_with;
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::{parse_bool, parse_number, parse_obj};
+use crate::pack::util::{parse_bool, parse_number, parse_ref};
 use crate::types::InvScope;
+use anyhow::Result;
+use std::collections::HashMap;
 
 pub fn pack_invs(
     file_cache: &FileCache,
@@ -16,23 +16,16 @@ pub fn pack_invs(
 ) -> Result<PackedFile> {
     let pack = &registry.inv;
 
-    let files = file_cache.collect("inv");
-    debug!("  Found {} .inv files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "inv", constants);
-    debug!("  Parsed {} inv configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, "inv", constants)?;
 
     let mut server = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown inv id: {id}");
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown inv config: {debugname}");
+        let Some((debugname, props)) = config_entry("inv", pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         for (key, value) in props {
@@ -115,7 +108,7 @@ pub fn pack_invs(
                 let count = stock.get(1).map(|s| s.trim()).unwrap();
                 let rate = stock.get(2).map(|s| s.trim());
 
-                parse_obj(registry, obj, |v| {
+                parse_ref(&registry.obj, "obj", obj, |v| {
                     server.p2(v);
                     parse_number(count, |v| {
                         server.p2(v);
@@ -138,8 +131,25 @@ pub fn pack_invs(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_647)]
+    let client = None;
+    #[cfg(since_647)]
+    let client = Some(client_table_with(
+        file_cache,
+        "inv",
+        pack,
+        constants,
+        |client, _, props| {
+            for (key, value) in props {
+                if key == "size" {
+                    parse_number(value, |v| {
+                        client.p1(2);
+                        client.p2(v);
+                    });
+                }
+            }
+        },
+    )?);
+
+    Ok(PackedFile { server, client })
 }

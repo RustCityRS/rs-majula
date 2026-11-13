@@ -1,0 +1,28 @@
+// 4615
+[clientscript,script4615](component $component0)
+switch_component ($component0) {
+    case skillcape_customise:picker_colour_top1 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9255));
+    case skillcape_customise:picker_colour_top2 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9254));
+    case skillcape_customise:picker_colour_top3 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9254));
+    case skillcape_customise:picker_colour_top4 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9254));
+    case skillcape_customise:picker_colour_middle1 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9256));
+    case skillcape_customise:picker_colour_middle2 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9256));
+    case skillcape_customise:picker_colour_middle3 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9255));
+    case skillcape_customise:picker_colour_middle4 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9255));
+    case skillcape_customise:picker_colour_bottom1 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9257));
+    case skillcape_customise:picker_colour_bottom2 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9257));
+    case skillcape_customise:picker_colour_bottom3 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9257));
+    case skillcape_customise:picker_colour_bottom4 :
+        if_setcolour($component0, hsvtorgb(%varplayerbit_9256));
+}

@@ -1,6 +1,7 @@
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::parse::Parser;
+use syn::punctuated::Punctuated;
 use syn::{DeriveInput, Expr, parse_macro_input};
 
 #[proc_macro_attribute]
@@ -8,10 +9,7 @@ pub fn client_prot(args: TokenStream, input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
 
-    let args: syn::punctuated::Punctuated<Expr, syn::Token![,]> =
-        syn::punctuated::Punctuated::parse_terminated
-            .parse(args)
-            .unwrap();
+    let args: Punctuated<Expr, syn::Token![,]> = Punctuated::parse_terminated.parse(args).unwrap();
 
     let mut iter = args.iter();
 
@@ -42,10 +40,7 @@ pub fn server_prot(args: TokenStream, input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
 
-    let args: syn::punctuated::Punctuated<Expr, syn::Token![,]> =
-        syn::punctuated::Punctuated::parse_terminated
-            .parse(args)
-            .unwrap();
+    let args: Punctuated<Expr, syn::Token![,]> = Punctuated::parse_terminated.parse(args).unwrap();
 
     let mut iter = args.iter();
 

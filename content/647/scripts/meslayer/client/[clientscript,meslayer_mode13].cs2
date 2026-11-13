@@ -1,0 +1,16 @@
+// 2463
+[clientscript,meslayer_mode13](string $string0, string $string1)
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, $string0);
+%meslayermode = 13;
+~meslayer_setupinput($string1);
+if_setonclick(chattop:mes_layer, null);
+~script2026;
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+if_setondialogabort(chattop:mes_text2, "meslayer_ondialogabort");
+~script1188;

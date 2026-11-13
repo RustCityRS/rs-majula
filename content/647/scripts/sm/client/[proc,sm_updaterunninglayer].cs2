@@ -1,0 +1,77 @@
+// 593
+[proc,sm_updaterunninglayer](int $int0)
+def_inv $inv1 = enum(int, inv, enum_1079, %varplayer_1112);
+def_obj $obj2 = inv_getobj($inv1, 0);
+if_setobject(stockmarket:offercollect_a, $obj2, inv_getnum($inv1, 0));
+if_clearops(stockmarket:offercollect_a);
+if ($obj2 ! null) {
+    if (oc_cert($obj2) ! $obj2) {
+        if (inv_getnum($inv1, 0) > 1) {
+            if_setop(stockmarket:offercollect_a, 1, "Collect-notes");
+            if_setop(stockmarket:offercollect_a, 2, "Collect-items");
+        } else {
+            if_setop(stockmarket:offercollect_a, 1, "Collect-items");
+            if_setop(stockmarket:offercollect_a, 2, "Collect-notes");
+        }
+    } else {
+        if_setop(stockmarket:offercollect_a, 1, "Collect");
+    }
+    if_setopbase(stockmarket:offercollect_a, oc_name($obj2));
+} else {
+    if_setopbase(stockmarket:offercollect_a, "");
+}
+def_obj $obj3 = inv_getobj($inv1, 1);
+if_setobject(stockmarket:offercollect_b, $obj3, inv_getnum($inv1, 1));
+if_clearops(stockmarket:offercollect_b);
+if ($obj3 ! null) {
+    if (oc_cert($obj3) ! $obj3) {
+        if (inv_getnum($inv1, 1) > 1) {
+            if_setop(stockmarket:offercollect_b, 1, "Collect-notes");
+            if_setop(stockmarket:offercollect_b, 2, "Collect-items");
+        } else {
+            if_setop(stockmarket:offercollect_b, 1, "Collect-items");
+            if_setop(stockmarket:offercollect_b, 2, "Collect-notes");
+        }
+    } else {
+        if_setop(stockmarket:offercollect_b, 1, "Collect");
+    }
+    if_setopbase(stockmarket:offercollect_b, oc_name($obj3));
+} else {
+    if_setopbase(stockmarket:offercollect_b, "");
+}
+if_setoninvtransmit(stockmarket:runninglayer, "stockmarket_oninvtransmit{$inv1}");
+def_int $int4 = stockmarket_getoffertype($int0);
+def_int $int5 = stockmarket_getoffercount($int0);
+def_int $int6 = stockmarket_getoffercompletedcount($int0);
+def_int $int7 = stockmarket_getoffercompletedgold($int0);
+def_string $string0 = tostring_localised($int6, true);
+def_string $string1 = tostring_localised($int7, true);
+cc_deleteall(stockmarket:progressbar);
+if (if_find(stockmarket:progressbar) = true) {
+    if (stockmarket_isofferadding($int0) = true) {
+        .cc_create(stockmarket:progressbar, ^iftype_text, 0);
+        .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_settextfont(p11_full);
+        .cc_setcolour(0xdbd884);
+        .cc_settext("Submitting offer...");
+        .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    } else {
+        ~sm_draw_progress_bar(0, 0, cc_getwidth, cc_getheight, $int0, stockmarket:progressbar, 0, stockmarket:offertooltip, 2);
+    }
+}
+if (stockmarket_isofferfinished($int0) = true) {
+    if ($int4 = 0) {
+        if_settext(stockmarket:progresstext, "You bought a total of <col=cc9900><$string0></col><br>for a total price of <col=cc9900><$string1></col> gp.");
+    } else {
+        if_settext(stockmarket:progresstext, "You sold a total of <col=cc9900><$string0></col><br>for a total price of <col=cc9900><$string1></col> gp.");
+    }
+    if_sethide(stockmarket:offerabort, true);
+} else {
+    if ($int4 = 0) {
+        if_settext(stockmarket:progresstext, "You have bought a total of <col=cc9900><$string0></col> so far<br>for a total price of <col=cc9900><$string1></col> gp.");
+    } else {
+        if_settext(stockmarket:progresstext, "You have sold a total of <col=cc9900><$string0></col> so far<br>for a total price of <col=cc9900><$string1></col> gp.");
+    }
+    if_sethide(stockmarket:offerabort, false);
+}

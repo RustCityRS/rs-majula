@@ -1,0 +1,38 @@
+// 3102
+[proc,lobby_worldswitcher_load]
+~script3104(lobbyscreen_pane_worldselect:title_text);
+~script3105(lobbyscreen_pane_worldselect:refresh_text);
+~script3107(lobbyscreen_pane_worldselect:current_title);
+~script3107(lobbyscreen_pane_worldselect:current_text);
+~script3108(lobbyscreen_pane_worldselect:world_title);
+~script3108(lobbyscreen_pane_worldselect:player_title);
+~script3108(lobbyscreen_pane_worldselect:location_title);
+~script3108(lobbyscreen_pane_worldselect:type_title);
+~script3108(lobbyscreen_pane_worldselect:ping_title);
+if (map_lang ! 0) {
+    if_settext(lobbyscreen_pane_worldselect:location_title, "Language");
+}
+~script3109(lobbyscreen_pane_worldselect:list_header_bg);
+~script3109(lobbyscreen_pane_worldselect:troubleshooting_issued);
+~script3111(lobbyscreen_pane_worldselect:list_header_bottom);
+~script3111(lobbyscreen_pane_worldselect:fav_div);
+~script3110(lobbyscreen_pane_worldselect:fav_main_div);
+~script3110(lobbyscreen_pane_worldselect:world_main_div);
+~script3110(lobbyscreen_pane_worldselect:players_main_div);
+~script3110(lobbyscreen_pane_worldselect:location_main_div);
+~script3110(lobbyscreen_pane_worldselect:qchat_main_div);
+~script3155(lobbyscreen_pane_worldselect:location_info);
+~script3155(lobbyscreen_pane_worldselect:type_info);
+if_sethide(lobbyscreen_pane_worldselect:lootshare, false);
+if_sethide(lobbyscreen_pane_worldselect:lootshare_title_main, false);
+if_sethide(lobbyscreen_pane_worldselect:type_main_div, false);
+if_sethide(lobbyscreen_pane_worldselect:type_main_div_1, false);
+if_sethide(lobbyscreen_pane_worldselect:com_42, false);
+if_setposition(lobbyscreen_pane_worldselect:type_title_main, 110, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(lobbyscreen_pane_worldselect:type, 94, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(lobbyscreen_pane_worldselect:location_main_div, 173, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(lobbyscreen_pane_worldselect:location_main_div_1, 157, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setposition(lobbyscreen_pane_worldselect:com_41, 173, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(lobbyscreen_pane_worldselect:location_title_main, 330, 2, ^setsize_minus, ^setsize_minus);
+if_setsize(lobbyscreen_pane_worldselect:location, 313, 0, ^setsize_minus, ^setsize_minus);
+~script3110(lobbyscreen_pane_worldselect:type_main_div);

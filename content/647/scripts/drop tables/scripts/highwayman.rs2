@@ -1,0 +1,14 @@
+// A label, so 2011's re-issues share it (tools/drop_reissues_647.py).
+[ai_queue3,highwayman] @highwayman_drop_table;
+
+[label,highwayman_drop_table]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+
+// Default drop from config.
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
+
+// Normal drop
+obj_add(npc_coord, black_cape, 1, ^lootdrop_duration);

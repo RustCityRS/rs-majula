@@ -1,0 +1,268 @@
+// 4540
+[proc,aif_tooltip_draw](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $rgb6, int $int7, int $int8, int $int9, int $int10, int $int11)
+if_sethide($component0, false);
+cc_deleteall($component0);
+if ($fontmetrics4 = null | $graphic5 = null) {
+    $fontmetrics4, $graphic5 = verdana_11pt_regular_multiline, verdana_11pt_regular_multiline;
+}
+if ($rgb6 = null) {
+    $rgb6 = ^white;
+}
+def_int $int12 = min(parawidth($string0, $int3, $fontmetrics4), $int3);
+def_int $int13 = calc(max(paraheight($string0, $int12, $fontmetrics4), 1) * $int7 + $int8);
+def_int $int14 = calc($int12 + 12);
+def_int $int15 = calc($int13 + 12);
+switch_int ($int9) {
+    case 3, 1 :
+        $int14 = calc($int14 + 23);
+    case 0 :
+        $int15 = calc($int15 + 22);
+    case default :
+        $int15 = calc($int15 + 23);
+}
+$int14, $int15 = max($int14, 45), max($int15, 45);
+if_setsize($component0, $int14, $int15, ^setsize_abs, ^setsize_abs);
+cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+switch_int ($int9) {
+    case 3 :
+        cc_setsize(25, 2, ^setsize_minus, ^setsize_minus);
+        cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    case 1 :
+        cc_setsize(25, 2, ^setsize_minus, ^setsize_minus);
+        cc_setposition(1, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    case 0 :
+        cc_setsize(2, 24, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_top);
+    case default :
+        cc_setsize(2, 25, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_bottom);
+}
+cc_setcolour(^black);
+cc_setfill(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+switch_int ($int9) {
+    case 3 :
+        cc_setsize(27, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_top);
+    case 1 :
+        cc_setsize(27, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(2, 0, ^setpos_abs_right, ^setpos_abs_top);
+    case 0 :
+        cc_setsize(4, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    case default :
+        cc_setsize(4, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, 23, ^setpos_abs_centre, ^setpos_abs_top);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,0");
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+switch_int ($int9) {
+    case 3 :
+        cc_setsize(27, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    case 1 :
+        cc_setsize(27, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(2, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    case 0 :
+        cc_setsize(4, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, 22, ^setpos_abs_centre, ^setpos_abs_bottom);
+    case default :
+        cc_setsize(4, 10, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,0");
+cc_settiling(true);
+cc_setvflip(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+switch_int ($int9) {
+    case 3 :
+        cc_setsize(10, 4, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    case 1 :
+        cc_setsize(10, 4, ^setsize_abs, ^setsize_minus);
+        cc_setposition(23, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    case 0 :
+        cc_setsize(10, 26, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 2, ^setpos_abs_left, ^setpos_abs_top);
+    case default :
+        cc_setsize(10, 27, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 2, ^setpos_abs_left, ^setpos_abs_bottom);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,2");
+cc_settiling(true);
+cc_sethflip(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+switch_int ($int9) {
+    case 3 :
+        cc_setsize(10, 4, ^setsize_abs, ^setsize_minus);
+        cc_setposition(23, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    case 1 :
+        cc_setsize(10, 4, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    case 0 :
+        cc_setsize(10, 26, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 2, ^setpos_abs_right, ^setpos_abs_top);
+    case default :
+        cc_setsize(10, 27, ^setsize_abs, ^setsize_minus);
+        cc_setposition(0, 2, ^setpos_abs_right, ^setpos_abs_bottom);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,2");
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+switch_int ($int9) {
+    case 3 :
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    case 1 :
+        cc_setposition(23, 0, ^setpos_abs_left, ^setpos_abs_top);
+    case 0 :
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    case default :
+        cc_setposition(0, 23, ^setpos_abs_left, ^setpos_abs_top);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_sethflip(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+switch_int ($int9) {
+    case 3 :
+        cc_setposition(23, 0, ^setpos_abs_right, ^setpos_abs_top);
+    case 1 :
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+    case 0 :
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+    case default :
+        cc_setposition(0, 23, ^setpos_abs_right, ^setpos_abs_top);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+switch_int ($int9) {
+    case 3 :
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    case 1 :
+        cc_setposition(23, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    case 0 :
+        cc_setposition(0, 22, ^setpos_abs_left, ^setpos_abs_bottom);
+    case default :
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_sethflip(true);
+cc_setvflip(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+switch_int ($int9) {
+    case 3 :
+        cc_setposition(23, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    case 1 :
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+    case 0 :
+        cc_setposition(0, 22, ^setpos_abs_right, ^setpos_abs_bottom);
+    case default :
+        cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+}
+cc_setgraphic("aif_overlay_frame_gold_corner_1,1");
+cc_setvflip(true);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setsize($int12, $int13, ^setsize_abs, ^setsize_abs);
+switch_int ($int9) {
+    case 3 :
+        cc_setposition(6, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    case 1 :
+        cc_setposition(6, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    case 0 :
+        cc_setposition(0, 6, ^setpos_abs_centre, ^setpos_abs_top);
+    case default :
+        cc_setposition(0, 6, ^setpos_abs_centre, ^setpos_abs_bottom);
+}
+cc_setcolour($rgb6);
+cc_settextfont($graphic5);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, $int7);
+cc_settext($string0);
+.cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+.cc_setgraphic(aif_tooltip_arrow_2);
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_component $component20 = if_getlayer($component0);
+if ($component20 ! null) {
+    $int16, $int18 = ~if_getx_absolute($component20), ~if_gety_absolute($component20);
+    $int17, $int19 = calc($int16 + if_getwidth($component20)), calc($int18 + if_getheight($component20));
+} else if ($component20 ! null) {
+    $int17, $int19 = if_getwidth($component20), if_getheight($component20);
+} else {
+    $int17, $int19 = 765, 503;
+}
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+if (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) {
+    $int21, $int22, $int23, $int24 = ~cc_getx_absolute, ~cc_gety_absolute, cc_getwidth, cc_getheight;
+    switch_int ($int9) {
+        case 3 :
+            $int25, $int26 = calc($int21 - $int14), calc($int22 + $int11 - $int24 / 2);
+            if ($int26 < $int18) {
+                $int27 = calc($int26 - $int18);
+                $int26 = calc($int26 - $int27);
+                $int27 = max($int27, calc(0 - ($int15 - 35) / 2));
+            } else if (calc($int26 + $int15) > $int19) {
+                $int27 = calc($int26 + $int15 - $int19);
+                $int26 = calc($int26 - $int27);
+                $int27 = min($int27, calc(($int15 - 35) / 2));
+            }
+            .cc_setsize(25, 24, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(0, $int27, ^setpos_abs_right, ^setpos_abs_centre);
+        case 1 :
+            $int25, $int26 = calc($int21 + $int23), calc($int22 + $int11 - $int24 / 2);
+            if ($int26 < $int18) {
+                $int27 = calc($int26 - $int18);
+                $int26 = calc($int26 - $int27);
+                $int27 = max($int27, calc(0 - ($int15 - 35) / 2));
+            } else if (calc($int26 + $int15) > $int19) {
+                $int27 = calc($int26 + $int15 - $int19);
+                $int26 = calc($int26 - $int27);
+                $int27 = min($int27, calc(($int15 - 35) / 2));
+            }
+            .cc_setsize(25, 24, ^setsize_abs, ^setsize_abs);
+            .cc_set2dangle(32768);
+            .cc_setposition(0, $int27, ^setpos_abs_left, ^setpos_abs_centre);
+        case 0 :
+            $int25, $int26 = calc($int21 + $int10 - $int14 / 2), calc($int22 - $int15);
+            if ($int25 < $int16) {
+                $int27 = calc($int25 - $int16);
+                $int25 = calc($int25 - $int27);
+                $int27 = max($int27, calc(0 - ($int14 - 35) / 2));
+            } else if (calc($int25 + $int14) > $int17) {
+                $int27 = calc($int25 + $int14 - $int17);
+                $int25 = calc($int25 - $int27);
+                $int27 = min($int27, calc(($int14 - 35) / 2));
+            }
+            .cc_setsize(24, 25, ^setsize_abs, ^setsize_abs);
+            .cc_set2dangle(49152);
+            .cc_setposition($int27, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+        case default :
+            $int25, $int26 = calc($int21 + $int10 - $int14 / 2), calc($int22 + $int24);
+            if ($int25 < $int16) {
+                $int27 = calc($int25 - $int16);
+                $int25 = calc($int25 - $int27);
+                $int27 = max($int27, calc(0 - ($int14 - 35) / 2));
+            } else if (calc($int25 + $int14) > $int17) {
+                $int27 = calc($int25 + $int14 - $int17);
+                $int25 = calc($int25 - $int27);
+                $int27 = min($int27, calc(($int14 - 35) / 2));
+            }
+            .cc_setsize(24, 25, ^setsize_abs, ^setsize_abs);
+            .cc_set2dangle(16384);
+            .cc_setposition($int27, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+} else {
+    if_sethide($component0, true);
+}
+if_setposition($component0, calc($int25 - $int16), calc($int26 - $int18), ^setpos_abs_left, ^setpos_abs_top);

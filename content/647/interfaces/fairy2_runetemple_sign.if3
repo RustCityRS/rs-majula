@@ -1,0 +1,40 @@
+// 425:0
+[com_0]
+type=model
+x=244
+y=160
+width=32
+height=32
+model=model_16067
+modelangle=0,2047,0
+modelzoom=266
+
+// 425:1
+[com_1]
+type=text
+x=114
+y=70
+width=285
+height=206
+textfont=lunar_alphabet_lrg
+text=COSMIC<br>RUNEe<br>ALTAR
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcccccc
+
+// 425:2
+[close_button]
+type=graphic
+x=461
+y=21
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(fairy2_runetemple_sign:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(fairy2_runetemple_sign:close_button, "close_buttons,6")
+onop=closebutton_click
+onclick=closebutton_click

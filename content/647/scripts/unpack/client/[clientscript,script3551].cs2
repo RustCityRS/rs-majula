@@ -1,0 +1,12 @@
+// 3551
+[clientscript,script3551]
+if_setobject(trail_knot_03:rune_x1, enum(int, namedobj, enum_3170, calc((~script3590(15) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x2, enum(int, namedobj, enum_3170, calc((~script3588(5) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x3, enum(int, namedobj, enum_3170, calc((~script3589(5) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x4, enum(int, namedobj, enum_3170, calc((~script3588(9) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x5, enum(int, namedobj, enum_3170, calc((~script3590(13) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x6, enum(int, namedobj, enum_3170, calc((~script3588(13) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x7, enum(int, namedobj, enum_3170, calc((~script3589(1) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x8, enum(int, namedobj, enum_3170, calc((~script3590(5) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x9, enum(int, namedobj, enum_3170, calc((~script3590(7) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);
+if_setobject(trail_knot_03:rune_x10, enum(int, namedobj, enum_3170, calc((~script3589(13) + %varplayerbit_7387) % enum_getoutputcount(enum_3170))), -1);

@@ -1,6 +1,6 @@
 use crate::store::JsonFile;
 use crate::templates::slug;
-use crate::users::name_key;
+use crate::users::{name_key, now_ms};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashSet};
 use std::path::PathBuf;
@@ -193,7 +193,7 @@ impl Prefs {
     pub fn change(&self, name: &str, op: PrefsOp) -> Result<StaffPrefs, String> {
         self.file.update(|file| {
             let prefs = file.staff.entry(name_key(name)).or_default();
-            apply(prefs, op, crate::users::now_ms())?;
+            apply(prefs, op, now_ms())?;
             Ok(prefs.clone())
         })
     }

@@ -1,0 +1,27 @@
+// 3384
+[proc,autosetup](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = autosetup_dosetup;
+~script2593($int1);
+if ($int1 = 1 | $int1 = 3) {
+    ~graphics_options_startcountdown(1, $int0, true, false);
+    return;
+} else {
+    %graphics_options_version = 3;
+    %graphics_options_firstrun = false;
+    detail_toolkit_default($int1, true);
+    if ($int0 = 3) {
+        if (unknown_command_5623 = true) {
+            ~loginscreen_setactivemenu(5);
+            if_setontimer(south_progress9:login_button, "login_delay(south_progress9:login_button, 0)");
+        } else if (~userflowflags(1) = true) {
+            ~loginscreen_setactivemenu(11);
+        } else {
+            ~loginscreen_setactivemenu(11);
+        }
+    } else {
+        ~graphics_options_rebuild($int1, getwindowmode, ~graphics_options_reviewoptions($int1), $int0);
+    }
+    return;
+}

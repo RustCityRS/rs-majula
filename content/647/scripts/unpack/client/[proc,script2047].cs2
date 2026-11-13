@@ -1,0 +1,50 @@
+// 2047
+[proc,script2047]
+if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+    if_settext(skillmulti2010_numbers:number, "All");
+} else {
+    if_settext(skillmulti2010_numbers:number, tostring(%skill_creation_amount));
+}
+def_string $string0 = ~script1111;
+if (if_gethide(skillmulti2010:a) = false) {
+    if_setpausetext(skillmulti2010:a, $string0);
+}
+if (if_gethide(skillmulti2010:b) = false) {
+    if_setpausetext(skillmulti2010:b, $string0);
+}
+if (if_gethide(skillmulti2010:c) = false) {
+    if_setpausetext(skillmulti2010:c, $string0);
+}
+if (if_gethide(skillmulti2010:d) = false) {
+    if_setpausetext(skillmulti2010:d, $string0);
+}
+if (if_gethide(skillmulti2010:e) = false) {
+    if_setpausetext(skillmulti2010:e, $string0);
+}
+if (if_gethide(skillmulti2010:f) = false) {
+    if_setpausetext(skillmulti2010:f, $string0);
+}
+if (if_gethide(skillmulti2010:g) = false) {
+    if_setpausetext(skillmulti2010:g, $string0);
+}
+if (if_gethide(skillmulti2010:h) = false) {
+    if_setpausetext(skillmulti2010:h, $string0);
+}
+if (if_gethide(skillmulti2010:i) = false) {
+    if_setpausetext(skillmulti2010:i, $string0);
+}
+if (if_gethide(skillmulti2010:j) = false) {
+    if_setpausetext(skillmulti2010:j, $string0);
+}
+if (if_gethide(skillmulti2010:k) = false) {
+    if_setpausetext(skillmulti2010:k, $string0);
+}
+if (if_gethide(skillmulti2010:l) = false) {
+    if_setpausetext(skillmulti2010:l, $string0);
+}
+if (if_gethide(skillmulti2010:m) = false) {
+    if_setpausetext(skillmulti2010:m, $string0);
+}
+if (if_gethide(skillmulti2010:n) = false) {
+    if_setpausetext(skillmulti2010:n, $string0);
+}

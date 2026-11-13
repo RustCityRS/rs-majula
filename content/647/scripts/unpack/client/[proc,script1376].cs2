@@ -1,0 +1,13 @@
+// 1376
+[proc,script1376](int $int0, component $component1, component $component2)
+if ($int0 = 1) {
+    if_sethide(worldmap:xv_repaint01, false);
+    if_setop(worldmap:com_5, 1, "Hide key");
+    if_setsize($component1, if_getwidth(worldmap:xv_repaint01), 0, ^setsize_minus, ^setsize_minus);
+} else {
+    if_sethide(worldmap:xv_repaint01, true);
+    if_setop(worldmap:com_5, 1, "Show key");
+    if_setsize($component1, 0, 0, ^setsize_minus, ^setsize_minus);
+}
+~worldmap_overlay_clear($component1);
+if_setonop(worldmap:com_5, "script1375($component1, $component2)");

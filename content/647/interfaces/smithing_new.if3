@@ -1,0 +1,3273 @@
+// 300:0
+[com_0]
+type=rectangle
+x=5
+y=25
+width=508
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 300:1
+[com_1]
+type=graphic
+x=7
+y=25
+width=498
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 300:2
+[com_2]
+type=graphic
+x=-13
+y=57
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 300:3
+[com_3]
+type=graphic
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 300:4
+[com_4]
+type=graphic
+x=492
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 300:5
+[com_5]
+type=graphic
+x=32
+y=7
+width=448
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 300:6
+[com_6]
+type=graphic
+x=32
+y=306
+width=448
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 300:7
+[com_7]
+type=graphic
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 300:8
+[com_8]
+type=graphic
+x=480
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 300:9
+[com_9]
+type=graphic
+x=480
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 300:10
+[com_10]
+type=graphic
+x=11
+y=35
+width=490
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 300:11
+[com_11]
+type=graphic
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 300:12
+[com_12]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 300:13
+[closebutton]
+type=graphic
+x=486
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onclick=closebutton_click
+
+// 300:14
+[title]
+type=text
+x=139
+y=30
+width=223
+height=20
+textfont=b12_full
+text=Smithing
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 300:15
+[scrolling_layer]
+type=layer
+x=6
+y=55
+width=484
+height=264
+scrollwidth=366
+scrollheight=375
+
+// 300:16
+[scrollbar_layer]
+type=layer
+x=487
+y=55
+width=16
+height=264
+opbase= 
+onload=script870(event_com, smithing_new:scrolling_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 300:17
+[smith_dagger]
+type=layer
+x=4
+y=5
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:18
+[smith_dagger_pic]
+type=graphic
+width=36
+height=32
+layer=smith_dagger
+outline=1
+colour=0xffffffff
+
+// 300:19
+[smith_dagger_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_dagger
+textfont=p11_full
+text=Dagger
+textalignv=centre
+colour=0x000000
+
+// 300:20
+[smith_dagger_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_dagger
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:21
+[smith_dagger_all]
+type=text
+width=109
+height=32
+layer=smith_dagger
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Daggers
+
+// 300:22
+[smith_dagger_x]
+type=text
+width=109
+height=32
+layer=smith_dagger
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Daggers
+
+// 300:23
+[smith_dagger_5]
+type=text
+width=109
+height=32
+layer=smith_dagger
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Daggers
+
+// 300:24
+[smith_dagger_1]
+type=text
+width=109
+height=32
+layer=smith_dagger
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Dagger
+
+// 300:25
+[smith_axe]
+type=layer
+x=121
+y=5
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:26
+[smith_axe_pic]
+type=graphic
+width=36
+height=32
+layer=smith_axe
+outline=1
+colour=0xffffffff
+
+// 300:27
+[smith_axe_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_axe
+textfont=p11_full
+text=Hatchet
+textalignv=centre
+colour=0x000000
+
+// 300:28
+[smith_axe_bars]
+type=text
+x=36
+y=20
+width=45
+height=12
+layer=smith_axe
+textfont=p11_full
+text=1 Bar
+textalignv=centre
+textshadow=yes
+colour=0xe8981f
+
+// 300:29
+[smith_axe_all]
+type=text
+width=109
+height=32
+layer=smith_axe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Hatchets
+
+// 300:30
+[smith_axe_x]
+type=text
+width=109
+height=32
+layer=smith_axe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Hatchets
+
+// 300:31
+[smith_axe_5]
+type=text
+width=109
+height=32
+layer=smith_axe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Hatchets
+
+// 300:32
+[smith_axe_1]
+type=text
+width=109
+height=32
+layer=smith_axe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Hatchet
+
+// 300:33
+[smith_mace]
+type=layer
+x=238
+y=5
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:34
+[smith_mace_pic]
+type=graphic
+width=36
+height=32
+layer=smith_mace
+outline=1
+colour=0xffffffff
+
+// 300:35
+[smith_mace_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_mace
+textfont=p11_full
+text=Mace
+textalignv=centre
+colour=0x000000
+
+// 300:36
+[smith_mace_bars]
+type=text
+x=36
+y=20
+width=45
+height=12
+layer=smith_mace
+textfont=p11_full
+text=1 Bar
+textalignv=centre
+textshadow=yes
+colour=0xe8981f
+
+// 300:37
+[smith_mace_all]
+type=text
+width=109
+height=32
+layer=smith_mace
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Maces
+
+// 300:38
+[smith_mace_x]
+type=text
+width=109
+height=32
+layer=smith_mace
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Maces
+
+// 300:39
+[smith_mace_5]
+type=text
+width=109
+height=32
+layer=smith_mace
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Maces
+
+// 300:40
+[smith_mace_1]
+type=text
+width=109
+height=32
+layer=smith_mace
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Mace
+
+// 300:41
+[smith_medhelm]
+type=layer
+x=368
+y=5
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:42
+[smith_medhelm_pic]
+type=graphic
+width=36
+height=32
+layer=smith_medhelm
+outline=1
+colour=0xffffffff
+
+// 300:43
+[smith_medhelm_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_medhelm
+textfont=p11_full
+text=Medium helm
+textalignv=centre
+colour=0x000000
+
+// 300:44
+[smith_medhelm_bars]
+type=text
+x=36
+y=20
+width=45
+height=12
+layer=smith_medhelm
+textfont=p11_full
+text=1 Bar
+textalignv=centre
+textshadow=yes
+colour=0xe8981f
+
+// 300:45
+[smith_medhelm_all]
+type=text
+width=109
+height=32
+layer=smith_medhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Medium helms
+
+// 300:46
+[smith_medhelm_x]
+type=text
+width=109
+height=32
+layer=smith_medhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Medium helms
+
+// 300:47
+[smith_medhelm_5]
+type=text
+width=109
+height=32
+layer=smith_medhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Medium helms
+
+// 300:48
+[smith_medhelm_1]
+type=text
+width=109
+height=32
+layer=smith_medhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Medium helm
+
+// 300:49
+[smith_bolts]
+type=layer
+x=4
+y=57
+width=114
+height=32
+layer=scrolling_layer
+
+// 300:50
+[smith_bolts_pic]
+type=graphic
+width=36
+height=32
+layer=smith_bolts
+outline=1
+colour=0xffffffff
+
+// 300:51
+[smith_bolts_name]
+type=text
+x=35
+y=-1
+width=78
+height=21
+layer=smith_bolts
+textfont=p11_full
+text=Crossbow bolts
+textalignv=centre
+colour=0x000000
+
+// 300:52
+[smith_bolts_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_bolts
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:53
+[smith_bolts_all]
+type=text
+width=114
+height=32
+layer=smith_bolts
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Bolts
+
+// 300:54
+[smith_bolts_x]
+type=text
+width=114
+height=32
+layer=smith_bolts
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Bolts
+
+// 300:55
+[smith_bolts_5]
+type=text
+width=114
+height=32
+layer=smith_bolts
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Bolts
+
+// 300:56
+[smith_bolts_1]
+type=text
+width=114
+height=32
+layer=smith_bolts
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Bolt
+
+// 300:57
+[smith_sword]
+type=layer
+x=121
+y=57
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:58
+[smith_sword_pic]
+type=graphic
+width=36
+height=32
+layer=smith_sword
+outline=1
+colour=0xffffffff
+
+// 300:59
+[smith_sword_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_sword
+textfont=p11_full
+text=Sword
+textalignv=centre
+colour=0x000000
+
+// 300:60
+[smith_sword_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_sword
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:61
+[smith_sword_all]
+type=text
+width=109
+height=32
+layer=smith_sword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Swords
+
+// 300:62
+[smith_sword_x]
+type=text
+width=109
+height=32
+layer=smith_sword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Swords
+
+// 300:63
+[smith_sword_5]
+type=text
+width=109
+height=32
+layer=smith_sword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Swords
+
+// 300:64
+[smith_sword_1]
+type=text
+width=109
+height=32
+layer=smith_sword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Sword
+
+// 300:65
+[smith_darttip]
+type=layer
+x=238
+y=57
+width=124
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:66
+[smith_darttip_pic]
+type=graphic
+width=36
+height=32
+layer=smith_darttip
+outline=1
+colour=0xffffffff
+
+// 300:67
+[smith_darttip_name]
+type=text
+x=35
+y=-1
+width=90
+height=21
+layer=smith_darttip
+textfont=p11_full
+text=Dart tips
+textalignv=centre
+colour=0x000000
+
+// 300:68
+[smith_darttip_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_darttip
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:69
+[smith_darttip_all]
+type=text
+width=124
+height=32
+layer=smith_darttip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Dart tips
+
+// 300:70
+[smith_darttip_x]
+type=text
+width=124
+height=32
+layer=smith_darttip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Dart tips
+
+// 300:71
+[smith_darttip_5]
+type=text
+width=124
+height=32
+layer=smith_darttip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Dart tips
+
+// 300:72
+[smith_darttip_1]
+type=text
+width=124
+height=32
+layer=smith_darttip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Dart tip
+
+// 300:73
+[smith_nails]
+type=layer
+x=368
+y=57
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:74
+[smith_nails_pic]
+type=graphic
+width=36
+height=32
+layer=smith_nails
+outline=1
+colour=0xffffffff
+
+// 300:75
+[smith_nails_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_nails
+textfont=p11_full
+text=Nails
+textalignv=centre
+colour=0x000000
+
+// 300:76
+[smith_nails_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_nails
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:77
+[smith_nails_all]
+type=text
+width=109
+height=32
+layer=smith_nails
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Nails
+
+// 300:78
+[smith_nails_x]
+type=text
+width=109
+height=32
+layer=smith_nails
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Nails
+
+// 300:79
+[smith_nails_5]
+type=text
+width=109
+height=32
+layer=smith_nails
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Nails
+
+// 300:80
+[smith_nails_1]
+type=text
+width=109
+height=32
+layer=smith_nails
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Nail
+
+// 300:81
+[smith_wire]
+type=layer
+x=4
+y=109
+width=109
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:82
+[smith_wire_pic]
+type=graphic
+width=36
+height=32
+layer=smith_wire
+outline=1
+colour=0xffffffff
+
+// 300:83
+[smith_wire_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_wire
+textfont=p11_full
+text=Bronze wire
+textalignv=centre
+colour=0x000000
+
+// 300:84
+[smith_wire_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_wire
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:85
+[smith_wire_all]
+type=text
+width=109
+height=32
+layer=smith_wire
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Wires
+
+// 300:86
+[smith_wire_x]
+type=text
+width=109
+height=32
+layer=smith_wire
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Wires
+
+// 300:87
+[smith_wire_5]
+type=text
+width=109
+height=32
+layer=smith_wire
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Wires
+
+// 300:88
+[smith_wire_1]
+type=text
+width=109
+height=32
+layer=smith_wire
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Wire
+
+// 300:89
+[com_89]
+type=layer
+x=4
+y=109
+width=109
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:90
+[com_90]
+type=graphic
+width=36
+height=32
+layer=com_89
+outline=1
+colour=0xffffffff
+
+// 300:91
+[com_91]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_89
+textfont=p11_full
+text=Spit iron
+textalignv=centre
+colour=0x000000
+
+// 300:92
+[com_92]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_89
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:93
+[com_93]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Iron spits
+
+// 300:94
+[com_94]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Iron spits
+
+// 300:95
+[com_95]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Iron spits
+
+// 300:96
+[com_96]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Iron spit
+
+// 300:97
+[smith_studs]
+type=layer
+x=4
+y=109
+width=109
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:98
+[smith_studs_pic]
+type=graphic
+width=36
+height=32
+layer=smith_studs
+outline=1
+colour=0xffffffff
+
+// 300:99
+[smith_studs_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_studs
+textfont=p11_full
+text=Studs
+textalignv=centre
+colour=0x000000
+
+// 300:100
+[smith_studs_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_studs
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:101
+[smith_studs_all]
+type=text
+width=109
+height=32
+layer=smith_studs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Studs
+
+// 300:102
+[smith_studs_x]
+type=text
+width=109
+height=32
+layer=smith_studs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Studs
+
+// 300:103
+[smith_studs_5]
+type=text
+width=109
+height=32
+layer=smith_studs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Studs
+
+// 300:104
+[smith_studs_1]
+type=text
+width=109
+height=32
+layer=smith_studs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Stud
+
+// 300:105
+[smith_arrowtip]
+type=layer
+x=121
+y=109
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:106
+[smith_arrowtip_pic]
+type=graphic
+width=36
+height=32
+layer=smith_arrowtip
+outline=1
+colour=0xffffffff
+
+// 300:107
+[smith_arrowtip_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_arrowtip
+textfont=p11_full
+text=Arrow tips
+textalignv=centre
+colour=0x000000
+
+// 300:108
+[smith_arrowtip_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_arrowtip
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:109
+[smith_arrowtip_all]
+type=text
+width=109
+height=32
+layer=smith_arrowtip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Arrow tips
+
+// 300:110
+[smith_arrowtip_x]
+type=text
+width=109
+height=32
+layer=smith_arrowtip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Arrow tips
+
+// 300:111
+[smith_arrowtip_5]
+type=text
+width=109
+height=32
+layer=smith_arrowtip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Arrow tips
+
+// 300:112
+[smith_arrowtip_1]
+type=text
+width=109
+height=32
+layer=smith_arrowtip
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Arrow tip
+
+// 300:113
+[smith_scimitar]
+type=layer
+x=238
+y=109
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:114
+[smith_scimitar_pic]
+type=graphic
+width=36
+height=32
+layer=smith_scimitar
+outline=1
+colour=0xffffffff
+
+// 300:115
+[smith_scimitar_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_scimitar
+textfont=p11_full
+text=Scimitar
+textalignv=centre
+colour=0x000000
+
+// 300:116
+[smith_scimitar_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_scimitar
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:117
+[smith_scimitar_all]
+type=text
+width=109
+height=32
+layer=smith_scimitar
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Scimitars
+
+// 300:118
+[smith_scimitar_x]
+type=text
+width=109
+height=32
+layer=smith_scimitar
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Scimitars
+
+// 300:119
+[smith_scimitar_5]
+type=text
+width=109
+height=32
+layer=smith_scimitar
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Scimitars
+
+// 300:120
+[smith_scimitar_1]
+type=text
+width=109
+height=32
+layer=smith_scimitar
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Scimitar
+
+// 300:121
+[smith_limbs]
+type=layer
+x=368
+y=109
+width=112
+height=32
+layer=scrolling_layer
+
+// 300:122
+[smith_limbs_pic]
+type=graphic
+width=36
+height=32
+layer=smith_limbs
+outline=1
+colour=0xffffffff
+
+// 300:123
+[smith_limbs_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_limbs
+textfont=p11_full
+text=Crossbow limbs
+textalignv=centre
+colour=0x000000
+
+// 300:124
+[smith_limbs_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_limbs
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:125
+[smith_limbs_all]
+type=text
+width=112
+height=32
+layer=smith_limbs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Crossbow limbs
+
+// 300:126
+[smith_limbs_x]
+type=text
+width=112
+height=32
+layer=smith_limbs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Crossbow limbs
+
+// 300:127
+[smith_limbs_5]
+type=text
+width=112
+height=32
+layer=smith_limbs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Crossbow limbs
+
+// 300:128
+[smith_limbs_1]
+type=text
+width=112
+height=32
+layer=smith_limbs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Crossbow limb
+
+// 300:129
+[smith_longsword]
+type=layer
+x=4
+y=161
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:130
+[smith_longsword_pic]
+type=graphic
+width=36
+height=32
+layer=smith_longsword
+outline=1
+colour=0xffffffff
+
+// 300:131
+[smith_longsword_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_longsword
+textfont=p11_full
+text=Longsword
+textalignv=centre
+colour=0x000000
+
+// 300:132
+[smith_longsword_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_longsword
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:133
+[smith_longsword_all]
+type=text
+width=109
+height=32
+layer=smith_longsword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Longswords
+
+// 300:134
+[smith_longsword_x]
+type=text
+width=109
+height=32
+layer=smith_longsword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Longswords
+
+// 300:135
+[smith_longsword_5]
+type=text
+width=109
+height=32
+layer=smith_longsword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Longswords
+
+// 300:136
+[smith_longsword_1]
+type=text
+width=109
+height=32
+layer=smith_longsword
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Longsword
+
+// 300:137
+[smith_throwingknife]
+type=layer
+x=121
+y=161
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:138
+[smith_throwingknife_pic]
+type=graphic
+width=36
+height=32
+layer=smith_throwingknife
+outline=1
+colour=0xffffffff
+
+// 300:139
+[smith_throwingknife_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_throwingknife
+textfont=p11_full
+text=Throwing knife
+textalignv=centre
+colour=0x000000
+
+// 300:140
+[smith_throwingknife_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_throwingknife
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:141
+[smith_throwingknife_all]
+type=text
+width=109
+height=32
+layer=smith_throwingknife
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Throwing knives
+
+// 300:142
+[smith_throwingknife_x]
+type=text
+width=109
+height=32
+layer=smith_throwingknife
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Throwing knives
+
+// 300:143
+[smith_throwingknife_5]
+type=text
+width=109
+height=32
+layer=smith_throwingknife
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Throwing knives
+
+// 300:144
+[smith_throwingknife_1]
+type=text
+width=109
+height=32
+layer=smith_throwingknife
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Throwing knife
+
+// 300:145
+[smith_fullhelm]
+type=layer
+x=238
+y=161
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:146
+[smith_fullhelm_pic]
+type=graphic
+width=36
+height=32
+layer=smith_fullhelm
+outline=1
+colour=0xffffffff
+
+// 300:147
+[smith_fullhelm_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_fullhelm
+textfont=p11_full
+text=Full helm
+textalignv=centre
+colour=0x000000
+
+// 300:148
+[smith_fullhelm_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_fullhelm
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:149
+[smith_fullhelm_all]
+type=text
+width=109
+height=32
+layer=smith_fullhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Full helms
+
+// 300:150
+[smith_fullhelm_x]
+type=text
+width=109
+height=32
+layer=smith_fullhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Full helms
+
+// 300:151
+[smith_fullhelm_5]
+type=text
+width=109
+height=32
+layer=smith_fullhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Full helms
+
+// 300:152
+[smith_fullhelm_1]
+type=text
+width=109
+height=32
+layer=smith_fullhelm
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Full helm
+
+// 300:153
+[com_153]
+type=layer
+x=368
+y=161
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:154
+[com_154]
+type=graphic
+width=36
+height=32
+layer=com_153
+outline=1
+colour=0xffffffff
+
+// 300:155
+[com_155]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_153
+textfont=p11_full
+text=Square shield
+textalignv=centre
+colour=0x000000
+
+// 300:156
+[com_156]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_153
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:157
+[com_157]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Square shields
+
+// 300:158
+[com_158]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Square shields
+
+// 300:159
+[com_159]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Square shields
+
+// 300:160
+[com_160]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Square shield
+
+// 300:161
+[smith_lanterns]
+type=layer
+x=4
+y=213
+width=118
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:162
+[smith_lanterns_pic]
+type=graphic
+width=36
+height=32
+layer=smith_lanterns
+outline=1
+colour=0xffffffff
+
+// 300:163
+[smith_lanterns_name]
+type=text
+x=35
+y=-1
+width=82
+height=21
+layer=smith_lanterns
+textfont=p11_full
+text=Bullseye lantern
+textalignv=centre
+colour=0x000000
+
+// 300:164
+[smith_lanterns_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_lanterns
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:165
+[smith_lanterns_all]
+type=text
+width=109
+height=32
+layer=smith_lanterns
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Lanterns
+
+// 300:166
+[smith_lanterns_x]
+type=text
+width=109
+height=32
+layer=smith_lanterns
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Lanterns
+
+// 300:167
+[smith_lanterns_5]
+type=text
+width=109
+height=32
+layer=smith_lanterns
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Lanterns
+
+// 300:168
+[smith_lanterns_1]
+type=text
+width=109
+height=32
+layer=smith_lanterns
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Lantern
+
+// 300:169
+[com_169]
+type=layer
+x=121
+y=213
+width=109
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:170
+[com_170]
+type=graphic
+width=36
+height=32
+layer=com_169
+outline=1
+colour=0xffffffff
+
+// 300:171
+[com_171]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_169
+textfont=p11_full
+text=Grapple tip
+textalignv=centre
+colour=0x000000
+
+// 300:172
+[com_172]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_169
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:173
+[com_173]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Grapple tips
+
+// 300:174
+[com_174]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Grapple tips
+
+// 300:175
+[com_175]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Grapple tips
+
+// 300:176
+[com_176]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Grapple tip
+
+// 300:177
+[smith_warhammer]
+type=layer
+x=238
+y=213
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:178
+[smith_warhammer_pic]
+type=graphic
+width=36
+height=32
+layer=smith_warhammer
+outline=1
+colour=0xffffffff
+
+// 300:179
+[smith_warhammer_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_warhammer
+textfont=p11_full
+text=Warhammer
+textalignv=centre
+colour=0x000000
+
+// 300:180
+[smith_warhammer_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_warhammer
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:181
+[smith_warhammer_all]
+type=text
+width=109
+height=32
+layer=smith_warhammer
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Warhammers
+
+// 300:182
+[smith_warhammer_x]
+type=text
+width=109
+height=32
+layer=smith_warhammer
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Warhammers
+
+// 300:183
+[smith_warhammer_5]
+type=text
+width=109
+height=32
+layer=smith_warhammer
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Warhammers
+
+// 300:184
+[smith_warhammer_1]
+type=text
+width=109
+height=32
+layer=smith_warhammer
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Warhammer
+
+// 300:185
+[smith_battleaxe]
+type=layer
+x=368
+y=213
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:186
+[smith_battleaxe_pic]
+type=graphic
+width=36
+height=32
+layer=smith_battleaxe
+outline=1
+colour=0xffffffff
+
+// 300:187
+[smith_battleaxe_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_battleaxe
+textfont=p11_full
+text=Battleaxe
+textalignv=centre
+colour=0x000000
+
+// 300:188
+[smith_battleaxe_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_battleaxe
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:189
+[smith_battleaxe_all]
+type=text
+width=109
+height=32
+layer=smith_battleaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Battleaxes
+
+// 300:190
+[smith_battleaxe_x]
+type=text
+width=109
+height=32
+layer=smith_battleaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Battleaxes
+
+// 300:191
+[smith_battleaxe_5]
+type=text
+width=109
+height=32
+layer=smith_battleaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Battleaxes
+
+// 300:192
+[smith_battleaxe_1]
+type=text
+width=109
+height=32
+layer=smith_battleaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Battleaxe
+
+// 300:193
+[smith_chainbody]
+type=layer
+x=4
+y=265
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:194
+[smith_chainbody_pic]
+type=graphic
+width=36
+height=32
+layer=smith_chainbody
+outline=1
+colour=0xffffffff
+
+// 300:195
+[smith_chainbody_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_chainbody
+textfont=p11_full
+text=Chainbody
+textalignv=centre
+colour=0x000000
+
+// 300:196
+[smith_chainbody_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_chainbody
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:197
+[smith_chainbody_all]
+type=text
+width=109
+height=32
+layer=smith_chainbody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Chainbodies
+
+// 300:198
+[smith_chainbody_x]
+type=text
+width=109
+height=32
+layer=smith_chainbody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Chainbodies
+
+// 300:199
+[smith_chainbody_5]
+type=text
+width=109
+height=32
+layer=smith_chainbody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Chainbodies
+
+// 300:200
+[smith_chainbody_1]
+type=text
+width=109
+height=32
+layer=smith_chainbody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Chainbody
+
+// 300:201
+[smith_kiteshield]
+type=layer
+x=121
+y=265
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:202
+[smith_kiteshield_pic]
+type=graphic
+width=36
+height=32
+layer=smith_kiteshield
+outline=1
+colour=0xffffffff
+
+// 300:203
+[smith_kiteshield_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_kiteshield
+textfont=p11_full
+text=Kiteshield
+textalignv=centre
+colour=0x000000
+
+// 300:204
+[smith_kiteshield_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_kiteshield
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:205
+[smith_kiteshield_all]
+type=text
+width=109
+height=32
+layer=smith_kiteshield
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Kite shields
+
+// 300:206
+[smith_kiteshield_x]
+type=text
+width=109
+height=32
+layer=smith_kiteshield
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Kite shields
+
+// 300:207
+[smith_kiteshield_5]
+type=text
+width=109
+height=32
+layer=smith_kiteshield
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Kite shields
+
+// 300:208
+[smith_kiteshield_1]
+type=text
+width=109
+height=32
+layer=smith_kiteshield
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Kite shield
+
+// 300:209
+[smith_claws]
+type=layer
+x=238
+y=265
+width=109
+height=32
+layer=scrolling_layer
+hide=yes
+
+// 300:210
+[smith_claws_pic]
+type=graphic
+width=36
+height=32
+layer=smith_claws
+outline=1
+colour=0xffffffff
+
+// 300:211
+[smith_claws_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_claws
+textfont=p11_full
+text=Claws
+textalignv=centre
+colour=0x000000
+
+// 300:212
+[smith_claws_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_claws
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:213
+[smith_claws_all]
+type=text
+width=109
+height=32
+layer=smith_claws
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Claws
+
+// 300:214
+[smith_claws_x]
+type=text
+width=109
+height=32
+layer=smith_claws
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Claws
+
+// 300:215
+[smith_claws_5]
+type=text
+width=109
+height=32
+layer=smith_claws
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Claws
+
+// 300:216
+[smith_claws_1]
+type=text
+width=109
+height=32
+layer=smith_claws
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Claw
+
+// 300:217
+[com_217]
+type=layer
+x=364
+y=265
+width=118
+height=32
+layer=scrolling_layer
+
+// 300:218
+[com_218]
+type=graphic
+width=36
+height=32
+layer=com_217
+outline=1
+colour=0xffffffff
+
+// 300:219
+[com_219]
+type=text
+x=35
+y=-1
+width=85
+height=21
+layer=com_217
+textfont=p11_full
+text=2-h sword
+textalignv=centre
+colour=0x000000
+
+// 300:220
+[ogre_bottoms]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_217
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:221
+[com_221]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All 2-handed swords
+
+// 300:222
+[com_222]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X 2-handed swords
+
+// 300:223
+[com_223]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 2-handed swords
+
+// 300:224
+[com_224]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 2-handed sword
+
+// 300:225
+[smith_plateskirt]
+type=layer
+x=4
+y=317
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:226
+[smith_plateskirt_pic]
+type=graphic
+width=36
+height=32
+layer=smith_plateskirt
+outline=1
+colour=0xffffffff
+
+// 300:227
+[smith_plateskirt_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_plateskirt
+textfont=p11_full
+text=Plateskirt
+textalignv=centre
+colour=0x000000
+
+// 300:228
+[smith_plateskirt_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_plateskirt
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:229
+[smith_plateskirt_all]
+type=text
+width=109
+height=32
+layer=smith_plateskirt
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Plateskirts
+
+// 300:230
+[smith_plateskirt_x]
+type=text
+width=109
+height=32
+layer=smith_plateskirt
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Plateskirts
+
+// 300:231
+[smith_plateskirt_5]
+type=text
+width=109
+height=32
+layer=smith_plateskirt
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Plateskirts
+
+// 300:232
+[smith_plateskirt_1]
+type=text
+width=109
+height=32
+layer=smith_plateskirt
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Plateskirt
+
+// 300:233
+[smith_platelegs]
+type=layer
+x=116
+y=317
+width=190
+height=32
+layer=scrolling_layer
+
+// 300:234
+[smith_platelegs_pic]
+type=graphic
+width=36
+height=32
+layer=smith_platelegs
+outline=1
+colour=0xffffffff
+
+// 300:235
+[smith_platelegs_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_platelegs
+textfont=p11_full
+text=Platelegs
+textalignv=centre
+colour=0x000000
+
+// 300:236
+[smith_platelegs_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_platelegs
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:237
+[smith_platelegs_all]
+type=text
+width=109
+height=32
+layer=smith_platelegs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Platelegs
+
+// 300:238
+[smith_platelegs_x]
+type=text
+width=109
+height=32
+layer=smith_platelegs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Platelegs
+
+// 300:239
+[smith_platelegs_5]
+type=text
+width=109
+height=32
+layer=smith_platelegs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Platelegs
+
+// 300:240
+[smith_platelegs_1]
+type=text
+width=109
+height=32
+layer=smith_platelegs
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Platelegs
+
+// 300:241
+[smith_platebody]
+type=layer
+x=238
+y=317
+width=109
+height=32
+layer=scrolling_layer
+
+// 300:242
+[smith_platebody_pic]
+type=graphic
+width=36
+height=32
+layer=smith_platebody
+outline=1
+colour=0xffffffff
+
+// 300:243
+[smith_platebody_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_platebody
+textfont=p11_full
+text=Platebody
+textalignv=centre
+colour=0x000000
+
+// 300:244
+[smith_platebody_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_platebody
+textfont=p11_full
+text=5 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:245
+[smith_platebody_all]
+type=text
+width=109
+height=32
+layer=smith_platebody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Platebodies
+
+// 300:246
+[smith_platebody_x]
+type=text
+width=109
+height=32
+layer=smith_platebody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Platebodies
+
+// 300:247
+[smith_platebody_5]
+type=text
+width=109
+height=32
+layer=smith_platebody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Platebodies
+
+// 300:248
+[smith_platebody_1]
+type=text
+width=109
+height=32
+layer=smith_platebody
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Platebody
+
+// 300:249
+[blurite_layer]
+type=layer
+x=6
+y=55
+width=484
+height=264
+hide=yes
+
+// 300:250
+[com_250]
+type=layer
+x=4
+y=5
+width=109
+height=32
+layer=blurite_layer
+
+// 300:251
+[com_251]
+type=graphic
+width=36
+height=32
+layer=com_250
+outline=1
+colour=0xffffffff
+
+// 300:252
+[com_252]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_250
+textfont=p11_full
+text=Crossbow bolts
+textalignv=centre
+colour=0x000000
+
+// 300:253
+[com_253]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_250
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:254
+[com_254]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Bolts
+
+// 300:255
+[com_255]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Bolts
+
+// 300:256
+[com_256]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Bolts
+
+// 300:257
+[com_257]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Bolt
+
+// 300:258
+[com_258]
+type=layer
+x=121
+y=5
+width=109
+height=32
+layer=blurite_layer
+
+// 300:259
+[com_259]
+type=graphic
+width=36
+height=32
+layer=com_258
+outline=1
+colour=0xffffffff
+
+// 300:260
+[com_260]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_258
+textfont=p11_full
+text=Crossbow limbs
+textalignv=centre
+colour=0x000000
+
+// 300:261
+[com_261]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_258
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:262
+[com_262]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Crossbow limbs
+
+// 300:263
+[com_263]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Crossbow limbs
+
+// 300:264
+[com_264]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Crossbow limbs
+
+// 300:265
+[com_265]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Crossbow limb
+
+// 300:266
+[smith_pickaxe]
+type=layer
+x=364
+y=317
+width=109
+height=42
+layer=scrolling_layer
+hide=yes
+
+// 300:267
+[smith_pickaxe_pic]
+type=graphic
+width=36
+height=32
+layer=smith_pickaxe
+outline=1
+colour=0xffffffff
+
+// 300:268
+[smith_pickaxe_name]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=smith_pickaxe
+textfont=p11_full
+text=Pickaxe
+colour=0x000000
+
+// 300:269
+[smith_pickaxe_bars]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=smith_pickaxe
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:270
+[smith_pickaxe_all]
+type=text
+width=109
+height=32
+layer=smith_pickaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Pickaxes
+
+// 300:271
+[smith_pickaxe_x]
+type=text
+width=109
+height=32
+layer=smith_pickaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Pickaxes
+
+// 300:272
+[smith_pickaxe_5]
+type=text
+width=109
+height=32
+layer=smith_pickaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Pickaxes
+
+// 300:273
+[smith_pickaxe_1]
+type=text
+width=109
+height=32
+layer=smith_pickaxe
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Pickaxe

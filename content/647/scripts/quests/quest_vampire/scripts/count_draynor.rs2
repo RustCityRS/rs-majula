@@ -1,0 +1,178 @@
+// 289's Count Draynor (quests/quest_vampire/scripts/count_draynor.rs2) as
+// 2011's: npc 9356, who rises from the coffin. Beaten, he is staked with a
+// stake and the stake hammer (2011 wiki, Stake hammer: "A long time ago, a
+// normal hammer could be used with the stake, but instead a stake hammer is
+// now specifically used"), and the quest waits for Morgan. Without garlic,
+// each of the player's hits of 0 heals him 10 life points (2011 wiki, Vampire
+// Slayer).
+// Staked, he hunches over, turns to white dust and crumbles away (2011-02-19
+// recording, 96.0s-98.2s): his seq 12604 with spotanim 567 (model 51051,
+// seq 12605) on him, both 12s long. 12604 loops back to its start when it
+// ends, so he goes a tick before it does, the dust all but gone.
+// 2011's lines, as two dated recordings' chat has them (2011-02-28 YouTube
+// Go0RZkE-Nfc, 309s; 2011-05-04 8rnPUf2QQv4, 253s and 267.5-269s): "The garlic
+// in your pack weakens the vampire." as the fight starts; nothing at the stake
+// (289's "You hammer the stake into the vampire's chest!" is in neither); once
+// he has crumbled away, the player's "I should tell Morgan that I've killed the
+// vampire!" (05-04, 267.5s, about 1.5s after he goes) and "You have slain the
+// vampire." (both).
+[ai_queue4,vampire_slayer_qip_count]
+~quest_vampire_coffin_close;
+npc_walk(npc_coord);
+npc_setmode(none);
+npc_arrivedelay;
+if (finduid(%npc_aggressive_player) = true) {
+    if (npc_param(death_sound) ! null) {
+        ~sound_within_distance(npc_param(death_sound), 0, npc_coord, 12);
+    }
+    %lastcombat = null;
+}
+npc_anim(npc_param(death_anim), 0);
+spotanim_npc(spotanim_567, 0, 0);
+npc_delay(18);
+npc_del;
+
+// The coffin cutscene's camera (quest_vampire.rs2) holds a set time, and
+// engaging him does not give it back: in the 2011-05-04 recording (YouTube
+// 8rnPUf2QQv4) the player clicks Attack at 241s and 245.5s and the camera
+// stays until 249.5s; in the 2011-02-28 one (Go0RZkE-Nfc) a mage casts at
+// him from 268.5s and it stays until 277.5s.
+// He strikes first as the player reaches him (2011-04-21 LJsjL-Lu9cQ 147.9s,
+// his 20 before the player's first; 2011-05-04 8rnPUf2QQv4 251.0s, his 3
+// before their 71 at 252.9s): his blow comes as they arrive, then theirs.
+[opnpc2,vampire_slayer_qip_count]
+if (npc_getmode ! opplayer2 & %npc_action_delay <= map_clock & %death = ^false) {
+    npc_setmode(opplayer2);
+    ~count_draynor_swing;
+}
+@player_combat_start;
+
+[apnpc2,vampire_slayer_qip_count] @player_combat_start_ap;
+
+// https://youtu.be/67aR5-_INcU
+// - seems to be called on npc damage, and on npc hit
+// - two calls from 66 hits
+[proc,count_draynor_garlic]
+if (inv_total(inv, garlic) > 0) {
+    if (npc_stat(hitpoints) = npc_basestat(hitpoints)) { // osrs https://archive.is/djWKq
+        npc_statsub(hitpoints, 100, 0);
+        npc_statsub(attack, 10, 0);
+        npc_statsub(strength, 10, 0);
+        npc_statsub(defence, 40, 0);
+        mes("The garlic in your pack weakens the vampire.");
+    } else if (random(64) = 0) {
+        mes("The garlic in your pack weakens the vampire.");
+    }
+}
+
+[ai_opplayer2,vampire_slayer_qip_count]
+if (%death = ^true) {
+    npc_setmode(null);
+    return;
+}
+if (%npc_action_delay > map_clock) {
+    return;
+}
+if (~npc_check_notcombat = false) {
+    npc_setmode(null);
+    return;
+}
+if (~npc_check_notcombat_self = false) {
+    return;
+}
+~count_draynor_swing;
+
+[proc,count_draynor_swing]
+anim(%com_defendanim, 0);
+npc_anim(npc_param(attack_anim), 0);
+if (npc_param(attack_sound) ! null) {
+    sound_synth(npc_param(attack_sound), 1, 0);
+}
+~count_draynor_garlic;
+~npc_meleeattack;
+
+[ai_queue2,vampire_slayer_qip_count]
+if (finduid(%npc_aggressive_player) = true) {
+    ~count_draynor_garlic;
+    if (last_int = 0 & inv_total(inv, garlic) = 0) {
+        npc_statheal(hitpoints, 10, 0);
+    }
+}
+~npc_default_damage(last_int);
+
+[ai_queue3,vampire_slayer_qip_count]
+if (npc_findhero = ^true) {
+    if (p_finduid(uid) = true) {
+        @count_draynor_use_stake;
+    }
+}
+npc_statheal(hitpoints, 10, 0);
+
+[label,count_draynor_use_stake]
+if (inv_total(inv, stake) = 0) {
+    mes("The vampire seems to regenerate!");
+    npc_statheal(hitpoints, 0, 100);
+    npc_setmode(opplayer2);
+    return;
+}
+if (inv_total(inv, vampire_hammer) = 0) {
+    mes("You're unable to push the stake far enough in!");
+    mes("The vampire seems to regenerate!");
+    npc_statheal(hitpoints, 0, 100);
+    npc_setmode(opplayer2);
+    return;
+}
+p_delay(1);
+inv_del(inv, stake, 1);
+// 2011's lines once he has crumbled away: his dust goes 20 ticks after this.
+queue(vampire_count_slain, 22, 0);
+// The client keeps an animation still playing over a new one of lower
+// priority (Class243 for players, WallObject for npcs): the player's swing,
+// or the Count's attack or block (3331, 3332: priority 6), refused the
+// hammer blow and his dust (priority 5), and spotanim 567 played beside him.
+// So the fight stops and both are cleared this tick; the blow and the dust
+// start on the next (ai_queue4).
+p_stopaction;
+anim(null, 0);
+npc_setmode(none);
+npc_walk(npc_coord);
+npc_anim(null, 0);
+npc_queue(4, 0, 0);
+if (%vampire < ^vampire_complete) {
+    %vampire_count_slain = ^true;
+}
+p_delay(0);
+// The rework's stake hammer blow (seq 12606, the hammer in hand), as the
+// player strikes in the 2011-02-19 recording at 96.0s-98.2s.
+anim(seq_12606, 0);
+
+[queue,vampire_count_slain]
+mes("You have slain the vampire.");
+~chatplayer("<p,neutral>I should tell Morgan that I've killed the vampire!");
+
+// He goes when the player leaves him, or after a while (npc_add's 500 ticks;
+// "he disappears after a period of time", 2011 wiki, Vampire Slayer). 289
+// sent him when the player was 10 tiles off; 2011's rises 9 tiles from
+// where the cutscene throws the player, and follows a player who attacks
+// him, so leaving is 20 tiles: the basement's stairs.
+// He does not come for the player: in the 2011-04-21 (LJsjL-Lu9cQ, 143.5-147.9s)
+// and 2011-05-04 (240-251s) recordings he waits where he rose while the player
+// walks up ([opnpc2] has him strike first as they arrive).
+[ai_timer,vampire_slayer_qip_count]
+if (finduid(%npc_attacking_uid) = true) {
+    if (npc_range(coord) > 20 | coordy(coord) ! coordy(npc_coord)) {
+        // A player who leaves without attacking him gets the camera back.
+        cam_reset;
+        ~quest_vampire_coffin_close;
+        npc_del;
+        return;
+    }
+    // One who stands beside him without attacking is attacked (2011 wiki,
+    // Count Draynor: aggressive).
+    if (npc_range(coord) <= 1 & npc_getmode ! opplayer2 & %death = ^false) {
+        npc_setmode(opplayer2);
+    }
+} else {
+    ~quest_vampire_coffin_close;
+    npc_del;
+}

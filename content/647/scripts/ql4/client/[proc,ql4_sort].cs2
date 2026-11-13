@@ -1,0 +1,221 @@
+// 2162
+[proc,ql4_sort](int $int0, int $int1, int $int2, int $int3, int $int4)
+if ($int1 = -1 | $int2 = -1 | $int3 = -1 | $int4 = -1) {
+    return;
+}
+def_int $intarray0(calc(%ql4_topquestid + 1));
+def_int $intarray1(calc(%ql4_topquestid + 1));
+def_struct $struct5 = enum(int, struct, enum_169, $int0);
+if ($struct5 = null) {
+    return;
+}
+def_enum $enum6 = struct_param($struct5, param_61);
+def_component $component7 = struct_param($struct5, param_152);
+def_component $component8 = struct_param($struct5, param_153);
+def_component $component9 = struct_param($struct5, param_670);
+%ql4_comlevel = ~comlevel;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_boolean $boolean12 = true;
+def_int $int13 = 0;
+def_int $int14 = 1;
+def_enum $enum15 = enum(int, enum, struct_param($struct5, param_673), $int1);
+def_enum $enum16 = enum(int, enum, struct_param($struct5, param_676), $int1);
+def_enum $enum17 = enum(int, enum, struct_param($struct5, param_675), $int1);
+if ($enum17 = null) {
+    $enum17 = enum_223;
+}
+if ($enum15 = null) {
+    return;
+}
+def_int $int18 = enum_getoutputcount($enum15);
+def_int $int19 = if_getscrolly($component7);
+def_int $int20 = if_getscrollheight($component7);
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_string $string0 = "";
+~script2164($int0);
+while ($int10 <= %ql4_topquestid) {
+    $intarray0($int10) = $int10;
+    $int10 = calc($int10 + 1);
+}
+$int10 = 0;
+~ql4_quicksort(intarray0, $enum6, 0, %ql4_topquestid);
+switch_int ($int0) {
+    case 1 :
+        while ($int10 <= %ql4_topquestid) {
+            $intarray1($int10) = ~ql4_getprogress($intarray0($int10));
+            $int10 = calc($int10 + 1);
+        }
+    case 3 :
+        while ($int10 <= %ql4_topquestid) {
+            $intarray1($int10) = 0;
+            $int10 = calc($int10 + 1);
+        }
+}
+$int10 = 0;
+def_int $int23 = 0;
+if ($int2 = 1) {
+    $int23 = calc($int18 - 1);
+}
+def_int $int24 = 5;
+def_int $int25 = 0;
+def_int $int26 = -1;
+if ($int0 = 1) {
+    $int26 = %varplayerbit_6913;
+} else if (struct_param($struct5, param_693) > 0) {
+    $int26 = calc(%varplayerbit_697 - 1000 * (struct_param($struct5, param_693) - 1));
+} else {
+    $int26 = calc(%varplayerbit_697 - 1000 * ($int0 - 1));
+}
+while ($int2 = 0 & $int23 < $int18 | $int2 = 1 & $int23 >= 0) {
+    $int21 = enum(int, int, $enum17, $int23);
+    if (cc_find($component7, calc(%ql4_topquestid + $int23 + 1)) = true) {
+        cc_setposition(0, $int24, ^setpos_abs_left, ^setpos_abs_top);
+        $string0 = enum(int, string, $enum15, $int21);
+        cc_settext($string0);
+        cc_sethide(false);
+        $int24 = calc($int24 + cc_getheight);
+    }
+    $int13 = 0;
+    while ($int11 < %ql4_questcount) {
+        %ql4_quest = enum(int, struct, $enum6, $intarray0($int10));
+        if (%ql4_quest ! null) {
+            $int11 = calc($int11 + 1);
+            switch_int ($int1) {
+                case 0 :
+                    $int22 = struct_param(%ql4_quest, param_856);
+                    if ($int22 = 4 & %tutorial = 1000) {
+                        $int22 = 0;
+                    }
+                case 1 :
+                    switch_int ($int0) {
+                        case 1 :
+                            $int22 = $intarray1($int10);
+                        case 3 :
+                            $int22 = struct_param(%ql4_quest, param_677);
+                    }
+                case 2 :
+                    switch_int ($int0) {
+                        case 1 :
+                            $int22 = struct_param(%ql4_quest, param_848);
+                        case 3 :
+                            $int22 = struct_param(%ql4_quest, param_678);
+                    }
+            }
+            if ($int22 ! $int21) {
+                $int14 = 0;
+            }
+            if ($int14 = 1 & $int3 = 0 & $intarray1($int10) = 0) {
+                $boolean12 = ~ql4_requirements_cache;
+                if ($boolean12 = false) {
+                    $int14 = 0;
+                }
+            }
+            if ($int14 = 1 & $int4 = 1 & $intarray1($int10) = 2) {
+                $int14 = 0;
+            }
+            if ($int14 = 1 & cc_find($component7, $intarray0($int10)) = true) {
+                cc_setposition(10, $int24, ^setpos_abs_left, ^setpos_abs_top);
+                cc_sethide(false);
+                if (struct_param(%ql4_quest, param_694) = 1) {
+                    if ($intarray1($int10) = 0) {
+                        cc_setop(1, "View Quest Overview");
+                        cc_setop(2, "View Quest Journal");
+                        cc_setop(3, "Toggle Map Hint");
+                    } else if ($intarray1($int10) = 1) {
+                        cc_setop(1, "View Quest Journal");
+                        cc_setop(2, "View Quest Overview");
+                        cc_setop(3, "Toggle Map Hints");
+                    } else {
+                        cc_setop(1, "View Quest Journal");
+                        cc_setop(2, "View Quest Overview");
+                        cc_setop(3, "");
+                    }
+                } else {
+                    cc_setop(1, "View Quest Journal");
+                    cc_setop(3, "");
+                    if ($intarray1($int10) = 0) {
+                        cc_setop(2, "Toggle Map Hint");
+                    } else {
+                        cc_setop(2, "");
+                    }
+                }
+                cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+                if ($intarray0($int10) = $int26) {
+                    cc_setcolour(^cyan);
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^cyan, $component9)");
+                } else if ($intarray1($int10) = 0) {
+                    cc_setcolour(^red);
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^red, $component9)");
+                } else if ($intarray1($int10) = 1) {
+                    cc_setcolour(^yellow);
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^yellow, $component9)");
+                } else {
+                    cc_setcolour(^green);
+                    cc_setonmouseleave("ql4_item_mouseleave(event_com, event_comsubid, ^green, $component9)");
+                }
+                $int24 = calc($int24 + cc_getheight);
+                $int13 = calc($int13 + 1);
+                if (enum(int, int, $enum16, $int21) = 1 & compare(struct_param(%ql4_quest, param_857), "") ! 0 & cc_find($component7, calc(%ql4_topquestid + $int23 + 1)) = true) {
+                    cc_settext(struct_param(%ql4_quest, param_857));
+                }
+                $int25 = calc($int25 + 1);
+            }
+            $int14 = 1;
+        }
+        $int10 = calc($int10 + 1);
+    }
+    if ($int13 ! 0) {
+        $int24 = calc($int24 + 10);
+    } else {
+        if (cc_find($component7, calc(%ql4_topquestid + $int23 + 1)) = true) {
+            cc_settext("");
+            cc_sethide(true);
+        }
+        $int24 = calc($int24 - 20);
+    }
+    $int10 = 0;
+    $int11 = 0;
+    if ($int2 = 0) {
+        $int23 = calc($int23 + 1);
+    } else {
+        $int23 = calc($int23 - 1);
+    }
+}
+def_string $string1 = "";
+if ($int0 = 1) {
+    if ($int25 = %ql4_questcount) {
+        $string1 = "Showing all <tostring(%ql4_questcount)> items";
+    } else {
+        $string1 = "Showing <tostring($int25)> of <tostring(%ql4_questcount)> items";
+    }
+    if ($int2 = 1) {
+        $string1 = append($string1, " (reversed)");
+    }
+    if_settext(questlist_v4:label_status, $string1);
+}
+if (%ql4_reinit = 1 | $int20 ! calc($int24 + 5) | $int2 = 1 & %ql4_reverse_list = 0 | $int2 = 0 & %ql4_reverse_list = 1) {
+    if_setscrollsize($component7, if_getwidth($component7), calc($int24 + 5));
+    $int20 = $int24;
+    if_setscrollpos($component7, 0, 0);
+    ~scrollbar_vertical($component8, $component7, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setscrollpos($component7, 0, $int19);
+}
+if ($int0 = 1) {
+    %ql4_filter_doable = $int3;
+    %ql4_filter_done = $int4;
+    %ql4_reverse_list = $int2;
+    if (%ql4_filter_doable = 0) {
+        if_setgraphic(questlist_v4:radio_filter, "options_radio_buttons,2");
+    } else {
+        if_setgraphic(questlist_v4:radio_filter, "options_radio_buttons,0");
+    }
+    if (%ql4_filter_done = 1) {
+        if_setgraphic(questlist_v4:com_12, "options_radio_buttons,2");
+    } else {
+        if_setgraphic(questlist_v4:com_12, "options_radio_buttons,0");
+    }
+}
+%ql4_reinit = 0;

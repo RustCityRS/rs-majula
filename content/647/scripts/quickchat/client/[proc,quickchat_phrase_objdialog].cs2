@@ -1,0 +1,41 @@
+// 1037
+[proc,quickchat_phrase_objdialog](chatphrase $chatphrase0, boolean $boolean1)
+%quickchat_objdialog_stockmarketonly = $boolean1;
+%quickchat_menu_select = -1;
+%quickchat_phrase_temp_int = 0;
+%varclient_1549 = "";
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (%quickchat_mode = 1) {
+    $string0 = "To <%varclient_1546>: <col=800000><$string0>";
+} else if (%quickchat_mode = 2) {
+    $string0 = "[<col=0000ff><clan_getchatdisplayname><col=000000>]: <col=800000><$string0>";
+} else if (%quickchat_mode = 8) {
+    if (activeclanchannel_find_affined = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
+    }
+} else if (%quickchat_mode = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
+    }
+} else {
+    $string0 = "<col=0000ff><$string0>";
+}
+if_sethide(chatdefault:chat, true);
+if_setonkey(chatdefault:input, null);
+if_sethide(chatdefault:quickchat, false);
+if_sethide(chatdefault:quickchat_countdialog, true);
+if_sethide(chatdefault:quickchat_listdialog, true);
+if_sethide(chatdefault:quickchat_objdialog, false);
+if_sethide(chatdefault:quickchat_menu, true);
+if_sethide(chatdefault:quickchat_path, true);
+if_sethide(chatdefault:quickchat_title, false);
+if_setcolour(chatdefault:quickchat_title, ^black);
+if_settextfont(chatdefault:quickchat_title, p12_full);
+if_settextalign(chatdefault:quickchat_title, ^settextalign_left, ^settextalign_centre, 0);
+if_settext(chatdefault:quickchat_title, $string0);
+if_settextshadow(chatdefault:quickchat_title, false);
+cc_deleteall(chatdefault:quickchat_objdialog_search);
+if_settext(chatdefault:quickchat_objdialog_input, "Search for: *");
+if_setonkey(chatdefault:quickchat_objdialog, "quickchat_phrase_objdialog_onkey(event_keycode, event_keychar, chatdefault:quickchat_path, chatdefault:quickchat_objdialog_input, chatdefault:quickchat_objdialog_search, chatdefault:quickchat_objdialog_scroll, $chatphrase0, 0)");
+if_setscrollsize(chatdefault:quickchat_objdialog_search, 0, 0);
+~scrollbar_resize(chatdefault:quickchat_objdialog_scroll, chatdefault:quickchat_objdialog_search, 0);

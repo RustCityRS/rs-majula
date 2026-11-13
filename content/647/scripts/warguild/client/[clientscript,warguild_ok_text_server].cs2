@@ -1,0 +1,13 @@
+// 4060
+[clientscript,warguild_ok_text_server]
+if (%varplayerbit_8669 = 1) {
+    if (%warguild_tokens_strength < 30 | %warguild_tokens_defence < 30 | %warguild_tokens_attack < 30 | %warguild_tokens_combat < 30 | %warguild_tokens_balance < 30) {
+        ~warguild_not_enough_tokens;
+    } else {
+        ~script4062;
+    }
+} else if (%warguild_tokens_strength < 200 & %warguild_tokens_defence < 200 & %warguild_tokens_attack < 200 & %warguild_tokens_combat < 200 & %warguild_tokens_balance < 200) {
+    ~warguild_not_enough_tokens;
+} else {
+    ~script4062;
+}

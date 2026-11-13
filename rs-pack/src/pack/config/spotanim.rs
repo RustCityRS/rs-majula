@@ -1,27 +1,28 @@
-use crate::config_crc;
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::colour::{RecolType, rgb15_to_hsl16};
-use crate::pack::util::{parse_bool, parse_model, parse_number, parse_recol, parse_seq};
+use crate::pack::util::colour::RecolType;
+#[cfg(before_647)]
+use crate::pack::util::colour::rgb15_to_hsl16;
+#[cfg(before_647)]
+use crate::pack::util::parse_bool;
+#[cfg(since_647)]
+use crate::pack::util::{pack_pairs, parse_retex};
+use crate::pack::util::{parse_number, parse_recol, parse_ref};
 use anyhow::Result;
-use rs_io::crc;
+#[cfg(since_647)]
+use anyhow::bail;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_spotanims(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.spotanim;
 
-    let files = file_cache.collect("spotanim");
-    debug!("  Found {} .spotanim files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "spotanim", constants);
-    debug!("  Parsed {} spotanim configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, "spotanim", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -30,18 +31,20 @@ pub fn pack_spotanims(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown spotanim id: {id}");
+        let Some((debugname, props)) = config_entry("spotanim", pack, &configs, id) else {
+            server.skip_entry();
+            client.skip_entry();
+            continue;
         };
 
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown spotanim config: {debugname}");
-        };
+        #[cfg(since_647)]
+        let (mut recol_s, mut recol_d, mut retex_s, mut retex_d) =
+            (Vec::new(), Vec::new(), Vec::new(), Vec::new());
 
         for (key, value) in props {
             match key.as_str() {
                 // 1
-                "model" => parse_model(registry, value, |v| {
+                "model" => parse_ref(&registry.model, "model", value, |v| {
                     client.p1(1);
                     client.p2(v);
                     server.p1(1);
@@ -49,7 +52,7 @@ pub fn pack_spotanims(
                 }),
 
                 // 2
-                "anim" => parse_seq(registry, value, |v| {
+                "anim" => parse_ref(&registry.seq, "seq", value, |v| {
                     client.p1(2);
                     client.p2(v);
                     server.p1(2);
@@ -57,6 +60,7 @@ pub fn pack_spotanims(
                 }),
 
                 // 3
+                #[cfg(before_647)]
                 "hasalpha" => parse_bool(value, |v| {
                     if v {
                         client.p1(3);
@@ -81,7 +85,16 @@ pub fn pack_spotanims(
                 }),
 
                 // 6
+                #[cfg(before_647)]
                 "angle" => parse_number(value, |v| {
+                    client.p1(6);
+                    client.p2(v);
+                    server.p1(6);
+                    server.p2(v);
+                }),
+
+                #[cfg(since_647)]
+                "rotation" => parse_number(value, |v| {
                     client.p1(6);
                     client.p2(v);
                     server.p1(6);
@@ -104,7 +117,41 @@ pub fn pack_spotanims(
                     server.p1(v);
                 }),
 
+                #[cfg(since_647)]
+                "hillchange" => {
+                    let parts: Vec<_> = value.split(',').map(str::trim).collect();
+                    let (code, param) = match parts.as_slice() {
+                        ["rotate"] => (9, 0),
+                        ["skew"] => (11, 0),
+                        ["ceiling_skew"] => (12, 0),
+                        ["skew_to_fit"] => (13, 0),
+                        ["tree_skew", param] => (14, param.parse::<u8>()? as i32),
+                        ["rotate", param] => {
+                            let param = param.parse::<i32>()?;
+                            (if u16::try_from(param).is_ok() { 15 } else { 16 }, param)
+                        }
+                        ["rotate", param, "32"] => (16, param.parse::<i32>()?),
+                        _ => bail!("{debugname}: invalid hillchange '{value}'"),
+                    };
+                    for stream in [&mut server, &mut client] {
+                        stream.p1(code);
+                        match code {
+                            14 => stream.p1(param as u8),
+                            15 => stream.p2(param as u16),
+                            16 => stream.p4(param),
+                            _ => {}
+                        }
+                    }
+                }
+
+                #[cfg(since_647)]
+                "allowloop" => {
+                    server.p1(10);
+                    client.p1(10);
+                }
+
                 // 40-60
+                #[cfg(before_647)]
                 _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
                     RecolType::S(idx, v) => {
                         client.p1((39 + idx) as u8);
@@ -120,8 +167,34 @@ pub fn pack_spotanims(
                     }
                 }),
 
+                #[cfg(since_647)]
+                _ if key.starts_with("recol") => parse_recol(key, value, |value| match value {
+                    RecolType::S(index, value) => recol_s.push((index, value)),
+                    RecolType::D(index, value) => recol_d.push((index, value)),
+                }),
+
+                #[cfg(since_647)]
+                _ if key.starts_with("retex") => {
+                    parse_retex(registry, key, value, |value| match value {
+                        RecolType::S(index, value) => retex_s.push((index, value)),
+                        RecolType::D(index, value) => retex_d.push((index, value)),
+                    })
+                }
+
                 // not found
                 _ => panic!("Unrecognized spotanim config key: {key}"),
+            }
+        }
+
+        #[cfg(since_647)]
+        {
+            recol_s.sort_by_key(|(index, _)| *index);
+            recol_d.sort_by_key(|(index, _)| *index);
+            retex_s.sort_by_key(|(index, _)| *index);
+            retex_d.sort_by_key(|(index, _)| *index);
+            for stream in [&mut server, &mut client] {
+                pack_pairs(stream, 40, &recol_s, &recol_d);
+                pack_pairs(stream, 41, &retex_s, &retex_d);
             }
         }
 
@@ -132,14 +205,6 @@ pub fn pack_spotanims(
         // done
         server.finish_entry();
         client.finish_entry();
-    }
-
-    if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::SPOTANIM;
-        if crc != expected {
-            panic!("CRC mismatch ['spotanim']: Got: {crc}, Expected: {expected}");
-        }
     }
 
     Ok(PackedFile {

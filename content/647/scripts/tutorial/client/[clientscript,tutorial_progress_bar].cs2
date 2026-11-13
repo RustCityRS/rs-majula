@@ -1,0 +1,102 @@
+// 1437
+[clientscript,tutorial_progress_bar]
+if (%tutorial_progress_overlay > 1) {
+    if_setcolour(tutorial_progress:tutorial_progress0, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress0, ^black);
+}
+if (%tutorial_progress_overlay > 2) {
+    if_setcolour(tutorial_progress:tutorial_progress1, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress1, ^black);
+}
+if (%tutorial_progress_overlay > 3) {
+    if_setcolour(tutorial_progress:tutorial_progress2, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress2, ^black);
+}
+if (%tutorial_progress_overlay > 4) {
+    if_setcolour(tutorial_progress:tutorial_progress3, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress3, ^black);
+}
+if (%tutorial_progress_overlay > 5) {
+    if_setcolour(tutorial_progress:tutorial_progress4, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress4, ^black);
+}
+if (%tutorial_progress_overlay > 6) {
+    if_setcolour(tutorial_progress:tutorial_progress5, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress5, ^black);
+}
+if (%tutorial_progress_overlay > 7) {
+    if_setcolour(tutorial_progress:tutorial_progress6, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress6, ^black);
+}
+if (%tutorial_progress_overlay > 8) {
+    if_setcolour(tutorial_progress:tutorial_progress7, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress7, ^black);
+}
+if (%tutorial_progress_overlay > 9) {
+    if_setcolour(tutorial_progress:tutorial_progress8, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress8, ^black);
+}
+if (%tutorial_progress_overlay > 10) {
+    if_setcolour(tutorial_progress:tutorial_progress9, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress9, ^black);
+}
+if (%tutorial_progress_overlay > 11) {
+    if_setcolour(tutorial_progress:tutorial_progress10, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress10, ^black);
+}
+if (%tutorial_progress_overlay > 12) {
+    if_setcolour(tutorial_progress:tutorial_progress11, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress11, ^black);
+}
+if (%tutorial_progress_overlay > 13) {
+    if_setcolour(tutorial_progress:tutorial_progress12, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress12, ^black);
+}
+if (%tutorial_progress_overlay > 14) {
+    if_setcolour(tutorial_progress:tutorial_progress13, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress13, ^black);
+}
+if (%tutorial_progress_overlay > 15) {
+    if_setcolour(tutorial_progress:tutorial_progress14, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress14, ^black);
+}
+if (%tutorial_progress_overlay > 16) {
+    if_setcolour(tutorial_progress:tutorial_progress15, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress15, ^black);
+}
+if (%tutorial_progress_overlay > 17) {
+    if_setcolour(tutorial_progress:tutorial_progress16, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress16, ^black);
+}
+if (%tutorial_progress_overlay > 18) {
+    if_setcolour(tutorial_progress:tutorial_progress17, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress17, ^black);
+}
+if (%tutorial_progress_overlay > 19) {
+    if_setcolour(tutorial_progress:tutorial_progress18, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress18, ^black);
+}
+if (%tutorial_progress_overlay > 20) {
+    if_setcolour(tutorial_progress:tutorial_progress19, 0x8080ff);
+} else {
+    if_setcolour(tutorial_progress:tutorial_progress19, ^black);
+}

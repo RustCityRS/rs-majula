@@ -1,0 +1,131 @@
+// 345:0
+[com_0]
+type=model
+x=96
+y=8
+width=325
+height=310
+model=model_3395
+modelorigin=-15,15
+modelangle=520,1,0
+modelzoom=599
+
+// 345:1
+[trail_cluelong_line1]
+type=text
+x=131
+y=62
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:2
+[trail_cluelong_line2]
+type=text
+x=131
+y=87
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:3
+[trail_cluelong_line3]
+type=text
+x=131
+y=112
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:4
+[trail_cluelong_line4]
+type=text
+x=131
+y=137
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:5
+[trail_cluelong_line5]
+type=text
+x=131
+y=162
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:6
+[trail_cluelong_line6]
+type=text
+x=131
+y=187
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:7
+[trail_cluelong_line7]
+type=text
+x=131
+y=212
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:8
+[trail_cluelong_line8]
+type=text
+x=131
+y=237
+width=256
+height=21
+textfont=q8_full
+text=The quick brown fox jumped over the 
+textalignh=centre
+textshadow=yes
+colour=0xf0bb5e
+
+// 345:9
+[close_button]
+type=graphic
+x=370
+y=30
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=         
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

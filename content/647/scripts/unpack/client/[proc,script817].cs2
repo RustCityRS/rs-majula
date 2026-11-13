@@ -1,0 +1,17 @@
+// 817
+[proc,script817](stat $stat0)
+def_int $int1 = 31;
+def_int $int2 = 0;
+def_int $int3 = 31;
+if (stat($stat0) >= stat_base($stat0)) {
+    $int2 = 0;
+} else if (stat_base($stat0) = 0 | stat_base($stat0) = -1) {
+    $int2 = 0;
+} else {
+    $int2 = calc($int1 - $int1 * stat($stat0) / stat_base($stat0));
+}
+if ($stat0 = prayer) {
+    if_setsize(topstat_prayer:com_3, $int3, $int2, ^setsize_abs, ^setsize_abs);
+} else if ($stat0 = summoning) {
+    if_setsize(topstat_lore:com_4, $int3, $int2, ^setsize_abs, ^setsize_abs);
+}

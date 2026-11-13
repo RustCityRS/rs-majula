@@ -1,0 +1,127 @@
+// 790
+[clientscript,script790]
+if (%if1 = 1) {
+    if_sethide(interface_134:click_attack, false);
+} else {
+    if_sethide(interface_134:click_attack, true);
+}
+if (%if1 = 2) {
+    if_sethide(interface_134:click_strength, false);
+} else {
+    if_sethide(interface_134:click_strength, true);
+}
+if (%if1 = 3) {
+    if_sethide(interface_134:click_ranged, false);
+} else {
+    if_sethide(interface_134:click_ranged, true);
+}
+if (%if1 = 4) {
+    if_sethide(interface_134:click_magic, false);
+} else {
+    if_sethide(interface_134:click_magic, true);
+}
+if (%if1 = 5) {
+    if_sethide(interface_134:click_defence, false);
+} else {
+    if_sethide(interface_134:click_defence, true);
+}
+if (%if1 = 6) {
+    if_sethide(interface_134:click_hitpoints, false);
+} else {
+    if_sethide(interface_134:click_hitpoints, true);
+}
+if (%if1 = 7) {
+    if_sethide(interface_134:click_prayer, false);
+} else {
+    if_sethide(interface_134:click_prayer, true);
+}
+if (%if1 = 8) {
+    if_sethide(interface_134:click_agility, false);
+} else {
+    if_sethide(interface_134:click_agility, true);
+}
+if (%if1 = 9) {
+    if_sethide(interface_134:click_herblore, false);
+} else {
+    if_sethide(interface_134:click_herblore, true);
+}
+if (%if1 = 10) {
+    if_sethide(interface_134:click_thieving, false);
+} else {
+    if_sethide(interface_134:click_thieving, true);
+}
+if (%if1 = 11) {
+    if_sethide(interface_134:click_crafting, false);
+} else {
+    if_sethide(interface_134:click_crafting, true);
+}
+if (%if1 = 12) {
+    if_sethide(interface_134:click_runecraft, false);
+} else {
+    if_sethide(interface_134:click_runecraft, true);
+}
+if (%if1 = 13) {
+    if_sethide(interface_134:click_mining, false);
+} else {
+    if_sethide(interface_134:click_mining, true);
+}
+if (%if1 = 14) {
+    if_sethide(interface_134:click_smithing, false);
+} else {
+    if_sethide(interface_134:click_smithing, true);
+}
+if (%if1 = 15) {
+    if_sethide(interface_134:click_fishing, false);
+} else {
+    if_sethide(interface_134:click_fishing, true);
+}
+if (%if1 = 16) {
+    if_sethide(interface_134:click_cooking, false);
+} else {
+    if_sethide(interface_134:click_cooking, true);
+}
+if (%if1 = 17) {
+    if_sethide(interface_134:click_firemaking, false);
+} else {
+    if_sethide(interface_134:click_firemaking, true);
+}
+if (%if1 = 18) {
+    if_sethide(interface_134:click_woodcutting, false);
+} else {
+    if_sethide(interface_134:click_woodcutting, true);
+}
+if (%if1 = 19) {
+    if_sethide(interface_134:click_fletching, false);
+} else {
+    if_sethide(interface_134:click_fletching, true);
+}
+if (%if1 = 20) {
+    if_sethide(interface_134:click_slayer, false);
+} else {
+    if_sethide(interface_134:click_slayer, true);
+}
+if (%if1 = 21) {
+    if_sethide(interface_134:click_farming, false);
+} else {
+    if_sethide(interface_134:click_farming, true);
+}
+if (%if1 = 22) {
+    if_sethide(interface_134:click_construction, false);
+} else {
+    if_sethide(interface_134:click_construction, true);
+}
+if (%if1 = 23) {
+    if_sethide(interface_134:click_hunter, false);
+} else {
+    if_sethide(interface_134:click_hunter, true);
+}
+if (%if1 = 24) {
+    if_sethide(interface_134:click_lore, false);
+} else {
+    if_sethide(interface_134:click_lore, true);
+}
+if (%if1 = 25) {
+    if_sethide(interface_134:click_dungeoneering, false);
+} else {
+    if_sethide(interface_134:click_dungeoneering, true);
+}

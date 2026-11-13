@@ -1,0 +1,5 @@
+// 3166
+[clientscript,script3166](component $component0, string $string0)
+~cc_add_text($component0, 0, 0, 0, 0, 0, $string0, ^white, p11_full, ^settextalign_centre, ^settextalign_centre, 0, true);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+return;

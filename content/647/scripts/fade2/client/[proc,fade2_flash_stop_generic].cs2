@@ -1,0 +1,4 @@
+// 2807
+[proc,fade2_flash_stop_generic](component $component0)
+if_settrans($component0, 255);
+if_setontimer($component0, null);

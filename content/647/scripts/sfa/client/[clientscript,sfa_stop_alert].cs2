@@ -1,0 +1,7 @@
+// 2891
+[clientscript,sfa_stop_alert](int $int0, component $component1)
+if (clientclock >= $int0) {
+    ~component_flash_stop(sfa:alert);
+    if_sethide(sfa:alert, true);
+    if_setontimer($component1, null);
+}

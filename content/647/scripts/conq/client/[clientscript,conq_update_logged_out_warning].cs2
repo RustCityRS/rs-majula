@@ -1,0 +1,14 @@
+// 424
+[clientscript,conq_update_logged_out_warning]
+def_int $int0 = calc(%conq_logout_counter * 6 / 10);
+def_int $int1 = 0;
+def_string $string0 = "1 minute";
+if ($int0 < 60) {
+    if_settext(conq_logged_out_warning:description_text, "Your opponent has logged out.<br>You may wait for them to return or end the Conquest now and be declared the winner.");
+    return;
+}
+if ($int0 > 120) {
+    $int1 = calc($int0 / 60);
+    $string0 = "<tostring($int1)> minutes";
+}
+if_settext(conq_logged_out_warning:description_text, "Your opponent has been logged out for <$string0>.<br>You may wait for them to return or end the Conquest now and be declared the winner.");

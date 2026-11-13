@@ -1,0 +1,5 @@
+// 562
+[clientscript,script562](component $component0)
+if (if_getgraphic($component0) = "aif_bronze_icon_button_2,0") {
+    if_setgraphic($component0, "aif_bronze_icon_button_2,1");
+}

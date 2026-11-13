@@ -1,0 +1,12 @@
+// 2178
+[clientscript,script2178](int $int0, string $string0)
+if (cc_find(questlist_v4:quests, $int0) = true) {
+    if (calc(clientclock % 20) > 9) {
+        cc_settext("");
+        if (calc(clientclock % 20) = 10) {
+            sound_synth(synth_5009, 1, 0);
+        }
+    } else {
+        cc_settext($string0);
+    }
+}

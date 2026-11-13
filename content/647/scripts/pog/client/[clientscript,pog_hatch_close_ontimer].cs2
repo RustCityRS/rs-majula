@@ -1,0 +1,15 @@
+// 514
+[clientscript,pog_hatch_close_ontimer]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (getwindowmode >= 2) {
+    $int0 = if_getwidth(toplevel_fullscreen:mainoverlay);
+    $int1 = if_getheight(toplevel_fullscreen:mainoverlay);
+    if (%pog_hatch_zoom_var < $int0) {
+        %pog_hatch_zoom_var = calc(%pog_hatch_zoom_var + 15);
+        if_setsize(pog_door_hatch_close:shutter, %pog_hatch_zoom_var, $int1, ^setsize_abs, ^setsize_abs);
+    }
+} else if (%pog_hatch_zoom_var < 512) {
+    %pog_hatch_zoom_var = calc(%pog_hatch_zoom_var + 15);
+    if_setsize(pog_door_hatch_close:shutter, %pog_hatch_zoom_var, 334, ^setsize_abs, ^setsize_abs);
+}

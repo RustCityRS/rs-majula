@@ -1,0 +1,5 @@
+// 4090
+[clientscript,script4090](component $component0, component $component1, component $component2)
+if_setonstattransmit($component0, "script4091($component0, $component1, $component2)");
+if_setonsubchange($component0, "script4091($component0, $component1, $component2)");
+~script4092($component0, $component1, $component2);

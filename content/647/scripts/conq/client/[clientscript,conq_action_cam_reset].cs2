@@ -1,0 +1,4 @@
+// 420
+[clientscript,conq_action_cam_reset]
+cam_followcoord(%conq_camera_coord);
+if_setontimer(conq_scroll_overlay:main_layer, "script421(%conq_action_cam_x_angle, %conq_action_cam_y_angle, 0)");

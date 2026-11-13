@@ -1,0 +1,79 @@
+// 1044
+[proc,quickchat_phrase_listdialog](chatphrase $chatphrase0)
+%quickchat_menu_select = -1;
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (%quickchat_mode = 1) {
+    $string0 = "To <%varclient_1546>: <col=800000><$string0>";
+} else if (%quickchat_mode = 2) {
+    $string0 = "[<col=0000ff><clan_getchatdisplayname><col=000000>]: <col=800000><$string0>";
+} else if (%quickchat_mode = 8) {
+    if (activeclanchannel_find_affined = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
+    }
+} else if (%quickchat_mode = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
+    }
+} else {
+    $string0 = "<col=0000ff><$string0>";
+}
+if_sethide(chatdefault:chat, true);
+if_setonkey(chatdefault:input, null);
+if_sethide(chatdefault:quickchat, false);
+if_sethide(chatdefault:quickchat_countdialog, true);
+if_sethide(chatdefault:quickchat_listdialog, false);
+if_sethide(chatdefault:quickchat_objdialog, true);
+if_sethide(chatdefault:quickchat_menu, true);
+if_sethide(chatdefault:quickchat_path, true);
+if_sethide(chatdefault:quickchat_title, false);
+if_setcolour(chatdefault:quickchat_title, ^black);
+if_settextfont(chatdefault:quickchat_title, p12_full);
+if_settextalign(chatdefault:quickchat_title, ^settextalign_left, ^settextalign_centre, 0);
+if_settext(chatdefault:quickchat_title, $string0);
+if_settextshadow(chatdefault:quickchat_title, false);
+cc_deleteall(chatdefault:quickchat_listdialog_options);
+def_enum $enum1 = chatphrase_getdynamiccommandparam_enum($chatphrase0, %quickchat_phrase_count, 0);
+cc_create(chatdefault:quickchat_listdialog_options, ^iftype_rectangle, 0);
+def_int $int2 = if_getwidth(chatdefault:quickchat_listdialog_options);
+def_int $int3 = calc($int2 - 8);
+def_int $int4 = 1;
+def_int $int5 = 0;
+def_int $intarray0(250);
+def_int $int6 = 0;
+$string0 = enum(int, string, $enum1, 0);
+while (compare("", $string0) ! 0 & $int4 < 250) {
+    cc_create(chatdefault:quickchat_listdialog_options, ^iftype_text, $int4);
+    cc_setposition(4, calc(14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int3, 14, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(^black);
+    cc_settext($string0);
+    cc_settextfont(p12_full);
+    cc_settextshadow(false);
+    cc_setonmouseover("quickchat_listdialog_highlight($int4, chatdefault:quickchat_listdialog_options, $int5)");
+    cc_setonclick("quickchat_phrase_int(chatdefault:quickchat_path, $chatphrase0, calc($int4 - 1))");
+    $intarray0($int5) = $int5;
+    $string0 = enum(int, string, $enum1, $int4);
+    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
+}
+$int6 = calc($int5 - 1);
+if (compare(enum(int, string, $enum1, 1000), "non-alpha") ! 0) {
+    ~script520(intarray0, 0, $int6, $enum1);
+    $int5 = 0;
+    while ($int5 <= $int6) {
+        if (cc_find(chatdefault:quickchat_listdialog_options, calc($intarray0($int5) + 1)) = true) {
+            cc_setposition(4, calc(14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setonmouseover("quickchat_listdialog_highlight(calc($intarray0($int5) + 1), chatdefault:quickchat_listdialog_options, $int5)");
+        }
+        $int5 = calc($int5 + 1);
+    }
+}
+$int5 = 0;
+while ($int5 < 250) {
+    ~script1384($int5, $intarray0($int5));
+    $int5 = calc($int5 + 1);
+}
+if_setonkey(chatdefault:quickchat_listdialog_options, "quickchat_phrase_listdialog_onkey(event_keycode, event_keychar, chatdefault:quickchat_path, chatdefault:quickchat_listdialog_options, chatdefault:quickchat_listdialog_scroll, $chatphrase0, calc($int4 - 1))");
+if_setscrollsize(chatdefault:quickchat_listdialog_options, 0, calc(14 * ($int4 - 1)));
+~scrollbar_vertical(chatdefault:quickchat_listdialog_scroll, chatdefault:quickchat_listdialog_options, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+~scrollbar_resize(chatdefault:quickchat_listdialog_scroll, chatdefault:quickchat_listdialog_options, 0);

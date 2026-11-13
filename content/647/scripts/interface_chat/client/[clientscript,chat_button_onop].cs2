@@ -1,0 +1,45 @@
+// 175
+[clientscript,chat_button_onop](int $int0, int $int1)
+if (%tutorial < 1000) {
+    mes("You can't do this while in the tutorial.");
+    return;
+}
+switch_int ($int0) {
+    case 1 :
+        if (%chat_view = $int1 & getwindowmode >= 2) {
+            %chat_view = -1;
+            ~subchanged;
+        } else if (%chat_view = -1) {
+            %chat_view = $int1;
+            ~subchanged;
+        } else {
+            %chat_view = $int1;
+        }
+        ~chat_alert_reset(%chat_view);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 2 :
+        ~chat_set_filter($int1, 0);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 3 :
+        if ($int1 = 3 & friend_count < 0) {
+            mes("The friends list is still loading, your selection won't take effect immediately.");
+        }
+        ~chat_set_filter($int1, 1);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 4 :
+        ~chat_set_filter($int1, 2);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 5 :
+        ~chat_set_filter($int1, 3);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+}

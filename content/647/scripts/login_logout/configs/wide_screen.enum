@@ -1,0 +1,24 @@
+// Main-screen interfaces 2011 opens in the toplevel's full-size slot,
+// `toplevel:mainoverlay_clipped` (548:8) / `toplevel_fullscreen:mainoverlay`
+// (746:6), not the 512x334 main slot: void-634's `wide_screen` type. The
+// engine's if_open_main reads this (rs-pack startup `wide_screen_ifaces`).
+// 2011's skill guide (499) draws its own backdrop across its slot: a
+// translucent brown rect sized to its parent, which in the main slot showed
+// as a tinted box behind the guide. The quest journal (275) is laid out for
+// the full slot too: in the main slot its text ran past the scroll. Every
+// interface void-634 types `wide_screen` is listed, and 2011's level-up
+// details (lvl_scroll, 741), whose root is a full-slot backdrop like the
+// skill guide's, in the same brown but more translucent (void-634 types it
+// `main_screen`, which left it boxed).
+[wide_screen_enum]
+inputtype=interface
+outputtype=boolean
+val=aide_compass,true
+val=letter_lj,true
+val=messagescroll,true
+val=messagescroll_handwriting,true
+val=gravestone_plaque,true
+val=questjournal_scroll,true
+val=skill_guide_v2,true
+val=lvl_scroll,true
+val=spirittree,true

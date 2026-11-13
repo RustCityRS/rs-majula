@@ -1,0 +1,7 @@
+// 856
+[clientscript,script856]
+sound_synth(fletch, 1, 0);
+if (%catcon_2x1_x < calc(7 - 1)) {
+    %catcon_calib_client_powerbar = calc(%catcon_2x1_x + 1);
+    ~catcon_calib_refresh_powerbar;
+}

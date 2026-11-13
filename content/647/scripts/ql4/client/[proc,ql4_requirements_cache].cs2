@@ -1,0 +1,18 @@
+// 2149
+[proc,ql4_requirements_cache]()(boolean)
+if (~ql4_quest_requirements_cache = false) {
+    return(false);
+}
+if (%qp < struct_param(%ql4_quest, param_895)) {
+    return(false);
+}
+if (%ql4_comlevel < struct_param(%ql4_quest, param_896)) {
+    return(false);
+}
+if (~ql4_skill_requirements_cache = false) {
+    return(false);
+}
+if (struct_param(%ql4_quest, param_898) = 1 & ~ql4_special_requirements(struct_param(%ql4_quest, param_847)) = false) {
+    return(false);
+}
+return(true);

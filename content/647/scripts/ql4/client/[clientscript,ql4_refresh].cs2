@@ -1,0 +1,16 @@
+// 2169
+[clientscript,ql4_refresh]
+if (map_members = true) {
+    %ql4_sort_mode = %varplayerbit_4536;
+} else {
+    %ql4_sort_mode = 0;
+}
+%ql4_reverse_list = %varplayerbit_4538;
+%ql4_filter_doable = %varplayerbit_4537;
+~ql4_sort(1, %ql4_sort_mode, %ql4_reverse_list, %ql4_filter_doable, %ql4_filter_done);
+def_int $int0 = 0;
+if (map_members = true & %tutorial >= 1000) {
+    ~ql4_dropdownbox(1, %ql4_sort_mode, 2, questlist_v4:com_16, questlist_v4:com_14, questlist_v4:com_15, null, tradebacking_dark, "scrollbar_v2,1", "scrollbar_v2,1", tradebacking_light, ^white, ^yellow, p11_full, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    ~dropdownbox_refuse("Free/Members", questlist_v4:com_16, questlist_v4:com_14, questlist_v4:com_15, null, tradebacking_dark, ^yellow, p11_full);
+}

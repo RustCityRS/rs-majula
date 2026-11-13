@@ -1,9 +1,12 @@
-use std::collections::HashMap;
-use std::path::Path;
-
+#[cfg(before_647)]
+use crate::archive::JagArchive;
 use crate::pack::util::media::{emit_group, read_group, read_index_order};
 use crate::pack::util::palette;
-use rs_io::jag::{JagCompression, JagFile};
+use rs_io::jag::JagFile;
+use std::collections::HashMap;
+use std::fs;
+use std::mem::take;
+use std::path::Path;
 use tracing::debug;
 
 pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
@@ -11,7 +14,7 @@ pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
     let font_dir = content_dir.join("fonts");
 
     let jag_entry_order: Vec<String> =
-        std::fs::read_to_string(title_dir.join("meta").join("title.order"))
+        fs::read_to_string(title_dir.join("meta").join("title.order"))
             .expect("Missing title.order")
             .lines()
             .filter(|l| !l.is_empty())
@@ -39,14 +42,14 @@ pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
         .join("binary")
         .join("title.jpg")
         .exists()
-        .then(|| std::fs::read(content_dir.join("binary").join("title.jpg")).ok())
+        .then(|| fs::read(content_dir.join("binary").join("title.jpg")).ok())
         .flatten();
 
     let mut jag = JagFile::new();
 
     for name in &jag_entry_order {
         if name == "index" {
-            jag.write("index.dat", std::mem::take(&mut index));
+            jag.write("index.dat", take(&mut index));
         } else if name == "title" {
             if let Some(data) = title_jpg.take() {
                 jag.write("title.dat", data);
@@ -57,5 +60,5 @@ pub fn pack_title_jag(content_dir: &Path) -> Vec<u8> {
     }
 
     debug!("Packed title Jag ({} sprites + title.jpg)", entries.len());
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Title.compression())
 }

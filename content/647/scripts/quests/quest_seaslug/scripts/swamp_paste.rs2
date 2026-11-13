@@ -1,0 +1,10 @@
+// From 289's quest_seaslug.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,make_swamp_paste]
+mes("You mix the flour with the swamp tar.");
+mes("It mixes into a paste.");
+// no invspace check, add empty pot before paste 
+inv_del(inv, swamp_tar, 1);
+inv_del(inv, pot_flour, 1);
+inv_add(inv, pot_empty, 1);
+inv_add(inv, rawswamppaste, 1);
+

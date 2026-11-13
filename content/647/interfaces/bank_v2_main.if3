@@ -1,0 +1,1481 @@
+// 762:0
+[all]
+type=layer
+width=512
+heightmode=minus
+opbase=  
+
+// 762:1
+[com_1]
+type=rectangle
+x=17
+y=25
+width=488
+height=29
+heightmode=minus
+layer=all
+colour=0x000000
+fill=yes
+trans=200
+opbase=  
+
+// 762:2
+[com_2]
+type=graphic
+x=14
+y=25
+width=485
+height=34
+heightmode=minus
+layer=all
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 762:3
+[com_3]
+type=rectangle
+x=19
+y=79
+width=475
+height=124
+heightmode=minus
+layer=all
+colour=0x252222
+fill=yes
+trans=160
+
+// 762:4
+[com_4]
+type=rectangle
+x=19
+y=79
+width=3
+height=124
+heightmode=minus
+layer=all
+colour=0x000000
+fill=yes
+trans=170
+
+// 762:5
+[com_5]
+type=graphic
+y=52
+width=32
+height=92
+heightmode=minus
+layer=all
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 762:6
+[com_6]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+
+// 762:7
+[com_7]
+type=graphic
+x=480
+y=51
+width=32
+height=91
+heightmode=minus
+layer=all
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 762:8
+[com_8]
+type=graphic
+x=44
+y=20
+width=424
+height=32
+layer=all
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+
+// 762:9
+[com_9]
+type=graphic
+x=45
+y=-4
+width=423
+height=32
+ymode=abs_bottom
+layer=all
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 762:10
+[com_10]
+type=graphic
+x=13
+y=8
+width=32
+height=32
+ymode=abs_bottom
+layer=all
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 762:11
+[com_11]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+
+// 762:12
+[com_12]
+type=graphic
+x=12
+y=8
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 762:13
+[com_13]
+type=graphic
+x=20
+y=30
+width=473
+height=32
+ymode=abs_bottom
+layer=all
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0xffffffff
+
+// 762:14
+[com_14]
+type=graphic
+x=19
+y=65
+width=474
+height=32
+layer=all
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 762:15
+[bank_sort_button]
+type=graphic
+x=26
+y=12
+width=35
+height=35
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1
+op1=Toggle swap/insert
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onvartransmit=bank_sort_button{bankinsert}
+onop=bank_v2_swap_click
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Toggle between swap and insert modes", 25, 150)
+
+// 762:16
+[bank_sort_icon]
+type=graphic
+x=26
+y=12
+width=35
+height=35
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new1,2"
+colour=0xffffffff
+
+// 762:17
+[bank_search_button]
+type=graphic
+x=64
+y=12
+width=35
+height=35
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1
+op1=Search
+opcursor0=cursor_search
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onop=bank_v2_search
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Click here to search your bank", 25, 150)
+
+// 762:18
+[bank_search_icon]
+type=graphic
+x=64
+y=12
+width=35
+height=35
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new1,0"
+colour=0xffffffff
+
+// 762:19
+[bank_cert_button]
+type=graphic
+y=12
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1
+op1=Toggle item/note withdrawl
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onvartransmit=bank_cert_button{bankcert}
+onop=bank_v2_cert_click
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Toggle between item and note withdrawal modes", 25, 150)
+
+// 762:20
+[bank_cert_icon]
+type=graphic
+y=12
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new1,4"
+colour=0xffffffff
+
+// 762:21
+[bank_space_layer]
+type=layer
+x=273
+y=10
+width=102
+height=42
+ymode=abs_bottom
+layer=all
+
+// 762:22
+[bank_space]
+type=layer
+x=7
+y=7
+width=90
+height=25
+ymode=abs_bottom
+layer=bank_space_layer
+hide=yes
+transmitop=10
+op10= 
+
+// 762:23
+[demo_bank_space]
+type=layer
+x=34
+y=4
+width=35
+height=33
+ymode=abs_bottom
+layer=bank_space_layer
+hide=yes
+transmitop=10
+op10=  
+
+// 762:24
+[com_24]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=demo_bank_space
+graphic="bank_buttons,7"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 762:25
+[bank_space_demo_current]
+type=text
+y=5
+width=22
+height=16
+xmode=abs_centre
+layer=demo_bank_space
+textfont=p11_full
+text=-
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=         
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+
+// 762:26
+[bank_space_demo_total]
+type=text
+y=3
+width=22
+height=16
+xmode=abs_centre
+ymode=abs_bottom
+layer=demo_bank_space
+textfont=p11_full
+text=-
+textalignh=right
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=         
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onmouserepeat=script1160(event_com, -1, bank_v2_main:tooltip, "Total amount of available <col=BA1626>Demo</col> bank space", 25, 150)
+
+// 762:27
+[com_27]
+type=line
+x=15
+y=10
+width=10
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=demo_bank_space
+colour=0x000000
+linedirection=yes
+
+// 762:28
+[com_28]
+type=graphic
+width=90
+height=25
+layer=bank_space
+graphic=bank_counter2
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 762:29
+[bank_space_f2p_current]
+type=text
+x=5
+y=1
+width=15
+height=16
+layer=bank_space
+textfont=p11_full
+text=-
+textalignh=right
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=       
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+
+// 762:30
+[bank_space_f2p_total]
+type=text
+x=24
+y=9
+width=15
+height=16
+layer=bank_space
+textfont=p11_full
+text=-
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=       
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onmouserepeat=script1160(event_com, -1, bank_v2_main:tooltip, "Total amount of available <col=BA1626>free</col> bank space", 25, 150)
+
+// 762:31
+[bank_space_mem_current]
+type=text
+x=41
+y=1
+width=22
+height=16
+layer=bank_space
+textfont=p11_full
+text=-
+textalignh=right
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=        
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+
+// 762:32
+[bank_space_mem_total]
+type=text
+x=67
+y=9
+width=22
+height=16
+layer=bank_space
+textfont=p11_full
+text=-
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=        
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onmouserepeat=script1160(event_com, -1, bank_v2_main:tooltip, "Total amount of available <col=BA1626>members</col> bank space", 25, 150)
+
+// 762:33
+[bank_inv_button]
+type=graphic
+x=102
+y=12
+width=35
+height=35
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit carried items
+op10= 
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Empty your backpack into your bank", 25, 150)
+
+// 762:34
+[bank_inv_icon]
+type=graphic
+x=105
+y=18
+width=29
+height=21
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="bank_bob_button,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 762:35
+[bank_worn_button]
+type=graphic
+x=64
+y=12
+width=35
+height=35
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit worn items
+op10= 
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Empty the items you are wearing into your bank", 25, 150)
+
+// 762:36
+[bank_worn_icon]
+type=graphic
+x=67
+y=18
+width=29
+height=21
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="bank_bob_button,2"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 762:37
+[bank_bob_button]
+type=graphic
+x=26
+y=12
+width=35
+height=35
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1
+op1=Deposit beast of burden inventory
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Empty your beast of burden's inventory into your bank", 25, 150)
+
+// 762:38
+[bank_bob_icon]
+type=graphic
+x=29
+y=18
+width=29
+height=21
+xmode=abs_right
+ymode=abs_bottom
+layer=all
+graphic="bank_bob_button,3"
+colour=0xffffffff
+
+// 762:39
+[bankpin]
+type=layer
+x=112
+y=17
+width=114
+height=25
+ymode=abs_bottom
+layer=all
+onload=bank_v2_bankpinshow(bank_v2_main:bankpin_button, bank_v2_main:bankpin_model, bank_v2_main:bankpin_text)
+onvarctransmit=bank_v2_bankpinshow(bank_v2_main:bankpin_button, bank_v2_main:bankpin_model, bank_v2_main:bankpin_text){varclient_169}
+
+// 762:40
+[bankpin_button]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=bankpin
+hide=yes
+transmitop=1
+op1=Set a Bank PIN
+
+// 762:41
+[bankpin_model]
+type=model
+x=9
+width=21
+height=19
+ymode=abs_centre
+layer=bankpin
+hide=yes
+model=model_2372
+modelorigin=-2,0
+modelangle=256,0,0
+modelzoom=900
+
+// 762:42
+[bankpin_text]
+type=text
+width=30
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=bankpin
+hide=yes
+textfont=p11_full
+text=Bank PIN
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf2aa3e
+
+// 762:43
+[close_button]
+type=graphic
+x=477
+y=23
+width=16
+height=16
+layer=all
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=bank_v2_close
+
+// 762:44
+[help_button]
+type=graphic
+x=459
+y=23
+width=16
+height=16
+layer=all
+graphic="v2_stone_close_button,4"
+colour=0xffffffff
+transmitop=1
+op1=Help
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,5")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,4")
+
+// 762:45
+[title]
+type=text
+x=118
+y=23
+width=273
+height=15
+layer=all
+textfont=b12_full
+text=Bank of RuneScape
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf2aa3e
+
+// 762:46
+[tab_9]
+type=graphic
+x=405
+y=33
+width=48
+height=48
+layer=all
+hide=yes
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_9_click(event_op)
+
+// 762:47
+[tab_9_icon]
+type=graphic
+x=410
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:48
+[tab_8]
+type=graphic
+x=357
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_8_click(event_op)
+
+// 762:49
+[tab_8_icon]
+type=graphic
+x=363
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:50
+[tab_7]
+type=graphic
+x=309
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_7_click(event_op)
+
+// 762:51
+[tab_7_icon]
+type=graphic
+x=315
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:52
+[tab_6]
+type=graphic
+x=261
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_6_click(event_op)
+
+// 762:53
+[tab_6_icon]
+type=graphic
+x=267
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:54
+[tab_5]
+type=graphic
+x=213
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_5_click(event_op)
+
+// 762:55
+[tab_5_icon]
+type=graphic
+x=219
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:56
+[tab_4]
+type=graphic
+x=165
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_4_click(event_op)
+
+// 762:57
+[tab_4_icon]
+type=graphic
+x=171
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:58
+[tab_3]
+type=graphic
+x=117
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_3_click(event_op)
+
+// 762:59
+[tab_3_icon]
+type=graphic
+x=123
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:60
+[tab_2]
+type=graphic
+x=69
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1,2
+candrop=yes
+op1=View Tab
+op2=Collapse
+onop=tab_2_click(event_op)
+
+// 762:61
+[tab_2_icon]
+type=graphic
+x=75
+y=46
+width=36
+height=32
+layer=all
+colour=0xffffffff
+
+// 762:62
+[tab_1]
+type=graphic
+x=21
+y=33
+width=48
+height=48
+layer=all
+graphic="bank_tabs,1"
+colour=0xffffffff
+transmitop=1
+candrop=yes
+op1=View all
+onmouseleave=deltooltip(bank_v2_main:tooltip)
+onop=tab_1_click(event_op)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "Click here to view the full contents of your bank", 25, 150)
+
+// 762:63
+[tab_1_icon]
+type=graphic
+x=27
+y=46
+width=36
+height=32
+layer=all
+graphic="bank_misc_graphics,0"
+colour=0xffffffff
+
+// 762:64
+[separator_layer_0]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:65
+[separator_layer_1]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:66
+[separator_layer_2]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:67
+[separator_layer_3]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:68
+[separator_layer_4]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:69
+[separator_layer_5]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:70
+[separator_layer_6]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:71
+[separator_layer_7]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:72
+[separator_layer_8]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:73
+[separator_layer_9]
+type=layer
+width=455
+height=20
+layer=bank_v2_inv
+
+// 762:74
+[drop_space_0]
+type=layer
+x=47
+y=46
+width=32
+height=32
+layer=bank_v2_inv
+hide=yes
+candrop=yes
+
+// 762:75
+[drop_space_1]
+type=layer
+width=32
+height=32
+layer=bank_v2_inv
+hide=yes
+candrop=yes
+
+// 762:76
+[drop_space_2]
+type=layer
+x=5
+y=5
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:77
+[drop_space_3]
+type=layer
+x=10
+y=10
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:78
+[drop_space_4]
+type=layer
+x=15
+y=15
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:79
+[drop_space_5]
+type=layer
+x=20
+y=20
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:80
+[drop_space_6]
+type=layer
+x=25
+y=25
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:81
+[drop_space_7]
+type=layer
+x=30
+y=30
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:82
+[drop_space_8]
+type=layer
+x=35
+y=35
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:83
+[drop_space_9]
+type=layer
+x=41
+y=41
+width=32
+height=32
+layer=bank_v2_inv
+candrop=yes
+
+// 762:84
+[com_84]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:85
+[com_85]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:86
+[com_86]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:87
+[com_87]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:88
+[com_88]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:89
+[com_89]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:90
+[com_90]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:91
+[com_91]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:92
+[com_92]
+type=graphic
+width=36
+height=36
+layer=bank_v2_inv
+hide=yes
+graphic=graphic_1454
+colour=0xffffffff
+
+// 762:93
+[bank_v2_inv]
+type=layer
+x=26
+y=83
+width=447
+height=129
+heightmode=minus
+layer=all
+scrollwidth=336
+scrollheight=1905
+onload=bank_v2_build_init
+onvartransmit=bank_v2_rebuild{varplayer_1246, varplayer_1247, varplayer_1248}
+oninvtransmit=bank_v2_rebuild{bank}
+
+// 762:94
+[com_94]
+type=text
+width=100
+height=32
+layer=separator_layer_1
+textfont=p11_full
+text=Tab 1
+colour=0x5b5346
+
+// 762:95
+[separator_1]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_1
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:96
+[separator_0]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_0
+colour=0x595144
+fill=yes
+
+// 762:97
+[com_97]
+type=layer
+width=32
+height=32
+layer=com_120
+
+// 762:98
+[com_98]
+type=text
+width=100
+height=32
+layer=separator_layer_9
+textfont=p11_full
+text=Tab 9
+colour=0xf2aa3e
+
+// 762:99
+[com_99]
+type=text
+width=100
+height=32
+layer=separator_layer_8
+textfont=p11_full
+text=Tab 8
+colour=0xf2aa3e
+
+// 762:100
+[com_100]
+type=text
+width=100
+height=32
+layer=separator_layer_7
+textfont=p11_full
+text=Tab 7
+colour=0xf2aa3e
+
+// 762:101
+[com_101]
+type=text
+width=100
+height=32
+layer=separator_layer_6
+textfont=p11_full
+text=Tab 6
+colour=0xf2aa3e
+
+// 762:102
+[com_102]
+type=text
+width=100
+height=32
+layer=separator_layer_5
+textfont=p11_full
+text=Tab 5
+colour=0xf2aa3e
+
+// 762:103
+[com_103]
+type=text
+width=100
+height=32
+layer=separator_layer_4
+textfont=p11_full
+text=Tab 4
+colour=0xf2aa3e
+
+// 762:104
+[com_104]
+type=text
+width=100
+height=32
+layer=separator_layer_3
+textfont=p11_full
+text=Tab 3
+colour=0xf2aa3e
+
+// 762:105
+[com_105]
+type=text
+width=100
+height=32
+layer=separator_layer_2
+textfont=p11_full
+text=Tab 2
+colour=0xf2aa3e
+
+// 762:106
+[separator_9]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_9
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:107
+[separator_8]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_8
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:108
+[separator_7]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_7
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:109
+[separator_6]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_6
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:110
+[separator_5]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_5
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:111
+[separator_4]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_4
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:112
+[separator_3]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_3
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:113
+[separator_2]
+type=rectangle
+y=10
+width=455
+height=1
+layer=separator_layer_2
+colour=0x595144
+fill=yes
+transmitop=10
+op10= 
+
+// 762:114
+[scrollbar]
+type=layer
+x=477
+y=81
+width=16
+height=126
+heightmode=minus
+layer=all
+
+// 762:115
+[message_nomatches]
+type=text
+width=200
+height=18
+xmode=abs_centre
+ymode=abs_centre
+layer=all
+hide=yes
+textfont=p12_full
+text=No matches found!
+textalignh=centre
+textshadow=yes
+colour=0x999999
+
+// 762:116
+[message_nosearch]
+type=text
+width=200
+height=18
+xmode=abs_centre
+ymode=abs_centre
+layer=all
+hide=yes
+textfont=p12_full
+text=No search term entered!
+textalignh=centre
+textshadow=yes
+colour=0x999999
+
+// 762:117
+[equipscreen_button]
+type=layer
+x=22
+y=43
+width=34
+height=34
+xmode=abs_right
+layer=all
+transmitop=1
+op1=Show Equipment Stats
+onload=v2_small_button_out_filled(event_com)
+onmouseover=v2_small_button_in_filled(event_com)
+onmouseleave=v2_small_button_out_filled(event_com)
+onop=script2318(event_op)
+
+// 762:118
+[com_118]
+type=graphic
+x=23
+y=44
+width=32
+height=32
+xmode=abs_right
+layer=all
+graphic="options_icons,16"
+onmouseleave=bank_v2_tooltipoff(event_com, bank_v2_main:tooltip)
+onmouserepeat=addtooltip(event_com, bank_v2_main:tooltip, "View equipment stats", 25, 250)
+
+// 762:119
+[tooltip]
+type=layer
+x=185
+y=246
+width=151
+height=15
+layer=all
+opbase=  
+
+// 762:120
+[com_120]
+type=layer
+x=26
+y=83
+width=447
+height=129
+heightmode=minus
+layer=all
+
+// 762:121
+[swapper]
+type=layer
+width=1
+height=1
+xmode=abs_centre
+ymode=abs_centre
+onload=bank_v2_showequipscreen
+onvartransmit=bank_v2_showequipscreen{swansong_temp}

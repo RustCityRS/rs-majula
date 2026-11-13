@@ -1,0 +1,75 @@
+// 251:0
+[com_0]
+type=rectangle
+width=517
+height=335
+colour=0x46341d
+fill=yes
+trans=160
+
+// 251:1
+[lj_layer2]
+type=layer
+x=43
+y=33
+width=387
+height=287
+
+// 251:2
+[lj_layer1]
+type=layer
+x=55
+y=69
+width=358
+height=225
+
+// 251:3
+[lj_title]
+type=text
+x=16
+y=18
+width=329
+height=17
+layer=lj_layer1
+textfont=q8_full
+text=Instructions for Beacon Ring
+colour=0x000000
+
+// 251:4
+[com_4]
+type=model
+x=192
+y=55
+width=55
+height=81
+layer=lj_layer2
+model=model_21509
+modelangle=510,0,0
+modelzoom=570
+
+// 251:5
+[lj1]
+type=text
+x=14
+y=45
+width=335
+height=163
+layer=lj_layer1
+textfont=q8_full
+text=Use this ring when you are ready to summon me to your aid. It is a daunting task, yet you must battle the king to allow me to remove the spell from him. When the king is almost dead, use this ring and I will teleport to your aid. Be warned - Though I am skilled with magic, I am no fighter! Should you summon me too early I will have to teleport us out of danger! When our mission is completed, I will remove the summon ability from this ring, but you may keep it for protection.                                   Zaff
+colour=0x000000
+
+// 251:6
+[closebutton]
+type=graphic
+x=372
+y=44
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onmouserepeat=graphic_swapper(event_com, "close_buttons,3")
+onclick=closebutton_click

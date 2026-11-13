@@ -1,0 +1,7 @@
+// 4443
+[clientscript,clan_chat_guest_list_refresh](int $int0)
+if (activeclanchannel_find_listened = true) {
+    ~clan_chat_guest_list_build($int0);
+} else {
+    ~clan_chat_guest_list_clear;
+}

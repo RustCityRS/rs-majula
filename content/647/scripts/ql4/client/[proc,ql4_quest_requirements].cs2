@@ -1,0 +1,4 @@
+// 2154
+[proc,ql4_quest_requirements](int $int0)(boolean)
+%ql4_quest = enum(int, struct, enum_2252, $int0);
+return(~ql4_quest_requirements_cache);

@@ -1,0 +1,26 @@
+// 289's player/playerwalk.rs2. Its callers (the Gnome
+// Stronghold gate, the Agility Arena, the cannon) wait for their ports.
+// https://x.com/JagexAsh/status/1605130887292751873
+[proc,playerwalk3](coord $coord)
+p_walk($coord);
+if (%option_run = ^player_run_off) {
+    p_delay(max(0, sub(distance(coord, $coord), 1)));
+} else {
+    p_delay(max(0, sub(divide(distance(coord, $coord), 2), 1)));
+}
+
+// forced walk with delay
+[proc,playerwalk](coord $coord)
+runanim(null);
+p_walk($coord);
+p_delay(max(0, sub(distance(coord, $coord), 1)));
+// 289 puts back the weapon's run animation (its running_baseanim, or
+// human_running). 2011's appearance carries one render anim (BAS) for the
+// whole set (appearance.rs2), which ~update_bas puts back.
+// def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
+// if ($weapon = null) {
+//     runanim(human_running);
+// } else {
+//     runanim(oc_param($weapon, running_baseanim));
+// }
+~update_bas;

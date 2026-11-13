@@ -1,0 +1,54 @@
+// 4273
+[clientscript,lunarfm_rewards_xp_display]
+if_sethide(lunarfm_rewards_new:spells_list, true);
+if_sethide(lunarfm_rewards_new:wishes_list, true);
+if_sethide(lunarfm_rewards_new:task_list, false);
+if_sethide(lunarfm_rewards_new:gold_frame_list, true);
+if_sethide(lunarfm_rewards_new:gold_frame_desc, true);
+if_sethide(lunarfm_rewards_new:gold_frame_tasks, false);
+if_sethide(lunarfm_rewards_new:spells_button_selected_layer, true);
+if_sethide(lunarfm_rewards_new:wishes_button_selected_layer, true);
+if_sethide(lunarfm_rewards_new:xp_button_selected_layer, false);
+if_sethide(lunarfm_rewards_new:breakdown_layer, true);
+if_settext(lunarfm_rewards_new:points_1, tostring(calc(2 * 10)));
+if (stat_base(magic) < 83) {
+    if_settext(lunarfm_rewards_new:points_2, "<tostring(calc(2 / 2 * 10))> (halved)");
+} else {
+    if_settext(lunarfm_rewards_new:points_2, tostring(calc(2 * 10)));
+}
+if (stat_base(magic) < 80) {
+    if_settext(lunarfm_rewards_new:points_3, "<tostring(calc(12 / 2 * 10))> (halved)");
+} else {
+    if_settext(lunarfm_rewards_new:points_3, tostring(calc(12 * 10)));
+}
+if (stat_base(magic) < 86) {
+    if_settext(lunarfm_rewards_new:points_4, "<tostring(calc(2 / 2 * 10))> (halved)");
+} else {
+    if_settext(lunarfm_rewards_new:points_4, tostring(calc(2 * 10)));
+}
+if (stat_base(magic) < 91) {
+    if_settext(lunarfm_rewards_new:points_5, "<tostring(calc(10 / 2 * 10))> (halved)");
+} else {
+    if_settext(lunarfm_rewards_new:points_5, tostring(calc(10 * 10)));
+}
+if_settext(lunarfm_rewards_new:xp_1, "Magic and Farming");
+if (stat_base(magic) < 83) {
+    if_settext(lunarfm_rewards_new:xp_2, "Farming (no Magic)");
+} else {
+    if_settext(lunarfm_rewards_new:xp_2, "Magic and Farming");
+}
+if (stat_base(magic) < 80) {
+    if_settext(lunarfm_rewards_new:xp_3, "Crafting (no Magic)");
+} else {
+    if_settext(lunarfm_rewards_new:xp_3, "Magic and Crafting");
+}
+if (stat_base(magic) < 86) {
+    if_settext(lunarfm_rewards_new:xp_4, "Construction (no Magic)");
+} else {
+    if_settext(lunarfm_rewards_new:xp_4, "Magic and Construction");
+}
+if (stat_base(magic) < 91) {
+    if_settext(lunarfm_rewards_new:xp_5, "Agility (no Magic)");
+} else {
+    if_settext(lunarfm_rewards_new:xp_5, "Magic and Agility");
+}

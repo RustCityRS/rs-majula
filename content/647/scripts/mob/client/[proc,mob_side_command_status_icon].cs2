@@ -1,0 +1,38 @@
+// 2628
+[proc,mob_side_command_status_icon]
+if (%mob_client_command_status = 0) {
+    if_setgraphic(mob_side_command:status_graphic, graphic_1868);
+    if_settext(mob_side_command:unit_status, "Idle");
+} else if (%mob_client_command_status = 2) {
+    if_setgraphic(mob_side_command:status_graphic, graphic_1867);
+    switch_int (%mob_client_command_npcmode) {
+        case 0 :
+            %mob_client_command_status = 0;
+            if_setgraphic(mob_side_command:status_graphic, graphic_1868);
+            if_settext(mob_side_command:unit_status, "Idle");
+        case 1, 2 :
+            if_settext(mob_side_command:unit_status, "Exploring");
+        case 3, 4 :
+            if_settext(mob_side_command:unit_status, "Attacking wall");
+        case 5, 6, 7 :
+            if_settext(mob_side_command:unit_status, "Rescuing TzHaar");
+        case 8, 9 :
+            if_settext(mob_side_command:unit_status, "Collecting gold");
+        case 10, 11, 12 :
+            if_settext(mob_side_command:unit_status, "Stealing TzHaar");
+        case 13, 14, 15 :
+            if_settext(mob_side_command:unit_status, "Collecting parts");
+        case 16, 17, 18 :
+            if_settext(mob_side_command:unit_status, "Collecting Rocks");
+        case 19, 20 :
+            if_settext(mob_side_command:unit_status, "Attacking catapult");
+        case 21 :
+            if_settext(mob_side_command:unit_status, "Retaliating");
+        case 22 :
+            if_settext(mob_side_command:unit_status, "Moving to destination");
+        case 23 :
+            if_settext(mob_side_command:unit_status, "Attacking");
+        case default :
+            if_settext(mob_side_command:unit_status, "Busy");
+    }
+}

@@ -1,0 +1,82 @@
+// 2032
+[clientscript,trawler_water_level]
+if_sethide(trawler_overlay:trawler_waterlevel0, true);
+if_sethide(trawler_overlay:trawler_waterlevel1, true);
+if_sethide(trawler_overlay:trawler_waterlevel2, true);
+if_sethide(trawler_overlay:trawler_waterlevel3, true);
+if_sethide(trawler_overlay:trawler_waterlevel4, true);
+if_sethide(trawler_overlay:trawler_waterlevel5, true);
+if_sethide(trawler_overlay:trawler_waterlevel6, true);
+if_sethide(trawler_overlay:trawler_waterlevel7, true);
+if_sethide(trawler_overlay:trawler_waterlevel8, true);
+if_sethide(trawler_overlay:trawler_waterlevel9, true);
+if_sethide(trawler_overlay:trawler_waterlevel10, true);
+if_sethide(trawler_overlay:trawler_waterlevel11, true);
+if_sethide(trawler_overlay:trawler_waterlevel12, true);
+if_sethide(trawler_overlay:trawler_waterlevel13, true);
+if_sethide(trawler_overlay:trawler_waterlevel14, true);
+if_sethide(trawler_overlay:trawler_waterlevel15, true);
+if_sethide(trawler_overlay:trawler_waterlevel16, true);
+if_sethide(trawler_overlay:trawler_waterlevel17, true);
+if_sethide(trawler_overlay:trawler_waterlevel18, true);
+if_sethide(trawler_overlay:trawler_waterlevel19, true);
+if (%trawler_water_overlay > 0) {
+    if_sethide(trawler_overlay:trawler_waterlevel0, false);
+}
+if (%trawler_water_overlay > 4) {
+    if_sethide(trawler_overlay:trawler_waterlevel1, false);
+}
+if (%trawler_water_overlay > 9) {
+    if_sethide(trawler_overlay:trawler_waterlevel2, false);
+}
+if (%trawler_water_overlay > 14) {
+    if_sethide(trawler_overlay:trawler_waterlevel3, false);
+}
+if (%trawler_water_overlay > 19) {
+    if_sethide(trawler_overlay:trawler_waterlevel4, false);
+}
+if (%trawler_water_overlay > 24) {
+    if_sethide(trawler_overlay:trawler_waterlevel5, false);
+}
+if (%trawler_water_overlay > 29) {
+    if_sethide(trawler_overlay:trawler_waterlevel6, false);
+}
+if (%trawler_water_overlay > 34) {
+    if_sethide(trawler_overlay:trawler_waterlevel7, false);
+}
+if (%trawler_water_overlay > 39) {
+    if_sethide(trawler_overlay:trawler_waterlevel8, false);
+}
+if (%trawler_water_overlay > 44) {
+    if_sethide(trawler_overlay:trawler_waterlevel9, false);
+}
+if (%trawler_water_overlay > 49) {
+    if_sethide(trawler_overlay:trawler_waterlevel10, false);
+}
+if (%trawler_water_overlay > 54) {
+    if_sethide(trawler_overlay:trawler_waterlevel11, false);
+}
+if (%trawler_water_overlay > 59) {
+    if_sethide(trawler_overlay:trawler_waterlevel12, false);
+}
+if (%trawler_water_overlay > 64) {
+    if_sethide(trawler_overlay:trawler_waterlevel13, false);
+}
+if (%trawler_water_overlay > 69) {
+    if_sethide(trawler_overlay:trawler_waterlevel14, false);
+}
+if (%trawler_water_overlay > 74) {
+    if_sethide(trawler_overlay:trawler_waterlevel15, false);
+}
+if (%trawler_water_overlay > 79) {
+    if_sethide(trawler_overlay:trawler_waterlevel16, false);
+}
+if (%trawler_water_overlay > 84) {
+    if_sethide(trawler_overlay:trawler_waterlevel17, false);
+}
+if (%trawler_water_overlay > 89) {
+    if_sethide(trawler_overlay:trawler_waterlevel18, false);
+}
+if (%trawler_water_overlay > 94) {
+    if_sethide(trawler_overlay:trawler_waterlevel19, false);
+}

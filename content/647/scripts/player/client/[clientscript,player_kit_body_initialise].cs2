@@ -1,0 +1,33 @@
+// 1509
+[clientscript,player_kit_body_initialise]
+cc_deleteall(player_kit_tailor:universe);
+~script1088(player_kit_tailor:universe, 22);
+cc_deleteall(player_kit_tailor:menu_graphics);
+~verticalgradient(player_kit_tailor:menu_graphics, 4734771, 3156258, 0, 0);
+~script2647(player_kit_tailor:menu_graphics);
+cc_deleteall(player_kit_tailor:player_container);
+~verticalgradient(player_kit_tailor:player_container, 4734771, 3156258, 0, 0);
+~player_kit_player_create(player_kit_tailor:player_container, 380, 100);
+~script2647(player_kit_tailor:player_container);
+cc_deleteall(player_kit_tailor:colours_graphics);
+~script2647(player_kit_tailor:colours_graphics);
+%player_kit_body_layer = %player_kit_body_viewing;
+~player_kit_body_redraw;
+if_setonvartransmit(player_kit_tailor:universe, "player_kit_body_vartransmit{gimp_temp_var}");
+if_setonvarctransmit(player_kit_tailor:universe, "player_kit_body_varctransmit{playerdesign3_torso, playerdesign3_arms, playerdesign3_hands, playerdesign3_legs, playerdesign3_torsocol, playerdesign3_legscol}");
+if_setonop(player_kit_tailor:torso_tab, "script1512(event_op, 0)");
+if_setonop(player_kit_tailor:arms_tab, "script1512(event_op, 1)");
+if_setonop(player_kit_tailor:hands_tab, "script1512(event_op, 2)");
+if_setonop(player_kit_tailor:legs_tab, "script1512(event_op, 3)");
+def_string $string0 = "Choose a top";
+if_setonmouserepeat(player_kit_tailor:torso_tab, "script1160(event_com, -1, player_kit_tailor:tooltip, $string0, 25, 512)");
+if_setonmouseleave(player_kit_tailor:torso_tab, "deltooltip(player_kit_tailor:tooltip)");
+$string0 = "Choose some sleeves";
+if_setonmouserepeat(player_kit_tailor:arms_tab, "script1160(event_com, -1, player_kit_tailor:tooltip, $string0, 25, 512)");
+if_setonmouseleave(player_kit_tailor:arms_tab, "deltooltip(player_kit_tailor:tooltip)");
+$string0 = "Decorate your wrists";
+if_setonmouserepeat(player_kit_tailor:hands_tab, "script1160(event_com, -1, player_kit_tailor:tooltip, $string0, 25, 512)");
+if_setonmouseleave(player_kit_tailor:hands_tab, "deltooltip(player_kit_tailor:tooltip)");
+$string0 = "Choose some leggings";
+if_setonmouserepeat(player_kit_tailor:legs_tab, "script1160(event_com, -1, player_kit_tailor:tooltip, $string0, 25, 512)");
+if_setonmouseleave(player_kit_tailor:legs_tab, "deltooltip(player_kit_tailor:tooltip)");

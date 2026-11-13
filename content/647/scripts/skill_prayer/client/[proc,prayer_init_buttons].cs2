@@ -1,0 +1,23 @@
+// 1717
+[proc,prayer_init_buttons]
+if (%prayer_custom_view_client = true) {
+    cc_deleteall(prayer:glow);
+    cc_deleteall(prayer:prayer_buttons);
+    if_sethide(prayer:customise, false);
+    if_sethide(prayer:prayer_level_layer, true);
+    ~prayer_load_customise(prayer:customise);
+    ~prayer_load_buttons(prayer:prayer_buttons);
+    if_sethide(prayer:stats_layer, true);
+    cc_deleteall(prayer:scrollbar_layer);
+    if_setscrollpos(prayer:prayer_and_glow_layer, 0, 0);
+    if_setsize(prayer:prayer_and_glow_layer, 16384, 16384, ^setsize_rel, ^setsize_rel);
+} else {
+    cc_deleteall(prayer:customise);
+    if_sethide(prayer:customise, true);
+    if_sethide(prayer:prayer_level_layer, false);
+    ~prayer_load_buttons(prayer:prayer_buttons);
+    ~prayer_load_glow(prayer:glow);
+    if_sethide(prayer:stats_layer, false);
+    if_setsize(prayer:prayer_and_glow_layer, 16384, calc(if_getheight(prayer:stats_layer) + if_getheight(prayer:prayer_level_layer)), ^setsize_rel, ^setsize_minus);
+    ~prayer_refresh_scrollbar;
+}

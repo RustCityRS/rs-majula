@@ -1,0 +1,48 @@
+// 1421
+[proc,firedup_update_tooltip](int $int0)
+def_string $string0 = "";
+switch_int ($int0) {
+    case 1 :
+        $string0 = enum(int, string, enum_1697, %firedup_loc1);
+        if_setonmouserepeat(firedup_beacon_map:firedup_1, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 130)");
+    case 2 :
+        $string0 = enum(int, string, enum_1698, %firedup_loc2);
+        if_setonmouserepeat(firedup_beacon_map:firedup_2, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 160)");
+    case 3 :
+        $string0 = enum(int, string, enum_1699, %firedup_loc3);
+        if_setonmouserepeat(firedup_beacon_map:firedup_3, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 4 :
+        $string0 = enum(int, string, enum_1700, %firedup_loc4);
+        if_setonmouserepeat(firedup_beacon_map:firedup_4, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 5 :
+        $string0 = enum(int, string, enum_1701, %firedup_loc5);
+        if_setonmouserepeat(firedup_beacon_map:firedup_5, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 6 :
+        $string0 = enum(int, string, enum_1702, %firedup_loc6);
+        if_setonmouserepeat(firedup_beacon_map:firedup_6, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 7 :
+        $string0 = enum(int, string, enum_1703, %firedup_loc7);
+        if_setonmouserepeat(firedup_beacon_map:firedup_7, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 8 :
+        $string0 = enum(int, string, enum_1704, %firedup_loc8);
+        if_setonmouserepeat(firedup_beacon_map:firedup_8, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 9 :
+        $string0 = enum(int, string, enum_1705, %firedup_loc9);
+        if_setonmouserepeat(firedup_beacon_map:firedup_9, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 10 :
+        $string0 = enum(int, string, enum_1706, %firedup_loc10);
+        if_setonmouserepeat(firedup_beacon_map:firedup_10, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 11 :
+        $string0 = enum(int, string, enum_1707, %firedup_loc11);
+        if_setonmouserepeat(firedup_beacon_map:firedup_11, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 12 :
+        $string0 = enum(int, string, enum_1708, %firedup_loc12);
+        if_setonmouserepeat(firedup_beacon_map:firedup_12, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 13 :
+        $string0 = enum(int, string, enum_1709, %firedup_loc13);
+        if_setonmouserepeat(firedup_beacon_map:firedup_13, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+    case 14 :
+        $string0 = enum(int, string, enum_1710, %firedup_loc14);
+        if_setonmouserepeat(firedup_beacon_map:firedup_14, "addtooltip(event_com, firedup_beacon_map:tooltip, $string0, 25, 200)");
+}
+%tooltip_built = 0;

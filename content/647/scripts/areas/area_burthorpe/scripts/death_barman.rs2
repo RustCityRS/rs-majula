@@ -1,0 +1,23 @@
+[apnpc1,death_barman]
+if (npc_range(coord) > 3) {
+    p_aprange(3);
+    return;
+}
+~chatplayer("<p,quiz>Hi, what ales are you serving?");
+~chatnpc("<p,happy>Well our speciality is Asgarnian Ale, but we also serve Wizard's Mind Bomb and Dwarven Stout.");
+~chatnpc("<p,neutral>Would you like to buy a drink?");
+switch_int(~p_choice2("Yes, please.", 1, "No, thanks.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Yes, please.");
+        ~openshop_activenpc;
+    case 2 :
+        ~chatplayer("<p,neutral>No, thanks.");
+        // todo: rogues den dialogue
+}
+
+[apnpc3,death_barman]
+if (npc_range(coord) > 3) {
+    p_aprange(3);
+    return;
+}
+~openshop_activenpc;

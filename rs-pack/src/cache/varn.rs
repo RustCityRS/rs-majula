@@ -1,13 +1,14 @@
 use super::ScriptVarType;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 
 pub type VarnTypeProvider = TypeProvider<VarnType>;
 
 pub struct VarnType {
     pub id: u16,
     pub var_type: ScriptVarType,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for VarnType {
@@ -17,23 +18,19 @@ impl CacheType for VarnType {
         VarnType {
             id,
             var_type: ScriptVarType::Int,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized varn config code: {code}"),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("varn", code),
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

@@ -1,0 +1,10 @@
+// 730
+[proc,script730](obj $obj0, component $component1, component $component2)
+def_int $int3 = inv_total(inv, rcguild_reward_token);
+def_int $int4 = enum(obj, int, enum_1680, $obj0);
+if_settext($component1, "<tostring($int4)> tokens");
+if ($int4 > $int3 | oc_members($obj0) = 1 & map_members = false) {
+    if_setcolour($component2, ^red);
+} else {
+    if_setcolour($component2, 0x01b801);
+}

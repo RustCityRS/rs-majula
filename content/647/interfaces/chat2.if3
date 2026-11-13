@@ -1,0 +1,94 @@
+// 65:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 65:1
+[chat2head]
+type=model
+x=1474
+width=32
+height=32
+xmode=proportion_right
+ymode=abs_centre
+layer=layer_1
+model=null
+modelangle=40,166,0
+modelzoom=796
+
+// 65:2
+[chat2head_1]
+type=model
+x=1474
+width=32
+height=32
+xmode=proportion_right
+ymode=abs_centre
+layer=layer_1
+model=null
+modelangle=40,166,0
+modelzoom=2150
+transmitop=10
+op10= 
+
+// 65:3
+[chat2name]
+type=text
+x=30
+y=1310
+width=350
+height=17
+ymode=proportion_top
+layer=layer_1
+textfont=q8_full
+text=Name
+textalignh=centre
+colour=0x800000
+
+// 65:4
+[chat2a]
+type=text
+x=30
+y=-1771
+width=350
+height=17
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 65:5
+[chat2b]
+type=text
+x=30
+y=1785
+width=350
+height=17
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line2
+textalignh=centre
+colour=0x000000
+
+// 65:6
+[chat2next]
+type=text
+x=30
+y=1310
+width=350
+height=17
+ymode=proportion_bottom
+layer=layer_1
+textfont=q8_full
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

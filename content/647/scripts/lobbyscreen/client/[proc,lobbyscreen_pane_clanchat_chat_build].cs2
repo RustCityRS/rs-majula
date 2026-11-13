@@ -1,0 +1,46 @@
+// 3173
+[proc,lobbyscreen_pane_clanchat_chat_build](component $component0)
+~script4548;
+if (minimenuopen(lobbyscreen_pane_clanchat:chat_build, -1) = true) {
+    if_setontimer($component0, "lobbyscreen_pane_clanchat_chat_build($component0)");
+    return;
+}
+cc_deleteall(lobbyscreen_pane_clanchat:chat_build);
+def_string $string0 = "<col=7fa9ff>";
+def_string $string1 = "<col=ff5256>";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $chattype3 = ^chattype_gamemessage;
+def_string $string2 = "";
+def_string $string3 = "";
+while ($int1 < 100) {
+    $chattype3 = chat_gethistorytype($int1);
+    $string2 = chat_gethistoryname($int1);
+    $string3 = unknown_command_5019($int1);
+    switch_int ($chattype3) {
+        case ^chattype_clanmessage, ^chattype_snapshotfeedback :
+            $int2 = ~lobbyscreen_pane_clanchat_chat_line($int2, chat_gethistorymessage($int1), 0, "", "", $chattype3);
+        case ^chattype_clanchat, ^chattype_clanguestchat :
+            $int2 = ~lobbyscreen_pane_clanchat_chat_line($int2, "[<$string0><chat_gethistoryclan($int1)></col>] <$string2>: <$string1><chat_gethistorymessage($int1)>", 1, $string2, $string3, $chattype3);
+        case ^chattype_quickchat_clanchat :
+            $int2 = ~lobbyscreen_pane_clanchat_chat_line($int2, "[<$string0><chat_gethistoryclan($int1)></col>] <$string2>: <$string1><chat_gethistorymessage($int1)>", 1, $string2, $string3, $chattype3);
+        case ^chattype_system_broadcast :
+            $int2 = ~lobbyscreen_pane_clanchat_chat_line($int2, "<col=ff0000><chat_gethistorymessage($int1)></col>", 0, "", "", $chattype3);
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int4 = calc(if_getheight(lobbyscreen_pane_clanchat:chat_build) / 15);
+$int1 = 0;
+def_int $int5 = 0;
+if ($int2 < $int4) {
+    $int5 = calc($int4 - $int2);
+    while ($int1 < $int5) {
+        $int2 = ~lobbyscreen_pane_clanchat_chat_line($int2, "", 0, "", "", ^chattype_gamemessage);
+        $int1 = calc($int1 + 1);
+    }
+}
+def_int $int6 = max(calc($int2 * 15), calc($int4 * 15));
+if_setscrollsize(lobbyscreen_pane_clanchat:chat_build, 0, $int6);
+~scrollbar_resize(lobbyscreen_pane_clanchat:chat_scroll, lobbyscreen_pane_clanchat:chat_build, calc(%lobby_clanchat_lastscrollpos + if_getscrollheight(lobbyscreen_pane_clanchat:chat_build) - %lobby_clanchat_lastscrollsize));
+%lobby_clanchat_lastscrollpos = if_getscrolly(lobbyscreen_pane_clanchat:chat_build);
+%lobby_clanchat_lastscrollsize = if_getscrollheight(lobbyscreen_pane_clanchat:chat_build);

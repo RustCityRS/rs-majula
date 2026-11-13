@@ -1,0 +1,80 @@
+// 224
+[proc,snapshot_namelist_generate]
+def_boolean $boolean0 = if_gethide(snapshot_main_v2:name_list_layer);
+if ($boolean0 = true) {
+    if_sethide(snapshot_main_v2:name_list_layer, false);
+}
+def_int $int1 = 100;
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $chattype3 = ^chattype_gamemessage;
+def_int $int4 = 0;
+cc_deleteall(snapshot_main_v2:build_layer);
+cc_deleteall(snapshot_main_v2:highlight_name_layer);
+cc_deleteall(snapshot_main_v2:selected_name_layer);
+if_setscrollsize(snapshot_main_v2:build_layer, 0, 0);
+if_setscrollpos(snapshot_main_v2:build_layer, 0, 0);
+while ($int1 >= 0) {
+    $chattype3 = chat_gethistorytype($int1);
+    if ($chattype3 ! ^chattype_gamemessage & $chattype3 ! ^chattype_engine & $chattype3 ! ^chattype_obj_examine & $chattype3 ! ^chattype_npc_examine & $chattype3 ! ^chattype_loc_examine & $chattype3 ! ^chattype_clanmessage & $chattype3 ! ^chattype_trade_notification & $chattype3 ! ^chattype_assist_notification & $chattype3 ! ^chattype_snapshotfeedback & $chattype3 ! ^chattype_friendnotification & $chattype3 ! ^chattype_ignorenotification & compare(chat_gethistoryname($int1), "") ! 0 & compare(chat_gethistorymessage($int1), "") ! 0) {
+        if (compare(removetags(chat_gethistoryname($int1)), chat_playername_unfiltered) ! 0 & $chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+            $int4 = 1;
+            cc_create(snapshot_main_v2:highlight_name_layer, ^iftype_rectangle, if_getnextsubid(snapshot_main_v2:highlight_name_layer));
+            cc_setposition(0, calc($int2 * 14), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(16384, 14, ^setsize_rel, ^setsize_abs);
+            cc_setcolour(0x678ab0);
+            cc_settrans(255);
+            cc_setfill(true);
+            cc_setonmouseover("script237(event_comsubid)");
+            cc_setonmouseleave("script238(event_comsubid)");
+            cc_create(snapshot_main_v2:selected_name_layer, ^iftype_rectangle, if_getnextsubid(snapshot_main_v2:selected_name_layer));
+            cc_setposition(0, calc($int2 * 14), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(16384, 14, ^setsize_rel, ^setsize_abs);
+            cc_setcolour(0x678ab0);
+            cc_settrans(255);
+            cc_setfill(true);
+            cc_setonmouseover("snapshot_selected_highlight(event_comsubid)");
+        }
+        cc_create(snapshot_main_v2:build_layer, ^iftype_text, if_getnextsubid(snapshot_main_v2:build_layer));
+        cc_setposition(5, calc($int2 * 14), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(16384, 14, ^setsize_rel, ^setsize_abs);
+        if ($chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+            cc_settext(" <chat_gethistoryname($int1)>: <chat_gethistorymessage($int1)>");
+        } else {
+            cc_settext("To <chat_gethistoryname($int1)>: <chat_gethistorymessage($int1)>");
+        }
+        cc_setcolour(0x777777);
+        if (compare(removetags(chat_gethistoryname($int1)), chat_playername_unfiltered) ! 0 & $chattype3 ! ^chattype_privatechatout & $chattype3 ! ^chattype_quickchat_private_outgoing) {
+            cc_setopbase(removetags(chat_gethistoryname($int1)));
+            cc_setop(1, "Report");
+            cc_setonop("ondrag_var_client(event_comsubid)");
+            cc_setcolour(^black);
+        }
+        cc_settextfont(p12_full);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 14);
+        $int2 = calc($int2 + 1);
+    }
+    $int1 = calc($int1 - 1);
+}
+if ($int4 = 0) {
+    cc_create(snapshot_main_v2:build_layer, ^iftype_text, if_getnextsubid(snapshot_main_v2:build_layer));
+    cc_setposition(5, calc($int2 * 14), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(16384, 14, ^setsize_rel, ^setsize_abs);
+    cc_settext("There is no chat to report at the moment.");
+    cc_setcolour(0x000099);
+    cc_settextfont(p12_full);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 14);
+}
+if ($int2 > calc(if_getheight(snapshot_main_v2:list_layer) / 14)) {
+    if_setsize(snapshot_main_v2:list_layer, 63, if_getheight(snapshot_main_v2:list_layer), ^setsize_minus, ^setsize_abs);
+    if_setscrollsize(snapshot_main_v2:scrolled_layer, 0, calc($int2 * 14));
+    ~scrollbar_vertical(snapshot_main_v2:scroll_layer, snapshot_main_v2:scrolled_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if (cc_find(snapshot_main_v2:scroll_layer, 1) = true) {
+        ~scrollbar_vertical_doscroll(snapshot_main_v2:scroll_layer, snapshot_main_v2:scrolled_layer, if_getscrollheight(snapshot_main_v2:scrolled_layer), true);
+    }
+} else {
+    if_setsize(snapshot_main_v2:list_layer, 44, if_getheight(snapshot_main_v2:list_layer), ^setsize_minus, ^setsize_abs);
+}
+if ($boolean0 = true) {
+    if_sethide(snapshot_main_v2:name_list_layer, true);
+}

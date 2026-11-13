@@ -1,0 +1,52 @@
+// 86
+[clientscript,chat_op](int $int0, string $string0, int $int1)
+$string0 = removetags($string0);
+def_int $chattype2 = chat_gethistorytype($int1);
+switch_int ($int0) {
+    case 1 :
+        opplayer(4, $string0);
+    case 2 :
+        opplayer(1, $string0);
+    case 3 :
+        opplayer(7, $string0);
+    case 4 :
+        opplayer(1, $string0);
+    case 5 :
+        opplayer(9, $string0);
+    case 6 :
+        if (~script2709 = 0) {
+            mes("You cannot add a friend until you have entered your date of birth");
+            return;
+        }
+        if (friend_test($string0) = true) {
+            if (map_quickchat = false & userdetail_quickchat = false) {
+                ~meslayer_mode6($string0);
+            }
+        } else {
+            friend_add($string0);
+        }
+    case 7 :
+        ignore_add($string0);
+    case 8 :
+        %snapshot_name = $string0;
+    case 9 :
+        if ($chattype2 = ^chattype_quickchat_public) {
+            ~quickchat_respond(4, chat_gethistoryname($int1), chat_gethistoryphrase($int1));
+        } else if ($chattype2 = ^chattype_quickchat_private_incoming) {
+            ~quickchat_respond(5, chat_gethistoryname($int1), chat_gethistoryphrase($int1));
+        } else if ($chattype2 = ^chattype_quickchat_friend_chat) {
+            ~quickchat_respond(6, chat_gethistoryname($int1), chat_gethistoryphrase($int1));
+        } else if ($chattype2 = ^chattype_quickchat_clanchat) {
+            ~quickchat_respond(9, chat_gethistoryname($int1), chat_gethistoryphrase($int1));
+        } else if ($chattype2 = ^chattype_quickchat_clanguestchat) {
+            ~quickchat_respond(11, chat_gethistoryname($int1), chat_gethistoryphrase($int1));
+        }
+    case 10 :
+        if ($chattype2 = ^chattype_clanchat | $chattype2 = ^chattype_quickchat_clanchat) {
+            ~clan_chat_kick_find($string0);
+        } else if ($chattype2 = ^chattype_friendschat | $chattype2 = ^chattype_quickchat_friend_chat) {
+            ~friendschat_kick($string0);
+        } else {
+            opplayer(5, $string0);
+        }
+}

@@ -1,0 +1,22 @@
+// 2889
+[clientscript,script2889]
+def_npc $npc0 = enum(int, npc, enum_927, %sfa_rogue_type);
+def_int $int1 = -1;
+def_int $int2 = -1;
+if ($npc0 ! null) {
+    if (nc_param($npc0, param_956) ! null) {
+        if_setmodel(sfa:fam1, enum(npc, model, enum_934, nc_param($npc0, param_956)));
+        if_setmodelanim(sfa:fam1, enum(npc, seq, enum_935, nc_param($npc0, param_956)));
+        if_setgraphic(sfa:graphic_fam1, enum(npc, graphic, enum_932, nc_param($npc0, param_956)));
+        if_settext(sfa:fam1_text, enum(npc, string, enum_930, nc_param($npc0, param_956)));
+    }
+    if (nc_param($npc0, param_957) ! null) {
+        if_setmodel(sfa:fam2, enum(npc, model, enum_934, nc_param($npc0, param_957)));
+        if_setmodelanim(sfa:fam2, enum(npc, seq, enum_935, nc_param($npc0, param_957)));
+        if_setgraphic(sfa:graphic_fam2, enum(npc, graphic, enum_932, nc_param($npc0, param_957)));
+        if_settext(sfa:fam2_text, enum(npc, string, enum_930, nc_param($npc0, param_957)));
+    }
+    if_setgraphic(sfa:graphic_you, enum(npc, graphic, enum_933, $npc0));
+    if_setmodel(sfa:player, enum(npc, model, enum_934, $npc0));
+    if_setmodelanim(sfa:player, enum(npc, seq, enum_935, $npc0));
+}

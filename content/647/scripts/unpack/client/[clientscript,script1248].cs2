@@ -1,0 +1,5 @@
+// 1248
+[clientscript,script1248]
+if_setontimer(advisor_tutorial_chat:title, null);
+if_sethide(advisor_tutorial_chat:graphic_text, true);
+if_setgraphic(advisor_tutorial_chat:graphic, null);

@@ -1,0 +1,6 @@
+// 2148
+[proc,ql4_requirements](int $int0, int $int1)(boolean)
+def_struct $struct2 = enum(int, struct, enum_169, $int0);
+%ql4_quest = enum(int, struct, struct_param($struct2, param_61), $int1);
+%ql4_comlevel = ~comlevel;
+return(~ql4_requirements_cache);

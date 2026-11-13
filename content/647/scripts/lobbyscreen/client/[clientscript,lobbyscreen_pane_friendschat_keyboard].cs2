@@ -1,0 +1,29 @@
+// 4555
+[clientscript,lobbyscreen_pane_friendschat_keyboard](int $key0, char $char1)
+if (clan_getchatcount <= 0 | userdetail_quickchat = true) {
+    return;
+}
+switch_int ($key0) {
+    case ^key_return :
+        if (clan_getchatcount > 0) {
+            if (string_length(%varclient_1868) > 0) {
+                chat_setmode(1);
+                chat_sendpublic(%varclient_1868);
+            }
+        } else {
+            mes_typed(^chattype_friendschatnotification, 0, "You are not in a Friends Chat Channel.");
+        }
+        %varclient_1868 = "";
+        if_settext(lobbyscreen_pane_friendschat:chat_input_text, escape(%varclient_1868));
+        %lobby_caret_friendschat = string_length(%varclient_1868);
+        ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        %lobby_caret_friendschat = ~script1553($key0, %lobby_caret_friendschat, %varclient_1868);
+        ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
+    case null, ^key_backspace, ^key_del :
+        if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
+            %varclient_1868, %lobby_caret_friendschat = ~script802(%lobby_caret_friendschat, %varclient_1868, 0, $key0, $char1);
+            if_settext(lobbyscreen_pane_friendschat:chat_input_text, escape(%varclient_1868));
+            ~script4571(lobbyscreen_pane_friendschat:chat_input_text, lobbyscreen_pane_friendschat:input_caret, %varclient_1868);
+        }
+}

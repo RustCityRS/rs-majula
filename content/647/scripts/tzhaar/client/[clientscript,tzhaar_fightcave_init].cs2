@@ -1,0 +1,20 @@
+// 1227
+[clientscript,tzhaar_fightcave_init](component $component0, component $component1, component $component2)
+if (%varplayerbit_1549 < 1 | %varplayerbit_1549 > 63) {
+    if_sethide($component1, true);
+    if_sethide($component2, true);
+    return;
+}
+if (%varplayerbit_1549 = 63) {
+    if_settext($component2, "Final<br>Challenge");
+} else {
+    if_settext($component2, "Wave <tostring(%varplayerbit_1549)>");
+}
+def_int $int3 = calc(0 - if_getheight($component0));
+if_setposition($component1, 0, $int3, ^setpos_abs_centre, ^setpos_abs_centre);
+if_setposition($component2, 0, $int3, ^setpos_abs_centre, ^setpos_abs_centre);
+if_sethide($component1, false);
+if_sethide($component2, false);
+if_setontimer($component0, "tzhaar_fightcave_slide($component0, $component1, $component2, clientclock)");
+if_setop($component1, 1, "Dismiss");
+if_setonop($component1, "tzhaar_fightcave_op(event_op, $component0, $component1, $component2)");

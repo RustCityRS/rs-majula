@@ -1,0 +1,21 @@
+// 1190
+[clientscript,script1190]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+while ($int0 < inv_size(hunting_customfurshop)) {
+    cc_create(hunting_customfurs:hunting_customfurs, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    $int1 = ~script1425($int0);
+    $int2 = ~script1426($int0);
+    cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    if (inv_getobj(hunting_customfurshop, $int0) ! null) {
+        cc_setobject(inv_getobj(hunting_customfurshop, $int0), inv_getnum(hunting_customfurshop, $int0));
+        cc_setopbase(oc_name(inv_getobj(hunting_customfurshop, $int0)));
+        cc_setop(1, "Value");
+        cc_setop(2, "Buy 1");
+        cc_setop(3, "Buy 5");
+        cc_setop(4, "Buy 10");
+    }
+    $int0 = calc($int0 + 1);
+}

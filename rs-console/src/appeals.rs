@@ -4,6 +4,7 @@ use crate::http::App;
 use rs_admin_api::{AppealLink, AppealsWaiting, Outcome, path};
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::time::{self, MissedTickBehavior};
 use tracing::{info, warn};
 
 /// How often the website is asked for new appeals.
@@ -84,8 +85,8 @@ pub async fn take_in(app: &App) -> Result<usize, String> {
 /// Takes in new appeals every [`CHECK_INTERVAL`], while the console can
 /// reach the website.
 pub async fn keep_taking_in(app: Arc<App>) {
-    let mut interval = tokio::time::interval(CHECK_INTERVAL);
-    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+    let mut interval = time::interval(CHECK_INTERVAL);
+    interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
     let mut failing = false;
     loop {
         interval.tick().await;

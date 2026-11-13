@@ -1,0 +1,14 @@
+// 3275
+[proc,script3275]()(int)
+if (%rand_party_exploration_mode_trans = 1) {
+    switch_int (%rand_dungeon_size_trans) {
+        case 3 :
+            return(9500);
+        case 2 :
+            return(9500);
+        case default :
+            return(9500);
+    }
+} else {
+    return(10000);
+}

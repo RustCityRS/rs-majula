@@ -1,0 +1,442 @@
+// 1104:0
+[com_0]
+type=layer
+width=200
+height=21
+xmode=abs_centre
+ymode=abs_centre
+layer=content_layer
+
+// 1104:1
+[com_1]
+type=layer
+width=268
+height=165
+xmode=abs_centre
+ymode=abs_centre
+
+// 1104:2
+[com_2]
+type=graphic
+width=6
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+graphic="aif_text_input_1,1"
+tiling=yes
+
+// 1104:3
+[com_3]
+type=graphic
+width=6
+height=21
+ymode=abs_centre
+layer=com_0
+graphic="aif_text_input_1,0"
+tiling=yes
+
+// 1104:4
+[com_4]
+type=graphic
+width=6
+height=21
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic="aif_text_input_1,2"
+tiling=yes
+
+// 1104:5
+[com_5]
+type=layer
+width=3
+height=3
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 1104:6
+[com_6]
+type=graphic
+y=1
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_5
+graphic=window_texture_1
+tiling=yes
+
+// 1104:7
+[com_7]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 1104:8
+[com_8]
+type=graphic
+width=364
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_bot_brdr_left
+
+// 1104:9
+[com_9]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_5
+graphic=aif_window_stone_close_corner_3
+
+// 1104:10
+[com_10]
+type=graphic
+width=8
+height=190
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_5
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1104:11
+[com_11]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_5
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1104:12
+[com_12]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_5
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 1104:13
+[com_13]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_bot_brdr_left
+
+// 1104:14
+[com_14]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_bot_brdr_left
+
+// 1104:15
+[com_15]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1104:16
+[com_16]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_5
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1104:17
+[com_17]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1104:18
+[com_18]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_5
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 1104:19
+[com_19]
+type=graphic
+width=8
+height=190
+heightmode=minus
+ymode=abs_centre
+layer=com_5
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1104:20
+[com_20]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_side_brdr_small
+
+// 1104:21
+[com_21]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1104:22
+[com_22]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_5
+graphic=aif_window_stone_close_corner_1
+
+// 1104:23
+[com_23]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_5
+graphic=aif_window_stone_left_corner_1
+
+// 1104:24
+[com_24]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_5
+graphic=aif_window_stone_bot_corn
+
+// 1104:25
+[com_25]
+type=graphic
+width=8
+height=29
+layer=com_5
+graphic=aif_window_stone_left_corner_2
+
+// 1104:26
+[com_26]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_5
+graphic=aif_window_stone_close_corner_2
+
+// 1104:27
+[com_27]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_5
+
+// 1104:28
+[com_28]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_27
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1104:29
+[com_29]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_27
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1104:30
+[com_30]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_27
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1104:31
+[title_layer]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_5
+
+// 1104:32
+[com_32]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=title_layer
+textfont=palatino_linotype_18pt_regular
+text=Invitation
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1104:33
+[content_layer]
+type=layer
+x=8
+y=29
+width=15
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_5
+
+// 1104:34
+[com_34]
+type=text
+y=4
+width=200
+height=20
+xmode=abs_centre
+layer=content_layer
+textfont=p11_full
+text=You have been invited by...
+textalignh=centre
+textalignv=centre
+colour=0xe5e2cf
+
+// 1104:35
+[dropshadow_side_graphic]
+type=graphic
+x=-1
+y=1
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_1
+graphic=button_dropshadow_left
+tiling=yes
+
+// 1104:36
+[dropshadow_bottom_graphic]
+type=graphic
+y=-1
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_1
+graphic=button_dropshadow_bottom
+tiling=yes
+
+// 1104:37
+[dropshadow_corner_graphic]
+type=graphic
+x=-1
+y=-1
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+graphic=button_dropshadow_corner
+tiling=yes
+
+// 1104:38
+[com_38]
+type=text
+y=53
+width=200
+height=20
+xmode=abs_centre
+layer=content_layer
+textfont=p11_full
+text=...to attend...
+textalignh=centre
+textalignv=centre
+colour=0xe5e2cf

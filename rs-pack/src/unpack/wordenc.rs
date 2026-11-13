@@ -1,7 +1,7 @@
-use std::path::Path;
-
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use std::fs;
+use std::path::Path;
 use tracing::debug;
 
 const WORDENC_NAMES: &[&str] = &[
@@ -25,26 +25,26 @@ fn find_wordenc_name(hash: i32) -> Option<&'static str> {
 pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let wordenc_dir = output_dir.join("wordenc");
     let meta_dir = wordenc_dir.join("meta");
-    std::fs::create_dir_all(&meta_dir)?;
+    fs::create_dir_all(&meta_dir)?;
 
     if let Some(data) = jag.read("badenc.txt") {
         let text = decode_badenc(&data.data);
-        std::fs::write(wordenc_dir.join("badenc.txt"), text)?;
+        fs::write(wordenc_dir.join("badenc.txt"), text)?;
     }
 
     if let Some(data) = jag.read("fragmentsenc.txt") {
         let text = decode_fragmentsenc(&data.data);
-        std::fs::write(wordenc_dir.join("fragmentsenc.txt"), text)?;
+        fs::write(wordenc_dir.join("fragmentsenc.txt"), text)?;
     }
 
     if let Some(data) = jag.read("tldlist.txt") {
         let text = decode_tldlist(&data.data);
-        std::fs::write(wordenc_dir.join("tldlist.txt"), text)?;
+        fs::write(wordenc_dir.join("tldlist.txt"), text)?;
     }
 
     if let Some(data) = jag.read("domainenc.txt") {
         let text = decode_domainenc(&data.data);
-        std::fs::write(wordenc_dir.join("domainenc.txt"), text)?;
+        fs::write(wordenc_dir.join("domainenc.txt"), text)?;
     }
 
     let mut order = Vec::new();
@@ -54,7 +54,7 @@ pub fn unpack_wordenc(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
         }
     }
     let order_content = order.join("\n") + "\n";
-    std::fs::write(meta_dir.join("wordenc.order"), order_content)?;
+    fs::write(meta_dir.join("wordenc.order"), order_content)?;
 
     debug!("Unpacked wordenc ({} entries)", order.len());
     Ok(())

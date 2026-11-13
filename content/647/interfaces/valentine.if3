@@ -1,0 +1,102 @@
+// 561:0
+[universe]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+onload=valentine_setup(valentine:container, valentine:text, valentine:scrollbar)
+onvarcstrtransmit=valentine_setup(valentine:container, valentine:text, valentine:scrollbar){varclient_1862}
+
+// 561:1
+[com_1]
+type=model
+width=457
+height=332
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+model=model_16344
+modelorigin=23,-17
+modelangle=490,513,0
+modelzoom=1130
+
+// 561:2
+[com_2]
+type=graphic
+x=56
+y=27
+width=26
+height=23
+xmode=abs_right
+layer=universe
+graphic="close_buttons,2"
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(event_com, "close_buttons,3")
+onop=closebutton_click
+onmouserepeat=graphic_swapper(event_com, "close_buttons,2")
+
+// 561:3
+[com_3]
+type=text
+y=28
+width=120
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=universe
+textfont=menu_font_small
+text=Recent Wilderness Kills
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xd9a34d
+
+// 561:4
+[killcount]
+type=text
+y=48
+width=125
+height=26
+widthmode=minus
+xmode=abs_centre
+layer=universe
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+colour=0x502800
+
+// 561:5
+[container]
+type=layer
+x=-8
+y=30
+width=358
+height=230
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+
+// 561:6
+[text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=container
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+colour=0x502800
+
+// 561:7
+[scrollbar]
+type=layer
+x=69
+y=30
+width=16
+height=230
+xmode=abs_right
+ymode=abs_bottom
+layer=universe

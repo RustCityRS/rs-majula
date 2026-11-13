@@ -1,0 +1,26 @@
+// 289's spinning structs (skill_crafting/configs/spinning/spinning.struct),
+// server-only at 647.
+[flax]
+param=processmessage,You spin the flax into a Bow String.
+param=productmessage,You make the flax into a bow string.
+param=product,bow_string
+param=levelrequire,10
+param=productexp,150
+param=ingredient,flax
+
+[wool]
+param=processmessage,You spin the wool into a nice ball of wool.
+param=productmessage,You spin the wool into a nice ball of wool.
+param=product,ball_of_wool
+param=productexp,25
+param=ingredient,wool
+
+// 2011's black wool: level 1 and 25 (2.5 xp), void-634's (spinning.tables.toml
+// .black_wool). No source quotes its message (void-634's spinning says
+// none), so it says 289's wool's.
+[black_wool]
+param=processmessage,You spin the wool into a nice ball of wool.
+param=productmessage,You spin the wool into a nice ball of wool.
+param=product,black_ball_of_wool
+param=productexp,25
+param=ingredient,black_wool

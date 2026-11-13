@@ -1,0 +1,147 @@
+// 711
+[clientscript,skillmulti2010_build]
+if_setonop(skillmulti2010_numbers:up, "script2023(event_op, 1)");
+if_setonop(skillmulti2010_numbers:down, "script2023(event_op, -1)");
+~script2020(1, "1", 41, skillmulti2010_numbers:com_5);
+~script2020(5, "5", 41, skillmulti2010_numbers:com_6);
+~script2020(10, "10", 41, skillmulti2010_numbers:com_7);
+def_int $int0 = if_getwidth(skillmulti2010_numbers:static_section);
+def_int $int1 = if_getwidth(skillmulti2010:number_layer);
+def_int $int2 = calc($int1 - $int0 - (41 * 3 + 5 * 2));
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "All";
+def_string $string1 = "Custom";
+if (~script1103 = true) {
+    $int3 = calc(max(stringwidth($string0, p11_full), stringwidth($string1, p11_full)) + 20);
+    ~script2020(%skill_creation_maximum, $string0, $int3, skillmulti2010_numbers:all);
+    ~script2020(-1, $string1, $int3, skillmulti2010:custom);
+    $int2 = calc($int2 - ($int3 * 2 + 5));
+    $int4 = scale(2, 5, $int2);
+    if_setposition(skillmulti2010_numbers:all, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int4 = calc($int4 + $int3 + 5);
+    if_setposition(skillmulti2010:custom, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int4 = calc($int4 + $int3);
+    $int4 = calc($int4 + $int2 / 5);
+    if_setposition(skillmulti2010_numbers:com_5, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(skillmulti2010_numbers:com_6, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(skillmulti2010_numbers:com_7, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+} else {
+    if_sethide(skillmulti2010_numbers:all, true);
+    if_sethide(skillmulti2010:custom, true);
+    $int4 = calc($int2 / 2);
+    if_setposition(skillmulti2010_numbers:com_5, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(skillmulti2010_numbers:com_6, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition(skillmulti2010_numbers:com_7, $int4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+}
+if_setposition(skillmulti2010_numbers:com_2, calc($int0 - 5), 0, ^setpos_abs_right, ^setpos_abs_centre);
+if_setposition(skillmulti2010:com_5, $int0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+def_int $int5 = calc($int1 - $int0);
+if (%playerdesign2_client_legs = true) {
+    if_setsize(skillmulti2010_numbers:com_2, calc($int5 + 5), 0, ^setsize_abs, ^setsize_minus);
+    if_setsize(skillmulti2010:com_5, $int5, 0, ^setsize_abs, ^setsize_minus);
+    ~script2192(0, $int5);
+} else {
+    if_setsize(skillmulti2010_numbers:com_2, 5, 0, ^setsize_abs, ^setsize_minus);
+    if_setsize(skillmulti2010:com_5, 0, 0, ^setsize_abs, ^setsize_minus);
+    ~script2192(1, $int5);
+}
+if_setsize(skillmulti2010_numbers:text, calc(if_getx(skillmulti2010_numbers:text) * 2 + $int0), 0, ^setsize_minus, ^setsize_minus);
+$string1 = "Show/Hide additional number buttons";
+def_graphic $graphic6 = graphic_3883;
+if_setonmouserepeat(skillmulti2010_numbers:expander, "script1160(event_com, -1, skillmulti2010:tooltip, $string1, 25, 519)");
+if_setonmouseleave(skillmulti2010_numbers:expander, "deltooltip_graphic_swapper(skillmulti2010:tooltip, skillmulti2010_numbers:expander_graphic, $graphic6)");
+$int2 = calc((70 - 56) / 2);
+$int3 = 0;
+if (%skill_multi_obj1 ! null) {
+    $int3 = parawidth(%varclient_1651, ^max_32bit_int, p11_full);
+}
+if (%skill_multi_obj2 ! null) {
+    $int3 = max(parawidth(%varclient_1652, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj3 ! null) {
+    $int3 = max(parawidth(%varclient_1653, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj4 ! null) {
+    $int3 = max(parawidth(%varclient_1654, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj5 ! null) {
+    $int3 = max(parawidth(%varclient_1655, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj6 ! null) {
+    $int3 = max(parawidth(%varclient_1656, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj7 ! null) {
+    $int3 = max(parawidth(%varclient_1799, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj8 ! null) {
+    $int3 = max(parawidth(%varclient_1800, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj9 ! null) {
+    $int3 = max(parawidth(%varclient_1801, ^max_32bit_int, p11_full), $int3);
+}
+if (%skill_multi_obj10 ! null) {
+    $int3 = max(parawidth(%varclient_1802, ^max_32bit_int, p11_full), $int3);
+}
+if (%if_side_modal_stone ! null) {
+    $int3 = max(parawidth(%varclient_1794, ^max_32bit_int, p11_full), $int3);
+}
+if (%if_side_modal2_stone ! null) {
+    $int3 = max(parawidth(%varclient_1835, ^max_32bit_int, p11_full), $int3);
+}
+if (%playerdesign2_client_head ! null) {
+    $int3 = max(parawidth(%varclient_1836, ^max_32bit_int, p11_full), $int3);
+}
+if (%playerdesign2_client_arms ! null) {
+    $int3 = max(parawidth(%varclient_1837, ^max_32bit_int, p11_full), $int3);
+}
+$int3 = calc($int3 + 4);
+$int3 = max(calc($int3 + 4 * 2), 56);
+$int4 = ~skillmulti2010_menubutton($int2, $int3, $int2, %skill_multi_obj1, %varclient_1651, skillmulti2010:a);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj2, %varclient_1652, skillmulti2010:b);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj3, %varclient_1653, skillmulti2010:c);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj4, %varclient_1654, skillmulti2010:d);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj5, %varclient_1655, skillmulti2010:e);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj6, %varclient_1656, skillmulti2010:f);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj7, %varclient_1799, skillmulti2010:g);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj8, %varclient_1800, skillmulti2010:h);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj9, %varclient_1801, skillmulti2010:i);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %skill_multi_obj10, %varclient_1802, skillmulti2010:j);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %if_side_modal_stone, %varclient_1794, skillmulti2010:k);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %if_side_modal2_stone, %varclient_1835, skillmulti2010:l);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %playerdesign2_client_head, %varclient_1836, skillmulti2010:m);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %playerdesign2_client_arms, %varclient_1837, skillmulti2010:n);
+~script2047;
+$int3 = calc(if_getwidth(skillmulti2010:item_layer) - 50);
+def_graphic $graphic7 = "sm_select_body_button,0";
+$graphic6 = "sm_select_body_button,2";
+def_graphic $graphic8 = "sm_select_body_button,1";
+def_graphic $graphic9 = "sm_select_body_button,3";
+if ($int4 > $int3) {
+    if_setsize(skillmulti2010:menu, $int3, 0, ^setsize_abs, ^setsize_minus);
+    if_setscrollsize(skillmulti2010:menu, $int4, 0);
+    if_setscrollpos(skillmulti2010:menu, %playerdesign2_client_feet, 0);
+    if_setonmouserepeat(skillmulti2010:left, "skillmulti2010_scroller(event_com, $graphic8, -4)");
+    if_setonmouserepeat(skillmulti2010:right, "skillmulti2010_scroller(event_com, $graphic9, 4)");
+    if_setonhold(skillmulti2010:left, "skillmulti2010_scroller(event_com, $graphic8, -6)");
+    if_setonhold(skillmulti2010:right, "skillmulti2010_scroller(event_com, $graphic9, 6)");
+    if_setonmouseleave(skillmulti2010:left, "graphic_swapper(event_com, $graphic7)");
+    if_setonmouseleave(skillmulti2010:right, "graphic_swapper(event_com, $graphic6)");
+    ~script2370;
+} else {
+    if_setsize(skillmulti2010:menu, $int4, 0, ^setsize_abs, ^setsize_minus);
+    if_setscrollsize(skillmulti2010:menu, 0, 0);
+    if_setscrollpos(skillmulti2010:menu, 0, 0);
+    if_clearscripthooks(skillmulti2010:left);
+    if_clearscripthooks(skillmulti2010:right);
+    if_settrans(skillmulti2010:left, 150);
+    if_settrans(skillmulti2010:right, 150);
+}
+if_setgraphic(skillmulti2010:left, $graphic7);
+if_setgraphic(skillmulti2010:right, $graphic6);
+if_setonvarctransmit(skillmulti2010:universe, "skillmulti2010_build{skill_multi_num}");
+if_setonvartransmit(skillmulti2010:universe, "script2025{varplayer_1363}");

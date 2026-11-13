@@ -1,0 +1,10 @@
+// One-Eyed Hector's casket, Pirate's Treasure's 2011 reward (obj 7956: void-634's
+// casket_pirates_treasure; not in 289, which gave its contents loose). The message is the 2011-04-26
+// recording's (YouTube GTgKzVezVDo, 502s); the contents are the 2011 wiki's (Pirate's Treasure,
+// 2011-04-17: "450 coins, a cut emerald and a gold ring"), 289's loose reward.
+[opheld1,pirate_casket]
+inv_del(inv, pirate_casket, 1);
+inv_add(inv, coins, 450);
+inv_add(inv, emerald, 1);
+inv_add(inv, gold_ring, 1);
+mes("You open the casket, and find One-Eyed Hector's treasure.");

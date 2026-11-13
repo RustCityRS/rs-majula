@@ -1,0 +1,28 @@
+// 1689
+[proc,mah4_final_cutscene_update]
+%mah4_cutscene_fade_framecount = calc(%mah4_cutscene_fade_framecount + 1);
+if (%mah4_cutscene_fade_framecount >= calc(2 - 1)) {
+    %mah4_cutscene_fade_framecount = 0;
+    if (%mah4_cutscene_fade_direction = 0) {
+        %mah4_cutscene_fade_transparency = min(calc(%mah4_cutscene_fade_transparency + 2), 255);
+    } else if (%mah4_cutscene_fade_direction = 1) {
+        %mah4_cutscene_fade_transparency = max(calc(%mah4_cutscene_fade_transparency - 2), 0);
+    }
+    if_settrans(mah4_cutscene_overlay:black_rect, %mah4_cutscene_fade_transparency);
+}
+%mah4_golden_framecount = calc(%mah4_golden_framecount + 1);
+if (%mah4_golden_framecount >= calc(6 - 1)) {
+    %mah4_golden_framecount = 0;
+    if (%mah4_golden_direction = 0) {
+        %mah4_golden_transparency = min(calc(%mah4_golden_transparency + 1), 255);
+        if (%mah4_golden_transparency >= 255) {
+            %mah4_golden_direction = 1;
+        }
+    } else if (%mah4_golden_direction = 1 & %mah4_golden_active = 1) {
+        %mah4_golden_transparency = max(calc(%mah4_golden_transparency - 3), 192);
+        if (%mah4_golden_transparency <= 192) {
+            %mah4_golden_direction = 0;
+        }
+    }
+    if_settrans(mah4_cutscene_overlay:yellow_rect, %mah4_golden_transparency);
+}

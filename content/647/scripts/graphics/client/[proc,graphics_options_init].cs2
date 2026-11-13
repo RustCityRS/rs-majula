@@ -1,0 +1,4 @@
+// 2595
+[proc,graphics_options_init](int $int0)
+def_int $int1 = detailget_toolkit;
+~graphics_options_rebuild($int1, getwindowmode, ~graphics_options_reviewoptions($int1), $int0);

@@ -1,3 +1,7 @@
+//! The jag-era client packets (225 to 289). Rev 647's decoders are bounds-
+//! checked in `wire_647_inbound.rs`.
+#![cfg(before_647)]
+
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
 use rs_protocol::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
@@ -96,6 +100,7 @@ use rs_protocol::network::game::client::tut_clickside::TutClickSide;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::client_prot_message::ClientProtMessageInfo;
+use rs_ver::STRING_TERMINATOR;
 use std::collections::BTreeSet;
 
 const SPREAD: usize = 40;
@@ -267,7 +272,7 @@ fn client_cheat_matches_gjstr() {
         let len = wire.len();
 
         let mut expect = Packet::from(wire.clone());
-        let expect_str = expect.gjstr(10);
+        let expect_str = expect.gjstr(STRING_TERMINATOR);
 
         let mut buf = Packet::from(wire);
         assert_eq!(ClientCheat::decode(&mut buf, len).cheat, expect_str);

@@ -1,0 +1,10 @@
+// From rs-majula content/289/scripts/_test/scripts/cheats/cheat_other.rs2.
+[debugproc,energy]
+if_close;
+if (p_finduid(uid) = true) {
+    healenergy(10000); // 100=1%, 1000=10%, 10000=100%
+    p_run(^player_run_on);
+    mes("Run energy restored");
+} else {
+    @please_finish;
+}

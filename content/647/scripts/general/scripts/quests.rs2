@@ -1,0 +1,289 @@
+// 289's general/scripts/quests.rs2 on 2011's quest interfaces. 289 lists each
+// quest as a component of its quest tab and colours it; 2011's quest tab
+// (questlist_v4, interface 190) is one list the client fills and colours
+// itself from each quest's var (clientscript 2193). So a quest is its 2011
+// quest id (`^questlist_<quest>`, questlist.constant), and showing progress
+// asks the client to redraw the list (clientscript 2169). 2011 completes every
+// quest on one scroll (questscroll_ver3, interface 277; the cache's 380,
+// questscroll_ver3_big, is a twin of it), the custom scrolls of 289's
+// Observatory, Gertrude's Cat and Tai Bwo Wannai Trio being gone.
+
+[proc,send_quest_progress](int $quest, int $progress, int $complete_progress)
+~send_quest_progress_colour($quest, $progress, $complete_progress);
+
+[proc,send_quest_progress_colour](int $quest, int $progress, int $complete_progress)
+// 2011's client colours the quest from its own var; it redraws the list.
+runclientscript("ql4_refresh()");
+
+[proc,send_quest_complete](int $quest, namedobj $obj, int $objscale, int $questpoints, string $questmessage)
+// Random quest complete jingle.
+def_int $random = random(128);
+if ($random < 32) {       // The least common music that plays when completing a quest.
+    ~music_jingle("quest complete 3");
+} else if ($random < 64) {// A less common music that plays when completing a quest.
+    ~music_jingle("quest complete 2");
+} else {                 // The most common music that plays when completing a quest.
+    ~music_jingle("quest complete 1");
+}
+~update_questpoints;
+// Send Quest Scroll: the quest's own points first among the rewards, the rest
+// below it, and the total (277's "Quest Points:", com7), as every 2011 scroll
+// found shows (Doric's, Cook's, Imp Catcher's, ...; void-634's Cook.kt too).
+if_settext(questscroll_ver3:quest_title_ver3, $questmessage);
+// The cache's own line (277:9), set again: Unstable Foundations' scroll changes it to "You gain:".
+if_settext(questscroll_ver3:quest_awardedtext_ver3, "You are awarded:");
+if_setobject(questscroll_ver3:quest_model_ver3, $obj, $objscale);
+if_settext(questscroll_ver3:quest_points_ver3, tostring(%qp));
+if ($questpoints = 1) {
+    if_settext(questscroll_ver3:quest_reward1_ver3, "1 Quest Point");
+} else {
+    if_settext(questscroll_ver3:quest_reward1_ver3, "<tostring($questpoints)> Quest Points");
+}
+if_settext(questscroll_ver3:quest_reward2_ver3, "");
+if_settext(questscroll_ver3:quest_reward3_ver3, "");
+if_settext(questscroll_ver3:quest_reward4_ver3, "");
+if_settext(questscroll_ver3:quest_reward5_ver3, "");
+if_settext(questscroll_ver3:quest_reward6_ver3, "");
+if_settext(questscroll_ver3:quest_reward7_ver3, "");
+if_settext(questscroll_ver3:quest_reward8_ver3, "");
+if_openmain(questscroll_ver3);
+// Update Quest Tab color
+~send_quest_progress_colour($quest, 1, 1);
+mes("Congratulations! Quest complete!");
+
+// 289's send_quest_complete2: the quest complete scroll with the rewards
+// given as text, a line each between |s, where 289 shows them on its own
+// scroll (questscroll_death, 4 lines 200 wide in q8_full). 2011's one scroll
+// (277) lists rewards below the quest's points (com10) on com11-17 in p12_full
+// (cache 786, font 495), wrapped narrower than their 213 px (below). For Troll Romance both of 289's procs
+// say "You've helped a lonely troll find love": that waits for the Troll
+// Romance port.
+[proc,send_quest_complete2](int $quest, namedobj $obj, int $objscale, int $questpoints, string $questmessage, string $rewardtext)
+~send_quest_complete($quest, $obj, $objscale, $questpoints, $questmessage);
+// 2011's scrolls wrap their reward lines narrower than the 213-px components: between 155 and
+// 173 px (The Restless Ghost's "125 Prayer XP and five" / "ancient bones", Rune Mysteries'
+// "Access to the Runecrafting" / "skill and rune essence mine", Cook's Assistant's unwrapped
+// "Access to the cook's range"; target/port-tools/wrap_samples_scroll.txt). 170 is within; the
+// exact width is not known.
+split_init($rewardtext, 170, 7, p12_full);
+if_settext(questscroll_ver3:quest_reward2_ver3, split_get(0, 0));
+if_settext(questscroll_ver3:quest_reward3_ver3, split_get(0, 1));
+if_settext(questscroll_ver3:quest_reward4_ver3, split_get(0, 2));
+if_settext(questscroll_ver3:quest_reward5_ver3, split_get(0, 3));
+if_settext(questscroll_ver3:quest_reward6_ver3, split_get(0, 4));
+if_settext(questscroll_ver3:quest_reward7_ver3, split_get(0, 5));
+if_settext(questscroll_ver3:quest_reward8_ver3, split_get(0, 6));
+
+[proc,update_questpoints]
+def_int $questpointrecount = ~count_questpoints;
+//Only update if the count has changed
+if ($questpointrecount ! %qp) {
+    %qp = $questpointrecount;
+}
+
+[proc,count_questpoints]()(int)
+def_int $questpoints = 0;
+// Unstable Foundations, 2011's tutorial: 1 quest point (quest config 131, done at 1000).
+if (%tutorial >= 1000) {
+    $questpoints = add($questpoints, 1);
+}
+if (%runemysteries = ^runemysteries_complete) {
+    $questpoints = add($questpoints, ^runemysteries_questpoints); 
+}
+if (%doricquest = ^doric_complete) {
+    $questpoints = add($questpoints, ^doric_questpoints); 
+}
+if (%cookquest = ^cook_complete) {
+    $questpoints = add($questpoints, ^cook_questpoints); 
+}
+if (%rjquest = ^romeojuliet_complete) {
+    $questpoints = add($questpoints, ^romeojuliet_questpoints); 
+}
+if (%hetty = ^hetty_complete) {
+    $questpoints = add($questpoints, ^hetty_questpoints); 
+}
+if (%chompybird = ^chompybird_complete) {
+    $questpoints = add($questpoints, ^chompybird_questpoints); 
+}
+if (%prieststart = ^priest_complete) {
+    $questpoints = add($questpoints, ^priest_questpoints); 
+}
+if (%squire = ^squire_complete) {
+    $questpoints = add($questpoints, ^squire_questpoints); 
+}
+if (%imp = ^imp_complete) {
+    $questpoints = add($questpoints, ^imp_questpoints); 
+}
+if (%druidquest = ^druid_complete) {
+    $questpoints = add($questpoints, ^druid_questpoints);
+}
+if (%gobdip_main = ^gobdip_complete) {
+    $questpoints = add($questpoints, ^gobdip_questpoints); 
+}
+if (%sheep = ^sheep_complete) {
+    $questpoints = add($questpoints, ^sheep_questpoints); 
+}
+if (%fluffs = ^fluffs_complete) {
+    $questpoints = add($questpoints, ^fluffs_questpoints); 
+}
+if (%demonslayer_main = ^demon_complete) {
+    $questpoints = add($questpoints, ^demon_questpoints); 
+}
+if (%princequest = ^prince_complete) {
+    $questpoints = add($questpoints, ^prince_questpoints); 
+}
+if (%spy = ^blackknight_complete) {
+    $questpoints = add($questpoints, ^blackknight_questpoints); 
+}
+if (%haunted = ^haunted_complete) {
+    $questpoints = add($questpoints, ^haunted_questpoints); 
+}
+if (%hunt = ^hunt_complete) {
+    $questpoints = add($questpoints, ^hunt_questpoints); 
+}
+if (%drunkmonkquest = ^drunkmonk_complete) {
+    $questpoints = add($questpoints, ^drunkmonk_questpoints); 
+}
+if (%vampire = ^vampire_complete) {
+    $questpoints = add($questpoints, ^vampire_questpoints); 
+}
+if (%totemquest = ^totem_complete) {
+    $questpoints = add($questpoints, ^totem_questpoints); 
+}
+if (%fishingcompo = ^fishingcompo_complete) {
+    $questpoints = add($questpoints, ^fishingcompo_questpoints); 
+}
+if (%scorpcatcher = ^scorpcatcher_complete) {
+    $questpoints = add($questpoints, ^scorpcatcher_questpoints); 
+}
+if (%zanaris = ^zanaris_complete) {
+    $questpoints = add($questpoints, ^zanaris_questpoints); 
+}
+if (%phoenixgang = ^blackarmgang_complete | %blackarmgang = ^phoenixgang_complete) {
+    $questpoints = add($questpoints, ^blackarmgang_questpoints); 
+}
+if (%elenaquest >= ^elena_complete) {
+    $questpoints = add($questpoints, ^elena_questpoints); 
+}
+if (%dragonquest >= ^dragon_complete) {
+    $questpoints = add($questpoints, ^dragon_questpoints); 
+}
+if (%seaslugquest = ^seaslug_complete) {
+    $questpoints = add($questpoints, ^seaslug_questpoints); 
+}
+if (%arthur = ^arthur_complete) {
+    $questpoints = add($questpoints, ^arthur_questpoints); 
+}
+if (%treequest = ^tree_complete) {
+    $questpoints = add($questpoints, ^tree_questpoints); 
+}
+if (%waterfall_quest = ^waterfall_complete) {
+    $questpoints = add($questpoints, ^waterfall_questpoints); 
+}
+if (%grail = ^grail_complete) {
+    $questpoints = add($questpoints, ^grail_questpoints); 
+}
+if (%ballquest = ^ball_complete) {
+    $questpoints = add($questpoints, ^ball_questpoints); 
+}
+if (%murderquest = ^murder_complete) {
+    $questpoints = add($questpoints, ^murder_questpoints); 
+}
+if (%hazeelcultquest = ^hazeelcult_complete) {
+    $questpoints = add($questpoints, ^hazeelcult_questpoints); 
+}
+if (%heroquest = ^hero_complete) {
+    $questpoints = add($questpoints, ^hero_questpoints); 
+}
+if (%itgronigen >= ^itgronigen_complete) { // varp is incremented for getting wine post quest
+    $questpoints = add($questpoints, ^itgronigen_questpoints); 
+}
+if (%arenaquest >= ^arena_complete) { // different completion states based on if you kill general khazard or not
+    $questpoints = add($questpoints, ^arena_questpoints); 
+}
+if (%junglepotion >= ^junglepotion_complete) {
+    $questpoints = add($questpoints, ^junglepotion_questpoints); 
+}
+if (%ikov >= ^ikov_completed_armadyl) { // 80 = armadyl completion, 90 = lucien completion
+    $questpoints = add($questpoints, ^ikov_questpoints); 
+}
+if (%biohazard >= ^biohazard_complete) {
+    $questpoints = add($questpoints, ^biohazard_questpoints); 
+}
+if (%sheepherderquest >= ^sheepherder_complete) {
+    $questpoints = add($questpoints, ^sheepherder_questpoints); 
+}
+if (%mcannon = ^mcannon_complete) {
+    $questpoints = add($questpoints, ^mcannon_questpoints); 
+}
+if (~get_cog_progress = ^quest_cog_complete) {
+    $questpoints = add($questpoints, ^cog_questpoints); 
+}
+if (%grandtree = ^grandtree_complete) {
+    $questpoints = add($questpoints, ^grandtree_questpoints); 
+}
+if (%upass = ^upass_complete) {
+    $questpoints = add($questpoints, ^upass_questpoints); 
+}
+if (%zombiequeen >= ^zombiequeen_complete) {
+    $questpoints = add($questpoints, ^zombiequeen_questpoints); 
+}
+if (%crestquest = ^crest_complete) {
+    $questpoints = add($questpoints, ^crest_questpoints); 
+}
+if (%itexamlevel = ^itexam_complete) {
+    $questpoints = add($questpoints, ^itexam_questpoints); 
+}
+if (%desertrescue = ^desertrescue_complete) {
+    $questpoints = add($questpoints, ^desertrescue_questpoints); 
+}
+if (%itwatchtower >= ^itwatchtower_complete) {
+    $questpoints = add($questpoints, ^itwatchtower_questpoints); 
+}
+if (%legendsquest = ^legends_complete) {
+    $questpoints = add($questpoints, ^legends_questpoints); 
+}
+if (testbit(%elemental_workshop_bits, ^elemental_workshop_complete) = ^true) {
+    $questpoints = add($questpoints, ^elemental_workshop_questpoints); 
+}
+if (%priestperil >= ^priestperil_complete) {
+    $questpoints = add($questpoints, ^priestperil_questpoints); 
+}
+if (%druidspirit = ^druidspirit_complete) {
+    $questpoints = add($questpoints, ^druidspirit_questpoints); 
+}
+if (%death_equiproom = ^death_complete) {
+    $questpoints = add($questpoints, ^death_questpoints); 
+}
+if (%troll_quest = ^troll_complete) {
+    $questpoints = add($questpoints, ^troll_questpoints); 
+}
+if (%tbwt_main = ^tbwt_complete) {
+    $questpoints = add($questpoints, ^tbwt_questpoints); 
+}
+if (%morttonquest = ^mortton_quest_complete) {
+    $questpoints = add($questpoints, ^mortton_questpoints); 
+}
+if (%regicide_quest = ^regicide_complete) {
+    $questpoints = add($questpoints, ^regicide_questpoints); 
+}
+if (%viking = ^viking_complete) {
+    $questpoints = add($questpoints, ^viking_questpoints); 
+}
+if (%horrorquest = ^horror_complete) {
+    $questpoints = add($questpoints, ^horror_questpoints); 
+}
+if (%eadgar_quest = ^eadgar_complete) {
+    $questpoints = add($questpoints, ^eadgar_questpoints); 
+}
+return ($questpoints);
+
+[proc,update_questlist]
+// 289 coloured each quest here; 2011's client redraws the list from the
+// quests' vars at once (below).
+~update_questpoints;
+
+if (%drunkmonkquest >= ^drunkmonk_spoken_to_omad) {
+    settimer(blanket_ladder, 1);
+}
+runclientscript("ql4_refresh()");

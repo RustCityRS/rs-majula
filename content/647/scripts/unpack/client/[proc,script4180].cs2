@@ -1,0 +1,21 @@
+// 4180
+[proc,script4180](int $int0, component $component1, string $string0, int $int2)(int)
+def_int $int3 = calc(paraheight($string0, if_getwidth($component1), p11_full) * 10 + 2);
+def_int $int4 = calc(clientclock - $int2);
+if ($int2 > 0 & $int4 < 255) {
+    cc_create($component1, ^iftype_rectangle, if_getnextsubid($component1));
+    cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_setcolour(^red);
+    cc_settrans(max($int4, 0));
+    cc_setontimer("script4181(event_com, event_comsubid)");
+}
+cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setcolour(0xaaaaaa);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settext($string0);
+return(calc($int0 + $int3 + 2));

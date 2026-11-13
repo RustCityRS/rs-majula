@@ -1,0 +1,762 @@
+// 850:0
+[background]
+type=layer
+width=506
+height=129
+
+// 850:1
+[button_layer]
+type=layer
+width=506
+height=129
+hide=yes
+scrollheight=240
+
+// 850:2
+[buttons]
+type=layer
+width=490
+height=129
+layer=button_layer
+scrollheight=240
+onload=mob_initialise_buttons
+
+// 850:3
+[scrollbar_buttons]
+type=layer
+x=2
+width=16
+height=127
+xmode=abs_right
+layer=button_layer
+onload=scrollbar_vertical_graphics(event_com, mob_chat:buttons, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 850:4
+[text1]
+type=text
+x=16
+y=32
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=48,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:5
+[text2]
+type=text
+x=16
+y=51
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=68,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:6
+[text3]
+type=text
+x=16
+y=70
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=66,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:7
+[text4]
+type=text
+x=16
+y=89
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=50,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:8
+[text5]
+type=text
+x=16
+y=108
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=34,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:9
+[text6]
+type=text
+x=16
+y=127
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=51,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:10
+[text7]
+type=text
+x=16
+y=146
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=52,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:11
+[text8]
+type=text
+x=16
+y=165
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=53,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:12
+[text9]
+type=text
+x=16
+y=184
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=39,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:13
+[text10]
+type=text
+x=16
+y=203
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=54,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:14
+[text11]
+type=text
+x=253
+y=32
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=55,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:15
+[text12]
+type=text
+x=253
+y=51
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=56,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:16
+[text13]
+type=text
+x=253
+y=70
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=70,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:17
+[text14]
+type=text
+x=253
+y=89
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=69,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:18
+[text15]
+type=text
+x=253
+y=108
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=40,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:19
+[text16]
+type=text
+x=253
+y=127
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=41,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:20
+[text17]
+type=text
+x=253
+y=146
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=32,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:21
+[text18]
+type=text
+x=253
+y=165
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=35,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:22
+[text19]
+type=text
+x=253
+y=184
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=49,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:23
+[text20]
+type=text
+x=253
+y=203
+width=230
+height=18
+layer=buttons
+textfont=p12_full
+text=string1
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+opkey1=36,0
+onmouseover=text_colour_swapper(event_com, 0xcccccc)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=mob_show_hide
+
+// 850:24
+[summary]
+type=text
+x=16
+y=8
+width=410
+height=21
+layer=buttons
+textfont=b12_full
+text=Select a phrase to say to your opponents (click or type a letter):
+textalignv=centre
+colour=0x000000
+
+// 850:25
+[string1]
+type=text
+x=15
+y=4
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:26
+[string2]
+type=text
+x=15
+y=22
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:27
+[string3]
+type=text
+x=15
+y=40
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:28
+[string4]
+type=text
+x=15
+y=58
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:29
+[string5]
+type=text
+x=15
+y=76
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:30
+[string6]
+type=text
+x=15
+y=94
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:31
+[string7]
+type=text
+x=15
+y=112
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:32
+[string8]
+type=text
+x=15
+y=130
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:33
+[string9]
+type=text
+x=15
+y=148
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:34
+[string10]
+type=text
+x=15
+y=166
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:35
+[string11]
+type=text
+x=15
+y=184
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:36
+[string12]
+type=text
+x=15
+y=202
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:37
+[string13]
+type=text
+x=15
+y=220
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:38
+[string14]
+type=text
+x=15
+y=238
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:39
+[string15]
+type=text
+x=15
+y=256
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:40
+[string16]
+type=text
+x=15
+y=274
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:41
+[string17]
+type=text
+x=15
+y=292
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:42
+[string18]
+type=text
+x=15
+y=310
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:43
+[string19]
+type=text
+x=15
+y=328
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:44
+[string20]
+type=text
+x=15
+y=346
+width=470
+height=17
+ymode=abs_bottom
+layer=text
+textfont=p12_full
+text=this is a testggg
+textalignv=centre
+colour=0x000000
+
+// 850:45
+[scrollbar]
+type=layer
+x=2
+width=16
+height=127
+xmode=abs_right
+layer=text_layer
+onload=scrollbar_vertical_graphics(event_com, mob_chat:text, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 850:46
+[text]
+type=layer
+y=5
+width=488
+height=124
+ymode=abs_bottom
+layer=text_layer
+scrollheight=360
+onload=mob_initialise_text
+
+// 850:47
+[text_layer]
+type=layer
+width=506
+height=129
+onvarcstrtransmit=mob_chat_text_update{varclient_1698}
+
+// 850:48
+[arrowbutton]
+type=layer
+width=14
+height=129
+transmitop=1
+op1=Chat
+onop=mob_show_hide
+
+// 850:49
+[com_49]
+type=graphic
+width=515
+height=141
+layer=background
+graphic=mob_chat_window
+colour=0xffffffff
+
+// 850:50
+[arrow_graphic]
+type=graphic
+x=-2
+y=-2
+width=14
+height=129
+layer=arrowbutton
+graphic=graphic_1904
+colour=0xffffffff

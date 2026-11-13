@@ -1,0 +1,26 @@
+// 3188
+[clientscript,lobbyscreen_report_abuse_button_timer](component $component0, boolean $boolean1, int $int2, component $component3, component $component4, component $component5, component $component6)
+def_int $int7 = if_getwidth($component0);
+if ($boolean1 = true) {
+    if (calc($int7 - $int2) < 55) {
+        if_setsize($component0, min(calc($int7 + 5), calc(55 + $int2)), 31, ^setsize_abs, ^setsize_abs);
+    } else {
+        if_setontimer($component0, null);
+        if_setsize($component0, calc(55 + $int2), 31, ^setsize_abs, ^setsize_abs);
+    }
+    if_setgraphic($component3, "login_lobby_button,11");
+    if_setgraphic($component4, "login_lobby_button,10");
+    if_setgraphic($component5, "login_lobby_button,10");
+    if_setgraphic($component6, "login_lobby_abuse,1");
+} else {
+    if ($int7 > 38) {
+        if_setsize($component0, max(calc($int7 - 5), 38), 31, ^setsize_abs, ^setsize_abs);
+    } else {
+        if_setontimer($component0, null);
+        if_setsize($component0, 38, 31, ^setsize_abs, ^setsize_abs);
+    }
+    if_setgraphic($component3, "login_lobby_button,9");
+    if_setgraphic($component4, "login_lobby_button,8");
+    if_setgraphic($component5, "login_lobby_button,8");
+    if_setgraphic($component6, "login_lobby_abuse,0");
+}

@@ -1,0 +1,36 @@
+// 2450
+[clientscript,notes_drag](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($component0, $int1) = true) {
+    if_sethide(notes:selected, true);
+    if_sethide(notes:dragger, false);
+    $int4 = cc_getheight;
+    if_setposition(notes:dragger, cc_getx, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(notes:dragger, cc_getwidth, $int4, ^setsize_abs, ^setsize_abs);
+    $int3 = calc($int2 + $int4 / 2);
+}
+def_int $int5 = if_gety(notes:del_button);
+def_int $int6 = calc($int5 + if_getheight(notes:del_button));
+if ($int3 >= $int5 & $int3 <= $int6) {
+    if_setgraphic(notes:del_button_graphic, "notes_add_delete_icons,4");
+} else {
+    if_setgraphic(notes:del_button_graphic, "notes_add_delete_icons,3");
+}
+def_int $int7 = 0;
+def_int $int8 = if_gety(notes:main);
+def_int $int9 = calc($int8 + $int4);
+def_int $int10 = calc($int8 + if_getheight(notes:main));
+def_int $int11 = calc($int10 - $int4);
+if ($int3 >= $int8 & $int3 <= $int9) {
+    $int7 = -4;
+} else if ($int3 >= $int11 & $int3 <= $int10) {
+    $int7 = 4;
+} else {
+    %notes_scrolldelay = 0;
+    return;
+}
+%notes_scrolldelay = calc(%notes_scrolldelay + 1);
+if (%notes_scrolldelay > 5) {
+    ~scrollbar_ondrag_doscroll(notes:scrollbar, notes:main, calc(if_getscrolly(notes:main) + $int7), 1);
+}

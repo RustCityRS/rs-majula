@@ -1,0 +1,80 @@
+// 2570
+[proc,script2570]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_obj $obj2 = null;
+%varclient_930 = -1;
+%varclient_931 = -1;
+%varclient_932 = -1;
+%varclient_933 = -1;
+%varclient_934 = -1;
+%varclient_935 = -1;
+%varclient_936 = -1;
+%varclient_937 = -1;
+%varclient_938 = -1;
+%varclient_939 = -1;
+if (%varplayerbit_6429 > 0 & %varplayerbit_6429 < 11) {
+    %varclient_929 = calc(%varplayerbit_6429 - 1);
+} else {
+    %varclient_929 = 0;
+}
+while ($int1 < 10 & $int0 < 28) {
+    $obj2 = inv_getobj(inv, $int0);
+    if (oc_param($obj2, param_802) = 1 | oc_param($obj2, param_803) = 1) {
+        if_settext(enum(int, component, enum_2423, $int1), "Squad <tostring(calc($int1 + 1))>");
+        if (oc_param($obj2, param_806) = 0) {
+            if_setgraphic(enum(int, component, enum_2427, $int1), "mob_heavy_light_icons,1");
+        } else if (oc_param($obj2, param_806) = 1) {
+            if_setgraphic(enum(int, component, enum_2427, $int1), "mob_heavy_light_icons,0");
+        }
+        if (oc_param($obj2, param_805) = 1) {
+            if_setgraphic(enum(int, component, enum_2426, $int1), graphic_2016);
+        } else if (oc_param($obj2, param_805) = 2) {
+            if_setgraphic(enum(int, component, enum_2426, $int1), graphic_2018);
+        } else if (oc_param($obj2, param_805) = 3) {
+            if_setgraphic(enum(int, component, enum_2426, $int1), graphic_2017);
+        }
+        if (oc_param($obj2, param_803) = 1) {
+            if_setcolour(enum(int, component, enum_2429, $int1), 0xcc0000);
+        } else {
+            if_setcolour(enum(int, component, enum_2429, $int1), ^black);
+        }
+        switch_int ($int1) {
+            case 0 :
+                %varclient_930 = $int0;
+            case 1 :
+                %varclient_931 = $int0;
+            case 2 :
+                %varclient_932 = $int0;
+            case 3 :
+                %varclient_933 = $int0;
+            case 4 :
+                %varclient_934 = $int0;
+            case 5 :
+                %varclient_935 = $int0;
+            case 6 :
+                %varclient_936 = $int0;
+            case 7 :
+                %varclient_937 = $int0;
+            case 8 :
+                %varclient_938 = $int0;
+            case 9 :
+                %varclient_939 = $int0;
+        }
+        $int1 = calc($int1 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int1 < 10) {
+    while ($int1 < 10) {
+        if_settext(enum(int, component, enum_2423, $int1), "No squad");
+        if_settext(enum(int, component, enum_2424, $int1), "");
+        if_setgraphic(enum(int, component, enum_2427, $int1), null);
+        if_setgraphic(enum(int, component, enum_2426, $int1), null);
+        if_setonop(enum(int, component, enum_2422, $int1), null);
+        if_clearops(enum(int, component, enum_2422, $int1));
+        $int1 = calc($int1 + 1);
+    }
+}
+~script2599;
+~script2573;

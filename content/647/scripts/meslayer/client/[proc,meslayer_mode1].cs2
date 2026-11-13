@@ -1,0 +1,30 @@
+// 102
+[proc,meslayer_mode1](string $string0)
+if (%meslayermode > 1) {
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_settextfont(chattop:mes_text, q8_full);
+if_settextfont(chattop:mes_text2, q8_full);
+if_setsize(chattop:mes_text, 0, 20, ^setsize_minus, ^setsize_minus);
+if_setsize(chattop:mes_text2, 0, 20, ^setsize_minus, ^setsize_abs);
+if_setposition(chattop:mes_text, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+if_setposition(chattop:mes_text2, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, $string0);
+if_settext(chattop:mes_text2, "Click here to continue");
+%meslayermode = 1;
+if_setonclick(chattop:mes_layer, "meslayer_close");
+if_setonkey(chattop:mes_text2, null);
+if_setcolour(chattop:mes_text2, 0x000080);
+if_setonmouserepeat(chattop:mes_text2, "text_colour_swapper(event_com, ^white)");
+if_setonmouseleave(chattop:mes_text2, "text_colour_swapper(event_com, 0x000080)");
+~script1188;
+if_sethide(chattop:caret, true);
+if_setontimer(chattop:mes_text2, null);
+if_setonclick(chattop:mes_text2, null);
+if_setonsubchange(chattop:mes_text2, "script3450(1)");

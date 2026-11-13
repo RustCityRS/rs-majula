@@ -1,13 +1,68 @@
+#[cfg(before_647)]
 use super::worldmap::WorldmapBuilder;
+#[cfg(since_647)]
+use crate::archive::{self, ArchiveVersions};
+#[cfg(since_647)]
+use crate::cache::area::AreaMap;
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
+use crate::cache::map::TerrainTile;
+#[cfg(since_647)]
+use crate::cache::map::{
+    CameraData, CameraPlane, EnvParams, EnvironmentData, LightData, LocEntry, NpcSpawn, ObjSpawn,
+    SkyboxData, TerrainData, load_xtea_keys,
+};
+#[cfg(since_647)]
+use crate::pack::incremental::{self, Hash, Stage};
+#[cfg(before_647)]
+use crate::pack::incremental::{Hash, remember};
+#[cfg(since_647)]
+use crate::pack::js5::prepare_group;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, group_version, insert_archive, versions_dep};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
+#[cfg(since_647)]
+use crate::pack::pack_registry::PackFile;
+#[cfg(since_647)]
+use crate::pack::packed_data::PackedData;
+#[cfg(before_647)]
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
+#[cfg(before_647)]
+use crate::zone_csv::load_csv_zones;
+#[cfg(before_647)]
+pub(super) use crate::zone_csv::zone_key;
+#[cfg(since_647)]
+use anyhow::{Context, Result, bail, ensure};
+#[cfg(before_647)]
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::bz2::bz2_compress_with_size;
+#[cfg(before_647)]
 use rs_io::crc;
-use std::collections::{HashMap, HashSet};
+#[cfg(since_647)]
+use rs_io::js5::compression::{CompressionType, Container, compress_xtea};
+#[cfg(since_647)]
+use rs_io::js5::compute_group_crc;
+#[cfg(since_647)]
+use rs_io::js5::java_string_hash;
+#[cfg(since_647)]
+use rs_io::js5::reference::FileInfo;
+#[cfg(since_647)]
+use std::collections::BTreeMap;
+use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
+#[cfg(since_647)]
+use std::path::PathBuf;
+#[cfg(before_647)]
 use std::sync::Arc;
-use tracing::{debug, warn};
+#[cfg(before_647)]
+use tracing::debug;
+#[cfg(since_647)]
+use tracing::info;
 
+#[cfg(before_647)]
 type PackedMapSquare = (
     MapSquares,
     MapSquareCrcs,
@@ -16,27 +71,7 @@ type PackedMapSquare = (
     WorldmapBuilder,
 );
 
-#[derive(Clone, Copy)]
-pub(super) struct TileData {
-    height: i32,
-    pub(super) overlay: i32,
-    pub(super) shape: i32,
-    pub(super) rotation: i32,
-    pub(super) flags: i32,
-    pub(super) underlay: i32,
-}
-
-impl TileData {
-    const EMPTY: Self = Self {
-        height: 0,
-        overlay: -1,
-        shape: -1,
-        rotation: -1,
-        flags: -1,
-        underlay: -1,
-    };
-}
-
+#[cfg(before_647)]
 pub(super) struct LocPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
@@ -45,12 +80,14 @@ pub(super) struct LocPlacement {
     pub(super) angle: u8,
 }
 
+#[cfg(before_647)]
 pub(super) struct NpcPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
     pub(super) z: u8,
 }
 
+#[cfg(before_647)]
 pub(super) struct ObjPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
@@ -58,18 +95,22 @@ pub(super) struct ObjPlacement {
     count: u16,
 }
 
+#[cfg(before_647)]
 pub struct ParsedMap {
     pub(super) locs: HashMap<u16, Vec<LocPlacement>>,
     pub(super) npcs: HashMap<u16, Vec<NpcPlacement>>,
     pub(super) objs: HashMap<u16, Vec<ObjPlacement>>,
 }
 
+#[cfg(before_647)]
 pub(super) const TILE_COUNT: usize = 4 << 12;
 
+#[cfg(before_647)]
 pub(super) fn tile_index(y: usize, x: usize, z: usize) -> usize {
     y << 12 | x << 6 | z
 }
 
+#[cfg(before_647)]
 fn fast_parse_int(s: &[u8]) -> i32 {
     let mut i = 0;
     let neg = i < s.len() && s[i] == b'-';
@@ -84,6 +125,7 @@ fn fast_parse_int(s: &[u8]) -> i32 {
     if neg { -n } else { n }
 }
 
+#[cfg(before_647)]
 fn fast_parse_usize(s: &[u8]) -> usize {
     let mut n: usize = 0;
     for &b in s {
@@ -96,6 +138,7 @@ fn fast_parse_usize(s: &[u8]) -> usize {
     n
 }
 
+#[cfg(before_647)]
 fn next_word(bytes: &[u8], start: usize) -> (usize, usize) {
     let mut i = start;
     while i < bytes.len() && bytes[i] == b' ' {
@@ -108,8 +151,9 @@ fn next_word(bytes: &[u8], start: usize) -> (usize, usize) {
     (begin, i)
 }
 
-fn read_map(bytes: &[u8], tiles: &mut [TileData; TILE_COUNT]) -> ParsedMap {
-    tiles.fill(TileData::EMPTY);
+#[cfg(before_647)]
+fn read_map(bytes: &[u8], tiles: &mut [TerrainTile; TILE_COUNT]) -> ParsedMap {
+    tiles.fill(TerrainTile::default());
 
     let mut locs: HashMap<u16, Vec<LocPlacement>> = HashMap::new();
     let mut npcs: HashMap<u16, Vec<NpcPlacement>> = HashMap::new();
@@ -183,7 +227,10 @@ fn read_map(bytes: &[u8], tiles: &mut [TileData; TILE_COUNT]) -> ParsedMap {
                 wpos = we;
                 let word = &data[ws..we];
                 match word[0] {
-                    b'h' => tile.height = fast_parse_int(&word[1..]),
+                    b'h' => {
+                        let h = fast_parse_int(&word[1..]);
+                        tile.height = (h != 0).then_some(h as u8);
+                    }
                     b'o' => {
                         let rest = &word[1..];
                         let mut semi1 = rest.len();
@@ -198,16 +245,17 @@ fn read_map(bytes: &[u8], tiles: &mut [TileData; TILE_COUNT]) -> ParsedMap {
                                 }
                             }
                         }
-                        tile.overlay = fast_parse_int(&rest[..semi1]);
+                        tile.overlay_id = Some(fast_parse_int(&rest[..semi1]) as u8);
                         if semi1 < rest.len() {
-                            tile.shape = fast_parse_int(&rest[semi1 + 1..semi2.min(rest.len())]);
+                            tile.overlay_shape =
+                                fast_parse_int(&rest[semi1 + 1..semi2.min(rest.len())]) as u8;
                         }
                         if semi2 < rest.len() {
-                            tile.rotation = fast_parse_int(&rest[semi2 + 1..]);
+                            tile.overlay_rotation = fast_parse_int(&rest[semi2 + 1..]) as u8;
                         }
                     }
-                    b'f' => tile.flags = fast_parse_int(&word[1..]),
-                    b'u' => tile.underlay = fast_parse_int(&word[1..]),
+                    b'f' => tile.flags = Some(fast_parse_int(&word[1..]) as u8),
+                    b'u' => tile.underlay_id = Some(fast_parse_int(&word[1..]) as u8),
                     _ => {}
                 }
             }
@@ -274,60 +322,12 @@ fn read_map(bytes: &[u8], tiles: &mut [TileData; TILE_COUNT]) -> ParsedMap {
     ParsedMap { locs, npcs, objs }
 }
 
+#[cfg(before_647)]
 fn memchr3(needle: u8, haystack: &[u8]) -> Option<usize> {
     haystack.iter().position(|&b| b == needle)
 }
 
-fn encode_terrain(tiles: &[TileData; TILE_COUNT], out: &mut Packet) {
-    out.pos = 0;
-
-    for y in 0..4 {
-        for x in 0..64 {
-            for z in 0..64 {
-                let tile = &tiles[tile_index(y, x, z)];
-                let height = tile.height;
-                let overlay = tile.overlay;
-                let shape = tile.shape;
-                let rotation = tile.rotation;
-                let flags = tile.flags;
-                let underlay = tile.underlay;
-
-                if height == 0 && overlay == -1 && flags == -1 && underlay == -1 {
-                    out.p1(0);
-                    continue;
-                }
-
-                if overlay != -1 {
-                    let mut opcode: i32 = 2;
-                    if shape != -1 {
-                        opcode += shape << 2;
-                    }
-                    if rotation != -1 {
-                        opcode += rotation;
-                    }
-                    out.p1(opcode as u8);
-                    out.p1(overlay as u8);
-                }
-
-                if flags != -1 {
-                    out.p1((flags + 49) as u8);
-                }
-
-                if underlay != -1 {
-                    out.p1((underlay + 81) as u8);
-                }
-
-                if height != 0 {
-                    out.p1(1);
-                    out.p1(height as u8);
-                } else {
-                    out.p1(0);
-                }
-            }
-        }
-    }
-}
-
+#[cfg(before_647)]
 pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -358,6 +358,7 @@ pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
+#[cfg(before_647)]
 pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -385,6 +386,7 @@ pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
+#[cfg(before_647)]
 pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -414,66 +416,28 @@ pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
-/// The key a zone (8x8 tiles) has in a `MapSquareCsv`.
-pub(super) fn zone_key(y: u8, x: u16, z: u16) -> u32 {
-    ((x >> 3) & 0x7FF) as u32 | ((((z >> 3) & 0x7FF) as u32) << 11) | (((y & 0x3) as u32) << 22)
-}
-
-fn load_csv_zones(path: &Path) -> MapSquareCsv {
-    let mut set = HashSet::default();
-    let Ok(content) = std::fs::read_to_string(path) else {
-        return set;
-    };
-    for line in content.lines() {
-        let line = line.trim();
-        if line.is_empty() || line.starts_with("//") {
-            continue;
-        }
-        let parts: Vec<&str> = line.split('_').collect();
-        if parts.len() != 5 {
-            continue;
-        }
-        let Ok(y) = parts[0].parse::<u8>() else {
-            continue;
-        };
-        let Ok(mx) = parts[1].parse::<u16>() else {
-            continue;
-        };
-        let Ok(mz) = parts[2].parse::<u16>() else {
-            continue;
-        };
-        let Ok(lx) = parts[3].parse::<u16>() else {
-            continue;
-        };
-        let Ok(lz) = parts[4].parse::<u16>() else {
-            continue;
-        };
-        if lx % 8 != 0 || lz % 8 != 0 {
-            warn!("CSV map line not aligned to zone: {}", line);
-        }
-        set.insert(zone_key(y, (mx << 6) + lx, (mz << 6) + lz));
-    }
-    set
-}
-
 #[cfg(since_244)]
+#[cfg(before_647)]
 pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
-    let mut tiles = [TileData::EMPTY; TILE_COUNT];
+    let mut tiles = [TerrainTile::default(); TILE_COUNT];
     let parsed = read_map(jm2_bytes, &mut tiles);
 
-    let mut terrain = Packet::new(TILE_COUNT * 7);
-    encode_terrain(&tiles, &mut terrain);
+    let mut terrain = Vec::with_capacity(TILE_COUNT * 7);
+    encode_tiles(&tiles, &mut terrain);
 
     let mut loc = Packet::new(64 * 1024);
     encode_locs(&parsed, &mut loc);
 
-    (
-        terrain.data[..terrain.pos].to_vec(),
-        loc.data[..loc.pos].to_vec(),
-    )
+    (terrain, loc.data[..loc.pos].to_vec())
 }
 
+#[cfg(before_647)]
 pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
+    let bz2 = |data: &[u8]| {
+        remember(Hash::new("bz2").bytes(data).key(), || {
+            bz2_compress_with_size(data)
+        })
+    };
     let maps_dir = content_dir.join("maps");
     let mut mapsquares = MapSquares::default();
     let mut mapcrcs = MapSquareCrcs::new();
@@ -491,7 +455,7 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
         return (mapsquares, mapcrcs, multimap, freemap, worldmap);
     }
 
-    let Ok(entries) = std::fs::read_dir(&maps_dir) else {
+    let Ok(entries) = fs::read_dir(&maps_dir) else {
         return (mapsquares, mapcrcs, multimap, freemap, worldmap);
     };
 
@@ -507,8 +471,8 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
         .collect();
     jm2_files.sort_by_key(|e| e.file_name());
 
-    let mut tiles = [TileData::EMPTY; TILE_COUNT];
-    let mut terrain_buf = Packet::new(TILE_COUNT * 7);
+    let mut tiles = [TerrainTile::default(); TILE_COUNT];
+    let mut terrain_buf = Vec::with_capacity(TILE_COUNT * 7);
     let mut loc_buf = Packet::new(64 * 1024);
     let mut npc_buf = Packet::new(16 * 1024);
     let mut obj_buf = Packet::new(16 * 1024);
@@ -536,28 +500,29 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
             continue;
         };
 
-        let Ok(file_bytes) = std::fs::read(&path) else {
+        let Ok(file_bytes) = fs::read(&path) else {
             continue;
         };
 
         let map_data = read_map(&file_bytes, &mut tiles);
         worldmap.add_square(map_x, map_z, &tiles, &map_data);
 
-        encode_terrain(&tiles, &mut terrain_buf);
-        let terrain_compressed = bz2_compress_with_size(&terrain_buf.data[..terrain_buf.pos]);
+        terrain_buf.clear();
+        encode_tiles(&tiles, &mut terrain_buf);
+        let terrain_compressed = bz2(&terrain_buf);
         let terrain_crc = crc::getcrc(&terrain_compressed, 0, terrain_compressed.len());
         mapsquares.insert(('m', map_x, map_z), Arc::from(terrain_compressed));
         mapcrcs.insert(('m', map_x, map_z), terrain_crc);
 
         encode_locs(&map_data, &mut loc_buf);
-        let loc_compressed = bz2_compress_with_size(&loc_buf.data[..loc_buf.pos]);
+        let loc_compressed = bz2(&loc_buf.data[..loc_buf.pos]);
         let loc_crc = crc::getcrc(&loc_compressed, 0, loc_compressed.len());
         mapsquares.insert(('l', map_x, map_z), Arc::from(loc_compressed));
         mapcrcs.insert(('l', map_x, map_z), loc_crc);
 
         if !map_data.npcs.is_empty() {
             encode_npcs(&map_data, &mut npc_buf);
-            let npc_compressed = bz2_compress_with_size(&npc_buf.data[..npc_buf.pos]);
+            let npc_compressed = bz2(&npc_buf.data[..npc_buf.pos]);
             let npc_crc = crc::getcrc(&npc_compressed, 0, npc_compressed.len());
             mapsquares.insert(('n', map_x, map_z), Arc::from(npc_compressed));
             mapcrcs.insert(('n', map_x, map_z), npc_crc);
@@ -565,7 +530,7 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
         if !map_data.objs.is_empty() {
             encode_objs(&map_data, &mut obj_buf);
-            let obj_compressed = bz2_compress_with_size(&obj_buf.data[..obj_buf.pos]);
+            let obj_compressed = bz2(&obj_buf.data[..obj_buf.pos]);
             let obj_crc = crc::getcrc(&obj_compressed, 0, obj_compressed.len());
             mapsquares.insert(('o', map_x, map_z), Arc::from(obj_compressed));
             mapcrcs.insert(('o', map_x, map_z), obj_crc);
@@ -576,4 +541,949 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
     debug!("Packed {} map squares ({} files)", count, mapsquares.len());
     (mapsquares, mapcrcs, multimap, freemap, worldmap)
+}
+
+/// A server-only spawn layer, packed again only when its squares or the
+/// names they use change.
+#[cfg(since_647)]
+fn pack_spawn_layer(
+    map_dirs: &[PathBuf],
+    names: &AssetNames,
+    label: &str,
+    prefix: char,
+    is_kind: fn(&str) -> bool,
+    encode: impl Fn(&str) -> Option<Vec<u8>>,
+) -> Result<PackedData> {
+    let stage = Stage::new(&format!("{label} spawns"), Vec::new());
+    let sources: Vec<PathBuf> = squares(map_dirs)
+        .into_iter()
+        .filter(|(stem, _)| is_kind(stem))
+        .map(|(_, path)| path)
+        .collect();
+    let packed = stage.unit_with(names, 0, &sources, |names| {
+        let entries = collect(map_dirs, names, prefix, is_kind, encode)?;
+        info!("  {} {label} spawn regions packed", entries.len());
+        Ok(pack_spawn_entries(&entries))
+    })?;
+    stage.finish(Vec::new());
+    Ok(packed)
+}
+
+#[cfg(since_647)]
+pub fn pack_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
+    pack_spawn_layer(map_dirs, names, "NPC", 'n', is_npc_spawns, |text| {
+        let spawns = parse_npc_spawn_text(text);
+        (!spawns.is_empty()).then(|| encode_npc_spawn_binary(&spawns))
+    })
+}
+
+/// Pack global ground-item spawns. Same on-disk container shape as the NPC
+/// packer; the engine merges these as the `o` mapsquare layer and loads them
+/// as `EntityLifeTime::Respawn` objs.
+#[cfg(since_647)]
+pub fn pack_obj_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
+    pack_spawn_layer(map_dirs, names, "obj", 'o', is_obj_spawns, |text| {
+        let spawns = parse_obj_spawn_text(text);
+        (!spawns.is_empty()).then(|| encode_obj_spawn_binary(&spawns))
+    })
+}
+
+/// Areas painted on tiles: a line per tile in `a<mx>_<mz>.jm2`,
+/// `level x z: area ...`, up to five areas a tile.
+#[cfg(since_647)]
+pub fn pack_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
+    let stage = Stage::new("area map", Vec::new());
+    let mut sources: Vec<PathBuf> = squares(map_dirs)
+        .into_iter()
+        .filter(|(stem, _)| stem.starts_with('a'))
+        .map(|(_, path)| path)
+        .collect();
+    sources.push(pack_dir.join("area.pack"));
+    let areas = stage.unit(0, &sources, || paint_area_map(map_dirs, pack_dir))?;
+    stage.finish(Vec::new());
+    Ok(areas)
+}
+
+#[cfg(since_647)]
+fn paint_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
+    let pack = PackFile::load(&pack_dir.join("area.pack"))?;
+    let mut areas = AreaMap::default();
+    for (stem, path) in squares(map_dirs) {
+        let Some((mx, mz)) = stem
+            .strip_prefix('a')
+            .and_then(|square| square.split_once('_'))
+        else {
+            continue;
+        };
+        let (Ok(mx), Ok(mz)) = (mx.parse::<u16>(), mz.parse::<u16>()) else {
+            continue;
+        };
+        for line in fs::read_to_string(&path)?.lines() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with('#') {
+                continue;
+            }
+            let context = || format!("{stem}.jm2: {line}");
+            let (coords, names) = line.split_once(':').with_context(context)?;
+            let coords = coords
+                .split_whitespace()
+                .map(str::parse)
+                .collect::<Result<Vec<u16>, _>>()
+                .with_context(context)?;
+            let &[level, x, z] = coords.as_slice() else {
+                bail!("Invalid area tile: {}", context());
+            };
+            ensure!(
+                level < 4 && x < 64 && z < 64,
+                "Invalid area tile: {}",
+                context()
+            );
+            for name in names.split_whitespace() {
+                let id = pack
+                    .get_by_debugname(name)
+                    .with_context(|| format!("Unknown area {name}: {}", context()))?;
+                areas
+                    .paint(level as u8, (mx << 6) | x, (mz << 6) | z, id as u16)
+                    .with_context(context)?;
+            }
+        }
+    }
+    info!("  {} area tiles painted", areas.len());
+    Ok(areas)
+}
+
+#[cfg(since_647)]
+type Entry = (u8, u8, Vec<u8>);
+
+#[cfg(since_647)]
+fn collect(
+    map_dirs: &[PathBuf],
+    names: &AssetNames,
+    prefix: char,
+    is_kind: fn(&str) -> bool,
+    encode: impl Fn(&str) -> Option<Vec<u8>>,
+) -> Result<Vec<Entry>> {
+    let mut entries = Vec::new();
+    for (stem, path) in squares(map_dirs) {
+        if !is_kind(&stem) {
+            continue;
+        }
+        let stripped = stem.strip_prefix(prefix).unwrap_or(&stem);
+        let Some((mx, mz)) = stripped.split_once('_') else {
+            continue;
+        };
+        let (Ok(mx), Ok(mz)) = (mx.parse::<u8>(), mz.parse::<u8>()) else {
+            continue;
+        };
+        if let Some(binary) = encode(&super::map_references::convert(
+            &fs::read_to_string(&path)?,
+            &stem,
+            names,
+            false,
+        )?) {
+            entries.push((mx, mz, binary));
+        }
+    }
+    entries.sort_by_key(|(mx, mz, _)| (*mx as u16) << 8 | *mz as u16);
+    Ok(entries)
+}
+
+#[cfg(since_647)]
+fn pack_spawn_entries(entries: &[Entry]) -> PackedData {
+    let mut packed = PackedData::new(entries.len() as u32);
+    for (mx, mz, binary) in entries {
+        packed.start_entry();
+        packed.p1(*mx);
+        packed.p1(*mz);
+        packed.dat.extend_from_slice(binary);
+        packed.finish_entry_raw();
+    }
+    packed
+}
+
+#[cfg(since_647)]
+pub fn pack_archive(
+    store: &mut PackedCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+    versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
+) -> Result<()> {
+    let aid = archive::MAPS;
+    let format = archive::archive_format(aid).unwrap();
+    let map_dir = content_dir.join("maps");
+    let map_dirs = source_dirs(content_dir);
+    let sources = squares(&map_dirs);
+
+    let map_pack = PackFile::load(&pack_dir.join("map.pack")).unwrap_or_else(|_| PackFile::empty());
+
+    let keys_candidates = [content_dir.join("keys.json")];
+    let (xtea_keys, keys_dep) = if let Some(path) = keys_candidates.iter().find(|p| p.exists()) {
+        let dep = Hash::new("keys").bytes(&fs::read(path)?).key();
+        (load_xtea_keys(path).unwrap_or_default(), dep)
+    } else {
+        anyhow::bail!("No keys.json found in output dir or content dir");
+    };
+
+    let mut groups: Vec<(u32, String)> = map_pack
+        .id_to_debugname
+        .iter()
+        .map(|(&id, name)| (id, name.clone()))
+        .collect();
+    groups.sort_by_key(|(id, _)| *id);
+
+    let stage = Stage::new(
+        "maps",
+        vec![versions_dep(versions, aid), ("keys".to_owned(), keys_dep)],
+    );
+    let encrypted = |name: &str| map_dir.join(format!("encrypted/{name}.js5"));
+    let prepared = stage.groups(
+        names,
+        &groups,
+        |name| {
+            vec![
+                sources
+                    .get(name)
+                    .cloned()
+                    .unwrap_or_else(|| encrypted(name)),
+            ]
+        },
+        |gid, name, names| -> Result<PreparedGroup> {
+            let ver = group_version(versions, aid, &gid);
+            let version = ver as u16;
+            let name_hash = java_string_hash(name);
+
+            let is_landscape = is_landscape(name);
+            let is_npc = is_npc_spawns(name);
+
+            let (raw, crc) = if is_landscape {
+                let text_path = sources.get(name);
+                let encrypted_path = encrypted(name);
+
+                if let Some(text_path) = text_path {
+                    let text = super::map_references::convert(
+                        &fs::read_to_string(text_path)?,
+                        name,
+                        names,
+                        false,
+                    )?;
+                    let locs = parse_landscape_text(&text);
+                    let binary = encode_landscape_binary(&locs);
+                    let key = xtea_keys.get(&name_hash).copied().unwrap_or([0; 4]);
+                    let mut inputs = Hash::new("landscape");
+                    inputs.int(u64::from(version));
+                    for part in key {
+                        inputs.int(u64::from(part as u32));
+                    }
+                    let container = incremental::memo(inputs.bytes(&binary).key(), || {
+                        Ok(compress_xtea(
+                            &binary,
+                            CompressionType::Gzip,
+                            version,
+                            &key,
+                        )?)
+                    })?;
+                    let crc = compute_group_crc(&container[..container.len() - 2]);
+                    (container, crc)
+                } else if encrypted_path.exists() {
+                    let raw = fs::read(&encrypted_path)?;
+                    let crc = Container::parse(&raw)?.crc();
+                    (raw, crc)
+                } else {
+                    anyhow::bail!("Missing landscape source: {name}");
+                }
+            } else if is_npc {
+                let text_path = sources
+                    .get(name)
+                    .with_context(|| format!("Missing map source: {name}"))?;
+                let text = super::map_references::convert(
+                    &fs::read_to_string(text_path)?,
+                    name,
+                    names,
+                    false,
+                )?;
+                let spawns = parse_npc_spawn_text(&text);
+                let binary = encode_npc_spawn_binary(&spawns);
+                prepare_group(aid, gid, &binary, version, false)?
+            } else {
+                let text_path = sources
+                    .get(name)
+                    .with_context(|| format!("Missing map source: {name}"))?;
+                let text = super::map_references::convert(
+                    &fs::read_to_string(text_path)?,
+                    name,
+                    names,
+                    false,
+                )?;
+                let terrain = parse_terrain_text(&text);
+                let binary = encode_terrain_binary(&terrain);
+                prepare_group(aid, gid, &binary, version, false)?
+            };
+
+            Ok(PreparedGroup {
+                id: gid,
+                raw,
+                crc,
+                version: ver,
+                size: 0,
+                name_hash,
+                whirlpool: None,
+                files: vec![FileInfo {
+                    id: 0,
+                    name_hash: None,
+                }],
+            })
+        },
+    )?;
+    stage.finish(Vec::new());
+
+    insert_archive(
+        store,
+        aid,
+        format,
+        versions,
+        prepared,
+        "from text→binary encode",
+    )?;
+
+    Ok(())
+}
+
+fn encode_tiles(tiles: &[TerrainTile], out: &mut Vec<u8>) {
+    for tile in tiles {
+        if let Some(id) = tile.overlay_id {
+            let opcode = 2u8 + (tile.overlay_shape << 2) + tile.overlay_rotation;
+            out.push(opcode);
+            out.push(id);
+        }
+
+        if let Some(f) = tile.flags {
+            out.push(f + 49);
+        }
+
+        if let Some(u) = tile.underlay_id {
+            out.push(u + 81);
+        }
+
+        if let Some(h) = tile.height {
+            out.push(1);
+            out.push(h);
+        } else {
+            out.push(0);
+        }
+    }
+}
+
+#[cfg(since_647)]
+pub fn source_dirs(content_dir: &Path) -> [PathBuf; 1] {
+    [content_dir.join("maps")]
+}
+
+#[cfg(since_647)]
+pub fn find_square(dirs: &[PathBuf], name: &str) -> Option<PathBuf> {
+    dirs.iter()
+        .rev()
+        .map(|dir| dir.join(format!("{name}.jm2")))
+        .find(|path| path.is_file())
+}
+
+#[cfg(since_647)]
+pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
+    let mut out = BTreeMap::new();
+    for dir in dirs {
+        let Ok(entries) = fs::read_dir(dir) else {
+            continue;
+        };
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().and_then(|e| e.to_str()) != Some("jm2") {
+                continue;
+            }
+            if !entry
+                .file_type()
+                .is_ok_and(|kind| kind.is_file() || kind.is_symlink() && path.is_file())
+            {
+                continue;
+            }
+            if let Some(stem) = path.file_stem().and_then(|s| s.to_str()) {
+                out.insert(stem.to_string(), path);
+            }
+        }
+    }
+    out
+}
+
+#[cfg(since_647)]
+pub fn is_landscape(name: &str) -> bool {
+    name.starts_with("l") || name.starts_with("ul")
+}
+
+#[cfg(since_647)]
+pub fn is_npc_spawns(name: &str) -> bool {
+    name.starts_with("n") && !name.starts_with("nl")
+}
+
+#[cfg(since_647)]
+pub fn is_obj_spawns(name: &str) -> bool {
+    name.starts_with('o')
+}
+
+#[cfg(since_647)]
+pub fn encode_terrain_binary(terrain: &TerrainData) -> Vec<u8> {
+    let mut out = Vec::with_capacity(4 << 12);
+
+    encode_tiles(&terrain.tiles, &mut out);
+
+    for &opcode in &terrain.env_opcode_order {
+        match opcode {
+            0 => {
+                if let Some(env) = &terrain.environment {
+                    out.push(0);
+                    encode_environment(env, &mut out);
+                }
+            }
+            1 => {
+                if !terrain.lights.is_empty() {
+                    out.push(1);
+                    out.push(terrain.lights.len() as u8);
+                    for light in &terrain.lights {
+                        encode_light(light, &mut out);
+                    }
+                }
+            }
+            2 => {
+                if let Some(params) = &terrain.env_params {
+                    out.push(2);
+                    out.extend_from_slice(&params.values);
+                }
+            }
+            128 => {
+                if let Some(sky) = &terrain.skybox {
+                    out.push(128);
+                    write_u16(&mut out, sky.param0);
+                    write_i16(&mut out, sky.param1);
+                    write_i16(&mut out, sky.param2);
+                    write_i16(&mut out, sky.param3);
+                    write_u16(&mut out, sky.param4);
+                }
+            }
+            129 => {
+                if let Some(cam) = &terrain.camera {
+                    out.push(129);
+                    for plane in &cam.planes {
+                        match plane {
+                            CameraPlane::Clear => out.push(0),
+                            CameraPlane::Data(cells) => {
+                                out.push(1);
+                                for &c in cells {
+                                    out.push(c as u8);
+                                }
+                            }
+                            CameraPlane::CopyPrev => out.push(2),
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+
+    out
+}
+
+#[cfg(since_647)]
+fn encode_environment(env: &EnvironmentData, out: &mut Vec<u8>) {
+    let mut flags = 0u8;
+    if env.sun_color.is_some() {
+        flags |= 0x01;
+    }
+    if env.ambient.is_some() {
+        flags |= 0x02;
+    }
+    if env.sunlight.is_some() {
+        flags |= 0x04;
+    }
+    if env.backlight.is_some() {
+        flags |= 0x08;
+    }
+    if env.sun_angle.is_some() {
+        flags |= 0x10;
+    }
+    if env.fog_color.is_some() {
+        flags |= 0x20;
+    }
+    if env.fog_depth.is_some() {
+        flags |= 0x40;
+    }
+    if env.env_map.is_some() {
+        flags |= 0x80;
+    }
+    out.push(flags);
+    if let Some(v) = env.sun_color {
+        write_u32(out, v);
+    }
+    if let Some(v) = env.ambient {
+        write_u16(out, v);
+    }
+    if let Some(v) = env.sunlight {
+        write_u16(out, v);
+    }
+    if let Some(v) = env.backlight {
+        write_u16(out, v);
+    }
+    if let Some(a) = env.sun_angle {
+        write_i16(out, a[0]);
+        write_i16(out, a[1]);
+        write_i16(out, a[2]);
+    }
+    if let Some(v) = env.fog_color {
+        write_u32(out, v);
+    }
+    if let Some(v) = env.fog_depth {
+        write_u16(out, v);
+    }
+    if let Some(m) = env.env_map {
+        for v in m {
+            write_u16(out, v);
+        }
+    }
+}
+
+#[cfg(since_647)]
+fn encode_light(light: &LightData, out: &mut Vec<u8>) {
+    out.push(light.flags_raw);
+    write_u16(out, light.x);
+    write_u16(out, light.y);
+    write_u16(out, light.z);
+    out.push(light.radius);
+    for &c in &light.colors {
+        write_u16(out, c);
+    }
+    write_u16(out, light.hsl);
+    out.push(light.type_packed);
+    if let Some(r) = light.light_type_ref {
+        write_u16(out, r);
+    }
+}
+
+#[cfg(since_647)]
+fn write_u16(out: &mut Vec<u8>, v: u16) {
+    out.push((v >> 8) as u8);
+    out.push(v as u8);
+}
+
+#[cfg(since_647)]
+fn write_i16(out: &mut Vec<u8>, v: i16) {
+    write_u16(out, v as u16);
+}
+
+#[cfg(since_647)]
+fn write_u32(out: &mut Vec<u8>, v: u32) {
+    out.push((v >> 24) as u8);
+    out.push((v >> 16) as u8);
+    out.push((v >> 8) as u8);
+    out.push(v as u8);
+}
+
+#[cfg(since_647)]
+pub fn encode_landscape_binary(locs: &[LocEntry]) -> Vec<u8> {
+    let mut sorted: Vec<&LocEntry> = locs.iter().collect();
+    sorted.sort_by_key(|l| (l.loc_id, l.packed_pos()));
+
+    let mut out = Vec::new();
+    let mut last_id: i32 = -1;
+    let mut i = 0;
+
+    while i < sorted.len() {
+        let id = sorted[i].loc_id as i32;
+        write_lsmart(&mut out, id - last_id);
+        last_id = id;
+
+        let mut last_pos: i32 = 0;
+        while i < sorted.len() && sorted[i].loc_id as i32 == id {
+            let loc = sorted[i];
+            let pos = loc.packed_pos();
+            write_smart(&mut out, pos - last_pos + 1);
+            last_pos = pos;
+            out.push((loc.shape << 2) | loc.rotation);
+            i += 1;
+        }
+
+        write_smart(&mut out, 0);
+    }
+
+    write_smart(&mut out, 0);
+    out
+}
+
+#[cfg(since_647)]
+pub fn parse_npc_spawn_text(text: &str) -> Vec<NpcSpawn> {
+    let mut spawns = Vec::new();
+    for line in text.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+        let Some((coords, rest)) = line.split_once(':') else {
+            continue;
+        };
+        let mut cp = coords.split_whitespace();
+        let level: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let x: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let z: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let npc_id: u16 = rest.trim().parse().unwrap_or(0);
+        spawns.push(NpcSpawn {
+            level,
+            x,
+            z,
+            npc_id,
+        });
+    }
+    spawns
+}
+
+#[cfg(since_647)]
+pub fn encode_npc_spawn_binary(spawns: &[NpcSpawn]) -> Vec<u8> {
+    let mut out = Vec::new();
+    for s in spawns {
+        let key = ((s.level as u16) << 14) | ((s.x as u16) << 7) | (s.z as u16);
+        write_u16(&mut out, key);
+        write_u16(&mut out, s.npc_id);
+    }
+    out
+}
+
+#[cfg(since_647)]
+pub fn parse_obj_spawn_text(text: &str) -> Vec<ObjSpawn> {
+    let mut spawns = Vec::new();
+    for line in text.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+        let Some((coords, rest)) = line.split_once(':') else {
+            continue;
+        };
+        let mut cp = coords.split_whitespace();
+        let level: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let x: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let z: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let mut rp = rest.split_whitespace();
+        let obj_id: u16 = rp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let count: u16 = rp.next().and_then(|s| s.parse().ok()).unwrap_or(1);
+        spawns.push(ObjSpawn {
+            level,
+            x,
+            z,
+            obj_id,
+            count,
+        });
+    }
+    spawns
+}
+
+#[cfg(since_647)]
+pub fn encode_obj_spawn_binary(spawns: &[ObjSpawn]) -> Vec<u8> {
+    let mut out = Vec::new();
+    for s in spawns {
+        let key = ((s.level as u16) << 12) | ((s.x as u16) << 6) | (s.z as u16);
+        write_u16(&mut out, key);
+        write_u16(&mut out, s.obj_id);
+        write_u16(&mut out, s.count);
+    }
+    out
+}
+
+#[cfg(since_647)]
+pub fn parse_terrain_text(text: &str) -> TerrainData {
+    let mut levels = 4usize;
+    for line in text.lines() {
+        let line = line.trim();
+        if let Some(v) = line.strip_prefix("levels=") {
+            levels = v.parse().unwrap_or(4);
+            break;
+        }
+        if line.starts_with("====") || line.contains(':') {
+            break;
+        }
+    }
+    let tile_count = levels * 64 * 64;
+    let mut tiles = vec![TerrainTile::default(); tile_count];
+    let mut env_opcode_order: Vec<u8> = Vec::new();
+    let mut environment: Option<EnvironmentData> = None;
+    let mut lights: Vec<LightData> = Vec::new();
+    let mut env_params: Option<EnvParams> = None;
+    let mut skybox: Option<SkyboxData> = None;
+    let mut camera: Option<CameraData> = None;
+
+    let mut section = "tiles";
+
+    for line in text.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+
+        if line.starts_with("====") {
+            if line.contains("OPCODE_ORDER") {
+                let inner = line.trim_start_matches(|c: char| !c.is_ascii_digit());
+                let inner = inner.trim_end_matches(|c: char| !c.is_ascii_digit());
+                env_opcode_order = inner
+                    .split(',')
+                    .filter_map(|s| s.trim().parse().ok())
+                    .collect();
+                continue;
+            }
+            if line.contains("ENV ====") && !line.contains("ENVPARAMS") {
+                section = "env";
+                environment = Some(EnvironmentData {
+                    sun_color: None,
+                    ambient: None,
+                    sunlight: None,
+                    backlight: None,
+                    sun_angle: None,
+                    fog_color: None,
+                    fog_depth: None,
+                    env_map: None,
+                });
+            } else if line.contains("LIGHTS") {
+                section = "lights";
+            } else if line.contains("ENVPARAMS") {
+                section = "envparams";
+            } else if line.contains("SKYBOX") {
+                section = "skybox";
+            } else if line.contains("CAMERA") {
+                section = "camera";
+                camera = Some(CameraData {
+                    planes: [
+                        CameraPlane::Clear,
+                        CameraPlane::Clear,
+                        CameraPlane::Clear,
+                        CameraPlane::Clear,
+                    ],
+                });
+            }
+            continue;
+        }
+
+        match section {
+            "tiles" => {
+                if line.starts_with("levels=") {
+                    continue;
+                }
+                let Some((coords, tokens)) = line.split_once(':') else {
+                    continue;
+                };
+                let mut parts = coords.split_whitespace();
+                let level: usize = parts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let x: usize = parts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let z: usize = parts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let index = (level * 64 + x) * 64 + z;
+                if index >= tile_count {
+                    continue;
+                }
+                let tile = &mut tiles[index];
+                for token in tokens.split_whitespace() {
+                    if let Some(rest) = token.strip_prefix('h') {
+                        tile.height = rest.parse().ok();
+                    } else if let Some(rest) = token.strip_prefix('o') {
+                        let mut p = rest.split(';');
+                        tile.overlay_id = p.next().and_then(|s| s.parse().ok());
+                        tile.overlay_shape = p.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                        tile.overlay_rotation = p.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                    } else if let Some(rest) = token.strip_prefix('f') {
+                        tile.flags = rest.parse().ok();
+                    } else if let Some(rest) = token.strip_prefix('u') {
+                        tile.underlay_id = rest.parse().ok();
+                    }
+                }
+            }
+            "env" => {
+                if let Some(env) = &mut environment {
+                    if let Some((key, val)) = line.split_once('=') {
+                        match key.trim() {
+                            "sun_color" => env.sun_color = val.trim().parse().ok(),
+                            "ambient" => env.ambient = val.trim().parse().ok(),
+                            "sunlight" => env.sunlight = val.trim().parse().ok(),
+                            "backlight" => env.backlight = val.trim().parse().ok(),
+                            "sun_angle" => {
+                                let v: Vec<i16> = val
+                                    .split(',')
+                                    .filter_map(|s| s.trim().parse().ok())
+                                    .collect();
+                                if v.len() == 3 {
+                                    env.sun_angle = Some([v[0], v[1], v[2]]);
+                                }
+                            }
+                            "fog_color" => env.fog_color = val.trim().parse().ok(),
+                            "fog_depth" => env.fog_depth = val.trim().parse().ok(),
+                            "env_map" => {
+                                let v: Vec<u16> = val
+                                    .split(',')
+                                    .filter_map(|s| s.trim().parse().ok())
+                                    .collect();
+                                if v.len() == 6 {
+                                    env.env_map = Some([v[0], v[1], v[2], v[3], v[4], v[5]]);
+                                }
+                            }
+                            _ => {}
+                        }
+                    }
+                }
+            }
+            "lights" => {
+                let Some((coords, rest)) = line.split_once(':') else {
+                    continue;
+                };
+                let mut cp = coords.split_whitespace();
+                let flags_raw: u8 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let x: u16 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let y: u16 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let z: u16 = cp.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+                let mut radius = 0u8;
+                let mut colors = Vec::new();
+                let mut hsl = 0u16;
+                let mut type_packed = 0u8;
+                let mut light_type_ref = None;
+                for token in rest.split_whitespace() {
+                    if let Some(v) = token.strip_prefix("radius=") {
+                        radius = v.parse().unwrap_or(0);
+                    } else if let Some(v) = token.strip_prefix("colors=") {
+                        colors = v.split(',').filter_map(|s| s.parse().ok()).collect();
+                    } else if let Some(v) = token.strip_prefix("hsl=") {
+                        hsl = v.parse().unwrap_or(0);
+                    } else if let Some(v) = token.strip_prefix("type=") {
+                        type_packed = v.parse().unwrap_or(0);
+                    } else if let Some(v) = token.strip_prefix("ref=") {
+                        light_type_ref = v.parse().ok();
+                    }
+                }
+                lights.push(LightData {
+                    flags_raw,
+                    x,
+                    y,
+                    z,
+                    radius,
+                    colors,
+                    hsl,
+                    type_packed,
+                    light_type_ref,
+                });
+            }
+            "envparams" => {
+                let v: Vec<u8> = line
+                    .split_whitespace()
+                    .filter_map(|s| s.parse().ok())
+                    .collect();
+                if v.len() == 3 {
+                    env_params = Some(EnvParams {
+                        values: [v[0], v[1], v[2]],
+                    });
+                }
+            }
+            "skybox" => {
+                let v: Vec<&str> = line.split_whitespace().collect();
+                if v.len() == 5 {
+                    skybox = Some(SkyboxData {
+                        param0: v[0].parse().unwrap_or(0),
+                        param1: v[1].parse().unwrap_or(0),
+                        param2: v[2].parse().unwrap_or(0),
+                        param3: v[3].parse().unwrap_or(0),
+                        param4: v[4].parse().unwrap_or(0),
+                    });
+                }
+            }
+            "camera" => {
+                if let Some(cam) = &mut camera {
+                    if let Some((idx, rest)) = line.split_once(':') {
+                        let i: usize = idx.trim().parse().unwrap_or(0);
+                        if i < 4 {
+                            let rest = rest.trim();
+                            if rest == "clear" {
+                                cam.planes[i] = CameraPlane::Clear;
+                            } else if rest == "copy" {
+                                cam.planes[i] = CameraPlane::CopyPrev;
+                            } else if let Some(data) = rest.strip_prefix("data ") {
+                                let cells: Vec<i8> = data
+                                    .split(',')
+                                    .filter_map(|s| s.trim().parse().ok())
+                                    .collect();
+                                cam.planes[i] = CameraPlane::Data(cells);
+                            }
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+
+    TerrainData {
+        levels,
+        tiles,
+        env_opcode_order,
+        environment,
+        lights,
+        env_params,
+        skybox,
+        camera,
+    }
+}
+
+#[cfg(since_647)]
+pub fn parse_landscape_text(text: &str) -> Vec<LocEntry> {
+    let mut locs = Vec::new();
+
+    for line in text.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+
+        let Some((coords, rest)) = line.split_once(':') else {
+            continue;
+        };
+
+        let mut cparts = coords.split_whitespace();
+        let level: u8 = cparts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let x: u8 = cparts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let z: u8 = cparts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+
+        let mut rparts = rest.split_whitespace();
+        let loc_id: u32 = rparts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+        let shape: u8 = rparts.next().and_then(|s| s.parse().ok()).unwrap_or(10);
+        let rotation: u8 = rparts.next().and_then(|s| s.parse().ok()).unwrap_or(0);
+
+        locs.push(LocEntry {
+            loc_id,
+            level,
+            x,
+            z,
+            shape,
+            rotation,
+        });
+    }
+
+    locs
+}
+
+#[cfg(since_647)]
+pub(crate) fn write_smart(out: &mut Vec<u8>, value: i32) {
+    if value < 128 {
+        out.push(value as u8);
+    } else {
+        let encoded = (value + 32768) as u16;
+        out.push((encoded >> 8) as u8);
+        out.push(encoded as u8);
+    }
+}
+
+#[cfg(since_647)]
+pub(crate) fn write_lsmart(out: &mut Vec<u8>, value: i32) {
+    let mut remaining = value;
+    while remaining >= 32767 {
+        write_smart(out, 32767);
+        remaining -= 32767;
+    }
+    write_smart(out, remaining);
 }

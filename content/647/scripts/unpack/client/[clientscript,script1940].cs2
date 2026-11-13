@@ -1,0 +1,6 @@
+// 1940
+[clientscript,script1940]
+def_int $int0 = calc(clientclock + %sc_client_minutes_remaining * 3000);
+if ($int0 < %sc_end_time_clientclock) {
+    %sc_end_time_clientclock = $int0;
+}

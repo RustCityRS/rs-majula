@@ -1,0 +1,6 @@
+// 133
+[proc,inzone](coord $coord0, coord $coord1, coord $coord2)(boolean)
+if (coordx($coord2) >= min(coordx($coord0), coordx($coord1)) & coordz($coord2) >= min(coordz($coord0), coordz($coord1)) & coordy($coord2) >= min(coordy($coord0), coordy($coord1)) & coordx($coord2) <= max(coordx($coord0), coordx($coord1)) & coordz($coord2) <= max(coordz($coord0), coordz($coord1)) & coordy($coord2) <= max(coordy($coord0), coordy($coord1))) {
+    return(true);
+}
+return(false);

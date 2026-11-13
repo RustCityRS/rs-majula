@@ -1,0 +1,21 @@
+// 1788
+[proc,script1788](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, int $int7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13, int $int14)
+if_setsize($component1, $int0, if_getheight($component1), ^setsize_abs, ^setsize_abs);
+if_setsize($component2, $int0, if_getheight($component2), ^setsize_abs, ^setsize_abs);
+if_setsize($component3, $int0, if_getheight($component3), ^setsize_abs, ^setsize_abs);
+if_setsize($component4, $int0, if_getheight($component4), ^setsize_abs, ^setsize_abs);
+if_setsize($component5, $int0, if_getheight($component5), ^setsize_abs, ^setsize_abs);
+if_setsize($component6, $int0, if_getheight($component6), ^setsize_abs, ^setsize_abs);
+if_setsize($component8, $int7, if_getheight($component8), ^setsize_abs, ^setsize_abs);
+if_setsize($component9, $int7, if_getheight($component9), ^setsize_abs, ^setsize_abs);
+if_setsize($component10, $int7, if_getheight($component10), ^setsize_abs, ^setsize_abs);
+if_setsize($component11, $int7, if_getheight($component11), ^setsize_abs, ^setsize_abs);
+if_setsize($component12, $int7, if_getheight($component12), ^setsize_abs, ^setsize_abs);
+if_setsize($component13, $int7, if_getheight($component13), ^setsize_abs, ^setsize_abs);
+def_int $int15 = calc(4 + $int14 - $int7);
+if_setposition($component8, $int15, if_gety($component8), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component9, $int15, if_gety($component9), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component10, $int15, if_gety($component10), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component11, $int15, if_gety($component11), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component12, $int15, if_gety($component12), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component13, $int15, if_gety($component13), ^setpos_abs_left, ^setpos_abs_top);

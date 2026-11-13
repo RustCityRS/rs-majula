@@ -1,0 +1,11 @@
+// 3674
+[clientscript,script3674](int $int0)
+if ($int0 = 1) {
+    if_setgraphic(vkq2_chemistry:go_button_w, "login_lobby_button,6");
+    if_setgraphic(vkq2_chemistry:go_button, "login_lobby_button,7");
+    if_setgraphic(vkq2_chemistry:go_button_e, "login_lobby_button,6");
+} else {
+    if_setgraphic(vkq2_chemistry:go_button_w, "login_lobby_button,2");
+    if_setgraphic(vkq2_chemistry:go_button, "login_lobby_button,3");
+    if_setgraphic(vkq2_chemistry:go_button_e, "login_lobby_button,2");
+}

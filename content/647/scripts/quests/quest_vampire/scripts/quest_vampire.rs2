@@ -1,0 +1,142 @@
+// 289's Vampire Slayer (quests/quest_vampire) as 2011 has it since its rework
+// of 15 December 2009 (2011 wiki, Vampire Slayer, Stake hammer, Dr. Harlow):
+// - Dr Harlow, at the Blue Moon Inn, gives a stake and a stake hammer for a
+//   beer, and the stake is driven in with the stake hammer;
+// - without garlic, each of the player's hits of 0 heals the Count 10 life
+//   points;
+// - the quest ends at Morgan once the Count is staked, and every stake, in
+//   the backpack or the bank, goes then.
+// Lines are 289's: no 2011 source quotes the reworked quest's.
+//
+// Waiting: a player the Count kills before the quest wakes in a cell (2011
+// wiki, Vampire Slayer), not described closely enough to port.
+
+// 2011's coffin, loc 158, at 3080,9785 in Draynor Manor's basement: Open is
+// its only op (289's had Search and Close once open), and it plays 2011's
+// cutscene ("a cutscene with play of you attempting to stake Count Draynor,
+// but it doesn't go in deep enough. He will teleport out of his coffin and
+// attack you", 2011 wiki, Vampire Slayer).
+[oploc1,vampire_slayer_qip_coffin_closed_stake]
+if (%vampire = ^vampire_complete | %vampire = ^quest_vampire_not_started) {
+    return;
+}
+// Staked, the Count is dead until the quest is over: he does not rise again
+// for Morgan's errand.
+if (%vampire_count_slain = ^true) {
+    return;
+}
+npc_findallany(0_48_152_9_49, 15, ^vis_off);
+while (npc_findnext = true) {
+    if (npc_type = vampire_slayer_qip_count & %npc_attacking_uid = uid) {
+        return;
+    }
+}
+~quest_vampire_coffin_cutscene;
+
+// The coffin cutscene as three recordings show it: 2010-10-15 (YouTube
+// TLKwCRHHM6M), 2011-02-19 (zJQS-7HNjuE) and 2011-05-30 (soXccN_SXH4). Its
+// times are May 2011's, the closest to 647 and the only one that shows the
+// player thrown back, measured from the cut to the cutscene's camera (May
+// 18.2s; tick 3 here). His seqs are frame set 2897's, made with the
+// coffin's (seq ids beside 2990, 3111-3112 and 3328). In ticks from Open:
+//   0  the game view fades to black, and I'm Counting on You plays; in the
+//      dark the player is set beside the coffin, at 3079,9786;
+//   3  it fades in on a camera south-west of the dais;
+//   6  the player puts his weapon away and pushes the lid off (seq 2991),
+//      the lid sliding (seq 3112) with him (off at +3.9s in May);
+//   9  he stabs down into the coffin with the stake (seq 2992, the stake in
+//      hand; +4.0s-4.2s), and it fails; the Count sits up (seq 3322: up by
+//      1.8s, arms raised at 3.2s-3.8s, down at 4.0s-4.8s, then he curls
+//      down and fades into the coffin, gone by 7.1s);
+//  10  the player is thrown back (seq 3108) a tile west, onto the floor by
+//      the candelabra (+4.3s): the throw cuts the stab off just after its
+//      strike, so the stab is quick;
+//  11  the camera lifts and draws back a little (+5.0s);
+//  12  the player lies there (seq 3109), and the camera pulls back to the
+//      floor below the dais (+5.6s);
+//  21  the Count faded into the coffin, it lies open and empty, and he
+//      rises from the floor (seq 3328) on 3081,9777, facing the camera;
+//  24  he turns to the player, who gets up (seq 3110). He stands there; the
+//      player stays in the cutscene until 16 ticks after his rise.
+// The camera holds those 16 ticks, then is the player's again. Its
+// tiles, heights and speeds are fitted to the recordings' frames in the 647
+// client. The look's constant speed of 1 lets the client's angles reach the
+// look (with 0 they stop about 90 units short): the end frames are at pitch
+// 1024 and yaw 15910, the look's.
+[proc,quest_vampire_coffin_cutscene]
+if_openoverlay(fade_to_black);
+~music_unlock_play(music_Im_Counting_On_You);
+p_delay(1);
+p_telejump(0_48_152_7_58);
+facesquare(0_48_152_9_58);
+p_delay(0);
+cam_moveto(0_48_152_6_49, 750, 0, 100);
+cam_lookat(0_48_152_8_54, 300, 0, 100);
+if_openoverlay(fade_from_black);
+p_delay(2);
+anim(seq_2991, 0);
+if (loc_find(0_48_152_8_57, vampire_slayer_qip_coffin_closed_stake) = true) {
+    loc_anim(seq_3112);
+}
+p_delay(2);
+mes("You stab the vampire with the stake, but it does not go deep enough.");
+anim(seq_2992, 0);
+if (loc_find(0_48_152_8_57, vampire_slayer_qip_coffin_closed_stake) = true) {
+    loc_anim(seq_3322);
+}
+p_delay(0);
+anim(seq_3108, 0);
+p_exactmove(0_48_152_7_58, 0_48_152_6_58, 0, 30, ^exact_east);
+p_delay(0);
+cam_moveto(0_48_152_6_48, 840, 0, 90);
+cam_lookat(0_48_152_8_54, 350, 1, 90);
+p_delay(0);
+anim(seq_3109, 0);
+cam_moveto(0_48_152_6_43, 520, 0, 16);
+p_delay(8);
+if_openoverlay(null);
+if (loc_find(0_48_152_8_57, vampire_slayer_qip_coffin_closed_stake) = true) {
+    loc_change(vampire_slayer_qip_coffin_open, 500);
+}
+npc_add(0_48_152_9_49, vampire_slayer_qip_count, 500);
+npc_anim(seq_3328, 0);
+%npc_attacking_uid = uid;
+p_delay(2);
+npc_facesquare(coord);
+anim(seq_3110, 0);
+// The player stays in the cutscene about 9.5s after he rises, then has the
+// camera back: in the 2011-05-04 recording (8rnPUf2QQv4) he rises at 240.0s,
+// the player clicks Attack on him at 241s, 245.5s and 247s and nothing comes of
+// it; the camera returns at 249.5s and they click again (Walk here, then Attack
+// at 250.5s) and set off. In the 2011-02-28 one (Go0RZkE-Nfc) the player stands
+// where the cutscene left them until it returns at 277.5s. 16 ticks from his
+// rise; clicks meanwhile do nothing, as a delayed player's do.
+p_delay(12);
+cam_reset;
+
+// The coffin lies open and empty while its Count is out, and closes once he
+// has gone, staked or got away: a player he got away from opens it for
+// another fight (2011 wiki, Vampire Slayer: "if the count returns to his
+// coffin before you kill him ... you must return to Dr. Harlow and obtain
+// another stake before you attempt to kill him again").
+[proc,quest_vampire_coffin_close]
+if (loc_find(0_48_152_8_57, vampire_slayer_qip_coffin_open) = true) {
+    loc_change(vampire_slayer_qip_coffin_closed_stake, 1);
+}
+
+[proc,quest_vampire_set_progress](int $stage)
+%vampire = $stage;
+~send_quest_progress(^questlist_vampire, %vampire, ^vampire_complete);
+
+// At Morgan, the Count staked: 289's reward (4825 Attack xp, 3 quest points;
+// 2011's too), and the stakes go (2011 wiki, Stake: "all stakes in a player's
+// inventory and bank vanish automatically upon completion of the quest").
+[proc,quest_vampire_complete]
+inv_del(inv, stake, inv_total(inv, stake));
+inv_del(bank, stake, inv_total(bank, stake));
+%vampire_count_slain = ^false;
+stat_advance(attack, 48250);
+~quest_vampire_set_progress(^vampire_complete);
+session_log(^log_adventure, "Quest complete: Vampire Slayer");
+// 2011-05-04 recording (295s): one line, lower-case "quest".
+~send_quest_complete2(^questlist_vampire, stake, 250, ^vampire_questpoints, "You have completed the Vampire Slayer quest!", "4825 Attack XP");

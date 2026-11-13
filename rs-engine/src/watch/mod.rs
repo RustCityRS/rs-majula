@@ -2,6 +2,8 @@ mod afk;
 pub mod anticheat;
 pub mod format;
 pub mod input;
+// Replay keyframes in the jag-era protocol; rev 647 keeps none yet.
+#[cfg(before_647)]
 mod keyframe;
 pub mod menu;
 #[cfg(since_254)]
@@ -36,6 +38,9 @@ use format::{
     put_flag, put_varint,
 };
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(before_274)]
+use rs_protocol::network::game::server_prot::ServerProt;
+use rs_vm::ComId;
 use rustc_hash::FxHashMap;
 use state::ClientState;
 use std::fmt::{self, Write as _};
@@ -92,8 +97,7 @@ pub const KEYFRAME_MS: u32 = 60_000;
 pub const TRACKING_TICKS: u32 = 17;
 /// `ENABLE_TRACKING`'s opcode: the client's input report starts a new run.
 #[cfg(before_274)]
-pub const TRACKING_ENABLED: u8 =
-    rs_protocol::network::game::server_prot::ServerProt::EnableTracking as u8;
+pub const TRACKING_ENABLED: u8 = ServerProt::EnableTracking as u8;
 
 /// How long after marking one of a check's incidents (or a script's error)
 /// on the timeline the next is left off: a bot repeats them every tick.
@@ -105,7 +109,7 @@ const MAX_MARKS: u16 = 200;
 #[derive(Clone, Copy, Debug, Hash)]
 pub enum Using {
     Item(u16),
-    Spell(u16),
+    Spell(ComId),
 }
 
 /// What a "use" or spell action was done on.
@@ -116,6 +120,7 @@ pub enum Target {
     Obj { id: u16, x: u16, z: u16 },
     Player(u16),
     Item(u16),
+    Coord { x: u16, z: u16 },
 }
 
 /// What a world asks its recording task to do.

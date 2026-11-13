@@ -562,7 +562,7 @@ pub struct Stats<const N: usize> {
 
 The player stat indices are fixed by `PlayerStat` (`rs-pack/src/types.rs:825`):
 `Attack=0, Defence=1, Strength=2, Hitpoints=3, Ranged=4, Prayer=5, Magic=6, Cooking=7 … Runecraft=20`. New players are
-seeded by `apply_new_player_defaults` (`rs-engine/src/player_save.rs:502`): all stats xp=0/level=1 *except* Hitpoints,
+seeded by `apply_new_player_defaults` (`rs-engine/src/save.rs:502`): all stats xp=0/level=1 *except* Hitpoints,
 which is set to level 10 with `get_exp_by_level(10)` xp and base level 10 — exactly mirroring the canonical RS2 starting
 account.
 

@@ -1,0 +1,417 @@
+// 805:0
+[com_0]
+type=graphic
+x=7
+y=25
+width=498
+height=302
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 805:1
+[com_1]
+type=graphic
+x=-13
+y=51
+width=32
+height=251
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 805:2
+[com_2]
+type=graphic
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 805:3
+[com_3]
+type=graphic
+x=492
+y=52
+width=32
+height=250
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 805:4
+[com_4]
+type=graphic
+x=32
+y=7
+width=448
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 805:5
+[com_5]
+type=graphic
+x=32
+y=314
+width=448
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 805:6
+[com_6]
+type=graphic
+y=302
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 805:7
+[com_7]
+type=graphic
+x=480
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 805:8
+[com_8]
+type=graphic
+x=480
+y=302
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 805:9
+[com_9]
+type=graphic
+x=11
+y=35
+width=490
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 805:10
+[com_10]
+type=graphic
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 805:11
+[com_11]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 805:12
+[closebutton]
+type=graphic
+x=485
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 805:13
+[com_13]
+type=rectangle
+x=6
+y=300
+width=499
+height=27
+colour=0x000000
+fill=yes
+trans=200
+
+// 805:14
+[com_14]
+type=graphic
+x=241
+y=54
+width=32
+height=244
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+
+// 805:15
+[tradetitle]
+type=text
+x=19
+y=30
+width=474
+height=16
+textfont=b12_full
+text=Giving items to: Unknown
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onvartransmit=script141{traderemoved, traderemoved_other}
+
+// 805:16
+[accept_button]
+type=layer
+x=223
+y=146
+width=65
+height=32
+transmitop=1
+op1=Accept
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 805:17
+[accept_text]
+type=text
+x=223
+y=146
+width=65
+height=32
+textfont=p12_full
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00c000
+
+// 805:18
+[decline_button]
+type=layer
+x=223
+y=199
+width=65
+height=32
+transmitop=1
+op1=Decline
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 805:19
+[decline_text]
+type=text
+x=223
+y=199
+width=65
+height=32
+textfont=p12_full
+text=Decline
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc00000
+
+// 805:20
+[com_20]
+type=rectangle
+x=213
+y=78
+width=91
+height=47
+colour=0x221717
+fill=yes
+
+// 805:21
+[free_space_text]
+type=text
+x=215
+y=90
+width=82
+height=30
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 805:22
+[free_space_name]
+type=text
+x=215
+y=83
+width=82
+height=15
+textfont=p11_full
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onvarcstrtransmit=sc_output_name(event_com, sc_item_transfer:tooltip, p11_full){varclient_1738}
+
+// 805:23
+[com_23]
+type=graphic
+x=238
+y=59
+width=40
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 805:24
+[com_24]
+type=graphic
+x=207
+y=73
+width=32
+height=32
+graphic="v2_stone_borders,18"
+colour=0xffffffff
+
+// 805:25
+[com_25]
+type=graphic
+x=274
+y=73
+width=32
+height=32
+graphic="v2_stone_borders,19"
+colour=0xffffffff
+
+// 805:26
+[com_26]
+type=graphic
+x=207
+y=97
+width=32
+height=32
+graphic="v2_stone_borders,20"
+colour=0xffffffff
+
+// 805:27
+[com_27]
+type=graphic
+x=274
+y=97
+width=32
+height=32
+graphic="v2_stone_borders,21"
+colour=0xffffffff
+
+// 805:28
+[com_28]
+type=graphic
+x=239
+y=109
+width=35
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 805:29
+[com_29]
+type=graphic
+x=6
+y=285
+width=499
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 805:30
+[no]
+type=layer
+x=7
+y=26
+width=497
+height=301
+onload=script172
+
+// 805:31
+[your_offer_layer]
+type=layer
+x=21
+y=72
+width=185
+height=223
+
+// 805:32
+[your_offer_layer_flashy]
+type=layer
+x=21
+y=72
+width=185
+height=223
+
+// 805:33
+[com_33]
+type=text
+x=56
+y=56
+width=119
+height=14
+textfont=p12_full
+text=Your Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 805:34
+[bowl_guests]
+type=layer
+x=466
+y=22
+width=32
+height=32
+hide=yes
+
+// 805:35
+[divider1]
+type=model
+width=1
+height=1
+model=null
+modelzoom=400
+
+// 805:36
+[tooltip_layer]
+type=layer
+x=10
+y=10
+width=10
+height=10
+layer=com_37
+
+// 805:37
+[com_37]
+type=layer
+width=512
+height=334
+
+// 805:38
+[tooltip]
+type=layer
+x=232
+y=89
+width=53
+height=16

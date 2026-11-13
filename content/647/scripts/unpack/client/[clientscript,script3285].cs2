@@ -1,0 +1,7 @@
+// 3285
+[clientscript,script3285](int $int0)
+if_setscrollsize(rand_floor_select:floor_select_layer, 0, $int0);
+if_setscrollsize(rand_floor_select:tooltip_build, 0, $int0);
+if (if_getscrollheight(rand_floor_select:floor_select_layer) < if_getheight(rand_floor_select:floor_select_layer)) {
+    if_sethide(rand_floor_select:scroll, true);
+}

@@ -1,0 +1,20 @@
+// 3058
+[proc,lobbyscreen_loadpanels]
+if_opensubclient(lobbyscreen:playerinfo_panel, lobbyscreen_pane_playerinfo);
+~lobbyscreen_playerinfo_load;
+if_opensubclient(lobbyscreen:worldselect_panel, lobbyscreen_pane_worldselect);
+~script3103;
+if_opensubclient(lobbyscreen:friendslist_panel, lobbyscreen_pane_friendslist);
+~script3023;
+~lobbyscreen_pane_friendslist_chat_load(lobbyscreen_pane_friendslist:chat);
+~script3043(lobbyscreen_pane_friendslist:pm_button_text);
+if_opensubclient(lobbyscreen:clanchat_panel, lobbyscreen_pane_clanchat);
+~lobbyscreen_pane_clanchat_load(59768841);
+~lobbyscreen_pane_clanchat_chat_load(lobbyscreen_pane_clanchat:chat);
+if_opensubclient(lobbyscreen:friendschat_panel, lobbyscreen_pane_friendschat);
+~lobbyscreen_pane_friendschat_load(38600715);
+~lobbyscreen_pane_friendschat_chat_load(lobbyscreen_pane_friendschat:chat);
+if_opensubclient(lobbyscreen:options_panel, lobbyscreen_pane_options);
+~lobbyscreen_options_load;
+if_setonchattransmit(lobbyscreen:base, "lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:chat, lobbyscreen_pane_clanchat:chat, lobbyscreen_pane_friendschat:chat)");
+%lobby_pmchat_lastcount, %lobby_clanchat_lastcount, %lobby_friendschat_lastcount = ~lobbyscreen_chat_count;

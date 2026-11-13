@@ -1,0 +1,41 @@
+// 1742
+[proc,getsideicon_resizeable](int $int0)(component)
+switch_int ($int0) {
+    case 0 :
+        return(toplevel_fullscreen:icon0);
+    case 1 :
+        return(toplevel_fullscreen:icon1);
+    case 2 :
+        return(toplevel_fullscreen:icon2);
+    case 3 :
+        return(toplevel_fullscreen:icon3);
+    case 4 :
+        return(toplevel_fullscreen:icon4);
+    case 5 :
+        return(toplevel_fullscreen:icon5);
+    case 6 :
+        return(toplevel_fullscreen:icon6);
+    case 7 :
+        return(toplevel_fullscreen:icon7);
+    case 8 :
+        return(toplevel_fullscreen:icon8);
+    case 9 :
+        return(toplevel_fullscreen:icon9);
+    case 10 :
+        return(toplevel_fullscreen:icon10);
+    case 11 :
+        return(toplevel_fullscreen:icon11);
+    case 12 :
+        return(toplevel_fullscreen:icon12);
+    case 13 :
+        return(toplevel_fullscreen:icon13);
+    case 14 :
+        return(toplevel_fullscreen:icon14);
+    case 15 :
+        return(toplevel_fullscreen:icon15);
+    case 95 :
+        return(topstat_lore:main_ops);
+    case 99 :
+        return(toplevel_fullscreen:logoutbutton);
+}
+return(null);

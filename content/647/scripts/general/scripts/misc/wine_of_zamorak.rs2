@@ -1,0 +1,44 @@
+// 289's wine of zamorak at the Chaos Temple, north-west of the Goblin Village
+// (0_45_54_50_59), as 289 has it: 2011's is the same theft (2011 wiki, Wine
+// of zamorak, 18 April 2011: the monks attack, combat stats drain, and "STOP
+// STEALING MY WINE! GAH!"). 289's chaosmonk1 is 2011's monk_of_zamorak (188,
+// the same npc). 647 has no ground spawn of the wine there yet, so this waits
+// for one.
+// Sources
+// https://www.youtube.com/watch?v=U3NUBXGV1SY&t=78s
+// https://www.youtube.com/watch?v=9WB1kF-IBro&t=230s
+// https://youtu.be/sGcGQLV1Lf4
+// https://oldschool.runescape.wiki/w/Wine_of_zamorak
+[opobj3,wine_of_zamorak]
+if (obj_coord = 0_45_54_50_59) {
+    mes("STOP STEALING MY WINE! GAH!");
+    spotanim_pl(zamorak_flame, 0, 0);
+    // 289's flames_of_zamorak sound (synth 290 at 289): no source found for
+    // its 2011 id (647's synth.pack has no name for it).
+    // sound_synth(flames_of_zamorak, 1, 0);
+    // 289's stat(hitpoints) / 20 + 1 hitpoints; 2011's current hitpoints are
+    // its life points (%life_points), ten to a hitpoint, as is the damage.
+    ~damage_self(calc(((%life_points / 200) + 1) * 10));
+    stat_drain(attack, 1, 5);
+    stat_drain(strength, 1, 5);
+    stat_drain(defence, 1, 5);
+    stat_drain(ranged, 1, 5);
+    stat_drain(magic, 1, 5);
+    if (npc_find(0_45_54_54_60, chaosmonk2, 5, 0) = true | npc_find(0_45_54_54_60, chaosmonk1, 5, 0) = true) {
+        npc_say("Hands off Zamorak's wine!");
+        npc_findall(0_45_54_54_60, chaosmonk2, 5, 0);
+        while (npc_findnext = true) {
+            if (npc_getmode ! opplayer2) {
+                npc_setmode(opplayer2);
+            }
+        }
+        npc_findall(0_45_54_54_60, chaosmonk1, 5, 0);
+        while (npc_findnext = true) {
+            if (npc_getmode ! opplayer2) {
+                npc_setmode(opplayer2);
+            }
+        }
+        return;
+    }
+}
+@pickup_obj;

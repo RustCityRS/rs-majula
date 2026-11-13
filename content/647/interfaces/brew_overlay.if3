@@ -1,0 +1,553 @@
+// 415:0
+[fires]
+type=layer
+width=75
+height=150
+ymode=abs_centre
+
+// 415:1
+[hopper_normal]
+type=model
+x=11
+y=17
+width=39
+height=37
+layer=fires
+model=model_15694
+modelorigin=0,-1
+modelangle=515,0,0
+modelzoom=360
+
+// 415:2
+[pipes_normal]
+type=model
+x=12
+y=58
+width=38
+height=28
+layer=fires
+model=model_15695
+modelorigin=0,-6
+modelangle=534,2047,0
+modelzoom=600
+
+// 415:3
+[bridge_normal]
+type=model
+x=8
+y=97
+width=47
+height=23
+layer=fires
+model=model_15688
+modelorigin=2,-2
+modelangle=531,2041,0
+modelzoom=1007
+
+// 415:4
+[hopper_amount]
+type=text
+x=62
+y=25
+width=9
+height=14
+layer=fires
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount)
+onvarctransmit=script1757(brew_overlay:hopper_fire_model, brew_overlay:hopper_amount){brew_varc_hopper_fire}
+
+// 415:5
+[pipe_amount]
+type=text
+x=62
+y=60
+width=9
+height=14
+layer=fires
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount)
+onvarctransmit=script1758(brew_overlay:pipe_fire_model, brew_overlay:pipe_amount){brew_varc_pipe_fire}
+
+// 415:6
+[bridge_amount]
+type=text
+x=62
+y=94
+width=9
+height=14
+layer=fires
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount)
+onvarctransmit=script1759(brew_overlay:bridge_fire_model, brew_overlay:bridge_amount){brew_varc_bridge_fire}
+
+// 415:7
+[hopper_fire_model]
+type=model
+x=13
+y=38
+width=36
+height=15
+layer=fires
+hide=yes
+model=model_15693
+modelorigin=1,-7
+modelangle=327,3,0
+modelzoom=400
+
+// 415:8
+[pipe_fire_model]
+type=model
+x=13
+y=69
+width=36
+height=15
+layer=fires
+hide=yes
+model=model_15693
+modelorigin=1,-7
+modelangle=327,3,0
+modelzoom=400
+
+// 415:9
+[bridge_fire_model]
+type=model
+x=13
+y=108
+width=36
+height=15
+layer=fires
+hide=yes
+model=model_15693
+modelorigin=1,-7
+modelangle=327,3,0
+modelzoom=400
+
+// 415:10
+[bitternut_model]
+type=model
+x=169
+y=41
+width=32
+height=26
+model=model_15666
+modelorigin=-1,-1
+modelangle=348,15,0
+modelzoom=700
+
+// 415:11
+[sweetgrub_model]
+type=model
+x=214
+y=44
+width=30
+height=24
+model=model_15703
+modelorigin=1,-2
+modelangle=405,42,0
+modelzoom=700
+
+// 415:12
+[bucket_model]
+type=model
+x=268
+y=40
+width=25
+height=30
+model=model_15689
+modelorigin=-1,7
+modelangle=444,3,0
+modelzoom=600
+
+// 415:13
+[colourwater_model]
+type=model
+x=306
+y=44
+width=41
+height=24
+model=model_15699
+modelorigin=0,-5
+modelangle=483,18,0
+modelzoom=790
+
+// 415:14
+[bark_model]
+type=model
+x=358
+y=44
+width=35
+height=25
+model=model_15659
+modelorigin=-1,0
+modelangle=390,30,0
+modelzoom=700
+
+// 415:15
+[boiler1_model]
+type=model
+x=19
+y=38
+width=29
+height=29
+model=model_15677
+modelorigin=0,2
+modelangle=402,0,0
+modelzoom=700
+
+// 415:16
+[boiler2_model]
+type=model
+x=70
+y=38
+width=29
+height=29
+model=model_15679
+modelorigin=0,2
+modelangle=402,0,0
+modelzoom=700
+
+// 415:17
+[boiler3_model]
+type=model
+x=119
+y=38
+width=29
+height=29
+model=model_15681
+modelorigin=0,2
+modelangle=402,0,0
+modelzoom=700
+
+// 415:18
+[score_sheet]
+type=layer
+width=184
+height=73
+xmode=abs_right
+ymode=abs_bottom
+
+// 415:19
+[red_bottle_off]
+type=layer
+x=420
+y=13
+width=69
+height=68
+
+// 415:20
+[red_bottle_off_model]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=red_bottle_off
+model=model_15696
+modelangle=468,0,0
+modelzoom=850
+
+// 415:21
+[blue_bottle_off]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:22
+[blue_bottle_off_model]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=blue_bottle_off
+model=model_15670
+modelangle=468,0,0
+modelzoom=850
+
+// 415:23
+[red_bottle_on]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:24
+[red_bottle_on_model]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=red_bottle_on
+model=model_15723
+modelangle=468,0,0
+modelzoom=850
+modelanim=game_brew_bottle_flash
+
+// 415:25
+[blue_bottle_on]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:26
+[blue_bottle_on_model]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=blue_bottle_on
+model=model_15722
+modelangle=468,0,0
+modelzoom=850
+modelanim=game_brew_bottle_flash
+
+// 415:27
+[red_bottle_warning]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:28
+[red_bottle_warning_model]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=red_bottle_warning
+model=model_15698
+modelangle=468,0,0
+modelzoom=850
+modelanim=game_brew_bottle_flash
+
+// 415:29
+[blue_bottle_warning]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:30
+[blue_bottle_warning_model]
+type=model
+x=21
+y=7
+width=29
+height=61
+layer=blue_bottle_warning
+model=model_15668
+modelorigin=0,1
+modelangle=468,0,0
+modelzoom=656
+modelanim=game_brew_bottle_flash
+
+// 415:31
+[boiler1_count]
+type=text
+x=29
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count)
+onvarctransmit=brew_boiler1(brew_overlay:boiler1_model, brew_overlay:boiler1_count){brew_varc_boiler1}
+
+// 415:32
+[boiler2_count]
+type=text
+x=80
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count)
+onvarctransmit=brew_boiler2(brew_overlay:boiler2_model, brew_overlay:boiler2_count){brew_varc_boiler2}
+
+// 415:33
+[boiler3_count]
+type=text
+x=129
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count)
+onvarctransmit=brew_boiler3(brew_overlay:boiler3_model, brew_overlay:boiler3_count){brew_varc_boiler3}
+
+// 415:34
+[bitternut_count]
+type=text
+x=180
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count)
+onvarctransmit=brew_bitternut(brew_overlay:bitternut_model, brew_overlay:bitternut_count){brew_varc_bitternuts}
+
+// 415:35
+[sweetgrub_count]
+type=text
+x=225
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count)
+onvarctransmit=brew_sweetgrub(brew_overlay:sweetgrub_model, brew_overlay:sweetgrub_count){brew_varc_sweetgrubs}
+
+// 415:36
+[bucket_count]
+type=text
+x=276
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count)
+onvarctransmit=brew_buckets(brew_overlay:bucket_model, brew_overlay:bucket_count){brew_varc_buckets}
+
+// 415:37
+[colourwater_count]
+type=text
+x=322
+y=24
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count)
+oninvtransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){worn}
+onvarctransmit=brew_colourwater(brew_overlay:colourwater_model, brew_overlay:colourwater_count){brew_varc_colourwater}
+
+// 415:38
+[bark_count]
+type=text
+x=371
+y=24
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count)
+onvarctransmit=brew_bark(brew_overlay:bark_model, brew_overlay:bark_count){brew_varc_bark}
+
+// 415:39
+[brew_score_text]
+type=text
+y=2
+width=120
+height=14
+xmode=abs_centre
+layer=score_sheet
+textfont=p12_full
+text=Current Score
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 415:40
+[score_sheet_model]
+type=model
+x=-1
+width=175
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=score_sheet
+model=model_10119
+modelorigin=0,-8
+modelangle=288,0,0
+modelzoom=912
+
+// 415:41
+[red_score]
+type=text
+x=-25
+y=22
+width=9
+height=14
+xmode=abs_centre
+layer=score_sheet
+textfont=b12_full
+text=0
+colour=0x990000
+onload=brew_redscore(event_com)
+onvarctransmit=brew_redscore(event_com){brew_varc_red_score}
+
+// 415:42
+[blue_score]
+type=text
+x=25
+y=22
+width=9
+height=14
+xmode=abs_centre
+layer=score_sheet
+textfont=b12_full
+text=0
+colour=0x0000cc
+onload=brew_bluescore(event_com)
+onvarctransmit=brew_bluescore(event_com){brew_varc_blue_score}
+
+// 415:43
+[brew_time_display]
+type=text
+y=5
+height=14
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=score_sheet
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=brew_time(event_com)
+onvarctransmit=brew_time(event_com){brew_varc_time}

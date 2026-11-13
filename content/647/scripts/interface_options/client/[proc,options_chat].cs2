@@ -1,0 +1,14 @@
+// 1265
+[proc,options_chat]
+def_string $string0 = null;
+if (%option_chat = 1) {
+    if_setgraphic(options:optchat, "options_boxes,0");
+    $string0 = "Chat effects<br>(currently off)";
+    if_setonmouserepeat(options:optchat, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
+} else if (%option_chat = 0) {
+    if_setgraphic(options:optchat, "options_boxes,1");
+    $string0 = "Chat effects<br>(currently on)";
+    if_setonmouserepeat(options:optchat, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
+}

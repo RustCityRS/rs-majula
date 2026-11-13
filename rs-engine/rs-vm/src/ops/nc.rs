@@ -3,7 +3,7 @@ use crate::register::OpsRegistry;
 use crate::util::{pop_npc, pop_param};
 use crate::{handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// Registers NPC config (NC) opcodes for querying static NPC definitions
 /// from the cache, such as name, category, size, and parameters.
@@ -31,7 +31,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4001
         none!(m, NC_DEBUGNAME => |s| {
             let npc = pop_npc::<E>(s)?;
-            s.push_string(npc.debugname().unwrap_or("null"));
+            s.push_string(&npc.debugname);
         });
 
         // 4002
@@ -43,7 +43,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4003
         none!(m, NC_NAME => |s| {
             let npc = pop_npc::<E>(s)?;
-            s.push_string(npc.name.as_deref().unwrap_or(npc.debugname().unwrap_or("null")));
+            s.push_string(npc.name.as_deref().unwrap_or(&npc.debugname));
         });
 
         // 4004

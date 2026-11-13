@@ -1,0 +1,4 @@
+// 2901
+[clientscript,ii_exchange_mouseover](component $component0, component $component1, string $string0)
+if_sethide($component0, false);
+if_settext($component1, $string0);

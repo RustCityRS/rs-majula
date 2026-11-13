@@ -1,0 +1,56 @@
+// 12
+[proc,skill_advance_guide_title](int $int0)(string, int)
+switch_int ($int0) {
+    case 1 :
+        return("Attack", 15);
+    case 2 :
+        return("Strength", 7);
+    case 5 :
+        return("Defence", 15);
+    case 3 :
+        return("Ranged", 11);
+    case 7 :
+        return("Prayer", 4);
+    case 4 :
+        return("Magic", 11);
+    case 6 :
+        return("Constitution", 3);
+    case 8 :
+        return("Agility", 10);
+    case 9 :
+        return("Herblore", 8);
+    case 10 :
+        return("Thieving", 9);
+    case 11 :
+        return("Crafting", 13);
+    case 19 :
+        return("Fletching", 9);
+    case 13 :
+        return("Mining", 7);
+    case 14 :
+        return("Smithing", 15);
+    case 15 :
+        return("Fishing", 8);
+    case 16 :
+        return("Cooking", 16);
+    case 17 :
+        return("Firemaking", 9);
+    case 18 :
+        return("Woodcutting", 8);
+    case 12 :
+        return("Runecrafting", 7);
+    case 20 :
+        return("Slayer", 5);
+    case 21 :
+        return("Farming", 13);
+    case 22 :
+        return("Construction", 16);
+    case 23 :
+        return("Hunter", 16);
+    case 24 :
+        return("Summoning", 8);
+    case 25 :
+        return("Dungeoneering", 6);
+    case default :
+        return("", -1);
+}

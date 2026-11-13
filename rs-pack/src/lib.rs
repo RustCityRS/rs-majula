@@ -1,61 +1,135 @@
+#[cfg(before_647)]
+use crate::archive::{JAG_ARCHIVES, JagArchive};
+#[cfg(before_647)]
+use crate::cache::CacheStore;
+#[cfg(before_647)]
+use crate::cache::category::CategoryType;
+#[cfg(before_647)]
+use crate::cache::dbrow::DbRowType;
+#[cfg(before_647)]
+use crate::cache::dbtable::{DbTableIndex, DbTableType};
+#[cfg(before_647)]
+use crate::cache::r#enum::{EnumType, EnumTypeRaw};
+#[cfg(before_647)]
+use crate::cache::flo::{FloType, FloTypeRaw};
+#[cfg(before_647)]
+use crate::cache::font::FontTypeProvider;
+#[cfg(before_647)]
+use crate::cache::hunt::HuntType;
+#[cfg(before_647)]
+use crate::cache::idk::{IdkType, IdkTypeRaw};
+#[cfg(before_647)]
+use crate::cache::r#if::IfTypeProvider;
+#[cfg(before_647)]
+use crate::cache::inv::{InvType, InvTypeRaw};
+#[cfg(before_647)]
+use crate::cache::loc::{LocType, LocTypeRaw};
+#[cfg(before_647)]
+use crate::cache::mesanim::MesAnimType;
+#[cfg(before_647)]
+use crate::cache::midi::MidiProvider;
+#[cfg(before_647)]
+use crate::cache::npc::{NpcType, NpcTypeRaw};
+#[cfg(before_647)]
+use crate::cache::obj::{ObjContext, ObjType, ObjTypeRaw};
+#[cfg(before_647)]
+use crate::cache::param::{ParamType, ParamTypeRaw};
+#[cfg(before_647)]
+use crate::cache::provider::{CacheType, TypeProvider};
+use crate::cache::script::ScriptProvider;
+#[cfg(before_647)]
+use crate::cache::seq::{SeqType, SeqTypeRaw};
+#[cfg(rev = "225")]
+use crate::cache::seq_frame::SeqFrameProvider;
+#[cfg(all(since_244, before_647))]
+use crate::cache::seq_frame::anim_frame_delays;
+#[cfg(before_647)]
+use crate::cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
+#[cfg(before_647)]
+use crate::cache::r#struct::{StructType, StructTypeRaw};
+#[cfg(all(since_254, before_647))]
+use crate::cache::varbit::VarbitType;
+#[cfg(before_647)]
+use crate::cache::varn::VarnType;
+#[cfg(before_647)]
+use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
+#[cfg(before_647)]
+use crate::cache::vars::VarsType;
+#[cfg(before_647)]
+use crate::cache::wordenc::WordEncProvider;
+use crate::pack::incremental::{self, Session};
+#[cfg(before_647)]
+use crate::pack::incremental::{Hash, Key, remember};
+#[cfg(before_647)]
+use crate::pack::incremental::{Stage, files_under};
+#[cfg(before_647)]
+use crate::pack::media::pack_media_jag;
+#[cfg(before_647)]
+use crate::pack::model::pack_models;
+#[cfg(all(since_244, before_647))]
+use crate::pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
+#[cfg(before_647)]
+use crate::pack::other::map::pack_maps;
+#[cfg(before_647)]
+use crate::pack::other::song::pack_midis;
+#[cfg(before_647)]
+use crate::pack::pack::{ConfigFiles, check_configs, pack_config_files};
+#[cfg(before_647)]
+use crate::pack::pack_registry::{PackRegistry, PackedFile};
+use crate::pack::script::compile as compile_runescript;
+#[cfg(before_647)]
+use crate::pack::sound::pack_sounds;
+#[cfg(before_647)]
+use crate::pack::texture::pack_textures_jag;
+#[cfg(before_647)]
+use crate::pack::title::pack_title_jag;
+#[cfg(before_647)]
+use crate::pack::wordenc::pack_wordenc;
+#[cfg(all(since_244, before_647))]
+use crate::types::OndemandBlobs;
+#[cfg(all(since_244, before_647))]
+use crate::unpack::model::load_existing_pack;
+#[cfg(since_647)]
+use rayon::ThreadPoolBuilder;
+#[cfg(before_647)]
+use rs_io::crc;
+#[cfg(before_647)]
+use rs_io::jag::JagFile;
+#[cfg(before_647)]
+use std::collections::HashMap;
+#[cfg(before_647)]
+use std::fs;
+#[cfg(before_647)]
+use std::mem::take;
+use std::path::Path;
+#[cfg(before_647)]
+use std::path::PathBuf;
+#[cfg(before_647)]
+use std::sync::Arc;
+use std::thread;
+#[cfg(all(since_244, before_274))]
+use std::time::{SystemTime, UNIX_EPOCH};
+#[cfg(before_647)]
+use tracing::debug;
+use tracing::warn;
+
+pub mod archive;
 pub mod back;
 pub mod cache;
 pub mod pack;
+#[cfg(before_647)]
 pub mod pyxel;
 pub mod sheet;
+#[cfg(since_647)]
+pub mod startup;
 pub mod tga;
 pub mod types;
 pub mod unpack;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 pub mod versionlist;
+pub mod zone_csv;
 
-use std::collections::HashMap;
-use std::fs;
-use std::path::Path;
-use std::sync::Arc;
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::time::{SystemTime, UNIX_EPOCH};
-
-use crate::pack::pack_registry::PackRegistry;
-use cache::CacheStore;
-use cache::category::CategoryType;
-use cache::dbrow::DbRowType;
-use cache::dbtable::{DbTableIndex, DbTableType};
-use cache::r#enum::EnumType;
-use cache::flo::FloType;
-use cache::font::FontTypeProvider;
-use cache::hunt::HuntType;
-use cache::idk::{IdkType, IdkTypeRaw};
-use cache::r#if::IfTypeProvider;
-use cache::inv::InvType;
-use cache::loc::{LocType, LocTypeRaw};
-use cache::mesanim::MesAnimType;
-use cache::midi::MidiProvider;
-use cache::npc::{NpcType, NpcTypeRaw};
-use cache::obj::{ObjContext, ObjType, ObjTypeRaw};
-use cache::param::ParamType;
-use cache::provider::TypeProvider;
-use cache::script::ScriptProvider;
-use cache::seq::{SeqType, SeqTypeRaw};
-use cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
-use cache::r#struct::StructType;
-#[cfg(since_254)]
-use cache::varbit::VarbitType;
-use cache::varn::VarnType;
-use cache::varp::VarPlayerType;
-use cache::vars::VarsType;
-use cache::wordenc::WordEncProvider;
-#[cfg(since_244)]
-use pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
-use pack::other;
-use rs_io::crc;
-use rs_io::jag::{JagCompression, JagFile};
-use tracing::{debug, warn};
-#[cfg(since_244)]
-use types::OndemandBlobs;
-pub use types::ParamValue;
-#[cfg(since_244)]
-use unpack::model::load_existing_pack;
+pub use crate::types::ParamValue;
 
 macro_rules! rev_content_path {
     ($suffix:literal) => {
@@ -65,82 +139,22 @@ macro_rules! rev_content_path {
 
 pub const CONTENT_DIR: &str = rev_content_path!("");
 pub const PACK_DIR: &str = rev_content_path!("/pack");
+/// What packs made, reused while their sources are unchanged.
+pub const PACK_CACHE_DIR: &str = concat!("data/pack-cache/", env!("REV"));
 
-#[cfg(rev = "225")]
-pub(crate) mod jag_crc {
-    pub const TITLE: Option<i32> = Some(-430779560);
-    pub const CONFIG: Option<i32> = Some(511217062);
-    pub const INTERFACE: Option<i32> = Some(1614084464);
-    pub const MEDIA: Option<i32> = Some(-343404987);
-    pub const MODELS: Option<i32> = Some(-2000991154);
-    pub const TEXTURES: Option<i32> = Some(1703545114);
-    pub const WORDENC: Option<i32> = Some(1570981179);
-    pub const SOUNDS: Option<i32> = Some(-1532605973);
+fn open_cache(dir: Option<&Path>) -> Option<Session> {
+    let dir = dir?;
+    incremental::open(dir)
+        .inspect_err(|e| warn!("Packing without the cache in {}: {e:#}", dir.display()))
+        .ok()
 }
 
-#[cfg(rev = "244")]
-pub(crate) mod jag_crc {
-    pub const TITLE: Option<i32> = Some(126707642);
-    pub const CONFIG: Option<i32> = Some(1573679574);
-    pub const INTERFACE: Option<i32> = Some(2074207176);
-    pub const MEDIA: Option<i32> = Some(-151945349);
-    pub const MODELS: Option<i32> = None;
-    pub const TEXTURES: Option<i32> = Some(245278618);
-    pub const WORDENC: Option<i32> = Some(-87627495);
-    pub const SOUNDS: Option<i32> = Some(-855112082);
-    pub const VERSIONLIST: Option<i32> = Some(-390182005);
-}
-
-#[cfg(rev = "245.2")]
-pub(crate) mod jag_crc {
-    pub const TITLE: Option<i32> = Some(126707642);
-    pub const CONFIG: Option<i32> = Some(219495412);
-    pub const INTERFACE: Option<i32> = Some(1539972921);
-    pub const MEDIA: Option<i32> = Some(353992155);
-    pub const MODELS: Option<i32> = None;
-    pub const TEXTURES: Option<i32> = Some(-1885459577);
-    pub const WORDENC: Option<i32> = Some(-87627495);
-    pub const SOUNDS: Option<i32> = Some(-1625923170);
-    pub const VERSIONLIST: Option<i32> = Some(-1979342254);
-}
-
-#[cfg(rev = "254")]
-pub(crate) mod jag_crc {
-    pub const TITLE: Option<i32> = Some(1187152444);
-    pub const CONFIG: Option<i32> = Some(1524313696);
-    pub const INTERFACE: Option<i32> = Some(531876099);
-    pub const MEDIA: Option<i32> = Some(-374324307);
-    pub const MODELS: Option<i32> = None;
-    pub const TEXTURES: Option<i32> = Some(-1826159457);
-    pub const WORDENC: Option<i32> = Some(1385372455);
-    pub const SOUNDS: Option<i32> = Some(392114586);
-    pub const VERSIONLIST: Option<i32> = Some(-128580638);
-}
-
-#[cfg(rev = "274")]
-pub(crate) mod jag_crc {
-    pub const TITLE: Option<i32> = Some(410306098);
-    pub const CONFIG: Option<i32> = Some(-433051697);
-    pub const INTERFACE: Option<i32> = Some(2135735991);
-    pub const MEDIA: Option<i32> = Some(1861649167);
-    pub const MODELS: Option<i32> = None;
-    pub const TEXTURES: Option<i32> = Some(915347346);
-    pub const WORDENC: Option<i32> = Some(1386621111);
-    pub const SOUNDS: Option<i32> = Some(-759577225);
-    pub const VERSIONLIST: Option<i32> = Some(-322040827);
-}
-
-#[cfg(rev = "289")]
-pub(crate) mod jag_crc {
-    pub const TITLE: Option<i32> = Some(-564448443);
-    pub const CONFIG: Option<i32> = Some(1760335781);
-    pub const INTERFACE: Option<i32> = Some(123011849);
-    pub const MEDIA: Option<i32> = Some(-1710005394);
-    pub const MODELS: Option<i32> = None;
-    pub const TEXTURES: Option<i32> = Some(915347346);
-    pub const WORDENC: Option<i32> = Some(455063218);
-    pub const SOUNDS: Option<i32> = Some(-1491954823);
-    pub const VERSIONLIST: Option<i32> = Some(-868295148);
+fn finish_cache(session: Option<Session>) {
+    if let Some(session) = session
+        && let Err(e) = session.finish()
+    {
+        warn!("Couldn't keep the pack cache: {e:#}");
+    }
 }
 
 #[cfg(rev = "225")]
@@ -232,42 +246,132 @@ pub(crate) mod config_crc {
     pub const HUNT: i32 = 1104745215;
 }
 
-#[cfg(rev = "225")]
-const CRC_KEYS: [&str; 8] = [
-    "title",
-    "config",
-    "interface",
-    "media",
-    "models",
-    "textures",
-    "wordenc",
-    "sounds",
+#[cfg(rev = "647")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = -66602266;
+    // Includes the restored loc definitions covered by the group CRC gate.
+    pub const LOC: i32 = 538701052;
+    pub const FLO: i32 = 321707212;
+    pub const SPOTANIM: i32 = 1788539353;
+    pub const OBJ: i32 = 896458165;
+    pub const NPC: i32 = -1000029806;
+    pub const IDK: i32 = 50920008;
+    pub const VARP: i32 = 1704792051;
+    pub const VARPSTR: i32 = -1751999962;
+    pub const VARBIT: i32 = 763651066;
+    pub const PARAM: i32 = 1671102909;
+    pub const ENUM: i32 = -2002672615;
+    pub const INV: i32 = -331361170;
+    pub const STRUCT: i32 = 293771491;
+    pub const FLU: i32 = -1744098420;
+    pub const HUNT: i32 = 1389808433;
+    pub const MESANIM: i32 = -1012851422;
+    pub const VARS: i32 = -1236602203;
+    pub const VARSSTR: i32 = -1095511195;
+    pub const VARN: i32 = 2129060492;
+    pub const DBTABLE: i32 = 1145177955;
+    pub const DBROW: i32 = 2013865111;
+    pub const BAS: i32 = -1911964791;
+    pub const CURSOR: i32 = -719985808;
+    pub const HITMARK: i32 = 313095873;
+    pub const PARTICLEEFFECTOR: i32 = 907423376;
+    pub const PARTICLEEMITTER: i32 = -1058173084;
+    pub const BILLBOARD: i32 = -1519818244;
+    pub const LIGHT: i32 = -1541305497;
+    pub const MEL: i32 = 1237876085;
+    pub const MSI: i32 = 390525203;
+    pub const QUEST: i32 = -824626290;
+    pub const VARC: i32 = 57638886;
+    pub const VARCSTR: i32 = -1218318004;
+    pub const VARCLANSETTING: i32 = -904846536;
+    pub const AREA: i32 = 402829966;
+    pub const VAROBJ: i32 = -1949850762;
+}
+
+pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
+    ("seq", config_crc::SEQ),
+    ("loc", config_crc::LOC),
+    ("flo", config_crc::FLO),
+    ("spotanim", config_crc::SPOTANIM),
+    ("obj", config_crc::OBJ),
+    ("npc", config_crc::NPC),
+    ("idk", config_crc::IDK),
+    ("varp", config_crc::VARP),
+    #[cfg(since_254)]
+    ("varpbit", config_crc::VARBIT),
+    #[cfg(since_274)]
+    ("mesanim", config_crc::MESANIM),
+    #[cfg(all(since_274, before_647))]
+    ("mes", config_crc::MES),
+    #[cfg(since_274)]
+    ("param", config_crc::PARAM),
+    #[cfg(since_274)]
+    ("hunt", config_crc::HUNT),
+    #[cfg(since_647)]
+    ("enum", config_crc::ENUM),
+    #[cfg(since_647)]
+    ("inv", config_crc::INV),
+    #[cfg(since_647)]
+    ("struct", config_crc::STRUCT),
+    #[cfg(since_647)]
+    ("flu", config_crc::FLU),
+    #[cfg(since_647)]
+    ("vars", config_crc::VARS),
+    #[cfg(since_647)]
+    ("varpstr", config_crc::VARPSTR),
+    #[cfg(since_647)]
+    ("varsstr", config_crc::VARSSTR),
+    #[cfg(since_647)]
+    ("varn", config_crc::VARN),
+    #[cfg(since_647)]
+    ("dbtable", config_crc::DBTABLE),
+    #[cfg(since_647)]
+    ("dbrow", config_crc::DBROW),
+    #[cfg(since_647)]
+    ("bas", config_crc::BAS),
+    #[cfg(since_647)]
+    ("cursor", config_crc::CURSOR),
+    #[cfg(since_647)]
+    ("hitmark", config_crc::HITMARK),
+    #[cfg(since_647)]
+    ("billboard", config_crc::BILLBOARD),
+    #[cfg(since_647)]
+    ("particleeffector", config_crc::PARTICLEEFFECTOR),
+    #[cfg(since_647)]
+    ("particleemitter", config_crc::PARTICLEEMITTER),
+    #[cfg(since_647)]
+    ("light", config_crc::LIGHT),
+    #[cfg(since_647)]
+    ("mel", config_crc::MEL),
+    #[cfg(since_647)]
+    ("msi", config_crc::MSI),
+    #[cfg(since_647)]
+    ("quest", config_crc::QUEST),
+    #[cfg(since_647)]
+    ("varc", config_crc::VARC),
+    #[cfg(since_647)]
+    ("varcstr", config_crc::VARCSTR),
+    #[cfg(since_647)]
+    ("varclansetting", config_crc::VARCLANSETTING),
+    #[cfg(since_647)]
+    ("area", config_crc::AREA),
+    #[cfg(since_647)]
+    ("varobj", config_crc::VAROBJ),
 ];
 
-#[cfg(since_244)]
-const CRC_KEYS: [&str; 8] = [
-    "title",
-    "config",
-    "interface",
-    "media",
-    "versionlist",
-    "textures",
-    "wordenc",
-    "sounds",
-];
-
+#[cfg(before_647)]
 fn insert_jag(
     crcs: &mut HashMap<&'static str, i32>,
     packs: &mut HashMap<&'static str, Arc<[u8]>>,
-    name: &'static str,
+    kind: JagArchive,
     data: Vec<u8>,
-    expected_crc: Option<i32>,
     verify: bool,
 ) {
+    let name = kind.name();
     if data.is_empty() {
         panic!("Jag file is empty");
     }
-    if let (true, Some(expected)) = (verify, expected_crc) {
+    if let (true, Some(expected)) = (verify, kind.expected_crc()) {
         let actual = crc::getcrc(&data, 0, data.len());
         if actual != expected {
             panic!("CRC mismatch ['{name}']: Got: {actual}, Expected: {expected}");
@@ -279,7 +383,22 @@ fn insert_jag(
     packs.insert(name, Arc::from(data));
 }
 
-fn unwrap_thread<T>(name: &str, result: std::thread::Result<T>) -> T {
+/// A builder's output, reused while its sources and `deps` are as an earlier
+/// pack found them.
+#[cfg(before_647)]
+fn cached(
+    name: &str,
+    sources: Vec<PathBuf>,
+    deps: Vec<(String, Key)>,
+    build: impl FnOnce() -> Vec<u8>,
+) -> Vec<u8> {
+    let stage = Stage::new(name, deps);
+    let output = stage.unit(0, &sources, || anyhow::Ok(build()));
+    stage.finish(Vec::new());
+    output.unwrap_or_else(|e| panic!("{name}: {e:#}"))
+}
+
+fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
     result.unwrap_or_else(|e| {
         let msg = if let Some(s) = e.downcast_ref::<&str>() {
             s.to_string()
@@ -300,65 +419,35 @@ pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvi
     Ok(ScriptProvider::from_bytes(&dat, &idx))
 }
 
-fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
-    static NEXT: AtomicU64 = AtomicU64::new(0);
-    let nanos = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_or(0, |d| d.as_nanos());
-    let private = std::env::temp_dir().join(format!(
-        "rs-pack-{}-{nanos}-{}",
-        std::process::id(),
-        NEXT.fetch_add(1, Ordering::Relaxed)
-    ));
-    fs::create_dir(&private).map_err(|e| anyhow::anyhow!("creating {}: {e}", private.display()))?;
-    let compiled = copy_pack(pack, &private).and_then(|()| {
-        let bytes = runec::compile_memory(source, Some(&private), false)
-            .map_err(|e| anyhow::anyhow!("{e}"))?;
-        pin_script_ids(pack, &private);
-        Ok(bytes)
-    });
-    if let Err(e) = fs::remove_dir_all(&private) {
-        warn!("Couldn't remove {}: {e}", private.display());
-    }
-    compiled
-}
-
-/// Copies the files of `pack` into the empty directory `to`.
-fn copy_pack(pack: &Path, to: &Path) -> anyhow::Result<()> {
-    let copy = || -> std::io::Result<()> {
-        for entry in fs::read_dir(pack)? {
-            let entry = entry?;
-            if entry.file_type()?.is_file() {
-                fs::copy(entry.path(), to.join(entry.file_name()))?;
-            }
-        }
-        Ok(())
-    };
-    copy().map_err(|e| anyhow::anyhow!("copying {} to compile against: {e}", pack.display()))
-}
-
-fn pin_script_ids(pack: &Path, private: &Path) {
-    let Ok(pinned) = fs::read(private.join("script.pack")) else {
-        return;
-    };
-    let shipped = pack.join("script.pack");
-    if fs::read(&shipped).is_ok_and(|old| old == pinned) {
-        return;
-    }
-    let tag = private.file_name().unwrap_or_default().to_string_lossy();
-    let tmp = pack.join(format!("script.pack.{tag}.tmp"));
-    if let Err(e) = fs::write(&tmp, &pinned).and_then(|()| fs::rename(&tmp, &shipped)) {
-        warn!("Couldn't update {}: {e}", shipped.display());
-        let _ = fs::remove_file(&tmp);
-    }
-}
-
+/// Packs `source` for the server. With a `cache` directory, what an earlier
+/// pack made from sources that haven't changed since is reused.
+#[cfg(since_647)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
+    cache: Option<&Path>,
+    verify: bool,
+    members: bool,
+) -> anyhow::Result<startup::PackResult> {
+    let session = open_cache(cache);
+    let result = ThreadPoolBuilder::new()
+        .build()?
+        .install(|| startup::pack_all(source, pack, verify, members))?;
+    finish_cache(session);
+    Ok(result)
+}
+
+/// Packs `source` for the server. With a `cache` directory, what an earlier
+/// pack made from sources that haven't changed since is reused.
+#[cfg(before_647)]
+pub fn pack_all(
+    source: &Path,
+    pack: &Path,
+    cache: Option<&Path>,
     verify: bool,
     members: bool,
 ) -> anyhow::Result<(Box<CacheStore>, ScriptProvider)> {
+    let session = open_cache(cache);
     debug!("Packing assets...");
     debug!("  source: {}", source.display());
     debug!("  pack:   {}", pack.display());
@@ -366,6 +455,8 @@ pub fn pack_all(
         debug!("  mode:   VERIFY (strict)");
     }
 
+    let config_files = ConfigFiles::new(&source.join("scripts"));
+    check_configs(&config_files, pack, verify)?;
     let registry = PackRegistry::load(pack)?;
 
     // Run independent packing tasks in parallel using scoped threads.
@@ -392,7 +483,7 @@ pub fn pack_all(
         multimap,
         freemap,
         worldmap,
-    ) = std::thread::scope(|s| {
+    ) = thread::scope(|s| {
         let h_scripts = s.spawn(|| {
             debug!("Compiling RuneScript sources...");
             match compile_runescript(source, pack) {
@@ -400,18 +491,49 @@ pub fn pack_all(
                 Err(e) => panic!("RuneScript compilation failed: {}", e),
             }
         });
-        let h_assets = s.spawn(|| pack::pack::pack_assets(&registry, source, verify));
-        let h_media = s.spawn(|| pack::media::pack_media_jag(source));
-        let h_textures = s.spawn(|| pack::texture::pack_textures_jag(&registry, source));
-        let h_title = s.spawn(|| pack::title::pack_title_jag(source));
-        let h_models = s.spawn(|| pack::model::pack_models(&registry, source, pack));
-        let h_sounds = s.spawn(|| pack::sound::pack_sounds(&registry, source, pack));
-        let h_wordenc = s.spawn(|| pack::wordenc::pack_wordenc(source));
-        let h_jingles = s.spawn(|| other::jingle::pack_jingles(source));
-        let h_songs = s.spawn(|| other::song::pack_songs(source));
-        let h_maps = s.spawn(|| other::map::pack_maps(source));
+        let h_assets = s.spawn(|| pack_config_files(&config_files, pack, verify));
+        let h_media = s.spawn(|| {
+            let sources = files_under(&[source.join("sprites")]);
+            cached("media", sources, Vec::new(), || pack_media_jag(source))
+        });
+        let h_textures = s.spawn(|| {
+            let mut sources = files_under(&[source.join("textures")]);
+            sources.push(pack.join("texture.pack"));
+            cached("textures", sources, Vec::new(), || {
+                pack_textures_jag(&registry, source)
+            })
+        });
+        let h_title = s.spawn(|| {
+            let mut sources = files_under(&[source.join("title"), source.join("fonts")]);
+            sources.push(source.join("binary").join("title.jpg"));
+            cached("title", sources, Vec::new(), || pack_title_jag(source))
+        });
+        let h_models = s.spawn(|| {
+            let mut sources = files_under(&[source.join("models")]);
+            for name in ["model", "anim", "base"] {
+                sources.push(pack.join(format!("{name}.order")));
+                sources.push(pack.join(format!("{name}.pack")));
+            }
+            cached("models", sources, Vec::new(), || {
+                pack_models(&registry, source, pack)
+            })
+        });
+        let h_sounds = s.spawn(|| {
+            let mut sources = files_under(&[source.join("synth")]);
+            sources.extend([pack.join("synth.order"), pack.join("synth.pack")]);
+            cached("sounds", sources, Vec::new(), || {
+                pack_sounds(&registry, source, pack)
+            })
+        });
+        let h_wordenc = s.spawn(|| {
+            let sources = files_under(&[source.join("wordenc")]);
+            cached("wordenc", sources, Vec::new(), || pack_wordenc(source))
+        });
+        let h_jingles = s.spawn(|| pack_midis(source, "jingles"));
+        let h_songs = s.spawn(|| pack_midis(source, "songs"));
+        let h_maps = s.spawn(|| pack_maps(source));
         #[cfg(since_244)]
-        let h_ondemand = s.spawn(|| build_ondemand_artifacts(source, pack, 5));
+        let h_ondemand = s.spawn(|| build_ondemand_artifacts(source, pack));
 
         let assets = unwrap_thread("assets", h_assets.join()).unwrap();
         let (mapsquares, mapcrcs, multimap, freemap, worldmap) =
@@ -422,7 +544,18 @@ pub fn pack_all(
             let dat = |name: &str| assets[name].server.dat.clone();
             let (flo, loc, npc) = (dat("flo"), dat("loc"), dat("npc"));
             let (multimap, freemap) = (multimap.clone(), freemap.clone());
-            s.spawn(move || worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap))
+            s.spawn(move || {
+                let dirs = ["maps", "worldmap", "sprites", "fonts"].map(|dir| source.join(dir));
+                let configs = Hash::new("configs")
+                    .bytes(&flo)
+                    .bytes(&loc)
+                    .bytes(&npc)
+                    .key();
+                let deps = vec![("configs".to_owned(), configs)];
+                cached("worldmap", files_under(&dirs), deps, || {
+                    worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap)
+                })
+            })
         };
         let (script_dat, script_idx) = unwrap_thread("scripts", h_scripts.join());
         let media = unwrap_thread("media", h_media.join());
@@ -455,9 +588,8 @@ pub fn pack_all(
     insert_jag(
         &mut crcs,
         &mut jags,
-        "config",
+        JagArchive::Config,
         assemble_config_jag(&mut assets, pack),
-        jag_crc::CONFIG,
         verify,
     );
 
@@ -465,56 +597,26 @@ pub fn pack_all(
     insert_jag(
         &mut crcs,
         &mut jags,
-        "interface",
+        JagArchive::Interface,
         assemble_interface_jag(&mut assets),
-        jag_crc::INTERFACE,
         verify,
     );
 
-    insert_jag(&mut crcs, &mut jags, "media", media, jag_crc::MEDIA, verify);
+    insert_jag(&mut crcs, &mut jags, JagArchive::Media, media, verify);
     // Served for the website's map viewer; not in the client's CRC table.
     jags.insert("worldmap", Arc::from(worldmap));
-    insert_jag(
-        &mut crcs,
-        &mut jags,
-        "textures",
-        textures,
-        jag_crc::TEXTURES,
-        verify,
-    );
-    insert_jag(&mut crcs, &mut jags, "title", title, jag_crc::TITLE, verify);
-    insert_jag(
-        &mut crcs,
-        &mut jags,
-        "models",
-        models,
-        jag_crc::MODELS,
-        verify,
-    );
-    insert_jag(
-        &mut crcs,
-        &mut jags,
-        "sounds",
-        sounds,
-        jag_crc::SOUNDS,
-        verify,
-    );
-    insert_jag(
-        &mut crcs,
-        &mut jags,
-        "wordenc",
-        wordenc,
-        jag_crc::WORDENC,
-        verify,
-    );
+    insert_jag(&mut crcs, &mut jags, JagArchive::Textures, textures, verify);
+    insert_jag(&mut crcs, &mut jags, JagArchive::Title, title, verify);
+    insert_jag(&mut crcs, &mut jags, JagArchive::Models, models, verify);
+    insert_jag(&mut crcs, &mut jags, JagArchive::Sounds, sounds, verify);
+    insert_jag(&mut crcs, &mut jags, JagArchive::Wordenc, wordenc, verify);
 
     #[cfg(since_244)]
     insert_jag(
         &mut crcs,
         &mut jags,
-        "versionlist",
+        JagArchive::VersionList,
         ondemand.version_list,
-        jag_crc::VERSIONLIST,
         verify,
     );
     #[cfg(all(since_244, before_274))]
@@ -526,8 +628,8 @@ pub fn pack_all(
 
     // Build CRC table
     let mut crctable = [0; 9];
-    for (i, &key) in CRC_KEYS.iter().enumerate() {
-        if let Some(&data) = crcs.get(key) {
+    for (i, kind) in JAG_ARCHIVES.iter().enumerate() {
+        if let Some(&data) = crcs.get(kind.name()) {
             crctable[i + 1] = data;
         }
     }
@@ -541,7 +643,7 @@ pub fn pack_all(
     };
     let crctable_bytes = Arc::from(crc_bytes);
 
-    let params = build_type_provider::<ParamType>(&assets, "param", ());
+    let params = build_type_provider_into::<ParamTypeRaw, ParamType>(&assets, "param", ());
     let objs = build_type_provider_into::<ObjTypeRaw, ObjType>(
         &assets,
         "obj",
@@ -550,33 +652,33 @@ pub fn pack_all(
             autodisable_params: params.types.iter().map(|p| p.autodisable).collect(),
         },
     );
-    let invs = build_type_provider::<InvType>(&assets, "inv", ());
-    let varps = build_type_provider::<VarPlayerType>(&assets, "varp", ());
+    let invs = build_type_provider_into::<InvTypeRaw, InvType>(&assets, "inv", ());
+    let varps = build_type_provider_into::<VarPlayerTypeRaw, VarPlayerType>(&assets, "varp", ());
     #[cfg(since_254)]
-    let varbits = build_type_provider::<VarbitType>(&assets, "varbit", ());
+    let varbits = build_type_provider::<VarbitType>(&assets, "varpbit", ());
     let dbrows = build_type_provider::<DbRowType>(&assets, "dbrow", ());
     let dbtables = build_type_provider::<DbTableType>(&assets, "dbtable", ());
     let db_index = DbTableIndex::build(&dbtables, &dbrows);
-    let enums = build_type_provider::<EnumType>(&assets, "enum", ());
-    let flos = build_type_provider::<FloType>(&assets, "flo", ());
+    let enums = build_type_provider_into::<EnumTypeRaw, EnumType>(&assets, "enum", ());
+    let flos = build_type_provider_into::<FloTypeRaw, FloType>(&assets, "flo", ());
     let hunts = build_type_provider::<HuntType>(&assets, "hunt", ());
     let idks = build_type_provider_into::<IdkTypeRaw, IdkType>(&assets, "idk", ());
     let locs = build_type_provider_into::<LocTypeRaw, LocType>(&assets, "loc", ());
     let mesanims = build_type_provider::<MesAnimType>(&assets, "mesanim", ());
     let npcs = build_type_provider_into::<NpcTypeRaw, NpcType>(&assets, "npc", ());
     #[cfg(rev = "225")]
-    let seq_frames = cache::seq_frame::SeqFrameProvider::from_jag(
+    let seq_frames = SeqFrameProvider::from_jag(
         jags.get("models")
             .expect("Missing models JAG for seq frames"),
     );
     #[cfg(rev = "225")]
     let seq_frame_delays = seq_frames.delays.clone();
     #[cfg(since_244)]
-    let seq_frame_delays = cache::seq_frame::anim_frame_delays(source);
+    let seq_frame_delays = anim_frame_delays(source);
     let seqs = build_type_provider_into::<SeqTypeRaw, SeqType>(&assets, "seq", seq_frame_delays);
     let spotanims =
         build_type_provider_into::<SpotAnimTypeRaw, SpotAnimType>(&assets, "spotanim", ());
-    let structs = build_type_provider::<StructType>(&assets, "struct", ());
+    let structs = build_type_provider_into::<StructTypeRaw, StructType>(&assets, "struct", ());
     let varns = build_type_provider::<VarnType>(&assets, "varn", ());
     let varss = build_type_provider::<VarsType>(&assets, "vars", ());
     let categories = build_type_provider::<CategoryType>(&assets, "category", ());
@@ -659,8 +761,8 @@ pub fn pack_all(
 
     #[cfg(all(since_244, before_274))]
     let build: Arc<[u8]> = {
-        let secs = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
+        let secs = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
             .map(|d| d.as_secs() as u32)
             .unwrap_or(0);
         Arc::from(secs.to_be_bytes().to_vec())
@@ -718,9 +820,11 @@ pub fn pack_all(
     });
 
     debug!("CacheStore built successfully");
+    finish_cache(session);
     Ok((store, scripts))
 }
 
+#[cfg(before_647)]
 fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     let dir = Path::new("public");
     let mut assets = HashMap::new();
@@ -735,13 +839,14 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     assets
 }
 
+#[cfg(before_647)]
 fn load_assets_recursive(
     base: &Path,
     dir: &Path,
     recurse: bool,
     assets: &mut HashMap<Box<str>, Arc<[u8]>>,
 ) {
-    let Ok(entries) = std::fs::read_dir(dir) else {
+    let Ok(entries) = fs::read_dir(dir) else {
         return;
     };
     for entry in entries.flatten() {
@@ -750,7 +855,7 @@ fn load_assets_recursive(
             if recurse {
                 load_assets_recursive(base, &path, recurse, assets);
             }
-        } else if let Ok(data) = std::fs::read(&path) {
+        } else if let Ok(data) = fs::read(&path) {
             let key = path
                 .strip_prefix(base)
                 .unwrap_or(&path)
@@ -762,34 +867,35 @@ fn load_assets_recursive(
     }
 }
 
-fn build_type_provider<T: cache::provider::CacheType>(
-    assets: &HashMap<String, pack::pack_registry::PackedFile>,
+#[cfg(before_647)]
+fn build_type_provider<T: CacheType>(
+    assets: &HashMap<String, PackedFile>,
     name: &str,
     ctx: T::Context,
 ) -> TypeProvider<T> {
     build_type_provider_into::<T, T>(assets, name, ctx)
 }
 
+#[cfg(before_647)]
 fn build_type_provider_into<Raw, Stored>(
-    assets: &HashMap<String, pack::pack_registry::PackedFile>,
+    assets: &HashMap<String, PackedFile>,
     name: &str,
     ctx: Raw::Context,
 ) -> TypeProvider<Stored>
 where
-    Raw: cache::provider::CacheType,
+    Raw: CacheType,
     Stored: From<Raw>,
 {
     let packed_file = assets
         .get(name)
         .unwrap_or_else(|| panic!("Missing packed data for {name}"));
-    TypeProvider::from_bytes::<Raw>(&packed_file.server.dat, ctx)
+    TypeProvider::from_indexed_bytes::<Raw>(&packed_file.server.dat, &packed_file.server.idx, ctx)
+        .unwrap_or_else(|error| panic!("Invalid {name} configs: {error}"))
 }
 
-fn assemble_config_jag(
-    assets: &mut HashMap<String, pack::pack_registry::PackedFile>,
-    pack_dir: &Path,
-) -> Vec<u8> {
-    let order: Vec<String> = std::fs::read_to_string(pack_dir.join("config.order"))
+#[cfg(before_647)]
+fn assemble_config_jag(assets: &mut HashMap<String, PackedFile>, pack_dir: &Path) -> Vec<u8> {
+    let order: Vec<String> = fs::read_to_string(pack_dir.join("config.order"))
         .expect("Missing config.order")
         .lines()
         .map(str::trim)
@@ -800,14 +906,16 @@ fn assemble_config_jag(
     let mut clients: HashMap<&str, _> = HashMap::new();
     for entry in &order {
         let kind = entry.split_once('.').map_or(entry.as_str(), |(k, _)| k);
+        let config = if kind == "varbit" { "varpbit" } else { kind };
         if !clients.contains_key(kind)
-            && let Some(client) = assets.get_mut(kind).and_then(|pf| pf.client.take())
+            && let Some(client) = assets.get_mut(config).and_then(|pf| pf.client.take())
         {
             clients.insert(kind, client);
         }
     }
 
     let mut jag = JagFile::new();
+    let mut inputs = Hash::new("config.jag");
     let mut has_data = false;
     for entry in &order {
         let Some((kind, ext)) = entry.split_once('.') else {
@@ -815,35 +923,36 @@ fn assemble_config_jag(
         };
         if let Some(client) = clients.get_mut(kind) {
             let data = if ext == "idx" {
-                std::mem::take(&mut client.idx)
+                take(&mut client.idx)
             } else {
-                std::mem::take(&mut client.dat)
+                take(&mut client.dat)
             };
+            inputs.bytes(entry.as_bytes()).bytes(&data);
             jag.write(entry, data);
             has_data = true;
         }
     }
     if has_data {
-        jag.build(JagCompression::PerFile)
+        remember(inputs.key(), || jag.build(JagArchive::Config.compression()))
     } else {
         Vec::new()
     }
 }
 
-fn assemble_interface_jag(
-    assets: &mut HashMap<String, pack::pack_registry::PackedFile>,
-) -> Vec<u8> {
+#[cfg(before_647)]
+fn assemble_interface_jag(assets: &mut HashMap<String, PackedFile>) -> Vec<u8> {
     if let Some(packed_file) = assets.get_mut("interface")
         && let Some(client) = packed_file.client.take()
     {
         let mut jag = JagFile::new();
+        let key = Hash::new("interface.jag").bytes(&client.dat).key();
         jag.write("data", client.dat);
-        return jag.build(JagCompression::WholeArchive);
+        return remember(key, || jag.build(JagArchive::Interface.compression()));
     }
     Vec::new()
 }
 
-#[cfg(since_274)]
+#[cfg(all(since_274, before_647))]
 fn crc_table_footer(crctable: &[i32]) -> i32 {
     let mut acc: i32 = 1234;
     for &c in crctable {

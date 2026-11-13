@@ -1,0 +1,49 @@
+// 289's island moves on when the client sends TUTORIAL_CLICKSIDE for a tab
+// click ([tutorial,_], now tutorial.rs2's tutorial_clickside). 2011's client
+// sends no such packet (647's client prots, rs-protocol client_prot.rs), but
+// its tab stones carry an op1 the server hears (IF_BUTTON1): cache 786's
+// toplevel (548) stones 128-135 and 99-105 and toplevel_fullscreen (746)
+// stones 36-43 and 45-51 each have active_properties 2 or 1026 (op1 on), op1
+// the tab's name and onop clientscript 1303 with the tab's index.
+//
+// 289's server takes any tab click as the step's ([tutorial,_] reads no tab);
+// which clicks 289's client reported, no source here shows. A click moves the
+// island on when it is on the tab the step points at (its tut_flash, in
+// tut_chatbox_steps.rs2), so a click on another tab does not hand out the
+// step's items.
+// The stones' triggers are general/side_stones.rs2's, shared with Unstable Foundations.
+
+// 289's ignore tab: 2011's friends tab's "Show ignore" (friends2:ignore_button, op1,
+// active_properties 2, cache 786).
+[if_button,friends2:ignore_button] ~tutorial_tab_clicked(^tab_tutorial_ignore);
+
+[proc,tutorial_tab_clicked](int $tab)
+if (%varplayer_419 >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {
+    return;
+}
+if ($tab ! ~tutorial_flashing_tab) {
+    return;
+}
+// a tab button runs unprotected, and 289's [tutorial,_] ran protected
+if (p_finduid(uid) = true) {
+    ~tutorial_clickside;
+}
+
+// The tab each step points at: 289's tut_flash calls (tut_chatbox_steps.rs2),
+// by 2011's tab.
+[proc,tutorial_flashing_tab]()(int)
+switch_int (%varplayer_419) {
+    case 2 : return(^tab_options);
+    case ^newbie_survival_instructor_open_inventory : return(^tab_inventory);
+    case ^newbie_survival_instructor_open_skill_menu : return(^tab_stats);
+    case ^newbie_cook_instructor_baked_bread : return(^tab_music);
+    case ^newbie_cook_instructor_completed : return(^tab_emotes);
+    case ^newbie_quest_instructor_open_menu : return(^tab_quests);
+    case ^newbie_combat_instructor_wielding_weapons : return(^tab_equipment);
+    case ^newbie_combat_instructor_open_combat_interface : return(^tab_combat);
+    case ^brother_noob_open_prayer_tab : return(^tab_prayer);
+    case ^brother_noob_after_prayer_tab : return(^tab_friends);
+    case ^brother_noob_open_friends_tab : return(^tab_tutorial_ignore);
+    case ^tutorial_open_magic_tab : return(^tab_magic);
+    case default : return(-1);
+}

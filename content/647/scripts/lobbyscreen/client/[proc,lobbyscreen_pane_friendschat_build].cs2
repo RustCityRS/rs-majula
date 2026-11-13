@@ -1,0 +1,120 @@
+// 4559
+[proc,lobbyscreen_pane_friendschat_build](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if (minimenuopen($component3, -1) = true) {
+    if_setontimer($component4, "lobbyscreen_pane_friendschat_build($component0, $component1, $component2, $component3, $component4, $component5)");
+    return;
+} else {
+    if_setontimer($component4, null);
+}
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int6 = 0;
+def_int $int7 = clan_getchatcount;
+def_int $int8 = 0;
+def_string $string0 = "";
+def_int $int9 = 15;
+def_int $int10 = 17;
+def_int $rgb11 = ^black;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_string $string1 = "";
+def_int $int17 = 0;
+if ($int7 <= 0) {
+    if_settext(lobbyscreen_pane_friendschat:clan_detail_name_text, "Not in chat");
+    if_settext(lobbyscreen_pane_friendschat:clan_detail_owner_text, "None");
+    if_settext(lobbyscreen_pane_friendschat:clan_join_button_text, "Join Chat Channel");
+    if_setop(lobbyscreen_pane_friendschat:clan_join_button, 1, "Join Chat Channel");
+    ~script4560("You are not currently in a Friends Chat channel.<br><br>Use the button below if you wish to join a chat channel.", $component3);
+    if_setsize(lobbyscreen_pane_friendschat:clan_vdiv, if_getwidth(lobbyscreen_pane_friendschat:clan_vdiv), if_getheight(lobbyscreen_pane_friendschat:clan_titles), ^setsize_abs, ^setsize_abs);
+    if_setscrollsize(lobbyscreen_pane_friendschat:clan_main, 0, 0);
+    if_setscrollpos(lobbyscreen_pane_friendschat:clan_main, 0, 0);
+    ~scrollbar_resize(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, 0);
+} else {
+    if_settext(lobbyscreen_pane_friendschat:clan_detail_name_text, clan_getchatdisplayname);
+    if_settext(lobbyscreen_pane_friendschat:clan_detail_owner_text, clan_getchatownername);
+    if_settext(lobbyscreen_pane_friendschat:clan_join_button_text, "Leave chat channel");
+    if_setop(lobbyscreen_pane_friendschat:clan_join_button, 1, "Leave chat channel");
+    if_setsize(lobbyscreen_pane_friendschat:clan_vdiv, if_getwidth(lobbyscreen_pane_friendschat:clan_vdiv), 4, ^setsize_abs, ^setsize_minus);
+    while ($int8 < $int7) {
+        $int16 = clan_getchatuserrank($int8);
+        $string1 = clan_getchatusername_unfiltered($int8);
+        $string0 = clan_getchatusername($int8);
+        ~cc_add_rect($component3, $int8, if_getwidth($component3), $int9, 0, $int12, ^black, true, 0);
+        if (calc($int8 % 2) = 0) {
+            cc_setcolour(0x201911);
+        } else {
+            cc_setcolour(0x292016);
+        }
+        cc_setonmouseover("script4561($component3, $int8, $int16)");
+        cc_setonmouseleave("script4563($component3, $int8)");
+        if (clan_isself($int8) = false) {
+            cc_setonop("lobbyscreen_pane_friendschat_op($string1, event_op)");
+            if (friend_test(removetags($string1)) = true) {
+                cc_setop(8, "Remove friend <$string0>");
+            } else if (ignore_test(removetags($string1)) = true) {
+                cc_setop(9, "Remove ignore <$string0>");
+            } else {
+                cc_setop(6, "Add friend <$string0>");
+                cc_setop(7, "Add ignore <$string0>");
+            }
+        }
+        if (clan_getchatrank >= clan_getchatminkick & clan_getchatrank > $int16) {
+            cc_setop(10, "Kick/ban <$string0>");
+        }
+        ~cc_add_graphic($component1, $int8, 9, 9, 5, calc($int12 + 2), ~script1599($int16), false, false, false, 0);
+        ~cc_add_text($component0, $int8, 0, $int9, $int10, $int12, $string0, ^white, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        cc_setsize($int10, $int9, ^setsize_minus, ^setsize_abs);
+        cc_setmaxlines(1);
+        $int13 = clan_getchatuserworld($int8);
+        if ($int13 = 0) {
+            $string0 = "Offline";
+            $rgb11 = ^red;
+        } else {
+            $string0 = clan_getchatuserworldname($int8);
+            if ($int13 = map_world) {
+                $rgb11 = ^green;
+            } else {
+                $rgb11 = ^yellow;
+            }
+        }
+        ~cc_add_text($component2, $int8, 0, $int9, 5, $int12, $string0, $rgb11, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        cc_setsize(5, $int9, ^setsize_minus, ^setsize_abs);
+        cc_setmaxlines(1);
+        $int12 = calc($int12 + $int9);
+        $int8 = calc($int8 + 1);
+    }
+    $int14 = calc(if_getheight($component4) / $int9 + 1);
+    if ($int14 > $int7) {
+        while ($int8 < $int14) {
+            ~cc_add_rect($component3, $int8, if_getwidth($component3), $int9, 0, $int12, ^black, true, 0);
+            if (calc($int8 % 2) = 0) {
+                cc_setcolour(0x201911);
+            } else {
+                cc_setcolour(0x292016);
+            }
+            $int12 = calc($int12 + $int9);
+            $int8 = calc($int8 + 1);
+        }
+        $int15 = if_getheight($component4);
+    } else {
+        $int15 = $int12;
+    }
+    if ($int14 <= $int7) {
+        $int17 = if_getscrolly(lobbyscreen_pane_friendschat:clan_main);
+        if_setscrollsize(lobbyscreen_pane_friendschat:clan_main, 0, $int15);
+        if ($int17 > $int15) {
+            $int17 = $int15;
+        }
+        ~scrollbar_resize(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, $int17);
+    } else {
+        if_setscrollsize(lobbyscreen_pane_friendschat:clan_main, 0, 0);
+        if_setscrollpos(lobbyscreen_pane_friendschat:clan_main, 0, 0);
+        ~scrollbar_resize(lobbyscreen_pane_friendschat:clan_build_layer_scroll, lobbyscreen_pane_friendschat:clan_main, 0);
+    }
+}
+~script4573;

@@ -1,0 +1,145 @@
+// 668:0
+[com_0]
+type=text
+x=171
+y=3
+width=132
+height=18
+textfont=q8_full
+text=Pick a Puppy
+textalignh=centre
+colour=0xaa0000
+
+// 668:1
+[com_1]
+type=graphic
+x=304
+y=5
+width=57
+height=13
+graphic="sworddecor,0"
+colour=0xffffffff
+
+// 668:2
+[com_2]
+type=graphic
+x=111
+y=5
+width=57
+height=13
+graphic="sworddecor,1"
+colour=0xffffffff
+
+// 668:3
+[bulldog]
+type=model
+x=119
+y=29
+width=39
+height=37
+layer=bounding_box
+model=model_30551
+modelorigin=4,2
+modelangle=42,1897,0
+modelzoom=325
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(lore_buydog:build_layer)
+onmouserepeat=addtooltip(event_com, lore_buydog:build_layer, "Bulldog", 25, 100)
+
+// 668:4
+[dalmation]
+type=model
+x=181
+y=28
+width=48
+height=41
+layer=bounding_box
+model=model_30542
+modelorigin=8,4
+modelangle=75,1885,0
+modelzoom=250
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(lore_buydog:build_layer)
+onmouserepeat=addtooltip(event_com, lore_buydog:build_layer, "Dalmatian", 25, 100)
+
+// 668:5
+[greyhound]
+type=model
+x=250
+y=32
+width=49
+height=34
+layer=bounding_box
+model=model_30547
+modelorigin=8,7
+modelangle=45,1879,0
+modelzoom=225
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(lore_buydog:build_layer)
+onmouserepeat=addtooltip(event_com, lore_buydog:build_layer, "Greyhound", 25, 100)
+
+// 668:6
+[terrier]
+type=model
+x=312
+y=27
+width=44
+height=43
+layer=bounding_box
+model=model_30561
+modelorigin=0,2
+modelangle=36,1897,0
+modelzoom=400
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(lore_buydog:build_layer)
+onmouserepeat=addtooltip(event_com, lore_buydog:build_layer, "Terrier", 25, 100)
+
+// 668:7
+[sheepdog]
+type=model
+x=375
+y=24
+width=48
+height=45
+layer=bounding_box
+model=model_30557
+modelorigin=9,2
+modelangle=39,1918,0
+modelzoom=400
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(lore_buydog:build_layer)
+onmouserepeat=addtooltip(event_com, lore_buydog:build_layer, "Sheepdog", 25, 100)
+
+// 668:8
+[labrador]
+type=model
+x=53
+y=28
+width=46
+height=37
+layer=bounding_box
+model=model_30564
+modelorigin=8,5
+modelangle=2041,1885,0
+modelzoom=375
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(lore_buydog:build_layer)
+onmouserepeat=addtooltip(event_com, lore_buydog:build_layer, "Labrador", 25, 100)
+
+// 668:9
+[bounding_box]
+type=layer
+width=506
+height=129
+
+// 668:10
+[build_layer]
+type=layer
+width=506
+height=129

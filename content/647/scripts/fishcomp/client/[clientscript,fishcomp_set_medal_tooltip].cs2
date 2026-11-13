@@ -1,0 +1,15 @@
+// 279
+[clientscript,fishcomp_set_medal_tooltip](int $int0, component $component1)
+def_string $string0 = "";
+switch_int ($int0) {
+    case 1 :
+        $string0 = "Found the perfect tackle for three species.";
+    case 2 :
+        $string0 = "Found the perfect tackle for all six species.";
+    case 3 :
+        $string0 = "Achieved an average rating of at least 80%.";
+    case 4 :
+        $string0 = "At least 80% of fish caught were the heaviest species.";
+}
+if_setonmouserepeat($component1, "addtooltip(event_com, fishcomp_scores:medal_tooltip_layer, $string0, 25, 128)");
+if_setonmouseleave($component1, "deltooltip(fishcomp_scores:medal_tooltip_layer)");

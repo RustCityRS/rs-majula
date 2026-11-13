@@ -1,0 +1,136 @@
+// 3971
+[clientscript,script3971]
+def_struct $struct0 = null;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_graphic $graphic3 = null;
+def_component $component4 = null;
+def_int $int5 = 0;
+def_graphic $graphic6 = null;
+def_component $component7 = null;
+def_graphic $graphic8 = null;
+def_component $component9 = null;
+def_component $component10 = null;
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_string $string0 = null;
+if_setgraphic(task_side:area_icon, enum(int, graphic, enum_3491, %varplayerbit_8575));
+if (%varplayerbit_9030 = 1) {
+    if_setgraphic(task_side:area_icon, "stonemenusideicons,3");
+}
+while ($int2 < 6) {
+    switch_int ($int2) {
+        case 0 :
+            $int1 = %varplayerbit_8587;
+            $struct0 = enum(int, struct, enum_3483, %varplayerbit_8587);
+            $component4 = task_side:task_1;
+            $component9 = task_side:com_101;
+            $component7 = task_side:task_set_1;
+            $component10 = task_side:task_layer_1;
+            if_setonop($component10, "task_side_overview_populate(%varplayerbit_8587, 1, event_op)");
+        case 1 :
+            $int1 = %varplayerbit_8588;
+            $struct0 = enum(int, struct, enum_3483, %varplayerbit_8588);
+            $component4 = task_side:task_2;
+            $component9 = task_side:com_146;
+            $component7 = task_side:task_set_2;
+            $component10 = task_side:task_layer_2;
+            if_setonop($component10, "task_side_overview_populate(%varplayerbit_8588, 2, event_op)");
+        case 2 :
+            $int1 = %varplayerbit_8589;
+            $struct0 = enum(int, struct, enum_3483, %varplayerbit_8589);
+            $component4 = task_side:task_3;
+            $component9 = task_side:com_151;
+            $component7 = task_side:task_set_3;
+            $component10 = task_side:task_layer_3;
+            if_setonop($component10, "task_side_overview_populate(%varplayerbit_8589, 3, event_op)");
+        case 3 :
+            $int1 = %varplayerbit_8590;
+            $struct0 = enum(int, struct, enum_3483, %varplayerbit_8590);
+            $component4 = task_side:task_4;
+            $component9 = task_side:com_156;
+            $component7 = task_side:task_set_4;
+            $component10 = task_side:task_layer_4;
+            if_setonop($component10, "task_side_overview_populate(%varplayerbit_8590, 4, event_op)");
+        case 4 :
+            $int1 = %varplayerbit_8591;
+            $struct0 = enum(int, struct, enum_3483, %varplayerbit_8591);
+            $component4 = task_side:task_5;
+            $component9 = task_side:com_161;
+            $component7 = task_side:task_set_5;
+            $component10 = task_side:task_layer_5;
+            if_setonop($component10, "task_side_overview_populate(%varplayerbit_8591, 5, event_op)");
+        case 5 :
+            $int1 = %varplayerbit_8592;
+            $struct0 = enum(int, struct, enum_3483, %varplayerbit_8592);
+            $component4 = task_side:task_6;
+            $component9 = task_side:com_167;
+            $component7 = task_side:task_set_6;
+            $component10 = task_side:task_layer_6;
+            if_setonop($component10, "task_side_overview_populate(%varplayerbit_8592, 6, event_op)");
+    }
+    $string0 = " -<br>";
+    $string0 = append(struct_param($struct0, param_1266), $string0);
+    $string0 = append($string0, struct_param($struct0, param_1273));
+    if (%tutorial_version = 3 & (%tutorial < 1000 | %tutorial3_postquest < 5)) {
+        $string0 = struct_param($struct0, param_1266);
+    }
+    if (~script3999($int1) = 0) {
+        if_setonmouserepeat($component10, "task_side_list_tooltip($component10, $string0)");
+    } else {
+        if_setonmouserepeat($component10, null);
+    }
+    $int12 = calc($int2 + 1);
+    if (%varplayerbit_8577 = $int12 & ~script3999(%varplayerbit_8576) = 0) {
+        $struct0 = enum(int, struct, enum_3483, %varplayerbit_8576);
+        if_setonop($component10, "task_side_overview_populate(%varplayerbit_8576, $int12, event_op)");
+        if (~script3999($int1) = 0) {
+            if_setonmouserepeat($component10, "task_side_list_tooltip($component10, $string0)");
+        } else {
+            if_setonmouserepeat($component10, null);
+        }
+    }
+    if ($struct0 ! null) {
+        $graphic8 = enum(int, graphic, enum_3492, struct_param($struct0, param_1272));
+        if (~task_requirements_quick($int1) = 0 & ~script3999($int1) = 0) {
+            $graphic8 = symbol_lock;
+        }
+        if_setgraphic($component9, $graphic8);
+        $int5 = struct_param($struct0, param_1293);
+        if ($int5 ! 0 & $int5 ! 63) {
+            $graphic6 = small_compass;
+        } else {
+            $graphic6 = null;
+        }
+        if_setgraphic($component7, $graphic6);
+        if (struct_param($struct0, param_1270) ! 4094) {
+            $graphic3 = struct_param(enum(int, struct, enum_2252, struct_param($struct0, param_1270)), param_952);
+        } else {
+            $graphic3 = struct_param($struct0, param_1271);
+        }
+        if_setgraphic($component4, $graphic3);
+        if ($struct0 = struct_1645 | $struct0 = struct_1642 | $struct0 = struct_1643) {
+            if_setop($component10, 1, "");
+            if_setop($component10, 2, "");
+        } else {
+            if_setop($component10, 1, "Summary");
+            if_setop($component10, 2, "Pin/Unpin Task");
+        }
+        if (%tutorial < 1000) {
+            if_setop($component10, 2, "");
+        }
+    }
+    $int2 = calc($int2 + 1);
+}
+if_sethide(task_side:progress_layer, false);
+if_sethide(task_side:area_icon, false);
+if (%varplayerbit_8575 = 61) {
+    if_settext(task_side:area_text, "Quest Area");
+    if_sethide(task_side:progress_layer, true);
+    if_sethide(task_side:area_icon, true);
+} else if (%varplayerbit_9030 = 1) {
+    if_settext(task_side:area_text, "Introductory Tasks");
+} else {
+    if_settext(task_side:area_text, enum(int, string, enum_3487, %varplayerbit_8575));
+}
+~script3975;

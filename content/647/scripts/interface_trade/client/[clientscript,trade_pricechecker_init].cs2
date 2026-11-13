@@ -1,0 +1,4 @@
+// 2182
+[clientscript,trade_pricechecker_init](component $component0, component $component1, component $component2)
+if_setscrollpos($component0, 0, 0);
+~trade_pricechecker_setup($component0, $component1, $component2);

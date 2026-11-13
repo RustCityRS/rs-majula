@@ -1,0 +1,9 @@
+// 4450
+[clientscript,clan_chat_minimenu_timer]
+if (minimenuopen(clan_chat:clanlist, -1) = true) {
+    return;
+}
+if_setontimer(clan_chat:clanlist, null);
+if (activeclanchannel_find_affined = true) {
+    ~clan_chat_refresh_clanlist;
+}

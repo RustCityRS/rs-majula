@@ -1,0 +1,7 @@
+// 2418
+[clientscript,script2418](component $component0)
+if (%peng_rak_eng_tools = 6) {
+    if_setop($component0, 1, "Fix");
+} else {
+    if_setop($component0, 1, "Inspect");
+}

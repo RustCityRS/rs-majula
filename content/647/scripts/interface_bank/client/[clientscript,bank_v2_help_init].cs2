@@ -1,0 +1,8 @@
+// 1444
+[clientscript,bank_v2_help_init]
+~bank_v2_help_showpage(0);
+~bank_v2_help_slotsused(bank_v2_help:bank_space_f2p_current, bank_v2_help:bank_space_f2p_total, bank_v2_help:bank_space_mem_current, bank_v2_help:bank_space_mem_total);
+~v2_small_button_out_filled(bank_v2_help:equipscreen_button);
+if_setonvarctransmit(bank_v2_help:main, "bank_v2_help_slotsused(bank_v2_help:bank_space_f2p_current, bank_v2_help:bank_space_f2p_total, bank_v2_help:bank_space_mem_current, bank_v2_help:bank_space_mem_total){varclient_192, varclient_1038, varclient_1324}");
+if_setonvartransmit(bank_v2_help:main, "script1655{swansong_temp}");
+~script1656;

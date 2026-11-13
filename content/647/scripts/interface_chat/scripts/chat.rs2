@@ -1,0 +1,733 @@
+// Dialogue system procs — ported from 2004scape, adapted for rev 647 interfaces.
+// Interface IDs from void ref: dialogue.ifaces.toml
+//
+// chat1-4 (64-67): player chat, head=2, title=3, lines=4+, continue=5/6/7/8
+// npc_chat1-4 (241-244): npc chat, head=2, title=3, lines=4+, continue=5/6/7/8
+// message1-5 (210-214): message box, lines=1+, continue=2/3/4/5/6
+// multi2-5 (228,230,232,234): choice, title=1, lines=2+
+//   multi2: title=1, line1=2, line2=3, thin_swords=6, wide_swords=9
+//   multi3: title=1, line1=2, line2=3, line3=4, thin_swords=7, wide_swords=10
+//   multi4: title=1, line1=2, line2=3, line3=4, line4=5, thin_swords=8, wide_swords=9
+//   multi5: title=1, line1=2, line2=3, line3=4, line4=5, line5=6, thin_swords=9, wide_swords=10
+
+// Wrapping: 2011 wrapped chat lines (chat1-4, npc_chat1-4) at 380 in q8_full
+// (font 497), wider than their 350-wide line components: the client centres
+// and overflows them. Measured on 2011 recordings, from where each line ends
+// (runescape/target/port-tools/wrapwidth.py): every greedy-wrapped line is at
+// most 380 wide and the next word would pass it, e.g. Doric's "Could you get
+// me 6 clay, 4 copper ore, and 2 iron ore," (380; 2011-04-19), the Cook's
+// "them in time now. He'll sack me! What ever will I do? I" (380; 2011-05-20),
+// and Captain Rovin's "moron who got his job because his great-grandfather"
+// (351; "was" makes 381; 2011-04-20). Old quests' text keeps Jagex's own
+// breaks (Keli's, Gypsy Aris's "just south / of this city.").
+// Message boxes (message1-5) wrap at 470: 2011-04-22 shows the 450-wide "You
+// put a piece of your soft clay in your hand. As you touch the" on one line
+// (the next word makes 483); 470 is 2004's width, in that range.
+
+// ── Player Chat ─────────────────────────────────────────────────────────────
+
+[proc,chatplayer](string $string)
+split_init($string, 380, 4, q8_full)
+def_int $page = 0
+def_int $pagetotal = split_pagecount
+while ($page < $pagetotal) {
+    ~chatplayer_page($page)
+    p_pausebutton
+    if_close
+    $page = calc($page + 1)
+}
+
+[proc,chatplayer_page](int $page)
+def_int $lines = split_linecount($page)
+if ($lines = 0) {
+    return
+}
+// Rev 647: chat1-4 = interfaces 64-67
+// Components: head=2, title=3, line1=4, line2=5, etc.
+def_int $iface = calc(63 + $lines)
+def_int $hash = calc($iface * 65536)
+if_setplayerhead(calc($hash + 2))
+if_setanim(calc($hash + 2), split_getanim($page))
+if_settext(calc($hash + 3), displayname)
+if_settext(calc($hash + 4), split_get($page, 0))
+if ($lines > 1) {
+    if_settext(calc($hash + 5), split_get($page, 1))
+}
+if ($lines > 2) {
+    if_settext(calc($hash + 6), split_get($page, 2))
+}
+if ($lines > 3) {
+    if_settext(calc($hash + 7), split_get($page, 3))
+}
+if_openchat($iface)
+
+// ── NPC Chat ────────────────────────────────────────────────────────────────
+
+[proc,chatnpc_page](string $npc_name, npc $npc, int $page)
+def_int $lines = split_linecount($page)
+if ($lines = 0) {
+    return
+}
+// Rev 647: npc_chat1-4 = interfaces 241-244
+// Components: head=2, title=3, line1=4, line2=5, etc.
+def_int $iface = calc(240 + $lines)
+def_int $hash = calc($iface * 65536)
+if_setnpchead(calc($hash + 2), $npc)
+if_setanim(calc($hash + 2), split_getanim($page))
+if_settext(calc($hash + 3), $npc_name)
+if_settext(calc($hash + 4), split_get($page, 0))
+if ($lines > 1) {
+    if_settext(calc($hash + 5), split_get($page, 1))
+}
+if ($lines > 2) {
+    if_settext(calc($hash + 6), split_get($page, 2))
+}
+if ($lines > 3) {
+    if_settext(calc($hash + 7), split_get($page, 3))
+}
+if_openchat($iface)
+
+// 289's chatnpc_specific: a line spoken as the npc named, who need not be the
+// active npc (a door's guard, a quest npc out of sight), so it faces no one.
+// 289's chatnpc turns the active npc to the player.
+[proc,chatnpc_specific](string $npc_name, npc $npc, string $string)
+split_init($string, 380, 4, q8_full)
+def_int $page = 0
+def_int $pagetotal = split_pagecount
+while ($page < $pagetotal) {
+    ~chatnpc_page($npc_name, $npc, $page)
+    p_pausebutton
+    if_close
+    $page = calc($page + 1)
+}
+
+// ── Message Box ─────────────────────────────────────────────────────────────
+
+[proc,mesbox_page](int $page)
+def_int $lines = split_linecount($page)
+if ($lines = 0) {
+    return
+}
+// Rev 647: message1-5 = interfaces 210-214
+// Components: line1=1, line2=2, etc.
+def_int $iface = calc(209 + $lines)
+def_int $hash = calc($iface * 65536)
+if_settext(calc($hash + 1), split_get($page, 0))
+if ($lines > 1) {
+    if_settext(calc($hash + 2), split_get($page, 1))
+}
+if ($lines > 2) {
+    if_settext(calc($hash + 3), split_get($page, 2))
+}
+if ($lines > 3) {
+    if_settext(calc($hash + 4), split_get($page, 3))
+}
+if ($lines > 4) {
+    if_settext(calc($hash + 5), split_get($page, 4))
+}
+if_openchat($iface)
+
+// A message box with no "Click here to continue" (message_np1-5, interfaces 215-219), left open
+// while the script goes on: 2011's timed boxes, as Goblin Diplomacy's "Grubfoot goes into the
+// changing room..." (2011-06-14 recording, YouTube jxkBytyfG-U, 360s). One page; the caller
+// closes it or opens the next box.
+[proc,mesbox_np](string $string)
+split_init($string, 470, 5, q8_full)
+def_int $lines = split_linecount(0)
+if ($lines = 0) {
+    return
+}
+def_int $hash = calc((214 + $lines) * 65536)
+def_int $line = 0
+while ($line < $lines) {
+    if_settext(calc($hash + $line + 1), split_get(0, $line))
+    $line = calc($line + 1)
+}
+if_openchat(calc(214 + $lines))
+
+[proc,mesbox](string $string)
+split_init($string, 470, 5, q8_full)
+def_int $page = 0
+def_int $pagetotal = split_pagecount
+while ($page < $pagetotal) {
+    ~mesbox_page($page)
+    p_pausebutton
+    if_close
+    $page = calc($page + 1)
+}
+
+// 289's .mesbox: mesbox shown to the script's second player (.player), as
+// mesbox_page is. 2011's boxes and line width, as mesbox.
+[proc,.mesbox_page](int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0) {
+    // sanity check
+    return;
+} else if ($lines = 1) {
+    .if_settext(message1:mes1a, split_get($page, 0));
+    .if_openchat(message1);
+} else if ($lines = 2) {
+    .if_settext(message2:mes2a, split_get($page, 0));
+    .if_settext(message2:mes2b, split_get($page, 1));
+    .if_openchat(message2);
+} else if ($lines = 3) {
+    .if_settext(message3:mes3a, split_get($page, 0));
+    .if_settext(message3:mes3b, split_get($page, 1));
+    .if_settext(message3:mes3c, split_get($page, 2));
+    .if_openchat(message3);
+} else if ($lines = 4) {
+    .if_settext(message4:mes4a, split_get($page, 0));
+    .if_settext(message4:mes4b, split_get($page, 1));
+    .if_settext(message4:mes4c, split_get($page, 2));
+    .if_settext(message4:mes4d, split_get($page, 3));
+    .if_openchat(message4);
+} else if ($lines = 5) {
+    .if_settext(message5:mes5a, split_get($page, 0));
+    .if_settext(message5:mes5b, split_get($page, 1));
+    .if_settext(message5:mes5c, split_get($page, 2));
+    .if_settext(message5:mes5d, split_get($page, 3));
+    .if_settext(message5:mes5e, split_get($page, 4));
+    .if_openchat(message5);
+}
+
+[proc,.mesbox](string $string)
+split_init($string, 470, 5, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~.mesbox_page($page);
+    .p_pausebutton;
+    .if_close;
+    $page = calc($page + 1);
+}
+
+// ── Obj Message Box ─────────────────────────────────────────────────────────
+// Item-icon message box: obj model + message + "Click here to continue".
+// 519 children: com0=model, com1=text (380x69 wrap), com2=continue.
+//
+// Opens uniformly through `if_openchat` like every other dialogue — the engine
+// routes it to the correct chatbox slot via `dialogue_slot_enum` (objbox is a
+// `dialogue_box_small`, chat_box index 12; the default is index 13). No raw
+// hashes, no slot in the script: adding a new dialogue is a one-line enum
+// entry, and modal close/walk-away is handled by the normal chat-modal path.
+// 289's signature and paging: its text in pages of 4 lines, 380 wide in
+// q8_full. 2011's box (objbox, 519) is one text component that wide in that
+// font, so a page's lines join with <br>. 289's $x and $y placed the obj in
+// 289's box; 2011's places it itself.
+[proc,objbox_page](obj $obj, int $scale, int $x, int $y, int $page)
+if (split_linecount($page) = 0) {
+    // sanity check
+    return;
+}
+if_setobject(objbox:objbox_graphic, $obj, $scale);
+if_settext(objbox:objbox_text, ~split_page_text($page));
+if_openchat(objbox);
+
+[proc,objbox](obj $obj, string $string, int $scale, int $x, int $y)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~objbox_page($obj, $scale, $x, $y, $page);
+    p_pausebutton;
+    $page = calc($page + 1);
+}
+if_close;
+
+// A page of the last split_init as one string, its lines joined with <br>.
+[proc,split_page_text](int $page)(string)
+def_int $lines = split_linecount($page);
+def_string $text = "";
+def_int $i = 0;
+while ($i < $lines) {
+    if ($i > 0) {
+        // "<br>" in a string compiles as a call of a command br (runec reads
+        // a bare <identifier> in a string as code), so the break is built
+        // from its characters.
+        $text = append_char(append(append_char($text, '<'), "br"), '>');
+    }
+    $text = append($text, split_get($page, $i));
+    $i = calc($i + 1);
+}
+return($text);
+
+// ── Double Obj Message Box ──────────────────────────────────────────────────
+// Two obj models beside the message: 131 com0=model (x9 y9), com1=text, com2=
+// model (x33 y33), com3=continue. 289's signatures and paging: its text in
+// pages of 4 lines, 350 wide in q8_full, on 289's four line components.
+// 2011's box (cache 786, 131) has one text component, 380 wide and 69 high in
+// q8_full (font 497), so a page is 4 lines that wide, joined with <br>, as
+// objbox. 289's x and y placed each obj in 289's box; 2011's places them
+// itself.
+[proc,doubleobjbox_page](obj $obj_1, int $scale1, int $x1, int $y1, obj $obj_2, int $scale2, int $x2, int $y2, int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0 | $lines > 4) {
+    // sanity check
+    return;
+}
+if_settext(doubleobjbox:doubleobjbox_text, ~split_page_text($page));
+if_setobject(doubleobjbox:doubleobjboxmodel1, $obj_1, $scale1);
+if_setobject(doubleobjbox:doubleobjboxmodel2, $obj_2, $scale2);
+if_openchat(doubleobjbox);
+
+[proc,doubleobjbox](obj $obj_1, obj $obj_2, string $string, int $scale)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~doubleobjbox_page($obj_1, $scale, 0, 0, $obj_2, $scale, 0, 0, $page);
+    p_pausebutton;
+    $page = calc($page + 1);
+}
+if_close;
+
+[proc,doubleobjbox2](obj $obj_1, int $scale1, int $x1, int $y1, obj $obj_2, int $scale2, int $x2, int $y2, string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~doubleobjbox_page($obj_1, $scale1, $x1, $y1, $obj_2, $scale2, $x2, $y2, $page);
+    p_pausebutton;
+    $page = calc($page + 1);
+}
+if_close;
+
+// ── Choice Dialogs ─────────────────────────────────────────────────────────
+// Adapted from 2004scape chat.rs2 for rev 647 interface component IDs.
+// Each proc opens the multi-choice interface, sets text, enables buttons,
+// suspends with p_pausebutton, then returns the selected option via last_com.
+
+// --- 2 options: interface 228 (multi2) ---
+// Components: title=com1, line1=com2, line2=com3, thin_swords=com6, wide_swords=com9
+[proc,p_choice2](string $string1, int $ret1, string $string2, int $ret2)(int)
+if_settext(multi2:multi2t, "Select an Option")
+if_settext(multi2:multi2a, $string1)
+if_settext(multi2:multi2b, $string2)
+if_sethide(multi2:multi2swords, false)
+if_sethide(multi2:com_9, true)
+if_openchat(multi2)
+if_addresumebutton(multi2:multi2a)
+if_addresumebutton(multi2:multi2b)
+p_pausebutton
+switch_component (last_com) {
+    case multi2:multi2a : return($ret1);
+    case default : return($ret2);
+}
+
+// p_choice2 with the caller's header in place of "Select an Option" (289's signature).
+[proc,p_choice2_header](string $string1, int $ret1, string $string2, int $ret2, string $headertext)(int)
+if_settext(multi2:multi2t, $headertext)
+if_settext(multi2:multi2a, $string1)
+if_settext(multi2:multi2b, $string2)
+if_sethide(multi2:multi2swords, true)
+if_sethide(multi2:com_9, false)
+if_openchat(multi2)
+if_addresumebutton(multi2:multi2a)
+if_addresumebutton(multi2:multi2b)
+p_pausebutton
+switch_component (last_com) {
+    case multi2:multi2a : return($ret1);
+    case default : return($ret2);
+}
+
+// --- 3 options: interface 230 (multi3) ---
+// Components: title=com1, line1=com2, line2=com3, line3=com4, thin_swords=com7, wide_swords=com10
+[proc,p_choice3](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3)(int)
+if_settext(multi3:multi3t, "Select an Option")
+if_settext(multi3:multi3a, $string1)
+if_settext(multi3:multi3b, $string2)
+if_settext(multi3:multi3c, $string3)
+if_sethide(multi3:multi3swords, false)
+if_sethide(multi3:com_10, true)
+if_openchat(multi3)
+if_addresumebutton(multi3:multi3a)
+if_addresumebutton(multi3:multi3b)
+if_addresumebutton(multi3:multi3c)
+p_pausebutton
+switch_component (last_com) {
+    case multi3:multi3a : return($ret1);
+    case multi3:multi3b : return($ret2);
+    case default : return($ret3);
+}
+
+// p_choice3 with the caller's header in place of "Select an Option" (289's
+// signature; 289 uses it for the dough interface).
+[proc,p_choice3_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $headertext)(int)
+if_settext(multi3:multi3t, $headertext)
+if_settext(multi3:multi3a, $string1)
+if_settext(multi3:multi3b, $string2)
+if_settext(multi3:multi3c, $string3)
+if_sethide(multi3:multi3swords, true)
+if_sethide(multi3:com_10, false)
+if_openchat(multi3)
+if_addresumebutton(multi3:multi3a)
+if_addresumebutton(multi3:multi3b)
+if_addresumebutton(multi3:multi3c)
+p_pausebutton
+switch_component (last_com) {
+    case multi3:multi3a : return($ret1);
+    case multi3:multi3b : return($ret2);
+    case default : return($ret3);
+}
+
+// --- 4 options: interface 232 (multi4) ---
+// Components: title=com1, line1=com2, line2=com3, line3=com4, line4=com5, thin_swords=com8, wide_swords=com9
+[proc,p_choice4](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4)(int)
+if_settext(multi4:multi4t, "Select an Option")
+if_settext(multi4:multi4a, $string1)
+if_settext(multi4:multi4b, $string2)
+if_settext(multi4:multi4c, $string3)
+if_settext(multi4:multi4d, $string4)
+if_sethide(multi4:multi4swords, false)
+if_sethide(multi4:multi4wideswords, true)
+if_openchat(multi4)
+if_addresumebutton(multi4:multi4a)
+if_addresumebutton(multi4:multi4b)
+if_addresumebutton(multi4:multi4c)
+if_addresumebutton(multi4:multi4d)
+p_pausebutton
+switch_component (last_com) {
+    case multi4:multi4a : return($ret1);
+    case multi4:multi4b : return($ret2);
+    case multi4:multi4c : return($ret3);
+    case default : return($ret4);
+}
+
+// p_choice4 with the caller's header in place of "Select an Option" (289's signature).
+[proc,p_choice4_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $headertext)(int)
+if_settext(multi4:multi4t, $headertext)
+if_settext(multi4:multi4a, $string1)
+if_settext(multi4:multi4b, $string2)
+if_settext(multi4:multi4c, $string3)
+if_settext(multi4:multi4d, $string4)
+if_sethide(multi4:multi4swords, true)
+if_sethide(multi4:multi4wideswords, false)
+if_openchat(multi4)
+if_addresumebutton(multi4:multi4a)
+if_addresumebutton(multi4:multi4b)
+if_addresumebutton(multi4:multi4c)
+if_addresumebutton(multi4:multi4d)
+p_pausebutton
+switch_component (last_com) {
+    case multi4:multi4a : return($ret1);
+    case multi4:multi4b : return($ret2);
+    case multi4:multi4c : return($ret3);
+    case default : return($ret4);
+}
+
+// --- 5 options: interface 234 (multi5) ---
+// Components: title=com1, line1=com2, line2=com3, line3=com4, line4=com5, line5=com6, thin_swords=com9, wide_swords=com10
+[proc,p_choice5](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $string5, int $ret5)(int)
+if_settext(multi5:multi5t, "Select an Option")
+if_settext(multi5:multi5a, $string1)
+if_settext(multi5:multi5b, $string2)
+if_settext(multi5:multi5c, $string3)
+if_settext(multi5:multi5d, $string4)
+if_settext(multi5:multi5e, $string5)
+if_sethide(multi5:multi5swords, false)
+if_sethide(multi5:com_10, true)
+if_openchat(multi5)
+if_addresumebutton(multi5:multi5a)
+if_addresumebutton(multi5:multi5b)
+if_addresumebutton(multi5:multi5c)
+if_addresumebutton(multi5:multi5d)
+if_addresumebutton(multi5:multi5e)
+p_pausebutton
+switch_component (last_com) {
+    case multi5:multi5a : return($ret1);
+    case multi5:multi5b : return($ret2);
+    case multi5:multi5c : return($ret3);
+    case multi5:multi5d : return($ret4);
+    case default : return($ret5);
+}
+
+// p_choice5 with the caller's header in place of "Select an Option" (289's
+// signature).
+[proc,p_choice5_header](string $string1, int $ret1, string $string2, int $ret2, string $string3, int $ret3, string $string4, int $ret4, string $string5, int $ret5, string $headertext)(int)
+if_settext(multi5:multi5t, $headertext)
+if_settext(multi5:multi5a, $string1)
+if_settext(multi5:multi5b, $string2)
+if_settext(multi5:multi5c, $string3)
+if_settext(multi5:multi5d, $string4)
+if_settext(multi5:multi5e, $string5)
+if_sethide(multi5:multi5swords, true)
+if_sethide(multi5:com_10, false)
+if_openchat(multi5)
+if_addresumebutton(multi5:multi5a)
+if_addresumebutton(multi5:multi5b)
+if_addresumebutton(multi5:multi5c)
+if_addresumebutton(multi5:multi5d)
+if_addresumebutton(multi5:multi5e)
+p_pausebutton
+switch_component (last_com) {
+    case multi5:multi5a : return($ret1);
+    case multi5:multi5b : return($ret2);
+    case multi5:multi5c : return($ret3);
+    case multi5:multi5d : return($ret4);
+    case default : return($ret5);
+}
+
+// 289's choice labels (interface_chat/scripts/chat.rs2): ask, then jump to the
+// label of the option picked.
+[label,multi2](string $string1, label $label1, string $string2, label $label2)
+def_int $choice = ~p_choice2($string1, 1, $string2, 2);
+if ($choice = 1) jump($label1);
+jump($label2);
+
+[label,multi3](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3)
+def_int $choice = ~p_choice3($string1, 1, $string2, 2, $string3, 3);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+jump($label3);
+
+[label,multi4](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4)
+def_int $choice = ~p_choice4($string1, 1, $string2, 2, $string3, 3, $string4, 4);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+jump($label4);
+
+[label,multi5](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4, string $string5, label $label5)
+def_int $choice = ~p_choice5($string1, 1, $string2, 2, $string3, 3, $string4, 4, $string5, 5);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+if ($choice = 4) jump($label4);
+jump($label5);
+
+[label,multi2_header](string $string1, label $label1, string $string2, label $label2, string $headertext)
+def_int $choice = ~p_choice2_header($string1, 1, $string2, 2, $headertext);
+if ($choice = 1) jump($label1);
+jump($label2);
+
+[label,multi3_header](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $headertext)
+def_int $choice = ~p_choice3_header($string1, 1, $string2, 2, $string3, 3, $headertext);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+jump($label3);
+
+[label,multi4_header](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4, string $headertext)
+def_int $choice = ~p_choice4_header($string1, 1, $string2, 2, $string3, 3, $string4, 4, $headertext);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+jump($label4);
+
+[label,multi5_header](string $string1, label $label1, string $string2, label $label2, string $string3, label $label3, string $string4, label $label4, string $string5, label $label5, string $headertext)
+def_int $choice = ~p_choice5_header($string1, 1, $string2, 2, $string3, 3, $string4, 4, $string5, 5, $headertext);
+if ($choice = 1) jump($label1);
+if ($choice = 2) jump($label2);
+if ($choice = 3) jump($label3);
+if ($choice = 4) jump($label4);
+jump($label5);
+
+// ── Convenience wrappers (auto-detect active NPC) ─────────────────────────
+
+[proc,chatnpc](string $string)
+split_init($string, 380, 4, q8_full)
+def_int $page = 0
+def_int $pagetotal = split_pagecount
+while ($page < $pagetotal) {
+    ~chatnpc_page(npc_name, npc_type, $page)
+    facesquare(npc_coord)
+    if (npc_getmode ! opplayer2 & npc_getmode ! applayer2) {
+        npc_setmode(playerfaceclose)
+    }
+    p_pausebutton
+    if_close
+    $page = calc($page + 1)
+}
+
+// 289's chatnpcrange: chatnpc for an npc spoken to across a counter (a bank
+// teller), who turns to the player from where it stands (playerface, not
+// playerfaceclose) unless it is fighting. 2011's line width, as chatnpc.
+[proc,chatnpcrange](string $string)
+split_init($string, 380, 4, q8_full)
+def_int $page = 0
+def_int $pagetotal = split_pagecount
+while ($page < $pagetotal) {
+    ~chatnpc_page(npc_name, npc_type, $page)
+    facesquare(npc_coord)
+    if (npc_getmode ! opplayer2 & npc_getmode ! applayer2) {
+        npc_setmode(playerface)
+    }
+    p_pausebutton
+    if_close
+    $page = calc($page + 1)
+}
+
+// 289's chatnpcnoturn: chatnpc for an npc that does not turn to the player
+// (it carries on with its work); the player still faces it. 2011's line
+// width, as chatnpc.
+[proc,chatnpcnoturn](string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(npc_name, npc_type, $page);
+    facesquare(npc_coord);
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+// 289's .chatnpc, .chatnpcrange and .chatnpcnoturn: the same three, spoken by
+// the script's second npc (.npc), as when one npc answers for another.
+[proc,.chatnpc](string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(.npc_name, .npc_type, $page);
+    facesquare(.npc_coord);
+    if (.npc_getmode ! opplayer2 & .npc_getmode ! applayer2) {
+        .npc_setmode(playerfaceclose);
+    }
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+[proc,.chatnpcrange](string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(.npc_name, .npc_type, $page);
+    facesquare(.npc_coord);
+    if (.npc_getmode ! opplayer2 & .npc_getmode ! applayer2) {
+        .npc_setmode(playerface);
+    }
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+[proc,.chatnpcnoturn](string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_page(.npc_name, .npc_type, $page);
+    facesquare(.npc_coord);
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+// ── NPC chat with a model for a head ────────────────────────────────────────
+// 289's chatnpc_model: an npc's chat box with a model id for its head, for a
+// speaker that is no npc (a parrot on a shoulder, a scarecrow). 2011's npc
+// chat boxes and line width, as chatnpc_page; the head is com2, as there.
+// 289's callers pass 289's model ids: check each against cache 786 when they
+// are ported.
+[proc,chatnpc_model_page](string $npc_name, int $chathead, int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0) {
+    // sanity check
+    return;
+} else if ($lines = 1) {
+    if_setmodel(npcchat1:npcchat1head_1, $chathead);
+    if_setanim(npcchat1:npcchat1head_1, split_getanim($page));
+    if_settext(npcchat1:npcchat1name, $npc_name);
+    if_settext(npcchat1:npcchat1a, split_get($page, 0));
+    if_openchat(npcchat1);
+} else if ($lines < 3) {
+    if_setmodel(npcchat2:npcchat2head_1, $chathead);
+    if_setanim(npcchat2:npcchat2head_1, split_getanim($page));
+    if_settext(npcchat2:npcchat2name, $npc_name);
+    if_settext(npcchat2:npcchat2a, split_get($page, 0));
+    if_settext(npcchat2:npcchat2b, split_get($page, 1));
+    if_openchat(npcchat2);
+} else if ($lines = 3) {
+    if_setmodel(npcchat3:npcchat3head_1, $chathead);
+    if_setanim(npcchat3:npcchat3head_1, split_getanim($page));
+    if_settext(npcchat3:npcchat3name, $npc_name);
+    if_settext(npcchat3:npcchat3a, split_get($page, 0));
+    if_settext(npcchat3:npcchat3b, split_get($page, 1));
+    if_settext(npcchat3:npcchat3c, split_get($page, 2));
+    if_openchat(npcchat3);
+} else if ($lines = 4) {
+    if_setmodel(npcchat4:npcchat4head_1, $chathead);
+    if_setanim(npcchat4:npcchat4head_1, split_getanim($page));
+    if_settext(npcchat4:npcchat4name, $npc_name);
+    if_settext(npcchat4:npcchat4a, split_get($page, 0));
+    if_settext(npcchat4:npcchat4b, split_get($page, 1));
+    if_settext(npcchat4:npcchat4c, split_get($page, 2));
+    if_settext(npcchat4:npcchat4d, split_get($page, 3));
+    if_openchat(npcchat4);
+}
+
+[proc,chatnpc_model](string $npc_name, int $chathead, string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_model_page($npc_name, $chathead, $page);
+    p_pausebutton;
+    if_close;
+    $page = calc($page + 1);
+}
+
+// ── Cutscene NPC chat ───────────────────────────────────────────────────────
+// 289's chatnc_cutscene: an npc's line during a cutscene. It waits for no
+// click: each page opens in turn and the cutscene's own delays pace them.
+// 289 shows it in inter_213, a four-line npc box with no "Click here to
+// continue", a page of 1-2 lines on its middle two. 2011's npc boxes with no
+// continue are npcchat_np1-4 (cache 786, 245-248: head com2, name com3,
+// lines com4-7, and no continue component), one per line count as
+// npcchat1-4 are, so a page takes the box of its line count. 2011's line
+// width, as chatnpc.
+[proc,chatnpc_cutscene_page](string $npc_name, npc $npc, int $page)
+def_int $lines = split_linecount($page);
+if ($lines = 0) {
+    return;
+} else if ($lines = 1) {
+    if_setnpchead(npcchat_np1:npcchat_np1head_1, $npc);
+    if_setanim(npcchat_np1:npcchat_np1head_1, split_getanim($page));
+    if_settext(npcchat_np1:npcchat_np1name, $npc_name);
+    if_settext(npcchat_np1:npcchat_np1a, split_get($page, 0));
+    if_openchat(npcchat_np1);
+} else if ($lines = 2) {
+    if_setnpchead(npcchat_np2:npcchat_np2head_1, $npc);
+    if_setanim(npcchat_np2:npcchat_np2head_1, split_getanim($page));
+    if_settext(npcchat_np2:npcchat_np2name, $npc_name);
+    if_settext(npcchat_np2:npcchat_np2a, split_get($page, 0));
+    if_settext(npcchat_np2:npcchat_np2b, split_get($page, 1));
+    if_openchat(npcchat_np2);
+} else if ($lines = 3) {
+    if_setnpchead(npcchat_np3:npcchat_np3head_1, $npc);
+    if_setanim(npcchat_np3:npcchat_np3head_1, split_getanim($page));
+    if_settext(npcchat_np3:npcchat_np3name, $npc_name);
+    if_settext(npcchat_np3:npcchat_np3a, split_get($page, 0));
+    if_settext(npcchat_np3:npcchat_np3b, split_get($page, 1));
+    if_settext(npcchat_np3:npcchat_np3c, split_get($page, 2));
+    if_openchat(npcchat_np3);
+} else if ($lines = 4) {
+    if_setnpchead(npcchat_np4:npcchat_np4head_1, $npc);
+    if_setanim(npcchat_np4:npcchat_np4head_1, split_getanim($page));
+    if_settext(npcchat_np4:npcchat_np4name, $npc_name);
+    if_settext(npcchat_np4:npcchat_np4a, split_get($page, 0));
+    if_settext(npcchat_np4:npcchat_np4b, split_get($page, 1));
+    if_settext(npcchat_np4:npcchat_np4c, split_get($page, 2));
+    if_settext(npcchat_np4:npcchat_np4d, split_get($page, 3));
+    if_openchat(npcchat_np4);
+}
+
+[proc,chatnc_cutscene](string $npc_name, npc $npc, string $string)
+split_init($string, 380, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~chatnpc_cutscene_page($npc_name, $npc, $page);
+    $page = calc($page + 1);
+}
+
+// A voiced line: VORBIS_SPEECH_STOP (66) first, then the line's VORBIS_SPEECH_SOUND (7). The 647
+// client plays every speech sound it is sent side by side (AClass55.method3670 adds each to its
+// sound list; 66 stops them all, Class95_Sub3.method3214), so a line clicked through before its
+// voice ended played on under the next one's. Not on each continue: cache 786's clip 3177 is one
+// take of both of Explorer Jack's boxes, which a stop at the second box would cut off.
+[proc,speech_line](vorbis $clip)
+sound_speech_stop;
+sound_speech_volume($clip, 1, 0, 255);

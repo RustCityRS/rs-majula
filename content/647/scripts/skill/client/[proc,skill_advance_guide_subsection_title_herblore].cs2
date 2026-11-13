@@ -1,0 +1,22 @@
+// 1001
+[proc,skill_advance_guide_subsection_title_herblore](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
+        return("Potions", 1);
+    case 1 :
+        return("Herbs", 1);
+    case 2 :
+        return("Barbarian potions", 1);
+    case 3 :
+        return("Equipment", 1);
+    case 4 :
+        return("Other", 1);
+    case 5 :
+        return("Activities", 1);
+    case 6 :
+        return("Dungeoneering", 1);
+    case 7 :
+        return("Milestones", 1);
+    case default :
+        return("", -1);
+}

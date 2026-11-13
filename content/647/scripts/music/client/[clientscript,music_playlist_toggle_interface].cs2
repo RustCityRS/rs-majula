@@ -1,0 +1,10 @@
+// 2871
+[clientscript,music_playlist_toggle_interface](int $int0)
+if ($int0 = 1) {
+    if (%music_playlist_toggle_varc = true) {
+        %music_playlist_toggle_varc = false;
+    } else {
+        %music_playlist_toggle_varc = true;
+    }
+}
+~music_playlist_toggle_interface;

@@ -1,0 +1,49 @@
+// 193
+[proc,panetest](int $int0)(boolean)
+if (%chat_view = 0) {
+    return(true);
+}
+def_int $chattype1 = chat_gethistorytype($int0);
+if ($chattype1 = null) {
+    return(false);
+} else if ($chattype1 = ^chattype_system_broadcast) {
+    return(true);
+}
+switch_int (%chat_view) {
+    case 1 :
+        if ($chattype1 = ^chattype_gamemessage | $chattype1 = ^chattype_engine | $chattype1 = ^chattype_obj_examine | $chattype1 = ^chattype_npc_examine | $chattype1 = ^chattype_loc_examine | $chattype1 = ^chattype_spam | $chattype1 = 110 | $chattype1 = ^chattype_snapshotfeedback | $chattype1 = ^chattype_clan_join) {
+            return(true);
+        }
+    case 2 :
+        if ($chattype1 = ^chattype_modchat | $chattype1 = ^chattype_publicchat | $chattype1 = ^chattype_quickchat_public | $chattype1 = ^chattype_npc_chat) {
+            return(true);
+        }
+    case 3 :
+        switch_int ($chattype1) {
+            case ^chattype_privatechat, ^chattype_privatechatout, ^chattype_loginlogoutnotification, ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing, ^chattype_modprivatechat, ^chattype_friendnotification, ^chattype_ignorenotification :
+                return(true);
+        }
+    case 4 :
+        switch_int ($chattype1) {
+            case ^chattype_friendschat, ^chattype_friendschatnotification, ^chattype_quickchat_friend_chat :
+                return(true);
+        }
+    case 5 :
+        switch_int ($chattype1) {
+            case ^chattype_tradereq, ^chattype_challenge, ^chattype_trade_notification, 105, 106, ^chattype_ally_request, ^chattype_dungeon_invite, 112, ^chattype_conquest_regular_challenge, 114, ^chattype_rated_clan_war :
+                return(true);
+        }
+        if (~partnercheck($int0) = true) {
+            return(true);
+        }
+    case 6 :
+        if ($chattype1 = ^chattype_assistreq | $chattype1 = ^chattype_assist_notification) {
+            return(true);
+        }
+    case 7 :
+        switch_int ($chattype1) {
+            case ^chattype_clanchat, ^chattype_clanmessage, ^chattype_clan_challenge, ^chattype_quickchat_clanchat, ^chattype_clanguestchat, ^chattype_clanguestmessage, ^chattype_quickchat_clanguestchat :
+                return(true);
+        }
+}
+return(false);

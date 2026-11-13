@@ -1,0 +1,19 @@
+// 2864
+[proc,machinima_cameramove]
+def_int $int0 = 0;
+if (%machinima_livecamera_targetmode = 0) {
+    cam_lookat(~script2865(%machinima_livecamera_position, %machinima_livecamera_lookatposition), %machinima_livecamera_lookatheight, 0, 25);
+    cam_moveto(%machinima_livecamera_position, %machinima_livecamera_height, 0, 25);
+    $int0 = ~script2867(%machinima_livecamera_position, ~script2865(%machinima_livecamera_position, %machinima_livecamera_lookatposition));
+} else if (%machinima_livecamera_targetmode = 1) {
+    cam_moveto(%machinima_livecamera_position, %machinima_livecamera_height, 20, 3);
+    cam_lookat(%machinima_livecamera_lookatpositioncoord, 50, 20, 3);
+    $int0 = ~script2867(%machinima_livecamera_position, %machinima_livecamera_lookatpositioncoord);
+} else {
+    cam_followcoord(%machinima_livecamera_position);
+}
+if ($int0 = 0) {
+    %machinima_compass_angle = 0;
+} else {
+    %machinima_compass_angle = calc(($int0 - 1) * 8191);
+}

@@ -1,0 +1,32 @@
+// 1885
+[proc,skillmulti2010_menubutton_off](int $int0, int $int1, obj $obj2, string $string0, component $component3)
+if_setsize($component3, $int1, 64, ^setsize_abs, ^setsize_abs);
+if_setposition($component3, $int0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+~verticalgradient($component3, 6116682, 3024411, 2, 4);
+cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 4, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setgraphicshadow(0x302020);
+cc_setoutline(1);
+cc_setobject_nonum($obj2, 1);
+cc_create($component3, ^iftype_text, if_getnextsubid($component3));
+cc_setsize(calc(4 * 2), calc(4 + 32 - 3), ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext($string0);
+cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+cc_setsize(14, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic("sm_select_body_box,1");
+cc_settiling(true);
+cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+cc_setsize(8, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setgraphic("sm_select_body_box,0");
+cc_create($component3, ^iftype_graphic, if_getnextsubid($component3));
+cc_setsize(8, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setgraphic("sm_select_body_box,2");

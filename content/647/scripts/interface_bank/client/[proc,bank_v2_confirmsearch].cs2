@@ -1,0 +1,11 @@
+// 1478
+[proc,bank_v2_confirmsearch]
+%varclient_1657 = %meslayerinput;
+def_int $int0 = ~bank_v2_show_search(%varclient_1657);
+if ($int0 > 1) {
+    mes("Search for '<escape(%varclient_1657)>' returned <tostring($int0)> results.");
+} else if ($int0 = 1) {
+    mes("Search for '<escape(%varclient_1657)>' returned <tostring($int0)> result.");
+} else {
+    mes("Search for '<escape(%varclient_1657)>' returned 0 results.");
+}

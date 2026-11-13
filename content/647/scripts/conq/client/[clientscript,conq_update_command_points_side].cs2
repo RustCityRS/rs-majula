@@ -1,0 +1,3 @@
+// 428
+[clientscript,conq_update_command_points_side]
+if_settext(conq_side_command:command_points_text, "Command Points: <tostring(%conq_command_points)>");

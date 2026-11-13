@@ -1,0 +1,9 @@
+// 2531
+[proc,mob_set_head_2]
+if (%mob_side_unit_head_2 = 1) {
+    if_setgraphic(mob_side_units:unit2, "mob_unit_heads,4");
+} else if (%mob_side_unit_head_2 = 2) {
+    if_setgraphic(mob_side_units:unit2, "mob_unit_heads,1");
+} else if (%mob_side_unit_head_2 = 3) {
+    if_setgraphic(mob_side_units:unit2, "mob_unit_heads,2");
+}

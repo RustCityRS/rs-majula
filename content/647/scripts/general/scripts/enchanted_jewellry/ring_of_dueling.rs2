@@ -1,0 +1,47 @@
+// 289's ring of dueling (enchanted_jewellry/ring_of_dueling.rs2), 2011's ring
+// of duelling: Rub is op 4 (cache 786). 289 offers the Duel Arena and Castle
+// Wars; 2011 adds Mobilising Armies and the Fist of Guthix (2011 wiki, Ring of
+// duelling, 21 May 2011: rubbed, it goes to "Al Kharid Duel Arena, Castle Wars
+// Arena, Mobilising Armies Command Centre or Fist of Guthix"). The two new
+// options are worded as void-634's (RingOfDuelling.kt), and they land in
+// void-634's teleport areas (mobilising_armies_teleport, 2412-2415 x
+// 2847-2849; fist_of_guthix_teleport, 1692-1696 x 5599-5603). The messages
+// are 289's: no source gives 2011's.
+[opheld4,_category_136]
+// https://youtu.be/vGH1Nyp4IBU
+mes("You rub the ring...");
+def_obj $item = last_item;
+def_int $slot = last_slot;
+p_delay(1);
+def_int $choice = ~p_choice5_header("Al Kharid Duel Arena.", 1, "Castle Wars Arena.", 2, "Mobilising Armies Command Centre.", 3, "Fist of Guthix.", 4, "Nowhere.", 5, "Where would you like to teleport to?");
+if($choice = 5) {
+    return;
+}
+if (~wilderness_level(coord) > 20) {
+    // yes it actually says this in osrs
+    mes("A mysterious force blocks your teleport spell!");
+    mes("You can't use this teleport after level 20 wilderness.");
+    return;
+}
+if (~pre_tele_checks(coord) = false) {
+    return;
+}
+if($choice = 1) {
+    ~player_teleport_normal(map_findsquare(0_51_50_51_35, 0, 2, ^map_findsquare_lineofwalk));
+} else if ($choice = 2) {
+    ~player_teleport_normal(map_findsquare(0_38_48_8_18, 0, 2, ^map_findsquare_lineofwalk));
+} else if ($choice = 3) {
+    ~player_teleport_normal(map_findsquare(0_37_44_45_32, 0, 2, ^map_findsquare_lineofwalk));
+} else {
+    ~player_teleport_normal(map_findsquare(0_26_87_30_33, 0, 2, ^map_findsquare_lineofwalk));
+}
+def_namedobj $new_ring = oc_param($item, next_obj_stage);
+// osrs uses lowercase in the name.
+// 2006: https://www.youtube.com/watch?v=dTLr_7HhgXw
+if ($new_ring = null) {
+    inv_delslot(inv, $slot);
+    mes("Your Ring of Dueling crumbles to dust.");
+} else {
+    inv_setslot(inv, $slot, $new_ring, 1);
+    mes("Your Ring of Dueling has <~pluralise(oc_param($new_ring, charges), "use")> left.");
+}

@@ -1,0 +1,17 @@
+// 3398
+[clientscript,lobbyscreen_report_abuse_stage1_namelist_keyboard](int $key0, char $char1, component $component2)
+switch_int ($key0) {
+    case ^key_return :
+        ~lobbyscreen_report_abuse_stage1_namelist_next;
+        return;
+    case ^key_escape :
+        if (if_gethide(lobbyscreen_report_abuse_stage2:help_layer) = false) {
+            ~lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_stage1_namelist:help_title_text, lobbyscreen_report_abuse_stage1_namelist:help_body_text, lobbyscreen_report_abuse_stage1_namelist:help_body, lobbyscreen_report_abuse_stage1_namelist:help_layer, lobbyscreen_report_abuse_stage1_namelist:main);
+        } else {
+            ~lobbyscreen_report_abuse_stage1_namelist_close;
+        }
+        return;
+    case ^key_f1 :
+        ~lobbyscreen_report_abuse_help(2, lobbyscreen_report_abuse_stage1_namelist:help_title_text, lobbyscreen_report_abuse_stage1_namelist:help_body_text, lobbyscreen_report_abuse_stage1_namelist:help_body, lobbyscreen_report_abuse_stage1_namelist:help_layer, lobbyscreen_report_abuse_stage1_namelist:main);
+        return;
+}

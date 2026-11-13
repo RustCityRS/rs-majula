@@ -1,0 +1,124 @@
+// 1081:0
+[plant4]
+type=model
+y=-4
+width=75
+height=104
+xmode=abs_centre
+ymode=abs_bottom
+layer=button4
+model=model_64743
+modelorigin=2,33
+modelangle=170,284,0
+modelzoom=1130
+onload=set_spinner(0, 5, 0, event_com)
+
+// 1081:1
+[plant3]
+type=model
+y=-3
+width=71
+height=104
+xmode=abs_centre
+ymode=abs_bottom
+layer=button3
+model=model_64735
+modelorigin=0,33
+modelangle=170,284,0
+modelzoom=1120
+onload=set_spinner(0, 5, 0, event_com)
+
+// 1081:2
+[plant2]
+type=model
+x=2
+y=1
+width=78
+height=102
+xmode=abs_centre
+ymode=abs_bottom
+layer=button2
+model=model_64734
+modelorigin=-1,30
+modelangle=170,284,0
+modelzoom=1020
+onload=set_spinner(0, 5, 0, event_com)
+
+// 1081:3
+[button1]
+type=layer
+x=7
+y=30
+width=88
+height=110
+pausebutton=yes
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1081:4
+[button2]
+type=layer
+x=98
+y=30
+width=88
+height=110
+pausebutton=yes
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1081:5
+[button3]
+type=layer
+x=7
+y=145
+width=88
+height=110
+pausebutton=yes
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1081:6
+[button4]
+type=layer
+x=98
+y=145
+width=88
+height=110
+pausebutton=yes
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1081:7
+[plant1]
+type=model
+y=-1
+width=73
+height=96
+xmode=abs_centre
+ymode=abs_bottom
+layer=button1
+model=model_64739
+modelorigin=0,29
+modelangle=170,284,0
+modelzoom=1100
+onload=set_spinner(0, 5, 0, event_com)
+
+// 1081:8
+[title]
+type=text
+y=6
+width=172
+height=21
+xmode=abs_centre
+textfont=p12_full
+text=Identify the strain of livid:
+textlineheight=21
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+onload=script4275

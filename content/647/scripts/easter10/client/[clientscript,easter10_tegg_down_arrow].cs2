@@ -1,0 +1,7 @@
+// 2233
+[clientscript,easter10_tegg_down_arrow]
+if (%easter10_teggworkers > 0) {
+    sound_synth(synth_8729, 1, 0);
+    %easter10_teggworkers = calc(%easter10_teggworkers - 1);
+    ~script2220;
+}

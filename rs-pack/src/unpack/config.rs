@@ -1,42 +1,321 @@
+#[cfg(before_647)]
 use super::model::load_existing_pack;
 use super::report::RecordLeftover;
+#[cfg(since_647)]
+use super::report::{StepResult, step};
+#[cfg(before_647)]
+use super::texture::TEXTURE_NAMES;
+#[cfg(before_647)]
 use crate::PACK_DIR;
+#[cfg(since_647)]
+use crate::archive;
+#[cfg(before_647)]
+use crate::archive::config_jag_name;
+#[cfg(since_647)]
+use crate::cache::bas::BasType;
+#[cfg(since_647)]
+use crate::cache::billboard::BillboardType;
+#[cfg(since_647)]
+use crate::cache::cursor::CursorType;
+#[cfg(since_647)]
+use crate::cache::r#enum::EnumTypeRaw;
+use crate::cache::flo::FloTypeRaw;
+#[cfg(since_647)]
+use crate::cache::flu::FluType;
+#[cfg(since_647)]
+use crate::cache::hitmark::HitmarkType;
+use crate::cache::idk::IdkTypeRaw;
+#[cfg(since_647)]
+use crate::cache::inv::InvTypeRaw;
+#[cfg(since_647)]
+use crate::cache::light::LightType;
+use crate::cache::loc::LocTypeRaw;
+#[cfg(since_647)]
+use crate::cache::mel::MelType;
+#[cfg(since_647)]
+use crate::cache::msi::MsiType;
+use crate::cache::npc::NpcTypeRaw;
+use crate::cache::obj::ObjTypeRaw;
+#[cfg(since_647)]
+use crate::cache::param::{ParamType, ParamTypeRaw};
+#[cfg(since_647)]
+use crate::cache::particleeffector::ParticleEffectorType;
+#[cfg(since_647)]
+use crate::cache::particleemitter::ParticleEmitterType;
+use crate::cache::provider::CacheType;
+#[cfg(since_647)]
+use crate::cache::quest::QuestType;
+#[cfg(since_647)]
+use crate::cache::quickchatcat::QuickChatCatType;
+#[cfg(since_647)]
+use crate::cache::quickchatphrase::QuickChatPhraseType;
+use crate::cache::seq::SeqTypeRaw;
+use crate::cache::spotanim::SpotAnimTypeRaw;
+#[cfg(since_647)]
+use crate::cache::r#struct::StructTypeRaw;
+use crate::cache::varp::VarPlayerTypeRaw;
+use crate::pack::pack_registry::{PackFile, PackId};
+#[cfg(before_647)]
+use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::rgb15_to_hsl16;
+#[cfg(since_647)]
+use crate::pack::util::placeholder_prefix;
+#[cfg(before_647)]
 use crate::types::LocShape;
+#[cfg(since_647)]
+use crate::types::ParamValue;
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use runec::symbol::identifier_form;
+#[cfg(before_647)]
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeSet, HashMap, HashSet};
+use std::fs;
+#[cfg(since_647)]
+use std::fs::File;
+#[cfg(since_647)]
+use std::io::BufWriter;
+use std::io::{self, Write};
 use std::path::Path;
 use std::rc::Rc;
+#[cfg(before_647)]
 use tracing::debug;
 
+#[cfg(since_647)]
+pub mod bas;
+#[cfg(since_647)]
+pub mod billboard;
+#[cfg(since_647)]
+pub mod cursor;
+#[cfg(since_647)]
+pub mod r#enum;
+pub mod flo;
+#[cfg(since_647)]
+pub mod flu;
+#[cfg(since_647)]
+pub mod hitmark;
+pub mod idk;
+#[cfg(since_647)]
+pub mod inv;
+#[cfg(since_647)]
+pub mod light;
+pub mod loc;
+#[cfg(since_647)]
+pub mod mel;
+#[cfg(since_647)]
+pub mod msi;
+pub mod npc;
+pub mod obj;
+#[cfg(since_647)]
+pub mod param;
+#[cfg(since_647)]
+pub mod particleeffector;
+#[cfg(since_647)]
+pub mod particleemitter;
+#[cfg(since_647)]
+pub mod quest;
+#[cfg(since_647)]
+pub mod quickchatcat;
+#[cfg(since_647)]
+pub mod quickchatphrase;
+pub mod seq;
+pub mod spotanim;
+#[cfg(since_647)]
+pub mod r#struct;
+#[cfg(since_254)]
+pub mod varbit;
+#[cfg(since_647)]
+mod varc;
+#[cfg(since_647)]
+mod varclansetting;
+pub mod varp;
+
+#[cfg(before_647)]
 type ConfigEntries = Vec<(u16, Vec<(String, String)>)>;
 pub(crate) type ConfigDecoder =
-    fn(&[u8], &[u8], &HashMap<u16, u16>, &mut UnpackedPacks) -> ConfigEntries;
+    fn(&mut Packet, u16, &HashMap<u16, u16>, &mut UnpackedPacks) -> Vec<(String, String)>;
 
 pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
-    #[allow(unused_mut)]
-    let mut types: Vec<(&'static str, ConfigDecoder)> = vec![
-        ("idk", decode_idk_entries),
-        ("obj", decode_obj_entries),
-        ("npc", decode_npc_entries),
-        ("spotanim", decode_spotanim_entries),
-        ("flo", decode_flo_entries),
-        ("seq", decode_seq_entries),
-        ("loc", decode_loc_entries),
-        ("varp", decode_varp_entries),
-    ];
-    #[cfg(since_254)]
-    types.push(("varbit", decode_varbit_entries));
-    #[cfg(since_274)]
-    {
-        types.push(("mesanim", decode_mesanim_entries));
-        types.push(("mes", decode_mes_entries));
-        types.push(("param", decode_param_entries));
-        types.push(("hunt", decode_hunt_entries));
-    }
-    types
+    vec![
+        ("idk", |buf, id, hsl, packs| {
+            decode_record::<IdkTypeRaw>(buf, id, hsl, packs, idk::emit_idk_props)
+        }),
+        ("obj", |buf, id, hsl, packs| {
+            decode_record::<ObjTypeRaw>(buf, id, hsl, packs, obj::emit_obj_props)
+        }),
+        ("npc", |buf, id, hsl, packs| {
+            decode_record::<NpcTypeRaw>(buf, id, hsl, packs, npc::emit_npc_props)
+        }),
+        ("spotanim", |buf, id, hsl, packs| {
+            decode_record::<SpotAnimTypeRaw>(buf, id, hsl, packs, spotanim::emit_spotanim_props)
+        }),
+        ("flo", |buf, id, hsl, packs| {
+            decode_record::<FloTypeRaw>(buf, id, hsl, packs, flo::emit_flo_props)
+        }),
+        ("seq", |buf, id, hsl, packs| {
+            decode_record::<SeqTypeRaw>(buf, id, hsl, packs, seq::emit_seq_props)
+        }),
+        ("loc", |buf, id, hsl, packs| {
+            decode_record::<LocTypeRaw>(buf, id, hsl, packs, loc::emit_loc_props)
+        }),
+        ("varp", |buf, id, hsl, packs| {
+            let props =
+                decode_record::<VarPlayerTypeRaw>(buf, id, hsl, packs, varp::emit_varp_props);
+            #[cfg(since_647)]
+            let props = {
+                let mut props = props;
+                if packs.transmit_varps.contains(&(id as u32))
+                    && !props.iter().any(|(key, _)| key == "transmit")
+                {
+                    props.push(("transmit".into(), "yes".into()));
+                }
+                props
+            };
+            props
+        }),
+        #[cfg(since_647)]
+        ("varpstr", |buf, _, _, _| {
+            let mut props = decode_empty_record("varpstr", buf);
+            props.push(("type".to_owned(), "string".to_owned()));
+            props
+        }),
+        #[cfg(since_254)]
+        ("varpbit", varbit::decode_varbit),
+        #[cfg(since_647)]
+        ("param", |buf, id, hsl, packs| {
+            decode_record::<ParamTypeRaw>(buf, id, hsl, packs, param::emit_param_props)
+        }),
+        #[cfg(since_647)]
+        ("enum", |buf, id, hsl, packs| {
+            decode_record::<EnumTypeRaw>(buf, id, hsl, packs, r#enum::emit_enum_props)
+        }),
+        #[cfg(since_647)]
+        ("inv", |buf, id, hsl, packs| {
+            decode_record::<InvTypeRaw>(buf, id, hsl, packs, inv::emit_inv_props)
+        }),
+        #[cfg(since_647)]
+        ("struct", |buf, id, hsl, packs| {
+            decode_record::<StructTypeRaw>(buf, id, hsl, packs, r#struct::emit_struct_props)
+        }),
+        #[cfg(since_647)]
+        ("flu", |buf, id, hsl, packs| {
+            decode_record::<FluType>(buf, id, hsl, packs, flu::emit_flu_props)
+        }),
+        #[cfg(since_274)]
+        ("mesanim", |buf, _, _, _| {
+            decode_empty_record("mesanim", buf)
+        }),
+        #[cfg(all(since_274, before_647))]
+        ("mes", |buf, _, _, _| decode_empty_record("mes", buf)),
+        #[cfg(all(since_274, before_647))]
+        ("param", |buf, _, _, _| decode_empty_record("param", buf)),
+        #[cfg(since_274)]
+        ("hunt", |buf, _, _, _| decode_empty_record("hunt", buf)),
+        #[cfg(since_647)]
+        ("area", |buf, _, _, _| decode_empty_record("area", buf)),
+        #[cfg(since_647)]
+        ("varobj", |buf, _, _, _| decode_empty_record("varobj", buf)),
+        #[cfg(since_647)]
+        ("vars", |buf, _, _, _| decode_empty_record("vars", buf)),
+        #[cfg(since_647)]
+        ("varsstr", |buf, _, _, _| {
+            let mut props = decode_empty_record("varsstr", buf);
+            props.push(("type".to_owned(), "string".to_owned()));
+            props
+        }),
+        #[cfg(since_647)]
+        ("varn", |buf, _, _, _| decode_empty_record("varn", buf)),
+        #[cfg(since_647)]
+        ("dbtable", |buf, _, _, _| {
+            decode_empty_record("dbtable", buf)
+        }),
+        #[cfg(since_647)]
+        ("dbrow", |buf, _, _, _| decode_empty_record("dbrow", buf)),
+        #[cfg(since_647)]
+        ("bas", |buf, id, hsl, packs| {
+            decode_record::<BasType>(buf, id, hsl, packs, bas::emit_bas_props)
+        }),
+        #[cfg(since_647)]
+        ("cursor", |buf, id, hsl, packs| {
+            decode_record::<CursorType>(buf, id, hsl, packs, cursor::emit_cursor_props)
+        }),
+        #[cfg(since_647)]
+        ("hitmark", |buf, id, hsl, packs| {
+            decode_record::<HitmarkType>(buf, id, hsl, packs, hitmark::emit_hitmark_props)
+        }),
+        #[cfg(since_647)]
+        ("billboard", |buf, id, hsl, packs| {
+            decode_record::<BillboardType>(buf, id, hsl, packs, billboard::emit_billboard_props)
+        }),
+        #[cfg(since_647)]
+        ("quickchatcat", |buf, id, hsl, packs| {
+            decode_record::<QuickChatCatType>(
+                buf,
+                id,
+                hsl,
+                packs,
+                quickchatcat::emit_quickchatcat_props,
+            )
+        }),
+        #[cfg(since_647)]
+        ("quickchatphrase", |buf, id, hsl, packs| {
+            decode_record::<QuickChatPhraseType>(
+                buf,
+                id,
+                hsl,
+                packs,
+                quickchatphrase::emit_quickchatphrase_props,
+            )
+        }),
+        #[cfg(since_647)]
+        ("particleeffector", |buf, id, hsl, packs| {
+            decode_record::<ParticleEffectorType>(
+                buf,
+                id,
+                hsl,
+                packs,
+                particleeffector::emit_particleeffector_props,
+            )
+        }),
+        #[cfg(since_647)]
+        ("particleemitter", |buf, id, hsl, packs| {
+            decode_record::<ParticleEmitterType>(
+                buf,
+                id,
+                hsl,
+                packs,
+                particleemitter::emit_particleemitter_props,
+            )
+        }),
+        #[cfg(since_647)]
+        ("light", |buf, id, hsl, packs| {
+            decode_record::<LightType>(buf, id, hsl, packs, light::emit_light_props)
+        }),
+        #[cfg(since_647)]
+        ("mel", |buf, id, hsl, packs| {
+            decode_record::<MelType>(buf, id, hsl, packs, mel::emit_mel_props)
+        }),
+        #[cfg(since_647)]
+        ("msi", |buf, id, hsl, packs| {
+            decode_record::<MsiType>(buf, id, hsl, packs, msi::emit_msi_props)
+        }),
+        #[cfg(since_647)]
+        ("quest", |buf, id, hsl, packs| {
+            decode_record::<QuestType>(buf, id, hsl, packs, quest::emit_quest_props)
+        }),
+        #[cfg(since_647)]
+        ("varc", |buf, _, _, _| varc::decode_varc(buf)),
+        #[cfg(since_647)]
+        ("varcstr", |buf, _, _, _| varc::decode_varc_string(buf)),
+        #[cfg(since_647)]
+        ("varclansetting", |buf, _, _, packs| {
+            varclansetting::decode_varclansetting(buf, packs)
+        }),
+    ]
 }
 
 #[derive(Clone, Debug)]
@@ -53,13 +332,19 @@ pub struct UnpackedPacks {
     pub model_names: HashMap<u16, String>,
     pub model_categories: HashMap<u16, ModelCategory>,
     pub existing_model_names: HashMap<u16, String>,
-    pub existing_config_names: HashMap<String, HashMap<u16, String>>,
+    pub existing_config_names: HashMap<String, PackFile>,
     pub anim_ids: BTreeSet<u16>,
     pub texture_ids: BTreeSet<u16>,
     pub category_ids: BTreeSet<u16>,
     pub cert_objs: HashMap<u16, u16>,
     pub cert_template_id: Option<u16>,
     pub flo_names: HashMap<u16, String>,
+    #[cfg(since_647)]
+    pub transmit_varps: HashSet<u32>,
+    #[cfg(since_647)]
+    pub param_types: HashMap<u32, String>,
+    #[cfg(since_647)]
+    pub component_names: HashMap<(u32, u32), String>,
     pub model_textures: Rc<HashMap<u16, HashSet<u16>>>,
     pub leftovers: Vec<RecordLeftover>,
     pub dat_trailing: Vec<(String, usize)>,
@@ -79,6 +364,12 @@ impl UnpackedPacks {
             cert_objs: HashMap::new(),
             cert_template_id: None,
             flo_names: HashMap::new(),
+            #[cfg(since_647)]
+            transmit_varps: HashSet::new(),
+            #[cfg(since_647)]
+            param_types: HashMap::new(),
+            #[cfg(since_647)]
+            component_names: HashMap::new(),
             model_textures: Rc::new(HashMap::new()),
             leftovers: Vec::new(),
             dat_trailing: Vec::new(),
@@ -86,10 +377,129 @@ impl UnpackedPacks {
     }
 
     pub fn load_existing_names(&mut self, pack_dir: &Path) {
-        self.existing_model_names = load_existing_pack(pack_dir, "model");
+        #[cfg(before_647)]
+        {
+            self.existing_model_names = load_existing_pack(pack_dir, "model");
+        }
         self.existing_config_names = load_committed_config_names(pack_dir);
+        #[cfg(since_647)]
+        {
+            let interfaces =
+                fs::read_to_string(pack_dir.join("interface.pack")).unwrap_or_default();
+            for line in interfaces.lines() {
+                if let Some((id, name)) = line.split_once('=')
+                    && let Some((interface, component)) = id.split_once(':')
+                    && let (Ok(interface), Ok(component)) = (interface.parse(), component.parse())
+                {
+                    self.component_names
+                        .insert((interface, component), name.trim().to_owned());
+                }
+            }
+        }
     }
 
+    #[cfg(since_647)]
+    pub fn config_id(&self, name: &str, value: &str) -> Option<u32> {
+        self.existing_config_names
+            .get(name)?
+            .get_by_debugname(value)
+    }
+
+    /// A config's name for an id another config refers to, if the name leads
+    /// back to that id: registries can repeat a name.
+    #[cfg(since_647)]
+    pub fn reference(&self, kind: &str, id: u16) -> String {
+        if id == u16::MAX {
+            return "null".to_owned();
+        }
+        self.named(kind, id)
+    }
+
+    /// As [`Self::reference`], where the highest id is an id like any other:
+    /// a retexture can name it.
+    #[cfg(since_647)]
+    pub fn named(&self, kind: &str, id: u16) -> String {
+        let name = self
+            .config_name(kind, id as u32)
+            .filter(|name| *name != "null" && self.config_id(kind, name) == Some(id as u32))
+            .map(str::to_owned)
+            .unwrap_or_else(|| {
+                let placeholder = format!("{}_{id}", placeholder_prefix(kind));
+                // Another id going by this placeholder would take it when packed.
+                if self.config_id(kind, &placeholder).is_some() {
+                    id.to_string()
+                } else {
+                    placeholder
+                }
+            });
+        if name.contains(',') {
+            format!("\"{name}\"")
+        } else {
+            name
+        }
+    }
+
+    /// A value of a script type as the dumps print it.
+    #[cfg(since_647)]
+    pub fn typed_value(&self, ty: &str, value: i32) -> String {
+        match ty {
+            "int" | "long" => value.to_string(),
+            "boolean" => match value {
+                0 => "false".to_owned(),
+                1 => "true".to_owned(),
+                -1 => "null".to_owned(),
+                other => other.to_string(),
+            },
+            _ if ty.starts_with("byte:") => value.to_string(),
+            _ if value == -1 => "null".to_owned(),
+            "coord" => {
+                let (x, z) = ((value >> 14) & 0x3fff, value & 0x3fff);
+                format!(
+                    "{}_{}_{}_{}_{}",
+                    (value >> 28) & 0x3,
+                    x >> 6,
+                    z >> 6,
+                    x & 0x3f,
+                    z & 0x3f
+                )
+            }
+            "component" => {
+                let (interface, component) = ((value as u32) >> 16, (value as u32) & 0xffff);
+                let name = self
+                    .config_name("interface", interface)
+                    .map_or_else(|| format!("interface_{interface}"), identifier_form);
+                match self.component_names.get(&(interface, component)) {
+                    Some(component) => format!("{name}:{}", identifier_form(component)),
+                    None => format!("{name}:com_{component}"),
+                }
+            }
+            "texture" | "wma" => format!("{ty}_{value}"),
+            _ => {
+                let kind = match ty {
+                    "graphic" => "sprites",
+                    "idkit" => "idk",
+                    "mapelement" => "mel",
+                    "namedobj" => "obj",
+                    other => other,
+                };
+                self.reference(kind, value as u16)
+            }
+        }
+    }
+
+    pub fn config_name(&self, name: &str, id: u32) -> Option<&str> {
+        #[cfg(before_647)]
+        if name == "model"
+            && let Some(value) = self.model_names.get(&(id as u16))
+        {
+            return Some(value);
+        }
+        self.existing_config_names
+            .get(name)?
+            .get_by_id(id as PackId)
+    }
+
+    #[cfg(before_647)]
     fn name_model(&mut self, id: u16, name: String, category: ModelCategory) -> String {
         if let Entry::Vacant(e) = self.model_names.entry(id) {
             let name = self.existing_model_names.get(&id).cloned().unwrap_or(name);
@@ -99,6 +509,7 @@ impl UnpackedPacks {
         self.model_names.get(&id).unwrap().clone()
     }
 
+    #[cfg(before_647)]
     pub fn write_pack_files(&self, pack_dir: &Path) -> anyhow::Result<()> {
         write_model_pack(pack_dir, &self.model_names)?;
         write_pack_file(pack_dir, "anim", &self.anim_ids, "anim")?;
@@ -108,6 +519,7 @@ impl UnpackedPacks {
     }
 }
 
+#[cfg(before_647)]
 fn write_model_pack(pack_dir: &Path, names: &HashMap<u16, String>) -> anyhow::Result<()> {
     if names.is_empty() {
         return Ok(());
@@ -121,10 +533,11 @@ fn write_model_pack(pack_dir: &Path, names: &HashMap<u16, String>) -> anyhow::Re
             .unwrap_or_else(|| format!("model_{id}"));
         lines.push(format!("{id}={name}"));
     }
-    std::fs::write(pack_dir.join("model.pack"), lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("model.pack"), lines.join("\n") + "\n")?;
     Ok(())
 }
 
+#[cfg(before_647)]
 fn write_pack_file(
     pack_dir: &Path,
     filename: &str,
@@ -139,24 +552,127 @@ fn write_pack_file(
     for id in 0..=max_id {
         lines.push(format!("{id}={prefix}_{id}"));
     }
-    std::fs::write(
+    fs::write(
         pack_dir.join(format!("{filename}.pack")),
         lines.join("\n") + "\n",
     )?;
     Ok(())
 }
 
-pub(crate) fn load_committed_config_names(
-    pack_dir: &Path,
-) -> HashMap<String, HashMap<u16, String>> {
-    let mut map = HashMap::new();
-    for (config_type, _) in config_decoders() {
-        let names = load_existing_pack(pack_dir, config_type);
-        if !names.is_empty() {
-            map.insert(config_type.to_string(), names);
+pub(crate) fn load_committed_config_names(pack_dir: &Path) -> HashMap<String, PackFile> {
+    let mut names = HashMap::new();
+    if let Ok(files) = fs::read_dir(pack_dir) {
+        for entry in files.flatten() {
+            let path = entry.path();
+            if path.extension().is_some_and(|ext| ext == "pack") {
+                let name = path.file_stem().unwrap().to_string_lossy().into_owned();
+                if let Ok(pack) = PackFile::load(&path) {
+                    names.insert(name, pack);
+                }
+            }
         }
     }
-    map
+    names
+}
+
+#[cfg(since_647)]
+pub(crate) fn format_colour(colour: i32) -> String {
+    if colour as u32 > 0xFFFFFF {
+        format!("0x{:08x}", colour as u32)
+    } else {
+        format!("0x{colour:06x}")
+    }
+}
+
+/// A recolour pair as the dumps print it: as rgb15 when both colours have one,
+/// otherwise as the raw hsl16 values.
+#[cfg(since_647)]
+fn recol_pair(
+    index: usize,
+    source: u16,
+    dest: u16,
+    rgb15: &HashMap<u16, u16>,
+) -> [(String, String); 2] {
+    match (rgb15.get(&source), rgb15.get(&dest)) {
+        (Some(source), Some(dest)) => [
+            (format!("recol{index}s"), source.to_string()),
+            (format!("recol{index}d"), dest.to_string()),
+        ],
+        _ => [
+            (format!("recolhsl{index}s"), source.to_string()),
+            (format!("recolhsl{index}d"), dest.to_string()),
+        ],
+    }
+}
+
+/// The `multivar` line and a line per target. The last id is the default,
+/// printed when `has_default` says the record carries one.
+#[cfg(since_647)]
+fn multi_lines(
+    (code, key): (u8, &str),
+    kind: &str,
+    has_default: bool,
+    (varbit, varp): (i32, i32),
+    ids: &[i32],
+    packs: &UnpackedPacks,
+) -> Vec<(u8, String, String)> {
+    let mut lines = Vec::new();
+    if varbit != -1 {
+        lines.push((
+            code,
+            "multivar".to_owned(),
+            packs.reference("varpbit", varbit as u16),
+        ));
+    }
+    if varp != -1 {
+        lines.push((
+            code,
+            "multivar".to_owned(),
+            packs.reference("varp", varp as u16),
+        ));
+    }
+    let (default, entries) = ids.split_last().map_or((-1, ids), |(&d, e)| (d, e));
+    if has_default {
+        lines.push((
+            code,
+            key.to_owned(),
+            format!("default,{}", packs.reference(kind, default as u16)),
+        ));
+    }
+    for (index, &id) in entries.iter().enumerate() {
+        if id != -1 || index + 1 == entries.len() {
+            lines.push((
+                code,
+                key.to_owned(),
+                format!("{index},{}", packs.reference(kind, id as u16)),
+            ));
+        }
+    }
+    lines
+}
+
+#[cfg(since_647)]
+fn emit_param_list(
+    params: &[(i32, ParamValue)],
+    packs: &UnpackedPacks,
+) -> Vec<(u8, String, String)> {
+    params
+        .iter()
+        .map(|(key, value)| {
+            let name = packs
+                .config_name("param", *key as u32)
+                .map(str::to_owned)
+                .unwrap_or_else(|| format!("param_{key}"));
+            let value = match value {
+                ParamValue::Int(value) => {
+                    let ty = packs.param_types.get(&(*key as u32));
+                    packs.typed_value(ty.map_or("int", String::as_str), *value)
+                }
+                ParamValue::String(value) => value.to_string(),
+            };
+            (249, "param".to_owned(), format!("{name},{value}"))
+        })
+        .collect()
 }
 
 fn entry_name(config_type: &str, id: u16, packs: &UnpackedPacks) -> String {
@@ -165,16 +681,27 @@ fn entry_name(config_type: &str, id: u16, packs: &UnpackedPacks) -> String {
     {
         return name.clone();
     }
+    #[cfg(since_647)]
+    let kind = match config_type {
+        "quickchatcat" => "chatcat",
+        "quickchatphrase" => "chatphrase",
+        other => other,
+    };
+    #[cfg(before_647)]
+    let kind = config_type;
     if let Some(name) = packs
         .existing_config_names
-        .get(config_type)
-        .and_then(|names| names.get(&id))
+        .get(kind)
+        .and_then(|names| names.get_by_id(id as PackId))
     {
-        return name.clone();
+        return name.to_string();
     }
+    #[cfg(since_647)]
+    let config_type = placeholder_prefix(config_type);
     format!("{config_type}_{id}")
 }
 
+#[cfg(before_647)]
 pub fn write_config_pack_file(
     pack_dir: &Path,
     config_type: &str,
@@ -195,20 +722,21 @@ pub fn write_config_pack_file(
         }
         lines.push(format!("{id}={}", entry_name(config_type, id, packs)));
     }
-    std::fs::write(
+    fs::write(
         pack_dir.join(format!("{config_type}.pack")),
         lines.join("\n") + "\n",
     )?;
     Ok(())
 }
 
+#[cfg(before_647)]
 pub fn unpack_config(
     jag: &JagFile,
     output_dir: &Path,
     pack_dir: &Path,
     model_textures: Rc<HashMap<u16, HashSet<u16>>>,
 ) -> anyhow::Result<UnpackedPacks> {
-    std::fs::create_dir_all(pack_dir)?;
+    fs::create_dir_all(pack_dir)?;
     let reverse_hsl = build_reverse_hsl_table();
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(Path::new(PACK_DIR));
@@ -217,8 +745,9 @@ pub fn unpack_config(
     let types = config_decoders();
 
     for (name, decoder) in &types {
-        let dat_name = format!("{name}.dat");
-        let idx_name = format!("{name}.idx");
+        let wire_name = config_jag_name(name);
+        let dat_name = format!("{wire_name}.dat");
+        let idx_name = format!("{wire_name}.idx");
 
         let Some(dat) = jag.read(&dat_name) else {
             continue;
@@ -227,7 +756,13 @@ pub fn unpack_config(
             continue;
         };
 
-        let entries = decoder(&dat.data, &idx.data, &reverse_hsl, &mut packs);
+        let entries = decode_records(
+            name,
+            read_entries(&dat.data, &idx.data),
+            &reverse_hsl,
+            &mut packs,
+            *decoder,
+        );
 
         let trailing = config_dat_trailing(&dat.data, &idx.data);
         if trailing > 0 {
@@ -239,6 +774,10 @@ pub fn unpack_config(
             idx_buf.g2()
         };
         write_config_pack_file(pack_dir, name, count, &packs)?;
+        if *name == "mesanim" {
+            let order: String = (0..count).map(|id| format!("{id}\n")).collect();
+            fs::write(pack_dir.join("mesanim.order"), order)?;
+        }
 
         write_config_text_file(output_dir, name, count, &entries, &packs)?;
         debug!("  Unpacked {} {name} entries", entries.len());
@@ -248,6 +787,7 @@ pub fn unpack_config(
     Ok(packs)
 }
 
+#[cfg(before_647)]
 fn write_config_text_file(
     output_dir: &Path,
     config_type: &str,
@@ -258,29 +798,32 @@ fn write_config_text_file(
     let entry_map: HashMap<u16, &Vec<(String, String)>> =
         entries.iter().map(|(id, props)| (*id, props)).collect();
 
-    let mut lines = Vec::new();
+    let mut output = Vec::new();
     for id in 0..count {
         if config_type == "obj"
             && (packs.cert_objs.contains_key(&id) || packs.cert_template_id == Some(id))
         {
             continue;
         }
-        lines.push(format!("[{}]", entry_name(config_type, id, packs)));
-        if let Some(props) = entry_map.get(&id) {
-            for (key, value) in *props {
-                lines.push(format!("{key}={value}"));
-            }
-        }
-        lines.push(String::new());
+        write_config_section(
+            &mut output,
+            &entry_name(config_type, id, packs),
+            entry_map.get(&id).map_or(&[], |props| props.as_slice()),
+        )?;
     }
 
-    std::fs::write(
+    fs::write(
         output_dir.join(format!("all.{config_type}")),
-        lines.join("\n") + "\n",
+        if output.is_empty() {
+            b"\n".as_slice()
+        } else {
+            &output
+        },
     )?;
     Ok(())
 }
 
+#[cfg(before_647)]
 pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
     let mut table = HashMap::new();
     for rgb15 in 0..32768u16 {
@@ -290,32 +833,15 @@ pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
     table
 }
 
+#[cfg(before_647)]
 pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u16, Vec<u8>)> {
-    let mut dat_buf = Packet::from(dat.to_vec());
-    let mut idx_buf = Packet::from(idx.to_vec());
-
-    let count = dat_buf.g2() as usize;
-    let _idx_count = idx_buf.g2();
-
-    let mut lengths = Vec::with_capacity(count);
-    for _ in 0..count {
-        lengths.push(idx_buf.g2() as usize);
-    }
-
-    let mut entries = Vec::with_capacity(count);
-    for (id, &len) in lengths.iter().enumerate() {
-        if len == 0 || dat_buf.pos + len > dat_buf.data.len() {
-            entries.push((id as u16, Vec::new()));
-            continue;
-        }
-        let data = dat_buf.data[dat_buf.pos..dat_buf.pos + len].to_vec();
-        dat_buf.pos += len;
-        entries.push((id as u16, data));
-    }
-
-    entries
+    PackedData::entries(dat, idx)
+        .expect("Invalid config data/index")
+        .map(|(id, data)| (id, data.to_vec()))
+        .collect()
 }
 
+#[cfg(before_647)]
 fn config_dat_trailing(dat: &[u8], idx: &[u8]) -> usize {
     if dat.len() < 2 || idx.len() < 2 {
         return 0;
@@ -332,15 +858,7 @@ fn config_dat_trailing(dat: &[u8], idx: &[u8]) -> usize {
     dat.len().saturating_sub(consumed)
 }
 
-fn reverse_recol_pair(bs: u16, bd: u16, reverse_hsl: &HashMap<u16, u16>) -> (u16, u16) {
-    if bs < 100 && bd < 100 {
-        return (bs, bd);
-    }
-    let rs = reverse_hsl.get(&bs).copied().unwrap_or(bs);
-    let rd = reverse_hsl.get(&bd).copied().unwrap_or(bd);
-    (rs, rd)
-}
-
+#[cfg(before_647)]
 fn model_ref(id: u16, suffix: &str, category: ModelCategory, packs: &mut UnpackedPacks) -> String {
     let name = if suffix.is_empty() {
         format!("model_{id}")
@@ -350,24 +868,29 @@ fn model_ref(id: u16, suffix: &str, category: ModelCategory, packs: &mut Unpacke
     packs.name_model(id, name, category)
 }
 
+#[cfg(before_647)]
 fn seq_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("seq", id, packs)
 }
 
+#[cfg(before_647)]
 fn obj_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("obj", id, packs)
 }
 
 #[cfg(since_289)]
+#[cfg(before_647)]
 fn loc_ref(id: u16, packs: &UnpackedPacks) -> String {
     entry_name("loc", id, packs)
 }
 
 #[cfg(since_289)]
+#[cfg(before_647)]
 fn varbit_ref(id: u16, packs: &UnpackedPacks) -> String {
-    entry_name("varbit", id, packs)
+    entry_name("varpbit", id, packs)
 }
 
+#[cfg(before_647)]
 fn obj_ref_to_id(value: &str, packs: &UnpackedPacks) -> Option<u16> {
     if let Some(id) = value
         .strip_prefix("obj_")
@@ -377,417 +900,241 @@ fn obj_ref_to_id(value: &str, packs: &UnpackedPacks) -> Option<u16> {
     }
     packs.existing_config_names.get("obj").and_then(|names| {
         names
+            .id_to_debugname
             .iter()
             .find(|(_, name)| name.as_str() == value)
             .map(|(id, _)| *id)
     })
 }
 
+#[cfg(before_647)]
 fn anim_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.anim_ids.insert(id);
     format!("anim_{id}")
 }
 
+#[cfg(before_647)]
 fn texture_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.texture_ids.insert(id);
-    super::texture::TEXTURE_NAMES
+    TEXTURE_NAMES
         .get(id as usize)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("texture_{id}"))
 }
 
-fn decode_flo_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
+pub fn decode_record<T: CacheType>(
+    buf: &mut Packet,
+    id: u16,
+    hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
+    emit: impl Fn(&T, u8, &[u8], &mut UnpackedPacks, &HashMap<u16, u16>) -> Vec<(String, String)>,
+) -> Vec<(String, String)> {
+    let start = buf.pos;
+    let mut def = T::new(id);
+    // Resolve types and flags that can follow the properties they describe.
+    def.decode(buf);
+    buf.pos = start;
+    let mut props = Vec::new();
+    while buf.remaining() > 0 {
+        let code = buf.g1();
+        if code == 0 {
+            break;
         }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let colour = buf.g3();
-                    props.push(("colour".into(), format!("0x{colour:06X}")));
-                }
-                2 => {
-                    let tex_id = buf.g1() as u16;
-                    props.push(("texture".into(), texture_ref(tex_id, packs)));
-                }
-                3 => props.push(("overlay".into(), "yes".into())),
-                5 => props.push(("occlude".into(), "no".into())),
-                6 => {
-                    let name = buf.gjstr(10);
-                    packs.flo_names.insert(id, name);
-                }
-                _ => panic!("Unrecognized flo config code: {code}"),
-            }
-        }
-
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "flo",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-
-        if !props.is_empty() {
-            results.push((id, props));
-        }
+        let start = buf.pos;
+        def.decode_opcode(buf, code);
+        props.extend(emit(&def, code, &buf.data[start..buf.pos], packs, hsl));
     }
-    results
+    props
 }
 
-fn decode_varp_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                5 => props.push(("clientcode".into(), buf.g2().to_string())),
-                _ => panic!("Unrecognized varp config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "varp",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        results.push((id, props));
-    }
-    results
-}
-
-fn decode_idk_entries(
-    dat: &[u8],
-    idx: &[u8],
+fn decode_entry(
+    name: &'static str,
+    id: u16,
+    data: Vec<u8>,
     reverse_hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    let type_names = [
-        "man_hair",
-        "man_jaw",
-        "man_torso",
-        "man_arms",
-        "man_hands",
-        "man_legs",
-        "man_feet",
-        "woman_hair",
-        "woman_jaw",
-        "woman_torso",
-        "woman_arms",
-        "woman_hands",
-        "woman_legs",
-        "woman_feet",
-    ];
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-
-        let is_woman = {
-            let mut scan = Packet::from(data.clone());
-            let mut found_type = 0u8;
-            while scan.remaining() > 0 {
-                let code: u8 = scan.g1();
-                match code {
-                    0 => break,
-                    1 => {
-                        found_type = scan.g1();
-                        break;
-                    }
-                    2 => {
-                        let c = scan.g1() as usize;
-                        for _ in 0..c {
-                            scan.g2();
-                        }
-                    }
-                    3 => {}
-                    40..=69 => {
-                        scan.g2();
-                    }
-                    _ => panic!("Unrecognized idk config code: {code}"),
+    decoder: ConfigDecoder,
+) -> Vec<(String, String)> {
+    let mut buf = Packet::from(data);
+    let props = decoder(&mut buf, id, reverse_hsl, packs);
+    if buf.remaining() > 0 {
+        packs.leftovers.push(RecordLeftover {
+            config_type: name,
+            id,
+            bytes: buf.remaining() as usize,
+        });
+    }
+    #[cfg(before_647)]
+    if name == "obj"
+        && props.len() == 2
+        && props
+            .iter()
+            .all(|(key, _)| key == "certlink" || key == "certtemplate")
+    {
+        for (key, value) in &props {
+            if let Some(value) = obj_ref_to_id(value, packs) {
+                if key == "certlink" {
+                    packs.cert_objs.insert(id, value);
+                } else {
+                    packs.cert_template_id = Some(value);
                 }
             }
-            found_type >= 7
-        };
-        let cat = if is_woman {
-            ModelCategory::IdkWoman
-        } else {
-            ModelCategory::IdkMan
-        };
-
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let id = buf.g1() as usize;
-                    props.push((
-                        "type".into(),
-                        type_names.get(id).unwrap_or(&"???").to_string(),
-                    ));
-                }
-                2 => {
-                    let count = buf.g1() as usize;
-                    for i in 0..count {
-                        props.push((
-                            format!("model{}", i + 1),
-                            model_ref(buf.g2(), "idk", cat.clone(), packs),
-                        ));
-                    }
-                }
-                3 => props.push(("disable".into(), "yes".into())),
-                40..=49 => {
-                    let i = code - 39;
-                    let hsl = buf.g2();
-                    let rgb = reverse_hsl.get(&hsl).copied().unwrap_or(hsl);
-                    props.push((format!("recol{i}s"), rgb.to_string()));
-                }
-                50..=59 => {
-                    let i = code - 49;
-                    let hsl = buf.g2();
-                    let rgb = reverse_hsl.get(&hsl).copied().unwrap_or(hsl);
-                    props.push((format!("recol{i}d"), rgb.to_string()));
-                }
-                60..=69 => {
-                    let i = code - 59;
-                    props.push((
-                        format!("head{i}"),
-                        model_ref(buf.g2(), "idk_head", cat.clone(), packs),
-                    ));
-                }
-                _ => panic!("Unrecognized idk config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "idk",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        if !props.is_empty() {
-            results.push((id, props));
         }
     }
-    results
+    props
 }
 
-fn decode_spotanim_entries(
-    dat: &[u8],
-    idx: &[u8],
-    reverse_hsl: &HashMap<u16, u16>,
+#[cfg(before_647)]
+pub(crate) fn decode_records(
+    name: &'static str,
+    entries: Vec<(u16, Vec<u8>)>,
+    hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => props.push((
-                    "model".into(),
-                    model_ref(buf.g2(), "spotanim", ModelCategory::Spotanim, packs),
-                )),
-                2 => props.push(("anim".into(), seq_ref(buf.g2(), packs))),
-                3 => props.push(("hasalpha".into(), "yes".into())),
-                4 => props.push(("resizeh".into(), buf.g2().to_string())),
-                5 => props.push(("resizev".into(), buf.g2().to_string())),
-                6 => props.push(("angle".into(), buf.g2().to_string())),
-                7 => props.push(("ambient".into(), buf.g1().to_string())),
-                8 => props.push(("contrast".into(), buf.g1().to_string())),
-                40..=49 => {
-                    let i = code - 39;
-                    let hsl = buf.g2();
-                    let rgb = reverse_hsl.get(&hsl).copied().unwrap_or(hsl);
-                    props.push((format!("recol{i}s"), rgb.to_string()));
-                }
-                50..=59 => {
-                    let i = code - 49;
-                    let hsl = buf.g2();
-                    let rgb = reverse_hsl.get(&hsl).copied().unwrap_or(hsl);
-                    props.push((format!("recol{i}d"), rgb.to_string()));
-                }
-                _ => panic!("Unrecognized spotanim config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "spotanim",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        if !props.is_empty() {
-            results.push((id, props));
-        }
-    }
-    results
+    decoder: ConfigDecoder,
+) -> ConfigEntries {
+    entries
+        .into_iter()
+        .filter(|(_, data)| !data.is_empty())
+        .map(|(id, data)| (id, decode_entry(name, id, data, hsl, packs, decoder)))
+        .collect()
 }
 
-fn decode_seq_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let count = buf.g1() as usize;
-                    for i in 0..count {
-                        let frame = buf.g2();
-                        let iframe = buf.g2();
-                        let delay = buf.g2();
-                        props.push((format!("frame{i}"), anim_ref(frame, packs)));
-                        if iframe != 0xFFFF {
-                            props.push((format!("iframe{i}"), anim_ref(iframe, packs)));
-                        }
-                        if delay != 0 {
-                            props.push((format!("delay{i}"), delay.to_string()));
-                        }
-                    }
-                }
-                2 => props.push(("loops".into(), buf.g2().to_string())),
-                3 => {
-                    let count = buf.g1() as usize;
-                    let labels: Vec<String> =
-                        (0..count).map(|_| format!("label_{}", buf.g1())).collect();
-                    props.push(("walkmerge".into(), labels.join(",")));
-                }
-                #[cfg(before_289)]
-                4 => props.push(("stretches".into(), "yes".into())),
-                #[cfg(since_289)]
-                4 => props.push(("reachforward".into(), "yes".into())),
-                5 => props.push(("priority".into(), buf.g1().to_string())),
-                6 => {
-                    let v = buf.g2();
-                    if v == 0 {
-                        props.push(("replaceheldleft".into(), "hide".into()));
-                    } else {
-                        props.push(("replaceheldleft".into(), obj_ref(v - 512, packs)));
-                    }
-                }
-                7 => {
-                    let v = buf.g2();
-                    if v == 0 {
-                        props.push(("replaceheldright".into(), "hide".into()));
-                    } else {
-                        props.push(("replaceheldright".into(), obj_ref(v - 512, packs)));
-                    }
-                }
-                8 => props.push(("maxloops".into(), buf.g1().to_string())),
-                #[cfg(since_244)]
-                9 => {
-                    let v = buf.g1();
-                    let s = match v {
-                        0 => "delaymove".to_string(),
-                        1 => "delayanim".to_string(),
-                        2 => "merge".to_string(),
-                        _ => panic!("Unrecognized seq config preanim_move value: {v}"),
-                    };
-                    props.push(("preanim_move".into(), s));
-                }
-                #[cfg(since_244)]
-                10 => {
-                    let v = buf.g1();
-                    let s = match v {
-                        0 => "delaymove".to_string(),
-                        1 => "abortanim".to_string(),
-                        2 => "merge".to_string(),
-                        _ => panic!("Unrecognized seq config postanim_move value: {v}"),
-                    };
-                    props.push(("postanim_move".into(), s));
-                }
-                #[cfg(since_244)]
-                11 => {
-                    let v = buf.g1();
-                    let s = match v {
-                        1 => "reset".to_string(),
-                        2 => "reset_loop".to_string(),
-                        #[cfg(before_289)]
-                        _ => panic!("Unrecognized seq config duplicatebehavior value: {v}"),
-                        #[cfg(since_289)]
-                        _ => panic!("Unrecognized seq config duplicatebehaviour value: {v}"),
-                    };
-                    // TODO: this has to be in british spelling
-                    #[cfg(before_289)]
-                    props.push(("duplicatebehavior".into(), s));
-                    #[cfg(since_289)]
-                    props.push(("duplicatebehaviour".into(), s));
-                }
-                _ => panic!("Unrecognized seq config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "seq",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        if !props.is_empty() {
-            results.push((id, props));
-        }
-    }
-    results
+#[cfg(since_274)]
+fn decode_empty_record(name: &str, buf: &mut Packet) -> Vec<(String, String)> {
+    let code = buf.g1();
+    assert_eq!(code, 0, "Unrecognized {name} config code: {code}");
+    Vec::new()
 }
 
+fn write_config_section(
+    out: &mut impl Write,
+    section: &str,
+    props: &[(String, String)],
+) -> io::Result<()> {
+    writeln!(out, "[{section}]")?;
+    for (key, value) in props {
+        writeln!(out, "{key}={value}")?;
+    }
+    writeln!(out)
+}
+
+#[cfg(since_647)]
+pub(super) fn unpack_config(
+    cache_dir: &Path,
+    output_dir: &Path,
+    pack_dir: &Path,
+    results: &mut Vec<StepResult>,
+) -> anyhow::Result<()> {
+    let mut store = Js5Store::open(cache_dir)?;
+    let mut packs = UnpackedPacks::new();
+    packs.load_existing_names(pack_dir);
+    packs.transmit_varps = varp::transmit_varps(&mut store)?;
+    if let Some(group) = store.read_group(archive::CONFIG, archive::CONFIG_GROUP_PARAM)? {
+        for entry in &group.entries {
+            let mut param = ParamTypeRaw::new(entry.id as u16);
+            param.decode(&mut Packet::from(entry.data().to_vec()));
+            packs
+                .param_types
+                .insert(entry.id, param::char_to_type_name(param.var_type as u8));
+        }
+    }
+    let mut hsl = HashMap::new();
+    for rgb15 in 0..32768u16 {
+        hsl.insert(rgb15_to_hsl16(rgb15), rgb15);
+    }
+    for (name, decoder) in config_decoders() {
+        step(results, name, || {
+            let (archive_id, stride) = match name {
+                "loc" => (archive::CONFIG_LOC, 256),
+                "enum" => (archive::CONFIG_ENUM, 256),
+                "npc" => (archive::CONFIG_NPC, 128),
+                "obj" => (archive::CONFIG_OBJ, 256),
+                "seq" => (archive::CONFIG_SEQ, 128),
+                "spotanim" => (archive::CONFIG_SPOTANIM, 256),
+                "varpbit" => (archive::CONFIG_VARBIT, 1024),
+                "billboard" => (archive::BILLBOARDS, 256),
+                "particleemitter" | "particleeffector" => (archive::PARTICLES, 0),
+                "quickchatcat" | "quickchatphrase" => (archive::QUICKCHAT, 0),
+                _ => (archive::CONFIG, 0),
+            };
+            let groups = if stride == 0 {
+                let group = match name {
+                    "particleemitter" | "quickchatcat" => 0,
+                    "particleeffector" | "quickchatphrase" => 1,
+                    _ => {
+                        archive::CONFIG_GROUPS
+                            .iter()
+                            .find(|(kind, _)| *kind == name)
+                            .unwrap()
+                            .1
+                    }
+                };
+                group..group + 1
+            } else {
+                0..store.group_count(archive_id).unwrap_or(0)
+            };
+            let mut seen = HashSet::new();
+            let merged = match name {
+                "varcstr" => Some("varc"),
+                "varpstr" => Some("varp"),
+                "varsstr" => Some("vars"),
+                _ => None,
+            };
+            let mut file = BufWriter::new(if let Some(kind) = merged {
+                File::options()
+                    .append(true)
+                    .open(output_dir.join(format!("all.{kind}")))?
+            } else {
+                File::create(output_dir.join(format!("all.{name}")))?
+            });
+            // The global quickchat archive's ids carry on past the first's.
+            let mut sources = vec![(archive_id, groups, 0)];
+            if archive_id == archive::QUICKCHAT {
+                let group = sources[0].1.clone();
+                sources.push((
+                    archive::QUICKCHAT_GLOBAL,
+                    group,
+                    archive::QUICKCHAT_GLOBAL_FIRST as u32,
+                ));
+            }
+            let mut count = 0;
+            for (archive_id, groups, first) in sources {
+                for group_id in groups {
+                    let Some(mut group) = store.read_group(archive_id, group_id)? else {
+                        continue;
+                    };
+                    group.entries.sort_by_key(|entry| entry.id);
+                    for entry in group.entries {
+                        if entry.data().is_empty() {
+                            continue;
+                        }
+                        let id = (first + group_id * stride + entry.id) as u16;
+                        let props = decode_entry(
+                            name,
+                            id,
+                            entry.data().to_vec(),
+                            &hsl,
+                            &mut packs,
+                            decoder,
+                        );
+                        let mut section = entry_name(name, id, &packs);
+                        if !seen.insert(section.clone()) {
+                            section = format!("{section}__{id}");
+                            seen.insert(section.clone());
+                        }
+                        writeln!(file, "// {id}")?;
+                        write_config_section(&mut file, &section, &props)?;
+                        count += 1;
+                    }
+                }
+            }
+            file.flush()?;
+            Ok(format!("{count} configs"))
+        });
+    }
+    Ok(())
+}
+#[cfg(before_647)]
 fn rename_loc_model(name: &str, shape: u8) -> &str {
     let base = name.strip_suffix("_ld").unwrap_or(name);
     LocShape::try_from(shape)
@@ -796,6 +1143,7 @@ fn rename_loc_model(name: &str, shape: u8) -> &str {
         .unwrap_or(base)
 }
 
+#[cfg(before_647)]
 fn push_loc_model_refs(
     loc_id: u16,
     pairs: &[(u16, u8)],
@@ -818,168 +1166,7 @@ fn push_loc_model_refs(
     }
 }
 
-fn decode_loc_entries(
-    dat: &[u8],
-    idx: &[u8],
-    reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        let mut recol_src: Vec<u16> = Vec::new();
-        let mut recol_dst: Vec<u16> = Vec::new();
-        let mut model_ids: Vec<u16> = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let count = buf.g1() as usize;
-                    let mut pairs: Vec<(u16, u8)> = Vec::new();
-                    for _ in 0..count {
-                        pairs.push((buf.g2(), buf.g1()));
-                    }
-                    model_ids.extend(pairs.iter().map(|(m, _)| *m));
-                    push_loc_model_refs(id, &pairs, packs, &mut props);
-                }
-                2 => props.push(("name".into(), buf.gjstr(10))),
-                3 => props.push(("desc".into(), buf.gjstr(10))),
-                5 => {
-                    let count = buf.g1() as usize;
-                    let mut pairs: Vec<(u16, u8)> = Vec::new();
-                    for _ in 0..count {
-                        pairs.push((buf.g2(), LocShape::CentrepieceStraight as u8));
-                    }
-                    model_ids.extend(pairs.iter().map(|(m, _)| *m));
-                    push_loc_model_refs(id, &pairs, packs, &mut props);
-                }
-                14 => props.push(("width".into(), buf.g1().to_string())),
-                15 => props.push(("length".into(), buf.g1().to_string())),
-                17 => props.push(("blockwalk".into(), "no".into())),
-                18 => props.push(("blockrange".into(), "no".into())),
-                19 => {
-                    let v = buf.g1();
-                    props.push(("active".into(), if v == 1 { "yes" } else { "no" }.into()));
-                }
-                21 => props.push(("hillskew".into(), "yes".into())),
-                22 => props.push(("sharelight".into(), "yes".into())),
-                23 => props.push(("occlude".into(), "yes".into())),
-                24 => props.push(("anim".into(), seq_ref(buf.g2(), packs))),
-                25 => props.push(("hasalpha".into(), "yes".into())),
-                28 => props.push(("wallwidth".into(), buf.g1().to_string())),
-                29 => props.push(("ambient".into(), buf.g1s().to_string())),
-                30 => props.push(("op1".into(), buf.gjstr(10))),
-                31 => props.push(("op2".into(), buf.gjstr(10))),
-                32 => props.push(("op3".into(), buf.gjstr(10))),
-                33 => props.push(("op4".into(), buf.gjstr(10))),
-                34 => props.push(("op5".into(), buf.gjstr(10))),
-                39 => props.push(("contrast".into(), buf.g1s().to_string())),
-                40 => {
-                    let count = buf.g1() as usize;
-                    for _ in 0..count {
-                        recol_src.push(buf.g2());
-                        recol_dst.push(buf.g2());
-                    }
-                }
-                60 => props.push(("mapfunction".into(), buf.g2().to_string())),
-                62 => props.push(("mirror".into(), "yes".into())),
-                64 => props.push(("shadow".into(), "no".into())),
-                65 => props.push(("resizex".into(), buf.g2().to_string())),
-                66 => props.push(("resizey".into(), buf.g2().to_string())),
-                67 => props.push(("resizez".into(), buf.g2().to_string())),
-                68 => props.push(("mapscene".into(), buf.g2().to_string())),
-                69 => {
-                    let flags = buf.g1();
-                    let dir = match flags {
-                        0b1110 => "north",
-                        0b1101 => "east",
-                        0b1011 => "south",
-                        0b0111 => "west",
-                        _ => panic!("Unrecognized loc config forceapproach flags: {flags}"),
-                    };
-                    props.push(("forceapproach".into(), dir.into()));
-                }
-                70 => props.push(("offsetx".into(), buf.g2().to_string())),
-                71 => props.push(("offsety".into(), buf.g2().to_string())),
-                72 => props.push(("offsetz".into(), buf.g2().to_string())),
-                73 => props.push(("forcedecor".into(), "yes".into())),
-                #[cfg(since_245_2)]
-                74 => props.push(("breakroutefinding".into(), "yes".into())),
-                #[cfg(since_254)]
-                75 => {
-                    let v = if buf.g1() == 1 { "yes" } else { "no" };
-                    props.push(("raiseobject".into(), v.into()));
-                }
-                #[cfg(since_289)]
-                77 => {
-                    let multivarbit = buf.g2();
-                    if multivarbit != u16::MAX {
-                        props.push(("multivar".into(), varbit_ref(multivarbit, packs)));
-                        let count = buf.g1();
-                        for i in 0..=count {
-                            let multiloc = buf.g2();
-                            if multiloc != u16::MAX {
-                                props.push((
-                                    "multiloc".into(),
-                                    format!("{i},{}", loc_ref(multiloc, packs)),
-                                ));
-                            }
-                        }
-                    }
-                }
-                _ => panic!("Unrecognized loc config code: {code}"),
-            }
-        }
-        let model_textures = packs.model_textures.clone();
-        for i in 0..recol_src.len() {
-            let s = recol_src[i];
-            let d = recol_dst[i];
-            let idx = i + 1;
-            let s_rgb = reverse_hsl.get(&s);
-            let d_rgb = reverse_hsl.get(&d);
-            if s >= 100 || d >= 100 {
-                props.push((
-                    format!("recol{idx}s"),
-                    s_rgb.copied().unwrap_or(s).to_string(),
-                ));
-                props.push((
-                    format!("recol{idx}d"),
-                    d_rgb.copied().unwrap_or(d).to_string(),
-                ));
-            } else if s_rgb.is_none()
-                || d_rgb.is_none()
-                || models_have_texture(&model_ids, s, &model_textures)
-            {
-                props.push((format!("retex{idx}s"), texture_ref(s, packs)));
-                props.push((format!("retex{idx}d"), texture_ref(d, packs)));
-            } else {
-                props.push((format!("recol{idx}s"), s_rgb.copied().unwrap().to_string()));
-                props.push((format!("recol{idx}d"), d_rgb.copied().unwrap().to_string()));
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "loc",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        if !props.is_empty() {
-            results.push((id, props));
-        }
-    }
-    results
-}
-
+#[cfg(before_647)]
 fn models_have_texture(
     model_ids: &[u16],
     texture: u16,
@@ -990,443 +1177,201 @@ fn models_have_texture(
         .any(|m| model_textures.get(m).is_some_and(|t| t.contains(&texture)))
 }
 
-fn decode_npc_entries(
-    dat: &[u8],
-    idx: &[u8],
-    reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let count = buf.g1() as usize;
-                    for i in 0..count {
-                        props.push((
-                            format!("model{}", i + 1),
-                            model_ref(buf.g2(), "npc", ModelCategory::Npc, packs),
-                        ));
-                    }
-                }
-                2 => props.push(("name".into(), buf.gjstr(10))),
-                3 => props.push(("desc".into(), buf.gjstr(10))),
-                12 => props.push(("size".into(), buf.g1().to_string())),
-                13 => props.push(("readyanim".into(), seq_ref(buf.g2(), packs))),
-                14 => props.push(("walkanim".into(), seq_ref(buf.g2(), packs))),
-                #[cfg(before_254)]
-                16 => props.push(("hasalpha".into(), "yes".into())),
-                17 => {
-                    let a = seq_ref(buf.g2(), packs);
-                    let b = seq_ref(buf.g2(), packs);
-                    let c = seq_ref(buf.g2(), packs);
-                    let d = seq_ref(buf.g2(), packs);
-                    props.push(("walkanim".into(), format!("{a},{b},{c},{d}")));
-                }
-                30 => props.push(("op1".into(), buf.gjstr(10))),
-                31 => props.push(("op2".into(), buf.gjstr(10))),
-                32 => props.push(("op3".into(), buf.gjstr(10))),
-                33 => props.push(("op4".into(), buf.gjstr(10))),
-                34 => props.push(("op5".into(), buf.gjstr(10))),
-                40 => {
-                    let count = buf.g1() as usize;
-                    for i in 0..count {
-                        let s = buf.g2();
-                        let d = buf.g2();
-                        let (rs, rd) = reverse_recol_pair(s, d, reverse_hsl);
-                        props.push((format!("recol{}s", i + 1), rs.to_string()));
-                        props.push((format!("recol{}d", i + 1), rd.to_string()));
-                    }
-                }
-                60 => {
-                    let count = buf.g1() as usize;
-                    for i in 0..count {
-                        props.push((
-                            format!("head{}", i + 1),
-                            model_ref(buf.g2(), "npc_head", ModelCategory::Npc, packs),
-                        ));
-                    }
-                }
-                90 => props.push(("resizex".into(), buf.g2().to_string())),
-                91 => props.push(("resizey".into(), buf.g2().to_string())),
-                92 => props.push(("resizez".into(), buf.g2().to_string())),
-                93 => props.push(("minimap".into(), "no".into())),
-                95 => {
-                    let v = buf.g2();
-                    props.push((
-                        "vislevel".into(),
-                        if v == 0 { "hide".into() } else { v.to_string() },
-                    ));
-                }
-                97 => props.push(("resizeh".into(), buf.g2().to_string())),
-                98 => props.push(("resizev".into(), buf.g2().to_string())),
-                #[cfg(since_244)]
-                99 => props.push(("alwaysontop".into(), "yes".into())),
-                #[cfg(since_244)]
-                100 => props.push(("ambient".into(), buf.g1s().to_string())),
-                #[cfg(since_244)]
-                101 => props.push(("contrast".into(), buf.g1s().to_string())),
-                #[cfg(since_244)]
-                102 => props.push(("headicon".into(), buf.g2().to_string())),
-                #[cfg(since_289)]
-                103 => props.push(("turnspeed".into(), buf.g2().to_string())),
-                _ => panic!("Unrecognized npc config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "npc",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        if !props.is_empty() {
-            results.push((id, props));
-        }
+#[cfg(before_647)]
+fn recol_value(value: u16, other: u16, reverse_hsl: &HashMap<u16, u16>) -> u16 {
+    if value >= 100 || other >= 100 {
+        return reverse_hsl.get(&value).copied().unwrap_or(value);
     }
-    results
+    value
 }
 
-fn decode_obj_entries(
-    dat: &[u8],
-    idx: &[u8],
-    reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => props.push((
-                    "model".into(),
-                    model_ref(buf.g2(), "obj", ModelCategory::Obj, packs),
-                )),
-                2 => props.push(("name".into(), buf.gjstr(10))),
-                3 => props.push(("desc".into(), buf.gjstr(10))),
-                4 => props.push(("2dzoom".into(), buf.g2().to_string())),
-                5 => props.push(("2dxan".into(), buf.g2().to_string())),
-                6 => props.push(("2dyan".into(), buf.g2().to_string())),
-                7 => props.push(("2dxof".into(), (buf.g2() as i16).to_string())),
-                8 => props.push(("2dyof".into(), (buf.g2() as i16).to_string())),
-                9 => props.push(("code9".into(), "yes".into())),
-                10 => props.push(("code10".into(), seq_ref(buf.g2(), packs))),
-                11 => props.push(("stackable".into(), "yes".into())),
-                12 => props.push(("cost".into(), buf.g4s().to_string())),
-                16 => props.push(("members".into(), "yes".into())),
-                23 => {
-                    let m = model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs);
-                    let idx = buf.g1();
-                    props.push(("manwear".into(), format!("{m},{idx}")));
-                }
-                24 => props.push((
-                    "manwear2".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                25 => {
-                    let m = model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs);
-                    let idx = buf.g1();
-                    props.push(("womanwear".into(), format!("{m},{idx}")));
-                }
-                26 => props.push((
-                    "womanwear2".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                30 => props.push(("op1".into(), buf.gjstr(10))),
-                31 => props.push(("op2".into(), buf.gjstr(10))),
-                32 => props.push(("op3".into(), buf.gjstr(10))),
-                33 => props.push(("op4".into(), buf.gjstr(10))),
-                34 => props.push(("op5".into(), buf.gjstr(10))),
-                35 => props.push(("iop1".into(), buf.gjstr(10))),
-                36 => props.push(("iop2".into(), buf.gjstr(10))),
-                37 => props.push(("iop3".into(), buf.gjstr(10))),
-                38 => props.push(("iop4".into(), buf.gjstr(10))),
-                39 => props.push(("iop5".into(), buf.gjstr(10))),
-                40 => {
-                    let count = buf.g1() as usize;
-                    for i in 0..count {
-                        let s = buf.g2();
-                        let d = buf.g2();
-                        let (rs, rd) = reverse_recol_pair(s, d, reverse_hsl);
-                        props.push((format!("recol{}s", i + 1), rs.to_string()));
-                        props.push((format!("recol{}d", i + 1), rd.to_string()));
-                    }
-                }
-                78 => props.push((
-                    "manwear3".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                79 => props.push((
-                    "womanwear3".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                90 => props.push((
-                    "manhead".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                91 => props.push((
-                    "womanhead".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                92 => props.push((
-                    "manhead2".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                93 => props.push((
-                    "womanhead2".into(),
-                    model_ref(buf.g2(), "obj_wear", ModelCategory::Obj, packs),
-                )),
-                95 => props.push(("2dzan".into(), buf.g2().to_string())),
-                97 => props.push(("certlink".into(), obj_ref(buf.g2(), packs))),
-                98 => props.push(("certtemplate".into(), obj_ref(buf.g2(), packs))),
-                #[cfg(rev = "225")]
-                99..=108 => {
-                    let i = code - 99;
-                    let oid = obj_ref(buf.g2(), packs);
-                    let count = buf.g2();
-                    props.push((format!("count{}", i + 1), format!("{oid},{count}")));
-                }
-                #[cfg(since_244)]
-                100..=109 => {
-                    let i = code - 100;
-                    let oid = obj_ref(buf.g2(), packs);
-                    let count = buf.g2();
-                    props.push((format!("count{}", i + 1), format!("{oid},{count}")));
-                }
-                #[cfg(since_244)]
-                110 => props.push(("resizex".into(), buf.g2().to_string())),
-                #[cfg(since_244)]
-                111 => props.push(("resizey".into(), buf.g2().to_string())),
-                #[cfg(since_244)]
-                112 => props.push(("resizez".into(), buf.g2().to_string())),
-                #[cfg(since_244)]
-                113 => props.push(("ambient".into(), buf.g1s().to_string())),
-                #[cfg(since_244)]
-                114 => props.push(("contrast".into(), buf.g1s().to_string())),
-                #[cfg(since_289)]
-                115 => props.push(("team".into(), buf.g1().to_string())),
-                _ => panic!("Unrecognized obj config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "obj",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        let is_cert = props.len() == 2
-            && props
-                .iter()
-                .all(|(k, _)| k == "certlink" || k == "certtemplate");
-        if is_cert {
-            if let Some((_, link_name)) = props.iter().find(|(k, _)| k == "certlink")
-                && let Some(linked_id) = obj_ref_to_id(link_name, packs)
-            {
-                packs.cert_objs.insert(id, linked_id);
-            }
-            if let Some((_, tmpl_name)) = props.iter().find(|(k, _)| k == "certtemplate")
-                && let Some(tmpl_id) = obj_ref_to_id(tmpl_name, packs)
-            {
-                packs.cert_template_id = Some(tmpl_id);
-            }
-        }
-        if !props.is_empty() {
-            results.push((id, props));
-        }
-    }
-    results
+#[cfg(since_647)]
+fn emit_params(data: &[u8], packs: &UnpackedPacks) -> Vec<(u8, String, String)> {
+    let mut buf = Packet::from(data.to_vec());
+    let params: Vec<_> = (0..buf.g1())
+        .map(|_| ParamType::decode_param(&mut buf))
+        .collect();
+    emit_param_list(&params, packs)
 }
 
-#[cfg(since_254)]
-fn decode_varbit_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rs_ver::STRING_TERMINATOR;
 
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let mut props = Vec::new();
-
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    props.push(("basevar".into(), format!("varp_{}", buf.g2())));
-                    props.push(("startbit".into(), buf.g1().to_string()));
-                    props.push(("endbit".into(), buf.g1().to_string()));
-                }
-                10 => props.push(("debugname".into(), buf.gjstr(10))),
-                _ => panic!("Unrecognized varbit config code: {code}"),
-            }
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "varbit",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        results.push((id, props));
+    fn unpack(
+        name: &'static str,
+        data: Vec<u8>,
+        packs: &mut UnpackedPacks,
+        hsl: &HashMap<u16, u16>,
+    ) -> Vec<(String, String)> {
+        let decoder = config_decoders()
+            .into_iter()
+            .find(|(kind, _)| *kind == name)
+            .unwrap()
+            .1;
+        decode_entry(name, 7, data, hsl, packs, decoder)
     }
-    results
-}
 
-#[cfg(since_274)]
-fn decode_mesanim_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let props = Vec::new();
-
-        let code: u8 = buf.g1();
-        if code != 0 {
-            panic!("Unrecognized mesanim config code: {code}");
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "mesanim",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        results.push((id, props));
+    #[test]
+    fn repeated_values_and_trailing_bytes_survive_unpacking() {
+        let mut packs = UnpackedPacks::new();
+        let props = unpack(
+            "npc",
+            vec![
+                2,
+                b'a',
+                STRING_TERMINATOR,
+                2,
+                b'b',
+                STRING_TERMINATOR,
+                0,
+                0xaa,
+            ],
+            &mut packs,
+            &HashMap::new(),
+        );
+        assert_eq!(
+            props,
+            vec![("name".into(), "a".into()), ("name".into(), "b".into())]
+        );
+        assert_eq!(packs.leftovers.len(), 1);
+        assert_eq!((packs.leftovers[0].id, packs.leftovers[0].bytes), (7, 1));
     }
-    results
-}
 
-#[cfg(since_274)]
-fn decode_mes_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let props = Vec::new();
-
-        let code: u8 = buf.g1();
-        if code != 0 {
-            panic!("Unrecognized mes config code: {code}");
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "mes",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        results.push((id, props));
+    #[cfg(before_647)]
+    #[test]
+    fn repeated_loc_fields_keep_texture_detection() {
+        let mut packs = UnpackedPacks::new();
+        packs.model_textures = Rc::new(HashMap::from([(5, HashSet::from([1]))]));
+        let hsl = HashMap::from([(1, 1000), (2, 2000)]);
+        let props = unpack(
+            "loc",
+            vec![
+                40,
+                1,
+                0,
+                1,
+                0,
+                2,
+                1,
+                1,
+                0,
+                5,
+                10,
+                2,
+                b'a',
+                STRING_TERMINATOR,
+                2,
+                b'b',
+                STRING_TERMINATOR,
+                0,
+            ],
+            &mut packs,
+            &hsl,
+        );
+        assert_eq!(props.iter().filter(|(key, _)| key == "name").count(), 2);
+        assert_eq!(props[0].0, "retex1s");
+        assert_eq!(props[1].0, "retex1d");
     }
-    results
-}
 
-#[cfg(since_274)]
-fn decode_param_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let props = Vec::new();
-
-        let code: u8 = buf.g1();
-        if code != 0 {
-            panic!("Unrecognized param config code: {code}");
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "param",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        results.push((id, props));
+    #[test]
+    fn count_opcode_100_is_the_first_obj_variant() {
+        let props = unpack(
+            "obj",
+            vec![100, 0, 2, 0, 5, 0],
+            &mut UnpackedPacks::new(),
+            &HashMap::new(),
+        );
+        assert_eq!(props, vec![("count1".into(), "obj_2,5".into())]);
     }
-    results
-}
 
-#[cfg(since_274)]
-fn decode_hunt_entries(
-    dat: &[u8],
-    idx: &[u8],
-    _reverse_hsl: &HashMap<u16, u16>,
-    packs: &mut UnpackedPacks,
-) -> Vec<(u16, Vec<(String, String)>)> {
-    let raw = read_entries(dat, idx);
-    let mut results = Vec::new();
-
-    for (id, data) in raw {
-        if data.is_empty() {
-            continue;
-        }
-        let mut buf = Packet::from(data);
-        let props = Vec::new();
-
-        let code: u8 = buf.g1();
-        if code != 0 {
-            panic!("Unrecognized hunt config code: {code}");
-        }
-        if buf.remaining() > 0 {
-            packs.leftovers.push(RecordLeftover {
-                config_type: "hunt",
-                id,
-                bytes: buf.remaining() as usize,
-            });
-        }
-        results.push((id, props));
+    #[cfg(all(since_254, before_647))]
+    #[test]
+    fn varbit_zero_values_and_legacy_debugname_are_preserved() {
+        let props = unpack(
+            "varpbit",
+            vec![1, 0, 0, 0, 0, 10, b'x', STRING_TERMINATOR, 0],
+            &mut UnpackedPacks::new(),
+            &HashMap::new(),
+        );
+        assert_eq!(
+            props,
+            vec![
+                ("basevar".into(), "varp_0".into()),
+                ("startbit".into(), "0".into()),
+                ("endbit".into(), "0".into()),
+                ("debugname".into(), "x".into())
+            ]
+        );
     }
-    results
+
+    #[cfg(since_647)]
+    #[test]
+    fn overlapping_loc_opcodes_keep_their_original_values() {
+        let props = unpack(
+            "loc",
+            vec![27, 22, 17, 22, 0],
+            &mut UnpackedPacks::new(),
+            &HashMap::new(),
+        );
+        assert_eq!(
+            props,
+            vec![
+                ("blockwalk".into(), "yes".into()),
+                ("sharelight".into(), "yes".into()),
+                ("blockwalk".into(), "no".into()),
+                ("sharelight".into(), "yes".into()),
+            ]
+        );
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn params_keep_repeated_keys_without_reemitting_stale_values() {
+        let props = unpack(
+            "npc",
+            vec![
+                249,
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                7,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                8,
+                249,
+                0,
+                249,
+                1,
+                1,
+                0,
+                0,
+                2,
+                b'a',
+                STRING_TERMINATOR,
+                0,
+            ],
+            &mut UnpackedPacks::new(),
+            &HashMap::new(),
+        );
+        assert_eq!(
+            props,
+            vec![
+                ("param".into(), "param_1,7".into()),
+                ("param".into(), "param_1,8".into()),
+                ("param".into(), "param_2,a".into()),
+            ]
+        );
+    }
 }

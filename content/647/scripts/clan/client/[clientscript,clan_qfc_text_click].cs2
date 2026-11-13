@@ -1,0 +1,5 @@
+// 4370
+[clientscript,clan_qfc_text_click](component $component0, component $component1, int $int2)
+%qfc_input_varc = if_gettext($component0);
+%qfc_input_caret_varc = ~script1552(%qfc_input_caret_varc, %qfc_input_varc, verdana_11pt_regular_multiline, $component0, -1);
+if_setposition($component1, %qfc_input_caret_varc, 5, ^setpos_abs_left, ^setpos_abs_top);

@@ -1,11 +1,10 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::Engine;
-use crate::engine::{engine, engine_mut};
+use crate::core::Engine;
+use crate::core::{engine, engine_mut};
 use crate::handlers::op_common::{HeldCheck, check_held};
-use crate::phases::shared::EntityId;
+use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
 use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
-use rs_entity::MoveSpeed;
 use rs_entity::interaction::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
@@ -51,7 +50,7 @@ impl Engine {
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `process_queues`, `process_timers`, `process_engine_queue`,
     ///   `process_interaction`, `process_movement`, `update_energy`,
-    ///   `check_zones_and_collision`
+    ///   `refresh_presence`
     pub(crate) fn players(&mut self) {
         let pids = self.player_list.take_pids();
         let mut start = 0;
@@ -67,7 +66,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let pid = pids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during player processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
                     start += 1;
@@ -96,6 +95,8 @@ impl Engine {
 
     #[inline(always)]
     fn process_player(&mut self, pid: u16) {
+        #[cfg(since_647)]
+        self.fall_forward(pid);
         let Some(active) = self.player_list.players[pid as usize].as_mut() else {
             return;
         };
@@ -103,6 +104,25 @@ impl Engine {
         let prev_coord = active.player.pathing.coord;
 
         active.player.state.check_delay(self.clock);
+
+        #[cfg(since_254)]
+        if active
+            .player
+            .state
+            .active_script
+            .as_ref()
+            .is_some_and(|s| s.execution == ExecutionState::MapBuildPending)
+            && (!active.player.state.delayed || active.map_build_complete())
+        {
+            active.player.state.delayed = false;
+            active
+                .player
+                .state
+                .active_script
+                .as_mut()
+                .unwrap()
+                .execution = ExecutionState::Suspended;
+        }
 
         // - resume suspended script
         if !active.player.state.delayed
@@ -136,6 +156,11 @@ impl Engine {
         Self::process_timers(self.clock, active, TimerPriority::Soft);
         // - engine queue
         Self::process_engine_queue(active);
+        // 647: the face lock an op script holds ends with the script.
+        #[cfg(since_647)]
+        if active.player.state.active_script.is_none() {
+            active.player.interaction.script_focus = None;
+        }
         active.player.set_face_entity();
         active.player.pathing.follow_coord = active.player.pathing.last_step_coord;
         // - interactions
@@ -155,14 +180,14 @@ impl Engine {
             // energy hit zero: push the now-disabled run state to the client orb
             active.sync_run();
         }
+        active.player.validate_distance_walked();
 
-        Engine::check_zones_and_collision(
+        let block_walk = active.player.block_walk;
+        Engine::refresh_presence(
             &mut self.zones,
-            prev_coord,
-            active.player.pathing.coord,
+            &mut active.player.pathing,
             EntityId::Player(active.player.uid.pid()),
-            active.player.pathing.size,
-            active.player.block_walk,
+            block_walk,
         );
     }
 
@@ -320,12 +345,17 @@ impl Engine {
                 }
 
                 if let Some(script) = engine().get_script(request.script_id).cloned() {
-                    let state = engine_mut().build_state(
+                    #[cfg_attr(before_647, allow(unused_mut))]
+                    let mut state = engine_mut().build_state(
                         script,
                         Some(ScriptSubject::Player(uid)),
                         None,
                         request.args,
                     );
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
                     if let Err(e) = engine_mut().run_script_by_state(
                         state,
                         Some(ScriptSubject::Player(uid)),
@@ -368,12 +398,17 @@ impl Engine {
                 let request = active.player.state.queues.weak.unlink(idx);
 
                 if let Some(script) = engine().get_script(request.script_id).cloned() {
-                    let state = engine_mut().build_state(
+                    #[cfg_attr(before_647, allow(unused_mut))]
+                    let mut state = engine_mut().build_state(
                         script,
                         Some(ScriptSubject::Player(uid)),
                         None,
                         request.args,
                     );
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
                     if let Err(e) = engine_mut().run_script_by_state(
                         state,
                         Some(ScriptSubject::Player(uid)),
@@ -419,12 +454,17 @@ impl Engine {
                 let request = active.player.state.queues.engine.unlink(idx);
 
                 if let Some(script) = engine().get_script(request.script_id).cloned() {
-                    let state = engine_mut().build_state(
+                    #[cfg_attr(before_647, allow(unused_mut))]
+                    let mut state = engine_mut().build_state(
                         script,
                         Some(ScriptSubject::Player(uid)),
                         None,
                         request.args,
                     );
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
                     if let Err(e) = engine_mut().run_script_by_state(
                         state,
                         Some(ScriptSubject::Player(uid)),
@@ -542,6 +582,21 @@ impl Engine {
                     active.message_game("I can't reach that!");
                     active.player.clear_interaction();
                 }
+            }
+        }
+
+        // 647: an op script that suspends (a dialogue, a delay, a cutscene) keeps the player turned
+        // to the npc or player it was started on until it ends, so a scripted walk meanwhile
+        // side-steps or backs away facing it (the client picks walk_l/walk_r/walk_b only under a
+        // face lock: SpotShadowsClientOption.method2920). Unstable Foundations' dragon cutscene
+        // shows it: the player backs away from Sir Vant, facing him (4KO2h2xPtdM @17.3-18.2).
+        #[cfg(since_647)]
+        if interacted && active.player.state.active_script.is_some() {
+            if let Some(
+                target @ (InteractionTarget::Npc { .. } | InteractionTarget::Player { .. }),
+            ) = active.player.interaction.target
+            {
+                active.player.interaction.script_focus = Some(target);
             }
         }
 
@@ -716,7 +771,8 @@ impl Engine {
         if let Some(target) = &active.player.interaction.target {
             let src = active.player.pathing.coord.packed();
             let dst = Self::target_coord(target).packed();
-            if active.player.pathing.is_last_or_no_waypoint()
+            if active.pending_path.is_none()
+                && active.player.pathing.is_last_or_no_waypoint()
                 && src == active.player.interaction.last_path_src
                 && dst == active.player.interaction.last_path_dst
             {
@@ -724,7 +780,11 @@ impl Engine {
             }
             active.player.interaction.last_path_src = src;
             active.player.interaction.last_path_dst = dst;
-            Self::entity_path_to_target(&mut active.player.pathing, target, client_pathfinder);
+            if let Some(request) =
+                Self::entity_path_request(&mut active.player.pathing, target, client_pathfinder)
+            {
+                active.request_path(request);
+            }
         };
     }
 
@@ -807,7 +867,7 @@ impl Engine {
     fn get_trigger(
         active: *mut ActivePlayer,
         offset: u8,
-    ) -> Option<(ServerTriggerType, Option<u16>, Option<i32>)> {
+    ) -> Option<(ServerTriggerType, Option<i32>, Option<i32>)> {
         let active = unsafe { &mut *active };
         let target = active.player.interaction.target.as_ref()?;
         let base = active
@@ -839,8 +899,9 @@ impl Engine {
                 // loc's own (type, then category).
                 if let Some(shown) = active.shown_loc(*id).filter(|s| s != id).and_then(loc) {
                     let com = active.player.interaction.target_subject_com;
-                    let script =
-                        |t: u16| engine().has_script_for(trigger, Some(com.unwrap_or(t)), -1);
+                    let script = |t: u16| {
+                        engine().has_script_for(trigger, Some(com.unwrap_or(i32::from(t))), -1)
+                    };
                     let category = |c| engine().has_script_for(trigger, None, c);
                     let base = chosen.is_some_and(|(t, _)| script(t));
                     if script(shown.0) || (!base && category(shown.1)) {
@@ -861,18 +922,14 @@ impl Engine {
                     }
                 }
             }
-            InteractionTarget::Player { .. } => {}
+            InteractionTarget::Player { .. } | InteractionTarget::Coord { .. } => {}
         }
 
         if let Some(com) = active.player.interaction.target_subject_com {
-            type_id = com as i32;
+            type_id = com;
         }
 
-        let t = if type_id >= 0 {
-            Some(type_id as u16)
-        } else {
-            None
-        };
+        let t = if type_id >= 0 { Some(type_id) } else { None };
         let c = if category_id >= 0 {
             Some(category_id)
         } else {
@@ -1107,8 +1164,10 @@ impl Engine {
             if let Some(target) = &active.player.interaction.target
                 && let Some(target_op) = active.player.interaction.target_op
             {
+                // A tile has only an approach trigger.
                 let op_trigger = target_op.wrapping_add(7);
                 let trigger_name = ServerTriggerType::try_from(op_trigger)
+                    .or_else(|_| ServerTriggerType::try_from(target_op))
                     .map(|t| format!("{:?}", t).to_lowercase())
                     .unwrap_or_else(|_| format!("unknown_{}", op_trigger));
 
@@ -1116,38 +1175,36 @@ impl Engine {
                     InteractionTarget::Obj { id, .. } => engine()
                         .objs()
                         .get_by_id(*id)
-                        .and_then(|t| t.debugname().map(|s| s.to_string()))
-                        .unwrap_or_else(|| id.to_string()),
+                        .map_or_else(|| id.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Loc { id, .. } => engine()
                         .locs()
                         .get_by_id(*id)
-                        .and_then(|t| t.debugname().map(|s| s.to_string()))
-                        .unwrap_or_else(|| id.to_string()),
+                        .map_or_else(|| id.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Npc { nid } => engine()
                         .get_npc(*nid)
-                        .and_then(|n| {
-                            engine()
-                                .npcs()
-                                .get_by_id(n.npc.uid.id())
-                                .and_then(|t| t.debugname().map(|s| s.to_string()))
-                        })
-                        .unwrap_or_else(|| nid.to_string()),
+                        .and_then(|n| engine().npcs().get_by_id(n.npc.uid.id()))
+                        .map_or_else(|| nid.to_string(), |t| t.debugname.to_string()),
                     InteractionTarget::Player { pid } => pid.to_string(),
+                    InteractionTarget::Coord { .. } => active
+                        .player
+                        .interaction
+                        .target_subject_com
+                        .map_or_else(String::new, |com| format!("{}:{}", com >> 16, com & 0xFFFF)),
                 };
                 active.message_game(&format!("No trigger for [{},{}]", trigger_name, debugname));
             }
         }
 
-        active.message_game("Nothing interesting happens.");
+        active.nothing_interesting();
         active.player.clear_waypoints();
     }
 
     /// Processes one tick of movement for the player along its queued
     /// waypoints.
     ///
-    /// Sets the player's move speed to `Run` or `Walk` based on the
-    /// player's current run toggle, then delegates to
-    /// [`PathingEntity::process_movement`].
+    /// Sets the tick's move speed
+    /// ([`update_move_speed`](rs_entity::Player::update_move_speed)), then
+    /// delegates to [`PathingEntity::process_movement`].
     ///
     /// Movement is skipped entirely (returning `false`) when the player has a
     /// pending move-click while [`busy`](rs_entity::Player::busy) and still has
@@ -1177,17 +1234,7 @@ impl Engine {
             return false;
         }
 
-        if active.player.run {
-            active.player.pathing.move_speed = MoveSpeed::Run;
-        } else {
-            active.player.pathing.move_speed = MoveSpeed::Walk;
-        }
-
-        if active.player.info.runanim.is_none() {
-            active.player.pathing.move_speed = MoveSpeed::Walk;
-        } else if active.player.temprun {
-            active.player.pathing.move_speed = MoveSpeed::Run;
-        }
+        active.player.update_move_speed();
 
         let members = engine().members;
         let steps_taken = active.player.pathing.process_movement(
@@ -1197,7 +1244,7 @@ impl Engine {
         );
 
         if !steps_taken {
-            active.player.temprun = false;
+            active.player.temp_move_speed = None;
         }
 
         steps_taken

@@ -1,0 +1,10 @@
+// 1260
+[clientscript,f4_hide3]
+if (%dwarfrock_schematics_solved = 1) {
+    return;
+}
+if (%wilderness_course_progress = 0) {
+    if_setgraphic(dwarf_rock_schematics_control:f4_hide3, "miscgraphics,10");
+} else {
+    if_setgraphic(dwarf_rock_schematics_control:f4_hide3, "miscgraphics,11");
+}

@@ -1,0 +1,494 @@
+// 913:0
+[main]
+type=layer
+width=453
+height=300
+xmode=abs_centre
+ymode=abs_centre
+op10=  
+
+// 913:1
+[ignore_body]
+type=layer
+width=296
+height=110
+xmode=abs_centre
+ymode=abs_centre
+layer=main
+
+// 913:2
+[help_layer]
+type=layer
+width=453
+height=300
+xmode=abs_centre
+ymode=abs_centre
+layer=main
+hide=yes
+
+// 913:3
+[help_body]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=help_layer
+op10=     
+
+// 913:4
+[help_bg]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=help_body
+graphic=window_texture
+tiling=yes
+
+// 913:5
+[help_top_left]
+type=graphic
+width=38
+height=72
+layer=help_body
+graphic="corner_frame_5,4"
+hflip=yes
+colour=0xffffffff
+op10=   
+
+// 913:6
+[help_bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=help_body
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=      
+
+// 913:7
+[help_left_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=help_body
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 913:8
+[help_right_side]
+type=graphic
+y=38
+width=7
+height=72
+heightmode=minus
+xmode=abs_right
+layer=help_body
+graphic=frame_border_vertical
+tiling=yes
+colour=0xffffffff
+op10=      
+
+// 913:9
+[help_bottom_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=help_body
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=      
+
+// 913:10
+[help_top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=help_body
+graphic="corner_frame_5,4"
+colour=0xffffffff
+op10=      
+
+// 913:11
+[help_bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=help_body
+graphic="corner_frame_5,4"
+vflip=yes
+colour=0xffffffff
+op10=       
+
+// 913:12
+[help_top_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=help_body
+graphic=frame_border_horizontal
+tiling=yes
+colour=0xffffffff
+op10=   
+
+// 913:13
+[help_close_button]
+type=graphic
+x=8
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=help_body
+graphic="intro_close_button,0"
+colour=0x000000
+op1=Close
+op10=  
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+onop=lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:main)
+
+// 913:14
+[help_title_text]
+type=text
+y=5
+width=250
+height=22
+xmode=abs_centre
+layer=help_body
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 913:15
+[help_body_text]
+type=text
+y=31
+width=427
+height=43
+heightmode=minus
+xmode=abs_centre
+layer=help_body
+textfont=verdana_11pt_regular
+textlineheight=12
+colour=0xebe0bc
+op10= 
+
+// 913:16
+[bg]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=ignore_body
+op10=    
+
+// 913:17
+[background]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=bg
+graphic=window_texture
+tiling=yes
+
+// 913:18
+[yes_layer]
+type=layer
+y=44
+width=111
+height=31
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=ignore_body
+op1=Ignore Player
+op10= 
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:yes_bg_left, graphic_4693, lobbyscreen_report_abuse_ignore:yes_bg_mid, graphic_4694, lobbyscreen_report_abuse_ignore:yes_bg_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:yes_bg_left, graphic_4690, lobbyscreen_report_abuse_ignore:yes_bg_mid, graphic_4691, lobbyscreen_report_abuse_ignore:yes_bg_right, graphic_4692)
+onop=lobbyscreen_report_abuse_ignore_choose(1)
+
+// 913:19
+[no_layer]
+type=layer
+y=10
+width=111
+height=31
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=ignore_body
+op1=Don't Ignore Player
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:no_left, graphic_4693, lobbyscreen_report_abuse_ignore:no_mid, graphic_4694, lobbyscreen_report_abuse_ignore:no_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_ignore:no_left, graphic_4690, lobbyscreen_report_abuse_ignore:no_mid, graphic_4691, lobbyscreen_report_abuse_ignore:no_right, graphic_4692)
+onop=lobbyscreen_report_abuse_ignore_choose(0)
+
+// 913:20
+[no_left]
+type=graphic
+width=15
+height=31
+layer=no_layer
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 913:21
+[no_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=no_layer
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 913:22
+[no_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=no_layer
+graphic=graphic_4692
+colour=0x000000
+op10=   
+
+// 913:23
+[no_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=no_layer
+textfont=verdana_11pt_regular
+text=No, don't ignore them.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 913:24
+[yes_bg_left]
+type=graphic
+width=15
+height=31
+layer=yes_layer
+graphic=graphic_4690
+colour=0x000000
+op10= 
+
+// 913:25
+[yes_bg_mid]
+type=graphic
+x=15
+width=15
+height=31
+widthmode=minus
+layer=yes_layer
+graphic=graphic_4691
+colour=0x000000
+op10= 
+
+// 913:26
+[yes_bg_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=yes_layer
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 913:27
+[yes_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=yes_layer
+textfont=verdana_11pt_regular
+text=Yes, ignore until I log out.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 913:28
+[top_left]
+type=graphic
+width=38
+height=72
+layer=bg
+graphic="corner_frame_5,4"
+hflip=yes
+colour=0xffffffff
+op10=  
+
+// 913:29
+[bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=bg
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 913:30
+[left_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=bg
+graphic=frame_border_vertical
+tiling=yes
+colour=0xffffffff
+op10=    
+
+// 913:31
+[right_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+xmode=abs_right
+layer=bg
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 913:32
+[bottom_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=bg
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=     
+
+// 913:33
+[top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=bg
+graphic="corner_frame_5,4"
+colour=0xffffffff
+op10=     
+
+// 913:34
+[bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=bg
+graphic="corner_frame_5,4"
+vflip=yes
+colour=0xffffffff
+op10=      
+
+// 913:35
+[top_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=bg
+graphic=frame_border_horizontal
+colour=0xffffffff
+op10=  
+
+// 913:36
+[title_text]
+type=text
+y=8
+width=250
+height=22
+xmode=abs_centre
+layer=bg
+textfont=verdana_13pt_regular
+text=Temporarily ignore player?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 913:37
+[help_button]
+type=graphic
+x=28
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=bg
+graphic=graphic_4696
+colour=0x000000
+op1=Help
+op10=  
+onmouseover=graphic_swapper(event_com, graphic_4697)
+onmouseleave=graphic_swapper(event_com, graphic_4696)
+onop=lobbyscreen_report_abuse_help(6, lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:main)
+
+// 913:38
+[close_button]
+type=graphic
+x=8
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=bg
+graphic="intro_close_button,0"
+colour=0x000000
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+onop=lobbyscreen_report_abuse_ignore_close

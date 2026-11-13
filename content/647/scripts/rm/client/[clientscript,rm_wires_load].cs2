@@ -1,0 +1,51 @@
+// 2846
+[clientscript,rm_wires_load](component $component0)
+cc_deleteall($component0);
+def_int $int1 = 308;
+def_int $int2 = 55;
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount(enum_903);
+while ($int3 < $int4) {
+    cc_create($component0, ^iftype_model, $int3);
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setmodel(enum(int, model, enum_903, $int3));
+    cc_setmodelangle(0, 0, 512, 0, 0, 2750);
+    cc_setondragcomplete("script2848(event_com, event_comsubid, event_com2, event_comsubid2, event_mousex, event_mousey)");
+    cc_setdragrenderbehaviour(2);
+    cc_setdragdeadzone(14);
+    cc_setop(1, "Select");
+    $int3 = calc($int3 + 1);
+    if ($int3 = 3) {
+        $int1 = calc(308 + 48);
+        $int2 = 55;
+    } else if ($int3 = 6) {
+        $int1 = calc(308 + 96);
+        $int2 = 55;
+    } else {
+        $int2 = calc(48 + $int2);
+    }
+}
+$int1 = 113;
+$int2 = 83;
+$int4 = enum_getoutputcount(enum_904);
+$int4 = calc($int4 + $int3);
+def_int $int5 = 0;
+while ($int3 < $int4) {
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settrans(255);
+    $int3 = calc($int3 + 1);
+    $int5 = calc($int5 + 1);
+    if ($int5 = 3) {
+        $int1 = 113;
+        $int2 = calc(83 + 52);
+    } else if ($int5 = 6) {
+        $int1 = 113;
+        $int2 = calc(83 + 104);
+    } else {
+        $int1 = calc(50 + $int1);
+    }
+}
+~script2847($component0);

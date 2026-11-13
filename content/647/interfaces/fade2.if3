@@ -1,0 +1,27 @@
+// 89:0
+[eventlayer]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 89:1
+[flash]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=eventlayer
+colour=0x000000
+fill=yes
+trans=255
+transmitop=10
+op10= 
+
+// 89:2
+[black]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=eventlayer
+colour=0x000000
+fill=yes
+trans=255

@@ -1,0 +1,19 @@
+[opnpc3,rest_musician_lumbridge_castle]
+if (p_finduid(uid) = true) {
+    p_rest(1);
+}
+
+[opnpc1,rest_musician_lumbridge_castle]
+~chatnpc("<p,neutral>Hey, do you want to hear some music?|Sit down and rest a while.")
+def_int $option = ~p_choice3("Who are you?", 1, "Can you tell me about resting?", 2, "No thanks.", 3)
+if ($option = 1) {
+    ~chatplayer("<p,confused>Who are you?")
+    ~chatnpc("<p,happy>Me? I'm a musician! Let me help you relax.|Sit down and rest your weary limbs.")
+    ~chatnpc("<p,neutral>After a long trek, what could be better|than some music to give you the energy to go on?")
+} else if ($option = 2) {
+    ~chatplayer("<p,neutral>Can you tell me about resting?")
+    ~chatnpc("<p,neutral>If you rest near me, your run energy will recharge much faster than normal.")
+    ~chatnpc("<p,neutral>You can also rest anywhere by right-clicking the run button near your minimap.")
+} else {
+    ~chatplayer("<p,neutral>No thanks, I'm good.")
+}

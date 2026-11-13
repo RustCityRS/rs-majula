@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use crate::watch::Op;
 use rs_entity::InteractionTarget;
@@ -8,6 +8,8 @@ use rs_protocol::network::game::client::opnpc2::OpNpc2;
 use rs_protocol::network::game::client::opnpc3::OpNpc3;
 use rs_protocol::network::game::client::opnpc4::OpNpc4;
 use rs_protocol::network::game::client::opnpc5::OpNpc5;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::opnpc6::OpNpc6;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
@@ -82,6 +84,21 @@ impl ClientGameHandler for OpNpc5 {
     }
 }
 
+/// Handles the `OpNpc6` client protocol message: Examine. The client sends
+/// only the npc type it shows, and walks nowhere; the answer is the type's
+/// `desc`.
+#[cfg(since_647)]
+impl ClientGameHandler for OpNpc6 {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        active.watch_op(Op::Other);
+        let desc = engine().npcs().get_by_id(self.npc);
+        if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
+            active.message_game(desc);
+        }
+        Ok(())
+    }
+}
+
 /// Shared handler for NPC operations (ops 1-5).
 ///
 /// Processes a right-click menu operation on an NPC. Validates the NPC exists,
@@ -140,7 +157,12 @@ fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         return Ok(());
     }
 
-    let npc_type = engine.npcs().get_by_id(npc_type_id);
+    let Some(shown_type_id) = active.shown_npc(npc_type_id) else {
+        active.unset_map_flag();
+        active.clear_pending_action()?;
+        return Ok(());
+    };
+    let npc_type = engine.npcs().get_by_id(shown_type_id);
     if let Some(nt) = &npc_type {
         if let Some(ops) = &nt.op {
             if ops.get((op - 1) as usize).is_none_or(|o| o.is_none()) {
@@ -155,12 +177,8 @@ fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         }
     }
 
-    let mode = match op {
-        1 => ServerTriggerType::ApNpc1,
-        2 => ServerTriggerType::ApNpc2,
-        3 => ServerTriggerType::ApNpc3,
-        4 => ServerTriggerType::ApNpc4,
-        _ => ServerTriggerType::ApNpc5,
+    let Some(mode) = ServerTriggerType::ap_npc(op) else {
+        return Ok(());
     };
 
     let target = InteractionTarget::Npc { nid };

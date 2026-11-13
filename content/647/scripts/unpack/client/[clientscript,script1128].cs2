@@ -1,0 +1,9 @@
+// 1128
+[clientscript,script1128](component $component0)
+if (%autocast_defmode = 1) {
+    if_setgraphic($component0, "magic_icon_set,2");
+} else if (%autocast_over_xp_button = 1) {
+    if_setgraphic($component0, "magic_icon_set,1");
+} else {
+    if_setgraphic($component0, "magic_icon_set,0");
+}

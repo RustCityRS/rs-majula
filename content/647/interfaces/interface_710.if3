@@ -1,0 +1,712 @@
+// 710:0
+[content_layer]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 710:1
+[page_bg]
+type=model
+x=12
+y=-1
+width=487
+height=335
+layer=content_layer
+model=model_32409
+modelorigin=-5,-12
+modelzoom=618
+
+// 710:2
+[com_2]
+type=model
+x=16
+y=-2
+width=193
+height=151
+layer=content_layer
+model=model_32406
+modelorigin=1,222
+modelzoom=115
+
+// 710:3
+[sops_title]
+type=text
+x=45
+y=133
+width=175
+height=14
+layer=content_layer
+textfont=b12_full
+text=Question:
+colour=0x1e1e2d
+
+// 710:4
+[sops_header]
+type=text
+x=215
+y=38
+width=300
+height=65
+layer=content_layer
+textfont=quill_oblique_large
+text=Player Safety Test
+colour=0x232330
+
+// 710:5
+[duel_close_button]
+type=graphic
+x=469
+y=9
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,3"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,2")
+onmouseleave=graphic_swapper(event_com, "close_buttons,3")
+onop=closebutton_click
+
+// 710:6
+[sops_question]
+type=text
+x=45
+y=148
+width=388
+height=32
+layer=content_layer
+textfont=q8_full
+text=You are asked for your full name and date of birth by a player that you have been chatting with for a short while. Should you give them these details?
+colour=0x242330
+
+// 710:7
+[com_7]
+type=text
+x=45
+y=198
+width=363
+height=32
+layer=content_layer
+textfont=q8_full
+text=No. The player could use my information to steal my identity. I don't want anyone pretending to be me.
+colour=0x191930
+
+// 710:8
+[com_8]
+type=text
+x=45
+y=252
+width=363
+height=32
+layer=content_layer
+textfont=q8_full
+text=Yes. There's no harm in telling someone my full name and my birthday. They're only being friendly.
+colour=0x191930
+
+// 710:9
+[sops_box1]
+type=model
+x=418
+y=200
+width=33
+height=34
+layer=content_layer
+model=null
+modelorigin=-1,-1
+modelangle=431,1912,0
+modelzoom=2058
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script891(event_com)
+
+// 710:10
+[sops_box2]
+type=model
+x=421
+y=256
+width=31
+height=34
+layer=content_layer
+model=null
+modelorigin=-1,-1
+modelangle=539,1921,206
+modelzoom=1858
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script892(event_com)
+
+// 710:11
+[box1]
+type=line
+x=425
+y=206
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:12
+[box2]
+type=line
+x=425
+y=206
+height=19
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:13
+[box3]
+type=line
+x=424
+y=224
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:14
+[box4]
+type=line
+x=443
+y=206
+height=20
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:15
+[box5]
+type=line
+x=425
+y=262
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:16
+[box6]
+type=line
+x=425
+y=262
+height=19
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:17
+[box7]
+type=line
+x=424
+y=280
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:18
+[box8]
+type=line
+x=443
+y=262
+height=20
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 710:19
+[underline]
+type=line
+x=193
+y=65
+width=248
+layer=content_layer
+colour=0x0e0e17
+
+// 710:20
+[answer_layer]
+type=layer
+width=513
+height=335
+layer=content_layer
+hide=yes
+noclickthrough=yes
+
+// 710:21
+[com_21]
+type=rectangle
+width=512
+height=334
+layer=answer_layer
+colour=0x46341d
+fill=yes
+trans=160
+
+// 710:22
+[com_22]
+type=graphic
+x=32
+y=79
+width=449
+height=230
+layer=answer_layer
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 710:23
+[com_23]
+type=graphic
+x=19
+y=111
+width=25
+height=175
+layer=answer_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 710:24
+[com_24]
+type=graphic
+x=32
+y=79
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 710:25
+[com_25]
+type=graphic
+x=451
+y=79
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 710:26
+[com_26]
+type=graphic
+x=63
+y=66
+width=391
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 710:27
+[com_27]
+type=graphic
+x=463
+y=111
+width=32
+height=175
+layer=answer_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 710:28
+[com_28]
+type=graphic
+x=451
+y=284
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 710:29
+[com_29]
+type=graphic
+x=32
+y=284
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 710:30
+[com_30]
+type=graphic
+x=64
+y=296
+width=387
+height=25
+layer=answer_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 710:31
+[com_31]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=answer_layer
+hide=yes
+
+// 710:32
+[com_32]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_31
+textfont=quill_oblique_large
+text=Correct.
+textshadow=yes
+colour=0xccbe8e
+
+// 710:33
+[com_33]
+type=text
+x=1
+y=27
+width=388
+height=105
+layer=com_31
+textfont=q8_full
+text=Personal details given out while chatting could be used by someone who wishes to pretend to be you. Use the Report Abuse button to report anyone asking for your personal details.
+textshadow=yes
+colour=0xa49279
+
+// 710:34
+[com_34]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=answer_layer
+hide=yes
+
+// 710:35
+[com_35]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_34
+textfont=quill_oblique_large
+text=Incorrect.
+textshadow=yes
+colour=0xccbe8e
+
+// 710:36
+[com_36]
+type=text
+x=1
+y=27
+width=390
+height=105
+layer=com_34
+textfont=p12_full
+text=Never give out personal details, such as your full name and date of birth, to other players. Personal details that you give out while chatting could be used by someone so that they can pretend to be you. Use the Report Abuse button to report anyone asking  for your personal details.
+textshadow=yes
+colour=0xa49279
+
+// 710:37
+[com_37]
+type=layer
+x=375
+y=255
+width=97
+height=42
+layer=answer_layer
+
+// 710:38
+[com_38]
+type=layer
+width=97
+height=42
+layer=com_37
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 710:39
+[com_39]
+type=rectangle
+width=97
+height=42
+layer=com_37
+colour=0x000000
+fill=yes
+trans=250
+transmitop=1
+op1=Next
+
+// 710:40
+[next]
+type=text
+width=97
+height=42
+layer=com_37
+textfont=quill_oblique_large
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x909061
+
+// 710:41
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 710:42
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 710:43
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 710:44
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 710:45
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 710:46
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 710:47
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 710:48
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 710:49
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 710:50
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 710:51
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 710:52
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 710:53
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 710:54
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 710:55
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 710:56
+[com_56]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 710:57
+[com_57]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 710:58
+[com_58]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 710:59
+[com_59]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

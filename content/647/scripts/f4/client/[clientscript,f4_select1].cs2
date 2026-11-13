@@ -1,0 +1,10 @@
+// 1255
+[clientscript,f4_select1]
+if (%dwarfrock_schematics_solved = 1) {
+    return;
+}
+if (%if1 = 0) {
+    if_setgraphic(dwarf_rock_schematics_control:f4_select1, "miscgraphics,10");
+} else {
+    if_setgraphic(dwarf_rock_schematics_control:f4_select1, "miscgraphics,11");
+}

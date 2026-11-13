@@ -1,0 +1,34 @@
+// 814
+[proc,script814](int $int0)(int, component, model)
+switch_int ($int0) {
+    case 1 :
+        return(%firedup_loc1, firedup_beacon_map:firedup_1, enum(int, model, enum_1696, %firedup_loc1));
+    case 2 :
+        return(%firedup_loc2, firedup_beacon_map:firedup_2, enum(int, model, enum_1696, %firedup_loc2));
+    case 3 :
+        return(%firedup_loc3, firedup_beacon_map:firedup_3, enum(int, model, enum_1696, %firedup_loc3));
+    case 4 :
+        return(%firedup_loc4, firedup_beacon_map:firedup_4, enum(int, model, enum_1696, %firedup_loc4));
+    case 5 :
+        return(%firedup_loc5, firedup_beacon_map:firedup_5, enum(int, model, enum_1696, %firedup_loc5));
+    case 6 :
+        return(%firedup_loc6, firedup_beacon_map:firedup_6, enum(int, model, enum_1696, %firedup_loc6));
+    case 7 :
+        return(%firedup_loc7, firedup_beacon_map:firedup_7, enum(int, model, enum_1696, %firedup_loc7));
+    case 8 :
+        return(%firedup_loc8, firedup_beacon_map:firedup_8, enum(int, model, enum_1696, %firedup_loc8));
+    case 9 :
+        return(%firedup_loc9, firedup_beacon_map:firedup_9, enum(int, model, enum_1696, %firedup_loc9));
+    case 10 :
+        return(%firedup_loc10, firedup_beacon_map:firedup_10, enum(int, model, enum_1696, %firedup_loc10));
+    case 11 :
+        return(%firedup_loc11, firedup_beacon_map:firedup_11, enum(int, model, enum_1696, %firedup_loc11));
+    case 12 :
+        return(%firedup_loc12, firedup_beacon_map:firedup_12, enum(int, model, enum_1696, %firedup_loc12));
+    case 13 :
+        return(%firedup_loc13, firedup_beacon_map:firedup_13, enum(int, model, enum_1696, %firedup_loc13));
+    case 14 :
+        return(%firedup_loc14, firedup_beacon_map:firedup_14, enum(int, model, enum_1696, %firedup_loc14));
+    case default :
+        return(-1, null, null);
+}

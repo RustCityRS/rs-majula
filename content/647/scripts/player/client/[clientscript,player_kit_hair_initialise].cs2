@@ -1,0 +1,45 @@
+// 1267
+[clientscript,player_kit_hair_initialise]
+cc_deleteall(player_kit_hair:universe);
+~script1088(player_kit_hair:universe, 22);
+cc_deleteall(player_kit_hair:menu_graphics);
+~verticalgradient(player_kit_hair:menu_graphics, 4734771, 3156258, 0, 0);
+~script2647(player_kit_hair:menu_graphics);
+cc_deleteall(player_kit_hair:player_container);
+~verticalgradient(player_kit_hair:player_container, 4734771, 3156258, 0, 0);
+~player_kit_player_create(player_kit_hair:player_container, 380, 100);
+~script2647(player_kit_hair:player_container);
+def_string $string0 = "Choose a hairstyle";
+if (gender = 1) {
+    if_setsize(player_kit_hair:chathead_container, if_getwidth(player_kit_hair:menu_container), if_getheight(player_kit_hair:chathead_container), ^setsize_abs, ^setsize_abs);
+    if_sethide(player_kit_hair:tabs, true);
+    if_setonvarctransmit(player_kit_hair:universe, "player_kit_hair_redraw{playerdesign3_head, playerdesign3_haircol}");
+    if_setonvartransmit(player_kit_hair:universe, null);
+} else {
+    if_setsize(player_kit_hair:chathead_container, calc(if_getwidth(player_kit_hair:menu_container) - (if_getwidth(player_kit_hair:tabs) + 5)), if_getheight(player_kit_hair:chathead_container), ^setsize_abs, ^setsize_abs);
+    if_sethide(player_kit_hair:tabs, false);
+    %player_kit_hair_client = ~int_to_bool(%varplayerbit_6084);
+    if_setgraphic(player_kit_hair:hair_tab, "player_kit_fancy,4");
+    if_setgraphic(player_kit_hair:beard_tab, "player_kit_fancy_off,3");
+    if_setonop(player_kit_hair:hair_tab, "script2830(event_op, false)");
+    if_setonop(player_kit_hair:beard_tab, "script2830(event_op, true)");
+    if_setonmouserepeat(player_kit_hair:hair_tab, "script1160(event_com, -1, player_kit_hair:tooltip, $string0, 25, 512)");
+    if_setonmouseleave(player_kit_hair:hair_tab, "deltooltip(player_kit_hair:tooltip)");
+    $string0 = "Choose your facial hair";
+    if_setonmouserepeat(player_kit_hair:beard_tab, "script1160(event_com, -1, player_kit_hair:tooltip, $string0, 25, 512)");
+    if_setonmouseleave(player_kit_hair:beard_tab, "deltooltip(player_kit_hair:tooltip)");
+    if_setonvarctransmit(player_kit_hair:universe, "player_kit_hair_redraw{playerdesign3_head, playerdesign3_jaw, playerdesign3_haircol}");
+    if_setonvartransmit(player_kit_hair:universe, "player_kit_hair_vartransmit{gimp_temp_var}");
+}
+cc_deleteall(player_kit_hair:chathead_container);
+~verticalgradient(player_kit_hair:chathead_container, 4734771, 3156258, 0, 0);
+cc_create(player_kit_hair:chathead_container, ^iftype_model, if_getnextsubid(player_kit_hair:chathead_container));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setplayerhead_self;
+cc_setmodelangle(5, 15, 40, 1870, 0, 2400);
+cc_setmodelanim(chatidle2);
+~script2647(player_kit_hair:chathead_container);
+cc_deleteall(player_kit_hair:colours_graphics);
+~script2647(player_kit_hair:colours_graphics);
+~player_kit_hair_redraw;

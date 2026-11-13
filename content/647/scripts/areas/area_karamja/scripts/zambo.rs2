@@ -1,0 +1,12 @@
+// 289's Zambo (areas/area_karamja/scripts/zambo.rs2). The 2011-04-26 Pirate's Treasure recording
+// (YouTube GTgKzVezVDo) only trades with him, so his line stays 289's, unverified for 2011.
+// 289's third option and use-item handler belong to Alfred Grimhand's Barcrawl (%barcrawl,
+// ^karamjaspirits_index), which is not ported yet: they come back with it.
+[opnpc1,zambo]
+~chatnpc("<p,quiz>Hey, are you wanting to try some of my fine wines and spirits? All brewed locally on Karamja island.");
+
+def_int $option = ~p_choice2("Yes please.", 1, "No, thank you.", 2);
+switch_int ($option) {
+    case 1 : p_opnpc(3);
+    case 2 : ~chatplayer("<p,neutral>No, thank you.");
+}

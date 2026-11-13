@@ -1,0 +1,8 @@
+// 1488
+[clientscript,bank_v2_swap_click]
+if (%bankinsert = 0) {
+    %bankinsert = 1;
+} else {
+    %bankinsert = 0;
+}
+~bank_sort_button;

@@ -1,0 +1,4 @@
+// 1372
+[proc,worldmap_setzoom]
+worldmap_setzoom(%worldmap_zoom);
+if_settext(worldmap:zoom_level, "<tostring(%worldmap_zoom)>%");

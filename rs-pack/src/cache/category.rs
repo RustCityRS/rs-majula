@@ -1,11 +1,12 @@
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 
 pub type CategoryTypeProvider = TypeProvider<CategoryType>;
 
 pub struct CategoryType {
     pub id: u16,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for CategoryType {
@@ -14,22 +15,18 @@ impl CacheType for CategoryType {
     fn new(id: u16) -> Self {
         CategoryType {
             id,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized category config code: {code}"),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("category", code),
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }

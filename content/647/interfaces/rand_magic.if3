@@ -1,0 +1,1094 @@
+// 950:0
+[spell_layer]
+type=layer
+width=190
+height=231
+onvartransmit=autocast_highlight_spell{lastcastspell}
+
+// 950:1
+[xp_button_layer]
+type=layer
+width=190
+height=261
+transmitop=10
+op10=  
+
+// 950:2
+[com_2]
+type=graphic
+x=6
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=xp_button_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Defensive Casting
+op10=  
+onmouseover=script1125(event_com)
+onmouseleave=script1126(event_com)
+onvartransmit=script1128(event_com){alternate_spells}
+onmouserepeat=script1127(event_com)
+
+// 950:3
+[com_3]
+type=graphic
+x=6
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=xp_button_layer
+graphic="magic_icon_set,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 950:4
+[com_4]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 950:5
+[order_buttons_layer]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 950:6
+[filter_buttons_layer]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 950:7
+[com_7]
+type=graphic
+x=36
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 950:8
+[com_8]
+type=graphic
+x=36
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:9
+[com_9]
+type=graphic
+x=57
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 950:10
+[com_10]
+type=graphic
+x=57
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,10"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:11
+[filter_misc_button]
+type=graphic
+x=78
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 950:12
+[filter_misc_icon]
+type=graphic
+x=78
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,8"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:13
+[com_13]
+type=graphic
+x=99
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 950:14
+[com_14]
+type=graphic
+x=99
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,9"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:15
+[order0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10=   
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=script2058(0)
+
+// 950:16
+[order1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10=    
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=script2058(1)
+
+// 950:17
+[order2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10=    
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=script2058(2)
+
+// 950:18
+[order_icon0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,3"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 950:19
+[order_icon1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,4"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 950:20
+[order_icon2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,5"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 950:21
+[com_21]
+type=graphic
+x=2
+y=216
+width=186
+height=32
+layer=com_4
+graphic="v2_stone_borders,23"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 950:22
+[com_22]
+type=graphic
+x=16
+width=32
+height=30
+ymode=abs_bottom
+layer=com_4
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:23
+[com_23]
+type=graphic
+x=50
+width=32
+height=30
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:24
+[home_teleport]
+type=graphic
+x=13
+y=12
+width=24
+height=24
+layer=spell_layer
+graphic="magicon2,37"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,37", "magicoff2,37", 0, "Dungeon Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+
+// 950:25
+[wind_strike]
+type=graphic
+x=37
+y=12
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,0"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,0", "magicoff,0", 1, "Wind Strike", "A basic air missile", airrune, 1, mindrune, 1, null, 0, null, 0)
+
+// 950:26
+[confuse]
+type=graphic
+x=61
+y=12
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,1"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,1", "magicoff,1", 3, "Confuse", "Reduces your opponent's Attack by 5%", waterrune, 3, earthrune, 2, bodyrune, 1, null, 0)
+
+// 950:27
+[water_strike]
+type=graphic
+x=85
+y=12
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,2"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,2", "magicoff,2", 5, "Water Strike", "A basic water missile", waterrune, 1, airrune, 1, mindrune, 1, null, 0)
+
+// 950:28
+[earth_strike]
+type=graphic
+x=133
+y=12
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,4"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,4", "magicoff,4", 9, "Earth Strike", "A basic earth missile", earthrune, 2, airrune, 1, mindrune, 1, null, 0)
+
+// 950:29
+[weaken]
+type=graphic
+x=157
+y=12
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,5"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,5", "magicoff,5", 11, "Weaken", "Reduces your opponent's<br>Strength by 5%", waterrune, 3, earthrune, 2, bodyrune, 1, null, 0)
+
+// 950:30
+[fire_strike]
+type=graphic
+x=13
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,6"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,6", "magicoff,6", 13, "Fire Strike", "A basic fire missile", firerune, 3, airrune, 2, mindrune, 1, null, 0)
+
+// 950:31
+[bones_to_bananas]
+type=graphic
+x=37
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,7"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earthrune, 2, waterrune, 2, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earthrune, 2, waterrune, 2, naturerune, 1, null, 0){assist_stat_magic}
+
+// 950:32
+[wind_bolt]
+type=graphic
+x=61
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,8"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,8", "magicoff,8", 17, "Wind Bolt", "A low-level air missile", airrune, 2, chaosrune, 1, null, 0, null, 0)
+
+// 950:33
+[curse]
+type=graphic
+x=85
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,9"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,9", "magicoff,9", 19, "Curse", "Reduces your opponent's<br>Defence by 5%", waterrune, 2, earthrune, 3, bodyrune, 1, null, 0)
+
+// 950:34
+[bind]
+type=graphic
+x=109
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,0"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,0", "magicoff2,0", 20, "Bind", "Holds your opponent for 5 seconds", earthrune, 3, waterrune, 3, naturerune, 2, null, 0)
+
+// 950:35
+[low_alchemy]
+type=graphic
+x=133
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,10"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,10", "magicoff,10", 21, "Low-level Alchemy", "Converts an item into gold", firerune, 3, naturerune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "magicon,10", "magicoff,10", 21, "Low-level Alchemy", "Converts an item into gold", firerune, 3, naturerune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 950:36
+[water_bolt]
+type=graphic
+x=157
+y=36
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,11"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,11", "magicoff,11", 23, "Water Bolt", "A low-level water missile", waterrune, 2, airrune, 2, chaosrune, 1, null, 0)
+
+// 950:37
+[earth_bolt]
+type=graphic
+x=37
+y=60
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,14"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,14", "magicoff,14", 29, "Earth Bolt", "A low-level earth missile", earthrune, 3, airrune, 2, chaosrune, 1, null, 0)
+
+// 950:38
+[com_38]
+type=graphic
+x=61
+y=60
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,51"
+colour=0xffffffff
+transmitop=1,2,10
+op1=Cast
+op2=Quick-cast
+op10= 
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,51", "magicoff2,51", 32, "Create Gatestone", "Creates a stone you can teleport to", cosmicrune, 3, null, 0, null, 0, null, 0)
+
+// 950:39
+[com_39]
+type=graphic
+x=85
+y=60
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,50"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10=  
+onload=script2271(event_com, rand_magic:tooltip, "magicon2,50", "magicoff2,50", 32, "Gatestone Teleport", "Teleports you to your active gatestone", null, 0, null, 0, null, 0, null, 0)
+
+// 950:40
+[com_40]
+type=graphic
+x=37
+y=84
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,50"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10=   
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,50", "magicoff2,50", 64, "Group Gatestone Teleport", "Teleports you to your party gatestone", lawrune, 3, null, 0, null, 0, null, 0)
+
+// 950:41
+[fire_bolt]
+type=graphic
+x=109
+y=60
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,17"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,17", "magicoff,17", 35, "Fire Bolt", "A low-level fire missile", firerune, 4, airrune, 3, chaosrune, 1, null, 0)
+
+// 950:42
+[wind_blast]
+type=graphic
+x=133
+y=60
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,20"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,20", "magicoff,20", 41, "Wind Blast", "A medium-level air missile", airrune, 3, deathrune, 1, null, 0, null, 0)
+
+// 950:43
+[water_blast]
+type=graphic
+x=13
+y=84
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,23"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,23", "magicoff,23", 47, "Water Blast", "A medium-level water missile", waterrune, 3, airrune, 3, deathrune, 1, null, 0)
+
+// 950:44
+[snare]
+type=graphic
+x=61
+y=84
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,1"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,1", "magicoff2,1", 50, "Snare", "Holds your opponent for 10 seconds", earthrune, 4, waterrune, 4, naturerune, 3, null, 0)
+
+// 950:45
+[earth_blast]
+type=graphic
+x=85
+y=84
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,25"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,25", "magicoff,25", 53, "Earth Blast", "A medium-level earth missile", earthrune, 4, airrune, 3, deathrune, 1, null, 0)
+
+// 950:46
+[high_alchemy]
+type=graphic
+x=109
+y=84
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,26"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,26", "magicoff,26", 55, "High-level Alchemy", "Converts an item into more gold", firerune, 5, naturerune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "magicon,26", "magicoff,26", 55, "High-level Alchemy", "Converts an item into more gold", firerune, 5, naturerune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 950:47
+[fire_blast]
+type=graphic
+x=157
+y=84
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,29"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,29", "magicoff,29", 59, "Fire Blast", "A medium-level fire missile", firerune, 5, airrune, 4, deathrune, 1, null, 0)
+
+// 950:48
+[wind_wave]
+type=graphic
+x=13
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,31"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high-level air missile", airrune, 5, bloodrune, 1, null, 0, null, 0)
+
+// 950:49
+[water_wave]
+type=graphic
+x=37
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,33"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,33", "magicoff,33", 65, "Water Wave", "A high-level water missile", waterrune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 950:50
+[vulnerability]
+type=graphic
+x=61
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,41"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,41", "magicoff,41", 66, "Vulnerability", "Reduces your opponent's Defence by 10%", earthrune, 5, waterrune, 5, soulrune, 1, null, 0)
+
+// 950:51
+[monster_examine]
+type=graphic
+x=85
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,34"
+colour=0xffffffff
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0){assist_stat_magic}
+
+// 950:52
+[cure_other]
+type=graphic
+x=109
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,16"
+colour=0xffffffff
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astralrune, 1, lawrune, 1, earthrune, 10, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astralrune, 1, lawrune, 1, earthrune, 10, null, 0){assist_stat_magic}
+
+// 950:53
+[humidify]
+type=graphic
+x=133
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,35"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0){assist_stat_magic}
+
+// 950:54
+[earth_wave]
+type=graphic
+x=157
+y=108
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,36"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high-level earth missile", earthrune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 950:55
+[cure_me]
+type=graphic
+x=13
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,19"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cures poison and disease", astralrune, 2, cosmicrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cures poison and disease", astralrune, 2, cosmicrune, 2, null, 0, null, 0){assist_stat_magic}
+
+// 950:56
+[enfeeble]
+type=graphic
+x=37
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,42"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,42", "magicoff,42", 73, "Enfeeble", "Reduces your opponent's Strength by 10%", earthrune, 8, waterrune, 8, soulrune, 1, null, 0)
+
+// 950:57
+[cure_group]
+type=graphic
+x=61
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,22"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astralrune, 2, cosmicrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astralrune, 2, cosmicrune, 2, null, 0, null, 0){assist_stat_magic}
+
+// 950:58
+[fire_wave]
+type=graphic
+x=85
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,37"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high-level fire missile", firerune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 950:59
+[entangle]
+type=graphic
+x=109
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,2"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,2", "magicoff2,2", 79, "Entangle", "Holds your opponent for 15 seconds", earthrune, 5, waterrune, 5, naturerune, 4, null, 0)
+
+// 950:60
+[stun]
+type=graphic
+x=133
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff,43"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon,43", "magicoff,43", 80, "Stun", "Reduces your opponent's Attack by 10%", earthrune, 12, waterrune, 12, soulrune, 1, null, 0)
+
+// 950:61
+[wind_surge]
+type=graphic
+x=157
+y=132
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,47"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,46", "magicoff2,46", 81, "Wind Surge", "A very high-level air missile", airrune, 7, bloodrune, 1, deathrune, 1, null, 0)
+
+// 950:62
+[water_surge]
+type=graphic
+x=13
+y=156
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,48"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,47", "magicoff2,47", 85, "Water Surge", "A very high-level water missile", waterrune, 10, airrune, 7, bloodrune, 1, deathrune, 1)
+
+// 950:63
+[earth_surge]
+type=graphic
+x=37
+y=156
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,49"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,48", "magicoff2,48", 90, "Earth Surge", "A very high-level earth missile", earthrune, 10, airrune, 7, bloodrune, 1, deathrune, 1)
+
+// 950:64
+[vengeance_other]
+type=graphic
+x=61
+y=156
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,18"
+colour=0xffffffff
+transmitop=10
+targetmask=npc,player
+opbase=bb
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astralrune, 3, deathrune, 2, earthrune, 10, null, 0)
+
+// 950:65
+[vengeance]
+type=graphic
+x=85
+y=156
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,21"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astralrune, 4, deathrune, 2, earthrune, 10, null, 0)
+
+// 950:66
+[vengeance_group]
+type=graphic
+x=133
+y=156
+width=24
+height=24
+layer=spell_layer
+graphic="lunar_magic_off,49"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "lunar_magic_on,49", "lunar_magic_off,49", 95, "Vengeance Group", "Those nearby get to rebound damage", astralrune, 4, deathrune, 3, earthrune, 11, null, 0)
+
+// 950:67
+[fire_surge]
+type=graphic
+x=109
+y=156
+width=24
+height=24
+layer=spell_layer
+graphic="magicoff2,49"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:tooltip, "magicon2,49", "magicoff2,49", 95, "Fire Surge", "A very high-level fire missile", firerune, 10, airrune, 7, bloodrune, 1, deathrune, 1)
+
+// 950:68
+[com_68]
+type=graphic
+width=28
+height=28
+layer=spell_layer
+hide=yes
+graphic="km_spellautoalpha,1"
+alpha=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+ontimer=autocast_highlight_glow(event_com)
+
+// 950:69
+[com_69]
+type=graphic
+width=28
+height=28
+layer=spell_layer
+hide=yes
+graphic="km_spellautoalpha,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:70
+[scrollbar_layer]
+type=layer
+x=1
+y=1
+width=16
+height=228
+xmode=abs_right
+transmitop=10
+op10=    
+
+// 950:71
+[tooltip2_bounds]
+type=layer
+y=25
+width=10
+height=40
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+transmitop=10
+op10=  
+
+// 950:72
+[tooltip2]
+type=layer
+x=3
+y=2
+width=42
+height=14
+layer=tooltip2_bounds
+transmitop=10
+op10=  
+
+// 950:73
+[tooltip]
+type=layer
+width=190
+height=261

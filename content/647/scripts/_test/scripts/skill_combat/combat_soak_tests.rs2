@@ -1,0 +1,93 @@
+#testscript
+
+// 2011's damage soaking (player/scripts/damage.rs2, ~damage_soaked): a melee,
+// ranged or magic hit over 200 life points loses the worn head, body, legs
+// and shield's absorb percent of what is over 200 (2011 wiki, Damage soaking,
+// 2011-05-11). The soak is painted beside the hit in hitmark 5, one double
+// hitsplat: damage(uid, mark, taken, soaked, bar).
+// Full dragon (2011 wiki, each item's Infobox Bonuses): full helm 2/0/4,
+// platebody 4/0/9, platelegs 3/0/6, sq shield 5/0/11 melee/magic/ranged.
+
+// The wiki's own example: a 450 ranged hit on full dragon (30% absorb ranged)
+// soaks 75 and takes 375. 990 - 375 is 615, a bar of 158.
+[label,test_full_dragon_soaks_75_of_a_450_ranged_hit]
+setup_player("test_player");
+stat_advance(hitpoints, 130344310);
+inv_setslot(worn, ^wearpos_hat, brut_dragon_full_helm, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
+inv_setslot(worn, ^wearpos_legs, dragon_platelegs, 1);
+inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
+assert_eq(~worn_absorb(^hitmark_ranged), 30);
+%life_points = 990;
+~damage_self_hitmark(450, ^hitmark_ranged);
+assert_eq(%life_points, 615);
+assert_called_with("damage", "1,375,75,158");
+
+// Each style soaks by its own absorb: full dragon gives melee 14%, magic 0%.
+// A 450 melee crit soaks 35 and keeps its crit mark; a magic hit soaks
+// nothing and paints alone.
+[label,test_each_style_soaks_by_its_own_absorb]
+setup_player("test_player");
+stat_advance(hitpoints, 130344310);
+inv_setslot(worn, ^wearpos_hat, brut_dragon_full_helm, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
+inv_setslot(worn, ^wearpos_legs, dragon_platelegs, 1);
+inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
+assert_eq(~worn_absorb(^hitmark_melee), 14);
+assert_eq(~worn_absorb(^hitmark_magic), 0);
+%life_points = 990;
+~damage_self_hitmark(450, add(^hitmark_melee, ^hitmark_crit));
+assert_eq(%life_points, 575);
+assert_called_with("damage", "10,415,35,148");
+%life_points = 990;
+~damage_self_hitmark(450, ^hitmark_magic);
+assert_eq(%life_points, 540);
+assert_called_with("damage", "2,450,0,139");
+
+// Only what is over 200 soaks: a hit of 200 keeps every point, 201 on 30%
+// soaks nothing (the wiki gives no rounding; void-634 floors), 210 soaks 3.
+[label,test_only_damage_over_200_soaks]
+setup_player("test_player");
+stat_advance(hitpoints, 130344310);
+inv_setslot(worn, ^wearpos_hat, brut_dragon_full_helm, 1);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
+inv_setslot(worn, ^wearpos_legs, dragon_platelegs, 1);
+inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
+assert_eq(~damage_soaked(200, ^hitmark_ranged), 0);
+assert_eq(~damage_soaked(201, ^hitmark_ranged), 0);
+assert_eq(~damage_soaked(210, ^hitmark_ranged), 3);
+assert_eq(~damage_soaked(450, ^hitmark_ranged), 75);
+
+// A hit with no combat style is not soaked: a plain hit, poison, a ring of
+// recoil's reflect.
+[label,test_a_hit_with_no_style_is_not_soaked]
+setup_player("test_player");
+stat_advance(hitpoints, 130344310);
+inv_setslot(worn, ^wearpos_torso, luc2_dragonplate_torso, 1);
+assert_eq(~damage_soaked(450, ^hitmark_damage), 0);
+assert_eq(~damage_soaked(450, ^hitmark_poison), 0);
+assert_eq(~damage_soaked(450, ^hitmark_reflect), 0);
+%life_points = 990;
+~damage_self_hitmark(450, ^hitmark_damage);
+assert_eq(%life_points, 540);
+assert_called_with("damage", "3,450,0,139");
+
+// Only the head, body, legs and shield soak (2011 wiki, Damage soaking).
+// Bare, a player soaks nothing; a dragon sq shield alone gives its 11%.
+[label,test_only_the_four_armour_slots_soak]
+setup_player("test_player");
+stat_advance(hitpoints, 130344310);
+assert_eq(~worn_absorb(^hitmark_ranged), 0);
+assert_eq(~damage_soaked(450, ^hitmark_ranged), 0);
+inv_setslot(worn, ^wearpos_lhand, dragon_sq_shield, 1);
+assert_eq(~worn_absorb(^hitmark_ranged), 11);
+
+// Life points over the base level's ten to a hitpoint still paint a full bar:
+// the bar's fill is a byte, and the hit is painted, not refused.
+[label,test_life_points_over_the_base_paint_a_full_bar]
+setup_player("test_player");
+def_int $max = calc(stat_base(hitpoints) * 10);
+%life_points = calc($max * 2);
+~player_damage(^hitmark_damage, 10);
+assert_eq(%life_points, calc($max * 2 - 10));
+assert_called_with("damage", "3,10,0,255");

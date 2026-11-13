@@ -1,0 +1,21 @@
+// 2115
+[clientscript,evilbob_start](component $component0, component $component1)
+if (~bool_to_int(%ame_evilbob_start) = 0) {
+    return;
+}
+if_sethide($component1, false);
+if (%ame_evilbob_lookat1 = null | %ame_evilbob_lookat2 = null) {
+    return;
+}
+if (%ame_evilbob_moveto1 = null | %ame_evilbob_moveto2 = null) {
+    %ame_evilbob_moveto1 = 0_53_75_30_41;
+    %ame_evilbob_moveto2 = 0_53_75_31_40;
+}
+def_int $int2 = calc(randominc(50) + 50);
+spline_new(0, 2);
+spline_addpoint(0, 0, %ame_evilbob_moveto1, 450, %ame_evilbob_moveto1, calc(450 + $int2 / 2), 0);
+spline_addpoint(0, 1, %ame_evilbob_moveto2, calc(450 + $int2), %ame_evilbob_moveto2, calc(450 + $int2 * 2), 0);
+spline_new(1, 2);
+spline_addpoint(1, 0, %ame_evilbob_lookat1, 250, %ame_evilbob_lookat1, 250, 0);
+spline_addpoint(1, 1, %ame_evilbob_lookat2, 150, %ame_evilbob_lookat2, 150, 0);
+cam_movealong(0, 0, 200, 200, 1, 0);

@@ -1,0 +1,15 @@
+// 4445
+[proc,clan_chat_guest_list_clear]
+cc_deleteall(clan_chat:guestclanlist);
+cc_deleteall(clan_chat:guest_list_rank_layer);
+cc_deleteall(clan_chat:guest_list_world_layer);
+cc_deleteall(clan_chat:guest_list_world_icon_layer);
+cc_deleteall(clan_chat:guest_rectangles);
+if_setop(clan_chat:guest_joinleave_button_active_layer, 1, "Join chat");
+if_setgraphic(clan_chat:guest_joinleave_button_graphic, "aif_clanchat_icons,13");
+if_sethide(clan_chat:guest_drag, true);
+if_sethide(clan_chat:guest_info_layer, false);
+if_settext(clan_chat:guest_clan_name, "");
+def_string $string0 = "Join another<br>clan's clanchat.";
+if_setonmouserepeat(clan_chat:guest_joinleave_button_active_layer, "aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+if_setop(clan_chat:guest_joinleave_button_active_layer, 1, "Join Clan Chat channel");

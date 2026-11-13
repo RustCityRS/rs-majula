@@ -59,6 +59,7 @@ impl NpcUid {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashSet;
 
     #[test]
     fn new_and_accessors() {
@@ -136,7 +137,7 @@ mod tests {
 
     #[test]
     fn many_nids_unique() {
-        let mut nids = std::collections::HashSet::new();
+        let mut nids = HashSet::new();
         for nid in 0..100u16 {
             let uid = NpcUid::new(1, nid);
             nids.insert(uid.nid());

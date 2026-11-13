@@ -1,0 +1,8 @@
+// How long the cellar's floor items last: no source gives 2011's. An hour (6000 ticks), so a slow
+// player still finds them.
+^uf_cellar_obj_duration = 6000
+// The hint model the 647 client draws at the player's feet, turned toward a hint's target: cache
+// 786 model 40497, a flat yellow ring with an arrow inside, half a tile across. Matched by shape to
+// the ring under 2011's players (vGlx_SDOI7s @13.6, C-kHSxIgZH0 @218, 4KO2h2xPtdM @54.8); referenced
+// by no config, so the server names it.
+^uf_hint_ring = 40497

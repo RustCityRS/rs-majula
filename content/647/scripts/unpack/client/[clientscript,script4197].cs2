@@ -1,0 +1,8 @@
+// 4197
+[clientscript,script4197](component $component0)
+if_sethide(interface_891:target, true);
+if_sethide(interface_891:com_65, false);
+if_setgraphic($component0, blue_over);
+if_settext(interface_891:title, "You are here.");
+if_settext(interface_891:level, "");
+if_settext(interface_891:description, "");

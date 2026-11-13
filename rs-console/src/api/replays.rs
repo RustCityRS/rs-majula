@@ -12,6 +12,7 @@ use rs_admin_api::{
     ReplayGet, ReplayLookup, ReplayStorage, ReplayStorageLookup, ReplaySummary, path,
 };
 use serde::{Deserialize, Serialize};
+use std::slice;
 use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -41,7 +42,7 @@ pub(super) fn view(app: &App, summary: ReplaySummary) -> ReplayView {
         live: summary.ended_ms.is_none() && now - summary.updated_ms < LIVE_WITHIN_MS,
         triage: app
             .cases
-            .triage_of(std::slice::from_ref(&key))
+            .triage_of(slice::from_ref(&key))
             .remove(&key)
             .unwrap_or_default(),
         summary,

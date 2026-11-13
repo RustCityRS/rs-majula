@@ -1,0 +1,129 @@
+// 1092:0
+[layer_1]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 1092:1
+[com_1]
+type=layer
+width=268
+height=167
+xmode=abs_centre
+ymode=abs_centre
+
+// 1092:2
+[com_2]
+type=text
+x=2
+y=5
+width=8327
+height=315
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+textfont=palatino_linotype_18pt_regular
+text=Please wait...
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1092:3
+[com_3]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4260(event_com)
+
+// 1092:4
+[com_4]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 1092:5
+[com_5]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4261(event_com)
+
+// 1092:6
+[com_6]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 1092:7
+[com_7]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+textfont=palatino_linotype_18pt_regular
+text=Creating Clan
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1092:8
+[com_8]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_1
+onload=aif_build_close_button_layer(event_com)
+
+// 1092:9
+[com_9]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1092:10
+[com_10]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+onload=aif_build_close_button_over(event_com)

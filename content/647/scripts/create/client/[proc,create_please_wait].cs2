@@ -1,0 +1,20 @@
+// 3208
+[proc,create_please_wait](int $int0)
+def_graphic $graphic1 = "set_but_end_3,1";
+def_graphic $graphic2 = "set_but_fill_3,1";
+if ($int0 = 1) {
+    ~script3209;
+    if_setonclick(account_create:com_51, null);
+    if_setonmouseover(account_create:com_51, null);
+    if_settext(account_create:continue_text, "Please wait...");
+    if_settext(account_create:continue_text_shadow, "Please wait...");
+    if_setonclick(account_create:continue, null);
+    if_setonmouseover(account_create:continue, null);
+} else {
+    if_setonclick(account_create:com_51, "create_exit");
+    if_setonmouseover(account_create:com_51, "text_colour_swapper(event_com, 0xfafafa)");
+    if_settext(account_create:continue_text, "Continue");
+    if_settext(account_create:continue_text_shadow, "Continue");
+    if_setonclick(account_create:continue, "create_go");
+    if_setonmouseover(account_create:continue, "script3937(account_create:continue_left, $graphic1, account_create:com_53, $graphic2, account_create:com_54, $graphic2, account_create:continue_right, $graphic1)");
+}

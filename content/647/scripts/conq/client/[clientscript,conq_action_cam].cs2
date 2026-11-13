@@ -1,0 +1,9 @@
+// 418
+[clientscript,conq_action_cam]
+if (%conq_action_cam_coord = null | %conq_action_cam_target_x < 0 | %conq_action_cam_target_y < 0) {
+    return;
+}
+cam_followcoord(%conq_action_cam_coord);
+%conq_action_cam_x_angle = cam_getangle_xa;
+%conq_action_cam_y_angle = cam_getangle_ya;
+if_setontimer(conq_scroll_overlay:main_layer, "script421(%conq_action_cam_target_x, %conq_action_cam_target_y, 0)");

@@ -1,0 +1,19 @@
+// 352
+[clientscript,playerdesign4_outfitbutton](int $int0, int $int1)
+if ($int1 = %playerdesign2_client_antilag | $int0 ! 1) {
+    return;
+}
+sound_synth(synth_9819, 1, 0);
+def_struct $struct2 = enum(int, struct, enum_3278, calc(%playerdesign2_client_random - 1));
+if ($struct2 = null) {
+    return;
+}
+def_boolean $boolean3 = ~int_to_bool(gender);
+def_struct $struct4 = ~playerdesign4_getoutfit(calc($int1 - 1), $struct2, $boolean3);
+if ($struct4 = null) {
+    return;
+}
+%playerdesign2_client_antilag = $int1;
+%character_creation_sub_style = $int1;
+~playerdesign4_setoutfit($struct4, $boolean3);
+~script390($boolean3);

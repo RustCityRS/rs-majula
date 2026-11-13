@@ -1,0 +1,15 @@
+// 2191
+[clientscript,godwars_overlay_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11)
+def_int $int12 = parawidth(if_gettext($component1), 512, p11_full);
+def_int $int13 = parawidth(if_gettext($component2), 512, p11_full);
+def_int $int14 = parawidth(if_gettext($component3), 512, p11_full);
+def_int $int15 = parawidth(if_gettext($component4), 512, p11_full);
+def_int $int16 = parawidth(if_gettext($component5), 512, p11_full);
+def_int $int17 = parawidth(if_gettext($component10), 512, p11_full);
+~godwars_overlay_updateposition($component0);
+if_setontimer($component0, "godwars_overlay_timer($component0, getwindowmode)");
+~godwars_overlay_updatecontents($component0, $component2, $component3, $component4, $component5, $int12, $int13, $int14, $int15, $int16, $component6, $component7, $component8, $component9, $component10, $component11, $int17);
+if_setonvartransmit($component0, "godwars_overlay_vartransmit($component0, $component2, $component3, $component4, $component5, $int12, $int13, $int14, $int15, $int16, $component6, $component7, $component8, $component9, $component10, $component11, $int17){godwars, varplayer_1058, godwars2_perm}");
+if_setsize(godwars_overlay:killcounts, 100, 75, ^setsize_abs, ^setsize_abs);
+if_settrans(godwars_overlay:tint_box, 255);
+%godwars2_overlay_fade = 255;

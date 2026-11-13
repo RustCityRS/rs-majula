@@ -1,0 +1,12 @@
+// 2584
+[proc,script2584]
+if_setcolour(mob_squad_exchange:race_text, 0xff9935);
+if_setop(mob_squad_exchange:com_102, 1, "Select dwarf");
+if_setop(mob_squad_exchange:com_104, 1, "Select goblin");
+if_setop(mob_squad_exchange:com_103, 1, "Select elf");
+if_setonop(mob_squad_exchange:com_102, "script2586(event_com)");
+if_setonop(mob_squad_exchange:com_104, "script2586(event_com)");
+if_setonop(mob_squad_exchange:com_103, "script2586(event_com)");
+if_setonclick(mob_squad_exchange:com_102, null);
+if_setonclick(mob_squad_exchange:com_104, null);
+if_setonclick(mob_squad_exchange:com_103, null);

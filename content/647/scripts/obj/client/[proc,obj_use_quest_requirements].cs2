@@ -1,0 +1,45 @@
+// 932
+[proc,obj_use_quest_requirements](obj $obj0)(boolean)
+def_int $int1 = oc_param($obj0, param_764);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_765);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_766);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_767);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_768);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_769);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+return(true);

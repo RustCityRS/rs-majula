@@ -1,0 +1,150 @@
+// 646:0
+[com_0]
+type=graphic
+x=5
+y=4
+width=502
+height=324
+graphic=tradebacking
+tiling=yes
+
+// 646:1
+[com_1]
+type=graphic
+x=-13
+y=30
+width=32
+height=273
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 646:2
+[com_2]
+type=graphic
+y=1
+width=32
+height=32
+graphic="v2_stone_borders,4"
+
+// 646:3
+[com_3]
+type=graphic
+x=492
+y=32
+width=32
+height=271
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 646:4
+[com_4]
+type=graphic
+x=32
+y=-12
+width=450
+height=29
+graphic="v2_stone_borders,0"
+tiling=yes
+
+// 646:5
+[com_5]
+type=graphic
+x=31
+y=314
+width=450
+height=36
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 646:6
+[com_6]
+type=graphic
+y=302
+width=32
+height=32
+graphic="v2_stone_borders,6"
+
+// 646:7
+[com_7]
+type=graphic
+x=480
+y=1
+width=32
+height=32
+graphic="v2_stone_borders,5"
+
+// 646:8
+[com_8]
+type=graphic
+x=480
+y=302
+width=32
+height=32
+graphic="v2_stone_borders,7"
+
+// 646:9
+[sand_timer]
+type=model
+x=185
+y=31
+width=145
+height=254
+model=model_29916
+modelorigin=0,101
+modelangle=135,24,0
+modelzoom=781
+modelanim=seq_7374
+
+// 646:10
+[com_10]
+type=graphic
+x=16
+y=16
+width=25
+height=25
+graphic=grand_exchange_icon_25
+
+// 646:11
+[com_11]
+type=text
+y=285
+width=495
+height=40
+xmode=abs_centre
+textfont=p12_full
+text=Once your offer is running, just wait.<br>The trade could be very quick, or it might take several days.
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 646:12
+[continue_button]
+type=graphic
+x=472
+y=21
+width=16
+height=16
+graphic="catcon_catapult_arrows,2"
+pausebutton=yes
+pausetext=Continue
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
+
+// 646:13
+[continue_text]
+type=text
+x=42
+y=21
+width=160
+height=16
+xmode=abs_right
+textfont=p12_full
+text=Click to continue
+textalignh=right
+colour=0xff981f
+pausebutton=yes
+pausetext=Continue
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)

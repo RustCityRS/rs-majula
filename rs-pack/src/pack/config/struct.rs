@@ -1,10 +1,12 @@
+use super::config_entry;
+#[cfg(since_647)]
+use super::{cache_params, client_table_with, mark_client_params};
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use anyhow::Result;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_structs(
     file_cache: &FileCache,
@@ -14,23 +16,16 @@ pub fn pack_structs(
 ) -> Result<PackedFile> {
     let r#struct = &registry.r#struct;
 
-    let files = file_cache.collect("struct");
-    debug!("  Found {} .struct files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "struct", constants);
-    debug!("  Parsed {} struct configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, "struct", constants)?;
 
     let mut server = PackedData::new(r#struct.max);
 
     for id in 0..r#struct.max {
         server.start_entry();
 
-        let Some(debugname) = r#struct.get_by_id(id) else {
-            panic!("Unknown struct id: {}", id);
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown struct config: {}", debugname);
+        let Some((debugname, props)) = config_entry("struct", r#struct, &configs, id) else {
+            server.skip_entry();
+            continue;
         };
 
         for (key, _) in props {
@@ -54,8 +49,22 @@ pub fn pack_structs(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_647)]
+    let client = None;
+    #[cfg(since_647)]
+    let cache_params = cache_params(file_cache, &registry.param);
+    #[cfg(since_647)]
+    let client = Some(client_table_with(
+        file_cache,
+        "struct",
+        r#struct,
+        constants,
+        |client, name, props| {
+            let props = mark_client_params(props, &registry.param, &cache_params);
+            let params = props.iter().filter(|(key, _)| key == "clientparam");
+            parse_params(registry, param_types, client, params, name)
+        },
+    )?);
+
+    Ok(PackedFile { server, client })
 }

@@ -1,0 +1,74 @@
+// 1147
+[proc,graphics_options_toolkitbutton](int $int0, int $int1, int $int2, component $component3, component $component4, int $int5)
+def_graphic $graphic6 = null;
+def_graphic $graphic7 = null;
+if ($int1 = $int0) {
+    if_setsize($component3, 106, 27, ^setsize_abs, ^setsize_abs);
+    switch_int ($int0) {
+        case 0 :
+            $graphic6 = graphic_3095;
+        case 2 :
+            switch_int (map_lang) {
+                case default :
+                    $graphic6 = graphic_3098;
+                case 1 :
+                    $graphic6 = graphic_3104;
+                case 2 :
+                    $graphic6 = graphic_3110;
+                case 3 :
+                    $graphic6 = graphic_3098;
+            }
+        case 1 :
+            $graphic6 = graphic_3119;
+        case 3 :
+            $graphic6 = graphic_3122;
+    }
+    if_setgraphic($component4, $graphic6);
+    if_setonmouseover($component3, null);
+    if_setonmouseleave($component3, null);
+    if_setonclick($component3, null);
+} else {
+    if_setsize($component3, 106, 27, ^setsize_abs, ^setsize_abs);
+    switch_int ($int0) {
+        case 0 :
+            switch_int (map_lang) {
+                case default :
+                    $graphic6 = graphic_3093;
+                    $graphic7 = graphic_3094;
+                case 1 :
+                    $graphic6 = graphic_3099;
+                    $graphic7 = graphic_3100;
+                case 2 :
+                    $graphic6 = graphic_3105;
+                    $graphic7 = graphic_3106;
+                case 3 :
+                    $graphic6 = graphic_3111;
+                    $graphic7 = graphic_3112;
+            }
+        case 2 :
+            switch_int (map_lang) {
+                case default :
+                    $graphic6 = graphic_3096;
+                    $graphic7 = graphic_3097;
+                case 1 :
+                    $graphic6 = graphic_3102;
+                    $graphic7 = graphic_3103;
+                case 2 :
+                    $graphic6 = graphic_3108;
+                    $graphic7 = graphic_3109;
+                case 3 :
+                    $graphic6 = graphic_3096;
+                    $graphic7 = graphic_3097;
+            }
+        case 1 :
+            $graphic6 = graphic_3117;
+            $graphic7 = graphic_3118;
+        case 3 :
+            $graphic6 = graphic_3120;
+            $graphic7 = graphic_3121;
+    }
+    if_setgraphic($component4, $graphic6);
+    if_setonmouseover($component3, "script1148($int0, $component4, $graphic6, $graphic7, true)");
+    if_setonmouseleave($component3, "script1148($int0, $component4, $graphic6, $graphic7, false)");
+    if_setonclick($component3, "graphics_options_settoolkit($int0, $int5)");
+}

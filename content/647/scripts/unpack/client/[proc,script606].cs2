@@ -1,0 +1,12 @@
+// 606
+[proc,script606]
+cc_create(lore_stats_side:spell_icon, ^iftype_graphic, 0);
+cc_setsize(32, 36, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_create(topstat_lore:spell_icon, ^iftype_graphic, 0);
+cc_setsize(57, 34, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+def_graphic $graphic0 = "lore_stats_side_icons,0";
+def_graphic $graphic1 = "lore_stats_side_icons,1";
+~lore_magic_init_v2(lore_stats_side:build_layer, $graphic0, $graphic1, oc_param(%follower_obj, param_394), %varclient_1723, %varclient_1724, enum(obj, obj, enum_1283, %follower_obj), 1, null, 0, null, 0, null, 0);
+~script608;

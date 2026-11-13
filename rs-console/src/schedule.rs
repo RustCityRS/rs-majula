@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::time::{self, MissedTickBehavior};
 use tracing::{info, warn};
 
 /// How often due jobs are looked for.
@@ -288,8 +289,8 @@ pub fn describe(job: &Job) -> String {
 
 /// Runs scheduled jobs when they're due.
 pub async fn keep_running(app: Arc<App>) {
-    let mut interval = tokio::time::interval(CHECK_INTERVAL);
-    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+    let mut interval = time::interval(CHECK_INTERVAL);
+    interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
     loop {
         interval.tick().await;
         let (due, missed) = app.schedule.take_due(now_ms());
@@ -333,6 +334,8 @@ pub async fn keep_running(app: Arc<App>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
+    use std::fs;
 
     #[test]
     fn repeats_land_on_their_grid() {
@@ -348,7 +351,7 @@ mod tests {
 
     #[test]
     fn nothing_due_writes_nothing() {
-        let path = std::env::temp_dir().join(format!("rs-console-schedule-{}.json", now_ms()));
+        let path = env::temp_dir().join(format!("rs-console-schedule-{}.json", now_ms()));
         let schedule = Schedule::open(path.clone());
         let job = |next_ms| Job {
             id: 0,
@@ -364,12 +367,12 @@ mod tests {
             last: None,
         };
         schedule.add(job(1000)).unwrap();
-        std::fs::remove_file(&path).unwrap();
+        fs::remove_file(&path).unwrap();
         let (due, missed) = schedule.take_due(999);
         assert!(due.is_empty() && missed.is_empty());
         assert!(!path.exists());
         assert_eq!(schedule.take_due(1000).0.len(), 1);
         assert!(path.exists());
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 }

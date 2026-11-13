@@ -1,0 +1,13 @@
+// Dragon Slayer's completion: 289's quests/quest_dragon/scripts/quest_dragon.rs2 (see its sources
+// there), run from Oziach with Elvarg's head (oziach.rs2) as 2011 does. 2011's scroll from the
+// 2011-05-04 recording (YouTube mYqjoMQCOHI, 364s): "You have completed the Dragon Slayer quest!"
+// (lower-case "quest"), the rune platebody, "Ability to wear rune platebody", "18,650 Strength
+// XP" and "18,650 Defence XP" under the 2 Quest Points. 289's teleport out of Elvarg's lair (the
+// quest completed there) is gone with it.
+[queue,dragon_complete]
+%dragon_ned_hired = ^false;
+%dragonquest = ^dragon_complete;
+stat_advance(strength, 186500);
+stat_advance(defence, 186500);
+session_log(^log_adventure, "Quest complete: Dragon Slayer");
+~send_quest_complete2(^questlist_dragon, rune_platebody, 220, ^dragon_questpoints, "You have completed the Dragon Slayer quest!", "Ability to wear rune platebody|18,650 Strength XP|18,650 Defence XP");

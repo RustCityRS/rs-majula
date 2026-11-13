@@ -1,0 +1,147 @@
+// 4178
+[proc,script4178](int $int0, int $int1, int $int2)
+if ($int0 = 1) {
+    switch_int ($int1) {
+        case 0 :
+            if ($int2 = 1) {
+                %duel2_wearpreventchanged_0 = clientclock;
+            } else {
+                %duel2_wearpreventchanged_0 = 0;
+            }
+        case 1 :
+            if ($int2 = 1) {
+                %duel2_wearpreventchanged_1 = clientclock;
+            } else {
+                %duel2_wearpreventchanged_1 = 0;
+            }
+        case 2 :
+            if ($int2 = 1) {
+                %duel2_wearpreventchanged_2 = clientclock;
+            } else {
+                %duel2_wearpreventchanged_2 = 0;
+            }
+        case 3 :
+            if ($int2 = 1) {
+                %if_hide_sides = clientclock;
+            } else {
+                %if_hide_sides = 0;
+            }
+        case 4 :
+            if ($int2 = 1) {
+                %objreq_player_price = clientclock;
+            } else {
+                %objreq_player_price = 0;
+            }
+        case 5 :
+            if ($int2 = 1) {
+                %player_kit_arms_client = clientclock;
+            } else {
+                %player_kit_arms_client = 0;
+            }
+        case 7 :
+            if ($int2 = 1) {
+                %player_kit_legs_client = clientclock;
+            } else {
+                %player_kit_legs_client = 0;
+            }
+        case 9 :
+            if ($int2 = 1) {
+                %player_kit_feet_client = clientclock;
+            } else {
+                %player_kit_feet_client = 0;
+            }
+        case 10 :
+            if ($int2 = 1) {
+                %stock_dormant_offers = clientclock;
+            } else {
+                %stock_dormant_offers = 0;
+            }
+        case 12 :
+            if ($int2 = 1) {
+                %create_age_perm = clientclock;
+            } else {
+                %create_age_perm = 0;
+            }
+        case 13 :
+            if ($int2 = 1) {
+                %create_age_time_perm = clientclock;
+            } else {
+                %create_age_time_perm = 0;
+            }
+    }
+} else {
+    switch_int ($int1) {
+        case 0 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_0 = clientclock;
+            } else {
+                %duel2_optionschanged_0 = 0;
+            }
+        case 1 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_1 = clientclock;
+            } else {
+                %duel2_optionschanged_1 = 0;
+            }
+        case 4 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_4 = clientclock;
+            } else {
+                %duel2_optionschanged_4 = 0;
+            }
+        case 5 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_5 = clientclock;
+            } else {
+                %duel2_optionschanged_5 = 0;
+            }
+        case 6 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_6 = clientclock;
+            } else {
+                %duel2_optionschanged_0 = 6;
+            }
+        case 7 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_7 = clientclock;
+            } else {
+                %duel2_optionschanged_0 = 7;
+            }
+        case 8 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_8 = clientclock;
+            } else {
+                %duel2_optionschanged_0 = 8;
+            }
+        case 9 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_9 = clientclock;
+            } else {
+                %duel2_optionschanged_0 = 9;
+            }
+        case 10 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_10 = clientclock;
+            } else {
+                %duel2_optionschanged_10 = 0;
+            }
+        case 12 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_12 = clientclock;
+            } else {
+                %duel2_optionschanged_12 = 0;
+            }
+        case 13 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_13 = clientclock;
+            } else {
+                %duel2_optionschanged_13 = 0;
+            }
+        case 28 :
+            if ($int2 = 1) {
+                %duel2_optionschanged_28 = clientclock;
+            } else {
+                %duel2_optionschanged_28 = 0;
+            }
+    }
+}

@@ -1,0 +1,999 @@
+// 178:0
+[rewards_rect3]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=hide_show_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:1
+[rewards_rect4]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=hide_show_layer
+colour=0x000000
+
+// 178:2
+[rewards_rect1]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=text_details_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:3
+[rewards_rect2]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=text_details_layer
+colour=0x000000
+
+// 178:4
+[scroll_layer_item]
+type=layer
+x=338
+width=16
+height=48
+layer=items_layer
+hide=yes
+transmitop=10
+op10= 
+
+// 178:5
+[items_rect3]
+type=rectangle
+width=16391
+height=48
+widthmode=proportion
+layer=items_hide_show_layer
+colour=0x000000
+
+// 178:6
+[items_rect4]
+type=rectangle
+width=16391
+height=48
+widthmode=proportion
+layer=items_hide_show_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:7
+[items_rect1]
+type=rectangle
+width=16391
+height=48
+widthmode=proportion
+layer=items_text_details_layer
+colour=0x000000
+
+// 178:8
+[items_rect2]
+type=rectangle
+width=16391
+height=48
+widthmode=proportion
+layer=items_text_details_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:9
+[start_point_help]
+type=text
+x=111
+y=54
+width=19
+height=16
+layer=content
+textfont=p11_full
+text=( ? )
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(quest_intro:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, quest_intro:tooltip, "Start Point: This is where you need to go in order to start the quest.", 0, 180)
+
+// 178:10
+[start_req_help]
+type=text
+x=111
+y=105
+width=19
+height=16
+layer=content
+textfont=p11_full
+text=( ? )
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(quest_intro:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, quest_intro:tooltip, "Start Requirements: These are the requirements you need in order to start the quest.", 0, 180)
+
+// 178:11
+[req_items_help]
+type=text
+x=111
+y=155
+width=19
+height=16
+layer=content
+textfont=p11_full
+text=( ? )
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(quest_intro:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, quest_intro:tooltip, "Required Items: It's suggested that you gather these items before starting the quest. You can't count on finding or being given them whilst playing the quest. If you were to mark the quest on your map, you shouldn't rely on finding these items in the marked area.", 0, 180)
+
+// 178:12
+[combat_help]
+type=text
+x=111
+y=193
+width=19
+height=16
+layer=content
+textfont=p11_full
+text=( ? )
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(quest_intro:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, quest_intro:tooltip, "Combat: This details the main combat that you can expect to encounter during the quest.", 0, 180)
+
+// 178:13
+[rewards_help]
+type=text
+x=111
+y=244
+width=19
+height=16
+layer=content
+textfont=p11_full
+text=( ? )
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(quest_intro:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, quest_intro:tooltip, "Rewards: These are the rewards you will get during or at the end of the quest.", 0, 180)
+
+// 178:14
+[quest_field]
+type=text
+x=25
+y=9
+width=461
+height=20
+layer=content
+textfont=b12_full
+text=-------------------------------------------
+textlineheight=20
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:15
+[start_point_title]
+type=text
+x=25
+y=36
+width=105
+height=34
+layer=content
+textfont=b12_full
+text=Start point:
+textalignh=right
+textshadow=yes
+colour=0xff991f
+
+// 178:16
+[req_title]
+type=text
+x=25
+y=73
+width=105
+height=48
+layer=content
+textfont=b12_full
+text=Start requirements:
+textalignh=right
+textshadow=yes
+colour=0xff991f
+
+// 178:17
+[rewards_title]
+type=text
+x=25
+y=212
+width=105
+height=48
+layer=content
+textfont=b12_full
+text=Rewards:
+textalignh=right
+textshadow=yes
+colour=0xff991f
+
+// 178:18
+[combat_title]
+type=text
+x=25
+y=175
+width=105
+height=34
+layer=content
+textfont=b12_full
+text=Combat:
+textalignh=right
+textshadow=yes
+colour=0xff991f
+
+// 178:19
+[items_title]
+type=text
+x=25
+y=124
+width=105
+height=47
+layer=content
+textfont=b12_full
+text=Required items:
+textalignh=right
+textshadow=yes
+colour=0xff991f
+
+// 178:20
+[rewards_layer]
+type=layer
+x=133
+y=212
+width=354
+height=48
+layer=content
+
+// 178:21
+[combat_layer]
+type=layer
+x=133
+y=175
+width=354
+height=34
+layer=content
+
+// 178:22
+[items_layer]
+type=layer
+x=133
+y=124
+width=354
+height=48
+layer=content
+
+// 178:23
+[req_layer]
+type=layer
+x=133
+y=73
+width=354
+height=48
+layer=content
+
+// 178:24
+[scroll_layer]
+type=layer
+x=471
+y=73
+width=16
+height=48
+layer=content
+
+// 178:25
+[start_point_layer]
+type=layer
+x=133
+y=36
+width=354
+height=34
+layer=content
+
+// 178:26
+[quest_icon_layer]
+type=layer
+x=25
+y=254
+width=60
+height=60
+layer=content
+
+// 178:27
+[com_27]
+type=layer
+x=20
+y=261
+width=406
+height=57
+xmode=abs_right
+layer=content
+
+// 178:28
+[com_28]
+type=layer
+x=90
+y=264
+width=397
+height=50
+layer=content
+hide=yes
+
+// 178:29
+[tooltip_bound]
+type=layer
+width=512
+height=334
+layer=content
+
+// 178:30
+[hidden_button_txt]
+type=text
+x=4
+y=1
+width=8
+height=2
+widthmode=minus
+heightmode=minus
+layer=hide_show_layer
+textfont=b12_full
+text=Click here to show
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+transmitop=1
+op1=Show rewards
+
+// 178:31
+[background]
+type=layer
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 178:32
+[com_32]
+type=rectangle
+x=15
+y=9
+width=486
+height=316
+layer=background
+colour=0x000000
+fill=yes
+transmitop=10
+op10=      
+
+// 178:33
+[com_33]
+type=rectangle
+x=16
+y=10
+width=486
+height=316
+layer=background
+colour=0x000000
+fill=yes
+trans=120
+transmitop=10
+op10=       
+
+// 178:34
+[com_34]
+type=rectangle
+x=17
+y=11
+width=486
+height=316
+layer=background
+colour=0x000000
+fill=yes
+trans=150
+transmitop=10
+op10=        
+
+// 178:35
+[com_35]
+type=rectangle
+x=18
+y=12
+width=486
+height=316
+layer=background
+colour=0x000000
+fill=yes
+trans=180
+transmitop=10
+op10=         
+
+// 178:36
+[com_36]
+type=rectangle
+x=19
+y=13
+width=486
+height=316
+layer=background
+colour=0x000000
+fill=yes
+trans=210
+transmitop=10
+op10=          
+
+// 178:37
+[com_37]
+type=graphic
+x=20
+y=9
+width=473
+height=70
+layer=background
+graphic=graphic_2045
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:38
+[com_38]
+type=graphic
+x=20
+y=72
+width=473
+height=202
+layer=background
+graphic=km_middlefillcolour
+colour=0xffffffff
+
+// 178:39
+[com_39]
+type=graphic
+x=20
+y=273
+width=473
+height=46
+layer=background
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:40
+[com_40]
+type=graphic
+y=24
+width=32
+height=273
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:41
+[com_41]
+type=graphic
+x=480
+y=25
+width=32
+height=271
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:42
+[com_42]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:43
+[com_43]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:44
+[com_44]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 178:45
+[top]
+type=graphic
+x=45
+y=7
+width=425
+height=32
+layer=background
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 178:46
+[top_left]
+type=graphic
+x=13
+y=7
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 178:47
+[top_right]
+type=graphic
+x=468
+y=7
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 178:48
+[close_button]
+type=graphic
+x=474
+y=10
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 178:49
+[content]
+type=layer
+width=512
+height=334
+
+// 178:50
+[com_50]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=start_point_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:51
+[com_51]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=start_point_layer
+colour=0x000000
+
+// 178:52
+[start_point_field]
+type=text
+x=4
+y=1
+width=346
+height=32
+layer=start_point_layer
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:53
+[req_rect1]
+type=rectangle
+width=16391
+height=48
+widthmode=proportion
+layer=req_layer
+colour=0x000000
+
+// 178:54
+[req_rect2]
+type=rectangle
+width=16391
+height=48
+widthmode=proportion
+layer=req_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:55
+[req_field]
+type=text
+x=4
+y=1
+width=8
+height=2
+widthmode=minus
+heightmode=minus
+layer=req_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff991f
+
+// 178:56
+[items_hide_show_layer]
+type=layer
+width=354
+height=48
+layer=items_layer
+transmitop=10
+op10= 
+
+// 178:57
+[items_hidden_button_txt]
+type=text
+x=4
+y=1
+width=8
+height=2
+widthmode=minus
+heightmode=minus
+layer=items_hide_show_layer
+textfont=b12_full
+text=Click here to show
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+transmitop=1
+op1=Show required items
+
+// 178:58
+[items_text_details_layer]
+type=layer
+width=16391
+widthmode=proportion
+heightmode=minus
+layer=items_layer
+hide=yes
+
+// 178:59
+[items_field]
+type=text
+x=4
+y=1
+width=8
+height=2
+widthmode=minus
+heightmode=minus
+layer=items_text_details_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff991f
+
+// 178:60
+[com_60]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=combat_layer
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:61
+[com_61]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=combat_layer
+colour=0x000000
+
+// 178:62
+[combat_field]
+type=text
+x=4
+y=1
+width=8
+height=2
+widthmode=minus
+heightmode=minus
+layer=combat_layer
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:63
+[scroll_layer_rewards]
+type=layer
+x=338
+width=16
+height=48
+layer=rewards_layer
+hide=yes
+
+// 178:64
+[hide_show_layer]
+type=layer
+width=354
+height=48
+layer=rewards_layer
+
+// 178:65
+[text_details_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=rewards_layer
+hide=yes
+
+// 178:66
+[rewards_field]
+type=text
+x=4
+y=1
+width=8
+height=2
+widthmode=minus
+heightmode=minus
+layer=text_details_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff991f
+
+// 178:67
+[status_title]
+type=text
+x=217
+width=170
+height=18
+xmode=abs_right
+ymode=abs_centre
+layer=com_28
+textfont=b12_full
+text=Quest progress:
+textlineheight=14
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:68
+[com_68]
+type=rectangle
+x=211
+width=160
+height=32
+ymode=abs_centre
+layer=com_28
+colour=0x000000
+
+// 178:69
+[com_69]
+type=rectangle
+x=211
+width=160
+height=32
+ymode=abs_centre
+layer=com_28
+colour=0x000000
+fill=yes
+trans=160
+
+// 178:70
+[status_field]
+type=text
+x=211
+width=160
+height=18
+ymode=abs_centre
+layer=com_28
+textfont=b12_full
+text=.........status............
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:71
+[tooltip]
+type=layer
+width=512
+height=334
+layer=tooltip_bound
+
+// 178:72
+[com_72]
+type=text
+x=114
+y=5
+width=284
+height=16
+xmode=abs_right
+layer=com_27
+textfont=b12_full
+text=Start this quest?
+textlineheight=14
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:73
+[startyes_layer]
+type=layer
+x=272
+y=25
+width=104
+height=28
+xmode=abs_right
+layer=com_27
+transmitop=1
+op1=Yes
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 178:74
+[startno_layer]
+type=layer
+x=135
+y=25
+width=104
+height=28
+xmode=abs_right
+layer=com_27
+transmitop=1
+op1=No
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 178:75
+[objective_set]
+type=graphic
+x=95
+y=-1
+width=19
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=com_27
+graphic="warning_icons,1"
+colour=0xffffffff
+transmitop=1,10
+op1=Mark
+op10= 
+onload=quest_intro_tickbox(event_com)
+onvartransmit=quest_intro_tickbox(event_com){varplayer_1502}
+
+// 178:76
+[objective_text]
+type=text
+x=4
+y=1
+width=88
+height=46
+xmode=abs_right
+ymode=abs_centre
+layer=com_27
+textfont=b12_full
+text=Mark on map
+textalignv=centre
+textshadow=yes
+colour=0xff9935
+transmitop=1,10
+op1=Mark
+op10= 
+
+// 178:77
+[com_77]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=startno_layer
+textfont=b12_full
+text=No
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:78
+[com_78]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=startyes_layer
+textfont=b12_full
+text=Yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 178:79
+[quest_icon]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=quest_icon_layer
+colour=0xffffffff

@@ -1,0 +1,12 @@
+// 1090
+[proc,quickchat_friend_status](string $string0)(int)
+def_int $int0 = friend_getslotfromname($string0);
+if ($int0 = -1) {
+    return(-1);
+} else if (friend_getworld($int0) = 0) {
+    return(0);
+} else if (friend_platform($int0) = 1) {
+    return(1);
+} else {
+    return(2);
+}

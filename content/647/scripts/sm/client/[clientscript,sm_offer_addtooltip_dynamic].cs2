@@ -1,0 +1,6 @@
+// 650
+[clientscript,sm_offer_addtooltip_dynamic](component $component0, int $int1, component $component2, int $int3, int $int4, string $string0)
+if (if_gethide(stockmarket:summarylayer) = false) {
+    return;
+}
+~addtooltip_action_dynamic($component0, $int1, $component2, $string0, $int3, $int4);

@@ -1,0 +1,26 @@
+// 1796
+[clientscript,clanwars_setup_maininit](component $component0)
+%clanwars_rulevarc_endtype = 0;
+%clanwars_rulevarc_timelimit = 0;
+%clanwars_rulevarc_nostragglers = false;
+%clanwars_rulevarc_itemloss = false;
+%clanwars_rulevarc_nomelee = false;
+%clanwars_rulevarc_noranged = false;
+if (map_members = false) {
+    %clanwars_rulevarc_nomagic = 1;
+    %clanwars_rulevarc_nosummoning = false;
+    ~clanwars_resynch_magic;
+    ~clanwars_resynch_summoning;
+} else {
+    %clanwars_rulevarc_nomagic = 0;
+    %clanwars_rulevarc_nosummoning = false;
+}
+%clanwars_rulevarc_nofood = false;
+%clanwars_rulevarc_nopotions = false;
+%clanwars_rulevarc_noprayer = false;
+%clanwars_rulevarc_arenachoice = 0;
+%clanwars_rulevarc_accept = false;
+%clanwars_rulevarc_opponentaccept = false;
+if_setonvartransmit($component0, "clanwars_setup_vartransmit{clanwars_rules, clanwars_challengeuid}");
+if_setonvarctransmit($component0, "clanwars_setup_varctransmit{clanwars_rulevarc_opponentaccept}");
+if_setonvarcstrtransmit($component0, "clanwars_setup_varcstrtransmit($component0){varclient_1556}");

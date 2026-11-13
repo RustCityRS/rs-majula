@@ -1,0 +1,131 @@
+// 230:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 230:1
+[multi3t]
+type=text
+y=1638
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=layer_1
+textfont=q8_full
+text=Select an Option
+textalignh=centre
+colour=0x800000
+
+// 230:2
+[multi3a]
+type=text
+y=5341
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=layer_1
+textfont=q8_full
+text=option1
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 230:3
+[multi3b]
+type=text
+y=8389
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=layer_1
+textfont=q8_full
+text=option2
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 230:4
+[multi3c]
+type=text
+y=11437
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=layer_1
+textfont=q8_full
+text=option3
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 230:5
+[com_5]
+type=graphic
+width=57
+height=13
+layer=multi3swords
+graphic="sworddecor,1"
+colour=0x000000
+
+// 230:6
+[com_6]
+type=graphic
+x=280
+width=57
+height=13
+layer=multi3swords
+graphic="sworddecor,0"
+colour=0x000000
+
+// 230:7
+[multi3swords]
+type=layer
+y=1638
+width=337
+height=13
+xmode=abs_centre
+ymode=proportion_top
+layer=layer_1
+
+// 230:8
+[com_8]
+type=graphic
+width=57
+height=13
+layer=com_10
+graphic="sworddecor,1"
+colour=0x000000
+
+// 230:9
+[com_9]
+type=graphic
+x=419
+width=57
+height=13
+layer=com_10
+graphic="sworddecor,0"
+colour=0x000000
+
+// 230:10
+[com_10]
+type=layer
+y=1638
+width=476
+height=13
+xmode=abs_centre
+ymode=proportion_top
+layer=layer_1
+hide=yes

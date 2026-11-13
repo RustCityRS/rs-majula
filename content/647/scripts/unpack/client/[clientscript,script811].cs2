@@ -1,0 +1,24 @@
+// 811
+[clientscript,script811](int $int0)
+def_boolean $boolean1 = false;
+if ($int0 > 1) {
+    return;
+}
+if (getwindowmode >= 2) {
+    $boolean1 = if_gethide(toplevel_fullscreen:xpbaselayer);
+} else {
+    $boolean1 = if_gethide(toplevel:xpbaselayer);
+}
+if ($boolean1 = true) {
+    ~script3337;
+    if_sethide(toplevel:xpsplat, true);
+    if_setontimer(toplevel:xpbaselayer, null);
+    if_sethide(toplevel_fullscreen:xpsplat, true);
+    if_setontimer(toplevel_fullscreen:xpbaselayer, null);
+    if_sethide(toplevel_fullscreen:xpbaselayer, false);
+    if_sethide(toplevel:xpbaselayer, false);
+} else {
+    if_sethide(toplevel_fullscreen:xpbaselayer, true);
+    if_sethide(toplevel:xpbaselayer, true);
+}
+~script776;

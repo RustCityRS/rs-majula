@@ -1,0 +1,592 @@
+// 169:0
+[base_container]
+type=layer
+width=95
+height=334
+xmode=abs_right
+
+// 169:1
+[container]
+type=layer
+width=95
+height=334
+xmode=abs_right
+layer=base_container
+transmitop=10
+op10= 
+
+// 169:2
+[com_2]
+type=rectangle
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=container
+colour=0x53533d
+fill=yes
+trans=180
+transmitop=10
+op10=  
+
+// 169:3
+[com_3]
+type=text
+x=48
+y=23
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_1)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_1){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Baby implings", 25, 512)
+
+// 169:4
+[impling_01]
+type=graphic
+x=48
+y=23
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 169:5
+[com_5]
+type=text
+x=2
+y=23
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_7)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_7){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Nature implings", 25, 512)
+
+// 169:6
+[impling_08]
+type=graphic
+x=2
+y=23
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,3"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 169:7
+[com_7]
+type=text
+x=48
+y=67
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_2)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_2){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Young implings", 25, 512)
+
+// 169:8
+[impling_02]
+type=graphic
+x=48
+y=67
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 169:9
+[com_9]
+type=text
+x=2
+y=67
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_8)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_8){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Magpie implings", 25, 512)
+
+// 169:10
+[impling_09]
+type=graphic
+x=2
+y=67
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 169:11
+[com_11]
+type=text
+x=48
+y=111
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_3)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_3){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Gourmet implings", 25, 512)
+
+// 169:12
+[impling_03]
+type=graphic
+x=48
+y=111
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 169:13
+[com_13]
+type=text
+x=2
+y=111
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_9)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_9){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Ninja implings", 25, 512)
+
+// 169:14
+[impling_10]
+type=graphic
+x=2
+y=111
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,10"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 169:15
+[com_15]
+type=text
+x=48
+y=155
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_4)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_4){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Earth implings", 25, 512)
+
+// 169:16
+[impling_04]
+type=graphic
+x=48
+y=155
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,9"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 169:17
+[com_17]
+type=text
+x=2
+y=155
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_11)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_11){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Pirate implings", 25, 512)
+
+// 169:18
+[impling_11]
+type=graphic
+x=2
+y=155
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,11"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 169:19
+[com_19]
+type=text
+x=48
+y=199
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_5)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_5){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Essence implings", 25, 512)
+
+// 169:20
+[impling_05]
+type=graphic
+x=48
+y=199
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,8"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 169:21
+[com_21]
+type=text
+x=2
+y=199
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_10)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_10){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Dragon implings", 25, 512)
+
+// 169:22
+[impling_12]
+type=graphic
+x=2
+y=199
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 169:23
+[com_23]
+type=text
+x=48
+y=243
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_6)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_6){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Eclectic implings", 25, 512)
+
+// 169:24
+[impling_06]
+type=graphic
+x=48
+y=243
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,4"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 169:25
+[com_25]
+type=text
+x=2
+y=243
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_12)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_12){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Zombie implings", 25, 512)
+
+// 169:26
+[impling_13]
+type=graphic
+x=2
+y=243
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,13"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 169:27
+[com_27]
+type=text
+x=48
+y=287
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_6a)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_6a){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Spirit implings", 25, 512)
+
+// 169:28
+[impling_07]
+type=graphic
+x=48
+y=287
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,14"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 169:29
+[com_29]
+type=text
+x=2
+y=287
+width=45
+height=45
+xmode=abs_right
+layer=container
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xb5b54a
+transmitop=10
+op10= 
+onload=script1091(event_com, ii_captured_impling_13)
+onmouseleave=deltooltip(ii_impling_overlay:tooltip)
+oninvtransmit=script1091(event_com, ii_captured_impling_13){inv}
+onmouserepeat=addtooltip(event_com, ii_impling_overlay:tooltip, "Kingly implings", 25, 512)
+
+// 169:30
+[impling_14]
+type=graphic
+x=2
+y=287
+width=45
+height=45
+xmode=abs_right
+layer=container
+graphic="ii_impling_icons,12"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 169:31
+[com_31]
+type=text
+x=2
+y=2
+width=4
+height=20
+widthmode=minus
+xmode=abs_right
+layer=container
+textfont=p11_full
+text=Hide
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Hide
+onop=script2910(ii_impling_overlay:container, event_com)
+
+// 169:32
+[tooltip]
+type=layer
+x=2
+y=23
+width=32
+height=32
+layer=container
+transmitop=10
+op10= 
+
+// 169:33
+[fa_timer]
+type=layer
+x=96
+y=2
+width=106
+height=36
+xmode=abs_right
+onload=ii_timer_display(event_com)
+
+// 169:34
+[com_34]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=fa_timer
+colour=0x53533d
+fill=yes
+trans=180
+transmitop=10
+op10=  
+
+// 169:35
+[com_35]
+type=text
+width=49
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=fa_timer
+textfont=p11_full
+text=30 min
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+onvartransmit=ii_timer_update(ii_impling_overlay:fa_timer, event_com){ii_player}
+
+// 169:36
+[time]
+type=text
+y=-2
+height=26
+widthmode=minus
+xmode=abs_right
+layer=fa_timer
+textfont=p11_full
+text=Farmer's affinity bonus left:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00

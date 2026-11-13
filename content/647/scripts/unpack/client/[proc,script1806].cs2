@@ -1,0 +1,27 @@
+// 1806
+[proc,script1806](string $string0)
+~meslayer_close(12);
+$string0 = lowercase(removetags($string0));
+def_int $int0 = string_length($string0);
+$string0 = ~find_and_replace($string0, "_", " ");
+$string0 = ~find_and_replace($string0, " ", " ");
+while (string_indexof_string($string0, " ", 0) = 0 & $int0 > 0) {
+    $string0 = substring($string0, 1, $int0);
+    $int0 = string_length($string0);
+}
+while (string_indexof_string($string0, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string0 = substring($string0, 0, calc($int0 - 1));
+    $int0 = string_length($string0);
+}
+if (compare(%clanwars_caller, $string0) = 0) {
+    mes("Caller not changed.");
+    return;
+}
+%clanwars_caller = $string0;
+if (string_length(%clanwars_caller) > 0) {
+    mes("Caller set: <~script1814(%clanwars_caller)>");
+} else {
+    mes("Caller feature disabled.");
+}
+~clanwars_caller_namechange(clanwars_overlay:caller_layer, clanwars_overlay:caller_name, clanwars_overlay:caller_text);
+~clanwars_caller_namechange(clanwars_ffa_overlay:caller_layer, clanwars_ffa_overlay:caller_name, clanwars_ffa_overlay:caller_text);

@@ -1,0 +1,59 @@
+// 472:0
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 472:1
+[scroll]
+type=model
+x=37
+y=16
+width=441
+height=295
+layer=layer_1
+model=model_11365
+modelorigin=-20,15
+modelangle=501,0,0
+modelzoom=621
+
+// 472:2
+[sketch]
+type=model
+x=88
+y=48
+width=307
+height=234
+layer=layer_1
+model=model_19483
+modelorigin=3,3
+modelangle=492,0,0
+modelzoom=741
+
+// 472:3
+[close]
+type=graphic
+x=411
+y=42
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 472:4
+[zep_balloon_sketch_close]
+type=layer
+x=401
+y=44
+width=32
+height=32
+layer=layer_1
+hide=yes

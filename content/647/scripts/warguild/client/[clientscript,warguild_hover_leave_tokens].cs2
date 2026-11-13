@@ -1,0 +1,24 @@
+// 4068
+[clientscript,warguild_hover_leave_tokens](component $component0)
+switch_component ($component0) {
+    case warguild_token_choice:balance_layer :
+        if (if_getgraphic(warguild_token_choice:single_balance_token) ! "warguild_token_selected,0") {
+            if_setposition($component0, -160, 18, ^setpos_abs_centre, ^setpos_abs_top);
+        }
+    case warguild_token_choice:strength_layer :
+        if (if_getgraphic(warguild_token_choice:single_strength_token) ! "warguild_token_selected,1") {
+            if_setposition($component0, -80, 18, ^setpos_abs_centre, ^setpos_abs_top);
+        }
+    case warguild_token_choice:combat_layer :
+        if (if_getgraphic(warguild_token_choice:single_combat_token) ! "warguild_token_selected,2") {
+            if_setposition($component0, 0, 18, ^setpos_abs_centre, ^setpos_abs_top);
+        }
+    case warguild_token_choice:defence_layer :
+        if (if_getgraphic(warguild_token_choice:single_defence_token) ! "warguild_token_selected,3") {
+            if_setposition($component0, 80, 18, ^setpos_abs_centre, ^setpos_abs_top);
+        }
+    case warguild_token_choice:attack_layer :
+        if (if_getgraphic(warguild_token_choice:single_attack_token) ! "warguild_token_selected,4") {
+            if_setposition($component0, 160, 18, ^setpos_abs_centre, ^setpos_abs_top);
+        }
+}

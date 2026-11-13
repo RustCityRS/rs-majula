@@ -1,0 +1,8 @@
+// 1802
+[proc,script1802]
+if_sethide(clanwars_setup:accept_button, true);
+if_sethide(clanwars_setup:accept_text, true);
+if_sethide(clanwars_setup:watch_button, false);
+if_sethide(clanwars_setup:watch_text, false);
+if_sethide(clanwars_setup:fight_button, false);
+if_sethide(clanwars_setup:fight_text, false);

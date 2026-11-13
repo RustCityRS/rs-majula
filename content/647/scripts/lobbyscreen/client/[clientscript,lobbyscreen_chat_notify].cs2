@@ -1,0 +1,21 @@
+// 3407
+[clientscript,lobbyscreen_chat_notify](int $int0, component $component1, component $component2)
+if (if_gethide($component1) = false) {
+    cc_deleteall($component2);
+    if_setontimer($component2, null);
+    return;
+}
+if (calc((clientclock - $int0) % 40) < 20) {
+    if (cc_find($component2, 0) = true) {
+        cc_sethide(false);
+    } else {
+        cc_create($component2, ^iftype_rectangle, 0);
+        cc_setsize(4, 2, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+        cc_setfill(true);
+        cc_settrans(225);
+        cc_setcolour(^white);
+    }
+} else if (cc_find($component2, 0) = true) {
+    cc_sethide(true);
+}

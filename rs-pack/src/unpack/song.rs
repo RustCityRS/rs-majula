@@ -1,17 +1,28 @@
-use std::path::Path;
-
+#[cfg(all(since_244, before_647))]
+use super::model::load_existing_pack;
 #[cfg(since_244)]
+use crate::archive;
+#[cfg(since_647)]
+use crate::cache::midi::decode_jagex_midi;
+#[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
+#[cfg(since_647)]
+use anyhow::{Context, Result};
+#[cfg(before_647)]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
+use std::fs;
+use std::path::Path;
+#[cfg(before_647)]
 use tracing::debug;
 
+#[cfg(before_647)]
 pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     let out_dir = output_dir.join("songs");
-    std::fs::create_dir_all(&out_dir)?;
+    fs::create_dir_all(&out_dir)?;
 
-    let Ok(entries) = std::fs::read_dir(songs_dir) else {
+    let Ok(entries) = fs::read_dir(songs_dir) else {
         return Ok(());
     };
 
@@ -29,7 +40,7 @@ pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
             None => continue,
         };
 
-        let data = std::fs::read(&path)?;
+        let data = fs::read(&path)?;
         if data.len() < 4 {
             continue;
         }
@@ -42,7 +53,7 @@ pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
         let midi = bz2_decompress(&data[4..], uncompressed_size as usize, true, 0);
 
         let mid_name = key_to_filename(&key);
-        std::fs::write(out_dir.join(&mid_name), &midi)?;
+        fs::write(out_dir.join(&mid_name), &midi)?;
         count += 1;
     }
 
@@ -50,6 +61,7 @@ pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
+#[cfg(before_647)]
 fn key_to_filename(key: &str) -> String {
     if key.len() < 12
         && let Some(stem) = key.strip_suffix("_mid")
@@ -59,20 +71,20 @@ fn key_to_filename(key: &str) -> String {
     format!("{key}.mid")
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 pub fn unpack_midi(
-    cache: &Js5Store,
+    cache: &mut Js5Store,
     version_list: &VersionList,
     output_dir: &Path,
     pack_dir: &Path,
 ) -> anyhow::Result<()> {
     let songs_dir = output_dir.join("songs");
     let jingles_dir = output_dir.join("jingles");
-    std::fs::create_dir_all(&songs_dir)?;
-    std::fs::create_dir_all(&jingles_dir)?;
+    fs::create_dir_all(&songs_dir)?;
+    fs::create_dir_all(&jingles_dir)?;
 
-    let existing_names = super::model::load_existing_pack(pack_dir, "midi");
-    let count = cache.count(3);
+    let existing_names = load_existing_pack(pack_dir, "midi");
+    let count = cache.group_count(archive::MIDI).unwrap_or(0) as usize;
 
     let mut pack_lines = Vec::with_capacity(count);
     let mut songs = 0;
@@ -84,13 +96,18 @@ pub fn unpack_midi(
             .unwrap_or_else(|| format!("midi_{id}"));
         pack_lines.push(format!("{id}={name}"));
 
-        let Some(data) = cache.read(3, id, true).filter(|d| !d.is_empty()) else {
+        let Some(data) = cache
+            .read_group_raw_decompressed(archive::MIDI, id as u32)
+            .ok()
+            .flatten()
+            .filter(|d| !d.is_empty())
+        else {
             continue;
         };
 
         let is_jingle = version_list.midi_flags.get(id).copied().unwrap_or(0) != 0;
         let dir = if is_jingle { &jingles_dir } else { &songs_dir };
-        std::fs::write(dir.join(format!("{name}.mid")), &data)?;
+        fs::write(dir.join(format!("{name}.mid")), &data)?;
         if is_jingle {
             jingles += 1;
         } else {
@@ -98,7 +115,44 @@ pub fn unpack_midi(
         }
     }
 
-    std::fs::write(pack_dir.join("midi.pack"), pack_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("midi.pack"), pack_lines.join("\n") + "\n")?;
     debug!("Unpacked {songs} songs + {jingles} jingles");
     Ok(())
+}
+
+#[cfg(since_647)]
+pub fn unpack_songs(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let mut count = 0;
+    for aid in [archive::SONGS, archive::JINGLES] {
+        let format = archive::archive_format(aid).unwrap();
+        let dir = content_dir.join(format.content_dir);
+        fs::create_dir_all(&dir)?;
+        let groups = store
+            .reference_table(aid)
+            .context("Missing MIDI table")?
+            .groups
+            .clone();
+        for info in groups {
+            let data = store
+                .read_group_raw_decompressed(aid, info.id)?
+                .context("Missing MIDI group")?;
+            let midi = decode_jagex_midi(&data)?;
+            anyhow::ensure!(
+                crate::pack::other::song::encode_jagex_midi(&midi)? == data,
+                "MIDI round trip changed {aid}/{}",
+                info.id
+            );
+            let path = dir.join(format!(
+                "{}.mid",
+                names.name(crate::pack::names::archive_name(aid), info.id)
+            ));
+            if let Some(parent) = path.parent() {
+                fs::create_dir_all(parent)?;
+            }
+            fs::write(path, midi)?;
+            count += 1;
+        }
+    }
+    Ok(count)
 }

@@ -1,38 +1,55 @@
-use crate::tui::log_layer::{LogBuffer, TuiLogLayer};
+use crate::tui::log_layer::{self, LogBuffer, TuiLogLayer};
 use anyhow::{Context, Result, anyhow, bail};
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{ArgAction, Parser, Subcommand, ValueEnum};
 use futures_util::SinkExt;
 use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
 use rs_crypto::rsa::{RsaKey, load_rsa_key};
-use rs_db::LoginDevice;
+use rs_db::{Db, LoginDevice};
+use rs_engine::LoginRequest;
+use rs_engine::TickStats;
+use rs_engine::watch::QUEUE;
 use rs_engine::{CycleResult, Engine};
 use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
-use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
+#[cfg(since_647)]
+use rs_pack::cache::map::XteaKeyStore;
 use rs_pack::cache::script::ScriptProvider;
+#[cfg(since_647)]
+use rs_pack::startup::{InterfaceLayout, PackResult};
+#[cfg(since_647)]
+use rs_protocol::js5::Js5Cache;
 use rs_util::net::limit_address;
 use rs_util::os::{disable_huge_pages, raise_open_files, raise_thread_priority, shutdown_signal};
 use std::collections::HashMap;
-use std::fs;
-use std::io::IsTerminal;
+use std::fs::{self, OpenOptions};
+use std::io::{self, BufReader, IsTerminal};
+use std::mem::{replace, take};
 use std::net::{IpAddr, SocketAddr};
-use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
+use std::path::{self, Path, PathBuf};
+use std::process::{self, Command, Stdio};
+use std::sync::mpsc as std_mpsc;
 use std::sync::{Arc, Mutex, PoisonError, RwLock};
-use std::thread;
+use std::thread::{self, Builder as ThreadBuilder};
+#[cfg(debug_assertions)]
+use std::time::Instant;
+use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
-use tokio::runtime;
+use tokio::runtime::Builder as RuntimeBuilder;
+use tokio::signal::ctrl_c;
 use tokio::sync::mpsc::UnboundedSender;
-use tokio::sync::{mpsc, watch};
-use tokio::time::{self, Duration};
+use tokio::sync::{mpsc, oneshot, watch};
+use tokio::task::{JoinHandle, spawn_blocking, yield_now};
+use tokio::time::{self, Duration, Instant as TokioInstant, Interval};
 use tokio_tungstenite::WebSocketStream;
-use tokio_tungstenite::tungstenite::{Bytes, Message};
+use tokio_tungstenite::tungstenite::Message;
 use tracing::{Level, debug, error, info, warn};
-use tracing_subscriber::Layer;
+use tracing_subscriber::fmt::{self, MakeWriter};
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
+use tracing_subscriber::registry::LookupSpan;
 use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::{EnvFilter, Layer};
 use watch::{Receiver, Sender, channel};
 
 use crossterm::execute;
@@ -46,6 +63,7 @@ use time::MissedTickBehavior;
 mod admin;
 mod device;
 mod http;
+#[cfg(before_647)]
 mod jaggrab;
 mod metrics;
 mod recovery;
@@ -201,12 +219,12 @@ static SIDECAR_PID: AtomicU32 = AtomicU32::new(0);
 fn restore_terminal_and_sidecar() {
     shutdown_sidecar();
     let _ = disable_raw_mode();
-    let _ = execute!(std::io::stdout(), LeaveAlternateScreen);
+    let _ = execute!(io::stdout(), LeaveAlternateScreen);
 }
 
 fn graceful_exit(code: i32) -> ! {
     restore_terminal_and_sidecar();
-    std::process::exit(code);
+    process::exit(code);
 }
 
 /// Secrets read at startup. Each comes from its flag or environment variable;
@@ -266,7 +284,7 @@ impl EtherEnv {
     fn new(args: &Args, db: rs_db::DbConfig) -> Result<Self> {
         let release = match &args.ether_release {
             Some(root) => {
-                let root = std::path::absolute(root)?;
+                let root = path::absolute(root)?;
                 let script = root.join("bin").join(RELEASE_SCRIPT);
                 if !script.is_file() {
                     bail!("--ether-release: {} not found", script.display());
@@ -377,20 +395,40 @@ struct Args {
     tcp_port: Option<u16>,
     #[arg(long)]
     jaggrab_port: Option<u16>,
+    #[cfg(before_647)]
     #[arg(long, default_value = ".keys/private.pem")]
     private_key: PathBuf,
-    #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]
+    /// Rev-647 signs the JS5 master index over a 65-byte plaintext, which
+    /// needs a wider modulus than the 512-bit `.keys/private.pem` — and that
+    /// pair is embedded in the committed pre-647 clients, so 647 gets its own
+    /// 2048-bit pair (matched by the RSA-patched vanilla 647 client).
+    #[cfg(since_647)]
+    #[arg(long, default_value = ".keys/private-647.pem")]
+    private_key: PathBuf,
+    #[arg(long, default_value_t = true, action = ArgAction::Set)]
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
+    #[cfg(before_647)]
     #[arg(long, default_value = "true")]
     client_pathfinder: bool,
-    #[arg(long, action = clap::ArgAction::Set)]
+    #[cfg(since_647)]
+    #[arg(long, default_value = "false")]
+    client_pathfinder: bool,
+    #[arg(long, action = ArgAction::Set)]
     staff_isolation: Option<bool>,
+    #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u8).range(1..=64),
+        help = "Search threads per world; 1 runs on the engine thread")]
+    pathfinder_threads: u8,
+    #[arg(long, value_parser = clap::value_parser!(u16).range(0..600),
+        help = "Align ticks to this millisecond offset within the 600 ms cycle")]
+    tick_offset_ms: Option<u16>,
     #[arg(long, default_value = "false")]
     no_tui: bool,
-    #[arg(long, default_value = "true", action = clap::ArgAction::Set)]
+    #[arg(long, default_value = "true", action = ArgAction::Set)]
     verify: bool,
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = ArgAction::Set)]
+    pack_cache: bool,
     #[arg(long, default_value = "false")]
     jaggrab_only: bool,
     #[arg(long)]
@@ -437,13 +475,13 @@ struct Args {
     cluster: String,
     #[arg(long, env = "RS_ETHER_RELEASE")]
     ether_release: Option<PathBuf>,
-    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = ArgAction::Set)]
     auto_register: bool,
-    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = ArgAction::Set)]
     auto_migrate: bool,
     /// Refuses a login while another account is online from the same
     /// browser. On by default in release builds.
-    #[arg(long, env = "RS_BLOCK_MULTILOG", default_value_t = !cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    #[arg(long, env = "RS_BLOCK_MULTILOG", default_value_t = !cfg!(debug_assertions), action = ArgAction::Set)]
     block_multilog: bool,
     #[arg(long, env = "RS_REPLAY_DAYS", default_value_t = 7)]
     replay_days: u32,
@@ -466,10 +504,10 @@ fn fmt_layer<S, W>(
     time: bool,
 ) -> Box<dyn Layer<S> + Send + Sync>
 where
-    S: tracing::Subscriber + for<'a> tracing_subscriber::registry::LookupSpan<'a>,
-    W: for<'w> tracing_subscriber::fmt::MakeWriter<'w> + Send + Sync + 'static,
+    S: tracing::Subscriber + for<'a> LookupSpan<'a>,
+    W: for<'w> MakeWriter<'w> + Send + Sync + 'static,
 {
-    let layer = tracing_subscriber::fmt::layer().with_writer(writer);
+    let layer = fmt::layer().with_writer(writer);
     match format {
         LogFormat::Text if time => layer.with_ansi(ansi).boxed(),
         LogFormat::Text => layer.with_ansi(ansi).without_time().boxed(),
@@ -501,6 +539,12 @@ impl SharedCache {
 #[derive(Clone)]
 pub struct ServerIO {
     cache: SharedCache,
+    /// Rev-647 cache delivery: archive-255 reference tables + signed master
+    /// index and group containers are served from memory.
+    #[cfg(since_647)]
+    js5: Js5Cache,
+    #[cfg(since_647)]
+    js5_latest: Arc<RwLock<Js5Cache>>,
     rsa: &'static RsaKey,
     new_player_tx: UnboundedSender<LoginRequest>,
 }
@@ -516,13 +560,13 @@ async fn main() -> Result<()> {
     // silence the chatty save + protocol logs and sqlx's per-statement
     // logs and migration NOTICEs.
     let make_filter = || {
-        tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
-            tracing_subscriber::EnvFilter::new(
+        EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+            EnvFilter::new(
                 "info,\
                      rs_engine::player_save=warn,\
                      rs_protocol=warn,\
                      sqlx=warn,\
-                     runec=error",
+                     runec=warn",
             )
         })
     };
@@ -542,7 +586,7 @@ async fn main() -> Result<()> {
     let (file_layer, _log_guard) = if args.no_log_file {
         (None, None)
     } else {
-        let log_file = std::fs::OpenOptions::new()
+        let log_file = OpenOptions::new()
             .create(true)
             .write(true)
             .truncate(true)
@@ -558,12 +602,12 @@ async fn main() -> Result<()> {
     // The TUI requires a real terminal - auto-fall-back to headless when
     // stdout is e.g. piped, redirected, or running under IntelliJ's Run
     // tool window (which doesn't interpret cursor/raw-mode escapes).
-    let tty = std::io::stdout().is_terminal();
+    let tty = io::stdout().is_terminal();
     let use_tui = !args.no_tui && tty;
 
     if !use_tui {
         let stdout_layer =
-            fmt_layer(args.log_format, std::io::stdout, true, false).with_filter(make_filter());
+            fmt_layer(args.log_format, io::stdout, true, false).with_filter(make_filter());
         registry.with(stdout_layer).init();
         let _ = Level::INFO;
 
@@ -595,7 +639,7 @@ async fn main() -> Result<()> {
         )
         .await
     } else {
-        let log_buf = tui::log_layer::new_buffer();
+        let log_buf = log_layer::new_buffer();
         let tui_layer = TuiLogLayer::new(log_buf.clone()).with_filter(make_filter());
         registry.with(tui_layer).init();
 
@@ -635,7 +679,7 @@ async fn run_with_tui(args: Args, secrets: Secrets, log_buf: LogBuffer) -> Resul
         let _ = shutdown_tx.send(());
         println!("Saving every player and shutting down... (Ctrl+C to force)");
         tokio::select! {
-            _ = tokio::signal::ctrl_c() => {
+            _ = ctrl_c() => {
                 println!("Forced exit -- players since their last save are not saved");
             }
             _ = &mut bootstrap_task => {}
@@ -662,7 +706,16 @@ async fn bootstrap(
 ) -> Result<()> {
     let host = args.host.clone();
     let http = args.http_port.unwrap_or(8070 + args.node_id as u16);
+    #[cfg(before_647)]
     let tcp = args.tcp_port.unwrap_or(43584 + args.node_id as u16);
+    #[cfg(since_647)]
+    let tcp = args.tcp_port.unwrap_or(39991 + args.node_id as u16);
+    #[cfg(since_647)]
+    if !(40001..=55535).contains(&tcp) {
+        bail!("647 standalone client requires --tcp-port between 40001 and 55535");
+    }
+    // Rev-647 clients fetch the cache over JS5, not JAGGRAB.
+    #[cfg(before_647)]
     let jaggrab = args.jaggrab_port.unwrap_or(tcp + 1);
 
     info!("RuneScape Private Server (Rev {}) starting", REVISION);
@@ -680,16 +733,36 @@ async fn bootstrap(
     // Before the pack churns the heap: see init_collision.
     rs_engine::init_collision();
     info!("Compiling content assets & building cache...");
+    let pack_cache = args
+        .pack_cache
+        .then_some(Path::new(rs_pack::PACK_CACHE_DIR));
+    #[cfg(since_647)]
+    let PackResult {
+        store,
+        scripts,
+        layout,
+        cache: js5_cache,
+    } = rs_pack::pack_all(
+        Path::new(rs_pack::CONTENT_DIR),
+        Path::new(rs_pack::PACK_DIR),
+        pack_cache,
+        args.verify,
+        args.members,
+    )?;
+    #[cfg(since_647)]
+    XteaKeyStore::load(&Path::new(rs_pack::CONTENT_DIR).join("keys.json"))?.install_global();
+    #[cfg(before_647)]
     let (store, scripts) = rs_pack::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
         Path::new(rs_pack::PACK_DIR),
+        pack_cache,
         args.verify,
         args.members,
     )?;
     let cache_ptr_val = Box::into_raw(store) as usize;
     let cache: &'static CacheStore = unsafe { &*(cache_ptr_val as *const CacheStore) };
 
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_647))]
     for (archive, files) in cache.ondemand.iter().enumerate() {
         for (file, blob) in files.iter().enumerate() {
             if blob.len() > u16::MAX as usize {
@@ -707,6 +780,15 @@ async fn bootstrap(
     let rsa: &'static RsaKey = Box::leak(Box::new(load_rsa_key(rsa_path)?));
     // The client page's device check changes with the login key, every deploy.
     device::init(&fs::read(rsa_path)?);
+
+    // Rev-647 cache delivery: archive-255 reference tables + signed master
+    // index and group containers are served from memory.
+    #[cfg(since_647)]
+    let js5 = Js5Cache::new(js5_cache.groups, &js5_cache.tables, rsa)?;
+    #[cfg(since_647)]
+    drop(js5_cache.tables);
+    #[cfg(since_647)]
+    let js5_latest = Arc::new(RwLock::new(js5.clone()));
 
     let (ether_tx, ether_rx) = {
         let (outbound_tx, outbound_rx) = unbounded_channel::<EtherOutbound>();
@@ -731,7 +813,7 @@ async fn bootstrap(
             secrets.cookie,
         ));
 
-        let (ready_tx, ready_rx) = tokio::sync::oneshot::channel();
+        let (ready_tx, ready_rx) = oneshot::channel();
         tokio::spawn(ether_client_task(
             ether_port,
             node_id,
@@ -769,7 +851,7 @@ async fn bootstrap(
 
     // Session recordings, for the staff console's replays.
     let (replay_tx, replay_task) = if args.replay_days > 0 {
-        let (tx, rx) = tokio::sync::mpsc::channel(rs_engine::watch::QUEUE);
+        let (tx, rx) = mpsc::channel(QUEUE);
         let task = tokio::spawn(rs_engine::replay_task(
             db_settings.clone(),
             args.node_id,
@@ -794,6 +876,8 @@ async fn bootstrap(
         scripts,
         cache,
         cache_ptr_val as *mut CacheStore,
+        #[cfg(since_647)]
+        layout,
         stats_tx,
         reload_world_tx,
         args.node_id,
@@ -803,6 +887,15 @@ async fn bootstrap(
         db_rx,
     );
     engine.replay_tx = replay_tx;
+    #[cfg(since_647)]
+    if let Some(origins) = &args.site_origin
+        && !engine.set_site_origin(origins)
+    {
+        warn!(
+            "--site-origin {origins:?}: in-game links need an http or https origin of at most 200 characters, so they open nothing"
+        );
+    }
+    engine.set_pathfinder_threads(args.pathfinder_threads as usize)?;
     if let Some(isolation) = args.staff_isolation {
         engine.staff_isolation = isolation;
     }
@@ -815,16 +908,17 @@ async fn bootstrap(
     restore_purge_delay(purge_delay);
 
     let (admin_tx, admin_rx) = unbounded_channel();
+    let tick_offset_ms = args.tick_offset_ms;
     // The tick has a thread and a timer of its own: busy network workers
     // can't hold up a tick, and a tick never holds up a network worker.
-    thread::Builder::new()
+    ThreadBuilder::new()
         .name("engine".into())
         .spawn(move || {
             match raise_thread_priority() {
                 Ok(()) => info!("Game tick thread runs at top priority"),
                 Err(e) => warn!("Game tick thread runs at normal priority: {e}"),
             }
-            runtime::Builder::new_current_thread()
+            RuntimeBuilder::new_current_thread()
                 .enable_time()
                 .build()
                 .expect("engine tick runtime")
@@ -835,6 +929,7 @@ async fn bootstrap(
                     shutdown_rx,
                     admin_rx,
                     replay_task,
+                    tick_offset_ms,
                 ));
         })
         .context("couldn't start the engine thread")?;
@@ -859,6 +954,11 @@ async fn bootstrap(
     tokio::spawn(reload_coordinator(
         args.verify,
         args.members,
+        args.pack_cache,
+        #[cfg(since_647)]
+        rsa,
+        #[cfg(since_647)]
+        js5_latest.clone(),
         trigger_rx,
         reload_tx,
         reload_world_rx,
@@ -866,8 +966,17 @@ async fn bootstrap(
     #[cfg(not(debug_assertions))]
     drop(trigger_rx);
 
+    #[cfg(before_647)]
     let server_state = ServerIO {
         cache: SharedCache(cache),
+        rsa,
+        new_player_tx,
+    };
+    #[cfg(since_647)]
+    let server_state = ServerIO {
+        cache: SharedCache(cache),
+        js5,
+        js5_latest,
         rsa,
         new_player_tx,
     };
@@ -889,15 +998,26 @@ async fn bootstrap(
         http: http_guard,
         jaggrab: jaggrab_guard,
     } = guards;
+    // A 647 client fetches its cache over JS5, not JAGGRAB.
+    #[cfg(since_647)]
+    drop(jaggrab_guard);
 
     info!("Accepting HTTP connections on: {}:{}", host, http);
+    #[cfg(before_647)]
     info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
+    #[cfg(before_647)]
     if !cache.static_assets.contains_key("/mapview.js") {
         warn!("public/mapview.js is missing: the world map and the console's live map won't load");
     }
+    #[cfg(before_647)]
     if args.jaggrab_only {
         info!("--jaggrab-only: cache downloads over HTTP will 404 to force the JAGGRAB fallback");
     }
+    #[cfg(since_647)]
+    info!(
+        "Client config available at: http://localhost:{}/jav_config.ws",
+        http
+    );
     tokio::spawn(http::serve(
         host.to_string(),
         http,
@@ -916,13 +1036,16 @@ async fn bootstrap(
             .map(|origin| &*Box::leak(origin.into_boxed_str())),
     ));
 
-    info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
-    tokio::spawn(jaggrab::serve(
-        host.to_string(),
-        jaggrab,
-        server_state.cache,
-        jaggrab_guard,
-    ));
+    #[cfg(before_647)]
+    {
+        info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
+        tokio::spawn(jaggrab::serve(
+            host.to_string(),
+            jaggrab,
+            server_state.cache,
+            jaggrab_guard,
+        ));
+    }
 
     info!("Accepting TCP connections on: {}:{}", host, tcp);
     socket::serve(host, tcp, server_state, guard, js5_guard).await
@@ -954,7 +1077,7 @@ fn prepare_ether_sidecar(ether: &EtherEnv) {
 /// each other.
 async fn migrate(args: &Args) -> Result<()> {
     let db_config = db_config(args, db_pass(args)?);
-    let db = rs_db::Db::connect(&db_config, 1)
+    let db = Db::connect(&db_config, 1)
         .await
         .with_context(|| format!("connecting to {}:{}", db_config.host, db_config.port))?;
     db.migrate().await.context("game migrations failed")?;
@@ -1004,9 +1127,9 @@ async fn supervise_ether_sidecar(
                 backoff = Duration::from_secs(30);
 
                 if let Some(stdout) = child.stdout.take() {
-                    std::thread::spawn(move || {
+                    thread::spawn(move || {
                         use std::io::BufRead;
-                        let reader = std::io::BufReader::new(stdout);
+                        let reader = BufReader::new(stdout);
                         for line in reader.lines().map_while(Result::ok) {
                             debug!(target: "ether", "{}", line);
                         }
@@ -1014,9 +1137,9 @@ async fn supervise_ether_sidecar(
                 }
 
                 if let Some(stderr) = child.stderr.take() {
-                    std::thread::spawn(move || {
+                    thread::spawn(move || {
                         use std::io::BufRead;
-                        let reader = std::io::BufReader::new(stderr);
+                        let reader = BufReader::new(stderr);
                         for line in reader.lines().map_while(Result::ok) {
                             if line.contains("erroneous line, SKIPPED") {
                                 continue;
@@ -1026,7 +1149,7 @@ async fn supervise_ether_sidecar(
                     });
                 }
 
-                let status = tokio::task::spawn_blocking(move || child.wait()).await;
+                let status = spawn_blocking(move || child.wait()).await;
                 SIDECAR_PID.store(0, Ordering::Relaxed);
 
                 match status {
@@ -1101,8 +1224,11 @@ fn kill_ether_sidecar(pid: u32) {
 async fn reload_coordinator(
     verify: bool,
     members: bool,
+    pack_cache: bool,
+    #[cfg(since_647)] rsa: &'static RsaKey,
+    #[cfg(since_647)] js5: Arc<RwLock<Js5Cache>>,
     mut trigger_rx: UnboundedReceiver<()>,
-    result_tx: UnboundedSender<(Box<CacheStore>, ScriptProvider)>,
+    result_tx: UnboundedSender<Reload>,
     mut reload_world_rx: UnboundedReceiver<()>,
 ) {
     use notify::{RecursiveMode, Watcher};
@@ -1110,9 +1236,9 @@ async fn reload_coordinator(
     let (watch_tx, mut watch_rx) = unbounded_channel::<()>();
 
     // File watcher on a dedicated thread (notify uses blocking I/O).
-    let _watcher_thread = std::thread::spawn(move || {
+    let _watcher_thread = thread::spawn(move || {
         let debounce_tx = watch_tx;
-        let (notify_tx, notify_rx) = std::sync::mpsc::channel();
+        let (notify_tx, notify_rx) = std_mpsc::channel();
 
         let mut watcher = match notify::recommended_watcher(notify_tx) {
             Ok(w) => w,
@@ -1123,7 +1249,7 @@ async fn reload_coordinator(
         };
 
         let content = Path::new(rs_pack::CONTENT_DIR);
-        if let Ok(entries) = std::fs::read_dir(content) {
+        if let Ok(entries) = fs::read_dir(content) {
             for entry in entries.flatten() {
                 let path = entry.path();
                 if path.is_dir() && path.file_name().is_some_and(|n| n != "pack") {
@@ -1138,7 +1264,7 @@ async fn reload_coordinator(
         );
 
         while notify_rx.recv().is_ok() {
-            std::thread::sleep(Duration::from_millis(300));
+            thread::sleep(Duration::from_millis(300));
             while notify_rx.try_recv().is_ok() {}
             let _ = debounce_tx.send(());
         }
@@ -1153,12 +1279,13 @@ async fn reload_coordinator(
         }
 
         info!("Hot-reload: repacking content sources...");
-        let start = std::time::Instant::now();
+        let start = Instant::now();
 
-        let result = tokio::task::spawn_blocking(move || {
+        let result = spawn_blocking(move || {
             rs_pack::pack_all(
                 Path::new(rs_pack::CONTENT_DIR),
                 Path::new(rs_pack::PACK_DIR),
+                pack_cache.then_some(Path::new(rs_pack::PACK_CACHE_DIR)),
                 verify,
                 members,
             )
@@ -1170,6 +1297,7 @@ async fn reload_coordinator(
         while watch_rx.try_recv().is_ok() {}
 
         match result {
+            #[cfg(before_647)]
             Ok(Ok((store, scripts))) => {
                 let elapsed = start.elapsed();
                 info!(
@@ -1177,6 +1305,26 @@ async fn reload_coordinator(
                     elapsed.as_secs_f64() * 1000.0
                 );
                 let _ = result_tx.send((store, scripts));
+            }
+            // Clients that connect from now on fetch the new cache; ones
+            // already connected keep the one their index came from.
+            #[cfg(since_647)]
+            Ok(Ok(PackResult {
+                store,
+                scripts,
+                layout,
+                cache,
+            })) => {
+                match Js5Cache::new(cache.groups, &cache.tables, rsa) {
+                    Ok(cache) => *js5.write().unwrap_or_else(PoisonError::into_inner) = cache,
+                    Err(e) => error!("Hot-reload: the new JS5 cache failed: {e:#}"),
+                }
+                let elapsed = start.elapsed();
+                info!(
+                    "Hot-reload: pack complete in {:.2}ms, sending to world tick",
+                    elapsed.as_secs_f64() * 1000.0
+                );
+                let _ = result_tx.send((store, scripts, layout));
             }
             Ok(Err(e)) => error!("Hot-reload pack failed: {e:#}"),
             Err(e) => error!("Hot-reload task panicked: {e}"),
@@ -1203,11 +1351,56 @@ fn run_admin_job(engine: &mut Engine, job: admin::EngineJob) {
 
 /// Lets the recording task store what it was sent, for a few seconds at
 /// most (a fatal stop can leave recordings open, and the task waiting).
-async fn finish_recordings(task: Option<tokio::task::JoinHandle<()>>) {
+async fn finish_recordings(task: Option<JoinHandle<()>>) {
     if let Some(task) = task {
         info!("Storing session recordings...");
         let _ = time::timeout(Duration::from_secs(10), task).await;
     }
+}
+
+/// What a hot reload swaps in on the engine thread, between ticks.
+#[cfg(before_647)]
+type Reload = (Box<CacheStore>, ScriptProvider);
+#[cfg(since_647)]
+type Reload = (Box<CacheStore>, ScriptProvider, InterfaceLayout);
+
+fn apply_reload(engine: &mut Engine, reload: Reload) {
+    #[cfg(before_647)]
+    let (store, scripts) = reload;
+    #[cfg(since_647)]
+    let (store, scripts, layout) = reload;
+    let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
+    let ptr = &raw mut *engine;
+    rs_engine::with_engine(engine, || {
+        unsafe { &mut *ptr }.reload_assets(
+            store,
+            scripts,
+            #[cfg(since_647)]
+            layout,
+        );
+    });
+    release_freed_memory();
+}
+
+fn tick_interval(clock_ms: u64, offset_ms: Option<u16>) -> Interval {
+    let period = Duration::from_millis(clock_ms);
+    let mut interval = if let Some(offset) = offset_ms {
+        let elapsed = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default();
+        let phase = (elapsed.as_millis() % clock_ms as u128) as u64;
+        let offset = offset as u64 % clock_ms;
+        let delay = if offset >= phase {
+            offset - phase
+        } else {
+            clock_ms - (phase - offset)
+        };
+        time::interval_at(TokioInstant::now() + Duration::from_millis(delay), period)
+    } else {
+        time::interval(period)
+    };
+    interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+    interval
 }
 
 /// World tick loop, on the engine thread - runs Engine::cycle() every 600ms.
@@ -1216,38 +1409,32 @@ async fn finish_recordings(task: Option<tokio::task::JoinHandle<()>>) {
 /// CacheStore + scripts between ticks, or when a shutdown is requested.
 async fn engine_tick(
     mut engine: Engine,
-    mut reload_rx: UnboundedReceiver<(Box<CacheStore>, ScriptProvider)>,
+    mut reload_rx: UnboundedReceiver<Reload>,
     mut clock_rate_rx: Receiver<u64>,
     mut shutdown_rx: UnboundedReceiver<()>,
     mut admin_rx: UnboundedReceiver<admin::EngineJob>,
-    mut replay_task: Option<tokio::task::JoinHandle<()>>,
+    mut replay_task: Option<JoinHandle<()>>,
+    tick_offset_ms: Option<u16>,
 ) {
     ENGINE_RUNNING.store(true, Ordering::Release);
     let mut clock_ms: u64 = 600;
-    let mut interval = time::interval(Duration::from_millis(clock_ms));
-    interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+    let mut interval = tick_interval(clock_ms, tick_offset_ms);
     loop {
         if clock_ms == 0 {
-            tokio::task::yield_now().await;
+            yield_now().await;
             if shutdown_rx.try_recv().is_ok() {
                 begin_shutdown(&mut engine);
             }
             while let Ok(job) = admin_rx.try_recv() {
                 run_admin_job(&mut engine, job);
             }
-            while let Ok((store, scripts)) = reload_rx.try_recv() {
-                let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
-                let ptr = &raw mut engine;
-                rs_engine::with_engine(&mut engine, || {
-                    unsafe { &mut *ptr }.reload_assets(store, scripts);
-                });
-                release_freed_memory();
+            while let Ok(reload) = reload_rx.try_recv() {
+                apply_reload(&mut engine, reload);
             }
             if clock_rate_rx.has_changed().unwrap_or(false) {
                 clock_ms = *clock_rate_rx.borrow_and_update();
                 if clock_ms != 0 {
-                    interval = time::interval(Duration::from_millis(clock_ms));
-                    interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+                    interval = tick_interval(clock_ms, tick_offset_ms);
                     info!("Engine clock rate changed to {}ms", clock_ms);
                 }
             }
@@ -1264,20 +1451,14 @@ async fn engine_tick(
                     run_admin_job(&mut engine, job);
                     continue;
                 }
-                Some((store, scripts)) = reload_rx.recv() => {
-                    let _swap = CACHE_SWAP.write().unwrap_or_else(PoisonError::into_inner);
-                    let ptr = &raw mut engine;
-                    rs_engine::with_engine(&mut engine, || {
-                        unsafe { &mut *ptr }.reload_assets(store, scripts);
-                    });
-                    release_freed_memory();
+                Some(reload) = reload_rx.recv() => {
+                    apply_reload(&mut engine, reload);
                     continue;
                 }
                 Ok(()) = clock_rate_rx.changed() => {
                     clock_ms = *clock_rate_rx.borrow_and_update();
                     if clock_ms != 0 {
-                        interval = time::interval(Duration::from_millis(clock_ms));
-                        interval.set_missed_tick_behavior(MissedTickBehavior::Skip);
+                        interval = tick_interval(clock_ms, tick_offset_ms);
                     }
                     info!("Engine clock rate changed to {}ms", clock_ms);
                     continue;
@@ -1306,7 +1487,7 @@ async fn engine_tick(
                 info!("Waiting for database saves to complete...");
                 while engine.db_rx.recv().await.is_some() {}
                 finish_recordings(replay_task.take()).await;
-                if admin::STAY_DOWN.load(std::sync::atomic::Ordering::Relaxed) {
+                if admin::STAY_DOWN.load(Ordering::Relaxed) {
                     info!("All saves flushed -- server offline until started again");
                     graceful_exit(admin::STAY_DOWN_EXIT);
                 }
@@ -1319,6 +1500,7 @@ async fn engine_tick(
 
 pub struct Socket {
     socket_type: SocketType,
+    read_buf: Vec<u8>,
     pub addr: SocketAddr,
     pub server_io: ServerIO,
     pub guard: ConnectionGuard,
@@ -1345,6 +1527,7 @@ impl Socket {
     ) -> Self {
         Self {
             socket_type: SocketType::Tcp(stream),
+            read_buf: Vec::new(),
             addr,
             server_io,
             guard,
@@ -1362,6 +1545,7 @@ impl Socket {
     ) -> Self {
         Self {
             socket_type: SocketType::WebSocket(Box::new(stream)),
+            read_buf: Vec::new(),
             addr,
             server_io: server_state,
             guard,
@@ -1371,6 +1555,24 @@ impl Socket {
     }
 
     pub async fn read(&mut self) -> Result<Option<Vec<u8>>> {
+        if !self.read_buf.is_empty() {
+            return Ok(Some(take(&mut self.read_buf)));
+        }
+        self.read_transport().await
+    }
+
+    pub async fn read_exact(&mut self, len: usize) -> Result<Vec<u8>> {
+        while self.read_buf.len() < len {
+            let Some(bytes) = self.read_transport().await? else {
+                bail!("{}: connection closed", self.addr);
+            };
+            self.read_buf.extend_from_slice(&bytes);
+        }
+        let remaining = self.read_buf.split_off(len);
+        Ok(replace(&mut self.read_buf, remaining))
+    }
+
+    async fn read_transport(&mut self) -> Result<Option<Vec<u8>>> {
         match &mut self.socket_type {
             SocketType::Tcp(stream) => {
                 let mut buf = vec![0u8; 512];
@@ -1397,8 +1599,7 @@ impl Socket {
                 stream.write_all(data).await?;
             }
             SocketType::WebSocket(ws) => {
-                ws.send(Message::Binary(Bytes::copy_from_slice(data)))
-                    .await?;
+                ws.send(Message::Binary(data.to_vec().into())).await?;
             }
         }
         Ok(())
@@ -1411,7 +1612,7 @@ impl Socket {
                 Ok(Some(data))
             }
             SocketType::WebSocket(ws) => {
-                ws.send(Message::Binary(Bytes::from(data))).await?;
+                ws.send(Message::Binary(data.into())).await?;
                 Ok(None)
             }
         }
@@ -1442,5 +1643,45 @@ impl Socket {
             }
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_on_by_default_switches_can_be_turned_off() {
+        let args = Args::try_parse_from(["rs-server"]).unwrap();
+        assert!(args.members && args.verify);
+
+        let args =
+            Args::try_parse_from(["rs-server", "--members", "false", "--verify", "false"]).unwrap();
+        assert!(!args.members && !args.verify);
+    }
+
+    #[test]
+    fn client_pathfinder_stays_a_plain_flag() {
+        assert_eq!(
+            Args::try_parse_from(["rs-server"])
+                .unwrap()
+                .client_pathfinder,
+            cfg!(before_647)
+        );
+        assert!(
+            Args::try_parse_from(["rs-server", "--client-pathfinder"])
+                .unwrap()
+                .client_pathfinder
+        );
+    }
+
+    #[test]
+    fn no_tui_stays_a_plain_flag() {
+        assert!(!Args::try_parse_from(["rs-server"]).unwrap().no_tui);
+        assert!(
+            Args::try_parse_from(["rs-server", "--no-tui"])
+                .unwrap()
+                .no_tui
+        );
     }
 }

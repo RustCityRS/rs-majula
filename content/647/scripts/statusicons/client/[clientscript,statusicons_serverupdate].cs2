@@ -1,0 +1,9 @@
+// 1951
+[clientscript,statusicons_serverupdate]
+if (%multiway_icon = true) {
+    if_sethide(statusicons:multiway_icon, false);
+} else {
+    %multiway_icon = false;
+    if_sethide(statusicons:multiway_icon, true);
+    ~statusicons_deltooltip;
+}

@@ -1,0 +1,35 @@
+// 4251
+[proc,script4251]
+if (%varplayerbit_9030 = 0) {
+    return;
+}
+if (if_gethide(toplevel_fullscreen:com_182) = true) {
+    return;
+}
+def_int $int0 = if_getx(toplevel_fullscreen:com_182);
+def_int $int1 = if_gety(toplevel_fullscreen:com_182);
+def_int $int2 = if_getwidth(toplevel_fullscreen:main_game_container);
+def_string $string0 = if_gettext(toplevel_fullscreen:com_238);
+if ($int2 < 998) {
+    if (compare($string0, "Click here to show the Task window.") = 0) {
+        ~script4248($string0, 51, 77, 2, ^white, verdana_11pt_regular_multiline);
+    } else if (compare($string0, "Task complete! Click here to return to the task list.") = 0) {
+        ~script4248($string0, 158, 45, 1, ^white, verdana_11pt_regular_multiline);
+    } else if (compare($string0, "Click on the first Task in the list for details of how to complete it.") = 0 | compare($string0, "Click on the Task which is now first in the list.") = 0) {
+        ~script4248($string0, 180, 205, 1, ^white, verdana_11pt_regular_multiline);
+    } else if (compare($string0, "Click on the Hints tab for more on how to complete this Task.") = 0 | compare($string0, "Remember, the Hints tab provides more details about a Task.") = 0) {
+        ~script4248($string0, 196, 223, 1, ^white, verdana_11pt_regular_multiline);
+    } else if (compare($string0, "The '?' icon will add an arrow to the screen which points to your destination.") = 0) {
+        ~script4248($string0, 196, 127, 1, ^white, verdana_11pt_regular_multiline);
+    }
+} else if (compare($string0, "Click here to show the Task window.") = 0) {
+    ~script4248($string0, 288, 39, 2, ^white, verdana_11pt_regular_multiline);
+} else if (compare($string0, "Task complete! Click here to return to the task list.") = 0) {
+    ~script4248($string0, 158, 5, 1, ^white, verdana_11pt_regular_multiline);
+} else if (compare($string0, "Click on the first Task in the list for details of how to complete it.") = 0 | compare($string0, "Click on the Task which is now first in the list.") = 0) {
+    ~script4248($string0, 180, 165, 1, ^white, verdana_11pt_regular_multiline);
+} else if (compare($string0, "Click on the Hints tab for more on how to complete this Task.") = 0 | compare($string0, "Remember, the Hints tab provides more details about a Task.") = 0) {
+    ~script4248($string0, 196, 183, 1, ^white, verdana_11pt_regular_multiline);
+} else if (compare($string0, "The '?' icon will add an arrow to the screen which points to your destination.") = 0) {
+    ~script4248($string0, 196, 87, 1, ^white, verdana_11pt_regular_multiline);
+}

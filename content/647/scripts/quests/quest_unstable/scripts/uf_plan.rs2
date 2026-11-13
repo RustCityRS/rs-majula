@@ -1,0 +1,252 @@
+// Unstable Foundations: Sir Vant's plan, the drugged meat, and the wall (Tasks 3505, 3506-3509,
+// 3507, 3523; varp 281 45-80). Lines from 2011's recordings (design note 3.4, s009-s016) and the
+// voiced takes (3.7).
+
+// "Find Out Sir Vant's Plan" (Task 3505, 45-49): s009-s012 (IwS6rBpkcyE 2010-11-27 @81-87,
+// 24/31 recordings), V81, V61, V49, V47 (clips 732, 943, 806, 726). One value a line, 46-47:
+// inference, cs2 4098 reads only the band.
+//
+// The camera, 4KO2h2xPtdM (2011-04-30) @111.1-118.5, the game frame as it is (minimap and task
+// panel showing, so not interface 899's cutscene):
+// - line 1 (@111.1) the player's own camera;
+// - line 2 (@112.9) a hard cut to a still close-up of a wooden pillar's two posts, the alcove's
+//   wall down the left;
+// - line 3 (@114.7) a hard cut to the food bowl, the alcove's wall behind it, the dragon's pad in
+//   front;
+// - line 4 (@116.0) a hard cut back to the player's camera, and the task panel already reads
+//   "Check your Quest Journal" (50);
+// - the dialogue closed (@117.6): TASK COMPLETE "Find Out Sir Vant's Plan" fades in and the
+//   arrow flashes at the quest list's tab, the task tab still up.
+// Where the two shots stand: the left pillar (local 24,31) and the bowl (17,35) are the cache's
+// (l57_77). The cameras are fitted in-client (::ufcam) against 4KO2h2xPtdM's two frames, each
+// still correlated with its frame over the game view: the pillars from local 27,32 at height 300
+// towards 24,31 (0.90; the tiles beside it under 0.46, heights 295 and 305 at 0.78 and 0.70), the
+// bowl from 21,35 at height 200 towards 17,35 (0.97; the tiles and heights beside it under 0.47).
+// The look heights are not fixed by the frames: the pillars' stills are the same picture from 110
+// to 150 (105 is not), the bowl's at 0 and 50, the client holding its flattest pitch. 150 and 0
+// are choices inside that.
+[proc,uf_vant_plan]
+if (%tutorial >= 45 & %tutorial <= 49) {
+    hint_stop_slot(0);
+    ~speech_line(vorbis_732);
+    ~chatnpcnoturn("<p,neutral>This dragon's a tougher customer than I'd expected, but I know a way we can defeat it.");
+    %tutorial = 46;
+    softtimer(uf_plan_camera, 1);
+    ~uf_plan_shot(27, 32, 300, 24, 31, 150);
+    ~speech_line(vorbis_943);
+    ~chatnpcnoturn("<p,neutral>One corner of the ceiling is held up by wooden pillars. We're going to lure the dragon there and then collapse the roof on top of it.");
+    %tutorial = 47;
+    ~uf_plan_shot(21, 35, 200, 17, 35, 0);
+    ~speech_line(vorbis_806);
+    ~chatnpcnoturn("<p,neutral>In my bag is some meat I've prepared with a sleeping potion. I need you to put the meat in the food bowl by the wooden pillars. The dragon will eat it and fall asleep.");
+    clearsofttimer(uf_plan_camera);
+    cam_reset;
+    %tutorial = 50;
+    // From here Sir Vant keeps the dragon's attention: cache 786's Sir Vant 8852,
+    // tutorial3_knight_distracting (bas 1616, ready seq 12233), who "bangs his sword on his
+    // shield" when "distracting the dragon" (wiki, Sir Vant, 2011-05-18). 4KO2h2xPtdM has him
+    // still with his shield up before this talk (@101-110) and swinging his sword after it
+    // (@128-134, @168-175, and in the sleep cutscene's first shot @204.5-205.9). He is turned
+    // to the dragon's middle tile, as that shot has him. He changes with this line, not with
+    // its continue: the line opens @116.0 and his sword is up overhead from @116.8. In-client,
+    // 8852 on (32, 16) turned to (30, 21) and filmed from the south is @131.5-136.6's picture
+    // (his back, the shield at his left, the sword waved overhead); turned south it is not, and
+    // 8851 holds its sword still.
+    // He does not turn to the player through the talk (chatnpcnoturn): his shield stays up to
+    // the dragon @111-112.8 and @116.0-116.6, and his back is to the player after it
+    // (@117.6-120). chatnpc's turn took the facing below away from him. His later lines here
+    // (meat, plank) are in no recording: they keep it.
+    if (region_findbycoord(coord) = true) {
+        if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_waitingforbattle, 2, 0) = true) {
+            npc_changetype(tutorial3_knight_distracting, ^uf_cellar_obj_duration);
+            npc_facesquare(~uf_cellar_coord(30, 21));
+        }
+    }
+    ~uf_task_pin;
+    // The quest list opens once this line's box is gone: by its continue, or by a click on the
+    // floor, which drops this script where it waits.
+    queue(uf_plan_unlock, 0, 0);
+    ~speech_line(vorbis_726);
+    ~chatnpcnoturn("<p,neutral>I'll keep the dragon's attention. Once you've got the drugged meat you'll need to climb over the wall next to me.");
+    return;
+}
+if (%tutorial < 80) {
+    if (inv_total(inv, tutorial3_meat) > 0) {
+        // V64 (clip 773).
+        ~speech_line(vorbis_773);
+        ~chatnpcnoturn("<p,neutral>Put that drugged meat in the food bowl by the wooden pillars, please.");
+    } else if (inv_total(inv, tutorial3_plank) > 0) {
+        // V35 (clip 859).
+        ~speech_line(vorbis_859);
+        ~chatnpcnoturn("<p,neutral>I see you're holding a plank. You could use it against the wall to create a ramp.");
+    } else {
+        // V20 (clip 966).
+        ~speech_line(vorbis_966);
+        ~chatnpcnoturn("<p,neutral>Get some more meat from my bag and put it in the food bowl by the wooden pillars, please.");
+    }
+}
+
+// One of the plan's shots: the camera at once on local tile ($x, $z), looking at ($lookx, $lookz).
+[proc,uf_plan_shot](int $x, int $z, int $height, int $lookx, int $lookz, int $lookheight)
+if (region_findbycoord(coord) = false) {
+    return;
+}
+cam_moveto(~uf_cellar_coord($x, $z), $height, 100, 100);
+cam_lookat(~uf_cellar_coord($lookx, $lookz), $lookheight, 100, 100);
+
+// The plan's camera shots end with the talk: walked away from mid-line (the game frame stays
+// clickable under them), the camera comes back. What 2011 did there: no source.
+[softtimer,uf_plan_camera]
+if (busy = true) {
+    return;
+}
+clearsofttimer(uf_plan_camera);
+cam_reset;
+
+// Sir Vant's bag once he has given leave: s013 (IwS6rBpkcyE @?; 22/31 recordings), N26 (clip
+// 1608); a second parcel: N50 (clip 1459); no room: N49 (clip 1406). Texts of N49 and N50 from
+// their takes: no recording shows the boxes.
+[proc,uf_bag_search]
+if (%tutorial < 50) {
+    ~speech_line(vorbis_739);
+    ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>I don't believe I gave you permission to go through my bag.");
+    return;
+}
+if (%tutorial >= 93) {
+    ~uf_bag_supplies;
+    return;
+}
+if (%tutorial >= 80) {
+    // N50 (clip 1459) holds after the meat is placed too: no source shows the bag then.
+    ~speech_line(vorbis_1459);
+    ~mesbox("You won't need any more meat now.");
+    return;
+}
+if (inv_total(inv, tutorial3_meat) > 0) {
+    ~speech_line(vorbis_1459);
+    ~mesbox("You won't need any more meat now.");
+    return;
+}
+if (inv_freespace(inv) = 0) {
+    ~speech_line(vorbis_1406);
+    ~mesbox("You don't have enough inventory space to pick up the meat.");
+    return;
+}
+inv_add(inv, tutorial3_meat, 1);
+~speech_line(vorbis_1608);
+~objbox(tutorial3_meat, "The bag contains several parcels of meat, all wrapped up in paper. You take one.", 250, 0, 0);
+
+// The low wall by Sir Vant, "Climb the Wall" (65, 75) and "Make a Ramp" (70). Cache 786's ramp is
+// loc 45604 on the same tile, multiloc on varp 281: nothing to 74, the ramp from 75.
+// - Climbing it with no ramp: s015 (IwS6rBpkcyE @140), N30 (clip 1769); the next Task is "Make a
+//   Ramp" (70). When 2011 set 70: no source; here on that first try.
+// - The ramp up, without the meat: s013b (VwpdbjfigD4 2011-01-17 @239).
+[proc,uf_low_wall]
+if (%tutorial < 75) {
+    ~speech_line(vorbis_1769);
+    ~mesbox("Even this low section of the wall is too high for you to climb over.");
+    if (%tutorial = 65) {
+        %tutorial = 70;
+        ~uf_task_pin;
+    }
+    return;
+}
+if (%tutorial >= 80) {
+    return;
+}
+if (inv_total(inv, tutorial3_meat) = 0) {
+    ~mesbox("You should take some meat from Sir Vant's bag before you venture out.");
+    return;
+}
+~uf_climb_wall;
+
+// The plank on the low wall: s016 (IwS6rBpkcyE @146, 25/31), N34 (clip 1401). After it, the
+// running hint (s017, 15/31): not built yet.
+[oplocu,tutorial3_cellar_barricade_clickarea]
+if (last_useitem ! tutorial3_plank) {
+    ~displaymessage(^dm_default);
+    return;
+}
+if (%tutorial < 65) {
+    ~speech_line(vorbis_1502);
+    ~mesbox("We'll come back to that in a moment.");
+    return;
+}
+if (%tutorial >= 75) {
+    // P15 (clip 1828): s016a (E4MP65bl3sI @343).
+    ~chatplayer("<p,neutral>There doesn't seem much point in messing around with this wall now that I've built a ramp.");
+    return;
+}
+inv_del(inv, tutorial3_plank, 1);
+%tutorial = 75;
+// TASK COMPLETE comes with the ramp (4KO2h2xPtdM @177-178, from 65 with no try at the wall
+// first): "Make a Ramp" here, its title unreadable in the recording.
+%varclient_1425 = 3523;
+~uf_task_tab;
+~uf_task_pin;
+~speech_line(vorbis_1401);
+~objbox(tutorial3_plank, "You use the plank to construct a crude ramp.", 250, 0, 0);
+
+// Over the wall by the ramp (4KO2h2xPtdM @180-182): "Put the Dragon to Sleep" (80) and TASK
+// COMPLETE "Climb the Wall"; then the running hint, s017 (@186-188, 15/31 recordings), with the
+// arrow at the run orb. The climb: up the plank, on the wall with both arms spread wide, then
+// down the far side, nothing in hand (4KO2h2xPtdM @180.0-181.5). Seq 840 (human_walk_crumbledwall,
+// 289's) puts an object in the right hand in cache 786 (replaceheldright), which in-client reads
+// as a map held up (USER, 2026-11-10; ufrest10 @46.5-46.9). Seq 12274, on the player's skeleton
+// from Unstable Foundations' own range (1.8 s, three footstep synths), is 2011's: in-client
+// (ufrest12 player_12274 +3.5-4.1) the player rises with both arms spread and comes down with
+// them out, as @180.5 and @181.0.
+[queue,uf_plan_unlock]
+if (%tutorial ! 50) {
+    return;
+}
+~uf_open_tab(3);
+%varplayerbit_3756 = 4;
+%varclient_1425 = 3505;
+~uf_task_tab;
+
+// s018 (E4MP65bl3sI 2011-01-15 @312, five recordings to 2011-05-21), V3 (clip 930); the wiki's
+// longer line (Drugged meat, 2011-04-23) is in no recording.
+[opheld1,tutorial3_meat]
+~speech_line(vorbis_930);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Are you mad? Don't eat that! It's raw, and it's covered in sleeping potion!");
+
+[proc,uf_climb_wall]
+~agility_exactmove(seq_12274, 30, 2, coord, movecoord(coord, 0, 0, 3), 30, 100, ^exact_north, false);
+%tutorial = 80;
+%varclient_1425 = 3507;
+~uf_task_tab;
+~uf_task_pin;
+p_delay(2);
+// The arrow at the run orb (cs2 2756: 16 + 1).
+%varplayerbit_3756 = 17;
+~uf_hint_box("topstat_icon,2", 20, 20, "Your character can <col=ff0000>run</col> if they have sufficient <col=ff0000>energy</col>.<br><br>You can make your character run automatically by turning on <col=ff0000>run mode</col>. Click the <col=ff0000>boot</col> icon by the minimap.<br><br>If you hold down the <col=ff0000>CTRL</col> key while clicking on the floor or minimap, your character will run to their destination.");
+
+// The tutorial's hint box in the chat area, no "Click here to continue": interface 896
+// tutorial3_chatoverlay, which cs2 2778 builds from varc 1004 (a sprite at the left, varcs 1005
+// and 1006 its size) and varcstr 1713 (centred black text, tutorial_font). 2011's run hint
+// (4KO2h2xPtdM @186) is this box: the run orb's boot (topstat_icon,2) beside three paragraphs.
+// Which chat slot it opened into: the chat area's overlay here.
+[proc,uf_hint_box](graphic $graphic, int $width, int $height, string $text)
+%tutorial3_object = null;
+%tutorial3_graphic = $graphic;
+%tutorial3_imagewidth = $width;
+%tutorial3_imageheight = $height;
+%tutorial3_2buttonstring = $text;
+%tutorial3_1buttonstring = "";
+if_opensub(tutorial3_chatoverlay, chattop:chatoverlay);
+
+[proc,uf_hint_box_close]
+if_closesub(chattop:chatoverlay);
+
+// The high wall either side of Sir Vant: s014 (4KO2h2xPtdM @166-171, "Climb-over Wall"), V102
+// (clip 755). V26 (clip 1016, "you'll land on the dragon") is for the section by the dragon by
+// its text; no recording shows which section answers with it.
+[oploc1,tutorial3_cellar_barricade_wall_3] ~uf_high_wall;
+[oploc1,tutorial3_cellar_barricade_wall_4] ~uf_high_wall;
+[oploc1,tutorial3_cellar_barricade_wall_4_mirror] ~uf_high_wall;
+[oploc1,tutorial3_cellar_barricade_wall_6_mirror] ~uf_high_wall;
+
+[proc,uf_high_wall]
+~speech_line(vorbis_755);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You'll never get over the wall there.|Try going to the eastern end where it's lower.");

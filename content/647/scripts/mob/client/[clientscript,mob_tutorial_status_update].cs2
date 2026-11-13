@@ -1,0 +1,9 @@
+// 2479
+[clientscript,mob_tutorial_status_update]
+if (%varclient_825 < 1) {
+    %varclient_825 = 6;
+}
+if (%varclient_825 > 0) {
+    %varclient_825 = calc(%varclient_825 - 1);
+}
+if_settext(mob_status_overlay:tally_spec, tostring(%varclient_825));

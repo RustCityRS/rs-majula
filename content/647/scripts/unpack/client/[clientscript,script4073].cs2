@@ -1,0 +1,9 @@
+// 4073
+[clientscript,script4073]
+if (%varplayerbit_8669 = 0) {
+    %warguild_roller_delay = 0;
+    ~warguild_show_single(warguild_token_choice:single_token_button);
+} else {
+    %warguild_roller_delay = 0;
+    ~warguild_show_multi(warguild_token_choice:multi_token_button);
+}

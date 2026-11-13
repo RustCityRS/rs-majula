@@ -1,0 +1,86 @@
+// 529:0
+[com_0]
+type=model
+x=-38
+y=-40
+width=19047
+height=20413
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+model=model_25719
+modelangle=512,0,0
+modelzoom=400
+modelobjwidth=595
+modelobjheight=416
+
+// 529:1
+[qip_soa_arrav_certificate_whole]
+type=model
+x=-3
+y=17
+width=497
+height=363
+xmode=abs_centre
+ymode=abs_centre
+model=model_25720
+modelorigin=0,-13
+modelangle=539,0,0
+modelzoom=451
+
+// 529:2
+[qip_soa_arrav_certificate_rht]
+type=text
+x=-6
+y=-14
+width=300
+height=153
+xmode=abs_centre
+ymode=abs_centre
+textfont=q8_full
+text=This is an interface type test.
+colour=0x332208
+
+// 529:3
+[qip_soa_certificate_background]
+type=model
+x=-206
+y=-117
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+
+// 529:4
+[com_4]
+type=model
+x=-159
+y=-9
+width=298
+height=416
+xmode=abs_centre
+ymode=abs_centre
+model=model_25721
+modelorigin=148,0
+modelangle=512,0,0
+modelzoom=400
+
+// 529:5
+[close]
+type=graphic
+x=239
+y=-150
+width=26
+height=23
+xmode=abs_centre
+ymode=abs_centre
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(interface_529:close, "close_buttons,7")
+onmouseleave=graphic_swapper(interface_529:close, "close_buttons,6")
+onop=closebutton_click

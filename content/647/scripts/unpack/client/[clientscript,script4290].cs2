@@ -1,0 +1,6 @@
+// 4290
+[clientscript,script4290]
+if (activeclansettings_find_affined = true) {
+    ~script4291;
+}
+~clansettings_interface_refresh;

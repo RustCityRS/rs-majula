@@ -1,0 +1,479 @@
+// 125:0
+[com_0]
+type=rectangle
+x=4
+y=4
+width=355
+height=240
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=192
+
+// 125:1
+[contents]
+type=layer
+width=355
+height=240
+xmode=abs_centre
+ymode=abs_centre
+onload=script1087(event_com, 22)
+
+// 125:2
+[supercompost_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=supercompost
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x870000
+
+// 125:3
+[supercompost_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=supercompost
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Supercompost
+op1=Remove 1
+op2=Remove 5
+op3=Remove All
+op4=Remove X
+op10=Examine
+onload=farming_tools_main_update(event_com, bucket_supercompost, 255, farming_tools:supercompost_name)
+onvartransmit=farming_tools_main_update(event_com, bucket_supercompost, 255, farming_tools:supercompost_name){farming_tools}
+
+// 125:4
+[compost_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=compost
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:5
+[compost_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=compost
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Compost
+op1=Remove 1
+op2=Remove 5
+op3=Remove All
+op4=Remove X
+op10=Examine
+onload=farming_tools_main_update(event_com, bucket_compost, 255, farming_tools:compost_name)
+onvartransmit=farming_tools_main_update(event_com, bucket_compost, 255, farming_tools:compost_name){farming_tools}
+
+// 125:6
+[buckets_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=buckets
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x870000
+
+// 125:7
+[buckets_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=buckets
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Bucket
+op1=Remove 1
+op2=Remove 5
+op3=Remove All
+op4=Remove X
+op10=Examine
+onload=farming_tools_main_update(event_com, bucket_empty, 31, farming_tools:buckets_name)
+onvartransmit=farming_tools_main_update(event_com, bucket_empty, 31, farming_tools:buckets_name){farming_tools}
+
+// 125:8
+[scarecrow_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=scarecrow
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:9
+[scarecrow_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=scarecrow
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Scarecrow
+op1=Remove 1
+op2=Remove 5
+op3=Remove All
+op4=Remove X
+op10=Examine
+onload=farming_tools_main_update(event_com, scarecrow_complete, 4, farming_tools:scarecrow_name)
+onvartransmit=farming_tools_main_update(event_com, scarecrow_complete, 4, farming_tools:scarecrow_name){varplayer_1357}
+
+// 125:10
+[wateringcan_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=wateringcan
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:11
+[wateringcan_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=wateringcan
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Watering Can
+op1=Remove
+op10=Examine
+onload=farming_tools_main_update(event_com, watering_can_dummy, 1, farming_tools:wateringcan_name)
+onvartransmit=farming_tools_main_update(event_com, watering_can_dummy, 1, farming_tools:wateringcan_name){farming_tools}
+
+// 125:12
+[secateurs_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=secateurs
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:13
+[secateurs_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=secateurs
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Secateurs
+op1=Remove
+op10=Examine
+onload=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name)
+onvartransmit=farming_tools_main_update(event_com, secateurs, 1, farming_tools:secateurs_name){farming_tools}
+
+// 125:14
+[trowel_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=trowel
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:15
+[trowel_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=trowel
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Trowel
+op1=Remove
+op10=Examine
+onload=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name)
+onvartransmit=farming_tools_main_update(event_com, gardening_trowel, 1, farming_tools:trowel_name){farming_tools}
+
+// 125:16
+[spade_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=spade
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:17
+[spade_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=spade
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Spade
+op1=Remove
+op10=Examine
+onload=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name)
+onvartransmit=farming_tools_main_update(event_com, spade, 1, farming_tools:spade_name){farming_tools}
+
+// 125:18
+[dibber_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=dibber
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:19
+[dibber_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=dibber
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Dibber
+op1=Remove
+op10=Examine
+onload=farming_tools_main_update(event_com, dibber, 1, farming_tools:dibber_name)
+onvartransmit=farming_tools_main_update(event_com, dibber, 1, farming_tools:dibber_name){farming_tools}
+
+// 125:20
+[rake_name]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=rake
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0x872300
+
+// 125:21
+[rake_remove]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=rake
+outline=1
+graphicshadow=1
+colour=0xffffffff
+transmitop=1,10
+opbase=<col=ff9040>Rake
+op1=Remove
+op10=Examine
+onload=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name)
+onvartransmit=farming_tools_main_update(event_com, rake, 1, farming_tools:rake_name){farming_tools}
+
+// 125:22
+[com_22]
+type=graphic
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 125:23
+[com_23]
+type=text
+y=4
+width=320
+height=27
+xmode=abs_centre
+layer=contents
+textfont=b12_full
+text=Amazing Farming Equipment Store
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 125:24
+[rake]
+type=layer
+x=10
+y=40
+width=80
+height=60
+layer=contents
+
+// 125:25
+[dibber]
+type=layer
+x=95
+y=40
+width=80
+height=60
+layer=contents
+
+// 125:26
+[spade]
+type=layer
+x=180
+y=40
+width=80
+height=60
+layer=contents
+
+// 125:27
+[trowel]
+type=layer
+x=265
+y=40
+width=80
+height=60
+layer=contents
+
+// 125:28
+[secateurs]
+type=layer
+x=10
+y=104
+width=90
+height=62
+layer=contents
+
+// 125:29
+[wateringcan]
+type=layer
+x=115
+y=104
+width=126
+height=62
+layer=contents
+
+// 125:30
+[scarecrow]
+type=layer
+x=255
+y=104
+width=90
+height=62
+layer=contents
+
+// 125:31
+[buckets]
+type=layer
+x=20
+y=170
+width=110
+height=60
+layer=contents
+
+// 125:32
+[compost]
+type=layer
+x=135
+y=170
+width=85
+height=60
+layer=contents
+
+// 125:33
+[supercompost]
+type=layer
+x=225
+y=170
+width=110
+height=60
+layer=contents
+
+// 125:34
+[com_34]
+type=graphic
+x=9
+y=9
+width=16
+height=16
+xmode=abs_right
+layer=contents
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

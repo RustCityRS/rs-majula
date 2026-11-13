@@ -1,5 +1,11 @@
+#[cfg(since_647)]
+use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 use crate::iterators::NpcIteratorState;
+#[cfg(since_647)]
+use crate::ops::player::{carried_source, queue_source};
+#[cfg(since_647)]
+use crate::ops::test;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptArgument};
 use crate::trigger::ServerTriggerType;
@@ -8,8 +14,12 @@ use crate::{NpcUid, ScriptError, active_npc, handlers, none};
 use crate::{active_npc_mut, iterators};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
+#[cfg(since_647)]
+use rs_pack::types::MultiVar;
 use rs_pack::types::{HuntCheckVis, NpcMode};
+#[cfg(since_647)]
+use rs_util::bits::getbit_range;
+use runec::opcodes::*;
 
 /// Registers NPC-related opcodes for spawning, movement, combat, AI mode
 /// management, searching, and NPC state queries.
@@ -21,7 +31,8 @@ use rs_pack::types::{HuntCheckVis, NpcMode};
 /// - **Identity / state:** `NPC_UID`, `NPC_TYPE`, `NPC_NAME`, `NPC_CATEGORY`,
 ///   `NPC_COORD`, `NPC_STAT`, `NPC_HASOP`, `NPC_GETMODE`, `NPC_RANGE`
 /// - **Movement:** `NPC_WALK`, `NPC_TELE`, `NPC_FACESQUARE`, `NPC_ARRIVEDELAY`
-/// - **Combat:** `NPC_ANIM`, `NPC_DAMAGE`, `NPC_HEROPOINTS`, `NPC_SAY`, `PROJANIM_NPC`
+/// - **Combat:** `NPC_ANIM`, `NPC_DAMAGE`, `NPC_HEROPOINTS`, `NPC_SAY`, `PROJANIM_NPC`,
+///   `NPC_PROJANIM_HALFSQ` (647)
 /// - **AI / behavior:** `NPC_SETMODE`, `NPC_SETHUNT`, `NPC_SETHUNTMODE`,
 ///   `NPC_SETTIMER`, `NPC_QUEUE`
 /// - **Searching / iterators:** `NPC_FIND`, `NPC_FINDALLANY`, `NPC_FINDNEXT`,
@@ -50,6 +61,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, NPC_ANIM => |s, npc| {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{seq},{delay}");
+                test::record_call(NPC_ANIM, "npc_anim", &arg);
+            }
             npc.anim((seq != -1).then_some(seq as u16), delay);
         });
 
@@ -57,10 +73,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1432296606376906752
         active_npc_mut!(m, NPC_ARRIVEDELAY => |s, npc| {
             let clock = engine::<E>().clock();
-            if npc.last_movement() < clock.saturating_sub(1) {
+            let last_tick = clock.saturating_sub(1);
+            if npc.last_movement() < last_tick {
                 return Ok(());
             }
-            if npc.last_movement() == clock - 1 {
+            if npc.last_movement() == last_tick {
                 npc.delay(clock + 1);
             } else {
                 npc.delay(clock + 2);
@@ -115,9 +132,28 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
-            let amount = s.pop_int_as::<u8>()?;
+            #[cfg(before_647)]
+            let amount = u16::from(s.pop_int_as::<u8>()?);
+            #[cfg(since_647)]
+            let amount = s.pop_int_as::<u16>()?;
             let damage_type = s.pop_int_as::<u8>()?;
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{damage_type},{amount}");
+                test::record_call(NPC_DAMAGE, "npc_damage", &arg);
+            }
             npc.damage(amount, damage_type);
+            // A player's hit (their own script, or one their script queued)
+            // is bright for them; 2011 paints everyone else's darker.
+            #[cfg(since_647)]
+            {
+                let source = queue_source(s).or(s.queue_source);
+                if test::recording() {
+                    let arg = source.map_or(-1, i32::from).to_string();
+                    test::record_call(NPC_DAMAGE, "npc_hit_by", &arg);
+                }
+                npc.hit_source(source);
+            }
         });
 
         // 2510
@@ -380,7 +416,33 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
-            s.push_string(npc_type.name.as_deref().unwrap_or(npc_type.debugname().unwrap_or("null")));
+            // A 2011 multi-npc (npc_9359, Sir Prysin) has no name of its own:
+            // it is named as the type the active player's var shows, as the
+            // client names it.
+            #[cfg(since_647)]
+            let npc_type = match (npc_type.multinpc.is_some(), get_active_player::<E>(s, false)) {
+                (true, Ok(player)) => {
+                    use crate::engine::ScriptPlayer as _;
+                    let value = match npc_type.multivar {
+                        Some(MultiVar::Varbit(id)) => engine::<E>()
+                            .varbits()
+                            .get_by_id(id)
+                            .map(|v| {
+                                let base = player.get_var(v.basevar).as_int();
+                                getbit_range(base, v.start_bit as i32, v.end_bit as i32)
+                            })
+                            .unwrap_or(-1),
+                        Some(MultiVar::Varp(id)) => player.get_var(id).as_int(),
+                        None => -1,
+                    };
+                    npc_type
+                        .multi_npc(value)
+                        .and_then(|id| engine::<E>().npcs().get_by_id(id))
+                        .unwrap_or(npc_type)
+                }
+                _ => npc_type,
+            };
+            s.push_string(npc_type.name.as_deref().unwrap_or(&npc_type.debugname));
         });
 
         // 2529
@@ -408,7 +470,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let queue_id = s.pop_int();
             let trigger = ServerTriggerType::AiQueue1 as i32 + queue_id - 1;
+            #[cfg(before_647)]
             npc.queue(trigger, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            // The player whose script queued it: a hit it paints is theirs.
+            #[cfg(since_647)]
+            npc.queue_from(
+                trigger,
+                delay,
+                Some(vec![ScriptArgument::Int(arg)]),
+                carried_source(s),
+            )?;
         });
 
         // 2531
@@ -548,7 +619,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2541
         active_npc_mut!(m, NPC_TELE => |s, npc| {
-            npc.tele(pop_coord(s)?);
+            let coord = pop_coord(s)?;
+            if region_allows::<E>(s, npc.coord(), coord) {
+                npc.tele(coord);
+            }
         });
 
         // 2542
@@ -566,6 +640,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // https://x.com/JagexAsh/status/1780932943038345562
         active_npc_mut!(m, NPC_WALK => |s, npc| {
             npc.walk(pop_coord(s)?);
+        });
+
+        // 2552 (647). No source names Jagex's command for a running npc; this is P_RUN's
+        // shape for an npc.
+        #[cfg(since_647)]
+        active_npc_mut!(m, NPC_RUN => |s, npc| {
+            npc.run(s.pop_int_as::<u8>()?);
         });
 
         // 2545
@@ -612,7 +693,18 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, SPOTANIM_NPC => |s, npc| {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u16>()?;
+            // At 647 `null` is no spotanim: 65535, which the client reads as
+            // -1. 289's ranged npcs pass their `proj_launch`, null for one with
+            // none. Before 647 it is a script error, as upstream has it.
+            #[cfg(before_647)]
             let id = s.pop_int_as::<u16>()?;
+            #[cfg(since_647)]
+            let id = u16::try_from(s.pop_int()).unwrap_or(u16::MAX);
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{id},{height},{delay}");
+                test::record_call(SPOTANIM_NPC, "spotanim_npc", &arg);
+            }
             npc.spotanim(id, height, delay);
         });
 
@@ -639,6 +731,37 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else {
                 s.push_int(0);
             }
+        });
+
+        // 2550
+        #[cfg(since_647)]
+        active_npc!(m, NPC_PROJANIM_HALFSQ => |s, npc| {
+            let tail = pop_projanim_tail::<E>(s)?;
+            let wearpos = pop_wearpos(s)?;
+            let uid = s.pop_int();
+            let Some(player) = engine::<E>()
+                .get_player((uid & 0x7FF) as u16)
+                .filter(|player| player.uid().packed() as i32 == uid)
+            else {
+                return Ok(());
+            };
+            let to = halfsq(player.coord(), 1);
+            let target = -(player.uid().pid() as i16) - 1;
+            let from = halfsq(npc.coord(), npc.size());
+            let source = npc.uid().nid().wrapping_add(1) as i16;
+            tail.send::<E>(npc.coord().y(), from, to, source, target, wearpos)?;
+        });
+
+        // 2551
+        active_npc_mut!(m, NPC_QUEUEVARARG => |s, npc| {
+            let args = s.pop_script_args();
+            let delay = s.pop_int_as::<u16>()?;
+            let script = pop_script::<E>(s)?.id;
+            #[cfg(since_647)]
+            let source = carried_source(s);
+            #[cfg(before_647)]
+            let source = None;
+            npc.queue_named(script, delay, args, source);
         });
     }
 }

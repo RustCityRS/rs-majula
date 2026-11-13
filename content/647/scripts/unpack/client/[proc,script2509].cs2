@@ -1,0 +1,7 @@
+// 2509
+[proc,script2509](int $int0)(int)
+if (%mob_client_invest_scenario <= calc(~script2687 - $int0)) {
+    return(1);
+} else {
+    return(0);
+}

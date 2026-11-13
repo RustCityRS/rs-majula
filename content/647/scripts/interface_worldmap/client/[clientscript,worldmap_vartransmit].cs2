@@ -1,0 +1,8 @@
+// 1404
+[clientscript,worldmap_vartransmit](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5)
+~worldmap_key_build(%worldmap_keysort, $component0, $component1, $component2);
+if ($int5 ! %worldmap_samemaplinks_hidden) {
+    if_setonvartransmit($component4, "worldmap_vartransmit($component0, $component1, $component2, $component3, $component4, %worldmap_samemaplinks_hidden){lastdegrade}");
+    ~worldmap_overlay_clear($component3);
+}
+~worldmap_vartransmit_effects;

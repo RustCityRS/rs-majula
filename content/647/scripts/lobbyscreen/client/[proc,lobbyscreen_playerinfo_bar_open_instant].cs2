@@ -1,0 +1,26 @@
+// 3006
+[proc,lobbyscreen_playerinfo_bar_open_instant](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+if_setsize($component1, 0, 88, ^setsize_minus, ^setsize_abs);
+if (if_getgraphic($component5) = graphic_2669) {
+    ~script3007($component1, $component2, $component3, $component4, $component5, $component6, $component7);
+} else {
+    ~script3009($component1, $component2, $component3, $component4, $component5, $component6, $component7);
+}
+switch_int ($int0) {
+    case 0 :
+        if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, 88, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(88 + 30), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+    case 1 :
+        if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, 30, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(88 + 30), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+    case 2 :
+        if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, 30, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+    case 3 :
+        if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, 30, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(30 * 3), ^setpos_abs_left, ^setpos_abs_top);
+}

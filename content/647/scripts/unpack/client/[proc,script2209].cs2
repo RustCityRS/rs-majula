@@ -1,0 +1,21 @@
+// 2209
+[proc,script2209]
+if_settext(easter10_nuts:correct_count, "Correct <tostring(%easter10_conveyorcorrectitems)>/5");
+%easter10_pushbarstatus = 0;
+if_setontimer(easter10_nuts:content, null);
+if_setposition(easter10_nuts:goodstuff1, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:goodstuff2, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:goodstuff3, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:goodstuff4, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:badnut1, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:badnut2, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:badnut3, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter10_nuts:badnut4, 0, 120, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(easter10_nuts:goodstuff1, true);
+if_sethide(easter10_nuts:goodstuff2, true);
+if_sethide(easter10_nuts:goodstuff3, true);
+if_sethide(easter10_nuts:goodstuff4, true);
+if_sethide(easter10_nuts:badnut1, true);
+if_sethide(easter10_nuts:badnut2, true);
+if_sethide(easter10_nuts:badnut3, true);
+if_sethide(easter10_nuts:badnut4, true);

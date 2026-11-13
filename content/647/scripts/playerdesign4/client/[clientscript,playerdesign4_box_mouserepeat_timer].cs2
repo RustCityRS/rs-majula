@@ -1,0 +1,19 @@
+// 367
+[clientscript,playerdesign4_box_mouserepeat_timer](component $component0, int $int1, boolean $boolean2)
+def_int $int3 = 0;
+if ($boolean2 = true) {
+    $int3 = calc($int1 + 17);
+} else {
+    $int3 = $int1;
+}
+def_int $int4 = if_getheight($component0);
+if ($int4 < $int3) {
+    if_setsize($component0, if_getwidth($component0), min(calc($int4 + 2), $int3), ^setsize_abs, ^setsize_abs);
+    if (calc($int4 % $int1) = 0) {
+        sound_synth(synth_9840, 1, 0);
+    }
+} else if ($int4 > $int3) {
+    if_setsize($component0, if_getwidth($component0), max(calc($int4 - 2), $int3), ^setsize_abs, ^setsize_abs);
+} else {
+    if_setontimer($component0, null);
+}

@@ -1,0 +1,769 @@
+// 493:0
+[content_layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 493:1
+[barbassault_scroll_pl2_heal_over]
+type=model
+x=3
+y=5
+width=55
+height=54
+layer=heal_highlight_layer
+model=model_20571
+modelangle=585,0,0
+modelzoom=1074
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_heal_over, model_20571)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_heal_over, null)
+
+// 493:2
+[barbassault_scroll_pl2_col_over]
+type=model
+x=9
+y=2
+width=45
+height=57
+layer=col_highlight_layer
+model=model_20565
+modelorigin=0,1
+modelangle=585,0,0
+modelzoom=1074
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_col_over, model_20565)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_col_over, null)
+
+// 493:3
+[barbassault_scroll_pl2_att_over]
+type=model
+x=2
+width=59
+height=58
+layer=att_highlight_layer
+model=model_20562
+modelangle=585,0,0
+modelzoom=1074
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_att_over, model_20562)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_att_over, null)
+
+// 493:4
+[com_4]
+type=model
+x=2
+y=22
+width=510
+height=289
+layer=content_layer_1
+model=model_19339
+modelorigin=5,14
+modelangle=512,0,0
+modelzoom=721
+
+// 493:5
+[com_5]
+type=text
+x=51
+y=28
+width=225
+height=17
+layer=content_layer_1
+textfont=b12_full
+text=Player 2 Interface Screen
+textshadow=yes
+colour=0xff981f
+
+// 493:6
+[barbassault_scroll_pl2_dect]
+type=text
+x=401
+y=235
+width=40
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=Decline
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Decline
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dect, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dect, 0xff981f)
+
+// 493:7
+[barbassault_scroll_pl2_att]
+type=model
+x=228
+y=95
+width=55
+height=55
+layer=content_layer_1
+model=model_20560
+modelangle=585,0,0
+modelzoom=1074
+transmitop=1
+op1=Attacker
+
+// 493:8
+[barbassault_scroll_pl2_attt]
+type=text
+x=227
+y=153
+width=60
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=Attacker
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Attacker
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_attt, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_attt, 0xff981f)
+
+// 493:9
+[barbassault_scroll_pl2_def]
+type=model
+x=295
+y=105
+width=47
+height=56
+layer=content_layer_1
+model=model_20567
+modelangle=585,0,0
+modelzoom=1074
+transmitop=1
+op1=Defender
+
+// 493:10
+[barbassault_scroll_pl2_deft]
+type=text
+x=280
+y=167
+width=75
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Defender
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Defender
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_deft, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_deft, 0xff981f)
+
+// 493:11
+[barbassault_scroll_pl2_colt]
+type=text
+x=351
+y=154
+width=60
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Collector
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Collector
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_colt, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_colt, 0xff981f)
+
+// 493:12
+[barbassault_scroll_pl2_col]
+type=model
+x=361
+y=95
+width=41
+height=53
+layer=content_layer_1
+model=model_20564
+modelorigin=0,1
+modelangle=585,0,0
+modelzoom=1074
+transmitop=1
+op1=Collector
+
+// 493:13
+[barbassault_scroll_pl2_heal]
+type=model
+x=420
+y=108
+width=51
+height=51
+layer=content_layer_1
+model=model_20570
+modelangle=585,0,0
+modelzoom=1074
+transmitop=1
+op1=Healer
+
+// 493:14
+[barbassault_scroll_pl2_healt]
+type=text
+x=416
+y=168
+width=60
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Healer
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Healer
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_healt, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_healt, 0xff981f)
+
+// 493:15
+[barbassault_scroll_pl2_ok]
+type=model
+x=317
+y=187
+width=43
+height=45
+layer=content_layer_1
+model=model_8685
+modelorigin=2,-2
+modelangle=444,2020,0
+modelzoom=1168
+transmitop=1
+op1=Accept
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_ok, model_20558)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_ok, model_8685)
+
+// 493:16
+[barbassault_scroll_pl2_okt]
+type=text
+x=319
+y=234
+width=39
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=Accept
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Accept
+onmouseover=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_okt, ^white)
+onmouseleave=text_colour_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_okt, 0xff981f)
+
+// 493:17
+[barbassault_scroll_pl2_dec]
+type=model
+x=399
+y=187
+width=43
+height=45
+layer=content_layer_1
+model=model_8684
+modelangle=501,2014,0
+modelzoom=1296
+transmitop=1
+op1=Decline
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dec, model_20530)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_dec, model_8684)
+
+// 493:18
+[barbassault_scroll_pl2_rolename]
+type=text
+x=278
+y=73
+width=195
+height=14
+layer=content_layer_1
+textfont=b12_full
+text=None
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 493:19
+[att_highlight_layer]
+type=layer
+x=224
+y=93
+width=63
+height=65
+layer=content_layer_1
+hide=yes
+
+// 493:20
+[barbassault_scroll_pl2_lay2]
+type=layer
+x=278
+y=251
+width=191
+height=32
+layer=content_layer_1
+hide=yes
+
+// 493:21
+[com_21]
+type=text
+x=279
+y=252
+width=189
+height=30
+layer=content_layer_1
+textfont=p12_full
+text=Waiting for player 1 to accept...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 493:22
+[com_22]
+type=text
+x=81
+y=43
+width=103
+height=15
+layer=content_layer_1
+textfont=b12_full
+text=The team:
+textshadow=yes
+colour=0xff981f
+
+// 493:23
+[com_23]
+type=text
+x=44
+y=75
+width=50
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Name
+textshadow=yes
+colour=0xff981f
+
+// 493:24
+[com_24]
+type=text
+x=44
+y=93
+width=44
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Role
+textshadow=yes
+colour=0xff981f
+
+// 493:25
+[com_25]
+type=text
+x=44
+y=59
+width=101
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=--- Leader ---
+textshadow=yes
+colour=0xff981f
+
+// 493:26
+[com_26]
+type=text
+x=45
+y=117
+width=101
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=--- Followers ---
+textshadow=yes
+colour=0xff981f
+
+// 493:27
+[barbassault_scroll_pl2_tn1]
+type=text
+x=93
+y=75
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+onvarcstrtransmit=barbassault_name_transmit(event_com){varclient_1731}
+
+// 493:28
+[barbassault_scroll_pl2_tn2]
+type=text
+x=94
+y=133
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+onvarcstrtransmit=barbassault_name_transmit(event_com){varclient_1732}
+
+// 493:29
+[barbassault_scroll_pl2_tn3]
+type=text
+x=94
+y=174
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+onvarcstrtransmit=barbassault_name_transmit(event_com){varclient_1733}
+
+// 493:30
+[barbassault_scroll_pl2_tn4]
+type=text
+x=94
+y=214
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+onvarcstrtransmit=barbassault_name_transmit(event_com){varclient_1734}
+
+// 493:31
+[barbassault_scroll_pl2_tn5]
+type=text
+x=93
+y=256
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+onvarcstrtransmit=barbassault_name_transmit(event_com){varclient_1735}
+
+// 493:32
+[barbassault_scroll_pl2_tr1]
+type=text
+x=93
+y=93
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+
+// 493:33
+[barbassault_scroll_pl2_tr2]
+type=text
+x=94
+y=151
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+
+// 493:34
+[barbassault_scroll_pl2_tr3]
+type=text
+x=94
+y=192
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+
+// 493:35
+[barbassault_scroll_pl2_tr4]
+type=text
+x=94
+y=232
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+
+// 493:36
+[barbassault_scroll_pl2_tr5]
+type=text
+x=93
+y=274
+width=108
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=none set
+textshadow=yes
+colour=0xff981f
+
+// 493:37
+[com_37]
+type=text
+x=201
+y=58
+width=30
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Wave
+textshadow=yes
+colour=0xff981f
+
+// 493:38
+[barbassault_scroll_pl2_wave1]
+type=text
+x=209
+y=79
+width=8
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 493:39
+[barbassault_scroll_pl2_wave2]
+type=text
+x=210
+y=141
+width=8
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 493:40
+[barbassault_scroll_pl2_wave3]
+type=text
+x=210
+y=183
+width=8
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 493:41
+[barbassault_scroll_pl2_wave4]
+type=text
+x=210
+y=223
+width=8
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 493:42
+[barbassault_scroll_pl2_wave5]
+type=text
+x=210
+y=267
+width=8
+height=14
+layer=content_layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xff981f
+
+// 493:43
+[com_43]
+type=text
+x=279
+y=38
+width=196
+height=31
+layer=content_layer_1
+textfont=b12_full
+text=Please select a role!<br>Current Role:
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 493:44
+[com_44]
+type=text
+x=45
+y=133
+width=50
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Name
+textshadow=yes
+colour=0xff981f
+
+// 493:45
+[com_45]
+type=text
+x=45
+y=151
+width=44
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Role
+textshadow=yes
+colour=0xff981f
+
+// 493:46
+[com_46]
+type=text
+x=45
+y=174
+width=50
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Name
+textshadow=yes
+colour=0xff981f
+
+// 493:47
+[com_47]
+type=text
+x=45
+y=192
+width=44
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Role
+textshadow=yes
+colour=0xff981f
+
+// 493:48
+[com_48]
+type=text
+x=45
+y=214
+width=50
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Name
+textshadow=yes
+colour=0xff981f
+
+// 493:49
+[com_49]
+type=text
+x=45
+y=232
+width=44
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Role
+textshadow=yes
+colour=0xff981f
+
+// 493:50
+[com_50]
+type=text
+x=44
+y=256
+width=50
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Name
+textshadow=yes
+colour=0xff981f
+
+// 493:51
+[com_51]
+type=text
+x=44
+y=274
+width=44
+height=15
+layer=content_layer_1
+textfont=p12_full
+text=Role
+textshadow=yes
+colour=0xff981f
+
+// 493:52
+[heal_highlight_layer]
+type=layer
+x=415
+y=101
+width=63
+height=65
+layer=content_layer_1
+hide=yes
+
+// 493:53
+[col_highlight_layer]
+type=layer
+x=350
+y=91
+width=63
+height=65
+layer=content_layer_1
+hide=yes
+
+// 493:54
+[def_highlight_layer]
+type=layer
+x=289
+y=100
+width=63
+height=65
+layer=content_layer_1
+hide=yes
+
+// 493:55
+[barbassault_scroll_pl2_def_over]
+type=model
+x=5
+y=3
+width=49
+height=60
+layer=def_highlight_layer
+model=model_20568
+modelangle=585,0,0
+modelzoom=1074
+onmouseover=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_def_over, model_20568)
+onmouseleave=model_swapper(barbassault_scroll_pl2_b:barbassault_scroll_pl2_def_over, null)
+
+// 493:56
+[tooltip]
+type=layer
+x=148
+y=260
+width=50
+height=7
+layer=content_layer_1

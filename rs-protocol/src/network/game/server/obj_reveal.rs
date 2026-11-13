@@ -14,12 +14,30 @@ pub struct ObjReveal {
     pub receiver: u16,
 }
 
+#[cfg(before_647)]
 impl ServerProtMessage for ObjReveal {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
         buf.p2(self.id);
         buf.p2(self.count);
         buf.p2(self.receiver);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord)
+            + size_of_val(&self.id)
+            + size_of_val(&self.count)
+            + size_of_val(&self.receiver)
+    }
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for ObjReveal {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt3(self.id);
+        buf.p2(self.receiver);
+        buf.p1_alt2(self.coord);
+        buf.p2_alt3(self.count);
     }
 
     fn sizeof(&self) -> usize {

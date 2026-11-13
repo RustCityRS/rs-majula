@@ -1,0 +1,4 @@
+// 3449
+[clientscript,objbox_set_zoom](obj $obj0, int $int1)
+if_setobject(objbox:objbox_graphic, $obj0, 0);
+if_setmodelzoom(objbox:objbox_graphic, $int1);

@@ -1,0 +1,10 @@
+// 1428
+[clientscript,advisor_side_flash_cc](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    if (%advisor_flash_cc = %advisor_tutorial_id & %advisor_flash_cc ! 0) {
+        cc_setontimer("script1429($component0, $int1)");
+    } else {
+        cc_setontimer(null);
+        cc_settrans(0);
+    }
+}

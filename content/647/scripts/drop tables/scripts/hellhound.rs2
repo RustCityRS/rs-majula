@@ -1,0 +1,17 @@
+// A label, so 2011's re-issues share it (as rat.rs2's).
+[ai_queue3,hellhound] @hellhound_drop_table;
+
+// 2011's God Wars hellhound 6210 (cache 786: "Hellhound", level 127) fights as
+// 289's hellhound (npc_clones_2011.npc: void-634's hellhound_god_wars). The 2011
+// wiki's Hellhound (18 May 2011) gives levels 122 and 127 one drop list, so
+// 289's table.
+[ai_queue3,godwars_ancient_hellhound] @hellhound_drop_table;
+
+[label,hellhound_drop_table]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// Tertiary
+~trail_hardcluedrop(64, npc_coord);
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);

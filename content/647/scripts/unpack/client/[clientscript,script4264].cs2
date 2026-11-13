@@ -1,0 +1,5 @@
+// 4264
+[clientscript,script4264](component $component0)
+if_setcolour($component0, ^red);
+if_setonmouseover($component0, "script4265($component0, 0xdd7f7f)");
+if_setonmouseleave($component0, "script4265($component0, ^red)");

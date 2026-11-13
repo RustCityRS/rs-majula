@@ -1,6 +1,6 @@
 use crate::counters::{self, COUNTERS, mod_action_index};
 use crate::phases::login::{LOGIN_FAILURE_WINDOW_SECS, MAX_LOGIN_FAILURES};
-use crate::player_save::{
+use crate::save::{
     PlayerProfile, PlayerProfileInv, delete_save_file, load_binary, load_from_file,
     orphan_save_file, save_orphan, save_to_file,
 };
@@ -9,7 +9,11 @@ use rs_db::{
     Claim, Db, DbConfig, LogBatch, LoginDevice, ModAction, NewPlayer, NewSnapshot, Passwords,
     PlayedSession, PlayerSave, SaveResult, check_new_password, refusal,
 };
+use rs_grid::CoordGrid;
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
+#[cfg(since_647)]
+use rs_util::random::JavaRandom;
+use std::fs;
 use std::net::IpAddr;
 use std::path::Path;
 use std::sync::Arc;
@@ -131,6 +135,29 @@ pub enum DbRequest {
         user37: u64,
         reply: oneshot::Sender<SyncOutcome>,
     },
+    /// Rev-647 `p_setdisplayname`: validate and claim `display_name` for the
+    /// account keyed by `user37`.
+    #[cfg(since_647)]
+    SetDisplayName {
+        user37: u64,
+        display_name: String,
+    },
+    /// Rev-647 `p_request_more_suggestions`: another batch of free names.
+    #[cfg(since_647)]
+    MoreSuggestions {
+        user37: u64,
+    },
+}
+
+/// Outcome of a rev-647 display-name claim.
+#[cfg(since_647)]
+pub enum SetDisplayNameResult {
+    /// The name was claimed; `user37` is its base-37 hash.
+    Success { user37: u64 },
+    /// The name is taken (or disallowed); suggestions are free names.
+    NameTaken { suggestions: Vec<String> },
+    /// Invalid, or the database failed.
+    Error,
 }
 
 /// How a [`DbRequest::SyncLocal`] went.
@@ -208,6 +235,20 @@ pub enum LoadResult {
 
 /// A response sent from the database client task back to the engine.
 pub enum DbResponse {
+    /// Rev-647: outcome of a [`DbRequest::SetDisplayName`] claim, keyed by the
+    /// requesting account.
+    #[cfg(since_647)]
+    SetDisplayNameResult {
+        user37: u64,
+        name: String,
+        result: SetDisplayNameResult,
+    },
+    /// Rev-647: a fresh batch of free display-name suggestions.
+    #[cfg(since_647)]
+    MoreSuggestions {
+        user37: u64,
+        suggestions: Vec<String>,
+    },
     DbReady,
     DbDisconnected,
     AuthResponse {
@@ -348,6 +389,28 @@ async fn prune_logs_task(config: DbConfig) {
 /// heartbeat's reconcile cleans up any claim a dropped release would have
 /// freed.
 fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
+    #[cfg(since_647)]
+    match req {
+        DbRequest::SetDisplayName {
+            user37,
+            display_name,
+        } => {
+            let _ = response_tx.send(DbResponse::SetDisplayNameResult {
+                user37,
+                name: display_name,
+                result: SetDisplayNameResult::Error,
+            });
+            return;
+        }
+        DbRequest::MoreSuggestions { user37 } => {
+            let _ = response_tx.send(DbResponse::MoreSuggestions {
+                user37,
+                suggestions: Vec::new(),
+            });
+            return;
+        }
+        _ => {}
+    }
     if let DbRequest::Logs { logs } = &req {
         drop_logs(logs);
     }
@@ -628,7 +691,7 @@ async fn take_over_node(db: &Db, node_id: u8) -> Result<bool, rs_db::Error> {
         warn!("Ended {} session(s) left over from a previous run", ended);
     }
 
-    let orphans = std::fs::read_dir(Path::new("data").join("players"))
+    let orphans = fs::read_dir(Path::new("data").join("players"))
         .map(|entries| {
             entries
                 .flatten()
@@ -662,7 +725,7 @@ async fn retire_node(db: &Db, node_id: u8) {
 
 /// The players with a local `.sav` file waiting to be synced.
 fn local_save_users() -> Vec<u64> {
-    let Ok(entries) = std::fs::read_dir(Path::new("data").join("players")) else {
+    let Ok(entries) = fs::read_dir(Path::new("data").join("players")) else {
         return Vec::new();
     };
     entries
@@ -877,6 +940,8 @@ async fn run_requests(
             }
             DbRequest::Load { login, user37 } => {
                 let result = claim(db, config.node_id, user37).await?;
+                #[cfg(since_647)]
+                let result = with_display_name(db, user37, result).await;
                 let _ = response_tx.send(DbResponse::LoadResponse {
                     login,
                     user37,
@@ -915,6 +980,26 @@ async fn run_requests(
                     }
                 };
                 let _ = reply.send(outcome);
+            }
+            #[cfg(since_647)]
+            DbRequest::SetDisplayName {
+                user37,
+                display_name,
+            } => {
+                let result = set_display_name(db, user37, &display_name).await;
+                let _ = response_tx.send(DbResponse::SetDisplayNameResult {
+                    user37,
+                    name: display_name,
+                    result,
+                });
+            }
+            #[cfg(since_647)]
+            DbRequest::MoreSuggestions { user37 } => {
+                let suggestions = free_name_suggestions(db, user37, 3).await;
+                let _ = response_tx.send(DbResponse::MoreSuggestions {
+                    user37,
+                    suggestions,
+                });
             }
             DbRequest::Release { user37 } => {
                 // Unsynced local data means the database copy is stale:
@@ -1298,7 +1383,7 @@ fn millis(ms: i64) -> Duration {
 
 /// Flattens a [`PlayerProfile`] into its `player_saves` row. Inventory items
 /// are spread across the index-aligned `inv_*` arrays, grouped by inventory.
-fn to_save(profile: &PlayerProfile) -> PlayerSave {
+pub(crate) fn to_save(profile: &PlayerProfile) -> PlayerSave {
     let mut save = PlayerSave {
         x: profile.x as i16,
         z: profile.z as i16,
@@ -1318,6 +1403,9 @@ fn to_save(profile: &PlayerProfile) -> PlayerSave {
         last_date: profile.last_date,
         varp_ids: profile.varps.iter().map(|&(id, _)| id as i32).collect(),
         varp_values: profile.varps.iter().map(|&(_, v)| v).collect(),
+        exit_x: profile.exit.map_or(-1, |exit| exit.x() as i16),
+        exit_z: profile.exit.map_or(-1, |exit| exit.z() as i16),
+        exit_y: profile.exit.map_or(-1, |exit| exit.y() as i16),
         ..Default::default()
     };
     for inv in &profile.invs {
@@ -1326,6 +1414,14 @@ fn to_save(profile: &PlayerProfile) -> PlayerSave {
             save.inv_slots.push(slot as i16);
             save.inv_objs.push(obj_id as i32);
             save.inv_counts.push(count as i32);
+        }
+    }
+    if profile.invs.iter().any(|inv| !inv.vars.is_empty()) {
+        for inv in &profile.invs {
+            for &(slot, ..) in &inv.items {
+                let var = inv.vars.iter().find(|&&(s, _)| s == slot);
+                save.inv_vars.push(var.map_or(0, |&(_, var)| var));
+            }
         }
     }
     save
@@ -1357,13 +1453,21 @@ pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
             save.inv_objs.get(i).copied().unwrap_or(0) as u16,
             save.inv_counts.get(i).copied().unwrap_or(0) as u32,
         );
-        if let Some(inv) = invs.iter_mut().find(|inv| inv.inv_type == inv_type) {
-            inv.items.push(item);
-        } else {
-            invs.push(PlayerProfileInv {
-                inv_type,
-                items: vec![item],
-            });
+        let var = save.inv_vars.get(i).copied().unwrap_or(0);
+        let index = match invs.iter().position(|inv| inv.inv_type == inv_type) {
+            Some(index) => index,
+            None => {
+                invs.push(PlayerProfileInv {
+                    inv_type,
+                    items: Vec::new(),
+                    vars: Vec::new(),
+                });
+                invs.len() - 1
+            }
+        };
+        invs[index].items.push(item);
+        if var != 0 {
+            invs[index].vars.push((item.0, var));
         }
     }
 
@@ -1386,12 +1490,114 @@ pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
         private_chat: save.private_chat as u8,
         trade_chat: save.trade_chat as u8,
         last_date: save.last_date,
+        exit: (save.exit_x > 0)
+            .then(|| CoordGrid::new(save.exit_x as u16, save.exit_y as u8, save.exit_z as u16)),
+        // Rev 647: the account's display name, which isn't part of the
+        // save; the load fills it in (`with_display_name`).
+        #[cfg(since_647)]
+        display_name: None,
+    }
+}
+
+/// Rev-647 `p_setdisplayname`: validates `display_name` (the names a player
+/// may register, [`rs_db::validate_name`]; none with "jagex" or "mod") and
+/// claims it for the account `own_user37` if no other player has it.
+#[cfg(since_647)]
+async fn set_display_name(db: &Db, own_user37: u64, display_name: &str) -> SetDisplayNameResult {
+    let Ok(name) = rs_db::validate_name(display_name) else {
+        return SetDisplayNameResult::Error;
+    };
+    let lower = name.display.to_lowercase();
+    if lower.contains("jagex") || lower.contains("mod") {
+        let suggestions = free_name_suggestions(db, own_user37, 3).await;
+        return SetDisplayNameResult::NameTaken { suggestions };
+    }
+    match db.claim_display_name(own_user37, &name).await {
+        Ok(true) => {
+            info!(
+                "Display name '{}' set for {}",
+                name.display,
+                to_raw_username(own_user37)
+            );
+            SetDisplayNameResult::Success { user37: name.hash }
+        }
+        Ok(false) => {
+            let suggestions = free_name_suggestions(db, own_user37, 3).await;
+            SetDisplayNameResult::NameTaken { suggestions }
+        }
+        Err(e) => {
+            error!("DB set_display_name failed: {e}");
+            SetDisplayNameResult::Error
+        }
+    }
+}
+
+/// A random `PrefixSuffixNNN` display-name candidate.
+#[cfg(since_647)]
+fn random_name(rng: &mut JavaRandom) -> String {
+    const PREFIXES: &[&str] = &[
+        "Iron", "Dark", "Storm", "Blaze", "Frost", "Shadow", "Rune", "Dusk", "Ember", "Moon",
+        "Wolf", "Stone", "Vale", "Ash", "Cinder", "Dawn", "Gloom", "Jade", "Onyx", "Mist", "Bolt",
+        "Hex", "Drift", "Flint", "Thorn", "Vex", "Echo", "Grim", "Zeal", "Flux", "Prof", "Smith",
+        "Fire", "Ice", "Earth", "Water", "Air", "Mind", "Body", "Soul",
+    ];
+    const SUFFIXES: &[&str] = &[
+        "blade", "shade", "fall", "hawk", "fury", "fly", "light", "vale", "spark", "peak", "rune",
+        "forge", "ward", "drift", "crest", "reign", "born", "strike", "keep", "gaze", "bane",
+        "doe", "wolf", "fox", "eagle", "raven", "owl", "sparrow", "jay", "crow", "parrot",
+    ];
+    let prefix = PREFIXES[rng.next_int_bound(PREFIXES.len() as i32) as usize];
+    let suffix = SUFFIXES[rng.next_int_bound(SUFFIXES.len() as i32) as usize];
+    let num = 100 + rng.next_int_bound(9900);
+    format!("{prefix}{suffix}{num}")
+}
+
+/// Up to `count` random names `own_user37` could claim (bounded tries, so a
+/// crowded table can't loop forever).
+#[cfg(since_647)]
+async fn free_name_suggestions(db: &Db, own_user37: u64, count: usize) -> Vec<String> {
+    let seed = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos() as i64);
+    let mut rng = JavaRandom::new(seed);
+    let mut suggestions = Vec::with_capacity(count);
+    for _ in 0..count * 10 {
+        if suggestions.len() >= count {
+            break;
+        }
+        let Ok(name) = rs_db::validate_name(&random_name(&mut rng)) else {
+            continue;
+        };
+        if db
+            .display_name_free(own_user37, &name)
+            .await
+            .unwrap_or(false)
+        {
+            suggestions.push(name.display);
+        }
+    }
+    suggestions
+}
+
+/// Rev 647: a loaded profile carries the account's display name, which the
+/// player is shown and known by (`p_setdisplayname` claims a new one).
+#[cfg(since_647)]
+async fn with_display_name(db: &Db, user37: u64, result: LoadResult) -> LoadResult {
+    match result {
+        LoadResult::Loaded(Some(mut profile)) => {
+            profile.display_name = db.display_name(user37).await.ok().flatten();
+            LoadResult::Loaded(Some(profile))
+        }
+        other => other,
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_entity::build::STAT_COUNT;
+    use std::env;
+    use tokio::sync::mpsc::unbounded_channel;
 
     #[test]
     fn profile_round_trips_through_save_row() {
@@ -1404,17 +1610,19 @@ mod tests {
             gender: 1,
             runenergy: 9000,
             playtime: 600,
-            stats: [1154; 21],
-            levels: [10; 21],
+            stats: [1154; STAT_COUNT],
+            levels: [10; STAT_COUNT],
             varps: vec![(281, 1000), (1000, -1)],
             invs: vec![
                 PlayerProfileInv {
                     inv_type: 93,
                     items: vec![(0, 995, u32::MAX >> 1), (27, 1351, 1)],
+                    vars: vec![(27, -7)],
                 },
                 PlayerProfileInv {
                     inv_type: 94,
                     items: vec![(3, 1277, 1)],
+                    vars: vec![],
                 },
             ],
             afk_zones: [7, 8],
@@ -1423,10 +1631,19 @@ mod tests {
             private_chat: 2,
             trade_chat: 3,
             last_date: 1_700_000_000,
+            exit: Some(CoordGrid::new(3221, 0, 3218)),
+            #[cfg(since_647)]
+            display_name: None,
         };
 
         let back = profile_from_save(to_save(&profile));
         assert_eq!((back.x, back.z, back.y), (3222, 3218, 1));
+        assert_eq!(back.exit, profile.exit);
+        let nowhere = PlayerProfile {
+            exit: None,
+            ..profile.clone()
+        };
+        assert_eq!(profile_from_save(to_save(&nowhere)).exit, None);
         assert_eq!(back.body, profile.body);
         assert_eq!(back.colors, profile.colors);
         assert_eq!(back.stats, profile.stats);
@@ -1436,6 +1653,7 @@ mod tests {
         for (a, b) in back.invs.iter().zip(&profile.invs) {
             assert_eq!(a.inv_type, b.inv_type);
             assert_eq!(a.items, b.items);
+            assert_eq!(a.vars, b.vars);
         }
         assert_eq!(back.afk_zones, profile.afk_zones);
         assert_eq!(
@@ -1537,7 +1755,7 @@ mod tests {
     /// The settings to reach a `#[sqlx::test]` database: its name from the
     /// pool, the rest from `DATABASE_URL`.
     fn test_db_config(pool: &sqlx::PgPool) -> DbConfig {
-        let url = std::env::var("DATABASE_URL").unwrap();
+        let url = env::var("DATABASE_URL").unwrap();
         let rest = url.split_once("://").unwrap().1;
         let (auth, host) = rest.split_once('@').unwrap();
         let (user, pass) = auth.split_once(':').unwrap_or((auth, ""));
@@ -1563,8 +1781,8 @@ mod tests {
 
     impl World {
         async fn start(pool: &sqlx::PgPool, node_id: u8) -> Self {
-            let (tx, req_rx) = tokio::sync::mpsc::unbounded_channel();
-            let (resp_tx, rx) = tokio::sync::mpsc::unbounded_channel();
+            let (tx, req_rx) = unbounded_channel();
+            let (resp_tx, rx) = unbounded_channel();
             let config = DbClientConfig {
                 db: test_db_config(pool),
                 node_id,
@@ -1584,7 +1802,7 @@ mod tests {
         /// The next response, skipping lease renewals (but counting them).
         async fn next(&mut self) -> DbResponse {
             loop {
-                let response = tokio::time::timeout(Duration::from_secs(10), self.rx.recv())
+                let response = timeout(Duration::from_secs(10), self.rx.recv())
                     .await
                     .expect("db task stalled")
                     .expect("db task stopped");
@@ -1733,7 +1951,7 @@ mod tests {
             .execute(&pool)
             .await
             .unwrap();
-        tokio::time::sleep(LEASE_INTERVAL + Duration::from_secs(1)).await;
+        sleep(LEASE_INTERVAL + Duration::from_secs(1)).await;
         assert!(matches!(one.load().await, LoadResult::Busy));
 
         // A world that went silent (9) loses them: world 1 takes over, and
@@ -1828,15 +2046,15 @@ mod tests {
     /// hangs up, or a shutdown would wait on it forever.
     #[tokio::test]
     async fn offline_wait_ends_when_the_engine_hangs_up() {
-        let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
-        let (resp_tx, mut resp_rx) = tokio::sync::mpsc::unbounded_channel();
+        let (tx, mut rx) = unbounded_channel();
+        let (resp_tx, mut resp_rx) = unbounded_channel();
         let _ = tx.send(DbRequest::Release { user37: 1 });
         assert!(wait_offline(Duration::from_millis(50), &mut rx, &resp_tx).await);
         assert!(rx.try_recv().is_err(), "requests are handled while offline");
 
         drop(tx);
         let wait = wait_offline(Duration::from_secs(60), &mut rx, &resp_tx);
-        let done = tokio::time::timeout(Duration::from_secs(1), wait).await;
+        let done = timeout(Duration::from_secs(1), wait).await;
         assert_eq!(
             done.ok(),
             Some(false),
@@ -1848,8 +2066,8 @@ mod tests {
     #[test]
     fn short_arrays_are_padded() {
         let back = profile_from_save(PlayerSave::default());
-        assert_eq!(back.levels, [1; 21]);
-        assert_eq!(back.stats, [0; 21]);
+        assert_eq!(back.levels, [1; STAT_COUNT]);
+        assert_eq!(back.stats, [0; STAT_COUNT]);
         assert!(back.invs.is_empty());
     }
 }

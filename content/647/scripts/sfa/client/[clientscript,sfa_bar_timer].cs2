@@ -1,0 +1,11 @@
+// 2896
+[clientscript,sfa_bar_timer](component $component0)
+if (calc(clientclock % 5) = 0) {
+    if (scale(%sfa_client_time, 2000, 200) > scale(%sfa_event_time, 2000, 200)) {
+        if_setsize($component0, 20, scale(%sfa_client_time, 2000, 200), ^setsize_abs, ^setsize_abs);
+        %sfa_client_time = calc(%sfa_client_time - 1);
+    } else {
+        if_setontimer($component0, null);
+        %sfa_client_timer = 0;
+    }
+}

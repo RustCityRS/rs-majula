@@ -1,0 +1,13 @@
+// 746
+[proc,deathkeep_select_dropdown](boolean $boolean0)
+if ($boolean0 = true) {
+    if_sethide(deathkeep_select:dropdown_universe, false);
+    if_setonmouseover(deathkeep_select:com_29, null);
+    if_setonmouseleave(deathkeep_select:com_29, null);
+} else {
+    if_sethide(deathkeep_select:dropdown_universe, true);
+    if_setonmouseover(deathkeep_select:com_29, "deathkeep_select_mouseeffect(true)");
+    if_setonmouseleave(deathkeep_select:com_29, "deathkeep_select_mouseeffect(false)");
+}
+~deathkeep_select_mouseeffect(false);
+~deltooltip_action(deathkeep_select:tooltip);

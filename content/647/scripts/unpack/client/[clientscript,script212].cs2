@@ -1,0 +1,5 @@
+// 212
+[clientscript,script212](string $string0)
+if (compare($string0, "") ! 0) {
+    openurl_nologin($string0, true);
+}

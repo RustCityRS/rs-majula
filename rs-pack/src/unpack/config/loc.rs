@@ -1,0 +1,618 @@
+use super::UnpackedPacks;
+#[cfg(since_647)]
+use super::emit_params;
+use crate::cache::loc::LocTypeRaw;
+#[cfg(since_647)]
+use crate::types::loc_shape_key;
+use std::collections::HashMap;
+
+pub fn emit_loc_props(
+    def: &LocTypeRaw,
+    opcode: u8,
+    _data: &[u8],
+    registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
+) -> Vec<(String, String)> {
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        if let Some(models) = &def.models {
+            let pairs = models
+                .iter()
+                .map(|model| (model.model, model.shape))
+                .collect::<Vec<_>>();
+            let mut models = Vec::new();
+            super::push_loc_model_refs(def.id, &pairs, registry, &mut models);
+            let code = if opcode == 5 { 5 } else { 1 };
+            p.extend(models.into_iter().map(|(key, value)| (code, key, value)));
+        }
+        if let Some(desc) = &def.desc {
+            p.push((3, "desc".into(), desc.to_string()));
+        }
+        if let Some(value) = def.active {
+            p.push((
+                19,
+                "active".into(),
+                if value == 1 { "yes" } else { "no" }.into(),
+            ));
+        }
+        if def.hillskew == 1 {
+            p.push((21, "hillskew".into(), "yes".into()));
+        }
+        if let Some(value) = def.mapfunction {
+            p.push((60, "mapfunction".into(), value.to_string()));
+        }
+        if let Some(value) = def.mapscene {
+            p.push((68, "mapscene".into(), value.to_string()));
+        }
+        if opcode == 69 {
+            let value = def.forceapproach as u8;
+            let dir = match value {
+                14 => "north",
+                13 => "east",
+                11 => "south",
+                7 => "west",
+                _ => panic!("Unrecognized loc config forceapproach flags: {value}"),
+            };
+            p.push((69, "forceapproach".into(), dir.into()));
+        }
+        #[cfg(since_254)]
+        if let Some(value) = def.raiseobject {
+            p.push((
+                75,
+                "raiseobject".into(),
+                if value == 1 { "yes" } else { "no" }.into(),
+            ));
+        }
+        #[cfg(since_289)]
+        if let Ok(var) = u16::try_from(def.transform_varbit) {
+            p.push((77, "multivar".into(), super::varbit_ref(var, registry)));
+            if let Some(locs) = &def.multiloc {
+                for (i, &loc) in locs.iter().enumerate() {
+                    if loc != -1 {
+                        p.push((
+                            77,
+                            "multiloc".into(),
+                            format!("{i},{}", super::loc_ref(loc as u16, registry)),
+                        ));
+                    }
+                }
+            }
+        }
+    }
+
+    #[cfg(since_647)]
+    let model_code = if opcode == 5 { 5 } else { 1 };
+    #[cfg(since_647)]
+    for (key, models) in [
+        (
+            if model_code == 5 { "modelhd" } else { "model" },
+            &def.models,
+        ),
+        ("modelsd", if opcode == 5 { &def.hd_models } else { &None }),
+    ] {
+        for group in models.as_deref().unwrap_or_default() {
+            let shape = loc_shape_key(group.shape);
+            for &model in &group.models {
+                p.push((
+                    model_code,
+                    key.into(),
+                    format!("{shape},{}", registry.reference("model", model)),
+                ));
+            }
+        }
+    }
+
+    if let Some(name) = &def.name {
+        p.push((2, "name".into(), name.to_string()));
+    }
+
+    if opcode == 14 {
+        p.push((14, "width".into(), def.width.to_string()));
+    }
+
+    if opcode == 15 {
+        p.push((15, "length".into(), def.length.to_string()));
+    }
+
+    if !def.blockwalk {
+        p.push((17, "blockwalk".into(), "no".into()));
+    }
+
+    if !def.blockrange {
+        p.push((18, "blockrange".into(), "no".into()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 19 {
+        let active = match def.active.unwrap_or(0) {
+            0 => "no".to_owned(),
+            1 => "yes".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((19, "active".into(), active));
+    }
+
+    #[cfg(since_647)]
+    if def.hillskew == 1 {
+        p.push((21, "hillskew".into(), "yes".into()));
+    }
+
+    if def.sharelight {
+        p.push((22, "sharelight".into(), "yes".into()));
+    }
+
+    if def.occlude {
+        p.push((23, "occlude".into(), "yes".into()));
+    }
+
+    #[cfg(before_647)]
+    if opcode == 24 {
+        let name = registry
+            .config_name("seq", def.anim.unwrap_or(u16::MAX) as u32)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(u16::MAX)));
+        p.push((24, "anim".into(), name));
+    }
+    #[cfg(since_647)]
+    if opcode == 24 {
+        p.push((
+            24,
+            "anim".into(),
+            registry.reference("seq", def.anim.unwrap_or(u16::MAX)),
+        ));
+    }
+
+    if def.hasalpha {
+        p.push((25, "hasalpha".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if def.interact_type == 1 {
+        p.push((27, "blockwalk".into(), "yes".into()));
+    }
+
+    if opcode == 28 {
+        p.push((28, "wallwidth".into(), def.wallwidth.to_string()));
+    }
+
+    if opcode == 29 {
+        p.push((29, "ambient".into(), def.ambient.to_string()));
+    }
+
+    for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
+        if let Some(text) = opt {
+            p.push((30 + slot as u8, format!("op{}", slot + 1), text.to_string()));
+        }
+    }
+
+    if opcode == 39 {
+        p.push((39, "contrast".into(), def.contrast.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
+        for i in 0..src.len() {
+            let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, src[i], dst[i], _reverse_hsl);
+            p.push((40, ks, vs));
+            p.push((40, kd, vd));
+        }
+    }
+
+    #[cfg(since_647)]
+    if let (Some(src), Some(dst)) = (&def.retex_s, &def.retex_d) {
+        for i in 0..src.len() {
+            p.push((
+                41,
+                format!("retex{}s", i + 1),
+                registry.named("texture", src[i]),
+            ));
+            p.push((
+                41,
+                format!("retex{}d", i + 1),
+                registry.named("texture", dst[i]),
+            ));
+        }
+    }
+
+    #[cfg(since_647)]
+    if let Some(palette) = &def.recol_palette {
+        for (i, b) in palette.iter().enumerate() {
+            p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
+        }
+    }
+
+    if def.mirror {
+        p.push((62, "mirror".into(), "yes".into()));
+    }
+
+    if !def.shadow {
+        p.push((64, "shadow".into(), "no".into()));
+    }
+
+    if opcode == 65 {
+        p.push((65, "resizex".into(), def.resizex.to_string()));
+    }
+
+    if opcode == 66 {
+        p.push((66, "resizey".into(), def.resizey.to_string()));
+    }
+
+    if opcode == 67 {
+        p.push((67, "resizez".into(), def.resizez.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 69 {
+        p.push((69, "forceapproach".into(), def.forceapproach.config_str()));
+    }
+
+    #[cfg(before_647)]
+    for (code, key, value) in [
+        (70, "offsetx", def.offsetx),
+        (71, "offsety", def.offsety),
+        (72, "offsetz", def.offsetz),
+    ] {
+        if opcode == code {
+            p.push((code, key.into(), (value as u16).to_string()));
+        }
+    }
+    #[cfg(since_647)]
+    for (code, key, value) in [
+        (70, "offsetx", def.offsetx),
+        (71, "offsety", def.offsety),
+        (72, "offsetz", def.offsetz),
+    ] {
+        if opcode == code {
+            p.push((code, key.into(), value.to_string()));
+        }
+    }
+
+    if def.forcedecor {
+        p.push((73, "forcedecor".into(), "yes".into()));
+    }
+
+    #[cfg(since_245_2)]
+    if def.breakroutefinding {
+        p.push((74, "breakroutefinding".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 75 {
+        let raise = match def.raiseobject.unwrap_or(0) {
+            0 => "no".to_owned(),
+            1 => "yes".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((75, "raiseobject".into(), raise));
+    }
+
+    #[cfg(since_647)]
+    if let Some(multiloc) = &def.multiloc {
+        let has_default = (opcode == 92) || multiloc.last().copied().unwrap_or(-1) != -1;
+        p.extend(super::multi_lines(
+            (if has_default { 92 } else { 77 }, "multiloc"),
+            "loc",
+            has_default,
+            (def.transform_varbit, def.transform_varp),
+            multiloc,
+            registry,
+        ));
+    }
+
+    #[cfg(since_647)]
+    if let Some(ambient_sfx_id) = def.ambient_sfx_id {
+        let kind = if def.bgsound_vorbis {
+            "vorbis"
+        } else {
+            "synth"
+        };
+        p.push((
+            78,
+            "bgsound".into(),
+            format!(
+                "{},{}",
+                registry.reference(kind, ambient_sfx_id),
+                def.ambient_sfx_range
+            ),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if let Some(ids) = &def.sfx_random_ids {
+        let kind = if def.randomsound_vorbis {
+            "vorbis"
+        } else {
+            "synth"
+        };
+        let mut values = vec![
+            def.sfx_random_pri.to_string(),
+            def.sfx_random_sec.to_string(),
+            def.ambient_sfx_range.to_string(),
+        ];
+        values.extend(ids.iter().map(|&id| registry.reference(kind, id)));
+        p.push((79, "randomsound".into(), values.join(",")));
+    }
+
+    #[cfg(since_647)]
+    if def.hillskew == 2 {
+        p.push((
+            81,
+            "hillchange".into(),
+            format!("tree_skew,{}", def.hillskew_param.unwrap_or(-1) / 256),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if def.hide_minimap {
+        p.push((82, "istexture".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if !def.minimap_visible {
+        p.push((88, "hardshadow".into(), "no".into()));
+    }
+
+    #[cfg(since_647)]
+    if !def.blocks_npcs {
+        p.push((89, "randomanimframe".into(), "no".into()));
+    }
+
+    #[cfg(since_647)]
+    if def.unknown_90 {
+        p.push((90, "unknown90".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if def.members_only {
+        p.push((91, "members".into(), "yes".into()));
+    }
+
+    // Disambiguate by range: if param fits in 0..65535, it is the 2 byte form.
+    #[cfg(since_647)]
+    if def.hillskew == 3 {
+        let code = if (0..=65535).contains(&def.hillskew_param.unwrap_or(-1)) {
+            93
+        } else {
+            162
+        };
+        p.push((
+            code,
+            "hillchange".into(),
+            format!("rotate,{}", def.hillskew_param.unwrap_or(-1)),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if def.hillskew == 4 {
+        p.push((94, "hillchange".into(), "ceiling_skew".into()));
+    }
+
+    #[cfg(since_647)]
+    if def.hillskew == 5 {
+        p.push((
+            95,
+            "hillchange".into(),
+            format!("skew_to_fit,{}", def.hillskew_param.unwrap_or(-1) & 0xffff),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if def.msirotate {
+        p.push((97, "msirotate".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if def.hasparticles {
+        p.push((98, "hasparticles".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if let Some((op, cursor)) = def.cursor_op1 {
+        p.push((
+            99,
+            "cursor1".into(),
+            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if let Some((op, cursor)) = def.cursor_op2 {
+        p.push((
+            100,
+            "cursor2".into(),
+            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 101 {
+        p.push((
+            101,
+            "mapfunction".into(),
+            def.mapfunction.unwrap_or(0).to_string(),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if let Some(msi_id) = def.msi_id {
+        p.push((102, "msi".into(), registry.reference("msi", msi_id)));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 103 {
+        p.push((103, "occlude".into(), "no".into()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 104 {
+        p.push((
+            104,
+            "bgsoundvolume".into(),
+            def.interaction_side_flags.to_string(),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if def.msimirror {
+        p.push((105, "msimirror".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if let (Some(ids), Some(weights)) = (&def.random_anim_ids, &def.random_anim_weights) {
+        for (&id, weight) in ids.iter().zip(weights.iter()) {
+            p.push((
+                106,
+                "anim".into(),
+                format!("{},{weight}", registry.reference("seq", id)),
+            ));
+        }
+    }
+
+    #[cfg(since_647)]
+    if let Some(map_element) = def.map_element {
+        p.push((
+            107,
+            "mapelement".into(),
+            registry.reference("mel", map_element),
+        ));
+    }
+
+    #[cfg(since_647)]
+    for (slot, opt) in def.members_op.iter().enumerate() {
+        if let Some(text) = opt {
+            p.push((
+                150 + slot as u8,
+                format!("membersop{}", slot + 1),
+                text.to_string(),
+            ));
+        }
+    }
+
+    #[cfg(since_647)]
+    if let Some(quests) = &def.quest_ids {
+        let quests: Vec<_> = quests
+            .iter()
+            .map(|&quest| registry.reference("quest", quest))
+            .collect();
+        p.push((160, "quest".into(), quests.join(",")));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 163 {
+        p.push((
+            163,
+            "tint".into(),
+            format!(
+                "{},{},{},{}",
+                def.tint[0], def.tint[1], def.tint[2], def.tint[3]
+            ),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 164 {
+        p.push((164, "postoffsetx".into(), def.postoffsetx.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 165 {
+        p.push((165, "postoffsety".into(), def.postoffsety.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 166 {
+        p.push((166, "postoffsetz".into(), def.postoffsetz.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 167 {
+        p.push((167, "raiseobjectgrounddecor".into(), def.op167.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 170 {
+        p.push((170, "unknown170".into(), def.op170.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 171 {
+        p.push((171, "unknown171".into(), def.op171.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 173 {
+        p.push((
+            173,
+            "bgsoundrate".into(),
+            format!("{},{}", def.op173.0, def.op173.1),
+        ));
+    }
+
+    #[cfg(since_647)]
+    if def.unknown_177 {
+        p.push((177, "unknown177".into(), "yes".into()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 178 {
+        p.push((178, "bgsounddropoffrange".into(), def.op178.to_string()));
+    }
+
+    #[cfg(since_647)]
+    if opcode == 249 {
+        p.extend(emit_params(_data, registry));
+    }
+
+    #[cfg(since_647)]
+    {
+        p.into_iter()
+            .filter(|(code, _, _)| *code == opcode)
+            .map(|(_, key, value)| (key, value))
+            .collect()
+    }
+    #[cfg(before_647)]
+    {
+        let mut props: Vec<_> = p
+            .into_iter()
+            .filter(|(code, _, _)| *code == opcode)
+            .map(|(_, key, value)| (key, value))
+            .collect();
+        let model_ids = def
+            .models
+            .as_deref()
+            .unwrap_or_default()
+            .iter()
+            .map(|m| m.model)
+            .collect::<Vec<_>>();
+        if (opcode == 40)
+            && let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d)
+        {
+            for (i, (&s, &d)) in src.iter().zip(dst.iter()).enumerate() {
+                let idx = i + 1;
+                let s_rgb = _reverse_hsl.get(&s);
+                let d_rgb = _reverse_hsl.get(&d);
+                if s >= 100 || d >= 100 {
+                    props.push((
+                        format!("recol{idx}s"),
+                        s_rgb.copied().unwrap_or(s).to_string(),
+                    ));
+                    props.push((
+                        format!("recol{idx}d"),
+                        d_rgb.copied().unwrap_or(d).to_string(),
+                    ));
+                } else if s_rgb.is_none()
+                    || d_rgb.is_none()
+                    || super::models_have_texture(&model_ids, s, &registry.model_textures)
+                {
+                    props.push((format!("retex{idx}s"), super::texture_ref(s, registry)));
+                    props.push((format!("retex{idx}d"), super::texture_ref(d, registry)));
+                } else {
+                    props.push((format!("recol{idx}s"), s_rgb.copied().unwrap().to_string()));
+                    props.push((format!("recol{idx}d"), d_rgb.copied().unwrap().to_string()));
+                }
+            }
+        }
+        props
+    }
+}

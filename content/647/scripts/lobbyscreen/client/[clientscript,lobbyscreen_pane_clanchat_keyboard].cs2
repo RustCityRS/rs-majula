@@ -1,0 +1,29 @@
+// 3160
+[clientscript,lobbyscreen_pane_clanchat_keyboard](int $key0, char $char1)
+if (userdetail_quickchat = true) {
+    return;
+}
+switch_int ($key0) {
+    case ^key_return :
+        if (activeclanchannel_find_affined = true) {
+            if (string_length(%varclient_1797) > 0) {
+                chat_setmode(2);
+                chat_sendpublic(%varclient_1797);
+            }
+        } else {
+            mes_typed(^chattype_clanmessage, 0, "You are not in a Clan.");
+        }
+        %varclient_1797 = "";
+        if_settext(lobbyscreen_pane_clanchat:chat_input_text, escape(%varclient_1797));
+        %lobby_caret_clan = string_length(%varclient_1797);
+        ~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        %lobby_caret_clan = ~script1553($key0, %lobby_caret_clan, %varclient_1797);
+        ~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
+    case null, ^key_backspace, ^key_del :
+        if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
+            %varclient_1797, %lobby_caret_clan = ~script802(%lobby_caret_clan, %varclient_1797, 0, $key0, $char1);
+            if_settext(lobbyscreen_pane_clanchat:chat_input_text, escape(%varclient_1797));
+            ~script1390(lobbyscreen_pane_clanchat:chat_input_text, lobbyscreen_pane_clanchat:input_caret, %varclient_1797);
+        }
+}

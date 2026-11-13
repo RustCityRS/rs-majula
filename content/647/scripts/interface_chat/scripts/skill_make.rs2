@@ -1,0 +1,208 @@
+// ── Make-X (2011) ───────────────────────────────────────────────────────────
+// 289 asks "What would you like to make?" with skill_multi2-5: an item model
+// per choice, and Make 1/5/10/X under each. 2011 asks in skillmulti2010
+// (905), with its number panel skillmulti2010_numbers (916) mounted at com4:
+// up to ten items, and one amount chosen beforehand from 1/5/10/All/+1/-1.
+// The client lays both out in 905's onload (clientscript 711) from varcs --
+// 754 the verb, 755-760 and 1139-1142 the items, string varcs 132-137 and
+// 280-283 (varclient_1651-1656, 1799-1802) their names -- and two varbits of varp 1363: skill_creation_maximum, All's count,
+// and skill_creation_amount, the amount chosen (it persists). An item is a
+// pause button (`active_properties=1` in the cache). The layout and names
+// follow void-634's MakeAmount.
+//
+// The skill_multi procs keep 289's signatures, so 289's callers port as they
+// are. 2005's model positions, scales and captions have no place in 2011's
+// layout, which names each item by its own name.
+
+[proc,skill_make](string $text, int $verb, int $maximum, namedobj $obj1, namedobj $obj2, namedobj $obj3, namedobj $obj4, namedobj $obj5)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make10($text, $verb, $maximum, $obj1, $obj2, $obj3, $obj4, $obj5, null, null, null, null, null);
+return($product, $count);
+
+// All ten of the dialogue's items (choices com14 to com23, void-634's
+// dialogue_skill_creation), for makes with more than five, such as smelting.
+[proc,skill_make10](string $text, int $verb, int $maximum, namedobj $obj1, namedobj $obj2, namedobj $obj3, namedobj $obj4, namedobj $obj5, namedobj $obj6, namedobj $obj7, namedobj $obj8, namedobj $obj9, namedobj $obj10)(namedobj, int)
+%skill_multi_num = $verb; // the verb: ^skill_make_make, ^skill_make_cook, ...
+%skill_multi_obj1 = $obj1;
+%skill_multi_obj2 = $obj2;
+%skill_multi_obj3 = $obj3;
+%skill_multi_obj4 = $obj4;
+%skill_multi_obj5 = $obj5;
+%skill_multi_obj6 = $obj6;
+%skill_multi_obj7 = $obj7;
+%skill_multi_obj8 = $obj8;
+%skill_multi_obj9 = $obj9;
+%skill_multi_obj10 = $obj10;
+if ($obj1 ! null) { %varclient_1651 = oc_name($obj1); }
+if ($obj2 ! null) { %varclient_1652 = oc_name($obj2); }
+if ($obj3 ! null) { %varclient_1653 = oc_name($obj3); }
+if ($obj4 ! null) { %varclient_1654 = oc_name($obj4); }
+if ($obj5 ! null) { %varclient_1655 = oc_name($obj5); }
+if ($obj6 ! null) { %varclient_1656 = oc_name($obj6); }
+if ($obj7 ! null) { %varclient_1799 = oc_name($obj7); }
+if ($obj8 ! null) { %varclient_1800 = oc_name($obj8); }
+if ($obj9 ! null) { %varclient_1801 = oc_name($obj9); }
+if ($obj10 ! null) { %varclient_1802 = oc_name($obj10); }
+~skill_make_amount($maximum);
+if_openchat(skillmulti2010);
+if_opensub(skillmulti2010_numbers, skillmulti2010:numbers);
+if_settext(skillmulti2010_numbers:text, $text);
+// "All" is the component itself, not a child of it (the client's script 2020 sets its op with
+// if_setop), so its click comes with no slot: the events go on -1, as void-634's unlock does.
+if_setevents(skillmulti2010_numbers:all, -1, -1, ^if_op1, 0, 0, ^false, ^false);
+p_pausebutton;
+def_component $com = last_com;
+if_close;
+def_int $amount = %skill_creation_amount;
+switch_component ($com) {
+    case skillmulti2010:a : return($obj1, $amount);
+    case skillmulti2010:b : return($obj2, $amount);
+    case skillmulti2010:c : return($obj3, $amount);
+    case skillmulti2010:d : return($obj4, $amount);
+    case skillmulti2010:e : return($obj5, $amount);
+    case skillmulti2010:f : return($obj6, $amount);
+    case skillmulti2010:g : return($obj7, $amount);
+    case skillmulti2010:h : return($obj8, $amount);
+    case skillmulti2010:i : return($obj9, $amount);
+    case skillmulti2010:j : return($obj10, $amount);
+    case default : return(null, 0);
+}
+
+// The number panel. All is the maximum; +1 stops at it, -1 at nothing.
+[if_button,skillmulti2010_numbers:com_5]
+%skill_creation_amount = 1;
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com_6]
+%skill_creation_amount = min(5, %skill_creation_maximum);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:com_7]
+%skill_creation_amount = min(10, %skill_creation_maximum);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:all]
+%skill_creation_amount = %skill_creation_maximum;
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:up]
+%skill_creation_amount = min(add(%skill_creation_amount, 1), %skill_creation_maximum);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+[if_button,skillmulti2010_numbers:down]
+%skill_creation_amount = max(sub(%skill_creation_amount, 1), 0);
+%skill_creation_saved = add(%skill_creation_amount, 1);
+
+
+// 289's signatures. All is 28, a full backpack: the most any of 289's makes
+// can use, and the make stops sooner when the materials run out.
+[proc,skill_multi2](namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make(^skill_make_text, ^skill_make_make, 28, $obj1, $obj2, null, null, null);
+return($product, $count);
+
+[proc,skill_multi2_header](string $header, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($header, ^skill_make_make, 28, $obj1, $obj2, null, null, null);
+return($product, $count);
+
+[proc,skill_multi3](namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make(^skill_make_text, ^skill_make_make, 28, $obj1, $obj2, $obj3, null, null);
+return($product, $count);
+
+[proc,skill_multi4](namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, namedobj $obj4, int $x4, int $y4, int $scale4, string $string4)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make(^skill_make_text, ^skill_make_make, 28, $obj1, $obj2, $obj3, $obj4, null);
+return($product, $count);
+
+[proc,skill_multi5](namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, namedobj $obj4, int $x4, int $y4, int $scale4, string $string4, namedobj $obj5, int $x5, int $y5, int $scale5, string $string5)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make(^skill_make_text, ^skill_make_make, 28, $obj1, $obj2, $obj3, $obj4, $obj5);
+return($product, $count);
+
+[proc,skill_multi5_header](string $header, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, namedobj $obj4, int $x4, int $y4, int $scale4, string $string4, namedobj $obj5, int $x5, int $y5, int $scale5, string $string5)(namedobj, int)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($header, ^skill_make_make, 28, $obj1, $obj2, $obj3, $obj4, $obj5);
+return($product, $count);
+
+// 289's multiobj2 asks which of two items, with no amount; here it is
+// skill_make with All at 1. No source found for 2011 asking such questions
+// in this dialogue: the cache still has a two-model "Select an Option"
+// interface, 140 (void-634's dialogue_select2_models).
+[proc,multiobj2](string $title, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, int $sx1, int $sy1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, int $sx2, int $sy2)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, null, null, null);
+return($product);
+
+// 289's multiobj3 and multiobj4 ask the same of three and four items, and
+// multiobj3_close of three with a close button; asked as multiobj2 is.
+[proc,multiobj3](string $title, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, int $sx1, int $sy1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, int $sx2, int $sy2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, int $sx3, int $sy3)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, $obj3, null, null);
+return($product);
+
+// 289's close button on multiobj3_close (com_8) closed the dialogue. Cache
+// 786's skillmulti2010 (905) and its number panel (916) have no close button:
+// 905 has no ops, and 916's are 1, 5, 10, +1 and -1 (All's is the server's
+// if_setevents).
+// [if_button,multiobj3_close:com_8] if_close;
+[proc,multiobj3_close](string $title, namedobj $obj1, int $scale1, string $string1, namedobj $obj2, int $scale2, string $string2, namedobj $obj3, int $scale3, string $string3)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, $obj3, null, null);
+return($product);
+
+[proc,multiobj4](string $title, namedobj $obj1, int $x1, int $y1, int $scale1, string $string1, int $sx1, int $sy1, namedobj $obj2, int $x2, int $y2, int $scale2, string $string2, int $sx2, int $sy2, namedobj $obj3, int $x3, int $y3, int $scale3, string $string3, int $sx3, int $sy3, namedobj $obj4, int $x4, int $y4, int $scale4, string $string4, int $sx4, int $sy4)(namedobj)
+def_namedobj $product;
+def_int $count;
+$product, $count = ~skill_make($title, ^skill_make_make, 1, $obj1, $obj2, $obj3, $obj4, null);
+return($product);
+
+// 289's skill_multi2-5 [if_close] triggers stamp %weakqueue_map_clock, which
+// 289's skill_multi procs read after the click, to close the dialogue and
+// wait a tick when it was closed that same tick. 2011 asks in skillmulti2010,
+// whose proc (skill_make10) closes the dialogue itself after every click:
+// 289's dialogues and their close triggers have no counterpart here.
+// [if_close,skill_multi2]
+// [if_close,skill_multi3]
+// [if_close,skill_multi4]
+// [if_close,skill_multi5]
+
+// The amount on 2011's make-X is the player's last choice:
+// - While playing, the client keeps it in skill_creation_amount (varbit 8095)
+//   and writes it as the 1/5/10/All and +1/-1 buttons are pressed
+//   (clientscripts 2022, 2023); the server mirrors each button (above).
+// - Across logouts it is kept as void-634 keeps it (skill_creation_amount,
+//   persist = true), in %skill_creation_saved: each button press and each
+//   open updates it, as void-634's varbit is updated.
+// - A player's first make starts at 1: void-634's default. No Jagex source
+//   gives a first amount.
+// - An amount above this make's maximum comes down to it, and stays down
+//   (void-634 setMax sets the varbit).
+//   The client labels an amount at or above the maximum "Make All" or "Cook
+//   All" (clientscripts 1111, 2047; verbs 1, 9 and 12 have no All, script
+//   1103), so a remembered All is still All.
+[proc,skill_make_amount](int $maximum)
+%skill_creation_maximum = $maximum;
+// %skill_creation_saved holds the amount plus 1, so that 0 is a player who
+// never chose: -1 can take the amount to 0 (clientscript 2023), which
+// void-634 keeps as it is.
+def_int $amount = 1;
+if (%skill_creation_saved > 0) {
+    $amount = sub(%skill_creation_saved, 1);
+}
+if ($amount > $maximum) {
+    $amount = $maximum;
+}
+%skill_creation_amount = $amount;
+%skill_creation_saved = add($amount, 1);

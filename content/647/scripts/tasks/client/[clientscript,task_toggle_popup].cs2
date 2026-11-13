@@ -1,0 +1,15 @@
+// 4034
+[clientscript,task_toggle_popup]
+if (%task_toggle_popup = 0) {
+    %task_toggle_popup = 1;
+    if_setgraphic(task_main:com_142, "check_box_2,2");
+    if_setonmouseover(task_main:com_142, "task_main_popup_hover(0, 1)");
+    if_setonmouseleave(task_main:com_142, "task_main_popup_hover(1, 1)");
+    if_setop(task_main:com_142, 1, "Turn-on");
+} else {
+    %task_toggle_popup = 0;
+    if_setgraphic(task_main:com_142, "check_box_2,0");
+    if_setonmouseover(task_main:com_142, "task_main_popup_hover(0, 0)");
+    if_setonmouseleave(task_main:com_142, "task_main_popup_hover(1, 0)");
+    if_setop(task_main:com_142, 1, "Turn-off");
+}

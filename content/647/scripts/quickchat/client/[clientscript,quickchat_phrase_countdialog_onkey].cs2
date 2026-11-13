@@ -1,0 +1,42 @@
+// 1048
+[clientscript,quickchat_phrase_countdialog_onkey](int $key0, char $char1, component $component2, component $component3, chatphrase $chatphrase4)
+if ($key0 = ^key_escape) {
+    ~quickchat_close;
+    return;
+}
+if ($key0 = ^key_home) {
+    ~quickchat_open(%quickchat_mode, %varclient_1546);
+    return;
+}
+def_int $int5 = string_length(tostring(%quickchat_phrase_temp_int));
+def_int $int6 = string_indexof_char("0123456789", $char1, 0);
+if ($key0 = ^key_return) {
+    if ($int5 > 0) {
+        ~quickchat_phrase_int($component2, $chatphrase4, %quickchat_phrase_temp_int);
+    } else {
+        ~quickchat_close;
+    }
+    return;
+}
+if ($key0 = ^key_backspace) {
+    if ($int5 > 0) {
+        %quickchat_phrase_temp_int = calc(%quickchat_phrase_temp_int / 10);
+    } else if (%quickchat_backspace = false) {
+        ~quickchat_close;
+    } else {
+        if_sethide(chatdefault:quickchat_countdialog, true);
+        if_sethide(chatdefault:quickchat_listdialog, true);
+        if_sethide(chatdefault:quickchat_objdialog, true);
+        if_sethide(chatdefault:quickchat_menu, false);
+        if_sethide(chatdefault:quickchat_path, false);
+        if_sethide(chatdefault:quickchat_title, true);
+        return;
+    }
+} else if ($int6 >= 0 & $int5 < 10 & calc(%quickchat_phrase_temp_int * 10 + $int6) > 0) {
+    %quickchat_phrase_temp_int = calc(%quickchat_phrase_temp_int * 10 + $int6);
+}
+if (%quickchat_phrase_temp_int > 0) {
+    if_settext($component3, "Please enter a value: <tostring(%quickchat_phrase_temp_int)>*");
+} else {
+    if_settext($component3, "Please enter a value: *");
+}

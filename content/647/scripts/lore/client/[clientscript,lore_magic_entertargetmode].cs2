@@ -1,0 +1,8 @@
+// 657
+[clientscript,lore_magic_entertargetmode](component $component0)
+if (cc_find($component0, 0) = true) {
+    cc_setoutline(2);
+    if (calc(cc_gettargetmask & 32) ! 0) {
+        ~if_switchside(4);
+    }
+}

@@ -1,0 +1,5 @@
+// 2471
+[clientscript,script2471]
+if_sethide(enum(npc, component, enum_1092, %lore_npc_head), true);
+if_setgraphic(topstat_lore:topstat_circle_lore, "topstat_fill_full,3");
+if_sethide(topstat_lore:main_ops, true);

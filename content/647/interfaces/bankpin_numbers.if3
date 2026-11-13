@@ -1,0 +1,465 @@
+// 759:0
+[universe]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 759:1
+[0_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:0_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:0_digit)
+
+// 759:2
+[com_2]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=0_container
+graphic=number_button
+
+// 759:3
+[0_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=0_container
+textfont=b12_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:4
+[com_4]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=0_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:5
+[1_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:1_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:1_digit)
+
+// 759:6
+[com_6]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=1_container
+graphic=number_button
+
+// 759:7
+[1_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=1_container
+textfont=b12_full
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:8
+[com_8]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=1_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:9
+[2_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:2_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:2_digit)
+
+// 759:10
+[com_10]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=2_container
+graphic=number_button
+
+// 759:11
+[2_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=2_container
+textfont=b12_full
+text=2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:12
+[com_12]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=2_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:13
+[3_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:3_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:3_digit)
+
+// 759:14
+[com_14]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=3_container
+graphic=number_button
+
+// 759:15
+[3_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=3_container
+textfont=b12_full
+text=3
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:16
+[com_16]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=3_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:17
+[4_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:4_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:4_digit)
+
+// 759:18
+[com_18]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=4_container
+graphic=number_button
+
+// 759:19
+[4_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=4_container
+textfont=b12_full
+text=4
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:20
+[com_20]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=4_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:21
+[5_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:5_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:5_digit)
+
+// 759:22
+[com_22]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=5_container
+graphic=number_button
+
+// 759:23
+[5_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=5_container
+textfont=b12_full
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:24
+[com_24]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=5_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:25
+[6_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:6_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:6_digit)
+
+// 759:26
+[com_26]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=6_container
+graphic=number_button
+
+// 759:27
+[6_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=6_container
+textfont=b12_full
+text=6
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:28
+[com_28]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=6_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:29
+[7_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:7_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:7_digit)
+
+// 759:30
+[com_30]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=7_container
+graphic=number_button
+
+// 759:31
+[7_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=7_container
+textfont=b12_full
+text=7
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:32
+[com_32]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=7_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:33
+[8_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:8_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:8_digit)
+
+// 759:34
+[com_34]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=8_container
+graphic=number_button
+
+// 759:35
+[8_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=8_container
+textfont=b12_full
+text=8
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:36
+[com_36]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=8_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)
+
+// 759:37
+[9_container]
+type=layer
+width=64
+height=64
+layer=universe
+onmouseleave=comp_sethide(false, bankpin_numbers:9_digit)
+onmouserepeat=comp_sethide(true, bankpin_numbers:9_digit)
+
+// 759:38
+[com_38]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=9_container
+graphic=number_button
+
+// 759:39
+[9_digit]
+type=text
+width=10
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=9_container
+textfont=b12_full
+text=9
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 759:40
+[com_40]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=9_container
+transmitop=1
+op1=Select digit
+onop=bankpin_button(event_op)

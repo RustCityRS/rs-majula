@@ -1,0 +1,9 @@
+// 3997
+[clientscript,task_main_display_totals]
+if_settext(task_main:tasks_total, tostring(%varclient_1423));
+if_settext(task_main:tasks_done, tostring(%varclient_1424));
+if_settext(task_main:total_total, tostring(428));
+if_settext(task_main:total_done, tostring(%varplayerbit_8601));
+if_settext(task_main:complete, "Progress:");
+def_int $int0 = calc(%varclient_1424 * (if_getwidth(task_main:progress_layer) - 4) / max(%varclient_1423, 1));
+if_setsize(task_main:progress_bar_done, $int0, 16, ^setsize_abs, ^setsize_abs);

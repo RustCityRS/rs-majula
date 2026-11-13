@@ -1,0 +1,18 @@
+// 2691
+[clientscript,graphics_options_mouseoveroption](component $component0, int $int1, boolean $boolean2, int $int3, int $rgb4, boolean $boolean5)
+if ($boolean5 = true & cc_find($component0, $int3) = true) {
+    cc_setcolour($rgb4);
+}
+if (cc_find($component0, $int1) = true) {
+    if ($boolean2 = true) {
+        if (cc_getgraphic = graphic_2554) {
+            cc_setgraphic(graphic_2555);
+        } else if (cc_getgraphic = graphic_2556) {
+            cc_setgraphic(graphic_2557);
+        }
+    } else if (cc_getgraphic = graphic_2555) {
+        cc_setgraphic(graphic_2554);
+    } else if (cc_getgraphic = graphic_2557) {
+        cc_setgraphic(graphic_2556);
+    }
+}

@@ -1,0 +1,448 @@
+// 751:0
+[container]
+type=layer
+width=519
+height=23
+onvartransmit=redraw_chat_buttons{varplayer_1054, varplayer_1055, varplayer_1056}
+
+// 751:1
+[buttoncontainer]
+type=layer
+width=519
+height=23
+
+// 751:2
+[chat_all]
+type=layer
+x=5
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:3
+[chat_game]
+type=layer
+x=62
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:4
+[chat_public]
+type=layer
+x=119
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:5
+[chat_private]
+type=layer
+x=176
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:6
+[chat_clan]
+type=layer
+x=290
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:7
+[chat_friendschat]
+type=layer
+x=233
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:8
+[chat_trade]
+type=layer
+x=347
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:9
+[chat_assist]
+type=layer
+x=404
+y=1
+width=56
+height=22
+layer=buttoncontainer
+
+// 751:10
+[reportabuse]
+type=layer
+x=4
+y=1
+width=54
+height=22
+xmode=abs_right
+layer=buttoncontainer
+transmitop=1
+op1=Report Abuse
+onop=snapshot_open("")
+
+// 751:11
+[reportabuse_graphic]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=reportabuse
+graphic=large_button
+colour=0xffffffff
+onmouseover=large_button_highlight(event_com)
+onmouseleave=large_button(event_com)
+
+// 751:12
+[text_report_abuse]
+type=text
+widthmode=minus
+heightmode=minus
+layer=reportabuse
+textfont=p11_full
+text=Report
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:13
+[chat_assist_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_assist
+graphic=small_button
+colour=0xffffffff
+transmitop=1,2,3,4,6
+op1=View Assist
+op2=On Assist
+op3=Friends Assist
+op4=Off Assist
+op6=XP Earned/Time
+onmouseover=chat_button_select(6)
+onmouseleave=chat_button_deselect(6)
+onop=chat_button_onop(event_op, 6)
+
+// 751:14
+[text_assist]
+type=text
+width=56
+height=11
+layer=chat_assist
+textfont=p11_full
+text=Assist
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:15
+[text_assist_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_assist
+textfont=p11_full
+text=On
+textalignh=centre
+textshadow=yes
+colour=0x00ff00
+
+// 751:16
+[chat_trade_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_trade
+graphic=small_button
+colour=0xffffffff
+transmitop=1,2,3,4
+opbase=Trade
+op1=View
+op2=On
+op3=Friends
+op4=Off
+onmouseover=chat_button_select(5)
+onmouseleave=chat_button_deselect(5)
+onop=chat_button_onop(event_op, 5)
+
+// 751:17
+[text_trade]
+type=text
+width=56
+height=11
+layer=chat_trade
+textfont=p11_full
+text=Trade
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:18
+[text_trade_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_trade
+textfont=p11_full
+text=On
+textalignh=centre
+textshadow=yes
+colour=0x00ff00
+
+// 751:19
+[chat_clan_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_clan
+graphic=small_button
+colour=0xffffffff
+transmitop=1,2,3,4
+opbase=Clan
+op1=View
+op2=On
+op3=Friends
+op4=Off
+onmouseover=chat_button_select(7)
+onmouseleave=chat_button_deselect(7)
+onop=chat_button_onop(event_op, 7)
+
+// 751:20
+[text_clan]
+type=text
+width=56
+height=11
+layer=chat_clan
+textfont=p11_full
+text=Clan
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:21
+[text_clan_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_clan
+textfont=p11_full
+text=On
+textalignh=centre
+textshadow=yes
+colour=0x00ff00
+
+// 751:22
+[chat_private_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_private
+graphic=small_button
+colour=0xffffffff
+transmitop=1,2,3,4
+opbase=Private
+op1=View
+op2=On
+op3=Friends
+op4=Off
+onmouseover=chat_button_select(3)
+onmouseleave=chat_button_deselect(3)
+onop=chat_button_onop(event_op, 3)
+
+// 751:23
+[text_private]
+type=text
+width=56
+height=11
+layer=chat_private
+textfont=p11_full
+text=Private
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:24
+[text_private_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_private
+textfont=p11_full
+text=On
+textalignh=centre
+textshadow=yes
+colour=0x00ff00
+
+// 751:25
+[chat_public_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_public
+graphic=small_button
+colour=0xffffffff
+transmitop=1,2,3,4,5
+opbase=Public
+op1=View
+op2=On
+op3=Friends
+op4=Off
+op5=Hide
+onmouseover=chat_button_select(2)
+onmouseleave=chat_button_deselect(2)
+onop=chat_button_onop(event_op, 2)
+
+// 751:26
+[text_public]
+type=text
+width=56
+height=11
+layer=chat_public
+textfont=p11_full
+text=Public
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:27
+[text_public_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_public
+textfont=p11_full
+text=On
+textalignh=centre
+textshadow=yes
+colour=0x00ff00
+
+// 751:28
+[chat_game_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_game
+graphic=small_button
+colour=0xffffffff
+transmitop=1,2,4
+opbase=Game
+op1=View
+op2=All
+op4=Filter
+onmouseover=chat_button_select(1)
+onmouseleave=chat_button_deselect(1)
+onop=chat_button_onop(event_op, 1)
+
+// 751:29
+[text_game]
+type=text
+width=56
+height=11
+layer=chat_game
+textfont=p11_full
+text=Game
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:30
+[text_game_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_game
+textfont=p11_full
+text=All
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 751:31
+[chat_all_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_all
+graphic=small_button
+colour=0xffffffff
+transmitop=1
+opbase=All
+op1=View
+onmouseover=chat_button_select(0)
+onmouseleave=chat_button_deselect(0)
+onop=chat_button_onop(event_op, 0)
+
+// 751:32
+[text_all]
+type=text
+width=56
+height=22
+layer=chat_all
+textfont=p11_full
+text=All
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:33
+[chat_friendschat_graphic]
+type=graphic
+width=56
+height=22
+layer=chat_friendschat
+graphic=small_button
+transmitop=1,2,3,4
+opbase=Friends Chat
+op1=View
+op2=On
+op3=Friends
+op4=Off
+onmouseover=chat_button_select(4)
+onmouseleave=chat_button_deselect(4)
+onop=chat_button_onop(event_op, 4)
+
+// 751:34
+[text_friendschat]
+type=text
+width=56
+height=11
+layer=chat_friendschat
+textfont=p11_full
+text=Friends
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 751:35
+[text_friendschat_setting]
+type=text
+y=11
+width=56
+height=11
+layer=chat_friendschat
+textfont=p11_full
+text=On
+textalignh=centre
+textshadow=yes
+colour=0x00ff00

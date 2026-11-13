@@ -1,0 +1,16 @@
+// 2095
+[clientscript,snp_tutorial_flash_icons]
+if (%snp_tut_flash_counter_client < 100) {
+    %snp_tut_flash_counter_client = calc(%snp_tut_flash_counter_client + 1);
+}
+if (%snp_tut_flash_counter_client = 50) {
+    if_sethide(snp_tutorial_game_overlay:east_grave_flash_layer, true);
+    if_sethide(snp_tutorial_game_overlay:west_grave_flash_layer, true);
+    if_sethide(snp_tutorial_game_overlay:obelisk_flash_layer, true);
+}
+if (%snp_tut_flash_counter_client = 100) {
+    if_sethide(snp_tutorial_game_overlay:east_grave_flash_layer, false);
+    if_sethide(snp_tutorial_game_overlay:west_grave_flash_layer, false);
+    if_sethide(snp_tutorial_game_overlay:obelisk_flash_layer, false);
+    %snp_tut_flash_counter_client = 0;
+}

@@ -1,0 +1,95 @@
+// 2011 rebuilt East Ardougne: 289's level-1 door (loc_2550, 2674,3305) is gone
+// and two level-1 doors, door_34812 (2672,3301 and 2672,3308), open onto
+// door_34813 (void-634's ardougne_locked_door_closed/_opened, level 1).
+[locked_door_loc_2550]
+table=locked_door
+data=loc,area_ardougne_door2_locked
+data=replacement,area_ardougne_door2_open
+data=level,1
+data=experience,38
+data=door_successchance,32,250
+
+// 289's level-16 door (loc_2551, 2674,3304) has no 2011 counterpart: its tile
+// holds scenery and 2011's id 2551 is a rock.
+// [locked_door_loc_2551]
+// table=locked_door
+// data=loc,loc_2551
+// data=replacement,loc_1532
+// data=level,16
+// data=experience,150
+// data=door_successchance,32,250
+
+[locked_door_east_ardy_sewer_gate_north]
+table=locked_door
+data=loc,picklock3_l
+data=replacement,inacmetalgateopenl
+data=level,31
+data=experience,250
+data=mirror,true
+data=gate,true
+data=door_successchance,16,100
+
+[locked_door_east_ardy_sewer_gate_south]
+table=locked_door
+data=loc,picklock3_r
+data=replacement,inacmetalgateopenr
+data=level,31
+data=experience,250
+data=gate,true
+data=door_successchance,16,100
+
+[locked_door_loc_2554]
+table=locked_door
+data=loc,picklock4
+data=replacement,inactivepoordoor
+data=level,46
+data=experience,375
+data=door_successchance,8,75
+data=trap_successchance,220,280
+
+[locked_door_loc_2555]
+table=locked_door
+data=loc,picklock5
+data=replacement,inactiveelfdoor
+data=level,61
+data=experience,500
+data=door_successchance,4,40
+data=trap_successchance,200,270
+
+[locked_door_loc_2556]
+table=locked_door
+data=loc,picklock6
+data=replacement,inactiveelfdoor
+data=level,13
+data=experience,150
+data=door_successchance,4,40
+data=trap_successchance,32,250
+
+[locked_door_loc_2557]
+table=locked_door
+data=loc,door_2557
+data=replacement,inactiveprisondoor
+data=level,23
+data=experience,250
+data=tool,lockpick,lockpick
+data=door_successchance,24,175
+
+[locked_door_loc_2558]
+table=locked_door
+data=loc,toollock3
+data=replacement,inactivepoordoor
+data=level,39
+data=experience,350
+data=tool,lockpick,lockpick
+data=lock_inversed,true
+data=door_successchance,12,87
+
+[locked_door_loc_2559]
+table=locked_door
+data=loc,toollock5
+data=replacement,inactiveposhdoor
+data=level,82
+data=experience,500
+data=tool,lockpick,lockpick
+data=lock_inversed,true
+data=door_successchance,40,82

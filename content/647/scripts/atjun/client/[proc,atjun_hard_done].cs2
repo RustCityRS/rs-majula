@@ -1,0 +1,14 @@
+// 1100
+[proc,atjun_hard_done]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %atjun_hard_fightpits);
+$int0 = calc($int0 + %atjun_hard_fightcave);
+$int0 = calc($int0 + %atjun_hard_oomlie);
+$int0 = calc($int0 + %atjun_hard_nature);
+$int0 = calc($int0 + %atjun_hard_karambwan);
+$int0 = calc($int0 + %atjun_hard_deathwing);
+$int0 = calc($int0 + %atjun_hard_xbow);
+$int0 = calc($int0 + %atjun_hard_palm);
+$int0 = calc($int0 + %atjun_hard_duradel);
+$int0 = calc($int0 + %atjun_hard_dragon);
+return($int0);

@@ -1,0 +1,5 @@
+// 4302
+[proc,clansettings_list_scrollbar_update_find]
+if (activeclansettings_find_affined = true) {
+    ~clansettings_list_scrollbar_update;
+}

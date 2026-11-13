@@ -1,0 +1,414 @@
+// 51:0
+[com_0]
+type=rectangle
+width=512
+height=334
+colour=0x1b251b
+fill=yes
+trans=1
+
+// 51:1
+[map_model]
+type=model
+x=16
+y=5
+width=509
+height=320
+model=model_14056
+modelorigin=1,-30
+modelangle=212,68,0
+modelzoom=424
+
+// 51:2
+[temple_model]
+type=model
+x=113
+y=28
+width=191
+height=91
+model=model_14054
+modelorigin=7,-10
+modelangle=212,68,0
+modelzoom=424
+
+// 51:3
+[temple_hi_model_1]
+type=model
+x=146
+y=35
+width=100
+height=47
+layer=route1_hi_layer
+model=model_14055
+modelorigin=1,-2
+modelangle=212,68,0
+modelzoom=424
+
+// 51:4
+[temple_hi_model_2]
+type=model
+x=146
+y=35
+width=100
+height=47
+layer=route2_hi_layer
+model=model_14055
+modelorigin=1,-2
+modelangle=212,68,0
+modelzoom=424
+
+// 51:5
+[boat_model]
+type=model
+x=182
+y=29
+width=191
+height=215
+model=model_14052
+modelorigin=19,-5
+modelangle=500,0,0
+modelzoom=414
+
+// 51:6
+[boat_hi_model]
+type=model
+x=207
+y=65
+width=110
+height=127
+layer=route2_hi_layer
+model=model_14053
+modelorigin=16,-4
+modelangle=500,0,0
+modelzoom=414
+
+// 51:7
+[route_1_model]
+type=model
+x=246
+y=59
+width=87
+height=78
+model=model_14059
+modelorigin=12,-12
+modelangle=212,68,0
+modelzoom=414
+
+// 51:8
+[route_1_model_hi]
+type=model
+x=228
+y=52
+width=87
+height=78
+layer=route1_hi_layer
+model=model_14060
+modelorigin=12,-12
+modelangle=212,68,0
+modelzoom=414
+
+// 51:9
+[route_2_model]
+type=model
+x=229
+y=69
+width=96
+height=126
+model=model_14061
+modelorigin=3,-11
+modelangle=212,68,0
+modelzoom=424
+
+// 51:10
+[route_2_model_hi]
+type=model
+x=211
+y=62
+width=96
+height=126
+layer=route2_hi_layer
+model=model_14062
+modelorigin=3,-11
+modelangle=212,68,0
+modelzoom=424
+
+// 51:11
+[canifis]
+type=text
+x=275
+y=70
+width=66
+height=17
+textfont=q8_full
+text=Canifis
+textalignh=right
+colour=0xa0a075
+
+// 51:12
+[mort_myre_swamp]
+type=text
+x=181
+y=88
+width=79
+height=32
+textfont=q8_full
+text=Mort Myre<br>Swamp
+textalignh=centre
+colour=0xa0a075
+
+// 51:13
+[hollows]
+type=text
+x=268
+y=99
+width=65
+height=16
+textfont=q8_full
+text=Hollows
+colour=0xa0a075
+
+// 51:14
+[mort_ton]
+type=text
+x=223
+y=162
+width=94
+height=17
+textfont=q8_full
+text=Mort'ton
+textalignh=centre
+colour=0xa0a075
+
+// 51:15
+[graveyard]
+type=text
+x=361
+y=116
+width=104
+height=19
+textfont=q8_full
+text=Graveyard
+textalignh=centre
+colour=0xa0a075
+
+// 51:16
+[temple]
+type=text
+x=179
+y=27
+width=71
+height=19
+textfont=q8_full
+text=Temple
+textalignh=centre
+colour=0xa0a075
+
+// 51:17
+[player_icon_model]
+type=model
+x=332
+y=100
+width=21
+height=42
+model=model_14058
+modelorigin=-59,23
+modelangle=212,68,0
+modelzoom=424
+
+// 51:18
+[npc_icon_model]
+type=model
+x=346
+y=126
+width=21
+height=21
+model=model_14057
+modelorigin=-72,10
+modelangle=212,68,0
+modelzoom=424
+
+// 51:19
+[route1scroll]
+type=model
+x=340
+y=60
+width=129
+height=37
+model=model_10094
+modelorigin=0,-4
+modelangle=528,2047,0
+modelzoom=1189
+transmitop=1
+op1=Route 1
+onmouseover=comp_sethide(false, burgh_map:route1_hi_layer)
+onmouseleave=comp_sethide(true, burgh_map:route1_hi_layer)
+
+// 51:20
+[route1]
+type=text
+x=379
+y=65
+width=53
+height=17
+textfont=q8_full
+text=Route 1
+textalignh=centre
+colour=0x341b10
+
+// 51:21
+[route1_hi]
+type=text
+x=361
+y=58
+width=53
+height=17
+layer=route1_hi_layer
+textfont=q8_full
+text=Route 1
+textalignh=centre
+
+// 51:22
+[route2scroll]
+type=model
+x=96
+y=151
+width=129
+height=37
+model=model_10094
+modelorigin=0,-4
+modelangle=528,2047,0
+modelzoom=1189
+transmitop=1
+op1=Route 2
+onmouseover=comp_sethide(false, burgh_map:route2_hi_layer)
+onmouseleave=comp_sethide(true, burgh_map:route2_hi_layer)
+
+// 51:23
+[route2]
+type=text
+x=133
+y=155
+width=56
+height=17
+textfont=q8_full
+text=Route 2
+textalignh=centre
+colour=0x341b10
+
+// 51:24
+[route2_hi]
+type=text
+x=115
+y=148
+width=56
+height=17
+layer=route2_hi_layer
+textfont=q8_full
+text=Route 2
+textalignh=centre
+
+// 51:25
+[com_25]
+type=model
+x=290
+y=176
+width=221
+height=150
+model=model_10095
+modelorigin=-1,0
+modelangle=528,0,0
+modelzoom=618
+
+// 51:26
+[route_1_desc]
+type=text
+x=302
+y=176
+width=158
+height=107
+layer=route1_hi_layer
+textfont=q8_full
+text=Route 1:<br><br>Take the route through<br>Canifis.<br><br>Shorter but potentially<br>more dangerous.
+colour=0x341b10
+
+// 51:27
+[route_2_desc]
+type=text
+x=302
+y=176
+width=158
+height=107
+layer=route2_hi_layer
+textfont=q8_full
+text=Route 2:<br><br>Take the route through<br>Mort Myre Swamp.<br><br>Longer but less likely<br>to be attacked.
+colour=0x341b10
+
+// 51:28
+[route1_hi_layer]
+type=layer
+x=18
+y=7
+width=487
+height=319
+hide=yes
+
+// 51:29
+[route2_hi_layer]
+type=layer
+x=18
+y=7
+width=487
+height=319
+hide=yes
+
+// 51:30
+[com_30]
+type=model
+x=2
+y=27
+width=189
+height=55
+model=model_10094
+modelorigin=0,-6
+modelangle=528,2047,0
+modelzoom=805
+
+// 51:31
+[burgh_de_rott]
+type=text
+x=219
+y=212
+width=83
+height=41
+textfont=q8_full
+text=Burgh de<br>Rott
+textalignh=centre
+colour=0xa0a075
+
+// 51:32
+[burgh_choose_text]
+type=text
+x=33
+y=27
+width=125
+height=40
+textfont=q8_full
+text=Choose your path
+textalignh=centre
+textalignv=centre
+colour=0x341b10
+
+// 51:33
+[close_button]
+type=graphic
+x=484
+y=3
+width=26
+height=23
+graphic="close_buttons,4"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click

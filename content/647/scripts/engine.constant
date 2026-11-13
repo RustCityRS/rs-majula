@@ -1,0 +1,330 @@
+^yes = 1
+^no = 0
+^null = -1
+^nothing = 0
+
+^min_32bit_int = -2147483648
+^max_32bit_int = 2147483647
+
+^lumbridge_spawn = 0_50_50_21_18
+
+^hat_slot = 0
+^cape_slot = 1
+^amulet_slot = 2
+^weapon_slot = 3
+^chest_slot = 4
+^shield_slot = 5
+^legs_slot = 7
+^hands_slot = 9
+^feet_slot = 10
+^ring_slot = 12
+^ammo_slot = 13
+
+// Stat constants are 289's (player/configs/stat.constant): the stats enum's
+// keys, which nothing here used as stat ids.
+
+// for exactmove
+^exact_north = 0
+^exact_east = 1
+^exact_south = 2
+^exact_west = 3
+
+// for directions procs
+^exact_northeast = 4
+^exact_southeast = 5
+^exact_southwest = 6
+^exact_northwest = 7
+
+// for locangle
+^loc_west = 0
+^loc_north = 1
+^loc_east = 2
+^loc_south = 3
+
+^string_empty =
+
+// for longqueue
+^accelerate = 0
+^discard = 1
+
+// for gettimespent
+^millis = 0
+^micros = 1
+
+// if_setevents op flags (combined via or() for ops param)
+^no_op = 0
+^if_op1 = 1
+^if_op2 = 2
+^if_op3 = 4
+^if_op4 = 8
+^if_op5 = 16
+^if_op6 = 32
+^if_op7 = 64
+^if_op8 = 128
+^if_op9 = 256
+^if_op10 = 512
+
+// if_setevents use-on target flags (combined via or() for useon_flags param)
+^useon_grounditem = 1
+^useon_npc = 2
+^useon_loc = 4
+^useon_player = 8
+^useon_self = 16
+^useon_component = 32
+^useon_coord = 64
+
+// session logging
+^log_moderator = 0
+^log_adventure = 1
+
+// displaymessage enum keys
+^dm_default = 0
+^dm_invspace = 1
+^dm_members_feature = 2
+^dm_farming_spade = 3
+^dm_farming_dibber = 4
+^dm_farming_patch_no_crops = 5
+^dm_farming_patch_weeding = 6
+^dm_farming_patch_planted = 7
+^dm_farming_trowel = 8
+^dm_need_plant_cure = 9
+
+// wealth_event eventType enum (anti-RWT telemetry) — ported from rs-majula
+^wealth_pickup = 5
+^wealth_shop_buy = 6
+^wealth_shop_sell = 7
+^wealth_low_alch = 8
+^wealth_high_alch = 9
+^wealth_partyroom = 10
+
+^event_mousex = 0x80000001
+^event_mousey = 0x80000002
+^event_com = 0x80000003
+^event_op = 0x80000004
+^event_comsubid = 0x80000005
+^event_com2 = 0x80000006
+^event_comsubid2 = 0x80000007
+^event_keycode = 0x80000008
+^event_keychar = 0x80000009
+^event_opbase = "event_opbase"
+
+^iftype_layer = 0
+^iftype_inputbox = 1
+^iftype_inv = 2
+^iftype_rectangle = 3
+^iftype_text = 4
+^iftype_graphic = 5
+^iftype_model = 6
+^iftype_invtext = 7
+^iftype_tooltip = 8
+^iftype_line = 9
+^setpos_abs_left = 0
+^setpos_abs_centre = 1
+^setpos_abs_right = 2
+^setpos_rel_left = 3
+^setpos_rel_centre = 4
+^setpos_rel_right = 5
+^setpos_abs_top = 0
+^setpos_abs_bottom = 2
+^setpos_rel_top = 3
+^setpos_rel_bottom = 5
+^setsize_abs = 0
+^setsize_minus = 1
+^setsize_rel = 2
+^settextalign_left = 0
+^settextalign_centre = 1
+^settextalign_right = 2
+^settextalign_top = 0
+^settextalign_bottom = 2
+^setsize_aspect = 4
+
+
+^chatfilter_on = 0
+^chatfilter_friends = 1
+^chatfilter_off = 2
+^chatfilter_hide = 3
+^chatfilter_autochat = 4
+
+^chattype_gamemessage = 0
+^chattype_modchat = 1
+^chattype_publicchat = 2
+^chattype_privatechat = 3
+^chattype_engine = 4
+^chattype_loginlogoutnotification = 5
+^chattype_privatechatout = 6
+^chattype_modprivatechat = 7
+^chattype_friendschat = 9
+^chattype_friendschatnotification = 11
+^chattype_quickchat_public = 17
+^chattype_quickchat_private_incoming = 18
+^chattype_quickchat_private_outgoing = 19
+^chattype_quickchat_friend_chat = 20
+^chattype_group_same_team = 22
+^chattype_quickchat_group_same_team = 23
+^chattype_group_all = 24
+^chattype_quickchat_group_all = 25
+^chattype_snapshotfeedback = 26
+^chattype_obj_examine = 27
+^chattype_npc_examine = 28
+^chattype_loc_examine = 29
+^chattype_friendnotification = 30
+^chattype_ignorenotification = 31
+^chattype_clanchat = 41
+^chattype_quickchat_clanchat = 42
+^chattype_clanmessage = 43
+^chattype_clanguestchat = 44
+^chattype_quickchat_clanguestchat = 45
+^chattype_clanguestmessage = 46
+^chattype_console_error = 96
+^chattype_console_buffer_replace = 98
+^chattype_console = 99
+^chattype_tradereq = 100
+^chattype_challenge = 101
+^chattype_assistreq = 102
+^chattype_trade_notification = 103
+^chattype_assist_notification = 104
+^chattype_clan_challenge = 107
+^chattype_ally_request = 108
+^chattype_spam = 109
+^chattype_dungeon_invite = 111
+^chattype_conquest_regular_challenge = 113
+^chattype_system_broadcast = 115
+^chattype_npc_chat = 116
+^chattype_clan_join = 117
+^chattype_rated_clan_war = 118
+^chattype_ignorable_trade_notification = 119
+^chattype_all_panes = 120
+^chattype_raid_high = 122
+^chattype_raid_dnd = 123
+^chattype_broadcast = 125
+^chattype_duel_any_request = 132
+^chattype_temporary_event = 133
+^chattype_hati_fenrir = 134
+^chattype_latest_newspost = 135
+^chattype_motd = 136
+^chattype_broadcast_global = 137
+^chattype_broadcast_world = 138
+^chattype_broadcast_friends = 139
+^chattype_interface_open = 140
+^chattype_timed_event = 142
+^chattype_interface_open_filtered = 143
+^chattype_group_ironman_notification = 144
+^chattype_general_linkable = 145
+
+
+^key_f1 = 1
+^key_f2 = 2
+^key_f3 = 3
+^key_f4 = 4
+^key_f5 = 5
+^key_f6 = 6
+^key_f7 = 7
+^key_f8 = 8
+^key_f9 = 9
+^key_f10 = 10
+^key_f11 = 11
+^key_f12 = 12
+^key_escape = 13
+^key_1 = 16
+^key_2 = 17
+^key_3 = 18
+^key_4 = 19
+^key_5 = 20
+^key_6 = 21
+^key_7 = 22
+^key_8 = 23
+^key_9 = 24
+^key_0 = 25
+^key_minus = 26
+^key_equals = 27
+^key_console = 28
+^key_q = 32
+^key_w = 33
+^key_e = 34
+^key_r = 35
+^key_t = 36
+^key_y = 37
+^key_u = 38
+^key_i = 39
+^key_o = 40
+^key_p = 41
+^key_left_bracket = 42
+^key_right_bracket = 43
+^key_a = 48
+^key_s = 49
+^key_d = 50
+^key_f = 51
+^key_g = 52
+^key_h = 53
+^key_j = 54
+^key_k = 55
+^key_l = 56
+^key_semicolon = 57
+^key_apostrophe = 58
+^key_win_left = 59
+^key_z = 64
+^key_x = 65
+^key_c = 66
+^key_v = 67
+^key_b = 68
+^key_n = 69
+^key_m = 70
+^key_comma = 71
+^key_period = 72
+^key_slash = 73
+^key_backslash = 74
+^key_tab = 80
+^key_shift_left = 81
+^key_control_left = 82
+^key_space = 83
+^key_return = 84
+^key_backspace = 85
+^key_alt_left = 86
+^key_numpad_add = 87
+^key_numpad_subtract = 88
+^key_numpad_multiply = 89
+^key_numpad_divide = 90
+^key_clear = 91
+^key_left = 96
+^key_right = 97
+^key_up = 98
+^key_down = 99
+^key_insert = 100
+^key_del = 101
+^key_home = 102
+^key_end = 103
+^key_page_up = 104
+^key_page_down = 105
+
+^platformtype_default = 0
+^platformtype_steam = 1
+^platformtype_android = 2
+^platformtype_apple = 3
+^platformtype_jagex = 5
+
+^windowmode_small = 1
+^windowmode_resizable = 2
+^windowmode_fullscreen = 3
+
+^setsize_3 = 3
+
+^settextalignh_justified = 3
+
+^iftype_button = 10
+^iftype_panel = 11
+^iftype_check = 12
+^iftype_input = 13
+^iftype_slider = 14
+^iftype_grid = 15
+^iftype_list = 16
+^iftype_combo = 17
+^iftype_pagedlayer = 18
+^iftype_pagedlayerheader = 19
+^iftype_carousel = 20
+^iftype_pagedcarousel = 21
+^iftype_radiogroup = 22
+^iftype_groupbox = 23
+^iftype_radialprogressoverlay = 24
+^iftype_crmview = 26
+^iftype_cutscenelayer = 27
+^iftype_modelgroup = 28

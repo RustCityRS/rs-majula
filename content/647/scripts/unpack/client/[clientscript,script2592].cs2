@@ -1,0 +1,8 @@
+// 2592
+[clientscript,script2592](component $component0)
+sound_synth(synth_6784, 1, 0);
+if (if_getgraphic($component0) = "warning_icons,1") {
+    if_setgraphic($component0, "warning_icons,2");
+} else {
+    if_setgraphic($component0, "warning_icons,1");
+}

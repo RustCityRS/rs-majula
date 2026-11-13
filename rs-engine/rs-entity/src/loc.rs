@@ -2,6 +2,7 @@ use crate::lifetime::EntityLifeTime;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
 pub use rs_vm::LocSerial;
+use std::mem;
 
 // ---- THE BELOW SECTION IS FOR BUILDING THE ENTIRE PACKED `u128` -- all 128 bits.
 
@@ -265,7 +266,7 @@ impl Loc {
     /// Uses `transmute` internally; the 5-bit value is assumed to be a valid `LocShape` discriminant.
     #[inline(always)]
     pub const fn shape(&self) -> LocShape {
-        unsafe { std::mem::transmute(((self.current_info() >> SHAPE_SHIFT) & SHAPE_MASK) as u8) }
+        unsafe { mem::transmute(((self.current_info() >> SHAPE_SHIFT) & SHAPE_MASK) as u8) }
     }
 
     /// Returns the original (base) shape of this loc, ignoring any runtime change.
@@ -277,7 +278,7 @@ impl Loc {
     /// Uses `transmute` internally; the 5-bit value is assumed to be a valid `LocShape` discriminant.
     #[inline(always)]
     const fn base_shape(&self) -> LocShape {
-        unsafe { std::mem::transmute(((self.base_info() >> SHAPE_SHIFT) & SHAPE_MASK) as u8) }
+        unsafe { mem::transmute(((self.base_info() >> SHAPE_SHIFT) & SHAPE_MASK) as u8) }
     }
 
     /// Returns the current rotation angle of this loc.
@@ -289,7 +290,7 @@ impl Loc {
     /// Uses `transmute` internally; the 2-bit value is assumed to be a valid `LocAngle` discriminant.
     #[inline(always)]
     pub const fn angle(&self) -> LocAngle {
-        unsafe { std::mem::transmute(((self.current_info() >> ANGLE_SHIFT) & ANGLE_MASK) as u8) }
+        unsafe { mem::transmute(((self.current_info() >> ANGLE_SHIFT) & ANGLE_MASK) as u8) }
     }
 
     /// Returns whether this loc currently blocks movement.

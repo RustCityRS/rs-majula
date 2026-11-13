@@ -1,0 +1,1853 @@
+// 3227
+[proc,task_get_progress](int $int0)(int)
+if (struct_param(enum(int, struct, enum_3483, $int0), param_1270) ! 4094) {
+    return(~ql4_getprogress(struct_param(enum(int, struct, enum_3483, $int0), param_1270)));
+} else {
+    switch_int ($int0) {
+        case default :
+            return(0);
+        case 0 :
+            if (%varplayerbit_6598 = 1) {
+                return(2);
+            }
+        case 1 :
+            if (%varplayerbit_6599 = 1) {
+                return(2);
+            }
+        case 2 :
+            if (%varplayerbit_6600 = 1) {
+                return(2);
+            }
+        case 3 :
+            if (%varplayerbit_6601 = 1) {
+                return(2);
+            }
+        case 4 :
+            if (%varplayerbit_6602 = 1) {
+                return(2);
+            }
+        case 5 :
+            if (%varplayerbit_6603 = 1) {
+                return(2);
+            }
+        case 6 :
+            if (%varplayerbit_6604 = 1) {
+                return(2);
+            }
+        case 7 :
+            if (%varplayerbit_6605 = 1) {
+                return(2);
+            }
+        case 8 :
+            if (%varplayerbit_6606 = 1) {
+                return(2);
+            }
+        case 9 :
+            if (%varplayerbit_6607 = 1) {
+                return(2);
+            }
+        case 10 :
+            if (%varplayerbit_6608 = 1) {
+                return(2);
+            }
+        case 11 :
+            if (%varplayerbit_6609 = 1) {
+                return(2);
+            }
+        case 12 :
+            if (%varplayerbit_1421 = 1) {
+                return(2);
+            }
+        case 13 :
+            if (%varplayerbit_6611 = 1) {
+                return(2);
+            }
+        case 14 :
+            if (%varplayerbit_6612 = 1) {
+                return(2);
+            }
+        case 15 :
+            if (%varplayerbit_6613 = 1) {
+                return(2);
+            }
+        case 16 :
+            if (%varplayerbit_6614 = 1) {
+                return(2);
+            }
+        case 17 :
+            if (%varplayerbit_6615 = 1) {
+                return(2);
+            }
+        case 18 :
+            if (%varplayerbit_6616 = 1) {
+                return(2);
+            }
+        case 19 :
+            if (%varplayerbit_6617 = 1) {
+                return(2);
+            }
+        case 20 :
+            if (%varplayerbit_6618 = 1) {
+                return(2);
+            }
+        case 21 :
+            if (%varplayerbit_6619 = 1) {
+                return(2);
+            }
+        case 22 :
+            if (%varplayerbit_6620 = 1) {
+                return(2);
+            }
+        case 23 :
+            if (%varplayerbit_6622 = 1) {
+                return(2);
+            }
+        case 24 :
+            if (%varplayerbit_6623 = 1) {
+                return(2);
+            }
+        case 25 :
+            if (%varplayerbit_6624 = 1) {
+                return(2);
+            }
+        case 26 :
+            if (%varplayerbit_6625 = 1) {
+                return(2);
+            }
+        case 27 :
+            if (%varplayerbit_6626 = 1) {
+                return(2);
+            }
+        case 28 :
+            if (%varplayerbit_6627 = 1) {
+                return(2);
+            }
+        case 29 :
+            if (%varplayerbit_6628 = 1) {
+                return(2);
+            }
+        case 30 :
+            if (%varplayerbit_6629 = 1) {
+                return(2);
+            }
+        case 31 :
+            if (%varplayerbit_6630 = 1) {
+                return(2);
+            }
+        case 32 :
+            if (%varplayerbit_6631 = 1) {
+                return(2);
+            }
+        case 33 :
+            if (%varplayerbit_6632 = 1) {
+                return(2);
+            }
+        case 34 :
+            if (%varplayerbit_6633 = 1) {
+                return(2);
+            }
+        case 35 :
+            if (%varplayerbit_6634 = 1) {
+                return(2);
+            }
+        case 36 :
+            if (%varplayerbit_6635 = 1) {
+                return(2);
+            }
+        case 37 :
+            if (%varplayerbit_6636 = 1) {
+                return(2);
+            }
+        case 38 :
+            if (%varplayerbit_6637 = 1) {
+                return(2);
+            }
+        case 39 :
+            if (%varplayerbit_6639 = 1) {
+                return(2);
+            }
+        case 40 :
+            if (%varplayerbit_6640 = 1) {
+                return(2);
+            }
+        case 41 :
+            if (%varplayerbit_6641 = 1) {
+                return(2);
+            }
+        case 42 :
+            if (%varplayerbit_6642 = 1) {
+                return(2);
+            }
+        case 43 :
+            if (%varplayerbit_6643 = 1) {
+                return(2);
+            }
+        case 44 :
+            if (%varplayerbit_6644 = 1) {
+                return(2);
+            }
+        case 45 :
+            if (%varplayerbit_6645 = 1) {
+                return(2);
+            }
+        case 46 :
+            if (%varplayerbit_6646 = 1) {
+                return(2);
+            }
+        case 47 :
+            if (%varplayerbit_6647 = 1) {
+                return(2);
+            }
+        case 48 :
+            if (%varplayerbit_6648 = 1) {
+                return(2);
+            }
+        case 49 :
+            if (%varplayerbit_6649 = 1) {
+                return(2);
+            }
+        case 50 :
+            if (%varplayerbit_6650 = 1) {
+                return(2);
+            }
+        case 51 :
+            if (%varplayerbit_6651 = 1) {
+                return(2);
+            }
+        case 52 :
+            if (%varplayerbit_6652 = 1) {
+                return(2);
+            }
+        case 53 :
+            if (%varplayerbit_6653 = 1) {
+                return(2);
+            }
+        case 54 :
+            if (%varplayerbit_6654 = 1) {
+                return(2);
+            }
+        case 55 :
+            if (%varplayerbit_6655 = 1) {
+                return(2);
+            }
+        case 56 :
+            if (%varplayerbit_6658 = 1) {
+                return(2);
+            }
+        case 57 :
+            if (%varplayerbit_6659 = 1) {
+                return(2);
+            }
+        case 58 :
+            if (%varplayerbit_6660 = 1) {
+                return(2);
+            }
+        case 59 :
+            if (%varplayerbit_6661 = 1) {
+                return(2);
+            }
+        case 60 :
+            if (%varplayerbit_6662 = 63) {
+                return(2);
+            } else if (%varplayerbit_6662 > 0) {
+                return(1);
+            }
+        case 61 :
+            if (%varplayerbit_4949 = 1) {
+                return(2);
+            }
+        case 62 :
+            if (%varplayerbit_4950 = 1) {
+                return(2);
+            }
+        case 63 :
+            if (%varplayerbit_4951 = 1) {
+                return(2);
+            }
+        case 64 :
+            if (%varplayerbit_4952 = 1) {
+                return(2);
+            }
+        case 65 :
+            if (%varplayerbit_4953 = 1) {
+                return(2);
+            }
+        case 66 :
+            if (%varplayerbit_4954 = 1) {
+                return(2);
+            }
+        case 67 :
+            if (%varplayerbit_4955 = 1) {
+                return(2);
+            }
+        case 68 :
+            if (%varplayerbit_4956 = 1) {
+                return(2);
+            }
+        case 69 :
+            if (%varplayerbit_4957 = 1) {
+                return(2);
+            }
+        case 70 :
+            if (%varplayerbit_4958 = 1) {
+                return(2);
+            }
+        case 71 :
+            if (%varplayerbit_4959 = 1) {
+                return(2);
+            }
+        case 72 :
+            if (%varplayerbit_4960 = 1) {
+                return(2);
+            }
+        case 73 :
+            if (%varplayerbit_4961 = 1) {
+                return(2);
+            }
+        case 74 :
+            if (%varplayerbit_4962 = 1) {
+                return(2);
+            }
+        case 75 :
+            if (%varplayerbit_4963 = 1) {
+                return(2);
+            }
+        case 76 :
+            if (%varplayerbit_4964 = 1) {
+                return(2);
+            }
+        case 77 :
+            if (%varplayerbit_4965 = 1) {
+                return(2);
+            }
+        case 78 :
+            if (%varplayerbit_4966 = 1) {
+                return(2);
+            }
+        case 79 :
+            if (%varplayerbit_4967 = 1) {
+                return(2);
+            }
+        case 80 :
+            if (%varplayerbit_4968 = 1) {
+                return(2);
+            }
+        case 81 :
+            if (%varplayerbit_4969 = 1) {
+                return(2);
+            }
+        case 82 :
+            if (%varplayerbit_4970 = 1) {
+                return(2);
+            }
+        case 83 :
+            if (%varplayerbit_4971 = 1) {
+                return(2);
+            }
+        case 84 :
+            if (%varplayerbit_4972 = 1) {
+                return(2);
+            }
+        case 85 :
+            if (%varplayerbit_4973 = 1) {
+                return(2);
+            }
+        case 86 :
+            if (%varplayerbit_4974 = 1) {
+                return(2);
+            }
+        case 87 :
+            if (%varplayerbit_4975 = 1) {
+                return(2);
+            }
+        case 88 :
+            if (%varplayerbit_4976 = 1) {
+                return(2);
+            }
+        case 89 :
+            if (%varplayerbit_4977 = 1) {
+                return(2);
+            }
+        case 90 :
+            if (%varplayerbit_4978 = 1) {
+                return(2);
+            }
+        case 91 :
+            if (%varplayerbit_4979 = 1) {
+                return(2);
+            }
+        case 92 :
+            if (%varplayerbit_4980 = 1) {
+                return(2);
+            }
+        case 93 :
+            if (%varplayerbit_4981 = 1) {
+                return(2);
+            }
+        case 94 :
+            if (%varplayerbit_4982 = 1) {
+                return(2);
+            }
+        case 95 :
+            if (%varplayerbit_4983 = 1) {
+                return(2);
+            }
+        case 96 :
+            if (%varplayerbit_4984 = 1) {
+                return(2);
+            }
+        case 97 :
+            if (%varplayerbit_4985 = 1) {
+                return(2);
+            }
+        case 98 :
+            if (%varplayerbit_4986 = 1) {
+                return(2);
+            }
+        case 99 :
+            if (%varplayerbit_4987 = 1) {
+                return(2);
+            }
+        case 100 :
+            if (%varplayerbit_4988 = 1) {
+                return(2);
+            }
+        case 101 :
+            if (%varplayerbit_4989 = 1) {
+                return(2);
+            }
+        case 102 :
+            if (%varplayerbit_4991 = 1) {
+                return(2);
+            }
+        case 103 :
+            if (%varplayerbit_4992 = 1) {
+                return(2);
+            }
+        case 104 :
+            if (%varplayerbit_4993 = 1) {
+                return(2);
+            }
+        case 105 :
+            if (%varplayerbit_4994 = 1) {
+                return(2);
+            }
+        case 106 :
+            if (%varplayerbit_4995 = 1) {
+                return(2);
+            }
+        case 107 :
+            if (%varplayerbit_4996 = 1) {
+                return(2);
+            }
+        case 108 :
+            if (%varplayerbit_4997 = 1) {
+                return(2);
+            }
+        case 109 :
+            if (%varplayerbit_4998 = 1) {
+                return(2);
+            }
+        case 110 :
+            if (%varplayerbit_4999 = 1) {
+                return(2);
+            }
+        case 111 :
+            if (%varplayerbit_5998 = 1) {
+                return(2);
+            }
+        case 112 :
+            if (%varplayerbit_5001 = 1) {
+                return(2);
+            }
+        case 113 :
+            if (%varplayerbit_5002 = 1) {
+                return(2);
+            }
+        case 114 :
+            if (%varplayerbit_5003 = 1) {
+                return(2);
+            }
+        case 351 :
+            if (%varplayerbit_8180 = 1) {
+                return(2);
+            }
+        case 352 :
+            if (%varplayerbit_8181 = 1) {
+                return(2);
+            }
+        case 353 :
+            if (%varplayerbit_8188 = 1) {
+                return(2);
+            }
+        case 354 :
+            if (%varplayerbit_8191 = 1) {
+                return(2);
+            }
+        case 355 :
+            if (%varplayerbit_8192 = 1) {
+                return(2);
+            }
+        case 356 :
+            if (%varplayerbit_8193 = 1) {
+                return(2);
+            }
+        case 357 :
+            if (%varplayerbit_8194 = 1) {
+                return(2);
+            }
+        case 115 :
+            if (%varplayerbit_5691 = 1) {
+                return(2);
+            }
+        case 116 :
+            if (%varplayerbit_5692 = 1) {
+                return(2);
+            }
+        case 117 :
+            if (%varplayerbit_5693 = 1) {
+                return(2);
+            }
+        case 118 :
+            if (%varplayerbit_5694 = 1) {
+                return(2);
+            }
+        case 119 :
+            if (%varplayerbit_5695 = 1) {
+                return(2);
+            }
+        case 120 :
+            if (%varplayerbit_5696 = 1) {
+                return(2);
+            }
+        case 121 :
+            if (%varplayerbit_5697 = 1) {
+                return(2);
+            }
+        case 122 :
+            if (%varplayerbit_5698 = 1) {
+                return(2);
+            }
+        case 123 :
+            if (%varplayerbit_5699 = 1) {
+                return(2);
+            }
+        case 124 :
+            if (%varplayerbit_5700 = 1) {
+                return(2);
+            }
+        case 125 :
+            if (%varplayerbit_5701 = 1) {
+                return(2);
+            }
+        case 126 :
+            if (%varplayerbit_5702 = 1) {
+                return(2);
+            }
+        case 127 :
+            if (%varplayerbit_5703 = 1) {
+                return(2);
+            }
+        case 128 :
+            if (%varplayerbit_5704 = 1) {
+                return(2);
+            }
+        case 129 :
+            if (%varplayerbit_5705 = 3) {
+                return(2);
+            } else if (%varplayerbit_5705 > 0) {
+                return(1);
+            }
+        case 130 :
+            if (%varplayerbit_5706 = 1) {
+                return(2);
+            }
+        case 131 :
+            if (%varplayerbit_5707 = 1) {
+                return(2);
+            }
+        case 132 :
+            if (%atfal_grown_white_berry = 1) {
+                return(2);
+            }
+        case 133 :
+            if (%varplayerbit_5709 = 3) {
+                return(2);
+            } else if (%varplayerbit_5709 > 0) {
+                return(1);
+            }
+        case 134 :
+            if (%varplayerbit_5710 = 1) {
+                return(2);
+            }
+        case 135 :
+            if (%varplayerbit_5711 = 1) {
+                return(2);
+            }
+        case 136 :
+            if (%varplayerbit_5712 = 1) {
+                return(2);
+            }
+        case 137 :
+            if (%varplayerbit_5713 = 1) {
+                return(2);
+            }
+        case 138 :
+            if (%varplayerbit_5714 = 1) {
+                return(2);
+            }
+        case 139 :
+            if (%varplayerbit_5715 = 1) {
+                return(2);
+            }
+        case 140 :
+            if (%varplayerbit_5716 = 1) {
+                return(2);
+            }
+        case 141 :
+            if (%atfal_wear_full_initiate = 1) {
+                return(2);
+            }
+        case 142 :
+            if (%atfal_buy_pink_dye = 1) {
+                return(2);
+            }
+        case 143 :
+            if (%atfal_crest_to_saradomin = 1) {
+                return(2);
+            }
+        case 144 :
+            if (%atfal_craft_multi_runes = 1) {
+                return(2);
+            }
+        case 145 :
+            if (%atfal_cut_grown_yew = 1) {
+                return(2);
+            }
+        case 146 :
+            if (%atfal_enter_mining_guild = 1) {
+                return(2);
+            }
+        case 147 :
+            if (%varplayerbit_5708 = 1) {
+                return(2);
+            }
+        case 148 :
+            if (%atfal_kill_mogre = 1) {
+                return(2);
+            }
+        case 149 :
+            if (%atfal_kill_skelly_wyvern = 1) {
+                return(2);
+            }
+        case 150 :
+            if (%atfal_summon_ibis = 1) {
+                return(2);
+            }
+        case 151 :
+            if (%atfal_wear_full_proselyte = 1) {
+                return(2);
+            }
+        case 309 :
+            if (%atfal_catch_rocktail = 1) {
+                return(2);
+            }
+        case 310 :
+            if (%atfal_cook_rocktail = 1) {
+                return(2);
+            }
+        case 311 :
+            if (%atfal_mine_gold = 1) {
+                return(2);
+            }
+        case 312 :
+            if (%atfal_chop_magic = 1) {
+                return(2);
+            }
+        case 313 :
+            if (%atfal_regrow_tree = 1) {
+                return(2);
+            }
+        case 314 :
+            if (%atfal_string_jewellery = 1) {
+                return(2);
+            }
+        case 315 :
+            if (%atfal_curse_to_regular = 1) {
+                return(2);
+            }
+        case 152 :
+            if (%varplayerbit_5648 = 1) {
+                return(2);
+            }
+        case 153 :
+            if (%varplayerbit_5649 = 1) {
+                return(2);
+            }
+        case 154 :
+            if (%varplayerbit_5650 = 1) {
+                return(2);
+            }
+        case 155 :
+            if (%varplayerbit_5651 = 1) {
+                return(2);
+            }
+        case 156 :
+            if (%varplayerbit_5652 = 1) {
+                return(2);
+            }
+        case 157 :
+            if (%varplayerbit_5653 = 1) {
+                return(2);
+            }
+        case 158 :
+            if (%varplayerbit_5654 = 1) {
+                return(2);
+            }
+        case 159 :
+            if (%varplayerbit_5655 = 1) {
+                return(2);
+            }
+        case 160 :
+            if (%varplayerbit_5656 = 1) {
+                return(2);
+            }
+        case 161 :
+            if (%varplayerbit_5657 = 1) {
+                return(2);
+            }
+        case 162 :
+            if (%varplayerbit_5658 = 1) {
+                return(2);
+            }
+        case 163 :
+            if (%varplayerbit_5659 = 1) {
+                return(2);
+            }
+        case 164 :
+            if (%varplayerbit_5660 = 1) {
+                return(2);
+            }
+        case 165 :
+            if (%varplayerbit_5661 = 1) {
+                return(2);
+            }
+        case 166 :
+            if (%varplayerbit_5662 = 1) {
+                return(2);
+            }
+        case 167 :
+            if (%varplayerbit_5663 = 1) {
+                return(2);
+            }
+        case 168 :
+            if (%varplayerbit_5664 = 1) {
+                return(2);
+            }
+        case 169 :
+            if (%varplayerbit_5665 = 1) {
+                return(2);
+            }
+        case 170 :
+            if (%varplayerbit_5666 = 1) {
+                return(2);
+            }
+        case 171 :
+            if (%varplayerbit_5667 = 1) {
+                return(2);
+            }
+        case 172 :
+            if (%varplayerbit_5668 = 1) {
+                return(2);
+            }
+        case 173 :
+            if (%varplayerbit_5669 = 1) {
+                return(2);
+            }
+        case 174 :
+            if (%varplayerbit_5670 = 1) {
+                return(2);
+            }
+        case 175 :
+            if (%varplayerbit_5671 = 1) {
+                return(2);
+            }
+        case 176 :
+            if (%varplayerbit_5672 = 1) {
+                return(2);
+            }
+        case 177 :
+            if (%varplayerbit_5673 = 1) {
+                return(2);
+            }
+        case 178 :
+            if (%varplayerbit_5674 = 1) {
+                return(2);
+            }
+        case 179 :
+            if (%varplayerbit_5675 = 1) {
+                return(2);
+            }
+        case 180 :
+            if (%varplayerbit_5676 = 1) {
+                return(2);
+            }
+        case 181 :
+            if (%varplayerbit_5677 = 1) {
+                return(2);
+            }
+        case 428 :
+            if (%lunarfm_spells_unlocked > 0) {
+                return(2);
+            }
+        case 316 :
+            if (%varplayerbit_8231 = 1) {
+                return(2);
+            }
+        case 317 :
+            if (%varplayerbit_8232 = 1) {
+                return(2);
+            }
+        case 318 :
+            if (%varplayerbit_8233 = 1) {
+                return(2);
+            }
+        case 319 :
+            if (%varplayerbit_8234 = 1) {
+                return(2);
+            }
+        case 320 :
+            if (%varplayerbit_8235 = 1) {
+                return(2);
+            }
+        case 321 :
+            if (%varplayerbit_8236 = 1) {
+                return(2);
+            }
+        case 322 :
+            if (%varplayerbit_8237 = 1) {
+                return(2);
+            }
+        case 323 :
+            if (%varplayerbit_8238 = 1) {
+                return(2);
+            }
+        case 417 :
+            if (%varplayerbit_8239 = 1) {
+                return(2);
+            }
+        case 182 :
+            if (%atjun_easy_banana = 5) {
+                return(2);
+            } else if (%atjun_easy_banana > 0) {
+                return(1);
+            }
+        case 183 :
+            if (%atjun_easy_swing = 1) {
+                return(2);
+            }
+        case 184 :
+            if (%atjun_easy_gold = 1) {
+                return(2);
+            }
+        case 185 :
+            if (%atjun_easy_boat_sarim = 1) {
+                return(2);
+            }
+        case 186 :
+            if (%atjun_easy_boat_ardy = 1) {
+                return(2);
+            }
+        case 187 :
+            if (%atjun_easy_cairn = 1) {
+                return(2);
+            }
+        case 188 :
+            if (%atjun_easy_fishing = 1) {
+                return(2);
+            }
+        case 189 :
+            if (%atjun_easy_seaweed = 5) {
+                return(2);
+            } else if (%atjun_easy_seaweed > 0) {
+                return(1);
+            }
+        case 190 :
+            if (%atjun_easy_tzhaar = 1) {
+                return(2);
+            }
+        case 191 :
+            if (%atjun_easy_jogre = 1) {
+                return(2);
+            }
+        case 192 :
+            if (%atjun_med_agility = 1) {
+                return(2);
+            }
+        case 193 :
+            if (%atjun_med_volcano = 1) {
+                return(2);
+            }
+        case 194 :
+            if (%atjun_med_crandor = 1) {
+                return(2);
+            }
+        case 195 :
+            if (%atjun_med_cart = 1) {
+                return(2);
+            }
+        case 196 :
+            if (%atjun_med_cleanup = 1) {
+                return(2);
+            }
+        case 197 :
+            if (%atjun_med_spider = 1) {
+                return(2);
+            }
+        case 198 :
+            if (%atjun_med_topaz = 1) {
+                return(2);
+            }
+        case 199 :
+            if (%atjun_med_teak = 1) {
+                return(2);
+            }
+        case 200 :
+            if (%atjun_med_mahogany = 1) {
+                return(2);
+            }
+        case 201 :
+            if (%atjun_med_karambwan = 1) {
+                return(2);
+            }
+        case 202 :
+            if (%atjun_med_machette = 1) {
+                return(2);
+            }
+        case 203 :
+            if (%atjun_med_glider = 1) {
+                return(2);
+            }
+        case 204 :
+            if (%atjun_med_farming = 1) {
+                return(2);
+            }
+        case 205 :
+            if (%atjun_med_graahk = 1) {
+                return(2);
+            }
+        case 206 :
+            if (%atjun_med_shilo_vines = 1) {
+                return(2);
+            }
+        case 207 :
+            if (%atjun_med_shilo_lava = 1) {
+                return(2);
+            }
+        case 208 :
+            if (%atjun_med_shilo_stairs = 1) {
+                return(2);
+            }
+        case 209 :
+            if (%atjun_med_khazard = 1) {
+                return(2);
+            }
+        case 210 :
+            if (%atjun_med_charter = 1) {
+                return(2);
+            }
+        case 211 :
+            if (%atjun_hard_fightpits = 1) {
+                return(2);
+            }
+        case 212 :
+            if (%atjun_hard_fightcave = 1) {
+                return(2);
+            }
+        case 213 :
+            if (%atjun_hard_oomlie = 1) {
+                return(2);
+            }
+        case 214 :
+            if (%atjun_hard_nature = 1) {
+                return(2);
+            }
+        case 215 :
+            if (%atjun_hard_karambwan = 1) {
+                return(2);
+            }
+        case 216 :
+            if (%atjun_hard_deathwing = 1) {
+                return(2);
+            }
+        case 217 :
+            if (%atjun_hard_xbow = 1) {
+                return(2);
+            }
+        case 218 :
+            if (%atjun_hard_palm = 5) {
+                return(2);
+            } else if (%atjun_hard_palm > 0) {
+                return(1);
+            }
+        case 219 :
+            if (%atjun_hard_duradel = 1) {
+                return(2);
+            }
+        case 220 :
+            if (%atjun_hard_dragon = 1) {
+                return(2);
+            }
+        case 324 :
+            if (%atjun_elite_nature = 1) {
+                return(2);
+            }
+        case 325 :
+            if (%atjun_elite_firecape = 1) {
+                return(2);
+            }
+        case 326 :
+            if (%atjun_elite_boxtrap = 1) {
+                return(2);
+            }
+        case 327 :
+            if (%atjun_elite_superrestore = 1) {
+                return(2);
+            }
+        case 328 :
+            if (%atjun_elite_cookshark = 1) {
+                return(2);
+            }
+        case 329 :
+            if (%atjun_elite_chameleon = 1) {
+                return(2);
+            }
+        case 330 :
+            if (%atjun_elite_steppingstone = 1) {
+                return(2);
+            }
+        case 331 :
+            if (%atjun_elite_slayerpoints = 1) {
+                return(2);
+            }
+        case 221 :
+            if (%varplayerbit_5782 = 5) {
+                return(2);
+            } else if (%varplayerbit_5782 > 0) {
+                return(1);
+            }
+        case 222 :
+            if (%varplayerbit_5783 = 1) {
+                return(2);
+            }
+        case 223 :
+            if (%varplayerbit_5784 = 1) {
+                return(2);
+            }
+        case 224 :
+            if (%varplayerbit_5785 = 1) {
+                return(2);
+            }
+        case 225 :
+            if (%varplayerbit_5786 = 1) {
+                return(2);
+            }
+        case 226 :
+            if (%varplayerbit_5787 = 5) {
+                return(2);
+            }
+        case 227 :
+            if (%varplayerbit_5788 = 5) {
+                return(2);
+            } else if (%varplayerbit_5788 > 0) {
+                return(1);
+            }
+        case 228 :
+            if (%varplayerbit_5789 = 5) {
+                return(2);
+            } else if (%varplayerbit_5789 > 0) {
+                return(1);
+            }
+        case 229 :
+            if (%varplayerbit_5790 = 1) {
+                return(2);
+            }
+        case 230 :
+            if (%varplayerbit_5791 = 1) {
+                return(2);
+            }
+        case 231 :
+            if (%varplayerbit_5792 = 1) {
+                return(2);
+            }
+        case 232 :
+            if (%varplayerbit_5793 = 1) {
+                return(2);
+            }
+        case 233 :
+            if (%varplayerbit_5794 = 1) {
+                return(2);
+            }
+        case 234 :
+            if (%varplayerbit_5795 = 1) {
+                return(2);
+            }
+        case 235 :
+            if (%varplayerbit_5796 = 1) {
+                return(2);
+            }
+        case 236 :
+            if (%varplayerbit_5797 = 15) {
+                return(2);
+            } else if (%varplayerbit_5797 > 0) {
+                return(1);
+            }
+        case 237 :
+            if (%varplayerbit_5798 = 1) {
+                return(2);
+            }
+        case 238 :
+            if (%varplayerbit_5799 = 1) {
+                return(2);
+            }
+        case 239 :
+            if (%varplayerbit_5800 = 1) {
+                return(2);
+            }
+        case 240 :
+            if (%varplayerbit_5801 = 1) {
+                return(2);
+            }
+        case 241 :
+            if (%varplayerbit_5802 = 1) {
+                return(2);
+            }
+        case 242 :
+            if (%varplayerbit_5803 = 1) {
+                return(2);
+            }
+        case 243 :
+            if (%varplayerbit_5804 = 1) {
+                return(2);
+            }
+        case 244 :
+            if (%varplayerbit_5805 = 15) {
+                return(2);
+            } else if (%varplayerbit_5805 > 0) {
+                return(1);
+            }
+        case 245 :
+            if (%varplayerbit_5806 = 1) {
+                return(2);
+            }
+        case 246 :
+            if (%varplayerbit_5807 = 5) {
+                return(2);
+            } else if (%varplayerbit_5807 > 0) {
+                return(1);
+            }
+        case 247 :
+            if (%varplayerbit_5808 = 1) {
+                return(2);
+            }
+        case 248 :
+            if (%varplayerbit_5809 = 1) {
+                return(2);
+            }
+        case 249 :
+            if (%varplayerbit_5810 = 1) {
+                return(2);
+            }
+        case 250 :
+            if (%varplayerbit_5811 = 1) {
+                return(2);
+            }
+        case 251 :
+            if (%varplayerbit_5812 = 1) {
+                return(2);
+            }
+        case 252 :
+            if (%varplayerbit_5813 = 1) {
+                return(2);
+            }
+        case 253 :
+            if (%varplayerbit_5814 = 5) {
+                return(2);
+            } else if (%varplayerbit_5814 > 0) {
+                return(1);
+            }
+        case 254 :
+            if (%varplayerbit_5815 = 5) {
+                return(2);
+            } else if (%varplayerbit_5815 > 0) {
+                return(1);
+            }
+        case 255 :
+            if (%varplayerbit_5816 = 5) {
+                return(2);
+            } else if (%varplayerbit_5816 > 0) {
+                return(1);
+            }
+        case 332 :
+            if (%varplayerbit_8205 = 1) {
+                return(2);
+            }
+        case 333 :
+            if (%varplayerbit_8212 = 1) {
+                return(2);
+            }
+        case 334 :
+            if (%varplayerbit_8217 = 1) {
+                return(2);
+            }
+        case 335 :
+            if (%varplayerbit_8221 = 1) {
+                return(2);
+            }
+        case 336 :
+            if (%varplayerbit_8224 = 1) {
+                return(2);
+            }
+        case 256 :
+            if (%atvar_change_clothes = 1) {
+                return(2);
+            }
+        case 257 :
+            if (%atvar_teleport_to_mine = 1) {
+                return(2);
+            }
+        case 258 :
+            if (%atvar_mine_iron = 1) {
+                return(2);
+            }
+        case 259 :
+            if (%atvar_make_plank = 1) {
+                return(2);
+            }
+        case 260 :
+            if (%atvar_use_ladder = 1) {
+                return(2);
+            }
+        case 261 :
+            if (%atvar_jump_fence = 1) {
+                return(2);
+            }
+        case 262 :
+            if (%atvar_cut_tree = 1) {
+                return(2);
+            }
+        case 263 :
+            if (%atvar_buy_paper = 1) {
+                return(2);
+            }
+        case 264 :
+            if (%atvar_give_bone = 1) {
+                return(2);
+            }
+        case 265 :
+            if (%atvar_pot_wheel = 1) {
+                return(2);
+            }
+        case 266 :
+            if (%atvar_edgeville_dungeon = 1) {
+                return(2);
+            }
+        case 267 :
+            if (%atvar_move_portal = 1) {
+                return(2);
+            }
+        case 268 :
+            if (%atvar_50_kudos = 1) {
+                return(2);
+            }
+        case 269 :
+            if (%atvar_earth_altar = 1) {
+                return(2);
+            }
+        case 270 :
+            if (%atvar_elsie_story = 1) {
+                return(2);
+            }
+        case 271 :
+            if (%atvar_mine_limestone = 1) {
+                return(2);
+            }
+        case 272 :
+            if (%atvar_fish_in_river = 1) {
+                return(2);
+            }
+        case 273 :
+            if (%atvar_high_point = 1) {
+                return(2);
+            }
+        case 274 :
+            if (%atvar_slash_web = 1) {
+                return(2);
+            }
+        case 275 :
+            if (%atvar_str_potion = 1) {
+                return(2);
+            }
+        case 276 :
+            if (%atvar_enter_champions = 1) {
+                return(2);
+            }
+        case 277 :
+            if (%atvar_use_chaos = 1) {
+                return(2);
+            }
+        case 278 :
+            if (%atvar_full_rats = 1) {
+                return(2);
+            }
+        case 279 :
+            if (%atvar_collect_egg = 1) {
+                return(2);
+            }
+        case 280 :
+            if (%atvar_spirit_tree = 1) {
+                return(2);
+            }
+        case 281 :
+            if (%atvar_perform_emotes = 4) {
+                return(2);
+            } else if (%atvar_perform_emotes > 0) {
+                return(1);
+            }
+        case 282 :
+            if (%atvar_kitten_colour = 1) {
+                return(2);
+            }
+        case 283 :
+            if (%atvar_under_wall = 1) {
+                return(2);
+            }
+        case 284 :
+            if (%atvar_enter_tolna = 1) {
+                return(2);
+            }
+        case 285 :
+            if (%atvar_necklace_digsite = 1) {
+                return(2);
+            }
+        case 286 :
+            if (%atvar_earth_tiara = 1) {
+                return(2);
+            }
+        case 287 :
+            if (%atvar_pickpocket_guard = 1) {
+                return(2);
+            }
+        case 288 :
+            if (%atvar_tele_varrock = 1) {
+                return(2);
+            }
+        case 289 :
+            if (%atvar_slayer_task = 1) {
+                return(2);
+            }
+        case 290 :
+            if (%atvar_20_planks = 1) {
+                return(2);
+            }
+        case 291 :
+            if (%atvar_pick_fruit = 1) {
+                return(2);
+            }
+        case 292 :
+            if (%atvar_use_balloon = 1) {
+                return(2);
+            }
+        case 293 :
+            if (%atvar_rat_medal = 1) {
+                return(2);
+            }
+        case 294 :
+            if (%atvar_fairy_circle = 1) {
+                return(2);
+            }
+        case 295 :
+            if (%atvar_runite_armour = 1) {
+                return(2);
+            }
+        case 296 :
+            if (%atvar_pick_berry = 1) {
+                return(2);
+            }
+        case 297 :
+            if (%atvar_pipe_shortcut = 1) {
+                return(2);
+            }
+        case 298 :
+            if (%atvar_spottier_cape = 1) {
+                return(2);
+            }
+        case 299 :
+            if (%atvar_addy_helm = 1) {
+                return(2);
+            }
+        case 300 :
+            if (%atvar_153_kudos = 1) {
+                return(2);
+            }
+        case 301 :
+            if (%atvar_wild_pie = 1) {
+                return(2);
+            }
+        case 302 :
+            if (%atvar_air_battlestaff = 1) {
+                return(2);
+            }
+        case 303 :
+            if (%atvar_sos_sceptre = 1) {
+                return(2);
+            }
+        case 304 :
+            if (%atvar_poh_stone = 1) {
+                return(2);
+            }
+        case 305 :
+            if (%atvar_teletab_varrock = 1) {
+                return(2);
+            }
+        case 306 :
+            if (%atvar_change_gauntlets = 1) {
+                return(2);
+            }
+        case 307 :
+            if (%atvar_waka_canoe = 1) {
+                return(2);
+            }
+        case 308 :
+            if (%atvar_ancient_teleport = 1) {
+                return(2);
+            }
+        case 337 :
+            if (%atvar_elite_bork = 1) {
+                return(2);
+            }
+        case 338 :
+            if (%atvar_elite_zimberfizz = 1) {
+                return(2);
+            }
+        case 339 :
+            if (%atvar_elite_sawmill = 1) {
+                return(2);
+            }
+        case 340 :
+            if (%atvar_elite_adze = 1) {
+                return(2);
+            }
+        case 341 :
+            if (%atvar_elite_backfire = 1) {
+                return(2);
+            }
+        case 342 :
+            if (%atvar_elite_summerpie = 1) {
+                return(2);
+            }
+        case 343 :
+            if (%atvar_elite_senntisten = 1) {
+                return(2);
+            }
+        case 344 :
+            if (%atvar_elite_bolts = 1) {
+                return(2);
+            }
+        case 345 :
+            if (%atvar_elite_earthrune = 1) {
+                return(2);
+            }
+        case 358 :
+            if (%varplayerbit_8517 = 1) {
+                return(2);
+            }
+        case 359 :
+            if (%varplayerbit_8518 = 1) {
+                return(2);
+            }
+        case 360 :
+            if (%varplayerbit_8519 = 1) {
+                return(2);
+            }
+        case 361 :
+            if (%varplayerbit_8520 = 1) {
+                return(2);
+            }
+        case 362 :
+            if (%varplayerbit_8521 = 1) {
+                return(2);
+            }
+        case 363 :
+            if (%varplayerbit_8522 = 1) {
+                return(2);
+            }
+        case 412 :
+            if (%varplayerbit_8523 = 1) {
+                return(2);
+            }
+        case 365 :
+            if (%varplayerbit_8524 = 1) {
+                return(2);
+            }
+        case 413 :
+            if (%varplayerbit_8525 = 1) {
+                return(2);
+            }
+        case 366 :
+            if (%varplayerbit_8526 = 1) {
+                return(2);
+            }
+        case 368 :
+            if (%varplayerbit_8527 = 1) {
+                return(2);
+            }
+        case 369 :
+            if (%varplayerbit_8528 = 1) {
+                return(2);
+            }
+        case 370 :
+            if (%varplayerbit_8529 = 1) {
+                return(2);
+            }
+        case 367 :
+            if (%varplayerbit_8530 = 1) {
+                return(2);
+            }
+        case 371 :
+            if (%varplayerbit_8531 = 1) {
+                return(2);
+            }
+        case 372 :
+            if (%varplayerbit_8532 = 1) {
+                return(2);
+            }
+        case 373 :
+            if (%varplayerbit_8533 = 1) {
+                return(2);
+            }
+        case 374 :
+            if (%varplayerbit_8534 = 1) {
+                return(2);
+            }
+        case 375 :
+            if (%varplayerbit_8535 = 1) {
+                return(2);
+            }
+        case 376 :
+            if (%varplayerbit_8536 = 1) {
+                return(2);
+            }
+        case 377 :
+            if (%varplayerbit_8537 = 1) {
+                return(2);
+            }
+        case 378 :
+            if (%varplayerbit_8538 = 1) {
+                return(2);
+            }
+        case 379 :
+            if (%varplayerbit_8539 = 1) {
+                return(2);
+            }
+        case 380 :
+            if (%varplayerbit_8540 = 1) {
+                return(2);
+            }
+        case 381 :
+            if (%varplayerbit_8541 = 1) {
+                return(2);
+            }
+        case 382 :
+            if (%varplayerbit_8542 = 1) {
+                return(2);
+            }
+        case 383 :
+            if (%varplayerbit_8543 = 1) {
+                return(2);
+            }
+        case 384 :
+            if (%varplayerbit_8544 = 1) {
+                return(2);
+            }
+        case 385 :
+            if (%varplayerbit_8545 = 1) {
+                return(2);
+            }
+        case 386 :
+            if (%varplayerbit_8546 = 1) {
+                return(2);
+            }
+        case 387 :
+            if (%varplayerbit_8547 = 1) {
+                return(2);
+            }
+        case 388 :
+            if (%varplayerbit_8548 = 1) {
+                return(2);
+            }
+        case 389 :
+            if (%varplayerbit_8549 = 1) {
+                return(2);
+            }
+        case 390 :
+            if (%varplayerbit_8550 = 1) {
+                return(2);
+            }
+        case 391 :
+            if (%varplayerbit_8551 = 1) {
+                return(2);
+            }
+        case 392 :
+            if (%varplayerbit_8552 = 1) {
+                return(2);
+            }
+        case 393 :
+            if (%varplayerbit_8553 = 1) {
+                return(2);
+            }
+        case 394 :
+            if (%varplayerbit_8554 = 1) {
+                return(2);
+            }
+        case 395 :
+            if (%varplayerbit_8555 = 1) {
+                return(2);
+            }
+        case 396 :
+            if (%varplayerbit_8556 = 1) {
+                return(2);
+            }
+        case 397 :
+            if (%varplayerbit_8557 = 1) {
+                return(2);
+            }
+        case 398 :
+            if (%varplayerbit_8558 = 1) {
+                return(2);
+            }
+        case 399 :
+            if (%varplayerbit_8559 = 1) {
+                return(2);
+            }
+        case 414 :
+            if (%varplayerbit_8560 = 1) {
+                return(2);
+            }
+        case 415 :
+            if (%varplayerbit_8573 = 1) {
+                return(2);
+            }
+        case 416 :
+            if (%varplayerbit_8574 = 1) {
+                return(2);
+            }
+        case 400 :
+            if (%varplayerbit_8561 = 1) {
+                return(2);
+            }
+        case 401 :
+            if (%varplayerbit_8562 = 1) {
+                return(2);
+            }
+        case 402 :
+            if (%varplayerbit_8563 = 1) {
+                return(2);
+            }
+        case 403 :
+            if (%varplayerbit_8564 = 1) {
+                return(2);
+            }
+        case 404 :
+            if (%varplayerbit_8565 = 1) {
+                return(2);
+            }
+        case 405 :
+            if (%varplayerbit_8566 = 1) {
+                return(2);
+            }
+        case 406 :
+            if (%varplayerbit_8567 = 1) {
+                return(2);
+            }
+        case 407 :
+            if (%varplayerbit_8568 = 1) {
+                return(2);
+            }
+        case 408 :
+            if (%varplayerbit_8569 = 1) {
+                return(2);
+            }
+        case 409 :
+            if (%varplayerbit_8570 = 1) {
+                return(2);
+            }
+        case 410 :
+            if (%varplayerbit_8571 = 1) {
+                return(2);
+            }
+        case 411 :
+            if (%varplayerbit_8572 = 1) {
+                return(2);
+            }
+        case 418 :
+            if (%varplayerbit_8781 = 1) {
+                return(2);
+            }
+        case 3522 :
+            if (%tutorial >= 7) {
+                return(2);
+            }
+        case 3500 :
+            if (%tutorial > 7) {
+                return(2);
+            }
+        case 3501 :
+            if (%tutorial > 10) {
+                return(2);
+            }
+        case 3505 :
+            if (%tutorial > 49) {
+                return(2);
+            }
+        case 3511 :
+            if (%tutorial > 95) {
+                return(2);
+            }
+        case 3502 :
+            if (%tutorial > 15) {
+                return(2);
+            }
+        case 3503 :
+            if (%tutorial > 30) {
+                return(2);
+            }
+        case 3504 :
+            if (%tutorial > 40) {
+                return(2);
+            }
+        case 3506 :
+            if (%tutorial > 55) {
+                return(2);
+            }
+        case 3508 :
+            if (%tutorial > 60) {
+                return(2);
+            }
+        case 3509 :
+            if (%tutorial > 62) {
+                return(2);
+            }
+        case 3507 :
+            if (%tutorial > 75) {
+                return(2);
+            }
+        case 3523 :
+            if (%tutorial > 70) {
+                return(2);
+            }
+        case 3510 :
+            if (%tutorial > 90) {
+                return(2);
+            }
+        case 3512 :
+            if (%tutorial > 115) {
+                return(2);
+            }
+        case 3513 :
+            if (%tutorial > 127) {
+                return(2);
+            }
+        case 3514 :
+            if (%tutorial > 165) {
+                return(2);
+            }
+        case 3515 :
+            if (%tutorial > 160) {
+                return(2);
+            }
+        case 3516 :
+            if (%tutorial > 160) {
+                return(2);
+            }
+        case 3517 :
+            if (stat_base(woodcutting) > 1 | stat_base(mining) > 1) {
+                return(2);
+            }
+        case 3518 :
+            if (stat_base(woodcutting) > 1 | stat_base(mining) > 1) {
+                return(2);
+            }
+        case 3519 :
+            if (%tutorial > 170) {
+                return(2);
+            }
+        case 3520 :
+            if (%tutorial3_postquest > 2) {
+                return(2);
+            }
+        case 422 :
+            if (%task_tut4_third_hook = 3) {
+                return(2);
+            }
+        case 423 :
+            if (%task_tut4_skills = 1) {
+                return(2);
+            }
+        case 424 :
+            if (%task_tut4_get_axes = 1) {
+                return(2);
+            }
+        case 425 :
+            if (%task_tut4_how_to_2 = 1) {
+                return(2);
+            }
+        case 419 :
+            if (%task_tut4_speak_to_jack = 1) {
+                return(2);
+            }
+        case 420 :
+            if (%task_tut4_money_pile = 1) {
+                return(2);
+            }
+        case 421 :
+            if (%task_tut4_man_goblin = 3) {
+                return(2);
+            } else if (%task_tut4_man_goblin > 0) {
+                return(1);
+            }
+        case 426 :
+            if (%task_tut4_visit_ge = 1) {
+                return(2);
+            }
+        case 427 :
+            if (%task_tut4_rest_up = 1) {
+                return(2);
+            }
+        case 3525 :
+            if (%task_tut4_defeat_ranger = 1) {
+                return(2);
+            }
+        case 3526 :
+            if (%task_tut4_defeat_mage = 1) {
+                return(2);
+            }
+        case 3527 :
+            if (%task_tut4_defeat_warrior = 1) {
+                return(2);
+            }
+        case 3528 :
+            if (%task_tut4_cross_balcony = 1) {
+                return(2);
+            }
+        case 3529 :
+            if (%task_tut4_prepare_wind_rush = 1) {
+                return(2);
+            }
+        case 3530 :
+            if (%task_tut4_rescue_maiden = 1) {
+                return(2);
+            }
+    }
+}
+return(0);

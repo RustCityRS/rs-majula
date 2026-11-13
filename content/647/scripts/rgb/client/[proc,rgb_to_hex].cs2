@@ -1,0 +1,106 @@
+// 693
+[proc,rgb_to_hex](int $int0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($int0 > 255) {
+    $int3 = 255;
+} else if ($int0 < 0) {
+    $int3 = 0;
+} else {
+    $int3 = $int0;
+}
+if ($int1 > 255) {
+    $int4 = 255;
+} else if ($int1 < 0) {
+    $int4 = 0;
+} else {
+    $int4 = $int1;
+}
+if ($int2 > 255) {
+    $int5 = 255;
+} else if ($int2 < 0) {
+    $int5 = 0;
+} else {
+    $int5 = $int2;
+}
+if (testbit($int3, 0) = ^true) {
+    $int6 = setbit($int6, 16);
+}
+if (testbit($int3, 1) = ^true) {
+    $int6 = setbit($int6, 17);
+}
+if (testbit($int3, 2) = ^true) {
+    $int6 = setbit($int6, 18);
+}
+if (testbit($int3, 3) = ^true) {
+    $int6 = setbit($int6, 19);
+}
+if (testbit($int3, 4) = ^true) {
+    $int6 = setbit($int6, 20);
+}
+if (testbit($int3, 5) = ^true) {
+    $int6 = setbit($int6, 21);
+}
+if (testbit($int3, 6) = ^true) {
+    $int6 = setbit($int6, 22);
+}
+if (testbit($int3, 7) = ^true) {
+    $int6 = setbit($int6, 23);
+}
+if (testbit($int4, 0) = ^true) {
+    $int7 = setbit($int7, 8);
+}
+if (testbit($int4, 1) = ^true) {
+    $int7 = setbit($int7, 9);
+}
+if (testbit($int4, 2) = ^true) {
+    $int7 = setbit($int7, 10);
+}
+if (testbit($int4, 3) = ^true) {
+    $int7 = setbit($int7, 11);
+}
+if (testbit($int4, 4) = ^true) {
+    $int7 = setbit($int7, 12);
+}
+if (testbit($int4, 5) = ^true) {
+    $int7 = setbit($int7, 13);
+}
+if (testbit($int4, 6) = ^true) {
+    $int7 = setbit($int7, 14);
+}
+if (testbit($int4, 7) = ^true) {
+    $int7 = setbit($int7, 15);
+}
+if (testbit($int5, 0) = ^true) {
+    $int8 = setbit($int8, 0);
+}
+if (testbit($int5, 1) = ^true) {
+    $int8 = setbit($int8, 1);
+}
+if (testbit($int5, 2) = ^true) {
+    $int8 = setbit($int8, 2);
+}
+if (testbit($int5, 3) = ^true) {
+    $int8 = setbit($int8, 3);
+}
+if (testbit($int5, 4) = ^true) {
+    $int8 = setbit($int8, 4);
+}
+if (testbit($int5, 5) = ^true) {
+    $int8 = setbit($int8, 5);
+}
+if (testbit($int5, 6) = ^true) {
+    $int8 = setbit($int8, 6);
+}
+if (testbit($int5, 7) = ^true) {
+    $int8 = setbit($int8, 7);
+}
+$int9 = calc($int6 | $int7);
+$int10 = calc($int9 | $int8);
+return($int10);

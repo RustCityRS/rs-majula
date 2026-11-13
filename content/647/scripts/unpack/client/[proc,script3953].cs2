@@ -1,0 +1,21 @@
+// 3953
+[proc,script3953](int $int0)
+%varclient_1846 = %varclient_1845;
+if (string_length(%varclient_1845) <= 0) {
+    ~create_error("Please enter your Email address again here.", account_create:com_100);
+    return;
+}
+if (compare(%varclient_1641, %varclient_1845) ! 0) {
+    ~create_error("Please ensure both Email addresses match.", account_create:com_100);
+    return;
+}
+if (if_getgraphic(account_create:com_81) = "symbols_1,5") {
+    ~create_error(if_gettext(account_create:com_124), account_create:com_100);
+    return;
+}
+if_setgraphic(account_create:com_100, "symbols_1,3");
+if_sethide(account_create:com_105, true);
+if_sethide(account_create:information_layer, true);
+if ($int0 = 1) {
+    ~create_focus(7, 1);
+}

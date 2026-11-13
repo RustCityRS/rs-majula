@@ -1,0 +1,2283 @@
+// 20:0
+[background]
+type=graphic
+x=4
+y=24
+width=326
+height=199
+layer=content_layer
+graphic=window_texture_2
+tiling=yes
+
+// 20:1
+[border_1]
+type=graphic
+width=60
+height=60
+xmode=abs_centre
+layer=skillcape_colour1
+graphic="aif_bronze_icon_button_1,0"
+
+// 20:2
+[skillcape_colour_button_1]
+type=rectangle
+y=9
+width=40
+height=40
+xmode=abs_centre
+layer=skillcape_colour1
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(skillcape_customise:com_204)
+onvartransmit=script4614(event_com){varplayer_2172}
+onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 20:3
+[shiney1]
+type=graphic
+y=8
+width=42
+height=42
+xmode=abs_centre
+layer=skillcape_colour1
+graphic=aif_colour_display_1
+
+// 20:4
+[border_4]
+type=graphic
+width=60
+height=60
+xmode=abs_centre
+layer=skillcape_colour4
+graphic="aif_bronze_icon_button_1,0"
+
+// 20:5
+[skillcape_colour_button_4]
+type=rectangle
+y=9
+width=40
+height=40
+xmode=abs_centre
+layer=skillcape_colour4
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(skillcape_customise:com_204)
+onvartransmit=script4614(event_com){varplayer_2173}
+onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 20:6
+[shiney4]
+type=graphic
+y=8
+width=42
+height=42
+xmode=abs_centre
+layer=skillcape_colour4
+graphic=aif_colour_display_1
+
+// 20:7
+[border_2]
+type=graphic
+width=60
+height=60
+xmode=abs_centre
+layer=skillcape_colour2
+graphic="aif_bronze_icon_button_1,0"
+
+// 20:8
+[skillcape_colour_button_2]
+type=rectangle
+y=9
+width=40
+height=40
+xmode=abs_centre
+layer=skillcape_colour2
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(skillcape_customise:com_204)
+onvartransmit=script4614(event_com){varplayer_2172}
+onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 20:9
+[shiney2]
+type=graphic
+y=8
+width=42
+height=42
+xmode=abs_centre
+layer=skillcape_colour2
+graphic=aif_colour_display_1
+
+// 20:10
+[border_3]
+type=graphic
+width=60
+height=60
+xmode=abs_centre
+layer=skillcape_colour3
+graphic="aif_bronze_icon_button_1,0"
+
+// 20:11
+[skillcape_colour_button_3]
+type=rectangle
+y=9
+width=40
+height=40
+xmode=abs_centre
+layer=skillcape_colour3
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(skillcape_customise:com_204)
+onvartransmit=script4614(event_com){varplayer_2173}
+onmouserepeat=aif_tooltip(skillcape_customise:com_204, event_com, -1, "Click here to edit this colour", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 20:12
+[shiney3]
+type=graphic
+y=8
+width=42
+height=42
+xmode=abs_centre
+layer=skillcape_colour3
+graphic=aif_colour_display_1
+
+// 20:13
+[com_13]
+type=graphic
+width=100
+height=100
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer1
+graphic=window_texture_2
+tiling=yes
+
+// 20:14
+[com_14]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer1
+colour=0x584c3c
+
+// 20:15
+[picker_colour_top1]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer1
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:16
+[picker_border_top1]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer1
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:17
+[picker_colour_middle1]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer1
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:18
+[picker_border_middle1]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer1
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:19
+[picker_colour_bottom1]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer1
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:20
+[picker_border_bottom1]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer1
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:21
+[popout_top1]
+type=graphic
+width=10
+height=9
+layer=popout_arrow_layer1
+graphic="aif_browngrad_topbot,0"
+
+// 20:22
+[popout_middle1]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=popout_arrow_layer1
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 20:23
+[popout_bottom1]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=popout_arrow_layer1
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 20:24
+[com_24]
+type=layer
+y=4
+width=500
+height=306
+xmode=abs_centre
+ymode=abs_centre
+
+// 20:25
+[com_25]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colour1
+graphic=window_texture_2
+tiling=yes
+
+// 20:26
+[com_26]
+type=graphic
+width=10
+height=10
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 20:27
+[com_27]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 20:28
+[com_28]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 20:29
+[com_29]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 20:30
+[com_30]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 20:31
+[com_31]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 20:32
+[com_32]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 20:33
+[com_33]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=colour1
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 20:34
+[skillcape_colour1]
+type=layer
+y=7
+width=60
+height=60
+xmode=abs_centre
+layer=colour1
+transmitop=1
+op1=Select Colour
+onmouseover=clan_colour_mouseover(skillcape_customise:border_1, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(skillcape_customise:border_1, "aif_bronze_icon_button_1,0")
+
+// 20:35
+[motif_colour1_text]
+type=text
+y=59
+width=188
+height=33
+xmode=abs_centre
+layer=colour1
+textfont=p11_full
+text=Detail (top)
+textalignh=centre
+textalignv=centre
+colour=0x746e6e
+
+// 20:36
+[colour_popout1]
+type=layer
+x=104
+y=7
+width=10
+height=60
+layer=colour1
+
+// 20:37
+[colour_instructions]
+type=text
+y=-2
+width=220
+height=20
+xmode=abs_centre
+layer=colour_layer
+textfont=p11_full
+text=Select a colour to edit:
+textalignh=centre
+textalignv=centre
+
+// 20:38
+[colour1]
+type=layer
+x=11
+y=17
+width=146
+height=86
+layer=colour_layer
+
+// 20:39
+[picker_layer1]
+type=layer
+x=10
+width=10
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=colour_popout1
+
+// 20:40
+[popout_arrow_layer1]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour_popout1
+onmouseover=clan_colour_popout_mouseover(skillcape_customise:popout_top1, "aif_browngrad_topbot,1", skillcape_customise:popout_middle1, "aif_browngrad_fill,1", skillcape_customise:popout_bottom1, "aif_browngrad_topbot,1")
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top1, "aif_browngrad_topbot,0", skillcape_customise:popout_middle1, "aif_browngrad_fill,0", skillcape_customise:popout_bottom1, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow1, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+
+// 20:41
+[popout_arrow1]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=popout_arrow_layer1
+graphic="aif_symbol_set_1,3"
+
+// 20:42
+[colour2]
+type=layer
+x=163
+y=17
+width=146
+height=86
+layer=colour_layer
+
+// 20:43
+[colour3]
+type=layer
+x=11
+y=106
+width=146
+height=86
+layer=colour_layer
+
+// 20:44
+[colour4]
+type=layer
+x=163
+y=106
+width=146
+height=86
+layer=colour_layer
+
+// 20:45
+[com_45]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+graphic=window_texture_2
+tiling=yes
+
+// 20:46
+[com_46]
+type=graphic
+width=10
+height=10
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 20:47
+[com_47]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 20:48
+[com_48]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 20:49
+[com_49]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 20:50
+[com_50]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 20:51
+[com_51]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 20:52
+[com_52]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 20:53
+[com_53]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_56
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 20:54
+[skillcape_cape]
+type=layer
+x=333
+y=1
+width=138
+height=223
+layer=content_layer
+onload=skillcape_build_preview
+
+// 20:55
+[cape]
+type=model
+width=101
+height=204
+xmode=abs_centre
+ymode=abs_bottom
+layer=cape_model
+model=model_65297
+modelorigin=0,101
+modelangle=0,1024,0
+modelzoom=440
+
+// 20:56
+[com_56]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=skillcape_cape
+
+// 20:57
+[cape_model]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=skillcape_cape
+
+// 20:58
+[reset_graphic]
+type=graphic
+x=5
+y=5
+width=21
+height=21
+xmode=abs_right
+ymode=abs_bottom
+layer=skillcape_cape
+graphic="lobby_world_reset,0"
+colour=0x9ca370
+transmitop=1
+op1=Reset
+onmouseover=graphic_swapper(event_com, "lobby_world_reset,1")
+onmouseleave=graphic_swapper(event_com, "lobby_world_reset,0")
+
+// 20:59
+[customisation_layer]
+type=layer
+x=5
+y=3
+width=327
+height=222
+layer=content_layer
+
+// 20:60
+[button_layer]
+type=layer
+y=230
+width=143
+height=30
+xmode=abs_centre
+layer=content_layer
+
+// 20:61
+[colour_layer]
+type=layer
+y=22
+width=323
+height=199
+layer=customisation_layer
+
+// 20:62
+[com_62]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colour2
+graphic=window_texture_2
+tiling=yes
+
+// 20:63
+[com_63]
+type=graphic
+width=10
+height=10
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 20:64
+[com_64]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 20:65
+[com_65]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 20:66
+[com_66]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 20:67
+[com_67]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 20:68
+[com_68]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 20:69
+[com_69]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 20:70
+[com_70]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=colour2
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 20:71
+[skillcape_colour2]
+type=layer
+y=7
+width=60
+height=60
+xmode=abs_centre
+layer=colour2
+transmitop=1
+op1=Select Colour
+onmouseover=clan_colour_mouseover(skillcape_customise:border_2, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(skillcape_customise:border_2, "aif_bronze_icon_button_1,0")
+
+// 20:72
+[motif_colour2_text]
+type=text
+y=59
+width=188
+height=33
+xmode=abs_centre
+layer=colour2
+textfont=p11_full
+text=Background (top)
+textalignh=centre
+textalignv=centre
+colour=0x746e6e
+
+// 20:73
+[colour_popout2]
+type=layer
+x=104
+y=7
+width=10
+height=60
+layer=colour2
+
+// 20:74
+[com_74]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colour3
+graphic=window_texture_2
+tiling=yes
+
+// 20:75
+[com_75]
+type=graphic
+width=10
+height=10
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 20:76
+[com_76]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 20:77
+[com_77]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 20:78
+[com_78]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 20:79
+[com_79]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 20:80
+[com_80]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 20:81
+[com_81]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 20:82
+[com_82]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=colour3
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 20:83
+[skillcape_colour3]
+type=layer
+y=7
+width=60
+height=60
+xmode=abs_centre
+layer=colour3
+transmitop=1
+op1=Select Colour
+onmouseover=clan_colour_mouseover(skillcape_customise:border_3, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(skillcape_customise:border_3, "aif_bronze_icon_button_1,0")
+
+// 20:84
+[colour1_text]
+type=text
+y=59
+width=188
+height=33
+xmode=abs_centre
+layer=colour3
+textfont=p11_full
+text=Detail (bottom)
+textalignh=centre
+textalignv=centre
+colour=0x746e6e
+
+// 20:85
+[colour_popout3]
+type=layer
+x=104
+y=7
+width=10
+height=60
+layer=colour3
+
+// 20:86
+[com_86]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colour4
+graphic=window_texture_2
+tiling=yes
+
+// 20:87
+[com_87]
+type=graphic
+width=10
+height=10
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 20:88
+[com_88]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 20:89
+[com_89]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 20:90
+[com_90]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 20:91
+[com_91]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 20:92
+[com_92]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 20:93
+[com_93]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 20:94
+[com_94]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=colour4
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 20:95
+[skillcape_colour4]
+type=layer
+y=7
+width=60
+height=60
+xmode=abs_centre
+layer=colour4
+transmitop=1
+op1=Select Colour
+onmouseover=clan_colour_mouseover(skillcape_customise:border_4, "aif_bronze_icon_button_1,1")
+onmouseleave=clan_colour_mouseover(skillcape_customise:border_4, "aif_bronze_icon_button_1,0")
+
+// 20:96
+[colour2_text]
+type=text
+y=59
+width=188
+height=33
+xmode=abs_centre
+layer=colour4
+textfont=p11_full
+text=Background (bottom)
+textalignh=centre
+textalignv=centre
+colour=0x746e6e
+
+// 20:97
+[colour_popout4]
+type=layer
+x=104
+y=7
+width=10
+height=60
+layer=colour4
+
+// 20:98
+[com_98]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=button_layer
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 20:99
+[com_99]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=button_layer
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 20:100
+[com_100]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=button_layer
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 20:101
+[com_101]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 20:102
+[com_102]
+type=graphic
+width=24
+height=22
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_101
+graphic="bronze_button_fill_1,0"
+tiling=yes
+
+// 20:103
+[com_103]
+type=graphic
+width=12
+height=12
+xmode=abs_right
+layer=com_101
+graphic="bronze_button_1,1"
+
+// 20:104
+[com_104]
+type=graphic
+width=12
+height=12
+layer=com_101
+graphic="bronze_button_1,1"
+hflip=yes
+
+// 20:105
+[com_105]
+type=graphic
+width=24
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_101
+graphic="bronze_button_1,10"
+tiling=yes
+
+// 20:106
+[com_106]
+type=graphic
+width=24
+height=12
+widthmode=minus
+xmode=abs_centre
+layer=com_101
+graphic="bronze_button_1,0"
+tiling=yes
+
+// 20:107
+[com_107]
+type=graphic
+width=12
+height=12
+xmode=abs_right
+ymode=abs_bottom
+layer=com_101
+graphic="bronze_button_1,11"
+
+// 20:108
+[com_108]
+type=graphic
+width=12
+height=12
+ymode=abs_bottom
+layer=com_101
+graphic="bronze_button_1,11"
+hflip=yes
+
+// 20:109
+[com_109]
+type=graphic
+width=12
+height=24
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_101
+graphic="bronze_button_fill_1,1"
+tiling=yes
+
+// 20:110
+[com_110]
+type=graphic
+width=12
+height=24
+heightmode=minus
+ymode=abs_centre
+layer=com_101
+graphic="bronze_button_fill_1,1"
+tiling=yes
+hflip=yes
+
+// 20:111
+[com_111]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 20:112
+[com_112]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 20:113
+[com_113]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 20:114
+[ok_button]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+transmitop=1
+op1=Done
+
+// 20:115
+[com_115]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+
+// 20:116
+[com_116]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_115
+textfont=verdana_13pt_regular
+text=Done
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
+
+// 20:117
+[com_117]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=button_layer
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 20:118
+[com_118]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_117
+colour=0x000000
+fill=yes
+trans=100
+
+// 20:119
+[com_119]
+type=layer
+width=3
+height=3
+widthmode=minus
+heightmode=minus
+layer=com_24
+
+// 20:120
+[com_120]
+type=graphic
+y=1
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_119
+graphic=window_texture_1
+tiling=yes
+
+// 20:121
+[com_121]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_119
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 20:122
+[com_122]
+type=graphic
+width=364
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_bot_brdr_left
+
+// 20:123
+[com_123]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_119
+graphic=aif_window_stone_close_corner_3
+
+// 20:124
+[com_124]
+type=graphic
+width=8
+height=190
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_119
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 20:125
+[com_125]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_119
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 20:126
+[com_126]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_119
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 20:127
+[com_127]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_bot_brdr_left
+
+// 20:128
+[com_128]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_bot_brdr_left
+
+// 20:129
+[com_129]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 20:130
+[com_130]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_119
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 20:131
+[com_131]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_119
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 20:132
+[com_132]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_119
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 20:133
+[com_133]
+type=graphic
+width=8
+height=190
+heightmode=minus
+ymode=abs_centre
+layer=com_119
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 20:134
+[com_134]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_side_brdr_small
+
+// 20:135
+[com_135]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 20:136
+[com_136]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_119
+graphic=aif_window_stone_close_corner_1
+
+// 20:137
+[com_137]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_119
+graphic=aif_window_stone_left_corner_1
+
+// 20:138
+[com_138]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_119
+graphic=aif_window_stone_bot_corn
+
+// 20:139
+[com_139]
+type=graphic
+width=8
+height=29
+layer=com_119
+graphic=aif_window_stone_left_corner_2
+
+// 20:140
+[com_140]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_119
+graphic=aif_window_stone_close_corner_2
+
+// 20:141
+[com_141]
+type=layer
+x=5
+y=5
+width=15
+height=13
+xmode=abs_right
+layer=com_119
+
+// 20:142
+[com_142]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_141
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+
+// 20:143
+[com_143]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_141
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 20:144
+[com_144]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_141
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 20:145
+[title_layer]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_119
+
+// 20:146
+[content_layer]
+type=layer
+x=14
+y=31
+width=474
+height=258
+layer=com_119
+
+// 20:147
+[tooltip_trigger]
+type=layer
+x=342
+y=17
+width=109
+height=188
+layer=content_layer
+onmouseleave=deltooltip(skillcape_customise:tooltip)
+onmouserepeat=aif_tooltip(skillcape_customise:tooltip, event_com, -1, "Preview of in game colours", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 20:148
+[com_148]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=title_layer
+textfont=palatino_linotype_18pt_regular
+text=Skillcape Customiser
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 20:149
+[dropshadow_side_graphic]
+type=graphic
+x=-1
+y=1
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_24
+graphic=button_dropshadow_left
+tiling=yes
+
+// 20:150
+[dropshadow_bottom_graphic]
+type=graphic
+y=-1
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_24
+graphic=button_dropshadow_bottom
+tiling=yes
+
+// 20:151
+[dropshadow_corner_graphic]
+type=graphic
+x=-1
+y=-1
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_24
+graphic=button_dropshadow_corner
+tiling=yes
+
+// 20:152
+[picker_layer2]
+type=layer
+x=10
+width=10
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=colour_popout2
+
+// 20:153
+[com_153]
+type=graphic
+width=100
+height=100
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer2
+graphic=window_texture_2
+tiling=yes
+
+// 20:154
+[com_154]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer2
+colour=0x584c3c
+
+// 20:155
+[picker_colour_top2]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer2
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:156
+[picker_border_top2]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer2
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:157
+[picker_colour_middle2]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer2
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:158
+[picker_border_middle2]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer2
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:159
+[picker_colour_bottom2]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer2
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:160
+[picker_border_bottom2]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer2
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:161
+[popout_arrow_layer2]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour_popout2
+onmouseover=clan_colour_popout_mouseover(skillcape_customise:popout_top2, "aif_browngrad_topbot,1", skillcape_customise:popout_middle2, "aif_browngrad_fill,1", skillcape_customise:popout_bottom2, "aif_browngrad_topbot,1")
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top2, "aif_browngrad_topbot,0", skillcape_customise:popout_middle2, "aif_browngrad_fill,0", skillcape_customise:popout_bottom2, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow2, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+
+// 20:162
+[popout_top2]
+type=graphic
+width=10
+height=9
+layer=popout_arrow_layer2
+graphic="aif_browngrad_topbot,0"
+
+// 20:163
+[popout_middle2]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=popout_arrow_layer2
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 20:164
+[popout_bottom2]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=popout_arrow_layer2
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 20:165
+[popout_arrow2]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=popout_arrow_layer2
+graphic="aif_symbol_set_1,3"
+
+// 20:166
+[picker_layer3]
+type=layer
+x=10
+width=10
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=colour_popout3
+
+// 20:167
+[com_167]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer3
+graphic=window_texture_1
+tiling=yes
+
+// 20:168
+[com_168]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer3
+colour=0x584c3c
+
+// 20:169
+[picker_colour_top3]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer3
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:170
+[picker_border_top3]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer3
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:171
+[picker_colour_middle3]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer3
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:172
+[picker_border_middle3]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer3
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:173
+[picker_colour_bottom3]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer3
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:174
+[picker_border_bottom3]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer3
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:175
+[popout_arrow_layer3]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour_popout3
+onmouseover=clan_colour_popout_mouseover(skillcape_customise:popout_top3, "aif_browngrad_topbot,1", skillcape_customise:popout_middle3, "aif_browngrad_fill,1", skillcape_customise:popout_bottom3, "aif_browngrad_topbot,1")
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top3, "aif_browngrad_topbot,0", skillcape_customise:popout_middle3, "aif_browngrad_fill,0", skillcape_customise:popout_bottom3, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow3, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+
+// 20:176
+[popout_top3]
+type=graphic
+width=10
+height=9
+layer=popout_arrow_layer3
+graphic="aif_browngrad_topbot,0"
+
+// 20:177
+[popout_middle3]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=popout_arrow_layer3
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 20:178
+[popout_bottom3]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=popout_arrow_layer3
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 20:179
+[popout_arrow3]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=popout_arrow_layer3
+graphic="aif_symbol_set_1,3"
+
+// 20:180
+[picker_layer4]
+type=layer
+x=10
+width=10
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=colour_popout4
+
+// 20:181
+[com_181]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer4
+graphic=window_texture_1
+tiling=yes
+
+// 20:182
+[com_182]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=picker_layer4
+colour=0x584c3c
+
+// 20:183
+[picker_colour_top4]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer4
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:184
+[picker_border_top4]
+type=rectangle
+x=6
+y=-18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer4
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:185
+[picker_colour_middle4]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer4
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:186
+[picker_border_middle4]
+type=rectangle
+x=6
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer4
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:187
+[picker_colour_bottom4]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer4
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Apply
+onvartransmit=script4615(event_com){varplayer_2172, varplayer_2173}
+
+// 20:188
+[picker_border_bottom4]
+type=rectangle
+x=6
+y=18
+width=15
+height=15
+ymode=abs_centre
+layer=picker_layer4
+colour=0x000000
+onmouseover=text_colour_swapper(event_com, 0xf9dba9)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 20:189
+[popout_arrow_layer4]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colour_popout4
+onmouseleave=clan_colour_popout_mouseover(skillcape_customise:popout_top4, "aif_browngrad_topbot,1", skillcape_customise:popout_middle4, "aif_browngrad_fill,1", skillcape_customise:popout_bottom4, "aif_browngrad_topbot,1")
+onmouserepeat=clan_colour_popout_mouseover(skillcape_customise:popout_top4, "aif_browngrad_topbot,0", skillcape_customise:popout_middle4, "aif_browngrad_fill,0", skillcape_customise:popout_bottom4, "aif_browngrad_topbot,0")
+onclick=script4543(event_com, skillcape_customise:popout_arrow4, "aif_symbol_set_1,2", "aif_symbol_set_1,3", 10, 35, 0, 1)
+
+// 20:190
+[popout_top4]
+type=graphic
+width=10
+height=9
+layer=popout_arrow_layer4
+graphic="aif_browngrad_topbot,0"
+
+// 20:191
+[popout_middle4]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=popout_arrow_layer4
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 20:192
+[popout_bottom4]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=popout_arrow_layer4
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 20:193
+[popout_arrow4]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=popout_arrow_layer4
+graphic="aif_symbol_set_1,3"
+
+// 20:194
+[com_194]
+type=layer
+x=15
+y=52
+width=331
+height=203
+layer=com_24
+
+// 20:195
+[com_195]
+type=graphic
+width=10
+height=10
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 20:196
+[com_196]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 20:197
+[com_197]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 20:198
+[com_198]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 20:199
+[com_199]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 20:200
+[com_200]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 20:201
+[com_201]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 20:202
+[com_202]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_194
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 20:203
+[tooltip]
+type=layer
+width=512
+height=334
+
+// 20:204
+[com_204]
+type=layer
+width=512
+height=334

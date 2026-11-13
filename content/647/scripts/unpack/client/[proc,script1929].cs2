@@ -1,0 +1,20 @@
+// 1929
+[proc,script1929]
+if_sethide(sc_reward_shop:com_110, true);
+if_setcolour(sc_reward_shop:volatile_text, 0xc8aa64);
+if_setcolour(sc_reward_shop:volatile_cost_text, 0xc8aa64);
+if_sethide(sc_reward_shop:tool_highlight_rect, true);
+if_setcolour(sc_reward_shop:tool_text, 0xc8aa64);
+if_setcolour(sc_reward_shop:tool_cost_text, 0xc8aa64);
+if_sethide(sc_reward_shop:body_highlight_rect, true);
+if_setcolour(sc_reward_shop:body_text, 0xc8aa64);
+if_setcolour(sc_reward_shop:body_cost_text, 0xc8aa64);
+if_sethide(sc_reward_shop:legs_highlight_rect, true);
+if_setcolour(sc_reward_shop:legs_text, 0xc8aa64);
+if_setcolour(sc_reward_shop:legs_cost_text, 0xc8aa64);
+if_sethide(sc_reward_shop:head_highlight_rect, true);
+if_setcolour(sc_reward_shop:head_text, 0xc8aa64);
+if_setcolour(sc_reward_shop:head_cost_text, 0xc8aa64);
+if_sethide(sc_reward_shop:weapon_highlight_rect, true);
+if_setcolour(sc_reward_shop:weapon_text, 0xc8aa64);
+if_setcolour(sc_reward_shop:weapon_cost_text, 0xc8aa64);

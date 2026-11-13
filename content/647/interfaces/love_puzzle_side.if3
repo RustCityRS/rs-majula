@@ -1,0 +1,88 @@
+// 992:0
+[universe]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=love_puzzle_side_init(love_puzzle_side:head, love_puzzle_side:contents, love_puzzle_side:scrollbar)
+
+// 992:1
+[com_1]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 992:2
+[head]
+type=layer
+y=5
+width=90
+height=80
+xmode=abs_centre
+layer=universe
+
+// 992:3
+[com_3]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=head
+colour=0x000000
+fill=yes
+trans=200
+
+// 992:4
+[body]
+type=layer
+y=5
+width=10
+height=95
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+
+// 992:5
+[com_5]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=body
+colour=0x000000
+fill=yes
+trans=200
+
+// 992:6
+[contents]
+type=layer
+width=6
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=body
+
+// 992:7
+[scrollbar]
+type=layer
+x=3
+width=16
+height=6
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=body
+hide=yes

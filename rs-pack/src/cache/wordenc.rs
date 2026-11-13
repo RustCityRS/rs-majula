@@ -1,5 +1,6 @@
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use std::sync::LazyLock;
 
 const PERIOD: &[u8] = b"dot";
 const AMPERSAT: &[u8] = b"(a)";
@@ -22,6 +23,14 @@ const WHITELIST: &[&str] = &[
     "noobs",
 ];
 
+/// [`WHITELIST`] as chars, collected once.
+static WHITELIST_CHARS: LazyLock<Vec<Vec<char>>> = LazyLock::new(|| {
+    WHITELIST
+        .iter()
+        .map(|word| word.chars().collect())
+        .collect()
+});
+
 type BadCombinations = Box<[Option<Box<[[i8; 2]]>>]>;
 type WordList = Box<[Box<[u8]>]>;
 
@@ -35,6 +44,20 @@ pub struct WordEncProvider {
 }
 
 impl WordEncProvider {
+    /// Rev-647 chat is huffman-coded and unfiltered (matching the source
+    /// repo), so the provider carries no word lists.
+    #[cfg(since_647)]
+    pub fn empty() -> WordEncProvider {
+        WordEncProvider {
+            bads: Box::new([]),
+            bad_combinations: Box::new([]),
+            fragments: Box::new([]),
+            tlds: Box::new([]),
+            tld_types: Box::new([]),
+            domains: Box::new([]),
+        }
+    }
+
     pub fn from_jag(jag_bytes: &[u8]) -> WordEncProvider {
         let jag = JagFile::from(jag_bytes.to_vec());
 
@@ -81,11 +104,10 @@ impl WordEncProvider {
         self.filter_fragments(&mut filtered);
 
         // Matched by char, not byte: '£' and '€' are wider than one byte.
-        for word in WHITELIST {
-            let word: Vec<char> = word.chars().collect();
+        for word in WHITELIST_CHARS.iter() {
             for (start, window) in lowercase.windows(word.len()).enumerate() {
                 if window == word.as_slice() {
-                    filtered[start..start + word.len()].copy_from_slice(&word);
+                    filtered[start..start + word.len()].copy_from_slice(word);
                 }
             }
         }
@@ -308,6 +330,9 @@ impl WordEncProvider {
     // --- domains ---
 
     fn filter_domains(&self, chars: &mut [char]) {
+        if self.domains.is_empty() {
+            return;
+        }
         let mut ampersat = chars.to_vec();
         let mut period = chars.to_vec();
         self.filter_bad_combinations(None, &mut ampersat, AMPERSAT);

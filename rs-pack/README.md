@@ -1,8 +1,258 @@
 # rs-pack -- Cache Packing & Unpacking
 
 This crate handles the complete pipeline for packing game assets from human-readable source files into binary cache
-archives, and unpacking original Jagex rev-225 cache files back into editable content. It produces byte-identical output
+archives, and unpacking original Jagex cache files back into editable content. It produces byte-identical output
 verified by CRC against original archives.
+
+## Revision 647 startup
+
+The complete unpacked source cache is versioned under `content/647`, alongside the authored
+configs and scripts. Restored assets are included in the source tree. Starting the server needs no reference cache or download.
+`unpack` remains a manual import tool for a separately supplied cache.
+
+Startup reads config files once for validation and packing. Independent asset archives,
+start alongside config packing and RuneScript compilation.
+Animations, interfaces, sprites, songs and textures are encoded and compressed one group
+at a time. Config grouping borrows records directly from the packed buffers. Map sources
+are indexed with one directory scan.
+
+Config buffers go directly to JS5 grouping and runtime providers, without intermediate
+JAGs, dat2 files, server files or timestamp files. Map loading and MIDI-length calculation
+also run in parallel. The server retains compressed JS5 groups in memory and serves
+borrowed containers without disk reads or a cache mutex.
+Appending group versions reserves only the two required bytes. Reference tables used
+for packing and validation are released before engine initialization.
+
+Server script IDs are generated in memory from sorted trigger/name pairs. Each world
+retains assigned and retired IDs for hot reloads, so queued and suspended scripts keep
+their references. There is no server script registry file to commit or write during
+startup. Parallel worlds compile against private snapshots of the config registries.
+The incremental cache reuses script bytecode only when its IDs agree with the running
+world, and restores the ID mapping on a cache hit. Client script IDs still come from
+`clientscript.pack` because they are part of the client cache.
+
+CRC verification covers all 36 archives and every group payload at startup. Reference
+containers must match fixed CRCs, their metadata must match the in-memory tables, and each
+group must match its CRC, version trailer and optional Whirlpool digest. Missing and extra
+containers fail validation. No archives or groups are skipped. The maps, models and loc
+reference CRCs include the committed donor restorations and authored config properties; the other
+33 reference containers match [OpenRS2 cache 274](https://archive.openrs2.org/caches/runescape/274),
+build 647. `--verify false` allows intentional source edits while still checking container integrity.
+
+Loading-screen JPEGs are copied byte-for-byte from source. Their untagged four-channel
+color data can display incorrectly in generic image previews. The vanilla client probes
+JVM JPEG support and requests archive 34 when decoding fails. Its original fallback sprites
+are included as indexed TGA sources under `loading_sprites_raw`, with exact group and reference
+CRCs from cache 274. Archive 35 is unused in that reference cache.
+
+Check the source pack and run the offline group-level regression:
+
+```bash
+REV=647 cargo run -p rs-pack -- pack
+REV=647 cargo test -p rs-pack --test crc_gate -- --ignored
+```
+
+In debug builds, a pack reuses what an earlier one made from sources that haven't changed since,
+kept in `data/pack-cache/<rev>`. Each unit (a 647 group, a config type, the scripts, a JAG
+archive) is packed again when one of its source files changes size or modified time, or when a
+name it looked up in the registries resolves differently. Unchanged encoded data skips
+compression. An edit to the packer's own code starts the cache over. Release builds pack
+everything unless given `--cache true` (the server's `--pack-cache true`); the CRC gate test
+always packs everything.
+
+The final `Pack complete` log reports packing and runtime provider loading time, excluding
+Cargo compilation and the rest of server bootstrap. Enable debug logs for per-archive,
+config-type and compiler timing:
+
+```bash
+RUST_LOG=info,rs_pack=debug,runec=error REV=647 cargo run --release -p rs-pack -- pack
+```
+
+Use the server's `Pack complete` log when measuring server startup. The pack CLI uses the
+system allocator; the server uses mimalloc, so their timings are not directly comparable.
+The manual import, discovery, clientscript decompiler and legacy JAG builders do not run
+on the 647 startup path. Compression keeps the original Gzip/Bzip2 selection rules and
+the strict archive/group checks.
+
+## 647 source formats
+
+Both compilers scan the revision's `scripts` directory recursively. File extensions select the
+target: `.rs2` for the server, `.cs2` for the client, and `.gs2` for both. Folders only organize
+source; existing server feature names and nested folders are preserved. For example,
+`interface_bank/scripts/*.rs2`, `interface_bank/client/*.cs2` and
+`interface_bank/global/*.gs2` live together, while combat remains under `skill_combat`.
+Engine declarations and common constants sit directly under `scripts`; feature configs
+remain beside their scripts.
+Configs retain their extensions (`.obj`, `.param`, `.varp`, `.constant`, etc.) and are shared by
+default. A `// @scope(server)` or `// @scope(client)` header restricts configs or constants to
+one target; `// @scope(shared)` makes the default explicit. RS2 and CS2 can use their own
+definitions and shared definitions; GS2 can use only shared configs, constants and procedures.
+Pack registries assign IDs without granting access to private definitions. Asset registries such
+as models, sprites and interfaces remain independent of script namespaces.
+An intentional reference to a missing loc slot can be declared with `absent=yes`
+as its only property; this grants source ownership without creating a cache entry.
+Other assets live directly under their domain folder. Imported configs use
+`scripts/configs/_unpack` by default; imports can be moved anywhere under `scripts`.
+Each config name has one section per config type. Put client and server properties together
+in that section; repeated headers, including across files, stop packing with both source locations.
+Imported definitions are editable source. Full unpacking requires an output without existing configs;
+import into a fresh directory before reconciling updates. For a server parameter occupying an
+empty client slot, `client=empty` preserves that empty client record while packing its server properties.
+The packer reads these sources into memory; it does not rebuild a disk
+cache or create intermediate asset files during startup. There are no raw `.bin` copies,
+PNG previews or `manifest.json` files in `content/647`.
+
+| Folder | Editable source |
+|---|---|
+| `animations`, `skeletons` | `.anim` frames and `.base` bone transforms, masks and labels |
+| `models` | `.model` vertex coordinates, triangle indices, colours, named materials, texture mappings and particle attachments |
+| `interfaces` | `.if3` components by position, named asset references and hooks written as script calls (`onop=closebutton_click`, `onmouseover=graphic_swapper(event_com, "name,1")`) |
+| `maps` | `.jm2` terrain, named loc placements and server spawns, using the existing map text layout |
+| `sprites`, `loading_sprites`, `loading_sprites_raw` | Indexed `.tga` sheets with `.sprite` frame metadata; `.alpha.tga` masks where needed; original JPEGs |
+| `textures`, `materials` | `.texture` procedural operations, gradients, curves and shapes; `.material` rendering properties grouped by texture |
+| `scripts` (recursive) | `.rs2` server source, `.cs2` client source, `.gs2` procedures compiled for both targets, configs and constants |
+| `synth`, `instruments` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
+| `songs`, `jingles` | Standard `.mid` files |
+| `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
+| `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
+| `defaults` | `graphics.defaults`, `unknown1.defaults` and `wearpos.defaults` named properties |
+| `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
+| `worldmap` | `.fm` area palettes; `.fms` map squares with coordinates and named floors/locs |
+| `shaders` | Direct3D `.shader` assembly and constant tables; original OpenGL `.arb`/`.glsl` source |
+| `dlls` | Original native libraries under their platform and library names |
+
+Billboards, particles, quickchat and world map details are configs like the rest, in
+`scripts/configs/_unpack` (`all.billboard`, `all.particleemitter`, `all.particleeffector`,
+`all.quickchatcat`, `all.quickchatphrase`, `all.wma`). A `.wma` block is one map's details and
+static elements; its position in the cache is its `wma.pack` id.
+
+Areas (`.area`) are server only; the cache keeps an empty entry per area. `colour=0xRRGGBB` is the
+map editor's highlight, and `trigger=yes` runs `[area,<name>]` when a player steps onto one of its
+tiles and `[areaexit,<name>]` when they step off. Tiles are painted in `maps/a<mx>_<mz>.jm2`, a line
+per tile, `level x z: area ...`, with up to five areas on a tile. `inarea(area, coord)` tests a tile.
+Multi-combat is the `multiway` area: `map_multiway` and npc hunting read it, and its triggers set
+varc 616, which shows the client's multiway icon.
+
+Varobjs (`.varobj`) are server only too; the cache keeps an empty entry per varobj. Each obj
+carries 32 bits, and a varobj is its `startbit`..`endbit` slice of them. An obj lists the varobjs
+it carries in `objvar=a,b,c`, which also makes it unstackable; the packer refuses a listed varobj
+without bits, or one whose bits overlap another's. Scripts read and write them with
+`inv_getvar(inv, slot, varobj)` / `inv_setvar(inv, slot, varobj, value)` for an inventory slot and
+`obj_getvar(varobj)` / `obj_setvar(varobj, value)` for the active ground obj. The bits go with the
+item wherever it moves, is dropped or is picked up, and are saved with the player.
+
+Names come from `pack/*.pack`. Assets without recovered names use stable names such as
+`model_123`, rather than guessed names. References resolve through those same registries;
+local geometry indices and numeric values remain numeric. `null` represents an absent
+reference. The text files in `versions` and the `.hashes`/`.fileids` registries retain
+original JS5 versions, file ordering and hashes required for byte-identical reference tables.
+Unpacking exports this metadata and copies the keys used to decode maps into the output tree.
+
+World-map areas list `square=main/file_4/m50_50.fms` paths relative to their `.fm` file.
+Each square file contains the original 64-by-64 square or its 8-by-8 chunks. Keep the
+listed order: a square revisited later uses a numbered part such as `m50_50_2.fms`.
+The area palette stays in `.fm`. Packing reads one square at a time and combines
+its bytes into the original cache entry. Inline square data is also accepted.
+
+For example, a model vertex is `vertex0=-40,-10,-16`, a triangle is
+`face0.vertices=0,1,2`, and a material is `face0.material=texture_12`. Texture mappings
+have their own properties such as `mapping0.type=cylindrical`. Coordinate deltas, stream
+lengths and triangle compression are derived during packing. Rare explicit `.encoding`
+properties preserve original compression choices; geometry edits still regenerate valid data.
+
+Sprite sheets preserve palette indices, including distinct entries with identical colours.
+Keep the indexed palette when editing a TGA. `.sprite` records the original canvas and each
+frame's `x,y,width,height,rows|columns,opaque|alpha`. An alpha mask uses its pixel indices as
+opacity values. Do not flatten the mask into the colour palette. A dot in an asset name is
+part of the name: `painting.02.sprite` pairs with `painting.02.tga`.
+
+Clientscripts compile with the shared RuneScript compiler. Commands are declared
+in the unique `engine.cs2` anywhere under `scripts`; `pack/cs2_command.pack` supplies opcode IDs
+for both commands and core instructions. The writer derives operand sizes and format features from
+those instructions. Event, colour and UI layout constants live in
+`.constant` files under `scripts`. Parameter return types come from client or shared `.param` configs.
+Unpacking preserves existing client and shared script locations from the source template.
+New named scripts use a matching existing feature folder, such as
+`interface_bank/client/[proc,bank_new].cs2` or `skill_combat/client/...`.
+If no unique feature matches the name's prefix, it creates `scripts/<prefix>/client/`.
+Unknown scripts live in `scripts/unpack/client/[proc,clientscript_<id>].cs2`.
+Shared procedures use the feature's `global` folder. This is an output convention;
+packing discovers these files anywhere under `scripts`.
+Procedure types are inferred across calls during unpacking; typed arguments, declarations,
+assignments, comparisons and switch cases use
+pack names, colours use constants or lowercase hex, and unused results are discarded by ordinary calls.
+Unnamed models use their asset filename reference, such as `model_41312`.
+Coordinates use `level_mapsquareX_mapsquareZ_localX_localZ` literals.
+Generated locals use their inferred type (`$component0`, `$graphic2`), and arithmetic
+keeps the parentheses needed to preserve evaluation order. Calls without arguments
+omit empty parentheses, following the [OSRS dump formatting](https://github.com/Joshua-F/osrs-dumps/tree/master/script).
+Unpacking validates every generated script against its original bytes before
+writing source. CS2 and GS2 files need no layout metadata: declaration order,
+comparison syntax and explicit returns preserve the original instructions.
+Comparisons against `true` or `false` use compact boolean branches; comparisons
+against numbers retain integer branches. Extra fallback returns remain ordinary
+source statements when needed for an exact round trip. Edit the source directly;
+normal cache packing compiles it again. CS2 hot reloading is not used.
+
+Binary decoding, signature inference and source reconstruction live in `runec`.
+The packer supplies the opcode format, engine command signatures, config types
+and asset names; cache traversal and name recovery remain here. This keeps the
+same revision-independent compiler/decompiler available to emulator and editor
+hosts. From the `rs-majula` root, build the language server once:
+
+```bash
+cargo build --manifest-path ../rs-compiler/Cargo.toml --bin runec --target-dir ../rs-compiler/target
+```
+
+Configure the editor to launch the executable directly, with `rs-majula` as its
+working directory (Windows; omit `.exe` on Linux/macOS):
+
+```text
+"../rs-compiler/target/debug/runec.exe" lsp --source content/647/scripts --pack content/647/pack
+```
+
+Do not use `cargo run` as an editor launch command. Stop the language servers
+before rebuilding on Windows, then restart them. See rs-compiler's README for
+the IntelliJ/LSP4IJ file mappings.
+
+A fresh `unpack` seeds missing registries from the selected revision's project
+`pack` directory, preserving recovered names and existing output registries. It
+discovers additional cache entries and copies the clientscript engine and constants
+into the output tree. Both full unpacking and `unpack-clientscripts` generate the
+same directory layout and validate every script's original bytes.
+
+Recover missing names from local copies of [osrs-cache's dictionaries](https://github.com/zwyz/osrs-cache/tree/master/data/names)
+or the dump's `.sym` files, then regenerate the clientscript source:
+
+```bash
+REV=647 cargo run -p rs-pack -- recover-names --kind clientscript ../osrs-cache/data/names/scripts.txt
+REV=647 cargo run -p rs-pack -- recover-names --kind sprites ../osrs-cache/data/names/graphics.txt ../osrs-dumps/symbols/graphic.sym
+REV=647 cargo run -p rs-pack -- unpack-clientscripts --expected expected --output content/647 --pack content/647/pack
+```
+
+Recovery matches names against this cache's `.hashes`; external numeric IDs are ignored.
+Existing names are preserved. Hash collisions are skipped, and expanded `#` sprite
+indices require neighbouring names as corroboration. `--max-index` controls the expansion
+limit (4096 by default). Regeneration removes obsolete generated files when their
+names or paths change. Scripts without a recovered name keep their numeric fallback
+in `scripts/unpack/client`.
+
+Vorbis packets are wrapped in Ogg without audio re-encoding. Edit playback rate, sample
+count and loop points in `.sample`. The client shares one codebook/setup across every
+sample, so replacing an Ogg requires the same setup and block sizes. Packing rejects
+incompatible Oggs and invalid page CRCs. Changing the shared setup requires updating the
+audio consistently. Instrument references explicitly distinguish `vorbis:name,loop` from
+`synth:name,once`.
+
+Native libraries remain compiled binaries. The 34 landscape groups with no available XTEA
+keys remain encrypted `.js5` containers under `maps/encrypted`, named by map square; their
+contents cannot be decoded into editable terrain/locs without the keys. JPEGs, TGAs, MIDI
+and Ogg are standard media sources. No redundant binary copy accompanies a text source.
+
+Unpacking checks reversible formats against their original bytes before writing them.
+For deliberate client-content edits, launch with `--verify false`; the original-content
+CRC gate is expected to reject changed assets. Unknown names and unrecognized properties in
+the new typed formats fail packing instead of silently falling back to raw data.
 
 ## Table of Contents
 
@@ -1175,6 +1425,7 @@ server-only types are loaded directly from packed data.
 
 | Type     | Source Extension | Description                                |
 |----------|------------------|--------------------------------------------|
+| area     | `.area`          | Areas painted on map tiles                 |
 | inv      | `.inv`           | Inventory definitions (scope, size, stock) |
 | param    | `.param`         | Parameter type and default value           |
 | enum     | `.enum`          | Key-value lookups with input/output types  |
@@ -1184,6 +1435,7 @@ server-only types are loaded directly from packed data.
 | dbtable  | `.dbtable`       | Database table schemas                     |
 | varn     | `.varn`          | NPC variable definitions                   |
 | vars     | `.vars`          | Shared variable definitions                |
+| varobj   | `.varobj`        | Bit slices of an obj's 32 bits             |
 | mesanim  | `.mesanim`       | Message animation sequences                |
 | category | `.category`      | Virtual type (debugname only)              |
 
@@ -1225,7 +1477,6 @@ Each `p2(length)` records the byte length of the corresponding entry in the dat 
 | `p2(v)`    | Write 2 bytes big-endian (unsigned short)                   |
 | `p3(v)`    | Write 3 bytes big-endian                                    |
 | `p4(v)`    | Write 4 bytes big-endian (signed int)                       |
-| `pbool(v)` | Write 1 byte: 0 = false, 1 = true                           |
 | `pjstr(v)` | Write string bytes followed by byte 10 (newline terminator) |
 
 #### Source Text Format
@@ -1377,7 +1628,7 @@ Centrepiece (`_8`) is checked first.
 | 71     | offsety       | `p2(value)`                                                                                         |
 | 72     | offsetz       | `p2(value)`                                                                                         |
 | 73     | forcedecor    | Flag opcode. Emitted when `forcedecor=yes`.                                                         |
-| 249    | params        | `p1(count)` then per param: `p3(param_id) pbool(is_string) [p4(int_value)                           | pjstr(str_value)]` |
+| 249    | params        | `p1(count)` then per param: `p1(is_string as u8) p3(param_id) [p4(int_value)                           | pjstr(str_value)]` |
 | 250    | debugname     | `pjstr(debugname)` (server only)                                                                    |
 
 Client CRC: 891497087
@@ -1432,6 +1683,7 @@ replaced with spaces) and used as the name.
 | 14      | wearpos2       | `p1(wear_pos_id)` (server only)                                                                 |
 | 15      | tradeable      | Flag opcode. Emitted when `tradeable=no` (server only).                                         |
 | 16      | members        | Flag opcode. Emitted when `members=yes`.                                                        |
+| 17      | objvar         | `p1(count)` then `p2(varobj_id)` per varobj (server only, 647). Drops `stackable`.              |
 | 23      | manwear        | `p2(model_id) p1(offset)`                                                                       |
 | 24      | manwear2       | `p2(model_id)`                                                                                  |
 | 25      | womanwear      | `p2(model_id) p1(offset)`                                                                       |
@@ -1658,7 +1910,7 @@ Structs are simple containers of param key-value pairs.
 
 | Opcode | Field     | Format                                                                                          |
 |--------|-----------|-------------------------------------------------------------------------------------------------|
-| 249    | params    | `p1(count)` then per param: `p3(param_id) pbool(is_string) [p4(int_value) \| pjstr(str_value)]` |
+| 249    | params    | `p1(count)` then per param: `p1(is_string as u8) p3(param_id) [p4(int_value) \| pjstr(str_value)]` |
 | 250    | debugname | `pjstr(debugname)`                                                                              |
 
 ##### HUNT (Server-Only)
@@ -1691,6 +1943,25 @@ Hunt configs define NPC hunting behavior.
 
 Check requirements are mutually exclusive: only one of `check_category`, `check_npc`, `check_obj`, `check_loc`,
 `check_inv`, or `check_invparam` may be specified per hunt config.
+
+##### AREA (Server-Only)
+
+Source extension: `.area`
+
+| Opcode | Field     | Format             |
+|--------|-----------|--------------------|
+| 1      | colour    | `p3(rgb)`          |
+| 2      | trigger   | flag (`yes`)       |
+| 250    | debugname | `pjstr(debugname)` |
+
+##### VAROBJ (Server-Only)
+
+Source extension: `.varobj`
+
+| Opcode | Field             | Format                     |
+|--------|-------------------|----------------------------|
+| 1      | startbit, endbit  | `p1(startbit) p1(endbit)`  |
+| 250    | debugname         | `pjstr(debugname)`         |
 
 ##### DBTABLE (Server-Only)
 
@@ -2376,7 +2647,7 @@ The server stream includes two additional fields per component that the client s
 
 ```
 pjstr(debug_name)    -- human-readable component name (e.g., "inventory:com_5")
-pbool(is_overlay)    -- true if type is "overlay" rather than "layer"
+p1(is_overlay as u8)    -- true if type is "overlay" rather than "layer"
 ```
 
 ##### Common Fields (Both Client and Server)
@@ -2427,7 +2698,7 @@ for each script:
 
 ```
 p2(scroll)                 -- scroll height in pixels
-pbool(hide)                -- initially hidden
+p1(hide as u8)                -- initially hidden
 p1(child_count)            -- number of child components
 for each child:
     [client only] p2(child_id)
@@ -2440,13 +2711,13 @@ Note: child IDs are only written to the client stream. The server stream omits t
 **Inv (type 2)**
 
 ```
-pbool(draggable)           -- items can be dragged
-pbool(interactable)        -- items can be interacted with
-pbool(usable)              -- items can be used on targets
+p1(draggable as u8)           -- items can be dragged
+p1(interactable as u8)        -- items can be interacted with
+p1(usable as u8)              -- items can be used on targets
 p1(margin_x)               -- horizontal slot margin
 p1(margin_y)               -- vertical slot margin
 for slot 1..20:
-    pbool(has_slot)
+    p1(has_slot as u8)
     if has_slot:
         p2(offset_x)       -- sprite X offset within slot
         p2(offset_y)       -- sprite Y offset within slot
@@ -2460,15 +2731,15 @@ Slot definitions use colon-separated format: `slot1=sprite_name:x,y`.
 **Rect (type 3)**
 
 ```
-pbool(fill)                -- filled or outline only
+p1(fill as u8)                -- filled or outline only
 ```
 
 **Text (type 4)**
 
 ```
-pbool(center)              -- center-aligned text
+p1(center as u8)              -- center-aligned text
 p1(font)                   -- font ID (0-3)
-pbool(shadowed)            -- text shadow enabled
+p1(shadowed as u8)            -- text shadow enabled
 pjstr(text)                -- default text content
 pjstr(activetext)          -- text when component is active/selected
 ```
@@ -2521,13 +2792,13 @@ p2(yan)                    -- Y-axis rotation angle
 **Invtext (type 7)**
 
 ```
-pbool(center)              -- center-aligned text
+p1(center as u8)              -- center-aligned text
 p1(font)                   -- font ID (0-3)
-pbool(shadowed)            -- text shadow enabled
+p1(shadowed as u8)            -- text shadow enabled
 p4(colour)                 -- text color (hex RGB)
 p2(margin_x)               -- horizontal margin
 p2(margin_y)               -- vertical margin
-pbool(interactable)        -- items can be interacted with
+p1(interactable as u8)        -- items can be interacted with
 for option 1..5:
     pjstr(option_text)     -- right-click menu option text
 ```

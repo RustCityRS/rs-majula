@@ -1,0 +1,73 @@
+// 24
+[proc,script24](int $int0, obj $obj1, graphic $graphic2, string $string0, int $int3, int $int4)(int)
+cc_create(skill_guide_v2:info, ^iftype_text, calc($int3 * 3));
+cc_setsize(26, 32, ^setsize_abs, ^setsize_abs);
+if ($int0 > 0) {
+    cc_settext(tostring($int0));
+} else {
+    cc_settext(" ");
+}
+cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+cc_setcolour(0x46320a);
+cc_settextfont(q8_full);
+cc_settextshadow(false);
+cc_create(skill_guide_v2:info, ^iftype_graphic, calc($int3 * 3 + 1));
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+if (~script1566(%varplayerbit_3288, %varplayerbit_3289) = 1) {
+    if (%varplayerbit_3288 = 7) {
+        cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+    } else if (%varplayerbit_3288 = 4) {
+        cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    cc_setoutline(0);
+    if ($graphic2 ! null) {
+        cc_setgraphic($graphic2);
+    } else {
+        cc_setgraphic(graphic_2287);
+    }
+} else if ($obj1 ! null) {
+    if ($obj1 = 32_rand_gate_stone_create | $obj1 = 32_rand_gate_stone_teleport) {
+        cc_setsize(24, 24, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, $int4, ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setoutline(0);
+        if ($obj1 = 32_rand_gate_stone_create) {
+            cc_setgraphic("magicon2,51");
+        } else {
+            cc_setgraphic("magicon2,50");
+        }
+    } else {
+        cc_setoutline(1);
+        cc_setgraphicshadow(0x604e32);
+        cc_setobject($obj1, -1);
+        if (%varplayerbit_3288 = 21 & %varplayerbit_3289 ! 10) {
+            cc_setop(1, "Check protection price");
+            cc_setonop("script1865(event_op, $obj1)");
+            cc_setonmouseover("script1862(event_com, event_comsubid)");
+            cc_setonmouseleave("script1863(event_com, event_comsubid)");
+        } else if (%varplayerbit_3288 = 22 & %varplayerbit_3289 ! 13 & %varplayerbit_3289 ! 14 & %varplayerbit_3289 ! 15) {
+            cc_setop(1, "Check materials");
+            cc_setonop("construction_materials(event_op, $obj1, %varplayerbit_3289, $int3)");
+            cc_setonmouseover("script1862(event_com, event_comsubid)");
+            cc_setonmouseleave("script1863(event_com, event_comsubid)");
+        }
+    }
+} else {
+    cc_setobject(invis_rod, -1);
+}
+cc_setposition(28, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_create(skill_guide_v2:info, ^iftype_text, calc($int3 * 3 + 2));
+def_int $int5 = paraheight($string0, 228, p12_full);
+cc_setsize(228, calc($int5 * 15), ^setsize_abs, ^setsize_abs);
+cc_settext($string0);
+cc_setposition(66, $int4, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_setcolour(0x46320a);
+cc_settextfont(p12_full);
+cc_settextshadow(false);
+if (calc($int5 * 15) < 32) {
+    return(32);
+} else {
+    return(calc($int5 * 15 + 5));
+}

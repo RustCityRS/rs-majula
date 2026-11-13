@@ -4,14 +4,23 @@ use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::loc_merge::LocMerge;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::text_coord::TextCoord;
+use rs_protocol::network::game::zone_prot::ZoneProt;
 
 /// Generates the [`ZoneMessage`] enum and its mechanical `encode_zone` /
 /// `sizeof_zone` matches from a single variant list.
@@ -48,7 +57,10 @@ macro_rules! zone_messages {
             /// Advances `buf.pos` by `1 + message.sizeof()` bytes.
             pub fn encode_zone(&self, buf: &mut Packet) {
                 match self {
-                    $($(#[$meta])* Self::$variant(m) => encode(m, buf),)+
+                    $($(#[$meta])* Self::$variant(m) => {
+                        buf.p1(ZoneProt::$variant as u8);
+                        m.encode(buf);
+                    },)+
                 }
             }
 
@@ -79,23 +91,16 @@ zone_messages! {
     LocDel(LocDel),
     LocAnim(LocAnim),
     LocMerge(LocMerge),
+    #[cfg(since_647)]
+    LocPrefetch(LocPrefetch),
     MapAnim(MapAnim),
     MapProjAnim(MapProjAnim),
+    #[cfg(since_647)]
+    MapProjAnimHalfsq(MapProjAnimHalfsq),
     #[cfg(since_289)]
     SoundArea(SoundArea),
-}
-
-/// Writes a protocol opcode byte followed by the encoded message payload into `buf`.
-///
-/// # Arguments
-///
-/// * `message` -- The server protocol message to encode.
-/// * `buf` -- The packet buffer to write into.
-///
-/// # Side Effects
-///
-/// Advances `buf.pos` by `1 + message.sizeof()` bytes.
-fn encode<M: ServerProtMessage>(message: &M, buf: &mut Packet) {
-    buf.p1(M::PROT as u8);
-    message.encode(buf);
+    #[cfg(since_647)]
+    SoundVorbisArea(SoundVorbisArea),
+    #[cfg(since_647)]
+    TextCoord(TextCoord),
 }

@@ -1,0 +1,8 @@
+// 2440
+[clientscript,trawler_catch_amount]
+def_int $int0 = calc(%trawler_total_catch_client / 2);
+if ($int0 < 1) {
+    if_settext(trawler_game_overlay:catch_text, "Catch: Nothing");
+} else {
+    if_settext(trawler_game_overlay:catch_text, "Catch: <tostring($int0)> Fish");
+}

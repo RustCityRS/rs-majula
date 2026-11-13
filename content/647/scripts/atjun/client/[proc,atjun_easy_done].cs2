@@ -1,0 +1,14 @@
+// 55
+[proc,atjun_easy_done]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %atjun_easy_banana);
+$int0 = calc($int0 + %atjun_easy_swing);
+$int0 = calc($int0 + %atjun_easy_gold);
+$int0 = calc($int0 + %atjun_easy_boat_sarim);
+$int0 = calc($int0 + %atjun_easy_boat_ardy);
+$int0 = calc($int0 + %atjun_easy_cairn);
+$int0 = calc($int0 + %atjun_easy_fishing);
+$int0 = calc($int0 + %atjun_easy_seaweed);
+$int0 = calc($int0 + %atjun_easy_tzhaar);
+$int0 = calc($int0 + %atjun_easy_jogre);
+return($int0);

@@ -1,0 +1,15 @@
+// 3418
+[proc,script3418](component $component0, int $int1, int $int2)
+def_graphic $graphic3 = "km_colourpickerbox,1";
+def_graphic $graphic4 = "km_colourpickerbox,0";
+if ($int2 = $int1) {
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic($graphic3);
+        if_setonmouseover($component0, null);
+        if_setonmouseleave($component0, null);
+    }
+} else if (cc_find($component0, 1) = true) {
+    cc_setgraphic($graphic4);
+    if_setonmouseover($component0, "cc_graphic_swapper(event_com, cc_getid, $graphic3)");
+    if_setonmouseleave($component0, "cc_graphic_swapper(event_com, cc_getid, $graphic4)");
+}

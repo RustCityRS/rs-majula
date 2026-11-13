@@ -1,0 +1,325 @@
+// 11:0
+[all]
+type=layer
+x=76
+y=17
+width=376
+height=284
+
+// 11:1
+[com_1]
+type=graphic
+x=12
+y=6
+width=352
+height=269
+layer=all
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 11:2
+[com_2]
+type=graphic
+x=-8
+y=29
+width=36
+height=222
+layer=all
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 11:3
+[com_3]
+type=graphic
+x=5
+y=5
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+opbase= 
+
+// 11:4
+[com_4]
+type=graphic
+x=351
+y=29
+width=31
+height=222
+layer=all
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 11:5
+[com_5]
+type=graphic
+x=31
+y=259
+width=314
+height=32
+layer=all
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 11:6
+[com_6]
+type=graphic
+x=36
+y=-8
+width=308
+height=32
+layer=all
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 11:7
+[com_7]
+type=graphic
+x=5
+y=247
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 11:8
+[com_8]
+type=graphic
+x=339
+y=5
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+opbase= 
+
+// 11:9
+[com_9]
+type=graphic
+x=339
+y=247
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+opbase= 
+
+// 11:10
+[com_10]
+type=graphic
+x=11
+y=17
+width=353
+height=32
+layer=all
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 11:11
+[com_11]
+type=graphic
+x=5
+y=19
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,9"
+tiling=yes
+colour=0xffffffff
+
+// 11:12
+[com_12]
+type=graphic
+x=339
+y=19
+width=32
+height=32
+layer=all
+graphic="v2_stone_borders,10"
+tiling=yes
+colour=0xffffffff
+
+// 11:13
+[title]
+type=text
+x=17
+y=13
+width=343
+height=16
+layer=all
+textfont=b12_full
+text=The Bank of RuneScape - Deposit Box
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 11:14
+[com_14]
+type=graphic
+x=12
+y=226
+width=352
+height=33
+layer=all
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 11:15
+[com_15]
+type=graphic
+x=346
+y=13
+width=16
+height=16
+layer=all
+graphic="v2_stone_close_button,0"
+trans=20
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 11:16
+[com_16]
+type=rectangle
+x=11
+y=36
+width=354
+height=207
+layer=all
+colour=0x252222
+fill=yes
+trans=160
+transmitop=10
+op10= 
+
+// 11:17
+[icons]
+type=layer
+x=26
+y=49
+width=325
+height=183
+layer=all
+
+// 11:18
+[deposit_inv]
+type=graphic
+x=250
+y=240
+width=35
+height=35
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit carried items
+op10=  
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_deposit_box:build_layer)
+onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
+onmouserepeat=addtooltip(event_com, bank_deposit_box:build_layer, "Empty your backpack into your bank", 25, 150)
+onscrollwheel=bank_cert_button
+
+// 11:19
+[bank_inv_icon]
+type=graphic
+x=253
+y=248
+width=29
+height=21
+layer=all
+graphic="bank_bob_button,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 11:20
+[deposit_worn]
+type=graphic
+x=287
+y=240
+width=35
+height=35
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit worn items
+op10=  
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_deposit_box:build_layer)
+onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
+onmouserepeat=addtooltip(event_com, bank_deposit_box:build_layer, "Empty all the items you are wearing into your bank", 25, 150)
+
+// 11:21
+[bank_worn_icon]
+type=graphic
+x=290
+y=248
+width=29
+height=21
+layer=all
+graphic="bank_bob_button,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 11:22
+[bobdump]
+type=graphic
+x=324
+y=240
+width=35
+height=35
+layer=all
+graphic="bank_buttons_new2,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit beast of burden inventory
+op10= 
+onmouseover=settrans(event_com, 100)
+onmouseleave=bank_v2_tooltipoff(event_com, bank_deposit_box:build_layer)
+onop=script1722(event_com, event_comsubid, "bank_buttons_new2,2", "bank_buttons_new2,0", 10)
+onmouserepeat=addtooltip(event_com, bank_deposit_box:build_layer, "Empty your beast of burden's inventory into your bank", 25, 150)
+
+// 11:23
+[bank_bob_icon]
+type=graphic
+x=327
+y=248
+width=29
+height=21
+layer=all
+graphic="bank_bob_button,3"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 11:24
+[build_layer]
+type=layer
+x=236
+y=192
+width=77
+height=20
+layer=all

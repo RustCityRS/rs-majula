@@ -1,0 +1,58 @@
+// 376
+[proc,playerdesign4_colourhighlight](component $component0, component $component1, int $int2, int $rgb3, int $rgb4, int $int5, int $int6)
+if ($component1 = null) {
+    cc_create($component0, ^iftype_rectangle, $int6);
+    cc_sethide(true);
+    cc_create($component0, ^iftype_rectangle, calc($int6 + 1));
+    cc_sethide(true);
+    cc_create($component0, ^iftype_rectangle, calc($int6 + 2));
+    cc_sethide(true);
+    cc_create($component0, ^iftype_rectangle, calc($int6 + 3));
+    cc_sethide(true);
+    cc_create($component0, ^iftype_rectangle, calc($int6 + 4));
+    cc_sethide(true);
+    cc_create($component0, ^iftype_rectangle, calc($int6 + 5));
+    cc_sethide(true);
+    return;
+}
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) {
+    $int7, $int8 = calc(cc_getx - $int5), calc(cc_gety - $int5);
+    $int9 = min(calc(cc_getwidth + $int5 * 2), if_getwidth($component0));
+    $int10 = calc(cc_getheight + $int5 * 2);
+} else {
+    return;
+}
+cc_create($component0, ^iftype_rectangle, $int6);
+cc_setsize(calc($int9 - 2), 2, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 1), $int8, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour($rgb3);
+cc_create($component0, ^iftype_rectangle, calc($int6 + 1));
+cc_setsize(calc($int9 - 2), 2, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + 1), calc($int8 + $int10 - 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour($rgb4);
+cc_create($component0, ^iftype_rectangle, calc($int6 + 2));
+cc_setsize(2, calc($int10 - 2), ^setsize_abs, ^setsize_abs);
+cc_setposition($int7, calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour($rgb4);
+cc_create($component0, ^iftype_rectangle, calc($int6 + 3));
+cc_setsize(2, calc($int10 - 2), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + $int9 - 2), calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour($rgb4);
+cc_create($component0, ^iftype_rectangle, calc($int6 + 4));
+cc_setsize(2, calc(($int10 - 2) / 2), ^setsize_abs, ^setsize_abs);
+cc_setposition($int7, calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour($rgb3);
+cc_create($component0, ^iftype_rectangle, calc($int6 + 5));
+cc_setsize(2, calc(($int10 - 2) / 2), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int7 + $int9 - 2), calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour($rgb3);

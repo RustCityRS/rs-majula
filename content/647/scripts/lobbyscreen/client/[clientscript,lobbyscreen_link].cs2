@@ -1,0 +1,5 @@
+// 3088
+[clientscript,lobbyscreen_link](string $string0, string $string1, boolean $boolean0)
+if (compare($string0, "") ! 0 & compare($string1, "") ! 0) {
+    openurl($string0, $string1, $boolean0);
+}

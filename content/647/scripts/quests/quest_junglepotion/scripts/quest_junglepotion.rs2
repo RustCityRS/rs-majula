@@ -1,0 +1,94 @@
+// Jungle Potion as of May 2011 (cache 786): still the 2002 quest, 289's quest_junglepotion line
+// for line. Sources:
+//   W  = the 2011 wiki, Jungle Potion (2011-05-15): each herb only once Trufitus has asked for
+//        it; 1 quest point, 775 Herblore xp.
+//   R  = a 2011 recording (YouTube -vIfGilq-sY, uploaded 2011-04-24), sped up and small: the
+//        cave's choice and the scroll can be read, the dialogue cannot.
+//   289 = 289's quest_junglepotion, kept where nothing later says otherwise.
+// Unknown, so 289's:
+// - W says of the vine, the scorched earth and the wall that finding the herb "may take some
+//   time". It gives no odds, and 289 finds the herb on the first search.
+// - 289's own note below: the searches have no animation or delay. Cache 786 has
+//   human_pick_wall_start/middle (seqs 2096, 2097) but no source says which search plays what.
+// NOTE: seqs+sounds for vine/fungus probably added later (seq 2094-2097) assuming no p_delay if there's no animation (unless they re-used some anim)
+// loc's with animations also have arrivedelay, probably not the case originally
+[oploc2,snake_vine_full]
+if(%junglepotion < ^junglepotion_get_snake_weed) {
+	mes("Unfortunately, you find nothing of interest.");
+	return;
+}
+~junglepotion_pick_herb("vine", unidentified_snake_weed, snake_vine_empty);
+
+[oploc2,ardrigal_palm_full]
+if(%junglepotion < ^junglepotion_get_ardrigal) {
+	mes("You find nothing of significance.");
+	return;
+}
+~junglepotion_pick_herb("palm", unidentified_ardrigal, ardrigal_palm_empty);
+
+[oploc2,sito_soil_full]
+if(%junglepotion < ^junglepotion_get_sito_foil) {
+	mes("You find nothing of significance.");
+	return;
+}
+~junglepotion_pick_herb("scorched earth", unidentified_sito_foil, sito_soil_empty);
+
+[oploc2,volencia_moss_rock_full]
+if(%junglepotion < ^junglepotion_get_volencia_moss) {
+	mes("You find nothing of significance.");
+	return;
+}
+~junglepotion_pick_herb("rock", unidentified_volencia_moss, volencia_moss_rock_empty);
+
+// 289's rogues_purse_cave_full (loc 2583) is a chair in cache 786. The cave's 21 fungus walls
+// (map square 44_148) are loc 32106, "Fungus covered Cavern wall" with Search. Cache 786 also has
+// its bare twin (32107, "Fungus pattern", 6 on the map); no source says a search swaps them, and
+// 289 leaves the wall as it is.
+[oploc2,di2_rogues_cave_wall_purse_full]
+if(%junglepotion < ^junglepotion_get_rogues_purse) {
+	mes("Unfortunately, you find nothing of interest.");
+	return;
+}
+~junglepotion_pick_herb("wall", unidentified_rogues_purse, null);
+
+[oploc2,pothole_cave_entrance]
+~mesbox("You search the rocks... You find an entrance into some caves.");
+def_int $option = ~p_choice2_header("Yes, I'll enter the cave.", 1, "No thanks, I'll give it a miss.", 2, "Would you like to enter the caves?");
+if ($option = 1) {
+	~mesbox("You decide to enter the caves. You climb down several steep rock faces into the cavern below.");
+	p_telejump(0_44_148_14_48);
+} else if ($option = 2) {
+	~mesbox("You decide to stay where you are!");
+}
+
+[oploc1,jp_caverocksout]
+~mesbox("You attempt to climb the rocks back out.");
+p_telejump(0_44_48_7_48);
+
+[proc,junglepotion_pick_herb](string $str, namedobj $unid, loc $loc)
+mes("You search the <$str>...");
+if(inv_freespace(inv) = 0) {
+	~objbox($unid, "You find a herb, but you have no place to store it in your inventory.", 250, 0, divide(^objbox_height, 2));
+	return;
+}
+switch_namedobj($unid) {
+	case unidentified_rogues_purse : if (%junglepotion = ^junglepotion_get_rogues_purse) %junglepotion = ^junglepotion_found_rogues_purse;
+	case unidentified_volencia_moss : if (%junglepotion = ^junglepotion_get_volencia_moss) %junglepotion = ^junglepotion_found_volencia_moss;
+	case unidentified_sito_foil : if (%junglepotion = ^junglepotion_get_sito_foil) %junglepotion = ^junglepotion_found_sito_foil;
+	case unidentified_ardrigal : if (%junglepotion = ^junglepotion_get_ardrigal) %junglepotion = ^junglepotion_found_ardrigal;
+	case unidentified_snake_weed : if (%junglepotion = ^junglepotion_get_snake_weed) %junglepotion = ^junglepotion_found_snake_weed;
+}
+inv_add(inv, $unid, 1);
+if ($loc ! null) {
+	// Temp note: dur does not need updated
+	loc_change($loc, 100);
+}
+~objbox($unid, "You find a herb.", 250, 0, divide(^objbox_height, 2));
+
+[queue,junglepotion_quest_complete]
+%junglepotion = ^junglepotion_complete;
+stat_advance(herblore, 7750);
+session_log(^log_adventure, "Quest complete: Jungle Potion");
+// R's scroll (425s): "You have completed the Jungle Potion Quest!" on one line, "1 Quest Point",
+// "775 Herblore XP", a green herb beside them (289's is its marrentill). W lists the same two.
+~send_quest_complete2(^questlist_junglepotion, marentill, 220, ^junglepotion_questpoints, "You have completed the Jungle Potion Quest!", "775 Herblore XP");

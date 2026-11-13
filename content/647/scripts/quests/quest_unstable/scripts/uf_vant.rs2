@@ -1,0 +1,88 @@
+// Sir Vant in Unstable Foundations (design note 3.4, 3.7, 3.8; refs GAPS 16).
+
+// Sir Vant while he keeps the dragon's attention (8852, uf_plan.rs2), 50 to the sleep cutscene.
+[opnpc1,tutorial3_knight_distracting]
+~uf_vant_plan;
+
+// Sir Vant by the pillars (8848, uf_sleep.rs2), from the sleep cutscene's last shot to the
+// collapse.
+[opnpc1,tutorial3_knight]
+if (%tutorial >= 93 & %tutorial < 120) {
+    ~uf_vant_sabotage;
+}
+
+// "Talk to Sir Vant" (Task 3500, varp 281 7): 2011's lines (s001, s002) and chatheads, matched
+// against 4KO2h2xPtdM frame by frame, with the voiced takes cache 786's enums give.
+// - Varp 6, the Controls overlay still up: what talking did then, no recording shows.
+// - After the talk, 9: cs2 4098 still pins Talk to Sir Vant at 9, as 2011's panel shows it while
+//   the dragon cutscene plays (8jKH_7To46o @88); 10 (Assist Sir Vant) comes with the cutscene's end.
+// - In the doorway he does not turn to the player while he talks (chatnpcnoturn): 4KO2h2xPtdM has
+//   him facing north, his back to the player south of him, through the hello (@12-15) and through
+//   "Thank goodness you're here!" and "I can't turn my back on this dragon" (@61-74). His lines at
+//   15-40 are in no recording: they keep it, as he stands the same there.
+[opnpc1,tutorial3_knight_waitingforbattle]
+if (%tutorial = 7) {
+    ~uf_vant_hello;
+} else if (%tutorial = 10) {
+    ~uf_vant_assist;
+} else if (%tutorial = 15) {
+    // V55 (enum 3039 #55, clip 811; text from its take, no recording shows the box).
+    ~speech_line(vorbis_811);
+    ~chatnpcnoturn("<p,neutral>My squire dropped his sword and armour when he died. You can pick them up and use them to defend my bag from the goblin.");
+} else if (%tutorial >= 20 & %tutorial <= 30) {
+    // V94 (clip 788; V95, clip 846, is another take of the same line).
+    ~speech_line(vorbis_788);
+    ~chatnpcnoturn("<p,neutral>When you've got the rest of my squire's kit equipped, you'll be ready to deal with the goblin.");
+} else if (%tutorial = 35) {
+    // V12 (clip 978).
+    ~speech_line(vorbis_978);
+    ~chatnpcnoturn("<p,neutral>Excellent! You look ready to fight. You can deal with the goblin now.");
+} else if (%tutorial = 40) {
+    // V21 (clip 729).
+    ~speech_line(vorbis_729);
+    ~chatnpcnoturn("<p,neutral>Go on, finish off the goblin. It's too weak to be a real threat.");
+} else if (%tutorial >= 45 & %tutorial < 90) {
+    ~uf_vant_plan;
+} else if (%tutorial >= 93 & %tutorial < 120) {
+    ~uf_vant_sabotage;
+} else if (%tutorial >= 120) {
+    ~uf_vant_exit;
+}
+
+// "Assist Sir Vant" (Task 3501, 10): s004 and s005 (4KO2h2xPtdM @64-73; IwS6rBpkcyE @45-47),
+// V69 and V31 (clips 887, 807). "Gather the Squire's Gear" (15) shows as s005 opens (@66.5).
+[proc,uf_vant_assist]
+~speech_line(vorbis_887);
+~chatnpcnoturn("<p,neutral>Thank goodness you're here! My squire's dead, and there's a goblin going through my bag!");
+%tutorial = 15;
+~uf_task_pin;
+queue(uf_vant_assist_done, 0, 0);
+~speech_line(vorbis_807);
+~chatnpcnoturn("<p,neutral>I can't turn my back on this dragon. I need you to take my squire's equipment and deal with the goblin!");
+
+// Once the line's box is gone, by its continue or by a click on the floor.
+[queue,uf_vant_assist_done]
+queue(uf_gear_hint, 2, 0);
+
+[proc,uf_vant_hello]
+// "Hello." in the player's voice: enum 3041 is the male one, 3042 the female (median pitch
+// 115-160 Hz against 263-309 Hz).
+if (compare(text_gender("m", "f"), "m") = 0) {
+    ~speech_line(vorbis_1850);
+} else {
+    ~speech_line(vorbis_373);
+}
+~chatplayer("<p,neutral>Hello!");
+~speech_line(vorbis_770);
+~chatnpcnoturn("<p,shock>Wait a moment - there's a dragon coming!");
+%tutorial = 9;
+~uf_dragon_cutscene;
+
+// A line in the player's voice: enum 3041 is the male one, 3042 the female (median pitch 115-160
+// Hz against 263-309 Hz).
+[proc,uf_player_voice](vorbis $male, vorbis $female)
+if (compare(text_gender("m", "f"), "m") = 0) {
+    ~speech_line($male);
+} else {
+    ~speech_line($female);
+}

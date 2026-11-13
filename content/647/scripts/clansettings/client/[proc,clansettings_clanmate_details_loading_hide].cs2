@@ -1,0 +1,4 @@
+// 4306
+[proc,clansettings_clanmate_details_loading_hide]
+if_sethide(clansettings:clanmate_details_loading_blackout_layer, true);
+if_settext(clansettings:loading_clanmate_data_txt, "Loading, please wait.");

@@ -1,0 +1,5 @@
+// 395
+[proc,script395]()(int)
+if (calc(stat_base(attack) + stat_base(strength)) = 130) {
+    return(1);
+}

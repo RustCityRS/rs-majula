@@ -1,0 +1,7 @@
+// 1687
+[proc,mah4_final_cutscene_next]
+if (%mah4_final_cutscene_step < calc(spline_length(0) - 1)) {
+    %mah4_final_cutscene_step = calc(%mah4_final_cutscene_step + 1);
+    cam_movealong(0, %mah4_final_cutscene_step, 200, 200, 1, %mah4_final_cutscene_step);
+    if_setoncamfinished(mah4_cutscene_overlay:main_layer, "mah4_final_cutscene_next");
+}

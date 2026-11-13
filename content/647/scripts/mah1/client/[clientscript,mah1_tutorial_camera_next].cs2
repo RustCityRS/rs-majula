@@ -1,0 +1,18 @@
+// 2344
+[clientscript,mah1_tutorial_camera_next]
+if (%mah1_tutorial_camera_step < spline_length(0)) {
+    %mah1_tutorial_camera_step = calc(%mah1_tutorial_camera_step + 1);
+    switch_int (%mah1_tutorial_camera_step) {
+        case default :
+            if_setoncamfinished(mah1_tutorialsplines:controller, null);
+            cam_movealong(0, %mah1_tutorial_camera_step, 900, 500, 1, %mah1_tutorial_camera_step);
+        case 9, 10, 11 :
+            if_setoncamfinished(mah1_tutorialsplines:controller, "mah1_tutorial_camera_next");
+            cam_movealong(0, %mah1_tutorial_camera_step, 900, 900, 1, %mah1_tutorial_camera_step);
+        case 12 :
+            if_setoncamfinished(mah1_tutorialsplines:controller, null);
+            cam_movealong(0, %mah1_tutorial_camera_step, 900, 100, 1, %mah1_tutorial_camera_step);
+    }
+} else {
+    %mah1_tutorial_camera_step = 0;
+}

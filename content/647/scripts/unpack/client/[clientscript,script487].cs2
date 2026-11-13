@@ -1,0 +1,18 @@
+// 487
+[clientscript,script487]
+if_setgraphic(conq_buy_army:command_ability_1_background, graphic_3263);
+if_setgraphic(conq_buy_army:command_ability_2_background, graphic_3263);
+if_setgraphic(conq_buy_army:command_ability_3_background, graphic_3263);
+if_setgraphic(conq_buy_army:command_ability_4_background, graphic_3263);
+switch_int (%conq_current_command_purchase_slot) {
+    case default :
+        return;
+    case 1 :
+        if_setgraphic(conq_buy_army:command_ability_1_background, graphic_3265);
+    case 2 :
+        if_setgraphic(conq_buy_army:command_ability_2_background, graphic_3265);
+    case 3 :
+        if_setgraphic(conq_buy_army:command_ability_3_background, graphic_3265);
+    case 4 :
+        if_setgraphic(conq_buy_army:command_ability_4_background, graphic_3265);
+}

@@ -3,7 +3,7 @@ use crate::register::OpsRegistry;
 use crate::util::{pop_loc, pop_param};
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
@@ -16,7 +16,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4101
         none!(m, LC_DEBUGNAME => |s| {
             let loc = pop_loc::<E>(s)?;
-            s.push_string(loc.debugname().unwrap_or("null"));
+            s.push_string(&loc.debugname);
         });
 
         // 4102
@@ -34,7 +34,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4104
         none!(m, LC_NAME => |s| {
             let loc = pop_loc::<E>(s)?;
-            s.push_string(loc.name.as_deref().unwrap_or(loc.debugname().unwrap_or("null")));
+            s.push_string(loc.name.as_deref().unwrap_or(&loc.debugname));
         });
 
         // 4105

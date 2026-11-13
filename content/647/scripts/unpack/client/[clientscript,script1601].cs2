@@ -1,0 +1,43 @@
+// 1601
+[clientscript,script1601](component $component0)
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int (randominc(2)) {
+    case 0 :
+        sound_synth(synth_7813, 1, 0);
+    case 1 :
+        sound_synth(synth_7817, 1, 0);
+    case 2 :
+        sound_synth(synth_7818, 1, 0);
+}
+switch_component ($component0) {
+    case ft3_dossier:com_31 :
+        $component1 = ft3_dossier:breegth;
+        $component2 = ft3_dossier:com_4;
+    case ft3_dossier:com_25 :
+        $component1 = ft3_dossier:com_4;
+        $component2 = ft3_dossier:shredflesh;
+    case ft3_dossier:com_20 :
+        $component1 = ft3_dossier:shredflesh;
+        $component2 = ft3_dossier:godfather;
+    case ft3_dossier:com_15 :
+        $component1 = ft3_dossier:godfather;
+        $component2 = ft3_dossier:com_7;
+    case ft3_dossier:com_11 :
+        $component1 = ft3_dossier:com_7;
+        $component2 = ft3_dossier:godfather;
+    case ft3_dossier:com_16 :
+        $component1 = ft3_dossier:godfather;
+        $component2 = ft3_dossier:shredflesh;
+    case ft3_dossier:com_21 :
+        $component1 = ft3_dossier:shredflesh;
+        $component2 = ft3_dossier:com_4;
+    case ft3_dossier:com_26 :
+        $component1 = ft3_dossier:com_4;
+        $component2 = ft3_dossier:breegth;
+    case default :
+        ~script675;
+}
+if_sethide($component1, true);
+if_sethide($component2, false);
+return;

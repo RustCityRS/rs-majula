@@ -1,0 +1,38 @@
+// 350
+[clientscript,playerdesign4_genderbutton](int $int0, boolean $boolean1)
+if ($int0 ! 1) {
+    return;
+}
+if ($boolean1 = true) {
+    if (gender = 1) {
+        return;
+    }
+    baseidkit(0, null);
+    baseidkit(1, null);
+    baseidkit(7, struct_param(enum(int, struct, enum_3302, %character_creation_hair_style), param_788));
+    baseidkit(8, null);
+} else {
+    if (gender = 0) {
+        return;
+    }
+    baseidkit(7, null);
+    baseidkit(8, null);
+    baseidkit(0, struct_param(enum(int, struct, enum_3304, %character_creation_hair_style), param_788));
+    baseidkit(1, enum(int, idkit, enum_3307, calc(%character_creation_hair_style / 2)));
+}
+sound_synth(synth_9819, 1, 0);
+setgender(~bool_to_int($boolean1));
+%playerdesign2_client_gender = gender;
+%character_creation_female = %playerdesign2_client_gender;
+~script387($boolean1);
+%playerdesign2_client_antilag = 1;
+%character_creation_sub_style = 1;
+def_struct $struct2 = enum(int, struct, enum_3278, calc(%playerdesign2_client_random - 1));
+def_struct $struct3 = null;
+if ($struct2 ! null) {
+    $struct3 = ~playerdesign4_getoutfit(0, $struct2, $boolean1);
+    if ($struct3 ! null) {
+        ~playerdesign4_setoutfit($struct3, $boolean1);
+    }
+}
+~script390($boolean1);

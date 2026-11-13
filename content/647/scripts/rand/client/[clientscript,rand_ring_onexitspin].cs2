@@ -1,0 +1,14 @@
+// 3491
+[clientscript,rand_ring_onexitspin](component $component0)
+def_component $component1 = $component0;
+switch_component ($component0) {
+    case rand_ring_interface:melee_class_button :
+        $component1 = rand_ring_interface:melee_class_onhover;
+    case rand_ring_interface:ranged_class_button :
+        $component1 = rand_ring_interface:ranged_class_onhover;
+    case rand_ring_interface:magic_class_button :
+        $component1 = rand_ring_interface:magic_class_onhover;
+    case rand_ring_interface:skiller_class_button :
+        $component1 = rand_ring_interface:skiller_class_onhover;
+}
+if_settrans($component1, 255);

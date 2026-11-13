@@ -1,0 +1,742 @@
+// 429:0
+[transparent_back]
+type=rectangle
+width=521
+height=344
+colour=0x46341d
+fill=yes
+trans=160
+
+// 429:1
+[backing]
+type=graphic
+x=12
+y=20
+width=488
+height=302
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 429:2
+[border_side_left]
+type=graphic
+x=-1
+y=51
+width=25
+height=244
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0xffffffff
+
+// 429:3
+[com_3]
+type=graphic
+x=12
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 429:4
+[border_side_right]
+type=graphic
+x=482
+y=50
+width=33
+height=242
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 429:5
+[border_side_top]
+type=graphic
+x=37
+y=7
+width=433
+height=35
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 429:6
+[border_side_bottom]
+type=graphic
+x=37
+y=304
+width=434
+height=33
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 429:7
+[com_7]
+type=graphic
+x=12
+y=292
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 429:8
+[com_8]
+type=graphic
+x=470
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 429:9
+[com_9]
+type=graphic
+x=470
+y=292
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 429:10
+[com_10]
+type=model
+x=18
+y=44
+width=84
+height=124
+model=model_39610
+modelorigin=1,20
+modelangle=30,1999,0
+modelzoom=2200
+transmitop=1
+op1=Honest Jimmy
+
+// 429:11
+[com_11]
+type=model
+x=92
+y=76
+width=62
+height=91
+model=model_39639
+modelorigin=4,5
+modelangle=36,1999,0
+modelzoom=2200
+transmitop=1
+op1=Bert the Sandman
+
+// 429:12
+[com_12]
+type=model
+x=162
+y=81
+width=55
+height=117
+model=model_39692
+modelorigin=4,-15
+modelangle=15,1999,0
+modelzoom=2200
+transmitop=1
+op1=Advisor Ghrim
+
+// 429:13
+[com_13]
+type=model
+width=87
+height=97
+layer=turael_layer
+model=model_39907
+modelorigin=3,5
+modelangle=21,1999,0
+modelzoom=2200
+transmitop=1
+op1=Turael
+
+// 429:14
+[turael_layer]
+type=layer
+x=216
+y=73
+width=85
+height=113
+
+// 429:15
+[slayer_master_1_spria]
+type=model
+x=209
+y=61
+width=81
+height=109
+layer=spria_layer
+model=model_35469
+modelorigin=4,5
+modelangle=2044,1969,0
+modelzoom=2208
+transmitop=1
+op1=Spria
+
+// 429:16
+[spria_layer]
+type=layer
+x=8
+y=8
+width=512
+height=334
+hide=yes
+
+// 429:17
+[com_17]
+type=model
+x=293
+y=78
+width=60
+height=121
+model=model_39869
+modelorigin=5,-13
+modelangle=27,1999,0
+modelzoom=2200
+transmitop=1
+op1=Lanthus
+
+// 429:18
+[com_18]
+type=model
+width=85
+height=164
+layer=mazchna_layer
+model=model_39954
+modelorigin=4,-31
+modelangle=0,1999,0
+modelzoom=2200
+transmitop=1
+op1=Mazchna
+
+// 429:19
+[mazchna_layer]
+type=layer
+x=405
+y=73
+width=85
+height=113
+
+// 429:20
+[achtryn_layer]
+type=layer
+x=406
+y=72
+width=85
+height=113
+hide=yes
+
+// 429:21
+[com_21]
+type=model
+x=-2
+y=1
+width=87
+height=96
+layer=achtryn_layer
+model=model_35498
+modelorigin=3,3
+modelangle=0,1999,0
+modelzoom=2200
+transmitop=1
+op1=Achtryn
+
+// 429:22
+[com_22]
+type=text
+x=14
+y=79
+width=65
+height=31
+layer=achtryn_layer
+textfont=p12_full
+text=Achtryn
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Achtryn
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:23
+[com_23]
+type=model
+width=59
+height=89
+layer=duradel_layer
+model=model_39789
+modelorigin=6,3
+modelangle=20,1999,0
+modelzoom=2200
+transmitop=1
+op1=Duradel
+
+// 429:24
+[duradel_layer]
+type=layer
+x=20
+y=195
+width=63
+height=102
+
+// 429:25
+[slayer_master_5_lapalok]
+type=model
+x=22
+y=201
+width=59
+height=85
+layer=com_26
+model=model_35497
+modelorigin=6,1
+modelangle=9,1993,0
+modelzoom=2208
+transmitop=1
+op1=Lapalok
+
+// 429:26
+[com_26]
+type=layer
+y=-2
+width=512
+height=334
+hide=yes
+
+// 429:27
+[com_27]
+type=model
+x=352
+y=81
+width=66
+height=87
+model=model_34607
+modelorigin=3,3
+modelangle=33,1999,0
+modelzoom=2200
+transmitop=1
+op1=Sumona
+
+// 429:28
+[com_28]
+type=model
+x=88
+y=197
+width=60
+height=111
+model=model_39680
+modelorigin=5,-12
+modelangle=9,1999,0
+modelzoom=2200
+transmitop=1
+op1=Vannaka
+
+// 429:29
+[com_29]
+type=model
+x=219
+y=195
+width=63
+height=76
+model=model_16815
+modelorigin=5,10
+modelangle=2041,1951,0
+modelzoom=1000
+transmitop=1
+op1=Chaeldar
+
+// 429:30
+[com_30]
+type=model
+x=154
+y=189
+width=65
+height=94
+model=model_39983
+modelorigin=3,5
+modelangle=12,1996,0
+modelzoom=2200
+transmitop=1
+op1=Murphy
+
+// 429:31
+[com_31]
+type=model
+x=286
+y=198
+width=62
+height=86
+model=model_40006
+modelorigin=4,1
+modelangle=20,1999,0
+modelzoom=2200
+transmitop=1
+op1=Cyrisus
+
+// 429:32
+[com_32]
+type=text
+x=285
+y=271
+width=67
+height=26
+textfont=p12_full
+text=Cyrisus
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Cyrisus
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:33
+[com_33]
+type=model
+x=346
+y=181
+width=82
+height=103
+model=model_39697
+modelorigin=3,9
+modelangle=0,1999,0
+modelzoom=2200
+transmitop=1
+op1=Larry
+
+// 429:34
+[com_34]
+type=model
+x=345
+y=187
+width=88
+height=110
+hide=yes
+model=model_42543
+modelorigin=-13,-9
+modelzoom=800
+transmitop=1
+op1=Chuck
+
+// 429:35
+[com_35]
+type=model
+x=436
+y=208
+width=34
+height=60
+model=model_24991
+modelorigin=0,4
+modelangle=60,1918,0
+modelzoom=1307
+transmitop=1
+op1=Random
+
+// 429:36
+[com_36]
+type=text
+x=31
+y=271
+width=48
+height=30
+layer=com_26
+textfont=p12_full
+text=Lapalok
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Lapalok
+
+// 429:37
+[com_37]
+type=text
+x=233
+y=147
+width=32
+height=32
+layer=spria_layer
+textfont=p12_full
+text=Spria
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Spria
+
+// 429:38
+[com_38]
+type=text
+x=23
+y=155
+width=64
+height=32
+textfont=p12_full
+text=Honest<br>Jimmy
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Honest Jimmy
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:39
+[com_39]
+type=text
+x=92
+y=155
+width=65
+height=31
+textfont=p12_full
+text=Bert the<br>Sandman
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Bert the Sandman
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:40
+[com_40]
+type=text
+x=156
+y=155
+width=67
+height=31
+textfont=p12_full
+text=Advisor<br>Ghrim
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Advisor Ghrim
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:41
+[com_41]
+type=text
+x=17
+y=82
+width=51
+height=31
+layer=turael_layer
+textfont=p12_full
+text=Turael
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Turael
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:42
+[com_42]
+type=text
+x=360
+y=155
+width=51
+height=31
+textfont=p12_full
+text=Sumona
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Sumona
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:43
+[com_43]
+type=text
+x=296
+y=155
+width=57
+height=31
+textfont=p12_full
+text=Lanthus
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Lanthus
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:44
+[com_44]
+type=text
+x=15
+y=82
+width=65
+height=31
+layer=mazchna_layer
+textfont=p12_full
+text=Mazchna
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Mazchna
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:45
+[com_45]
+type=text
+y=76
+width=63
+height=26
+layer=duradel_layer
+textfont=p12_full
+text=Duradel
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Duradel
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:46
+[com_46]
+type=text
+x=90
+y=271
+width=61
+height=26
+textfont=p12_full
+text=Vannaka
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+opbase= 
+op1=Vannaka
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:47
+[com_47]
+type=text
+x=151
+y=271
+width=68
+height=26
+textfont=p12_full
+text=Murphy
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Murphy
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:48
+[com_48]
+type=text
+x=218
+y=271
+width=73
+height=26
+textfont=p12_full
+text=Chaeldar
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Chaeldar
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:49
+[com_49]
+type=text
+x=368
+y=271
+width=32
+height=32
+textfont=p12_full
+text=Larry
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Larry
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:50
+[com_50]
+type=text
+x=368
+y=271
+width=32
+height=32
+hide=yes
+textfont=p12_full
+text=Chuck
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Chuck
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:51
+[random_text]
+type=text
+x=418
+y=271
+width=67
+height=26
+textfont=p12_full
+text=Random
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+opbase= 
+op1=Random
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 429:52
+[close_button]
+type=graphic
+x=471
+y=26
+width=23
+height=23
+graphic="close_buttons,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,1")
+onmouseleave=graphic_swapper(event_com, "close_buttons,0")
+onop=closebutton_click
+
+// 429:53
+[com_53]
+type=text
+x=79
+y=33
+width=352
+height=17
+textfont=b12_full
+text=Choose a character
+textalignh=centre
+textshadow=yes
+colour=0xff981f

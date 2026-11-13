@@ -1,0 +1,5 @@
+// 237
+[clientscript,script237](int $int0)
+if (cc_find(snapshot_main_v2:highlight_name_layer, $int0) = true) {
+    cc_settrans(192);
+}

@@ -1,5 +1,6 @@
 use crate::active_player::EnginePlayer;
-use crate::engine::Engine;
+use crate::core::Engine;
+use crate::phases::shared::panic_message;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
@@ -46,6 +47,7 @@ impl Engine {
                 for &pid in &pids[start..] {
                     if self.process_output(pid) {
                         taken = self.player_list.players[pid as usize].take();
+                        #[cfg(before_647)]
                         if let Some(active) = &mut taken {
                             self.replay_keyframe(active);
                         }
@@ -61,7 +63,7 @@ impl Engine {
                     if let Some(active) = taken.take() {
                         self.player_list.players[pid as usize] = Some(active);
                     }
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during output processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
                     start += 1;
@@ -88,8 +90,7 @@ impl Engine {
 
         let player_info = self.player_info.encode(
             &mut self.player_renderer,
-            others,
-            &self.player_snapshots[..],
+            &self.player_snapshots,
             &self.zones,
             active,
             dx,
@@ -111,6 +112,8 @@ impl Engine {
         active.update_map();
         active.player_info_parts(player_info.into());
         active.npc_info_parts(npc_info.into());
+        #[cfg(since_647)]
+        active.update_chats(&self.player_renderer);
         active.update_zones(&self.zones, &self.zones_tracking, self.clock);
         active.update_invs(&mut self.invs);
         active.update_other_invs(others);

@@ -107,7 +107,7 @@ for npcs, maps through `MoveRestrict` to a `CollisionType`/extra-flag pair (sect
 **BlockWalk vs zone membership decoupling** — A deliberate map-load invariant: a static loc
 contributes to collision *only if* its type's `blockwalk` is set, but is added to a zone's
 loc list *only if* its type's `active == Some(true)` — the two are independent
-(`rs-engine/src/game_map.rs:239`).
+(`rs-engine/src/map.rs:239`).
 
 **cam (camera)** — The `rs-cam` crate plus the `CamReset`/`CamShake`/etc. server packets.
 Camera ops are queued in absolute world coordinates and localized to build-area-relative
@@ -225,7 +225,7 @@ external `rs-crypto` crate, not the workspace.
 
 **JAG / mapsquare data** — Packed cache archives (`Arc<[u8]>` in `CacheStore`). Mapsquare
 ground/loc/npc/obj data is decompressed (BZip2) on map load to build the collision map and
-static entity lists (`rs-engine/src/game_map.rs`).
+static entity lists (`rs-engine/src/map.rs`).
 
 **loc (location)** — A static or dynamic *scenery* object placed on a tile: trees, doors,
 walls, etc. (the `l` in mapsquare data, `LocType` in the cache). At runtime a loc bit-packs
@@ -236,13 +236,13 @@ local `x&7`, `z&7`, and layer (`loc.rs:204`).
 
 **LocAngle** — The 2-bit rotation of a loc: `West = 0, North = 1, East = 2, South = 3`
 (`rs-pack/src/types.rs:42`). On East/West angles, ground-loc collision swaps width/length
-(`game_map.rs:572`).
+(`map.rs:572`).
 
 **LocLayer** — Which of four render/collision layers a loc occupies:
 `Wall = 0, WallDecor = 1, Ground = 2, GroundDecor = 3` (`rs-pack/src/types.rs:51`). The layer
 selects the collision dispatch in `change_loc_collision` — Wall -> `change_wall`, WallDecor
 -> no-op (decorations never block), Ground -> `change_loc`, GroundDecor -> `change_floor`
-(`game_map.rs:553`).
+(`map.rs:553`).
 
 **LocShape** — The geometric/visual sub-form of a loc within its layer (16 variants:
 `WallStraight = 0`, `WallDiagonalCorner = 1`, `WallL = 2`, … `CentrepieceStraight = 10`, …)

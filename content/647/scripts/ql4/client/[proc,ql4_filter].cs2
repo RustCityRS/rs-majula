@@ -1,0 +1,17 @@
+// 2172
+[proc,ql4_filter](int $int0)
+def_int $int1 = %ql4_filter_doable;
+def_int $int2 = %ql4_filter_done;
+~deltooltip_action(questlist_v4:tooltip);
+if ($int0 = 0) {
+    if (%ql4_filter_doable = 1) {
+        $int1 = 0;
+    } else {
+        $int1 = 1;
+    }
+} else if (%ql4_filter_done = 1) {
+    $int2 = 0;
+} else {
+    $int2 = 1;
+}
+~ql4_sort(1, %ql4_sort_mode, %ql4_reverse_list, $int1, $int2);

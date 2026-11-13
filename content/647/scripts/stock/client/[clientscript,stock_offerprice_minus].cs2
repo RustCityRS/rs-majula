@@ -1,0 +1,8 @@
+// 604
+[clientscript,stock_offerprice_minus]
+if (%varplayer_1109 = null) {
+    return;
+}
+%stock_offerprice_visible = max(calc(%stock_offerprice_visible - 1), 1);
+if_settext(stockmarket:offerprice, "<tostring_localised(%stock_offerprice_visible, true)> gp");
+~sm_offerprice_settimer;

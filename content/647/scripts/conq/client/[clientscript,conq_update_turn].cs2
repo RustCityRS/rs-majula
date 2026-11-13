@@ -1,0 +1,21 @@
+// 408
+[clientscript,conq_update_turn](int $int0)
+if (%conq_current_team = $int0) {
+    return;
+}
+if_setonvarctransmit(conq_scroll_overlay:turn_control_layer, "conq_update_turn(%conq_current_team){conq_current_team}");
+%conq_played_low_time_warning = 0;
+if (%conq_current_team = %conq_team) {
+    if_sethide(conq_side_turn:your_turn_layer, false);
+    if_sethide(conq_side_turn:opponents_turn_layer, true);
+    if_sethide(conq_side_turn:confirm_end_layer, true);
+    if_settext(conq_scroll_overlay:whose_turn_text, "Your Turn");
+    sound_vorbis_volume(vorbis_3439, 1, 0, 255);
+} else {
+    if_sethide(conq_side_turn:your_turn_layer, true);
+    if_sethide(conq_side_turn:confirm_end_layer, true);
+    if_settext(conq_scroll_overlay:whose_turn_text, "Opponent's Turn");
+    if (if_gethide(conq_side_turn:commorb_layer) = true) {
+        if_sethide(conq_side_turn:opponents_turn_layer, false);
+    }
+}

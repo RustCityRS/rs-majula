@@ -1,0 +1,75 @@
+// 2194
+[proc,ql4_special_requirements](int $int0)(boolean)
+switch_int ($int0) {
+    case 79 :
+        if (%cleanup_progress = 0) {
+            return(false);
+        }
+    case 144 :
+        if (%vm_soa_extra = 0) {
+            return(false);
+        }
+    case 145 :
+        if (%dsd_quest < 10) {
+            return(false);
+        }
+    case 35 :
+        if (%troll_freed_eadgar = 0) {
+            return(false);
+        }
+    case 120 :
+        if (%varplayerbit_1895 < 110) {
+            return(false);
+        }
+    case 157 :
+        if (%vm_kudos < 125) {
+            return(false);
+        }
+    case 156 :
+        if (~mom2_completion < 100) {
+            return(false);
+        }
+    case 162 :
+        if (%kr_knightwaves_state < 8) {
+            return(false);
+        }
+        if (%snp_finished_tutorial = 0) {
+            return(false);
+        }
+        if (%snp_played_game = 0) {
+            return(false);
+        }
+    case 163 :
+        if (%varplayerbit_5686 = 0) {
+            return(false);
+        }
+    case 168 :
+        if (%chickenquest < 20) {
+            return(false);
+        }
+    case 171 :
+        if (%pc_played_once = 0) {
+            return(false);
+        }
+    case 174 :
+        if (%conq_done_tutorial = 0) {
+            return(false);
+        }
+    case 179 :
+        if (~mom2_completion < 100) {
+            return(false);
+        }
+        if (%hundred_ilm_quest < 50) {
+            return(false);
+        }
+        if (%desert_quest_set_up < 5) {
+            return(false);
+        }
+    case 148 :
+        if (%varplayerbit_8601 < 6) {
+            return(false);
+        }
+    case default :
+        return(true);
+}
+return(true);

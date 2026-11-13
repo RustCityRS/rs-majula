@@ -1,0 +1,10 @@
+// 4470
+[proc,script4470]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (~script4468 = 1) {
+    if_sethide(clan_chat:kick_button_layer, false);
+    if_sethide(clan_chat:kick_button_disabled_layer, true);
+    return;
+}
+~script4471;

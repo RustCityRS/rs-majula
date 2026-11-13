@@ -5,13 +5,25 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-#[client_prot(Fixed(2), UserEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(2), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(3), UserEvent))]
 pub struct OpNpc4 {
     pub nid: u16,
+    #[cfg(since_647)]
+    pub ctrl: bool,
 }
 
+#[cfg(before_647)]
 impl ClientProtMessage for OpNpc4 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpNpc4 { nid: buf.g2() }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for OpNpc4 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let (ctrl, nid) = (buf.g1_alt3() != 0, buf.g2_alt3());
+        OpNpc4 { nid, ctrl }
     }
 }

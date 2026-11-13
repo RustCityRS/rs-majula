@@ -1,0 +1,7 @@
+// The world map marker's hint arrow (worldmap.rs2, [proc,worldmap_marker_arrow]).
+// Icon 2 is blue in all three hint sheets; the slot is not known (7 keeps clear
+// of quests' slot 0); 2 is the tile's centre; 65535 the largest range.
+^worldmap_marker_slot = 7
+^worldmap_marker_icon = 2
+^worldmap_marker_offset = 2
+^worldmap_marker_range = 65535

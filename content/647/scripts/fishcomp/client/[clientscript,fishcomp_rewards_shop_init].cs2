@@ -1,0 +1,6 @@
+// 280
+[clientscript,fishcomp_rewards_shop_init]
+if_setonvarctransmit(fishcomp_rewards_shop:main_layer, "fishcomp_rewards_shop_refresh{fishcomp_rewards_shop_species_1, fishcomp_rewards_shop_quantity_1, fishcomp_rewards_shop_species_2, fishcomp_rewards_shop_quantity_2}");
+if_setonvartransmit(fishcomp_rewards_shop:main_layer, "fishcomp_rewards_shop_refresh{varplayer_1660, varplayer_1661}");
+if_settext(fishcomp_rewards_shop:medals_txt, tostring(%varplayerbit_7285));
+return;

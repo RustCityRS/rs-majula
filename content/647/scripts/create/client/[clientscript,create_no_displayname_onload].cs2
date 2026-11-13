@@ -1,0 +1,9 @@
+// 3940
+[clientscript,create_no_displayname_onload]
+if_setonkey(chatdefault:input, null);
+if_setonkey(no_displayname:com_55, "script3944(event_keycode, event_keychar, false)");
+if_setonclick(no_displayname:com_60, "script3217(event_mousex, no_displayname:com_59, no_displayname:com_60, no_displayname:com_61, 16)");
+%login_caret = 0;
+%varclient_1849 = "";
+%create_displayname_in_progress = false;
+~script3218(no_displayname:com_59, no_displayname:com_60, no_displayname:com_61, %varclient_1849, 16);

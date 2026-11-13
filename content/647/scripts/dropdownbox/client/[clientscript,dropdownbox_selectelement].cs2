@@ -1,0 +1,8 @@
+// 1350
+[clientscript,dropdownbox_selectelement](component $component0, component $component1, component $component2, component $component3, int $int4, int $int5, string $string0, int $rgb6)
+if (cc_find($component3, $int4) = true) {
+    cc_settext($string0);
+    cc_setcolour($rgb6);
+    cc_setonmouseleave("dropdownbox_mouseoutelement($component3, $int4, $rgb6)");
+}
+~dropdownbox_close($component3, $component0, $component1, $component2, $int5);

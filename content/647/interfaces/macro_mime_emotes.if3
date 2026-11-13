@@ -1,0 +1,187 @@
+// 188:0
+[com_0]
+type=model
+x=6
+width=90
+height=102
+layer=content_layer
+model=model_38892
+modelorigin=2,-2
+modelangle=2001,1900,0
+modelzoom=1509
+modelanim=seq_9757
+onload=script1392
+
+// 188:1
+[com_1]
+type=model
+x=414
+y=-4
+width=91
+height=101
+layer=content_layer
+model=model_38892
+modelorigin=-2,-2
+modelangle=8,150,0
+modelzoom=1509
+modelanim=seq_9757
+
+// 188:2
+[macro_emote_think]
+type=text
+x=74
+y=10
+width=80
+height=41
+layer=content_layer
+textfont=q8_full
+text=Think
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Think
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:3
+[macro_emote_cry]
+type=text
+x=74
+y=51
+width=80
+height=41
+layer=content_layer
+textfont=q8_full
+text=Cry
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Cry
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:4
+[macro_emote_laugh]
+type=text
+x=154
+y=10
+width=80
+height=41
+layer=content_layer
+textfont=q8_full
+text=Laugh
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Laugh
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:5
+[macro_emote_dance]
+type=text
+x=154
+y=51
+width=80
+height=41
+layer=content_layer
+textfont=q8_full
+text=Dance
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Dance
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:6
+[macro_emote_climbrope]
+type=text
+x=234
+y=10
+width=100
+height=41
+layer=content_layer
+textfont=q8_full
+text=Climb Rope
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Climb Rope
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:7
+[com_7]
+type=text
+x=234
+y=51
+width=100
+height=41
+layer=content_layer
+textfont=q8_full
+text=Lean on air
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Lean on air
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:8
+[macro_emote_glassbox]
+type=text
+x=334
+y=10
+width=100
+height=41
+layer=content_layer
+textfont=q8_full
+text=Glass Box
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Glass Box
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:9
+[macro_emote_glasswall]
+type=text
+x=334
+y=51
+width=100
+height=41
+layer=content_layer
+textfont=q8_full
+text=Glass Wall
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8686af
+transmitop=1
+op1=Glass Wall
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8686af)
+
+// 188:10
+[content_layer]
+type=layer
+y=4
+width=509
+height=102
+xmode=abs_centre

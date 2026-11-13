@@ -1,0 +1,24 @@
+// 4521
+[proc,aif_checkbox_build_layer](component $component0, graphic $graphic1, graphic $graphic2, graphic $graphic3)
+if ($component0 = null) {
+    return;
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(16384, 16384, ^setsize_rel, ^setsize_rel);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic($graphic1);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(16384, 16384, ^setsize_rel, ^setsize_rel);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic($graphic2);
+cc_settrans(255);
+cc_setonmouseover("script4209(event_com, 0)");
+cc_setonmouseleave("script4209(event_com, 1)");
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(16384, 16384, ^setsize_rel, ^setsize_rel);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic($graphic3);
+cc_settrans(255);
+cc_setonclick("script4207(event_com, 0)");
+cc_setonrelease("script4207(event_com, 255)");

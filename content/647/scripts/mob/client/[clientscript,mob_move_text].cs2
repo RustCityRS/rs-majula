@@ -1,0 +1,7 @@
+// 2609
+[clientscript,mob_move_text](component $component0)
+if (%varplayerbit_6357 = 1 | %varplayerbit_6357 = 4 | %varplayerbit_6357 = 3) {
+    if_setposition($component0, 0, 5, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setposition($component0, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+}

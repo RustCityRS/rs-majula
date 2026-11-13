@@ -33,3 +33,16 @@ pkg
 /rs-web/media/
 
 *.tar.gz
+
+# Optional local reference caches and unpack diagnostics
+/expected/
+/content/647/unpack_report.txt
+
+# Script sources in any feature folder
+!content/*/scripts/**/
+!content/*/scripts/**/*.rs2
+!content/*/scripts/**/*.cs2
+!content/*/scripts/**/*.gs2
+!content/*/scripts/**/*.constant
+
+*.pyc

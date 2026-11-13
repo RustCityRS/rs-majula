@@ -1,0 +1,87 @@
+// 1522
+[proc,script1522](component $component0)
+if (%tutorial_version ! 2) {
+    return;
+}
+if (%tutorial = 1000) {
+    if_setcolour($component0, 0x99ff00);
+    return;
+} else if (%tutorial = 0) {
+    if_setcolour($component0, 0xff1e1e);
+    return;
+} else {
+    switch_component ($component0) {
+        case interface_761:chap1 :
+            if (%tutorial >= 90) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%tutorial = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap2 :
+            if (%tutorial >= 180) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%tutorial < 100) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap3 :
+            if (%varplayerbit_4926 >= 50) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%varplayerbit_4926 = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap4 :
+            if (%varplayerbit_4927 >= 20) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%varplayerbit_4927 = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap5 :
+            if (%varplayerbit_4928 >= 25) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%varplayerbit_4928 = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap6 :
+            if (%varplayerbit_4929 >= 25) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%varplayerbit_4929 = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap12 :
+            if (%tutorial2_wood >= 15) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%tutorial2_wood = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:chap13 :
+            if (%tutorial2_fire >= 20) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%tutorial2_fire = 0) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+        case interface_761:finale :
+            if (%tutorial = 1000) {
+                if_setcolour($component0, 0x99ff00);
+            } else if (%tutorial < 190) {
+                if_setcolour($component0, 0xff1e1e);
+            } else {
+                if_setcolour($component0, 0xffff66);
+            }
+    }
+}

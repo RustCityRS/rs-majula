@@ -1,0 +1,435 @@
+// 829:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+colour=0x000000
+fill=yes
+
+// 829:1
+[com_1]
+type=model
+x=-15
+y=29
+width=534
+height=477
+ymode=abs_centre
+layer=layer_1
+model=model_44571
+modelorigin=-15,2
+modelangle=512,512,0
+modelzoom=493
+
+// 829:2
+[luc2_close_button]
+type=graphic
+x=12
+y=12
+width=16
+height=16
+xmode=abs_right
+layer=layer_1
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 829:3
+[luc2_rune_door_text_1]
+type=text
+x=185
+y=85
+width=155
+height=119
+layer=layer_1
+textfont=luc2_font_scratch_large
+text=FURTHER ACC0SS PR42IBIT13
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:4
+[luc2_rune_door_text_2]
+type=text
+x=185
+y=83
+width=155
+height=119
+layer=layer_1
+textfont=luc2_font_scratch_large
+text=FURTHER ACC0SS PR42IBIT13
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:5
+[luc2_rune_door_text_3]
+type=text
+x=183
+y=85
+width=155
+height=119
+layer=layer_1
+textfont=luc2_font_scratch_large
+text=FURTHER ACC0SS PR42IBIT13
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:6
+[luc2_rune_door_text_4]
+type=text
+x=183
+y=83
+width=155
+height=119
+layer=layer_1
+textfont=luc2_font_scratch_large
+text=FURTHER ACC0SS PR42IBIT13
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:7
+[luc2_rune_door_text]
+type=text
+x=184
+y=84
+width=155
+height=119
+layer=layer_1
+textfont=luc2_font_scratch_large
+text=FURTHER ACC0SS PR42IBIT13
+textalignh=centre
+textshadow=yes
+colour=0x60543a
+
+// 829:8
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 829:9
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 829:10
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 829:11
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 829:12
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 829:13
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 829:14
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 829:15
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 829:16
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0xffffffff
+
+// 829:17
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0xffffffff
+
+// 829:18
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0xffffffff
+
+// 829:19
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0xffffffff
+
+// 829:20
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 829:21
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 829:22
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 829:23
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 829:24
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 829:25
+[com_25]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 829:26
+[com_26]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 829:27
+[com_27]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 829:28
+[com_28]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 829:29
+[com_29]
+type=text
+x=84
+y=23
+width=350
+height=27
+textfont=luc2_font_scratch_large
+text=01234 43210 01234 43210
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:30
+[com_30]
+type=text
+x=84
+y=21
+width=350
+height=27
+textfont=luc2_font_scratch_large
+text=01234 43210 01234 43210
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:31
+[com_31]
+type=text
+x=82
+y=23
+width=350
+height=27
+textfont=luc2_font_scratch_large
+text=01234 43210 01234 43210
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:32
+[com_32]
+type=text
+x=82
+y=21
+width=350
+height=27
+textfont=luc2_font_scratch_large
+text=01234 43210 01234 43210
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 829:33
+[com_33]
+type=text
+x=83
+y=22
+width=350
+height=27
+textfont=luc2_font_scratch_large
+text=01234 43210 01234 43210
+textshadow=yes
+colour=0x60543a

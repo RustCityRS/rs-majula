@@ -1,0 +1,20 @@
+// 2314
+[clientscript,dob_montharrow_click]
+if (if_gethide(chatdefault:monthddlist) = true) {
+    if_setvflip(chatdefault:montharrow, true);
+    if_sethide(chatdefault:monthddlist, false);
+    if_sethide(chatdefault:monthddlistborder, false);
+    if_sethide(chatdefault:monthddscroll, false);
+    if_sethide(chatdefault:monthddback, false);
+} else {
+    if_setvflip(chatdefault:montharrow, false);
+    if_sethide(chatdefault:monthddlist, true);
+    if_sethide(chatdefault:monthddlistborder, true);
+    if_sethide(chatdefault:monthddscroll, true);
+    if_sethide(chatdefault:monthddback, true);
+}
+if_setvflip(chatdefault:dayarrow, false);
+if_sethide(chatdefault:dayddlist, true);
+if_sethide(chatdefault:dayddlistborder, true);
+if_sethide(chatdefault:dayddscroll, true);
+if_sethide(chatdefault:dayddback, true);

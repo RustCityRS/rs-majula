@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::DbRequest;
 use crate::clients::client_game::create_io;
-use crate::engine::{engine, engine_mut};
+use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use core::str::Split;
 use num_enum::TryFromPrimitive;
@@ -10,6 +10,9 @@ use rs_db::{ModAction, log_type, transfer};
 use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
+use rs_io::Packet;
+#[cfg(since_647)]
+use rs_io::cp1252::encode_string;
 use rs_pack::cache::category::CategoryType;
 use rs_pack::cache::r#enum::EnumType;
 use rs_pack::cache::idk::IdkType;
@@ -18,6 +21,7 @@ use rs_pack::cache::inv::InvType;
 use rs_pack::cache::loc::LocType;
 use rs_pack::cache::npc::NpcType;
 use rs_pack::cache::obj::ObjType;
+#[cfg(since_254)]
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::seq::SeqType;
 use rs_pack::cache::spotanim::SpotAnimType;
@@ -25,9 +29,21 @@ use rs_pack::cache::r#struct::StructType;
 use rs_pack::cache::varp::VarPlayerType;
 use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::{DummyItem, LocAngle, LocShape, NpcStat, PlayerStat};
+use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
+use rs_protocol::network::game::client::message_public::MessagePublic;
+use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
+#[cfg(before_647)]
+use rs_protocol::network::game::client::pack_coord;
+use rs_protocol::network::game::server::ServerProtMessage;
+use rs_protocol::network::game::server::if_settext::IfSetText;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::reflection_checker::ReflectionCheck;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_stat::get_exp_by_level;
 use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
+#[cfg(before_647)]
+use rs_util::wordpack::pack;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptArgument;
@@ -66,34 +82,35 @@ use tracing::{error, info};
 ///   or [`cheat_maintainer`] depending on the player's staff level
 impl ClientGameHandler for ClientCheat {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        if self.cheat.len() > 80 {
+        let input = self.cheat;
+        if input.len() > 80 {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was too long: {}",
-                self.cheat.len()
+                input.len()
             )));
         }
 
-        let input_lower = self.cheat.to_lowercase();
+        let input_lower = input.to_lowercase();
         let mut args = input_lower.split(' ');
         let cmd = args.next().unwrap_or_default();
         if cmd.is_empty() {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was not found for input: {}",
-                self.cheat
+                input
             )));
         }
 
         // What jagex moderators and maintainers do goes on their record for
         // the console (player moderators' mutes are logged as moderation).
         if active.player.staff_mod_level.is_isolated() {
-            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{}", self.cheat));
+            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{input}"));
         }
 
         match active.player.staff_mod_level {
             StaffModLevel::Normal => cheat_normal(cmd, args, active),
             StaffModLevel::PlayerModerator => cheat_player_moderator(cmd, args, active),
             StaffModLevel::JagexModerator => cheat_jagex_moderator(cmd, args, active),
-            StaffModLevel::Maintainer => cheat_maintainer(cmd, args, active),
+            StaffModLevel::Maintainer => cheat_maintainer(cmd, args, &input, active),
         }
     }
 }
@@ -106,6 +123,7 @@ impl ClientGameHandler for ClientCheat {
 ///
 /// * `cmd` - The lowercased command name (first token of the cheat input).
 /// * `args` - An iterator over the remaining space-separated argument tokens.
+/// * `input` - The cheat as typed, for arguments whose case matters.
 /// * `active` - The active player executing the cheat command.
 ///
 /// # Returns
@@ -125,10 +143,11 @@ impl ClientGameHandler for ClientCheat {
 fn cheat_maintainer(
     cmd: &str,
     mut args: Split<'_, char>,
+    #[cfg_attr(before_647, expect(unused_variables))] input: &str,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     match cmd {
-        _ if cmd.starts_with("~") => cheat_debugproc(&cmd, &mut args, active),
+        _ if cmd.starts_with("~") => cheat_debugproc(&cmd[1..], &mut args, active),
         "reload" => cheat_reload(),
         "give" => cheat_give(&mut args, active),
         "givemany" => cheat_give_many(&mut args, active),
@@ -143,8 +162,18 @@ fn cheat_maintainer(
         "slowreboot" => cheat_slow_reboot(&mut args),
         "bots" => cheat_spawn_bots(active),
         "localbots" => cheat_spawn_local_bots(active),
+        "readerstall" => cheat_reader_stall(active),
+        #[cfg(since_647)]
+        "reflect" => cheat_reflect(input, active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
+        _ if engine()
+            .scripts
+            .get_by_name(&format!("[debugproc,{cmd}]"))
+            .is_some() =>
+        {
+            cheat_debugproc(cmd, &mut args, active)
+        }
         _ => cheat_jagex_moderator(cmd, args, active),
     }
 }
@@ -183,6 +212,9 @@ fn cheat_jagex_moderator(
 ///   [`cheat_moderate`]).
 ///
 /// Reached directly by player moderators, and by higher staff cascading down.
+// The single-binding match is intentional scaffolding: new commands slot in
+// as arms above the fall-through.
+#[allow(clippy::match_single_binding)]
 fn cheat_player_moderator(
     cmd: &str,
     mut args: Split<'_, char>,
@@ -199,6 +231,9 @@ fn cheat_player_moderator(
 ///
 /// This is the base of the staff-level fall-through chain that all higher
 /// levels cascade down to.
+// The single-binding match is intentional scaffolding: new commands slot in
+// as arms above the fall-through.
+#[allow(clippy::match_single_binding)]
 fn cheat_normal(
     _cmd: &str,
     _args: Split<'_, char>,
@@ -210,13 +245,14 @@ fn cheat_normal(
 /// Runs the `[debugproc,<name>]` script, parsing the remaining arguments into
 /// the script's declared parameter types (int, obj, loc, coord, stat, ...).
 ///
-/// Usage: `::~<name> [args...]` (e.g. `::~getcoord` or `::~setxp attack 50`).
+/// Usage: `~<name> [args...]` (e.g. `~getcoord` or `~setxp attack 50`), or the
+/// bare name when no cheat has it: 647's console cannot type `~`, its toggle.
 fn cheat_debugproc(
-    cmd: &&str,
+    proc: &str,
     args: &mut Split<char>,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    let name = format!("[debugproc,{}]", &cmd[1..]);
+    let name = format!("[debugproc,{proc}]");
     let Some(script) = engine().scripts.get_by_name(&name).cloned() else {
         return Err(ScriptError::ScriptNotFoundName(name));
     };
@@ -293,6 +329,21 @@ fn cheat_debugproc(
             ScriptVarType::NpcUid => {}
             ScriptVarType::DbRow => {}
             ScriptVarType::Midi => {}
+            #[cfg(since_647)]
+            ScriptVarType::Cursor
+            | ScriptVarType::MapArea
+            | ScriptVarType::Graphic
+            | ScriptVarType::ChatPhrase
+            | ScriptVarType::Jingle
+            | ScriptVarType::ChatCat
+            | ScriptVarType::Model
+            | ScriptVarType::Texture
+            | ScriptVarType::Bas
+            | ScriptVarType::Vorbis
+            | ScriptVarType::MapElement => {
+                let value = args.next().unwrap_or("0");
+                params.push(ScriptArgument::Int(value.parse::<i32>().unwrap_or(0)));
+            }
         }
     }
 
@@ -526,7 +577,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
             return Ok(());
         }
         let value = args.next().unwrap_or("0").parse::<i32>().unwrap_or(0);
-        active.message_game(&format!("Set {:?}: to {:?}", varbit.debugname(), value));
+        active.message_game(&format!("Set {}: to {:?}", varbit.debugname(), value));
         active.set_varbit(varbit, value);
         return Ok(());
     }
@@ -535,7 +586,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
             return;
         }
         let value = build_var_value(v, args);
-        active.message_game(&format!("Set {:?}: to {:?}", v.debugname(), value));
+        active.message_game(&format!("Set {}: to {:?}", v.debugname, value));
         active.set_varp(v.id, value, v.transmit);
     })
 }
@@ -579,12 +630,12 @@ fn cheat_getvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
     #[cfg(since_254)]
     if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
         let value = active.varbit(varbit);
-        active.message_game(&format!("Get {:?}: {:?}", varbit.debugname(), value));
+        active.message_game(&format!("Get {}: {:?}", varbit.debugname(), value));
         return Ok(());
     }
     parse_varp(name, |v| {
         let value = active.player.vars.get(v.id);
-        active.message_game(&format!("Get {:?}: {:?}", v.debugname(), value));
+        active.message_game(&format!("Get {}: {:?}", v.debugname, value));
     })
 }
 
@@ -644,10 +695,81 @@ fn cheat_spawn_local_bots(active: &mut ActivePlayer) -> Result<(), ScriptError> 
     Ok(())
 }
 
+/// Sends one packet whose body fills the client's packet buffer,
+/// [`MAX_PACKET_SIZE`] bytes: filler text on the first layer component, which
+/// never draws text. From build 600 to 647 the client can only take a body
+/// that size once its socket buffer is full, and taking it empties the buffer,
+/// so its reader thread stalls and the client reconnects 15 s later. The line
+/// behind it is only read if it didn't.
+///
+/// Usage: `::readerstall`.
+fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let Some(com) = engine()
+        .interfaces()
+        .types
+        .iter()
+        .filter(|(_, com)| com.layer)
+        .map(|(&id, _)| id)
+        .min()
+    else {
+        return Ok(());
+    };
+    #[cfg(before_647)]
+    let com = com as u16;
+    let text = "x".repeat(MAX_PACKET_SIZE - IfSetText { com, text: "" }.sizeof());
+    let message = IfSetText { com, text: &text };
+    let mut body = Packet::new(message.sizeof());
+    message.encode(&mut body);
+    active.write_varshort_unchecked(ServerProt::IfSetText as u8, [&body.data[..body.pos], &[]]);
+    active.message_game(&format!(
+        "The client read the {MAX_PACKET_SIZE}-byte packet without stalling: run ::readerstall again."
+    ));
+    Ok(())
+}
+
+/// Has the client read a field's int value, a field's modifiers, or a method's
+/// modifiers (the method given with its parameter classes) and say what it
+/// got. The names keep the case they were typed in, as the client's classes
+/// have it.
+///
+/// Usage: `::reflect field <class> <field>`, `::reflect fieldmods <class>
+/// <field>` or `::reflect methodmods <class> <method> [<param class>...]`.
+#[cfg(since_647)]
+fn cheat_reflect(input: &str, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let usage = "Usage: ::reflect field|fieldmods <class> <field>, or ::reflect methodmods <class> <method> [<param class>...]";
+    let mut args = input.split(' ').skip(1);
+    let (Some(kind), Some(class), Some(member)) = (args.next(), args.next(), args.next()) else {
+        active.message_game(usage);
+        return Ok(());
+    };
+    let (class, member) = (class.to_string(), member.to_string());
+    let check = match kind.to_lowercase().as_str() {
+        "field" => ReflectionCheck::FieldValue {
+            class,
+            field: member,
+        },
+        "fieldmods" => ReflectionCheck::FieldModifiers {
+            class,
+            field: member,
+        },
+        "methodmods" => ReflectionCheck::MethodModifiers {
+            class,
+            method: member,
+            params: args.map(str::to_string).collect(),
+        },
+        _ => {
+            active.message_game(usage);
+            return Ok(());
+        }
+    };
+    active.reflection_check(vec![check]);
+    Ok(())
+}
+
 /// Spawns up to `count` bots across a square grid, reusing tiles when the count
 /// exceeds the grid area. Stops when no player slots remain and clamps tile
 /// positions to the world bounds.
-fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
+pub(crate) fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
     let half = (grid_size >> 1) as i32;
     let engine = engine_mut();
     let mut spawned = 0;
@@ -668,16 +790,20 @@ fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
 
         bot.player.pathing.coord = CoordGrid::new(x, center.y(), z);
         bot.player.pathing.last_coord = bot.player.pathing.coord;
+        bot.player.bot_home = center;
         bot.player.pathing.tele = true;
         bot.player.pathing.jump = true;
 
-        bot.player.info.readyanim = Some(808);
-        bot.player.info.turnanim = Some(823);
-        bot.player.info.walkanim = Some(819);
-        bot.player.info.walkanim_b = Some(820);
-        bot.player.info.walkanim_l = Some(821);
-        bot.player.info.walkanim_r = Some(822);
-        bot.player.info.runanim = Some(824);
+        #[cfg(before_647)]
+        {
+            bot.player.info.readyanim = Some(808);
+            bot.player.info.turnanim = Some(823);
+            bot.player.info.walkanim = Some(819);
+            bot.player.info.walkanim_b = Some(820);
+            bot.player.info.walkanim_l = Some(821);
+            bot.player.info.walkanim_r = Some(822);
+            bot.player.info.runanim = Some(824);
+        }
 
         bot.buildappearance(0);
 
@@ -692,6 +818,58 @@ fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
         center.y()
     );
     spawned
+}
+
+/// The side of the square around their spawn centre that bots walk about in.
+const BOT_SQUARE: i32 = 50;
+
+/// `emote_wave`, the same seq in every revision.
+const EMOTE_WAVE: u16 = 863;
+
+/// A bot's tick: a walk click to a random tile of the [`BOT_SQUARE`] square
+/// around its spawn centre, its appearance, a wave facing that tile and its
+/// name in public chat, each through the handler a client's packet takes.
+pub(crate) fn bot_tick(active: &mut ActivePlayer) -> Result<(), ScriptError> {
+    let home = active.player.bot_home;
+    let random = &mut engine_mut().random;
+    let half = BOT_SQUARE >> 1;
+    let x = (home.x() as i32 + random.next_int_bound(BOT_SQUARE) - half).clamp(0, 0x3FFF) as u16;
+    let z = (home.z() as i32 + random.next_int_bound(BOT_SQUARE) - half).clamp(0, 0x3FFF) as u16;
+    #[cfg(before_647)]
+    MoveGameClick {
+        path: vec![pack_coord(x, z)],
+        ctrl: false,
+    }
+    .handle(active)?;
+    #[cfg(since_647)]
+    MoveGameClick { x, z, ctrl: false }.handle(active)?;
+
+    let inv = active.player.info.appearance.unwrap_or(0);
+    active.buildappearance(inv);
+    active.anim(Some(EMOTE_WAVE), 0);
+    active.facesquare(CoordGrid::new(x, active.player.pathing.coord.y(), z));
+
+    let name = active.player.uid.screen_name();
+    #[cfg(before_647)]
+    let chat = MessagePublic {
+        colour: 0,
+        effect: 0,
+        bytes: pack(&name),
+    };
+    #[cfg(since_647)]
+    let chat = {
+        let text = encode_string(&name);
+        let mut bytes = vec![0; text.len() << 2];
+        let len = engine().cache.huffman.encode(&text, &mut bytes);
+        bytes.truncate(len);
+        MessagePublic {
+            colour: 0,
+            effect: 0,
+            chars: text.len() as u16,
+            bytes,
+        }
+    };
+    chat.handle(active)
 }
 
 /// Sets the player's visibility -- `0` = default, `1` = soft-hide, `2` = hard-hide --

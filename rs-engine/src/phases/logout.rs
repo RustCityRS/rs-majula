@@ -1,5 +1,5 @@
 use crate::active_player::EnginePlayer;
-use crate::engine::Engine;
+use crate::core::Engine;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::state::{QueuePriority, ScriptArgument, ScriptState};
@@ -128,6 +128,10 @@ impl Engine {
                     }
                     active.player.logout_requested = false;
                     active.player.logout_idle_requested = false;
+                    #[cfg(since_647)]
+                    {
+                        active.player.logout_full = false;
+                    }
                     continue;
                 }
                 active.logout();

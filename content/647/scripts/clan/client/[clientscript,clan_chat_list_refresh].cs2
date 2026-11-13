@@ -1,0 +1,8 @@
+// 4435
+[clientscript,clan_chat_list_refresh](int $int0)
+if (activeclanchannel_find_affined = true) {
+    if ($int0 <= -1) {
+        $int0 = %clan_line_pos;
+    }
+    ~script4436(clan_chat:clanlist, $int0);
+}

@@ -1,0 +1,48 @@
+// 486
+[proc,script486](int $int0)(npc)
+switch_int ($int0) {
+    case default :
+        return(null);
+    case 1 :
+        if (%conq_team = 0) {
+            return(conq_scout_dark);
+        } else {
+            return(conq_scout_light);
+        }
+    case 2 :
+        if (%conq_team = 0) {
+            return(conq_footman_dark);
+        } else {
+            return(conq_footman_light);
+        }
+    case 3 :
+        if (%conq_team = 0) {
+            return(conq_halberdier_dark);
+        } else {
+            return(conq_halberdier_light);
+        }
+    case 4 :
+        if (%conq_team = 0) {
+            return(conq_archer_dark);
+        } else {
+            return(conq_archer_light);
+        }
+    case 5 :
+        if (%conq_team = 0) {
+            return(conq_mage_dark);
+        } else {
+            return(conq_mage_light);
+        }
+    case 6 :
+        if (%conq_team = 0) {
+            return(conq_knight_dark);
+        } else {
+            return(conq_knight_light);
+        }
+    case 7 :
+        if (%conq_team = 0) {
+            return(conq_champion_dark);
+        } else {
+            return(conq_champion_light);
+        }
+}

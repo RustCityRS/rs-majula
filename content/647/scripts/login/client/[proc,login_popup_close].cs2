@@ -1,0 +1,55 @@
+// 2954
+[proc,login_popup_close]
+def_component $component0 = login:popup;
+def_component $component1 = login:popup_body;
+def_component $component2 = login:popup_text;
+def_component $component3 = login:popup_throbber;
+def_component $component4 = login:popup_small_button;
+def_component $component5 = login:popup_big_button;
+def_int $int6 = 39059469;
+def_int $int7 = 39059470;
+def_int $int8 = 39059471;
+def_int $int9 = 39059513;
+def_int $int10 = 39059514;
+def_int $int11 = 39059515;
+def_component $component12 = login:popup_small_button_text;
+def_component $component13 = login:popup_big_button_text;
+if (unknown_command_5623 = true) {
+    $component0 = south_progress9:popup;
+    $component1 = south_progress9:popup_body;
+    $component2 = south_progress9:popup_text;
+    $component3 = south_progress9:popup_throbber;
+    $component4 = south_progress9:popup_small_button;
+    $component5 = south_progress9:popup_big_button;
+    $int6 = 63897611;
+    $int7 = 63897612;
+    $int8 = 63897613;
+    $int9 = 63897607;
+    $int10 = 63897608;
+    $int11 = 63897609;
+    $component12 = south_progress9:popup_small_button_text;
+    $component13 = south_progress9:popup_big_button_text;
+}
+if_setonclick($component4, null);
+if_setonclick($component5, null);
+if_setonmouseover($component5, null);
+if_setonmouseleave($component5, null);
+if_setonmouseover($component4, null);
+if_setonmouseleave($component4, null);
+if_setposition($component4, 6, 5, ^setpos_abs_left, ^setpos_abs_bottom);
+if_setposition($component5, 6, 5, ^setpos_abs_left, ^setpos_abs_bottom);
+if_settext($component12, "");
+if_settext($component13, "");
+if_sethide($component4, true);
+if_sethide($component5, true);
+if_settext($component2, "");
+%throbber_last = 0;
+if_setgraphic($component3, null);
+if_setontimer($component3, null);
+if_sethide($component0, true);
+if_sethide($component1, true);
+if (unknown_command_5623 = true) {
+    return;
+} else {
+    ~login_open(11);
+}

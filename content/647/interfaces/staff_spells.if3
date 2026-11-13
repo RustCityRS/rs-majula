@@ -1,0 +1,230 @@
+// 319:0
+[ssb0]
+type=graphic
+x=24
+y=24
+width=24
+height=24
+graphic="magicon,0"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,0", "magicoff,0", 1, "Wind Strike", "A basic Air missile", airrune, 1, mindrune, 1, null, 0, null, 0)
+
+// 319:1
+[ssb1]
+type=graphic
+x=64
+y=24
+width=24
+height=24
+graphic="magicon,2"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,2", "magicoff,2", 5, "Water Strike", "A basic Water missile", waterrune, 1, airrune, 1, mindrune, 1, null, 0)
+
+// 319:2
+[ssb2]
+type=graphic
+x=104
+y=24
+width=24
+height=24
+graphic="magicon,4"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,4", "magicoff,4", 9, "Earth Strike", "A basic Earth missile", earthrune, 2, airrune, 1, mindrune, 1, null, 0)
+
+// 319:3
+[ssb3]
+type=graphic
+x=144
+y=24
+width=24
+height=24
+graphic="magicon,6"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,6", "magicoff,6", 13, "Fire Strike", "A basic Fire missile", firerune, 3, airrune, 2, mindrune, 1, null, 0)
+
+// 319:4
+[ssb4]
+type=graphic
+x=25
+y=84
+width=24
+height=24
+graphic="magicon,8"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,8", "magicoff,8", 17, "Wind Bolt", "A low level Air missile", airrune, 2, chaosrune, 1, null, 0, null, 0)
+
+// 319:5
+[ssb5]
+type=graphic
+x=65
+y=84
+width=24
+height=24
+graphic="magicon,11"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,11", "magicoff,11", 23, "Water Bolt", "A low level Water missile", waterrune, 2, airrune, 2, chaosrune, 1, null, 0)
+
+// 319:6
+[ssb6]
+type=graphic
+x=105
+y=84
+width=24
+height=24
+graphic="magicon,14"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,14", "magicoff,14", 29, "Earth Bolt", "A low level Earth missile", earthrune, 3, airrune, 2, chaosrune, 1, null, 0)
+
+// 319:7
+[ssb7]
+type=graphic
+x=145
+y=84
+width=24
+height=24
+graphic="magicon,17"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,17", "magicoff,17", 35, "Fire Bolt", "A low level Fire missile", firerune, 4, airrune, 3, chaosrune, 1, null, 0)
+
+// 319:8
+[ssb8]
+type=graphic
+x=24
+y=147
+width=24
+height=24
+graphic="magicon,20"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,20", "magicoff,20", 41, "Wind Blast", "A medium level Air missile", airrune, 3, deathrune, 1, null, 0, null, 0)
+
+// 319:9
+[ssb9]
+type=graphic
+x=64
+y=147
+width=24
+height=24
+graphic="magicon,23"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,23", "magicoff,23", 47, "Water Blast", "A medium level Water missile", waterrune, 3, airrune, 3, deathrune, 1, null, 0)
+
+// 319:10
+[ssb10]
+type=graphic
+x=104
+y=147
+width=24
+height=24
+graphic="magicon,25"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,25", "magicoff,25", 53, "Earth Blast", "A medium level Earth missile", earthrune, 4, airrune, 3, deathrune, 1, null, 0)
+
+// 319:11
+[ssb11]
+type=graphic
+x=144
+y=147
+width=24
+height=24
+graphic="magicon,29"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,29", "magicoff,29", 59, "Fire Blast", "A medium level Fire missile", firerune, 5, airrune, 4, deathrune, 1, null, 0)
+
+// 319:12
+[ssb12]
+type=graphic
+x=25
+y=208
+width=24
+height=24
+graphic="magicon,31"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high level Air missile", airrune, 5, bloodrune, 1, null, 0, null, 0)
+
+// 319:13
+[ssb13]
+type=graphic
+x=65
+y=208
+width=24
+height=24
+graphic="magicon,33"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,33", "magicoff,33", 65, "Water Wave", "A high level Water missile", waterrune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 319:14
+[ssb14]
+type=graphic
+x=105
+y=208
+width=24
+height=24
+graphic="magicon,36"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high level Earth missile", earthrune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 319:15
+[ssb15]
+type=graphic
+x=145
+y=208
+width=24
+height=24
+graphic="magicon,37"
+colour=0x000000
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, staff_spells:tooltip, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high level Fire missile", firerune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 319:16
+[cancelspell]
+type=text
+x=127
+y=241
+width=60
+height=16
+textfont=p12_full
+text=Cancel
+textalignh=centre
+textshadow=yes
+colour=0x808080
+transmitop=1
+op1=Cancel
+onmouseover=text_colour_swapper(event_com, 0xc8c8c8)
+onmouseleave=text_colour_swapper(event_com, 0x808080)
+
+// 319:17
+[tooltip]
+type=layer
+width=190
+height=261

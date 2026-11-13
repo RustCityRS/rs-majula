@@ -1,0 +1,16 @@
+// 2434
+[clientscript,gravestone_sync_timer](int $int0)
+%gravestone_countdown = calc($int0 * 300 / 10);
+if (%gravestone_countdown > 0) {
+    if (getwindowmode < 2) {
+        if_setontimer(toplevel:gravestone_layer, "gravestone_update_timer");
+        if_sethide(toplevel:gravestone_background, false);
+        if_sethide(toplevel:gravestone_timer, false);
+    } else {
+        if_setontimer(toplevel_fullscreen:gravestone_layer, "gravestone_update_timer");
+        if_sethide(toplevel_fullscreen:gravestone_timer, false);
+        if_sethide(toplevel_fullscreen:gravestone_background, false);
+    }
+} else {
+    ~gravestone_stop_timer;
+}

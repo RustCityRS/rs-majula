@@ -1,0 +1,9 @@
+// 1560
+[proc,chatdefault_updatechatbox](boolean $boolean0)
+if ($boolean0 = true & (if_hassub(chattop:chatoverlay) = true | if_hassub(chattop:chatoverlaylarge) = true) & (chat_gethistorytype(0) = ^chattype_gamemessage | chat_gethistorytype(0) = ^chattype_engine | chat_gethistorytype(0) = ^chattype_obj_examine | chat_gethistorytype(0) = ^chattype_npc_examine | chat_gethistorytype(0) = ^chattype_loc_examine | chat_gethistorytype(0) = ^chattype_snapshotfeedback | chat_gethistorytype(0) = ^chattype_friendnotification | chat_gethistorytype(0) = ^chattype_ignorenotification)) {
+    ~chatdefault_openmeslayer;
+}
+~rebuildchatbox;
+~rebuildpmbox;
+~chatalerts;
+~redraw_chat_buttons;

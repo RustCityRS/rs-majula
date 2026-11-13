@@ -1,0 +1,46 @@
+// 274:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 274:1
+[com_1]
+type=model
+x=7
+y=252
+width=16647
+height=15655
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_centre
+ymode=proportion_centre
+layer=layer_1
+model=model_32827
+modelorigin=3,8
+modelangle=523,0,0
+modelzoom=710
+modelobjwidth=520
+modelobjheight=319
+
+// 274:2
+[com_2]
+type=graphic
+x=1415
+y=1478
+width=16
+height=16
+xmode=proportion_right
+ymode=proportion_top
+layer=layer_1
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

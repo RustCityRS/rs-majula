@@ -1,0 +1,7 @@
+// 4625
+[clientscript,script4625]
+if (compare(%last_guestclanchannel, "") ! 0 & compare(%last_guestclanchannel, null) ! 0) {
+    %stringdialog_suggested_string = %last_guestclanchannel;
+} else {
+    %stringdialog_suggested_string = "";
+}

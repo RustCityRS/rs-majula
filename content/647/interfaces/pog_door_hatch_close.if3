@@ -1,0 +1,19 @@
+// 610:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 610:1
+[shutter]
+type=rectangle
+width=1
+height=16391
+heightmode=proportion
+layer=layer_1
+colour=0x000000
+fill=yes
+onload=pog_hatch_close_onload
+ontimer=pog_hatch_close_ontimer

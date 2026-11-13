@@ -1,0 +1,20 @@
+// 3436
+[clientscript,ecosystem_big_model](model $model0, string $string0, component $component1, component $component2)
+if_setmodel(ecosystem_wardcreature:bigmodel, $model0);
+if_settext(ecosystem_wardcreature:name, $string0);
+if_sethide(ecosystem_wardcreature:basic_ward, true);
+if_sethide(ecosystem_wardcreature:amphibious_ward, true);
+if_sethide(ecosystem_wardcreature:carrion_ward, true);
+if_sethide(ecosystem_wardcreature:draconic_ward, true);
+if_sethide(ecosystem_wardcreature:igneous_ward, true);
+if_sethide(ecosystem_wardcreature:carnivorous_ward, true);
+if_sethide(ecosystem_wardcreature:aquatic_ward, true);
+if_sethide($component1, false);
+if_setgraphic(ecosystem_wardcreature:basic_box, graphic_4041);
+if_setgraphic(ecosystem_wardcreature:igneous_box, graphic_4041);
+if_setgraphic(ecosystem_wardcreature:carnivorous_box, graphic_4041);
+if_setgraphic(ecosystem_wardcreature:aquatic_box, graphic_4041);
+if_setgraphic(ecosystem_wardcreature:amphibious_box, graphic_4041);
+if_setgraphic(ecosystem_wardcreature:carrion_box, graphic_4041);
+if_setgraphic(ecosystem_wardcreature:draconic_box, graphic_4041);
+if_setgraphic($component2, graphic_4043);

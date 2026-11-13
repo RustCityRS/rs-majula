@@ -1,0 +1,40 @@
+// 1540
+[proc,bank_v2_sideupdate](component $component0)
+cc_deleteall($component0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = calc((if_getwidth($component0) - 36 * 4) / 3);
+$int2 = calc((if_getheight($component0) - 32 * 7) / 6);
+def_int $int3 = 0;
+def_int $int4 = inv_size(inv);
+def_obj $obj5 = null;
+def_int $int6 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+while ($int3 < $int4) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((36 + $int1) * ($int3 % 4)), calc($int3 / 4 * (32 + $int2)), ^setpos_abs_left, ^setpos_abs_top);
+    $obj5 = inv_getobj(inv, $int3);
+    if ($obj5 ! null) {
+        $int6 = inv_total(inv, $obj5);
+        $string0, $string1 = oc_param($obj5, param_1264), oc_param($obj5, param_1265);
+        if (string_length($string0) <= 0) {
+            if (testbit(%varclient_96, $int3) = ^true) {
+                $string0 = oc_iop($obj5, 2);
+            } else if (testbit(%varclient_95, $int3) = ^true) {
+                $string0 = "Eat";
+            }
+        }
+    } else {
+        $int6, $string0, $string1 = 0, "", "";
+    }
+    if ($int6 > 5) {
+        ~interface_inv_draw_slot_big(inv, $int3, $component0, $int3, 1, null, "Deposit-1", "Deposit-5", "Deposit-10", "Deposit-<tostring(%last_bank_amount)>", "Deposit-X", "Deposit-All", "", $string0, $string1);
+    } else if ($int6 > 1) {
+        ~interface_inv_draw_slot_big(inv, $int3, $component0, $int3, 1, null, "Deposit-1", "Deposit-5", "", "Deposit-<tostring(%last_bank_amount)>", "Deposit-X", "Deposit-All", "", $string0, $string1);
+    } else {
+        ~interface_inv_draw_slot_big(inv, $int3, $component0, $int3, 1, null, "Deposit", "", "", "", "", "", "", $string0, $string1);
+    }
+    $int3 = calc($int3 + 1);
+}

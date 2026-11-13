@@ -1,0 +1,28 @@
+// 846:0
+[textbox]
+type=text
+x=10
+y=15
+width=490
+height=93
+textfont=tutorial_font
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 846:1
+[continue_button]
+type=text
+width=395
+height=19
+xmode=abs_centre
+ymode=abs_bottom
+textfont=tutorial_font
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+transmitop=1,10
+op1=Continue
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

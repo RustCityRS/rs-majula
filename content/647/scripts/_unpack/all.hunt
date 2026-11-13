@@ -1,0 +1,1683 @@
+// 0
+[kalphite_queen]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+check_afk=off
+find_keephunting=on
+find_newmode=applayer2
+
+// 1
+[kalphite_worker]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+check_afk=off
+find_keephunting=off
+find_newmode=opplayer2
+
+// 2
+[kalphite_larva]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+check_afk=off
+find_keephunting=off
+find_newmode=applayer2
+
+// 3
+[battle_mage_hunt]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+extracheck_var=%magearena,>5
+check_notbusy=off
+find_keephunting=off
+find_newmode=applayer2
+
+// 4
+[king_dragon]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+check_afk=off
+find_keephunting=on
+find_newmode=applayer2
+
+// 289's general/configs/duckling.hunt: a duckling follows a duck. 289's
+// duck_female (its npc 45; 2011's 45 is a banker) is 786's 2693, "Duck",
+// by the name bridge, as its duckling (46) is 2694.
+// in osrs, ducklings always hunt 11 ticks after respawn
+// 5
+[duck_hunt]
+type=npc
+check_npc=duck_female
+check_vis=lineofsight
+find_keephunting=off
+rate=11
+find_newmode=opnpc3
+
+// 6
+[gnomeball_tackler]
+type=player
+check_vis=lineofsight
+check_afk=off
+check_inv=worn,ball_gnomeball_game,>0
+check_notcombat_self=%npc_lastcombat
+rate=1
+find_newmode=opplayer2
+
+// 7
+[shades]
+type=player
+check_vis=off
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+extracheck_var=%morttonmulti,&16
+find_keephunting=off
+find_newmode=opplayer2
+
+// 8
+[chompybird]
+type=npc
+check_npc=bloated_toad
+check_vis=lineofsight
+check_afk=off
+find_keephunting=on
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+// confirm rate
+rate=3
+find_newmode=queue4
+
+// 9
+[elvarg_hunt]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+check_afk=off
+find_keephunting=off
+find_newmode=opplayer2
+
+// 10
+[gujuo]
+type=player
+check_vis=lineofsight
+check_afk=off
+extracheck_var=%legendsquest,>^legends_not_started
+extracheck_var=%legendsquest,<^legends_complete
+check_notcombat=%lastcombat
+rate=100
+check_notbusy=on
+find_keephunting=off
+find_newmode=opplayer2
+
+// 11
+[nezikchened]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=opplayer2
+
+// 12
+[aa_aggressive_melee]
+// 289's body needs category mm_greegree
+
+// 13
+[aa_aggressive_ranged]
+// 289's body needs category mm_greegree
+
+// 14
+[mm_guard]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notbusy=off
+check_afk=off
+find_keephunting=on
+find_newmode=applayer2
+
+// 15
+[ranged]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=applayer2
+// guessing that constant means keephunting=on
+// and the difference between aggressive may include nottoostrong
+
+// guessing that constant means keephunting=on
+// and the difference between aggressive may include nottoostrong
+// 16
+[constant_melee]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=on
+find_newmode=opplayer2
+
+// guessing that constant means keephunting=on
+// and the difference between aggressive may include nottoostrong
+// 17
+[constant_ranged]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=on
+find_newmode=applayer2
+
+// 18
+[cowardly]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=opplayer2
+// guessing that notbusy means notbusy=on
+
+// guessing that notbusy means notbusy=on
+// 19
+[notbusy_melee]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=on
+find_keephunting=off
+find_newmode=opplayer2
+
+// guessing that notbusy means notbusy=on
+// 20
+[notbusy_range]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=on
+find_keephunting=off
+find_newmode=applayer2
+
+// 21
+[aggressive_melee]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=opplayer2
+
+// 289's, for its Count Draynor (quest_vampire): aggressive_melee without
+// the line-of-sight check.
+// 22
+[aggressive_melee_extra]
+type=player
+check_vis=off
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=opplayer2
+
+// 23
+[aggressive_ranged]
+type=player
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+check_notbusy=off
+find_keephunting=off
+find_newmode=applayer2
+
+// 24
+[aggressive_ranged_extra]
+
+// 25
+[ap1_trigger_constant]
+
+// 26
+[ap1_trigger]
+
+// 27
+[ap2_trigger_constant]
+
+// 28
+[ap2_trigger]
+
+// 29
+[op1_trigger_constant]
+
+// 30
+[op1_trigger]
+
+// 31
+[op2_trigger_constant]
+
+// 32
+[op2_trigger]
+
+// 33
+[queue1_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue1
+
+// 34
+[queue1_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue1
+
+// 35
+[queue2_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue2
+
+// 36
+[queue2_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue2
+
+// 37
+[queue3_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue3
+
+// 38
+[queue3_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue3
+
+// 39
+[queue4_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue4
+
+// 40
+[queue4_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue4
+
+// 41
+[queue5_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue5
+
+// 42
+[queue5_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue5
+
+// 43
+[queue6_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue6
+
+// 44
+[queue6_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue6
+
+// 45
+[queue7_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue7
+
+// 46
+[queue7_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue7
+
+// 47
+[queue8_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue8
+
+// 48
+[queue8_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue8
+
+// 49
+[queue9_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue9
+
+// 50
+[queue9_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue9
+
+// 51
+[queue10_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue10
+
+// 52
+[queue10_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue10
+
+// 53
+[queue11_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue11
+
+// 54
+[queue11_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue11
+
+// 55
+[queue12_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue12
+
+// 56
+[queue12_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue12
+
+// 57
+[queue13_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue13
+
+// 58
+[queue13_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue13
+
+// 59
+[queue14_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue14
+
+// 60
+[queue14_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue14
+
+// 61
+[queue15_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue15
+
+// 62
+[queue15_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue15
+
+// 63
+[queue16_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue16
+
+// 64
+[queue16_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue16
+
+// 65
+[queue17_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue17
+
+// 66
+[queue17_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue17
+
+// 67
+[queue18_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue18
+
+// 68
+[queue18_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue18
+
+// 69
+[queue19_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue19
+
+// 70
+[queue19_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue19
+
+// 71
+[queue20_trigger_constant]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_keephunting=on
+find_newmode=queue20
+
+// 72
+[queue20_trigger]
+type=player
+check_vis=lineofsight
+check_nottoostrong=outside_wilderness
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue20
+
+// 73
+[bigmonster_melee]
+
+// 74
+[bigmonster_ranged]
+
+// 75
+[example1]
+type=obj
+check_category=weapon_stab
+check_vis=lineofsight
+find_newmode=queue20
+
+// 76
+[example2]
+type=player
+check_inv=worn,dragon_longsword,=1
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue20
+
+// 77
+[example3]
+type=player
+check_invparam=worn,zamorakitem,>0
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue20
+
+// 78
+[example4]
+type=obj
+check_obj=ashes
+check_vis=lineofsight
+find_newmode=queue20
+
+// 79
+[example5]
+type=scenery
+check_category=tree
+check_vis=lineofsight
+find_newmode=queue20
+
+// 80
+[example6]
+type=player
+check_inv=worn,dragon_longsword,=0
+check_vis=lineofsight
+check_nottoostrong=off
+check_notcombat=%lastcombat
+check_notcombat_self=%npc_lastcombat
+find_newmode=queue20
+
+// 81
+[hunt_81]
+
+// 82
+[hunt_82]
+
+// 83
+[hunt_83]
+
+// 84
+[hunt_84]
+
+// 85
+[hunt_85]
+
+// 86
+[hunt_86]
+
+// 87
+[hunt_87]
+
+// 88
+[hunt_88]
+
+// 89
+[hunt_89]
+
+// 90
+[hunt_90]
+
+// 91
+[hunt_91]
+
+// 92
+[hunt_92]
+
+// 93
+[hunt_93]
+
+// 94
+[hunt_94]
+
+// 95
+[hunt_95]
+
+// 96
+[hunt_96]
+
+// 97
+[hunt_97]
+
+// 98
+[hunt_98]
+
+// 99
+[hunt_99]
+
+// 100
+[hunt_100]
+
+// 101
+[hunt_101]
+
+// 102
+[hunt_102]
+
+// 103
+[hunt_103]
+
+// 104
+[hunt_104]
+
+// 105
+[hunt_105]
+
+// 106
+[hunt_106]
+
+// 107
+[hunt_107]
+
+// 108
+[hunt_108]
+
+// 109
+[hunt_109]
+
+// 110
+[hunt_110]
+
+// 111
+[hunt_111]
+
+// 112
+[hunt_112]
+
+// 113
+[hunt_113]
+
+// 114
+[hunt_114]
+
+// 115
+[hunt_115]
+
+// 116
+[hunt_116]
+
+// 117
+[hunt_117]
+
+// 118
+[hunt_118]
+
+// 119
+[hunt_119]
+
+// 120
+[hunt_120]
+
+// 121
+[hunt_121]
+
+// 122
+[hunt_122]
+
+// 123
+[hunt_123]
+
+// 124
+[hunt_124]
+
+// 125
+[hunt_125]
+
+// 126
+[hunt_126]
+
+// 127
+[hunt_127]
+
+// 128
+[hunt_128]
+
+// 129
+[hunt_129]
+
+// 130
+[hunt_130]
+
+// 131
+[hunt_131]
+
+// 132
+[hunt_132]
+
+// 133
+[hunt_133]
+
+// 134
+[hunt_134]
+
+// 135
+[hunt_135]
+
+// 136
+[hunt_136]
+
+// 137
+[hunt_137]
+
+// 138
+[hunt_138]
+
+// 139
+[hunt_139]
+
+// 140
+[hunt_140]
+
+// 141
+[hunt_141]
+
+// 142
+[hunt_142]
+
+// 143
+[hunt_143]
+
+// 144
+[hunt_144]
+
+// 145
+[hunt_145]
+
+// 146
+[hunt_146]
+
+// 147
+[hunt_147]
+
+// 148
+[hunt_148]
+
+// 149
+[hunt_149]
+
+// 150
+[hunt_150]
+
+// 151
+[hunt_151]
+
+// 152
+[hunt_152]
+
+// 153
+[hunt_153]
+
+// 154
+[hunt_154]
+
+// 155
+[hunt_155]
+
+// 156
+[hunt_156]
+
+// 157
+[hunt_157]
+
+// 158
+[hunt_158]
+
+// 159
+[hunt_159]
+
+// 160
+[hunt_160]
+
+// 161
+[hunt_161]
+
+// 162
+[hunt_162]
+
+// 163
+[hunt_163]
+
+// 164
+[hunt_164]
+
+// 165
+[hunt_165]
+
+// 166
+[hunt_166]
+
+// 167
+[hunt_167]
+
+// 168
+[hunt_168]
+
+// 169
+[hunt_169]
+
+// 170
+[hunt_170]
+
+// 171
+[hunt_171]
+
+// 172
+[hunt_172]
+
+// 173
+[hunt_173]
+
+// 174
+[hunt_174]
+
+// 175
+[hunt_175]
+
+// 176
+[hunt_176]
+
+// 177
+[hunt_177]
+
+// 178
+[hunt_178]
+
+// 179
+[hunt_179]
+
+// 180
+[hunt_180]
+
+// 181
+[hunt_181]
+
+// 182
+[hunt_182]
+
+// 183
+[hunt_183]
+
+// 184
+[hunt_184]
+
+// 185
+[hunt_185]
+
+// 186
+[hunt_186]
+
+// 187
+[hunt_187]
+
+// 188
+[hunt_188]
+
+// 189
+[hunt_189]
+
+// 190
+[hunt_190]
+
+// 191
+[hunt_191]
+
+// 192
+[hunt_192]
+
+// 193
+[hunt_193]
+
+// 194
+[hunt_194]
+
+// 195
+[hunt_195]
+
+// 196
+[hunt_196]
+
+// 197
+[hunt_197]
+
+// 198
+[hunt_198]
+
+// 199
+[hunt_199]
+
+// 200
+[hunt_200]
+
+// 201
+[hunt_201]
+
+// 202
+[hunt_202]
+
+// 203
+[hunt_203]
+
+// 204
+[hunt_204]
+
+// 205
+[hunt_205]
+
+// 206
+[hunt_206]
+
+// 207
+[hunt_207]
+
+// 208
+[hunt_208]
+
+// 209
+[hunt_209]
+
+// 210
+[hunt_210]
+
+// 211
+[hunt_211]
+
+// 212
+[hunt_212]
+
+// 213
+[hunt_213]
+
+// 214
+[hunt_214]
+
+// 215
+[hunt_215]
+
+// 216
+[hunt_216]
+
+// 217
+[hunt_217]
+
+// 218
+[hunt_218]
+
+// 219
+[hunt_219]
+
+// 220
+[hunt_220]
+
+// 221
+[hunt_221]
+
+// 222
+[hunt_222]
+
+// 223
+[hunt_223]
+
+// 224
+[hunt_224]
+
+// 225
+[hunt_225]
+
+// 226
+[hunt_226]
+
+// 227
+[hunt_227]
+
+// 228
+[hunt_228]
+
+// 229
+[hunt_229]
+
+// 230
+[hunt_230]
+
+// 231
+[hunt_231]
+
+// 232
+[hunt_232]
+
+// 233
+[hunt_233]
+
+// 234
+[hunt_234]
+
+// 235
+[hunt_235]
+
+// 236
+[hunt_236]
+
+// 237
+[hunt_237]
+
+// 238
+[hunt_238]
+
+// 239
+[hunt_239]
+
+// 240
+[hunt_240]
+
+// 241
+[hunt_241]
+
+// 242
+[hunt_242]
+
+// 243
+[hunt_243]
+
+// 244
+[hunt_244]
+
+// 245
+[hunt_245]
+
+// 246
+[hunt_246]
+
+// 247
+[hunt_247]
+
+// 248
+[hunt_248]
+
+// 249
+[hunt_249]
+
+// 250
+[hunt_250]
+
+// 251
+[hunt_251]
+
+// 252
+[hunt_252]
+
+// 253
+[hunt_253]
+
+// 254
+[hunt_254]
+
+// 255
+[hunt_255]
+
+// 256
+[hunt_256]
+
+// 257
+[hunt_257]
+
+// 258
+[hunt_258]
+
+// 259
+[hunt_259]
+
+// 260
+[hunt_260]
+
+// 261
+[hunt_261]
+
+// 262
+[hunt_262]
+
+// 263
+[hunt_263]
+
+// 264
+[hunt_264]
+
+// 265
+[hunt_265]
+
+// 266
+[hunt_266]
+
+// 267
+[hunt_267]
+
+// 268
+[hunt_268]
+
+// 269
+[hunt_269]
+
+// 270
+[hunt_270]
+
+// 271
+[hunt_271]
+
+// 272
+[hunt_272]
+
+// 273
+[hunt_273]
+
+// 274
+[hunt_274]
+
+// 275
+[hunt_275]
+
+// 276
+[hunt_276]
+
+// 277
+[hunt_277]
+
+// 278
+[hunt_278]
+
+// 279
+[hunt_279]
+
+// 280
+[hunt_280]
+
+// 281
+[hunt_281]
+
+// 282
+[hunt_282]
+
+// 283
+[hunt_283]
+
+// 284
+[hunt_284]
+
+// 285
+[hunt_285]
+
+// 286
+[hunt_286]
+
+// 287
+[hunt_287]
+
+// 288
+[hunt_288]
+
+// 289
+[hunt_289]
+
+// 290
+[hunt_290]
+
+// 291
+[hunt_291]
+
+// 292
+[hunt_292]
+
+// 293
+[hunt_293]
+
+// 294
+[hunt_294]
+
+// 295
+[hunt_295]
+
+// 296
+[hunt_296]
+
+// 297
+[hunt_297]
+
+// 298
+[hunt_298]
+
+// 299
+[hunt_299]
+
+// 300
+[hunt_300]
+
+// 301
+[hunt_301]
+
+// 302
+[hunt_302]
+
+// 303
+[hunt_303]
+
+// 304
+[hunt_304]
+
+// 305
+[hunt_305]
+
+// 306
+[hunt_306]
+
+// 307
+[hunt_307]
+
+// 308
+[hunt_308]
+
+// 309
+[hunt_309]
+
+// 310
+[hunt_310]
+
+// 311
+[hunt_311]
+
+// 312
+[hunt_312]
+
+// 313
+[hunt_313]
+
+// 314
+[hunt_314]
+
+// 315
+[hunt_315]
+
+// 316
+[hunt_316]
+
+// 317
+[hunt_317]
+
+// 318
+[hunt_318]
+
+// 319
+[hunt_319]
+
+// 320
+[hunt_320]
+
+// 321
+[hunt_321]
+
+// 322
+[hunt_322]
+
+// 323
+[hunt_323]
+
+// 324
+[hunt_324]
+
+// 325
+[hunt_325]
+
+// 326
+[hunt_326]
+
+// 327
+[hunt_327]
+
+// 328
+[hunt_328]
+
+// 329
+[hunt_329]
+
+// 330
+[hunt_330]
+
+// 331
+[hunt_331]
+
+// 332
+[hunt_332]
+
+// 333
+[hunt_333]
+
+// 334
+[hunt_334]
+
+// 335
+[hunt_335]
+
+// 336
+[hunt_336]
+
+// 337
+[hunt_337]
+
+// 338
+[hunt_338]
+
+// 339
+[hunt_339]
+
+// 340
+[hunt_340]
+
+// 341
+[hunt_341]
+
+// 342
+[hunt_342]
+
+// 343
+[hunt_343]
+
+// 344
+[hunt_344]
+
+// 345
+[hunt_345]
+
+// 346
+[hunt_346]
+
+// 347
+[hunt_347]
+
+// 348
+[hunt_348]
+
+// 349
+[hunt_349]
+
+// 350
+[hunt_350]
+
+// 351
+[hunt_351]
+
+// 352
+[hunt_352]
+
+// 353
+[hunt_353]
+
+// 354
+[hunt_354]
+
+// 355
+[hunt_355]
+
+// 356
+[hunt_356]
+
+// 357
+[hunt_357]
+
+// 358
+[hunt_358]
+
+// 359
+[hunt_359]
+
+// 360
+[hunt_360]
+
+// 361
+[hunt_361]
+
+// 362
+[hunt_362]
+
+// 363
+[hunt_363]
+
+// 364
+[hunt_364]
+
+// 365
+[hunt_365]
+
+// 366
+[hunt_366]
+
+// 367
+[hunt_367]
+
+// 368
+[hunt_368]
+
+// 369
+[hunt_369]
+
+// 370
+[hunt_370]
+
+// 371
+[hunt_371]
+
+// 372
+[hunt_372]
+
+// 373
+[hunt_373]
+
+// 374
+[hunt_374]
+
+// 375
+[hunt_375]
+
+// 376
+[hunt_376]
+
+// 377
+[hunt_377]
+
+// 378
+[hunt_378]
+
+// 379
+[hunt_379]
+
+// 380
+[hunt_380]
+
+// 381
+[hunt_381]
+
+// 382
+[hunt_382]
+
+// 383
+[hunt_383]
+
+// 384
+[hunt_384]
+
+// 385
+[hunt_385]
+
+// 386
+[hunt_386]
+
+// 387
+[hunt_387]
+
+// 388
+[hunt_388]
+
+// 389
+[hunt_389]
+
+// 390
+[hunt_390]
+
+// 391
+[hunt_391]
+
+// 392
+[hunt_392]
+
+// 393
+[hunt_393]
+
+// 394
+[hunt_394]
+
+// 395
+[hunt_395]
+
+// 396
+[hunt_396]
+

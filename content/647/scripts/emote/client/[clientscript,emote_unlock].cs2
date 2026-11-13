@@ -1,0 +1,150 @@
+// 1750
+[clientscript,emote_unlock]
+if (%sos_emote_flap = 1) {
+    if_setgraphic(emotes:emote_flap, "emotes,31");
+} else {
+    if_setgraphic(emotes:emote_flap, "emotes_locked,11");
+}
+if (%sos_emote_doh = 1) {
+    if_setgraphic(emotes:emote_doh, "emotes,29");
+} else {
+    if_setgraphic(emotes:emote_doh, "emotes_locked,9");
+}
+if (%sos_emote_idea = 1) {
+    if_setgraphic(emotes:emote_idea, "emotes,32");
+} else {
+    if_setgraphic(emotes:emote_idea, "emotes_locked,12");
+}
+if (%sos_emote_stamp = 1) {
+    if_setgraphic(emotes:emote_stamp, "emotes,30");
+} else {
+    if_setgraphic(emotes:emote_stamp, "emotes_locked,10");
+}
+if (%lost_tribe_quest >= 7) {
+    if_setgraphic(emotes:emote_goblin_bow, "emotes,26");
+    if_setgraphic(emotes:emote_goblin_salute, "emotes,27");
+} else {
+    if_setgraphic(emotes:emote_goblin_bow, "emotes_locked,6");
+    if_setgraphic(emotes:emote_goblin_salute, "emotes_locked,7");
+}
+if (%emote_glasswall = 1) {
+    if_setgraphic(emotes:emote_glasswall, "emotes,25");
+} else {
+    if_setgraphic(emotes:emote_glasswall, "emotes_locked,5");
+}
+if (%emote_glassbox = 1) {
+    if_setgraphic(emotes:emote_glassbox, "emotes,22");
+} else {
+    if_setgraphic(emotes:emote_glassbox, "emotes_locked,2");
+}
+if (%emote_climbrope = 1) {
+    if_setgraphic(emotes:emote_climbrope, "emotes,23");
+} else {
+    if_setgraphic(emotes:emote_climbrope, "emotes_locked,3");
+}
+if (%emote_lean = 1) {
+    if_setgraphic(emotes:emote_lean, "emotes,24");
+} else {
+    if_setgraphic(emotes:emote_lean, "emotes_locked,4");
+}
+if (%emote_terrified = 1) {
+    if_setgraphic(emotes:emote_terrified, "emotes,28");
+} else {
+    if_setgraphic(emotes:emote_terrified, "emotes_locked,8");
+}
+if (%emote_zombie_dance = 1) {
+    if_setgraphic(emotes:emote_zombie_dance, "emotes,34");
+} else {
+    if_setgraphic(emotes:emote_zombie_dance, "emotes_locked,14");
+}
+if (%emote_zombie_walk = 1) {
+    if_setgraphic(emotes:emote_zombie_walk, "emotes,33");
+} else {
+    if_setgraphic(emotes:emote_zombie_walk, "emotes_locked,13");
+}
+if (%emote_bunny_hop = 1) {
+    if_setgraphic(emotes:emote_rabbit, "emotes,35");
+} else {
+    if_setgraphic(emotes:emote_rabbit, "emotes_locked,15");
+}
+if (%emote_skillcape = 1) {
+    if_setgraphic(emotes:emote_skillcape, "emotes,36");
+} else {
+    if_setgraphic(emotes:emote_skillcape, "emotes_locked,16");
+}
+if (%hw07_prog = 12) {
+    if_setgraphic(emotes:emote_zombie_hand, "emotes,37");
+} else {
+    if_setgraphic(emotes:emote_zombie_hand, "emotes_locked,17");
+}
+if (%emote_xmas07 = 1) {
+    if_setgraphic(emotes:emote_snowman_dance, "emotes,38");
+} else {
+    if_setgraphic(emotes:emote_snowman_dance, "emotes_locked,18");
+}
+if (%emote_music = 1) {
+    if_setgraphic(emotes:emote_music, "emotes,39");
+} else {
+    if_setgraphic(emotes:emote_music, "emotes_locked,19");
+}
+if (%emote_sops = 1) {
+    if_setgraphic(emotes:com_42, "emotes,40");
+} else {
+    if_setgraphic(emotes:com_42, "emotes_locked,20");
+}
+if (%emote_atlum = 1) {
+    if_setgraphic(emotes:com_43, "emotes,41");
+} else {
+    if_setgraphic(emotes:com_43, "emotes_locked,21");
+}
+if (%swept_hw08_emote = 1) {
+    if_setgraphic(emotes:emote_scare, "emotes,42");
+} else {
+    if_setgraphic(emotes:emote_scare, "emotes_locked,22");
+}
+if (%emote_xmas08 = 1) {
+    if_setgraphic(emotes:emote_freeze, "emotes,44");
+} else {
+    if_setgraphic(emotes:emote_freeze, "emotes_locked,24");
+}
+if (%emote_tg08 = 1) {
+    if_setgraphic(emotes:emote_thanksgiving, "emotes,45");
+} else {
+    if_setgraphic(emotes:emote_thanksgiving, "emotes_locked,25");
+}
+if (%easter09_main = 85 | %easter10_main = 18 | %easter11_earned_sunbeam_crown = 1) {
+    if_setgraphic(emotes:emote_easter09, "emotes,46");
+} else {
+    if_setgraphic(emotes:emote_easter09, "emotes_locked,26");
+}
+~script1626;
+if (%xmas09_emote = 1) {
+    if_setgraphic(emotes:emote_point, "emotes,48");
+} else {
+    if_setgraphic(emotes:emote_point, "emotes_locked,28");
+}
+if (%varplayerbit_6095 = 1) {
+    if_setgraphic(emotes:emote_faint, "emotes,49");
+} else {
+    if_setgraphic(emotes:emote_faint, "emotes_locked,29");
+}
+if (%hw10_main = 20) {
+    if_setgraphic(emotes:emote_puppet_master, "emotes,50");
+} else {
+    if_setgraphic(emotes:emote_puppet_master, "emotes_locked,30");
+}
+if (%varplayerbit_8688 = 1) {
+    if_setgraphic(emotes:emote_seal, "emotes,51");
+} else {
+    if_setgraphic(emotes:emote_seal, "emotes_locked,31");
+}
+if (%varplayerbit_8601 = 428) {
+    if_setgraphic(emotes:emote_taskmaster, "emotes,52");
+} else {
+    if_setgraphic(emotes:emote_taskmaster, "emotes_locked,32");
+}
+if (%easter11_miniquest = 60) {
+    if_setgraphic(emotes:emote_easter11, "emotes,66");
+} else {
+    if_setgraphic(emotes:emote_easter11, "emotes_locked,46");
+}

@@ -1,0 +1,7 @@
+// 3209
+[proc,script3209]
+if_sethide(account_create:email_input_caret, true);
+if_sethide(account_create:com_108, true);
+if_sethide(account_create:password_input_caret, true);
+if_sethide(account_create:password2_input_caret, true);
+if_sethide(account_create:com_114, true);

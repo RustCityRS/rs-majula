@@ -1,0 +1,45 @@
+#testscript
+
+// The PR's 289 runs an obj's unequip effects (player/scripts/equip.rs2,
+// ~unequip_effect) wherever it leaves the worn inv: Remove, the obj a new one
+// replaces, and the objs a new one conflicts with. A special-attack weapon's
+// effect clears the special bar's attack (%sa_attack).
+
+[label,test_removing_a_special_weapon_clears_the_special]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+inv_add(inv, dragon_dagger, 1);
+~equip(0);
+assert_eq(inv_total(worn, dragon_dagger), 1);
+%sa_attack = ^true;
+~unequip(^wearpos_rhand);
+assert_eq(inv_total(worn, dragon_dagger), 0);
+assert_eq(%sa_attack, ^false);
+
+[label,test_replacing_a_special_weapon_clears_the_special]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+inv_add(inv, dragon_dagger, 1);
+inv_add(inv, bronze_sword, 1);
+~equip(0);
+%sa_attack = ^true;
+~equip(1);
+assert_eq(inv_total(worn, bronze_sword), 1);
+assert_eq(%sa_attack, ^false);
+
+// The bank's 289 refusals (interface_bank/scripts/bank.rs2,
+// ~bank_check_allowed) and its ~bank_add.
+[label,test_the_bank_refuses_the_anthems_and_the_monkey]
+setup_player("test_player");
+assert_false(~bank_check_allowed(misc_awful_anthem, ^true));
+assert_called_with("mes", "You have more urgent things to do with this anthem!");
+assert_false(~bank_check_allowed(mm_monkey_in_backpack, ^true));
+assert_called_with("mes", "Sorry, you can't bank the monkey!");
+
+[label,test_bank_add_puts_objs_in_the_bank]
+setup_player("test_player");
+inv_clear(bank);
+assert_true(~bank_add(coins, 100, ^true));
+assert_eq(inv_total(bank, coins), 100);

@@ -1,6 +1,6 @@
 use crate::register::OpsRegistry;
 use crate::{ScriptError, handlers, none};
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 use std::time::Instant;
 use tracing::info;
 

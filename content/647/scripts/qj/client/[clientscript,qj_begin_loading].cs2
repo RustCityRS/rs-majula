@@ -1,0 +1,10 @@
+// 2353
+[clientscript,qj_begin_loading](component $component0)
+if (%qj_loading_help = 1) {
+    if_setontimer($component0, "qj_loading_anim($component0)");
+} else {
+    if_setontimer($component0, null);
+    if_settext($component0, "Saving your game and loading QuestHelp");
+    if_sethide($component0, true);
+    if_sethide(questjournal_scroll:help_link, false);
+}

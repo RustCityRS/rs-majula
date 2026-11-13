@@ -162,3 +162,57 @@ impl Db {
         .await
     }
 }
+
+/// The display names a rev-647 player can claim (`p_setdisplayname`): a name
+/// is free unless another player has it as their name or display name.
+impl Db {
+    /// Whether no player but `name_hash` has `name` as their name or display
+    /// name.
+    pub async fn display_name_free(
+        &self,
+        name_hash: u64,
+        name: &crate::PlayerName,
+    ) -> Result<bool, Error> {
+        let taken: bool = sqlx::query_scalar(
+            "SELECT EXISTS (SELECT 1 FROM players
+             WHERE name_hash <> $1 AND (name_hash = $2 OR lower(display_name) = lower($3)))",
+        )
+        .bind(name_hash as i64)
+        .bind(name.hash as i64)
+        .bind(&name.display)
+        .fetch_one(&self.pool)
+        .await?;
+        Ok(!taken)
+    }
+
+    /// Sets the player `name_hash`'s display name to `name` if it is free (see
+    /// [`display_name_free`](Self::display_name_free)), in one statement.
+    /// Returns whether it took.
+    pub async fn claim_display_name(
+        &self,
+        name_hash: u64,
+        name: &crate::PlayerName,
+    ) -> Result<bool, Error> {
+        let result = sqlx::query(
+            "UPDATE players SET display_name = $3
+             WHERE name_hash = $1 AND NOT EXISTS (
+                 SELECT 1 FROM players o
+                 WHERE o.name_hash <> $1
+                   AND (o.name_hash = $2 OR lower(o.display_name) = lower($3)))",
+        )
+        .bind(name_hash as i64)
+        .bind(name.hash as i64)
+        .bind(&name.display)
+        .execute(&self.pool)
+        .await?;
+        Ok(result.rows_affected() == 1)
+    }
+
+    /// The player `name_hash`'s display name, if registered.
+    pub async fn display_name(&self, name_hash: u64) -> Result<Option<String>, Error> {
+        sqlx::query_scalar("SELECT display_name FROM players WHERE name_hash = $1")
+            .bind(name_hash as i64)
+            .fetch_optional(&self.pool)
+            .await
+    }
+}

@@ -1,0 +1,57 @@
+// 3437
+[clientscript,script3437]
+def_model $model0 = null;
+if (%varplayerbit_7919 < 3) {
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+} else if (%varplayerbit_7919 < 6) {
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+} else if (%varplayerbit_7919 = 10) {
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+} else {
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+}
+if_setmodel(csi_fingerprint:fingerprint_magnified, $model0);
+if (%varplayerbit_7920 ! 0) {
+    if_sethide(csi_fingerprint:selected, false);
+}
+if (%varplayerbit_7920 = 1) {
+    if_setposition(csi_fingerprint:selected, 30, 205, ^setpos_abs_left, ^setpos_abs_top);
+} else if (%varplayerbit_7920 = 2) {
+    if_setposition(csi_fingerprint:selected, 112, 205, ^setpos_abs_left, ^setpos_abs_top);
+} else if (%varplayerbit_7920 = 3) {
+    if_setposition(csi_fingerprint:selected, 196, 205, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_sethide(csi_fingerprint:selected, true);
+}

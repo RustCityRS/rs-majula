@@ -1,0 +1,1590 @@
+// 402:0
+[window]
+type=layer
+width=512
+height=334
+
+// 402:1
+[background]
+type=graphic
+x=30
+y=21
+width=62
+height=32
+widthmode=minus
+heightmode=minus
+layer=window
+graphic=tradebacking
+tiling=yes
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 402:2
+[border_layer]
+type=layer
+width=512
+height=334
+layer=window
+
+// 402:3
+[com_3]
+type=graphic
+x=17
+y=52
+width=32
+height=241
+layer=border_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:4
+[com_4]
+type=graphic
+x=462
+y=52
+width=32
+height=241
+layer=border_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:5
+[com_5]
+type=graphic
+x=61
+y=21
+width=390
+height=32
+layer=border_layer
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:6
+[com_6]
+type=graphic
+x=61
+y=304
+width=390
+height=32
+layer=border_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:7
+[com_7]
+type=graphic
+x=30
+y=292
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:8
+[com_8]
+type=graphic
+x=450
+y=21
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:9
+[com_9]
+type=graphic
+x=450
+y=292
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:10
+[com_10]
+type=graphic
+x=30
+y=21
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 402:11
+[com_11]
+type=text
+x=41
+y=25
+width=417
+height=13
+textfont=b12_full
+text=Room  Creation Menu
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 402:12
+[poh_roommenu]
+type=layer
+x=82
+y=80
+width=332
+height=222
+
+// 402:13
+[com_13]
+type=model
+x=5
+y=79
+width=66
+height=47
+layer=poh_roommenu
+model=model_12937
+modelorigin=0,17
+modelangle=202,1800,0
+modelzoom=2000
+
+// 402:14
+[com_14]
+type=model
+x=19
+y=13
+width=35
+height=54
+layer=poh_roommenu
+model=model_12444
+modelorigin=-1,22
+modelangle=79,1841,0
+modelzoom=1643
+
+// 402:15
+[com_15]
+type=model
+x=6
+y=137
+width=62
+height=53
+layer=poh_roommenu
+model=model_12632
+modelorigin=0,11
+modelangle=174,272,0
+modelzoom=1962
+
+// 402:16
+[com_16]
+type=model
+x=8
+y=211
+width=56
+height=28
+layer=poh_roommenu
+model=model_12457
+modelorigin=-2,7
+modelangle=48,403,0
+modelzoom=2861
+
+// 402:17
+[com_17]
+type=model
+x=7
+y=256
+width=48
+height=52
+layer=poh_roommenu
+model=model_12561
+modelorigin=4,20
+modelangle=78,203,0
+modelzoom=1834
+
+// 402:18
+[com_18]
+type=model
+x=3
+y=321
+width=58
+height=46
+layer=poh_roommenu
+model=model_12393
+modelorigin=-1,19
+modelangle=43,1746,0
+modelzoom=3000
+
+// 402:19
+[com_19]
+type=model
+x=7
+y=375
+width=58
+height=55
+layer=poh_roommenu
+model=model_12551
+modelorigin=-1,19
+modelangle=100,1831,0
+modelzoom=3000
+
+// 402:20
+[com_20]
+type=model
+x=9
+y=441
+width=53
+height=40
+layer=poh_roommenu
+model=model_12955
+modelorigin=-6,59
+modelangle=34,97,0
+modelzoom=1194
+
+// 402:21
+[com_21]
+type=model
+x=8
+y=495
+width=59
+height=49
+layer=poh_roommenu
+model=model_12179
+modelorigin=30,14
+modelangle=127,1831,0
+modelzoom=669
+
+// 402:22
+[com_22]
+type=model
+x=15
+y=555
+width=44
+height=51
+layer=poh_roommenu
+model=model_12555
+modelorigin=-2,25
+modelangle=86,1994,0
+modelzoom=2500
+
+// 402:23
+[com_23]
+type=model
+x=7
+y=674
+width=56
+height=60
+layer=poh_roommenu
+model=model_12970
+modelorigin=0,22
+modelangle=96,28,0
+modelzoom=3731
+
+// 402:24
+[com_24]
+type=model
+x=1
+y=611
+width=66
+height=58
+layer=poh_roommenu
+model=model_48350
+modelorigin=1,15
+modelangle=159,210,0
+modelzoom=2750
+transmitop=10
+op10= 
+
+// 402:25
+[com_25]
+type=model
+x=22
+y=741
+width=28
+height=50
+layer=poh_roommenu
+model=model_19004
+modelorigin=-1,18
+modelangle=222,1901,0
+modelzoom=2200
+
+// 402:26
+[com_26]
+type=model
+x=6
+y=800
+width=59
+height=53
+layer=poh_roommenu
+model=model_12373
+modelorigin=0,18
+modelangle=123,1904,0
+modelzoom=2200
+
+// 402:27
+[com_27]
+type=model
+x=4
+y=860
+width=65
+height=48
+layer=poh_roommenu
+model=model_13192
+modelorigin=-1,9
+modelangle=141,1948,0
+modelzoom=2200
+
+// 402:28
+[com_28]
+type=model
+x=4
+y=921
+width=67
+height=45
+layer=poh_roommenu
+model=model_13142
+modelorigin=2,17
+modelangle=114,129,0
+modelzoom=1066
+
+// 402:29
+[com_29]
+type=model
+x=17
+y=976
+width=31
+height=58
+layer=poh_roommenu
+model=model_12594
+modelorigin=1,24
+modelangle=108,1868,0
+modelzoom=2200
+
+// 402:30
+[com_30]
+type=model
+x=2
+y=1222
+width=28
+height=51
+layer=poh_roommenu
+model=model_12217
+modelorigin=-1,24
+modelangle=34,496,0
+modelzoom=2500
+
+// 402:31
+[com_31]
+type=model
+x=11
+y=1228
+width=57
+height=44
+layer=poh_roommenu
+model=model_12551
+modelorigin=0,19
+modelangle=28,1850,0
+modelzoom=3000
+
+// 402:32
+[com_32]
+type=model
+x=1
+y=1342
+width=65
+height=55
+layer=poh_roommenu
+model=model_11123
+modelorigin=0,20
+modelangle=111,1836,0
+modelzoom=1168
+
+// 402:33
+[com_33]
+type=model
+x=41
+y=1101
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:34
+[com_34]
+type=model
+x=18
+y=1038
+width=27
+height=54
+layer=poh_roommenu
+model=model_12433
+modelorigin=-5,25
+modelangle=35,1360,0
+modelzoom=2500
+
+// 402:35
+[com_35]
+type=model
+y=1159
+width=32
+height=54
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=92,93,0
+modelzoom=2602
+
+// 402:36
+[com_36]
+type=model
+y=1163
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:37
+[com_37]
+type=model
+x=37
+y=1160
+width=32
+height=54
+layer=poh_roommenu
+model=model_12217
+modelorigin=-1,22
+modelangle=92,933,0
+modelzoom=2602
+
+// 402:38
+[com_38]
+type=model
+x=42
+y=1163
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:39
+[com_39]
+type=model
+x=16
+y=1101
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:40
+[com_40]
+type=model
+y=1101
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:41
+[com_41]
+type=model
+x=41
+y=1283
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:42
+[com_42]
+type=model
+x=18
+y=1283
+width=27
+height=52
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,22
+modelangle=86,525,0
+modelzoom=2602
+
+// 402:43
+[com_43]
+type=model
+x=3
+y=1282
+width=27
+height=53
+layer=poh_roommenu
+model=model_12217
+modelorigin=0,23
+modelangle=86,525,0
+modelzoom=2604
+modelnodepth=yes
+
+// 402:44
+[com_44]
+type=model
+x=8
+y=1283
+width=58
+height=50
+layer=poh_roommenu
+model=model_57920
+modelorigin=-1,24
+modelangle=0,1991,0
+modelzoom=2500
+
+// 402:45
+[com_45]
+type=rectangle
+x=80
+y=80
+width=349
+height=222
+colour=0x333333
+
+// 402:46
+[com_46]
+type=text
+x=78
+y=19
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Parlour: Lvl 1
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:47
+[com_47]
+type=text
+x=78
+y=83
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Garden: Lvl 1
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:48
+[com_48]
+type=text
+x=78
+y=142
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Kitchen: Lvl 5
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:49
+[com_49]
+type=text
+x=78
+y=205
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Dining room: Lvl 10
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:50
+[com_50]
+type=text
+x=78
+y=264
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Workshop: Lvl 15
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:51
+[com_51]
+type=text
+x=78
+y=322
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Bedroom: Lvl 20
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:52
+[com_52]
+type=text
+x=78
+y=383
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Hall - Skill trophies: Lvl 25
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:53
+[com_53]
+type=text
+x=78
+y=445
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Games room: Lvl 30
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:54
+[com_54]
+type=text
+x=78
+y=504
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Combat room: Lvl 32
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:55
+[com_55]
+type=text
+x=78
+y=562
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Hall - Quest trophies: Lvl 35
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:56
+[com_56]
+type=text
+x=78
+y=623
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Menagerie: Lvl 37
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 402:57
+[com_57]
+type=text
+x=78
+y=686
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Study: Lvl 40
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:58
+[com_58]
+type=text
+x=78
+y=747
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Costume room: Lvl 42
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:59
+[com_59]
+type=text
+x=78
+y=808
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Chapel: Lvl 45
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:60
+[com_60]
+type=text
+x=78
+y=867
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Portal chamber: Lvl 50
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:61
+[com_61]
+type=text
+x=78
+y=927
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Formal garden: Lvl 55
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:62
+[com_62]
+type=text
+x=80
+y=986
+width=159
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Throne room: Lvl 60
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:63
+[com_63]
+type=text
+x=78
+y=1049
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Oubliette: Lvl 65
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:64
+[com_64]
+type=text
+x=78
+y=1107
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Dungeon - Corridor: Lvl 70
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:65
+[com_65]
+type=text
+x=79
+y=1166
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Dungeon - Junction: Lvl 70
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:66
+[com_66]
+type=text
+x=79
+y=1230
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Dungeon - Stairs: Lvl 70
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:67
+[com_67]
+type=text
+x=185
+y=55
+width=329
+height=14
+textfont=p12_full
+text=Select a room to build
+textshadow=yes
+colour=0xff981f
+
+// 402:68
+[com_68]
+type=text
+x=245
+y=34
+width=84
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=1000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 1000, 1)
+
+// 402:69
+[com_69]
+type=text
+x=245
+y=94
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=1000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 1000, 1)
+
+// 402:70
+[com_70]
+type=text
+x=245
+y=154
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=5000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 5000, 5)
+
+// 402:71
+[com_71]
+type=text
+x=245
+y=214
+width=85
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=5000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 5000, 10)
+
+// 402:72
+[com_72]
+type=text
+x=245
+y=274
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=10000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 10000, 15)
+
+// 402:73
+[com_73]
+type=text
+x=245
+y=334
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=10000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 10000, 20)
+
+// 402:74
+[com_74]
+type=text
+x=245
+y=394
+width=85
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=15000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 15000, 25)
+
+// 402:75
+[com_75]
+type=text
+x=245
+y=513
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=25000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 25000, 30)
+
+// 402:76
+[com_76]
+type=text
+x=245
+y=454
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=25000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 25000, 32)
+
+// 402:77
+[com_77]
+type=text
+x=245
+y=575
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=25000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 25000, 35)
+
+// 402:78
+[com_78]
+type=text
+x=245
+y=635
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=30000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+transmitop=10
+op10= 
+onload=script2577(event_com, 30000, 37)
+
+// 402:79
+[com_79]
+type=text
+x=245
+y=698
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=50000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 50000, 40)
+
+// 402:80
+[com_80]
+type=text
+x=245
+y=759
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=50000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 50000, 42)
+
+// 402:81
+[com_81]
+type=text
+x=245
+y=819
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=50000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 50000, 45)
+
+// 402:82
+[com_82]
+type=text
+x=245
+y=879
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=100000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 100000, 50)
+
+// 402:83
+[com_83]
+type=text
+x=245
+y=939
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=75000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 75000, 55)
+
+// 402:84
+[com_84]
+type=text
+x=245
+y=1000
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=150000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 150000, 60)
+
+// 402:85
+[com_85]
+type=text
+x=245
+y=1060
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=150000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 150000, 65)
+
+// 402:86
+[com_86]
+type=text
+x=245
+y=1120
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=7500 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 7500, 70)
+
+// 402:87
+[com_87]
+type=text
+x=245
+y=1180
+width=86
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=7500 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 7500, 70)
+
+// 402:88
+[com_88]
+type=text
+x=79
+y=1292
+width=161
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Dungeon - Pit: Lvl 70
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:89
+[com_89]
+type=text
+x=245
+y=1241
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=7500 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 7500, 70)
+
+// 402:90
+[com_90]
+type=text
+x=245
+y=1302
+width=87
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=10000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 10000, 70)
+
+// 402:91
+[com_91]
+type=text
+x=78
+y=1352
+width=162
+height=32
+layer=poh_roommenu
+textfont=p12_full
+text=Treasure room: Lvl 75
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 402:92
+[com_92]
+type=text
+x=245
+y=1362
+width=85
+height=28
+layer=poh_roommenu
+textfont=p12_full
+text=250000 coins
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+onload=script2577(event_com, 250000, 75)
+
+// 402:93
+[poh_parlour_button]
+type=rectangle
+x=2
+y=8
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Parlour
+op1=Build
+
+// 402:94
+[poh_garden_button]
+type=rectangle
+x=2
+y=70
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Garden
+op1=Build
+
+// 402:95
+[poh_kitchen_button]
+type=rectangle
+x=2
+y=132
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Kitchen
+op1=Build
+
+// 402:96
+[poh_diningroom_button]
+type=rectangle
+x=2
+y=194
+width=238
+height=56
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Dining room
+op1=Build
+
+// 402:97
+[poh_workshop_button]
+type=rectangle
+x=2
+y=251
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Workshop
+op1=Build
+
+// 402:98
+[poh_bedroom_button]
+type=rectangle
+x=2
+y=313
+width=238
+height=58
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Bedroom
+op1=Build
+
+// 402:99
+[poh_skillhall_button]
+type=rectangle
+x=2
+y=372
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Hall - Skill trophies
+op1=Build
+
+// 402:100
+[poh_gamesroom_button]
+type=rectangle
+x=2
+y=434
+width=238
+height=56
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Games room
+op1=Build
+
+// 402:101
+[poh_combatroom_button]
+type=rectangle
+x=2
+y=491
+width=238
+height=59
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Combat room
+op1=Build
+
+// 402:102
+[poh_questhall_button]
+type=rectangle
+x=2
+y=551
+width=238
+height=59
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Hall - Quest trophies
+op1=Build
+
+// 402:103
+[poh_menagerie_button]
+type=rectangle
+x=2
+y=612
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1,10
+opbase=Menagerie
+op1=Build
+op10= 
+
+// 402:104
+[poh_study_button]
+type=rectangle
+x=2
+y=674
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Study
+op1=Build
+
+// 402:105
+[com_105]
+type=rectangle
+x=2
+y=737
+width=238
+height=58
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Costume room
+op1=Build
+
+// 402:106
+[poh_chapel_button]
+type=rectangle
+x=2
+y=797
+width=238
+height=58
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Chapel
+op1=Build
+
+// 402:107
+[poh_teleroom_button]
+type=rectangle
+x=2
+y=856
+width=238
+height=57
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Portal chamber
+op1=Build
+
+// 402:108
+[poh_formalgarden_button]
+type=rectangle
+x=2
+y=914
+width=238
+height=60
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Formal garden
+op1=Build
+
+// 402:109
+[poh_throneroom_button]
+type=rectangle
+x=2
+y=975
+width=238
+height=61
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Throne room
+op1=Build
+
+// 402:110
+[poh_oubliette_button]
+type=rectangle
+x=2
+y=1037
+width=238
+height=58
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Oubliette
+op1=Build
+
+// 402:111
+[poh_dungeoncorridor_button]
+type=rectangle
+x=2
+y=1096
+width=238
+height=60
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Dungeon - Corridor
+op1=Build
+
+// 402:112
+[poh_dungeoncross_button]
+type=rectangle
+x=2
+y=1157
+width=238
+height=60
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Dungeon - Junction
+op1=Build
+
+// 402:113
+[poh_dungeonstairs_button]
+type=rectangle
+x=2
+y=1218
+width=238
+height=60
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Dungeon - Stairs
+op1=Build
+
+// 402:114
+[poh_dungeonpit_button]
+type=rectangle
+x=2
+y=1279
+width=238
+height=60
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Dungeon - Pit
+op1=Build
+
+// 402:115
+[poh_treasureroom_button]
+type=rectangle
+x=2
+y=1340
+width=238
+height=59
+layer=poh_roommenu
+colour=0x333300
+transmitop=1
+opbase=Treasure room
+op1=Build
+
+// 402:116
+[close_button]
+type=graphic
+x=460
+y=25
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 402:117
+[scrollbar_layer]
+type=layer
+x=413
+y=80
+width=16
+height=222
+onload=poh_room_menu_interface_setup

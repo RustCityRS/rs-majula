@@ -1,0 +1,57 @@
+// 1186
+[proc,script1186]
+if (getwindowmode >= 2) {
+    if (if_hassub(chattop:chatmodallarge) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatmodal) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatoverlaylarge) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    } else if (if_hassub(chattop:chatoverlay) = true) {
+        if_sethide(chattop:chat_graphic, false);
+        if_setalpha(chattop:chat_graphic, true);
+        if (%cutscene_status = 0) {
+            if_setgraphic(chattop:chat_graphic, chat_window);
+            if_sethide(chattop:chat_border, false);
+        } else {
+            if_setgraphic(chattop:chat_graphic, graphic_1205);
+            if_sethide(chattop:chat_border, true);
+        }
+    }
+}
+def_boolean $boolean0 = ~int_to_bool(%varplayerbit_6448);
+if_sethide(toplevel:statusicons, $boolean0);
+if_sethide(toplevel:com_9, $boolean0);
+if_sethide(toplevel_fullscreen:side, $boolean0);
+if_sethide(toplevel_fullscreen:statusicons, $boolean0);
+if_sethide(toplevel_fullscreen:com_14, $boolean0);
+if (~script1569 = false) {
+    if_sethide(toplevel_fullscreen:stone_highlight, $boolean0);
+} else {
+    if_sethide(toplevel_fullscreen:stone_highlight, true);
+}
+if_sethide(toplevel_fullscreen:backbase2, $boolean0);

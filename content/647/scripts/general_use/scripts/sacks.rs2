@@ -1,0 +1,15 @@
+// 289 searches sacks (op1). 2011's sacks, loc 365 at 77 places in the 786
+// map, have no op at all (cache 786), so there is nothing to search: 289's
+// script is kept, commented.
+// [oploc1,sacks_365]
+// // https://web.archive.org/web/20050401035341/https://runehq.com/cache/itemsdbc.php
+// // https://web.archive.org/web/20050510163434/http://www.runehq.com/cachecities/viewcityguide00273.php
+//
+// // todo figure out if u can actually find swords and broken staves from these
+// if (random(^findsomethingnice_chance) = 0 & ~in_tutorial_island(coord) = false) {
+//     mes("You search the sacks..."); // guess
+//     p_delay(2);
+//     ~findsomethingnice;
+//     return;
+// }
+// mes("There's nothing interesting in these sacks.");

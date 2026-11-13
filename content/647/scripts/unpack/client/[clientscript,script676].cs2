@@ -1,0 +1,111 @@
+// 676
+[clientscript,script676]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int2 = calc((if_getwidth(exchange_itemsets:stock_lay) - 36 * 10) / (10 - 1));
+$int3 = calc((if_getheight(exchange_itemsets:stock_lay) - 128) / 3);
+while ($int4 = 0) {
+    if (enum(int, namedobj, enum_1087, calc($int0 + 1)) ! shop_dummy) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_barrows_ahrim) {
+            $int5 = calc($int5 + 2);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_third_melee) {
+            $int5 = calc($int5 + 4);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dragonhide_green) {
+            $int5 = calc($int5 + 6);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_mystic) {
+            $int5 = calc($int5 + 6);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_black_h1_l) {
+            $int5 = calc($int5 + 5);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_ench_mystic) {
+            $int5 = calc($int5 + 8);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_leather_trim) {
+            $int5 = calc($int5 + 7);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_guthix_l) {
+            $int5 = calc($int5 + 8);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_rocksell) {
+            $int5 = calc($int5 + 6);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dwarf_cannon) {
+            $int5 = calc($int5 + 7);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dagon_hai) {
+            $int5 = calc($int5 + 9);
+        }
+        cc_create(exchange_itemsets:stock_lay, ^iftype_graphic, $int0);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc((36 + $int2) * ($int5 % 10)), calc($int5 / 10 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setobject(enum(int, namedobj, enum_1087, calc($int0 + 1)), -1);
+        cc_setopbase("<col=ff981f><oc_name(enum(int, namedobj, enum_1087, calc($int0 + 1)))>");
+        cc_setop(1, "Components");
+        cc_setop(2, "Exchange");
+        cc_setop(3, "Examine");
+        cc_setgraphicshadow(0x333333);
+        cc_setoutline(1);
+        $int0 = calc($int0 + 1);
+        $int5 = calc($int5 + 1);
+    } else {
+        $int4 = 1;
+    }
+}
+$int1 = $int0;
+$int0 = 0;
+$int5 = 0;
+$int4 = 0;
+while ($int4 = 0) {
+    if (enum(int, namedobj, enum_1087, calc($int0 + 1)) ! shop_dummy) {
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_barrows_ahrim) {
+            $int5 = calc($int5 + 2);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_third_melee) {
+            $int5 = calc($int5 + 4);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dragonhide_green) {
+            $int5 = calc($int5 + 6);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_mystic) {
+            $int5 = calc($int5 + 6);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_black_h1_l) {
+            $int5 = calc($int5 + 5);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_ench_mystic) {
+            $int5 = calc($int5 + 8);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_leather_trim) {
+            $int5 = calc($int5 + 7);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_guthix_l) {
+            $int5 = calc($int5 + 8);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_rocksell) {
+            $int5 = calc($int5 + 6);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dwarf_cannon) {
+            $int5 = calc($int5 + 7);
+        }
+        if (enum(int, namedobj, enum_1087, calc($int0 + 1)) = set_dagon_hai) {
+            $int5 = calc($int5 + 9);
+        }
+        cc_create(exchange_itemsets:stock_lay, ^iftype_graphic, $int1);
+        cc_setsize(12, 6, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc((36 + $int2) * ($int5 % 10)), calc($int5 / 10 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(shop_infinity_icon);
+    } else {
+        $int4 = 1;
+    }
+    $int0 = calc($int0 + 1);
+    $int5 = calc($int5 + 1);
+    $int1 = calc($int1 + 1);
+}

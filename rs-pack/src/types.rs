@@ -98,6 +98,26 @@ pub enum LocShape {
     GroundDecor = 22,
 }
 
+/// The key a dump prints each shape id as.
+#[cfg(since_647)]
+const LOC_SHAPE_KEYS: &[u8; 23] = b"1234QWERT589ASDFGHZXCV0";
+
+#[cfg(since_647)]
+pub fn loc_shape_key(shape: u8) -> char {
+    LOC_SHAPE_KEYS[shape as usize] as char
+}
+
+#[cfg(since_647)]
+pub fn loc_shape_from_key(key: &str) -> Option<u8> {
+    let [key] = key.as_bytes() else {
+        return None;
+    };
+    LOC_SHAPE_KEYS
+        .iter()
+        .position(|shape| shape == key)
+        .map(|shape| shape as u8)
+}
+
 impl LocShape {
     pub const fn suffix(self) -> &'static str {
         match self {
@@ -184,6 +204,19 @@ impl LocShape {
         }
     }
 
+    /// The shape the 647 client files this shape's models under.
+    #[cfg(since_647)]
+    pub const fn model_shape(self) -> Self {
+        match self {
+            Self::CentrepieceDiagonal => Self::CentrepieceStraight,
+            Self::WallDecorStraightOffset
+            | Self::WallDecorDiagonalOffset
+            | Self::WallDecorDiagonalNoOffset
+            | Self::WallDecorDiagonalBoth => Self::WallDecorStraightNoOffset,
+            shape => shape,
+        }
+    }
+
     pub const fn is_roof(self) -> bool {
         matches!(
             self,
@@ -225,16 +258,51 @@ pub enum ForceApproach {
     East = 0b1101,
     South = 0b1011,
     West = 0b0111,
+    NorthEast = 0b1100,
+    NorthSouth = 0b1010,
+    NorthWest = 0b0110,
+    EastSouth = 0b1001,
+    EastWest = 0b0101,
+    SouthWest = 0b0011,
+    NorthEastSouth = 0b1000,
+    NorthEastWest = 0b0100,
+    NorthSouthWest = 0b0010,
+    EastSouthWest = 0b0001,
+    Blocked = 0b1111,
 }
 
 impl ForceApproach {
+    /// One or more comma separated sides; each clears its bit.
     pub fn from_config_str(s: &str) -> Self {
-        match s {
-            "north" => Self::North,
-            "east" => Self::East,
-            "south" => Self::South,
-            "west" => Self::West,
-            _ => panic!("Invalid forceapproach value: {s}"),
+        let bits = s.split(',').fold(0b1111, |bits, side| {
+            bits & !match side.trim() {
+                "north" => 0b0001,
+                "east" => 0b0010,
+                "south" => 0b0100,
+                "west" => 0b1000,
+                _ => panic!("Invalid forceapproach value: {s}"),
+            }
+        });
+        Self::try_from(bits).expect("Invalid forceapproach")
+    }
+
+    #[cfg(since_647)]
+    pub fn config_str(self) -> String {
+        let bits = self as u8;
+        let sides: Vec<_> = [
+            (0b0001, "north"),
+            (0b0010, "east"),
+            (0b0100, "south"),
+            (0b1000, "west"),
+        ]
+        .into_iter()
+        .filter(|(bit, _)| bits & bit == 0)
+        .map(|(_, side)| side)
+        .collect();
+        if sides.is_empty() {
+            bits.to_string()
+        } else {
+            sides.join(",")
         }
     }
 }
@@ -243,6 +311,23 @@ impl ForceApproach {
 pub enum ParamValue {
     Int(i32),
     String(Box<str>),
+}
+
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+pub enum MultiVar {
+    Varbit(u16),
+    Varp(u16),
+}
+
+impl MultiVar {
+    /// The variable a transform is picked by, the varbit before the varp;
+    /// -1 is none.
+    pub fn new(varbit: i32, varp: i32) -> Option<Self> {
+        u16::try_from(varbit)
+            .ok()
+            .map(Self::Varbit)
+            .or_else(|| u16::try_from(varp).ok().map(Self::Varp))
+    }
 }
 
 #[repr(u8)]
@@ -274,6 +359,28 @@ pub enum ScriptVarType {
     Idkit = 75,      // K
     DbRow = 208,     // Ð
     Midi = 77,       // M
+    #[cfg(since_647)]
+    Cursor = 64,
+    #[cfg(since_647)]
+    MapArea = 96,
+    #[cfg(since_647)]
+    Graphic = 100,
+    #[cfg(since_647)]
+    ChatPhrase = 101,
+    #[cfg(since_647)]
+    Jingle = 106,
+    #[cfg(since_647)]
+    ChatCat = 107,
+    #[cfg(since_647)]
+    Model = 109,
+    #[cfg(since_647)]
+    Texture = 120,
+    #[cfg(since_647)]
+    Bas = 128,
+    #[cfg(since_647)]
+    Vorbis = 171,
+    #[cfg(since_647)]
+    MapElement = 181,
 }
 
 impl ScriptVarType {
@@ -310,6 +417,28 @@ impl ScriptVarType {
             "npc_uid" => Self::NpcUid,
             "dbrow" => Self::DbRow,
             "midi" => Self::Midi,
+            #[cfg(since_647)]
+            "cursor" => Self::Cursor,
+            #[cfg(since_647)]
+            "maparea" => Self::MapArea,
+            #[cfg(since_647)]
+            "graphic" => Self::Graphic,
+            #[cfg(since_647)]
+            "chatphrase" => Self::ChatPhrase,
+            #[cfg(since_647)]
+            "jingle" => Self::Jingle,
+            #[cfg(since_647)]
+            "chatcat" => Self::ChatCat,
+            #[cfg(since_647)]
+            "model" => Self::Model,
+            #[cfg(since_647)]
+            "texture" => Self::Texture,
+            #[cfg(since_647)]
+            "bas" => Self::Bas,
+            #[cfg(since_647)]
+            "vorbis" => Self::Vorbis,
+            #[cfg(since_647)]
+            "mapelement" => Self::MapElement,
             _ => panic!("Unknown script var type: '{name}'"),
         }
     }
@@ -340,6 +469,28 @@ impl ScriptVarType {
             Self::DbRow => "dbrow",
             Self::Interface => "interface",
             Self::Midi => "midi",
+            #[cfg(since_647)]
+            Self::Cursor => "cursor",
+            #[cfg(since_647)]
+            Self::MapArea => "maparea",
+            #[cfg(since_647)]
+            Self::Graphic => "graphic",
+            #[cfg(since_647)]
+            Self::ChatPhrase => "chatphrase",
+            #[cfg(since_647)]
+            Self::Jingle => "jingle",
+            #[cfg(since_647)]
+            Self::ChatCat => "chatcat",
+            #[cfg(since_647)]
+            Self::Model => "model",
+            #[cfg(since_647)]
+            Self::Texture => "texture",
+            #[cfg(since_647)]
+            Self::Bas => "bas",
+            #[cfg(since_647)]
+            Self::Vorbis => "vorbis",
+            #[cfg(since_647)]
+            Self::MapElement => "mapelement",
         }
     }
 }
@@ -813,9 +964,67 @@ impl BodyType {
 
 // --- interface ---
 
+#[cfg(since_647)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+pub struct IfEvents(pub u32);
+
+#[cfg(since_647)]
+impl IfEvents {
+    const OPS_SHIFT: u32 = 1;
+    const OPS_MASK: u32 = 0x3FF;
+    const TARGETS_SHIFT: u32 = 11;
+    const TARGETS_MASK: u32 = 0x7F;
+    const DRAG_DEPTH_SHIFT: u32 = 18;
+    const DRAG_DEPTH_MASK: u32 = 0x7;
+    const DROP_TARGET: u32 = 1 << 21;
+    const TARGETABLE: u32 = 1 << 22;
+    const PAUSE: u32 = 1;
+
+    pub const fn new(
+        ops: i32,
+        targets: i32,
+        depth: i32,
+        allow_drag: bool,
+        can_target: bool,
+    ) -> Self {
+        Self(
+            ((ops as u32 & Self::OPS_MASK) << Self::OPS_SHIFT)
+                | ((targets as u32 & Self::TARGETS_MASK) << Self::TARGETS_SHIFT)
+                | ((depth as u32 & Self::DRAG_DEPTH_MASK) << Self::DRAG_DEPTH_SHIFT)
+                | if allow_drag { Self::DROP_TARGET } else { 0 }
+                | if can_target { Self::TARGETABLE } else { 0 },
+        )
+    }
+
+    pub const fn allows_op(self, op: u8) -> bool {
+        op >= 1 && op <= 10 && self.0 & (1 << op) != 0
+    }
+
+    pub const fn allows_target(self, target: u16) -> bool {
+        (self.0 >> Self::TARGETS_SHIFT) & target as u32 != 0
+    }
+
+    pub const fn is_draggable(self) -> bool {
+        (self.0 >> Self::DRAG_DEPTH_SHIFT) & Self::DRAG_DEPTH_MASK != 0
+    }
+
+    pub const fn is_drop_target(self) -> bool {
+        self.0 & Self::DROP_TARGET != 0
+    }
+
+    pub const fn is_targetable(self) -> bool {
+        self.0 & Self::TARGETABLE != 0
+    }
+
+    pub const fn is_pause_button(self) -> bool {
+        self.0 & Self::PAUSE != 0
+    }
+}
+
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[derive(Debug, Default, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
 pub enum IfComponentType {
+    #[default]
     Layer = 0,
     Inv = 2,
     Rect = 3,
@@ -823,6 +1032,8 @@ pub enum IfComponentType {
     Graphic = 5,
     Model = 6,
     InvText = 7,
+    #[cfg(since_647)]
+    Line = 9,
 }
 
 impl IfComponentType {
@@ -835,6 +1046,8 @@ impl IfComponentType {
             "graphic" => Self::Graphic,
             "model" => Self::Model,
             "invtext" => Self::InvText,
+            #[cfg(since_647)]
+            "line" => Self::Line,
             _ => panic!("Unknown component type: {s}"),
         }
     }
@@ -848,13 +1061,16 @@ impl IfComponentType {
             Self::Graphic => "graphic",
             Self::Model => "model",
             Self::InvText => "invtext",
+            #[cfg(since_647)]
+            Self::Line => "line",
         }
     }
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
+#[derive(Debug, Default, Clone, Copy, Eq, PartialEq, TryFromPrimitive)]
 pub enum IfButtonType {
+    #[default]
     None = 0,
     Normal = 1,
     Target = 2,

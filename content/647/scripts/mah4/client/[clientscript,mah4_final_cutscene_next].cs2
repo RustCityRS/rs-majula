@@ -1,0 +1,9 @@
+// 1679
+[clientscript,mah4_final_cutscene_next]
+~mah4_cutscene_create_spline;
+switch_int (%mah4_final_cutscene_step) {
+    case 0 :
+        ~mah4_final_cutscene_next;
+    case default :
+        if_setoncamfinished(mah4_cutscene_overlay:main_layer, null);
+}

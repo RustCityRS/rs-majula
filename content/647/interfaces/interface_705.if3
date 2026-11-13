@@ -1,0 +1,821 @@
+// 705:0
+[content_layer]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 705:1
+[page_bg]
+type=model
+x=12
+y=-1
+width=487
+height=335
+layer=content_layer
+model=model_32409
+modelorigin=-5,-12
+modelzoom=618
+
+// 705:2
+[com_2]
+type=model
+x=16
+y=-2
+width=193
+height=151
+layer=content_layer
+model=model_32406
+modelorigin=1,222
+modelzoom=115
+
+// 705:3
+[sops_title]
+type=text
+x=40
+y=133
+width=175
+height=14
+layer=content_layer
+textfont=b12_full
+text=Question:
+colour=0x1e1e2d
+
+// 705:4
+[sops_header]
+type=text
+x=215
+y=38
+width=300
+height=65
+layer=content_layer
+textfont=quill_oblique_large
+text=Player Safety Test
+colour=0x232330
+
+// 705:5
+[duel_close_button]
+type=graphic
+x=469
+y=9
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,3"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,2")
+onmouseleave=graphic_swapper(event_com, "close_buttons,3")
+onop=closebutton_click
+
+// 705:6
+[sops_question]
+type=text
+x=40
+y=148
+width=388
+height=32
+layer=content_layer
+textfont=q8_full
+text=A player who you do not know sends you a private message that you find offensive. What should you do?
+colour=0x242330
+
+// 705:7
+[com_7]
+type=text
+x=40
+y=199
+width=363
+height=32
+layer=content_layer
+textfont=q8_full
+text=Nothing. I can't report anything that is said in private chat.
+colour=0x191930
+
+// 705:8
+[com_8]
+type=text
+x=40
+y=236
+width=363
+height=32
+layer=content_layer
+textfont=q8_full
+text=Send the player an offensive message back.
+colour=0x191930
+
+// 705:9
+[com_9]
+type=text
+x=40
+y=266
+width=363
+height=32
+layer=content_layer
+textfont=q8_full
+text=Use the Report Abuse button to report the player and then add them to my Ignore List
+colour=0x191930
+
+// 705:10
+[sops_box1]
+type=model
+x=418
+y=198
+width=33
+height=34
+layer=content_layer
+model=null
+modelorigin=-1,-1
+modelangle=431,1912,0
+modelzoom=2058
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script888(event_com)
+
+// 705:11
+[sops_box2]
+type=model
+x=421
+y=232
+width=31
+height=34
+layer=content_layer
+model=null
+modelorigin=-1,-1
+modelangle=539,1921,206
+modelzoom=1858
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script889(event_com)
+
+// 705:12
+[sops_box3]
+type=model
+x=419
+y=265
+width=33
+height=34
+layer=content_layer
+model=null
+modelorigin=-1,-1
+modelangle=431,1912,0
+modelzoom=2058
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script890(event_com)
+
+// 705:13
+[box1]
+type=line
+x=425
+y=204
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:14
+[box2]
+type=line
+x=425
+y=204
+height=19
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:15
+[box3]
+type=line
+x=424
+y=222
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:16
+[box4]
+type=line
+x=443
+y=204
+height=20
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:17
+[box5]
+type=line
+x=425
+y=238
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:18
+[box6]
+type=line
+x=425
+y=238
+height=19
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:19
+[box7]
+type=line
+x=424
+y=256
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:20
+[box8]
+type=line
+x=443
+y=238
+height=20
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:21
+[box9]
+type=line
+x=426
+y=271
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:22
+[box10]
+type=line
+x=426
+y=271
+height=19
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:23
+[box11]
+type=line
+x=425
+y=289
+width=19
+height=1
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:24
+[box12]
+type=line
+x=444
+y=271
+height=20
+layer=content_layer
+linewid=2
+colour=0x0e0e17
+
+// 705:25
+[underline]
+type=line
+x=193
+y=65
+width=248
+layer=content_layer
+colour=0x0e0e17
+
+// 705:26
+[answer_layer]
+type=layer
+width=513
+height=335
+layer=content_layer
+hide=yes
+noclickthrough=yes
+
+// 705:27
+[com_27]
+type=rectangle
+width=512
+height=334
+layer=answer_layer
+colour=0x46341d
+fill=yes
+trans=160
+
+// 705:28
+[com_28]
+type=graphic
+x=32
+y=79
+width=449
+height=230
+layer=answer_layer
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 705:29
+[com_29]
+type=graphic
+x=19
+y=111
+width=25
+height=174
+layer=answer_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 705:30
+[com_30]
+type=graphic
+x=32
+y=79
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 705:31
+[com_31]
+type=graphic
+x=451
+y=79
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0xffffffff
+
+// 705:32
+[com_32]
+type=graphic
+x=63
+y=66
+width=391
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 705:33
+[com_33]
+type=graphic
+x=463
+y=110
+width=32
+height=174
+layer=answer_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 705:34
+[com_34]
+type=graphic
+x=451
+y=284
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0xffffffff
+
+// 705:35
+[com_35]
+type=graphic
+x=32
+y=284
+width=32
+height=32
+layer=answer_layer
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0xffffffff
+
+// 705:36
+[com_36]
+type=graphic
+x=64
+y=296
+width=387
+height=25
+layer=answer_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 705:37
+[com_37]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=answer_layer
+hide=yes
+
+// 705:38
+[com_38]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_37
+textfont=quill_oblique_large
+text=Correct.
+textshadow=yes
+colour=0xccbe8e
+
+// 705:39
+[com_39]
+type=text
+x=1
+y=27
+width=388
+height=105
+layer=com_37
+textfont=q8_full
+text=You can use the Report Abuse button to report any chat that you find offensive, whether it is said in Public or Private chat. Adding a player to your Ignore List will prevent them from sending you any further messages.
+textshadow=yes
+colour=0xa49279
+
+// 705:40
+[com_40]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=answer_layer
+hide=yes
+
+// 705:41
+[com_41]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_40
+textfont=quill_oblique_large
+text=Incorrect.
+textshadow=yes
+colour=0xccbe8e
+
+// 705:42
+[com_42]
+type=text
+x=1
+y=27
+width=390
+height=105
+layer=com_40
+textfont=p12_full
+text=You can use the Report Abuse button to report any chat that you find offensive, whether it is said in Public or Private chat.
+textshadow=yes
+colour=0xa49279
+
+// 705:43
+[com_43]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=answer_layer
+hide=yes
+
+// 705:44
+[com_44]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_43
+textfont=quill_oblique_large
+text=Incorrect.
+textshadow=yes
+colour=0xccbe8e
+
+// 705:45
+[com_45]
+type=text
+x=1
+y=27
+width=390
+height=105
+layer=com_43
+textfont=p12_full
+text=Retaliating may cause you to get in trouble and be reported yourself!
+textshadow=yes
+colour=0xa49279
+
+// 705:46
+[com_46]
+type=layer
+x=375
+y=255
+width=97
+height=42
+layer=answer_layer
+
+// 705:47
+[com_47]
+type=layer
+width=97
+height=42
+layer=com_46
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 705:48
+[com_48]
+type=rectangle
+width=97
+height=42
+layer=com_46
+colour=0x000000
+fill=yes
+trans=250
+transmitop=1
+op1=Next
+
+// 705:49
+[next]
+type=text
+width=97
+height=42
+layer=com_46
+textfont=quill_oblique_large
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x909061
+
+// 705:50
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 705:51
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 705:52
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 705:53
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 705:54
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 705:55
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 705:56
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0xffffffff
+
+// 705:57
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0xffffffff
+
+// 705:58
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0xffffffff
+
+// 705:59
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0xffffffff
+
+// 705:60
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 705:61
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 705:62
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 705:63
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 705:64
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 705:65
+[com_65]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 705:66
+[com_66]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 705:67
+[com_67]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+
+// 705:68
+[com_68]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff

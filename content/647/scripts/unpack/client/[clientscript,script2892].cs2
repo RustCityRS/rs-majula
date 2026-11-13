@@ -1,0 +1,9 @@
+// 2892
+[clientscript,script2892](component $component0, int $int1)
+if (calc(clientclock - $int1) >= 180) {
+    %sfa_initial_disappear = 1;
+}
+if (calc(clientclock - $int1) >= 1000) {
+    if_setontimer(sfa:initial, null);
+    if_sethide(sfa:initial, true);
+}

@@ -1,0 +1,5 @@
+// 1950
+[clientscript,script1950](component $component0)
+if_setgraphic($component0, "magni_glass,1");
+if_setonclick($component0, "script1242(event_com)");
+cam_smoothreset;

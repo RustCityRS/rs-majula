@@ -1,0 +1,160 @@
+// 421:0
+[tut3_layer]
+type=layer
+x=6
+y=5
+width=477
+height=118
+scrollheight=200
+
+// 421:1
+[tut3_a]
+type=text
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line1
+textalignh=centre
+colour=0x0000ff
+
+// 421:2
+[tut3_b]
+type=text
+y=19
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line2
+textalignh=centre
+colour=0x000000
+
+// 421:3
+[tut3_c]
+type=text
+y=35
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line3
+textalignh=centre
+colour=0x000000
+
+// 421:4
+[tut3_d]
+type=text
+y=51
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line4
+textalignh=centre
+colour=0x000000
+
+// 421:5
+[tut3_e]
+type=text
+y=67
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line5
+textalignh=centre
+colour=0x000000
+
+// 421:6
+[tut3_f]
+type=text
+y=83
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line6
+textalignh=centre
+colour=0x000000
+
+// 421:7
+[tut3_g]
+type=text
+y=99
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line7
+textalignh=centre
+colour=0x000000
+
+// 421:8
+[tut3_h]
+type=text
+y=115
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line8
+textalignh=centre
+colour=0x000000
+
+// 421:9
+[tut3_i]
+type=text
+y=131
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line9
+textalignh=centre
+colour=0x000000
+
+// 421:10
+[tut3_j]
+type=text
+y=147
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line10
+textalignh=centre
+colour=0x000000
+
+// 421:11
+[tut3_k]
+type=text
+y=163
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line11
+textalignh=centre
+colour=0x000000
+
+// 421:12
+[tut3_l]
+type=text
+y=179
+width=476
+height=17
+layer=tut3_layer
+textfont=q8_full
+text=Line12
+textalignh=centre
+colour=0x000000
+
+// 421:13
+[scroll_bar]
+type=layer
+x=487
+y=5
+width=16
+height=119
+onload=scrollbar_vertical(event_com, tutorial_text2:tut3_layer)

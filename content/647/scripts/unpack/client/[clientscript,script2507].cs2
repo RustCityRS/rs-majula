@@ -1,0 +1,4 @@
+// 2507
+[clientscript,script2507](component $component0)
+%mob_client_invest_scenario = %varplayerbit_6427;
+if_settext($component0, ~tostring_spacer(%mob_client_invest_scenario, ","));

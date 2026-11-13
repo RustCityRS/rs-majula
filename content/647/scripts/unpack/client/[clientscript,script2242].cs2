@@ -1,0 +1,54 @@
+// 2242
+[clientscript,script2242]
+sound_synth(synth_8727, 3, 0);
+if_settext(easter10_gameresult:turnscore, "Turns taken score: <tostring(%easter10_resourcegame_turncount)> x 101 = <tostring(calc(%easter10_resourcegame_turncount * 101))>");
+if_settext(easter10_gameresult:resourcesscore, "Resources spare: <tostring(calc(%easter10_resourcegame_totalfruit + (%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalchoc)))> x -10 = -<tostring(calc((%easter10_resourcegame_totalfruit + (%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalchoc)) * 10))>");
+if (%easter10_resourcegame_turncount < 16) {
+    if_settext(easter10_gameresult:underparscore, "Completed within turn limit: -100");
+} else {
+    if_settext(easter10_gameresult:underparscore, "Not completed within turn limit: 0");
+}
+if_settext(easter10_gameresult:workersemployedscore, "Workers employed: <tostring(%easter10_resourcegame_totalworkers)> x -10 = -<tostring(calc(%easter10_resourcegame_totalworkers * 10))>");
+if_settext(easter10_gameresult:turncount, "Turns taken: <tostring(%easter10_resourcegame_turncount)>");
+if (%easter10_incubator_status = 0) {
+    if_settext(easter10_gameresult:incubatorrepaired, "Oven not repaired: 50");
+} else {
+    if_settext(easter10_gameresult:incubatorrepaired, "Oven repaired: 0");
+}
+if (%easter10_conveyor_status = 0) {
+    if_settext(easter10_gameresult:conveyorrepaired, "Conveyor not repaired: 50");
+} else {
+    if_settext(easter10_gameresult:conveyorrepaired, "Conveyor repaired: 0");
+}
+if (%easter10_painter_status = 0) {
+    if_settext(easter10_gameresult:painterepaired, "Painter not repaired: 50");
+} else {
+    if_settext(easter10_gameresult:painterepaired, "Painter repaired: 0");
+}
+def_int $int0 = 0;
+$int0 = calc(%easter10_resourcegame_turncount * 101);
+if (%easter10_painter_status = 0) {
+    $int0 = calc($int0 + 50);
+}
+if (%easter10_incubator_status = 0) {
+    $int0 = calc($int0 + 50);
+}
+if (%easter10_conveyor_status = 0) {
+    $int0 = calc($int0 + 50);
+}
+$int0 = calc($int0 - (%easter10_resourcegame_totalfruit + (%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalchoc)) * 10);
+if (%easter10_resourcegame_turncount < 16) {
+    $int0 = calc($int0 - 100);
+}
+$int0 = calc($int0 - %easter10_resourcegame_totalworkers * 10);
+if ($int0 < 0) {
+    $int0 = 0;
+}
+if ($int0 > 32768) {
+    $int0 = 32768;
+}
+if ($int0 = %easter10_resourcegame_score) {
+    if_settext(easter10_gameresult:finalscore, "Final score: <tostring($int0)> (New best score)");
+} else {
+    if_settext(easter10_gameresult:finalscore, "Final score: <tostring($int0)>");
+}

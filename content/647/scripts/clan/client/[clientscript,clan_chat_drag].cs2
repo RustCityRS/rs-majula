@@ -1,0 +1,5 @@
+// 4452
+[clientscript,clan_chat_drag](int $int0)
+if (activeclanchannel_find_affined = true) {
+    ~script4436(clan_chat:clanlist, $int0);
+}

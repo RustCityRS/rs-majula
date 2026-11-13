@@ -1,0 +1,6 @@
+// 2210
+[clientscript,script2210]
+if (if_getx(%easter10_currentmodel) < 200) {
+    if_setontimer(easter10_nuts:content, "script2210");
+    if_setposition(%easter10_currentmodel, calc(1 + if_getx(%easter10_currentmodel)), if_gety(%easter10_currentmodel), ^setpos_abs_left, ^setpos_abs_top);
+}

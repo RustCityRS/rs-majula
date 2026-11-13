@@ -1,0 +1,73 @@
+// 205
+[clientscript,script205](component $component0)
+if (%varplayerbit_8902 > 0 & %varplayerbit_8902 < 13) {
+    if (if_getgraphic(interface_825:graphic_1) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_1, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_1) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_1, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_2) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_2, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_2) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_2, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_3) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_3, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_3) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_3, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_4) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_4, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_4) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_4, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_5) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_5, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_5) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_5, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_6) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_6, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_6) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_6, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_7) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_7, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_7) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_7, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_8) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_8, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_8) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_8, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_9) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_9, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_9) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_9, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_10) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_10, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_10) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_10, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_11) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_11, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_11) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_11, "aif_bronze_icon_button_2,0");
+    }
+    if (if_getgraphic(interface_825:graphic_12) = "aif_bronze_icon_button_2,4") {
+        if_setgraphic(interface_825:graphic_12, "aif_bronze_icon_button_2,2");
+    } else if (if_getgraphic(interface_825:graphic_12) = "aif_bronze_icon_button_2,3") {
+        if_setgraphic(interface_825:graphic_12, "aif_bronze_icon_button_2,0");
+    }
+}
+if (if_getgraphic($component0) = "aif_bronze_icon_button_2,1") {
+    if_setgraphic($component0, "aif_bronze_icon_button_2,3");
+}
+if (if_getgraphic($component0) = "aif_bronze_icon_button_2,0") {
+    if_setgraphic($component0, "aif_bronze_icon_button_2,3");
+}
+if (if_getgraphic($component0) = "aif_bronze_icon_button_2,2") {
+    if_setgraphic($component0, "aif_bronze_icon_button_2,4");
+}

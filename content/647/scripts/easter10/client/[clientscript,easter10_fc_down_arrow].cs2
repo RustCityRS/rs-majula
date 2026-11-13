@@ -1,0 +1,7 @@
+// 2231
+[clientscript,easter10_fc_down_arrow]
+if (%easter10_fcworkers > 0) {
+    sound_synth(synth_8729, 1, 0);
+    %easter10_fcworkers = calc(%easter10_fcworkers - 1);
+    ~script2220;
+}

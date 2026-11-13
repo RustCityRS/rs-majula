@@ -1,0 +1,9 @@
+// 4418
+[clientscript,clan_click_pm]
+def_string $string0 = removetags(if_gettext(clan_info:planter_name));
+if (friend_test($string0) = false) {
+    mes("Attempting to add <$string0> to your Friends List.");
+    friend_add($string0);
+} else {
+    mes("You've already added <$string0> to your friends list.");
+}

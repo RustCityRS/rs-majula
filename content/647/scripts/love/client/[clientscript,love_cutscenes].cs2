@@ -1,0 +1,39 @@
+// 3461
+[clientscript,love_cutscenes](component $component0, component $component1, component $component2, component $component3, component $component4)
+if (%tutorial3_cutscene_tracker <= 0) {
+    if_sethide($component1, true);
+    if_sethide($component4, true);
+    cam_smoothreset;
+    return;
+}
+if (%tutorial3_cutscene_tracker <= 10) {
+    if_sethide($component1, true);
+    if_sethide($component4, true);
+    ~script3470($component0, ~coord_0_0(coord));
+    return;
+}
+if (%tutorial3_cutscene_tracker <= 20) {
+    if_sethide($component1, true);
+    if_sethide($component4, true);
+    ~script3465($component0, ~coord_0_0(coord));
+    return;
+}
+if (%tutorial3_cutscene_tracker <= 30) {
+    if_sethide($component4, true);
+    ~script3462($component0, $component1, $component2, $component3);
+    return;
+}
+if (%tutorial3_cutscene_tracker <= 40) {
+    if_sethide($component1, true);
+    if_sethide($component4, true);
+    ~love_makeup($component0, ~coord_0_0(coord));
+    return;
+}
+if (%tutorial3_cutscene_tracker <= 100) {
+    if_sethide($component1, true);
+    ~love_flashback($component0, $component4);
+    return;
+}
+if_sethide($component1, true);
+if_sethide($component4, true);
+~love_wizardstower($component0, ~coord_0_0(coord));

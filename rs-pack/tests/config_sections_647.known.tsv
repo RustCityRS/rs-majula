@@ -1,0 +1,5 @@
+# Config sections in content/647 overlays that name no 647 entity: 289 names
+# the name bridge (tools/bridge_289_names.py) cannot match, so their server
+# keys pack nothing (rs-pack/tests/config_sections_647.rs). Each is a known
+# gap: remove a row when its section names a 647 entity.
+# kind	name	file	why the bridge rejects it

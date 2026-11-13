@@ -1,0 +1,19 @@
+// 3018
+[proc,lobbyscreen_input_clear]
+if_settext(lobbyscreen:input_title, "");
+if_settext(lobbyscreen:input_text, "");
+if_setonkey(lobbyscreen:input_text, null);
+if_setonop(lobbyscreen:input_ok, null);
+if_settext(lobbyscreen:input_ok_text, "Ok");
+if_setop(lobbyscreen:input_ok_text, 1, "Ok");
+if_settext(lobbyscreen:input_close_text, "Close");
+if_setop(lobbyscreen:input_close_text, 1, "Close");
+if_setsize(lobbyscreen:input_window, 265, 136, ^setsize_abs, ^setsize_abs);
+if_setsize(lobbyscreen:input_text, 0, 0, ^setsize_minus, ^setsize_minus);
+if_setsize(lobbyscreen:input_ok, 8034, 0, ^setsize_rel, ^setsize_minus);
+if_setsize(lobbyscreen:input_ok_text, 8034, 0, ^setsize_rel, ^setsize_minus);
+if_setsize(lobbyscreen:input_close, 8034, 0, ^setsize_rel, ^setsize_minus);
+if_setsize(lobbyscreen:input_close_text, 8034, 0, ^setsize_rel, ^setsize_minus);
+if_sethide(lobbyscreen:input_close, false);
+if_sethide(lobbyscreen:input_close_text, false);
+%lobbyscreen_input = "";

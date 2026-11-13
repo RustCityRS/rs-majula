@@ -1,0 +1,17 @@
+// 1973
+[clientscript,script1973](int $int0, component $component1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+sound_synth(synth_4911, 1, 0);
+switch_int ($int0) {
+    case 0 :
+        %seer_a = ~script686(calc(%seer_a - 1), 26);
+    case 1 :
+        %seer_b = ~script686(calc(%seer_b - 1), 26);
+    case 2 :
+        %seer_c = ~script686(calc(%seer_c - 1), 26);
+    case 3 :
+        %seer_d = ~script686(calc(%seer_d - 1), 26);
+}
+~seer_varcupdate($int0, $component1);

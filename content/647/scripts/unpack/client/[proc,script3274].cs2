@@ -1,0 +1,16 @@
+// 3274
+[proc,script3274]()(int)
+switch_int (%rand_party_complexity_level_trans) {
+    case 1 :
+        return(5000);
+    case 2 :
+        return(5500);
+    case 3 :
+        return(6000);
+    case 4 :
+        return(6500);
+    case 5 :
+        return(7000);
+    case default :
+        return(10000);
+}

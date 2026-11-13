@@ -1,0 +1,11 @@
+// 3131
+[clientscript,script3131](component $component0, int $int1, int $int2)
+if (cc_find($component0, $int1) = true) {
+    if_sethide(lobbyscreen_pane_worldselect:com_65, false);
+    if_sethide(lobbyscreen_pane_worldselect:com_66, false);
+    if_setposition(lobbyscreen_pane_worldselect:com_65, if_getx(lobbyscreen_pane_worldselect:com_65), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen_pane_worldselect:com_66, if_getx(lobbyscreen_pane_worldselect:com_66), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}
+if_setcolour(lobbyscreen_pane_worldselect:com_66, 0x404040);
+if_setcolour(lobbyscreen_pane_worldselect:com_65, 0x606060);
+return;

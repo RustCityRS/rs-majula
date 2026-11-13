@@ -1,0 +1,35 @@
+// 304:0
+[com_0]
+type=model
+x=144
+y=8
+width=235
+height=317
+model=model_32799
+modelorigin=7,-1
+modelangle=512,0,0
+modelzoom=803
+
+// 304:1
+[close_button]
+type=graphic
+x=332
+y=27
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0xffffffff
+onmouseover=graphic_swapper(glomem_diary_page:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(glomem_diary_page:close_button, "close_buttons,6")
+onclick=closebutton_click
+
+// 304:2
+[pagetext]
+type=text
+x=179
+y=57
+width=165
+height=228
+textfont=p12_full
+text=Save yourself!
+colour=0x333300

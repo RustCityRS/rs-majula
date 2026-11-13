@@ -1,6 +1,8 @@
 use rs_admin_api::AccountActivity;
 use serde::Serialize;
+use std::cmp::Reverse;
 use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::mem;
 
 /// What a pair must weigh to be linked.
 const LINK_WEIGHT: u32 = 3;
@@ -194,7 +196,7 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
     let mut links: Vec<(usize, usize, Vec<Reason>)> = Vec::new();
     let mut found = Vec::new();
     for i in 0..n {
-        let mut shared = std::mem::take(&mut by_first[i]).into_iter().peekable();
+        let mut shared = mem::take(&mut by_first[i]).into_iter().peekable();
         for j in i + 1..n {
             found.clear();
             behaviours(
@@ -242,7 +244,7 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
         .into_iter()
         .filter(|(_, members)| members.len() >= min_size.max(2))
         .map(|(root, mut members)| {
-            members.sort_by_key(|&i| std::cmp::Reverse(accounts[i].play_ms));
+            members.sort_by_key(|&i| Reverse(accounts[i].play_ms));
             let mut shared: Vec<Shared> = shared_by
                 .remove(&root)
                 .unwrap_or_default()
@@ -252,7 +254,7 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
                     accounts: who.len(),
                 })
                 .collect();
-            shared.sort_by_key(|s| (std::cmp::Reverse(s.accounts), s.reason.clone()));
+            shared.sort_by_key(|s| (Reverse(s.accounts), s.reason.clone()));
             let behaviours = shared.iter().filter(|s| s.reason.behaviour()).count();
             let flagged = members.iter().filter(|&&i| accounts[i].flagged > 0).count();
             let cheating = members.iter().any(|&i| accounts[i].max_score >= 100);
@@ -267,12 +269,7 @@ pub fn group(accounts: &[AccountActivity], min_size: usize) -> Vec<Farm> {
             }
         })
         .collect();
-    farms.sort_by_key(|f| {
-        (
-            std::cmp::Reverse(f.score),
-            std::cmp::Reverse(f.members.len()),
-        )
-    });
+    farms.sort_by_key(|f| (Reverse(f.score), Reverse(f.members.len())));
     farms
 }
 

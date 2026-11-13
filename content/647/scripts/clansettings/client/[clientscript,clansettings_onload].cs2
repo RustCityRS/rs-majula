@@ -1,0 +1,10 @@
+// 4289
+[clientscript,clansettings_onload]
+if (activeclansettings_find_affined = true) {
+    ~script4291;
+} else {
+    if_setonclansettingstransmit(clansettings:com_124, "script4290");
+}
+if (%clansettings_clanmate_filter_rank_plus_1 = -1) {
+    %clansettings_clanmate_filter_rank_plus_1 = 0;
+}

@@ -1,0 +1,5 @@
+// 1608
+[clientscript,booth_playermodel_update]
+def_seq $seq0 = bas_getanim_ready(oc_param(inv_getobj(worn, 3), render_emote));
+if_setmodelanim(boothpreview:playermodel, $seq0);
+if_setplayermodel_self(boothpreview:playermodel);

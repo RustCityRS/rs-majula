@@ -1,0 +1,5 @@
+// 3089
+[clientscript,script3089](string $string0, string $string1, boolean $boolean0)
+if (compare($string0, "") ! 0 & compare($string1, "") ! 0) {
+    openurl_nologin("loginapplet/loginapplet.ws?ssl=1&expired=0&mod=<$string0>&dest=<$string1>", $boolean0);
+}

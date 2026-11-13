@@ -1,0 +1,25 @@
+// 4170
+[clientscript,script4170](component $component0, component $component1, int $int2, string $string0)
+cc_deleteall($component0);
+~script4178(1, $int2, 0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic("miscgraphics,0");
+cc_setonmouserepeat("script1160(event_com, event_comsubid, $component1, $string0, 25, 200)");
+cc_setonmouseleave("deltooltip($component1)");
+cc_create($component0, ^iftype_graphic, 1);
+~script4172($int2);
+cc_setoninvtransmit("script4171(event_com, event_comsubid, $int2){worn}");
+.cc_create($component0, ^iftype_graphic, 2);
+.cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+.cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+.cc_setgraphic(duel_misc_graphic);
+~script4174($int2);
+cc_setonvartransmit("script4173(event_com, .cc_getid, $int2){dueloptions}");
+.cc_create($component0, ^iftype_graphic, 3);
+.cc_setsize(10, 32, ^setsize_abs, ^setsize_abs);
+.cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+.cc_setgraphic(exclamation_mark);
+.cc_sethide(true);
+cc_setontimer("script4175(event_com, .cc_getid, $int2, true)");

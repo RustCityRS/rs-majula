@@ -1,0 +1,10 @@
+// 3183
+[proc,lobbyscreen_report_abuse_stage1_next]
+if (string_length(%lobbyscreen_input) <= 0) {
+    return;
+}
+%lobbyscreen_report_abuse_name = %lobbyscreen_input;
+~lobbyscreen_report_abuse_stage1_close;
+if (string_length(%lobbyscreen_report_abuse_name) > 0) {
+    ~lobbyscreen_report_abuse_stage2;
+}

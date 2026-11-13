@@ -1,0 +1,332 @@
+// 991:0
+[universe]
+type=layer
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=love_puzzle_init(event_com, love_puzzle:scroller, love_puzzle:com_10, love_puzzle:com_11, love_puzzle:com_20, love_puzzle:com_21)
+
+// 991:1
+[com_1]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 991:2
+[scroller]
+type=layer
+width=10
+height=300
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+scrollheight=600
+
+// 991:3
+[com_3]
+type=graphic
+x=10
+y=10
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 991:4
+[bottomhalf]
+type=layer
+height=300
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=scroller
+
+// 991:5
+[com_5]
+type=model
+x=5
+y=-24
+width=301
+height=337
+xmode=abs_centre
+ymode=abs_centre
+layer=bottomhalf
+model=model_57902
+modelorigin=-6,22
+modelangle=512,0,0
+modelzoom=1840
+
+// 991:6
+[com_6]
+type=text
+y=20
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=bottomhalf
+textfont=p11_full
+text=START NODE
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x960064
+
+// 991:7
+[source_1_l]
+type=graphic
+x=10
+y=-40
+width=36
+height=32
+ymode=abs_centre
+layer=bottomhalf
+outline=1
+colour=0xffffffff
+dragdepth=1
+candrop=yes
+dragdeadzone=5
+dragdeadtime=5
+
+// 991:8
+[source_1_r]
+type=graphic
+x=10
+width=36
+height=32
+ymode=abs_centre
+layer=bottomhalf
+outline=1
+colour=0xffffffff
+dragdepth=1
+candrop=yes
+dragdeadzone=5
+dragdeadtime=5
+
+// 991:9
+[source_1_b]
+type=graphic
+x=10
+y=40
+width=36
+height=32
+ymode=abs_centre
+layer=bottomhalf
+outline=1
+colour=0xffffffff
+dragdepth=1
+candrop=yes
+dragdeadzone=5
+dragdeadtime=5
+
+// 991:10
+[com_10]
+type=layer
+x=10
+y=25
+width=80
+height=45
+xmode=abs_right
+layer=bottomhalf
+transmitop=1,10
+op1=View upper half
+op10= 
+
+// 991:11
+[com_11]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+transmitop=10
+op10= 
+
+// 991:12
+[com_12]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+textfont=p11_full
+text=View<br>Upper Half
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 991:13
+[grid1]
+type=layer
+x=-1
+y=2
+width=224
+height=224
+xmode=abs_centre
+ymode=abs_centre
+layer=bottomhalf
+
+// 991:14
+[tophalf]
+type=layer
+height=300
+widthmode=minus
+xmode=abs_centre
+layer=scroller
+
+// 991:15
+[com_15]
+type=model
+x=5
+y=23
+width=301
+height=337
+xmode=abs_centre
+ymode=abs_centre
+layer=tophalf
+model=model_57906
+modelorigin=-6,-25
+modelangle=512,0,0
+modelzoom=1840
+
+// 991:16
+[com_16]
+type=text
+y=20
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=tophalf
+textfont=p11_full
+text=DESTINATION NODE
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x960064
+transmitop=10
+op10= 
+
+// 991:17
+[source_2_l]
+type=graphic
+x=10
+y=-40
+width=36
+height=32
+ymode=abs_centre
+layer=tophalf
+outline=1
+colour=0xffffffff
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+dragdeadzone=5
+dragdeadtime=5
+
+// 991:18
+[source_2_r]
+type=graphic
+x=10
+width=36
+height=32
+ymode=abs_centre
+layer=tophalf
+outline=1
+colour=0xffffffff
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+dragdeadzone=5
+dragdeadtime=5
+
+// 991:19
+[source_2_b]
+type=graphic
+x=10
+y=40
+width=36
+height=32
+ymode=abs_centre
+layer=tophalf
+outline=1
+colour=0xffffffff
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+dragdeadzone=5
+dragdeadtime=5
+
+// 991:20
+[com_20]
+type=layer
+x=10
+y=25
+width=80
+height=45
+xmode=abs_right
+ymode=abs_bottom
+layer=tophalf
+transmitop=1
+op1=View lower half
+
+// 991:21
+[com_21]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+
+// 991:22
+[com_22]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+textfont=p11_full
+text=View<br>Lower Half
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 991:23
+[grid2]
+type=layer
+x=-1
+y=-3
+width=224
+height=224
+xmode=abs_centre
+ymode=abs_centre
+layer=tophalf

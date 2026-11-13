@@ -1,0 +1,74 @@
+// 443
+[clientscript,script443]
+def_int $int0 = 5;
+def_int $int1 = 5;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 1;
+def_int $int5 = 0;
+def_int $int6 = 1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int0 < 270) {
+    while ($int1 < 200) {
+        cc_create(conq_stake_options:your_stake, ^iftype_graphic, $int2);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
+        if (inv_getobj(inv_583, $int2) ! null) {
+            cc_setobject(inv_getobj(inv_583, $int2), inv_getnum(inv_583, $int2));
+            cc_setopbase("<col=ff981f><oc_name(inv_getobj(inv_583, $int2))>");
+            cc_setop(1, "Remove 1");
+            cc_setop(2, "Remove 5");
+            cc_setop(3, "Remove 10");
+            cc_setop(4, "Remove All");
+            cc_setop(5, "Remove X");
+            cc_setop(10, "Examine");
+            cc_setoutline(1);
+            $int3 = calc($int3 + 1);
+            if ($int3 > 5) {
+                $int4 = calc($int4 + 1);
+                $int3 = 1;
+            }
+        }
+        cc_create(conq_stake_options:opponent_stake, ^iftype_graphic, $int2);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int1, $int0, ^setpos_abs_left, ^setpos_abs_top);
+        if (invother_getobj(inv_583, $int2) ! null) {
+            cc_setobject(invother_getobj(inv_583, $int2), invother_getnum(inv_583, $int2));
+            cc_setopbase("<col=ff981f><oc_name(invother_getobj(inv_583, $int2))>");
+            cc_setop(1, "Examine");
+            cc_setoutline(1);
+            $int5 = calc($int5 + 1);
+            if ($int5 > 5) {
+                $int6 = calc($int6 + 1);
+                $int5 = 1;
+            }
+        }
+        $int1 = calc($int1 + 40);
+        $int2 = calc($int2 + 1);
+    }
+    $int0 = calc($int0 + 40);
+    $int1 = 5;
+}
+$int7 = calc($int4 * 40 + 5);
+if ($int7 > if_getheight(conq_stake_options:your_stake)) {
+    if_setscrollsize(conq_stake_options:your_stake, 0, $int7);
+    ~scrollbar_vertical(conq_stake_options:stake_scrollbar_layer, conq_stake_options:your_stake, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
+    if_setposition(conq_stake_options:your_stake, 6, if_gety(conq_stake_options:your_stake), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setscrollsize(conq_stake_options:your_stake, 0, 0);
+    if_setscrollpos(conq_stake_options:your_stake, 0, 0);
+    cc_deleteall(conq_stake_options:stake_scrollbar_layer);
+    if_setposition(conq_stake_options:your_stake, 16, if_gety(conq_stake_options:your_stake), ^setpos_abs_left, ^setpos_abs_top);
+}
+$int8 = calc($int6 * 40 + 5);
+if ($int8 > if_getheight(conq_stake_options:opponent_stake)) {
+    if_setscrollsize(conq_stake_options:opponent_stake, 0, $int8);
+    ~scrollbar_vertical(conq_stake_options:com_16, conq_stake_options:opponent_stake, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
+    if_setposition(conq_stake_options:opponent_stake, 6, if_gety(conq_stake_options:opponent_stake), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setscrollsize(conq_stake_options:opponent_stake, 0, 0);
+    if_setscrollpos(conq_stake_options:opponent_stake, 0, 0);
+    cc_deleteall(conq_stake_options:com_16);
+    if_setposition(conq_stake_options:opponent_stake, 16, if_gety(conq_stake_options:opponent_stake), ^setpos_abs_left, ^setpos_abs_top);
+}

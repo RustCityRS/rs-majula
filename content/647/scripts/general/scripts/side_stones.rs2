@@ -1,0 +1,55 @@
+// The side tabs' stones: cache 786's toplevel (548) and toplevel_fullscreen (746) stones carry an
+// op1 the server hears (IF_BUTTON1, active_properties 2 or 1026, onop clientscript 1303 with the
+// tab's index). One trigger each, for everything that listens to a tab click: 289's Tutorial
+// Island (tutorial/tutorial_tabs.rs2) and Unstable Foundations' arrow at a tab
+// (quest_unstable/uf_tabs.rs2). Two sets of triggers on the same stones left only one of them
+// running (a UF set for op 1 hid the island's for any op: rs-test tutorial_island).
+[if_button,toplevel:stone0] ~side_stone_clicked(0);
+[if_button,toplevel:stone1] ~side_stone_clicked(1);
+[if_button,toplevel:stone2] ~side_stone_clicked(2);
+[if_button,toplevel:stone3] ~side_stone_clicked(3);
+[if_button,toplevel:stone4] ~side_stone_clicked(4);
+[if_button,toplevel:stone5] ~side_stone_clicked(5);
+[if_button,toplevel:stone6] ~side_stone_clicked(6);
+[if_button,toplevel:stone7] ~side_stone_clicked(7);
+[if_button,toplevel:stone8] ~side_stone_clicked(8);
+[if_button,toplevel:stone9] ~side_stone_clicked(9);
+[if_button,toplevel:stone10] ~side_stone_clicked(10);
+[if_button,toplevel:stone11] ~side_stone_clicked(11);
+[if_button,toplevel:stone12] ~side_stone_clicked(12);
+[if_button,toplevel:stone13] ~side_stone_clicked(13);
+[if_button,toplevel:stone14] ~side_stone_clicked(14);
+[if_button,toplevel:stone15] ~side_stone_clicked(15);
+[if_button,toplevel_fullscreen:stone0] ~side_stone_clicked(0);
+[if_button,toplevel_fullscreen:stone1] ~side_stone_clicked(1);
+[if_button,toplevel_fullscreen:stone2] ~side_stone_clicked(2);
+[if_button,toplevel_fullscreen:stone3] ~side_stone_clicked(3);
+[if_button,toplevel_fullscreen:stone4] ~side_stone_clicked(4);
+[if_button,toplevel_fullscreen:stone5] ~side_stone_clicked(5);
+[if_button,toplevel_fullscreen:stone6] ~side_stone_clicked(6);
+[if_button,toplevel_fullscreen:stone7] ~side_stone_clicked(7);
+[if_button,toplevel_fullscreen:stone8] ~side_stone_clicked(8);
+[if_button,toplevel_fullscreen:stone9] ~side_stone_clicked(9);
+[if_button,toplevel_fullscreen:stone10] ~side_stone_clicked(10);
+[if_button,toplevel_fullscreen:stone11] ~side_stone_clicked(11);
+[if_button,toplevel_fullscreen:stone12] ~side_stone_clicked(12);
+[if_button,toplevel_fullscreen:stone13] ~side_stone_clicked(13);
+[if_button,toplevel_fullscreen:stone14] ~side_stone_clicked(14);
+[if_button,toplevel_fullscreen:stone15] ~side_stone_clicked(15);
+
+// Side $side clicked (the stone's index, as clientscript 1303 takes it).
+[proc,side_stone_clicked](int $side)
+switch_int ($side) {
+    case 0 : ~tutorial_tab_clicked(^tab_combat);
+    case 2 : ~tutorial_tab_clicked(^tab_stats);
+    case 3 : ~tutorial_tab_clicked(^tab_quests);
+    case 4 : ~tutorial_tab_clicked(^tab_inventory);
+    case 5 : ~tutorial_tab_clicked(^tab_equipment);
+    case 6 : ~tutorial_tab_clicked(^tab_prayer);
+    case 7 : ~tutorial_tab_clicked(^tab_magic);
+    case 9 : ~tutorial_tab_clicked(^tab_friends);
+    case 12 : ~tutorial_tab_clicked(^tab_options);
+    case 13 : ~tutorial_tab_clicked(^tab_emotes);
+    case 14 : ~tutorial_tab_clicked(^tab_music);
+}
+~uf_side_clicked($side);

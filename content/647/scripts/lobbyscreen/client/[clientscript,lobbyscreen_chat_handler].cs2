@@ -1,0 +1,21 @@
+// 3405
+[clientscript,lobbyscreen_chat_handler](component $component0, component $component1, component $component2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int3, $int4, $int5 = ~lobbyscreen_chat_count;
+~lobbyscreen_pane_friendslist_chat_build($component0);
+~lobbyscreen_pane_clanchat_chat_build($component1);
+~lobbyscreen_pane_friendschat_chat_build($component2);
+if (if_gethide(lobbyscreen:friendslist_panel) = true & $int3 > %lobby_pmchat_lastcount) {
+    if_setontimer(lobbyscreen:friendslist_tab, "lobbyscreen_chat_notify(clientclock, lobbyscreen:friendslist_panel, event_com)");
+}
+if (if_gethide(lobbyscreen:clanchat_panel) = true & $int4 > %lobby_clanchat_lastcount) {
+    if_setontimer(lobbyscreen:clanchat_tab, "lobbyscreen_chat_notify(clientclock, lobbyscreen:clanchat_panel, event_com)");
+}
+if (if_gethide(lobbyscreen:friendschat_panel) = true & $int5 > %lobby_friendschat_lastcount) {
+    if_setontimer(lobbyscreen:com_191, "lobbyscreen_chat_notify(clientclock, lobbyscreen:friendschat_panel, event_com)");
+}
+%lobby_pmchat_lastcount = $int3;
+%lobby_clanchat_lastcount = $int4;
+%lobby_friendschat_lastcount = $int5;

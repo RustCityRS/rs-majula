@@ -1,0 +1,28 @@
+// 4341
+[proc,clan_time_tostring](int $int0, int $int1, int $int2)(string, string)
+def_string $string0 = tostring($int1);
+def_string $string1 = tostring($int2);
+def_int $int3 = 0;
+def_string $string2 = "";
+$int3 = calc(60 * $int1 + $int0 + $int2);
+if ($int3 < 0) {
+    $int3 = calc(1440 + $int3);
+}
+$int2 = calc($int3 % 60);
+$int1 = calc($int3 / 60);
+if ($int1 > 23) {
+    $int1 = calc($int1 - 24);
+} else if ($int1 < 0) {
+    $int1 = calc(24 - $int1);
+}
+if ($int1 < 10) {
+    $string0 = "0<tostring($int1)>";
+} else {
+    $string0 = tostring($int1);
+}
+if ($int2 < 10) {
+    $string1 = "0<tostring($int2)>";
+} else {
+    $string1 = tostring($int2);
+}
+return($string0, $string1);

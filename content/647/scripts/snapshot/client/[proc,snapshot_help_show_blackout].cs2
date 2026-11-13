@@ -1,0 +1,15 @@
+// 232
+[proc,snapshot_help_show_blackout]
+if_sethide(snapshot_main_v2:name_blackout_layer, true);
+if_sethide(snapshot_main_v2:offence_blackout_layer, true);
+if_sethide(snapshot_main_v2:ignore_blackout_layer, true);
+if_sethide(snapshot_main_v2:type_name_blackout_layer, true);
+if (if_gethide(snapshot_main_v2:name_list_layer) = false) {
+    if_sethide(snapshot_main_v2:name_blackout_layer, false);
+} else if (if_gethide(snapshot_main_v2:offence_layer) = false) {
+    if_sethide(snapshot_main_v2:offence_blackout_layer, false);
+} else if (if_gethide(snapshot_main_v2:ignore_layer) = false) {
+    if_sethide(snapshot_main_v2:ignore_blackout_layer, false);
+} else if (if_gethide(snapshot_main_v2:type_name_layer) = false) {
+    if_sethide(snapshot_main_v2:type_name_blackout_layer, false);
+}

@@ -1,0 +1,8 @@
+// 2818
+[clientscript,evq_spline_fleet]
+if (%evq_region_sw ! null) {
+    ~evq_spline_fleet;
+    if_setonvarctransmit(fade2:eventlayer, null);
+} else {
+    if_setonvarctransmit(fade2:eventlayer, "evq_spline_fleet{evq_region_sw}");
+}

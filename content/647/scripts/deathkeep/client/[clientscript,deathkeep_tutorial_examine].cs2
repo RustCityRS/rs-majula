@@ -1,0 +1,5 @@
+// 4600
+[clientscript,deathkeep_tutorial_examine](int $int0, string $string0)
+if ($int0 = 10) {
+    mes_typed(^chattype_obj_examine, 0, $string0);
+}

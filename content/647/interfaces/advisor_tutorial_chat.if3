@@ -1,0 +1,139 @@
+// 894:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 894:1
+[com_1]
+type=rectangle
+x=3
+y=3
+width=72
+height=22
+xmode=abs_right
+colour=0x453b2c
+fill=yes
+transmitop=10
+op10= 
+
+// 894:2
+[com_2]
+type=rectangle
+x=2
+y=2
+width=74
+height=24
+xmode=abs_right
+colour=0x000000
+transmitop=10
+op10=  
+
+// 894:3
+[abort]
+type=text
+x=3
+y=4
+width=70
+height=20
+xmode=abs_right
+textfont=p11_full
+text=Abort<br>tutorial
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcd3700
+transmitop=1,10
+op1=Abort
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xcd3700)
+
+// 894:4
+[graphic]
+type=graphic
+x=24
+y=43
+width=32
+height=32
+layer=layer_1
+colour=0xffffffff
+
+// 894:5
+[title]
+type=text
+x=1
+width=421
+height=16
+layer=layer_1
+textfont=b12_full
+text=Tutorial: Catching shrimp with a net. Step 1/5
+textalignh=centre
+textshadow=yes
+colour=0xffcd00
+onvarcstrtransmit=advisor_chat_settext{varclient_1716, varclient_1717, varclient_1718, varclient_1719}
+
+// 894:6
+[body]
+type=text
+y=27
+width=490
+height=65
+xmode=abs_centre
+layer=layer_1
+textfont=tutorial_font
+text=Go to Port Sarim fishing shop to get a net.
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 894:7
+[graphic_text]
+type=text
+x=32
+y=27
+width=425
+height=65
+xmode=abs_centre
+layer=layer_1
+textfont=tutorial_font
+text=Go to Port Sarim fishing shop to get a net.
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 894:8
+[com_8]
+type=text
+y=94
+width=16384
+height=16
+widthmode=proportion
+layer=layer_1
+textfont=tutorial_font
+text=(You already have a net, so if you want to skip this step click here.)
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=1
+op1=Click
+onmouseover=text_colour_swapper(event_com, 0x000080)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 894:9
+[com_9]
+type=text
+y=108
+width=16384
+height=16
+widthmode=proportion
+layer=layer_1
+textfont=tutorial_font
+text=(Please wait a minute for the net to restock.)
+textalignh=centre
+textalignv=centre
+colour=0x000000

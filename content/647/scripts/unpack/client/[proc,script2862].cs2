@@ -1,0 +1,13 @@
+// 2862
+[proc,script2862]
+if (%machinima_livecamera_targetmode = 0) {
+    if (%machinima_livecamera_lookatposition = 19) {
+        %machinima_livecamera_lookatposition = 0;
+    } else {
+        %machinima_livecamera_lookatposition = calc(%machinima_livecamera_lookatposition + 1);
+    }
+} else if (%machinima_livecamera_targetmode = 1) {
+    %machinima_livecamera_lookatpositioncoord = movecoord(%machinima_livecamera_lookatpositioncoord, 1, 0, 0);
+} else {
+    cam_inc_y;
+}

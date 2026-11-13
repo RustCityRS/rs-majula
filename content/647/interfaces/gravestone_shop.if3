@@ -1,0 +1,405 @@
+// 652:0
+[com_0]
+type=rectangle
+x=32
+y=31
+width=465
+height=289
+colour=0x000000
+fill=yes
+trans=200
+
+// 652:1
+[com_1]
+type=graphic
+x=31
+y=31
+width=451
+height=275
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 652:2
+[com_2]
+type=graphic
+x=24
+y=24
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 652:3
+[com_3]
+type=graphic
+x=11
+y=56
+width=32
+height=226
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 652:4
+[com_4]
+type=graphic
+x=469
+y=56
+width=32
+height=225
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 652:5
+[com_5]
+type=graphic
+x=24
+y=281
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 652:6
+[com_6]
+type=graphic
+x=56
+y=11
+width=401
+height=32
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 652:7
+[com_7]
+type=graphic
+x=56
+y=293
+width=401
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 652:8
+[com_8]
+type=graphic
+x=457
+y=24
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 652:9
+[com_9]
+type=graphic
+x=457
+y=281
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 652:10
+[com_10]
+type=graphic
+x=24
+y=40
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 652:11
+[com_11]
+type=graphic
+x=457
+y=40
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 652:12
+[com_12]
+type=graphic
+x=35
+y=38
+width=443
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 652:13
+[com_13]
+type=graphic
+x=30
+y=74
+width=32
+height=216
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 652:14
+[com_14]
+type=graphic
+x=44
+y=56
+width=170
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 652:15
+[com_15]
+type=graphic
+x=200
+y=74
+width=32
+height=216
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 652:16
+[com_16]
+type=graphic
+x=44
+y=274
+width=170
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 652:17
+[com_17]
+type=graphic
+x=245
+y=74
+width=32
+height=32
+graphic="v2_stone_borders,18"
+tiling=yes
+colour=0x000000
+
+// 652:18
+[com_18]
+type=graphic
+x=424
+y=74
+width=32
+height=32
+graphic="v2_stone_borders,19"
+tiling=yes
+colour=0x000000
+
+// 652:19
+[com_19]
+type=graphic
+x=424
+y=260
+width=32
+height=32
+graphic="v2_stone_borders,21"
+tiling=yes
+colour=0x000000
+
+// 652:20
+[com_20]
+type=graphic
+x=277
+y=60
+width=148
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 652:21
+[com_21]
+type=graphic
+x=277
+y=272
+width=147
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 652:22
+[com_22]
+type=graphic
+x=231
+y=106
+width=32
+height=154
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0x000000
+
+// 652:23
+[com_23]
+type=graphic
+x=436
+y=106
+width=32
+height=154
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0x000000
+
+// 652:24
+[com_24]
+type=graphic
+x=415
+y=74
+width=32
+height=32
+graphic="v2_stone_borders,14"
+tiling=yes
+colour=0x000000
+
+// 652:25
+[com_25]
+type=graphic
+x=414
+y=85
+width=32
+height=196
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0x000000
+
+// 652:26
+[com_26]
+type=graphic
+x=415
+y=260
+width=32
+height=32
+graphic="v2_stone_borders,15"
+tiling=yes
+colour=0x000000
+
+// 652:27
+[com_27]
+type=graphic
+x=245
+y=260
+width=32
+height=32
+graphic="v2_stone_borders,20"
+tiling=yes
+colour=0x000000
+
+// 652:28
+[com_28]
+type=text
+x=31
+y=31
+width=450
+height=21
+textfont=b12_full
+text=Gravestones
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 652:29
+[info_title]
+type=text
+x=61
+y=87
+width=140
+height=30
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 652:30
+[info_text]
+type=text
+x=61
+y=116
+width=140
+height=114
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 652:31
+[menu_layer]
+type=layer
+x=251
+y=80
+width=176
+height=205
+onload=gravestone_shop_setup(event_com, gravestone_shop:scrollbar, gravestone_shop:confirm_layer, gravestone_shop:confirm_text, gravestone_shop:info_title, gravestone_shop:info_text)
+onvartransmit=gravestone_shop_setup(event_com, gravestone_shop:scrollbar, gravestone_shop:confirm_layer, gravestone_shop:confirm_text, gravestone_shop:info_title, gravestone_shop:info_text){gravestone}
+
+// 652:32
+[scrollbar]
+type=layer
+x=434
+y=79
+width=16
+height=207
+
+// 652:33
+[com_33]
+type=graphic
+width=90
+height=56
+layer=confirm_layer
+graphic="wild_ditch_sign_button,2"
+colour=0x000000
+
+// 652:34
+[confirm_layer]
+type=layer
+x=83
+y=230
+width=90
+height=56
+
+// 652:35
+[confirm_text]
+type=text
+x=83
+y=230
+width=90
+height=56
+textfont=b12_full
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+onmouseover=text_colour_swapper(gravestone_shop:confirm_text, 0xe1981f)
+onmouseleave=text_colour_swapper(gravestone_shop:confirm_text, 0xbf751d)
+
+// 652:36
+[closebutton]
+type=graphic
+x=463
+y=33
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

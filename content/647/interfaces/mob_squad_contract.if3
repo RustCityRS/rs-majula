@@ -1,0 +1,234 @@
+// 843:0
+[back]
+type=model
+x=40
+y=49
+width=436
+height=222
+layer=content
+model=model_40721
+modelorigin=0,-6
+modelzoom=666
+
+// 843:1
+[top]
+type=model
+x=19
+y=25
+width=479
+height=31
+layer=content
+model=model_40722
+modelorigin=0,1
+modelzoom=666
+
+// 843:2
+[bottom]
+type=model
+x=19
+y=264
+width=478
+height=30
+layer=content
+model=model_40722
+modelorigin=0,-1
+modelangle=1024,1024,0
+modelzoom=666
+
+// 843:3
+[text_layer]
+type=layer
+x=55
+y=53
+width=404
+height=215
+layer=content
+scrollheight=6000
+
+// 843:4
+[close_button]
+type=graphic
+x=451
+y=28
+width=21
+height=20
+layer=content
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 843:5
+[content]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 843:6
+[title]
+type=text
+width=207
+height=28
+layer=text_layer
+textfont=barbassault_font
+text=Squad Contract
+textalignh=centre
+colour=0x663300
+
+// 843:7
+[unit_stats]
+type=text
+y=31
+width=207
+height=128
+layer=text_layer
+textfont=p12_full
+textlineheight=23
+textalignh=centre
+textalignv=centre
+colour=0x000000
+onload=mob_contract_update
+onvarcstrtransmit=mob_contract_update{varclient_1701, varclient_1702}
+
+// 843:8
+[unit_desc]
+type=text
+y=157
+width=341
+height=51
+layer=text_layer
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 843:9
+[combat_triangle]
+type=layer
+x=404
+y=211
+width=50
+height=48
+transmitop=10
+op10= 
+
+// 843:10
+[com_10]
+type=graphic
+x=14
+y=2
+width=16
+height=16
+layer=combat_triangle
+graphic=graphic_2016
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 843:11
+[com_11]
+type=graphic
+x=2
+y=29
+width=16
+height=16
+layer=combat_triangle
+graphic=graphic_2017
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 843:12
+[com_12]
+type=graphic
+x=30
+y=29
+width=16
+height=16
+layer=combat_triangle
+graphic=graphic_2018
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 843:13
+[com_13]
+type=graphic
+x=15
+y=29
+width=16
+height=16
+layer=combat_triangle
+graphic=graphic_2019
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 843:14
+[com_14]
+type=graphic
+x=3
+y=15
+width=16
+height=16
+layer=combat_triangle
+graphic=graphic_2020
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 843:15
+[com_15]
+type=graphic
+x=27
+y=15
+width=16
+height=16
+layer=combat_triangle
+graphic=graphic_2021
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 843:16
+[squad_back]
+type=rectangle
+x=266
+y=68
+width=184
+height=128
+colour=0x000000
+fill=yes
+trans=158
+transmitop=10
+op10= 
+
+// 843:17
+[com_17]
+type=rectangle
+x=266
+y=68
+width=184
+height=128
+colour=0x000000
+
+// 843:18
+[squad_model]
+type=model
+x=264
+y=85
+width=184
+height=120
+model=model_47786
+modelorigin=6,5
+modelangle=174,119,0
+modelzoom=928
+modelanim=seq_11831
+transmitop=10
+op10= 
+onload=set_spinner(0, 5, 0, event_com)

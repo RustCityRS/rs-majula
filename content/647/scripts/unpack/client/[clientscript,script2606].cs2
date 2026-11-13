@@ -1,0 +1,60 @@
+// 2606
+[clientscript,script2606](component $component0)
+sound_synth(pillory_wrong, 1, 0);
+def_obj $obj1 = null;
+switch_int (%varclient_929) {
+    case 0 :
+        if (%varclient_930 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_930);
+        }
+    case 1 :
+        if (%varclient_931 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_931);
+        }
+    case 2 :
+        if (%varclient_932 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_932);
+        }
+    case 3 :
+        if (%varclient_933 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_933);
+        }
+    case 4 :
+        if (%varclient_934 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_934);
+        }
+    case 5 :
+        if (%varclient_935 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_935);
+        }
+    case 6 :
+        if (%varclient_936 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_936);
+        }
+    case 7 :
+        if (%varclient_937 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_937);
+        }
+    case 8 :
+        if (%varclient_938 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_938);
+        }
+    case 9 :
+        if (%varclient_939 ! -1) {
+            $obj1 = inv_getobj(inv, %varclient_939);
+        }
+}
+switch_component ($component0) {
+    case mob_squad_exchange:resupply_all :
+        if (inv_totalparam(inv, param_803) = 0) {
+            mes("You have no squads that need resupplying.");
+        } else {
+            mes("You do not have sufficient investment credits to resupply all your squads.");
+        }
+    case mob_squad_exchange:apply :
+        mes("You do not have sufficient investment credits to apply the selected changes.");
+    case mob_squad_exchange:com_102, mob_squad_exchange:com_104, mob_squad_exchange:com_103, mob_squad_exchange:com_110, mob_squad_exchange:com_111 :
+        mes("You must resupply this squad first.");
+    case mob_squad_exchange:resupply :
+        mes("This squad does not need resupplying.");
+}

@@ -1,7 +1,9 @@
 use serde::Serialize;
 use serde::de::DeserializeOwned;
+use std::fs;
+use std::io::{self, ErrorKind};
 use std::path::PathBuf;
-use std::sync::Mutex;
+use std::sync::{Mutex, MutexGuard};
 use tracing::{error, warn};
 
 /// A value kept in a JSON file in the console's data directory, read once at
@@ -18,7 +20,7 @@ struct Loaded<T> {
 
 impl<T: Serialize + DeserializeOwned + Default + Clone> JsonFile<T> {
     pub fn open(path: PathBuf) -> Self {
-        let (value, broken) = match std::fs::read_to_string(&path) {
+        let (value, broken) = match fs::read_to_string(&path) {
             Ok(text) => match serde_json::from_str(&text) {
                 Ok(value) => (value, false),
                 Err(e) => {
@@ -30,7 +32,7 @@ impl<T: Serialize + DeserializeOwned + Default + Clone> JsonFile<T> {
                     (T::default(), true)
                 }
             },
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => (T::default(), false),
+            Err(e) if e.kind() == ErrorKind::NotFound => (T::default(), false),
             Err(e) => {
                 error!("Couldn't read {}: {}", path.display(), e);
                 (T::default(), true)
@@ -73,16 +75,16 @@ impl<T: Serialize + DeserializeOwned + Default + Clone> JsonFile<T> {
 
     /// Writes beside the file and renames over it, so a crash never leaves
     /// it half written.
-    fn write(&self, value: &T) -> std::io::Result<()> {
+    fn write(&self, value: &T) -> io::Result<()> {
         if let Some(dir) = self.path.parent() {
-            std::fs::create_dir_all(dir)?;
+            fs::create_dir_all(dir)?;
         }
         let tmp = self.path.with_extension("json.tmp");
-        std::fs::write(&tmp, serde_json::to_string_pretty(value)?)?;
-        std::fs::rename(&tmp, &self.path)
+        fs::write(&tmp, serde_json::to_string_pretty(value)?)?;
+        fs::rename(&tmp, &self.path)
     }
 
-    fn lock(&self) -> std::sync::MutexGuard<'_, Loaded<T>> {
+    fn lock(&self) -> MutexGuard<'_, Loaded<T>> {
         self.inner.lock().unwrap_or_else(|e| e.into_inner())
     }
 }

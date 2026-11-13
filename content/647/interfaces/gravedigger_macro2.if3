@@ -1,0 +1,170 @@
+// 141:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+colour=0x000000
+fill=yes
+
+// 141:1
+[foregroundgrave]
+type=model
+x=-20
+y=-14
+width=29447
+height=50924
+widthmode=proportion
+heightmode=proportion
+layer=content_layer
+model=model_13373
+modelorigin=-216,-258
+modelangle=190,373,0
+modelzoom=309
+modelobjwidth=920
+modelobjheight=1038
+
+// 141:2
+[com_2]
+type=rectangle
+x=136
+y=43
+width=252
+height=247
+layer=content_layer
+colour=0x666600
+fill=yes
+trans=178
+
+// 141:3
+[gd_1]
+type=model
+x=146
+y=50
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:4
+[gd_2]
+type=model
+x=227
+y=50
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:5
+[gd_3]
+type=model
+x=308
+y=50
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:6
+[gd_4]
+type=model
+x=146
+y=133
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:7
+[gd_5]
+type=model
+x=227
+y=132
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:8
+[gd_6]
+type=model
+x=308
+y=132
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:9
+[gd_7]
+type=model
+x=146
+y=212
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:10
+[gd_8]
+type=model
+x=227
+y=213
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:11
+[gd_9]
+type=model
+x=308
+y=213
+width=70
+height=69
+layer=content_layer
+model=null
+modelzoom=400
+onload=gravedigger_spin(event_com)
+
+// 141:12
+[macro_close]
+type=graphic
+x=12
+y=12
+width=26
+height=23
+xmode=abs_right
+layer=content_layer
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(gravedigger_macro2:macro_close, "close_buttons,5")
+onmouseleave=graphic_swapper(gravedigger_macro2:macro_close, "close_buttons,4")
+onop=closebutton_click
+
+// 141:13
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+onload=script1087(event_com, 0)

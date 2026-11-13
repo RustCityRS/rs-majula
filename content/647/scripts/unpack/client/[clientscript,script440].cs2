@@ -1,0 +1,22 @@
+// 440
+[clientscript,script440]
+if_setgraphic(conq_friendly_options:round_time_30_graphic, "radio_buttons,0");
+if_setgraphic(conq_friendly_options:round_time_60_graphic, "radio_buttons,0");
+if_setgraphic(conq_friendly_options:round_time_90_graphic, "radio_buttons,0");
+if_setgraphic(conq_friendly_options:round_time_120_graphic, "radio_buttons,0");
+if_setgraphic(conq_friendly_options:round_time_150_graphic, "radio_buttons,0");
+if_setgraphic(conq_friendly_options:round_time_180_graphic, "radio_buttons,0");
+switch_int (%conq_max_turn_time_selection) {
+    case 0 :
+        if_setgraphic(conq_friendly_options:round_time_30_graphic, "radio_buttons,1");
+    case 1 :
+        if_setgraphic(conq_friendly_options:round_time_60_graphic, "radio_buttons,1");
+    case 2 :
+        if_setgraphic(conq_friendly_options:round_time_90_graphic, "radio_buttons,1");
+    case 3 :
+        if_setgraphic(conq_friendly_options:round_time_120_graphic, "radio_buttons,1");
+    case 4 :
+        if_setgraphic(conq_friendly_options:round_time_150_graphic, "radio_buttons,1");
+    case 5 :
+        if_setgraphic(conq_friendly_options:round_time_180_graphic, "radio_buttons,1");
+}

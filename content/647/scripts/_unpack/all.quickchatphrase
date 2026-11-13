@@ -1,0 +1,5664 @@
+// 0
+[chatphrase_0]
+phrase=What is your level in Agility?
+autoresponse=chatphrase_1
+
+// 1
+[chatphrase_1]
+phrase=My Agility level is <stat_base(agility)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_1
+
+// 2
+[chatphrase_2]
+phrase=Let's go to Agility course: <listdialog(enum_1505)>?
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 3
+[chatphrase_3]
+phrase=Race you!
+
+// 4
+[chatphrase_4]
+phrase=Are there any Agility shortcuts near here?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_226
+
+// 5
+[chatphrase_5]
+phrase=Where's a good place for me to train Agility?
+autoresponse=chatphrase_6
+
+// 6
+[chatphrase_6]
+phrase=Try training your Agility at: <listdialog(enum_1505)>.
+
+// 7
+[chatphrase_7]
+phrase=What is your level in Attack?
+autoresponse=chatphrase_8
+
+// 8
+[chatphrase_8]
+phrase=My Attack level is <stat_base(attack)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_8
+
+// 9
+[chatphrase_9]
+phrase=I'm training Attack.
+
+// 10
+[chatphrase_10]
+phrase=Which NPC is good for me to train Attack on?
+autoresponse=chatphrase_11
+
+// 11
+[chatphrase_11]
+phrase=Try training on: <listdialog(enum_1524)>.
+
+// 12
+[chatphrase_12]
+phrase=What is your level in Construction?
+autoresponse=chatphrase_13
+
+// 13
+[chatphrase_13]
+phrase=My Construction level is <stat_base(construction)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_13
+
+// 14
+[chatphrase_14]
+phrase=Would you please build me a flat-pack: <listdialog(enum_1490)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 15
+[chatphrase_15]
+phrase=What is your level in Cooking?
+autoresponse=chatphrase_16
+
+// 16
+[chatphrase_16]
+phrase=My Cooking level is <stat_base(cooking)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_16
+
+// 17
+[chatphrase_17]
+phrase=What are you cooking?
+autoresponse=chatphrase_18
+
+// 18
+[chatphrase_18]
+phrase=I'm cooking: <listdialog(enum_1492)>.
+
+// 19
+[chatphrase_19]
+phrase=Would you please cook me: <listdialog(enum_1492)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 20
+[chatphrase_20]
+phrase=What's a good way for me to train Cooking?
+autoresponse=chatphrase_21
+
+// 21
+[chatphrase_21]
+phrase=Try cooking: <listdialog(enum_1492)>.
+
+// 22
+[chatphrase_22]
+phrase=What is your level in Crafting?
+autoresponse=chatphrase_23
+
+// 23
+[chatphrase_23]
+phrase=My Crafting level is <stat_base(crafting)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_23
+
+// 24
+[chatphrase_24]
+phrase=What are you crafting?
+autoresponse=chatphrase_25
+
+// 25
+[chatphrase_25]
+phrase=I am crafting: <listdialog(enum_1493)>.
+
+// 26
+[chatphrase_26]
+phrase=Would you please craft me: <listdialog(enum_1493)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 27
+[chatphrase_27]
+phrase=What's a good way for me to train Crafting?
+autoresponse=chatphrase_28
+
+// 28
+[chatphrase_28]
+phrase=Try crafting: <listdialog(enum_1493)>.
+
+// 29
+[chatphrase_29]
+phrase=What is your level in Defence?
+autoresponse=chatphrase_30
+
+// 30
+[chatphrase_30]
+phrase=My Defence level is <stat_base(defence)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_30
+
+// 31
+[chatphrase_31]
+phrase=I'm training Defence.
+
+// 32
+[chatphrase_32]
+phrase=Which NPC is good for me to train Defence on?
+autoresponse=chatphrase_11
+
+// 33
+[chatphrase_33]
+phrase=What is your level in Farming?
+autoresponse=chatphrase_34
+
+// 34
+[chatphrase_34]
+phrase=My Farming level is <stat_base(farming)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_34
+
+// 35
+[chatphrase_35]
+phrase=What are you growing?
+autoresponse=chatphrase_36
+
+// 36
+[chatphrase_36]
+phrase=I'm growing crop: <listdialog(enum_1494)>.
+
+// 37
+[chatphrase_37]
+phrase=What's a good crop for me to train Farming?
+autoresponse=chatphrase_38
+
+// 38
+[chatphrase_38]
+phrase=Try growing crop: <listdialog(enum_1494)>.
+
+// 39
+[chatphrase_39]
+phrase=Vinesweeper is a good way to train Farming.
+
+// 40
+[chatphrase_40]
+phrase=What is your level in Firemaking?
+autoresponse=chatphrase_41
+
+// 41
+[chatphrase_41]
+phrase=My Firemaking level is <stat_base(firemaking)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_41
+
+// 42
+[chatphrase_42]
+phrase=What logs are you burning?
+autoresponse=chatphrase_43
+
+// 43
+[chatphrase_43]
+phrase=I'm burning logs: <listdialog(enum_1495)>.
+
+// 44
+[chatphrase_44]
+phrase=Where's a good place for me to train Firemaking?
+autoresponse=chatphrase_45
+
+// 45
+[chatphrase_45]
+phrase=Try burning logs at: <listdialog(enum_1544)>.
+
+// 46
+[chatphrase_46]
+phrase=What is your level in Fishing?
+autoresponse=chatphrase_47
+
+// 47
+[chatphrase_47]
+phrase=My Fishing level is <stat_base(fishing)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_47
+
+// 48
+[chatphrase_48]
+phrase=What are you fishing?
+autoresponse=chatphrase_49
+
+// 49
+[chatphrase_49]
+phrase=I'm fishing: <listdialog(enum_1491)>.
+
+// 50
+[chatphrase_50]
+phrase=Would you please fish me: <listdialog(enum_1491)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 51
+[chatphrase_51]
+phrase=What's a good way for me to train Fishing?
+autoresponse=chatphrase_52
+
+// 52
+[chatphrase_52]
+phrase=Try fishing for: <listdialog(enum_1491)>.
+
+// 53
+[chatphrase_53]
+phrase=Fishing Trawler is a good way to train Fishing.
+
+// 54
+[chatphrase_54]
+phrase=What is your level in Fletching?
+autoresponse=chatphrase_55
+
+// 55
+[chatphrase_55]
+phrase=My Fletching level is <stat_base(fletching)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_55
+
+// 56
+[chatphrase_56]
+phrase=What are you Fletching?
+autoresponse=chatphrase_57
+
+// 57
+[chatphrase_57]
+phrase=I'm fletching: <listdialog(enum_1496)>.
+
+// 58
+[chatphrase_58]
+phrase=Would you please fletch me: <listdialog(enum_1496)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 59
+[chatphrase_59]
+phrase=What's a good thing for me to train Fletching?
+autoresponse=chatphrase_60
+
+// 60
+[chatphrase_60]
+phrase=Try fletching: <listdialog(enum_1496)>.
+
+// 61
+[chatphrase_61]
+phrase=What is your level in Herblore?
+autoresponse=chatphrase_62
+
+// 62
+[chatphrase_62]
+phrase=My Herblore level is <stat_base(herblore)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_62
+
+// 63
+[chatphrase_63]
+phrase=Would you please mix me a potion: <listdialog(enum_1526)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 64
+[chatphrase_64]
+phrase=What potion are you mixing?
+autoresponse=chatphrase_65
+
+// 65
+[chatphrase_65]
+phrase=I'm mixing potion: <listdialog(enum_1526)>.
+
+// 66
+[chatphrase_66]
+phrase=Where can I get the secondary ingredient: <listdialog(enum_1516)>?
+autoresponse=chatphrase_228
+
+// 67
+[chatphrase_67]
+phrase=What's a good potion for me to train Herblore?
+autoresponse=chatphrase_68
+
+// 68
+[chatphrase_68]
+phrase=Try mixing potion: <listdialog(enum_1526)>.
+
+// 69
+[chatphrase_69]
+phrase=What is your level in Constitution?
+autoresponse=chatphrase_70
+
+// 70
+[chatphrase_70]
+phrase=My Constitution level is <stat_base(hitpoints)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_70
+
+// 71
+[chatphrase_71]
+phrase=I'm training Constitution.
+
+// 72
+[chatphrase_72]
+phrase=Which NPC is good for me to train Constitution on?
+autoresponse=chatphrase_11
+
+// 73
+[chatphrase_73]
+phrase=What is your level in Hunter?
+autoresponse=chatphrase_74
+
+// 74
+[chatphrase_74]
+phrase=My Hunter level is <stat_base(hunter)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_74
+
+// 75
+[chatphrase_75]
+phrase=Would you please hunt me: <listdialog(enum_1543)>.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 76
+[chatphrase_76]
+phrase=What creature should I use to train hunting?
+autoresponse=chatphrase_77
+
+// 77
+[chatphrase_77]
+phrase=Try hunting: <listdialog(enum_1543)>.
+
+// 78
+[chatphrase_78]
+phrase=What is your level in Thieving?
+autoresponse=chatphrase_79
+
+// 79
+[chatphrase_79]
+phrase=My Thieving level is <stat_base(thieving)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_79
+
+// 80
+[chatphrase_80]
+phrase=What's a good way for me to train Thieving?
+autoresponse=chatphrase_81
+autoresponse=chatphrase_82
+autoresponse=chatphrase_83
+
+// 81
+[chatphrase_81]
+phrase=Try thieving from: <listdialog(enum_1540)>.
+
+// 82
+[chatphrase_82]
+phrase=Pyramid Plunder is a good way to train Thieving.
+
+// 83
+[chatphrase_83]
+phrase=Sorceress's Garden is a good way to train Thieving.
+
+// 84
+[chatphrase_84]
+phrase=What is your level in Summoning?
+autoresponse=chatphrase_85
+
+// 85
+[chatphrase_85]
+phrase=My Summoning level is <stat_base(summoning)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_85
+
+// 86
+[chatphrase_86]
+phrase=Which do you think is the best familiar?
+autoresponse=chatphrase_87
+
+// 87
+[chatphrase_87]
+phrase=I like the familiar: <listdialog(enum_1539)>.
+
+// 88
+[chatphrase_88]
+phrase=I can summon up to: <listdialog(enum_1539)>.
+
+// 89
+[chatphrase_89]
+phrase=What NPC drops a lot of charms?
+autoresponse=chatphrase_90
+
+// 90
+[chatphrase_90]
+phrase=Good charm droppers are: <listdialog(enum_1499)>.
+
+// 91
+[chatphrase_91]
+phrase=What is your level in Strength?
+autoresponse=chatphrase_92
+
+// 92
+[chatphrase_92]
+phrase=My Strength level is <stat_base(strength)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_92
+
+// 93
+[chatphrase_93]
+phrase=I'm training Strength.
+
+// 94
+[chatphrase_94]
+phrase=Which NPC is good for me to train Strength on?
+autoresponse=chatphrase_11
+
+// 95
+[chatphrase_95]
+phrase=What is your level in Smithing?
+autoresponse=chatphrase_96
+
+// 96
+[chatphrase_96]
+phrase=My Smithing level is <stat_base(smithing)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_96
+
+// 97
+[chatphrase_97]
+phrase=What are you smithing?
+autoresponse=chatphrase_98
+
+// 98
+[chatphrase_98]
+phrase=I am smithing: <listdialog(enum_1530)> <listdialog(enum_1498)>.
+
+// 99
+[chatphrase_99]
+phrase=Would you please smith me: <listdialog(enum_1530)> <listdialog(enum_1498)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 100
+[chatphrase_100]
+phrase=What's a good item for me to train Smithing?
+autoresponse=chatphrase_101
+
+// 101
+[chatphrase_101]
+phrase=Try smithing: <listdialog(enum_1530)> <listdialog(enum_1498)>.
+
+// 102
+[chatphrase_102]
+phrase=What is your level in Slayer?
+autoresponse=chatphrase_103
+
+// 103
+[chatphrase_103]
+phrase=My Slayer level is <stat_base(slayer)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_103
+
+// 104
+[chatphrase_104]
+phrase=What is your current Slayer assignment?
+autoresponse=chatphrase_105
+
+// 105
+[chatphrase_105]
+phrase=My current Slayer assignment is: <enum_string(enum_1563,varplayer_395)>.
+
+// 106
+[chatphrase_106]
+phrase=Do you have spare Slayer equipment: <listdialog(enum_1538)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 107
+[chatphrase_107]
+phrase=You need the following Slayer equipment: <listdialog(enum_1538)>.
+autoresponse=chatphrase_158
+
+// 108
+[chatphrase_108]
+phrase=Would you like to borrow: <objtradedialog()>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_445
+autoresponse=chatphrase_666
+autoresponse=chatphrase_539
+autoresponse=chatphrase_540
+autoresponse=chatphrase_542
+
+// 109
+[chatphrase_109]
+phrase=Get our orbs to the altar!
+
+// 110
+[chatphrase_110]
+phrase=What is your level in Runecrafting?
+autoresponse=chatphrase_111
+
+// 111
+[chatphrase_111]
+phrase=My Runecrafting level is <stat_base(runecraft)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_111
+
+// 112
+[chatphrase_112]
+phrase=I'm going to craft rune: <listdialog(enum_1535)>.
+
+// 113
+[chatphrase_113]
+phrase=What's the best way for me to train Runecrafting?
+autoresponse=chatphrase_114
+
+// 114
+[chatphrase_114]
+phrase=Try crafting runes at: <listdialog(enum_1536)>.
+
+// 115
+[chatphrase_115]
+phrase=What is your level in Ranged?
+autoresponse=chatphrase_116
+
+// 116
+[chatphrase_116]
+phrase=My Ranged level is <stat_base(ranged)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_116
+
+// 117
+[chatphrase_117]
+phrase=What's a good NPC for me to train Ranged on?
+autoresponse=chatphrase_118
+
+// 118
+[chatphrase_118]
+phrase=Try ranging: <listdialog(enum_1525)>.
+
+// 119
+[chatphrase_119]
+phrase=What is your level in Prayer?
+autoresponse=chatphrase_120
+
+// 120
+[chatphrase_120]
+phrase=My Prayer level is <stat_base(prayer)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_120
+
+// 121
+[chatphrase_121]
+phrase=Use your prayer: <listdialog(enum_1534)>.
+
+// 122
+[chatphrase_122]
+phrase=Turn your prayers off.
+
+// 123
+[chatphrase_123]
+phrase=I'm going to train Prayer at the Ectofuntus.
+
+// 124
+[chatphrase_124]
+phrase=I'm going to train Prayer at my POH altar.
+
+// 125
+[chatphrase_125]
+phrase=I'm going to recharge my Prayer.
+autoresponse=chatphrase_162
+
+// 126
+[chatphrase_126]
+phrase=What is your level in Mining?
+autoresponse=chatphrase_127
+
+// 127
+[chatphrase_127]
+phrase=My Mining level is <stat_base(mining)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_127
+
+// 128
+[chatphrase_128]
+phrase=What pickaxe are you using?
+autoresponse=chatphrase_129
+
+// 129
+[chatphrase_129]
+phrase=I'm using <listdialog(enum_1531)>.
+
+// 130
+[chatphrase_130]
+phrase=What ore are you mining?
+autoresponse=chatphrase_131
+
+// 131
+[chatphrase_131]
+phrase=I'm mining ore: <listdialog(enum_1529)>.
+
+// 132
+[chatphrase_132]
+phrase=Where's a good place for me to train mining?
+autoresponse=chatphrase_133
+
+// 133
+[chatphrase_133]
+phrase=Try mining at: <listdialog(enum_1533)>.
+
+// 134
+[chatphrase_134]
+phrase=What is your level in Magic?
+autoresponse=chatphrase_135
+
+// 135
+[chatphrase_135]
+phrase=My Magic level is <stat_base(magic)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_135
+
+// 136
+[chatphrase_136]
+phrase=What spell are you casting?
+autoresponse=chatphrase_137
+
+// 137
+[chatphrase_137]
+phrase=I'm casting spell: <listdialog(enum_1527)>.
+
+// 138
+[chatphrase_138]
+phrase=Would you please cast: <listdialog(enum_1527)>.
+
+// 139
+[chatphrase_139]
+phrase=What spell book are you on?
+autoresponse=chatphrase_140
+
+// 140
+[chatphrase_140]
+phrase=I am on spell book: <listdialog(enum_1528)>.
+
+// 141
+[chatphrase_141]
+phrase=What is your level in Woodcutting?
+autoresponse=chatphrase_142
+
+// 142
+[chatphrase_142]
+phrase=My Woodcutting level is <stat_base(woodcutting)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_142
+
+// 143
+[chatphrase_143]
+phrase=What hatchet do you use?
+autoresponse=chatphrase_144
+
+// 144
+[chatphrase_144]
+phrase=I'm using a hatchet made of: <listdialog(enum_1532)>.
+
+// 145
+[chatphrase_145]
+phrase=Where's a good place for me to train Woodcutting?
+autoresponse=chatphrase_146
+
+// 146
+[chatphrase_146]
+phrase=Try training Woodcutting at: <listdialog(enum_1500)>.
+
+// 147
+[chatphrase_147]
+phrase=Hello!
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 148
+[chatphrase_148]
+phrase=Hi.
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 149
+[chatphrase_149]
+phrase=Good day.
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 150
+[chatphrase_150]
+phrase=Nice to meet you.
+autoresponse=chatphrase_905
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 151
+[chatphrase_151]
+phrase=How are you?
+autoresponse=chatphrase_177
+autoresponse=chatphrase_178
+autoresponse=chatphrase_179
+autoresponse=chatphrase_180
+autoresponse=chatphrase_181
+autoresponse=chatphrase_182
+
+// 152
+[chatphrase_152]
+phrase=Happy <listdialog(enum_1521)>!
+autoresponse=chatphrase_158
+
+// 153
+[chatphrase_153]
+phrase=Yes.
+
+// 154
+[chatphrase_154]
+phrase=No.
+
+// 155
+[chatphrase_155]
+phrase=No problem.
+
+// 156
+[chatphrase_156]
+phrase=Maybe.
+
+// 157
+[chatphrase_157]
+phrase=I don't know.
+
+// 158
+[chatphrase_158]
+phrase=Thank you.
+
+// 159
+[chatphrase_159]
+phrase=You're welcome.
+
+// 160
+[chatphrase_160]
+phrase=Sorry.
+
+// 161
+[chatphrase_161]
+phrase=Bye!
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 162
+[chatphrase_162]
+phrase=See you later.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 163
+[chatphrase_163]
+phrase=Be right back.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 164
+[chatphrase_164]
+phrase=I've got to go.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 165
+[chatphrase_165]
+phrase=Goodnight.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_165
+
+// 166
+[chatphrase_166]
+phrase=I have to log off.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 167
+[chatphrase_167]
+phrase=Please stop that.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_160
+
+// 168
+[chatphrase_168]
+phrase=That's good.
+
+// 169
+[chatphrase_169]
+phrase=That's bad.
+
+// 170
+[chatphrase_170]
+phrase=Please run.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_172
+autoresponse=chatphrase_250
+
+// 171
+[chatphrase_171]
+phrase=Hang on a second.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 172
+[chatphrase_172]
+phrase=I can't do that.
+
+// 173
+[chatphrase_173]
+phrase=w00t!
+autoresponse=chatphrase_173
+
+// 174
+[chatphrase_174]
+phrase=Not right now.
+autoresponse=chatphrase_661
+
+// 175
+[chatphrase_175]
+phrase=I'm happy!
+
+// 176
+[chatphrase_176]
+phrase=I'm sad.
+
+// 177
+[chatphrase_177]
+phrase=I'm great!
+
+// 178
+[chatphrase_178]
+phrase=I'm good.
+
+// 179
+[chatphrase_179]
+phrase=I'm okay.
+
+// 180
+[chatphrase_180]
+phrase=Meh.
+
+// 181
+[chatphrase_181]
+phrase=I've been better.
+
+// 182
+[chatphrase_182]
+phrase=I'm having a bad day.
+
+// 183
+[chatphrase_183]
+phrase=:-)
+
+// 184
+[chatphrase_184]
+phrase=:-(
+
+// 185
+[chatphrase_185]
+phrase=:-|
+
+// 186
+[chatphrase_186]
+phrase=:-D
+
+// 187
+[chatphrase_187]
+phrase=:-S
+
+// 188
+[chatphrase_188]
+phrase=:-O
+
+// 189
+[chatphrase_189]
+phrase=:-P
+
+// 190
+[chatphrase_190]
+phrase=;-)
+
+// 191
+[chatphrase_191]
+phrase=I won!
+
+// 192
+[chatphrase_192]
+phrase=Aww, I lost.
+
+// 193
+[chatphrase_193]
+phrase=Good game, all.
+
+// 194
+[chatphrase_194]
+phrase=Who wants a rematch?
+autoresponse=chatphrase_343
+autoresponse=chatphrase_154
+
+// 195
+[chatphrase_195]
+phrase=Well done.
+autoresponse=chatphrase_158
+
+// 196
+[chatphrase_196]
+phrase=Unlucky, maybe next time.
+
+// 197
+[chatphrase_197]
+phrase=Got you with that one!
+
+// 198
+[chatphrase_198]
+phrase=Buh bye.
+
+// 199
+[chatphrase_199]
+phrase=That's gotta hurt.
+
+// 200
+[chatphrase_200]
+phrase=Another one bites the dust.
+
+// 201
+[chatphrase_201]
+phrase=I have you now!
+
+// 202
+[chatphrase_202]
+phrase=Fear my leet skills.
+
+// 203
+[chatphrase_203]
+phrase=I'll get you!
+
+// 204
+[chatphrase_204]
+phrase=I'm coming for ya.
+
+// 205
+[chatphrase_205]
+phrase=Run and hide, pal.
+
+// 206
+[chatphrase_206]
+phrase=Don't hurt me!
+
+// 207
+[chatphrase_207]
+phrase=I love this game!
+
+// 208
+[chatphrase_208]
+phrase=I don't like this game.
+
+// 209
+[chatphrase_209]
+phrase=I like your item: <objdialog()>.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 210
+[chatphrase_210]
+phrase=Nicely done.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 211
+[chatphrase_211]
+phrase=Nice hit.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 212
+[chatphrase_212]
+phrase=I like your familiar.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 213
+[chatphrase_213]
+phrase=I like your pet.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 214
+[chatphrase_214]
+phrase=You look cool.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 215
+[chatphrase_215]
+phrase=Nice levels.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 216
+[chatphrase_216]
+phrase=Nice level in: <listdialog(enum_1517)>.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 217
+[chatphrase_217]
+phrase=Help!
+
+// 218
+[chatphrase_218]
+phrase=Would you please assist me in: <listdialog(enum_1552)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 219
+[chatphrase_219]
+phrase=Would you protect my gravestone, please?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 220
+[chatphrase_220]
+phrase=Would you please help me fight: <listdialog(enum_1520)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 221
+[chatphrase_221]
+phrase=Try looking in the Game Guide.
+autoresponse=chatphrase_158
+
+// 222
+[chatphrase_222]
+phrase=Would you please teleport me to: <listdialog(enum_1518)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 223
+[chatphrase_223]
+phrase=Would you please teleport us to: <listdialog(enum_1519)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 224
+[chatphrase_224]
+phrase=How do I get to location: <listdialog(enum_1504)>?
+autoresponse=chatphrase_230
+
+// 225
+[chatphrase_225]
+phrase=Could you please lead me to location: <listdialog(enum_1504)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_241
+
+// 226
+[chatphrase_226]
+phrase=Follow me.
+
+// 227
+[chatphrase_227]
+phrase=Follow me to: <listdialog(enum_1504)>.
+
+// 228
+[chatphrase_228]
+phrase=Go to location: <listdialog(enum_1504)>.
+
+// 229
+[chatphrase_229]
+phrase=Where can I get item: <objdialog()>?
+autoresponse=chatphrase_228
+autoresponse=chatphrase_706
+autoresponse=chatphrase_707
+
+// 230
+[chatphrase_230]
+phrase=That is <listdialog(enum_1502)> of <listdialog(enum_1504)>.
+
+// 231
+[chatphrase_231]
+phrase=Where are you?
+autoresponse=chatphrase_708
+
+// 232
+[chatphrase_232]
+phrase=Where is the nearest: <listdialog(enum_1488)>.
+autoresponse=chatphrase_233
+autoresponse=chatphrase_228
+autoresponse=chatphrase_230
+
+// 233
+[chatphrase_233]
+phrase=Go: <listdialog(enum_1502)>.
+autoresponse=chatphrase_158
+
+// 234
+[chatphrase_234]
+phrase=Use transport: <listdialog(enum_1487)>.
+
+// 235
+[chatphrase_235]
+phrase=What are you doing?
+autoresponse=chatphrase_236
+autoresponse=chatphrase_237
+autoresponse=chatphrase_238
+autoresponse=chatphrase_239
+autoresponse=chatphrase_240
+autoresponse=chatphrase_241
+
+// 236
+[chatphrase_236]
+phrase=I am training: <listdialog(enum_1517)>.
+
+// 237
+[chatphrase_237]
+phrase=I am playing: <listdialog(enum_1503)>.
+
+// 238
+[chatphrase_238]
+phrase=I am doing quest: <listdialog(enum_1541)>.
+
+// 239
+[chatphrase_239]
+phrase=I am doing a treasure trail.
+
+// 240
+[chatphrase_240]
+phrase=I am in random event: <listdialog(enum_1546)>.
+
+// 241
+[chatphrase_241]
+phrase=I am busy, sorry.
+
+// 242
+[chatphrase_242]
+phrase=Add me please.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 243
+[chatphrase_243]
+phrase=Would you like to go to play: <listdialog(enum_1503)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 244
+[chatphrase_244]
+phrase=Would you like to fight: <listdialog(enum_1520)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 245
+[chatphrase_245]
+phrase=Meet me on RuneScape world: <listdialog(enum_1542)>.
+autoresponse=chatphrase_246
+autoresponse=chatphrase_248
+autoresponse=chatphrase_249
+autoresponse=chatphrase_154
+
+// 246
+[chatphrase_246]
+phrase=I'll wait for you at location: <listdialog(enum_1504)>.
+
+// 247
+[chatphrase_247]
+phrase=Can I play too?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 248
+[chatphrase_248]
+phrase=I'll come to you.
+
+// 249
+[chatphrase_249]
+phrase=You come to me.
+
+// 250
+[chatphrase_250]
+phrase=Please wait whilst my run energy recharges.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 251
+[chatphrase_251]
+phrase=Help me open this door; stand on the button.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 252
+[chatphrase_252]
+phrase=Destroy the support.
+
+// 253
+[chatphrase_253]
+phrase=Take the left path.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+autoresponse=chatphrase_256
+autoresponse=chatphrase_257
+autoresponse=chatphrase_258
+
+// 254
+[chatphrase_254]
+phrase=Take the middle path.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+autoresponse=chatphrase_256
+autoresponse=chatphrase_257
+autoresponse=chatphrase_258
+
+// 255
+[chatphrase_255]
+phrase=Take the right path.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+autoresponse=chatphrase_256
+autoresponse=chatphrase_257
+autoresponse=chatphrase_258
+
+// 256
+[chatphrase_256]
+phrase=I'll take the left path.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+autoresponse=chatphrase_253
+autoresponse=chatphrase_254
+autoresponse=chatphrase_255
+
+// 257
+[chatphrase_257]
+phrase=I'll take the middle path.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+autoresponse=chatphrase_253
+autoresponse=chatphrase_254
+autoresponse=chatphrase_255
+
+// 258
+[chatphrase_258]
+phrase=I'll take the right path.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+autoresponse=chatphrase_253
+autoresponse=chatphrase_254
+autoresponse=chatphrase_255
+
+// 259
+[chatphrase_259]
+phrase=I'll take on Dagannoth <listdialog(enum_1506)>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 260
+[chatphrase_260]
+phrase=You take on Dagannoth <listdialog(enum_1506)>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 261
+[chatphrase_261]
+phrase=Leave Dagannoth <listdialog(enum_1506)> for now.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 262
+[chatphrase_262]
+phrase=Stay close to the water.
+
+// 263
+[chatphrase_263]
+phrase=Telegrab the drop.
+
+// 264
+[chatphrase_264]
+phrase=I have to go to a bank.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_162
+
+// 265
+[chatphrase_265]
+phrase=Where is the mole?
+autoresponse=chatphrase_267
+autoresponse=chatphrase_268
+autoresponse=chatphrase_269
+autoresponse=chatphrase_270
+autoresponse=chatphrase_271
+autoresponse=chatphrase_157
+
+// 266
+[chatphrase_266]
+phrase=I need a tinderbox or light source.
+autoresponse=chatphrase_787
+
+// 267
+[chatphrase_267]
+phrase=It's at the centre!
+
+// 268
+[chatphrase_268]
+phrase=It's at the north, near the entrance.
+
+// 269
+[chatphrase_269]
+phrase=It's at the south, near the exit.
+
+// 270
+[chatphrase_270]
+phrase=It's to the east of the cavern.
+
+// 271
+[chatphrase_271]
+phrase=It's to the west of the cavern.
+
+// 272
+[chatphrase_272]
+phrase=Poison it!
+
+// 273
+[chatphrase_273]
+phrase=Kill Armadyl's followers.
+
+// 274
+[chatphrase_274]
+phrase=Kill Bandos's followers.
+
+// 275
+[chatphrase_275]
+phrase=Kill Saradomin's followers.
+
+// 276
+[chatphrase_276]
+phrase=Kill Zamorak's followers.
+
+// 277
+[chatphrase_277]
+phrase=Attack the lower-level creatures.
+
+// 278
+[chatphrase_278]
+phrase=I don't have enough kills yet.
+
+// 279
+[chatphrase_279]
+phrase=Don't waste your food and potions yet.
+
+// 280
+[chatphrase_280]
+phrase=Let's go to the boss room!
+autoresponse=chatphrase_278
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 281
+[chatphrase_281]
+phrase=Attack the boss!
+
+// 282
+[chatphrase_282]
+phrase=Attack the Magic sub-boss!
+
+// 283
+[chatphrase_283]
+phrase=Attack the Ranged sub-boss!
+
+// 284
+[chatphrase_284]
+phrase=Attack the melee sub-boss!
+
+// 285
+[chatphrase_285]
+phrase=I have to recharge my Prayer.
+
+// 286
+[chatphrase_286]
+phrase=I'm outta here!
+
+// 287
+[chatphrase_287]
+phrase=Stand opposite me.
+
+// 288
+[chatphrase_288]
+phrase=Get this guardian off me!
+
+// 289
+[chatphrase_289]
+phrase=She's protecting against Ranged and Magic; use melee!
+
+// 290
+[chatphrase_290]
+phrase=She's invulnerable to melee; use Magic or Ranged!
+
+// 291
+[chatphrase_291]
+phrase=I'm going to be role: <listdialog(enum_1507)>.
+
+// 292
+[chatphrase_292]
+phrase=We need role: <listdialog(enum_1507)>.
+
+// 293
+[chatphrase_293]
+phrase=What wave should we do?
+autoresponse=chatphrase_294
+
+// 294
+[chatphrase_294]
+phrase=We should do wave: <listdialog(enum_1508)>.
+
+// 295
+[chatphrase_295]
+phrase=What are you spending your Barbarian Assault points on?
+autoresponse=chatphrase_296
+autoresponse=chatphrase_297
+
+// 296
+[chatphrase_296]
+phrase=I'm spending my Barbarian Assault points on: <listdialog(enum_1510)>.
+
+// 297
+[chatphrase_297]
+phrase=I'm going to gamble.
+
+// 298
+[chatphrase_298]
+phrase=Someone use the egg launcher.
+
+// 299
+[chatphrase_299]
+phrase=Someone get on the horn.
+
+// 300
+[chatphrase_300]
+phrase=I need healing.
+
+// 301
+[chatphrase_301]
+phrase=Repair the traps.
+
+// 302
+[chatphrase_302]
+phrase=Build some barricades.
+
+// 303
+[chatphrase_303]
+phrase=How many Stealing Creation Points do you have?
+autoresponse=chatphrase_611
+
+// 304
+[chatphrase_304]
+phrase=I'm joining the Zamorak team.
+
+// 305
+[chatphrase_305]
+phrase=I'm joining the Saradomin team.
+
+// 306
+[chatphrase_306]
+phrase=I'm using the Guthix portal.
+
+// 307
+[chatphrase_307]
+phrase=The Zamorak team is full.
+
+// 308
+[chatphrase_308]
+phrase=The Saradomin team is full.
+
+// 309
+[chatphrase_309]
+phrase=Where is our flag?
+autoresponse=chatphrase_312
+autoresponse=chatphrase_321
+autoresponse=chatphrase_322
+autoresponse=chatphrase_323
+autoresponse=chatphrase_324
+autoresponse=chatphrase_325
+autoresponse=chatphrase_326
+
+// 310
+[chatphrase_310]
+phrase=Where is their flag?
+autoresponse=chatphrase_311
+autoresponse=chatphrase_321
+autoresponse=chatphrase_322
+autoresponse=chatphrase_323
+autoresponse=chatphrase_324
+autoresponse=chatphrase_325
+autoresponse=chatphrase_326
+
+// 311
+[chatphrase_311]
+phrase=I have their flag!
+
+// 312
+[chatphrase_312]
+phrase=They have our flag!
+
+// 313
+[chatphrase_313]
+phrase=Collapse the tunnels.
+
+// 314
+[chatphrase_314]
+phrase=Fire the catapult!
+
+// 315
+[chatphrase_315]
+phrase=Climb up the walls!
+
+// 316
+[chatphrase_316]
+phrase=Build some barricades!
+
+// 317
+[chatphrase_317]
+phrase=Destroy their barricades!
+
+// 318
+[chatphrase_318]
+phrase=Defend our flag!
+autoresponse=chatphrase_154
+autoresponse=chatphrase_319
+
+// 319
+[chatphrase_319]
+phrase=Capture their flag!
+autoresponse=chatphrase_154
+autoresponse=chatphrase_318
+autoresponse=chatphrase_311
+
+// 320
+[chatphrase_320]
+phrase=Medic! I need a bandage!
+
+// 321
+[chatphrase_321]
+phrase=Underground.
+
+// 322
+[chatphrase_322]
+phrase=In the open.
+
+// 323
+[chatphrase_323]
+phrase=In our castle!
+
+// 324
+[chatphrase_324]
+phrase=In their castle.
+
+// 325
+[chatphrase_325]
+phrase=At the east stepping stones.
+
+// 326
+[chatphrase_326]
+phrase=At the west stepping stones.
+
+// 327
+[chatphrase_327]
+phrase=Attack my opponent!
+
+// 328
+[chatphrase_328]
+phrase=Retreat!
+
+// 329
+[chatphrase_329]
+phrase=Charge!
+
+// 330
+[chatphrase_330]
+phrase=Take out their mages.
+
+// 331
+[chatphrase_331]
+phrase=Take out their rangers.
+
+// 332
+[chatphrase_332]
+phrase=Take out their meleers.
+
+// 333
+[chatphrase_333]
+phrase=Take out their high-levels.
+
+// 334
+[chatphrase_334]
+phrase=Take out their low-levels.
+
+// 335
+[chatphrase_335]
+phrase=Rally to me!
+
+// 336
+[chatphrase_336]
+phrase=Protect our mages.
+
+// 337
+[chatphrase_337]
+phrase=Protect our rangers.
+
+// 338
+[chatphrase_338]
+phrase=Protect our meleers.
+
+// 339
+[chatphrase_339]
+phrase=Protect our high-levels.
+
+// 340
+[chatphrase_340]
+phrase=Protect our low-levels.
+
+// 341
+[chatphrase_341]
+phrase=I challenge you to a friendly duel.
+autoresponse=chatphrase_343
+autoresponse=chatphrase_154
+
+// 342
+[chatphrase_342]
+phrase=I challenge you to a staked duel.
+autoresponse=chatphrase_343
+autoresponse=chatphrase_154
+
+// 343
+[chatphrase_343]
+phrase=I accept.
+
+// 344
+[chatphrase_344]
+phrase=Turn on the rule: <listdialog(enum_1511)>.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 345
+[chatphrase_345]
+phrase=Turn off the rule: <listdialog(enum_1511)>.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 346
+[chatphrase_346]
+phrase=Lower your stake.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 347
+[chatphrase_347]
+phrase=Increase your stake.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 348
+[chatphrase_348]
+phrase=Let's fight!
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 349
+[chatphrase_349]
+phrase=You have no chance.
+
+// 350
+[chatphrase_350]
+phrase=I'm going to win.
+
+// 351
+[chatphrase_351]
+phrase=Take that!
+
+// 352
+[chatphrase_352]
+phrase=How's that for some damage?
+autoresponse=chatphrase_211
+autoresponse=chatphrase_203
+
+// 353
+[chatphrase_353]
+phrase=What are you spending your Fist of Guthix points on?
+autoresponse=chatphrase_354
+
+// 354
+[chatphrase_354]
+phrase=I'm spending my Fist of Guthix points on: <listdialog(enum_1512)>.
+
+// 355
+[chatphrase_355]
+phrase=What is your Fist of Guthix rating?
+autoresponse=chatphrase_356
+
+// 356
+[chatphrase_356]
+phrase=My Fist of Guthix rating is: <tostring_varp(varplayer_1405)>.
+
+// 357
+[chatphrase_357]
+phrase=You'll never find me.
+
+// 358
+[chatphrase_358]
+phrase=I'm at the centre, near the Fist of Guthix.
+
+// 359
+[chatphrase_359]
+phrase=I'm in the houses.
+
+// 360
+[chatphrase_360]
+phrase=I'm around the edge.
+
+// 361
+[chatphrase_361]
+phrase=I've got charges: <tostring_varbit(varplayerbit_4562)>.
+
+// 362
+[chatphrase_362]
+phrase=Come out, come out, wherever you are.
+
+// 363
+[chatphrase_363]
+phrase=How many charges have you got?
+autoresponse=chatphrase_361
+
+// 364
+[chatphrase_364]
+phrase=I'm getting on the novice lander.
+
+// 365
+[chatphrase_365]
+phrase=I'm getting on the intermediate lander.
+
+// 366
+[chatphrase_366]
+phrase=I'm getting on the veteran lander.
+
+// 367
+[chatphrase_367]
+phrase=I'm going to trade my points in.
+autoresponse=chatphrase_368
+
+// 368
+[chatphrase_368]
+phrase=What are you spending your Commendations on?
+autoresponse=chatphrase_369
+
+// 369
+[chatphrase_369]
+phrase=I'm spending my Pest Control points on: <listdialog(enum_1513)>.
+
+// 370
+[chatphrase_370]
+phrase=The west portal shield is down - attack it!
+
+// 371
+[chatphrase_371]
+phrase=The east portal shield is down - attack it!
+
+// 372
+[chatphrase_372]
+phrase=The south-west portal shield is down - attack it!
+
+// 373
+[chatphrase_373]
+phrase=The south-east portal shield is down - attack it!
+
+// 374
+[chatphrase_374]
+phrase=Protect the Void Knight!
+
+// 375
+[chatphrase_375]
+phrase=Close the gates!
+
+// 376
+[chatphrase_376]
+phrase=Repair the gates!
+
+// 377
+[chatphrase_377]
+phrase=Someone get up the tower!
+
+// 378
+[chatphrase_378]
+phrase=Attack the brawlers!
+
+// 379
+[chatphrase_379]
+phrase=Attack the defilers!
+
+// 380
+[chatphrase_380]
+phrase=Attack the ravagers!
+
+// 381
+[chatphrase_381]
+phrase=Attack the shifters!
+
+// 382
+[chatphrase_382]
+phrase=Attack the spinners!
+
+// 383
+[chatphrase_383]
+phrase=Attack the splatters!
+
+// 384
+[chatphrase_384]
+phrase=Attack the torchers!
+
+// 385
+[chatphrase_385]
+phrase=You're going down!
+
+// 386
+[chatphrase_386]
+phrase=You can't beat me!
+
+// 387
+[chatphrase_387]
+phrase=Don't attack me!
+
+// 388
+[chatphrase_388]
+phrase=Who will fight me?
+autoresponse=chatphrase_814
+
+// 389
+[chatphrase_389]
+phrase=Someone's trying to hide!
+
+// 390
+[chatphrase_390]
+phrase=Team up with me.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 391
+[chatphrase_391]
+phrase=Who would like a game of: <listdialog(enum_1514)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 392
+[chatphrase_392]
+phrase=Nice move.
+autoresponse=chatphrase_158
+
+// 393
+[chatphrase_393]
+phrase=Hehe, bad move. :-P
+
+// 394
+[chatphrase_394]
+phrase=I love what you've done with the place.
+autoresponse=chatphrase_158
+
+// 395
+[chatphrase_395]
+phrase=I'm not fond of your decor.
+
+// 396
+[chatphrase_396]
+phrase=Where is your player-owned house?
+autoresponse=chatphrase_397
+
+// 397
+[chatphrase_397]
+phrase=My house is in <listdialog(enum_1515)>.
+
+// 398
+[chatphrase_398]
+phrase=Could I use your POH: <listdialog(enum_1497)>?
+autoresponse=chatphrase_401
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 399
+[chatphrase_399]
+phrase=Activate your dungeon.
+
+// 400
+[chatphrase_400]
+phrase=Welcome to my humble abode.
+
+// 401
+[chatphrase_401]
+phrase=Mi casa, su casa.
+
+// 402
+[chatphrase_402]
+phrase=I challenge you on the attack stone.
+
+// 403
+[chatphrase_403]
+phrase=Let's play hoop and stick.
+
+// 404
+[chatphrase_404]
+phrase=Let's play darts.
+
+// 405
+[chatphrase_405]
+phrase=Let's have a go at the archery game.
+
+// 406
+[chatphrase_406]
+phrase=Let's do the jester game.
+
+// 407
+[chatphrase_407]
+phrase=Let's have a treasure hunt.
+
+// 408
+[chatphrase_408]
+phrase=Let's do the elemental balance.
+
+// 409
+[chatphrase_409]
+phrase=Let's have a boxing match.
+
+// 410
+[chatphrase_410]
+phrase=Let's have a fencing match.
+
+// 411
+[chatphrase_411]
+phrase=Let's have a duel.
+
+// 412
+[chatphrase_412]
+phrase=Let's use the ranging pedestals.
+
+// 413
+[chatphrase_413]
+phrase=Let's use the balance beam.
+
+// 414
+[chatphrase_414]
+phrase=Everyone gather on the trapdoor.
+
+// 415
+[chatphrase_415]
+phrase=Turn on challenge mode.
+
+// 416
+[chatphrase_416]
+phrase=I got the treasure!
+
+// 417
+[chatphrase_417]
+phrase=Nice dungeon.
+autoresponse=chatphrase_158
+
+// 418
+[chatphrase_418]
+phrase=Your dungeon is too hard for me.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_173
+autoresponse=chatphrase_160
+
+// 419
+[chatphrase_419]
+phrase=Pass to me!
+
+// 420
+[chatphrase_420]
+phrase=Shoot!
+
+// 421
+[chatphrase_421]
+phrase=Goal!
+
+// 422
+[chatphrase_422]
+phrase=Tackle them!
+
+// 423
+[chatphrase_423]
+phrase=Let's get this party started.
+
+// 424
+[chatphrase_424]
+phrase=I'm putting a valuable item in the chest.
+autoresponse=chatphrase_173
+
+// 425
+[chatphrase_425]
+phrase=Pull the lever.
+
+// 426
+[chatphrase_426]
+phrase=What drop did you get?
+autoresponse=chatphrase_427
+
+// 427
+[chatphrase_427]
+phrase=I got item: <objdialog()>.
+
+// 428
+[chatphrase_428]
+phrase=w00t! I got something awesome!
+autoresponse=chatphrase_426
+
+// 429
+[chatphrase_429]
+phrase=Balloon drop!
+
+// 430
+[chatphrase_430]
+phrase=Time for the dancing knights!
+
+// 431
+[chatphrase_431]
+phrase=I'm doing a Treasure Trail Clue.
+
+// 432
+[chatphrase_432]
+phrase=Looking for Black Arm gang partner for Heroes' Quest.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_827
+autoresponse=chatphrase_828
+
+// 433
+[chatphrase_433]
+phrase=Looking for Phoenix gang partner for Heroes' Quest.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_827
+autoresponse=chatphrase_828
+
+// 434
+[chatphrase_434]
+phrase=Looking for Black Arm gang partner for Shield of Arrav.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_827
+autoresponse=chatphrase_828
+
+// 435
+[chatphrase_435]
+phrase=Looking for Phoenix gang partner for Shield of Arrav.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_827
+autoresponse=chatphrase_828
+
+// 436
+[chatphrase_436]
+phrase=Okay, time to get the key.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 437
+[chatphrase_437]
+phrase=Trade me the key.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 438
+[chatphrase_438]
+phrase=Use your contacts and the key to get into position.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 439
+[chatphrase_439]
+phrase=Range Grip now!
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 440
+[chatphrase_440]
+phrase=Here's one of the candlesticks.
+autoresponse=chatphrase_158
+
+// 441
+[chatphrase_441]
+phrase=Trade me one of the candlesticks.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 442
+[chatphrase_442]
+phrase=Thanks for your help.
+autoresponse=chatphrase_159
+autoresponse=chatphrase_158
+autoresponse=chatphrase_442
+autoresponse=chatphrase_162
+autoresponse=chatphrase_161
+
+// 443
+[chatphrase_443]
+phrase=Good luck with the rest of the quest.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_442
+autoresponse=chatphrase_162
+autoresponse=chatphrase_161
+
+// 444
+[chatphrase_444]
+phrase=Trade me the Phoenix gang storage room key.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 445
+[chatphrase_445]
+phrase=Certainly! Send me a trade offer.
+
+// 446
+[chatphrase_446]
+phrase=Trade me the other half of the certificate.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 447
+[chatphrase_447]
+phrase=Get on the stove.
+
+// 448
+[chatphrase_448]
+phrase=Start pumping.
+
+// 449
+[chatphrase_449]
+phrase=Stop pumping.
+
+// 450
+[chatphrase_450]
+phrase=Pedal the conveyor belt.
+
+// 451
+[chatphrase_451]
+phrase=Fix the broken parts.
+
+// 452
+[chatphrase_452]
+phrase=Check the temperature.
+
+// 453
+[chatphrase_453]
+phrase=Someone switch roles with me.
+
+// 454
+[chatphrase_454]
+phrase=The furnace is hot enough - smelt away!
+
+// 455
+[chatphrase_455]
+phrase=Repair the nets with some rope!
+
+// 456
+[chatphrase_456]
+phrase=Plug the leaks with some swamp paste!
+
+// 457
+[chatphrase_457]
+phrase=Bail out some water with a bucket!
+
+// 458
+[chatphrase_458]
+phrase=Don't just stand there, do something!
+
+// 459
+[chatphrase_459]
+phrase=We are going down with the ship! :(
+autoresponse=chatphrase_457
+autoresponse=chatphrase_180
+
+// 460
+[chatphrase_460]
+phrase=We need more resources.
+
+// 461
+[chatphrase_461]
+phrase=More people fight the shades.
+
+// 462
+[chatphrase_462]
+phrase=Repair the walls.
+
+// 463
+[chatphrase_463]
+phrase=Someone light the altar!
+
+// 464
+[chatphrase_464]
+phrase=I'm off to burn some shades.
+
+// 465
+[chatphrase_465]
+phrase=I'm off to use my keys.
+
+// 466
+[chatphrase_466]
+phrase=I'm joining Fancy Dan's team.
+
+// 467
+[chatphrase_467]
+phrase=I'm joining San Fan's team.
+
+// 468
+[chatphrase_468]
+phrase=Get more bitternuts.
+
+// 469
+[chatphrase_469]
+phrase=Get more sweetgrubs.
+
+// 470
+[chatphrase_470]
+phrase=Get more scrapeytree bark.
+
+// 471
+[chatphrase_471]
+phrase=Put more coloured water in.
+
+// 472
+[chatphrase_472]
+phrase=Put more water in.
+
+// 473
+[chatphrase_473]
+phrase=Get wood for the boiler.
+
+// 474
+[chatphrase_474]
+phrase=Let off the steam!
+
+// 475
+[chatphrase_475]
+phrase=Destroy their water pumps.
+
+// 476
+[chatphrase_476]
+phrase=Set fire to their still.
+
+// 477
+[chatphrase_477]
+phrase=Destroy their bridges.
+
+// 478
+[chatphrase_478]
+phrase=Burn their trees.
+
+// 479
+[chatphrase_479]
+phrase=Fix the water pumps.
+
+// 480
+[chatphrase_480]
+phrase=Repair the bridge.
+
+// 481
+[chatphrase_481]
+phrase=Craft more repair sections.
+
+// 482
+[chatphrase_482]
+phrase=Douse the trees.
+
+// 483
+[chatphrase_483]
+phrase=Buying one of item: <objtradedialog()>.
+autoresponse=chatphrase_488
+
+// 484
+[chatphrase_484]
+phrase=Buying some of item: <objtradedialog()>.
+autoresponse=chatphrase_489
+
+// 485
+[chatphrase_485]
+phrase=Buying item on G.E. at highest price: <objtradedialog()>.
+
+// 486
+[chatphrase_486]
+phrase=Buying item on G.E. at market price: <objtradedialog()>.
+
+// 487
+[chatphrase_487]
+phrase=Buying item on G.E. at lowest price: <objtradedialog()>.
+
+// 488
+[chatphrase_488]
+phrase=Selling one of item: <objtradedialog()>.
+autoresponse=chatphrase_483
+
+// 489
+[chatphrase_489]
+phrase=Selling some of item: <objtradedialog()>.
+autoresponse=chatphrase_484
+
+// 490
+[chatphrase_490]
+phrase=Selling item on G.E. at highest price: <objtradedialog()>.
+
+// 491
+[chatphrase_491]
+phrase=Selling item on G.E. at market price: <objtradedialog()>.
+
+// 492
+[chatphrase_492]
+phrase=Selling item on G.E. at lowest price: <objtradedialog()>.
+
+// 493
+[chatphrase_493]
+phrase=Bank sale!
+
+// 494
+[chatphrase_494]
+phrase=I want more of item: <objtradedialog()>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 495
+[chatphrase_495]
+phrase=I want less of item: <objtradedialog()>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 496
+[chatphrase_496]
+phrase=That's too much - would you accept less?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 497
+[chatphrase_497]
+phrase=That's not enough - would you offer more?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 498
+[chatphrase_498]
+phrase=No deal, sorry.
+
+// 499
+[chatphrase_499]
+phrase=It's a deal!
+
+// 500
+[chatphrase_500]
+phrase=What is that you're wearing/wielding: <listdialog(enum_1522)>?
+autoresponse=chatphrase_501
+
+// 501
+[chatphrase_501]
+phrase=That item is: <objdialog()>.
+
+// 502
+[chatphrase_502]
+phrase=Could I please borrow: <objtradedialog()>?
+autoresponse=chatphrase_445
+autoresponse=chatphrase_538
+autoresponse=chatphrase_539
+autoresponse=chatphrase_540
+autoresponse=chatphrase_541
+autoresponse=chatphrase_543
+
+// 503
+[chatphrase_503]
+phrase=Could I please have some antipoison?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 504
+[chatphrase_504]
+phrase=Could I please have some food?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 505
+[chatphrase_505]
+phrase=Hang on; my inventory is full.
+autoresponse=chatphrase_162
+
+// 506
+[chatphrase_506]
+phrase=I got an item: <objdialog()>.
+
+// 507
+[chatphrase_507]
+phrase=Let's play Chess.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 508
+[chatphrase_508]
+phrase=Let's play Arcanists.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 509
+[chatphrase_509]
+phrase=Let's play TetraLink.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 510
+[chatphrase_510]
+phrase=Let's play Shattered Plans.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 511
+[chatphrase_511]
+phrase=Can I join you?
+
+// 512
+[chatphrase_512]
+phrase=I'm playing a Rated game.
+
+// 513
+[chatphrase_513]
+phrase=Invite me, please.
+
+// 514
+[chatphrase_514]
+phrase=I am trying to get Achievements.
+
+// 515
+[chatphrase_515]
+phrase=I am trying to increase my ranking.
+
+// 516
+[chatphrase_516]
+phrase=Come and meet me on my world.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 517
+[chatphrase_517]
+phrase=Let's play RuneScape.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 518
+[chatphrase_518]
+phrase=Let's play Castle Wars.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 519
+[chatphrase_519]
+phrase=Let's play Barbarian Assault.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 520
+[chatphrase_520]
+phrase=Let's play Fist of Guthix.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 521
+[chatphrase_521]
+phrase=I'm going to play the Capture scenario.
+
+// 522
+[chatphrase_522]
+phrase=Let's play Clan Wars.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 523
+[chatphrase_523]
+phrase=Let's play Duel Arena.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 524
+[chatphrase_524]
+phrase=Would you like to join my clan?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 525
+[chatphrase_525]
+phrase=Can I join your clan?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 527
+[chatphrase_527]
+phrase=What does your clan like to do?
+autoresponse=chatphrase_529
+
+// 529
+[chatphrase_529]
+phrase=Our clan likes to play: <listdialog(enum_1503)>.
+
+// 530
+[chatphrase_530]
+phrase=We need to stock up on item: <objdialog()>.
+
+// 531
+[chatphrase_531]
+phrase=We should boost skill: <listdialog(enum_1517)>.
+
+// 532
+[chatphrase_532]
+phrase=Everyone turn LootShare on.
+
+// 533
+[chatphrase_533]
+phrase=Everyone turn LootShare off.
+
+// 534
+[chatphrase_534]
+phrase=CoinShare is on.
+
+// 535
+[chatphrase_535]
+phrase=CoinShare is off.
+
+// 536
+[chatphrase_536]
+phrase=Bring equipment style: <listdialog(enum_1509)>.
+
+// 537
+[chatphrase_537]
+phrase=Bring item: <objdialog()>.
+
+// 538
+[chatphrase_538]
+phrase=Sorry, I'd rather not.
+
+// 539
+[chatphrase_539]
+phrase=Sorry, this isn't a good time.
+
+// 540
+[chatphrase_540]
+phrase=I don't think that's possible.
+
+// 541
+[chatphrase_541]
+phrase=I'm currently lending an item, so I can't lend you anything just now.
+
+// 542
+[chatphrase_542]
+phrase=I'm currently borrowing an item.
+
+// 543
+[chatphrase_543]
+phrase=Sorry, I haven't got one of those.
+
+// 544
+[chatphrase_544]
+phrase=I'd like the loan duration to be: <listdialog(enum_1642)>
+autoresponse=chatphrase_544
+autoresponse=chatphrase_661
+
+// 545
+[chatphrase_545]
+phrase=I'm planning to log out; this will end the loan.
+autoresponse=chatphrase_546
+autoresponse=chatphrase_661
+
+// 546
+[chatphrase_546]
+phrase=Please wait a moment before logging out!
+
+// 547
+[chatphrase_547]
+phrase=I have <tostring_varp(qp)> Quest Points.
+autoresponse=chatphrase_173
+autoresponse=chatphrase_210
+autoresponse=chatphrase_180
+autoresponse=chatphrase_547
+
+// 548
+[chatphrase_548]
+phrase=Make a barrier!
+
+// 549
+[chatphrase_549]
+phrase=Repel the enemy orbs!
+
+// 550
+[chatphrase_550]
+phrase=Get into the portal!
+
+// 551
+[chatphrase_551]
+phrase=Time is running out!
+
+// 552
+[chatphrase_552]
+phrase=What should I do?
+
+// 553
+[chatphrase_553]
+phrase=I am joining Wizard Acantha's team.
+
+// 554
+[chatphrase_554]
+phrase=I am joining Wizard Vief's team.
+
+// 555
+[chatphrase_555]
+phrase=Join Wizard Acantha's team.
+
+// 556
+[chatphrase_556]
+phrase=Join Wizard Vief's team.
+
+// 557
+[chatphrase_557]
+phrase=Which team should I join?
+autoresponse=chatphrase_556
+autoresponse=chatphrase_555
+
+// 558
+[chatphrase_558]
+phrase=Which team are you on?
+autoresponse=chatphrase_553
+autoresponse=chatphrase_554
+
+// 559
+[chatphrase_559]
+phrase=What are you buying?
+autoresponse=chatphrase_560
+
+// 560
+[chatphrase_560]
+phrase=I am buying: <listdialog(enum_1695)>.
+
+// 561
+[chatphrase_561]
+phrase=My current Slayer assignment is complete.
+
+// 562
+[chatphrase_562]
+phrase=Let's allow run-ins.
+autoresponse=chatphrase_563
+autoresponse=chatphrase_562
+
+// 563
+[chatphrase_563]
+phrase=Let's choose knock-out mode.
+autoresponse=chatphrase_562
+autoresponse=chatphrase_563
+
+// 564
+[chatphrase_564]
+phrase=Let's have a kill-count target of: <listdialog(enum_1801)>.
+autoresponse=chatphrase_564
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 565
+[chatphrase_565]
+phrase=Let's have a time limit of: <listdialog(enum_1802)>.
+autoresponse=chatphrase_565
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 566
+[chatphrase_566]
+phrase=Let's use arena: <listdialog(enum_1803)>.
+autoresponse=chatphrase_566
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 567
+[chatphrase_567]
+phrase=Let's have a 'safe' battle.
+autoresponse=chatphrase_568
+autoresponse=chatphrase_567
+
+// 568
+[chatphrase_568]
+phrase=Let's have a 'dangerous' battle.
+autoresponse=chatphrase_567
+autoresponse=chatphrase_568
+
+// 569
+[chatphrase_569]
+phrase=Let's allow melee.
+autoresponse=chatphrase_570
+autoresponse=chatphrase_569
+
+// 570
+[chatphrase_570]
+phrase=Let's forbid melee.
+autoresponse=chatphrase_569
+autoresponse=chatphrase_570
+
+// 571
+[chatphrase_571]
+phrase=Let's allow all spells.
+autoresponse=chatphrase_574
+autoresponse=chatphrase_573
+autoresponse=chatphrase_572
+autoresponse=chatphrase_571
+
+// 572
+[chatphrase_572]
+phrase=Let's allow only the standard spellbook.
+autoresponse=chatphrase_574
+autoresponse=chatphrase_573
+autoresponse=chatphrase_571
+autoresponse=chatphrase_572
+
+// 573
+[chatphrase_573]
+phrase=Let's allow only the Bind/Snare/Entangle spells.
+autoresponse=chatphrase_571
+autoresponse=chatphrase_572
+autoresponse=chatphrase_574
+autoresponse=chatphrase_573
+
+// 574
+[chatphrase_574]
+phrase=Let's forbid magical combat.
+autoresponse=chatphrase_571
+autoresponse=chatphrase_572
+autoresponse=chatphrase_573
+autoresponse=chatphrase_574
+
+// 575
+[chatphrase_575]
+phrase=Let's allow ranging.
+autoresponse=chatphrase_576
+autoresponse=chatphrase_575
+
+// 576
+[chatphrase_576]
+phrase=Let's forbid ranging.
+autoresponse=chatphrase_575
+autoresponse=chatphrase_576
+
+// 577
+[chatphrase_577]
+phrase=Let's allow Summoning.
+autoresponse=chatphrase_578
+autoresponse=chatphrase_577
+
+// 578
+[chatphrase_578]
+phrase=Let's forbid Summoning.
+autoresponse=chatphrase_577
+autoresponse=chatphrase_578
+
+// 579
+[chatphrase_579]
+phrase=Let's allow Prayer.
+autoresponse=chatphrase_580
+autoresponse=chatphrase_579
+
+// 580
+[chatphrase_580]
+phrase=Let's forbid Prayer.
+autoresponse=chatphrase_579
+autoresponse=chatphrase_580
+
+// 581
+[chatphrase_581]
+phrase=Let's allow food.
+autoresponse=chatphrase_582
+autoresponse=chatphrase_581
+
+// 582
+[chatphrase_582]
+phrase=Let's forbid food.
+autoresponse=chatphrase_581
+autoresponse=chatphrase_582
+
+// 583
+[chatphrase_583]
+phrase=Let's allow potions.
+autoresponse=chatphrase_584
+autoresponse=chatphrase_583
+
+// 584
+[chatphrase_584]
+phrase=Let's forbid potions.
+autoresponse=chatphrase_583
+autoresponse=chatphrase_584
+
+// 585
+[chatphrase_585]
+phrase=Let's play Pixelate.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 586
+[chatphrase_586]
+phrase=Let's play Pool.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 587
+[chatphrase_587]
+phrase=Let's play Deko Bloko.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 588
+[chatphrase_588]
+phrase=Let's play Brick-a-Brac.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 589
+[chatphrase_589]
+phrase=I am going to make: <listdialog(enum_2025)>.
+
+// 590
+[chatphrase_590]
+phrase=I am gathering sacred clay.
+
+// 591
+[chatphrase_591]
+phrase=I am building barriers.
+
+// 592
+[chatphrase_592]
+phrase=I am making items.
+
+// 593
+[chatphrase_593]
+phrase=I need: <listdialog(enum_2025)>.
+
+// 594
+[chatphrase_594]
+phrase=Destroy their barriers!
+
+// 595
+[chatphrase_595]
+phrase=Kill the enemy!
+
+// 596
+[chatphrase_596]
+phrase=Gather more clay!
+
+// 597
+[chatphrase_597]
+phrase=Make more items!
+
+// 598
+[chatphrase_598]
+phrase=Would you like to ally with my clan?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 599
+[chatphrase_599]
+phrase=I challenge your clan to a game.
+autoresponse=chatphrase_343
+autoresponse=chatphrase_154
+
+// 600
+[chatphrase_600]
+phrase=My clan is ready.
+
+// 601
+[chatphrase_601]
+phrase=My clan is not ready.
+
+// 602
+[chatphrase_602]
+phrase=We need more: <listdialog(enum_2026)>.
+
+// 603
+[chatphrase_603]
+phrase=What are your skilling levels?
+autoresponse=chatphrase_604
+autoresponse=chatphrase_605
+autoresponse=chatphrase_606
+
+// 604
+[chatphrase_604]
+phrase=My levels are: Fishing:<stat_base(fishing)>  Hunter:<stat_base(hunter)>  Woodcutting:<stat_base(woodcutting)>  Mining:<stat_base(mining)>
+
+// 605
+[chatphrase_605]
+phrase=My levels are: Smithing:<stat_base(smithing)>  Crafting:<stat_base(crafting)>  Fletching:<stat_base(fletching)>
+
+// 606
+[chatphrase_606]
+phrase=My levels are: Construction:<stat_base(construction)>  Herblore:<stat_base(herblore)>  Cooking:<stat_base(cooking)>  Runecrafting:<stat_base(runecraft)>
+
+// 607
+[chatphrase_607]
+phrase=What are your combat levels?
+autoresponse=chatphrase_608
+autoresponse=chatphrase_609
+
+// 608
+[chatphrase_608]
+phrase=My levels are: Attack:<stat_base(attack)>  Strength:<stat_base(strength)>  Ranged:<stat_base(ranged)>  Magic:<stat_base(magic)>
+
+// 609
+[chatphrase_609]
+phrase=My levels are: Defence:<stat_base(defence)>  Prayer:<stat_base(prayer)>  Constitution:<stat_base(hitpoints)>  Summoning:<stat_base(summoning)>
+
+// 610
+[chatphrase_610]
+phrase=What is your combat level?
+autoresponse=chatphrase_952
+
+// 611
+[chatphrase_611]
+phrase=I have <tostring_varbit(varplayerbit_5505)> Stealing Creation Points.
+
+// 612
+[chatphrase_612]
+phrase=That's great.
+
+// 613
+[chatphrase_613]
+phrase=That's OK.
+
+// 614
+[chatphrase_614]
+phrase=That's low.
+
+// 615
+[chatphrase_615]
+phrase=The total amount of experience between levels <stat_base(agility)> and <enum_string_statbase(enum_808,agility)> is <enum_string_statbase(enum_2140,agility)>.
+
+// 616
+[chatphrase_616]
+phrase=The total amount of experience between levels <stat_base(attack)> and <enum_string_statbase(enum_808,attack)> is <enum_string_statbase(enum_2140,attack)>.
+
+// 617
+[chatphrase_617]
+phrase=The total amount of experience between levels <stat_base(construction)> and <enum_string_statbase(enum_808,construction)> is <enum_string_statbase(enum_2140,construction)>.
+
+// 618
+[chatphrase_618]
+phrase=The total amount of experience between levels <stat_base(cooking)> and <enum_string_statbase(enum_808,cooking)> is <enum_string_statbase(enum_2140,cooking)>.
+
+// 619
+[chatphrase_619]
+phrase=The total amount of experience between levels <stat_base(crafting)> and <enum_string_statbase(enum_808,crafting)> is <enum_string_statbase(enum_2140,crafting)>.
+
+// 620
+[chatphrase_620]
+phrase=The total amount of experience between levels <stat_base(defence)> and <enum_string_statbase(enum_808,defence)> is <enum_string_statbase(enum_2140,defence)>.
+
+// 621
+[chatphrase_621]
+phrase=The total amount of experience between levels <stat_base(farming)> and <enum_string_statbase(enum_808,farming)> is <enum_string_statbase(enum_2140,farming)>.
+
+// 622
+[chatphrase_622]
+phrase=The total amount of experience between levels <stat_base(firemaking)> and <enum_string_statbase(enum_808,firemaking)> is <enum_string_statbase(enum_2140,firemaking)>.
+
+// 623
+[chatphrase_623]
+phrase=The total amount of experience between levels <stat_base(fishing)> and <enum_string_statbase(enum_808,fishing)> is <enum_string_statbase(enum_2140,fishing)>.
+
+// 624
+[chatphrase_624]
+phrase=The total amount of experience between levels <stat_base(fletching)> and <enum_string_statbase(enum_808,fletching)> is <enum_string_statbase(enum_2140,fletching)>.
+
+// 625
+[chatphrase_625]
+phrase=The total amount of experience between levels <stat_base(herblore)> and <enum_string_statbase(enum_808,herblore)> is <enum_string_statbase(enum_2140,herblore)>.
+
+// 626
+[chatphrase_626]
+phrase=The total amount of experience between levels <stat_base(hitpoints)> and <enum_string_statbase(enum_808,hitpoints)> is <enum_string_statbase(enum_2140,hitpoints)>.
+
+// 627
+[chatphrase_627]
+phrase=The total amount of experience between levels <stat_base(hunter)> and <enum_string_statbase(enum_808,hunter)> is <enum_string_statbase(enum_2140,hunter)>.
+
+// 628
+[chatphrase_628]
+phrase=The total amount of experience between levels <stat_base(thieving)> and <enum_string_statbase(enum_808,thieving)> is <enum_string_statbase(enum_2140,thieving)>.
+
+// 629
+[chatphrase_629]
+phrase=The total amount of experience between levels <stat_base(summoning)> and <enum_string_statbase(enum_808,summoning)> is <enum_string_statbase(enum_2140,summoning)>.
+
+// 630
+[chatphrase_630]
+phrase=The total amount of experience between levels <stat_base(strength)> and <enum_string_statbase(enum_808,strength)> is <enum_string_statbase(enum_2140,strength)>.
+
+// 631
+[chatphrase_631]
+phrase=The total amount of experience between levels <stat_base(smithing)> and <enum_string_statbase(enum_808,smithing)> is <enum_string_statbase(enum_2140,smithing)>.
+
+// 632
+[chatphrase_632]
+phrase=Which Slayer master should I use?
+autoresponse=chatphrase_633
+
+// 633
+[chatphrase_633]
+phrase=You should use the Slayer master in: <listdialog(enum_2139)>.
+
+// 634
+[chatphrase_634]
+phrase=The total amount of experience between levels <stat_base(slayer)> and <enum_string_statbase(enum_808,slayer)> is <enum_string_statbase(enum_2140,slayer)>.
+
+// 635
+[chatphrase_635]
+phrase=The total amount of experience between levels <stat_base(runecraft)> and <enum_string_statbase(enum_808,runecraft)> is <enum_string_statbase(enum_2140,runecraft)>.
+
+// 636
+[chatphrase_636]
+phrase=The total amount of experience between levels <stat_base(ranged)> and <enum_string_statbase(enum_808,ranged)> is <enum_string_statbase(enum_2140,ranged)>.
+
+// 637
+[chatphrase_637]
+phrase=The total amount of experience between levels <stat_base(prayer)> and <enum_string_statbase(enum_808,prayer)> is <enum_string_statbase(enum_2140,prayer)>.
+
+// 638
+[chatphrase_638]
+phrase=The total amount of experience between levels <stat_base(mining)> and <enum_string_statbase(enum_808,mining)> is <enum_string_statbase(enum_2140,mining)>.
+
+// 639
+[chatphrase_639]
+phrase=The total amount of experience between levels <stat_base(magic)> and <enum_string_statbase(enum_808,magic)> is <enum_string_statbase(enum_2140,magic)>.
+
+// 640
+[chatphrase_640]
+phrase=The total amount of experience between levels <stat_base(woodcutting)> and <enum_string_statbase(enum_808,woodcutting)> is <enum_string_statbase(enum_2140,woodcutting)>.
+
+// 641
+[chatphrase_641]
+phrase=Happy Birthday!
+autoresponse=chatphrase_158
+
+// 642
+[chatphrase_642]
+phrase=The evil tree is about to spawn.
+
+// 643
+[chatphrase_643]
+phrase=Yo!
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 644
+[chatphrase_644]
+phrase=Hey.
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 645
+[chatphrase_645]
+phrase=What's up?
+autoresponse=chatphrase_177
+autoresponse=chatphrase_178
+autoresponse=chatphrase_179
+autoresponse=chatphrase_180
+autoresponse=chatphrase_181
+autoresponse=chatphrase_182
+
+// 646
+[chatphrase_646]
+phrase=Hello again.
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 647
+[chatphrase_647]
+phrase=Welcome back.
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 648
+[chatphrase_648]
+phrase=How's it going?
+autoresponse=chatphrase_177
+autoresponse=chatphrase_178
+autoresponse=chatphrase_179
+autoresponse=chatphrase_180
+autoresponse=chatphrase_181
+autoresponse=chatphrase_182
+
+// 649
+[chatphrase_649]
+phrase=Sup?
+autoresponse=chatphrase_177
+autoresponse=chatphrase_178
+autoresponse=chatphrase_179
+autoresponse=chatphrase_180
+autoresponse=chatphrase_181
+autoresponse=chatphrase_182
+
+// 650
+[chatphrase_650]
+phrase=Merry Christmas!
+autoresponse=chatphrase_651
+autoresponse=chatphrase_652
+autoresponse=chatphrase_656
+autoresponse=chatphrase_657
+
+// 651
+[chatphrase_651]
+phrase=Season's Greetings!
+autoresponse=chatphrase_651
+autoresponse=chatphrase_652
+autoresponse=chatphrase_656
+autoresponse=chatphrase_657
+
+// 652
+[chatphrase_652]
+phrase=Happy Christmas!
+autoresponse=chatphrase_651
+autoresponse=chatphrase_652
+autoresponse=chatphrase_656
+autoresponse=chatphrase_657
+
+// 653
+[chatphrase_653]
+phrase=Happy Easter!
+autoresponse=chatphrase_653
+
+// 654
+[chatphrase_654]
+phrase=Happy Hallowe'en!
+autoresponse=chatphrase_655
+
+// 655
+[chatphrase_655]
+phrase=Trick or Treat!
+autoresponse=chatphrase_654
+
+// 656
+[chatphrase_656]
+phrase=Happy Holidays!
+autoresponse=chatphrase_651
+autoresponse=chatphrase_652
+autoresponse=chatphrase_656
+autoresponse=chatphrase_657
+
+// 657
+[chatphrase_657]
+phrase=Holidays are here!
+autoresponse=chatphrase_651
+autoresponse=chatphrase_652
+autoresponse=chatphrase_656
+autoresponse=chatphrase_657
+
+// 658
+[chatphrase_658]
+phrase=Happy New Year!
+autoresponse=chatphrase_658
+
+// 659
+[chatphrase_659]
+phrase=Happy Thanksgiving!
+autoresponse=chatphrase_659
+
+// 660
+[chatphrase_660]
+phrase=Happy 4th of July!
+autoresponse=chatphrase_660
+
+// 661
+[chatphrase_661]
+phrase=Okay.
+
+// 662
+[chatphrase_662]
+phrase=Of course.
+
+// 663
+[chatphrase_663]
+phrase=That's fine.
+
+// 664
+[chatphrase_664]
+phrase=Yay!
+
+// 665
+[chatphrase_665]
+phrase=No way.
+
+// 666
+[chatphrase_666]
+phrase=No thank you.
+
+// 667
+[chatphrase_667]
+phrase=Nope.
+
+// 668
+[chatphrase_668]
+phrase=Never mind.
+
+// 669
+[chatphrase_669]
+phrase=I have added you to my ignore list.
+
+// 670
+[chatphrase_670]
+phrase=Bai2u
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 671
+[chatphrase_671]
+phrase=I'll be back in <listdialog(enum_2136)>.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 672
+[chatphrase_672]
+phrase=Later!
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+autoresponse=chatphrase_672
+
+// 673
+[chatphrase_673]
+phrase=I'll see you around.
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_672
+
+// 674
+[chatphrase_674]
+phrase=I'm going now. See ya!
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+autoresponse=chatphrase_673
+
+// 675
+[chatphrase_675]
+phrase=It was nice to meet you!
+autoresponse=chatphrase_676
+
+// 676
+[chatphrase_676]
+phrase=You too!
+
+// 677
+[chatphrase_677]
+phrase=:-x
+
+// 678
+[chatphrase_678]
+phrase=:'(
+
+// 679
+[chatphrase_679]
+phrase=:)
+
+// 680
+[chatphrase_680]
+phrase=:(
+
+// 681
+[chatphrase_681]
+phrase=O_o
+
+// 682
+[chatphrase_682]
+phrase=Go!
+
+// 683
+[chatphrase_683]
+phrase=I've got you trapped.
+
+// 684
+[chatphrase_684]
+phrase=KO!
+
+// 685
+[chatphrase_685]
+phrase=Come and get me!
+
+// 686
+[chatphrase_686]
+phrase=I'll get you next time.
+
+// 687
+[chatphrase_687]
+phrase=Come back and fight!
+
+// 688
+[chatphrase_688]
+phrase=I can't lose!
+
+// 689
+[chatphrase_689]
+phrase=I like your style.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 690
+[chatphrase_690]
+phrase=I like your emote.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 691
+[chatphrase_691]
+phrase=I like your skillcape.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 692
+[chatphrase_692]
+phrase=I like your house.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 693
+[chatphrase_693]
+phrase=You're cool.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 694
+[chatphrase_694]
+phrase=You're awesome.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 695
+[chatphrase_695]
+phrase=Congratulations.
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 696
+[chatphrase_696]
+phrase=Fantastic!
+autoresponse=chatphrase_158
+autoresponse=chatphrase_183
+
+// 697
+[chatphrase_697]
+phrase=If someone is annoying you, add them to your ignore list.
+
+// 698
+[chatphrase_698]
+phrase=The report abuse button is at the bottom of the screen.
+
+// 699
+[chatphrase_699]
+phrase=Can you help me?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_241
+
+// 700
+[chatphrase_700]
+phrase=Do you need help?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 701
+[chatphrase_701]
+phrase=Can I help you with the Assist System?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 702
+[chatphrase_702]
+phrase=I'll Assist Runecrafting. My level is: <stat_base(runecraft)>.
+
+// 703
+[chatphrase_703]
+phrase=Can I help you?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 704
+[chatphrase_704]
+phrase=Where can I start <listdialog(enum_1541)>?
+autoresponse=chatphrase_228
+
+// 705
+[chatphrase_705]
+phrase=Where is: <listdialog(enum_1503)>?
+autoresponse=chatphrase_228
+
+// 706
+[chatphrase_706]
+phrase=You need to complete: <listdialog(enum_1541)>.
+
+// 707
+[chatphrase_707]
+phrase=You need to play: <listdialog(enum_1503)>.
+
+// 708
+[chatphrase_708]
+phrase=I am <listdialog(enum_1502)> of <listdialog(enum_1504)>.
+
+// 709
+[chatphrase_709]
+phrase=Can you help me with quest: <listdialog(enum_1541)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 710
+[chatphrase_710]
+phrase=How many Quest Points do you have?
+autoresponse=chatphrase_547
+
+// 711
+[chatphrase_711]
+phrase=Have you completed quest: <listdialog(enum_1541)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 712
+[chatphrase_712]
+phrase=Have you started quest: <listdialog(enum_1541)>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 713
+[chatphrase_713]
+phrase=What quest are you doing?
+autoresponse=chatphrase_238
+
+// 714
+[chatphrase_714]
+phrase=brb
+
+// 715
+[chatphrase_715]
+phrase=btw
+
+// 716
+[chatphrase_716]
+phrase=ftw
+
+// 717
+[chatphrase_717]
+phrase=gtg
+
+// 718
+[chatphrase_718]
+phrase=idk
+
+// 719
+[chatphrase_719]
+phrase=imo
+
+// 720
+[chatphrase_720]
+phrase=jk
+
+// 721
+[chatphrase_721]
+phrase=lmho
+
+// 722
+[chatphrase_722]
+phrase=lol
+
+// 723
+[chatphrase_723]
+phrase=np
+
+// 724
+[chatphrase_724]
+phrase=nty
+
+// 725
+[chatphrase_725]
+phrase=nfs
+
+// 726
+[chatphrase_726]
+phrase=plz
+
+// 727
+[chatphrase_727]
+phrase=rofl
+
+// 728
+[chatphrase_728]
+phrase=roflcopters
+
+// 729
+[chatphrase_729]
+phrase=tbh
+
+// 730
+[chatphrase_730]
+phrase=ttyl
+
+// 731
+[chatphrase_731]
+phrase=ty
+
+// 732
+[chatphrase_732]
+phrase=yw
+
+// 733
+[chatphrase_733]
+phrase=Awesome!
+
+// 734
+[chatphrase_734]
+phrase=Cool!
+
+// 735
+[chatphrase_735]
+phrase=!!!
+
+// 736
+[chatphrase_736]
+phrase=Sweet!
+
+// 737
+[chatphrase_737]
+phrase=Hail Saradomin!
+
+// 738
+[chatphrase_738]
+phrase=Hail Guthix!
+
+// 739
+[chatphrase_739]
+phrase=Hail Zamorak!
+
+// 740
+[chatphrase_740]
+phrase=That rocks!
+
+// 741
+[chatphrase_741]
+phrase=Haha!
+
+// 742
+[chatphrase_742]
+phrase=Hahahahahaha!
+
+// 743
+[chatphrase_743]
+phrase=Tee hee!
+
+// 744
+[chatphrase_744]
+phrase=Muhahahaha!
+
+// 745
+[chatphrase_745]
+phrase=Hee hee!
+
+// 746
+[chatphrase_746]
+phrase=Heh.
+
+// 747
+[chatphrase_747]
+phrase=Could you wait a second?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 748
+[chatphrase_748]
+phrase=Could you leave me alone, please?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+autoresponse=chatphrase_160
+
+// 749
+[chatphrase_749]
+phrase=Do you want to come to my world?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 750
+[chatphrase_750]
+phrase=Don't follow me, it's dangerous.
+
+// 751
+[chatphrase_751]
+phrase=Please answer me.
+
+// 752
+[chatphrase_752]
+phrase=Oh no!
+
+// 753
+[chatphrase_753]
+phrase=I am using Quick Chat.
+
+// 754
+[chatphrase_754]
+phrase=I can't answer that on Quick Chat.
+
+// 755
+[chatphrase_755]
+phrase=Can you ask someone else? Sorry.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_155
+
+// 756
+[chatphrase_756]
+phrase=Please don't ask difficult questions.
+
+// 757
+[chatphrase_757]
+phrase=I'm using Quick Chat, as my keyboard isn't working.
+
+// 758
+[chatphrase_758]
+phrase=I'm on a Quick Chat world.
+
+// 759
+[chatphrase_759]
+phrase=I can only use Quick Chat.
+
+// 760
+[chatphrase_760]
+phrase=Leave me alone!
+
+// 761
+[chatphrase_761]
+phrase=Eek!
+
+// 762
+[chatphrase_762]
+phrase=Don't kill me!
+
+// 763
+[chatphrase_763]
+phrase=I've run out of food.
+
+// 764
+[chatphrase_764]
+phrase=You're too good at this.
+
+// 765
+[chatphrase_765]
+phrase=I've got a bad feeling about this.
+
+// 766
+[chatphrase_766]
+phrase=This is scary!
+
+// 767
+[chatphrase_767]
+phrase=We won!
+
+// 768
+[chatphrase_768]
+phrase=We did it!
+
+// 769
+[chatphrase_769]
+phrase=I did it!
+
+// 770
+[chatphrase_770]
+phrase=I am so good at this.
+
+// 771
+[chatphrase_771]
+phrase=Victory is mine.
+
+// 772
+[chatphrase_772]
+phrase=We owned!
+
+// 773
+[chatphrase_773]
+phrase=Did I just win, again?
+
+// 774
+[chatphrase_774]
+phrase=We lost.
+
+// 775
+[chatphrase_775]
+phrase=I lost.
+
+// 776
+[chatphrase_776]
+phrase=I'm not very good at this.
+
+// 777
+[chatphrase_777]
+phrase=I'm a newb.
+
+// 778
+[chatphrase_778]
+phrase=I can't believe we lost.
+
+// 779
+[chatphrase_779]
+phrase=I can't believe I lost.
+
+// 780
+[chatphrase_780]
+phrase=Did we lose?
+
+// 781
+[chatphrase_781]
+phrase=I got owned!
+
+// 782
+[chatphrase_782]
+phrase=Try World: <listdialog(enum_1542)>.
+
+// 783
+[chatphrase_783]
+phrase=Let's go to world: <listdialog(enum_1542)>.
+
+// 784
+[chatphrase_784]
+phrase=What world is best to play: <listdialog(enum_1503)>?
+autoresponse=chatphrase_782
+
+// 785
+[chatphrase_785]
+phrase=What world is best to kill: <listdialog(enum_1520)>?
+autoresponse=chatphrase_782
+
+// 786
+[chatphrase_786]
+phrase=Let's all get Dagannoth <listdialog(enum_1506)>.
+
+// 787
+[chatphrase_787]
+phrase=I have a <objdialog()>. You can have it.
+
+// 788
+[chatphrase_788]
+phrase=Who is tanking the boss?
+autoresponse=chatphrase_789
+
+// 789
+[chatphrase_789]
+phrase=I am tanking the boss!
+
+// 790
+[chatphrase_790]
+phrase=I will tank the boss.
+
+// 791
+[chatphrase_791]
+phrase=What eggs should I be collecting?
+autoresponse=chatphrase_792
+autoresponse=chatphrase_794
+autoresponse=chatphrase_793
+
+// 792
+[chatphrase_792]
+phrase=Collect red eggs!
+
+// 793
+[chatphrase_793]
+phrase=Collect blue eggs!
+
+// 794
+[chatphrase_794]
+phrase=Collect green eggs!
+
+// 795
+[chatphrase_795]
+phrase=What food should I be dropping?
+autoresponse=chatphrase_796
+autoresponse=chatphrase_797
+autoresponse=chatphrase_798
+
+// 796
+[chatphrase_796]
+phrase=Drop tofu!
+
+// 797
+[chatphrase_797]
+phrase=Drop meat!
+
+// 798
+[chatphrase_798]
+phrase=Drop worms!
+
+// 799
+[chatphrase_799]
+phrase=What food should I be using?
+autoresponse=chatphrase_800
+autoresponse=chatphrase_801
+autoresponse=chatphrase_802
+
+// 800
+[chatphrase_800]
+phrase=Use poison tofu!
+
+// 801
+[chatphrase_801]
+phrase=Use poison meat!
+
+// 802
+[chatphrase_802]
+phrase=Use poison worms!
+
+// 803
+[chatphrase_803]
+phrase=The cannon does not make you lose points.
+
+// 804
+[chatphrase_804]
+phrase=Attack the Penance fighters!
+
+// 805
+[chatphrase_805]
+phrase=Attack the Penance rangers!
+
+// 806
+[chatphrase_806]
+phrase=Attack the Penance runners!
+
+// 807
+[chatphrase_807]
+phrase=Attack the Penance healers!
+
+// 808
+[chatphrase_808]
+phrase=What styles should we be using?
+autoresponse=chatphrase_809
+autoresponse=chatphrase_810
+autoresponse=chatphrase_811
+autoresponse=chatphrase_812
+
+// 809
+[chatphrase_809]
+phrase=Use style Controlled/Bronze/Wind
+
+// 810
+[chatphrase_810]
+phrase=Use style Accurate/Iron/Water
+
+// 811
+[chatphrase_811]
+phrase=Use style Aggressive/Steel/Earth
+
+// 812
+[chatphrase_812]
+phrase=Use style Defensive/Mithril/Fire
+
+// 813
+[chatphrase_813]
+phrase=I need about <listdialog(enum_2137)> more points to get : <listdialog(enum_1513)>
+
+// 814
+[chatphrase_814]
+phrase=I will fight you!
+
+// 815
+[chatphrase_815]
+phrase=Good luck!
+
+// 816
+[chatphrase_816]
+phrase=Good game!
+
+// 817
+[chatphrase_817]
+phrase=Better luck next time!
+
+// 818
+[chatphrase_818]
+phrase=Want to come to my player-owned house?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 819
+[chatphrase_819]
+phrase=Party at my house in: <listdialog(enum_1515)>
+
+// 820
+[chatphrase_820]
+phrase=I found a penguin at: <listdialog(enum_1504)>.
+
+// 821
+[chatphrase_821]
+phrase=I have found <tostring_varbit(varplayerbit_5276)> penguins this week.
+
+// 822
+[chatphrase_822]
+phrase=The circus is at: <listdialog(enum_1504)>.
+
+// 823
+[chatphrase_823]
+phrase=The star will land at: <listdialog(enum_1504)> in <listdialog(enum_2136)>.
+
+// 824
+[chatphrase_824]
+phrase=The star's level is: <listdialog(enum_2135)>.
+
+// 825
+[chatphrase_825]
+phrase=Does anyone have a telescope?
+autoresponse=chatphrase_826
+
+// 826
+[chatphrase_826]
+phrase=I have a telescope.
+
+// 827
+[chatphrase_827]
+phrase=I am in the Phoenix gang.
+
+// 828
+[chatphrase_828]
+phrase=I am in the Black Arm gang.
+
+// 829
+[chatphrase_829]
+phrase=Go green, please!
+
+// 830
+[chatphrase_830]
+phrase=Go yellow, please!
+
+// 831
+[chatphrase_831]
+phrase=Stay inside the altar.
+
+// 832
+[chatphrase_832]
+phrase=Go further out!
+
+// 833
+[chatphrase_833]
+phrase=Block the gap!
+
+// 834
+[chatphrase_834]
+phrase=Remove that barrier!
+
+// 835
+[chatphrase_835]
+phrase=Push it to me!
+
+// 836
+[chatphrase_836]
+phrase=Our pile is here!
+
+// 837
+[chatphrase_837]
+phrase=Everyone stay together.
+
+// 838
+[chatphrase_838]
+phrase=Don't attack their tanks!
+
+// 839
+[chatphrase_839]
+phrase=Attack!
+
+// 840
+[chatphrase_840]
+phrase=Let's play Stealing Creation.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_661
+
+// 841
+[chatphrase_841]
+phrase=Looking for a clan to war!
+
+// 842
+[chatphrase_842]
+phrase=We will war you!
+
+// 843
+[chatphrase_843]
+phrase=I'm going to play the Conflict scenario.
+
+// 844
+[chatphrase_844]
+phrase=I'm going to play the Rescue scenario.
+
+// 845
+[chatphrase_845]
+phrase=I'm going to play the Hoard scenario.
+
+// 846
+[chatphrase_846]
+phrase=I'm going to get some squads.
+
+// 847
+[chatphrase_847]
+phrase=I'm going to get some special units.
+
+// 848
+[chatphrase_848]
+phrase=I'm going to claim some rewards.
+
+// 849
+[chatphrase_849]
+phrase=I'm just playing through the tutorial.
+
+// 850
+[chatphrase_850]
+phrase=My Rank is: <tostring_varp(varplayer_1447)>.
+
+// 851
+[chatphrase_851]
+phrase=Kill him!
+
+// 852
+[chatphrase_852]
+phrase=Watch out for the fire!
+
+// 853
+[chatphrase_853]
+phrase=I hope that you have an Anti-Dragon Fire shield with you!
+
+// 854
+[chatphrase_854]
+phrase=I'm off to solo the KBD!
+
+// 855
+[chatphrase_855]
+phrase=We are nearly at the KBD's lair.
+
+// 856
+[chatphrase_856]
+phrase=Melee him!
+
+// 857
+[chatphrase_857]
+phrase=Range him!
+
+// 858
+[chatphrase_858]
+phrase=Mage him!
+
+// 859
+[chatphrase_859]
+phrase=What is the best world to sell: <objtradedialog()>?
+autoresponse=chatphrase_782
+
+// 860
+[chatphrase_860]
+phrase=It's not for sale.
+
+// 861
+[chatphrase_861]
+phrase=Can I buy your: <objtradedialog()>?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+autoresponse=chatphrase_860
+
+// 862
+[chatphrase_862]
+phrase=What is the best world to buy: <objtradedialog()>?
+autoresponse=chatphrase_782
+
+// 863
+[chatphrase_863]
+phrase=You should check on the Forums.
+
+// 864
+[chatphrase_864]
+phrase=Have you looked in the Game Manual?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 865
+[chatphrase_865]
+phrase=The rules are under the Game Guide on the website.
+
+// 866
+[chatphrase_866]
+phrase=Join my friends chat channel.
+
+// 867
+[chatphrase_867]
+phrase=Which team are you going on?
+autoresponse=chatphrase_869
+autoresponse=chatphrase_870
+autoresponse=chatphrase_871
+
+// 868
+[chatphrase_868]
+phrase=Which team should I go on?
+autoresponse=chatphrase_872
+autoresponse=chatphrase_873
+autoresponse=chatphrase_874
+
+// 869
+[chatphrase_869]
+phrase=I'm going to join the red team.
+
+// 870
+[chatphrase_870]
+phrase=I'm going to join the blue team.
+
+// 871
+[chatphrase_871]
+phrase=I'm going to go in the balance portal.
+
+// 872
+[chatphrase_872]
+phrase=Join the red team!
+
+// 873
+[chatphrase_873]
+phrase=Join the blue team!
+
+// 874
+[chatphrase_874]
+phrase=Go in the balance portal.
+
+// 875
+[chatphrase_875]
+phrase=We won the last game!
+
+// 876
+[chatphrase_876]
+phrase=We lost the last game.
+
+// 877
+[chatphrase_877]
+phrase=We drew the last game.
+
+// 878
+[chatphrase_878]
+phrase=That was a close game!
+
+// 879
+[chatphrase_879]
+phrase=That was a great game!
+
+// 880
+[chatphrase_880]
+phrase=Let's play again!
+
+// 881
+[chatphrase_881]
+phrase=Soul Wars rules!
+
+// 882
+[chatphrase_882]
+phrase=I am going to buy: <listdialog(enum_2215)>.
+
+// 883
+[chatphrase_883]
+phrase=What are you going to buy?
+autoresponse=chatphrase_882
+
+// 884
+[chatphrase_884]
+phrase=I am saving up to buy: <listdialog(enum_2215)>.
+
+// 885
+[chatphrase_885]
+phrase=Attack their avatar!
+
+// 886
+[chatphrase_886]
+phrase=Attack the soul obelisk!
+
+// 887
+[chatphrase_887]
+phrase=Attack the eastern graveyard!
+
+// 888
+[chatphrase_888]
+phrase=Attack the western graveyard!
+
+// 889
+[chatphrase_889]
+phrase=Attack their barricades!
+
+// 890
+[chatphrase_890]
+phrase=Defend our avatar!
+
+// 891
+[chatphrase_891]
+phrase=Defend the soul obelisk!
+
+// 892
+[chatphrase_892]
+phrase=Defend the eastern graveyard!
+
+// 893
+[chatphrase_893]
+phrase=Defend the western graveyard!
+
+// 894
+[chatphrase_894]
+phrase=Defend our barricades!
+
+// 895
+[chatphrase_895]
+phrase=Bury bones at our graveyards.
+
+// 896
+[chatphrase_896]
+phrase=Collect soul fragments.
+
+// 897
+[chatphrase_897]
+phrase=Time is running out!
+
+// 898
+[chatphrase_898]
+phrase=Their avatar is back!
+
+// 899
+[chatphrase_899]
+phrase=Our avatar is back!
+
+// 900
+[chatphrase_900]
+phrase=We need more people to go to: <listdialog(enum_2216)>.
+
+// 901
+[chatphrase_901]
+phrase=Come to: <listdialog(enum_2216)>.
+
+// 902
+[chatphrase_902]
+phrase=They have lots of people at: <listdialog(enum_2216)>.
+
+// 903
+[chatphrase_903]
+phrase=Heal me!
+
+// 904
+[chatphrase_904]
+phrase=Who needs healing?
+autoresponse=chatphrase_903
+
+// 905
+[chatphrase_905]
+phrase=Hiya!
+autoresponse=chatphrase_147
+autoresponse=chatphrase_148
+autoresponse=chatphrase_149
+autoresponse=chatphrase_643
+autoresponse=chatphrase_644
+autoresponse=chatphrase_645
+autoresponse=chatphrase_646
+autoresponse=chatphrase_647
+autoresponse=chatphrase_648
+autoresponse=chatphrase_649
+
+// 906
+[chatphrase_906]
+phrase=The blue team's avatar level is: <tostring_shared(varworld_850)>.
+
+// 907
+[chatphrase_907]
+phrase=The red team's avatar level is: <tostring_shared(varworld_851)>.
+
+// 908
+[chatphrase_908]
+phrase=The blue team's avatar has: <tostring_shared(varworld_866)>% health left.
+
+// 909
+[chatphrase_909]
+phrase=The red team's avatar has: <tostring_shared(varworld_867)>% health left.
+
+// 910
+[chatphrase_910]
+phrase=What does a silver crown next to a player name mean?
+autoresponse=chatphrase_916
+
+// 911
+[chatphrase_911]
+phrase=What does a gold crown next to a player name mean?
+autoresponse=chatphrase_917
+
+// 912
+[chatphrase_912]
+phrase=What is a Player Moderator?
+autoresponse=chatphrase_918
+autoresponse=chatphrase_919
+
+// 913
+[chatphrase_913]
+phrase=What is a Jagex Moderator?
+autoresponse=chatphrase_920
+
+// 914
+[chatphrase_914]
+phrase=Where can I find out more about Moderators?
+autoresponse=chatphrase_921
+autoresponse=chatphrase_922
+
+// 915
+[chatphrase_915]
+phrase=How do you become a Player Moderator?
+autoresponse=chatphrase_923
+autoresponse=chatphrase_919
+
+// 916
+[chatphrase_916]
+phrase=A silver crown appears next to anything said by a Player Moderator.
+
+// 917
+[chatphrase_917]
+phrase=A gold crown appears next to anything said by a Jagex Moderator.
+
+// 918
+[chatphrase_918]
+phrase=Player Moderators help Jagex support the community.
+
+// 919
+[chatphrase_919]
+phrase=Player Moderators are regular players chosen by Jagex.
+
+// 920
+[chatphrase_920]
+phrase=Jagex Moderators are employees of Jagex.
+
+// 921
+[chatphrase_921]
+phrase=Search for `Moderator' on the homepage for more information.
+
+// 922
+[chatphrase_922]
+phrase=Speak to a Town Crier to find out more about Moderators.
+
+// 923
+[chatphrase_923]
+phrase=Keep your account secure, be friendly and follow the rules.
+
+// 924
+[chatphrase_924]
+phrase=I found an <listdialog(enum_695)>.
+
+// 925
+[chatphrase_925]
+phrase=Moderators will never ask you for your password.
+
+// 926
+[chatphrase_926]
+phrase=Where can I find out more about account security?
+autoresponse=chatphrase_930
+autoresponse=chatphrase_931
+
+// 927
+[chatphrase_927]
+phrase=How can I keep my account safe?
+autoresponse=chatphrase_932
+autoresponse=chatphrase_933
+autoresponse=chatphrase_934
+
+// 928
+[chatphrase_928]
+phrase=How will Jagex contact me about my account?
+autoresponse=chatphrase_935
+
+// 929
+[chatphrase_929]
+phrase=What are the rules of RuneScape?
+autoresponse=chatphrase_936
+autoresponse=chatphrase_931
+
+// 930
+[chatphrase_930]
+phrase=Search for `Security information' on the homepage.
+
+// 931
+[chatphrase_931]
+phrase=Visit the Stronghold of Security in-game.
+
+// 932
+[chatphrase_932]
+phrase=Never give out your password.
+
+// 933
+[chatphrase_933]
+phrase=Never give out your bank PIN.
+
+// 934
+[chatphrase_934]
+phrase=Use memorable recovery questions.
+
+// 935
+[chatphrase_935]
+phrase=Jagex will contact you in your in-game message centre.
+
+// 936
+[chatphrase_936]
+phrase=Search for `Rules' on the homepage.
+
+// 937
+[chatphrase_937]
+phrase=I found the evil tree at: <listdialog(enum_1504)>.
+
+// 938
+[chatphrase_938]
+phrase=The evil tree has <listdialog(enum_692)> of its health remaining.
+
+// 939
+[chatphrase_939]
+phrase=The evil tree is dead.
+
+// 940
+[chatphrase_940]
+phrase=I have earned <listdialog(enum_692)> of my evil tree rewards.
+autoresponse=chatphrase_940
+
+// 941
+[chatphrase_941]
+phrase=My total investment credits is: <tostring_varbit(varplayerbit_6351)>.
+
+// 942
+[chatphrase_942]
+phrase=My reward credit total is: <tostring_varp(varplayer_1448)>.
+
+// 943
+[chatphrase_943]
+phrase=This is my favourite scenario.
+
+// 944
+[chatphrase_944]
+phrase=I've got a load of special units.
+
+// 945
+[chatphrase_945]
+phrase=I've got no special units.
+
+// 946
+[chatphrase_946]
+phrase=Be prepared for army annihilation!
+
+// 947
+[chatphrase_947]
+phrase=Yes! I won!
+
+// 948
+[chatphrase_948]
+phrase=Noooo! I lost!
+
+// 949
+[chatphrase_949]
+phrase=That was a really fun match.
+
+// 950
+[chatphrase_950]
+phrase=Well played everyone.
+
+// 951
+[chatphrase_951]
+phrase=That was really close.
+
+// 952
+[chatphrase_952]
+phrase=My combat level is: <activecombatlevel()>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_952
+
+// 953
+[chatphrase_953]
+phrase=Which champions have you defeated?
+autoresponse=chatphrase_954
+autoresponse=chatphrase_955
+
+// 954
+[chatphrase_954]
+phrase=I have defeated the champion: <listdialog(enum_834)>.
+
+// 955
+[chatphrase_955]
+phrase=I haven't defeated any champions.
+
+// 956
+[chatphrase_956]
+phrase=How many champions have you defeated?
+autoresponse=chatphrase_957
+
+// 957
+[chatphrase_957]
+phrase=I have completed <tostring_varbit(varplayerbit_6764)> of the Champions' Challenges.
+
+// 958
+[chatphrase_958]
+phrase=Use your curse: <listdialog(enum_911)>.
+
+// 959
+[chatphrase_959]
+phrase=The Familiarisation event is about to start.
+
+// 960
+[chatphrase_960]
+phrase=I found the Familiarisation obelisk at: <listdialog(enum_1504)>.
+
+// 961
+[chatphrase_961]
+phrase=I have collected <tostring_varbit(varplayerbit_7093)> piles of raw shards.
+autoresponse=chatphrase_961
+
+// 962
+[chatphrase_962]
+phrase=I chose <listdialog(enum_914)> as a reward.
+autoresponse=chatphrase_962
+
+// 963
+[chatphrase_963]
+phrase=Our average combat level is: <acc_getmeancombatlevel()>.
+
+// 964
+[chatphrase_964]
+phrase=How many life points have you got?
+autoresponse=chatphrase_965
+
+// 965
+[chatphrase_965]
+phrase=Life points: <tostring_varbit(life_points)>.
+
+// 966
+[chatphrase_966]
+phrase=How can I find more strange rocks?
+
+// 967
+[chatphrase_967]
+phrase=I found a strange rock. What do I do with it?
+
+// 968
+[chatphrase_968]
+phrase=Fish Flingers is a good way to train Fishing.
+
+// 969
+[chatphrase_969]
+phrase=I'm going to play Fish Flingers.
+
+// 970
+[chatphrase_970]
+phrase=You should play Fish Flingers.
+
+// 971
+[chatphrase_971]
+phrase=Let's play Fish Flingers.
+
+// 972
+[chatphrase_972]
+phrase=Where can I play Fish Flingers?
+
+// 973
+[chatphrase_973]
+phrase=When can I play Fish Flingers?
+
+// 974
+[chatphrase_974]
+phrase=Fishermen appear to teleport you to Fish Flingers.
+
+// 975
+[chatphrase_975]
+phrase=Fishermen appear at Catherby.
+
+// 976
+[chatphrase_976]
+phrase=Fishermen appear at the Fishing Guild.
+
+// 977
+[chatphrase_977]
+phrase=The Fishermen will appear in <listdialog(enum_2136)>.
+
+// 978
+[chatphrase_978]
+phrase=The next Fish Flingers competition starts in <listdialog(enum_2136)>.
+
+// 979
+[chatphrase_979]
+phrase=Which bait are you using?
+
+// 980
+[chatphrase_980]
+phrase=Which hook are you using?
+
+// 981
+[chatphrase_981]
+phrase=How far are you casting your line?
+
+// 982
+[chatphrase_982]
+phrase=I'm using bait: <listdialog(enum_55)>.
+
+// 983
+[chatphrase_983]
+phrase=I'm going to try using bait: <listdialog(enum_55)>.
+
+// 984
+[chatphrase_984]
+phrase=I'm using hook: <listdialog(enum_951)>.
+
+// 985
+[chatphrase_985]
+phrase=I'm going to try using hook: <listdialog(enum_951)>.
+
+// 986
+[chatphrase_986]
+phrase=My casting distance is <listdialog(enum_977)>.
+
+// 987
+[chatphrase_987]
+phrase=My casting distance will be <listdialog(enum_977)>.
+
+// 988
+[chatphrase_988]
+phrase=The total amount of experience between levels <stat_base(dungeoneering)> and <enum_string_statbase(enum_3031,dungeoneering)> is <enum_string_statbase(enum_3030,dungeoneering)>.
+
+// 989
+[chatphrase_989]
+phrase=What is your level in Dungeoneering?
+autoresponse=chatphrase_990
+
+// 990
+[chatphrase_990]
+phrase=My Dungeoneering level is <stat_base(dungeoneering)>.
+autoresponse=chatphrase_612
+autoresponse=chatphrase_613
+autoresponse=chatphrase_614
+autoresponse=chatphrase_990
+
+// 991
+[chatphrase_991]
+phrase=Are you in a party?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 992
+[chatphrase_992]
+phrase=I'm looking for a party, please invite me.
+
+// 993
+[chatphrase_993]
+phrase=Would you like to join my party?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 994
+[chatphrase_994]
+phrase=We have space for more people in our party.
+
+// 995
+[chatphrase_995]
+phrase=I've got to leave.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_161
+autoresponse=chatphrase_162
+
+// 996
+[chatphrase_996]
+phrase=What floor are you currently on?
+autoresponse=chatphrase_997
+
+// 997
+[chatphrase_997]
+phrase=I'm currently on floor: <tostring_varbit(varplayerbit_7550)>.
+
+// 998
+[chatphrase_998]
+phrase=What dungeon size should we try?
+autoresponse=chatphrase_999
+
+// 999
+[chatphrase_999]
+phrase=Let's do a <listdialog(enum_1196)> dungeon.
+
+// 1000
+[chatphrase_1000]
+phrase=What complexity level should we use?
+autoresponse=chatphrase_1001
+
+// 1001
+[chatphrase_1001]
+phrase=Lets try complexity level: <listdialog(enum_1197)>.
+
+// 1002
+[chatphrase_1002]
+phrase=I'll be a ranger.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1003
+[chatphrase_1003]
+phrase=I'll be a mage.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1004
+[chatphrase_1004]
+phrase=I'll be melee.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1005
+[chatphrase_1005]
+phrase=I'll tank.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1006
+[chatphrase_1006]
+phrase=I need runes: <listdialog(enum_1192)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_1045
+
+// 1007
+[chatphrase_1007]
+phrase=I need arrows: <listdialog(enum_1191)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_1045
+
+// 1008
+[chatphrase_1008]
+phrase=I need food.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_543
+
+// 1009
+[chatphrase_1009]
+phrase=I need armour: <listdialog(enum_1190)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_543
+
+// 1010
+[chatphrase_1010]
+phrase=I need a weapon: <listdialog(enum_1189)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_543
+
+// 1011
+[chatphrase_1011]
+phrase=I need money.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_172
+
+// 1012
+[chatphrase_1012]
+phrase=I need something to cook.
+
+// 1013
+[chatphrase_1013]
+phrase=I need ore to smelt: <listdialog(enum_1193)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_1045
+
+// 1014
+[chatphrase_1014]
+phrase=I need bars to smith: <listdialog(enum_1194)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_1045
+
+// 1015
+[chatphrase_1015]
+phrase=I need logs and a tinderbox.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_543
+
+// 1016
+[chatphrase_1016]
+phrase=Medic!
+autoresponse=chatphrase_661
+autoresponse=chatphrase_241
+autoresponse=chatphrase_747
+
+// 1017
+[chatphrase_1017]
+phrase=I need backup!
+autoresponse=chatphrase_661
+autoresponse=chatphrase_241
+autoresponse=chatphrase_747
+
+// 1018
+[chatphrase_1018]
+phrase=Attack my target!
+autoresponse=chatphrase_661
+autoresponse=chatphrase_747
+autoresponse=chatphrase_154
+
+// 1019
+[chatphrase_1019]
+phrase=Spread out!
+
+// 1020
+[chatphrase_1020]
+phrase=I can do that.
+
+// 1021
+[chatphrase_1021]
+phrase=My current Slayer assignment is to complete a special challenge.
+
+// 1022
+[chatphrase_1022]
+phrase=Please go read the rules.
+autoresponse=chatphrase_661
+
+// 1023
+[chatphrase_1023]
+phrase=Use your prayer: <listdialog(enum_1534)>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1024
+[chatphrase_1024]
+phrase=Use your curse: <listdialog(enum_911)>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1025
+[chatphrase_1025]
+phrase=I'll go in first.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_747
+autoresponse=chatphrase_154
+
+// 1026
+[chatphrase_1026]
+phrase=Someone else go in first.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_747
+autoresponse=chatphrase_750
+autoresponse=chatphrase_154
+
+// 1027
+[chatphrase_1027]
+phrase=Just run through this room.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1028
+[chatphrase_1028]
+phrase=Kill everything in this room.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1029
+[chatphrase_1029]
+phrase=Cover me, I'll tank.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_241
+autoresponse=chatphrase_747
+autoresponse=chatphrase_154
+
+// 1030
+[chatphrase_1030]
+phrase=Just grab the key.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_241
+autoresponse=chatphrase_747
+autoresponse=chatphrase_750
+autoresponse=chatphrase_154
+
+// 1031
+[chatphrase_1031]
+phrase=Don't go in yet!
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1032
+[chatphrase_1032]
+phrase=We need to get different equipment.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1033
+[chatphrase_1033]
+phrase=Find me on the map.
+
+// 1034
+[chatphrase_1034]
+phrase=Meet in the starting room.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_241
+autoresponse=chatphrase_154
+
+// 1035
+[chatphrase_1035]
+phrase=We've found the boss room.
+
+// 1036
+[chatphrase_1036]
+phrase=We need to find the key to this door.
+autoresponse=chatphrase_1038
+autoresponse=chatphrase_1052
+autoresponse=chatphrase_1053
+
+// 1037
+[chatphrase_1037]
+phrase=What keys do you have?
+autoresponse=chatphrase_1038
+autoresponse=chatphrase_1051
+autoresponse=chatphrase_1052
+autoresponse=chatphrase_1053
+
+// 1038
+[chatphrase_1038]
+phrase=I've got key: <listdialog(enum_1198)>.
+
+// 1039
+[chatphrase_1039]
+phrase=Let's go <listdialog(enum_1195)>.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_241
+autoresponse=chatphrase_154
+
+// 1040
+[chatphrase_1040]
+phrase=Follow my lead.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_747
+autoresponse=chatphrase_154
+
+// 1041
+[chatphrase_1041]
+phrase=Stand here.
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 1042
+[chatphrase_1042]
+phrase=Who can do this challenge room?
+autoresponse=chatphrase_1044
+autoresponse=chatphrase_1043
+
+// 1043
+[chatphrase_1043]
+phrase=I can't do this challenge room.
+
+// 1044
+[chatphrase_1044]
+phrase=I can do this challenge room.
+
+// 1045
+[chatphrase_1045]
+phrase=I don't have any of those, sorry.
+
+// 1046
+[chatphrase_1046]
+phrase=Shall we use guide mode?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 1047
+[chatphrase_1047]
+phrase=I need <listdialog(enum_3032)>.
+autoresponse=chatphrase_445
+autoresponse=chatphrase_543
+
+// 1048
+[chatphrase_1048]
+phrase=Take out the <listdialog(enum_3034)> first.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_747
+autoresponse=chatphrase_154
+
+// 1049
+[chatphrase_1049]
+phrase=There is a <listdialog(enum_3033)> resource here.
+
+// 1050
+[chatphrase_1050]
+phrase=Who can do this skill task?
+autoresponse=chatphrase_1020
+autoresponse=chatphrase_172
+
+// 1051
+[chatphrase_1051]
+phrase=I've not got any keys.
+
+// 1052
+[chatphrase_1052]
+phrase=I've got the key to this door.
+
+// 1053
+[chatphrase_1053]
+phrase=I've not got the key to this door.
+
+// 1054
+[chatphrase_1054]
+phrase=Are you ready?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 1055
+[chatphrase_1055]
+phrase=Don't go in this room.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_154
+
+// 1056
+[chatphrase_1056]
+phrase=This is not a dating site.
+autoresponse=chatphrase_661
+autoresponse=chatphrase_160
+
+// 1057
+[chatphrase_1057]
+phrase=Who wants to play a regular Conquest?
+autoresponse=chatphrase_1059
+
+// 1058
+[chatphrase_1058]
+phrase=Who wants to play a staked Conquest?
+autoresponse=chatphrase_1060
+
+// 1059
+[chatphrase_1059]
+phrase=I'll play a regular Conquest!
+
+// 1060
+[chatphrase_1060]
+phrase=I'll play a staked Conquest!
+
+// 1061
+[chatphrase_1061]
+phrase=I won the last Conquest!
+
+// 1062
+[chatphrase_1062]
+phrase=I lost the last Conquest.
+
+// 1063
+[chatphrase_1063]
+phrase=I drew the last Conquest.
+
+// 1064
+[chatphrase_1064]
+phrase=That was a close game!
+
+// 1065
+[chatphrase_1065]
+phrase=That was a great game!
+
+// 1066
+[chatphrase_1066]
+phrase=Let's play again!
+
+// 1067
+[chatphrase_1067]
+phrase=Conquest rules!
+
+// 1068
+[chatphrase_1068]
+phrase=My favourite troop is: <listdialog(enum_844)>.
+
+// 1069
+[chatphrase_1069]
+phrase=My favourite command is: <listdialog(enum_3277)>.
+
+// 1070
+[chatphrase_1070]
+phrase=What is your favourite troop?
+autoresponse=chatphrase_1068
+
+// 1071
+[chatphrase_1071]
+phrase=What is your favourite Command?
+autoresponse=chatphrase_1069
+
+// 1072
+[chatphrase_1072]
+phrase=You can buy troops for your squad here.
+
+// 1073
+[chatphrase_1073]
+phrase=You can start the Conquest tutorial here.
+
+// 1074
+[chatphrase_1074]
+phrase=I am going to buy: <listdialog(enum_1513)>.
+
+// 1075
+[chatphrase_1075]
+phrase=What are you going to buy?
+autoresponse=chatphrase_1074
+
+// 1076
+[chatphrase_1076]
+phrase=I am saving up to buy: <listdialog(enum_1513)>.
+
+// 1077
+[chatphrase_1077]
+phrase=Whose turn is it?
+autoresponse=chatphrase_1078
+autoresponse=chatphrase_1079
+
+// 1078
+[chatphrase_1078]
+phrase=It's your turn.
+
+// 1079
+[chatphrase_1079]
+phrase=It's my turn.
+
+// 1080
+[chatphrase_1080]
+phrase=What phase is it?
+autoresponse=chatphrase_1081
+autoresponse=chatphrase_1082
+autoresponse=chatphrase_1083
+autoresponse=chatphrase_1084
+
+// 1081
+[chatphrase_1081]
+phrase=It's the Selection phase.
+
+// 1082
+[chatphrase_1082]
+phrase=It's the Movement phase.
+
+// 1083
+[chatphrase_1083]
+phrase=It's the Combat phase.
+
+// 1084
+[chatphrase_1084]
+phrase=It's the Rally phase.
+
+// 1085
+[chatphrase_1085]
+phrase=I'm winning!
+
+// 1086
+[chatphrase_1086]
+phrase=It looks like I'm losing.
+
+// 1087
+[chatphrase_1087]
+phrase=Do you want to call a truce?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 1088
+[chatphrase_1088]
+phrase=I've helped Pauline with <tostring_varbit(varplayerbit_9065)>0 produce.
+
+// 1089
+[chatphrase_1089]
+phrase=I've unlocked <tostring_varbit(varplayerbit_9067)> of the spells.
+
+// 1090
+[chatphrase_1090]
+phrase=There's a distraction and diversion!
+
+// 1091
+[chatphrase_1091]
+phrase=Would you like to join my friends chat?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 1092
+[chatphrase_1092]
+phrase=Can I join your friends chat?
+autoresponse=chatphrase_153
+autoresponse=chatphrase_154
+
+// 1093
+[chatphrase_1093]
+phrase=There are <acc_getcount_world()> amount of people in my friends chat.
+
+// 32768
+[chatphrase_32768]
+phrase=Mike's test chatphrase
+
+// 32769
+[chatphrase_32769]
+phrase=Hello!
+autoresponse=chatphrase_32769
+autoresponse=chatphrase_32770
+autoresponse=chatphrase_32771
+
+// 32770
+[chatphrase_32770]
+phrase=Hi.
+autoresponse=chatphrase_32769
+autoresponse=chatphrase_32770
+autoresponse=chatphrase_32771
+
+// 32771
+[chatphrase_32771]
+phrase=Good day.
+autoresponse=chatphrase_32769
+autoresponse=chatphrase_32770
+autoresponse=chatphrase_32771
+
+// 32772
+[chatphrase_32772]
+phrase=Nice to meet you.
+
+// 32773
+[chatphrase_32773]
+phrase=How are you?
+autoresponse=chatphrase_32786
+autoresponse=chatphrase_32787
+autoresponse=chatphrase_32788
+autoresponse=chatphrase_32789
+
+// 32774
+[chatphrase_32774]
+phrase=Yes.
+
+// 32775
+[chatphrase_32775]
+phrase=No.
+
+// 32776
+[chatphrase_32776]
+phrase=Okay.
+
+// 32777
+[chatphrase_32777]
+phrase=Maybe.
+
+// 32778
+[chatphrase_32778]
+phrase=I don't know.
+
+// 32779
+[chatphrase_32779]
+phrase=Thank you.
+
+// 32780
+[chatphrase_32780]
+phrase=Bye!
+autoresponse=chatphrase_32780
+autoresponse=chatphrase_32781
+
+// 32781
+[chatphrase_32781]
+phrase=See you later.
+autoresponse=chatphrase_32780
+autoresponse=chatphrase_32781
+
+// 32782
+[chatphrase_32782]
+phrase=Be right back.
+autoresponse=chatphrase_32780
+autoresponse=chatphrase_32781
+
+// 32783
+[chatphrase_32783]
+phrase=I've got to go.
+autoresponse=chatphrase_32780
+autoresponse=chatphrase_32781
+
+// 32784
+[chatphrase_32784]
+phrase=Goodnight.
+autoresponse=chatphrase_32780
+autoresponse=chatphrase_32781
+autoresponse=chatphrase_32784
+
+// 32785
+[chatphrase_32785]
+phrase=I have to log off.
+autoresponse=chatphrase_32780
+autoresponse=chatphrase_32781
+
+// 32786
+[chatphrase_32786]
+phrase=I'm great!
+
+// 32787
+[chatphrase_32787]
+phrase=I'm good.
+
+// 32788
+[chatphrase_32788]
+phrase=I'm okay.
+
+// 32789
+[chatphrase_32789]
+phrase=Meh.
+
+// 32790
+[chatphrase_32790]
+phrase=I've been better.
+
+// 32791
+[chatphrase_32791]
+phrase=I'm having a bad day.
+
+// 32792
+[chatphrase_32792]
+phrase=:-)
+
+// 32793
+[chatphrase_32793]
+phrase=:-(
+
+// 32794
+[chatphrase_32794]
+phrase=:-|
+
+// 32795
+[chatphrase_32795]
+phrase=:-D
+
+// 32796
+[chatphrase_32796]
+phrase=:-S
+
+// 32797
+[chatphrase_32797]
+phrase=:-O
+
+// 32798
+[chatphrase_32798]
+phrase=I won!
+
+// 32799
+[chatphrase_32799]
+phrase=Aww, I lost.
+
+// 32800
+[chatphrase_32800]
+phrase=Good game, all.
+
+// 32801
+[chatphrase_32801]
+phrase=Who wants a rematch?
+autoresponse=chatphrase_32774
+autoresponse=chatphrase_32775
+
+// 32802
+[chatphrase_32802]
+phrase=Well done.
+
+// 32803
+[chatphrase_32803]
+phrase=Unlucky, maybe next time.
+
+// 32804
+[chatphrase_32804]
+phrase=Got you with that one!
+
+// 32805
+[chatphrase_32805]
+phrase=Buh bye...
+
+// 32806
+[chatphrase_32806]
+phrase=That's gotta hurt.
+
+// 32807
+[chatphrase_32807]
+phrase=Another one bites the dust.
+
+// 32808
+[chatphrase_32808]
+phrase=I have you now!
+
+// 32809
+[chatphrase_32809]
+phrase=Fear my leet skills.
+
+// 32810
+[chatphrase_32810]
+phrase=I'll get you!
+
+// 32811
+[chatphrase_32811]
+phrase=I'm coming for ya.
+
+// 32812
+[chatphrase_32812]
+phrase=Run and hide, pal.
+
+// 32813
+[chatphrase_32813]
+phrase=Don't hurt me!
+
+// 32814
+[chatphrase_32814]
+phrase=I love this game!
+
+// 32815
+[chatphrase_32815]
+phrase=I don't like this game.
+
+// 32816
+[chatphrase_32816]
+phrase=Let's play Chess.
+
+// 32817
+[chatphrase_32817]
+phrase=Let's play Arcanists.
+
+// 32818
+[chatphrase_32818]
+phrase=Let's play Tetralink.
+
+// 32819
+[chatphrase_32819]
+phrase=Let's play Shattered Plans.
+
+// 32820
+[chatphrase_32820]
+phrase=Can I join you?
+
+// 32821
+[chatphrase_32821]
+phrase=I'm playing a Rated game.
+
+// 32822
+[chatphrase_32822]
+phrase=Invite me, please.
+
+// 32823
+[chatphrase_32823]
+phrase=I am trying to get achievements.
+
+// 32824
+[chatphrase_32824]
+phrase=I am trying to increase my ranking.
+
+// 32825
+[chatphrase_32825]
+phrase=Come and meet me on my world.
+
+// 32826
+[chatphrase_32826]
+phrase=Let's play RuneScape.
+
+// 32827
+[chatphrase_32827]
+phrase=Let's play Castlewars.
+
+// 32828
+[chatphrase_32828]
+phrase=Let's play Barbarian Assault.
+
+// 32829
+[chatphrase_32829]
+phrase=Let's play Fist of Guthix.
+
+// 32831
+[chatphrase_32831]
+phrase=Let's play Clan Wars.
+
+// 32832
+[chatphrase_32832]
+phrase=Let's play Duel Arena.
+
+// 32833
+[chatphrase_32833]
+phrase=Let's play Pixelate.
+
+// 32834
+[chatphrase_32834]
+phrase=Let's play Pool.
+
+// 32835
+[chatphrase_32835]
+phrase=Let's play Deko Bloko.
+
+// 32836
+[chatphrase_32836]
+phrase=Let's play Brick-a-Brac.
+
+// 32837
+[chatphrase_32837]
+phrase=Let's play Stealing Creation.
+

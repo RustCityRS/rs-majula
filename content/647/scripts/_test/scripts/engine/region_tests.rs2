@@ -1,0 +1,268 @@
+#testscript
+
+// controller_0's queue keeps the int it was queued with; its timer counts.
+[ai_conqueue,controller_0]
+%config43_0 = last_int;
+
+[ai_contimer,controller_0]
+%config43_1 = calc(%config43_1 + 1);
+
+// A hit a controller's queue paints is the player's who queued it.
+[ai_conqueue,controller_1]
+npc_add(controller_coord, horror_dagganoth_jr, 50);
+npc_damage(^hitmark_damage, last_int);
+
+// A region is found by any of its tiles and by its uid, and freed 50 ticks
+// after its creation if no player comes.
+[label,test_region_find_and_free]
+def_coord $origin = region_create(4, 16, 16)
+def_region_uid $uid = region_uid
+assert_true($origin = region_getcoord(0, 0, 0))
+assert_gte(coordx($origin), 6400)
+assert_true(region_findbycoord(movecoord($origin, 127, 0, 127)))
+assert_true(region_uid = $uid)
+assert_false(region_findbycoord(movecoord($origin, 128, 0, 0)))
+assert_true(region_findbyuid($uid))
+test_tick(40)
+assert_true(region_findbyuid($uid))
+test_tick(20)
+assert_false(region_findbyuid($uid))
+assert_false(region_findbycoord($origin))
+
+// A region with a player in it stays.
+[label,test_a_region_with_a_player_stays]
+setup_player("test_player")
+def_coord $origin = region_create(1, 1, 1)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump(movecoord($origin, 4, 0, 4))
+test_tick(60)
+assert_true(region_findbycoord($origin))
+
+// A region goes the tick its last player leaves, as OSRS deletes an
+// instance.
+[label,test_a_region_goes_when_its_last_player_leaves]
+def_player_uid $player = setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+def_region_uid $uid = region_uid
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+test_tick(5)
+assert_true(region_findbyuid($uid))
+assert_true(p_finduid($player))
+p_telejump(0_50_50_20_20)
+test_tick(1)
+assert_false(region_findbyuid($uid))
+
+// A drop still on its way when the region's last player leaves goes with
+// the region, rather than landing in its freed slot.
+[label,test_a_delayed_drop_goes_with_its_region]
+def_player_uid $player = setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+inv_add(inv, coins, 20)
+inv_dropitem_delayed(inv, $inside, coins, 10, 1000, 3)
+test_tick(5)
+assert_true(obj_find($inside, coins))
+assert_true(p_finduid($player))
+def_coord $later = movecoord($inside, 1, 0, 0)
+inv_dropitem_delayed(inv, $later, coins, 10, 1000, 3)
+p_telejump(0_50_50_20_20)
+test_tick(5)
+assert_false(obj_find($later, coins))
+
+// region_getcoord takes the level, then the tiles east and north.
+[label,test_region_getcoord_takes_the_level_first]
+def_coord $origin = region_create(2, 2, 2)
+assert_true(region_getcoord(1, 3, 5) = movecoord($origin, 3, 1, 5))
+
+// A find that misses leaves the region it had.
+[label,test_region_find_misses_keep_the_region]
+def_coord $origin = region_create(1, 1, 1)
+def_region_uid $uid = region_uid
+assert_false(region_findbycoord(0_50_50_0_0))
+assert_false(region_findbyuid(-1))
+assert_true(region_uid = $uid)
+assert_true(region_getcoord(0, 0, 0) = $origin)
+
+// region_set copies one zone onto the zone it names, which a player can
+// then stand in.
+[label,test_region_set_copies_one_zone]
+setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $origin = region_create(2, 2, 3)
+region_set(0, 1, 2, 0_50_50_16_16, 1)
+def_coord $copy = movecoord($origin, 12, 0, 20)
+p_telejump($copy)
+assert_true(coord = $copy)
+
+// Its own region lets a player in; once left and freed, its old tiles stay
+// out of reach.
+[label,test_region_teleports_need_their_region]
+def_player_uid $player = setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $inside = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump($inside)
+assert_true(coord = $inside)
+p_telejump(0_50_50_20_20)
+test_tick(60)
+assert_false(region_findbycoord($inside))
+assert_true(p_finduid($player))
+p_telejump($inside)
+assert_true(coord = 0_50_50_20_20)
+
+// A tile of another region is reached only once a script selects it.
+[label,test_region_teleports_never_reach_another_region]
+setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $first = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+def_coord $second = movecoord(region_create(1, 1, 1), 4, 0, 4)
+region_set(0, 0, 0, 0_50_50_16_16, 1)
+assert_true(region_findbycoord($first))
+p_telejump($first)
+assert_true(coord = $first)
+p_telejump($second)
+assert_true(coord = $first)
+assert_true(region_findbycoord($second))
+p_telejump($second)
+assert_true(coord = $second)
+
+// A dot-prefixed region command uses the secondary region, as npcs and
+// controllers do, and a player may go to either region a script selected.
+[label,test_secondary_region]
+setup_player("test_player")
+p_telejump(0_50_50_20_20)
+def_coord $first = region_create(1, 1, 1)
+def_coord $second = .region_create(1, 1, 1)
+assert_false($first = $second)
+assert_true(region_getcoord(0, 0, 0) = $first)
+assert_true(.region_getcoord(0, 0, 0) = $second)
+assert_false(region_uid = .region_uid)
+.region_set(0, 0, 0, 0_50_50_16_16, 0)
+def_coord $inside = movecoord($second, 4, 0, 4)
+assert_true(.region_findbycoord($inside))
+assert_false(.region_findbycoord(0_50_50_0_0))
+assert_true(.region_getcoord(0, 0, 0) = $second)
+p_telejump($inside)
+assert_true(coord = $inside)
+assert_true(region_getcoord(0, 0, 0) = $first)
+
+// An npc added in a region for 0 ticks stays until the region goes, as the
+// leaked KBD instance adds its dragon; outside a region 0 is 1 tick.
+[label,test_an_npc_added_in_a_region_for_0_ticks_stays]
+def_player_uid $player = setup_player("test_player")
+def_coord $origin = region_create(1, 1, 1)
+region_set(0, 0, 0, 0_50_50_16_16, 0)
+p_telejump(movecoord($origin, 2, 0, 2))
+npc_add(movecoord($origin, 4, 0, 4), man, 0)
+def_npc_uid $man = npc_uid;
+npc_add(0_50_50_20_24, man, 0)
+def_npc_uid $outside = npc_uid;
+test_tick(20)
+assert_true(npc_finduid($man))
+assert_false(npc_finduid($outside))
+assert_true(p_finduid($player))
+p_telejump(0_50_50_20_20)
+test_tick(60)
+assert_false(npc_finduid($man))
+
+// A controller keeps its vars, runs its queue and its timer, and goes when
+// deleted.
+[label,test_controller_queue_timer_and_vars]
+controller_add(0_50_50_20_21, controller_0, 0)
+%config43_0 = 7;
+assert_eq(%config43_0, 7)
+controller_queue(1, 42, 1)
+controller_settimer(1)
+test_tick(3)
+assert_true(controller_findexact(0_50_50_20_21, controller_0))
+assert_eq(%config43_0, 42)
+assert_gte(%config43_1, 2)
+assert_true(controller_coord = 0_50_50_20_21)
+controller_del
+assert_false(controller_findexact(0_50_50_20_21, controller_0))
+
+// A controller's queue carries the player who queued it, so a hit its script
+// paints is theirs.
+[label,test_a_controllers_queued_hit_is_its_queuers]
+setup_player("test_player")
+controller_add(movecoord(coord, 0, 0, 3), controller_1, 0)
+controller_queue(1, 40, 1)
+test_tick(3)
+assert_called_with("npc_hit_by", tostring(calc(uid & 2047)))
+controller_del
+
+// A dot-prefixed controller command or var uses the secondary controller, as
+// npcs do, and a findexact that misses leaves its pointer as it was.
+[label,test_secondary_controller]
+controller_add(0_50_50_20_21, controller_0, 0)
+.controller_add(0_50_50_20_22, controller_0, 0)
+%config43_0 = 1;
+.%config43_0 = 2;
+assert_eq(%config43_0, 1)
+assert_eq(.%config43_0, 2)
+assert_true(.controller_coord = 0_50_50_20_22)
+assert_false(.controller_findexact(0_50_50_20_23, controller_0))
+assert_true(.controller_coord = 0_50_50_20_22)
+.controller_del
+assert_false(controller_findexact(0_50_50_20_22, controller_0))
+assert_true(controller_coord = 0_50_50_20_21)
+controller_del
+
+// A freed region's controllers go with it.
+[label,test_a_freed_regions_controllers_go_with_it]
+def_coord $origin = region_create(1, 1, 1)
+controller_add($origin, controller_0, 0)
+test_tick(60)
+assert_false(region_findbycoord($origin))
+assert_false(controller_findexact($origin, controller_0))
+
+// A controller added for a duration goes when an npc added for it would.
+// The npc is found by its uid: it wanders, so it may have left its tile.
+[label,test_controller_despawns_like_an_npc]
+controller_add(0_50_50_20_23, controller_0, 3)
+npc_add(0_50_50_20_24, horror_dagganoth_jr, 3)
+def_npc_uid $npc = npc_uid;
+test_tick(2)
+assert_true(controller_findexact(0_50_50_20_23, controller_0))
+assert_true(npc_finduid($npc))
+test_tick(1)
+assert_false(controller_findexact(0_50_50_20_23, controller_0))
+assert_false(npc_finduid($npc))
+
+// A region's controller can stand on a tile no zone was copied to.
+[label,test_controller_stands_anywhere_in_its_region]
+def_coord $origin = region_create(4, 16, 16)
+region_set(0, 8, 8, 0_50_50_8_8, 0)
+controller_add($origin, controller_0, 0)
+assert_true(controller_findexact($origin, controller_0))
+
+// An npc teleported by another script is in its new zone at once, as the
+// reference engine moves zone presence with every teleport.
+[label,test_npc_tele_moves_its_zone_at_once]
+npc_add(0_50_50_10_10, man, 50)
+def_npc_uid $man = npc_uid;
+npc_tele(0_50_50_40_40)
+def_boolean $old = false;
+npc_findallzone(0_50_50_10_10)
+while (npc_findnext = true) {
+    if (npc_uid = $man) {
+        $old = true;
+    }
+}
+assert_false($old)
+def_boolean $new = false;
+npc_findallzone(0_50_50_40_40)
+while (npc_findnext = true) {
+    if (npc_uid = $man) {
+        $new = true;
+    }
+}
+assert_true($new)
+if (npc_finduid($man) = true) {
+    npc_del;
+}

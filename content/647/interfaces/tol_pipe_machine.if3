@@ -1,0 +1,677 @@
+// 511:0
+[tol_background_color]
+type=rectangle
+width=512
+height=334
+layer=content_layer
+colour=0x3b2a1a
+fill=yes
+trans=64
+
+// 511:1
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 511:2
+[tol_pipe_machine01]
+type=model
+x=40
+y=-34
+width=306
+height=401
+layer=content_layer
+model=model_22337
+modelorigin=-4,6
+modelzoom=1050
+
+// 511:3
+[tol_pipe_connections]
+type=layer
+x=66
+y=16
+width=256
+height=261
+layer=content_layer
+
+// 511:4
+[tol_pipe_piece03]
+type=model
+x=380
+y=147
+width=124
+height=175
+layer=content_layer
+model=model_22544
+modelorigin=0,-1
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 511:5
+[tol_pipe_piece01]
+type=model
+x=356
+y=12
+width=49
+height=107
+layer=content_layer
+model=model_22526
+modelorigin=-7,9
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 511:6
+[tol_pipe_piece04]
+type=model
+x=318
+y=231
+width=50
+height=93
+layer=content_layer
+model=model_22546
+modelorigin=2,0
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 511:7
+[tol_pipe_piece05]
+type=model
+x=445
+y=60
+width=70
+height=70
+layer=content_layer
+model=model_22554
+modelorigin=-2,-2
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 511:8
+[tol_pipe_piece02]
+type=model
+x=327
+y=169
+width=54
+height=59
+layer=content_layer
+model=model_22530
+modelorigin=-1,3
+modelzoom=1042
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 511:9
+[tol_pipe_rotate_button_layer01]
+type=layer
+x=237
+y=280
+width=42
+height=45
+layer=content_layer
+onmouseover=model_swapper(tol_pipe_machine:tol_pipe_rotate_button01, model_22348)
+onmouseleave=model_swapper(tol_pipe_machine:tol_pipe_rotate_button01, model_22346)
+
+// 511:10
+[tol_pipe_rotate_button01]
+type=model
+x=237
+y=278
+width=48
+height=48
+layer=content_layer
+model=model_22346
+modelorigin=-4,-3
+modelangle=54,2002,0
+modelzoom=1256
+transmitop=1
+op1=Rotate
+
+// 511:11
+[tol_pipe_rotate_button_highlight_layer01]
+type=layer
+x=237
+y=280
+width=42
+height=45
+layer=content_layer
+hide=yes
+
+// 511:12
+[tol_vn1]
+type=graphic
+x=467
+y=4
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 511:13
+[com_13]
+type=rectangle
+x=10
+y=53
+width=32
+height=32
+layer=content_layer
+colour=0xffff00
+trans=255
+
+// 511:14
+[com_14]
+type=rectangle
+x=8
+y=23
+width=32
+height=32
+layer=content_layer
+colour=0xffff00
+trans=255
+
+// 511:15
+[tol_move_left_layer01]
+type=layer
+x=101
+y=275
+width=56
+height=34
+layer=content_layer
+onmouseover=model_swapper(tol_pipe_machine:tol_move_left01, model_22343)
+onmouseleave=model_swapper(tol_pipe_machine:tol_move_left01, model_22340)
+
+// 511:16
+[tol_move_left_highlight_layer01]
+type=layer
+x=101
+y=275
+width=56
+height=33
+layer=content_layer
+hide=yes
+
+// 511:17
+[tol_move_right_layer01]
+type=layer
+x=103
+y=308
+width=56
+height=29
+layer=content_layer
+onmouseover=model_swapper(tol_pipe_machine:tol_move_right01, model_22344)
+onmouseleave=model_swapper(tol_pipe_machine:tol_move_right01, model_22338)
+
+// 511:18
+[tol_move_right_highlight_layer01]
+type=layer
+x=103
+y=308
+width=56
+height=30
+layer=content_layer
+hide=yes
+
+// 511:19
+[tol_move_up_layer01]
+type=layer
+x=167
+y=276
+width=30
+height=55
+layer=content_layer
+onmouseover=model_swapper(tol_pipe_machine:tol_move_up01, model_22350)
+onmouseleave=model_swapper(tol_pipe_machine:tol_move_up01, model_22349)
+
+// 511:20
+[tol_move_up_highlight_layer01]
+type=layer
+x=167
+y=275
+width=29
+height=56
+layer=content_layer
+hide=yes
+
+// 511:21
+[tol_move_down_layer01]
+type=layer
+x=199
+y=277
+width=29
+height=56
+layer=content_layer
+onmouseover=model_swapper(tol_pipe_machine:tol_move_down01, model_22341)
+onmouseleave=model_swapper(tol_pipe_machine:tol_move_down01, model_22339)
+
+// 511:22
+[tol_move_down_highlight_layer01]
+type=layer
+x=199
+y=277
+width=29
+height=56
+layer=content_layer
+hide=yes
+
+// 511:23
+[tol_pipe_connection01]
+type=model
+x=7
+y=7
+width=55
+height=43
+layer=tol_pipe_connections
+model=model_22351
+modelorigin=0,7
+modelzoom=1050
+
+// 511:24
+[tol_pipe_connection02]
+type=model
+x=69
+y=7
+width=55
+height=43
+layer=tol_pipe_connections
+model=model_22352
+modelorigin=0,7
+modelzoom=1050
+
+// 511:25
+[tol_pipe_connection03]
+type=model
+x=129
+y=7
+width=55
+height=43
+layer=tol_pipe_connections
+model=model_22351
+modelorigin=0,7
+modelzoom=1050
+
+// 511:26
+[tol_pipe_connection04]
+type=model
+x=190
+y=7
+width=55
+height=43
+layer=tol_pipe_connections
+model=model_22352
+modelorigin=0,7
+modelzoom=1050
+
+// 511:27
+[tol_pipe_connection05]
+type=model
+x=96
+y=213
+width=56
+height=46
+layer=tol_pipe_connections
+model=model_22353
+modelorigin=-3,-6
+modelzoom=1050
+
+// 511:28
+[tol_pipe_rotate_button_highlight01]
+type=model
+y=-2
+width=48
+height=48
+layer=tol_pipe_rotate_button_highlight_layer01
+model=model_22348
+modelorigin=-4,-3
+modelangle=54,2002,0
+modelzoom=1256
+
+// 511:29
+[tol_move_left01]
+type=model
+x=1
+y=2
+width=53
+height=30
+layer=tol_move_left_layer01
+model=model_22340
+modelorigin=4,0
+modelzoom=1000
+transmitop=1
+op1=Move left
+
+// 511:30
+[tol_move_left_highlight01]
+type=model
+x=1
+y=2
+width=53
+height=30
+layer=tol_move_left_highlight_layer01
+model=model_22343
+modelorigin=4,0
+modelzoom=1000
+
+// 511:31
+[tol_move_right01]
+type=model
+x=5
+y=-4
+width=54
+height=30
+layer=tol_move_right_layer01
+model=model_22338
+modelorigin=8,0
+modelzoom=1000
+transmitop=1
+op1=Move right
+
+// 511:32
+[tol_move_right_highlight01]
+type=model
+x=5
+y=-4
+width=54
+height=30
+layer=tol_move_right_highlight_layer01
+model=model_22344
+modelorigin=8,0
+modelzoom=1000
+
+// 511:33
+[tol_move_up01]
+type=model
+x=2
+width=30
+height=53
+layer=tol_move_up_layer01
+model=model_22349
+modelorigin=0,5
+modelzoom=1000
+transmitop=1
+op1=Move up
+
+// 511:34
+[tol_move_up_highlight01]
+type=model
+x=2
+y=1
+width=30
+height=53
+layer=tol_move_up_highlight_layer01
+model=model_22350
+modelorigin=0,5
+modelzoom=1000
+
+// 511:35
+[tol_move_down01]
+type=model
+x=-2
+y=2
+width=30
+height=53
+layer=tol_move_down_layer01
+model=model_22339
+modelorigin=-1,0
+modelzoom=1000
+transmitop=1
+op1=Move down
+
+// 511:36
+[tol_move_down_highlight01]
+type=model
+x=-2
+y=2
+width=30
+height=53
+layer=tol_move_down_highlight_layer01
+model=model_22341
+modelorigin=-1,0
+modelzoom=1000
+
+// 511:37
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 511:38
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 511:39
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 511:40
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 511:41
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 511:42
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 511:43
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 511:44
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 511:45
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 511:46
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 511:47
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 511:48
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 511:49
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 511:50
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 511:51
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 511:52
+[com_52]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 511:53
+[com_53]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 511:54
+[com_54]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 511:55
+[com_55]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

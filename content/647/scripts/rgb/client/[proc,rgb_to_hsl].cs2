@@ -1,0 +1,25 @@
+// 4127
+[proc,rgb_to_hsl](int $int0, int $int1, int $int2)(int, int, int)
+def_int $int3 = min($int0, min($int1, $int2));
+def_int $int4 = max($int0, max($int1, $int2));
+def_int $int5 = calc($int4 - $int3);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = calc(($int3 + $int4) / 2);
+if ($int5 ! 0) {
+    if ($int8 < 128) {
+        $int7 = scale($int5, calc(2 * $int8), 255);
+    } else {
+        $int7 = scale($int5, calc(510 - 2 * $int8), 255);
+    }
+    if ($int0 = $int4) {
+        $int6 = scale(calc((scale(calc($int1 - $int2), $int5, 10000) + 60000) % 60000), 10000, 60);
+    }
+    if ($int1 = $int4) {
+        $int6 = scale(calc(scale(calc($int2 - $int0), $int5, 10000) + 20000), 10000, 60);
+    }
+    if ($int2 = $int4) {
+        $int6 = scale(calc(scale(calc($int0 - $int1), $int5, 10000) + 40000), 10000, 60);
+    }
+}
+return($int6, $int7, $int8);

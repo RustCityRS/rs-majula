@@ -1,0 +1,8 @@
+// 326
+[clientscript,script326]
+if_sethide(player_kit_jewel:gold_layer, false);
+if_sethide(player_kit_jewel:silver_layer, true);
+if_setgraphic(player_kit_jewel:silver_tab, "player_kit_fancy_off,5");
+if_setgraphic(player_kit_jewel:gold_tab, "player_kit_fancy,5");
+%player_kit_bracelet_layer = 1;
+~player_kit_bracelet_load(player_kit_jewel:gold_layer);

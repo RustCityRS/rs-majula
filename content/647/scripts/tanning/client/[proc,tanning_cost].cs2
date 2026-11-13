@@ -1,0 +1,19 @@
+// 1969
+[proc,tanning_cost]
+def_int $int0 = 1;
+def_int $int1 = 0;
+while ($int0 <= enum_getoutputcount(enum_2119)) {
+    if (%tanning_cost = 1) {
+        $int1 = enum(int, int, enum_2022, $int0);
+        if_settext(enum(int, component, enum_2119, $int0), "<tostring($int1)> Coins");
+    } else {
+        $int1 = enum(int, int, enum_2021, $int0);
+        if_settext(enum(int, component, enum_2119, $int0), "<tostring($int1)> Coins");
+    }
+    if (inv_total(inv, coins) >= $int1) {
+        if_setcolour(enum(int, component, enum_2119, $int0), ^green);
+    } else {
+        if_setcolour(enum(int, component, enum_2119, $int0), ^red);
+    }
+    $int0 = calc($int0 + 1);
+}

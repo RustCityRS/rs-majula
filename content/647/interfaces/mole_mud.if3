@@ -1,0 +1,29 @@
+// 226:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=255
+onload=mole_init(event_com, mole_mud:mud)
+
+// 226:1
+[mud]
+type=model
+y=4990
+width=9751
+height=25771
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=proportion_top
+model=model_12027
+modelorigin=12,-249
+modelangle=462,0,0
+modelzoom=180
+modelanim=mole_mud_splat_interface
+modelobjwidth=455
+modelobjheight=791

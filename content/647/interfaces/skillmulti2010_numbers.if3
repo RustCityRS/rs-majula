@@ -1,0 +1,243 @@
+// 916:0
+[universe]
+type=layer
+height=34
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 916:1
+[text]
+type=text
+x=5
+width=100
+heightmode=minus
+ymode=abs_centre
+layer=universe
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+
+// 916:2
+[com_2]
+type=layer
+width=50
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+
+// 916:3
+[com_3]
+type=graphic
+width=23
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic=graphic_3886
+tiling=yes
+
+// 916:4
+[com_4]
+type=graphic
+width=24
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+graphic=graphic_3885
+hflip=yes
+
+// 916:5
+[com_5]
+type=layer
+ymode=abs_centre
+layer=com_2
+hide=yes
+transmitop=1
+op1=1
+
+// 916:6
+[com_6]
+type=layer
+ymode=abs_centre
+layer=com_2
+hide=yes
+transmitop=1
+op1=5
+
+// 916:7
+[com_7]
+type=layer
+ymode=abs_centre
+layer=com_2
+hide=yes
+transmitop=1
+op1=10
+
+// 916:8
+[all]
+type=layer
+ymode=abs_centre
+layer=com_2
+hide=yes
+
+// 916:9
+[static_section]
+type=layer
+width=170
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+noclickthrough=yes
+
+// 916:10
+[com_10]
+type=graphic
+width=46
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=static_section
+graphic=sm_digit_bar_fill
+tiling=yes
+
+// 916:11
+[com_11]
+type=graphic
+width=24
+heightmode=minus
+ymode=abs_centre
+layer=static_section
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 916:12
+[com_12]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=static_section
+graphic=sm_digit_bar_end
+
+// 916:13
+[number_container]
+type=layer
+x=10
+width=130
+height=26
+ymode=abs_centre
+layer=static_section
+
+// 916:14
+[com_14]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=number_container
+graphic=graphic_3870
+
+// 916:15
+[com_15]
+type=graphic
+width=11
+height=2
+heightmode=minus
+ymode=abs_centre
+layer=number_container
+graphic=graphic_3869
+hflip=yes
+
+// 916:16
+[com_16]
+type=graphic
+width=11
+height=2
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=number_container
+graphic=graphic_3869
+
+// 916:17
+[number]
+type=text
+width=48
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=number_container
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 916:18
+[com_18]
+type=line
+x=48
+height=6
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=number_container
+colour=0x3f3420
+
+// 916:19
+[up]
+type=graphic
+x=25
+width=21
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=number_container
+graphic="sm_digit_bar_button_arrow,0"
+transmitop=1
+op1=+1
+onmouseover=graphic_swapper(event_com, "sm_digit_bar_button_arrow,2")
+onmouseleave=graphic_swapper(event_com, "sm_digit_bar_button_arrow,0")
+
+// 916:20
+[down]
+type=graphic
+x=3
+width=21
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=number_container
+graphic="sm_digit_bar_button_arrow,1"
+transmitop=1
+op1=-1
+onmouseover=graphic_swapper(event_com, "sm_digit_bar_button_arrow,3")
+onmouseleave=graphic_swapper(event_com, "sm_digit_bar_button_arrow,1")
+
+// 916:21
+[expander]
+type=layer
+width=30
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=static_section
+onmouseover=graphic_swapper(skillmulti2010_numbers:expander_graphic, graphic_3884)
+
+// 916:22
+[expander_graphic]
+type=graphic
+width=9
+height=11
+xmode=abs_centre
+ymode=abs_centre
+layer=expander
+graphic=graphic_3883

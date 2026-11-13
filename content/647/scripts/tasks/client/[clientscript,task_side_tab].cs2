@@ -1,0 +1,74 @@
+// 4000
+[clientscript,task_side_tab](int $int0)
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch_int ($int0) {
+    case 0 :
+        if_sethide(task_side:hints_layer, true);
+        if_sethide(task_side:rewards_layer, true);
+        if_sethide(task_side:details_layer, false);
+        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1752, param_1266)) = 0 & %tutorial = 1000) {
+            $string0 = "Click on the Hints tab for more on how to complete this Task.";
+        } else if (compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1518, param_1266)) = 0) {
+            $string0 = "Remember, the Hints tab provides more details about a Task.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 183;
+            $int3 = 1;
+            if (if_getwidth(toplevel_fullscreen:main_game_container) < 997) {
+                $int2 = calc($int2 + 40);
+            }
+        } else {
+            $int1 = 217;
+            $int2 = 177;
+        }
+    case 1 :
+        if_sethide(task_side:hints_layer, true);
+        if_sethide(task_side:rewards_layer, false);
+        if_sethide(task_side:details_layer, true);
+        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1752, param_1266)) = 0 & %tutorial = 1000) {
+            $string0 = "Click on the Hints tab for more on how to complete this Task.";
+        } else if (compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1518, param_1266)) = 0) {
+            $string0 = "Remember, the Hints tab provides more details about a Task.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 183;
+            $int3 = 1;
+            if (if_getwidth(toplevel_fullscreen:main_game_container) < 997) {
+                $int2 = calc($int2 + 40);
+            }
+        } else {
+            $int1 = 217;
+            $int2 = 177;
+        }
+    case 2 :
+        if_sethide(task_side:hints_layer, false);
+        if_sethide(task_side:rewards_layer, true);
+        if_sethide(task_side:details_layer, true);
+        if (compare(if_gettext(task_side:title_text), struct_param(struct_1753, param_1266)) = 0 | compare(if_gettext(task_side:title_text), struct_param(struct_1754, param_1266)) = 0) {
+            $string0 = "The '?' icon will add an arrow to the screen which points to your destination.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 87;
+            $int3 = 1;
+            if (if_getwidth(toplevel_fullscreen:main_game_container) < 997) {
+                $int2 = calc($int2 + 40);
+            }
+        } else {
+            $int1 = 208;
+            $int2 = 78;
+        }
+}
+if (%varplayerbit_9030 = 0) {
+    $string0 = "";
+}
+if ($int3 = 0) {
+    ~script4247($string0, $int1, $int2, 1, ^white, verdana_11pt_regular_multiline);
+} else {
+    ~script4248($string0, $int1, $int2, 1, ^white, verdana_11pt_regular_multiline);
+}

@@ -1,0 +1,61 @@
+// 136:0
+[giantdwarf_header]
+type=text
+y=8
+width=85
+height=17
+xmode=abs_centre
+layer=content
+textfont=q8_full
+text=Both
+textalignh=centre
+colour=0x800000
+
+// 136:1
+[giantdwarf_argh_text]
+type=text
+y=67
+width=85
+height=17
+xmode=abs_centre
+layer=content
+textfont=q8_full
+text=Argh!
+textalignh=centre
+colour=0x000000
+
+// 136:2
+[com_2]
+type=model
+x=1464
+width=32
+height=32
+xmode=proportion_right
+ymode=abs_centre
+layer=content
+model=null
+modelangle=40,166,0
+modelzoom=2150
+transmitop=10
+op10=  
+
+// 136:3
+[giantdwarf_npchead]
+type=model
+x=1302
+width=32
+height=32
+xmode=proportion_left
+ymode=abs_centre
+layer=content
+model=null
+modelangle=40,166,0
+modelzoom=2150
+transmitop=10
+op10=  
+
+// 136:4
+[content]
+type=layer
+width=506
+height=129

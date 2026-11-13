@@ -1,0 +1,13 @@
+// 3009
+[proc,script3009](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+if_setsize($component1, 13, 88, ^setsize_abs, ^setsize_abs);
+if_setgraphic($component1, graphic_4681);
+if_setsize($component2, 26, 88, ^setsize_minus, ^setsize_abs);
+if_setgraphic($component2, graphic_4682);
+if_setsize($component3, 13, 88, ^setsize_abs, ^setsize_abs);
+if_setgraphic($component3, graphic_4684);
+if_setgraphic($component5, graphic_2673);
+if_setsize($component6, 13, 88, ^setsize_abs, ^setsize_abs);
+if_setgraphic($component6, graphic_4683);
+if_setonmouseover($component0, null);
+if_setonmouseleave($component0, null);

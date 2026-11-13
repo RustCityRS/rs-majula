@@ -1,0 +1,488 @@
+// 641:0
+[duel_icon]
+type=graphic
+x=25
+y=25
+width=25
+height=25
+xmode=abs_right
+layer=duel_icon_lay
+graphic=overlay_duel
+colour=0xffffffff
+
+// 641:1
+[info]
+type=text
+x=65
+y=59
+width=254
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=text2
+textfont=p11_full
+textshadow=yes
+colour=0xcc9900
+
+// 641:2
+[tourn_rank]
+type=text
+x=30
+y=66
+width=60
+height=12
+xmode=abs_right
+layer=text2
+textfont=p11_full
+text=0
+textshadow=yes
+colour=0xcc9900
+onvartransmit=tourn_rank_update(event_com){varplayer_1105}
+
+// 641:3
+[rank_txt]
+type=text
+x=-2
+y=54
+width=92
+height=12
+xmode=abs_right
+layer=text2
+textfont=p11_full
+text=Tourn. Rank:
+textshadow=yes
+colour=0xcc9900
+
+// 641:4
+[kval]
+type=text
+x=10
+y=90
+width=80
+height=12
+xmode=abs_right
+layer=text2
+textfont=p11_full
+textshadow=yes
+colour=0xcc9900
+
+// 641:5
+[kval_txt]
+type=text
+x=27
+y=78
+width=63
+height=12
+xmode=abs_right
+layer=text2
+textfont=p11_full
+text=Tourn. Value:
+textalignv=centre
+textshadow=yes
+colour=0xcc9900
+
+// 641:6
+[com_6]
+type=rectangle
+x=4
+y=75
+width=90
+height=105
+xmode=abs_right
+layer=text
+colour=0x000000
+fill=yes
+trans=125
+
+// 641:7
+[pop]
+type=text
+x=15
+y=92
+width=75
+height=12
+xmode=abs_right
+layer=text
+textfont=p11_full
+text=0
+textshadow=yes
+colour=0xcc9900
+
+// 641:8
+[opp_name]
+type=text
+x=8
+y=164
+width=82
+height=12
+xmode=abs_right
+layer=text
+textfont=p11_full
+textshadow=yes
+colour=0xcc9900
+onvarcstrtransmit=script1640(event_com, interface_641:tooltip, p11_full){varclient_1793}
+
+// 641:9
+[opponent_txt]
+type=text
+x=27
+y=152
+width=63
+height=12
+xmode=abs_right
+layer=text
+textfont=p11_full
+text=Opponent:
+textalignv=centre
+textshadow=yes
+colour=0xcc9900
+
+// 641:10
+[pop_txt]
+type=text
+x=10
+y=80
+width=80
+height=12
+xmode=abs_right
+layer=text
+textfont=p11_full
+text=Tourn. Size:
+textshadow=yes
+colour=0xcc9900
+
+// 641:11
+[duel_icon_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 641:12
+[potion_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:13
+[food_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:14
+[prayer_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:15
+[spec_att_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:16
+[sum_lore_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:17
+[healing_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:18
+[weaponslot_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:19
+[ranged_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:20
+[melee_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:21
+[magic_lay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boundingbox
+hide=yes
+
+// 641:22
+[tooltip]
+type=layer
+x=1
+y=36
+width=207
+height=53
+xmode=abs_centre
+layer=boundingbox
+onload=script563
+
+// 641:23
+[boundingbox]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 641:24
+[combat_txt]
+type=text
+x=9
+y=30
+width=30
+height=12
+textfont=p11_full
+text=Style:
+textshadow=yes
+colour=0xcc9900
+
+// 641:25
+[options_txt]
+type=text
+x=50
+y=30
+width=50
+height=12
+textfont=p11_full
+text=Options:
+textshadow=yes
+colour=0xcc9900
+
+// 641:26
+[divider]
+type=model
+width=1
+height=1
+model=null
+modelzoom=400
+
+// 641:27
+[potion]
+type=graphic
+x=24
+y=-4898
+width=25
+height=25
+ymode=proportion_centre
+layer=potion_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Potions Allowed", 50, 150)
+
+// 641:28
+[food]
+type=graphic
+x=24
+y=-3573
+width=25
+height=25
+ymode=proportion_centre
+layer=food_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Food Allowed", 50, 150)
+
+// 641:29
+[prayer]
+type=graphic
+x=24
+y=-2249
+width=25
+height=25
+ymode=proportion_centre
+layer=prayer_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Prayers Allowed", 50, 150)
+
+// 641:30
+[spec_att]
+type=graphic
+x=24
+y=-925
+width=25
+height=25
+ymode=proportion_centre
+layer=spec_att_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Special Attacks Allowed", 50, 150)
+
+// 641:31
+[sum_lore]
+type=graphic
+x=24
+y=399
+width=25
+height=25
+ymode=proportion_centre
+layer=sum_lore_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Summoning Allowed", 50, 150)
+
+// 641:32
+[healing]
+type=graphic
+x=24
+y=1723
+width=25
+height=25
+ymode=proportion_centre
+layer=healing_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Healing Between Rounds", 50, 150)
+
+// 641:33
+[weaponslot]
+type=graphic
+x=24
+y=1723
+width=25
+height=25
+ymode=proportion_centre
+layer=weaponslot_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Weapon Slots Only", 50, 150)
+
+// 641:34
+[ranged]
+type=graphic
+x=24
+y=3048
+width=25
+height=25
+ymode=proportion_centre
+layer=ranged_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Ranged Combat Allowed", 50, 150)
+
+// 641:35
+[melee]
+type=graphic
+x=24
+y=4372
+width=25
+height=25
+ymode=proportion_centre
+layer=melee_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Melee Combat Allowed", 50, 150)
+
+// 641:36
+[magic]
+type=graphic
+x=24
+y=5697
+width=25
+height=25
+ymode=proportion_centre
+layer=magic_lay
+colour=0xffffffff
+onmouseleave=deltooltip(interface_641:tooltip)
+onmouserepeat=addtooltip(event_com, interface_641:tooltip, "Magic Combat Allowed", 50, 150)
+
+// 641:37
+[text]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+hide=yes
+
+// 641:38
+[time_txt]
+type=text
+x=-27
+y=13
+width=63
+height=16
+xmode=abs_centre
+layer=text
+textfont=p12_full
+text=Round Time:
+textalignv=centre
+textshadow=yes
+colour=0xcc9900
+
+// 641:39
+[time_left]
+type=text
+x=52
+y=13
+width=80
+height=16
+xmode=abs_centre
+layer=text
+textfont=p12_full
+textshadow=yes
+colour=0xcc9900
+
+// 641:40
+[text2]
+type=layer
+y=50
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right

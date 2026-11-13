@@ -1,0 +1,43 @@
+// 2967
+[proc,create_go](int $int0)
+~script3209;
+~create_please_wait(1);
+def_boolean $boolean1 = ~script3228(7, 0, 0);
+def_boolean $boolean2 = ~script3228(8, 0, 0);
+def_int $int3 = 1;
+if (compare(%varclient_1643, %varclient_1644) ! 0 & string_length(%varclient_1643) > 0 & string_length(%varclient_1644) > 0) {
+    ~create_error("Please ensure both passwords match.", account_create:com_61);
+    $int3 = 0;
+}
+def_int $int4 = 1;
+if (string_length(%varclient_1641) <= 0) {
+    ~create_error("Please enter your Email address here.", account_create:com_81);
+    $int4 = 0;
+}
+if (~create_check_email(%varclient_1641) = false) {
+    ~create_error("Please enter a valid Email address.", account_create:com_81);
+    $int4 = 0;
+}
+def_int $int5 = 1;
+if (string_length(%varclient_1845) <= 0) {
+    ~create_error("Please enter your Email address again here.", account_create:com_100);
+    $int5 = 0;
+}
+if (compare(%varclient_1641, %varclient_1845) ! 0) {
+    ~create_error("Please ensure both Email addresses match.", account_create:com_100);
+    $int5 = 0;
+}
+def_boolean $boolean6 = ~script3954(0);
+if ($int4 = 1 & $int5 = 1 & $boolean1 = true & $boolean2 = true & $int3 = 1 & $boolean6 = true) {
+    if (%create_age < 13) {
+        unknown_command_5626;
+        ~script4038;
+    } else if (unknown_command_5625 = true) {
+        ~script4038;
+    } else {
+        unknown_command_5605(%varclient_1641, %varclient_1643, %create_age, %create_send_me_news);
+        if_setontimer(account_create:continue, "create_go_timer");
+    }
+} else {
+    ~create_please_wait(0);
+}

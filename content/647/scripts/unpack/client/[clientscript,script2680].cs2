@@ -1,0 +1,9 @@
+// 2680
+[clientscript,script2680]
+if (%poh_building_mode = 1) {
+    if_setgraphic(poh_house_options:com_15, "miscgraphics,9");
+    if_setgraphic(poh_house_options:com_1, "miscgraphics,0");
+} else {
+    if_setgraphic(poh_house_options:com_15, "miscgraphics,0");
+    if_setgraphic(poh_house_options:com_1, "miscgraphics,9");
+}

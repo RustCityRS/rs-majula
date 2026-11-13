@@ -1,0 +1,1225 @@
+// 923:0
+[main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+onload=fishcomp_side_load
+
+// 923:1
+[tackle_box_layer]
+type=layer
+width=190
+height=173
+layer=main_layer
+
+// 923:2
+[tackle_box_background_layer]
+type=layer
+width=190
+height=261
+layer=tackle_box_layer
+
+// 923:3
+[com_3]
+type=layer
+width=190
+height=261
+layer=main_layer
+
+// 923:4
+[com_4]
+type=rectangle
+width=190
+height=167
+layer=com_3
+colour=0xffffff
+fill=yes
+trans=212
+
+// 923:5
+[line_layer]
+type=layer
+x=4
+y=44
+width=190
+height=89
+layer=main_layer
+
+// 923:6
+[selected_hook_layer]
+type=layer
+x=4
+y=43
+width=86
+height=40
+layer=line_layer
+
+// 923:7
+[com_7]
+type=layer
+x=-48
+y=2
+width=86
+height=42
+xmode=abs_centre
+layer=line_layer
+transmitop=10
+op10= 
+
+// 923:8
+[com_8]
+type=layer
+x=26
+y=41
+width=96
+height=57
+xmode=abs_centre
+layer=line_layer
+transmitop=10
+op10=  
+
+// 923:9
+[com_9]
+type=rectangle
+x=5
+y=7
+width=34
+height=33
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1
+op1=Add worm
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Worm", 25, 128)
+
+// 923:10
+[com_10]
+type=rectangle
+x=44
+y=126
+width=34
+height=32
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add maggot
+op10= 
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Maggot", 25, 128)
+
+// 923:11
+[com_11]
+type=rectangle
+x=43
+y=48
+width=34
+height=33
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add locust
+op10= 
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Locust", 25, 128)
+
+// 923:12
+[com_12]
+type=rectangle
+x=6
+y=87
+width=32
+height=33
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add cricket
+op10= 
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Cricket", 25, 128)
+
+// 923:13
+[com_13]
+type=rectangle
+x=5
+y=44
+width=35
+height=39
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add crayfish
+op10=  
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Crayfish", 25, 128)
+
+// 923:14
+[com_14]
+type=rectangle
+x=42
+y=87
+width=38
+height=35
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add shrimp
+op10=   
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Shrimp", 25, 128)
+
+// 923:15
+[com_15]
+type=rectangle
+x=5
+y=129
+width=34
+height=30
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add green moth
+op10=   
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Green moth", 25, 128)
+
+// 923:16
+[com_16]
+type=rectangle
+x=43
+y=6
+width=37
+height=34
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add grey moth
+op10=    
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Grey moth", 25, 128)
+
+// 923:17
+[com_17]
+type=rectangle
+x=79
+y=9
+width=34
+height=50
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add standard hook
+op10=     
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Standard hook", 25, 128)
+
+// 923:18
+[com_18]
+type=rectangle
+x=75
+y=111
+width=37
+height=48
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add large hook
+op10=      
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Large hook", 25, 128)
+
+// 923:19
+[com_19]
+type=rectangle
+x=79
+y=61
+width=34
+height=48
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add slim hook
+op10=      
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Slim hook", 25, 128)
+
+// 923:20
+[com_20]
+type=rectangle
+x=114
+y=115
+width=36
+height=42
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add wooden hook
+op10=      
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Wooden hook", 25, 128)
+
+// 923:21
+[com_21]
+type=rectangle
+x=115
+y=62
+width=39
+height=42
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add bone hook
+op10=      
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Bone hook", 25, 128)
+
+// 923:22
+[com_22]
+type=rectangle
+x=119
+y=11
+width=38
+height=45
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add double hook
+op10=      
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Double hook", 25, 128)
+
+// 923:23
+[com_23]
+type=rectangle
+x=164
+y=87
+width=14
+height=15
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add small weight
+op10=       
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Small weight", 25, 128)
+
+// 923:24
+[com_24]
+type=rectangle
+x=161
+y=104
+width=24
+height=22
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add medium weight
+op10=        
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Medium weight", 25, 128)
+
+// 923:25
+[mesbox_godfather]
+type=rectangle
+x=156
+y=128
+width=30
+height=28
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Add large weight
+op10=        
+onmouseleave=script259(event_com)
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "Large weight", 25, 128)
+
+// 923:26
+[com_26]
+type=rectangle
+x=129
+y=192
+width=61
+height=13
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Remove weight
+op10=         
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "", 25, 128)
+
+// 923:27
+[com_27]
+type=rectangle
+x=130
+y=207
+width=56
+height=13
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Remove weight
+op10=          
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "", 25, 128)
+
+// 923:28
+[com_28]
+type=rectangle
+x=131
+y=221
+width=56
+height=13
+layer=com_3
+colour=0xffffff
+trans=255
+transmitop=1,10
+op1=Remove weight
+op10=           
+onmouserepeat=addtooltip(fishcomp_side:tooltip_layer, fishcomp_side:tooltip_area, "", 25, 128)
+
+// 923:29
+[hook_model_layer]
+type=layer
+x=74
+y=7
+width=81
+height=151
+
+// 923:30
+[com_30]
+type=graphic
+x=2
+y=218
+width=3
+height=20
+graphic=graphic_2761
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:31
+[com_31]
+type=graphic
+x=188
+y=218
+width=3
+height=20
+graphic=graphic_2758
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:32
+[com_32]
+type=graphic
+x=2
+y=167
+width=3
+height=20
+graphic=graphic_2757
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:33
+[com_33]
+type=graphic
+x=188
+y=167
+width=3
+height=20
+graphic=graphic_2760
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:34
+[com_34]
+type=graphic
+x=5
+y=167
+width=183
+height=8
+graphic=graphic_2745
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:35
+[com_35]
+type=graphic
+x=5
+y=175
+width=183
+height=12
+graphic=graphic_2746
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:36
+[com_36]
+type=graphic
+x=5
+y=187
+width=183
+height=51
+graphic=graphic_2749
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:37
+[com_37]
+type=graphic
+x=2
+y=187
+width=3
+height=32
+graphic=graphic_2749
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:38
+[com_38]
+type=graphic
+x=188
+y=187
+width=3
+height=32
+graphic=graphic_2749
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:39
+[com_39]
+type=graphic
+x=1
+y=239
+width=5
+height=21
+graphic=button_start
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:40
+[com_40]
+type=graphic
+x=96
+y=239
+width=5
+height=21
+graphic=button_start
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:41
+[com_41]
+type=graphic
+x=6
+y=239
+width=84
+height=21
+graphic=button_body
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:42
+[com_42]
+type=graphic
+x=101
+y=239
+width=84
+height=21
+graphic=button_body
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:43
+[com_43]
+type=graphic
+x=89
+y=239
+width=5
+height=21
+graphic=button_end
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:44
+[com_44]
+type=graphic
+x=185
+y=239
+width=5
+height=21
+graphic=button_end
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:45
+[selected_panel]
+type=layer
+x=-2
+y=162
+width=198
+height=105
+transmitop=10
+op10= 
+
+// 923:46
+[com_46]
+type=rectangle
+x=67
+y=5
+width=1
+height=71
+layer=selected_panel
+colour=0x5b5547
+transmitop=10
+op10= 
+
+// 923:47
+[com_47]
+type=rectangle
+x=130
+y=5
+width=1
+height=71
+layer=selected_panel
+colour=0x5b5547
+transmitop=10
+op10= 
+
+// 923:48
+[com_48]
+type=text
+x=4
+y=7
+width=63
+height=17
+layer=selected_panel
+textfont=p12_full
+text=Bait
+textalignh=centre
+textshadow=yes
+colour=0xfdff9a
+transmitop=10
+op10= 
+
+// 923:49
+[com_49]
+type=text
+x=67
+y=7
+width=63
+height=17
+layer=selected_panel
+textfont=p12_full
+text=Hook
+textalignh=centre
+textshadow=yes
+colour=0xfdff9a
+transmitop=10
+op10= 
+
+// 923:50
+[com_50]
+type=text
+x=130
+y=7
+width=63
+height=17
+layer=selected_panel
+textfont=p12_full
+text=Weights
+textalignh=centre
+textshadow=yes
+colour=0xfdff9a
+transmitop=10
+op10= 
+
+// 923:51
+[selected_bait_txt]
+type=text
+x=4
+y=27
+width=63
+height=49
+layer=selected_panel
+textfont=p11_full
+text=None
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10= 
+
+// 923:52
+[selected_hook_txt]
+type=text
+x=67
+y=27
+width=63
+height=49
+layer=selected_panel
+textfont=p11_full
+text=None
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10= 
+
+// 923:53
+[selected_weights_small_txt]
+type=text
+x=131
+y=30
+width=59
+height=14
+layer=selected_panel
+textfont=p11_full
+text=Small x 0
+textalignh=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xeeeeee)
+onmouseleave=text_colour_swapper(event_com, 0xa4a467)
+
+// 923:54
+[selected_weights_medium_txt]
+type=text
+x=131
+y=44
+width=59
+height=14
+layer=selected_panel
+textfont=p11_full
+text=Medium x 0
+textalignh=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xeeeeee)
+onmouseleave=text_colour_swapper(event_com, 0xa4a467)
+
+// 923:55
+[selected_weights_large_txt]
+type=text
+x=131
+y=58
+width=59
+height=14
+layer=selected_panel
+textfont=p11_full
+text=Large x 0
+textalignh=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xeeeeee)
+onmouseleave=text_colour_swapper(event_com, 0xa4a467)
+
+// 923:56
+[fish_button]
+type=text
+x=7
+y=241
+width=84
+height=17
+textfont=p12_full
+text=Cast
+textalignh=centre
+textshadow=yes
+colour=0xfdff9a
+transmitop=1,10
+op1=Cast-line
+op10= 
+
+// 923:57
+[clear_line_txt]
+type=text
+x=101
+y=241
+width=84
+height=17
+textfont=p12_full
+text=Clear line
+textalignh=centre
+textshadow=yes
+colour=0xfdff9a
+transmitop=1,10
+op1=Clear line
+op10= 
+
+// 923:58
+[com_58]
+type=model
+x=10
+y=5
+width=35
+height=43
+layer=hook_model_layer
+model=model_52739
+modelorigin=-16,21
+modelangle=250,1831,1820
+modelzoom=1610
+
+// 923:59
+[com_59]
+type=model
+x=10
+y=7
+width=35
+height=43
+layer=hook_model_layer
+model=model_52739
+modelorigin=-16,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:60
+[com_60]
+type=model
+x=9
+y=6
+width=35
+height=43
+layer=hook_model_layer
+model=model_52739
+modelorigin=-16,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:61
+[com_61]
+type=model
+x=10
+y=5
+width=35
+height=43
+layer=hook_model_layer
+model=model_52739
+modelorigin=-16,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:62
+[com_62]
+type=model
+x=7
+y=55
+width=35
+height=44
+layer=hook_model_layer
+model=model_52741
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:63
+[com_63]
+type=model
+x=8
+y=56
+width=35
+height=44
+layer=hook_model_layer
+model=model_52741
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:64
+[com_64]
+type=model
+x=7
+y=55
+width=35
+height=44
+layer=hook_model_layer
+model=model_52741
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:65
+[com_65]
+type=model
+x=1
+y=105
+width=38
+height=45
+layer=hook_model_layer
+model=model_52737
+modelorigin=-14,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:66
+[com_66]
+type=model
+x=2
+y=106
+width=38
+height=45
+layer=hook_model_layer
+model=model_52737
+modelorigin=-14,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:67
+[com_67]
+type=model
+x=1
+y=105
+width=38
+height=45
+layer=hook_model_layer
+model=model_52737
+modelorigin=-14,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:68
+[com_68]
+type=model
+x=45
+y=3
+width=38
+height=46
+layer=hook_model_layer
+model=model_52742
+modelorigin=-14,20
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:69
+[com_69]
+type=model
+x=46
+y=4
+width=38
+height=46
+layer=hook_model_layer
+model=model_52742
+modelorigin=-14,20
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:70
+[com_70]
+type=model
+x=45
+y=3
+width=38
+height=46
+layer=hook_model_layer
+model=model_52742
+modelorigin=-14,20
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:71
+[com_71]
+type=model
+x=41
+y=54
+width=35
+height=44
+layer=hook_model_layer
+model=model_52744
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:72
+[com_72]
+type=model
+x=42
+y=55
+width=35
+height=44
+layer=hook_model_layer
+model=model_52744
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:73
+[com_73]
+type=model
+x=41
+y=54
+width=35
+height=44
+layer=hook_model_layer
+model=model_52744
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:74
+[com_74]
+type=model
+x=41
+y=107
+width=35
+height=44
+layer=hook_model_layer
+model=model_52743
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10= 
+
+// 923:75
+[com_75]
+type=model
+x=40
+y=106
+width=35
+height=44
+layer=hook_model_layer
+model=model_52743
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=  
+
+// 923:76
+[com_76]
+type=model
+x=40
+y=106
+width=35
+height=44
+layer=hook_model_layer
+model=model_52743
+modelorigin=-15,21
+modelangle=250,1831,1820
+modelzoom=1610
+transmitop=10
+op10=   
+
+// 923:77
+[com_77]
+type=model
+x=157
+y=129
+width=27
+height=26
+model=model_52745
+modelorigin=0,12
+modelzoom=1184
+
+// 923:78
+[com_78]
+type=model
+x=161
+y=105
+width=21
+height=20
+model=model_52740
+modelorigin=0,9
+modelzoom=1184
+transmitop=10
+op10= 
+
+// 923:79
+[com_79]
+type=model
+x=165
+y=87
+width=13
+height=13
+model=model_52738
+modelorigin=0,6
+modelzoom=1184
+transmitop=10
+op10= 
+
+// 923:80
+[bait_model_1]
+type=graphic
+x=6
+y=7
+width=32
+height=32
+outline=1
+colour=0xffffffff
+
+// 923:81
+[bait_model_2]
+type=graphic
+x=6
+y=49
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:82
+[bait_model_3]
+type=graphic
+x=6
+y=88
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:83
+[bait_model_4]
+type=graphic
+x=6
+y=126
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:84
+[bait_model_5]
+type=graphic
+x=45
+y=7
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:85
+[bait_model_6]
+type=graphic
+x=45
+y=49
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:86
+[bait_model_7]
+type=graphic
+x=45
+y=88
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:87
+[bait_model_8]
+type=graphic
+x=45
+y=126
+width=32
+height=32
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 923:88
+[tooltip_area]
+type=layer
+x=35
+y=51
+width=120
+height=69
+
+// 923:89
+[tooltip_layer]
+type=layer
+width=10
+height=10
+layer=tooltip_area

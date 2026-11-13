@@ -1,12 +1,16 @@
+#[cfg(since_647)]
+use crate::ScriptError;
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::state::ExecutionState;
 #[cfg(since_274)]
 use crate::util::midi_tick_length;
+#[cfg(since_647)]
+use crate::util::{halfsq, pop_projanim_tail};
 use crate::util::{pop_coord, pop_seq, pop_spotanim};
 use crate::{handlers, none};
 use rs_grid::CoordGrid;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// Registers server and world-level opcodes for coordinate utilities, map queries,
 /// pathfinding checks, projectile animations, and zone management.
@@ -19,7 +23,8 @@ use rs_pack::cache::script::*;
 ///   `MAP_PLAYERCOUNT`, `MAP_MEMBERS`, `MAP_LIVE`, `MAP_LOCADDUNSAFE`
 /// - **Pathfinding:** `LINEOFSIGHT`, `LINEOFWALK`, `MAP_FINDSQUARE`
 /// - **World state:** `MAP_CLOCK`, `PLAYERCOUNT`
-/// - **Animations / effects:** `PROJANIM_MAP`, `SPOTANIM_MAP`, `SEQLENGTH`
+/// - **Animations / effects:** `PROJANIM_MAP`, `SPOTANIM_MAP`, `SEQLENGTH`,
+///   `PROJANIM_HALFSQ`, `SOUND_VORBIS_AREA`, `TEXT_COORD` (647)
 /// - **Suspension:** `WORLD_DELAY`
 ///
 /// # Call Stack
@@ -294,6 +299,58 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             engine_mut::<E>().sound_area(coord.y(), coord.x(), coord.z(), synth as u16, range, loops, delay);
+        });
+
+        // 1025
+        #[cfg(since_647)]
+        none!(m, INAREA => |s| {
+            let coord = pop_coord(s)?;
+            let area = s.pop_int();
+            s.push_int(engine::<E>().inarea(area as u16, coord) as i32);
+        });
+
+        // 1026
+        #[cfg(since_647)]
+        none!(m, PROJANIM_HALFSQ => |s| {
+            let tail = pop_projanim_tail::<E>(s)?;
+            let to_size = s.pop_int_as::<u8>()?;
+            let to = pop_coord(s)?;
+            let from_size = s.pop_int_as::<u8>()?;
+            let from = pop_coord(s)?;
+            tail.send::<E>(from.y(), halfsq(from, from_size), halfsq(to, to_size), 0, 0, None)?;
+        });
+
+        // 1027
+        #[cfg(since_647)]
+        none!(m, SOUND_VORBIS_AREA => |s| {
+            let delay = s.pop_int_as::<u8>()?;
+            let loops = s.pop_int_as::<u8>()?;
+            let sound = s.pop_int();
+            let range = s.pop_int_as::<u8>()?;
+            let coord = pop_coord(s)?;
+            if sound == -1 {
+                return Ok(());
+            }
+            let sound = u16::try_from(sound)
+                .map_err(|_| ScriptError::Runtime(format!("Invalid vorbis: {sound}")))?;
+            engine_mut::<E>().sound_vorbis_area(coord, sound, range, loops, delay);
+        });
+
+        // 1028
+        #[cfg(since_647)]
+        none!(m, TEXT_COORD => |s| {
+            let duration = s.pop_int_as::<u16>()?;
+            let height = s.pop_int_as::<u8>()?;
+            let colour = s.pop_int();
+            let text = s.pop_string();
+            let coord = pop_coord(s)?;
+            if !(0..=0xFFFFFF).contains(&colour) {
+                return Err(ScriptError::Runtime(format!("Invalid colour: {colour}")));
+            }
+            if text.chars().count() > 247 {
+                return Err(ScriptError::Runtime(format!("text_coord text over 247 characters: {text}")));
+            }
+            engine_mut::<E>().text_coord(coord, &text, colour, height, duration);
         });
     }
 }

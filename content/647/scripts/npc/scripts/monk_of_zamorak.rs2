@@ -1,0 +1,52 @@
+// 289's monks of Zamorak (npc/scripts/monk_of_zamorak.rs2): a quarter of their
+// attacks are a zap, the rest a punch. 289 gave each monk the same body with
+// its own zap max; here each trigger passes its max to one label. 2011 counts
+// life points, ten to 289's hitpoint.
+//
+// Zap maxes: 289's chaosmonk1 (188, 647's monk_of_zamorak, level 22) zaps up
+// to 8, which is 2011's: the 2011 wiki's Monk of Zamorak (18 May 2011) gives
+// "80 with magic (level 22)". 289's chaosmonk2 (level 17) was 8 too, "a
+// guess"; the same page gives "60 with magic (level 17)", so 60. chaosmonk3
+// (level 45) keeps 289's 13: the page gives no magic max for level 45.
+// The page calls the zap "a Magical melee attack" and its trivia "actually
+// melee based"; 289's roll (magic, beaten by Protect from Magic) is kept, as
+// no 2011 source says how it is blocked.
+[ai_opplayer2,chaosmonk1] @monk_of_zamorak_attack(80);
+[ai_opplayer2,chaosmonk2] @monk_of_zamorak_attack(60);
+[ai_opplayer2,chaosmonk3] @monk_of_zamorak_attack(130);
+
+// 2011's Defender of Varrock monk, 8178, fights as 289's chaosmonk3
+// (npc_clones_2011.npc: void-634's combat_def); cache 786 gives it level 17, so
+// the 2011 wiki's level-17 zap.
+[ai_opplayer2,zemo_chaosmonk2] @monk_of_zamorak_attack(60);
+
+[label,monk_of_zamorak_attack](int $zap_maxhit)
+if (%npc_action_delay > map_clock) return;
+def_int $whichattack = random(4); // approximation by joe testing on osrs https://i.imgur.com/qXBNa40.png
+if ($whichattack = 0) {
+    ~npc_zap_attack($zap_maxhit, npc_param(attackrate));
+} else {
+    ~npc_default_attack;
+}
+
+// 289 defines this in quests/quest_dragon/scripts/melzar_the_mad.rs2, which 647
+// has not ported; that port takes it from here. Its hit carries 2011's magic
+// hitmark, as 647's other npc spells' do (npc_combat_magic.rs2). The zap synth
+// is cache 786's 224, the bytes of 289's zap.
+[proc,npc_zap_attack](int $maxhit, int $attackspeed)
+if_close;
+
+npc_anim(human_castzap, 0);
+spotanim_npc(zap, 92, 0);
+sound_synth(zap, 1, 0);
+
+def_int $damage = 0;
+if (~npc_player_hit_roll(^magic_style) = true & ~check_protect_prayer(^magic_style) = false) {
+    $damage = randominc($maxhit);
+}
+if ($damage > 0) {
+    queue(combat_damage_player, 0, ~combat_hit($damage, ^hitmark_magic, $maxhit));
+    queue*(playerhit_n_retaliate, 0)(npc_uid);
+}
+%npc_action_delay = add(map_clock, $attackspeed);
+~npc_set_attack_vars;

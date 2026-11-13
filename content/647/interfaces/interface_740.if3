@@ -1,0 +1,62 @@
+// 740:0
+[text1]
+type=text
+x=73
+y=8
+width=416
+height=27
+textfont=q8_full
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 740:1
+[text3]
+type=text
+x=73
+y=35
+width=416
+height=30
+textfont=q8_full
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 740:2
+[text2]
+type=text
+x=73
+y=68
+width=416
+height=37
+textfont=q8_full
+text=Open your stats menu and click on the flashing icon for more information.
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 740:3
+[close]
+type=text
+x=73
+y=108
+width=416
+height=17
+textfont=q8_full
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)
+
+// 740:4
+[icons]
+type=graphic
+x=17
+y=37
+width=55
+height=54
+colour=0x000000
+onload=script971
+onvartransmit=script971{skill_stat_flash}

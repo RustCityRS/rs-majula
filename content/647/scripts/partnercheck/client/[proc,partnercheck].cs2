@@ -1,0 +1,20 @@
+// 506
+[proc,partnercheck](int $int0)(boolean)
+def_int $chattype1 = chat_gethistorytype($int0);
+if (%chat_view = 5 & string_length(%varclient_1519) > 0) {
+    switch_int ($chattype1) {
+        case ^chattype_publicchat, ^chattype_modchat, ^chattype_privatechat, ^chattype_privatechatout, ^chattype_modprivatechat, ^chattype_clanchat, ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing, ^chattype_quickchat_clanchat :
+            if (compare(removetags(chat_gethistoryname($int0)), %varclient_1519) = 0 | compare(removetags(chat_gethistoryname($int0)), chat_playername_unfiltered) = 0) {
+                if (chat_getfilter_trade = ^chatfilter_on) {
+                    return(true);
+                }
+                if (chat_getfilter_trade = ^chatfilter_friends & friend_test(unknown_command_5019($int0)) = true) {
+                    return(true);
+                }
+                if ($chattype1 = ^chattype_modchat | $chattype1 = ^chattype_modprivatechat) {
+                    return(true);
+                }
+            }
+    }
+}
+return(false);

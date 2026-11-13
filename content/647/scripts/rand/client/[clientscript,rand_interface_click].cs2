@@ -1,0 +1,34 @@
+// 3272
+[clientscript,rand_interface_click](int $int0)
+switch_int ($int0) {
+    case 61145353 :
+        if (%rand_player_tab ! 1 & %rand_exists_1 = 1) {
+            %rand_player_tab = 1;
+        } else {
+            %rand_player_tab = 0;
+        }
+    case 61145354 :
+        if (%rand_player_tab ! 2 & %rand_exists_2 = 1) {
+            %rand_player_tab = 2;
+        } else {
+            %rand_player_tab = 0;
+        }
+    case 61145364 :
+        if (%rand_player_tab ! 3 & %rand_exists_3 = 1) {
+            %rand_player_tab = 3;
+        } else {
+            %rand_player_tab = 0;
+        }
+    case 61145374 :
+        if (%rand_player_tab ! 4 & %rand_exists_4 = 1) {
+            %rand_player_tab = 4;
+        } else {
+            %rand_player_tab = 0;
+        }
+    case 61145384 :
+        if (%rand_player_tab ! 5 & %rand_exists_5 = 1) {
+            %rand_player_tab = 5;
+        } else {
+            %rand_player_tab = 0;
+        }
+}

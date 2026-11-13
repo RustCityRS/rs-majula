@@ -1,8 +1,9 @@
 use super::access::{ceiling, check_replay, hides_self, may_see};
 use super::lookup::{address_label, sees_addresses, unavailable};
+use super::players::checked_name;
 use super::replays::checked_id;
 use crate::audit::Event;
-use crate::farms;
+use crate::farms::{self, Reason};
 use crate::http::{ApiError, App, Staff};
 use crate::users::now_ms;
 use axum::Json;
@@ -16,7 +17,9 @@ use rs_admin_api::{
 };
 use serde::{Deserialize, Serialize};
 use std::convert::Infallible;
+use std::mem;
 use std::sync::Arc;
+use tokio::task::spawn_blocking;
 
 /// Who's online on one world: `None` when it didn't answer.
 #[derive(Clone)]
@@ -215,7 +218,7 @@ pub async fn farms(
                 )
                 .await
                 .map_err(unavailable)?;
-            tokio::task::spawn_blocking(move || {
+            spawn_blocking(move || {
                 let farms = farms::group(&accounts, 2);
                 Arc::new(Grouped {
                     since_ms,
@@ -247,7 +250,7 @@ pub async fn farms(
                 .filter_map(|&i| accounts[i].take())
                 .map(|mut account| {
                     account.registration_ip = account.registration_ip.take().map(mask);
-                    account.login_ips = std::mem::take(&mut account.login_ips)
+                    account.login_ips = mem::take(&mut account.login_ips)
                         .into_iter()
                         .map(mask)
                         .collect();
@@ -265,10 +268,8 @@ pub async fn farms(
                 .iter()
                 .cloned()
                 .map(|mut s| {
-                    if let farms::Reason::Registered { ip } | farms::Reason::LoggedIn { ip } =
-                        &mut s.reason
-                    {
-                        *ip = mask(std::mem::take(ip));
+                    if let Reason::Registered { ip } | Reason::LoggedIn { ip } = &mut s.reason {
+                        *ip = mask(mem::take(ip));
                     }
                     s
                 })
@@ -310,7 +311,7 @@ pub async fn replay(
     Query(query): Query<LiveQuery>,
 ) -> Result<Response, ApiError> {
     let id = checked_id(&id)?;
-    let player = super::players::checked_name(&query.player)?;
+    let player = checked_name(&query.player)?;
     let token = query
         .token
         .filter(|t| t.len() <= 64 && t.bytes().all(|b| b.is_ascii_hexdigit()));

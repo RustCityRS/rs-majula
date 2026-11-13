@@ -1,0 +1,364 @@
+// 1067:0
+[upgrade_button]
+type=layer
+x=-90
+y=64
+width=160
+height=26
+xmode=abs_centre
+layer=content
+transmitop=1
+op1=Upgrade
+onmouseover=loginscreen_button_highlight(interface_1067:login_button_left, "set_but_end_3,1", interface_1067:login_button_mid, "set_but_fill_3,1", interface_1067:login_button_right, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(interface_1067:login_button_left, "set_but_end_3,0", interface_1067:login_button_mid, "set_but_fill_3,0", interface_1067:login_button_right, "set_but_end_3,0")
+onclick=script4087
+
+// 1067:1
+[border]
+type=layer
+width=381
+height=137
+xmode=abs_centre
+ymode=abs_centre
+layer=baselayer
+
+// 1067:2
+[background]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=border
+graphic=window_texture
+tiling=yes
+
+// 1067:3
+[top_side]
+type=graphic
+x=38
+width=72
+height=8
+widthmode=minus
+layer=border
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 1067:4
+[top_1]
+type=graphic
+y=25
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=border
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 1067:5
+[com_5]
+type=rectangle
+x=7
+y=7
+width=473
+height=19
+layer=border
+colour=0x333333
+fill=yes
+
+// 1067:6
+[bottom_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 1067:7
+[left_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+layer=border
+graphic="corner_frame_5,0"
+tiling=yes
+hflip=yes
+
+// 1067:8
+[right_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=border
+graphic="corner_frame_5,0"
+tiling=yes
+
+// 1067:9
+[bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_5,1"
+hflip=yes
+
+// 1067:10
+[bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_5,1"
+
+// 1067:11
+[top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=border
+graphic="corner_frame_5,2"
+
+// 1067:12
+[closebutton]
+type=graphic
+x=8
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=border
+graphic="intro_close_button,0"
+transmitop=1
+op1=Close
+
+// 1067:13
+[top_left]
+type=graphic
+width=38
+height=72
+layer=border
+graphic="corner_frame_5,2"
+hflip=yes
+
+// 1067:14
+[com_14]
+type=graphic
+width=38
+height=38
+xmode=abs_right
+ymode=abs_bottom
+layer=border
+graphic="corner_flourish,1"
+
+// 1067:15
+[com_15]
+type=graphic
+width=38
+height=38
+ymode=abs_bottom
+layer=border
+graphic="corner_flourish,1"
+hflip=yes
+
+// 1067:16
+[content]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=border
+
+// 1067:17
+[titletext]
+type=text
+x=1
+y=-1
+width=181
+height=32
+xmode=abs_centre
+layer=content
+textfont=verdana_15pt_regular
+text=You are Entering the Members' Game
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffcc00
+
+// 1067:18
+[login_button_shadow]
+type=rectangle
+x=1
+y=1
+width=1
+height=1
+widthmode=minus
+heightmode=minus
+layer=upgrade_button
+colour=0x000000
+fill=yes
+
+// 1067:19
+[login_button_left]
+type=graphic
+width=25
+height=25
+layer=upgrade_button
+graphic="set_but_end_3,0"
+
+// 1067:20
+[login_button_mid]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=upgrade_button
+graphic="set_but_fill_3,0"
+
+// 1067:21
+[login_button_right]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=upgrade_button
+graphic="set_but_end_3,0"
+hflip=yes
+
+// 1067:22
+[login_button_text_shadow]
+type=text
+x=1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=upgrade_button
+textfont=verdana_13pt_regular
+text=Subscribe Now
+textalignh=centre
+textalignv=centre
+colour=0xc0b154
+
+// 1067:23
+[login_button_text]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=upgrade_button
+textfont=verdana_13pt_regular
+text=Subscribe Now
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1067:24
+[baselayer]
+type=layer
+width=512
+height=334
+
+// 1067:25
+[more_info_button]
+type=layer
+x=90
+y=64
+width=160
+height=26
+xmode=abs_centre
+layer=content
+transmitop=1
+op1=More Info
+onmouseover=loginscreen_button_highlight(interface_1067:login_button_left_1, "set_but_end_3,1", interface_1067:com_28, "set_but_fill_3,1", interface_1067:login_button_right_1, "set_but_end_3,1")
+onmouseleave=loginscreen_button_highlight(interface_1067:login_button_left_1, "set_but_end_3,0", interface_1067:com_28, "set_but_fill_3,0", interface_1067:login_button_right_1, "set_but_end_3,0")
+onclick=script4088
+
+// 1067:26
+[login_button_shadow_1]
+type=rectangle
+x=1
+y=1
+width=1
+height=1
+widthmode=minus
+heightmode=minus
+layer=more_info_button
+colour=0x000000
+fill=yes
+
+// 1067:27
+[login_button_left_1]
+type=graphic
+width=25
+height=25
+layer=more_info_button
+graphic="set_but_end_3,0"
+
+// 1067:28
+[com_28]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=more_info_button
+graphic="set_but_fill_3,0"
+
+// 1067:29
+[login_button_right_1]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=more_info_button
+graphic="set_but_end_3,0"
+hflip=yes
+
+// 1067:30
+[login_button_text_shadow_1]
+type=text
+x=1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=more_info_button
+textfont=verdana_13pt_regular
+text=More Info
+textalignh=centre
+textalignv=centre
+colour=0xc0b154
+
+// 1067:31
+[login_button_text_1]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=more_info_button
+textfont=verdana_13pt_regular
+text=More Info
+textalignh=centre
+textalignv=centre
+colour=0x000000

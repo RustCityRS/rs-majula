@@ -1,0 +1,73 @@
+// Dev cheats for rs-test's chat_procs.rs: each says what one of 289's
+// dialogue procs says, through the 2011 port of it
+// (interface_chat/scripts/chat.rs2), then a game message when it returns.
+
+[debugproc,chat_cutscene]
+if (p_finduid(uid) = true) {
+    // 289's line (quest_routequest/scripts/route_cutscene.rs2, Veliaf Hurtz),
+    // with its expression: without one the head has no animation to play.
+    ~chatnc_cutscene(nc_name(man), man, "<p,angry>Hey, what's that mist coming in through the door!|Team, we have a vampire in the room!");
+    mes("chat_cutscene done");
+}
+
+[debugproc,chat_model]
+if (p_finduid(uid) = true) {
+    ~chatnpc_model("Parrot", 3624, "Pieces of eight!");
+    mes("chat_model done");
+}
+
+// An npc beside the player and a second npc (.npc) beside it.
+[debugproc,chat_npcs]
+if (p_finduid(uid) = true) {
+    npc_add(movecoord(coord, 1, 0, 0), man, 50);
+    .npc_add(movecoord(coord, -1, 0, 0), woman, 50);
+    ~chatnpcnoturn("I keep working.");
+    ~.chatnpc("I answer for him.");
+    ~.chatnpcrange("From over here.");
+    ~.chatnpcnoturn("Still busy.");
+    mes("chat_npcs done");
+}
+
+[debugproc,chat_choice5_header]
+if (p_finduid(uid) = true) {
+    def_int $choice = ~p_choice5_header("One", 1, "Two", 2, "Three", 3, "Four", 4, "Five", 5, "Pick a number");
+    mes("picked <tostring($choice)>");
+    @multi5_header("One", chat_picked_one, "Two", chat_picked_two, "Three", chat_picked_three, "Four", chat_picked_four, "Five", chat_picked_five, "Pick again");
+}
+
+[label,chat_picked_one] mes("label one");
+[label,chat_picked_two] mes("label two");
+[label,chat_picked_three] mes("label three");
+[label,chat_picked_four] mes("label four");
+[label,chat_picked_five] mes("label five");
+
+// Six lines at 2011's 380 in q8_full: two pages.
+[debugproc,chat_doubleobjbox]
+if (p_finduid(uid) = true) {
+    ~doubleobjbox(strung_gold_amulet, bowl_empty, "The first line of a long message that takes more than one page. The second line of a long message that takes more than one page. The third line of a long message that takes more than one page. The fourth line of a long message that takes more than one page. The fifth line of a long message that takes more than one page.", 200);
+    mes("chat_doubleobjbox done");
+}
+
+[debugproc,chat_doubleobjbox2]
+if (p_finduid(uid) = true) {
+    ~doubleobjbox2(strung_gold_amulet, 180, 0, divide(^objbox_height, -2), bowl_empty, 200, 0, 0, "You can now craft Bowls and Gold Amulets.");
+    mes("chat_doubleobjbox2 done");
+}
+
+[debugproc,chat_objbox]
+if (p_finduid(uid) = true) {
+    ~objbox(bronze_dagger, "The first line of a long message that takes more than one page. The second line of a long message that takes more than one page. The third line of a long message that takes more than one page. The fourth line of a long message that takes more than one page. The fifth line of a long message that takes more than one page.", 250, 0, 0);
+    mes("chat_objbox done");
+}
+
+// The message box to another player near by (.player).
+[debugproc,chat_dotmesbox]
+if (p_finduid(uid) = true) {
+    huntall(coord, 3, 0);
+    while (.huntnext = true) {
+        if (.uid ! uid & .p_finduid(.uid) = true) {
+            ~.mesbox("A message for the other player.");
+            return;
+        }
+    }
+}

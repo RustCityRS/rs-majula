@@ -1,0 +1,69 @@
+// 2373
+[proc,script2373](component $component0, int $int1)
+cc_deleteall(equip_screen2:worn_items_layer);
+def_int $int2 = 0;
+def_component $component3 = null;
+def_obj $obj4 = null;
+def_string $string0 = "";
+while ($int2 < inv_size(worn)) {
+    switch_int ($int2) {
+        case 0 :
+            $component3 = equip_screen2:headslot;
+        case 1 :
+            $component3 = equip_screen2:capeslot;
+        case 2 :
+            $component3 = equip_screen2:necklaceslot;
+        case 3 :
+            $component3 = equip_screen2:weaponslot;
+        case 4 :
+            $component3 = equip_screen2:bodyslot;
+        case 5 :
+            $component3 = equip_screen2:shieldslot;
+        case 7 :
+            $component3 = equip_screen2:legslot;
+        case 9 :
+            $component3 = equip_screen2:handslot;
+        case 10 :
+            $component3 = equip_screen2:footslot;
+        case 12 :
+            $component3 = equip_screen2:ringslot;
+        case 13 :
+            $component3 = equip_screen2:arrowslot;
+        case default :
+            $component3 = null;
+    }
+    cc_create(equip_screen2:worn_items_layer, ^iftype_graphic, $int2);
+    if ($component3 ! null) {
+        $obj4 = inv_getobj(worn, $int2);
+        if ($obj4 ! null) {
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(~script788($component3, 2, 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setobject($obj4, inv_getnum(worn, $int2));
+            cc_setopbase(append("<col=ff9040>", oc_name($obj4)));
+            cc_setop(1, "Remove");
+            cc_setop(9, "Stats");
+            cc_settargetverb("Compare");
+            cc_setop(10, "Examine");
+            cc_setgraphicshadow(0x302020);
+            if ($int1 = $int2) {
+                cc_setoutline(2);
+            } else {
+                cc_setoutline(1);
+            }
+            cc_setonop("script1620(event_com, event_comsubid, 100, 0, 8)");
+            cc_setontargetenter("script2372($component0, $int2)");
+            cc_setontargetleave("script2372($component0, -1)");
+        } else {
+            cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(~script788($component3, 2, 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setgraphic(enum(int, graphic, enum_796, $int2));
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int2 = calc($int2 + 1);
+}
+if ($int1 ! -1 & inv_getobj(worn, $int1) = null) {
+    $int1 = -1;
+}
+if_setoninvtransmit($component0, "script2372(event_com, $int1){worn}");

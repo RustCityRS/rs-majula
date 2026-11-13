@@ -1,42 +1,31 @@
-use anyhow::Result;
-use std::collections::HashMap;
-use tracing::debug;
-
-#[cfg(since_274)]
-use crate::config_crc;
+#[cfg(since_647)]
+use super::client_table;
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::*;
 use crate::types::*;
-#[cfg(since_274)]
-use rs_io::crc;
+use anyhow::Result;
+use std::collections::HashMap;
 
 pub fn pack_hunts(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    #[cfg_attr(before_274, allow(unused_variables))] verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.hunt;
 
-    let files = file_cache.collect("hunt");
-    debug!("  Found {} .hunt files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "hunt", constants);
-    debug!("  Parsed {} hunt configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, "hunt", constants)?;
 
     let mut server = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown npc id: {id}");
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown hunt config: {debugname}");
+        let Some((debugname, props)) = config_entry("hunt", pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         let has_key = |k: &str| props.iter().any(|(pk, _)| pk == k);
@@ -106,22 +95,30 @@ pub fn pack_hunts(
                 }
 
                 // 8
-                "check_notcombat" => parse_varp(registry, value.strip_prefix("%").unwrap(), |v| {
-                    server.p1(8);
-                    server.p2(v);
-                }),
+                "check_notcombat" => parse_ref(
+                    &registry.varp,
+                    "varp",
+                    value.strip_prefix("%").unwrap(),
+                    |v| {
+                        server.p1(8);
+                        server.p2(v);
+                    },
+                ),
 
                 // 9
-                "check_notcombat_self" => {
-                    parse_varn(registry, value.strip_prefix("%").unwrap(), |v| {
+                "check_notcombat_self" => parse_ref(
+                    &registry.varn,
+                    "varn",
+                    value.strip_prefix("%").unwrap(),
+                    |v| {
                         server.p1(9);
                         server.p2(v);
-                    })
-                }
+                    },
+                ),
 
                 // 10
                 "check_afk" => {
-                    if HuntCheckAfk::from_config_str(value) != HuntCheckAfk::Off {
+                    if HuntCheckAfk::from_config_str(value) == HuntCheckAfk::Off {
                         server.p1(10);
                     }
                 }
@@ -148,7 +145,7 @@ pub fn pack_hunts(
                     if !has_type("npc") && !has_type("obj") && !has_type("scenery") {
                         panic!("Invalid check_category value: {key}={value}");
                     }
-                    parse_category(registry, value, |v| {
+                    parse_ref(&registry.category, "category", value, |v| {
                         server.p1(12);
                         server.p2(v);
                     });
@@ -168,7 +165,7 @@ pub fn pack_hunts(
                     if !has_type("npc") {
                         panic!("Invalid check_npc value: {key}={value}");
                     }
-                    parse_npc(registry, value, |v| {
+                    parse_ref(&registry.npc, "npc", value, |v| {
                         server.p1(13);
                         server.p2(v);
                     });
@@ -188,7 +185,7 @@ pub fn pack_hunts(
                     if !has_type("obj") {
                         panic!("Invalid check_obj value: {key}={value}");
                     }
-                    parse_obj(registry, value, |v| {
+                    parse_ref(&registry.obj, "obj", value, |v| {
                         server.p1(14);
                         server.p2(v);
                     });
@@ -208,7 +205,7 @@ pub fn pack_hunts(
                     if !has_type("scenery") {
                         panic!("Invalid check_loc value: {key}={value}");
                     }
-                    parse_loc(registry, value, |v| {
+                    parse_ref(&registry.loc, "loc", value, |v| {
                         server.p1(15);
                         server.p2(v);
                     });
@@ -240,8 +237,8 @@ pub fn pack_hunts(
                         panic!("Invalid check_inv value: {key}={value}");
                     }
                     server.p1(16);
-                    parse_inv(registry, parts[0], |v| server.p2(v));
-                    parse_obj(registry, parts[1], |v| server.p2(v));
+                    parse_ref(&registry.inv, "inv", parts[0], |v| server.p2(v));
+                    parse_ref(&registry.obj, "obj", parts[1], |v| server.p2(v));
                     server.pjstr(&condition.to_string());
                     parse_number(&last[1..], |v| server.p4(v));
                 }
@@ -272,8 +269,8 @@ pub fn pack_hunts(
                         panic!("Invalid check_invparam value: {key}={value}");
                     }
                     server.p1(17);
-                    parse_inv(registry, parts[0], |v| server.p2(v));
-                    parse_param(registry, parts[1], |v| server.p2(v));
+                    parse_ref(&registry.inv, "inv", parts[0], |v| server.p2(v));
+                    parse_ref(&registry.param, "param", parts[1], |v| server.p2(v));
                     server.pjstr(&condition.to_string());
                     parse_number(&last[1..], |v| server.p4(v));
                 }
@@ -304,8 +301,8 @@ pub fn pack_hunts(
                         panic!("Invalid check_invcat value: {key}={value}");
                     }
                     server.p1(18);
-                    parse_inv(registry, parts[0], |v| server.p2(v));
-                    parse_category(registry, parts[1], |v| server.p2(v));
+                    parse_ref(&registry.inv, "inv", parts[0], |v| server.p2(v));
+                    parse_ref(&registry.category, "category", parts[1], |v| server.p2(v));
                     server.pjstr(&condition.to_string());
                     parse_number(&last[1..], |v| server.p4(v));
                 }
@@ -330,7 +327,7 @@ pub fn pack_hunts(
                         panic!("Invalid extracheck_var value: {key}={value}");
                     }
                     server.p1(19 + extracheck_var);
-                    parse_varp(registry, &parts[0][1..], |v| server.p2(v));
+                    parse_ref(&registry.varp, "varp", &parts[0][1..], |v| server.p2(v));
                     server.pjstr(&condition.to_string());
                     parse_number(&last[1..], |v| server.p4(v));
                     extracheck_var += 1;
@@ -352,18 +349,11 @@ pub fn pack_hunts(
     #[cfg(before_274)]
     let client = None;
 
-    #[cfg(since_274)]
-    let client = {
-        let client = PackedData::new(0);
-        if verify {
-            let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-            let expected = config_crc::HUNT;
-            if crc != expected {
-                panic!("CRC mismatch ['hunt']: Got: {crc}, Expected: {expected}");
-            }
-        }
-        Some(client)
-    };
+    #[cfg(all(since_274, before_647))]
+    let client = Some(PackedData::new(0));
+
+    #[cfg(since_647)]
+    let client = Some(client_table(file_cache, "hunt", pack, constants)?);
 
     Ok(PackedFile { server, client })
 }

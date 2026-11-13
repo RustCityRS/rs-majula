@@ -1,0 +1,56 @@
+// 4176
+[proc,script4176](boolean $boolean0, int $int1)(int)
+if ($boolean0 = true) {
+    switch_int ($int1) {
+        case 0 :
+            return(%duel2_wearpreventchanged_0);
+        case 1 :
+            return(%duel2_wearpreventchanged_1);
+        case 2 :
+            return(%duel2_wearpreventchanged_2);
+        case 3 :
+            return(%if_hide_sides);
+        case 4 :
+            return(%objreq_player_price);
+        case 5 :
+            return(%player_kit_arms_client);
+        case 7 :
+            return(%player_kit_legs_client);
+        case 9 :
+            return(%player_kit_feet_client);
+        case 10 :
+            return(%stock_dormant_offers);
+        case 12 :
+            return(%create_age_perm);
+        case 13 :
+            return(%create_age_time_perm);
+    }
+} else {
+    switch_int ($int1) {
+        case 0 :
+            return(%duel2_optionschanged_0);
+        case 1 :
+            return(%duel2_optionschanged_1);
+        case 4 :
+            return(%duel2_optionschanged_4);
+        case 5 :
+            return(%duel2_optionschanged_5);
+        case 6 :
+            return(%duel2_optionschanged_6);
+        case 7 :
+            return(%duel2_optionschanged_7);
+        case 8 :
+            return(%duel2_optionschanged_8);
+        case 9 :
+            return(%duel2_optionschanged_9);
+        case 10 :
+            return(%duel2_optionschanged_10);
+        case 12 :
+            return(%duel2_optionschanged_12);
+        case 13 :
+            return(%duel2_optionschanged_13);
+        case 28 :
+            return(%duel2_optionschanged_28);
+    }
+}
+return(-1);

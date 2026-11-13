@@ -1,0 +1,17 @@
+// 289's stages, now %varplayerbit_2378 (varp 62 bits 0-5), which cache 786's quest 137 ("Goblin
+// Diplomacy") counts from 1 to 6. 2011 starts the quest at the generals, so ^gobdip_started (289's
+// Falador bartender) is never set and the generals treat it as not started.
+^gobdip_not_started = 0
+^gobdip_started = 1
+^gobdip_will_bring_armour = 2
+^gobdip_gave_orange = 3
+^gobdip_gave_blue = 4
+^gobdip_gave_brown = 5
+// Grubfoot's mail, %varplayerbit_1782 (varp 62 bits 9-10): cache 786's npc_4495 shows grubfoot_4496
+// at 0, grubfoot_4497 at 1 and grubfoot_4498 at 2. grubfoot_4498 recolours his mail to 7441/8498,
+// as blue_goblin_mail does; grubfoot_4497 to 30180/28066/32294, near orange_goblin_mail's
+// 29152/24098; grubfoot_4496 only retextures, as plain goblin_mail has no recolour. Client B
+// shows him orange at 1 and blue at 2.
+^gobdip_grubfoot_brown = 0
+^gobdip_grubfoot_orange = 1
+^gobdip_grubfoot_blue = 2

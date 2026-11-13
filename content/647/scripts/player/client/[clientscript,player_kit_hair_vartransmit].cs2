@@ -1,0 +1,14 @@
+// 2736
+[clientscript,player_kit_hair_vartransmit]
+if (%varplayerbit_6084 = 1) {
+    if (%player_kit_hair_client = true) {
+        return;
+    }
+    %player_kit_hair_client = true;
+} else {
+    if (%player_kit_hair_client = false) {
+        return;
+    }
+    %player_kit_hair_client = false;
+}
+~player_kit_hair_redraw;

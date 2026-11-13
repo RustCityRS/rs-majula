@@ -1,0 +1,13 @@
+// 1466
+[proc,bank_v2_get_size]()(int)
+if (playermember = true) {
+    if (~script3287 = true) {
+        return(516);
+    } else {
+        return(calc(516 - 10));
+    }
+} else if (~script3287 = true) {
+    return(calc(516 - 439 + 1));
+} else {
+    return(calc(516 - 439 + 1 - 10));
+}

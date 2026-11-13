@@ -1,0 +1,13 @@
+// 4011
+[clientscript,task_hide_advice]
+if (%varclient_1421 = 0) {
+    %varclient_1421 = 1;
+    if_setgraphic(task_side:advice_toggle, "check_box_2,2");
+    if_setonmouseover(task_side:advice_toggle, "script4012(0, 1)");
+    if_setonmouseleave(task_side:advice_toggle, "script4012(1, 1)");
+} else {
+    %varclient_1421 = 0;
+    if_setgraphic(task_side:advice_toggle, "check_box_2,0");
+    if_setonmouseover(task_side:advice_toggle, "script4012(0, 0)");
+    if_setonmouseleave(task_side:advice_toggle, "script4012(1, 0)");
+}

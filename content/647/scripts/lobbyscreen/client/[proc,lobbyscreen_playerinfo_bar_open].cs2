@@ -1,0 +1,12 @@
+// 3004
+[proc,lobbyscreen_playerinfo_bar_open](int $int0, int $int1)
+if_setonclick(lobbyscreen_pane_playerinfo:com_41, null);
+if_setonclick(lobbyscreen_pane_playerinfo:com_29, null);
+if_setonclick(lobbyscreen_pane_playerinfo:com_17, null);
+if_setonclick(lobbyscreen_pane_playerinfo:com_55, null);
+if (if_getgraphic(~script3013($int1)) = graphic_2669) {
+    ~script3007(~lobbyscreen_playerinfo_bar_layers($int1));
+} else {
+    ~script3009(~lobbyscreen_playerinfo_bar_layers($int1));
+}
+if_setontimer(lobbyscreen_pane_playerinfo:info_bars, "lobbyscreen_playerinfo_bar_open_timer($int1, $int0)");

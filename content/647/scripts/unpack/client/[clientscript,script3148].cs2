@@ -1,0 +1,83 @@
+// 3148
+[clientscript,script3148](int $int0)
+def_int $int1 = ~script1851;
+if ($int1 = $int0) {
+    return;
+}
+switch_int ($int0) {
+    case 0 :
+        if ($int1 = 1) {
+            ~script1855(0);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 2 :
+        if ($int1 = 3) {
+            ~script1855(2);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 4 :
+        if ($int1 = 5) {
+            ~script1855(4);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 6 :
+        if ($int1 = 7) {
+            ~script1855(6);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 8 :
+        if ($int1 = 9) {
+            ~script1855(8);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 10 :
+        if ($int1 = 11) {
+            ~script1855(10);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 1 :
+        if ($int1 = 0) {
+            ~script1855(1);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 3 :
+        if ($int1 = 2) {
+            ~script1855(3);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 5 :
+        if ($int1 = 4) {
+            ~script1855(5);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 7 :
+        if ($int1 = 6) {
+            ~script1855(7);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 9 :
+        if ($int1 = 8) {
+            ~script1855(9);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+    case 11 :
+        if ($int1 = 10) {
+            ~script1855(11);
+            ~lobby_worldswitcher_drawlist;
+            return;
+        }
+}
+~script1856($int1);
+~script1855($int0);
+~lobby_worldswitcher_drawlist;

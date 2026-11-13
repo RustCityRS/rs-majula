@@ -1,12 +1,17 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::engine;
+use crate::core::engine;
 use crate::handlers::ClientGameHandler;
+use rs_entity::MoveSpeed;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 use rs_protocol::network::game::client::move_minimapclick::MoveMinimapClick;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_opclick::MoveOpClick;
+#[cfg(since_647)]
+use rs_protocol::network::game::client::pack_coord;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_vm::ScriptError;
+use rsmod::PathRequest;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 /// Handles the `MoveGameClick` client protocol message.
@@ -19,10 +24,23 @@ use rsmod::rsmod::collision::collision_strategy::CollisionType;
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
+#[cfg(before_647)]
 impl ClientGameHandler for MoveGameClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_walk(&self.path, false);
         handle(self.path, self.ctrl, false, active)
+    }
+}
+
+/// Handles the rev-647 `MoveGameClick` client protocol message.
+///
+/// The rev-647 client sends only the destination tile (no waypoint list);
+/// the server pathfinds to it. Mapped onto the shared [`handle`] as a
+/// single-coordinate path.
+#[cfg(since_647)]
+impl ClientGameHandler for MoveGameClick {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(vec![pack_coord(self.x, self.z)], self.ctrl, false, active)
     }
 }
 
@@ -36,11 +54,22 @@ impl ClientGameHandler for MoveGameClick {
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
+#[cfg(before_647)]
 impl ClientGameHandler for MoveMinimapClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_walk(&self.path, true);
         active.watch_minimap(&self.path, &self.trailer);
         handle(self.path, self.ctrl, false, active)
+    }
+}
+
+/// Handles the rev-647 `MoveMinimapClick` client protocol message.
+///
+/// Destination-only, same as [`MoveGameClick`].
+#[cfg(since_647)]
+impl ClientGameHandler for MoveMinimapClick {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        handle(vec![pack_coord(self.x, self.z)], self.ctrl, false, active)
     }
 }
 
@@ -55,6 +84,7 @@ impl ClientGameHandler for MoveMinimapClick {
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** [`handle`]
+#[cfg(before_647)]
 impl ClientGameHandler for MoveOpClick {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         handle(self.path, self.ctrl, true, active)
@@ -70,8 +100,8 @@ impl ClientGameHandler for MoveOpClick {
 /// trigger runs; otherwise the server computes a path to the final destination
 /// using the rsmod pathfinder.
 ///
-/// Every click sets temporary run (ctrl-click to run); only non-operation clicks
-/// clear pending actions.
+/// Every click sets the route's temporary speed (ctrl-click); only
+/// non-operation clicks clear pending actions.
 ///
 /// # Arguments
 ///
@@ -89,7 +119,10 @@ impl ClientGameHandler for MoveOpClick {
 ///
 /// * Updates the player's waypoint queue and sets `move_clicked`, which the
 ///   input phase reads (see `Engine::post_process`).
-/// * Sets the temp run flag. For non-op clicks, clears pending actions.
+/// * Sets `temp_move_speed`: ctrl runs before 647, and at 647 takes the
+///   other speed from the player's own, as the client inverts run while ctrl
+///   is held (`ProgressBarElement.method1322`, key 82). A temporary run needs
+///   1% energy. For non-op clicks, clears pending actions.
 /// * With client-side pathfinding, processes the walk trigger.
 ///
 /// # Call Stack
@@ -132,14 +165,16 @@ fn handle(
         active.clear_pending_action()?;
     }
 
-    // ctrl-click temporarily runs for this move; a normal click leaves
-    // temp-run off (so movement follows the persistent run toggle). Low
-    // energy (<100) cancels a ctrl temp-run.
-    active.player.temprun = if active.player.runenergy < 100 && ctrl {
-        false
+    #[cfg(before_647)]
+    let speed = MoveSpeed::Run;
+    #[cfg(since_647)]
+    let speed = if active.player.move_speed == MoveSpeed::Run {
+        MoveSpeed::Walk
     } else {
-        ctrl
+        MoveSpeed::Run
     };
+    active.player.temp_move_speed =
+        (ctrl && (speed == MoveSpeed::Walk || active.player.runenergy >= 100)).then_some(speed);
 
     active.player.move_clicked = true;
 
@@ -155,22 +190,23 @@ fn handle(
         active.process_walktrigger();
     } else {
         let (dest_x, dest_z) = unpack_coord(path[path.len() - 1]);
-        active.player.pathing.queue_waypoints(rsmod::find_path(
+        active.request_path(PathRequest {
             y,
-            active.player.pathing.coord.x(),
-            active.player.pathing.coord.z(),
+            src_x: active.player.pathing.coord.x(),
+            src_z: active.player.pathing.coord.z(),
             dest_x,
             dest_z,
-            1,
-            1,
-            1,
-            0,
-            -1,
-            true,
-            0,
-            25,
-            CollisionType::Normal,
-        ));
+            src_size: 1,
+            dest_width: 1,
+            dest_length: 1,
+            angle: 0,
+            shape: -1,
+            move_near: true,
+            block_access_flags: 0,
+            max_waypoints: 25,
+            collision: CollisionType::Normal,
+        });
+        active.process_walktrigger();
     }
 
     Ok(())

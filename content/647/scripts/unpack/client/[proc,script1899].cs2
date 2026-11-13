@@ -1,0 +1,24 @@
+// 1899
+[proc,script1899](int $int0, int $int1, int $int2)
+switch_int ($int0) {
+    case 0 :
+        %camera_speed_start_0, %camera_speed_finish_0 = $int1, $int2;
+    case 1 :
+        %camera_speed_start_1, %camera_speed_finish_1 = $int1, $int2;
+    case 2 :
+        %camera_speed_start_2, %camera_speed_finish_2 = $int1, $int2;
+    case 3 :
+        %camera_speed_start_3, %camera_speed_finish_3 = $int1, $int2;
+    case 4 :
+        %camera_speed_start_4, %camera_speed_finish_4 = $int1, $int2;
+    case 5 :
+        %camera_speed_start_5, %camera_speed_finish_5 = $int1, $int2;
+    case 6 :
+        %camera_speed_start_6, %camera_speed_finish_6 = $int1, $int2;
+    case 7 :
+        %camera_speed_start_7, %camera_speed_finish_7 = $int1, $int2;
+    case 8 :
+        %camera_speed_start_8, %camera_speed_finish_8 = $int1, $int2;
+    case 9 :
+        %camera_speed_start_9, %camera_speed_finish_9 = $int1, $int2;
+}

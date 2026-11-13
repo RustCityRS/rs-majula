@@ -1,0 +1,9 @@
+// 1424
+[clientscript,agilityarena_overlay]
+if (%agilityarena_greenlight = 0) {
+    if_setcolour(agilityarena_overlay:green, 0x002300);
+    if_setcolour(agilityarena_overlay:red, ^red);
+} else {
+    if_setcolour(agilityarena_overlay:green, ^green);
+    if_setcolour(agilityarena_overlay:red, 0x230000);
+}

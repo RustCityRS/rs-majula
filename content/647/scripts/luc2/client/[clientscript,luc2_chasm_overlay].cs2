@@ -1,0 +1,37 @@
+// 213
+[clientscript,luc2_chasm_overlay](component $component0, component $component1, component $component2, component $component3)
+switch_int (%darkness_level) {
+    case default :
+        if_settrans($component2, 255);
+    case 1 :
+        if_settrans($component2, 200);
+    case 2 :
+        if_settrans($component2, 150);
+    case 3 :
+        if_settrans($component2, 50);
+}
+switch_int (%playerdesign2_client_feetcol) {
+    case default :
+        if_sethide($component0, true);
+        if_sethide($component2, false);
+    case 1 :
+        ~tutorial3_fadeout(^black, 20, $component3);
+    case 2 :
+        if_sethide($component0, false);
+        if_setmodelanim($component1, seq_10708);
+        if_sethide($component2, true);
+        ~tutorial3_fadein(10, $component3);
+    case 3 :
+        if_sethide($component0, true);
+        if_sethide($component2, true);
+        ~tutorial3_fadein(50, $component3);
+    case 4 :
+        if_sethide($component0, false);
+        if_setmodelanim($component1, seq_10712);
+        if_sethide($component2, true);
+        ~tutorial3_fadein(115, $component3);
+    case 5 :
+        if_sethide($component0, true);
+        if_sethide($component2, false);
+        ~tutorial3_fadein(50, $component3);
+}

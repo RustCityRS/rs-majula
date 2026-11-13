@@ -1,0 +1,8 @@
+// 2048
+[proc,script2048](component $component0, int $int1, graphic $graphic2, int $int3, int $int4, int $int5, int $int6, int $int7, boolean $boolean8, boolean $boolean9, boolean $boolean10, int $int11, string $string0, string $string1, coord $coord12)
+if (cc_find($component0, $int1) = true) {
+    ~worldmap_setupgraphic($graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $boolean9, $boolean10, $int11, $string0, $string1, $coord12);
+} else {
+    cc_create($component0, ^iftype_graphic, $int1);
+    ~worldmap_setupgraphic($graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $boolean9, $boolean10, $int11, $string0, $string1, $coord12);
+}

@@ -1,0 +1,9 @@
+// 4460
+[proc,script4460]
+if_sethide(clan_chat:clan_list_layer, true);
+if_sethide(clan_chat:guest_list_layer, true);
+if_sethide(clan_chat:ignore_list_layer, false);
+if_sethide(clan_chat:clan_button_selected, true);
+if_sethide(clan_chat:guest_button_selected, true);
+if_sethide(clan_chat:ignore_button_selected, false);
+~clan_chat_ban_list_build;

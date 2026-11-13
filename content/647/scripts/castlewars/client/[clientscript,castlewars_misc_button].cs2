@@ -1,0 +1,12 @@
+// 3421
+[clientscript,castlewars_misc_button]
+if (%castlewars_shop_page ! 2) {
+    sound_synth(synth_9445, 1, 0);
+}
+%castlewars_shop_page = 2;
+if_sethide(castlewars_trade:decorative_armour_layer, true);
+if_sethide(castlewars_trade:consumables_layer, true);
+if_sethide(castlewars_trade:misc_layer, false);
+if_sethide(castlewars_trade:dec_armour_button_line, true);
+if_sethide(castlewars_trade:deleteditemcontract_line, true);
+if_sethide(castlewars_trade:misc_button_line, false);

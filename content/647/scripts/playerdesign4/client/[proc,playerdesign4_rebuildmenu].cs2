@@ -1,0 +1,320 @@
+// 391
+[proc,playerdesign4_rebuildmenu]
+def_component $component0 = null;
+def_enum $enum1 = null;
+def_enum $enum2 = null;
+def_enum $enum3 = null;
+def_int $int4 = -1;
+def_idkit $idkit5 = null;
+def_enum $enum6 = null;
+def_enum $enum7 = null;
+def_enum $enum8 = null;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_string $string0 = "";
+switch_int (%playerdesign3_slotvarc) {
+    case 0 :
+        $component0 = playerdesign4:skin;
+        $enum6 = enum_748;
+        $enum7 = enum_746;
+        $enum8 = enum_747;
+        $int9 = 4;
+        $int10 = %playerdesign3_skincol;
+        $string0 = "Select skin colour:";
+        if_sethide(playerdesign4:colour_set, true);
+    case 1 :
+        $component0 = playerdesign4:hair;
+        if (gender = 1) {
+            $enum1 = enum_3302;
+            $enum2 = enum_3303;
+            $int4 = 7;
+        } else {
+            $enum1 = enum_3304;
+            $enum2 = enum_3305;
+            $int4 = 0;
+        }
+        $idkit5 = %playerdesign3_head;
+        $enum6 = enum_2345;
+        $enum7 = enum_2343;
+        $enum8 = enum_2344;
+        $int9 = 0;
+        $int10 = %playerdesign3_haircol;
+        $string0 = "Select hairstyle:";
+        if_sethide(playerdesign4:colour_set, true);
+    case 2 :
+        $component0 = playerdesign4:beard;
+        if (gender ! 1) {
+            $enum1 = enum_3307;
+            $enum2 = enum_3306;
+            $enum3 = enum_2340;
+            $int4 = 1;
+            $idkit5 = %playerdesign3_jaw;
+            $enum6 = enum_2345;
+            $enum7 = enum_2343;
+            $enum8 = enum_2344;
+            $int9 = 0;
+            $int10 = %playerdesign3_haircol;
+        }
+        $string0 = "Select facial hair:";
+        if_sethide(playerdesign4:colour_set, true);
+    case 3 :
+        $component0 = playerdesign4:torso;
+        if (gender = 1) {
+            $enum1 = enum_3299;
+            $enum2 = enum_3298;
+            $enum3 = enum_1590;
+            $int4 = 9;
+        } else {
+            $enum1 = enum_3287;
+            $enum2 = enum_3286;
+            $enum3 = enum_689;
+            $int4 = 2;
+        }
+        $idkit5 = %playerdesign3_torso;
+        $enum6 = enum_3283;
+        $enum7 = enum_2347;
+        $enum8 = enum_2348;
+        $int9 = 1;
+        $int10 = %playerdesign3_torsocol;
+        $string0 = "Select torso:";
+        if_sethide(playerdesign4:colour_set, false);
+    case 6 :
+        $component0 = playerdesign4:legs;
+        if (gender = 1) {
+            $enum1 = enum_3301;
+            $enum2 = enum_3300;
+            $enum3 = enum_1606;
+            $int4 = 12;
+        } else {
+            $enum1 = enum_3289;
+            $enum2 = enum_3288;
+            $enum3 = enum_1585;
+            $int4 = 5;
+        }
+        $idkit5 = %playerdesign3_legs;
+        $enum6 = enum_3283;
+        $enum7 = enum_2347;
+        $enum8 = enum_2348;
+        $int9 = 2;
+        $int10 = %playerdesign3_legscol;
+        $string0 = "Select legs:";
+        if_sethide(playerdesign4:colour_set, false);
+    case 7 :
+        $component0 = playerdesign4:boots;
+        if (gender = 1) {
+            $enum1 = enum_1137;
+            $enum2 = enum_3295;
+            $enum3 = enum_3294;
+            $int4 = 13;
+        } else {
+            $enum1 = enum_1136;
+            $enum2 = enum_3292;
+            $enum3 = enum_3291;
+            $int4 = 6;
+        }
+        $idkit5 = %playerdesign3_feet;
+        $enum6 = enum_3297;
+        $enum7 = enum_753;
+        $enum8 = enum_3296;
+        $int9 = 3;
+        $int10 = %playerdesign3_feetcol;
+        $string0 = "Select footwear:";
+        if_sethide(playerdesign4:colour_set, false);
+}
+cc_deleteall(playerdesign4:tabs);
+if_setonmouseover($component0, null);
+if_setonmouseleave($component0, "playerdesign4_tooltip_clear");
+~playerdesign4_colourhighlight(playerdesign4:tabs, $component0, -1, 0x96bbe2, 0x2c6592, 0, 0);
+if ($component0 ! playerdesign4:skin) {
+    if_setonmouseover(playerdesign4:skin, "playerdesign4_colourhighlight(playerdesign4:tabs, event_com, -1, 0xd5b970, 0xa68852, 0, 6)");
+    if_setonmouseleave(playerdesign4:skin, "script377(playerdesign4:tabs, 6)");
+}
+if_setonmouserepeat(playerdesign4:skin, "playerdesign4_tooltip(if_getop(playerdesign4:skin, 1), event_com, -1, event_mousex)");
+if ($component0 ! playerdesign4:hair) {
+    if_setonmouseover(playerdesign4:hair, "playerdesign4_colourhighlight(playerdesign4:tabs, event_com, -1, 0xd5b970, 0xa68852, 0, 6)");
+    if_setonmouseleave(playerdesign4:hair, "script377(playerdesign4:tabs, 6)");
+}
+if_setonmouserepeat(playerdesign4:hair, "playerdesign4_tooltip(if_getop(playerdesign4:hair, 1), event_com, -1, event_mousex)");
+if ($component0 ! playerdesign4:beard) {
+    if_setonmouseover(playerdesign4:beard, "playerdesign4_colourhighlight(playerdesign4:tabs, event_com, -1, 0xd5b970, 0xa68852, 0, 6)");
+    if_setonmouseleave(playerdesign4:beard, "script377(playerdesign4:tabs, 6)");
+}
+if_setonmouserepeat(playerdesign4:beard, "playerdesign4_tooltip(if_getop(playerdesign4:beard, 1), event_com, -1, event_mousex)");
+if ($component0 ! playerdesign4:torso) {
+    if_setonmouseover(playerdesign4:torso, "playerdesign4_colourhighlight(playerdesign4:tabs, event_com, -1, 0xd5b970, 0xa68852, 0, 6)");
+    if_setonmouseleave(playerdesign4:torso, "script377(playerdesign4:tabs, 6)");
+}
+if_setonmouserepeat(playerdesign4:torso, "playerdesign4_tooltip(if_getop(playerdesign4:torso, 1), event_com, -1, event_mousex)");
+if ($component0 ! playerdesign4:legs) {
+    if_setonmouseover(playerdesign4:legs, "playerdesign4_colourhighlight(playerdesign4:tabs, event_com, -1, 0xd5b970, 0xa68852, 0, 6)");
+    if_setonmouseleave(playerdesign4:legs, "script377(playerdesign4:tabs, 6)");
+}
+if_setonmouserepeat(playerdesign4:legs, "playerdesign4_tooltip(if_getop(playerdesign4:legs, 1), event_com, -1, event_mousex)");
+if ($component0 ! playerdesign4:boots) {
+    if_setonmouseover(playerdesign4:boots, "playerdesign4_colourhighlight(playerdesign4:tabs, event_com, -1, 0xd5b970, 0xa68852, 0, 6)");
+    if_setonmouseleave(playerdesign4:boots, "script377(playerdesign4:tabs, 6)");
+}
+if_setonmouserepeat(playerdesign4:boots, "playerdesign4_tooltip(if_getop(playerdesign4:boots, 1), event_com, -1, event_mousex)");
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_struct $struct15 = null;
+def_idkit $idkit16 = null;
+def_int $int17 = -1;
+def_int $int18 = 0;
+def_string $string1 = "";
+cc_deleteall(playerdesign4:menu);
+cc_deleteall(playerdesign4:menu_text);
+if ($enum1 ! null & $enum2 ! null & $int4 ! -1) {
+    $int14 = calc((if_getwidth(playerdesign4:menu) - 4 * 65) / 3);
+    $int12 = enum_getoutputcount($enum1);
+    while ($int11 < $int12) {
+        cc_create(playerdesign4:menu, ^iftype_graphic, $int11);
+        cc_setsize(65, 65, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int11 % 4 * (65 + $int14)), calc($int11 / 4 * (65 + $int14)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setgraphic(enum(int, graphic, $enum2, $int11));
+        if (%playerdesign3_slotvarc = 1) {
+            $struct15 = enum(int, struct, $enum1, $int11);
+            if ($struct15 ! null) {
+                $string1 = struct_param($struct15, param_792);
+                cc_setop(1, $string1);
+                $idkit16 = struct_param($struct15, param_788);
+            } else {
+                $idkit16, $string1 = null, "";
+            }
+        } else {
+            $string1 = enum(int, string, $enum3, $int11);
+            cc_setop(1, $string1);
+            $idkit16 = enum(int, idkit, $enum1, $int11);
+        }
+        if ($idkit5 = $idkit16) {
+            $int17 = $int11;
+            $int18 = cc_gety;
+            if (string_length($string1) > 0) {
+                $string0 = "<$string0> <$string1>";
+            }
+            cc_setonmouseleave("playerdesign4_tooltip_clear");
+        } else {
+            cc_setonop("script355(event_op, $idkit16, $int4)");
+            cc_setonmouseover("playerdesign4_mouseover(event_com, event_comsubid, calc($int12 + 1), 2, true)");
+            cc_setonmouseleave("playerdesign4_mouseover(event_com, event_comsubid, calc($int12 + 1), 2, false)");
+        }
+        if (string_length($string1) > 0) {
+            cc_setonmouserepeat("playerdesign4_tooltip($string1, event_com, event_comsubid, event_mousex)");
+        }
+        $int13 = cc_gety;
+        $int11 = calc($int11 + 1);
+    }
+    $int13 = calc($int13 + 65);
+    .cc_create(playerdesign4:menu, ^iftype_rectangle, $int12);
+    if ($int17 ! -1 & cc_find(playerdesign4:menu, $int17) = true) {
+        .cc_setsize(calc(cc_getwidth - 6), calc(cc_getheight - 6), ^setsize_abs, ^setsize_abs);
+        .cc_setposition(calc(cc_getx + 3), calc(cc_gety + 3), ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setcolour(^black);
+        .cc_settrans(175);
+        .cc_setfill(true);
+    } else {
+        .cc_sethide(true);
+    }
+}
+def_graphic $graphic19 = graphic_3466;
+if ($int13 > if_getheight(playerdesign4:menu)) {
+    if_setscrollsize(playerdesign4:menu, 0, $int13);
+    if ($int18 < if_getscrolly(playerdesign4:menu)) {
+        if_setscrollpos(playerdesign4:menu, 0, calc($int18 - 15));
+    } else if (calc($int18 + 65) >= calc(if_getscrolly(playerdesign4:menu) + if_getheight(playerdesign4:menu))) {
+        if_setscrollpos(playerdesign4:menu, 0, calc($int18 + 65 + 15 - if_getheight(playerdesign4:menu)));
+    }
+    ~scrollbar_vertical(playerdesign4:menu_scrollbar, playerdesign4:menu, graphic_3471, graphic_3468, graphic_3469, graphic_3470, graphic_3465, graphic_3464);
+    if (.cc_find(playerdesign4:menu_scrollbar, 4) = true) {
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+        $graphic19 = graphic_3467;
+        .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+        $graphic19 = graphic_3464;
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+        $graphic19 = graphic_3465;
+        .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+    }
+} else {
+    if_setscrollpos(playerdesign4:menu, 0, 0);
+    if_setscrollsize(playerdesign4:menu, 0, 0);
+    cc_deleteall(playerdesign4:menu_scrollbar);
+    if (%playerdesign3_slotvarc = 0) {
+        ~playerdesign4_message(playerdesign4:menu, "Please choose your skin colour<br>from the selection on the right.", 20);
+    } else if (%playerdesign3_slotvarc = 2 & gender = 1) {
+        ~playerdesign4_message(playerdesign4:menu, "Female characters cannot have<br>facial hair in RuneScape.", 20);
+    }
+}
+~playerdesign4_message(playerdesign4:menu_text, $string0, 0);
+cc_deleteall(playerdesign4:colours);
+def_int $int20 = -1;
+$int17 = -1;
+$int11 = 0;
+$int18 = 0;
+def_int $int21 = 0;
+if ($enum6 ! null & $enum7 ! null & $int9 ! -1) {
+    $int12 = enum_getoutputcount($enum6);
+    $int21 = calc($int12 + 6);
+    while ($int11 < $int12) {
+        cc_create(playerdesign4:colours, ^iftype_rectangle, $int11);
+        cc_setsize(15, calc(17 - 2), ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, calc($int11 * 17 + 1), ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setfill(true);
+        cc_setcolour(enum(int, int, $enum7, $int11));
+        $string1 = enum(int, string, $enum8, $int11);
+        cc_setop(1, $string1);
+        $int20 = enum(int, int, $enum6, $int11);
+        if ($int10 = $int20) {
+            $int17 = $int11;
+            $int18 = cc_gety;
+            cc_setonmouseleave("playerdesign4_tooltip_clear");
+        } else {
+            cc_setonop("playerdesign4_colourbutton(event_op, $int20, $int9)");
+            cc_setonmouseover("playerdesign4_colourhighlight(event_com, event_com, event_comsubid, 0xd5b970, 0xa68852, 1, $int21)");
+            cc_setonmouseleave("script377(event_com, $int21)");
+        }
+        if (string_length($string1) > 0) {
+            cc_setonmouserepeat("playerdesign4_sidetooltip($string1, event_com, event_comsubid, event_mousey)");
+        }
+        $int11 = calc($int11 + 1);
+    }
+} else {
+    $int12 = 0;
+}
+$int13 = max(calc($int12 * 17), 0);
+if ($int13 > calc(if_getheight(playerdesign4:colours_container) - 12)) {
+    if_setsize(playerdesign4:colours, 23, 12, ^setsize_minus, ^setsize_minus);
+    if_setposition(playerdesign4:colours, 5, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    if_setscrollsize(playerdesign4:colours, 0, $int13);
+    if ($int18 < if_getscrolly(playerdesign4:colours)) {
+        if_setscrollpos(playerdesign4:colours, 0, calc($int18 - 5));
+    } else if (calc($int18 + 17) >= calc(if_getscrolly(playerdesign4:colours) + if_getheight(playerdesign4:colours))) {
+        if_setscrollpos(playerdesign4:colours, 0, calc($int18 + 17 + 5 - if_getheight(playerdesign4:colours)));
+    }
+    if_sethide(playerdesign4:colours_scrollbar, false);
+    ~scrollbar_vertical(playerdesign4:colours_scrollbar, playerdesign4:colours, graphic_3471, graphic_3468, graphic_3469, graphic_3470, graphic_3465, graphic_3464);
+    if (.cc_find(playerdesign4:colours_scrollbar, 4) = true) {
+        $graphic19 = graphic_3466;
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+        $graphic19 = graphic_3467;
+        .cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+        $graphic19 = graphic_3464;
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+        $graphic19 = graphic_3465;
+        .cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic19)");
+    }
+} else {
+    if_setsize(playerdesign4:colours, 10, 12, ^setsize_minus, ^setsize_minus);
+    if_setposition(playerdesign4:colours, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setscrollsize(playerdesign4:colours, 0, 0);
+    if_setscrollpos(playerdesign4:colours, 0, 0);
+    cc_deleteall(playerdesign4:colours_scrollbar);
+    if_sethide(playerdesign4:colours_scrollbar, true);
+}
+if ($int17 ! -1) {
+    ~playerdesign4_colourhighlight(playerdesign4:colours, playerdesign4:colours, $int17, 0x96bbe2, 0x2c6592, 1, $int12);
+} else {
+    ~playerdesign4_colourhighlight(playerdesign4:colours, null, -1, ^black, ^black, 1, $int12);
+}
+~script389;

@@ -5,7 +5,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
-#[server_prot(ResetAnims, Immediate, Fixed)] // TODO: what should priority be?
+#[server_prot(ResetAnims, Buffered, Fixed)]
 pub struct ResetAnims;
 
 impl ServerProtMessage for ResetAnims {

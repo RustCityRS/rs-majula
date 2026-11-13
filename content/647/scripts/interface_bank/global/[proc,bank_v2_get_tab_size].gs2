@@ -1,0 +1,25 @@
+// 706
+[proc,bank_v2_get_tab_size](int $int0)(int)
+if ($int0 < 1 | $int0 > 9) {
+    return(0);
+}
+switch_int ($int0) {
+    case 1 :
+        return(calc(516 - %bank_tab_1 - %bank_tab_2 - %bank_tab_3 - %bank_tab_4 - %bank_tab_5 - %bank_tab_6 - %bank_tab_7 - %bank_tab_8));
+    case 2 :
+        return(%bank_tab_1);
+    case 3 :
+        return(%bank_tab_2);
+    case 4 :
+        return(%bank_tab_3);
+    case 5 :
+        return(%bank_tab_4);
+    case 6 :
+        return(%bank_tab_5);
+    case 7 :
+        return(%bank_tab_6);
+    case 8 :
+        return(%bank_tab_7);
+    case 9 :
+        return(%bank_tab_8);
+}

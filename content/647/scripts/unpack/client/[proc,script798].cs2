@@ -1,0 +1,76 @@
+// 798
+[proc,script798](component $component0, int $int1, int $int2, string $string0, string $string1, string $string2, string $string3, string $string4, int $int3, int $int4)
+cc_deleteall($component0);
+def_int $int5 = 0;
+def_int $int6 = 0;
+if_setscrollsize($component0, 0, calc((($int4 - $int3) / $int1 + 1) * 57));
+def_int $int7 = 0;
+def_int $int8 = 1;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = -1;
+def_obj $obj12 = null;
+def_obj $obj13 = null;
+def_string $string5 = "hello";
+def_int $int14 = 0;
+def_int $int15 = 0;
+while ($int7 <= calc($int4 - $int3)) {
+    $int5 = calc(16 + $int7 % $int1 * 48 + $int7 % $int1 * 5);
+    $int6 = calc($int7 / $int1 * 52 + $int7 / $int1 * 5);
+    cc_create($component0, ^iftype_graphic, $int15);
+    $int15 = calc($int15 + 1);
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,0");
+    cc_setonmouseover("script2724(event_com, $int15, false)");
+    cc_setonmouseleave("script2724(event_com, $int15, true)");
+    cc_create($component0, ^iftype_graphic, $int15);
+    $int15 = calc($int15 + 1);
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,1");
+    cc_sethide(true);
+    cc_create($component0, ^iftype_graphic, $int15);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int5 + 6), calc($int6 + 4), ^setpos_abs_left, ^setpos_abs_top);
+    $obj12 = enum(int, obj, enum_1277, $int8);
+    $obj13 = enum(int, obj, enum_1188, $int8);
+    if ($int8 = 1) {
+        if (~wolf_magic_pouch_checker($obj13) = 1) {
+            ~lore_interface_inv_draw_slot($obj13, $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
+        } else {
+            ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int8), $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
+        }
+    } else if ($obj13 = lore_pouch_spell_grey) {
+        ~lore_interface_inv_draw_slot($obj13, $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
+    } else {
+        ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int8), $obj13, $component0, $int15, $string0, $string1, $string2, $string3, $string4, "");
+    }
+    $string5 = enum(obj, string, enum_1187, $obj13);
+    $int14 = enum(obj, int, enum_1185, $obj12);
+    if ($int8 = 1) {
+        cc_setonmouserepeat("lore_addtooltip(event_comsubid, interface_666:tool_tip_build_layer, interface_666:scroll_icons, $int14, $string5, wolf_wolf_pouch, 1, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0, null, 0)");
+        cc_setonmouseleave("deltooltip(interface_666:tool_tip_build_layer)");
+    } else {
+        $string5 = "You do not have access to this type of scroll.";
+        cc_setonmouserepeat("script800(event_comsubid, interface_666:tool_tip_build_layer, interface_666:scroll_icons, $int14, $string5)");
+        cc_setonmouseleave("deltooltip(interface_666:tool_tip_build_layer)");
+    }
+    $int15 = calc($int15 + 1);
+    cc_create($component0, ^iftype_graphic, $int15);
+    $int15 = calc($int15 + 1);
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int5 + 2), calc($int6 + 38), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject_nonum($obj12, 1);
+    cc_create($component0, ^iftype_text, $int15);
+    $int15 = calc($int15 + 1);
+    cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int5 + 13), calc($int6 + 39), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p11_full);
+    cc_setcolour(^white);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    cc_settext("1");
+    cc_settextshadow(true);
+    $int7 = calc($int7 + 1);
+    $int8 = calc($int8 + 1);
+}

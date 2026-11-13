@@ -1,0 +1,21 @@
+// 4028
+[proc,script4028](int $int0, int $int1)
+if ($int0 = 0) {
+    if ($int1 = 1) {
+        if_setgraphic(task_main:filter_done_button, "task_filter_but,5");
+        if_setonmouseover(task_main:filter_done_button, "task_main_filter_done_hover_on(0)");
+        if_setonmouseleave(task_main:filter_done_button, "task_main_filter_done_hover_on(1)");
+    } else {
+        if_setgraphic(task_main:filter_done_button, "task_filter_but,3");
+        if_setonmouseover(task_main:filter_done_button, "task_main_filter_done_hover_off(0)");
+        if_setonmouseleave(task_main:filter_done_button, "task_main_filter_done_hover_off(1)");
+    }
+} else if ($int1 = 1) {
+    if_setgraphic(task_main:filter_set_button, "task_filter_but,2");
+    if_setonmouseover(task_main:filter_set_button, "task_main_filter_set_hover_on(0)");
+    if_setonmouseleave(task_main:filter_set_button, "task_main_filter_set_hover_on(1)");
+} else {
+    if_setgraphic(task_main:filter_set_button, "task_filter_but,0");
+    if_setonmouseover(task_main:filter_set_button, "task_main_filter_set_hover_off(0)");
+    if_setonmouseleave(task_main:filter_set_button, "task_main_filter_set_hover_off(1)");
+}

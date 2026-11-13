@@ -1,0 +1,3 @@
+// 2751
+[clientscript,dob_confirm_load_2]
+if_settext(dob_confirm_login2:date_text, "<tostring(%dob_day)> <enum(int, string, enum_950, %dob_month)> <tostring(%dob_year)>");

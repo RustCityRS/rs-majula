@@ -1,0 +1,47 @@
+// 4597
+[proc,script4597]
+def_string $string0 = "What if I entered the Wilderness?";
+def_string $string1 = "Back";
+def_int $int0 = 0;
+if (%varplayerbit_9226 >= 2) {
+    if_sethide(deathkeep_info:com_28, true);
+    if_setsize(deathkeep_info:explanation, 16, 0, ^setsize_minus, ^setsize_minus);
+    if_setsize(deathkeep_info:explanation_scrollbar, 16, 0, ^setsize_abs, ^setsize_minus);
+} else {
+    $int0 = max(paraheight($string0, if_getwidth(deathkeep_info:com_30), p12_full), paraheight($string1, if_getwidth(deathkeep_info:com_30), p12_full));
+    $int0 = calc($int0 * 12 + 10);
+    if_setsize(deathkeep_info:com_28, 10, $int0, ^setsize_minus, ^setsize_abs);
+    if_sethide(deathkeep_info:com_28, false);
+    $int0 = calc($int0 + 5);
+    if_setsize(deathkeep_info:explanation, 16, $int0, ^setsize_minus, ^setsize_minus);
+    if_setsize(deathkeep_info:explanation_scrollbar, 16, $int0, ^setsize_abs, ^setsize_minus);
+    ~v2_stone_button_filled(deathkeep_info:com_29);
+    if_setonmouseover(deathkeep_info:com_28, "v2_stone_button_in_filled(deathkeep_info:com_29)");
+    if_setonmouseleave(deathkeep_info:com_28, "v2_stone_button_filled(deathkeep_info:com_29)");
+    if (%varplayerbit_9226 = 1) {
+        if_settext(deathkeep_info:com_30, $string1);
+    } else {
+        if_settext(deathkeep_info:com_30, $string0);
+    }
+}
+cc_deleteall(deathkeep_info:explanation);
+$int0 = calc(paraheight(%varclient_1871, if_getwidth(deathkeep_info:explanation), p11_full) * 10 + 2);
+cc_create(deathkeep_info:explanation, ^iftype_text, 0);
+cc_setsize(0, $int0, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext(%varclient_1871);
+if ($int0 > if_getheight(deathkeep_info:explanation)) {
+    if_setscrollsize(deathkeep_info:explanation, 0, $int0);
+    ~scrollbar_vertical(deathkeep_info:explanation_scrollbar, deathkeep_info:explanation, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(deathkeep_info:explanation_scrollbar, false);
+    if_setposition(deathkeep_info:explanation, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setscrollsize(deathkeep_info:explanation, 0, 0);
+    if_sethide(deathkeep_info:explanation_scrollbar, true);
+    if_setposition(deathkeep_info:explanation, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setscrollpos(deathkeep_info:explanation, 0, 0);
+}

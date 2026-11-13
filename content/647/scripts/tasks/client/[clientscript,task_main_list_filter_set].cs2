@@ -1,0 +1,7 @@
+// 3986
+[clientscript,task_main_list_filter_set]
+def_int $int0 = 0;
+if (%varplayerbit_8580 = 0) {
+    $int0 = 1;
+}
+~task_main_list_populate(999, 999, $int0);

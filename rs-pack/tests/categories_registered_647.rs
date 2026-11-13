@@ -1,0 +1,70 @@
+//! Every category a 647 config names is in `category.pack`.
+//!
+//! The obj, loc and npc packers look a `category=` value up in the registry
+//! and, finding nothing, write no category at all -- no warning. The compiler
+//! still resolves `_name` triggers and `oc_category(..) = name` against the
+//! name, so the script builds and its trigger never fires: an unregistered
+//! `potion` left every potion uncombinable. Categories never auto-register,
+//! so a port adds its own; this fails on any it forgot.
+//!
+//! ```text
+//! cargo test -p rs-pack --test categories_registered_647
+//! ```
+
+#![cfg(since_647)]
+
+use std::collections::BTreeSet;
+use std::fs;
+use std::path::{Path, PathBuf};
+
+fn configs(dir: &Path, out: &mut Vec<PathBuf>) {
+    for entry in fs::read_dir(dir).unwrap().flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            configs(&path, out);
+        } else if path
+            .extension()
+            .is_some_and(|e| e == "obj" || e == "loc" || e == "npc")
+        {
+            out.push(path);
+        }
+    }
+}
+
+#[test]
+fn every_config_category_is_registered() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let registered: BTreeSet<String> =
+        fs::read_to_string(root.join("content/647/pack/category.pack"))
+            .unwrap()
+            .lines()
+            .filter_map(|l| l.split_once('=').map(|(_, n)| n.trim().to_string()))
+            .collect();
+
+    let mut files = Vec::new();
+    configs(&root.join("content/647/scripts"), &mut files);
+
+    let mut checked = 0;
+    let mut missing = Vec::new();
+    for path in files {
+        let text = fs::read_to_string(&path).unwrap();
+        for (n, line) in text.lines().enumerate() {
+            if let Some(name) = line.trim().strip_prefix("category=") {
+                checked += 1;
+                if !registered.contains(name) {
+                    missing.push(format!(
+                        "{}:{}: `{name}`",
+                        path.strip_prefix(&root).unwrap_or(&path).display(),
+                        n + 1
+                    ));
+                }
+            }
+        }
+    }
+    assert!(checked > 10, "found only {checked} categories");
+    assert!(
+        missing.is_empty(),
+        "categories not in content/647/pack/category.pack (the packer drops them):\n  {}",
+        missing.join("\n  ")
+    );
+}

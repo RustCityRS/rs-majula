@@ -1,0 +1,17 @@
+// 348
+[clientscript,cws_setup](component $component0, component $component1, int $int2)
+def_int $int3 = ~cws_cc_getvar($int2);
+def_graphic $graphic4 = "warning_icons,1";
+if ($int3 >= 7) {
+    if_sethide($component0, false);
+    if_setgraphic($component1, "warning_icons,2");
+    if_setonclick($component0, "graphic_swapper($component1, $graphic4)");
+} else if ($int3 = 6) {
+    if_sethide($component0, false);
+    if_setgraphic($component1, "warning_icons,1");
+    $graphic4 = "warning_icons,2";
+    if_setonclick($component0, "graphic_swapper($component1, $graphic4)");
+} else {
+    if_sethide($component0, true);
+    if_setonclick($component0, null);
+}

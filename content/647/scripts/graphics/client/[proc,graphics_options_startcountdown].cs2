@@ -1,0 +1,18 @@
+// 2700
+[proc,graphics_options_startcountdown](int $int0, int $int1, boolean $boolean2, boolean $boolean3)
+def_int $int4 = calc(clientclock + 750);
+if ($int1 = 1) {
+    if_setontimer(toplevel_fullscreen:graphics_confirm_layer, "graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)");
+    if_setontimer(toplevel:graphics_confirm_layer, "graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)");
+    ~graphics_options_opencountdown($int0, $boolean2, $boolean3);
+} else if ($int1 = 2) {
+    if_setontimer(lobbyscreen:base, "graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)");
+    ~lobbyscreen_countdown;
+    if_setonop(lobbyscreen:windowmode_confirm_yes, "graphics_options_decision(true, $int0, $int1, $boolean2, $boolean3)");
+    if_setonop(lobbyscreen:windowmode_confirm_no, "graphics_options_decision(false, $int0, $int1, $boolean2, $boolean3)");
+} else {
+    if_setontimer(loginscreen:background_layer, "graphics_options_countdown($int4, $int0, $int1, $boolean2, $boolean3)");
+    ~loginscreen_setactivemenu(10);
+    if_setonclick(loginscreen:windowmode_confirm_yes, "graphics_options_decision(true, $int0, $int1, $boolean2, $boolean3)");
+    if_setonclick(loginscreen:windowmode_confirm_no, "graphics_options_decision(false, $int0, $int1, $boolean2, $boolean3)");
+}

@@ -1,0 +1,111 @@
+// Roddeck's cellar's crate and bookcase, and the tutorial's eat and drop boxes, as 4KO2h2xPtdM
+// (2011-04-30) shows them: the narrator's lines, voiced by cache 786's clips (enum 3037). The
+// variants no recording shows are the narrator's words (Whisper on the clips, punctuation ours) in
+// the box their seen sibling uses.
+
+// The crate of cabbages (crate_49100, cache 786's l57_77 local 42,35): s050 @513.7, a cabbage in
+// the box (clip 1561); the player already holding one (1381) or with a full pack (1701).
+[oploc1,tutorial3_cellar_crate_cabbage]
+if (inv_total(inv, cabbage) > 0) {
+    ~speech_line(vorbis_1381);
+    ~objbox(cabbage, "It's full of cabbages. You've already got one.", 250, 0, 0);
+    return;
+}
+if (inv_freespace(inv) = 0) {
+    ~speech_line(vorbis_1701);
+    ~objbox(cabbage, "It's full of cabbages. Your inventory is too full for you to take one.", 250, 0, 0);
+    return;
+}
+inv_add(inv, cabbage, 1);
+~speech_line(vorbis_1561);
+~objbox(cabbage, "It's full of cabbages. You take one.", 250, 0, 0);
+
+// The bookcase (bookcase_49101, l57_77 local 49,36): Roddeck's diary and his manual on the care of
+// pet dragons (the 2011 wiki's "Roddeck's diary", rev 2011-03-13). s049 @479.9, both books in the
+// box (clip 1345); room for one (1592), for none (1385); one book left (1419, 1530). The same
+// bookcase stands in Roddeck's house in Lumbridge (l50_50 local 32,36): what it said there after
+// the tutorial, no source; 289's bookcase search.
+[oploc1,bookcase_49101]
+if (%tutorial < 5 | %tutorial >= 1000) {
+    @search_bookcase;
+}
+def_int $missing = 0;
+if (inv_total(inv, tutorial3_diary) = 0) {
+    $missing = calc($missing + 1);
+}
+if (inv_total(inv, tutorial3_book) = 0) {
+    $missing = calc($missing + 1);
+}
+// Both already held: no clip answers a second search; 289's.
+if ($missing = 0) {
+    @search_bookcase;
+}
+def_int $space = inv_freespace(inv);
+if ($missing = 2) {
+    if ($space >= 2) {
+        inv_add(inv, tutorial3_diary, 1);
+        inv_add(inv, tutorial3_book, 1);
+        ~speech_line(vorbis_1345);
+        ~doubleobjbox(tutorial3_diary, tutorial3_book, "You find a couple of books and take them.", 250);
+        return;
+    }
+    if ($space = 1) {
+        // Which book comes first: no source; the diary, Roddeck's own.
+        inv_add(inv, tutorial3_diary, 1);
+        ~speech_line(vorbis_1592);
+        ~objbox(tutorial3_diary, "There are a couple of interesting looking books on the shelf, but you only have room to take one of them.", 250, 0, 0);
+        return;
+    }
+    ~speech_line(vorbis_1385);
+    ~mesbox("There are a couple of interesting looking books on the shelf, but you don't have room to hold them.");
+    return;
+}
+def_obj $book = tutorial3_diary;
+if (inv_total(inv, tutorial3_diary) > 0) {
+    $book = tutorial3_book;
+}
+if ($space = 0) {
+    ~speech_line(vorbis_1530);
+    ~mesbox("There's an interesting looking book on the shelf, but you don't have room to hold it.");
+    return;
+}
+inv_add(inv, $book, 1);
+~speech_line(vorbis_1419);
+~objbox($book, "You take a book from the shelf.", 250, 0, 0);
+
+// Eating in the tutorial (consume_effects.rs2): s051 "You eat the cabbage." @515.5, a cabbage in
+// the box (clip 1595); with life points restored, 1615. Other food in the cellar: none to eat.
+[proc,uf_ate](obj $food, boolean $healed)(boolean)
+if (%tutorial < 5 | %tutorial >= 1000 | $food ! cabbage) {
+    return(false);
+}
+if ($healed = true) {
+    ~speech_line(vorbis_1615);
+    ~objbox(cabbage, "You eat the cabbage. It restores some of your life points.", 250, 0, 0);
+} else {
+    ~speech_line(vorbis_1595);
+    ~objbox(cabbage, "You eat the cabbage.", 250, 0, 0);
+}
+return(true);
+
+// Dropping in the tutorial (drop.rs2): s077 @576, the stone chippings dropped, a box with them
+// (clip 1669). Every drop, or the first only: one recording, one drop.
+[proc,uf_dropped](obj $obj)
+if (%tutorial < 5 | %tutorial >= 1000 | $obj = null) {
+    return;
+}
+~speech_line(vorbis_1669);
+~objbox($obj, "When you drop items on the ground, they will eventually vanish. It's a good way to get rid of junk, but don't drop anything you want to keep.", 250, 0, 0);
+
+// Taking a dropped diary back while the tutorial runs: "If you attempt to pick up the diary after
+// it is dropped, a message will appear saying 'You won't be needing that again.'" (the 2011 wiki's
+// Roddeck's diary, revision of 2011-03-13), the narrator's N9 (clip 1558). After the tutorial it
+// is taken as any book (the same page). A game message, as the page words it: no recording shows
+// whether it is that or a box.
+[opobj3,tutorial3_diary]
+if (%tutorial >= 5 & %tutorial < 1000) {
+    ~speech_line(vorbis_1558);
+    mes("You won't be needing that again.");
+    return;
+}
+@pickup_obj;

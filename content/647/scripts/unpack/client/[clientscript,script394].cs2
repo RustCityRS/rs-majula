@@ -1,0 +1,13 @@
+// 394
+[clientscript,script394](component $component0)
+if (%conq_vk3_commorb_bar_delay = 0) {
+    if_settrans($component0, max(calc(if_gettrans($component0) - 10), 0));
+    if (if_gettrans($component0) = 0) {
+        %conq_vk3_commorb_bar_delay = 1;
+    }
+} else {
+    if_settrans($component0, min(calc(if_gettrans($component0) + 10), 255));
+    if (if_gettrans($component0) = 255) {
+        %conq_vk3_commorb_bar_delay = 0;
+    }
+}

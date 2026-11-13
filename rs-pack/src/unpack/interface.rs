@@ -1,86 +1,58 @@
-use std::collections::{HashMap, HashSet};
-use std::path::{Path, PathBuf};
-
+#[cfg(since_647)]
+use crate::archive::INTERFACES as INTERFACE_ARCHIVE;
+use crate::cache::r#if::IfTypeRaw;
+#[cfg(since_647)]
+use crate::cache::r#if::{
+    DEFAULT_COLOUR, HOOK_NAMES, SIZE_MODES, TARGET_MASK, TEXT_ALIGN_H, TEXT_ALIGN_V, X_MODES,
+    Y_MODES, hook_transmit_list, mode_name,
+};
+#[cfg(since_647)]
+use crate::pack::interface::{encode_component, parse_components};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
+#[cfg(before_647)]
+use crate::pack::pack_registry::PackRegistry;
+#[cfg(before_647)]
+use crate::pack::util::walk;
+use crate::types::IfComponentType;
+#[cfg(before_647)]
+use crate::types::{Font, IfButtonType, PlayerStat};
+#[cfg(since_647)]
+use crate::unpack::config::format_colour;
+#[cfg(before_647)]
 use anyhow::Result;
+#[cfg(since_647)]
+use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
+#[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use runec::clientscript::decompile::{Signature, component_hook_text};
+#[cfg(since_647)]
+use runec::symbol::{SymbolRegistry, identifier_form};
+#[cfg(since_647)]
+use std::collections::HashMap;
+#[cfg(before_647)]
+use std::collections::{HashMap, HashSet};
+#[cfg(since_647)]
+use std::fmt::Write;
+use std::fs;
+#[cfg(since_647)]
+use std::path::Path;
+#[cfg(before_647)]
+use std::path::{Path, PathBuf};
+#[cfg(before_647)]
 use tracing::{debug, warn};
 
-use crate::pack::pack_registry::PackRegistry;
-use crate::pack::util::walk;
-use crate::types::{Font, IfButtonType, IfComponentType, PlayerStat};
-
-#[derive(Default)]
-struct Component {
-    id: u16,
-    root_layer: i32,
-    com_type: u8,
-    button_type: u8,
-    client_code: u16,
-    width: u16,
-    height: u16,
-    #[cfg(since_244)]
-    trans: u8,
-    over_layer: Option<u16>,
-    comparators: Vec<(u8, i16)>,
-    scripts: Vec<Vec<u16>>,
-    // layer
-    scroll: u16,
-    hide: bool,
-    children: Vec<(u16, i16, i16)>,
-    // inv
-    draggable: bool,
-    interactable: bool,
-    usable: bool,
-    #[cfg(since_245_2)]
-    swappable: bool,
-    margin_x: i32,
-    margin_y: i32,
-    slots: Vec<Option<(i16, i16, String)>>,
-    iops: Vec<String>,
-    // rect
-    fill: bool,
-    // text / invtext
-    center: bool,
-    font: u8,
-    shadowed: bool,
-    text: String,
-    active_text: String,
-    colour: i32,
-    active_colour: i32,
-    over_colour: i32,
-    #[cfg(since_245_2)]
-    active_over_colour: i32,
-    // graphic
-    graphic: String,
-    active_graphic: String,
-    // model
-    model: Option<u16>,
-    active_model: Option<u16>,
-    anim: Option<u16>,
-    active_anim: Option<u16>,
-    zoom: u16,
-    xan: u16,
-    yan: u16,
-    // button target / inv action
-    action_verb: String,
-    action: String,
-    action_target: u16,
-    // button option
-    option: String,
-}
-
-impl Component {
-    fn is_root(&self) -> bool {
-        self.id as i32 == self.root_layer
-    }
-}
-
+#[cfg(before_647)]
 struct Ctx<'a> {
     if_names: HashMap<u16, String>,
     registry: &'a PackRegistry,
 }
 
+#[cfg(before_647)]
 impl Ctx<'_> {
     fn iface(&self, id: u16) -> &str {
         self.if_names
@@ -113,7 +85,7 @@ impl Ctx<'_> {
         self.registry
             .varbit
             .get_by_id(id)
-            .unwrap_or_else(|| panic!("No varbit name for id {id} referenced by interface"))
+            .unwrap_or_else(|| panic!("No varpbit name for id {id} referenced by interface"))
     }
 
     fn model(&self, id: u16) -> &str {
@@ -131,19 +103,11 @@ impl Ctx<'_> {
     }
 }
 
-fn read_optional_id(buf: &mut Packet) -> Option<u16> {
-    let b = buf.g1();
-    if b == 0 {
-        None
-    } else {
-        Some(((b as u16 - 1) << 8) + buf.g1() as u16)
-    }
-}
-
-fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
+#[cfg(before_647)]
+fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, IfTypeRaw>) {
     let _count = buf.g2();
     let mut order: Vec<u16> = Vec::new();
-    let mut comps: HashMap<u16, Component> = HashMap::new();
+    let mut comps: HashMap<u16, IfTypeRaw> = HashMap::new();
     let mut layer: i32 = -1;
 
     while buf.remaining() > 0 {
@@ -154,153 +118,17 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, Component>) {
         }
 
         order.push(id);
-        let mut com = Component {
-            id,
-            root_layer: layer,
-            ..Default::default()
-        };
-
-        com.com_type = buf.g1();
-        com.button_type = buf.g1();
-        com.client_code = buf.g2();
-        com.width = buf.g2();
-        com.height = buf.g2();
-        #[cfg(since_244)]
-        {
-            com.trans = buf.g1();
-        }
-        com.over_layer = read_optional_id(buf);
-
-        let comparator_count = buf.g1();
-        for _ in 0..comparator_count {
-            let comparator = buf.g1();
-            let operand = buf.g2s();
-            com.comparators.push((comparator, operand));
-        }
-
-        let script_count = buf.g1();
-        for _ in 0..script_count {
-            let opcode_count = buf.g2() as usize;
-            let mut ops = Vec::with_capacity(opcode_count);
-            for _ in 0..opcode_count {
-                ops.push(buf.g2());
-            }
-            com.scripts.push(ops);
-        }
-
-        match com.com_type {
-            0 => {
-                // layer
-                com.scroll = buf.g2();
-                com.hide = buf.g1() != 0;
-                #[cfg(rev = "225")]
-                let child_count = buf.g1() as usize;
-                #[cfg(since_244)]
-                let child_count = buf.g2() as usize;
-                for _ in 0..child_count {
-                    let cid = buf.g2();
-                    let cx = buf.g2s();
-                    let cy = buf.g2s();
-                    com.children.push((cid, cx, cy));
-                }
-            }
-            2 => {
-                // inv
-                com.draggable = buf.g1() != 0;
-                com.interactable = buf.g1() != 0;
-                com.usable = buf.g1() != 0;
-                #[cfg(since_245_2)]
-                {
-                    com.swappable = buf.g1() != 0;
-                }
-                com.margin_x = buf.g1() as i32;
-                com.margin_y = buf.g1() as i32;
-                com.slots = Vec::with_capacity(20);
-                for _ in 0..20 {
-                    if buf.g1() != 0 {
-                        let x = buf.g2s();
-                        let y = buf.g2s();
-                        let sprite = buf.gjstr(10);
-                        com.slots.push(Some((x, y, sprite)));
-                    } else {
-                        com.slots.push(None);
-                    }
-                }
-                com.iops = (0..5).map(|_| buf.gjstr(10)).collect();
-            }
-            3 => {
-                // rect
-                com.fill = buf.g1() != 0;
-            }
-            4 => {
-                // text
-                com.center = buf.g1() != 0;
-                com.font = buf.g1();
-                com.shadowed = buf.g1() != 0;
-                com.text = buf.gjstr(10);
-                com.active_text = buf.gjstr(10);
-            }
-            5 => {
-                // graphic
-                com.graphic = buf.gjstr(10);
-                com.active_graphic = buf.gjstr(10);
-            }
-            6 => {
-                // model
-                com.model = read_optional_id(buf);
-                com.active_model = read_optional_id(buf);
-                com.anim = read_optional_id(buf);
-                com.active_anim = read_optional_id(buf);
-                com.zoom = buf.g2();
-                com.xan = buf.g2();
-                com.yan = buf.g2();
-            }
-            7 => {
-                // invtext
-                com.center = buf.g1() != 0;
-                com.font = buf.g1();
-                com.shadowed = buf.g1() != 0;
-                com.colour = buf.g4s();
-                com.margin_x = buf.g2() as i32;
-                com.margin_y = buf.g2() as i32;
-                com.interactable = buf.g1() != 0;
-                com.iops = (0..5).map(|_| buf.gjstr(10)).collect();
-            }
-            other => panic!("Unknown interface component type {other} (id {id})"),
-        }
-
-        // colors for rect / text (invtext reads its own color above)
-        if com.com_type == 3 || com.com_type == 4 {
-            com.colour = buf.g4s();
-            com.active_colour = buf.g4s();
-            com.over_colour = buf.g4s();
-            #[cfg(since_245_2)]
-            {
-                com.active_over_colour = buf.g4s();
-            }
-        }
-
-        // target / inv action verbs
-        if com.button_type == 2 || com.com_type == 2 {
-            com.action_verb = buf.gjstr(10);
-            com.action = buf.gjstr(10);
-            com.action_target = buf.g2();
-        }
-
-        // normal / toggle / select / pause option
-        if matches!(com.button_type, 1 | 4 | 5 | 6) {
-            com.option = buf.gjstr(10);
-        }
-
+        let com = IfTypeRaw::decode(buf, id, layer, false);
         comps.insert(id, com);
     }
 
     (order, comps)
 }
 
+#[cfg(before_647)]
 fn build_names(
     order: &[u16],
-    comps: &HashMap<u16, Component>,
+    comps: &HashMap<u16, IfTypeRaw>,
     registry: &PackRegistry,
 ) -> HashMap<u16, String> {
     let mut names = registry.interface.id_to_debugname.clone();
@@ -353,6 +181,7 @@ fn build_names(
     names
 }
 
+#[cfg(before_647)]
 fn action_target_names(flags: u16) -> String {
     let mut targets = Vec::new();
     if flags & 0x1 != 0 {
@@ -373,19 +202,22 @@ fn action_target_names(flags: u16) -> String {
     targets.join(",")
 }
 
+#[cfg(before_647)]
 fn next_op(ops: &[u16], idx: &mut usize) -> u16 {
     let v = ops[*idx];
     *idx += 1;
     v
 }
 
+#[cfg(before_647)]
 fn stat_name(id: u16) -> &'static str {
     PlayerStat::try_from(id as u8)
         .expect("unknown player stat")
         .config_str()
 }
 
-fn export_scripts(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
+#[cfg(before_647)]
+fn export_scripts(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     for (i, ops) in com.scripts.iter().enumerate() {
         let j = i + 1;
         if ops.len() <= 1 {
@@ -448,7 +280,8 @@ fn export_scripts(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
     }
 }
 
-fn export_comparators(lines: &mut Vec<String>, com: &Component) {
+#[cfg(before_647)]
+fn export_comparators(lines: &mut Vec<String>, com: &IfTypeRaw) {
     for (i, &(comparator, operand)) in com.comparators.iter().enumerate() {
         let j = i + 1;
         let name = match comparator {
@@ -465,34 +298,25 @@ fn export_comparators(lines: &mut Vec<String>, com: &Component) {
     }
 }
 
+#[cfg(before_647)]
 fn export_component(
     lines: &mut Vec<String>,
-    com: &Component,
+    com: &IfTypeRaw,
     x: i16,
     y: i16,
     parent: &str,
-    comps: &HashMap<u16, Component>,
+    comps: &HashMap<u16, IfTypeRaw>,
     ctx: &Ctx,
 ) {
     lines.push(format!("[{}]", ctx.iface_suffix(com.id)));
     if !parent.is_empty() {
         lines.push(format!("layer={parent}"));
     }
-    lines.push(format!(
-        "type={}",
-        IfComponentType::try_from(com.com_type)
-            .expect("unknown interface component type")
-            .config_str()
-    ));
+    lines.push(format!("type={}", com.com_type.config_str()));
     lines.push(format!("x={x}"));
     lines.push(format!("y={y}"));
-    if com.button_type != 0 {
-        lines.push(format!(
-            "buttontype={}",
-            IfButtonType::try_from(com.button_type)
-                .expect("unknown interface button type")
-                .config_str()
-        ));
+    if com.button_type != IfButtonType::None {
+        lines.push(format!("buttontype={}", com.button_type.config_str()));
     }
     if com.client_code != 0 {
         lines.push(format!("clientcode={}", com.client_code));
@@ -517,7 +341,7 @@ fn export_component(
     export_type_specific(lines, com, ctx);
 
     // button target / inv action
-    if com.button_type == 2 || com.com_type == 2 {
+    if com.button_type == IfButtonType::Target || com.com_type == IfComponentType::Inv {
         if !com.action_verb.is_empty() {
             lines.push(format!("actionverb={}", com.action_verb));
         }
@@ -532,20 +356,25 @@ fn export_component(
         }
     }
     // normal / toggle / select / pause option
-    if matches!(com.button_type, 1 | 4 | 5 | 6) && !com.option.is_empty() {
+    if matches!(
+        com.button_type,
+        IfButtonType::Normal | IfButtonType::Toggle | IfButtonType::Select | IfButtonType::Pause
+    ) && !com.option.is_empty()
+    {
         lines.push(format!("option={}", com.option));
     }
 
     // nested layer children
-    if com.com_type == 0 && !com.children.is_empty() {
+    if com.com_type == IfComponentType::Layer && !com.children.is_empty() {
         let suffix = ctx.iface_suffix(com.id).to_string();
         export_children(lines, com, &suffix, false, comps, ctx);
     }
 }
 
-fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
+#[cfg(before_647)]
+fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     match com.com_type {
-        0 => {
+        IfComponentType::Layer => {
             if com.scroll != 0 {
                 lines.push(format!("scroll={}", com.scroll));
             }
@@ -553,11 +382,11 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
                 lines.push("hide=yes".to_string());
             }
         }
-        2 => {
+        IfComponentType::Inv => {
             if com.draggable {
                 lines.push("draggable=yes".to_string());
             }
-            if com.interactable {
+            if com.operable {
                 lines.push("interactable=yes".to_string());
             }
             if com.usable {
@@ -581,19 +410,19 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
             }
             export_options(lines, com);
         }
-        3 => {
+        IfComponentType::Rect => {
             if com.fill {
                 lines.push("fill=yes".to_string());
             }
             export_colours(lines, com);
         }
-        4 => {
+        IfComponentType::Text => {
             if com.center {
                 lines.push("center=yes".to_string());
             }
             lines.push(format!(
                 "font={}",
-                Font::try_from(com.font)
+                Font::try_from(com.font as u8)
                     .expect("unknown interface font")
                     .name()
             ));
@@ -608,7 +437,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
             }
             export_colours(lines, com);
         }
-        5 => {
+        IfComponentType::Graphic => {
             if !com.graphic.is_empty() {
                 lines.push(format!("graphic={}", com.graphic));
             }
@@ -616,17 +445,21 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
                 lines.push(format!("activegraphic={}", com.active_graphic));
             }
         }
-        6 => {
-            if let Some(model) = com.model {
+        IfComponentType::Model => {
+            if com.model >= 0 {
+                let model = com.model as u16;
                 lines.push(format!("model={}", ctx.model(model)));
             }
-            if let Some(model) = com.active_model {
+            if com.active_model >= 0 {
+                let model = com.active_model as u16;
                 lines.push(format!("activemodel={}", ctx.model(model)));
             }
-            if let Some(anim) = com.anim {
+            if com.anim >= 0 {
+                let anim = com.anim as u16;
                 lines.push(format!("anim={}", ctx.seq(anim)));
             }
-            if let Some(anim) = com.active_anim {
+            if com.active_anim >= 0 {
+                let anim = com.active_anim as u16;
                 lines.push(format!("activeanim={}", ctx.seq(anim)));
             }
             if com.zoom != 0 {
@@ -639,13 +472,13 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
                 lines.push(format!("yan={}", com.yan));
             }
         }
-        7 => {
+        IfComponentType::InvText => {
             if com.center {
                 lines.push("center=yes".to_string());
             }
             lines.push(format!(
                 "font={}",
-                Font::try_from(com.font)
+                Font::try_from(com.font as u8)
                     .expect("unknown interface font")
                     .name()
             ));
@@ -658,16 +491,16 @@ fn export_type_specific(lines: &mut Vec<String>, com: &Component, ctx: &Ctx) {
             if com.margin_x != 0 || com.margin_y != 0 {
                 lines.push(format!("margin={},{}", com.margin_x, com.margin_y));
             }
-            if com.interactable {
+            if com.operable {
                 lines.push("interactable=yes".to_string());
             }
             export_options(lines, com);
         }
-        other => panic!("Unknown interface component type {other}"),
     }
 }
 
-fn export_colours(lines: &mut Vec<String>, com: &Component) {
+#[cfg(before_647)]
+fn export_colours(lines: &mut Vec<String>, com: &IfTypeRaw) {
     if com.colour != 0 {
         lines.push(format!("colour=0x{:06X}", com.colour));
     }
@@ -683,20 +516,22 @@ fn export_colours(lines: &mut Vec<String>, com: &Component) {
     }
 }
 
-fn export_options(lines: &mut Vec<String>, com: &Component) {
-    for (i, iop) in com.iops.iter().enumerate() {
+#[cfg(before_647)]
+fn export_options(lines: &mut Vec<String>, com: &IfTypeRaw) {
+    for (i, iop) in com.iop.iter().enumerate() {
         if !iop.is_empty() {
             lines.push(format!("option{}={}", i + 1, iop));
         }
     }
 }
 
+#[cfg(before_647)]
 fn export_children(
     lines: &mut Vec<String>,
-    parent_com: &Component,
+    parent_com: &IfTypeRaw,
     parent_suffix: &str,
     is_root: bool,
-    comps: &HashMap<u16, Component>,
+    comps: &HashMap<u16, IfTypeRaw>,
     ctx: &Ctx,
 ) {
     for (i, &(cid, cx, cy)) in parent_com.children.iter().enumerate() {
@@ -711,8 +546,9 @@ fn export_children(
     }
 }
 
+#[cfg(before_647)]
 fn read_top_lines(path: &Path) -> Vec<String> {
-    let Ok(text) = std::fs::read_to_string(path) else {
+    let Ok(text) = fs::read_to_string(path) else {
         return Vec::new();
     };
     let mut top = Vec::new();
@@ -728,6 +564,7 @@ fn read_top_lines(path: &Path) -> Vec<String> {
     top
 }
 
+#[cfg(before_647)]
 pub fn unpack_interface(
     jag: &JagFile,
     src_scripts_dir: &Path,
@@ -745,13 +582,13 @@ pub fn unpack_interface(
     let ctx = Ctx { if_names, registry };
 
     // interface.order (packing order) and interface.pack (id=name).
-    std::fs::create_dir_all(out_pack_dir)?;
+    fs::create_dir_all(out_pack_dir)?;
     let order_text = order
         .iter()
         .map(u16::to_string)
         .collect::<Vec<_>>()
         .join("\n");
-    std::fs::write(out_pack_dir.join("interface.order"), order_text + "\n")?;
+    fs::write(out_pack_dir.join("interface.order"), order_text + "\n")?;
 
     let max_id = ctx.if_names.keys().copied().max().unwrap_or(0);
     let mut pack_lines = Vec::with_capacity(ctx.if_names.len());
@@ -760,7 +597,7 @@ pub fn unpack_interface(
             pack_lines.push(format!("{id}={name}"));
         }
     }
-    std::fs::write(
+    fs::write(
         out_pack_dir.join("interface.pack"),
         pack_lines.join("\n") + "\n",
     )?;
@@ -819,9 +656,9 @@ pub fn unpack_interface(
             .unwrap_or_else(|| Path::new("interfaces").join(format!("{root_name}.if")));
         let dest = out_scripts_dir.join(rel);
         if let Some(parent) = dest.parent() {
-            std::fs::create_dir_all(parent)?;
+            fs::create_dir_all(parent)?;
         }
-        std::fs::write(&dest, out)?;
+        fs::write(&dest, out)?;
         written += 1;
     }
 
@@ -830,5 +667,481 @@ pub fn unpack_interface(
         comps.len(),
         out_scripts_dir.display()
     );
+    Ok(())
+}
+
+/// An interface as its group holds it: components in position order.
+#[cfg(since_647)]
+pub struct Interface {
+    pub id: u32,
+    pub components: Vec<IfTypeRaw>,
+    bytes: Vec<Vec<u8>>,
+}
+
+#[cfg(since_647)]
+pub fn decode_interfaces(store: &mut Js5Store) -> Result<Vec<Interface>> {
+    let groups = store
+        .reference_table(INTERFACE_ARCHIVE)
+        .context("Missing interface table")?
+        .groups
+        .clone();
+    let mut interfaces = Vec::with_capacity(groups.len());
+    for info in &groups {
+        let group = store
+            .read_group(INTERFACE_ARCHIVE, info.id)?
+            .context("Missing interface group")?;
+        let bytes: Vec<Vec<u8>> = group
+            .entries
+            .iter()
+            .map(|entry| entry.data().to_vec())
+            .collect();
+        let components = bytes
+            .iter()
+            .enumerate()
+            .map(|(position, data)| {
+                IfTypeRaw::decode(
+                    &mut Packet::from(data.clone()),
+                    position as u16,
+                    info.id as i32,
+                )
+            })
+            .collect();
+        interfaces.push(Interface {
+            id: info.id,
+            components,
+            bytes,
+        });
+    }
+    Ok(interfaces)
+}
+
+/// Writes each interface's source, once it reads back to the cache's bytes.
+#[cfg(since_647)]
+pub fn write_interfaces(
+    interfaces: &[Interface],
+    output_dir: &Path,
+    signatures: &HashMap<u32, Signature>,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<u32> {
+    let dir = output_dir.join("interfaces");
+    fs::create_dir_all(&dir)?;
+    for interface in interfaces {
+        let mut text = String::new();
+        for (position, component) in interface.components.iter().enumerate() {
+            if position > 0 {
+                text.push('\n');
+            }
+            emit_component(
+                &mut text,
+                component,
+                interface.id,
+                position as u32,
+                signatures,
+                names,
+                registry,
+            )
+            .with_context(|| format!("Interface {}:{position}", interface.id))?;
+        }
+        let parsed = parse_components(&text, interface.id, names, registry)
+            .with_context(|| format!("Reading interface {}", interface.id))?;
+        ensure!(
+            parsed.len() == interface.bytes.len(),
+            "Interface {} text round trip changed its component count",
+            interface.id
+        );
+        for ((position, component), bytes) in parsed.iter().zip(&interface.bytes) {
+            let encoded = encode_component(component);
+            if &encoded != bytes {
+                let mut shown = String::new();
+                emit_component(
+                    &mut shown,
+                    component,
+                    interface.id,
+                    *position,
+                    signatures,
+                    names,
+                    registry,
+                )?;
+                bail!(
+                    "Interface {}:{position} text round trip changed bytes:\n{bytes:?}\n{encoded:?}\n{shown}",
+                    interface.id
+                );
+            }
+        }
+        fs::write(
+            dir.join(format!("{}.if3", names.name("interface", interface.id))),
+            text,
+        )?;
+    }
+    Ok(interfaces.len() as u32)
+}
+
+#[cfg(since_647)]
+fn emit_component(
+    out: &mut String,
+    comp: &IfTypeRaw,
+    group: u32,
+    position: u32,
+    signatures: &HashMap<u32, Signature>,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<()> {
+    let name = identifier_form(&names.component_name(group, position));
+    writeln!(out, "// {group}:{position}\n[{name}]")?;
+    let type_name = match comp.com_type {
+        IfComponentType::Layer => "layer",
+        IfComponentType::Rect => "rectangle",
+        IfComponentType::Text => "text",
+        IfComponentType::Graphic => "graphic",
+        IfComponentType::Model => "model",
+        IfComponentType::Line => "line",
+        other => bail!("Component type {} isn't written out", other as u8),
+    };
+    writeln!(out, "type={type_name}")?;
+    if let Some(name) = &comp.com_name {
+        writeln!(out, "name={name}")?;
+    }
+    if comp.client_code != 0 {
+        writeln!(out, "clientcode={}", comp.client_code)?;
+    }
+    if comp.x != 0 {
+        writeln!(out, "x={}", comp.x)?;
+    }
+    if comp.y != 0 {
+        writeln!(out, "y={}", comp.y)?;
+    }
+    if comp.width != 0 {
+        writeln!(out, "width={}", comp.width)?;
+    }
+    if comp.height != 0 {
+        writeln!(out, "height={}", comp.height)?;
+    }
+    if comp.width_mode != 0 {
+        writeln!(
+            out,
+            "widthmode={}",
+            mode_name(&SIZE_MODES, comp.width_mode as u8)
+        )?;
+    }
+    if comp.height_mode != 0 {
+        writeln!(
+            out,
+            "heightmode={}",
+            mode_name(&SIZE_MODES, comp.height_mode as u8)
+        )?;
+    }
+    if comp.x_mode != 0 {
+        writeln!(out, "xmode={}", mode_name(&X_MODES, comp.x_mode as u8))?;
+    }
+    if comp.y_mode != 0 {
+        writeln!(out, "ymode={}", mode_name(&Y_MODES, comp.y_mode as u8))?;
+    }
+    if let Some(parent) = comp.parent_id {
+        writeln!(
+            out,
+            "layer={}",
+            identifier_form(&names.component_name(group, parent as u32))
+        )?;
+    }
+    if comp.flags & 1 != 0 {
+        writeln!(out, "hide=yes")?;
+    }
+    ensure!(
+        comp.flags & !1 == 0,
+        "Unknown component flags {}",
+        comp.flags
+    );
+    match comp.com_type {
+        IfComponentType::Layer => emit_layer(out, comp)?,
+        IfComponentType::Rect => {
+            writeln!(out, "colour={}", format_colour(comp.colour))?;
+            if comp.fill {
+                writeln!(out, "fill=yes")?;
+            }
+            if comp.trans != 0 {
+                writeln!(out, "trans={}", comp.trans)?;
+            }
+        }
+        IfComponentType::Text => emit_text(out, comp, names)?,
+        IfComponentType::Graphic => emit_graphic(out, comp, names)?,
+        IfComponentType::Model => emit_model(out, comp, names)?,
+        IfComponentType::Line => {
+            if comp.line_width != 1 {
+                writeln!(out, "linewid={}", comp.line_width)?;
+            }
+            writeln!(out, "colour={}", format_colour(comp.colour))?;
+            if comp.line_rtl {
+                writeln!(out, "linedirection=yes")?;
+            }
+        }
+        _ => {}
+    }
+    emit_properties(out, comp)?;
+    emit_ops(out, comp, names)?;
+    if !comp.target_verb.is_empty() {
+        writeln!(out, "targetverb={}", comp.target_verb)?;
+    }
+    for (key, kind, value) in [
+        ("targetobj", "obj", comp.target_object_id),
+        ("targetcursor2", "cursor", comp.target_enter_cursor),
+        ("targetcursor3", "cursor", comp.target_leave_cursor),
+    ] {
+        if let Some(value) = value {
+            writeln!(out, "{key}={}", names.reference(kind, value as i64))?;
+        }
+    }
+    emit_hooks(out, comp, signatures, names, registry)
+}
+
+#[cfg(since_647)]
+fn emit_layer(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
+    if comp.scroll_width != 0 {
+        writeln!(out, "scrollwidth={}", comp.scroll_width)?;
+    }
+    if comp.scroll != 0 {
+        writeln!(out, "scrollheight={}", comp.scroll)?;
+    }
+    if comp.no_click_through {
+        writeln!(out, "noclickthrough=yes")?;
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
+    writeln!(
+        out,
+        "textfont={}",
+        names.reference("fontmetrics", comp.font as i64)
+    )?;
+    if !comp.text.is_empty() {
+        writeln!(out, "text={}", comp.text)?;
+    }
+    if comp.text_style != 0 {
+        writeln!(out, "textlineheight={}", comp.text_style)?;
+    }
+    if comp.text_halign != 0 {
+        writeln!(
+            out,
+            "textalignh={}",
+            mode_name(&TEXT_ALIGN_H, comp.text_halign)
+        )?;
+    }
+    if comp.text_valign != 0 {
+        writeln!(
+            out,
+            "textalignv={}",
+            mode_name(&TEXT_ALIGN_V, comp.text_valign)
+        )?;
+    }
+    if comp.shadowed {
+        writeln!(out, "textshadow=yes")?;
+    }
+    if comp.colour != DEFAULT_COLOUR {
+        writeln!(out, "colour={}", format_colour(comp.colour))?;
+    }
+    if comp.trans != 0 {
+        writeln!(out, "trans={}", comp.trans)?;
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
+    if let Some(graphic) = comp.graphic {
+        let graphic = names.reference("sprites", graphic as i64);
+        if graphic.contains(',') {
+            writeln!(out, "graphic=\"{graphic}\"")?;
+        } else {
+            writeln!(out, "graphic={graphic}")?;
+        }
+    }
+    if comp.angle_2d != 0 {
+        writeln!(out, "2dangle={}", comp.angle_2d)?;
+    }
+    if comp.tiling {
+        writeln!(out, "tiling=yes")?;
+    }
+    if comp.alpha {
+        writeln!(out, "alpha=yes")?;
+    }
+    if comp.trans != 0 {
+        writeln!(out, "trans={}", comp.trans)?;
+    }
+    if comp.outline != 0 {
+        writeln!(out, "outline={}", comp.outline)?;
+    }
+    if comp.graphic_shadow != 0 {
+        writeln!(out, "graphicshadow={}", comp.graphic_shadow)?;
+    }
+    if comp.vflip {
+        writeln!(out, "vflip=yes")?;
+    }
+    if comp.hflip {
+        writeln!(out, "hflip=yes")?;
+    }
+    if comp.colour != DEFAULT_COLOUR {
+        writeln!(out, "colour={}", format_colour(comp.colour))?;
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
+    writeln!(out, "model={}", names.reference("model", comp.model as i64))?;
+    if comp.model_origin_x != 0 || comp.model_origin_y != 0 {
+        writeln!(
+            out,
+            "modelorigin={},{}",
+            comp.model_origin_x, comp.model_origin_y
+        )?;
+    }
+    if comp.xan != 0 || comp.yan != 0 || comp.model_zan != 0 {
+        writeln!(
+            out,
+            "modelangle={},{},{}",
+            comp.xan, comp.yan, comp.model_zan
+        )?;
+    }
+    if comp.zoom != 100 {
+        writeln!(out, "modelzoom={}", comp.zoom)?;
+    }
+    if comp.model_flags & 2 != 0 {
+        writeln!(out, "modeloffset={}", comp.sprite_y_offset)?;
+    }
+    if comp.anim != -1 {
+        writeln!(
+            out,
+            "modelanim={}",
+            names.reference("seq", comp.anim as i64)
+        )?;
+    }
+    if comp.model_flags & 4 != 0 {
+        writeln!(out, "modelorthog=yes")?;
+    }
+    if comp.model_flags & 8 != 0 {
+        writeln!(out, "modelnodepth=yes")?;
+    }
+    if comp.dynamic_width != 0 {
+        writeln!(out, "modelobjwidth={}", comp.dynamic_width)?;
+    }
+    if comp.dynamic_height != 0 {
+        writeln!(out, "modelobjheight={}", comp.dynamic_height)?;
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn emit_properties(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
+    let properties = comp.active_properties;
+    ensure!(
+        properties >> 23 == 0,
+        "Unknown active properties {properties}"
+    );
+    if properties & 1 != 0 {
+        writeln!(out, "pausebutton=yes")?;
+    }
+    let ops: Vec<_> = (1..=10)
+        .filter(|op| (properties >> op) & 1 != 0)
+        .map(|op: u32| op.to_string())
+        .collect();
+    if !ops.is_empty() {
+        writeln!(out, "transmitop={}", ops.join(","))?;
+    }
+    let depth = (properties >> 18) & 7;
+    if depth != 0 {
+        writeln!(out, "dragdepth={depth}")?;
+    }
+    if (properties >> 21) & 1 != 0 {
+        writeln!(out, "candrop=yes")?;
+    }
+    let targets: Vec<_> = TARGET_MASK
+        .iter()
+        .enumerate()
+        .filter(|(bit, _)| (properties >> (11 + bit)) & 1 != 0)
+        .map(|(_, target)| *target)
+        .collect();
+    if !targets.is_empty() {
+        writeln!(out, "targetmask={}", targets.join(","))?;
+    }
+    if (properties >> 22) & 1 != 0 {
+        writeln!(out, "targetable=yes")?;
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn emit_ops(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
+    if !comp.op_base.is_empty() {
+        writeln!(out, "opbase={}", comp.op_base)?;
+    }
+    if !comp.pause_text.is_empty() {
+        writeln!(out, "pausetext={}", comp.pause_text)?;
+    }
+    for (op, text) in comp.ops.iter().enumerate() {
+        if !text.is_empty() {
+            writeln!(out, "op{}={text}", op + 1)?;
+        }
+    }
+    if comp.drag_deadzone != 0 {
+        writeln!(out, "dragdeadzone={}", comp.drag_deadzone)?;
+    }
+    if comp.drag_deadtime != 0 {
+        writeln!(out, "dragdeadtime={}", comp.drag_deadtime)?;
+    }
+    if comp.drag_renderbehavior != 0 {
+        writeln!(out, "dragrenderbehaviour={}", comp.drag_renderbehavior)?;
+    }
+    ensure!(
+        comp.op_cursor_count as usize == comp.op_cursors.len(),
+        "Op cursor count {} with {} cursors",
+        comp.op_cursor_count,
+        comp.op_cursors.len()
+    );
+    for &(op, cursor) in &comp.op_cursors {
+        writeln!(
+            out,
+            "opcursor{op}={}",
+            names.reference("cursor", cursor as i64)
+        )?;
+    }
+    for key in &comp.opkeys {
+        write!(out, "opkey{}={},{}", key.index + 1, key.code, key.mask)?;
+        // The rate has no key of its own: it follows the code and mask when it's set.
+        if key.rate_duration != 0 {
+            write!(out, ",{}", key.rate_duration)?;
+        }
+        out.push('\n');
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn emit_hooks(
+    out: &mut String,
+    comp: &IfTypeRaw,
+    signatures: &HashMap<u32, Signature>,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<()> {
+    for (hook, values) in comp.hooks.iter().enumerate() {
+        let list = hook_transmit_list(hook);
+        let transmits = list.and_then(|(list, kind)| {
+            comp.transmit_lists[list]
+                .as_deref()
+                .map(|transmits| (kind, transmits))
+        });
+        let Some(values) = values else {
+            ensure!(
+                transmits.is_none(),
+                "{} has a transmit list without a script",
+                HOOK_NAMES[hook]
+            );
+            continue;
+        };
+        let text = component_hook_text(values, transmits, signatures, names, registry)?;
+        writeln!(out, "{}={text}", HOOK_NAMES[hook])?;
+    }
     Ok(())
 }

@@ -1,0 +1,30 @@
+// 289's Crafting Guild door and master crafter
+// (skill_crafting/scripts/crafting_guild/crafting_guild.rs2). 2011's door is
+// 289's, where 289's stood (configs/crafting_guild/crafting_guild.loc).
+[oploc1,crafting_guild_door]
+if (~check_axis(coord, loc_coord, loc_angle) = true) {
+    if (stat(crafting) < 40) {
+        ~chatnpc_specific(nc_name(master_crafter), master_crafter, "<p,neutral>Sorry only experienced craftsmen are allowed in here.|You must be level 40 or above to enter.");
+        return;
+    }
+    // 2011 also lets the Crafting cape in, trimmed or not, in place of the
+    // apron (the 2011 wiki's Crafting Guild, 22 May 2011: "Players wearing
+    // the Cape of Accomplishment for Crafting can enter the Crafting Guild
+    // simply by wearing the cape instead of a brown apron").
+    // if (inv_total(worn, brown_apron) < 1) {
+    if (inv_total(worn, brown_apron) < 1 & inv_total(worn, skillcape_crafting) < 1 & inv_total(worn, skillcape_crafting_trimmed) < 1) {
+        ~chatnpc_specific(nc_name(master_crafter), master_crafter, "<p,neutral>Where's your brown apron? You can't come in here unless you're wearing one.");
+        if (inv_total(inv, brown_apron) < 1) {
+            ~chatplayer("<p,neutral>Err... I haven't got one.");
+        }
+        return;
+    }
+    ~open_and_close_door(loc_param(next_loc_stage), true, false);
+    ~chatnpc_specific(nc_name(master_crafter), master_crafter, "<p,neutral>Welcome to the Guild of Master Craftsmen.");
+} else {
+    ~open_and_close_door(loc_param(next_loc_stage), false, false);
+}
+
+[opnpc1,master_crafter]
+~chatnpc("<p,happy>Hello, welcome to the Crafter's guild.|Accomplished crafters from all over the land come here.|All to use our top notch workshops.");
+// https://www.runescape.pc.pl/images/artykuly/gildie/crafting/screen11.jpg

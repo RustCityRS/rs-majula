@@ -29,6 +29,10 @@ pub struct PlayerSave {
     pub inv_slots: Vec<i16>,
     pub inv_objs: Vec<i32>,
     pub inv_counts: Vec<i32>,
+    pub inv_vars: Vec<i32>,
+    pub exit_x: i16,
+    pub exit_z: i16,
+    pub exit_y: i16,
 }
 
 /// Where a save ended up.
@@ -182,12 +186,14 @@ fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArgum
                  player_id, x, z, y, body, colors, gender, runenergy, playtime,
                  stats, levels, afk_zones, last_afk_zone,
                  public_chat, private_chat, trade_chat, last_date,
-                 varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts
+                 varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts,
+                 inv_vars, exit_x, exit_z, exit_y
              )
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,
                      $10, $11, $12, $13,
                      $14, $15, $16, $17,
-                     $18, $19, $20, $21, $22, $23)
+                     $18, $19, $20, $21, $22, $23,
+                     $24, $25, $26, $27)
              ON CONFLICT (player_id) DO UPDATE SET
                  x = EXCLUDED.x, z = EXCLUDED.z, y = EXCLUDED.y,
                  body = EXCLUDED.body, colors = EXCLUDED.colors,
@@ -202,6 +208,9 @@ fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArgum
                  varp_ids = EXCLUDED.varp_ids, varp_values = EXCLUDED.varp_values,
                  inv_types = EXCLUDED.inv_types, inv_slots = EXCLUDED.inv_slots,
                  inv_objs = EXCLUDED.inv_objs, inv_counts = EXCLUDED.inv_counts,
+                 inv_vars = EXCLUDED.inv_vars,
+                 exit_x = EXCLUDED.exit_x, exit_z = EXCLUDED.exit_z,
+                 exit_y = EXCLUDED.exit_y,
                  updated_at = now()",
     )
     .bind(player_id)
@@ -227,4 +236,8 @@ fn upsert_save(player_id: i64, save: &PlayerSave) -> Query<'_, Postgres, PgArgum
     .bind(&save.inv_slots)
     .bind(&save.inv_objs)
     .bind(&save.inv_counts)
+    .bind(&save.inv_vars)
+    .bind(save.exit_x)
+    .bind(save.exit_z)
+    .bind(save.exit_y)
 }

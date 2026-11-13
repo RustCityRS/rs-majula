@@ -1,0 +1,5 @@
+// 4286
+[clientscript,clan_create_text_click](component $component0, component $component1, int $int2)
+%clan_create_input_varc = if_gettext($component0);
+%clan_create_input_caret_varc = ~script1552($int2, %clan_create_input_varc, verdana_11pt_regular_multiline, $component0, -1);
+if_setposition($component1, %clan_create_input_caret_varc, 5, ^setpos_abs_left, ^setpos_abs_top);

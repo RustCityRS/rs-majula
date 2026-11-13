@@ -1,3 +1,5 @@
+use std::ops::{Index, IndexMut};
+
 struct HashEntry<T> {
     value: Option<T>,
     key: i64,
@@ -155,7 +157,7 @@ impl<'a, T> Iterator for Iter<'a, T> {
     }
 }
 
-impl<T> std::ops::Index<usize> for HashTable<T> {
+impl<T> Index<usize> for HashTable<T> {
     type Output = T;
 
     fn index(&self, handle: usize) -> &T {
@@ -163,7 +165,7 @@ impl<T> std::ops::Index<usize> for HashTable<T> {
     }
 }
 
-impl<T> std::ops::IndexMut<usize> for HashTable<T> {
+impl<T> IndexMut<usize> for HashTable<T> {
     fn index_mut(&mut self, handle: usize) -> &mut T {
         self.value_mut(handle)
     }

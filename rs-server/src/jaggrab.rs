@@ -4,7 +4,7 @@ use std::net::SocketAddr;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
-use tokio::time::timeout;
+use tokio::time::{sleep, timeout};
 use tracing::{debug, warn};
 
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(10);
@@ -24,7 +24,7 @@ pub async fn serve(host: String, port: u16, cache: SharedCache, guard: Connectio
             Ok(conn) => conn,
             Err(e) => {
                 warn!("JAGGRAB accept error: {e}");
-                tokio::time::sleep(Duration::from_millis(100)).await;
+                sleep(Duration::from_millis(100)).await;
                 continue;
             }
         };

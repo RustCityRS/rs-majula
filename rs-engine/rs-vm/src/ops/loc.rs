@@ -1,13 +1,23 @@
+#[cfg(since_647)]
+use crate::active_player_mut;
+#[cfg(since_647)]
+use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::iterators;
 use crate::iterators::LocIteratorState;
+#[cfg(since_647)]
+use crate::ops::test;
 use crate::register::OpsRegistry;
+#[cfg(since_647)]
+use crate::state::{LocRef, ScriptState};
+#[cfg(since_647)]
+use crate::util::pop_loc;
 use crate::util::{pop_coord, pop_param, pop_seq, set_active_loc};
 use crate::{ScriptError, active_loc, handlers, none};
 use num_enum::TryFromPrimitive;
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
 use rs_pack::types::{LocAngle, LocShape};
+use runec::opcodes::*;
 
 /// Registers location (scenery) opcodes for adding, removing, changing,
 /// finding, animating, and querying world locations.
@@ -20,12 +30,14 @@ use rs_pack::types::{LocAngle, LocShape};
 ///   `LOC_CATEGORY`, `LOC_PARAM`
 /// - **Animation:** `LOC_ANIM`
 /// - **Search / iterators:** `LOC_FIND`, `LOC_FINDALLZONE`, `LOC_FINDNEXT`
+/// - **Model prefetch (647):** `LOC_PREFETCH`, `LOC_PREFETCHALL`
+/// - **Look (647):** `LOC_MERGE`
 ///
 /// # Call Stack
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) via `ops::loc::build`
 /// **Calls:** `OpsRegistry::new`, `OpsRegistry::insert` via the `handlers!` /
-/// `active_loc!` / `none!` macros
+/// `active_loc!` / `active_player_mut!` / `none!` macros
 pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|
         // 3000
@@ -74,6 +86,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_loc!(m, LOC_CHANGE => |s, loc| {
             let duration = s.pop_int();
             let id = s.pop_int_as::<u16>()?;
+            #[cfg(since_647)]
+            test::record_call(LOC_CHANGE, "loc_change", &id.to_string());
             if let Some(changed) = engine_mut::<E>().change_loc(loc, id, duration as u64)? {
                 set_active_loc(s, changed, s.int_operand() != 0);
             }
@@ -130,7 +144,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .locs()
                 .get_by_id(loc.id)
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
-            s.push_string(loc.name.as_deref().unwrap_or(loc.debugname().unwrap_or("null")));
+            s.push_string(loc.name.as_deref().unwrap_or(&loc.debugname));
         });
 
         // 3011
@@ -161,5 +175,108 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_loc!(m, LOC_TYPE => |s, loc| {
             s.push_int(engine::<E>().live_loc(loc).id as i32);
         });
+
+        // 3014
+        #[cfg(since_647)]
+        active_player_mut!(m, LOC_PREFETCH => |s, player| {
+            let (id, shape) = pop_prefetch::<E>(s)?;
+            player.loc_prefetch(id, shape);
+        });
+
+        // 3015
+        #[cfg(since_647)]
+        none!(m, LOC_PREFETCHALL => |s| {
+            let (id, shape) = pop_prefetch::<E>(s)?;
+            let coord = pop_coord(s)?;
+            engine_mut::<E>().loc_prefetchall(coord, id, shape);
+        });
+
+        // 3016
+        #[cfg(since_647)]
+        active_loc!(m, LOC_MERGE => |s, loc| {
+            let look = s.pop_int();
+            let loc = engine::<E>().live_loc(loc);
+            let [models, recol, retex] = merge_look::<E>(loc, look)?;
+            engine_mut::<E>().loc_merge(loc, models, recol, retex);
+        });
     }
+}
+
+/// Pops a loc type and shape for `LOC_PREFETCH` / `LOC_PREFETCHALL`.
+///
+/// Returns the type's id and the shape its models are stored under: the client
+/// looks a diagonal centrepiece up as a straight one and every wall decoration
+/// as the unoffset straight one, but reads a prefetch's shape as sent.
+#[cfg(since_647)]
+fn pop_prefetch<E: ScriptEngine + 'static>(s: &mut ScriptState) -> crate::Result<(u16, u8)> {
+    let shape = s.pop_int_as::<u8>()?;
+    let loc = pop_loc::<E>(s)?;
+    let shape = LocShape::try_from_primitive(shape)
+        .map_err(|_| ScriptError::Runtime(format!("Invalid loc shape: {}", shape)))?;
+    Ok((loc.id, shape.model_shape() as u8))
+}
+
+/// The lists `LOC_MERGE` sends to make `loc` look like loc type `look`: each
+/// of its models for `loc`'s shape, recolours and retextures that `look` has
+/// as many of, where they differ. `null` resets it.
+///
+/// The client sizes each list by `loc`'s type and merges only a loc it draws
+/// animated, so neither a loc it would draw static nor a multiloc, which it
+/// draws as another type, can be merged. Nor can one whose model sets differ,
+/// as the client picks one by a detail option, or one with no models for its
+/// shape, which the client fails to look up.
+#[cfg(since_647)]
+fn merge_look<E: ScriptEngine + 'static>(
+    loc: LocRef,
+    look: i32,
+) -> crate::Result<[Option<Box<[u16]>>; 3]> {
+    if look == -1 {
+        return Ok([None, None, None]);
+    }
+    let locs = engine::<E>().locs();
+    let base = locs
+        .get_by_id(loc.id)
+        .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
+    let refuse = |why: &str| ScriptError::Runtime(format!("loc_merge: {} {why}", base.debugname));
+    let have = base.look();
+    let shape = loc.shape.model_shape();
+    if base.multiloc.is_some() {
+        return Err(refuse("is a multiloc"));
+    }
+    if !have.animated {
+        return Err(refuse("isn't animated, so the client draws it static"));
+    }
+    if have.two_model_sets {
+        return Err(refuse("has two model sets"));
+    }
+    if have.shapes && have.models(shape).is_none() {
+        return Err(refuse(&format!("has no models for shape {}", shape as u8)));
+    }
+    let id = u16::try_from(look).map_err(|_| ScriptError::LocNotFound(look))?;
+    let want = locs
+        .get_by_id(id)
+        .ok_or(ScriptError::LocNotFound(look))?
+        .look();
+    let models = have
+        .models(shape)
+        .zip(want.models(shape).filter(|_| !want.two_model_sets));
+    let lists = [
+        models,
+        Some((have.recol, want.recol)),
+        Some((have.retex, want.retex)),
+    ]
+    .map(|pair| pair.filter(|(have, want)| !have.is_empty() && have.len() == want.len()));
+    if id != loc.id && lists.iter().all(Option::is_none) {
+        return Err(refuse(&format!(
+            "has no models, recolours or retextures as many as {look}'s"
+        )));
+    }
+    let merge = lists.map(|pair| {
+        pair.filter(|(have, want)| have != want)
+            .map(|(_, want)| Box::<[u16]>::from(want))
+    });
+    if merge.iter().flatten().map(|list| list.len()).sum::<usize>() > 125 {
+        return Err(refuse(&format!("takes over 125 values from {look}")));
+    }
+    Ok(merge)
 }

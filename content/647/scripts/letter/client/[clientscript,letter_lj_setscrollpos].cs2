@@ -1,0 +1,10 @@
+// 677
+[clientscript,letter_lj_setscrollpos](int $int0)
+if ($int0 <= 9) {
+    if_setscrollsize(letter_lj:lj_layer1, 358, 225);
+    if_sethide(letter_lj:lj_scroll_bar, true);
+} else {
+    if_sethide(letter_lj:lj_scroll_bar, false);
+    if_setscrollsize(letter_lj:lj_layer1, 358, calc($int0 * 20 + 30));
+    ~scrollbar_resize(letter_lj:lj_scroll_bar, letter_lj:lj_layer1, 0);
+}

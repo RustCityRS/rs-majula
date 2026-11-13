@@ -1,0 +1,359 @@
+// 1027:0
+[com_0]
+type=rectangle
+x=136
+y=109
+width=240
+height=85
+layer=borders_layer
+colour=0x201c17
+
+// 1027:1
+[com_1]
+type=rectangle
+x=137
+y=110
+width=238
+height=83
+layer=borders_layer
+colour=0x595143
+
+// 1027:2
+[com_2]
+type=rectangle
+x=138
+y=111
+width=236
+height=81
+layer=borders_layer
+colour=0x161410
+fill=yes
+
+// 1027:3
+[com_3]
+type=layer
+width=512
+height=334
+transmitop=10
+op10=   
+
+// 1027:4
+[com_4]
+type=graphic
+x=116
+y=89
+width=280
+height=174
+layer=com_3
+graphic=km_middlefillcolour
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:5
+[bottom_left_corner]
+type=graphic
+x=109
+y=238
+width=32
+height=32
+layer=com_3
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:6
+[top_left_corner]
+type=graphic
+x=109
+y=67
+width=32
+height=32
+layer=com_3
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:7
+[top_right_corner]
+type=graphic
+x=109
+y=67
+width=32
+height=32
+xmode=abs_right
+layer=com_3
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:8
+[bottom_right_corner]
+type=graphic
+x=109
+y=238
+width=32
+height=32
+xmode=abs_right
+layer=com_3
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:9
+[left_1]
+type=graphic
+x=96
+y=99
+width=32
+height=139
+layer=com_3
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:10
+[right_1]
+type=graphic
+x=97
+y=99
+width=32
+height=139
+xmode=abs_right
+layer=com_3
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:11
+[top_1]
+type=graphic
+x=141
+y=67
+width=230
+height=32
+layer=com_3
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:12
+[bottom_1]
+type=graphic
+x=141
+y=250
+width=230
+height=32
+layer=com_3
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1027:13
+[border_shadow_3]
+type=rectangle
+x=116
+y=89
+width=280
+height=174
+layer=com_3
+colour=0x000000
+transmitop=10
+op10=   
+
+// 1027:14
+[border_shadow_4]
+type=rectangle
+x=118
+y=91
+width=276
+height=170
+layer=com_3
+colour=0x000000
+trans=192
+transmitop=10
+op10=   
+
+// 1027:15
+[border_shadow_5]
+type=rectangle
+x=117
+y=90
+width=278
+height=172
+layer=com_3
+colour=0x000000
+trans=64
+transmitop=10
+op10=   
+
+// 1027:16
+[close_button_1]
+type=graphic
+x=377
+y=70
+width=16
+height=16
+layer=com_3
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=   
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1027:17
+[com_17]
+type=rectangle
+x=124
+y=97
+width=264
+height=158
+layer=com_3
+colour=0x5a5349
+transmitop=10
+op10=    
+
+// 1027:18
+[com_18]
+type=rectangle
+x=124
+y=97
+width=263
+height=157
+layer=com_3
+colour=0x403931
+fill=yes
+transmitop=10
+op10=    
+
+// 1027:19
+[com_19]
+type=rectangle
+x=126
+y=99
+width=260
+height=154
+layer=com_3
+colour=0x2d261e
+fill=yes
+transmitop=10
+op10=    
+
+// 1027:20
+[com_20]
+type=rectangle
+x=125
+y=98
+width=262
+height=156
+layer=com_3
+colour=0x000000
+transmitop=10
+op10=    
+
+// 1027:21
+[main_title_text]
+type=text
+x=12
+y=70
+width=488
+height=15
+layer=com_3
+textfont=b12_full
+text=Opponent Logged Out
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=    
+
+// 1027:22
+[borders_layer]
+type=layer
+width=512
+height=334
+
+// 1027:23
+[warning_icon]
+type=graphic
+x=150
+y=137
+width=25
+height=25
+layer=borders_layer
+graphic=conq_exclamation_icon
+colour=0x000000
+
+// 1027:24
+[description_text]
+type=text
+x=193
+y=99
+width=169
+height=101
+layer=borders_layer
+textfont=p11_full
+text=Your opponent has been logged out for 1 minute.<br><br>You may wait for them to return, or take the victory and be declared the winner.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+onvarctransmit=conq_update_logged_out_warning{conq_logout_counter}
+
+// 1027:25
+[com_25]
+type=layer
+y=202
+width=90
+height=43
+xmode=abs_centre
+transmitop=10
+op10= 
+
+// 1027:26
+[com_26]
+type=graphic
+width=90
+height=43
+layer=com_25
+graphic=graphic_3255
+colour=0x000000
+
+// 1027:27
+[com_27]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_25
+textfont=welcome_font_tiny
+text=Accept Victory
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+op1=Take Victory
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+onvarctransmit=conq_update_resign_op_text{conq_take_victory_op}

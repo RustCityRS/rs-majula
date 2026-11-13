@@ -1,12 +1,16 @@
 use crate::recovery;
 use crate::{ConnectionGuard, REVISION};
-use axum::body::{Body, Bytes};
+use axum::body::{Body, Bytes, to_bytes};
 use axum::extract::{Request, State};
 use axum::http::{StatusCode, header};
 use axum::middleware::{self, Next};
 use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
 use axum::{Json, Router};
+use futures_util::stream;
+use rand::random;
+use rs_admin_api::ModAction as ApiModAction;
+use rs_admin_api::transfer as api_transfer;
 use rs_admin_api::utc_time;
 use rs_admin_api::{
     AccountActivity, AccountsLookup, ActivityHour, ActivityLookup, AnticheatLeader,
@@ -29,27 +33,33 @@ use rs_admin_api::{
 };
 use rs_admin_api::{ClaimCheck, RecoveryCheck, RecoveryEvidence, Verdict};
 use rs_admin_api::{ScriptErrorGroup, ScriptErrorLookup, ScriptErrorRecord, ScriptErrorsLookup};
+use rs_db::transfer as db_transfer;
 use rs_db::{Db, DbConfig, ModAction, Passwords, TimelineCursor, code_from_bits, validate_name};
+use rs_engine::ModOutcome as EngineModOutcome;
 use rs_engine::console::{self, Change};
 use rs_engine::controls::{self, Controls};
-use rs_engine::support;
-use rs_engine::watch::playback;
+use rs_engine::support::Unstick as EngineUnstick;
+use rs_engine::watch::playback::{self, Builder};
 use rs_engine::{
     DbRequest, Engine, LoadResult, PlayerProfile, SaveOutcome, SyncOutcome, TAKEOVER_AFTER_SECS,
     TickStats, profile_from_save,
 };
 use rs_util::base37::{is_valid_userhash, to_raw_username, to_screen_name, to_userhash};
+use serde_json::Map;
 use std::collections::{HashMap, VecDeque};
 use std::convert::Infallible;
+use std::iter;
 use std::mem;
+use std::path::Path;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
-use std::time::{Duration, Instant};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, System};
 use tokio::net::TcpListener;
 use tokio::sync::mpsc::UnboundedSender;
-use tokio::sync::{oneshot, watch};
-use tokio::time::timeout;
+use tokio::sync::{Mutex as AsyncMutex, oneshot, watch};
+use tokio::task::spawn_blocking;
+use tokio::time::{sleep, timeout};
 use tower_http::compression::CompressionLayer;
 use tracing::{info, warn};
 
@@ -124,10 +134,10 @@ struct AdminState {
     sys: Mutex<Option<System>>,
     pid: Option<Pid>,
     reboot_reason: Mutex<Option<String>>,
-    spectates: Mutex<HashMap<String, Arc<tokio::sync::Mutex<Spectate>>>>,
+    spectates: Mutex<HashMap<String, Arc<AsyncMutex<Spectate>>>>,
     passwords: Passwords,
-    reloading: tokio::sync::Mutex<()>,
-    building: tokio::sync::Mutex<()>,
+    reloading: AsyncMutex<()>,
+    building: AsyncMutex<()>,
 }
 
 impl AdminState {
@@ -203,8 +213,8 @@ pub async fn serve(
         reboot_reason: Mutex::default(),
         spectates: Mutex::default(),
         passwords: Passwords::new(&pepper),
-        reloading: tokio::sync::Mutex::new(()),
-        building: tokio::sync::Mutex::new(()),
+        reloading: AsyncMutex::new(()),
+        building: AsyncMutex::new(()),
     });
     tokio::spawn(record_ticks(stats, state.clone()));
     let router = Router::new()
@@ -280,7 +290,7 @@ pub async fn serve(
 /// or replays a nonce already used.
 async fn authenticate(State(state): State<Arc<AdminState>>, req: Request, next: Next) -> Response {
     let (parts, body) = req.into_parts();
-    let Ok(body) = axum::body::to_bytes(body, MAX_BODY).await else {
+    let Ok(body) = to_bytes(body, MAX_BODY).await else {
         return StatusCode::PAYLOAD_TOO_LARGE.into_response();
     };
     let path = parts
@@ -573,10 +583,10 @@ async fn moderate(
     let target37 = to_userhash(&req.name);
     let hours = req.hours.unwrap_or(0);
     let action = match req.action {
-        rs_admin_api::ModAction::Mute => ModAction::Mute { hours },
-        rs_admin_api::ModAction::Unmute => ModAction::Unmute,
-        rs_admin_api::ModAction::Ban => ModAction::Ban { hours },
-        rs_admin_api::ModAction::Unban => ModAction::Unban,
+        ApiModAction::Mute => ModAction::Mute { hours },
+        ApiModAction::Unmute => ModAction::Unmute,
+        ApiModAction::Ban => ModAction::Ban { hours },
+        ApiModAction::Unban => ModAction::Unban,
     };
     if !is_valid_userhash(target37)
         || (action.hours().is_some() && !(1..=MAX_MOD_HOURS).contains(&hours))
@@ -609,9 +619,9 @@ async fn moderate(
         return Ok(Json(ModOutcome::Offline));
     }
     let outcome = match timeout(ENGINE_TIMEOUT, outcome).await {
-        Ok(Ok(rs_engine::ModOutcome::Done)) => ModOutcome::Done,
-        Ok(Ok(rs_engine::ModOutcome::Refused)) => ModOutcome::Refused,
-        Ok(Ok(rs_engine::ModOutcome::Offline)) | Ok(Err(_)) => ModOutcome::Offline,
+        Ok(Ok(EngineModOutcome::Done)) => ModOutcome::Done,
+        Ok(Ok(EngineModOutcome::Refused)) => ModOutcome::Refused,
+        Ok(Ok(EngineModOutcome::Offline)) | Ok(Err(_)) => ModOutcome::Offline,
         Err(_) => ModOutcome::Pending,
     };
     info!(
@@ -1342,7 +1352,7 @@ async fn feed_stored(
         bytes += page.iter().map(|c| c.data.len() as i64).sum::<i64>();
         let full = page.len() as i64 == REPLAY_PAGE;
         let mut fed = mem::take(builder);
-        let (fed, whole) = tokio::task::spawn_blocking(move || {
+        let (fed, whole) = spawn_blocking(move || {
             let whole = page.iter().all(|c| fed.feed_chunk(&c.data));
             (fed, whole)
         })
@@ -1363,12 +1373,12 @@ fn replay_response((start, frames): (Vec<u8>, Vec<u8>)) -> Response {
     let pieces = (0..len)
         .step_by(SEND_PIECE)
         .map(move |at| frames.slice(at..(at + SEND_PIECE).min(len)));
-    let body = std::iter::once(Bytes::from(start))
+    let body = iter::once(Bytes::from(start))
         .chain(pieces)
         .map(Ok::<_, Infallible>);
     (
         [(header::CONTENT_TYPE, "application/octet-stream")],
-        Body::from_stream(futures_util::stream::iter(body)),
+        Body::from_stream(stream::iter(body)),
     )
         .into_response()
 }
@@ -1389,7 +1399,7 @@ async fn replay_data(
         if record.revision != REVISION {
             return Err(StatusCode::CONFLICT);
         }
-        let mut builder = playback::Builder::default();
+        let mut builder = Builder::default();
         let (_, bytes) = feed_stored(&state, &mut builder, id, 0).await?;
         // An ended recording changes only by being compacted: one compacted
         // between its pages may have come cut short, so it's read again.
@@ -1397,7 +1407,7 @@ async fn replay_data(
             retried = true;
             continue;
         }
-        let mut extra = serde_json::Map::new();
+        let mut extra = Map::new();
         extra.insert("id".into(), record.id.to_string().into());
         extra.insert("player".into(), record.player.into());
         extra.insert("node".into(), record.node_id.into());
@@ -1434,7 +1444,7 @@ struct Spectate {
 
 /// The header fields of a live replay's file.
 fn live_header(token: &str, ended: bool) -> serde_json::Map<String, serde_json::Value> {
-    let mut extra = serde_json::Map::new();
+    let mut extra = Map::new();
     extra.insert(
         "live".into(),
         serde_json::json!({ "token": token, "delayMs": LIVE_DELAY_MS, "ended": ended }),
@@ -1443,8 +1453,8 @@ fn live_header(token: &str, ended: bool) -> serde_json::Map<String, serde_json::
 }
 
 fn now_ms() -> i64 {
-    std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
         .map_or(0, |d| d.as_millis() as i64)
 }
 
@@ -1517,9 +1527,9 @@ async fn start_spectate(state: &AdminState, id: i64) -> Result<(Vec<u8>, Vec<u8>
     if record.revision != REVISION || !record.complete || !keep_live(state, id).await? {
         return Err(StatusCode::CONFLICT);
     }
-    let mut builder = playback::Builder::default();
+    let mut builder = Builder::default();
     let (next_seq, _) = feed_stored(state, &mut builder, id, 0).await?;
-    let token = format!("{:032x}", rand::random::<u128>());
+    let token = format!("{:032x}", random::<u128>());
     let mut extra = live_header(&token, false);
     extra.insert("id".into(), record.id.to_string().into());
     extra.insert("player".into(), record.player.into());
@@ -1538,7 +1548,7 @@ async fn start_spectate(state: &AdminState, id: i64) -> Result<(Vec<u8>, Vec<u8>
         .spectates
         .lock()
         .unwrap_or_else(|e| e.into_inner())
-        .insert(token, Arc::new(tokio::sync::Mutex::new(spectate)));
+        .insert(token, Arc::new(AsyncMutex::new(spectate)));
     Ok(file)
 }
 
@@ -2206,7 +2216,7 @@ async fn begin_after_logout(
                 "{name} is still logging out (their save hasn't reached the database); nothing was changed. Try again."
             ));
         }
-        tokio::time::sleep(Duration::from_millis(250)).await;
+        sleep(Duration::from_millis(250)).await;
     }
 }
 
@@ -2345,13 +2355,13 @@ async fn unstick_here(state: &AdminState, user37: u64, name: &str) -> Result<Out
     let done = on_engine(state, move |engine| engine.unstick(user37)).await?;
     Ok(match done {
         Err(refused) => Outcome::refused(refused),
-        Ok(support::Unstick::Released) => Outcome::ok(format!(
+        Ok(EngineUnstick::Released) => Outcome::ok(format!(
             "Released {name}'s session on this world; they can log in now."
         )),
-        Ok(support::Unstick::Resent) => Outcome::ok(format!(
+        Ok(EngineUnstick::Resent) => Outcome::ok(format!(
             "Sent {name}'s logout save to the database again; once it lands they can log in."
         )),
-        Ok(support::Unstick::Syncing(syncing)) => match timeout(ENGINE_TIMEOUT, syncing).await {
+        Ok(EngineUnstick::Syncing(syncing)) => match timeout(ENGINE_TIMEOUT, syncing).await {
             Ok(Ok(SyncOutcome::Synced | SyncOutcome::NoFile)) => {
                 on_engine(state, move |engine| engine.release_claim(user37)).await?;
                 Outcome::ok(format!(
@@ -2481,7 +2491,7 @@ const RESET_HOURS: i32 = 72;
 
 /// A new reset code, as `XXXX-XXXX-XXXX` (60 random bits).
 fn reset_code() -> String {
-    code_from_bits(rand::random::<u128>(), 3)
+    code_from_bits(random::<u128>(), 3)
 }
 
 /// Issues a password reset: a code for the player to set a new password
@@ -2515,7 +2525,7 @@ async fn password_reset(
     let code = reset_code();
     let passwords = state.passwords.clone();
     let typed = code.replace('-', "");
-    let hash = tokio::task::spawn_blocking(move || passwords.hash(&typed))
+    let hash = spawn_blocking(move || passwords.hash(&typed))
         .await
         .ok()
         .flatten()
@@ -2588,12 +2598,12 @@ async fn wealth_lookup(
 
 // The engine's own wealth event types, as the console reads them.
 const _: () = assert!(
-    rs_admin_api::transfer::TRADE == rs_db::transfer::TRADE
-        && rs_admin_api::transfer::STAKE == rs_db::transfer::STAKE
-        && rs_admin_api::transfer::GIVE == rs_db::transfer::GIVE
-        && rs_admin_api::transfer::DROP == rs_db::transfer::DROP
-        && rs_admin_api::transfer::TAKE == rs_db::transfer::TAKE
-        && rs_admin_api::transfer::SPAWNED == rs_db::transfer::SPAWNED
+    api_transfer::TRADE == db_transfer::TRADE
+        && api_transfer::STAKE == db_transfer::STAKE
+        && api_transfer::GIVE == db_transfer::GIVE
+        && api_transfer::DROP == db_transfer::DROP
+        && api_transfer::TAKE == db_transfer::TAKE
+        && api_transfer::SPAWNED == db_transfer::SPAWNED
 );
 
 /// How many holders back a trace may go.
@@ -2965,10 +2975,10 @@ async fn reload_scripts(
         return Ok(Json(refused("A script reload is already running here.")));
     };
     let started = Instant::now();
-    let compiled = tokio::task::spawn_blocking(|| {
+    let compiled = spawn_blocking(|| {
         rs_pack::compile_scripts(
-            std::path::Path::new(rs_pack::CONTENT_DIR),
-            std::path::Path::new(rs_pack::PACK_DIR),
+            Path::new(rs_pack::CONTENT_DIR),
+            Path::new(rs_pack::PACK_DIR),
         )
     })
     .await
@@ -3001,7 +3011,7 @@ async fn reload_scripts(
     }
     let (loaded, old) = on_engine(&state, move |engine| engine.reload_scripts(scripts)).await?;
     let loaded = loaded as u32;
-    let _ = tokio::task::spawn_blocking(move || {
+    let _ = spawn_blocking(move || {
         drop(old);
         crate::release_freed_memory();
     })
@@ -3025,6 +3035,7 @@ async fn reload_scripts(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use axum::http::Request;
     use rs_db::CODE_ALPHABET;
 
     #[test]
@@ -3108,15 +3119,13 @@ mod tests {
             })
             .layer(CompressionLayer::new()),
         );
-        let request = axum::http::Request::post("/")
+        let request = Request::post("/")
             .header(header::ACCEPT_ENCODING, "gzip")
             .body(Body::empty())
             .unwrap();
         let response = router.oneshot(request).await.unwrap();
         assert_eq!(response.headers()[header::CONTENT_ENCODING], "gzip");
-        let body = axum::body::to_bytes(response.into_body(), usize::MAX)
-            .await
-            .unwrap();
+        let body = to_bytes(response.into_body(), usize::MAX).await.unwrap();
         assert!(body.len() < whole.len() >> 2);
         let mut sent = Vec::new();
         GzDecoder::new(&body[..]).read_to_end(&mut sent).unwrap();

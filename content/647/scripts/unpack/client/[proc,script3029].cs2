@@ -1,0 +1,131 @@
+// 3029
+[proc,script3029](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if (minimenuopen($component3, -1) = true) {
+    if_setontimer($component4, "script3028($component0, $component1, $component2, $component3, $component4, $component5)");
+    return;
+} else {
+    if_setontimer($component4, null);
+}
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int6 = friend_count;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 15;
+def_int $int12 = 0;
+def_int $int13 = 5;
+def_int $rgb14 = ^black;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_string $string3 = "";
+if ($int6 = -2) {
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name");
+    ~script3038("Loading Friends List.<br><br>Please wait.", $component3);
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs);
+} else if ($int6 = -1) {
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name");
+    ~script3038("Connecting to server.<br><br>Please wait.", $component3);
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs);
+} else if ($int6 > 0) {
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name (<tostring($int6)>/200)");
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), 4, ^setsize_abs, ^setsize_minus);
+    while ($int7 < $int6) {
+        $string0, $string1 = friend_getname($int7);
+        $int9 = friend_getworld($int7);
+        ~cc_add_rect($component3, $int7, if_getwidth($component3), $int11, 0, $int8, ^black, true, 0);
+        if (calc($int7 % 2) = 0) {
+            cc_setcolour(0x201911);
+        } else {
+            cc_setcolour(0x292016);
+        }
+        cc_setonmouseover("lobby_friends_friendmo($component3, $int7)");
+        cc_setonmouseleave("lobby_friends_friendml");
+        if (string_length($string1) > 0) {
+            $int16 = calc(stringwidth("Last known as: <$string1>", p11_full) + 8);
+            if ($int16 > if_getwidth(lobbyscreen_pane_friendslist:friends_upper)) {
+                $string3 = "Last known as:<br><$string1>";
+            } else {
+                $string3 = "Last known as: <$string1>";
+            }
+            cc_setonmouserepeat("friend_tooltip(event_com, event_comsubid, $string3, event_mousex, event_mousey, lobbyscreen_pane_friendslist:friends_main, lobbyscreen_pane_friendslist:friends_tooltip, lobbyscreen_pane_friendslist:friends_tooltip_text, p11_full)");
+        }
+        cc_setopbase($string0);
+        if ($int9 > 0) {
+            cc_setop(1, "Message");
+            cc_setop(2, "Join");
+        } else {
+            cc_setop(3, "Message");
+            cc_setop(4, "Join");
+        }
+        cc_setop(10, "Delete");
+        cc_setonop("lobby_friends_friendop(event_op, $int9, $string0, $int7)");
+        ~cc_add_graphic($component1, $int7, 14, 14, 5, calc($int8 + 1), null, false, false, false, 0);
+        if (compare($string1, "") ! 0) {
+            cc_setgraphic(friends_changed_name);
+            $int13 = 20;
+        } else {
+            cc_setgraphic(null);
+            $int13 = 5;
+        }
+        $string2 = $string0;
+        ~cc_add_text($component0, $int7, 0, $int11, $int13, $int8, $string2, ^white, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        cc_setsize($int13, $int11, ^setsize_minus, ^setsize_abs);
+        cc_setmaxlines(1);
+        if ($int9 = 0) {
+            $string2 = "Offline";
+            $rgb14 = ^red;
+        } else {
+            $string2 = friend_getworldname($int7);
+            if ($int9 = map_world) {
+                $rgb14 = ^green;
+            } else {
+                $rgb14 = ^yellow;
+            }
+        }
+        ~cc_add_text($component2, $int7, 0, $int11, 5, $int8, $string2, $rgb14, p11_full, ^settextalign_left, ^settextalign_centre, 0, true);
+        cc_setsize(5, $int11, ^setsize_minus, ^setsize_abs);
+        cc_setmaxlines(1);
+        $int8 = calc($int8 + $int11);
+        $int7 = calc($int7 + 1);
+    }
+    $int10 = calc(if_getheight($component4) / $int11 + 1);
+    if ($int10 > $int6) {
+        while ($int7 < $int10) {
+            ~cc_add_rect($component3, $int7, if_getwidth($component3), $int11, 0, $int8, ^black, true, 0);
+            if (calc($int7 % 2) = 0) {
+                cc_setcolour(0x201911);
+            } else {
+                cc_setcolour(0x292016);
+            }
+            $int8 = calc($int8 + $int11);
+            $int7 = calc($int7 + 1);
+        }
+        $int12 = if_getheight($component4);
+    } else {
+        $int12 = $int8;
+    }
+    if ($int10 <= $int6) {
+        $int15 = if_getscrolly(lobbyscreen_pane_friendslist:friends_main);
+        if_setscrollsize(lobbyscreen_pane_friendslist:friends_main, 0, $int12);
+        if ($int15 > $int12) {
+            $int15 = $int12;
+        }
+        ~scrollbar_resize(lobbyscreen_pane_friendslist:friends_build_layer_scroll, lobbyscreen_pane_friendslist:friends_main, $int15);
+    } else {
+        if_setscrollsize(lobbyscreen_pane_friendslist:friends_main, 0, 0);
+        if_setscrollpos(lobbyscreen_pane_friendslist:friends_main, 0, 0);
+        ~scrollbar_resize(lobbyscreen_pane_friendslist:friends_build_layer_scroll, lobbyscreen_pane_friendslist:friends_main, 0);
+    }
+} else if ($int6 = 0) {
+    if_settext(lobbyscreen_pane_friendslist:friend_name_title, "Name");
+    ~script3038("You have not added any friends to your list.", $component3);
+    if_setsize(lobbyscreen_pane_friendslist:friends_vdiv, if_getwidth(lobbyscreen_pane_friendslist:friends_vdiv), if_getheight(lobbyscreen_pane_friendslist:friends_titles), ^setsize_abs, ^setsize_abs);
+}
+return;

@@ -389,7 +389,7 @@ sequenceDiagram
 
     C->>HS: connect → 8 random seed bytes
     C->>HS: LoginType(16/18) + version + 9 CRCs + RSA block
-    HS->>HS: validate version, CRCs vs crctable,<br/>rsadec → magic=10, seeds, uid, user≤12, pass≤20
+    HS->>HS: validate version, CRCs vs crctable,<br/>rsadecrypt → magic=10, seeds, uid, user≤12, pass≤20
     HS->>HS: IsaacPair::from_client_seeds<br/>(decode=raw, encode=seeds+50)
     HS->>ENG: LoginRequest{handle,user,pass,…}<br/>over new_player_tx (unbounded)
     Note over ENG: login phase: new_player_rx.try_recv<br/>→ create PendingLogin (3 flags)
@@ -409,7 +409,7 @@ sequenceDiagram
 The mechanics, grounded in source:
 
 - **Handshake (Layer ①).** `socket.rs:14` writes 8 random seed bytes, reads `LoginType` (New=16 / Reconnect=18),
-  validates payload length, version (mismatch → `RuneScapeUpdated`), and 9 cache CRCs against `cache.crctable`; `rsadec`
+  validates payload length, version (mismatch → `RuneScapeUpdated`), and 9 cache CRCs against `cache.crctable`; `rsadecrypt`
   reveals `magic=10`, 4 seed words, the uid, username (≤12) and password (≤20). It derives
   `IsaacPair::from_client_seeds` (decode = raw seeds, encode = seeds **+50**), calls `create_io` to build the four
   channel pairs, and emits a single `LoginRequest` over `new_player_tx`.

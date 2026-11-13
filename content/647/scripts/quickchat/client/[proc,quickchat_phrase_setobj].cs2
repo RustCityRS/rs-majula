@@ -1,0 +1,24 @@
+// 1079
+[proc,quickchat_phrase_setobj](int $int0)
+switch_int ($int0) {
+    case 0 :
+        activechatphrase_setdynamicobj(0, %quickchat_phrase_obj0);
+    case 1 :
+        activechatphrase_setdynamicobj(1, %quickchat_phrase_obj1);
+    case 2 :
+        activechatphrase_setdynamicobj(2, %quickchat_phrase_obj2);
+    case 3 :
+        activechatphrase_setdynamicobj(3, %quickchat_phrase_obj3);
+    case 4 :
+        activechatphrase_setdynamicobj(4, %quickchat_phrase_obj4);
+    case 5 :
+        activechatphrase_setdynamicobj(5, %quickchat_phrase_obj5);
+    case 6 :
+        activechatphrase_setdynamicobj(6, %quickchat_phrase_obj6);
+    case 7 :
+        activechatphrase_setdynamicobj(7, %quickchat_phrase_obj7);
+    case 8 :
+        activechatphrase_setdynamicobj(8, %quickchat_phrase_obj8);
+    case 9 :
+        activechatphrase_setdynamicobj(9, %quickchat_phrase_obj9);
+}

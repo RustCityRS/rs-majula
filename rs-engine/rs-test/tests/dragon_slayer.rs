@@ -1,0 +1,1098 @@
+//! Dragon Slayer at 647 (`quests/quest_dragon` and its npcs): 289's quest with 2011's lines from
+//! the 2011-05-04 recordings (YouTube UYp0v2Pc1yI and mYqjoMQCOHI, TimeRunescape; transcripts in
+//! runescape/target/refs/dragon). Stage one: the Guildmaster, Oziach, the Duke's shield, and the
+//! quest's end at Oziach with Elvarg's head.
+
+#![cfg(since_647)]
+
+#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
+mod client_packet;
+
+use client_packet::ClientPacket;
+use rs_engine::Engine;
+use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
+use rs_pack::types::NpcStat;
+use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::runner;
+use rs_test::talk::{Conversation, converse, talk_to};
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
+
+static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
+const BACKPACK: i32 = 149 << 16;
+
+fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
+    let map = match kind {
+        "obj" => &engine.cache.objs.debugnames,
+        "npc" => &engine.cache.npcs.debugnames,
+        "varp" => &engine.cache.varps.debugnames,
+        _ => unreachable!(),
+    };
+    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+}
+
+fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
+    let v = id(engine, "varp", name);
+    engine
+        .harness_player(client.pid)
+        .unwrap()
+        .vars
+        .get(v)
+        .as_int()
+}
+
+fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) {
+    let v = id(engine, "varp", name);
+    engine
+        .harness_player_mut(client.pid)
+        .unwrap()
+        .vars
+        .set(v, VarValue::Int(value));
+}
+
+fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, count: u32) {
+    let o = id(engine, "obj", name);
+    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    engine
+        .harness_player_mut(client.pid)
+        .unwrap()
+        .invs
+        .get_mut(&inv)
+        .unwrap()
+        .set(slot, o, count);
+}
+
+fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
+    let o = id(engine, "obj", name);
+    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    engine
+        .harness_player(client.pid)
+        .unwrap()
+        .invs
+        .get(&inv)
+        .unwrap()
+        .total(o) as i32
+}
+
+fn settle(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) {
+    for _ in 0..ticks {
+        engine.cycle();
+    }
+    client.packets();
+}
+
+fn tele(engine: &mut Engine, client: &mut HarnessClient, x: u16, level: u8, z: u16) {
+    engine.harness_telejump(client.pid, x, level, z);
+    settle(engine, client, 3);
+}
+
+fn says(t: &Conversation, lines: &[&str]) {
+    for line in lines {
+        assert!(
+            t.said(line),
+            "2011 shows {line:?}; {:?} (chat {:?})",
+            t.texts,
+            t.messages
+        );
+    }
+}
+
+fn login(engine: &mut Engine, name: &str) -> HarnessClient {
+    let _ = engine.script_errors.take();
+    engine.harness_reset();
+    let mut client = engine.harness_login_returning(name).expect("login");
+    settle(engine, &mut client, 10);
+    client
+}
+
+/// The nid of the nearest npc of that name to (x, z), and a walkable tile beside it on `level`.
+fn npc_near_on(engine: &Engine, name: &str, x: u16, z: u16, level: u8) -> (u16, u16, u16) {
+    let want = id(engine, "npc", name);
+    let (nid, nx, nz) = engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .filter(|n| n.npc.uid.id() == want)
+        .map(|n| {
+            (
+                n.npc.uid.nid(),
+                n.npc.pathing.coord.x(),
+                n.npc.pathing.coord.z(),
+            )
+        })
+        .min_by_key(|&(_, nx, nz)| nx.abs_diff(x) as u32 + nz.abs_diff(z) as u32)
+        .unwrap_or_else(|| panic!("{name} is spawned"));
+    let (sx, sz) = [(1i16, 0i16), (-1, 0), (0, 1), (0, -1)]
+        .into_iter()
+        // One step from the npc must reach the tile: not across a wall or a cell's bars.
+        .filter(|&(dx, dz)| {
+            rsmod::can_travel(
+                level,
+                nx,
+                nz,
+                dx as i8,
+                dz as i8,
+                1,
+                0,
+                CollisionType::Normal,
+            )
+        })
+        .map(|(dx, dz)| (nx.wrapping_add_signed(dx), nz.wrapping_add_signed(dz)))
+        .find(|&(x, z)| !rsmod::is_flagged(x, z, level, 0x100 | 0x200000))
+        .unwrap_or_else(|| panic!("a walkable tile beside {name}"));
+    (nid, sx, sz)
+}
+
+fn talk_on(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    name: &str,
+    (x, z, level): (u16, u16, u8),
+    choices: &[&str],
+) -> Conversation {
+    let (nid, sx, sz) = npc_near_on(engine, name, x, z, level);
+    tele(engine, client, sx, level, sz);
+    talk_to(client, nid);
+    converse(engine, client, choices, 300)
+}
+
+const GUILDMASTER: (u16, u16, u8) = (3191, 3362, 0);
+const OZIACH: (u16, u16, u8) = (3068, 3516, 0);
+const DUKE: (u16, u16, u8) = (3212, 3220, 1);
+
+/// The Guildmaster's "Can I have a quest?" and Oziach's quest, in 2011's words (2011-05-04
+/// recording UYp0v2Pc1yI, 29.2-90.0s).
+#[test]
+fn the_guildmaster_and_oziach_start_the_quest() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_start");
+        let t = talk_on(
+            engine,
+            &mut client,
+            "guildmaster",
+            GUILDMASTER,
+            &["Can I have a quest?"],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "Greetings!",
+                "Aha!",
+                "Yes! A mighty and perilous quest fit only for the most powerful champions! And, at the end of it, you will earn the right to wear the legendary rune platebody!",
+                "So, what is this quest?",
+                "Oziach lives in a hut, by the cliffs to the west of Edgeville. He can be a little...odd...sometimes, though.",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragonquest"), 1);
+
+        let t = talk_on(
+            engine,
+            &mut client,
+            "oziach",
+            OZIACH,
+            &[
+                "Can you sell me a rune platebody?",
+                "The Guildmaster of the Champions' Guild told me.",
+                "I thought you were going to give me a quest.",
+                "A dragon, that sounds like fun.",
+            ],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "Good day to you.",
+                "So, how does thee know I 'ave some?",
+                "Yes, I suppose he would, wouldn't he? He's always sending you fancy-pants 'heroes' up to bother me. Telling me I'll give them a quest or sommat like that.",
+                "*Sigh*",
+                "Slay the dragon of Crandor!",
+                "A dragon, that sounds like fun!",
+                "Hah, yes, you are a typical reckless adventurer, aren't you? Now go kill the dragon and get out of my face.",
+                "But how can I defeat the dragon?",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragonquest"), 2);
+    });
+}
+
+/// After Oziach: Crandor's story the first time, Melzar's piece with the maze key, then "About my
+/// quest..." and the breath (UYp0v2Pc1yI 108.4-142.0s, 245.0-273.0s).
+#[test]
+fn the_guildmaster_tells_of_crandor_and_the_map() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_guildmaster");
+        set_var(engine, &client, "dragonquest", 2);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "guildmaster",
+            GUILDMASTER,
+            &[
+                "I talked to Oziach...",
+                "How can I find the route to Crandor?",
+                "Where is Melzar's map piece?",
+                "Okay, I'll get going!",
+            ],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "I talked to Oziach and he gave me a quest.",
+                "Goodness, he hasn't given you an easy job, has he?",
+                "Out of all the people of Crandor there were only three survivors: a trio of wizards who used magic to escape. Their names were: Thalzar, Lozar and Melzar.",
+                "If you're serious about taking on Elvarg, first you'll need to get to Crandor. The island is surrounded by dangerous reefs, so you'll need a ship capable of getting through them and a map to show you the way.",
+                "Only one map exists that shows the route through the reefs of Crandor. That map was split into three pieces by Melzar, Thalzar and Lozar, the wizards who escaped from the dragon. Each of them took one piece.",
+                "Adventurers sometimes go in there to prove themselves, so I can give you this key to Melzar's Maze.",
+                "The Guildmaster hands you a key.",
+                "Where is Thalzar's map piece?",
+            ],
+        );
+        assert_eq!(held(engine, &client, "melzarkey"), 1);
+
+        let t = talk_on(
+            engine,
+            &mut client,
+            "guildmaster",
+            GUILDMASTER,
+            &[
+                "About my quest to kill the dragon...",
+                "How can I protect myself from the dragon's breath?",
+                "Okay, I'll get going!",
+            ],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        assert!(
+            !t.said("I talked to Oziach and he gave me a quest."),
+            "told once"
+        );
+        says(
+            &t,
+            &[
+                "That part shouldn't be too difficult, actually. I believe the Duke of Lumbridge has a special shield in his armoury that is enchanted against dragon's breath.",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragon_shield"), 1);
+    });
+}
+
+/// Duke Horacio's 2011 shield (UYp0v2Pc1yI 197.4-226.6s), offered once the Guildmaster has told
+/// of it.
+#[test]
+fn the_duke_gives_the_shield() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_duke");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_shield", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "duke_of_lumbridge",
+            DUKE,
+            &[
+                "I seek a shield that will protect me from dragonbreath.",
+                "Elvarg, the dragon of Crandor island!",
+                "Yes",
+                "So, are you going to give me the shield or not?",
+            ],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "A knight going on a dragon quest, hmm? What dragon do you intend to slay?",
+                "Well, are you sure?",
+                "Well, you're a braver man than I!",
+                "Back in my father's day, Crandor was an important city-state. Politically, it was as important as Falador or Varrock and its ships traded with every port.",
+                "The Duke hands you a heavy orange shield.",
+                "If you kill it, for Saradomin's sake make sure it's really dead!",
+            ],
+        );
+        assert_eq!(held(engine, &client, "antidragonbreathshield"), 1);
+        assert!(
+            t.messages
+                .iter()
+                .any(|m| m.contains("the Task 'Always Be Prepared'")),
+            "the shield completes task 107: {:?}",
+            t.messages
+        );
+    });
+}
+
+/// Elvarg's head to Oziach ends the quest (mYqjoMQCOHI 353.6-362.6s): 2011's lines, the head
+/// kept, 18,650 Strength and Defence xp, and the quest complete.
+#[test]
+fn oziach_takes_elvargs_head() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_head");
+        set_var(engine, &client, "dragonquest", 9);
+        give(engine, &client, 0, "dragon_slayer_qip_elvargs_head", 1);
+        let t = talk_on(engine, &mut client, "oziach", OZIACH, &[]);
+        says(
+            &t,
+            &[
+                "Good day to you.",
+                "Have ye slayed that dragon yet?",
+                "Yes, I have!",
+                "I have its head here.",
+                "You actually did it?",
+                "Yer a true hero, and I'd be happy to sell ye rune platebodies.",
+            ],
+        );
+        settle(engine, &mut client, 4);
+        assert_eq!(var(engine, &client, "dragonquest"), 10, "complete");
+        assert_eq!(
+            held(engine, &client, "dragon_slayer_qip_elvargs_head"),
+            0,
+            "Oziach keeps it"
+        );
+    });
+}
+
+fn oploc1(client: &mut HarnessClient, loc: (u16, u16, u16)) {
+    let (id, x, z) = loc;
+    let mut p = ClientPacket::new();
+    p.p2_alt1(z as i32)
+        .p2_alt1(id as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
+    client.send(ClientProt::OpLoc1, &p.finish());
+}
+
+fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: (u16, u16, u16)) {
+    let (id, x, z) = loc;
+    let mut p = ClientPacket::new();
+    p.p2_alt2(obj as i32)
+        .p2_alt2(slot as i32)
+        .p2(z as i32)
+        .p4_alt2(BACKPACK)
+        .p2_alt2(x as i32)
+        .p1_alt1(0)
+        .p2_alt1(id as i32);
+    client.send(ClientProt::OpLocT, &p.finish());
+}
+
+/// The backpack slot holding `name`.
+fn slot_of(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
+    let o = id(engine, "obj", name);
+    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let pack = engine
+        .harness_player(client.pid)
+        .unwrap()
+        .invs
+        .get(&inv)
+        .unwrap();
+    (0..28u16)
+        .find(|&s| pack.get(s).map(|i| i.obj) == Some(o))
+        .unwrap_or_else(|| panic!("{name} in the backpack")) as i32
+}
+
+/// Uses the backpack's `used` on its `target` (IF_BUTTONT) and answers what follows.
+fn use_on_obj(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    used: &str,
+    target: &str,
+    choices: &[&str],
+) -> Conversation {
+    let (us, ts) = (
+        slot_of(engine, client, used),
+        slot_of(engine, client, target),
+    );
+    let mut p = ClientPacket::new();
+    p.p4(BACKPACK)
+        .p2_alt1(ts)
+        .p2_alt1(us)
+        .p2_alt2(id(engine, "obj", used) as i32)
+        .p4_alt1(BACKPACK)
+        .p2(id(engine, "obj", target) as i32);
+    client.send(ClientProt::IfButtonT, &p.finish());
+    converse(engine, client, choices, 300)
+}
+
+const ORACLE: (u16, u16, u8) = (3013, 3501, 0);
+/// Thalzar's door (2011's magic_door_25115, the l47_153 map's 42,47) and the chest behind it.
+const MAGIC_DOOR: (u16, u16, u16) = (25115, 3050, 9839);
+const ORACLE_CHEST: (u16, u16, u16) = (2587, 3057, 9841);
+
+/// The Oracle's riddle, the four items used on Thalzar's door one by one, "The door opens...", and
+/// the chest's inscription and piece (2011-05-04 recording UYp0v2Pc1yI, 647.6-714.8s).
+#[test]
+fn the_oracle_thalzars_door_and_chest() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_oracle");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_oracle", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "oracle",
+            ORACLE,
+            &["I seek a piece of the map to the island of Crandor."],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "The map's behind a door below,",
+                "Last, a bowl that's not seen heat.",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragon_oracle"), 2);
+
+        tele(engine, &mut client, 3049, 0, 9840);
+        let items = [
+            ("silk", "You put the silk into the opening in the door."),
+            (
+                "bowl_unfired",
+                "You put the unfired bowl into the opening in the door.",
+            ),
+            (
+                "wizards_mind_bomb",
+                "You pour the Wizard's Mind Bomb into the opening in the door.",
+            ),
+            (
+                "lobster_pot",
+                "You put the small crustacean cage into the opening in the door.",
+            ),
+        ];
+        for (slot, (name, _)) in items.iter().enumerate() {
+            give(engine, &client, slot as u16, name, 1);
+        }
+        for (slot, (name, line)) in items.iter().enumerate() {
+            use_on_loc(
+                &mut client,
+                id(engine, "obj", name),
+                slot as u16,
+                MAGIC_DOOR,
+            );
+            let said = messages(engine, &mut client, 6);
+            assert!(said.iter().any(|m| m == line), "2011's {line:?}: {said:?}");
+            assert_eq!(held(engine, &client, name), 0, "{name} goes into the door");
+        }
+        oploc1(&mut client, MAGIC_DOOR);
+        let said = messages(engine, &mut client, 8);
+        assert!(said.iter().any(|m| m == "The door opens..."), "{said:?}");
+        let at = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!(at.x(), 3051, "through the door to the chest's side");
+        assert_eq!(var(engine, &client, "dragon_oracle"), 3);
+
+        oploc1(&mut client, ORACLE_CHEST);
+        let t = converse(engine, &mut client, &[], 300);
+        says(
+            &t,
+            &[
+                "As you open the chest, you notice an inscription on the lid:",
+                "Here I rest the map to my beloved home. To whoever finds it, I beg of you, let it be.",
+                "There is no shame in backing out now.",
+                "You find a map piece in the chest.",
+            ],
+        );
+        assert_eq!(held(engine, &client, "mappart3"), 1);
+    });
+}
+
+/// The three pieces joined: 2011's item box and line, with no full stop (UYp0v2Pc1yI 720.2s).
+#[test]
+fn the_three_pieces_make_the_map() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_map");
+        set_var(engine, &client, "dragonquest", 2);
+        give(engine, &client, 0, "mappart1", 1);
+        give(engine, &client, 1, "mappart2", 1);
+        give(engine, &client, 2, "mappart3", 1);
+        let t = use_on_obj(engine, &mut client, "mappart1", "mappart2", &[]);
+        assert!(
+            t.said("You put the three pieces together and assemble a map that shows the route through the reefs to Crandor"),
+            "{:?}",
+            t.texts
+        );
+        assert_eq!(held(engine, &client, "dragonmap"), 1);
+        for piece in ["mappart1", "mappart2", "mappart3"] {
+            assert_eq!(held(engine, &client, piece), 0, "{piece} joined");
+        }
+    });
+}
+
+fn messages(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Vec<String> {
+    let mut out = Vec::new();
+    for _ in 0..ticks {
+        engine.cycle();
+        out.extend(
+            HarnessClient::game_messages(&client.packets())
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+    }
+    out
+}
+
+const WORMBRAIN: (u16, u16, u8) = (3014, 3189, 0);
+
+/// Wormbrain's 2011 opener and the player's "piece of a map" line (UYp0v2Pc1yI 579.6-586.2s).
+#[test]
+fn wormbrain_talks_as_2011s() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_wormbrain_talk");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_goblin", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "wormbrain",
+            WORMBRAIN,
+            &[
+                "I believe you've got a piece of map that I need.",
+                "I'm not going to do anything for you. Forget it.",
+            ],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "Whut you want?",
+                "I believe you've got piece of a map that I need.",
+                "So? Why should I be giving it to you? What you do for Wormbrain?",
+            ],
+        );
+    });
+}
+
+/// Beaten to 0 life points, 2011's Wormbrain does not die: he drops his piece (2011 wiki,
+/// Wormbrain, 2011-05-18; "Wormbrain drops a map piece on the floor.", UYp0v2Pc1yI 595.2s), and
+/// an attack straight after gets "You have just beaten Wormbrain up. Give the poor goblin a
+/// break." (596.4s).
+#[test]
+fn wormbrain_drops_his_piece_and_lives() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_wormbrain_fight");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_goblin", 1);
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            for skill in [0, 1, 2, 3] {
+                player.stats.levels[skill] = 99;
+                player.stats.base_levels[skill] = 99;
+                player.stats.xp[skill] = 130_344_310;
+            }
+        }
+        let (nid, sx, sz) = npc_near_on(engine, "wormbrain", WORMBRAIN.0, WORMBRAIN.1, 0);
+        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        tele(engine, &mut client, sx, 0, sz);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut said = Vec::new();
+        for _ in 0..60 {
+            said.extend(messages(engine, &mut client, 1));
+            if said
+                .iter()
+                .any(|m| m == "Wormbrain drops a map piece on the floor.")
+            {
+                break;
+            }
+        }
+        assert!(
+            said.iter()
+                .any(|m| m == "Wormbrain drops a map piece on the floor."),
+            "{said:?}"
+        );
+        settle(engine, &mut client, 3);
+        assert!(engine.get_npc(nid).is_some(), "Wormbrain lives");
+        assert!(
+            var(engine, &client, "dragon_wormbrain_beaten") > 0,
+            "the beating's tick is kept"
+        );
+
+        // He may have wandered a step in his cell: stand beside him again.
+        let (_, sx, sz) = npc_near_on(engine, "wormbrain", WORMBRAIN.0, WORMBRAIN.1, 0);
+        tele(engine, &mut client, sx, 0, sz);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let said = messages(engine, &mut client, 12);
+        let hp = engine
+            .get_npc(nid)
+            .map(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize]);
+        assert!(
+            said.iter()
+                .any(|m| m == "You have just beaten Wormbrain up. Give the poor goblin a break."),
+            "{said:?} life points {hp:?}"
+        );
+    });
+}
+
+/// Melzar's Maze locs in cache 786's map (l45_50, l45_150).
+const MAZE_DOOR: (u16, u16, u16) = (2595, 2941, 3248);
+const MAZE_RED_DOOR: (u16, u16, u16) = (2596, 2926, 3244);
+const MAZE_CHEST: (u16, u16, u16) = (2603, 2935, 9657);
+
+/// The front door with the maze key and a coloured door with its key, in 2011's words
+/// (UYp0v2Pc1yI 319.5s, 345.6s).
+#[test]
+fn melzars_maze_doors_take_2011s_keys() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_maze_doors");
+        set_var(engine, &client, "dragonquest", 2);
+        give(engine, &client, 0, "melzarkey", 1);
+        tele(engine, &mut client, 2942, 0, 3248);
+        use_on_loc(&mut client, id(engine, "obj", "melzarkey"), 0, MAZE_DOOR);
+        let said = messages(engine, &mut client, 8);
+        assert!(
+            said.iter()
+                .any(|m| m == "You use the key and the door opens."),
+            "{said:?}"
+        );
+        assert_eq!(
+            held(engine, &client, "melzarkey"),
+            1,
+            "the maze key is kept"
+        );
+
+        give(engine, &client, 1, "redkey", 1);
+        tele(engine, &mut client, 2927, 0, 3244);
+        use_on_loc(&mut client, id(engine, "obj", "redkey"), 1, MAZE_RED_DOOR);
+        let said = messages(engine, &mut client, 8);
+        assert!(
+            said.iter()
+                .any(|m| m == "The key disintegrates as it unlocks the door."),
+            "{said:?}"
+        );
+        assert_eq!(held(engine, &client, "redkey"), 0, "the key is gone");
+    });
+}
+
+/// The maze's lone zombie rat (6088, the 2011 wiki's "small zombie rat with the long tail")
+/// drops the red key.
+#[test]
+fn the_maze_zombie_rat_drops_the_red_key() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_maze_rat");
+        set_var(engine, &client, "dragonquest", 2);
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            for skill in [0, 1, 2, 3] {
+                player.stats.levels[skill] = 99;
+                player.stats.base_levels[skill] = 99;
+                player.stats.xp[skill] = 130_344_310;
+            }
+        }
+        let (nid, sx, sz) = npc_near_on(engine, "dragonslayer_giantrat_1_key", 2930, 3252, 0);
+        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        tele(engine, &mut client, sx, 0, sz);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut last = None;
+        for _ in 0..60 {
+            match engine.get_npc(nid) {
+                Some(n) if n.npc.stats.levels[NpcStat::Hitpoints as usize] > 0 => {
+                    last = Some((n.npc.pathing.coord.x(), n.npc.pathing.coord.z()));
+                }
+                _ => {}
+            }
+            settle(engine, &mut client, 1);
+        }
+        let (kx, kz) = last.expect("the rat was seen alive");
+        let redkey = id(engine, "obj", "redkey");
+        let mut p = ClientPacket::new();
+        p.p2_alt1(redkey as i32)
+            .p2_alt2(kz as i32)
+            .p1(0)
+            .p2(kx as i32);
+        client.send(ClientProt::OpObj3, &p.finish());
+        settle(engine, &mut client, 8);
+        assert_eq!(
+            held(engine, &client, "redkey"),
+            1,
+            "the red key at {kx},{kz}"
+        );
+    });
+}
+
+/// The basement chest: 2011's "You open the chest" (no full stop) and the piece in an item box
+/// (UYp0v2Pc1yI 546.6-549.6s).
+#[test]
+fn melzars_chest_gives_the_first_piece() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_maze_chest");
+        set_var(engine, &client, "dragonquest", 2);
+        tele(engine, &mut client, 2935, 0, 9656);
+        oploc1(&mut client, MAZE_CHEST);
+        let said = messages(engine, &mut client, 6);
+        assert!(said.iter().any(|m| m == "You open the chest"), "{said:?}");
+        oploc1(&mut client, (2604, MAZE_CHEST.1, MAZE_CHEST.2));
+        let t = converse(engine, &mut client, &[], 300);
+        assert!(
+            t.said("You find a map piece in the chest."),
+            "{:?}",
+            t.texts
+        );
+        assert_eq!(held(engine, &client, "mappart1"), 1);
+    });
+}
+
+const KLARENSE: (u16, u16, u8) = (3047, 3204, 0);
+
+/// Klarense sells the Lady Lumbridge in 2011's words (mYqjoMQCOHI 11.2-25.0s), and greets her new
+/// captain (56.2s).
+#[test]
+fn klarense_sells_the_ship_as_2011s() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_klarense");
+        set_var(engine, &client, "dragonquest", 2);
+        give(engine, &client, 0, "coins", 2000);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "klarense",
+            KLARENSE,
+            &["I'd like to buy her.", "Yep, sounds good."],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "So, are you interested in buying a ship? Now, I'll be straight with you: she's not quite seaworthy right now, but give her a bit of work and she'll be the nippiest ship this side of Port Khazard.",
+                "Why is she damaged?",
+                "How does 2,000 gold sound? I'll even throw in my cabin boy, Jenkins, for free! He'll swab the decks and splice the mainsails for you!",
+                "Okey dokey, she's all yours!",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragonquest"), 3, "bought");
+        assert_eq!(held(engine, &client, "coins"), 0);
+
+        let t = talk_on(engine, &mut client, "klarense", KLARENSE, &[]);
+        says(
+            &t,
+            &["Hello, captain! Here to take your new ship for a spin?"],
+        );
+    });
+}
+
+/// The Lady Lumbridge's gangplanks (void-634's 3047,3205 -> 3047,3207 level 1 and back to
+/// 3047,3204), her ladders, and the hole in her hold.
+const GANGPLANK_ON: (u16, u16, u16) = (2593, 3047, 3205);
+const GANGPLANK_OFF: (u16, u16, u16) = (2594, 3047, 3206);
+const DECK_LADDER: (u16, u16, u16) = (2590, 3049, 3208);
+const HOLD_LADDER: (u16, u16, u16) = (272, 3049, 3208);
+/// loc_25036, the multiloc cache 786 places at l47_50 level 0 (39,7): the hole until
+/// dragon_hull_repaired (varbit 1837, bit 10 of varp 177) is 1.
+const HOLE: (u16, u16, u16) = (25036, 3047, 3207);
+
+fn at(engine: &Engine, client: &HarnessClient) -> (u16, u8, u16) {
+    let c = engine.harness_player(client.pid).unwrap().pathing.coord;
+    (c.x(), c.y(), c.z())
+}
+
+fn hull_repaired(engine: &Engine, client: &HarnessClient) -> bool {
+    var(engine, client, "dragonquestvar") >> 10 & 1 == 1
+}
+
+/// Boarding, the hold, and 2011's repair (2011-05-04 recording mYqjoMQCOHI, 28.6-52.6s): one
+/// plank used on the hole, then Repair for each of the others, 30 steel nails a plank (the 2011
+/// wiki), three lines of 2011's own, and the player left in the hold.
+#[test]
+fn the_lady_lumbridges_hole_takes_three_planks() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_hull");
+        set_var(engine, &client, "dragonquest", 3);
+        set_var(engine, &client, "dragon_ship_planks", 0);
+        tele(engine, &mut client, 3047, 0, 3204);
+        oploc1(&mut client, GANGPLANK_ON);
+        let said = messages(engine, &mut client, 6);
+        assert!(said.iter().any(|m| m == "You board the ship."), "{said:?}");
+        assert_eq!(at(engine, &client), (3047, 1, 3207), "on the deck");
+
+        oploc1(&mut client, DECK_LADDER);
+        let said = messages(engine, &mut client, 12);
+        assert_eq!(
+            at(engine, &client),
+            (3049, 0, 3208),
+            "in the hold: {said:?}"
+        );
+
+        oploc1(&mut client, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &["You'll need to use wooden planks on this hole to patch it up."],
+        );
+
+        give(engine, &client, 0, "woodplank", 3);
+        give(engine, &client, 1, "nails", 90);
+        give(engine, &client, 2, "hammer", 1);
+        use_on_loc(&mut client, id(engine, "obj", "woodplank"), 0, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "You nail a plank over the hole, but you still need more planks to close the hole completely.",
+            ],
+        );
+        assert_eq!(held(engine, &client, "nails"), 60, "30 nails a plank");
+        oploc1(&mut client, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "You nail a plank over the hole, but you still need one more plank to close the hole completely.",
+            ],
+        );
+        assert!(!hull_repaired(engine, &client));
+        oploc1(&mut client, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "You nail a final plank over the hole. You have successfully patched the hole in the ship.",
+            ],
+        );
+        assert_eq!(held(engine, &client, "woodplank"), 0);
+        assert_eq!(held(engine, &client, "nails"), 0);
+        assert_eq!(var(engine, &client, "dragonquest"), 7, "repaired");
+        assert!(
+            hull_repaired(engine, &client),
+            "the hold shows the patched hull"
+        );
+        assert_eq!(
+            at(engine, &client).1,
+            0,
+            "2011 leaves the player in the hold"
+        );
+
+        oploc1(&mut client, HOLD_LADDER);
+        settle(engine, &mut client, 12);
+        // 289's ship_ladder script climbs straight up from where the player stands.
+        assert_eq!(at(engine, &client).1, 1, "back on the deck");
+        tele(engine, &mut client, 3047, 1, 3207);
+        oploc1(&mut client, GANGPLANK_OFF);
+        let said = messages(engine, &mut client, 6);
+        assert!(
+            said.iter().any(|m| m == "You disembark the ship."),
+            "{said:?}"
+        );
+        assert_eq!(at(engine, &client), (3047, 0, 3204), "on the dock");
+    });
+}
+
+const NED: (u16, u16, u8) = (3100, 3257, 0);
+
+/// Ned hired with the ship repaired and the map in the pack, in the 2011-05-04 recording's words
+/// (mYqjoMQCOHI 99.4-125.2s): the short menu option, "Sorry, where was it you said you wanted to
+/// go?", "Ah, you only live once! I'll do it!", "I fixed her up!" and the map in an item box.
+#[test]
+fn ned_takes_the_map_as_2011s() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_ned");
+        set_var(engine, &client, "dragonquest", 7);
+        set_var(engine, &client, "dragon_ned_hired", 0);
+        give(engine, &client, 0, "dragonmap", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "ned",
+            NED,
+            &["You're a sailor? Could you take me to Crandor?"],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "You're a sailor? Could you take me to the island of Crandor?",
+                "Well, I was a sailor. I've not been able to get work at sea these days, though. They say I'm too old.",
+                "Sorry, where was it you said you wanted to go?",
+                "To the island of Crandor.",
+                "Crandor?",
+                "But... It would be a chance to sail a ship once more. I'd sail anywhere if it was a chance to sail again.",
+                "Then again, no captain in his right mind would sail to that island...",
+                "Ah, you only live once! I'll do it!",
+                "So, where's your ship?",
+                "It's the Lady Lumbridge, in Port Sarim.",
+                "That old pile of junk? Last I heard, she wasn't seaworthy.",
+                "I fixed her up!",
+                "You did? Excellent!",
+                "Just show me the map and we can get ready to go!",
+                "Here you go.",
+                "You hand the map to Ned.",
+                "Excellent! I'll meet you at the ship, then.",
+            ],
+        );
+        assert!(
+            !t.said("There is a wistfull look in Ned's eyes."),
+            "289's line, not 2011's"
+        );
+        assert_eq!(var(engine, &client, "dragonquest"), 8, "Ned has the map");
+        assert_eq!(var(engine, &client, "dragon_ned_hired"), 1);
+        assert_eq!(held(engine, &client, "dragonmap"), 0);
+    });
+}
+
+/// 2011's island (map squares 44_50 and 44_150): the hole down to Elvarg's cave and the rope
+/// back up, at void-634's destinations; the low wall of spikes before her ("You climb over the
+/// low wall.", the 2011-05-04 recording mYqjoMQCOHI, 290-295.4s); and 289's secret door, which
+/// is found from one side (%dragon_wall) and then opens.
+const CRANDOR_HOLE: (u16, u16, u16) = (25154, 2833, 3255);
+const CRANDOR_ROPE: (u16, u16, u16) = (25213, 2833, 9657);
+const CRANDOR_WALL: (u16, u16, u16) = (25161, 2846, 9635);
+const CRANDOR_SECRET_DOOR: (u16, u16, u16) = (2606, 2836, 9600);
+
+#[test]
+fn crandor_s_hole_rope_wall_and_secret_door() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "crandor");
+        tele(engine, &mut client, 2833, 0, 3257);
+        oploc1(&mut client, CRANDOR_HOLE);
+        let said = messages(engine, &mut client, 12);
+        assert_eq!(
+            at(engine, &client),
+            (2833, 0, 9658),
+            "down the hole: {said:?}"
+        );
+
+        oploc1(&mut client, CRANDOR_ROPE);
+        let said = messages(engine, &mut client, 12);
+        assert_eq!(
+            at(engine, &client),
+            (2834, 0, 3258),
+            "up the rope: {said:?}"
+        );
+
+        // Elvarg (spawned at 2852,9637) waits past the wall and a fresh harness player across it
+        // would be hers: 990 life points (varp 1240, bits 1-15) outlast the crossing. She stays,
+        // for elvarg_slain_gives_her_head.
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            player.stats.levels[3] = 99;
+            player.stats.base_levels[3] = 99;
+            let lp = player.vars.get(1240).as_int();
+            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+        }
+        tele(engine, &mut client, 2845, 0, 9635);
+        oploc1(&mut client, CRANDOR_WALL);
+        let said = messages(engine, &mut client, 14);
+        assert!(
+            said.iter().any(|m| m == "You climb over the low wall."),
+            "2011's line: {said:?}"
+        );
+        assert_eq!(at(engine, &client), (2847, 0, 9635), "over the wall");
+        // Out of her reach again, so she is no one's when elvarg_slain_gives_her_head runs.
+        tele(engine, &mut client, 2833, 0, 9658);
+
+        // The wall runs along the door tile's south edge (angle 3): the tile itself and the
+        // one south of it are its two sides. Only one finds the door.
+        let mut found = Vec::new();
+        for z in [9600, 9599] {
+            set_var(engine, &client, "dragon_wall", 0);
+            tele(engine, &mut client, 2836, 0, z);
+            oploc1(&mut client, CRANDOR_SECRET_DOOR);
+            let said = messages(engine, &mut client, 8);
+            if said.iter().any(|m| m == "You found a secret door!") {
+                assert!(
+                    said.iter()
+                        .any(|m| m == "You remember where the secret door is for future reference."),
+                    "{said:?}"
+                );
+                assert_eq!(var(engine, &client, "dragon_wall"), 1, "remembered");
+                found.push(z);
+            } else {
+                assert_eq!(
+                    var(engine, &client, "dragon_wall"),
+                    0,
+                    "not found from {z}: {said:?}"
+                );
+            }
+        }
+        assert_eq!(found.len(), 1, "found from exactly one side: {found:?}");
+        assert!(engine.script_errors.take().is_empty(), "no script errors");
+    });
+}
+
+/// Elvarg slain gives her head ("You cut off Elvarg's head as proof of your victory!", the
+/// 2011-05-04 recording mYqjoMQCOHI at 328.6s), and the quest waits for Oziach; 289 ended it
+/// at her death.
+const ELVARG: (u16, u16, u8) = (2852, 9637, 0);
+
+#[test]
+fn elvarg_slain_gives_her_head() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_elvarg");
+        set_var(engine, &client, "dragonquest", 9);
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            for skill in [0, 1, 2, 3] {
+                player.stats.levels[skill] = 99;
+                player.stats.base_levels[skill] = 99;
+                player.stats.xp[skill] = 130_344_310;
+            }
+            // Life points live in varp 1240 (bits 1-15): 990.
+            let lp = player.vars.get(1240).as_int();
+            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+        }
+        // The anti-dragon shield worn, as a player fights her: her fire then reaches 120, not
+        // 600, so a swing or two that miss her 1 life point can't let her kill the player first
+        // (which a full run's dice once did: "Oh dear, you are dead!").
+        let shield = id(engine, "obj", "antidragonbreathshield");
+        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&worn)
+            .unwrap()
+            .set(5, shield, 1);
+        let (nid, sx, sz) = npc_near_on(engine, "elvarg", ELVARG.0, ELVARG.1, ELVARG.2);
+        // 1 life point, and defence 1 so an unarmed swing lands: the test is her death's
+        // trigger, not the fight's dice.
+        let stats = &mut engine.get_npc_mut(nid).unwrap().npc.stats.levels;
+        stats[NpcStat::Hitpoints as usize] = 1;
+        stats[NpcStat::Defence as usize] = 1;
+        tele(engine, &mut client, sx, 0, sz);
+        let line = "You cut off Elvarg's head as proof of your victory!";
+        let mut said = Vec::new();
+        for tick in 0..90 {
+            // Attack, and again every 10 ticks in case a swing missed.
+            if tick % 10 == 0 {
+                let mut p = ClientPacket::new();
+                p.p1_alt2(0).p2_alt3(nid as i32);
+                client.send(ClientProt::OpNpc2, &p.finish());
+            }
+            said.extend(messages(engine, &mut client, 1));
+            if said.iter().any(|m| m == line) {
+                break;
+            }
+        }
+        assert!(said.iter().any(|m| m == line), "2011's line: {said:?}");
+        settle(engine, &mut client, 3);
+        assert_eq!(
+            held(engine, &client, "dragon_slayer_qip_elvargs_head"),
+            1,
+            "her head"
+        );
+        assert_eq!(
+            var(engine, &client, "dragonquest"),
+            9,
+            "Oziach ends it, not her death"
+        );
+        assert!(engine.script_errors.take().is_empty(), "no script errors");
+    });
+}

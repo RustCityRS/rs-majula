@@ -1,0 +1,139 @@
+// 243
+[proc,snapshot_highlight_button](component $component0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_int $int5 = 1;
+switch_component ($component0) {
+    case default :
+        ~script675;
+    case snapshot_main_v2:scamming_button_layer :
+        $component2 = snapshot_main_v2:scamming_button_left;
+        $component3 = snapshot_main_v2:scamming_button_mid;
+        $component4 = snapshot_main_v2:scamming_button_right;
+    case snapshot_main_v2:buying_button_layer :
+        $component2 = snapshot_main_v2:buying_button_left;
+        $component3 = snapshot_main_v2:buying_button_mid;
+        $component4 = snapshot_main_v2:buying_button_right;
+    case snapshot_main_v2:encouraging_button_layer :
+        $component2 = snapshot_main_v2:encouraging_button_left;
+        $component3 = snapshot_main_v2:encouraging_button_mid;
+        $component4 = snapshot_main_v2:encouraging_button_right;
+    case snapshot_main_v2:staff_button_layer :
+        $component2 = snapshot_main_v2:staff_button_left;
+        $component3 = snapshot_main_v2:staff_button_mid;
+        $component4 = snapshot_main_v2:staff_button_right;
+    case snapshot_main_v2:bug_button_layer :
+        $component2 = snapshot_main_v2:bug_button_left;
+        $component3 = snapshot_main_v2:bug_button_mid;
+        $component4 = snapshot_main_v2:bug_button_right;
+    case snapshot_main_v2:com_266 :
+        $component2 = snapshot_main_v2:com_267;
+        $component3 = snapshot_main_v2:com_268;
+        $component4 = snapshot_main_v2:com_269;
+    case snapshot_main_v2:com_271 :
+        $component2 = snapshot_main_v2:com_272;
+        $component3 = snapshot_main_v2:com_273;
+        $component4 = snapshot_main_v2:com_274;
+    case snapshot_main_v2:solicitation_button_layer :
+        $component2 = snapshot_main_v2:solicitation_button_left;
+        $component3 = snapshot_main_v2:solicitation_button_mid;
+        $component4 = snapshot_main_v2:solicitation_button_right;
+    case snapshot_main_v2:disruptive_button_layer :
+        $component2 = snapshot_main_v2:disruptive_button_left;
+        $component3 = snapshot_main_v2:disruptive_button_mid;
+        $component4 = snapshot_main_v2:disruptive_button_right;
+    case snapshot_main_v2:name_button_layer :
+        $component2 = snapshot_main_v2:name_button_left;
+        $component3 = snapshot_main_v2:name_button_mid;
+        $component4 = snapshot_main_v2:name_button_right;
+    case snapshot_main_v2:threats_button_layer :
+        $component2 = snapshot_main_v2:threats_button_left;
+        $component3 = snapshot_main_v2:threats_button_mid;
+        $component4 = snapshot_main_v2:threats_button_right;
+    case snapshot_main_v2:com_300 :
+        $component2 = snapshot_main_v2:com_245;
+        $component3 = snapshot_main_v2:com_246;
+        $component4 = snapshot_main_v2:com_247;
+    case snapshot_main_v2:laws_button_layer :
+        $component2 = snapshot_main_v2:laws_button_left;
+        $component3 = snapshot_main_v2:laws_button_mid;
+        $component4 = snapshot_main_v2:laws_button_right;
+    case snapshot_main_v2:websites_button_layer :
+        $component2 = snapshot_main_v2:websites_button_left;
+        $component3 = snapshot_main_v2:websites_button_mid;
+        $component4 = snapshot_main_v2:websites_button_right;
+    case snapshot_main_v2:select_player_button_layer :
+        $component2 = snapshot_main_v2:select_player_button_left;
+        $component3 = snapshot_main_v2:select_player_button_mid;
+        $component4 = snapshot_main_v2:select_player_button_right;
+        $int5 = 0;
+    case snapshot_main_v2:com_76 :
+        $component2 = snapshot_main_v2:com_77;
+        $component3 = snapshot_main_v2:com_78;
+        $component4 = snapshot_main_v2:com_79;
+        $int5 = 0;
+    case snapshot_main_v2:cancel_button_layer :
+        $component2 = snapshot_main_v2:cancel_button_left;
+        $component3 = snapshot_main_v2:cancel_button_mid;
+        $component4 = snapshot_main_v2:cancel_button_right;
+        $int5 = 0;
+    case snapshot_main_v2:name_next_button_layer :
+        $component2 = snapshot_main_v2:name_next_button_left;
+        $component3 = snapshot_main_v2:name_next_button_mid;
+        $component4 = snapshot_main_v2:name_next_button_right;
+        $int5 = 0;
+    case snapshot_main_v2:ignore_yes_button_layer :
+        $component2 = snapshot_main_v2:ignore_yes_button_left;
+        $component3 = snapshot_main_v2:ignore_yes_button_mid;
+        $component4 = snapshot_main_v2:ignore_yes_button_right;
+        $int5 = 0;
+    case snapshot_main_v2:ignore_no_button_layer :
+        $component2 = snapshot_main_v2:ignore_no_button_left;
+        $component3 = snapshot_main_v2:ignore_no_button_mid;
+        $component4 = snapshot_main_v2:ignore_no_button_right;
+        $int5 = 0;
+}
+if ($int1 = 0) {
+    if ($int5 = 1) {
+        if ($component2 ! null) {
+            if_setgraphic($component2, "miscgraphics4,0");
+        }
+        if ($component3 ! null) {
+            if_setgraphic($component3, "miscgraphics4,1");
+        }
+        if ($component4 ! null) {
+            if_setgraphic($component4, "miscgraphics4,2");
+        }
+    } else {
+        if ($component2 ! null) {
+            if_setgraphic($component2, "miscgraphics5,0");
+        }
+        if ($component3 ! null) {
+            if_setgraphic($component3, "miscgraphics5,1");
+        }
+        if ($component4 ! null) {
+            if_setgraphic($component4, "miscgraphics5,2");
+        }
+    }
+} else if ($int5 = 1) {
+    if ($component2 ! null) {
+        if_setgraphic($component2, "miscgraphics4,3");
+    }
+    if ($component3 ! null) {
+        if_setgraphic($component3, "miscgraphics4,4");
+    }
+    if ($component4 ! null) {
+        if_setgraphic($component4, "miscgraphics4,5");
+    }
+} else {
+    if ($component2 ! null) {
+        if_setgraphic($component2, "miscgraphics5,3");
+    }
+    if ($component3 ! null) {
+        if_setgraphic($component3, "miscgraphics5,4");
+    }
+    if ($component4 ! null) {
+        if_setgraphic($component4, "miscgraphics5,5");
+    }
+}

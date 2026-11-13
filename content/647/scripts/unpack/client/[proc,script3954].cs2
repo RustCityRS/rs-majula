@@ -1,0 +1,17 @@
+// 3954
+[proc,script3954](int $int0)(boolean)
+%create_age_last = %create_age;
+if (%create_age < 1) {
+    ~create_error("Please enter your age, in years, here.", account_create:com_36);
+    return(false);
+} else if (%create_age > 120) {
+    ~create_error("Please check the age entered and try again.", account_create:com_36);
+    return(false);
+}
+if_setgraphic(account_create:com_36, "symbols_1,3");
+if_sethide(account_create:com_112, true);
+if_sethide(account_create:information_layer, true);
+if ($int0 = 1) {
+    ~create_focus(6, 1);
+}
+return(true);

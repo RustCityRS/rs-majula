@@ -1,0 +1,33 @@
+// 56
+[clientscript,deathkeep_select_init](component $component0)
+cc_deleteall(deathkeep_select:available_box);
+~aif_gold_frame_2(deathkeep_select:available_box);
+cc_deleteall(deathkeep_select:automatic_box);
+~aif_gold_frame_2(deathkeep_select:automatic_box);
+cc_deleteall(deathkeep_select:com_29);
+cc_create(deathkeep_select:com_29, ^iftype_graphic, if_getnextsubid(deathkeep_select:com_29));
+cc_setsize(40, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settiling(true);
+cc_create(deathkeep_select:com_29, ^iftype_graphic, if_getnextsubid(deathkeep_select:com_29));
+cc_setsize(20, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_create(deathkeep_select:com_29, ^iftype_graphic, if_getnextsubid(deathkeep_select:com_29));
+cc_setsize(20, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_create(deathkeep_select:com_29, ^iftype_text, if_getnextsubid(deathkeep_select:com_29));
+cc_setsize(26, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_settextfont(p11_full);
+cc_setcolour(0x282521);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+def_int $int1 = cc_getid;
+if_setonvartransmit($component0, "deathkeep_select_update($int1){varplayer_1747, varplayer_1737, varplayer_105, recruitmentdrive, kr_varp2, nom_main}");
+if_setoninvtransmit($component0, "deathkeep_select_update($int1){inv, worn}");
+~deathkeep_select_update($int1);
+if_setposition(deathkeep_select:dropdown_container, ~if_getx_absolute(deathkeep_select:com_27), calc(~if_gety_absolute(deathkeep_select:com_27) + if_getheight(deathkeep_select:com_27) - 1), ^setpos_abs_left, ^setpos_abs_top);
+cc_deleteall(deathkeep_select:dropdown_container);
+~script4535(deathkeep_select:dropdown_container);
+~deathkeep_select_dropdown(false);
+if_setonclick(deathkeep_select:com_29, "deathkeep_select_dropdown(true)");
+if_setonclick(deathkeep_select:dropdown_universe, "deathkeep_select_dropdown(false)");

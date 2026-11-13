@@ -1,0 +1,49 @@
+// 466:0
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 466:1
+[king_letter]
+type=model
+x=156
+y=10
+width=203
+height=308
+layer=layer_1
+model=model_3032
+modelorigin=11,0
+modelangle=512,512,0
+modelzoom=860
+
+// 466:2
+[com_2]
+type=model
+x=215
+y=66
+width=79
+height=217
+layer=layer_1
+model=model_18669
+modelorigin=0,-19
+modelangle=512,0,0
+modelzoom=650
+
+// 466:3
+[close]
+type=graphic
+x=297
+y=43
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(elem2_maintenance_scroll:close, "close_buttons,3")
+onmouseleave=graphic_swapper(elem2_maintenance_scroll:close, "close_buttons,2")
+onop=closebutton_click

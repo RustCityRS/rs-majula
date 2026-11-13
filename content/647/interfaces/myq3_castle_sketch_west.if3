@@ -1,0 +1,101 @@
+// 457:0
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 457:1
+[myq3_castle_sketch_01_1_west]
+type=model
+x=51
+y=6
+width=413
+height=323
+layer=layer_1
+model=model_18163
+modelorigin=15,-41
+modelangle=495,0,0
+modelzoom=570
+
+// 457:2
+[myq3_castle_sketch_01_1_1_west]
+type=model
+x=51
+y=58
+width=372
+height=204
+layer=layer_1
+model=model_18159
+modelorigin=35,-34
+modelangle=495,0,0
+modelzoom=570
+
+// 457:3
+[myq3_castle_sketch_01_1_2_west]
+type=model
+x=68
+y=44
+width=243
+height=255
+layer=layer_1
+model=model_18160
+modelorigin=83,-45
+modelangle=495,0,0
+modelzoom=570
+
+// 457:4
+[myq3_castle_sketch_01_1_3_west]
+type=model
+x=102
+y=25
+width=175
+height=280
+layer=layer_1
+model=model_18158
+modelorigin=83,-39
+modelangle=495,0,0
+modelzoom=570
+
+// 457:5
+[myq3_castle_sketch_01_1_4_west]
+type=model
+x=181
+y=10
+width=257
+height=312
+layer=layer_1
+model=model_18161
+modelorigin=-37,-40
+modelangle=495,0,0
+modelzoom=570
+
+// 457:6
+[myq3_castle_sketch_01_1_5_west]
+type=model
+x=181
+y=10
+width=257
+height=312
+layer=layer_1
+model=model_18162
+modelorigin=-37,-40
+modelangle=495,0,0
+modelzoom=570
+
+// 457:7
+[com_7]
+type=graphic
+x=424
+y=14
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

@@ -1,0 +1,12 @@
+// 2860
+[proc,script2860]
+if (%machinima_livecamera_targetmode = 0) {
+    %machinima_livecamera_lookatheight = calc(%machinima_livecamera_lookatheight + 25);
+    if (%machinima_livecamera_lookatheight > %machinima_livecamera_height) {
+        %machinima_livecamera_lookatheight = %machinima_livecamera_height;
+    }
+} else if (%machinima_livecamera_targetmode = 1) {
+    %machinima_livecamera_lookatpositioncoord = movecoord(%machinima_livecamera_lookatpositioncoord, 0, 0, 1);
+} else {
+    cam_inc_x;
+}

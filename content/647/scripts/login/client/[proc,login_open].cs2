@@ -1,0 +1,23 @@
+// 2940
+[proc,login_open](int $int0)
+def_int $int1 = ~login_getreply;
+if ($int1 = -3 | $int1 = 21 | $int1 = 1) {
+    return;
+}
+if_settext(login:username, %varclient_1551);
+if_settext(login:password, ~script2949(%loginscreen_password));
+if (string_length(%varclient_1551) > 0) {
+    %loginscreen_focus = 4;
+} else {
+    %loginscreen_focus = 3;
+}
+if (%loginscreen_focus = 3) {
+    %login_caret = string_length(%varclient_1551);
+    ~script3237(login:username_layer, login:username, login:username_caret, %varclient_1551, 3);
+} else {
+    %login_caret = string_length(~script2949(%loginscreen_password));
+    ~script3237(login:password_layer, login:password, login:password_caret, ~script2949(%loginscreen_password), 4);
+}
+if_sethide(loginscreen:login, false);
+if_sethide(login:main, false);
+~loginscreen_setup_login_text;

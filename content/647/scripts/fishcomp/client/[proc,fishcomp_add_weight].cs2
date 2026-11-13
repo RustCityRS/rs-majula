@@ -1,0 +1,36 @@
+// 267
+[proc,fishcomp_add_weight](int $int0)
+if (~script269 >= 5) {
+    return;
+}
+def_int $intarray0(5);
+$intarray0(0) = %fishcomp_client_weight_1;
+$intarray0(1) = %fishcomp_client_weight_2;
+$intarray0(2) = %fishcomp_client_weight_3;
+$intarray0(3) = %fishcomp_client_weight_4;
+$intarray0(4) = %fishcomp_client_weight_5;
+def_int $intarray1(5);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 3;
+while ($int3 > 0) {
+    if ($int0 = $int3) {
+        $intarray1($int2) = $int0;
+        $int2 = calc($int2 + 1);
+    }
+    $int1 = 0;
+    while ($int1 < 5) {
+        if ($intarray0($int1) = $int3) {
+            $intarray1($int2) = $int3;
+            $int2 = calc($int2 + 1);
+        }
+        $int1 = calc($int1 + 1);
+    }
+    $int3 = calc($int3 - 1);
+}
+%fishcomp_client_weight_1 = $intarray1(0);
+%fishcomp_client_weight_2 = $intarray1(1);
+%fishcomp_client_weight_3 = $intarray1(2);
+%fishcomp_client_weight_4 = $intarray1(3);
+%fishcomp_client_weight_5 = $intarray1(4);
+~fishcomp_refresh;

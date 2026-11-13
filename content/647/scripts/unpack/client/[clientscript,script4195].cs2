@@ -1,0 +1,46 @@
+// 4195
+[clientscript,script4195](component $component0)
+if ($component0 = interface_891:com_49 | $component0 = interface_891:com_50) {
+    if (if_find(interface_891:com_61) = true) {
+        cc_sethide(false);
+    }
+    if (if_find(interface_891:com_49) = true) {
+        cc_setgraphic(green_over);
+    }
+    if (if_find(interface_891:com_50) = true) {
+        cc_setgraphic(green_over);
+    }
+}
+if ($component0 = interface_891:com_51 | $component0 = interface_891:com_53) {
+    if (if_find(interface_891:com_62) = true) {
+        cc_sethide(false);
+    }
+    if (if_find(interface_891:com_51) = true) {
+        cc_setgraphic(green_over);
+    }
+    if (if_find(interface_891:com_53) = true) {
+        cc_setgraphic(green_over);
+    }
+}
+if ($component0 = interface_891:com_52) {
+    if (if_find(interface_891:com_63) = true) {
+        cc_sethide(false);
+    }
+    if (if_find(interface_891:com_52) = true) {
+        cc_setgraphic(green_over);
+    }
+    if (if_find(interface_891:com_53) = true) {
+        cc_setgraphic(green_over);
+    }
+}
+if ($component0 = interface_891:com_54 | $component0 = interface_891:com_55) {
+    if (if_find(interface_891:com_64) = true) {
+        cc_sethide(false);
+    }
+    if (if_find(interface_891:com_54) = true) {
+        cc_setgraphic(green_over);
+    }
+    if (if_find(interface_891:com_55) = true) {
+        cc_setgraphic(green_over);
+    }
+}

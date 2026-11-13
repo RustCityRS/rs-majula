@@ -1,0 +1,146 @@
+// 599:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=175
+
+// 599:1
+[killcounts]
+type=layer
+x=10
+y=10
+width=100
+height=75
+xmode=abs_right
+onload=godwars_overlay_init(event_com, godwars_overlay_darkness1:title, godwars_overlay_darkness1:armadyl, godwars_overlay_darkness1:bandos, godwars_overlay_darkness1:saradomin, godwars_overlay_darkness1:zamorak, godwars_overlay_darkness1:armadyl_total, godwars_overlay_darkness1:bandos_total, godwars_overlay_darkness1:saradomin_total, godwars_overlay_darkness1:zamorak_total, godwars_overlay_darkness1:saradomin_total, godwars_overlay_darkness1:saradomin_total)
+
+// 599:2
+[title]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=killcounts
+textfont=p11_full
+text=Killcounts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 599:3
+[armadyl]
+type=text
+y=15
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=killcounts
+textfont=p11_full
+text=Armadyl kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 599:4
+[bandos]
+type=text
+y=30
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=killcounts
+textfont=p11_full
+text=Bandos kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 599:5
+[saradomin]
+type=text
+y=45
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=killcounts
+textfont=p11_full
+text=Saradomin kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 599:6
+[zamorak]
+type=text
+y=60
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=killcounts
+textfont=p11_full
+text=Zamorak kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 599:7
+[armadyl_total]
+type=text
+y=15
+height=15
+widthmode=minus
+xmode=abs_right
+layer=killcounts
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 599:8
+[bandos_total]
+type=text
+y=30
+height=15
+widthmode=minus
+xmode=abs_right
+layer=killcounts
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 599:9
+[saradomin_total]
+type=text
+y=45
+height=15
+widthmode=minus
+xmode=abs_right
+layer=killcounts
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 599:10
+[zamorak_total]
+type=text
+y=60
+height=15
+widthmode=minus
+xmode=abs_right
+layer=killcounts
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff

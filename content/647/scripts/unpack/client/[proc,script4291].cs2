@@ -1,0 +1,48 @@
+// 4291
+[proc,script4291]
+if_setonclansettingstransmit(clansettings:list_name_layer, "clansettings_list_build");
+if_setonvarctransmit(clansettings:list_name_layer, "clansettings_list_build{clansettings_clanmate_filter_rank_plus_1}");
+if_setontimer(clansettings:clanmate_settings_layer, "script4319(0, 1)");
+if_setonclansettingstransmit(clansettings:clanmate_settings_layer, "clansettings_interface_refresh");
+if_setonclanchanneltransmit(clansettings:clanmate_settings_layer, "clansettings_interface_refresh");
+if_setonvarctransmit(clansettings:clanmate_settings_layer, "script118{clansettings_clanmate_settings_rank, clansettings_clanmate_settings_job, clansettings_clanmate_settings_recruiter, clansettings_clanmate_settings_clanwars_leader}");
+if_setonvarcstrtransmit(clansettings:clanmate_settings_layer, "script118{clansettings_clanmate_settings_name}");
+switch_int (map_lang) {
+    case 1 :
+        ~aif_dropdownbox_setup(enum_3727, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
+    case 2 :
+        ~aif_dropdownbox_setup(enum_3728, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
+    case 3 :
+        ~aif_dropdownbox_setup(enum_3729, 1, "", enum_getoutputcount(enum_3727), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
+    case default :
+        ~aif_dropdownbox_setup(enum_3720, 1, "", enum_getoutputcount(enum_3720), 10, clansettings:com_247, clansettings:com_257, clansettings:com_259, clansettings:com_258, clansettings:com_350);
+}
+~script4328(clansettings:clan_flag_graphic);
+if_settext(clansettings:com_50, activeclansettings_getclanname);
+if_setsize(clansettings:clanmate_settings_layer, if_getwidth(clansettings:clanmate_settings_layer), 115, ^setsize_abs, ^setsize_abs);
+if_sethide(clansettings:clan_data_waiting, true);
+if_sethide(clansettings:com_72, false);
+def_component $component0 = clansettings:rectangle_layer;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 218;
+def_int $int5 = 23;
+while ($int1 < 500) {
+    if (calc($int1 % 2) ! 0) {
+        $int2 = $int4;
+    } else {
+        $int2 = 0;
+    }
+    $int3 = calc($int1 / 2 * $int5);
+    cc_create($component0, ^iftype_rectangle, $int1);
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(16384 / 2), $int5, ^setsize_rel, ^setsize_abs);
+    cc_setfill(true);
+    if (calc($int1 / 2 % 2) ! 0) {
+        cc_setcolour(0x232220);
+    } else {
+        cc_setcolour(0x1c1b19);
+    }
+    $int1 = calc($int1 + 1);
+}

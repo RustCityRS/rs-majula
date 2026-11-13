@@ -1,0 +1,12 @@
+// 2188
+[proc,script2188](int $int0)(int)
+switch_int ($int0) {
+    case 5 :
+        return(%fishcomp_reward_bait_amount_1);
+    case 6 :
+        return(%fishcomp_reward_bait_amount_2);
+    case 7 :
+        return(%fishcomp_reward_bait_amount_3);
+    case default :
+        return(1);
+}

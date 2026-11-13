@@ -1,0 +1,12 @@
+// 666
+[clientscript,script666](int $int0, component $component1, int $int2)
+def_int $int3 = 0;
+if (cc_find($component1, $int2) = true) {
+    $int3 = calc($int0 - clientclock);
+    if ($int3 <= 0) {
+        cc_settrans(0);
+        cc_setontimer(null);
+        return;
+    }
+    cc_settrans(max(calc(cc_gettrans - cc_gettrans / $int3), 1));
+}

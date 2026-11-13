@@ -1,0 +1,12 @@
+// 3369
+[clientscript,script3369](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+def_int $int3 = 0;
+if ($int2 > 70) {
+    if_sethide(toplevel:xpsplat, true);
+    if_setontimer(toplevel:xpbaselayer, null);
+    return;
+}
+$int3 = min(70, calc($int2 * 2));
+if_setposition(toplevel:xpsplat, 7, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(toplevel:xpsplat, false);

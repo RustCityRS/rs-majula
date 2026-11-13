@@ -1,0 +1,9 @@
+// 1820
+[proc,clanwars_setup_clicktest](int $int0)(boolean)
+if (%clanwars_challengeuid = -1) {
+    return(false);
+}
+if ($int0 ! 1) {
+    return(false);
+}
+return(true);

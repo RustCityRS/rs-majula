@@ -1,0 +1,12 @@
+#testscript
+
+// 289's ~dropslot (player/scripts/drop.rs2) refuses a drop in Fishing
+// Trawler's wreck (trawler_wreck_zones).
+[label,test_player_port_no_dropping_in_the_trawler_wreck]
+setup_player("test_player");
+inv_clear(inv);
+p_telejump(0_30_75_32_32);
+inv_add(inv, bronze_sword, 1);
+~dropslot(0);
+assert_eq(inv_total(inv, bronze_sword), 1);
+assert_called_with("mes", "It would be seriously unwise for you to drop your items in the sea.");

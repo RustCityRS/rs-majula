@@ -1,104 +1,237 @@
-use crate::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
-use crate::network::game::client::anticheat_cyclelogic2::AnticheatCycleLogic2;
-use crate::network::game::client::anticheat_cyclelogic3::AnticheatCycleLogic3;
-use crate::network::game::client::anticheat_cyclelogic4::AnticheatCycleLogic4;
-use crate::network::game::client::anticheat_cyclelogic5::AnticheatCycleLogic5;
-use crate::network::game::client::anticheat_cyclelogic6::AnticheatCycleLogic6;
+use crate::network::game::client::ClientProtMessage;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_cyclelogic1::AnticheatCycleLogic1;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_cyclelogic2::AnticheatCycleLogic2;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_cyclelogic3::AnticheatCycleLogic3;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_cyclelogic4::AnticheatCycleLogic4;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_cyclelogic5::AnticheatCycleLogic5;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_cyclelogic6::AnticheatCycleLogic6;
+#[cfg(all(since_254, before_647))]
+pub use crate::network::game::client::anticheat_cyclelogic7::AnticheatCycleLogic7;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic1::AnticheatOpLogic1;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic2::AnticheatOpLogic2;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic3::AnticheatOpLogic3;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic4::AnticheatOpLogic4;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic5::AnticheatOpLogic5;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic6::AnticheatOpLogic6;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic7::AnticheatOpLogic7;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic8::AnticheatOpLogic8;
+#[cfg(before_647)]
+pub use crate::network::game::client::anticheat_oplogic9::AnticheatOpLogic9;
+#[cfg(since_647)]
+pub use crate::network::game::client::apcoordt::ApCoordT;
+pub use crate::network::game::client::chat_setmode::ChatSetMode;
+#[cfg(since_647)]
+pub use crate::network::game::client::clan_joinchat_leavechat::ClanJoinchatLeavechat;
+#[cfg(since_647)]
+pub use crate::network::game::client::clan_kickuser::ClanKickUser;
+#[cfg(since_647)]
+pub use crate::network::game::client::clanchannel_kickuser::ClanchannelKickUser;
+#[cfg(since_647)]
+pub use crate::network::game::client::click_world_map::ClickWorldMap;
+pub use crate::network::game::client::client_cheat::ClientCheat;
+#[cfg(since_647)]
+pub use crate::network::game::client::client_detailoptions_status::ClientDetailoptionsStatus;
+pub use crate::network::game::client::close_modal::CloseModal;
+#[cfg(since_647)]
+pub use crate::network::game::client::create_check_name::CreateCheckName;
 #[cfg(since_254)]
-use crate::network::game::client::anticheat_cyclelogic7::AnticheatCycleLogic7;
-use crate::network::game::client::anticheat_oplogic1::AnticheatOpLogic1;
-use crate::network::game::client::anticheat_oplogic2::AnticheatOpLogic2;
-use crate::network::game::client::anticheat_oplogic3::AnticheatOpLogic3;
-use crate::network::game::client::anticheat_oplogic4::AnticheatOpLogic4;
-use crate::network::game::client::anticheat_oplogic5::AnticheatOpLogic5;
-use crate::network::game::client::anticheat_oplogic6::AnticheatOpLogic6;
-use crate::network::game::client::anticheat_oplogic7::AnticheatOpLogic7;
-use crate::network::game::client::anticheat_oplogic8::AnticheatOpLogic8;
-use crate::network::game::client::anticheat_oplogic9::AnticheatOpLogic9;
-use crate::network::game::client::chat_setmode::ChatSetMode;
-use crate::network::game::client::client_cheat::ClientCheat;
-use crate::network::game::client::close_modal::CloseModal;
-#[cfg(since_254)]
-use crate::network::game::client::event_applet_focus::EventAppletFocus;
+pub use crate::network::game::client::event_applet_focus::EventAppletFocus;
 #[cfg(any(rev = "225", since_254))]
-use crate::network::game::client::event_camera_position::EventCameraPosition;
+pub use crate::network::game::client::event_camera_position::EventCameraPosition;
+#[cfg(since_647)]
+pub use crate::network::game::client::event_keyboard::EventKeyboard;
 #[cfg(since_254)]
-use crate::network::game::client::event_mouse_click::EventMouseClick;
+pub use crate::network::game::client::event_mouse_click::EventMouseClick;
 #[cfg(since_254)]
-use crate::network::game::client::event_mouse_move::EventMouseMove;
+pub use crate::network::game::client::event_mouse_move::EventMouseMove;
 #[cfg(before_274)]
-use crate::network::game::client::event_tracking::EventTracking;
-use crate::network::game::client::friendlist_add::FriendListAdd;
-use crate::network::game::client::friendlist_del::FriendListDel;
-use crate::network::game::client::idk_savedesign::IdkSaveDesign;
-use crate::network::game::client::idle_timer::IdleTimer;
-use crate::network::game::client::if_button::IfButton;
-use crate::network::game::client::ignorelist_add::IgnoreListAdd;
-use crate::network::game::client::ignorelist_del::IgnoreListDel;
-use crate::network::game::client::inv_button1::InvButton1;
-use crate::network::game::client::inv_button2::InvButton2;
-use crate::network::game::client::inv_button3::InvButton3;
-use crate::network::game::client::inv_button4::InvButton4;
-use crate::network::game::client::inv_button5::InvButton5;
-use crate::network::game::client::inv_buttond::InvButtonD;
+pub use crate::network::game::client::event_tracking::EventTracking;
+#[cfg(since_647)]
+pub use crate::network::game::client::face_square::FaceSquare;
+#[cfg(since_647)]
+pub use crate::network::game::client::friend_setrank::FriendSetRank;
+pub use crate::network::game::client::friendlist_add::FriendListAdd;
+pub use crate::network::game::client::friendlist_del::FriendListDel;
+#[cfg(before_647)]
+pub use crate::network::game::client::idk_savedesign::IdkSaveDesign;
+#[cfg(before_647)]
+pub use crate::network::game::client::idle_timer::IdleTimer;
+#[cfg(before_647)]
+pub use crate::network::game::client::if_button::IfButton;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button1::IfButton1;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button2::IfButton2;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button3::IfButton3;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button4::IfButton4;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button5::IfButton5;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button6::IfButton6;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button7::IfButton7;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button8::IfButton8;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button9::IfButton9;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_button10::IfButton10;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_buttond::IfButtonD;
+#[cfg(since_647)]
+pub use crate::network::game::client::if_buttont::IfButtonT;
+pub use crate::network::game::client::ignorelist_add::IgnoreListAdd;
+pub use crate::network::game::client::ignorelist_del::IgnoreListDel;
+#[cfg(before_647)]
+pub use crate::network::game::client::inv_button1::InvButton1;
+#[cfg(before_647)]
+pub use crate::network::game::client::inv_button2::InvButton2;
+#[cfg(before_647)]
+pub use crate::network::game::client::inv_button3::InvButton3;
+#[cfg(before_647)]
+pub use crate::network::game::client::inv_button4::InvButton4;
+#[cfg(before_647)]
+pub use crate::network::game::client::inv_button5::InvButton5;
+#[cfg(before_647)]
+pub use crate::network::game::client::inv_buttond::InvButtonD;
 #[cfg(since_254)]
-use crate::network::game::client::map_build_complete::MapBuildComplete;
-use crate::network::game::client::message_private::MessagePrivate;
-use crate::network::game::client::message_public::MessagePublic;
-use crate::network::game::client::move_gameclick::MoveGameClick;
-use crate::network::game::client::move_minimapclick::MoveMinimapClick;
-use crate::network::game::client::move_opclick::MoveOpClick;
-use crate::network::game::client::no_timeout::NoTimeout;
-use crate::network::game::client::opheld1::OpHeld1;
-use crate::network::game::client::opheld2::OpHeld2;
-use crate::network::game::client::opheld3::OpHeld3;
-use crate::network::game::client::opheld4::OpHeld4;
-use crate::network::game::client::opheld5::OpHeld5;
-use crate::network::game::client::opheldt::OpHeldT;
-use crate::network::game::client::opheldu::OpHeldU;
-use crate::network::game::client::oploc1::OpLoc1;
-use crate::network::game::client::oploc2::OpLoc2;
-use crate::network::game::client::oploc3::OpLoc3;
-use crate::network::game::client::oploc4::OpLoc4;
-use crate::network::game::client::oploc5::OpLoc5;
-use crate::network::game::client::oploct::OpLocT;
-use crate::network::game::client::oplocu::OpLocU;
-use crate::network::game::client::opnpc1::OpNpc1;
-use crate::network::game::client::opnpc2::OpNpc2;
-use crate::network::game::client::opnpc3::OpNpc3;
-use crate::network::game::client::opnpc4::OpNpc4;
-use crate::network::game::client::opnpc5::OpNpc5;
-use crate::network::game::client::opnpct::OpNpcT;
-use crate::network::game::client::opnpcu::OpNpcU;
-use crate::network::game::client::opobj1::OpObj1;
-use crate::network::game::client::opobj2::OpObj2;
-use crate::network::game::client::opobj3::OpObj3;
-use crate::network::game::client::opobj4::OpObj4;
-use crate::network::game::client::opobj5::OpObj5;
-use crate::network::game::client::opobjt::OpObjT;
-use crate::network::game::client::opobju::OpObjU;
-use crate::network::game::client::opplayer1::OpPlayer1;
-use crate::network::game::client::opplayer2::OpPlayer2;
-use crate::network::game::client::opplayer3::OpPlayer3;
-use crate::network::game::client::opplayer4::OpPlayer4;
+pub use crate::network::game::client::map_build_complete::MapBuildComplete;
+#[cfg(since_647)]
+pub use crate::network::game::client::map_build_loading::MapBuildLoading;
+pub use crate::network::game::client::message_private::MessagePrivate;
+pub use crate::network::game::client::message_public::MessagePublic;
+#[cfg(since_647)]
+pub use crate::network::game::client::message_quickchat_private::MessageQuickchatPrivate;
+#[cfg(since_647)]
+pub use crate::network::game::client::message_quickchat_public::MessageQuickchatPublic;
+pub use crate::network::game::client::move_gameclick::MoveGameClick;
+pub use crate::network::game::client::move_minimapclick::MoveMinimapClick;
+#[cfg(before_647)]
+pub use crate::network::game::client::move_opclick::MoveOpClick;
+pub use crate::network::game::client::no_timeout::NoTimeout;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheld1::OpHeld1;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheld2::OpHeld2;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheld3::OpHeld3;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheld4::OpHeld4;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheld5::OpHeld5;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheldt::OpHeldT;
+#[cfg(before_647)]
+pub use crate::network::game::client::opheldu::OpHeldU;
+pub use crate::network::game::client::oploc1::OpLoc1;
+pub use crate::network::game::client::oploc2::OpLoc2;
+pub use crate::network::game::client::oploc3::OpLoc3;
+pub use crate::network::game::client::oploc4::OpLoc4;
+pub use crate::network::game::client::oploc5::OpLoc5;
+#[cfg(since_647)]
+pub use crate::network::game::client::oploc6::OpLoc6;
+pub use crate::network::game::client::oploct::OpLocT;
+#[cfg(before_647)]
+pub use crate::network::game::client::oplocu::OpLocU;
+pub use crate::network::game::client::opnpc1::OpNpc1;
+pub use crate::network::game::client::opnpc2::OpNpc2;
+pub use crate::network::game::client::opnpc3::OpNpc3;
+pub use crate::network::game::client::opnpc4::OpNpc4;
+pub use crate::network::game::client::opnpc5::OpNpc5;
+#[cfg(since_647)]
+pub use crate::network::game::client::opnpc6::OpNpc6;
+pub use crate::network::game::client::opnpct::OpNpcT;
+#[cfg(before_647)]
+pub use crate::network::game::client::opnpcu::OpNpcU;
+pub use crate::network::game::client::opobj1::OpObj1;
+pub use crate::network::game::client::opobj2::OpObj2;
+pub use crate::network::game::client::opobj3::OpObj3;
+pub use crate::network::game::client::opobj4::OpObj4;
+pub use crate::network::game::client::opobj5::OpObj5;
+#[cfg(since_647)]
+pub use crate::network::game::client::opobj6::OpObj6;
+pub use crate::network::game::client::opobjt::OpObjT;
+#[cfg(before_647)]
+pub use crate::network::game::client::opobju::OpObjU;
+pub use crate::network::game::client::opplayer1::OpPlayer1;
+pub use crate::network::game::client::opplayer2::OpPlayer2;
+pub use crate::network::game::client::opplayer3::OpPlayer3;
+pub use crate::network::game::client::opplayer4::OpPlayer4;
 #[cfg(since_254)]
-use crate::network::game::client::opplayer5::OpPlayer5;
-use crate::network::game::client::opplayert::OpPlayerT;
-use crate::network::game::client::opplayeru::OpPlayerU;
+pub use crate::network::game::client::opplayer5::OpPlayer5;
+#[cfg(since_647)]
+pub use crate::network::game::client::opplayer6::OpPlayer6;
+#[cfg(since_647)]
+pub use crate::network::game::client::opplayer7::OpPlayer7;
+#[cfg(since_647)]
+pub use crate::network::game::client::opplayer8::OpPlayer8;
+#[cfg(since_647)]
+pub use crate::network::game::client::opplayer9::OpPlayer9;
+#[cfg(since_647)]
+pub use crate::network::game::client::opplayer10::OpPlayer10;
+pub use crate::network::game::client::opplayert::OpPlayerT;
+#[cfg(before_647)]
+pub use crate::network::game::client::opplayeru::OpPlayerU;
 #[cfg(rev = "225")]
-use crate::network::game::client::rebuild_get_maps::RebuildGetMaps;
-use crate::network::game::client::resume_p_countdialog::ResumePCountDialog;
-use crate::network::game::client::resume_pause_button::ResumePauseButton;
-use crate::network::game::client::send_snapshot::SendSnapshot;
-use crate::network::game::client::tut_clickside::TutClickSide;
+pub use crate::network::game::client::rebuild_get_maps::RebuildGetMaps;
+#[cfg(since_647)]
+pub use crate::network::game::client::reflection_check_reply::ReflectionCheckReply;
+#[cfg(since_647)]
+pub use crate::network::game::client::resume_p_clanforumqfcdialog::ResumePClanforumqfcDialog;
+pub use crate::network::game::client::resume_p_countdialog::ResumePCountDialog;
+#[cfg(since_647)]
+pub use crate::network::game::client::resume_p_hsldialog::ResumePHslDialog;
+#[cfg(since_647)]
+pub use crate::network::game::client::resume_p_namedialog::ResumePNameDialog;
+#[cfg(since_647)]
+pub use crate::network::game::client::resume_p_objdialog::ResumePObjDialog;
+#[cfg(since_647)]
+pub use crate::network::game::client::resume_p_stringdialog::ResumePStringDialog;
+pub use crate::network::game::client::resume_pause_button::ResumePauseButton;
+pub use crate::network::game::client::send_snapshot::SendSnapshot;
+#[cfg(since_647)]
+pub use crate::network::game::client::set_chatfiltersettings::SetChatfiltersettings;
+#[cfg(since_647)]
+pub use crate::network::game::client::sound_song_preloaded::SoundSongPreloaded;
+#[cfg(since_647)]
+pub use crate::network::game::client::transmitvar_verifyid::TransmitvarVerifyId;
+#[cfg(before_647)]
+pub use crate::network::game::client::tut_clickside::TutClickSide;
+#[cfg(since_647)]
+pub use crate::network::game::client::url_request::UrlRequest;
+#[cfg(since_647)]
+pub use crate::network::game::client::video_end::VideoEnd;
+#[cfg(since_647)]
+pub use crate::network::game::client::window_status::WindowStatus;
+#[cfg(since_647)]
+pub use crate::network::game::client::world_latency::WorldLatency;
+#[cfg(since_647)]
+pub use crate::network::game::client::worldlist_fetch::WorldlistFetch;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
+use rs_io::Packet;
 
 macro_rules! client_prot {
     ( $( $variant:ident = $id:expr ),* $(,)? ) => {
         #[repr(u8)]
-        #[derive(Debug)]
+        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         pub enum ClientProt {
             $( $variant = $id, )*
         }
@@ -115,7 +248,14 @@ macro_rules! client_prot {
         }
 
         impl ClientProt {
+            /// Every opcode this revision defines.
             pub const ALL: &'static [ClientProt] = &[ $( ClientProt::$variant, )* ];
+
+            pub fn validate(&self, data: &[u8]) -> bool {
+                match self {
+                    $( ClientProt::$variant => <$variant>::validate(data), )*
+                }
+            }
 
             pub fn info(&self) -> ClientProtInfo {
                 match self {
@@ -123,6 +263,17 @@ macro_rules! client_prot {
                         frame: <$variant>::FRAME,
                         category: <$variant>::CATEGORY,
                     }, )*
+                }
+            }
+
+            /// Returns the bytes consumed when decoding a validated payload.
+            pub fn decoded_len(&self, data: &[u8], len: usize) -> usize {
+                match self {
+                    $( ClientProt::$variant => {
+                        let mut packet = Packet::from(data.to_vec());
+                        let _ = <$variant as ClientProtMessage>::decode(&mut packet, len);
+                        packet.pos
+                    } )*
                 }
             }
         }
@@ -628,6 +779,101 @@ client_prot! {
     OpNpc1 = 252, // NXT naming
     InvButtonD = 253, // NXT has "IF_BUTTOND" but our interface system differs
     AnticheatCycleLogic6 = 255,
+}
+
+#[cfg(rev = "647")]
+client_prot! {
+    NoTimeout = 0,
+    EventAppletFocus = 1,
+    OpObj6 = 2,
+    SendSnapshot = 3,
+    FriendListDel = 4,
+    FaceSquare = 5,
+    IfButtonT = 6,
+    OpLoc1 = 7,
+    OpPlayer10 = 8,
+    OpPlayer9 = 9,
+    SetChatfiltersettings = 10,
+    OpPlayer6 = 11,
+    ResumePHslDialog = 12,
+    MapBuildLoading = 13,
+    ClientCheat = 14,
+    OpPlayerT = 15,
+    IfButton1 = 16,
+    OpObj5 = 17,
+    ClanKickUser = 18,
+    IfButton8 = 19,
+    OpPlayer5 = 20,
+    ResumePStringDialog = 21,
+    OpPlayer4 = 22,
+    VideoEnd = 23,
+    EventCameraPosition = 24,
+    IfButton9 = 25,
+    OpNpc3 = 26,
+    UrlRequest = 27,
+    ResumePClanforumqfcDialog = 28,
+    OpNpc6 = 29,
+    OpPlayer3 = 30,
+    OpLoc6 = 31,
+    MessagePrivate = 32,
+    ClanJoinchatLeavechat = 33,
+    IfButton6 = 34,
+    ResumePCountDialog = 35,
+    OpLoc3 = 36,
+    IfButtonD = 37,
+    MessagePublic = 38,
+    MoveMinimapClick = 39,
+    EventMouseMove = 40,
+    OpLoc2 = 41,
+    CloseModal = 42,
+    ResumePauseButton = 43,
+    OpObj4 = 44,
+    WorldlistFetch = 45,
+    OpLocT = 46,
+    OpObjT = 47,
+    OpLoc5 = 48,
+    CreateCheckName = 49,
+    ResumePObjDialog = 50,
+    MessageQuickchatPrivate = 51,
+    IfButton2 = 52,
+    WorldLatency = 53,
+    MessageQuickchatPublic = 54,
+    IfButton10 = 55,
+    IfButton3 = 56,
+    ClientDetailoptionsStatus = 57,
+    EventMouseClick = 58,
+    SoundSongPreloaded = 59,
+    ClickWorldMap = 60,
+    ChatSetMode = 61,
+    OpLoc4 = 62,
+    ResumePNameDialog = 63,
+    OpPlayer7 = 64,
+    OpObj3 = 65,
+    OpNpcT = 66,
+    OpObj2 = 67,
+    MapBuildComplete = 68,
+    WindowStatus = 69,
+    OpPlayer8 = 70,
+    OpNpc2 = 71,
+    OpPlayer2 = 72,
+    OpObj1 = 73,
+    ApCoordT = 74,
+    OpPlayer1 = 75,
+    IgnoreListDel = 76,
+    FriendSetRank = 77,
+    IfButton7 = 78,
+    OpNpc5 = 79,
+    IfButton4 = 80,
+    FriendListAdd = 81,
+    OpNpc4 = 82,
+    IfButton5 = 83,
+    MoveGameClick = 84,
+    IgnoreListAdd = 85,
+    OpNpc1 = 86,
+    EventKeyboard = 87,
+    ClanchannelKickUser = 88,
+    TransmitvarVerifyId = 89,
+    ReflectionCheckReply = 90,
 }
 
 pub struct ClientProtInfo {

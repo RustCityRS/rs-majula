@@ -1,0 +1,8 @@
+// 1508
+[clientscript,player_kit_feet_colourbutton](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+basecolour(3, $int1);
+%playerdesign3_feetcol = $int1;
+~player_kit_feet_redraw;

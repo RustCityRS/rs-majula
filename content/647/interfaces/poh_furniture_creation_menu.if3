@@ -1,0 +1,844 @@
+// 397:0
+[window]
+type=layer
+width=512
+height=334
+
+// 397:1
+[background]
+type=graphic
+x=30
+y=21
+width=62
+height=32
+widthmode=minus
+heightmode=minus
+layer=window
+graphic=tradebacking
+tiling=yes
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 397:2
+[border_layer]
+type=layer
+width=512
+height=334
+layer=window
+
+// 397:3
+[com_3]
+type=graphic
+x=17
+y=52
+width=32
+height=241
+layer=border_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:4
+[com_4]
+type=graphic
+x=462
+y=52
+width=32
+height=241
+layer=border_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:5
+[com_5]
+type=graphic
+x=61
+y=21
+width=390
+height=32
+layer=border_layer
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:6
+[com_6]
+type=graphic
+x=61
+y=304
+width=390
+height=32
+layer=border_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:7
+[com_7]
+type=graphic
+x=30
+y=292
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:8
+[com_8]
+type=graphic
+x=450
+y=21
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:9
+[com_9]
+type=graphic
+x=450
+y=292
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:10
+[com_10]
+type=graphic
+x=30
+y=21
+width=32
+height=32
+layer=border_layer
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 397:11
+[poh_furnituremenu]
+type=layer
+x=127
+y=80
+width=250
+height=222
+
+// 397:12
+[com_12]
+type=model
+x=16
+y=73
+width=32
+height=57
+layer=poh_furnituremenu
+model=model_12409
+modelorigin=2,25
+modelangle=202,385,0
+modelzoom=2075
+
+// 397:13
+[com_13]
+type=model
+x=19
+y=13
+width=38
+height=54
+layer=poh_furnituremenu
+model=model_12444
+modelorigin=-3,22
+modelangle=79,1841,0
+modelzoom=1643
+
+// 397:14
+[com_14]
+type=model
+x=13
+y=135
+width=36
+height=57
+layer=poh_furnituremenu
+model=model_12384
+modelorigin=-1,19
+modelangle=174,1852,0
+modelzoom=2282
+
+// 397:15
+[com_15]
+type=model
+x=6
+y=205
+width=63
+height=38
+layer=poh_furnituremenu
+model=model_12492
+modelorigin=1,8
+modelangle=117,1123,0
+modelzoom=2626
+
+// 397:16
+[com_16]
+type=model
+x=4
+y=265
+width=69
+height=40
+layer=poh_furnituremenu
+model=model_12457
+modelorigin=2,6
+modelangle=106,714,0
+modelzoom=2985
+
+// 397:17
+[com_17]
+type=model
+x=12
+y=317
+width=37
+height=49
+layer=poh_furnituremenu
+model=model_12405
+modelorigin=3,19
+modelangle=152,1827,0
+modelzoom=1842
+
+// 397:18
+[com_18]
+type=model
+x=7
+y=377
+width=59
+height=54
+layer=poh_furnituremenu
+model=model_12393
+modelorigin=-1,17
+modelangle=100,1831,0
+modelzoom=3000
+
+// 397:19
+[com_19]
+type=model
+x=9
+y=439
+width=55
+height=49
+layer=poh_furnituremenu
+model=model_12466
+modelorigin=0,15
+modelangle=151,1869,0
+modelzoom=2168
+
+// 397:20
+[com_20]
+type=model
+x=19
+y=496
+width=29
+height=51
+layer=poh_furnituremenu
+model=model_11125
+modelorigin=2,23
+modelangle=127,1831,0
+modelzoom=2401
+
+// 397:21
+[com_21]
+type=model
+x=22
+y=552
+width=21
+height=56
+layer=poh_furnituremenu
+model=model_12972
+modelorigin=0,23
+modelangle=152,1937,0
+modelzoom=2211
+
+// 397:22
+[com_22]
+type=model
+x=14
+y=617
+width=36
+height=48
+layer=poh_furnituremenu
+model=model_19002
+modelorigin=0,23
+modelangle=24,1808,0
+modelzoom=2211
+
+// 397:23
+[com_23]
+type=model
+x=17
+y=738
+width=26
+height=47
+layer=poh_furnituremenu
+model=model_18994
+modelorigin=2,22
+modelangle=86,292,0
+modelzoom=2677
+
+// 397:24
+[com_24]
+type=model
+x=8
+y=813
+width=49
+height=28
+layer=poh_furnituremenu
+model=model_19041
+modelorigin=0,7
+modelangle=106,1898,0
+modelzoom=2677
+
+// 397:25
+[com_25]
+type=model
+x=9
+y=864
+width=42
+height=36
+layer=poh_furnituremenu
+model=model_19011
+modelorigin=-4,10
+modelangle=111,1933,0
+modelzoom=2277
+
+// 397:26
+[com_26]
+type=model
+x=9
+y=922
+width=46
+height=41
+layer=poh_furnituremenu
+model=model_19032
+modelorigin=-1,15
+modelangle=111,1933,0
+modelzoom=2277
+
+// 397:27
+[com_27]
+type=model
+x=14
+y=682
+width=42
+height=44
+layer=poh_furnituremenu
+model=model_19023
+modelorigin=2,18
+modelangle=62,238,0
+modelzoom=2977
+
+// 397:28
+[com_28]
+type=rectangle
+x=125
+y=80
+width=267
+height=222
+colour=0x333333
+
+// 397:29
+[com_29]
+type=text
+x=78
+y=33
+width=159
+height=15
+layer=poh_furnituremenu
+textfont=p12_full
+text=Armchairs
+textshadow=yes
+colour=0xccccff
+
+// 397:30
+[com_30]
+type=text
+x=78
+y=93
+width=159
+height=17
+layer=poh_furnituremenu
+textfont=p12_full
+text=Bookcases
+textshadow=yes
+colour=0xccccff
+
+// 397:31
+[com_31]
+type=text
+x=78
+y=154
+width=159
+height=15
+layer=poh_furnituremenu
+textfont=p12_full
+text=Beer Barrels
+textshadow=yes
+colour=0xccccff
+
+// 397:32
+[com_32]
+type=text
+x=78
+y=214
+width=159
+height=16
+layer=poh_furnituremenu
+textfont=p12_full
+text=Kitchen Tables
+textshadow=yes
+colour=0xccccff
+
+// 397:33
+[com_33]
+type=text
+x=78
+y=274
+width=159
+height=19
+layer=poh_furnituremenu
+textfont=p12_full
+text=Dining Tables
+textshadow=yes
+colour=0xccccff
+
+// 397:34
+[com_34]
+type=text
+x=78
+y=334
+width=160
+height=17
+layer=poh_furnituremenu
+textfont=p12_full
+text=Dining Benches
+textshadow=yes
+colour=0xccccff
+
+// 397:35
+[com_35]
+type=text
+x=78
+y=394
+width=159
+height=17
+layer=poh_furnituremenu
+textfont=p12_full
+text=Beds
+textshadow=yes
+colour=0xccccff
+
+// 397:36
+[com_36]
+type=text
+x=78
+y=454
+width=160
+height=18
+layer=poh_furnituremenu
+textfont=p12_full
+text=Dressers
+textshadow=yes
+colour=0xccccff
+
+// 397:37
+[com_37]
+type=text
+x=78
+y=513
+width=160
+height=16
+layer=poh_furnituremenu
+textfont=p12_full
+text=Wardrobes
+textshadow=yes
+colour=0xccccff
+
+// 397:38
+[com_38]
+type=text
+x=78
+y=575
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Clocks
+textshadow=yes
+colour=0xccccff
+
+// 397:39
+[com_39]
+type=text
+x=78
+y=634
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Cape Racks
+textshadow=yes
+colour=0xccccff
+
+// 397:40
+[com_40]
+type=text
+x=78
+y=695
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Magic Wardrobes
+textshadow=yes
+colour=0xccccff
+
+// 397:41
+[com_41]
+type=text
+x=78
+y=755
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Armour cases 
+textshadow=yes
+colour=0xccccff
+
+// 397:42
+[com_42]
+type=text
+x=78
+y=816
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Treasure trail chests
+textshadow=yes
+colour=0xccccff
+
+// 397:43
+[com_43]
+type=text
+x=78
+y=878
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Fancy dress boxes 
+textshadow=yes
+colour=0xccccff
+
+// 397:44
+[com_44]
+type=text
+x=78
+y=937
+width=160
+height=14
+layer=poh_furnituremenu
+textfont=p12_full
+text=Toy boxes 
+textshadow=yes
+colour=0xccccff
+
+// 397:45
+[com_45]
+type=rectangle
+x=2
+y=8
+width=238
+height=61
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Armchairs
+op1=Select
+opcursor0=cursor_use
+
+// 397:46
+[com_46]
+type=rectangle
+x=2
+y=70
+width=238
+height=61
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Bookcases
+op1=Select
+opcursor0=cursor_use
+
+// 397:47
+[com_47]
+type=rectangle
+x=2
+y=132
+width=238
+height=61
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Beer Barrels
+op1=Select
+opcursor0=cursor_use
+
+// 397:48
+[com_48]
+type=rectangle
+x=2
+y=194
+width=238
+height=56
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Kitchen Tables
+op1=Select
+opcursor0=cursor_use
+
+// 397:49
+[com_49]
+type=rectangle
+x=2
+y=251
+width=238
+height=61
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Dining Tables
+op1=Select
+opcursor0=cursor_use
+
+// 397:50
+[com_50]
+type=rectangle
+x=2
+y=313
+width=238
+height=58
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Dining Benches
+op1=Select
+opcursor0=cursor_use
+
+// 397:51
+[com_51]
+type=rectangle
+x=2
+y=372
+width=238
+height=61
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Beds
+op1=Select
+opcursor0=cursor_use
+
+// 397:52
+[com_52]
+type=rectangle
+x=2
+y=434
+width=238
+height=56
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Dressers
+op1=Select
+opcursor0=cursor_use
+
+// 397:53
+[com_53]
+type=rectangle
+x=2
+y=491
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Wardrobes
+op1=Select
+opcursor0=cursor_use
+
+// 397:54
+[com_54]
+type=rectangle
+x=2
+y=551
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Clocks
+op1=Select
+opcursor0=cursor_use
+
+// 397:55
+[com_55]
+type=rectangle
+x=2
+y=611
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Cape Racks
+op1=Select
+opcursor0=cursor_use
+
+// 397:56
+[com_56]
+type=rectangle
+x=2
+y=671
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Magic Wardrobes
+op1=Select
+opcursor0=cursor_use
+
+// 397:57
+[com_57]
+type=rectangle
+x=2
+y=731
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Armour Cases
+op1=Select
+opcursor0=cursor_use
+
+// 397:58
+[com_58]
+type=rectangle
+x=2
+y=791
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Treasure Chests
+op1=Select
+opcursor0=cursor_use
+
+// 397:59
+[com_59]
+type=rectangle
+x=2
+y=851
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Fancy Dress Boxes
+op1=Select
+opcursor0=cursor_use
+
+// 397:60
+[com_60]
+type=rectangle
+x=2
+y=911
+width=238
+height=59
+layer=poh_furnituremenu
+colour=0x333300
+transmitop=1
+opbase=Toy Boxes
+op1=Select
+opcursor0=cursor_use
+
+// 397:61
+[com_61]
+type=text
+x=155
+y=55
+width=380
+height=16
+textfont=p12_full
+text=Select a piece of furniture to build
+textshadow=yes
+colour=0xff981f
+
+// 397:62
+[com_62]
+type=text
+x=51
+y=25
+width=408
+height=13
+textfont=b12_full
+text=Furniture  Creation Menu
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 397:63
+[close_button]
+type=graphic
+x=460
+y=25
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 397:64
+[scrollbar_layer]
+type=layer
+x=376
+y=80
+width=16
+height=222
+onload=script2679

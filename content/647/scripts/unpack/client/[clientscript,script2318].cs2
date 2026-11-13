@@ -1,0 +1,8 @@
+// 2318
+[clientscript,script2318](int $int0)
+if ($int0 ! 1) {
+    return;
+}
+sound_synth(interface_select1, 1, 0);
+%bank_show_equipscreen = calc(1 - %bank_show_equipscreen);
+~bank_v2_showequipscreen;

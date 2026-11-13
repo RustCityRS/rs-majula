@@ -1,0 +1,4 @@
+// 115
+[clientscript,switchside](int $int0)
+%last_switchsided_stone = 0;
+~if_switchside($int0);

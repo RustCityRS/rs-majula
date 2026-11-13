@@ -8,8 +8,10 @@ use rs_admin_api::{
     ReportRecord, TransferLookup, path,
 };
 use std::collections::{BTreeMap, HashSet};
+use std::mem;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::time::{self, MissedTickBehavior};
 use tracing::{info, warn};
 
 /// How often the worlds are checked for something new.
@@ -87,7 +89,7 @@ pub enum Filed {
 
 /// Whether `a` and `b` are the same kind of evidence.
 fn same_kind(a: &Evidence, b: &Evidence) -> bool {
-    std::mem::discriminant(a) == std::mem::discriminant(b)
+    mem::discriminant(a) == mem::discriminant(b)
 }
 
 /// Puts what's new in `finding` in front of moderators: into the player's
@@ -824,8 +826,8 @@ pub async fn check(app: &App, unlinked: &mut HashSet<i64>) -> Result<usize, Stri
 
 /// Checks every [`CHECK_INTERVAL`], while a world answers.
 pub async fn keep_checking(app: Arc<App>) {
-    let mut interval = tokio::time::interval(CHECK_INTERVAL);
-    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+    let mut interval = time::interval(CHECK_INTERVAL);
+    interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
     let mut failing = false;
     let mut unlinked = HashSet::new();
     loop {
@@ -845,10 +847,12 @@ pub async fn keep_checking(app: Arc<App>) {
 mod tests {
     use super::*;
     use rs_admin_api::PlayTurns;
+    use std::env;
+    use std::fs;
     use std::path::PathBuf;
 
     fn temp_log(tag: &str) -> PathBuf {
-        std::env::temp_dir().join(format!("rs-console-detect-{tag}-{}.jsonl", now_ms()))
+        env::temp_dir().join(format!("rs-console-detect-{tag}-{}.jsonl", now_ms()))
     }
 
     fn session(id: &str, player: &str, score: i16, flags: &[&str]) -> ReplaySummary {
@@ -1139,7 +1143,7 @@ mod tests {
         );
         let case = cases.get(id).unwrap();
         assert_eq!((case.evidence.len(), case.priority), (2, Priority::High));
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1167,7 +1171,7 @@ mod tests {
         assert_eq!((case.evidence.len(), case.priority), (1, Priority::High));
         // Once it's as high as it goes, nothing more.
         assert_eq!(file(&cases, later, now_ms()).unwrap(), None);
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1213,7 +1217,7 @@ mod tests {
         let later = now_ms() + QUIET_MS + 1;
         let r = file(&fresh, flagged("2"), later);
         assert!(matches!(r, Ok(Some(Filed::Opened(_)))), "{r:?}");
-        let _ = std::fs::remove_file(path);
-        let _ = std::fs::remove_file(path2);
+        let _ = fs::remove_file(path);
+        let _ = fs::remove_file(path2);
     }
 }

@@ -1,0 +1,6 @@
+// 3479
+[clientscript,script3479](component $component0, component $component1, component $component2, boolean $boolean3)
+if_sethide($component1, true);
+if_sethide($component2, true);
+sound_synth(ft_fairyrings, 1, 0);
+if_setontimer($component0, "love_puzzle_scroller($component0, $component1, $component2, $boolean3, clientclock)");

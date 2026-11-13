@@ -1,0 +1,9 @@
+// 2585
+[proc,script2585]
+if_setcolour(mob_squad_exchange:class_text, 0xff9935);
+if_setop(mob_squad_exchange:com_110, 1, "Select light");
+if_setop(mob_squad_exchange:com_111, 1, "Select heavy");
+if_setonop(mob_squad_exchange:com_110, "script2589(event_com)");
+if_setonop(mob_squad_exchange:com_111, "script2589(event_com)");
+if_setonclick(mob_squad_exchange:com_110, null);
+if_setonclick(mob_squad_exchange:com_111, null);

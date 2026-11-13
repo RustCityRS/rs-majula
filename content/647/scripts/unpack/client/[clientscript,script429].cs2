@@ -1,0 +1,104 @@
+// 429
+[clientscript,script429](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_int $int7 = 0;
+def_component $component8 = null;
+switch_component ($component0) {
+    case default :
+        return;
+    case conq_side_command:cooldown_1, conq_side_command:cost_1 :
+        if (%conq_in_tutorial = 1) {
+            $int1 = 1;
+        } else {
+            $int1 = %conq_command_ability_1;
+        }
+        $component3 = conq_side_command:icon_1;
+        $component4 = conq_side_command:shading_rect_1;
+        $component5 = conq_side_command:name_1;
+        $component6 = conq_side_command:cost_1;
+        $component8 = conq_side_command:cooldown_1;
+    case conq_side_command:cooldown_2, conq_side_command:cost_2 :
+        if (%conq_in_tutorial = 1) {
+            $int1 = 3;
+        } else {
+            $int1 = %conq_command_ability_2;
+        }
+        $component3 = conq_side_command:icon_2;
+        $component4 = conq_side_command:shading_rect_2;
+        $component5 = conq_side_command:name_2;
+        $component6 = conq_side_command:cost_2;
+        $component8 = conq_side_command:cooldown_2;
+    case conq_side_command:cooldown_3, conq_side_command:cost_3 :
+        if (%conq_in_tutorial = 1) {
+            $int1 = 5;
+        } else {
+            $int1 = %conq_command_ability_3;
+        }
+        $component3 = conq_side_command:icon_3;
+        $component4 = conq_side_command:shading_rect_3;
+        $component5 = conq_side_command:name_3;
+        $component6 = conq_side_command:cost_3;
+        $component8 = conq_side_command:cooldown_3;
+    case conq_side_command:cooldown_4, conq_side_command:cost_4 :
+        if (%conq_in_tutorial = 1) {
+            $int1 = 6;
+        } else {
+            $int1 = %conq_command_ability_4;
+        }
+        $component3 = conq_side_command:icon_4;
+        $component4 = conq_side_command:shading_rect_4;
+        $component5 = conq_side_command:name_4;
+        $component6 = conq_side_command:cost_4;
+        $component8 = conq_side_command:cooldown_4;
+}
+switch_int ($int1) {
+    case default :
+        return;
+    case 1 :
+        $int2 = %conq_cooldown_battle_cry;
+        $int7 = struct_param(struct_293, param_1154);
+    case 2 :
+        $int2 = %conq_cooldown_stoicism;
+        $int7 = struct_param(struct_299, param_1154);
+    case 3 :
+        $int2 = %conq_cooldown_regenerate;
+        $int7 = struct_param(struct_300, param_1154);
+    case 4 :
+        $int2 = %conq_cooldown_barrage;
+        $int7 = struct_param(struct_301, param_1154);
+    case 5 :
+        $int2 = %conq_cooldown_bloodlust;
+        $int7 = struct_param(struct_305, param_1154);
+    case 6 :
+        $int2 = %conq_cooldown_chastise;
+        $int7 = struct_param(struct_1044, param_1154);
+    case 7 :
+        $int2 = %conq_cooldown_vigilance;
+        $int7 = struct_param(struct_1045, param_1154);
+    case 8 :
+        $int2 = %conq_cooldown_shield_wall;
+        $int7 = struct_param(struct_1046, param_1154);
+    case 9 :
+        $int2 = %conq_cooldown_winds_of_change;
+        $int7 = struct_param(struct_1047, param_1154);
+}
+if ($int2 > 0 | %conq_command_points < $int7) {
+    if ($int2 > 0) {
+        if_settext($component8, tostring($int2));
+    }
+    if_setcolour($component3, 0x282828);
+    if_sethide($component4, false);
+    if_setcolour($component5, 0x7d7d7d);
+    if_setcolour($component6, 0x7d7d7d);
+} else {
+    if_settext($component8, "");
+    if_setcolour($component3, ^black);
+    if_sethide($component4, true);
+    if_setcolour($component5, 0xff981f);
+    if_setcolour($component6, 0xff981f);
+}

@@ -1,0 +1,10 @@
+// 2230
+[clientscript,easter10_fc_up_arrow]
+if (%easter10_chocworkers < 15 & ~script2240 < %easter10_totalworkers) {
+    sound_synth(synth_8729, 1, 0);
+    %easter10_fcworkers = calc(%easter10_fcworkers + 1);
+} else {
+    %easter10_resourcegame_errortextflag = 1;
+    sound_synth(pillory_wrong, 1, 0);
+}
+~script2220;

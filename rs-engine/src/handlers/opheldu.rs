@@ -1,226 +1,106 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{engine, engine_mut};
+use crate::core::{engine, engine_mut};
+#[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
-use crate::handlers::op_common::{HeldCheck, check_held};
+use crate::handlers::op_common::{
+    action_target, held_component_ok, require_held, use_component_ok,
+};
 use crate::watch::{Target, Using};
+#[cfg(before_647)]
 use rs_protocol::network::game::client::opheldu::OpHeldU;
-use rs_vm::ScriptError;
-use rs_vm::engine::ScriptEngine;
+use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 use std::mem::swap;
 
-/// Handles the `OpHeldU` (use item on item) client protocol message.
-///
-/// Processes a "use item on item" interaction where the player uses one held
-/// item on another held item. Validates both source and target interfaces for
-/// visibility and usability, verifies both items exist at their respective slots,
-/// then searches for a matching script trigger in priority order:
-///
-/// 1. `[opheldu,b]` - Script keyed on the target object ID.
-/// 2. `[opheldu,a]` - Script keyed on the source object ID (swaps item/slot tracking,
-///    found or not, so categories 3 and 4 see their own object as `last_useitem`).
-/// 3. `[opheldu,b_category]` - Script keyed on the target object's category.
-/// 4. `[opheldu,a_category]` - Script keyed on the source object's category (swaps item/slot tracking).
-///
-/// If both items are members-only and the server is not a members' server, the player
-/// receives a notification message instead of executing the script.
-///
-/// # Arguments
-///
-/// * `active` - The active player whose client sent this message.
-///
-/// # Returns
-///
-/// * `Ok(())` on success, if the player is delayed, if the source and target
-///   components differ, or if no matching trigger is found.
-/// * `Err(ScriptError)` if interface/inventory/object validation fails or a script
-///   execution error occurs.
-///
-/// # Side Effects
-///
-/// * Sets `last_item`, `last_slot`, `last_use_item`, and `last_use_slot` on the player.
-/// * Swaps `last_item`/`last_use_item` and `last_slot`/`last_use_slot` once when
-///   `[opheldu,b]` is missing, and again when `[opheldu,a_category]` is looked up.
-/// * Clears pending action and face entity.
-/// * Runs the matched `OpHeldU` trigger script.
-///
-/// # Call Stack
-///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-/// **Calls:** `engine_mut().run_script_by_state`
+#[cfg(before_647)]
 impl ClientGameHandler for OpHeldU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.watch_use(Using::Item(self.obj2), Target::Item(self.obj));
-        if active.player.state.delayed {
-            return Ok(());
-        }
-
-        if self.com != self.com2 {
-            // Should this be an error?
-            return Ok(());
-        }
-
-        if self.slot == self.slot2 {
-            return Err(ScriptError::Client(format!(
-                "Slot used on itself: {}",
-                self.slot
-            )));
-        };
-
-        let engine = engine();
-        let interfaces = engine.interfaces();
-        let objs = engine.objs();
-
-        let Some(interface) = interfaces.get_by_id(self.com) else {
-            return Err(ScriptError::Client(format!(
-                "No interface with id: {}",
-                self.com
-            )));
-        };
-
-        if !active.player.is_interface_visible(interface.root_layer) {
-            return Err(ScriptError::Client(format!(
-                "Interface is not visible: {}",
-                interface.root_layer
-            )));
-        }
-
-        if !interface.usable {
-            return Err(ScriptError::Client(format!(
-                "Not operable with id: {}",
-                self.com
-            )));
-        };
-
-        let Some(interface2) = interfaces.get_by_id(self.com2) else {
-            return Err(ScriptError::Client(format!(
-                "No interface with id: {}",
-                self.com2
-            )));
-        };
-
-        if !active.player.is_interface_visible(interface2.root_layer) {
-            return Err(ScriptError::Client(format!(
-                "Interface is not visible: {}",
-                interface2.root_layer
-            )));
-        }
-
-        if !interface2.usable {
-            return Err(ScriptError::Client(format!(
-                "Not operable with id: {}",
-                self.com2
-            )));
-        };
-
-        // `com` and `com2` are equal (checked above), so both slots resolve through
-        // the same transmitted inventory and either check can report for `self.com`.
-        match check_held(active, self.com, self.slot, self.obj) {
-            HeldCheck::Ok => {}
-            HeldCheck::NoTransmit => {
-                return Err(ScriptError::Client(format!(
-                    "No inv transmit for interface with id: {}",
-                    self.com
-                )));
-            }
-            HeldCheck::NoInv(inv_id) => {
-                return Err(ScriptError::Client(format!(
-                    "Inv {} not found for com: {}",
-                    inv_id, self.com
-                )));
-            }
-            HeldCheck::InvalidSlot => {
-                return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot)));
-            }
-            HeldCheck::NotHeld => {
-                active.player.move_request = false; // removed early osrs
-                active.clear_pending_action()?;
-                return Ok(());
-            }
-        }
-
-        let Some(obj) = objs.get_by_id(self.obj) else {
-            return Err(ScriptError::Client(format!(
-                "Invalid slot: {} with obj: {}",
-                self.slot, self.obj
-            )));
-        };
-
-        match check_held(active, self.com2, self.slot2, self.obj2) {
-            HeldCheck::Ok => {}
-            HeldCheck::NoTransmit => {
-                return Err(ScriptError::Client(format!(
-                    "No inv transmit for interface with id: {}",
-                    self.com
-                )));
-            }
-            HeldCheck::NoInv(inv_id) => {
-                return Err(ScriptError::Client(format!(
-                    "Inv {} not found for com: {}",
-                    inv_id, self.com
-                )));
-            }
-            HeldCheck::InvalidSlot => {
-                return Err(ScriptError::Client(format!("Invalid slot: {}", self.slot2)));
-            }
-            HeldCheck::NotHeld => {
-                active.player.move_request = false; // removed early osrs
-                active.clear_pending_action()?;
-                return Ok(());
-            }
-        }
-
-        let Some(obj2) = objs.get_by_id(self.obj2) else {
-            return Err(ScriptError::Client(format!(
-                "Invalid slot: {} with obj: {}",
-                self.slot2, self.obj2
-            )));
-        };
-
-        active.player.last_item = Some(self.obj);
-        active.player.last_slot = Some(self.slot);
-        active.player.last_use_item = Some(self.obj2);
-        active.player.last_use_slot = Some(self.slot2);
-
-        active.clear_pending_action()?;
-
-        if (obj.members || obj2.members) && !engine.members {
-            active.message_game("To use this item please login to a members' server.");
-            return Ok(());
-        }
-
-        let (script, swapped) =
-            find_script((obj.id, obj.category), (obj2.id, obj2.category), |key| {
-                engine_mut().scripts.get_by_lookup(key).cloned()
-            });
-        if swapped {
-            let cold = &mut *active.player;
-            swap(&mut cold.last_item, &mut cold.last_use_item);
-            swap(&mut cold.last_slot, &mut cold.last_use_slot);
-        }
-
-        if let Some(script) = script {
-            let uid = active.player.uid;
-            let state = ScriptState::init(script, Some(ScriptSubject::Player(uid)), None, None);
-            engine_mut().run_script_by_state(
-                state,
-                Some(ScriptSubject::Player(uid)),
-                Some(true),
-                None,
-            )?;
-        } else {
-            #[cfg(debug_assertions)]
-            active.message_game(&format!(
-                "No trigger for [opheldu,{}]",
-                obj.debugname().unwrap_or(&obj.id.to_string())
-            ));
-            active.message_game("Nothing interesting happens.");
-        }
-
-        Ok(())
+        handle(
+            self.com.into(),
+            self.slot,
+            self.obj,
+            self.com2.into(),
+            self.slot2,
+            self.obj2,
+            active,
+        )
     }
+}
+
+pub(super) fn handle(
+    com: ComId,
+    slot: u16,
+    obj: u16,
+    com2: ComId,
+    slot2: u16,
+    obj2: u16,
+    active: &mut ActivePlayer,
+) -> Result<(), ScriptError> {
+    active.watch_use(Using::Item(obj2), Target::Item(obj));
+    if active.player.state.delayed || com != com2 {
+        return Ok(());
+    }
+    if slot == slot2 {
+        return Err(ScriptError::Client(format!("Slot used on itself: {slot}")));
+    }
+    if !held_component_ok(active, com, slot)
+        || !use_component_ok(active, com2, slot2, action_target::HELD)
+    {
+        return Err(ScriptError::Client(format!(
+            "Component is not acceptable for opheldu: {com}"
+        )));
+    }
+    for (slot, obj) in [(slot, obj), (slot2, obj2)] {
+        if !require_held(active, com, slot, obj)? {
+            active.player.move_request = false;
+            active.clear_pending_action()?;
+            return Ok(());
+        }
+    }
+    let objs = engine().objs();
+    let obj = objs
+        .get_by_id(obj)
+        .ok_or(ScriptError::ObjNotFound(obj as i32))?;
+    let obj2 = objs
+        .get_by_id(obj2)
+        .ok_or(ScriptError::ObjNotFound(obj2 as i32))?;
+
+    active.player.last_item = Some(obj.id);
+    active.player.last_slot = Some(slot);
+    active.player.last_use_item = Some(obj2.id);
+    active.player.last_use_slot = Some(slot2);
+    active.clear_pending_action()?;
+
+    if (obj.members || obj2.members) && !engine().members {
+        active.message_game("To use this item please login to a members' server.");
+        return Ok(());
+    }
+    let (script, swapped) = find_script((obj.id, obj.category), (obj2.id, obj2.category), |key| {
+        engine_mut().scripts.get_by_lookup(key).cloned()
+    });
+    if swapped {
+        let player = &mut *active.player;
+        swap(&mut player.last_item, &mut player.last_use_item);
+        swap(&mut player.last_slot, &mut player.last_use_slot);
+    }
+    if let Some(script) = script {
+        let uid = active.player.uid;
+        let state = ScriptState::init(script, Some(ScriptSubject::Player(uid)), None, None);
+        engine_mut().run_script_by_state(
+            state,
+            Some(ScriptSubject::Player(uid)),
+            Some(true),
+            None,
+        )?;
+    } else {
+        #[cfg(debug_assertions)]
+        active.message_game(&format!("No trigger for [opheldu,{}]", obj.debugname));
+        active.nothing_interesting();
+    }
+    Ok(())
 }
 
 fn obj_key(id: u16) -> i32 {

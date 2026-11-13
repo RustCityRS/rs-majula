@@ -4,10 +4,12 @@ use crate::store::JsonFile;
 use crate::users::now_ms;
 use rs_admin_api::{ItemCirculation, ObjLine, ObjSearch, TotalsLookup, path};
 use serde::{Deserialize, Serialize};
-use std::io::{BufRead, BufReader, Write};
+use std::fs::{self, File, OpenOptions};
+use std::io::{self, BufRead, BufReader, Write};
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::Duration;
+use tokio::time::sleep;
 use tracing::{info, warn};
 
 /// How often the items tracked are counted across every save.
@@ -255,11 +257,11 @@ impl Economy {
         })
     }
 
-    fn append(&self, sample: &Sample) -> std::io::Result<()> {
+    fn append(&self, sample: &Sample) -> io::Result<()> {
         if let Some(dir) = self.samples_path.parent() {
-            std::fs::create_dir_all(dir)?;
+            fs::create_dir_all(dir)?;
         }
-        let mut file = std::fs::OpenOptions::new()
+        let mut file = OpenOptions::new()
             .create(true)
             .append(true)
             .open(&self.samples_path)?;
@@ -268,14 +270,14 @@ impl Economy {
         file.write_all(line.as_bytes())
     }
 
-    fn lock(&self) -> std::sync::MutexGuard<'_, Vec<Sample>> {
+    fn lock(&self) -> MutexGuard<'_, Vec<Sample>> {
         self.samples.lock().unwrap_or_else(|e| e.into_inner())
     }
 }
 
 /// The counts in the file still kept, and how many older ones were left out.
 fn load_samples(path: &Path) -> (Vec<Sample>, usize) {
-    let Ok(file) = std::fs::File::open(path) else {
+    let Ok(file) = File::open(path) else {
         return (Vec::new(), 0);
     };
     let cutoff = now_ms().saturating_sub(KEEP_MS);
@@ -295,15 +297,15 @@ fn load_samples(path: &Path) -> (Vec<Sample>, usize) {
 }
 
 /// Writes `samples` as the whole file, beside it then renamed over it.
-fn rewrite_samples(path: &Path, samples: &[Sample]) -> std::io::Result<()> {
+fn rewrite_samples(path: &Path, samples: &[Sample]) -> io::Result<()> {
     let mut text = String::new();
     for sample in samples {
         text.push_str(&serde_json::to_string(sample)?);
         text.push('\n');
     }
     let tmp = path.with_extension("jsonl.tmp");
-    std::fs::write(&tmp, text)?;
-    std::fs::rename(&tmp, path)
+    fs::write(&tmp, text)?;
+    fs::rename(&tmp, path)
 }
 
 /// The tracked items whose count rose more than their threshold from
@@ -424,7 +426,7 @@ pub async fn keep_sampling(app: Arc<App>) {
         SAMPLE_EVERY_MS - now_ms() % SAMPLE_EVERY_MS
     };
     loop {
-        tokio::time::sleep(Duration::from_millis(wait)).await;
+        sleep(Duration::from_millis(wait)).await;
         match sample_now(&app).await {
             Ok((sample, _)) => info!("Counted {} tracked items", sample.items.len()),
             Err(e) => warn!("Couldn't count the tracked items: {}", e),
@@ -436,6 +438,8 @@ pub async fn keep_sampling(app: Arc<App>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
+    use std::process;
 
     fn tracked(obj: u16, alert_pct: f64) -> Tracked {
         Tracked {
@@ -477,8 +481,8 @@ mod tests {
 
     #[test]
     fn counts_are_kept_and_compared() {
-        let dir = std::env::temp_dir().join(format!("rs-console-economy-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
+        let dir = env::temp_dir().join(format!("rs-console-economy-{}", process::id()));
+        let _ = fs::remove_dir_all(&dir);
         let economy = Economy::open(&dir);
         economy.track(995, "Coins", 10.0, "Ash").unwrap();
         let now = now_ms();
@@ -498,13 +502,13 @@ mod tests {
         assert_eq!(again.samples_since(0, 600).len(), 2);
         assert_eq!(again.samples_since(now - 1, 600).len(), 1);
         assert_eq!(again.state().tracked[0].alert_pct, 10.0);
-        let _ = std::fs::remove_dir_all(&dir);
+        let _ = fs::remove_dir_all(&dir);
     }
 
     #[test]
     fn long_charts_are_thinned_keeping_the_last() {
         let economy = Economy {
-            state: JsonFile::open(std::env::temp_dir().join("rs-console-economy-thin-unused.json")),
+            state: JsonFile::open(env::temp_dir().join("rs-console-economy-thin-unused.json")),
             samples_path: PathBuf::new(),
             samples: Mutex::new((0..1000).map(|at| sample(at, &[])).collect()),
         };
@@ -518,19 +522,18 @@ mod tests {
 
     #[test]
     fn old_counts_leave_the_file() {
-        let dir =
-            std::env::temp_dir().join(format!("rs-console-economy-old-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).unwrap();
+        let dir = env::temp_dir().join(format!("rs-console-economy-old-{}", process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
         let path = dir.join("economy-samples.jsonl");
         let lines: Vec<String> = [1, now_ms()]
             .iter()
             .map(|&at| serde_json::to_string(&sample(at, &[(995, 1)])).unwrap())
             .collect();
-        std::fs::write(&path, lines.join("\n") + "\n").unwrap();
+        fs::write(&path, lines.join("\n") + "\n").unwrap();
         let economy = Economy::open(&dir);
         assert_eq!(economy.samples_since(0, 600).len(), 1);
-        assert_eq!(std::fs::read_to_string(&path).unwrap().lines().count(), 1);
-        let _ = std::fs::remove_dir_all(&dir);
+        assert_eq!(fs::read_to_string(&path).unwrap().lines().count(), 1);
+        let _ = fs::remove_dir_all(&dir);
     }
 }

@@ -1,0 +1,163 @@
+// 840:0
+[desc_layer]
+type=layer
+y=24
+width=151
+height=143
+xmode=abs_centre
+
+// 840:1
+[com_1]
+type=layer
+width=190
+height=261
+
+// 840:2
+[forfeit_button]
+type=layer
+x=33
+y=196
+width=127
+height=36
+layer=com_1
+transmitop=1
+op1=Forfeit game
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 840:3
+[title]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=forfeit_button
+textfont=b12_full
+text=Forfeit Game
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+onload=mob_command_onload
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
+
+// 840:4
+[confirm_layer]
+type=layer
+width=190
+height=261
+hide=yes
+
+// 840:5
+[title_3]
+type=text
+x=13
+y=179
+width=14235
+height=1262
+widthmode=proportion
+heightmode=proportion
+layer=confirm_layer
+textfont=b12_full
+text=Forfeit the game?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+onload=mob_command_onload
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
+
+// 840:6
+[confirm]
+type=layer
+x=13
+y=204
+width=80
+height=40
+layer=confirm_layer
+transmitop=1
+op1=Confirm forfeit
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 840:7
+[title_1]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=confirm
+textfont=b12_full
+text=Confirm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+onload=mob_command_onload
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
+
+// 840:8
+[decline]
+type=layer
+x=98
+y=204
+width=80
+height=40
+layer=confirm_layer
+transmitop=1
+op1=Decline forfeit
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 840:9
+[title_2]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=decline
+textfont=b12_full
+text=Decline
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+onload=mob_command_onload
+onvarctransmit=mob_highlight_stop{mob_client_highlight}
+
+// 840:10
+[desc]
+type=text
+x=10
+y=10
+width=20
+height=20
+widthmode=minus
+heightmode=minus
+layer=desc_layer
+textfont=p12_full
+text=WARNING !<br> If you click to forfeit, you will be removed from this game, lose all your squads and special units, and recieve no reward.
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff3333
+onload=script2636
+
+// 840:11
+[com_11]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=desc_layer
+colour=0x000000
+fill=yes
+trans=221

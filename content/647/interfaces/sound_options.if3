@@ -1,0 +1,649 @@
+// 743:0
+[master_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 743:1
+[com_1]
+type=layer
+x=175
+y=68
+width=156
+height=60
+
+// 743:2
+[com_2]
+type=layer
+x=242
+y=81
+width=75
+height=23
+
+// 743:3
+[com_3]
+type=layer
+x=175
+y=122
+width=156
+height=60
+transmitop=10
+op10= 
+
+// 743:4
+[com_4]
+type=layer
+x=242
+y=135
+width=75
+height=23
+transmitop=10
+op10= 
+
+// 743:5
+[com_5]
+type=layer
+x=175
+y=180
+width=156
+height=60
+transmitop=10
+op10=  
+
+// 743:6
+[com_6]
+type=layer
+x=242
+y=193
+width=75
+height=23
+transmitop=10
+op10=  
+
+// 743:7
+[optbgsound_slider]
+type=graphic
+width=16
+height=16
+layer=optbgsound_dragzone
+graphic=graphic_1465
+colour=0x000000
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script1764(sound_options:optbgsound_dragzone, sound_options:optbgsound_slider, event_mousex, 2)
+
+// 743:8
+[optsound_slider]
+type=graphic
+width=16
+height=16
+layer=optsound_dragzone
+graphic=graphic_1465
+colour=0x000000
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, event_mousex, 1)
+
+// 743:9
+[optmusic_slider]
+type=graphic
+width=16
+height=16
+layer=optmusic_dragzone
+graphic=graphic_1465
+colour=0x000000
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, event_mousex, 0)
+
+// 743:10
+[com_10]
+type=rectangle
+x=173
+y=48
+width=175
+height=244
+layer=master_layer
+colour=0x000000
+fill=yes
+trans=200
+
+// 743:11
+[com_11]
+type=graphic
+x=171
+y=61
+width=166
+height=219
+layer=master_layer
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 743:12
+[left_bar]
+type=graphic
+x=152
+y=72
+width=33
+height=183
+layer=master_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 743:13
+[right_bar]
+type=graphic
+x=322
+y=72
+width=32
+height=183
+layer=master_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 743:14
+[bottom_bar]
+type=graphic
+x=197
+y=267
+width=113
+height=32
+layer=master_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 743:15
+[bottom_left_corner]
+type=graphic
+x=165
+y=255
+width=32
+height=32
+layer=master_layer
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 743:16
+[bottom_right_corner]
+type=graphic
+x=310
+y=255
+width=32
+height=32
+layer=master_layer
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 743:17
+[top_left_corner]
+type=graphic
+x=165
+y=40
+width=32
+height=32
+layer=master_layer
+graphic="v2_stone_borders,35"
+colour=0x000000
+
+// 743:18
+[top_bar]
+type=graphic
+x=197
+y=40
+width=113
+height=32
+layer=master_layer
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:19
+[top_right_corner]
+type=graphic
+x=310
+y=40
+width=32
+height=32
+layer=master_layer
+graphic="v2_stone_borders,37"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:20
+[close_button]
+type=graphic
+x=316
+y=43
+width=16
+height=16
+layer=master_layer
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 743:21
+[title]
+type=text
+x=177
+y=43
+width=136
+height=17
+layer=master_layer
+textfont=b12_full
+text=Audio Options
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 743:22
+[music_icon]
+type=graphic
+x=236
+y=75
+width=32
+height=32
+layer=master_layer
+graphic="options_icons,1"
+colour=0x000000
+transmitop=10
+op10= 
+onload=script1158
+onmouseleave=deltooltip(sound_options:com_1)
+onmouserepeat=addtooltip(sound_options:com_2, sound_options:com_1, "Music", 25, 75)
+
+// 743:23
+[optmusic0]
+type=graphic
+x=186
+y=109
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:24
+[optmusic1]
+type=graphic
+x=212
+y=109
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:25
+[optmusic2]
+type=graphic
+x=238
+y=109
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:26
+[optmusic3]
+type=graphic
+x=264
+y=109
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,8"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:27
+[optmusic4]
+type=graphic
+x=290
+y=109
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,9"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:28
+[com_28]
+type=layer
+x=165
+y=109
+width=42
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, 0, 0)
+
+// 743:29
+[com_29]
+type=layer
+x=293
+y=109
+width=49
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, 255, 0)
+
+// 743:30
+[optmusic_dragzone]
+type=layer
+x=191
+y=109
+width=118
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, event_mousex, 0)
+
+// 743:31
+[sound_icon]
+type=graphic
+x=236
+y=131
+width=32
+height=32
+layer=master_layer
+graphic="options_icons,2"
+colour=0x000000
+transmitop=10
+op10= 
+onload=script1164
+onmouseleave=deltooltip(sound_options:com_3)
+onmouserepeat=addtooltip(sound_options:com_4, sound_options:com_3, "Sound Effects", 25, 75)
+
+// 743:32
+[optsound0]
+type=graphic
+x=188
+y=165
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:33
+[optsound1]
+type=graphic
+x=214
+y=165
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:34
+[optsound2]
+type=graphic
+x=240
+y=165
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:35
+[optsound3]
+type=graphic
+x=266
+y=165
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,8"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:36
+[optsound4]
+type=graphic
+x=292
+y=165
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,9"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:37
+[com_37]
+type=layer
+x=165
+y=165
+width=42
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optsound_dragzone, sound_options:optsound_slider, 0, 1)
+
+// 743:38
+[com_38]
+type=layer
+x=293
+y=165
+width=49
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, 127, 1)
+
+// 743:39
+[optsound_dragzone]
+type=layer
+x=191
+y=165
+width=118
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optmusic_dragzone, sound_options:optmusic_slider, event_mousex, 1)
+
+// 743:40
+[areasound0]
+type=graphic
+x=188
+y=224
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:41
+[area_sounds_icon]
+type=graphic
+x=236
+y=188
+width=32
+height=32
+layer=master_layer
+graphic="options_icons,14"
+colour=0x000000
+transmitop=10
+op10= 
+onload=script1161
+onmouseleave=deltooltip(sound_options:com_5)
+onmouserepeat=addtooltip(sound_options:com_6, sound_options:com_5, "Ambient Sounds", 25, 75)
+
+// 743:42
+[areasound1]
+type=graphic
+x=214
+y=224
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:43
+[areasound2]
+type=graphic
+x=240
+y=224
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:44
+[areasound3]
+type=graphic
+x=266
+y=224
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,8"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:45
+[areasound4]
+type=graphic
+x=292
+y=224
+width=26
+height=16
+layer=master_layer
+graphic="options_slider_five,9"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:46
+[com_46]
+type=layer
+x=165
+y=224
+width=42
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optbgsound_dragzone, sound_options:optbgsound_slider, 0, 2)
+
+// 743:47
+[com_47]
+type=layer
+x=293
+y=224
+width=49
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optbgsound_dragzone, sound_options:optbgsound_slider, 127, 2)
+
+// 743:48
+[optbgsound_dragzone]
+type=layer
+x=191
+y=224
+width=118
+height=16
+layer=master_layer
+onclick=script1764(sound_options:optbgsound_dragzone, sound_options:optbgsound_slider, event_mousex, 2)
+
+// 743:49
+[mono_button]
+type=graphic
+x=227
+y=257
+width=15
+height=15
+layer=master_layer
+graphic="radio_buttons,0"
+tiling=yes
+colour=0x000000
+transmitop=1,10
+op1=Select Mono
+op10=  
+onop=sound_mono
+
+// 743:50
+[mono_text]
+type=text
+x=182
+y=257
+width=40
+height=15
+layer=master_layer
+textfont=p11_full
+text=Mono
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+transmitop=10
+op10= 
+onload=script1155
+
+// 743:51
+[stereo_button]
+type=graphic
+x=294
+y=257
+width=15
+height=15
+layer=master_layer
+graphic="radio_buttons,0"
+tiling=yes
+colour=0x000000
+transmitop=1,10
+op1=Select Stereo
+op10=   
+onop=sound_stereo
+
+// 743:52
+[stereo_text]
+type=text
+x=250
+y=257
+width=40
+height=15
+layer=master_layer
+textfont=p11_full
+text=Stereo
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+transmitop=10
+op10=  

@@ -1,0 +1,22 @@
+// 1916
+[clientscript,sc_tier_text_mouseover](component $component0)
+if ($component0 = sc_processing:clay_1_text & %sc_client_tier1_total > 0) {
+    if_setcolour($component0, ^white);
+    return;
+}
+if ($component0 = sc_processing:clay_2_text & %sc_client_tier2_total > 0) {
+    if_setcolour($component0, ^white);
+    return;
+}
+if ($component0 = sc_processing:clay_3_text & %sc_client_tier3_total > 0) {
+    if_setcolour($component0, ^white);
+    return;
+}
+if ($component0 = sc_processing:clay_4_text & %sc_client_tier4_total > 0) {
+    if_setcolour($component0, ^white);
+    return;
+}
+if ($component0 = sc_processing:clay_5_text & %sc_client_tier5_total > 0) {
+    if_setcolour($component0, ^white);
+    return;
+}

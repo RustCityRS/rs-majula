@@ -1,7 +1,6 @@
-use crate::engine::{Engine, engine_mut};
-use rs_entity::{EntityLifeTime, Obj};
+use crate::core::{Engine, engine_mut};
 use rs_pack::types::HuntModeType;
-use rs_vm::state::ExecutionState;
+use rs_vm::state::{ExecutionState, ScriptState};
 
 impl Engine {
     /// Processes the world phase of the engine tick cycle.
@@ -61,35 +60,47 @@ impl Engine {
         let mut h = self.world_queue.head();
         while let Some(idx) = h {
             if tick_down(&mut self.world_queue.get_mut(idx).delay) {
-                let mut script = self.world_queue.unlink(idx);
-                let result = engine_mut().runescript_vm_execute(&mut script);
-                self.release_protected_players(&mut script);
-
-                match result {
-                    ExecutionState::WorldSuspended => {
-                        let delay = script.pop_int();
-                        engine_mut().enqueue_world_script(script, delay);
-                    }
-                    ExecutionState::Suspended => {
-                        if let Some(uid) = script.active_player {
-                            if let Some(active) = &mut self.player_list.players[uid.pid() as usize]
-                            {
-                                active.player.state.active_script = Some(Box::new(script));
-                            }
-                        }
-                    }
-                    ExecutionState::NpcSuspended => {
-                        if let Some(uid) = script.active_npc {
-                            if let Some(active) = &mut self.npc_list.npcs[uid.nid() as usize] {
-                                active.npc.state.active_script = Some(Box::new(script));
-                            }
-                        }
-                    }
-                    _ => {}
-                }
+                let script = self.world_queue.unlink(idx);
+                self.run_world_script(script);
             }
 
             h = self.world_queue.next();
+        }
+    }
+
+    /// Runs a script that belongs to no player or npc, and parks it where
+    /// it suspends: back in the world queue, or on the player or npc it
+    /// suspended on.
+    pub(crate) fn run_world_script(&mut self, mut script: ScriptState) {
+        let result = engine_mut().runescript_vm_execute(&mut script);
+        self.release_protected_players(&mut script);
+
+        #[cfg(since_254)]
+        let result = match result {
+            ExecutionState::MapBuildPending => ExecutionState::Suspended,
+            other => other,
+        };
+
+        match result {
+            ExecutionState::WorldSuspended => {
+                let delay = script.pop_int();
+                engine_mut().enqueue_world_script(script, delay);
+            }
+            ExecutionState::Suspended => {
+                if let Some(uid) = script.active_player {
+                    if let Some(active) = &mut self.player_list.players[uid.pid() as usize] {
+                        active.player.state.active_script = Some(Box::new(script));
+                    }
+                }
+            }
+            ExecutionState::NpcSuspended => {
+                if let Some(uid) = script.active_npc {
+                    if let Some(active) = &mut self.npc_list.npcs[uid.nid() as usize] {
+                        active.npc.state.active_script = Some(Box::new(script));
+                    }
+                }
+            }
+            _ => {}
         }
     }
 
@@ -113,9 +124,12 @@ impl Engine {
 
             h = self.obj_delayed_queue.next();
             let request = self.obj_delayed_queue.unlink(idx);
-            let coord = request.coord;
-            let obj = Obj::new(coord, EntityLifeTime::Despawn, request.id, request.count);
-            engine_mut().add_obj(coord, obj, request.receiver, request.duration);
+            engine_mut().add_item_obj(
+                request.coord,
+                request.item,
+                request.receiver,
+                request.duration,
+            );
         }
     }
 

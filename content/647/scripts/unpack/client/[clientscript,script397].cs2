@@ -1,0 +1,9 @@
+// 397
+[clientscript,script397]
+if (%objreq_currency = null & %varplayer_1109 ! null) {
+    if (calc(%varplayer_1111 * %varplayer_1110) > inv_total(inv, coins)) {
+        if_setcolour(obj_info:player_has, ^red);
+    } else {
+        if_setcolour(obj_info:player_has, %objreq_fontcol);
+    }
+}

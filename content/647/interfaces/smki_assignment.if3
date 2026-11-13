@@ -1,0 +1,597 @@
+// 161:0
+[background]
+type=rectangle
+x=17
+y=25
+width=489
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 161:1
+[background_graphic]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 161:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 161:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 161:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 161:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 161:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 161:7
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(smki_assignment:close_button, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(smki_assignment:close_button, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 161:8
+[com_8]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 161:9
+[com_9]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 161:10
+[com_10]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 161:11
+[com_11]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 161:12
+[com_12]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 161:13
+[com_13]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 161:14
+[learn_tab]
+type=graphic
+x=99
+y=29
+width=102
+height=20
+graphic="tabs,1"
+colour=0xffffffff
+transmitop=1
+op1=Learn
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Learn new abilities", 25, 150)
+
+// 161:15
+[buy_tab]
+type=graphic
+x=22
+y=29
+width=94
+height=20
+graphic="tabs,1"
+colour=0xffffffff
+transmitop=1
+op1=Buy
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Buy Slayer equipment", 25, 150)
+
+// 161:16
+[assignment_tab]
+type=graphic
+x=182
+y=29
+width=98
+height=20
+graphic="tabs,0"
+colour=0xffffffff
+
+// 161:17
+[divider]
+type=line
+x=55
+y=190
+width=398
+linewid=2
+colour=0x342c24
+
+// 161:18
+[current_box]
+type=rectangle
+x=75
+y=78
+width=200
+height=31
+colour=0x484038
+fill=yes
+
+// 161:19
+[xxxx]
+type=text
+x=198
+y=87
+width=53
+height=13
+textfont=b12_full
+text=XXXX
+textalignh=centre
+textshadow=yes
+colour=0xd7b011
+
+// 161:20
+[buy]
+type=text
+x=35
+y=33
+width=21
+height=10
+textfont=p11_full
+text=Buy
+textshadow=yes
+colour=0xbf751d
+
+// 161:21
+[learn]
+type=text
+x=112
+y=34
+width=34
+height=9
+textfont=p11_full
+text=Learn
+textshadow=yes
+colour=0xbf751d
+
+// 161:22
+[assignment]
+type=text
+x=193
+y=34
+width=65
+height=10
+textfont=p11_full
+text=Assignment
+textshadow=yes
+colour=0xff981f
+
+// 161:23
+[reassign_current]
+type=text
+x=55
+y=133
+width=285
+height=17
+textfont=p12_full
+text=Reassign current mission
+textshadow=yes
+colour=0xd7b011
+transmitop=1
+op1=Reassign current task
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You may be reassigned this mission in the future.", 25, 150)
+
+// 161:24
+[permanently_remove]
+type=text
+x=55
+y=156
+width=286
+height=29
+textfont=p12_full
+text=Permanently remove current<br>(additional Quest Point requirement)
+textshadow=yes
+colour=0xd7b011
+transmitop=1
+op1=Permanently remove current task
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You will never be assigned this mission in the future. Having 50 Quest Points allows you to ignore one mission, 100 QP for two, 150 QP for three, 200 QP for four and 250 QP for five.", 25, 150)
+
+// 161:25
+[com_25]
+type=text
+x=95
+y=87
+width=79
+height=11
+textfont=b12_full
+text=Current points =
+textshadow=yes
+colour=0xd7b011
+
+// 161:26
+[reassign_points]
+type=text
+x=375
+y=133
+width=73
+height=13
+textfont=p12_full
+text=(30 points)
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Reassign Current
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You may be reassigned this creature in the future.", 25, 150)
+
+// 161:27
+[permanent_points]
+type=text
+x=375
+y=154
+width=76
+height=16
+textfont=p12_full
+text=(100 points)
+textshadow=yes
+colour=0xff9800
+transmitop=1
+op1=Permanently Remove Current
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel your current mission. You will never be assigned this creature in the future. Having 50 Quest Points allows you to ignore one creature, 100 QP for two, 150 QP for three and 200 QP for four", 25, 150)
+
+// 161:28
+[com_28]
+type=text
+x=381
+y=243
+width=45
+height=17
+textfont=p11_full
+text=(Does not
+textshadow=yes
+colour=0xbf751d
+
+// 161:29
+[refund_points_]
+type=text
+x=364
+y=257
+width=63
+height=18
+textfont=p11_full
+text=refund points)
+textshadow=yes
+colour=0xbf751d
+
+// 161:30
+[b]
+type=text
+x=56
+y=230
+width=8
+height=15
+textfont=p12_full
+text=B
+textshadow=yes
+colour=0xff981f
+
+// 161:31
+[c]
+type=text
+x=56
+y=248
+width=8
+height=17
+textfont=p12_full
+text=C
+textshadow=yes
+colour=0xff981f
+
+// 161:32
+[d]
+type=text
+x=56
+y=266
+width=13
+height=17
+textfont=p12_full
+text=D
+textshadow=yes
+colour=0xff981f
+
+// 161:33
+[e]
+type=text
+x=56
+y=285
+width=13
+height=17
+textfont=p12_full
+text=E
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 161:34
+[cancel]
+type=text
+x=356
+y=225
+width=99
+height=14
+textfont=p12_full
+text=Cancel removal
+textshadow=yes
+colour=0xff981f
+
+// 161:35
+[removed]
+type=text
+x=131
+y=196
+width=106
+height=13
+textfont=p11_full
+text=Currently removed
+textshadow=yes
+colour=0xbf751d
+
+// 161:36
+[a]
+type=text
+x=56
+y=212
+width=13
+height=15
+textfont=p12_full
+text=A
+textshadow=yes
+colour=0xff981f
+
+// 161:37
+[abox]
+type=graphic
+x=305
+y=212
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Cancel Removal
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:abox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:abox, "v2_stone_close_button,0")
+
+// 161:38
+[bbox]
+type=graphic
+x=305
+y=230
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Cancel Removal
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:bbox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:bbox, "v2_stone_close_button,0")
+
+// 161:39
+[cbox]
+type=graphic
+x=305
+y=248
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Cancel Removal
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:cbox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:cbox, "v2_stone_close_button,0")
+
+// 161:40
+[dbox]
+type=graphic
+x=305
+y=266
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Cancel Removal
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:dbox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:dbox, "v2_stone_close_button,0")
+
+// 161:41
+[ebox]
+type=graphic
+x=305
+y=284
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Cancel Removal
+op10= 
+onmouseleave=deltooltip(smki_assignment:tool_tip_build_layer)
+onmouserepeat=addtooltip(event_com, smki_assignment:tool_tip_build_layer, "Cancel this removal. You will not be refunded the points you paid.", 25, 150)
+onclick=graphic_swapper(smki_assignment:ebox, "v2_stone_close_button,1")
+onrelease=graphic_swapper(smki_assignment:ebox, "v2_stone_close_button,0")
+
+// 161:42
+[com_42]
+type=graphic
+x=246
+y=84
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 161:43
+[com_43]
+type=graphic
+x=246
+y=71
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 161:44
+[com_44]
+type=graphic
+x=68
+y=84
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 161:45
+[com_45]
+type=graphic
+x=68
+y=71
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 161:46
+[com_46]
+type=graphic
+x=99
+y=58
+width=147
+height=32
+graphic="v2_stone_borders,0"
+colour=0xffffffff
+
+// 161:47
+[com_47]
+type=graphic
+x=100
+y=96
+width=148
+height=32
+graphic="v2_stone_borders,2"
+colour=0xffffffff
+
+// 161:48
+[tooltip_bounding_box]
+type=layer
+width=512
+height=334
+
+// 161:49
+[tool_tip_build_layer]
+type=layer
+width=512
+height=334
+layer=tooltip_bounding_box

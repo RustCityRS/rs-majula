@@ -1,0 +1,3784 @@
+// 60:0
+[background]
+type=layer
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 60:1
+[decorative_armour_button]
+type=layer
+x=27
+y=48
+width=144
+height=30
+transmitop=1,10
+op1=Decorative armour rewards
+op10=  
+onmouseover=castlewars_button_swapper(castlewars_trade:graphic1, castlewars_trade:graphic2, castlewars_trade:graphic3, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=castlewars_button_swapper(castlewars_trade:graphic1, castlewars_trade:graphic2, castlewars_trade:graphic3, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=castlewars_dec_armour_button
+
+// 60:2
+[graphic1]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+layer=decorative_armour_button
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:3
+[graphic2]
+type=graphic
+x=17
+width=113
+height=16384
+heightmode=proportion
+layer=decorative_armour_button
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:4
+[graphic3]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=decorative_armour_button
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:5
+[deleteditemcontract]
+type=layer
+y=48
+width=144
+height=30
+xmode=abs_centre
+transmitop=1,10
+op1=Consumable rewards
+op10=   
+onmouseover=castlewars_button_swapper(castlewars_trade:graphic4, castlewars_trade:graphic5, castlewars_trade:graphic6, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=castlewars_button_swapper(castlewars_trade:graphic4, castlewars_trade:graphic5, castlewars_trade:graphic6, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=castlewars_consumables_button
+
+// 60:6
+[graphic4]
+type=graphic
+width=18
+height=16391
+heightmode=proportion
+layer=deleteditemcontract
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:7
+[graphic5]
+type=graphic
+x=16
+width=113
+height=16391
+heightmode=proportion
+layer=deleteditemcontract
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:8
+[graphic6]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=deleteditemcontract
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:9
+[misc_button]
+type=layer
+x=340
+y=48
+width=144
+height=30
+transmitop=1,10
+op1=Misc rewards
+op10=   
+onmouseover=castlewars_button_swapper(castlewars_trade:graphic7, castlewars_trade:graphic8, castlewars_trade:graphic9, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=castlewars_button_swapper(castlewars_trade:graphic7, castlewars_trade:graphic8, castlewars_trade:graphic9, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=castlewars_misc_button
+
+// 60:10
+[graphic7]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+layer=misc_button
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:11
+[graphic8]
+type=graphic
+x=16
+width=113
+height=16384
+heightmode=proportion
+layer=misc_button
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:12
+[graphic9]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=misc_button
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:13
+[text_misc]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=misc_button
+textfont=p12_full
+text=Miscellaneous
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=   
+
+// 60:14
+[misc_button_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=misc_button
+hide=yes
+transmitop=10
+op10=  
+
+// 60:15
+[line_misc]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=misc_button_line
+linewid=2
+colour=0x000000
+transmitop=10
+op10=  
+
+// 60:16
+[com_16]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=deleteditemcontract
+textfont=p12_full
+text=Consumables
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=   
+
+// 60:17
+[deleteditemcontract_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=deleteditemcontract
+hide=yes
+transmitop=10
+op10=  
+
+// 60:18
+[line_game]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=deleteditemcontract_line
+linewid=2
+colour=0x000000
+transmitop=10
+op10=  
+
+// 60:19
+[text_dec_armour]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=decorative_armour_button
+textfont=p12_full
+text=Decorative Armour
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=  
+
+// 60:20
+[dec_armour_button_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=decorative_armour_button
+transmitop=10
+op10= 
+
+// 60:21
+[line_dec]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=dec_armour_button_line
+linewid=2
+colour=0x000000
+transmitop=10
+op10= 
+
+// 60:22
+[background_1]
+type=graphic
+x=9
+y=42
+width=495
+height=76
+layer=background
+graphic=graphic_2045
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+
+// 60:23
+[com_23]
+type=graphic
+x=10
+y=110
+width=493
+height=171
+layer=background
+graphic=km_middlefillcolour
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:24
+[com_24]
+type=graphic
+x=10
+y=280
+width=492
+height=46
+layer=background
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:25
+[right_side]
+type=graphic
+x=489
+y=25
+width=22
+height=281
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:26
+[bottom]
+type=graphic
+x=15
+y=312
+width=477
+height=23
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:27
+[top]
+type=graphic
+x=35
+y=22
+width=459
+height=32
+layer=background
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:28
+[bottom_right]
+type=graphic
+x=477
+y=300
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:29
+[bottom_left]
+type=graphic
+x=3
+y=300
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:30
+[left_side]
+type=graphic
+x=-10
+y=25
+width=37
+height=276
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:31
+[top_left]
+type=graphic
+x=3
+y=22
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:32
+[top_right]
+type=graphic
+x=477
+y=22
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:33
+[close_button]
+type=graphic
+x=483
+y=26
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=  
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 60:34
+[title]
+type=text
+x=-10
+y=26
+width=443
+height=17
+xmode=abs_centre
+layer=background
+textfont=b12_full
+text=Castle Wars Ticket Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 60:35
+[com_35]
+type=graphic
+x=12
+y=85
+width=7
+height=93
+layer=background
+graphic=graphic_3159
+colour=0xffffffff
+
+// 60:36
+[com_36]
+type=graphic
+x=18
+y=85
+width=475
+height=93
+layer=background
+graphic=graphic_3160
+colour=0xffffffff
+
+// 60:37
+[com_37]
+type=graphic
+x=492
+y=85
+width=7
+height=93
+layer=background
+graphic=graphic_3159
+hflip=yes
+colour=0xffffffff
+
+// 60:38
+[com_38]
+type=graphic
+x=12
+y=185
+width=7
+height=93
+layer=background
+graphic=graphic_3159
+colour=0xffffffff
+
+// 60:39
+[com_39]
+type=graphic
+x=17
+y=185
+width=475
+height=93
+layer=background
+graphic=graphic_3160
+colour=0xffffffff
+
+// 60:40
+[com_40]
+type=graphic
+x=492
+y=185
+width=7
+height=93
+layer=background
+graphic=graphic_3159
+hflip=yes
+colour=0xffffffff
+
+// 60:41
+[com_41]
+type=layer
+x=16
+y=196
+width=67
+height=101
+layer=background
+
+// 60:42
+[com_42]
+type=layer
+x=16
+y=86
+width=67
+height=101
+layer=background
+
+// 60:43
+[com_43]
+type=text
+x=4
+y=63
+width=16384
+height=20
+widthmode=proportion
+layer=com_42
+textfont=p11_full
+text=Tickets :
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:44
+[com_44]
+type=text
+x=4
+y=55
+width=16384
+height=20
+widthmode=proportion
+layer=com_41
+textfont=p11_full
+text=Tickets :
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:45
+[decorative_armour_layer]
+type=layer
+x=84
+y=74
+width=415
+height=229
+onload=castlewars_setup_dec_armour
+
+// 60:46
+[consumables_layer]
+type=layer
+x=84
+y=74
+width=415
+height=229
+hide=yes
+onload=castlewars_setup_consumables
+
+// 60:47
+[ballista_base_layer]
+type=layer
+x=57
+y=20
+width=37
+height=75
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Ballista base
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:48
+[ballista_bolt_stack_layer]
+type=layer
+x=103
+y=20
+width=37
+height=75
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Ballista bolt stack
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:49
+[ballista_bow_layer]
+type=layer
+x=149
+y=20
+width=37
+height=75
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Ballista bow
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:50
+[rect_ballista_bow_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_bow_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:51
+[rect_ballista_bow_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_bow_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:52
+[ballista_bow_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=ballista_bow_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:53
+[ballista_bow]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=ballista_bow_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:54
+[ballista_chamber_layer]
+type=layer
+x=6
+y=20
+width=37
+height=75
+xmode=abs_centre
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Ballista chamber
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:55
+[ballista_ammo_layer]
+type=layer
+x=241
+y=20
+width=37
+height=75
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Ballista ammo
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:56
+[potion_set_1_layer]
+type=layer
+x=58
+y=122
+width=37
+height=75
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Melee potion set
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:57
+[potion_set_2_layer]
+type=layer
+x=-39
+y=122
+width=37
+height=75
+xmode=abs_centre
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Ranged potion set
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:58
+[potion_set_3_layer]
+type=layer
+x=242
+y=122
+width=37
+height=75
+layer=consumables_layer
+transmitop=1,2,10
+opbase=Magic potion set
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:59
+[rect_potion_set_3_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=potion_set_3_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:60
+[rect_potion_set_3_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=potion_set_3_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:61
+[potion_set_3_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=potion_set_3_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:62
+[potion_set_3]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=potion_set_3_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:63
+[rect_potion_set_2_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=potion_set_2_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:64
+[rect_potion_set_2_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=potion_set_2_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:65
+[potion_set_2_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=potion_set_2_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:66
+[potion_set_2]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=potion_set_2_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:67
+[rect_potion_set_1_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=potion_set_1_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:68
+[rect_potion_set_1_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=potion_set_1_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:69
+[potion_set_1_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=potion_set_1_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:70
+[potion_set_1]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=potion_set_1_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:71
+[rect_ballista_ammo_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_ammo_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:72
+[rect_ballista_ammo_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_ammo_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:73
+[ballista_ammo_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=ballista_ammo_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:74
+[ballista_ammo]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=ballista_ammo_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:75
+[rect_ballista_chamber_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_chamber_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:76
+[rect_ballista_chamber_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_chamber_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:77
+[ballista_chamber_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=ballista_chamber_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:78
+[ballista_chamber]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=ballista_chamber_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:79
+[rect_ballista_bolt_stack_props_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_bolt_stack_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:80
+[rect_ballista_bolt_stack_props_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ballista_bolt_stack_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:81
+[ballista_bolt_stack_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=ballista_bolt_stack_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:82
+[ballista_bolt_stack]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=ballista_bolt_stack_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:83
+[rect_ballista_base_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=ballista_base_layer
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:84
+[rect_ballista_base_2]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=ballista_base_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:85
+[ballista_base_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=ballista_base_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:86
+[ballista_base]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=ballista_base_layer
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:87
+[misc_layer]
+type=layer
+x=84
+y=74
+width=415
+height=229
+hide=yes
+onload=castlewars_setup_misc
+
+// 60:88
+[description_layer]
+type=layer
+x=14
+y=284
+width=484
+height=39
+
+// 60:89
+[darker]
+type=rectangle
+width=1
+height=2
+widthmode=minus
+heightmode=minus
+layer=description_layer
+colour=0x000000
+trans=40
+
+// 60:90
+[lighter]
+type=rectangle
+x=1
+y=2
+width=1
+height=2
+widthmode=minus
+heightmode=minus
+layer=description_layer
+colour=0x999999
+trans=36
+
+// 60:91
+[colour]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=description_layer
+colour=0x333333
+fill=yes
+
+// 60:92
+[description_text]
+type=text
+x=4
+width=7
+height=16384
+widthmode=minus
+heightmode=proportion
+layer=description_layer
+textfont=p11_full
+text=-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+onload=script3427
+
+// 60:93
+[sara_cape_layer]
+type=layer
+x=4
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Saradomin team cape
+op1=Buy
+op2=Examine
+op10=   
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:94
+[rect_sara_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=sara_cape_layer
+colour=0x333300
+transmitop=10
+op10=      
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:95
+[rect_sara_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=sara_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=      
+
+// 60:96
+[sara_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=sara_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=    
+
+// 60:97
+[sara_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=sara_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 60:98
+[zam_cape_layer]
+type=layer
+x=50
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Zamorak team cape
+op1=Buy
+op2=Examine
+op10=   
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:99
+[rect_zam_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=zam_cape_layer
+colour=0x333300
+transmitop=10
+op10=     
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:100
+[rect_zam_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=zam_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=     
+
+// 60:101
+[zam_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=zam_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 60:102
+[zam_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=zam_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:103
+[sara_hood_layer]
+type=layer
+x=95
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Saradomin team hood
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:104
+[rect_sara_hood_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=sara_hood_layer
+colour=0x333300
+transmitop=10
+op10=     
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:105
+[rect_sara_hood_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=sara_hood_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=     
+
+// 60:106
+[sara_hood_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=sara_hood_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 60:107
+[sara_hood]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=sara_hood_layer
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:108
+[zam_hood_layer]
+type=layer
+x=140
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Zamorak team hood
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:109
+[flag_cape_layer]
+type=layer
+x=184
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Castle Wars flag cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:110
+[kills_cape_layer]
+type=layer
+x=230
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Castle Wars kills cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:111
+[500_cape_layer]
+type=layer
+x=278
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Castle Wars hobbyist cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:112
+[1000_cape_layer]
+type=layer
+x=323
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Castle Wars enthusiast cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:113
+[5000_cape_layer]
+type=layer
+x=366
+y=20
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Castle Wars professional cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:114
+[halo_guthix_layer]
+type=layer
+x=2
+y=122
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Guthix halo
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:115
+[halo_sara_layer]
+type=layer
+x=92
+y=122
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Saradomin halo
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:116
+[halo_zam_layer]
+type=layer
+x=182
+y=122
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Zamorak halo
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:117
+[shield_layer]
+type=layer
+x=276
+y=122
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Faithful shield
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:118
+[book_layer]
+type=layer
+x=364
+y=122
+width=37
+height=75
+layer=misc_layer
+transmitop=1,2,10
+opbase=Castle Wars Manual
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:119
+[rect_book_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=book_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:120
+[rect_book_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=book_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:121
+[book_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=book_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:122
+[book]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=book_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:123
+[rect_shield_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shield_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:124
+[rect_shield_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shield_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:125
+[shield_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=shield_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:126
+[shield]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=shield_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:127
+[rect_halo_zam_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=halo_zam_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:128
+[rect_halo_zam_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=halo_zam_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:129
+[halo_zam_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=halo_zam_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:130
+[halo_zam]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=halo_zam_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:131
+[rect_halo_sara_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=halo_sara_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:132
+[rect_halo_sara_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=halo_sara_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:133
+[halo_sara_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=halo_sara_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:134
+[halo_sara]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=halo_sara_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:135
+[rect_halo_guthix_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=halo_guthix_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:136
+[rect_halo_guthix_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=halo_guthix_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:137
+[halo_guthix_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=halo_guthix_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:138
+[halo_guthix]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=halo_guthix_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:139
+[rect_5000_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=5000_cape_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:140
+[rect_5000_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=5000_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:141
+[5000_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=5000_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:142
+[5000_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=5000_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:143
+[rect_1000_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=1000_cape_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:144
+[rect_1000_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=1000_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:145
+[1000_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=1000_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:146
+[1000_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=1000_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:147
+[rect_500_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=500_cape_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:148
+[rect_500_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=500_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:149
+[500_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=500_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:150
+[500_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=500_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:151
+[rect_kills_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=kills_cape_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:152
+[rect_kills_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=kills_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:153
+[kills_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=kills_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:154
+[kills_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=kills_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:155
+[rect_flag_cape_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=flag_cape_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:156
+[rect_flag_cape_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=flag_cape_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:157
+[flag_cape_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=flag_cape_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:158
+[flag_cape]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=flag_cape_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:159
+[rect_zam_hood_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=zam_hood_layer
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:160
+[rect_zam_hood_2]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=zam_hood_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:161
+[zam_hood_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=zam_hood_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:162
+[zam_hood]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=zam_hood_layer
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:163
+[lvl3_helm_layer]
+type=layer
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Intricate decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:164
+[lvl3_torso_layer]
+type=layer
+x=41
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Intricate decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:165
+[lvl3_legs_layer]
+type=layer
+x=83
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Intricate decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:166
+[lvl3_shield_layer]
+type=layer
+x=125
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Intricate decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:167
+[lvl3_sword_layer]
+type=layer
+x=167
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Intricate decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:168
+[lvl4_helm_layer]
+type=layer
+x=208
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Profound decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:169
+[lvl4_torso_layer]
+type=layer
+x=250
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Profound decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:170
+[lvl4_legs_layer]
+type=layer
+x=291
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Profound decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:171
+[lvl4_shield_layer]
+type=layer
+x=332
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Profound decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:172
+[lvl4_sword_layer]
+type=layer
+x=373
+y=122
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Profound decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:173
+[lvl1_helm_layer]
+type=layer
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Basic decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:174
+[rect1a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_helm_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:175
+[rect1b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_helm_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:176
+[lvl_1_helm_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl1_helm_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:177
+[lvl_1_helm]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl1_helm_layer
+colour=0xffffffff
+
+// 60:178
+[lvl1_torso_layer]
+type=layer
+x=41
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Basic decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:179
+[rect2a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_torso_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:180
+[rect2b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_torso_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:181
+[lvl_1_torso_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl1_torso_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:182
+[lvl_1_torso]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl1_torso_layer
+colour=0xffffffff
+
+// 60:183
+[lvl1_legs_layer]
+type=layer
+x=83
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Basic decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:184
+[rect3a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_legs_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:185
+[rect3b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_legs_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:186
+[lvl_1_legs_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl1_legs_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:187
+[lvl_1_legs]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl1_legs_layer
+colour=0xffffffff
+
+// 60:188
+[lvl1_shield_layer]
+type=layer
+x=125
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Basic decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:189
+[rect4a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_shield_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:190
+[rect4b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_shield_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:191
+[lvl_1_shield_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl1_shield_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:192
+[lvl_1_shield]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl1_shield_layer
+colour=0xffffffff
+
+// 60:193
+[lvl1_sword_layer]
+type=layer
+x=167
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Basic decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:194
+[rect5a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_sword_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:195
+[rect5b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl1_sword_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:196
+[lvl_1_sword_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl1_sword_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:197
+[lvl_1_sword]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl1_sword_layer
+colour=0xffffffff
+
+// 60:198
+[lvl2_helm_layer]
+type=layer
+x=208
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Detailed decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:199
+[rect6a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_helm_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:200
+[rect6b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_helm_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:201
+[lvl_2_helm_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl2_helm_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:202
+[lvl_2_helm]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl2_helm_layer
+colour=0xffffffff
+
+// 60:203
+[lvl2_torso_layer]
+type=layer
+x=250
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Detailed decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:204
+[rect7a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_torso_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:205
+[rect7b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_torso_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:206
+[lvl_2_torso_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl2_torso_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:207
+[lvl_2_torso]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl2_torso_layer
+colour=0xffffffff
+
+// 60:208
+[lvl2_legs_layer]
+type=layer
+x=291
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Detailed decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:209
+[rect8a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_legs_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:210
+[rect8b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_legs_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:211
+[lvl_2_legs_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl2_legs_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:212
+[lvl_2_legs]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl2_legs_layer
+colour=0xffffffff
+
+// 60:213
+[lvl2_shield_layer]
+type=layer
+x=332
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Detailed decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:214
+[rect9a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_shield_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:215
+[rect9b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_shield_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:216
+[lvl_2_shield_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl2_shield_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:217
+[lvl_2_shield]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl2_shield_layer
+colour=0xffffffff
+
+// 60:218
+[lvl2_sword_layer]
+type=layer
+x=372
+y=20
+width=37
+height=75
+layer=decorative_armour_layer
+transmitop=1,2
+opbase=Detailed decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:219
+[rect10a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_sword_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:220
+[rect10b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl2_sword_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:221
+[lvl_2_sword_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl2_sword_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:222
+[lvl_2_sword]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl2_sword_layer
+colour=0xffffffff
+
+// 60:223
+[rect20a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_sword_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:224
+[rect20b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_sword_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:225
+[lvl_4_sword_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl4_sword_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:226
+[lvl_4_sword]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl4_sword_layer
+colour=0xffffffff
+
+// 60:227
+[rect19a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_shield_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:228
+[rect19b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_shield_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:229
+[lvl_4_shield_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl4_shield_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:230
+[lvl_4_shield]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl4_shield_layer
+colour=0xffffffff
+
+// 60:231
+[rect18a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_legs_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:232
+[rect18b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_legs_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:233
+[lvl_4_legs_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl4_legs_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:234
+[lvl_4_legs]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl4_legs_layer
+colour=0xffffffff
+
+// 60:235
+[rect17a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_torso_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:236
+[rect17b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_torso_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:237
+[lvl_4_torso_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl4_torso_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:238
+[lvl_4_torso]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl4_torso_layer
+colour=0xffffffff
+
+// 60:239
+[rect16a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_helm_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:240
+[rect16b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl4_helm_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:241
+[lvl_4_helm_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl4_helm_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:242
+[lvl_4_helm]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl4_helm_layer
+colour=0xffffffff
+
+// 60:243
+[rect15a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_sword_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:244
+[rect15b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_sword_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:245
+[lvl_3_sword_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl3_sword_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:246
+[lvl_3_sword]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl3_sword_layer
+colour=0xffffffff
+
+// 60:247
+[rect14a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_shield_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:248
+[rect14b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_shield_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:249
+[lvl_3_shield_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl3_shield_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:250
+[lvl_3_shield]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl3_shield_layer
+colour=0xffffffff
+
+// 60:251
+[rect13a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_legs_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:252
+[rect13b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_legs_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:253
+[lvl_3_legs_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl3_legs_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:254
+[lvl_3_legs]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl3_legs_layer
+colour=0xffffffff
+
+// 60:255
+[rect12a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_torso_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:256
+[rect12b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_torso_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:257
+[lvl_3_torso_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl3_torso_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:258
+[lvl_3_torso]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl3_torso_layer
+colour=0xffffffff
+
+// 60:259
+[rect11a]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_helm_layer
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:260
+[rect11b]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=lvl3_helm_layer
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:261
+[lvl_3_helm_cost]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=lvl3_helm_layer
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:262
+[lvl_3_helm]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=lvl3_helm_layer
+colour=0xffffffff

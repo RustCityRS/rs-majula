@@ -1,0 +1,5 @@
+// 2934
+[proc,loginscreen_link_nologin](string $string0, boolean $boolean0)
+if (compare($string0, "") ! 0) {
+    openurl_nologin($string0, $boolean0);
+}

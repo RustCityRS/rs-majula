@@ -1,0 +1,7 @@
+// 2144
+[clientscript,player_prefix_current](component $component0)
+if (%varplayer_1442 = 0) {
+    if_settext($component0, "No Prefix");
+} else {
+    if_settext($component0, enum(int, string, enum_1093, %varplayer_1442));
+}

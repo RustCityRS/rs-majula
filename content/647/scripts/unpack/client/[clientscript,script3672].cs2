@@ -1,0 +1,37 @@
+// 3672
+[clientscript,script3672]
+def_string $string0 = enum(int, string, enum_3230, %vkq2_chem_clientheat);
+def_string $string1 = enum(int, string, enum_3230, %vkq2_chem_clientpower);
+def_string $string2 = enum(int, string, enum_3231, %vkq2_chem_clientbalance);
+def_string $string3 = "<tostring(%vkq2_chem_clientprogress)>%";
+def_graphic $graphic0 = enum(int, graphic, enum_3233, %vkq2_chem_clientchem);
+def_graphic $graphic1 = enum(int, graphic, enum_3233, %vkq2_chem_clientchemnow);
+if_settext(vkq2_chemistry:heat_value, $string0);
+if_setcolour(vkq2_chemistry:heat_value, enum(int, int, enum_3234, %vkq2_chem_clientheat));
+if_settext(vkq2_chemistry:power_value, $string1);
+if_setcolour(vkq2_chemistry:power_value, enum(int, int, enum_3234, %vkq2_chem_clientpower));
+if_setgraphic(vkq2_chemistry:needed_value, $graphic0);
+if_setgraphic(vkq2_chemistry:current_value, $graphic1);
+if_settext(vkq2_chemistry:balance_value, $string2);
+if_setcolour(vkq2_chemistry:balance_value, enum(int, int, enum_3235, %vkq2_chem_clientbalance));
+if_settext(vkq2_chemistry:progress_value, $string3);
+if (%vkq2_chem_clientheat ! 3) {
+    if_sethide(vkq2_chemistry:heat_warning, false);
+} else {
+    if_sethide(vkq2_chemistry:heat_warning, true);
+}
+if (%vkq2_chem_clientpower ! 3) {
+    if_sethide(vkq2_chemistry:power_warning, false);
+} else {
+    if_sethide(vkq2_chemistry:power_warning, true);
+}
+if (%vkq2_chem_clientchemwrong = 1) {
+    if_sethide(vkq2_chemistry:chem_warning, false);
+} else {
+    if_sethide(vkq2_chemistry:chem_warning, true);
+}
+if (%vkq2_chem_clientbalance > 66) {
+    if_sethide(vkq2_chemistry:balance_warning, false);
+} else {
+    if_sethide(vkq2_chemistry:balance_warning, true);
+}

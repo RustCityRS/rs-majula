@@ -1,0 +1,8 @@
+// 1040
+[clientscript,script1040](component $component0, component $component1, component $component2, component $component3, chatphrase $chatphrase4)
+%quickchat_phrase_temp_int = calc(%quickchat_phrase_temp_int - 1);
+if (%quickchat_phrase_temp_int > 0) {
+    return;
+}
+if_setontimer($component1, null);
+~quickchat_objdialog_refreshsearch($component0, $component2, $component3, $chatphrase4);

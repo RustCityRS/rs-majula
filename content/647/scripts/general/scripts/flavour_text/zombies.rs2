@@ -1,0 +1,61 @@
+// only accessible via poison
+// https://twitter.com/Nin_UIM/status/1617227225316880385
+// - mod lenny said there was 5 instances of this.
+// - osrs wiki found 4/5 ids: 42, 49, 64, 26. im guessing the 5th is melzar's
+// - The id's dont match up but what are the odds that our only
+// zombies add up to 5?
+// 289's zombie_unarmed is 2011's zombie (73, the same npc).
+[ai_timer,zombie_unarmed] @zombie_brains;
+[ai_timer,zombie2] @zombie_brains;
+[ai_timer,zombie_armed] @zombie_brains;
+[ai_timer,zombie_entranan] @zombie_brains;
+// 289's dragonslayer_zombie (751) is not 2011's 751 (a Berserk barbarian
+// spirit, cache 786): waits for the Dragon Slayer port to find Melzar's
+// zombie in 2011.
+// [ai_timer,dragonslayer_zombie] @zombie_brains;
+
+// 2011's re-issues of these zombies (npc/configs/npc_clones_2011.npc).
+[ai_timer,sos_fam_zombie_unarmed] @zombie_brains;
+[ai_timer,zombie_unarmed2] @zombie_brains;
+[ai_timer,zombie_unarmed3] @zombie_brains;
+[ai_timer,zombie_unarmed4] @zombie_brains;
+[ai_timer,zombie_unarmed5] @zombie_brains;
+[ai_timer,zombie_unarmed6] @zombie_brains;
+[ai_timer,zombie_unarmed_city1] @zombie_brains;
+[ai_timer,zombie_unarmed_city3] @zombie_brains;
+[ai_timer,zombie_unarmed_city6] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer1] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer2] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer3] @zombie_brains;
+[ai_timer,zombie_unarmed_sewer4] @zombie_brains;
+[ai_timer,zombie2_b] @zombie_brains;
+[ai_timer,zombie2_c] @zombie_brains;
+[ai_timer,zombie2_rural1] @zombie_brains;
+[ai_timer,zombie2_rural2] @zombie_brains;
+[ai_timer,zombie2_rural3] @zombie_brains;
+[ai_timer,zombie2_rural4] @zombie_brains;
+[ai_timer,zombie_armed2] @zombie_brains;
+[ai_timer,zombie_armed3] @zombie_brains;
+[ai_timer,zombie_armed_city1] @zombie_brains;
+[ai_timer,zombie_armed_city3] @zombie_brains;
+[ai_timer,zombie_armed_sewer1] @zombie_brains;
+[ai_timer,zombie_armed_sewer2] @zombie_brains;
+[ai_timer,zombie_armed_sewer3] @zombie_brains;
+[ai_timer,zombie_armed_sewer4] @zombie_brains;
+[ai_timer,zombie_armed_rural1] @zombie_brains;
+[ai_timer,zombie_armed_rural2] @zombie_brains;
+[ai_timer,zombie_armed_rural3] @zombie_brains;
+[ai_timer,zombie_armed_rural4] @zombie_brains;
+[ai_timer,zombie_armed_rural5] @zombie_brains;
+[ai_timer,zombie_entranan2] @zombie_brains;
+[ai_timer,zombie_entranan3] @zombie_brains;
+[ai_timer,zombie_entranan4] @zombie_brains;
+[ai_timer,zombie_entranan5] @zombie_brains;
+[ai_timer,sos_fam_zombie_unarmed2] @zombie_brains;
+[ai_timer,sos_fam_zombie_unarmed3] @zombie_brains;
+[ai_timer,dragonslayer_zombie_1_key] @zombie_brains;
+[ai_timer,dragonslayer_zombie_2] @zombie_brains;
+
+[label,zombie_brains]
+sound_area(npc_coord, 9, zombie_moan, 1, 0);
+npc_say("Brainssss");

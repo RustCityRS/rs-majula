@@ -1,0 +1,8 @@
+// 141
+[clientscript,script141]
+if (%traderemoved = 1) {
+    if_sethide(trademain:trade_removed_warning_left, false);
+}
+if (%traderemoved_other = 1) {
+    if_sethide(trademain:trade_removed_warning_right, false);
+}

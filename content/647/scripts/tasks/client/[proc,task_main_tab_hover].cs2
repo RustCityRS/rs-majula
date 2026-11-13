@@ -1,0 +1,53 @@
+// 4026
+[proc,task_main_tab_hover](int $int0)
+switch_int ($int0) {
+    case 0 :
+        if (if_gethide(task_main:summary_details_layer) = true) {
+            if_setgraphic(task_main:com_26, "task_tab,0");
+            if_setgraphic(task_main:com_28, "task_tab,0");
+            if_setgraphic(task_main:com_27, "task_tab,1");
+        }
+        if (if_gethide(task_main:com_84) = true) {
+            if_setgraphic(task_main:summary_rewards_tab_l, "task_tab,0");
+            if_setgraphic(task_main:summary_rewards_tab_r, "task_tab,0");
+            if_setgraphic(task_main:summary_rewards_tab_m, "task_tab,1");
+        }
+        if (if_gethide(task_main:com_82) = true) {
+            if_setgraphic(task_main:summary_hints_tab_l, "task_tab,0");
+            if_setgraphic(task_main:summary_hints_tab_r, "task_tab,0");
+            if_setgraphic(task_main:summary_hints_tab_m, "task_tab,1");
+        }
+        if (if_gethide(task_main:summary_requirements_layer) = true) {
+            if_setgraphic(task_main:summary_requirements_tab_l, "task_tab,0");
+            if_setgraphic(task_main:summary_requirements_tab_r, "task_tab,0");
+            if_setgraphic(task_main:summary_requirements_tab_m, "task_tab,1");
+        }
+    case 1 :
+        if (if_gethide(task_main:summary_details_layer) = false) {
+            return;
+        }
+        if_setgraphic(task_main:com_26, "task_tab,2");
+        if_setgraphic(task_main:com_28, "task_tab,2");
+        if_setgraphic(task_main:com_27, "task_tab,3");
+    case 2 :
+        if (if_gethide(task_main:com_84) = false) {
+            return;
+        }
+        if_setgraphic(task_main:summary_rewards_tab_l, "task_tab,2");
+        if_setgraphic(task_main:summary_rewards_tab_r, "task_tab,2");
+        if_setgraphic(task_main:summary_rewards_tab_m, "task_tab,3");
+    case 3 :
+        if (if_gethide(task_main:com_82) = false) {
+            return;
+        }
+        if_setgraphic(task_main:summary_hints_tab_l, "task_tab,2");
+        if_setgraphic(task_main:summary_hints_tab_r, "task_tab,2");
+        if_setgraphic(task_main:summary_hints_tab_m, "task_tab,3");
+    case 4 :
+        if (if_gethide(task_main:summary_requirements_layer) = false) {
+            return;
+        }
+        if_setgraphic(task_main:summary_requirements_tab_l, "task_tab,2");
+        if_setgraphic(task_main:summary_requirements_tab_r, "task_tab,2");
+        if_setgraphic(task_main:summary_requirements_tab_m, "task_tab,3");
+}

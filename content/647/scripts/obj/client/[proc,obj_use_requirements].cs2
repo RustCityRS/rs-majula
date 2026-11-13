@@ -1,0 +1,12 @@
+// 926
+[proc,obj_use_requirements](obj $obj0)(boolean)
+if (~obj_use_skill_requirements($obj0) = false) {
+    return(false);
+}
+if (~obj_use_quest_requirements($obj0) = false) {
+    return(false);
+}
+if (~obj_use_special_requirements($obj0) = false) {
+    return(false);
+}
+return(true);

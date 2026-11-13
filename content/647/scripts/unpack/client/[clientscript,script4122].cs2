@@ -1,0 +1,5 @@
+// 4122
+[clientscript,script4122](component $component0, int $int1, component $component2)
+if (%eyeglo_operate2_b ! null) {
+    ~script1163($component0, $int1, $component2, oc_name(%eyeglo_operate2_b), 0, 180);
+}

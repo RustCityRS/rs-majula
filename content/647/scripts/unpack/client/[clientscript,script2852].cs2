@@ -1,0 +1,28 @@
+// 2852
+[clientscript,script2852](component $component0)
+if (%machinima_compass_current_angle < calc(%machinima_compass_angle + 250) & %machinima_compass_current_angle > calc(%machinima_compass_angle - 250)) {
+    %machinima_compass_current_angle = %machinima_compass_angle;
+} else if (%machinima_compass_current_angle > %machinima_compass_angle) {
+    if (calc(%machinima_compass_current_angle - 32768) > %machinima_compass_angle) {
+        %machinima_compass_current_angle = calc(%machinima_compass_current_angle + 250);
+        if (%machinima_compass_current_angle > 65535) {
+            %machinima_compass_current_angle = calc(%machinima_compass_current_angle - 63335);
+        }
+    } else {
+        %machinima_compass_current_angle = calc(%machinima_compass_current_angle - 250);
+        if (%machinima_compass_current_angle < 0) {
+            %machinima_compass_current_angle = calc(%machinima_compass_current_angle + 63335);
+        }
+    }
+} else if (calc(%machinima_compass_current_angle + 32768) < %machinima_compass_angle) {
+    %machinima_compass_current_angle = calc(%machinima_compass_current_angle - 250);
+    if (%machinima_compass_current_angle < 0) {
+        %machinima_compass_current_angle = calc(%machinima_compass_current_angle + 63335);
+    }
+} else {
+    %machinima_compass_current_angle = calc(%machinima_compass_current_angle + 250);
+    if (%machinima_compass_current_angle > 65535) {
+        %machinima_compass_current_angle = calc(%machinima_compass_current_angle - 63335);
+    }
+}
+if_set2dangle(machinima_livecamera:compassgraphic, %machinima_compass_current_angle);

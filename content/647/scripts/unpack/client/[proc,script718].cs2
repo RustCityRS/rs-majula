@@ -1,0 +1,20 @@
+// 718
+[proc,script718](int $int0)(int)
+switch_int ($int0) {
+    case default :
+        return(16777215);
+    case 1 :
+        return(16711680);
+    case 2 :
+        return(16744448);
+    case 3 :
+        return(16776960);
+    case 4 :
+        return(65280);
+    case 5 :
+        return(255);
+    case 6 :
+        return(4194559);
+    case 7 :
+        return(8388863);
+}

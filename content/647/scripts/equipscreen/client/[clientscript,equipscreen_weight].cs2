@@ -1,0 +1,3 @@
+// 690
+[clientscript,equipscreen_weight]
+if_settext(equip_screen2:com_24, "<tostring(runweight_visible)> kg");

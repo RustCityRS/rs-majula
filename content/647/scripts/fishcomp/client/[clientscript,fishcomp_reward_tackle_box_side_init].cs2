@@ -1,0 +1,6 @@
+// 1669
+[clientscript,fishcomp_reward_tackle_box_side_init]
+if_setoninvtransmit(fishcomp_reward_tackle_box_side:main_layer, "fishcomp_reward_tackle_box_refresh{inv}");
+if_setonvartransmit(fishcomp_reward_tackle_box:main_layer, "fishcomp_reward_tackle_box_refresh{varplayer_1660, varplayer_1661, fishcomp_perm8, varplayer_1663, varplayer_1664}");
+~script2174;
+~fishcomp_reward_tackle_box_refresh;

@@ -1,0 +1,2317 @@
+// 1082:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=quest
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:1
+[com_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=quest
+colour=0x010000
+trans=186
+
+// 1082:2
+[com_2]
+type=text
+x=4
+y=2
+width=205
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:3
+[com_3]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:4
+[com_4]
+type=layer
+x=8
+y=11
+width=217
+height=25
+layer=table
+
+// 1082:5
+[com_5]
+type=layer
+x=224
+y=11
+width=237
+height=25
+layer=table
+
+// 1082:6
+[com_6]
+type=layer
+x=8
+y=33
+width=453
+height=203
+layer=table
+
+// 1082:7
+[com_7]
+type=layer
+x=3
+y=20
+width=7
+height=24
+widthmode=minus
+heightmode=minus
+layer=background
+
+// 1082:8
+[dropshadow_side_graphic]
+type=graphic
+y=21
+width=4
+height=25
+heightmode=minus
+xmode=abs_right
+layer=background
+graphic=button_dropshadow_left
+tiling=yes
+
+// 1082:9
+[dropshadow_bottom_graphic]
+type=graphic
+x=3
+width=7
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=background
+graphic=button_dropshadow_bottom
+tiling=yes
+
+// 1082:10
+[dropshadow_corner_graphic]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=background
+graphic=button_dropshadow_corner
+tiling=yes
+
+// 1082:11
+[explanation]
+type=text
+y=52
+width=409
+height=37
+xmode=abs_centre
+layer=background
+textfont=p11_full
+text=Below are the standard patches and their statuses. When a patch is diseased, it is highlighted red. Click on the red status to cure the patch for free.
+textlineheight=12
+textalignh=centre
+textshadow=yes
+
+// 1082:12
+[com_12]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=special
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:13
+[com_13]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=special
+colour=0x010000
+trans=186
+
+// 1082:14
+[com_14]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=herbs
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:15
+[com_15]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=herbs
+colour=0x010000
+trans=186
+
+// 1082:16
+[com_16]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=flowers
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:17
+[com_17]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=flowers
+colour=0x010000
+trans=186
+
+// 1082:18
+[com_18]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=spirit_trees
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:19
+[com_19]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=spirit_trees
+colour=0x010000
+trans=186
+
+// 1082:20
+[com_20]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=bushes
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:21
+[com_21]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=bushes
+colour=0x010000
+trans=186
+
+// 1082:22
+[com_22]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=hops
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:23
+[com_23]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=hops
+colour=0x010000
+trans=186
+
+// 1082:24
+[com_24]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_61
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:25
+[com_25]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_61
+colour=0x010000
+trans=186
+
+// 1082:26
+[com_26]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_48
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:27
+[com_27]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_48
+colour=0x010000
+trans=186
+
+// 1082:28
+[com_28]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=trees
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:29
+[com_29]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=trees
+colour=0x010000
+trans=186
+
+// 1082:30
+[com_30]
+type=text
+x=4
+y=2
+width=205
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghij
+textalignv=centre
+textshadow=yes
+
+// 1082:31
+[com_31]
+type=text
+x=216
+y=2
+width=220
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghijlmnop
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:32
+[com_32]
+type=text
+x=4
+y=19
+width=205
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghij
+textalignv=centre
+textshadow=yes
+
+// 1082:33
+[com_33]
+type=text
+x=216
+y=19
+width=220
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghijlmnop
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:34
+[com_34]
+type=text
+x=4
+y=36
+width=205
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghij
+textalignv=centre
+textshadow=yes
+
+// 1082:35
+[com_35]
+type=text
+x=216
+y=36
+width=220
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghijlmnop
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:36
+[com_36]
+type=text
+x=4
+y=53
+width=205
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghij
+textalignv=centre
+textshadow=yes
+
+// 1082:37
+[com_37]
+type=text
+x=216
+y=53
+width=220
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghijlmnop
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:38
+[com_38]
+type=text
+x=4
+y=70
+width=205
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghij
+textalignv=centre
+textshadow=yes
+
+// 1082:39
+[com_39]
+type=text
+x=216
+y=70
+width=220
+height=15
+layer=trees
+textfont=p11_full
+text=abcdefghijlmnop
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:40
+[trees]
+type=layer
+x=2
+y=19
+width=439
+height=87
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 2)
+
+// 1082:41
+[patch_title]
+type=text
+x=13
+y=15
+width=80
+height=16
+layer=table
+textfont=p12_full
+text=Patch
+textshadow=yes
+
+// 1082:42
+[status_title]
+type=text
+x=229
+y=15
+width=80
+height=16
+layer=table
+textfont=p12_full
+text=Status
+textshadow=yes
+
+// 1082:43
+[com_43]
+type=line
+x=224
+y=34
+height=199
+layer=table
+colour=0x262424
+
+// 1082:44
+[scrollbar]
+type=layer
+x=461
+y=13
+width=17
+height=222
+layer=table
+onload=scrollbar_vertical_graphics(event_com, right_border_wm39_60:table_entries, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0")
+
+// 1082:45
+[background]
+type=layer
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 1082:46
+[table]
+type=layer
+x=14
+y=76
+width=480
+height=246
+
+// 1082:47
+[table_entries]
+type=layer
+x=27
+y=114
+width=443
+height=196
+scrollheight=931
+
+// 1082:48
+[com_48]
+type=layer
+x=2
+y=19
+width=439
+height=105
+layer=table_entries
+onload=script4263(event_com, 2, 93)
+
+// 1082:49
+[com_49]
+type=text
+x=4
+y=3
+width=205
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:50
+[com_50]
+type=text
+x=216
+y=4
+width=220
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:51
+[com_51]
+type=text
+x=4
+y=20
+width=205
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:52
+[com_52]
+type=text
+x=216
+y=21
+width=220
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:53
+[com_53]
+type=text
+x=4
+y=37
+width=205
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:54
+[com_54]
+type=text
+x=216
+y=38
+width=220
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:55
+[com_55]
+type=text
+x=4
+y=54
+width=205
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:56
+[com_56]
+type=text
+x=216
+y=55
+width=220
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:57
+[com_57]
+type=text
+x=4
+y=71
+width=205
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:58
+[com_58]
+type=text
+x=216
+y=72
+width=220
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:59
+[com_59]
+type=text
+x=4
+y=88
+width=205
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:60
+[com_60]
+type=text
+x=216
+y=89
+width=220
+height=15
+layer=com_48
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:61
+[com_61]
+type=layer
+x=2
+y=19
+width=439
+height=141
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 202)
+
+// 1082:62
+[com_62]
+type=text
+x=4
+y=5
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:63
+[com_63]
+type=text
+x=216
+y=6
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:64
+[com_64]
+type=text
+x=4
+y=22
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:65
+[com_65]
+type=text
+x=216
+y=23
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:66
+[com_66]
+type=text
+x=4
+y=39
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:67
+[com_67]
+type=text
+x=216
+y=40
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:68
+[com_68]
+type=text
+x=4
+y=56
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:69
+[com_69]
+type=text
+x=216
+y=57
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:70
+[com_70]
+type=text
+x=4
+y=73
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:71
+[com_71]
+type=text
+x=216
+y=74
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:72
+[com_72]
+type=text
+x=4
+y=90
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:73
+[com_73]
+type=text
+x=216
+y=91
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:74
+[com_74]
+type=text
+x=4
+y=107
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:75
+[com_75]
+type=text
+x=216
+y=108
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:76
+[com_76]
+type=text
+x=4
+y=124
+width=205
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:77
+[com_77]
+type=text
+x=216
+y=125
+width=220
+height=15
+layer=com_61
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:78
+[hops]
+type=layer
+x=2
+y=19
+width=439
+height=69
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 347)
+
+// 1082:79
+[com_79]
+type=text
+x=4
+y=2
+width=205
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:80
+[com_80]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:81
+[com_81]
+type=text
+x=4
+y=19
+width=205
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:82
+[com_82]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:83
+[com_83]
+type=text
+x=4
+y=36
+width=205
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:84
+[com_84]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:85
+[com_85]
+type=text
+x=4
+y=53
+width=205
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:86
+[com_86]
+type=text
+x=216
+y=54
+width=220
+height=15
+layer=hops
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:87
+[bushes]
+type=layer
+x=2
+y=19
+width=439
+height=69
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 420)
+
+// 1082:88
+[com_88]
+type=text
+x=4
+y=2
+width=205
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:89
+[com_89]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:90
+[com_90]
+type=text
+x=4
+y=19
+width=205
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:91
+[com_91]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:92
+[com_92]
+type=text
+x=4
+y=36
+width=205
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:93
+[com_93]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:94
+[com_94]
+type=text
+x=4
+y=53
+width=205
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:95
+[com_95]
+type=text
+x=216
+y=54
+width=220
+height=15
+layer=bushes
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:96
+[spirit_trees]
+type=layer
+x=2
+y=19
+width=439
+height=51
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 493)
+
+// 1082:97
+[com_97]
+type=text
+x=4
+y=2
+width=205
+height=15
+layer=spirit_trees
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:98
+[com_98]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=spirit_trees
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:99
+[com_99]
+type=text
+x=4
+y=19
+width=205
+height=15
+layer=spirit_trees
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:100
+[com_100]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=spirit_trees
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:101
+[com_101]
+type=text
+x=4
+y=36
+width=205
+height=15
+layer=spirit_trees
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:102
+[com_102]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=spirit_trees
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:103
+[flowers]
+type=layer
+x=2
+y=19
+width=439
+height=69
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 548)
+
+// 1082:104
+[com_104]
+type=text
+x=4
+y=4
+width=205
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:105
+[com_105]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:106
+[com_106]
+type=text
+x=4
+y=21
+width=205
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:107
+[com_107]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:108
+[com_108]
+type=text
+x=4
+y=38
+width=205
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:109
+[com_109]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:110
+[com_110]
+type=text
+x=4
+y=55
+width=205
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:111
+[com_111]
+type=text
+x=216
+y=54
+width=220
+height=15
+layer=flowers
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:112
+[herbs]
+type=layer
+x=2
+y=19
+width=439
+height=69
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 621)
+
+// 1082:113
+[special]
+type=layer
+x=2
+y=19
+width=439
+height=87
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 694)
+
+// 1082:114
+[quest]
+type=layer
+x=2
+y=19
+width=439
+height=69
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 785)
+
+// 1082:115
+[com_115]
+type=text
+x=3
+y=2
+width=205
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:116
+[com_116]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:117
+[com_117]
+type=text
+x=3
+y=19
+width=205
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:118
+[com_118]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:119
+[com_119]
+type=text
+x=3
+y=36
+width=205
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:120
+[com_120]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:121
+[com_121]
+type=text
+x=3
+y=53
+width=205
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:122
+[com_122]
+type=text
+x=216
+y=54
+width=220
+height=15
+layer=herbs
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:123
+[com_123]
+type=text
+x=4
+y=4
+width=205
+height=15
+layer=special
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:124
+[com_124]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=special
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:125
+[com_125]
+type=text
+x=4
+y=21
+width=205
+height=15
+layer=special
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:126
+[com_126]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=special
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:127
+[com_127]
+type=text
+x=4
+y=55
+width=205
+height=15
+layer=special
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:128
+[com_128]
+type=text
+x=216
+y=54
+width=220
+height=15
+layer=special
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:129
+[com_129]
+type=text
+x=4
+y=72
+width=205
+height=15
+layer=special
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:130
+[com_130]
+type=text
+x=216
+y=71
+width=220
+height=15
+layer=special
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:131
+[com_131]
+type=text
+x=4
+y=38
+width=205
+height=15
+layer=special
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:132
+[com_132]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=special
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:133
+[com_133]
+type=graphic
+y=1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_7
+graphic=window_texture_1
+tiling=yes
+
+// 1082:134
+[com_134]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_7
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 1082:135
+[com_135]
+type=graphic
+width=265
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_bot_brdr_left
+
+// 1082:136
+[com_136]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_7
+graphic=aif_window_stone_close_corner_3
+
+// 1082:137
+[com_137]
+type=graphic
+width=8
+height=162
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_7
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1082:138
+[com_138]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_7
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1082:139
+[com_139]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_7
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 1082:140
+[com_140]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_bot_brdr_left
+
+// 1082:141
+[com_141]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_bot_brdr_left
+
+// 1082:142
+[com_142]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1082:143
+[com_143]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_7
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1082:144
+[com_144]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_7
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1082:145
+[com_145]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_7
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 1082:146
+[com_146]
+type=graphic
+width=8
+height=162
+heightmode=minus
+ymode=abs_centre
+layer=com_7
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1082:147
+[com_147]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_side_brdr_small
+
+// 1082:148
+[com_148]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1082:149
+[com_149]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_7
+graphic=aif_window_stone_close_corner_1
+
+// 1082:150
+[com_150]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_7
+graphic=aif_window_stone_left_corner_1
+
+// 1082:151
+[com_151]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_7
+graphic=aif_window_stone_bot_corn
+
+// 1082:152
+[com_152]
+type=graphic
+width=8
+height=29
+layer=com_7
+graphic=aif_window_stone_left_corner_2
+
+// 1082:153
+[com_153]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_7
+graphic=aif_window_stone_close_corner_2
+
+// 1082:154
+[com_154]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_7
+
+// 1082:155
+[com_155]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_154
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1082:156
+[com_156]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_154
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1082:157
+[com_157]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_154
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1082:158
+[title_layer]
+type=layer
+width=16391
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_7
+
+// 1082:159
+[com_159]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=title_layer
+textfont=palatino_linotype_18pt_regular
+text=Farming Patch Status
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1082:160
+[content_layer]
+type=layer
+x=8
+y=29
+width=15
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 1082:161
+[com_161]
+type=graphic
+width=8
+height=23
+xmode=abs_right
+ymode=abs_centre
+layer=com_4
+graphic="aif_info_display_brown_1,0"
+hflip=yes
+
+// 1082:162
+[com_162]
+type=graphic
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+graphic="aif_info_display_brown_1,1"
+tiling=yes
+hflip=yes
+
+// 1082:163
+[com_163]
+type=graphic
+width=8
+height=23
+ymode=abs_centre
+layer=com_4
+graphic="aif_info_display_brown_1,0"
+
+// 1082:164
+[com_164]
+type=graphic
+width=8
+height=23
+xmode=abs_right
+ymode=abs_centre
+layer=com_5
+graphic="aif_info_display_brown_1,0"
+hflip=yes
+
+// 1082:165
+[com_165]
+type=graphic
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+graphic="aif_info_display_brown_1,1"
+tiling=yes
+hflip=yes
+
+// 1082:166
+[com_166]
+type=graphic
+width=8
+height=23
+ymode=abs_centre
+layer=com_5
+graphic="aif_info_display_brown_1,0"
+
+// 1082:167
+[com_167]
+type=graphic
+width=6
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+graphic=window_texture_1
+
+// 1082:168
+[com_168]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_6
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1082:169
+[com_169]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1082:170
+[com_170]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_6
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 1082:171
+[com_171]
+type=graphic
+y=-10
+width=10
+height=205
+xmode=abs_right
+ymode=abs_centre
+layer=com_6
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1082:172
+[com_172]
+type=graphic
+y=-10
+width=10
+height=205
+ymode=abs_centre
+layer=com_6
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1082:173
+[com_173]
+type=text
+x=4
+y=19
+width=205
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:174
+[com_174]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:175
+[com_175]
+type=text
+x=4
+y=36
+width=205
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:176
+[com_176]
+type=text
+x=216
+y=37
+width=220
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:177
+[com_177]
+type=text
+x=4
+y=53
+width=205
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:178
+[com_178]
+type=text
+x=216
+y=54
+width=220
+height=15
+layer=quest
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:179
+[com_179]
+type=layer
+x=2
+y=19
+width=439
+height=69
+layer=table_entries
+hide=yes
+onload=script4263(event_com, 2, 858)
+
+// 1082:180
+[com_180]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_179
+colour=0x010000
+fill=yes
+trans=184
+
+// 1082:181
+[com_181]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_179
+colour=0x010000
+trans=186
+
+// 1082:182
+[com_182]
+type=text
+x=4
+y=2
+width=205
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:183
+[com_183]
+type=text
+x=216
+y=3
+width=220
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:184
+[com_184]
+type=text
+x=4
+y=19
+width=205
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:185
+[com_185]
+type=text
+x=216
+y=20
+width=220
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:186
+[com_186]
+type=text
+x=4
+y=35
+width=205
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:187
+[com_187]
+type=text
+x=216
+y=36
+width=220
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch
+
+// 1082:188
+[com_188]
+type=text
+x=4
+y=52
+width=205
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefghijklmnop
+textshadow=yes
+
+// 1082:189
+[com_189]
+type=text
+x=216
+y=53
+width=220
+height=15
+layer=com_179
+textfont=p11_full
+text=abcdefg
+textshadow=yes
+transmitop=1
+op1=Cure patch

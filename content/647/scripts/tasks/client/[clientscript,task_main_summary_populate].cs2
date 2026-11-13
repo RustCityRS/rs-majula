@@ -1,0 +1,13 @@
+// 3990
+[clientscript,task_main_summary_populate](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+~deltooltip_action(task_main:toggle_tooltip);
+def_int $int3 = ~task_get_progress($int0);
+if ($int3 = 2) {
+    ~task_main_list_graphicswapper($int1, graphic_4043);
+} else {
+    ~task_main_list_graphicswapper($int1, graphic_4041);
+}
+~task_main_summary_populate($int0);

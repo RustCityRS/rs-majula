@@ -1,0 +1,1899 @@
+// 813:0
+[com_0]
+type=rectangle
+x=6
+y=5
+width=475
+height=311
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=188
+
+// 813:1
+[com_1]
+type=rectangle
+y=-1
+width=473
+height=309
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=233
+
+// 813:2
+[main_layer]
+type=layer
+y=-10
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 813:3
+[com_3]
+type=rectangle
+x=4
+y=4
+width=105
+height=148
+layer=clay_selection
+colour=0x000000
+fill=yes
+trans=177
+
+// 813:4
+[com_4]
+type=graphic
+x=8
+y=8
+width=103
+height=145
+layer=clay_selection
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 813:5
+[com_5]
+type=rectangle
+x=4
+y=4
+width=114
+height=156
+layer=clay_selection
+colour=0x000000
+fill=yes
+trans=197
+
+// 813:6
+[tier_layer]
+type=layer
+x=-2
+y=-2
+width=113
+height=156
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+
+// 813:7
+[info_bottom_6]
+type=graphic
+x=-56
+y=1
+width=32
+height=99
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 813:8
+[info_corner9]
+type=graphic
+x=-43
+y=64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:9
+[info_bottom_7]
+type=graphic
+x=54
+y=3
+width=30
+height=102
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 813:10
+[info_corner10]
+type=graphic
+x=-43
+y=-64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:11
+[info_corner11]
+type=graphic
+x=43
+y=-64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:12
+[info_bottom_8]
+type=graphic
+y=75
+width=54
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:13
+[info_corner12]
+type=graphic
+x=43
+y=64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:14
+[info_2]
+type=graphic
+x=2
+y=-79
+width=59
+height=29
+xmode=abs_centre
+ymode=abs_centre
+layer=clay_selection
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:15
+[title_1]
+type=text
+y=-116
+width=94
+height=49
+xmode=abs_centre
+ymode=abs_centre
+layer=type_selection
+textfont=q8_full
+text=What would you like to make?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 813:16
+[weapons_button_highlight]
+type=rectangle
+y=70
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=type_selection
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:17
+[armour_button_highlight]
+type=rectangle
+y=109
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=type_selection
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:18
+[supplies_button_highlight]
+type=rectangle
+y=148
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=type_selection
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:19
+[potions_button_highlight]
+type=rectangle
+y=187
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=type_selection
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:20
+[com_20]
+type=layer
+y=61
+width=16384
+height=225
+widthmode=proportion
+xmode=abs_centre
+layer=type_selection
+
+// 813:21
+[info_divider_4]
+type=graphic
+y=70
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=type_selection
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:22
+[info_divider_3]
+type=graphic
+y=31
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=type_selection
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:23
+[info_divider_2]
+type=graphic
+y=-8
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=type_selection
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:24
+[info_divider_1]
+type=graphic
+y=-47
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=type_selection
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:25
+[info_divider]
+type=graphic
+y=-86
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=type_selection
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:26
+[init_rect]
+type=rectangle
+x=34
+y=34
+width=32
+height=32
+layer=main_layer
+colour=0xffff00
+trans=255
+onload=sc_processing_init
+
+// 813:27
+[com_27]
+type=rectangle
+x=58
+y=58
+width=32
+height=32
+layer=main_layer
+colour=0xffff00
+trans=255
+onload=sc_tier_text_refresh
+
+// 813:28
+[com_28]
+type=graphic
+y=24
+width=470
+height=305
+xmode=abs_centre
+layer=main_layer
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 813:29
+[weapons_button_text]
+type=text
+y=5
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Weapons
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-weapons
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_show_weapons
+
+// 813:30
+[armour_button_text]
+type=text
+y=44
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Armour
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-armour
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_show_armour
+
+// 813:31
+[supplies_button_text]
+type=text
+y=83
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Equipment
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-equipment
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_show_supplies
+
+// 813:32
+[potions_button_text]
+type=text
+y=122
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Potions
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-potions
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_show_potions
+
+// 813:33
+[com_33]
+type=model
+x=372
+y=36
+width=87
+height=121
+layer=main_layer
+model=model_42957
+modelorigin=0,35
+modelangle=199,261,0
+modelzoom=1853
+
+// 813:34
+[clay_selection]
+type=layer
+x=355
+y=160
+width=120
+height=163
+layer=main_layer
+
+// 813:35
+[com_35]
+type=layer
+x=1
+y=17
+width=104
+height=126
+xmode=abs_centre
+ymode=abs_centre
+layer=tier_layer
+
+// 813:36
+[tier_title]
+type=text
+x=2
+y=5
+width=112
+height=30
+xmode=abs_centre
+layer=tier_layer
+textfont=q8_full
+text=Clay Quality
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 813:37
+[make_hatchet_text]
+type=text
+y=56
+width=124
+height=19
+xmode=abs_centre
+layer=supplies_layer
+textfont=p11_full
+text=Hatchet
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:38
+[make_pickaxe_text]
+type=text
+y=80
+width=124
+height=19
+xmode=abs_centre
+layer=supplies_layer
+textfont=p11_full
+text=Pickaxe
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:39
+[com_39]
+type=text
+y=104
+width=124
+height=19
+xmode=abs_centre
+layer=supplies_layer
+textfont=p11_full
+text=Harpoon
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:40
+[com_40]
+type=text
+y=128
+width=124
+height=19
+xmode=abs_centre
+layer=supplies_layer
+textfont=p11_full
+text=Butterfly net
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:41
+[com_41]
+type=text
+y=152
+width=124
+height=19
+xmode=abs_centre
+layer=supplies_layer
+textfont=p11_full
+text=Barrier
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:42
+[make_food_text]
+type=text
+y=176
+width=124
+height=19
+xmode=abs_centre
+layer=supplies_layer
+textfont=p11_full
+text=Food
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:43
+[com_43]
+type=text
+y=20
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Helm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:44
+[make_platelegs_text]
+type=text
+y=44
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Platelegs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:45
+[make_platebody_text]
+type=text
+y=68
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Platebody
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:46
+[make_coif_text]
+type=text
+y=92
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Coif
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:47
+[make_chaps_text]
+type=text
+y=116
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Chaps
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:48
+[make_hardbody_text]
+type=text
+y=140
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Hardbody
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:49
+[make_hat_text]
+type=text
+y=164
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Mage hat
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:50
+[com_50]
+type=text
+y=188
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Robe bottom
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:51
+[com_51]
+type=text
+y=212
+width=124
+height=19
+xmode=abs_centre
+layer=armour_layer
+textfont=p11_full
+text=Robe top
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:52
+[make_dagger_text]
+type=text
+y=-110
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Dagger
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:53
+[make_scimitar_text]
+type=text
+y=-86
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Scimitar
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:54
+[make_warhammer_text]
+type=text
+y=-62
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Warhammer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:55
+[com_55]
+type=text
+y=-38
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Bow
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:56
+[make_arrows_text]
+type=text
+x=-3
+y=-12
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Arrows
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-15
+op2=Make-75
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:57
+[com_57]
+type=text
+y=34
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Elemental runes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make (1 clay)
+op2=Make (5 clay)
+op3=Make (X clay)
+op4=Make (All clay)
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:58
+[com_58]
+type=text
+y=58
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Catalytic runes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make (1 clay)
+op2=Make (5 clay)
+op3=Make (X clay)
+op4=Make (All clay)
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:59
+[make_pouch_text]
+type=text
+y=82
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Summoning pouch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:60
+[make_staff_text]
+type=text
+y=10
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Magic staff
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:61
+[make_scroll_text]
+type=text
+y=106
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_layer
+textfont=p11_full
+text=Summoning scroll
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make (1 clay)
+op2=Make (5 clay)
+op3=Make (X clay)
+op4=Make (All clay)
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:62
+[type_selection]
+type=layer
+x=27
+y=27
+width=127
+height=299
+layer=main_layer
+
+// 813:63
+[item_selection]
+type=layer
+x=155
+y=28
+width=189
+height=297
+layer=main_layer
+
+// 813:64
+[com_64]
+type=text
+y=32
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Prayer potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:65
+[com_65]
+type=text
+y=56
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Energy potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:66
+[com_66]
+type=text
+y=80
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Attack potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:67
+[com_67]
+type=text
+y=104
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Strength potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:68
+[com_68]
+type=text
+y=128
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Ranging potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:69
+[com_69]
+type=text
+y=152
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Defence potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:70
+[com_70]
+type=text
+y=176
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Magic potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:71
+[com_71]
+type=text
+y=200
+width=124
+height=19
+xmode=abs_centre
+layer=potions_layer
+textfont=p11_full
+text=Summoning potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:72
+[com_72]
+type=rectangle
+x=4
+y=32
+width=15003
+height=13908
+widthmode=proportion
+heightmode=proportion
+layer=item_selection
+colour=0x000000
+fill=yes
+trans=177
+
+// 813:73
+[com_73]
+type=graphic
+x=7
+y=36
+width=15073
+height=13762
+widthmode=proportion
+heightmode=proportion
+layer=item_selection
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 813:74
+[com_74]
+type=rectangle
+x=4
+y=30
+width=182
+height=261
+layer=item_selection
+colour=0x000000
+fill=yes
+trans=197
+
+// 813:75
+[highlight_rect]
+type=rectangle
+y=43
+width=125
+height=278
+heightmode=minus
+xmode=abs_centre
+layer=item_selection
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:76
+[weapons_layer]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=item_selection
+transmitop=10
+op10= 
+
+// 813:77
+[armour_layer]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=item_selection
+hide=yes
+transmitop=10
+op10= 
+
+// 813:78
+[supplies_layer]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=item_selection
+hide=yes
+transmitop=10
+op10=  
+
+// 813:79
+[potions_layer]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=item_selection
+hide=yes
+transmitop=10
+op10=  
+
+// 813:80
+[title_text]
+type=text
+y=-7
+width=376
+height=42
+xmode=abs_centre
+layer=item_selection
+textfont=quill_oblique_large
+text=Creation Kiln
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 813:81
+[info_bottom_1]
+type=graphic
+x=-90
+y=16
+width=32
+height=207
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 813:82
+[info_bottom_2]
+type=graphic
+x=90
+y=15
+width=32
+height=205
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 813:83
+[info_corner2]
+type=graphic
+x=-77
+y=129
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:84
+[info_corner1]
+type=graphic
+x=-77
+y=-103
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:85
+[info_corner3]
+type=graphic
+x=78
+y=-103
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:86
+[info_corner4]
+type=graphic
+x=78
+y=129
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:87
+[info_bottom]
+type=graphic
+x=2
+y=141
+width=127
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:88
+[info_top]
+type=graphic
+x=3
+y=-116
+width=131
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=item_selection
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:89
+[close_button]
+type=graphic
+x=469
+y=29
+width=16
+height=16
+layer=main_layer
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 813:90
+[info_bottom_3]
+type=graphic
+x=-234
+y=11
+width=32
+height=255
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 813:91
+[info_bottom_4]
+type=graphic
+x=234
+y=10
+width=32
+height=256
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 813:92
+[info_corner8]
+type=graphic
+x=-221
+y=149
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:93
+[info_corner5]
+type=graphic
+x=-221
+y=-130
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:94
+[info_corner7]
+type=graphic
+x=222
+y=-130
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:95
+[info_corner6]
+type=graphic
+x=222
+y=149
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:96
+[info_bottom_5]
+type=graphic
+x=2
+y=161
+width=418
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:97
+[info_1]
+type=graphic
+x=1
+y=-143
+width=415
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=main_layer
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:98
+[com_98]
+type=rectangle
+y=-53
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:99
+[clay_1_text]
+type=text
+y=2
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 1 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
+
+// 813:100
+[com_100]
+type=rectangle
+y=-29
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:101
+[clay_2_text]
+type=text
+y=26
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 2 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
+
+// 813:102
+[com_102]
+type=rectangle
+y=-5
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:103
+[clay_3_text]
+type=text
+y=50
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 3 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
+
+// 813:104
+[com_104]
+type=rectangle
+y=19
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:105
+[clay_4_text]
+type=text
+y=74
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 4 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)
+
+// 813:106
+[com_106]
+type=rectangle
+y=43
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:107
+[clay_5_text]
+type=text
+y=96
+width=86
+height=22
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 5 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=sc_tier_text_mouseover(event_com)
+onmouseleave=sc_tier_text_mouseleave(event_com)

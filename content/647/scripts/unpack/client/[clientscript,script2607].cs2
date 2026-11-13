@@ -1,0 +1,5 @@
+// 2607
+[clientscript,script2607](int $int0)
+if (cc_find(quest_lunar_contact_npc_spell_v2:model_layer, $int0) = true) {
+    cc_setmodelanim(null);
+}

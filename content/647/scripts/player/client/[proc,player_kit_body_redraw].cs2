@@ -1,0 +1,207 @@
+// 1513
+[proc,player_kit_body_redraw]
+def_enum $enum0 = null;
+def_enum $enum1 = null;
+def_int $int2 = -1;
+def_idkit $idkit3 = null;
+def_enum $enum4 = null;
+def_enum $enum5 = null;
+def_enum $enum6 = null;
+def_int $int7 = -1;
+def_int $int8 = -1;
+switch_int (%player_kit_body_layer) {
+    case default :
+        %player_kit_body_layer = 0;
+        if_setgraphic(player_kit_tailor:torso_tab, "player_kit_fancy,0");
+        if_setgraphic(player_kit_tailor:arms_tab, "player_kit_fancy_off,1");
+        if_setgraphic(player_kit_tailor:hands_tab, "player_kit_fancy_off,5");
+        if_setgraphic(player_kit_tailor:legs_tab, "player_kit_fancy_off,2");
+        if (gender = 1) {
+            $enum0, $int2 = enum_1591, 9;
+            $enum1 = enum_1590;
+        } else {
+            $enum0, $int2 = enum_690, 2;
+            $enum1 = enum_689;
+        }
+        $idkit3 = %playerdesign3_torso;
+        $enum4 = enum_3282;
+        $enum5 = enum_2347;
+        $enum6 = enum_2348;
+        $int7 = 1;
+        $int8 = %playerdesign3_torsocol;
+    case 1 :
+        if_setgraphic(player_kit_tailor:torso_tab, "player_kit_fancy_off,0");
+        if_setgraphic(player_kit_tailor:arms_tab, "player_kit_fancy,1");
+        if_setgraphic(player_kit_tailor:hands_tab, "player_kit_fancy_off,5");
+        if_setgraphic(player_kit_tailor:legs_tab, "player_kit_fancy_off,2");
+        if (gender = 1) {
+            $enum0, $int2 = enum_693, 10;
+            $enum1 = enum_1593;
+        } else {
+            $enum0, $int2 = enum_711, 3;
+            $enum1 = enum_702;
+        }
+        $idkit3 = %playerdesign3_arms;
+        $enum4 = enum_3282;
+        $enum5 = enum_2347;
+        $enum6 = enum_2348;
+        $int7 = 1;
+        $int8 = %playerdesign3_torsocol;
+    case 2 :
+        if_setgraphic(player_kit_tailor:torso_tab, "player_kit_fancy_off,0");
+        if_setgraphic(player_kit_tailor:arms_tab, "player_kit_fancy_off,1");
+        if_setgraphic(player_kit_tailor:hands_tab, "player_kit_fancy,5");
+        if_setgraphic(player_kit_tailor:legs_tab, "player_kit_fancy_off,2");
+        if (gender = 1) {
+            $enum0, $int2 = enum_751, 11;
+        } else {
+            $enum0, $int2 = enum_749, 4;
+        }
+        $enum1 = enum_750;
+        $idkit3 = %playerdesign3_hands;
+    case 3 :
+        if_setgraphic(player_kit_tailor:torso_tab, "player_kit_fancy_off,0");
+        if_setgraphic(player_kit_tailor:arms_tab, "player_kit_fancy_off,1");
+        if_setgraphic(player_kit_tailor:hands_tab, "player_kit_fancy_off,5");
+        if_setgraphic(player_kit_tailor:legs_tab, "player_kit_fancy,2");
+        if (gender = 1) {
+            $enum0, $int2 = enum_1607, 12;
+            $enum1 = enum_1606;
+        } else {
+            $enum0, $int2 = enum_1586, 5;
+            $enum1 = enum_1585;
+        }
+        $idkit3 = %playerdesign3_legs;
+        $enum4 = enum_3284;
+        $enum5 = enum_2347;
+        $enum6 = enum_2348;
+        $int7 = 2;
+        $int8 = %playerdesign3_legscol;
+}
+cc_deleteall(player_kit_tailor:menu);
+def_int $int9 = 0;
+def_int $int10 = enum_getoutputcount($enum0);
+def_idkit $idkit11 = null;
+def_string $string0 = "";
+def_int $int12 = 0;
+def_int $int13 = 0;
+while ($int9 < $int10) {
+    $idkit11 = enum(int, idkit, $enum0, $int9);
+    $string0 = enum(int, string, $enum1, $int9);
+    cc_create(player_kit_tailor:menu, ^iftype_graphic, if_getnextsubid(player_kit_tailor:menu));
+    cc_setsize(17, 17, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, calc($int12 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_create(player_kit_tailor:menu, ^iftype_text, if_getnextsubid(player_kit_tailor:menu));
+    .cc_setsize(20, 19, ^setsize_minus, ^setsize_abs);
+    .cc_setposition(0, $int12, ^setpos_abs_right, ^setpos_abs_top);
+    .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    .cc_setcolour(0xff981f);
+    .cc_settextfont(p12_full);
+    .cc_settext($string0);
+    if ($idkit11 = $idkit3) {
+        cc_setgraphic("options_radio_buttons,2");
+        $int13 = $int12;
+    } else {
+        cc_setgraphic("options_radio_buttons,0");
+        cc_setonmouseover("cc_text_colour_swapper(event_com, .cc_getid, ^white)");
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, .cc_getid, 0xff981f)");
+        .cc_setonmouseover("cc_text_colour_swapper(event_com, .cc_getid, ^white)");
+        .cc_setonmouseleave("cc_text_colour_swapper(event_com, .cc_getid, 0xff981f)");
+        cc_setop(1, $string0);
+        .cc_setop(1, $string0);
+        cc_setonop("script1514(event_op, $idkit11, $int2)");
+        .cc_setonop("script1514(event_op, $idkit11, $int2)");
+    }
+    $int9 = calc($int9 + 1);
+    $int12 = calc($int12 + 19);
+}
+if ($int12 > if_getheight(player_kit_tailor:menu)) {
+    if_setsize(player_kit_tailor:menu, 20, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_tailor:menu, 0, $int12);
+    if ($int13 < if_getscrolly(player_kit_tailor:menu)) {
+        if_setscrollpos(player_kit_tailor:menu, 0, calc($int13 - 5));
+    } else if (calc($int13 + 19) >= calc(if_getscrolly(player_kit_tailor:menu) + if_getheight(player_kit_tailor:menu))) {
+        if_setscrollpos(player_kit_tailor:menu, 0, calc($int13 + 25 - if_getheight(player_kit_tailor:menu)));
+    }
+    if_sethide(player_kit_tailor:menu_scrollbar, false);
+    ~scrollbar_vertical(player_kit_tailor:menu_scrollbar, player_kit_tailor:menu, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setsize(player_kit_tailor:menu, 4, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_tailor:menu, 0, 0);
+    if_setscrollpos(player_kit_tailor:menu, 0, 0);
+    cc_deleteall(player_kit_tailor:menu_scrollbar);
+    if_sethide(player_kit_tailor:menu_scrollbar, true);
+}
+cc_deleteall(player_kit_tailor:colours);
+if ($enum5 = null) {
+    if_setsize(player_kit_tailor:colours, 4, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_tailor:colours, 0, 0);
+    if_setscrollpos(player_kit_tailor:colours, 0, 0);
+    cc_deleteall(player_kit_tailor:colours_scrollbar);
+    if_sethide(player_kit_tailor:colours_scrollbar, true);
+    return;
+}
+$int10 = enum_getoutputcount($enum5);
+def_int $int14 = 5;
+def_int $int15 = 0;
+if (calc((($int10 - 1) / $int14 + 1) * 21) > if_getheight(player_kit_tailor:colours)) {
+    $int14, $int15 = 4, 2;
+}
+$int9 = 0;
+$int12 = 0;
+def_int $int16 = 0;
+def_graphic $graphic17 = null;
+def_int $int18 = 0;
+while ($int9 < $int10) {
+    $int18 = enum(int, int, $enum4, $int9);
+    $string0 = enum(int, string, $enum6, $int9);
+    cc_create(player_kit_tailor:colours, ^iftype_rectangle, if_getnextsubid(player_kit_tailor:colours));
+    cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+    cc_setfill(true);
+    cc_setposition(calc($int16 * cc_getwidth + $int15), $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(enum(int, int, $enum5, $int9));
+    cc_setonmouserepeat("script1160(event_com, event_comsubid, player_kit_tailor:tooltip, $string0, 0, 512)");
+    cc_setonmouseleave("deltooltip(player_kit_tailor:tooltip)");
+    .cc_create(player_kit_tailor:colours, ^iftype_graphic, if_getnextsubid(player_kit_tailor:colours));
+    .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    if ($int18 = $int8) {
+        .cc_setgraphic(graphic_1043);
+        $int13 = $int12;
+    } else {
+        $graphic17 = graphic_1041;
+        .cc_setgraphic($graphic17);
+        .cc_setonmouseleave("cc_graphic_swapper(event_com, .cc_getid, $graphic17)");
+        $graphic17 = graphic_1042;
+        .cc_setonmouseover("cc_graphic_swapper(event_com, .cc_getid, $graphic17)");
+        .cc_setop(1, $string0);
+        .cc_setonop("player_kit_body_colourbutton(event_op, $int18, $int7)");
+    }
+    $int9 = calc($int9 + 1);
+    if ($int16 < calc($int14 - 1)) {
+        $int16 = calc($int16 + 1);
+    } else {
+        $int16 = 0;
+        $int12 = calc($int12 + cc_getheight);
+    }
+}
+if ($int16 ! 0) {
+    $int12 = calc($int12 + 21);
+}
+if ($int12 > if_getheight(player_kit_tailor:colours) | $int14 < 5) {
+    if_setsize(player_kit_tailor:colours, 20, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_tailor:colours, 0, $int12);
+    if ($int13 < if_getscrolly(player_kit_tailor:colours)) {
+        if_setscrollpos(player_kit_tailor:colours, 0, calc($int13 - 5));
+    } else if (calc($int13 + 21) >= calc(if_getscrolly(player_kit_tailor:colours) + if_getheight(player_kit_tailor:colours))) {
+        if_setscrollpos(player_kit_tailor:colours, 0, calc($int13 + 25 - if_getheight(player_kit_tailor:colours)));
+    }
+    if_sethide(player_kit_tailor:colours_scrollbar, false);
+    ~scrollbar_vertical(player_kit_tailor:colours_scrollbar, player_kit_tailor:colours, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    if_setsize(player_kit_tailor:colours, 4, 4, ^setsize_minus, ^setsize_minus);
+    if_setscrollsize(player_kit_tailor:colours, 0, 0);
+    if_setscrollpos(player_kit_tailor:colours, 0, 0);
+    cc_deleteall(player_kit_tailor:colours_scrollbar);
+    if_sethide(player_kit_tailor:colours_scrollbar, true);
+}

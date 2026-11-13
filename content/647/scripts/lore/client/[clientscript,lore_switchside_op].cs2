@@ -1,0 +1,15 @@
+// 2457
+[clientscript,lore_switchside_op](int $int0, int $int1)
+if (if_hassub(toplevel_fullscreen:sidemodal) = true) {
+    return;
+}
+if (if_hassub(~getsidelayer(95)) = false) {
+    return;
+}
+%last_switchsided_stone = 0;
+~if_switchside_op($int0);
+if (%if_switchside_varc = $int0) {
+    %if_switchside_varc = -1;
+} else {
+    %if_switchside_varc = $int0;
+}

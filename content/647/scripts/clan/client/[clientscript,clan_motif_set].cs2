@@ -1,0 +1,11 @@
+// 4388
+[clientscript,clan_motif_set](component $component0, component $component1)
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+if (activeclansettings_find_affined = true) {
+    $graphic2, $graphic3 = ~script4384(%clan_custom_motif_a_varp, %clan_custom_motif_b_varp, 0);
+    if_setgraphic($component0, $graphic2);
+    if_setgraphic($component1, $graphic3);
+    if_setcolour($component0, hsvtorgb(%clan_custom_motif_colour1_varp));
+    if_setcolour($component1, hsvtorgb(%clan_custom_motif_colour2_varp));
+}

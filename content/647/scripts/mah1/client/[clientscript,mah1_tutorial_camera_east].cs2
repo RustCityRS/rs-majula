@@ -1,0 +1,5 @@
+// 2342
+[clientscript,mah1_tutorial_camera_east]
+%mah1_tutorial_camera_step = 6;
+cam_movealong(0, %mah1_tutorial_camera_step, 600, 900, 1, %mah1_tutorial_camera_step);
+if_setoncamfinished(mah1_tutorialsplines:controller, "mah1_tutorial_camera_next");

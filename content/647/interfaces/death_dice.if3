@@ -1,0 +1,197 @@
+// 99:0
+[com_0]
+type=model
+x=23
+y=28
+width=472
+height=283
+model=model_3033
+modelorigin=-2,-11
+modelangle=490,0,0
+modelzoom=498
+
+// 99:1
+[death_gamble_harold_dice2]
+type=model
+x=153
+y=92
+width=51
+height=62
+model=model_3712
+modelorigin=-3,-23
+modelangle=241,1454,0
+modelzoom=1528
+
+// 99:2
+[death_gamble_harold_dice1]
+type=model
+x=81
+y=109
+width=69
+height=80
+model=model_3712
+modelorigin=6,-28
+modelangle=253,1666,0
+modelzoom=1229
+
+// 99:3
+[death_gamble_player_dice1]
+type=model
+x=311
+y=90
+width=57
+height=67
+model=model_3712
+modelorigin=7,-21
+modelangle=253,1755,0
+modelzoom=1528
+
+// 99:4
+[death_gamble_player_dice2]
+type=model
+x=370
+y=107
+width=68
+height=80
+model=model_3712
+modelorigin=11,-22
+modelangle=276,1905,0
+modelzoom=1229
+
+// 99:5
+[com_5]
+type=text
+x=95
+y=62
+width=102
+height=19
+textfont=q8_full
+text=Harold
+textalignh=centre
+colour=0x333333
+
+// 99:6
+[death_gamble_playername]
+type=text
+x=275
+y=62
+width=200
+height=23
+textfont=q8_full
+text=Player
+textalignh=centre
+colour=0x333333
+onvarcstrtransmit=script1576(event_com, death_dice:tooltip){varclient_1728}
+
+// 99:7
+[death_gamble_harold_gold]
+type=graphic
+x=62
+y=236
+width=36
+height=32
+outline=1
+graphicshadow=2894892
+colour=0xffffffff
+
+// 99:8
+[death_gamble_player_gold]
+type=graphic
+x=396
+y=236
+width=36
+height=32
+outline=1
+graphicshadow=2894892
+colour=0xffffffff
+
+// 99:9
+[death_gamble_roll]
+type=layer
+x=189
+y=235
+width=131
+height=25
+hide=yes
+
+// 99:10
+[death_gamble_roll_button]
+type=text
+x=1
+y=2
+width=127
+height=22
+layer=death_gamble_roll
+textfont=q8_full
+text=Roll Dice!
+textalignh=centre
+colour=0x333333
+transmitop=1
+op1=Roll
+
+// 99:11
+[death_gamble_continue]
+type=layer
+x=190
+y=234
+width=128
+height=27
+hide=yes
+
+// 99:12
+[death_gamble_continue_button]
+type=text
+x=1
+y=3
+width=126
+height=20
+layer=death_gamble_continue
+textfont=q8_full
+text=Continue...
+textalignh=centre
+colour=0x333333
+pausebutton=yes
+
+// 99:13
+[death_gamble_result]
+type=text
+x=186
+y=197
+width=143
+height=21
+textfont=q8_full
+text=You win!
+textalignh=centre
+colour=0x880000
+
+// 99:14
+[com_14]
+type=graphic
+x=456
+y=35
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 99:15
+[tooltip_bounding_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 99:16
+[tooltip]
+type=layer
+x=354
+y=77
+width=89
+height=16
+layer=tooltip_bounding_layer

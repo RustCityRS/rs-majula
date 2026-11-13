@@ -15,13 +15,13 @@ use rs_protocol_macros::server_prot;
 ///
 /// Status values: `0` loading, `1` connecting to the friend server, `2` online
 /// (loaded). Anything else shows "Please wait...".
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 #[server_prot(FriendListLoaded, Buffered, Fixed)]
 pub struct FriendListLoaded {
     pub status: u8,
 }
 
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ServerProtMessage for FriendListLoaded {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.status);
@@ -29,5 +29,18 @@ impl ServerProtMessage for FriendListLoaded {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.status)
+    }
+}
+
+#[cfg(since_647)]
+#[server_prot(FriendlistLoaded, Buffered, Fixed)]
+pub struct FriendlistLoaded;
+
+#[cfg(since_647)]
+impl ServerProtMessage for FriendlistLoaded {
+    fn encode(&self, _buf: &mut Packet) {}
+
+    fn sizeof(&self) -> usize {
+        0
     }
 }

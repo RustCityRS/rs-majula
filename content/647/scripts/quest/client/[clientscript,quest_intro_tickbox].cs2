@@ -1,0 +1,7 @@
+// 2829
+[clientscript,quest_intro_tickbox](component $component0)
+if (%varplayerbit_6924 = 0) {
+    if_setgraphic($component0, "warning_icons,2");
+} else {
+    if_setgraphic($component0, "warning_icons,1");
+}

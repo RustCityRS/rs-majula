@@ -1,0 +1,16 @@
+// 3103
+[proc,script3103]
+~lobby_worldswitcher_load;
+~lobby_worldswitcher_drawlist;
+~script3125(lobbyscreen_pane_worldselect:world_title_sorts, 1, 0, "Descending world number", "Ascending world number");
+~script3125(lobbyscreen_pane_worldselect:player_title_sorts, 3, 2, "Descending player count", "Ascending player count");
+~script3125(lobbyscreen_pane_worldselect:location_title_sorts, 5, 4, "Descending activity", "Ascending activity");
+~script3125(lobbyscreen_pane_worldselect:type_title_sorts, 9, 8, "Descending type", "Ascending type");
+~script3125(lobbyscreen_pane_worldselect:lootshare_title_sorts, 7, 6, "Descending LootShare", "Ascending LootShare");
+~script3125(lobbyscreen_pane_worldselect:ping_title_sorts, 11, 10, "Descending ping", "Ascending ping");
+~script3116;
+if (unknown_command_5420 = true) {
+    ~script3143(0, "Please choose a game world from the list.<br>This will cause the game applet to reload.");
+} else {
+    ~script3143(0, "Please choose a game world from the list.");
+}

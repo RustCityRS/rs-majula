@@ -37,7 +37,7 @@ pub use zone_coord::ZoneCoordGrid;
 `CoordGrid` and `ZoneCoordGrid` are flattened to the crate root; `MapsquareCoordGrid` is reachable only through its
 module path `rs_grid::mapsquare_coord::MapsquareCoordGrid` (`rs-grid/src/mapsquare_coord.rs:22`). That asymmetry is not
 an accident: `MapsquareCoordGrid` is an *internal* addressing primitive used almost exclusively inside the map decoder (
-`rs-engine/src/game_map.rs`), whereas the other two are pervasive engine-wide types. The module visibility encodes the
+`rs-engine/src/map.rs`), whereas the other two are pervasive engine-wide types. The module visibility encodes the
 intended blast radius of each type.
 
 ### The three spatial scales
@@ -374,17 +374,17 @@ bytes, so by-value is optimal) and shift-and-mask out each field.
 
 #### Role in map decoding
 
-The whole purpose of this type is to be a `usize` array index. In `GameMap` (`rs-engine/src/game_map.rs`), the
+The whole purpose of this type is to be a `usize` array index. In `GameMap` (`rs-engine/src/map.rs`), the
 per-mapsquare collision/terrain flag array `lands` is indexed by `coord.packed() as usize`:
 
 - `load_lands` decodes terrain opcodes and writes `lands[coord.packed() as usize] = opcode - 49` (
-  `game_map.rs:160-172`).
+  `map.rs:160-172`).
 - `load_locs` reads the bridge flag with `(lands[coord.packed() as usize] & LINK_BELOW) == LINK_BELOW` (
-  `game_map.rs:183-204`, `255-266`). When a tile is bridged, it reconstructs the level-1 lookup coordinate via
+  `map.rs:183-204`, `255-266`). When a tile is bridged, it reconstructs the level-1 lookup coordinate via
   `MapsquareCoordGrid::new(coord.x(), 1, coord.z())` — re-using the decoded X/Z but forcing the level to 1 to read the
   flag below the bridge.
 - `load_locs` / `load_objs` rebuild a typed coordinate from an accumulated offset with
-  `MapsquareCoordGrid::from(coord as u16)` (`game_map.rs:257,365,426`).
+  `MapsquareCoordGrid::from(coord as u16)` (`map.rs:257,365,426`).
 
 Because the packed layout is contiguous and dense, the `lands` table is a flat `[_; 16384]`-style array rather than a
 hash map: indexing is a bounds-checked array read with no hashing, which is exactly what a per-tile flag lookup hammered
@@ -1568,7 +1568,7 @@ flowchart LR
     N["'n' npcs"]:::c
     O["'o' objs"]:::c
   end
-  subgraph load["GameMap::load (game_map.rs:81)"]
+  subgraph load["GameMap::load (map.rs:81)"]
     LG["load_ground -> change_floor / change_roof"]
     LL["load_locations -> change_loc_collision"]
   end
@@ -1623,7 +1623,7 @@ Design consequences the engine relies on:
   `allocate_if_absent_return`, `collision.rs:71`, fills with `CollisionFlag::Open = 0`). An unallocated zone reads back
   as `CollisionFlag::Null = 0x7FFF_FFFF` (`collision.rs:38`) — i.e. *every* bit but the sign set, so any walkability
   test against it fails closed. This is why `load_ground` explicitly calls `rsmod::allocate_if_absent` on a sparse 7×7
-  stride (`game_map.rs:186-188`): it pre-materializes the zones touched by a mapsquare so that genuinely open tiles read
+  stride (`map.rs:186-188`): it pre-materializes the zones touched by a mapsquare so that genuinely open tiles read
   `Open`, not `Null`. Players also probe `is_zone_allocated` before allowing movement into a region (
   `active_player.rs:1959`, `:2202`; `active_npc.rs:278`).
 - **`u32` per tile, bit-packed.** All wall, projectile, route-blocker, floor, roof, npc, and player state for a tile fit
@@ -1665,25 +1665,25 @@ indoors" (`:178`).
 
 ### Building the collision map at load
 
-`GameMap::load` (`game_map.rs:81`) is called once at startup. It enumerates every `'m'` mapsquare key in the cache, and
+`GameMap::load` (`map.rs:81`) is called once at startup. It enumerates every `'m'` mapsquare key in the cache, and
 for each `(mx, mz)` computes the tile origin `originx = mx << 6`, `originz = mz << 6` (64 tiles per mapsquare; constants
-`X = Z = 64`, `Y = 4`, `game_map.rs:14-18`). It then decompresses and loads up to four data layers per square — ground (
+`X = Z = 64`, `Y = 4`, `map.rs:14-18`). It then decompresses and loads up to four data layers per square — ground (
 `'m'`), locations (`'l'`), npcs (`'n'`), objects (`'o'`) — each a BZip2 blob prefixed with a 4-byte big-endian
-uncompressed size (`decompress_map`, `game_map.rs:49`).
+uncompressed size (`decompress_map`, `map.rs:49`).
 
 #### Ground → floor and roof flags
 
-`load_ground` (`game_map.rs:156`) runs two passes over the 64×4×64 = `MAPSQUARE` tiles:
+`load_ground` (`map.rs:156`) runs two passes over the 64×4×64 = `MAPSQUARE` tiles:
 
 1. **Decode pass.** A per-tile opcode stream populates a local `lands: [u8; MAPSQUARE]` of land flags. Opcodes ≤ 49
-   carry skippable height/overlay bytes; opcodes 50–81 store `opcode - 49` as the land flag (`game_map.rs:161-174`).
+   carry skippable height/overlay bytes; opcodes 50–81 store `opcode - 49` as the land flag (`map.rs:161-174`).
    Only the *flags* survive into collision; heights/overlays are rendering data the server discards.
-2. **Apply pass.** For each tile it (a) sparsely allocates the zone on a 7×7 stride (`game_map.rs:186`), (b) sets `Roof`
+2. **Apply pass.** For each tile it (a) sparsely allocates the zone on a 7×7 stride (`map.rs:186`), (b) sets `Roof`
    if `REMOVE_ROOFS (0x4)` is set (`change_roof`, `:193`), and (c) if `BLOCK_MAP_SQUARE (0x1)` is set, sets `Floor` via
    `change_floor` — but with **bridge logic**: if the level-1 tile carries `LINK_BELOW (0x2)`, the floor flag is pushed
    down one level (`bridge = y - 1`), and a resulting negative level is skipped (`:200-212`).
 
-The land-flag constants (`game_map.rs:23-33`) are: `BLOCK_MAP_SQUARE 0x1`, `LINK_BELOW 0x2`, `REMOVE_ROOFS 0x4`,
+The land-flag constants (`map.rs:23-33`) are: `BLOCK_MAP_SQUARE 0x1`, `LINK_BELOW 0x2`, `REMOVE_ROOFS 0x4`,
 `VISIBLE_BELOW 0x8`, `NOT_LOW_DETAIL 0x10`. Only the first three affect collision; the rest are rendering hints retained
 for completeness but never written to the grid.
 
@@ -1694,12 +1694,12 @@ walkable surface must live on the lower level's grid.
 
 #### Locations → wall / loc / decoration flags
 
-`load_locations` (`game_map.rs:239`) walks the delta-encoded loc stream (`gsmart1or2` deltas for both id and packed
+`load_locations` (`map.rs:239`) walks the delta-encoded loc stream (`gsmart1or2` deltas for both id and packed
 coord, `:248-260`), applies the same bridge adjustment per loc (`:262-276`), and for each loc resolves its `LocType`
 from the cache. It extracts geometry directly from the 8-bit `info` byte:
 
 ```rust
-let shape = LocShape::try_from_primitive(info > > 2).unwrap();   // game_map.rs:285
+let shape = LocShape::try_from_primitive(info > > 2).unwrap();   // map.rs:285
 let layer = shape.layer();                                       // :286 (LocShape::layer())
 let angle = LocAngle::try_from_primitive(info & 0x3).unwrap();   // :287
 ```
@@ -1711,20 +1711,20 @@ interactable, and vice versa.
 
 ### The `change_loc_collision` dispatch — the heart of loc collision
 
-`change_loc_collision` (`game_map.rs:553`) is the single funnel that turns a
+`change_loc_collision` (`map.rs:553`) is the single funnel that turns a
 `(shape, layer, angle, blockrange, width, length, active)` tuple into `rsmod` writes. It switches on **layer** (
-`game_map.rs:567`):
+`map.rs:567`):
 
 | `LocLayer`    | rsmod call                                                       | behavior                                                      |
 |---------------|------------------------------------------------------------------|---------------------------------------------------------------|
 | `Wall`        | `change_wall(x,z,y, angle, shape as i8, blockrange, false, add)` | Edge flags chosen by wall shape + angle                       |
-| `WallDecor`   | *(none)*                                                         | Decorations never block; the arm is empty (`game_map.rs:571`) |
+| `WallDecor`   | *(none)*                                                         | Decorations never block; the arm is empty (`map.rs:571`) |
 | `Ground`      | `change_loc(x,z,y, len/wid, wid/len, blockrange, false, add)`    | Full-tile rectangle; **width/length swap on E/W angles**      |
 | `GroundDecor` | `change_floor(x,z,y, add)` *only if* `active == Some(true)`      | Treated as floor for collision                                |
 
 Two engineering details:
 
-- **The angle-driven dimension swap** (`game_map.rs:572-579`): for a `Ground` loc, North/South orientation passes
+- **The angle-driven dimension swap** (`map.rs:572-579`): for a `Ground` loc, North/South orientation passes
   `(length, width)`; West/East passes `(width, length)`. This rotates the loc's footprint without rotating the data —
   the rectangle the route finder blocks matches the loc's on-screen orientation.
 - **`change_wall` shape decoding lives in `rsmod`** (`lib.rs:203`). It maps `LocShape` to one of three wall geometries —
@@ -1738,9 +1738,9 @@ Two engineering details:
 The same dispatch serves three callers, which is the key to runtime coherence:
 
 - `GameMap::load_locations` — static map load (`:295`).
-- `apply_loc_collision(cache, loc, coord, add)` (`game_map.rs:469`) — looks up the live loc's type, and only if
+- `apply_loc_collision(cache, loc, coord, add)` (`map.rs:469`) — looks up the live loc's type, and only if
   `blockwalk`, forwards `loc.shape()/layer()/angle()`. Used by every dynamic loc transition.
-- `apply_collision_by_id(cache, id, shape, layer, angle, coord, add)` (`game_map.rs:503`) — same, but with
+- `apply_collision_by_id(cache, id, shape, layer, angle, coord, add)` (`map.rs:503`) — same, but with
   caller-supplied shape/angle (used when a loc *changes* into a different type).
 
 ### Dynamic loc changes keep the grid in lock-step

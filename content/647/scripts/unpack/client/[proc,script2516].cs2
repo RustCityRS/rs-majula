@@ -1,0 +1,16 @@
+// 2516
+[proc,script2516]
+%mob_client_cannon_qty = %varplayerbit_6364;
+%mob_client_glider_qty = %varplayerbit_6366;
+%mob_client_chinchompa_qty = %varplayerbit_6367;
+%mob_client_distractor_qty = %varplayerbit_6363;
+%mob_client_barricade_qty = %varplayerbit_6365;
+%mob_client_invest = %varplayerbit_6351;
+if_settext(mob_special_units:quantity_field1, tostring(%mob_client_cannon_qty));
+if_settext(mob_special_units:quantity_field2, tostring(%mob_client_glider_qty));
+if_settext(mob_special_units:quantity_field3, tostring(%mob_client_chinchompa_qty));
+if_settext(mob_special_units:quantity_field4, tostring(%mob_client_distractor_qty));
+if_settext(mob_special_units:quantity_field5, tostring(%mob_client_barricade_qty));
+if_settext(mob_special_units:invest_remainder_qty, ~tostring_spacer(%mob_client_invest, ","));
+~script2517;
+return;

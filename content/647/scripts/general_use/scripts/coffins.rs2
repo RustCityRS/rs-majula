@@ -1,0 +1,25 @@
+// 289's coffin sounds take void-634's ids (obj.sounds.toml: coffin_open is
+// 54); void-634 lists no coffin_close.
+[oploc1,coffin]
+mes("The coffin creaks open...");
+sound_synth(coffin_open, 1, 0);
+// Temp note: dur does not need updated ? @indio
+loc_change(coffin2, 500);
+
+[oploc1,coffin2]
+mes("You close the coffin.");
+// sound_synth(coffin_close, 1, 0); -- void-634 lists no coffin_close
+// Temp note: dur does not need updated ? @indio
+loc_change(coffin, 500);
+
+// 2011's coffin on 289's (general_use/configs/coffins.loc) opens and closes as
+// 289's does.
+[oploc1,di2_coffin]
+mes("The coffin creaks open...");
+sound_synth(coffin_open, 1, 0);
+loc_change(di2_coffin_open, 500);
+
+[oploc1,di2_coffin_open]
+mes("You close the coffin.");
+// sound_synth(coffin_close, 1, 0); -- no 2011 id is known for 289's coffin_close sound
+loc_change(di2_coffin, 500);

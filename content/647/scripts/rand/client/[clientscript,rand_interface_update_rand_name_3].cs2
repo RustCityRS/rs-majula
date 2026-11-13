@@ -1,0 +1,5 @@
+// 3240
+[clientscript,rand_interface_update_rand_name_3]
+if (%rand_exists_3 = 1) {
+    if_settext(rand_dungeon_rewards_v2:player_3_name, %rand_name_3);
+}

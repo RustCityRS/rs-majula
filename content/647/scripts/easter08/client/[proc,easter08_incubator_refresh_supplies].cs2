@@ -1,0 +1,9 @@
+// 896
+[proc,easter08_incubator_refresh_supplies]
+def_int $int0 = calc(116 / 12);
+def_int $int1 = calc($int0 * %easter08_incubator_water);
+def_int $int2 = calc($int0 * %easter08_incubator_coal);
+if_setposition(easter08_incubator_side:water_indicator, if_getx(easter08_incubator_side:water_indicator), calc(122 + (116 - $int1)), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter08_incubator_side:coal_indicator, if_getx(easter08_incubator_side:coal_indicator), calc(122 + (116 - $int2)), ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(easter08_incubator_side:water_indicator, 27, $int1, ^setsize_abs, ^setsize_abs);
+if_setsize(easter08_incubator_side:coal_indicator, 27, $int2, ^setsize_abs, ^setsize_abs);

@@ -1,0 +1,682 @@
+// 417:0
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 417:1
+[game_brew_backing]
+type=model
+x=-7
+y=-25
+width=527
+height=381
+layer=layer_1
+model=model_15707
+modelorigin=4,4
+modelangle=512,0,0
+modelzoom=400
+
+// 417:2
+[game_brew_table]
+type=model
+x=22
+y=54
+width=465
+height=227
+layer=layer_1
+model=model_15716
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=380
+
+// 417:3
+[game_brew_bamboo]
+type=model
+x=44
+y=94
+width=43
+height=74
+layer=layer_1
+model=model_15708
+modelangle=514,0,0
+modelzoom=650
+transmitop=1
+op1=Take Pipe
+
+// 417:4
+[game_brew_bridge]
+type=model
+x=105
+y=98
+width=69
+height=68
+layer=layer_1
+model=model_15709
+modelangle=514,0,0
+modelzoom=950
+transmitop=1
+op1=Take Bridge Section
+
+// 417:5
+[game_brew_bucket]
+type=model
+x=187
+y=104
+width=61
+height=57
+layer=layer_1
+model=model_15712
+modelorigin=-1,0
+modelangle=514,0,0
+modelzoom=400
+transmitop=1
+op1=Take Bucket
+
+// 417:6
+[game_brew_torch]
+type=model
+x=27
+y=232
+width=70
+height=14
+layer=layer_1
+model=model_15713
+modelorigin=5,22
+modelangle=514,512,0
+modelzoom=650
+transmitop=1
+op1=Take Torch
+
+// 417:7
+[game_brew_sheets]
+type=model
+x=337
+y=95
+width=67
+height=77
+layer=layer_1
+model=model_15718
+modelorigin=-1,0
+modelangle=512,0,0
+modelzoom=550
+transmitop=1
+op1=Take Lumber Patch
+
+// 417:8
+[game_brew_jar]
+type=model
+x=427
+y=105
+width=40
+height=50
+layer=layer_1
+model=model_26324
+modelorigin=1,26
+modelangle=0,0,1874
+modelzoom=422
+transmitop=1
+op1=Take Jar
+
+// 417:9
+[game_brew_bowl_blue]
+type=model
+x=115
+y=214
+width=49
+height=49
+layer=layer_1
+model=model_15685
+modelangle=514,0,0
+modelzoom=600
+transmitop=1
+op1=Take Bowl
+
+// 417:10
+[game_brew_tinderbox]
+type=model
+x=191
+y=214
+width=51
+height=50
+layer=layer_1
+model=model_15717
+modelorigin=1,1
+modelangle=512,0,0
+modelzoom=400
+transmitop=1
+op1=Take Tinderbox
+
+// 417:11
+[game_brew_meat]
+type=model
+x=277
+y=215
+width=31
+height=51
+layer=layer_1
+model=model_15715
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=400
+transmitop=1
+op1=Take Meat
+
+// 417:12
+[game_brew_knife]
+type=model
+x=364
+y=215
+width=14
+height=49
+layer=layer_1
+model=model_15714
+modelorigin=6,-13
+modelangle=512,0,0
+modelzoom=400
+transmitop=1
+op1=Take Knife
+
+// 417:13
+[game_brew_net]
+type=model
+x=414
+y=214
+width=64
+height=62
+layer=layer_1
+model=model_26326
+modelorigin=-4,2
+modelangle=512,0,0
+modelzoom=784
+transmitop=1
+op1=Take Net
+
+// 417:14
+[game_brew_axe]
+type=model
+x=270
+y=104
+width=50
+height=57
+layer=layer_1
+model=model_15663
+modelorigin=2,15
+modelangle=512,786,0
+modelzoom=500
+transmitop=1
+op1=Take Axe
+
+// 417:15
+[game_brew_bamboo_text]
+type=text
+x=25
+y=68
+width=75
+height=29
+layer=layer_1
+textfont=p12_full
+text=Bamboo pipe
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:16
+[game_brew_bridge_text]
+type=text
+x=102
+y=68
+width=75
+height=29
+layer=layer_1
+textfont=p12_full
+text=Bridge section
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:17
+[game_brew_bucket_text]
+type=text
+x=179
+y=68
+width=75
+height=29
+layer=layer_1
+textfont=p12_full
+text=Bucket
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:18
+[game_brew_torch_text]
+type=text
+x=25
+y=185
+width=75
+height=30
+layer=layer_1
+textfont=p12_full
+text=Torch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:19
+[game_brew_sheet_text]
+type=text
+x=333
+y=68
+width=75
+height=29
+layer=layer_1
+textfont=p12_full
+text=Lumber patch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:20
+[game_brew_jar_text]
+type=text
+x=410
+y=68
+width=75
+height=29
+layer=layer_1
+textfont=p12_full
+text=Jar
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:21
+[game_brew_bowl_blue_text]
+type=text
+x=102
+y=185
+width=75
+height=30
+layer=layer_1
+textfont=p12_full
+text=Bowl
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:22
+[game_brew_tinder_text]
+type=text
+x=179
+y=185
+width=75
+height=30
+layer=layer_1
+textfont=p12_full
+text=Tinderbox
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:23
+[game_brew_meat_text]
+type=text
+x=256
+y=185
+width=75
+height=30
+layer=layer_1
+textfont=p12_full
+text=Meat
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:24
+[game_brew_knife_text]
+type=text
+x=333
+y=185
+width=75
+height=30
+layer=layer_1
+textfont=p12_full
+text=Knife
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:25
+[game_brew_net_text]
+type=text
+x=410
+y=185
+width=75
+height=30
+layer=layer_1
+textfont=p12_full
+text=Net
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:26
+[game_brew_axe_text]
+type=text
+x=256
+y=68
+width=75
+height=29
+layer=layer_1
+textfont=p12_full
+text=Hatchet
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb99116
+
+// 417:27
+[game_brew_bamboo_counter]
+type=text
+x=72
+y=145
+width=8
+height=14
+layer=layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xb99116
+
+// 417:28
+[game_brew_bridge_counter]
+type=text
+x=158
+y=144
+width=8
+height=14
+layer=layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xb99116
+
+// 417:29
+[game_brew_patch_counter]
+type=text
+x=389
+y=145
+width=8
+height=14
+layer=layer_1
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xb99116
+
+// 417:30
+[com_30]
+type=graphic
+x=483
+y=6
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(brew_tools:com_30, "close_buttons,5")
+onmouseleave=graphic_swapper(brew_tools:com_30, "close_buttons,4")
+onop=closebutton_click
+
+// 417:31
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 417:32
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 417:33
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 417:34
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 417:35
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 417:36
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 417:37
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 417:38
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 417:39
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 417:40
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 417:41
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 417:42
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 417:43
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 417:44
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 417:45
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 417:46
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 417:47
+[com_47]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 417:48
+[com_48]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 417:49
+[com_49]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 417:50
+[com_50]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

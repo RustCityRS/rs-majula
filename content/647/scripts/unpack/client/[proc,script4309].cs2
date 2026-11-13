@@ -1,0 +1,6 @@
+// 4309
+[proc,script4309]()(int)
+if (%clansettings_clanmate_settings_rank ! -1 & %clansettings_clanmate_settings_job ! -1 & %clansettings_clanmate_settings_clanwars_leader ! -1 & %clansettings_clanmate_settings_recruiter ! -1 & compare(%clansettings_clanmate_settings_name, "") ! 0) {
+    return(1);
+}
+return(0);

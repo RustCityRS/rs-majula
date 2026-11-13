@@ -1,0 +1,13 @@
+// 2712
+[clientscript,objectives_delegation_position](component $component0, component $component1, component $component2)
+if (clientclock < %loginscreen_camera_delaytime) {
+    return;
+}
+%varclient_176 = calc(%varclient_176 + 2);
+def_int $int3 = calc(%varclient_176 % 10);
+if ($int3 ! 2) {
+    %varclient_176 = calc(%varclient_176 - $int3 + 2);
+}
+if_sethide($component0, false);
+if_setontimer($component0, "loginscreen_camera_timer($component0, $component1, $component2)");
+if_setontimer($component1, null);

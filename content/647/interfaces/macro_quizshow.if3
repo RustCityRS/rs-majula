@@ -1,0 +1,128 @@
+// 191:0
+[layer_1]
+type=layer
+width=512
+height=334
+
+// 191:1
+[com_1]
+type=rectangle
+x=-13
+y=-6
+width=904
+height=585
+layer=layer_1
+colour=0x000000
+
+// 191:2
+[com_2]
+type=model
+x=-14
+y=4
+width=509
+height=98
+layer=layer_1
+model=model_8787
+modelorigin=-34,-18
+modelangle=500,0,0
+modelzoom=258
+
+// 191:3
+[rollover1]
+type=model
+x=15
+y=54
+width=105
+height=35
+layer=layer_1
+model=model_8788
+modelorigin=-34,-35
+modelangle=500,0,0
+modelzoom=258
+pausebutton=yes
+
+// 191:4
+[rollover2]
+type=model
+x=188
+y=54
+width=105
+height=35
+layer=layer_1
+model=model_8788
+modelorigin=-34,-35
+modelangle=500,0,0
+modelzoom=258
+pausebutton=yes
+
+// 191:5
+[rollover3]
+type=model
+x=363
+y=52
+width=105
+height=35
+layer=layer_1
+model=model_8788
+modelorigin=-34,-35
+modelangle=500,0,0
+modelzoom=258
+pausebutton=yes
+
+// 191:6
+[com_6]
+type=model
+x=-189
+y=62
+width=25
+height=4
+xmode=abs_centre
+layer=layer_1
+model=model_8831
+modelorigin=0,2
+modelzoom=400
+onload=set_spinner(25, 18, 0, event_com)
+
+// 191:7
+[com_7]
+type=model
+x=-14
+y=56
+width=31
+height=14
+xmode=abs_centre
+layer=layer_1
+model=model_8834
+modelorigin=0,6
+modelzoom=400
+onload=set_spinner(18, 30, 0, event_com)
+
+// 191:8
+[com_8]
+type=model
+x=159
+y=64
+width=25
+height=4
+xmode=abs_centre
+layer=layer_1
+model=model_8831
+modelorigin=0,2
+modelzoom=400
+onload=set_spinner(20, 15, 0, event_com)
+
+// 191:9
+[com_9]
+type=text
+x=-18
+y=8
+width=170
+height=29
+xmode=abs_centre
+layer=layer_1
+textfont=p12_full
+text=Pick the odd one out.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00

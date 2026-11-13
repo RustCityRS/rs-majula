@@ -1,0 +1,658 @@
+// 658:0
+[shadow]
+type=rectangle
+x=60
+y=41
+width=402
+height=256
+colour=0x000000
+fill=yes
+trans=200
+
+// 658:1
+[blue_underlay]
+type=rectangle
+x=57
+y=34
+width=399
+height=257
+colour=0x82a1c4
+fill=yes
+
+// 658:2
+[com_2]
+type=graphic
+x=63
+y=39
+width=387
+height=246
+graphic=tradebacking
+tiling=yes
+trans=20
+colour=0x000000
+
+// 658:3
+[com_3]
+type=graphic
+x=43
+y=66
+width=32
+height=194
+graphic="v2_stone_borders,1"
+tiling=yes
+trans=20
+colour=0x000000
+
+// 658:4
+[com_4]
+type=graphic
+x=437
+y=65
+width=32
+height=195
+graphic="v2_stone_borders,3"
+tiling=yes
+trans=20
+colour=0x000000
+
+// 658:5
+[com_5]
+type=graphic
+x=56
+y=34
+width=32
+height=32
+graphic="v2_stone_borders,4"
+trans=20
+colour=0x000000
+
+// 658:6
+[com_6]
+type=graphic
+x=88
+y=21
+width=337
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+trans=20
+colour=0x000000
+
+// 658:7
+[com_7]
+type=graphic
+x=88
+y=272
+width=337
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+trans=20
+colour=0x000000
+
+// 658:8
+[com_8]
+type=graphic
+x=56
+y=260
+width=32
+height=32
+graphic="v2_stone_borders,6"
+trans=20
+colour=0x000000
+
+// 658:9
+[com_9]
+type=graphic
+x=425
+y=34
+width=32
+height=32
+graphic="v2_stone_borders,5"
+trans=20
+colour=0x000000
+
+// 658:10
+[com_10]
+type=graphic
+x=425
+y=260
+width=32
+height=32
+graphic="v2_stone_borders,7"
+trans=20
+colour=0x000000
+
+// 658:11
+[com_11]
+type=graphic
+x=62
+y=49
+width=389
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+trans=20
+colour=0x000000
+
+// 658:12
+[close_button]
+type=graphic
+x=431
+y=43
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+trans=20
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 658:13
+[title]
+type=text
+x=146
+y=44
+width=200
+height=15
+textfont=b12_full
+text=Select a Snowman Hat
+textalignh=centre
+textshadow=yes
+colour=0xb5d0d0
+
+// 658:14
+[divider]
+type=model
+y=1
+model=null
+modelzoom=400
+
+// 658:15
+[com_15]
+type=text
+x=72
+y=150
+width=55
+height=25
+textfont=p11_full
+text= Barbarian hat
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:16
+[dragon_hat]
+type=text
+x=148
+y=150
+width=55
+height=25
+textfont=p11_full
+text=Dragon hat
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:17
+[dwarf_hat]
+type=text
+x=230
+y=150
+width=55
+height=25
+textfont=p11_full
+text=Dwarf hat
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+opbase= 
+
+// 658:18
+[pirate_hat]
+type=text
+x=311
+y=150
+width=55
+height=25
+textfont=p11_full
+text=Pirate hat
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:19
+[top_hat]
+type=text
+x=390
+y=150
+width=55
+height=25
+textfont=p11_full
+text=Top hat
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:20
+[divider0]
+type=model
+y=1
+model=null
+modelzoom=400
+
+// 658:21
+[com_21]
+type=layer
+x=72
+y=96
+width=50
+height=50
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:22
+[barbarian_hat_button]
+type=rectangle
+x=72
+y=96
+width=50
+height=50
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Barbarian Snowman Hat
+op1=Select
+opcursor0=cursor_use
+
+// 658:23
+[com_23]
+type=layer
+x=149
+y=96
+width=50
+height=50
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:24
+[dragon_hat_button]
+type=rectangle
+x=149
+y=96
+width=50
+height=50
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Dragon Snowman Hat
+op1=Select
+opcursor0=cursor_use
+
+// 658:25
+[com_25]
+type=layer
+x=231
+y=96
+width=50
+height=50
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:26
+[dwarf_hat_button]
+type=rectangle
+x=231
+y=96
+width=50
+height=50
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Dwarf Snowman Hat
+op1=Select
+opcursor0=cursor_use
+
+// 658:27
+[com_27]
+type=layer
+x=312
+y=96
+width=50
+height=50
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:28
+[pirate_hat_button]
+type=rectangle
+x=312
+y=96
+width=50
+height=50
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Pirate Snowman Hat
+op1=Select
+opcursor0=cursor_use
+
+// 658:29
+[com_29]
+type=layer
+x=391
+y=96
+width=50
+height=50
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:30
+[top_hat_button]
+type=rectangle
+x=391
+y=96
+width=50
+height=50
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Snowman Top Hat
+op1=Select
+opcursor0=cursor_use
+
+// 658:31
+[com_31]
+type=layer
+x=149
+y=192
+width=50
+height=50
+layer=weapons_layer
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:32
+[bow_button]
+type=rectangle
+x=149
+y=192
+width=50
+height=50
+layer=weapons_layer
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Holly Bow
+op1=Select
+opcursor0=cursor_use
+
+// 658:33
+[com_33]
+type=layer
+x=231
+y=192
+width=50
+height=50
+layer=weapons_layer
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:34
+[staff_button]
+type=rectangle
+x=231
+y=192
+width=50
+height=50
+layer=weapons_layer
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Winter Staff
+op1=Select
+opcursor0=cursor_use
+
+// 658:35
+[com_35]
+type=layer
+x=313
+y=192
+width=50
+height=50
+layer=weapons_layer
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 658:36
+[sword_button]
+type=rectangle
+x=313
+y=192
+width=50
+height=50
+layer=weapons_layer
+colour=0x72a7a1
+fill=yes
+trans=240
+transmitop=1
+opbase=Ice Sword
+op1=Select
+opcursor0=cursor_use
+
+// 658:37
+[divider2]
+type=model
+y=1
+model=null
+modelzoom=400
+
+// 658:38
+[com_38]
+type=line
+x=58
+y=34
+width=396
+colour=0xcccccc
+
+// 658:39
+[com_39]
+type=line
+x=62
+y=62
+width=387
+colour=0xcccccc
+
+// 658:40
+[com_40]
+type=line
+x=62
+y=284
+width=387
+colour=0xcccccc
+opbase= 
+
+// 658:41
+[com_41]
+type=line
+x=432
+y=43
+width=12
+colour=0xcccccc
+
+// 658:42
+[com_42]
+type=model
+x=79
+y=100
+width=39
+height=38
+model=model_30312
+modelorigin=-2,14
+modelangle=150,2041,0
+modelzoom=912
+
+// 658:43
+[com_43]
+type=model
+x=151
+y=102
+width=49
+height=35
+model=model_30308
+modelorigin=3,16
+modelangle=33,3,0
+modelzoom=1168
+
+// 658:44
+[com_44]
+type=model
+x=239
+y=110
+width=37
+height=28
+model=model_30310
+modelorigin=2,13
+modelangle=15,1936,0
+modelzoom=1040
+
+// 658:45
+[com_45]
+type=model
+x=314
+y=110
+width=44
+height=29
+model=model_30311
+modelorigin=3,8
+modelangle=231,48,0
+modelzoom=1040
+
+// 658:46
+[com_46]
+type=model
+x=396
+y=107
+width=41
+height=33
+model=model_30307
+modelorigin=0,12
+modelangle=150,2038,0
+modelzoom=1168
+
+// 658:47
+[com_47]
+type=model
+x=154
+y=192
+width=41
+height=48
+layer=weapons_layer
+model=model_30314
+modelorigin=0,7
+modelangle=210,129,0
+modelzoom=1168
+
+// 658:48
+[com_48]
+type=model
+x=235
+y=190
+width=48
+height=54
+layer=weapons_layer
+model=model_30316
+modelorigin=2,4
+modelangle=1687,2032,0
+modelzoom=1168
+
+// 658:49
+[com_49]
+type=model
+x=317
+y=192
+width=45
+height=48
+layer=weapons_layer
+model=model_30313
+modelorigin=3,0
+modelangle=381,2041,0
+modelzoom=1296
+
+// 658:50
+[bow]
+type=text
+x=145
+y=250
+width=55
+height=25
+layer=weapons_layer
+textfont=p11_full
+text=Holly Bow
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:51
+[staff]
+type=text
+x=228
+y=250
+width=55
+height=25
+layer=weapons_layer
+textfont=p11_full
+text=Winter Staff
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:52
+[sword]
+type=text
+x=309
+y=250
+width=55
+height=25
+layer=weapons_layer
+textfont=p11_full
+text=Ice Sword
+textalignh=centre
+textshadow=yes
+colour=0xb2e0e4
+
+// 658:53
+[weapons_layer]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 658:54
+[websites_dia07]
+type=rectangle
+x=57
+y=35
+width=399
+height=256
+colour=0x5d7996
+fill=yes
+trans=200

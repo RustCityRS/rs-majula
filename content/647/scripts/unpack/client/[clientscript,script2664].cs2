@@ -1,0 +1,8 @@
+// 2664
+[clientscript,script2664]
+def_component $component0 = enum(int, component, enum_2566, %mah3_strip_select);
+def_component $component1 = enum(int, component, enum_2565, %mah3_strip_select);
+if (if_getx($component0) < 352) {
+    if_setposition($component0, calc(if_getx($component0) + 1), if_gety($component0), ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition($component1, calc(if_getx($component1) + 1), if_gety($component1), ^setpos_abs_left, ^setpos_abs_top);
+}

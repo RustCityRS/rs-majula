@@ -1,0 +1,7 @@
+// 2156
+[proc,ql4_getquestcomplete](int $int0)(boolean)
+def_int $int1 = ~ql4_getprogress($int0);
+if ($int1 = 2) {
+    return(true);
+}
+return(false);

@@ -1,0 +1,6 @@
+// Equip/unequip sound, reusing empty packed slot 0 as a server-only param.
+// Item mappings use gameval param 118 where the item and sound exist in 647,
+// plus matching equipment families. The gameval default is equip_fun.
+[param_0]
+type=synth
+default=equip_fun

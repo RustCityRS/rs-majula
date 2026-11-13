@@ -2,12 +2,15 @@ pub use crate::iterators::*;
 use crate::pointer::{ScriptPointer, ScriptPointerSet};
 use crate::subject::ScriptSubject;
 use crate::trigger::ServerTriggerType;
+#[cfg(since_647)]
+use crate::{ControllerUid, RegionUid};
 use crate::{LocSerial, NpcUid, ObjSerial, PlayerUid, ScriptError};
 use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use std::any::type_name;
+use std::mem;
 use std::sync::Arc;
 use std::time::Instant;
 
@@ -42,6 +45,7 @@ pub struct ScriptState {
     pub(crate) ssp: i32,
     pub(crate) int_locals: Vec<i32>,
     pub(crate) string_locals: Vec<String>,
+    pub(crate) arrays: [Vec<i32>; 5],
     pub(crate) int_base: usize,
     pub(crate) string_base: usize,
     pub(crate) gosub_frame_stack: Vec<GoSubFrame>,
@@ -58,8 +62,25 @@ pub struct ScriptState {
     pub active_loc2: Option<LocRef>,
     pub active_obj: Option<ObjRef>,
     pub active_obj2: Option<ObjRef>,
+    #[cfg(since_647)]
+    pub active_controller: Option<ControllerUid>,
+    #[cfg(since_647)]
+    pub active_controller2: Option<ControllerUid>,
+    #[cfg(since_647)]
+    pub active_region: Option<RegionUid>,
+    #[cfg(since_647)]
+    pub active_region2: Option<RegionUid>,
 
     pub last_int: Option<i32>,
+    /// Rev-647: the string carried by RESUME_P_STRINGDIALOG (or a display-name
+    /// result), read back by the `last_string` command.
+    #[cfg(since_647)]
+    pub last_string: Option<String>,
+    // The player whose script queued this one, when it runs from a queue: a
+    // hit it paints is theirs (2011's hitsplats are bright for the hit's
+    // dealer and receiver, darker for everyone else).
+    #[cfg(since_647)]
+    pub queue_source: Option<u16>,
 
     pub(crate) split_pages: Option<Vec<Vec<String>>>,
     pub(crate) split_mesanim: Option<u16>,
@@ -144,6 +165,7 @@ impl ScriptState {
             ssp: 0,
             int_locals,
             string_locals,
+            arrays: Default::default(),
             int_base: 0,
             string_base: 0,
             gosub_frame_stack: Vec::new(),
@@ -159,7 +181,19 @@ impl ScriptState {
             active_loc2: None,
             active_obj: None,
             active_obj2: None,
+            #[cfg(since_647)]
+            active_controller: None,
+            #[cfg(since_647)]
+            active_controller2: None,
+            #[cfg(since_647)]
+            active_region: None,
+            #[cfg(since_647)]
+            active_region2: None,
             last_int: None,
+            #[cfg(since_647)]
+            last_string: None,
+            #[cfg(since_647)]
+            queue_source: None,
             split_pages: None,
             split_mesanim: None,
             db_table: None,
@@ -289,6 +323,9 @@ impl ScriptState {
         // -- Stacks: just reset pointers. Values are overwritten before read. --
         self.isp = 0;
         self.ssp = 0;
+        for array in &mut self.arrays {
+            array.clear();
+        }
 
         // -- Frame stacks: clear contents, retain capacity --
         self.gosub_frame_stack.clear();
@@ -306,12 +343,23 @@ impl ScriptState {
         self.active_loc2 = None;
         self.active_obj = None;
         self.active_obj2 = None;
+        #[cfg(since_647)]
+        {
+            self.active_controller = None;
+            self.active_controller2 = None;
+            self.active_region = None;
+            self.active_region2 = None;
+        }
 
         // -- Bind subject and target --
         self.bind_subject_target(subject, target);
 
         // -- Misc state --
         self.last_int = None;
+        #[cfg(since_647)]
+        {
+            self.last_string = None;
+        }
         self.split_pages = None;
         self.split_mesanim = None;
         self.db_table = None;
@@ -548,7 +596,7 @@ impl ScriptState {
     /// **Called by:** The `GoSub` / `GoSubWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
     pub(crate) fn gosub_frame(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
-        let old_script = std::mem::replace(&mut self.script, Arc::clone(script));
+        let old_script = mem::replace(&mut self.script, Arc::clone(script));
         self.goto_frame_stack.push(GoToFrame {
             script: Arc::clone(&old_script),
             pc: self.pc,
@@ -651,7 +699,7 @@ impl ScriptState {
     /// **Called by:** Opcode handlers that produce integer results (arithmetic,
     /// variable loads, comparisons, etc.).
     #[inline(always)]
-    pub(crate) fn push_int(&mut self, value: i32) {
+    pub fn push_int(&mut self, value: i32) {
         debug_assert!(
             (self.isp as usize) < self.int_stack.len(),
             "{}",
@@ -788,7 +836,7 @@ impl ScriptState {
     /// **Called by:** Opcode handlers that produce string results (variable loads,
     /// string constants, db lookups, etc.).
     #[inline(always)]
-    pub(crate) fn push_string(&mut self, value: &str) {
+    pub fn push_string(&mut self, value: &str) {
         debug_assert!(
             (self.ssp as usize) < self.string_stack.len(),
             "{}",
@@ -976,14 +1024,14 @@ impl ScriptState {
     /// [`new_program`](Self::new_program), [`gosub_frame`](Self::gosub_frame),
     /// and [`pop_script_args`](Self::pop_script_args).
     #[inline(always)]
-    pub(crate) fn pop_string(&mut self) -> String {
+    pub fn pop_string(&mut self) -> String {
         self.ssp -= 1;
         debug_assert!(
             self.ssp >= 0,
             "{}",
             format!("string stack underflow, script: {}", self.script.info.name)
         );
-        std::mem::take(unsafe { self.string_stack.get_unchecked_mut(self.ssp as usize) })
+        mem::take(unsafe { self.string_stack.get_unchecked_mut(self.ssp as usize) })
     }
 
     /// Pops a sequence of typed script arguments from the operand stacks.
@@ -1045,14 +1093,55 @@ pub enum ExecutionState {
     Finished,
     /// Suspended to wait for a player movement or interaction to complete.
     Suspended,
+    #[cfg(since_254)]
+    MapBuildPending,
     /// Suspended because the player pressed the pause button during a message dialog.
     PauseButton,
     /// Suspended while waiting for the player to enter a number in a count dialog.
     CountDialog,
+    /// Rev-647: suspended while waiting for the player to type a string
+    /// (`p_stringdialog`), resumed by RESUME_P_STRINGDIALOG.
+    #[cfg(since_647)]
+    StringDialog,
+    /// Rev-647: waiting for a name (`p_namedialog`), resumed by RESUME_P_NAMEDIALOG.
+    #[cfg(since_647)]
+    NameDialog,
+    /// Rev-647: waiting for an obj from the stockmarket search (`p_objdialog`),
+    /// resumed by RESUME_P_OBJDIALOG.
+    #[cfg(since_647)]
+    ObjDialog,
+    /// Rev-647: waiting for a colour (`p_hsldialog`), resumed by RESUME_P_HSLDIALOG.
+    #[cfg(since_647)]
+    HslDialog,
+    /// Rev-647: waiting for a clan-forum quick find code (`p_clanforumqfcdialog`),
+    /// resumed by RESUME_P_CLANFORUMQFCDIALOG.
+    #[cfg(since_647)]
+    ClanforumqfcDialog,
+    /// Rev-647: suspended while waiting for the display-name DB check
+    /// requested by `p_setdisplayname`.
+    #[cfg(since_647)]
+    DisplayNamePending,
     /// Suspended to wait for an NPC movement or interaction to complete.
     NpcSuspended,
     /// Suspended to wait for a world-level event to complete.
     WorldSuspended,
+}
+
+impl ExecutionState {
+    /// Waiting on the player's answer to a dialog, which opening or closing a
+    /// modal abandons.
+    pub fn awaits_input(self) -> bool {
+        match self {
+            Self::PauseButton | Self::CountDialog => true,
+            #[cfg(since_647)]
+            Self::StringDialog
+            | Self::NameDialog
+            | Self::ObjDialog
+            | Self::HslDialog
+            | Self::ClanforumqfcDialog => true,
+            _ => false,
+        }
+    }
 }
 
 /// A typed argument passed to a script invocation.
@@ -1129,6 +1218,25 @@ pub struct QueuedScript {
     pub script_id: i32,
     pub delay: u16,
     pub args: Option<Vec<ScriptArgument>>,
+    // An `[npc_queue,<name>]` or `[controller_queue,<name>]`: `script_id` is
+    // a script, not the `[ai_queueN]` or `[ai_conqueue]` trigger otherwise held.
+    pub named: bool,
+    // The pid of the player whose script queued it (ScriptState::queue_source).
+    #[cfg(since_647)]
+    pub source: Option<u16>,
+}
+
+impl QueuedScript {
+    /// The int an `[ai_queueN]` or `[ai_conqueue]` entry was queued with.
+    pub fn last_int(&self) -> Option<i32> {
+        if self.named {
+            return None;
+        }
+        self.args.as_ref()?.iter().find_map(|arg| match arg {
+            ScriptArgument::Int(v) => Some(*v),
+            _ => None,
+        })
+    }
 }
 
 /// Priority level for a [`TimedScript`], controlling how the timer interacts
@@ -1314,6 +1422,27 @@ mod tests {
         assert_eq!((s.int_base, s.string_base), (0, 0));
         assert_eq!(s.int_locals, [0, 7]);
         assert_eq!(s.string_locals, ["root"]);
+    }
+
+    #[test]
+    fn arrays_survive_calls_and_suspension_but_reset_between_invocations() {
+        let mut s = state();
+        s.arrays[4] = vec![7];
+        s.gosub_frame(proc(0, 0, 0, 0)).unwrap();
+        assert_eq!(s.arrays[4], [7]);
+        s.arrays[4][0] = 9;
+        s.pop_frame();
+        assert_eq!(s.arrays[4], [9]);
+        s.goto_frame(proc(0, 0, 0, 0)).unwrap();
+        assert_eq!(s.arrays[4], [9]);
+        s.execution = ExecutionState::Suspended;
+        let mut suspended = s.clone();
+        s.arrays[4][0] = 11;
+        suspended.execution = ExecutionState::Running;
+        assert_eq!(suspended.arrays[4], [9]);
+        assert!(state().arrays.iter().all(Vec::is_empty));
+        s.reset(Arc::clone(&s.script), None, None, None);
+        assert!(s.arrays.iter().all(Vec::is_empty));
     }
 
     #[test]

@@ -85,6 +85,7 @@ impl AntiAfk {
     }
 
     /// The client said it's idle.
+    #[cfg(before_647)]
     pub fn idle(&mut self) {
         self.idle = true;
     }
@@ -190,10 +191,14 @@ mod tests {
                 a.moved(start + m * MIN + 50, 180, 140);
             }
         }
+        assert!(flags(&a, 183 * MIN).is_empty());
         // Away: the client says it's idle.
-        a.activity(200 * MIN);
-        a.idle();
-        assert!(flags(&a, 290 * MIN).is_empty());
+        #[cfg(before_647)]
+        {
+            a.activity(200 * MIN);
+            a.idle();
+            assert!(flags(&a, 290 * MIN).is_empty());
+        }
         // Short stretches between actions don't count.
         let mut busy = AntiAfk::default();
         for m in 0..120 {

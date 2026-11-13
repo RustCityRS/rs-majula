@@ -12,16 +12,16 @@ use rs_io::Packet;
 #[cfg(since_254)]
 use rs_protocol_macros::client_prot;
 
-/// A click the client acted on.
 #[cfg(since_254)]
-#[client_prot(Fixed(4), ClientEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(4), ClientEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(6), ClientEvent))]
 pub struct EventMouseClick {
     pub at: Cursor,
     pub right: bool,
     pub gap: u16,
 }
 
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 impl ClientProtMessage for EventMouseClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let v = buf.g4s() as u32;
@@ -29,6 +29,19 @@ impl ClientProtMessage for EventMouseClick {
             at: Cursor::unpack(v & 0x7ffff),
             right: (v >> 19) & 1 == 1,
             gap: (v >> 20) as u16,
+        }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for EventMouseClick {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let info = buf.g2();
+        let at = Cursor::unpack(buf.g4s_alt2() as u32);
+        EventMouseClick {
+            at,
+            right: info >> 15 == 1,
+            gap: info & 0x7fff,
         }
     }
 }

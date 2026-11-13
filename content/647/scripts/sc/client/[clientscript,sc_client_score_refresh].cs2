@@ -1,0 +1,96 @@
+// 1946
+[clientscript,sc_client_score_refresh]
+def_int $int0 = 0;
+def_string $string0 = "";
+if_setonmouseleave(sc_scores:com_10, "deltooltip(sc_scores:tab_tooltip_build)");
+if (%sc_client_winning_team = 99999992) {
+    if_settext(sc_scores:victory_text, "You abandon the game!");
+    if_settext(sc_scores:result_description_text, "You abandon the game.<br><br>The mystics don't seem happy and scowl at you, muttering unpleasant sentiments under their breath.<br><br>You notice that you received no score as a result.");
+    if_settext(sc_scores:bonus_score_text, "-100%");
+    if_settext(sc_scores:your_team_score_text, "");
+    if_settext(sc_scores:enemy_team_score_text, "");
+    $string0 = "The awards tab is not available when you leave a game early.";
+    if_setonmouserepeat(sc_scores:com_10, "addtooltip(sc_scores:com_10, sc_scores:tab_tooltip_build, $string0, 25, 189)");
+} else {
+    if (%sc_client_player_team = 1) {
+        if_settext(sc_scores:your_team_score_text, tostring(%sc_client_team1_score));
+        if_settext(sc_scores:enemy_team_score_text, tostring(%sc_client_team2_score));
+    } else {
+        if_settext(sc_scores:your_team_score_text, tostring(%sc_client_team2_score));
+        if_settext(sc_scores:enemy_team_score_text, tostring(%sc_client_team1_score));
+    }
+    if (%sc_client_player_team = %sc_client_winning_team) {
+        if_settext(sc_scores:victory_text, "Your valiant team takes the victory!");
+        if ($int0 = 1) {
+            if_settext(sc_scores:result_description_text, "With the heroic conquest of all resources and facilities, your team have ripped success from the feeble fingers of your unworthy foes.<br><br>The mystics stand in awe of your power, and you hear them praising you in excited whispers.<br><br>You notice that they have increased your score as a reward.");
+        } else {
+            if_settext(sc_scores:result_description_text, "The heroic, skillful and brave deeds of your team have ripped success from the feeble fingers of your unworthy foes.<br><br>The mystics stand in awe of your power, and you hear them praising you in excited whispers.<br><br>You notice that they have increased your score as a reward.");
+        }
+        if_settext(sc_scores:bonus_score_text, "+10%");
+    } else if (%sc_client_winning_team = 0) {
+        if_settext(sc_scores:victory_text, "The game was a draw!");
+        if_settext(sc_scores:result_description_text, "As if ordained by fate, the teams were equally brave and skillful, resulting in a draw.<br><br>The mystics nod knowingly, and you hear them discussing how the balance of the universe is reflected beautifully in the conflict's outcome.<br><br>");
+        if_settext(sc_scores:bonus_score_text, "+0%");
+    } else {
+        if_settext(sc_scores:victory_text, "The enemy team has defeated you!");
+        if ($int0 = 1) {
+            if_settext(sc_scores:result_description_text, "Despite your best efforts, your team was beaten; the victory snatched away as the enemy took control of all resources and facilities.<br><br>The mystics frown at you, and shake their heads sadly.<br><br>You hear them arguing over whether they overestimated you, or if you were just unlucky.");
+        }
+        if_settext(sc_scores:result_description_text, "Despite your best efforts, your team was beaten; the victory snatched away by your fearsome foes.<br><br>The mystics frown at you, and shake their heads sadly.<br><br>You hear them arguing over whether they overestimated you, or if you were just unlucky.");
+        if_settext(sc_scores:bonus_score_text, "+0%");
+    }
+}
+if_settext(sc_scores:gathered_score_text, tostring(%sc_client_gathered_score));
+if_settext(sc_scores:gathered_score_text, tostring(%sc_client_gathered_score));
+if_settext(sc_scores:processed_score_text, tostring(%sc_client_processed_score));
+if_settext(sc_scores:deposited_score_text, tostring(%sc_client_deposited_score));
+if_settext(sc_scores:damaged_score_text, tostring(%sc_client_damaged_score));
+if_settext(sc_scores:killed_score_text, tostring(%sc_client_killed_score));
+if_settext(sc_scores:died_score_text, tostring(%sc_client_died_score));
+if (%sc_client_winning_team ! 99999992) {
+    if_settext(sc_scores:total_score_text, tostring(%sc_client_final_score));
+} else {
+    if_settext(sc_scores:total_score_text, tostring(0));
+}
+if (%sc_client_collect_sc > 0 | %sc_client_damage_sc > 0) {
+    if_settext(sc_scores:process_award_sc, tostring(%sc_client_process_sc));
+    if_settext(sc_scores:gather_award_sc, tostring(%sc_client_collect_sc));
+    if_settext(sc_scores:kill_award_sc, tostring(%sc_client_kill_sc));
+    if_settext(sc_scores:death_award_sc, tostring(%sc_client_death_sc));
+    if_settext(sc_scores:damage_award_sc, tostring(%sc_client_damage_sc));
+    if_settext(sc_scores:deposit_award_sc, tostring(%sc_client_deposit_sc));
+    if_settext(sc_scores:best_award_sc, tostring(%sc_client_best_sc));
+    if_settext(sc_scores:useless_award_sc, tostring(%sc_client_useless_sc));
+    ~sc_output_name(%sc_client_process_pl, sc_scores:process_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_collect_pl, sc_scores:gather_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_kill_pl, sc_scores:kill_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_death_pl, sc_scores:death_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_damage_pl, sc_scores:damage_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_deposit_pl, sc_scores:deposit_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_best_pl, sc_scores:best_award_pl, sc_scores:tooltip, p12_full);
+    ~sc_output_name(%sc_client_useless_pl, sc_scores:useless_award_pl, sc_scores:tooltip, p12_full);
+    if (%sc_client_process_t > 0) {
+        if_settext(sc_scores:process_award_t, tostring(%sc_client_process_t));
+    }
+    if (%sc_client_collect_t > 0) {
+        if_settext(sc_scores:gather_award_t, tostring(%sc_client_collect_t));
+    }
+    if (%sc_client_kill_t > 0) {
+        if_settext(sc_scores:kill_award_t, tostring(%sc_client_kill_t));
+    }
+    if (%sc_client_death_t > 0) {
+        if_settext(sc_scores:death_award_t, tostring(%sc_client_death_t));
+    }
+    if (%sc_client_damage_t > 0) {
+        if_settext(sc_scores:damage_award_t, tostring(%sc_client_damage_t));
+    }
+    if (%sc_client_deposit_t > 0) {
+        if_settext(sc_scores:deposit_award_t, tostring(%sc_client_deposit_t));
+    }
+    if (%sc_client_best_t > 0) {
+        if_settext(sc_scores:best_award_t, tostring(%sc_client_best_t));
+    }
+    if (%sc_client_useless_t > 0) {
+        if_settext(sc_scores:useless_award_t, tostring(%sc_client_useless_t));
+    }
+}

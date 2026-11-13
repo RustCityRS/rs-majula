@@ -1,0 +1,6 @@
+// 1192
+[clientscript,duel2_spectator_init](component $component0, component $component1)
+if_setsize($component0, calc(parawidth(if_gettext($component1), 512, p12_full) + 34), if_getheight($component0), ^setsize_abs, ^setsize_abs);
+if_setonvarctransmit($component0, "duel2_spectator_setcam(true){duel2_spectator}");
+if_setontimer($component0, "duel2_spectator_setcam(false)");
+~duel2_spectator_setcam;

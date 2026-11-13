@@ -11,14 +11,26 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
 #[cfg(since_254)]
-#[client_prot(Fixed(2), UserEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(2), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(3), UserEvent))]
 pub struct OpPlayer5 {
     pub pid: u16,
+    #[cfg(since_647)]
+    pub ctrl: bool,
 }
 
 #[cfg(since_254)]
+#[cfg(before_647)]
 impl ClientProtMessage for OpPlayer5 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpPlayer5 { pid: buf.g2() }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtMessage for OpPlayer5 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let (ctrl, pid) = (buf.g1_alt1() != 0, buf.g2_alt1());
+        OpPlayer5 { pid, ctrl }
     }
 }

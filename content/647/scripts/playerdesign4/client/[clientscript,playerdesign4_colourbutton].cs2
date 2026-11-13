@@ -1,0 +1,22 @@
+// 357
+[clientscript,playerdesign4_colourbutton](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+switch_int ($int2) {
+    case 0 :
+        %playerdesign3_haircol = $int1;
+    case 1 :
+        %playerdesign3_torsocol = $int1;
+    case 2 :
+        %playerdesign3_legscol = $int1;
+    case 3 :
+        %playerdesign3_feetcol = $int1;
+    case 4 :
+        %playerdesign3_skincol = $int1;
+    case default :
+        return;
+}
+sound_synth(synth_9830, 1, 0);
+basecolour($int2, $int1);
+~playerdesign4_rebuildmenu;

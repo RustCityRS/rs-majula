@@ -1,0 +1,252 @@
+// 84
+[proc,rebuildchatbox]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $chattype2 = ^chattype_gamemessage;
+def_component $component3 = null;
+def_int $int4 = 0;
+def_int $int5 = 1;
+def_int $int6 = 1;
+if (%chat_view = 3) {
+    $int4 = 1;
+}
+while ($int1 < 100) {
+    if (~panetest($int1) = true & ~filtertest($int1, $int4) = true) {
+        $int0 = calc($int0 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int7 = calc(if_getheight(chatdefault:scrollarea) / 14);
+def_int $int8 = 0;
+if ($int0 < $int7) {
+    $int0 = $int7;
+    while ($int8 < $int7) {
+        ~script85(enum(int, component, enum_579, $int8));
+        $int8 = calc($int8 + 1);
+    }
+}
+if_setscrollsize(chatdefault:scrollarea, 463, calc($int0 * 14 + 2));
+~scrollbar_resize(chatdefault:scrollbar, chatdefault:scrollarea, calc(%chat_lastscrollpos + if_getscrollheight(chatdefault:scrollarea) - %chat_lastscrollsize));
+%chat_lastscrollpos = if_getscrolly(chatdefault:scrollarea);
+%chat_lastscrollsize = if_getscrollheight(chatdefault:scrollarea);
+if ($int0 < 100) {
+    ~script85(enum(int, component, enum_579, $int0));
+}
+def_int $int9 = -1;
+def_int $int10 = ~script4467;
+def_int $int11 = -1;
+def_int $int12 = ~script1891;
+$int1 = 0;
+%quickchat_respond_phrase = null;
+def_string $string0 = "<col=0000ff>";
+def_string $string1 = "<col=800000>";
+def_string $string2 = "<col=800080>";
+def_string $string3 = "<col=00ff00>";
+def_int $rgb13 = ^black;
+def_int $rgb14 = ^black;
+def_int $rgb15 = ^black;
+def_int $rgb16 = ^black;
+def_string $string4 = "<col=000000>";
+if (getwindowmode >= 2) {
+    $string0 = "<col=7fa9ff>";
+    $string1 = "<col=ff5256>";
+    $string2 = "<col=ff78d9>";
+    $string3 = "<col=96ff7d>";
+    $rgb16 = ^white;
+    $string4 = "<col=ffffff>";
+    $rgb14 = enum(int, int, enum_3724, %varplayerbit_3612);
+    $rgb13 = enum(int, int, enum_3723, %varplayerbit_9188);
+    $rgb15 = enum(int, int, enum_3726, %varplayerbit_9191);
+} else {
+    $rgb14 = enum(int, int, enum_3724, %varplayerbit_3612);
+    $rgb13 = enum(int, int, enum_3723, %varplayerbit_9188);
+    $rgb15 = enum(int, int, enum_3726, %varplayerbit_9191);
+}
+while ($int1 < 100) {
+    if (~panetest($int1) = true & ~filtertest($int1, $int4) = true) {
+        $int0 = calc($int0 - 1);
+        $component3 = enum(int, component, enum_579, $int0);
+        $chattype2 = chat_gethistorytype($int1);
+        if_setcolour($component3, $rgb16);
+        switch_int ($chattype2) {
+            case ^chattype_gamemessage, ^chattype_engine, ^chattype_obj_examine, ^chattype_npc_examine, ^chattype_loc_examine, ^chattype_friendschatnotification, ^chattype_clanmessage, ^chattype_trade_notification, ^chattype_assist_notification, ^chattype_spam, 110, ^chattype_snapshotfeedback, ^chattype_friendnotification, ^chattype_ignorenotification :
+                if_settext($component3, chat_gethistorymessage($int1));
+                if ($int5 = 1 & ($chattype2 = ^chattype_gamemessage | $chattype2 = ^chattype_engine | $chattype2 = ^chattype_obj_examine | $chattype2 = ^chattype_npc_examine | $chattype2 = ^chattype_loc_examine | $chattype2 = ^chattype_snapshotfeedback | $chattype2 = ^chattype_friendnotification | $chattype2 = ^chattype_ignorenotification)) {
+                    %last_meslayer_line_timestamp = chat_getprevuid($int1);
+                    $int5 = 0;
+                }
+            case ^chattype_modchat, ^chattype_publicchat :
+                if_settext($component3, "<chat_gethistoryname($int1)>: <$string0><chat_gethistorymessage($int1)>");
+            case ^chattype_privatechat :
+                if_settext($component3, "From <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
+            case ^chattype_tradereq :
+                if_settext($component3, "<$string2><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_loginlogoutnotification :
+                if_settext($component3, "<$string1><chat_gethistorymessage($int1)>");
+            case ^chattype_privatechatout :
+                if_settext($component3, "To <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
+            case ^chattype_modprivatechat :
+                if_settext($component3, "From <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
+            case ^chattype_challenge :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_clanchat :
+                if_setcolour($component3, $rgb14);
+                if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)>: </col><chat_gethistorymessage($int1)>");
+            case ^chattype_friendschat :
+                if_setcolour($component3, $rgb13);
+                if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)>: </col><chat_gethistorymessage($int1)>");
+            case ^chattype_clanguestchat :
+                if_setcolour($component3, $rgb15);
+                if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)>: </col><chat_gethistorymessage($int1)>");
+            case ^chattype_clan_join :
+                if_settext($component3, "<col=7e3200><chat_gethistorymessage($int1)>");
+            case ^chattype_assistreq :
+                if_settext($component3, "<col=8a2be2><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case 105 :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case 106 :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_clan_challenge :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_rated_clan_war :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_quickchat_public :
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
+                    if_settext($component3, "<chat_gethistoryname($int1)><img=3>: <$string0><chat_gethistorymessage($int1)>");
+                } else {
+                    if_settext($component3, "<chat_gethistoryname($int1)>: <$string0><chat_gethistorymessage($int1)>");
+                }
+            case ^chattype_quickchat_private_incoming :
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
+                    if_settext($component3, "From <chat_gethistoryname($int1)><img=3>: <$string1><chat_gethistorymessage($int1)>");
+                } else {
+                    if_settext($component3, "From <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
+                }
+            case ^chattype_quickchat_private_outgoing :
+                if_settext($component3, "To <chat_gethistoryname($int1)>: <$string1><chat_gethistorymessage($int1)>");
+            case ^chattype_quickchat_clanchat :
+                if_setcolour($component3, $rgb14);
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
+                    if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)><img=3>: </col><chat_gethistorymessage($int1)>");
+                } else {
+                    if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)>: </col><chat_gethistorymessage($int1)>");
+                }
+            case ^chattype_quickchat_clanguestchat :
+                if_setcolour($component3, $rgb15);
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
+                    if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)><img=3>: </col><chat_gethistorymessage($int1)>");
+                } else {
+                    if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)>: </col><chat_gethistorymessage($int1)>");
+                }
+            case ^chattype_quickchat_friend_chat :
+                if_setcolour($component3, $rgb13);
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0 & chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
+                    if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)><img=3>: </col><chat_gethistorymessage($int1)>");
+                } else {
+                    if_settext($component3, "<$string4>[</col><$string0><chat_gethistoryclan($int1)></col><$string4>] <chat_gethistoryname($int1)>: </col><chat_gethistorymessage($int1)>");
+                }
+            case ^chattype_ally_request :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_dungeon_invite, 112 :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_conquest_regular_challenge, 114 :
+                if_settext($component3, "<col=7e3200><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_system_broadcast :
+                if_settext($component3, "<col=7f0000><chat_gethistoryname($int1)> <chat_gethistorymessage($int1)>");
+            case ^chattype_npc_chat :
+                if_settext($component3, chat_gethistorymessage($int1));
+        }
+        if_clearops($component3);
+        if_setonop($component3, "chat_op(event_op, unknown_command_5019($int1), $int1)");
+        if_setopbase($component3, "<col=ffffff><removetags(chat_gethistoryname($int1))>");
+        switch_int ($chattype2) {
+            case ^chattype_modchat, ^chattype_publicchat, ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_clanchat, ^chattype_clanguestchat, ^chattype_friendschat, ^chattype_privatechatout :
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0) {
+                    if (friend_test(unknown_command_5019($int1)) = true) {
+                        if (map_quickchat = false & userdetail_quickchat = false) {
+                            if_setop($component3, 6, "Message");
+                        }
+                    } else {
+                        if_setop($component3, 6, "Add friend");
+                        if_setop($component3, 7, "Add ignore");
+                    }
+                    if (staffmodlevel > 0 | playermod > 0) {
+                        if_setop($component3, 8, "Report abuse");
+                    }
+                    if ($chattype2 = ^chattype_clanchat & $int10 = 1) {
+                        if_setop($component3, 10, "Kick/ban");
+                    }
+                    if ($chattype2 = ^chattype_friendschat & $int12 = 1) {
+                        if_setop($component3, 10, "Kick/ban");
+                    }
+                }
+            case ^chattype_tradereq :
+                if_setop($component3, 1, "Accept trade");
+            case ^chattype_challenge, 105, 106, ^chattype_clan_challenge, ^chattype_conquest_regular_challenge, 114, ^chattype_rated_clan_war :
+                if_setop($component3, 2, "Accept challenge");
+            case ^chattype_assistreq :
+                if_setop($component3, 3, "Give assistance");
+            case ^chattype_dungeon_invite :
+                if_setop($component3, 4, "Open invitation");
+            case 112 :
+                if_setop($component3, 3, "Vote");
+            case ^chattype_quickchat_public, ^chattype_quickchat_private_incoming, ^chattype_quickchat_clanchat, ^chattype_quickchat_clanguestchat, ^chattype_quickchat_friend_chat :
+                if (compare(removetags(chat_playername_unfiltered), removetags(chat_gethistoryname($int1))) ! 0) {
+                    if (friend_test(unknown_command_5019($int1)) = true) {
+                        if (map_quickchat = false & userdetail_quickchat = false) {
+                            if_setop($component3, 6, "Message");
+                        }
+                    } else {
+                        if_setop($component3, 6, "Add friend");
+                        if_setop($component3, 7, "Add ignore");
+                    }
+                    if ($chattype2 = ^chattype_quickchat_clanchat & $int10 = 1) {
+                        if_setop($component3, 10, "Kick/ban");
+                    }
+                    if ($chattype2 = ^chattype_quickchat_friend_chat & $int12 = 1) {
+                        if_setop($component3, 10, "Kick/ban");
+                    }
+                    if (chatphrase_getautoresponsecount(chat_gethistoryphrase($int1)) > 0) {
+                        if (%quickchat_respond_phrase = null) {
+                            %quickchat_respond_phrase = chat_gethistoryphrase($int1);
+                            %varclient_1548 = chat_gethistoryname($int1);
+                            if ($chattype2 = ^chattype_quickchat_friend_chat) {
+                                %quickchat_respond_mode = 6;
+                                if_setop($component3, 9, "Quick Response");
+                            }
+                            if ($chattype2 = ^chattype_quickchat_clanchat) {
+                                %quickchat_respond_mode = 9;
+                                if_setop($component3, 9, "Quick Response");
+                            }
+                            if ($chattype2 = ^chattype_quickchat_clanguestchat) {
+                                %quickchat_respond_mode = 11;
+                                if_setop($component3, 9, "Quick Response");
+                            } else if ($chattype2 = ^chattype_quickchat_private_incoming) {
+                                %quickchat_respond_mode = 5;
+                                if (friend_test(unknown_command_5019($int1)) = true) {
+                                    if_setop($component3, 9, "Quick Response");
+                                }
+                            } else {
+                                %quickchat_respond_mode = 4;
+                                if_setop($component3, 9, "Quick Response");
+                            }
+                        } else {
+                            if_setop($component3, 9, "Quick Response");
+                        }
+                    }
+                }
+            case ^chattype_ally_request :
+                if_setop($component3, 10, "Accept alliance");
+            case ^chattype_clan_join :
+                if_setop($component3, 5, "View invite from");
+        }
+    }
+    if ($int6 = 1) {
+        switch_int (chat_gethistorytype($int1)) {
+            case ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming :
+                %varclient_1795 = removetags(unknown_command_5019($int1));
+                $int6 = 0;
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

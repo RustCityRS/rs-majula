@@ -1,0 +1,245 @@
+// 277:0
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 277:1
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=content_layer
+
+// 277:2
+[com_2]
+type=model
+x=4
+y=9
+width=507
+height=317
+layer=layer_1
+model=model_40691
+modelorigin=4,3
+modelangle=0,2047,0
+modelzoom=554
+
+// 277:3
+[com_3]
+type=text
+x=162
+y=75
+width=220
+height=18
+layer=layer_1
+textfont=q8_full
+text=Congratulations!
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 277:4
+[quest_title_ver3]
+type=text
+x=101
+y=92
+width=325
+height=29
+layer=layer_1
+textfont=p12_full
+text=You have completed Death Plateau!
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0x3b2e22
+
+// 277:5
+[quest_model_ver3]
+type=model
+x=86
+y=132
+width=65
+height=52
+layer=layer_1
+model=model_2632
+modelorigin=1,22
+modelangle=137,2041,0
+modelzoom=172
+
+// 277:6
+[com_6]
+type=text
+x=186
+y=263
+width=131
+height=13
+layer=layer_1
+textfont=p12_full
+text=Quest Points:
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 277:7
+[quest_points_ver3]
+type=text
+x=321
+y=263
+width=17
+height=14
+layer=layer_1
+textfont=p12_full
+text=%1
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 277:8
+[com_8]
+type=model
+x=375
+y=185
+width=73
+height=148
+layer=layer_1
+model=model_3037
+modelorigin=0,-37
+modelangle=500,0,0
+modelzoom=800
+
+// 277:9
+[quest_awardedtext_ver3]
+type=text
+x=162
+y=123
+width=213
+height=16
+layer=layer_1
+textfont=p12_full
+text=You are awarded:
+textalignh=centre
+colour=0x3b242c
+
+// 277:10
+[quest_reward1_ver3]
+type=text
+x=162
+y=141
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 1
+textalignh=centre
+colour=0x3b2e22
+
+// 277:11
+[quest_reward2_ver3]
+type=text
+x=162
+y=156
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 2
+textalignh=centre
+colour=0x3b2e22
+
+// 277:12
+[quest_reward3_ver3]
+type=text
+x=162
+y=171
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 3  
+textalignh=centre
+colour=0x3b2e22
+
+// 277:13
+[quest_reward4_ver3]
+type=text
+x=162
+y=186
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 4
+textalignh=centre
+colour=0x3b2e22
+
+// 277:14
+[quest_reward5_ver3]
+type=text
+x=162
+y=201
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 5
+textalignh=centre
+colour=0x3b2e22
+
+// 277:15
+[quest_reward6_ver3]
+type=text
+x=162
+y=216
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 6
+textalignh=centre
+colour=0x3b2e22
+
+// 277:16
+[quest_reward7_ver3]
+type=text
+x=162
+y=231
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 7
+textalignh=centre
+colour=0x3b2e22
+
+// 277:17
+[quest_reward8_ver3]
+type=text
+x=162
+y=246
+width=213
+height=14
+layer=layer_1
+textfont=p12_full
+text=Line 8
+textalignh=centre
+colour=0x3b2e22
+
+// 277:18
+[close]
+type=graphic
+x=429
+y=62
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

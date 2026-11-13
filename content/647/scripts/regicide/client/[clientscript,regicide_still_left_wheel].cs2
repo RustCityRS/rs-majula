@@ -1,0 +1,9 @@
+// 2030
+[clientscript,regicide_still_left_wheel](component $component0)
+if (testbit(%regicide_still_settings, 26) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1024, 0, 1000);
+} else if (testbit(%regicide_still_settings, 27) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1536, 0, 1000);
+} else if (testbit(%regicide_still_settings, 28) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 0, 0, 1000);
+}

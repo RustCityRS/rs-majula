@@ -1,0 +1,13 @@
+// 2026
+[proc,script2026]
+if_settextfont(chattop:mes_text, b12_full);
+if_settextfont(chattop:mes_text2, b12_full);
+if_setsize(chattop:mes_text, 20, 40, ^setsize_minus, ^setsize_abs);
+if_setsize(chattop:mes_text2, 20, 20, ^setsize_minus, ^setsize_abs);
+if_setposition(chattop:mes_text, 0, 20, ^setpos_abs_centre, ^setpos_abs_top);
+if_setposition(chattop:mes_text2, 0, 60, ^setpos_abs_centre, ^setpos_abs_top);
+if_setonmouserepeat(chattop:mes_text2, null);
+if_setonmouseleave(chattop:mes_text2, null);
+if_setonsubchange(chattop:mes_text2, null);
+if_setcolour(chattop:mes_text2, 0x000080);
+cc_deleteall(chattop:mes_layer);

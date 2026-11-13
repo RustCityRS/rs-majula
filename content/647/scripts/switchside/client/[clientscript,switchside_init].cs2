@@ -1,0 +1,12 @@
+// 114
+[clientscript,switchside_init]
+if_setonvarctransmit(toplevel:side, "switchside_varc{if_switchside_varc, ql4_switch}");
+if_setonvarctransmit(toplevel_fullscreen:side, "switchside_varc{if_switchside_varc, ql4_switch}");
+if (getwindowmode >= 2) {
+    if_setonvartransmit(toplevel_fullscreen:stones_on, "flashside_vartransmit{varplayer_1021}");
+    ~script1309(1);
+} else {
+    if_setonvartransmit(toplevel:backhmid1_hide, "flashside_vartransmit{varplayer_1021}");
+    ~flashside_arrow;
+    ~script1312(1);
+}

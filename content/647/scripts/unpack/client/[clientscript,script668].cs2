@@ -1,0 +1,14 @@
+// 668
+[clientscript,script668](int $int0, component $component1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($component1, $int2) = true) {
+    $int3 = calc($int0 - clientclock);
+    if ($int3 <= 0) {
+        cc_setontimer(null);
+        cc_delete;
+        return;
+    }
+    $int4 = calc(255 - cc_gettrans);
+    cc_settrans(min(calc(cc_gettrans + $int4 / $int3), 254));
+}

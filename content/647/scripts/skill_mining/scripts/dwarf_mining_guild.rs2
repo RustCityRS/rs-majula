@@ -1,0 +1,37 @@
+[opnpc1,guilddwarf] @guilddwarf_talk;
+
+// 2011's dwarves 3294 and 3295 (cache 786: "Dwarf", Talk-to) stand at the
+// Mining Guild's entrance with 289's (all at 3018-3021,3339-3340 in 647's map):
+// the 2011 wiki's Dwarf (Mining Guild) (17 April 2011): "one of the few dwarves who
+// guard the entrance", so 289's guild dwarf's talk. One of them sells the
+// Mining cape at 2011 (same page); that waits for the skillcape port. The
+// Dorgesh-Kaan station's dwarves (5880-5885, "A dwarf from Keldagrim" by
+// void-634) share the name, not the guild: no trigger here.
+[opnpc1,dwarf_3294] @guilddwarf_talk;
+[opnpc1,dwarf_3295] @guilddwarf_talk;
+
+// 289's lines: the 2011 wiki's Mining Guild (20 May 2011) has the entrance
+// dwarves "answer questions about the guild" but quotes none, and void-634 has
+// no lines for them.
+[label,guilddwarf_talk]
+~chatnpc("<p,happy>Welcome to the Mining Guild. Can I help you with anything?");
+@dwarf_at_entrance;
+
+[label,dwarf_at_entrance]
+switch_int(~p_choice2("What have you got in the guild?", 0, "No thanks, I'm fine.", 2)) {
+    case 0 :
+    ~chatplayer("<p,quiz>What have you got in the guild?");
+    ~chatnpc("<p,happy>Ooh, it's WONDERFUL! There are lots of coal rocks, and even a few mithril rocks in the guild, all exclusively for people with atleast level 60 mining.");
+    ~chatnpc("<p,happy>There's no better mining site anywhere near here.");
+    if (stat(mining) >= 60) {
+        ~chatplayer("<p,happy>It's a good thing I have level <tostring(stat(mining))> Mining.");
+        ~chatnpc("<p,happy>Yes, that's amazing! Did you want anything else?");
+    } else {
+        ~chatplayer("<p,neutral>So you won't let me go in there?");
+        ~chatnpc("<p,neutral>Sorry, but rules are rules.|Go do some more training first.|Can I help you with anything else?");
+    }
+    @dwarf_at_entrance;
+
+    case 2 :
+    ~chatplayer("<p,bored>No thanks, I'm fine.");
+}

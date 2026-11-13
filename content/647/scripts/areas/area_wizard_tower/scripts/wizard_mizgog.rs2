@@ -1,0 +1,142 @@
+// Wizard Mizgog and 2011's reworked Imp Catcher.
+//
+// 2011's quest is the rework: its 2011 wiki page (Imp Catcher, 2011-05-16)
+// credits a rework, and cache 786 holds the rework's cutscene. The table
+// 16169 stands beside Mizgog at 3102,3163 on level 2 (map 48_49), with its
+// changed forms 16170 and 16171, and there are Mizgog's anim 4285 and the cast
+// 714. The flow and lines are void-634's (WizardMizgog.kt) unless a comment
+// says 289's: 289's are used where void-634 has none. The ids void-634 gives are
+// checked against cache 786 above; its synths 1632 and 1633 carry over
+// (647 synth ids are OSRS's).
+//
+// 289's version, before the rework: Mizgog greets first ("Hello there.") and
+// offers "Most of your friends are pretty quiet aren't they?"; the beads are
+// handed over without a cutscene.
+
+[opnpc1,wizard_mizgog]
+switch_int (%imp) {
+    case ^imp_not_started : @mizgog_unstarted;
+    case ^imp_started : @mizgog_started;
+    case default : @mizgog_completed;
+}
+
+[label,mizgog_unstarted]
+~chatplayer("<p,neutral>Give me a quest!");
+~chatnpc("<p,happy>Give me a quest what?");
+def_int $option = ~p_choice3("Give me a quest please.", 1, "Give me a quest or else!", 2, "Just stop messing around and give me a quest!", 3);
+if ($option = 1) {
+    ~chatplayer("<p,neutral>Give me a quest please.");
+    ~chatnpc("<p,happy>Well seeing as you asked nicely... I could do with some help.");
+    ~chatnpc("<p,sad>The wizard Grayzag next door decided he didn't like me so he enlisted an army of hundreds of imps"); // 2011-05-18 recording: no full stop
+    ~chatnpc("<p,sad>These imps stole all sorts of my things. Most of these things I don't really care about, just eggs and balls of string and things.");
+    ~chatnpc("<p,sad>But they stole my four magical beads. There was a red one, a yellow one, a black one, and a white one.");
+    ~chatnpc("<p,sad>These imps have now spread out all over the kingdom. Could you get my beads back for me?");
+    // 2011-05-18 recording: "Select an Option", not void's "Start the Imp Catcher quest?"
+    def_int $start = ~p_choice2("I'll try.", 1, "I've better things to do than chase imps.", 2);
+    if ($start = 2) {
+        ~chatplayer("<p,neutral>I've better things to do than chase imps.");
+        ~chatnpc("<p,angry>Well if you're not interested in the quests I have to give you, don't waste my time by asking me for them.");
+        return;
+    }
+    %imp = ^imp_started;
+    ~send_quest_progress(^questlist_imp, %imp, ^imp_complete);
+    if (~mizgog_has_beads = true) {
+        ~chatplayer("<p,happy>Well this is a surprising turn of events!");
+        ~chatnpc("<p,quiz>What?");
+        ~chatplayer("<p,happy>Well I just so happen to have all of those beads on me!");
+        ~chatnpc("<p,angry>Are you saying that you stole my beads all this time and I've been blaming these imps!?");
+        ~chatplayer("<p,neutral>No, not at all! I just found them throughout my travels and presumed somebody would need them at some point.");
+        ~chatnpc("<p,angry>Bah! Fine.");
+        @mizgog_cutscene;
+    }
+    ~chatplayer("<p,happy>I'll try.");
+    ~chatnpc("<p,happy>That's great, thank you.");
+} else if ($option = 2) {
+    // 289's lines: void-634 offers the option with no answer.
+    ~chatplayer("<p,sad>Give me a quest or else!");
+    ~chatnpc("<p,happy>Or else what? You'll attack me?");
+    ~chatnpc("<p,laugh>Hahaha!");
+} else if ($option = 3) {
+    // 289's lines: void-634 offers the option with no answer.
+    ~chatplayer("<p,angry>Just stop messing around and give me a quest!");
+    ~chatnpc("<p,happy>Ah now you're assuming I have one to give.");
+}
+
+[label,mizgog_started]
+~chatnpc("<p,happy>So how are you doing finding my beads?");
+if (~mizgog_has_beads = true) {
+    ~chatplayer("<p,happy>I've got all four beads. It was hard work I can tell you.");
+    @mizgog_cutscene;
+}
+if (inv_total(inv, black_bead) > 0 | inv_total(inv, white_bead) > 0 | inv_total(inv, yellow_bead) > 0 | inv_total(inv, red_bead) > 0) {
+    ~chatplayer("<p,happy>I have found some of your beads.");
+    ~chatnpc("<p,neutral>Come back when you have them all. The colour of the four beads that I need are red, yellow, black, and white. Go chase some imps!");
+    return;
+}
+// 289's lines: void-634's are marked "TODO proper message".
+~chatplayer("<p,sad>I have not found any yet.");
+~chatnpc("<p,neutral>Well get on with it.|I've lost a white bead, a red bead,|a black bead, and a yellow bead.|Go kill some imps!");
+
+[label,mizgog_completed]
+~chatnpc("<p,happy>What can I do for you, adventurer?");
+def_int $option = ~p_choice3("Got any more quests?", 1, "Do you know any interesting spells you could teach me?", 2, "Do you have any more amulets of accuracy?", 3);
+if ($option = 1) {
+    ~chatplayer("<p,neutral>Got any more quests?");
+    ~chatnpc("<p,neutral>No, everything is good with the world today.");
+} else if ($option = 2) {
+    ~chatplayer("<p,neutral>Do you know any interesting spells you could teach me?");
+    ~chatnpc("<p,laugh>I don't think so, the type of magic I study involves years of meditation and research.");
+} else if ($option = 3) {
+    ~chatplayer("<p,quiz>Do you have any more amulets of accuracy?");
+    ~openshop_activenpc;
+}
+
+// Trade (op3, cache 786). "After the quest you can buy more Amulets of Accuracy
+// from him for 5000gp" (2011 wiki, Wizard Mizgog, 2011-05-18); "up to 30
+// amulets per day" (Imp Catcher, 2011-05-16). No source gives his answer
+// before the quest, so there is none.
+[opnpc3,wizard_mizgog]
+if (%imp = ^imp_complete) {
+    ~openshop_activenpc;
+}
+
+[proc,mizgog_has_beads]()(boolean)
+if (inv_total(inv, black_bead) > 0 & inv_total(inv, white_bead) > 0 & inv_total(inv, yellow_bead) > 0 & inv_total(inv, red_bead) > 0) {
+    return(true);
+}
+return(false);
+
+// void-634's cutscene (WizardMizgog.cutscene): its delay(n) ticks are
+// p_delay(n - 1). void-634 marks a given_beads stage between the beads and
+// the reward; here the beads go and the reward comes in one go, on 289's
+// three stages.
+[label,mizgog_cutscene]
+~chatnpc("<p,happy>Give them here and I'll check that they really are MY beads, before I give you your reward. You'll like it, it's an amulet of accuracy.");
+~mesbox("You give four coloured beads to Wizard Mizgog.");
+~music_jingle(jingle_133);
+cam_lookat(2_48_49_31_26, 350, 232, 100);
+cam_moveto(2_48_49_31_25, 775, 232, 100);
+p_delay(0);
+npc_facesquare(movecoord(npc_coord, -1, 0, 0));
+p_delay(2);
+npc_anim(qip_imp_catcher_wizard, 0);
+sound_synth(mizgog_placebeads, 1, 0);
+p_delay(1);
+if (~mizgog_has_beads = false) {
+    cam_reset;
+    return;
+}
+inv_del(inv, black_bead, 1);
+inv_del(inv, white_bead, 1);
+inv_del(inv, yellow_bead, 1);
+inv_del(inv, red_bead, 1);
+p_delay(0);
+if (loc_find(2_48_49_30_27, qip_imp_catcher_magic_table_before) = true) {
+    loc_change(loc_16171, 8);
+}
+spotanim_map(qip_imp_catcher_spotanim, 2_48_49_30_27, 100, 0);
+sound_synth(mizgog_beads, 1, 0);
+p_delay(6);
+cam_reset;
+mes("The Wizard hands you an amulet."); // 2011-05-18 recording: capital W
+queue(imp_quest_complete, 0, 0);

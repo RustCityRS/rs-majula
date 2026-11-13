@@ -1,0 +1,10 @@
+// 2895
+[clientscript,sfa_bar](component $component0)
+if (%sfa_client_time > %sfa_event_time) {
+    if (%sfa_client_timer ! 1) {
+        if_setontimer($component0, "sfa_bar_timer($component0)");
+        %sfa_client_timer = 1;
+    }
+} else if (%sfa_client_time = 0) {
+    %sfa_client_time = %sfa_event_time;
+}

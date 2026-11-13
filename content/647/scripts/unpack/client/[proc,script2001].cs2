@@ -1,0 +1,82 @@
+// 2001
+[proc,script2001](component $component0, inv $inv1)
+cc_deleteall($component0);
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_int $int4 = inv_size($inv1);
+def_int $int5 = 4;
+if_setposition($component0, if_getx($component0), 46, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component0, 464, 255, ^setsize_abs, ^setsize_abs);
+if_setscrollsize($component0, 0, 0);
+if_setscrollpos($component0, 0, 0);
+$int5 = 4;
+$int3 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_obj $obj9 = null;
+def_int $int10 = 0;
+def_string $string0 = "";
+def_int $int11 = 0;
+def_int $int12 = ~battlestaff_number;
+$obj9 = inv_getobj($inv1, $int3);
+if ($obj9 ! null) {
+    $int7 = calc($int3 % 9 * 48 + $int3 % 9 * $int5);
+    $int8 = calc($int3 / 9 * 52 + $int3 / 9 * 13);
+    cc_create($component0, ^iftype_graphic, $int6);
+    $int6 = calc($int6 + 1);
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,0");
+    cc_setopbase("<col=ff981f><oc_name($obj9)></col>");
+    cc_setop(1, "Info");
+    cc_setop(2, "Buy 1");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setop(5, "Buy 50");
+    cc_setop(6, "Buy 500");
+    cc_setop(10, "Examine");
+    cc_setonmouseover("script2724(event_com, $int6, false)");
+    cc_setonmouseleave("script2724(event_com, $int6, true)");
+    cc_create($component0, ^iftype_graphic, $int6);
+    $int6 = calc($int6 + 1);
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int7, $int8, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,1");
+    cc_sethide(true);
+    cc_create($component0, ^iftype_graphic, $int6);
+    $int6 = calc($int6 + 1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int7 + 6), calc($int8 + 4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject_alwaysnum($obj9, $int12);
+    cc_setgraphicshadow(0x302020);
+    cc_setoutline(1);
+    cc_create($component0, ^iftype_graphic, $int6);
+    $int6 = calc($int6 + 1);
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int7 + 2), calc($int8 + 38), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(enum(obj, graphic, enum_200, %shop_currency));
+    cc_create($component0, ^iftype_text, $int6);
+    $int6 = calc($int6 + 1);
+    cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int7 + 13), calc($int8 + 39), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    $int11 = ~buyprice($obj9, $int3);
+    if ($int11 = -1) {
+        cc_settext("N/A");
+    } else {
+        cc_settext(~tostring_shortform($int11));
+    }
+    cc_setcolour(~script1146($int11));
+    cc_settextshadow(true);
+    cc_create($component0, ^iftype_graphic, $int6);
+    $int6 = calc($int6 + 1);
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int7 + 33), calc($int8 + 4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shopitems,0");
+    ~script812($obj9);
+    $string0 = ~obj_warning_arg($obj9);
+    cc_setonmouserepeat("script2707(event_com, event_comsubid, shop_template:tooltip, $string0, 25, 200, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(shop_template:tooltip)");
+}

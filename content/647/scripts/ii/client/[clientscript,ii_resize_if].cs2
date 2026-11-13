@@ -1,0 +1,14 @@
+// 2911
+[clientscript,ii_resize_if](boolean $boolean0, int $int1, int $int2, int $int3, component $component4)
+def_int $int5 = 10;
+$int3 = calc($int3 + 1);
+if ($boolean0 = false) {
+    if_setsize($component4, if_getwidth($component4), calc($int1 + $int2 * ($int5 - $int3) / $int5), ^setsize_abs, ^setsize_abs);
+} else {
+    if_setsize($component4, if_getwidth($component4), calc($int1 + $int2 * $int3 / $int5), ^setsize_abs, ^setsize_abs);
+}
+if ($int3 = $int5) {
+    if_setontimer($component4, null);
+} else {
+    if_setontimer($component4, "ii_resize_if($boolean0, $int1, $int2, $int3, $component4)");
+}

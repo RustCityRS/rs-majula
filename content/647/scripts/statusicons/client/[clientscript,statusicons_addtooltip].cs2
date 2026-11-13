@@ -1,0 +1,38 @@
+// 724
+[clientscript,statusicons_addtooltip](component $component0, string $string0, int $int1, int $int2)
+if ($component0 = statusicons:multiway_icon & %multiway_icon = false) {
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+if (%tooltip_time < calc(clientclock + 25)) {
+    if (%tooltip_time < clientclock) {
+        %tooltip_time = clientclock;
+    }
+    %tooltip_time = calc(%tooltip_time + 2);
+    return;
+}
+%tooltip_time = calc(clientclock + 25 + 10);
+if (%tooltip_built ! 1) {
+    $int5 = calc(parawidth($string0, 1000, p12_full) + 8);
+    if (getwindowmode < 2) {
+        $component6 = toplevel:statusicon_tooltip;
+        $component8 = toplevel:statusicon_tooltip_text;
+        $component7 = toplevel:statusicons;
+    } else {
+        $component6 = toplevel_fullscreen:statusicon_tooltip;
+        $component8 = toplevel_fullscreen:statusicon_tooltip_text;
+        $component7 = toplevel_fullscreen:statusicons;
+    }
+    $int3 = calc(if_getx($component7) + if_getx($component0) + $int1 - $int5);
+    $int4 = calc(if_gety($component7) + if_gety($component0) + $int2 - 17);
+    if_sethide($component6, false);
+    if_setsize($component6, $int5, 17, ^setsize_abs, ^setsize_abs);
+    if_setposition($component6, $int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    if_settext($component8, $string0);
+    %tooltip_built = 1;
+}

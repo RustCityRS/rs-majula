@@ -1,0 +1,49 @@
+// 79
+[proc,chatout_get](int $int0)(string)
+if ($int0 < 10) {
+    if ($int0 < 5) {
+        if ($int0 = 0) {
+            return(%varclient_1521);
+        } else if ($int0 = 1) {
+            return(%varclient_1522);
+        } else if ($int0 = 2) {
+            return(%varclient_1523);
+        } else if ($int0 = 3) {
+            return(%varclient_1524);
+        } else if ($int0 = 4) {
+            return(%varclient_1525);
+        }
+    } else if ($int0 = 5) {
+        return(%varclient_1526);
+    } else if ($int0 = 6) {
+        return(%varclient_1527);
+    } else if ($int0 = 7) {
+        return(%varclient_1528);
+    } else if ($int0 = 8) {
+        return(%varclient_1529);
+    } else if ($int0 = 9) {
+        return(%varclient_1530);
+    }
+} else if ($int0 < 15) {
+    if ($int0 = 10) {
+        return(%varclient_1531);
+    } else if ($int0 = 11) {
+        return(%varclient_1532);
+    } else if ($int0 = 12) {
+        return(%varclient_1533);
+    } else if ($int0 = 13) {
+        return(%varclient_1534);
+    } else if ($int0 = 14) {
+        return(%varclient_1535);
+    }
+} else if ($int0 = 15) {
+    return(%varclient_1536);
+} else if ($int0 = 16) {
+    return(%varclient_1537);
+} else if ($int0 = 17) {
+    return(%varclient_1538);
+} else if ($int0 = 18) {
+    return(%varclient_1539);
+} else if ($int0 = 19) {
+    return(%varclient_1540);
+}

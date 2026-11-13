@@ -1,0 +1,88 @@
+// 1307
+[clientscript,script1307]
+def_component $component0 = null;
+if (%templetrek_event_flash = 0) {
+    ~script1310(templetrek_map:templetrek_trip_route_all_event_1);
+    ~script1310(templetrek_map:templetrek_trip_route_one_and_two_event_2);
+    ~script1310(templetrek_map:templetrek_trip_route_one_and_two_event_3);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_4);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_5);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_6);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_7);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_8);
+    ~script1310(templetrek_map:templetrek_trip_route_one_event_9);
+    ~script1310(templetrek_map:templetrek_trip_route_one_and_two_event_10);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_4);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_5);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_6);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_7);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_8);
+    ~script1310(templetrek_map:templetrek_trip_route_two_event_9);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_2);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_3);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_4);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_5);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_6);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_7);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_8);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_9);
+    ~script1310(templetrek_map:templetrek_trip_route_three_event_10);
+    return;
+}
+if (%templetrek_event_flash = 1) {
+    $component0 = templetrek_map:templetrek_trip_route_all_event_1;
+} else if (%templetrek_event_flash = 2) {
+    $component0 = templetrek_map:templetrek_trip_route_one_and_two_event_2;
+} else if (%templetrek_event_flash = 3) {
+    $component0 = templetrek_map:templetrek_trip_route_one_and_two_event_3;
+} else if (%templetrek_event_flash = 4) {
+    $component0 = templetrek_map:templetrek_trip_route_one_event_4;
+} else if (%templetrek_event_flash = 5) {
+    $component0 = templetrek_map:templetrek_trip_route_one_event_5;
+} else if (%templetrek_event_flash = 6) {
+    $component0 = templetrek_map:templetrek_trip_route_one_event_6;
+} else if (%templetrek_event_flash = 7) {
+    $component0 = templetrek_map:templetrek_trip_route_one_event_7;
+} else if (%templetrek_event_flash = 8) {
+    $component0 = templetrek_map:templetrek_trip_route_one_event_8;
+} else if (%templetrek_event_flash = 9) {
+    $component0 = templetrek_map:templetrek_trip_route_one_event_9;
+} else if (%templetrek_event_flash = 10) {
+    $component0 = templetrek_map:templetrek_trip_route_one_and_two_event_10;
+} else if (%templetrek_event_flash = 11) {
+    $component0 = templetrek_map:templetrek_trip_route_two_event_4;
+} else if (%templetrek_event_flash = 12) {
+    $component0 = templetrek_map:templetrek_trip_route_two_event_5;
+} else if (%templetrek_event_flash = 13) {
+    $component0 = templetrek_map:templetrek_trip_route_two_event_6;
+} else if (%templetrek_event_flash = 14) {
+    $component0 = templetrek_map:templetrek_trip_route_two_event_7;
+} else if (%templetrek_event_flash = 15) {
+    $component0 = templetrek_map:templetrek_trip_route_two_event_8;
+} else if (%templetrek_event_flash = 16) {
+    $component0 = templetrek_map:templetrek_trip_route_two_event_9;
+} else if (%templetrek_event_flash = 17) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_2;
+} else if (%templetrek_event_flash = 18) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_3;
+} else if (%templetrek_event_flash = 19) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_4;
+} else if (%templetrek_event_flash = 20) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_5;
+} else if (%templetrek_event_flash = 21) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_6;
+} else if (%templetrek_event_flash = 22) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_7;
+} else if (%templetrek_event_flash = 23) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_8;
+} else if (%templetrek_event_flash = 24) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_9;
+} else if (%templetrek_event_flash = 25) {
+    $component0 = templetrek_map:templetrek_trip_route_three_event_10;
+}
+if ($component0 = null) {
+    return;
+} else {
+    if_setmodel($component0, model_14129);
+    if_setmodelanim($component0, templetrek_exclaimation_mark);
+}

@@ -1,0 +1,12 @@
+// 3013
+[proc,script3013](int $int0)(component)
+switch_int ($int0) {
+    case 0 :
+        return(lobbyscreen_pane_playerinfo:com_34);
+    case 1 :
+        return(lobbyscreen_pane_playerinfo:com_22);
+    case 2 :
+        return(lobbyscreen_pane_playerinfo:com_10);
+    case 3 :
+        return(lobbyscreen_pane_playerinfo:com_48);
+}

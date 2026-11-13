@@ -1,0 +1,29 @@
+#testscript
+
+// 289's Cook's Assistant completes on 2011's quest scroll (questscroll_ver3):
+// 289's quest point counted in %qp (2011's
+// quest tab shows it, clientscript 2166), 289's message, and one of 289's
+// three quest-complete jingles, played as 2011's (152-154).
+[label,test_cooks_assistant_completes]
+setup_player("test_player")
+%cookquest = 1
+queue(cooks_quest_complete, 0, 0)
+test_tick(2)
+assert_eq(%cookquest, ^cook_complete)
+assert_eq(%qp, ^cook_questpoints)
+assert_called_with("mes", "Congratulations! Quest complete!")
+assert_called("midi_jingle", 1)
+
+// Cook's Assistant's 2011 rework (15 December 2009): 289's reward and 500
+// coins and 20 noted sardines.
+[label,test_cooks_assistant_gives_2011s_rewards]
+setup_player("test_player")
+%cookquest = 1
+%cookquest_milk = ^true
+%cookquest_flour = ^true
+%cookquest_egg = ^true
+queue(cooks_quest_complete, 0, 0)
+test_tick(2)
+assert_eq(%cookquest, ^cook_complete)
+assert_eq(inv_total(inv, coins), 500)
+assert_eq(inv_total(inv, cert_sardine), 20)

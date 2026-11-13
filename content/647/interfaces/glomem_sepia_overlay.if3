@@ -1,0 +1,46 @@
+// 305:0
+[content_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 305:1
+[sepia]
+type=model
+x=7
+y=7
+width=16967
+height=16440
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+model=model_41331
+modelangle=512,1024,0
+modelzoom=522
+modelnodepth=yes
+modelobjwidth=530
+modelobjheight=335
+
+// 305:2
+[fade]
+type=model
+width=16807
+height=19088
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+model=model_4835
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=127
+modelnodepth=yes
+modelobjwidth=525
+modelobjheight=389
+onload=glomem_fade_in

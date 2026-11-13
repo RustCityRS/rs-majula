@@ -1,0 +1,5 @@
+// 1607
+[clientscript,booth_chathead_update]
+def_seq $seq0 = seq_12411;
+if_setmodelanim(boothpreview:chathead, $seq0);
+if_setplayerhead_self(boothpreview:chathead);

@@ -1,0 +1,12 @@
+// 2199
+[proc,script2199]
+switch_int (random(4)) {
+    case 0 :
+        %easter10_currentmodel = easter10_nuts:goodstuff1;
+    case 1 :
+        %easter10_currentmodel = easter10_nuts:goodstuff2;
+    case 2 :
+        %easter10_currentmodel = easter10_nuts:goodstuff3;
+    case 3 :
+        %easter10_currentmodel = easter10_nuts:goodstuff4;
+}

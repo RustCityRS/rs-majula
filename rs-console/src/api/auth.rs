@@ -2,14 +2,17 @@ use crate::audit::Event;
 use crate::http::{ApiError, App, Client, Pending};
 use crate::sessions::Stage;
 use crate::totp;
-use crate::users::{User, verify_password};
+use crate::users::{Role, User, verify_password};
 use axum::Json;
 use axum::extract::State;
 use axum::http::{HeaderMap, StatusCode, header};
 use axum::response::{IntoResponse, Response};
+use qrcode::QrCode;
+use qrcode::render::svg::Color;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::sync::Arc;
+use tokio::task::spawn_blocking;
 
 /// Shown in authenticator apps beside the account name.
 const ISSUER: &str = "RS Admin";
@@ -35,7 +38,7 @@ fn stage_name(stage: Stage) -> StageName {
 pub struct SessionInfo {
     stage: StageName,
     name: Option<String>,
-    role: Option<crate::users::Role>,
+    role: Option<Role>,
     csrf: Option<String>,
 }
 
@@ -100,7 +103,7 @@ pub async fn login(
     };
     let password = req.password;
     // Argon2 is deliberately slow; keep it off the async workers.
-    let verified = tokio::task::spawn_blocking(move || verify_password(&password, &stored_hash))
+    let verified = spawn_blocking(move || verify_password(&password, &stored_hash))
         .await
         .map_err(ApiError::internal)?;
 
@@ -263,13 +266,13 @@ pub async fn enrolment_qr(
 ) -> Result<Response, ApiError> {
     let secret = enrol_secret(&app, &pending)?;
     let uri = totp::provisioning_uri(ISSUER, &pending.session.user, &secret);
-    let code = qrcode::QrCode::new(uri.as_bytes()).map_err(ApiError::internal)?;
+    let code = QrCode::new(uri.as_bytes()).map_err(ApiError::internal)?;
     let svg = code
-        .render::<qrcode::render::svg::Color>()
+        .render::<Color>()
         .min_dimensions(220, 220)
         .quiet_zone(true)
-        .dark_color(qrcode::render::svg::Color("#000000"))
-        .light_color(qrcode::render::svg::Color("#ffffff"))
+        .dark_color(Color("#000000"))
+        .light_color(Color("#ffffff"))
         .build();
     Ok(([(header::CONTENT_TYPE, "image/svg+xml")], svg).into_response())
 }

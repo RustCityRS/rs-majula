@@ -1,0 +1,4 @@
+// 3375
+[clientscript,script3375](int $int0, int $int1)
+if_setsize(objbox:graphic_box, $int0, $int1, ^setsize_abs, ^setsize_abs);
+if_setposition(objbox:graphic_box, calc(16 + (64 - $int0) / 2), calc(16 + (64 - $int1) / 2), ^setpos_abs_left, ^setpos_abs_top);

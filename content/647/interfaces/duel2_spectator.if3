@@ -1,0 +1,123 @@
+// 886:0
+[universe]
+type=layer
+x=5
+y=5
+width=350
+height=42
+xmode=abs_right
+onload=duel2_spectator_init(event_com, duel2_spectator:text)
+
+// 886:1
+[com_1]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+trans=150
+colour=0xffffffff
+
+// 886:2
+[com_2]
+type=graphic
+y=-13
+width=32
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=universe
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 886:3
+[com_3]
+type=graphic
+y=-12
+width=32
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 886:4
+[com_4]
+type=graphic
+width=32
+height=32
+layer=universe
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 886:5
+[com_5]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 886:6
+[com_6]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=universe
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 886:7
+[com_7]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 886:8
+[text]
+type=text
+x=8
+width=34
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=universe
+textfont=p12_full
+text=Close screen to stop viewing
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 886:9
+[com_9]
+type=graphic
+x=8
+width=16
+height=16
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

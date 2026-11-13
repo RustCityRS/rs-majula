@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+pub mod controller_uid;
 pub mod engine;
 pub mod iterators;
 pub mod loc_serial;
@@ -7,6 +9,8 @@ pub mod obj_serial;
 pub mod ops;
 pub mod player_uid;
 pub mod pointer;
+#[cfg(since_647)]
+pub mod region_uid;
 pub mod register;
 pub mod state;
 pub mod subject;
@@ -14,12 +18,22 @@ pub mod trigger;
 pub mod util;
 pub mod vm;
 
+#[cfg(since_647)]
+pub use controller_uid::ControllerUid;
 pub use loc_serial::LocSerial;
 pub use npc_uid::NpcUid;
 pub use obj_serial::ObjSerial;
+
+/// An interface component as scripts and packets address it: the component's
+/// own id before rev 647, and from 647 the `interface << 16 | component` hash.
+pub type ComId = i32;
 pub use player_uid::PlayerUid;
+#[cfg(since_647)]
+pub use region_uid::RegionUid;
 
 use crate::trigger::ServerTriggerType;
+use std::io;
+use std::result;
 use thiserror::Error;
 
 /// Unified error type for the script virtual machine.
@@ -45,7 +59,7 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum ScriptError {
     #[error("I/O error: {0}")]
-    Io(#[from] std::io::Error),
+    Io(#[from] io::Error),
 
     #[error("Load error: {0}")]
     Load(String),
@@ -191,6 +205,14 @@ pub enum ScriptError {
     #[error("Varbit not found: {0}")]
     VarbitNotFound(i32),
 
+    #[cfg(since_647)]
+    #[error("Varconbit not found: {0}")]
+    VarConBitNotFound(i32),
+
+    #[cfg(since_647)]
+    #[error("Varobj not found: {0}")]
+    VarObjNotFound(i32),
+
     #[error("Npc not found: {0}")]
     NpcNotFound(i32),
 
@@ -227,4 +249,4 @@ pub enum ScriptError {
 /// Used throughout the VM crate so that functions can return `Result<T>`
 /// without repeating the error type. Any function that can fail during
 /// script loading or execution should return this type.
-pub type Result<T> = std::result::Result<T, ScriptError>;
+pub type Result<T> = result::Result<T, ScriptError>;

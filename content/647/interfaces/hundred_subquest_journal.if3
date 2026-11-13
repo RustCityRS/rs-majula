@@ -1,0 +1,302 @@
+// 145:0
+[com_0]
+type=model
+width=434
+height=334
+xmode=abs_centre
+model=model_3623
+modelorigin=0,-37
+modelangle=505,2047,0
+modelzoom=571
+
+// 145:1
+[com_1]
+type=layer
+x=87
+y=82
+width=322
+height=197
+scrollheight=430
+
+// 145:2
+[com_2]
+type=text
+x=82
+y=32
+width=62
+height=14
+layer=com_1
+textfont=p12_full
+text=Dwarf
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(1)
+
+// 145:3
+[com_3]
+type=text
+x=82
+y=82
+width=183
+height=14
+layer=com_1
+textfont=p12_full
+text=Wartface & Bentnoze
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(2)
+
+// 145:4
+[com_4]
+type=text
+x=82
+y=135
+width=123
+height=14
+layer=com_1
+textfont=p12_full
+text=Pirate Pete
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(3)
+
+// 145:5
+[com_5]
+type=text
+x=82
+y=178
+width=143
+height=14
+layer=com_1
+textfont=p12_full
+text=Lumbridge Sage
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(4)
+
+// 145:6
+[com_6]
+type=text
+x=82
+y=239
+width=100
+height=14
+layer=com_1
+textfont=p12_full
+text=Evil Dave
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(5)
+
+// 145:7
+[com_7]
+type=text
+x=82
+y=343
+width=140
+height=14
+layer=com_1
+textfont=p12_full
+text=Sir Amik Varze
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(6)
+
+// 145:8
+[com_8]
+type=text
+x=82
+y=391
+width=240
+height=14
+layer=com_1
+textfont=p12_full
+text=Skrach 'Bone Cruncher' Uglogwee
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(7)
+
+// 145:9
+[com_9]
+type=text
+x=82
+y=289
+width=187
+height=14
+layer=com_1
+textfont=p12_full
+text=Monkey Ambassador
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1092(8)
+
+// 145:10
+[goblin]
+type=model
+x=18
+y=57
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:11
+[dwarf]
+type=model
+x=18
+y=8
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:12
+[pirate]
+type=model
+x=18
+y=108
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:13
+[guide]
+type=model
+x=18
+y=156
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:14
+[dave]
+type=model
+x=18
+y=217
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:15
+[monkey]
+type=model
+x=18
+y=268
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:16
+[amik]
+type=model
+x=18
+y=320
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:17
+[ogre]
+type=model
+x=18
+y=370
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 145:18
+[scroll]
+type=layer
+x=410
+y=82
+width=16
+height=197
+onload=scrollbar_vertical_graphics(event_com, hundred_subquest_journal:com_1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 145:19
+[com_19]
+type=graphic
+x=420
+y=18
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 145:20
+[com_20]
+type=text
+y=24
+width=200
+height=14
+xmode=abs_centre
+textfont=b12_full
+text=Recipe for Disaster
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 145:21
+[com_21]
+type=text
+y=40
+height=40
+widthmode=minus
+xmode=abs_centre
+textfont=p12_full
+text=This quest is comprised of the 8 mini quests highlighted below.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f

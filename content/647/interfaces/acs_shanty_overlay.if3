@@ -1,0 +1,68 @@
+// 1075:0
+[background]
+type=graphic
+y=64
+width=256
+height=58
+layer=parent
+graphic=artisan_all_background
+trans=255
+
+// 1075:1
+[line_1]
+type=text
+x=-255
+y=70
+width=256
+height=16
+layer=parent
+textfont=p11_full
+text="Shanty Title"
+textshadow=yes
+
+// 1075:2
+[line_2]
+type=text
+x=-255
+y=85
+width=256
+height=16
+layer=parent
+textfont=p11_full
+text=Bard Roberts and the Stanky Penguins
+textshadow=yes
+
+// 1075:3
+[line_3]
+type=text
+x=-255
+y=100
+width=256
+height=16
+layer=parent
+textfont=p11_full
+text= Mos Le'Harmless Records
+textshadow=yes
+
+// 1075:4
+[logo_1]
+type=model
+x=-35
+y=122
+width=37
+height=64
+layer=parent
+model=model_64096
+modelorigin=-2,31
+modelangle=0,1894,0
+modelzoom=1750
+modelanim=seq_11809
+
+// 1075:5
+[parent]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ontimer=acs_shanty_overlay_timer

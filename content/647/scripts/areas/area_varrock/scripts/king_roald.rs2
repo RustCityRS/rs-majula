@@ -1,0 +1,46 @@
+// King Roald: 289's areas/area_varrock/scripts/king_roald.rs2 on npc 648 (Talk-to; the 786 map's
+// throne-room spawn was king_roald_5838, the Attack-only "strangely evil" King, void-634's
+// king_roald_in_combat). Shield of Arrav's lines are 2011's: the 2011-02-28 recordings
+// (LhbN1Qi39D4 553.5-563.1s, TSNR-A0LI8s 665.2-679.6s) and the 2011-03-02 one (UgONltQDj38
+// 670.8-685.0s, 778.4-792.4s), word for word. 2011 tells the player to see the curator for one
+// half (289: only for both halves). Priest in Peril's part is 289's.
+[opnpc1,king_roald] @roald_dialogue;
+[opnpcu,king_roald]
+if(last_useitem = arravcertificate) {
+    @roald_dialogue;
+}
+~displaymessage(^dm_default);
+
+[label,roald_dialogue]
+~chatplayer("<p,happy>Greetings, your majesty.");
+if(inv_total(inv, arravcertificate) > 0) {
+    ~chatplayer("<p,happy>Your majesty, I have come to claim the reward for the return of the Shield Of Arrav.");
+    if(%blackarmgang < ^phoenixgang_joined & %phoenixgang < ^blackarmgang_joined) {
+        ~chatnpc("<p,confused>The name on this certificate isn't yours!|I can't give you the reward|unless you do the quest yourself!");
+        return;
+    }
+    if(%blackarmgang = ^phoenixgang_complete | %phoenixgang = ^blackarmgang_complete) {
+        ~chatnpc("<p,confused>You have already claimed the reward.|You can't claim it twice!");
+        ~mesbox("Why don't you give this certificate|to the person who helped you get the shield?");
+        return;
+    }
+    ~objbox(arravcertificate, "You show the certificate to the king.", 250, 0, divide(^objbox_height, 2));
+    ~chatnpc("<p,happy>My goodness! This claim is for the reward offered by my father many years ago!");
+    ~chatnpc("<p,happy>I never thought I would live to see the day when someone came forward to claim this reward!");
+    ~chatnpc("<p,happy>I heard that you found half the shield, so I will give you half of the bounty. That comes to exactly 600gp!");
+    ~objbox(coins_250, "You hand over a certificate. The king gives you 600gp.", 250, 0, divide(^objbox_height, 2));
+    queue(blackarmgang_quest_complete, 0, 0);
+    return;
+}
+if(inv_total(inv, arravshield1) > 0 | inv_total(inv, arravshield2) > 0) {
+    ~chatplayer("<p,happy>Your majesty, I have recovered the Shield Of Arrav; I would like to claim the reward.");
+    ~chatnpc("<p,neutral>The Shield of Arrav, eh? Yes, I do recall my father, King Roald, put a reward out for that.");
+    ~chatnpc("<p,neutral>Very well.");
+    ~chatnpc("<p,neutral>If you get the authenticity of the shield verified by the curator at the museum and then return here with authentication, I will grant you your reward.");
+    return;
+}
+// 289 sends Priest in Peril players to its own dialogue here (and to [label,start_priestperil] in
+// quests/quest_priestperil): that comes back with Priest in Peril's port.
+~chatnpc("<p,neutral>Do you have anything of importance to say?");
+~chatplayer("<p,neutral>...Not really.");
+~chatnpc("<p,neutral>You will have to excuse me, then.|I am very busy|as I have a kingdom to run!");

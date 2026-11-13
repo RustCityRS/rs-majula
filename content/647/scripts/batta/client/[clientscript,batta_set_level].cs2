@@ -1,0 +1,7 @@
+// 1958
+[clientscript,batta_set_level](component $component0, int $int1)
+if (stat(cooking) >= $int1) {
+    if_setcolour($component0, ^green);
+} else {
+    if_setcolour($component0, ^red);
+}

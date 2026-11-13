@@ -1,0 +1,52 @@
+// 503
+[clientscript,script503]
+if (%conq_unit_1_pos = 0) {
+    if_sethide(conq_set_formation:unit_1_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_1_text, true);
+}
+if (%conq_unit_2_pos = 0) {
+    if_sethide(conq_set_formation:unit_2_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_2_text, true);
+}
+if (%conq_unit_3_pos = 0) {
+    if_sethide(conq_set_formation:unit_3_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_3_text, true);
+}
+if (%conq_unit_4_pos = 0) {
+    if_sethide(conq_set_formation:unit_4_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_4_text, true);
+}
+if (%conq_unit_5_pos = 0) {
+    if_sethide(conq_set_formation:unit_5_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_5_text, true);
+}
+if (%conq_unit_6_pos = 0) {
+    if_sethide(conq_set_formation:unit_6_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_6_text, true);
+}
+if (%conq_unit_7_pos = 0) {
+    if_sethide(conq_set_formation:unit_7_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_7_text, true);
+}
+if (%conq_unit_8_pos = 0) {
+    if_sethide(conq_set_formation:unit_8_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_8_text, true);
+}
+if (%conq_unit_9_pos = 0) {
+    if_sethide(conq_set_formation:unit_9_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_9_text, true);
+}
+if (%conq_unit_10_pos = 0) {
+    if_sethide(conq_set_formation:unit_10_text, false);
+} else {
+    if_sethide(conq_set_formation:unit_10_text, true);
+}

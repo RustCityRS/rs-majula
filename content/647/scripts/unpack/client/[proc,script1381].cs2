@@ -1,0 +1,54 @@
+// 1381
+[proc,script1381]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (%conq_unit_1_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_1_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_1_text, $int0);
+}
+if (%conq_unit_2_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_2_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_2_text, $int0);
+}
+if (%conq_unit_3_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_3_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_3_text, $int0);
+}
+if (%conq_unit_4_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_4_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_4_text, $int0);
+}
+if (%conq_unit_5_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_5_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_5_text, $int0);
+}
+if (%conq_unit_6_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_6_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_6_text, $int0);
+}
+if (%conq_unit_7_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_7_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_7_text, $int0);
+}
+if (%conq_unit_8_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_8_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_8_text, $int0);
+}
+if (%conq_unit_9_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_9_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_9_text, $int0);
+}
+if (%conq_unit_10_type = 0) {
+    $int1 = ~script1416(conq_set_formation:unit_10_text, $int1);
+} else {
+    $int0 = ~script1403(conq_set_formation:unit_10_text, $int0);
+}

@@ -1,0 +1,14 @@
+// 1667
+[proc,script1667]
+def_int $int0 = 0;
+if (activeclansettings_find_affined = true) {
+    ~clansettings_clanmate_details_onclansettingstransmit;
+    if (~script4292 = 1) {
+        if_sethide(clansettings:com_267, true);
+        if_sethide(clansettings:com_253, true);
+    } else {
+        if_sethide(clansettings:com_267, false);
+        if_sethide(clansettings:com_253, false);
+    }
+}
+~clansettings_clanmate_details_onclansettingstransmit;

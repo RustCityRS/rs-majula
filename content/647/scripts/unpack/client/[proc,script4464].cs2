@@ -1,0 +1,16 @@
+// 4464
+[proc,script4464]()(int)
+def_int $int0 = -1;
+if (activeclansettings_find_affined = true) {
+    if (activeclanchannel_find_affined = true) {
+        $int0 = activeclansettings_getaffinedslot(removetags(chat_playername));
+        if ($int0 ! -1 & activeclanchannel_getuserrank($int0) >= activeclansettings_getrankkick) {
+            return(1);
+        }
+    } else {
+        mes("You must be in a clan to do that.");
+    }
+} else {
+    mes("You must be in a clan to do that.");
+}
+return(0);

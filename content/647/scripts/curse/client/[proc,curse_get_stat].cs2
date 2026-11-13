@@ -1,0 +1,16 @@
+// 1697
+[proc,curse_get_stat](stat $stat0)(int)
+switch_stat ($stat0) {
+    case attack :
+        return(calc(%curse_attack_adjust - 30));
+    case strength :
+        return(calc(%curse_strength_adjust - 30));
+    case defence :
+        return(calc(%curse_defence_adjust - 30));
+    case ranged :
+        return(calc(%curse_ranged_adjust - 30));
+    case magic :
+        return(calc(%curse_magic_adjust - 30));
+    case default :
+        return(0);
+}

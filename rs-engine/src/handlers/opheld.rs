@@ -1,5 +1,5 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{engine, engine_mut};
+use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{HeldCheck, check_held};
 use crate::watch::Op;
@@ -159,7 +159,7 @@ fn handle(
         )));
     };
 
-    match check_held(active, com, slot, obj) {
+    match check_held(active, com.into(), slot, obj) {
         HeldCheck::Ok => {}
         HeldCheck::NoTransmit => {
             return Err(ScriptError::Client(format!(
@@ -216,24 +216,16 @@ fn handle(
     active.player.move_request = false; // uses the dueling ring op to move whilst busy & queue pending: https://youtu.be/GPfN3Isl2rM
     active.player.info.clear_face_entity_player();
 
-    let trigger = match op {
-        1 => ServerTriggerType::OpHeld1,
-        2 => ServerTriggerType::OpHeld2,
-        3 => ServerTriggerType::OpHeld3,
-        4 => ServerTriggerType::OpHeld4,
-        5 => ServerTriggerType::OpHeld5,
-        _ => {
-            return Err(ScriptError::Client(format!(
-                "Trigger not found for op: {}",
-                op
-            )));
-        }
+    let Some(trigger) = u8::try_from(op).ok().and_then(ServerTriggerType::op_held) else {
+        return Err(ScriptError::Client(format!(
+            "Trigger not found for op: {op}"
+        )));
     };
 
     let result = engine_mut().run_script_by_trigger(
         (
             trigger,
-            Some(obj.id),
+            Some(obj.id as i32),
             Some(obj.category.map(|x| x as i32).unwrap_or(-1)),
         ),
         Some(ScriptSubject::Player(active.player.uid)),
@@ -246,11 +238,7 @@ fn handle(
     match result {
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
-            active.message_game(&format!(
-                "No trigger for [opheld{},{}]",
-                op,
-                obj.debugname().unwrap_or(&obj.id.to_string())
-            ));
+            active.message_game(&format!("No trigger for [opheld{},{}]", op, obj.debugname));
         }
         other => other?,
     }

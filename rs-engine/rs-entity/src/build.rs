@@ -1,12 +1,23 @@
 use rs_grid::{CoordGrid, ZoneCoordGrid};
+use std::mem;
 
 /// Maximum number of players supported by the engine.
 pub const MAX_PLAYERS: usize = 2048;
 /// Maximum number of NPCs supported by the engine.
 #[cfg(before_254)]
 pub const MAX_NPCS: usize = 8192;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 pub const MAX_NPCS: usize = 16384;
+/// Rev-647: the npc-info add format carries a 15-bit npc id.
+#[cfg(since_647)]
+pub const MAX_NPCS: usize = 32768;
+
+/// Number of player skills.
+#[cfg(before_647)]
+pub const STAT_COUNT: usize = 21;
+/// Rev-647 adds construction, hunter, summoning and dungeoneering.
+#[cfg(since_647)]
+pub const STAT_COUNT: usize = 25;
 
 /// A compact set of entity IDs backed by a bit vector for O(1) membership checks
 /// and an ordered ID list for iteration.
@@ -22,10 +33,6 @@ pub struct IdBitSet {
 impl IdBitSet {
     /// Creates a new `IdBitSet` with a bit vector sized for `len` IDs and a pre-allocated
     /// ID list of the given `capacity`.
-    ///
-    /// # Arguments
-    /// * `len` - The maximum ID value this set can hold (rounded up to 32-bit words).
-    /// * `capacity` - The initial capacity for the ordered ID list.
     #[inline]
     pub fn new(len: usize, capacity: usize) -> IdBitSet {
         IdBitSet {
@@ -35,21 +42,12 @@ impl IdBitSet {
     }
 
     /// Returns `true` if the given ID is present in the set. O(1) via bit check.
-    ///
-    /// # Arguments
-    /// * `id` - The entity ID to test.
     #[inline]
     pub fn contains(&self, id: u16) -> bool {
         unsafe { *self.bits.as_ptr().add((id >> 5) as usize) & (1 << (id & 0x1F)) != 0 }
     }
 
     /// Inserts an ID into the set if not already present.
-    ///
-    /// # Arguments
-    /// * `id` - The entity ID to add.
-    ///
-    /// # Side Effects
-    /// * Sets the corresponding bit and appends the ID to the ordered list.
     #[inline]
     pub fn insert(&mut self, id: u16) {
         if self.contains(id) {
@@ -60,12 +58,6 @@ impl IdBitSet {
     }
 
     /// Removes an ID from the set if present.
-    ///
-    /// # Arguments
-    /// * `id` - The entity ID to remove.
-    ///
-    /// # Side Effects
-    /// * Clears the corresponding bit and removes the ID from the ordered list.
     #[inline]
     pub fn remove(&mut self, id: u16) {
         if !self.contains(id) {
@@ -81,9 +73,6 @@ impl IdBitSet {
     ///
     /// This is an O(1) operation intended for use when the caller has swapped
     /// out the `ids` vec and will reconcile it later via [`retain_bits`](Self::retain_bits).
-    ///
-    /// # Arguments
-    /// * `id` - The entity ID whose bit to clear.
     #[inline]
     pub fn remove_bit(&mut self, id: u16) {
         unsafe { *self.bits.as_mut_ptr().add((id >> 5) as usize) &= !(1 << (id & 0x1F)) };
@@ -106,7 +95,7 @@ impl IdBitSet {
     /// of the ID list for iteration while the set's bit operations remain valid.
     #[inline]
     pub fn swap_ids(&mut self, other: &mut Vec<u16>) {
-        std::mem::swap(&mut self.ids, other);
+        mem::swap(&mut self.ids, other);
     }
 
     /// Returns the number of IDs currently in the set.
@@ -127,6 +116,12 @@ impl IdBitSet {
         self.bits.fill(0);
         self.ids.clear();
     }
+
+    /// The bit vector, one bit per ID in 32-bit words.
+    #[inline]
+    pub fn words(&self) -> &[u32] {
+        &self.bits
+    }
 }
 
 /// Tracks the player's viewport and the entities/zones visible to them.
@@ -140,14 +135,27 @@ pub struct BuildArea {
     pub zones_settled: Option<u64>,
     pub mapsquares: Vec<u16>,
     pub origin: CoordGrid,
+    #[cfg(since_254)]
+    pub loading: bool,
     pub players: IdBitSet,
     pub npcs: IdBitSet,
     pub appearances: Box<[u32; MAX_PLAYERS]>,
     pub force_view_distance: bool,
     pub view_distance: u8,
     pub last_resize: u32,
+    #[cfg(before_647)]
     pub nearby_players: Vec<u16>,
     pub nearby_npcs: Vec<u16>,
+    #[cfg(since_647)]
+    pub skipped: Box<[u64; MAX_PLAYERS >> 6]>,
+    #[cfg(since_647)]
+    pub skipping: Box<[u64; MAX_PLAYERS >> 6]>,
+    #[cfg(since_647)]
+    pub locals: Box<[u64; MAX_PLAYERS >> 6]>,
+    #[cfg(since_647)]
+    pub rebuild: bool,
+    #[cfg(since_647)]
+    pub dynamic: bool,
 }
 
 impl BuildArea {
@@ -169,27 +177,62 @@ impl BuildArea {
             zones_settled: None,
             mapsquares: Vec::with_capacity(3 * 3),
             origin: CoordGrid::new(0, 0, 0),
+            #[cfg(since_254)]
+            loading: false,
             players: IdBitSet::new(MAX_PLAYERS, BuildArea::PREFERRED_PLAYERS as usize),
             npcs: IdBitSet::new(MAX_NPCS, BuildArea::PREFERRED_NPCS as usize),
             appearances: Box::new([0; MAX_PLAYERS]),
             force_view_distance: false,
             view_distance: BuildArea::PREFERRED_VIEW_DISTANCE,
             last_resize: 0,
+            #[cfg(before_647)]
             nearby_players: Vec::with_capacity(BuildArea::PREFERRED_PLAYERS as usize),
             nearby_npcs: Vec::with_capacity(BuildArea::PREFERRED_NPCS as usize),
+            #[cfg(since_647)]
+            skipped: Box::new([0; MAX_PLAYERS >> 6]),
+            #[cfg(since_647)]
+            skipping: Box::new([0; MAX_PLAYERS >> 6]),
+            #[cfg(since_647)]
+            locals: Box::new([0; MAX_PLAYERS >> 6]),
+            #[cfg(since_647)]
+            rebuild: false,
+            #[cfg(since_647)]
+            dynamic: false,
         }
+    }
+
+    /// Rev-647: the state a new client starts from, tracking only itself.
+    #[cfg(since_647)]
+    pub fn init_nsn_state(&mut self, self_pid: u16) {
+        self.skipping.fill(0);
+        self.players.clear();
+        self.players.insert(self_pid);
+        self.cycle_nsn_flags();
+    }
+
+    /// Rev-647: what was skipped this tick is what was skipped last tick next
+    /// tick, and the tracked players are the next tick's locals.
+    #[cfg(since_647)]
+    pub fn cycle_nsn_flags(&mut self) {
+        *self.skipped = *self.skipping;
+        self.skipping.fill(0);
+        let words = self.players.words();
+        for (w, local) in self.locals.iter_mut().enumerate() {
+            *local =
+                (words[w << 1] as u64 | (words[(w << 1) + 1] as u64) << 32) & !((w == 0) as u64);
+        }
+    }
+
+    /// Rev-647: 18-bit packed region `level << 16 | x/64 << 8 | z/64`.
+    #[cfg(since_647)]
+    pub fn pack_mapsquare(coord: CoordGrid) -> u32 {
+        ((coord.y() as u32) << 16) | ((coord.x() as u32 >> 6) << 8) | (coord.z() as u32 >> 6)
     }
 
     /// Clears all tracked state in the build area.
     ///
     /// If `reconnecting` is `true`, the clear is skipped entirely so the client retains
     /// its current viewport data across a reconnection.
-    ///
-    /// # Arguments
-    /// * `reconnecting` - Whether the player is reconnecting to an existing session.
-    ///
-    /// # Side Effects
-    /// * Clears `loaded_zones`, `active_zones`, `mapsquares`, `players`, `npcs`, and `appearances`.
     pub fn clear(&mut self, reconnecting: bool) {
         if reconnecting {
             return;
@@ -201,18 +244,21 @@ impl BuildArea {
         self.players.clear();
         self.npcs.clear();
         self.appearances.fill(0);
+        #[cfg(since_254)]
+        {
+            self.loading = false;
+        }
+        #[cfg(since_647)]
+        {
+            self.rebuild = false;
+            self.dynamic = false;
+        }
     }
 
     /// Rebuilds the active zone list centered on the player's current coordinate.
     ///
     /// Computes a 7x7 zone grid centered on the player's zone, clipped to the bounds
     /// of the current build area origin (13x13 zone grid), and populates `active_zones`.
-    ///
-    /// # Arguments
-    /// * `coord` - The player's current coordinate.
-    ///
-    /// # Side Effects
-    /// * Clears and repopulates `self.active_zones`.
     pub fn rebuild_zones(&mut self, coord: CoordGrid) {
         self.active_zones.clear();
         self.zones_settled = None;
@@ -244,14 +290,6 @@ impl BuildArea {
     /// Recomputes the mapsquare list for the 13x13 zone grid, sets the build area
     /// origin to the given coordinate, and clears the loaded zone list so all zones
     /// are re-sent to the client.
-    ///
-    /// # Arguments
-    /// * `coord` - The player's current coordinate to center the build area on.
-    ///
-    /// # Side Effects
-    /// * Clears and repopulates `self.mapsquares`.
-    /// * Sets `self.origin`.
-    /// * Clears `self.loaded_zones`.
     pub fn rebuild_normal(&mut self, coord: &CoordGrid) {
         let zone_x = coord.zone_x();
         let zone_z = coord.zone_z();
@@ -274,6 +312,10 @@ impl BuildArea {
         }
 
         self.origin = CoordGrid::from(coord.packed());
+        #[cfg(since_254)]
+        {
+            self.loading = true;
+        }
         self.loaded_zones.clear();
         self.zones_settled = None;
     }
@@ -284,9 +326,6 @@ impl BuildArea {
     /// A rebuild is needed when the player's zone coordinate differs from the origin
     /// by more than 4 zones in either axis, which means they are approaching the edge
     /// of the currently loaded 13x13 zone grid.
-    ///
-    /// # Arguments
-    /// * `coord` - The player's current coordinate.
     pub fn needs_rebuild(&self, coord: &CoordGrid) -> bool {
         let cx = coord.zone_x() as i32;
         let cz = coord.zone_z() as i32;
@@ -302,9 +341,6 @@ impl BuildArea {
     ///   (minimum 1) and resets the resize counter.
     /// - Otherwise, increments the resize counter and grows `view_distance` by 1
     ///   (up to `PREFERRED_VIEW_DISTANCE`) every `INTERVAL` ticks.
-    ///
-    /// # Side Effects
-    /// * May modify `self.view_distance` and `self.last_resize`.
     #[inline]
     pub fn resize(&mut self) {
         if self.force_view_distance {
@@ -331,10 +367,6 @@ impl BuildArea {
 
     /// Returns `true` if the stored appearance clock for the given player matches
     /// the provided clock, meaning the client already has the latest appearance data.
-    ///
-    /// # Arguments
-    /// * `pid` - The player index.
-    /// * `clock` - The current appearance version clock.
     #[inline]
     pub const fn has_appearance(&self, pid: u16, clock: u32) -> bool {
         unsafe { *self.appearances.as_ptr().add(pid as usize) == clock }
@@ -342,10 +374,6 @@ impl BuildArea {
 
     /// Saves the appearance version clock for the given player, indicating the client
     /// now has up-to-date appearance data for that player.
-    ///
-    /// # Arguments
-    /// * `pid` - The player index.
-    /// * `clock` - The appearance version clock to store.
     #[inline]
     pub fn save_appearance(&mut self, pid: u16, clock: u32) {
         unsafe { *self.appearances.as_mut_ptr().add(pid as usize) = clock }

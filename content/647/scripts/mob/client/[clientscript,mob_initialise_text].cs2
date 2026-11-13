@@ -1,0 +1,20 @@
+// 2623
+[clientscript,mob_initialise_text]
+def_int $int0 = 1;
+while (enum(int, component, enum_2451, $int0) ! mob_chat:summary) {
+    if_settext(enum(int, component, enum_2451, $int0), "");
+    $int0 = calc($int0 + 1);
+}
+if_settext(mob_chat:string1, "Welcome to Mobilising Armies.");
+switch_int (%varplayerbit_6352) {
+    case 1 :
+        if_setgraphic(mob_chat:arrow_graphic, graphic_1906);
+    case 2 :
+        if_setgraphic(mob_chat:arrow_graphic, graphic_1904);
+    case 3 :
+        if_setgraphic(mob_chat:arrow_graphic, graphic_1905);
+    case 4 :
+        if_setgraphic(mob_chat:arrow_graphic, graphic_1907);
+}
+~scrollbar_ondrag_doscroll(mob_chat:scrollbar, mob_chat:text, if_getscrollheight(mob_chat:text), 1);
+if_setonkey(mob_chat:arrowbutton, "mob_chat_onkey(event_keycode, event_keychar)");

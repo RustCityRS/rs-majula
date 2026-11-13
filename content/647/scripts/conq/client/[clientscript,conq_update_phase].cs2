@@ -1,0 +1,60 @@
+// 410
+[clientscript,conq_update_phase](int $int0)
+if (%conq_current_phase = $int0) {
+    return;
+}
+if_setonvarctransmit(conq_side_turn:phase_check_layer, "conq_update_phase(%conq_current_phase){conq_current_phase}");
+if (%conq_current_team = %conq_team) {
+    if_sethide(conq_side_turn:your_turn_layer, false);
+    if_sethide(conq_side_turn:confirm_end_layer, true);
+}
+if (%conq_current_phase = 0) {
+    if_setcolour(conq_side_turn:unit_select_phase_text, 0xff981f);
+    if_setgraphic(conq_side_turn:unit_select_phase_check, "km_tickbox,0");
+    if_setcolour(conq_side_turn:movement_phase_text, 0x969664);
+    if_setgraphic(conq_side_turn:movement_phase_check, "km_tickbox,0");
+    if_setcolour(conq_side_turn:combat_phase_text, 0x969664);
+    if_setgraphic(conq_side_turn:combat_phase_check, "km_tickbox,0");
+    if_setcolour(conq_side_turn:rally_phase_text, 0x969664);
+    if_setgraphic(conq_side_turn:rally_phase_check, "km_tickbox,0");
+} else if (%conq_current_phase = 1) {
+    if (%conq_is_active_player = 1) {
+        if (random(2) = 0) {
+            sound_vorbis_volume(vorbis_3436, 1, 0, 255);
+        } else {
+            sound_vorbis_volume(vorbis_3438, 1, 0, 255);
+        }
+    }
+    if_setcolour(conq_side_turn:unit_select_phase_text, 0x00c800);
+    if_setgraphic(conq_side_turn:unit_select_phase_check, "km_tickbox,1");
+    if_setcolour(conq_side_turn:movement_phase_text, 0xff981f);
+    if_setgraphic(conq_side_turn:movement_phase_check, "km_tickbox,0");
+    if_setcolour(conq_side_turn:combat_phase_text, 0x969664);
+    if_setgraphic(conq_side_turn:combat_phase_check, "km_tickbox,0");
+    if_setcolour(conq_side_turn:rally_phase_text, 0x969664);
+    if_setgraphic(conq_side_turn:rally_phase_check, "km_tickbox,0");
+} else if (%conq_current_phase = 2) {
+    if (%conq_is_active_player = 1) {
+        sound_vorbis_volume(vorbis_3437, 1, 0, 255);
+    }
+    if_setcolour(conq_side_turn:unit_select_phase_text, 0x00c800);
+    if_setgraphic(conq_side_turn:unit_select_phase_check, "km_tickbox,1");
+    if_setcolour(conq_side_turn:movement_phase_text, 0x00c800);
+    if_setgraphic(conq_side_turn:movement_phase_check, "km_tickbox,1");
+    if_setcolour(conq_side_turn:combat_phase_text, 0xff981f);
+    if_setgraphic(conq_side_turn:combat_phase_check, "km_tickbox,0");
+    if_setcolour(conq_side_turn:rally_phase_text, 0x969664);
+    if_setgraphic(conq_side_turn:rally_phase_check, "km_tickbox,0");
+} else {
+    if (%conq_is_active_player = 1) {
+        sound_vorbis_volume(vorbis_3441, 1, 0, 255);
+    }
+    if_setcolour(conq_side_turn:unit_select_phase_text, 0x00c800);
+    if_setgraphic(conq_side_turn:unit_select_phase_check, "km_tickbox,1");
+    if_setcolour(conq_side_turn:movement_phase_text, 0x00c800);
+    if_setgraphic(conq_side_turn:movement_phase_check, "km_tickbox,1");
+    if_setcolour(conq_side_turn:combat_phase_text, 0x00c800);
+    if_setgraphic(conq_side_turn:combat_phase_check, "km_tickbox,1");
+    if_setcolour(conq_side_turn:rally_phase_text, 0xff981f);
+    if_setgraphic(conq_side_turn:rally_phase_check, "km_tickbox,0");
+}

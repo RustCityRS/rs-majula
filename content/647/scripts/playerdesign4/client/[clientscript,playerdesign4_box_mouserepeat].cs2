@@ -1,0 +1,44 @@
+// 366
+[clientscript,playerdesign4_box_mouserepeat](component $component0, int $int1, enum $enum2, int $int3, int $int4, boolean $boolean5, boolean $boolean6, component $component7, string $string0, int $int8)
+if ($component0 ! null) {
+    if ($boolean5 = true) {
+        ~playerdesign4_box_outline($component0, $int3, 1);
+    } else {
+        ~playerdesign4_box_outline($component0, $int3, 0);
+    }
+    if ($boolean6 = true) {
+        if_setontimer($component0, "playerdesign4_box_mouserepeat_timer($component0, $int4, $boolean5)");
+    }
+} else {
+    ~playerdesign4_box_outline($component7, $int3, 2);
+}
+if (if_find($component7) = true) {
+    if ($boolean5 = true) {
+        if (string_length($string0) > 0) {
+            ~playerdesign4_tooltip($string0, ~if_getx_absolute($component7), if_getwidth($component7), ~if_gety_absolute($component7), $int8);
+        }
+    } else if (~if_getx_absolute($component7) = %tooltip_built & if_getwidth($component7) = %player_kit_scroll_length) {
+        ~playerdesign4_tooltip_clear;
+    }
+}
+if ($enum2 = null) {
+    return;
+}
+def_int $int9 = 0;
+def_int $int10 = enum_getoutputcount($enum2);
+def_component $component11 = null;
+if ($boolean5 = true) {
+    while ($int9 < $int10) {
+        if ($int9 ! $int1) {
+            $component11 = enum(int, component, $enum2, $int9);
+            if ($component11 = null) {
+                return;
+            }
+            if ($component11 ! $component0 & if_gethide($component11) = false) {
+                if_setontimer($component11, "playerdesign4_box_mouserepeat_timer($component11, $int4, false)");
+                ~playerdesign4_box_outline($component11, $int3, 0);
+            }
+        }
+        $int9 = calc($int9 + 1);
+    }
+}

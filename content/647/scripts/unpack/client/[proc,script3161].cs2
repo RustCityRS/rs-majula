@@ -1,0 +1,10 @@
+// 3161
+[proc,script3161](int $int0)
+if ($int0 = 1 & userdetail_quickchat = false) {
+    if_setonkey(lobbyscreen_pane_clanchat:chat_input, "lobbyscreen_pane_clanchat_keyboard(event_keycode, event_keychar)");
+    if_setontimer(lobbyscreen_pane_clanchat:chat_input_text, "lobbyscreen_pane_clanchat_caret_flash(clientclock, lobbyscreen_pane_clanchat:input_caret)");
+} else {
+    if_setonkey(lobbyscreen_pane_clanchat:chat_input, null);
+    if_setontimer(lobbyscreen_pane_clanchat:chat_input_text, null);
+    if_settext(lobbyscreen_pane_clanchat:chat_input_text, escape(%varclient_1797));
+}

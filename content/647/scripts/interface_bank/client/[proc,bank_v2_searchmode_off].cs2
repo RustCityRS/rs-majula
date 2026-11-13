@@ -1,0 +1,15 @@
+// 1474
+[proc,bank_v2_searchmode_off]
+if_sethide(bank_v2_main:message_nomatches, true);
+if_sethide(bank_v2_main:message_nosearch, true);
+if_setgraphic(bank_v2_main:bank_search_icon, "bank_buttons_new1,0");
+if_setgraphic(bank_v2_main:bank_search_button, "bank_buttons_new2,0");
+if (%open_bank_tab = 0) {
+    ~bank_v2_show_all;
+}
+~bank_v2_tab_highlight(1);
+%varclient_1657 = "";
+~meslayer_close(11);
+%varclient_188 = false;
+if_settext(bank_v2_main:title, "Bank of RuneScape");
+if_setontimer(bank_v2_main:bank_search_button, null);

@@ -1,0 +1,919 @@
+// 662:0
+[com_0]
+type=rectangle
+x=8
+y=28
+width=173
+height=111
+colour=0x000000
+fill=yes
+trans=200
+
+// 662:1
+[lore_chathead]
+type=model
+x=53
+y=13
+width=78
+height=86
+layer=lore_chathead_1
+model=null
+modelangle=2033,1833,0
+modelzoom=2168
+onvartransmit=lore_head_update{lore_npc_head, lore_incubators_var}
+
+// 662:2
+[com_2]
+type=rectangle
+x=14
+y=31
+width=161
+height=105
+colour=0x000000
+fill=yes
+trans=200
+
+// 662:3
+[com_3]
+type=rectangle
+x=23
+y=36
+width=143
+height=95
+colour=0x000000
+fill=yes
+trans=200
+
+// 662:4
+[lore_chathead_1]
+type=layer
+x=5
+y=26
+width=178
+height=114
+
+// 662:5
+[com_5]
+type=graphic
+x=5
+y=25
+width=32
+height=32
+graphic="v2_stone_borders,28"
+colour=0xffffffff
+
+// 662:6
+[com_6]
+type=graphic
+x=37
+y=12
+width=116
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 662:7
+[com_7]
+type=graphic
+x=152
+y=25
+width=32
+height=32
+graphic="v2_stone_borders,29"
+colour=0xffffffff
+
+// 662:8
+[com_8]
+type=graphic
+x=167
+y=57
+width=32
+height=53
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+
+// 662:9
+[com_9]
+type=graphic
+x=152
+y=110
+width=32
+height=32
+graphic="v2_stone_borders,31"
+colour=0xffffffff
+
+// 662:10
+[com_10]
+type=graphic
+x=37
+y=126
+width=115
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 662:11
+[com_11]
+type=graphic
+x=5
+y=110
+width=32
+height=32
+graphic="v2_stone_borders,30"
+colour=0xffffffff
+
+// 662:12
+[com_12]
+type=graphic
+x=-9
+y=57
+width=32
+height=53
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+
+// 662:13
+[com_13]
+type=graphic
+x=121
+y=169
+width=32
+height=47
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0xffffffff
+
+// 662:14
+[com_14]
+type=graphic
+x=121
+y=210
+width=32
+height=47
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 662:15
+[com_15]
+type=graphic
+x=-10
+y=-2
+width=166
+height=20
+layer=com_17
+graphic=lore_stats_box
+colour=0xffffffff
+
+// 662:16
+[lore_magic_button]
+type=rectangle
+width=146
+height=14
+layer=com_17
+colour=0xffff00
+trans=255
+
+// 662:17
+[com_17]
+type=layer
+x=21
+y=5
+width=146
+height=14
+layer=lore_familairs
+
+// 662:18
+[points_icon]
+type=graphic
+x=149
+y=213
+width=25
+height=25
+layer=lore_familairs
+graphic="lore_icons,6"
+colour=0xffffffff
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Summoning points remaining")
+
+// 662:19
+[com_19]
+type=model
+x=3
+width=143
+height=13
+layer=com_17
+model=model_31706
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:20
+[com_20]
+type=model
+x=2
+width=9
+height=13
+layer=com_17
+model=model_31717
+modelorigin=67,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:21
+[com_21]
+type=model
+x=9
+width=9
+height=13
+layer=com_17
+model=model_31703
+modelorigin=60,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:22
+[com_22]
+type=model
+x=16
+width=9
+height=13
+layer=com_17
+model=model_31709
+modelorigin=53,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:23
+[com_23]
+type=model
+x=23
+width=9
+height=13
+layer=com_17
+model=model_31718
+modelorigin=46,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:24
+[com_24]
+type=model
+x=31
+width=8
+height=13
+layer=com_17
+model=model_31705
+modelorigin=38,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:25
+[com_25]
+type=model
+x=38
+width=8
+height=13
+layer=com_17
+model=model_31715
+modelorigin=31,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:26
+[com_26]
+type=model
+x=45
+width=8
+height=13
+layer=com_17
+model=model_31714
+modelorigin=24,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:27
+[com_27]
+type=model
+x=52
+width=8
+height=13
+layer=com_17
+model=model_31708
+modelorigin=17,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:28
+[com_28]
+type=model
+x=59
+width=8
+height=13
+layer=com_17
+model=model_31702
+modelorigin=10,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:29
+[com_29]
+type=model
+x=66
+width=8
+height=13
+layer=com_17
+model=model_31711
+modelorigin=3,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:30
+[com_30]
+type=model
+x=73
+width=8
+height=13
+layer=com_17
+model=model_31712
+modelorigin=-4,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:31
+[com_31]
+type=model
+x=80
+width=8
+height=13
+layer=com_17
+model=model_31704
+modelorigin=-11,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:32
+[com_32]
+type=model
+x=87
+width=8
+height=13
+layer=com_17
+model=model_31719
+modelorigin=-18,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:33
+[com_33]
+type=model
+x=94
+width=8
+height=13
+layer=com_17
+model=model_31707
+modelorigin=-25,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:34
+[com_34]
+type=model
+x=101
+width=8
+height=13
+layer=com_17
+model=model_31716
+modelorigin=-32,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:35
+[com_35]
+type=model
+x=108
+width=8
+height=13
+layer=com_17
+model=model_31700
+modelorigin=-39,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:36
+[com_36]
+type=model
+x=115
+width=9
+height=13
+layer=com_17
+model=model_31701
+modelorigin=-46,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:37
+[com_37]
+type=model
+x=122
+width=9
+height=13
+layer=com_17
+model=model_31699
+modelorigin=-53,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:38
+[com_38]
+type=model
+x=129
+width=9
+height=13
+layer=com_17
+model=model_31713
+modelorigin=-60,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:39
+[com_39]
+type=model
+x=136
+width=9
+height=13
+layer=com_17
+model=model_31710
+modelorigin=-67,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 662:40
+[lore_magic]
+type=text
+y=-1
+width=146
+height=15
+layer=com_17
+textfont=p11_full
+text=S P E C I A L   M O V E
+textalignh=centre
+textalignv=bottom
+colour=0xffffcc
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onvartransmit=script756{lore_spell_points}
+onstattransmit=script756{summoning}
+onmouserepeat=script777(event_com, lore_stats_side:build_layer, 43384905, 1)
+
+// 662:41
+[points_left]
+type=text
+x=146
+y=240
+width=32
+height=15
+layer=lore_familairs
+textfont=p11_full
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onstattransmit=lore_points_update{summoning}
+
+// 662:42
+[time_icon]
+type=graphic
+x=149
+y=169
+width=25
+height=25
+layer=lore_familairs
+graphic="lore_icons,2"
+colour=0xffffffff
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Familiar time remaining")
+
+// 662:43
+[animal_time_left]
+type=text
+x=146
+y=196
+width=32
+height=15
+layer=lore_familairs
+textfont=p11_full
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+onvartransmit=script752{lore_timer_var}
+
+// 662:44
+[size_icon]
+type=graphic
+x=149
+y=169
+width=25
+height=25
+layer=lore_pets
+graphic="lore_icons,1"
+colour=0xffffffff
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Pet size percentage")
+
+// 662:45
+[size_percentage]
+type=text
+x=146
+y=196
+width=32
+height=15
+layer=lore_pets
+textfont=p11_full
+text=100%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+transmitop=10
+op10= 
+onvartransmit=script753{lore_npc_stats}
+
+// 662:46
+[size_percent]
+type=text
+x=146
+y=196
+width=32
+height=15
+layer=lore_pets
+textfont=p11_full
+text=100%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+
+// 662:47
+[hunger_icon]
+type=graphic
+x=149
+y=213
+width=25
+height=25
+layer=lore_pets
+graphic="lore_icons,0"
+colour=0xffffffff
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Pet hunger percentage")
+
+// 662:48
+[hunger]
+type=text
+x=146
+y=240
+width=32
+height=15
+layer=lore_pets
+textfont=p11_full
+text=9999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc4b074
+
+// 662:49
+[call_animal_button]
+type=layer
+x=23
+y=216
+width=38
+height=38
+layer=lore_bounding_box
+transmitop=1
+op1=Call Follower
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Call familiar")
+
+// 662:50
+[call_animal_button_graphic]
+type=graphic
+x=29
+y=223
+width=25
+height=25
+layer=lore_bounding_box
+graphic="lore_icons,3"
+colour=0xffffffff
+
+// 662:51
+[dismiss_button]
+type=layer
+x=76
+y=216
+width=38
+height=38
+layer=lore_bounding_box
+transmitop=1,2
+op1=Dismiss Familiar
+op2=Dismiss Now
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Dismiss familiar")
+
+// 662:52
+[dismiss_button_graphic]
+type=graphic
+x=83
+y=223
+width=25
+height=25
+layer=lore_bounding_box
+graphic="lore_icons,5"
+colour=0xffffffff
+
+// 662:53
+[com_53]
+type=graphic
+x=13
+y=145
+width=166
+height=20
+graphic=lore_stats_box
+colour=0xffffffff
+
+// 662:54
+[lore_name]
+type=text
+x=15
+y=145
+width=165
+height=20
+layer=lore_bounding_box
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+colour=0xcc9900
+
+// 662:55
+[com_55]
+type=graphic
+x=8
+y=28
+width=32
+height=45
+layer=lore_familairs
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 662:56
+[com_56]
+type=graphic
+x=26
+y=26
+width=32
+height=32
+layer=lore_familairs
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+
+// 662:57
+[com_57]
+type=graphic
+x=11
+y=44
+width=32
+height=32
+layer=lore_familairs
+graphic="v2_stone_borders,31"
+colour=0xffffffff
+opbase= 
+
+// 662:58
+[com_58]
+type=graphic
+x=-8
+y=60
+width=32
+height=32
+layer=lore_familairs
+graphic="v2_stone_borders,25"
+colour=0xffffffff
+
+// 662:59
+[com_59]
+type=graphic
+x=7
+y=43
+width=32
+height=32
+layer=lore_familairs
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+opbase= 
+
+// 662:60
+[attack_layer]
+type=layer
+x=113
+width=75
+height=93
+layer=lore_familairs
+
+// 662:61
+[com_61]
+type=graphic
+x=34
+y=28
+width=32
+height=45
+layer=attack_layer
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 662:62
+[com_62]
+type=graphic
+x=16
+y=26
+width=32
+height=32
+layer=attack_layer
+graphic="v2_stone_borders,24"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 662:63
+[com_63]
+type=graphic
+x=31
+y=44
+width=32
+height=32
+layer=attack_layer
+graphic="v2_stone_borders,31"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 662:64
+[com_64]
+type=graphic
+x=50
+y=60
+width=32
+height=32
+layer=attack_layer
+graphic="v2_stone_borders,25"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 662:65
+[attack_button]
+type=graphic
+x=35
+y=26
+width=32
+height=45
+layer=attack_layer
+graphic=lore_attack_icon
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Attack
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+ontargetleave=magic_leavetargetmode(event_com)
+ontargetenter=magic_entertargetmode(event_com)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Order your familiar to attack a target")
+
+// 662:66
+[lore_pouch_counter]
+type=text
+x=7
+y=62
+width=32
+height=13
+layer=lore_familairs
+textfont=p11_full
+text=9999
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+onmouseleave=deltooltip(lore_stats_side:build_layer)
+oninvtransmit=lore_pouch_counter{inv}
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Scrolls remaining")
+
+// 662:67
+[bobdump]
+type=layer
+x=23
+y=170
+width=38
+height=38
+layer=lore_familairs
+transmitop=1
+op1=Take BoB
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Take Beast of Burden items")
+
+// 662:68
+[bobdump_graphic]
+type=graphic
+x=28
+y=179
+width=29
+height=21
+layer=lore_familairs
+graphic="bank_bob_button,0"
+colour=0xffffffff
+
+// 662:69
+[lore_renew_button]
+type=layer
+x=76
+y=170
+width=38
+height=38
+layer=lore_familairs
+transmitop=1,10
+op1=Renew Familiar
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=script475(event_com, lore_stats_side:build_layer)
+onmouserepeat=script779(event_com, lore_stats_side:build_layer, 43384905, 1, "Renew familiar")
+
+// 662:70
+[lore_renew_button_graphic]
+type=graphic
+x=82
+y=177
+width=25
+height=25
+layer=lore_familairs
+graphic="lore_icons,7"
+colour=0xffffffff
+
+// 662:71
+[lore_pets]
+type=layer
+width=190
+height=261
+layer=lore_bounding_box
+hide=yes
+onvartransmit=script753{lore_npc_stats}
+
+// 662:72
+[lore_familairs]
+type=layer
+width=190
+height=261
+layer=lore_bounding_box
+hide=yes
+
+// 662:73
+[build_layer]
+type=layer
+width=189
+height=260
+layer=lore_bounding_box
+
+// 662:74
+[spell_icon]
+type=layer
+x=6
+y=26
+width=32
+height=36
+layer=lore_familairs
+onload=script211
+onvartransmit=script211{follower_obj}
+onvarcstrtransmit=script211{varclient_1724}
+
+// 662:75
+[lore_bounding_box]
+type=layer
+width=190
+height=261

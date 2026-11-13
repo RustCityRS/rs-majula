@@ -1,4 +1,4 @@
-use crate::engine::{Engine, engine};
+use crate::core::{Engine, engine};
 use rs_entity::interaction::InteractionTarget;
 use rs_entity::{MoveStrategy, PathingEntity};
 use rs_grid::CoordGrid;
@@ -8,7 +8,10 @@ use rs_vm::engine::ScriptEngine;
 use rs_vm::state::{LocRef, ObjRef};
 use rs_vm::subject::ScriptSubject;
 use rs_zone::zone_map::ZoneMap;
+use rsmod::PathRequest;
 use rsmod::rsmod::flag::collision_flag::CollisionFlag;
+use std::any::Any;
+use std::borrow::Cow;
 
 /// Identifies an entity by type and slot index for zone and collision
 /// tracking operations.
@@ -31,6 +34,7 @@ impl Engine {
     /// * `Player` -> `ScriptSubject::Player` with the player's UID.
     /// * `Loc` -> `ScriptSubject::Loc` with packed coordinate, ID, shape,
     ///   angle, and layer.
+    /// * `Coord` -> none: a tile is no entity (its script reads `last_coord`).
     ///
     /// # Returns
     ///
@@ -66,13 +70,14 @@ impl Engine {
                 layer: *layer,
                 serial: *serial,
             })),
+            InteractionTarget::Coord { .. } => None,
         }
     }
 
     /// Resolves the current world coordinate of an interaction target.
     ///
     /// For entity targets (Player, Npc), looks up the entity's live
-    /// coordinate. For static targets (Obj, Loc), returns the stored
+    /// coordinate. For static targets (Obj, Loc, Coord), returns the stored
     /// coordinate directly. Returns `(0, 0, 0)` if the entity no longer
     /// exists.
     pub(crate) fn target_coord(target: &InteractionTarget) -> CoordGrid {
@@ -87,6 +92,7 @@ impl Engine {
                 .unwrap_or(CoordGrid::new(0, 0, 0)),
             InteractionTarget::Obj { coord, .. } => *coord,
             InteractionTarget::Loc { coord, .. } => *coord,
+            InteractionTarget::Coord { coord } => *coord,
         }
     }
 
@@ -108,6 +114,7 @@ impl Engine {
     /// * **Loc:** The exact loc that was targeted (by serial) must still be
     ///   in the world at the stored coordinate and layer, still be the
     ///   expected type (a change cancels), and share the same Y-level.
+    /// * **Coord:** Must share the same Y-level.
     ///
     /// # Returns
     ///
@@ -207,6 +214,7 @@ impl Engine {
                     false
                 }
             }
+            InteractionTarget::Coord { coord } => coord.y() == y,
         }
     }
 
@@ -217,7 +225,9 @@ impl Engine {
     /// targets, checks both shape -2 (default reach) and shape -1
     /// (diagonal reach). For Loc targets, incorporates the loc's
     /// dimensions, shape, angle, and `forceapproach` flag. For entity
-    /// targets, uses a default 1x1 or NxN reach check.
+    /// targets, uses a default 1x1 or NxN reach check. A Coord target is
+    /// reached on the tile itself, which the 647 client walks onto (shape -4
+    /// in `SocketStream.method1697`).
     ///
     /// # Returns
     ///
@@ -316,6 +326,10 @@ impl Engine {
                     false
                 }
             }
+            InteractionTarget::Coord { coord } => {
+                coord.y() == y
+                    && rsmod::reached(y, src_x, src_z, coord.x(), coord.z(), 1, 1, size, 0, -1, 0)
+            }
         }
     }
 
@@ -342,7 +356,7 @@ impl Engine {
         let size = pathing.size;
 
         match target {
-            InteractionTarget::Obj { coord, .. } => {
+            InteractionTarget::Obj { coord, .. } | InteractionTarget::Coord { coord } => {
                 if coord.y() != y {
                     return false;
                 }
@@ -508,7 +522,7 @@ impl Engine {
     ///   straight-line step. Used when the entity's strategy is `Naive`
     ///   or the client pathfinder reports a coordinate overlap with the
     ///   target.
-    /// * **Full A*:** Uses `rsmod::find_path` for a collision-aware route,
+    /// * **Full BFS:** Uses `rsmod::find_path` for a collision-aware route,
     ///   incorporating the target's dimensions, shape, angle, and
     ///   forceapproach configuration for Loc targets.
     ///
@@ -523,41 +537,52 @@ impl Engine {
         target: &InteractionTarget,
         client_pathfinder: bool,
     ) {
+        if let Some(request) = Self::entity_path_request(pathing, target, client_pathfinder) {
+            pathing.queue_waypoints(request.find_path());
+        }
+    }
+
+    pub(crate) fn entity_path_request(
+        pathing: &mut PathingEntity,
+        target: &InteractionTarget,
+        client_pathfinder: bool,
+    ) -> Option<PathRequest> {
         let size = pathing.size;
         let y = pathing.coord.y();
         let x = pathing.coord.x();
         let z = pathing.coord.z();
 
         let mr = pathing.move_restrict;
-        let Some(collision) = PathingEntity::collision_type(mr) else {
-            return;
-        };
+        let collision = PathingEntity::collision_type(mr)?;
         let extra_flag = PathingEntity::block_walk_extra_flag(mr);
 
         let naive = pathing.move_strategy == MoveStrategy::Naive;
 
+        let mut request = PathRequest {
+            y,
+            src_x: x,
+            src_z: z,
+            dest_x: 0,
+            dest_z: 0,
+            src_size: size,
+            dest_width: 1,
+            dest_length: 1,
+            angle: 0,
+            shape: -1,
+            move_near: true,
+            block_access_flags: 0,
+            max_waypoints: 25,
+            collision,
+        };
+
         match target {
-            InteractionTarget::Obj { coord, .. } => {
+            InteractionTarget::Obj { coord, .. } | InteractionTarget::Coord { coord } => {
                 if naive || (x == coord.x() && z == coord.z()) {
                     pathing.queue_waypoint(*coord);
-                } else {
-                    pathing.queue_waypoints(rsmod::find_path(
-                        y,
-                        x,
-                        z,
-                        coord.x(),
-                        coord.z(),
-                        size,
-                        1,
-                        1,
-                        0,
-                        -1,
-                        true,
-                        0,
-                        25,
-                        collision,
-                    ));
+                    return None;
                 }
+                request.dest_x = coord.x();
+                request.dest_z = coord.z();
             }
             InteractionTarget::Loc {
                 coord,
@@ -570,77 +595,68 @@ impl Engine {
             } => {
                 if naive {
                     pathing.queue_waypoint(*coord);
-                } else {
-                    let forceapproach = engine()
-                        .locs()
-                        .get_by_id(*id)
-                        .map(|lt| lt.forceapproach as u8)
-                        .unwrap_or(0);
-                    pathing.queue_waypoints(rsmod::find_path(
-                        y,
-                        x,
-                        z,
-                        coord.x(),
-                        coord.z(),
-                        size,
-                        *width,
-                        *length,
-                        *angle as u8,
-                        *shape as i8,
-                        true,
-                        forceapproach,
-                        25,
-                        collision,
-                    ));
+                    return None;
                 }
+                request.dest_x = coord.x();
+                request.dest_z = coord.z();
+                request.dest_width = *width;
+                request.dest_length = *length;
+                request.angle = *angle as u8;
+                request.shape = *shape as i8;
+                request.block_access_flags = engine()
+                    .locs()
+                    .get_by_id(*id)
+                    .map(|lt| lt.forceapproach as u8)
+                    .unwrap_or(0);
             }
             InteractionTarget::Npc { nid } => {
-                if let Some(target_npc) = engine().get_npc(*nid) {
-                    let tx = target_npc.npc.pathing.coord.x();
-                    let tz = target_npc.npc.pathing.coord.z();
-                    let ts = target_npc.npc.pathing.size;
-                    if naive
-                        || (client_pathfinder
-                            && CoordGrid::intersects(
-                                x,
-                                z,
-                                size as u16,
-                                size as u16,
-                                tx,
-                                tz,
-                                ts as u16,
-                                ts as u16,
-                            ))
-                    {
-                        pathing.queue_waypoints(rsmod::find_naive_path(
-                            y, x, z, tx, tz, size, size, ts, ts, extra_flag, collision,
-                        ));
-                    } else {
-                        pathing.queue_waypoints(rsmod::find_path(
-                            y, x, z, tx, tz, size, ts, ts, 0, -2, true, 0, 25, collision,
-                        ));
-                    }
+                let target_npc = engine().get_npc(*nid)?;
+                let tx = target_npc.npc.pathing.coord.x();
+                let tz = target_npc.npc.pathing.coord.z();
+                let ts = target_npc.npc.pathing.size;
+                if naive
+                    || (client_pathfinder
+                        && CoordGrid::intersects(
+                            x,
+                            z,
+                            size as u16,
+                            size as u16,
+                            tx,
+                            tz,
+                            ts as u16,
+                            ts as u16,
+                        ))
+                {
+                    pathing.queue_waypoints(rsmod::find_naive_path(
+                        y, x, z, tx, tz, size, size, ts, ts, extra_flag, collision,
+                    ));
+                    return None;
                 }
+                request.dest_x = tx;
+                request.dest_z = tz;
+                request.dest_width = ts;
+                request.dest_length = ts;
+                request.shape = -2;
             }
             InteractionTarget::Player { pid } => {
-                if let Some(player) = engine().get_player(*pid) {
-                    let tx = player.player.pathing.coord.x();
-                    let tz = player.player.pathing.coord.z();
-                    if naive
-                        || (client_pathfinder
-                            && CoordGrid::intersects(x, z, size as u16, size as u16, tx, tz, 1, 1))
-                    {
-                        pathing.queue_waypoints(rsmod::find_naive_path(
-                            y, x, z, tx, tz, size, size, 1, 1, extra_flag, collision,
-                        ));
-                    } else {
-                        pathing.queue_waypoints(rsmod::find_path(
-                            y, x, z, tx, tz, size, 1, 1, 0, -2, true, 0, 25, collision,
-                        ));
-                    }
+                let player = engine().get_player(*pid)?;
+                let tx = player.player.pathing.coord.x();
+                let tz = player.player.pathing.coord.z();
+                if naive
+                    || (client_pathfinder
+                        && CoordGrid::intersects(x, z, size as u16, size as u16, tx, tz, 1, 1))
+                {
+                    pathing.queue_waypoints(rsmod::find_naive_path(
+                        y, x, z, tx, tz, size, size, 1, 1, extra_flag, collision,
+                    ));
+                    return None;
                 }
+                request.dest_x = tx;
+                request.dest_z = tz;
+                request.shape = -2;
             }
         }
+        Some(request)
     }
 
     /// Updates zone membership and collision flags when an entity moves.
@@ -704,6 +720,26 @@ impl Engine {
             BlockWalk::None => {}
         }
     }
+
+    /// Moves an entity's zone presence and collision from where they are to
+    /// its coord, as the reference engine's `refreshZonePresence` does after
+    /// every step and teleport.
+    pub(crate) fn refresh_presence(
+        zones: &mut ZoneMap,
+        pathing: &mut PathingEntity,
+        entity: EntityId,
+        block_walk: BlockWalk,
+    ) {
+        Self::check_zones_and_collision(
+            zones,
+            pathing.presence,
+            pathing.coord,
+            entity,
+            pathing.size,
+            block_walk,
+        );
+        pathing.presence = pathing.coord;
+    }
 }
 
 /// Extracts a human-readable message from a caught panic payload.
@@ -715,12 +751,12 @@ impl Engine {
 ///
 /// A `Cow<str>` containing the panic message, borrowing from the payload
 /// when possible.
-pub(crate) fn panic_message(panic: &Box<dyn std::any::Any + Send>) -> std::borrow::Cow<'_, str> {
+pub(crate) fn panic_message(panic: &Box<dyn Any + Send>) -> Cow<'_, str> {
     if let Some(s) = panic.downcast_ref::<&str>() {
-        std::borrow::Cow::Borrowed(*s)
+        Cow::Borrowed(*s)
     } else if let Some(s) = panic.downcast_ref::<String>() {
-        std::borrow::Cow::Borrowed(s.as_str())
+        Cow::Borrowed(s.as_str())
     } else {
-        std::borrow::Cow::Borrowed("unknown panic")
+        Cow::Borrowed("unknown panic")
     }
 }

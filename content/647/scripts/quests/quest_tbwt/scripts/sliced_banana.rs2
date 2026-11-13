@@ -1,0 +1,7 @@
+// From 289's quest_tbwt.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,slice_banana]
+anim(banana_slicing, 0);
+mes("You deftly chop the bananas into slices.");
+inv_del(inv, banana, 1);
+inv_add(inv, tbwt_sliced_banana, 1);
+

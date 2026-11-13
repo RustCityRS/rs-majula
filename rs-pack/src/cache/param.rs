@@ -2,6 +2,7 @@ use super::ScriptVarType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
 use rs_io::packet::Packet;
+use rs_ver::STRING_TERMINATOR;
 use rustc_hash::FxHashMap;
 
 pub type ParamTypeProvider = TypeProvider<ParamType>;
@@ -10,22 +11,28 @@ pub struct ParamType {
     pub id: u16,
     pub var_type: ScriptVarType,
     pub default_int: i32,
-    pub default_str: Option<Box<str>>,
     pub autodisable: bool,
-    debugname: Option<Box<str>>,
+    pub default_str: Option<Box<str>>,
+    pub debugname: Box<str>,
 }
 
 impl ParamType {
     pub fn decode_params(buf: &mut Packet, params: &mut FxHashMap<i32, ParamValue>) {
-        let count: u8 = buf.g1();
-        for _ in 0..count {
-            let key = buf.g3();
-            if buf.g1() == 1 {
-                params.insert(key, ParamValue::String(buf.gjstr(10).into_boxed_str()));
-            } else {
-                params.insert(key, ParamValue::Int(buf.g4s()));
-            }
+        for _ in 0..buf.g1() {
+            let (key, value) = Self::decode_param(buf);
+            params.insert(key, value);
         }
+    }
+
+    pub(crate) fn decode_param(buf: &mut Packet) -> (i32, ParamValue) {
+        let is_string = buf.g1() == 1;
+        let key = buf.g3();
+        let value = if is_string {
+            ParamValue::String(buf.gjstr(STRING_TERMINATOR).into_boxed_str())
+        } else {
+            ParamValue::Int(buf.g4s())
+        };
+        (key, value)
     }
 
     pub fn get_param_or_default(
@@ -44,36 +51,54 @@ impl ParamType {
     }
 }
 
-impl CacheType for ParamType {
+pub struct ParamTypeRaw {
+    pub id: u16,
+    pub var_type: ScriptVarType,
+    pub default_int: i32,
+    pub autodisable: bool,
+    pub default_str: Option<Box<str>>,
+    debugname: Box<str>,
+}
+
+impl CacheType for ParamTypeRaw {
     type Context = ();
 
     fn new(id: u16) -> Self {
-        ParamType {
+        Self {
             id,
             var_type: ScriptVarType::Int,
             default_int: -1,
-            default_str: None,
             autodisable: true,
-            debugname: None,
+            default_str: None,
+            debugname: Box::default(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
-                2 => self.default_int = buf.g4s(),
-                4 => self.autodisable = false,
-                5 => self.default_str = Some(buf.gjstr(10).into_boxed_str()),
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized param config code: {code}"),
-            }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.var_type = ScriptVarType::try_from(buf.g1()).unwrap(),
+            2 => self.default_int = buf.g4s(),
+            4 => self.autodisable = false,
+            5 => self.default_str = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("param", code),
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
+    }
+}
+
+impl From<ParamTypeRaw> for ParamType {
+    fn from(p: ParamTypeRaw) -> Self {
+        ParamType {
+            id: p.id,
+            var_type: p.var_type,
+            default_int: p.default_int,
+            autodisable: p.autodisable,
+            default_str: p.default_str,
+            debugname: p.debugname,
+        }
     }
 }

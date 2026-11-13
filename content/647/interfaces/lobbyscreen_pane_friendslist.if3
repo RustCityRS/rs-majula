@@ -1,0 +1,1068 @@
+// 909:0
+[pm_button_left]
+type=graphic
+y=1
+width=15
+height=31
+layer=pm_button_bg
+graphic=graphic_4690
+
+// 909:1
+[pm_button_mid]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=pm_button_bg
+graphic=graphic_4691
+
+// 909:2
+[pm_button_right]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=pm_button_bg
+graphic=graphic_4692
+
+// 909:3
+[com_3]
+type=graphic
+y=1
+width=15
+height=31
+layer=friends_delete_bg
+graphic=graphic_4690
+
+// 909:4
+[com_4]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=friends_delete_bg
+graphic=graphic_4691
+
+// 909:5
+[com_5]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=friends_delete_bg
+graphic=graphic_4692
+
+// 909:6
+[com_6]
+type=graphic
+y=1
+width=15
+height=31
+layer=friends_add_bg
+graphic=graphic_4690
+
+// 909:7
+[com_7]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=friends_add_bg
+graphic=graphic_4691
+
+// 909:8
+[com_8]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=friends_add_bg
+graphic=graphic_4692
+
+// 909:9
+[com_9]
+type=graphic
+y=1
+width=15
+height=31
+layer=ignore_delete_bg
+graphic=graphic_4690
+
+// 909:10
+[com_10]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=ignore_delete_bg
+graphic=graphic_4691
+
+// 909:11
+[com_11]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=ignore_delete_bg
+graphic=graphic_4692
+
+// 909:12
+[ignore_add_left]
+type=graphic
+y=1
+width=15
+height=31
+layer=ignore_add_bg
+graphic=graphic_4690
+
+// 909:13
+[main]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 909:14
+[friends_title]
+type=text
+x=10
+width=7864
+height=32
+widthmode=proportion
+layer=main
+textfont=verdana_15pt_regular
+text=Friends List
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 909:15
+[friends_desc]
+type=text
+x=10
+y=29
+width=7864
+height=13
+widthmode=proportion
+layer=main
+textfont=p11_full
+text=Click on your friends to send them a private message.
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 909:16
+[friends]
+type=layer
+x=10
+y=46
+width=7864
+height=199
+widthmode=proportion
+heightmode=minus
+layer=main
+op10=  
+
+// 909:17
+[ignore_title]
+type=text
+x=10
+width=7867
+height=32
+widthmode=proportion
+xmode=abs_right
+layer=main
+textfont=verdana_15pt_regular
+text=Ignore List
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 909:18
+[ignore_desc]
+type=text
+x=10
+y=29
+width=7867
+height=13
+widthmode=proportion
+xmode=abs_right
+layer=main
+textfont=p11_full
+text=Messages from players on this list will not be shown.
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+op10= 
+
+// 909:19
+[friends_upper]
+type=layer
+height=35
+widthmode=minus
+heightmode=minus
+layer=friends
+
+// 909:20
+[friends_border]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=friends_upper
+
+// 909:21
+[com_21]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=friends_border
+colour=0xc9b997
+
+// 909:22
+[com_22]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=friends_border
+colour=0x000000
+op10= 
+
+// 909:23
+[friends_lower]
+type=layer
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=friends
+
+// 909:24
+[friend_add_button]
+type=layer
+width=7998
+widthmode=proportion
+heightmode=minus
+ymode=abs_bottom
+layer=friends_lower
+op1=Add Friend
+op10= 
+onop=lobbyscreen_pane_friendslist_add_click
+
+// 909:25
+[friends_add_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=friend_add_button
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_6, graphic_4693, lobbyscreen_pane_friendslist:com_7, graphic_4694, lobbyscreen_pane_friendslist:com_8, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_6, graphic_4690, lobbyscreen_pane_friendslist:com_7, graphic_4691, lobbyscreen_pane_friendslist:com_8, graphic_4692)
+
+// 909:26
+[friend_delete_button]
+type=layer
+width=7998
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=friends_lower
+op1=Remove Friend
+op10=  
+onop=lobbyscreen_pane_friendslist_remove_click
+
+// 909:27
+[friends_delete_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=friend_delete_button
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4693, lobbyscreen_pane_friendslist:com_4, graphic_4694, lobbyscreen_pane_friendslist:com_5, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4690, lobbyscreen_pane_friendslist:com_4, graphic_4691, lobbyscreen_pane_friendslist:com_5, graphic_4692)
+
+// 909:28
+[friends_delete_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=friend_delete_button
+textfont=verdana_13pt_regular
+text=Remove Friend
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 909:29
+[friend_setrank_failbg]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=friend_add_button
+textfont=verdana_13pt_regular
+text=Add Friend
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 909:30
+[friends_content]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=friends_upper
+op10= 
+
+// 909:31
+[friends_vdiv]
+type=rectangle
+x=10632
+y=2
+width=2
+height=4
+heightmode=minus
+xmode=proportion_left
+layer=friends_upper
+colour=0x453718
+
+// 909:32
+[friends_tooltip]
+type=layer
+x=119
+y=82
+width=82
+height=18
+layer=friends_upper
+hide=yes
+op10=    
+
+// 909:33
+[friends_tooltip_bg]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=friends_tooltip
+colour=0xffffa0
+fill=yes
+op10=    
+
+// 909:34
+[friends_tooltip_outline]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=friends_tooltip
+colour=0x000000
+op10=    
+
+// 909:35
+[friends_tooltip_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=friends_tooltip
+textfont=p11_full
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0x000000
+op10=    
+
+// 909:36
+[friends_titles]
+type=layer
+height=34
+widthmode=minus
+layer=friends_content
+
+// 909:37
+[friends_title_bg]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=friends_titles
+colour=0x382e22
+fill=yes
+
+// 909:38
+[friend_name_title]
+type=text
+width=10658
+height=2
+widthmode=proportion
+heightmode=minus
+layer=friends_titles
+textfont=verdana_13pt_regular
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 909:39
+[friend_status_title]
+type=text
+width=5648
+height=2
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=friends_titles
+textfont=verdana_13pt_regular
+text=Status
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 909:40
+[friends_title_div]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=friends_titles
+colour=0x0e0b09
+fill=yes
+op10= 
+
+// 909:41
+[friends_main]
+type=layer
+y=34
+width=16
+height=34
+widthmode=minus
+heightmode=minus
+layer=friends_content
+op10= 
+
+// 909:42
+[friends_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=friends_main
+
+// 909:43
+[friends_mo_bg]
+type=rectangle
+height=15
+widthmode=minus
+layer=friends_main
+hide=yes
+colour=0x606060
+fill=yes
+op10= 
+
+// 909:44
+[friends_namechange]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=friends_main
+op10=  
+
+// 909:45
+[friends_name]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=friends_main
+op10= 
+
+// 909:46
+[friends_status]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=friends_main
+op10= 
+
+// 909:47
+[friends_build_layer_scroll]
+type=layer
+y=34
+width=16
+height=34
+heightmode=minus
+xmode=abs_right
+layer=friends_content
+op10= 
+
+// 909:48
+[ignore]
+type=layer
+x=10
+y=46
+width=7864
+height=199
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=main
+op10=   
+
+// 909:49
+[chat]
+type=layer
+y=35
+width=20
+height=113
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=main
+op10= 
+
+// 909:50
+[chat_border]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=chat
+op10= 
+
+// 909:51
+[chat_content]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=chat
+
+// 909:52
+[chat_build]
+type=layer
+x=2
+y=2
+width=20
+height=4
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=chat_content
+op10= 
+
+// 909:53
+[chat_scroll]
+type=layer
+x=2
+y=2
+width=16
+height=4
+heightmode=minus
+xmode=abs_right
+layer=chat_content
+op10=  
+
+// 909:54
+[com_54]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=chat_border
+colour=0xc9b997
+op10= 
+
+// 909:55
+[com_55]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=chat_border
+colour=0x000000
+op10=  
+
+// 909:56
+[chat_bg]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=chat_border
+colour=0x292016
+fill=yes
+op10=   
+
+// 909:57
+[pm_button]
+type=layer
+x=10
+width=4761
+height=32
+widthmode=proportion
+ymode=abs_bottom
+layer=main
+op1=Toggle
+op2=Everybody
+op3=Friends
+op4=Nobody
+op10=  
+onop=script3046(event_op)
+
+// 909:58
+[report_abuse_button]
+type=layer
+x=10
+width=36
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=main
+op1=Report Abuse
+op10=   
+onmouseleave=deltooltip(lobbyscreen_pane_friendslist:report_abuse_tooltip)
+onop=lobbyscreen_report_abuse_stage1("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendslist:report_abuse_tooltip, "Report abuse", 25, 200)
+
+// 909:59
+[report_abuse_tooltip]
+type=layer
+x=10
+width=100
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=main
+
+// 909:60
+[com_60]
+type=graphic
+width=36
+height=31
+xmode=abs_right
+layer=report_abuse_button
+graphic=graphic_4655
+colour=0xffffffff
+op10=   
+onmouseover=graphic_swapper(event_com, graphic_4656)
+onmouseleave=graphic_swapper(event_com, graphic_4655)
+
+// 909:61
+[chatbox_resize]
+type=layer
+y=140
+width=20
+height=302
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=main
+op10= 
+
+// 909:62
+[chatbox_resize_dragger]
+type=layer
+height=15
+widthmode=minus
+ymode=abs_bottom
+layer=chatbox_resize
+noclickthrough=yes
+op10= 
+
+// 909:63
+[chatbox_resize_arrow]
+type=graphic
+width=8
+height=13
+xmode=abs_centre
+ymode=abs_centre
+layer=chatbox_resize_dragger
+graphic=chatbox_resize_arrow_lobby
+alpha=yes
+colour=0xffffffff
+op10= 
+
+// 909:64
+[pm_button_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=pm_button
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:pm_button_left, graphic_4693, lobbyscreen_pane_friendslist:pm_button_mid, graphic_4694, lobbyscreen_pane_friendslist:pm_button_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:pm_button_left, graphic_4690, lobbyscreen_pane_friendslist:pm_button_mid, graphic_4691, lobbyscreen_pane_friendslist:pm_button_right, graphic_4692)
+
+// 909:65
+[pm_button_text_title]
+type=text
+y=2
+height=12
+widthmode=minus
+xmode=abs_centre
+layer=pm_button
+textfont=verdana_11pt_regular
+text=Show online status to:
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 909:66
+[pm_button_text]
+type=text
+y=2
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=pm_button
+textfont=verdana_13pt_regular
+text=Everybody
+textlineheight=12
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xebe0bc
+op10=     
+
+// 909:67
+[ignore_upper]
+type=layer
+height=35
+widthmode=minus
+heightmode=minus
+layer=ignore
+
+// 909:68
+[ignore_lower]
+type=layer
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=ignore
+
+// 909:69
+[ignore_add_button]
+type=layer
+width=7864
+widthmode=proportion
+heightmode=minus
+ymode=abs_bottom
+layer=ignore_lower
+op1=Add Name
+op10= 
+onop=lobbyscreen_pane_friendslist_ignore_add_click
+
+// 909:70
+[ignore_add_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=ignore_add_button
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:ignore_add_left, graphic_4693, lobbyscreen_pane_friendslist:ignore_add_mid, graphic_4694, lobbyscreen_pane_friendslist:ignore_add_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:ignore_add_left, graphic_4690, lobbyscreen_pane_friendslist:ignore_add_mid, graphic_4691, lobbyscreen_pane_friendslist:ignore_add_right, graphic_4692)
+
+// 909:71
+[ignore_delete_button]
+type=layer
+width=7998
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=ignore_lower
+op1=Remove Name
+op10=   
+onop=lobbyscreen_pane_friendslist_ignore_remove_click
+
+// 909:72
+[ignore_delete_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=ignore_delete_button
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4693, lobbyscreen_pane_friendslist:com_10, graphic_4694, lobbyscreen_pane_friendslist:com_11, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4690, lobbyscreen_pane_friendslist:com_10, graphic_4691, lobbyscreen_pane_friendslist:com_11, graphic_4692)
+
+// 909:73
+[ignore_delete_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=ignore_delete_button
+textfont=verdana_13pt_regular
+text=Remove Name
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 909:74
+[ignore_add_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=ignore_add_button
+textfont=verdana_13pt_regular
+text=Add Name
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 909:75
+[ignore_border]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=ignore_upper
+
+// 909:76
+[ignore_content]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=ignore_upper
+
+// 909:77
+[ignore_titles]
+type=layer
+height=34
+widthmode=minus
+layer=ignore_content
+op10= 
+
+// 909:78
+[ignore_main]
+type=layer
+y=34
+width=16
+height=34
+widthmode=minus
+heightmode=minus
+layer=ignore_content
+op10=  
+
+// 909:79
+[ignore_scroll]
+type=layer
+y=34
+width=16
+height=34
+heightmode=minus
+xmode=abs_right
+layer=ignore_content
+op10= 
+
+// 909:80
+[ignore_tooltip]
+type=layer
+x=143
+y=84
+width=82
+height=18
+layer=ignore_content
+hide=yes
+op10=     
+
+// 909:81
+[ignore_tooltip_bg]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=ignore_tooltip
+colour=0xffffa0
+fill=yes
+op10=     
+
+// 909:82
+[ignore_tooltip_outline]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=ignore_tooltip
+colour=0x000000
+op10=     
+
+// 909:83
+[ignore_tooltip_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=ignore_tooltip
+textfont=p11_full
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0x000000
+op10=     
+
+// 909:84
+[ignore_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=ignore_main
+
+// 909:85
+[ignore_mo_bg]
+type=rectangle
+height=15
+widthmode=minus
+layer=ignore_main
+hide=yes
+colour=0x606060
+fill=yes
+op10=  
+
+// 909:86
+[ignore_namechange]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=ignore_main
+
+// 909:87
+[ignore_name]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=ignore_main
+
+// 909:88
+[com_88]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=ignore_titles
+colour=0x382e22
+fill=yes
+op10= 
+
+// 909:89
+[ignore_name_title]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=ignore_titles
+textfont=verdana_13pt_regular
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 909:90
+[com_90]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=ignore_titles
+colour=0x0e0b09
+fill=yes
+op10=  
+
+// 909:91
+[com_91]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=ignore_border
+colour=0xc9b997
+op10= 
+
+// 909:92
+[com_92]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=ignore_border
+colour=0x000000
+op10=  
+
+// 909:93
+[ignore_add_mid]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=ignore_add_bg
+graphic=graphic_4691
+
+// 909:94
+[ignore_add_right]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=ignore_add_bg
+graphic=graphic_4692

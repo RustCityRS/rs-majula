@@ -1,0 +1,76 @@
+// 1299
+[proc,lobbyscreen_load](boolean $boolean0, int $int1)
+if ($int1 = 0) {
+    ~loginscreen_initialisecamera(lobbyscreen:com_14, lobbyscreen:fader, lobbyscreen:com_16, lobbyscreen_pane_options:com_16, lobbyscreen_pane_options:com_22, lobbyscreen_pane_options:com_21);
+}
+if_setgraphic(lobbyscreen:com_237, battle_title_widescreen_2);
+if_setgraphic(lobbyscreen:com_238, battle_title_widescreen_1);
+if_setgraphic(lobbyscreen:com_239, battle_title_widescreen_3);
+if_setgraphic(lobbyscreen:com_240, battle_title_widescreen_4);
+if_setgraphic(lobbyscreen:telekinetic_push, battle_title_widescreen_6);
+if_setgraphic(lobbyscreen:com_242, battle_title_widescreen_5);
+if_setgraphic(lobbyscreen:com_243, battle_title_widescreen_7);
+if_setgraphic(lobbyscreen:com_244, battle_title_widescreen_8);
+if_setgraphic(lobbyscreen:com_246, "corner_flourish,0");
+if_setgraphic(lobbyscreen:com_248, "corner_flourish,0");
+if_setgraphic(lobbyscreen:com_251, "corner_flourish,0");
+if_setgraphic(lobbyscreen:popup_top_left, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_top_left, true);
+if_sethflip(lobbyscreen:popup_top_left, true);
+if_setgraphic(lobbyscreen:popup_top_right, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_top_right, true);
+if_sethflip(lobbyscreen:popup_top_right, false);
+if_setgraphic(lobbyscreen:popup_bottom_left, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_bottom_left, false);
+if_sethflip(lobbyscreen:popup_bottom_left, true);
+if_setgraphic(lobbyscreen:popup_bottom_right, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_bottom_right, false);
+if_sethflip(lobbyscreen:popup_bottom_right, false);
+if_setonresize(lobbyscreen:base, "lobby_resize");
+def_int $int2 = string_indexof_string(%varclient_1551, "@", 0);
+if ($int2 = -1) {
+    %loginscreen_previous_login_type = 1;
+} else {
+    %loginscreen_previous_login_type = 2;
+}
+if ((userdetail_lobby_playage = 0 | compare(substring(chat_playername, 0, 1), "#") = 0) & $boolean0 = false) {
+    %lobby_newuserhack = true;
+    %loginscreen_hopblocked_time = 0;
+    ~lobby_popup(-3, 0, "Logging In - Please Wait", 1, null, 0, -1, "", "", 0, "", "");
+    %login_reply_last = -3;
+    if ($int1 < 50) {
+        $int1 = calc($int1 + 1);
+        if_setontimer(lobbyscreen:base, "lobbyscreen_load(false, $int1)");
+        return;
+    }
+    if (worldlist_fetch = false) {
+        if_setontimer(lobbyscreen:base, "lobbyscreen_load(false, $int1)");
+        return;
+    }
+    if_setontimer(lobbyscreen:base, null);
+    unknown_command_5612(0);
+    if_setontimer(lobbyscreen:base, "lobbyscreen_entergametimer(lobbyscreen:base, map_world)");
+    return;
+}
+if_sethide(lobbyscreen:menu, false);
+if_sethide(lobbyscreen:input, true);
+~lobby_popup_close;
+~lobbyscreen_loadpanels;
+~lobbyscreen_tabswitch(0);
+~lobbyscreen_loginbutton_text(1);
+%lobbyscreen_input = "";
+%loginscreen_pvp_warned = 0;
+mes("Welcome to the RuneScape Lobby.");
+mes_typed(^chattype_clanmessage, 0, "Welcome to the RuneScape Lobby.");
+if (userdetail_quickchat = true) {
+    mes("Users restricted to quick-chat cannot send messages from the Lobby.");
+    mes_typed(^chattype_clanmessage, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
+}
+~toplevel_minimenu_setup;
+if_setonkey(lobbyscreen:base, "script1328(event_keycode)");
+def_string $string0 = ~script2781;
+if (string_length($string0) > 0) {
+    ~lobby_popup_size(-3000, 0, "<$string0><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
+}
+if_setontimer(lobbyscreen:update_timer, "script1868(lobbyscreen:update_timer)");
+~lobby_resize;

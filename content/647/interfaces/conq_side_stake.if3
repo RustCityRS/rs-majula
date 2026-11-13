@@ -1,0 +1,220 @@
+// 1014:0
+[stockside_pulsatelayer]
+type=layer
+width=192
+height=262
+
+// 1014:1
+[inventory_layer]
+type=layer
+x=16
+y=8
+width=162
+height=250
+
+// 1014:2
+[stockside_pulsate0]
+type=rectangle
+x=3
+width=186
+height=3
+layer=stockside_pulsatelayer
+colour=0x908335
+fill=yes
+trans=245
+ontimer=script634(event_com, 155, 255, 2)
+
+// 1014:3
+[stockside_pulsate0b]
+type=rectangle
+x=3
+y=259
+width=186
+height=3
+layer=stockside_pulsatelayer
+colour=0x908335
+fill=yes
+trans=245
+ontimer=script634(event_com, 155, 255, 2)
+
+// 1014:4
+[stockside_pulsate0c]
+type=rectangle
+y=5
+width=3
+height=250
+layer=stockside_pulsatelayer
+colour=0x908335
+fill=yes
+trans=245
+ontimer=script634(event_com, 155, 255, 2)
+
+// 1014:5
+[stockside_pulsate0d]
+type=rectangle
+x=189
+y=5
+width=3
+height=250
+layer=stockside_pulsatelayer
+colour=0x908335
+fill=yes
+trans=245
+ontimer=script634(event_com, 155, 255, 2)
+
+// 1014:6
+[stockside_pulsate1]
+type=rectangle
+x=3
+y=3
+width=186
+height=256
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=235
+ontimer=script634(event_com, 145, 245, 2)
+
+// 1014:7
+[stockside_pulsate1b]
+type=rectangle
+x=4
+y=4
+width=184
+height=254
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=235
+ontimer=script634(event_com, 145, 245, 2)
+
+// 1014:8
+[stockside_pulsate1c]
+type=rectangle
+x=5
+y=5
+width=182
+height=252
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=235
+ontimer=script634(event_com, 145, 245, 2)
+
+// 1014:9
+[stockside_pulsate2]
+type=rectangle
+x=6
+y=6
+width=180
+height=250
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=225
+ontimer=script634(event_com, 135, 235, 2)
+
+// 1014:10
+[stockside_pulsate2b]
+type=rectangle
+x=7
+y=7
+width=178
+height=248
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=225
+ontimer=script634(event_com, 135, 235, 2)
+
+// 1014:11
+[stockside_pulsate2c]
+type=rectangle
+x=8
+y=8
+width=176
+height=246
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=225
+ontimer=script634(event_com, 135, 235, 2)
+
+// 1014:12
+[stockside_pulsate3]
+type=rectangle
+x=9
+y=9
+width=174
+height=244
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=215
+ontimer=script634(event_com, 125, 225, 2)
+
+// 1014:13
+[stockside_pulsate3b]
+type=rectangle
+x=10
+y=10
+width=172
+height=242
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=215
+ontimer=script634(event_com, 125, 225, 2)
+
+// 1014:14
+[stockside_pulsate3c]
+type=rectangle
+x=11
+y=11
+width=170
+height=240
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=215
+ontimer=script634(event_com, 125, 225, 2)
+
+// 1014:15
+[stockside_pulsate4]
+type=rectangle
+x=12
+y=12
+width=168
+height=238
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=205
+ontimer=script634(event_com, 115, 215, 2)
+
+// 1014:16
+[stockside_pulsate4b]
+type=rectangle
+x=13
+y=13
+width=166
+height=236
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=205
+ontimer=script634(event_com, 115, 215, 2)
+
+// 1014:17
+[glass_starting]
+type=rectangle
+x=14
+y=14
+width=164
+height=234
+layer=stockside_pulsatelayer
+colour=0x908335
+trans=205
+ontimer=script634(event_com, 115, 215, 2)
+
+// 1014:18
+[stockside_pulsate5]
+type=rectangle
+x=15
+y=15
+width=162
+height=232
+layer=stockside_pulsatelayer
+colour=0x908335
+fill=yes
+trans=200
+ontimer=script634(event_com, 110, 210, 2)

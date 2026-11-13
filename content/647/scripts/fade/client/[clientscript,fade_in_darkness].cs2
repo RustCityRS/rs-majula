@@ -1,0 +1,9 @@
+// 733
+[clientscript,fade_in_darkness](component $component0)
+if (%darkness_level = 0) {
+    if_setmodelanim($component0, seq_1378);
+} else if (%darkness_level = 1) {
+    if_setmodelanim($component0, seq_2115);
+} else {
+    if_setmodelanim($component0, seq_2117);
+}

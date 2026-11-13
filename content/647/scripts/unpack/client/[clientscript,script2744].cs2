@@ -1,0 +1,69 @@
+// 2744
+[clientscript,script2744]
+def_int $int0 = 0;
+while ($int0 < 31) {
+    cc_create(dob_confirm_login:dayddlist, ^iftype_text, $int0);
+    cc_setsize(46, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(calc($int0 + 1)));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2748($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xff3000)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(dob_confirm_login:dayddlist, 0, calc($int0 * 20));
+~scrollbar_vertical(dob_confirm_login:dayddscroll, dob_confirm_login:dayddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+$int0 = 0;
+while ($int0 < 12) {
+    cc_create(dob_confirm_login:monthddlist, ^iftype_text, $int0);
+    cc_setsize(158, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(enum(int, string, enum_950, $int0));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2749($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xff3000)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(dob_confirm_login:monthddlist, 0, calc($int0 * 20));
+~scrollbar_vertical(dob_confirm_login:monthddscroll, dob_confirm_login:monthddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+$int0 = 0;
+while ($int0 < 90) {
+    cc_create(dob_confirm_login:yearddlist, ^iftype_text, $int0);
+    cc_setsize(70, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(6, calc($int0 * 20 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(calc(2009 - $int0)));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2750($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xff3000)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(dob_confirm_login:yearddlist, 0, calc($int0 * 20));
+~scrollbar_vertical(dob_confirm_login:yearddscroll, dob_confirm_login:yearddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethide(dob_confirm_login:dayddlist, true);
+if_sethide(dob_confirm_login:dayddlistborder, true);
+if_sethide(dob_confirm_login:dayddscroll, true);
+if_sethide(dob_confirm_login:monthddlist, true);
+if_sethide(dob_confirm_login:monthddlistborder, true);
+if_sethide(dob_confirm_login:monthddscroll, true);
+if_sethide(dob_confirm_login:yearddlist, true);
+if_sethide(dob_confirm_login:yearddscroll, true);
+if_sethide(dob_confirm_login:yearddlistborder, true);
+if_sethide(dob_confirm_login:dayddback, true);
+if_sethide(dob_confirm_login:monthddback, true);
+if_sethide(dob_confirm_login:yearddback, true);
+if_sethide(dob_confirm_login:day, false);
+if_sethide(dob_confirm_login:month, false);
+if_sethide(dob_confirm_login:year, false);
+if_sethide(dob_confirm_login:warningtext, true);

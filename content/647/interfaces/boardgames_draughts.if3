@@ -1,0 +1,775 @@
+// 32:0
+[background]
+type=layer
+width=512
+height=334
+transmitop=10
+op10=  
+
+// 32:1
+[game_data]
+type=layer
+width=512
+height=334
+transmitop=10
+op10=  
+
+// 32:2
+[name_player1]
+type=text
+x=43
+y=58
+width=140
+height=25
+layer=game_data
+textfont=p12_full
+text=Insert a very long name here!
+textshadow=yes
+colour=0xffaa44
+transmitop=10
+op10=  
+onload=boardgames_names(boardgames_draughts:name_player1, boardgames_draughts:name_player2, boardgames_draughts:tooltip)
+onvarcstrtransmit=boardgames_names(boardgames_draughts:name_player1, boardgames_draughts:name_player2, boardgames_draughts:tooltip){varclient_1649}
+
+// 32:3
+[name_player2]
+type=text
+x=43
+y=89
+width=140
+height=25
+layer=game_data
+textfont=p12_full
+text=Insert a very long name here!
+textshadow=yes
+colour=0xffaa44
+transmitop=10
+op10=  
+
+// 32:4
+[vs]
+type=text
+x=100
+y=75
+width=14
+height=14
+layer=game_data
+textfont=p12_full
+text=vs
+textshadow=yes
+colour=0xaaaaaa
+transmitop=10
+op10=  
+
+// 32:5
+[name_turn]
+type=text
+x=85
+y=127
+width=111
+height=31
+textfont=p12_full
+text=Name
+textshadow=yes
+colour=0xaaaaaa
+transmitop=10
+op10=  
+onvarcstrtransmit=boardgames_turn_name(event_com, boardgames_draughts:tooltip){varclient_1666}
+
+// 32:6
+[turn]
+type=text
+x=38
+y=127
+width=44
+height=31
+layer=game_data
+textfont=p12_full
+text=Turn:
+textalignh=right
+textshadow=yes
+colour=0xffaa44
+transmitop=10
+op10=  
+
+// 32:7
+[game_title]
+type=text
+x=21
+y=29
+width=176
+height=17
+layer=game_data
+textfont=b12_full
+text=Game Name
+textshadow=yes
+colour=0xffaa44
+transmitop=10
+op10=  
+onvarcstrtransmit=boardgames_game_name(event_com){varclient_1665}
+
+// 32:8
+[status1]
+type=text
+x=23
+y=173
+width=169
+height=11
+layer=game_data
+textfont=p11_full
+text=status 1
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+transmitop=10
+op10=    
+onload=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip)
+onvarcstrtransmit=boardgames_status(boardgames_draughts:status1, boardgames_draughts:status2, boardgames_draughts:status3, boardgames_draughts:tooltip){boardgames_status1, boardgames_status2, varclient_1664}
+
+// 32:9
+[status2]
+type=text
+x=23
+y=188
+width=169
+height=11
+layer=game_data
+textfont=p11_full
+text=status 2
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+transmitop=10
+op10=    
+
+// 32:10
+[status3]
+type=text
+x=27
+y=157
+width=160
+height=14
+layer=game_data
+textfont=b12_full
+text=status 3
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+transmitop=10
+op10=    
+
+// 32:11
+[game_piece_player1]
+type=model
+x=20
+y=58
+width=20
+height=19
+layer=game_data
+model=model_2399
+modelangle=512,1024,0
+modelzoom=1024
+transmitop=10
+op10=  
+onvarctransmit=boardgames_piece1(event_com){boardgames_pl_piece}
+
+// 32:12
+[game_piece_player2]
+type=model
+x=20
+y=88
+width=20
+height=19
+layer=game_data
+model=model_2652
+modelangle=512,1024,0
+modelzoom=1024
+transmitop=10
+op10=  
+onvarctransmit=boardgames_piece2(event_com){boardgames_opp_piece}
+
+// 32:13
+[close_layer]
+type=layer
+x=26
+y=265
+width=78
+height=42
+hide=yes
+transmitop=1,10
+op1=Close
+op10=  
+onop=closebutton_click
+
+// 32:14
+[draw_layer]
+type=layer
+x=26
+y=215
+width=122
+height=43
+transmitop=1,10
+op1=Select
+op10=  
+opcursor0=cursor_use
+
+// 32:15
+[resign_layer]
+type=layer
+x=26
+y=265
+width=122
+height=42
+transmitop=1,10
+op1=Select
+op10=  
+opcursor0=cursor_use
+onop=closebutton_click
+
+// 32:16
+[board]
+type=model
+x=211
+y=33
+width=275
+height=274
+layer=draughts_board
+model=model_4607
+modelangle=512,0,0
+modelzoom=400
+
+// 32:17
+[board_back]
+type=rectangle
+x=219
+y=41
+width=258
+height=258
+layer=draughts_board
+colour=0x000000
+
+// 32:18
+[draughts_board]
+type=layer
+width=512
+height=334
+
+// 32:19
+[boardgames_draughts_runeflash]
+type=model
+x=236
+y=58
+width=1
+height=1
+layer=draughts_board
+model=model_4611
+modelangle=512,0,0
+modelzoom=768
+modelanim=runeflash_off
+transmitop=10
+op10= 
+
+// 32:20
+[draughts_inv]
+type=layer
+x=219
+y=41
+width=258
+height=258
+onvarctransmit=draughts_inv_init(event_com, boardgames_boardinv, 8, 8){boardgames_transmit}
+
+// 32:21
+[tooltip]
+type=layer
+x=118
+y=105
+width=59
+height=14
+
+// 32:22
+[tradeback]
+type=graphic
+x=12
+y=20
+width=483
+height=297
+layer=background
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:23
+[com_23]
+type=graphic
+x=479
+y=50
+width=34
+height=249
+layer=background
+graphic="steelborder2,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:24
+[com_24]
+type=graphic
+x=12
+y=20
+width=25
+height=30
+layer=background
+graphic="steelborder,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:25
+[com_25]
+type=graphic
+x=-3
+y=49
+width=43
+height=243
+layer=background
+graphic="miscgraphics,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:26
+[com_26]
+type=graphic
+x=37
+y=5
+width=448
+height=42
+layer=background
+graphic="steelborder2,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:27
+[com_27]
+type=graphic
+x=37
+y=299
+width=443
+height=42
+layer=background
+graphic="miscgraphics,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:28
+[com_28]
+type=graphic
+x=475
+y=20
+width=25
+height=30
+layer=background
+graphic="steelborder,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:29
+[com_29]
+type=graphic
+x=12
+y=290
+width=25
+height=30
+layer=background
+graphic="steelborder,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:30
+[com_30]
+type=graphic
+x=17
+y=34
+width=181
+height=34
+layer=background
+graphic="steelborder2,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:31
+[com_31]
+type=graphic
+x=475
+y=290
+width=25
+height=30
+layer=background
+graphic="steelborder,3"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:32
+[com_32]
+type=graphic
+x=183
+y=26
+width=38
+height=289
+layer=background
+graphic="miscgraphics,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:33
+[sandtimer]
+type=model
+x=158
+y=215
+width=33
+height=91
+layer=game_data
+model=model_4612
+modelorigin=0,45
+modelzoom=2048
+transmitop=10
+op10=   
+onvarctransmit=boardgames_sandtimer(event_com){boardgames_sandtimer}
+
+// 32:34
+[resign_box]
+type=rectangle
+x=6
+y=6
+width=110
+height=31
+layer=resign_layer
+colour=0x000000
+fill=yes
+transmitop=10
+op10=  
+
+// 32:35
+[resign_txt]
+type=text
+x=6
+y=6
+width=110
+height=31
+layer=resign_layer
+textfont=p12_full
+text=Resign
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xab0000
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xcc0000)
+onmouseleave=text_colour_swapper(event_com, 0xab0000)
+onmouserepeat=text_colour_swapper(event_com, 0x0cc00000)
+
+// 32:36
+[com_36]
+type=graphic
+x=21
+y=-15
+width=79
+height=32
+layer=resign_layer
+graphic="steelborder2,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:37
+[com_37]
+type=graphic
+width=25
+height=30
+layer=resign_layer
+graphic="steelborder,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:38
+[com_38]
+type=graphic
+x=97
+width=25
+height=30
+layer=resign_layer
+graphic="steelborder,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:39
+[com_39]
+type=graphic
+y=12
+width=25
+height=30
+layer=resign_layer
+graphic="steelborder,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:40
+[com_40]
+type=graphic
+x=97
+y=12
+width=25
+height=30
+layer=resign_layer
+graphic="steelborder,3"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:41
+[com_41]
+type=graphic
+x=21
+y=21
+width=80
+height=33
+layer=resign_layer
+graphic="miscgraphics,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:42
+[boardgames_runelink_draw]
+type=rectangle
+x=6
+y=6
+width=110
+height=31
+layer=draw_layer
+colour=0x000000
+fill=yes
+transmitop=10
+op10=  
+
+// 32:43
+[draw_txt]
+type=text
+x=5
+y=6
+width=111
+height=31
+layer=draw_layer
+textfont=p12_full
+text=Offer draw
+textlineheight=11
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+onmouserepeat=text_colour_swapper(event_com, 0x999900)
+
+// 32:44
+[com_44]
+type=graphic
+x=21
+y=-15
+width=85
+height=34
+layer=draw_layer
+graphic="steelborder2,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:45
+[com_45]
+type=graphic
+x=22
+y=21
+width=79
+height=37
+layer=draw_layer
+graphic="miscgraphics,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:46
+[com_46]
+type=graphic
+width=25
+height=30
+layer=draw_layer
+graphic="steelborder,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:47
+[com_47]
+type=graphic
+x=97
+width=25
+height=30
+layer=draw_layer
+graphic="steelborder,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:48
+[com_48]
+type=graphic
+y=12
+width=25
+height=30
+layer=draw_layer
+graphic="steelborder,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:49
+[com_49]
+type=graphic
+x=97
+y=12
+width=25
+height=30
+layer=draw_layer
+graphic="steelborder,3"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:50
+[close_box]
+type=rectangle
+x=6
+y=6
+width=66
+height=31
+layer=close_layer
+colour=0x000000
+fill=yes
+transmitop=10
+op10=  
+
+// 32:51
+[close_txt]
+type=text
+x=6
+y=6
+width=66
+height=30
+layer=close_layer
+textfont=p12_full
+text=Close
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x800000
+transmitop=10
+op10=  
+
+// 32:52
+[com_52]
+type=graphic
+x=21
+y=-15
+width=36
+height=36
+layer=close_layer
+graphic="steelborder2,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:53
+[com_53]
+type=graphic
+width=25
+height=30
+layer=close_layer
+graphic="steelborder,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:54
+[com_54]
+type=graphic
+x=53
+width=25
+height=30
+layer=close_layer
+graphic="steelborder,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:55
+[com_55]
+type=graphic
+y=12
+width=25
+height=30
+layer=close_layer
+graphic="steelborder,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:56
+[com_56]
+type=graphic
+x=53
+y=12
+width=25
+height=30
+layer=close_layer
+graphic="steelborder,3"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 32:57
+[com_57]
+type=graphic
+x=21
+y=21
+width=36
+height=36
+layer=close_layer
+graphic="miscgraphics,3"
+colour=0xffffffff
+transmitop=10
+op10=  

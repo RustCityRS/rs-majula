@@ -1,0 +1,4 @@
+// 1184
+[proc,topstat_run_text_update](component $component0)
+if_setcolour($component0, ~topstat_set_text_colour_run);
+if_settext($component0, tostring(runenergy_visible));

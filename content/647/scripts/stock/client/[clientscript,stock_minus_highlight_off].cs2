@@ -1,0 +1,4 @@
+// 614
+[clientscript,stock_minus_highlight_off](component $component0)
+if_setgraphic($component0, "grand_exchange_misc_graphics,2");
+~deltooltip_action(stockmarket:offertooltip);

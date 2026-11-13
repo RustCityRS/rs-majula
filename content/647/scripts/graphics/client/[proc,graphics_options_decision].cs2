@@ -1,0 +1,127 @@
+// 2705
+[proc,graphics_options_decision](boolean $boolean0, int $int1, int $int2, int $int3, boolean $boolean4, boolean $boolean5)
+if ($int2 = 1) {
+    if_closesubclient(toplevel_fullscreen:graphics_confirm_layer);
+    if_closesubclient(toplevel:graphics_confirm_layer);
+    if_setontimer(toplevel_fullscreen:graphics_confirm_layer, null);
+    if_setontimer(toplevel:graphics_confirm_layer, null);
+    if_sethide(toplevel:minimap_disable, true);
+    if_sethide(toplevel:filterbuttons_disable, true);
+    if_sethide(toplevel:chat_disable, true);
+    if_sethide(toplevel:side_disable, true);
+    if_sethide(toplevel:com_162, true);
+    if_sethide(toplevel:com_114, true);
+} else if ($int2 = 2) {
+    if_setontimer(lobbyscreen:base, null);
+} else {
+    if_setontimer(loginscreen:background_layer, null);
+}
+def_int $int6 = 0;
+if ($boolean0 = true) {
+    detail_toolkit_default(detailget_toolkit, true);
+    if (getwindowmode ! ^windowmode_fullscreen) {
+        setdefaultwindowmode(getwindowmode);
+    }
+    detail_antialiasing_default(detailget_antialiasing);
+    if (testbit($int1, 1) = ^true) {
+        %loginscreen_previousprofiling = 2;
+    }
+    %graphics_options_version = 3;
+    %graphics_options_firstrun = false;
+} else {
+    if (testbit($int1, 0) = ^true) {
+        autosetup_blackflaglast;
+        if ($boolean4 = false) {
+            $int6 = detailget_toolkit_default;
+            detail_toolkit($int6);
+            ~script2593($int6);
+        }
+    } else {
+        $int6 = detailget_toolkit;
+    }
+    if (testbit($int1, 1) = ^true & getwindowmode ! getdefaultwindowmode) {
+        setwindowmode(getdefaultwindowmode);
+    }
+    if (testbit($int1, 2) = ^true) {
+        detail_antialiasing(detailget_antialiasing_default);
+    }
+    if (testbit($int1, 3) = ^true) {
+        detail_bloom(0);
+    }
+    if ($int2 = 3) {
+        ~loginscreen_setactivemenu(0);
+        ~autosetup($int2);
+        return;
+    }
+    if ($boolean5 = true) {
+        ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+    } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
+        ~graphics_options_rebuild($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+    } else {
+        ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+    }
+    if ($int2 = 1 & $int3 = 1) {
+        mes("The requested change has been cancelled.");
+    }
+}
+def_string $string0 = "kbase/view.ws?guid=controls_display_options";
+if ($int2 ! 1) {
+    $int6 = detailget_toolkit;
+    if ($int2 = 2) {
+        if_sethide(lobbyscreen:windowmode_confirm, true);
+        if ($boolean5 = true) {
+            ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+        } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
+            ~graphics_options_rebuild($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+        } else {
+            ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+        }
+        if ($boolean4 = false & $int3 = 1) {
+            ~lobbyscreen_input_full("", "The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", 0, -1, "", "Advanced info", 0);
+            if_setonclick(lobbyscreen:input_link, "openurl_nologin($string0, true)");
+        }
+    } else if ($int2 = 3) {
+        if (unknown_command_5623 = true) {
+            ~loginscreen_setactivemenu(5);
+            if (%varclient_1273 = true) {
+                return;
+            } else {
+                if_setontimer(south_progress9:login_button, "login_delay(south_progress9:login_button, 0)");
+            }
+        } else if (~userflowflags(3) = true) {
+            ~loginscreen_setactivemenu(7);
+        } else {
+            ~loginscreen_setactivemenu(11);
+        }
+    } else {
+        if ($boolean5 = true) {
+            ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+        } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
+            ~graphics_options_rebuild($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+        } else {
+            ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
+        }
+        if ($boolean4 = false & $int3 = 1) {
+            if_settext(loginscreen:general_messages_text, "The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?");
+            if ($boolean5 = true) {
+                if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu_full(6, false, true)");
+            } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
+                if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu(6)");
+            } else {
+                if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu_full(6, false, true)");
+            }
+            if_settext(loginscreen:com_78, "Advanced info");
+            if_setonclick(loginscreen:com_78, "openurl_nologin($string0, true)");
+            ~loginscreen_setactivemenu(9);
+        } else if ($boolean5 = true) {
+            ~loginscreen_setactivemenu_full(6, false, true);
+        } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
+            ~loginscreen_setactivemenu(6);
+        } else {
+            ~loginscreen_setactivemenu_full(6, false, true);
+        }
+    }
+}
+if ($boolean0 = false & $boolean4 = true) {
+    ~autosetup($int2);
+}

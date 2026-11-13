@@ -1,0 +1,7 @@
+// 4283
+[proc,script4283]
+if_settext(clan_join_invite:clan_name, activeclansettings_getclanname);
+~script4332(clan_join_invite:logo1_gfx, clan_join_invite:logo2_gfx);
+~script4334(clan_join_invite:colour1, clan_join_invite:colour2);
+~script4329(clan_join_invite:clan_qfc);
+if_sethide(clan_join_invite:clan_data_waiting, true);

@@ -1,0 +1,14 @@
+// 1534
+[clientscript,topstat_run_button_op](component $component0, int $int1)
+if ($int1 ! 1) {
+    return;
+}
+if (%has_displayname_client = false) {
+    return;
+}
+if (%option_run_status_varc = 1) {
+    %option_run_status_varc = 0;
+} else {
+    %option_run_status_varc = 1;
+}
+~topstat_run_button_update($component0);

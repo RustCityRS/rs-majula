@@ -1,0 +1,28 @@
+// 1941
+[clientscript,sc_overlay_timer]
+def_int $int0 = calc(%sc_score_clay_gathered + %sc_score_clay_processed + %sc_score_damage_inflicted + 2 * (%sc_score_clay_deposited - %sc_score_clay_taken));
+if_settext(sc_in_game_overlay:score, "Score: <tostring($int0)>");
+if (%sc_end_time_clientclock = 0) {
+    return;
+}
+def_int $int1 = calc(%sc_end_time_clientclock - clientclock);
+def_int $int2 = calc($int1 / 3000);
+def_int $int3 = calc($int1 / 50 % 60);
+if ($int2 < 0 | $int3 < 0) {
+    if_settext(sc_in_game_overlay:time_remaining, "Game ending");
+    if_settextshadow(sc_in_game_overlay:time_remaining, true);
+    ~script1942;
+} else if ($int2 = 0 & $int3 = 0) {
+    if_settext(sc_in_game_overlay:time_remaining, "Game ending");
+} else if ($int3 < 10) {
+    if_settext(sc_in_game_overlay:time_remaining, "<tostring($int2)>:0<tostring($int3)>");
+} else {
+    if_settext(sc_in_game_overlay:time_remaining, "<tostring($int2)>:<tostring($int3)>");
+}
+if ($int2 < 1) {
+    if_setcolour(sc_in_game_overlay:time_remaining, ^red);
+    if_settextshadow(sc_in_game_overlay:time_remaining, true);
+    ~script1942;
+} else if (if_gethide(sc_in_game_overlay:panic_text) = false) {
+    if_sethide(sc_in_game_overlay:panic_text, true);
+}

@@ -1,0 +1,58 @@
+// 713
+[proc,script713](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+def_obj $obj7 = inv_getobj(trade_loan_offer, 0);
+if ($obj7 ! null) {
+    if_setobject_nonum($component1, $obj7, 1);
+    if_setoutline($component1, 1);
+    if_setgraphicshadow($component1, 0x333333);
+    if_setop($component1, 1, "Remove");
+    if_setop($component1, 10, "Examine");
+    if_setopbase($component1, "<col=ff9040><oc_name($obj7)></col>");
+    if (%lending_offerduration = 0) {
+        if_settext($component2, "<col=ff0000>Until</col><br><col=ff0000>logout</col>");
+        if_clearops($component2);
+        if_setop($component2, 2, "Specify");
+    } else {
+        if (%lending_offerduration = 1) {
+            if_settext($component2, "1 hour");
+        } else {
+            if_settext($component2, "<tostring(%lending_offerduration)> hours");
+        }
+        if_setop($component2, 1, "'Until logout'");
+        if_setop($component2, 2, "Edit");
+    }
+    if_setopbase($component2, "<col=ff9040>Duration</col>");
+    ~v2_stone_button($component3);
+    if_setonmouserepeat($component3, "v2_stone_button_in($component3)");
+    if_setonmouseleave($component3, "v2_stone_button($component3)");
+} else {
+    if_setobject_nonum($component1, null, 0);
+    if_settext($component2, "");
+    if_clearops($component1);
+    if_clearops($component2);
+    if_setopbase($component1, "");
+    if_setopbase($component2, "");
+    cc_deleteall($component3);
+    if_setonmouserepeat($component3, null);
+    if_setonmouseleave($component3, null);
+}
+$obj7 = invother_getobj(trade_loan_offer, 0);
+if ($obj7 ! null) {
+    if_setobject_nonum($component5, $obj7, 1);
+    if_setoutline($component5, 1);
+    if_setgraphicshadow($component5, 0x333333);
+    if_setop($component5, 10, "Examine");
+    if_setopbase($component5, "<col=ff9040><oc_name($obj7)></col>");
+    if (%lending_offerduration_other = 0) {
+        if_settext($component6, "<col=ff0000>Until</col><br><col=ff0000>logout</col>");
+    } else if (%lending_offerduration_other = 1) {
+        if_settext($component6, "1 hour");
+    } else {
+        if_settext($component6, "<tostring(%lending_offerduration_other)> hours");
+    }
+} else {
+    if_setobject_nonum($component5, null, 0);
+    if_settext($component6, "");
+    if_clearops($component5);
+    if_setopbase($component5, "");
+}

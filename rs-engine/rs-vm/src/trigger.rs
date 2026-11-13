@@ -111,6 +111,30 @@ pub enum ServerTriggerType {
     OpPlayer5 = 98,
     OpPlayerU = 99,
     OpPlayerT = 100,
+    #[cfg(since_647)]
+    ApPlayer6 = 182,
+    #[cfg(since_647)]
+    ApPlayer7 = 183,
+    #[cfg(since_647)]
+    ApPlayer8 = 184,
+    #[cfg(since_647)]
+    ApPlayer9 = 185,
+    #[cfg(since_647)]
+    ApPlayer10 = 186,
+    #[cfg(since_647)]
+    OpPlayer6 = 189,
+    #[cfg(since_647)]
+    OpPlayer7 = 190,
+    #[cfg(since_647)]
+    OpPlayer8 = 191,
+    #[cfg(since_647)]
+    OpPlayer9 = 192,
+    #[cfg(since_647)]
+    OpPlayer10 = 193,
+    // A component aimed at a tile (APCOORDT). A tile is only approached: 201,
+    // where an op trigger would be, stays unmapped.
+    #[cfg(since_647)]
+    ApCoordT = 194,
     AiApPlayer1 = 101,
     AiApPlayer2 = 102,
     AiApPlayer3 = 103,
@@ -164,6 +188,20 @@ pub enum ServerTriggerType {
     InvButton4 = 152,
     InvButton5 = 153,
     InvButtonD = 154,
+    // Rev-647 merged OpHeld/InvButton into the client's IfButton1-10 packets.
+    // rs-runec's trigger table maps the extended `if_button6..10` triggers to
+    // bytes 173-177 (149-153 stay `if_button1..5`); these must match that
+    // numbering exactly — packed scripts key their lookup by it.
+    #[cfg(since_647)]
+    InvButton6 = 173,
+    #[cfg(since_647)]
+    InvButton7 = 174,
+    #[cfg(since_647)]
+    InvButton8 = 175,
+    #[cfg(since_647)]
+    InvButton9 = 176,
+    #[cfg(since_647)]
+    InvButton10 = 177,
 
     WalkTrigger = 155,
     AiWalkTrigger = 156,
@@ -179,9 +217,63 @@ pub enum ServerTriggerType {
     ChangeStat = 165,
     AiSpawn = 166,
     AiDespawn = 167,
+    #[cfg(since_647)]
+    Area = 178,
+    #[cfg(since_647)]
+    AreaExit = 179,
+    #[cfg(since_647)]
+    AiConQueue = 180,
+    #[cfg(since_647)]
+    AiConTimer = 181,
 }
 
 impl ServerTriggerType {
+    /// The approach trigger for npc op `op` (1-5).
+    pub fn ap_npc(op: u8) -> Option<Self> {
+        Self::numbered(Self::ApNpc1, op)
+    }
+
+    /// The approach trigger for loc op `op` (1-5).
+    pub fn ap_loc(op: u8) -> Option<Self> {
+        Self::numbered(Self::ApLoc1, op)
+    }
+
+    /// The approach trigger for obj op `op` (1-5).
+    pub fn ap_obj(op: u8) -> Option<Self> {
+        Self::numbered(Self::ApObj1, op)
+    }
+
+    /// The approach trigger for player op `op`: 1-5, and from 647 6-10.
+    pub fn ap_player(op: u8) -> Option<Self> {
+        match op {
+            #[cfg(since_647)]
+            6..=10 => Self::numbered(Self::ApPlayer6, op - 5),
+            _ => Self::numbered(Self::ApPlayer1, op),
+        }
+    }
+
+    /// The trigger for held obj op `op` (1-5).
+    pub fn op_held(op: u8) -> Option<Self> {
+        Self::numbered(Self::OpHeld1, op)
+    }
+
+    /// The trigger for inventory button op `op`: 1-5, and from 647 6-10.
+    pub fn inv_button(op: u8) -> Option<Self> {
+        match op {
+            #[cfg(since_647)]
+            6..=10 => Self::numbered(Self::InvButton6, op - 5),
+            _ => Self::numbered(Self::InvButton1, op),
+        }
+    }
+
+    /// The `n`th (1-5) of the five triggers numbered from `first`.
+    fn numbered(first: Self, n: u8) -> Option<Self> {
+        if !(1..=5).contains(&n) {
+            return None;
+        }
+        Self::try_from(first as u8 + n - 1).ok()
+    }
+
     /// Returns whether this trigger type provides `last_use` (the item used on the target).
     ///
     /// Only `*U` (use-item-on) trigger variants return `true`. Scripts accessing
@@ -212,6 +304,10 @@ impl ServerTriggerType {
     /// # Returns
     /// `true` for all `OpHeld*` and `InvButton*` triggers, `false` otherwise.
     pub(crate) fn allows_last_slot(self) -> bool {
+        #[cfg(since_647)]
+        if self.is_extended_inv_button() {
+            return true;
+        }
         matches!(
             self,
             Self::OpHeld1
@@ -230,6 +326,19 @@ impl ServerTriggerType {
         )
     }
 
+    /// Rev-647 extended inventory-button triggers (`if_button6..10`).
+    #[cfg(since_647)]
+    pub(crate) fn is_extended_inv_button(self) -> bool {
+        matches!(
+            self,
+            Self::InvButton6
+                | Self::InvButton7
+                | Self::InvButton8
+                | Self::InvButton9
+                | Self::InvButton10
+        )
+    }
+
     /// Returns whether this trigger type provides `last_item` (the item in the interacted slot).
     ///
     /// Similar to [`allows_last_slot`](Self::allows_last_slot) but excludes `InvButtonD`
@@ -238,6 +347,10 @@ impl ServerTriggerType {
     /// # Returns
     /// `true` for all `OpHeld*` and `InvButton1`-`InvButton5` triggers, `false` otherwise.
     pub(crate) fn allows_last_item(self) -> bool {
+        #[cfg(since_647)]
+        if self.is_extended_inv_button() {
+            return true;
+        }
         matches!(
             self,
             Self::OpHeld1
@@ -264,6 +377,13 @@ impl ServerTriggerType {
     /// `true` only for `InvButtonD`, `false` for all other triggers.
     pub(crate) fn allows_last_targetslot(self) -> bool {
         matches!(self, Self::InvButtonD)
+    }
+
+    /// Returns whether this trigger type provides `last_coord`, the tile a
+    /// ground target was aimed at.
+    #[cfg(since_647)]
+    pub(crate) fn allows_last_coord(self) -> bool {
+        matches!(self, Self::ApCoordT)
     }
 
     /// Returns whether this trigger type provides `last_useitem` (the item that was used).
@@ -436,6 +556,63 @@ mod tests {
         assert_eq!(ServerTriggerType::AiDespawn as u8, 167);
     }
 
+    /// Rev-647 merged OpHeld/InvButton into the client's IfButton1-10 packets;
+    /// rs-runec's trigger table maps `if_button6..10` to bytes 173-177. If
+    /// these drift from the compiler's numbering, packed scripts stop
+    /// resolving.
+    #[cfg(since_647)]
+    #[test]
+    fn extended_inv_button_values() {
+        assert_eq!(ServerTriggerType::InvButton6 as u8, 173);
+        assert_eq!(ServerTriggerType::InvButton7 as u8, 174);
+        assert_eq!(ServerTriggerType::InvButton8 as u8, 175);
+        assert_eq!(ServerTriggerType::InvButton9 as u8, 176);
+        assert_eq!(ServerTriggerType::InvButton10 as u8, 177);
+        assert!(ServerTriggerType::InvButton6.allows_last_slot());
+        assert!(ServerTriggerType::InvButton10.allows_last_item());
+    }
+
+    /// Op `n` of each family is its `n`th trigger, player and inventory
+    /// button ops up to 10 from 647, and a player op's trigger is 7 past its
+    /// approach.
+    #[test]
+    fn numbered_op_triggers() {
+        type Family = (fn(u8) -> Option<ServerTriggerType>, &'static str, u8);
+        let ten = if cfg!(since_647) { 10 } else { 5 };
+        let families: [Family; 6] = [
+            (ServerTriggerType::ap_npc, "ApNpc", 5),
+            (ServerTriggerType::ap_loc, "ApLoc", 5),
+            (ServerTriggerType::ap_obj, "ApObj", 5),
+            (ServerTriggerType::ap_player, "ApPlayer", ten),
+            (ServerTriggerType::op_held, "OpHeld", 5),
+            (ServerTriggerType::inv_button, "InvButton", ten),
+        ];
+        for (trigger, name, last) in families {
+            assert_eq!(trigger(0), None, "{name}0");
+            for n in 1..=last {
+                let found = trigger(n).map(|t| format!("{t:?}"));
+                assert_eq!(found, Some(format!("{name}{n}")));
+            }
+            assert_eq!(trigger(last + 1), None, "{name} past {last}");
+        }
+        for op in 1..=ten {
+            let ap = ServerTriggerType::ap_player(op).unwrap() as u8;
+            let trigger = ServerTriggerType::try_from(ap + 7).unwrap();
+            assert_eq!(format!("{trigger:?}"), format!("OpPlayer{op}"));
+        }
+    }
+
+    /// A ground target has only an approach trigger, the one trigger that
+    /// gives `last_coord`.
+    #[cfg(since_647)]
+    #[test]
+    fn ground_target_is_approach_only() {
+        assert_eq!(ServerTriggerType::ApCoordT as u8, 194);
+        assert!(ServerTriggerType::try_from(194 + 7).is_err());
+        assert!(ServerTriggerType::ApCoordT.allows_last_coord());
+        assert!(!ServerTriggerType::ApLocT.allows_last_coord());
+    }
+
     #[allow(clippy::clone_on_copy)]
     #[test]
     fn clone_and_copy() {
@@ -536,5 +713,172 @@ mod tests {
         assert_eq!(ServerTriggerType::Logout as u8, 158);
         assert_eq!(ServerTriggerType::Tutorial as u8, 159);
         assert_eq!(ServerTriggerType::AdvanceStat as u8, 160);
+    }
+}
+
+/// Holds the trigger numbering against the compiler's table; `tests` pins
+/// the values the engine dispatches on.
+#[cfg(test)]
+mod compiler_contract {
+    use super::*;
+    use runec::trigger_table;
+
+    /// Triggers that legitimately have no byte in the compiler's table.
+    ///
+    /// All of them are *name-keyed*: `compute_lookup_key` returns -1, the script
+    /// is found by name, and content invokes it by the id it resolved to at
+    /// compile time (`~proc()`, `p_queue`, `settimer`, the `walktrigger`
+    /// command). We keep discriminants for them anyway so the numbering stays
+    /// aligned with the compiler's. Nothing may ever dispatch on these bytes.
+    const NAME_KEYED: &[&str] = &[
+        "proc",
+        "label",
+        "debugproc",
+        "queue",
+        "softtimer",
+        "timer",
+        "walktrigger",
+        // Not a keyword the compiler accepts at all; see the variant's doc.
+        "ai_walktrigger",
+    ];
+
+    /// Our CamelCase variant name rendered as the compiler's keyword(s).
+    ///
+    /// Most variants are simply the lowercased name (`ApNpc1` → `apnpc1`,
+    /// `MapZoneExit` → `mapzoneexit`). The exceptions are the `Ai` prefix and
+    /// the three underscored families.
+    fn runec_names(variant: &str) -> Vec<String> {
+        let mut s = variant.to_lowercase();
+        if let Some(rest) = s.strip_prefix("ai")
+            && !s.starts_with("ai_")
+        {
+            s = format!("ai_{rest}");
+        }
+        for (joined, split) in [
+            ("ifbutton", "if_button"),
+            ("ifclose", "if_close"),
+            ("invbutton", "inv_button"),
+        ] {
+            if let Some(rest) = s.strip_prefix(joined) {
+                s = format!("{split}{rest}");
+                break;
+            }
+        }
+        let mut out = vec![s.clone()];
+        // Rev-647 folded the inventory ops into the client's IfButton packets.
+        // Ops 1-5 and D are aliased in the compiler's table, but it knows ops
+        // 6-10 only as `if_button6..10`.
+        if let Some(rest) = s.strip_prefix("inv_button") {
+            out.push(format!("if_button{rest}"));
+        }
+        out
+    }
+
+    /// Every discriminant agrees with the byte the compiler emits for the same
+    /// trigger keyword.
+    ///
+    /// `runec::trigger_table` is what the compiler consults when it writes
+    /// `lookup_key = entity * 1024 + 512 + byte` into a script header; this enum
+    /// is what `state.rs` reads back with `try_from_primitive(lookup & 0xFF)`.
+    /// A disagreement produces a script that compiles, packs and can never run,
+    /// which is exactly the failure this test is here to turn into a build
+    /// error. It replaces spot-checking individual bytes by hand.
+    ///
+    /// One direction only: the compiler does not export its table for
+    /// iteration, so a keyword it gains and we lack is not caught here. That is
+    /// a missing feature rather than a corrupted dispatch.
+    #[test]
+    fn discriminants_match_the_compiler_trigger_table() {
+        let (mut matched, mut name_keyed) = (0, 0);
+
+        for byte in 0u8..=255 {
+            let Ok(trigger) = ServerTriggerType::try_from(byte) else {
+                continue;
+            };
+            let variant = format!("{trigger:?}");
+            let names = runec_names(&variant);
+
+            match names
+                .iter()
+                .find_map(|n| trigger_table::byte(n).map(|b| (n, b)))
+            {
+                Some((name, compiler_byte)) => {
+                    assert_eq!(
+                        compiler_byte, byte,
+                        "{variant}: the compiler emits `{name}` as {compiler_byte}, \
+                         the engine reads {byte} back as {variant}"
+                    );
+                    matched += 1;
+                }
+                None => {
+                    assert!(
+                        NAME_KEYED.contains(&names[0].as_str()),
+                        "{variant} = {byte} has no byte in the compiler's trigger \
+                         table and is not a documented name-keyed trigger. Either \
+                         the compiler dropped `{}`, or this variant invents a byte \
+                         no script will ever carry.",
+                        names[0]
+                    );
+                    name_keyed += 1;
+                }
+            }
+        }
+
+        // Guards against losing coverage silently: a variant deleted here, or a
+        // keyword the compiler stops emitting, moves one of these counts.
+        // The five `InvButton6..10` variants, the player ops 6-10,
+        // `Area`/`AreaExit`, the controllers' `AiConQueue`/`AiConTimer` and
+        // `ApCoordT` exist only from rev 647.
+        let expected = if cfg!(since_647) { (163, 8) } else { (143, 8) };
+        assert_eq!(
+            (matched, name_keyed),
+            expected,
+            "trigger coverage changed; update the counts once the diff is understood"
+        );
+    }
+
+    /// Locks the cross-repo trigger-byte contract with the rs-compiler
+    /// (`trigger_table.rs`). Rev-647 merged OpHeld/InvButton into the client's
+    /// IfButton1-10 packets; inventory item ops 6-10 compile from the content
+    /// triggers `if_button6..10` / `inv_button6..10` to bytes 173-177. If these
+    /// drift from the compiler, scripts silently lose their trigger context
+    /// (`state.rs` resolves the byte via `try_from_primitive(..).ok()`).
+    #[cfg(since_647)]
+    #[test]
+    fn inv_button_6_10_bytes_match_compiler() {
+        assert_eq!(ServerTriggerType::InvButton6 as u8, 173);
+        assert_eq!(ServerTriggerType::InvButton7 as u8, 174);
+        assert_eq!(ServerTriggerType::InvButton8 as u8, 175);
+        assert_eq!(ServerTriggerType::InvButton9 as u8, 176);
+        assert_eq!(ServerTriggerType::InvButton10 as u8, 177);
+    }
+
+    /// `opheld` only goes to 5 in rev-647. The old OpHeld6-10 bytes 168-172 are
+    /// no longer emitted by the compiler and must not map to any trigger.
+    #[test]
+    fn opheld_bytes_168_172_are_unmapped() {
+        for byte in 168u8..=172 {
+            assert!(
+                ServerTriggerType::try_from(byte).is_err(),
+                "byte {byte} must be unmapped after opheld6-10 removal"
+            );
+        }
+    }
+
+    /// inv_button6-10 carry `last_item` + `last_slot` pointer context, matching
+    /// rs-compiler `pointer.rs` (`[ActivePlayer, LastItem, LastSlot]`).
+    #[cfg(since_647)]
+    #[test]
+    fn inv_button_6_10_allow_last_item_and_slot() {
+        for t in [
+            ServerTriggerType::InvButton6,
+            ServerTriggerType::InvButton7,
+            ServerTriggerType::InvButton8,
+            ServerTriggerType::InvButton9,
+            ServerTriggerType::InvButton10,
+        ] {
+            assert!(t.allows_last_item(), "{t:?} should allow last_item");
+            assert!(t.allows_last_slot(), "{t:?} should allow last_slot");
+        }
     }
 }

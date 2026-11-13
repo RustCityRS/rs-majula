@@ -1,0 +1,34 @@
+// 2694
+[proc,graphics_options_message](int $int0, int $int1, string $string0, string $string1, string $string2)
+def_int $int2 = 0;
+if ($int0 = 1) {
+    if (string_length($string0) > 0) {
+        $int2 = string_indexof_string($string0, "<br>", 0);
+        if ($int2 = -1) {
+            mes($string0);
+            return;
+        }
+        mes(substring($string0, 0, $int2));
+    }
+    return;
+} else if ($int0 = 2) {
+    if_settext(graphics_options_client:messages, ~find_and_replace_single($string0, "<br>", " "));
+    ~lobbyscreen_input_full("", $string0, 0, -1, "", $string1, 0);
+    if (string_length($string1) > 0) {
+        if_setonclick(lobbyscreen:input_link, "openurl_nologin($string2, true)");
+    } else {
+        if_setonclick(lobbyscreen:input_link, null);
+    }
+    return;
+}
+if_settext(graphics_options_client:messages, ~find_and_replace_single($string0, "<br>", " "));
+if_settext(loginscreen:general_messages_text, $string0);
+if_setonclick(loginscreen:general_messages_continue, "loginscreen_setactivemenu_full(6, false, true)");
+if (string_length($string1) > 0) {
+    if_settext(loginscreen:com_78, $string1);
+    if_setonclick(loginscreen:com_78, "openurl_nologin($string2, true)");
+} else {
+    if_settext(loginscreen:com_78, "");
+    if_setonclick(loginscreen:com_77, null);
+}
+~loginscreen_setactivemenu(9);

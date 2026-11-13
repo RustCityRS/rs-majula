@@ -75,6 +75,9 @@ impl ScriptQueue {
             script_id,
             delay,
             args,
+            named: false,
+            #[cfg(since_647)]
+            source: None,
         };
         match priority {
             QueuePriority::Normal | QueuePriority::Strong | QueuePriority::Long => {
@@ -84,6 +87,64 @@ impl ScriptQueue {
                 queued.delay = 0;
                 self.engine.add_tail(queued);
             }
+            QueuePriority::Weak => self.weak.add_tail(queued),
+            QueuePriority::Soft => {
+                return Err(ScriptError::Runtime(format!(
+                    "Cannot queue soft script: {script_id}"
+                )));
+            }
+        }
+        Ok(())
+    }
+
+    /// Queues an npc's `[npc_queue]` script `script_id`, which runs by id
+    /// with `args` as its params rather than through an `[ai_queueN]` trigger.
+    pub fn add_named(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Vec<ScriptArgument>,
+        #[cfg_attr(before_647, allow(unused_variables))] source: Option<u16>,
+    ) {
+        self.queue.add_tail(QueuedScript {
+            priority: QueuePriority::Normal,
+            script_id,
+            delay,
+            args: Some(args),
+            named: true,
+            #[cfg(since_647)]
+            source,
+        });
+    }
+
+    /// [`add`](Self::add), remembering the player whose script queued it
+    /// (`QueuedScript::source`): a hit the queued script paints is theirs.
+    #[cfg(since_647)]
+    pub fn add_from(
+        &mut self,
+        priority: QueuePriority,
+        script_id: i32,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> Result<(), ScriptError> {
+        let queued = QueuedScript {
+            priority,
+            script_id,
+            delay: if priority == QueuePriority::Engine {
+                0
+            } else {
+                delay
+            },
+            args,
+            named: false,
+            source,
+        };
+        match priority {
+            QueuePriority::Normal | QueuePriority::Strong | QueuePriority::Long => {
+                self.queue.add_tail(queued)
+            }
+            QueuePriority::Engine => self.engine.add_tail(queued),
             QueuePriority::Weak => self.weak.add_tail(queued),
             QueuePriority::Soft => {
                 return Err(ScriptError::Runtime(format!(

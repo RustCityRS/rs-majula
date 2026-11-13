@@ -1,0 +1,115 @@
+// 3005
+[clientscript,lobbyscreen_playerinfo_bar_open_timer](int $int0, int $int1)
+def_component $component2 = ~script3012($int1);
+def_int $int3 = if_getheight($component2);
+def_int $int4 = calc($int3 - 3);
+if ($int3 > 30) {
+    if ($int4 < 30) {
+        if_setsize($component2, 0, 30, ^setsize_minus, ^setsize_abs);
+    } else {
+        if_setsize($component2, 0, $int4, ^setsize_minus, ^setsize_abs);
+    }
+    switch_int ($int1) {
+        case 0 :
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:recovery) - 3);
+            if ($int4 < 30) {
+                if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, 30, ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:messages) - 3);
+            if ($int4 < calc(30 * 2)) {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:credit) - 3);
+            if ($int4 < calc(30 * 3)) {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(30 * 3), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 1 :
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:messages) - 3);
+            if ($int4 < calc(30 * 2)) {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:credit) - 3);
+            if ($int4 < calc(30 * 3)) {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(30 * 3), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 2 :
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:credit) - 3);
+            if ($int4 < calc(30 * 3)) {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(30 * 3), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+    }
+}
+def_component $component5 = ~script3012($int0);
+$int3 = if_getheight($component5);
+$int4 = calc($int3 + 3);
+if ($int3 < 88) {
+    if ($int4 > 88) {
+        if_setsize($component5, 0, 88, ^setsize_minus, ^setsize_abs);
+    } else {
+        if_setsize($component5, 0, $int4, ^setsize_minus, ^setsize_abs);
+    }
+    switch_int ($int0) {
+        case 0 :
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:recovery) + 3);
+            if ($int4 > 88) {
+                if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, 88, ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:recovery, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:messages) + 3);
+            if ($int4 > calc(88 + 30)) {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(88 + 30), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:credit) + 3);
+            if ($int4 > calc(88 + 30 * 2)) {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 1 :
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:messages) + 3);
+            if ($int4 > calc(88 + 30)) {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, calc(88 + 30), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:messages, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:credit) + 3);
+            if ($int4 > calc(88 + 30 * 2)) {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+        case 2 :
+            $int4 = calc(if_gety(lobbyscreen_pane_playerinfo:credit) + 3);
+            if ($int4 > calc(88 + 30 * 2)) {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top);
+            } else {
+                if_setposition(lobbyscreen_pane_playerinfo:credit, 0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+            }
+    }
+} else {
+    if_setontimer(lobbyscreen_pane_playerinfo:info_bars, null);
+    if (if_getgraphic(~script3013($int1)) = graphic_2669) {
+        ~script3008(~lobbyscreen_playerinfo_bar_layers($int1));
+    } else {
+        ~script3010(~lobbyscreen_playerinfo_bar_layers($int1));
+    }
+    if_setonclick(lobbyscreen_pane_playerinfo:com_55, "script3002(3)");
+    if_setonclick(lobbyscreen_pane_playerinfo:com_17, "script3002(2)");
+    if_setonclick(lobbyscreen_pane_playerinfo:com_29, "script3002(1)");
+    if_setonclick(lobbyscreen_pane_playerinfo:com_41, "script3002(0)");
+}

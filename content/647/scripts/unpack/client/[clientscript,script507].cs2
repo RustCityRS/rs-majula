@@ -1,0 +1,7 @@
+// 507
+[clientscript,script507](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+if_setoninvtransmit($component0, "script712($component0, $component1, $component2, $component3, $component4, $component5, $component6){trade_loan_offer}");
+if_setonvartransmit($component0, "script712($component0, $component1, $component2, $component3, $component4, $component5, $component6){attack}");
+~clanwars_setup_createbox($component0, 0, 0, 0);
+~clanwars_setup_createbox($component4, 0, 0, 0);
+~script713($component0, $component1, $component2, $component3, $component4, $component5, $component6);

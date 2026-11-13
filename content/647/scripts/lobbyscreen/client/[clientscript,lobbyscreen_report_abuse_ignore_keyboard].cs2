@@ -1,0 +1,12 @@
+// 3206
+[clientscript,lobbyscreen_report_abuse_ignore_keyboard](int $key0)
+switch_int ($key0) {
+    case ^key_f1 :
+        ~lobbyscreen_report_abuse_help(6, lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:main);
+    case ^key_escape :
+        if (if_gethide(lobbyscreen_report_abuse_ignore:help_layer) = false) {
+            ~lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_ignore:help_title_text, lobbyscreen_report_abuse_ignore:help_body_text, lobbyscreen_report_abuse_ignore:help_body, lobbyscreen_report_abuse_ignore:help_layer, lobbyscreen_report_abuse_ignore:main);
+        } else {
+            ~lobbyscreen_report_abuse_ignore_close;
+        }
+}

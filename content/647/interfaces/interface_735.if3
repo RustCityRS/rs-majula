@@ -1,0 +1,1154 @@
+// 735:0
+[background]
+type=layer
+width=190
+height=261
+
+// 735:1
+[com_1]
+type=rectangle
+width=190
+height=261
+layer=background
+colour=0x46341d
+fill=yes
+trans=100
+
+// 735:2
+[com_2]
+type=graphic
+y=30
+width=190
+height=32
+layer=background
+graphic="v2_stone_borders,33"
+tiling=yes
+colour=0x000000
+
+// 735:3
+[com_3]
+type=graphic
+x=16
+width=158
+height=32
+layer=background
+graphic="v2_stone_borders,33"
+tiling=yes
+colour=0x000000
+
+// 735:4
+[com_4]
+type=graphic
+x=16
+y=258
+width=158
+height=32
+layer=background
+graphic="v2_stone_borders,33"
+tiling=yes
+colour=0x000000
+
+// 735:5
+[com_5]
+type=graphic
+y=16
+width=32
+height=229
+layer=background
+graphic="v2_stone_borders,34"
+tiling=yes
+colour=0x000000
+
+// 735:6
+[com_6]
+type=graphic
+x=187
+y=16
+width=32
+height=229
+layer=background
+graphic="v2_stone_borders,34"
+tiling=yes
+colour=0x000000
+
+// 735:7
+[com_7]
+type=graphic
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,28"
+colour=0x000000
+
+// 735:8
+[com_8]
+type=graphic
+x=158
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,29"
+colour=0x000000
+
+// 735:9
+[com_9]
+type=graphic
+y=229
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,30"
+colour=0x000000
+
+// 735:10
+[com_10]
+type=graphic
+x=158
+y=229
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,31"
+colour=0x000000
+
+// 735:11
+[com_11]
+type=text
+y=2
+width=190
+height=28
+layer=background
+textfont=q8_full
+text=Travel Log
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 735:12
+[shuffle]
+type=graphic
+x=170
+y=8
+width=16
+height=14
+layer=background
+graphic="grand_exchange_misc_graphics,6"
+colour=0x000000
+transmitop=1
+op1=Re-sort list
+onmouseover=settrans(event_com, 150)
+onmouseleave=settrans(event_com, 0)
+onop=fairyrings_log_shuffle(interface_735:text_layer, interface_735:scrollbar, interface_735:shuffle)
+
+// 735:13
+[text_layer]
+type=layer
+x=3
+y=32
+width=166
+height=226
+layer=background
+scrollheight=2000
+onload=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle)
+onvartransmit=fairyrings_log_init(event_com, interface_735:scrollbar, interface_735:shuffle){fairyrings_multi}
+
+// 735:14
+[text_aip]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A I P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:15
+[text_aiq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A I Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:16
+[text_air]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A I R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:17
+[text_ais]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A I S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:18
+[text_ajp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A J P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:19
+[text_ajq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A J Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:20
+[text_ajr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A J R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:21
+[text_ajs]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A J S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:22
+[text_akp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A K P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:23
+[text_akq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A K Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:24
+[text_akr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A K R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:25
+[text_aks]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A K S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:26
+[text_alp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A L P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:27
+[text_alq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A L Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:28
+[text_alr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A L R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:29
+[text_als]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=A L S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:30
+[text_bip]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B I P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:31
+[text_biq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B I Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:32
+[text_bir]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B I R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:33
+[text_bis]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B I S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:34
+[text_bjp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B J P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:35
+[text_bjq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B J Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:36
+[text_bjr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B J R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:37
+[text_bjs]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B J S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:38
+[text_bkp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B K P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:39
+[text_bkq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B K Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:40
+[text_bkr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B K R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:41
+[text_bks]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B K S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:42
+[text_blp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B L P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:43
+[text_blq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B L Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:44
+[text_blr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B L R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:45
+[text_bls]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=B L S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:46
+[text_cip]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C I P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:47
+[text_ciq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C I Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:48
+[text_cir]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C I R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:49
+[text_cis]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C I S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:50
+[text_cjp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C J P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:51
+[text_cjq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C J Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:52
+[text_cjr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C J R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:53
+[text_cjs]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C J S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:54
+[text_ckp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C K P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:55
+[text_ckq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C K Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:56
+[text_ckr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C K R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:57
+[text_cks]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C K S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:58
+[text_clp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C L P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:59
+[text_clq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C L Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:60
+[text_clr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C L R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:61
+[text_cls]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=C L S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:62
+[text_dip]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D I P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:63
+[text_diq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D I Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:64
+[text_dir]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D I R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:65
+[text_dis]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D I S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:66
+[text_djp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D J P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:67
+[text_djq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D J Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:68
+[text_djr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D J R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:69
+[text_djs]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D J S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:70
+[text_dkp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D K P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:71
+[text_dkq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D K Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:72
+[text_dkr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D K R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:73
+[text_dks]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D K S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:74
+[text_dlp]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D L P
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:75
+[text_dlq]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D L Q
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:76
+[text_dlr]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D L R
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:77
+[text_dls]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=D L S
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:78
+[com_78]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Enter next code
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:79
+[com_79]
+type=text
+y=1
+width=166
+height=15
+layer=text_layer
+textfont=p12_full
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Enter next code
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 735:80
+[scrollbar]
+type=layer
+x=170
+y=32
+width=16
+height=226
+layer=background

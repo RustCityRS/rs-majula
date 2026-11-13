@@ -1,0 +1,7 @@
+// 2441
+[clientscript,trawler_time_left]
+if (%trawler_time_left_client < 2) {
+    if_settext(trawler_game_overlay:time_text, "Time Left: ~1 Min");
+} else {
+    if_settext(trawler_game_overlay:time_text, "Time Left: <tostring(%trawler_time_left_client)> Mins");
+}

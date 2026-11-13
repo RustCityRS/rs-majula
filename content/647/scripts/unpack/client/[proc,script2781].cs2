@@ -1,0 +1,93 @@
+// 2781
+[proc,script2781]()(string)
+def_string $string0 = "";
+def_int $int0 = date_runeday;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_boolean $boolean3 = false;
+$int1, $int2, $boolean3 = userdetail_lobby_membership;
+$int1 = calc($int1 / 1440 - 11745);
+def_int $int4 = userdetail_lobby_ccexpiry;
+def_int $int5 = userdetail_lobby_graceexpiry;
+def_int $int6 = calc($int5 - $int0);
+if ($int5 <= $int4 | $int6 < 0) {
+    $int6 = 0;
+}
+if ($int4 ! 0 & calc($int1 + $int0) >= $int4 & %lobby_ccen_lastruneday ! $int0 & $int1 <= 14) {
+    if ($int1 <= 7) {
+        if ($int1 <= 3) {
+            if ($int1 <= 1) {
+                if ($int1 = 0) {
+                    if ($int6 > 0 & $int6 <= 14) {
+                        if ($int6 <= 7) {
+                            if ($int6 <= 3) {
+                                if ($int6 = 1) {
+                                    $string0 = "Your credit card has expired and your membership credit has run out. Please re-subscribe using a new credit card to restart your membership.<br><br>If you renew today, you will pay the lower 'loyalty' rate. After this, your discount will no longer be available.";
+                                    %lobby_ccen_lastgraceday = $int0;
+                                } else if (calc(%lobby_ccen_lastgraceday + 2) < $int0) {
+                                    $string0 = "Your credit card has expired and your membership credit has run out. Please re-subscribe using a new credit card to restart your membership.<br><br>If you renew within the next <tostring($int6)> days, you will pay the lower 'loyalty' rate. After this, your discount will no longer be available.";
+                                    %lobby_ccen_lastgraceday = $int0;
+                                }
+                            } else if (calc(%lobby_ccen_lastgraceday + 4) < $int0) {
+                                $string0 = "Your credit card has expired and your membership credit has run out. Please re-subscribe using a new credit card to restart your membership.<br><br>If you renew within the next <tostring($int6)> days, you will pay the lower 'loyalty' rate. After this, your discount will no longer be available.";
+                                if ($int6 = 7) {
+                                    %lobby_ccen_lastgraceday = $int0;
+                                } else {
+                                    %lobby_ccen_lastgraceday = calc($int0 - (7 - $int6));
+                                }
+                            }
+                        } else if (calc(%lobby_ccen_lastgraceday + 7) < $int0) {
+                            $string0 = "Your credit card has expired and your membership credit has run out. Please re-subscribe using a new credit card to restart your membership.<br><br>If you renew within the next <tostring($int6)> days, you will pay the lower 'loyalty' rate. After this, your discount will no longer be available.";
+                            if ($int6 = 14) {
+                                %lobby_ccen_lastgraceday = $int0;
+                            } else {
+                                %lobby_ccen_lastgraceday = calc($int0 - (14 - $int6));
+                            }
+                        }
+                    }
+                } else {
+                    if ($int6 > 0) {
+                        $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.<br><br>If you renew within the next <tostring($int6)> days, you will continue paying your lower 'loyalty' rate. After this, your discount will no longer be available.";
+                    } else {
+                        $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.";
+                    }
+                    %lobby_ccen_lastruneday = $int0;
+                }
+            } else if (calc(%lobby_ccen_lastruneday + 2) < $int0) {
+                if ($int6 > 0) {
+                    $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.<br><br>If you renew within the next <tostring($int6)> days, you will continue paying your lower 'loyalty' rate. After this, your discount will no longer be available.";
+                } else {
+                    $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.";
+                }
+                if ($int1 = 3) {
+                    %lobby_ccen_lastruneday = $int0;
+                } else {
+                    %lobby_ccen_lastruneday = calc($int0 - (3 - $int1));
+                }
+            }
+        } else if (calc(%lobby_ccen_lastruneday + 4) < $int0) {
+            if ($int6 > 0) {
+                $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.<br><br>If you renew within the next <tostring($int6)> days, you will continue paying your lower 'loyalty' rate. After this, your discount will no longer be available.";
+            } else {
+                $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.";
+            }
+            if ($int1 = 7) {
+                %lobby_ccen_lastruneday = $int0;
+            } else {
+                %lobby_ccen_lastruneday = calc($int0 - (7 - $int1));
+            }
+        }
+    } else if (calc(%lobby_ccen_lastruneday + 7) < $int0) {
+        if ($int6 > 0) {
+            $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.<br><br>If you renew within the next <tostring($int6)> days, you will continue paying your lower 'loyalty' rate. After this, your discount will no longer be available.";
+        } else {
+            $string0 = "Your credit card has expired. Please re-subscribe using a new credit card to continue your membership.";
+        }
+        if ($int1 = 14) {
+            %lobby_ccen_lastruneday = $int0;
+        } else {
+            %lobby_ccen_lastruneday = calc($int0 - (14 - $int1));
+        }
+    }
+}
+return($string0);

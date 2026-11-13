@@ -1,15 +1,26 @@
 use super::format::{Entry, Reader};
-use super::input::{Input, InputDecoder, Timed, decode};
+#[cfg(before_647)]
+use super::input::decode;
+use super::input::{Input, InputDecoder, Timed};
 use flate2::read::DeflateDecoder;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::message_private::MessagePrivate;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(before_647)]
+use rs_protocol::network::game::server_prot::ServerProt;
+#[cfg(before_647)]
 use rs_util::base37::{to_raw_username, to_screen_name};
+#[cfg(before_647)]
 use rs_util::wordpack;
 use serde_json::{Map, Value, json};
 use std::io::Read;
 use std::mem;
+use zstd::stream::copy_decode;
+use zstd::stream::read::Decoder;
 
 /// How much of a stored chunk is decompressed at a time.
 const PIECE: u64 = 256 << 10;
@@ -23,13 +34,14 @@ const MINIMAP_LAG_MS: u32 = 3000;
 
 /// The prefixes the client reads a chat line's colour and effect from, by
 /// number.
+#[cfg(before_647)]
 const CHAT_COLOURS: [&str; 12] = [
     "", "red:", "green:", "cyan:", "purple:", "white:", "flash1:", "flash2:", "flash3:", "glow1:",
     "glow2:", "glow3:",
 ];
 #[cfg(before_289)]
 const CHAT_EFFECTS: [&str; 3] = ["", "wave:", "scroll:"];
-#[cfg(since_289)]
+#[cfg(all(since_289, before_647))]
 const CHAT_EFFECTS: [&str; 6] = ["", "wave:", "wave2:", "shake:", "scroll:", "slide:"];
 
 pub const MAGIC: &[u8; 4] = b"RSRP";
@@ -85,6 +97,13 @@ fn click_time_minimaps(inputs: &mut [Value], clicks: &[u32]) {
 /// A line the player typed and sent: what to type for the client to send it
 /// again, and how the timeline puts it.
 fn typed_line(prot: &ClientProt, data: &[u8]) -> Option<(String, String)> {
+    // Rev 647's chat packets differ, and its sessions aren't replayed yet.
+    #[cfg(since_647)]
+    {
+        let _ = (prot, data);
+        None
+    }
+    #[cfg(before_647)]
     match prot {
         ClientProt::MessagePublic => {
             let msg: MessagePublic = decode(data)?;
@@ -149,7 +168,7 @@ const ZSTD_MAGIC: [u8; 4] = [0x28, 0xB5, 0x2F, 0xFD];
 pub fn decompress_chunk(data: &[u8]) -> Option<Vec<u8>> {
     let mut raw = Vec::new();
     let read = if data.starts_with(&ZSTD_MAGIC) {
-        zstd::stream::copy_decode(data, &mut raw)
+        copy_decode(data, &mut raw)
     } else {
         DeflateDecoder::new(data).read_to_end(&mut raw).map(drop)
     };
@@ -209,7 +228,7 @@ impl Builder {
     /// readable: nothing after that can play.
     pub fn feed_chunk(&mut self, data: &[u8]) -> bool {
         if data.starts_with(&ZSTD_MAGIC) {
-            zstd::stream::read::Decoder::with_buffer(data).is_ok_and(|raw| self.feed_from(raw))
+            Decoder::with_buffer(data).is_ok_and(|raw| self.feed_from(raw))
         } else {
             self.feed_from(DeflateDecoder::new(data))
         }
@@ -332,10 +351,8 @@ impl Builder {
         self.open = None;
 
         let mut header = extra;
-        header.insert(
-            "logout".into(),
-            json!(rs_protocol::network::game::server_prot::ServerProt::Logout as u8),
-        );
+        #[cfg(before_647)]
+        header.insert("logout".into(), json!(ServerProt::Logout as u8));
         #[cfg(any(rev = "225", since_254))]
         header.insert(
             "cameraOp".into(),
@@ -362,6 +379,7 @@ impl Builder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use zstd::bulk::compress;
 
     #[test]
     fn minimap_cameras_move_back_to_their_click() {
@@ -377,9 +395,10 @@ mod tests {
         // 225's camera report isn't from a click.
         assert_eq!(inputs[2][0], 2_000);
     }
+    #[cfg(before_647)]
+    use crate::watch::format::CLIENT;
     use crate::watch::format::{
-        CLIENT, KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag,
-        put_varint,
+        KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag, put_varint,
     };
 
     #[test]
@@ -460,13 +479,13 @@ mod tests {
         let mut deflate = DeflateEncoder::new(Vec::new(), Compression::fast());
         deflate.write_all(&noted(0, "old")).unwrap();
         let old = deflate.finish().unwrap();
-        let new = zstd::bulk::compress(&noted(600, "new"), 3).unwrap();
+        let new = compress(&noted(600, "new"), 3).unwrap();
         let mut b = Builder::default();
         assert!(b.feed_chunk(&old) && b.feed_chunk(&new));
         assert_eq!(notes(&mut b), json!([[0, "old"], [600, "new"]]));
 
         // A broken chunk ends it there.
-        let mut cut = zstd::bulk::compress(&[7; 4096], 3).unwrap();
+        let mut cut = compress(&[7; 4096], 3).unwrap();
         cut.truncate(cut.len() >> 1);
         assert!(!b.feed_chunk(&cut));
         assert!(!b.feed_chunk(&noted(0, "not a chunk")));
@@ -488,7 +507,7 @@ mod tests {
         assert!(rec.len() as u64 > PIECE * 4);
         let whole = build(&rec, Map::new());
         let mut pieces = Builder::default();
-        assert!(pieces.feed_chunk(&zstd::bulk::compress(&rec, 3).unwrap()));
+        assert!(pieces.feed_chunk(&compress(&rec, 3).unwrap()));
         assert_eq!(pieces.take(Map::new()), whole);
     }
 
@@ -536,6 +555,8 @@ mod tests {
         assert_eq!(nothing_header["notes"], json!([]));
     }
 
+    // 647's sessions are not replayed yet (`typed_line`).
+    #[cfg(before_647)]
     #[test]
     fn types_sent_chat_again() {
         let mut rec = Vec::new();

@@ -1,0 +1,957 @@
+// 910:0
+[main]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=lobby_worldswitcher_load
+
+// 910:1
+[please_wait]
+type=text
+y=50
+height=50
+widthmode=minus
+heightmode=minus
+layer=main
+textfont=verdana_11pt_regular
+text=Please wait...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 910:2
+[title]
+type=layer
+height=50
+widthmode=minus
+layer=main
+
+// 910:3
+[content_border]
+type=rectangle
+y=50
+height=50
+widthmode=minus
+heightmode=minus
+layer=main
+colour=0xc9b997
+
+// 910:4
+[refresh]
+type=layer
+x=10
+width=130
+height=25
+ymode=abs_centre
+layer=title
+opbase=World list
+op1=Refresh
+onmouseover=script3146
+onmouseleave=script3147
+onop=script3112
+
+// 910:5
+[refresh_text]
+type=text
+x=30
+width=100
+height=25
+ymode=abs_centre
+layer=refresh
+textfont=verdana_11pt_regular
+text=Refresh
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 910:6
+[refresh_button]
+type=graphic
+width=25
+height=25
+ymode=abs_centre
+layer=refresh
+graphic="lobby_world_reset,1"
+colour=0xffffffff
+
+// 910:7
+[title_text]
+type=text
+y=5
+width=300
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=title
+textfont=verdana_15pt_regular
+text=Select a world
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 910:8
+[status_text]
+type=text
+y=5
+width=300
+height=11
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=title
+textfont=verdana_11pt_regular
+text=Please select a game world from the list
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 910:9
+[current_world]
+type=layer
+x=10
+width=120
+height=30
+xmode=abs_right
+ymode=abs_centre
+layer=title
+
+// 910:10
+[current_title]
+type=text
+width=120
+height=11
+xmode=abs_right
+layer=current_world
+textfont=verdana_11pt_regular
+text=Current world:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 910:11
+[current_text]
+type=text
+y=2
+width=120
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=current_world
+textfont=verdana_11pt_regular
+text=World Auto
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 910:12
+[current_icon]
+type=graphic
+x=70
+width=19
+height=18
+xmode=abs_right
+ymode=abs_bottom
+layer=current_world
+graphic="world_select_stars,0"
+colour=0xffffffff
+
+// 910:13
+[list_content]
+type=layer
+x=1
+y=51
+width=2
+height=52
+widthmode=minus
+heightmode=minus
+layer=main
+hide=yes
+op10= 
+
+// 910:14
+[tooltip]
+type=layer
+x=276
+y=229
+width=100
+height=17
+layer=main
+hide=yes
+op10= 
+
+// 910:15
+[tooltip_outer]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=tooltip
+colour=0x000000
+op10= 
+
+// 910:16
+[tooltip_inner]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=tooltip
+colour=0xffffa0
+fill=yes
+op10= 
+
+// 910:17
+[tooltip_text]
+type=text
+x=4
+y=1
+width=8
+widthmode=minus
+heightmode=minus
+layer=tooltip
+textfont=p12_full
+textalignv=centre
+colour=0x000000
+op10= 
+
+// 910:18
+[fav_title]
+type=layer
+height=20
+widthmode=minus
+layer=list_content
+
+// 910:19
+[troubleshooting_issued]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=fav_title
+hide=yes
+colour=0x0e0b09
+fill=yes
+op10= 
+
+// 910:20
+[fav_title_text]
+type=text
+x=5
+width=10
+height=20
+widthmode=minus
+layer=fav_title
+textfont=verdana_11pt_regular
+text=Favourite worlds (2 max)
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 910:21
+[list_fav1]
+type=layer
+y=20
+height=20
+widthmode=minus
+layer=list_content
+op10= 
+
+// 910:22
+[list_fav2]
+type=layer
+y=40
+height=20
+widthmode=minus
+layer=list_content
+op10=  
+
+// 910:23
+[ws_fav_divs]
+type=layer
+y=20
+height=40
+widthmode=minus
+layer=list_content
+op10=  
+
+// 910:24
+[fav_div]
+type=rectangle
+y=60
+height=2
+widthmode=minus
+layer=list_content
+colour=0x0e0b09
+fill=yes
+
+// 910:25
+[list_titles]
+type=layer
+y=62
+height=34
+widthmode=minus
+layer=list_content
+op10= 
+
+// 910:26
+[list_header_bg]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=list_titles
+colour=0x382e22
+fill=yes
+
+// 910:27
+[com_27]
+type=graphic
+x=5
+width=17
+height=17
+ymode=abs_centre
+layer=list_titles
+colour=0xffffffff
+op10= 
+
+// 910:28
+[world_title_main]
+type=layer
+x=25
+width=53
+height=2
+heightmode=minus
+layer=list_titles
+
+// 910:29
+[player_title_main]
+type=layer
+x=80
+width=73
+height=2
+heightmode=minus
+layer=list_titles
+
+// 910:30
+[player_title_sorts]
+type=layer
+y=2
+width=25
+height=11
+xmode=abs_centre
+ymode=abs_bottom
+layer=player_title_main
+op10= 
+
+// 910:31
+[player_title]
+type=text
+y=2
+height=16
+widthmode=minus
+layer=player_title_main
+textfont=verdana_11pt_regular
+text=Players
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 910:32
+[location_title_main]
+type=layer
+x=155
+width=330
+height=2
+widthmode=minus
+heightmode=minus
+layer=list_titles
+
+// 910:33
+[type_title_main]
+type=layer
+x=110
+width=63
+height=2
+heightmode=minus
+xmode=abs_right
+layer=list_titles
+op10= 
+
+// 910:34
+[lootshare_title_main]
+type=layer
+x=68
+width=40
+height=2
+heightmode=minus
+xmode=abs_right
+layer=list_titles
+
+// 910:35
+[ping_title_main]
+type=layer
+x=16
+width=50
+height=2
+heightmode=minus
+xmode=abs_right
+layer=list_titles
+
+// 910:36
+[list_header_bottom]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=list_titles
+colour=0x0e0b09
+fill=yes
+op10= 
+
+// 910:37
+[com_37]
+type=layer
+height=2
+widthmode=minus
+heightmode=minus
+layer=list_titles
+op10=   
+
+// 910:38
+[com_38]
+type=rectangle
+x=23
+width=2
+heightmode=minus
+layer=com_37
+colour=0x453718
+op10=   
+
+// 910:39
+[htmlstatuses]
+type=rectangle
+x=78
+width=2
+heightmode=minus
+layer=com_37
+colour=0x453718
+op10=    
+
+// 910:40
+[com_40]
+type=rectangle
+x=153
+width=2
+heightmode=minus
+layer=com_37
+colour=0x453718
+op10=    
+
+// 910:41
+[com_41]
+type=rectangle
+x=173
+width=2
+heightmode=minus
+xmode=abs_right
+layer=com_37
+colour=0x453718
+op10=    
+
+// 910:42
+[com_42]
+type=rectangle
+x=108
+width=2
+heightmode=minus
+xmode=abs_right
+layer=com_37
+colour=0x453718
+op10=     
+
+// 910:43
+[com_43]
+type=rectangle
+x=66
+width=2
+heightmode=minus
+xmode=abs_right
+layer=com_37
+colour=0x453718
+op10=    
+
+// 910:44
+[ping_title]
+type=text
+y=2
+width=50
+height=16
+xmode=abs_right
+layer=ping_title_main
+textfont=verdana_11pt_regular
+text=Ping
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 910:45
+[ping_title_sorts]
+type=layer
+y=2
+width=25
+height=11
+xmode=abs_centre
+ymode=abs_bottom
+layer=ping_title_main
+op10= 
+
+// 910:46
+[lootshare_title]
+type=graphic
+y=2
+width=18
+height=16
+xmode=abs_centre
+layer=lootshare_title_main
+graphic=loot_login
+colour=0xffffffff
+op10=  
+onmouseover=script3149(event_com, -1, "Loot share")
+onmouseleave=script3153(event_com, -1)
+
+// 910:47
+[lootshare_title_sorts]
+type=layer
+y=2
+width=25
+height=11
+xmode=abs_centre
+ymode=abs_bottom
+layer=lootshare_title_main
+op10= 
+
+// 910:48
+[type_title]
+type=text
+y=2
+width=18
+height=16
+widthmode=minus
+layer=type_title_main
+textfont=verdana_11pt_regular
+text=Type
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 910:49
+[type_title_sorts]
+type=layer
+y=2
+width=25
+height=11
+xmode=abs_centre
+ymode=abs_bottom
+layer=type_title_main
+op10=  
+
+// 910:50
+[type_info]
+type=layer
+x=1
+y=2
+width=16
+height=16
+xmode=abs_right
+layer=type_title_main
+opbase=Information
+op1=More
+onmouseover=script3149(event_com, -1, "More information on members benefits")
+onmouseleave=script3153(event_com, -1)
+onop=openurl_nologin("members/members.ws", true)
+
+// 910:51
+[location_title]
+type=text
+y=2
+height=16
+widthmode=minus
+layer=location_title_main
+textfont=verdana_11pt_regular
+text=Location/Activity
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 910:52
+[location_title_sorts]
+type=layer
+y=2
+width=25
+height=11
+xmode=abs_centre
+ymode=abs_bottom
+layer=location_title_main
+op10= 
+
+// 910:53
+[location_info]
+type=layer
+x=73
+y=2
+width=16
+height=16
+xmode=abs_centre
+layer=location_title_main
+opbase=Information
+op1=More
+op10= 
+onmouseover=script3149(event_com, -1, "More information on themed worlds")
+onmouseleave=script3153(event_com, -1)
+onop=openurl_nologin("kbase/view.ws?guid=themed_worlds", true)
+
+// 910:54
+[world_title]
+type=text
+y=2
+width=53
+height=16
+layer=world_title_main
+textfont=verdana_11pt_regular
+text=World
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 910:55
+[world_title_sorts]
+type=layer
+y=2
+width=25
+height=11
+xmode=abs_centre
+ymode=abs_bottom
+layer=world_title_main
+
+// 910:56
+[fav_main_div]
+type=rectangle
+x=23
+width=2
+heightmode=minus
+layer=ws_fav_divs
+colour=0x453718
+op10=  
+
+// 910:57
+[world_main_div]
+type=rectangle
+x=78
+width=2
+heightmode=minus
+layer=ws_fav_divs
+colour=0x453718
+op10=   
+
+// 910:58
+[players_main_div]
+type=rectangle
+x=153
+width=2
+heightmode=minus
+layer=ws_fav_divs
+colour=0x453718
+op10=   
+
+// 910:59
+[location_main_div]
+type=rectangle
+x=173
+width=2
+heightmode=minus
+xmode=abs_right
+layer=ws_fav_divs
+colour=0x453718
+op10=   
+
+// 910:60
+[type_main_div]
+type=rectangle
+x=108
+width=2
+heightmode=minus
+xmode=abs_right
+layer=ws_fav_divs
+colour=0x453718
+op10=    
+
+// 910:61
+[qchat_main_div]
+type=rectangle
+x=66
+width=2
+heightmode=minus
+xmode=abs_right
+layer=ws_fav_divs
+colour=0x453718
+op10=   
+
+// 910:62
+[list_area]
+type=layer
+y=96
+width=16
+height=96
+widthmode=minus
+heightmode=minus
+layer=list_content
+op10= 
+
+// 910:63
+[list_main]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=list_area
+
+// 910:64
+[ws_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=list_main
+op10=  
+
+// 910:65
+[com_65]
+type=rectangle
+x=25
+width=25
+height=20
+widthmode=minus
+layer=list_main
+hide=yes
+colour=0x787878
+fill=yes
+op10= 
+
+// 910:66
+[com_66]
+type=rectangle
+width=23
+height=20
+layer=list_main
+hide=yes
+colour=0x505050
+fill=yes
+op10=  
+
+// 910:67
+[ws_selected_bg]
+type=rectangle
+height=20
+widthmode=minus
+layer=list_main
+hide=yes
+colour=0xb24d00
+fill=yes
+
+// 910:68
+[fav]
+type=layer
+width=23
+heightmode=minus
+layer=list_main
+op10= 
+
+// 910:69
+[world]
+type=layer
+x=25
+width=53
+heightmode=minus
+layer=list_main
+op10=  
+
+// 910:70
+[world_icon]
+type=layer
+x=25
+width=53
+heightmode=minus
+layer=list_main
+op10=   
+
+// 910:71
+[players]
+type=layer
+x=80
+width=73
+heightmode=minus
+layer=list_main
+op10=  
+
+// 910:72
+[location]
+type=layer
+x=154
+width=313
+widthmode=minus
+heightmode=minus
+layer=list_main
+op10=  
+
+// 910:73
+[location_flag]
+type=layer
+x=155
+width=314
+widthmode=minus
+heightmode=minus
+layer=list_main
+op10=   
+
+// 910:74
+[type]
+type=layer
+x=94
+width=63
+heightmode=minus
+xmode=abs_right
+layer=list_main
+op10=   
+
+// 910:75
+[lootshare]
+type=layer
+x=52
+width=40
+heightmode=minus
+xmode=abs_right
+layer=list_main
+op10=  
+
+// 910:76
+[ping]
+type=layer
+width=50
+heightmode=minus
+xmode=abs_right
+layer=list_main
+op10=   
+
+// 910:77
+[ws_buttons_r]
+type=layer
+x=25
+width=25
+widthmode=minus
+heightmode=minus
+layer=list_main
+op10=   
+
+// 910:78
+[ws_buttons_l]
+type=layer
+width=23
+heightmode=minus
+layer=list_main
+op10=    
+
+// 910:79
+[ws_list_divs]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=list_main
+op10=   
+
+// 910:80
+[fav_main_div_1]
+type=rectangle
+x=23
+width=2
+heightmode=minus
+layer=ws_list_divs
+colour=0x453718
+op10=   
+
+// 910:81
+[world_main_div_1]
+type=rectangle
+x=78
+width=2
+heightmode=minus
+layer=ws_list_divs
+colour=0x453718
+op10=    
+
+// 910:82
+[players_main_div_1]
+type=rectangle
+x=153
+width=2
+heightmode=minus
+layer=ws_list_divs
+colour=0x453718
+op10=    
+
+// 910:83
+[location_main_div_1]
+type=rectangle
+x=157
+width=2
+heightmode=minus
+xmode=abs_right
+layer=ws_list_divs
+colour=0x453718
+op10=    
+
+// 910:84
+[type_main_div_1]
+type=rectangle
+x=92
+width=2
+heightmode=minus
+xmode=abs_right
+layer=ws_list_divs
+colour=0x453718
+op10=     
+
+// 910:85
+[qchat_main_div_1]
+type=rectangle
+x=50
+width=2
+heightmode=minus
+xmode=abs_right
+layer=ws_list_divs
+colour=0x453718
+op10=    
+
+// 910:86
+[list_scroll]
+type=layer
+y=96
+width=16
+height=96
+heightmode=minus
+xmode=abs_right
+layer=list_content
+op10=   

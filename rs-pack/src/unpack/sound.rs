@@ -1,7 +1,7 @@
-use std::path::Path;
-
 use rs_io::Packet;
 use rs_io::jag::JagFile;
+use std::fs;
+use std::path::Path;
 use tracing::debug;
 
 pub(crate) fn known_hashes() -> Vec<i32> {
@@ -10,7 +10,7 @@ pub(crate) fn known_hashes() -> Vec<i32> {
 
 pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let synth_dir = output_dir.join("synth");
-    std::fs::create_dir_all(&synth_dir)?;
+    fs::create_dir_all(&synth_dir)?;
 
     let Some(data) = jag.read("sounds.dat") else {
         return Ok(());
@@ -32,14 +32,14 @@ pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyho
         let name = format!("synth_{id}");
         order_lines.push(id.to_string());
 
-        std::fs::write(
+        fs::write(
             synth_dir.join(format!("{name}.synth")),
             &buf.data[data_start..buf.pos],
         )?;
         count += 1;
     }
 
-    std::fs::write(pack_dir.join("synth.order"), order_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("synth.order"), order_lines.join("\n") + "\n")?;
     let max_id = order_lines
         .iter()
         .filter_map(|s| s.parse::<u16>().ok())
@@ -49,7 +49,7 @@ pub fn unpack_sounds(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyho
     for id in 0..=max_id {
         pack_lines.push(format!("{id}=synth_{id}"));
     }
-    std::fs::write(pack_dir.join("synth.pack"), pack_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("synth.pack"), pack_lines.join("\n") + "\n")?;
 
     debug!("Unpacked {} synths from sounds JAG", count);
     Ok(())

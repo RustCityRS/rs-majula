@@ -1,0 +1,9 @@
+// 1156
+[proc,script1156]
+if (detailget_stereo = 0) {
+    if_setgraphic(sound_options:stereo_button, "radio_buttons,0");
+    if_setgraphic(sound_options:mono_button, "radio_buttons,1");
+} else {
+    if_setgraphic(sound_options:mono_button, "radio_buttons,0");
+    if_setgraphic(sound_options:stereo_button, "radio_buttons,1");
+}

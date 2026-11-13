@@ -1,0 +1,972 @@
+// 459:0
+[pit_left]
+type=graphic
+x=372
+y=256
+width=26
+height=26
+layer=pit
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:pit_left, ecosystem_environmental_feature:pit_middle, ecosystem_environmental_feature:pit_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:pit_left, ecosystem_environmental_feature:pit_middle, ecosystem_environmental_feature:pit_right, 0)
+
+// 459:1
+[pit_middle]
+type=graphic
+x=398
+y=256
+width=76
+height=26
+layer=pit
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:pit_left, ecosystem_environmental_feature:pit_middle, ecosystem_environmental_feature:pit_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:pit_left, ecosystem_environmental_feature:pit_middle, ecosystem_environmental_feature:pit_right, 0)
+
+// 459:2
+[pit_right]
+type=graphic
+x=474
+y=256
+width=26
+height=26
+layer=pit
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:pit_left, ecosystem_environmental_feature:pit_middle, ecosystem_environmental_feature:pit_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:pit_left, ecosystem_environmental_feature:pit_middle, ecosystem_environmental_feature:pit_right, 0)
+
+// 459:3
+[pit_layer]
+type=text
+x=372
+y=256
+width=128
+height=25
+layer=pit
+textfont=verdana_11pt_regular
+text=Dark pit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(6, 80)
+
+// 459:4
+[pond_left]
+type=graphic
+x=372
+y=204
+width=26
+height=26
+layer=pond
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:pond_left, ecosystem_environmental_feature:pond_middle, ecosystem_environmental_feature:pond_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:pond_left, ecosystem_environmental_feature:pond_middle, ecosystem_environmental_feature:pond_right, 0)
+
+// 459:5
+[pond_middle]
+type=graphic
+x=398
+y=204
+width=76
+height=26
+layer=pond
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:pond_left, ecosystem_environmental_feature:pond_middle, ecosystem_environmental_feature:pond_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:pond_left, ecosystem_environmental_feature:pond_middle, ecosystem_environmental_feature:pond_right, 0)
+
+// 459:6
+[pond_right]
+type=graphic
+x=474
+y=204
+width=26
+height=26
+layer=pond
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:pond_left, ecosystem_environmental_feature:pond_middle, ecosystem_environmental_feature:pond_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:pond_left, ecosystem_environmental_feature:pond_middle, ecosystem_environmental_feature:pond_right, 0)
+
+// 459:7
+[pond_text]
+type=text
+x=372
+y=204
+width=127
+height=26
+layer=pond
+textfont=verdana_11pt_regular
+text=Pond
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(1, 65)
+
+// 459:8
+[stones_left]
+type=graphic
+x=372
+y=230
+width=26
+height=26
+layer=stones
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:stones_left, ecosystem_environmental_feature:stones_middle, ecosystem_environmental_feature:stones_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:stones_left, ecosystem_environmental_feature:stones_middle, ecosystem_environmental_feature:stones_right, 0)
+
+// 459:9
+[stones_middle]
+type=graphic
+x=398
+y=230
+width=76
+height=26
+layer=stones
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:stones_left, ecosystem_environmental_feature:stones_middle, ecosystem_environmental_feature:stones_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:stones_left, ecosystem_environmental_feature:stones_middle, ecosystem_environmental_feature:stones_right, 0)
+
+// 459:10
+[stones_right]
+type=graphic
+x=474
+y=230
+width=26
+height=26
+layer=stones
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:stones_left, ecosystem_environmental_feature:stones_middle, ecosystem_environmental_feature:stones_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:stones_left, ecosystem_environmental_feature:stones_middle, ecosystem_environmental_feature:stones_right, 0)
+
+// 459:11
+[stones_text]
+type=text
+x=372
+y=230
+width=127
+height=26
+layer=stones
+textfont=verdana_11pt_regular
+text=Standing stones
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(5, 70)
+
+// 459:12
+[grass_left]
+type=graphic
+x=372
+y=180
+width=26
+height=26
+layer=tall_grass
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:grass_left, ecosystem_environmental_feature:grass_middle, ecosystem_environmental_feature:grass_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:grass_left, ecosystem_environmental_feature:grass_middle, ecosystem_environmental_feature:grass_right, 0)
+
+// 459:13
+[grass_middle]
+type=graphic
+x=398
+y=180
+width=76
+height=26
+layer=tall_grass
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:grass_left, ecosystem_environmental_feature:grass_middle, ecosystem_environmental_feature:grass_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:grass_left, ecosystem_environmental_feature:grass_middle, ecosystem_environmental_feature:grass_right, 0)
+
+// 459:14
+[grass_right]
+type=graphic
+x=474
+y=180
+width=26
+height=26
+layer=tall_grass
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:grass_left, ecosystem_environmental_feature:grass_middle, ecosystem_environmental_feature:grass_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:grass_left, ecosystem_environmental_feature:grass_middle, ecosystem_environmental_feature:grass_right, 0)
+
+// 459:15
+[grass_text]
+type=text
+x=373
+y=181
+width=127
+height=24
+layer=tall_grass
+textfont=verdana_11pt_regular
+text=Tall grass
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(2, 62)
+
+// 459:16
+[vent_left]
+type=graphic
+x=372
+y=158
+width=26
+height=26
+layer=vent
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:vent_left, ecosystem_environmental_feature:vent_middle, ecosystem_environmental_feature:vent_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:vent_left, ecosystem_environmental_feature:vent_middle, ecosystem_environmental_feature:vent_right, 0)
+
+// 459:17
+[vent_middle]
+type=graphic
+x=398
+y=158
+width=76
+height=26
+layer=vent
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:vent_left, ecosystem_environmental_feature:vent_middle, ecosystem_environmental_feature:vent_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:vent_left, ecosystem_environmental_feature:vent_middle, ecosystem_environmental_feature:vent_right, 0)
+
+// 459:18
+[vent_right]
+type=graphic
+x=474
+y=158
+width=26
+height=26
+layer=vent
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:vent_left, ecosystem_environmental_feature:vent_middle, ecosystem_environmental_feature:vent_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:vent_left, ecosystem_environmental_feature:vent_middle, ecosystem_environmental_feature:vent_right, 0)
+
+// 459:19
+[vent_text]
+type=text
+x=373
+y=159
+width=127
+height=26
+layer=vent
+textfont=verdana_11pt_regular
+text=Thermal vent
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(4, 59)
+
+// 459:20
+[house_left]
+type=graphic
+x=372
+y=132
+width=26
+height=26
+layer=house
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:house_left, ecosystem_environmental_feature:house_middle, ecosystem_environmental_feature:house_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:house_left, ecosystem_environmental_feature:house_middle, ecosystem_environmental_feature:house_right, 0)
+
+// 459:21
+[house_middle]
+type=graphic
+x=398
+y=132
+width=76
+height=26
+layer=house
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:house_left, ecosystem_environmental_feature:house_middle, ecosystem_environmental_feature:house_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:house_left, ecosystem_environmental_feature:house_middle, ecosystem_environmental_feature:house_right, 0)
+
+// 459:22
+[house_right]
+type=graphic
+x=474
+y=132
+width=26
+height=26
+layer=house
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:house_left, ecosystem_environmental_feature:house_middle, ecosystem_environmental_feature:house_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:house_left, ecosystem_environmental_feature:house_middle, ecosystem_environmental_feature:house_right, 0)
+
+// 459:23
+[house_text]
+type=text
+x=373
+y=133
+width=127
+height=24
+layer=house
+textfont=verdana_11pt_regular
+text=Abandoned house
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(3, 57)
+
+// 459:24
+[boneyard_left]
+type=graphic
+x=372
+y=106
+width=26
+height=26
+layer=boneyard
+graphic="set_but_end_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:boneyard_left, ecosystem_environmental_feature:boneyard_middle, ecosystem_environmental_feature:boneyard_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:boneyard_left, ecosystem_environmental_feature:boneyard_middle, ecosystem_environmental_feature:boneyard_right, 0)
+
+// 459:25
+[boneyard_middle]
+type=graphic
+x=398
+y=106
+width=76
+height=26
+layer=boneyard
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:boneyard_left, ecosystem_environmental_feature:boneyard_middle, ecosystem_environmental_feature:boneyard_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:boneyard_left, ecosystem_environmental_feature:boneyard_middle, ecosystem_environmental_feature:boneyard_right, 0)
+
+// 459:26
+[boneyard_right]
+type=graphic
+x=474
+y=106
+width=26
+height=26
+layer=boneyard
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:boneyard_left, ecosystem_environmental_feature:boneyard_middle, ecosystem_environmental_feature:boneyard_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:boneyard_left, ecosystem_environmental_feature:boneyard_middle, ecosystem_environmental_feature:boneyard_right, 0)
+
+// 459:27
+[boneyard_layer]
+type=text
+x=374
+y=109
+width=125
+height=20
+layer=boneyard
+textfont=verdana_11pt_regular
+text=Boneyard
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(7, 56)
+
+// 459:28
+[no_left]
+type=graphic
+x=372
+y=80
+width=26
+height=26
+layer=no_feature
+graphic="set_but_end_2,0"
+onmouseover=script2975(event_com, ecosystem_environmental_feature:no_middle, ecosystem_environmental_feature:no_right, 1)
+onmouseleave=script2975(event_com, ecosystem_environmental_feature:no_middle, ecosystem_environmental_feature:no_right, 0)
+
+// 459:29
+[no_middle]
+type=graphic
+x=398
+y=80
+width=76
+height=26
+layer=no_feature
+graphic="set_but_fill_2,0"
+onmouseover=script2975(ecosystem_environmental_feature:no_left, ecosystem_environmental_feature:no_middle, ecosystem_environmental_feature:no_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:no_left, ecosystem_environmental_feature:no_middle, ecosystem_environmental_feature:no_right, 0)
+
+// 459:30
+[no_right]
+type=graphic
+x=474
+y=80
+width=26
+height=26
+layer=no_feature
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:no_left, ecosystem_environmental_feature:no_middle, ecosystem_environmental_feature:no_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:no_left, ecosystem_environmental_feature:no_middle, ecosystem_environmental_feature:no_right, 0)
+
+// 459:31
+[nothing_text]
+type=text
+x=374
+y=82
+width=125
+height=21
+layer=no_feature
+textfont=verdana_11pt_regular
+text=No feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(0, 0)
+
+// 459:32
+[no_feature]
+type=layer
+x=-352
+y=-54
+width=512
+height=334
+layer=text_layer
+
+// 459:33
+[boneyard]
+type=layer
+x=-352
+y=-51
+width=512
+height=334
+layer=text_layer
+
+// 459:34
+[house]
+type=layer
+x=-352
+y=-48
+width=512
+height=334
+layer=text_layer
+
+// 459:35
+[feature_model]
+type=model
+x=41
+y=119
+width=296
+height=203
+layer=model_layer
+model=model_62133
+modelorigin=1,-10
+modelangle=199,2042,0
+modelzoom=500
+ontimer=ecosystem_rotate_model(event_com)
+
+// 459:36
+[description_text]
+type=text
+x=23
+y=71
+width=328
+height=46
+layer=model_layer
+textfont=p11_full
+text=Something something darkside, something something complete.
+textshadow=yes
+
+// 459:37
+[feature_name]
+type=text
+x=24
+y=9
+width=191
+height=34
+layer=model_layer
+textfont=p12_full
+text=Nothing
+textshadow=yes
+
+// 459:38
+[build_requirements]
+type=text
+x=24
+y=33
+width=342
+height=28
+layer=model_layer
+textfont=b12_full
+text=Build requirements go here.
+textshadow=yes
+
+// 459:39
+[window_layer]
+type=layer
+x=-4
+y=-4
+width=520
+height=342
+
+// 459:40
+[com_40]
+type=rectangle
+x=4
+y=4
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+layer=window_layer
+colour=0x000000
+fill=yes
+trans=188
+
+// 459:41
+[com_41]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=window_layer
+colour=0x000000
+fill=yes
+trans=233
+
+// 459:42
+[frame_layer]
+type=layer
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=window_layer
+
+// 459:43
+[com_43]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=frame_layer
+graphic=tradebacking
+tiling=yes
+
+// 459:44
+[com_44]
+type=graphic
+y=326
+width=16391
+height=12877
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=proportion_centre
+layer=frame_layer
+graphic=km_middlefillcolour
+tiling=yes
+colour=0x000000
+
+// 459:45
+[com_45]
+type=graphic
+width=16384
+height=70
+widthmode=proportion
+xmode=abs_centre
+layer=frame_layer
+graphic=graphic_2045
+tiling=yes
+colour=0x000000
+
+// 459:46
+[com_46]
+type=graphic
+width=16384
+height=46
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=frame_layer
+graphic=graphic_2044
+tiling=yes
+colour=0x000000
+
+// 459:47
+[com_47]
+type=graphic
+width=32
+height=32
+layer=frame_layer
+graphic="v2_stone_borders,35"
+
+// 459:48
+[com_48]
+type=graphic
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=frame_layer
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 459:49
+[com_49]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=frame_layer
+graphic="v2_stone_borders,37"
+
+// 459:50
+[com_50]
+type=graphic
+y=-12
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=frame_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 459:51
+[com_51]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=frame_layer
+graphic="v2_stone_borders,6"
+
+// 459:52
+[com_52]
+type=graphic
+x=-12
+width=32
+height=64
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=frame_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 459:53
+[com_53]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=frame_layer
+graphic="v2_stone_borders,7"
+
+// 459:54
+[com_54]
+type=graphic
+x=-13
+width=32
+height=64
+heightmode=minus
+ymode=abs_centre
+layer=frame_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 459:55
+[close_button_1]
+type=graphic
+x=11
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=frame_layer
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 459:56
+[com_56]
+type=text
+y=-11
+width=16391
+height=43
+widthmode=proportion
+xmode=abs_centre
+layer=frame_layer
+textfont=b12_full
+text=Construct Environmental Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 459:57
+[model_layer]
+type=layer
+x=11
+y=26
+width=492
+height=298
+onvarctransmit=ecosystem_build_start{ecosystem_feature_varc}
+
+// 459:58
+[text_layer]
+type=layer
+x=345
+y=28
+width=154
+height=298
+
+// 459:59
+[tall_grass]
+type=layer
+x=-352
+y=-40
+width=512
+height=334
+layer=text_layer
+
+// 459:60
+[vent]
+type=layer
+x=-352
+y=-46
+width=512
+height=334
+layer=text_layer
+
+// 459:61
+[pond]
+type=layer
+x=-352
+y=-36
+width=512
+height=334
+layer=text_layer
+
+// 459:62
+[stones]
+type=layer
+x=-352
+y=-33
+width=512
+height=334
+layer=text_layer
+
+// 459:63
+[pit]
+type=layer
+x=-352
+y=-31
+width=512
+height=334
+layer=text_layer
+
+// 459:64
+[button_layer]
+type=layer
+x=-7
+y=-7
+width=512
+height=334
+
+// 459:65
+[build_button_left]
+type=graphic
+x=387
+y=290
+width=25
+height=25
+layer=button_layer
+graphic="set_but_end_1,0"
+onmouseover=script2975(ecosystem_environmental_feature:build_button_left, ecosystem_environmental_feature:build_button_middle, ecosystem_environmental_feature:build_button_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:build_button_left, ecosystem_environmental_feature:build_button_middle, ecosystem_environmental_feature:build_button_right, 0)
+
+// 459:66
+[build_button_right]
+type=graphic
+x=461
+y=290
+width=25
+height=25
+layer=button_layer
+graphic="set_but_end_1,0"
+hflip=yes
+onmouseover=script2975(ecosystem_environmental_feature:build_button_left, ecosystem_environmental_feature:build_button_middle, ecosystem_environmental_feature:build_button_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:build_button_left, ecosystem_environmental_feature:build_button_middle, ecosystem_environmental_feature:build_button_right, 0)
+
+// 459:67
+[build_button_middle]
+type=graphic
+x=391
+y=290
+width=74
+height=25
+layer=button_layer
+graphic="set_but_fill_1,0"
+onmouseover=script2975(ecosystem_environmental_feature:build_button_left, ecosystem_environmental_feature:build_button_middle, ecosystem_environmental_feature:build_button_right, 1)
+onmouseleave=script2975(ecosystem_environmental_feature:build_button_left, ecosystem_environmental_feature:build_button_middle, ecosystem_environmental_feature:build_button_right, 0)
+
+// 459:68
+[build_pond]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:69
+[build_none]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:70
+[build_grass]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:71
+[build_house]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:72
+[build_vent]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:73
+[build_stones]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeaffc4
+transmitop=1
+op1=Confirm
+
+// 459:74
+[build_pit]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:75
+[build_boneyard]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=button_layer
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm

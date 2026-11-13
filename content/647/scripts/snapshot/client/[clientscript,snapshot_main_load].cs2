@@ -1,0 +1,22 @@
+// 508
+[clientscript,snapshot_main_load]
+%snapshot_mute = false;
+if (playermodlevel = 5 | playermodlevel = 6) {
+    if_settext(snapshot_main_v2:mutetoggle, "Suggest to mute this player for 48 hours");
+    if_settext(snapshot_main_v2:mutetoggle_offence, "Suggest to mute this player for 48 hours");
+    if_settext(snapshot_main_v2:com_60, "Suggest to mute this player for 48 hours");
+} else {
+    if_settext(snapshot_main_v2:mutetoggle, "Mute this player for 48 hours");
+    if_settext(snapshot_main_v2:mutetoggle_offence, "Mute this player for 48 hours");
+    if_settext(snapshot_main_v2:com_60, "Mute this player for 48 hours");
+}
+%snapshot_open = true;
+if (map_lang ! 1) {
+    ~script216;
+    ~script246;
+    return;
+}
+if_setonvarcstrtransmit(snapshot_main_v2:control_layer, "snapshot_name_update{snapshot_name}");
+%snapshot_last_selected_highlight = -1;
+~snapshot_namelist_generate;
+~script216;

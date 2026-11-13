@@ -1,0 +1,15 @@
+// 924
+[proc,objreq_print](string $string0, int $int0, int $settextalignh1, int $int2, graphic $graphic3)
+def_int $int4 = calc(6 + %objreq_lines * 11);
+if (compare($string0, "") ! 0) {
+    cc_create(obj_info:info, ^iftype_text, if_getnextsubid(obj_info:info));
+    cc_setposition(0, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(16384, calc(11 * $int0), ^setsize_rel, ^setsize_abs);
+    cc_settextfont($graphic3);
+    cc_setcolour(%objreq_fontcol2);
+    cc_settext($string0);
+    cc_settextalign($settextalignh1, ^settextalign_top, 0);
+    if ($int2 = 1) {
+        %objreq_lines = calc(%objreq_lines + $int0);
+    }
+}

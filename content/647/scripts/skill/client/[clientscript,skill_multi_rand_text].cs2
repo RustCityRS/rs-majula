@@ -1,0 +1,44 @@
+// 2266
+[clientscript,skill_multi_rand_text](component $component0)
+switch_component ($component0) {
+    case skill_multi_rand:model1 :
+        if (compare("", %varclient_1651) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1651);
+        }
+    case skill_multi_rand:model2 :
+        if (compare("", %varclient_1652) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1652);
+        }
+    case skill_multi_rand:model3 :
+        if (compare("", %varclient_1653) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1653);
+        }
+    case skill_multi_rand:model4 :
+        if (compare("", %varclient_1654) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1654);
+        }
+    case skill_multi_rand:model5 :
+        if (compare("", %varclient_1655) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1655);
+        }
+    case skill_multi_rand:model6 :
+        if (compare("", %varclient_1656) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1656);
+        }
+    case skill_multi_rand:model7 :
+        if (compare("", %varclient_1799) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1799);
+        }
+    case skill_multi_rand:model8 :
+        if (compare("", %varclient_1800) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1800);
+        }
+    case skill_multi_rand:model9 :
+        if (compare("", %varclient_1801) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1801);
+        }
+    case skill_multi_rand:model10 :
+        if (compare("", %varclient_1802) ! 0) {
+            if_settext(skill_multi_rand:text, %varclient_1802);
+        }
+}

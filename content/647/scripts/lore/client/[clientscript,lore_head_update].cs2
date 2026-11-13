@@ -1,0 +1,45 @@
+// 751
+[clientscript,lore_head_update]
+def_seq $seq0 = null;
+def_string $string0 = "";
+def_int $int1 = -1;
+if (%lore_npc_head ! null & %lore_npc_head ! hans) {
+    $string0 = enum(npc, string, enum_1279, %lore_npc_head);
+    if_setnpchead(lore_stats_side:lore_chathead, %lore_npc_head);
+} else if (enum(obj, npc, enum_1320, %follower_obj) ! npc_6988) {
+    %lore_npc_head = enum(obj, npc, enum_1320, %follower_obj);
+    $string0 = enum(npc, string, enum_1279, %lore_npc_head);
+    if_setnpchead(lore_stats_side:lore_chathead, %lore_npc_head);
+}
+if (compare($string0, "Animal") = 0) {
+    if_settext(lore_stats_side:lore_name, oc_name(%follower_obj));
+} else {
+    if_settext(lore_stats_side:lore_name, $string0);
+}
+if (%lore_interface_boolean > 50) {
+    %lore_interface_boolean = calc(%lore_interface_boolean - 50);
+    $seq0 = enum(int, seq, enum_1275, %lore_interface_boolean);
+    if_setmodelanim(lore_stats_side:lore_chathead, $seq0);
+} else {
+    $seq0 = enum(int, seq, enum_1276, %lore_interface_boolean);
+    if_setmodelanim(lore_stats_side:lore_chathead, $seq0);
+}
+if (enum(obj, obj, enum_1283, %follower_obj) ! bones) {
+    if_sethide(lore_stats_side:lore_pets, true);
+    if (enum(npc, component, enum_1282, %lore_npc_head) ! lore_stats_side:size_percentage) {
+        if_sethide(lore_stats_side:lore_familairs, false);
+        if_sethide(lore_stats_side:lore_pouch_counter, false);
+        if_sethide(enum(npc, component, enum_1282, %lore_npc_head), false);
+        if_sethide(enum(npc, component, enum_1092, %lore_npc_head), false);
+        if_setgraphic(topstat_lore:topstat_circle_lore, "topstat_fill_full,11");
+    } else {
+        if_sethide(lore_stats_side:lore_pouch_counter, true);
+    }
+} else {
+    if_sethide(lore_stats_side:lore_pets, false);
+    if_sethide(lore_stats_side:lore_pouch_counter, true);
+    if (%follower_obj ! null & oc_param(%follower_obj, param_394) ! 0) {
+        if_sethide(enum(npc, component, enum_1092, %lore_npc_head), false);
+    }
+}
+~script2671;

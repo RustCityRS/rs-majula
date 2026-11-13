@@ -1,0 +1,22 @@
+// 2976
+[clientscript,ecosystem_tutorial_camera](component $component0)
+switch_int (%ecosystem_tutorial) {
+    case default :
+        cam_reset;
+    case 1 :
+        ~ecosystem_tutorial_cam_1($component0);
+    case 2 :
+        ~ecosystem_tutorial_cam_2($component0);
+    case 3 :
+        ~ecosystem_tutorial_cam_3($component0);
+    case 4 :
+        ~ecosystem_tutorial_cam_4($component0);
+    case 5 :
+        ~ecosystem_tutorial_cam_5($component0);
+    case 6 :
+        ~ecosystem_tutorial_cam_6($component0);
+    case 7 :
+        ~ecosystem_tutorial_cam_7($component0);
+    case 8 :
+        ~ecosystem_tutorial_cam_8($component0);
+}

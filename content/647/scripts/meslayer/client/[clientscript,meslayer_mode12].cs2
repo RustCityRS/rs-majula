@@ -1,0 +1,27 @@
+// 1157
+[clientscript,meslayer_mode12](int $int0)
+if ($int0 ! 1) {
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if (~bool_to_int(%clanwars_caller_init) = 0) {
+    %clanwars_caller = "";
+    %clanwars_caller_lastusedstring = "";
+    %clanwars_caller_init = true;
+}
+if (string_length(%clanwars_caller) > 0) {
+    if_settext(chattop:mes_text, "Edit the name of your caller:<br>(Delete it to disable this feature.)");
+} else {
+    if_settext(chattop:mes_text, "Enter the name of your caller:");
+}
+%meslayermode = 12;
+~meslayer_setupinput(%clanwars_caller);
+if_setonclick(chattop:mes_layer, "clanwars_caller_click");
+~script2026;
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+~script1188;

@@ -1,0 +1,19 @@
+// 195
+[clientscript,friends_chat_onload](component $component0, int $int1)
+if_setonclantransmit($component0, "friends_chat_onclantransmit(event_com)");
+if_setonfriendtransmit($component0, "friends_chat_onclantransmit(event_com)");
+~script1600;
+def_component $component2 = friendschat:com_4;
+def_int $int3 = 0;
+def_int $int4 = 19;
+while ($int3 < 500) {
+    if (calc($int3 % 2) ! 0) {
+        cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
+        cc_setsize(16384, $int4, ^setsize_rel, ^setsize_abs);
+        cc_setposition(0, calc($int3 * $int4), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setcolour(0x232220);
+        cc_setfill(true);
+        cc_settrans(128);
+    }
+    $int3 = calc($int3 + 1);
+}

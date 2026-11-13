@@ -1,0 +1,10 @@
+// Thurgo (289's thurgo.rs2), on 2011's thurgo (npc 604, Mudskipper Point). 2011 asks first
+// "What would you like to ask about?" (Skillcape of Smithing / Something else.), which is not
+// ported: 289 has no skillcapes.
+[opnpc1,thurgo]
+switch_int (%squire) {
+    case ^squire_spoken_reldo : @thurgo_inquire;
+    case ^squire_given_pie : @thurgo_special_sword_post_pie;
+    case ^squire_spoken_thurgo, ^squire_looking_portrait, ^squire_looking_blurite, ^squire_complete : @thurgo_about_sword;
+    case default : ~mesbox("Thurgo doesn't appear to be interested in talking.");
+}

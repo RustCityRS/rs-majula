@@ -1,0 +1,74 @@
+// 2459
+[proc,script2459](int $int0)(component)
+if (getwindowmode >= 2) {
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel_fullscreen:off0);
+        case 1 :
+            return(toplevel_fullscreen:off1);
+        case 2 :
+            return(toplevel_fullscreen:off2);
+        case 3 :
+            return(toplevel_fullscreen:off3);
+        case 4 :
+            return(toplevel_fullscreen:off4);
+        case 5 :
+            return(toplevel_fullscreen:off5);
+        case 6 :
+            return(toplevel_fullscreen:off6);
+        case 7 :
+            return(toplevel_fullscreen:off7);
+        case 8 :
+            return(toplevel_fullscreen:off8);
+        case 9 :
+            return(toplevel_fullscreen:off9);
+        case 10 :
+            return(toplevel_fullscreen:off10);
+        case 11 :
+            return(toplevel_fullscreen:off11);
+        case 12 :
+            return(toplevel_fullscreen:off12);
+        case 13 :
+            return(toplevel_fullscreen:off13);
+        case 14 :
+            return(toplevel_fullscreen:off14);
+        case 15 :
+            return(toplevel_fullscreen:off15);
+    }
+} else {
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel:bg_stone0);
+        case 1 :
+            return(toplevel:bg_stone1);
+        case 2 :
+            return(toplevel:bg_stone2);
+        case 3 :
+            return(toplevel:bg_stone3);
+        case 4 :
+            return(toplevel:bg_stone4);
+        case 5 :
+            return(toplevel:bg_stone5);
+        case 6 :
+            return(toplevel:bg_stone6);
+        case 7 :
+            return(toplevel:bg_stone7);
+        case 8 :
+            return(toplevel:bg_stone8);
+        case 9 :
+            return(toplevel:bg_stone9);
+        case 10 :
+            return(toplevel:bg_stone10);
+        case 11 :
+            return(toplevel:bg_stone11);
+        case 12 :
+            return(toplevel:bg_stone12);
+        case 13 :
+            return(toplevel:bg_stone13);
+        case 14 :
+            return(toplevel:bg_stone14);
+        case 15 :
+            return(toplevel:bg_stone15);
+    }
+}
+return(null);

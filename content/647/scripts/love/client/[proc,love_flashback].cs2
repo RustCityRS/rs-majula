@@ -1,0 +1,135 @@
+// 3472
+[proc,love_flashback](component $component0, component $component1)
+switch_int (%tutorial3_cutscene_tracker) {
+    case 51 :
+        cc_deleteall($component0);
+        ~tutorial3_fadeout(^black, 100, $component0);
+    case 52 :
+        if (%evq_region_sw = null | calc(coordx(coord) - coordx(%evq_region_sw)) > 128 | calc(coordz(coord) - coordz(%evq_region_sw)) > 128) {
+            %evq_region_sw = ~coord_0_0(coord);
+        }
+        ~tutorial3_fadein(75, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(0, 30, 26), 500, ~script3474(0, 29, 26), 500, 0);
+        spline_addpoint(1, 0, ~script3474(0, 33, 26), 250, ~script3474(0, 33, 26), 250, 0);
+        spline_addpoint(0, 1, ~script3474(0, 20, 30), 600, ~script3474(0, 20, 30), 500, 0);
+        spline_addpoint(1, 1, ~script3474(0, 23, 26), 250, ~script3474(0, 23, 26), 250, 0);
+        cam_movealong(0, 0, 150, 150, 1, 0);
+    case 53 :
+        spline_new(0, 3);
+        spline_new(1, 3);
+        spline_addpoint(0, 0, ~script3474(0, 7, 26), 425, ~script3474(0, 6, 26), 425, 0);
+        spline_addpoint(1, 0, ~script3474(0, 13, 25), 275, ~script3474(0, 13, 25), 275, 0);
+        spline_addpoint(0, 1, ~script3474(0, 5, 28), 425, ~script3474(0, 6, 26), 425, 0);
+        spline_addpoint(1, 1, ~script3474(0, 11, 27), 275, ~script3474(0, 11, 27), 275, 0);
+        spline_addpoint(0, 2, ~script3474(0, 3, 26), 425, ~script3474(0, 3, 27), 425, 0);
+        spline_addpoint(1, 2, ~script3474(0, 11, 26), 275, ~script3474(0, 11, 26), 275, 0);
+        if_setoncamfinished($component0, "script3473($component0, 1, 50, 0, 0, 0)");
+        cam_movealong(0, 0, 150, 50, 1, 0);
+    case 54 :
+        if_setoncamfinished($component0, null);
+        ~tutorial3_fadeout(^black, 25, $component0);
+    case 55 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 4);
+        spline_new(1, 4);
+        spline_addpoint(0, 0, ~script3474(0, 79, 16), 800, ~script3474(0, 79, 16), 800, 0);
+        spline_addpoint(1, 0, ~script3474(0, 73, 18), 325, ~script3474(0, 73, 18), 325, 0);
+        spline_addpoint(0, 1, ~script3474(0, 81, 17), 900, ~script3474(0, 81, 17), 900, 0);
+        spline_addpoint(1, 1, ~script3474(0, 73, 17), 275, ~script3474(0, 73, 17), 275, 0);
+        spline_addpoint(0, 2, ~script3474(0, 82, 19), 1000, ~script3474(0, 82, 19), 1000, 0);
+        spline_addpoint(1, 2, ~script3474(0, 73, 16), 225, ~script3474(0, 73, 16), 225, 0);
+        spline_addpoint(0, 3, ~script3474(0, 82, 16), 1100, ~script3474(0, 82, 16), 1100, 0);
+        spline_addpoint(1, 3, ~script3474(0, 73, 17), 175, ~script3474(0, 73, 17), 175, 0);
+        if_setoncamfinished($component0, "script3473($component0, 1, 175, 125, 125, 0)");
+        cam_movealong(0, 0, 150, 175, 1, 0);
+    case 56 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(0, 3, 28), 425, ~script3474(0, 3, 27), 425, 0);
+        spline_addpoint(1, 0, ~script3474(0, 11, 26), 275, ~script3474(0, 11, 26), 275, 0);
+        spline_addpoint(0, 1, ~script3474(0, 0, 25), 425, ~script3474(0, 0, 26), 425, 0);
+        spline_addpoint(1, 1, ~script3474(0, 11, 26), 275, ~script3474(0, 11, 26), 275, 0);
+        cam_movealong(0, 0, 75, 0, 1, 0);
+    case 57 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(0, 123, 15), 800, ~script3474(0, 123, 15), 800, 0);
+        spline_addpoint(1, 0, ~script3474(0, 114, 11), 175, ~script3474(0, 114, 11), 175, 0);
+        spline_addpoint(0, 1, ~script3474(0, 120, 10), 600, ~script3474(0, 120, 10), 600, 0);
+        spline_addpoint(1, 1, ~script3474(0, 114, 12), 275, ~script3474(0, 114, 12), 275, 0);
+        cam_movealong(0, 0, 100, 0, 1, 0);
+    case 58 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(0, 7, 26), 400, ~script3474(0, 7, 26), 400, 0);
+        spline_addpoint(1, 0, ~script3474(0, 11, 27), 275, ~script3474(0, 11, 27), 275, 0);
+        spline_addpoint(0, 1, ~script3474(0, 8, 29), 400, ~script3474(0, 8, 29), 400, 0);
+        spline_addpoint(1, 1, ~script3474(0, 11, 28), 275, ~script3474(0, 11, 28), 275, 0);
+        cam_movealong(0, 0, 50, 0, 1, 0);
+    case 59 :
+        if_setoncamfinished($component0, null);
+        ~tutorial3_fadeout(^black, 75, $component0);
+    case 60 :
+        ~tutorial3_fadein(75, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(0, 43, 28), 700, ~script3474(0, 42, 28), 700, 0);
+        spline_addpoint(1, 0, ~script3474(0, 31, 24), 200, ~script3474(0, 31, 24), 200, 0);
+        spline_addpoint(0, 1, ~script3474(0, 36, 25), 425, ~script3474(0, 36, 25), 425, 0);
+        spline_addpoint(1, 1, ~script3474(0, 32, 27), 275, ~script3474(0, 32, 27), 275, 0);
+        cam_movealong(0, 0, 125, 0, 1, 0);
+    case 61 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 3);
+        spline_new(1, 3);
+        spline_addpoint(0, 0, ~script3474(0, 40, 90), 1200, ~script3474(0, 35, 90), 1200, -2000);
+        spline_addpoint(1, 0, ~script3474(0, 24, 110), 425, ~script3474(0, 24, 110), 425, 0);
+        spline_addpoint(0, 1, ~script3474(0, 15, 97), 600, ~script3474(0, 14, 97), 600, 500);
+        spline_addpoint(1, 1, ~script3474(0, 29, 110), 400, ~script3474(0, 29, 110), 400, 0);
+        spline_addpoint(0, 2, ~script3474(0, 22, 102), 500, ~script3474(0, 22, 102), 500, 0);
+        spline_addpoint(1, 2, ~script3474(0, 30, 111), 375, ~script3474(0, 30, 111), 375, 0);
+        if_setoncamfinished($component0, "script3473($component0, 1, 400, 100, 100, 0)");
+        cam_movealong(0, 0, 400, 400, 1, 0);
+    case 62 :
+        if_setoncamfinished($component0, null);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(0, 34, 120), 450, ~script3474(0, 29, 120), 450, 0);
+        spline_addpoint(1, 0, ~script3474(0, 30, 112), 225, ~script3474(0, 30, 112), 225, 0);
+        spline_addpoint(0, 1, ~script3474(0, 33, 116), 300, ~script3474(0, 33, 116), 300, 0);
+        spline_addpoint(1, 1, ~script3474(0, 30, 111), 225, ~script3474(0, 30, 111), 225, 0);
+        cam_movealong(0, 0, 50, 100, 1, 0);
+    case 63 :
+        ~tutorial3_fadein(50, $component0);
+        ~clanwars_ffa(1, $component1, love_cutscenes:clanwars_background, love_cutscenes:clanwars_icon, love_cutscenes:clanwars_header, love_cutscenes:clanwars_text, null, 1);
+        if_sethide($component1, false);
+        spline_new(0, 3);
+        spline_new(1, 3);
+        spline_addpoint(0, 0, ~script3474(1, 64, 98), 500, ~script3474(1, 66, 96), 500, 0);
+        spline_addpoint(1, 0, ~script3474(1, 90, 98), 500, ~script3474(1, 90, 98), 500, 0);
+        spline_addpoint(0, 1, ~script3474(1, 90, 80), 1000, ~script3474(1, 88, 80), 950, 0);
+        spline_addpoint(1, 1, ~script3474(1, 91, 98), 500, ~script3474(1, 91, 98), 500, 0);
+        spline_addpoint(0, 2, ~script3474(1, 91, 87), 1000, ~script3474(1, 91, 87), 1000, 0);
+        spline_addpoint(1, 2, ~script3474(1, 90, 98), 500, ~script3474(1, 90, 98), 500, 0);
+        if_setoncamfinished($component0, "script3473($component0, 1, 200, 0, 0, 0)");
+        cam_movealong(0, 0, 700, 700, 1, 0);
+    case 64 :
+        if_setoncamfinished($component0, null);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~script3474(1, 91, 91), 800, ~script3474(1, 91, 91), 800, 0);
+        spline_addpoint(1, 0, ~script3474(1, 91, 98), 450, ~script3474(1, 91, 98), 450, 0);
+        spline_addpoint(0, 1, ~script3474(1, 91, 94), 750, ~script3474(1, 91, 94), 750, 0);
+        spline_addpoint(1, 1, ~script3474(1, 91, 98), 425, ~script3474(1, 91, 98), 425, 0);
+        cam_movealong(0, 0, 75, 0, 1, 0);
+    case 65 :
+        if_sethide($component1, true);
+        ~tutorial3_fadein(75, $component0);
+    case default :
+        cam_smoothreset;
+}

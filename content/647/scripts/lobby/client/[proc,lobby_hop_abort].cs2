@@ -1,0 +1,7 @@
+// 1873
+[proc,lobby_hop_abort]
+if (%loginscreen_hopblocked_time > 0) {
+    ~lobbyscreen_loginbutton_text(1);
+    if_setontimer(lobbyscreen:loginbutton, null);
+    ~lobby_popup_close;
+}

@@ -1,0 +1,36 @@
+// 919
+[proc,objreq_buy_pane]
+def_int $int0 = inv_total(inv, %objreq_currency);
+def_string $string0 = "Cost:";
+def_int $int1 = -1;
+if (%objreq_price = 0) {
+    $string0 = "None available";
+} else if (%objreq_price = -1) {
+    $string0 = "Free sample!";
+} else {
+    $int1 = %objreq_price;
+}
+if_settext(obj_info:buy_text, $string0);
+if ($int1 > $int0) {
+    if_setcolour(obj_info:player_has, ^red);
+} else {
+    if_setcolour(obj_info:player_has, %objreq_fontcol);
+}
+if ($int1 > -1) {
+    if_setobject_alwaysnum(obj_info:buy_graphic, %objreq_currency, $int1);
+} else {
+    if_setobject_nonum(obj_info:buy_graphic, null, -1);
+}
+if (%objreq_price = -1) {
+    if_settext(obj_info:buy_button_text, "Take");
+    if_setop(obj_info:buy_button, 1, "Take 1");
+    if_setop(obj_info:buy_button, 2, "Take 5");
+    if_setop(obj_info:buy_button, 3, "Take 10");
+    if_setop(obj_info:buy_button, 4, "Take 50");
+} else {
+    if_settext(obj_info:buy_button_text, "Buy");
+    if_setop(obj_info:buy_button, 1, "Buy 1");
+    if_setop(obj_info:buy_button, 2, "Buy 5");
+    if_setop(obj_info:buy_button, 3, "Buy 10");
+    if_setop(obj_info:buy_button, 4, "Buy 50");
+}

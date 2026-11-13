@@ -1,0 +1,9 @@
+// 2624
+[clientscript,mob_initialise_buttons]
+def_int $int0 = 1;
+def_component $component1 = null;
+while (enum(int, component, enum_2450, $int0) ! mob_chat:summary) {
+    $component1 = enum(int, component, enum_2450, $int0);
+    if_settext($component1, "<col=800000><enum(component, string, enum_2449, $component1)>  <col=000000><enum(component, string, enum_2448, $component1)>");
+    $int0 = calc($int0 + 1);
+}

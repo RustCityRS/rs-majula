@@ -1,0 +1,186 @@
+// 723:0
+[com_0]
+type=model
+x=31
+width=434
+height=334
+model=model_3623
+modelorigin=0,-37
+modelangle=505,2047,0
+modelzoom=571
+
+// 723:1
+[com_1]
+type=layer
+x=77
+y=82
+width=322
+height=197
+scrollheight=400
+
+// 723:2
+[dwarf]
+type=model
+x=18
+y=8
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 723:3
+[goblin]
+type=model
+x=18
+y=98
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 723:4
+[pirate]
+type=model
+x=18
+y=188
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 723:5
+[guide]
+type=model
+x=18
+y=278
+width=37
+height=30
+layer=com_1
+model=model_2632
+modelorigin=0,14
+modelzoom=288
+
+// 723:6
+[com_6]
+type=text
+x=82
+y=32
+width=153
+height=14
+layer=com_1
+textfont=p12_full
+text=Part1 - Waking the Musaph
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script2347(1)
+
+// 723:7
+[com_7]
+type=text
+x=82
+y=122
+width=197
+height=14
+layer=com_1
+textfont=p12_full
+text=Part2 - Missing My Mummy
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script2347(2)
+
+// 723:8
+[com_8]
+type=text
+x=83
+y=212
+width=154
+height=14
+layer=com_1
+textfont=p12_full
+text=Part3 - The Curse of Arrav
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script2347(3)
+
+// 723:9
+[com_9]
+type=text
+x=80
+y=302
+width=143
+height=14
+layer=com_1
+textfont=p12_full
+text=Part4 - Senntisten
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=View
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script2347(4)
+
+// 723:10
+[scroll]
+type=layer
+x=401
+y=82
+width=16
+height=197
+onload=scrollbar_vertical_graphics(event_com, interface_723:com_1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 723:11
+[com_11]
+type=graphic
+x=420
+y=18
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 723:12
+[com_12]
+type=text
+x=142
+y=24
+width=200
+height=14
+textfont=b12_full
+text=Mysteries of the Mahjarrat
+textalignh=centre
+textshadow=yes
+colour=0xffcc66
+
+// 723:13
+[com_13]
+type=text
+x=64
+y=40
+width=349
+height=40
+textfont=p12_full
+text=This quest is comprised of the 4 subquests highlighted below
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933

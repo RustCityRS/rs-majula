@@ -1,0 +1,83 @@
+// 1018:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 1018:1
+[head_model_0]
+type=model
+x=1474
+width=32
+height=32
+xmode=proportion_left
+ymode=abs_centre
+layer=layer_1
+model=null
+modelangle=40,1882,0
+modelzoom=2168
+
+// 1018:2
+[head_model_1]
+type=model
+x=1474
+width=32
+height=32
+xmode=proportion_left
+ymode=abs_centre
+layer=layer_1
+model=null
+modelangle=40,1882,0
+modelzoom=2150
+
+// 1018:3
+[name_text]
+type=text
+x=30
+y=1310
+width=350
+height=17
+xmode=abs_right
+ymode=proportion_top
+layer=layer_1
+textfont=q8_full
+text=Name
+textalignh=centre
+colour=0x800000
+
+// 1018:4
+[line_1_text]
+type=text
+x=30
+y=31
+width=350
+height=67
+xmode=abs_right
+layer=layer_1
+textfont=q8_full
+text=Line 1
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1018:5
+[continue_text]
+type=text
+x=30
+y=1310
+width=350
+height=17
+xmode=abs_right
+ymode=proportion_bottom
+layer=layer_1
+textfont=q8_full
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+transmitop=1,10
+op1=Continue
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

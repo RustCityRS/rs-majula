@@ -1,0 +1,7 @@
+// 4064
+[clientscript,warguild_select_token_type](component $component0)
+if (%varclient_1431 = 1) {
+    return;
+}
+~warguild_select_token_type($component0);
+~script4069;

@@ -1,0 +1,7 @@
+// 1675
+[proc,updatemodel](int $int0)
+if ($int0 = 0) {
+    if_setmodel(champions2_bannerselect:banner, enum(int, model, enum_839, %champions_defeated_count));
+} else {
+    if_setmodel(champions2_bannerselect:banner, enum(int, model, enum_838, $int0));
+}

@@ -1,0 +1,20 @@
+// 810
+[proc,topstat_set_lore_icon]
+if (map_members = true & %lore_lore_available = 1) {
+    if_sethide(topstat_lore:topstat_background_lore, false);
+    if_sethide(topstat_lore:topstat_circle_lore, false);
+    if_sethide(topstat_lore:topstat_graphic_lore, false);
+    if_sethide(topstat_lore:com_4, false);
+    if_sethide(topstat_lore:select_leftclick_layer, false);
+    ~script817(summoning);
+    if_sethide(topstat_lore:topstat_text_lore, false);
+    if_setcolour(topstat_lore:topstat_text_lore, ~topstat_set_text_colour_skill(summoning));
+    if_settext(topstat_lore:topstat_text_lore, tostring(stat(summoning)));
+} else {
+    if_sethide(topstat_lore:topstat_background_lore, true);
+    if_sethide(topstat_lore:topstat_circle_lore, true);
+    if_sethide(topstat_lore:topstat_text_lore, true);
+    if_sethide(topstat_lore:topstat_graphic_lore, true);
+    if_sethide(topstat_lore:com_4, true);
+    if_sethide(topstat_lore:select_leftclick_layer, true);
+}

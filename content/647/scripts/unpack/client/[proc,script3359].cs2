@@ -1,0 +1,26 @@
+// 3359
+[proc,script3359]()(int, string, obj)
+switch_obj (%follower_obj) {
+    case default :
+        return(3, "Snaring Wave (Tier 1)", rand_loremag_01_spell);
+    case rand_loremag_01 :
+        return(3, "Snaring Wave (Tier 1)", rand_loremag_01_spell);
+    case rand_loremag_02 :
+        return(13, "Snaring Wave (Tier 2)", rand_loremag_02_spell);
+    case rand_loremag_03 :
+        return(23, "Snaring Wave (Tier 3)", rand_loremag_03_spell);
+    case rand_loremag_04 :
+        return(33, "Snaring Wave (Tier 4)", rand_loremag_04_spell);
+    case rand_loremag_05 :
+        return(43, "Snaring Wave (Tier 5)", rand_loremag_05_spell);
+    case rand_loremag_06 :
+        return(53, "Snaring Wave (Tier 6)", rand_loremag_06_spell);
+    case rand_loremag_07 :
+        return(63, "Snaring Wave (Tier 7)", rand_loremag_07_spell);
+    case rand_loremag_08 :
+        return(73, "Snaring Wave (Tier 8)", rand_loremag_08_spell);
+    case rand_loremag_09 :
+        return(83, "Snaring Wave (Tier 9)", rand_loremag_09_spell);
+    case rand_loremag_10 :
+        return(93, "Snaring Wave (Tier 10)", rand_loremag_10_spell);
+}

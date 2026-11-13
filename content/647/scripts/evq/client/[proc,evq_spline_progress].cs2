@@ -1,0 +1,11 @@
+// 2825
+[proc,evq_spline_progress](int $int0)
+if (%evq_spline_counter = calc(spline_length(0) - 1)) {
+    if ($int0 = 1) {
+        cam_smoothreset;
+    }
+    if_setoncamfinished(fade2:eventlayer, null);
+    return;
+}
+cam_movealong(0, %evq_spline_counter, enum(int, int, %evq_spline_enum_speed, %evq_spline_counter), enum(int, int, %evq_spline_enum_speed, calc(%evq_spline_counter + 1)), 1, %evq_spline_counter);
+%evq_spline_counter = calc(%evq_spline_counter + 1);

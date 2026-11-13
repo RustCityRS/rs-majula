@@ -1,0 +1,3 @@
+// 3113
+[proc,lobby_worldswitcher_drawlist]
+if_setontimer(lobbyscreen_pane_worldselect:main, "lobby_worldswitcher_timer");

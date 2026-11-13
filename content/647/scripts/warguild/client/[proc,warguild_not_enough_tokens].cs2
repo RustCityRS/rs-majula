@@ -1,0 +1,4 @@
+// 4061
+[proc,warguild_not_enough_tokens]
+if_settext(warguild_token_choice:ok_text, "Not Enough Tokens");
+if_setcolour(warguild_token_choice:ok_text, ^red);

@@ -1,0 +1,23 @@
+// 2021
+[clientscript,script2021](component $component0, boolean $boolean1)
+if ($boolean1 = true) {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic(graphic_3862);
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic(graphic_3860);
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic(graphic_3861);
+    }
+} else {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic(graphic_3859);
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic(graphic_3857);
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic(graphic_3858);
+    }
+}

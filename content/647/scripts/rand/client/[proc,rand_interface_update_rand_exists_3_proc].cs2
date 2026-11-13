@@ -1,0 +1,19 @@
+// 3184
+[proc,rand_interface_update_rand_exists_3_proc]
+if (%rand_exists_3 = 1) {
+    if_settext(rand_dungeon_rewards_v2:player_3_name, %rand_name_3);
+    if_settext(rand_dungeon_rewards_v2:player_3_title_1, enum(int, string, enum_2857, %rand_award_3_1));
+    if_settext(rand_dungeon_rewards_v2:player_3_title_2, enum(int, string, enum_2857, %rand_award_3_2));
+    if_settext(rand_dungeon_rewards_v2:player_3_title_3, enum(int, string, enum_2857, %rand_award_3_3));
+    if_settext(rand_dungeon_rewards_v2:player_3_title_4, enum(int, string, enum_2857, %rand_award_3_4));
+    if_settext(rand_dungeon_rewards_v2:player_3_title_5, enum(int, string, enum_2857, %rand_award_3_5));
+    if_settext(rand_dungeon_rewards_v2:player_3_title_6, enum(int, string, enum_2857, %rand_award_3_6));
+} else {
+    if_settext(rand_dungeon_rewards_v2:player_3_name, "");
+    if_settext(rand_dungeon_rewards_v2:player_3_title_1, "");
+    if_settext(rand_dungeon_rewards_v2:player_3_title_2, "");
+    if_settext(rand_dungeon_rewards_v2:player_3_title_3, "");
+    if_settext(rand_dungeon_rewards_v2:player_3_title_4, "");
+    if_settext(rand_dungeon_rewards_v2:player_3_title_5, "");
+    if_settext(rand_dungeon_rewards_v2:player_3_title_6, "");
+}

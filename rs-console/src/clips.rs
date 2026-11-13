@@ -1,4 +1,6 @@
 use rs_admin_api::ReplaySummary;
+use std::fs;
+use std::io::{self, Error};
 use std::path::{Path, PathBuf};
 
 /// Recordings the console keeps because a case has a clip of them: the
@@ -20,10 +22,10 @@ pub fn file_duration(file: &[u8]) -> Option<u64> {
 
 /// Writes beside `path` and renames over it, so a crash never leaves it half
 /// written.
-fn write(path: &Path, bytes: &[u8]) -> std::io::Result<()> {
+fn write(path: &Path, bytes: &[u8]) -> io::Result<()> {
     let tmp = path.with_extension("tmp");
-    std::fs::write(&tmp, bytes)?;
-    std::fs::rename(&tmp, path)
+    fs::write(&tmp, bytes)?;
+    fs::rename(&tmp, path)
 }
 
 impl Clips {
@@ -38,10 +40,10 @@ impl Clips {
 
     /// Keeps `file` as recording `id`'s, unless a longer copy is kept
     /// already (one taken later in a session still going).
-    pub fn keep(&self, summary: &ReplaySummary, file: &[u8]) -> std::io::Result<()> {
-        std::fs::create_dir_all(&self.dir)?;
+    pub fn keep(&self, summary: &ReplaySummary, file: &[u8]) -> io::Result<()> {
+        fs::create_dir_all(&self.dir)?;
         let path = self.path(&summary.id, "replay");
-        let longer = std::fs::read(&path)
+        let longer = fs::read(&path)
             .ok()
             .is_some_and(|old| file_duration(&old).unwrap_or(0) > file_duration(file).unwrap_or(0));
         if longer {
@@ -50,16 +52,16 @@ impl Clips {
         write(&path, file)?;
         write(
             &self.path(&summary.id, "json"),
-            &serde_json::to_vec_pretty(summary).map_err(std::io::Error::other)?,
+            &serde_json::to_vec_pretty(summary).map_err(Error::other)?,
         )
     }
 
     pub fn file(&self, id: &str) -> Option<Vec<u8>> {
-        std::fs::read(self.path(id, "replay")).ok()
+        fs::read(self.path(id, "replay")).ok()
     }
 
     pub fn summary(&self, id: &str) -> Option<ReplaySummary> {
-        let text = std::fs::read(self.path(id, "json")).ok()?;
+        let text = fs::read(self.path(id, "json")).ok()?;
         serde_json::from_slice(&text).ok()
     }
 }
@@ -67,6 +69,8 @@ impl Clips {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
+    use std::process;
 
     fn file(duration_ms: u64) -> Vec<u8> {
         let header = format!(r#"{{"durationMs":{duration_ms},"notes":[]}}"#);
@@ -97,7 +101,7 @@ mod tests {
 
     #[test]
     fn keeps_the_longest_copy() {
-        let dir = std::env::temp_dir().join(format!("rs-console-clips-{}", std::process::id()));
+        let dir = env::temp_dir().join(format!("rs-console-clips-{}", process::id()));
         let clips = Clips::new(dir.clone());
         assert_eq!(file_duration(&file(5000)), Some(5000));
         assert_eq!(file_duration(b"short"), None);
@@ -108,6 +112,6 @@ mod tests {
         assert_eq!(file_duration(&clips.file("12").unwrap()), Some(9000));
         assert_eq!(clips.summary("12").unwrap().player, "Bob");
         assert!(clips.file("13").is_none());
-        let _ = std::fs::remove_dir_all(dir);
+        let _ = fs::remove_dir_all(dir);
     }
 }

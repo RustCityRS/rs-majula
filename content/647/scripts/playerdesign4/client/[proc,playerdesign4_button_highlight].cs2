@@ -1,0 +1,24 @@
+// 370
+[proc,playerdesign4_button_highlight](component $component0, boolean $boolean1)
+if ($boolean1 = true) {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic("set_but_fill_2,1");
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic("set_but_end_2,1");
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic("set_but_end_2,4");
+    }
+} else {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic("set_but_fill_2,0");
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic("set_but_end_2,0");
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic("set_but_end_2,3");
+    }
+    ~playerdesign4_tooltip_clear;
+}

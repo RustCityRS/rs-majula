@@ -1,0 +1,10 @@
+// 4367
+[proc,clan_paste_qfc]
+def_string $string0 = escape(getclipboard);
+if (string_length($string0) <= 13) {
+    %qfc_input_varc = $string0;
+    %qfc_input_caret_varc = string_length(%qfc_input_varc);
+    %qfc_input_caret_varc = ~script1552(%qfc_input_caret_varc, %qfc_input_varc, verdana_11pt_regular_multiline, clan_qfc_input:text_box, -1);
+    if_setposition(clan_qfc_input:caret, %qfc_input_caret_varc, if_gety(clan_qfc_input:caret), ^setpos_abs_left, ^setpos_abs_top);
+    if_settext(clan_qfc_input:text_box, %qfc_input_varc);
+}

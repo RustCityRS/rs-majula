@@ -1,0 +1,45 @@
+// 930
+[proc,obj_wear_quest_requirements](obj $obj0)(boolean)
+def_int $int1 = oc_param($obj0, param_743);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_744);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_745);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_746);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_747);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = oc_param($obj0, param_748);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+return(true);

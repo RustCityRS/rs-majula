@@ -1,0 +1,13 @@
+// 1719
+[proc,script1719]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %atvar_elite_bork);
+$int0 = calc($int0 + %atvar_elite_zimberfizz);
+$int0 = calc($int0 + %atvar_elite_sawmill);
+$int0 = calc($int0 + %atvar_elite_adze);
+$int0 = calc($int0 + %atvar_elite_backfire);
+$int0 = calc($int0 + %atvar_elite_summerpie);
+$int0 = calc($int0 + %atvar_elite_senntisten);
+$int0 = calc($int0 + %atvar_elite_bolts);
+$int0 = calc($int0 + %atvar_elite_earthrune);
+return($int0);

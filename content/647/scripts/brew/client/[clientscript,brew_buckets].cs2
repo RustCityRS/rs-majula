@@ -1,0 +1,10 @@
+// 1754
+[clientscript,brew_buckets](component $component0, component $component1)
+if (%brew_varc_buckets > 4) {
+    if_setmodel($component0, model_15690);
+    if_setcolour($component1, 0x33ff00);
+} else {
+    if_setmodel($component0, model_15689);
+    if_setcolour($component1, 0x910000);
+}
+if_settext($component1, tostring(%brew_varc_buckets));

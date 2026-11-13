@@ -1,0 +1,20 @@
+// 2753
+[clientscript,meslayer_lastname](int $int0, int $int1, component $component2, int $int3, string $string0)
+if ($int1 ! 1) {
+    return;
+}
+if (cc_find($component2, $int3) = true) {
+    cc_delete;
+}
+if (%meslayermode ! $int0 | string_length($string0) <= 0) {
+    return;
+}
+%meslayerinput = removetags($string0);
+if_settext(chattop:mes_text2, escape(%meslayerinput));
+if (%meslayermode = 8) {
+    resume_namedialog(%meslayerinput);
+    ~meslayer_close(0);
+} else if (%meslayermode = 10) {
+    clan_joinchat(%meslayerinput);
+    ~meslayer_close(0);
+}

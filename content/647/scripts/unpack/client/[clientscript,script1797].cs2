@@ -1,0 +1,53 @@
+// 1797
+[clientscript,script1797](component $component0, component $component1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+while ($int2 < 10) {
+    switch_int ($int2) {
+        case 0 :
+            if_setposition("clanwars_setup:25kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:25kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:25kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 1 :
+            if_setposition("clanwars_setup:50kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:50kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:50kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 2 :
+            if_setposition("clanwars_setup:100kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:100kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:100kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 3 :
+            if_setposition("clanwars_setup:200kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:200kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:200kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 4 :
+            if_setposition("clanwars_setup:400kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:400kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:400kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 5 :
+            if_setposition("clanwars_setup:750kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:750kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:750kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 6 :
+            if_setposition("clanwars_setup:1000kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:1000kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:1000kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 7 :
+            if_setposition("clanwars_setup:2500kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:2500kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:2500kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 8 :
+            if_setposition("clanwars_setup:5000kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:5000kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:5000kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+        case 9 :
+            if_setposition("clanwars_setup:10000kills_text", 25, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:10000kills_indicator", 4, $int3, ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition("clanwars_setup:10000kills_button", 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int3 = calc($int3 + 17);
+    $int2 = calc($int2 + 1);
+}
+if_setscrollsize($component0, 0, $int3);
+if_setscrollpos($component0, 0, 0);
+~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

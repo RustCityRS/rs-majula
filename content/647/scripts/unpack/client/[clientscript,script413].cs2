@@ -1,0 +1,6 @@
+// 413
+[clientscript,script413]
+cam_followcoord(coord);
+%conq_camera_coord = coord;
+%conq_camera_counter = 0;
+%conq_camera_delay = 0;

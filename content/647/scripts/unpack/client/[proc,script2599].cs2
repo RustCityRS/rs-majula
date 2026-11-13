@@ -1,0 +1,86 @@
+// 2599
+[proc,script2599]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_obj $objarray0(10);
+def_int $intarray1(10);
+def_int $intarray2(10);
+def_int $int4 = 0;
+while ($int1 < 28 & $int2 < 10) {
+    $obj3 = inv_getobj(inv, $int1);
+    if ($obj3 ! null & (oc_param($obj3, param_802) = 1 | oc_param($obj3, param_803) = 1)) {
+        $objarray0($int2) = $obj3;
+        $int2 = calc($int2 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+$obj3 = null;
+$intarray1(0) = %varplayerbit_6405;
+$intarray1(1) = %varplayerbit_6406;
+$intarray1(2) = %varplayerbit_6407;
+$intarray1(3) = %varplayerbit_6408;
+$intarray1(4) = %varplayerbit_6409;
+$intarray1(5) = %varplayerbit_6410;
+$intarray1(6) = %varplayerbit_6411;
+$intarray1(7) = %varplayerbit_6412;
+$intarray1(8) = %varplayerbit_6413;
+$intarray1(9) = %varplayerbit_6414;
+$int1 = 0;
+while ($int1 < 10) {
+    if ($objarray0($int1) ! null) {
+        if (oc_param($obj3, param_803) = 1) {
+            $intarray2($int1) = calc(%varplayerbit_6405 * 50);
+        }
+        if (oc_param($objarray0($int1), param_803) = 1 & $intarray1($int1) = 1) {
+            $intarray2($int1) = 50;
+            $int4 = calc($int4 + $intarray2($int1));
+        }
+        if_settext(enum(int, component, enum_2424, $int1), "Cost: <tostring($intarray2($int1))>");
+    }
+    $int1 = calc($int1 + 1);
+}
+if_settext(mob_squad_exchange:total, tostring($intarray2(%varclient_929)));
+%varclient_928 = $int4;
+if_settext(mob_squad_exchange:grand_total_text, tostring(%varclient_928));
+if_settext(mob_squad_exchange:investment_total_text, "Remaining investment credits: <tostring(calc(%varplayerbit_6351 - %varclient_928))>");
+if (%varclient_928 <= %varplayerbit_6351) {
+    if_setgraphic(mob_squad_exchange:apply_graphic, "mob_exchange_tick,0");
+    if_setonop(mob_squad_exchange:apply, "script2605");
+    if_setop(mob_squad_exchange:apply, 1, "Apply changes");
+    if_setonmouseover(mob_squad_exchange:apply, "v2_stone_button_in(event_com)");
+    if_setcolour(mob_squad_exchange:grand_total_text, 0xff9935);
+    if_setonclick(mob_squad_exchange:apply, null);
+} else {
+    if_setgraphic(mob_squad_exchange:apply_graphic, "mob_exchange_tick,1");
+    if_setonop(mob_squad_exchange:apply, null);
+    if_clearops(mob_squad_exchange:apply);
+    if_setonmouseover(mob_squad_exchange:apply, null);
+    if_setcolour(mob_squad_exchange:grand_total_text, 0xff1111);
+    if_setonclick(mob_squad_exchange:apply, "script2606(event_com)");
+}
+$int1 = 0;
+while ($int1 < 10) {
+    if ($objarray0($int1) ! null & oc_param($objarray0($int1), param_803) = 1) {
+        $int0 = calc($int0 + 50);
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int0 > 0) {
+    if_settext(mob_squad_exchange:resupply_all_text, "Resupply all<br>(<tostring($int0)>)");
+}
+if (%varplayerbit_6351 >= $int0 & $int0 > 0) {
+    if_setcolour(mob_squad_exchange:resupply_all_text, 0xff9935);
+    if_setonop(mob_squad_exchange:resupply_all, "script2603");
+    if_setop(mob_squad_exchange:resupply_all, 1, "Resupply all");
+    if_setonmouseover(mob_squad_exchange:resupply_all, "v2_stone_button_in(event_com)");
+    if_setonclick(mob_squad_exchange:resupply_all, null);
+} else {
+    if_settext(mob_squad_exchange:resupply_all_text, "Resupply all");
+    if_setcolour(mob_squad_exchange:resupply_all_text, 0x666666);
+    if_setonop(mob_squad_exchange:resupply_all, null);
+    if_clearops(mob_squad_exchange:resupply_all);
+    if_setonmouseover(mob_squad_exchange:resupply_all, null);
+    if_setonclick(mob_squad_exchange:resupply_all, "script2606(event_com)");
+}

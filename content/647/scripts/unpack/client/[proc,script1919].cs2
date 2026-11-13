@@ -1,0 +1,27 @@
+// 1919
+[proc,script1919]
+if (%sc_client_tier1_total > 0) {
+    if_setcolour(sc_processing:clay_1_text, 0xc8aa64);
+} else {
+    if_setcolour(sc_processing:clay_1_text, 0x333333);
+}
+if (%sc_client_tier2_total > 0) {
+    if_setcolour(sc_processing:clay_2_text, 0xc8aa64);
+} else {
+    if_setcolour(sc_processing:clay_2_text, 0x333333);
+}
+if (%sc_client_tier3_total > 0) {
+    if_setcolour(sc_processing:clay_3_text, 0xc8aa64);
+} else {
+    if_setcolour(sc_processing:clay_3_text, 0x333333);
+}
+if (%sc_client_tier4_total > 0) {
+    if_setcolour(sc_processing:clay_4_text, 0xc8aa64);
+} else {
+    if_setcolour(sc_processing:clay_4_text, 0x333333);
+}
+if (%sc_client_tier5_total > 0) {
+    if_setcolour(sc_processing:clay_5_text, 0xc8aa64);
+} else {
+    if_setcolour(sc_processing:clay_5_text, 0x333333);
+}

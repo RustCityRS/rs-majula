@@ -1,7 +1,9 @@
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
-use crate::{ObjSerial, PlayerUid};
+use crate::{ComId, ObjSerial, PlayerUid};
+#[cfg(since_647)]
+use crate::{ControllerUid, RegionUid};
 use rs_grid::CoordGrid;
-use rs_inv::Inventory;
+use rs_inv::{Inventory, Item};
 use rs_pack::cache::VarValue;
 use rs_pack::cache::category::CategoryTypeProvider;
 use rs_pack::cache::dbrow::DbRowTypeProvider;
@@ -26,13 +28,20 @@ use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varc::VarClientTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 use rs_util::random::JavaRandom;
 use std::cell::Cell;
+use std::ptr::null_mut;
 use std::sync::Arc;
 
 /// Engine-level operations available to the script VM.
@@ -66,38 +75,85 @@ pub trait ScriptEngine {
     /// The experience multiplier as defined in the environment args on the engine.
     fn multi_experience(&self) -> u8;
 
+    /// Returns the cache's obj types.
     fn objs(&self) -> &ObjTypeProvider;
+    /// Returns the cache's inv types.
     fn invs(&self) -> &InvTypeProvider;
+    /// Returns the cache's varp (player variable) types.
     fn varps(&self) -> &VarPlayerTypeProvider;
+    /// Returns the cache's client variable types.
+    #[cfg(since_647)]
+    fn varcs(&self) -> &VarClientTypeProvider;
+    /// Returns the cache's varbit types, bit ranges of varps.
     #[cfg(since_254)]
     fn varbits(&self) -> &VarbitTypeProvider;
+    /// Returns the cache's varobj types, the vars an obj can carry.
+    #[cfg(since_647)]
+    fn varobjs(&self) -> &VarObjTypeProvider;
+    /// Returns the cache's varcon (controller variable) types.
+    #[cfg(since_647)]
+    fn varcons(&self) -> &VarConTypeProvider;
+    /// Returns the cache's varconbit types, bit ranges of varcons.
+    #[cfg(since_647)]
+    fn varconbits(&self) -> &VarbitTypeProvider;
+    /// Returns the cache's dbrow types.
     fn dbrows(&self) -> &DbRowTypeProvider;
+    /// Returns the cache's dbtable types.
     fn dbtables(&self) -> &DbTableTypeProvider;
+    /// Returns the cache's dbrow index by column value (`db_find`, `db_find_refine`).
     fn dbindex(&self) -> &DbTableIndex;
+    /// Returns the cache's enum types.
     fn enums(&self) -> &EnumTypeProvider;
+    /// Returns the cache's flo (floor) types.
     fn flos(&self) -> &FloTypeProvider;
+    /// Returns the cache's hunt types, the npc hunt modes.
     fn hunts(&self) -> &HuntTypeProvider;
+    /// Returns the cache's idk (identity kit) types.
     fn idks(&self) -> &IdkTypeProvider;
+    /// Returns the cache's loc types.
     fn locs(&self) -> &LocTypeProvider;
+    /// Returns the cache's mesanim (dialogue chathead animation) types.
     fn mesanims(&self) -> &MesAnimTypeProvider;
+    /// Returns the cache's npc types.
     fn npcs(&self) -> &NpcTypeProvider;
+    /// Returns the cache's param types.
     fn params(&self) -> &ParamTypeProvider;
+    /// Returns the cache's seq (animation) types.
     fn seqs(&self) -> &SeqTypeProvider;
+    /// Returns the cache's spotanim (graphic) types.
     fn spotanims(&self) -> &SpotAnimTypeProvider;
+    /// Returns the cache's struct types.
     fn structs(&self) -> &StructTypeProvider;
+    /// Returns the cache's varn (npc variable) types.
     fn varns(&self) -> &VarnTypeProvider;
+    /// Returns the cache's vars (shared variable) types.
     fn varss(&self) -> &VarsTypeProvider;
+    /// Returns the cache's font types.
     fn fonts(&self) -> &FontTypeProvider;
+    /// Returns the cache's category types.
     fn categories(&self) -> &CategoryTypeProvider;
+    /// Returns the cache's interface component types.
     fn interfaces(&self) -> &IfTypeProvider;
+    /// Returns the cache's word filter, which censors chat.
     fn wordenc(&self) -> &WordEncProvider;
 
+    /// Returns how many ticks the midi with `midi` id `id` lasts (from 647 a
+    /// song's own id, or a jingle's plus `MIDI_JINGLE_BASE`), for `midi_length`
+    /// and the delay `midi_jingle` sends; `None` if no length is known.
     #[cfg(since_254)]
     fn midi_tick_length(&self, id: i32) -> Option<u16>;
+    /// Looks up a jingle by name, for rev 225's `midi_jingle`, which sends the
+    /// jingle's data and `length_ms` itself.
     #[cfg(rev = "225")]
     fn jingle_by_name(&self, name: &str) -> Option<&MidiType>;
+    /// Looks up a song by name (`pop_song` lowercases it and turns spaces into
+    /// underscores first), for rev 225's `midi_song`, which sends the song's
+    /// name, crc and byte length.
     #[cfg(rev = "225")]
     fn song_by_name(&self, name: &str) -> Option<&MidiType>;
+    /// Returns the midi id of the song or jingle named `name`, for the
+    /// `midi_song` and `midi_jingle` of 244 and 245.2, whose scripts name the
+    /// music; `None` if no midi has that name, and nothing plays.
     #[cfg(all(since_244, before_254))]
     fn midi_id(&self, name: &str) -> Option<u16>;
 
@@ -196,6 +252,23 @@ pub trait ScriptEngine {
     where
         Self: Sized;
 
+    /// Runs the `opheld{op}` script of the item `obj` at `slot` (`p_opheld`),
+    /// with them as `last_item` and `last_slot`. Ops 1-5 have a trigger; any
+    /// other op does nothing. The script runs within the protected access
+    /// its caller holds, and the caller keeps it.
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: u16, slot: u16);
+
+    /// Rev-647 `p_setdisplayname`: asks the DB service to validate and claim
+    /// `name` for the player. The saves phase resumes the player's
+    /// `DisplayNamePending` script with the result.
+    #[cfg(since_647)]
+    fn request_set_display_name(&mut self, uid: PlayerUid, name: String);
+
+    /// Rev-647 `p_request_more_suggestions`: asks the DB service for another
+    /// batch of available display-name suggestions.
+    #[cfg(since_647)]
+    fn request_more_suggestions(&mut self, uid: PlayerUid);
+
     /// Appends every NPC in the zone containing `coord` to `out`, so a
     /// search over many zones can reuse one buffer.
     fn extend_zone_npcs(&self, coord: CoordGrid, out: &mut Vec<NpcRef>);
@@ -207,23 +280,19 @@ pub trait ScriptEngine {
         npcs
     }
 
-    /// Returns the packed coordinates of all players in the specified zone.
+    /// Returns the coordinates of all players in the specified zone.
     ///
     /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
+    /// * `coord` - A coordinate in the zone.
     ///
     /// # Returns
-    /// A `Vec<u32>` of packed `CoordGrid` values for each player in the zone.
+    /// The [`CoordGrid`] of each player in the zone.
     fn get_zone_player_coords(&self, coord: CoordGrid) -> Vec<CoordGrid>;
 
     /// Returns the player slot indices for all players in the specified zone.
     ///
     /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
+    /// * `coord` - A coordinate in the zone.
     ///
     /// # Returns
     /// A slice of player slot indices (`&[u16]`).
@@ -256,8 +325,7 @@ pub trait ScriptEngine {
     ///
     /// # Arguments
     /// * `coord` - The packed coordinate where the object should appear.
-    /// * `id` - The object type identifier.
-    /// * `count` - The stack count for the object.
+    /// * `item` - The object, its stack count and (from 647) its varobjs.
     /// * `receiver` - Optional player who alone may see the object. `None`
     ///   makes it visible to everyone.
     /// * `duration` - The tick at which the object should be removed.
@@ -268,8 +336,7 @@ pub trait ScriptEngine {
     fn add_obj(
         &mut self,
         coord: CoordGrid,
-        id: u16,
-        count: u32,
+        item: Item,
         receiver: Option<PlayerUid>,
         duration: u64,
     ) -> crate::Result<ObjSerial>;
@@ -278,16 +345,14 @@ pub trait ScriptEngine {
     ///
     /// # Arguments
     /// * `coord` - The packed coordinate where the object should appear.
-    /// * `id` - The object type identifier.
-    /// * `count` - The stack count for the object.
+    /// * `item` - The object, its stack count and (from 647) its varobjs.
     /// * `receiver` - Optional player restricting visibility.
     /// * `duration` - The tick at which the object should be removed.
     /// * `delay` - The number of ticks to wait before the object becomes visible.
     fn add_obj_delayed(
         &mut self,
         coord: CoordGrid,
-        id: u16,
-        count: u32,
+        item: Item,
         receiver: Option<PlayerUid>,
         duration: u64,
         delay: i32,
@@ -328,6 +393,16 @@ pub trait ScriptEngine {
     /// for everyone).
     fn obj_dropped_for(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> Option<u64>;
 
+    /// The varobjs of a ground object: 0 for one with none set, or that
+    /// isn't there.
+    #[cfg(since_647)]
+    fn obj_var(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> i32;
+
+    /// Sets the varobjs of a dropped ground object; `false` if it isn't there
+    /// or is a map spawn, which keeps none.
+    #[cfg(since_647)]
+    fn set_obj_var(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, var: i32) -> bool;
+
     /// Whether staff of level `staffmodlevel` are kept apart from other
     /// players on this world: besides the engine's own checks, they don't
     /// take others' drops or put items into shared inventories (shops, the
@@ -348,9 +423,7 @@ pub trait ScriptEngine {
     /// Returns all locations (locs) present in the specified zone.
     ///
     /// # Arguments
-    /// * `x` - The zone X coordinate.
-    /// * `y` - The zone level (height plane).
-    /// * `z` - The zone Z coordinate.
+    /// * `coord` - A coordinate in the zone.
     ///
     /// # Returns
     /// A `Vec<LocRef>` of location references in the zone.
@@ -359,9 +432,7 @@ pub trait ScriptEngine {
     /// Finds a specific location at the given tile.
     ///
     /// # Arguments
-    /// * `x` - The tile X coordinate.
-    /// * `z` - The tile Z coordinate.
-    /// * `y` - The level (height plane).
+    /// * `coord` - The tile to search.
     /// * `id` - The location type identifier.
     ///
     /// # Returns
@@ -447,6 +518,28 @@ pub trait ScriptEngine {
     /// * `seq` - The sequence (animation) identifier to play.
     fn anim_loc(&mut self, loc: LocRef, seq: u16);
 
+    /// Starts every client observing `coord`'s zone downloading the models
+    /// loc type `id` has for `shape`.
+    ///
+    /// # Arguments
+    /// * `coord` - Picks the zone whose observers receive it.
+    /// * `id` - The loc type identifier.
+    /// * `shape` - The shape the client looks the models up by.
+    #[cfg(since_647)]
+    fn loc_prefetchall(&mut self, coord: CoordGrid, id: u16, shape: u8);
+
+    /// Merges a look into `loc` for everyone observing its zone: `models`
+    /// replace its models for its shape, `recol` and `retex` its recolour and
+    /// retexture destinations. With none of them it resets the loc.
+    #[cfg(since_647)]
+    fn loc_merge(
+        &mut self,
+        loc: LocRef,
+        models: Option<Box<[u16]>>,
+        recol: Option<Box<[u16]>>,
+        retex: Option<Box<[u16]>>,
+    );
+
     /// Creates a projectile animation between two map positions.
     ///
     /// # Arguments
@@ -507,6 +600,19 @@ pub trait ScriptEngine {
     ///   low bits of the wire info byte.
     #[cfg(since_289)]
     fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8, delay: u8);
+
+    /// Plays vorbis sample `sound` at `coord`, as [`sound_area`](Self::sound_area) plays a synth.
+    #[cfg(since_647)]
+    fn sound_vorbis_area(&mut self, coord: CoordGrid, sound: u16, range: u8, loops: u8, delay: u8);
+
+    /// Shows `text` in RGB `colour` above `coord`, `height` up, for
+    /// `duration` client cycles to everyone observing its zone.
+    #[cfg(since_647)]
+    fn text_coord(&mut self, coord: CoordGrid, text: &str, colour: i32, height: u8, duration: u16);
+
+    /// Casts a projectile at half-square precision.
+    #[cfg(since_647)]
+    fn map_proj_anim_halfsq(&mut self, projectile: ProjAnimHalfsq);
 
     /// Checks whether adding a location at the given coordinate is unsafe.
     ///
@@ -585,6 +691,118 @@ pub trait ScriptEngine {
     /// **Calls:** reads `rsmod::is_zone_flagged()`
     fn map_multiway(&self, coord: CoordGrid) -> crate::Result<bool>;
 
+    /// Indicates if `area` is painted on this coord's tile.
+    #[cfg(since_647)]
+    fn inarea(&self, area: u16, coord: CoordGrid) -> bool;
+
+    /// The uid of the region covering `coord`.
+    #[cfg(since_647)]
+    fn region_find(&self, coord: CoordGrid) -> Option<RegionUid>;
+
+    /// Whether region `uid` still exists.
+    #[cfg(since_647)]
+    fn region_exists(&self, uid: RegionUid) -> bool;
+
+    /// The coord `x`, `z` tiles from region `uid`'s south-west corner on
+    /// `level`.
+    #[cfg(since_647)]
+    fn region_coord(&self, uid: RegionUid, level: i32, x: i32, z: i32) -> crate::Result<CoordGrid>;
+
+    /// Takes a free region of `levels` levels and `east` x `north` zones.
+    #[cfg(since_647)]
+    fn region_create(&mut self, levels: i32, east: i32, north: i32) -> crate::Result<RegionUid>;
+
+    /// Copies the zone holding `source` onto region `uid`'s zone `east`,
+    /// `north` on `level`, turned `rotation` quarter turns clockwise.
+    #[cfg(since_647)]
+    fn region_set(
+        &mut self,
+        uid: RegionUid,
+        level: i32,
+        east: i32,
+        north: i32,
+        source: CoordGrid,
+        rotation: i32,
+    ) -> crate::Result<()>;
+
+    /// Sets where the players of region `uid` go when they leave it, and
+    /// where one who left the game in it comes back, instead of the tile
+    /// each came from.
+    #[cfg(since_647)]
+    fn region_set_exit(&mut self, uid: RegionUid, exit: CoordGrid) -> crate::Result<()>;
+
+    /// Whether something at `from` may be put at `to`: a tile of region
+    /// space must be in a live region, the one `from` is in or `selected`.
+    #[cfg(since_647)]
+    fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<RegionUid>) -> bool;
+
+    /// Spawns controller `id` at `coord`, deleted after `duration` ticks
+    /// unless that's 0.
+    #[cfg(since_647)]
+    fn controller_add(
+        &mut self,
+        coord: CoordGrid,
+        id: u16,
+        duration: i32,
+    ) -> crate::Result<ControllerUid>;
+
+    /// Returns the coord controller `uid` stands on, or an error once it has
+    /// been deleted.
+    #[cfg(since_647)]
+    fn controller_coord(&self, uid: ControllerUid) -> crate::Result<CoordGrid>;
+
+    /// Deletes controller `uid` with its vars, queue and timer, freeing its
+    /// slot for reuse under a new uid; does nothing if it is already gone.
+    #[cfg(since_647)]
+    fn controller_del(&mut self, uid: ControllerUid);
+
+    /// Finds the controller of type `id` standing exactly on `coord`, the
+    /// earliest added when there are several.
+    #[cfg(since_647)]
+    fn controller_findexact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid>;
+
+    /// Queues the controller's `[ai_conqueue]` after `delay` ticks with `arg`.
+    #[cfg(since_647)]
+    fn controller_queue(
+        &mut self,
+        uid: ControllerUid,
+        arg: i32,
+        delay: u16,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
+    /// Queues the controller's `[controller_queue,<script>]` after `delay`
+    /// ticks, run with `args` as its params. A hit either queue's script
+    /// paints is `source`'s.
+    #[cfg(since_647)]
+    fn controller_queue_script(
+        &mut self,
+        uid: ControllerUid,
+        script: i32,
+        args: Vec<ScriptArgument>,
+        delay: u16,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
+    /// Runs the controller's `[ai_contimer]` every `interval` ticks; -1 stops it.
+    #[cfg(since_647)]
+    fn controller_settimer(&mut self, uid: ControllerUid, interval: i32) -> crate::Result<()>;
+
+    /// Reads varcon `id` of controller `uid`; an error if the controller is
+    /// gone or there is no varcon `id`.
+    #[cfg(since_647)]
+    fn controller_var(&self, uid: ControllerUid, id: u16) -> crate::Result<VarValue>;
+
+    /// Writes varcon `id` of controller `uid`; an error if the controller is
+    /// gone or there is no varcon `id`.
+    #[cfg(since_647)]
+    fn set_controller_var(
+        &mut self,
+        uid: ControllerUid,
+        id: u16,
+        value: VarValue,
+    ) -> crate::Result<()>;
+
     /// Reads a shared variable (vars) by its definition ID.
     ///
     /// # Arguments
@@ -603,6 +821,30 @@ pub trait ScriptEngine {
 
     /// A script was aborted: `fault` says where, why and on whom, for staff.
     fn script_error(&mut self, fault: ScriptFault);
+}
+
+/// A projectile from half square `x`, `z` (`tile * 2 + 1` is a tile's
+/// centre) on `level`, launched by `source` and homing on `target` (an npc as
+/// `nid + 1`, a player as `-pid - 1`, or 0), from `wearpos` on the source's
+/// BAS when it has one.
+#[cfg(since_647)]
+#[derive(Debug, Clone)]
+pub struct ProjAnimHalfsq {
+    pub level: u8,
+    pub x: u16,
+    pub z: u16,
+    pub dx: i8,
+    pub dz: i8,
+    pub source: i16,
+    pub target: i16,
+    pub wearpos: Option<u8>,
+    pub spotanim: u16,
+    pub src_height: u8,
+    pub dst_height: u8,
+    pub start: u16,
+    pub end: u16,
+    pub peak: u8,
+    pub arc: u16,
 }
 
 /// A script that was aborted, as [`ScriptEngine::script_error`] hears of it.
@@ -633,6 +875,15 @@ pub trait ScriptPlayer {
     /// The [`PlayerUid`] that uniquely identifies this player across the session.
     fn uid(&self) -> PlayerUid;
 
+    /// Returns the name the player is shown by (`displayname`).
+    ///
+    /// # Returns
+    /// The screen name of the player's login; from 647, the display name the
+    /// player claimed (`p_setdisplayname`) when there is one.
+    fn display_name(&self) -> String {
+        self.uid().screen_name()
+    }
+
     /// Returns the player's current packed coordinate.
     ///
     /// # Returns
@@ -662,6 +913,16 @@ pub trait ScriptPlayer {
     /// # Returns
     /// The target slot index as `i32`.
     fn last_targetslot(&self) -> i32;
+
+    /// Returns the component the last drag ended on (`iface << 16 | com`),
+    /// or `-1` if none.
+    #[cfg(since_647)]
+    fn last_targetcom(&self) -> i32;
+
+    /// Returns the tile the last ground target was aimed at, packed, or `-1`
+    /// if none.
+    #[cfg(since_647)]
+    fn last_coord(&self) -> i32;
 
     /// Returns the item type ID from the last interaction.
     ///
@@ -786,6 +1047,10 @@ pub trait ScriptPlayer {
     /// `true` if the combined size of all queued buffered packets is at least
     /// 5000 bytes.
     fn buffer_full(&self) -> bool;
+
+    /// Returns whether the client has finished its map build and no rebuild is due.
+    #[cfg(since_254)]
+    fn map_build_complete(&self) -> bool;
 
     /// Makes the player say a message as overhead forced chat.
     ///
@@ -922,6 +1187,18 @@ pub trait ScriptPlayer {
     /// * `damage_type` - The hitmark type identifier.
     fn damage(&mut self, amount: u8, damage_type: u8);
 
+    /// Paints a 647 hitsplat; content has already taken the life points off.
+    ///
+    /// # Arguments
+    /// * `amount` - The hit in life points.
+    /// * `hitmark` - The hitmark config id.
+    /// * `soak` - Life points armour soaked off the hit, painted beside it;
+    ///   0 for none.
+    /// * `healthbar` - The overhead bar's fill, 0-255.
+    /// * `source` - The pid of the player who dealt it, if one did.
+    #[cfg(since_647)]
+    fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>);
+
     /// Finds the player with the most hero points on this entity.
     ///
     /// # Returns
@@ -1024,6 +1301,10 @@ pub trait ScriptPlayer {
     ///   `false` if forced by the server.
     fn logout(&mut self, requested: bool);
 
+    /// Requests a logout that lands on the login screen (rev-647 `p_logout(false)`).
+    #[cfg(since_647)]
+    fn logout_full(&mut self);
+
     /// Prevents the player from logging out until the specified tick.
     ///
     /// # Arguments
@@ -1036,6 +1317,93 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `msg` - The message text to display.
     fn mes(&mut self, msg: &str);
+
+    /// Rev-647: sends a game message as a chat type (`^chattype_*`).
+    #[cfg(since_647)]
+    fn mes_typed(&mut self, kind: u16, msg: &str);
+
+    /// Tells the player an interaction had no effect.
+    fn nothing_interesting(&mut self) {
+        self.mes("Nothing interesting happens.");
+    }
+
+    /// Rev-647 client window mode (0 = fixed, 1 = resizable), from the login
+    /// block.
+    #[cfg(since_647)]
+    fn window_mode(&self) -> u8;
+
+    /// Rev-647: opens a toplevel (root) interface, with IF_OPENTOP's mode
+    /// byte (`2` rebuilds the client's scene behind a loading screen).
+    #[cfg(since_647)]
+    fn if_opentop(&mut self, com: u16, mode: u8);
+
+    /// Rev-647: mounts a sub-interface at a parent component hash
+    /// (`interface << 16 | component`), as the type of the sub that holds it.
+    #[cfg(since_647)]
+    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32);
+
+    /// Rev-647: closes whatever sub-interface is mounted at the parent
+    /// component hash.
+    #[cfg(since_647)]
+    fn if_closesub(&mut self, component_hash: i32);
+
+    /// Rev-647: moves the sub-interface mounted at `from` onto `to`, closing
+    /// whatever `to` held, without reloading it.
+    #[cfg(since_647)]
+    fn if_movesub(&mut self, from: i32, to: i32);
+
+    /// Rev-647: sets the client-side event mask for a component slot range.
+    #[cfg(since_647)]
+    fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32);
+
+    /// Rev-647: transmits a client variable (varc).
+    #[cfg(since_647)]
+    fn sendvarc(&mut self, id: u16, val: i32);
+
+    /// Rev-647: transmits a string client variable (varc string).
+    #[cfg(since_647)]
+    fn sendvarc_str(&mut self, id: u16, val: &str);
+
+    /// Rev-647: the value last transmitted for a client variable, or its
+    /// type's default if none.
+    #[cfg(since_647)]
+    fn varc(&self, id: u16) -> i32;
+
+    /// Rev-647: the value last transmitted for a string client variable, empty
+    /// if none.
+    #[cfg(since_647)]
+    fn varc_str(&self, id: u16) -> &str;
+
+    /// Rev-647: invokes a clientscript (cs2) with no parameters.
+    #[cfg(since_647)]
+    fn runclientscript(&mut self, script_id: i32);
+
+    /// Rev-647: invokes a clientscript (cs2) with typed int/string parameters
+    /// (`runclientscript*`).
+    #[cfg(since_647)]
+    fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>);
+
+    /// Rev-647: applies the character-design preview varcs (`playerdesign3_*`) to the
+    /// player's body kit and colours.
+    #[cfg(since_647)]
+    fn applydesign(&mut self);
+
+    /// Rev-647: display-name suggestions fetched by the DB when a requested
+    /// name is taken (`p_get_suggestion` reads them 3 per page).
+    #[cfg(since_647)]
+    fn name_suggestions(&self) -> &[String];
+
+    /// Rev-647: current page into `name_suggestions` (3 names per page).
+    #[cfg(since_647)]
+    fn suggestion_page(&self) -> usize;
+
+    /// Rev-647: advances to the next suggestion page, if one exists.
+    #[cfg(since_647)]
+    fn next_suggestion_page(&mut self);
+
+    /// Rev-647: returns to the previous suggestion page, if any.
+    #[cfg(since_647)]
+    fn prev_suggestion_page(&mut self);
 
     /// Sends a game message to the player's chatbox with automatic line wrapping.
     ///
@@ -1121,6 +1489,52 @@ pub trait ScriptPlayer {
     /// Clears any active hint arrow on the player's client.
     fn stop_hint(&mut self);
 
+    /// Rev-647: a hint arrow over a tile in one of the client's eight slots,
+    /// with an icon (its colour) and a minimap range in 32-tile units.
+    ///
+    /// # Arguments
+    /// * `slot` - The client's arrow slot, `0`--`7`.
+    /// * `icon` - An index into the hint_headicons, hint_mapmarkers and
+    ///   hint_mapedge sprite sheets.
+    /// * `offset` - `2` the tile's centre, `3`--`6` the middle of its west,
+    ///   east, south or north edge.
+    /// * `level`, `x`, `z` - The tile.
+    /// * `height` - The arrow's height over the tile.
+    /// * `range` - How far away the minimap shows it, in 32-tile units.
+    /// * `model` - A model the client draws at the local player's feet,
+    ///   turned toward the tile, or none.
+    #[cfg(since_647)]
+    #[allow(clippy::too_many_arguments)]
+    fn hint_coord_slot(
+        &mut self,
+        slot: u8,
+        icon: u8,
+        offset: u8,
+        level: u8,
+        x: u16,
+        z: u16,
+        height: u8,
+        range: u16,
+        model: Option<u16>,
+    );
+
+    /// Rev-647: clears the hint arrow in one slot, leaving the others.
+    #[cfg(since_647)]
+    fn hint_stop_slot(&mut self, slot: u8);
+
+    /// Rev-647: a hint arrow over an npc in one of the client's eight slots,
+    /// with a model the client draws at the local player's feet, turned toward
+    /// the npc (`PlayerEntity` hint drawing).
+    ///
+    /// # Arguments
+    /// * `nid` - The npc's world index.
+    /// * `slot` - The client's arrow slot, `0`--`7`.
+    /// * `icon` - An index into the hint_headicons, hint_mapmarkers and
+    ///   hint_mapedge sprite sheets.
+    /// * `model` - The model drawn at the player's feet, or `None`.
+    #[cfg(since_647)]
+    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>);
+
     /// Returns the player's gender.
     ///
     /// # Returns
@@ -1202,49 +1616,57 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `seq` - The sequence (animation) ID to display.
-    fn if_setanim(&mut self, com: u16, seq: u16);
+    fn if_setanim(&mut self, com: i32, seq: u16);
 
     /// Sets the colour of an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `colour` - The RGB15 colour value.
-    fn if_setcolour(&mut self, com: u16, colour: u16);
+    fn if_setcolour(&mut self, com: i32, colour: u16);
 
     /// Shows or hides an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `hide` - `true` to hide, `false` to show.
-    fn if_sethide(&mut self, com: u16, hide: bool);
+    fn if_sethide(&mut self, com: i32, hide: bool);
 
     /// Sets the model displayed on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `model` - The model ID to display.
-    fn if_setmodel(&mut self, com: u16, model: u16);
+    fn if_setmodel(&mut self, com: i32, model: u16);
+
+    /// Sets the graphic (a sprite) displayed on an interface component.
+    ///
+    /// # Arguments
+    /// * `com` - The interface component ID.
+    /// * `graphic` - The sprite ID to display.
+    #[cfg(since_647)]
+    fn if_setgraphic(&mut self, com: i32, graphic: u16);
 
     /// Sets an NPC chathead model on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `npc` - The NPC type ID whose head model to display.
-    fn if_setnpchead(&mut self, com: u16, npc: u16);
+    fn if_setnpchead(&mut self, com: i32, npc: u16);
 
     /// Displays an object model on an interface component at the given zoom level.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `obj` - The object (item) type ID.
-    /// * `zoom` - The zoom level for the model display.
-    fn if_setobject(&mut self, com: u16, obj: u16, zoom: u16);
+    /// * `scale` - The zoom level for the model display.
+    fn if_setobject(&mut self, com: i32, obj: u16, scale: i32);
 
     /// Sets the player's own chathead model on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
-    fn if_setplayerhead(&mut self, com: u16);
+    fn if_setplayerhead(&mut self, com: i32);
 
     /// Sets the position of an interface component.
     ///
@@ -1252,11 +1674,11 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID.
     /// * `x` - The X position in interface coordinates.
     /// * `y` - The Y position in interface coordinates.
-    fn if_setposition(&mut self, com: u16, x: u16, y: u16);
+    fn if_setposition(&mut self, com: i32, x: u16, y: u16);
 
     /// Sets the scrollbar position on an interface component.
     #[cfg(since_245_2)]
-    fn if_setscrollpos(&mut self, com: u16, y: u16);
+    fn if_setscrollpos(&mut self, com: i32, y: u16);
 
     /// Opens a modal overlay interface component.
     #[cfg(since_244)]
@@ -1319,7 +1741,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `text` - The text string to display.
-    fn if_settext(&mut self, com: u16, text: &str);
+    fn if_settext(&mut self, com: i32, text: &str);
 
     /// Plays a MIDI jingle (short musical effect) for the player.
     ///
@@ -1356,8 +1778,7 @@ pub trait ScriptPlayer {
     /// Makes the player face a specific tile.
     ///
     /// # Arguments
-    /// * `x` - The tile X coordinate to face.
-    /// * `z` - The tile Z coordinate to face.
+    /// * `coord` - The tile to face.
     fn facesquare(&mut self, coord: CoordGrid);
 
     /// Plays a synthesized sound effect for the player.
@@ -1367,6 +1788,29 @@ pub trait ScriptPlayer {
     /// * `loops` - The number of times to loop the sound.
     /// * `delay` - The delay in client ticks before playback starts.
     fn sound_synth(&mut self, synth: u16, loops: u8, delay: u16);
+
+    /// Plays a voice-over clip for the player.
+    ///
+    /// # Arguments
+    /// * `vorbis` - The vorbis clip identifier (65535 for none).
+    /// * `loops` - The number of times to play the clip.
+    /// * `delay` - The delay in client ticks before playback starts.
+    /// * `volume` - The clip's volume, 0-255.
+    #[cfg(since_647)]
+    fn sound_speech_volume(&mut self, vorbis: u16, loops: u8, delay: u16, volume: u8);
+
+    /// Stops every voice-over clip the player's client is playing or has queued.
+    #[cfg(since_647)]
+    fn sound_speech_stop(&mut self);
+
+    /// Starts the player's client downloading the models loc type `id` has
+    /// for `shape`.
+    ///
+    /// # Arguments
+    /// * `id` - The loc type identifier.
+    /// * `shape` - The shape the client looks the models up by.
+    #[cfg(since_647)]
+    fn loc_prefetch(&mut self, id: u16, shape: u8);
 
     /// Clears the player's pending action, if any.
     ///
@@ -1398,7 +1842,7 @@ pub trait ScriptPlayer {
     /// Sets the player's run mode.
     ///
     /// # Arguments
-    /// * `run` - The run mode flag (`0` = walk, `1` = run, `2` = temporary run).
+    /// * `run` - `1` to run, anything else to walk.
     fn run(&mut self, run: u8);
 
     /// Forces the player to run for the current movement only.
@@ -1414,6 +1858,11 @@ pub trait ScriptPlayer {
     /// `Ok(())` on success, or a [`ScriptError`](crate::ScriptError) if stopping
     /// fails.
     fn stopaction(&mut self) -> crate::Result<()>;
+
+    /// Tells the player a teleport was rejected.
+    fn invalid_teleport(&mut self) {
+        self.mes("Invalid teleport!");
+    }
 
     /// Instantly moves the player to a coordinate without walking (no
     /// intermediate tiles are processed).
@@ -1486,6 +1935,19 @@ pub trait ScriptPlayer {
         args: Option<Vec<ScriptArgument>>,
     ) -> crate::Result<()>;
 
+    /// [`queue`](Self::queue), remembering the pid of the player whose script
+    /// queued it: a hit the queued script paints is theirs as well as this
+    /// player's (2011's bright hitsplats).
+    #[cfg(since_647)]
+    fn queue_from(
+        &mut self,
+        script_id: i32,
+        priority: QueuePriority,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
     /// Sets a recurring timer that fires a script at a fixed interval.
     ///
     /// # Arguments
@@ -1530,19 +1992,53 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `script_id` - The timer script identifier to look up.
-    /// * `now` - The current game tick.
     ///
     /// # Returns
     /// The clock of the timer for the given script, or `-1` if the
     /// player has no timer for that script.
     fn gettimer(&self, script_id: i32) -> i32;
 
+    /// Turns the player's camera to look at a tile (`cam_lookat`). The update
+    /// waits on the player's camera queue until the output phase's
+    /// `update_map` drains it, writing `CamLookAt` (`CamLookat` from 647) with
+    /// the tile made local to that tick's build area.
+    ///
+    /// # Arguments
+    /// * `x`, `z` - The absolute tile to look at.
+    /// * `height` - The height above the tile of the point looked at.
+    /// * `rate` - The camera's constant speed (the 647 packet's `const_speed`).
+    /// * `rate2` - Its variable speed (`var_speed`).
+    ///
+    /// # Returns
+    /// Always `Ok(())`; the camera queue takes every update.
     fn cam_lookat(&mut self, x: u16, z: u16, height: u16, rate: u8, rate2: u8)
     -> crate::Result<()>;
 
+    /// Moves the player's camera to a tile (`cam_moveto`), queued and made
+    /// local as [`cam_lookat`](Self::cam_lookat) is and written as `CamMoveTo`
+    /// (`CamMoveto` from 647).
+    ///
+    /// # Arguments
+    /// * `x`, `z` - The absolute tile to move to.
+    /// * `height` - The camera's height above the tile.
+    /// * `rate` - The camera's constant speed (the 647 packet's `const_speed`).
+    /// * `rate2` - Its variable speed (`var_speed`).
+    ///
+    /// # Returns
+    /// Always `Ok(())`; the camera queue takes every update.
     fn cam_moveto(&mut self, x: u16, z: u16, height: u16, rate: u8, rate2: u8)
     -> crate::Result<()>;
 
+    /// Shakes the player's camera (`cam_shake`), writing `CamShake` when the
+    /// script runs rather than through the camera queue, as it names no tile.
+    /// The wobble starts at cycle 0 on every revision: 647's packet carries
+    /// the starting cycle, sent as 0.
+    ///
+    /// # Arguments
+    /// * `direction` - Which of the camera's position or angle values shakes.
+    /// * `jitter` - The size of the random part of the shake.
+    /// * `amplitude` - The size of the wobble.
+    /// * `frequency` - How fast it wobbles.
     fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8);
 
     /// Returns an immutable reference to a player inventory.
@@ -1595,7 +2091,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `inv_id` - The inventory definition ID.
     /// * `com` - The interface component ID that will display the inventory.
-    fn add_inv_transmit(&mut self, inv_id: u16, com: u16);
+    fn add_inv_transmit(&mut self, inv_id: u16, com: ComId);
 
     /// Checks whether a given interface component has a transmit binding.
     ///
@@ -1604,14 +2100,13 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some(inv_id)` if the component is bound, `None` otherwise.
-    fn has_inv_transmit(&self, com: u16) -> Option<u16>;
+    fn has_inv_transmit(&self, com: ComId) -> Option<u16>;
 
-    /// Removes all transmit bindings for the given inventory.
+    /// Removes every transmit binding of the given interface component.
     ///
     /// # Arguments
-    /// * `inv_id` - The inventory definition ID whose transmit bindings
-    ///   should be cleared.
-    fn clear_inv_transmits(&mut self, inv_id: u16);
+    /// * `com` - The interface component whose bindings should be cleared.
+    fn clear_inv_transmits(&mut self, com: ComId);
 
     /// Registers a cross-player inventory listener: mirrors another player's
     /// inventory onto an interface component (`invother_transmit`).
@@ -1620,7 +2115,7 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID that will display the inventory.
     /// * `inv_id` - The inventory definition ID to display.
     /// * `uid` - The script-uid of the source player whose inventory is shown.
-    fn add_inv_other_transmit(&mut self, com: u16, inv_id: u16, uid: i32);
+    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: u16, uid: i32);
 
     /// Returns the cross-player inventory listener bound to a component, if any.
     ///
@@ -1629,21 +2124,19 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some((uid, inv_id))` if `com` mirrors another player's inventory, else `None`.
-    fn has_inv_other_transmit(&self, com: u16) -> Option<(i32, u16)>;
+    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, u16)>;
 
     /// Appends a waypoint to the player's movement queue.
     ///
     /// # Arguments
-    /// * `x` - The destination tile X coordinate.
-    /// * `z` - The destination tile Z coordinate.
+    /// * `coord` - The destination tile.
     fn queue_waypoint(&mut self, coord: CoordGrid);
 
     /// Starts the player walking toward the given tile, replacing any
     /// existing waypoints.
     ///
     /// # Arguments
-    /// * `dest_x` - The destination tile X coordinate.
-    /// * `dest_z` - The destination tile Z coordinate.
+    /// * `coord` - The destination tile.
     fn walk(&mut self, coord: CoordGrid);
 
     /// Clears all pending movement waypoints.
@@ -1689,7 +2182,7 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `com` - The spell or use component id to key the interaction trigger on.
-    fn set_interaction_spell(&mut self, com: u16);
+    fn set_interaction_spell(&mut self, com: ComId);
 
     /// Checks whether the player is within operable distance of a location.
     ///
@@ -1850,9 +2343,9 @@ pub trait ScriptNpc {
     /// Applies damage to the NPC and displays a hitsplat.
     ///
     /// # Arguments
-    /// * `amount` - The damage amount.
+    /// * `amount` - The damage amount; at 647, in life points, which pass 255.
     /// * `damage_type` - The type of hitsplat to display (e.g. melee, ranged, poison).
-    fn damage(&mut self, amount: u8, damage_type: u8);
+    fn damage(&mut self, amount: u16, damage_type: u8);
 
     /// Awards hero points to a player for contributing damage to this NPC.
     ///
@@ -1885,6 +2378,31 @@ pub trait ScriptNpc {
         args: Option<Vec<ScriptArgument>>,
     ) -> crate::Result<()>;
 
+    /// [`queue`](Self::queue), remembering the pid of the player whose script
+    /// queued it: a hit the queued script paints is theirs.
+    #[cfg(since_647)]
+    fn queue_from(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
+    /// Queues `[npc_queue]` script `script_id` on this NPC after `delay` ticks,
+    /// run with `args` as its params; at 647 its hits are `source`'s.
+    fn queue_named(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Vec<ScriptArgument>,
+        source: Option<u16>,
+    );
+
+    /// Credits the hit just painted on this npc to a player (`hit_source`).
+    #[cfg(since_647)]
+    fn hit_source(&mut self, source: Option<u16>);
+
     /// Sets or clears the NPC's recurring timer interval.
     ///
     /// # Arguments
@@ -1916,16 +2434,22 @@ pub trait ScriptNpc {
     /// Makes the NPC face a specific tile.
     ///
     /// # Arguments
-    /// * `x` - The tile X coordinate to face.
-    /// * `z` - The tile Z coordinate to face.
+    /// * `coord` - The tile to face.
     fn facesquare(&mut self, coord: CoordGrid);
 
     /// Walks the NPC toward the given tile using pathfinding.
     ///
     /// # Arguments
-    /// * `x` - The destination tile X coordinate.
-    /// * `z` - The destination tile Z coordinate.
+    /// * `coord` - The destination tile.
     fn walk(&mut self, coord: CoordGrid);
+
+    /// Sets the NPC's run mode (rev-647 `npc_run`): while on it takes two steps a tick,
+    /// as a running player does.
+    ///
+    /// # Arguments
+    /// * `run` - 1 to run, anything else to walk.
+    #[cfg(since_647)]
+    fn run(&mut self, run: u8);
 
     /// Sets the maximum hunt range for this NPC's AI.
     ///
@@ -1974,14 +2498,13 @@ pub trait ScriptNpc {
 }
 
 thread_local! {
-    static ENGINE_PTR: Cell<*mut ()> = const { Cell::new(std::ptr::null_mut()) };
+    static ENGINE_PTR: Cell<*mut ()> = const { Cell::new(null_mut()) };
 }
 
-/// Stores raw engine and cache pointers into thread-local storage.
+/// Stores the raw engine pointer in thread-local storage.
 ///
 /// # Arguments
 /// * `engine` - A type-erased mutable pointer to the engine instance.
-/// * `cache` - A const pointer to the [`CacheStore`].
 ///
 /// # Side Effects
 /// Overwrites the `ENGINE_PTR` thread-local for the current thread.

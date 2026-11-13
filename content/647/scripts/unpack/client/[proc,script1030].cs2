@@ -1,0 +1,9 @@
+// 1030
+[proc,script1030](int $int0)
+if_sethide(quickchat_tutorial:pagecontrols, true);
+if_sethide(quickchat_tutorial:buttoncontrol, false);
+cc_deleteall(quickchat_tutorial:main);
+cc_deleteall(quickchat_tutorial:text);
+if_setonclick(quickchat_tutorial:button, "script1031");
+if_settext(quickchat_tutorial:button, "Safety Guide");
+~quickchat_tutorial_displaydata(enum(int, string, enum_1485, 0));

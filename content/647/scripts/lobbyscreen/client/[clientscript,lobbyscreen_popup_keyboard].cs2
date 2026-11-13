@@ -1,0 +1,12 @@
+// 3100
+[clientscript,lobbyscreen_popup_keyboard](int $key0)
+def_int $int1 = lobby_entergamereply;
+if ($int1 = -3) {
+    return;
+} else if ($int1 = 21 & $key0 = ^key_escape) {
+    ~lobby_hop_abort;
+    return;
+} else if ($key0 = ^key_escape) {
+    ~lobby_popup_close;
+    return;
+}

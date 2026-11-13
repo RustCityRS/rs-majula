@@ -1,0 +1,15 @@
+// 2833
+[proc,inventory_setophelds](obj $obj0)
+switch_obj ($obj0) {
+    case mourning_teleport_crystal_4, mourning_teleport_crystal_3, mourning_teleport_crystal_2, mourning_teleport_crystal_1 :
+        ~script2411($obj0);
+        return;
+    case atlum_ring_med, atlum_ring_elite, atlum_ring_hard :
+        ~script2431($obj0);
+        return;
+    case rand_reward_coal_bag :
+        ~script1273($obj0);
+        return;
+}
+cc_setonvartransmit(null);
+~inventory_setophelds_specified(oc_iop($obj0, 1), oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), oc_iop($obj0, 3), oc_icursor($obj0, 3), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));

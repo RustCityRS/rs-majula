@@ -1,0 +1,10 @@
+// 222
+[clientscript,snapshot_ignore_yes]
+if (friend_test(%snapshot_name) = true) {
+    mes_typed(^chattype_snapshotfeedback, 0, "Sorry, you cannot ignore players in your Friends List.");
+} else {
+    ignore_add_temp(%snapshot_name);
+    mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%snapshot_name> until you log out.");
+}
+%snapshot_open = false;
+~script675;

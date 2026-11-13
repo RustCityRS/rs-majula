@@ -1,0 +1,10 @@
+// 2253
+[clientscript,rand_update_progress_bar]
+if_settext(rand_overlay:rand_progress_bar_title, %varclient_1834);
+if (%rand_progress_bar_fill_value > 200) {
+    %rand_progress_bar_fill_value = 200;
+}
+def_int $int0 = %rand_progress_bar_fill_value;
+$int0 = calc($int0 * 37 / 40 + 14);
+if_setsize(rand_overlay:rand_progress_bar_fill, $int0, 18, ^setsize_minus, ^setsize_abs);
+if_setposition(rand_overlay:rand_progress_end, calc($int0 + 1), 15, ^setpos_abs_left, ^setpos_abs_top);

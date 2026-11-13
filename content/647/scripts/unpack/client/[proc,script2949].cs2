@@ -1,0 +1,9 @@
+// 2949
+[proc,script2949](string $string0)(string)
+def_int $int0 = string_length($string0);
+$string0 = "";
+while ($int0 > 0) {
+    $string0 = "<$string0>*";
+    $int0 = calc($int0 - 1);
+}
+return($string0);

@@ -1,0 +1,38 @@
+// 558
+[proc,lotg_goblin_interface_update](int $int0)
+if ($int0 = 1) {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_1, "miscgraphics,11");
+    if_setmodel(lotg_goblin_changing_room:goblin_model1, model_29248);
+} else {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_1, "miscgraphics,10");
+}
+if ($int0 = 2) {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_2, "miscgraphics,11");
+    if_setmodel(lotg_goblin_changing_room:goblin_model1, model_29242);
+} else {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_2, "miscgraphics,10");
+}
+if ($int0 = 3) {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_3, "miscgraphics,11");
+    if_setmodel(lotg_goblin_changing_room:goblin_model1, model_29237);
+} else {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_3, "miscgraphics,10");
+}
+if ($int0 = 4) {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_4, "miscgraphics,11");
+    if_setmodel(lotg_goblin_changing_room:goblin_model1, model_29245);
+} else {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_4, "miscgraphics,10");
+}
+if ($int0 = 5) {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_5, "miscgraphics,11");
+    if_setmodel(lotg_goblin_changing_room:goblin_model1, model_29246);
+} else {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_5, "miscgraphics,10");
+}
+if ($int0 = 6) {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_6, "miscgraphics,11");
+    if_setmodel(lotg_goblin_changing_room:goblin_model1, model_29241);
+} else {
+    if_setgraphic(lotg_goblin_changing_room:clothes_checkbutton_6, "miscgraphics,10");
+}

@@ -1,0 +1,39 @@
+// 1748
+[clientscript,script1748](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13)
+def_int $int14 = ~script718(%glo3_col1_c);
+def_int $int15 = ~script718(%glo3_col2_c);
+def_int $int16 = ~script715($int14, %glo3_int1_c, $int15, %glo3_int2_c);
+if (if_find($component0) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int16));
+    cc_setcolour($int16);
+}
+if (if_find($component8) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int16));
+    cc_setcolour($int16);
+}
+if (if_find($component1) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int14));
+    cc_setcolour($int14);
+}
+if (if_find($component2) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int15));
+    cc_setcolour($int15);
+}
+if_setmodel($component10, enum(int, model, enum_1595, calc(%targetint_c / 10)));
+if_setmodel($component11, enum(int, model, enum_1595, calc(%targetint_c % 10)));
+def_int $int17 = calc(%glo3_col1_c * %glo3_int1_c + %glo3_col2_c * %glo3_int2_c);
+if (%targetint_c < $int17) {
+    if_setgraphic($component13, "glo3_right_wrong,2");
+} else if (%targetint_c > $int17) {
+    if_setgraphic($component13, "glo3_right_wrong,3");
+} else {
+    if_setgraphic($component13, "glo3_right_wrong,0");
+    sound_vorbis_volume(vorbis_3559, 1, 0, 255);
+}
+if ($int16 = 65535) {
+    if_setgraphic($component12, "glo3_right_wrong,0");
+    sound_vorbis_volume(vorbis_3559, 1, 10, 255);
+} else {
+    if_setgraphic($component12, "glo3_right_wrong,1");
+}
+~script2472($component3, $component4, $component5, $component6, $component7, $component9, %eyeglo_operate1_a, %eyeglo_operate3_c, enum_1108);

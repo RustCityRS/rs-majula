@@ -1,0 +1,22 @@
+// 2849
+[proc,script2849](int $int0)(int)
+switch_int ($int0) {
+    case 0 :
+        return(%rm_block_0);
+    case 1 :
+        return(%rm_block_1);
+    case 2 :
+        return(%rm_block_2);
+    case 3 :
+        return(%rm_block_3);
+    case 4 :
+        return(%rm_block_4);
+    case 5 :
+        return(%rm_block_5);
+    case 6 :
+        return(%rm_block_6);
+    case 7 :
+        return(%rm_block_7);
+    case 8 :
+        return(%rm_block_8);
+}

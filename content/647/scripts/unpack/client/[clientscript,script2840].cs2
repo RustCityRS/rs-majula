@@ -1,0 +1,18 @@
+// 2840
+[clientscript,script2840]
+%nom_spline_step = calc(%nom_spline_step + 1);
+switch_int (%nom_spline_step) {
+    case default :
+        if_setoncamfinished(nom_cutscene_controller:cutscene_controller, "script2840");
+        cam_movealong(0, %nom_spline_step, 400, 400, 1, %nom_spline_step);
+    case 1 :
+        if_setoncamfinished(nom_cutscene_controller:cutscene_controller, "script2840");
+        cam_movealong(0, %nom_spline_step, 400, 0, 1, %nom_spline_step);
+    case 2 :
+        if_setoncamfinished(nom_cutscene_controller:cutscene_controller, null);
+    case 3 :
+        if_setoncamfinished(nom_cutscene_controller:cutscene_controller, "script2840");
+        cam_movealong(0, %nom_spline_step, 650, 700, 1, %nom_spline_step);
+    case 5 :
+        if_setoncamfinished(nom_cutscene_controller:cutscene_controller, null);
+}

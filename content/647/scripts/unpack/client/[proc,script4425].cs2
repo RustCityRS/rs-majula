@@ -1,0 +1,26 @@
+// 4425
+[proc,script4425](intarray $intarray0, component $component1, int $int2, int $int3)
+def_int $int4 = calc(($int2 + $int3) / 2);
+def_int $int5 = $intarray0($int4);
+$intarray0($int4) = $intarray0($int3);
+$intarray0($int3) = $int5;
+def_int $int6 = $int2;
+def_int $int7 = $int2;
+def_int $int8 = -1;
+while ($int7 < $int3) {
+    if (cc_find($component1, $int5) = true & .cc_find($component1, $intarray0($int7)) = true & compare(lowercase(cc_gettext), lowercase(.cc_gettext)) < calc($int7 & 1)) {
+        $int8 = $intarray0($int7);
+        $intarray0($int7) = $intarray0($int6);
+        $intarray0($int6) = $int8;
+        $int6 = calc($int6 + 1);
+    }
+    $int7 = calc($int7 + 1);
+}
+$intarray0($int3) = $intarray0($int6);
+$intarray0($int6) = $int5;
+if ($int2 < calc($int6 - 1)) {
+    ~script4425(intarray0, $component1, $int2, calc($int6 - 1));
+}
+if (calc($int6 + 1) < $int3) {
+    ~script4425(intarray0, $component1, calc($int6 + 1), $int3);
+}

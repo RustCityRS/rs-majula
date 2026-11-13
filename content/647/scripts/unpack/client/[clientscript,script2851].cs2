@@ -1,0 +1,240 @@
+// 2851
+[clientscript,script2851](component $component0, int $key1, int $int2)
+if (if_gethide(machinima_livecamera:chattop) = false) {
+    if ($key1 = ^key_f2) {
+        ~script835(true);
+    }
+    return;
+}
+if (clientclock > calc($int2 + 5) | %machinima_livecamera_targetmode = 2) {
+    switch_int (map_lang) {
+        case 2 :
+            switch_int ($key1) {
+                case ^key_f2 :
+                    ~script835(false);
+                case ^key_f6 :
+                    ~script3455;
+                case ^key_f7 :
+                    ~script3453;
+                case ^key_f8 :
+                    ~script3456;
+                case ^key_e :
+                    ~machinima_camera_up;
+                case ^key_r :
+                    ~machinima_camera_north;
+                case ^key_t :
+                    ~machinima_camera_down;
+                case ^key_d :
+                    ~machinima_camera_west;
+                case ^key_f :
+                    ~machinima_camera_south;
+                case ^key_g :
+                    ~machinima_camera_east;
+                case ^key_up :
+                    ~script2860;
+                case ^key_down :
+                    ~script2861;
+                case ^key_left :
+                    ~script2863;
+                case ^key_right :
+                    ~script2862;
+                case ^key_escape :
+                    ~script675;
+                case ^key_f1 :
+                    ~script3455;
+                    if (%machinima_livecamera_targetmode = 0) {
+                        %machinima_livecamera_targetmode = 1;
+                        if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,9");
+                        if_settext(machinima_livecamera:message_text, "You are now in Focus Mode");
+                        if (if_gethide(machinima_livecamera:com_54) = false) {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, false);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        }
+                    } else if (%machinima_livecamera_targetmode = 2) {
+                        %machinima_livecamera_targetmode = 0;
+                        if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,8");
+                        if_settext(machinima_livecamera:message_text, "You are now in Aim Mode");
+                        if (if_gethide(machinima_livecamera:com_100) = false) {
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_54, false);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        }
+                    } else {
+                        %machinima_livecamera_targetmode = 2;
+                        if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,7");
+                        if_settext(machinima_livecamera:message_text, "You are now in Fine Control Mode");
+                        if (if_gethide(machinima_livecamera:com_33) = false) {
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_100, false);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    }
+                    if_setontimer($component0, "script2853($component0, clientclock)");
+                case ^key_space :
+                    if (%machinima_livecamera_targetmode = 0) {
+                        if (if_gethide(machinima_livecamera:com_54) = true) {
+                            if_sethide(machinima_livecamera:com_54, false);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, false);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        } else {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, true);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    } else if (%machinima_livecamera_targetmode = 1) {
+                        if (if_gethide(machinima_livecamera:com_33) = true) {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, false);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, false);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        } else {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, true);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    } else if (%machinima_livecamera_targetmode = 2) {
+                        if (if_gethide(machinima_livecamera:com_100) = true) {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, false);
+                            if_sethide(machinima_livecamera:compasslayer, false);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        } else {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, true);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    }
+                case default :
+                    return;
+            }
+        case default :
+            switch_int ($key1) {
+                case ^key_f2 :
+                    ~script835(false);
+                case ^key_f6 :
+                    ~script3455;
+                case ^key_f7 :
+                    ~script3453;
+                case ^key_f8 :
+                    ~script3456;
+                case ^key_q :
+                    ~machinima_camera_up;
+                case ^key_w :
+                    ~machinima_camera_north;
+                case ^key_e :
+                    ~machinima_camera_down;
+                case ^key_a :
+                    ~machinima_camera_west;
+                case ^key_s :
+                    ~machinima_camera_south;
+                case ^key_d :
+                    ~machinima_camera_east;
+                case ^key_up :
+                    ~script2860;
+                case ^key_down :
+                    ~script2861;
+                case ^key_left :
+                    ~script2863;
+                case ^key_right :
+                    ~script2862;
+                case ^key_escape :
+                    ~script675;
+                case ^key_f1 :
+                    ~script3455;
+                    if (%machinima_livecamera_targetmode = 0) {
+                        %machinima_livecamera_targetmode = 1;
+                        if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,9");
+                        if_settext(machinima_livecamera:message_text, "You are now in Focus Mode");
+                        if (if_gethide(machinima_livecamera:com_54) = false) {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, false);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        }
+                    } else if (%machinima_livecamera_targetmode = 2) {
+                        %machinima_livecamera_targetmode = 0;
+                        if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,8");
+                        if_settext(machinima_livecamera:message_text, "You are now in Aim Mode");
+                        if (if_gethide(machinima_livecamera:com_100) = false) {
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_54, false);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        }
+                    } else {
+                        %machinima_livecamera_targetmode = 2;
+                        if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,7");
+                        if_settext(machinima_livecamera:message_text, "You are now in Fine Control Mode");
+                        if (if_gethide(machinima_livecamera:com_33) = false) {
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_100, false);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    }
+                    if_setontimer($component0, "script2853($component0, clientclock)");
+                case ^key_space :
+                    if (%machinima_livecamera_targetmode = 0) {
+                        if (if_gethide(machinima_livecamera:com_54) = true) {
+                            if_sethide(machinima_livecamera:com_54, false);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, false);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        } else {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, true);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    } else if (%machinima_livecamera_targetmode = 1) {
+                        if (if_gethide(machinima_livecamera:com_33) = true) {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, false);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, false);
+                            if_sethide(machinima_livecamera:storemovie, false);
+                        } else {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, true);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    } else if (%machinima_livecamera_targetmode = 2) {
+                        if (if_gethide(machinima_livecamera:com_100) = true) {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, false);
+                            if_sethide(machinima_livecamera:compasslayer, false);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        } else {
+                            if_sethide(machinima_livecamera:com_54, true);
+                            if_sethide(machinima_livecamera:com_33, true);
+                            if_sethide(machinima_livecamera:com_100, true);
+                            if_sethide(machinima_livecamera:compasslayer, true);
+                            if_sethide(machinima_livecamera:storemovie, true);
+                        }
+                    }
+                case default :
+                    return;
+            }
+    }
+    ~machinima_cameramove;
+    if_setonkey($component0, "script2851($component0, event_keycode, clientclock)");
+}

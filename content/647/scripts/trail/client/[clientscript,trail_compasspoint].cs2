@@ -1,0 +1,3 @@
+// 3338
+[clientscript,trail_compasspoint](component $component0, component $component1)
+if_setontimer($component0, "trail_compass_timer(0, $component0, $component1)");

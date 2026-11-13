@@ -1,0 +1,552 @@
+// 289's trade on 2011's trade screens: trademain (335, both offers),
+// tradeside (336, the backpack beside them) and tradeconfirm (334). 289's
+// tradeoffer is inv 90 at 2011 too. 2011's client draws the offers and the
+// backpack itself, as grids the server makes once a screen is open
+// (clientscripts 150 and 695, as for the shop) with the ops the server
+// enables (IF_SETEVENTS); the other player's offer is the same inv sent with
+// the client's "other" flag. 289's components follow, commented, where
+// 2011's replace them.
+[proc,moveallinv](inv $src, inv $dest)
+def_int $size = inv_size($src);
+def_int $i = 0;
+while ($i < $size) {
+    def_obj $obj = inv_getobj($src, $i);
+    if ($obj ! null) {
+        inv_moveitem($src, $dest, $obj, inv_total($src, $obj));
+    }
+    $i = add($i, 1);
+}
+
+[proc,.moveallinv](inv $src, inv $dest)
+def_int $size = .inv_size($src);
+def_int $i = 0;
+while ($i < $size) {
+    def_obj $obj = .inv_getobj($src, $i);
+    if ($obj ! null) {
+        .inv_moveitem($src, $dest, $obj, .inv_total($src, $obj));
+    }
+    $i = add($i, 1);
+}
+
+
+// ----
+
+[opplayer4,_]
+if (~in_duel_arena(coord) = true) {
+    mes("You can't trade in a duel arena."); // https://youtu.be/nUwvlFkcsqA?t=19
+    return;
+}
+if (.busy = true) {
+    // 289: mes("<.displayname> is busy at the moment.");
+    // 2011's: the 2011 wiki's Trading (2011-05-05): "if one of the traders has
+    // a certain interface up, such as bank, equipment stats or trading
+    // interface with another player, The other player is busy at the moment
+    // message will show up in the chat". The quote has no full stop.
+    mes("The other player is busy at the moment");
+    return;
+}
+
+// this message always sends, even if this player is responding to a trade request
+mes("Sending trade offer...");
+
+// https://youtu.be/BOtsghQGQEk?t=417
+// https://youtu.be/8G92ZQxRamY?t=145
+// https://youtu.be/vS_kBeGudFY?t=10
+// 2006: "Trading in the Wilderness is dangerous - you might get killed!"
+
+// https://youtu.be/uSO-ilQk5XY?list=PLn23LiLYLb1bQ7Hwp77KoNBjKvpZQTfJT&t=810
+// This nov 2004 vid shows no wildy warning... I think it was added in mid to late 2006? Ive seen some early 2006 vids of trading with no warning
+
+%tradepartner = .uid;
+
+if (.%tradepartner = uid & %tradestatus = ^tradestatus_received) {
+    if (.p_finduid(.uid) = true) {
+        .p_stopaction;
+    }
+    // if_settext(trademain:status, "");
+    // if_settext(trademain:otherplayer, "Trading With: <.displayname>");
+    // inv_transmit(tradeoffer, trademain:inv);
+    // invother_transmit(.uid, tradeoffer, trademain:otherinv);
+    // inv_transmit(inv, tradeside:inv);
+    if_settext(trademain:tradestatus, "");
+    if_settext(trademain:tradetitle, "Trading With: <.displayname>");
+    inv_transmit(tradeoffer, trademain:your_offer_layer_flashy);
+    invother_transmit(.uid, tradeoffer, trademain:other_offer_layer_flashy);
+    inv_transmit(inv, tradeside:side_layer);
+
+    // .if_settext(trademain:status, "");
+    // .if_settext(trademain:otherplayer, "Trading With: <displayname>");
+    // .inv_transmit(tradeoffer, trademain:inv);
+    // .invother_transmit(uid, tradeoffer, trademain:otherinv);
+    // .inv_transmit(inv, tradeside:inv);
+    .if_settext(trademain:tradestatus, "");
+    .if_settext(trademain:tradetitle, "Trading With: <displayname>");
+    .inv_transmit(tradeoffer, trademain:your_offer_layer_flashy);
+    .invother_transmit(uid, tradeoffer, trademain:other_offer_layer_flashy);
+    .inv_transmit(inv, tradeside:side_layer);
+
+    if_openmain_side(trademain, tradeside);
+    .if_openmain_side(trademain, tradeside);
+    ~trademain_2011(.displayname);
+    ~.trademain_2011(displayname);
+    ~trade_wealth;
+
+    %tradestatus = ^tradestatus_reset;
+    .%tradestatus = ^tradestatus_reset;
+} else {
+    .%tradestatus = ^tradestatus_received;
+    // 2011's client takes this as a request from the name (game message type
+    // 100, which its chat box offers to accept); rs-protocol sends it so.
+    .mes("<displayname>:tradereq:");
+}
+
+// What 2011's trade screen needs once it is open (events follow the opens,
+// as for the shop): the grids, their ops (own offer: Remove, Remove-5, -10,
+// -All, -X; backpack: Offer, Offer-5, -10, -All, -X; both Examine, op10; the
+// other offer: Examine, op9; void-634 trade.ifaces.toml, whose Value and
+// Lend wait for Grand Exchange prices and item lending), the trader's name
+// (varcstr 203, shown on both screens), their free backpack slots (void-634
+// "has <n> free inventory slots."), and no offer modified yet.
+[proc,trademain_2011](string $name)
+runclientscript("interface_inv_init_big(trademain:your_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"Remove\", \"Remove-5\", \"Remove-10\", \"Remove-All\", \"Remove-X\", \"\", \"\", \"\", \"\")");
+if_setevents(trademain:your_offer_layer_flashy, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
+runclientscript("interface_invother_init_big(trademain:other_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"Examine\<col=ff9040>\")");
+if_setevents(trademain:other_offer_layer_flashy, 0, 27, ~inv_ops(^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op9, ^no_op), 0, 0, ^false, ^false);
+runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
+if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
+%varclient_1722 = $name;
+%traderemoved = 0;
+%traderemoved_other = 0;
+.if_settext(trademain:free_space_text, "has <tostring(inv_freespace(inv))> free inventory slots.");
+
+[proc,.trademain_2011](string $name)
+.runclientscript("interface_inv_init_big(trademain:your_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"Remove\", \"Remove-5\", \"Remove-10\", \"Remove-All\", \"Remove-X\", \"\", \"\", \"\", \"\")");
+.if_setevents(trademain:your_offer_layer_flashy, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
+.runclientscript("interface_invother_init_big(trademain:other_offer_layer_flashy, tradeoffer, 4, 7, 0, -1, \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"Examine\<col=ff9040>\")");
+.if_setevents(trademain:other_offer_layer_flashy, 0, 27, ~inv_ops(^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op9, ^no_op), 0, 0, ^false, ^false);
+.runclientscript("interface_inv_init_big(tradeside:side_layer, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
+.if_setevents(tradeside:side_layer, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
+.%varclient_1722 = $name;
+.%traderemoved = 0;
+.%traderemoved_other = 0;
+if_settext(trademain:free_space_text, "has <tostring(.inv_freespace(inv))> free inventory slots.");
+
+// 2011: what each offer is worth, under "Wealth transfer:" (varc 729 the
+// player's own, 697 the other's; clientscript 4105). The 2011 wiki prices it
+// by the Grand Exchange, which this server has not: an obj's cost stands in,
+// as at void-634. Past what an int holds it is the most one does, which the
+// client shows as too much to show.
+[proc,trade_wealth]
+def_int $mine = ~trade_offer_worth;
+def_int $theirs = ~.trade_offer_worth;
+%varclient_729 = $mine;
+%varclient_697 = $theirs;
+.%varclient_729 = $theirs;
+.%varclient_697 = $mine;
+
+[proc,trade_offer_worth]()(int)
+def_int $worth = 0;
+def_int $slot = 0;
+while ($slot < inv_size(tradeoffer)) {
+    def_obj $obj = inv_getobj(tradeoffer, $slot);
+    if ($obj ! null) {
+        def_int $cost = oc_cost($obj);
+        def_int $number = inv_getnum(tradeoffer, $slot);
+        if ($cost > 0 & $number > calc((^max_32bit_int - $worth) / $cost)) {
+            return(^max_32bit_int);
+        }
+        $worth = calc($worth + $cost * $number);
+    }
+    $slot = add($slot, 1);
+}
+return($worth);
+
+[proc,.trade_offer_worth]()(int)
+def_int $worth = 0;
+def_int $slot = 0;
+while ($slot < .inv_size(tradeoffer)) {
+    def_obj $obj = .inv_getobj(tradeoffer, $slot);
+    if ($obj ! null) {
+        def_int $cost = oc_cost($obj);
+        def_int $number = .inv_getnum(tradeoffer, $slot);
+        if ($cost > 0 & $number > calc((^max_32bit_int - $worth) / $cost)) {
+            return(^max_32bit_int);
+        }
+        $worth = calc($worth + $cost * $number);
+    }
+    $slot = add($slot, 1);
+}
+return($worth);
+
+// [if_button,trademain:accept]
+[if_button,trademain:accept_button]
+%tradestatus = ^tradestatus_pending_accept;
+
+if (.finduid(%tradepartner) = true) {
+    if (.%tradestatus = ^tradestatus_pending_accept) {
+        // inv_stoptransmit(trademain:inv);
+        // inv_stoptransmit(trademain:otherinv);
+        // inv_stoptransmit(tradeside:inv);
+        inv_stoptransmit(trademain:your_offer_layer_flashy);
+        inv_stoptransmit(trademain:other_offer_layer_flashy);
+        inv_stoptransmit(tradeside:side_layer);
+
+        // .inv_stoptransmit(trademain:inv);
+        // .inv_stoptransmit(trademain:otherinv);
+        // .inv_stoptransmit(tradeside:inv);
+        .inv_stoptransmit(trademain:your_offer_layer_flashy);
+        .inv_stoptransmit(trademain:other_offer_layer_flashy);
+        .inv_stoptransmit(tradeside:side_layer);
+
+        ~inv_remove_leading_empty_slots(tradeoffer);
+        ~.inv_remove_leading_empty_slots(tradeoffer);
+
+        if (~enough_trade_space = false) {
+            mes("Other player doesn't have enough inventory space for this trade.");
+            // osrs: You don't have enough inventory space for this trade.
+            // 2007: https://youtu.be/W_NrcAybPzE?t=8
+            .mes("You don't have enough inventory space for this trade");
+            if_close;
+            .if_close;
+            return;
+        }
+
+        if (~.enough_trade_space = false) {
+            mes("You don't have enough inventory space for this trade.");
+            // osrs: Other player doesn't have enough inventory space for this trade.
+            // 2007: https://youtu.be/W_NrcAybPzE?t=8
+            .mes("Other player doesn't have enough inventory space for this trade");
+            if_close;
+            .if_close;
+            return;
+        }
+
+        // 2011's confirm screen lists both offers itself from inv 90, one
+        // column up to 14 and two past it, as each arrives (tradeconfirm's
+        // com34 runs clientscript 142, trade_confirm_init, on load and on
+        // inv 90); 289's three layouts and "Absolutely nothing!" have no 2011
+        // component.
+        // def_int $tempinvused = sub(inv_size(tradeoffer), inv_freespace(tradeoffer));
+        // if ($tempinvused < 1) {
+        //     if_settext(tradeconfirm:inv_nothing, "Absolutely nothing!");
+        //     .if_settext(tradeconfirm:otherinv_nothing, "Absolutely nothing!");
+        // } else if ($tempinvused < 14) {
+        //     if_settext(tradeconfirm:inv_nothing, "");
+        //     .if_settext(tradeconfirm:otherinv_nothing, "");
+        //
+        //     inv_transmit(tradeoffer, tradeconfirm:inv1);
+        //     .invother_transmit(uid, tradeoffer, tradeconfirm:otherinv1);
+        // } else {
+        //     if_settext(tradeconfirm:inv_nothing, "");
+        //     .if_settext(tradeconfirm:otherinv_nothing, "");
+        //
+        //     inv_transmit(tradeoffer, tradeconfirm:inv2);
+        //     .invother_transmit(uid, tradeoffer, tradeconfirm:otherinv2);
+        // }
+        inv_transmit(tradeoffer, tradeconfirm:trade2title);
+        .invother_transmit(uid, tradeoffer, tradeconfirm:trade2title);
+
+        // def_int $other_tempinvused = sub(inv_size(tradeoffer), .inv_freespace(tradeoffer));
+        // if ($other_tempinvused < 1) {
+        //     if_settext(tradeconfirm:otherinv_nothing, "Absolutely nothing!");
+        //     .if_settext(tradeconfirm:inv_nothing, "Absolutely nothing!");
+        // } else if ($other_tempinvused < 14) {
+        //     if_settext(tradeconfirm:otherinv_nothing, "");
+        //     .if_settext(tradeconfirm:inv_nothing, "");
+        //
+        //     invother_transmit(.uid, tradeoffer, tradeconfirm:otherinv1);
+        //     .inv_transmit(tradeoffer, tradeconfirm:inv1);
+        // } else {
+        //     if_settext(tradeconfirm:otherinv_nothing, "");
+        //     .if_settext(tradeconfirm:inv_nothing, "");
+        //
+        //     invother_transmit(.uid, tradeoffer, tradeconfirm:otherinv2);
+        //     .inv_transmit(tradeoffer, tradeconfirm:inv2);
+        // }
+        invother_transmit(.uid, tradeoffer, tradeconfirm:trade2title);
+        .inv_transmit(tradeoffer, tradeconfirm:trade2title);
+
+        if_openmain(tradeconfirm);
+        .if_openmain(tradeconfirm);
+        // 2011: an offer that lost an item says "Trade modified" under what
+        // the other will receive (com55, hidden until then; the 2011 wiki,
+        // Trading: "a red and highlighted spot with Trade modified").
+        if (%traderemoved_other = 1) {
+            if_sethide(tradeconfirm:trade_removed_warning_right, false);
+        }
+        if (.%traderemoved_other = 1) {
+            .if_sethide(tradeconfirm:trade_removed_warning_right, false);
+        }
+
+        // if_settext(tradeconfirm:com_91, "Are you sure you want to make this trade?");
+        // .if_settext(tradeconfirm:com_91, "Are you sure you want to make this trade?");
+        if_settext(tradeconfirm:trade2title, "Are you sure you want to make this trade?");
+        .if_settext(tradeconfirm:trade2title, "Are you sure you want to make this trade?");
+
+        %tradestatus = ^tradestatus_accept;
+        .%tradestatus = ^tradestatus_accept;
+    } else {
+        // if_settext(trademain:status, "Waiting for other player..."); // https://youtu.be/uSO-ilQk5XY?list=PLn23LiLYLb1bQ7Hwp77KoNBjKvpZQTfJT&t=817
+        // .if_settext(trademain:status,"Other player has accepted."); // https://storage.googleapis.com/tannerdino/images/06Dec14-16.jpg
+        if_settext(trademain:tradestatus, "Waiting for other player..."); // https://youtu.be/uSO-ilQk5XY?list=PLn23LiLYLb1bQ7Hwp77KoNBjKvpZQTfJT&t=817
+        .if_settext(trademain:tradestatus,"Other player has accepted."); // https://storage.googleapis.com/tannerdino/images/06Dec14-16.jpg
+    }
+}
+
+[proc,enough_trade_space]()(boolean)
+// check if contents of tempinv fits in other player's inv
+def_int $space = .inv_freespace(inv);
+def_int $size = inv_size(tradeoffer);
+def_int $slot = 0;
+while ($slot < $size) {
+    def_obj $obj = inv_getobj(tradeoffer, $slot);
+    if ($obj ! null) {
+        if (oc_stackable($obj) = true) {
+            def_int $total = .inv_total(inv, $obj);
+            if ($total > 0) {
+                if (calc(^max_32bit_int - $total - inv_getnum(tradeoffer, $slot)) < 0) {
+                    return(false);
+                }
+            } else {
+                $space = sub($space, 1);
+                if ($space < 0) {
+                    return(false);
+                }
+            }
+        } else {
+            $space = sub($space, 1);
+            if ($space < 0) {
+                return(false);
+            }
+        }
+    }
+    $slot = add($slot, 1);
+}
+return(true);
+
+[proc,.enough_trade_space]()(boolean)
+def_int $space = inv_freespace(inv);
+def_int $size = .inv_size(tradeoffer);
+def_int $slot = 0;
+while ($slot < $size) {
+    def_obj $obj = .inv_getobj(tradeoffer, $slot);
+    if ($obj ! null) {
+        if (oc_stackable($obj) = true) {
+            def_int $total = inv_total(inv, $obj);
+            if ($total > 0) {
+                if (calc(^max_32bit_int - $total - .inv_getnum(tradeoffer, $slot)) < 0) {
+                    return(false);
+                }
+            } else {
+                $space = sub($space, 1);
+                if ($space < 0) {
+                    return(false);
+                }
+            }
+        } else {
+            $space = sub($space, 1);
+            if ($space < 0) {
+                return(false);
+            }
+        }
+    }
+    $slot = add($slot, 1);
+}
+return(true);
+
+[proc,inv_remove_leading_empty_slots](inv $inv)
+def_int $slot = 0;
+while ($slot < inv_size($inv)) {
+    if (inv_getobj($inv, $slot) ! null) {
+        inv_movefromslot($inv, $inv, $slot);
+    }
+    $slot = add($slot, 1);
+}
+
+[proc,.inv_remove_leading_empty_slots](inv $inv)
+def_int $slot = 0;
+while ($slot < .inv_size($inv)) {
+    if (.inv_getobj($inv, $slot) ! null) {
+        .inv_movefromslot($inv, $inv, $slot);
+    }
+    $slot = add($slot, 1);
+}
+
+// 289's decline was a close button (the client closed the screen); 2011's
+// Decline and its close button (com12) are ops the server answers.
+[if_button,trademain:decline_button] if_close;
+[if_button,trademain:closebutton] if_close;
+
+[if_close,trademain]
+// inv_stoptransmit(trademain:inv);
+// inv_stoptransmit(trademain:otherinv);
+// inv_stoptransmit(tradeside:inv);
+inv_stoptransmit(trademain:your_offer_layer_flashy);
+inv_stoptransmit(trademain:other_offer_layer_flashy);
+inv_stoptransmit(tradeside:side_layer);
+
+~moveallinv(tradeoffer, inv);
+
+if (.finduid(%tradepartner) = true) {
+    .%tradepartner = null;
+    .if_close;
+    if (%tradestatus ! 1 & .%tradestatus ! 1) {
+        .mes("Other player declined trade."); // osrs
+    }
+}
+
+%tradepartner = null;
+
+// [if_button,tradeconfirm:accept]
+[if_button,tradeconfirm:trade2accept]
+%tradestatus = ^tradestatus_pending_confirm;
+
+if (.finduid(%tradepartner) = true) {
+    if (.%tradestatus = ^tradestatus_pending_confirm) {
+        mes("Accepted trade.");
+        .mes("Accepted trade.");
+
+        both_moveinv(tradeoffer, inv);
+        .both_moveinv(tradeoffer, inv);
+
+        %tradepartner = null;
+        .%tradepartner = null;
+
+        if_close;
+        .if_close;
+    } else {
+        // .if_settext(tradeconfirm:com_91, "Other player has accepted."); // osrs
+        // if_settext(tradeconfirm:com_91, "Waiting for other player."); // https://youtu.be/uSO-ilQk5XY?list=PLn23LiLYLb1bQ7Hwp77KoNBjKvpZQTfJT&t=819
+        .if_settext(tradeconfirm:trade2title, "Other player has accepted."); // osrs
+        if_settext(tradeconfirm:trade2title, "Waiting for other player."); // https://youtu.be/uSO-ilQk5XY?list=PLn23LiLYLb1bQ7Hwp77KoNBjKvpZQTfJT&t=819
+    }
+}
+
+// 2011's confirm screen has a Decline and a close button (com6) too.
+[if_button,tradeconfirm:trade2decline] if_close;
+[if_button,tradeconfirm:closebutton] if_close;
+
+[if_close,tradeconfirm]
+// inv_stoptransmit(tradeconfirm:inv1);
+// inv_stoptransmit(tradeconfirm:inv2);
+// inv_stoptransmit(tradeconfirm:otherinv1);
+// inv_stoptransmit(tradeconfirm:otherinv2);
+inv_stoptransmit(tradeconfirm:trade2title);
+
+~moveallinv(tradeoffer, inv);
+if (.finduid(%tradepartner) = true) {
+    .%tradepartner = null;
+    .if_close;
+    .mes("Other player declined trade."); // osrs
+}
+%tradepartner = null;
+
+// ----
+
+// [inv_button1,trademain:inv] @removefromtrade(last_slot, 1);
+// [inv_button2,trademain:inv] @removefromtrade(last_slot, 5);
+// [inv_button3,trademain:inv] @removefromtrade(last_slot, 10);
+// [inv_button4,trademain:inv] @removefromtrade(last_slot, ^max_32bit_int);
+// [inv_button5,trademain:inv] @removefromtrade(last_slot, null);
+[if_button1,trademain:your_offer_layer_flashy] @removefromtrade(last_slot, 1);
+[if_button2,trademain:your_offer_layer_flashy] @removefromtrade(last_slot, 5);
+[if_button3,trademain:your_offer_layer_flashy] @removefromtrade(last_slot, 10);
+[if_button4,trademain:your_offer_layer_flashy] @removefromtrade(last_slot, ^max_32bit_int);
+[if_button5,trademain:your_offer_layer_flashy] @removefromtrade(last_slot, null);
+// 2011: Examine on either offer.
+[if_button10,trademain:your_offer_layer_flashy]
+def_obj $obj = inv_getobj(tradeoffer, last_slot);
+if ($obj ! null) {
+    mes(oc_desc($obj));
+}
+[if_button9,trademain:other_offer_layer_flashy]
+if (.finduid(%tradepartner) = true) {
+    def_obj $obj = .inv_getobj(tradeoffer, last_slot);
+    if ($obj ! null) {
+        mes(oc_desc($obj));
+    }
+}
+
+[label,removefromtrade](int $slot, int $amount)
+if ($amount <= 0) {
+    p_countdialog;
+    if (last_int <= 0) return;
+    $amount = last_int;
+}
+
+def_obj $obj = inv_getobj(tradeoffer, $slot);
+def_int $total = inv_total(tradeoffer, $obj);
+if ($amount < $total) $total = $amount;
+inv_moveitem(tradeoffer, inv, $obj, $total);
+
+%tradestatus = ^tradestatus_reset;
+// if_settext(trademain:status, "");
+if_settext(trademain:tradestatus, "");
+if (.finduid(%tradepartner) = true) {
+    session_log(^log_moderator, "Removed offer <oc_debugname($obj)> x<tostring($total)> to <.name>");
+    .%tradestatus = ^tradestatus_reset;
+    // .if_settext(trademain:status, "");
+    .if_settext(trademain:tradestatus, "");
+    ~trade_changed;
+    // 2011: a removal marks the offer modified on both screens and
+    // flashes the slot it left on the other's (clientscript 143; the 2011
+    // wiki: "a big red flashing exclamation point will appear where the
+    // item used to be").
+    %traderemoved = 1;
+    .%traderemoved_other = 1;
+    .runclientscript("interface_flash_slot(trademain:other_offer_layer, 4, 7, $slot)");
+}
+
+// ----
+
+// [inv_button1,tradeside:inv] @movetotrade(last_slot, 1);
+// [inv_button2,tradeside:inv] @movetotrade(last_slot, 5);
+// [inv_button3,tradeside:inv] @movetotrade(last_slot, 10);
+// [inv_button4,tradeside:inv] @movetotrade(last_slot, ^max_32bit_int);
+// [inv_button5,tradeside:inv] @movetotrade(last_slot, null);
+[if_button1,tradeside:side_layer] @movetotrade(last_slot, 1);
+[if_button2,tradeside:side_layer] @movetotrade(last_slot, 5);
+[if_button3,tradeside:side_layer] @movetotrade(last_slot, 10);
+[if_button4,tradeside:side_layer] @movetotrade(last_slot, ^max_32bit_int);
+[if_button5,tradeside:side_layer] @movetotrade(last_slot, null);
+[if_button10,tradeside:side_layer] ~inv_examine(last_slot);
+
+[label,movetotrade](int $slot, int $amount)
+if ($amount <= 0) {
+    p_countdialog;
+    if (last_int <= 0) return;
+    $amount = last_int;
+}
+
+def_obj $obj = inv_getobj(inv, $slot);
+
+if (oc_tradeable($obj) = false) {
+    mes("You can't trade this item.");
+    return;
+}
+
+if (oc_members($obj) = true & map_members = ^false) {
+    mes("You can't trade this item.");
+    return;
+}
+
+def_int $total = inv_total(inv, $obj);
+if ($amount < $total) $total = $amount;
+inv_moveitem(inv, tradeoffer, $obj, $total);
+
+%tradestatus = ^tradestatus_reset;
+// if_settext(trademain:status, "");
+if_settext(trademain:tradestatus, "");
+if (.finduid(%tradepartner) = true) {
+    session_log(^log_moderator, "Added offer <oc_debugname($obj)> x<tostring($total)> to <.name>");
+    .%tradestatus = ^tradestatus_reset;
+    // .if_settext(trademain:status, "");
+    .if_settext(trademain:tradestatus, "");
+    ~trade_changed;
+}
+
+// 2011: an offer moved, so the other sees this player's free backpack
+// slots, and both see what each offer is worth.
+[proc,trade_changed]
+.if_settext(trademain:free_space_text, "has <tostring(inv_freespace(inv))> free inventory slots.");
+~trade_wealth;

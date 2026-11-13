@@ -1,0 +1,11 @@
+// 1825
+[clientscript,clanwars_setup_itemloss_button](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_itemloss = false) {
+    %clanwars_rulevarc_itemloss = true;
+} else {
+    %clanwars_rulevarc_itemloss = false;
+}
+~script1773;

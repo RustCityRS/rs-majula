@@ -1,0 +1,7 @@
+// 3578
+[proc,script3578](component $component0)
+if (~script3589(1) = ~script3590(14)) {
+    ~trail_success($component0);
+} else {
+    ~trail_failure($component0);
+}

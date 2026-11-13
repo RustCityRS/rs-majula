@@ -1,0 +1,80 @@
+// Ported 1:1 from rs-majula (ref/rs-majula/content/scripts/player/scripts/pickup.rs2).
+// The [opobj3,_] catch-all fires for every ground-item Take click in both
+// rev-225 and rev-647. Synth names pick/pick2 = 647 synths 2581/2582;
+// seqs human_pickupfloor/human_pickuptable = 827/832.
+
+[opobj3,_] @pickup_obj;
+
+[label,pickup_obj]
+if (distance(coord, obj_coord) = 0) {
+    @pickup_obj_floor;
+} else {
+    @pickup_obj_table;
+}
+
+[label,pickup_obj_floor]
+if (~pickup_obj_check_for_space(obj_type, obj_count) = false) {
+    return;
+}
+anim(null, 0);
+if (~pickup_obj_take = false) {
+    return;
+}
+sound_synth(pick2, 1, 0);
+// Unstable Foundations' squire's gear (quest_unstable/uf_gear.rs2).
+if (%tutorial = 15) {
+    ~uf_gear_taken;
+}
+
+[label,pickup_obj_table]
+if (~pickup_obj_check_for_space(obj_type, obj_count) = false) {
+    return;
+}
+anim(null, 0);
+p_delay(0);
+anim(human_pickuptable, 0);
+if (~pickup_obj_take = false) {
+    return;
+}
+sound_synth(pick2, 1, 0);
+if (%tutorial = 15) {
+    ~uf_gear_taken;
+}
+
+[proc,pickup_obj_take]()(boolean)
+if (obj_count < 1 | ~starter_weapon_pickup_check(obj_type) = false) {
+    return(false);
+}
+if (~pickup_obj_check_for_space(obj_type, obj_count) = false) {
+    return(false);
+}
+def_obj $obj = obj_type;
+def_int $before = inv_total(inv, $obj);
+obj_takeitem(inv);
+def_int $taken = calc(inv_total(inv, $obj) - $before);
+if ($taken < 1) {
+    return(false);
+}
+~starter_weapon_collected($obj, $taken);
+return(true);
+
+[proc,pickup_loc_floor](coord $coord, namedobj $replacement, int $respawn_ticks, boolean $worldpop_dependant)
+anim(human_pickupfloor, 0);
+p_teleport($coord);
+p_delay(0);
+sound_synth(pick, 1, 0);
+
+if ($worldpop_dependant = true) {
+    $respawn_ticks = ~scale_by_playercount($respawn_ticks);
+}
+
+loc_del($respawn_ticks);
+inv_add(inv, $replacement, 1);
+wealth_event(^wealth_pickup, oc_debugname($replacement), 1, oc_cost($replacement));
+
+[proc,pickup_obj_check_for_space](obj $obj, int $amount)(boolean)
+if (inv_itemspace(inv, $obj, $amount, inv_size(inv)) = false) {
+    mes("You don't have enough inventory space to hold that item.");
+    return(false);
+}
+return(true);

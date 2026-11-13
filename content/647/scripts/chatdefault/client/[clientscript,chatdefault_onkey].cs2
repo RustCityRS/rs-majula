@@ -1,0 +1,318 @@
+// 73
+[clientscript,chatdefault_onkey](int $key0, char $char1)
+if (~script2709 = 0) {
+    if ($key0 = ^key_return) {
+        mes("Chat is not available until your Date of Birth is recorded. Please enter your DOB above.");
+    }
+    return;
+}
+if ($key0 = ^key_f9) {
+    if (%quickchat_respond_phrase ! null) {
+        ~quickchat_respond(%quickchat_respond_mode, %varclient_1548, %quickchat_respond_phrase);
+    }
+    return;
+}
+if ($key0 = ^key_f10) {
+    if (~script1036 ! null) {
+        ~quickchat_open_context(0, "");
+    }
+    return;
+}
+def_int $int2 = 0;
+if ($key0 = ^key_tab) {
+    if (string_length(%varclient_1795) > 0) {
+        $int2 = friend_getslotfromname(%varclient_1795);
+        if ($int2 ! -1) {
+            if (map_quickchat = false & userdetail_quickchat = false) {
+                ~meslayer_mode6(%varclient_1795);
+                return;
+            }
+            if (friend_platform($int2) = 1) {
+                ~quickchat_open(1, %varclient_1795);
+            } else {
+                ~quickchat_open(3, %varclient_1795);
+            }
+            return;
+        }
+        if (%loginscreen_res_counter > calc(clientclock - 100)) {
+            return;
+        }
+        mes("That player is not on your Friends list.");
+        %loginscreen_res_counter = clientclock;
+        return;
+    }
+    if (%loginscreen_res_counter > calc(clientclock - 100)) {
+        return;
+    }
+    mes("You haven't received any messages to which you can reply.");
+    %loginscreen_res_counter = clientclock;
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($key0 = ^key_f11) {
+    $int3 = 150;
+    $int4 = calc(clientclock - %quickchat_phraserepeat_lastclock);
+    if ($int4 > 1500) {
+        %quickchat_phraserepeat_count = 0;
+    }
+    if (%quickchat_phraserepeat_count >= 7) {
+        $int3 = 600;
+    } else if (%quickchat_phraserepeat_count >= 5) {
+        $int3 = 450;
+    } else if (%quickchat_phraserepeat_count >= 3) {
+        $int3 = 300;
+    }
+    if ($int4 >= $int3) {
+        %quickchat_phraserepeat_lastclock = clientclock;
+        %quickchat_phraserepeat_count = calc(%quickchat_phraserepeat_count + 1);
+        if (%quickchat_last_phrase ! null) {
+            ~quickchat_phrase_resend;
+        }
+        return;
+    }
+}
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+if (staffmodlevel > 0) {
+    if ($key0 = ^key_page_up) {
+        ~chatout_scrollup;
+    } else if ($key0 = ^key_page_down) {
+        ~chatout_scrolldown;
+    }
+} else if (userdetail_quickchat = true | map_quickchat = true) {
+    if ($key0 = ^key_return) {
+        $int6, $int7, $int8, $int9, $int10, $int11 = ~script4590;
+        if (%chat_view = 4) {
+            ~quickchat_open(2, "");
+        }
+        if (%chat_view = 7) {
+            if ($int6 >= 0) {
+                if ($int7 >= $int8) {
+                    ~quickchat_open(8, "");
+                    return;
+                } else {
+                    mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                    return;
+                }
+            } else {
+                %chat_view = 0;
+                ~chat_alert_reset(0);
+                ~redraw_chat_buttons;
+                ~rebuildchatbox;
+                ~rebuildpmbox;
+                mes("You aren't in a Clan Chat channel.");
+                return;
+            }
+        } else {
+            ~quickchat_open(0, "");
+            return;
+        }
+    }
+    return;
+}
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+switch_int ($key0) {
+    case ^key_return :
+        $int6, $int7, $int8, $int9, $int10, $int11 = ~script4590;
+        if (string_length(%varclient_1520) <= 0) {
+            %varclient_1520 = "";
+            if (%chat_view = 4) {
+                ~quickchat_open(2, "");
+                return;
+            }
+            if (%chat_view = 7) {
+                if ($int6 >= 0) {
+                    if ($int7 >= $int8) {
+                        ~quickchat_open(8, "");
+                        return;
+                    } else {
+                        mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                        return;
+                    }
+                } else {
+                    %chat_view = 0;
+                    ~chat_alert_reset(0);
+                    ~redraw_chat_buttons;
+                    ~rebuildchatbox;
+                    ~rebuildpmbox;
+                    mes("You aren't in a Clan Chat channel.");
+                    return;
+                }
+            } else {
+                ~quickchat_open(0, "");
+            }
+            return;
+        }
+        if (compare("/", %varclient_1520) = 0) {
+            %varclient_1520 = "";
+            ~quickchat_open(2, "");
+            return;
+        } else if (compare("//", %varclient_1520) = 0) {
+            %varclient_1520 = "";
+            if ($int6 >= 0) {
+                if ($int7 >= $int8) {
+                    ~quickchat_open(8, "");
+                    return;
+                } else {
+                    mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                    return;
+                }
+            } else {
+                %chat_view = 0;
+                ~chat_alert_reset(0);
+                ~redraw_chat_buttons;
+                ~rebuildchatbox;
+                ~rebuildpmbox;
+                mes("You aren't in a Clan Chat channel.");
+                return;
+            }
+        } else if (compare("///", %varclient_1520) = 0) {
+            %varclient_1520 = "";
+            if ($int9 >= 0) {
+                if ($int10 >= $int11) {
+                    ~quickchat_open(10, "");
+                    return;
+                } else {
+                    mes_typed(^chattype_clanmessage, 0, "Guests cannot chat in this Clan Chat channel.");
+                    return;
+                }
+            } else {
+                %chat_view = 0;
+                ~chat_alert_reset(0);
+                ~redraw_chat_buttons;
+                ~rebuildchatbox;
+                ~rebuildpmbox;
+                mes("You aren't a guest in a visited Clan Chat channel.");
+                return;
+            }
+        }
+        if (staffmodlevel > 0 & string_indexof_string(%varclient_1520, "::", 0) = 0) {
+            mes("<col=ff7f7f>Use the reverse apostrophe (`) key to open the console to enter that command.");
+            mes("<col=ff7f7f>It is usually located under the ESC key.");
+            %varclient_1520 = "";
+            ~script1558(false);
+            return;
+        }
+        if (%chat_view = 4) {
+            if (compare("", clan_getchatdisplayname) = 0) {
+                %varclient_1520 = "";
+                %chat_view = 0;
+                ~chat_alert_reset(0);
+                ~redraw_chat_buttons;
+                ~rebuildchatbox;
+                ~rebuildpmbox;
+                mes("You aren't in a Friends Chat channel.");
+                return;
+            } else {
+                chat_setmode(1);
+                if (compare(substring(%varclient_1520, 0, 1), "/") = 0) {
+                    %varclient_1520 = substring(%varclient_1520, 1, string_length(%varclient_1520));
+                }
+                chat_sendpublic(%varclient_1520);
+                %varclient_1520 = "";
+            }
+        } else if (%chat_view = 7) {
+            if ($int6 >= 0) {
+                if ($int7 >= $int8) {
+                    chat_setmode(2);
+                    if (compare(substring(%varclient_1520, 0, 1), "/") = 0) {
+                        %varclient_1520 = substring(%varclient_1520, 1, string_length(%varclient_1520));
+                    }
+                    if (compare(substring(%varclient_1520, 0, 1), "/") = 0) {
+                        %varclient_1520 = substring(%varclient_1520, 1, string_length(%varclient_1520));
+                    }
+                    chat_sendpublic(%varclient_1520);
+                    %varclient_1520 = "";
+                } else {
+                    mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                    %varclient_1520 = "";
+                    return;
+                }
+            } else {
+                %chat_view = 0;
+                ~chat_alert_reset(0);
+                ~redraw_chat_buttons;
+                ~rebuildchatbox;
+                ~rebuildpmbox;
+                mes("You aren't in a Clan Chat channel.");
+                %varclient_1520 = "";
+                return;
+            }
+        } else {
+            if (compare(substring(%varclient_1520, 0, 1), "/") = 0) {
+                chat_setmode(1);
+                %varclient_1520 = substring(%varclient_1520, 1, string_length(%varclient_1520));
+                if (compare(%varclient_1520, "") = 0) {
+                    return;
+                }
+                if (compare(substring(%varclient_1520, 0, 1), "/") = 0) {
+                    %varclient_1520 = substring(%varclient_1520, 1, string_length(%varclient_1520));
+                    if (compare(substring(%varclient_1520, 0, 1), "/") = 0) {
+                        if ($int9 >= 0) {
+                            if ($int10 >= $int11) {
+                                chat_setmode(3);
+                                %varclient_1520 = substring(%varclient_1520, 1, string_length(%varclient_1520));
+                                if (compare(%varclient_1520, "") = 0) {
+                                    return;
+                                }
+                            } else {
+                                mes_typed(^chattype_clanmessage, 0, "Guests cannot chat in this Clan Chat channel.");
+                                %varclient_1520 = "";
+                                return;
+                            }
+                        } else {
+                            %chat_view = 0;
+                            ~chat_alert_reset(0);
+                            ~redraw_chat_buttons;
+                            ~rebuildchatbox;
+                            ~rebuildpmbox;
+                            mes("You aren't a guest in a visited Clan Chat channel.");
+                            %varclient_1520 = "";
+                            return;
+                        }
+                    } else if ($int6 >= 0) {
+                        if ($int7 >= $int8) {
+                            chat_setmode(2);
+                            if (compare(%varclient_1520, "") = 0) {
+                                return;
+                            }
+                        } else {
+                            mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                            %varclient_1520 = "";
+                            return;
+                        }
+                    } else {
+                        %chat_view = 0;
+                        ~chat_alert_reset(0);
+                        ~redraw_chat_buttons;
+                        ~rebuildchatbox;
+                        ~rebuildpmbox;
+                        mes("You aren't in a Clan Chat channel.");
+                        %varclient_1520 = "";
+                        return;
+                    }
+                }
+            } else {
+                chat_setmode(0);
+            }
+            chat_sendpublic(%varclient_1520);
+        }
+        ~chatout_add(%varclient_1520);
+        %varclient_1520 = "";
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        if (keyheld_shift = false) {
+            return;
+        }
+        %chat_caret = ~script1553($key0, %chat_caret, %varclient_1520);
+    case default :
+        %varclient_1520, %chat_caret = ~script802(%chat_caret, %varclient_1520, 0, $key0, $char1);
+}
+~script1558(false);

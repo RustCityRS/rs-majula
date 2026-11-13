@@ -1,0 +1,7 @@
+// 2462
+[clientscript,script2462](component $component0, boolean $boolean1)
+if ($boolean1 = true) {
+    if_setgraphic($component0, graphic_1837);
+} else {
+    if_setgraphic($component0, graphic_1835);
+}

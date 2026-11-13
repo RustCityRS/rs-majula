@@ -1,0 +1,3 @@
+// 255
+[proc,fishcomp_overlay_load]
+if_setonvarctransmit(fishcomp_overlay:main_layer, "fishcomp_add_result{fishcomp_result_fish, fishcomp_result_weight, fishcomp_result_habitat, fishcomp_result_bait, fishcomp_result_hook, fishcomp_result_distance}");

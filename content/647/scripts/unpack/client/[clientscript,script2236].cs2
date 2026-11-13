@@ -1,0 +1,10 @@
+// 2236
+[clientscript,script2236]
+if (%easter10_totalworkers < 15 & calc(%easter10_resourcegame_totalnuts + %easter10_resourcegame_totalfruit + %easter10_resourcegame_totalchoc) > 1) {
+    sound_synth(synth_8729, 1, 0);
+    %easter10_totalworkers = calc(%easter10_totalworkers + 1);
+} else {
+    %easter10_resourcegame_errortextflag = 2;
+    sound_synth(pillory_wrong, 1, 0);
+}
+~script2220;

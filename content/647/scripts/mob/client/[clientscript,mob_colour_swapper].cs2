@@ -1,0 +1,42 @@
+// 2478
+[clientscript,mob_colour_swapper](component $component0)
+switch_component ($component0) {
+    case "mob_tutorial:06_rewards" :
+        if (%varplayerbit_6348 = 28) {
+            if_setcolour($component0, 0xffff33);
+        } else {
+            if_setcolour($component0, ^green);
+        }
+    case "mob_tutorial:07_extra" :
+        if (%varplayerbit_6348 < 30) {
+            if_setcolour($component0, ^red);
+        } else if (%varplayerbit_6348 = 30) {
+            if_setcolour($component0, 0xffff33);
+        } else {
+            if_setcolour($component0, ^green);
+        }
+    case mob_tutorial:com_3 :
+        if (%varplayerbit_6348 < 32) {
+            if_setcolour($component0, ^red);
+        } else if (%varplayerbit_6348 = 32) {
+            if_setcolour($component0, 0xffff33);
+        } else {
+            if_setcolour($component0, ^green);
+        }
+    case mob_tutorial:com_4 :
+        if (%varplayerbit_6348 < 34) {
+            if_setcolour($component0, ^red);
+        } else if (%varplayerbit_6348 = 34) {
+            if_setcolour($component0, 0xffff33);
+        } else {
+            if_setcolour($component0, ^green);
+        }
+    case mob_tutorial:com_5 :
+        if (%varplayerbit_6348 < 36) {
+            if_setcolour($component0, ^red);
+        } else if (%varplayerbit_6348 = 36) {
+            if_setcolour($component0, 0xffff33);
+        } else {
+            if_setcolour($component0, ^green);
+        }
+}

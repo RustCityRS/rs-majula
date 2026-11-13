@@ -1,0 +1,52 @@
+// 763:0
+[inventory_layer]
+type=layer
+x=16
+y=8
+width=162
+height=250
+onload=bank_v2_sideinit(event_com, bank_v2_side:equipscreen_inventory)
+onvartransmit=bank_v2_sideupdate(event_com){last_bank_amount}
+oninvtransmit=bank_v2_sideupdate(event_com){inv}
+onvarctransmit=bank_v2_sideupdate(event_com){varclient_96, varclient_95}
+
+// 763:1
+[equipscreen_container]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+
+// 763:2
+[equipscreen_inventory]
+type=layer
+x=16
+y=8
+width=162
+height=250
+layer=equipscreen_container
+
+// 763:3
+[popup]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=equipscreen_container
+hide=yes
+noclickthrough=yes
+
+// 763:4
+[com_4]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup
+colour=0x000000
+fill=yes
+trans=175

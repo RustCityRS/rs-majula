@@ -1,0 +1,3065 @@
+// 320:0
+[bg_rect]
+type=rectangle
+widthmode=minus
+heightmode=minus
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10= 
+
+// 320:1
+[attack]
+type=layer
+x=3
+y=5
+width=60
+height=27
+
+// 320:2
+[hitpoints]
+type=layer
+x=65
+y=5
+width=60
+height=27
+transmitop=10
+op10= 
+
+// 320:3
+[mining]
+type=layer
+x=127
+y=5
+width=60
+height=27
+transmitop=10
+op10=  
+
+// 320:4
+[strength]
+type=layer
+x=3
+y=33
+width=60
+height=27
+transmitop=10
+op10= 
+
+// 320:5
+[bg_strength]
+type=graphic
+width=60
+height=27
+layer=strength
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 320:6
+[lvl_icon_strength]
+type=graphic
+x=1
+width=25
+height=25
+layer=strength
+graphic="staticons,1"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:7
+[stat_strength]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=strength
+textfont=p11_full
+text=50
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+onstattransmit=stats_stat(event_com, strength){strength}
+
+// 320:8
+[statbase_strength]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=strength
+textfont=p11_full
+text=50
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+onstattransmit=stats_statbase(event_com, strength){strength}
+
+// 320:9
+[com_9]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=strength
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10= 
+
+// 320:10
+[com_10]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=strength
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:11
+[strength_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=strength
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10= 
+onmouseover=stats_mouseover(event_com, strength, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:12
+[agility]
+type=layer
+x=65
+y=33
+width=60
+height=27
+transmitop=10
+op10=  
+
+// 320:13
+[bg_agility]
+type=graphic
+width=60
+height=27
+layer=agility
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 320:14
+[lvl_icon_agility]
+type=graphic
+x=2
+width=25
+height=25
+layer=agility
+graphic="staticons,7"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:15
+[stat_agility]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=agility
+textfont=p11_full
+text=111
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_stat(event_com, agility){agility}
+
+// 320:16
+[statbase_agility]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=agility
+textfont=p11_full
+text=111
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_statbase(event_com, agility){agility}
+
+// 320:17
+[com_17]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=agility
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:18
+[com_18]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=agility
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:19
+[agility_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=agility
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=  
+onmouseover=stats_mouseover(event_com, agility, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:20
+[smithing]
+type=layer
+x=127
+y=33
+width=60
+height=27
+transmitop=10
+op10=   
+
+// 320:21
+[defence]
+type=layer
+x=3
+y=61
+width=60
+height=27
+transmitop=10
+op10=  
+
+// 320:22
+[bg_defence]
+type=graphic
+width=60
+height=27
+layer=defence
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 320:23
+[lvl_icon_defence]
+type=graphic
+width=25
+height=25
+layer=defence
+graphic="staticons,2"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:24
+[stat_defence]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=defence
+textfont=p11_full
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_stat(event_com, defence){defence}
+
+// 320:25
+[statbase_defence]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=defence
+textfont=p11_full
+text=50
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_statbase(event_com, defence){defence}
+
+// 320:26
+[com_26]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=defence
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:27
+[com_27]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=defence
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:28
+[defence_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=defence
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=  
+onmouseover=stats_mouseover(event_com, defence, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:29
+[herblore]
+type=layer
+x=65
+y=61
+width=60
+height=27
+transmitop=10
+op10=   
+
+// 320:30
+[bg_herblore]
+type=graphic
+width=60
+height=27
+layer=herblore
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 320:31
+[lvl_icon_herblore]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=herblore
+graphic="staticons,8"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=   
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:32
+[stat_herblore]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=herblore
+textfont=p11_full
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_stat(event_com, herblore){herblore}
+
+// 320:33
+[statbase_herblore]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=herblore
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_statbase(event_com, herblore){herblore}
+
+// 320:34
+[com_34]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=herblore
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:35
+[com_35]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=herblore
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:36
+[herblore_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=herblore
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=   
+onmouseover=stats_mouseover(event_com, herblore, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:37
+[fishing]
+type=layer
+x=127
+y=61
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:38
+[bg_fishing]
+type=graphic
+width=60
+height=27
+layer=fishing
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:39
+[lvl_icon_fishing]
+type=graphic
+x=3
+width=25
+height=25
+layer=fishing
+graphic="staticons,14"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:40
+[stat_fishing]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=fishing
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, fishing){fishing}
+
+// 320:41
+[statbase_fishing]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=fishing
+textfont=p11_full
+text=50
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, fishing){fishing}
+
+// 320:42
+[com_42]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=fishing
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:43
+[com_43]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=fishing
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:44
+[fishing_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=fishing
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, fishing, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:45
+[ranged]
+type=layer
+x=3
+y=89
+width=60
+height=27
+transmitop=10
+op10=  
+
+// 320:46
+[bg_ranged]
+type=graphic
+width=60
+height=27
+layer=ranged
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 320:47
+[lvl_icon_ranged]
+type=graphic
+x=2
+width=25
+height=25
+layer=ranged
+graphic="staticons,3"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:48
+[stat_ranged]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=ranged
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_stat(event_com, ranged){ranged}
+
+// 320:49
+[statbase_ranged]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=ranged
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_statbase(event_com, ranged){ranged}
+
+// 320:50
+[com_50]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=ranged
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:51
+[com_51]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=ranged
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:52
+[ranged_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=ranged
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=  
+onmouseover=stats_mouseover(event_com, ranged, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:53
+[thieving]
+type=layer
+x=65
+y=89
+width=60
+height=27
+transmitop=10
+op10=   
+
+// 320:54
+[bg_thieving]
+type=graphic
+width=60
+height=27
+layer=thieving
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 320:55
+[lvl_icon_thieving]
+type=graphic
+x=1
+y=-1
+width=25
+height=25
+layer=thieving
+graphic="staticons,9"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=   
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:56
+[stat_thieving]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=thieving
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_stat(event_com, thieving){thieving}
+
+// 320:57
+[statbase_thieving]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=thieving
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_statbase(event_com, thieving){thieving}
+
+// 320:58
+[com_58]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=thieving
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:59
+[com_59]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=thieving
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:60
+[thieving_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=thieving
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=   
+onmouseover=stats_mouseover(event_com, thieving, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:61
+[cooking]
+type=layer
+x=127
+y=89
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:62
+[bg_cooking]
+type=graphic
+width=60
+height=27
+layer=cooking
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:63
+[lvl_icon_cooking]
+type=graphic
+x=2
+y=1
+width=25
+height=25
+layer=cooking
+graphic="staticons,15"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:64
+[stat_cooking]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=cooking
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, cooking){cooking}
+
+// 320:65
+[statbase_cooking]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=cooking
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, cooking){cooking}
+
+// 320:66
+[com_66]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=cooking
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:67
+[com_67]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=cooking
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:68
+[cooking_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=cooking
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, cooking, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:69
+[prayer]
+type=layer
+x=3
+y=117
+width=60
+height=27
+transmitop=10
+op10=  
+
+// 320:70
+[bg_prayer]
+type=graphic
+width=60
+height=27
+layer=prayer
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 320:71
+[lvl_icon_prayer]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=prayer
+graphic="staticons,4"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:72
+[stat_prayer]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=prayer
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_stat(event_com, prayer){prayer}
+
+// 320:73
+[statbase_prayer]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=prayer
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_statbase(event_com, prayer){prayer}
+
+// 320:74
+[com_74]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=prayer
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:75
+[com_75]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=prayer
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:76
+[prayer_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=prayer
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=  
+onmouseover=stats_mouseover(event_com, prayer, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:77
+[crafting]
+type=layer
+x=65
+y=117
+width=60
+height=27
+transmitop=10
+op10=   
+
+// 320:78
+[bg_crafting]
+type=graphic
+width=60
+height=27
+layer=crafting
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 320:79
+[lvl_icon_crafting]
+type=graphic
+x=2
+y=1
+width=25
+height=25
+layer=crafting
+graphic="staticons,10"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=   
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:80
+[stat_crafting]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=crafting
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_stat(event_com, crafting){crafting}
+
+// 320:81
+[statbase_crafting]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=crafting
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_statbase(event_com, crafting){crafting}
+
+// 320:82
+[com_82]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=crafting
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:83
+[com_83]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=crafting
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:84
+[crafting_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=crafting
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=   
+onmouseover=stats_mouseover(event_com, crafting, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:85
+[firemaking]
+type=layer
+x=127
+y=117
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:86
+[magic]
+type=layer
+x=3
+y=145
+width=60
+height=27
+transmitop=10
+op10=   
+
+// 320:87
+[bg_magic]
+type=graphic
+width=60
+height=27
+layer=magic
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 320:88
+[lvl_icon_magic]
+type=graphic
+x=1
+width=25
+height=25
+layer=magic
+graphic="staticons,5"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=   
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:89
+[stat_magic]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=magic
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_stat(event_com, magic){magic}
+
+// 320:90
+[statbase_magic]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=magic
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_statbase(event_com, magic){magic}
+
+// 320:91
+[com_91]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=magic
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:92
+[com_92]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=magic
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:93
+[magic_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=magic
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=   
+onmouseover=stats_mouseover(event_com, magic, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:94
+[fletching]
+type=layer
+x=65
+y=145
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:95
+[bg_fletching]
+type=graphic
+width=60
+height=27
+layer=fletching
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:96
+[lvl_icon_fletching]
+type=graphic
+x=2
+width=25
+height=25
+layer=fletching
+graphic="staticons,11"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:97
+[stat_fletching]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=fletching
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, fletching){fletching}
+
+// 320:98
+[statbase_fletching]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=fletching
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, fletching){fletching}
+
+// 320:99
+[com_99]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=fletching
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:100
+[com_100]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=fletching
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:101
+[fletching_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=fletching
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, fletching, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:102
+[woodcutting]
+type=layer
+x=127
+y=145
+width=60
+height=27
+transmitop=10
+op10=     
+
+// 320:103
+[runecrafting]
+type=layer
+x=3
+y=173
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:104
+[bg_runecraft]
+type=graphic
+width=60
+height=27
+layer=runecrafting
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:105
+[lvl_icon_runecraft]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=runecrafting
+graphic="staticons2,0"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:106
+[stat_runecraft]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=runecrafting
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, runecraft){runecraft}
+
+// 320:107
+[statbase_runecraft]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=runecrafting
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, runecraft){runecraft}
+
+// 320:108
+[com_108]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=runecrafting
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:109
+[com_109]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=runecrafting
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:110
+[runecraft_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=runecrafting
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, runecraft, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:111
+[slayer]
+type=layer
+x=65
+y=173
+width=60
+height=27
+transmitop=10
+op10=     
+
+// 320:112
+[bg_slayer]
+type=graphic
+width=60
+height=27
+layer=slayer
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 320:113
+[lvl_icon_slayer]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=slayer
+graphic="staticons2,1"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=     
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:114
+[stat_slayer]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=slayer
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=     
+onstattransmit=stats_stat(event_com, slayer){slayer}
+
+// 320:115
+[statbase_slayer]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=slayer
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=     
+onstattransmit=stats_statbase(event_com, slayer){slayer}
+
+// 320:116
+[com_116]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=slayer
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:117
+[com_117]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=slayer
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=      
+
+// 320:118
+[slayer_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=slayer
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=     
+onmouseover=stats_mouseover(event_com, slayer, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:119
+[farming]
+type=layer
+x=127
+y=173
+width=60
+height=27
+transmitop=10
+op10=      
+
+// 320:120
+[bg_farming]
+type=graphic
+width=60
+height=27
+layer=farming
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 320:121
+[lvl_icon_farming]
+type=graphic
+x=2
+width=25
+height=25
+layer=farming
+graphic="staticons2,2"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=      
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:122
+[stat_farming]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=farming
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=      
+onstattransmit=stats_stat(event_com, farming){farming}
+
+// 320:123
+[statbase_farming]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=farming
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=      
+onstattransmit=stats_statbase(event_com, farming){farming}
+
+// 320:124
+[com_124]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=farming
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=      
+
+// 320:125
+[com_125]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=farming
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=       
+
+// 320:126
+[farming_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=farming
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=      
+onmouseover=stats_mouseover(event_com, farming, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:127
+[construction]
+type=layer
+x=3
+y=201
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:128
+[bg_construction]
+type=graphic
+width=60
+height=27
+layer=construction
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:129
+[lvl_icon_construction]
+type=graphic
+x=2
+y=-1
+width=25
+height=25
+layer=construction
+graphic="staticons2,6"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:130
+[stat_construction]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=construction
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, construction){construction}
+
+// 320:131
+[statbase_construction]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=construction
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, construction){construction}
+
+// 320:132
+[com_132]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=construction
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:133
+[com_133]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=construction
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:134
+[construction_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=construction
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, construction, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:135
+[hunter]
+type=layer
+x=65
+y=201
+width=60
+height=27
+transmitop=10
+op10=     
+
+// 320:136
+[bg_hunter]
+type=graphic
+width=60
+height=27
+layer=hunter
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 320:137
+[lvl_icon_hunter]
+type=graphic
+x=1
+width=25
+height=25
+layer=hunter
+graphic="staticons2,5"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=     
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:138
+[stat_hunter]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=hunter
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=     
+onstattransmit=stats_stat(event_com, hunter){hunter}
+
+// 320:139
+[statbase_hunter]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=hunter
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=     
+onstattransmit=stats_statbase(event_com, hunter){hunter}
+
+// 320:140
+[com_140]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=hunter
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:141
+[com_141]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=hunter
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=      
+
+// 320:142
+[hunter_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=hunter
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=     
+onmouseover=stats_mouseover(event_com, hunter, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:143
+[summoning]
+type=layer
+x=127
+y=201
+width=60
+height=27
+transmitop=10
+op10=      
+
+// 320:144
+[dear_wear]
+type=graphic
+width=60
+height=27
+layer=summoning
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 320:145
+[com_145]
+type=graphic
+x=3
+width=25
+height=25
+layer=summoning
+graphic="staticons2,7"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=      
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:146
+[com_146]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=summoning
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=      
+onstattransmit=stats_stat(event_com, summoning){summoning}
+
+// 320:147
+[com_147]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=summoning
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=      
+onstattransmit=stats_statbase(event_com, summoning){summoning}
+
+// 320:148
+[com_148]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=summoning
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=      
+
+// 320:149
+[com_149]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=summoning
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=       
+
+// 320:150
+[com_150]
+type=text
+widthmode=minus
+heightmode=minus
+layer=summoning
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=      
+onmouseover=stats_mouseover(event_com, summoning, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:151
+[dungeoneering]
+type=layer
+x=3
+y=229
+width=60
+height=27
+transmitop=10
+op10=    
+
+// 320:152
+[bg_dungeoneering]
+type=graphic
+width=60
+height=27
+layer=dungeoneering
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:153
+[lvl_icon_dungeoneering]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=dungeoneering
+graphic="staticons2,13"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:154
+[stat_dungeoneering]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=dungeoneering
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, dungeoneering){dungeoneering}
+
+// 320:155
+[statbase_dungeoneering]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=dungeoneering
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, dungeoneering){dungeoneering}
+
+// 320:156
+[com_156]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=dungeoneering
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:157
+[com_157]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=dungeoneering
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:158
+[dungeoneering_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=dungeoneering
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, dungeoneering, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:159
+[bg_woodcutting]
+type=graphic
+width=60
+height=27
+layer=woodcutting
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 320:160
+[lvl_icon_woodcutting]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=woodcutting
+graphic="staticons,17"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=     
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:161
+[stat_woodcutting]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=woodcutting
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=     
+onstattransmit=stats_stat(event_com, woodcutting){woodcutting}
+
+// 320:162
+[statbase_woodcutting]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=woodcutting
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=     
+onstattransmit=stats_statbase(event_com, woodcutting){woodcutting}
+
+// 320:163
+[com_163]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=woodcutting
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:164
+[com_164]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=woodcutting
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=      
+
+// 320:165
+[woodcutting_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=woodcutting
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=     
+onmouseover=stats_mouseover(event_com, woodcutting, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:166
+[bg_firemaking]
+type=graphic
+width=60
+height=27
+layer=firemaking
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 320:167
+[lvl_icon_firemaking]
+type=graphic
+x=1
+y=1
+width=25
+height=25
+layer=firemaking
+graphic="staticons,16"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=    
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:168
+[stat_firemaking]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=firemaking
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_stat(event_com, firemaking){firemaking}
+
+// 320:169
+[statbase_firemaking]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=firemaking
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=    
+onstattransmit=stats_statbase(event_com, firemaking){firemaking}
+
+// 320:170
+[com_170]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=firemaking
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:171
+[com_171]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=firemaking
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=     
+
+// 320:172
+[firemaking_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=firemaking
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=    
+onmouseover=stats_mouseover(event_com, firemaking, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:173
+[bg_smithing]
+type=graphic
+width=60
+height=27
+layer=smithing
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 320:174
+[lvl_icon_smithing]
+type=graphic
+x=2
+width=25
+height=25
+layer=smithing
+graphic="staticons,13"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=   
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:175
+[stat_smithing]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=smithing
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_stat(event_com, smithing){smithing}
+
+// 320:176
+[statbase_smithing]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=smithing
+textfont=p11_full
+text=120
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=   
+onstattransmit=stats_statbase(event_com, smithing){smithing}
+
+// 320:177
+[com_177]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=smithing
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:178
+[com_178]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=smithing
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=    
+
+// 320:179
+[smithing_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=smithing
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=   
+onmouseover=stats_mouseover(event_com, smithing, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:180
+[bg_mining]
+type=graphic
+width=60
+height=27
+layer=mining
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 320:181
+[lvl_icon_mining]
+type=graphic
+x=2
+y=-1
+width=25
+height=25
+layer=mining
+graphic="staticons,12"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:182
+[stat_mining]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=mining
+textfont=p11_full
+text=10
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_stat(event_com, mining){mining}
+
+// 320:183
+[statbase_mining]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=mining
+textfont=p11_full
+text=10
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10=  
+onstattransmit=stats_statbase(event_com, mining){mining}
+
+// 320:184
+[com_184]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=mining
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:185
+[com_185]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=mining
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=   
+
+// 320:186
+[mining_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=mining
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10=  
+onmouseover=stats_mouseover(event_com, mining, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:187
+[bg_hitpoints]
+type=graphic
+width=60
+height=27
+layer=hitpoints
+graphic=graphic_3030
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 320:188
+[lvl_icon_hitpoints]
+type=graphic
+x=1
+y=-1
+width=25
+height=25
+layer=hitpoints
+graphic="staticons,6"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:189
+[stat_hitpoints]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=hitpoints
+textfont=p11_full
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+onstattransmit=stats_stat(event_com, hitpoints){hitpoints}
+
+// 320:190
+[statbase_hitpoints]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=hitpoints
+textfont=p11_full
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+onstattransmit=stats_statbase(event_com, hitpoints){hitpoints}
+
+// 320:191
+[com_191]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=hitpoints
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10= 
+
+// 320:192
+[com_192]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=hitpoints
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10=  
+
+// 320:193
+[hitpoints_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=hitpoints
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+op10= 
+onmouseover=stats_mouseover(event_com, hitpoints, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:194
+[bg_attack]
+type=graphic
+width=60
+height=27
+layer=attack
+graphic=graphic_3030
+colour=0xffffffff
+
+// 320:195
+[lvl_icon_attack]
+type=graphic
+x=1
+y=-1
+width=25
+height=25
+layer=attack
+graphic="staticons,0"
+colour=0xffffffff
+opbase=  
+onvartransmit=script968(event_com){skill_stat_flash}
+
+// 320:196
+[stat_attack]
+type=text
+x=25
+y=2
+width=18
+height=11
+layer=attack
+textfont=p11_full
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+onstattransmit=stats_stat(event_com, attack){attack}
+
+// 320:197
+[statbase_attack]
+type=text
+x=40
+y=14
+width=18
+height=11
+layer=attack
+textfont=p11_full
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+onstattransmit=stats_statbase(event_com, attack){attack}
+
+// 320:198
+[com_198]
+type=line
+x=30
+y=3
+width=21
+height=20
+layer=attack
+colour=0x373228
+linedirection=yes
+
+// 320:199
+[com_199]
+type=line
+x=31
+y=4
+width=20
+height=19
+layer=attack
+colour=0x373228
+linedirection=yes
+transmitop=10
+op10= 
+
+// 320:200
+[attack_button]
+type=text
+widthmode=minus
+heightmode=minus
+layer=attack
+textfont=p11_full
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase= 
+op1=View
+op2=Set Level Target
+op3=Set XP Target
+op4=Clear Target
+onmouseover=stats_mouseover(event_com, attack, stats:tips)
+onmouseleave=stats_mouseoff(stats:tips)
+
+// 320:201
+[skilltotal]
+type=text
+x=65
+y=231
+width=122
+height=27
+textfont=b12_full
+text=Total Lvl: 1337
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+onstattransmit=stats_skilltotal(event_com)
+
+// 320:202
+[tips]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 320:203
+[advice_layer]
+type=layer
+width=190
+height=261
+hide=yes
+noclickthrough=yes
+
+// 320:204
+[com_204]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=advice_layer
+graphic=window_texture
+trans=25
+
+// 320:205
+[advice_close]
+type=layer
+y=237
+width=84
+height=19
+xmode=abs_centre
+layer=advice_layer
+transmitop=1
+op1=Close
+onmouseover=script4102(0)
+onmouseleave=script4102(1)
+onop=script4103
+
+// 320:206
+[advice_close_l]
+type=graphic
+width=6
+height=19
+layer=advice_close
+graphic="task_pin_but,0"
+
+// 320:207
+[advice_close_r]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+layer=advice_close
+graphic="task_pin_but,0"
+hflip=yes
+
+// 320:208
+[advice_close_m]
+type=graphic
+x=6
+width=12
+height=19
+widthmode=minus
+layer=advice_close
+graphic="task_pin_but,1"
+
+// 320:209
+[advice_close_text]
+type=text
+x=14
+width=14
+height=1
+widthmode=minus
+heightmode=minus
+layer=advice_close
+textfont=verdana_11pt_regular
+text=Close
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 320:210
+[advice_close_arrow]
+type=graphic
+x=4
+y=6
+width=15
+height=8
+layer=advice_close
+graphic="task_arrow,0"
+onmouseover=graphic_swapper(event_com, "task_arrow,1")
+onmouseleave=graphic_swapper(event_com, "task_arrow,0")
+
+// 320:211
+[advice_where]
+type=text
+x=5
+y=162
+width=10
+height=72
+widthmode=minus
+layer=advice_layer
+textfont=verdana_11pt_regular
+text=You can also right-click for a menu which will let you assign level or experience targets for each skill.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 320:212
+[advice_why]
+type=text
+x=5
+y=88
+width=10
+height=72
+widthmode=minus
+layer=advice_layer
+textfont=verdana_11pt_regular
+text=Left-clicking on a box will show a guide explaining the benefits of gaining levels in that skill.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 320:213
+[advice_what]
+type=text
+x=5
+y=6
+width=10
+height=79
+widthmode=minus
+layer=advice_layer
+textfont=verdana_11pt_regular
+text=This screen shows you the current and maximum level of each of your skills. Hover your mouse over one for more information.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes

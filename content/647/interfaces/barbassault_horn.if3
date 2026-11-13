@@ -1,0 +1,453 @@
+// 484:0
+[backing]
+type=layer
+width=512
+height=334
+noclickthrough=yes
+
+// 484:1
+[contents]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 484:2
+[com_2]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+colour=0x000000
+fill=yes
+trans=150
+
+// 484:3
+[com_3]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+colour=0xff981f
+
+// 484:4
+[com_4]
+type=text
+x=10
+y=140
+width=60
+height=16
+layer=contents
+textfont=b12_full
+text=Attacker :
+textshadow=yes
+colour=0xff981f
+
+// 484:5
+[com_5]
+type=text
+x=10
+y=163
+width=60
+height=16
+layer=contents
+textfont=b12_full
+text=Defender :
+textshadow=yes
+colour=0xff981f
+
+// 484:6
+[com_6]
+type=text
+x=10
+y=187
+width=60
+height=16
+layer=contents
+textfont=b12_full
+text=Collector :
+textshadow=yes
+colour=0xff981f
+
+// 484:7
+[com_7]
+type=text
+x=10
+y=210
+width=60
+height=16
+layer=contents
+textfont=b12_full
+text=Healer :
+textshadow=yes
+colour=0xff981f
+
+// 484:8
+[barbassault_horn_att]
+type=text
+x=104
+y=141
+width=140
+height=16
+layer=contents
+textfont=p12_full
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:9
+[barbassualt_horn_def]
+type=text
+x=104
+y=164
+width=140
+height=16
+layer=contents
+textfont=p12_full
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:10
+[barbassault_horn_col]
+type=text
+x=104
+y=188
+width=140
+height=16
+layer=contents
+textfont=p12_full
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:11
+[barbassault_horn_heal]
+type=text
+x=104
+y=211
+width=140
+height=16
+layer=contents
+textfont=p12_full
+text=----------------------
+textshadow=yes
+colour=0xff981f
+
+// 484:12
+[com_12]
+type=model
+x=256
+y=26
+width=54
+height=56
+layer=contents
+model=model_20561
+modelorigin=0,-1
+modelangle=483,0,0
+modelzoom=1084
+
+// 484:13
+[com_13]
+type=model
+x=260
+y=105
+width=45
+height=56
+layer=contents
+model=model_20566
+modelangle=512,0,0
+modelzoom=1084
+
+// 484:14
+[com_14]
+type=model
+x=258
+y=178
+width=47
+height=56
+layer=contents
+model=model_20563
+modelangle=392,2038,0
+modelzoom=956
+
+// 484:15
+[com_15]
+type=model
+x=256
+y=261
+width=51
+height=50
+layer=contents
+model=model_20569
+modelorigin=0,-1
+modelangle=450,2044,0
+modelzoom=1084
+
+// 484:16
+[barbassault_horn_col_r]
+type=text
+x=313
+y=178
+width=60
+height=16
+layer=contents
+textfont=p12_full
+text=Red
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:17
+[barbassault_horn_col_g]
+type=text
+x=313
+y=198
+width=60
+height=16
+layer=contents
+textfont=p12_full
+text=Green
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:18
+[barbassault_horn_col_b]
+type=text
+x=313
+y=218
+width=60
+height=16
+layer=contents
+textfont=p12_full
+text=Blue
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:19
+[barbassault_horn_att_1]
+type=text
+x=313
+y=19
+width=150
+height=16
+layer=contents
+textfont=p12_full
+text=Controlled/Bronze/Wind
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:20
+[barbassault_horn_att_2]
+type=text
+x=313
+y=36
+width=150
+height=16
+layer=contents
+textfont=p12_full
+text=Accurate/Iron/Water
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:21
+[barbassault_horn_att_3]
+type=text
+x=313
+y=54
+width=150
+height=16
+layer=contents
+textfont=p12_full
+text=Aggressive/Steel/Earth
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:22
+[barbassault_horn_att_4]
+type=text
+x=313
+y=72
+width=150
+height=16
+layer=contents
+textfont=p12_full
+text=Defensive/Mithril/Fire
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:23
+[barbassault_horn_def_tofu]
+type=text
+x=313
+y=105
+width=60
+height=16
+layer=contents
+textfont=p12_full
+text=Tofu
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:24
+[barbassault_horn_def_worm]
+type=text
+x=313
+y=141
+width=60
+height=16
+layer=contents
+textfont=p12_full
+text=Worms
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:25
+[barbassault_horn_def_crack]
+type=text
+x=313
+y=123
+width=60
+height=16
+layer=contents
+textfont=p12_full
+text=Crackers
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:26
+[barbassault_horn_heal_tofu]
+type=text
+x=313
+y=262
+width=90
+height=16
+layer=contents
+textfont=p12_full
+text=Poison tofu
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:27
+[barbassault_horn_heal_worm]
+type=text
+x=313
+y=280
+width=90
+height=16
+layer=contents
+textfont=p12_full
+text=Poison worms
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:28
+[barbassault_horn_heal_meat]
+type=text
+x=313
+y=298
+width=90
+height=16
+layer=contents
+textfont=p12_full
+text=Poison meat
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Call
+onmouseover=text_colour_swapper(event_com, 0xffff64)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 484:29
+[com_29]
+type=text
+x=37
+y=37
+width=135
+height=32
+layer=contents
+textfont=barbassault_font
+text=Horn of Glory
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 484:30
+[barbassault_horn_close]
+type=graphic
+x=478
+y=9
+width=26
+height=23
+layer=contents
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+
+// 484:31
+[barbassault_horn_att_5]
+type=text
+x=71
+y=117
+width=52
+height=16
+layer=contents
+textfont=p12_full
+text=Call out :
+textshadow=yes
+colour=0xff981f

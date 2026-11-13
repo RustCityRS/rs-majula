@@ -1,0 +1,16 @@
+// 574
+[clientscript,objdialog_onkey](int $key0, char $char1)
+if ($key0 = ^key_return) {
+    %objdialog_timer = 0;
+    if_setontimer(objdialog:searchtext, null);
+    ~objdialog_refreshsearch;
+    return;
+}
+def_string $string0 = ~add_to_inputstring(%meslayerinput, 0, $key0, $char1);
+if (compare(%meslayerinput, $string0) = 0) {
+    return;
+}
+%meslayerinput = $string0;
+if_settext(objdialog:searchtext, "<escape(%meslayerinput)>*");
+%objdialog_timer = 50;
+if_setontimer(objdialog:searchtext, "objdialog_delay_timer");

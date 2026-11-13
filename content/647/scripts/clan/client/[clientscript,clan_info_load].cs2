@@ -1,0 +1,7 @@
+// 4413
+[clientscript,clan_info_load]
+if (activeclansettings_find_listened = true) {
+    ~script4415;
+} else {
+    if_setonclansettingstransmit(clan_info:content_layer, "script4414");
+}

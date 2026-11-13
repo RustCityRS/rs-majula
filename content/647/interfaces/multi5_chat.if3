@@ -1,0 +1,157 @@
+// 235:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 235:1
+[multi5t_chat]
+type=text
+y=12
+width=480
+height=17
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=Select an Option
+textalignh=centre
+colour=0x800000
+
+// 235:2
+[multi5a_chat]
+type=text
+y=32
+width=480
+height=16
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option1
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 235:3
+[multi5b_chat]
+type=text
+y=49
+width=480
+height=16
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option2
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 235:4
+[multi5c_chat]
+type=text
+y=66
+width=480
+height=16
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option3
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 235:5
+[multi5d_chat]
+type=text
+y=83
+width=480
+height=16
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option4
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 235:6
+[multi5e_chat]
+type=text
+y=100
+width=480
+height=16
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option5
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 235:7
+[com_7]
+type=graphic
+width=57
+height=13
+layer=multi5swords_chat
+graphic="sworddecor,1"
+colour=0x000000
+
+// 235:8
+[com_8]
+type=graphic
+width=57
+height=13
+xmode=abs_right
+layer=multi5swords_chat
+graphic="sworddecor,0"
+colour=0x000000
+
+// 235:9
+[multi5swords_chat]
+type=layer
+y=15
+width=337
+height=13
+xmode=abs_centre
+layer=layer_1
+
+// 235:10
+[com_10]
+type=layer
+y=15
+width=476
+height=13
+xmode=abs_centre
+layer=layer_1
+hide=yes
+
+// 235:11
+[com_11]
+type=graphic
+width=57
+height=13
+layer=com_10
+graphic="sworddecor,1"
+colour=0x000000
+
+// 235:12
+[com_12]
+type=graphic
+width=57
+height=13
+xmode=abs_right
+layer=com_10
+graphic="sworddecor,0"
+colour=0x000000

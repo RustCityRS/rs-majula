@@ -1,0 +1,136 @@
+// 1073:0
+[com_0]
+type=layer
+y=7
+width=122
+height=52
+xmode=abs_centre
+
+// 1073:1
+[com_1]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+graphic=window_texture_2
+tiling=yes
+trans=70
+
+// 1073:2
+[com_2]
+type=graphic
+width=10
+height=10
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1073:3
+[com_3]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1073:4
+[com_4]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1073:5
+[com_5]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1073:6
+[com_6]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1073:7
+[com_7]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1073:8
+[com_8]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1073:9
+[com_9]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_0
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1073:10
+[com_10]
+type=text
+x=5
+y=9
+width=113
+height=18
+layer=com_0
+textfont=p11_full
+text=Current Instructions
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfff306
+
+// 1073:11
+[burialobject]
+type=text
+x=5
+y=26
+width=113
+height=18
+layer=com_0
+textfont=p11_full
+text=Helmets
+textalignh=centre
+textalignv=centre
+textshadow=yes

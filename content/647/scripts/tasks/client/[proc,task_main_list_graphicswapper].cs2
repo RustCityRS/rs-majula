@@ -1,0 +1,6 @@
+// 4014
+[proc,task_main_list_graphicswapper](int $int0, graphic $graphic1)
+if (cc_find(task_main:list_window, $int0) = true & if_gethide(task_main:area_list) = true) {
+    cc_setgraphic($graphic1);
+}
+~deltooltip_action(task_main:list_tooltip);

@@ -1,0 +1,23 @@
+// 216
+[proc,script216]
+%snapshot_mode = 1;
+if_sethide(snapshot_main_v2:name_list_layer, true);
+if_sethide(snapshot_main_v2:type_name_blackout_layer, true);
+if_sethide(snapshot_main_v2:type_name_layer, true);
+if_sethide(snapshot_main_v2:namelist_help_layer, true);
+if_sethide(snapshot_main_v2:offence_help_layer, true);
+if_sethide(snapshot_main_v2:honour_help_layer, true);
+if_sethide(snapshot_main_v2:respect_help_layer, true);
+if_sethide(snapshot_main_v2:security_help_layer, true);
+if_sethide(snapshot_main_v2:ignore_help_layer, true);
+if_sethide(snapshot_main_v2:offence_layer, true);
+if_sethide(snapshot_main_v2:ignore_layer, true);
+if_sethide(snapshot_main_v2:name_blackout_layer, true);
+if_sethide(snapshot_main_v2:offence_blackout_layer, true);
+if_sethide(snapshot_main_v2:ignore_blackout_layer, true);
+if (map_lang = 1) {
+    if_sethide(snapshot_main_v2:name_list_layer, false);
+    ~snapshot_update_select_button;
+} else {
+    if_sethide(snapshot_main_v2:type_name_layer, false);
+}

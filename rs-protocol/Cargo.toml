@@ -7,8 +7,12 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
+rs-crypto = { workspace = true }
 rs-io = { workspace = true }
+rs-ver = { workspace = true }
 rs-protocol-macros = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
 
 [build-dependencies]
 rs-ver = { workspace = true }

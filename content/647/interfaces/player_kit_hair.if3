@@ -1,0 +1,265 @@
+// 309:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=480
+height=300
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+
+// 309:1
+[universe]
+type=layer
+width=480
+height=300
+xmode=abs_centre
+ymode=abs_centre
+onload=player_kit_hair_initialise
+
+// 309:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 309:3
+[com_3]
+type=text
+height=36
+widthmode=minus
+xmode=abs_centre
+layer=universe
+textfont=b12_full
+text=Hairdresser's Salon
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 309:4
+[com_4]
+type=graphic
+x=10
+y=10
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 309:5
+[tabs]
+type=layer
+x=10
+y=40
+width=42
+height=100
+layer=universe
+
+// 309:6
+[hair_tab]
+type=graphic
+y=-22
+width=42
+height=42
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="player_kit_fancy_off,4"
+colour=0x000000
+transmitop=1
+op1=Hairstyle
+
+// 309:7
+[beard_tab]
+type=graphic
+y=22
+width=42
+height=42
+xmode=abs_centre
+ymode=abs_centre
+layer=tabs
+graphic="player_kit_fancy_off,3"
+colour=0x000000
+transmitop=1
+op1=Facial hair
+
+// 309:8
+[menu_container]
+type=layer
+x=10
+y=10
+width=200
+height=155
+heightmode=minus
+ymode=abs_bottom
+layer=universe
+
+// 309:9
+[menu_graphics]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu_container
+
+// 309:10
+[menu]
+type=layer
+x=2
+width=20
+height=4
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=menu_container
+
+// 309:11
+[menu_scrollbar]
+type=layer
+x=2
+width=16
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=menu_container
+hide=yes
+
+// 309:12
+[player_container]
+type=layer
+x=215
+y=10
+width=141
+height=250
+ymode=abs_bottom
+layer=universe
+
+// 309:13
+[chathead_container]
+type=layer
+x=270
+y=40
+width=200
+height=100
+xmode=abs_right
+layer=universe
+
+// 309:14
+[colours_container]
+type=layer
+x=10
+y=40
+width=371
+height=200
+widthmode=minus
+xmode=abs_right
+layer=universe
+
+// 309:15
+[colours_graphics]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colours_container
+
+// 309:16
+[colours]
+type=layer
+x=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=colours_container
+
+// 309:17
+[colours_scrollbar]
+type=layer
+x=2
+width=16
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=colours_container
+hide=yes
+
+// 309:18
+[confirm]
+type=layer
+x=10
+y=10
+width=371
+height=255
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+transmitop=1
+op1=Confirm
+
+// 309:19
+[confirm_graphics]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=confirm
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_in_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 309:20
+[confirm_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=confirm
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 309:21
+[tooltip_container]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 309:22
+[tooltip]
+type=layer
+layer=tooltip_container

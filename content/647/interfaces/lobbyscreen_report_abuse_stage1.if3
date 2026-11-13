@@ -1,0 +1,367 @@
+// 914:0
+[main]
+type=layer
+width=418
+height=122
+xmode=abs_centre
+ymode=abs_centre
+op10=  
+
+// 914:1
+[bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=main
+op10=    
+
+// 914:2
+[background_texture]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=bg
+graphic=window_texture
+tiling=yes
+
+// 914:3
+[top_left]
+type=graphic
+width=38
+height=72
+layer=bg
+graphic="corner_frame_5,4"
+hflip=yes
+colour=0xffffffff
+op10=  
+
+// 914:4
+[bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=bg
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 914:5
+[left_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=bg
+graphic=frame_border_vertical
+tiling=yes
+colour=0xffffffff
+op10=    
+
+// 914:6
+[right_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+xmode=abs_right
+layer=bg
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 914:7
+[bottom_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=bg
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=     
+
+// 914:8
+[top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=bg
+graphic="corner_frame_5,4"
+colour=0xffffffff
+op10=     
+
+// 914:9
+[bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=bg
+graphic="corner_frame_5,4"
+vflip=yes
+colour=0xffffffff
+op10=      
+
+// 914:10
+[top_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=bg
+graphic=frame_border_horizontal
+tiling=yes
+colour=0xffffffff
+op10=  
+
+// 914:11
+[page_text]
+type=text
+x=10
+y=3
+width=60
+height=22
+layer=bg
+textfont=verdana_11pt_regular
+text=Page 1/2
+textalignv=centre
+textshadow=yes
+colour=0x989898
+op10=  
+
+// 914:12
+[title_text]
+type=text
+y=3
+width=198
+height=22
+xmode=abs_centre
+layer=bg
+textfont=verdana_13pt_regular
+text=Report Abuse
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 914:13
+[close_button]
+type=graphic
+x=8
+y=8
+width=19
+height=17
+xmode=abs_right
+layer=bg
+graphic="intro_close_button,0"
+colour=0x000000
+op1=Close
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+onop=lobbyscreen_report_abuse_stage1_close
+
+// 914:14
+[body_text]
+type=text
+x=16
+y=42
+width=387
+height=25
+layer=main
+textfont=verdana_11pt_regular
+text=To report a player who is breaking one of our rules, first enter their name in the box below and then click 'Next'.
+textlineheight=12
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 914:15
+[name_layer]
+type=layer
+x=21
+y=82
+width=273
+height=31
+layer=main
+op10=    
+onmouseover=loginscreen_button_highlight(lobbyscreen_report_abuse_stage1:name_bg_left, graphic_3817, lobbyscreen_report_abuse_stage1:name_bg_mid, graphic_3818, lobbyscreen_report_abuse_stage1:name_bg_right, graphic_3819)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage1:name_bg_left, graphic_3814, lobbyscreen_report_abuse_stage1:name_bg_mid, graphic_3815, lobbyscreen_report_abuse_stage1:name_bg_right, graphic_3816)
+
+// 914:16
+[next_button]
+type=layer
+x=299
+y=80
+width=100
+height=31
+layer=main
+op1=Next
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage1:next_button_bg_left, graphic_4693, lobbyscreen_report_abuse_stage1:next_button_bg_mid, graphic_4694, lobbyscreen_report_abuse_stage1:next_button_bg_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_report_abuse_stage1:next_button_bg_left, graphic_4690, lobbyscreen_report_abuse_stage1:next_button_bg_mid, graphic_4691, lobbyscreen_report_abuse_stage1:next_button_bg_right, graphic_4692)
+
+// 914:17
+[next_button_bg_left]
+type=graphic
+width=15
+height=31
+layer=next_button
+graphic=graphic_4690
+colour=0x000000
+op10=  
+
+// 914:18
+[next_button_bg_mid]
+type=graphic
+x=15
+width=15
+height=31
+widthmode=minus
+layer=next_button
+graphic=graphic_4691
+colour=0x000000
+op10=  
+
+// 914:19
+[next_button_bg_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=next_button
+graphic=graphic_4692
+colour=0x000000
+op10=  
+
+// 914:20
+[next_button_text]
+type=text
+widthmode=minus
+heightmode=minus
+layer=next_button
+textfont=verdana_13pt_regular
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 914:21
+[mute_layer]
+type=layer
+x=16
+y=10
+width=221
+height=20
+ymode=abs_bottom
+layer=main
+hide=yes
+op1=Toggle mute
+op10=    
+onop=lobbyscreen_report_abuse_mute_toggle(lobbyscreen_report_abuse_stage1:com_23)
+
+// 914:22
+[mute_text]
+type=text
+y=2
+width=18
+height=14
+widthmode=minus
+layer=mute_layer
+textfont=verdana_11pt_regular
+text=Suggest to mute this player for 48 hours
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 914:23
+[com_23]
+type=graphic
+x=-1
+y=3
+width=14
+height=14
+xmode=abs_right
+layer=mute_layer
+graphic="check_box_2,0"
+colour=0xffffffff
+op10=    
+
+// 914:24
+[name_bg_left]
+type=graphic
+width=16
+height=27
+layer=name_layer
+graphic=graphic_3814
+colour=0xffffffff
+op10=    
+
+// 914:25
+[name_bg_mid]
+type=graphic
+x=16
+width=16
+height=27
+widthmode=minus
+layer=name_layer
+graphic=graphic_3815
+tiling=yes
+colour=0xffffffff
+op10=     
+
+// 914:26
+[name_bg_right]
+type=graphic
+width=16
+height=27
+xmode=abs_right
+layer=name_layer
+graphic=graphic_3816
+colour=0xffffffff
+op10=     
+
+// 914:27
+[name]
+type=text
+x=10
+y=-1
+width=20
+height=18
+widthmode=minus
+ymode=abs_centre
+layer=name_layer
+textfont=verdana_11pt_regular
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 914:28
+[name_caret]
+type=rectangle
+x=10
+y=4
+width=1
+height=19
+layer=name_layer
+hide=yes
+colour=0xebe0bc
+fill=yes
+op10= 

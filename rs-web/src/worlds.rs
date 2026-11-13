@@ -1,9 +1,11 @@
 use crate::app::App;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 use std::sync::{Arc, RwLock};
 use std::time::Duration;
+use tokio::time;
 use tracing::{info, warn};
 
 /// How often the live world list is re-read from `world_status`.
@@ -49,7 +51,7 @@ pub fn world_of_node(node: i16) -> i16 {
 }
 
 pub fn load(path: &Path) -> anyhow::Result<Vec<World>> {
-    Ok(serde_json::from_str(&std::fs::read_to_string(path)?)?)
+    Ok(serde_json::from_str(&fs::read_to_string(path)?)?)
 }
 
 /// What the worlds with a fresh heartbeat report, by node id.
@@ -89,7 +91,7 @@ impl LiveWorlds {
 /// Re-reads the live world list forever. While the database is unreachable
 /// every world shows as offline, since none of them can log anyone in.
 pub async fn refresh(app: Arc<App>) {
-    let mut interval = tokio::time::interval(REFRESH);
+    let mut interval = time::interval(REFRESH);
     let mut healthy = true;
     loop {
         interval.tick().await;

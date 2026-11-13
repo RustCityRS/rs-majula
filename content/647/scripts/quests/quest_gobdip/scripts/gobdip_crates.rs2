@@ -1,0 +1,20 @@
+// Goblin Village's three crates of goblin mail (2011 wiki, Goblin Diplomacy, 2011-05-09: "behind
+// the generals' hut", "next to the western hut", "up a ladder near the entrance"), cache 786's
+// only searchable crates there: loc 16559 (level 0, 46_54 15,58), 16560 (level 0, 7,52) and
+// 16561 (level 2, 11,42), each with op1 Search.
+// The 2011-05-27 recording (YouTube coiqGsbSVks, 64-68s) searches the first, before the quest is
+// started: an item box, goblin mail pictured, "You find some goblin armour.", and no chat
+// message. The other two are taken to do the same. Not known: what a crate gives when searched
+// again (the wiki says players "sometimes find some"), and the full-pack message (the usual
+// one here).
+[oploc1,goblin_outpost_large_crate_armour1] @gobdip_search_crate;
+[oploc1,goblin_outpost_large_crate_armour2] @gobdip_search_crate;
+[oploc1,goblin_outpost_large_crate_armour3] @gobdip_search_crate;
+
+[label,gobdip_search_crate]
+if (inv_freespace(inv) = 0) {
+    ~displaymessage(^dm_invspace);
+    return;
+}
+inv_add(inv, goblin_armour, 1);
+~objbox(goblin_armour, "You find some goblin armour.", 250, 0, 0);

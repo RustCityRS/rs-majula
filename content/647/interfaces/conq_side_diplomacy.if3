@@ -1,0 +1,367 @@
+// 1019:0
+[resign_instructions]
+type=text
+y=18
+width=6
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=resign_control_layer
+textfont=p11_full
+text=If you resign, the Conquest will end immediately.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1019:1
+[resign_button_layer]
+type=layer
+y=175
+width=130
+height=30
+xmode=abs_centre
+layer=resign_control_layer
+transmitop=10
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1019:2
+[background_components_layer]
+type=layer
+width=190
+height=261
+
+// 1019:3
+[main_title_text]
+type=text
+y=5
+width=16391
+height=14
+widthmode=proportion
+layer=background_components_layer
+textfont=b12_full
+text=Diplomacy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=   
+
+// 1019:4
+[com_4]
+type=graphic
+y=9
+width=190
+height=32
+layer=background_components_layer
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1019:5
+[com_5]
+type=graphic
+y=107
+width=190
+height=32
+layer=background_components_layer
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1019:6
+[com_6]
+type=graphic
+y=145
+width=190
+height=32
+layer=background_components_layer
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1019:7
+[com_7]
+type=graphic
+y=236
+width=190
+height=32
+layer=background_components_layer
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1019:8
+[truce_instructions]
+type=text
+y=75
+width=6
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=background_components_layer
+textfont=p11_full
+text=If you offer a truce and your opponent accepts, the Conquest will end in a draw.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1019:9
+[ignore_truce_layer]
+type=layer
+y=133
+width=190
+height=15
+layer=background_components_layer
+transmitop=1
+op1=Toggle
+onmouseover=conq_ignore_truce_mouseover
+onmouseleave=conq_ignore_truce_mouseleave
+onvartransmit=script448{conq_base_4}
+
+// 1019:10
+[ignore_truce_check]
+type=graphic
+x=9
+width=14
+height=14
+layer=ignore_truce_layer
+graphic="km_tickbox,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1019:11
+[ignore_truce_text]
+type=text
+x=28
+y=1
+width=150
+height=16
+layer=ignore_truce_layer
+textfont=p11_full
+text=Ignore opponent's truce offers
+textshadow=yes
+colour=0xff981f
+
+// 1019:12
+[offer_truce_button_layer]
+type=layer
+x=2
+y=35
+width=130
+height=30
+xmode=abs_centre
+transmitop=10
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1019:13
+[resign_control_layer]
+type=layer
+width=190
+height=261
+
+// 1019:14
+[confirm_resign_layer]
+type=layer
+width=190
+height=261
+hide=yes
+
+// 1019:15
+[resign_button_texture]
+type=graphic
+width=27985
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=resign_button_layer
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 1019:16
+[resign_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=resign_button_layer
+textfont=b12_full
+text=Resign
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Resign
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1019:17
+[offer_truce_button_texture]
+type=graphic
+width=27985
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=offer_truce_button_layer
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 1019:18
+[offer_truce_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=offer_truce_button_layer
+textfont=b12_full
+text=Offer Truce
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Offer Truce
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1019:19
+[confirm_resign_yes_layer]
+type=layer
+x=15
+y=24
+width=70
+height=30
+ymode=abs_bottom
+layer=confirm_resign_layer
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1019:20
+[confirm_resign_yes_tex]
+type=graphic
+width=27985
+height=15844
+widthmode=proportion
+heightmode=proportion
+layer=confirm_resign_yes_layer
+graphic=tradebacking
+tiling=yes
+
+// 1019:21
+[confirm_resign_yes_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=confirm_resign_yes_layer
+textfont=b12_full
+text=Yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1019:22
+[confirm_resign_no_layer]
+type=layer
+x=105
+y=24
+width=70
+height=30
+ymode=abs_bottom
+layer=confirm_resign_layer
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1019:23
+[confirm_resign_no_tex]
+type=graphic
+width=27985
+height=15844
+widthmode=proportion
+heightmode=proportion
+layer=confirm_resign_no_layer
+graphic=tradebacking
+tiling=yes
+
+// 1019:24
+[confirm_resign_no_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=confirm_resign_no_layer
+textfont=b12_full
+text=No
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=No
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1019:25
+[confirm_resign_text]
+type=text
+x=4
+y=55
+width=8
+height=45
+widthmode=minus
+ymode=abs_bottom
+layer=confirm_resign_layer
+textfont=p11_full
+text=Are you sure you wish to resign from the Conquest?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f

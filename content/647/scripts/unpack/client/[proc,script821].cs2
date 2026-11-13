@@ -1,0 +1,10 @@
+// 821
+[proc,script821]()(string)
+def_string $string0 = "";
+$string0 = ~script822(%cat_namevar_lettr_1, 1, $string0);
+$string0 = ~script822(%cat_namevar_lettr_2, 0, $string0);
+$string0 = ~script822(%cat_namevar_lettr_3, 0, $string0);
+$string0 = ~script822(%cat_namevar_lettr_4, 0, $string0);
+$string0 = ~script822(%cat_namevar_lettr_5, 0, $string0);
+$string0 = ~script822(%cat_namevar_lettr_6, 0, $string0);
+return($string0);

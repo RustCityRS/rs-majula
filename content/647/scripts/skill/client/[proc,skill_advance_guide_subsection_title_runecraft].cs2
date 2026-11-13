@@ -1,0 +1,20 @@
+// 1011
+[proc,skill_advance_guide_subsection_title_runecraft](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
+        return("Runes", 0);
+    case 1 :
+        return("Multiple Runes", 0);
+    case 2 :
+        return("Equipment", 0);
+    case 3 :
+        return("Other", 0);
+    case 4 :
+        return("Activities", 0);
+    case 5 :
+        return("Dungeoneering", 0);
+    case 6 :
+        return("Milestones", 0);
+    case default :
+        return("", -1);
+}

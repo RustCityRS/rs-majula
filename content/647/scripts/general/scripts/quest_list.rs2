@@ -1,0 +1,22 @@
+// 2011's quest tab is one list (questlist_v4:quests), a row per 2011 quest id.
+// View, the row's op 1, opens that quest's journal: 289's
+// [if_button,questlist:<quest>], ported as [label,questlist_<quest>]. Each
+// quest's port adds its row here.
+[if_button1,questlist_v4:quests]
+switch_int (last_slot) {
+    case ^questlist_cook : @questlist_cook;
+    case ^questlist_doric : @questlist_doric;
+    case ^questlist_hunt : @questlist_hunt;
+    case ^questlist_blackarmgang : @questlist_blackarmgang;
+    case ^questlist_runemysteries : @questlist_runemysteries;
+    case ^questlist_imp : @questlist_imp;
+    case ^questlist_priest : @questlist_priest;
+    case ^questlist_prince : @questlist_prince;
+    case ^questlist_haunted : @questlist_haunted;
+    case ^questlist_demon : @questlist_demon;
+    case ^questlist_vampire : @questlist_vampire;
+    case ^questlist_druid : @questlist_druid;
+    case ^questlist_junglepotion : @questlist_junglepotion;
+    case ^questlist_ball : @questlist_ball;
+    case ^questlist_unstable : @questlist_unstable;
+}

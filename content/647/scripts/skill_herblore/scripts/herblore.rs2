@@ -1,0 +1,41 @@
+// Herblore pays through ~givexp where 289 calls stat_advance: 2011's xp
+// counter (varp 1801) counts only what ~givexp pays.
+
+/** Identify herb and give experience. */
+[proc,identify_herb](namedobj $identified_herb, int $slot)
+def_int $experience = oc_param($identified_herb, identified_herb_exp);
+inv_setslot(inv, $slot, $identified_herb, 1);
+// 289 names the herb here (identified_herb_message, "This herb is a Guam Leaf.").
+// 2011's herbs are grimy and already named (cache 786: "Grimy guam", op
+// Clean; 2011 wiki, Herblore), and Clean says nothing, as in void-634's
+// HerbCleaning (no 2011 source found for the silence).
+~givexp(herblore, $experience);
+
+/** Brew a potion. */
+[proc,brew_potion](struct $struct, namedobj $ingredient, namedobj $solvent, string $message, namedobj $mixture, int $experience)
+inv_del(inv, $ingredient, 1);
+inv_del(inv, $solvent, 1);
+// There is always a guaranteed slot available.
+inv_add(inv, $mixture, 1);
+
+if($mixture = mort_serum3 & %morttonquest = ^mortton_read_diary) {
+    %morttonquest = ^mortton_made_serum;
+}
+
+// https://youtu.be/S6P-hUzgqPw?t=1
+mes($message);
+anim(human_herbing_vial, 0);
+sound_synth(vial_empty, 1, 0);
+~givexp(herblore, $experience);
+
+/** Grind a herblore ingredient. */
+[proc,grind_ingredient](obj $grindable, namedobj $refined, string $message, int $slot)
+// https://web.archive.org/web/20171220071316/https://www.youtube.com/watch?v=QUWaqEBTrCE
+// player starts grinding unicorn horns at 1:40
+// and the first item in the inventory is ground even when the player uses the pestle and mortar on items further down (also does the opheldu in reverse, same result)
+// our previous setslot behavior was inauthentic so changed to inv_add/del in 274
+inv_del(inv, $grindable, 1);
+inv_add(inv, $refined, 1);
+mes($message);
+anim(human_herbing_grind, 0);
+sound_synth(vial_empty, 1, 0);

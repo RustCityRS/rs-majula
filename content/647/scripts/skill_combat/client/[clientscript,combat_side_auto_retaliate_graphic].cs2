@@ -1,0 +1,7 @@
+// 1140
+[clientscript,combat_side_auto_retaliate_graphic](component $component0)
+if (%option_nodef = 1) {
+    if_setgraphic($component0, tutorial_combat_button);
+} else {
+    if_setgraphic($component0, "combatboxes_very_large,1");
+}

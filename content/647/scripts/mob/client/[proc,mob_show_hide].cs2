@@ -1,0 +1,11 @@
+// 2621
+[proc,mob_show_hide]
+if (if_gethide(mob_chat:button_layer) = false) {
+    if_sethide(mob_chat:button_layer, true);
+    if_sethide(mob_chat:text_layer, false);
+    if_sethflip(mob_chat:arrow_graphic, false);
+} else {
+    if_sethide(mob_chat:button_layer, false);
+    if_sethide(mob_chat:text_layer, true);
+    if_sethflip(mob_chat:arrow_graphic, true);
+}

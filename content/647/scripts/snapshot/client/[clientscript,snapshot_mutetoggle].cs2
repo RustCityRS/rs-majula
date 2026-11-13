@@ -1,0 +1,25 @@
+// 134
+[clientscript,snapshot_mutetoggle]
+if (playermodlevel = 5 | playermodlevel = 6) {
+    if_settext(snapshot_main_v2:mutetoggle, "Suggest to mute this player for 48 hours");
+    if_settext(snapshot_main_v2:mutetoggle_offence, "Suggest to mute this player for 48 hours");
+    if_settext(snapshot_main_v2:com_60, "Suggest to mute this player for 48 hours");
+} else {
+    if_settext(snapshot_main_v2:mutetoggle, "Mute this player for 48 hours");
+    if_settext(snapshot_main_v2:mutetoggle_offence, "Mute this player for 48 hours");
+    if_settext(snapshot_main_v2:com_60, "Mute this player for 48 hours");
+}
+if (%snapshot_mute = true) {
+    %snapshot_mute = false;
+} else {
+    %snapshot_mute = true;
+}
+if (%snapshot_mute = false) {
+    if_setgraphic(snapshot_main_v2:com_82, "options_radio_buttons_boxed,0");
+    if_setgraphic(snapshot_main_v2:com_9, "options_radio_buttons_boxed,0");
+    if_setgraphic(snapshot_main_v2:com_59, "options_radio_buttons_boxed,0");
+} else {
+    if_setgraphic(snapshot_main_v2:com_82, "options_radio_buttons_boxed,2");
+    if_setgraphic(snapshot_main_v2:com_9, "options_radio_buttons_boxed,2");
+    if_setgraphic(snapshot_main_v2:com_59, "options_radio_buttons_boxed,2");
+}

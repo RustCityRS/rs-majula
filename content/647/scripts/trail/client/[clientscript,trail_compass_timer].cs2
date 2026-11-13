@@ -1,0 +1,30 @@
+// 3499
+[clientscript,trail_compass_timer](int $int0, component $component1, component $component2)
+def_int $int3 = 0;
+if ($int0 > 20000000) {
+    $int0 = 0;
+}
+if (coordz(coord) > 6400 | coordz(coord) > coordz(0_46_69_0_63)) {
+    if_setmodelangle($component1, 0, 0, 512, calc((if_getmodelangle_y($component1) - 30) % 2047), 40, 275);
+    if_sethide($component2, true);
+} else if (~inzone(0_32_39_0_0, 3_60_64_63_63, coord) = false) {
+    if (calc($int0 % 68) > 34) {
+        if_setmodelangle($component1, 0, 0, 512, calc((if_getmodelangle_y($component1) - 30) % 2047), 40, 275);
+    } else {
+        if_setmodelangle($component1, 0, 0, 512, calc((if_getmodelangle_y($component1) + 30) % 2047), 40, 275);
+    }
+    if_sethide($component2, true);
+} else if (calc(coordy(coord) - coordy(%trail_destcoord)) > 0) {
+    if_setmodelangle($component1, 0, 0, 512, calc((if_getmodelangle_y($component1) + 30) % 2047), 40, 275);
+    if_sethide($component2, true);
+} else {
+    $int3 = ~rough_angle(coordx(coord), coordz(coord), coordx(%trail_destcoord), coordz(%trail_destcoord));
+    if ($int3 = -1) {
+        if_setmodelangle($component1, 0, 0, 0, 0, 40, 275);
+        if_sethide($component2, false);
+    } else {
+        if_setmodelangle($component1, 0, 0, 512, calc(2047 * $int3 / 65535), 40, 275);
+        if_sethide($component2, true);
+    }
+}
+if_setontimer($component1, "trail_compass_timer(calc($int0 + 1), $component1, $component2)");

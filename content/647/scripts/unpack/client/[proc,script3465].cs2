@@ -1,0 +1,25 @@
+// 3465
+[proc,script3465](component $component0, coord $coord1)
+switch_int (%tutorial3_cutscene_tracker) {
+    case 11 :
+        cc_deleteall($component0);
+        ~tutorial3_fadeout(^black, 75, $component0);
+    case 12 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~love_instance(30, 27, $coord1), 800, ~love_instance(30, 30, $coord1), 850, 0);
+        spline_addpoint(1, 0, ~love_instance(35, 30, $coord1), 300, ~love_instance(35, 40, $coord1), 300, 0);
+        spline_addpoint(0, 1, ~love_instance(40, 40, $coord1), 1000, ~love_instance(40, 40, $coord1), 950, 0);
+        spline_addpoint(1, 1, ~love_instance(28, 52, $coord1), 200, ~love_instance(28, 46, $coord1), 200, 0);
+        cam_movealong(0, 0, 100, 200, 1, 0);
+        ~tutorial3_fadein(25, $component0);
+    case 13 :
+        cam_smoothreset;
+        cam_forceangle(268, 644);
+    case 14 :
+        ~tutorial3_fadeout(^black, 25, $component0);
+    case 15 :
+        ~tutorial3_fadein(25, $component0);
+    case default :
+        cam_smoothreset;
+}

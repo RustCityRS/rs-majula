@@ -1,0 +1,20 @@
+// 3175
+[clientscript,lobbyscreen_pane_clanchat_chat_op](int $int0, string $string0, string $string1)
+def_int $int1 = -1;
+def_int $int2 = -1;
+switch_int ($int0) {
+    case 1 :
+        if (friend_test(removetags($string1)) = false) {
+            friend_add(removetags($string1));
+        }
+    case 2 :
+        if (friend_test(removetags($string1)) = false) {
+            ignore_add(removetags($string1));
+        }
+    case 3 :
+        ~lobbyscreen_input("Send message to <$string0>", "", 0, $string1, "");
+    case 5 :
+        ~lobbyscreen_report_abuse_stage1($string0, false);
+    case 10 :
+        ~clan_chat_kick_find($string1);
+}

@@ -1,0 +1,101 @@
+// 257
+[proc,script257]
+if (%fishcomp_result_fish = 0 | %fishcomp_result_weight = 0 | %fishcomp_result_habitat = 0 | %fishcomp_result_bait = 0 | %fishcomp_result_hook = 0 | %fishcomp_result_distance = 0 | %fishcomp_result_rating = -1) {
+    return;
+}
+def_int $int0 = calc(if_getnextsubid(fishcomp_overlay:history_habitat_layer) * (18 + 4));
+def_int $int1 = calc((if_getnextsubid(fishcomp_overlay:history_habitat_layer) + 1) * (18 + 4));
+if_setscrollsize(fishcomp_overlay:history_scrolllayer, if_getscrollwidth(fishcomp_overlay:history_scrolllayer), $int1);
+if_setsize(fishcomp_overlay:history_species_layer, if_getwidth(fishcomp_overlay:history_species_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_species_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_species_layer));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script1668(%fishcomp_result_fish));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(fishcomp_overlay:history_habitat_layer, if_getwidth(fishcomp_overlay:history_habitat_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_habitat_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_habitat_layer));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script276(%fishcomp_result_habitat));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(fishcomp_overlay:history_weight_layer, if_getwidth(fishcomp_overlay:history_weight_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_weight_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_weight_layer));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(tostring(%fishcomp_result_weight));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(fishcomp_overlay:history_bait_layer, if_getwidth(fishcomp_overlay:history_bait_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_bait_layer, ^iftype_graphic, if_getnextsubid(fishcomp_overlay:history_bait_layer));
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc($int0 + 2), ^setpos_abs_centre, ^setpos_abs_bottom);
+def_string $string0 = "";
+def_obj $obj2 = null;
+switch_int (%fishcomp_result_bait) {
+    case 1 :
+        $obj2 = fishcomp_bait_worms;
+        $string0 = "Worm";
+    case 2 :
+        $obj2 = fishcomp_bait_maggots;
+        $string0 = "Maggot";
+    case 3 :
+        $obj2 = fishcomp_bait_crickets;
+        $string0 = "Cricket";
+    case 4 :
+        $obj2 = fishcomp_bait_locusts;
+        $string0 = "Locust";
+    case 5 :
+        $obj2 = fishcomp_bait_cray;
+        $string0 = "Crayfish";
+    case 6 :
+        $obj2 = fishcomp_bait_shrimp;
+        $string0 = "Shrimp";
+    case 7 :
+        $obj2 = fishcomp_bait_emerald_butterfly;
+        $string0 = "Green moth";
+    case 8 :
+        $obj2 = fishcomp_bait_storm_butterfly;
+        $string0 = "Grey moth";
+}
+cc_setobject_nonum($obj2, 0);
+cc_setonmouserepeat("addtooltip(event_com, fishcomp_overlay:bait_tooltip_layer, $string0, 25, 128)");
+cc_setonmouseleave("deltooltip(fishcomp_overlay:bait_tooltip_layer)");
+if_setsize(fishcomp_overlay:history_hook_layer, if_getwidth(fishcomp_overlay:history_hook_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_hook_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_hook_layer));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script278(%fishcomp_result_hook));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(fishcomp_overlay:history_distance_layer, if_getwidth(fishcomp_overlay:history_distance_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_distance_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_distance_layer));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(tostring(%fishcomp_result_distance));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(fishcomp_overlay:history_rating_layer, if_getwidth(fishcomp_overlay:history_rating_layer), $int1, ^setsize_abs, ^setsize_abs);
+cc_create(fishcomp_overlay:history_rating_layer, ^iftype_text, if_getnextsubid(fishcomp_overlay:history_rating_layer));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext("<tostring(%fishcomp_result_rating)>%");
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if (if_getheight(fishcomp_overlay:content_layer) = 185) {
+    ~scrollbar_vertical(fishcomp_overlay:history_scrollbar, fishcomp_overlay:history_scrolllayer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}
+%fishcomp_result_fish = 0;
+%fishcomp_result_weight = 0;
+%fishcomp_result_habitat = 0;
+%fishcomp_result_bait = 0;
+%fishcomp_result_hook = 0;
+%fishcomp_result_distance = 0;
+%fishcomp_result_rating = -1;

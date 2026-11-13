@@ -1,0 +1,38 @@
+// 2347
+[clientscript,script2347](int $int0)
+if ($int0 = 1) {
+    if (%mah1_quest >= 250) {
+        if_setcolour(interface_723:com_6, ^green);
+    } else if (%mah1_quest = 0) {
+        if_setcolour(interface_723:com_6, ^red);
+    } else {
+        if_setcolour(interface_723:com_6, ^yellow);
+    }
+}
+if ($int0 = 2) {
+    if (%mom2_main >= 60) {
+        if_setcolour(interface_723:com_7, ^green);
+    } else if (%mom2_main = 0) {
+        if_setcolour(interface_723:com_7, ^red);
+    } else {
+        if_setcolour(interface_723:com_7, ^yellow);
+    }
+}
+if ($int0 = 3) {
+    if (%mah3_main >= 240) {
+        if_setcolour(interface_723:com_8, ^green);
+    } else if (%mah3_main = 0) {
+        if_setcolour(interface_723:com_8, ^red);
+    } else {
+        if_setcolour(interface_723:com_8, ^yellow);
+    }
+}
+if ($int0 = 4) {
+    if (%mah4_main >= 100) {
+        if_setcolour(interface_723:com_9, ^green);
+    } else if (%mah4_main = 0) {
+        if_setcolour(interface_723:com_9, ^red);
+    } else {
+        if_setcolour(interface_723:com_9, ^yellow);
+    }
+}

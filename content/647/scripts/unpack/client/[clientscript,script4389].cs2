@@ -1,0 +1,4 @@
+// 4389
+[clientscript,script4389](component $component0, component $component1)
+if_setcolour($component0, hsvtorgb(%clan_custom_colour1_varp));
+if_setcolour($component1, hsvtorgb(%clan_custom_colour2_varp));

@@ -1,4 +1,5 @@
 use ammonia::Builder;
+use pulldown_cmark::html::push_html;
 use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
 use std::collections::HashSet;
 
@@ -70,7 +71,7 @@ pub fn render(markdown: &str) -> String {
         out_events.push(Event::InlineHtml(html.into()));
     }
     let mut html = String::with_capacity((markdown.len() * 3) >> 1);
-    pulldown_cmark::html::push_html(&mut html, out_events.into_iter());
+    push_html(&mut html, out_events.into_iter());
     sanitize(&html)
 }
 

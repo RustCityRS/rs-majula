@@ -1,0 +1,245 @@
+// 289's Sir Prysin (areas/area_varrock/scripts/sir_prysin.rs2) as 2011's: npc
+// 9359 in the palace's south-west room, a multi-npc on %demon_slayer_sir_prysin_sword
+// that shows sir_prysin (883), or sir_prysin_4657 with Silverlight in hand.
+// Clicks on either reach this trigger. His lines are void-634's (SirPrysin.kt)
+// unless marked.
+//
+// Waiting: after the quest void-634 sells Darklight back for 1000 coins after
+// Shadow of the Storm; the 2011 wiki says a lost Silverlight costs 500 coins
+// then, with no lines. Neither is ported.
+[opnpc1,npc_9359]
+if (%demonslayer_main = ^demon_key_hunt) {
+    if (%delrith_silverlight_case = ^false) {
+        @sir_prysin_key_progress;
+    }
+    ~chatnpc("<p,neutral>Have you sorted that demon out yet?");
+    if (~demon_owns_silverlight = true) {
+        ~chatplayer("<p,sad>No, not yet.");
+        ~chatnpc("<p,neutral>Well get on with it. He'll be pretty powerful when he gets to full strength.");
+        return;
+    }
+    // 2011 wiki, Silverlight: "If Silverlight is lost during the quest, it
+    // can be regained from Sir Prysin for free."
+    ~chatplayer("<p,sad>Not yet. And I, um, lost Silverlight.");
+    if (inv_freespace(inv) > 0) {
+        inv_add(inv, silverlight, 1);
+        ~chatnpc("<p,angry>Yes, I know, someone returned it to me. Take better care of it this time.");
+    } else {
+        ~chatnpc("<p,angry>Yes, I know, someone returned it to me. I'll keep it until you have free inventory space.");
+    }
+    return;
+}
+if (%demonslayer_main = ^demon_complete) {
+    ~chatnpc("<p,neutral>Hello. I've heard you stopped the demon, well done.");
+    switch_int (~p_choice2("Yes, that's right.", 1, "Yes, although I'm afraid I've lost Silverlight.", 2)) {
+        case 1 :
+            ~chatplayer("<p,neutral>Yes, that's right.");
+            ~chatnpc("<p,neutral>A good job well done then.");
+            ~chatplayer("<p,neutral>Thank you.");
+        case 2 :
+            ~chatplayer("<p,sad>Yes, although I'm afraid I've lost Silverlight.");
+            ~chatnpc("<p,angry>Yes, news of your carelessness is almost as widespread as knowledge of your victory. Fortunately for you, the sword has come back into my possession.");
+    }
+    return;
+}
+~chatnpc("<p,neutral>Hello, who are you?");
+if (%demonslayer_main = ^demon_sir_prysin) {
+    switch_int (~p_choice3("I am a mighty adventurer. Who are you?", 1, "I'm not sure, I was hoping you could tell me.", 2, "Gypsy Aris said I should come and talk to you.", 3)) {
+        case 1 : @sir_prysin_mighty_adventurer;
+        case 2 : @sir_prysin_you_tell_me;
+        case 3 : @sir_prysin_aris_wants_to_talk;
+    }
+    return;
+}
+switch_int (~p_choice2("I am a mighty adventurer. Who are you?", 1, "I'm not sure, I was hoping you could tell me.", 2)) {
+    case 1 : @sir_prysin_mighty_adventurer;
+    case 2 : @sir_prysin_you_tell_me;
+}
+
+[label,sir_prysin_mighty_adventurer]
+~chatplayer("<p,neutral>I am a mighty adventurer, who are you?");
+~chatnpc("<p,neutral>I am Sir Prysin. A bold and famous knight of the realm.");
+
+[label,sir_prysin_you_tell_me]
+~chatplayer("<p,confused>I was hoping you could tell me.");
+~chatnpc("<p,neutral>Well I've never met you before.");
+
+[label,sir_prysin_aris_wants_to_talk]
+~chatplayer("<p,neutral>Gypsy Aris said I should come and talk to you.");
+~chatnpc("<p,neutral>Gypsy Aris? Is she still alive? I remember her from when I was pretty young. Well, what do you need to talk to me about?");
+switch_int (~p_choice2("I need to find Silverlight.", 1, "Yes, she is still alive.", 2)) {
+    case 1 : @sir_prysin_find_silverlight;
+    case 2 :
+        ~chatplayer("<p,happy>Yes she is still alive. She lives right outside the castle!");
+        ~chatnpc("<p,neutral>Oh, is that the same Aris? I would have thought she would have died by now. She was pretty old when I was a lad.");
+        ~chatnpc("<p,neutral>Anyway, what can I do for you?");
+        @sir_prysin_find_silverlight;
+}
+
+[label,sir_prysin_find_silverlight]
+~chatplayer("<p,neutral>I need to find Silverlight.");
+~chatnpc("<p,neutral>What do you need to find that for?");
+~chatplayer("<p,neutral>I need it to fight Delrith.");
+~chatnpc("<p,neutral>Delrith? I thought the world was rid of him, thanks to my great-grandfather.");
+switch_int (~p_choice2("Well, the gypsy's crystal ball seems to think otherwise.", 1, "He's back and, unfortunately, I've got to deal with him.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Well the gypsy's crystal ball seems to think otherwise.");
+        ~chatnpc("<p,neutral>Well, if the ball says so, I'd better help you.");
+    case 2 :
+        ~chatplayer("<p,sad>He's back and, unfortunately, I've got to deal with him.");
+        ~chatnpc("<p,neutral>You don't look up to much. I suppose Silverlight may be good enough to carry you through though.");
+}
+~chatnpc("<p,neutral>The problem is getting Silverlight.");
+~chatplayer("<p,sad>You mean you don't have it?");
+~chatnpc("<p,neutral>Oh, I do have it, but it is so powerful that the king made me put it in a special box requiring three different keys to open it. That way, it wouldn't fall into the wrong hands.");
+switch_int (~p_choice2("So, give me the keys!", 1, "And why is this a problem?", 2)) {
+    case 1 :
+        ~chatplayer("<p,angry>So, give me the keys!");
+        ~chatnpc("<p,sad>Um, well, it's not so easy.");
+    case 2 : ~chatplayer("<p,neutral>And why is this a problem?");
+}
+@sir_prysin_the_keys;
+
+[label,sir_prysin_the_keys]
+~chatnpc("<p,neutral>I kept one of the keys. I gave the other two to others for safekeeping.");
+~chatnpc("<p,neutral>One I gave to Rovin, the captain of the palace guard.");
+~chatnpc("<p,neutral>The other I gave to the wizard Traiborn.");
+if (%demonslayer_main = ^demon_sir_prysin) {
+    %demonslayer_main = ^demon_key_hunt;
+}
+// 2011-04-20 recording (199.4s): "Choose an option:", ending in "Bye" (206.0s: "Bye.", and done).
+switch_int (~p_choice4_header("Can you give me your key?", 1, "Where can I find Captain Rovin?", 2, "Where does the wizard live?", 3, "Bye", 4, "Choose an option:")) {
+    case 1 : @sir_prysin_give_your_key;
+    case 2 : @sir_prysin_where_rovin;
+    case 3 : @sir_prysin_where_wizard;
+    case 4 : ~chatplayer("<p,neutral>Bye.");
+}
+
+[label,sir_prysin_give_your_key]
+~chatplayer("<p,neutral>Can you give me your key?");
+~chatnpc("<p,sad>Um...ah...");
+~chatnpc("<p,sad>Well, there's a problem there as well.");
+~chatnpc("<p,sad>I managed to drop the key in the drain just outside the palace kitchen. I can see it in there, but I can't reach it.");
+// 2011-04-20 recording (204.8s): "Choose an option:", with "Bye".
+switch_int (~p_choice4_header("So, where does the drain lead?", 1, "Where can I find Captain Rovin?", 2, "Where does the wizard live?", 3, "Bye", 4, "Choose an option:")) {
+    case 4 : ~chatplayer("<p,neutral>Bye.");
+    case 1 :
+        ~chatplayer("<p,neutral>So, where does the drain lead?");
+        ~chatnpc("<p,neutral>It is the drain for the drainpipe running from the sink in the kitchen down to the palace sewers.");
+        switch_int (~p_choice3("Where can I find Captain Rovin?", 1, "Where does the wizard live?", 2, "Well I'd better go key hunting.", 3)) {
+            case 1 : @sir_prysin_where_rovin;
+            case 2 : @sir_prysin_where_wizard;
+            case 3 : @sir_prysin_hunting_time;
+        }
+    case 2 : @sir_prysin_where_rovin;
+    case 3 : @sir_prysin_where_wizard;
+}
+
+[label,sir_prysin_where_rovin]
+~chatplayer("<p,neutral>Where can I find Captain Rovin?");
+~chatnpc("<p,neutral>Captain Rovin lives at the top of the guards' quarters in the north-west wing of this palace.");
+switch_int (~p_choice3("Can you give me your key?", 1, "Where does the wizard live?", 2, "Well I'd better go key hunting.", 3)) {
+    case 1 : @sir_prysin_give_your_key;
+    case 2 : @sir_prysin_where_wizard;
+    case 3 : @sir_prysin_hunting_time;
+}
+
+[label,sir_prysin_where_wizard]
+~chatplayer("<p,neutral>Where does the wizard live?");
+~chatnpc("<p,neutral>He is one of the wizards who lives in the tower on the little island just off the south coast. I believe his quarters are on the first floor of the tower.");
+switch_int (~p_choice3("Can you give me your key?", 1, "Where can I find Captain Rovin?", 2, "Well I'd better go key hunting.", 3)) {
+    case 1 : @sir_prysin_give_your_key;
+    case 2 : @sir_prysin_where_rovin;
+    case 3 : @sir_prysin_hunting_time;
+}
+
+[label,sir_prysin_hunting_time]
+~chatplayer("<p,neutral>Well I'd better go key hunting.");
+~chatnpc("<p,neutral>Ok, goodbye.");
+
+[label,sir_prysin_key_progress]
+~chatnpc("<p,neutral>So how are you doing with getting the keys?");
+def_boolean $rovin = false;
+def_boolean $prysin = false;
+def_boolean $traiborn = false;
+if (inv_total(inv, silverlight_key_2) > 0) {
+    $rovin = true;
+}
+if (inv_total(inv, silverlight_key_3) > 0) {
+    $prysin = true;
+}
+if (inv_total(inv, silverlight_key_1) > 0) {
+    $traiborn = true;
+}
+if ($rovin = true & $prysin = true & $traiborn = true) {
+    @sir_prysin_give_silverlight;
+}
+if ($prysin = true & $traiborn = true) {
+    ~chatplayer("<p,neutral>I've got the key from Wizard Traiborn and the one that you dropped down the drain.");
+} else if ($prysin = true & $rovin = true) {
+    ~chatplayer("<p,neutral>I've got the key from Captain Rovin and the one that you dropped down the drain.");
+} else if ($traiborn = true & $rovin = true) {
+    ~chatplayer("<p,neutral>I've got the keys from Wizard Traiborn and Captain Rovin.");
+} else if ($rovin = true) {
+    ~chatplayer("<p,neutral>I've got the key from Captain Rovin.");
+} else if ($traiborn = true) {
+    ~chatplayer("<p,neutral>I've got the key from Wizard Traiborn.");
+} else if ($prysin = true) {
+    ~chatplayer("<p,neutral>I've got the key which you dropped down the drain.");
+} else {
+    ~chatplayer("<p,sad>I haven't found any of them yet.");
+}
+switch_int (~p_choice2("Can you remind me where all the keys were again?", 1, "I'm still looking.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Can you remind me where all the keys were again?");
+        @sir_prysin_the_keys;
+    case 2 :
+        ~chatplayer("<p,neutral>I'm still looking.");
+        ~chatnpc("<p,neutral>Ok, tell me when you've got them all.");
+}
+
+// The handover (void-634's giveSilverlight): he unlocks the case beside him
+// (loc_12982 at 3204,3469, a multiloc on %demon_slayer_silverlight_case), takes
+// the sword out and hands it over.
+[label,sir_prysin_give_silverlight]
+~chatplayer("<p,neutral>I've got all three keys!");
+~chatnpc("<p,neutral>Excellent! Now I can give you Silverlight.");
+inv_del(inv, silverlight_key_1, 1);
+inv_del(inv, silverlight_key_2, 1);
+inv_del(inv, silverlight_key_3, 1);
+if_close;
+npc_tele(0_50_54_4_14);
+p_telejump(0_50_54_4_15);
+p_delay(0);
+npc_facesquare(0_50_54_4_13);
+facesquare(0_50_54_4_14);
+npc_anim(seq_12629, 0); // void-634: silverlight_unlock_sword_case
+if (loc_find(0_50_54_4_13, loc_12982) = true) {
+    loc_anim(seq_12630); // void-634: silverlight_sword_case_open
+}
+p_delay(6);
+npc_anim(seq_12616, 0); // void-634: silverlight_open_sword_case
+if (loc_find(0_50_54_4_13, loc_12982) = true) {
+    loc_anim(seq_12617); // void-634: silverlight_sword_removed
+}
+p_delay(7);
+%dsqip_key = ^demon_case_open;
+npc_anim(seq_12628, 0); // void-634: silverlight_remove_sword
+loc_prefetch(sword_case_12985, centrepiece_straight);
+p_delay(0);
+%dsqip_prysin_silverlight = ^true;
+%dsqip_key = ^demon_case_empty;
+p_delay(3);
+npc_facesquare(coord);
+p_delay(1);
+npc_anim(seq_12618, 0); // void-634: silverlight_hand_over
+anim(seq_12615, 0); // void-634: silverlight_take
+p_delay(0);
+%delrith_silverlight_case = ^true;
+%dsqip_prysin_silverlight = ^false;
+inv_add(inv, silverlight, 1);
+anim(seq_12625, 0); // void-634: silverlight_showoff
+spotanim_pl(spotanim_778, 0, 0); // void-634: silverlight_sparkle
+~objbox(silverlight, "Sir Prysin hands you a very shiny sword.", 250, 0, 0);
+~chatnpc("<p,neutral>That sword belonged to my great-grandfather. Make sure you treat it with respect!");
+~chatnpc("<p,neutral>Now go kill that demon!");

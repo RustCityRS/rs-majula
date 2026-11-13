@@ -1,0 +1,26 @@
+// 3357
+[proc,script3357]()(int, string, obj)
+switch_obj (%follower_obj) {
+    case default :
+        return(1, "Sundering Strike (Tier 1)", rand_loremel_01_spell);
+    case rand_loremel_01 :
+        return(1, "Sundering Strike (Tier 1)", rand_loremel_01_spell);
+    case rand_loremel_02 :
+        return(11, "Sundering Strike (Tier 2)", rand_loremel_02_spell);
+    case rand_loremel_03 :
+        return(21, "Sundering Strike (Tier 3)", rand_loremel_03_spell);
+    case rand_loremel_04 :
+        return(31, "Sundering Strike (Tier 4)", rand_loremel_04_spell);
+    case rand_loremel_05 :
+        return(41, "Sundering Strike (Tier 5)", rand_loremel_05_spell);
+    case rand_loremel_06 :
+        return(51, "Sundering Strike (Tier 6)", rand_loremel_06_spell);
+    case rand_loremel_07 :
+        return(61, "Sundering Strike (Tier 7)", rand_loremel_07_spell);
+    case rand_loremel_08 :
+        return(71, "Sundering Strike (Tier 8)", rand_loremel_08_spell);
+    case rand_loremel_09 :
+        return(81, "Sundering Strike (Tier 9)", rand_loremel_09_spell);
+    case rand_loremel_10 :
+        return(91, "Sundering Strike (Tier 10)", rand_loremel_10_spell);
+}

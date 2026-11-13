@@ -1,0 +1,212 @@
+// 272:0
+[com_0]
+type=rectangle
+x=13
+y=22
+width=493
+height=307
+colour=0x000000
+fill=yes
+trans=150
+
+// 272:1
+[com_1]
+type=graphic
+x=16
+y=25
+width=478
+height=293
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 272:2
+[com_2]
+type=model
+x=96
+y=190
+width=328
+height=205
+model=model_33413
+modelorigin=-3,-38
+modelangle=136,2041,0
+modelzoom=222
+modelorthog=yes
+
+// 272:3
+[com_3]
+type=model
+x=77
+y=58
+width=361
+height=159
+model=model_33412
+modelorigin=-2,-1
+modelzoom=261
+modelorthog=yes
+
+// 272:4
+[monumentmodel]
+type=model
+x=206
+y=197
+width=78
+height=62
+model=model_2348
+modelorigin=2,14
+modelangle=153,22,0
+modelzoom=266
+
+// 272:5
+[com_5]
+type=graphic
+x=9
+y=18
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 272:6
+[com_6]
+type=graphic
+x=481
+y=62
+width=40
+height=232
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 272:7
+[com_7]
+type=graphic
+x=37
+y=5
+width=432
+height=28
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 272:8
+[com_8]
+type=graphic
+x=9
+y=293
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 272:9
+[com_9]
+type=graphic
+x=469
+y=18
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 272:10
+[com_10]
+type=graphic
+x=469
+y=293
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 272:11
+[com_11]
+type=graphic
+x=19
+y=39
+width=472
+height=29
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 272:12
+[com_12]
+type=graphic
+x=9
+y=41
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 272:13
+[com_13]
+type=graphic
+x=469
+y=41
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 272:14
+[com_14]
+type=graphic
+x=-4
+y=62
+width=36
+height=231
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 272:15
+[com_15]
+type=graphic
+x=41
+y=305
+width=429
+height=31
+graphic="v2_stone_borders,2"
+colour=0x000000
+
+// 272:16
+[monumenttitle]
+type=text
+x=94
+y=32
+width=331
+height=16
+textfont=b12_full
+text=Grave Monument
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 272:17
+[monumenttext]
+type=text
+x=195
+y=73
+width=127
+height=107
+textfont=q8_full
+text=Saradomin<br><br>lights my way<br><br>through<br><br>the darkness of life
+textalignh=centre
+colour=0xcccccc
+
+// 272:18
+[com_18]
+type=graphic
+x=468
+y=27
+width=26
+height=23
+graphic="close_buttons,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,1")
+onmouseleave=graphic_swapper(event_com, "close_buttons,0")
+onop=closebutton_click

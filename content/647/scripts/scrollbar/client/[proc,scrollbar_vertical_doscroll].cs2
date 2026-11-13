@@ -1,0 +1,40 @@
+// 37
+[proc,scrollbar_vertical_doscroll](component $component0, component $component1, int $int2, boolean $boolean3)
+def_int $int4 = calc(if_getscrollheight($component1) - if_getheight($component1));
+if ($int4 = 0) {
+    $int4 = 1;
+}
+if ($int2 < 0) {
+    $int2 = 0;
+}
+if ($int2 > $int4) {
+    $int2 = $int4;
+}
+if_setscrollpos($component1, 0, $int2);
+switch_component ($component1) {
+    case chatdefault:scrollarea :
+        %chat_lastscrollpos = $int2;
+    case smithing_new:scrolling_layer :
+        %varclient_109 = $int2;
+    case interface_735:text_layer :
+        %varclient_121 = $int2;
+    case bank_v2_main:bank_v2_inv :
+        ~bank_v2_set_tab_scrollpos(%open_bank_tab, $int2);
+    case lobbyscreen_pane_friendslist:chat_build :
+        %lobby_pmchat_lastscrollpos = $int2;
+    case lobbyscreen_pane_clanchat:chat_build :
+        %lobby_clanchat_lastscrollpos = $int2;
+    case music_v3:jukebox :
+        %playerdesign2_client_jaw = $int2;
+}
+def_int $int5 = 0;
+if ($boolean3 = true) {
+    $int5 = calc(if_getheight($component0) - 32 - cc_getheight);
+    cc_setposition(0, calc(16 + scale($int2, $int4, $int5)), ^setpos_abs_left, ^setpos_abs_top);
+    if (.cc_find($component0, 2) = true) {
+        .cc_setposition(0, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if (.cc_find($component0, 3) = true) {
+        .cc_setposition(0, calc(cc_gety + cc_getheight - 5), ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

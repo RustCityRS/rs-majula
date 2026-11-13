@@ -1,0 +1,12 @@
+// 4547
+[proc,lobbyscreen_pane_clanchat_clear](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+if_sethide(lobbyscreen_pane_clanchat:info_layer, false);
+if_settext(lobbyscreen_pane_clanchat:clan_detail_name_text, "Not in chat");
+if_setsize(lobbyscreen_pane_clanchat:clan_vdiv, if_getwidth(lobbyscreen_pane_clanchat:clan_vdiv), if_getheight(lobbyscreen_pane_clanchat:clan_titles), ^setsize_abs, ^setsize_abs);
+if_setscrollsize(lobbyscreen_pane_clanchat:clan_main, 0, 0);
+if_setscrollpos(lobbyscreen_pane_clanchat:clan_main, 0, 0);
+~scrollbar_resize(lobbyscreen_pane_clanchat:clan_build_layer_scroll, lobbyscreen_pane_clanchat:clan_main, 0);

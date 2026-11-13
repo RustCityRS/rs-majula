@@ -1,0 +1,1000 @@
+// 53:0
+[contents]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 53:1
+[canoeing_barberian_canoe_model]
+type=model
+x=102
+y=11
+width=49
+height=17
+layer=canoeing_barbarian_canoe
+model=model_12103
+modelangle=252,1960,0
+modelzoom=2000
+
+// 53:2
+[barbarian_village_canoe_station]
+type=text
+x=7
+y=4
+width=103
+height=36
+layer=canoeing_barbarian_canoe
+textfont=q8_full
+text=Barbarian <br> Village
+textshadow=yes
+colour=0x999999
+
+// 53:3
+[canoeing_barbarian_button]
+type=text
+x=2
+y=6
+width=220
+height=31
+layer=canoeing_barbarian_canoe
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(canoe_stations_map:canoeing_barberian_canoe_model, model_12104)
+onmouseleave=model_swapper(canoe_stations_map:canoeing_barberian_canoe_model, model_12103)
+
+// 53:4
+[canoeing_edgeville_canoe_model]
+type=model
+x=110
+y=11
+width=43
+height=27
+layer=canoeing_edgeville_canoe
+model=model_12103
+modelorigin=1,0
+modelangle=279,1852,0
+modelzoom=2000
+
+// 53:5
+[edgeville_canoe_station_text]
+type=text
+x=11
+y=21
+width=90
+height=18
+layer=canoeing_edgeville_canoe
+textfont=q8_full
+text=Edgeville
+textalignh=centre
+textshadow=yes
+colour=0x999999
+
+// 53:6
+[canoeing_edgeville_button]
+type=text
+x=27
+y=6
+width=139
+height=38
+layer=canoeing_edgeville_canoe
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(canoe_stations_map:canoeing_edgeville_canoe_model, model_12104)
+onmouseleave=model_swapper(canoe_stations_map:canoeing_edgeville_canoe_model, model_12103)
+
+// 53:7
+[canoeing_background_layer]
+type=layer
+x=-13
+y=-1
+width=527
+height=340
+layer=contents
+
+// 53:8
+[map_image]
+type=layer
+x=65
+y=31
+width=32
+height=32
+layer=contents
+
+// 53:9
+[canoeing_map_model]
+type=model
+x=108
+y=2
+width=374
+height=330
+layer=contents
+model=model_12109
+modelorigin=35,34
+modelangle=387,2008,0
+modelzoom=906
+
+// 53:10
+[canoeing_lumbridge_canoe]
+type=layer
+x=165
+y=237
+width=248
+height=36
+layer=contents
+
+// 53:11
+[canoeing_champions_canoe]
+type=layer
+x=164
+y=208
+width=249
+height=42
+layer=contents
+
+// 53:12
+[canoeing_barbarian_canoe]
+type=layer
+x=165
+y=168
+width=227
+height=42
+layer=contents
+
+// 53:13
+[canoeing_gray_canoes]
+type=layer
+x=305
+y=271
+width=32
+height=32
+layer=contents
+
+// 53:14
+[canoeing_tunnels]
+type=layer
+x=228
+y=101
+width=55
+height=46
+layer=contents
+
+// 53:15
+[lumbridge_highlight]
+type=layer
+x=341
+y=237
+width=65
+height=44
+layer=contents
+hide=yes
+
+// 53:16
+[champions_highlight]
+type=layer
+x=301
+y=206
+width=75
+height=29
+layer=contents
+hide=yes
+
+// 53:17
+[barbarian_highlight]
+type=layer
+x=247
+y=177
+width=80
+height=30
+layer=contents
+hide=yes
+
+// 53:18
+[canoeing_wilderness_layer]
+type=layer
+x=201
+y=63
+width=254
+height=53
+layer=contents
+
+// 53:19
+[you_are_here_edgeville]
+type=layer
+x=259
+y=105
+width=124
+height=34
+layer=contents
+hide=yes
+
+// 53:20
+[canoeing_edgeville_canoe]
+type=layer
+x=157
+y=121
+width=232
+height=52
+layer=contents
+
+// 53:21
+[edgeville_highlight]
+type=layer
+x=251
+y=125
+width=79
+height=38
+layer=contents
+hide=yes
+
+// 53:22
+[wilderness_highlight]
+type=layer
+x=201
+y=63
+width=254
+height=53
+layer=contents
+hide=yes
+
+// 53:23
+[you_are_here_barbarian_village]
+type=layer
+x=248
+y=154
+width=145
+height=32
+layer=contents
+hide=yes
+
+// 53:24
+[you_are_here_champion]
+type=layer
+x=280
+y=189
+width=145
+height=32
+layer=contents
+hide=yes
+
+// 53:25
+[you_are_here_lumbridge]
+type=layer
+x=281
+y=221
+width=145
+height=32
+layer=contents
+hide=yes
+
+// 53:26
+[selection_scroll]
+type=layer
+x=34
+y=34
+width=203
+height=36
+layer=contents
+
+// 53:27
+[com_27]
+type=model
+x=14
+y=26
+width=239
+height=54
+layer=contents
+model=model_12111
+modelorigin=31,117
+modelangle=446,2041,0
+modelzoom=1083
+
+// 53:28
+[where_to__text]
+type=text
+x=34
+y=31
+width=192
+height=33
+layer=contents
+textfont=q8_full
+text=Please Select <br>Your Destination
+textalignh=centre
+textshadow=yes
+colour=0xc8d1db
+
+// 53:29
+[canoe_close]
+type=graphic
+x=451
+y=10
+width=26
+height=23
+layer=contents
+graphic="close_buttons,4"
+colour=0x000000
+onmouseover=graphic_swapper(canoe_stations_map:canoe_close, "close_buttons,5")
+onmouseleave=graphic_swapper(canoe_stations_map:canoe_close, "close_buttons,4")
+onclick=closebutton_click
+
+// 53:30
+[canoe_stations_close_button]
+type=layer
+x=447
+y=6
+width=32
+height=32
+layer=contents
+hide=yes
+
+// 53:31
+[canoeing_water]
+type=model
+x=-244
+y=133
+width=710
+height=366
+layer=canoeing_background_layer
+model=model_12114
+modelorigin=-5,-11
+modelangle=465,1647,0
+modelzoom=466
+modelanim=canoeing_interface_water
+
+// 53:32
+[canoeing_water2]
+type=model
+x=-295
+y=42
+width=871
+height=358
+layer=canoeing_background_layer
+model=model_12114
+modelorigin=-43,-44
+modelangle=306,1642,0
+modelzoom=400
+modelanim=canoeing_interface_water
+
+// 53:33
+[canoeing_water3]
+type=model
+x=-270
+y=-28
+width=931
+height=282
+layer=canoeing_background_layer
+model=model_12114
+modelorigin=-93,-52
+modelangle=189,1654,0
+modelzoom=400
+modelanim=canoeing_interface_water
+
+// 53:34
+[canoeing_water4]
+type=model
+x=-216
+y=-85
+width=939
+height=211
+layer=canoeing_background_layer
+model=model_12114
+modelorigin=-57,-29
+modelangle=198,1609,0
+modelzoom=400
+modelanim=canoeing_interface_water
+
+// 53:35
+[canoeing_barberian_canoe_highlight]
+type=model
+x=29
+y=5
+width=31
+height=11
+layer=barbarian_highlight
+model=model_12104
+modelangle=252,1960,0
+modelzoom=3160
+
+// 53:36
+[canoeing_champions_canoe_highlight]
+type=model
+x=20
+y=11
+width=36
+height=11
+layer=champions_highlight
+model=model_12104
+modelorigin=-1,0
+modelangle=228,1990,0
+modelzoom=2776
+
+// 53:37
+[canoeing_lumbridge_canoe_highlight]
+type=model
+x=13
+y=20
+width=34
+height=9
+layer=lumbridge_highlight
+model=model_12104
+modelorigin=-1,1
+modelangle=272,62,0
+modelzoom=2954
+
+// 53:38
+[canoeing_edgeville_canoe_highlight]
+type=model
+x=24
+y=12
+width=28
+height=17
+layer=edgeville_highlight
+model=model_12104
+modelangle=279,1852,0
+modelzoom=3160
+
+// 53:39
+[canoeing_lumbridge_canoe_model]
+type=model
+x=181
+y=17
+width=50
+height=14
+layer=canoeing_lumbridge_canoe
+model=model_12103
+modelorigin=-1,1
+modelangle=272,62,0
+modelzoom=2000
+
+// 53:40
+[canoeing_champions_canoe_model]
+type=model
+x=150
+y=7
+width=50
+height=15
+layer=canoeing_champions_canoe
+model=model_12103
+modelorigin=-1,0
+modelangle=228,1990,0
+modelzoom=2000
+
+// 53:41
+[canoeing_fade_to_black]
+type=model
+x=-632
+y=-553
+width=2137
+height=1340
+layer=canoeing_background_layer
+model=model_12105
+modelorigin=13,-70
+modelangle=414,2008,0
+modelzoom=282
+
+// 53:42
+[canoeing_large_tunnel]
+type=model
+x=21
+y=11
+width=22
+height=18
+layer=canoeing_tunnels
+model=model_12107
+modelorigin=4,-1
+modelangle=468,2032,0
+modelzoom=428
+
+// 53:43
+[lumbridge_canoe_station_text]
+type=text
+x=70
+y=14
+width=92
+height=16
+layer=canoeing_lumbridge_canoe
+textfont=q8_full
+text=Lumbridge
+textalignh=right
+textshadow=yes
+colour=0x999999
+
+// 53:44
+[champions_canoe_station_text]
+type=text
+x=14
+y=4
+width=89
+height=39
+layer=canoeing_champions_canoe
+textfont=q8_full
+text=Champions' <br>Guild
+textshadow=yes
+colour=0x999999
+
+// 53:45
+[com_45]
+type=text
+x=5
+y=1
+width=237
+height=52
+layer=canoeing_wilderness_layer
+textfont=q8_full
+text=Wilderness Pond - <br>No canoe trees here.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x999999
+
+// 53:46
+[canoeing_danger_wilderness_skul]
+type=model
+x=9
+y=25
+width=23
+height=21
+layer=canoeing_wilderness_layer
+model=model_12110
+modelorigin=-1,0
+modelangle=525,2026,0
+modelzoom=2704
+
+// 53:47
+[canoeing_lumbridge_button]
+type=text
+x=24
+y=12
+width=219
+height=23
+layer=canoeing_lumbridge_canoe
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(canoe_stations_map:canoeing_lumbridge_canoe_model, model_12104)
+onmouseleave=model_swapper(canoe_stations_map:canoeing_lumbridge_canoe_model, model_12103)
+
+// 53:48
+[canoeing_champions_button]
+type=text
+x=3
+y=2
+width=242
+height=28
+layer=canoeing_champions_canoe
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=model_swapper(canoe_stations_map:canoeing_champions_canoe_model, model_12104)
+onmouseleave=model_swapper(canoe_stations_map:canoeing_champions_canoe_model, model_12103)
+
+// 53:49
+[canoeing_wilderness_button]
+type=text
+x=-11
+y=10
+width=250
+height=36
+layer=canoeing_wilderness_layer
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 53:50
+[you_are_here_edgeville_text]
+type=text
+x=33
+y=9
+width=94
+height=14
+layer=you_are_here_edgeville
+textfont=b12_full
+text=You are here
+textshadow=yes
+colour=0xb86e0d
+
+// 53:51
+[wilderness_text_highlight]
+type=text
+x=5
+y=1
+width=237
+height=52
+layer=wilderness_highlight
+textfont=q8_full
+text=Wilderness Pond - <br>No canoe trees here.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x990000
+
+// 53:52
+[you_are_here_edgeville_arrow]
+type=model
+x=6
+y=4
+width=26
+height=20
+layer=you_are_here_edgeville
+model=model_12100
+modelorigin=1,2
+modelangle=567,201,0
+modelzoom=528
+
+// 53:53
+[you_are_here_barbarian_village_arrow]
+type=model
+x=10
+y=5
+width=26
+height=20
+layer=you_are_here_barbarian_village
+model=model_12100
+modelorigin=1,2
+modelangle=567,201,0
+modelzoom=528
+
+// 53:54
+[you_are_here_barbarian_village_text]
+type=text
+x=31
+y=11
+width=112
+height=14
+layer=you_are_here_barbarian_village
+textfont=b12_full
+text=You are here
+textalignh=centre
+textshadow=yes
+colour=0xb86e0d
+
+// 53:55
+[you_are_here_champion_arrow]
+type=model
+x=10
+y=5
+width=26
+height=20
+layer=you_are_here_champion
+model=model_12100
+modelorigin=1,2
+modelangle=567,201,0
+modelzoom=528
+
+// 53:56
+[you_are_here_champion_text]
+type=text
+x=27
+y=8
+width=109
+height=15
+layer=you_are_here_champion
+textfont=b12_full
+text=You are here
+textalignh=centre
+textshadow=yes
+colour=0xb86e0d
+
+// 53:57
+[you_are_here_lumbridge_arrow]
+type=model
+x=18
+y=11
+width=26
+height=20
+layer=you_are_here_lumbridge
+model=model_12100
+modelorigin=1,2
+modelangle=567,201,0
+modelzoom=528
+
+// 53:58
+[you_are_here_lumbridge_text]
+type=text
+x=29
+y=14
+width=102
+height=14
+layer=you_are_here_lumbridge
+textfont=b12_full
+text=You are here
+textalignh=centre
+textshadow=yes
+colour=0xb86e0d
+
+// 53:59
+[you_are_here_lum_rollover]
+type=text
+x=-1
+width=145
+height=32
+layer=you_are_here_lumbridge
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 53:60
+[you_are_here_champ_rollover]
+type=text
+width=145
+height=32
+layer=you_are_here_champion
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 53:61
+[you_are_here_barb_rollover]
+type=text
+width=145
+height=32
+layer=you_are_here_barbarian_village
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 53:62
+[you_are_here_edge_rollover]
+type=text
+width=145
+height=32
+layer=you_are_here_edgeville
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 53:63
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 53:64
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 53:65
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 53:66
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 53:67
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 53:68
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 53:69
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 53:70
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 53:71
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 53:72
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 53:73
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 53:74
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 53:75
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 53:76
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 53:77
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 53:78
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 53:79
+[com_79]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 53:80
+[com_80]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 53:81
+[com_81]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 53:82
+[com_82]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

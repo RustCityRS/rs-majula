@@ -1,0 +1,3778 @@
+// 1017:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=grid_border_layer
+colour=0x201c17
+
+// 1017:1
+[com_1]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=grid_border_layer
+colour=0x595143
+
+// 1017:2
+[clear_button_graphic]
+type=graphic
+x=126
+y=259
+width=110
+height=43
+layer=buttons_layer
+graphic=graphic_3259
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1017:3
+[clear_button_text]
+type=text
+x=126
+y=259
+width=110
+height=43
+layer=buttons_layer
+textfont=welcome_font_small
+text=Reset
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1,10
+op1=Reset
+op10=      
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1017:4
+[com_4]
+type=layer
+width=512
+height=334
+
+// 1017:5
+[com_5]
+type=layer
+x=23
+y=53
+width=92
+height=251
+
+// 1017:6
+[com_6]
+type=rectangle
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_5
+colour=0x201c17
+
+// 1017:7
+[com_7]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_5
+colour=0x595143
+
+// 1017:8
+[com_8]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_5
+colour=0x161410
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:9
+[com_9]
+type=graphic
+x=12
+y=27
+width=488
+height=289
+layer=com_4
+graphic=km_middlefillcolour
+colour=0xffffffff
+
+// 1017:10
+[bottom_left_corner]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+layer=com_4
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 1017:11
+[top_left_corner]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+layer=com_4
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+
+// 1017:12
+[top_right_corner]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+xmode=abs_right
+layer=com_4
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+
+// 1017:13
+[bottom_right_corner]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+xmode=abs_right
+layer=com_4
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 1017:14
+[left_side]
+type=graphic
+x=-8
+y=52
+width=32
+height=240
+layer=com_4
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 1017:15
+[right_side]
+type=graphic
+x=-7
+y=52
+width=32
+height=239
+xmode=abs_right
+layer=com_4
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 1017:16
+[top_side]
+type=graphic
+x=37
+y=20
+width=438
+height=32
+layer=com_4
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+
+// 1017:17
+[bottom_side]
+type=graphic
+y=303
+width=444
+height=32
+xmode=abs_centre
+layer=com_4
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 1017:18
+[border_shadow]
+type=rectangle
+x=11
+y=41
+width=489
+height=275
+layer=com_4
+colour=0x000000
+
+// 1017:19
+[border_shadow_3]
+type=rectangle
+x=12
+y=6
+width=489
+height=275
+layer=com_4
+hide=yes
+colour=0x000000
+
+// 1017:20
+[border_shadow_2]
+type=rectangle
+x=13
+y=43
+width=485
+height=271
+layer=com_4
+colour=0x000000
+trans=192
+
+// 1017:21
+[border_shadow_1]
+type=rectangle
+x=12
+y=42
+width=487
+height=273
+layer=com_4
+colour=0x000000
+trans=64
+
+// 1017:22
+[close_button]
+type=graphic
+x=481
+y=23
+width=16
+height=16
+layer=com_4
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1017:23
+[com_23]
+type=rectangle
+x=19
+y=49
+width=473
+height=259
+layer=com_4
+colour=0x5a5349
+transmitop=10
+op10= 
+
+// 1017:24
+[com_24]
+type=rectangle
+x=19
+y=49
+width=472
+height=258
+layer=com_4
+colour=0x403931
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:25
+[com_25]
+type=rectangle
+x=21
+y=51
+width=469
+height=255
+layer=com_4
+colour=0x2d261e
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:26
+[com_26]
+type=rectangle
+x=20
+y=50
+width=471
+height=257
+layer=com_4
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1017:27
+[main_title_text]
+type=text
+x=12
+y=23
+width=488
+height=15
+layer=com_4
+textfont=b12_full
+text=Squad Formation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 1017:28
+[grid_main_layer]
+type=layer
+x=23
+y=53
+width=465
+height=251
+transmitop=10
+op10= 
+
+// 1017:29
+[grid_border_layer]
+type=layer
+x=94
+width=94
+height=204
+widthmode=minus
+layer=grid_main_layer
+
+// 1017:30
+[grid_boxes_layer]
+type=layer
+x=90
+y=-4
+width=375
+height=204
+layer=grid_main_layer
+
+// 1017:31
+[grid_text_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=grid_main_layer
+onload=conq_formation_setup
+onvartransmit=script503{conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+
+// 1017:32
+[backing_rect_1]
+type=rectangle
+x=9
+y=47
+width=361
+height=18
+layer=grid_boxes_layer
+colour=0x23201a
+fill=yes
+
+// 1017:33
+[backing_rect_2]
+type=rectangle
+x=9
+y=65
+width=361
+height=18
+layer=grid_boxes_layer
+colour=0x2d2922
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:34
+[backing_rect_3]
+type=rectangle
+x=9
+y=83
+width=361
+height=18
+layer=grid_boxes_layer
+colour=0x383633
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:35
+[backing_rect_4]
+type=rectangle
+x=9
+y=101
+width=361
+height=55
+layer=grid_boxes_layer
+colour=0x423c32
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:36
+[dummy_rect_1]
+type=rectangle
+x=10
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+
+// 1017:37
+[dummy_rect_2]
+type=rectangle
+x=28
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:38
+[dummy_rect_3]
+type=rectangle
+x=46
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:39
+[dummy_rect_4]
+type=rectangle
+x=64
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:40
+[dummy_rect_5]
+type=rectangle
+x=82
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:41
+[dummy_rect_6]
+type=rectangle
+x=100
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:42
+[dummy_rect_7]
+type=rectangle
+x=118
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:43
+[dummy_rect_8]
+type=rectangle
+x=136
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:44
+[dummy_rect_9]
+type=rectangle
+x=154
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:45
+[dummy_rect_10]
+type=rectangle
+x=172
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:46
+[dummy_rect_11]
+type=rectangle
+x=190
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:47
+[dummy_rect_12]
+type=rectangle
+x=208
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:48
+[dummy_rect_13]
+type=rectangle
+x=226
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:49
+[dummy_rect_14]
+type=rectangle
+x=244
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:50
+[dummy_rect_15]
+type=rectangle
+x=262
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:51
+[dummy_rect_16]
+type=rectangle
+x=280
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:52
+[dummy_rect_17]
+type=rectangle
+x=298
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:53
+[dummy_rect_18]
+type=rectangle
+x=316
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:54
+[dummy_rect_19]
+type=rectangle
+x=334
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:55
+[dummy_rect_20]
+type=rectangle
+x=352
+y=48
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x171510
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:56
+[dummy_rect_21]
+type=rectangle
+x=10
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:57
+[dummy_rect_22]
+type=rectangle
+x=28
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:58
+[dummy_rect_23]
+type=rectangle
+x=46
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:59
+[dummy_rect_24]
+type=rectangle
+x=64
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:60
+[dummy_rect_25]
+type=rectangle
+x=82
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:61
+[dummy_rect_26]
+type=rectangle
+x=100
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:62
+[dummy_rect_27]
+type=rectangle
+x=118
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:63
+[dummy_rect_28]
+type=rectangle
+x=136
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:64
+[dummy_rect_29]
+type=rectangle
+x=154
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:65
+[dummy_rect_30]
+type=rectangle
+x=172
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:66
+[dummy_rect_31]
+type=rectangle
+x=190
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:67
+[dummy_rect_32]
+type=rectangle
+x=208
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:68
+[dummy_rect_33]
+type=rectangle
+x=226
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:69
+[dummy_rect_34]
+type=rectangle
+x=244
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:70
+[dummy_rect_35]
+type=rectangle
+x=262
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:71
+[dummy_rect_36]
+type=rectangle
+x=280
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:72
+[dummy_rect_37]
+type=rectangle
+x=298
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:73
+[dummy_rect_38]
+type=rectangle
+x=316
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:74
+[dummy_rect_39]
+type=rectangle
+x=334
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:75
+[dummy_rect_40]
+type=rectangle
+x=352
+y=66
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x191612
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:76
+[dummy_rect_41]
+type=rectangle
+x=10
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:77
+[dummy_rect_42]
+type=rectangle
+x=28
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:78
+[dummy_rect_43]
+type=rectangle
+x=46
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:79
+[dummy_rect_44]
+type=rectangle
+x=64
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:80
+[dummy_rect_45]
+type=rectangle
+x=82
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:81
+[dummy_rect_46]
+type=rectangle
+x=100
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:82
+[dummy_rect_47]
+type=rectangle
+x=118
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:83
+[dummy_rect_48]
+type=rectangle
+x=136
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:84
+[dummy_rect_49]
+type=rectangle
+x=154
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:85
+[dummy_rect_50]
+type=rectangle
+x=172
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:86
+[dummy_rect_51]
+type=rectangle
+x=190
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:87
+[dummy_rect_52]
+type=rectangle
+x=208
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:88
+[dummy_rect_53]
+type=rectangle
+x=226
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:89
+[dummy_rect_54]
+type=rectangle
+x=244
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:90
+[dummy_rect_55]
+type=rectangle
+x=262
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:91
+[dummy_rect_56]
+type=rectangle
+x=280
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:92
+[dummy_rect_57]
+type=rectangle
+x=298
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:93
+[dummy_rect_58]
+type=rectangle
+x=316
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:94
+[dummy_rect_59]
+type=rectangle
+x=334
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:95
+[dummy_rect_60]
+type=rectangle
+x=352
+y=84
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1b1713
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:96
+[dummy_rect_61_b]
+type=rectangle
+x=10
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10= 
+
+// 1017:97
+[dummy_rect_62]
+type=rectangle
+x=28
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:98
+[dummy_rect_63]
+type=rectangle
+x=46
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:99
+[dummy_rect_64]
+type=rectangle
+x=64
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:100
+[dummy_rect_65]
+type=rectangle
+x=82
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:101
+[dummy_rect_66]
+type=rectangle
+x=100
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:102
+[dummy_rect_67]
+type=rectangle
+x=118
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:103
+[dummy_rect_68]
+type=rectangle
+x=136
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:104
+[dummy_rect_69]
+type=rectangle
+x=154
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:105
+[dummy_rect_70]
+type=rectangle
+x=172
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:106
+[dummy_rect_71]
+type=rectangle
+x=190
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:107
+[dummy_rect_72]
+type=rectangle
+x=208
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:108
+[dummy_rect_73]
+type=rectangle
+x=226
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:109
+[dummy_rect_74]
+type=rectangle
+x=244
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:110
+[dummy_rect_75]
+type=rectangle
+x=262
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:111
+[dummy_rect_76]
+type=rectangle
+x=280
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:112
+[dummy_rect_77]
+type=rectangle
+x=298
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:113
+[dummy_rect_78]
+type=rectangle
+x=316
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:114
+[dummy_rect_79]
+type=rectangle
+x=334
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:115
+[dummy_rect_80]
+type=rectangle
+x=352
+y=102
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:116
+[dummy_rect_81]
+type=rectangle
+x=10
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:117
+[dummy_rect_82]
+type=rectangle
+x=28
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:118
+[dummy_rect_83]
+type=rectangle
+x=46
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:119
+[dummy_rect_84]
+type=rectangle
+x=64
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:120
+[dummy_rect_85]
+type=rectangle
+x=82
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:121
+[dummy_rect_86]
+type=rectangle
+x=100
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:122
+[dummy_rect_87]
+type=rectangle
+x=118
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:123
+[dummy_rect_88]
+type=rectangle
+x=136
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:124
+[dummy_rect_89]
+type=rectangle
+x=154
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:125
+[dummy_rect_90]
+type=rectangle
+x=172
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:126
+[dummy_rect_91]
+type=rectangle
+x=190
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:127
+[dummy_rect_92]
+type=rectangle
+x=208
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:128
+[dummy_rect_93]
+type=rectangle
+x=226
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:129
+[dummy_rect_94]
+type=rectangle
+x=244
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:130
+[dummy_rect_95]
+type=rectangle
+x=262
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:131
+[dummy_rect_96]
+type=rectangle
+x=280
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:132
+[dummy_rect_97]
+type=rectangle
+x=298
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:133
+[dummy_rect_98]
+type=rectangle
+x=316
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:134
+[dummy_rect_99]
+type=rectangle
+x=334
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:135
+[dummy_rect_101]
+type=rectangle
+x=10
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:136
+[dummy_rect_100]
+type=rectangle
+x=352
+y=120
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=       
+
+// 1017:137
+[dummy_rect_102]
+type=rectangle
+x=28
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:138
+[dummy_rect_103]
+type=rectangle
+x=46
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:139
+[dummy_rect_104]
+type=rectangle
+x=64
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:140
+[dummy_rect_105]
+type=rectangle
+x=82
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:141
+[dummy_rect_106]
+type=rectangle
+x=100
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:142
+[dummy_rect_107]
+type=rectangle
+x=118
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:143
+[dummy_rect_108]
+type=rectangle
+x=136
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:144
+[dummy_rect_109]
+type=rectangle
+x=154
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=   
+
+// 1017:145
+[dummy_rect_110]
+type=rectangle
+x=172
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:146
+[dummy_rect_111]
+type=rectangle
+x=190
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:147
+[dummy_rect_112]
+type=rectangle
+x=208
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:148
+[dummy_rect_113]
+type=rectangle
+x=226
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=    
+
+// 1017:149
+[dummy_rect_114]
+type=rectangle
+x=244
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:150
+[dummy_rect_115]
+type=rectangle
+x=262
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:151
+[dummy_rect_116]
+type=rectangle
+x=280
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:152
+[dummy_rect_117]
+type=rectangle
+x=298
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=     
+
+// 1017:153
+[dummy_rect_118]
+type=rectangle
+x=316
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:154
+[dummy_rect_119]
+type=rectangle
+x=334
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=      
+
+// 1017:155
+[dummy_rect_120]
+type=rectangle
+x=352
+y=138
+width=17
+height=17
+layer=grid_boxes_layer
+colour=0x1e1923
+fill=yes
+transmitop=10
+op10=       
+
+// 1017:156
+[unit_1_text]
+type=text
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 1
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:157
+[unit_2_text]
+type=text
+y=25
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 2
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:158
+[unit_3_text]
+type=text
+y=50
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 3
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:159
+[unit_4_text]
+type=text
+y=75
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 4
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10=  
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:160
+[unit_5_text]
+type=text
+y=100
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 5
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:161
+[unit_6_text]
+type=text
+y=125
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 6
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10=  
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:162
+[unit_7_text]
+type=text
+y=150
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 7
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10=  
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:163
+[unit_8_text]
+type=text
+y=175
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 8
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10=   
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:164
+[unit_9_text]
+type=text
+y=200
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 9
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10=   
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:165
+[unit_10_text]
+type=text
+y=225
+width=92
+height=25
+layer=grid_text_layer
+textfont=welcome_font_tiny
+text=Troop 10
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10=    
+ondragcomplete=script502(event_com, event_com2)
+
+// 1017:166
+[tile_text_1]
+type=text
+x=100
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+onload=script1377(event_com, 1)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 1){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:167
+[tile_text_2]
+type=text
+x=118
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+onload=script1377(event_com, 2)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 2){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:168
+[tile_text_3]
+type=text
+x=136
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 3)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 3){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:169
+[tile_text_4]
+type=text
+x=154
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+onload=script1377(event_com, 4)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 4){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:170
+[tile_text_5]
+type=text
+x=172
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 5)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 5){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:171
+[tile_text_6]
+type=text
+x=190
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 6)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 6){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:172
+[tile_text_7]
+type=text
+x=208
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 7)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 7){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:173
+[tile_text_8]
+type=text
+x=226
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+onload=script1377(event_com, 8)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 8){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:174
+[tile_text_9]
+type=text
+x=244
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 9)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 9){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:175
+[tile_text_10]
+type=text
+x=262
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 10)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 10){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:176
+[tile_text_11]
+type=text
+x=280
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 11)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 11){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:177
+[tile_text_12]
+type=text
+x=298
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 12)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 12){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:178
+[tile_text_13]
+type=text
+x=316
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 13)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 13){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:179
+[tile_text_14]
+type=text
+x=334
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 14)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 14){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:180
+[tile_text_15]
+type=text
+x=352
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 15)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 15){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:181
+[tile_text_16]
+type=text
+x=370
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10= 
+onload=script1377(event_com, 16)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 16){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:182
+[tile_text_17]
+type=text
+x=388
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 17)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 17){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:183
+[tile_text_18]
+type=text
+x=406
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 18)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 18){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:184
+[tile_text_19]
+type=text
+x=424
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 19)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 19){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:185
+[tile_text_20]
+type=text
+x=442
+y=98
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 20)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 20){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:186
+[tile_text_21]
+type=text
+x=100
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 21)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 21){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:187
+[tile_text_22]
+type=text
+x=118
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 22)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 22){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:188
+[tile_text_23]
+type=text
+x=136
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 23)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 23){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:189
+[tile_text_24]
+type=text
+x=154
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=  
+onload=script1377(event_com, 24)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 24){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:190
+[tile_text_25]
+type=text
+x=172
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 25)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 25){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:191
+[tile_text_26]
+type=text
+x=190
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 26)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 26){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:192
+[tile_text_27]
+type=text
+x=208
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 27)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 27){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:193
+[tile_text_28]
+type=text
+x=226
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 28)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 28){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:194
+[tile_text_29]
+type=text
+x=244
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 29)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 29){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:195
+[tile_text_30]
+type=text
+x=262
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 30)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 30){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:196
+[tile_text_31]
+type=text
+x=280
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 31)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 31){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:197
+[tile_text_32]
+type=text
+x=298
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 32)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 32){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:198
+[tile_text_33]
+type=text
+x=316
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 33)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 33){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:199
+[tile_text_34]
+type=text
+x=334
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 34)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 34){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:200
+[tile_text_35]
+type=text
+x=352
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 35)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 35){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:201
+[tile_text_36]
+type=text
+x=370
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 36)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 36){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:202
+[tile_text_37]
+type=text
+x=388
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 37)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 37){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:203
+[tile_text_38]
+type=text
+x=406
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 38)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 38){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:204
+[tile_text_39]
+type=text
+x=424
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=      
+onload=script1377(event_com, 39)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 39){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:205
+[tile_text_40]
+type=text
+x=442
+y=116
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 40)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 40){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:206
+[tile_text_41]
+type=text
+x=100
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 41)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 41){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:207
+[tile_text_42]
+type=text
+x=118
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 42)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 42){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:208
+[tile_text_43]
+type=text
+x=136
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 43)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 43){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:209
+[tile_text_44]
+type=text
+x=154
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=   
+onload=script1377(event_com, 44)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 44){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:210
+[tile_text_45]
+type=text
+x=172
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 45)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 45){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:211
+[tile_text_46]
+type=text
+x=190
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 46)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 46){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:212
+[tile_text_47]
+type=text
+x=208
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 47)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 47){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:213
+[tile_text_48]
+type=text
+x=226
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 48)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 48){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:214
+[tile_text_49]
+type=text
+x=244
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 49)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 49){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:215
+[tile_text_50]
+type=text
+x=262
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 50)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 50){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:216
+[tile_text_51]
+type=text
+x=280
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=      
+onload=script1377(event_com, 51)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 51){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:217
+[tile_text_52]
+type=text
+x=298
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=    
+onload=script1377(event_com, 52)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 52){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:218
+[tile_text_53]
+type=text
+x=316
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 53)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 53){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:219
+[tile_text_54]
+type=text
+x=334
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 54)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 54){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:220
+[tile_text_55]
+type=text
+x=352
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=      
+onload=script1377(event_com, 55)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 55){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:221
+[tile_text_56]
+type=text
+x=370
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=     
+onload=script1377(event_com, 56)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 56){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:222
+[tile_text_57]
+type=text
+x=388
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=      
+onload=script1377(event_com, 57)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 57){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:223
+[tile_text_58]
+type=text
+x=406
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=      
+onload=script1377(event_com, 58)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 58){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:224
+[tile_text_59]
+type=text
+x=424
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+dragdepth=1
+candrop=yes
+op10=       
+onload=script1377(event_com, 59)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 59){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:225
+[tile_text_60]
+type=text
+x=442
+y=134
+width=17
+height=17
+layer=grid_text_layer
+textfont=graphic_3237
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+dragdepth=1
+candrop=yes
+onload=script1377(event_com, 60)
+onmouseleave=conq_formation_tooltip_mouseleave
+onvartransmit=script1377(event_com, 60){conq_base_1, conq_base_1, conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_2, conq_base_2, conq_base_3, conq_base_3}
+onmouserepeat=conq_formation_tooltip_mouseover(event_com)
+ondragcomplete=script1378(event_com, event_com2)
+
+// 1017:226
+[tooltip_content_layer]
+type=layer
+x=218
+y=81
+width=116
+height=20
+layer=grid_text_layer
+hide=yes
+
+// 1017:227
+[grid_background_rect]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=grid_border_layer
+colour=0x161410
+fill=yes
+transmitop=10
+op10=  
+
+// 1017:228
+[left_arrow]
+type=graphic
+x=85
+y=14
+width=21
+height=14
+layer=grid_border_layer
+graphic="conq_arrow,1"
+colour=0x000000
+
+// 1017:229
+[right_arrow]
+type=graphic
+x=264
+y=14
+width=21
+height=14
+layer=grid_border_layer
+graphic="conq_arrow,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1017:230
+[enemy_this_way_text]
+type=text
+y=2
+width=16384
+height=45
+widthmode=proportion
+layer=grid_border_layer
+textfont=welcome_font_tiny
+text=Opponent's Squad
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1017:231
+[instruction_text]
+type=text
+y=156
+width=300
+height=46
+xmode=abs_centre
+layer=grid_border_layer
+textfont=p11_full
+text=Choose the starting position of your troops by dragging and dropping them onto a square.<br>You may place troops in the squares shaded blue.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 1017:232
+[buttons_layer]
+type=layer
+width=512
+height=334
+
+// 1017:233
+[default_button_graphic]
+type=graphic
+x=247
+y=259
+width=110
+height=43
+layer=buttons_layer
+graphic=graphic_3259
+colour=0x000000
+
+// 1017:234
+[default_button_text]
+type=text
+x=247
+y=259
+width=110
+height=43
+layer=buttons_layer
+textfont=welcome_font_small
+text=Default
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1,10
+op1=Default
+op10=     
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1017:235
+[tool_shadow]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=tooltip_content_layer
+colour=0x000000
+fill=yes
+
+// 1017:236
+[com_236]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=tooltip_content_layer
+colour=0x423a2f
+fill=yes
+
+// 1017:237
+[left_5]
+type=graphic
+x=-16
+y=1
+width=32
+height=3
+heightmode=minus
+layer=tooltip_content_layer
+graphic="v2_borders_slim,12"
+hflip=yes
+colour=0x000000
+
+// 1017:238
+[bot_5]
+type=graphic
+x=1
+y=-15
+width=2
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=tooltip_content_layer
+graphic="v2_borders_slim,11"
+vflip=yes
+colour=0x000000
+
+// 1017:239
+[right_5]
+type=graphic
+x=-12
+y=1
+width=32
+height=3
+heightmode=minus
+xmode=abs_right
+layer=tooltip_content_layer
+graphic="v2_borders_slim,12"
+hflip=yes
+colour=0x000000
+
+// 1017:240
+[top_5]
+type=graphic
+x=2
+y=-13
+width=5
+height=32
+widthmode=minus
+layer=tooltip_content_layer
+graphic="v2_borders_slim,11"
+vflip=yes
+colour=0x000000
+
+// 1017:241
+[tooltip_name]
+type=text
+y=-1
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=tooltip_content_layer
+textfont=welcome_font_tiny
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1017:242
+[accept_button_graphic]
+type=graphic
+x=368
+y=259
+width=110
+height=43
+layer=buttons_layer
+graphic=graphic_3259
+colour=0x000000
+
+// 1017:243
+[accept_button_text]
+type=text
+x=368
+y=259
+width=110
+height=43
+layer=buttons_layer
+textfont=welcome_font_small
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+op1=Accept
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)

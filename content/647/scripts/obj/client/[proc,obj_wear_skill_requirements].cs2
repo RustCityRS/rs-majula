@@ -1,0 +1,46 @@
+// 929
+[proc,obj_wear_skill_requirements](obj $obj0)(boolean)
+def_int $int1 = oc_param($obj0, param_823);
+def_stat $stat2 = oc_param($obj0, param_749);
+if ($stat2 = null) {
+    return(true);
+}
+if (testbit($int1, 0) = ^false & stat_base($stat2) < oc_param($obj0, param_750) | testbit($int1, 0) = ^true & stat($stat2) < oc_param($obj0, param_750)) {
+    return(false);
+}
+$stat2 = oc_param($obj0, param_751);
+if ($stat2 = null) {
+    return(true);
+}
+if (testbit($int1, 1) = ^false & stat_base($stat2) < oc_param($obj0, param_752) | testbit($int1, 1) = ^true & stat($stat2) < oc_param($obj0, param_752)) {
+    return(false);
+}
+$stat2 = oc_param($obj0, param_753);
+if ($stat2 = null) {
+    return(true);
+}
+if (testbit($int1, 2) = ^false & stat_base($stat2) < oc_param($obj0, param_754) | testbit($int1, 2) = ^true & stat($stat2) < oc_param($obj0, param_754)) {
+    return(false);
+}
+$stat2 = oc_param($obj0, param_755);
+if ($stat2 = null) {
+    return(true);
+}
+if (testbit($int1, 3) = ^false & stat_base($stat2) < oc_param($obj0, param_756) | testbit($int1, 3) = ^true & stat($stat2) < oc_param($obj0, param_756)) {
+    return(false);
+}
+$stat2 = oc_param($obj0, param_757);
+if ($stat2 = null) {
+    return(true);
+}
+if (testbit($int1, 4) = ^false & stat_base($stat2) < oc_param($obj0, param_758) | testbit($int1, 4) = ^true & stat($stat2) < oc_param($obj0, param_758)) {
+    return(false);
+}
+$stat2 = oc_param($obj0, param_759);
+if ($stat2 = null) {
+    return(true);
+}
+if (testbit($int1, 5) = ^false & stat_base($stat2) < oc_param($obj0, param_760) | testbit($int1, 5) = ^true & stat($stat2) < oc_param($obj0, param_760)) {
+    return(false);
+}
+return(true);

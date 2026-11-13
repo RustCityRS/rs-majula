@@ -1,0 +1,6 @@
+// 64
+[clientscript,vm_kudos_set]
+if_settext(vm_kudos:vm_kudos, "<tostring(%vm_kudos)>/<tostring(183)>");
+if (%vm_kudos = 183) {
+    if_setcolour(vm_kudos:vm_kudos, ^green);
+}

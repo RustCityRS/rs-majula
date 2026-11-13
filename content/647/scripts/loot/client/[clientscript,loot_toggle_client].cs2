@@ -1,0 +1,6 @@
+// 1596
+[clientscript,loot_toggle_client](int $int0, component $component1)
+if ($int0 ! 1) {
+    return;
+}
+if_setgraphic($component1, "loot_icon,2");

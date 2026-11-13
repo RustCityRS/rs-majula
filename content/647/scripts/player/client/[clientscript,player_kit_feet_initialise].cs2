@@ -1,0 +1,15 @@
+// 1503
+[clientscript,player_kit_feet_initialise]
+cc_deleteall(player_kit_feet:universe);
+~script1088(player_kit_feet:universe, 22);
+cc_deleteall(player_kit_feet:menu_graphics);
+~verticalgradient(player_kit_feet:menu_graphics, 4734771, 3156258, 0, 0);
+~script2647(player_kit_feet:menu_graphics);
+cc_deleteall(player_kit_feet:player_container);
+~verticalgradient(player_kit_feet:player_container, 4734771, 3156258, 0, 0);
+~player_kit_player_create(player_kit_feet:player_container, 380, 100);
+~script2647(player_kit_feet:player_container);
+cc_deleteall(player_kit_feet:colours_graphics);
+~script2647(player_kit_feet:colours_graphics);
+~player_kit_feet_redraw;
+if_setonvarctransmit(player_kit_feet:universe, "player_kit_feet_varctransmit{playerdesign3_feet, playerdesign3_feetcol}");

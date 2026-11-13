@@ -1,0 +1,44 @@
+// 1695
+[proc,script1695](stat $stat0)(int)
+switch_stat ($stat0) {
+    case attack :
+        if (%varplayerbit_6852 > 0) {
+            return(4);
+        } else if (%varplayerbit_6847 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case strength :
+        if (%varplayerbit_6853 > 0) {
+            return(4);
+        } else if (%varplayerbit_6848 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case defence :
+        if (%varplayerbit_6854 > 0) {
+            return(4);
+        } else if (%varplayerbit_6849 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case ranged :
+        if (%varplayerbit_6855 > 0) {
+            return(4);
+        } else if (%varplayerbit_6850 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case magic :
+        if (%varplayerbit_6856 > 0) {
+            return(4);
+        } else if (%varplayerbit_6851 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+}

@@ -1,0 +1,13 @@
+// 409
+[clientscript,conq_skull_swapper]
+%conq_opponents_turn_text_counter = calc(%conq_opponents_turn_text_counter + 1);
+if (%conq_opponents_turn_text_counter = 50) {
+    if_settext(conq_side_turn:opponents_turn_text, "Opponent's Turn");
+} else if (%conq_opponents_turn_text_counter = 100) {
+    if_settext(conq_side_turn:opponents_turn_text, "Opponent's Turn.");
+} else if (%conq_opponents_turn_text_counter = 150) {
+    if_settext(conq_side_turn:opponents_turn_text, "Opponent's Turn..");
+} else if (%conq_opponents_turn_text_counter >= 200) {
+    if_settext(conq_side_turn:opponents_turn_text, "Opponent's Turn...");
+    %conq_opponents_turn_text_counter = 0;
+}

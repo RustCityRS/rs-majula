@@ -1,0 +1,27 @@
+// 1052
+[proc,quickchat_respond](int $int0, string $string0, chatphrase $chatphrase1)
+if ($chatphrase1 = null | chatphrase_getautoresponsecount($chatphrase1) = 0) {
+    return;
+}
+%quickchat_mode = $int0;
+%varclient_1546 = $string0;
+%quickchat_backspace = true;
+if (getwindowmode >= 2) {
+    if_setgraphic(chattop:chat_graphic, chat_background);
+    if_setalpha(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
+    ~chatbox_resize_reset(0);
+    if_sethide(toplevel_fullscreen:chatbox_resize_dragger, true);
+}
+if_sethide(chatdefault:chat, true);
+if_setonkey(chatdefault:input, null);
+if_sethide(chatdefault:quickchat, false);
+if_sethide(chatdefault:quickchat_countdialog, true);
+if_sethide(chatdefault:quickchat_listdialog, true);
+if_sethide(chatdefault:quickchat_objdialog, true);
+if_sethide(chatdefault:quickchat_menu, false);
+if_sethide(chatdefault:quickchat_path, false);
+if_sethide(chatdefault:quickchat_title, true);
+if_setscrollpos(chatdefault:quickchat_menu, 0, 0);
+~quickchat_response_add(chatdefault:quickchat_path, $chatphrase1);

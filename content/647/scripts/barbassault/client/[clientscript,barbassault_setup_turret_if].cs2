@@ -1,0 +1,57 @@
+// 4230
+[clientscript,barbassault_setup_turret_if](int $int0, int $int1, int $int2, int $int3, int $int4)
+if ($int0 < 1) {
+    if_setmodel(barbassault_turret:com_2, model_20542);
+    if_setmodel(barbassault_turret:com_15, model_20542);
+    if_setmodel(barbassault_turret:com_28, model_20542);
+    if_setmodel(barbassault_turret:com_41, model_20542);
+} else {
+    if_setmodel(barbassault_turret:com_2, model_20544);
+    if_setmodel(barbassault_turret:com_15, model_20544);
+    if_setmodel(barbassault_turret:com_28, model_20544);
+    if_setmodel(barbassault_turret:com_41, model_20544);
+}
+if ($int1 < 1) {
+    if_setmodel(barbassault_turret:com_3, model_20542);
+    if_setmodel(barbassault_turret:com_16, model_20542);
+    if_setmodel(barbassault_turret:com_29, model_20542);
+    if_setmodel(barbassault_turret:com_42, model_20542);
+} else {
+    if_setmodel(barbassault_turret:com_3, model_20545);
+    if_setmodel(barbassault_turret:com_16, model_20545);
+    if_setmodel(barbassault_turret:com_29, model_20545);
+    if_setmodel(barbassault_turret:com_42, model_20545);
+}
+if ($int2 < 1) {
+    if_setmodel(barbassault_turret:com_4, model_20542);
+    if_setmodel(barbassault_turret:com_17, model_20542);
+    if_setmodel(barbassault_turret:com_30, model_20542);
+    if_setmodel(barbassault_turret:com_43, model_20542);
+} else {
+    if_setmodel(barbassault_turret:com_4, model_20543);
+    if_setmodel(barbassault_turret:com_17, model_20543);
+    if_setmodel(barbassault_turret:com_30, model_20543);
+    if_setmodel(barbassault_turret:com_43, model_20543);
+}
+if ($int4 ! 10) {
+    if_setmodel(barbassault_turret:com_53, model_20542);
+} else if ($int3 < 1) {
+    if_setmodel(barbassault_turret:com_53, model_20542);
+}
+if_settext(barbassault_turret:owned_340, tostring($int0));
+if_settext(barbassault_turret:owned_343, tostring($int0));
+if_settext(barbassault_turret:owned_346, tostring($int0));
+if_settext(barbassault_turret:com_66, tostring($int0));
+if_settext(barbassault_turret:owned_341, tostring($int1));
+if_settext(barbassault_turret:owned_344, tostring($int1));
+if_settext(barbassault_turret:owned_347, tostring($int1));
+if_settext(barbassault_turret:com_67, tostring($int1));
+if_settext(barbassault_turret:owned_342, tostring($int2));
+if_settext(barbassault_turret:owned_345, tostring($int2));
+if_settext(barbassault_turret:owned_348, tostring($int2));
+if_settext(barbassault_turret:com_68, tostring($int2));
+if ($int4 ! 10) {
+    if_settext(barbassault_turret:com_69, "0");
+} else {
+    if_settext(barbassault_turret:com_69, tostring($int3));
+}

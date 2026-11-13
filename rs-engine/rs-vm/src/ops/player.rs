@@ -1,13 +1,61 @@
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::iterators::{self, PlayerIteratorState};
+#[cfg(since_647)]
+use crate::ops::test;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, QueuePriority, ScriptArgument, ScriptState, TimerPriority};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
 use crate::*;
-use rs_pack::cache::script::*;
+#[cfg(since_647)]
+use rs_pack::cache::MIDI_JINGLE_BASE;
 use rs_pack::types::HuntCheckVis;
+#[cfg(since_647)]
+use rs_pack::types::IfEvents;
 use rs_util::colour::rgb24_to_15;
+use runec::opcodes::*;
+
+/// The player whose script is running, who a queued hit belongs to: at 647 a
+/// queued script remembers them (`QueuedScript::source`), because 2011 paints
+/// a hit bright for its dealer and receiver and darker for everyone else.
+pub(crate) fn queue_source(s: &ScriptState) -> Option<u16> {
+    s.active_player.map(|p| p.pid())
+}
+
+/// The player a queue made now carries: the running script's own, or else
+/// the one the queue it runs from carried, so a hit queued twice stays theirs.
+#[cfg(since_647)]
+pub(crate) fn carried_source(s: &ScriptState) -> Option<u16> {
+    queue_source(s).or(s.queue_source)
+}
+
+/// The player who dealt a hit painted on `victim` (a pid), if a player did:
+/// the running script's own player, or else the one whose script queued it
+/// ([`queue_source`]), whichever is not the victim. 2011 paints the hit bright
+/// for them and the victim, darker for everyone else (2011 wiki, Hitsplat,
+/// 2011-04-13; void-634 HitSplat).
+#[cfg(since_647)]
+pub(crate) fn hit_source(s: &ScriptState, victim: u16) -> Option<u16> {
+    [queue_source(s), s.queue_source]
+        .into_iter()
+        .flatten()
+        .find(|&pid| pid != victim)
+}
+
+/// `player.queue`, carrying [`queue_source`] at 647.
+fn enqueue(
+    player: &mut impl ScriptPlayer,
+    #[cfg_attr(before_647, allow(unused_variables))] source: Option<u16>,
+    script_id: i32,
+    priority: QueuePriority,
+    delay: u16,
+    args: Option<Vec<ScriptArgument>>,
+) -> Result<()> {
+    #[cfg(since_647)]
+    return player.queue_from(script_id, priority, delay, args, source);
+    #[cfg(before_647)]
+    player.queue(script_id, priority, delay, args)
+}
 
 /// Registers player-related opcodes covering stats, UI interfaces, movement,
 /// combat, queues, timers, and player lookups.
@@ -26,6 +74,7 @@ use rs_util::colour::rgb24_to_15;
 ///   `IF_SETPLAYERHEAD`, `IF_SETPOSITION`, `IF_SETRESUMEBUTTONS`, `IF_SETTAB`, `IF_SETTEXT`
 /// - **Movement:** `FACESQUARE`, `P_WALK`, `P_TELEJUMP`, `P_TELEPORT`, `P_EXACTMOVE`,
 ///   `P_RUN`, `P_TEMPRUN`, `P_ARRIVEDELAY`, `WALKTRIGGER`, `GETWALKTRIGGER`
+/// - **Projectiles (647):** `P_PROJANIM_HALFSQ`
 /// - **Combat / hero:** `DAMAGE`, `BOTH_HEROPOINTS`, `FINDHERO`, `HEADICONS_GET`,
 ///   `HEADICONS_SET`, `P_ANIMPROTECT`
 /// - **Queues / timers:** `QUEUE`, `QUEUEVARARG`, `SETTIMER`, `CLEARTIMER`, `GETTIMER`
@@ -33,7 +82,8 @@ use rs_util::colour::rgb24_to_15;
 /// - **Player search:** `FINDUID`, `P_FINDUID`, `HUNTALL`, `HUNTNEXT`
 /// - **Interactions:** `P_OPLOC`, `P_OPNPC`, `P_OPOBJ`, `P_STOPACTION`,
 ///   `P_CLEARPENDINGACTION`, `P_LOCMERGE`
-/// - **Audio:** `MES`, `MIDI_JINGLE`, `MIDI_SONG`, `SOUND_SYNTH`
+/// - **Audio:** `MES`, `MIDI_JINGLE`, `MIDI_SONG`, `SOUND_SYNTH`, `SOUND_SPEECH_VOLUME`,
+///   `SOUND_SPEECH_STOP`
 /// - **Misc:** `AFK_EVENT`, `BUILDAPPEARANCE`, `CAM_RESET`, `LAST_COM`, `LAST_INT`,
 ///   `LAST_ITEM`, `LAST_SLOT`, `LAST_TARGETSLOT`, `LAST_USEITEM`, `LAST_USESLOT`,
 ///   `P_LOGOUT`, `P_PREVENTLOGOUT`, `P_APRANGE`, `SESSION_LOG`, `WEALTH_EVENT`
@@ -59,6 +109,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, ANIM => |s, player| {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
+            #[cfg(since_647)]
+            test::record_call(ANIM, "anim", &seq.to_string());
             player.anim((seq != -1).then_some(seq as u16), delay);
         });
 
@@ -143,6 +195,35 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2015
+        // 647's damage(uid, type, amount, soak, healthbar) only paints:
+        // content owns the life points and works out the soak
+        // (content/647/scripts/player/scripts/damage.rs2).
+        #[cfg(since_647)]
+        none!(m, DAMAGE => |s| {
+            let healthbar = s.pop_int_as::<u8>()?;
+            let soak = s.pop_int_as::<u16>()?;
+            let amount = s.pop_int_as::<u16>()?;
+            let hitmark = s.pop_int_as::<u8>()?;
+            let uid = s.pop_int();
+            if test::recording() {
+                let arg = format!("{hitmark},{amount},{soak},{healthbar}");
+                test::record_call(DAMAGE, "damage", &arg);
+            }
+            let pid = (uid & 0x7FF) as u16;
+            let source = hit_source(s, pid);
+            if test::recording() {
+                let arg = source.map_or(-1, i32::from).to_string();
+                test::record_call(DAMAGE, "hit_by", &arg);
+            }
+            if let Some(target) = engine_mut::<E>().get_player_mut(pid)
+                && target.uid().packed() as i32 == uid
+            {
+                target.hit(amount, hitmark, soak, healthbar, source);
+            }
+        });
+
+        // 2015
+        #[cfg(before_647)]
         none!(m, DAMAGE => |s| {
             let amount = s.pop_int_as::<u8>()?;
             let damage_type = s.pop_int_as::<u8>()?;
@@ -157,7 +238,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2016
         active_player!(m, DISPLAYNAME => |s, player| {
-            s.push_string(&player.uid().screen_name());
+            s.push_string(&player.display_name());
         });
 
         // 2017
@@ -265,6 +346,65 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.stop_hint();
         });
 
+        // 2158: a tile hint arrow in one of 647's eight slots.
+        #[cfg(since_647)]
+        active_player_mut!(m, HINT_COORD_SLOT => |s, player| {
+            let model = s.pop_int();
+            let range = s.pop_int_as::<u16>()?;
+            let height = s.pop_int_as::<u8>()?;
+            let coord = pop_coord(s)?;
+            let offset = s.pop_int_as::<u8>()?;
+            let icon = s.pop_int_as::<u8>()?;
+            let slot = s.pop_int_as::<u8>()?;
+            if slot > 7 || !(2..=6).contains(&offset) {
+                return Err(ScriptError::Runtime(format!(
+                    "hint_coord_slot: slot {slot} (0-7), offset {offset} (2-6)"
+                )));
+            }
+            player.hint_coord_slot(
+                slot,
+                icon,
+                offset,
+                coord.y(),
+                coord.x(),
+                coord.z(),
+                height,
+                range,
+                u16::try_from(model).ok(),
+            );
+        });
+
+        // 2159: an npc hint arrow in one of 647's eight slots, with a model at the
+        // player's feet (-1 for none).
+        #[cfg(since_647)]
+        active_player_mut!(m, HINT_NPC_SLOT => |s, player| {
+            let model = s.pop_int();
+            let icon = s.pop_int_as::<u8>()?;
+            let slot = s.pop_int_as::<u8>()?;
+            if slot > 7 {
+                return Err(ScriptError::Runtime(format!(
+                    "hint_npc_slot: slot {slot} (0-7)"
+                )));
+            }
+            let nid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
+                .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?
+                .nid();
+            let model = (model >= 0).then_some(model as u16);
+            player.hint_npc_slot(nid, slot, icon, model);
+        });
+
+        // 2160: clears one of 647's eight hint arrow slots.
+        #[cfg(since_647)]
+        active_player_mut!(m, HINT_STOP_SLOT => |s, player| {
+            let slot = s.pop_int_as::<u8>()?;
+            if slot > 7 {
+                return Err(ScriptError::Runtime(format!(
+                    "hint_stop_slot: slot {slot} (0-7)"
+                )));
+            }
+            player.hint_stop_slot(slot);
+        });
+
         // 2031
         none!(m, HUNTALL => |s| {
             let vis = HuntCheckVis::try_from(s.pop_int() as u8).unwrap_or(HuntCheckVis::Off);
@@ -351,7 +491,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2038
         active_player_mut!(m, IF_SETANIM => |s, player| {
             let seq = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             if seq == -1 {
                 return Ok(());
             }
@@ -365,49 +505,58 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2039
         active_player_mut!(m, IF_SETCOLOUR => |s, player| {
             let colour = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_setcolour(com, rgb24_to_15(colour));
         });
 
         // 2040
         active_player_mut!(m, IF_SETHIDE => |s, player| {
             let hide = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_sethide(com, hide == 1);
         });
 
         // 2041
         active_player_mut!(m, IF_SETMODEL => |s, player| {
             let model = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_setmodel(com, model);
+        });
+
+        // 2168: 647's IF_SETGRAPHIC, a sprite on a component.
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_SETGRAPHIC => |s, player| {
+            let graphic = s.pop_int_as::<u16>()?;
+            let com = s.pop_int();
+            player.if_setgraphic(com, graphic);
         });
 
         // 2042
         active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
             let npc = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_setnpchead(com, npc);
         });
 
         // 2043
         active_player_mut!(m, IF_SETOBJECT => |s, player| {
-            let scale = s.pop_int_as::<u16>()?;
+            let scale = s.pop_int();
             let obj = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_setobject(com, obj, scale);
         });
 
         // 2044
         active_player_mut!(m, IF_SETPLAYERHEAD => |s, player| {
-            player.if_setplayerhead(s.pop_int_as::<u16>()?);
+            let com = pop_com(s)?;
+            player.if_setplayerhead(com);
         });
 
         // 2045
         active_player_mut!(m, IF_SETPOSITION => |s, player| {
             let y = s.pop_int();
             let x = s.pop_int();
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_setposition(com, x as u16, y as u16);
         });
 
@@ -446,7 +595,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2050
         active_player_mut!(m, IF_SETTEXT => |s, player| {
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_settext(com, s.peek_string(0));
             s.drop_strings(1);
         });
@@ -497,6 +646,32 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(player.last_targetslot());
         });
 
+        // 2171
+        // 647's drag (IF_BUTTOND) carries the component it ended on, which
+        // the bank's tabs need: an item dropped on a tab's button goes into
+        // that tab. Safe where `last_targetslot` is.
+        #[cfg(since_647)]
+        active_player!(m, LAST_TARGETCOM => |s, player| {
+            if let Some(trigger) = s.trigger && !trigger.allows_last_targetslot() {
+                return Err(ScriptError::Runtime(
+                    format!("{} is not safe to use in this trigger: {:?}", LAST_TARGETCOM, s.trigger)
+                ))
+            }
+            s.push_int(player.last_targetcom());
+        });
+
+        // 2169
+        // The tile 647's ground target (`[apcoordt]`) was aimed at.
+        #[cfg(since_647)]
+        active_player!(m, LAST_COORD => |s, player| {
+            if let Some(trigger) = s.trigger && !trigger.allows_last_coord() {
+                return Err(ScriptError::Runtime(
+                    format!("{} is not safe to use in this trigger: {:?}", LAST_COORD, s.trigger)
+                ))
+            }
+            s.push_int(player.last_coord());
+        });
+
         // 2057
         active_player!(m, LAST_USEITEM => |s, player| {
             if let Some(trigger) = s.trigger && !trigger.allows_last_useitem() {
@@ -517,13 +692,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(player.last_useslot());
         });
 
+        // 2170
+        #[cfg(since_647)]
+        none!(m, LAST_STRING => |s| {
+            let val = s.last_string.clone().unwrap_or_default();
+            s.push_string(&val);
+        });
+
         // 2059
         active_player_mut!(m, LONGQUEUE => |s, player| {
             let logout_action = s.pop_int();
             let arg = s.pop_int();
             let delay = s.pop_int();
             let script = pop_script::<E>(s)?;
-            player.queue(
+            enqueue(player, queue_source(s),
                 script.id,
                 QueuePriority::Long,
                 delay as u16,
@@ -540,7 +722,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let mut queue_args = Vec::with_capacity(args.len() + 1);
             queue_args.push(ScriptArgument::Int(logout_action));
             queue_args.extend(args);
-            player.queue(script.id, QueuePriority::Long, delay as u16, Some(queue_args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Long, delay as u16, Some(queue_args))?;
         });
 
         // 2061
@@ -550,8 +732,96 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2062
         active_player_mut!(m, MES => |s, player| {
+            #[cfg(since_647)]
+            test::record_call(MES, "mes", s.peek_string(0));
             player.mes(s.peek_string(0));
             s.drop_strings(1);
+        });
+
+        // 2172
+        #[cfg(since_647)]
+        active_player_mut!(m, MES_TYPED => |s, player| {
+            let kind = s.pop_int_as::<u16>()?;
+            test::record_call(MES_TYPED, "mes_typed", s.peek_string(0));
+            player.mes_typed(kind, s.peek_string(0));
+            s.drop_strings(1);
+        });
+
+        // 2157
+        #[cfg(since_647)]
+        active_player!(m, GETWINDOWMODE => |s, player| {
+            s.push_int(player.window_mode() as i32);
+        });
+
+        // 2165
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_OPENTOP => |s, player| {
+            let com = s.pop_int_as::<u16>()?;
+            player.if_opentop(com, 0);
+        });
+
+        // 2166: if_opentop with IF_OPENTOP's mode byte.
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_OPENTOP_MODE => |s, player| {
+            let mode = s.pop_int_as::<u8>()?;
+            let com = s.pop_int_as::<u16>()?;
+            player.if_opentop(com, mode);
+        });
+
+        // 2164
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_OPENSUB => |s, player| {
+            let parent_hash = s.pop_int();
+            let sub_id = s.pop_int_as::<u16>()?;
+            player.if_opensub(sub_id, parent_hash);
+        });
+
+        // 2161
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_CLOSESUB => |s, player| {
+            let component_hash = s.pop_int();
+            player.if_closesub(component_hash);
+        });
+
+        // 2162
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_MOVESUB => |s, player| {
+            let to = s.pop_int();
+            let from = s.pop_int();
+            player.if_movesub(from, to);
+        });
+
+        // 2167
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_SETEVENTS => |s, player| {
+            let can_target = s.pop_int() != 0;
+            let allow_drag = s.pop_int() != 0;
+            let depth = s.pop_int();
+            let useon_flags = s.pop_int();
+            let ops = s.pop_int();
+            let slot2 = s.pop_int();
+            let slot1 = s.pop_int();
+            let com = s.pop_int();
+
+            let settings = IfEvents::new(ops, useon_flags, depth, allow_drag, can_target);
+            player.if_setevents(com, slot1 as u16, slot2 as u16, settings.0 as i32);
+        });
+
+        // 2186
+        #[cfg(since_647)]
+        active_player_mut!(m, RUNCLIENTSCRIPT => |s, player| {
+            let script_id = s.pop_int();
+            player.runclientscript(script_id);
+        });
+
+        // 2187
+        // runclientscript*(id)(args...): vararg CS2 invocation with typed
+        // params (int/string), encoded on the wire in reverse stack order.
+        #[cfg(since_647)]
+        active_player_mut!(m, RUNCLIENTSCRIPTVARARG => |s, player| {
+            let args = s.pop_script_args();
+            let script_id = s.pop_int();
+            player.runclientscript_with_params(script_id, args);
         });
 
         // 2063
@@ -578,6 +848,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 {
                     #[cfg(since_254)]
                     let delay = midi_tick_length::<E>(id as i32)?;
+                    // 2011 keeps jingles apart from songs: a jingle's `midi`
+                    // id is its own plus MIDI_JINGLE_BASE (a song plays none).
+                    #[cfg(since_647)]
+                    let Some(id) = id.checked_sub(MIDI_JINGLE_BASE as u16) else {
+                        return Ok(());
+                    };
+                    #[cfg(since_647)]
+                    test::record_call(MIDI_JINGLE, "midi_jingle", &id.to_string());
                     #[allow(clippy::unnecessary_cast)]
                     player.midi_jingle(id, delay as u16);
                 }
@@ -600,11 +878,38 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 #[cfg(since_254)]
                 let id = Some(s.pop_int_as::<u16>()?);
 
+                // A `midi` id past the songs is a jingle (MIDI_JINGLE_BASE).
+                #[cfg(since_647)]
+                let id = id.filter(|&id| (id as usize) < MIDI_JINGLE_BASE);
                 if !player.lowmem()
                     && let Some(id) = id
                 {
+                    #[cfg(since_647)]
+                    test::record_call(MIDI_SONG, "midi_song", &id.to_string());
                     player.midi_song(id);
                 }
+            }
+        });
+
+        // 2173: 647's music_playjingle(jingle id, duration) -- a cache jingle
+        // by id, the client resuming its song after `duration`.
+        #[cfg(since_647)]
+        active_player_mut!(m, MUSIC_PLAYJINGLE => |s, player| {
+            let duration = s.pop_int_as::<u16>()?;
+            let id = s.pop_int_as::<u16>()?;
+            if !player.lowmem() {
+                test::record_call(MUSIC_PLAYJINGLE, "music_playjingle", &id.to_string());
+                player.midi_jingle(id, duration);
+            }
+        });
+
+        // 2174: 647's music_playsong(song id) -- a cache song by id.
+        #[cfg(since_647)]
+        active_player_mut!(m, MUSIC_PLAYSONG => |s, player| {
+            let id = s.pop_int_as::<u16>()?;
+            if !player.lowmem() {
+                test::record_call(MUSIC_PLAYSONG, "music_playsong", &id.to_string());
+                player.midi_song(id);
             }
         });
 
@@ -643,6 +948,81 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.execution = ExecutionState::CountDialog;
         });
 
+        // 2185
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_STRINGDIALOG => |s, _player| {
+            s.execution = ExecutionState::StringDialog;
+        });
+
+        // 2178
+        #[cfg(since_647)]
+        protected_active_player!(m, P_NAMEDIALOG => |s, _player| {
+            s.execution = ExecutionState::NameDialog;
+        });
+
+        // 2180
+        #[cfg(since_647)]
+        protected_active_player!(m, P_OBJDIALOG => |s, _player| {
+            s.execution = ExecutionState::ObjDialog;
+        });
+
+        // 2177
+        #[cfg(since_647)]
+        protected_active_player!(m, P_HSLDIALOG => |s, _player| {
+            s.execution = ExecutionState::HslDialog;
+        });
+
+        // 2175
+        #[cfg(since_647)]
+        protected_active_player!(m, P_CLANFORUMQFCDIALOG => |s, _player| {
+            s.execution = ExecutionState::ClanforumqfcDialog;
+        });
+
+        // 2184
+        // Suspends until the display-name DB check completes; the saves phase
+        // resumes the script with last_int (1 = set, 0 = taken, -1 = error)
+        // and last_string (the formatted screen name).
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_SETDISPLAYNAME => |s, player| {
+            let name = s.pop_string();
+            let uid = player.uid();
+            engine_mut::<E>().request_set_display_name(uid, name);
+            s.execution = ExecutionState::DisplayNamePending;
+        });
+
+        // 2176
+        #[cfg(since_647)]
+        protected_active_player!(m, P_GET_SUGGESTION => |s, player| {
+            let slot = s.pop_int() as usize;
+            let page = player.suggestion_page();
+            let index = page * 3 + slot;
+            let suggestion = player
+                .name_suggestions()
+                .get(index)
+                .map(|s| s.as_str())
+                .unwrap_or("");
+            s.push_string(suggestion);
+        });
+
+        // 2179
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_NEXT_SUGGESTIONS => |_s, player| {
+            player.next_suggestion_page();
+        });
+
+        // 2181
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_PREV_SUGGESTIONS => |_s, player| {
+            player.prev_suggestion_page();
+        });
+
+        // 2182
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_REQUEST_MORE_SUGGESTIONS => |_s, player| {
+            let uid = player.uid();
+            engine_mut::<E>().request_more_suggestions(uid);
+        });
+
         // 2071
         // https://x.com/JagexAsh/status/1684478874703343616
         // https://x.com/JagexAsh/status/1780932943038345562
@@ -661,6 +1041,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let begin = s.pop_int();
             let end = pop_coord(s)?;
             let start = pop_coord(s)?;
+            if !teleport_allowed::<E>(s, player, end) {
+                return Ok(());
+            }
             player.clear_waypoints();
             player.exactmove(
                 start.x(),
@@ -725,22 +1108,41 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2075
+        #[cfg(before_647)]
         protected_active_player_mut!(m, P_LOGOUT => |_s, player| {
             player.logout(true);
         });
 
+        // 2075 at 647 takes where the client lands: the lobby when it came through it (true),
+        // or the login screen always (false).
+        #[cfg(since_647)]
+        protected_active_player_mut!(m, P_LOGOUT => |s, player| {
+            if s.pop_int() == 1 {
+                player.logout(true);
+            } else {
+                player.logout_full();
+            }
+        });
+
         // 2076
-        active_player!(m, P_OPHELD => |s, _player| {
-            Err(ScriptError::Runtime("Unimplemented.".to_string()))?;
+        protected_active_player_mut!(m, P_OPHELD => |s, player| {
+            let slot = s.pop_int() as u16;
+            let inv = pop_inv::<E>(s)?;
+            let op = s.pop_int();
+            let Some(obj) = get_inv::<E>(inv, player)?.get(slot).map(|item| item.obj) else {
+                return Ok(());
+            };
+            let uid = player.uid();
+            engine_mut::<E>().run_opheld(uid, op, obj, slot);
         });
 
         // 2077
         // https://x.com/JagexAsh/status/1791472651623370843
         protected_active_player_mut!(m, P_OPLOC => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid oploc: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_loc) else {
+                return Err(ScriptError::Runtime(format!("Invalid oploc: {op}")));
+            };
 
             let loc = s.active_loc
                 .ok_or_else(|| ScriptError::Runtime("no active_loc".into()))?;
@@ -752,7 +1154,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
 
             if let Some(ops) = &loc_type.op {
-                if ops.get(op as usize).is_none_or(|o| o.is_none()) {
+                if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
                     return Ok(());
                 }
             } else {
@@ -770,21 +1172,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             ) {
                 player.queue_waypoint(loc.coord);
             }
-            player.set_interaction_loc(
-                loc,
-                loc_type.width,
-                loc_type.length,
-                ServerTriggerType::ApLoc1 as u8 + op as u8,
-            );
+            player.set_interaction_loc(loc, loc_type.width, loc_type.length, mode as u8);
         });
 
         // 2078
         // https://x.com/JagexAsh/status/1791472651623370843
         protected_active_player_mut!(m, P_OPNPC => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid opnpc: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_npc) else {
+                return Err(ScriptError::Runtime(format!("Invalid opnpc: {op}")));
+            };
 
             let npc_uid = get_active_npc::<E>(s, s.int_operand() != 0)?.uid();
             let id = npc_uid.id();
@@ -795,7 +1192,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::NpcNotFound(id as i32))?;
 
             if let Some(ops) = &npc_type.op {
-                if ops.get(op as usize).is_none_or(|o| o.is_none()) {
+                if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
                     return Ok(());
                 }
             } else {
@@ -803,7 +1200,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
 
             player.stopaction()?;
-            player.set_interaction_npc(npc_uid.nid(), ServerTriggerType::ApNpc1 as u8 + op as u8);
+            player.set_interaction_npc(npc_uid.nid(), mode as u8);
         });
 
         // 2079
@@ -819,17 +1216,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_npc(nid, ServerTriggerType::ApNpcT as u8);
-            player.set_interaction_spell(spell as u16);
+            player.set_interaction_spell(spell);
         });
 
         // 2080
         // https://x.com/JagexAsh/status/1791472651623370843
         // https://x.com/JagexAsh/status/1790684996480442796
         protected_active_player_mut!(m, P_OPOBJ => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid opobj: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_obj) else {
+                return Err(ScriptError::Runtime(format!("Invalid opobj: {op}")));
+            };
 
             let obj = s.active_obj
                 .ok_or_else(|| ScriptError::Runtime("no active_obj".into()))?;
@@ -840,7 +1237,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
 
             if let Some(ops) = &obj_type.op {
-                if ops.get(op as usize).is_none_or(|o| o.is_none()) {
+                if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
                     return Ok(());
                 }
             } else {
@@ -849,25 +1246,22 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.queue_waypoint(obj.coord);
-            player.set_interaction_obj(obj.coord, obj.id, obj.serial, ServerTriggerType::ApObj1 as u8 + op as u8);
+            player.set_interaction_obj(obj.coord, obj.id, obj.serial, mode as u8);
         });
 
         // 2081
         protected_active_player_mut!(m, P_OPPLAYER => |s, player| {
-            let op = s.pop_int() - 1;
-            if !(0..5).contains(&op) {
-                return Err(ScriptError::Runtime(format!("Invalid opplayer: {}", op + 1)));
-            }
+            let op = s.pop_int();
+            let Some(mode) = u8::try_from(op).ok().and_then(ServerTriggerType::ap_player) else {
+                return Err(ScriptError::Runtime(format!("Invalid opplayer: {op}")));
+            };
 
             let Some(target) = s.active_player2 else {
                 return Ok(());
             };
 
             player.stopaction()?;
-            player.set_interaction_player(
-                target.pid(),
-                ServerTriggerType::ApPlayer1 as u8 + op as u8,
-            );
+            player.set_interaction_player(target.pid(), mode as u8);
         });
 
         // 2082
@@ -883,7 +1277,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             player.stopaction()?;
             player.set_interaction_player(target.pid(), ServerTriggerType::ApPlayerT as u8);
-            player.set_interaction_spell(spell as u16);
+            player.set_interaction_spell(spell);
         });
 
         // 2083
@@ -914,14 +1308,20 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2087
         // https://x.com/JagexAsh/status/1697517518007541917
         protected_active_player_mut!(m, P_TELEJUMP => |s, player| {
-            player.telejump(pop_coord(s)?);
+            let coord = pop_coord(s)?;
+            if teleport_allowed::<E>(s, player, coord) {
+                player.telejump(coord);
+            }
         });
 
         // 2088
         // https://x.com/JagexAsh/status/1697517518007541917
         // https://x.com/JagexAsh/status/1790684996480442796
         protected_active_player_mut!(m, P_TELEPORT => |s, player| {
-            player.teleport(pop_coord(s)?);
+            let coord = pop_coord(s)?;
+            if teleport_allowed::<E>(s, player, coord) {
+                player.teleport(coord);
+            }
         });
 
         // 2089
@@ -975,7 +1375,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Normal, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Normal, delay, Some(vec![ScriptArgument::Int(arg)]))?;
         });
 
         // 2093
@@ -983,7 +1383,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let args = s.pop_script_args();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Normal, delay, Some(args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Normal, delay, Some(args))?;
         });
 
         // 2094
@@ -1061,7 +1461,28 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if player.lowmem() || synth == -1 {
                 return Ok(());
             }
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{synth},{loops},{delay}");
+                test::record_call(SOUND_SYNTH, "sound_synth", &arg);
+            }
             player.sound_synth(synth as u16, loops, delay);
+        });
+
+        // 2189
+        #[cfg(since_647)]
+        active_player_mut!(m, SOUND_SPEECH_VOLUME => |s, player| {
+            let volume = s.pop_int_as::<u8>()?;
+            let delay = s.pop_int_as::<u16>()?;
+            let loops = s.pop_int_as::<u8>()?;
+            let vorbis = s.pop_int();
+            player.sound_speech_volume(vorbis as u16, loops, delay, volume);
+        });
+
+        // 2188
+        #[cfg(since_647)]
+        active_player_mut!(m, SOUND_SPEECH_STOP => |_s, player| {
+            player.sound_speech_stop();
         });
 
         // 2105
@@ -1069,6 +1490,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u16>()?;
             let spotanim = pop_spotanim::<E>(s)?;
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{},{height},{delay}", spotanim.id);
+                test::record_call(SPOTANIM_PL, "spotanim_pl", &arg);
+            }
             player.spotanim(spotanim.id, height, delay);
         });
 
@@ -1159,7 +1585,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Strong, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Strong, delay, Some(vec![ScriptArgument::Int(arg)]))?;
         });
 
         // 2118
@@ -1168,7 +1594,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let args = s.pop_script_args();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Strong, delay, Some(args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Strong, delay, Some(args))?;
         });
 
         // 2119
@@ -1233,7 +1659,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Weak, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Weak, delay, Some(vec![ScriptArgument::Int(arg)]))?;
         });
 
         // 2130
@@ -1242,7 +1668,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let args = s.pop_script_args();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Weak, delay, Some(args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Weak, delay, Some(args))?;
         });
 
         // 2131
@@ -1264,6 +1690,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let colour = s.pop_int_as::<u8>()?;
             let slot = s.pop_int_as::<u8>()?;
             player.setidkcolour(slot, colour)?;
+        });
+
+        // 2156
+        // Applies the character-design preview varcs (`playerdesign3_*`) to the
+        // player's body kit and colours; buildappearance then makes it render.
+        #[cfg(since_647)]
+        active_player_mut!(m, APPLYDESIGN => |_s, player| {
+            player.applydesign();
         });
 
         // 2134
@@ -1341,7 +1775,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_245_2)]
         active_player_mut!(m, IF_SETSCROLLPOS => |s, player| {
             let y = s.pop_int_as::<u16>()?;
-            let com = s.pop_int_as::<u16>()?;
+            let com = pop_com(s)?;
             player.if_setscrollpos(com, y);
         });
 
@@ -1428,6 +1862,34 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2153
         protected_active_player_mut!(m, P_TEMPRUN => |_s, player| {
             player.temprun();
+        });
+
+        // 2154
+        #[cfg(since_647)]
+        active_player!(m, P_PROJANIM_HALFSQ => |s, player| {
+            let tail = pop_projanim_tail::<E>(s)?;
+            let wearpos = pop_wearpos(s)?;
+            let uid = s.pop_int();
+            let nid = (uid & 0xFFFF) as u16;
+            let Some(npc) = engine::<E>()
+                .get_npc(nid)
+                .filter(|npc| npc.uid().packed() as i32 == uid)
+            else {
+                return Ok(());
+            };
+            let to = halfsq(npc.coord(), npc.size());
+            let target = nid.wrapping_add(1) as i16;
+            let from = halfsq(player.coord(), 1);
+            let source = -(player.uid().pid() as i16) - 1;
+            tail.send::<E>(player.coord().y(), from, to, source, target, wearpos)?;
+        });
+
+        #[cfg(since_254)]
+        protected_active_player_mut!(m, P_LOADDELAY => |s, player| {
+            if !player.map_build_complete() {
+                player.delay(engine::<E>().clock() + 100);
+                s.execution = ExecutionState::MapBuildPending;
+            }
         });
     }
 }

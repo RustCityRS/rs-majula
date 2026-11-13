@@ -1,6 +1,9 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
-use crate::engine::{Engine, engine_mut};
-use crate::phases::shared::EntityId;
+#[cfg(since_647)]
+use crate::core::engine;
+use crate::core::{Engine, engine_mut};
+use crate::handlers::client_cheat::bot_tick;
+use crate::phases::shared::{EntityId, panic_message};
 use rs_vm::engine::ScriptPlayer;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
@@ -25,7 +28,7 @@ impl Engine {
     /// 4. Post-processes the decoded input, potentially pathing toward an
     ///    interaction target ([`post_process`]).
     /// 5. Updates zone membership and collision maps via
-    ///    [`check_zones_and_collision`].
+    ///    [`refresh_presence`].
     ///
     /// If any player panics during processing, that player is
     /// emergency-removed to prevent cascading failures.
@@ -42,8 +45,9 @@ impl Engine {
     ///
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `check_afk`, `ActivePlayer::decode`, `post_process`,
-    ///   `check_zones_and_collision`
+    ///   `refresh_presence`
     pub(crate) fn inputs(&mut self) {
+        self.input_paths.stats = Default::default();
         let pids = self.player_list.take_pids();
         let mut start = 0;
         loop {
@@ -56,15 +60,19 @@ impl Engine {
             match result {
                 Ok(()) => break,
                 Err(panic) => {
+                    self.input_paths.current = None;
                     let pid = pids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during input processing for pid {pid}: {msg}");
+                    self.flush_input_paths();
                     self.emergency_remove_player(pid);
                     start += 1;
                 }
             }
         }
         self.player_list.put_pids(pids);
+        self.input_paths.current = None;
+        self.flush_input_paths();
     }
 
     #[inline(always)]
@@ -72,8 +80,7 @@ impl Engine {
         let Some(active) = self.player_list.players[pid as usize].as_mut() else {
             return;
         };
-
-        let prev_coord = active.player.pathing.coord;
+        self.input_paths.current = Some(active.player.uid);
 
         Self::check_afk(self.clock, active);
         if active.decode() {
@@ -82,15 +89,25 @@ impl Engine {
         if active.user_limit > 0 {
             active.player.last_active = self.clock;
         }
+        if active.player.bot
+            && let Err(e) = bot_tick(active)
+        {
+            error!("bot {pid} tick: {e}");
+        }
         Self::post_process(active);
+        active.finish_input_path();
+        self.input_paths.current = None;
 
-        Engine::check_zones_and_collision(
+        if active.player.pathing.presence != active.player.pathing.coord {
+            engine_mut().flush_input_paths();
+        }
+
+        let block_walk = active.player.block_walk;
+        Engine::refresh_presence(
             &mut self.zones,
-            prev_coord,
-            active.player.pathing.coord,
+            &mut active.player.pathing,
             EntityId::Player(active.player.uid.pid()),
-            active.player.pathing.size,
-            active.player.block_walk,
+            block_walk,
         );
     }
 
@@ -124,14 +141,17 @@ impl Engine {
     /// with a move request and a queued script can't walk (see
     /// `process_movement`). Clears waypoints if the player is delayed.
     ///
-    /// The move click handlers already queued the waypoints. An op's route
-    /// comes from the move click the client sends with it; the player phase
-    /// re-paths only to a moving target.
+    /// The move click handlers already queued the waypoints. Before 647 an
+    /// op's route comes from the move click the client sends with it; the
+    /// player phase re-paths only to a moving target. 647's client sends an
+    /// op alone (its run flag is in the op packet), so the server paths to
+    /// the target here, on the tick the op arrives.
     ///
     /// # Side Effects
     ///
     /// * Sets `active.player.move_request`.
     /// * Clears waypoints when the player is delayed.
+    /// * At 647, queues the path to an op's target.
     #[inline(always)]
     fn post_process(active: &mut ActivePlayer) {
         if !active.player.move_clicked && !active.player.opcalled {
@@ -144,5 +164,20 @@ impl Engine {
         }
 
         active.player.move_request = active.busy() || !active.player.opcalled;
+
+        #[cfg(since_647)]
+        {
+            use rs_vm::trigger::ServerTriggerType;
+            let target_op = active.player.interaction.target_op;
+            let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
+                || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
+            let client_pathfinder = engine().client_pathfinder;
+            if !following
+                && active.player.opcalled
+                && (!active.player.pathing.has_waypoints() || !client_pathfinder)
+            {
+                Self::path_to_target(active as *mut ActivePlayer, client_pathfinder);
+            }
+        }
     }
 }

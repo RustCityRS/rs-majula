@@ -1,0 +1,22 @@
+// 4133
+[clientscript,cc_fade2_flash_timer](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, vorbis $vorbis8)
+def_int $int9 = 0;
+def_int $int10 = 0;
+if ($int1 = -1 & if_find($component0) = true | cc_find($component0, $int1) = true) {
+    if ($int7 > 0) {
+        cc_setontimer("cc_fade2_flash_timer($component0, $int1, $int2, $int3, $int4, $int5, $int6, calc($int7 - 1), $vorbis8)");
+        return;
+    }
+    $int9 = cc_gettrans;
+    $int10 = min(max(calc($int9 + $int2), $int4), $int5);
+    if ($int10 = $int4 | $int10 = $int5) {
+        if ($int10 = $int5) {
+            $int7 = $int6;
+        }
+        if ($int10 = $int4 & $vorbis8 ! null) {
+            sound_vorbis_volume($vorbis8, 1, 50, 255);
+        }
+        cc_setontimer("cc_fade2_flash_timer($component0, $int1, $int3, $int2, $int4, $int5, $int6, $int7, $vorbis8)");
+    }
+    cc_settrans($int10);
+}

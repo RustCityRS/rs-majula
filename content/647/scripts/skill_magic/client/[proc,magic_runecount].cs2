@@ -1,0 +1,257 @@
+// 19
+[proc,magic_runecount](obj $obj0, component $component1)(int)
+def_int $int2 = 0;
+if ($obj0 = airrune) {
+    if (inv_total(worn, staff_of_air) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, lumbcat_staff) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_air_staff_1) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_air_staff_2) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_air_staff_1_b) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_air_staff_2_b) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, air_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_air_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, trail_animal_air_staff) > 0) {
+        return(99999999);
+    }
+    $int2 = calc(inv_total(inv, airrune) + inv_total(inv, rand_airrune) + inv_total(inv, rand_airrune_b) + ~inv_total_available(inv, smokerune) + ~inv_total_available(inv, mistrune) + ~inv_total_available(inv, dustrune));
+    if (($component1 = magic:sb8 | $component1 = magic:sb11 | $component1 = magic:sb14 | $component1 = rand_magic:wind_bolt | $component1 = rand_magic:earth_bolt | $component1 = rand_magic:water_bolt) & (inv_getobj(worn, 5) = rand_reward_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box_b) & %rand_reward_spell_box_bolt_charges > 0) {
+        $int2 = calc($int2 + %rand_reward_spell_box_bolt_charges * 2);
+    }
+    if (($component1 = magic:sb17 | $component1 = rand_magic:fire_bolt) & (inv_getobj(worn, 5) = rand_reward_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box_b) & %rand_reward_spell_box_bolt_charges > 0) {
+        $int2 = calc($int2 + %rand_reward_spell_box_bolt_charges * 3);
+    }
+    if (($component1 = magic:sb20 | $component1 = magic:sb23 | $component1 = magic:sb27 | $component1 = rand_magic:wind_blast | $component1 = rand_magic:earth_blast | $component1 = rand_magic:water_blast) & (inv_getobj(worn, 5) = rand_reward_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box_b) & %rand_reward_spell_box_blast_charges > 0) {
+        $int2 = calc($int2 + %rand_reward_spell_box_blast_charges * 3);
+    }
+    if (($component1 = magic:sb32 | $component1 = rand_magic:fire_blast) & (inv_getobj(worn, 5) = rand_reward_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box_b) & %rand_reward_spell_box_blast_charges > 0) {
+        $int2 = calc($int2 + %rand_reward_spell_box_blast_charges * 4);
+    }
+    if (($component1 = magic:sb34 | $component1 = magic:sb36 | $component1 = magic:sb40 | $component1 = magic:sb42 | $component1 = rand_magic:wind_wave | $component1 = rand_magic:earth_wave | $component1 = rand_magic:water_wave) & (inv_getobj(worn, 5) = rand_reward_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box_b) & %rand_reward_spell_box_wave_charges > 0) {
+        $int2 = calc($int2 + %rand_reward_spell_box_wave_charges * 5);
+    }
+    if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:wind_surge | $component1 = rand_magic:earth_surge | $component1 = rand_magic:water_surge | $component1 = rand_magic:fire_surge) & (inv_getobj(worn, 5) = rand_reward_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box_b) & %rand_reward_spell_box_surge_charges > 0) {
+        $int2 = calc($int2 + %rand_reward_spell_box_surge_charges * 7);
+    }
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0 | inv_getobj(worn, 1) = barbassault_playericon_attacker_01 | inv_getobj(worn, 1) = barbassault_playericon_attacker_02 | inv_getobj(worn, 1) = barbassault_playericon_attacker_03 | inv_getobj(worn, 1) = barbassault_playericon_attacker_04 | inv_getobj(worn, 1) = barbassault_playericon_attacker_05) {
+        $int2 = calc($int2 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int2);
+}
+if ($obj0 = waterrune) {
+    if (inv_total(worn, staff_of_water) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_water_staff_1) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_water_staff_2) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_water_staff_1_b) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_water_staff_2_b) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_reward_tome_of_frost) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, water_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_water_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mud_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_mud_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_mystic_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, trail_animal_water_staff) > 0) {
+        return(99999999);
+    }
+    $int2 = calc(inv_total(inv, waterrune) + inv_total(inv, rand_waterrune) + inv_total(inv, rand_waterrune_b) + ~inv_total_available(inv, steamrune) + ~inv_total_available(inv, mistrune) + ~inv_total_available(inv, mudrune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0 | inv_getobj(worn, 1) = barbassault_playericon_attacker_01 | inv_getobj(worn, 1) = barbassault_playericon_attacker_02 | inv_getobj(worn, 1) = barbassault_playericon_attacker_03 | inv_getobj(worn, 1) = barbassault_playericon_attacker_04 | inv_getobj(worn, 1) = barbassault_playericon_attacker_05) {
+        $int2 = calc($int2 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int2);
+}
+if ($obj0 = earthrune) {
+    if (inv_total(worn, staff_of_earth) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_earth_staff_1) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_earth_staff_2) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_earth_staff_1_b) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_earth_staff_2_b) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, earth_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_earth_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, lava_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_lava_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mud_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_mud_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, trail_animal_earth_staff) > 0) {
+        return(99999999);
+    }
+    $int2 = calc(inv_total(inv, earthrune) + inv_total(inv, rand_earthrune) + inv_total(inv, rand_earthrune_b) + ~inv_total_available(inv, dustrune) + ~inv_total_available(inv, lavarune) + ~inv_total_available(inv, mudrune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0 | inv_getobj(worn, 1) = barbassault_playericon_attacker_01 | inv_getobj(worn, 1) = barbassault_playericon_attacker_02 | inv_getobj(worn, 1) = barbassault_playericon_attacker_03 | inv_getobj(worn, 1) = barbassault_playericon_attacker_04 | inv_getobj(worn, 1) = barbassault_playericon_attacker_05) {
+        $int2 = calc($int2 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int2);
+}
+if ($obj0 = firerune) {
+    if (inv_total(worn, staff_of_fire) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_fire_staff_1) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_fire_staff_2) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_fire_staff_1_b) > 0) {
+        return(99999999);
+    }
+    if (inv_total(worn, rand_fire_staff_2_b) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, fire_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_fire_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, lava_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, mystic_lava_staff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, godwars_mystic_steam_battlestaff) > 0) {
+        return(99999999);
+    }
+    if (~inv_total_available(worn, trail_animal_fire_staff) > 0) {
+        return(99999999);
+    }
+    $int2 = calc(inv_total(inv, firerune) + inv_total(inv, rand_firerune) + inv_total(inv, rand_firerune_b) + ~inv_total_available(inv, steamrune) + ~inv_total_available(inv, smokerune) + ~inv_total_available(inv, lavarune));
+    if (%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0 | inv_getobj(worn, 1) = barbassault_playericon_attacker_01 | inv_getobj(worn, 1) = barbassault_playericon_attacker_02 | inv_getobj(worn, 1) = barbassault_playericon_attacker_03 | inv_getobj(worn, 1) = barbassault_playericon_attacker_04 | inv_getobj(worn, 1) = barbassault_playericon_attacker_05) {
+        $int2 = calc($int2 + inv_total(inv, hvh_elemental_rune));
+    }
+    return($int2);
+}
+if ($obj0 = pest_interface_staffs) {
+    return(calc(~inv_total_available(worn, guthix_staff) + ~inv_total_available(worn, pest_void_knight_mace)));
+}
+if ($obj0 = slayer_staff) {
+    return(calc(~inv_total_available(worn, slayer_staff) + ~inv_total_available(worn, staff_of_light) + ~inv_total_available(worn, lent_staff_of_light)));
+}
+if ($obj0 = ibanstaff | $obj0 = saradomin_staff | $obj0 = zamorak_staff) {
+    return(~inv_total_available(worn, $obj0));
+}
+if ($obj0 = pvpw_staff) {
+    if (~inv_total_available(worn, pvpw_staff_used) > 0) {
+        return(~inv_total_available(worn, pvpw_staff_used));
+    } else if (~inv_total_available(worn, pvpw_staff_20) > 0) {
+        return(~inv_total_available(worn, pvpw_staff_20));
+    } else if (~inv_total_available(worn, pvpw_staff_20_used) > 0) {
+        return(~inv_total_available(worn, pvpw_staff_20_used));
+    } else {
+        return(~inv_total_available(worn, $obj0));
+    }
+}
+if ((%varplayerbit_4540 = 2 | %varplayerbit_4540 = 3 | %sc_team ! 0 | inv_getobj(worn, 1) = barbassault_playericon_attacker_01 | inv_getobj(worn, 1) = barbassault_playericon_attacker_02 | inv_getobj(worn, 1) = barbassault_playericon_attacker_03 | inv_getobj(worn, 1) = barbassault_playericon_attacker_04 | inv_getobj(worn, 1) = barbassault_playericon_attacker_05) & ($obj0 = bodyrune | $obj0 = mindrune | $obj0 = cosmicrune | $obj0 = chaosrune | $obj0 = naturerune | $obj0 = deathrune | $obj0 = lawrune | $obj0 = soulrune | $obj0 = bloodrune | $obj0 = astralrune)) {
+    return(calc(~inv_total_available(inv, $obj0) + ~inv_total_available(inv, hvh_catalytic_rune)));
+}
+switch_obj ($obj0) {
+    case bodyrune :
+        return(calc(inv_total(inv, bodyrune) + inv_total(inv, rand_bodyrune) + inv_total(inv, rand_bodyrune_b)));
+    case mindrune :
+        return(calc(inv_total(inv, mindrune) + inv_total(inv, rand_mindrune) + inv_total(inv, rand_mindrune_b)));
+    case cosmicrune :
+        return(calc(inv_total(inv, cosmicrune) + inv_total(inv, rand_cosmicrune) + inv_total(inv, rand_cosmicrune_b)));
+    case chaosrune :
+        if (($component1 = magic:sb8 | $component1 = magic:sb11 | $component1 = magic:sb14 | $component1 = magic:sb17 | $component1 = rand_magic:wind_bolt | $component1 = rand_magic:earth_bolt | $component1 = rand_magic:water_bolt | $component1 = rand_magic:fire_bolt) & (inv_getobj(worn, 5) = rand_reward_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box_b) & %rand_reward_spell_box_bolt_charges > 0) {
+            return(calc(inv_total(inv, chaosrune) + inv_total(inv, rand_chaosrune) + inv_total(inv, rand_chaosrune_b) + %rand_reward_spell_box_bolt_charges));
+        } else {
+            return(calc(inv_total(inv, chaosrune) + inv_total(inv, rand_chaosrune) + inv_total(inv, rand_chaosrune_b)));
+        }
+    case naturerune :
+        if (inv_getobj(worn, 3) = rand_reward_nature_staff & %rand_reward_nature_staff_charges > 0) {
+            return(calc(inv_total(inv, naturerune) + inv_total(inv, rand_naturerune) + inv_total(inv, rand_naturerune_b) + %rand_reward_nature_staff_charges));
+        } else {
+            return(calc(inv_total(inv, naturerune) + inv_total(inv, rand_naturerune) + inv_total(inv, rand_naturerune_b)));
+        }
+    case deathrune :
+        if (($component1 = magic:sb20 | $component1 = magic:sb23 | $component1 = magic:sb27 | $component1 = magic:sb32 | $component1 = rand_magic:wind_blast | $component1 = rand_magic:earth_blast | $component1 = rand_magic:water_blast | $component1 = rand_magic:fire_blast) & (inv_getobj(worn, 5) = rand_reward_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box | inv_getobj(worn, 5) = rand_bolt_blast_box_b) & %rand_reward_spell_box_blast_charges > 0) {
+            return(calc(inv_total(inv, deathrune) + inv_total(inv, rand_deathrune) + inv_total(inv, rand_deathrune_b) + %rand_reward_spell_box_blast_charges));
+        } else if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:wind_surge | $component1 = rand_magic:earth_surge | $component1 = rand_magic:water_surge | $component1 = rand_magic:fire_surge) & (inv_getobj(worn, 5) = rand_reward_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box_b) & %rand_reward_spell_box_surge_charges > 0) {
+            return(calc(inv_total(inv, deathrune) + inv_total(inv, rand_deathrune) + inv_total(inv, rand_deathrune_b) + %rand_reward_spell_box_surge_charges));
+        } else {
+            return(calc(inv_total(inv, deathrune) + inv_total(inv, rand_deathrune) + inv_total(inv, rand_deathrune_b)));
+        }
+    case lawrune :
+        if (inv_getobj(worn, 3) = rand_reward_law_staff & %rand_reward_law_staff_charges > 0) {
+            return(calc(inv_total(inv, lawrune) + inv_total(inv, rand_lawrune) + inv_total(inv, rand_lawrune_b) + %rand_reward_law_staff_charges));
+        } else {
+            return(calc(inv_total(inv, lawrune) + inv_total(inv, rand_lawrune) + inv_total(inv, rand_lawrune_b)));
+        }
+    case soulrune :
+        return(calc(~inv_total_available(inv, soulrune) + ~inv_total_available(inv, rand_soulrune) + ~inv_total_available(inv, rand_soulrune_b)));
+    case bloodrune :
+        if (($component1 = magic:sb34 | $component1 = magic:sb36 | $component1 = magic:sb40 | $component1 = magic:sb42 | $component1 = rand_magic:wind_wave | $component1 = rand_magic:earth_wave | $component1 = rand_magic:water_wave | $component1 = rand_magic:fire_wave) & (inv_getobj(worn, 5) = rand_reward_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box_b) & %rand_reward_spell_box_wave_charges > 0) {
+            return(calc(inv_total(inv, bloodrune) + inv_total(inv, rand_bloodrune) + inv_total(inv, rand_bloodrune_b) + %rand_reward_spell_box_wave_charges));
+        } else if (($component1 = magic:wind_surge | $component1 = magic:water_surge | $component1 = magic:earth_surge | $component1 = magic:fire_surge | $component1 = rand_magic:wind_surge | $component1 = rand_magic:earth_surge | $component1 = rand_magic:water_surge | $component1 = rand_magic:fire_surge) & (inv_getobj(worn, 5) = rand_reward_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box | inv_getobj(worn, 5) = rand_wave_surge_box_b) & %rand_reward_spell_box_surge_charges > 0) {
+            return(calc(inv_total(inv, bloodrune) + inv_total(inv, rand_bloodrune) + inv_total(inv, rand_bloodrune_b) + %rand_reward_spell_box_surge_charges));
+        } else {
+            return(calc(~inv_total_available(inv, bloodrune) + ~inv_total_available(inv, rand_bloodrune) + ~inv_total_available(inv, rand_bloodrune_b)));
+        }
+    case astralrune :
+        return(calc(~inv_total_available(inv, astralrune) + ~inv_total_available(inv, rand_astralrune) + ~inv_total_available(inv, rand_astralrune_b)));
+}
+return(~inv_total_available(inv, $obj0));

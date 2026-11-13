@@ -1,0 +1,7 @@
+// 1846
+[clientscript,advisor_flashside]
+if (~current_side_if ! 8 & ~script1569 = false & if_hassub(~getsidelayer(8)) = true & %advisor_tutorial_id ! 3 & %advisor_tutorial_id ! 10) {
+    ~arrow_set(~getsideicon_resizeable(8), -1, ~getsideicon(8), -1);
+    if_setontimer(toplevel_fullscreen:stones_on, "flashside_timer_advisor");
+    if_setontimer(toplevel:backhmid1_hide, "flashside_timer_advisor");
+}

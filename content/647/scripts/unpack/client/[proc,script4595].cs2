@@ -1,0 +1,18 @@
+// 4595
+[proc,script4595]
+if_sethide(deathkeep_info:com_17, true);
+if_sethide("deathkeep_info:0_header", true);
+if_sethide(deathkeep_info:com_20, true);
+if_sethide("deathkeep_info:1_header", true);
+if_sethide(deathkeep_info:com_22, true);
+if_sethide("deathkeep_info:2_header", true);
+if_sethide(deathkeep_info:items_scrollbar, true);
+if_setscrollsize(deathkeep_info:items, 0, 0);
+if_setposition(deathkeep_info:items, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if_setscrollpos(deathkeep_info:items, 0, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(p12_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);

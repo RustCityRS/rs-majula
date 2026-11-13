@@ -1,0 +1,3 @@
+// 954
+[clientscript,hvh_timer_bar]
+if_setsize(hvh_game:time_line, scale(calc(1000 - %hvh_time), 1000, 182), 6, ^setsize_abs, ^setsize_abs);

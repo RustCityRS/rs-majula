@@ -1,0 +1,406 @@
+// 1089:0
+[flag_backgrounds_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=scrolling_layer
+
+// 1089:1
+[gold_frame_2_layer]
+type=layer
+width=454
+height=220
+layer=content_layer
+
+// 1089:2
+[scrolling_layer]
+type=layer
+x=2
+y=2
+width=434
+height=216
+layer=content_layer
+
+// 1089:3
+[gold_window_layer]
+type=layer
+x=15
+y=20
+width=478
+height=299
+
+// 1089:4
+[gold_window_background_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_window_layer
+onload=script4260(event_com)
+
+// 1089:5
+[content_layer]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=gold_window_layer
+onload=clan_setup_flags(clan_flag_selection:scrolling_layer, clan_flag_selection:scroll_bar, clan_flag_selection:flag_backgrounds_layer, clan_flag_selection:flag_layer)
+
+// 1089:6
+[scroll_bar]
+type=layer
+x=4
+y=2
+width=16
+height=215
+xmode=abs_right
+layer=content_layer
+
+// 1089:7
+[save_layer]
+type=layer
+y=223
+width=130
+height=28
+xmode=abs_centre
+layer=content_layer
+
+// 1089:8
+[gold_window_frame_layer]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_window_layer
+onload=script4261(event_com)
+
+// 1089:9
+[gold_window_title_layer]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=gold_window_layer
+
+// 1089:10
+[gold_window_title_text]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_window_title_layer
+textfont=palatino_linotype_18pt_regular
+text=Clan Flag Selection
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1089:11
+[gold_window_close_button_layer]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=gold_window_layer
+onload=aif_build_close_button_layer(event_com)
+
+// 1089:12
+[gold_window_close_button_on_graphic]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_window_close_button_layer
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1089:13
+[gold_window_close_button_over_graphic]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_window_close_button_layer
+onload=aif_build_close_button_over(event_com)
+
+// 1089:14
+[com_14]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=gold_frame_2_layer
+graphic=window_texture_2
+tiling=yes
+
+// 1089:15
+[com_15]
+type=graphic
+width=10
+height=10
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1089:16
+[com_16]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1089:17
+[com_17]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1089:18
+[com_18]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1089:19
+[com_19]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1089:20
+[com_20]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1089:21
+[com_21]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1089:22
+[com_22]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=gold_frame_2_layer
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1089:23
+[com_23]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=save_layer
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1089:24
+[aif_bronze_button_dropshadow_bottom_graphic]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=save_layer
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1089:25
+[com_25]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=save_layer
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1089:26
+[aif_bronze_button_on_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1089:27
+[aif_bronze_button_over_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1089:28
+[aif_bronze_button_hit_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1089:29
+[com_29]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 1089:30
+[save_button]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1089:31
+[aif_bronze_button_text_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+
+// 1089:32
+[aif_bronze_button_text]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=aif_bronze_button_text_layer
+textfont=verdana_13pt_regular
+text=Save & Quit
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1089:33
+[aif_bronze_button_disabled_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=save_layer
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 1089:34
+[com_34]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=aif_bronze_button_disabled_layer
+colour=0x000000
+fill=yes
+trans=100
+
+// 1089:35
+[flag_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=scrolling_layer
+
+// 1089:36
+[tooltip_bounding]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=scrolling_layer
+
+// 1089:37
+[tooltip]
+type=layer
+width=50
+height=50
+layer=tooltip_bounding

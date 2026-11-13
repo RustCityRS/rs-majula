@@ -1,0 +1,9 @@
+// 2004
+[clientscript,loginscreen_slider_click_icon](component $component0, component $component1)
+def_int $int2 = detailget_loginvol;
+if ($int2 = 0 & %loginscreen_musicvol_last > 0 & %loginscreen_musicvol_last <= 255) {
+    unknown_command_6038(%loginscreen_musicvol_last);
+} else if ($int2 > 0) {
+    unknown_command_6038(0);
+}
+~loginscreen_loginvol($component0, $component1, 0, 1);

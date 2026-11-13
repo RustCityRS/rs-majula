@@ -1,0 +1,5 @@
+// 2758
+[clientscript,script2758](component $component0)
+if_setonvartransmit($component0, "script2759(event_com){cutscene_var}");
+if_setonvarctransmit($component0, "script2759(event_com){camera_control_mode}");
+~script2760($component0);

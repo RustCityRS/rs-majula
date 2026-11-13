@@ -19,13 +19,18 @@ use axum::body::{Body, Bytes};
 use axum::extract::{Path, Query, Request, State};
 use axum::http::{HeaderValue, StatusCode, header};
 use axum::response::{IntoResponse, Response};
+use futures_util::future::join_all;
 use rs_admin_api::{
     AppealDecide, ChatLookup, ChatRecord, MediaSaved, ModAction, Outcome, Recovery, RecoveryDecide,
     ReplayGet, ReplaySummary, ReportLookup, ReportRecord, media, path,
 };
 use serde::{Deserialize, Serialize};
 use std::cmp::Reverse;
+use std::mem;
+use std::slice;
 use std::sync::Arc;
+use tokio::task::spawn_blocking;
+use tower_http::services::ServeFile;
 
 /// The most cases a list returns.
 const MAX_CASES: usize = 500;
@@ -241,7 +246,7 @@ async fn kept_recording(app: &App, id: &str) -> Result<(ReplaySummary, Vec<u8>),
         .map_err(unavailable)?;
     let clips = app.clips.clone();
     let (summary, file) =
-        tokio::task::spawn_blocking(move || clips.keep(&summary, &file).map(|()| (summary, file)))
+        spawn_blocking(move || clips.keep(&summary, &file).map(|()| (summary, file)))
             .await
             .map_err(ApiError::internal)?
             .map_err(ApiError::internal)?;
@@ -262,10 +267,7 @@ async fn resolve_all(
     }
     let mut found: Vec<Result<Evidence, ApiError>> = Vec::with_capacity(items.len());
     for batch in items.chunks(RESOLVING_AT_ONCE) {
-        found.extend(
-            futures_util::future::join_all(batch.iter().map(|item| resolve(app, staff, item)))
-                .await,
-        );
+        found.extend(join_all(batch.iter().map(|item| resolve(app, staff, item))).await);
     }
     let mut out: Vec<Evidence> = Vec::with_capacity(found.len());
     for evidence in found {
@@ -614,7 +616,7 @@ fn detail(app: &App, staff: &Staff, mut case: Case) -> CaseDetail {
     app.prefs.saw(staff.name(), case.id, case.updated_ms, || {
         app.cases.settled(staff.name())
     });
-    let timeline = std::mem::take(&mut case.timeline)
+    let timeline = mem::take(&mut case.timeline)
         .into_iter()
         .map(|entry| {
             let html = match &entry.change {
@@ -1181,7 +1183,7 @@ pub async fn upload(
     })?;
     let kind = found.kind;
     let dir = app.media_dir.clone();
-    let name = tokio::task::spawn_blocking(move || media::store(&dir, &body, &found))
+    let name = spawn_blocking(move || media::store(&dir, &body, &found))
         .await
         .map_err(ApiError::internal)?
         .map_err(ApiError::internal)?;
@@ -1205,7 +1207,7 @@ pub async fn media(
         return Err(missing());
     }
     let extension = name.rsplit('.').next().unwrap_or_default();
-    let mut response = tower_http::services::ServeFile::new(app.media_dir.join(&name))
+    let mut response = ServeFile::new(app.media_dir.join(&name))
         .try_call(req)
         .await
         .map_err(|_| missing())?
@@ -1281,14 +1283,14 @@ pub async fn triage(
         .ok_or_else(|| ApiError::bad_request("That can't be triaged."))?
         .to_owned();
     if req.dismissed {
-        check_dismissing(&app, &staff, std::slice::from_ref(&key)).await?;
+        check_dismissing(&app, &staff, slice::from_ref(&key)).await?;
     }
     app.cases
         .triage(staff.name(), key.clone(), req.dismissed)
         .map_err(refused)?;
     Ok(Json(
         app.cases
-            .triage_of(std::slice::from_ref(&key))
+            .triage_of(slice::from_ref(&key))
             .remove(&key)
             .unwrap_or_default(),
     ))

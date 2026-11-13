@@ -1,0 +1,32 @@
+// 2998
+[proc,lobbyscreen_playerinfo_load]
+~script2999;
+if_setonclick(lobbyscreen_pane_playerinfo:com_41, "script3002(0)");
+if_setonclick(lobbyscreen_pane_playerinfo:com_29, "script3002(1)");
+if_setonclick(lobbyscreen_pane_playerinfo:com_17, "script3002(2)");
+if_setonclick(lobbyscreen_pane_playerinfo:com_55, "script3002(3)");
+def_int $int0 = 0;
+if (if_getgraphic(lobbyscreen_pane_playerinfo:com_34) = graphic_2672) {
+    $int0 = 0;
+} else if (if_getgraphic(lobbyscreen_pane_playerinfo:com_22) = graphic_2672) {
+    $int0 = 1;
+} else if (if_getgraphic(lobbyscreen_pane_playerinfo:com_10) = graphic_2672) {
+    $int0 = 2;
+} else if (if_getgraphic(lobbyscreen_pane_playerinfo:com_48) = graphic_2672) {
+    $int0 = 3;
+}
+switch_int ($int0) {
+    case 0 :
+        ~lobbyscreen_playerinfo_bar_open_instant(0, ~lobbyscreen_playerinfo_bar_layers(0));
+    case 1 :
+        ~lobbyscreen_playerinfo_bar_open_instant(1, ~lobbyscreen_playerinfo_bar_layers(1));
+    case 2 :
+        ~lobbyscreen_playerinfo_bar_open_instant(2, ~lobbyscreen_playerinfo_bar_layers(2));
+    case 3 :
+        ~lobbyscreen_playerinfo_bar_open_instant(3, ~lobbyscreen_playerinfo_bar_layers(3));
+}
+if_sethide(lobbyscreen_pane_playerinfo:info_bars, false);
+~script3001;
+if_setontimer(lobbyscreen_pane_playerinfo:login_address, "script3000");
+if_opensubclient(lobbyscreen_pane_playerinfo:message_of_the_week, lobby_message_of_the_week);
+~lobby_message_of_the_week;

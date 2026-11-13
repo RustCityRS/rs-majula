@@ -2,8 +2,8 @@ use crate::engine::{ScriptEngine, ScriptPlayer, engine};
 use crate::register::OpsRegistry;
 use crate::util::pop_font;
 use crate::{ScriptError, active_player, handlers, none};
-use itoa;
-use rs_pack::cache::script::*;
+use itoa::Buffer;
+use runec::opcodes::*;
 
 /// Registers string manipulation opcodes for concatenation, conversion,
 /// comparison, searching, and text pagination.
@@ -30,7 +30,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, APPEND_NUM => |s| {
             let b = s.pop_int();
             let mut a = s.pop_string();
-            let mut buf = itoa::Buffer::new();
+            let mut buf = Buffer::new();
             a.push_str(buf.format(b));
             s.push_string(&a);
         });
@@ -47,7 +47,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if b >= 0 {
                 a.push('+');
             }
-            let mut buf = itoa::Buffer::new();
+            let mut buf = Buffer::new();
             a.push_str(buf.format(b));
             s.push_string(&a);
         });
@@ -72,7 +72,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4505
         none!(m, TOSTRING => |s| {
             let a = s.pop_int();
-            s.push_string(itoa::Buffer::new().format(a));
+            s.push_string(Buffer::new().format(a));
         });
 
         // 4506
@@ -99,7 +99,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if a == -1 {
                 return Err(ScriptError::Runtime("null char".to_string()));
             }
-            let Some(char) = std::char::from_u32((a & 0xFFFF) as u32) else {
+            let Some(char) = char::from_u32((a & 0xFFFF) as u32) else {
                 return Err(ScriptError::Runtime("bad char".to_string()));
             };
             b.push(char);
@@ -128,7 +128,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if a == -1 {
                 return Err(ScriptError::Runtime("null char".to_string()));
             }
-            let Some(char) = std::char::from_u32((a & 0xFFFF) as u32) else {
+            let Some(char) = char::from_u32((a & 0xFFFF) as u32) else {
                 return Err(ScriptError::Runtime("bad char".to_string()));
             };
             s.push_int(b.chars().position(|c| c == char).map_or(-1, |index| index as i32));

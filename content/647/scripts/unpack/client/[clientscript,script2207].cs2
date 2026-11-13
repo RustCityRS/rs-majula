@@ -1,0 +1,5 @@
+// 2207
+[clientscript,script2207]
+if (%easter10_pushbarstatus = 0) {
+    if_setontimer(easter10_nuts:content, "script2212");
+}

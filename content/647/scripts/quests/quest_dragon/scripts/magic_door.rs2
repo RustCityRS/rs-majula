@@ -1,0 +1,94 @@
+// Thalzar's door and chest in the Dwarven Mine: 289's quests/quest_dragon/scripts/magic_door.rs2
+// as 2011 has them, from the 2011-05-04 recording (YouTube UYp0v2Pc1yI, 666.8-724.4s; the chat
+// and the frames, runescape/target/refs/dragon/transcript_0504_p1.md):
+// - 2011's door is magic_door_25115 (cache 786; the l47_153 map's 42,47, three tiles of the chest
+//   room's west wall, "There is something in this door for me to put objects in."), not 289's;
+// - each of the Oracle's four items is used on it, in any order (the recording: silk, unfired
+//   bowl, mind bomb, lobster pot), each with its own line; then Open: "The door opens..." (289
+//   took all four from the backpack on Open with "A strange glow appears ...");
+// - Open on the chest goes straight to Thalzar's inscription and the piece in an item box (289:
+//   "You open the chest.", then Search, and a message box).
+// Used before the Oracle is asked, the 2011 wiki (Dragon Slayer, 2011-05-22) gives "I have no idea
+// what I should put in the opening of this door. Maybe I should just leave it for now."; the
+// locked door's line and the chest's when the piece is not needed are 289's (unverified).
+[oploc1,dragon_slayer_qip_magic_door]
+def_boolean $leaving = false;
+if (coordx(coord) > coordx(loc_coord)) {
+    $leaving = true;
+}
+if ($leaving = false & %dragon_oracle < ^quest_dragon_gone_through_oracle_door & %dragon_door ! ^dragon_door_all) {
+    mes("The door is locked.");
+    return;
+}
+if (%dragon_door = ^dragon_door_all) {
+    %dragon_door = 0;
+    %dragon_oracle = ^quest_dragon_gone_through_oracle_door;
+}
+mes("The door opens...");
+sound_synth(nicedoor_open, 1, 0);
+// Through the door to the other side, on the player's own row of its three tiles.
+def_int $z = coordz(coord);
+if ($z < coordz(loc_coord)) {
+    $z = coordz(loc_coord);
+} else if ($z > add(coordz(loc_coord), 2)) {
+    $z = add(coordz(loc_coord), 2);
+}
+if ($leaving = true) {
+    p_teleport(movecoord(loc_coord, -1, 0, sub($z, coordz(loc_coord))));
+} else {
+    p_teleport(movecoord(loc_coord, 1, 0, sub($z, coordz(loc_coord))));
+}
+
+[oplocu,dragon_slayer_qip_magic_door]
+if (%dragon_oracle < ^quest_dragon_has_spoken_to_oracle) {
+    mes("I have no idea what I should put in the opening of this door. Maybe I should just leave it for now.");
+    return;
+}
+switch_obj (last_useitem) {
+    case silk : ~dragon_door_item(silk, ^dragon_door_silk, "You put the silk into the opening in the door.");
+    case bowl_unfired : ~dragon_door_item(bowl_unfired, ^dragon_door_bowl, "You put the unfired bowl into the opening in the door.");
+    case wizards_mind_bomb : ~dragon_door_item(wizards_mind_bomb, ^dragon_door_mind_bomb, "You pour the Wizard's Mind Bomb into the opening in the door.");
+    case lobster_pot : ~dragon_door_item(lobster_pot, ^dragon_door_lobster_pot, "You put the small crustacean cage into the opening in the door.");
+    case default : ~displaymessage(^dm_default);
+}
+
+[proc,dragon_door_item](obj $item, int $bit, string $message)
+if (%dragon_oracle >= ^quest_dragon_gone_through_oracle_door | testbit(%dragon_door, $bit) = 1) {
+    ~displaymessage(^dm_default);
+    return;
+}
+inv_del(inv, $item, 1);
+%dragon_door = setbit(%dragon_door, $bit);
+mes($message);
+
+[oploc1,oraclechestshut]
+p_arrivedelay;
+anim(human_openchest, 0);
+sound_synth(chest_open, 1, 0);
+p_delay(0);
+// Temp note: dur does not need updated
+loc_change(oraclechestopen, 300);
+@oracle_chest_search;
+
+[oploc2,oraclechestopen]
+p_arrivedelay;
+mes("You close the chest.");
+anim(human_closechest, 0);
+sound_synth(chest_close, 1, 0);
+p_delay(0);
+// Temp note: dur does not need updated
+loc_change(oraclechestshut, 300);
+
+[oploc1,oraclechestopen] @oracle_chest_search;
+
+[label,oracle_chest_search]
+if (~quest_dragon_getting_map_parts = false | ~obj_gettotal(mappart3) > 0 | ~obj_gettotal(dragonmap) > 0) {
+    mes("You find nothing in the chest.");
+    return;
+}
+~mesbox("As you open the chest, you notice an inscription on the lid:");
+~mesbox("Here I rest the map to my beloved home. To whoever finds it, I beg of you, let it be. I was honour-bound not to destroy the map piece, but I have used all my magical skill to keep it from being recovered.");
+~mesbox("This map leads to the lair of the beast that destroyed my home, devoured my family, and burned to a cinder all that I love. But revenge would not benefit me now, and to disturb this beast is to risk bringing its wrath down upon another land.");
+~mesbox("I cannot stop you from taking this map piece now, but think on this: if you can slay the Dragon of Crandor, you are a greater hero than my land ever produced. There is no shame in backing out now.");
+inv_add(inv, mappart3, 1);
+~objbox(mappart3, "You find a map piece in the chest.", 250, 0, 0);

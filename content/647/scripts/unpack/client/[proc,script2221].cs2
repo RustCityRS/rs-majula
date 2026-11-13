@@ -1,0 +1,12 @@
+// 2221
+[proc,script2221]
+switch_int (%easter10_resourcegame_errortextflag) {
+    case 0 :
+        if_settext(easter10_resourcegame:error_text, "");
+    case 1 :
+        if_settext(easter10_resourcegame:error_text, "Not enough workers.");
+    case 2 :
+        if_settext(easter10_resourcegame:error_text, "Not enough resources.");
+    case 3 :
+        if_settext(easter10_resourcegame:error_text, "Worker limit reached.");
+}

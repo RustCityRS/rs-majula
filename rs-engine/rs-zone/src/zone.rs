@@ -8,10 +8,15 @@ use rs_pack::types::LocLayer;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_merge::LocMerge;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 use rustc_hash::FxHashMap;
+use std::mem;
 
 /// An 8x8 tile region that manages all entities and events within its bounds.
 ///
@@ -46,6 +51,10 @@ pub struct Zone {
     pub objs: Vec<Obj>,
     receivers: FxHashMap<u64, u64>,
     dropped_for: FxHashMap<u64, u64>,
+    #[cfg(since_647)]
+    vars: FxHashMap<u64, i32>,
+    #[cfg(since_647)]
+    merges: Vec<(u64, LocMerge)>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
     next_serial: ObjSerial,
@@ -87,6 +96,10 @@ impl Zone {
             objs: Vec::new(),
             receivers: FxHashMap::default(),
             dropped_for: FxHashMap::default(),
+            #[cfg(since_647)]
+            vars: FxHashMap::default(),
+            #[cfg(since_647)]
+            merges: Vec::new(),
             events: Vec::new(),
             shared: Vec::new(),
             next_serial: ObjSerial::FIRST,
@@ -322,7 +335,7 @@ impl Zone {
             return;
         }
 
-        let mut buf = std::mem::take(&mut self.shared);
+        let mut buf = mem::take(&mut self.shared);
         buf.resize(len, 0);
         let mut packet = Packet::from(buf);
         for event in &self.events {
@@ -573,6 +586,8 @@ impl Zone {
         self.events
             .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocAddChange(_)));
         self.queue_event(Some(lid), ZoneEventType::Enclosed, None, message);
+        #[cfg(since_647)]
+        self.unmerge_loc(lid);
     }
 
     /// Removes a loc from this zone and queues an enclosed `LocDel` event.
@@ -624,6 +639,8 @@ impl Zone {
             None,
             ZoneMessage::LocDel(LocDel { coord, shape_angle }),
         );
+        #[cfg(since_647)]
+        self.unmerge_loc(lid);
     }
 
     /// Finds the index of a visible loc at the given position with the given type id.
@@ -712,6 +729,8 @@ impl Zone {
         let lid = loc.lid();
         let message = loc_add_change_msg(loc);
         self.queue_event(Some(lid), ZoneEventType::Enclosed, None, message);
+        #[cfg(since_647)]
+        self.unmerge_loc(lid);
     }
 
     /// Plays an animation sequence on a loc and queues an enclosed `LocAnim` event.
@@ -768,9 +787,85 @@ impl Zone {
     /// **Called by:** `Engine` methods for loc merge operations.
     ///
     /// **Calls:** [`queue_event`](Self::queue_event).
+    #[cfg(before_647)]
     pub fn merge_loc(&mut self, idx: usize, message: ZoneMessage) {
         let loc = &self.locs[idx];
         self.queue_event(Some(loc.lid()), ZoneEventType::Enclosed, None, message);
+    }
+
+    /// Queues `merge` for loc `idx` and keeps it for players who load the
+    /// zone later, replacing one queued this tick. A merge with no lists
+    /// resets the loc, if it was merged.
+    ///
+    /// **Called by:** `Engine::loc_merge`.
+    ///
+    /// **Calls:** [`queue_event`](Self::queue_event).
+    #[cfg(since_647)]
+    pub fn merge_loc(&mut self, idx: usize, merge: LocMerge) {
+        if merge.models.is_none() && merge.recol.is_none() && merge.retex.is_none() {
+            self.unmerge_loc(self.locs[idx].lid());
+            return;
+        }
+        let lid = self.locs[idx].lid();
+        self.events
+            .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocMerge(_)));
+        match self.merges.iter_mut().find(|(id, _)| *id == lid) {
+            Some((_, stored)) => *stored = merge.clone(),
+            None => self.merges.push((lid, merge.clone())),
+        }
+        self.queue_event(
+            Some(lid),
+            ZoneEventType::Enclosed,
+            None,
+            ZoneMessage::LocMerge(merge),
+        );
+    }
+
+    /// Resets the merge on `lid`'s tile and layer, if it has one. The client
+    /// keeps a merge on the tile, not the loc, so a loc that changes, goes or
+    /// comes back must drop it.
+    #[cfg(since_647)]
+    fn unmerge_loc(&mut self, lid: u64) {
+        self.events
+            .retain(|e| e.id != Some(lid) || !matches!(e.message, ZoneMessage::LocMerge(_)));
+        if let Some(pos) = self.merges.iter().position(|(id, _)| *id == lid) {
+            let (_, merge) = self.merges.swap_remove(pos);
+            let reset = LocMerge {
+                models: None,
+                recol: None,
+                retex: None,
+                ..merge
+            };
+            self.queue_event(
+                Some(lid),
+                ZoneEventType::Enclosed,
+                None,
+                ZoneMessage::LocMerge(reset),
+            );
+        }
+    }
+
+    /// The merges a player loading this zone needs, after its locs.
+    #[cfg(since_647)]
+    pub fn loc_merges(&self) -> impl Iterator<Item = &LocMerge> {
+        self.merges.iter().map(|(_, merge)| merge)
+    }
+
+    /// Queues an enclosed `LocPrefetch` of loc type `id`'s models for `shape`,
+    /// unless one for the same type and shape is already queued this tick.
+    ///
+    /// **Called by:** `Engine::loc_prefetchall`.
+    ///
+    /// **Calls:** [`queue_event`](Self::queue_event).
+    #[cfg(since_647)]
+    pub fn prefetch_loc(&mut self, id: u16, shape: u8) {
+        let queued = self.events.iter().any(
+            |e| matches!(&e.message, ZoneMessage::LocPrefetch(m) if m.id == id && m.shape == shape),
+        );
+        if !queued {
+            let message = ZoneMessage::LocPrefetch(LocPrefetch { id, shape });
+            self.queue_event(None, ZoneEventType::Enclosed, None, message);
+        }
     }
 
     // ---- obj management ----
@@ -972,6 +1067,35 @@ impl Zone {
         }
     }
 
+    /// The varobjs of the obj with this [`serial`](Obj::serial): 0 for one
+    /// with none set, or that isn't there.
+    #[cfg(since_647)]
+    pub fn obj_var(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> i32 {
+        self.obj_index(x, z, id, serial)
+            .and_then(|idx| self.vars.get(&self.objs[idx].oid()).copied())
+            .unwrap_or(0)
+    }
+
+    /// Sets the varobjs of the dropped obj with this [`serial`](Obj::serial).
+    /// A map spawn keeps none, so it is refused, as is an obj that isn't there.
+    #[cfg(since_647)]
+    pub fn set_obj_var(&mut self, x: u16, z: u16, id: u16, serial: ObjSerial, var: i32) -> bool {
+        let Some(idx) = self.obj_index(x, z, id, serial) else {
+            return false;
+        };
+        let obj = &self.objs[idx];
+        if obj.lifetime() != EntityLifeTime::Despawn {
+            return false;
+        }
+        let oid = obj.oid();
+        if var == 0 {
+            self.vars.remove(&oid);
+        } else {
+            self.vars.insert(oid, var);
+        }
+        true
+    }
+
     /// Reveals a privately-owned obj to all players and queues an enclosed `ObjReveal` event.
     ///
     /// Transitions an obj from player-private visibility to public visibility by
@@ -1147,6 +1271,8 @@ impl Zone {
         self.clear_queued_events(oid);
         self.receivers.remove(&oid);
         self.dropped_for.remove(&oid);
+        #[cfg(since_647)]
+        self.vars.remove(&oid);
         if self.objs[idx].lifetime() == EntityLifeTime::Despawn {
             self.objs.remove(idx);
         } else {
@@ -2693,5 +2819,64 @@ mod tests {
         z.add_obj(obj, Some(111));
         z.compute_shared();
         assert!(z.shared_bytes().is_none());
+    }
+
+    #[cfg(since_647)]
+    fn recolour(id: u16) -> LocMerge {
+        LocMerge {
+            coord: 0,
+            id,
+            shape_angle: 10 << 2,
+            models: None,
+            recol: Some(Box::new([960])),
+            retex: None,
+        }
+    }
+
+    /// The queued merges, as their loc type and whether each resets.
+    #[cfg(since_647)]
+    fn queued_merges(zone: &Zone) -> Vec<(u16, bool)> {
+        zone.enclosed_events()
+            .filter_map(|e| match &e.message {
+                ZoneMessage::LocMerge(m) => Some((m.id, m.recol.is_none())),
+                _ => None,
+            })
+            .collect()
+    }
+
+    /// A merge stays for players who load the zone later, one queued per
+    /// tick, until the loc changes; the reset names the type the client
+    /// sized the merge by.
+    #[cfg(since_647)]
+    #[test]
+    fn merge_loc_is_kept_until_the_loc_changes() {
+        let mut z = zone();
+        z.locs.push(respawn_loc(3222, 3222, 100));
+        z.merge_loc(0, recolour(100));
+        z.merge_loc(0, recolour(100));
+        assert_eq!(queued_merges(&z), [(100, false)]);
+        assert_eq!(z.loc_merges().count(), 1);
+
+        z.reset();
+        z.locs[0].change(
+            200,
+            LocShape::CentrepieceStraight,
+            LocAngle::North,
+            true,
+            true,
+            1,
+            1,
+        );
+        z.change_loc(0);
+        assert_eq!(queued_merges(&z), [(100, true)]);
+        assert_eq!(z.loc_merges().count(), 0);
+
+        z.reset();
+        let reset = LocMerge {
+            recol: None,
+            ..recolour(200)
+        };
+        z.merge_loc(0, reset);
+        assert!(queued_merges(&z).is_empty(), "nothing to reset");
     }
 }

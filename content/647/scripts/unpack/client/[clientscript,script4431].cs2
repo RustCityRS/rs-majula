@@ -1,0 +1,16 @@
+// 4431
+[clientscript,script4431](component $component0)
+def_string $string0 = "";
+if (activeclanchannel_find_affined = true) {
+    if_setontimer($component0, null);
+    ~clan_chat_onclansettingstransmit;
+    if_setonclansettingstransmit(clan_chat:main_layer, "clan_chat_onclansettingstransmit");
+    if_setonclanchanneltransmit(clan_chat:main_layer, "clan_chat_onclansettingstransmit");
+    if_setgraphic(clan_chat:clan_join_affinedchat_button_gfx, "aif_clanchat_icons,12");
+} else {
+    ~clan_chat_clearlist;
+    $string0 = "Join Clan Chat channel.";
+    if_setonmouserepeat(clan_chat:clan_join_affinedchat_button, "aif_tooltip(clan_chat:tooltip, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setop(clan_chat:clan_join_affinedchat_button, 1, "Join Clan Chat channel");
+    ~clan_reset_clanlist;
+}

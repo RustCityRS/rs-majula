@@ -1,14 +1,22 @@
+use super::decode::{read_array, read_pairs};
+#[cfg(since_289)]
+use super::decode::{read_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
-use crate::types::{ForceApproach, LocShape};
+use crate::types::{ForceApproach, LocShape, MultiVar};
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 use rustc_hash::FxHashMap;
 
 pub type LocTypeProvider = TypeProvider<LocType>;
 
+#[cfg_attr(since_647, derive(Debug, Clone, PartialEq))]
 pub struct LocModelShape {
+    #[cfg(before_647)]
     pub model: u16,
+    #[cfg(since_647)]
+    pub models: Box<[u16]>,
     pub shape: u8,
 }
 
@@ -24,23 +32,120 @@ pub struct LocType {
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub category: Option<u16>,
     pub forceapproach: ForceApproach,
-    /// The varbit it turns into another loc by, and the loc for each of its
-    /// values (-1: none, so the client shows nothing). The client shows that
-    /// loc's name and options, but clicks on it carry this one's id.
-    pub multivar: Option<u16>,
+    pub multivar: Option<MultiVar>,
     pub multiloc: Option<Box<[i32]>>,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    pub debugname: Box<str>,
+    #[cfg(since_647)]
+    look: Option<Box<[u16]>>,
+}
+
+/// What a 647 LocMerge copies from a loc type or checks on the loc it merges.
+/// The client only merges a loc it builds `animated`, looks every merge's
+/// shape up in the model list when it has `shapes`, and picks one of
+/// `two_model_sets` by a detail option the server never sees.
+#[cfg(since_647)]
+#[derive(Default)]
+pub struct LocLook<'a> {
+    pub animated: bool,
+    pub shapes: bool,
+    pub two_model_sets: bool,
+    models: &'a [u16],
+    pub recol: &'a [u16],
+    pub retex: &'a [u16],
+}
+
+#[cfg(since_647)]
+impl<'a> LocLook<'a> {
+    pub fn models(&self, shape: LocShape) -> Option<&'a [u16]> {
+        let mut rest = self.models;
+        while let [group_shape, count, tail @ ..] = rest {
+            let (models, next) = tail.split_at(*count as usize);
+            if *group_shape == shape as u16 {
+                return Some(models);
+            }
+            rest = next;
+        }
+        None
+    }
 }
 
 impl LocType {
-    pub fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    #[cfg(since_647)]
+    pub fn look(&self) -> LocLook<'_> {
+        let Some(&[flags, models, recols, ref rest @ ..]) = self.look.as_deref() else {
+            return LocLook::default();
+        };
+        let (models, rest) = rest.split_at(models as usize);
+        let (recol, retex) = rest.split_at(recols as usize);
+        LocLook {
+            animated: flags & 1 != 0,
+            shapes: flags & 4 != 0,
+            two_model_sets: flags & 2 != 0,
+            models,
+            recol,
+            retex,
+        }
     }
+
+    pub fn multi_loc(&self, var_value: i32) -> Option<u16> {
+        let Some(multi) = self.multiloc.as_deref() else {
+            return Some(self.id);
+        };
+        multi
+            .get(var_value as usize)
+            .copied()
+            .filter(|&id| id != -1)
+            .or_else(|| multi.last().copied())
+            .and_then(|id| u16::try_from(id).ok())
+    }
+}
+
+/// Packs [`LocLook`] as `[flags, models len, recols, (shape, count,
+/// models..).., recol_d.., retex_d..]`.
+#[cfg(since_647)]
+fn pack_look(raw: &LocTypeRaw) -> Option<Box<[u16]>> {
+    let animated =
+        raw.anim.is_some() || raw.random_anim_ids.is_some() || raw.hasparticles || raw.unknown_177;
+    let two_model_sets = raw.hd_models.is_some() && raw.hd_models != raw.models;
+    let flags = animated as u16 | (two_model_sets as u16) << 1 | (raw.models.is_some() as u16) << 2;
+    let models: Vec<u16> = raw
+        .models
+        .iter()
+        .flatten()
+        .flat_map(|group| {
+            [group.shape as u16, group.models.len() as u16]
+                .into_iter()
+                .chain(group.models.iter().copied())
+        })
+        .collect();
+    let recol = raw.recol_d.as_deref().unwrap_or_default();
+    let retex = raw.retex_d.as_deref().unwrap_or_default();
+    if flags == 0 && recol.is_empty() && retex.is_empty() {
+        return None;
+    }
+    let mut look = vec![flags, models.len() as u16, recol.len() as u16];
+    look.extend(models);
+    look.extend_from_slice(recol);
+    look.extend_from_slice(retex);
+    Some(look.into_boxed_slice())
 }
 
 impl From<LocTypeRaw> for LocType {
     fn from(raw: LocTypeRaw) -> Self {
+        #[cfg(since_647)]
+        let look = pack_look(&raw);
+        let op = raw.op;
+        #[cfg(since_647)]
+        let op = {
+            let mut op = op;
+            for (index, members_op) in raw.members_op.into_iter().enumerate() {
+                if members_op.is_some() {
+                    op.get_or_insert_with(|| Box::new([const { None }; 5]))[index] = members_op;
+                }
+            }
+            op
+        };
         LocType {
             id: raw.id,
             name: raw.name,
@@ -49,45 +154,56 @@ impl From<LocTypeRaw> for LocType {
             length: raw.length,
             blockwalk: raw.blockwalk,
             blockrange: raw.blockrange,
-            active: raw.active,
-            op: raw.op,
+            active: raw.active.and_then(|value| match value {
+                0 => Some(false),
+                1 => Some(true),
+                _ => None,
+            }),
+            op,
             category: raw.category,
             forceapproach: raw.forceapproach,
-            #[cfg(since_289)]
-            multivar: raw.multivar,
-            #[cfg(since_289)]
+            multivar: MultiVar::new(raw.transform_varbit, raw.transform_varp),
             multiloc: raw.multiloc,
-            #[cfg(before_289)]
-            multivar: None,
-            #[cfg(before_289)]
-            multiloc: None,
             params: raw.params,
             debugname: raw.debugname,
+            #[cfg(since_647)]
+            look,
         }
     }
 }
 
+#[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct LocTypeRaw {
     pub id: u16,
     pub models: Option<Box<[LocModelShape]>>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
+    #[cfg(since_647)]
+    pub hd_models: Option<Box<[LocModelShape]>>,
     pub width: u8,
     pub length: u8,
     pub blockwalk: bool,
+    #[cfg(since_647)]
+    pub interact_type: i32,
     pub blockrange: bool,
-    pub active: Option<bool>,
-    pub hillskew: bool,
+    pub active: Option<u8>,
+    pub hillskew: u8,
     pub sharelight: bool,
     pub occlude: bool,
     pub anim: Option<u16>,
     pub hasalpha: bool,
     pub wallwidth: u8,
     pub ambient: i8,
-    pub contrast: i8,
     pub op: Option<Box<[Option<Box<str>>]>>,
+    pub contrast: i8,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
+    #[cfg(since_647)]
+    pub retex_s: Option<Box<[u16]>>,
+    #[cfg(since_647)]
+    pub retex_d: Option<Box<[u16]>>,
+    #[cfg(since_647)]
+    pub recol_palette: Option<Box<[i8]>>,
     pub mapfunction: Option<u16>,
     pub category: Option<u16>,
     pub mirror: bool,
@@ -105,12 +221,81 @@ pub struct LocTypeRaw {
     pub breakroutefinding: bool,
     #[cfg(since_254)]
     pub raiseobject: Option<u8>,
-    #[cfg(since_289)]
-    pub multivar: Option<u16>,
-    #[cfg(since_289)]
+    pub transform_varbit: i32,
+    pub transform_varp: i32,
     pub multiloc: Option<Box<[i32]>>,
+    #[cfg(since_647)]
+    pub ambient_sfx_id: Option<u16>,
+    #[cfg(since_647)]
+    pub ambient_sfx_range: u8,
+    #[cfg(since_647)]
+    pub sfx_random_pri: i32,
+    #[cfg(since_647)]
+    pub sfx_random_sec: i32,
+    #[cfg(since_647)]
+    pub sfx_random_ids: Option<Box<[u16]>>,
+    #[cfg(since_647)]
+    pub hillskew_param: Option<i32>,
+    #[cfg(since_647)]
+    pub hide_minimap: bool,
+    #[cfg(since_647)]
+    pub minimap_visible: bool,
+    #[cfg(since_647)]
+    pub blocks_npcs: bool,
+    #[cfg(since_647)]
+    pub unknown_90: bool,
+    #[cfg(since_647)]
+    pub members_only: bool,
+    #[cfg(since_647)]
+    pub msirotate: bool,
+    #[cfg(since_647)]
+    pub hasparticles: bool,
+    #[cfg(since_647)]
+    pub cursor_op1: Option<(u8, u16)>,
+    #[cfg(since_647)]
+    pub cursor_op2: Option<(u8, u16)>,
+    #[cfg(since_647)]
+    pub msi_id: Option<u16>,
+    #[cfg(since_647)]
+    pub interaction_side_flags: u8,
+    #[cfg(since_647)]
+    pub msimirror: bool,
+    #[cfg(since_647)]
+    pub random_anim_ids: Option<Box<[u16]>>,
+    #[cfg(since_647)]
+    pub random_anim_weights: Option<Box<[u8]>>,
+    #[cfg(since_647)]
+    pub map_element: Option<u16>,
+    #[cfg(since_647)]
+    pub members_op: [Option<Box<str>>; 5],
+    #[cfg(since_647)]
+    pub quest_ids: Option<Box<[u16]>>,
+    #[cfg(since_647)]
+    pub tint: [i8; 4],
+    #[cfg(since_647)]
+    pub postoffsetx: i16,
+    #[cfg(since_647)]
+    pub postoffsety: i16,
+    #[cfg(since_647)]
+    pub postoffsetz: i16,
+    #[cfg(since_647)]
+    pub op167: i32,
+    #[cfg(since_647)]
+    pub bgsound_vorbis: bool,
+    #[cfg(since_647)]
+    pub randomsound_vorbis: bool,
+    #[cfg(since_647)]
+    pub op170: i32,
+    #[cfg(since_647)]
+    pub op171: i32,
+    #[cfg(since_647)]
+    pub op173: (u16, u16),
+    #[cfg(since_647)]
+    pub unknown_177: bool,
+    #[cfg(since_647)]
+    pub op178: u8,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
-    debugname: Option<Box<str>>,
+    debugname: Box<str>,
 }
 
 impl CacheType for LocTypeRaw {
@@ -122,22 +307,32 @@ impl CacheType for LocTypeRaw {
             models: None,
             name: None,
             desc: None,
+            #[cfg(since_647)]
+            hd_models: None,
             width: 1,
             length: 1,
             blockwalk: true,
+            #[cfg(since_647)]
+            interact_type: 2,
             blockrange: true,
             active: None,
-            hillskew: false,
+            hillskew: 0,
             sharelight: false,
             occlude: false,
             anim: None,
             hasalpha: false,
             wallwidth: 16,
             ambient: 0,
-            contrast: 0,
             op: None,
+            contrast: 0,
             recol_s: None,
             recol_d: None,
+            #[cfg(since_647)]
+            retex_s: None,
+            #[cfg(since_647)]
+            retex_d: None,
+            #[cfg(since_647)]
+            recol_palette: None,
             mapfunction: None,
             category: None,
             mirror: false,
@@ -155,135 +350,389 @@ impl CacheType for LocTypeRaw {
             breakroutefinding: false,
             #[cfg(since_254)]
             raiseobject: None,
-            #[cfg(since_289)]
-            multivar: None,
-            #[cfg(since_289)]
+            transform_varbit: -1,
+            transform_varp: -1,
             multiloc: None,
+            #[cfg(since_647)]
+            ambient_sfx_id: None,
+            #[cfg(since_647)]
+            ambient_sfx_range: 0,
+            #[cfg(since_647)]
+            sfx_random_pri: 0,
+            #[cfg(since_647)]
+            sfx_random_sec: 0,
+            #[cfg(since_647)]
+            sfx_random_ids: None,
+            #[cfg(since_647)]
+            hillskew_param: None,
+            #[cfg(since_647)]
+            hide_minimap: false,
+            #[cfg(since_647)]
+            minimap_visible: true,
+            #[cfg(since_647)]
+            blocks_npcs: true,
+            #[cfg(since_647)]
+            unknown_90: false,
+            #[cfg(since_647)]
+            members_only: false,
+            #[cfg(since_647)]
+            msirotate: false,
+            #[cfg(since_647)]
+            hasparticles: false,
+            #[cfg(since_647)]
+            cursor_op1: None,
+            #[cfg(since_647)]
+            cursor_op2: None,
+            #[cfg(since_647)]
+            msi_id: None,
+            #[cfg(since_647)]
+            interaction_side_flags: 255,
+            #[cfg(since_647)]
+            msimirror: false,
+            #[cfg(since_647)]
+            random_anim_ids: None,
+            #[cfg(since_647)]
+            random_anim_weights: None,
+            #[cfg(since_647)]
+            map_element: None,
+            #[cfg(since_647)]
+            members_op: [const { None }; 5],
+            #[cfg(since_647)]
+            quest_ids: None,
+            #[cfg(since_647)]
+            tint: [0; 4],
+            #[cfg(since_647)]
+            postoffsetx: 0,
+            #[cfg(since_647)]
+            postoffsety: 0,
+            #[cfg(since_647)]
+            postoffsetz: 0,
+            #[cfg(since_647)]
+            op167: 0,
+            #[cfg(since_647)]
+            bgsound_vorbis: false,
+            #[cfg(since_647)]
+            randomsound_vorbis: false,
+            #[cfg(since_647)]
+            op170: 960,
+            #[cfg(since_647)]
+            op171: 0,
+            #[cfg(since_647)]
+            op173: (256, 256),
+            #[cfg(since_647)]
+            unknown_177: false,
+            #[cfg(since_647)]
+            op178: 0,
             params: None,
-            debugname: None,
+            debugname: Box::default(),
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let count = buf.g1() as usize;
-                    let mut models = Vec::with_capacity(count);
-                    for _ in 0..count {
-                        let model = buf.g2();
-                        let shape = buf.g1();
-                        models.push(LocModelShape { model, shape });
-                    }
-                    self.models = Some(models.into_boxed_slice());
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => self.models = Some(read_models(buf, code)),
+            2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
+            #[cfg(since_254)]
+            5 => {
+                self.models = Some(read_models(buf, code));
+                #[cfg(since_647)]
+                {
+                    self.hd_models = Some(read_models(buf, code));
                 }
-                #[cfg(since_254)]
-                5 => {
-                    let count = buf.g1() as usize;
-                    let mut models = Vec::with_capacity(count);
-                    for _ in 0..count {
-                        models.push(LocModelShape {
-                            model: buf.g2(),
-                            shape: LocShape::CentrepieceStraight as u8,
-                        });
-                    }
-                    self.models = Some(models.into_boxed_slice());
+            }
+            14 => self.width = buf.g1(),
+            15 => self.length = buf.g1(),
+            17 => {
+                self.blockwalk = false;
+                #[cfg(since_647)]
+                {
+                    self.interact_type = 0;
                 }
-                2 => self.name = Some(buf.gjstr(10).into_boxed_str()),
-                3 => self.desc = Some(buf.gjstr(10).into_boxed_str()),
-                14 => self.width = buf.g1(),
-                15 => self.length = buf.g1(),
-                17 => self.blockwalk = false,
-                18 => self.blockrange = false,
-                19 => self.active = Some(buf.g1() == 1),
-                21 => self.hillskew = true,
-                22 => self.sharelight = true,
-                23 => self.occlude = true,
-                24 => self.anim = Some(buf.g2()),
-                25 => self.hasalpha = true,
-                28 => self.wallwidth = buf.g1(),
-                29 => self.ambient = buf.g1s(),
-                30..=34 => {
-                    self.op
-                        .get_or_insert_with(|| vec![None; 5].into_boxed_slice())
-                        [code as usize - 30] = Some(buf.gjstr(10).into_boxed_str())
+            }
+            18 => self.blockrange = false,
+            19 => {
+                let active = buf.g1();
+                self.active = Some(if cfg!(before_647) {
+                    (active == 1) as u8
+                } else {
+                    active
+                });
+            }
+            21 => self.hillskew = 1,
+            22 => self.sharelight = true,
+            23 => self.occlude = true,
+            24 => {
+                let anim = buf.g2();
+                self.anim = (cfg!(before_647) || anim != u16::MAX).then_some(anim);
+            }
+            25 => self.hasalpha = true,
+            #[cfg(since_647)]
+            27 => self.interact_type = 1,
+            28 => self.wallwidth = buf.g1(),
+            29 => self.ambient = buf.g1s(),
+            30..=34 => {
+                let op = buf.gjstr(STRING_TERMINATOR);
+                self.op
+                    .get_or_insert_with(|| vec![None; 5].into_boxed_slice())[code as usize - 30] =
+                    Some(op.into_boxed_str());
+            }
+            39 => self.contrast = buf.g1s(),
+            40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
+            #[cfg(since_647)]
+            41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
+            #[cfg(since_647)]
+            42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
+            #[cfg(before_647)]
+            60 => self.mapfunction = Some(buf.g2()),
+            61 => self.category = Some(buf.g2()),
+            62 => self.mirror = true,
+            64 => self.shadow = false,
+            65 => self.resizex = buf.g2(),
+            66 => self.resizey = buf.g2(),
+            67 => self.resizez = buf.g2(),
+            #[cfg(before_647)]
+            68 => self.mapscene = Some(buf.g2()),
+            69 => self.forceapproach = ForceApproach::try_from(buf.g1()).unwrap(),
+            70 => self.offsetx = buf.g2s(),
+            71 => self.offsety = buf.g2s(),
+            72 => self.offsetz = buf.g2s(),
+            73 => self.forcedecor = true,
+            #[cfg(since_245_2)]
+            74 => self.breakroutefinding = true,
+            #[cfg(since_254)]
+            75 => self.raiseobject = Some(buf.g1()),
+            #[cfg(since_289)]
+            77 => self.decode_multiloc(buf, false),
+            #[cfg(since_647)]
+            78 => {
+                self.ambient_sfx_id = Some(buf.g2());
+                self.ambient_sfx_range = buf.g1();
+            }
+            #[cfg(since_647)]
+            79 => {
+                self.sfx_random_pri = buf.g2() as i32;
+                self.sfx_random_sec = buf.g2() as i32;
+                self.ambient_sfx_range = buf.g1();
+                self.sfx_random_ids = Some(read_array(buf, Packet::g2));
+            }
+            #[cfg(since_647)]
+            81 => {
+                self.hillskew = 2;
+                self.hillskew_param = Some((buf.g1() as i32) * 256);
+            }
+            #[cfg(since_647)]
+            82 => self.hide_minimap = true,
+            #[cfg(since_647)]
+            88 => self.minimap_visible = false,
+            #[cfg(since_647)]
+            89 => self.blocks_npcs = false,
+            #[cfg(since_647)]
+            90 => self.unknown_90 = true,
+            #[cfg(since_647)]
+            91 => self.members_only = true,
+            #[cfg(since_647)]
+            92 => self.decode_multiloc(buf, true),
+            #[cfg(since_647)]
+            93 => {
+                self.hillskew = 3;
+                self.hillskew_param = Some(buf.g2() as i32);
+            }
+            #[cfg(since_647)]
+            94 => self.hillskew = 4,
+            #[cfg(since_647)]
+            95 => {
+                self.hillskew = 5;
+                let param = buf.g2s() as i32;
+                self.hillskew_param = (param != -1).then_some(param);
+            }
+            #[cfg(since_647)]
+            97 => self.msirotate = true,
+            #[cfg(since_647)]
+            98 => self.hasparticles = true,
+            #[cfg(since_647)]
+            99 => self.cursor_op1 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            100 => self.cursor_op2 = Some((buf.g1(), buf.g2())),
+            #[cfg(since_647)]
+            101 => self.mapfunction = Some(buf.g1() as u16),
+            #[cfg(since_647)]
+            102 => self.msi_id = Some(buf.g2()),
+            #[cfg(since_647)]
+            103 => self.occlude = false,
+            #[cfg(since_647)]
+            104 => self.interaction_side_flags = buf.g1(),
+            #[cfg(since_647)]
+            105 => self.msimirror = true,
+            #[cfg(since_647)]
+            106 => {
+                let count = buf.g1() as usize;
+                let mut ids = Vec::with_capacity(count);
+                let mut weights = Vec::with_capacity(count);
+                for _ in 0..count {
+                    ids.push(buf.g2());
+                    weights.push(buf.g1());
                 }
-                39 => self.contrast = buf.g1s(),
-                40 => {
-                    let count = buf.g1() as usize;
-                    let mut recol_s = vec![0; count];
-                    let mut recol_d = vec![0; count];
-                    for i in 0..count {
-                        recol_s[i] = buf.g2();
-                        recol_d[i] = buf.g2();
-                    }
-                    self.recol_s = Some(recol_s.into_boxed_slice());
-                    self.recol_d = Some(recol_d.into_boxed_slice());
-                }
-                60 => self.mapfunction = Some(buf.g2()),
-                61 => self.category = Some(buf.g2()),
-                62 => self.mirror = true,
-                64 => self.shadow = false,
-                65 => self.resizex = buf.g2(),
-                66 => self.resizey = buf.g2(),
-                67 => self.resizez = buf.g2(),
-                68 => self.mapscene = Some(buf.g2()),
-                69 => self.forceapproach = ForceApproach::try_from(buf.g1()).unwrap(),
-                70 => self.offsetx = buf.g2s(),
-                71 => self.offsety = buf.g2s(),
-                72 => self.offsetz = buf.g2s(),
-                73 => self.forcedecor = true,
-                #[cfg(since_245_2)]
-                74 => self.breakroutefinding = true,
-                #[cfg(since_254)]
-                75 => self.raiseobject = Some(buf.g1()),
-                #[cfg(since_289)]
-                77 => {
-                    self.multivar = Some(buf.g2());
-                    let count = buf.g1() as usize;
-                    let mut multiloc = vec![0i32; count + 1];
-                    for slot in multiloc.iter_mut() {
-                        let id = buf.g2();
-                        *slot = if id == u16::MAX { -1 } else { id as i32 };
-                    }
-                    self.multiloc = Some(multiloc.into_boxed_slice());
-                }
-                249 => ParamType::decode_params(
+                self.random_anim_ids = Some(ids.into_boxed_slice());
+                self.random_anim_weights = Some(weights.into_boxed_slice());
+            }
+            #[cfg(since_647)]
+            107 => self.map_element = Some(buf.g2()),
+            #[cfg(since_647)]
+            150..=154 => {
+                let slot = (code - 150) as usize;
+                let s = buf.gjstr(STRING_TERMINATOR);
+                self.members_op[slot] = if s.is_empty() {
+                    None
+                } else {
+                    Some(s.into_boxed_str())
+                };
+            }
+            #[cfg(since_647)]
+            160 => self.quest_ids = Some(read_array(buf, Packet::g2)),
+            #[cfg(since_647)]
+            162 => {
+                self.hillskew = 3;
+                let param = buf.g4s();
+                self.hillskew_param = (param != -1).then_some(param);
+            }
+            #[cfg(since_647)]
+            163 => self.tint = [buf.g1s(), buf.g1s(), buf.g1s(), buf.g1s()],
+            #[cfg(since_647)]
+            164 => self.postoffsetx = buf.g2s(),
+            #[cfg(since_647)]
+            165 => self.postoffsety = buf.g2s(),
+            #[cfg(since_647)]
+            166 => self.postoffsetz = buf.g2s(),
+            #[cfg(since_647)]
+            167 => self.op167 = buf.g2() as i32,
+            #[cfg(since_647)]
+            168 => self.bgsound_vorbis = true,
+            #[cfg(since_647)]
+            169 => self.randomsound_vorbis = true,
+            #[cfg(since_647)]
+            170 => self.op170 = buf.gsmart1or2(),
+            #[cfg(since_647)]
+            171 => self.op171 = buf.gsmart1or2(),
+            #[cfg(since_647)]
+            173 => self.op173 = (buf.g2(), buf.g2()),
+            #[cfg(since_647)]
+            177 => self.unknown_177 = true,
+            #[cfg(since_647)]
+            178 => self.op178 = buf.g1(),
+            249 => {
+                ParamType::decode_params(
                     buf,
                     self.params
                         .get_or_insert_with(|| Box::new(FxHashMap::default())),
-                ),
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                _ => panic!("Unrecognized loc config code: {code}"),
+                );
             }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            _ => crate::unknown_opcode!("loc", code),
         }
     }
 
-    fn post_decode(locs: &mut Vec<Self>, _ctx: &()) {
+    fn post_decode(locs: &mut Vec<Self>, _ctx: &Self::Context) {
         for loc in locs.iter_mut() {
             if loc.active.is_none() {
-                let mut active = false;
-
-                if let Some(models) = &loc.models
-                    && models
-                        .first()
-                        .is_some_and(|m| m.shape == LocShape::CentrepieceStraight as u8)
-                {
-                    active = true;
-                }
-
-                if loc.op.is_some() {
-                    active = true;
-                }
-
-                loc.active = Some(active);
+                let active = loc.models.as_deref().is_some_and(|models| {
+                    (cfg!(before_647) || models.len() == 1)
+                        && models
+                            .first()
+                            .is_some_and(|m| m.shape == LocShape::CentrepieceStraight as u8)
+                }) || loc
+                    .op
+                    .as_deref()
+                    .is_some_and(|op| cfg!(before_647) || op.iter().any(Option::is_some));
+                loc.active = Some(active as u8);
+            }
+            #[cfg(since_647)]
+            if loc.raiseobject.is_none() {
+                loc.raiseobject = Some((loc.interact_type != 0) as u8);
             }
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
+}
+
+impl LocTypeRaw {
+    #[cfg(since_289)]
+    fn decode_multiloc(&mut self, buf: &mut Packet, has_default: bool) {
+        self.transform_varbit = read_id(buf);
+        if cfg!(since_647) {
+            self.transform_varp = read_id(buf);
+        }
+        let default = if has_default { read_id(buf) } else { -1 };
+        self.multiloc = Some(read_transforms(buf, default));
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod multiloc_tests {
+    use super::*;
+
+    /// 2011's Mill Lane flour bin (36880): on varp 695, 0 the empty bin
+    /// (36879), 1-30 the full one (36878); its default is none.
+    fn flour_bin() -> LocType {
+        let mut multi = vec![36879, 36878, 36878, 36878];
+        multi.push(-1);
+        LocType::from(LocTypeRaw::new(36880)).with_multi(MultiVar::Varp(695), multi)
+    }
+
+    impl LocType {
+        fn with_multi(mut self, var: MultiVar, multi: Vec<i32>) -> Self {
+            self.multivar = Some(var);
+            self.multiloc = Some(multi.into_boxed_slice());
+            self
+        }
+    }
+
+    #[test]
+    fn a_multiloc_is_the_loc_its_var_picks() {
+        let bin = flour_bin();
+        assert_eq!(bin.multi_loc(0), Some(36879), "empty");
+        assert_eq!(bin.multi_loc(1), Some(36878), "full");
+        assert_eq!(bin.multi_loc(3), Some(36878), "full");
+    }
+
+    /// Out of range, or -1, the client takes the default: none here.
+    #[test]
+    fn past_its_locs_a_multiloc_is_its_default() {
+        let bin = flour_bin();
+        assert_eq!(bin.multi_loc(4), None);
+        assert_eq!(bin.multi_loc(-1), None);
+    }
+
+    #[test]
+    fn a_loc_that_is_no_multiloc_is_itself() {
+        let loc = LocType::from(LocTypeRaw::new(2718));
+        assert_eq!(loc.multi_loc(7), Some(2718));
+    }
+}
+
+fn read_models(buf: &mut Packet, _code: u8) -> Box<[LocModelShape]> {
+    read_array(buf, |buf| {
+        #[cfg(before_647)]
+        let model = buf.g2();
+        #[cfg(before_647)]
+        let shape = if _code == 1 {
+            buf.g1()
+        } else {
+            LocShape::CentrepieceStraight as u8
+        };
+        #[cfg(since_647)]
+        let shape = buf.g1();
+        #[cfg(since_647)]
+        let models = read_array(buf, Packet::g2);
+        LocModelShape {
+            #[cfg(before_647)]
+            model,
+            #[cfg(since_647)]
+            models,
+            shape,
+        }
+    })
 }

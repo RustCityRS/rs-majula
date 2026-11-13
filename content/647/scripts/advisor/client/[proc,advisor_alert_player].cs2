@@ -1,0 +1,18 @@
+// 1888
+[proc,advisor_alert_player]
+if (%advisor_alert_cc = true) {
+    return;
+}
+if (~script2728 = 1 & %advisor_tutorial_id = 0 & %tutorial >= 1000) {
+    if (%playerdesign2_client_haircol > clientclock) {
+        return;
+    }
+    %playerdesign2_client_haircol = calc(clientclock + 1500);
+    if (%lumbcat_in_quest_for_client = 1) {
+        mes("Your health is low! Run away from your attacker and speak to Xenia.");
+    } else {
+        mes("Your health is low! Find a safe place away from your attacker");
+        mes("or eat some food to heal yourself.");
+    }
+}
+%advisor_alert_cc = true;

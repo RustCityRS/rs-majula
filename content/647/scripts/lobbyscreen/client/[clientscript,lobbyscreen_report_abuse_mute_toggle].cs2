@@ -1,0 +1,9 @@
+// 3178
+[clientscript,lobbyscreen_report_abuse_mute_toggle](component $component0)
+if (%snapshot_mute = false) {
+    %snapshot_mute = true;
+    if_setgraphic($component0, "check_box_2,2");
+} else {
+    %snapshot_mute = false;
+    if_setgraphic($component0, "check_box_2,0");
+}

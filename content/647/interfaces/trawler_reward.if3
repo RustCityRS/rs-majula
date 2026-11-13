@@ -1,0 +1,246 @@
+// 367:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=490
+height=300
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+
+// 367:1
+[universe]
+type=layer
+width=490
+height=300
+xmode=abs_centre
+ymode=abs_centre
+
+// 367:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 367:3
+[com_3]
+type=model
+x=14
+y=28
+width=303
+height=255
+layer=universe
+model=model_1866
+modelorigin=12,-1
+modelangle=238,147,0
+modelzoom=586
+
+// 367:4
+[com_4]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+trans=50
+colour=0x000000
+
+// 367:5
+[com_5]
+type=graphic
+x=-13
+y=5
+width=32
+height=10
+heightmode=minus
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 367:6
+[com_6]
+type=graphic
+width=30
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=universe
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0x000000
+
+// 367:7
+[com_7]
+type=graphic
+width=32
+height=32
+layer=universe
+graphic="v2_stone_borders,35"
+colour=0x000000
+
+// 367:8
+[com_8]
+type=graphic
+x=-12
+width=32
+height=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 367:9
+[com_9]
+type=graphic
+y=-12
+width=10
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 367:10
+[com_10]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 367:11
+[com_11]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=universe
+graphic="v2_stone_borders,37"
+colour=0x000000
+
+// 367:12
+[com_12]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 367:13
+[com_13]
+type=text
+width=400
+height=24
+xmode=abs_centre
+layer=universe
+textfont=b12_full
+text=Trawler Catch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 367:14
+[com_14]
+type=graphic
+x=10
+y=4
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic="v2_stone_close_button,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,3")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,2")
+onop=closebutton_click
+
+// 367:15
+[bank]
+type=model
+x=10
+y=169
+width=70
+height=117
+xmode=abs_right
+layer=universe
+model=model_9357
+modelorigin=-2,58
+modelangle=0,68,0
+modelzoom=1100
+modelnodepth=yes
+candrop=yes
+
+// 367:16
+[banktext]
+type=text
+x=10
+y=130
+width=70
+height=100
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+textfont=p11_full
+text=Drag items here to send them to your bank.
+textalignv=bottom
+textshadow=yes
+candrop=yes
+
+// 367:17
+[warning]
+type=text
+width=100
+height=100
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+textfont=p11_full
+text=Items left in the net will be dumped on the ground<br>when this interface is closed.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 367:18
+[items]
+type=layer
+x=10
+y=40
+width=400
+height=240
+layer=universe
+noclickthrough=yes
+onload=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext)
+oninvtransmit=trawler_reward_setup(event_com, trawler_reward:bank, trawler_reward:banktext){trawler_rewardinv}

@@ -1,0 +1,8 @@
+// 2334
+[clientscript,script2334](int $int0)
+if_settext(chatdefault:monthtext, enum(int, string, enum_950, $int0));
+if_setvflip(chatdefault:montharrow, false);
+if_sethide(chatdefault:monthddlist, true);
+if_sethide(chatdefault:monthddscroll, true);
+if_sethide(chatdefault:monthddlistborder, true);
+if_sethide(chatdefault:monthddback, true);

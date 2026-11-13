@@ -1,0 +1,587 @@
+// 271:0
+[prayer_level_layer]
+type=layer
+width=190
+height=22
+ymode=abs_bottom
+
+// 271:1
+[prayer_level_icon]
+type=graphic
+x=63
+y=1
+width=17
+height=18
+ymode=abs_bottom
+layer=prayer_level_layer
+graphic="options_icons_small,2"
+colour=0xffffffff
+
+// 271:2
+[prayer_level]
+type=text
+x=87
+y=1
+width=48
+height=18
+ymode=abs_bottom
+layer=prayer_level_layer
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onstattransmit=prayer_level(event_com){prayer}
+
+// 271:3
+[com_3]
+type=graphic
+y=225
+width=190
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 271:4
+[base]
+type=layer
+width=190
+height=261
+onvarctransmit=prayer_load_buttons{prayer_custom_view_client}
+
+// 271:5
+[prayer_and_glow_layer]
+type=layer
+y=2
+width=190
+height=259
+layer=base
+
+// 271:6
+[scrollbar_layer]
+type=layer
+y=2
+width=16
+height=216
+xmode=abs_right
+layer=base
+
+// 271:7
+[glow]
+type=layer
+width=190
+height=261
+layer=prayer_and_glow_layer
+onload=prayer_load_glow(event_com)
+
+// 271:8
+[prayer_buttons]
+type=layer
+width=190
+height=261
+layer=prayer_and_glow_layer
+onload=prayer_load_buttons
+
+// 271:9
+[stats_layer]
+type=layer
+y=23
+width=16391
+height=19
+widthmode=proportion
+ymode=abs_bottom
+layer=base
+onload=prayer_if_stats_init
+
+// 271:10
+[com_10]
+type=layer
+width=16391
+height=18
+widthmode=proportion
+ymode=abs_bottom
+layer=stats_layer
+
+// 271:11
+[com_11]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_10
+colour=0x24211d
+fill=yes
+
+// 271:12
+[com_12]
+type=text
+y=1
+width=16391
+height=17483
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_10
+textfont=p11_full
+text=Show stat adjustments
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffcc00
+transmitop=1
+op1=Show stat adjustments
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xffcc00)
+
+// 271:13
+[stats_display_layer]
+type=layer
+y=18
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_bottom
+layer=stats_layer
+
+// 271:14
+[com_14]
+type=line
+x=37
+y=18
+height=59
+layer=stats_display_layer
+colour=0x281d27
+
+// 271:15
+[com_15]
+type=line
+x=38
+y=22
+height=59
+layer=stats_display_layer
+colour=0x71696c
+
+// 271:16
+[com_16]
+type=line
+x=73
+y=17
+height=59
+layer=stats_display_layer
+colour=0x281d27
+
+// 271:17
+[com_17]
+type=line
+x=74
+y=21
+height=59
+layer=stats_display_layer
+colour=0x71696c
+
+// 271:18
+[com_18]
+type=line
+x=111
+y=18
+height=59
+layer=stats_display_layer
+colour=0x281d27
+
+// 271:19
+[com_19]
+type=line
+x=112
+y=22
+height=59
+layer=stats_display_layer
+colour=0x71696c
+
+// 271:20
+[com_20]
+type=line
+x=152
+y=18
+height=59
+layer=stats_display_layer
+colour=0x281d27
+
+// 271:21
+[com_21]
+type=line
+x=153
+y=22
+height=59
+layer=stats_display_layer
+colour=0x71696c
+
+// 271:22
+[com_22]
+type=rectangle
+y=21
+width=16391
+height=39
+widthmode=proportion
+layer=stats_display_layer
+colour=0xffffff
+fill=yes
+trans=222
+
+// 271:23
+[com_23]
+type=rectangle
+y=47
+width=16391
+height=3591
+widthmode=proportion
+heightmode=proportion
+layer=stats_display_layer
+colour=0x000000
+fill=yes
+trans=196
+
+// 271:24
+[stat_text_layer]
+type=layer
+y=49
+width=190
+height=21
+layer=stats_display_layer
+hide=yes
+
+// 271:25
+[attack_txt_layer]
+type=layer
+x=1
+y=-3
+width=39
+height=20
+layer=stat_text_layer
+
+// 271:26
+[strength_txt_layer]
+type=layer
+x=38
+y=-3
+width=39
+height=20
+layer=stat_text_layer
+transmitop=10
+op10= 
+
+// 271:27
+[defence_txt_layer]
+type=layer
+x=-1
+y=-3
+width=39
+height=20
+xmode=abs_centre
+layer=stat_text_layer
+transmitop=10
+op10= 
+
+// 271:28
+[ranged_txt_layer]
+type=layer
+x=113
+y=-3
+width=39
+height=20
+layer=stat_text_layer
+transmitop=10
+op10= 
+
+// 271:29
+[magic_txt_layer]
+type=layer
+x=152
+y=-3
+width=39
+height=20
+layer=stat_text_layer
+transmitop=10
+op10= 
+
+// 271:30
+[magic_txt]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=magic_txt_layer
+textfont=p11_full
+text=+15%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 271:31
+[ranged_txt]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=ranged_txt_layer
+textfont=p11_full
+text=+15%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 271:32
+[defence_txt]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=defence_txt_layer
+textfont=p11_full
+text=+15%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 271:33
+[strength_txt]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=strength_txt_layer
+textfont=p11_full
+text=+15%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 271:34
+[attack_txt]
+type=text
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=attack_txt_layer
+textfont=p11_full
+text=+15%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 271:35
+[attack_icon]
+type=graphic
+x=9
+y=21
+width=25
+height=25
+layer=stats_display_layer
+graphic="staticons,0"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 271:36
+[strength_icon]
+type=graphic
+x=44
+y=22
+width=25
+height=25
+layer=stats_display_layer
+graphic="staticons,1"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 271:37
+[defence_icon]
+type=graphic
+x=81
+y=21
+width=25
+height=25
+layer=stats_display_layer
+graphic="staticons,2"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 271:38
+[ranged_icon]
+type=graphic
+x=120
+y=22
+width=25
+height=25
+layer=stats_display_layer
+graphic="staticons,3"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 271:39
+[magic_icon]
+type=graphic
+x=158
+y=21
+width=25
+height=25
+layer=stats_display_layer
+graphic="staticons,5"
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 271:40
+[com_40]
+type=graphic
+y=-13
+width=16391
+height=35
+widthmode=proportion
+layer=com_10
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 271:41
+[com_41]
+type=graphic
+y=-12
+width=190
+height=32
+layer=stats_layer
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 271:42
+[customise]
+type=layer
+width=190
+height=261
+layer=base
+hide=yes
+
+// 271:43
+[confirm_layer]
+type=layer
+x=60
+y=236
+width=100
+height=25
+layer=customise
+transmitop=1
+op1=Confirm Selection
+onmouseleave=prayer_custom_confirm_mouseleave(prayer:confirm_text, prayer:custom_confirm)
+onmouserepeat=prayer_custom_confirm_mouseover(prayer:confirm_text, prayer:custom_confirm)
+
+// 271:44
+[confirm_text]
+type=text
+x=29
+y=9
+width=62
+height=15
+layer=confirm_layer
+textfont=p11_full
+text=Confirm
+textshadow=yes
+colour=0xff981f
+
+// 271:45
+[custom_confirm]
+type=graphic
+x=3
+y=3
+width=23
+height=23
+layer=confirm_layer
+graphic="ame_confirm_button_no_back,0"
+colour=0xffffffff
+
+// 271:46
+[custom_instructions]
+type=text
+x=4
+y=6
+width=183
+height=14
+layer=customise
+textfont=p11_full
+text=Select your quick prayers:
+textshadow=yes
+colour=0xff981f
+
+// 271:47
+[grey]
+type=rectangle
+y=24
+width=190
+height=213
+layer=customise
+colour=0x969696
+fill=yes
+trans=144
+
+// 271:48
+[com_48]
+type=graphic
+y=9
+width=190
+height=32
+layer=customise
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 271:49
+[tooltips]
+type=layer
+width=1
+height=1
+layer=base

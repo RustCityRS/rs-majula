@@ -1,0 +1,263 @@
+// 3477
+[proc,love_puzzle_update]
+def_int $int0 = calc(3 - ~love_puzzle_used_1(1));
+if ($int0 > 0) {
+    if_setobject_alwaysnum(love_puzzle:source_1_l, enum(int, obj, enum_3082, 1), $int0);
+    if_setonop(love_puzzle:source_1_l, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_1_l, 1, "Select");
+} else {
+    if_setobject_nonum(love_puzzle:source_1_l, null, 0);
+    if_setonop(love_puzzle:source_1_l, null);
+    if_clearops(love_puzzle:source_1_l);
+}
+$int0 = calc(2 - ~love_puzzle_used_1(2));
+if ($int0 > 0) {
+    if_setobject_alwaysnum(love_puzzle:source_1_r, enum(int, obj, enum_3082, 2), $int0);
+    if_setonop(love_puzzle:source_1_r, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_1_r, 1, "Select");
+} else {
+    if_setobject_nonum(love_puzzle:source_1_r, null, 0);
+    if_setonop(love_puzzle:source_1_r, null);
+    if_clearops(love_puzzle:source_1_r);
+}
+$int0 = calc(2 - ~love_puzzle_used_1(3));
+if ($int0 > 0) {
+    if_setobject_alwaysnum(love_puzzle:source_1_b, enum(int, obj, enum_3082, 3), $int0);
+    if_setonop(love_puzzle:source_1_b, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_1_b, 1, "Select");
+} else {
+    if_setobject_nonum(love_puzzle:source_1_b, null, 0);
+    if_setonop(love_puzzle:source_1_b, null);
+    if_clearops(love_puzzle:source_1_b);
+}
+$int0 = calc(2 - ~love_puzzle_used_2(1));
+if ($int0 > 0) {
+    if_setobject_alwaysnum(love_puzzle:source_2_l, enum(int, obj, enum_3083, 1), $int0);
+    if_setonop(love_puzzle:source_2_l, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_2_l, 1, "Select");
+} else {
+    if_setobject_nonum(love_puzzle:source_2_l, null, 0);
+    if_setonop(love_puzzle:source_2_l, null);
+    if_clearops(love_puzzle:source_2_l);
+}
+$int0 = calc(4 - ~love_puzzle_used_2(2));
+if ($int0 > 0) {
+    if_setobject_alwaysnum(love_puzzle:source_2_r, enum(int, obj, enum_3083, 2), $int0);
+    if_setonop(love_puzzle:source_2_r, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_2_r, 1, "Select");
+} else {
+    if_setobject_nonum(love_puzzle:source_2_r, null, 0);
+    if_setonop(love_puzzle:source_2_r, null);
+    if_clearops(love_puzzle:source_2_r);
+}
+$int0 = calc(2 - ~love_puzzle_used_2(3));
+if ($int0 > 0) {
+    if_setobject_alwaysnum(love_puzzle:source_2_b, enum(int, obj, enum_3083, 3), $int0);
+    if_setonop(love_puzzle:source_2_b, "love_puzzle_sourceclick(event_op)");
+    if_setop(love_puzzle:source_2_b, 1, "Select");
+} else {
+    if_setobject_nonum(love_puzzle:source_2_b, null, 0);
+    if_setonop(love_puzzle:source_2_b, null);
+    if_clearops(love_puzzle:source_2_b);
+}
+cc_deleteall(love_puzzle:grid1);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+while ($int1 < 28) {
+    cc_create(love_puzzle:grid1, ^iftype_graphic, $int1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((6 - $int2) * 16 + $int3 * 32), calc($int2 * 32), ^setpos_abs_left, ^setpos_abs_bottom);
+    $int0 = ~love_puzzle_read_1($int1);
+    cc_setobject_nonum(enum(int, obj, enum_3082, $int0), 1);
+    if ($int0 > 0) {
+        cc_setop(1, "Remove tile");
+        cc_setonop("script1620(event_com, event_comsubid, 150, 0, 10)");
+        cc_setdragdeadzone(5);
+        cc_setdragdeadtime(5);
+        cc_setdragrenderbehaviour(2);
+    }
+    if ($int3 >= $int2) {
+        $int3 = 0;
+        $int2 = calc($int2 + 1);
+    } else {
+        $int3 = calc($int3 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+cc_deleteall(love_puzzle:grid2);
+$int1 = 0;
+$int2 = 6;
+$int3 = 0;
+while ($int1 < 28) {
+    cc_create(love_puzzle:grid2, ^iftype_graphic, $int1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((6 - $int2) * 16 + $int3 * 32), calc($int2 * 32), ^setpos_abs_left, ^setpos_abs_top);
+    $int0 = ~love_puzzle_read_2($int1);
+    cc_setobject_nonum(enum(int, obj, enum_3083, $int0), 1);
+    if ($int0 > 0) {
+        cc_setop(1, "Remove tile");
+        cc_setonop("script1620(event_com, event_comsubid, 125, 0, 8)");
+        cc_setdragdeadzone(5);
+        cc_setdragdeadtime(5);
+        cc_setdragrenderbehaviour(2);
+    }
+    if ($int3 >= $int2) {
+        $int3 = 0;
+        $int2 = calc($int2 - 1);
+    } else {
+        $int3 = calc($int3 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+~love_puzzle_node(love_puzzle:grid1, 0, 7, 0xff981f);
+$int1 = 0;
+while ($int1 <= 30) {
+    if (testbit(%love_puzzle_nodes_1, $int1) = ^true) {
+        switch_int ($int1) {
+            case 0 :
+                ~love_puzzle_node(love_puzzle:grid1, -1, 5, 0xff981f);
+            case 1 :
+                ~love_puzzle_node(love_puzzle:grid1, -2, 3, 0xff981f);
+            case 2 :
+                ~love_puzzle_node(love_puzzle:grid1, 0, 3, 0xff981f);
+            case 3 :
+                ~love_puzzle_node(love_puzzle:grid1, 2, 3, 0xff981f);
+            case 4 :
+                ~love_puzzle_node(love_puzzle:grid1, -3, 1, 0xff981f);
+            case 5 :
+                ~love_puzzle_node(love_puzzle:grid1, 1, 1, 0xff981f);
+            case 6 :
+                ~love_puzzle_node(love_puzzle:grid1, 3, 1, 0xff981f);
+            case 7 :
+                ~love_puzzle_node(love_puzzle:grid1, -4, -1, 0xff981f);
+            case 8 :
+                ~love_puzzle_node(love_puzzle:grid1, -2, -1, 0xff981f);
+            case 9 :
+                ~love_puzzle_node(love_puzzle:grid1, 2, -1, 0xff981f);
+            case 10 :
+                ~love_puzzle_node(love_puzzle:grid1, 4, -1, 0xff981f);
+            case 11 :
+                ~love_puzzle_node(love_puzzle:grid1, -5, -3, 0xff981f);
+            case 12 :
+                ~love_puzzle_node(love_puzzle:grid1, -3, -3, 0xff981f);
+            case 13 :
+                ~love_puzzle_node(love_puzzle:grid1, 1, -3, 0xff981f);
+            case 14 :
+                ~love_puzzle_node(love_puzzle:grid1, 3, -3, 0xff981f);
+            case 15 :
+                ~love_puzzle_node(love_puzzle:grid1, 5, -3, 0xff981f);
+            case 16 :
+                ~love_puzzle_node(love_puzzle:grid1, -6, -5, 0xff981f);
+            case 17 :
+                ~love_puzzle_node(love_puzzle:grid1, -4, -5, 0xff981f);
+            case 18 :
+                ~love_puzzle_node(love_puzzle:grid1, -2, -5, 0xff981f);
+            case 19 :
+                ~love_puzzle_node(love_puzzle:grid1, 0, -5, 0xff981f);
+            case 20 :
+                ~love_puzzle_node(love_puzzle:grid1, 2, -5, 0xff981f);
+            case 21 :
+                ~love_puzzle_node(love_puzzle:grid1, 4, -5, 0xff981f);
+            case 22 :
+                ~love_puzzle_node(love_puzzle:grid1, 6, -5, 0xff981f);
+            case 23 :
+                ~love_puzzle_node(love_puzzle:grid1, -7, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, -7, 7, 0xff981f);
+            case 24 :
+                ~love_puzzle_node(love_puzzle:grid1, -5, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, -5, 7, 0xff981f);
+            case 25 :
+                ~love_puzzle_node(love_puzzle:grid1, -3, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, -3, 7, 0xff981f);
+            case 26 :
+                ~love_puzzle_node(love_puzzle:grid1, -1, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, -1, 7, 0xff981f);
+            case 27 :
+                ~love_puzzle_node(love_puzzle:grid1, 1, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, 1, 7, 0xff981f);
+            case 28 :
+                ~love_puzzle_node(love_puzzle:grid1, 3, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, 3, 7, 0xff981f);
+            case 29 :
+                ~love_puzzle_node(love_puzzle:grid1, 5, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, 5, 7, 0xff981f);
+            case 30 :
+                ~love_puzzle_node(love_puzzle:grid1, 7, -7, 0xff981f);
+                ~love_puzzle_node(love_puzzle:grid2, 7, 7, 0xff981f);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+$int1 = 0;
+while ($int1 <= 30) {
+    if (testbit(%love_puzzle_nodes_2, $int1) = ^true) {
+        switch_int ($int1) {
+            case 0 :
+                ~love_puzzle_node(love_puzzle:grid2, -6, 5, 0xff981f);
+            case 1 :
+                ~love_puzzle_node(love_puzzle:grid2, -4, 5, 0xff981f);
+            case 2 :
+                ~love_puzzle_node(love_puzzle:grid2, -2, 5, 0xff981f);
+            case 3 :
+                ~love_puzzle_node(love_puzzle:grid2, 0, 5, 0xff981f);
+            case 4 :
+                ~love_puzzle_node(love_puzzle:grid2, 2, 5, 0xff981f);
+            case 5 :
+                ~love_puzzle_node(love_puzzle:grid2, 4, 5, 0xff981f);
+            case 6 :
+                ~love_puzzle_node(love_puzzle:grid2, 6, 5, 0xff981f);
+            case 7 :
+                ~love_puzzle_node(love_puzzle:grid2, -5, 3, 0xff981f);
+            case 8 :
+                ~love_puzzle_node(love_puzzle:grid2, -3, 3, 0xff981f);
+            case 9 :
+                ~love_puzzle_node(love_puzzle:grid2, 3, 3, 0xff981f);
+            case 10 :
+                ~love_puzzle_node(love_puzzle:grid2, 5, 3, 0xff981f);
+            case 11 :
+                ~love_puzzle_node(love_puzzle:grid2, -4, 1, 0xff981f);
+            case 12 :
+                ~love_puzzle_node(love_puzzle:grid2, 4, 1, 0xff981f);
+            case 13 :
+                ~love_puzzle_node(love_puzzle:grid2, -3, -1, 0xff981f);
+            case 14 :
+                ~love_puzzle_node(love_puzzle:grid2, -1, -1, 0xff981f);
+            case 15 :
+                ~love_puzzle_node(love_puzzle:grid2, 1, -1, 0xff981f);
+            case 16 :
+                ~love_puzzle_node(love_puzzle:grid2, 3, -1, 0xff981f);
+            case 17 :
+                ~love_puzzle_node(love_puzzle:grid2, 0, -3, 0xff981f);
+            case 18 :
+                ~love_puzzle_node(love_puzzle:grid2, 2, -3, 0xff981f);
+            case 19 :
+                ~love_puzzle_node(love_puzzle:grid2, -1, -5, 0xff981f);
+            case 20 :
+                ~love_puzzle_node(love_puzzle:grid2, 0, -7, 0xff981f);
+            case 21 :
+                ~love_puzzle_node(love_puzzle:grid1, 1, 5, ^black);
+            case 22 :
+                ~love_puzzle_node(love_puzzle:grid1, -1, 1, ^black);
+            case 23 :
+                ~love_puzzle_node(love_puzzle:grid1, 0, -1, ^black);
+            case 24 :
+                ~love_puzzle_node(love_puzzle:grid1, -1, -3, ^black);
+            case 25 :
+                ~love_puzzle_node(love_puzzle:grid2, 1, 3, ^black);
+            case 26 :
+                ~love_puzzle_node(love_puzzle:grid2, -2, 1, ^black);
+            case 27 :
+                ~love_puzzle_node(love_puzzle:grid2, 0, 1, ^black);
+            case 28 :
+                ~love_puzzle_node(love_puzzle:grid2, 2, 1, ^black);
+            case 29 :
+                ~love_puzzle_node(love_puzzle:grid2, -2, -3, ^black);
+            case 30 :
+                ~love_puzzle_node(love_puzzle:grid2, 1, -5, ^black);
+            case default :
+                cc_sethide(true);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

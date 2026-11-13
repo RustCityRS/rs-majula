@@ -1,0 +1,167 @@
+// 154:0
+[com_0]
+type=model
+x=8
+y=30
+width=499
+height=305
+model=model_28554
+modelorigin=2,-13
+modelzoom=482
+
+// 154:1
+[bookmacro_title_5]
+type=graphic
+x=82
+y=5
+width=350
+height=36
+graphic="v2_book_arrows,1"
+tiling=yes
+colour=0xffffffff
+
+// 154:2
+[bookmacro_title]
+type=graphic
+x=43
+y=1
+width=39
+height=39
+graphic="v2_book_arrows,0"
+colour=0xffffffff
+
+// 154:3
+[bookmacro_title_3]
+type=graphic
+x=82
+y=2
+width=352
+height=30
+graphic="v2_book_arrows,1"
+tiling=yes
+colour=0xffffffff
+
+// 154:4
+[bookmacro_title_4]
+type=graphic
+x=432
+y=1
+width=39
+height=39
+graphic="v2_book_arrows,2"
+colour=0xffffffff
+
+// 154:5
+[bm1]
+type=layer
+x=12
+y=20
+width=487
+height=45
+
+// 154:6
+[close_btn]
+type=graphic
+x=479
+y=5
+width=21
+height=21
+graphic="v2_book_buttons,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_book_buttons,1")
+onmouseleave=graphic_swapper(event_com, "v2_book_buttons,0")
+onop=closebutton_click
+
+// 154:7
+[bookmacro1title]
+type=text
+x=18
+y=8
+width=478
+height=26
+textfont=quill_oblique_large
+text=Bolrie's Diary
+textalignh=centre
+textalignv=centre
+colour=0x493217
+
+// 154:8
+[chapter1]
+type=text
+x=38
+y=54
+width=197
+height=54
+textfont=quill_oblique_large
+text=Chapter 1. Meeting the elves
+colour=0x46320a
+transmitop=1
+opbase=chapter 1
+op1=Read
+opcursor0=cursor_read
+onmouseover=text_colour_swapper(event_com, 0x8c6414)
+onmouseleave=text_colour_swapper(event_com, 0x46320a)
+
+// 154:9
+[bookmacro1b]
+type=text
+x=38
+y=108
+width=208
+height=65
+textfont=q8_full
+text=In which Bolrie arrives in Lletya and meets the locals.
+colour=0x46320a
+
+// 154:10
+[chapter2]
+type=text
+x=38
+y=172
+width=197
+height=52
+textfont=quill_oblique_large
+text=Chapter 2. Settlement
+colour=0x46320a
+transmitop=1
+opbase=chapter 2
+op1=Read
+opcursor0=cursor_read
+onmouseover=text_colour_swapper(event_com, 0x8c6414)
+onmouseleave=text_colour_swapper(event_com, 0x46320a)
+
+// 154:11
+[bookmacro1g]
+type=text
+x=38
+y=224
+width=209
+height=81
+textfont=q8_full
+text=In which Bolrie makes his home in Lletya.
+colour=0x46320a
+
+// 154:12
+[bookmacro1m]
+type=text
+x=283
+y=55
+width=197
+height=176
+textfont=q8_full
+text=Now that I have found a new home, it is time for me to start my research. It will probably take me years, decades, maybe even centuries... <br><br>The toll it will take does not matter. I will make a device that will bring Glouphrie to his knees.
+colour=0x46320a
+
+// 154:13
+[bookmacro1v]
+type=text
+x=429
+y=287
+width=48
+height=17
+textfont=q8_full
+text= Bolrie
+colour=0x46320a
+opbase=m

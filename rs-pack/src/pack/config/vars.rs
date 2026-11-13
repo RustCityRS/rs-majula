@@ -1,35 +1,33 @@
+use super::config_entry;
+#[cfg(since_647)]
+use super::{client_table, client_table_of, is_string_var};
+#[cfg(since_647)]
+use crate::pack::pack::ConfigSections;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
-use crate::pack::pack_registry::{PackRegistry, PackedFile};
+use crate::pack::pack_registry::{PackFile, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_script_var_type;
 use anyhow::Result;
+#[cfg(since_647)]
+use anyhow::ensure;
 use std::collections::HashMap;
-use tracing::debug;
 
-pub fn pack_vars_configs(
+pub fn pack_vars(
     file_cache: &FileCache,
-    registry: &PackRegistry,
+    pack: &PackFile,
+    kind: &str,
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
-    let pack = &registry.vars;
-
-    let files = file_cache.collect("vars");
-    debug!("  Found {} .vars files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "vars", constants);
-    debug!("  Parsed {} vars configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, kind, constants)?;
 
     let mut server = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown vars id: {id}");
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown vars config: {debugname}");
+        let Some((debugname, props)) = config_entry(kind, pack, &configs, id) else {
+            server.finish_entry();
+            continue;
         };
 
         for (key, value) in props {
@@ -41,7 +39,7 @@ pub fn pack_vars_configs(
                 }),
 
                 // not found
-                _ => panic!("Unrecognized vars config key: {key}"),
+                _ => panic!("Unrecognized {kind} config key: {key}"),
             }
         }
 
@@ -53,8 +51,53 @@ pub fn pack_vars_configs(
         server.finish_entry();
     }
 
+    #[cfg(before_647)]
+    let client = None;
+
+    #[cfg(since_647)]
+    let client = Some(if kind == "vars" {
+        client_var_table(&configs, pack, false)?
+    } else {
+        client_table(file_cache, kind, pack, constants)?
+    });
+
+    Ok(PackedFile { server, client })
+}
+
+#[cfg(since_647)]
+pub fn pack_string_vars(
+    file_cache: &FileCache,
+    pack: &PackFile,
+    kind: &str,
+    constants: &HashMap<String, String>,
+) -> Result<PackedFile> {
+    let configs = parse_config_sections_cached(file_cache, kind, constants)?;
     Ok(PackedFile {
-        server,
-        client: None,
+        server: PackedData::default(),
+        client: Some(client_var_table(&configs, pack, true)?),
     })
+}
+
+#[cfg(since_647)]
+fn client_var_table(
+    configs: &ConfigSections,
+    pack: &PackFile,
+    strings: bool,
+) -> Result<PackedData> {
+    if strings {
+        for (name, props) in configs {
+            if is_string_var(props) {
+                ensure!(
+                    pack.get_by_debugname(name).is_some(),
+                    "No string variable id for [{name}]"
+                );
+            }
+        }
+    }
+    Ok(client_table_of(
+        configs,
+        pack,
+        |_, props| is_string_var(props) == strings,
+        |_, _, _| {},
+    ))
 }

@@ -1,0 +1,44 @@
+// 3454
+[proc,script3454](int $int0, coord $coord1, int $int2, coord $coord3, int $int4)
+switch_int ($int0) {
+    case 1 :
+        %machinima_livecamera_position1 = $coord1;
+        %machinima_livecamera_height1 = $int2;
+        %machinima_livecamera_lookatpositioncoord1 = $coord3;
+        %machinima_livecamera_lookatheight1 = $int4;
+    case 2 :
+        %machinima_livecamera_position2 = $coord1;
+        %machinima_livecamera_height2 = $int2;
+        %machinima_livecamera_lookatpositioncoord2 = $coord3;
+        %machinima_livecamera_lookatheight2 = $int4;
+    case 3 :
+        %machinima_livecamera_position3 = $coord1;
+        %machinima_livecamera_height3 = $int2;
+        %machinima_livecamera_lookatpositioncoord3 = $coord3;
+        %machinima_livecamera_lookatheight3 = $int4;
+    case 4 :
+        %machinima_livecamera_position4 = $coord1;
+        %machinima_livecamera_height4 = $int2;
+        %machinima_livecamera_lookatpositioncoord4 = $coord3;
+        %machinima_livecamera_lookatheight4 = $int4;
+    case 5 :
+        %machinima_livecamera_position5 = $coord1;
+        %machinima_livecamera_height5 = $int2;
+        %machinima_livecamera_lookatpositioncoord5 = $coord3;
+        %machinima_livecamera_lookatheight5 = $int4;
+    case 6 :
+        %machinima_livecamera_position6 = $coord1;
+        %machinima_livecamera_height6 = $int2;
+        %machinima_livecamera_lookatpositioncoord6 = $coord3;
+        %machinima_livecamera_lookatheight6 = $int4;
+    case 7 :
+        %machinima_livecamera_position7 = $coord1;
+        %machinima_livecamera_height7 = $int2;
+        %machinima_livecamera_lookatpositioncoord7 = $coord3;
+        %machinima_livecamera_lookatheight7 = $int4;
+    case 8 :
+        %machinima_livecamera_position8 = $coord1;
+        %machinima_livecamera_height8 = $int2;
+        %machinima_livecamera_lookatpositioncoord8 = $coord3;
+        %machinima_livecamera_lookatheight8 = $int4;
+}

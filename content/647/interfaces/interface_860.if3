@@ -1,0 +1,352 @@
+// 860:0
+[background]
+type=layer
+width=512
+height=334
+
+// 860:1
+[com_1]
+type=rectangle
+x=17
+y=25
+width=490
+height=305
+layer=background
+colour=0x000000
+fill=yes
+trans=200
+opbase=  
+
+// 860:2
+[com_2]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=background
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 860:3
+[com_3]
+type=graphic
+y=53
+width=32
+height=241
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 860:4
+[com_4]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 860:5
+[com_5]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 860:6
+[com_6]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+layer=background
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 860:7
+[com_7]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 860:8
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 860:9
+[com_9]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 860:10
+[com_10]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 860:11
+[com_11]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 860:12
+[com_12]
+type=graphic
+x=24
+y=62
+width=465
+height=32
+layer=background
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 860:13
+[com_13]
+type=graphic
+x=23
+y=275
+width=469
+height=34
+layer=background
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 860:14
+[com_14]
+type=graphic
+x=13
+y=64
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 860:15
+[com_15]
+type=graphic
+x=13
+y=277
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 860:16
+[com_16]
+type=graphic
+x=468
+y=64
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 860:17
+[com_17]
+type=graphic
+x=468
+y=277
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 860:18
+[title]
+type=text
+x=18
+y=25
+width=475
+height=22
+textfont=b12_full
+text=Commodities
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 860:19
+[title_1]
+type=text
+x=19
+y=47
+width=475
+height=29
+textfont=p11_full
+text=A list of items that can be traded with Mal for investment credit.<br>Items highlighted with a green rectangle are present in your bank or inventory.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 860:20
+[next_prev]
+type=layer
+x=22
+y=295
+width=127
+height=23
+xmode=abs_right
+transmitop=1
+op1=Change Page
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=mob_byprod_page(interface_860:page)
+
+// 860:21
+[bank]
+type=layer
+x=-8
+y=295
+width=187
+height=23
+xmode=abs_centre
+transmitop=1
+op1=Check bank and inventory
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=mob_byprod_invs(interface_860:bank_text)
+
+// 860:22
+[scrollbar]
+type=layer
+x=476
+y=86
+width=16
+height=200
+onload=scrollbar_vertical_graphics(event_com, interface_860:main_stock, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 860:23
+[main_stock]
+type=layer
+x=26
+y=86
+width=454
+height=200
+scrollheight=1000
+onload=script2639
+
+// 860:24
+[page]
+type=text
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=next_prev
+textfont=b12_full
+text=Next page
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 860:25
+[bank_text]
+type=text
+width=16384
+height=17103
+widthmode=proportion
+heightmode=proportion
+layer=bank
+textfont=b12_full
+text=Check bank & inventory
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 860:26
+[search]
+type=layer
+x=23
+y=295
+width=110
+height=23
+transmitop=1
+op1=Search
+opcursor0=cursor_search
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 860:27
+[search_graphic]
+type=graphic
+x=-3
+y=-5
+width=35
+height=35
+layer=search
+graphic="bank_buttons_new1,0"
+colour=0xffffffff
+
+// 860:28
+[search_txt]
+type=text
+x=28
+y=2
+width=78
+height=21
+layer=search
+textfont=b12_full
+text=Search
+textalignv=centre
+textshadow=yes
+colour=0xff981f

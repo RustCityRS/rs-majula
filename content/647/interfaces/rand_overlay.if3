@@ -1,0 +1,219 @@
+// 945:0
+[rand_dungeon_stats]
+type=text
+x=16
+y=28
+width=120
+height=60
+textfont=p11_full
+textlineheight=14
+textshadow=yes
+colour=0xe2e2a2
+onvartransmit=rand_update_dungeon_stats(event_com){varplayer_1774, rand_perm_int_02}
+
+// 945:1
+[deaths_icon]
+type=graphic
+x=2
+y=27
+width=12
+height=12
+graphic="rand_overlay_icons_16x16,0"
+colour=0xffffffff
+
+// 945:2
+[rand_progress_layer]
+type=layer
+y=2
+width=207
+height=43
+xmode=abs_centre
+hide=yes
+ontimer=rand_update_progress_bar
+
+// 945:3
+[rand_progress_bar_background]
+type=rectangle
+x=2
+y=10
+width=198
+height=21
+heightmode=minus
+layer=rand_progress_layer
+colour=0x000000
+fill=yes
+transmitop=10
+op10= 
+
+// 945:4
+[progress_e1]
+type=graphic
+y=13
+width=15
+height=15
+xmode=abs_right
+layer=rand_progress_layer
+graphic="rand_framea_edges,1"
+2dangle=49152
+colour=0xffffffff
+
+// 945:5
+[progress_s]
+type=graphic
+x=15
+y=2
+width=30
+height=15
+widthmode=minus
+ymode=abs_bottom
+layer=rand_progress_layer
+graphic="rand_framea_edges,1"
+vflip=yes
+colour=0xffffffff
+
+// 945:6
+[progress_w1]
+type=graphic
+y=13
+width=15
+height=15
+layer=rand_progress_layer
+graphic="rand_framea_edges,1"
+2dangle=16384
+colour=0xffffffff
+
+// 945:7
+[progress_n]
+type=graphic
+x=15
+width=30
+height=15
+widthmode=minus
+layer=rand_progress_layer
+graphic="rand_framea_edges,1"
+colour=0xffffffff
+
+// 945:8
+[progress_se]
+type=graphic
+y=2
+width=15
+height=15
+xmode=abs_right
+ymode=abs_bottom
+layer=rand_progress_layer
+graphic="rand_framea_edges,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+
+// 945:9
+[progress_sw]
+type=graphic
+y=2
+width=15
+height=15
+ymode=abs_bottom
+layer=rand_progress_layer
+graphic="rand_framea_edges,0"
+vflip=yes
+colour=0xffffffff
+
+// 945:10
+[progress_nw]
+type=graphic
+width=15
+height=15
+layer=rand_progress_layer
+graphic="rand_framea_edges,0"
+colour=0xffffffff
+
+// 945:11
+[progress_ne]
+type=graphic
+width=15
+height=15
+xmode=abs_right
+layer=rand_progress_layer
+graphic="rand_framea_edges,0"
+2dangle=49152
+colour=0xffffffff
+
+// 945:12
+[progress_bar_mid]
+type=graphic
+x=5
+y=15
+width=199
+height=18
+layer=rand_progress_layer
+graphic=rand_grad_02
+colour=0xffffffff
+
+// 945:13
+[progress_bar_w]
+type=graphic
+x=4
+y=15
+width=4
+height=18
+layer=rand_progress_layer
+graphic="rand_grad_caps_black_alpha,0"
+alpha=yes
+colour=0xffffffff
+
+// 945:14
+[rand_progress_bar_title]
+type=text
+y=2
+width=200
+height=15
+xmode=abs_centre
+layer=rand_progress_layer
+textfont=p11_full
+text= Progress bar text
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 945:15
+[rand_fill_layer]
+type=layer
+x=4
+y=16
+width=200
+height=32
+layer=rand_progress_layer
+
+// 945:16
+[rand_progress_bar_fill]
+type=rectangle
+width=197
+height=18
+widthmode=minus
+xmode=abs_right
+layer=rand_fill_layer
+colour=0x000000
+fill=yes
+transmitop=10
+op10=  
+
+// 945:17
+[rand_progress_end]
+type=layer
+x=199
+y=15
+width=7
+height=18
+layer=rand_progress_layer
+
+// 945:18
+[progress_bar_e]
+type=graphic
+width=3
+height=18
+layer=rand_progress_end
+graphic="rand_grad_caps_black_alpha,1"
+alpha=yes
+colour=0xffffffff

@@ -1,0 +1,26 @@
+// 266
+[proc,fishcomp_draw_weights]
+def_int $intarray0(4);
+$intarray0(%fishcomp_client_weight_1) = calc($intarray0(%fishcomp_client_weight_1) + 1);
+$intarray0(%fishcomp_client_weight_2) = calc($intarray0(%fishcomp_client_weight_2) + 1);
+$intarray0(%fishcomp_client_weight_3) = calc($intarray0(%fishcomp_client_weight_3) + 1);
+$intarray0(%fishcomp_client_weight_4) = calc($intarray0(%fishcomp_client_weight_4) + 1);
+$intarray0(%fishcomp_client_weight_5) = calc($intarray0(%fishcomp_client_weight_5) + 1);
+if_settext(fishcomp_side:selected_weights_small_txt, "Small x <tostring($intarray0(1))>");
+if_settext(fishcomp_side:selected_weights_medium_txt, "Med. x <tostring($intarray0(2))>");
+if_settext(fishcomp_side:selected_weights_large_txt, "Large x <tostring($intarray0(3))>");
+def_string $string0 = "";
+if ($intarray0(1) > 0) {
+    $string0 = "Remove-weight";
+}
+if_setop(fishcomp_side:selected_weights_small_txt, 1, $string0);
+$string0 = "";
+if ($intarray0(2) > 0) {
+    $string0 = "Remove-weight";
+}
+if_setop(fishcomp_side:selected_weights_medium_txt, 1, $string0);
+$string0 = "";
+if ($intarray0(3) > 0) {
+    $string0 = "Remove-weight";
+}
+if_setop(fishcomp_side:selected_weights_large_txt, 1, $string0);

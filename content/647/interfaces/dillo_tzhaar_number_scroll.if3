@@ -1,0 +1,503 @@
+// 739:0
+[content_layer]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 739:1
+[com_1]
+type=model
+x=327
+y=105
+width=319
+height=302
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+model=model_3395
+modelorigin=-14,15
+modelangle=512,0,0
+modelzoom=609
+
+// 739:2
+[com_2]
+type=text
+x=327
+y=-5192
+width=271
+height=34
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=quill_oblique_large
+text=TzHaar Numbers
+textalignh=centre
+colour=0x330000
+
+// 739:3
+[close_button]
+type=graphic
+x=4199
+y=-5683
+width=26
+height=23
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+graphic="close_buttons,6"
+colour=0x000000
+onmouseover=graphic_swapper(dillo_tzhaar_number_scroll:close_button, "close_buttons,7")
+onmouseleave=graphic_swapper(dillo_tzhaar_number_scroll:close_button, "close_buttons,6")
+onclick=closebutton_click
+
+// 739:4
+[a]
+type=text
+x=-1209
+y=-3132
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=a
+colour=0x330000
+
+// 739:5
+[com_5]
+type=text
+x=-665
+y=-3377
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 1 
+colour=0x330000
+
+// 739:6
+[com_6]
+type=text
+x=1927
+y=-1660
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 13
+colour=0x330000
+
+// 739:7
+[com_7]
+type=text
+x=1927
+y=-826
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 14
+colour=0x330000
+
+// 739:8
+[com_8]
+type=text
+x=1927
+y=7
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 15
+colour=0x330000
+
+// 739:9
+[com_9]
+type=text
+x=2759
+y=1282
+width=85
+height=36
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text=etc.
+colour=0x330000
+
+// 739:10
+[com_10]
+type=text
+x=-665
+y=-2543
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 2
+colour=0x330000
+
+// 739:11
+[com_11]
+type=text
+x=-665
+y=-1660
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 3
+colour=0x330000
+
+// 739:12
+[com_12]
+type=text
+x=-665
+y=-777
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 4
+colour=0x330000
+
+// 739:13
+[com_13]
+type=text
+x=-665
+y=56
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 5
+colour=0x330000
+
+// 739:14
+[com_14]
+type=text
+x=-665
+y=939
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 6
+colour=0x330000
+
+// 739:15
+[com_15]
+type=text
+x=-665
+y=1772
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 7
+colour=0x330000
+
+// 739:16
+[com_16]
+type=text
+x=-665
+y=2655
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 8
+colour=0x330000
+
+// 739:17
+[com_17]
+type=text
+x=-665
+y=-3377
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 1 
+colour=0x330000
+
+// 739:18
+[com_18]
+type=text
+x=-665
+y=3489
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 9
+colour=0x330000
+
+// 739:19
+[com_19]
+type=text
+x=-665
+y=4372
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 10
+colour=0x330000
+
+// 739:20
+[com_20]
+type=text
+x=1927
+y=-3377
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 11
+colour=0x330000
+
+// 739:21
+[com_21]
+type=text
+x=1927
+y=-2494
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=q8_full
+text== 12
+colour=0x330000
+
+// 739:22
+[b]
+type=text
+x=-1209
+y=-2249
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=b
+colour=0x330000
+
+// 739:23
+[b_1]
+type=text
+x=-1209
+y=-1366
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=c
+colour=0x330000
+
+// 739:24
+[b_2]
+type=text
+x=-1209
+y=-483
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=d
+colour=0x330000
+
+// 739:25
+[b_3]
+type=text
+x=-1209
+y=399
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=e
+colour=0x330000
+
+// 739:26
+[b_4]
+type=text
+x=-1209
+y=1233
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=f
+colour=0x330000
+
+// 739:27
+[b_5]
+type=text
+x=-1209
+y=2067
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=g
+colour=0x330000
+
+// 739:28
+[b_6]
+type=text
+x=-1209
+y=2950
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=h
+colour=0x330000
+
+// 739:29
+[b_7]
+type=text
+x=-1209
+y=3784
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=i
+colour=0x330000
+
+// 739:30
+[b_8]
+type=text
+x=-1209
+y=4618
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=j
+colour=0x330000
+
+// 739:31
+[b_9]
+type=text
+x=1383
+y=-3132
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=k
+colour=0x330000
+
+// 739:32
+[b_10]
+type=text
+x=1383
+y=-2249
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=l
+colour=0x330000
+
+// 739:33
+[b_11]
+type=text
+x=1063
+y=-1415
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=aa
+colour=0x330000
+
+// 739:34
+[b_12]
+type=text
+x=1063
+y=-532
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=ab
+colour=0x330000
+
+// 739:35
+[b_13]
+type=text
+x=1063
+y=350
+width=32
+height=32
+xmode=proportion_centre
+ymode=proportion_centre
+layer=content_layer
+textfont=tzhaar_numbers
+text=ac
+colour=0x330000

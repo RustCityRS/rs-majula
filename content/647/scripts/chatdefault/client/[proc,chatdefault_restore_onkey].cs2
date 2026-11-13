@@ -1,0 +1,3 @@
+// 132
+[proc,chatdefault_restore_onkey]
+if_setonkey(chatdefault:input, "chatdefault_onkey(event_keycode, event_keychar)");

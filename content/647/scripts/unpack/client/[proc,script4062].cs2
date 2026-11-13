@@ -1,0 +1,4 @@
+// 4062
+[proc,script4062]
+if_settext(warguild_token_choice:ok_text, "Accept Token Options");
+if_setcolour(warguild_token_choice:ok_text, 0x0d0000);

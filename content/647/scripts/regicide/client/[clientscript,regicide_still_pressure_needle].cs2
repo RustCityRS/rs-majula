@@ -1,0 +1,29 @@
+// 2027
+[clientscript,regicide_still_pressure_needle](component $component0)
+if (testbit(%regicide_still_settings, 0) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1536, 0, 400);
+} else if (testbit(%regicide_still_settings, 1) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1664, 0, 400);
+} else if (testbit(%regicide_still_settings, 2) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1792, 0, 400);
+} else if (testbit(%regicide_still_settings, 3) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1920, 0, 400);
+} else if (testbit(%regicide_still_settings, 4) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 0, 0, 400);
+} else if (testbit(%regicide_still_settings, 5) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 128, 0, 400);
+} else if (testbit(%regicide_still_settings, 6) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 256, 0, 400);
+} else if (testbit(%regicide_still_settings, 7) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 384, 0, 400);
+} else if (testbit(%regicide_still_settings, 8) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 512, 0, 400);
+} else if (testbit(%regicide_still_settings, 9) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 640, 0, 400);
+} else if (testbit(%regicide_still_settings, 10) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 768, 0, 400);
+} else if (testbit(%regicide_still_settings, 11) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 896, 0, 400);
+} else if (testbit(%regicide_still_settings, 12) = ^true) {
+    if_setmodelangle($component0, 0, 0, 512, 1024, 0, 400);
+}

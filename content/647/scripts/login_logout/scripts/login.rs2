@@ -1,0 +1,249 @@
+[login,_]
+mes("Welcome to RuneScape.")
+// register the timers that replenish stats (ported from rev-225);
+// hp is separate so rapid heal/restore can retune it independently
+settimer(stat_regen, 100);
+settimer(stat_boost_restore, 100);
+// +1 life point per 10 ticks (~6s) = 10 LP/min base recovery (wiki
+// Constitution, 2011-05-12: "one life point about every six seconds").
+settimer(health_regen, 10);
+// Bonus-XP elapsed clock: re-arm the per-minute timer each login (timers aren't
+// saved). The elapsed total itself PERSISTS across logout (varplayer_1644 = scope=perm),
+// so the multiplier keeps decaying with cumulative game-time during the event —
+// relogging must NOT reset it back to 2.7x. The timer no-ops while the event is off.
+settimer(doublexp_elapsed, 100);
+// Seed/clamp current life points (granular varbit life_points 7198; persists
+// via varplayer_1240). New players (and stale/invalid values) start full; a valid
+// persisted HP value is kept.
+def_int $hp_max = calc(stat(hitpoints) * 10);
+if (%life_points < 1 | %life_points > $hp_max) {
+    %life_points = $hp_max;
+}
+// 289's login hooks (login_logout/login.rs2), as their systems are ported.
+// Music: nothing plays yet, so the square's [mapzone] plays its track
+// (music.rs2). 289's %musicplay = 1 (Auto) went with 2011's music player's
+// buttons; 2011's song end and automatic unlocks start here instead.
+%currentsong = null;
+softtimer(music_end, 1);
+~music_unlock_automatic;
+~thieving_stall_timers_login;
+// random event timer
+settimer(general_macro_events, 500);
+// for logout out during a general macro event, they respawn when you log back in
+// queue:
+// - https://youtu.be/T0ulsgorBkY?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
+// - https://youtu.be/HwGAzcmvF9k?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
+// npc spawns only after interface is closed
+queue(macro_event_login, 0, 0);
+// so antifire persists after logging back in
+~set_antifire_login;
+// Varp 281 is Unstable Foundations' (quest config 131): 0 is an account still to design its
+// character, 5 to 999 one mid-tutorial, 1000 one done.
+if (%tutorial = 0) {
+    ~cc_open_interface();
+    return;
+}
+~open_game_frame()
+~login_finish()
+if (%tutorial < 1000) {
+    // Where 2011 put a player who logged out mid-tutorial: no source found. A fresh cellar.
+    ~uf_start;
+    return;
+}
+if (%tutorial3_postquest < 5) {
+    if (coord = 0_50_50_7_40) {
+        // Left the game in Explorer Jack's house copy (uf_freedom.rs2): back into one.
+        ~uf_house_return;
+    } else {
+        // Long out of the house: varbit 6494 was not saved before it could say so.
+        %tutorial3_postquest = 5;
+    }
+}
+// 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
+// island; here only one the player entered (%tutorial past 0): 2011's new
+// players spawn on the island without entering it (tutorial.rs2).
+if (%varplayer_419 > ^newbie_basics_instructor_start & %varplayer_419 < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
+    @start_tutorial;
+}
+
+[proc,login_finish]()
+cam_reset
+set_player_op(null, 2, ^false);
+set_player_op("Follow", 3, ^false);
+set_player_op("Trade with", 4, ^false);
+set_player_op(null, 5, ^false);
+
+[proc,open_game_frame]()
+if (getwindowmode = 1) {
+    if_opentop(toplevel)
+} else {
+    if_opentop(toplevel_fullscreen)
+}
+~initalltabs()
+~initorbs()
+
+[proc,initorbs]()
+// The summoning orb (interface 747) is members-only and stays blank until
+// show_summoning_orb (varbit 4280 = varplayer_1160 bit 23) is set -- the client's
+// [proc,subchanged] hides 747:8 whenever it reads 0. void rev-634 defaults the
+// var to true and re-sends it on every `interfaceOpened("summoning_orb")`, so
+// seed it here, before the mount, and only on a members world.
+def_int $summoning = ^false;
+if (map_members = ^true) {
+    $summoning = ^true;
+    %lore_lore_available = ^true;
+}
+
+if (getwindowmode = 1) {
+    if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints)
+    if_opensub(topstat_prayer, toplevel:topstat_prayer)
+    if_opensub(topstat_run, toplevel:topstat_run)
+    if ($summoning = ^true) {
+        if_opensub(topstat_lore, toplevel:topstat_lore)
+    }
+    if_opensub(filterbuttons, toplevel:filterbuttons)
+    if_opensub(chattop, toplevel:chattop)
+    // split/private chat overlay (matches void rev-634 gameframe); sits in the
+    // 512x69 slot just below the chatbox
+    if_opensub(pmchat, toplevel:pmchat)
+    // status icons such as multiway combat, in the slot sized for them
+    if_opensub(statusicons, toplevel:statusicons)
+} else {
+    if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints)
+    if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer)
+    if_opensub(topstat_run, toplevel_fullscreen:topstat_run)
+    if ($summoning = ^true) {
+        if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore)
+    }
+    if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons)
+    if_opensub(chattop, toplevel_fullscreen:chattop)
+    if_opensub(pmchat, toplevel_fullscreen:pmchat)
+    if_opensub(statusicons, toplevel_fullscreen:statusicons)
+}
+
+if_opensub(chatdefault, chattop:chatdefault)
+
+// The prayer orb's quick prayers, selecting (varc 181) and on (182), which
+// void-634's server sends as the orb opens (PrayerList.kt). The client
+// starts both at -1, and the prayer book offers Activate only while 181 is 0
+// (clientscript 1237): unsent, no prayer can be clicked. Quick prayers
+// themselves are not ported.
+%prayer_custom_view_client = false
+%topstat_prayer_button_client = false
+
+[proc,initalltabs]()
+// A side tab is open once it is unlocked and shut until then: all are open, except during
+// Unstable Foundations (quest_unstable/uf_tabs.rs2).
+inv_transmit(inv, inventory:inv)
+inv_transmit(worn, wornitems:hat_container)
+
+// Worn equipment needs no if_setevents: interface 387's slot components have
+// their ops (active_properties) and per-slot inv-94 binding (oninvtransmit /
+// invtransmit_list) baked into the cache def, so transmitting worn (inv 94)
+// above is enough — same as void, which uses no if_setevents for it either.
+
+if (getwindowmode = 1) {
+    if (~tab_unlocked(0) = true) { if_opensub(combat_side, toplevel:side0) } else { if_closesub(toplevel:side0) }
+    if (~tab_unlocked(1) = true) { if_opensub(task_side, toplevel:side1) } else { if_closesub(toplevel:side1) }
+    // The Task System's popup (void-634's task_overlay: graphics_confirm_layer, 548:20, 746:80).
+    if_opensub(interface_1055, toplevel:graphics_confirm_layer)
+    if (~tab_unlocked(2) = true) { if_opensub(stats, toplevel:side2) } else { if_closesub(toplevel:side2) }
+    if (~tab_unlocked(3) = true) { if_opensub(questlist_v4, toplevel:side3) } else { if_closesub(toplevel:side3) }
+    if (~tab_unlocked(4) = true) { if_opensub(inventory, toplevel:side4) } else { if_closesub(toplevel:side4) }
+    if (~tab_unlocked(5) = true) { if_opensub(wornitems, toplevel:side5) } else { if_closesub(toplevel:side5) }
+    if (~tab_unlocked(6) = true) { if_opensub(prayer, toplevel:side6) } else { if_closesub(toplevel:side6) }
+    if (~tab_unlocked(7) = true) { if_opensub(magic, toplevel:side7) } else { if_closesub(toplevel:side7) }
+    if (~tab_unlocked(9) = true) { if_opensub(friends2, toplevel:side9) } else { if_closesub(toplevel:side9) }
+    if (~tab_unlocked(10) = true) { if_opensub(friendschat, toplevel:side10) } else { if_closesub(toplevel:side10) }
+    if (~tab_unlocked(11) = true) { if_opensub(clan_chat, toplevel:side11) } else { if_closesub(toplevel:side11) }
+    if (~tab_unlocked(12) = true) { if_opensub(options, toplevel:side12) } else { if_closesub(toplevel:side12) }
+    if (~tab_unlocked(13) = true) { if_opensub(emotes, toplevel:side13) } else { if_closesub(toplevel:side13) }
+    if (~tab_unlocked(14) = true) { if_opensub(music_v3, toplevel:side14) } else { if_closesub(toplevel:side14) }
+    if (~tab_unlocked(15) = true) { if_opensub(notes, toplevel:side15) } else { if_closesub(toplevel:side15) }
+    // The frame's logout button shows side slot 99 (clientscripts getsideicon and getsidelayer);
+    // void-634 opens interface 182 there as its logout_tab.
+    if_opensub(logout, toplevel:side99)
+} else {
+    if (~tab_unlocked(0) = true) { if_opensub(combat_side, toplevel_fullscreen:side0) } else { if_closesub(toplevel_fullscreen:side0) }
+    if (~tab_unlocked(1) = true) { if_opensub(task_side, toplevel_fullscreen:side1) } else { if_closesub(toplevel_fullscreen:side1) }
+    if_opensub(interface_1055, toplevel_fullscreen:graphics_confirm_layer)
+    if (~tab_unlocked(2) = true) { if_opensub(stats, toplevel_fullscreen:side2) } else { if_closesub(toplevel_fullscreen:side2) }
+    if (~tab_unlocked(3) = true) { if_opensub(questlist_v4, toplevel_fullscreen:side3) } else { if_closesub(toplevel_fullscreen:side3) }
+    if (~tab_unlocked(4) = true) { if_opensub(inventory, toplevel_fullscreen:side4) } else { if_closesub(toplevel_fullscreen:side4) }
+    if (~tab_unlocked(5) = true) { if_opensub(wornitems, toplevel_fullscreen:side5) } else { if_closesub(toplevel_fullscreen:side5) }
+    if (~tab_unlocked(6) = true) { if_opensub(prayer, toplevel_fullscreen:side6) } else { if_closesub(toplevel_fullscreen:side6) }
+    if (~tab_unlocked(7) = true) { if_opensub(magic, toplevel_fullscreen:side7) } else { if_closesub(toplevel_fullscreen:side7) }
+    if (~tab_unlocked(9) = true) { if_opensub(friends2, toplevel_fullscreen:side9) } else { if_closesub(toplevel_fullscreen:side9) }
+    if (~tab_unlocked(10) = true) { if_opensub(friendschat, toplevel_fullscreen:side10) } else { if_closesub(toplevel_fullscreen:side10) }
+    if (~tab_unlocked(11) = true) { if_opensub(clan_chat, toplevel_fullscreen:side11) } else { if_closesub(toplevel_fullscreen:side11) }
+    if (~tab_unlocked(12) = true) { if_opensub(options, toplevel_fullscreen:side12) } else { if_closesub(toplevel_fullscreen:side12) }
+    if (~tab_unlocked(13) = true) { if_opensub(emotes, toplevel_fullscreen:side13) } else { if_closesub(toplevel_fullscreen:side13) }
+    if (~tab_unlocked(14) = true) { if_opensub(music_v3, toplevel_fullscreen:side14) } else { if_closesub(toplevel_fullscreen:side14) }
+    if (~tab_unlocked(15) = true) { if_opensub(notes, toplevel_fullscreen:side15) } else { if_closesub(toplevel_fullscreen:side15) }
+    if_opensub(logout, toplevel_fullscreen:side99)
+}
+
+// The Task System's tab: the set for where the player stands, and its six slots.
+~task_area_here;
+~task_refresh;
+~task_on_the_run_arm;
+
+// Every tab's events follow its if_opensub. Opening a sub where one is already
+// open closes it first, and the client's close drops every event the server
+// set on that interface (Class83.method563): at login the tabs are not yet
+// open, but 289's death runs ~initalltabs again, and events sent before the
+// re-open were gone -- the backpack lost its ops after every death.
+def_int $inv_ops = ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^no_op, ^no_op, ^no_op, ^if_op7, ^if_op8, ^no_op, ^if_op10);
+def_int $inv_useon = ~inv_useon(^useon_grounditem, ^useon_npc, ^useon_loc, ^useon_player, ^no_op, ^useon_component, ^no_op);
+if_setevents(inventory:inv, 0, 27, $inv_ops, $inv_useon, 1, ^true, ^true)
+
+// Interface 149's inventory is drawn as two banks of 28 components (cs2 1613):
+// 0-27 carry the item graphic and are hidden whenever their slot is empty,
+// while 28-55 sit at the same grid positions and are never hidden. Because the
+// client's interface walk skips hidden components, bank 0-27 alone can only be
+// a drop target where an item already is -- which is why dragging onto an
+// occupied slot worked and dragging onto an empty one silently did nothing.
+//
+// Unlocking bank 28-55 for drag alone gives every slot, full or empty, a
+// visible drop target. No ops and no useon: these are backing sprites, not
+// items. Depth stays 0 deliberately -- it is what stops the client treating
+// them as drag *sources*, so an item can never be picked up off an empty slot.
+//
+// Bank 28-55 draws after bank 0-27, so it wins the drop-target search in both
+// cases and the client always reports a target slot of 28+slot. The
+// [inv_buttond,inventory:inv] trigger takes the offset back off.
+if_setevents(inventory:inv, 28, 55, ^no_op, ^no_op, 0, ^true, ^false)
+
+// combat_side's style buttons (11-14) carry no op of their own: script 1142
+// names them from the weapon, and the server lets op1 through, as void-634's
+// unlockAll does. They are static components, whose events the client keys at
+// slot -1 (client.get_active_properties: child_id is -1).
+if_setevents(combat_side:button1, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button2, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button3, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:button4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+
+// The quest tab's list (questlist_v4, 190) is a row per 2011 quest id; View is
+// op1 on rows 0-300, as void-634 unlocks it (QuestJournals.kt). Points:
+// void-634's total, 311 (varp 904; quests.toml); the wiki's is 316 (see
+// general/configs/quest_interface.constant).
+if_setevents(questlist_v4:quests, 0, 300, ^if_op1, 0, 0, ^false, ^false)
+%qp_total = ^quest_points_total;
+~update_questlist;
+
+// The prayer book (prayer, 271) draws its prayers as com8's children, by
+// slot in enum 2279's order (clientscript 1236); Activate is op1. 2011's
+// client offers it on all thirty (void-634 unlocks 0-29): here on 289's
+// fifteen, as 2011's own are not ported.
+if_setevents(prayer:prayer_buttons, 0, 2, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 5, 10, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 13, 15, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:prayer_buttons, 17, 19, ^if_op1, 0, 0, ^false, ^false)
+
+// The music player's list (music_v3, 187) is com1's children, two a track
+// for its 980 places (clientscript 828: the name at index * 2, the playlist
+// button at index * 2 + 1). Play (op1) and Unlock hint (op2) are a name's
+// (clientscripts 3680, 3681); the playlist's ops are not ported.
+if_setevents(music_v3:jukebox, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
+
+~update_all(inv_getobj(worn, ^wearpos_rhand));

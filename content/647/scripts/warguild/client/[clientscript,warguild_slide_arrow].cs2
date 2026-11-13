@@ -1,0 +1,21 @@
+// 4052
+[clientscript,warguild_slide_arrow](component $component0, int $int1)
+if ($int1 = 1) {
+    if (if_gety($component0) < calc(1 - if_getheight($component0))) {
+        if_setontimer($component0, null);
+        if_sethide($component0, true);
+    } else {
+        if_setposition($component0, 0, calc(if_gety($component0) - 1), ^setpos_abs_right, ^setpos_abs_top);
+        if (if_gettrans($component0) < 245) {
+            if_settrans($component0, calc(if_gettrans($component0) + 10));
+        }
+    }
+} else if (if_gety($component0) > 30) {
+    if_setontimer($component0, null);
+    if_sethide($component0, true);
+} else {
+    if_setposition($component0, 0, calc(if_gety($component0) + 1), ^setpos_abs_right, ^setpos_abs_top);
+    if (if_gettrans($component0) < 245) {
+        if_settrans($component0, calc(if_gettrans($component0) + 10));
+    }
+}

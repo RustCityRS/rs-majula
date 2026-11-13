@@ -1,0 +1,20 @@
+// 289 picks the autocast spell from its staff tab (combat_staff_2:auto_choose)
+// through the staff_spells interface, and names it on the tab. 2011 has
+// neither: a combat spell's "Autocast" op in the spellbook sets it (op1 on
+// interface 192's spells in the cache; void-634 Autocast.kt, varp 108),
+// which comes with the spellbook's port. 289's handlers
+// (@open_autocast_interface, @set_autocast_spell, cancelspell) go with it;
+// the state combat reads stays.
+[proc,player_autocast_enabled]()(boolean)
+if (testbit(%lastcastspell, 0) = ^true & %lastcastspell = 3 & %varplayer_59 > 0) {
+    return(true);
+}
+return(false);
+
+[proc,player_autocast_reset]
+%lastcastspell = 0;
+%varplayer_59 = null;
+
+[proc,.player_autocast_reset]
+.%lastcastspell = 0;
+.%varplayer_59 = null;

@@ -1,0 +1,17 @@
+// 1827
+[clientscript,clanwars_setup_magic](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (map_members = false) {
+    if (%clanwars_rulevarc_nomagic = 1) {
+        %clanwars_rulevarc_nomagic = 2;
+    } else if (%clanwars_rulevarc_nomagic = 2) {
+        %clanwars_rulevarc_nomagic = 3;
+    } else {
+        %clanwars_rulevarc_nomagic = 1;
+    }
+} else {
+    %clanwars_rulevarc_nomagic = calc((%clanwars_rulevarc_nomagic + 1) % 4);
+}
+~clanwars_resynch_magic;

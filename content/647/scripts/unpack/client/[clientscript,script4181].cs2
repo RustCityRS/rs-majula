@@ -1,0 +1,11 @@
+// 4181
+[clientscript,script4181](component $component0, int $int1)
+def_int $int2 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int2 = calc(cc_gettrans + 1);
+    if ($int2 >= 255) {
+        cc_delete;
+        return;
+    }
+    cc_settrans($int2);
+}

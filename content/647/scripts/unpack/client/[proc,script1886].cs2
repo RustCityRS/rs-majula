@@ -1,0 +1,7 @@
+// 1886
+[proc,script1886](component $component0)
+if (%tutorial_version = 3 & %tutorial < 125) {
+    if_sethide($component0, true);
+} else {
+    if_sethide($component0, false);
+}

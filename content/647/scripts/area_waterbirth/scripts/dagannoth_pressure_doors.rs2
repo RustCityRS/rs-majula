@@ -1,0 +1,140 @@
+// The three pressure doors in the Waterbirth Island Dungeon, on the way to the
+// Dagannoth Kings.
+//
+// Each door is a `width=3` loc standing on three `dagannoth_pressure_door_floor`
+// tiles, with a pressure pad at either end on its west side:
+// `dagannoth_pressure_pad_2` level with the door's own tile and
+// `dagannoth_pressure_pad_1` two tiles north of it. Both pads must be weighted
+// at the same time for the door to open -- which is the whole puzzle, because
+// one player cannot stand on two pads.
+//
+// The intended solutions, and both are supported here:
+//   * Two players, one on each pad.
+//   * Alone: drop a pet rock on one pad and stand on the other. The pads are
+//     adjacent to the door, so a player standing on one is already in operable
+//     distance and can click the door without stepping off it. The 2011 wiki
+//     has no solo way (Waterbirth Island, 2011-05-21: "the player MUST have a
+//     companion"; its Pet rock page, 2011-05-06, does not name the doors).
+//
+// Sources. The mechanic is not implemented in any of our references -- void-634
+// carries only the *other* barrier system in this dungeon (`DoorSupport.kt`, the
+// `Destroy`-op npcs 2440/2443/2446 that drop `dagcave_invisibleblocking`), and
+// majula 225-289 has nothing here at all. The loc set and its states come from
+// `ref/rs3/config/dump.loc` (8957-8965), which is also where the canonical names
+// used below come from; the two-players-or-an-item rule is from the RuneScape
+// and OSRS wikis: "To open a door, one player must stand on a button while their
+// companion stands on the other", with the pet rock or a dropped item standing
+// in for the second player. Graded C in the ledger: sourced and reasoned, but
+// never observed against a 2011 server.
+//
+// The animation is in the data, not in this script, and that is the whole
+// reason the state names look redundant:
+//
+//   seq_2348  frames f2 -> f15 ascending, loopcount=1   the door LOWERING
+//   seq_2349  50-tick hold on f15, then f15 -> f2       the door RISING
+//   seq_2350  single frame f15, looping                 held down, static
+//
+// (The f-names, loopcount and the 50 are ref/rs3's dump.seq. Cache 786 has the
+// same frames, files 0, 6-13, 1-5 of group 19 for f2-f15, but holds f15 for 51,
+// and frame delays count client cycles of 20 ms, not game ticks: about a
+// second.)
+//
+// So `dagannoth_pressure_opening2` (anim 2348, blockwalk=no) *is* the door going
+// down, and it finishes on f15 -- the same pose `dagannoth_pressure_open` holds
+// statically. The closed door carries 2349, so reverting to it plays the door
+// rising back up after its own built-in pause.
+//
+// That makes one `loc_change` enough for the whole cycle: swap to `opening2` and
+// the door lowers and stays down and passable; when the change lapses it reverts
+// to closed, which raises itself. No queued script, no hand-timed chain, and
+// both animations play because the locs were authored to do it.
+//
+// An earlier version here went straight to `dagannoth_pressure_open` and called
+// the intermediate states cosmetic. They are not: skipping to the static pose
+// teleports the door into the floor with no movement at all.
+// `dagannoth_pressure_opening` (anim 2350 but blockwalk=yes) stays unused --
+// static-down yet still solid, which fits a closing phase rather than an
+// opening one.
+
+// How long the door stays open, in ticks. The wikis say the barriers in this
+// dungeon "eventually" reset rather than giving a figure; 25 ticks is fifteen
+// seconds, comfortably enough to walk through and consistent with the 30s the
+// door supports use in void.
+[proc,dag_door_open_ticks]()(int)
+return(25);
+
+// True if something is holding this pad down: a player standing on it, or a pet
+// rock dropped on it.
+//
+// The pet rock is a *specific* item, not a stand-in for "anything heavy". The
+// sources below agree on this and on the reason: the rock "substitutes as a
+// player", so the pad is weighed by an entity rather than by inventory clutter.
+// The 2009scape emulator carries the same rule (merge request 712, "Pet rocks on
+// pressure pads"), and the RuneScape wiki says the rock is obtained from
+// Askeladden in Rellekka precisely so a solo player can open these doors. None
+// is from 2011: the 2011 wiki has no solo way (above), so the pet rock is
+// unsourced for 2011.
+//
+// The modern OSRS wiki says any dropped item works. No source puts that in
+// 2011 (the 2011 wiki has no solo way at all, above) -- taking it would have
+// made the puzzle trivial, since any player arrives carrying something.
+//
+// The RuneScape wiki also names "the egg from Scrambled!" alongside the rock.
+// Deliberately not implemented: the only matching obj in our data is 7078
+// `bowl_egg_scrambled`, which is the food rather than a pet, and the 2011 wiki
+// has no such quest (Quests, 2011-05-20, names none). Better a missing
+// alternative than an invented one.
+//
+// Players are found with `huntall` -- the op Jagex had for this, opcode 2031,
+// confirmed and already used in our content. The engine also carries a
+// `PLAYER_FINDALLZONE` that would do the same job, but its opcode (2146) is
+// marked TODO in `rs-pack/src/cache/script.rs`, a guess rather than a verified
+// number, and the VM notes it duplicates `huntall`. Exposing the guessed one
+// would add an invented op to the emulated surface for no gain.
+//
+// `.huntnext` puts each result in the *secondary* slot so the acting player
+// stays primary; the trigger still needs them for the loc it is operating on.
+[proc,dag_pad_weighted](coord $pad)(boolean)
+huntall($pad, 1, 0);
+while (.huntnext = true) {
+    if (.coord = $pad) {
+        return(true);
+    }
+}
+if (obj_find($pad, vt_useless_rock) = true) {
+    return(true);
+}
+return(false);
+
+// The pads sit west of the door: one level with its south tile, one two north.
+// All three doors are placed at the same rotation, so these offsets are read off
+// the placements rather than derived from `loc_angle` -- if a fourth is ever
+// added at another rotation this is the line to revisit.
+[proc,dag_door_pads](coord $door)(coord, coord)
+return(movecoord($door, -1, 0, 0), movecoord($door, -1, 0, 2));
+
+[oploc1,_dagannoth_pressure_door]
+def_coord $door = loc_coord;
+def_coord $south;
+def_coord $north;
+$south, $north = ~dag_door_pads($door);
+
+def_boolean $south_down = ~dag_pad_weighted($south);
+def_boolean $north_down = ~dag_pad_weighted($north);
+
+if ($south_down = false | $north_down = false) {
+    // Deliberately silent.
+    //
+    // No message text for this door survives in anything we can read: the cache
+    // carries configs only, `ref/rs3/config` has no strings for it, and neither
+    // wiki quotes one. Writing a line here would be inventing 2011 dialogue, and
+    // a wrong string is worse than none -- it reads as authentic and never gets
+    // questioned. The pads are visible on the floor at either end, which is how
+    // the puzzle is meant to be read anyway.
+    //
+    // If a log or a video from the era ever turns up with the real wording, this
+    // is the spot for it.
+    return;
+}
+
+loc_change(loc_param(next_loc_stage), ~dag_door_open_ticks);

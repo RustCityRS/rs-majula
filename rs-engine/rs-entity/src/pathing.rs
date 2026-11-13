@@ -26,7 +26,9 @@ pub enum MoveStrategy {
 pub struct PathingEntity {
     pub last_movement: u32,
     pub waypoints: Waypoints,
+    pub path_revision: u32,
     pub coord: CoordGrid,
+    pub presence: CoordGrid,
     pub walk_step: Option<Direction>,
     pub move_restrict: MoveRestrict,
     pub move_strategy: MoveStrategy,
@@ -62,10 +64,12 @@ impl PathingEntity {
     ) -> Self {
         Self {
             coord,
+            presence: coord,
             walk_dir: -1,
             run_dir: -1,
             walk_step: None,
             waypoints: Waypoints::new(),
+            path_revision: 0,
             steps_taken: 0,
             last_movement: 0,
             jump: true,
@@ -85,7 +89,8 @@ impl PathingEntity {
     /// Processes one tick of movement, consuming waypoints and producing direction outputs.
     ///
     /// Handles crawl speed (moves every other tick), walk speed (one step), and run speed
-    /// (two steps). Updates `walk_dir`, `run_dir`, and `steps_taken` accordingly.
+    /// (two steps), and takes no steps on a jump's tick (`MoveSpeed::Instant`). Updates
+    /// `walk_dir`, `run_dir`, and `steps_taken` accordingly.
     ///
     /// # Arguments
     /// * `members` - Whether this world loads members-only areas; forwarded to
@@ -109,7 +114,7 @@ impl PathingEntity {
         info: &mut EntityMasks,
         kind: FocusKind,
     ) -> bool {
-        if self.move_restrict == MoveRestrict::NoMove {
+        if self.move_restrict == MoveRestrict::NoMove || self.move_speed == MoveSpeed::Instant {
             return false;
         }
 
@@ -201,6 +206,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Sets `waypoints[0]` to the packed coordinate and `waypoint_index` to 0.
     pub fn queue_waypoint(&mut self, coord: CoordGrid) {
+        self.path_revision = self.path_revision.wrapping_add(1);
         self.waypoints[0] = coord;
         self.waypoints.index = 0;
     }
@@ -217,6 +223,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Fills `self.waypoints` in reverse and sets `self.waypoints.index` accordingly.
     pub fn queue_waypoints(&mut self, waypoints: &[u32]) {
+        self.path_revision = self.path_revision.wrapping_add(1);
         let len = if waypoints.len() < Waypoints::CAPACITY {
             waypoints.len()
         } else {
@@ -235,6 +242,7 @@ impl PathingEntity {
     /// # Side Effects
     /// * Sets `waypoint_index` to -1.
     pub const fn clear_waypoints(&mut self) {
+        self.path_revision = self.path_revision.wrapping_add(1);
         self.waypoints.index = -1;
     }
 
@@ -514,6 +522,26 @@ impl PathingEntity {
         }
 
         None
+    }
+
+    /// Marks a move of more than two tiles this tick, footprint to footprint,
+    /// as a jump, so clients place the entity instead of walking it
+    /// (upstream's `validateDistanceWalked`).
+    pub fn validate_distance_walked(&mut self) {
+        let size = self.size as i32;
+        let distance = CoordGrid::distance_to(
+            self.coord.x() as i32,
+            self.coord.z() as i32,
+            size,
+            size,
+            self.last_coord.x() as i32,
+            self.last_coord.z() as i32,
+            size,
+            size,
+        );
+        if distance > 2 {
+            self.jump = true;
+        }
     }
 
     /// Resets the pathing state for this entity.

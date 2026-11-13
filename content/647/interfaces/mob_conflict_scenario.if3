@@ -1,0 +1,90 @@
+// 858:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+noclickthrough=yes
+
+// 858:1
+[com_1]
+type=model
+x=133
+y=80
+width=333
+height=188
+layer=layer_2
+model=model_47699
+modelorigin=33,68
+modelangle=84,1849,0
+modelzoom=544
+modelanim=seq_11862
+
+// 858:2
+[com_2]
+type=model
+x=18
+y=13
+width=85
+height=177
+layer=layer_2
+model=model_47490
+modelorigin=0,74
+modelangle=204,1921,0
+modelzoom=800
+transmitop=10
+op10= 
+
+// 858:3
+[main_text]
+type=text
+x=5
+y=-140
+width=400
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_2
+textfont=quill_oblique_large
+text=Conflict Scenario
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 858:4
+[team]
+type=text
+x=30
+y=287
+width=174
+height=31
+layer=layer_2
+textfont=p12_full
+text=-------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+transmitop=10
+op10= 
+
+// 858:5
+[com_5]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=layer_1
+colour=0x000000
+fill=yes
+
+// 858:6
+[layer_2]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1

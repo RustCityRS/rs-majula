@@ -1,0 +1,6 @@
+// 863
+[clientscript,script863]
+if (%csi_gather_evid_1 = 1) {
+    if_setmodel(csi_fingerprint:fingerprint_magnified, ~script3438(%varplayerbit_7919));
+    return;
+}

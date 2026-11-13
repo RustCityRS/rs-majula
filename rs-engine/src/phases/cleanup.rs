@@ -1,4 +1,4 @@
-use crate::engine::Engine;
+use crate::core::Engine;
 use rs_entity::lifetime::EntityLifeTime;
 
 /// Default restock interval (in ticks) for inventory slots that have
@@ -40,13 +40,19 @@ impl Engine {
     ///
     /// **Called by:** `Engine::cycle`
     /// **Calls:** `reset_zones`, `reset_renderers`, `reset_players`,
-    ///   `reset_npcs`, `remove_despawned_npcs`, `reset_shared_invs`, `restock_invs`
+    ///   `reset_npcs`, `free_empty_regions`, `remove_despawned_npcs`,
+    ///   `drop_region_zones`, `reset_shared_invs`, `restock_invs`
     pub(crate) fn cleanups(&mut self) {
         self.reset_zones();
         self.reset_renderers();
         self.reset_players();
         self.reset_npcs();
+        // Before the despawned npcs go, so a freed region's go with them.
+        #[cfg(since_647)]
+        self.free_empty_regions();
         self.remove_despawned_npcs();
+        #[cfg(since_647)]
+        self.drop_region_zones();
         self.reset_shared_invs();
         self.restock_invs();
     }

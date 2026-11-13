@@ -1,0 +1,45 @@
+// 2573
+[proc,script2573]
+def_obj $obj0 = null;
+switch_int (%varclient_929) {
+    case 0 :
+        $obj0 = inv_getobj(inv, %varclient_930);
+    case 1 :
+        $obj0 = inv_getobj(inv, %varclient_931);
+    case 2 :
+        $obj0 = inv_getobj(inv, %varclient_932);
+    case 3 :
+        $obj0 = inv_getobj(inv, %varclient_933);
+    case 4 :
+        $obj0 = inv_getobj(inv, %varclient_934);
+    case 5 :
+        $obj0 = inv_getobj(inv, %varclient_935);
+    case 6 :
+        $obj0 = inv_getobj(inv, %varclient_936);
+    case 7 :
+        $obj0 = inv_getobj(inv, %varclient_937);
+    case 8 :
+        $obj0 = inv_getobj(inv, %varclient_938);
+    case 9 :
+        $obj0 = inv_getobj(inv, %varclient_939);
+}
+if ($obj0 = null | oc_param($obj0, param_802) ! 1 & oc_param($obj0, param_803) ! 1) {
+    return;
+}
+~script2575;
+if_settext(mob_squad_exchange:squad_name, oc_name($obj0));
+if_setobject(mob_squad_exchange:squad_graphic, $obj0, -1);
+if (oc_param($obj0, param_802) = 1) {
+    ~script2578;
+    ~script2584;
+    ~script2585;
+    ~script2588;
+    ~script2591;
+} else if (oc_param($obj0, param_803) = 1) {
+    ~script2590;
+    ~script2587;
+    ~script2579;
+    ~script2580;
+    ~script2583;
+    ~script2597;
+}

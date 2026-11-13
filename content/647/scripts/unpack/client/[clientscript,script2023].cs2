@@ -1,0 +1,9 @@
+// 2023
+[clientscript,script2023](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+%skill_creation_amount = max(min(calc(%skill_creation_amount + $int1), %skill_creation_maximum), 0);
+~script2047;
+if_setontimer(skillmulti2010:blocker, "skillmulti2010_blocker(calc(clientclock + 15))");
+if_sethide(skillmulti2010:blocker, false);

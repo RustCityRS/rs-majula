@@ -1,0 +1,5 @@
+// 585
+[clientscript,stockmarket_onload]
+if_setonvartransmit(stockmarket:offerlayer, "script588{varplayer_1109}");
+if_setonstocktransmit(stockmarket:title, "stockmarket_onstocktransmit");
+~script621;

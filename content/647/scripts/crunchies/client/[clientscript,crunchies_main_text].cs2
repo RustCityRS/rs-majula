@@ -1,0 +1,72 @@
+// 2033
+[clientscript,crunchies_main_text]
+def_int $int0 = inv_total(inv, gnome_spice);
+def_int $int1 = inv_total(inv, king_worm);
+def_int $int2 = inv_total(inv, equa_leaves);
+def_int $int3 = inv_total(inv, toads_legs);
+def_int $int4 = inv_total(inv, chocolate_bar);
+if ($int3 >= 2 & $int0 >= 1) {
+    if_setcolour(interface_437:com_37, ^green);
+} else {
+    if_setcolour(interface_437:com_37, ^red);
+}
+if ($int2 >= 2 & $int0 >= 1) {
+    if_setcolour(interface_437:com_38, ^green);
+} else {
+    if_setcolour(interface_437:com_38, ^red);
+}
+if ($int2 >= 1 & $int0 >= 1 & $int1 >= 2) {
+    if_setcolour(interface_437:com_39, ^green);
+} else {
+    if_setcolour(interface_437:com_39, ^red);
+}
+if ($int4 >= 2 & $int0 >= 1) {
+    if_setcolour(interface_437:com_40, ^green);
+} else {
+    if_setcolour(interface_437:com_40, ^red);
+}
+if (inv_total(inv, toads_legs) > 1) {
+    if_setobject(interface_437:com_4, toads_legs, 100);
+} else {
+    if_setobject(interface_437:com_4, aluft_toads_legs_dummy, 100);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(interface_437:com_5, gnome_spice, 90);
+} else {
+    if_setobject(interface_437:com_5, aluft_gnome_spice_dummy, 90);
+}
+if (inv_total(inv, equa_leaves) > 1) {
+    if_setobject(interface_437:com_12, equa_leaves, 120);
+} else {
+    if_setobject(interface_437:com_12, aluft_equa_leaves_dummy, 120);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(interface_437:com_11, gnome_spice, 90);
+} else {
+    if_setobject(interface_437:com_11, aluft_gnome_spice_dummy, 90);
+}
+if (inv_total(inv, chocolate_bar) > 1) {
+    if_setobject(interface_437:com_27, chocolate_bar, 140);
+} else {
+    if_setobject(interface_437:com_27, aluft_chocolate_bar_dummy, 140);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(interface_437:com_28, gnome_spice, 90);
+} else {
+    if_setobject(interface_437:com_28, aluft_gnome_spice_dummy, 90);
+}
+if (inv_total(inv, king_worm) > 1) {
+    if_setobject(interface_437:com_19, king_worm, 100);
+} else {
+    if_setobject(interface_437:com_19, aluft_king_worm_dummy, 100);
+}
+if (inv_total(inv, equa_leaves) > 0) {
+    if_setobject(interface_437:com_20, equa_leaves, 120);
+} else {
+    if_setobject(interface_437:com_20, aluft_equa_leaves_dummy, 120);
+}
+if (inv_total(inv, gnome_spice) > 0) {
+    if_setobject(interface_437:com_18, gnome_spice, 90);
+} else {
+    if_setobject(interface_437:com_18, aluft_gnome_spice_dummy, 90);
+}

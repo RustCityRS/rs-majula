@@ -1,0 +1,29 @@
+// 386
+[proc,playerdesign4_switchpage](boolean $boolean0)
+def_boolean $boolean1 = ~int_to_bool(%playerdesign2_client_gender);
+if ($boolean0 = true & %playerdesign2_client_random ! 0) {
+    ~playerdesign4_rebuildmenu;
+    if_sethide(playerdesign4:com_35, true);
+    if_sethide(playerdesign4:com_115, true);
+    if_sethide(playerdesign4:confirm, false);
+    if_sethide(playerdesign4:back, false);
+    if_sethide(playerdesign4:customise_page, false);
+} else {
+    ~script387($boolean1);
+    ~script390($boolean1);
+    if_sethide(playerdesign4:com_35, false);
+    if (%playerdesign2_client_random = 0) {
+        if_sethide(playerdesign4:com_115, true);
+        if_sethide(playerdesign4:confirm, true);
+    } else {
+        if_sethide(playerdesign4:com_115, false);
+        if (%character_creation_multipage = 1 & %character_creation_page = 0) {
+            if_sethide(playerdesign4:confirm, true);
+        } else {
+            if_sethide(playerdesign4:confirm, false);
+        }
+    }
+    if_sethide(playerdesign4:back, true);
+    if_sethide(playerdesign4:customise_page, true);
+}
+~playerdesign4_tooltip_clear;

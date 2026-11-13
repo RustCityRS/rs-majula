@@ -1,0 +1,7 @@
+// 423
+[clientscript,script423]
+if (%conq_camera_coord ! null) {
+    cam_followcoord(%conq_camera_coord);
+} else if (%conq_action_cam_coord ! null) {
+    cam_followcoord(%conq_action_cam_coord);
+}

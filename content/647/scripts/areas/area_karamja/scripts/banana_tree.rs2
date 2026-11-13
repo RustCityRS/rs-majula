@@ -1,0 +1,32 @@
+[oploc1,_banana_tree]
+if (inv_freespace(inv) = 0) {
+    mes("You don't have enough room in your inventory.");
+    return;
+}
+
+// Temp note: dur does not need updated
+loc_change(loc_param(next_loc_stage), 500);
+inv_add(inv, banana, 1);
+
+mes("You pick a banana.");
+sound_synth(pick, 1, 0);
+~task_five_a_day;
+
+// 2011's Task System, Karamja's "Five a Day" (task 182, cache 786: "Pick 5 bananas from the
+// plantation located east of the volcano"): the client counts it done at varbit 3566 = 5
+// (task_get_progress), so each banana picked in the plantation's map square (45_49; Ape Atoll's
+// trees are elsewhere) counts one, to five.
+[proc,task_five_a_day]
+if (coordx(coord) < 2880 | coordx(coord) > 2943 | coordz(coord) < 3136 | coordz(coord) > 3199) {
+    return;
+}
+if (%atjun_easy_banana >= 5) {
+    return;
+}
+%atjun_easy_banana = add(%atjun_easy_banana, 1);
+if (%atjun_easy_banana = 5) {
+    ~task_complete(182);
+}
+
+[oploc1,bananatreeempty]
+mes("There are no bananas left on the tree.");

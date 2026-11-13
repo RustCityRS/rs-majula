@@ -1,0 +1,741 @@
+// 982
+[proc,skill_advance_guide_entry_attack](int $int0, int $int1)(int, obj, string, string)
+switch_int ($int0) {
+    case 0 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, bronze_dagger, "Bronze dagger", "You can now wield <col=000080>bronze daggers</col>.");
+            case 1 :
+                return(1, bronze_axe, "Bronze hatchet", "You can now wield <col=000080>bronze hatchets</col>.");
+            case 2 :
+                return(1, bronze_mace, "Bronze mace", "You can now wield <col=000080>bronze maces</col>.");
+            case 3 :
+                return(1, bronze_claws, "Members: Bronze claws", "Members can now wield <col=000080>bronze claws</col>.");
+            case 4 :
+                return(1, bronze_sword, "Bronze sword", "You can now wield <col=000080>bronze swords</col>.");
+            case 5 :
+                return(1, bronze_longsword, "Bronze longsword", "You can now wield <col=000080>bronze longswords</col>.");
+            case 6 :
+                return(1, bronze_scimitar, "Bronze scimitar", "You can now wield <col=000080>bronze scimitars</col>.");
+            case 7 :
+                return(1, bronze_spear, "Members: Bronze spear", "Members can now wield <col=000080>bronze spears</col>.");
+            case 8 :
+                return(1, bronze_warhammer, "Bronze warhammer", "You can now wield <col=000080>bronze warhammers</col>.");
+            case 9 :
+                return(1, bronze_battleaxe, "Bronze battleaxe", "You can now wield <col=000080>bronze battleaxes</col>.");
+            case 10 :
+                return(1, bronze_2h_sword, "Bronze two-handed sword", "You can now wield <col=000080>bronze two-handed swords</col>.");
+            case 11 :
+                return(1, bronze_halberd, "Members: Bronze halberd", "Members can now wield <col=000080>bronze halberds</col>.");
+            case 12 :
+                return(1, bronze_parryingdagger, "Members: Bronze defender", "Members can now wield <col=000080>bronze defenders</col>.");
+        }
+    case 1 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, iron_dagger, "Iron dagger", "You can now wield <col=000080>iron daggers</col>.");
+            case 1 :
+                return(1, iron_axe, "Iron hatchet", "You can now wield <col=000080>iron hatchets</col>.");
+            case 2 :
+                return(1, iron_mace, "Iron mace", "You can now wield <col=000080>iron maces</col>.");
+            case 3 :
+                return(1, iron_claws, "Members: Iron claws", "Members can now wield <col=000080>iron claws</col>.");
+            case 4 :
+                return(1, iron_sword, "Iron sword", "You can now wield <col=000080>iron swords</col>.");
+            case 5 :
+                return(1, iron_longsword, "Iron longsword", "You can now wield <col=000080>iron longswords</col>.");
+            case 6 :
+                return(1, iron_scimitar, "Iron scimitar", "You can now wield <col=000080>iron scimitars</col>.");
+            case 7 :
+                return(1, artisan_sword_1_iron, "Members: Iron Ceremonial Sword", "Members can now wield <col=000080>iron ceremonial swords</col>.");
+            case 8 :
+                return(1, iron_spear, "Members: Iron spear", "Members can now wield <col=000080>iron spears</col>.");
+            case 9 :
+                return(1, iron_warhammer, "Iron warhammer", "You can now wield <col=000080>iron warhammers</col>.");
+            case 10 :
+                return(1, iron_battleaxe, "Iron battleaxe", "You can now wield <col=000080>iron battleaxes</col>.");
+            case 11 :
+                return(1, iron_2h_sword, "Iron two-handed sword", "You can now wield <col=000080>iron two-handed swords</col>.");
+            case 12 :
+                return(1, iron_halberd, "Members: Iron halberd", "Members can now wield <col=000080>iron halberds</col>.");
+            case 13 :
+                return(1, iron_parryingdagger, "Members: Iron defender", "Members can now wield <col=000080>iron defenders</col>.");
+        }
+    case 2 :
+        switch_int ($int1) {
+            case 0 :
+                return(5, steel_dagger, "Steel dagger", "You can now wield <col=000080>steel daggers</col>.");
+            case 1 :
+                return(5, steel_axe, "Steel hatchet", "You can now wield <col=000080>steel hatchets</col>.");
+            case 2 :
+                return(5, steel_mace, "Steel mace", "You can now wield <col=000080>steel maces</col>.");
+            case 3 :
+                return(5, steel_claws, "Members: Steel claws", "Members can now wield <col=000080>steel claws</col>.");
+            case 4 :
+                return(5, steel_sword, "Steel sword", "You can now wield <col=000080>steel swords</col>.");
+            case 5 :
+                return(5, steel_longsword, "Steel longsword", "You can now wield <col=000080>steel longswords</col>.");
+            case 6 :
+                return(5, steel_scimitar, "Steel scimitar", "You can now wield <col=000080>steel scimitars</col>.");
+            case 7 :
+                return(5, artisan_sword_1_steel, "Members: Steel Ceremonial Sword", "Members can now wield <col=000080>steel ceremonial swords</col>.");
+            case 8 :
+                return(5, steel_spear, "Members: Steel spear", "Members can now wield <col=000080>steel spears</col>.");
+            case 9 :
+                return(5, steel_warhammer, "Steel warhammer", "You can now wield <col=000080>steel warhammers</col>.");
+            case 10 :
+                return(5, steel_battleaxe, "Steel battleaxe", "You can now wield <col=000080>steel battleaxes</col>.");
+            case 11 :
+                return(5, steel_2h_sword, "Steel two-handed sword", "You can now wield <col=000080>steel two-handed swords</col>.");
+            case 12 :
+                return(5, steel_halberd, "Members: Steel halberd", "Members can now wield <col=000080>steel halberds</col>.");
+            case 13 :
+                return(5, steel_parryingdagger, "Members: Steel defender<br> (with 5 Defence)", "Members now have the Attack level required to wield <col=000080>steel defenders</col>. (They also need level 5 Defence.)");
+        }
+    case 3 :
+        switch_int ($int1) {
+            case 0 :
+                return(10, black_dagger, "Black dagger", "You can now wield <col=000080>black daggers</col>.");
+            case 1 :
+                return(10, black_axe, "Black hatchet", "You can now wield <col=000080>black hatchets</col>.");
+            case 2 :
+                return(10, black_mace, "Black mace", "You can now wield <col=000080>black maces</col>.");
+            case 3 :
+                return(10, black_claws, "Members: Black claws", "Members can now wield <col=000080>black claws</col>.");
+            case 4 :
+                return(10, black_sword, "Black sword", "You can now wield <col=000080>black swords</col>.");
+            case 5 :
+                return(10, black_longsword, "Black longsword", "You can now wield <col=000080>black longswords</col>.");
+            case 6 :
+                return(10, black_scimitar, "Black scimitar", "You can now wield <col=000080>black scimitars</col>.");
+            case 7 :
+                return(10, black_spear, "Members: Black spear", "Members can now wield <col=000080>black spears</col>.");
+            case 8 :
+                return(10, black_warhammer, "Black warhammer", "You can now wield <col=000080>black warhammers</col>.");
+            case 9 :
+                return(10, black_battleaxe, "Black battleaxe", "You can now wield <col=000080>black battleaxes</col>.");
+            case 10 :
+                return(10, black_2h_sword, "Black two-handed sword", "You can now wield <col=000080>black two-handed swords</col>.");
+            case 11 :
+                return(10, black_halberd, "Members: Black halberd", "Members can now wield <col=000080>black halberds</col>.");
+            case 12 :
+                return(10, black_parryingdagger, "Members: Black defender<br> (with 10 Defence)", "Members now have the Attack level required to wield <col=000080>black defenders</col>. (They also need level 10 Defence.)");
+        }
+    case 4 :
+        switch_int ($int1) {
+            case 0 :
+                return(-1, invis_rod, "To wield any white equipment, you must have completed Wanted!.", "");
+            case 1 :
+                return(10, white_dagger, "Members: White dagger", "Members can now wield <col=000080>white daggers</col> (after finishing Wanted!).");
+            case 2 :
+                return(10, white_mace, "Members: White mace", "Members can now wield <col=000080>white maces</col> (after finishing Wanted!).");
+            case 3 :
+                return(10, white_claws, "Members: White claws", "Members can now wield <col=000080>white claws</col> (after finishing Wanted!).");
+            case 4 :
+                return(10, white_sword, "Members: White sword", "Members can now wield <col=000080>white swords</col> (after finishing Wanted!).");
+            case 5 :
+                return(10, white_longsword, "Members: White longsword", "Members can now wield <col=000080>white longswords</col> (after finishing Wanted!).");
+            case 6 :
+                return(10, white_scimitar, "Members: White scimitar", "Members can now wield <col=000080>white scimitars</col> (after finishing Wanted!).");
+            case 7 :
+                return(10, white_warhammer, "Members: White warhammer", "Members can now wield <col=000080>white warhammers</col> (after finishing Wanted!).");
+            case 8 :
+                return(10, white_battleaxe, "Members: White battleaxe", "Members can now wield <col=000080>white battleaxes</col> (after finishing Wanted!).");
+            case 9 :
+                return(10, white_2h_sword, "Members: White two-handed sword", "Members can now wield <col=000080>white two-handed swords</col> (after finishing Wanted!).");
+            case 10 :
+                return(10, white_halberd, "Members: White halberd", "Members can now wield <col=000080>white halberds</col> (after finishing Wanted!).");
+        }
+    case 5 :
+        switch_int ($int1) {
+            case 0 :
+                return(20, mithril_dagger, "Mithril dagger", "You can now wield mithril daggers</col>.");
+            case 1 :
+                return(20, mithril_axe, "Mithril hatchet", "You can now wield mithril hatchets</col>.");
+            case 2 :
+                return(20, mithril_mace, "Mithril mace", "You can now wield mithril maces</col>.");
+            case 3 :
+                return(20, mithril_claws, "Members: Mithril claws", "Members can now wield mithril claws</col>.");
+            case 4 :
+                return(20, mithril_sword, "Mithril sword", "You can now wield mithril swords</col>.");
+            case 5 :
+                return(20, mithril_longsword, "Mithril longsword", "You can now wield mithril longswords</col>.");
+            case 6 :
+                return(20, mithril_scimitar, "Mithril scimitar", "You can now wield mithril scimitars</col>.");
+            case 7 :
+                return(20, artisan_sword_1_mithril, "Members: Mithril Ceremonial Sword", "Members can now wield <col=000080>mithril ceremonial swords</col>.");
+            case 8 :
+                return(20, mithril_spear, "Members: Mithril spear", "Members can now wield mithril spears</col>.");
+            case 9 :
+                return(20, mithril_warhammer, "Mithril warhammer", "You can now wield mithril warhammers</col>.");
+            case 10 :
+                return(20, mithril_battleaxe, "Mithril battleaxe", "You can now wield mithril battleaxes</col>.");
+            case 11 :
+                return(20, mithril_2h_sword, "Mithril two-handed sword", "You can now wield mithril two-handed swords</col>.");
+            case 12 :
+                return(20, mithril_halberd, "Members: Mithril halberd", "Members can now wield mithril halberds</col>.");
+            case 13 :
+                return(20, mithril_parryingdagger, "Members: Mithril defender<br> (with 20 Defence)", "Members now have the Attack level required to wield mithril defenders</col>. (They also need level 20 Defence.)");
+        }
+    case 6 :
+        switch_int ($int1) {
+            case 0 :
+                return(30, adamant_dagger, "Adamant dagger", "You can now wield <col=000080>adamant daggers</col>.");
+            case 1 :
+                return(30, adamant_axe, "Adamant hatchet", "You can now wield <col=000080>adamant hatchets</col>.");
+            case 2 :
+                return(30, adamant_mace, "Adamant mace", "You can now wield <col=000080>adamant maces</col>.");
+            case 3 :
+                return(30, adamant_claws, "Members: Adamant claws", "Members can now wield <col=000080>adamant claws</col>.");
+            case 4 :
+                return(30, adamant_sword, "Adamant sword", "You can now wield <col=000080>adamant swords</col>.");
+            case 5 :
+                return(30, adamant_longsword, "Adamant longsword", "You can now wield <col=000080>adamant longswords</col>.");
+            case 6 :
+                return(30, adamant_scimitar, "Adamant scimitar", "You can now wield <col=000080>adamant scimitars</col>.");
+            case 7 :
+                return(30, artisan_sword_1_adamant, "Members: Adamant Ceremonial Sword", "Members can now wield <col=000080>adamant ceremonial swords</col>.");
+            case 8 :
+                return(30, adamant_spear, "Members: Adamant spear", "Members can now wield <col=000080>adamant spears</col>.");
+            case 9 :
+                return(30, adamnt_warhammer, "Adamant warhammer", "You can now wield <col=000080>adamant warhammers</col>.");
+            case 10 :
+                return(30, adamant_battleaxe, "Adamant battleaxe", "You can now wield <col=000080>adamant battleaxes</col>.");
+            case 11 :
+                return(30, adamant_2h_sword, "Adamant two-handed sword", "You can now wield <col=000080>adamant two-handed swords</col>.");
+            case 12 :
+                return(30, adamant_halberd, "Members: Adamant halberd", "Members can now wield <col=000080>adamant halberds</col>.");
+            case 13 :
+                return(30, adamant_parryingdagger, "Members: Adamant defender<br> (with 30 Defence)", "Members now have the Attack level required to wield <col=000080>adamant defenders</col>. (They also need level 30 Defence.)");
+        }
+    case 7 :
+        switch_int ($int1) {
+            case 0 :
+                return(40, rune_dagger, "Rune dagger", "You can now wield <col=000080>rune daggers</col>.");
+            case 1 :
+                return(40, rune_axe, "Rune hatchet", "You can now wield <col=000080>rune hatchets</col>.");
+            case 2 :
+                return(40, rune_mace, "Rune mace", "You can now wield <col=000080>rune maces</col>.");
+            case 3 :
+                return(40, rune_claws, "Members: Rune claws", "Members can now wield <col=000080>rune claws</col>.");
+            case 4 :
+                return(40, rune_sword, "Rune sword", "You can now wield <col=000080>rune swords</col>.");
+            case 5 :
+                return(40, rune_longsword, "Rune longsword", "You can now wield <col=000080>rune longswords</col>.");
+            case 6 :
+                return(40, rune_scimitar, "Rune scimitar", "You can now wield <col=000080>rune scimitars</col>.");
+            case 7 :
+                return(40, artisan_sword_1_rune, "Members: Rune Ceremonial Sword", "Members can now wield <col=000080>rune ceremonial swords</col>.");
+            case 8 :
+                return(40, rune_spear, "Members: Rune spear", "Members can now wield <col=000080>rune spears</col>.");
+            case 9 :
+                return(40, rune_warhammer, "Rune warhammer", "You can now wield <col=000080>rune warhammers</col>.");
+            case 10 :
+                return(40, rune_battleaxe, "Rune battleaxe", "You can now wield <col=000080>rune battleaxes</col>.");
+            case 11 :
+                return(40, rune_2h_sword, "Rune two-handed sword", "You can now wield <col=000080>rune two-handed swords</col>.");
+            case 12 :
+                return(40, rune_halberd, "Members: Rune halberd", "Members can now wield <col=000080>rune halberds</col>.");
+            case 13 :
+                return(40, rune_parryingdagger, "Members: Rune defender<br> (with 40 Defence)", "Members now have the Attack level required to wield <col=000080>rune defenders</col>. (They also need level 40 Defence.)");
+        }
+    case 8 :
+        switch_int ($int1) {
+            case 0 :
+                return(60, dragon_dagger, "Members: Dragon dagger<br> (after Lost City)", "Members can now wield <col=000080>dragon daggers</col> (after Lost City).");
+            case 1 :
+                return(60, dragon_axe, "Members: Dragon hatchet", "Members can now wield <col=000080>dragon hatchets</col>.");
+            case 2 :
+                return(60, dragon_mace, "Members: Dragon mace<br> (after Heroes' Quest)", "Members can now wield <col=000080>dragon maces</col> (after Heroes' Quest).");
+            case 3 :
+                return(60, luc2_dragon_claws, "Members: Dragon claws", "Members can now wield <col=000080>dragon claws</col>.");
+            case 4 :
+                return(60, dragon_longsword, "Members: Dragon longsword<br> (after Lost City)", "Members can now wield <col=000080>dragon longswords</col> (after Lost City).");
+            case 5 :
+                return(60, dragon_scimitar, "Members: Dragon scimitar<br> (after Monkey Madness)", "Members can now wield <col=000080>dragon scimitars</col> (after Monkey Madness).");
+            case 6 :
+                return(60, dragon_spear, "Members: Dragon spear", "Members can now wield <col=000080>dragon spears</col>.");
+            case 7 :
+                return(60, dragon_battleaxe, "Members: Dragon battleaxe<br> (after Heroes' Quest)", "Members can now wield <col=000080>dragon battleaxes</col> (after Heroes' Quest).");
+            case 8 :
+                return(60, dragon_2h_sword, "Members: Dragon two-handed sword", "Members can now wield <col=000080>dragon two-handed swords</col>.");
+            case 9 :
+                return(60, dragon_halberd, "Members: Dragon halberd<br> (after Regicide)", "Members can now wield <col=000080>dragon halberds</col> (after Regicide).");
+            case 10 :
+                return(60, dragon_pickaxe, "Members: Dragon pickaxe", "Members can now wield <col=000080>dragon pickaxes</col>.");
+            case 11 :
+                return(60, dragon_parryingdagger, "Members: Dragon defender<br> (with 60 Defence)", "Members now have the Attack level required to wield <col=000080>dragon defenders</col>. (They also need level 60 Defence.)");
+            case 12 :
+                return(60, pvpw_dragon_dagger, "Corrupt dragon dagger", "You can now wield <col=000080>corrupt dragon daggers</col>.");
+            case 13 :
+                return(60, pvpw_dragon_mace, "Corrupt dragon mace", "You can now wield <col=000080>corrupt dragon maces</col>.");
+            case 14 :
+                return(60, pvpw_dragon_longsword, "Corrupt dragon longsword", "You can now wield <col=000080>corrupt dragon longswords</col>.");
+            case 15 :
+                return(60, pvpw_dragon_scimitar, "Corrupt dragon scimitar", "You can now wield <col=000080>corrupt dragon scimitars</col>.");
+            case 16 :
+                return(60, pvpw_dragon_spear, "Corrupt dragon spear", "You can now wield <col=000080>corrupt dragon spears</col>.");
+            case 17 :
+                return(60, pvpw_dragon_battleaxe, "Corrupt dragon battleaxe", "You can now wield <col=000080>corrupt dragon battleaxes</col>.");
+        }
+    case 9 :
+        switch_int ($int1) {
+            case 0 :
+                return(70, barrows_ahrim_weapon, "Members: Ahrim's staff<br> (with 70 Magic)", "Members now have the Attack level required to wield <col=000080>Ahrim's staff</col>. (They also need level 70 Magic.)");
+            case 1 :
+                return(70, barrows_dharok_weapon, "Members: Dharok's greataxe<br> (with 70 Strength)", "Members now have the Attack level required to wield <col=000080>Dharok's greataxe</col>. (They also need level 70 Strength.)");
+            case 2 :
+                return(70, barrows_guthan_weapon, "Members: Guthan's spear", "Members can now wield <col=000080>Guthan's spear</col>.");
+            case 3 :
+                return(70, barrows_torag_weapon, "Members: Torag's hammers<br> (with 70 Strength)", "Members now have the Attack level required to wield <col=000080>Torag's hammers</col>. (They also need level 70 Strength.)");
+            case 4 :
+                return(70, barrows_verac_weapon, "Members: Verac's flail", "Members can now wield <col=000080>Verac's flail</col>.");
+        }
+    case 10 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, lumbcat_sword, "Reese's sword<br> (after The Blood Pact)", "You can now wield <col=000080>Reese's sword</col> (after starting The Blood Pact).");
+            case 1 :
+                return(1, silverlight, "Silverlight<br> (after Demon Slayer)", "You can now wield <col=000080>Silverlight</col> (after starting Demon Slayer).");
+            case 2 :
+                return(1, darklight, "Members: Darklight<br> (after Shadow of the Storm)", "Members can now wield <col=000080>Darklight</col> (after Shadow of the Storm).");
+            case 3 :
+                return(1, dagger_wolfbane, "Members: Wolfbane Dagger<br> (after Priest in Peril)", "Members can now wield the <col=000080>Wolfbane Dagger</col> (after Priest in Peril.");
+            case 4 :
+                return(1, deathdagger, "Members: Dark Dagger", "Members can now wield the <col=000080>Dark Dagger</col>.");
+            case 5 :
+                return(1, faladian_sword, "Faladian/Blurite Sword<br> (after starting The Knight's Sword)", "You can now wield the <col=000080>Faladian/Blurite Sword</col> (after starting The Knight's Sword).");
+            case 6 :
+                return(1, shadow_maj_shadow_sword, "Members: Shadow Sword", "Members can now wield the <col=000080>Shadow Sword</col>.");
+            case 7 :
+                return(1, cave_goblin_bone_spear, "Members: Bone spear", "Members can now wield <col=000080>bone spears</col>.");
+            case 8 :
+                return(1, cave_goblin_bone_club, "Members: Bone club", "Members can now wield <col=000080>bone clubs</col>.");
+            case 9 :
+                return(1, dttd_bone_dagger, "Members: Bone dagger", "Members can now wield <col=000080>bone daggers</col>.");
+            case 10 :
+                return(1, makinghistory_guthix_polestaff, "Members: Guthix Mjolnir<br> (after Making History)", "Members can now wield the <col=000080>Guthix Mjolnir</col> (after Making History).");
+            case 11 :
+                return(1, makinghistory_saradomin_polestaff, "Members: Saradomin Mjolnir<br> (after Making History)", "Members can now wield the <col=000080>Saradomin Mjolnir</col> after completing Making History.");
+            case 12 :
+                return(1, makinghistory_zamorak_polestaff, "Members: Zamorak Mjolnir<br> (after Making History)", "Members can now wield the <col=000080>Zamorak Mjolnir</col> (after Making History).");
+            case 13 :
+                return(1, gadderanks_warhammer, "Members: Gadderhammer<br> (after starting In Aid of the Myreque)", "Members can now wield the <col=000080>Gadderhammer</col> (after starting In Aid of the Myreque).");
+            case 14 :
+                return(1, anma_axe, "Members: Blessed Axe<br> (after starting Animal Magnetism)", "Members can now wield the <col=000080>Blessed Axe</col> (after starting Animal Magnetism).");
+            case 15 :
+                return(1, firedup_adze, "Members: Inferno Adze<br> (after All Fired Up and with 92 Firemaking)", "Members can now wield the <col=000080>Inferno Adze</col> (after All Fired Up).");
+            case 16 :
+                return(5, castlewars_sword, "Members: Basic decorative sword", "Members can now wield <col=000080>basic decorative swords</col>.");
+            case 17 :
+                return(5, afr_ogre_club, "Members: Ogre club", "Members can now wield <col=000080>ogre clubs</col>.");
+            case 18 :
+                return(15, ancient_goblin_mace, "Members: Ancient Mace<br> (after Another Slice of H.A.M. and with 25 Prayer)", "Members now have the Attack level required to wield the <col=000080>Ancient Mace</col> (after Another Slice of H.A.M. and with level 25 Prayer).");
+            case 19 :
+                return(20, excalibur, "Members: Excalibur<br> (after starting Merlin's Crystal)", "Members can now wield <col=000080>Excalibur</col> (after starting Merlin's Crystal).");
+            case 20 :
+                return(20, castlewars_sword_2, "Members: Detailed decorative sword", "Members can now wield <col=000080>detailed decorative swords</col>.");
+            case 21 :
+                return(20, pvpw_warhammer_20, "Members: Corrupt Statius's warhammer", "Members now have the Attack level required to wield <col=000080>corrupt Statius's warhammer</col>.");
+            case 22 :
+                return(20, pvpw_longsword_20, "Members: Corrupt Vesta's longsword", "Members now have the Attack level required to wield <col=000080>corrupt Vesta's longsword</col>.");
+            case 23 :
+                return(20, pvpw_spear_20, "Members: Corrupt Vesta's spear", "Members now have the Attack level required to wield <col=000080>corrupt Vesta's spear</col>.");
+            case 24 :
+                return(20, pvpw_staff_20, "Members: Corrupt Zuriel's staff<br> (with 20 Magic)", "Members now have the Attack level required to wield <col=000080>corrupt Zuriel's staff</col> (with level 20 Magic).");
+            case 25 :
+                return(30, air_battlestaff, "Members: Air battlestaff<br> (with 30 Magic)", "Members now have the Attack level required to wield <col=000080>air battlestaves</col>. (They also need level 30 Magic.)");
+            case 26 :
+                return(30, earth_battlestaff, "Members: Earth battlestaff<br> (with 30 Magic)", "Members now have the Attack level required to wield <col=000080>earth battlestaves</col>. (They also need level 30 Magic.)");
+            case 27 :
+                return(30, fire_battlestaff, "Members: Fire battlestaff<br> (with 30 Magic)", "Members now have the Attack level required to wield <col=000080>fire battlestaves</col>. (They also need level 30 Magic.)");
+            case 28 :
+                return(30, water_battlestaff, "Members: Water battlestaff<br> (with 30 Magic)", "Members now have the Attack level required to wield <col=000080>water battlestaves</col>. (They also need level 30 Magic.)");
+            case 29 :
+                return(30, lava_battlestaff, "Members: Lava battlestaff<br> (with 30 Magic)", "Members now have the Attack level required to wield <col=000080>lava battlestaves</col>. (They also need level 30 Magic.)");
+            case 30 :
+                return(30, mud_battlestaff, "Members: Mud battlestaff<br> (with 30 Magic)", "Members now have the Attack level required to wield <col=000080>mud battlestaves</col>. (They also need level 30 Magic.)");
+            case 31 :
+                return(30, castlewars_sword_3, "Members: Intricate decorative sword", "Members can now wield <col=000080>intricate decorative swords</col>.");
+            case 32 :
+                return(30, viking_sword, "Members: Fremennik blade", "Members can now wield <col=000080>Fremennik blades</col>.");
+            case 33 :
+                return(40, rand_reward_nature_staff, "Nature staff<br> (with 53 Magic and 53 Dungeoneering)", "You can now use <col=000080>nature staves</col>. (You also need level 53 Magic and level 53 Dungeoneering.)");
+            case 34 :
+                return(40, rand_reward_law_staff, "Law staff<br> (with 45 Magic and 45 Dungeoneering)", "You can now use <col=000080>law staves</col>. (You also need level 45 Magic and level 45 Dungeoneering.)");
+            case 35 :
+                return(40, mystic_air_staff, "Members: Mystic air staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic air staves</col>. (They also need level 40 Magic.)");
+            case 36 :
+                return(40, mystic_earth_staff, "Members: Mystic earth staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic earth staves</col>. (They also need level 40 Magic.)");
+            case 37 :
+                return(40, mystic_fire_staff, "Members: Mystic fire staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic fire staves</col>. (They also need level 40 Magic.)");
+            case 38 :
+                return(40, mystic_water_staff, "Members: Mystic water staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic water staves</col>. (They also need level 40 Magic.)");
+            case 39 :
+                return(40, mystic_lava_staff, "Members: Mystic lava staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic lava staves</col>. (They also need level 40 Magic.)");
+            case 40 :
+                return(40, mystic_mud_staff, "Members: Mystic mud staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic mud staves</col>. (They also need level 40 Magic.)");
+            case 41 :
+                return(40, godwars_mystic_steam_battlestaff, "Members: Mystic steam staff<br> (with 40 Magic)", "Members now have the Attack level required to wield <col=000080>mystic steam staves</col>. (They also need level 40 Magic.)");
+            case 42 :
+                return(40, olaf2_brine_sabre, "Members: Brine sabre", "Members can now wield <col=000080>brine sabres</col>.");
+            case 43 :
+                return(40, sc_reward_sword, "Members: Sacred clay sword", "Members can now wield <col=000080>sacred clay swords</col>.");
+            case 44 :
+                return(40, castlewars_sword_3, "Members: Profound decorative sword", "Members can now wield <col=000080>profound decorative swords</col>.");
+            case 45 :
+                return(40, trail_animal_fire_staff, "Members: Dragon staff<br> (with 40 Magic, 60 Prayer and 20 Defence)", "Members now have the Attack level required to wield <col=000080>dragon staves</col>. (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)");
+            case 46 :
+                return(40, trail_animal_water_staff, "Members: Penguin staff<br> (with 40 Magic, 60 Prayer and 20 Defence)", "Members now have the Attack level required to wield <col=000080>penguin staves</col>. (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)");
+            case 47 :
+                return(40, trail_animal_air_staff, "Members: Bat staff<br> (with 40 Magic, 60 Prayer and 20 Defence)", "Members now have the Attack level required to wield <col=000080>bat staves</col>. (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)");
+            case 48 :
+                return(40, trail_animal_earth_staff, "Members: Wolf staff<br> (with 40 Magic, 60 Prayer and 20 Defence)", "Members now have the Attack level required to wield <col=000080>wolf staves</col>. (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)");
+            case 49 :
+                return(40, trail_animal_plain_staff, "Members: Cat staff<br> (with 40 Magic, 60 Prayer and 20 Defence)", "Members now have the Attack level required to wield <col=000080>cat staves</col>. (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)");
+            case 50 :
+                return(42, game_pest_melee_helm, "Members: Void melee helm", "Members now have the Attack level required to wear <col=000080>Void melee helms</col>.");
+            case 51 :
+                return(42, game_pest_archer_helm, "Members: Void ranger helm", "Members now have the Attack level required to wear <col=000080>Void ranger helms</col>.");
+            case 52 :
+                return(42, game_pest_mage_helm, "Members: Void mage helm", "Members now have the Attack level required to wear <col=000080>Void mage helms</col>.");
+            case 53 :
+                return(42, pest_void_knight_top, "Members: Void knight top", "Members now have the Attack level required to wear <col=000080>Void knight tops</col>.");
+            case 54 :
+                return(42, pest_void_knight_robes, "Members: Void knight robe", "Members now have the Attack level required to wear <col=000080>Void knight robes</col>.");
+            case 55 :
+                return(42, pest_void_knight_gloves, "Members: Void knight gloves", "Members now have the Attack level required to wear <col=000080>Void knight gloves</col>.");
+            case 56 :
+                return(42, conq_reward_shield, "Members: Void knight deflector", "Members now have the Attack level required to wear <col=000080>Void knight deflectors</col>.");
+            case 57 :
+                return(42, pest_void_knight_mace, "Members: Void knight mace", "Members now have the Attack level required to wield <col=000080>Void knight maces</col>.");
+            case 58 :
+                return(42, invis_rod, "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer.", "<col=000080>Void knight equipment</col> requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer.");
+            case 59 :
+                return(45, rand_rapier_45_reward, "Gravite rapier<br> (with 45 Dungeoneering)", "You can now wield <col=000080>gravite rapiers</col>. (You also need level 45 Dungeoneering.)");
+            case 60 :
+                return(45, rand_longsword_45_reward, "Gravite longsword<br> (with 45 Dungeoneering)", "You can now wield <col=000080>gravite longswords</col>. (You also need level 45 Dungeoneering.)");
+            case 61 :
+                return(45, rand_2h_sword_45_reward, "Gravite two-handed sword<br> (with 45 Dungeoneering)", "You can now wield <col=000080>gravite two-handed swords</col>. (You also need level 45 Dungeoneering.)");
+            case 62 :
+                return(50, slayer_leafbladed_spear, "Members: Leaf-bladed spear<br> (with 55 Slayer)", "Members now have the Attack level required to wield <col=000080>leaf-bladed spears</col>: melee weapons used for killing turoth and kurask. (They also need level 55 Slayer.)");
+            case 63 :
+                return(50, staff_of_zaros, "Members: Ancient Staff<br> (after Desert Treasure and with 50 Magic)", "Members now have the Attack level required to wield the <col=000080>Ancient Staff</col> (after Desert Treasure and with level 50 Magic).");
+            case 64 :
+                return(50, ibanstaff, "Members: Iban's Staff<br> (after Underground Pass and with 50 Magic)", "Members now have the Attack level required to wield <col=000080>Iban's Staff</col> (after Underground Pass and with level 50 Magic).");
+            case 65 :
+                return(50, granite_maul, "Members: Granite maul<br> (with 50 Strength)", "Members can now wield <col=000080>granite mauls</col>. (They also need level 50 Strength.)");
+            case 66 :
+                return(50, chosen_granite_mace, "Members: Granite mace<br> (with 50 Strength)", "Members can now wield <col=000080>granite maces</col>. (They also need level 50 Strength.)");
+            case 67 :
+                return(50, contact_keris, "Members: Keris<br> (after Contact!)", "Members can now wield <col=000080>Keris</col> (after Contact!).");
+            case 68 :
+                return(50, smki_sword_leaf_blade, "Members: Leaf-bladed swords<br> (with 55 Slayer)", "Members can now wield <col=000080>leaf-bladed swords</col>. (They also need level 55 Slayer).");
+            case 69 :
+                return(60, brain_anchor, "Members: Barrelchest Anchor<br> (after Great Brain Robbery and with 40 Strength)", "Members now have the Attack level required to wield the <col=000080>Barrelchest Anchor</col> (after Great Brain Robbery, with level 40 Strength).");
+            case 70 :
+                return(60, tzhaar_splitsword, "Members: TokTz-Xil-Ak", "Members can now wield <col=000080>TokTz-Xil-Ak</col>.");
+            case 71 :
+                return(60, tzhaar_mace, "Members: TzHaar-Ket-Em", "Members can now wield <col=000080>TzHaar-Ket-Em</col>.");
+            case 72 :
+                return(60, tzhaar_knife, "Members: TokTz-Xil-Ek", "Members can now wield <col=000080>TokTz-Xil-Ek</col>.");
+            case 73 :
+                return(60, tzhaar_staff, "Members: Toktz-Mej-Tal<br> (with 60 Magic)", "Members now have the Attack level required to wield <col=000080>Toktz-Mej-Tal</col>. (They also need level 60 Magic.)");
+            case 74 :
+                return(60, acs_brackish_blade, "Members: Brackish Blade", "Members can now wield <col=000080>Brackish Blades</col>.");
+            case 75 :
+                return(62, rand_reward_ring_of_vigor, "Members: Ring of vigour<br> (with 62 Dungeoneering)", "Members can now wear <col=000080>rings of vigour</col>. (They also need level 62 Dungeoneering.)");
+            case 76 :
+                return(70, abyssal_whip, "Members: Abyssal whip", "Members can now wield <col=000080>abyssal whips</col>.");
+            case 77 :
+                return(70, trident_master, "Members: Penance master trident (with 70 Magic)", "Members can now wield <col=000080>penance master tridents</col>. (They also need level 70 Magic.)");
+            case 78 :
+                return(70, godwars_saradomin_sword, "Members: Saradomin sword", "Members can now wield <col=000080>Saradomin swords</col>.");
+            case 79 :
+                return(70, godwars_zamorak_spear, "Members: Zamorakian spear", "Members can now wield <col=000080>Zamorakian spears</col>.");
+            case 80 :
+                return(75, godwars_armadyl_completed_godsword, "Members: Armadyl godsword", "Members can now wield the <col=000080>Armadyl godsword</col>.");
+            case 81 :
+                return(75, godwars_bandos_completed_godsword, "Members: Bandos godsword", "Members can now wield the <col=000080>Bandos godsword</col>.");
+            case 82 :
+                return(75, godwars_saradomin_completed_godsword, "Members: Saradomin godsword", "Members can now wield the <col=000080>Saradomin godsword</col>.");
+            case 83 :
+                return(75, godwars_zamorak_completed_godsword, "Members: Zamorak godsword", "Members can now wield the <col=000080>Zamorak godsword</col>.");
+            case 84 :
+                return(75, evq_axe, "Members: Balmung (after Blood Runs Deep and with 75 Strength)", "Members can now wield <col=000080>Balmung</col> (after Blood Runs Deep, with 75 Strength).");
+            case 85 :
+                return(75, staff_of_light, "Members: Staff of Light (with 75 Magic)", "Members can now wield the <col=000080>Staff of Light</col> (with 75 Magic).");
+            case 86 :
+                return(78, pvpw_warhammer, "Members: Statius's warhammer", "Members now have the Attack level required to wield <col=000080>Statius's warhammer</col>.");
+            case 87 :
+                return(78, pvpw_longsword, "Members: Vesta's longsword", "Members now have the Attack level required to wield <col=000080>Vesta's longsword</col>.");
+            case 88 :
+                return(78, pvpw_spear, "Members: Vesta's spear", "Members now have the Attack level required to wield <col=000080>Vesta's spear</col>.");
+            case 89 :
+                return(78, pvpw_staff, "Members: Zuriel's staff<br> (with 78 Magic)", "Members now have the Attack level required to wield <col=000080>Zuriel's staff</col> (with level 78 Magic).");
+            case 90 :
+                return(80, rand_rapier_80_reward, "Members: Chaotic rapier<br> (with 80 Dungeoneering)", "Members can now wield <col=000080>chaotic rapiers</col>. (They also need level 80 Dungeoneering.)");
+            case 91 :
+                return(80, rand_longsword_80_reward, "Members: Chaotic longsword<br> (with 80 Dungeoneering)", "Members can now wield <col=000080>chaotic longswords</col>. (They also need level 80 Dungeoneering.)");
+            case 92 :
+                return(80, rand_maul_80_reward, "Members: Chaotic maul<br> (with 80 Dungeoneering)", "Members can now wield <col=000080>chaotic mauls</col>. (They also need level 80 Dungeoneering.)");
+        }
+    case 11 :
+        switch_int ($int1) {
+            case 0 :
+                return(30, green_salamander, "Members: Swamp lizard<br> (with 30 Magic and 30 Ranged)", "Members now have the Attack level required to wield <col=000080>swamp lizards</col>. (They also need level 30 Magic and level 30 Ranged.)");
+            case 1 :
+                return(50, orange_salamander, "Members: Orange salamander<br> (with 50 Magic and 50 Ranged)", "Members now have the Attack level required to wield <col=000080>orange salamanders</col>. (They also need level 50 Magic and level 50 Ranged.)");
+            case 2 :
+                return(60, red_salamander, "Members: Red salamander<br> (with 60 Magic and 60 Ranged)", "Members now have the Attack level required to wield <col=000080>red salamanders</col>. (They also need level 60 Magic and level 60 Ranged.)");
+            case 3 :
+                return(70, black_salamander, "Members: Black salamander<br> (with 70 Magic and 70 Ranged)", "Members now have the Attack level required to wield <col=000080>black salamanders</col>. (They also need level 70 Magic and level 70 Ranged.)");
+        }
+    case 12 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, sc_dagger_1, "Members: Stealing Creation - class 1 dagger", "Members can now wield <col=000080>class 1 daggers</col> in Stealing Creation.");
+            case 1 :
+                return(1, sc_scimitar_1, "Members: Stealing Creation - class 1 scimitar", "Members can now wield <col=000080>class 1 scimitars</col> in Stealing Creation.");
+            case 2 :
+                return(1, sc_warhammer_1, "Members: Stealing Creation - class 1 warhammer", "Members can now wield <col=000080>class 1 warhammers</col> in Stealing Creation.");
+            case 3 :
+                return(20, sc_dagger_2, "Members: Stealing Creation - class 2 dagger", "Members can now wield <col=000080>class 2 daggers</col> in Stealing Creation.");
+            case 4 :
+                return(20, sc_scimitar_2, "Members: Stealing Creation - class 2 scimitar", "Members can now wield <col=000080>class 2 scimitars</col> in Stealing Creation.");
+            case 5 :
+                return(20, sc_warhammer_2, "Members: Stealing Creation - class 2 warhammer", "Members can now wield <col=000080>class 2 warhammers</col> in Stealing Creation.");
+            case 6 :
+                return(40, sc_dagger_3, "Members: Stealing Creation - class 3 dagger", "Members can now wield <col=000080>class 3 daggers</col> in Stealing Creation.");
+            case 7 :
+                return(40, sc_scimitar_3, "Members: Stealing Creation - class 3 scimitar", "Members can now wield <col=000080>class 3 scimitars</col> in Stealing Creation.");
+            case 8 :
+                return(40, sc_warhammer_3, "Members: Stealing Creation - class 3 warhammer", "Members can now wield <col=000080>class 3 warhammers</col> in Stealing Creation.");
+            case 9 :
+                return(60, sc_dagger_4, "Members: Stealing Creation - class 4 dagger", "Members can now wield <col=000080>class 4 daggers</col> in Stealing Creation.");
+            case 10 :
+                return(60, sc_scimitar_4, "Members: Stealing Creation - class 4 scimitar", "Members can now wield <col=000080>class 4 scimitars</col> in Stealing Creation.");
+            case 11 :
+                return(60, sc_warhammer_4, "Members: Stealing Creation - class 4 warhammer", "Members can now wield <col=000080>class 4 warhammers</col> in Stealing Creation.");
+            case 12 :
+                return(80, sc_dagger_5, "Members: Stealing Creation - class 5 dagger", "Members can now wield <col=000080>class 5 daggers</col> in Stealing Creation.");
+            case 13 :
+                return(80, sc_scimitar_5, "Members: Stealing Creation - class 5 scimitar", "Members can now wield <col=000080>class 5 scimitars</col> in Stealing Creation.");
+            case 14 :
+                return(80, sc_warhammer_5, "Members: Stealing Creation - class 5 warhammer", "Members can now wield <col=000080>class 5 warhammers</col> in Stealing Creation.");
+        }
+    case 13 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, rand_dagger_1, "Novite dagger (Tier 1)", "You can now wield <col=000080>novite daggers</col> within Daemonheim.");
+            case 1 :
+                return(1, rand_sword_1, "Novite rapier (Tier 1)", "You can now wield <col=000080>novite rapiers</col> within Daemonheim.");
+            case 2 :
+                return(1, rand_longsword_1, "Novite longsword (Tier 1)", "You can now wield <col=000080>novite longswords</col> within Daemonheim.");
+            case 3 :
+                return(1, rand_battleaxe_1, "Novite battleaxe (Tier 1)", "You can now wield <col=000080>novite battleaxes</col> within Daemonheim.");
+            case 4 :
+                return(1, rand_2h_sword_1, "Novite 2h swords (Tier 1)", "You can now wield <col=000080>novite 2h swords</col> within Daemonheim.");
+            case 5 :
+                return(1, rand_spear_1, "Novite spears (Tier 1)", "You can now wield <col=000080>novite spears</col> within Daemonheim.");
+            case 6 :
+                return(1, rand_warhammer_1, "Novite warhammer (Tier 1)", "You can now wield <col=000080>novite warhammers</col> within Daemonheim.");
+            case 7 :
+                return(1, rand_hatchet_1, "Novite hatchet (Tier 1)", "You can now wield <col=000080>novite hatchets</col> within Daemonheim.");
+            case 8 :
+                return(1, rand_pickaxe_1, "Novite pickaxe (Tier 1)", "You can now wield <col=000080>novite pickaxes</col> within Daemonheim.");
+            case 9 :
+                return(10, rand_dagger_2, "Bathus dagger (Tier 2)", "You can now wield <col=000080>bathus daggers</col> within Daemonheim.");
+            case 10 :
+                return(10, rand_sword_2, "Bathus rapier (Tier 2)", "You can now wield <col=000080>bathus rapiers</col> within Daemonheim.");
+            case 11 :
+                return(10, rand_longsword_2, "Bathus longsword (Tier 2)", "You can now wield <col=000080>bathus longswords</col> within Daemonheim.");
+            case 12 :
+                return(10, rand_battleaxe_2, "Bathus battleaxe (Tier 2)", "You can now wield <col=000080>bathus battleaxes</col> within Daemonheim.");
+            case 13 :
+                return(10, rand_2h_sword_2, "Bathus 2h swords (Tier 2)", "You can now wield <col=000080>bathus 2h swords</col> within Daemonheim.");
+            case 14 :
+                return(10, rand_spear_2, "Bathus spears (Tier 2)", "You can now wield <col=000080>bathus spears</col> within Daemonheim.");
+            case 15 :
+                return(10, rand_warhammer_2, "Bathus warhammer (Tier 2)", "You can now wield <col=000080>bathus warhammers</col> within Daemonheim.");
+            case 16 :
+                return(10, rand_hatchet_2, "Bathus hatchet (Tier 2)", "You can now wield <col=000080>bathus hatchets</col> within Daemonheim.");
+            case 17 :
+                return(10, rand_pickaxe_2, "Bathus pickaxe (Tier 2)", "You can now wield <col=000080>bathus pickaxes</col> within Daemonheim.");
+            case 18 :
+                return(20, rand_dagger_3, "Marmaros dagger (Tier 3)", "You can now wield <col=000080>marmaros daggers</col> within Daemonheim.");
+            case 19 :
+                return(20, rand_sword_3, "Marmaros rapier (Tier 3)", "You can now wield <col=000080>marmaros rapiers</col> within Daemonheim.");
+            case 20 :
+                return(20, rand_longsword_3, "Marmaros longsword (Tier 3)", "You can now wield <col=000080>marmaros longswords</col> within Daemonheim.");
+            case 21 :
+                return(20, rand_battleaxe_3, "Marmaros battleaxe (Tier 3)", "You can now wield <col=000080>marmaros battleaxes</col> within Daemonheim.");
+            case 22 :
+                return(20, rand_2h_sword_3, "Marmaros 2h swords (Tier 3)", "You can now wield <col=000080>marmaros 2h swords</col> within Daemonheim.");
+            case 23 :
+                return(20, rand_spear_3, "Marmaros spears (Tier 3)", "You can now wield <col=000080>marmaros spears</col> within Daemonheim.");
+            case 24 :
+                return(20, rand_warhammer_3, "Marmaros warhammer (Tier 3)", "You can now wield <col=000080>marmaros warhammers</col> within Daemonheim.");
+            case 25 :
+                return(20, rand_hatchet_3, "Marmaros hatchet (Tier 3)", "You can now wield <col=000080>marmaros hatchets</col> within Daemonheim.");
+            case 26 :
+                return(20, rand_pickaxe_3, "Marmaros pickaxe (Tier 3)", "You can now wield <col=000080>marmaros pickaxes</col> within Daemonheim.");
+            case 27 :
+                return(30, rand_dagger_4, "Kratonite dagger (Tier 4)", "You can now wield <col=000080>kratonite daggers</col> within Daemonheim.");
+            case 28 :
+                return(30, rand_sword_4, "Kratonite rapier (Tier 4)", "You can now wield <col=000080>kratonite rapiers</col> within Daemonheim.");
+            case 29 :
+                return(30, rand_longsword_4, "Kratonite longsword (Tier 4)", "You can now wield <col=000080>kratonite longswords</col> within Daemonheim.");
+            case 30 :
+                return(30, rand_battleaxe_4, "Kratonite battleaxe (Tier 4)", "You can now wield <col=000080>kratonite battleaxes</col> within Daemonheim.");
+            case 31 :
+                return(30, rand_2h_sword_4, "Kratonite 2h swords (Tier 4)", "You can now wield <col=000080>kratonite 2h swords</col> within Daemonheim.");
+            case 32 :
+                return(30, rand_spear_4, "Kratonite spears (Tier 4)", "You can now wield <col=000080>kratonite spears</col> within Daemonheim.");
+            case 33 :
+                return(30, rand_warhammer_4, "Kratonite warhammer (Tier 4)", "You can now wield <col=000080>kratonite warhammers</col> within Daemonheim.");
+            case 34 :
+                return(30, rand_hatchet_4, "Kratonite hatchet (Tier 4)", "You can now wield <col=000080>kratonite hatchets</col> within Daemonheim.");
+            case 35 :
+                return(30, rand_pickaxe_4, "Kratonite pickaxe (Tier 4)", "You can now wield <col=000080>kratonite pickaxes</col> within Daemonheim.");
+            case 36 :
+                return(36, rand_ice_dagger, "Members: Frostbite dagger<br> (with 36 Magic)", "Members can now wield <col=000080>frostbite daggers</col> within Daemonheim. (They also need level 36 Magic.)");
+            case 37 :
+                return(40, rand_dagger_5, "Fractite dagger (Tier 5)", "You can now wield <col=000080>fractite daggers</col> within Daemonheim.");
+            case 38 :
+                return(40, rand_sword_5, "Fractite rapier (Tier 5)", "You can now wield <col=000080>fractite rapiers</col> within Daemonheim.");
+            case 39 :
+                return(40, rand_longsword_5, "Fractite longsword (Tier 5)", "You can now wield <col=000080>fractite longswords</col> within Daemonheim.");
+            case 40 :
+                return(40, rand_battleaxe_5, "Fractite battleaxe (Tier 5)", "You can now wield <col=000080>fractite battleaxes</col> within Daemonheim.");
+            case 41 :
+                return(40, rand_2h_sword_5, "Fractite 2h swords (Tier 5)", "You can now wield <col=000080>fractite 2h swords</col> within Daemonheim.");
+            case 42 :
+                return(40, rand_spear_5, "Fractite spears (Tier 5)", "You can now wield <col=000080>fractite spears</col> within Daemonheim.");
+            case 43 :
+                return(40, rand_warhammer_5, "Fractite warhammer (Tier 5)", "You can now wield <col=000080>fractite warhammers</col> within Daemonheim.");
+            case 44 :
+                return(40, rand_hatchet_5, "Fractite hatchet (Tier 5)", "You can now wield <col=000080>fractite hatchets</col> within Daemonheim.");
+            case 45 :
+                return(40, rand_pickaxe_5, "Fractite pickaxe (Tier 5)", "You can now wield <col=000080>fractite pickaxes</col> within Daemonheim.");
+            case 46 :
+                return(50, rand_dagger_6, "Members: Zephyrium dagger (Tier 6)", "Members can now wield <col=000080>zephyrium daggers</col> within Daemonheim.");
+            case 47 :
+                return(50, rand_sword_6, "Members: Zephyrium rapier (Tier 6)", "Members can now wield <col=000080>zephyrium rapiers</col> within Daemonheim.");
+            case 48 :
+                return(50, rand_longsword_6, "Members: Zephyrium longsword (Tier 6)", "Members can now wield <col=000080>zephyrium longswords</col> within Daemonheim.");
+            case 49 :
+                return(50, rand_battleaxe_6, "Members: Zephyrium battleaxe (Tier 6)", "Members can now wield <col=000080>zephyrium battleaxes</col> within Daemonheim.");
+            case 50 :
+                return(50, rand_2h_sword_6, "Members: Zephyrium 2h swords (Tier 6)", "Members can now wield <col=000080>zephyrium 2h swords</col> within Daemonheim.");
+            case 51 :
+                return(50, rand_spear_6, "Members: Zephyrium spears (Tier 6)", "Members can now wield <col=000080>zephyrium spears</col> within Daemonheim.");
+            case 52 :
+                return(50, rand_warhammer_6, "Members: Zephyrium warhammer (Tier 6)", "Members can now wield <col=000080>zephyrium warhammers</col> within Daemonheim.");
+            case 53 :
+                return(50, rand_hatchet_6, "Members: Zephyrium hatchet (Tier 6)", "Members can now wield <col=000080>zephyrium hatchets</col> within Daemonheim.");
+            case 54 :
+                return(50, rand_pickaxe_6, "Members: Zephyrium pickaxe (Tier 6)", "Members can now wield <col=000080>zephyrium pickaxes</col> within Daemonheim.");
+            case 55 :
+                return(60, rand_dagger_7, "Members: Argonite dagger (Tier 7)", "Members can now wield <col=000080>argonite daggers</col> within Daemonheim.");
+            case 56 :
+                return(60, rand_sword_7, "Members: Argonite rapier (Tier 7)", "Members can now wield <col=000080>argonite rapiers</col> within Daemonheim.");
+            case 57 :
+                return(60, rand_longsword_7, "Members: Argonite longsword (Tier 7)", "Members can now wield <col=000080>argonite longswords</col> within Daemonheim.");
+            case 58 :
+                return(60, rand_battleaxe_7, "Members: Argonite battleaxe (Tier 7)", "Members can now wield <col=000080>argonite battleaxes</col> within Daemonheim.");
+            case 59 :
+                return(60, rand_2h_sword_7, "Members: Argonite 2h swords (Tier 7)", "Members can now wield <col=000080>argonite 2h swords</col> within Daemonheim.");
+            case 60 :
+                return(60, rand_spear_7, "Members: Argonite spears (Tier 7)", "Members can now wield <col=000080>argonite spears</col> within Daemonheim.");
+            case 61 :
+                return(60, rand_warhammer_7, "Members: Argonite warhammer (Tier 7)", "Members can now wield <col=000080>argonite warhammers</col> within Daemonheim.");
+            case 62 :
+                return(60, rand_hatchet_7, "Members: Argonite hatchet (Tier 7)", "Members can now wield <col=000080>argonite hatchets</col> within Daemonheim.");
+            case 63 :
+                return(60, rand_pickaxe_7, "Members: Argonite pickaxe (Tier 7)", "Members can now wield <col=000080>argonite pickaxes</col> within Daemonheim.");
+            case 64 :
+                return(68, rand_ice_dagger, "Members: Hailstorm dagger<br> (with 68 Magic)", "Members can now wield <col=000080>hailstorm daggers</col> within Daemonheim. (They also need level 68 Magic)");
+            case 65 :
+                return(68, rand_cursed_staff, "Members: Doomcore staff<br> (with 68 Magic)", "Members can now wield <col=000080>doomcore staves</col> within Daemonheim. (They also need level 68 Magic.)");
+            case 66 :
+                return(70, rand_dagger_8, "Members: Katagon dagger (Tier 8)", "Members can now wield <col=000080>katagon daggers</col> within Daemonheim.");
+            case 67 :
+                return(70, rand_sword_8, "Members: Katagon rapier (Tier 8)", "Members can now wield <col=000080>katagon rapiers</col> within Daemonheim.");
+            case 68 :
+                return(70, rand_longsword_8, "Members: Katagon longsword (Tier 8)", "Members can now wield <col=000080>katagon longswords</col> within Daemonheim.");
+            case 69 :
+                return(70, rand_battleaxe_8, "Members: Katagon battleaxe (Tier 8)", "Members can now wield <col=000080>katagon battleaxes</col> within Daemonheim.");
+            case 70 :
+                return(70, rand_2h_sword_8, "Members: Katagon 2h swords (Tier 8)", "Members can now wield <col=000080>katagon 2h swords</col> within Daemonheim.");
+            case 71 :
+                return(70, rand_spear_8, "Members: Katagon spears (Tier 8)", "Members can now wield <col=000080>katagon spears</col> within Daemonheim.");
+            case 72 :
+                return(70, rand_warhammer_8, "Members: Katagon warhammer (Tier 8)", "Members can now wield <col=000080>katagon warhammers</col> within Daemonheim.");
+            case 73 :
+                return(70, rand_hatchet_8, "Members: Katagon hatchet (Tier 8)", "Members can now wield <col=000080>katagon hatchets</col> within Daemonheim.");
+            case 74 :
+                return(70, rand_pickaxe_8, "Members: Katagon pickaxe (Tier 8)", "Members can now wield <col=000080>katagon pickaxes</col> within Daemonheim.");
+            case 75 :
+                return(80, rand_dagger_9, "Members: Gorgonite dagger (Tier 9)", "Members can now wield <col=000080>gorgonite daggers</col> within Daemonheim.");
+            case 76 :
+                return(80, rand_sword_9, "Members: Gorgonite rapier (Tier 9)", "Members can now wield <col=000080>gorgonite rapiers</col> within Daemonheim.");
+            case 77 :
+                return(80, rand_longsword_9, "Members: Gorgonite longsword (Tier 9)", "Members can now wield <col=000080>gorgonite longswords</col> within Daemonheim.");
+            case 78 :
+                return(80, rand_battleaxe_9, "Members: Gorgonite battleaxe (Tier 9)", "Members can now wield <col=000080>gorgonite battleaxes</col> within Daemonheim.");
+            case 79 :
+                return(80, rand_2h_sword_9, "Members: Gorgonite 2h swords (Tier 9)", "Members can now wield <col=000080>gorgonite 2h swords</col> within Daemonheim.");
+            case 80 :
+                return(80, rand_spear_9, "Members: Gorgonite spears (Tier 9)", "Members can now wield <col=000080>gorgonite spears</col> within Daemonheim.");
+            case 81 :
+                return(80, rand_warhammer_9, "Members: Gorgonite warhammer (Tier 9)", "Members can now wield <col=000080>gorgonite warhammers</col> within Daemonheim.");
+            case 82 :
+                return(80, rand_hatchet_9, "Members: Gorgonite hatchet (Tier 9)", "Members can now wield <col=000080>gorgonite hatchets</col> within Daemonheim.");
+            case 83 :
+                return(80, rand_pickaxe_9, "Members: Gorgonite pickaxe (Tier 9)", "Members can now wield <col=000080>gorgonite pickaxes</col> within Daemonheim.");
+            case 84 :
+                return(90, rand_dagger_10, "Members: Promethium dagger (Tier 10)", "Members can now wield <col=000080>promethium daggers</col> within Daemonheim.");
+            case 85 :
+                return(90, rand_sword_10, "Members: Promethium rapier (Tier 10)", "Members can now wield <col=000080>promethium rapiers</col> within Daemonheim.");
+            case 86 :
+                return(90, rand_longsword_10, "Members: Promethium longsword (Tier 10)", "Members can now wield <col=000080>promethium longswords</col> within Daemonheim.");
+            case 87 :
+                return(90, rand_battleaxe_10, "Members: Promethium battleaxe (Tier 10)", "Members can now wield <col=000080>promethium battleaxes</col> within Daemonheim.");
+            case 88 :
+                return(90, rand_2h_sword_10, "Members: Promethium 2h swords (Tier 10)", "Members can now wield <col=000080>promethium 2h swords</col> within Daemonheim.");
+            case 89 :
+                return(90, rand_spear_10, "Members: Promethium spears (Tier 10)", "Members can now wield <col=000080>promethium spears</col> within Daemonheim.");
+            case 90 :
+                return(90, rand_warhammer_10, "Members: Promethium warhammer (Tier 10)", "Members can now wield <col=000080>promethium warhammers</col> within Daemonheim.");
+            case 91 :
+                return(90, rand_hatchet_10, "Members: Promethium hatchet (Tier 10)", "Members can now wield <col=000080>promethium hatchets</col> within Daemonheim.");
+            case 92 :
+                return(90, rand_pickaxe_10, "Members: Promethium pickaxe (Tier 10)", "Members can now wield <col=000080>promethium pickaxes</col> within Daemonheim.");
+            case 93 :
+                return(99, rand_dagger_11, "Members: Primal dagger (Tier 11)", "Members can now wield <col=000080>primal daggers</col> within Daemonheim.");
+            case 94 :
+                return(99, rand_sword_11, "Members: Primal rapier (Tier 11)", "Members can now wield <col=000080>primal rapiers</col> within Daemonheim.");
+            case 95 :
+                return(99, rand_longsword_11, "Members: Primal longsword (Tier 11)", "Members can now wield <col=000080>primal longswords</col> within Daemonheim.");
+            case 96 :
+                return(99, rand_battleaxe_11, "Members: Primal battleaxe (Tier 11)", "Members can now wield <col=000080>primal battleaxes</col> within Daemonheim.");
+            case 97 :
+                return(99, rand_2h_sword_11, "Members: Primal 2h swords (Tier 11)", "Members can now wield <col=000080>primal 2h swords</col> within Daemonheim.");
+            case 98 :
+                return(99, rand_spear_11, "Members: Primal spears (Tier 11)", "Members can now wield <col=000080>primal spears</col> within Daemonheim.");
+            case 99 :
+                return(99, rand_warhammer_11, "Members: Primal warhammer (Tier 11)", "Members can now wield <col=000080>primal warhammers</col> within Daemonheim.");
+            case 100 :
+                return(99, rand_hatchet_11, "Members: Primal hatchet (Tier 11)", "Members can now wield <col=000080>primal hatchets</col> within Daemonheim.");
+            case 101 :
+                return(99, rand_pickaxe_11, "Members: Primal pickaxe (Tier 11)", "Members can now wield <col=000080>primal pickaxes</col> within Daemonheim.");
+        }
+    case 14 :
+        switch_int ($int1) {
+            case 0 :
+                return(-1, warguild_tokens_5, "You can enter the Warriors' Guild when your Attack and Strength levels add up to 130 or more, or when you reach level 99 in either Attack or Strength.", "");
+            case 1 :
+                return(99, skillcape_attack, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Attack<col=000080>. Members can visit <col=800000>Ajjat<col=000080> at the <col=800000>Warriors' Guild<col=000080>. He has something special that is only available to true masters of the <col=800000>Attack<col=000080> skill!");
+        }
+}

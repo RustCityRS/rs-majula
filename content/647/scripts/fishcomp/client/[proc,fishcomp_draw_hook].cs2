@@ -1,0 +1,18 @@
+// 265
+[proc,fishcomp_draw_hook]
+def_string $string0 = "None";
+switch_int (%fishcomp_client_hook) {
+    case 1 :
+        $string0 = "Standard";
+    case 3 :
+        $string0 = "Large";
+    case 2 :
+        $string0 = "Slim";
+    case 4 :
+        $string0 = "Bone";
+    case 5 :
+        $string0 = "Wooden";
+    case 6 :
+        $string0 = "Double";
+}
+if_settext(fishcomp_side:selected_hook_txt, $string0);

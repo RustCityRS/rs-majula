@@ -1,0 +1,1437 @@
+// 982:0
+[universe]
+type=layer
+width=190
+height=261
+onload=pmsetup_init(event_com, pmsetup:clan, pmsetup:friend, pmsetup:private, pmsetup:guest, pmsetup:tab_clan, pmsetup:tab_friend, pmsetup:tab_private, pmsetup:tab_guest, pmsetup:clansample, pmsetup:clansample_background, pmsetup:clansample_text, pmsetup:com_92, pmsetup:com_93, pmsetup:com_94, pmsetup:com_117, pmsetup:com_118, pmsetup:com_119, pmsetup:nosplit, pmsetup:nosplit_tick, pmsetup:sample, pmsetup:sample_text)
+
+// 982:1
+[com_1]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 982:2
+[title]
+type=layer
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=universe
+
+// 982:3
+[com_3]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=title
+colour=0x000000
+fill=yes
+trans=200
+
+// 982:4
+[com_4]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=title
+textfont=b12_full
+text=Chat Setup
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:5
+[close]
+type=graphic
+x=5
+width=16
+height=16
+xmode=abs_right
+ymode=abs_centre
+layer=title
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+
+// 982:6
+[tabs]
+type=layer
+y=30
+width=4
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=universe
+
+// 982:7
+[tab_private]
+type=graphic
+x=135
+width=59
+height=20
+ymode=abs_centre
+layer=tabs
+graphic="tabs,1"
+
+// 982:8
+[com_8]
+type=text
+x=139
+width=50
+heightmode=minus
+ymode=abs_centre
+layer=tabs
+textfont=p11_full
+text=Private
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:9
+[tab_guest]
+type=graphic
+x=90
+width=55
+height=20
+ymode=abs_centre
+layer=tabs
+graphic="tabs,1"
+
+// 982:10
+[com_10]
+type=text
+x=100
+width=37
+heightmode=minus
+ymode=abs_centre
+layer=tabs
+textfont=p11_full
+text=Guest
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:11
+[tab_clan]
+type=graphic
+x=45
+width=55
+height=20
+ymode=abs_centre
+layer=tabs
+graphic="tabs,1"
+
+// 982:12
+[com_12]
+type=text
+x=50
+width=43
+heightmode=minus
+ymode=abs_centre
+layer=tabs
+textfont=p11_full
+text=Clan
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:13
+[tab_friend]
+type=graphic
+width=55
+height=20
+ymode=abs_centre
+layer=tabs
+graphic="tabs,1"
+
+// 982:14
+[com_14]
+type=text
+width=50
+heightmode=minus
+ymode=abs_centre
+layer=tabs
+textfont=p11_full
+text=Friend
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:15
+[clan]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+hide=yes
+
+// 982:16
+[com_16]
+type=text
+y=2
+width=8
+height=33
+widthmode=minus
+xmode=abs_centre
+layer=clan
+textfont=p11_full
+text=Clan Chat appears in the chatbox in this colour:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:17
+[clancol0]
+type=layer
+x=-60
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:18
+[clancol1]
+type=layer
+x=-30
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:19
+[clancol2]
+type=layer
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:20
+[clancol3]
+type=layer
+x=30
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:21
+[clancol4]
+type=layer
+x=60
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:22
+[clancol5]
+type=layer
+x=-60
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:23
+[clancol6]
+type=layer
+x=-30
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:24
+[clancol7]
+type=layer
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:25
+[clancol8]
+type=layer
+x=30
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:26
+[clancol9]
+type=layer
+x=60
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:27
+[clancol10]
+type=layer
+x=-60
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:28
+[clancol11]
+type=layer
+x=-30
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:29
+[clancol12]
+type=layer
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:30
+[clancol13]
+type=layer
+x=30
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:31
+[clancol14]
+type=layer
+x=60
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:32
+[clancol15]
+type=layer
+x=-60
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:33
+[clancol16]
+type=layer
+x=-30
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:34
+[clancol17]
+type=layer
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:35
+[clancol18]
+type=layer
+x=30
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:36
+[clancol19]
+type=layer
+x=60
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=clan
+transmitop=1
+op1=Select colour
+
+// 982:37
+[clansample]
+type=layer
+y=14
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=clan
+
+// 982:38
+[clansample_background]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=clansample
+tiling=yes
+colour=0x000000
+
+// 982:39
+[clansample_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=clansample
+textfont=p12_full
+text=Sample text
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 982:40
+[private]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+hide=yes
+
+// 982:41
+[nosplit]
+type=layer
+height=42
+widthmode=minus
+xmode=abs_centre
+layer=private
+transmitop=1
+op1=No split
+onmouseover=comp_sethide(false, pmsetup:nosplit_background)
+onmouseleave=comp_sethide(true, pmsetup:nosplit_background)
+
+// 982:42
+[com_42]
+type=text
+x=4
+width=29
+widthmode=minus
+heightmode=minus
+layer=nosplit
+textfont=p11_full
+text=Private chat appears only in the chatbox.
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:43
+[nosplit_background]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=nosplit
+hide=yes
+colour=0x000000
+fill=yes
+trans=200
+
+// 982:44
+[com_44]
+type=graphic
+x=5
+width=17
+height=17
+xmode=abs_right
+ymode=abs_centre
+layer=nosplit
+graphic="options_radio_buttons,0"
+colour=0x000000
+
+// 982:45
+[nosplit_tick]
+type=graphic
+x=4
+y=-2
+width=17
+height=17
+xmode=abs_right
+ymode=abs_centre
+layer=nosplit
+hide=yes
+graphic=login_tick
+colour=0x000000
+
+// 982:46
+[com_46]
+type=graphic
+y=-30
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=nosplit
+graphic="v2_borders_slim,13"
+tiling=yes
+
+// 982:47
+[split]
+type=layer
+height=42
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=private
+
+// 982:48
+[com_48]
+type=text
+y=2
+width=8
+height=147
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=split
+textfont=p11_full
+text=Private chat appears above the chatbox in this colour:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:49
+[colour1]
+type=layer
+x=-70
+y=36
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:50
+[colour2]
+type=layer
+x=-42
+y=36
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:51
+[colour3]
+type=layer
+x=-14
+y=36
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:52
+[colour4]
+type=layer
+x=14
+y=36
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:53
+[colour5]
+type=layer
+x=42
+y=36
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:54
+[colour6]
+type=layer
+x=70
+y=36
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:55
+[colour7]
+type=layer
+x=-70
+y=66
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:56
+[colour8]
+type=layer
+x=-42
+y=66
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:57
+[colour9]
+type=layer
+x=-14
+y=66
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:58
+[colour10]
+type=layer
+x=14
+y=66
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:59
+[colour11]
+type=layer
+x=42
+y=66
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:60
+[colour12]
+type=layer
+x=70
+y=66
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:61
+[colour13]
+type=layer
+x=-70
+y=96
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:62
+[colour14]
+type=layer
+x=-42
+y=96
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:63
+[colour15]
+type=layer
+x=-14
+y=96
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:64
+[colour16]
+type=layer
+x=14
+y=96
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:65
+[colour17]
+type=layer
+x=42
+y=96
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:66
+[colour18]
+type=layer
+x=70
+y=96
+width=20
+height=20
+xmode=abs_centre
+layer=split
+transmitop=1
+op1=Select colour
+
+// 982:67
+[sample]
+type=layer
+y=14
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=split
+hide=yes
+
+// 982:68
+[com_68]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=sample
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 982:69
+[sample_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=sample
+textfont=p12_full
+text=Sample text
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 982:70
+[friend]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+hide=yes
+
+// 982:71
+[com_71]
+type=text
+y=2
+width=8
+height=33
+widthmode=minus
+xmode=abs_centre
+layer=friend
+textfont=p11_full
+text=Friends Chat appears in the chatbox in this colour:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:72
+[com_72]
+type=layer
+x=-60
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:73
+[com_73]
+type=layer
+x=-30
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:74
+[com_74]
+type=layer
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:75
+[com_75]
+type=layer
+x=30
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:76
+[com_76]
+type=layer
+x=60
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:77
+[com_77]
+type=layer
+x=-60
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:78
+[com_78]
+type=layer
+x=-30
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:79
+[com_79]
+type=layer
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:80
+[com_80]
+type=layer
+x=30
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:81
+[com_81]
+type=layer
+x=60
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:82
+[com_82]
+type=layer
+x=-60
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:83
+[com_83]
+type=layer
+x=-30
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:84
+[com_84]
+type=layer
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:85
+[com_85]
+type=layer
+x=30
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:86
+[com_86]
+type=layer
+x=60
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:87
+[com_87]
+type=layer
+x=-60
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:88
+[com_88]
+type=layer
+x=-30
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:89
+[com_89]
+type=layer
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:90
+[com_90]
+type=layer
+x=30
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:91
+[com_91]
+type=layer
+x=60
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=friend
+transmitop=1
+op1=Select colour
+
+// 982:92
+[com_92]
+type=layer
+y=14
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=friend
+
+// 982:93
+[com_93]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_92
+tiling=yes
+colour=0x000000
+
+// 982:94
+[com_94]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_92
+textfont=p12_full
+text=Sample text
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 982:95
+[guest]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+hide=yes
+
+// 982:96
+[com_96]
+type=text
+y=2
+width=8
+height=33
+widthmode=minus
+xmode=abs_centre
+layer=guest
+textfont=p11_full
+text=Guest Chat appears in the chatbox in this colour:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 982:97
+[com_97]
+type=layer
+x=-60
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:98
+[com_98]
+type=layer
+x=-30
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:99
+[com_99]
+type=layer
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:100
+[com_100]
+type=layer
+x=30
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:101
+[com_101]
+type=layer
+x=60
+y=40
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:102
+[com_102]
+type=layer
+x=-60
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:103
+[com_103]
+type=layer
+x=-30
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:104
+[com_104]
+type=layer
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:105
+[com_105]
+type=layer
+x=30
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:106
+[com_106]
+type=layer
+x=60
+y=70
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:107
+[com_107]
+type=layer
+x=-60
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:108
+[com_108]
+type=layer
+x=-30
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:109
+[com_109]
+type=layer
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:110
+[com_110]
+type=layer
+x=30
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:111
+[com_111]
+type=layer
+x=60
+y=100
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:112
+[com_112]
+type=layer
+x=-60
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:113
+[com_113]
+type=layer
+x=-30
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:114
+[com_114]
+type=layer
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:115
+[com_115]
+type=layer
+x=30
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:116
+[com_116]
+type=layer
+x=60
+y=130
+width=20
+height=20
+xmode=abs_centre
+layer=guest
+transmitop=1
+op1=Select colour
+
+// 982:117
+[com_117]
+type=layer
+y=14
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=guest
+
+// 982:118
+[com_118]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_117
+tiling=yes
+colour=0x000000
+
+// 982:119
+[com_119]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_117
+textfont=p12_full
+text=Sample text
+textalignh=centre
+textalignv=centre
+colour=0x000000

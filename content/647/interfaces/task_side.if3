@@ -1,0 +1,2103 @@
+// 1056:0
+[advice_close_l]
+type=graphic
+width=6
+height=19
+layer=advice_close
+graphic="task_pin_but,0"
+
+// 1056:1
+[advice_close_r]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+layer=advice_close
+graphic="task_pin_but,0"
+hflip=yes
+
+// 1056:2
+[com_2]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=advice_layer
+graphic=window_texture
+trans=25
+
+// 1056:3
+[com_3]
+type=layer
+width=190
+height=14
+layer=hints_layer
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(2)
+
+// 1056:4
+[com_4]
+type=layer
+y=14
+width=190
+height=14
+ymode=abs_bottom
+layer=hints_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=task_side_tab_hover(5)
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(1)
+
+// 1056:5
+[com_5]
+type=layer
+width=190
+height=14
+ymode=abs_bottom
+layer=hints_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=task_side_tab_hover(6)
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(0)
+
+// 1056:6
+[com_6]
+type=graphic
+width=6
+height=14
+layer=com_128
+graphic="task_tab,0"
+
+// 1056:7
+[com_7]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+layer=com_128
+graphic="task_tab,1"
+
+// 1056:8
+[com_8]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+layer=com_128
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:9
+[com_9]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+layer=com_128
+graphic="task_arrow,2"
+vflip=yes
+
+// 1056:10
+[com_10]
+type=text
+x=20
+y=-1
+width=20
+height=14
+widthmode=minus
+layer=com_128
+textfont=verdana_11pt_regular
+text=Description
+textalignv=centre
+colour=0xdedede
+
+// 1056:11
+[com_11]
+type=graphic
+width=6
+height=14
+layer=com_127
+graphic="task_tab,0"
+
+// 1056:12
+[com_12]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+layer=com_127
+graphic="task_tab,1"
+
+// 1056:13
+[com_13]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+layer=com_127
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:14
+[com_14]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+layer=com_127
+graphic="task_arrow,2"
+
+// 1056:15
+[com_15]
+type=text
+x=20
+y=-1
+width=20
+height=14
+widthmode=minus
+layer=com_127
+textfont=verdana_11pt_regular
+text=Rewards
+textalignv=centre
+colour=0xdedede
+
+// 1056:16
+[com_16]
+type=graphic
+width=6
+height=14
+layer=com_126
+graphic="task_tab,0"
+
+// 1056:17
+[com_17]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+layer=com_126
+graphic="task_tab,1"
+
+// 1056:18
+[com_18]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+layer=com_126
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:19
+[details_hintarrow]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+layer=com_126
+graphic="task_arrow,2"
+
+// 1056:20
+[com_20]
+type=text
+x=20
+y=-1
+width=20
+height=14
+widthmode=minus
+layer=com_126
+textfont=verdana_11pt_regular
+text=Hints
+textalignv=centre
+colour=0xdedede
+
+// 1056:21
+[com_21]
+type=graphic
+width=6
+height=14
+ymode=abs_bottom
+layer=com_38
+graphic="task_tab,0"
+
+// 1056:22
+[com_22]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_38
+graphic="task_tab,1"
+
+// 1056:23
+[com_23]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_38
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:24
+[com_24]
+type=graphic
+x=1
+y=2
+width=15
+height=8
+ymode=abs_bottom
+layer=com_38
+graphic="task_arrow,2"
+
+// 1056:25
+[com_25]
+type=text
+x=20
+y=1
+width=20
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_38
+textfont=verdana_11pt_regular
+text=Description
+textalignv=centre
+colour=0xdedede
+
+// 1056:26
+[com_26]
+type=graphic
+width=6
+height=14
+layer=com_37
+graphic="task_tab,0"
+
+// 1056:27
+[com_27]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+layer=com_37
+graphic="task_tab,1"
+
+// 1056:28
+[com_28]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+layer=com_37
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:29
+[com_29]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+layer=com_37
+graphic="task_arrow,2"
+vflip=yes
+
+// 1056:30
+[com_30]
+type=text
+x=20
+y=-1
+width=20
+height=14
+widthmode=minus
+layer=com_37
+textfont=verdana_11pt_regular
+text=Rewards
+textalignv=centre
+colour=0xdedede
+
+// 1056:31
+[com_31]
+type=graphic
+width=6
+height=14
+layer=com_36
+graphic="task_tab,0"
+
+// 1056:32
+[com_32]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+layer=com_36
+graphic="task_tab,1"
+
+// 1056:33
+[com_33]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+layer=com_36
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:34
+[rewards_hintarrow]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+layer=com_36
+graphic="task_arrow,2"
+
+// 1056:35
+[com_35]
+type=text
+x=20
+y=-1
+width=20
+height=14
+widthmode=minus
+layer=com_36
+textfont=verdana_11pt_regular
+text=Hints
+textalignv=centre
+colour=0xdedede
+
+// 1056:36
+[com_36]
+type=layer
+width=190
+height=14
+layer=rewards_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=task_side_tab_hover(3)
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(2)
+
+// 1056:37
+[com_37]
+type=layer
+y=14
+width=190
+height=14
+layer=rewards_layer
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(1)
+
+// 1056:38
+[com_38]
+type=layer
+width=190
+height=14
+ymode=abs_bottom
+layer=rewards_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=task_side_tab_hover(4)
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(0)
+
+// 1056:39
+[com_39]
+type=graphic
+width=6
+height=14
+ymode=abs_bottom
+layer=com_5
+graphic="task_tab,0"
+
+// 1056:40
+[com_40]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_5
+graphic="task_tab,1"
+
+// 1056:41
+[com_41]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:42
+[com_42]
+type=graphic
+x=1
+y=2
+width=15
+height=8
+ymode=abs_bottom
+layer=com_5
+graphic="task_arrow,2"
+
+// 1056:43
+[com_43]
+type=text
+x=20
+y=1
+width=20
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_5
+textfont=verdana_11pt_regular
+text=Description
+textalignv=centre
+colour=0xdedede
+
+// 1056:44
+[com_44]
+type=graphic
+width=6
+height=14
+ymode=abs_bottom
+layer=com_4
+graphic="task_tab,0"
+
+// 1056:45
+[com_45]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_4
+graphic="task_tab,1"
+
+// 1056:46
+[com_46]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:47
+[com_47]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+ymode=abs_bottom
+layer=com_4
+graphic="task_arrow,2"
+
+// 1056:48
+[com_48]
+type=text
+x=20
+y=1
+width=20
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_4
+textfont=verdana_11pt_regular
+text=Rewards
+textalignv=centre
+colour=0xdedede
+
+// 1056:49
+[com_49]
+type=graphic
+width=6
+height=14
+layer=com_3
+graphic="task_tab,0"
+
+// 1056:50
+[com_50]
+type=graphic
+x=6
+width=12
+height=14
+widthmode=minus
+layer=com_3
+graphic="task_tab,1"
+
+// 1056:51
+[com_51]
+type=graphic
+width=6
+height=14
+xmode=abs_right
+layer=com_3
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:52
+[hints_hintarrow]
+type=graphic
+x=1
+y=3
+width=15
+height=8
+layer=com_3
+graphic="task_arrow,2"
+
+// 1056:53
+[com_53]
+type=text
+x=20
+y=-1
+width=20
+height=14
+widthmode=minus
+layer=com_3
+textfont=verdana_11pt_regular
+text=Hints
+textalignv=centre
+colour=0xdedede
+
+// 1056:54
+[task_bg_2]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=task_layer_2
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 1056:55
+[task_bg_3]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=task_layer_3
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 1056:56
+[task_bg_4]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=task_layer_4
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 1056:57
+[task_bg_5]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=task_layer_5
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 1056:58
+[task_bg_6]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=task_layer_6
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 1056:59
+[task_bg_1]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=task_layer_1
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 1056:60
+[progress_bar_left]
+type=graphic
+width=6
+height=20
+layer=progress_layer
+graphic=graphic_4305
+
+// 1056:61
+[progress_bar_right]
+type=graphic
+width=6
+height=20
+xmode=abs_right
+layer=progress_layer
+graphic=graphic_4307
+
+// 1056:62
+[com_62]
+type=graphic
+y=52
+height=52
+widthmode=minus
+heightmode=minus
+layer=summary_layer
+graphic=window_texture
+
+// 1056:63
+[task_pin_1]
+type=graphic
+x=6
+y=24
+width=11
+height=11
+xmode=abs_right
+layer=task_layer_1
+graphic="task_pin_symbol,1"
+
+// 1056:64
+[task_1]
+type=graphic
+x=4
+y=3
+width=50
+height=50
+layer=task_layer_1
+graphic="task_icons_48_60,5"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1056:65
+[rewards_text]
+type=text
+x=10
+y=10
+width=20
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+text=Rewards info here
+textshadow=yes
+colour=0xdedede
+
+// 1056:66
+[rewards_set_npc]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:67
+[rewards_set_details]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:68
+[rewards_set_1]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:69
+[rewards_set_2]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:70
+[rewards_set_3]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:71
+[rewards_set_4]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:72
+[rewards_set_5]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:73
+[rewards_set_6]
+type=text
+y=2
+height=20
+widthmode=minus
+layer=rewards_window
+textfont=p12_full
+textshadow=yes
+colour=0xdedede
+
+// 1056:74
+[rewards_window]
+type=layer
+y=28
+width=16
+height=42
+widthmode=minus
+heightmode=minus
+layer=rewards_layer
+
+// 1056:75
+[menu_bg_fill]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=menu_layer
+colour=0x776445
+fill=yes
+
+// 1056:76
+[overview_step1]
+type=text
+x=3
+y=1
+width=140
+height=30
+layer=hints_window
+textfont=p12_full
+text=1. First instruction for completing the Task here.
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+
+// 1056:77
+[com_77]
+type=graphic
+x=24
+y=7
+width=21
+height=21
+xmode=abs_right
+layer=hints_window
+graphic="km_helpandexit21x21,0"
+colour=0xffffffff
+transmitop=1
+op1=Hint
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
+
+// 1056:78
+[overview_step2]
+type=text
+x=3
+y=29
+width=140
+height=30
+layer=hints_window
+textfont=p12_full
+text=1. Second instruction for completing the task here.
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+transmitop=10
+op10= 
+
+// 1056:79
+[com_79]
+type=graphic
+x=24
+y=35
+width=21
+height=21
+xmode=abs_right
+layer=hints_window
+graphic="km_helpandexit21x21,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Hint
+op10= 
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
+
+// 1056:80
+[overview_step3]
+type=text
+x=3
+y=57
+width=140
+height=30
+layer=hints_window
+textfont=p12_full
+text=1. Third instruction for completing the task here.
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+transmitop=10
+op10= 
+
+// 1056:81
+[com_81]
+type=graphic
+x=24
+y=63
+width=21
+height=21
+xmode=abs_right
+layer=hints_window
+graphic="km_helpandexit21x21,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Hint
+op10= 
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
+
+// 1056:82
+[overview_step4]
+type=text
+x=3
+y=83
+width=140
+height=30
+layer=hints_window
+textfont=p12_full
+text=1. Fourth instruction for completing the task here.
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+transmitop=10
+op10= 
+
+// 1056:83
+[com_83]
+type=graphic
+x=24
+y=89
+width=21
+height=21
+xmode=abs_right
+layer=hints_window
+graphic="km_helpandexit21x21,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Hint
+op10= 
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
+
+// 1056:84
+[overview_step5]
+type=text
+x=3
+y=109
+width=140
+height=30
+layer=hints_window
+textfont=p12_full
+text=1. Fifth instruction for completing the task here.
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+transmitop=10
+op10= 
+
+// 1056:85
+[com_85]
+type=graphic
+x=24
+y=115
+width=21
+height=21
+xmode=abs_right
+layer=hints_window
+graphic="km_helpandexit21x21,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Hint
+op10= 
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
+
+// 1056:86
+[overview_step6]
+type=text
+x=3
+y=133
+width=140
+height=30
+layer=hints_window
+textfont=p12_full
+text=1. Sixth instruction for completing the task here.
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+transmitop=10
+op10= 
+
+// 1056:87
+[com_87]
+type=graphic
+x=24
+y=139
+width=21
+height=21
+xmode=abs_right
+layer=hints_window
+graphic="km_helpandexit21x21,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Hint
+op10= 
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Click to toggle a map hint for this step.", 45, 135)
+
+// 1056:88
+[pin_button_layer]
+type=layer
+x=81
+y=1
+width=49
+height=19
+layer=menu_layer
+transmitop=1
+op1=Set
+onmouseover=task_side_pin_hover(0)
+onmouseleave=task_side_pin_hover(1)
+onop=script3974
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Pin this Task to refer to it later.", 45, 135)
+
+// 1056:89
+[pin_button_m]
+type=graphic
+x=6
+width=12
+widthmode=minus
+heightmode=minus
+layer=pin_button_layer
+graphic="task_pin_but,1"
+
+// 1056:90
+[summary_close]
+type=layer
+x=131
+y=1
+width=58
+height=19
+layer=menu_layer
+transmitop=1
+op1=Close-summary
+onmouseover=task_side_close_hover(0)
+onmouseleave=task_side_close_hover(1)
+onop=task_side_closesummary
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Close this window and return to the Tasks.", 45, 135)
+
+// 1056:91
+[title_text]
+type=text
+x=2
+y=23
+width=55
+height=29
+widthmode=minus
+xmode=abs_right
+layer=menu_layer
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+
+// 1056:92
+[hints_layer]
+type=layer
+y=54
+height=54
+widthmode=minus
+heightmode=minus
+layer=summary_layer
+hide=yes
+noclickthrough=yes
+
+// 1056:93
+[com_93]
+type=graphic
+width=6
+height=17
+layer=com_102
+graphic="task_tab,0"
+
+// 1056:94
+[rewards_layer]
+type=layer
+y=54
+height=54
+widthmode=minus
+heightmode=minus
+layer=summary_layer
+hide=yes
+noclickthrough=yes
+
+// 1056:95
+[rewards_scroll]
+type=layer
+y=28
+width=16
+height=42
+heightmode=minus
+xmode=abs_right
+layer=rewards_layer
+
+// 1056:96
+[bg_layer]
+type=layer
+width=16
+height=262
+widthmode=minus
+
+// 1056:97
+[area_layer]
+type=layer
+height=41
+widthmode=minus
+
+// 1056:98
+[tasks_layer]
+type=layer
+y=41
+height=58
+widthmode=minus
+heightmode=minus
+onvartransmit=script3971{varplayer_1960, varplayer_1963, varplayer_1965}
+onvarctransmit=script3972{varclient_1428}
+
+// 1056:99
+[task_layer_1]
+type=layer
+x=14
+y=10
+width=73
+height=58
+layer=tasks_layer
+transmitop=1,2
+op1=Select Task
+op2=Pin/Unpin Task
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_1, graphic_4041)
+
+// 1056:100
+[task_set_1]
+type=graphic
+x=5
+y=4
+width=13
+height=13
+xmode=abs_right
+layer=task_layer_1
+graphic=small_compass
+
+// 1056:101
+[com_101]
+type=graphic
+x=7
+y=6
+width=9
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=task_layer_1
+graphic=graphic_4330
+
+// 1056:102
+[com_102]
+type=layer
+x=4
+y=2
+width=8
+height=18
+widthmode=minus
+ymode=abs_bottom
+transmitop=1
+op1=Open
+opcursor0=cursor_open
+onmouseover=script4003(0)
+onmouseleave=script4003(1)
+
+// 1056:103
+[multitip]
+type=layer
+x=7
+y=108
+width=175
+height=130
+hide=yes
+
+// 1056:104
+[progress_bar_none]
+type=graphic
+x=6
+width=12
+height=20
+widthmode=minus
+layer=progress_layer
+graphic=graphic_4306
+
+// 1056:105
+[progress_bar_done]
+type=graphic
+x=1
+y=2
+width=6
+height=17
+layer=progress_layer
+graphic="task_progbar,1"
+tiling=yes
+
+// 1056:106
+[tasks_done]
+type=text
+x=-26
+y=1
+width=91
+height=20
+xmode=abs_centre
+layer=progress_layer
+textfont=verdana_11pt_regular
+text=Progress: ##
+textalignh=right
+textalignv=centre
+onvarctransmit=script4002{varclient_1424}
+
+// 1056:107
+[outof]
+type=text
+x=25
+y=3
+width=45
+height=20
+xmode=abs_centre
+layer=progress_layer
+textfont=verdana_11pt_regular
+text=/
+textalignh=centre
+textalignv=centre
+
+// 1056:108
+[tasks_total]
+type=text
+x=39
+y=1
+width=20
+height=20
+xmode=abs_centre
+layer=progress_layer
+textfont=verdana_11pt_regular
+text=##
+textalignh=centre
+textalignv=centre
+onvarctransmit=script4002{varclient_1423}
+
+// 1056:109
+[title_bg]
+type=rectangle
+height=42
+widthmode=minus
+layer=area_layer
+colour=0x332c22
+fill=yes
+
+// 1056:110
+[area_text]
+type=text
+width=21
+height=19
+widthmode=minus
+xmode=abs_right
+layer=area_layer
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xbb9a72
+
+// 1056:111
+[progress_layer]
+type=layer
+y=20
+height=20
+widthmode=minus
+layer=area_layer
+
+// 1056:112
+[area_icon]
+type=graphic
+x=4
+y=2
+width=14
+height=18
+layer=area_layer
+graphic=graphic_4283
+colour=0xffffffff
+
+// 1056:113
+[complete_text]
+type=text
+y=1
+width=96
+height=18
+xmode=abs_centre
+layer=complete_layer
+textfont=verdana_11pt_regular
+text=Task complete!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x66cc00
+
+// 1056:114
+[com_114]
+type=graphic
+y=18
+width=6
+height=19
+layer=complete_layer
+graphic="task_pin_but,0"
+colour=0xffffffff
+
+// 1056:115
+[com_115]
+type=graphic
+y=18
+width=6
+height=19
+xmode=abs_right
+layer=complete_layer
+graphic="task_pin_but,0"
+hflip=yes
+
+// 1056:116
+[com_116]
+type=graphic
+x=6
+y=18
+width=12
+height=19
+widthmode=minus
+layer=complete_layer
+graphic="task_pin_but,1"
+
+// 1056:117
+[complete_ok]
+type=text
+y=17
+width=52
+height=21
+xmode=abs_centre
+layer=complete_layer
+textfont=verdana_11pt_regular
+text=OK
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1056:118
+[com_118]
+type=graphic
+width=6
+heightmode=minus
+ymode=abs_centre
+layer=pin_button_layer
+graphic="task_pin_but,0"
+
+// 1056:119
+[com_119]
+type=graphic
+width=6
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=pin_button_layer
+graphic="task_pin_but,0"
+hflip=yes
+
+// 1056:120
+[active_state]
+type=text
+y=1
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=pin_button_layer
+textfont=verdana_11pt_regular
+text=Pin
+textalignh=centre
+textalignv=centre
+colour=0x282828
+
+// 1056:121
+[com_121]
+type=graphic
+x=5
+y=4
+width=11
+height=11
+layer=pin_button_layer
+graphic="task_pin_symbol,0"
+
+// 1056:122
+[summary_layer]
+type=layer
+width=190
+height=261
+hide=yes
+noclickthrough=yes
+
+// 1056:123
+[hints_window]
+type=layer
+x=1
+y=14
+width=17
+height=42
+widthmode=minus
+heightmode=minus
+layer=hints_layer
+
+// 1056:124
+[hints_scroll]
+type=layer
+y=14
+width=16
+height=42
+heightmode=minus
+xmode=abs_right
+layer=hints_layer
+
+// 1056:125
+[details_layer]
+type=layer
+y=54
+height=54
+widthmode=minus
+heightmode=minus
+layer=summary_layer
+hide=yes
+noclickthrough=yes
+
+// 1056:126
+[com_126]
+type=layer
+width=190
+height=14
+layer=details_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=task_side_tab_hover(1)
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(2)
+
+// 1056:127
+[com_127]
+type=layer
+y=14
+width=190
+height=14
+layer=details_layer
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=task_side_tab_hover(2)
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(1)
+
+// 1056:128
+[com_128]
+type=layer
+y=28
+width=190
+height=14
+layer=details_layer
+onmouseleave=task_side_tab_hover(0)
+onop=task_side_tab(0)
+
+// 1056:129
+[details_text]
+type=text
+x=10
+y=52
+width=20
+height=62
+widthmode=minus
+heightmode=minus
+layer=details_layer
+textfont=p12_full
+text=Task details here
+textshadow=yes
+colour=0xdedede
+
+// 1056:130
+[complete_layer]
+type=layer
+y=75
+width=109
+height=41
+xmode=abs_centre
+ymode=abs_centre
+layer=details_layer
+hide=yes
+transmitop=1
+op1=OK
+onmouseover=script4007(0)
+onmouseleave=script4007(1)
+onop=deltooltip(event_com)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "Clear this Task.", 45, 135)
+
+// 1056:131
+[menu_layer]
+type=layer
+height=54
+widthmode=minus
+layer=summary_layer
+
+// 1056:132
+[com_132]
+type=rectangle
+x=53
+y=21
+width=135
+height=1
+layer=menu_layer
+colour=0x3e3e3e
+
+// 1056:133
+[task_area]
+type=graphic
+x=54
+y=3
+width=14
+height=17
+layer=menu_layer
+graphic=graphic_4283
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "The area in which this Task is located.", 45, 135)
+
+// 1056:134
+[task_difficulty]
+type=graphic
+x=70
+y=4
+width=9
+height=11
+layer=menu_layer
+graphic=graphic_4330
+onmouseleave=deltooltip(task_side:summary_tooltip)
+onmouserepeat=addtooltip(event_com, task_side:summary_tooltip, "The difficulty level of this Task.", 45, 135)
+
+// 1056:135
+[task_icon]
+type=graphic
+x=2
+y=2
+width=50
+height=50
+layer=menu_layer
+graphic="task_icons_lumbridge,61"
+
+// 1056:136
+[summary_tooltip]
+type=layer
+x=51
+y=23
+width=138
+height=53
+layer=summary_layer
+
+// 1056:137
+[close_button_m]
+type=graphic
+x=6
+width=12
+widthmode=minus
+heightmode=minus
+layer=summary_close
+graphic="task_pin_but,1"
+
+// 1056:138
+[close_button_l]
+type=graphic
+width=6
+heightmode=minus
+ymode=abs_centre
+layer=summary_close
+graphic="task_pin_but,0"
+
+// 1056:139
+[close_button_r]
+type=graphic
+width=6
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=summary_close
+graphic="task_pin_but,0"
+hflip=yes
+
+// 1056:140
+[close_text]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+layer=summary_close
+textfont=verdana_11pt_regular
+text=Back
+textalignh=centre
+textalignv=centre
+colour=0x282828
+
+// 1056:141
+[close_arrow]
+type=graphic
+x=3
+y=5
+width=15
+height=8
+layer=summary_close
+graphic="task_arrow,0"
+
+// 1056:142
+[task_layer_2]
+type=layer
+x=14
+y=10
+width=73
+height=58
+xmode=abs_right
+layer=tasks_layer
+transmitop=1,2
+op1=Select Task
+op2=Pin/Unpin Task
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_2, graphic_4041)
+
+// 1056:143
+[task_pin_2]
+type=graphic
+x=6
+y=24
+width=11
+height=11
+xmode=abs_right
+layer=task_layer_2
+graphic="task_pin_symbol,1"
+
+// 1056:144
+[task_2]
+type=graphic
+x=4
+y=3
+width=50
+height=50
+layer=task_layer_2
+graphic="task_icons_48_60,5"
+
+// 1056:145
+[task_set_2]
+type=graphic
+x=5
+y=4
+width=13
+height=13
+xmode=abs_right
+layer=task_layer_2
+graphic=small_compass
+
+// 1056:146
+[com_146]
+type=graphic
+x=7
+y=6
+width=9
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=task_layer_2
+graphic=graphic_4330
+
+// 1056:147
+[task_layer_3]
+type=layer
+x=14
+y=73
+width=73
+height=58
+layer=tasks_layer
+transmitop=1,2
+op1=Select Task
+op2=Pin/Unpin Task
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_3, graphic_4041)
+
+// 1056:148
+[task_pin_3]
+type=graphic
+x=6
+y=24
+width=11
+height=11
+xmode=abs_right
+layer=task_layer_3
+graphic="task_pin_symbol,1"
+
+// 1056:149
+[task_3]
+type=graphic
+x=4
+y=3
+width=50
+height=50
+layer=task_layer_3
+graphic="task_icons_48_60,5"
+
+// 1056:150
+[task_set_3]
+type=graphic
+x=5
+y=4
+width=13
+height=13
+xmode=abs_right
+layer=task_layer_3
+graphic=small_compass
+
+// 1056:151
+[com_151]
+type=graphic
+x=7
+y=6
+width=9
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=task_layer_3
+graphic=graphic_4330
+
+// 1056:152
+[task_layer_4]
+type=layer
+x=14
+y=73
+width=73
+height=58
+xmode=abs_right
+layer=tasks_layer
+transmitop=1,2
+op1=Select Task
+op2=Pin/Unpin Task
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_4, graphic_4041)
+
+// 1056:153
+[task_pin_4]
+type=graphic
+x=6
+y=24
+width=11
+height=11
+xmode=abs_right
+layer=task_layer_4
+graphic="task_pin_symbol,1"
+
+// 1056:154
+[task_4]
+type=graphic
+x=4
+y=3
+width=50
+height=50
+layer=task_layer_4
+graphic="task_icons_48_60,5"
+
+// 1056:155
+[task_set_4]
+type=graphic
+x=5
+y=4
+width=13
+height=13
+xmode=abs_right
+layer=task_layer_4
+graphic=small_compass
+
+// 1056:156
+[com_156]
+type=graphic
+x=7
+y=6
+width=9
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=task_layer_4
+graphic=graphic_4330
+
+// 1056:157
+[task_layer_5]
+type=layer
+x=14
+y=10
+width=73
+height=58
+ymode=abs_bottom
+layer=tasks_layer
+transmitop=1,2
+op1=Select Task
+op2=Pin/Unpin Task
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_5, graphic_4041)
+
+// 1056:158
+[task_pin_5]
+type=graphic
+x=6
+y=24
+width=11
+height=11
+xmode=abs_right
+layer=task_layer_5
+graphic="task_pin_symbol,1"
+
+// 1056:159
+[task_5]
+type=graphic
+x=4
+y=3
+width=50
+height=50
+layer=task_layer_5
+graphic="task_icons_48_60,5"
+
+// 1056:160
+[task_set_5]
+type=graphic
+x=5
+y=4
+width=13
+height=13
+xmode=abs_right
+layer=task_layer_5
+graphic=small_compass
+
+// 1056:161
+[com_161]
+type=graphic
+x=7
+y=6
+width=9
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=task_layer_5
+graphic=graphic_4330
+
+// 1056:162
+[task_layer_6]
+type=layer
+x=14
+y=10
+width=73
+height=58
+xmode=abs_right
+ymode=abs_bottom
+layer=tasks_layer
+transmitop=1,2
+op1=Select Task
+op2=Pin/Unpin Task
+onmouseleave=deltooltip(task_side:tasks_tooltip)
+onop=graphic_swapper(task_side:task_bg_6, graphic_4041)
+
+// 1056:163
+[tasks_tooltip]
+type=layer
+x=11
+y=68
+width=178
+height=63
+layer=tasks_layer
+
+// 1056:164
+[task_pin_6]
+type=graphic
+x=6
+y=24
+width=11
+height=11
+xmode=abs_right
+layer=task_layer_6
+graphic="task_pin_symbol,1"
+
+// 1056:165
+[task_6]
+type=graphic
+x=4
+y=3
+width=50
+height=50
+layer=task_layer_6
+graphic="task_icons_48_60,5"
+
+// 1056:166
+[task_set_6]
+type=graphic
+x=5
+y=4
+width=13
+height=13
+xmode=abs_right
+layer=task_layer_6
+graphic=small_compass
+
+// 1056:167
+[com_167]
+type=graphic
+x=7
+y=6
+width=9
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=task_layer_6
+graphic=graphic_4330
+
+// 1056:168
+[com_168]
+type=graphic
+width=6
+height=17
+xmode=abs_right
+layer=com_102
+graphic="task_tab,0"
+hflip=yes
+
+// 1056:169
+[com_169]
+type=graphic
+x=6
+width=12
+height=17
+widthmode=minus
+layer=com_102
+graphic="task_tab,1"
+tiling=yes
+
+// 1056:170
+[com_170]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_102
+textfont=p11_full
+text=Open Task List
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xdedede
+
+// 1056:171
+[advice_layer]
+type=layer
+width=190
+height=261
+hide=yes
+noclickthrough=yes
+
+// 1056:172
+[advice_gone]
+type=text
+x=9
+y=243
+width=155
+height=15
+xmode=abs_right
+layer=advice_layer
+textfont=p11_full
+text=Do not show this again
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1056:173
+[advice_toggle]
+type=graphic
+x=27
+y=242
+width=14
+height=14
+layer=advice_layer
+graphic="check_box_2,0"
+transmitop=1
+op1=Toggle
+onmouseover=script4012(0, 0)
+onmouseleave=script4012(1, 0)
+onop=task_hide_advice
+
+// 1056:174
+[advice_close]
+type=layer
+y=205
+width=84
+height=19
+xmode=abs_centre
+layer=advice_layer
+transmitop=1
+op1=Close
+onmouseover=task_side_advice_hover(0)
+onmouseleave=task_side_advice_hover(1)
+
+// 1056:175
+[advice_close_m]
+type=graphic
+x=6
+width=12
+height=19
+widthmode=minus
+layer=advice_close
+graphic="task_pin_but,1"
+
+// 1056:176
+[advice_close_text]
+type=text
+x=14
+width=14
+height=1
+widthmode=minus
+heightmode=minus
+layer=advice_close
+textfont=verdana_11pt_regular
+text=Close
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1056:177
+[advice_close_arrow]
+type=graphic
+x=4
+y=6
+width=15
+height=8
+layer=advice_close
+graphic="task_arrow,0"
+onmouseover=graphic_swapper(event_com, "task_arrow,1")
+onmouseleave=graphic_swapper(event_com, "task_arrow,0")
+
+// 1056:178
+[advice_where]
+type=text
+x=5
+y=144
+width=10
+height=59
+widthmode=minus
+layer=advice_layer
+textfont=verdana_11pt_regular
+text=Explorer Jack in Lumbridge can explain Tasks further and hand out rewards you earn.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1056:179
+[advice_why]
+type=text
+x=5
+y=82
+width=10
+height=59
+widthmode=minus
+layer=advice_layer
+textfont=verdana_11pt_regular
+text=Completing these Tasks will give you money and other rewards.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1056:180
+[advice_what]
+type=text
+x=5
+y=6
+width=10
+height=74
+widthmode=minus
+layer=advice_layer
+textfont=verdana_11pt_regular
+text=This sidebar shows you six Tasks you can do nearby. Click on one for a summary.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes

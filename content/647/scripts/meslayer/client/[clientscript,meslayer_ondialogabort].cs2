@@ -1,0 +1,16 @@
+// 138
+[clientscript,meslayer_ondialogabort]
+switch_int (%meslayermode) {
+    case 7 :
+        ~meslayer_close(7);
+    case 8 :
+        ~meslayer_close(8);
+    case 9 :
+        ~meslayer_close(9);
+    case 13 :
+        ~meslayer_close(13);
+    case default :
+        if (getwindowmode >= 2) {
+            ~subchanged;
+        }
+}

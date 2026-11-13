@@ -1,3 +1,7 @@
+//! The jag-era server packets (225 to 289). Rev 647's encoders are sized in
+//! `wire_647*.rs`.
+#![cfg(before_647)]
+
 use std::any::type_name;
 use std::collections::BTreeSet;
 
@@ -429,6 +433,8 @@ fn sizeof_matches_encode_for_every_server_packet() {
     check(seen, set_multiway::SetMultiway { hide: true });
     check(seen, unset_map_flag::UnsetMapFlag);
     check(seen, logout::Logout);
+    #[cfg(since_647)]
+    check(seen, logout_full::LogoutFull);
     check(seen, update_reboot_timer::UpdateRebootTimer { clocks: 500 });
 
     // Audio

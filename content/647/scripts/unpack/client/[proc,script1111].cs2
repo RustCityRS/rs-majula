@@ -1,0 +1,79 @@
+// 1111
+[proc,script1111]()(string)
+switch_int (%skill_multi_num) {
+    case 0, 9 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Make All");
+        }
+        return("Make <tostring(%skill_creation_amount)>");
+    case 1 :
+        if (%skill_creation_amount = 1) {
+            return("Make 1 set");
+        }
+        return("Make <tostring(%skill_creation_amount)> sets");
+    case 2 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Cook All");
+        }
+        return("Cook <tostring(%skill_creation_amount)>");
+    case 3 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Roast All");
+        }
+        return("Roast <tostring(%skill_creation_amount)>");
+    case 4 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Offer All");
+        }
+        return("Offer <tostring(%skill_creation_amount)>");
+    case 5 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Sell All");
+        }
+        return("Sell <tostring(%skill_creation_amount)>");
+    case 6 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Bake All");
+        }
+        return("Bake <tostring(%skill_creation_amount)>");
+    case 7 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Cut All");
+        }
+        return("Cut <tostring(%skill_creation_amount)>");
+    case 8 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Deposit All");
+        }
+        return("Deposit <tostring(%skill_creation_amount)>");
+    case 10 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Teleport All");
+        }
+        return("Teleport <tostring(%skill_creation_amount)>");
+    case 11 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Select All");
+        }
+    case 12 :
+        if (%skill_creation_amount = 1) {
+            return("Make 1 set");
+        }
+        return("Make <tostring(%skill_creation_amount)> sets");
+    case 13 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Take All");
+        }
+        return("Take <tostring(%skill_creation_amount)>");
+    case 14 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Return All");
+        }
+        return("Return <tostring(%skill_creation_amount)>");
+    case 15 :
+        if (~script1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+            return("Heat All");
+        }
+        return("Heat <tostring(%skill_creation_amount)>");
+}
+return("Select");

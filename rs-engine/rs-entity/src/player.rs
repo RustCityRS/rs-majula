@@ -1,4 +1,4 @@
-use crate::build::BuildArea;
+use crate::build::{BuildArea, STAT_COUNT};
 use crate::direction::Direction;
 use crate::interaction::InteractionState;
 use crate::interaction::InteractionTarget;
@@ -7,13 +7,15 @@ use crate::state::EntityState;
 use rs_cam::CamQueue;
 use rs_grid::CoordGrid;
 use rs_hero::HeroPoints;
-use rs_info::{EntityMasks, FocusKind};
+use rs_info::{EntityMasks, FocusKind, PlayerInfoProt};
 use rs_inv::Inventory;
+#[cfg(since_647)]
+use rs_pack::cache::area::{NO_AREAS, TileAreas};
 use rs_pack::types::{BlockWalk, MoveRestrict, PlayerStat};
 use rs_stat::Stats;
 use rs_var::VarSet;
+use rs_vm::ComId;
 pub use rs_vm::PlayerUid;
-use rs_vm::state::ExecutionState;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::ops::{Deref, DerefMut};
 
@@ -67,87 +69,28 @@ impl StaffModLevel {
     }
 }
 
+/// Rev-647 chat modes, as CHAT_SETMODE carries them (CS2 op 5006): typed chat
+/// goes to public chat, or to the clan chat the player is in.
+#[cfg(since_647)]
+pub const CHAT_MODE_PUBLIC: u8 = 0;
+#[cfg(since_647)]
+pub const CHAT_MODE_CLAN: u8 = 1;
+
 /// The movement speed mode of an entity, determining how many tiles it moves per tick.
+/// The values are 647's move types, as the MoveType and TempMoveType blocks carry
+/// them (`Class244.method1590`).
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MoveSpeed {
-    /// Entity does not move (e.g., during a cutscene or when locked in place).
-    Stationary = 0,
     /// Entity moves one tile every other tick (half speed).
-    Crawl = 1,
+    Crawl = 0,
     /// Entity moves one tile per tick (normal speed).
-    Walk = 2,
+    Walk = 1,
     /// Entity moves two tiles per tick (double speed).
-    Run = 3,
-}
-
-/// Public chat visibility setting.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone)]
-pub enum ChatSettingsPublic {
-    /// Public chat visible to all.
-    On = 0,
-    /// Public chat visible to friends only.
-    Friends = 1,
-    /// Public chat disabled.
-    Off = 2,
-    /// Public chat hidden from the player's own view.
-    Hide = 3,
-}
-
-/// Private message visibility setting.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone)]
-pub enum ChatSettingsPrivate {
-    /// Private messages from anyone.
-    On = 0,
-    /// Private messages from friends only.
-    Friends = 1,
-    /// Private messages disabled.
-    Off = 2,
-}
-
-/// Trade and duel request visibility setting.
-#[repr(u8)]
-#[derive(Debug, Copy, Clone)]
-pub enum ChatSettingsTradeDuel {
-    /// Trade/duel requests from anyone.
-    On = 0,
-    /// Trade/duel requests from friends only.
-    Friends = 1,
-    /// Trade/duel requests disabled.
-    Off = 2,
-}
-
-impl ChatSettingsPublic {
-    pub const fn from_u8(value: u8) -> Self {
-        match value {
-            1 => Self::Friends,
-            2 => Self::Off,
-            3 => Self::Hide,
-            _ => Self::On,
-        }
-    }
-}
-
-impl ChatSettingsPrivate {
-    pub const fn from_u8(value: u8) -> Self {
-        match value {
-            1 => Self::Friends,
-            2 => Self::Off,
-            _ => Self::On,
-        }
-    }
-}
-
-impl ChatSettingsTradeDuel {
-    pub const fn from_u8(value: u8) -> Self {
-        match value {
-            1 => Self::Friends,
-            2 => Self::Off,
-            _ => Self::On,
-        }
-    }
+    Run = 2,
+    /// A jump: placed on its new tile instead of moving there
+    /// (`PlayerEntity.method4080`), and no steps that tick.
+    Instant = 127,
 }
 
 /// A player entity in the game world with full game state.
@@ -165,36 +108,52 @@ pub struct Player {
     pub last_runenergy: Option<u16>,
     pub runweight: i32,
     pub playtime: i32,
-    pub stats: Stats<21>,
+    pub stats: Stats<STAT_COUNT>,
     pub combat_level: u8,
     #[cfg(since_274)]
     pub skill_level: u16,
     pub vars: VarSet,
+    #[cfg(since_647)]
+    pub varcs: VarSet,
     pub state: EntityState,
     pub interaction: InteractionState,
     pub cam_queue: CamQueue,
     pub staff_mod_level: StaffModLevel,
     pub is_member: bool,
     pub run_step: Option<Direction>,
-    pub run: bool,
-    pub temprun: bool,
+    pub move_speed: MoveSpeed,
+    pub temp_move_speed: Option<MoveSpeed>,
+    #[cfg(since_647)]
+    pub client_move_type: Option<MoveSpeed>,
+    #[cfg(since_647)]
+    pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
     pub modal_state: u8,
     pub modal_main: Option<u16>,
     pub last_modal_main: Option<u16>,
     pub modal_chat: Option<u16>,
     pub last_modal_chat: Option<u16>,
+    #[cfg(since_647)]
+    pub modal_chat_parent: i32,
+    #[cfg(since_647)]
+    pub modal_main_parent: i32,
+    #[cfg(since_647)]
+    pub modal_side_parent: i32,
+    #[cfg(since_647)]
+    pub open_subs: FxHashMap<i32, (u16, u8)>,
+    #[cfg(since_647)]
+    pub if_events: FxHashMap<(i32, u16), u32>,
     pub modal_side: Option<u16>,
     pub last_modal_side: Option<u16>,
     pub modal_tutorial: Option<u16>,
     pub refresh_modal: bool,
     pub refresh_modal_close: bool,
     pub request_modal_close: bool,
-    pub public: ChatSettingsPublic,
-    pub private: ChatSettingsPrivate,
-    pub trade: ChatSettingsTradeDuel,
+    pub chat_filters: u8,
     pub logout_requested: bool,
     pub logout_idle_requested: bool,
+    #[cfg(since_647)]
+    pub logout_full: bool,
     pub logout_prevented_until: Option<u32>,
     pub logout_prevented_message: Option<Box<str>>,
     pub logout_sent: bool,
@@ -205,12 +164,34 @@ pub struct Player {
     pub move_clicked: bool,
     pub block_walk: BlockWalk,
     pub invs: FxHashMap<u16, Inventory>,
-    pub inv_transmits: FxHashMap<u16, Vec<u16>>,
-    pub inv_other_transmits: FxHashMap<u16, (i32, u16)>,
+    #[cfg(since_647)]
+    pub pending_login: bool,
+    #[cfg(since_647)]
+    pub chat_mode: u8,
+    #[cfg(since_647)]
+    pub toplevel: u16,
+    #[cfg(since_647)]
+    pub window_mode: u8,
+    #[cfg(since_647)]
+    pub window_width: u16,
+    #[cfg(since_647)]
+    pub window_height: u16,
+    #[cfg(since_647)]
+    pub display_name: Option<String>,
+    #[cfg(since_647)]
+    pub name_suggestions: Vec<String>,
+    #[cfg(since_647)]
+    pub name_suggestion_page: usize,
+    pub inv_transmits: FxHashMap<u16, Vec<ComId>>,
+    pub inv_other_transmits: FxHashMap<ComId, (i32, u16)>,
     pub inv_first_seen: FxHashSet<u16>,
+    #[cfg(since_647)]
+    pub inv_other_first_seen: FxHashSet<u16>,
     pub build_area: BuildArea,
     pub last_zone: CoordGrid,
     pub last_map_zone: CoordGrid,
+    #[cfg(since_647)]
+    pub areas: TileAreas,
     pub afk_event_ready: bool,
     pub afk_zones: [u32; 2],
     pub last_afk_zone: u16,
@@ -226,14 +207,17 @@ pub struct PlayerCold {
     pub last_login_date: i64,
     pub hero_points: HeroPoints,
     pub allow_design: bool,
-    pub last_com: Option<u16>,
-    pub last_comsubid: Option<u16>,
+    pub last_com: Option<ComId>,
     pub last_slot: Option<u16>,
     pub last_target_slot: Option<u16>,
+    #[cfg(since_647)]
+    pub last_target_com: Option<i32>,
+    #[cfg(since_647)]
+    pub last_coord: Option<CoordGrid>,
     pub last_use_slot: Option<u16>,
     pub last_item: Option<u16>,
     pub last_use_item: Option<u16>,
-    pub last_use_com: Option<u16>,
+    pub last_use_com: Option<ComId>,
     pub resume_buttons: Option<Vec<i32>>,
     pub tabs: [Option<u16>; 14],
     pub gender: u8,
@@ -242,6 +226,7 @@ pub struct PlayerCold {
     pub transmog: Option<u16>,
     pub body: [i32; 7],
     pub colours: [u8; 5],
+    pub bot_home: CoordGrid,
 }
 
 impl Deref for Player {
@@ -290,6 +275,8 @@ impl Player {
             #[cfg(since_274)]
             skill_level: 0,
             vars,
+            #[cfg(since_647)]
+            varcs: VarSet::new([].into_iter()),
             state: EntityState::new(),
             info: EntityMasks::new(),
             interaction: InteractionState::new(),
@@ -300,25 +287,57 @@ impl Player {
             staff_mod_level: StaffModLevel::Normal,
             is_member: true,
             run_step: None,
-            run: false,
-            temprun: false,
+            move_speed: MoveSpeed::Walk,
+            temp_move_speed: None,
+            #[cfg(since_647)]
+            client_move_type: None,
+            #[cfg(since_647)]
+            region_entry: None,
             move_request: false,
             modal_state: MODAL_NONE,
             modal_main: None,
             last_modal_main: None,
             modal_chat: None,
             last_modal_chat: None,
+            #[cfg(since_647)]
+            modal_chat_parent: 0,
+            #[cfg(since_647)]
+            modal_main_parent: 0,
+            #[cfg(since_647)]
+            modal_side_parent: 0,
+            #[cfg(since_647)]
+            open_subs: FxHashMap::default(),
+            #[cfg(since_647)]
+            if_events: FxHashMap::default(),
             modal_side: None,
             last_modal_side: None,
             modal_tutorial: None,
             refresh_modal: false,
             refresh_modal_close: false,
             request_modal_close: false,
-            public: ChatSettingsPublic::On,
-            private: ChatSettingsPrivate::On,
-            trade: ChatSettingsTradeDuel::On,
+            chat_filters: 0,
             logout_requested: false,
             logout_idle_requested: false,
+            #[cfg(since_647)]
+            logout_full: false,
+            #[cfg(since_647)]
+            pending_login: true,
+            #[cfg(since_647)]
+            chat_mode: CHAT_MODE_PUBLIC,
+            #[cfg(since_647)]
+            toplevel: 0,
+            #[cfg(since_647)]
+            window_mode: 1,
+            #[cfg(since_647)]
+            window_width: 765,
+            #[cfg(since_647)]
+            window_height: 503,
+            #[cfg(since_647)]
+            display_name: None,
+            #[cfg(since_647)]
+            name_suggestions: Vec::new(),
+            #[cfg(since_647)]
+            name_suggestion_page: 0,
             logout_prevented_until: None,
             logout_prevented_message: None,
             logout_sent: false,
@@ -332,9 +351,13 @@ impl Player {
             inv_transmits: FxHashMap::default(),
             inv_other_transmits: FxHashMap::default(),
             inv_first_seen: FxHashSet::default(),
+            #[cfg(since_647)]
+            inv_other_first_seen: FxHashSet::default(),
             build_area: BuildArea::new(),
             last_zone: CoordGrid::new(0, 0, 0),
             last_map_zone: CoordGrid::new(0, 0, 0),
+            #[cfg(since_647)]
+            areas: NO_AREAS,
             afk_event_ready: false,
             afk_zones: [0; 2],
             last_afk_zone: 0,
@@ -348,9 +371,12 @@ impl Player {
                 hero_points: HeroPoints::new(),
                 allow_design: false,
                 last_com: None,
-                last_comsubid: None,
                 last_slot: None,
                 last_target_slot: None,
+                #[cfg(since_647)]
+                last_target_com: None,
+                #[cfg(since_647)]
+                last_coord: None,
                 last_use_slot: None,
                 last_item: None,
                 last_use_item: None,
@@ -363,6 +389,7 @@ impl Player {
                 transmog: None,
                 body: [0, 10, 18, 26, 33, 36, 42],
                 colours: [0; 5],
+                bot_home: coord,
             }),
         }
     }
@@ -373,6 +400,88 @@ impl Player {
     /// do not block.
     pub const fn contains_modal_interface(&self) -> bool {
         (self.modal_state & (MODAL_MAIN | MODAL_CHAT)) != MODAL_NONE
+    }
+
+    /// Rev-647: records IF_OPENSUB. As the client does, whatever was mounted
+    /// on `parent` closes first.
+    #[cfg(since_647)]
+    pub fn sub_opened(&mut self, parent: i32, sub: u16, kind: u8) {
+        self.sub_closed(parent);
+        self.open_subs.insert(parent, (sub, kind));
+    }
+
+    /// Rev-647: records IF_CLOSESUB. The client closes the sub mounted on
+    /// `parent`, then, recursively, every type-3 sub mounted inside it
+    /// (`LightDetailClientOption.method2499`); others stay in its table,
+    /// unreachable until something re-parents them.
+    #[cfg(since_647)]
+    pub fn sub_closed(&mut self, parent: i32) {
+        let Some((closed, _)) = self.open_subs.remove(&parent) else {
+            return;
+        };
+        self.if_events
+            .retain(|&(com, _), _| (com as u32 >> 16) as u16 != closed);
+        let children: Vec<i32> = self
+            .open_subs
+            .iter()
+            .filter(|(p, (_, kind))| *kind == 3 && (**p as u32 >> 16) as u16 == closed)
+            .map(|(&p, _)| p)
+            .collect();
+        for child in children {
+            self.sub_closed(child);
+        }
+    }
+
+    /// Rev-647: the IF_OPENSUB type for a sub mounted on `parent`: that of
+    /// the sub holding `parent`'s interface, or 1 on the toplevel. A main or
+    /// chat modal mounts as type 0 at the end of the tick, after the script.
+    #[cfg(since_647)]
+    pub fn sub_kind(&self, parent: i32) -> u8 {
+        let iface = (parent as u32 >> 16) as u16;
+        if self.modal_main == Some(iface) || self.modal_chat == Some(iface) {
+            return 0;
+        }
+        self.open_subs
+            .values()
+            .find(|&&(sub, _)| sub == iface)
+            .map_or(1, |&(_, kind)| kind)
+    }
+
+    /// Rev-647: records IF_MOVESUB -- the sub on `from` moves to `to`,
+    /// closing whatever `to` held, as the client's branch for it does.
+    #[cfg(since_647)]
+    pub fn sub_moved(&mut self, from: i32, to: i32) {
+        let moving = self.open_subs.remove(&from);
+        self.sub_closed(to);
+        if let Some(sub) = moving {
+            self.open_subs.insert(to, sub);
+        }
+    }
+
+    /// Rev-647: whether interface `iface` is on screen -- the toplevel, or a
+    /// sub mounted on a component of something that is. A sub left on a
+    /// parent that is no longer reachable (after IF_OPENTOP swaps the root)
+    /// is in the client's table but drawn nowhere.
+    #[cfg(since_647)]
+    pub fn is_interface_open(&self, iface: u16) -> bool {
+        let mut current = iface;
+        // Each step climbs one parent; a mount chain is a handful deep, and
+        // the bound stops a cycle a bad move could make.
+        for _ in 0..16 {
+            if current == self.toplevel {
+                return true;
+            }
+            let Some(parent) = self
+                .open_subs
+                .iter()
+                .find(|(_, (sub, _))| *sub == current)
+                .map(|(&p, _)| (p as u32 >> 16) as u16)
+            else {
+                return false;
+            };
+            current = parent;
+        }
+        false
     }
 
     /// Returns `true` if the given interface root is currently visible to the player.
@@ -394,6 +503,17 @@ impl Player {
             || self.tabs.iter().flatten().any(|&x| x as i32 == root)
     }
 
+    /// The name the player is drawn with (the appearance block) and named by
+    /// (`displayname`): the display name they claimed, else their login name
+    /// as 289's `displayname` gives it ("Test Player"). 2011's client finds a
+    /// player by it (a trade request's "Accept trade").
+    #[cfg(since_647)]
+    pub fn shown_name(&self) -> String {
+        self.display_name
+            .clone()
+            .unwrap_or_else(|| self.uid.screen_name())
+    }
+
     /// Collects all inventory transmit component IDs attached to the given interface root.
     ///
     /// Iterates over all `inv_transmits` entries and returns the component IDs whose
@@ -406,9 +526,13 @@ impl Player {
     ///
     /// # Returns
     /// A vector of component IDs that were attached to the closing root.
-    pub fn clear_interface_listeners<F>(&mut self, root: Option<u16>, get_root_layer: F) -> Vec<u16>
+    pub fn clear_interface_listeners<F>(
+        &mut self,
+        root: Option<u16>,
+        get_root_layer: F,
+    ) -> Vec<ComId>
     where
-        F: Fn(u16) -> Option<i32>,
+        F: Fn(ComId) -> Option<i32>,
     {
         let Some(root) = root else {
             return Vec::new();
@@ -447,31 +571,52 @@ impl Player {
     ///
     /// # Side Effects
     /// * Removes `com` from every entry in `self.inv_transmits`.
-    pub fn clear_inv_transmits(&mut self, com: u16) {
+    pub fn clear_inv_transmits(&mut self, com: ComId) {
+        #[cfg(since_647)]
+        self.if_events.retain(|&(component, _), _| component != com);
         for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }
         self.inv_other_transmits.remove(&com);
-        self.inv_first_seen.remove(&com);
+        // Before 647 a component is seen afresh once it stops; from 647 the
+        // client keys inventories by inv id, and so does first-sight.
+        #[cfg(before_647)]
+        self.inv_first_seen.remove(&(com as u16));
+        // From 647 an inventory no component transmits any more is dropped:
+        // it stops going to the client (a closed shop's restocks), and the
+        // next transmit sends it whole again.
+        #[cfg(since_647)]
+        {
+            let first_seen = &mut self.inv_first_seen;
+            self.inv_transmits.retain(|inv, coms| {
+                if coms.is_empty() {
+                    first_seen.remove(inv);
+                }
+                !coms.is_empty()
+            });
+            // Another player's inv no component shows any more goes whole
+            // next time, so a new trade starts from its partner's offer.
+            let others = &self.inv_other_transmits;
+            self.inv_other_first_seen
+                .retain(|inv| others.values().any(|&(_, other)| other == *inv));
+        }
     }
 
-    /// Clears the active script if it is suspended waiting for a count dialog or
-    /// pause button input.
+    /// Clears the active script if it is suspended waiting for the player's
+    /// answer to a dialog (a pause button, count, string, name, obj, colour or
+    /// quick find code).
     ///
     /// This is called when a modal interface is opened, which invalidates any
     /// suspended dialog script that was waiting for player input.
     ///
     /// # Side Effects
     /// * Sets `self.state.active_script` to `None` if the script's execution state
-    ///   is `CountDialog` or `PauseButton`.
+    ///   `awaits_input`.
     /// * Clears `self.resume_buttons`, since the resume targets belonged to the
     ///   script being discarded.
     pub fn clear_suspended_script(&mut self) {
         if let Some(s) = &self.state.active_script
-            && matches!(
-                s.execution,
-                ExecutionState::CountDialog | ExecutionState::PauseButton
-            )
+            && s.execution.awaits_input()
         {
             self.state.active_script = None;
             self.resume_buttons = None;
@@ -766,9 +911,10 @@ impl Player {
     ///
     /// Increments the `last_afk_zone` counter (capped at 1000). If the player is still
     /// within one of the two tracked AFK zones, does nothing. Otherwise, records the
-    /// current position as a new AFK zone. On teleport (`jump == true`), the second zone
-    /// slot is set directly; on walk, the second zone inherits the first and the first
-    /// is updated.
+    /// current position as a new AFK zone. On a jump (`MoveSpeed::Instant`), the second
+    /// zone slot is set directly; otherwise, a move made a jump by its distance included,
+    /// the second zone inherits the first and the first is updated, as upstream's
+    /// `moveSpeed === INSTANT && jump`.
     ///
     /// # Side Effects
     /// * Updates `self.last_afk_zone`, `self.afk_zones`, and `self.afk_event_ready`.
@@ -783,7 +929,7 @@ impl Player {
             self.pathing.coord.z().wrapping_sub(10),
         )
         .packed();
-        if self.pathing.jump {
+        if self.pathing.move_speed == MoveSpeed::Instant && self.pathing.jump {
             self.afk_zones[1] = coord;
         } else {
             self.afk_zones[1] = self.afk_zones[0];
@@ -833,8 +979,8 @@ impl Player {
     ///
     /// Always resets: info masks, walk step, jump flag, teleport flag, move_clicked, walk/run
     /// directions, last coordinate, steps taken, protect flag, opcalled flag,
-    /// ap_range_called flag, and movement speed (based on the `run` flag).
-    /// Also calls `set_face_entity` to update the face-entity mask.
+    /// ap_range_called flag and a jump's `MoveSpeed::Instant`. Also calls
+    /// `set_face_entity` to update the face-entity mask.
     ///
     /// # Side Effects
     /// * Mutates pathing, info, state, and interaction fields.
@@ -854,15 +1000,46 @@ impl Player {
         if self.interaction.ap_range_called {
             self.interaction.ap_range_called = false;
         }
-        let move_speed = if self.run {
-            MoveSpeed::Run
+        if self.pathing.move_speed == MoveSpeed::Instant {
+            self.pathing.move_speed = self.move_speed;
+        }
+        self.set_face_entity();
+    }
+
+    /// A jump (`p_telejump`, a level change, a reconnect): clients place the
+    /// player on its new tile instead of moving it there, and it takes no
+    /// steps this tick.
+    pub fn jump(&mut self) {
+        self.pathing.jump = true;
+        self.pathing.move_speed = MoveSpeed::Instant;
+    }
+
+    /// Marks a move of more than two tiles this tick as a jump, as upstream's
+    /// `validateDistanceWalked` does, unless it was a forced move
+    /// (`p_exactmove`).
+    pub fn validate_distance_walked(&mut self) {
+        if self.info.masks & PlayerInfoProt::ExactMove as u16 == 0 {
+            self.pathing.validate_distance_walked();
+        }
+    }
+
+    /// Sets the speed the player's steps take this tick: the route's
+    /// temporary speed (a ctrl-click, `p_temprun`) or the player's own. A
+    /// jump keeps `Instant` for its tick. Before 647 a player without a run
+    /// animation walks: none set yet, or a script took it away
+    /// (`runanim(null)`).
+    pub fn update_move_speed(&mut self) {
+        if self.pathing.move_speed == MoveSpeed::Instant {
+            return;
+        }
+        let speed = self.temp_move_speed.unwrap_or(self.move_speed);
+        #[cfg(before_647)]
+        let speed = if self.info.runanim.is_some_and(|anim| anim != u16::MAX) {
+            speed
         } else {
             MoveSpeed::Walk
         };
-        if self.pathing.move_speed != move_speed {
-            self.pathing.move_speed = move_speed;
-        }
-        self.set_face_entity();
+        self.pathing.move_speed = speed;
     }
 
     /// Recovers or depletes the player's run energy for the current tick.
@@ -879,10 +1056,10 @@ impl Player {
     ///   carried run weight in kilograms (`runweight / 1000`), clamped to
     ///   `0..=64`: `floor(67 + 67 * weight / 64)`, floored at 0.
     ///
-    /// When energy is exhausted, run mode is forced off; when it drops below
-    /// 1% (100 units), the temporary ctrl-run flag is cleared so the player
-    /// reverts to walking. The depleted value itself is transmitted to the
-    /// client later in the tick by the engine's run-energy stat sync.
+    /// When energy is exhausted, run mode is forced off; below 1% (100 units)
+    /// a temporary run is cancelled too. The depleted value itself is
+    /// transmitted to the client later in the tick by the engine's run-energy
+    /// stat sync.
     ///
     /// This type lives in `rs-entity` and has no access to the config cache,
     /// so it cannot write the client's `run` varp directly. Instead, a `true`
@@ -894,7 +1071,8 @@ impl Player {
     /// signaling the caller to sync the `run` varp. `false` otherwise.
     ///
     /// # Side Effects
-    /// * Mutates `self.runenergy`, and may clear `self.run` / `self.temprun`.
+    /// * Mutates `self.runenergy`, and may set `self.move_speed` to a walk or
+    ///   cancel a temporary run.
     ///
     /// # Call Stack
     /// **Called by:** `Engine::process_player`
@@ -920,20 +1098,372 @@ impl Player {
         // Only signal a varp sync on the actual on->off transition, so a player
         // running at empty energy does not re-transmit the run varp every tick.
         let mut run_disabled = false;
-        if self.runenergy == 0 && self.run {
-            self.run = false;
+        if self.runenergy == 0 && self.move_speed == MoveSpeed::Run {
+            self.move_speed = MoveSpeed::Walk;
             run_disabled = true;
         }
-        if self.runenergy < 100 {
-            self.temprun = false;
+        if self.runenergy < 100 && self.temp_move_speed == Some(MoveSpeed::Run) {
+            self.temp_move_speed = None;
         }
         run_disabled
+    }
+
+    /// Stores the public, private and trade chat filters as `public << 4 |
+    /// private << 2 | trade`: on, friends, off, and for public chat hide.
+    /// Returns `false`, storing nothing, when one is out of range.
+    pub const fn set_chat_filters(&mut self, public: u8, private: u8, trade: u8) -> bool {
+        if public > 3 || private > 2 || trade > 2 {
+            return false;
+        }
+        self.chat_filters = (public << 4) | (private << 2) | trade;
+        true
+    }
+
+    pub const fn public_chat(&self) -> u8 {
+        self.chat_filters >> 4
+    }
+
+    pub const fn private_chat(&self) -> u8 {
+        (self.chat_filters >> 2) & 0x3
+    }
+
+    pub const fn trade_chat(&self) -> u8 {
+        self.chat_filters & 0x3
+    }
+
+    /// Rev-647: settles this tick's MoveType and TempMoveType blocks.
+    ///
+    /// The client stores one move type per player (MoveType, 0x8) and plays
+    /// each step at it, unless the same update carries a one-tick override
+    /// (TempMoveType, 0x800). `Class244.method1590` reads both masks before it
+    /// applies the step, so the override wins and a MoveType sent this tick
+    /// already counts.
+    ///
+    /// So the stored type has to follow `move_speed` however it changes -- the
+    /// run orb, `p_run`, or energy running out mid-run -- and any step at another
+    /// speed needs the override: the odd last tile of a run is a walk, a
+    /// ctrl-click run with run off is a run, and a jump is `Instant` (127),
+    /// a move of more than two tiles included
+    /// ([`validate_distance_walked`](Self::validate_distance_walked)). Without
+    /// it the client plays a run as a walk to a tile two away. Any other
+    /// teleport is a walk, which a forced move carries to its end tile.
+    ///
+    /// # Side Effects
+    /// * May set `info.move_type`/`info.temp_move_type` and their mask bits.
+    /// * Updates `client_move_type`.
+    ///
+    /// # Call Stack
+    /// **Called by:** `Engine::compute_player_info`, once every source of
+    /// movement and run changes has had its turn for the tick.
+    #[cfg(since_647)]
+    pub fn sync_move_types(&mut self) {
+        if self.client_move_type != Some(self.move_speed) {
+            self.client_move_type = Some(self.move_speed);
+            self.info.move_type = Some(self.move_speed as u8);
+            self.info.masks |= PlayerInfoProt::MoveType as u16;
+        }
+        let step = if self.pathing.tele {
+            if self.pathing.jump {
+                MoveSpeed::Instant
+            } else {
+                MoveSpeed::Walk
+            }
+        } else if self.pathing.run_dir != -1 {
+            MoveSpeed::Run
+        } else if self.pathing.walk_dir != -1 {
+            MoveSpeed::Walk
+        } else {
+            return;
+        };
+        if step != self.move_speed {
+            self.info.temp_move_type = Some(step as u8);
+            self.info.masks |= PlayerInfoProt::TempMoveType as u16;
+        }
+    }
+}
+
+#[cfg(test)]
+mod move_speed_tests {
+    use super::*;
+    use std::iter;
+
+    fn make_player() -> Player {
+        let uid = PlayerUid::new("test".into(), 1);
+        let vars = VarSet::new(iter::empty());
+        Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
+    }
+
+    /// A ctrl-click's speed holds for its route either way: a run with run
+    /// off, and at 647 a walk with run on.
+    #[test]
+    fn a_temporary_speed_wins_for_its_route() {
+        let mut p = make_player();
+        p.info.runanim = Some(824);
+        for (own, temp) in [
+            (MoveSpeed::Walk, MoveSpeed::Run),
+            (MoveSpeed::Run, MoveSpeed::Walk),
+        ] {
+            p.move_speed = own;
+            p.temp_move_speed = Some(temp);
+            p.update_move_speed();
+            assert_eq!(p.pathing.move_speed, temp);
+            p.temp_move_speed = None;
+            p.update_move_speed();
+            assert_eq!(p.pathing.move_speed, own);
+        }
+    }
+
+    /// `runanim(null)` is how 289 content stops a player running (the
+    /// Fishing Trawler's sinking boat, `~playerwalk`); the reference walks
+    /// them at `runanim === -1`.
+    #[cfg(before_647)]
+    #[test]
+    fn no_run_animation_walks() {
+        let mut p = make_player();
+        p.move_speed = MoveSpeed::Run;
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "none set yet");
+        p.info.runanim = Some(824);
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Run);
+        p.info.runanim = Some(u16::MAX);
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "runanim(null)");
+        p.move_speed = MoveSpeed::Walk;
+        p.temp_move_speed = Some(MoveSpeed::Run);
+        p.update_move_speed();
+        assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "a ctrl-click too");
+    }
+
+    /// A jump keeps `Instant` through the movement phase, so the player takes
+    /// no steps that tick, and the tick's reset gives it its own speed back.
+    #[test]
+    fn a_jump_takes_no_steps_on_its_tick() {
+        rsmod::allocate_if_absent(3222, 3222, 0);
+        rsmod::allocate_if_absent(3224, 3222, 0);
+        let mut p = make_player();
+        p.info.runanim = Some(824);
+        p.move_speed = MoveSpeed::Run;
+        p.pathing.queue_waypoint(CoordGrid::new(3226, 0, 3222));
+        p.jump();
+        p.update_move_speed();
+        assert!(
+            !p.pathing
+                .process_movement(true, &mut p.info, FocusKind::Player)
+        );
+        assert_eq!(p.pathing.coord, CoordGrid::new(3222, 0, 3222));
+        p.reset_pathing_entity();
+        p.update_move_speed();
+        assert!(
+            p.pathing
+                .process_movement(true, &mut p.info, FocusKind::Player)
+        );
+        assert_eq!(
+            p.pathing.coord,
+            CoordGrid::new(3224, 0, 3222),
+            "runs the next"
+        );
+    }
+
+    /// A move of more than two tiles in a tick is a jump, as upstream's
+    /// `validateDistanceWalked`, unless it was a forced move; but not a jump's
+    /// `Instant`, so it takes its steps.
+    #[test]
+    fn a_move_of_more_than_two_tiles_is_a_jump() {
+        for (x, forced, jump) in [
+            (3224, false, false),
+            (3225, false, true),
+            (3225, true, false),
+        ] {
+            let mut p = make_player();
+            p.pathing.jump = false;
+            p.pathing.coord = CoordGrid::new(x, 0, 3222);
+            if forced {
+                p.info.masks |= PlayerInfoProt::ExactMove as u16;
+            }
+            p.validate_distance_walked();
+            assert_eq!(p.pathing.jump, jump, "to {x}, forced {forced}");
+            assert_eq!(p.pathing.move_speed, MoveSpeed::Walk);
+        }
+    }
+
+    /// Footprint to footprint: a 2x2 npc three tiles on leaves a gap of two.
+    #[test]
+    fn a_big_entity_measures_from_its_edge() {
+        let mut pathing = PathingEntity::new(
+            CoordGrid::new(3222, 0, 3222),
+            2,
+            MoveRestrict::Normal,
+            MoveStrategy::Naive,
+        );
+        pathing.jump = false;
+        pathing.coord = CoordGrid::new(3225, 0, 3222);
+        pathing.validate_distance_walked();
+        assert!(!pathing.jump);
+        pathing.coord = CoordGrid::new(3226, 0, 3222);
+        pathing.validate_distance_walked();
+        assert!(pathing.jump);
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod move_type_tests {
+    use super::*;
+    use std::iter;
+
+    fn make_player() -> Player {
+        let uid = PlayerUid::new("test".into(), 1);
+        let vars = VarSet::new(iter::empty());
+        Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
+    }
+
+    /// One tick: clear last tick's blocks, take the given step, settle.
+    fn tick(p: &mut Player, walk_dir: i8, run_dir: i8, tele: bool) {
+        p.info.masks = 0;
+        p.info.move_type = None;
+        p.info.temp_move_type = None;
+        p.pathing.walk_dir = walk_dir;
+        p.pathing.run_dir = run_dir;
+        p.pathing.tele = tele;
+        p.sync_move_types();
+    }
+
+    fn stored(p: &Player) -> Option<u8> {
+        (p.info.masks & (PlayerInfoProt::MoveType as u16) != 0).then(|| p.info.move_type.unwrap())
+    }
+
+    fn temp(p: &Player) -> Option<u8> {
+        (p.info.masks & (PlayerInfoProt::TempMoveType as u16) != 0)
+            .then(|| p.info.temp_move_type.unwrap())
+    }
+
+    #[test]
+    fn the_first_update_of_a_session_sends_the_stored_type() {
+        let mut p = make_player();
+        tick(&mut p, -1, -1, false);
+        assert_eq!(stored(&p), Some(MoveSpeed::Walk as u8));
+        tick(&mut p, -1, -1, false);
+        assert_eq!(stored(&p), None, "unchanged, so not resent");
+    }
+
+    #[test]
+    fn toggling_run_resends_the_stored_type() {
+        let mut p = make_player();
+        tick(&mut p, -1, -1, false);
+        p.move_speed = MoveSpeed::Run;
+        tick(&mut p, 1, 1, false);
+        assert_eq!(stored(&p), Some(MoveSpeed::Run as u8));
+        assert_eq!(temp(&p), None, "a run step at run mode needs no override");
+        p.move_speed = MoveSpeed::Walk;
+        tick(&mut p, 1, -1, false);
+        assert_eq!(stored(&p), Some(MoveSpeed::Walk as u8));
+        assert_eq!(temp(&p), None);
+    }
+
+    /// Energy runs out during a run step: `update_energy` turns run off in
+    /// the same tick, so the client is told "walk" and has to be told this
+    /// one step was still a run.
+    #[test]
+    fn a_run_step_on_the_tick_energy_runs_out_is_still_a_run() {
+        let mut p = make_player();
+        p.move_speed = MoveSpeed::Run;
+        tick(&mut p, -1, -1, false);
+        p.runenergy = 50;
+        p.pathing.steps_taken = 2;
+        assert!(p.update_energy());
+        tick(&mut p, 1, 1, false);
+        assert_eq!(stored(&p), Some(MoveSpeed::Walk as u8));
+        assert_eq!(temp(&p), Some(MoveSpeed::Run as u8));
+    }
+
+    #[test]
+    fn the_odd_last_tile_of_a_run_is_a_walk() {
+        let mut p = make_player();
+        p.move_speed = MoveSpeed::Run;
+        tick(&mut p, 1, -1, false);
+        assert_eq!(temp(&p), Some(MoveSpeed::Walk as u8));
+    }
+
+    #[test]
+    fn a_ctrl_click_run_with_run_off_is_a_run() {
+        let mut p = make_player();
+        tick(&mut p, 1, 1, false);
+        assert_eq!(temp(&p), Some(MoveSpeed::Run as u8));
+    }
+
+    #[test]
+    fn a_jump_is_placed() {
+        for speed in [MoveSpeed::Walk, MoveSpeed::Run] {
+            for x in [3223, 3232] {
+                let mut p = make_player();
+                p.move_speed = speed;
+                p.pathing.jump = true;
+                p.pathing.coord = CoordGrid::new(x, 0, 3222);
+                tick(&mut p, -1, -1, true);
+                let want = Some(MoveSpeed::Instant as u8);
+                assert_eq!(temp(&p), want, "{speed:?} to {x}");
+            }
+        }
+    }
+
+    /// A door's step: `p_teleport` one tile, walked as 289's client walks it.
+    #[test]
+    fn a_door_step_is_walked() {
+        for speed in [MoveSpeed::Walk, MoveSpeed::Run] {
+            let mut p = make_player();
+            p.move_speed = speed;
+            p.pathing.jump = false;
+            p.pathing.coord = CoordGrid::new(3223, 0, 3222);
+            p.validate_distance_walked();
+            tick(&mut p, -1, -1, true);
+            let want = (speed == MoveSpeed::Run).then_some(MoveSpeed::Walk as u8);
+            assert_eq!(temp(&p), want, "{speed:?}");
+        }
+    }
+
+    /// A `p_teleport` more than two tiles off is a jump by its distance.
+    #[test]
+    fn a_long_teleport_is_placed() {
+        let mut p = make_player();
+        p.pathing.jump = false;
+        p.pathing.coord = CoordGrid::new(3232, 0, 3222);
+        p.validate_distance_walked();
+        tick(&mut p, -1, -1, true);
+        assert_eq!(temp(&p), Some(MoveSpeed::Instant as u8));
+    }
+
+    /// `p_exactmove` over a wall three tiles deep: the player is on the far
+    /// tile at once, and the forced move carries the model there.
+    #[test]
+    fn a_forced_move_of_any_length_is_not_placed() {
+        for speed in [MoveSpeed::Walk, MoveSpeed::Run] {
+            let mut p = make_player();
+            p.move_speed = speed;
+            p.pathing.jump = false;
+            p.pathing.coord = CoordGrid::new(3222, 0, 3225);
+            p.info.masks = PlayerInfoProt::ExactMove as u16;
+            p.info.temp_move_type = None;
+            p.pathing.tele = true;
+            p.validate_distance_walked();
+            p.sync_move_types();
+            let want = (speed == MoveSpeed::Run).then_some(MoveSpeed::Walk as u8);
+            assert_eq!(temp(&p), want, "{speed:?}: a step, not 127");
+        }
+    }
+
+    #[test]
+    fn standing_still_sends_no_override() {
+        let mut p = make_player();
+        p.move_speed = MoveSpeed::Run;
+        tick(&mut p, -1, -1, false);
+        assert_eq!(temp(&p), None);
     }
 }
 
 #[cfg(test)]
 mod combat_level_tests {
     use super::*;
+    use std::iter;
 
     /// Faithful copy of the original f64 combat-level formula, parameterized by
     /// the already-reduced sums. This is the reference the integer rewrite of
@@ -974,7 +1504,7 @@ mod combat_level_tests {
 
     fn player_with(levels: [u8; 7]) -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let varps = VarSet::new(std::iter::empty());
+        let varps = VarSet::new(iter::empty());
         let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
         // [Attack, Defence, Strength, Hitpoints, Ranged, Prayer, Magic]
         for (i, &lvl) in levels.iter().enumerate() {
@@ -1015,13 +1545,14 @@ mod combat_level_tests {
 #[cfg(test)]
 mod afk_zone_tests {
     use super::*;
+    use std::iter;
 
     /// `zones_afk` turns on after 1000 ticks inside the AFK zones and resets
     /// once the player leaves them, like 2004scape's `zonesAfk()`.
     #[test]
     fn zones_afk_after_1000_ticks_in_place() {
         let uid = PlayerUid::new("test".into(), 1);
-        let varps = VarSet::new(std::iter::empty());
+        let varps = VarSet::new(iter::empty());
         let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
 
         // First tick records the zone and resets the counter.
@@ -1040,6 +1571,28 @@ mod afk_zone_tests {
         player.update_afk_zones();
         assert!(!player.zones_afk());
     }
+
+    /// Only a jump's `Instant` drops the zone the player left, as upstream's
+    /// `moveSpeed === INSTANT && jump`: a move that is a jump by its distance
+    /// keeps it.
+    #[test]
+    fn only_a_real_jump_drops_the_zone_left() {
+        let uid = PlayerUid::new("test".into(), 1);
+        let varps = VarSet::new(iter::empty());
+        let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
+        player.update_afk_zones();
+        let first = player.afk_zones[0];
+
+        player.pathing.coord = CoordGrid::new(3300, 0, 3300);
+        player.pathing.jump = true;
+        player.update_afk_zones();
+        assert_eq!(player.afk_zones[1], first, "kept");
+
+        player.pathing.coord = CoordGrid::new(3400, 0, 3400);
+        player.jump();
+        player.update_afk_zones();
+        assert_eq!(player.afk_zones[1], player.afk_zones[0], "dropped");
+    }
 }
 
 #[cfg(test)]
@@ -1049,10 +1602,11 @@ mod interaction_tests {
     use crate::{LocSerial, ObjSerial};
     use rs_pack::types::{LocAngle, LocLayer, LocShape};
     use rs_vm::trigger::ServerTriggerType;
+    use std::iter;
 
     fn make_player() -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let vars = VarSet::new(std::iter::empty());
+        let vars = VarSet::new(iter::empty());
         Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
     }
 
@@ -1142,6 +1696,133 @@ mod interaction_tests {
         p.interaction.target_subject_com = Some(42);
         p.set_interaction(obj_target(), ServerTriggerType::ApObj1 as u8, true);
         assert_eq!(p.interaction.target_subject_com, None);
+    }
+
+    // ---- rev-647 open interfaces ----
+
+    #[cfg(since_647)]
+    fn hash(iface: u16, com: u16) -> i32 {
+        ((iface as i32) << 16) | com as i32
+    }
+
+    /// A sub is open when it hangs, mount by mount, off the toplevel.
+    #[cfg(since_647)]
+    #[test]
+    fn an_interface_is_open_when_it_hangs_off_the_toplevel() {
+        let mut p = make_player();
+        p.toplevel = 548;
+        p.sub_opened(hash(548, 206), 149, 1); // backpack in its tab
+        p.sub_opened(hash(548, 18), 762, 0); // bank on the main screen
+        p.sub_opened(hash(762, 3), 9999, 3); // something inside the bank
+        assert!(p.is_interface_open(548), "the toplevel");
+        assert!(p.is_interface_open(149) && p.is_interface_open(762));
+        assert!(p.is_interface_open(9999), "two mounts down");
+        assert!(!p.is_interface_open(763), "never opened");
+    }
+
+    /// IF_OPENTOP leaves the client's sub table alone; what hung off the old
+    /// root is no longer drawn.
+    #[cfg(since_647)]
+    #[test]
+    fn a_new_toplevel_strands_what_hung_off_the_old_one() {
+        let mut p = make_player();
+        p.toplevel = 548;
+        p.sub_opened(hash(548, 206), 149, 1);
+        p.toplevel = 746;
+        assert!(!p.is_interface_open(149));
+        p.sub_moved(hash(548, 206), hash(746, 90));
+        assert!(p.is_interface_open(149), "moved across, it is drawn again");
+    }
+
+    /// Mounting on an occupied component closes the occupant, and closing a
+    /// sub takes its type-3 children with it.
+    #[cfg(since_647)]
+    #[test]
+    fn opening_over_a_sub_closes_it_and_its_type_3_children() {
+        let mut p = make_player();
+        p.toplevel = 548;
+        p.sub_opened(hash(548, 18), 762, 0);
+        p.sub_opened(hash(762, 3), 9999, 3);
+        p.sub_opened(hash(762, 4), 8888, 1);
+        p.sub_opened(hash(548, 18), 620, 0); // a shop replaces the bank
+        assert!(!p.is_interface_open(762) && !p.is_interface_open(9999));
+        assert!(
+            !p.open_subs.contains_key(&hash(762, 3)),
+            "type 3 closed with it"
+        );
+        assert!(
+            p.open_subs.contains_key(&hash(762, 4)),
+            "type 1 stays in the table"
+        );
+        assert!(!p.is_interface_open(8888), "but is drawn nowhere");
+        assert!(p.is_interface_open(620));
+    }
+
+    // ---- inventory transmit bindings (rev 647: whole component hashes) ----
+
+    /// `inventory:inv` (149:0) and the bank's component 0 (762:0) share a
+    /// component index. Cut to 16 bits they were the same key, so stopping one
+    /// stopped the other.
+    #[cfg(since_647)]
+    #[test]
+    fn stopping_one_component_leaves_another_with_the_same_index() {
+        let mut p = make_player();
+        let backpack = 149 << 16;
+        let bank = 762 << 16;
+        p.inv_transmits.entry(93).or_default().push(backpack);
+        p.inv_transmits.entry(95).or_default().push(bank);
+        p.clear_inv_transmits(bank);
+        assert_eq!(p.inv_transmits[&93], vec![backpack]);
+        assert!(!p.inv_transmits.contains_key(&95));
+    }
+
+    /// An inventory no component transmits any more is dropped and forgotten,
+    /// so it stops going out and the next transmit sends it whole; one still
+    /// transmitted elsewhere is kept.
+    #[cfg(since_647)]
+    #[test]
+    fn an_inventory_nothing_transmits_is_forgotten() {
+        let mut p = make_player();
+        let backpack = 149 << 16;
+        let shop_side = 621 << 16;
+        let shop = 620 << 16 | 25;
+        p.inv_transmits
+            .entry(93)
+            .or_default()
+            .extend([backpack, shop_side]);
+        p.inv_transmits.entry(1).or_default().push(shop);
+        p.inv_first_seen.extend([93, 1]);
+        p.clear_inv_transmits(shop_side);
+        p.clear_inv_transmits(shop);
+        assert_eq!(p.inv_transmits[&93], vec![backpack]);
+        assert!(p.inv_first_seen.contains(&93), "the backpack is still out");
+        assert!(!p.inv_transmits.contains_key(&1), "the shop is dropped");
+        assert!(!p.inv_first_seen.contains(&1), "and goes whole next time");
+    }
+
+    /// Another player's inv is forgotten once no component shows it (a
+    /// trade's other offer, when its screen closes), and kept while one does
+    /// (the trade's confirm screen, after the offer screen stops).
+    #[cfg(since_647)]
+    #[test]
+    fn another_players_inventory_nothing_shows_is_forgotten() {
+        let mut p = make_player();
+        let offer_screen = 335 << 16 | 34;
+        let confirm_screen = 334 << 16 | 34;
+        p.inv_other_transmits.insert(offer_screen, (7, 90));
+        p.inv_other_transmits.insert(confirm_screen, (7, 90));
+        p.inv_other_first_seen.insert(90);
+        p.clear_inv_transmits(offer_screen);
+        assert!(
+            p.inv_other_first_seen.contains(&90),
+            "the confirm screen shows it"
+        );
+        p.clear_inv_transmits(confirm_screen);
+        assert!(p.inv_other_transmits.is_empty());
+        assert!(
+            !p.inv_other_first_seen.contains(&90),
+            "and goes whole next time"
+        );
     }
 
     // ---- clear_interaction ----
@@ -1708,10 +2389,11 @@ mod interaction_tests {
 #[cfg(test)]
 mod energy_tests {
     use super::*;
+    use std::iter;
 
     fn make_player() -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let vars = VarSet::new(std::iter::empty());
+        let vars = VarSet::new(iter::empty());
         Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
     }
 
@@ -1820,27 +2502,27 @@ mod energy_tests {
         assert_eq!(p.runenergy, 0);
     }
 
-    // ---- run / temprun side effects ----
+    // ---- run toggle / temporary speed side effects ----
 
     #[test]
-    fn zero_energy_disables_run_and_temprun() {
+    fn zero_energy_disables_run_and_a_temporary_run() {
         let mut p = make_player();
         p.runenergy = 50;
-        p.run = true;
-        p.temprun = true;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Run);
         p.pathing.steps_taken = 2;
         p.runweight = 0; // depletes 50 -> 0
         assert!(p.update_energy(), "on->off transition signals a varp sync");
         assert_eq!(p.runenergy, 0);
-        assert!(!p.run, "run forced off at 0 energy");
-        assert!(!p.temprun, "temprun cleared below 100");
+        assert_eq!(p.move_speed, MoveSpeed::Walk, "run forced off at 0 energy");
+        assert_eq!(p.temp_move_speed, None, "temporary run cancelled below 100");
     }
 
     #[test]
     fn zero_energy_with_run_already_off_does_not_signal() {
         let mut p = make_player();
         p.runenergy = 50;
-        p.run = false; // already walking
+        p.move_speed = MoveSpeed::Walk; // already walking
         p.pathing.steps_taken = 2;
         p.runweight = 0; // depletes 50 -> 0
         assert!(
@@ -1848,34 +2530,52 @@ mod energy_tests {
             "no transition means no redundant varp sync"
         );
         assert_eq!(p.runenergy, 0);
-        assert!(!p.run);
+        assert_eq!(p.move_speed, MoveSpeed::Walk);
     }
 
     #[test]
-    fn low_energy_clears_temprun_but_keeps_run() {
+    fn low_energy_cancels_a_temporary_run_but_keeps_run() {
         let mut p = make_player();
         p.runenergy = 150;
-        p.run = true;
-        p.temprun = true;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Run);
         p.pathing.steps_taken = 2;
         p.runweight = 0; // 150 - 67 = 83, below 100 but above 0
         assert!(!p.update_energy(), "run still on -> no sync signal");
         assert_eq!(p.runenergy, 83);
-        assert!(p.run, "run stays enabled while energy > 0");
-        assert!(!p.temprun, "temprun cleared below 100");
+        assert_eq!(
+            p.move_speed,
+            MoveSpeed::Run,
+            "run stays on while energy > 0"
+        );
+        assert_eq!(p.temp_move_speed, None, "temporary run cancelled below 100");
+    }
+
+    /// At 647 a ctrl-click with run on walks; low energy is no reason to run
+    /// instead.
+    #[test]
+    fn low_energy_keeps_a_temporary_walk() {
+        let mut p = make_player();
+        p.runenergy = 50;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Walk);
+        p.pathing.steps_taken = 1;
+        p.update_energy();
+        assert!(p.runenergy < 100);
+        assert_eq!(p.temp_move_speed, Some(MoveSpeed::Walk));
     }
 
     #[test]
     fn healthy_energy_preserves_flags() {
         let mut p = make_player();
         p.runenergy = 5000;
-        p.run = true;
-        p.temprun = true;
+        p.move_speed = MoveSpeed::Run;
+        p.temp_move_speed = Some(MoveSpeed::Run);
         p.pathing.steps_taken = 2;
         p.runweight = 0; // 5000 - 67 = 4933, well above 100
         assert!(!p.update_energy());
-        assert!(p.run);
-        assert!(p.temprun);
+        assert_eq!(p.move_speed, MoveSpeed::Run);
+        assert_eq!(p.temp_move_speed, Some(MoveSpeed::Run));
     }
 }
 

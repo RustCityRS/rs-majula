@@ -1,0 +1,12 @@
+// 1676
+[clientscript,champions_onop](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 = $int2) {
+    return;
+}
+~updatemodel($int1);
+%champions_reward_followerstate = $int1;
+cc_deleteall(champions2_bannerselect:listbox_text);
+~script1674($int1);

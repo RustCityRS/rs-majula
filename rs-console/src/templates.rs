@@ -2,8 +2,8 @@ use crate::store::JsonFile;
 use crate::users::{name_key, now_ms};
 use rs_admin_api::ModAction;
 use serde::{Deserialize, Serialize};
-use std::fs;
-use std::io::{ErrorKind, Write};
+use std::fs::{self, OpenOptions};
+use std::io::{self, ErrorKind, Write};
 use std::mem;
 use std::path::{Path, PathBuf};
 use std::sync::{Mutex, MutexGuard};
@@ -341,7 +341,7 @@ fn from_json(path: &Path) -> Result<Vec<Offence>, String> {
     Ok(all)
 }
 
-fn to_lines(offences: &[Offence]) -> std::io::Result<Vec<u8>> {
+fn to_lines(offences: &[Offence]) -> io::Result<Vec<u8>> {
     let mut out = Vec::new();
     for offence in offences {
         serde_json::to_writer(&mut out, offence)?;
@@ -350,11 +350,11 @@ fn to_lines(offences: &[Offence]) -> std::io::Result<Vec<u8>> {
     Ok(out)
 }
 
-fn append(path: &Path, offences: &[Offence]) -> std::io::Result<()> {
+fn append(path: &Path, offences: &[Offence]) -> io::Result<()> {
     if let Some(dir) = path.parent() {
         fs::create_dir_all(dir)?;
     }
-    fs::OpenOptions::new()
+    OpenOptions::new()
         .create(true)
         .append(true)
         .open(path)?
@@ -363,7 +363,7 @@ fn append(path: &Path, offences: &[Offence]) -> std::io::Result<()> {
 
 /// Writes beside the log and renames over it, so a crash never leaves it
 /// half written.
-fn rewrite(path: &Path, offences: &[Offence]) -> std::io::Result<()> {
+fn rewrite(path: &Path, offences: &[Offence]) -> io::Result<()> {
     if let Some(dir) = path.parent() {
         fs::create_dir_all(dir)?;
     }
@@ -447,6 +447,7 @@ fn standing(offences: &[Offence], player: &str, template: &Template, now: u64) -
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
 
     fn offence(player: &str, template: &str, at_ms: u64) -> Offence {
         Offence {
@@ -460,7 +461,7 @@ mod tests {
 
     #[test]
     fn offences_are_appended_and_trimmed_now_and_then() {
-        let dir = std::env::temp_dir().join(format!("rs-console-offences-{}", now_ms()));
+        let dir = env::temp_dir().join(format!("rs-console-offences-{}", now_ms()));
         let path = dir.join("offences.jsonl");
         fs::create_dir_all(&dir).unwrap();
         // The whole-file JSON from before is read in.

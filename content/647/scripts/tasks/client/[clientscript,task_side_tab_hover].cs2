@@ -1,0 +1,47 @@
+// 4010
+[clientscript,task_side_tab_hover](int $int0)
+switch_int ($int0) {
+    case 0 :
+        if_setgraphic(task_side:com_16, "task_tab,0");
+        if_setgraphic(task_side:com_18, "task_tab,0");
+        if_setgraphic(task_side:com_17, "task_tab,1");
+        if_setgraphic(task_side:com_11, "task_tab,0");
+        if_setgraphic(task_side:com_13, "task_tab,0");
+        if_setgraphic(task_side:com_12, "task_tab,1");
+        if_setgraphic(task_side:com_31, "task_tab,0");
+        if_setgraphic(task_side:com_33, "task_tab,0");
+        if_setgraphic(task_side:com_32, "task_tab,1");
+        if_setgraphic(task_side:com_21, "task_tab,0");
+        if_setgraphic(task_side:com_23, "task_tab,0");
+        if_setgraphic(task_side:com_22, "task_tab,1");
+        if_setgraphic(task_side:com_44, "task_tab,0");
+        if_setgraphic(task_side:com_46, "task_tab,0");
+        if_setgraphic(task_side:com_45, "task_tab,1");
+        if_setgraphic(task_side:com_39, "task_tab,0");
+        if_setgraphic(task_side:com_41, "task_tab,0");
+        if_setgraphic(task_side:com_40, "task_tab,1");
+    case 1 :
+        if_setgraphic(task_side:com_16, "task_tab,2");
+        if_setgraphic(task_side:com_18, "task_tab,2");
+        if_setgraphic(task_side:com_17, "task_tab,3");
+    case 2 :
+        if_setgraphic(task_side:com_11, "task_tab,2");
+        if_setgraphic(task_side:com_13, "task_tab,2");
+        if_setgraphic(task_side:com_12, "task_tab,3");
+    case 3 :
+        if_setgraphic(task_side:com_31, "task_tab,2");
+        if_setgraphic(task_side:com_33, "task_tab,2");
+        if_setgraphic(task_side:com_32, "task_tab,3");
+    case 4 :
+        if_setgraphic(task_side:com_21, "task_tab,2");
+        if_setgraphic(task_side:com_23, "task_tab,2");
+        if_setgraphic(task_side:com_22, "task_tab,3");
+    case 5 :
+        if_setgraphic(task_side:com_44, "task_tab,2");
+        if_setgraphic(task_side:com_46, "task_tab,2");
+        if_setgraphic(task_side:com_45, "task_tab,3");
+    case 6 :
+        if_setgraphic(task_side:com_39, "task_tab,2");
+        if_setgraphic(task_side:com_41, "task_tab,2");
+        if_setgraphic(task_side:com_40, "task_tab,3");
+}

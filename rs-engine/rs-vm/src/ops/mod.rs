@@ -28,6 +28,8 @@
 ///
 /// **Called by:** `Engine::new` (in `rs-engine/src/engine.rs`) which calls each
 /// submodule's `build()` and merges them via `OpsRegistry::extend`.
+#[cfg(since_647)]
+pub mod controller;
 pub mod core;
 pub mod db;
 pub mod debug;
@@ -41,6 +43,11 @@ pub mod number;
 pub mod obj;
 pub mod oc;
 pub mod player;
+#[cfg(since_647)]
+pub mod region;
 pub mod server;
 pub mod string;
 pub mod r#struct;
+/// `#testscript` commands, registered only by the headless runner.
+#[cfg(since_647)]
+pub mod test;

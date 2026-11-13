@@ -1,0 +1,36 @@
+// 4002
+[clientscript,script4002]
+if (getwindowmode >= 2) {
+    if (if_hassubmodal(toplevel_fullscreen:mainmodal, task_main) = true) {
+        return;
+    }
+} else if (if_hassubmodal(toplevel:mainmodal, task_main) = true) {
+    return;
+}
+def_string $string0 = "Progress:  ";
+def_int $int0 = %varclient_1424;
+def_string $string1 = "";
+def_int $int1 = %varclient_1423;
+def_string $string2 = "";
+def_string $string3 = enum(int, string, enum_3487, %varplayerbit_8575);
+if (%varplayerbit_9030 = 1) {
+    $int0 = %varplayerbit_9028;
+    $int1 = enum_getoutputcount(enum_3656);
+    $string3 = "Introductory Tasks";
+}
+$string1 = tostring($int0);
+$string2 = tostring($int1);
+if (%varplayerbit_8575 = 61) {
+    $string3 = "Quest Area";
+    if_sethide(task_side:progress_layer, true);
+    if_sethide(task_side:area_icon, true);
+} else {
+    if_sethide(task_side:progress_layer, false);
+    if_sethide(task_side:area_icon, false);
+}
+def_int $int2 = calc($int0 * (if_getwidth(task_side:progress_layer) - 2) / max(1, $int1));
+$string0 = append($string0, $string1);
+if_settext(task_side:tasks_total, $string2);
+if_settext(task_side:tasks_done, $string0);
+if_settext(task_side:area_text, $string3);
+if_setsize(task_side:progress_bar_done, $int2, 18, ^setsize_abs, ^setsize_abs);

@@ -1,0 +1,14 @@
+// 2968
+[clientscript,script2968](component $component0, obj $obj1, component $component2)
+def_component $component3 = if_getlayer($component0);
+def_int $int4 = 0;
+$int4 = inv_total(inv, $obj1);
+if ($int4 > 0) {
+    if_setcolour($component2, 0x7dd764);
+    if_setobject($component0, $obj1, $int4);
+} else {
+    if_setcolour($component2, 0x872300);
+    if_setobject($component0, $obj1, -1);
+}
+if_setoutline($component0, 1);
+if_setmouseovercursor($component2, cursor_farming);

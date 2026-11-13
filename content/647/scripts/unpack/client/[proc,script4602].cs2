@@ -1,0 +1,58 @@
+// 4602
+[proc,script4602](int $int0, component $component1)
+switch_int ($int0) {
+    case default :
+        if_sethide(deathkeep_tutorial:com_1, true);
+        if_sethide(deathkeep_tutorial:com_52, true);
+        if_sethide(deathkeep_tutorial:dropdown_container, true);
+        if_sethide(deathkeep_tutorial:automatic_container, true);
+        if_sethide(deathkeep_tutorial:protected_container, true);
+        if_sethide(deathkeep_tutorial:available_container, true);
+        if_sethide(deathkeep_tutorial:confirm_container, true);
+        if_sethide(deathkeep_tutorial:gravestone_container, true);
+    case 1 :
+        if_sethide(deathkeep_tutorial:com_1, false);
+        if_sethide(deathkeep_tutorial:com_52, false);
+        if_sethide(deathkeep_tutorial:dropdown_container, false);
+        if_sethide(deathkeep_tutorial:automatic_container, true);
+        if_sethide(deathkeep_tutorial:protected_container, true);
+        if_sethide(deathkeep_tutorial:available_container, true);
+        if_sethide(deathkeep_tutorial:confirm_container, true);
+        if_sethide(deathkeep_tutorial:gravestone_container, true);
+    case 2 :
+        if_sethide(deathkeep_tutorial:com_1, true);
+        if_sethide(deathkeep_tutorial:com_52, true);
+        if_sethide(deathkeep_tutorial:dropdown_container, true);
+        if_sethide(deathkeep_tutorial:automatic_container, true);
+        if_sethide(deathkeep_tutorial:protected_container, true);
+        if_sethide(deathkeep_tutorial:available_container, true);
+        if_sethide(deathkeep_tutorial:confirm_container, true);
+        if_sethide(deathkeep_tutorial:gravestone_container, false);
+    case 3 :
+        if_sethide(deathkeep_tutorial:com_1, false);
+        if_sethide(deathkeep_tutorial:com_52, false);
+        if_sethide(deathkeep_tutorial:dropdown_container, true);
+        if_sethide(deathkeep_tutorial:automatic_container, false);
+        if_sethide(deathkeep_tutorial:protected_container, true);
+        if_sethide(deathkeep_tutorial:available_container, true);
+        if_sethide(deathkeep_tutorial:confirm_container, true);
+        if_sethide(deathkeep_tutorial:gravestone_container, true);
+    case 4 :
+        if_sethide(deathkeep_tutorial:com_1, false);
+        if_sethide(deathkeep_tutorial:com_52, false);
+        if_sethide(deathkeep_tutorial:dropdown_container, true);
+        if_sethide(deathkeep_tutorial:automatic_container, false);
+        if_sethide(deathkeep_tutorial:protected_container, false);
+        if_sethide(deathkeep_tutorial:available_container, false);
+        if_sethide(deathkeep_tutorial:confirm_container, true);
+        if_sethide(deathkeep_tutorial:gravestone_container, true);
+    case 5 :
+        if_sethide(deathkeep_tutorial:com_1, false);
+        if_sethide(deathkeep_tutorial:com_52, false);
+        if_sethide(deathkeep_tutorial:dropdown_container, true);
+        if_sethide(deathkeep_tutorial:automatic_container, false);
+        if_sethide(deathkeep_tutorial:protected_container, false);
+        if_sethide(deathkeep_tutorial:available_container, false);
+        if_sethide(deathkeep_tutorial:confirm_container, false);
+        if_sethide(deathkeep_tutorial:gravestone_container, true);
+}

@@ -1,0 +1,36 @@
+// 2848
+[clientscript,script2848](component $component0, int $int1, component $component2, int $int3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+if ($component2 ! null) {
+    if ($int3 = -1) {
+        if (if_find($component2) = true & $component2 = rm_wires:wires_corral) {
+            $int6 = $int4;
+            $int7 = $int5;
+            if (.cc_find($component0, $int1) = true) {
+                .cc_setposition(enum(int, int, enum_905, $int1), enum(int, int, enum_906, $int1), ^setpos_abs_left, ^setpos_abs_top);
+            }
+        }
+    } else {
+        if ($int3 < 9) {
+            return;
+        }
+        if (~script2849(calc($int3 - 9)) = 0) {
+            if (cc_find($component2, $int3) = true) {
+                $int6 = cc_getx;
+                $int7 = cc_gety;
+            }
+            if (.cc_find($component0, $int1) = true) {
+                switch_int (randominc(2)) {
+                    case 0 :
+                        sound_synth(synth_8502, 1, 0);
+                    case 1 :
+                        sound_synth(synth_8518, 1, 0);
+                    case 2 :
+                        sound_synth(synth_8515, 1, 0);
+                }
+                .cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+            }
+        }
+    }
+}

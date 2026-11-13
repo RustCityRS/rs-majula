@@ -1,0 +1,6 @@
+// 1262
+[clientscript,zep_mouse_over](component $component0, component $component1)
+if_setcolour($component0, ^white);
+if ($component1 ! null) {
+    if_setcolour($component1, ^white);
+}

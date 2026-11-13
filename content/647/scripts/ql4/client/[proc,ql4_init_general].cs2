@@ -1,0 +1,66 @@
+// 2160
+[proc,ql4_init_general](int $int0)
+def_struct $struct1 = enum(int, struct, enum_169, $int0);
+if ($struct1 = null) {
+    return;
+}
+def_enum $enum2 = struct_param($struct1, param_61);
+if ($enum2 = null) {
+    return;
+}
+def_component $component3 = struct_param($struct1, param_152);
+def_component $component4 = struct_param($struct1, param_153);
+cc_deleteall($component3);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_struct $struct7 = null;
+def_int $int8 = -1;
+def_int $int9 = 0;
+if (map_members = true) {
+    %ql4_sort_mode = %varplayerbit_4536;
+} else {
+    %ql4_sort_mode = 0;
+}
+%ql4_reverse_list = %varplayerbit_4538;
+%ql4_filter_done = %varplayerbit_7264;
+%ql4_filter_doable = %varplayerbit_4537;
+%ql4_questcount = enum_getoutputcount($enum2);
+while ($int6 < %ql4_questcount) {
+    $struct7 = enum(int, struct, $enum2, $int5);
+    cc_create($component3, ^iftype_text, $int5);
+    if ($struct7 ! null) {
+        $int6 = calc($int6 + 1);
+        $int9 = ~ql4_getprogress($int5);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(0, 15, ^setsize_minus, ^setsize_abs);
+        cc_setcolour(0x222222);
+        cc_settextfont(p11_full);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settextshadow(true);
+        cc_settext(struct_param($struct7, param_845));
+        if ($int8 = -1 & $struct7 = struct_510 & $int0 = 1) {
+            $int8 = cc_getid;
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int5 = calc($int5 + 1);
+}
+%ql4_topquestid = calc($int5 - 1);
+while ($int5 < calc(%ql4_topquestid + 10)) {
+    cc_create($component3, ^iftype_text, $int5);
+    cc_settextfont(b12_full);
+    cc_setsize(0, 30, ^setsize_minus, ^setsize_abs);
+    cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
+    cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    cc_settext("");
+    cc_setcolour(0xff9900);
+    cc_sethide(true);
+    cc_settextshadow(true);
+    $int5 = calc($int5 + 1);
+}
+~ql4_sort($int0, %ql4_sort_mode, %ql4_reverse_list, %ql4_filter_doable, %ql4_filter_done);
+~scrollbar_vertical($component4, $component3, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if ($int8 ! -1) {
+    ~script214($component3, $int8);
+}

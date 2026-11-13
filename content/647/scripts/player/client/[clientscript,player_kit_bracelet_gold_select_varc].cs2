@@ -1,0 +1,10 @@
+// 330
+[clientscript,player_kit_bracelet_gold_select_varc](component $component0)
+def_int $int1 = 0;
+if (gender = 1) {
+    $int1 = enum_getoutputcount(enum_2363);
+} else {
+    $int1 = enum_getoutputcount(enum_2132);
+}
+~player_kit_bracelet_display(%player_kit_brace_gold_client);
+~player_kit_select($component0, %player_kit_brace_gold_client, $int1);

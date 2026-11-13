@@ -1,0 +1,38 @@
+// 3152
+[proc,script3152](component $component0, int $int1, int $int2, string $string0, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_component $component8 = $component0;
+if (clientclock > $int2) {
+    if_settext(lobbyscreen_pane_worldselect:tooltip_text, $string0);
+    if_setsize(lobbyscreen_pane_worldselect:tooltip, calc(if_getx(lobbyscreen_pane_worldselect:tooltip_text) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen_pane_worldselect:tooltip), ^setsize_abs, ^setsize_abs);
+    while ($int7 = 0) {
+        if ($component8 = lobbyscreen_pane_worldselect:list_content) {
+            $int7 = 1;
+        }
+        $int5 = calc($int5 + if_getx($component8));
+        $int6 = calc($int6 + if_gety($component8));
+        $component8 = if_getlayer($component8);
+    }
+    if ($int1 > -1 & cc_find($component0, $int1) = true) {
+        $int5 = calc($int5 + cc_getx);
+        $int6 = calc($int6 + cc_gety);
+    }
+    $int5 = calc($int5 + $int3 + 3);
+    $int6 = calc($int6 + $int4 - 3 - if_getheight(lobbyscreen_pane_worldselect:tooltip));
+    if (calc($int5 + if_getwidth(lobbyscreen_pane_worldselect:tooltip)) > if_getwidth(lobbyscreen_pane_worldselect:main)) {
+        $int5 = calc(if_getwidth(lobbyscreen_pane_worldselect:main) - if_getwidth(lobbyscreen_pane_worldselect:tooltip));
+    }
+    if ($int6 < 0) {
+        $int6 = 0;
+    }
+    if_setposition(lobbyscreen_pane_worldselect:tooltip, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(lobbyscreen_pane_worldselect:tooltip, false);
+    if ($int1 < 0) {
+        if_setonmouserepeat($component0, null);
+    } else if (cc_find($component0, $int1) = true) {
+        cc_setonmouserepeat(null);
+    }
+}
+return;

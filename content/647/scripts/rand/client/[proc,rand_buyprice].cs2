@@ -1,0 +1,3 @@
+// 2262
+[proc,rand_buyprice](obj $obj0)(int)
+return(scale(oc_cost($obj0), 100, oc_param($obj0, param_1046)));

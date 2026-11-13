@@ -1,0 +1,119 @@
+// 63:0
+[com_0]
+type=rectangle
+width=512
+height=334
+colour=0x46341d
+fill=yes
+trans=160
+opbase=m
+
+// 63:1
+[champions_background]
+type=model
+x=13
+y=37
+width=485
+height=282
+model=model_3032
+modelorigin=1,-25
+modelangle=400,0,0
+modelzoom=604
+
+// 63:2
+[champions_congratulations]
+type=text
+x=174
+y=89
+width=176
+height=17
+textfont=quill_oblique_large
+text=Congratulations!
+textalignh=centre
+colour=0x46320a
+
+// 63:3
+[champions_scroll_text]
+type=text
+x=101
+y=117
+width=321
+height=34
+textfont=q8_full
+text=Well done, you defeated the Champion!
+textalignh=centre
+colour=0x46320a
+
+// 63:4
+[champions_scroll_model]
+type=model
+x=74
+y=138
+width=102
+height=96
+model=model_49928
+modelorigin=2,9
+modelangle=256,1655,0
+modelzoom=300
+
+// 63:5
+[champions_rose]
+type=model
+x=356
+y=217
+width=88
+height=61
+model=model_10319
+modelorigin=2,-6
+modelangle=500,138,0
+modelzoom=273
+
+// 63:6
+[champions_awarded]
+type=text
+x=167
+y=168
+width=180
+height=14
+textfont=q8_full
+text=You are awarded:
+textalignh=centre
+colour=0x46320a
+
+// 63:7
+[champions_slayer_text]
+type=text
+x=172
+y=187
+width=170
+height=14
+textfont=q8_full
+text=%1 Slayer Xp
+textalignh=centre
+colour=0x46320a
+onvartransmit=champions_reward_xp{varplayer_620, varplayer_621}
+
+// 63:8
+[champions_hp_text]
+type=text
+x=174
+y=205
+width=170
+height=14
+textfont=q8_full
+text=%1 Hitpoint Xp
+textalignh=centre
+colour=0x46320a
+
+// 63:9
+[champions_close]
+type=graphic
+x=382
+y=84
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onclick=closebutton_click

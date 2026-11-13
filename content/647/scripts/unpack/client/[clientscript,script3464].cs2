@@ -1,0 +1,5 @@
+// 3464
+[clientscript,script3464](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, calc((cc_getmodelangle_y + 2) % 2028), cc_getmodelangle_z, cc_getmodelzoom);
+}

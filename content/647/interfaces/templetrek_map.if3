@@ -1,0 +1,780 @@
+// 329:0
+[com_0]
+type=rectangle
+width=16519
+height=19039
+widthmode=proportion
+heightmode=proportion
+colour=0x35382c
+fill=yes
+
+// 329:1
+[com_1]
+type=model
+x=118
+y=8
+width=393
+height=347
+layer=layer_1
+model=model_14124
+modelorigin=-4,-57
+modelangle=216,2047,0
+modelzoom=656
+
+// 329:2
+[com_2]
+type=text
+x=281
+y=277
+width=90
+height=42
+layer=layer_1
+textfont=q8_full
+text=Burgh <br>De Rott
+textalignv=centre
+colour=0x343412
+
+// 329:3
+[com_3]
+type=text
+x=308
+y=159
+width=96
+height=18
+layer=layer_1
+textfont=q8_full
+text=Mort'ton
+textalignh=centre
+textalignv=centre
+colour=0x343412
+
+// 329:4
+[com_4]
+type=text
+x=335
+y=19
+width=64
+height=15
+layer=layer_1
+textfont=q8_full
+text=Canifis
+textalignv=centre
+colour=0x343412
+
+// 329:5
+[com_5]
+type=text
+x=246
+y=96
+width=52
+height=16
+layer=layer_1
+textfont=q8_full
+text=Mort
+textalignh=right
+textalignv=centre
+colour=0x343412
+
+// 329:6
+[com_6]
+type=text
+x=241
+y=113
+width=64
+height=16
+layer=layer_1
+textfont=q8_full
+text=Myre
+textalignh=centre
+textalignv=centre
+colour=0x343412
+
+// 329:7
+[com_7]
+type=text
+x=232
+y=130
+width=76
+height=17
+layer=layer_1
+textfont=q8_full
+text=Swamp
+textalignh=right
+textalignv=centre
+colour=0x343412
+
+// 329:8
+[com_8]
+type=text
+x=374
+y=100
+width=71
+height=65
+layer=layer_1
+textfont=q8_full
+text=The Hollows
+textalignh=centre
+textalignv=centre
+colour=0x343412
+
+// 329:9
+[com_9]
+type=model
+x=34
+y=12
+width=155
+height=44
+layer=layer_1
+model=model_14125
+modelorigin=-2,2
+modelangle=459,2035,0
+modelzoom=1106
+
+// 329:10
+[com_10]
+type=model
+x=24
+y=87
+width=156
+height=43
+layer=layer_1
+model=model_14125
+modelorigin=1,-3
+modelangle=498,1005,0
+modelzoom=1106
+
+// 329:11
+[com_11]
+type=model
+x=8
+y=162
+width=153
+height=49
+layer=layer_1
+model=model_14125
+modelorigin=-2,2
+modelangle=474,0,0
+modelzoom=1106
+
+// 329:12
+[com_12]
+type=model
+x=3
+y=239
+width=203
+height=89
+layer=layer_1
+model=model_14126
+modelorigin=4,-2
+modelangle=483,0,0
+modelzoom=728
+
+// 329:13
+[com_13]
+type=text
+x=52
+y=271
+width=100
+height=17
+layer=layer_1
+textfont=q8_full
+text=Choose a route
+colour=0x35382c
+
+// 329:14
+[templetrek_route_1]
+type=text
+x=53
+y=18
+width=109
+height=29
+layer=layer_1
+textfont=q8_full
+text=Route One
+textalignh=centre
+textalignv=centre
+colour=0x343412
+transmitop=1
+op1=Route One
+onmouseover=comp_sethide(false, templetrek_map:templetrek_route_one_layer)
+onmouseleave=comp_sethide(true, templetrek_map:templetrek_route_one_layer)
+
+// 329:15
+[templetrek_route_one_layer]
+type=layer
+x=20
+y=12
+width=464
+height=304
+layer=layer_1
+hide=yes
+
+// 329:16
+[templetrek_route_2]
+type=text
+x=50
+y=94
+width=100
+height=28
+layer=layer_1
+textfont=q8_full
+text=Route Two
+textalignh=centre
+textalignv=centre
+colour=0x343412
+transmitop=1
+op1=Route Two
+onmouseover=comp_sethide(false, templetrek_map:templetrek_route_two_layer)
+onmouseleave=comp_sethide(true, templetrek_map:templetrek_route_two_layer)
+
+// 329:17
+[templetrek_route_two_layer]
+type=layer
+x=20
+y=12
+width=464
+height=304
+layer=layer_1
+hide=yes
+
+// 329:18
+[templetrek_route_3]
+type=text
+x=34
+y=169
+width=102
+height=32
+layer=layer_1
+textfont=q8_full
+text=Route Three
+textalignh=centre
+textalignv=centre
+colour=0x343412
+transmitop=1
+op1=Route Three
+onmouseover=comp_sethide(false, templetrek_map:templetrek_route_three_layer)
+onmouseleave=comp_sethide(true, templetrek_map:templetrek_route_three_layer)
+
+// 329:19
+[templetrek_route_three_layer]
+type=layer
+x=20
+y=12
+width=464
+height=304
+layer=layer_1
+hide=yes
+
+// 329:20
+[templetrek_player_counters]
+type=model
+x=255
+y=18
+width=161
+height=289
+layer=layer_1
+model=model_14128
+modelorigin=-25,-38
+modelangle=216,2047,0
+modelzoom=656
+
+// 329:21
+[com_21]
+type=text
+x=186
+y=35
+width=72
+height=14
+layer=layer_1
+textfont=q8_full
+text=Temple
+textalignh=right
+textalignv=centre
+colour=0x343412
+
+// 329:22
+[templetrek_trip_route_all_event_1]
+type=model
+x=361
+y=166
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+onvartransmit=script1307{templetrek_main_var}
+
+// 329:23
+[templetrek_trip_route_one_and_two_event_2]
+type=model
+x=247
+y=187
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:24
+[templetrek_trip_route_one_and_two_event_3]
+type=model
+x=245
+y=126
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:25
+[templetrek_trip_route_one_and_two_event_10]
+type=model
+x=272
+y=25
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:26
+[templetrek_trip_route_one_event_4]
+type=model
+x=283
+y=112
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:27
+[templetrek_trip_route_one_event_5]
+type=model
+x=320
+y=98
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:28
+[templetrek_trip_route_one_event_6]
+type=model
+x=308
+y=77
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:29
+[templetrek_trip_route_one_event_7]
+type=model
+x=253
+y=55
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:30
+[templetrek_trip_route_one_event_8]
+type=model
+x=305
+y=35
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:31
+[templetrek_trip_route_one_event_9]
+type=model
+x=265
+y=34
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=610,3,0
+modelzoom=1907
+
+// 329:32
+[templetrek_trip_route_two_event_4]
+type=model
+x=230
+y=93
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:33
+[templetrek_trip_route_two_event_5]
+type=model
+x=240
+y=83
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:34
+[templetrek_trip_route_two_event_6]
+type=model
+x=245
+y=76
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:35
+[templetrek_trip_route_two_event_7]
+type=model
+x=246
+y=67
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:36
+[templetrek_trip_route_two_event_8]
+type=model
+x=232
+y=44
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:37
+[templetrek_trip_route_two_event_9]
+type=model
+x=236
+y=29
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:38
+[templetrek_trip_route_three_event_2]
+type=model
+x=402
+y=106
+width=20
+height=51
+layer=layer_1
+model=null
+modelorigin=-1,0
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:39
+[templetrek_trip_route_three_event_3]
+type=model
+x=382
+y=75
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:40
+[templetrek_trip_route_three_event_4]
+type=model
+x=368
+y=61
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:41
+[templetrek_trip_route_three_event_5]
+type=model
+x=361
+y=55
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:42
+[templetrek_trip_route_three_event_6]
+type=model
+x=359
+y=49
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:43
+[templetrek_trip_route_three_event_7]
+type=model
+x=359
+y=44
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:44
+[templetrek_trip_route_three_event_8]
+type=model
+x=365
+y=37
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:45
+[templetrek_trip_route_three_event_9]
+type=model
+x=368
+y=25
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:46
+[templetrek_trip_route_three_event_10]
+type=model
+x=345
+y=12
+width=32
+height=32
+layer=layer_1
+model=null
+modelangle=592,12,0
+modelzoom=1907
+modelanim=templetrek_exclaimation_mark
+
+// 329:47
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 329:48
+[com_48]
+type=model
+x=-17
+y=227
+width=203
+height=89
+layer=templetrek_route_three_layer
+model=model_14126
+modelorigin=4,-2
+modelangle=483,0,0
+modelzoom=728
+
+// 329:49
+[com_49]
+type=model
+x=-17
+y=227
+width=203
+height=89
+layer=templetrek_route_one_layer
+model=model_14126
+modelorigin=4,-2
+modelangle=483,0,0
+modelzoom=728
+
+// 329:50
+[com_50]
+type=model
+x=-17
+y=227
+width=203
+height=89
+layer=templetrek_route_two_layer
+model=model_14126
+modelorigin=4,-2
+modelangle=483,0,0
+modelzoom=728
+
+// 329:51
+[templetrek_route_one]
+type=model
+x=223
+y=27
+width=134
+height=219
+layer=templetrek_route_one_layer
+model=model_14121
+modelorigin=0,-24
+modelangle=216,2047,0
+modelzoom=656
+
+// 329:52
+[templetrek_route_1_1]
+type=text
+x=33
+y=6
+width=109
+height=29
+layer=templetrek_route_one_layer
+textfont=q8_full
+text=Route One
+textalignh=centre
+textalignv=centre
+colour=0x0000cc
+
+// 329:53
+[templetrek_route_two]
+type=model
+x=223
+y=27
+width=134
+height=219
+layer=templetrek_route_two_layer
+model=model_14123
+modelorigin=0,-24
+modelangle=216,2047,0
+modelzoom=656
+
+// 329:54
+[templetrek_route_2_1]
+type=text
+x=30
+y=82
+width=100
+height=28
+layer=templetrek_route_two_layer
+textfont=q8_full
+text=Route Two
+textalignh=centre
+textalignv=centre
+colour=0xcdcb4d
+
+// 329:55
+[interests_valves]
+type=model
+x=261
+y=27
+width=160
+height=219
+layer=templetrek_route_three_layer
+model=model_14122
+modelorigin=-51,-24
+modelangle=216,2047,0
+modelzoom=656
+
+// 329:56
+[templetrek_route_3_1]
+type=text
+x=14
+y=157
+width=102
+height=32
+layer=templetrek_route_three_layer
+textfont=q8_full
+text=Route Three
+textalignh=centre
+textalignv=centre
+colour=0xd13c3c
+
+// 329:57
+[com_57]
+type=text
+x=13
+y=236
+width=137
+height=66
+layer=templetrek_route_one_layer
+textfont=q8_full
+text=Slow plod, <br>can evade <br>encounters.
+textalignh=centre
+textalignv=centre
+colour=0x35382c
+
+// 329:58
+[com_58]
+type=text
+x=15
+y=239
+width=138
+height=64
+layer=templetrek_route_two_layer
+textfont=q8_full
+text=Leisurely walk, <br>harder to evade <br>encounters.
+textalignh=centre
+textalignv=centre
+colour=0x35382c
+
+// 329:59
+[com_59]
+type=text
+x=14
+y=239
+width=140
+height=65
+layer=templetrek_route_three_layer
+textfont=q8_full
+text=Brisk walk, <br>impossible to <br>evade encounters.
+textalignh=centre
+textalignv=centre
+colour=0x35382c

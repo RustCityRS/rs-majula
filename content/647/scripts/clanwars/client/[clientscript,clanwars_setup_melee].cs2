@@ -1,0 +1,11 @@
+// 1826
+[clientscript,clanwars_setup_melee](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_nomelee = false) {
+    %clanwars_rulevarc_nomelee = true;
+} else {
+    %clanwars_rulevarc_nomelee = false;
+}
+~clanwars_resynch_melee;

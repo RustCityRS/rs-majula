@@ -1,0 +1,25 @@
+// 2356
+[clientscript,skillmulti2010_expand](int $int0)
+def_int $int1 = if_getwidth(skillmulti2010:com_5);
+def_int $int2 = 0;
+if ($int1 < $int0) {
+    $int2 = calc($int1 + 9);
+    if ($int2 >= $int0) {
+        if_setsize(skillmulti2010_numbers:com_2, calc($int0 + 5), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(skillmulti2010:com_5, $int0, 0, ^setsize_abs, ^setsize_minus);
+        if_setontimer(skillmulti2010_numbers:expander, null);
+        return;
+    }
+    if_setsize(skillmulti2010_numbers:com_2, calc($int2 + 5), 0, ^setsize_abs, ^setsize_minus);
+    if_setsize(skillmulti2010:com_5, $int2, 0, ^setsize_abs, ^setsize_minus);
+} else {
+    $int2 = calc($int1 - 9);
+    if ($int2 <= $int0) {
+        if_setsize(skillmulti2010_numbers:com_2, calc($int0 + 5), 0, ^setsize_abs, ^setsize_minus);
+        if_setsize(skillmulti2010:com_5, $int0, 0, ^setsize_abs, ^setsize_minus);
+        if_setontimer(skillmulti2010_numbers:expander, null);
+        return;
+    }
+    if_setsize(skillmulti2010_numbers:com_2, calc($int2 + 5), 0, ^setsize_abs, ^setsize_minus);
+    if_setsize(skillmulti2010:com_5, $int2, 0, ^setsize_abs, ^setsize_minus);
+}

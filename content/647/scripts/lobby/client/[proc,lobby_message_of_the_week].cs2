@@ -1,0 +1,12 @@
+// 3014
+[proc,lobby_message_of_the_week]
+if_sethide(lobby_message_of_the_week:bubble, false);
+if_sethide(lobby_message_of_the_week:com_30, true);
+def_int $int0 = random(100);
+if ($int0 < 40) {
+    if_settext(lobby_message_of_the_week:message_text, "Take time to check the second trade window carefully. Don't be scammed!");
+} else if ($int0 < 70) {
+    if_settext(lobby_message_of_the_week:message_text, "Never ever believe a player 'trimming' armour, it's a scam so report them!");
+} else {
+    if_settext(lobby_message_of_the_week:message_text, "Did you know having a bank pin can help secure your valuable items?");
+}

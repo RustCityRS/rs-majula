@@ -1,0 +1,20 @@
+// 253
+[proc,fishcomp_side_load]
+if_setonvarctransmit(fishcomp_side:main_layer, "fishcomp_refresh{fishcomp_client_weight_1, fishcomp_client_weight_2, fishcomp_client_weight_3, fishcomp_client_weight_4, fishcomp_client_weight_5, fishcomp_client_bait, fishcomp_client_hook}");
+if_setobject_nonum(fishcomp_side:bait_model_1, fishcomp_bait_worms, 0);
+if_setobject_nonum(fishcomp_side:bait_model_2, fishcomp_bait_cray, 0);
+if_setobject_nonum(fishcomp_side:bait_model_3, fishcomp_bait_crickets, 0);
+if_setobject_nonum(fishcomp_side:bait_model_4, fishcomp_bait_emerald_butterfly, 0);
+if_setobject_nonum(fishcomp_side:bait_model_5, fishcomp_bait_storm_butterfly, 0);
+if_setobject_nonum(fishcomp_side:bait_model_6, fishcomp_bait_locusts, 0);
+if_setobject_nonum(fishcomp_side:bait_model_7, fishcomp_bait_shrimp, 0);
+if_setobject_nonum(fishcomp_side:bait_model_8, fishcomp_bait_maggots, 0);
+if_setonvarctransmit(fishcomp_overlay:main_layer, "fishcomp_add_result{fishcomp_result_fish, fishcomp_result_habitat, fishcomp_result_weight, fishcomp_result_bait, fishcomp_result_hook, fishcomp_result_distance, fishcomp_result_rating}");
+%fishcomp_result_fish = 0;
+%fishcomp_result_weight = 0;
+%fishcomp_result_habitat = 0;
+%fishcomp_result_bait = 0;
+%fishcomp_result_hook = 0;
+%fishcomp_result_distance = 0;
+%fishcomp_result_rating = -1;
+if_setscrollsize(fishcomp_overlay:history_scrolllayer, if_getwidth(fishcomp_overlay:history_scrolllayer), if_getheight(fishcomp_overlay:history_scrolllayer));

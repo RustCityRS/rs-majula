@@ -1,7 +1,9 @@
 use super::ScriptVarType;
 use super::dbrow::{DbRowType, DbRowValue};
+use super::decode::read_array;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
+use rs_ver::STRING_TERMINATOR;
 use std::collections::HashMap;
 
 pub type DbTableTypeProvider = TypeProvider<DbTableType>;
@@ -20,9 +22,9 @@ pub struct DbTableType {
     pub id: u16,
     pub types: DbTableTypes,
     pub defaults: DbTableDefaults,
+    debugname: Box<str>,
     pub columns: DbTableColumns,
     pub props: Option<Box<[u8]>>,
-    debugname: Option<Box<str>>,
 }
 
 impl DbTableType {
@@ -55,7 +57,7 @@ impl DbTableType {
         for _ in 0..len {
             for &t in types {
                 values.push(if t == ScriptVarType::String as u8 {
-                    DbTableValue::String(buf.gjstr(10).into_boxed_str())
+                    DbTableValue::String(buf.gjstr(STRING_TERMINATOR).into_boxed_str())
                 } else {
                     DbTableValue::Int(buf.g4s())
                 });
@@ -73,63 +75,45 @@ impl CacheType for DbTableType {
             id,
             types: None,
             defaults: None,
+            debugname: Box::default(),
             columns: None,
             props: None,
-            debugname: None,
         }
     }
 
-    fn decode(&mut self, buf: &mut Packet) {
-        while buf.remaining() > 0 {
-            let code: u8 = buf.g1();
-            match code {
-                0 => break,
-                1 => {
-                    let len = buf.g1() as usize;
-                    let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
-                    let mut defaults = vec![None; len].into_boxed_slice();
-                    loop {
-                        let info = buf.g1();
-                        if info == 0xFF {
-                            break;
-                        }
-                        let column = (info & 0x7F) as usize;
-                        let type_count = buf.g1() as usize;
-                        types[column] = (0..type_count)
-                            .map(|_| buf.g1())
-                            .collect::<Vec<_>>()
-                            .into_boxed_slice();
-                        if (info & 0x80) != 0 {
-                            defaults[column] = Some(DbTableType::decode_values(buf, &types[column]))
-                        }
+    fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
+        match code {
+            1 => {
+                let len = buf.g1() as usize;
+                let mut types = vec![vec![].into_boxed_slice(); len].into_boxed_slice();
+                let mut defaults = vec![None; len].into_boxed_slice();
+                loop {
+                    let info = buf.g1();
+                    if info == 0xFF {
+                        break;
                     }
-                    self.types = Some(types);
-                    self.defaults = Some(defaults);
+                    let column = (info & 0x7F) as usize;
+                    types[column] = read_array(buf, Packet::g1);
+                    if (info & 0x80) != 0 {
+                        defaults[column] = Some(DbTableType::decode_values(buf, &types[column]))
+                    }
                 }
-                250 => self.debugname = Some(buf.gjstr(10).into_boxed_str()),
-                251 => {
-                    self.columns = Some(
-                        (0..buf.g1())
-                            .map(|_| buf.gjstr(10).into_boxed_str())
-                            .collect::<Vec<_>>()
-                            .into_boxed_slice(),
-                    );
-                }
-                252 => {
-                    self.props = Some(
-                        (0..buf.g1())
-                            .map(|_| buf.g1())
-                            .collect::<Vec<_>>()
-                            .into_boxed_slice(),
-                    )
-                }
-                _ => panic!("Unrecognized dbtable config code: {code}"),
+                self.types = Some(types);
+                self.defaults = Some(defaults);
             }
+            250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
+            251 => {
+                self.columns = Some(read_array(buf, |buf| {
+                    buf.gjstr(STRING_TERMINATOR).into_boxed_str()
+                }));
+            }
+            252 => self.props = Some(read_array(buf, Packet::g1)),
+            _ => crate::unknown_opcode!("dbtable", code),
         }
     }
 
-    fn debugname(&self) -> Option<&str> {
-        self.debugname.as_deref()
+    fn debugname(&self) -> &str {
+        &self.debugname
     }
 }
 

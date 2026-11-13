@@ -1,0 +1,505 @@
+// 1844
+[proc,script1844](int $int0)(int)
+switch_int ($int0) {
+    case 0 :
+        return(%quickchat_listdialog_000);
+    case 1 :
+        return(%quickchat_listdialog_001);
+    case 2 :
+        return(%quickchat_listdialog_002);
+    case 3 :
+        return(%quickchat_listdialog_003);
+    case 4 :
+        return(%quickchat_listdialog_004);
+    case 5 :
+        return(%quickchat_listdialog_005);
+    case 6 :
+        return(%quickchat_listdialog_006);
+    case 7 :
+        return(%quickchat_listdialog_007);
+    case 8 :
+        return(%quickchat_listdialog_008);
+    case 9 :
+        return(%quickchat_listdialog_009);
+    case 10 :
+        return(%quickchat_listdialog_010);
+    case 11 :
+        return(%quickchat_listdialog_011);
+    case 12 :
+        return(%quickchat_listdialog_012);
+    case 13 :
+        return(%quickchat_listdialog_013);
+    case 14 :
+        return(%quickchat_listdialog_014);
+    case 15 :
+        return(%quickchat_listdialog_015);
+    case 16 :
+        return(%quickchat_listdialog_016);
+    case 17 :
+        return(%quickchat_listdialog_017);
+    case 18 :
+        return(%quickchat_listdialog_018);
+    case 19 :
+        return(%quickchat_listdialog_019);
+    case 20 :
+        return(%quickchat_listdialog_020);
+    case 21 :
+        return(%quickchat_listdialog_021);
+    case 22 :
+        return(%quickchat_listdialog_022);
+    case 23 :
+        return(%quickchat_listdialog_023);
+    case 24 :
+        return(%quickchat_listdialog_024);
+    case 25 :
+        return(%quickchat_listdialog_025);
+    case 26 :
+        return(%quickchat_listdialog_026);
+    case 27 :
+        return(%quickchat_listdialog_027);
+    case 28 :
+        return(%quickchat_listdialog_028);
+    case 29 :
+        return(%quickchat_listdialog_029);
+    case 30 :
+        return(%quickchat_listdialog_030);
+    case 31 :
+        return(%quickchat_listdialog_031);
+    case 32 :
+        return(%quickchat_listdialog_032);
+    case 33 :
+        return(%quickchat_listdialog_033);
+    case 34 :
+        return(%quickchat_listdialog_034);
+    case 35 :
+        return(%quickchat_listdialog_035);
+    case 36 :
+        return(%quickchat_listdialog_036);
+    case 37 :
+        return(%quickchat_listdialog_037);
+    case 38 :
+        return(%quickchat_listdialog_038);
+    case 39 :
+        return(%quickchat_listdialog_039);
+    case 40 :
+        return(%quickchat_listdialog_040);
+    case 41 :
+        return(%quickchat_listdialog_041);
+    case 42 :
+        return(%quickchat_listdialog_042);
+    case 43 :
+        return(%quickchat_listdialog_043);
+    case 44 :
+        return(%quickchat_listdialog_044);
+    case 45 :
+        return(%quickchat_listdialog_045);
+    case 46 :
+        return(%quickchat_listdialog_046);
+    case 47 :
+        return(%quickchat_listdialog_047);
+    case 48 :
+        return(%quickchat_listdialog_048);
+    case 49 :
+        return(%quickchat_listdialog_049);
+    case 50 :
+        return(%quickchat_listdialog_050);
+    case 51 :
+        return(%quickchat_listdialog_051);
+    case 52 :
+        return(%quickchat_listdialog_052);
+    case 53 :
+        return(%quickchat_listdialog_053);
+    case 54 :
+        return(%quickchat_listdialog_054);
+    case 55 :
+        return(%quickchat_listdialog_055);
+    case 56 :
+        return(%quickchat_listdialog_056);
+    case 57 :
+        return(%quickchat_listdialog_057);
+    case 58 :
+        return(%quickchat_listdialog_058);
+    case 59 :
+        return(%quickchat_listdialog_059);
+    case 60 :
+        return(%quickchat_listdialog_060);
+    case 61 :
+        return(%quickchat_listdialog_061);
+    case 62 :
+        return(%quickchat_listdialog_062);
+    case 63 :
+        return(%quickchat_listdialog_063);
+    case 64 :
+        return(%quickchat_listdialog_064);
+    case 65 :
+        return(%quickchat_listdialog_065);
+    case 66 :
+        return(%quickchat_listdialog_066);
+    case 67 :
+        return(%quickchat_listdialog_067);
+    case 68 :
+        return(%quickchat_listdialog_068);
+    case 69 :
+        return(%quickchat_listdialog_069);
+    case 70 :
+        return(%quickchat_listdialog_070);
+    case 71 :
+        return(%quickchat_listdialog_071);
+    case 72 :
+        return(%quickchat_listdialog_072);
+    case 73 :
+        return(%quickchat_listdialog_073);
+    case 74 :
+        return(%quickchat_listdialog_074);
+    case 75 :
+        return(%quickchat_listdialog_075);
+    case 76 :
+        return(%quickchat_listdialog_076);
+    case 77 :
+        return(%quickchat_listdialog_077);
+    case 78 :
+        return(%quickchat_listdialog_078);
+    case 79 :
+        return(%quickchat_listdialog_079);
+    case 80 :
+        return(%quickchat_listdialog_080);
+    case 81 :
+        return(%quickchat_listdialog_081);
+    case 82 :
+        return(%quickchat_listdialog_082);
+    case 83 :
+        return(%quickchat_listdialog_083);
+    case 84 :
+        return(%quickchat_listdialog_084);
+    case 85 :
+        return(%quickchat_listdialog_085);
+    case 86 :
+        return(%quickchat_listdialog_086);
+    case 87 :
+        return(%quickchat_listdialog_087);
+    case 88 :
+        return(%quickchat_listdialog_088);
+    case 89 :
+        return(%quickchat_listdialog_089);
+    case 90 :
+        return(%quickchat_listdialog_090);
+    case 91 :
+        return(%quickchat_listdialog_091);
+    case 92 :
+        return(%quickchat_listdialog_092);
+    case 93 :
+        return(%quickchat_listdialog_093);
+    case 94 :
+        return(%quickchat_listdialog_094);
+    case 95 :
+        return(%quickchat_listdialog_095);
+    case 96 :
+        return(%quickchat_listdialog_096);
+    case 97 :
+        return(%quickchat_listdialog_097);
+    case 98 :
+        return(%quickchat_listdialog_098);
+    case 99 :
+        return(%quickchat_listdialog_099);
+    case 100 :
+        return(%quickchat_listdialog_100);
+    case 101 :
+        return(%quickchat_listdialog_101);
+    case 102 :
+        return(%quickchat_listdialog_102);
+    case 103 :
+        return(%quickchat_listdialog_103);
+    case 104 :
+        return(%quickchat_listdialog_104);
+    case 105 :
+        return(%quickchat_listdialog_105);
+    case 106 :
+        return(%quickchat_listdialog_106);
+    case 107 :
+        return(%quickchat_listdialog_107);
+    case 108 :
+        return(%quickchat_listdialog_108);
+    case 109 :
+        return(%quickchat_listdialog_109);
+    case 110 :
+        return(%quickchat_listdialog_110);
+    case 111 :
+        return(%quickchat_listdialog_111);
+    case 112 :
+        return(%quickchat_listdialog_112);
+    case 113 :
+        return(%quickchat_listdialog_113);
+    case 114 :
+        return(%quickchat_listdialog_114);
+    case 115 :
+        return(%quickchat_listdialog_115);
+    case 116 :
+        return(%quickchat_listdialog_116);
+    case 117 :
+        return(%quickchat_listdialog_117);
+    case 118 :
+        return(%quickchat_listdialog_118);
+    case 119 :
+        return(%quickchat_listdialog_119);
+    case 120 :
+        return(%quickchat_listdialog_120);
+    case 121 :
+        return(%quickchat_listdialog_121);
+    case 122 :
+        return(%quickchat_listdialog_122);
+    case 123 :
+        return(%quickchat_listdialog_123);
+    case 124 :
+        return(%quickchat_listdialog_124);
+    case 125 :
+        return(%quickchat_listdialog_125);
+    case 126 :
+        return(%quickchat_listdialog_126);
+    case 127 :
+        return(%quickchat_listdialog_127);
+    case 128 :
+        return(%quickchat_listdialog_128);
+    case 129 :
+        return(%quickchat_listdialog_129);
+    case 130 :
+        return(%quickchat_listdialog_130);
+    case 131 :
+        return(%quickchat_listdialog_131);
+    case 132 :
+        return(%quickchat_listdialog_132);
+    case 133 :
+        return(%quickchat_listdialog_133);
+    case 134 :
+        return(%quickchat_listdialog_134);
+    case 135 :
+        return(%quickchat_listdialog_135);
+    case 136 :
+        return(%quickchat_listdialog_136);
+    case 137 :
+        return(%quickchat_listdialog_137);
+    case 138 :
+        return(%quickchat_listdialog_138);
+    case 139 :
+        return(%quickchat_listdialog_139);
+    case 140 :
+        return(%quickchat_listdialog_140);
+    case 141 :
+        return(%quickchat_listdialog_141);
+    case 142 :
+        return(%quickchat_listdialog_142);
+    case 143 :
+        return(%quickchat_listdialog_143);
+    case 144 :
+        return(%quickchat_listdialog_144);
+    case 145 :
+        return(%quickchat_listdialog_145);
+    case 146 :
+        return(%quickchat_listdialog_146);
+    case 147 :
+        return(%quickchat_listdialog_147);
+    case 148 :
+        return(%quickchat_listdialog_148);
+    case 149 :
+        return(%quickchat_listdialog_149);
+    case 150 :
+        return(%quickchat_listdialog_150);
+    case 151 :
+        return(%quickchat_listdialog_151);
+    case 152 :
+        return(%quickchat_listdialog_152);
+    case 153 :
+        return(%quickchat_listdialog_153);
+    case 154 :
+        return(%quickchat_listdialog_154);
+    case 155 :
+        return(%quickchat_listdialog_155);
+    case 156 :
+        return(%quickchat_listdialog_156);
+    case 157 :
+        return(%quickchat_listdialog_157);
+    case 158 :
+        return(%quickchat_listdialog_158);
+    case 159 :
+        return(%quickchat_listdialog_159);
+    case 160 :
+        return(%quickchat_listdialog_160);
+    case 161 :
+        return(%quickchat_listdialog_161);
+    case 162 :
+        return(%quickchat_listdialog_162);
+    case 163 :
+        return(%quickchat_listdialog_163);
+    case 164 :
+        return(%quickchat_listdialog_164);
+    case 165 :
+        return(%quickchat_listdialog_165);
+    case 166 :
+        return(%quickchat_listdialog_166);
+    case 167 :
+        return(%quickchat_listdialog_167);
+    case 168 :
+        return(%quickchat_listdialog_168);
+    case 169 :
+        return(%quickchat_listdialog_169);
+    case 170 :
+        return(%quickchat_listdialog_170);
+    case 171 :
+        return(%quickchat_listdialog_171);
+    case 172 :
+        return(%quickchat_listdialog_172);
+    case 173 :
+        return(%quickchat_listdialog_173);
+    case 174 :
+        return(%quickchat_listdialog_174);
+    case 175 :
+        return(%quickchat_listdialog_175);
+    case 176 :
+        return(%quickchat_listdialog_176);
+    case 177 :
+        return(%quickchat_listdialog_177);
+    case 178 :
+        return(%quickchat_listdialog_178);
+    case 179 :
+        return(%quickchat_listdialog_179);
+    case 180 :
+        return(%quickchat_listdialog_180);
+    case 181 :
+        return(%quickchat_listdialog_181);
+    case 182 :
+        return(%quickchat_listdialog_182);
+    case 183 :
+        return(%quickchat_listdialog_183);
+    case 184 :
+        return(%quickchat_listdialog_184);
+    case 185 :
+        return(%quickchat_listdialog_185);
+    case 186 :
+        return(%quickchat_listdialog_186);
+    case 187 :
+        return(%quickchat_listdialog_187);
+    case 188 :
+        return(%quickchat_listdialog_188);
+    case 189 :
+        return(%quickchat_listdialog_189);
+    case 190 :
+        return(%quickchat_listdialog_190);
+    case 191 :
+        return(%quickchat_listdialog_191);
+    case 192 :
+        return(%quickchat_listdialog_192);
+    case 193 :
+        return(%quickchat_listdialog_193);
+    case 194 :
+        return(%quickchat_listdialog_194);
+    case 195 :
+        return(%quickchat_listdialog_195);
+    case 196 :
+        return(%quickchat_listdialog_196);
+    case 197 :
+        return(%quickchat_listdialog_197);
+    case 198 :
+        return(%quickchat_listdialog_198);
+    case 199 :
+        return(%quickchat_listdialog_199);
+    case 200 :
+        return(%quickchat_listdialog_200);
+    case 201 :
+        return(%quickchat_listdialog_201);
+    case 202 :
+        return(%quickchat_listdialog_202);
+    case 203 :
+        return(%quickchat_listdialog_203);
+    case 204 :
+        return(%quickchat_listdialog_204);
+    case 205 :
+        return(%quickchat_listdialog_205);
+    case 206 :
+        return(%quickchat_listdialog_206);
+    case 207 :
+        return(%quickchat_listdialog_207);
+    case 208 :
+        return(%quickchat_listdialog_208);
+    case 209 :
+        return(%quickchat_listdialog_209);
+    case 210 :
+        return(%quickchat_listdialog_210);
+    case 211 :
+        return(%quickchat_listdialog_211);
+    case 212 :
+        return(%quickchat_listdialog_212);
+    case 213 :
+        return(%quickchat_listdialog_213);
+    case 214 :
+        return(%quickchat_listdialog_214);
+    case 215 :
+        return(%quickchat_listdialog_215);
+    case 216 :
+        return(%quickchat_listdialog_216);
+    case 217 :
+        return(%quickchat_listdialog_217);
+    case 218 :
+        return(%quickchat_listdialog_218);
+    case 219 :
+        return(%quickchat_listdialog_219);
+    case 220 :
+        return(%quickchat_listdialog_220);
+    case 221 :
+        return(%quickchat_listdialog_221);
+    case 222 :
+        return(%quickchat_listdialog_222);
+    case 223 :
+        return(%quickchat_listdialog_223);
+    case 224 :
+        return(%quickchat_listdialog_224);
+    case 225 :
+        return(%quickchat_listdialog_225);
+    case 226 :
+        return(%quickchat_listdialog_226);
+    case 227 :
+        return(%quickchat_listdialog_227);
+    case 228 :
+        return(%quickchat_listdialog_228);
+    case 229 :
+        return(%quickchat_listdialog_229);
+    case 230 :
+        return(%quickchat_listdialog_230);
+    case 231 :
+        return(%quickchat_listdialog_231);
+    case 232 :
+        return(%quickchat_listdialog_232);
+    case 233 :
+        return(%quickchat_listdialog_233);
+    case 234 :
+        return(%quickchat_listdialog_234);
+    case 235 :
+        return(%quickchat_listdialog_235);
+    case 236 :
+        return(%quickchat_listdialog_236);
+    case 237 :
+        return(%quickchat_listdialog_237);
+    case 238 :
+        return(%quickchat_listdialog_238);
+    case 239 :
+        return(%quickchat_listdialog_239);
+    case 240 :
+        return(%quickchat_listdialog_240);
+    case 241 :
+        return(%quickchat_listdialog_241);
+    case 242 :
+        return(%quickchat_listdialog_242);
+    case 243 :
+        return(%quickchat_listdialog_243);
+    case 244 :
+        return(%quickchat_listdialog_244);
+    case 245 :
+        return(%quickchat_listdialog_245);
+    case 246 :
+        return(%quickchat_listdialog_246);
+    case 247 :
+        return(%quickchat_listdialog_247);
+    case 248 :
+        return(%quickchat_listdialog_248);
+    case 249 :
+        return(%quickchat_listdialog_249);
+}
+return(0);

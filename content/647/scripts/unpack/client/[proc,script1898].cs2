@@ -1,0 +1,25 @@
+// 1898
+[proc,script1898](int $int0)(int, int)
+switch_int ($int0) {
+    case 0 :
+        return(%camera_speed_start_0, %camera_speed_finish_0);
+    case 1 :
+        return(%camera_speed_start_1, %camera_speed_finish_1);
+    case 2 :
+        return(%camera_speed_start_2, %camera_speed_finish_2);
+    case 3 :
+        return(%camera_speed_start_3, %camera_speed_finish_3);
+    case 4 :
+        return(%camera_speed_start_4, %camera_speed_finish_4);
+    case 5 :
+        return(%camera_speed_start_5, %camera_speed_finish_5);
+    case 6 :
+        return(%camera_speed_start_6, %camera_speed_finish_6);
+    case 7 :
+        return(%camera_speed_start_7, %camera_speed_finish_7);
+    case 8 :
+        return(%camera_speed_start_8, %camera_speed_finish_8);
+    case 9 :
+        return(%camera_speed_start_9, %camera_speed_finish_9);
+}
+return(0, 0);

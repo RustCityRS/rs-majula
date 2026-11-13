@@ -1,0 +1,11 @@
+// 1529
+[proc,script1529]()(int)
+def_int $int0 = 0;
+$int0 = calc(%atjun_easy_swing + %atjun_easy_gold + %atjun_easy_boat_sarim + %atjun_easy_boat_ardy + %atjun_easy_cairn + %atjun_easy_fishing + %atjun_easy_tzhaar + %atjun_easy_jogre);
+if (%atjun_easy_banana = 5) {
+    $int0 = calc($int0 + 1);
+}
+if (%atjun_easy_seaweed = 5) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

@@ -3,8 +3,7 @@ use crate::register::OpsRegistry;
 use crate::util::pop_enum;
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::provider::CacheType;
-use rs_pack::cache::script::{ENUM, ENUM_GETOUTPUTCOUNT};
+use runec::opcodes::{ENUM, ENUM_GETOUTPUTCOUNT};
 
 /// Registers enum lookup opcodes for retrieving values from cache-defined
 /// enum tables by key.
@@ -30,8 +29,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             if e.inputtype as u8 != inputtype as u8 || e.outputtype as u8 != outputtype as u8 {
                 return Err(ScriptError::Runtime(format!(
-                    "Enum: {:?} Expected input: {}, Got: {}, Expected output: {}, Got: {}",
-                    e.debugname(),
+                    "Enum: {} Expected input: {}, Got: {}, Expected output: {}, Got: {}",
+                    e.debugname,
                     e.inputtype as u8,
                     inputtype as u8,
                     e.outputtype as u8,

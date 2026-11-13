@@ -1,0 +1,47 @@
+[oploc1,_empty_crate]
+// Treasure Trail
+if(map_members = ^true) {
+    def_obj $clue = ~trail_getclue_inv;
+    if($clue ! null & oc_param($clue, trail_loc) = ^true & oc_param($clue, trail_coord) = loc_coord) {
+        @trail_clue_loc_interact($clue);
+    }
+} 
+if (random(^findsomethingnice_chance) = 0 & ~in_tutorial_island(coord) = false) { // complete guess
+    mes("You search the crate..."); // guess
+    p_delay(2);
+    ~findsomethingnice;
+    return;
+}
+mes("You search the crate but find nothing.");
+
+[oploc1,_empty_crates]
+// Treasure Trail
+if (map_members = ^true) {
+    def_obj $clue = ~trail_getclue_inv;
+    if($clue ! null & oc_param($clue, trail_loc) = ^true & oc_param($clue, trail_coord) = loc_coord) {
+        @trail_clue_loc_interact($clue);
+    }
+}
+if (random(^findsomethingnice_chance) = 0 & ~in_tutorial_island(coord) = false) { // complete guess
+    mes("You search the crates..."); // guess
+    p_delay(2);
+    ~findsomethingnice;
+    return;
+}
+mes("You search the crates but find nothing of value.");
+
+[oploc1,_empty_boxes]
+// Treasure Trail
+if(map_members = ^true) {
+    def_obj $clue = ~trail_getclue_inv;
+    if($clue ! null & oc_param($clue, trail_loc) = ^true & oc_param($clue, trail_coord) = loc_coord) {
+        @trail_clue_loc_interact($clue);
+    }
+}
+if (random(^findsomethingnice_chance) = 0 & ~in_tutorial_island(coord) = false) { // complete guess
+    mes("You search the boxes...");
+    p_delay(2);
+    ~findsomethingnice;
+    return;
+}
+mes("There is nothing interesting in these boxes."); // https://youtu.be/Yb53SKVt7z8?t=173

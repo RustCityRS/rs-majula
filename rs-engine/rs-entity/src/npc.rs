@@ -2,6 +2,7 @@ use crate::InteractionTarget;
 use crate::interaction::InteractionState;
 use crate::lifetime::EntityLifeTime;
 use crate::pathing::{MoveStrategy, PathingEntity};
+use crate::player::MoveSpeed;
 use crate::state::EntityState;
 use rs_grid::CoordGrid;
 use rs_hero::HeroPoints;
@@ -241,6 +242,15 @@ impl Npc {
             .unfocus(&mut self.info, self.pathing.coord, self.pathing.size);
     }
 
+    /// The fine coord the npc faces: its pending face coord, else its standing
+    /// orientation; `None` when it has neither.
+    pub fn facing(&self) -> Option<(u16, u16)> {
+        match (self.info.face_x, self.info.face_z) {
+            (Some(x), Some(z)) => Some((x, z)),
+            _ => self.info.orientation_x.zip(self.info.orientation_z),
+        }
+    }
+
     /// Updates the NPC's facing direction toward its current interaction target.
     /// `pathing_face` is the live fine coordinate of a player/NPC target (resolved by the
     /// caller), or `None`; a non-pathing target falls back to its stored stationary
@@ -278,6 +288,7 @@ impl Npc {
             self.hero_points.clear();
             self.state.queues.queue.clear();
             self.pathing.clear_waypoints();
+            self.pathing.move_speed = MoveSpeed::Walk;
             self.pathing.tele = true;
             self.pathing.jump = true;
             self.lifecycle_at = None;

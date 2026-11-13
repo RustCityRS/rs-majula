@@ -1,0 +1,16 @@
+// 289's doors.param.
+
+[next_loc_stage]
+type=loc
+
+[game_message]
+type=string
+default=
+
+[open_sound]
+type=synth
+default=nicedoor_open
+
+[close_sound]
+type=synth
+default=nicedoor_close

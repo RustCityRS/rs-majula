@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-use crate::engine::{Engine, OtherPlayers, engine};
+use crate::core::{Engine, OtherPlayers, engine};
 use crate::info::{NpcInfo, PlayerInfo};
 use rs_entity::EntityLifeTime;
 use rs_inv::Inventory;
@@ -7,11 +7,16 @@ use rs_pack::cache::inv::InvScope;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
+#[cfg(any(rev = "225", since_244))]
+use rs_protocol::network::game::server::rebuild_normal::RebuildNormal;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
+use rs_vm::ComId;
 use rs_vm::engine::ScriptEngine;
 use rs_zone::zone_map::ZoneMap;
 use rustc_hash::FxHashMap;
+#[cfg(rev = "225")]
+use std::collections::HashMap;
 
 impl Engine {
     /// Records a keyframe of `active`'s session, after this tick's output.
@@ -46,7 +51,7 @@ impl ActivePlayer {
         #[cfg(rev = "225")]
         {
             let cache = engine().cache;
-            let mut crcs = std::collections::HashMap::new();
+            let mut crcs = HashMap::new();
             let mapsquares = self.player.build_area.mapsquares.clone();
             for &mapsquare in &mapsquares {
                 let x = (mapsquare >> 8) as u8;
@@ -57,22 +62,18 @@ impl ActivePlayer {
                     }
                 }
             }
-            self.write(
-                rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
-                    zone_x: origin.zone_x(),
-                    zone_z: origin.zone_z(),
-                    mapsquares: mapsquares.into_iter().collect(),
-                    crcs,
-                },
-            );
-        }
-        #[cfg(since_244)]
-        self.write(
-            rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
+            self.write(RebuildNormal {
                 zone_x: origin.zone_x(),
                 zone_z: origin.zone_z(),
-            },
-        );
+                mapsquares: mapsquares.into_iter().collect(),
+                crcs,
+            });
+        }
+        #[cfg(since_244)]
+        self.write(RebuildNormal {
+            zone_x: origin.zone_x(),
+            zone_z: origin.zone_z(),
+        });
     }
 
     /// Everything on the zones the client has loaded, as when it first
@@ -129,7 +130,7 @@ impl ActivePlayer {
     /// The inventories shown on the client's interfaces, in full.
     fn keyframe_invs(&mut self, shared: &FxHashMap<u16, Inventory>) {
         let invs = engine().invs();
-        let transmits: Vec<(u16, Vec<u16>)> = self
+        let transmits: Vec<(u16, Vec<ComId>)> = self
             .player
             .inv_transmits
             .iter()
@@ -151,7 +152,7 @@ impl ActivePlayer {
                 .map(|i| i.map(|it| (it.obj, it.num as i32)))
                 .collect();
             for com in coms {
-                self.update_inv_full(com, &full);
+                self.update_inv_full(com as u16, &full);
             }
         }
     }

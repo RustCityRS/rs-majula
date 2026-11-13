@@ -1,0 +1,4 @@
+// 1137
+[clientscript,combat_side_special_level](component $component0, component $component1)
+if_setsize($component0, scale(%sa_energy, 1000, 143), 13, ^setsize_abs, ^setsize_abs);
+if_settext($component1, "Special Attack (<tostring(calc(%sa_energy / 10))>%)");
