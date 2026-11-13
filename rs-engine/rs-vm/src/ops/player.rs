@@ -738,7 +738,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.drop_strings(1);
         });
 
-        // ── Rev-647-only commands ────────────────────────────────────────
+        // 5026
+        #[cfg(since_647)]
+        active_player_mut!(m, MES_TYPED => |s, player| {
+            let kind = s.pop_int_as::<u16>()?;
+            test::record_call(MES_TYPED, "mes_typed", s.peek_string(0));
+            player.mes_typed(kind, s.peek_string(0));
+            s.drop_strings(1);
+        });
 
         // 3529
         #[cfg(since_647)]

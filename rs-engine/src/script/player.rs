@@ -782,6 +782,11 @@ impl ScriptPlayer for ActivePlayer {
     }
 
     #[cfg(since_647)]
+    fn mes_typed(&mut self, kind: u16, msg: &str) {
+        self.message_game_typed(i32::from(kind), msg);
+    }
+
+    #[cfg(since_647)]
     fn window_mode(&self) -> u8 {
         self.player.window_mode
     }

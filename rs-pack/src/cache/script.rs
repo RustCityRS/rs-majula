@@ -524,6 +524,8 @@ pub const NPC_RUN: u16 = 5024;
 #[cfg(since_647)]
 pub const LAST_COORD: u16 = 5025;
 #[cfg(since_647)]
+pub const MES_TYPED: u16 = 5026;
+#[cfg(since_647)]
 pub const REGION_FINDBYCOORD: u16 = 5200;
 #[cfg(since_647)]
 pub const REGION_GETCOORD: u16 = 5201;

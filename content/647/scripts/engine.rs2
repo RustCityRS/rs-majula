@@ -172,6 +172,10 @@
 [command,mes](string $text)
 // info: Send a message to the chatbox of the secondary player
 [command,.mes](string $text)
+// info: Send a message to the chatbox as a chat type (^chattype_spam is hidden by the game filter)
+[command,mes_typed](int $type, string $text)
+// info: Send a message to the chatbox of the secondary player as a chat type
+[command,.mes_typed](int $type, string $text)
 // info: Get the player's internally stored name - lowercased, underscores
 [command,name]()(string)
 // info: Get the sedondary player's internally stored name - lowercased, underscores
@@ -1226,7 +1230,6 @@
 
 // [command,inv_setvar](inv $inv, int $slot, obj $obj, int $value)
 // [command,inv_getvar](inv $inv, int $slot, obj $obj)(int)
-// [command,mes_typed](int $type, string $message)
 // [command,sound_area](coord $coord, int $int1, synth $sound, int $int2, int $int3)
 // [command,p_transmogrify](npc $npc)
 // [command,if_setevents](component $component, int $int1, int $int2, boolean $boolean1, int $int3, int $int4, int $int5, boolean $boolean2, boolean $boolean3)

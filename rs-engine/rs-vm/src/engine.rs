@@ -1318,6 +1318,10 @@ pub trait ScriptPlayer {
     /// * `msg` - The message text to display.
     fn mes(&mut self, msg: &str);
 
+    /// Rev-647: sends a game message as a chat type (`^chattype_*`).
+    #[cfg(since_647)]
+    fn mes_typed(&mut self, kind: u16, msg: &str);
+
     /// Tells the player an interaction had no effect.
     fn nothing_interesting(&mut self) {
         self.mes("Nothing interesting happens.");
