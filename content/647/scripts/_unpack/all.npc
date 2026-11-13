@@ -29795,6 +29795,25 @@ model1=model_20388
 unknown119=3
 cursorattack=cursor_attack
 desc=Looks unnatural.
+// Witch's House (289's quest_ball/configs/witches_house.npc): levels and
+// damage type are 289's; life points are 289's hitpoints times ten, but the
+// fourth form's 550 (2011 wiki, Witch's experiment, 2011-05-16: "LP = 550
+// (level 53 form)"; 289 has 51). Anims and sounds are those of 647's npcs on
+// the same bas (bas_114, the skavids'; 289's own names).
+category=witches_experiment
+wanderrange=0
+attack=18
+defence=19
+strength=10
+hitpoints=210
+param=damagetype,^crush_style
+param=attack_anim,skavid_attack
+param=defend_anim,skavid_block
+param=death_anim,skavid_death
+param=attack_sound,unarmed_punch
+param=defend_sound,imp_hit
+param=death_sound,imp_death
+param=death_drop,null
 
 // 898
 [shapeshifterspider]
@@ -29820,6 +29839,25 @@ model2=model_20312
 unknown119=3
 cursorattack=cursor_attack
 desc=Looks unnatural.
+// Witch's House (289's quest_ball/configs/witches_house.npc): levels and
+// damage type are 289's; life points are 289's hitpoints times ten, but the
+// fourth form's 550 (2011 wiki, Witch's experiment, 2011-05-16: "LP = 550
+// (level 53 form)"; 289 has 51). Anims and sounds are those of 647's npcs on
+// the same bas (bas_17: giantspider1's).
+category=witches_experiment
+wanderrange=2
+attack=28
+defence=29
+strength=20
+hitpoints=310
+param=damagetype,^crush_style
+param=attack_anim,seq_5327
+param=defend_anim,seq_5328
+param=death_anim,seq_5329
+param=attack_sound,big_spider_attack
+param=defend_sound,big_spider_hit
+param=death_sound,big_spider_death
+param=death_drop,null
 
 // 899
 [shapeshifterbear]
@@ -29844,6 +29882,25 @@ model1=model_18882
 unknown119=3
 cursorattack=cursor_attack
 desc=Looks unnatural.
+// Witch's House (289's quest_ball/configs/witches_house.npc): levels and
+// damage type are 289's; life points are 289's hitpoints times ten, but the
+// fourth form's 550 (2011 wiki, Witch's experiment, 2011-05-16: "LP = 550
+// (level 53 form)"; 289 has 51). Anims and sounds are those of 647's npcs on
+// the same bas (bas_13: brownbear's).
+category=witches_experiment
+wanderrange=2
+attack=38
+defence=39
+strength=30
+hitpoints=410
+param=damagetype,^slash_style
+param=attack_anim,bear_rework_attack
+param=defend_anim,bear_rework_defend
+param=death_anim,bear_rework_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,huntingbeast_death
+param=death_drop,null
 
 // 900
 [shapeshifterwolf]
@@ -29870,6 +29927,25 @@ model1=model_26264
 unknown119=3
 cursorattack=cursor_attack
 desc=Looks unnatural.
+// Witch's House (289's quest_ball/configs/witches_house.npc): levels and
+// damage type are 289's; life points are 289's hitpoints times ten, but the
+// fourth form's 550 (2011 wiki, Witch's experiment, 2011-05-16: "LP = 550
+// (level 53 form)"; 289 has 51). Anims and sounds are those of 647's npcs on
+// the same bas (bas_97: wolf's).
+category=witches_experiment
+wanderrange=2
+attack=48
+defence=49
+strength=40
+hitpoints=550
+param=damagetype,^stab_style
+param=attack_anim,dog_update_wolf_attack
+param=defend_anim,dog_update_wolf_defend
+param=death_anim,dog_update_wolf_death
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=death_drop,null
 
 // 901
 [witchrat]
