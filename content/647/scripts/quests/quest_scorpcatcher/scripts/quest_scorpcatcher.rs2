@@ -1,0 +1,74 @@
+// Scorpion Catcher (289's quests/quest_scorpcatcher/scripts/quest_scorpcatcher.rs2), line for
+// line. Sources for what 2011 changes: C is cache 786, W is the 2011 wiki's Scorpion Catcher
+// page (2011-05-12). Anything neither shows is 289's.
+// - 289's door sound (door_open) has no synth of that name at 647; the wall takes
+//   nicedoor_open as 647's other doors do. No source has 2011's sound.
+// - W's trivia has the wall's refusal as "it looks like an old wall", in its own words and
+//   lower case: not a quote to copy, so 289's message stays.
+[label,scorpion_caught]
+mes("You've already caught this scorpion");
+
+[label,scorpion_sting]
+mes("The scorpion stings you!");
+// W (Scorpion Catcher; Kharidian scorpion, 2011-05-21): "it will sting you, inflicting 30 life
+// points of damage". 289's 3 hitpoints, in life points.
+queue(damage_player, 0, 30);
+
+// The cage comes as an argument: runec does not carry last_useitem into a label.
+[label,catch_scorp](obj $cage, namedobj $next_cage)
+inv_del(inv, $cage, 1);
+npc_del;
+inv_add(inv, $next_cage, 1);
+mes("You catch a scorpion!");
+
+// 289 names scorpioncageab twice in the first case below and scorpioncageac nowhere: a cage
+// holding the first and third scorpions used on the first again gets no answer. Kept as 289.
+[opnpcu,questscorpiona]
+switch_obj (last_useitem) {
+    case scorpioncagea, scorpioncageab, scorpioncageab, scorpioncagefull : @scorpion_caught;
+    case scorpioncageempty : @catch_scorp(last_useitem, scorpioncagea);
+    case scorpioncageb : @catch_scorp(last_useitem, scorpioncageab);
+    case scorpioncagec : @catch_scorp(last_useitem, scorpioncageac);
+    case scorpioncagebc : @catch_scorp(last_useitem, scorpioncagefull);
+}
+
+[opnpcu,questscorpionb]
+switch_obj (last_useitem) {
+    case scorpioncageb, scorpioncageab, scorpioncagebc, scorpioncagefull : @scorpion_caught;
+    case scorpioncageempty : @catch_scorp(last_useitem, scorpioncageb);
+    case scorpioncagea : @catch_scorp(last_useitem, scorpioncageab);
+    case scorpioncagec : @catch_scorp(last_useitem, scorpioncagebc);
+    case scorpioncageac : @catch_scorp(last_useitem, scorpioncagefull);
+}
+
+[opnpcu,questscorpionc]
+switch_obj (last_useitem) {
+    case scorpioncagec, scorpioncageac, scorpioncagebc, scorpioncagefull : @scorpion_caught;
+    case scorpioncageempty : @catch_scorp(last_useitem, scorpioncagec);
+    case scorpioncagea : @catch_scorp(last_useitem, scorpioncageac);
+    case scorpioncageb : @catch_scorp(last_useitem, scorpioncagebc);
+    case scorpioncageab : @catch_scorp(last_useitem, scorpioncagefull);
+}
+
+[opnpc1,questscorpiona] @scorpion_sting;
+[opnpc1,questscorpionb] @scorpion_sting;
+[opnpc1,questscorpionc] @scorpion_sting;
+
+// Taverley wall
+[oploc1,scorpionwall]
+if(%scorpcatcher < ^scorpcatcher_first_hint) {
+    mes("Looks like a wall...");
+    return;
+}
+mes("You've found a secret door");
+~open_and_close_door2(oldwall, ~check_axis(coord, loc_coord, loc_angle), nicedoor_open);
+
+[queue,scorpcatcher_quest_complete]
+inv_del(inv, scorpioncagefull, 1);
+%scorpcatcher = ^scorpcatcher_complete;
+session_log(^log_adventure, "Quest complete: Scorpion Catcher");
+// W: "1 Quest Point", "6,625 Strength experience", as 289. No source found shows 2011's scroll
+// (W's picture of it is not on the local wiki): the sentence is 289's on one line (2011's scroll
+// wraps its own), the reward line is W's.
+~send_quest_complete2(^questlist_scorpcatcher, scorpioncagefull, 250, ^scorpcatcher_questpoints, "You have completed the Scorpion Catcher Quest!", "6,625 Strength XP");
+stat_advance(strength, 66250);
