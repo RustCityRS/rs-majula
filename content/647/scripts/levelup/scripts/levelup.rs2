@@ -62,12 +62,11 @@ if ($levels > 1) {
 }
 // play the fireworks
 spotanim_pl(levelup_anim, 124, 0);
-// sound_synth(firework, 1, 0); Was an osrs addition apparently
-// https://secure.runescape.com/m=news/shades-of-mortton-rework?oldschool=1
-// https://www.reddit.com/r/2007scape/comments/l7yh5p/the_new_level_up_fireworks_noise_is_extremely/
-// 2011's wiki (Skills) lists a "Level up fireworks" sound that "plays when you
-// level up in any skill"; its 2011 id is not known (the fireworks' seq carries
-// none), so none plays.
+// 2011's "Level up fireworks" sound, which "plays when you level up in any skill" (2011 wiki,
+// Skills, 15 May 2011): synth 4860, whose whistle and crackles match the level-ups in
+// u2OnbN30zfE 2009-10-02 @116, xXoR84Qyblk 2011-03-04 @16 and SO-q8cZ0K88 2011-05-26 @7.6.
+// Cache 786's `firework` (2396) is a different sound.
+sound_synth(synth_4860, 1, 0);
 // 289 plays the stat's second jingle at a level that unlocks something
 // (levelup_unlocks.enum). 2011's "changes ... to be slightly more complex,
 // whenever the skill reaches level 50" (2011 wiki, Skills, 15 May 2011): the
@@ -101,6 +100,23 @@ if_settext(db_getfield($unlock_row, levelup:title, 0), db_getfield($unlock_row, 
 if_settext(db_getfield($unlock_row, levelup:body, 0), "<db_getfield($unlock_row, levelup:level_prefix, 0)> <tostring($level)>!");
 if_openchat(db_getfield($unlock_row, levelup:interface, 0));
 p_pausebutton;
+// 2011's 99, once the box is continued: the line in dark red, then three rockets 1.2 s apart,
+// synth 4859 (4860 with a bang). gybcOtPkPHM 2011-03-16 @17.5 and UrcTiwPWLHo 2011-01-13 @27.6:
+// the line is in chat on the first frame after the box closes, the rockets start 0.2 s later
+// and run 2.4 s first to last; o6Ga2FGG1Dc 2011-05-27 @64. #800000 is the 2010 wiki's "99
+// chatbox message" image and both recordings' glyphs.
+// The graphic: spotanims 1630-1637 came in with synths 4859 and 4860 in the 21 May 2008 level-up
+// update (OpenRS2 caches 240 and 706). 1637 is the one with three 1.2 s rockets, in step with the
+// sounds, and opens on the white star of the 2011 wiki's 99levelup.gif; at height 92 its bursts
+// sit as high over the head as there. That gif and the 2009 one also send rockets out to the
+// sides, which 1637 alone doesn't; what else went with it: no source found.
+if ($level = 99) {
+    mes("<col=800000>Well done! You've achieved the highest possible level in this skill!");
+    spotanim_pl(spotanim_1637, 92, 0);
+    sound_synth(synth_4859, 1, 0);
+    sound_synth(synth_4859, 1, 60);
+    sound_synth(synth_4859, 1, 120);
+}
 // if ($has_unlocks = false) {
 //     return;
 // }

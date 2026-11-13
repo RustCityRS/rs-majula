@@ -1490,6 +1490,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u16>()?;
             let spotanim = pop_spotanim::<E>(s)?;
+            #[cfg(since_647)]
+            if test::recording() {
+                let arg = format!("{},{height},{delay}", spotanim.id);
+                test::record_call(SPOTANIM_PL, "spotanim_pl", &arg);
+            }
             player.spotanim(spotanim.id, height, delay);
         });
 

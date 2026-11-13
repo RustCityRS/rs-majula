@@ -24,6 +24,7 @@ use rs_pack::cache::varp::VarPlayerScope;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const ATTACK: usize = 0;
 /// 83 xp, level 2, in the engine's tenths.
@@ -38,6 +39,13 @@ const LEVEL_UP_DETAILS: u16 = 1230;
 const SKILL_GUIDE_VARP: u16 = 965;
 /// 289's `advance attack`: 2011's jingle 29 (void-634's level_up_attack).
 const ADVANCE_ATTACK: u16 = 29;
+/// 2011's level-up fireworks, every level.
+const LEVELUP_FIREWORKS: u16 = 4860;
+/// 2011's rocket at 99, three times.
+const MASTERY_ROCKET: u16 = 4859;
+/// Levels 98 and 99, in the engine's tenths.
+const LEVEL_98_XP: i32 = 118_056_060;
+const LEVEL_99_XP: i32 = 130_344_310;
 
 fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(u32, String)> {
     let opcode = ServerProt::IfSetText as u16;
@@ -63,6 +71,29 @@ fn jingles(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
         .filter(|(op, _)| *op == opcode)
         .map(|(_, p)| (p[0].wrapping_sub(128) as u16) | (p[1] as u16) << 8)
         .collect()
+}
+
+/// Each SYNTH_SOUND's synth and delay: `p2(synth) p1(loops) p2(delay) p1(volume) p2(speed)`.
+fn synths(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u16)> {
+    let opcode = ServerProt::SynthSound as u16;
+    packets
+        .iter()
+        .filter(|(op, _)| *op == opcode)
+        .map(|(_, p)| {
+            (
+                u16::from_be_bytes([p[0], p[1]]),
+                u16::from_be_bytes([p[3], p[4]]),
+            )
+        })
+        .collect()
+}
+
+/// Clicks the level-up box's "Click here to continue" (740:3): RESUME_PAUSEBUTTON,
+/// `p2(slot) p4_alt2(com)`.
+fn continue_box(client: &mut HarnessClient) {
+    let mut p = ClientPacket::new();
+    p.p2(0xFFFF).p4_alt2((LEVELUP as i32) << 16 | 3);
+    client.send(ClientProt::ResumePauseButton, &p.finish());
 }
 
 fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
@@ -107,7 +138,8 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
         client.packets();
 
         engine.harness_add_xp(client.pid, ATTACK, LEVEL_2_XP);
-        let (mut texts, mut said, mut played) = (Vec::new(), Vec::new(), Vec::new());
+        let (mut texts, mut said, mut played, mut sounds) =
+            (Vec::new(), Vec::new(), Vec::new(), Vec::new());
         for _ in 0..3 {
             engine.cycle();
             let packets = client.packets();
@@ -118,6 +150,7 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
                     .map(|(_, t)| t),
             );
             played.extend(jingles(&packets));
+            sounds.extend(synths(&packets));
         }
         assert!(
             is_open(engine, &client, LEVELUP),
@@ -141,6 +174,7 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
             ["You've just advanced an Attack level! You have reached level 2."]
         );
         assert_eq!(played, [ADVANCE_ATTACK]);
+        assert_eq!(sounds, [(LEVELUP_FIREWORKS, 0)], "the level-up fireworks");
         assert_eq!(
             varp(engine, &client, SKILL_STAT_FLASH),
             1 | 1 << 26,
@@ -208,6 +242,79 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
             player.modal_main_parent,
             (player.toplevel as i32) << 16 | wide
         );
+    });
+}
+
+/// 2011's 99: the box and fireworks as at any level, then, once the box is continued, the dark
+/// red line and three rockets 1.2 s (60 client cycles) apart.
+#[test]
+fn level_99_says_well_done_and_fires_three_rockets_after_the_box() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("mastery").expect("login");
+        engine.cycle();
+        client.packets();
+
+        engine.harness_add_xp(client.pid, ATTACK, LEVEL_98_XP);
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        continue_box(&mut client);
+        for _ in 0..2 {
+            engine.cycle();
+        }
+        client.packets();
+
+        engine.harness_add_xp(client.pid, ATTACK, LEVEL_99_XP - LEVEL_98_XP);
+        let (mut said, mut sounds) = (Vec::new(), Vec::new());
+        for _ in 0..3 {
+            engine.cycle();
+            let packets = client.packets();
+            said.extend(
+                HarnessClient::game_messages(&packets)
+                    .into_iter()
+                    .map(|(_, t)| t),
+            );
+            sounds.extend(synths(&packets));
+        }
+        assert!(is_open(engine, &client, LEVELUP), "the level-up box");
+        assert_eq!(
+            said,
+            ["You've just advanced an Attack level! You have reached level 99."]
+        );
+        assert_eq!(sounds, [(LEVELUP_FIREWORKS, 0)]);
+
+        set_recording(true);
+        forget_calls();
+        continue_box(&mut client);
+        let (mut said, mut sounds) = (Vec::new(), Vec::new());
+        for _ in 0..2 {
+            engine.cycle();
+            let packets = client.packets();
+            said.extend(
+                HarnessClient::game_messages(&packets)
+                    .into_iter()
+                    .map(|(_, t)| t),
+            );
+            sounds.extend(synths(&packets));
+        }
+        assert!(!is_open(engine, &client, LEVELUP), "the box closes");
+        assert_eq!(
+            said,
+            ["<col=800000>Well done! You've achieved the highest possible level in this skill!"]
+        );
+        assert_eq!(
+            sounds,
+            [
+                (MASTERY_ROCKET, 0),
+                (MASTERY_ROCKET, 60),
+                (MASTERY_ROCKET, 120)
+            ]
+        );
+        let shown = calls_for("spotanim_pl");
+        set_recording(false);
+        assert_eq!(shown, ["1637,92,0"], "the three rockets' graphic");
+        assert!(engine.script_errors.take().is_empty());
     });
 }
 
