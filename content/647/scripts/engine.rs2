@@ -896,6 +896,8 @@
 // Obj config ops (4200-4299)
 // info: Get the obj config's name
 [command,oc_name](obj $obj)(string)
+// info: Get an inventory option (1-5) from an obj config
+[command,oc_iop](obj $obj, int $op)(string)
 // info: Get a param from an obj config
 [command,oc_param]/*(obj $obj, param $param)(dynamic)*/
 // info: Get the category from an obj config
