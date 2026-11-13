@@ -1048,13 +1048,24 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             engine.cycle();
             later.extend(client.packets());
         }
-        // The goblin mutters as it rummages (a 1-in-8 chance a tick: none in 60 ticks is 0.03%).
-        assert!(
+        // The goblin mutters as it rummages, a 1-in-8 chance a tick. Sixty ticks went by without
+        // a line once on CI (run 43461102110), so the wait goes on until one is heard.
+        let muttered = |packets: &[(u16, Vec<u8>)]| {
             ["Heh heh heh.", "Mine, all mine!", "Ooh!", "Me get rich!"]
                 .iter()
-                .any(|line| sent_text(&later, line)),
-            "the goblin talks to itself at the bag"
-        );
+                .any(|line| sent_text(packets, line))
+        };
+        for tick in 0..340 {
+            if muttered(&later) {
+                break;
+            }
+            if tick % 20 == 0 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+            engine.cycle();
+            later.extend(client.packets());
+        }
+        assert!(muttered(&later), "the goblin talks to itself at the bag");
         assert_eq!(
             npc_tile(engine, "tutorial3_knight_waitingforbattle").map(|tile| local(engine, tile)),
             Some((32, 16)),
