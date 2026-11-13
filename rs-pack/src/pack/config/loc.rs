@@ -1,6 +1,6 @@
 use super::config_entry;
 #[cfg(since_647)]
-use super::mark_client_params;
+use super::{cache_params, mark_client_params};
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -46,7 +46,7 @@ pub fn pack_locs(
     let configs = parse_config_sections_cached(file_cache, "loc", constants)?;
 
     #[cfg(since_647)]
-    let client_params = registry.param.client_count();
+    let cache_params = cache_params(file_cache, &registry.param);
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -76,7 +76,7 @@ pub fn pack_locs(
         }
 
         #[cfg(since_647)]
-        let props = &mark_client_params(props, &registry.param, client_params);
+        let props = &mark_client_params(props, &registry.param, &cache_params);
 
         #[cfg(before_647)]
         let mut src_models: Vec<&str> = Vec::new();

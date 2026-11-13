@@ -1,6 +1,6 @@
-#[cfg(since_647)]
-use super::client_table_with;
 use super::config_entry;
+#[cfg(since_647)]
+use super::{cache_params, client_table_with, mark_client_params};
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -52,12 +52,18 @@ pub fn pack_structs(
     #[cfg(before_647)]
     let client = None;
     #[cfg(since_647)]
+    let cache_params = cache_params(file_cache, &registry.param);
+    #[cfg(since_647)]
     let client = Some(client_table_with(
         file_cache,
         "struct",
         r#struct,
         constants,
-        |client, name, props| parse_params(registry, param_types, client, props, name),
+        |client, name, props| {
+            let props = mark_client_params(props, &registry.param, &cache_params);
+            let params = props.iter().filter(|(key, _)| key == "clientparam");
+            parse_params(registry, param_types, client, params, name)
+        },
     )?);
 
     Ok(PackedFile { server, client })

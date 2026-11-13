@@ -54,8 +54,6 @@ use crate::cache::spotanim::SpotAnimTypeRaw;
 #[cfg(since_647)]
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varp::VarPlayerTypeRaw;
-#[cfg(since_647)]
-use crate::pack::pack_registry::save_pack_file;
 use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(before_647)]
 use crate::pack::packed_data::PackedData;
@@ -1100,7 +1098,6 @@ pub(super) fn unpack_config(
                 ));
             }
             let mut count = 0;
-            let mut client_count = 0;
             for (archive_id, groups, first) in sources {
                 for group_id in groups {
                     let Some(mut group) = store.read_group(archive_id, group_id)? else {
@@ -1112,7 +1109,6 @@ pub(super) fn unpack_config(
                             continue;
                         }
                         let id = (first + group_id * stride + entry.id) as u16;
-                        client_count = client_count.max(PackId::from(id) + 1);
                         let props = decode_entry(
                             name,
                             id,
@@ -1133,10 +1129,6 @@ pub(super) fn unpack_config(
                 }
             }
             file.flush()?;
-            let path = pack_dir.join(format!("{name}.pack"));
-            let mut pack = PackFile::load(&path)?;
-            pack.client_count = Some(client_count);
-            save_pack_file(&path, &pack)?;
             Ok(format!("{count} configs"))
         });
     }

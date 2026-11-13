@@ -962,7 +962,6 @@ fn merge_string_vars(pack_dir: &Path, kind: &str, strings: &str, first: u32) -> 
         names.insert(id, name);
     }
     let mut file = File::create(path)?;
-    writeln!(file, "// client_count={first}")?;
     for (id, name) in names {
         writeln!(file, "{id}={name}")?;
     }

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 #[cfg(since_647)]
-use super::mark_client_params;
+use super::{cache_params, mark_client_params};
 use crate::pack::config::param::parse_params;
 #[cfg(since_647)]
 use crate::pack::pack::ConfigSections;
@@ -29,7 +29,7 @@ pub fn pack_objs(
     let varobjs = parse_config_sections_cached(file_cache, "varobj", constants)?;
 
     #[cfg(since_647)]
-    let client_params = registry.param.client_count();
+    let cache_params = cache_params(file_cache, &registry.param);
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -58,7 +58,7 @@ pub fn pack_objs(
             continue;
         };
         #[cfg(since_647)]
-        let props = &mark_client_params(props, &registry.param, client_params);
+        let props = &mark_client_params(props, &registry.param, &cache_params);
         #[cfg(since_647)]
         let has_objvar = props.iter().any(|(key, _)| key == "objvar");
         #[cfg(before_647)]

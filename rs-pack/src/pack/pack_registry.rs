@@ -31,7 +31,6 @@ pub struct PackEntries {
     pub debugname_to_id: HashMap<String, PackId>,
     identifiers: HashMap<String, PackId>,
     pub max: PackId,
-    pub client_count: Option<PackId>,
     key: Key,
 }
 
@@ -62,18 +61,9 @@ impl PackFile {
         let mut id_to_debugname = HashMap::new();
         let mut debugname_to_id = HashMap::new();
         let mut max: PackId = 0;
-        let mut client_count = None;
 
         for line in text.lines() {
             let line = line.trim();
-            if let Some(count) = line.strip_prefix("// client_count=") {
-                client_count = Some(
-                    count
-                        .parse()
-                        .expect("Invalid client_count in pack registry"),
-                );
-                continue;
-            }
             if line.is_empty() {
                 continue;
             }
@@ -97,18 +87,10 @@ impl PackFile {
                 id_to_debugname,
                 debugname_to_id,
                 max,
-                client_count,
                 key: Hash::new("registry").bytes(text.as_bytes()).key(),
             }),
             lookups: None,
         }
-    }
-
-    pub fn client_count(&self) -> PackId {
-        if let Some((kind, lookups)) = &self.lookups {
-            lookups.record(b'w', kind, "", || answer(Some(self.key)));
-        }
-        self.client_count.unwrap_or(self.max)
     }
 
     pub fn get_by_debugname(&self, debugname: &str) -> Option<PackId> {
@@ -613,46 +595,6 @@ impl PackRegistry {
         })
     }
 
-    pub fn check_client_ids(&self) -> Result<()> {
-        #[cfg_attr(before_254, allow(clippy::single_element_loop))]
-        for (kind, pack) in [
-            ("varp", &self.varp),
-            #[cfg(since_647)]
-            ("varpstr", &self.varpstr),
-            #[cfg(since_254)]
-            ("varpbit", &self.varbit),
-        ] {
-            if let Some(count) = pack.client_count {
-                let mut added: Vec<_> = pack
-                    .id_to_debugname
-                    .iter()
-                    .filter(|&(&id, _name)| {
-                        #[cfg(since_647)]
-                        if kind == "varp"
-                            && self
-                                .varpstr
-                                .get_by_debugname(_name)
-                                .is_some_and(|id| id < self.varpstr.client_count())
-                        {
-                            return false;
-                        }
-                        id >= count
-                    })
-                    .collect();
-                added.sort();
-                if !added.is_empty() {
-                    let names = added
-                        .iter()
-                        .map(|(id, name)| format!("{id}={name}"))
-                        .collect::<Vec<_>>()
-                        .join(", ");
-                    bail!("{kind}.pack: ids outside the client's {count} entries: {names}");
-                }
-            }
-        }
-        Ok(())
-    }
-
     pub fn check_content(&self, fc: &FileCache) -> Result<()> {
         let mut errors = Vec::new();
         let dbtable = PackFile::load(&self.pack_dir.join("dbtable.pack"))?;
@@ -883,13 +825,10 @@ pub(crate) fn save_pack_file(path: &Path, pack: &PackFile) -> Result<()> {
         .map(|(&id, name)| (id, name.as_str()))
         .collect();
     lines.sort_by_key(|(id, _)| *id);
-    let mut content: String = lines
+    let content: String = lines
         .iter()
         .map(|(id, name)| format!("{id}={name}\n"))
         .collect();
-    if let Some(count) = pack.client_count {
-        content.insert_str(0, &format!("// client_count={count}\n"));
-    }
     replace(path, content.as_bytes())?;
     Ok(())
 }
@@ -902,38 +841,32 @@ mod tests {
 
     #[cfg(since_647)]
     #[test]
-    fn client_configs_follow_registry_ids_in_any_source_file() {
+    fn the_cache_tables_hold_the_unpack_sections_of_every_kind() {
+        use crate::pack::config::client_table;
         let dir = env::temp_dir().join(format!("rs-majula-config-paths-{}", process::id()));
         let scripts = dir.join("scripts/feature/configs");
+        let unpack = dir.join("scripts/_unpack");
         fs::create_dir_all(&scripts).unwrap();
-        let pack = PackFile::parse("// client_count=2\n0=first\n1=last\n2=server\n");
+        fs::create_dir_all(&unpack).unwrap();
+        let pack = PackFile::parse("0=first\n1=server\n3=last\n4=after\n");
         let kinds = FileCache::TEXT_EXTS
             .iter()
             .filter(|&&kind| !matches!(kind, "constant" | "if"));
         for &kind in kinds {
+            fs::write(unpack.join(format!("all.{kind}")), "[first]\n\n[last]\n").unwrap();
             fs::write(
                 scripts.join(format!("anything.{kind}")),
-                "[first]\n[last]\n[server]\n",
+                "[server]\n\n[after]\n",
             )
             .unwrap();
             let fc = FileCache::new(&dir.join("scripts"));
-            let configs = fc.client_configs(kind, &pack, &HashMap::new()).unwrap();
-            assert!(configs.contains_key("first"), "{kind}");
-            assert!(configs.contains_key("last"), "{kind}");
-            assert!(!configs.contains_key("server"), "{kind}");
+            let table = client_table(&fc, kind, &pack, &HashMap::new()).unwrap();
+            let lengths: Vec<_> = PackedData::entries(&table.dat, &table.idx)
+                .unwrap()
+                .map(|(_, bytes)| bytes.len())
+                .collect();
+            assert_eq!(lengths, [1, 1, 0, 1], "{kind}");
         }
-        let path = dir.join("varp.pack");
-        save_pack_file(&path, &pack).unwrap();
-        assert_eq!(PackFile::load(&path).unwrap().client_count(), 2);
-        let error = PackRegistry::load(&dir)
-            .unwrap()
-            .check_client_ids()
-            .unwrap_err()
-            .to_string();
-        assert!(
-            error.contains("varp.pack: ids outside the client's 2 entries: 2=server"),
-            "{error}"
-        );
         fs::remove_dir_all(&dir).unwrap();
     }
 

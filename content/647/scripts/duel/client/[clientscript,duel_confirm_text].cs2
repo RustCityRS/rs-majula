@@ -5,15 +5,15 @@ def_int $int1 = 0;
 def_obj $obj2 = null;
 def_string $string0 = "";
 def_string $string1 = "";
-def_int $int3 = inv_size(inv_134);
+def_int $int3 = inv_size(dueloffer);
 def_obj $objarray0($int3);
 def_int $intarray1($int3);
 def_int $int4 = 0;
 def_int $int5 = 99;
 def_int $int6 = 0;
 while ($int0 < $int3) {
-    $obj2 = inv_getobj(inv_134, $int0);
-    $int1 = inv_getnum(inv_134, $int0);
+    $obj2 = inv_getobj(dueloffer, $int0);
+    $int1 = inv_getnum(dueloffer, $int0);
     if ($obj2 ! null) {
         $int5 = 99;
         $int6 = 0;
@@ -59,8 +59,8 @@ while ($int4 < $int3) {
 $int4 = 0;
 $int6 = 0;
 while ($int0 < $int3) {
-    $obj2 = invother_getobj(inv_134, $int0);
-    $int1 = invother_getnum(inv_134, $int0);
+    $obj2 = invother_getobj(dueloffer, $int0);
+    $int1 = invother_getnum(dueloffer, $int0);
     if ($obj2 ! null) {
         $int5 = 99;
         $int6 = 0;

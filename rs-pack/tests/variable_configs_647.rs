@@ -32,13 +32,14 @@ fn shared_variable_files_route_strings_and_controller_bits() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("variable-configs-647");
     let scripts = path.join("scripts");
     let pack = path.join("pack");
+    let _ = fs::remove_dir_all(&path);
     fs::create_dir_all(&scripts).unwrap();
     fs::create_dir_all(&pack).unwrap();
     for (kind, text) in [
-        ("varp", "// client_count=1\n0=player_int\n1=player_string\n"),
-        ("varpstr", "// client_count=1\n0=player_string\n"),
-        ("vars", "// client_count=1\n0=world_int\n1=world_string\n"),
-        ("varsstr", "// client_count=1\n0=world_string\n"),
+        ("varp", "0=player_int\n1=player_string\n"),
+        ("varpstr", "0=player_string\n"),
+        ("vars", "0=world_int\n1=world_string\n"),
+        ("varsstr", "0=world_string\n"),
         ("varpbit", "0=player_bits\n"),
         ("varcon", "0=controller_int\n"),
         ("varconbit", "0=controller_bits\n"),
@@ -71,7 +72,6 @@ fn shared_variable_files_route_strings_and_controller_bits() {
     let registry = PackRegistry::load(&pack).unwrap();
     let files = FileCache::new(&scripts);
     let constants = HashMap::new();
-    registry.check_client_ids().unwrap();
     registry.check_content(&files).unwrap();
 
     let varps = pack_varps(&files, &registry, &constants).unwrap();

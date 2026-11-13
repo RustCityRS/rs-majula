@@ -1,6 +1,6 @@
 use super::config_entry;
 #[cfg(since_647)]
-use super::{client_table, is_string_var};
+use super::{client_table, client_table_of, is_string_var};
 #[cfg(since_647)]
 use crate::pack::pack::ConfigSections;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -94,19 +94,10 @@ fn client_var_table(
             }
         }
     }
-    let count = pack.client_count();
-    let mut client = PackedData::new(count);
-    for id in 0..count {
-        if pack
-            .get_by_id(id)
-            .and_then(|name| configs.get(name))
-            .is_some_and(|props| is_string_var(props) == strings)
-        {
-            client.start_entry();
-            client.finish_entry();
-        } else {
-            client.skip_entry();
-        }
-    }
-    Ok(client)
+    Ok(client_table_of(
+        configs,
+        pack,
+        |_, props| is_string_var(props) == strings,
+        |_, _, _| {},
+    ))
 }

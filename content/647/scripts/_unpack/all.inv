@@ -2026,20 +2026,30 @@ stock2=guthix_staff,5,100
 stock3=zamorak_staff,5,100
 
 // 133
-[inv_133]
+[deathkeep]
+// From 289's player.inv: what a player keeps while they die.
 size=4
 
 // 134
-[inv_134]
+[dueloffer]
 size=9
+protect=no
 
 // 135
-[inv_135]
+[duel_rottenfruitshop]
+// https://oldschool.runescape.wiki/w/Shop_of_Distaste
+// https://storage.googleapis.com/tannerdino/images/rsduel6.gif (full stocks)
 size=1
+scope=shared
+restock=yes
+stackall=yes
+allstock=no
+stock1=rotten_tomato,2000,10
 
 // 136
-[inv_136]
+[duelwinnings]
 size=9
+protect=no
 
 // 137
 [aprilfoolshorseshop]
@@ -2121,8 +2131,9 @@ dummyinv=yes
 size=9
 
 // 142
-[inv_142]
+[duelarrows]
 size=29
+protect=no
 
 // 143
 [werewolfstore1]

@@ -11,8 +11,6 @@ use crate::pack::interface;
 use crate::pack::names::AssetNames;
 #[cfg(since_647)]
 use crate::pack::other::{map, shader, song};
-#[cfg(since_647)]
-use crate::pack::pack_registry::PackFile;
 use crate::pack::pack_registry::{PackRegistry, PackedFile, validate_config_packs};
 use crate::pack::util::verify_crc;
 #[cfg(since_647)]
@@ -416,19 +414,6 @@ impl FileCache {
         Self { by_ext, contents }
     }
 
-    #[cfg(since_647)]
-    pub fn client_configs(
-        &self,
-        ext: &str,
-        pack: &PackFile,
-        constants: &HashMap<String, String>,
-    ) -> Result<ConfigSections> {
-        let count = pack.client_count();
-        let mut configs = parse_config_sections_cached(self, ext, constants)?;
-        configs.retain(|name, _| pack.get_by_debugname(name).is_some_and(|id| id < count));
-        Ok(configs)
-    }
-
     pub fn collect(&self, ext: &str) -> &[PathBuf] {
         self.by_ext.get(ext).map(|v| v.as_slice()).unwrap_or(&[])
     }
@@ -703,11 +688,7 @@ pub fn check_configs(files: &ConfigFiles, pack_dir: &Path, verify: bool) -> Resu
     );
     check.unit(0, &files.with_ext(FileCache::TEXT_EXTS), || {
         validate_config_packs(files.read(), pack_dir, verify)?;
-        let registry = PackRegistry::load(pack_dir)?;
-        registry.check_content(files.read())?;
-        if verify {
-            registry.check_client_ids()?;
-        }
+        PackRegistry::load(pack_dir)?.check_content(files.read())?;
         Ok(Vec::new())
     })?;
     check.finish(vec![("pack".to_owned(), registry_key(pack_dir))]);

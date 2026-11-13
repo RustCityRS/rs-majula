@@ -16,30 +16,23 @@ pub fn pack_varbits(
     let configs = parse_config_sections_cached(file_cache, "varpbit", constants)?;
 
     let mut server = PackedData::new(pack.max);
-    let client_count = pack.client_count();
-    let mut client = PackedData::new(client_count);
+    let mut client = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
-        if id < client_count {
-            client.start_entry();
-        }
+        client.start_entry();
 
         let Some((debugname, props)) = config_entry("varpbit", pack, &configs, id) else {
             server.skip_entry();
-            if id < client_count {
-                client.skip_entry();
-            }
+            client.skip_entry();
             continue;
         };
 
         if let Some((basevar, startbit, endbit)) = bit_range(props, &registry.varp, "varp")? {
-            if id < client_count {
-                client.p1(1);
-                client.p2(basevar);
-                client.p1(startbit);
-                client.p1(endbit);
-            }
+            client.p1(1);
+            client.p2(basevar);
+            client.p1(startbit);
+            client.p1(endbit);
             server.p1(1);
             server.p2(basevar);
             server.p1(startbit);
@@ -52,9 +45,7 @@ pub fn pack_varbits(
 
         // done
         server.finish_entry();
-        if id < client_count {
-            client.finish_entry();
-        }
+        client.finish_entry();
     }
 
     Ok(PackedFile {

@@ -21,7 +21,7 @@ use rayon::prelude::*;
 #[cfg(since_647)]
 use rs_io::js5::{encode_group_entries, reference::FileInfo};
 #[cfg(since_647)]
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 #[cfg(since_647)]
 use std::path::Path;
 
@@ -248,8 +248,25 @@ fn write_config_archive(
     )
 }
 
-/// The cache's table for a type whose bodies only the server reads: one empty
-/// entry per registered client section.
+/// The sections of a kind's `_unpack/all.<kind>`: the configs the cache holds.
+/// A section anywhere else is the server's own.
+#[cfg(since_647)]
+pub(super) fn cache_sections(file_cache: &FileCache, kind: &str) -> HashSet<String> {
+    file_cache
+        .collect(kind)
+        .iter()
+        .filter(|path| path.components().any(|part| part.as_os_str() == "_unpack"))
+        .filter_map(|path| file_cache.read(path))
+        .flat_map(str::lines)
+        .filter_map(|line| {
+            let line = line.split("//").next().unwrap_or(line).trim();
+            line.strip_prefix('[')?.strip_suffix(']').map(str::to_owned)
+        })
+        .collect()
+}
+
+/// The cache's table for a type whose bodies only the server reads: an empty
+/// entry per section.
 #[cfg(since_647)]
 pub(super) fn client_table(
     file_cache: &FileCache,
@@ -260,13 +277,22 @@ pub(super) fn client_table(
     client_table_with(file_cache, kind, pack, constants, |_, _, _| {})
 }
 
-/// A param the client's table holds is written where it stands in the record,
-/// for both sides. Any other stays on the server.
+/// The ids of the params the cache holds.
+#[cfg(since_647)]
+pub(super) fn cache_params(file_cache: &FileCache, param: &PackFile) -> HashSet<PackId> {
+    cache_sections(file_cache, "param")
+        .iter()
+        .filter_map(|name| param.get_by_debugname(name))
+        .collect()
+}
+
+/// A param the cache holds is written where it stands in the record, for both
+/// sides. The server's own params stay on the server.
 #[cfg(since_647)]
 pub(super) fn mark_client_params(
     props: &[(String, String)],
     param: &PackFile,
-    client_params: PackId,
+    cache_params: &HashSet<PackId>,
 ) -> Vec<(String, String)> {
     props
         .iter()
@@ -275,40 +301,67 @@ pub(super) fn mark_client_params(
                 && value
                     .split_once(',')
                     .and_then(|(name, _)| param.get_by_debugname(name.trim()))
-                    .is_some_and(|id| id < client_params);
+                    .is_some_and(|id| cache_params.contains(&id));
             let key = if client { "clientparam" } else { key.as_str() };
             (key.to_owned(), value.clone())
         })
         .collect()
 }
 
-/// The cache's table: the entries the registry counts as the client's, each
-/// section written by `write`. Ids past them are the server's own configs,
-/// which stay out of the cache.
+/// The cache's table, each `_unpack` section written by `write`. It ends at the
+/// last of them. The server's own sections before that leave an empty entry and
+/// any after it stay out.
 #[cfg(since_647)]
 pub(super) fn client_table_with(
     file_cache: &FileCache,
     kind: &str,
     pack: &PackFile,
     constants: &HashMap<String, String>,
-    mut write: impl FnMut(&mut PackedData, &str, &ConfigProperties),
+    write: impl FnMut(&mut PackedData, &str, &ConfigProperties),
 ) -> Result<PackedData> {
-    let configs = file_cache.client_configs(kind, pack, constants)?;
-    let count = pack.client_count();
-    let mut client = PackedData::new(count);
-    for id in 0..count {
-        let section = pack
-            .get_by_id(id)
-            .and_then(|name| configs.get(name).map(|props| (name, props)));
-        if let Some((name, props)) = section {
-            client.start_entry();
-            write(&mut client, name, props);
-            client.finish_entry();
-        } else {
-            client.skip_entry();
+    let configs = parse_config_sections_cached(file_cache, kind, constants)?;
+    let cache = cache_sections(file_cache, kind);
+    Ok(client_table_of(
+        &configs,
+        pack,
+        |name, _| cache.contains(name),
+        write,
+    ))
+}
+
+/// [`client_table_with`] over parsed sections, with `client` telling which
+/// sections the cache holds.
+#[cfg(since_647)]
+pub(super) fn client_table_of(
+    configs: &ConfigSections,
+    pack: &PackFile,
+    client: impl Fn(&str, &ConfigProperties) -> bool,
+    mut write: impl FnMut(&mut PackedData, &str, &ConfigProperties),
+) -> PackedData {
+    let sections: Vec<_> = (0..pack.max)
+        .map(|id| {
+            pack.get_by_id(id)
+                .and_then(|name| configs.get(name).map(|props| (name, props)))
+        })
+        .collect();
+    let count = sections
+        .iter()
+        .rposition(|section| section.is_some_and(|(name, props)| client(name, props)))
+        .map_or(0, |last| last + 1);
+    let mut table = PackedData::new(count as PackId);
+    for section in &sections[..count] {
+        match section {
+            Some((name, props)) => {
+                table.start_entry();
+                if client(name, props) {
+                    write(&mut table, name, props);
+                }
+                table.finish_entry();
+            }
+            None => table.skip_entry(),
         }
     }
-    Ok(client)
+    table
 }
 
 /// A table only the client reads: an entry per section, by registry id.

@@ -1,6 +1,6 @@
 use super::config_entry;
 #[cfg(since_647)]
-use super::is_string_var;
+use super::{client_table_of, is_string_var};
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -18,25 +18,19 @@ pub fn pack_varps(
 
     let configs = parse_config_sections_cached(file_cache, "varp", constants)?;
 
-    #[cfg(since_647)]
-    let mut client_configs = file_cache.client_configs("varp", pack, constants)?;
-    #[cfg(since_647)]
-    client_configs.retain(|_, props| !is_string_var(props));
     let mut server = PackedData::new(pack.max);
-    let client_count = pack.client_count();
-    let mut client = PackedData::new(client_count);
+    #[cfg(before_647)]
+    let mut client = PackedData::new(pack.max);
 
     for id in 0..pack.max {
         server.start_entry();
-        if id < client_count {
-            client.start_entry();
-        }
+        #[cfg(before_647)]
+        client.start_entry();
 
         let Some((debugname, props)) = config_entry("varp", pack, &configs, id) else {
             server.skip_entry();
-            if id < client_count {
-                client.skip_entry();
-            }
+            #[cfg(before_647)]
+            client.skip_entry();
             continue;
         };
 
@@ -87,22 +81,6 @@ pub fn pack_varps(
             }
         }
 
-        #[cfg(since_647)]
-        if id < client_count {
-            if let Some(props) = client_configs.get(debugname) {
-                for (key, value) in props {
-                    if key == "clientcode" {
-                        parse_number(value, |value| {
-                            client.p1(5);
-                            client.p2(value);
-                        });
-                    }
-                }
-            } else {
-                client.skip_entry();
-            }
-        }
-
         // 250
         server.p1(250);
         server.pjstr(debugname);
@@ -111,11 +89,24 @@ pub fn pack_varps(
         server.finish_entry();
         #[cfg(before_647)]
         client.finish_entry();
-        #[cfg(since_647)]
-        if id < client_count && client_configs.contains_key(debugname) {
-            client.finish_entry();
-        }
     }
+
+    #[cfg(since_647)]
+    let client = client_table_of(
+        &configs,
+        pack,
+        |_, props| !is_string_var(props),
+        |client, _, props| {
+            for (key, value) in props {
+                if key == "clientcode" {
+                    parse_number(value, |value| {
+                        client.p1(5);
+                        client.p2(value);
+                    });
+                }
+            }
+        },
+    );
 
     Ok(PackedFile {
         server,
