@@ -109,10 +109,10 @@ if (npc_find(~uf_cellar_coord(34, 13), tutorial3_goblin, 4, 0) = true) {
     hint_npc_slot(0, 0, ^uf_hint_ring);
 }
 
-// The goblin: level 2, 50 life points, max hit 16; it never leaves its square, hits back once for
-// each hit, goes back to rummaging when left alone, and can be fought only in all three pieces of
-// the squire's gear, Sir Vant stopping you otherwise (the 2011 wiki's "Goblin (Unstable
-// Foundations)", 2011-04-16). Its op 1 is Attack (cache 786).
+// The goblin: level 2, 50 life points, max hit 16; it never leaves its square, goes back to
+// rummaging when left alone, and can be fought only in all three pieces of the squire's gear,
+// Sir Vant stopping you otherwise (the 2011 wiki's "Goblin (Unstable Foundations)", 2011-04-16).
+// Its op 1 is Attack (cache 786). Its side of the fight: uf_goblin.rs2.
 [apnpc1,tutorial3_goblin]
 if (~uf_goblin_may_fight = false) {
     return;
@@ -122,6 +122,11 @@ if (~uf_goblin_may_fight = false) {
 [opnpc1,tutorial3_goblin]
 if (~uf_goblin_may_fight = false) {
     return;
+}
+// It stands and turns to the player as their first swing starts, a tick before that hit shows
+// (4KO2h2xPtdM 2011-04-30: turned @96.55, the hit @97.13).
+if (%npc_attacking_uid = null & %action_delay <= map_clock) {
+    npc_facesquare(coord);
 }
 @player_combat_start;
 
@@ -143,18 +148,6 @@ if (~uf_kit_held = 3) {
     ~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>Wait! You're not properly armed.|Pick up the kit dropped by my squire, then attack the goblin when you've equipped it.");
 }
 return(false);
-
-// It hits back once for each hit it takes, from its own square: never the default retaliation's
-// opplayer2 mode, which would follow the player and keep attacking.
-[ai_queue1,tutorial3_goblin]
-if (finduid(%npc_aggressive_player) = false) {
-    return;
-}
-if (npc_range(coord) > 1) {
-    return;
-}
-%npc_attacking_uid = %npc_aggressive_player;
-gosub(npc_default_attack);
 
 [ai_queue3,tutorial3_goblin]
 if (finduid(%npc_aggressive_player) = true) {

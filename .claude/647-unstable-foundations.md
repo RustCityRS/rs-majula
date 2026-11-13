@@ -1859,8 +1859,23 @@ What the overlay does:
   (4KO2h2xPtdM, cut @46.42): it lands crouched by the pillar (seq 9965, +0.41 s), walks on the
   shot's tick 4 (+2.31..2.38 s), "Ooh, shiny!" on tick 5 (+3.05 s), rummages (seq 9963) from
   tick 8 (+5.09 s); from stage 10 the cellar builds it at the bag, rummaging. Not known from
-  any source: whether 2011 played seq 9966 at the pillar, and when the goblin goes back to
-  rummaging after a hit.
+  any source: whether 2011 played seq 9966 at the pillar.
+- The goblin's fight: done (uf_goblin.rs2). Ours hit back once per hit taken, never turned from
+  the bag and kept muttering. 2011's, from two recordings:
+  - Kw7h2jY9ANQ (2011-05-13) @197.5-210: it stands on its square facing the player and hits
+    @198.1, 200.0, 201.8, 203.6, 205.5, 207.2, 209.1 (every 3 ticks, seven hits) against the
+    player's six (@197.6-209.7, every 4). So the wiki's "only hits back once per player's hit"
+    does not hold there; it fights on its own 3-tick cycle (`param=attackrate,3`).
+  - 4KO2h2xPtdM (2011-04-30): bent at the bag until @96.55, it stands and turns as the player's
+    first swing starts; that hit shows @97.13, its own @97.67, 99.55, 101.4: its first swing is
+    two ticks after the player's.
+  - Neither fight shows a mutter.
+  Ours now: `npc_facesquare(coord)` on the player's first swing, `npc_setmode(playerface)` from
+  the first hit's ai_queue1 (a tick later, with 289's half-rate flinch), swings from its
+  every-tick ai_timer (the modes that run ai_opplayer2 walk after the target), no mutters while
+  it fights. Not known from any source: how soon it goes back to rummaging when left alone (the
+  wiki only says it does, "even if you are still within melee range"); ours is 289's 8 ticks
+  after the last hit it took (`%npc_lastcombat`).
 - The hint arrow and ring with the arrow keys. At the first Task 2011 drops them as ours does:
   vGlx_SDOI7s (2011-02-28) has the ring under the player @13-16.6 (blinking: out @16.4, back
   @16.6) while the camera starts to turn @16.2, and gone @16.8 as the panel goes on to "Talk to

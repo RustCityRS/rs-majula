@@ -343,6 +343,13 @@ fn npc_anim_sent(packets: &[(u16, Vec<u8>)], seq: u16) -> bool {
         .any(|(_, body)| body.windows(block.len()).any(|w| w == block))
 }
 
+/// Whether a tick's packets play synth sound `id` (SYNTH_SOUND).
+fn synth_sent(packets: &[(u16, Vec<u8>)], id: u16) -> bool {
+    packets
+        .iter()
+        .any(|(op, body)| *op == ServerProt::SynthSound as u16 && body[..2] == id.to_be_bytes())
+}
+
 /// The voice-over clips a tick's packets play.
 fn speech(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
     packets
@@ -1326,19 +1333,101 @@ fn the_squires_gear_and_the_goblin() {
             hints(&wearing)
         );
 
+        // The fight. 2011's goblin stands and turns to the player as the player's first swing
+        // starts, and hits every 3 ticks from its square, the first two ticks after that swing
+        // (4KO2h2xPtdM 2011-04-30: turned @96.55, hit @97.13, its hits @97.67, 99.55, 101.4;
+        // Kw7h2jY9ANQ 2011-05-13: its seven hits @198.1-209.1 against the player's six).
+        const GOBLIN_ATTACK: u16 = 6184;
+        const GOBLIN_ATTACK_SOUND: u16 = 469;
+        const RUMMAGE: u16 = 9963;
+        const MUTTERS: [&str; 4] = ["Heh heh heh.", "Mine, all mine!", "Ooh!", "Me get rich!"];
+        let home = npc_tile(engine, "tutorial3_goblin").expect("the goblin");
+        let bag = Some((CoordGrid::fine(home.0 + 1, 1), CoordGrid::fine(home.1, 1)));
+        assert_eq!(npc_face(engine, "tutorial3_goblin"), bag, "at the bag");
+        assert!(!npc_has_target(engine, "tutorial3_goblin"));
+        opnpc1(&mut client, goblin);
+        let (mut faced, mut turned, mut swing) = (None, None, None);
+        for tick in 0..60 {
+            engine.cycle();
+            let now = client.packets();
+            let player = engine.harness_player(client.pid).unwrap().pathing.coord;
+            let to_player = Some((
+                CoordGrid::fine(player.x(), 1),
+                CoordGrid::fine(player.z(), 1),
+            ));
+            if faced.is_none() && npc_face(engine, "tutorial3_goblin") == to_player {
+                faced = Some(tick);
+            }
+            if turned.is_none() && npc_has_target(engine, "tutorial3_goblin") {
+                turned = Some(tick);
+            }
+            if npc_anim_sent(&now, GOBLIN_ATTACK) {
+                swing = Some(tick);
+                break;
+            }
+        }
+        let first = faced.expect("the goblin turns to the player");
+        assert_eq!(turned, Some(first + 1), "and keeps facing them");
+        assert_eq!(swing, Some(first + 2), "its first swing");
+
+        // Left alone it goes back to the bag, even with the player in reach (the 2011 wiki's
+        // page, 2011-04-16). When: no source; here 289's 8 ticks after the last hit.
+        let (wx, wz) = at(30, 9);
+        walk_to(&mut client, wx, wz);
+        let mut back = None;
+        for tick in 0..12 {
+            engine.cycle();
+            let now = client.packets();
+            assert!(
+                !npc_anim_sent(&now, GOBLIN_ATTACK),
+                "no swing at a player out of reach (tick {tick})"
+            );
+            assert_eq!(npc_tile(engine, "tutorial3_goblin"), Some(home));
+            if back.is_none() && !npc_has_target(engine, "tutorial3_goblin") {
+                back = Some(tick);
+                assert!(npc_anim_sent(&now, RUMMAGE), "rummaging again");
+                assert_eq!(npc_face(engine, "tutorial3_goblin"), bag);
+            }
+        }
+        assert_eq!(back, Some(5), "back at the bag 8 ticks after the hit");
+
         // The fight, to the goblin's end and Sir Vant's s007.
         opnpc1(&mut client, goblin);
         let mut packets = Vec::new();
+        let mut swings: Vec<usize> = Vec::new();
+        let mut unbroken = false;
         for tick in 0..900 {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
             engine.cycle();
-            packets.extend(client.packets());
+            let now = client.packets();
+            let fighting = npc_has_target(engine, "tutorial3_goblin");
+            if let Some(tile) = npc_tile(engine, "tutorial3_goblin") {
+                assert_eq!(tile, home, "it never leaves its square");
+            }
+            if fighting {
+                for line in MUTTERS {
+                    assert!(!sent_text(&now, line), "{line} in a fight (tick {tick})");
+                }
+            } else {
+                unbroken = false;
+            }
+            // By its attack's sound: on a tick the player's hit lands too, the goblin's defend
+            // anim (set later in the tick, same priority or higher) takes the swing's place.
+            if synth_sent(&now, GOBLIN_ATTACK_SOUND) {
+                if unbroken {
+                    assert_eq!(tick - swings[swings.len() - 1], 3, "a swing every 3 ticks");
+                }
+                swings.push(tick);
+                unbroken = true;
+            }
+            packets.extend(now);
             if progress(engine, &client) == 45 {
                 break;
             }
         }
+        assert!(swings.len() >= 2, "it fights back: {swings:?}");
         packets.extend(cycles(engine, &mut client, 2));
         assert_eq!(progress(engine, &client), 45, "Find Out Sir Vant's Plan");
         assert_eq!(

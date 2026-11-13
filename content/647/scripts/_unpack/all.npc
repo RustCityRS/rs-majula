@@ -203127,6 +203127,8 @@ param=crushdefence,-15
 param=magicdefence,-15
 param=rangedefence,-15
 param=damagetype,^crush_style
+// A hit every 3 ticks: seven between 198.1 s and 209.1 s of Kw7h2jY9ANQ (2011-05-13).
+param=attackrate,3
 param=attack_anim,slice_surface_goblin_squat_unarmed_attack
 param=defend_anim,slice_surface_goblin_defend
 param=death_anim,slice_surface_goblin_death
