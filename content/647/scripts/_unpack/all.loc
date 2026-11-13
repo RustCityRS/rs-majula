@@ -377018,8 +377018,8 @@ model=1,model_27252
 name=Door
 cursor1=1,cursor_open
 desc=Stops people getting out.
-category=door_closed
-param=next_loc_stage,di2_singleprisondoor_open_inactive
+category=double_door_open_and_close_right
+param=next_loc_stage,di2_doubleprisondoorr_open_inactive
 
 // 31842
 [hw10_bed]
@@ -377064,6 +377064,8 @@ model=1,model_27252
 name=Door
 cursor1=1,cursor_open
 desc=Stops people getting out.
+category=double_door_open_and_close_left
+param=next_loc_stage,di2_doubleprisondoorl_open_inactive
 
 // 31845
 [hw10_portal]

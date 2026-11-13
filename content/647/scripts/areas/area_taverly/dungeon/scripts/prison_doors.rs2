@@ -1,0 +1,45 @@
+// The gate to the Cauldron of Thunder and its two suits of armour: 289's prison_doors.rs2 line for line.
+// R = recording of 27 April 2011 (YouTube agUATXHTRIg); C = cache 786.
+//
+// C: 2011's gate is di2_doubleprisondoorr/l (31841/31844) at 0_45_153_8_38 and _8_39, angle 2 (maps/l45_153.jm2).
+//    289's cauldrondoor stood on the tile east of the same wall line (x 9, angle 0), so the gate's own tile was
+//    the cauldron's side. In 2011 the gate's own tile is the suits' side, and 289's $inside reads the other way.
+// C: the suits are di2_suitofarmour (32292) on 289's two tiles, _7_37 and _7_40.
+// C: the same two locs are the dungeon's two other gates (0_45_153_13_33 and 0_45_154_29_54), which 289 has as
+//    doors that stay open (loc_1542/1544, loc_1557/1558). 2011's only open forms are the two _open_inactive
+//    locs, which have no Close, so those two gates take the walk-through this one has. No source shows them.
+[label,taverley_dungeon_open_doors](int $side)
+def_coord $southern_position = 0_45_153_7_37;
+def_coord $northern_position = 0_45_153_7_40;
+def_boolean $outside = ~check_axis(coord, loc_coord, loc_angle);
+if ($outside = true) {
+    if (.loc_find($northern_position, di2_suitofarmour) = true) {
+        .loc_del(500);
+        mes("Suddenly the suit of armour comes to life!"); // R
+        npc_add($northern_position, suit_of_armour, 500);
+        ~npc_retaliate(0);
+        return;
+    }
+    if (.loc_find($southern_position, di2_suitofarmour) = true) {
+        .loc_del(500);
+        mes("Suddenly the suit of armour comes to life!"); // R
+        npc_add($southern_position, suit_of_armour, 500);
+        ~npc_retaliate(0);
+        return;
+    }
+    ~open_and_close_double_door2($outside, $side, iron_door_open); // 289: no source for 2011's sound
+    return;
+}
+~open_and_close_double_door2($outside, $side, iron_door_open);
+
+[oploc1,di2_doubleprisondoorr]
+if (loc_coord = 0_45_153_8_38) {
+    @taverley_dungeon_open_doors(^right);
+}
+~open_and_close_double_door(~check_axis_locactive(coord), ^right);
+
+[oploc1,di2_doubleprisondoorl]
+if (loc_coord = 0_45_153_8_39) {
+    @taverley_dungeon_open_doors(^left);
+}
+~open_and_close_double_door(~check_axis_locactive(coord), ^left);
