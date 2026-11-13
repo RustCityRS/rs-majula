@@ -6,10 +6,10 @@ use crate::util::*;
 use crate::{ScriptError, active_player_mut, handlers, none};
 use rs_inv::{Item, StackMode};
 use rs_pack::cache::inv::{InvScope, InvType};
-use rs_pack::cache::script::*;
 use rs_pack::types::DummyItem;
 #[cfg(since_647)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
+use runec::opcodes::*;
 
 /// Registers inventory management opcodes for adding, removing, moving,
 /// querying, and transmitting item data to the client.

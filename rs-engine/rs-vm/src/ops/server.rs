@@ -10,7 +10,7 @@ use crate::util::{halfsq, pop_projanim_tail};
 use crate::util::{pop_coord, pop_seq, pop_spotanim};
 use crate::{handlers, none};
 use rs_grid::CoordGrid;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// Registers server and world-level opcodes for coordinate utilities, map queries,
 /// pathfinding checks, projectile animations, and zone management.

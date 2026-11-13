@@ -6,9 +6,9 @@ use crate::util::*;
 use crate::{ScriptError, active_obj, handlers, iterators, none};
 use rs_inv::Item;
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
 #[cfg(since_647)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
+use runec::opcodes::*;
 
 /// Registers ground-item (obj) opcodes for spawning, removing, picking up,
 /// and querying items that exist on the world map.
@@ -253,7 +253,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(obj.id as i32);
         });
 
-        // 3531
+        // 3512
         #[cfg(since_647)]
         active_obj!(m, OBJ_GETVAR => |s, obj| {
             let varobj = pop_varobj::<E>(s)?;
@@ -262,7 +262,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(getbit_range(var, varobj.start_bit as i32, varobj.end_bit as i32));
         });
 
-        // 3532
+        // 3513
         // https://x.com/JagexAsh/status/1679942100249464833
         #[cfg(since_647)]
         active_obj!(m, OBJ_SETVAR => |s, obj| {

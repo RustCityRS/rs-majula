@@ -16,8 +16,8 @@ use crate::util::{pop_coord, pop_param, pop_seq, set_active_loc};
 use crate::{ScriptError, active_loc, handlers, none};
 use num_enum::TryFromPrimitive;
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
 use rs_pack::types::{LocAngle, LocShape};
+use runec::opcodes::*;
 
 /// Registers location (scenery) opcodes for adding, removing, changing,
 /// finding, animating, and querying world locations.

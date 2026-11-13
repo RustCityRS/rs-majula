@@ -15,7 +15,7 @@
 use crate::register::OpsRegistry;
 use crate::state::ExecutionState;
 use crate::{handlers, none};
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 use std::cell::{Cell, RefCell};
 use std::mem;
 use tracing::info;
@@ -42,7 +42,7 @@ thread_local! {
     static RESULTS: RefCell<Vec<AssertionResult>> = const { RefCell::new(Vec::new()) };
     static CALL_LOG: RefCell<Vec<CallRecord>> = const { RefCell::new(Vec::new()) };
     static RECORDING: Cell<bool> = const { Cell::new(false) };
-    static EXPECT_FAIL: Cell<bool> = const { Cell::new(false) };
+    static FAIL_EXPECTED: Cell<bool> = const { Cell::new(false) };
     static WAIT_CURSOR: Cell<usize> = const { Cell::new(0) };
 }
 
@@ -128,14 +128,14 @@ pub fn forget_calls() {
 
 /// Whether the running test declared `expect_fail`.
 pub fn is_expect_fail() -> bool {
-    EXPECT_FAIL.with(|f| f.get())
+    FAIL_EXPECTED.with(|f| f.get())
 }
 
 /// Resets results, the call log and `expect_fail` for the next test.
 pub fn clear() {
     RESULTS.with(|r| r.borrow_mut().clear());
     CALL_LOG.with(|log| log.borrow_mut().clear());
-    EXPECT_FAIL.with(|f| f.set(false));
+    FAIL_EXPECTED.with(|f| f.set(false));
     WAIT_CURSOR.with(|c| c.set(0));
 }
 
@@ -169,7 +169,7 @@ fn called_listing(name: &str, calls: &[String]) -> String {
 ///
 /// # Opcodes Registered
 ///
-/// - `ASSERT_*`, `TEST_FAIL`, `TEST_EXPECT_FAIL` -- assertions.
+/// - `ASSERT_*`, `TEST_FAIL`, `EXPECT_FAIL` -- assertions.
 /// - `ASSERT_CALLED`, `ASSERT_CALLED_WITH` -- read the call log. They take the
 ///   command's *name*: in RuneScript a bare `mes` is a call to `mes`, so the
 ///   command cannot be passed as itself.
@@ -355,8 +355,8 @@ pub fn build() -> OpsRegistry {
         });
 
         // 50014
-        none!(m, TEST_EXPECT_FAIL => |_s| {
-            EXPECT_FAIL.with(|f| f.set(true));
+        none!(m, EXPECT_FAIL => |_s| {
+            FAIL_EXPECTED.with(|f| f.set(true));
         });
 
         // 50050

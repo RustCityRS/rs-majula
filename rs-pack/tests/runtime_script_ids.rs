@@ -1,6 +1,7 @@
-use rs_pack::cache::script::{GOSUB_WITH_PARAMS, ScriptProvider};
+use rs_pack::cache::script::ScriptProvider;
 use rs_pack::compile_scripts;
 use rs_pack::pack::incremental;
+use runec::opcodes::GOSUB_WITH_PARAMS;
 use std::env;
 use std::fs::{self, File, FileTimes};
 use std::path::Path;

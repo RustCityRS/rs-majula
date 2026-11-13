@@ -1,5 +1,10 @@
 use crate::state::ScriptState;
-use rs_pack::cache::script::LAST;
+
+/// One past the highest opcode a handler can take.
+#[cfg(before_647)]
+const LAST: u16 = 11000;
+#[cfg(since_647)]
+const LAST: u16 = 50101;
 
 /// A script opcode handler function pointer.
 ///

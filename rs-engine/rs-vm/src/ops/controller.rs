@@ -4,7 +4,7 @@ use crate::register::OpsRegistry;
 use crate::state::ScriptState;
 use crate::util::{pop_coord, pop_script};
 use crate::{ControllerUid, ScriptError, handlers, none};
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// The active controller, or with `secondary` the `.active_controller` a
 /// dot-prefixed command or var names, as npcs have.

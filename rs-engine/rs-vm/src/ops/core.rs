@@ -9,9 +9,9 @@ use rs_pack::cache::ScriptVarType;
 use rs_pack::cache::VarValue;
 #[cfg(since_254)]
 use rs_pack::cache::provider::CacheType;
-use rs_pack::cache::script::*;
 #[cfg(since_254)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
+use runec::opcodes::*;
 
 const MAX_ARRAY_SIZE: i32 = 5000;
 
@@ -575,6 +575,7 @@ fn array_element(s: &mut ScriptState, id: i32, index: i32) -> Result<&mut i32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_pack::cache::script::ScriptProvider;
     use runec::project::{Options, Project, Target};
     use runec::sources::Scope;
     use runec::symbol::SymbolRegistry;

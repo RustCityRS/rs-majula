@@ -345,7 +345,7 @@ sequenceDiagram
 
 `OpsRegistry` (`rs-vm/src/register.rs:21`) is the VM's instruction-set: a **function-pointer
 table indexed by opcode**. Internally it is a `Box<[Option<Handler>; LAST]>` plus a populated
-`count`, where `LAST = 11000` (`script.rs:680`) is the opcode-space size and `Handler` is
+`count`, where `LAST` (`register.rs`: 11000, or 50101 at rev 647) is the opcode-space size and `Handler` is
 `fn(&mut ScriptState) -> crate::Result<()>` (`register.rs:9`).
 
 | Method                      | Behavior                                           | Cost                  |
@@ -649,7 +649,7 @@ This section is the instruction-set reference for the `rs-vm` RuneScript interpr
 produces operands on the script stacks, how it mutates the world (almost always through the `ScriptEngine`/
 `ScriptPlayer`/`ScriptNpc` traits in `rs-vm/src/engine.rs`), and how the config-type families (`oc`/`nc`/`lc`/`enum`/
 `struct`/`db`) read static definitions out of the cache. The opcode numeric space is partitioned into contiguous ranges
-by category; the `LAST` sentinel (`11000`, `rs-pack/src/cache/script.rs:680`) bounds the whole space and sizes the
+by category; the `LAST` sentinel (`rs-vm/src/register.rs`: 11000, or 50101 at rev 647) bounds the whole space and sizes the
 dispatch table.
 
 RuneScript is the in-house scripting language of the LostCity/2004scape lineage. Each compiled `Script` is a flat array
@@ -755,10 +755,11 @@ mutate the whole world without threading the engine through every call.
 
 ### Opcode-number space
 
-Each family owns a contiguous numeric block, defined as `pub const` opcode IDs in `rs-pack/src/cache/script.rs`. The
-table below is grounded in the first/last constants observed in that file and the per-module handler ranges.
+Each family owns a contiguous numeric block, defined as `pub const` opcode IDs in rs-compiler's `runec::opcodes`, the
+same at every revision; each revision's `command.pack` lists the commands it has at those IDs. The table below is
+grounded in the first/last constants in that module and the per-module handler ranges.
 
-| Family (module)                      | Numeric range | First → last (script.rs)                        | Reaches                                      |
+| Family (module)                      | Numeric range | First → last (runec::opcodes)                   | Reaches                                      |
 |--------------------------------------|---------------|-------------------------------------------------|----------------------------------------------|
 | `core` — control flow / stack / vars | 0–46          | `PUSH_CONSTANT_INT=0` … `POP_ARRAY_INT=46`      | ScriptState, varp/varn cache, engine scripts |
 | `server` — world/map                 | 1000–1021     | `COORDX=1000` … `WORLD_DELAY=1021`              | engine, cache, `rsmod` pathfinding           |

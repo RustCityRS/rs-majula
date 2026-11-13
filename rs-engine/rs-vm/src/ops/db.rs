@@ -5,7 +5,7 @@ use crate::util::pop_dbrow;
 use crate::{ScriptError, handlers, none};
 use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::cache::dbtable::{DbIndexKey, DbTableValue};
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 use rustc_hash::FxHashSet;
 use std::mem;
 

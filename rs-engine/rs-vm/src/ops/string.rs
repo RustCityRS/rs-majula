@@ -3,7 +3,7 @@ use crate::register::OpsRegistry;
 use crate::util::pop_font;
 use crate::{ScriptError, active_player, handlers, none};
 use itoa::Buffer;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// Registers string manipulation opcodes for concatenation, conversion,
 /// comparison, searching, and text pagination.

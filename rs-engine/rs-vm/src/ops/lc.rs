@@ -3,7 +3,7 @@ use crate::register::OpsRegistry;
 use crate::util::{pop_loc, pop_param};
 use crate::{ScriptError, handlers, none};
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
     handlers! { |m|

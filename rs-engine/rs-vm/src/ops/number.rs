@@ -3,8 +3,8 @@ use crate::engine::{ScriptEngine, engine_mut};
 use crate::register::OpsRegistry;
 use crate::util::RUNEDAY_EPOCH_DAYS;
 use crate::{handlers, none};
-use rs_pack::cache::script::*;
 use rs_util::bits::{clearbit_range, getbit_range, setbit_range, setbit_range_toint};
+use runec::opcodes::*;
 use std::f64::consts::PI;
 
 /// Registers arithmetic, bitwise, trigonometric, and random number opcodes.

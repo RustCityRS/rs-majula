@@ -3,7 +3,7 @@ use crate::register::OpsRegistry;
 use crate::state::ScriptState;
 use crate::util::pop_coord;
 use crate::{RegionUid, ScriptError, handlers, none};
-use rs_pack::cache::script::*;
+use runec::opcodes::*;
 
 /// The active region, or with `secondary` the `.active_region` a
 /// dot-prefixed command names, as npcs and controllers have.

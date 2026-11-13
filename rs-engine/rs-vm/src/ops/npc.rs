@@ -14,12 +14,12 @@ use crate::{NpcUid, ScriptError, active_npc, handlers, none};
 use crate::{active_npc_mut, iterators};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
-use rs_pack::cache::script::*;
 #[cfg(since_647)]
 use rs_pack::types::MultiVar;
 use rs_pack::types::{HuntCheckVis, NpcMode};
 #[cfg(since_647)]
 use rs_util::bits::getbit_range;
+use runec::opcodes::*;
 
 /// Registers NPC-related opcodes for spawning, movement, combat, AI mode
 /// management, searching, and NPC state queries.
@@ -642,7 +642,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             npc.walk(pop_coord(s)?);
         });
 
-        // 5024 (647). No source names Jagex's command for a running npc; this is P_RUN's
+        // 2552 (647). No source names Jagex's command for a running npc; this is P_RUN's
         // shape for an npc.
         #[cfg(since_647)]
         active_npc_mut!(m, NPC_RUN => |s, npc| {
