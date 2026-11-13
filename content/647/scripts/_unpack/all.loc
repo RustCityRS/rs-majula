@@ -32046,6 +32046,14 @@ name=Gate
 cursor1=1,cursor_open
 occlude=no
 desc=This space reserved for a shockingly bad pun.
+// Witch's House's shock gates (289's ball_irongate pair, quest_ball.rs2).
+// 289 swings them open as loc_1562/loc_1563, which cache 786 still has on
+// the 2005 model (inacmetalgateopenl/r, model_1509/1511) while these gates
+// are model_27252. No source found shows which loc 2011 used: these are
+// 786's first op-less pair on model_27252 with this gate's mirror flag
+// (5731/5732; they add ambient=25, contrast=15).
+category=ball_irongate
+param=next_loc_stage,zombiequeengateopenl
 
 // 2866
 [shockgater]
@@ -32056,6 +32064,14 @@ name=Gate
 cursor1=1,cursor_open
 occlude=no
 desc=This space reserved for a shockingly bad pun.
+// Witch's House's shock gates (289's ball_irongate pair, quest_ball.rs2).
+// 289 swings them open as loc_1562/loc_1563, which cache 786 still has on
+// the 2005 model (inacmetalgateopenl/r, model_1509/1511) while these gates
+// are model_27252. No source found shows which loc 2011 used: these are
+// 786's first op-less pair on model_27252 with this gate's mirror flag
+// (5731/5732; they add ambient=25, contrast=15).
+category=ball_irongate
+param=next_loc_stage,zombiequeengateopenr
 
 // 2867
 [witchpot]
