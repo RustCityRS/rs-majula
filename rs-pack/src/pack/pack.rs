@@ -674,7 +674,7 @@ pub fn pack_configs(
     pack_config_files(&files, pack_dir, verify)
 }
 
-/// Checks config names against the existing registries.
+/// Checks config names, registering additions only when verification is disabled.
 pub fn check_configs(files: &ConfigFiles, pack_dir: &Path, verify: bool) -> Result<()> {
     let check = Stage::new(
         "config names",
@@ -684,7 +684,7 @@ pub fn check_configs(files: &ConfigFiles, pack_dir: &Path, verify: bool) -> Resu
         ],
     );
     check.unit(0, &files.with_ext(FileCache::TEXT_EXTS), || {
-        validate_config_packs(files.read(), pack_dir)?;
+        validate_config_packs(files.read(), pack_dir, verify)?;
         PackRegistry::load(pack_dir)?.check_content(files.read())?;
         Ok(Vec::new())
     })?;

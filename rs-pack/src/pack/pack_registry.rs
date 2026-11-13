@@ -1,14 +1,17 @@
 use crate::pack::incremental::{Hash, Key, Lookups, Registry, answer};
 use crate::pack::pack::FileCache;
+#[cfg(since_647)]
+use crate::pack::pack::{load_constants_from_cache, parse_config_sections_cached};
+use crate::pack::pack_dir::replace;
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::placeholder_prefix;
 use anyhow::{Result, bail};
 use runec::symbol::identifier_form;
 use std::collections::HashMap;
-use std::fs;
 use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::{fs, io};
 use tracing::debug;
 
 #[cfg(before_647)]
@@ -725,9 +728,12 @@ fn load_component_hashes(path: &Path, interfaces: &PackFile) -> HashMap<String, 
     map
 }
 
-/// Require an existing pack file for each config kind.
-pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path) -> Result<()> {
+/// Verified packing reads existing registries; unverified packing can extend them.
+pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path, verify: bool) -> Result<()> {
     let mut errors = Vec::new();
+    if !verify {
+        fs::create_dir_all(pack_dir)?;
+    }
     for &ext in FileCache::TEXT_EXTS {
         let kind = match ext {
             "constant" => continue,
@@ -740,16 +746,84 @@ pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path) -> Result<()> {
             continue;
         };
         let pack_path = pack_dir.join(format!("{kind}.pack"));
-        if !pack_path.is_file() {
+        if verify && !pack_path.is_file() {
             errors.push(format!(
                 "{}: missing {} for .{ext} configs",
                 source.display(),
                 pack_path.display()
             ));
         }
+        if !verify {
+            let mut names = Vec::new();
+            for path in fc.collect(ext) {
+                let prefix = if ext == "if" {
+                    let name = path.file_stem().unwrap().to_string_lossy();
+                    names.push(name.to_string());
+                    format!("{name}:")
+                } else {
+                    String::new()
+                };
+                let Some(text) = fc.read(path) else { continue };
+                for line in text.lines() {
+                    let line = line.split("//").next().unwrap_or("").trim();
+                    if let Some(name) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
+                        names.push(format!("{prefix}{}", name.trim()));
+                    }
+                }
+            }
+            #[cfg(since_647)]
+            if ext == "varc" {
+                let configs =
+                    parse_config_sections_cached(fc, ext, &load_constants_from_cache(fc))?;
+                let (strings, ints): (Vec<_>, Vec<_>) = names
+                    .into_iter()
+                    .partition(|name| configs.get(name).is_some_and(super::config::is_string_var));
+                if !strings.is_empty() {
+                    register_config_names(&pack_dir.join("varcstr.pack"), "varcstr", strings)?;
+                }
+                names = ints;
+            }
+            register_config_names(&pack_path, ext, names)?;
+        }
     }
     if !errors.is_empty() {
         bail!("missing config pack files:\n{}", errors.join("\n"));
+    }
+    Ok(())
+}
+
+fn register_config_names(path: &Path, ext: &str, names: Vec<String>) -> Result<()> {
+    let (mut text, mut changed) = match fs::read_to_string(path) {
+        Ok(text) => (text, false),
+        Err(error) if error.kind() == io::ErrorKind::NotFound => (String::new(), true),
+        Err(error) => return Err(error.into()),
+    };
+    let mut pack = PackFile::parse(&text);
+    for name in names {
+        // Leave aliases and stale placeholder names for check_content to diagnose.
+        if pack.get_by_debugname(&name).is_some()
+            || name
+                .strip_prefix(placeholder_prefix(ext))
+                .and_then(|s| s.strip_prefix('_'))
+                .and_then(|s| s.parse().ok())
+                .is_some_and(|id| pack.get_by_id(id).is_some())
+        {
+            continue;
+        }
+        let id = pack.max;
+        pack.max = id
+            .checked_add(1)
+            .ok_or_else(|| anyhow::anyhow!("{} has no free IDs", path.display()))?;
+        if !text.is_empty() && !text.ends_with('\n') {
+            text.push('\n');
+        }
+        text.push_str(&format!("{id}={name}\n"));
+        pack.id_to_debugname.insert(id, name.clone());
+        pack.debugname_to_id.insert(name, id);
+        changed = true;
+    }
+    if changed {
+        replace(path, text.as_bytes())?;
     }
     Ok(())
 }
@@ -843,7 +917,7 @@ mod tests {
     }
 
     #[test]
-    fn configs_require_existing_pack_files() {
+    fn creating_config_pack_files_requires_verify_false() {
         let dir = env::temp_dir().join(format!("rs-majula-missing-packs-{}", process::id()));
         let scripts = dir.join("scripts");
         fs::create_dir_all(&scripts).unwrap();
@@ -857,14 +931,14 @@ mod tests {
         }
         fs::write(scripts.join("all.constant"), "value=1\n").unwrap();
         let files = ConfigFiles::new(&scripts);
-        for verify in [false, true] {
-            let error = check_configs(&files, &dir, verify).unwrap_err().to_string();
-            assert!(error.contains("missing config pack files"), "{error}");
-            for ext in &kinds {
-                assert!(error.contains(&format!("for .{ext} configs")), "{error}");
-            }
-            assert_eq!(fs::read_dir(&dir).unwrap().count(), 1);
+        let error = check_configs(&files, &dir, true).unwrap_err().to_string();
+        assert!(error.contains("missing config pack files"), "{error}");
+        for ext in &kinds {
+            assert!(error.contains(&format!("for .{ext} configs")), "{error}");
         }
+        assert_eq!(fs::read_dir(&dir).unwrap().count(), 1);
+        check_configs(&files, &dir, false).unwrap();
+        check_configs(&files, &dir, true).unwrap();
         for ext in kinds {
             let kind = match ext {
                 "if" => "interface",
@@ -872,51 +946,71 @@ mod tests {
                 "quickchatphrase" => "chatphrase",
                 ext => ext,
             };
-            fs::write(dir.join(format!("{kind}.pack")), "0=first\n").unwrap();
+            let pack = PackFile::load(&dir.join(format!("{kind}.pack"))).unwrap();
+            assert!(
+                pack.get_by_debugname(if ext == "if" { "all:first" } else { "first" })
+                    .is_some()
+            );
         }
-        check_configs(&files, &dir, false).unwrap();
         fs::remove_file(dir.join("varp.pack")).unwrap();
-        let error = check_configs(&files, &dir, false).unwrap_err().to_string();
+        let error = check_configs(&files, &dir, true).unwrap_err().to_string();
         assert!(error.contains("for .varp configs"), "{error}");
+        check_configs(&files, &dir, false).unwrap();
+        assert_eq!(
+            fs::read_to_string(dir.join("varp.pack")).unwrap(),
+            "0=first\n"
+        );
         fs::remove_dir_all(&dir).unwrap();
     }
 
     #[test]
-    fn new_config_ids_are_rejected_without_writing_registries() {
+    fn new_config_ids_require_verify_false() {
         let dir = env::temp_dir().join(format!("rs-majula-config-ids-{}", process::id()));
         let scripts = dir.join("scripts");
         fs::create_dir_all(&scripts).unwrap();
-        let kinds: Vec<_> = [
-            "area", "varobj", "hunt", "varn", "vars", "mesanim", "struct", "param", "inv", "enum",
-            "dbtable", "dbrow",
-        ]
-        .into_iter()
-        .filter(|ext| FileCache::TEXT_EXTS.contains(ext))
-        .collect();
+        let kinds: Vec<_> = FileCache::TEXT_EXTS
+            .iter()
+            .copied()
+            .filter(|ext| !matches!(*ext, "constant" | "if" | "quickchatcat" | "quickchatphrase"))
+            .collect();
         for ext in &kinds {
-            fs::write(dir.join(format!("{ext}.pack")), "0=existing\n").unwrap();
+            fs::write(dir.join(format!("{ext}.pack")), "2=existing\n").unwrap();
             fs::write(
                 scripts.join(format!("custom.{ext}")),
                 "[existing]\n[new_name]\n",
             )
             .unwrap();
         }
+        #[cfg(since_647)]
+        fs::write(scripts.join("strings.varc"), "[new_string]\ntype=string\n").unwrap();
         let files = ConfigFiles::new(&scripts);
-        for verify in [false, true] {
-            let error = check_configs(&files, &dir, verify).unwrap_err().to_string();
-            for ext in &kinds {
-                assert!(
-                    error.contains(&format!(
-                        "section [new_name] is not registered in {ext}.pack"
-                    )),
-                    "{error}"
-                );
-                assert_eq!(
-                    fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
-                    "0=existing\n"
-                );
-            }
+        let error = check_configs(&files, &dir, true).unwrap_err().to_string();
+        for ext in &kinds {
+            assert!(
+                error.contains(&format!(
+                    "section [new_name] is not registered in {ext}.pack"
+                )),
+                "{error}"
+            );
+            assert_eq!(
+                fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                "2=existing\n"
+            );
         }
+        check_configs(&files, &dir, false).unwrap();
+        check_configs(&files, &dir, true).unwrap();
+        check_configs(&files, &dir, false).unwrap();
+        for ext in &kinds {
+            assert_eq!(
+                fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                "2=existing\n3=new_name\n"
+            );
+        }
+        #[cfg(since_647)]
+        assert_eq!(
+            fs::read_to_string(dir.join("varcstr.pack")).unwrap(),
+            "0=new_string\n"
+        );
         fs::remove_dir_all(&dir).unwrap();
     }
 }

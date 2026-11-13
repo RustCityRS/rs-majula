@@ -333,13 +333,15 @@ pub fn pack_asset_archives(
                 let sources = files_under(&roots(&dir));
                 let mut prepared = stage.unit_groups(&(), 0, &sources, |_| {
                     let compiled = clientscript::compile_directory(&dir, private.path())?;
-                    private.check_unchanged(pack_dir, "clientscript.pack")?;
+                    if verify {
+                        private.check_unchanged(pack_dir, "clientscript.pack")?;
+                    }
                     compiled
                         .into_iter()
                         .map(|(id, data)| PreparedGroup::new(aid, id, &data, versions))
                         .collect()
                 })?;
-                private.check_unchanged(pack_dir, "clientscript.pack")?;
+                private.pin(pack_dir, "clientscript.pack", verify)?;
                 stage.finish(vec![("pack".to_owned(), dir_key(private.path(), &[]))]);
                 let ids: Vec<_> = prepared.iter().map(|group| group.id).collect();
                 let hashes = load_name_hashes(pack_dir, aid, &ids);

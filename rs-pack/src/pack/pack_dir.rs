@@ -46,9 +46,22 @@ impl PrivatePack {
                 .filter(|line| !original.lines().any(|old| old == *line))
                 .collect();
             bail!(
-                "{name} changed during compilation; packing cannot add registry entries:\n{}",
+                "{name} changed during compilation with --verify true:\n{}",
                 added.join("\n")
             );
+        }
+        Ok(())
+    }
+
+    #[cfg(any(since_647, test))]
+    pub fn pin(&self, pack: &Path, name: &str, verify: bool) -> Result<()> {
+        if verify {
+            return self.check_unchanged(pack, name);
+        }
+        let compiled = fs::read(self.dir.join(name))?;
+        let path = pack.join(name);
+        if !fs::read(&path).is_ok_and(|original| original == compiled) {
+            replace(&path, &compiled).with_context(|| format!("updating {}", path.display()))?;
         }
         Ok(())
     }
@@ -60,6 +73,22 @@ impl Drop for PrivatePack {
             warn!("Couldn't remove {}: {e}", self.dir.display());
         }
     }
+}
+
+/// Replaces a registry atomically so concurrent readers never see a partial file.
+pub fn replace(path: &Path, contents: &[u8]) -> io::Result<()> {
+    let mut tmp = path.as_os_str().to_owned();
+    tmp.push(format!(
+        ".{}-{}.tmp",
+        process::id(),
+        NEXT.fetch_add(1, Ordering::Relaxed)
+    ));
+    let tmp = PathBuf::from(tmp);
+    let result = fs::write(&tmp, contents).and_then(|()| fs::rename(&tmp, path));
+    if result.is_err() {
+        let _ = fs::remove_file(&tmp);
+    }
+    result
 }
 
 /// Copies registry files without unfinished temporary files.
@@ -81,7 +110,7 @@ mod tests {
     use runec::clientscript;
 
     #[test]
-    fn clientscript_growth_is_rejected_without_writing_registries() {
+    fn clientscript_growth_requires_verify_false() {
         let dir = env::temp_dir().join(format!("rs-majula-clientscript-ids-{}", process::id()));
         let scripts = dir.join("scripts");
         let pack = dir.join("pack");
@@ -104,7 +133,7 @@ mod tests {
         private.check_unchanged(&pack, "clientscript.pack").unwrap();
         clientscript::compile_directory(&scripts, private.path()).unwrap();
         let error = private
-            .check_unchanged(&pack, "clientscript.pack")
+            .pin(&pack, "clientscript.pack", true)
             .unwrap_err()
             .to_string();
         assert!(error.contains("1=[proc,new_script]"), "{error}");
@@ -112,6 +141,13 @@ mod tests {
             fs::read_to_string(pack.join("clientscript.pack")).unwrap(),
             "0=[proc,existing]\n"
         );
+        private.pin(&pack, "clientscript.pack", false).unwrap();
+        private.check_unchanged(&pack, "clientscript.pack").unwrap();
+        fs::remove_file(pack.join("clientscript.pack")).unwrap();
+        assert!(private.pin(&pack, "clientscript.pack", true).is_err());
+        assert!(!pack.join("clientscript.pack").exists());
+        private.pin(&pack, "clientscript.pack", false).unwrap();
+        private.check_unchanged(&pack, "clientscript.pack").unwrap();
         fs::remove_dir_all(&dir).unwrap();
     }
 }
