@@ -291,3 +291,61 @@ fn a_bucket_of_water_pours_into_a_jug() {
         );
     });
 }
+
+/// The client puts an obj's iop5 (Drop, Destroy) on the slot's op 8
+/// (inventory_setophelds_specified). 289 answers it with `[opheld5,<obj>]`,
+/// and drops by `[opheld5,_]` (player/scripts/drop.rs2): a troll thistle
+/// withers away (quest_eadgar), anything else is put down.
+#[test]
+fn drop_runs_the_objs_own_op5_or_puts_it_down() {
+    runner::on_loaded_engine(|engine| {
+        let (thistle, logs) = (id(engine, "eadgar_troll_thistle"), id(engine, "logs"));
+        let mut client = player_holding(engine, "thistle", &[thistle, logs]);
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        // The drop's sound, by its id in 647's synth registry.
+        let pack = concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../content/647/pack/synth.pack"
+        );
+        let put_down = std::fs::read_to_string(pack)
+            .expect(pack)
+            .lines()
+            .find_map(|l| l.strip_suffix("=put_down").map(str::to_owned))
+            .expect("synth.pack names put_down");
+        let put_downs = || {
+            calls_for("sound_synth")
+                .iter()
+                .filter(|a| a.split(',').next() == Some(put_down.as_str()))
+                .count()
+        };
+        let empty = |e: &Engine, pid: u16, slot: u16, obj: u16| {
+            e.harness_player(pid)
+                .and_then(|p| p.invs.get(&inv))
+                .is_some_and(|b| !b.has_at(slot, obj))
+        };
+
+        let mut p = ClientPacket::new();
+        p.p4(BACKPACK).p2_alt3(thistle as i32).p2_alt1(0);
+        client.send(ClientProt::IfButton8, &p.finish());
+        for _ in 0..2 {
+            engine.cycle();
+        }
+        let said = calls_for("mes");
+        assert!(
+            said.iter()
+                .any(|m| m == "The Troll Thistle withers away as soon as it hits the ground."),
+            "{said:?}"
+        );
+        assert!(empty(engine, client.pid, 0, thistle), "the thistle is gone");
+        assert_eq!(put_downs(), 0, "the thistle is not put down");
+
+        let mut p = ClientPacket::new();
+        p.p4(BACKPACK).p2_alt3(logs as i32).p2_alt1(1);
+        client.send(ClientProt::IfButton8, &p.finish());
+        for _ in 0..2 {
+            engine.cycle();
+        }
+        assert!(empty(engine, client.pid, 1, logs), "the logs are dropped");
+        assert_eq!(put_downs(), 1, "the logs are put down");
+    });
+}
