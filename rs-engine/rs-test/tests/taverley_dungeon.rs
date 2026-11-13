@@ -123,7 +123,7 @@ fn held(engine: &Engine, client: &HarnessClient, name: &str) -> u32 {
         .invs
         .get(&inv)
         .unwrap()
-        .total(o) as u32
+        .total(o)
 }
 
 /// Uses the backpack's `slot` (holding `obj`) on the loc `name` at that tile; the game
