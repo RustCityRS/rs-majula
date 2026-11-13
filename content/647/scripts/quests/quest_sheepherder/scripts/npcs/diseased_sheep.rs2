@@ -1,0 +1,228 @@
+// The sick-looking sheep (289's quests/quest_sheepherder/scripts/npcs/diseased_sheep.rs2),
+// line for line but for the enclosure, which cache 786 (C) keeps per player:
+// - C's four herder_plaguesheep_N_enclosure npcs stand in the pen
+//   (maps/n40_52.jm2) and show as the sick-looking sheep only while the
+//   sheep's varbit (sheepherder_sheep_a..d, bits of %sheepherdervar) is 1.
+//   So a herded sheep is the player's own: 289's shared sheep, added in the
+//   pen for 150 ticks, is not, and the var is set to 1 where 289 sets its
+//   first bit (a sheep fed and its bones lost, 2, would go to 3 and not show).
+// - The herded sheep is deleted at the gate as 289's is and comes back at its
+//   spawn; the 2011 wiki (Sheep Herder, 2011-04-20) has the sheep "reset to
+//   their original positions in a few minutes". No source shows what 2011
+//   does with it at the gate.
+// - Fed, the player's sheep is hidden by its var (2) once it has died, where
+//   289 deletes the npc and sets the var before the message.
+//
+// Varbit stuff for sheep disposal
+// sheepherder_disposal stored in varp 61
+// https://chisel.weirdgloop.org/varbs/display?varplayer=61
+// https://chisel.weirdgloop.org/varbs/display?varbit=2231
+// bit 1 - set when the sheep is near the pen
+//      this is likely unset when you burn the bones
+//      since the value goes up to 6, and if it wasn't it'd be 7
+// bit 2 - set when the sheep is fed the poison
+// bit 3 - set when the sheep has its bones burned
+
+[opnpc1,plaguesheep_1]
+@prod_sheep(npc_type);
+
+[opnpc1,plaguesheep_2]
+@prod_sheep(npc_type);
+
+[opnpc1,plaguesheep_3]
+@prod_sheep(npc_type);
+
+[opnpc1,plaguesheep_4]
+@prod_sheep(npc_type);
+
+// The player's own sheep in the pen has the same Prod (C: its shown type is
+// the sick-looking sheep) and gets 289's answer for a sheep in the pen.
+[opnpc1,herder_plaguesheep_1_enclosure]
+@prod_sheep(npc_type);
+
+[opnpc1,herder_plaguesheep_2_enclosure]
+@prod_sheep(npc_type);
+
+[opnpc1,herder_plaguesheep_3_enclosure]
+@prod_sheep(npc_type);
+
+[opnpc1,herder_plaguesheep_4_enclosure]
+@prod_sheep(npc_type);
+
+[label,prod_sheep](npc $npc)
+p_arrivedelay;
+
+if (%sheepherderquest = ^sheepherder_not_started) {
+    mes("The sheep looks extremely ill and you haven't any reason to interfere with it.");
+    return;
+}
+
+if (%sheepherderquest = ^sheepherder_complete) {
+    ~mesbox("There's no need for you to do that.|You've already completed the Sheep Herder quest.");
+    return;
+}
+
+if (%sheepherderquest > ^sheepherder_not_started & %sheepherderquest < ^sheepherder_complete) {
+    // not wearing a protective suit
+    if (inv_total(worn, plague_jacket) < 1 | inv_total(worn, plague_trousers)  < 1) {
+        ~chatplayer("<p,neutral>The sheep looks extremely unwell.|I don't want to touch it without a full protective suit.");
+        return;
+    }
+
+    // not having a prod but having a protective suit
+    def_obj $rhand = inv_getobj(worn, ^wearpos_rhand);
+    if ($rhand = null) {
+        ~chatplayer("<p,angry>I'm not prodding a sickly-looking sheep with my hands!");
+         ~chatplayer("<p,neutral>I'll need to wield an appropriate tool.");
+        return;
+    } else if ($rhand ! cattleprod) {
+        ~chatplayer("<p,neutral>I don't want to attack the sheep.|I need to make it move!");
+         ~chatplayer("<p,neutral>I'll need to wield an appropriate tool.");
+        return;
+    }
+}
+
+if (~inzone_coord_pair_table(sheepherder_in_pen, npc_coord) = true) {
+    ~mesbox("The sheep is already in the enclosure.|You don't need to prod it.");
+    return;
+}
+
+db_find(sheep_table:sheep_type, $npc);
+def_dbrow $data = db_findnext;
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+
+def_namedobj $npc_bones = db_getfield($data, sheep_table:sheep_bones, 0);
+if ((npc_category = diseased_sheep & inv_total(inv, $npc_bones) > 0)) {
+    ~mesbox("You've already got bones from a sheep like this.|You don't need to fetch another one now.");
+    return;
+}
+
+def_coord $npc_coord = db_getfield($data, sheep_table:sheep_in_pen_coord, 0);
+def_int $npc_start_bit = db_getfield($data, sheep_table:sheep_start_bit, 0);
+
+if (getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) = 6) {
+    ~mesbox("You have already disposed of this sheep;|there's no need to prod it again.");
+    return;
+}
+anim(cattleprod, 0);
+npc_say("BAAAAA!");
+npc_setmode(none);
+
+// OSRS moves the sheep four tiles
+// Sal's Realm guide says the sheep move 1 tile at a time.
+// https://web.archive.org/web/20050827052609/http://www.runescape.salmoneus.net/quests/SheepHerder.html
+npc_walk(~movecoord_indirection(npc_coord, ~coord_direction(coord, npc_coord), 1));
+
+if (~inzone_coord_pair_table(sheepherder_pen_gate, npc_coord) = true) {
+    npc_tele(0_40_52_35_33);
+    npc_walk($npc_coord);
+    p_delay(2);
+    npc_del;
+    // The player's own sheep shows in the pen from here (C, above).
+    %sheepherdervar = setbit_range_toint(%sheepherdervar, 1, $npc_start_bit, calc($npc_start_bit + 2));
+    mes("The sheep obligingly jumps over the gate and into the enclosure.");
+}
+
+[ai_timer,_diseased_sheep]
+// Check might actually be a lie based on some old pictures of the pen
+// if (~inzone_coord_pair_table(sheepherder_in_pen, npc_coord) = false) {
+// }
+@diseased_sheep_baa;
+
+
+[label,diseased_sheep_baa]
+npc_settimer(calc(10 + random(20)));
+npc_say("Baa");
+npc_setmode(null);
+
+[opnpcu,plaguesheep_2]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(npc_type);
+}
+
+[opnpcu,plaguesheep_1]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(npc_type);
+}
+
+[opnpcu,plaguesheep_3]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(npc_type);
+}
+
+[opnpcu,plaguesheep_4]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(npc_type);
+}
+
+// The player's own sheep in the pen is fed as the sheep it was herded from.
+[opnpcu,herder_plaguesheep_1_enclosure]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(plaguesheep_1);
+}
+
+[opnpcu,herder_plaguesheep_2_enclosure]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(plaguesheep_2);
+}
+
+[opnpcu,herder_plaguesheep_3_enclosure]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(plaguesheep_3);
+}
+
+[opnpcu,herder_plaguesheep_4_enclosure]
+switch_obj(last_useitem) {
+    case cattleprod : @cattle_prod_use_message;
+    case poisoned_feed : @poison_sheep(plaguesheep_4);
+}
+
+[label,poison_sheep](npc $npc)
+db_find(sheep_table:sheep_type, $npc);
+def_dbrow $data = db_findnext;
+if ($data = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+
+def_int $npc_start_bit = db_getfield($data, sheep_table:sheep_start_bit, 0);
+def_namedobj $npc_bones = db_getfield($data, sheep_table:sheep_bones, 0);
+
+if (~inzone_coord_pair_table(sheepherder_in_pen, npc_coord) = true) {
+
+    // Attempting to kill the sheep in the pen, and you haven't burned the bones
+    // and you're not carrying any bones.
+    if ((getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) ! 6
+        | getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) = 2)
+        & inv_total(inv, $npc_bones) < 1) {
+        ~mesbox("You feed the poisoned food to the sheep.|It happily eats it all up.|You watch as the sheep collapses dead onto the floor.");
+        if_close;
+        p_delay(0);
+        npc_anim(npc_param(death_anim), 0);
+        p_delay(2);
+        // Hides the player's own sheep (C, above), where 289 has npc_del.
+        %sheepherdervar = setbit_range_toint(%sheepherdervar, 2, $npc_start_bit, calc($npc_start_bit + 2));
+        obj_add(npc_coord, $npc_bones, 1, calc(^lootdrop_duration / 2));
+    // Attempting to kill sheep in pen but has already killed that sheep.
+    // can't do this on OSRS since your sheep are instanced.
+    } else if (getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) = 6
+        | inv_total(inv, $npc_bones) > 0 ) {
+         // Fake message based on RSC
+        ~chatplayer("<p,neutral>I've already disposed of this sheep like this.| I should find another.");
+    }
+} else {
+    ~chatplayer("<p,neutral>I don't think I should kill the sheep outside the|enclosure. The councillor was worried that it might|spread the disease.");
+}
+
+[label,cattle_prod_use_message]
+~chatplayer("<p,neutral>I think I'd do better to equip the cattleprod before I prod the sheep.");

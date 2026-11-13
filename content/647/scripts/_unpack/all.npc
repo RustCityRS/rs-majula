@@ -10391,6 +10391,9 @@ multinpc=1,sick_looking_sheep__2_2378
 unknown119=3
 desc=Even from here you can see this sheep's not well.
 wanderrange=3
+param=death_anim,sheep_death
+timer=25
+category=diseased_sheep
 
 // 294
 [plaguesheep_3]
@@ -10420,6 +10423,9 @@ multinpc=1,sick_looking_sheep__4_2380
 unknown119=3
 desc=Even from here you can see this sheep's not well.
 wanderrange=3
+param=death_anim,sheep_death
+timer=25
+category=diseased_sheep
 
 // 296
 [edge_guard1]
@@ -110285,6 +110291,9 @@ multinpc=1,sick_looking_sheep__1
 unknown119=1
 // cache 786 walk mode 1: stands
 wanderrange=0
+// Sheep Herder's poisoned sheep dies with its own set's death (bas_831
+// stands on sheep_update_ready; 289's sheep_death is the old sheep's).
+param=death_anim,sheep_update_death
 
 // 4254
 [herder_plaguesheep_2_enclosure]
@@ -110295,6 +110304,9 @@ multinpc=1,sick_looking_sheep__2
 unknown119=1
 // cache 786 walk mode 1: stands
 wanderrange=0
+// Sheep Herder's poisoned sheep dies with its own set's death (bas_831
+// stands on sheep_update_ready; 289's sheep_death is the old sheep's).
+param=death_anim,sheep_update_death
 
 // 4255
 [herder_plaguesheep_3_enclosure]
@@ -110305,6 +110317,9 @@ multinpc=1,sick_looking_sheep__3
 unknown119=1
 // cache 786 walk mode 1: stands
 wanderrange=0
+// Sheep Herder's poisoned sheep dies with its own set's death (bas_831
+// stands on sheep_update_ready; 289's sheep_death is the old sheep's).
+param=death_anim,sheep_update_death
 
 // 4256
 [herder_plaguesheep_4_enclosure]
@@ -110315,6 +110330,9 @@ multinpc=1,sick_looking_sheep__4
 unknown119=1
 // cache 786 walk mode 1: stands
 wanderrange=0
+// Sheep Herder's poisoned sheep dies with its own set's death (bas_831
+// stands on sheep_update_ready; 289's sheep_death is the old sheep's).
+param=death_anim,sheep_update_death
 
 // 4257
 [mcannonguard1]
