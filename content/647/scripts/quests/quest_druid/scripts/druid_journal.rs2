@@ -1,0 +1,29 @@
+// Druidic Ritual's journal (289's quests/quest_druid/scripts/druid_journal.rs2), View on the
+// quest list's row (quest_list.rs2).
+// - Started and spoken to Sanfew: the 2011 recording (YouTube agUATXHTRIg, uploaded 2011-04-27,
+//   133s and 276s) shows both word for word, with these line breaks. Its first paragraph is
+//   longer than 289's "I told Kaqemeex I would help them prepare their ceremony.", and "south"
+//   has no capital (void-634's DruidicRitual.kt has 289's text).
+// - Not started: 289's, no 2011 recording of it found.
+// - Given the meats and complete: no 2011 recording of them found. The first paragraph is the
+//   recording's, which the two stages before them share; the rest is 289's.
+[label,questlist_druid]
+def_string $text;
+
+if (%druidquest = ^druid_not_started) {
+    $text = "@dbl@I can start this quest by speaking to @dre@Kaqemeex@dbl@ who is at|@dbl@the @dre@Druids Circle@dbl@ just @dre@North@dbl@ of @dre@Taverley";
+} else if (%druidquest = ^druid_started) {
+    $text = "@str@Kaqemeex and the druids are preparing a ceremony to|@str@purify the Varrock stone circle. I told Kaqemeex I would|@str@help them.||";
+    $text = append($text, "@dbl@I should speak to @dre@Sanfew@dbl@ in the village to the @dre@south.");
+} else if (%druidquest = ^druid_spoken_sanfew) {
+    $text = "@str@Kaqemeex and the druids are preparing a ceremony to|@str@purify the Varrock stone circle. I told Kaqemeex I would|@str@help them.||";
+    $text = append($text, "@dre@Sanfew@dbl@ told me for the ritual they would need me to place|@dre@raw bear meat@dbl@, @dre@raw chicken@dbl@, @dre@raw rat meat@dbl@ and @dre@raw beef@dbl@ in|@dbl@the @dre@Cauldron of Thunder@dbl@ in the @dre@dungeon south@dbl@ of @dre@Taverley.");
+} else if (%druidquest = ^druid_given_ingredients) {
+    $text = "@str@Kaqemeex and the druids are preparing a ceremony to|@str@purify the Varrock stone circle. I told Kaqemeex I would|@str@help them.|";
+    $text = append($text, "@str@The ceremony required various meats being placed in the|@str@Cauldron of Thunder. I did this and gave them to Sanfew.|@dbl@I should speak to @dre@Kaqemeex@dbl@ again and claim my @dre@reward");
+} else {
+    $text = "@str@Kaqemeex and the druids are preparing a ceremony to|@str@purify the Varrock stone circle. I told Kaqemeex I would|@str@help them.|";
+    $text = append($text, "@str@The ceremony required various meats being placed in the|@str@Cauldron of Thunder. I did this and gave them to Sanfew.|@str@Kaqemeex then taught me the basics of the skill Herblore.||@red@QUEST COMPLETE!");
+}
+
+~quest_journal("Druidic Ritual", $text);
