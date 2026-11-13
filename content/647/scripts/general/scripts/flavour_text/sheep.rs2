@@ -38,3 +38,4 @@
 [label,sheep_baa]
 npc_settimer(add(20, random(20)));
 npc_say("Baa!");
+sound_area(npc_coord, 7, sheep_atmospheric1, 1, 0);

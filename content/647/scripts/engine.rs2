@@ -75,6 +75,8 @@
 // info: Cast a projectile from the centre of a $fromSize square at $from to the centre of a $toSize square at $to, to the half tile
 [command,projanim_halfsq](coord $from, int $fromSize, coord $to, int $toSize, spotanim $spotanim, int $fromHeight, int $toHeight, int $delay, int $duration, int $peak, int $arc)
 // info: Play $sound to everyone within $range tiles of $coord, $loops times after $delay client cycles
+[command,sound_area](coord $coord, int $range, synth $sound, int $loops, int $delay)
+// info: Play $sound to everyone within $range tiles of $coord, $loops times after $delay client cycles
 [command,sound_vorbis_area](coord $coord, int $range, vorbis $sound, int $loops, int $delay)
 // info: Show $text in RGB $colour, $height up, above $coord for $duration client cycles to everyone who can see it
 [command,text_coord](coord $coord, string $text, int $colour, int $height, int $duration)
@@ -1232,7 +1234,6 @@
 
 // [command,inv_setvar](inv $inv, int $slot, obj $obj, int $value)
 // [command,inv_getvar](inv $inv, int $slot, obj $obj)(int)
-// [command,sound_area](coord $coord, int $int1, synth $sound, int $int2, int $int3)
 // [command,p_transmogrify](npc $npc)
 // [command,if_setevents](component $component, int $int1, int $int2, boolean $boolean1, int $int3, int $int4, int $int5, boolean $boolean2, boolean $boolean3)
 [command,runclientscript](clientscript $hook)

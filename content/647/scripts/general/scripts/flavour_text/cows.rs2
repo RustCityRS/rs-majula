@@ -1,9 +1,3 @@
-// 289's three cows' timers, one trigger here for every npc of category cow:
-// 289's cow, cow2 and cow_beef, and 2011's re-issues of them
-// (npc/configs/npc_289_base.npc, npc_clones_2011.npc).
-// [ai_timer,cow]
-// [ai_timer,cow2]
-// [ai_timer,cow_beef]
 [ai_timer,_cow]
 @cow_moo;
 
@@ -11,4 +5,11 @@
 npc_settimer(calc(15 + random(20)));
 if (random(4) = 0) {
     npc_say("Moo");
+    sound_area(npc_coord, 7, synth_3044, 1, 0);
 }
+
+[opnpc1,fairy_cow] @fairy_cow_talk;
+[oploc1,fairy_fat_cow] @fairy_cow_talk;
+
+[label,fairy_cow_talk]
+~chatnpc_specific(nc_name(fairy_cow), fairy_cow, "<p,neutral>Hmm, interesting, there appears to be a human trying to talk to me. Is it aware that cows can't talk I wonder? Maybe if I just ignore it, it might go away.");

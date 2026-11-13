@@ -1,4 +1,3 @@
-// https://oldschool.runescape.wiki/w/Cow#Drops
 [ai_queue3,_cow]
 gosub(npc_death);
 if (npc_findhero = ^false) {
@@ -10,3 +9,6 @@ obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
 // Normal drop
 obj_add(npc_coord, raw_beef, 1, ^lootdrop_duration);
 obj_add(npc_coord, cow_hide, 1, ^lootdrop_duration);
+
+~starter_weapon_drop(staff_of_air, ^cow_starter_weapon_chance);
+~starter_weapon_drop(sling, ^cow_starter_weapon_chance);

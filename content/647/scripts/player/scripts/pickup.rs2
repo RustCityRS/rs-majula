@@ -17,7 +17,9 @@ if (~pickup_obj_check_for_space(obj_type, obj_count) = false) {
     return;
 }
 anim(null, 0);
-obj_takeitem(inv);
+if (~pickup_obj_take = false) {
+    return;
+}
 sound_synth(pick2, 1, 0);
 // Unstable Foundations' squire's gear (quest_unstable/uf_gear.rs2).
 if (%tutorial = 15) {
@@ -31,11 +33,30 @@ if (~pickup_obj_check_for_space(obj_type, obj_count) = false) {
 anim(null, 0);
 p_delay(0);
 anim(human_pickuptable, 0);
-obj_takeitem(inv);
+if (~pickup_obj_take = false) {
+    return;
+}
 sound_synth(pick2, 1, 0);
 if (%tutorial = 15) {
     ~uf_gear_taken;
 }
+
+[proc,pickup_obj_take]()(boolean)
+if (obj_count < 1 | ~starter_weapon_pickup_check(obj_type) = false) {
+    return(false);
+}
+if (~pickup_obj_check_for_space(obj_type, obj_count) = false) {
+    return(false);
+}
+def_obj $obj = obj_type;
+def_int $before = inv_total(inv, $obj);
+obj_takeitem(inv);
+def_int $taken = calc(inv_total(inv, $obj) - $before);
+if ($taken < 1) {
+    return(false);
+}
+~starter_weapon_collected($obj, $taken);
+return(true);
 
 [proc,pickup_loc_floor](coord $coord, namedobj $replacement, int $respawn_ticks, boolean $worldpop_dependant)
 anim(human_pickupfloor, 0);

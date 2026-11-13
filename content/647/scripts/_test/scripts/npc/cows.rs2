@@ -1,0 +1,80 @@
+#testscript
+
+[label,test_cow_starter_weapons]
+def_player_uid $player = setup_player("cow_drops");
+p_telejump(0_50_50_20_20);
+%varplayer_66 = 0;
+assert_eq(~starter_weapon_count(staff_of_air), 0);
+assert_eq(~starter_weapon_count(sling), 0);
+assert_true(~starter_weapon_can_drop(staff_of_air));
+inv_add(inv, staff_of_air, 1);
+assert_false(~starter_weapon_can_drop(staff_of_air));
+assert_true(~starter_weapon_can_drop(sling));
+inv_del(inv, staff_of_air, 1);
+inv_add(bank, staff_of_air, 1);
+assert_true(~starter_weapon_can_drop(staff_of_air));
+
+npc_add(movecoord(coord, 2, 0, 0), cow, 100);
+~starter_weapon_drop(staff_of_air, 1);
+assert_true(obj_type = staff_of_air);
+assert_eq(obj_count, 1);
+assert_true(~pickup_obj_take);
+assert_eq(~starter_weapon_count(staff_of_air), 1);
+assert_false(~pickup_obj_take);
+assert_eq(~starter_weapon_count(staff_of_air), 1);
+inv_del(inv, staff_of_air, 1);
+
+def_int $count = 1;
+while ($count < 5) {
+    obj_add(coord, staff_of_air, 1, 100);
+    assert_true(~pickup_obj_take);
+    inv_del(inv, staff_of_air, 1);
+    $count = calc($count + 1);
+    assert_eq(~starter_weapon_count(staff_of_air), $count);
+}
+assert_false(~starter_weapon_can_drop(staff_of_air));
+obj_add(coord, staff_of_air, 1, 100);
+assert_false(~pickup_obj_take);
+assert_eq(obj_count, 1);
+assert_eq(inv_total(inv, staff_of_air), 0);
+
+inv_add(inv, bucket_empty, 28);
+obj_add(coord, sling, 1, 100);
+assert_false(~pickup_obj_take);
+assert_eq(~starter_weapon_count(sling), 0);
+assert_eq(obj_count, 1);
+inv_del(inv, bucket_empty, 28);
+assert_true(~pickup_obj_take);
+inv_del(inv, sling, 1);
+assert_eq(~starter_weapon_count(sling), 1);
+assert_eq(~starter_weapon_count(staff_of_air), 5);
+
+$count = 1;
+while ($count < 5) {
+    obj_add(coord, sling, 1, 100);
+    assert_true(~pickup_obj_take);
+    inv_del(inv, sling, 1);
+    $count = calc($count + 1);
+}
+obj_add(coord, sling, 1, 100);
+assert_false(~pickup_obj_take);
+assert_eq(obj_count, 1);
+
+obj_add(coord, raw_beef, 1, 100);
+assert_true(~pickup_obj_take);
+assert_eq(~starter_weapon_count(staff_of_air), 5);
+assert_eq(~starter_weapon_count(sling), 5);
+
+setup_player("cow_other");
+assert_eq(~starter_weapon_count(staff_of_air), 0);
+assert_eq(~starter_weapon_count(sling), 0);
+assert_true(p_finduid($player));
+assert_eq(~starter_weapon_count(staff_of_air), 5);
+assert_eq(~starter_weapon_count(sling), 5);
+
+%varplayer_66 = setbit_range_toint(%varplayer_66, calc(date_runeday - 1), 6, 31);
+assert_eq(~starter_weapon_count(staff_of_air), 0);
+assert_eq(~starter_weapon_count(sling), 0);
+obj_add(coord, staff_of_air, 1, 100);
+assert_true(~pickup_obj_take);
+assert_eq(~starter_weapon_count(staff_of_air), 1);
