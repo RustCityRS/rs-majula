@@ -326,7 +326,6 @@ use rs_protocol::network::game::server::update_inv_stop_transmit::UpdateInvStopT
 #[cfg(any(rev = "225", all(since_244, before_647)))]
 use rs_protocol::network::game::server::update_pid::UpdatePid;
 use rs_protocol::network::game::server::update_runenergy::UpdateRunEnergy;
-#[cfg(before_647)]
 use rs_protocol::network::game::server::update_runweight::UpdateRunWeight;
 use rs_protocol::network::game::server::update_stat::UpdateStat;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
@@ -3084,12 +3083,9 @@ impl ActivePlayer {
             runweight_changed = current != self.player.runweight;
         }
         if runweight_changed || first_seen_weight {
-            #[cfg(before_647)]
             self.write(UpdateRunWeight {
                 kg: (self.player.runweight / 1000) as u16,
             });
-            // TODO(647): rev-647 has no UPDATE_RUNWEIGHT packet — weight is
-            // surfaced client-side (interface milestone).
         }
     }
 

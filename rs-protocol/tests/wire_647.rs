@@ -18,7 +18,7 @@
 
 #![cfg(since_647)]
 
-use rs_io::Packet;
+use rs_io::{Packet, PacketFrame};
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_merge::LocMerge;
@@ -29,6 +29,7 @@ use rs_protocol::network::game::server::sound_area::SoundArea;
 use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
 use rs_protocol::network::game::server::text_coord::TextCoord;
 use rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial;
+use rs_protocol::network::game::server::update_runweight::UpdateRunWeight;
 use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
 use rs_protocol::network::game::zone_prot::ZoneProt;
 
@@ -419,6 +420,21 @@ fn minimap_toggle_matches_client() {
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g1(), 2, "minimap state");
     p.done(1);
+}
+
+#[test]
+fn update_runweight_matches_client() {
+    assert_eq!(UpdateRunWeight::PROT as u8, 3);
+    assert!(matches!(UpdateRunWeight::FRAME, PacketFrame::Fixed));
+    for kg in [-32768, -5, 0, 0x1234, 32767] {
+        let message = UpdateRunWeight { kg: kg as u16 };
+        let bytes = encode(&message);
+        assert_eq!(message.sizeof(), 2);
+        assert_eq!(bytes.len(), 2);
+        let mut p = ClientPacket::new(&bytes);
+        assert_eq!(p.g2s(), kg);
+        p.done(2);
+    }
 }
 
 /// Client VORBIS_SPEECH_SOUND (`ServerProt.java`: id 7, size 6; `MapAreaConfig.java:1921`):

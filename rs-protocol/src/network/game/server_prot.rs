@@ -459,6 +459,7 @@ server_prot! {
 server_prot! {
     PlayerInfo = 0,
     UpdateFriendlist = 2,
+    UpdateRunWeight = 3,
     UpdateRebootTimer = 5,
     VorbisSpeechSound = 7,
     TextCoord = 8,

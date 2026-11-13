@@ -194,7 +194,6 @@ pub mod update_inv_stop_transmit;
 pub mod update_pid;
 pub mod update_reboot_timer;
 pub mod update_runenergy;
-#[cfg(before_647)]
 pub mod update_runweight;
 pub mod update_stat;
 pub mod update_zone_full_follows;
