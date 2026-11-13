@@ -1,5 +1,7 @@
-// 289's ardounge_wizard (844) is nameless in 2011; Wizard Cromperty is 2328.
-[opnpc1,cromperty]
+// Cache 786 spawns 289's ardounge_wizard (844, maps/n41_51.jm2), a multi-npc that shows as
+// Wizard Cromperty (2328) while Back to my Roots' varbit (roots_cromperty) is 0. An op on a
+// multi-npc runs the spawned type's script, so the triggers are 289's.
+[opnpc1,ardounge_wizard]
 ~chatnpc("<p,neutral>Hello there.|My name is Cromperty.|I am a Wizard, and an inventor.");
 if(%runemysteries = ^runemysteries_complete) {
 @multi3("Two jobs? That's got to be tough.", cromperty_two_jobs, "So what have you invented?", cromperty_what_invented, "Can you teleport me to the Rune Essence?", cromperty_ess);
@@ -7,7 +9,7 @@ if(%runemysteries = ^runemysteries_complete) {
 @multi2("Two jobs? That's got to be tough.", cromperty_two_jobs, "So what have you invented?", cromperty_what_invented);
 }
 
-[opnpc3,cromperty]
+[opnpc3,ardounge_wizard]
 @teleport_to_essence_mine(^essence_mine_to_cromperty);
 
 [label,cromperty_two_jobs]
@@ -72,13 +74,14 @@ spotanim_npc(curse_casting, 92, 0);
 // IncompleteProjectile(id = 109, startHeight = 31, endHeight = 31, delay = 61, angle = 16, distOffset = 128)	
 sound_synth(curse_all, 1, 0);
 p_delay(4);
-def_coord $coord = 0_41_51_25_7;
-// 289 sends a Tribal Totem player who delivered the crate elsewhere; that
-// quest is not ported.
-// if(%totemquest >= ^totem_crate_delivered) {
-//     $coord = 0_41_51_14_57;
-//     if(%totemquest = ^totem_crate_delivered) {
-//         %totemquest = ^totem_teleported; // Not sure why this needs to be a stage, but it updates the varp on OSRS
-//     }
-// }
+// 289 lands the player beside the crate with the block in it: west of the RPDT depot's
+// (0_41_51_25_7 by its crate at _26_7), north of the mansion's (_14_57 by _14_56). Cache 786
+// has those crates at _26_8 and _18_56 (maps/l41_51.jm2), so the tiles move with them.
+def_coord $coord = 0_41_51_25_8;
+if(%totemquest >= ^totem_crate_delivered) {
+    $coord = 0_41_51_18_57;
+    if(%totemquest = ^totem_crate_delivered) {
+        %totemquest = ^totem_teleported; // Not sure why this needs to be a stage, but it updates the varp on OSRS
+    }
+}
 p_telejump($coord);
