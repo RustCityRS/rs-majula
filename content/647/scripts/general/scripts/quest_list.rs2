@@ -5,6 +5,7 @@
 [if_button1,questlist_v4:quests]
 switch_int (last_slot) {
     case ^questlist_cook : @questlist_cook;
+    case ^questlist_scorpcatcher : @questlist_scorpcatcher;
     case ^questlist_doric : @questlist_doric;
     case ^questlist_hunt : @questlist_hunt;
     case ^questlist_blackarmgang : @questlist_blackarmgang;
