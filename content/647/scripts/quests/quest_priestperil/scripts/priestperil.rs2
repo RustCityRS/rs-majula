@@ -1,0 +1,15 @@
+// Priest in Peril (289's quests/quest_priestperil/scripts/priestperil.rs2), line for line.
+[label,start_priestperil]
+%priestperil = ^priestperil_started;
+~send_quest_progress(^questlist_priestperil, %priestperil, ^priestperil_complete);
+~chatplayer("<p,neutral>Sure. I don't have anything better to do right now.");
+~chatnpc("<p,happy>Many thanks adventurer! I would have sent one of my squires but they wanted payment for it!");
+
+[queue,priestperil_complete]
+inv_add(inv, dagger_wolfbane, 1);
+stat_advance(prayer, 14060);
+session_log(^log_adventure, "Quest complete: Priest in Peril");
+// The 2011 wiki (Priest in Peril, 2011-05) and Sal's Realm's guide (captured 2011-06-05): 1 quest
+// point, 1,406 Prayer experience, the Wolfbane dagger and the way to Canifis, as 289. No source
+// found shows 2011's scroll: the sentence is 289's.
+~send_quest_complete2(^questlist_priestperil, dagger_wolfbane, 250, ^priestperil_questpoints, "You have completed the<br>Priest In Peril Quest!", "1,406 Prayer XP|Wolfbane dagger|Route to Canifis");
