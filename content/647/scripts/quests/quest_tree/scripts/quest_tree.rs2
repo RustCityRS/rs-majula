@@ -1,0 +1,112 @@
+// Tree Gnome Village (289's quests/quest_tree/scripts/quest_tree.rs2), line for line but for the
+// ballista's coordinates. Sources for what 2011 changes: C is cache 786, W is the 2011 wiki's
+// Tree Gnome Village (quest) page (2011-03-29). Anything neither shows is 289's.
+// - C has the ballista, the stronghold's door, the crumbled wall and the chest on 289's tiles
+//   (maps/l39_50.jm2).
+// - 289's loc_1532 is inactivepoordoor at 647.
+[oploc2,catabow]
+switch_int(%treequest) {
+    case ^tree_not_started, ^tree_started, ^tree_spoken_montai, ^tree_given_logs_montai :
+        ~mesbox("The ballista is damaged. It cannot be used until the gnomes have finished their repairs.");    
+    case ^tree_finding_trackers :
+        // 289 asks all three coordinates here. W: "The first two trackers will give you the
+        // coordinates you need, which you'll automatically commit to memory", and at the
+        // ballista "you'll be given a chance to enter the third coordinate": the height and y
+        // are the trackers' (tracker_gnome.rs2), and only the x is asked.
+        // W has the x differ by player, one of four riddles for 1 to 4. Cache 786 has no var
+        // for it (289's notes name varbits 599-601, empty sections there) and W gives the
+        // riddles only in its own words, so the x stays 289's 3, whose riddle W's matches
+        // ("more than we but less than our feet").
+        ~mesbox("To fire the ballista you must first set the coordinates.");
+        def_int $x_coord = ~p_choice5_header("0001", 1, "0002", 2, "0003", 3, "0004", 4, "0005", 5, "Enter the x-coordinate of the stronghold");
+        ~mesbox("You fire the ballista.|The huge spear flies through the air...");
+        def_coord $projectile_start = 0_39_50_13_13;
+        if_close;
+        loc_anim(catabow_launch);
+        // play synth treevillage_catabow_launch, added in early 2007 I think?
+        ~coord_projectile($projectile_start, movecoord($projectile_start, 0, 0, 41), ballista_travel, 23, 0, 110, 7, 0, 0, 0);
+        p_delay(1);
+        // Fixed values, this is changed to use a random value for the height and unmentioned values for the x/y using varbits
+        if($x_coord = 3) {
+            // https://web.archive.org/web/20051025140108im_/http://www.runeweb.net/fireball/Tree%20Gnome%20Images/TreeGnome4.PNG
+            ~mesbox("...and screams down directly into the|Khazard stronghold. A deafening crash|echoes over the battlefield as the|front entrance is reduced to rubble.");
+            %treequest = ^tree_ballista_fired;
+            return;
+        }
+        ~mesbox("...straight over the Khazard stronghold, into the valleys beyond. You've missed the target.");
+    case default :
+        ~mesbox("The Khazard stronghold has already been breached.");
+}
+
+[oploc1,khazard_stronghold_door]
+if(coordz(coord) > coordz(loc_coord)) {
+    // bigdoor_open (sound)
+    ~open_and_close_door(inactivepoordoor, ~check_axis(coord, loc_coord, loc_angle), false);
+    return;
+}
+if(%treequest >= ^tree_finding_trackers) {
+    ~mesbox("The door seems to be locked from the inside.|I'll need to find another way to get in.");
+    return;
+}
+mes("The door is locked from the inside.");
+
+[oploc1,khazzacklowwall]
+if(coordz(coord) > coordz(loc_coord)) {
+    mes("You can't get over the wall from this side.");
+    return;
+}
+if(%treequest >= ^tree_ballista_fired) {
+    ~mesbox("The wall has been reduced to rubble.|It should be possible to climb over the remains.");
+    if_close;
+    def_coord $start = movecoord(loc_coord, 0, 0, -1);
+    ~forcewalk2($start);
+    ~agility_exactmove(human_walk_crumbledwall, 30, 2, $start, movecoord($start, 0, 0, 2), 30, 100, ^exact_north, true);
+    p_teleport(movecoord(coord, 0, 0, 1));
+    if(%treequest = ^tree_ballista_fired & npc_find(coord, khazard_commander, 4, 0) = true) {
+        // todo: OSRS respawns the NPC if dead, but it also doesn't have this cutscene (prob cause of the delays + aggo npc)
+        p_delay(1);
+        npc_say("What? How did you manage to get in here.");
+        p_delay(2);
+        say("I've come for the orb.");
+        p_delay(2);
+        npc_say("I'll never let you take it.");
+        ~npc_retaliate(0);
+    }
+    return;
+}
+mes("The wall is damaged, but not enough to climb.");
+
+[oploc1,chestclosed_khazard]
+~open_chest(chestopen_khazard);
+if(npc_find(coord, khazard_commander, 5, 0) = true) {
+    npc_say("Oi! You! Get out of there.");
+    ~npc_retaliate(0);
+}
+
+[oploc1,chestopen_khazard]
+if(%treequest < ^tree_ballista_fired | %treequest > ^tree_retrieved_orb | inv_total(inv, orb_of_protection) > 0 | inv_total(bank, orb_of_protection) > 0) {
+    mes("You search the chest, but find nothing.");
+    return;
+}
+if(%treequest = ^tree_ballista_fired) {
+    %treequest = ^tree_retrieved_orb;
+}
+inv_add(inv, orb_of_protection, 1);
+~mesbox("You search the chest.|Inside you find the gnomes' stolen orb of protection.");
+if(npc_find(coord, khazard_commander, 5, 0) = true) {
+    npc_say("Oi! You! Hands off the property of General Khazard.");
+    ~npc_retaliate(0);
+}
+
+[oploc2,chestopen_khazard]
+~close_chest(chestclosed_khazard);
+
+[queue,tree_quest_complete]
+%treequest = ^tree_complete;
+inv_add(inv, gnome_amulet, 1);
+stat_advance(attack, 114500);
+session_log(^log_adventure, "Quest complete: Tree Gnome Village");
+// W: "2 Quest points", "11,450 Attack experience", "Gnome amulet", as 289. No source found shows
+// 2011's scroll: the sentence is 289's on one line (2011's scroll wraps its own), the reward
+// lines are W's.
+~send_quest_complete2(^questlist_tree, gnome_amulet, 260, ^tree_questpoints, "You have completed the Tree Gnome Village Quest!", "11,450 Attack XP|Gnome amulet");
