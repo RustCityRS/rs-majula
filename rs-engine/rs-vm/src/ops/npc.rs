@@ -149,11 +149,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             {
                 let source = queue_source(s).or(s.queue_source);
                 if test::recording() {
+                    let by = source.map_or(-1, i32::from);
+                    test::record_call(NPC_DAMAGE, "npc_hit_by", &by.to_string());
                     // Which npc, then who: other npcs are hit in the world while a test fights
                     // its own (a catapult's stone has no source).
-                    let by = source.map_or(-1, i32::from);
-                    let arg = format!("{}:{by}", npc.uid().nid());
-                    test::record_call(NPC_DAMAGE, "npc_hit_by", &arg);
+                    let on = format!("{}:{by}", npc.uid().nid());
+                    test::record_call(NPC_DAMAGE, "npc_hit_on", &on);
                 }
                 npc.hit_source(source);
             }
