@@ -35,7 +35,11 @@ scope=perm
 [varplayer_8]
 
 // 9
-[varplayer_9]
+[beehive_free]
+// 289's beehive_free (areas/area_seers/configs/bees.varp) keeps 289's id, 9: cache 786 does
+// not transmit varp 9.
+type=boolean
+scope=perm
 
 // 10
 [cogquest]
