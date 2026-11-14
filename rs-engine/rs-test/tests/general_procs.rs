@@ -241,6 +241,65 @@ fn the_lamp_advances_the_stat_picked_on_2011_s_lamp() {
     });
 }
 
+/// Troll Stronghold's mysterious lamp (cache 786's `law_reward_lamp`) on the same screen: 10,000
+/// experience in a stat of level 30 or more (the 2011 wiki's Mysterious lamp page).
+#[test]
+fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
+    runner::on_loaded_engine(|engine| {
+        let lamp = *engine.cache.objs.debugnames.get("law_reward_lamp").unwrap();
+        let mut client = developer(engine, "lampmyst");
+        cheat(&mut client, "~give law_reward_lamp 1");
+        ticks(engine, &mut client, 2);
+        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp given");
+
+        button1(&mut client, BACKPACK, 0, lamp as i32);
+        ticks(engine, &mut client, 2);
+        assert!(is_open(engine, &client, LAMP), "Rub opens 2011's lamp");
+
+        // Attack at level 1: refused, and the lamp is kept.
+        let xp = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK];
+        button1(&mut client, com(LAMP, 30), 0xFFFF, 0xFFFF);
+        ticks(engine, &mut client, 1);
+        button1(&mut client, com(LAMP, 2), 0xFFFF, 0xFFFF);
+        let said = messages(&ticks(engine, &mut client, 2));
+        assert!(
+            said.iter().any(|m| m.contains("level of at least 30")),
+            "{said:?}"
+        );
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().stats.xp[ATTACK],
+            xp
+        );
+        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp is kept");
+
+        // At level 30: 10,000 xp (the engine's tenths), and the lamp is used up.
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            player.stats.levels[ATTACK] = 30;
+            player.stats.base_levels[ATTACK] = 30;
+            player.stats.xp[ATTACK] = 133_630;
+        }
+        let xp = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK];
+        button1(&mut client, com(LAMP, 30), 0xFFFF, 0xFFFF);
+        ticks(engine, &mut client, 1);
+        button1(&mut client, com(LAMP, 2), 0xFFFF, 0xFFFF);
+        let packets = ticks(engine, &mut client, 2);
+        let texts = settexts(&packets);
+        assert_eq!(
+            engine.harness_player(client.pid).unwrap().stats.xp[ATTACK] - xp,
+            100_000
+        );
+        assert_eq!(inv_total(engine, &client, lamp), 0, "the lamp is used up");
+        assert!(!is_open(engine, &client, LAMP), "the lamp closes");
+        assert!(
+            texts
+                .iter()
+                .any(|(_, t)| t == "You have been awarded 10000 Attack experience!"),
+            "{texts:?}"
+        );
+    });
+}
+
 #[test]
 fn a_289_scroll_reads_on_2011_s_message_scroll() {
     runner::on_loaded_engine(|engine| {
