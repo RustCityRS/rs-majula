@@ -182,8 +182,30 @@ if (npc_find(~demon_slayer_circle_coord(3229, 3371), dark_wizard_8872, 1, 0) = t
 if (npc_find(~demon_slayer_circle_coord(3226, 3368), dark_wizard_8873, 1, 0) = true) {
     ~demon_slayer_circle_chanter($say);
 }
-if ($say = false & npc_find(~demon_slayer_circle_coord(3229, 3368), denath_4663, 1, 0) = true) {
-    npc_anim(seq_4617, 0);
+// Denath chants with them: the recording has the words over four heads (522s).
+if (npc_find(~demon_slayer_circle_coord(3229, 3368), denath_4663, 1, 0) = true) {
+    ~demon_slayer_circle_chanter($say);
+}
+
+// The four of them stop casting and turn to a tile: to Delrith for Denath's
+// gloat, to the player for "Who's that?" (the recording, 529s and 531s: they
+// stand upright, facing him and then the camera's side).
+[proc,demon_slayer_circle_turn](coord $to)
+if (npc_find(~demon_slayer_circle_coord(3226, 3371), dark_wizard_8871, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_facesquare($to);
+}
+if (npc_find(~demon_slayer_circle_coord(3229, 3371), dark_wizard_8872, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_facesquare($to);
+}
+if (npc_find(~demon_slayer_circle_coord(3226, 3368), dark_wizard_8873, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_facesquare($to);
+}
+if (npc_find(~demon_slayer_circle_coord(3229, 3368), denath_4663, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_facesquare($to);
 }
 
 [proc,demon_slayer_circle_chanter](boolean $say)
@@ -288,8 +310,16 @@ p_delay(1);
 cam_reset;
 cam_moveto(~demon_slayer_circle_coord(3226, 3375), 500, 232, 232);
 cam_lookat(~demon_slayer_circle_coord(3227, 3367), 300, 232, 232);
+~demon_slayer_circle_turn(~demon_slayer_circle_coord(3227, 3367));
+if (npc_find(~demon_slayer_circle_coord(3227, 3367), delrith, 2, 0) = true) {
+    npc_facesquare(~demon_slayer_circle_coord(3229, 3368));
+}
 p_delay(0);
 ~chatnpc_specific("Denath", denath_4663, "<p,laugh>Ha ha ha! At last you are free, my demonic brother! Rest now, and then have your revenge on this pitiful city!");
+~demon_slayer_circle_turn(coord);
+if (npc_find(~demon_slayer_circle_coord(3227, 3367), delrith, 2, 0) = true) {
+    npc_facesquare(coord);
+}
 ~chatnpc_specific("Dark wizard", dark_wizard_8873, "<p,shock>Who's that?");
 ~chatnpc_specific("Denath", denath_4663, "<p,shock>Noo! Not Silverlight! Delrith is not ready yet!");
 if (npc_find(~demon_slayer_circle_coord(3229, 3368), denath_4663, 2, 0) = true) {
