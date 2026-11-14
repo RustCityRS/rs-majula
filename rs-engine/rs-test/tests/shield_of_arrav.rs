@@ -131,10 +131,67 @@ fn talk(
     z: u16,
     choices: &[&str],
 ) -> Conversation {
-    let (nid, sx, sz) = npc_near(engine, name, x, z);
-    tele(engine, client, sx, 0, sz);
-    talk_to(client, nid);
-    converse(engine, client, choices, 300)
+    from_about(engine, client, name, x, z, choices, |client, nid| {
+        talk_to(client, nid)
+    })
+}
+
+/// An op on a wandering npc, sent by `send` from each walkable tile about it in turn until one
+/// is not "I can't reach that!" (the first walkable tile beside it can be across a wall or a
+/// counter, and where it has wandered to follows the world's random sequence).
+fn from_about(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    name: &str,
+    x: u16,
+    z: u16,
+    choices: &[&str],
+    mut send: impl FnMut(&mut HarnessClient, u16),
+) -> Conversation {
+    let mut last = Conversation::default();
+    for (dx, dz) in [
+        (0i16, 0i16),
+        (1, 0),
+        (-1, 0),
+        (0, 1),
+        (0, -1),
+        (1, 1),
+        (-1, -1),
+        (1, -1),
+        (-1, 1),
+        (2, 0),
+        (-2, 0),
+        (0, 2),
+        (0, -2),
+    ] {
+        let (nid, sx, sz) = npc_near(engine, name, x, z);
+        let (tx, tz) = (sx.wrapping_add_signed(dx), sz.wrapping_add_signed(dz));
+        if rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000) {
+            continue;
+        }
+        tele(engine, client, tx, 0, tz);
+        send(client, nid);
+        // A short look first, for the refusal: it reads the first box's packets away, so a
+        // tile that reaches the npc is stood on afresh and the op sent again for the talk.
+        let mut refused = false;
+        for _ in 0..3 {
+            engine.cycle();
+            let packets = client.packets();
+            refused |= HarnessClient::game_messages(&packets)
+                .into_iter()
+                .any(|(_, m)| m == "I can't reach that!");
+        }
+        if refused {
+            last.messages = vec!["I can't reach that!".to_owned()];
+            continue;
+        }
+        tele(engine, client, tx, 0, tz);
+        let (nid, ..) = npc_near(engine, name, x, z);
+        send(client, nid);
+        last = converse(engine, client, choices, 300);
+        break;
+    }
+    last
 }
 
 /// King Roald on his throne (3222,3476): the tiles beside him are behind it, so he is spoken to
@@ -210,17 +267,17 @@ fn use_on_npc(
     z: u16,
     choices: &[&str],
 ) -> Conversation {
-    let (nid, sx, sz) = npc_near(engine, npc, x, z);
-    tele(engine, client, sx, 0, sz);
     let slot = slot_of(engine, client, obj);
-    let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj) as i32)
-        .p2_alt2(slot)
-        .p2_alt1(nid as i32)
-        .p4_alt3(BACKPACK)
-        .p1_alt2(0);
-    client.send(ClientProt::OpNpcT, &p.finish());
-    converse(engine, client, choices, 300)
+    let obj = id(engine, "obj", obj) as i32;
+    from_about(engine, client, npc, x, z, choices, |client, nid| {
+        let mut p = ClientPacket::new();
+        p.p2_alt2(obj)
+            .p2_alt2(slot)
+            .p2_alt1(nid as i32)
+            .p4_alt3(BACKPACK)
+            .p1_alt2(0);
+        client.send(ClientProt::OpNpcT, &p.finish());
+    })
 }
 
 /// Uses the backpack's `used` on its `target` (IF_BUTTONT) and answers what follows.
