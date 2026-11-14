@@ -1,0 +1,37 @@
+// 1538
+[proc,clientscript_1538](int $int0, int $int1)(int)
+def_int $int2 = 0;
+def_enum $enum3 = null;
+while (enum(int, enum, enum_1635, $int2) ! null) {
+    $int2 = calc($int2 + 1);
+}
+def_component $componentarray0($int2);
+def_int $int4 = $int2;
+$int2 = 0;
+while ($int2 < $int4) {
+    $enum3 = enum(int, enum, enum_1635, $int2);
+    $componentarray0($int2) = enum(int, component, $enum3, 0);
+    $int2 = calc($int2 + 1);
+}
+~quicksort(componentarray0, 0, calc($int4 - 1));
+def_int $int5 = $int0;
+def_int $int6 = $int1;
+$int5 = 14;
+if_setposition(interface_259:com_6, $int5, $int6, 0, 0);
+$int2 = 0;
+while ($int2 < $int4) {
+    $enum3 = enum(component, enum, enum_1636, $componentarray0($int2));
+    $int5 = 14;
+    $int6 = calc($int6 + 22);
+    $int5 = 14;
+    if_setposition(enum(int, component, $enum3, 0), $int5, $int6, 0, 0);
+    $int5 = 28;
+    $int6 = calc($int6 + 14);
+    if_setposition(enum(int, component, $enum3, 1), $int5, $int6, 0, 0);
+    $int6 = calc($int6 + 14);
+    if_setposition(enum(int, component, $enum3, 2), $int5, $int6, 0, 0);
+    $int6 = calc($int6 + 14);
+    if_setposition(enum(int, component, $enum3, 3), $int5, $int6, 0, 0);
+    $int2 = calc($int2 + 1);
+}
+return($int6);

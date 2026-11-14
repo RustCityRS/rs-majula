@@ -1,0 +1,25 @@
+// 5975
+[proc,clientscript_5975]
+def_int $int0 = 0;
+if (op718 = 1) {
+    if (%varplayerbit_9548 ! %varclan_2074) {
+        $int0 = 1;
+    }
+    if (%varplayerbit_9549 ! %varclan_2075) {
+        $int0 = 1;
+    }
+    if (%varplayerbit_9549 = 0) {
+        if_sethide(interface_1259:com_107, true);
+        if_sethide(interface_1259:com_101, false);
+    } else {
+        if_sethide(interface_1259:com_107, false);
+        if_sethide(interface_1259:com_101, true);
+    }
+}
+if ($int0 = 1) {
+    if_sethide(interface_1259:com_71, true);
+    if_sethide(interface_1259:com_78, true);
+} else {
+    if_sethide(interface_1259:com_71, false);
+    if_sethide(interface_1259:com_78, false);
+}

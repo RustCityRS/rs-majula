@@ -1,0 +1,73 @@
+// 431
+[clientscript,script431](component $component0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = 0;
+def_struct $struct5 = null;
+def_int $int6 = -1;
+switch_component ($component0) {
+    case default :
+        return;
+    case conq_side_command:ability_layer_1 :
+        $component2 = conq_side_command:highlight_outer_rect_1;
+        $component3 = conq_side_command:highlight_inner_rect_1;
+        if (%conq_in_tutorial = 1) {
+            $int4 = 1;
+        } else {
+            $int4 = %conq_command_ability_1;
+        }
+    case conq_side_command:ability_layer_2 :
+        $component2 = conq_side_command:highlight_outer_rect_2;
+        $component3 = conq_side_command:highlight_inner_rect_2;
+        if (%conq_in_tutorial = 1) {
+            $int4 = 3;
+        } else {
+            $int4 = %conq_command_ability_2;
+        }
+    case conq_side_command:ability_layer_3 :
+        $component2 = conq_side_command:highlight_outer_rect_3;
+        $component3 = conq_side_command:highlight_inner_rect_3;
+        if (%conq_in_tutorial = 1) {
+            $int4 = 5;
+        } else {
+            $int4 = %conq_command_ability_3;
+        }
+    case conq_side_command:ability_layer_4 :
+        $component2 = conq_side_command:highlight_outer_rect_4;
+        $component3 = conq_side_command:highlight_inner_rect_4;
+        if (%conq_in_tutorial = 1) {
+            $int4 = 6;
+        } else {
+            $int4 = %conq_command_ability_4;
+        }
+}
+switch_int ($int4) {
+    case default :
+        return;
+    case 1 :
+        $struct5 = struct_293;
+    case 2 :
+        $struct5 = struct_299;
+    case 3 :
+        $struct5 = struct_300;
+    case 4 :
+        $struct5 = struct_301;
+    case 5 :
+        $struct5 = struct_305;
+    case 6 :
+        $struct5 = struct_1044;
+    case 7 :
+        $struct5 = struct_1045;
+    case 8 :
+        $struct5 = struct_1046;
+    case 9 :
+        $struct5 = struct_1047;
+}
+if ($int1 = 1) {
+    if_sethide($component2, false);
+    if_sethide($component3, false);
+    if_settargetcursors($component0, struct_param($struct5, param_1157), struct_param($struct5, param_1157));
+} else {
+    if_sethide($component2, true);
+    if_sethide($component3, true);
+}

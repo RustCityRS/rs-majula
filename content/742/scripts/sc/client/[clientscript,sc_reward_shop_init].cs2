@@ -1,0 +1,12 @@
+// 1924
+[clientscript,sc_reward_shop_init]
+if_settext(sc_reward_shop:volatile_cost_text, append(tostring(20), "<br>points."));
+if_settext(sc_reward_shop:tool_cost_text, append(tostring(20), "<br>points."));
+if_settext(sc_reward_shop:body_cost_text, append(tostring(30), "<br>points."));
+if_settext(sc_reward_shop:legs_cost_text, append(tostring(28), "<br>points."));
+if_settext(sc_reward_shop:head_cost_text, append(tostring(24), "<br>points."));
+if_settext(sc_reward_shop:weapon_cost_text, append(tostring(26), "<br>points."));
+if_setobject(sc_reward_shop:staff_obj, sc_staff_5, 1);
+if_setmodelangle(sc_reward_shop:staff_obj, 0, 0, 1274, 876, 625, 1715);
+~script1929;
+%sc_client_selected_reward = 0;

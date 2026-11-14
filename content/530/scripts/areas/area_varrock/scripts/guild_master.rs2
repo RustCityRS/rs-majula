@@ -1,0 +1,147 @@
+// The Champions' Guild's Guildmaster: 289's areas/area_varrock/scripts/guild_master.rs2 with
+// Dragon Slayer's 2011 lines, word for word, from the 2011-05-04 recording (YouTube UYp0v2Pc1yI,
+// 29.2-41.0s, 108.4-160.0s and 245.0-291.6s; runescape/target/refs/dragon/transcript_0504_p1.md):
+// - "Can I have a quest?" sends the player to Oziach (289: "Do you know where I could get a Rune
+//   Plate mail body?");
+// - after Oziach, Crandor's history the first time ("I talked to Oziach..."), then "About my
+//   quest to kill the dragon..." with the reefs and the dragon's breath;
+// - its five questions, each menu after an answer dropping the one just answered and "What's so
+//   special about this dragon?"; the map pieces in place of the route once it is asked;
+// - the maze key comes with Melzar's piece (289: from Oziach).
+// The 2011 wiki (Dragon Slayer, 2011-05-22) says the key comes only after all three pieces are
+// asked about; the recording gives it on the first (261.0-262.2s), so the recording's order is
+// kept. No 2011 source has the answers to "What is this place?" (289's here) or "Where can I find
+// the right ship?" (the wiki: "there's probably a ship for sale in Port Sarim", not word for
+// word), which ends on the player's line.
+[opnpc1,guildmaster]
+~chatnpc("<p,neutral>Greetings!");
+if (%dragonquest = ^quest_dragon_not_started) {
+    switch_int (~p_choice2("What is this place?", 1, "Can I have a quest?", 2)) {
+        case 2 : @guildmaster_dragon_quest;
+    }
+    @guildmaster_what_place;
+}
+if (%dragonquest >= ^quest_dragon_spoken_to_oziach & %dragonquest < ^dragon_complete) {
+    if (%dragon_guildmaster = ^false) {
+        switch_int (~p_choice2("What is this place?", 1, "I talked to Oziach...", 2)) {
+            case 2 : @guildmaster_talked_to_oziach;
+        }
+        @guildmaster_what_place;
+    }
+    switch_int (~p_choice2("What is this place?", 1, "About my quest to kill the dragon...", 2)) {
+        case 2 :
+            ~chatplayer("<p,neutral>About my quest to kill the dragon...");
+            @guildmaster_dragon_advice;
+    }
+}
+@guildmaster_what_place;
+
+[label,guildmaster_what_place]
+~chatplayer("<p,quiz>What is this place?");
+// rsc (not including typos) & osrs: 289's, unverified for 2011
+~chatnpc("<p,neutral>This is the Champions' Guild. Only adventurers who have proved themselves worthy by gaining influence from quests are allowed in here.");
+
+[label,guildmaster_dragon_quest]
+~chatplayer("<p,quiz>Can I have a quest?");
+~chatnpc("<p,happy>Aha!");
+~chatnpc("<p,happy>Yes! A mighty and perilous quest fit only for the most powerful champions! And, at the end of it, you will earn the right to wear the legendary rune platebody!");
+~chatplayer("<p,quiz>So, what is this quest?");
+~chatnpc("<p,neutral>You'll have to speak to Oziach, the maker of rune armour. He sets the quests that champions must complete in order to wear it.");
+~chatnpc("<p,neutral>Oziach lives in a hut, by the cliffs to the west of Edgeville. He can be a little...odd...sometimes, though.");
+%dragonquest = ^quest_dragon_spoken_to_guildmaster;
+~send_quest_progress(^questlist_dragon, %dragonquest, ^dragon_complete);
+
+[label,guildmaster_talked_to_oziach]
+~chatplayer("<p,neutral>I talked to Oziach and he gave me a quest.");
+~chatnpc("<p,quiz>Oh? What did he tell you to do?");
+~chatplayer("<p,neutral>Defeat the dragon of Crandor.");
+~chatnpc("<p,shock>The dragon of Crandor?");
+~chatplayer("<p,confused>Um, yes...");
+~chatnpc("<p,neutral>Goodness, he hasn't given you an easy job, has he?");
+%dragon_guildmaster = ^true;
+~chatplayer("<p,quiz>What's so special about this dragon?");
+@guildmaster_crandor_history;
+
+[label,guildmaster_crandor_history]
+~chatnpc("<p,neutral>Thirty years ago, Crandor was a thriving community with a great tradition of mages and adventurers. Many Crandorians even earned the right to be part of the Champions' Guild!");
+~chatnpc("<p,neutral>One of their adventurers went too far, however. He descended into the volcano in the centre of Crandor and woke the dragon Elvarg.");
+~chatnpc("<p,neutral>He must have fought valiantly against the dragon because they say that, to this day, she has a scar down her side,");
+~chatnpc("<p,neutral>but the dragon still won the fight. She emerged and laid waste to the whole of Crandor with her fire breath!");
+~chatnpc("<p,neutral>Some refugees managed to escape in fishing boats. They landed on the coast, north of Rimmington, and set up camp but the dragon followed them and burned the camp to the ground.");
+~chatnpc("<p,neutral>Out of all the people of Crandor there were only three survivors: a trio of wizards who used magic to escape. Their names were: Thalzar, Lozar and Melzar.");
+@guildmaster_dragon_advice;
+
+[label,guildmaster_dragon_advice]
+~chatnpc("<p,neutral>If you're serious about taking on Elvarg, first you'll need to get to Crandor. The island is surrounded by dangerous reefs, so you'll need a ship capable of getting through them and a map to show you the way.");
+~chatnpc("<p,neutral>When you reach Crandor, you'll also need some kind of protection against the dragon's breath.");
+switch_int (~p_choice5("How can I find the route to Crandor?", 1, "Where can I find the right ship?", 2, "How can I protect myself from the dragon's breath?", 3, "What's so special about this dragon?", 4, "Okay, I'll get going!", 5)) {
+    case 1 : @guildmaster_route;
+    case 2 : @guildmaster_ship;
+    case 3 : @guildmaster_protect;
+    case 4 :
+        ~chatplayer("<p,quiz>What's so special about this dragon?");
+        @guildmaster_crandor_history;
+    case 5 : ~chatplayer("<p,neutral>Okay, I'll get going!");
+}
+
+[label,guildmaster_route]
+~chatplayer("<p,quiz>How can I find the route to Crandor?");
+~chatnpc("<p,neutral>Only one map exists that shows the route through the reefs of Crandor. That map was split into three pieces by Melzar, Thalzar and Lozar, the wizards who escaped from the dragon. Each of them took one piece.");
+switch_int (~p_choice3("Where is Melzar's map piece?", 1, "Where is Thalzar's map piece?", 2, "Where is Lozar's map piece?", 3)) {
+    case 1 : @guildmaster_piece(1);
+    case 2 : @guildmaster_piece(2);
+    case 3 : @guildmaster_piece(3);
+}
+
+[label,guildmaster_piece](int $piece)
+switch_int ($piece) {
+    case 1 :
+        ~chatplayer("<p,quiz>Where is Melzar's map piece?");
+        ~chatnpc("<p,neutral>Melzar built a castle on the site of the Crandorian refugee camp, north of Rimmington. He's locked himself in there and no one's seen him for years.");
+        ~chatnpc("<p,neutral>The inside of his castle is like a maze, and is populated by undead monsters. Maybe, if you could get all the way through the maze, you could find his piece of the map.");
+        // 289's check that the player has no key yet (in the backpack or the bank); 2011's
+        // with a key held is not recorded.
+        if (inv_total(inv, melzarkey) = 0 & inv_total(bank, melzarkey) = 0) {
+            ~chatnpc("<p,neutral>Adventurers sometimes go in there to prove themselves, so I can give you this key to Melzar's Maze.");
+            inv_add(inv, melzarkey, 1);
+            ~objbox(melzarkey, "The Guildmaster hands you a key.", 250, 0, 0);
+        }
+    case 2 :
+        ~chatplayer("<p,quiz>Where is Thalzar's map piece?");
+        ~chatnpc("<p,neutral>Thalzar was the most paranoid of the three wizards. He hid his map piece and took the secret of its location to his grave.");
+        ~chatnpc("<p,neutral>I don't think you'd be able to find out where it is by ordinary means. You'll need to talk to the Oracle on Ice Mountain.");
+        if (%dragon_oracle < ^quest_dragon_knows_about_oracle) {
+            %dragon_oracle = ^quest_dragon_knows_about_oracle;
+        }
+    case 3 :
+        ~chatplayer("<p,quiz>Where is Lozar's map piece?");
+        ~chatnpc("<p,neutral>A few weeks ago, I'd have told you to speak to Lozar herself, in her house across the river from Lumbridge.");
+        ~chatnpc("<p,sad>Unfortunately, goblin raiders killed her and stole everything. One of the goblins from the Goblin Village probably has the map piece now.");
+        %dragon_goblin = ^quest_dragon_knows_about_goblin;
+}
+// The two other pieces, the ship, the breath and the farewell (263.4, 267.6, 271.8s).
+switch_int ($piece) {
+    case 1 : $piece = ~p_choice5("Where is Thalzar's map piece?", 2, "Where is Lozar's map piece?", 3, "Where can I find the right ship?", 4, "How can I protect myself from the dragon's breath?", 5, "Okay, I'll get going!", 6);
+    case 2 : $piece = ~p_choice5("Where is Melzar's map piece?", 1, "Where is Lozar's map piece?", 3, "Where can I find the right ship?", 4, "How can I protect myself from the dragon's breath?", 5, "Okay, I'll get going!", 6);
+    case 3 : $piece = ~p_choice5("Where is Melzar's map piece?", 1, "Where is Thalzar's map piece?", 2, "Where can I find the right ship?", 4, "How can I protect myself from the dragon's breath?", 5, "Okay, I'll get going!", 6);
+}
+switch_int ($piece) {
+    case 1, 2, 3 : @guildmaster_piece($piece);
+    case 4 : @guildmaster_ship;
+    case 5 : @guildmaster_protect;
+    case 6 : ~chatplayer("<p,neutral>Okay, I'll get going!");
+}
+
+[label,guildmaster_ship]
+~chatplayer("<p,quiz>Where can I find the right ship?");
+
+[label,guildmaster_protect]
+~chatplayer("<p,quiz>How can I protect myself from the dragon's breath?");
+~chatnpc("<p,neutral>That part shouldn't be too difficult, actually. I believe the Duke of Lumbridge has a special shield in his armoury that is enchanted against dragon's breath.");
+%dragon_shield = ^quest_dragon_knows_about_shield;
+// The route, the ship and the farewell (139.0s).
+switch_int (~p_choice3("How can I find the route to Crandor?", 1, "Where can I find the right ship?", 2, "Okay, I'll get going!", 3)) {
+    case 1 : @guildmaster_route;
+    case 2 : @guildmaster_ship;
+    case 3 : ~chatplayer("<p,neutral>Okay, I'll get going!");
+}

@@ -1,0 +1,19 @@
+// 5207
+[proc,clientscript_5207](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_graphic $graphic4 = "aif_bronze_icon_button_1,3";
+def_graphic $graphic5 = "aif_bronze_icon_button_1,0";
+while ($int3 < if_getnextsubid($component0)) {
+    if (cc_find($component0, $int3) = true & cc_getgraphic = $graphic4) {
+        cc_clearhooks;
+        cc_setgraphic($graphic5);
+    }
+    $int3 = calc($int3 + 1);
+}
+if (cc_find($component0, $int1) = true) {
+    cc_clearhooks;
+    cc_setgraphic($graphic4);
+}
+%varclient_1601 = $int2;
+~clientscript_5202(0);
+~clientscript_5204;

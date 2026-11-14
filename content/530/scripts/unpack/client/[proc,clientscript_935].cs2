@@ -1,0 +1,26 @@
+// 935
+[proc,clientscript_935](int $int0, int $int1, int $int2)
+if (cc_find(interface_724:board, 288) = true) {
+    cc_delete;
+}
+if (cc_find(interface_724:board, calc($int0 + 112)) = true) {
+    cc_sethide(true);
+    if ($int2 = 0) {
+        .cc_create(interface_724:board, 3, 288);
+        .cc_setcolour(^green);
+        .cc_setsize(cc_getwidth, cc_getheight, 0, 0);
+        .cc_setposition(cc_getx, cc_gety, 0, 0);
+        .cc_sethide(false);
+        .cc_setontimer("clientscript_937(event_comsubid, clientclock)");
+    }
+}
+if ($int0 <= 55) {
+    ~clientscript_936(calc($int0 + 112 + $int0 / 7), $int1, $int2);
+    ~clientscript_936(calc($int0 + 113 + $int0 / 7), $int1, $int2);
+    return;
+}
+if ($int0 <= 111) {
+    ~clientscript_936(calc($int0 + 56), $int1, $int2);
+    ~clientscript_936(calc($int0 + 64), $int1, $int2);
+    return;
+}

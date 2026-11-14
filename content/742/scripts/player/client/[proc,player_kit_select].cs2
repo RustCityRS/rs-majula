@@ -1,0 +1,12 @@
+// 2366
+[proc,player_kit_select](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+while ($int3 < $int2) {
+    if (cc_find($component0, $int3) = true) {
+        cc_setgraphic("miscgraphics,10");
+    }
+    $int3 = calc($int3 + 1);
+}
+if (cc_find($component0, $int1) = true) {
+    cc_setgraphic("miscgraphics,11");
+}

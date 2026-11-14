@@ -1,0 +1,25 @@
+// 1183
+[proc,clientscript_1183]
+if (string_length(%varclient_664) = 0) {
+    %loginscreen_focus = 1;
+    return;
+}
+if (string_length(%varclient_665) = 0) {
+    %loginscreen_focus = 2;
+    return;
+}
+if (~clientscript_1431 = 1 & %loginscreen_pvp_warned = 0) {
+    %loginscreen_focus = 7;
+    if_sethide(loginscreen:com_132, false);
+    if_sethide(loginscreen:com_131, true);
+    if_sethide(loginscreen:com_242, false);
+    sound_jingle(349, 0);
+    if_sethide(loginscreen:com_241, true);
+    return;
+}
+%loginscreen_hopblocked_time = 0;
+%loginscreen_videoad = 0;
+if_settext(loginscreen:com_334, "Performing login...");
+if_sethide(loginscreen:login_button, true);
+if_sethide(loginscreen:com_348, true);
+login_request(%varclient_664, %varclient_665, 0);

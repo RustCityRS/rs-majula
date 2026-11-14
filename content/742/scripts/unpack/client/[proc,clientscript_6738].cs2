@@ -1,0 +1,135 @@
+// 6738
+[proc,clientscript_6738](int $int0, struct $struct1, int $int2)
+if_settext(interface_1343:com_17, struct_param($struct1, param_1266));
+if_settext(interface_1343:com_11, struct_param($struct1, param_1273));
+switch_int ($int0) {
+    case 8 :
+        if_setgraphic(interface_1343:com_18, 13217);
+    case 1 :
+        if_setgraphic(interface_1343:com_18, 13193);
+    case 22 :
+        if_setgraphic(interface_1343:com_18, 13209);
+    case 16 :
+        if_setgraphic(interface_1343:com_18, 13212);
+    case 11 :
+        if_setgraphic(interface_1343:com_18, 13203);
+    case 25 :
+        if_setgraphic(interface_1343:com_18, 13215);
+    case 21 :
+        if_setgraphic(interface_1343:com_18, 13213);
+    case 17 :
+        if_setgraphic(interface_1343:com_18, 13200);
+    case 15 :
+        if_setgraphic(interface_1343:com_18, 13211);
+    case 19 :
+        if_setgraphic(interface_1343:com_18, 13204);
+    case 9 :
+        if_setgraphic(interface_1343:com_18, 13210);
+    case 23 :
+        if_setgraphic(interface_1343:com_18, 13202);
+    case 13 :
+        if_setgraphic(interface_1343:com_18, 13198);
+    case 7 :
+        if_setgraphic(interface_1343:com_18, 13197);
+    case 12 :
+        if_setgraphic(interface_1343:com_18, 13206);
+    case 20 :
+        if_setgraphic(interface_1343:com_18, 13214);
+    case 14 :
+        if_setgraphic(interface_1343:com_18, 13208);
+    case 24 :
+        if_setgraphic(interface_1343:com_18, 13216);
+    case 10 :
+        if_setgraphic(interface_1343:com_18, 13201);
+    case 18 :
+        if_setgraphic(interface_1343:com_18, 13207);
+}
+if_settext(interface_1343:com_3, struct_param($struct1, param_1274));
+if (~clientscript_6783(1) = $struct1 | ~clientscript_6783(2) = $struct1 | ~clientscript_6783(3) = $struct1 | ~clientscript_6783(4) = $struct1 | ~clientscript_6783(5) = $struct1) {
+    if_settext(interface_1343:com_130, struct_param($struct1, param_1275));
+} else {
+    if_settext(interface_1343:com_130, "Only daily challenges need to be handed in.");
+}
+if_sethide(interface_1343:com_25, false);
+def_string $string0 = "";
+if ($int0 = 1) {
+    $string0 = append($string0, "1 spin on the Squeal of Fortune, a Combat XP Lamp");
+} else {
+    $string0 = append($string0, "1 spin on the Squeal of Fortune, <enum(int, string, enum_108, $int0)> XP");
+}
+if (struct_param($struct1, param_2705) ! null) {
+    $string0 = append($string0, ", a Challenge Mystery Bag.");
+} else {
+    $string0 = append($string0, ".");
+}
+def_int $int3 = 0;
+def_int $int4 = struct_param($struct1, param_2235);
+switch_int ($int2) {
+    case 1 :
+        $int3 = %varplayerbit_11987;
+        if_sethide(interface_1343:com_19, false);
+        if ($int3 >= $int4) {
+            if_setgraphic(interface_1343:com_19, 13902);
+        } else {
+            if_setgraphic(interface_1343:com_19, 13901);
+        }
+        if_sethide(interface_1343:com_24, false);
+        if_settext(interface_1343:com_53, "5");
+        if_settext(interface_1343:com_5, $string0);
+    case 2 :
+        $int3 = %varplayerbit_11991;
+        if_sethide(interface_1343:com_19, false);
+        if ($int3 >= $int4) {
+            if_setgraphic(interface_1343:com_19, 13902);
+        } else {
+            if_setgraphic(interface_1343:com_19, 13901);
+        }
+        if_sethide(interface_1343:com_24, false);
+        if_settext(interface_1343:com_53, "4");
+        if_settext(interface_1343:com_5, $string0);
+    case 3 :
+        $int3 = %varplayerbit_11995;
+        if_sethide(interface_1343:com_19, false);
+        if ($int3 >= $int4) {
+            if_setgraphic(interface_1343:com_19, 13902);
+        } else {
+            if_setgraphic(interface_1343:com_19, 13901);
+        }
+        if_sethide(interface_1343:com_24, false);
+        if_settext(interface_1343:com_53, "3");
+        if_settext(interface_1343:com_5, $string0);
+    case 4 :
+        $int3 = %varplayerbit_11999;
+        if_sethide(interface_1343:com_19, false);
+        if ($int3 >= $int4) {
+            if_setgraphic(interface_1343:com_19, 13902);
+        } else {
+            if_setgraphic(interface_1343:com_19, 13901);
+        }
+        if_sethide(interface_1343:com_24, false);
+        if_settext(interface_1343:com_53, "2");
+        if_settext(interface_1343:com_5, $string0);
+    case 5 :
+        $int3 = %varplayerbit_12003;
+        if_sethide(interface_1343:com_19, false);
+        if ($int3 >= $int4) {
+            if_setgraphic(interface_1343:com_19, 13902);
+        } else {
+            if_setgraphic(interface_1343:com_19, 13901);
+        }
+        if_sethide(interface_1343:com_24, false);
+        if_settext(interface_1343:com_53, "1");
+        if_settext(interface_1343:com_5, $string0);
+    case default :
+        if (~clientscript_6783(6) = $struct1) {
+            $int3 = %varplayerbit_12007;
+        }
+        if_setgraphic(interface_1343:com_19, 13901);
+        if_sethide(interface_1343:com_19, true);
+        if_sethide(interface_1343:com_24, true);
+        if_settext(interface_1343:com_53, "-");
+        if_settext(interface_1343:com_5, "You will earn XP as you complete the Challenge, but only Daily Challenges give additional rewards.");
+}
+if_sethide(interface_1343:com_16, false);
+if_settext(interface_1343:com_103, "<tostring($int3)> / <tostring($int4)>");
+if_setsize(interface_1343:com_98, scale($int3, $int4, 16384), 16384, ^setsize_rel, ^setsize_rel);

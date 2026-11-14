@@ -1,0 +1,126 @@
+// 142:0
+[com_0]
+type=rectangle
+x=1
+y=1
+width=512
+height=334
+colour=0x352d1e
+fill=yes
+
+// 142:1
+[com_1]
+type=model
+x=46
+y=-38
+width=419
+height=408
+model=model_4515
+modelorigin=1,225
+modelangle=0,1536,0
+modelzoom=304
+
+// 142:2
+[horror_fire]
+type=model
+x=65
+y=117
+width=79
+height=95
+model=model_4514
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=381
+
+// 142:3
+[horror_air]
+type=model
+x=140
+y=15
+width=59
+height=52
+model=model_4510
+modelorigin=5,0
+modelangle=512,0,0
+modelzoom=437
+
+// 142:4
+[horror_earth]
+type=model
+x=291
+y=1
+width=96
+height=80
+model=model_4512
+modelorigin=-2,1
+modelangle=512,0,0
+modelzoom=412
+
+// 142:5
+[horror_water]
+type=model
+x=380
+y=134
+width=51
+height=72
+model=model_4521
+modelorigin=1,0
+modelangle=512,0,0
+modelzoom=380
+
+// 142:6
+[horror_ranging]
+type=model
+x=296
+y=254
+width=68
+height=72
+model=model_4519
+modelorigin=8,-4
+modelangle=489,1986,0
+modelzoom=426
+
+// 142:7
+[horror_melee]
+type=model
+x=156
+y=252
+width=33
+height=65
+model=model_4517
+modelorigin=3,-2
+modelangle=512,0,0
+modelzoom=368
+
+// 142:8
+[com_8]
+type=graphic
+x=464
+y=16
+width=26
+height=23
+graphic="close_buttons,4"
+colour=0x000000
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onclick=closebutton_click
+
+// 142:9
+[com_9]
+type=graphic
+x=3
+y=5
+width=26
+height=23
+layer=horror_metaldoor_close
+graphic="close_buttons,5"
+colour=0x000000
+
+// 142:10
+[horror_metaldoor_close]
+type=layer
+x=461
+y=11
+width=32
+height=32
+hide=yes

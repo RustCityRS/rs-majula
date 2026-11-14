@@ -1,0 +1,13 @@
+// 2075
+[clientscript,script2075]
+def_int $int0 = 0;
+if (%snp_game_in_progress_client = 0) {
+    if (calc(10 - %snp_blue_players_waiting_client) > 0) {
+        $int0 = calc(10 - %snp_blue_players_waiting_client);
+    } else {
+        $int0 = 0;
+    }
+    if_settext(snp_waiting_room:text_blueteam_count, tostring($int0));
+} else {
+    if_settext(snp_waiting_room:text_blueteam_count, tostring(%snp_blue_players_client));
+}

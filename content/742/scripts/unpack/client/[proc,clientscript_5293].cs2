@@ -1,0 +1,12 @@
+// 5293
+[proc,clientscript_5293](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+sound_vorbis_volume(6185, 1, 0, 200);
+if ($int2 = 1) {
+    %varplayerbit_9896 = $int1;
+} else {
+    %varplayerbit_9887 = $int1;
+}
+~clientscript_5291;

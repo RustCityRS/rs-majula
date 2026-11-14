@@ -1,0 +1,23 @@
+// 4694
+[proc,clientscript_4694](component $component0)
+if (%varclient_1548 = 1) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 63, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varclient_1548 = 2) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 93, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varclient_1548 = 3) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 123, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varclient_1548 = 4) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 153, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varclient_1548 = 5) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 183, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varclient_1548 = 6) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 213, ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varclient_1548 = 7) {
+    if_setposition($component0, if_getwidth(interface_500:com_2), 213, ^setpos_abs_left, ^setpos_abs_top);
+}

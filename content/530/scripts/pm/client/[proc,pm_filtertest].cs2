@@ -1,0 +1,20 @@
+// 91
+[proc,pm_filtertest](int $int0)(boolean)
+switch_int (chat_gethistorytype($int0)) {
+    case 7 :
+        return(true);
+    case 3, 18 :
+        if (chat_getfilter_private = 0) {
+            return(true);
+        }
+        if (chat_getfilter_private = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case 5, 6, 19 :
+        if (chat_getfilter_private < 2) {
+            return(true);
+        }
+        return(false);
+}
+return(false);

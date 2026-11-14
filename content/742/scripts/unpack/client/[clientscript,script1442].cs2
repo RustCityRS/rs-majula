@@ -1,0 +1,51 @@
+// 1442
+[clientscript,script1442]
+switch_int (%journey_number) {
+    case 0 :
+        return;
+    case 1 :
+        if_sethide(ship_journey:sarim_entrana_layer, false);
+        if_setmodelanim(ship_journey:com_53, sarim_entrana);
+    case 2 :
+        if_sethide(ship_journey:entrana_sarim_layer, false);
+        if_setmodelanim(ship_journey:com_52, entrana_sarim);
+    case 3 :
+        if_sethide(ship_journey:sarim_karamja_layer, false);
+        if_setmodelanim(ship_journey:com_55, sarim_crandor);
+    case 5 :
+        if_sethide(ship_journey:karamja_sarim_layer, false);
+        if_setmodelanim(ship_journey:com_57, sarim_karamja);
+    case 6 :
+        if_sethide(ship_journey:ardougne_brimhaven_layer, false);
+        if_setmodelanim(ship_journey:karamja_to_sarim_ship, karamja_sarim);
+    case 7 :
+        if_sethide(ship_journey:brimhaven_ardougne_layer, false);
+        if_setmodelanim(ship_journey:ardougne_to_brimhaven_ship, seq_636);
+    case 8 :
+        if_sethide(ship_journey:khazzard_cairn_layer, false);
+        if_setmodelanim(ship_journey:com_60, seq_637);
+    case 10 :
+        if_sethide(ship_journey:khazzard_trawler_layer, false);
+        if_setmodelanim(ship_journey:com_62, cairn_khazzard);
+    case 11 :
+        if_sethide(ship_journey:trawler_khazzard_layer, false);
+        if_setmodelanim(ship_journey:khazzard_to_trawler_ship, khazzard_trawler);
+    case 12 :
+        if_sethide(ship_journey:cairn_sarim_layer, false);
+        if_setmodelanim(ship_journey:com_64, trawler_khazzard);
+    case 13 :
+        if_sethide(ship_journey:sarim_voidknight_layer, false);
+        if_setmodelanim(ship_journey:cairn_to_sarim_ship, cairn_sarim);
+    case 14 :
+        if_sethide(ship_journey:karamja_voidknight_layer, false);
+        if_setmodelanim(ship_journey:com_66, sarim_voidknight);
+    case 15 :
+        if_sethide(ship_journey:feldip_tai_layer, false);
+        if_setmodelanim(ship_journey:karamja_to_voidknight_ship, voidknight_sarim);
+    case 16 :
+        if_sethide(ship_journey:tai_feldip_layer, false);
+        if_setmodelanim(ship_journey:com_68, ogre_boat_feldip_to_tai);
+    case 17 :
+        if_sethide(ship_journey:com_31_, false);
+        if_setmodelanim(ship_journey:com_51, ogre_boat_tai_to_feldip);
+}

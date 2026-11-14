@@ -1,0 +1,6 @@
+// 1510
+[clientscript,player_kit_body_vartransmit]
+if (%player_kit_body_viewing ! %player_kit_body_layer) {
+    %player_kit_body_layer = %player_kit_body_viewing;
+    ~player_kit_body_redraw;
+}

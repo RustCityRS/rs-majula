@@ -1,0 +1,98 @@
+// 5735
+[proc,clientscript_5735]()(int)
+def_int $int0 = 0;
+def_struct $struct1 = %varplayer_2501;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_component $component4 = null;
+def_int $int5 = calc(if_gety(interface_1237:com_1) + if_getheight(interface_1237:com_1));
+def_int $int6 = $int5;
+def_int $int7 = 0;
+cc_deleteall(interface_1237:com_18);
+~clientscript_5740(interface_1237:com_21);
+~clientscript_5740(interface_1237:com_22);
+~clientscript_5740(interface_1237:com_23);
+~clientscript_5740(interface_1237:com_24);
+~clientscript_5740(interface_1237:com_25);
+~clientscript_5740(interface_1237:com_26);
+~clientscript_5740(interface_1237:com_27);
+~clientscript_5740(interface_1237:com_28);
+~clientscript_5740(interface_1237:com_29);
+~clientscript_5740(interface_1237:com_30);
+~clientscript_5740(interface_1237:com_31);
+~clientscript_5740(interface_1237:com_32);
+def_int $int8 = 1;
+while ($int8 < 13) {
+    $int7 = calc($int8 - 1);
+    switch_int ($int8) {
+        case 1 :
+            $component4 = interface_1237:com_21;
+            $int2 = struct_param($struct1, param_1294);
+            $int3 = struct_param($struct1, param_1295);
+        case 2 :
+            $component4 = interface_1237:com_22;
+            $int2 = struct_param($struct1, param_1296);
+            $int3 = struct_param($struct1, param_1297);
+        case 3 :
+            $component4 = interface_1237:com_23;
+            $int2 = struct_param($struct1, param_1298);
+            $int3 = struct_param($struct1, param_1299);
+        case 4 :
+            $component4 = interface_1237:com_24;
+            $int2 = struct_param($struct1, param_1300);
+            $int3 = struct_param($struct1, param_1301);
+        case 5 :
+            $component4 = interface_1237:com_25;
+            $int2 = struct_param($struct1, param_1302);
+            $int3 = struct_param($struct1, param_1303);
+        case 6 :
+            $component4 = interface_1237:com_26;
+            $int2 = struct_param($struct1, param_1304);
+            $int3 = struct_param($struct1, param_1305);
+        case 7 :
+            $component4 = interface_1237:com_27;
+            $int2 = struct_param($struct1, param_1306);
+            $int3 = struct_param($struct1, param_1307);
+        case 8 :
+            $component4 = interface_1237:com_28;
+            $int2 = struct_param($struct1, param_1308);
+            $int3 = struct_param($struct1, param_1309);
+        case 9 :
+            $component4 = interface_1237:com_29;
+            $int2 = struct_param($struct1, param_1310);
+            $int3 = struct_param($struct1, param_1311);
+        case 10 :
+            $component4 = interface_1237:com_30;
+            $int2 = struct_param($struct1, param_1312);
+            $int3 = struct_param($struct1, param_1313);
+        case 11 :
+            $component4 = interface_1237:com_31;
+            $int2 = struct_param($struct1, param_2227);
+            $int3 = struct_param($struct1, param_2228);
+        case 12 :
+            $component4 = interface_1237:com_32;
+            $int2 = struct_param($struct1, param_2229);
+            $int3 = struct_param($struct1, param_2230);
+    }
+    if ($int2 = 0) {
+        return($int6);
+    }
+    $int0 = ~clientscript_5741($struct1, $int8);
+    $int6 = ~clientscript_5736($int5, struct_param($struct1, param_1268), calc($int8 - 1), $component4);
+    cc_create(interface_1237:com_18, ^iftype_graphic, $int7);
+    cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(if_getx($component4) + parawidth(if_gettext($component4), if_getwidth($component4), verdana_11pt_regular) + 5), calc(if_getheight($component4) / 2 - cc_getheight / 2 + if_gety($component4)), ^setpos_abs_left, ^setpos_abs_top);
+    if ($int0 = 1) {
+        cc_setgraphic(9604);
+    } else {
+        cc_setgraphic(9605);
+    }
+    if ($int6 = $int5) {
+        mes("Something went wrong; aborting at requirement <tostring($int8)>");
+        ~clientscript_5740($component4);
+        return($int6);
+    }
+    $int5 = $int6;
+    $int8 = calc($int8 + 1);
+}
+return($int6);

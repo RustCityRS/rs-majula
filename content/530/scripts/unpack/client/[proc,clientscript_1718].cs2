@@ -1,0 +1,28 @@
+// 1718
+[proc,clientscript_1718]
+def_graphic $graphic0 = 1438;
+def_graphic $graphic1 = 1437;
+if_setgraphic(interface_771:com_151, 1437);
+if_setgraphic(interface_771:com_152, 1437);
+if_setgraphic(interface_771:com_153, 1437);
+if_setgraphic(interface_771:com_154, 1437);
+if_setgraphic(interface_771:com_155, 1437);
+if_setgraphic(interface_771:com_156, 1437);
+if_setgraphic(interface_771:com_157, 1437);
+if_setgraphic(interface_771:com_158, 1437);
+if_setonmouseover(interface_771:com_151, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_152, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_153, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_154, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_155, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_156, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_157, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_158, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseleave(interface_771:com_151, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_152, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_153, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_154, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_155, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_156, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_157, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_158, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");

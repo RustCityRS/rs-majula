@@ -1,0 +1,38 @@
+// 2713
+[clientscript,loginscreen_disable_camera](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_setonclick($component3, null);
+if_setonmouserepeat($component3, null);
+if_setonmouserepeat($component3, null);
+def_coord $coord6 = null;
+def_int $rgb7 = ^black;
+if (%loginscreen_camera_disabled = true) {
+    if_settrans($component1, 0);
+    if_setcolour($component1, ^black);
+    if_sethide($component1, false);
+    if_setontimer($component1, null);
+    if_setontimer($component2, null);
+    %varclient_176 = calc(%varclient_176 - %varclient_176 % 10);
+    $coord6, $rgb7 = ~script1239(0);
+    cam_moveto($coord6, 1000, 100, 100);
+    cam_lookat($coord6, 0, 100, 100);
+    if_sethide($component0, false);
+    if_setontimer($component0, "loginscreen_camerarestart($component0, $component1, $component2, $component3, $component4, $component5, calc(clientclock + 30))");
+    %loginscreen_camera_disabled = false;
+    %loginscreen_previousprofiling = 2;
+} else {
+    if_setoncamfinished($component0, null);
+    if (if_gethide($component1) = true) {
+        if_settrans($component1, 255);
+        if_sethide($component1, false);
+    }
+    if_setcolour($component1, ^black);
+    if_setontimer($component1, "script1253(event_com)");
+    if (if_gethide($component2) = true) {
+        if_settrans($component2, 255);
+        if_sethide($component2, false);
+    }
+    if_setontimer($component2, "script1253(event_com)");
+    if_setontimer($component0, "loginscreen_camerastop($component0, $component1, $component2, $component3, $component4, $component5, calc(clientclock + 30))");
+    %loginscreen_camera_disabled = true;
+}
+~login_resize;

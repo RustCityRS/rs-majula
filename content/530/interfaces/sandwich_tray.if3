@@ -1,0 +1,657 @@
+// 297:0
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 297:1
+[com_1]
+type=model
+x=-15
+y=-146
+width=532
+height=468
+layer=content_layer
+model=model_10733
+modelorigin=6,-20
+modelangle=479,0,0
+modelzoom=110
+modelunknown=2000,3000,0
+
+// 297:2
+[com_2]
+type=text
+x=43
+y=277
+width=411
+height=18
+layer=content_layer
+textfont=fontmetrics_496
+text=Choose your refreshment from the sandwich tray
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 297:3
+[com_3]
+type=graphic
+x=484
+y=4
+width=26
+height=23
+layer=content_layer
+graphic=graphic_539
+onmouseover=graphic_swapper(event_com, 540)
+onmouseleave=graphic_swapper(event_com, 539)
+onclick=if_close
+
+// 297:4
+[com_4]
+type=layer
+x=480
+width=32
+height=32
+layer=content_layer
+hide=yes
+
+// 297:5
+[com_5]
+type=layer
+width=515
+height=335
+layer=content_layer
+hide=yes
+
+// 297:6
+[com_6]
+type=layer
+x=64
+y=57
+width=448
+height=277
+layer=content_layer
+
+// 297:7
+[com_7]
+type=model
+x=20
+y=123
+width=53
+height=59
+layer=com_6
+model=model_10726
+modelorigin=5,2
+modelangle=233,2036,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(18, 18, 0, event_com)
+
+// 297:8
+[com_8]
+type=model
+x=105
+y=129
+width=57
+height=50
+layer=com_6
+model=model_10732
+modelorigin=12,1
+modelangle=260,2000,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(10, 8, 0, event_com)
+
+// 297:9
+[com_9]
+type=model
+x=204
+y=124
+width=57
+height=52
+layer=com_6
+model=model_10731
+modelorigin=9,4
+modelangle=244,2024,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(20, 10, 0, event_com)
+
+// 297:10
+[com_10]
+type=model
+x=313
+y=133
+width=36
+height=34
+layer=com_6
+model=model_10727
+modelorigin=0,3
+modelangle=236,2041,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(25, 20, 0, event_com)
+
+// 297:11
+[com_11]
+type=model
+x=60
+y=37
+width=57
+height=43
+layer=com_6
+model=model_10730
+modelorigin=2,7
+modelangle=249,2020,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(18, 25, 0, event_com)
+
+// 297:12
+[com_12]
+type=model
+x=171
+y=49
+width=42
+height=26
+layer=com_6
+model=model_10729
+modelorigin=2,1
+modelangle=339,2017,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(10, 30, 0, event_com)
+
+// 297:13
+[com_13]
+type=model
+x=282
+y=47
+width=30
+height=36
+layer=com_6
+model=model_10728
+modelorigin=0,-1
+modelangle=281,2034,0
+modelzoom=500
+modelunknown=64536,3000,0
+transmitop=1
+op1=Choose refreshment
+onload=set_spinner(21, 18, 0, event_com)
+
+// 297:14
+[sandwich_key_button]
+type=text
+x=358
+y=256
+width=84
+height=18
+layer=com_6
+textfont=fontmetrics_496
+text=Key
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff9924
+transmitop=1
+op1=View key
+onmouseover=text_colour_swapper(event_com, 0xd47508)
+onmouseleave=text_colour_swapper(event_com, 0xff9924)
+
+// 297:15
+[com_15]
+type=rectangle
+width=515
+height=335
+layer=com_5
+colour=0x000000
+fill=yes
+
+// 297:16
+[sandwich_tray_baguette]
+type=model
+x=11
+y=125
+width=53
+height=59
+layer=com_5
+model=model_10726
+modelorigin=5,2
+modelangle=233,2036,0
+modelzoom=500
+modelunknown=64536,3000,0
+
+// 297:17
+[sandwich_tray_triangle_sandwich]
+type=model
+x=8
+y=188
+width=57
+height=50
+layer=com_5
+model=model_10732
+modelorigin=12,1
+modelangle=260,2000,0
+modelzoom=500
+modelunknown=64536,3000,0
+
+// 297:18
+[sandwich_tray_square_sandwich]
+type=model
+x=12
+y=240
+width=57
+height=52
+layer=com_5
+model=model_10731
+modelorigin=9,4
+modelangle=244,2024,0
+modelzoom=500
+modelunknown=64533,3000,0
+
+// 297:19
+[sandwich_tray_roll]
+type=model
+x=25
+y=297
+width=36
+height=34
+layer=com_5
+model=model_10727
+modelorigin=0,3
+modelangle=236,2041,0
+modelzoom=500
+modelunknown=64536,3000,0
+
+// 297:20
+[sandwich_tray_meat_pie]
+type=model
+x=13
+y=4
+width=57
+height=43
+layer=com_5
+model=model_10730
+modelorigin=2,7
+modelangle=249,2020,0
+modelzoom=500
+modelunknown=64536,3000,0
+
+// 297:21
+[com_21]
+type=model
+x=18
+y=57
+width=42
+height=26
+layer=com_5
+model=model_10729
+modelorigin=2,1
+modelangle=339,2017,0
+modelzoom=500
+modelunknown=64536,3000,0
+
+// 297:22
+[sandwich_tray_chocolate_bar]
+type=model
+x=25
+y=90
+width=30
+height=36
+layer=com_5
+model=model_10728
+modelorigin=0,-1
+modelangle=281,2034,0
+modelzoom=500
+modelunknown=64536,3000,0
+
+// 297:23
+[com_23]
+type=text
+x=86
+y=18
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Meat Pie
+textshadow=yes
+colour=0xff9924
+
+// 297:24
+[com_24]
+type=text
+x=86
+y=62
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Kebab
+textshadow=yes
+colour=0xff9924
+
+// 297:25
+[com_25]
+type=text
+x=86
+y=102
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Chocolate Bar
+textshadow=yes
+colour=0xff9924
+
+// 297:26
+[com_26]
+type=text
+x=86
+y=152
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Baguette
+textshadow=yes
+colour=0xff9924
+
+// 297:27
+[com_27]
+type=text
+x=86
+y=205
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Triangle Sandwich
+textshadow=yes
+colour=0xff9924
+
+// 297:28
+[com_28]
+type=text
+x=86
+y=260
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Square Sandwich
+textshadow=yes
+colour=0xff9924
+
+// 297:29
+[com_29]
+type=text
+x=468
+y=315
+width=41
+height=16
+layer=com_5
+textfont=fontmetrics_495
+text=back
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 297:30
+[com_30]
+type=text
+x=86
+y=303
+width=100
+height=16
+layer=com_5
+textfont=fontmetrics_496
+text=Roll
+textshadow=yes
+colour=0xff9924
+
+// 297:31
+[com_31]
+type=text
+x=-43
+y=-32
+width=656
+height=454
+layer=com_5
+textfont=fontmetrics_496
+textshadow=yes
+colour=0xff9924
+transmitop=1
+op1=Back
+
+// 297:32
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 297:33
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 297:34
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_821
+tiling=yes
+
+// 297:35
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_820
+tiling=yes
+
+// 297:36
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_822
+tiling=yes
+
+// 297:37
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_823
+tiling=yes
+
+// 297:38
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_824
+tiling=yes
+
+// 297:39
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_825
+tiling=yes
+
+// 297:40
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_827
+tiling=yes
+
+// 297:41
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_826
+tiling=yes
+
+// 297:42
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 297:43
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 297:44
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 297:45
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 297:46
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 297:47
+[com_47]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 297:48
+[com_48]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 297:49
+[com_49]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 297:50
+[com_50]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=graphic_297
+tiling=yes
+outline=2

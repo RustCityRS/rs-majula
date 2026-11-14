@@ -1,0 +1,19 @@
+// 2276
+[proc,rand_interface_update_titles](int $int0, int $int1, component $component2)
+def_string $string0 = enum(int, string, enum_2857, $int1);
+def_int $int3 = enum(int, int, enum_2858, $int1);
+def_string $string1 = enum(int, string, enum_2859, $int1);
+if ($int0 = 1) {
+    if_settext($component2, $string0);
+    if ($int3 = 2) {
+        if_setcolour($component2, 0x00a000);
+    } else if ($int3 = 1) {
+        if_setcolour($component2, 0x909000);
+    } else if ($int3 = 0) {
+        if_setcolour($component2, 0xa00000);
+    }
+    if_setonmouserepeat($component2, "addtooltip(event_com, rand_dungeon_rewards_v2:tooltip_layer, $string1, 25, 200)");
+    if_setonmouseleave($component2, "deltooltip(rand_dungeon_rewards_v2:tooltip_layer)");
+} else {
+    if_settext($component2, "");
+}

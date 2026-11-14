@@ -1,0 +1,39 @@
+// 6034
+[proc,clientscript_6034]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 1;
+def_int $int3 = 1;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int2 < 7) {
+    switch_int ($int2) {
+        case 1 :
+            $int1 = %varplayerbit_9713;
+        case 2 :
+            $int1 = %varplayerbit_9714;
+        case 3 :
+            $int1 = %varplayerbit_9718;
+        case 4 :
+            $int1 = %varplayerbit_9719;
+        case 5 :
+            $int1 = %varplayerbit_9720;
+        case 6 :
+            $int1 = %varplayerbit_9721;
+    }
+    while ($int3 ! 100 & $int6 = 0) {
+        $int5 = enum(int, int, enum_5034, $int3);
+        if ($int1 >= $int5) {
+            $int4 = $int3;
+        } else {
+            $int6 = 1;
+        }
+        $int3 = calc($int3 + 1);
+    }
+    $int2 = calc($int2 + 1);
+    $int0 = calc($int0 + $int4);
+    $int4, $int3 = 0, 1;
+    $int6 = 0;
+}
+return($int0);

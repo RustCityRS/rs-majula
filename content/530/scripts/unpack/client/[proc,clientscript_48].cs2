@@ -1,0 +1,13 @@
+// 48
+[proc,clientscript_48]
+if (%loot_waiting_on = 1 | %loot_waiting_off = 1) {
+    if_setgraphic(interface_589:loot_button, 1071);
+} else if (%loot_share_on = 1) {
+    if (%loot_coinshare = 1) {
+        if_setgraphic(interface_589:loot_button, 306);
+    } else {
+        if_setgraphic(interface_589:loot_button, 1069);
+    }
+} else {
+    if_setgraphic(interface_589:loot_button, 1070);
+}

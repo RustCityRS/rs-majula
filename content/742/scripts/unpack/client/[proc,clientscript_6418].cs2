@@ -1,0 +1,52 @@
+// 6418
+[proc,clientscript_6418](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_int $int3 = 0;
+switch_int ($int0) {
+    case 85721111 :
+        if (%varplayerbit_4785 = 0) {
+            return;
+        }
+        $component1 = interface_1308:com_47;
+        $component2 = interface_1308:com_48;
+        $int3 = %varplayerbit_4785;
+    case 85721113 :
+        if (%varplayerbit_4783 = 0) {
+            return;
+        }
+        $component1 = interface_1308:com_365;
+        $component2 = interface_1308:com_366;
+        $int3 = %varplayerbit_4783;
+    case 85721115 :
+        if (%varplayerbit_4786 = 0) {
+            return;
+        }
+        $component1 = interface_1308:com_378;
+        $component2 = interface_1308:com_379;
+        $int3 = %varplayerbit_4786;
+    case 85721117 :
+        if (%varplayerbit_4787 = 0) {
+            return;
+        }
+        $component1 = interface_1308:com_391;
+        $component2 = interface_1308:com_392;
+        $int3 = %varplayerbit_4787;
+    case 85721119 :
+        if (%varplayerbit_7234 = 0) {
+            return;
+        }
+        $component1 = interface_1308:com_404;
+        $component2 = interface_1308:com_405;
+        $int3 = %varplayerbit_7234;
+    case 85721121 :
+        if (%varplayerbit_10241 = 0) {
+            return;
+        }
+        $component1 = interface_1308:com_417;
+        $component2 = interface_1308:com_418;
+        $int3 = %varplayerbit_10241;
+}
+if_settext($component1, enum(int, string, enum_1563, $int3));
+if_sethide($component2, false);
+~clientscript_6410;

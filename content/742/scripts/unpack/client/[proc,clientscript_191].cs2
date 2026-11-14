@@ -1,0 +1,20 @@
+// 191
+[proc,clientscript_191](component $component0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+if (cc_find($component0, 3) = true) {
+    $int3 = cc_getheight;
+}
+if (cc_find($component0, 4) = true) {
+    $int3 = calc($int3 + 5);
+}
+if (cc_find($component0, 5) = true) {
+    $int3 = calc($int3 + 5);
+}
+def_int $int4 = calc(if_getheight($component0) - $int3);
+$int1 = calc($int4 * ($int1 / $int4));
+if ($int2 = 0) {
+    $int1 = calc($int1 + $int4);
+} else {
+    $int1 = calc($int1 - $int4);
+}
+return($int1);

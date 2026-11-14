@@ -1,0 +1,7 @@
+// 3634
+[proc,trail_failure](component $component0)
+if (if_find($component0) = true) {
+    if_setcolour($component0, 0xcc0000);
+    if_setsize($component0, 27, 27, ^setsize_abs, ^setsize_abs);
+    if_setposition($component0, cc_param(param_1101), cc_param(param_1102), ^setpos_abs_left, ^setpos_abs_top);
+}

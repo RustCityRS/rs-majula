@@ -1,0 +1,168 @@
+// 4
+[proc,clientscript_4](int $int0)(int)
+if ($int0 < 10) {
+    if ($int0 = 0) {
+        if (%spy = 4) {
+            return(2);
+        } else if (%spy = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 1) {
+        if (%cookquest = 2) {
+            return(2);
+        } else if (%cookquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 2) {
+        if (%demonslayer_main = 3) {
+            return(2);
+        } else if (%demonslayer_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 3) {
+        if (%doricquest = 100) {
+            return(2);
+        } else if (%doricquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 4) {
+        if (%dragonquest = 10) {
+            return(2);
+        } else if (%dragonquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 5) {
+        if (%haunted = 3) {
+            return(2);
+        } else if (%haunted = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 6) {
+        if (%gobdip_main = 6) {
+            return(2);
+        } else if (%gobdip_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 7) {
+        if (%imp = 2) {
+            return(2);
+        } else if (%imp = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 8) {
+        if (%squire = 7) {
+            return(2);
+        } else if (%squire = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 9) {
+        if (%hunt = 4) {
+            return(2);
+        } else if (%hunt = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 20) {
+    if ($int0 = 10) {
+        if (%princequest = 110) {
+            return(2);
+        } else if (%princequest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 11) {
+        if (%prieststart = 5) {
+            return(2);
+        } else if (%prieststart = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 12) {
+        if (%rjquest = 100) {
+            return(2);
+        } else if (%rjquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 13) {
+        if (%runemysteries = 6) {
+            return(2);
+        } else if (%runemysteries = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 14) {
+        if (%sheep = 21) {
+            return(2);
+        } else if (%sheep = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 15) {
+        if (%phoenixgang = 7 | %blackarmgang = 4) {
+            return(2);
+        } else if (%phoenixgang > 0 | %blackarmgang > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    }
+    if ($int0 = 16) {
+        if (%vampire = 3) {
+            return(2);
+        } else if (%vampire = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 17) {
+        if (%hetty = 3) {
+            return(2);
+        } else if (%hetty = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}

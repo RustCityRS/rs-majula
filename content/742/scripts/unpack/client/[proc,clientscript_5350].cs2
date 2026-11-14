@@ -1,0 +1,311 @@
+// 5350
+[proc,clientscript_5350](int $int0, component $component1)
+def_enum $enum2 = enum_5181;
+def_string $string0 = "Home";
+def_int $int3 = 0;
+if (%varplayerbit_9487 = 1) {
+    $enum2 = enum_5182;
+    $string0 = "Auras";
+    $int3 = 1;
+} else if (%varplayerbit_9487 = 9) {
+    $enum2 = enum_5724;
+    $string0 = "Cosmetic Auras";
+    $int3 = 9;
+} else if (%varplayerbit_9487 = 2) {
+    $enum2 = enum_3875;
+    $string0 = "Emotes";
+    $int3 = 2;
+} else if (%varplayerbit_9487 = 3) {
+    if (gender = 0) {
+        $enum2 = enum_5189;
+    } else {
+        $enum2 = enum_5188;
+    }
+    $string0 = "Costumes";
+    $int3 = 3;
+} else if (%varplayerbit_9487 = 4) {
+    $enum2 = enum_5184;
+    $string0 = "Titles";
+    $int3 = 4;
+} else if (%varplayerbit_9487 = 5) {
+    $enum2 = enum_5183;
+    $string0 = "Re-colour";
+    $int3 = 5;
+} else if (%varplayerbit_9487 = 6) {
+    $string0 = "Special Offers";
+    $int3 = 6;
+} else if (%varplayerbit_9487 = 7) {
+    $string0 = "Limited Edition";
+    $int3 = 7;
+} else if (%varplayerbit_9487 = 8) {
+    $string0 = "My Favourites";
+    $int3 = 8;
+}
+def_component $component4 = interface_1143:com_5;
+def_int $int5 = if_getscrolly($component4);
+def_component $component6 = interface_1143:com_77;
+def_component $component7 = interface_1143:com_78;
+def_component $component8 = interface_1143:com_76;
+def_component $component9 = interface_1143:com_66;
+def_component $component10 = interface_1143:com_67;
+def_component $component11 = interface_1143:com_68;
+def_component $component12 = interface_1143:com_69;
+def_component $component13 = interface_1143:com_70;
+def_component $component14 = interface_1143:com_71;
+def_component $component15 = interface_1143:com_60;
+def_component $component16 = interface_1143:com_61;
+def_component $component17 = interface_1143:com_62;
+def_component $component18 = interface_1143:com_63;
+def_component $component19 = interface_1143:com_64;
+def_component $component20 = interface_1143:com_65;
+cc_deleteall($component4);
+cc_deleteall($component6);
+cc_deleteall($component7);
+cc_deleteall($component8);
+cc_deleteall($component9);
+cc_deleteall($component10);
+cc_deleteall($component11);
+cc_deleteall($component12);
+cc_deleteall($component13);
+cc_deleteall($component14);
+cc_deleteall($component15);
+cc_deleteall($component16);
+cc_deleteall($component17);
+cc_deleteall($component18);
+cc_deleteall($component19);
+cc_deleteall($component20);
+if_sethide(interface_1143:com_79, true);
+if_settext(interface_1143:com_80, append("Now Viewing: ", $string0));
+def_int $int21 = 0;
+def_int $int22 = 6;
+def_int $int23 = $int22;
+def_int $int24 = $int22;
+def_int $int25 = 0;
+def_struct $struct26 = null;
+def_graphic $graphic27 = 7835;
+def_graphic $graphic28 = 7836;
+def_graphic $graphic29 = 7837;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_string $string1 = "";
+def_component $component35 = null;
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_string $string2 = "See More";
+def_int $int38 = 0;
+if ($int3 = 0) {
+    $graphic27 = 7826;
+    $graphic28 = 7827;
+    $graphic29 = 7828;
+    $int22 = 20;
+    $int23 = 0;
+    $int24 = $int22;
+    cc_create($component8, ^iftype_graphic, $int21);
+    $int21 = calc($int21 + 1);
+    cc_setposition(17, 24, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(7803);
+    $int36 = 311;
+    $int37 = 311;
+    cc_setsize($int36, $int37, ^setsize_abs, ^setsize_abs);
+    cc_setop(1, $string2);
+    cc_create($component8, ^iftype_graphic, $int21);
+    $int21 = calc($int21 + 1);
+    cc_setgraphic(10133);
+    cc_setsize(219, 219, ^setsize_abs, ^setsize_abs);
+    cc_setposition(17, 24, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setposition(calc(cc_getx + ($int36 - cc_getwidth) / 2), calc(cc_gety + 20 + ($int37 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+    cc_create($component8, ^iftype_graphic, $int21);
+    $int21 = calc($int21 + 1);
+    cc_setposition(0, 62, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(348, 34, ^setsize_abs, ^setsize_abs);
+    switch_int (map_lang) {
+        case default :
+            cc_setgraphic(7806);
+        case 1 :
+            cc_setgraphic(7808);
+        case 2 :
+            cc_setgraphic(7807);
+        case 3 :
+            cc_setgraphic(7809);
+    }
+    cc_create($component8, ^iftype_text, $int21);
+    $int21 = calc($int21 + 1);
+    cc_setposition(165, 275, ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext($string2);
+    cc_settextfont(verdana_13pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(0xe5bd59);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 13);
+    cc_setsize(122, 24, ^setsize_abs, ^setsize_abs);
+    while ($int38 < enum_getoutputcount($enum2)) {
+        $struct26 = enum(int, struct, $enum2, $int38);
+        cc_create($component8, ^iftype_graphic, $int21);
+        $int21 = calc($int21 + 1);
+        cc_setposition($int23, $int24, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setgraphic($graphic29);
+        $int30 = 68;
+        $int31 = 92;
+        $int23 = calc($int23 + $int30);
+        cc_setsize($int30, $int31, ^setsize_abs, ^setsize_abs);
+        switch_int (struct_param($struct26, param_1937)) {
+            case 1 :
+                $component35 = $component9;
+            case 9 :
+                $component35 = $component10;
+            case 2 :
+                $component35 = $component11;
+            case 3 :
+                $component35 = $component12;
+            case 4 :
+                $component35 = $component13;
+            case 5 :
+                $component35 = $component14;
+        }
+        cc_create($component35, ^iftype_text, if_getnextsubid($component35));
+        cc_setposition(calc($int23 - $int30), $int24, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setsize(calc($int30 * 3), $int31, ^setsize_abs, ^setsize_abs);
+        cc_setop(1, $string2);
+        cc_setonmouseover(clientscript_5360, $component8, calc($int21 + 1), $int21, calc($int21 - 1), 1, "Iiii1");
+        cc_setonmouseleave(clientscript_5360, $component8, calc($int21 + 1), $int21, calc($int21 - 1), 0, "Iiii1");
+        cc_create($component8, ^iftype_graphic, $int21);
+        $int21 = calc($int21 + 1);
+        cc_setposition($int23, $int24, ^setpos_abs_right, ^setpos_abs_top);
+        $int23 = calc($int23 + $int30);
+        cc_setgraphic($graphic28);
+        cc_setsize($int30, $int31, ^setsize_abs, ^setsize_abs);
+        cc_create($component8, ^iftype_graphic, $int21);
+        $int21 = calc($int21 + 1);
+        cc_setposition($int23, $int24, ^setpos_abs_right, ^setpos_abs_top);
+        $int23 = calc($int23 + $int30);
+        cc_setgraphic($graphic27);
+        cc_setsize($int30, $int31, ^setsize_abs, ^setsize_abs);
+        cc_create($component8, ^iftype_graphic, $int21);
+        $int21 = calc($int21 + 1);
+        if (struct_param($struct26, param_1937) = 1) {
+            cc_setobject(struct_param($struct26, param_1935), -1);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int23 - 63), calc($int24 + 29), ^setpos_abs_right, ^setpos_abs_top);
+        } else if (struct_param($struct26, param_1937) = 9) {
+            cc_setobject(struct_param($struct26, param_1935), -1);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int23 - 63), calc($int24 + 29), ^setpos_abs_right, ^setpos_abs_top);
+        } else if (struct_param($struct26, param_1937) = 2) {
+            cc_setgraphic(struct_param($struct26, param_1420));
+            cc_setsize(48, 48, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int23 - 65), calc($int24 + 21), ^setpos_abs_right, ^setpos_abs_top);
+        } else if (struct_param($struct26, param_1937) = 3) {
+            cc_setgraphic(struct_param($struct26, param_1441));
+            cc_setsize(40, 50, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int23 - 61), calc($int24 + 20), ^setpos_abs_right, ^setpos_abs_top);
+        } else if (struct_param($struct26, param_1937) = 4) {
+            cc_setgraphic(7883);
+            cc_setsize(42, 42, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int23 - 63), calc($int24 + 25), ^setpos_abs_right, ^setpos_abs_top);
+        } else if (struct_param($struct26, param_1937) = 5) {
+            cc_setobject(struct_param($struct26, param_1935), -1);
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc($int23 - 62), calc($int24 + 29), ^setpos_abs_right, ^setpos_abs_top);
+        }
+        if (struct_param($struct26, param_1933) > 0) {
+            cc_create($component8, ^iftype_graphic, $int21);
+            $int21 = calc($int21 + 1);
+            cc_setposition(calc($int23 - 44), calc($int24 + 4), ^setpos_abs_right, ^setpos_abs_top);
+            cc_setgraphic(6348);
+            cc_setsize(40, 34, ^setsize_abs, ^setsize_abs);
+        }
+        cc_create($component8, ^iftype_text, $int21);
+        $int21 = calc($int21 + 1);
+        cc_setposition(13, calc($int24 + 13), ^setpos_abs_right, ^setpos_abs_top);
+        if (struct_param($struct26, param_1937) = 4) {
+            $int34 = enum(struct, int, enum_5185, $struct26);
+            if (gender = 0) {
+                cc_settext(enum(int, string, enum_3886, $int34));
+            } else {
+                cc_settext(enum(int, string, enum_3887, $int34));
+            }
+            cc_settext(substring(cc_gettext, 0, calc(string_length(cc_gettext) - 1)));
+        } else {
+            cc_settext(struct_param($struct26, param_1930));
+        }
+        if (struct_param($struct26, param_1933) > 0) {
+            cc_settext(append(cc_gettext, "<br><tostring_localised(struct_param($struct26, param_1933), true)> Points"));
+        } else {
+            cc_settext(append(cc_gettext, "<br><tostring_localised(struct_param($struct26, param_1932), true)> Points"));
+        }
+        cc_settextfont(verdana_13pt_regular);
+        cc_settextshadow(true);
+        cc_setcolour(0xe6be78);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+        cc_setsize(122, 60, ^setsize_abs, ^setsize_abs);
+        cc_create($component8, ^iftype_text, $int21);
+        $int21 = calc($int21 + 1);
+        cc_setposition(13, calc($int24 + 13 + 24 + 24), ^setpos_abs_right, ^setpos_abs_top);
+        cc_settext($string2);
+        cc_settextfont(verdana_11pt_regular);
+        cc_settextshadow(true);
+        cc_setcolour(0xe6be78);
+        cc_settextalign(^settextalign_right, ^settextalign_centre, 12);
+        cc_setsize(122, 24, ^setsize_abs, ^setsize_abs);
+        $int24 = calc($int24 + $int31 + $int22);
+        $int23 = 0;
+        $int38 = calc($int38 + 1);
+    }
+} else if ($int3 = 6) {
+    $int32, $int23, $int24, $int31, $int21 = ~clientscript_5352($int32, $int23, $int24, $int31, $int22, $int21, $int33, $graphic27, $graphic28, $graphic29);
+    $string1 = "There Are No Items Currently On Special Offer";
+    $int25 = calc($int24 + $int31 + $int22);
+} else if ($int3 = 7) {
+    $int32, $int23, $int24, $int31, $int21 = ~clientscript_5353($int32, $int23, $int24, $int31, $int22, $int21, $int33, $graphic27, $graphic28, $graphic29);
+    $string1 = "There Are No Limited Edition Items Currently Available";
+    $int25 = calc($int24 + $int31 + $int22);
+} else if ($int3 = 8) {
+    $int32, $int23, $int24, $int31, $int21 = ~clientscript_4727($int32, $int23, $int24, $int31, $int22, $int21, $int33, $graphic27, $graphic28, $graphic29);
+    $string1 = "Your Favourites List Is Currently Empty";
+    $int25 = calc($int24 + $int31 + $int22);
+} else if ($int3 = 1) {
+    $int32, $int23, $int24, $int31, $int21 = ~clientscript_4344($int32, $int23, $int24, $int31, $int22, $int21, $int33, $graphic27, $graphic28, $graphic29);
+    $string1 = "There Are No Items Currently Available In This Category";
+    $int25 = calc($int24 + $int31 + $int22);
+} else if ($int3 = 9) {
+    $int32, $int23, $int24, $int31, $int21 = ~clientscript_6000($int32, $int23, $int24, $int31, $int22, $int21, $int33, $graphic27, $graphic28, $graphic29);
+    $string1 = "There Are No Items Currently Available In This Category";
+    $int25 = calc($int24 + $int31 + $int22);
+} else {
+    $int32, $int23, $int24, $int31, $int21 = ~clientscript_4726($enum2, $int32, $int23, $int24, $int31, $int22, $int21, $int33, $graphic27, $graphic28, $graphic29);
+    $string1 = "There Are No Items Currently Available In This Category";
+    $int25 = calc($int24 + $int31 + $int22);
+}
+if ($int21 = 0) {
+    cc_create($component8, ^iftype_text, $int21);
+    $int21 = calc($int21 + 1);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settext($string1);
+    cc_settextfont(verdana_13pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(0xe6be78);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+}
+if ($int25 > if_getheight($component4)) {
+    if_setscrollsize($component4, if_getwidth($component4), $int25);
+    if (%varplayerbit_9487 = $int0) {
+        if_setscrollpos($component4, 0, $int5);
+    } else {
+        if_setscrollpos($component4, 0, 0);
+    }
+    if_setsize($component6, if_getwidth($component4), $int25, ^setsize_abs, ^setsize_abs);
+    if_setsize($component7, if_getwidth($component4), $int25, ^setsize_abs, ^setsize_abs);
+    if_setsize($component8, if_getwidth($component4), $int25, ^setsize_abs, ^setsize_abs);
+    ~scrollbar_vertical(interface_1143:com_6, $component4, 7900, 7897, 7898, 7899, 7902, 7901);
+} else {
+    if_setscrollsize($component4, if_getwidth($component4), if_getheight($component4));
+    if_setscrollpos($component4, 0, 0);
+    if_setsize($component6, if_getwidth($component4), if_getheight($component4), ^setsize_abs, ^setsize_abs);
+    if_setsize($component7, if_getwidth($component4), if_getheight($component4), ^setsize_abs, ^setsize_abs);
+    if_setsize($component8, if_getwidth($component4), if_getheight($component4), ^setsize_abs, ^setsize_abs);
+    cc_deleteall(interface_1143:com_6);
+}
+if_setonvartransmit($component1, "clientscript_5349($int3, $component1){varplayer_2226, varplayer_2391, varplayer_2444, varplayer_2541, varplayer_2392, varplayer_2393, varplayer_2394, varplayer_2445, varplayer_2542}");

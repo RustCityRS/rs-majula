@@ -1,0 +1,42 @@
+// 5979
+[proc,clientscript_5979](component $component0)
+if ($component0 = null) {
+    return;
+}
+cc_deleteall($component0);
+def_int $int1 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setcolour(^black);
+cc_setfill(true);
+$int1 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(4, 4, ^setsize_minus, ^setsize_minus);
+cc_setcolour(0xeeccee);
+cc_setfill(false);
+$int1 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setposition(4, 4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(8, 8, ^setsize_minus, ^setsize_minus);
+cc_setcolour(0x3b2925);
+cc_setfill(true);
+$int1 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(4, 4, ^setsize_minus, ^setsize_minus);
+cc_setcolour(^white);
+cc_setfill(true);
+cc_setonmouseover("cc_settrans(event_com, $int1, 128)");
+cc_setonmouseleave("cc_settrans(event_com, $int1, 255)");
+cc_settrans(255);
+$int1 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(4, 4, ^setsize_minus, ^setsize_minus);
+cc_setcolour(^black);
+cc_setfill(true);
+cc_setonclick("cc_settrans(event_com, $int1, 128)");
+cc_setonrelease("cc_settrans(event_com, $int1, 255)");
+cc_settrans(255);

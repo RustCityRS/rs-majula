@@ -1,0 +1,17 @@
+// 669
+[proc,scale_round](int $int0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($int1 = 0) {
+    return(0);
+}
+if ($int0 = 0 | $int2 = 0) {
+    return(0);
+}
+if (calc($int0 / $int1) >= calc(^max_32bit_int / $int2)) {
+    return(^max_32bit_int);
+} else if (calc($int0 % $int1 * ($int2 % $int1) % $int1) > calc($int1 / 2)) {
+    return(calc(scale($int0, $int1, $int2) + 1));
+} else {
+    return(scale($int0, $int1, $int2));
+}

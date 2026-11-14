@@ -43,11 +43,20 @@ pub struct IfSetRecol {
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetRecol {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.slot);
         buf.p2(self.src);
         buf.p2(self.dst);
         buf.p4(self.com);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.dst);
+        buf.p4(self.com);
+        buf.p1(self.slot);
+        buf.p2(self.src);
     }
 
     fn sizeof(&self) -> usize {

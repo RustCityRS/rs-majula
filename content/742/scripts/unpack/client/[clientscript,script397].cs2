@@ -1,0 +1,9 @@
+// 397
+[clientscript,script397]
+if (%objreq_currency = null & %varplayer_1109 ! null) {
+    if (~clientscript_5567(coins, calc(%varplayer_1111 * %varplayer_1110)) = 0) {
+        if_setcolour(obj_info:player_has, ^red);
+    } else {
+        if_setcolour(obj_info:player_has, %objreq_fontcol);
+    }
+}

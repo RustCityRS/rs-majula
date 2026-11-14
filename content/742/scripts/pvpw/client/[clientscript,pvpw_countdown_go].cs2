@@ -1,0 +1,8 @@
+// 1177
+[clientscript,pvpw_countdown_go]
+if (%varplayer_1414 = 0) {
+    return;
+}
+%pvpw_countdown_value = 540;
+if_settext(statusicons:pvpw_countdown, "10");
+if_setontimer(statusicons:pvpw_countdown, "pvpw_countdown_cont");

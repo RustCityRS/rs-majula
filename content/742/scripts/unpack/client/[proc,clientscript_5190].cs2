@@ -1,0 +1,14 @@
+// 5190
+[proc,clientscript_5190](int $int0, int $int1)
+def_int $int2 = 25;
+def_int $int3 = calc(if_getwidth(interface_1122:com_67) * $int0);
+if ($int1 = 0) {
+    if_setscrollpos(interface_1122:com_68, $int3, 0);
+    if_sethide(interface_1122:com_69, true);
+    return;
+}
+if_sethide(interface_1122:com_69, false);
+if ($int3 < if_getscrollx(interface_1122:com_68)) {
+    $int2 = calc(0 - $int2);
+}
+if_setontimer(interface_1122:com_68, "clientscript_5191($int3, $int2)");

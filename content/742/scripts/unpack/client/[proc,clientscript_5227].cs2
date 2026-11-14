@@ -1,0 +1,58 @@
+// 5227
+[proc,clientscript_5227]
+~clientscript_5228(4);
+~clientscript_5228(5);
+~clientscript_5228(6);
+~clientscript_5228(7);
+~clientscript_5228(8);
+~clientscript_5228(9);
+~clientscript_5228(10);
+~clientscript_5228(11);
+~clientscript_5228(12);
+~clientscript_5228(13);
+~clientscript_5228(14);
+~clientscript_5228(15);
+def_component $component0 = op543(82509998);
+if ($component0 = null) {
+    return;
+}
+def_int $int1 = 2;
+if (if_gety(interface_1259:com_174) > calc(if_getheight($component0) / 2)) {
+    $int1 = 0;
+}
+def_string $string0 = "Teleport to the keep.";
+if_setonmouserepeat(interface_1259:com_174, "aif_tooltip(interface_1259:com_57, interface_1259:com_174, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1259:com_174, "deltooltip(interface_1259:com_57)");
+if_setop(interface_1259:com_174, 1, "Teleport to keep");
+$int1 = 2;
+if (if_gety(interface_1259:com_177) > calc(if_getheight($component0) / 2)) {
+    $int1 = 0;
+}
+$string0 = "Teleport to the town square.";
+if_setonmouserepeat(interface_1259:com_177, "aif_tooltip(interface_1259:com_57, interface_1259:com_177, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1259:com_177, "deltooltip(interface_1259:com_57)");
+if_setop(interface_1259:com_177, 1, "Teleport to town square");
+$int1 = 2;
+if (if_gety(interface_1259:com_175) > calc(if_getheight($component0) / 2)) {
+    $int1 = 0;
+}
+$string0 = "Teleport to the portal.";
+if_setonmouserepeat(interface_1259:com_175, "aif_tooltip(interface_1259:com_57, interface_1259:com_175, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1259:com_175, "deltooltip(interface_1259:com_57)");
+if_setop(interface_1259:com_175, 1, "Teleport to portal");
+$int1 = 2;
+if (if_gety(interface_1259:com_176) > calc(if_getheight($component0) / 2)) {
+    $int1 = 0;
+}
+$string0 = "Teleport to the welcome area.";
+if_setonmouserepeat(interface_1259:com_176, "aif_tooltip(interface_1259:com_57, interface_1259:com_176, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1259:com_176, "deltooltip(interface_1259:com_57)");
+if_setop(interface_1259:com_176, 1, "Teleport to welcome area");
+$int1 = 2;
+if (if_gety(interface_1259:com_178) > calc(if_getheight($component0) / 2)) {
+    $int1 = 0;
+}
+$string0 = "Teleport to the battlefield.";
+if_setonmouserepeat(interface_1259:com_178, "aif_tooltip(interface_1259:com_57, interface_1259:com_178, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1259:com_178, "deltooltip(interface_1259:com_57)");
+if_setop(interface_1259:com_176, 1, "Teleport to welcome area");

@@ -1,0 +1,49 @@
+// 5787
+[proc,clientscript_5787](int $int0)
+def_int $int1 = 1;
+if ($int0 = %varplayerbit_8576) {
+    $int1 = 0;
+}
+def_struct $struct2 = ~clientscript_5795($int0);
+if ($struct2 = null) {
+    return;
+}
+if ($int1 = 1) {
+    if_sethide(interface_1223:com_2, false);
+    if_sethide(interface_1223:com_9, false);
+    if_sethide(interface_1223:com_1, false);
+    ~clientscript_5796($int0, 1, interface_1223:com_2, interface_1223:com_9, interface_1223:com_1, null, null, null);
+} else {
+    if_sethide(interface_1223:com_2, true);
+    if_sethide(interface_1223:com_9, true);
+    if_sethide(interface_1223:com_1, true);
+}
+def_string $string0 = struct_param($struct2, param_2225);
+if_settext(interface_1223:com_7, $string0);
+def_string $string1 = struct_param($struct2, param_1292);
+if (%varplayerbit_9030 = 1) {
+    $string1 = "";
+}
+def_string $string2 = null;
+def_int $int3 = 0;
+if ($int1 = 1) {
+    if_sethide(interface_1223:com_9, false);
+    if_sethide(interface_1223:com_6, false);
+    $string2 = struct_param($struct2, param_1273);
+    $int3 = parawidth($string2, 274, verdana_11pt_regular);
+    if_setsize(interface_1223:com_1, $int3, if_getheight(interface_1223:com_1), ^setsize_abs, ^setsize_abs);
+    if_setcolour(interface_1223:com_1, 0xabad9e);
+    if_setsize(interface_1223:com_6, calc(56 + $int3), 50, ^setsize_abs, ^setsize_abs);
+    if_setposition(interface_1223:com_7, if_getx(interface_1223:com_7), calc(2 + if_getheight(interface_1223:com_6) + if_gety(interface_1223:com_6)), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setsize(interface_1223:com_6, 0, 0, ^setsize_abs, ^setsize_abs);
+    if_setposition(interface_1223:com_7, if_getx(interface_1223:com_7), if_gety(interface_1223:com_9), ^setpos_abs_left, ^setpos_abs_top);
+}
+def_int $int4 = calc(15 * paraheight($string0, 330, verdana_11pt_regular));
+def_int $int5 = calc(15 * paraheight($string1, 330, verdana_11pt_regular));
+if_settext(interface_1223:com_8, $string1);
+if_setsize(interface_1223:com_7, if_getwidth(interface_1223:com_7), $int4, ^setsize_abs, ^setsize_abs);
+if_setposition(interface_1223:com_8, if_getx(interface_1223:com_8), calc(if_gety(interface_1223:com_7) + $int4 + 4), ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(interface_1223:com_8, if_getwidth(interface_1223:com_8), $int5, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1223:com_3, if_getwidth(interface_1223:com_3), min(291, calc(if_gety(interface_1223:com_7) + $int4 + $int5 + 75)), ^setsize_abs, ^setsize_abs);
+if_setsize(toplevel_fullscreen:com_50, 363, 291, ^setsize_abs, ^setsize_abs);

@@ -1,0 +1,9 @@
+// 6716
+[proc,clientscript_6716](int $int0)(int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1 = calc($int0 / 3600);
+$int0 = calc($int0 % 3600);
+$int2 = calc($int0 / 60);
+$int0 = calc($int0 % 60);
+return($int1, $int2, $int0);

@@ -1,0 +1,70 @@
+// 5460
+[proc,clientscript_5460]()(int)
+def_int $int0 = 0;
+if (%varplayerbit_9991 = 1) {
+    $int0 = calc($int0 + 220);
+}
+if (%varplayerbit_9992 = 1) {
+    $int0 = calc($int0 + 220);
+}
+if (%varplayerbit_9993 = 1) {
+    $int0 = calc($int0 + 220);
+}
+if (%varplayerbit_9994 = 1) {
+    $int0 = calc($int0 + 200);
+}
+if (%varplayerbit_9995 = 1) {
+    $int0 = calc($int0 + 160);
+}
+if (%varplayerbit_9996 = 1) {
+    $int0 = calc($int0 + 160);
+}
+if (%varplayerbit_9997 = 1) {
+    $int0 = calc($int0 + 130);
+}
+if (%varplayerbit_9998 = 1) {
+    $int0 = calc($int0 + 270);
+}
+if (%varplayerbit_9999 = 1) {
+    $int0 = calc($int0 + 110);
+}
+if (%varplayerbit_10000 = 1) {
+    $int0 = calc($int0 + 140);
+}
+if (%varplayerbit_10001 = 1) {
+    $int0 = calc($int0 + 200);
+}
+if (%varplayerbit_10002 = 1) {
+    $int0 = calc($int0 + 90);
+}
+if (%varplayerbit_10003 = 1) {
+    $int0 = calc($int0 + 80);
+}
+if (%varplayerbit_10004 = 1) {
+    $int0 = calc($int0 + 90);
+}
+if (%varplayerbit_10005 = 1) {
+    $int0 = calc($int0 + 280);
+}
+if (%varplayerbit_10006 = 1) {
+    $int0 = calc($int0 + 200);
+}
+if (%varplayerbit_10007 = 1) {
+    $int0 = calc($int0 + 50);
+}
+if (%varplayerbit_10008 = 1) {
+    $int0 = calc($int0 + 240);
+}
+if (%varplayerbit_10009 = 1) {
+    $int0 = calc($int0 + 260);
+}
+if (%varplayerbit_10010 = 1) {
+    $int0 = calc($int0 + 70);
+}
+if (%varplayerbit_10011 = 1) {
+    $int0 = calc($int0 + -50);
+}
+if (%varplayerbit_10012 = 1) {
+    $int0 = calc($int0 + -40);
+}
+return($int0);

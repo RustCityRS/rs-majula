@@ -37,7 +37,12 @@ fn at_the_window(engine: &mut Engine, name: &str) -> (HarnessClient, Packets, Ve
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
-    let cook = *engine.cache.npcs.debugnames.get("cook").expect("npc cook");
+    let cook = engine
+        .cache
+        .npcs
+        .get_by_debugname("cook")
+        .expect("npc cook")
+        .id;
     let (nid, x, z) = engine
         .npc_list
         .npcs
@@ -53,12 +58,12 @@ fn at_the_window(engine: &mut Engine, name: &str) -> (HarnessClient, Packets, Ve
         })
         .expect("Lumbridge's cook");
     engine.harness_telejump(client.pid, x + 1, 0, z);
-    let varp = *engine.cache.varps.debugnames.get("cookquest").unwrap();
+    let varp = engine.cache.varps.get_by_debugname("cookquest").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(varp, VarValue::Int(0));
+        .set(varp.g2(), VarValue::Int(0));
     engine.cycle();
     client.packets();
     talk_to(&mut client, nid);
@@ -152,24 +157,29 @@ fn scripts(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, Vec<String>)> {
 
 /// %varplayerbit_6924, "Mark on map": bit 29 of varp 1502 (cache 786).
 fn mark(engine: &Engine, client: &HarnessClient) -> i32 {
-    let varp = *engine.cache.varps.debugnames.get("varplayer_1502").unwrap();
+    let varp = engine
+        .cache
+        .varps
+        .get_by_debugname("varplayer_1502")
+        .unwrap()
+        .id;
     (engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
         >> 29)
         & 1
 }
 
 fn cookquest(engine: &Engine, client: &HarnessClient) -> i32 {
-    let varp = *engine.cache.varps.debugnames.get("cookquest").unwrap();
+    let varp = engine.cache.varps.get_by_debugname("cookquest").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 
@@ -330,7 +340,7 @@ fn at_the_window_of(
     for _ in 0..10 {
         engine.cycle();
     }
-    let id = *engine.cache.npcs.debugnames.get(npc).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(npc).unwrap().id;
     let (nid, x, y, z) = engine
         .npc_list
         .npcs
@@ -353,12 +363,12 @@ fn at_the_window_of(
         })
         .unwrap_or_else(|| panic!("a tile beside {npc}"));
     engine.harness_telejump(client.pid, sx, y, sz);
-    let varp = *engine.cache.varps.debugnames.get(varp).unwrap();
+    let varp = engine.cache.varps.get_by_debugname(varp).unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(varp, VarValue::Int(0));
+        .set(varp.g2(), VarValue::Int(0));
     for _ in 0..3 {
         engine.cycle();
     }
@@ -378,12 +388,12 @@ fn at_the_window_of(
 }
 
 fn quest_varp(engine: &Engine, client: &HarnessClient, varp: &str) -> i32 {
-    let varp = *engine.cache.varps.debugnames.get(varp).unwrap();
+    let varp = engine.cache.varps.get_by_debugname(varp).unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 

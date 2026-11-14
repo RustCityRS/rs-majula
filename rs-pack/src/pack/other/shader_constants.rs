@@ -56,11 +56,14 @@ fn string_at(data: &[u8], pos: usize) -> Result<String> {
 }
 
 pub fn unpack(data: &[u8], version: u32) -> Result<String> {
+    let count = u32_at(data, 12)? as usize;
+    // A table with no constants points its constant info at nothing.
     ensure!(
-        u32_at(data, 0)? == 28 && u32_at(data, 8)? == version && u32_at(data, 16)? == 28,
+        u32_at(data, 0)? == 28
+            && u32_at(data, 8)? == version
+            && u32_at(data, 16)? == if count == 0 { 0 } else { 28 },
         "Unsupported shader constant table header"
     );
-    let count = u32_at(data, 12)? as usize;
     let flags = u32_at(data, 20)?;
     let mut strings = BTreeMap::new();
     for (name, offset) in [("creator", u32_at(data, 4)?), ("target", u32_at(data, 24)?)] {
@@ -240,7 +243,7 @@ pub fn pack(text: &str, version: u32) -> Result<Vec<u8>> {
         offset("creator")?,
         version,
         constants.len() as u32,
-        28,
+        if constants.is_empty() { 0 } else { 28 },
         flags.context("Missing shader constant flags")?,
         offset("target")?,
     ];

@@ -1,0 +1,35 @@
+// 6515
+[proc,clientscript_6515](component $component0, int $int1)
+def_struct $struct2 = null;
+def_int $int3 = 137;
+if (getwindowmode = ^windowmode_small) {
+    $int3 = 77;
+    if_setposition(interface_1302:com_17, 0, 95, ^setpos_abs_centre, ^setpos_abs_bottom);
+} else {
+    if_setposition(interface_1302:com_17, 0, 155, ^setpos_abs_centre, ^setpos_abs_bottom);
+}
+if ($int1 = 0) {
+    $struct2 = enum(int, struct, enum_974, %varplayerbit_11646);
+    if ($struct2 ! null) {
+        if_settext(interface_1302:com_18, struct_param($struct2, param_2559));
+        if_settext(interface_1302:com_19, struct_param($struct2, param_2560));
+        if_sethide(interface_1302:com_26, false);
+        if_setposition(interface_1302:com_27, 150, $int3, ^setpos_abs_centre, ^setpos_abs_bottom);
+    }
+} else if ($int1 = 1) {
+    $struct2 = enum(int, struct, enum_974, %varplayerbit_11647);
+    if ($struct2 ! null) {
+        if_settext(interface_1302:com_18, struct_param($struct2, param_2559));
+        if_settext(interface_1302:com_19, struct_param($struct2, param_2560));
+        if_sethide(interface_1302:com_26, false);
+        if_setposition(interface_1302:com_27, 0, $int3, ^setpos_abs_centre, ^setpos_abs_bottom);
+    }
+} else if ($int1 = 2) {
+    $struct2 = enum(int, struct, enum_974, %varplayerbit_11648);
+    if ($struct2 ! null) {
+        if_settext(interface_1302:com_18, struct_param($struct2, param_2559));
+        if_settext(interface_1302:com_19, struct_param($struct2, param_2560));
+        if_sethide(interface_1302:com_26, false);
+        if_setposition(interface_1302:com_27, -150, $int3, ^setpos_abs_centre, ^setpos_abs_bottom);
+    }
+}

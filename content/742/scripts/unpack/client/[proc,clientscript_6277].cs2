@@ -1,0 +1,249 @@
+// 6277
+[proc,clientscript_6277](int $int0, int $int1, int $int2)
+if ($int0 = 1) {
+    if (%varplayerbit_11371 ! 0) {
+        ~clientscript_6278(1, interface_1297:com_275, interface_1297:com_10);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_275, interface_1297:com_10);
+    }
+    if (%varplayerbit_11350 = 0) {
+        ~clientscript_6278(2, interface_1297:com_113, interface_1297:com_4);
+    } else if (%varplayerbit_11371 ! 1) {
+        ~clientscript_6278(1, interface_1297:com_113, interface_1297:com_4);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_113, interface_1297:com_4);
+    }
+    if (%varplayerbit_11351 = 0) {
+        ~clientscript_6278(2, interface_1297:com_112, interface_1297:com_3);
+    } else if (%varplayerbit_11371 ! 2) {
+        ~clientscript_6278(1, interface_1297:com_112, interface_1297:com_3);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_112, interface_1297:com_3);
+    }
+    if (%varplayerbit_11352 = 0) {
+        ~clientscript_6278(2, interface_1297:com_114, interface_1297:com_1);
+    } else if (%varplayerbit_11371 ! 3) {
+        ~clientscript_6278(1, interface_1297:com_114, interface_1297:com_1);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_114, interface_1297:com_1);
+    }
+    if (%varplayerbit_11353 = 0) {
+        ~clientscript_6278(2, interface_1297:com_115, interface_1297:com_2);
+    } else if (%varplayerbit_11371 ! 4) {
+        ~clientscript_6278(1, interface_1297:com_115, interface_1297:com_2);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_115, interface_1297:com_2);
+    }
+    if (%varplayerbit_11354 = 0) {
+        ~clientscript_6278(2, interface_1297:com_116, interface_1297:com_5);
+    } else if (%varplayerbit_11371 ! 5) {
+        ~clientscript_6278(1, interface_1297:com_116, interface_1297:com_5);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_116, interface_1297:com_5);
+    }
+    if (%varplayerbit_11355 = 0) {
+        ~clientscript_6278(2, interface_1297:com_117, interface_1297:com_0);
+    } else if (%varplayerbit_11371 ! 6) {
+        ~clientscript_6278(1, interface_1297:com_117, interface_1297:com_0);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_117, interface_1297:com_0);
+    }
+    if (%varplayerbit_11356 = 0) {
+        ~clientscript_6278(2, interface_1297:com_118, interface_1297:com_7);
+    } else if (%varplayerbit_11371 ! 7) {
+        ~clientscript_6278(1, interface_1297:com_118, interface_1297:com_7);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_118, interface_1297:com_7);
+    }
+    if (%varplayerbit_11357 = 0) {
+        ~clientscript_6278(2, interface_1297:com_119, interface_1297:com_6);
+    } else if (%varplayerbit_11371 ! 8) {
+        ~clientscript_6278(1, interface_1297:com_119, interface_1297:com_6);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_119, interface_1297:com_6);
+    }
+    if (%varplayerbit_11358 = 0) {
+        ~clientscript_6278(2, interface_1297:com_120, interface_1297:com_8);
+    } else if (%varplayerbit_11371 ! 9) {
+        ~clientscript_6278(1, interface_1297:com_120, interface_1297:com_8);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_120, interface_1297:com_8);
+    }
+    if (%varplayerbit_11359 = 0) {
+        ~clientscript_6278(2, interface_1297:com_121, interface_1297:com_9);
+    } else if (%varplayerbit_11371 ! 10) {
+        ~clientscript_6278(1, interface_1297:com_121, interface_1297:com_9);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_121, interface_1297:com_9);
+    }
+}
+if ($int1 = 1) {
+    if (%varplayerbit_11378 ! 0) {
+        ~clientscript_6278(1, interface_1297:com_274, interface_1297:com_24);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_274, interface_1297:com_24);
+    }
+    if (%varplayerbit_11330 = 0) {
+        ~clientscript_6278(2, interface_1297:com_94, interface_1297:com_25);
+    } else if (%varplayerbit_11378 ! 1) {
+        ~clientscript_6278(1, interface_1297:com_94, interface_1297:com_25);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_94, interface_1297:com_25);
+    }
+    if (%varplayerbit_11331 = 0) {
+        ~clientscript_6278(2, interface_1297:com_95, interface_1297:com_26);
+    } else if (%varplayerbit_11378 ! 2) {
+        ~clientscript_6278(1, interface_1297:com_95, interface_1297:com_26);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_95, interface_1297:com_26);
+    }
+    if (%varplayerbit_11332 = 0) {
+        ~clientscript_6278(2, interface_1297:com_96, interface_1297:com_27);
+    } else if (%varplayerbit_11378 ! 3) {
+        ~clientscript_6278(1, interface_1297:com_96, interface_1297:com_27);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_96, interface_1297:com_27);
+    }
+    if (%varplayerbit_11333 = 0) {
+        ~clientscript_6278(2, interface_1297:com_97, interface_1297:com_28);
+    } else if (%varplayerbit_11378 ! 4) {
+        ~clientscript_6278(1, interface_1297:com_97, interface_1297:com_28);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_97, interface_1297:com_28);
+    }
+    if (%varplayerbit_11334 = 0) {
+        ~clientscript_6278(2, interface_1297:com_98, interface_1297:com_29);
+    } else if (%varplayerbit_11378 ! 5) {
+        ~clientscript_6278(1, interface_1297:com_98, interface_1297:com_29);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_98, interface_1297:com_29);
+    }
+    if (%varplayerbit_11335 = 0) {
+        ~clientscript_6278(2, interface_1297:com_99, interface_1297:com_30);
+    } else if (%varplayerbit_11378 ! 6) {
+        ~clientscript_6278(1, interface_1297:com_99, interface_1297:com_30);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_99, interface_1297:com_30);
+    }
+    if (%varplayerbit_11336 = 0) {
+        ~clientscript_6278(2, interface_1297:com_100, interface_1297:com_31);
+    } else if (%varplayerbit_11378 ! 7) {
+        ~clientscript_6278(1, interface_1297:com_100, interface_1297:com_31);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_100, interface_1297:com_31);
+    }
+    if (%varplayerbit_11337 = 0) {
+        ~clientscript_6278(2, interface_1297:com_101, interface_1297:com_23);
+    } else if (%varplayerbit_11378 ! 8) {
+        ~clientscript_6278(1, interface_1297:com_101, interface_1297:com_23);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_101, interface_1297:com_23);
+    }
+    if (%varplayerbit_11338 = 0) {
+        ~clientscript_6278(2, interface_1297:com_102, interface_1297:com_22);
+    } else if (%varplayerbit_11378 ! 9) {
+        ~clientscript_6278(1, interface_1297:com_102, interface_1297:com_22);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_102, interface_1297:com_22);
+    }
+    if (%varplayerbit_11339 = 0) {
+        ~clientscript_6278(2, interface_1297:com_103, interface_1297:com_21);
+    } else if (%varplayerbit_11378 ! 10) {
+        ~clientscript_6278(1, interface_1297:com_103, interface_1297:com_21);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_103, interface_1297:com_21);
+    }
+    if (%varplayerbit_11340 = 0) {
+        ~clientscript_6278(2, interface_1297:com_104, interface_1297:com_20);
+    } else if (%varplayerbit_11378 ! 11) {
+        ~clientscript_6278(1, interface_1297:com_104, interface_1297:com_20);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_104, interface_1297:com_20);
+    }
+    if (%varplayerbit_11341 = 0) {
+        ~clientscript_6278(2, interface_1297:com_105, interface_1297:com_19);
+    } else if (%varplayerbit_11378 ! 12) {
+        ~clientscript_6278(1, interface_1297:com_105, interface_1297:com_19);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_105, interface_1297:com_19);
+    }
+    if (%varplayerbit_11342 = 0) {
+        ~clientscript_6278(2, interface_1297:com_106, interface_1297:com_18);
+    } else if (%varplayerbit_11378 ! 13) {
+        ~clientscript_6278(1, interface_1297:com_106, interface_1297:com_18);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_106, interface_1297:com_18);
+    }
+    if (%varplayerbit_11343 = 0) {
+        ~clientscript_6278(2, interface_1297:com_107, interface_1297:com_12);
+    } else if (%varplayerbit_11378 ! 14) {
+        ~clientscript_6278(1, interface_1297:com_107, interface_1297:com_12);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_107, interface_1297:com_12);
+    }
+    if (%varplayerbit_11344 = 0) {
+        ~clientscript_6278(2, interface_1297:com_108, interface_1297:com_17);
+    } else if (%varplayerbit_11378 ! 15) {
+        ~clientscript_6278(1, interface_1297:com_108, interface_1297:com_17);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_108, interface_1297:com_17);
+    }
+    if (%varplayerbit_11345 = 0) {
+        ~clientscript_6278(2, interface_1297:com_85, interface_1297:com_13);
+    } else if (%varplayerbit_11378 ! 16) {
+        ~clientscript_6278(1, interface_1297:com_85, interface_1297:com_13);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_85, interface_1297:com_13);
+    }
+    if (%varplayerbit_11346 = 0) {
+        ~clientscript_6278(2, interface_1297:com_86, interface_1297:com_14);
+    } else if (%varplayerbit_11378 ! 17) {
+        ~clientscript_6278(1, interface_1297:com_86, interface_1297:com_14);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_86, interface_1297:com_14);
+    }
+    if (%varplayerbit_11347 = 0) {
+        ~clientscript_6278(2, interface_1297:com_109, interface_1297:com_16);
+    } else if (%varplayerbit_11378 ! 18) {
+        ~clientscript_6278(1, interface_1297:com_109, interface_1297:com_16);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_109, interface_1297:com_16);
+    }
+    if (%varplayerbit_11348 = 0) {
+        ~clientscript_6278(2, interface_1297:com_110, interface_1297:com_11);
+    } else if (%varplayerbit_11378 ! 19) {
+        ~clientscript_6278(1, interface_1297:com_110, interface_1297:com_11);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_110, interface_1297:com_11);
+    }
+    if (%varplayerbit_11349 = 0) {
+        ~clientscript_6278(2, interface_1297:com_111, interface_1297:com_15);
+    } else if (%varplayerbit_11378 ! 20) {
+        ~clientscript_6278(1, interface_1297:com_111, interface_1297:com_15);
+    } else {
+        ~clientscript_6278(0, interface_1297:com_111, interface_1297:com_15);
+    }
+}
+if ($int2 = 1) {
+    if (%varplayerbit_11360 = 0) {
+        ~clientscript_6278(2, interface_1297:com_89, interface_1297:com_36);
+    } else {
+        ~clientscript_6278(3, interface_1297:com_89, interface_1297:com_36);
+    }
+    if (%varplayerbit_11361 = 0) {
+        ~clientscript_6278(2, interface_1297:com_90, interface_1297:com_35);
+    } else {
+        ~clientscript_6278(3, interface_1297:com_90, interface_1297:com_35);
+    }
+    if (%varplayerbit_11362 = 0) {
+        ~clientscript_6278(2, interface_1297:com_91, interface_1297:com_34);
+    } else {
+        ~clientscript_6278(3, interface_1297:com_91, interface_1297:com_34);
+    }
+    if (%varplayerbit_11372 = 0) {
+        ~clientscript_6278(4, interface_1297:com_92, interface_1297:com_32);
+    } else {
+        ~clientscript_6278(2, interface_1297:com_92, interface_1297:com_32);
+    }
+    ~clientscript_6278(2, interface_1297:com_93, interface_1297:com_33);
+}

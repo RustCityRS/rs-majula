@@ -17,6 +17,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -26,16 +27,14 @@ const BACKPACK: i32 = 149 << 16;
 const GRILL: (u16, u16, u16, u8) = (2342, 3026, 3507, 0);
 const HOLE: (u16, u16, u16, u8) = (2336, 3031, 3507, 1);
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let names = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
-        _ => &engine.cache.invs.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
+        _ => engine.cache.invs.get_by_debugname(name).map(|t| t.id),
     };
-    *names
-        .get(name)
-        .unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
 }
 
 fn spy(engine: &Engine, client: &HarnessClient) -> i32 {
@@ -44,7 +43,7 @@ fn spy(engine: &Engine, client: &HarnessClient) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 
@@ -118,7 +117,7 @@ fn black_knights_fortress_as_2011_had_it() {
             .harness_player_mut(client.pid)
             .unwrap()
             .vars
-            .set(qp, VarValue::Int(13));
+            .set(qp.g2(), VarValue::Int(13));
 
         // Sir Amik: the 2011 start, and the dossier.
         let nid = to_sir_amik(engine, &client);
@@ -196,7 +195,7 @@ fn black_knights_fortress_as_2011_had_it() {
         }
         client.packets();
         let mut p = ClientPacket::new();
-        p.p2_alt2(cabbage as i32)
+        p.p2_alt2(cabbage.int())
             .p2_alt2(5)
             .p2(z as i32)
             .p4_alt2(BACKPACK)

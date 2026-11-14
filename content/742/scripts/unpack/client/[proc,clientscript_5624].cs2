@@ -1,0 +1,8 @@
+// 5624
+[proc,clientscript_5624](component $component0, component $component1, int $int2)
+if ($int2 = 1) {
+    if_setmodelanim($component1, seq_15702);
+} else {
+    if_setmodelanim($component1, seq_15700);
+}
+if_setontimer($component0, "clientscript_5625($component0, $component1)");

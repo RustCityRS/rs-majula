@@ -1,0 +1,7 @@
+// 307
+[proc,worldmap_vartransmit_effects]
+if (%worldmap_textlabels_hidden = 1) {
+    worldmap_disableelementcategory(category_950, true);
+} else {
+    worldmap_disableelementcategory(category_950, false);
+}

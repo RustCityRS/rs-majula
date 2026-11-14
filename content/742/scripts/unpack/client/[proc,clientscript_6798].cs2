@@ -1,0 +1,18 @@
+// 6798
+[proc,clientscript_6798](int $int0)(struct)
+switch_int ($int0) {
+    case 3036 :
+        return(~clientscript_6783(1));
+    case 3037 :
+        return(~clientscript_6783(2));
+    case 3038 :
+        return(~clientscript_6783(3));
+    case 3039 :
+        return(~clientscript_6783(4));
+    case 3040 :
+        return(~clientscript_6783(5));
+    case 3041 :
+        return(~clientscript_6783(6));
+    case default :
+        return(enum(int, struct, enum_3483, $int0));
+}

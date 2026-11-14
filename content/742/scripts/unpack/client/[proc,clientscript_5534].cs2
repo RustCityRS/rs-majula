@@ -1,0 +1,14 @@
+// 5534
+[proc,clientscript_5534]
+if (%varclient_1724 = -1) {
+    %varclient_1724 = 1;
+}
+if (%varclient_1725 = -1) {
+    %varclient_1725 = 1;
+}
+%varclient_1726 = false;
+%varclient_1808 = 0;
+~clientscript_5536(%varclient_1725);
+~clientscript_5537;
+~clientscript_5539;
+~clientscript_5543;

@@ -1,0 +1,23 @@
+// 5697
+[proc,clientscript_5697](int $int0, int $int1, string $string0)
+if (string_length($string0) <= 0) {
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (cc_find(interface_1218:com_30, $int0) = true) {
+    if (if_gethide(interface_1218:com_80) = true) {
+        $int3 = calc(cc_getheight + cc_gety - 5);
+        $int2 = calc(max(paraheight($string0, 500, verdana_11pt_regular), 1) * 12 + 30);
+        if_settext(interface_1218:com_181, $string0);
+        if_setcolour(interface_1218:com_181, 0xdb9000);
+        if_setsize(interface_1218:com_80, if_getwidth(interface_1218:com_80), $int2, ^setsize_abs, ^setsize_abs);
+        if (calc($int3 + $int2 - if_getscrolly(interface_1218:com_4)) > if_getheight(interface_1218:com_4)) {
+            $int3 = calc(cc_gety - ($int2 - 10));
+        }
+        if_setposition(interface_1218:com_80, if_getx(interface_1218:com_80), $int3, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(interface_1218:com_80, false);
+    } else {
+        if_sethide(interface_1218:com_80, true);
+    }
+}

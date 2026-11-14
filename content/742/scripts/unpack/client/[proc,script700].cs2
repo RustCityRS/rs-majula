@@ -1,0 +1,20 @@
+// 700
+[proc,script700](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        return(%elem_4_slider_1);
+    case 2 :
+        return(%elem_4_slider_2);
+    case 3 :
+        return(%elem_4_slider_3);
+    case 4 :
+        return(%elem_4_slider_4);
+    case 5 :
+        return(%elem_4_slider_5);
+    case 6 :
+        return(%elem_4_slider_6);
+    case 7 :
+        return(%elem_4_slider_7);
+    case 8 :
+        return(%elem_4_slider_8);
+}

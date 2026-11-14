@@ -1,0 +1,24 @@
+// 5082
+[proc,clientscript_5082](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (%varclient_160 ! -1 & .cc_find($component0, calc(%varclient_160 * 10 + 2)) = true) {
+    $int1 = calc(~clientscript_4405 + .cc_getheight - ~if_gety_absolute(interface_1114:com_22));
+    if ($int1 >= if_getheight($component0)) {
+        if_sethide(interface_1114:com_23, true);
+    } else if ($int1 <= 0) {
+        if_sethide(interface_1114:com_23, true);
+    } else {
+        if_sethide(interface_1114:com_23, false);
+        if_setposition(interface_1114:com_23, calc(~clientscript_1815 - ~if_getx_absolute(interface_1114:com_22)), $int1, ^setpos_abs_left, ^setpos_abs_top);
+        if (.if_find(interface_1114:com_23) = true) {
+            $int3 = calc(.cc_param(param_1477) + 8);
+            $int2 = max(min($int3, calc(if_getheight(interface_1114:com_22) - $int1)), 0);
+            .cc_setsize(.cc_param(param_1476), $int2, ^setsize_abs, ^setsize_abs);
+        }
+        if_setontimer(interface_1114:com_23, "clientscript_5083(event_com, %varclient_160, calc(clientclock + 2))");
+    }
+} else {
+    if_sethide(interface_1114:com_23, true);
+}

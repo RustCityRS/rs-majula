@@ -1,0 +1,12 @@
+// 1865
+[proc,clientscript_1865]
+switch_int (map_lang) {
+    case 2 :
+        if_sethide(interface_1337:com_5, false);
+    case 1 :
+        if_sethide(interface_1337:com_10, false);
+    case 3 :
+        if_sethide(interface_1337:com_19, false);
+    case default :
+        if_sethide(interface_1337:com_0, false);
+}

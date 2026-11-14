@@ -1,0 +1,17 @@
+// 6690
+[proc,clientscript_6690](component $component0, int $int1)
+def_int $int2 = calc(%varclient_2014 - %varplayerbit_11930);
+if ($int2 > 0) {
+    $int2 = max(calc($int2 / 3), 1);
+    %varclient_2014 = calc(%varclient_2014 - $int2);
+}
+if (%varclient_2014 > %varplayerbit_11930) {
+    if_settext($component0, "Competence Points: <col=ffffff><tostring_localised(%varclient_2014, true)></col>");
+    if ($int1 = -1) {
+        if_setontimer($component0, "clientscript_6689($component0, calc(clientclock + 10))");
+    }
+} else {
+    %varclient_2014 = %varplayerbit_11930;
+    if_settext($component0, "Competence Points: <tostring_localised(%varclient_2014, true)>");
+    if_setontimer($component0, null);
+}

@@ -1,0 +1,246 @@
+// 4981
+[proc,clientscript_4981](int $int0, int $int1, struct $struct2, struct $struct3, int $int4)
+if ($struct2 = null | $struct3 = null) {
+    return;
+}
+if ($int1 < 0 | $int1 > 7) {
+    return;
+}
+def_int $int5 = 0;
+switch_int ($int0) {
+    case 17, 18, 19, 1 :
+        $int5 = 1;
+}
+def_int $int6 = ~clientscript_5169($int0);
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_struct $struct10 = null;
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_struct $struct13 = null;
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_struct $struct16 = null;
+def_int $int17 = 0;
+def_int $int18 = -1;
+def_int $int19 = -1;
+def_int $int20 = 0;
+def_string $string0 = "";
+def_int $int21 = 1;
+def_string $string1 = "";
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_string $string2 = "This building cannot be upgraded.";
+def_string $string3 = "This building cannot be downgraded.";
+def_string $string4 = "There is no upgrade to cancel.";
+def_string $string5 = "There is no downgrade to cancel.";
+def_string $string6 = "This building is already marked to be moved.";
+def_string $string7 = "There is no move order to cancel.";
+if_sethide(interface_1261:com_272, true);
+if_sethide(interface_1261:com_280, true);
+if_sethide(interface_1261:com_288, true);
+if_sethide(interface_1261:com_296, true);
+if_sethide(interface_1261:com_355, true);
+if_sethide(interface_1261:com_362, true);
+if (op718 = 1 & activeclansettings_find_affined = true) {
+    $int18 = activeclansettings_getaffinedslot(chat_playername);
+    if ($int18 < 0) {
+        return;
+    }
+    $int19 = activeclansettings_getaffinedrank($int18);
+    $int22 = calc(%varclan_2132 - date_minutes);
+    if ($int22 < 360 & $int19 < 126) {
+        $int23 = 1;
+    }
+    if_settext(interface_1261:com_94, "");
+    if ($int0 = 17) {
+        if_settext(interface_1261:com_121, "Citadel");
+    } else if ($int0 = 18) {
+        if_settext(interface_1261:com_121, "Storehouse");
+    } else if ($int0 = 19) {
+        if_settext(interface_1261:com_121, "Battlefield");
+    } else {
+        if_settext(interface_1261:com_121, enum(int, string, enum_4287, $int0));
+    }
+    if ($int4 = 4) {
+        if_settext(interface_1261:com_171, "Dilapidated");
+    } else if ($int4 = 3) {
+        if_settext(interface_1261:com_171, "Working");
+    } else {
+        if_settext(interface_1261:com_171, "Not built");
+    }
+    if_setgraphic(interface_1261:com_120, ~clientscript_4974($int0));
+    $int7 = ~clientscript_4948($int0);
+    $int17 = ~clientscript_4952($int7);
+    ~clientscript_4982($struct2, $struct3, $int1, $int6, $int17);
+    if_sethide(interface_1261:com_280, false);
+    if ($int7 > 0) {
+        ~script4152(interface_1261:com_274, "Upgrade");
+        $int14 = ~clientscript_4961($int7, 1);
+        $int9 = ~clientscript_4961($int7, 2);
+        $int11 = ~clientscript_4961($int7, 3);
+        if (~clientscript_4798($int11) = 1) {
+            $int24 = 0;
+        } else {
+            $int24 = 1;
+        }
+        $int15 = ~clientscript_4953($int14);
+        $int12 = ~clientscript_4953($int11);
+        $struct16 = enum(int, struct, enum_4009, $int14);
+        $struct10 = enum(int, struct, enum_4009, $int9);
+        $struct13 = enum(int, struct, enum_4009, $int11);
+        if_sethide(interface_1261:com_272, false);
+        ~script4152(interface_1261:com_274, "Upgrade");
+        if ($int12 <= 0 & $int15 <= 0) {
+            if ($int1 < 7) {
+                if ($int24 = 1) {
+                    if_sethide(interface_1261:com_272, true);
+                } else {
+                    if_sethide(interface_1261:com_272, false);
+                    if ($int11 = 602) {
+                        $string2 = "You must cancel the storehouse upgrade to be able to upgrade this.";
+                    } else if ($int11 = 603) {
+                        $string2 = "You must cancel the battlefield upgrade to be able to upgrade this.";
+                    } else {
+                        $string2 = "You must cancel another skill plot upgrade to be able to upgrade this.";
+                    }
+                }
+            }
+            if ($int1 = 0) {
+                ~script4152(interface_1261:com_274, "Buy");
+            }
+        }
+        if_sethide(interface_1261:com_280, false);
+        if ($int12 > 0) {
+            if_sethide(interface_1261:com_280, true);
+        }
+        if_sethide(interface_1261:com_288, false);
+        if ($int12 <= 0 & calc($int1 - $int5) > $int17) {
+            $int20, $string0 = ~clientscript_4723($int0, calc($int1 - ($int17 + 1)));
+            if ($int20 = 1) {
+                if_sethide(interface_1261:com_288, true);
+            } else {
+                $string3 = $string0;
+            }
+        }
+        if_sethide(interface_1261:com_296, false);
+        if ($int17 > 0) {
+            if_sethide(interface_1261:com_296, true);
+            ~aif_text_layer_build(interface_1261:com_274, verdana_13pt_regular, 0xefb063, 0x092f46);
+        }
+        if_sethide(interface_1261:com_355, true);
+        if_sethide(interface_1261:com_362, true);
+        if ($int7 = 1 | $int7 = 2 | $int7 = 3) {
+            if_sethide(interface_1261:com_355, false);
+            if_sethide(interface_1261:com_362, false);
+            $string6 = "This building cannot be moved to another position.";
+        }
+        $int8 = ~clientscript_4978($int7);
+        if ($int8 < 4) {
+            $int8 = $int7;
+        }
+        if ($int8 ! $int7) {
+            if_sethide(interface_1261:com_355, false);
+            $string6 = "This building is already marked to be moved. You can view next week's map to see its new position.";
+        }
+        if ($int7 = 1 | $int7 = 2 | $int7 = 3) {
+            if_sethide(interface_1261:com_362, false);
+            $string6 = "This building cannot be moved to another position.";
+        }
+        if ($int8 = $int7) {
+            if_sethide(interface_1261:com_362, false);
+        } else {
+            mes("Building marked to move to hotspot id: <tostring($int8)>");
+        }
+        if ($int12 > 0) {
+            if ($int1 = 0) {
+                if_settext(interface_1261:com_94, "This building is marked to<br>be built.");
+            } else {
+                if_settext(interface_1261:com_94, "This building is marked to<br>be upgraded.");
+            }
+            $string2 = "This building is already marked for upgrade.";
+        } else if ($int17 = 1) {
+            if_settext(interface_1261:com_94, "This building is marked to be downgraded by 1 tier.");
+        } else if ($int17 > 1) {
+            if_settext(interface_1261:com_94, "This building is marked to be downgraded by <tostring($int17)> tiers.");
+        } else if ($int1 = 7) {
+            if_settext(interface_1261:com_94, "This building has reached its top tier.");
+        } else if ($int1 = 0) {
+            if_settext(interface_1261:com_94, "This building has not yet been bought.");
+        }
+    } else {
+        if_sethide(interface_1261:com_355, false);
+        if_sethide(interface_1261:com_362, false);
+        $string6 = "You have not yet bought this building.";
+        $int25 = ~clientscript_4799;
+        if ($int25 >= 2) {
+            $int24 = 0;
+            $string2 = "You must cancel another skill plot upgrade to be able to upgrade this.";
+            if_sethide(interface_1261:com_272, false);
+        } else {
+            $int24 = 1;
+            ~script4152(interface_1261:com_274, "Buy");
+            if_sethide(interface_1261:com_272, true);
+            if_settext(interface_1261:com_94, "Clan builders can buy this<br>in the 'Upgrade' side tab.");
+        }
+        if_sethide(interface_1261:com_280, false);
+        if_sethide(interface_1261:com_288, false);
+        if_sethide(interface_1261:com_296, false);
+    }
+    if ($int23 = 1) {
+        $string2 = "The build orders will be executed in less than six hours, so only the owner can make this change.";
+        $string3 = $string2;
+        $string4 = $string2;
+        $string5 = $string2;
+        $string6 = $string2;
+        $string7 = $string2;
+        if_sethide(interface_1261:com_272, false);
+        if_sethide(interface_1261:com_280, false);
+        if_sethide(interface_1261:com_288, false);
+        if_sethide(interface_1261:com_296, false);
+        if_sethide(interface_1261:com_355, false);
+        if_sethide(interface_1261:com_362, false);
+    }
+    $int21, $string1 = ~clientscript_4722($int0, calc($int1 + 1));
+    if ($int21 = 0) {
+        $string2 = "This cannot be upgraded because: <$string1>";
+        if_sethide(interface_1261:com_272, false);
+    }
+    if (~clientscript_5145(-1) = 0) {
+        $string2 = "You do not have permission from your clan to do that.";
+        $string4 = "You do not have permission from your clan to do that.";
+        if_sethide(interface_1261:com_272, false);
+        if_sethide(interface_1261:com_280, false);
+        if (~clientscript_5147(-1) = 0) {
+            if_sethide(interface_1261:com_355, false);
+            if_sethide(interface_1261:com_362, false);
+            if_sethide(interface_1261:com_362, false);
+            if_sethide(interface_1261:com_355, false);
+            $string6 = "You do not have permission from your clan to do that.";
+            $string7 = "You do not have permission from your clan to do that.";
+            $string6 = "You do not have permission from your clan to do that.";
+            $string7 = "You do not have permission from your clan to do that.";
+        }
+    }
+    if (~clientscript_5147(-1) = 0) {
+        $string3 = "You do not have permission from your clan to do that.";
+        $string5 = "You do not have permission from your clan to do that.";
+        if_sethide(interface_1261:com_288, false);
+        if_sethide(interface_1261:com_296, false);
+    }
+    if_setonmouserepeat(interface_1261:com_272, "aif_tooltip(interface_1261:com_102, event_com, -1, $string2, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1261:com_280, "aif_tooltip(interface_1261:com_102, event_com, -1, $string4, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1261:com_288, "aif_tooltip(interface_1261:com_102, event_com, -1, $string3, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1261:com_296, "aif_tooltip(interface_1261:com_102, event_com, -1, $string5, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1261:com_355, "aif_tooltip(interface_1261:com_102, event_com, -1, $string6, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1261:com_362, "aif_tooltip(interface_1261:com_102, event_com, -1, $string7, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1261:com_272, "deltooltip(interface_1261:com_102)");
+    if_setonmouseleave(interface_1261:com_280, "deltooltip(interface_1261:com_102)");
+    if_setonmouseleave(interface_1261:com_288, "deltooltip(interface_1261:com_102)");
+    if_setonmouseleave(interface_1261:com_296, "deltooltip(interface_1261:com_102)");
+    if_setonmouseleave(interface_1261:com_355, "deltooltip(interface_1261:com_102)");
+    if_setonmouseleave(interface_1261:com_362, "deltooltip(interface_1261:com_102)");
+}

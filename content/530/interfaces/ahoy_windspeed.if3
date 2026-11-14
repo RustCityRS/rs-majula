@@ -1,0 +1,48 @@
+// 10:0
+[com_0]
+type=rectangle
+width=141
+height=28
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+colour=0x000000
+fill=yes
+trans=160
+
+// 10:1
+[com_1]
+type=text
+x=-31
+width=100
+height=18
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+textfont=fontmetrics_496
+text=Windspeed:
+textalignh=right
+textshadow=yes
+colour=0xbf751d
+
+// 10:2
+[ahoy_windspeed_indicator]
+type=text
+x=48
+width=50
+height=18
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+textfont=fontmetrics_495
+text=high
+textshadow=yes
+colour=0xe1981f
+
+// 10:3
+[layer_1]
+type=layer
+y=2
+width=145
+height=46
+xmode=abs_centre

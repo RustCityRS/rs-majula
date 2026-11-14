@@ -1,0 +1,6 @@
+// 1891
+[proc,script1891]()(int)
+if (clan_getchatcount > 0 & clan_getchatrank >= clan_getchatminkick) {
+    return(1);
+}
+return(0);

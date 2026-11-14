@@ -1,0 +1,7 @@
+// 3158
+[proc,lobbyscreen_options_load]
+~graphics_options_init(2);
+~loginscreen_soundvol(lobbyscreen_pane_options:sound_dragzone, lobbyscreen_pane_options:sound_slider);
+~loginscreen_musicvol(lobbyscreen_pane_options:music_dragzone, lobbyscreen_pane_options:music_slider);
+~loginscreen_bgsoundvol(lobbyscreen_pane_options:bgsound_dragzone, lobbyscreen_pane_options:bgsound_slider);
+~loginscreen_stereo(lobbyscreen_pane_options:mono_button, lobbyscreen_pane_options:stereo_button);

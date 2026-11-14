@@ -1,0 +1,8 @@
+// 1611
+[proc,script1611]()(int)
+def_int $int0 = 0;
+$int0 = calc(%atvar_str_potion + %atvar_enter_champions + %atvar_use_chaos + %atvar_full_rats + %atvar_collect_egg + %atvar_spirit_tree + %atvar_kitten_colour + %atvar_under_wall + %atvar_enter_tolna + %atvar_necklace_digsite + %atvar_earth_tiara + %atvar_pickpocket_guard + %atvar_tele_varrock + %atvar_slayer_task + %atvar_20_planks + %atvar_pick_fruit + %atvar_use_balloon + %atvar_rat_medal + %atvar_fairy_circle + %atvar_runite_armour);
+if (%atvar_perform_emotes = 4) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

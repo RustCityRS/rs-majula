@@ -1,0 +1,16 @@
+// 6506
+[proc,clientscript_6506]
+def_struct $struct0 = ~clientscript_5936(%varplayerbit_10860);
+def_int $int1 = struct_param($struct0, param_2268);
+def_obj $obj2 = inv_getobj(inv_665, %varplayerbit_10860);
+def_int $int3 = inv_getnum(inv_665, %varplayerbit_10860);
+if (%varplayerbit_10861 > 0) {
+    ~clientscript_5910($int1);
+} else {
+    if_settext(interface_1253:com_169, "");
+}
+~clientscript_6670($int1, $obj2, $int3);
+~clientscript_5219(interface_1253:com_52);
+%tooltip_time = 0;
+~clientscript_1968;
+~clientscript_6574;

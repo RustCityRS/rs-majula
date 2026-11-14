@@ -1,0 +1,26 @@
+// 4846
+[proc,clientscript_4846](int $int0)
+if_sethide(interface_1258:com_481, true);
+if_sethide(interface_1258:com_472, true);
+if_sethide(interface_1258:com_463, true);
+if_sethide(interface_1258:com_392, true);
+if_sethide(interface_1258:com_320, true);
+if_sethide(interface_1258:com_242, true);
+switch_int ($int0) {
+    case 1 :
+        if_sethide(interface_1258:com_481, false);
+        if_sethide(interface_1258:com_392, false);
+        if_setgraphic(interface_1258:com_497, 7287);
+    case 2 :
+        if_sethide(interface_1258:com_472, false);
+        if_sethide(interface_1258:com_320, false);
+        if_setgraphic(interface_1258:com_497, 7288);
+    case 3 :
+        if_sethide(interface_1258:com_463, false);
+        if_sethide(interface_1258:com_242, false);
+        if_setgraphic(interface_1258:com_497, 7289);
+}
+~clientscript_4838;
+~clientscript_4810;
+~clientscript_4840;
+~clientscript_4814;

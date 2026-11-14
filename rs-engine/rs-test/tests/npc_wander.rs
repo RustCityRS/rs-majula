@@ -12,12 +12,12 @@ use rs_engine::Engine;
 use rs_test::runner;
 
 fn spawns(engine: &Engine, name: &str, near: (u16, u16), within: u16) -> Vec<(u16, (u16, u16))> {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     engine
         .npc_list
         .npcs

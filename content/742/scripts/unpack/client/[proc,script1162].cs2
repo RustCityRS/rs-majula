@@ -1,0 +1,5 @@
+// 1162
+[proc,script1162]
+def_int $int0 = calc(if_getwidth(interface_429:com_50) - if_getwidth(interface_429:com_51));
+def_int $int1 = scale(detailget_bgsoundvol, 127, $int0);
+if_setposition(interface_429:com_51, $int1, 0, ^setpos_abs_left, ^setpos_abs_top);

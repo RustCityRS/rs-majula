@@ -1,0 +1,8 @@
+// 6714
+[proc,clientscript_6714]
+def_component $component0 = login:login_button;
+if (op437 = 1) {
+    $component0 = south_progress9:login_button;
+}
+if_setontimer($component0, null);
+unknown_command_5616;

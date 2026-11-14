@@ -1,0 +1,52 @@
+// 5875
+[proc,clientscript_5875](int $int0, int $int1, int $int2)(obj, int)
+def_enum $enum3 = null;
+switch_int ($int0) {
+    case 1 :
+        if ($int1 = 1) {
+            $enum3 = enum_5694;
+        } else {
+            $enum3 = enum_5695;
+        }
+    case 2 :
+        if ($int1 = 4) {
+            $enum3 = enum_5695;
+        } else if ($int1 = 5) {
+            return(~clientscript_5876($int2));
+        } else {
+            $enum3 = enum_5695;
+        }
+    case 4 :
+        if ($int1 = 2 | $int1 = 3) {
+            $enum3 = enum_5702;
+        } else {
+            $enum3 = enum_5701;
+        }
+    case 3 :
+        $enum3 = enum_5696;
+    case 5, 6, 7 :
+        $enum3 = enum_5700;
+    case 8, 9, 10 :
+        $enum3 = enum_5699;
+    case 11 :
+        $enum3 = enum_5697;
+    case 12 :
+        if (%varplayerbit_11031 = 0) {
+            $enum3 = enum_5698;
+        } else {
+            $enum3 = enum_5697;
+        }
+    case 14, 13 :
+        return(~clientscript_5876($int2));
+    case default :
+        return(null, 0);
+}
+def_obj $obj4 = enum(int, obj, $enum3, $int2);
+def_int $int5 = 0;
+if ($obj4 ! null) {
+    $int5 = oc_param($obj4, param_2270);
+    if ($int5 > 1) {
+        $obj4 = oc_param($obj4, param_2271);
+    }
+    return($obj4, $int5);
+}

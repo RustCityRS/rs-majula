@@ -1,0 +1,10 @@
+// 1850
+[proc,clientscript_1850](int $windowmode0, int $int1, component $component2, component $component3)
+if (getwindowmode ! $windowmode0 | detailget_antialiasing ! $int1) {
+    if_setonsubchange($component2, null);
+    return;
+}
+if (if_hassuboverlay($component2, interface_759) = false) {
+    ~clientscript_1849($component3);
+    if_setonsubchange($component2, null);
+}

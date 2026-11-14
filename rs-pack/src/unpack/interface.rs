@@ -1,58 +1,64 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::INTERFACES as INTERFACE_ARCHIVE;
 use crate::cache::r#if::IfTypeRaw;
-#[cfg(since_647)]
+#[cfg(all(since_530, before_647))]
+use crate::cache::r#if::{COMPARATORS, SCRIPT_OPS};
+#[cfg(since_530)]
 use crate::cache::r#if::{
     DEFAULT_COLOUR, HOOK_NAMES, SIZE_MODES, TARGET_MASK, TEXT_ALIGN_H, TEXT_ALIGN_V, X_MODES,
     Y_MODES, hook_transmit_list, mode_name,
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::interface::{encode_component, parse_components};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::AssetNames;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::pack_registry::PackRegistry;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::walk;
+#[cfg(before_647)]
+use crate::types::IfButtonType;
 use crate::types::IfComponentType;
-#[cfg(before_647)]
-use crate::types::{Font, IfButtonType, PlayerStat};
-#[cfg(since_647)]
+#[cfg(before_530)]
+use crate::types::{Font, PlayerStat};
+#[cfg(since_530)]
 use crate::unpack::config::format_colour;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use anyhow::Result;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
+#[cfg(since_530)]
+use rs_ver::TypeId;
+#[cfg(since_530)]
 use runec::clientscript::decompile::{Signature, component_hook_text};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use runec::symbol::{SymbolRegistry, identifier_form};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::HashMap;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::collections::{HashMap, HashSet};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::fmt::Write;
 use std::fs;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::path::{Path, PathBuf};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::{debug, warn};
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct Ctx<'a> {
     if_names: HashMap<u16, String>,
     registry: &'a PackRegistry,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl Ctx<'_> {
     fn iface(&self, id: u16) -> &str {
         self.if_names
@@ -103,7 +109,7 @@ impl Ctx<'_> {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, IfTypeRaw>) {
     let _count = buf.g2();
     let mut order: Vec<u16> = Vec::new();
@@ -125,7 +131,7 @@ fn decode(buf: &mut Packet) -> (Vec<u16>, HashMap<u16, IfTypeRaw>) {
     (order, comps)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn build_names(
     order: &[u16],
     comps: &HashMap<u16, IfTypeRaw>,
@@ -181,7 +187,7 @@ fn build_names(
     names
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn action_target_names(flags: u16) -> String {
     let mut targets = Vec::new();
     if flags & 0x1 != 0 {
@@ -202,21 +208,21 @@ fn action_target_names(flags: u16) -> String {
     targets.join(",")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn next_op(ops: &[u16], idx: &mut usize) -> u16 {
     let v = ops[*idx];
     *idx += 1;
     v
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn stat_name(id: u16) -> &'static str {
     PlayerStat::try_from(id as u8)
         .expect("unknown player stat")
         .config_str()
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_scripts(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     for (i, ops) in com.scripts.iter().enumerate() {
         let j = i + 1;
@@ -280,7 +286,7 @@ fn export_scripts(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_comparators(lines: &mut Vec<String>, com: &IfTypeRaw) {
     for (i, &(comparator, operand)) in com.comparators.iter().enumerate() {
         let j = i + 1;
@@ -298,7 +304,7 @@ fn export_comparators(lines: &mut Vec<String>, com: &IfTypeRaw) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_component(
     lines: &mut Vec<String>,
     com: &IfTypeRaw,
@@ -371,7 +377,7 @@ fn export_component(
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     match com.com_type {
         IfComponentType::Layer => {
@@ -422,7 +428,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
             lines.push(format!(
                 "font={}",
-                Font::try_from(com.font as u8)
+                Font::try_from(com.font.g2() as u8)
                     .expect("unknown interface font")
                     .name()
             ));
@@ -446,20 +452,20 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
         }
         IfComponentType::Model => {
-            if com.model >= 0 {
-                let model = com.model as u16;
+            if !com.model.is_null() {
+                let model = com.model.g2();
                 lines.push(format!("model={}", ctx.model(model)));
             }
-            if com.active_model >= 0 {
-                let model = com.active_model as u16;
+            if !com.active_model.is_null() {
+                let model = com.active_model.g2();
                 lines.push(format!("activemodel={}", ctx.model(model)));
             }
-            if com.anim >= 0 {
-                let anim = com.anim as u16;
+            if !com.anim.is_null() {
+                let anim = com.anim.g2();
                 lines.push(format!("anim={}", ctx.seq(anim)));
             }
-            if com.active_anim >= 0 {
-                let anim = com.active_anim as u16;
+            if !com.active_anim.is_null() {
+                let anim = com.active_anim.g2();
                 lines.push(format!("activeanim={}", ctx.seq(anim)));
             }
             if com.zoom != 0 {
@@ -478,7 +484,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
             lines.push(format!(
                 "font={}",
-                Font::try_from(com.font as u8)
+                Font::try_from(com.font.g2() as u8)
                     .expect("unknown interface font")
                     .name()
             ));
@@ -499,7 +505,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_colours(lines: &mut Vec<String>, com: &IfTypeRaw) {
     if com.colour != 0 {
         lines.push(format!("colour=0x{:06X}", com.colour));
@@ -516,7 +522,7 @@ fn export_colours(lines: &mut Vec<String>, com: &IfTypeRaw) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_options(lines: &mut Vec<String>, com: &IfTypeRaw) {
     for (i, iop) in com.iop.iter().enumerate() {
         if !iop.is_empty() {
@@ -525,7 +531,7 @@ fn export_options(lines: &mut Vec<String>, com: &IfTypeRaw) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn export_children(
     lines: &mut Vec<String>,
     parent_com: &IfTypeRaw,
@@ -546,7 +552,7 @@ fn export_children(
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn read_top_lines(path: &Path) -> Vec<String> {
     let Ok(text) = fs::read_to_string(path) else {
         return Vec::new();
@@ -564,7 +570,7 @@ fn read_top_lines(path: &Path) -> Vec<String> {
     top
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn unpack_interface(
     jag: &JagFile,
     src_scripts_dir: &Path,
@@ -671,14 +677,14 @@ pub fn unpack_interface(
 }
 
 /// An interface as its group holds it: components in position order.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub struct Interface {
     pub id: u32,
     pub components: Vec<IfTypeRaw>,
     bytes: Vec<Vec<u8>>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn decode_interfaces(store: &mut Js5Store) -> Result<Vec<Interface>> {
     let groups = store
         .reference_table(INTERFACE_ARCHIVE)
@@ -687,9 +693,9 @@ pub fn decode_interfaces(store: &mut Js5Store) -> Result<Vec<Interface>> {
         .clone();
     let mut interfaces = Vec::with_capacity(groups.len());
     for info in &groups {
-        let group = store
-            .read_group(INTERFACE_ARCHIVE, info.id)?
-            .context("Missing interface group")?;
+        let Some(group) = store.read_group(INTERFACE_ARCHIVE, info.id)? else {
+            continue;
+        };
         let bytes: Vec<Vec<u8>> = group
             .entries
             .iter()
@@ -716,7 +722,7 @@ pub fn decode_interfaces(store: &mut Js5Store) -> Result<Vec<Interface>> {
 }
 
 /// Writes each interface's source, once it reads back to the cache's bytes.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn write_interfaces(
     interfaces: &[Interface],
     output_dir: &Path,
@@ -727,6 +733,18 @@ pub fn write_interfaces(
     let dir = output_dir.join("interfaces");
     fs::create_dir_all(&dir)?;
     for interface in interfaces {
+        #[cfg(all(since_530, before_647))]
+        let if1 = interface.components.first().is_some_and(|comp| comp.if1);
+        #[cfg(all(since_530, before_647))]
+        ensure!(
+            interface.components.iter().all(|comp| comp.if1 == if1),
+            "Interface {} mixes if1 and if3 components",
+            interface.id
+        );
+        #[cfg(all(since_530, before_647))]
+        let extension = if if1 { "if1" } else { "if3" };
+        #[cfg(since_647)]
+        let extension = "if3";
         let mut text = String::new();
         for (position, component) in interface.components.iter().enumerate() {
             if position > 0 {
@@ -743,8 +761,15 @@ pub fn write_interfaces(
             )
             .with_context(|| format!("Interface {}:{position}", interface.id))?;
         }
-        let parsed = parse_components(&text, interface.id, names, registry)
-            .with_context(|| format!("Reading interface {}", interface.id))?;
+        let parsed = parse_components(
+            &text,
+            interface.id,
+            names,
+            registry,
+            #[cfg(all(since_530, before_647))]
+            if1,
+        )
+        .with_context(|| format!("Reading interface {}", interface.id))?;
         ensure!(
             parsed.len() == interface.bytes.len(),
             "Interface {} text round trip changed its component count",
@@ -770,14 +795,17 @@ pub fn write_interfaces(
             }
         }
         fs::write(
-            dir.join(format!("{}.if3", names.name("interface", interface.id))),
+            dir.join(format!(
+                "{}.{extension}",
+                names.name("interface", interface.id)
+            )),
             text,
         )?;
     }
     Ok(interfaces.len() as u32)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_component(
     out: &mut String,
     comp: &IfTypeRaw,
@@ -796,11 +824,24 @@ fn emit_component(
         IfComponentType::Graphic => "graphic",
         IfComponentType::Model => "model",
         IfComponentType::Line => "line",
+        #[cfg(all(since_530, before_647))]
+        IfComponentType::Unknown1
+        | IfComponentType::Inv
+        | IfComponentType::InvText
+        | IfComponentType::Unknown8
+            if comp.if1 =>
+        {
+            comp.com_type.config_str()
+        }
         other => bail!("Component type {} isn't written out", other as u8),
     };
     writeln!(out, "type={type_name}")?;
     if let Some(name) = &comp.com_name {
         writeln!(out, "name={name}")?;
+    }
+    #[cfg(since_742)]
+    if comp.version != u8::MAX {
+        writeln!(out, "version={}", comp.version)?;
     }
     if comp.client_code != 0 {
         writeln!(out, "clientcode={}", comp.client_code)?;
@@ -852,6 +893,13 @@ fn emit_component(
         "Unknown component flags {}",
         comp.flags
     );
+    if comp.no_click_through && comp.com_type != IfComponentType::Layer {
+        writeln!(out, "noclickthrough=yes")?;
+    }
+    #[cfg(all(since_530, before_647))]
+    if comp.if1 {
+        return emit_if1(out, comp, group, names);
+    }
     match comp.com_type {
         IfComponentType::Layer => emit_layer(out, comp)?,
         IfComponentType::Rect => {
@@ -888,13 +936,37 @@ fn emit_component(
         ("targetcursor3", "cursor", comp.target_leave_cursor),
     ] {
         if let Some(value) = value {
-            writeln!(out, "{key}={}", names.reference(kind, value as i64))?;
+            writeln!(out, "{key}={}", names.reference(kind, value.int().into()))?;
+        }
+    }
+    #[cfg(since_742)]
+    {
+        if let Some(cursor) = comp.cursor {
+            writeln!(
+                out,
+                "cursor={}",
+                names.reference("cursor", cursor.int().into())
+            )?;
+        }
+        for &(param, value) in &comp.int_params {
+            writeln!(
+                out,
+                "param={},{value}",
+                names.reference("param", param as i64)
+            )?;
+        }
+        for (param, value) in &comp.string_params {
+            writeln!(
+                out,
+                "param={},\"{value}\"",
+                names.reference("param", *param as i64)
+            )?;
         }
     }
     emit_hooks(out, comp, signatures, names, registry)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_layer(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
     if comp.scroll_width != 0 {
         writeln!(out, "scrollwidth={}", comp.scroll_width)?;
@@ -908,13 +980,17 @@ fn emit_layer(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
     writeln!(
         out,
         "textfont={}",
-        names.reference("fontmetrics", comp.font as i64)
+        names.reference("fontmetrics", comp.font.int().into())
     )?;
+    #[cfg(since_742)]
+    if comp.text_flag2 {
+        writeln!(out, "textflag2=yes")?;
+    }
     if !comp.text.is_empty() {
         writeln!(out, "text={}", comp.text)?;
     }
@@ -941,22 +1017,38 @@ fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<(
     if comp.colour != DEFAULT_COLOUR {
         writeln!(out, "colour={}", format_colour(comp.colour))?;
     }
+    #[cfg(since_647)]
     if comp.trans != 0 {
         writeln!(out, "trans={}", comp.trans)?;
+    }
+    #[cfg(since_742)]
+    if comp.text_byte0 != 0 {
+        writeln!(out, "textbyte0={}", comp.text_byte0)?;
     }
     Ok(())
 }
 
-#[cfg(since_647)]
-fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
-    if let Some(graphic) = comp.graphic {
-        let graphic = names.reference("sprites", graphic as i64);
+#[cfg(since_530)]
+fn emit_graphic_ref(
+    out: &mut String,
+    key: &str,
+    graphic: Option<TypeId>,
+    names: &AssetNames,
+) -> Result<()> {
+    if let Some(graphic) = graphic {
+        let graphic = names.reference("sprites", graphic.int().into());
         if graphic.contains(',') {
-            writeln!(out, "graphic=\"{graphic}\"")?;
+            writeln!(out, "{key}=\"{graphic}\"")?;
         } else {
-            writeln!(out, "graphic={graphic}")?;
+            writeln!(out, "{key}={graphic}")?;
         }
     }
+    Ok(())
+}
+
+#[cfg(since_530)]
+fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
+    emit_graphic_ref(out, "graphic", comp.graphic, names)?;
     if comp.angle_2d != 0 {
         writeln!(out, "2dangle={}", comp.angle_2d)?;
     }
@@ -981,15 +1073,24 @@ fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Resul
     if comp.hflip {
         writeln!(out, "hflip=yes")?;
     }
+    #[cfg(since_742)]
+    if comp.graphic_flag3 {
+        writeln!(out, "graphicflag3=yes")?;
+    }
+    #[cfg(since_647)]
     if comp.colour != DEFAULT_COLOUR {
         writeln!(out, "colour={}", format_colour(comp.colour))?;
     }
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
-    writeln!(out, "model={}", names.reference("model", comp.model as i64))?;
+    writeln!(
+        out,
+        "model={}",
+        names.reference("model", comp.model.int().into())
+    )?;
     if comp.model_origin_x != 0 || comp.model_origin_y != 0 {
         writeln!(
             out,
@@ -1007,19 +1108,31 @@ fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<
     if comp.zoom != 100 {
         writeln!(out, "modelzoom={}", comp.zoom)?;
     }
+    #[cfg(since_647)]
     if comp.model_flags & 2 != 0 {
         writeln!(out, "modeloffset={}", comp.sprite_y_offset)?;
     }
-    if comp.anim != -1 {
+    if !comp.anim.is_null() {
         writeln!(
             out,
             "modelanim={}",
-            names.reference("seq", comp.anim as i64)
+            names.reference("seq", comp.anim.int().into())
         )?;
     }
+    #[cfg(all(since_530, before_647))]
+    if comp.model_ortho {
+        writeln!(out, "modelorthog=yes")?;
+    }
+    #[cfg(all(since_530, before_647))]
+    if comp.model_unknown != (0, 0, 0) {
+        let (a, b, c) = comp.model_unknown;
+        writeln!(out, "modelunknown={a},{b},{c}")?;
+    }
+    #[cfg(since_647)]
     if comp.model_flags & 4 != 0 {
         writeln!(out, "modelorthog=yes")?;
     }
+    #[cfg(since_647)]
     if comp.model_flags & 8 != 0 {
         writeln!(out, "modelnodepth=yes")?;
     }
@@ -1032,7 +1145,7 @@ fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_properties(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
     let properties = comp.active_properties;
     ensure!(
@@ -1071,11 +1184,12 @@ fn emit_properties(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_ops(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
     if !comp.op_base.is_empty() {
         writeln!(out, "opbase={}", comp.op_base)?;
     }
+    #[cfg(since_647)]
     if !comp.pause_text.is_empty() {
         writeln!(out, "pausetext={}", comp.pause_text)?;
     }
@@ -1103,7 +1217,7 @@ fn emit_ops(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()
         writeln!(
             out,
             "opcursor{op}={}",
-            names.reference("cursor", cursor as i64)
+            names.reference("cursor", cursor.g2().into())
         )?;
     }
     for key in &comp.opkeys {
@@ -1117,7 +1231,7 @@ fn emit_ops(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_hooks(
     out: &mut String,
     comp: &IfTypeRaw,
@@ -1144,4 +1258,305 @@ fn emit_hooks(
         writeln!(out, "{}={text}", HOOK_NAMES[hook])?;
     }
     Ok(())
+}
+
+/// An if1 component's own keys, after the ones it shares with if3.
+#[cfg(all(since_530, before_647))]
+fn emit_if1(out: &mut String, comp: &IfTypeRaw, group: u32, names: &AssetNames) -> Result<()> {
+    if comp.button_type != IfButtonType::None {
+        writeln!(out, "buttontype={}", comp.button_type.config_str())?;
+    }
+    if comp.trans != 0 {
+        writeln!(out, "trans={}", comp.trans)?;
+    }
+    if let Some(layer) = comp.over_layer {
+        writeln!(
+            out,
+            "overlayer={}",
+            identifier_form(&names.component_name(group, layer as u32))
+        )?;
+    }
+    for (script, &(comparator, operand)) in comp.comparators.iter().enumerate() {
+        let name = COMPARATORS
+            .get((comparator as usize).wrapping_sub(1))
+            .with_context(|| format!("Unknown comparator {comparator}"))?;
+        writeln!(out, "script{}={name},{}", script + 1, operand as u16)?;
+    }
+    for (script, words) in comp.scripts.iter().enumerate() {
+        emit_script(out, script + 1, words, names)?;
+    }
+    match comp.com_type {
+        IfComponentType::Layer => emit_layer(out, comp)?,
+        IfComponentType::Unknown1 => {
+            if comp.unknown_1 != (0, 0) {
+                writeln!(out, "unknown1={},{}", comp.unknown_1.0, comp.unknown_1.1)?;
+            }
+            emit_text(out, comp, names)?;
+        }
+        IfComponentType::Inv => {
+            for (key, set) in [
+                ("draggable", comp.draggable),
+                ("interactable", comp.operable),
+                ("usable", comp.usable),
+                ("swappable", comp.swappable),
+            ] {
+                if set {
+                    writeln!(out, "{key}=yes")?;
+                }
+            }
+            emit_margin(out, comp)?;
+            for (slot, offset) in comp.slots.iter().enumerate() {
+                if let Some((x, y, graphic)) = offset {
+                    writeln!(
+                        out,
+                        "slot{}={}:{x},{y}",
+                        slot + 1,
+                        names.reference("sprites", *graphic as i64)
+                    )?;
+                }
+            }
+            emit_iops(out, comp)?;
+        }
+        IfComponentType::Rect => {
+            writeln!(out, "colour={}", format_colour(comp.colour))?;
+            if comp.fill {
+                writeln!(out, "fill=yes")?;
+            }
+        }
+        IfComponentType::Text => {
+            emit_text(out, comp, names)?;
+            if !comp.active_text.is_empty() {
+                writeln!(out, "activetext={}", comp.active_text)?;
+            }
+        }
+        IfComponentType::Graphic => {
+            emit_graphic_ref(out, "graphic", comp.graphic, names)?;
+            emit_graphic_ref(out, "activegraphic", comp.active_graphic, names)?;
+        }
+        IfComponentType::Model => {
+            emit_model(out, comp, names)?;
+            if !comp.active_model.is_null() {
+                writeln!(
+                    out,
+                    "activemodel={}",
+                    names.reference("model", comp.active_model.int().into())
+                )?;
+            }
+            if !comp.active_anim.is_null() {
+                writeln!(
+                    out,
+                    "activeanim={}",
+                    names.reference("seq", comp.active_anim.int().into())
+                )?;
+            }
+        }
+        IfComponentType::InvText => {
+            emit_text(out, comp, names)?;
+            emit_margin(out, comp)?;
+            if comp.operable {
+                writeln!(out, "interactable=yes")?;
+            }
+            emit_iops(out, comp)?;
+        }
+        IfComponentType::Unknown8 if !comp.text.is_empty() => {
+            writeln!(out, "text={}", comp.text)?;
+        }
+        _ => {}
+    }
+    if matches!(comp.com_type, IfComponentType::Rect | IfComponentType::Text) {
+        for (key, colour) in [
+            ("activecolour", comp.active_colour),
+            ("overcolour", comp.over_colour),
+            ("activeovercolour", comp.active_over_colour),
+        ] {
+            if colour != 0 {
+                writeln!(out, "{key}={}", format_colour(colour))?;
+            }
+        }
+    }
+    if !comp.action_verb.is_empty() {
+        writeln!(out, "actionverb={}", comp.action_verb)?;
+    }
+    if !comp.action.is_empty() {
+        writeln!(out, "action={}", comp.action)?;
+    }
+    if comp.action_target != 0 {
+        ensure!(
+            comp.action_target >> TARGET_MASK.len() == 0,
+            "Unknown action targets {}",
+            comp.action_target
+        );
+        let targets: Vec<_> = TARGET_MASK
+            .iter()
+            .enumerate()
+            .filter(|(bit, _)| (comp.action_target >> bit) & 1 != 0)
+            .map(|(_, target)| *target)
+            .collect();
+        writeln!(out, "actiontarget={}", targets.join(","))?;
+    }
+    if !comp.option.is_empty() {
+        writeln!(out, "option={}", comp.option)?;
+    }
+    Ok(())
+}
+
+#[cfg(all(since_530, before_647))]
+fn emit_margin(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
+    if comp.margin_x != 0 || comp.margin_y != 0 {
+        writeln!(out, "margin={},{}", comp.margin_x, comp.margin_y)?;
+    }
+    Ok(())
+}
+
+#[cfg(all(since_530, before_647))]
+fn emit_iops(out: &mut String, comp: &IfTypeRaw) -> Result<()> {
+    for (op, text) in comp.iop.iter().enumerate() {
+        if !text.is_empty() {
+            writeln!(out, "option{}={text}", op + 1)?;
+        }
+    }
+    Ok(())
+}
+
+/// An if1 script, one op to a line: its words without the closing 0.
+#[cfg(all(since_530, before_647))]
+fn emit_script(out: &mut String, script: usize, words: &[u16], names: &AssetNames) -> Result<()> {
+    let (&end, ops) = words.split_last().context("Script without its closing 0")?;
+    ensure!(end == 0, "Script without its closing 0");
+    if ops.is_empty() {
+        writeln!(out, "script{script}op1=")?;
+    }
+    let mut words = ops.iter().copied();
+    let mut op = 0;
+    while let Some(code) = words.next() {
+        op += 1;
+        let (name, kinds) = SCRIPT_OPS
+            .get((code as usize).wrapping_sub(1))
+            .with_context(|| format!("Unknown script op {code}"))?;
+        write!(out, "script{script}op{op}={name}")?;
+        for kind in *kinds {
+            let word = words
+                .next()
+                .with_context(|| format!("{name} is missing its {kind}"))?;
+            let operand = match *kind {
+                "int" => word.to_string(),
+                "com" => {
+                    let component = words
+                        .next()
+                        .with_context(|| format!("{name} is missing its component"))?;
+                    if word == u16::MAX && component == u16::MAX {
+                        "null".to_owned()
+                    } else {
+                        format!(
+                            "{}:{}",
+                            names.name("interface", word as u32),
+                            identifier_form(&names.component_name(word as u32, component as u32))
+                        )
+                    }
+                }
+                kind if word == u16::MAX => names.reference(kind, -1),
+                kind => names.reference(kind, word as i64),
+            };
+            write!(out, ",{operand}")?;
+        }
+        out.push('\n');
+    }
+    Ok(())
+}
+
+#[cfg(all(test, since_530, before_647))]
+mod tests {
+    use super::{Interface, write_interfaces};
+    use crate::cache::r#if::IfTypeRaw;
+    use crate::pack::interface::encode_component;
+    use crate::pack::names::AssetNames;
+    use rs_io::Packet;
+    use runec::symbol::SymbolRegistry;
+    use std::collections::HashMap;
+    use std::{env, fs, process};
+
+    /// Real 530 components: an if1 inventory, graphic, unknown8, two models and a
+    /// rectangle, then if3 text, graphic and model.
+    #[test]
+    fn if1_and_if3_components_keep_their_cache_bytes() {
+        let dir = env::temp_dir().join(format!("rs-majula-if-530-{}", process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let names = AssetNames::load(&dir).unwrap();
+        let if1 = vec![
+            vec![
+                2, 0, 0, 0, 0, 16, 0, 8, 0, 4, 0, 7, 0, 255, 255, 255, 255, 0, 0, 1, 1, 1, 0, 10,
+                4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0,
+            ],
+            vec![
+                5, 5, 0, 0, 0, 16, 0, 5, 0, 70, 0, 46, 0, 0, 1, 255, 255, 1, 1, 0, 0, 1, 0, 3, 0,
+                5, 0, 43, 0, 0, 0, 0, 2, 141, 0, 0, 2, 142, 67, 104, 111, 112, 0,
+            ],
+            vec![
+                8, 0, 0, 0, 0, 102, 0, 45, 0, 72, 0, 46, 0, 255, 255, 255, 255, 0, 0, 40, 65, 103,
+                103, 114, 101, 115, 115, 105, 118, 101, 41, 60, 98, 114, 62, 40, 83, 108, 97, 115,
+                104, 41, 60, 98, 114, 62, 40, 83, 116, 114, 101, 110, 103, 116, 104, 32, 88, 80,
+                41, 0,
+            ],
+            vec![
+                6, 0, 0, 0, 0, 59, 0, 46, 0, 32, 0, 32, 0, 255, 255, 255, 255, 0, 0, 32, 85, 32,
+                85, 9, 24, 255, 255, 2, 2, 0, 199, 7, 158,
+            ],
+            vec![
+                6, 0, 0, 0, 0, 26, 255, 194, 0, 32, 0, 32, 0, 255, 255, 255, 255, 1, 3, 0, 0, 1, 0,
+                5, 0, 4, 0, 149, 0, 0, 21, 186, 0, 0, 255, 255, 29, 217, 255, 255, 255, 255, 4, 72,
+                1, 244, 0, 0,
+            ],
+            vec![
+                3, 1, 0, 0, 0, 16, 0, 12, 0, 65, 0, 65, 0, 255, 255, 255, 255, 1, 1, 0, 1, 1, 0, 3,
+                0, 14, 2, 124, 0, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            ],
+        ];
+        let if3 = vec![
+            vec![
+                255, 4, 0, 0, 0, 69, 0, 54, 1, 84, 0, 16, 0, 0, 0, 0, 255, 255, 0, 1, 241, 0, 0, 1,
+                0, 0, 0, 54, 36, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            ],
+            vec![
+                255, 5, 0, 0, 0, 0, 0, 0, 19, 136, 19, 136, 0, 0, 0, 0, 255, 255, 0, 0, 0, 1, 41,
+                0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            ],
+            vec![
+                255, 6, 0, 0, 0, 38, 0, 67, 0, 235, 0, 239, 0, 0, 0, 0, 255, 255, 0, 114, 80, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 255, 255, 1, 0, 0, 11, 184, 0, 0, 0, 0, 0, 32, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0,
+            ],
+        ];
+        for (id, bytes) in [(291, if1), (624, if3)] {
+            let components: Vec<_> = bytes
+                .iter()
+                .enumerate()
+                .map(|(position, data)| {
+                    IfTypeRaw::decode(&mut Packet::from(data.clone()), position as u16, id as i32)
+                })
+                .collect();
+            for (component, data) in components.iter().zip(&bytes) {
+                assert_eq!(&encode_component(component), data);
+            }
+            let interface = Interface {
+                id,
+                components,
+                bytes,
+            };
+            write_interfaces(
+                &[interface],
+                &dir,
+                &HashMap::new(),
+                &names,
+                &SymbolRegistry::default(),
+            )
+            .unwrap();
+        }
+        assert!(dir.join("interfaces/interface_291.if1").is_file());
+        assert!(dir.join("interfaces/interface_624.if3").is_file());
+        fs::remove_dir_all(&dir).unwrap();
+    }
 }

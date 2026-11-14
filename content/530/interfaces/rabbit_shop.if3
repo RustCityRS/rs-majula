@@ -1,0 +1,1121 @@
+// 686:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+opbase=    
+
+// 686:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=graphic_297
+tiling=yes
+
+// 686:2
+[com_2]
+type=rectangle
+x=27
+y=88
+width=456
+height=153
+colour=0x000000
+fill=yes
+trans=224
+opbase=    
+
+// 686:3
+[com_3]
+type=graphic
+y=53
+width=32
+height=241
+graphic=graphic_821
+tiling=yes
+
+// 686:4
+[com_4]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic=graphic_824
+
+// 686:5
+[com_5]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic=graphic_823
+tiling=yes
+
+// 686:6
+[com_6]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic=graphic_820
+tiling=yes
+
+// 686:7
+[com_7]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic=graphic_822
+tiling=yes
+
+// 686:8
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 686:9
+[com_9]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic=graphic_826
+
+// 686:10
+[com_10]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic=graphic_825
+
+// 686:11
+[com_11]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic=graphic_827
+
+// 686:12
+[com_12]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 686:13
+[com_13]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic=graphic_829
+
+// 686:14
+[com_14]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic=graphic_830
+
+// 686:15
+[com_15]
+type=graphic
+x=19
+y=65
+width=475
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 686:16
+[com_16]
+type=graphic
+x=19
+y=234
+width=475
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 686:17
+[shop_title]
+type=text
+x=18
+y=27
+width=475
+height=22
+textfont=fontmetrics_496
+text=Mrs. Winkin's World of Seeds
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 686:18
+[com_18]
+type=model
+x=40
+y=106
+width=24
+height=17
+model=model_7319
+modelangle=257,0,0
+modelzoom=1100
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Tomato seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Tomato seeds", 25, 50)
+
+// 686:19
+[com_19]
+type=model
+x=68
+y=96
+width=57
+height=38
+model=model_7314
+modelorigin=0,-1
+modelangle=257,0,0
+modelzoom=600
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Sweetcorn seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Sweetcorn seeds", 25, 50)
+
+// 686:20
+[com_20]
+type=model
+x=112
+y=96
+width=57
+height=38
+model=model_32236
+modelorigin=0,-1
+modelangle=257,0,0
+modelzoom=600
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Strawberry seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Strawberry seeds", 25, 50)
+
+// 686:21
+[com_21]
+type=model
+x=156
+y=96
+width=57
+height=38
+model=model_7338
+modelorigin=0,-1
+modelangle=257,0,0
+modelzoom=600
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Watermelon seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Watermelon seeds", 25, 50)
+
+// 686:22
+[com_22]
+type=model
+x=213
+y=103
+width=32
+height=19
+model=model_7205
+modelorigin=-1,2
+modelangle=257,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Guam seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Guam seeds", 25, 50)
+
+// 686:23
+[com_23]
+type=model
+x=257
+y=103
+width=32
+height=19
+model=model_7205
+modelorigin=-1,2
+modelangle=257,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Marrentill seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Marrentill seeds", 25, 50)
+
+// 686:24
+[com_24]
+type=model
+x=301
+y=103
+width=32
+height=19
+model=model_7205
+modelorigin=-1,2
+modelangle=257,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Ranarr seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Ranarr seeds", 25, 50)
+
+// 686:25
+[com_25]
+type=model
+x=345
+y=103
+width=32
+height=19
+model=model_7205
+modelorigin=-1,2
+modelangle=257,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Kwuarm seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Kwuarm seeds", 25, 50)
+
+// 686:26
+[com_26]
+type=model
+x=389
+y=103
+width=32
+height=19
+model=model_7205
+modelorigin=-1,2
+modelangle=257,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Tarromin seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Tarromin seeds", 25, 50)
+
+// 686:27
+[com_27]
+type=model
+x=435
+y=100
+width=33
+height=24
+model=model_7253
+modelorigin=-3,2
+modelangle=257,0,0
+modelzoom=800
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Nasturtium seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Nasturtium seeds", 25, 50)
+
+// 686:28
+[com_28]
+type=model
+x=64
+y=149
+width=31
+height=23
+model=model_7351
+modelorigin=-1,0
+modelangle=257,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Woad seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Woad seeds", 25, 50)
+
+// 686:29
+[com_29]
+type=model
+x=108
+y=147
+width=29
+height=23
+model=model_7226
+modelorigin=0,2
+modelangle=259,0,0
+modelzoom=700
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Limpwurt seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Limpwurt seeds", 25, 50)
+
+// 686:30
+[com_30]
+type=model
+x=150
+y=145
+width=33
+height=27
+model=model_32246
+modelorigin=0,2
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Asgarnian seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Asgarnian seeds", 25, 50)
+
+// 686:31
+[com_31]
+type=model
+x=194
+y=145
+width=33
+height=27
+model=model_32239
+modelorigin=0,2
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Krandorian seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Krandorian seeds", 25, 50)
+
+// 686:32
+[com_32]
+type=model
+x=241
+y=146
+width=30
+height=23
+model=model_7293
+modelorigin=-2,3
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Redberry seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Redberry seeds", 25, 50)
+
+// 686:33
+[com_33]
+type=model
+x=282
+y=146
+width=33
+height=26
+model=model_32247
+modelorigin=0,1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Cadavaberry seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Cadavaberry seeds", 25, 50)
+
+// 686:34
+[com_34]
+type=model
+x=326
+y=146
+width=33
+height=26
+model=model_32241
+modelorigin=0,1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Dwelberry seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Dwelberry seeds", 25, 50)
+
+// 686:35
+[com_35]
+type=model
+x=370
+y=146
+width=33
+height=26
+model=model_32242
+modelorigin=0,1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Jangerberry seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Jangerberry seeds", 25, 50)
+
+// 686:36
+[com_36]
+type=model
+x=414
+y=146
+width=33
+height=26
+model=model_32244
+modelorigin=0,1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Whiteberry seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Whiteberry seeds", 25, 50)
+
+// 686:37
+[com_37]
+type=model
+x=38
+y=195
+width=33
+height=26
+model=model_32242
+modelorigin=0,1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Poison Ivy seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Poison ivy seeds", 25, 50)
+
+// 686:38
+[acorn]
+type=model
+x=83
+y=191
+width=38
+height=29
+model=model_7142
+modelorigin=-4,4
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Acorn
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Acorns", 25, 50)
+
+// 686:39
+[com_39]
+type=model
+x=125
+y=197
+width=34
+height=27
+model=model_7346
+modelorigin=0,-1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Willow seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Willow tree seeds", 25, 50)
+
+// 686:40
+[com_40]
+type=model
+x=167
+y=197
+width=39
+height=23
+model=model_7236
+modelorigin=0,1
+modelangle=259,0,0
+modelzoom=1100
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Maple seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Maple tree seeds", 25, 50)
+
+// 686:41
+[com_41]
+type=model
+x=211
+y=197
+width=37
+height=26
+model=model_7338
+modelorigin=0,-1
+modelangle=259,0,0
+modelzoom=900
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Pineapple seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Pineapple tree seeds", 25, 50)
+
+// 686:42
+[com_42]
+type=model
+x=255
+y=196
+width=27
+height=21
+model=model_7362
+modelorigin=-4,4
+modelangle=259,0,0
+modelzoom=1100
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Yew seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Yew tree seeds", 25, 50)
+
+// 686:43
+[com_43]
+type=model
+x=306
+y=198
+width=29
+height=21
+model=model_7269
+modelorigin=-2,1
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Palm tree seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Palm tree seeds", 25, 50)
+
+// 686:44
+[com_44]
+type=model
+x=352
+y=193
+width=30
+height=23
+model=model_32243
+modelorigin=-5,5
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Spirit seed
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Spirit tree seeds", 25, 50)
+
+// 686:45
+[supercompost]
+type=model
+x=398
+y=190
+width=17
+height=25
+model=model_32238
+modelorigin=0,7
+modelangle=259,0,0
+modelzoom=600
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Super compost potion
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Super compost potion", 25, 50)
+
+// 686:46
+[flag]
+type=model
+x=432
+y=194
+width=47
+height=28
+model=model_32237
+modelorigin=-10,4
+modelangle=0,0,1940
+modelzoom=1500
+modelunknown=0,3000,0
+transmitop=1,2,3,4,5
+opbase=<col=FF981F>Flag
+op1=Value
+op2=Buy 1
+op3=Buy 5
+op4=Buy 10
+op5=Buy X
+onmouseleave=deltooltip(rabbit_shop:tooltip_build)
+onmouserepeat=addtooltip(event_com, rabbit_shop:tooltip_build, "Flags", 25, 50)
+
+// 686:47
+[com_47]
+type=text
+x=123
+y=225
+width=262
+height=14
+textfont=fontmetrics_494
+text=Trade points for seeds and flags
+textalignh=centre
+textshadow=yes
+colour=0x77736a
+
+// 686:48
+[com_48]
+type=graphic
+x=28
+y=224
+width=457
+height=32
+graphic=graphic_1074
+tiling=yes
+
+// 686:49
+[com_49]
+type=graphic
+x=28
+y=72
+width=456
+height=32
+graphic=graphic_1074
+tiling=yes
+
+// 686:50
+[com_50]
+type=graphic
+x=14
+y=89
+width=32
+height=152
+graphic=graphic_1075
+tiling=yes
+
+// 686:51
+[com_51]
+type=graphic
+x=470
+y=89
+width=32
+height=152
+graphic=graphic_1075
+tiling=yes
+
+// 686:52
+[com_52]
+type=text
+x=205
+y=300
+width=114
+height=13
+textfont=fontmetrics_494
+text=Trade points for XP
+textalignh=centre
+textshadow=yes
+colour=0x77736a
+
+// 686:53
+[com_53]
+type=layer
+x=213
+y=253
+width=95
+height=43
+transmitop=1
+op1=Trade For XP
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 686:54
+[com_54]
+type=text
+x=218
+y=257
+width=85
+height=18
+textfont=fontmetrics_495
+text=Trade for
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 686:55
+[com_55]
+type=text
+x=218
+y=274
+width=85
+height=22
+textfont=fontmetrics_495
+text=XP
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=clientscript_864
+onvartransmit=clientscript_864{rabbit_main}
+
+// 686:56
+[rabbit_points]
+type=text
+x=290
+y=58
+width=44
+height=14
+textfont=fontmetrics_496
+textshadow=yes
+onload=clientscript_863
+onvartransmit=clientscript_863{rabbit_main}
+
+// 686:57
+[com_57]
+type=text
+x=151
+y=58
+width=112
+height=14
+textfont=fontmetrics_495
+text=Total points remaining :
+textshadow=yes
+colour=0xff981f
+
+// 686:58
+[tooltip_box]
+type=layer
+width=512
+height=334
+
+// 686:59
+[tooltip_build]
+type=layer
+x=8
+y=9
+width=32
+height=32
+layer=tooltip_box
+
+// 686:60
+[com_60]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 686:61
+[com_61]
+type=rectangle
+width=512
+height=332
+layer=com_60
+colour=0x999999
+fill=yes
+trans=150
+
+// 686:62
+[com_62]
+type=graphic
+x=178
+y=129
+width=147
+height=101
+layer=com_60
+graphic=graphic_897
+tiling=yes
+
+// 686:63
+[com_63]
+type=graphic
+x=174
+y=129
+width=32
+height=32
+layer=com_60
+graphic=graphic_824
+
+// 686:64
+[com_64]
+type=graphic
+x=161
+y=160
+width=32
+height=44
+layer=com_60
+graphic=graphic_821
+
+// 686:65
+[com_65]
+type=graphic
+x=308
+y=160
+width=32
+height=44
+layer=com_60
+graphic=graphic_823
+
+// 686:66
+[com_66]
+type=graphic
+x=296
+y=129
+width=32
+height=32
+layer=com_60
+graphic=graphic_825
+
+// 686:67
+[com_67]
+type=graphic
+x=174
+y=200
+width=32
+height=32
+layer=com_60
+graphic=graphic_826
+
+// 686:68
+[com_68]
+type=graphic
+x=296
+y=200
+width=32
+height=32
+layer=com_60
+graphic=graphic_827
+
+// 686:69
+[com_69]
+type=graphic
+x=197
+y=116
+width=100
+height=32
+layer=com_60
+graphic=graphic_820
+
+// 686:70
+[com_70]
+type=graphic
+x=201
+y=212
+width=99
+height=32
+layer=com_60
+graphic=graphic_822
+opbase= 
+
+// 686:71
+[com_71]
+type=text
+x=195
+y=144
+width=118
+height=32
+layer=com_60
+textfont=fontmetrics_494
+text=Are you sure you want to trade your remaining points for XP?
+textshadow=yes
+colour=0xffff00
+
+// 686:72
+[com_72]
+type=text
+x=206
+y=180
+width=89
+height=15
+layer=com_60
+textfont=fontmetrics_494
+text=Yes - let me trade
+textshadow=yes
+transmitop=1
+op1=Yes
+onmouseover=text_colour_swapper(event_com, 0xffa000)
+onmouseleave=text_colour_swapper(event_com, ^white)
+
+// 686:73
+[com_73]
+type=text
+x=210
+y=201
+width=89
+height=15
+layer=com_60
+textfont=fontmetrics_494
+text=No - don't trade
+textshadow=yes
+transmitop=1
+op1=No
+onmouseover=text_colour_swapper(event_com, 0xffa000)
+onmouseleave=text_colour_swapper(event_com, ^white)

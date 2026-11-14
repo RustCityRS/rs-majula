@@ -1,0 +1,131 @@
+// 6867
+[proc,clientscript_6867](int $int0, int $int1)(int)
+def_int $int2 = struct_param(enum(int, struct, enum_6570, $int1), param_2770);
+def_int $int3 = struct_param(enum(int, struct, enum_6570, $int1), param_2769);
+def_string $string0 = struct_param(enum(int, struct, enum_6570, $int1), param_2760);
+def_string $string1 = struct_param(enum(int, struct, enum_6570, $int1), param_2761);
+def_string $string2 = "Level <tostring($int3)> Prayer";
+def_string $string3 = "You have already helped Father Joakim with these celebrations, so you will receive no additional rewards.";
+def_int $int4 = 0;
+def_graphic $graphic5 = null;
+if (stat_base(prayer) >= $int3) {
+    $int4 = 1;
+}
+if ($int2 > 1) {
+    $string2 = append($string2, "<br>Level <tostring($int2)> combat.");
+    if (comlevel_active < $int2) {
+        $int4 = 0;
+    }
+}
+def_int $int6 = struct_param(enum(int, struct, enum_6570, $int1), param_2771);
+if ($int6 ! -1) {
+    if (~ql4_getquestcomplete($int6) = false) {
+        $int4 = 0;
+    }
+    $string2 = append($string2, "<br><struct_param(enum(int, struct, enum_2252, $int6), param_845)>.");
+}
+def_int $int7 = paraheight($string0, 120, p11_full);
+if ($int7 < paraheight($string1, 190, p11_full)) {
+    $int7 = paraheight($string1, 190, p11_full);
+}
+if ($int7 < paraheight($string2, 130, p11_full)) {
+    $int7 = paraheight($string2, 130, p11_full);
+}
+$int7 = calc($int7 * 12);
+if ($int0 > 0) {
+    $int7 = calc($int7 + 4);
+}
+cc_create(interface_1360:com_0, ^iftype_text, $int0);
+cc_settextfont(p11_full);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setmaxlines(0);
+if ($int4 = 1) {
+    cc_settext($string0);
+} else {
+    cc_settext("Unknown");
+}
+cc_setonmouseover("clientscript_6870($int0, $int4)");
+cc_setonmouseleave("clientscript_6872($int0, $int4)");
+cc_setsize(120, $int7, ^setsize_abs, ^setsize_abs);
+if ($int4 = 1) {
+    cc_setcolour(^white);
+} else {
+    cc_setcolour(^red);
+}
+$int0 = calc($int0 + 1);
+cc_create(interface_1360:com_0, ^iftype_text, $int0);
+cc_settextfont(p11_full);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setmaxlines(0);
+cc_settext($string1);
+cc_setonmouseover("clientscript_6870(calc($int0 - 1), $int4)");
+cc_setonmouseleave("clientscript_6872(calc($int0 - 1), $int4)");
+cc_setsize(190, $int7, ^setsize_abs, ^setsize_abs);
+if ($int4 = 1) {
+    cc_setcolour(^white);
+} else {
+    cc_setcolour(^red);
+}
+$int0 = calc($int0 + 1);
+cc_create(interface_1360:com_0, ^iftype_text, $int0);
+cc_settextfont(p11_full);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setmaxlines(0);
+cc_settext($string2);
+cc_setonmouseover("clientscript_6870(calc($int0 - 2), $int4)");
+cc_setonmouseleave("clientscript_6872(calc($int0 - 2), $int4)");
+cc_setsize(130, $int7, ^setsize_abs, ^setsize_abs);
+if ($int4 = 1) {
+    cc_setcolour(^white);
+} else {
+    cc_setcolour(^red);
+}
+$int0 = calc($int0 + 1);
+cc_create(interface_1360:com_0, ^iftype_graphic, $int0);
+switch_int (calc($int0 / 4 + 1)) {
+    case 1 :
+        if (%varplayerbit_12183 = 1) {
+            $graphic5 = 13165;
+        } else {
+            $string3 = "You have not yet helped Father Joakim with these celebrations.";
+        }
+    case 2 :
+        if (%varplayerbit_12184 = 1) {
+            $graphic5 = 13165;
+        } else {
+            $string3 = "You have not yet helped Father Joakim with these celebrations.";
+        }
+    case 3 :
+        if (%varplayerbit_12185 = 1) {
+            $graphic5 = 13165;
+        } else {
+            $string3 = "You have not yet helped Father Joakim with these celebrations.";
+        }
+    case 4 :
+        if (%varplayerbit_12186 = 1) {
+            $graphic5 = 13165;
+        } else {
+            $string3 = "You have not yet helped Father Joakim with these celebrations.";
+        }
+    case 5 :
+        if (%varplayerbit_12187 = 1) {
+            $graphic5 = 13165;
+        } else {
+            $string3 = "You have not yet helped Father Joakim with these celebrations.";
+        }
+    case default :
+        $graphic5 = 13166;
+}
+if ($graphic5 ! null) {
+    cc_setgraphic($graphic5);
+    cc_setonmouserepeat("clientscript_6869($int0, $int4, $string3)");
+    cc_setonmouseleave("clientscript_6872(calc($int0 - 3), $int4)");
+} else {
+    cc_setonmouseover("clientscript_6870(calc($int0 - 3), $int4)");
+    cc_setonmouseleave("clientscript_6872(calc($int0 - 3), $int4)");
+}
+cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+return(calc($int0 + 1));

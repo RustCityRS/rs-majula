@@ -1,0 +1,52 @@
+// 5169
+[proc,clientscript_5169](int $int0)(int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 1;
+if (op718 = 1) {
+    $int1 = ~clientscript_4948($int0);
+    if ($int1 <= 0) {
+        return(0);
+    }
+    $int2 = ~clientscript_4959($int1);
+    if ($int2 = 0) {
+        return(0);
+    }
+    switch_int ($int1) {
+        case 1 :
+            $int3 = %varclan_2616;
+        case 2 :
+            $int3 = %varclan_2614;
+        case 3 :
+            $int3 = %varclan_2615;
+        case 4 :
+            $int3 = %varclan_2602;
+        case 5 :
+            $int3 = %varclan_2603;
+        case 6 :
+            $int3 = %varclan_2604;
+        case 7 :
+            $int3 = %varclan_2605;
+        case 8 :
+            $int3 = %varclan_2606;
+        case 9 :
+            $int3 = %varclan_2607;
+        case 10 :
+            $int3 = %varclan_2608;
+        case 11 :
+            $int3 = %varclan_2609;
+        case 12 :
+            $int3 = %varclan_2610;
+        case 13 :
+            $int3 = %varclan_2611;
+        case 14 :
+            $int3 = %varclan_2612;
+        case 15 :
+            $int3 = %varclan_2613;
+    }
+    if ($int3 > 0) {
+        return(1);
+    } else {
+        return(0);
+    }
+}

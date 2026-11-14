@@ -1,0 +1,63 @@
+// 175
+[clientscript,chat_button_onop](int $int0, int $int1)
+if (%tutorial < 1000) {
+    mes("You can't do this while in the tutorial.");
+    return;
+}
+if (%varplayerbit_9030 = 1) {
+    mes("You cannot change your chat filters while you are in the tutorial as you might miss important messages that will help with your progress.");
+    return;
+}
+switch_int ($int0) {
+    case 1 :
+        if (%chat_view = $int1 & getwindowmode >= 2) {
+            %chat_view = -1;
+            ~subchanged;
+        } else if (%chat_view = -1) {
+            %chat_view = $int1;
+            ~subchanged;
+        } else {
+            %chat_view = $int1;
+        }
+        switch_int ($int1) {
+            case 0, 2 :
+                %varclient_1651 = 0;
+                chat_setmode(0);
+                ~script1558(false);
+            case 4 :
+                %varclient_1651 = 1;
+                chat_setmode(1);
+                ~script1558(false);
+            case 7 :
+                %varclient_1651 = 2;
+                chat_setmode(2);
+                ~script1558(false);
+        }
+        ~chat_alert_reset(%chat_view);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 2 :
+        ~chat_set_filter($int1, 0);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 3 :
+        if ($int1 = 3 & friend_count < 0) {
+            mes("The friends list is still loading, your selection won't take effect immediately.");
+        }
+        ~chat_set_filter($int1, 1);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 4 :
+        ~chat_set_filter($int1, 2);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+    case 5 :
+        ~chat_set_filter($int1, 3);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+}

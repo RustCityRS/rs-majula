@@ -16,7 +16,7 @@ pub struct EventCameraPosition {
     pub minimap_zoom: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for EventCameraPosition {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         EventCameraPosition {
@@ -30,11 +30,22 @@ impl ClientProtMessage for EventCameraPosition {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for EventCameraPosition {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let pitch = buf.g2_alt2();
+        let yaw = buf.g2_alt1();
+        EventCameraPosition { pitch, yaw }
+    }
+}
+
 #[cfg(since_647)]
 impl ClientProtMessage for EventCameraPosition {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let yaw = buf.g2_alt2();
-        let pitch = buf.g2_alt1();
+        #[cfg(before_742)]
+        let (yaw, pitch) = (buf.g2_alt2(), buf.g2_alt1());
+        #[cfg(since_742)]
+        let (pitch, yaw) = (buf.g2_alt2(), buf.g2_alt3());
         EventCameraPosition { yaw, pitch }
     }
 }

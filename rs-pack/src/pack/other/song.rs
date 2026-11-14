@@ -1,32 +1,32 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::incremental::Stage;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::incremental::{Hash, remember};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::AssetNames;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Result, bail, ensure};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::bz2::bz2_compress_with_size;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_midis(content_dir: &Path, kind: &str) -> HashMap<String, Vec<u8>> {
     let songs_dir = content_dir.join(kind);
     let mut result = HashMap::new();
@@ -66,7 +66,7 @@ pub fn pack_midis(content_dir: &Path, kind: &str) -> HashMap<String, Vec<u8>> {
     result
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
@@ -107,7 +107,7 @@ pub fn pack_archive(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 enum MidiEventKind {
     NoteOn {
@@ -151,14 +151,14 @@ enum MidiEventKind {
     EndOfTrack,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 struct MidiEvent {
     delta: u32,
     kind: MidiEventKind,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
     ensure!(data.len() >= 14, "MIDI header too short");
     let mut buf = Packet::from(data);
@@ -347,14 +347,14 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
     Ok((division, tracks))
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn delta_byte(value: i32, accum: &mut i32) -> u8 {
     let stored = (value.wrapping_sub(*accum) & 0x7F) as u8;
     *accum += stored as i32;
     stored
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_jagex_midi(midi_data: &[u8]) -> Result<Vec<u8>> {
     let (division, tracks) = parse_standard_midi(midi_data)?;
     let num_tracks = tracks.len();

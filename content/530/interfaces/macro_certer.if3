@@ -1,0 +1,172 @@
+// 184:0
+[com_0]
+type=model
+x=48
+y=2
+width=426
+height=331
+layer=content_layer
+model=model_3623
+modelorigin=0,-37
+modelangle=496,1,0
+modelzoom=578
+modelunknown=2000,3000,0
+
+// 184:1
+[com_1]
+type=text
+x=118
+y=35
+width=340
+height=35
+layer=content_layer
+textfont=fontmetrics_497
+text=A....a lemming
+textalignv=centre
+colour=0x0f342e10
+
+// 184:2
+[com_2]
+type=text
+x=118
+y=69
+width=340
+height=35
+layer=content_layer
+textfont=fontmetrics_497
+text=B....a fryingpan
+textalignv=centre
+colour=0x0f342e10
+
+// 184:3
+[com_3]
+type=text
+x=118
+y=103
+width=340
+height=35
+layer=content_layer
+textfont=fontmetrics_497
+text=C....the disenfrachaised youth of 1940's Columbia
+textalignv=centre
+colour=0x0f342e10
+
+// 184:4
+[com_4]
+type=text
+x=117
+y=20
+width=80
+height=17
+layer=content_layer
+textfont=fontmetrics_497
+text=Is this:
+colour=0x0f1b1805
+
+// 184:5
+[com_5]
+type=rectangle
+x=142
+y=143
+width=236
+height=153
+layer=content_layer
+colour=0x0f342e10
+fill=yes
+
+// 184:6
+[com_6]
+type=rectangle
+x=147
+y=147
+width=226
+height=144
+layer=content_layer
+colour=0x0f5f551d
+fill=yes
+
+// 184:7
+[com_7]
+type=model
+x=207
+y=179
+width=106
+height=77
+layer=content_layer
+model=model_8829
+modelorigin=3,-2
+modelangle=346,1883,0
+modelzoom=400
+modelunknown=64254,3000,0
+onload=set_spinner(18, 30, 0, event_com)
+
+// 184:8
+[com_8]
+type=model
+x=80
+y=39
+width=35
+height=31
+layer=content_layer
+model=model_8965
+modelorigin=8,-4
+modelangle=540,2043,0
+modelzoom=1640
+modelunknown=64536,3000,0
+transmitop=1
+op1=Select
+
+// 184:9
+[com_9]
+type=model
+x=79
+y=70
+width=37
+height=33
+layer=content_layer
+model=model_8966
+modelorigin=6,-2
+modelangle=490,10,0
+modelzoom=1663
+modelunknown=64536,3000,0
+transmitop=1
+op1=Select
+
+// 184:10
+[com_10]
+type=model
+x=78
+y=105
+width=39
+height=32
+layer=content_layer
+model=model_8967
+modelorigin=9,-4
+modelangle=385,24,0
+modelzoom=1763
+modelunknown=64536,3000,0
+transmitop=1
+op1=Select
+
+// 184:11
+[com_11]
+type=graphic
+x=376
+y=8
+width=26
+height=23
+layer=content_layer
+graphic=graphic_537
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 538)
+onmouseleave=graphic_swapper(event_com, 537)
+onop=if_close
+
+// 184:12
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

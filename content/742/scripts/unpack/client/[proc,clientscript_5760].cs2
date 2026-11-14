@@ -1,0 +1,5 @@
+// 5760
+[proc,clientscript_5760](component $component0)
+if (if_find($component0) = true) {
+    if_sethide(op1506, true);
+}

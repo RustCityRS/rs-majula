@@ -1,0 +1,596 @@
+// 555:0
+[com_0]
+type=rectangle
+x=7
+y=9
+width=494
+height=320
+hide=yes
+colour=0x647066
+fill=yes
+
+// 555:1
+[com_1]
+type=graphic
+x=480
+y=14
+width=16
+height=16
+hide=yes
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(interface_555:com_1, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(interface_555:com_1, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 555:2
+[com_2]
+type=layer
+x=6
+y=5
+width=15
+height=12
+widthmode=minus
+heightmode=minus
+
+// 555:3
+[com_3]
+type=layer
+x=50
+y=40
+width=410
+height=220
+
+// 555:4
+[com_4]
+type=graphic
+x=336
+y=279
+width=25
+height=25
+graphic="catcon_catapult_icons,0"
+transmitop=1
+op1=Flip
+onclick=clientscript_5286
+
+// 555:5
+[com_5]
+type=graphic
+x=369
+y=279
+width=25
+height=25
+graphic="catcon_catapult_icons,4"
+transmitop=1
+op1=Rotate anticlockwise
+onclick=clientscript_5287
+
+// 555:6
+[com_6]
+type=graphic
+x=403
+y=279
+width=25
+height=25
+graphic="catcon_catapult_icons,6"
+transmitop=1
+op1=Rotate clockwise
+onclick=clientscript_5288
+
+// 555:7
+[com_7]
+type=graphic
+y=260
+width=28
+height=28
+xmode=abs_centre
+graphic="aif_arrow1,0"
+transmitop=1
+op1=Move-up
+onmouseover=graphic_swapper(event_com, "aif_arrow1,1")
+onmouseleave=graphic_swapper(event_com, "aif_arrow1,0")
+
+// 555:8
+[com_8]
+type=graphic
+y=1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_2
+graphic=window_texture_1
+tiling=yes
+
+// 555:9
+[com_9]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 555:10
+[com_10]
+type=graphic
+width=364
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_bot_brdr_left
+
+// 555:11
+[com_11]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_2
+graphic=aif_window_stone_close_corner_3
+
+// 555:12
+[com_12]
+type=graphic
+width=8
+height=190
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 555:13
+[com_13]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_2
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 555:14
+[com_14]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_2
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 555:15
+[com_15]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_bot_brdr_left
+
+// 555:16
+[com_16]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_bot_brdr_left
+
+// 555:17
+[com_17]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 555:18
+[com_18]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_2
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 555:19
+[com_19]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 555:20
+[com_20]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_2
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 555:21
+[com_21]
+type=graphic
+width=8
+height=190
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 555:22
+[com_22]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_side_brdr_small
+
+// 555:23
+[com_23]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 555:24
+[com_24]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_2
+graphic=aif_window_stone_close_corner_1
+
+// 555:25
+[com_25]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_2
+graphic=aif_window_stone_left_corner_1
+
+// 555:26
+[com_26]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_2
+graphic=aif_window_stone_bot_corn
+
+// 555:27
+[com_27]
+type=graphic
+width=8
+height=29
+layer=com_2
+graphic=aif_window_stone_left_corner_2
+
+// 555:28
+[com_28]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_2
+graphic=aif_window_stone_close_corner_2
+
+// 555:29
+[com_29]
+type=layer
+x=5
+y=5
+width=15
+height=13
+xmode=abs_right
+layer=com_2
+
+// 555:30
+[com_30]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_29
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 555:31
+[com_31]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_29
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 555:32
+[com_32]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_29
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 555:33
+[com_33]
+type=layer
+width=16391
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_2
+
+// 555:34
+[com_34]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_33
+textfont=palatino_linotype_18pt_regular
+text=Wall Design
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 555:35
+[com_35]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+graphic=window_texture_2
+tiling=yes
+
+// 555:36
+[com_36]
+type=graphic
+width=10
+height=10
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 555:37
+[com_37]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 555:38
+[com_38]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 555:39
+[com_39]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 555:40
+[com_40]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 555:41
+[com_41]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 555:42
+[com_42]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 555:43
+[com_43]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 555:44
+[com_44]
+type=graphic
+x=11
+y=10
+width=60
+height=200
+layer=com_3
+graphic=graphic_6293
+
+// 555:45
+[com_45]
+type=graphic
+x=121
+y=10
+width=60
+height=200
+layer=com_3
+graphic=graphic_6294
+
+// 555:46
+[com_46]
+type=graphic
+x=231
+y=10
+width=60
+height=200
+layer=com_3
+graphic=graphic_6295
+
+// 555:47
+[com_47]
+type=graphic
+x=341
+y=10
+width=60
+height=200
+layer=com_3
+graphic=graphic_6296
+
+// 555:48
+[com_48]
+type=graphic
+x=170
+width=63
+height=250
+layer=com_3
+hide=yes
+graphic=graphic_7700
+2dangle=49152
+
+// 555:49
+[com_49]
+type=graphic
+x=170
+width=63
+height=250
+layer=com_3
+graphic=graphic_7701
+2dangle=49152
+
+// 555:50
+[com_50]
+type=graphic
+y=293
+width=28
+height=28
+xmode=abs_centre
+graphic="aif_arrow1,0"
+2dangle=32768
+transmitop=1
+op1=Move-down
+onmouseover=graphic_swapper(event_com, "aif_arrow1,1")
+onmouseleave=graphic_swapper(event_com, "aif_arrow1,0")
+
+// 555:51
+[com_51]
+type=graphic
+x=-28
+y=276
+width=28
+height=28
+xmode=abs_centre
+graphic="aif_arrow1,0"
+2dangle=16384
+transmitop=1
+op1=Move-left
+onmouseover=graphic_swapper(event_com, "aif_arrow1,1")
+onmouseleave=graphic_swapper(event_com, "aif_arrow1,0")
+
+// 555:52
+[com_52]
+type=graphic
+x=28
+y=276
+width=28
+height=28
+xmode=abs_centre
+graphic="aif_arrow1,0"
+2dangle=49152
+transmitop=1
+op1=Move-right
+onmouseover=graphic_swapper(event_com, "aif_arrow1,1")
+onmouseleave=graphic_swapper(event_com, "aif_arrow1,0")

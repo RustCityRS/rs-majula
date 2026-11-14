@@ -1,0 +1,141 @@
+// 690:0
+[background]
+type=rectangle
+width=514
+height=335
+colour=0xc0b8a0
+fill=yes
+trans=32
+
+// 690:1
+[com_1]
+type=rectangle
+x=11
+y=5
+width=181
+height=179
+colour=0x8c7c6c
+fill=yes
+
+// 690:2
+[com_2]
+type=rectangle
+x=316
+y=146
+width=181
+height=179
+colour=0x8c7c6c
+fill=yes
+
+// 690:3
+[paragraph01]
+type=text
+x=208
+y=8
+width=278
+height=170
+textfont=fontmetrics_497
+text=Farmers wander the area looking for seeds that have been dug up by mistake. They will also collect any flags you have placed, resetting the nearby area and giving you points if the flag is in the right place.
+colour=0x000000
+
+// 690:4
+[paragraph02]
+type=text
+x=14
+y=190
+width=286
+height=169
+textfont=fontmetrics_497
+text=If you place a flag over a seed, you will be able to get the flag back from Mrs. Winkin or Farmer Blinkin. If you placed a flag wrongly, you will have to pay 500gp for a new one.
+colour=0x000000
+
+// 690:5
+[farmer]
+type=model
+x=58
+y=7
+width=74
+height=176
+model=model_32249
+modelorigin=13,73
+modelangle=88,1936,0
+modelzoom=550
+modelunknown=0,3000,0
+
+// 690:6
+[flag]
+type=model
+x=357
+y=152
+width=59
+height=123
+model=model_32286
+modelorigin=-14,56
+modelangle=52,1839,2010
+modelzoom=1000
+modelunknown=0,3000,0
+
+// 690:7
+[farmground]
+type=model
+x=321
+y=262
+width=81
+height=30
+model=model_32256
+modelangle=118,1758,0
+modelzoom=1000
+modelunknown=0,3000,0
+
+// 690:8
+[seeds]
+type=model
+x=409
+y=222
+width=83
+height=54
+model=model_32266
+modelorigin=5,8
+modelangle=192,1661,0
+modelzoom=350
+modelunknown=0,3000,0
+
+// 690:9
+[spade]
+type=model
+x=434
+y=165
+width=43
+height=69
+model=model_32331
+modelorigin=-29,-7
+modelangle=310,1164,0
+modelzoom=750
+modelunknown=0,3000,0
+
+// 690:10
+[cross]
+type=model
+x=402
+y=195
+width=96
+height=81
+model=model_32250
+modelorigin=-5,-8
+modelangle=310,2003,0
+modelzoom=650
+modelunknown=0,3000,0
+
+// 690:11
+[closebutton]
+type=graphic
+x=489
+y=2
+width=26
+height=23
+graphic=graphic_535
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 536)
+onmouseleave=graphic_swapper(event_com, 535)
+onop=if_close

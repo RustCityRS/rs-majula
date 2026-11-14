@@ -1,0 +1,62 @@
+// 3336
+[proc,clientscript_3336](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = op2613(interface_1216:com_9);
+$int4 = calc($int4 - 800);
+if ($int4 < 0) {
+    $int4 = 65000;
+}
+if_set2dangle(interface_1216:com_9, $int4);
+def_int $int5 = max(1, calc($int1 - $int0));
+def_int $int6 = calc(255 / $int5 + 1);
+if (if_gethide(interface_1216:com_1) = true & detailget_toolkit ! 0) {
+    if_sethide(interface_1216:com_1, false);
+}
+if (if_gethide(interface_1216:com_17) = true & detailget_toolkit ! 0) {
+    if_sethide(interface_1216:com_17, false);
+}
+if (clientclock < $int1 & clientclock > $int0) {
+    if_settrans(interface_1216:com_15, min(175, calc(if_gettrans(interface_1216:com_15) + $int6)));
+    if_settrans(interface_1216:com_12, max(0, calc(if_gettrans(interface_1216:com_12) - $int6)));
+    if_settrans(interface_1216:com_14, max(0, calc(if_gettrans(interface_1216:com_12) - $int6)));
+    if_settrans(interface_1216:com_13, max(0, calc(if_gettrans(interface_1216:com_12) - $int6)));
+    return;
+} else if (clientclock < $int2 & clientclock >= $int1) {
+    if (clientclock >= calc($int1 + 25)) {
+        if_sethide(interface_1216:com_1, true);
+        if_sethide(interface_1216:com_2, true);
+        if_sethide(interface_1216:com_17, true);
+    }
+    if (clientclock = $int1) {
+        ~clientscript_3337($int3, calc($int2 - $int1));
+    }
+} else if (clientclock >= $int2) {
+    if (if_gethide(interface_1216:com_1) = false) {
+        if_sethide(interface_1216:com_1, true);
+    }
+    if (if_gethide(interface_1216:com_2) = false) {
+        if_sethide(interface_1216:com_2, true);
+    }
+    if (if_gethide(interface_1216:com_17) = false) {
+        if_sethide(interface_1216:com_17, true);
+    }
+    if (if_gettrans(interface_1216:com_8) < 255) {
+        if_settrans(interface_1216:com_15, min(255, calc(if_gettrans(interface_1216:com_15) + 10)));
+        if_settrans(interface_1216:com_5, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_6, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_4, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_7, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_12, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_14, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_13, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_9, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+        if_settrans(interface_1216:com_8, min(255, calc(if_gettrans(interface_1216:com_8) + 10)));
+    } else {
+        cc_deleteall(interface_1216:com_3);
+        cc_deleteall(interface_1216:com_0);
+        if_setontimer(interface_1216:com_16, null);
+        if_sethide(interface_1216:com_11, true);
+        if (%varplayerbit_10443 = 0) {
+            if_sethide(interface_1213:com_2, false);
+        }
+    }
+}

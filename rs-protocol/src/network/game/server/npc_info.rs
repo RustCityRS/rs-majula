@@ -4,7 +4,16 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+#[cfg(since_530)]
 use std::f64::consts::TAU;
+
+/// Each octant's facing, from south (angle 0) round through west: on 530 the
+/// index into `sg.f` (NW, N, NE, W, E, SW, S, SE), on 647 the client's
+/// `(direction + 4) << 11`.
+#[cfg(all(since_530, before_647))]
+const DIRECTIONS: [u8; 8] = [6, 5, 3, 0, 1, 2, 4, 7];
+#[cfg(since_647)]
+const DIRECTIONS: [u8; 8] = [4, 5, 6, 7, 0, 1, 2, 3];
 
 #[server_prot(NpcInfo, Immediate, VarShort)]
 pub struct NpcInfo<'a> {
@@ -21,27 +30,29 @@ impl ServerProtMessage for NpcInfo<'_> {
     }
 }
 
-/// The 3-bit facing of a rev-647 NPC_INFO add block for an npc facing
-/// `(dx, dz)` away from it, in fine coords (npc minus the coord it faces).
+/// The 3-bit facing of an NPC_INFO add block (on 530 also a PLAYER_INFO add)
+/// for an entity facing `(dx, dz)` away from it, in fine coords (entity minus
+/// the coord it faces).
 ///
-/// The client turns the field into an angle as `(direction + 4) << 11` and
-/// sets it outright (`SteroSoundClientOption`, `PathingEntity.method4004(angle,
-/// true)`); a FaceCoord, by contrast, only turns an npc whose BAS can turn
-/// (`method3996`), so this is the facing such an npc keeps. Its angle for a
-/// face coord is `atan2(dx, dz)` in 16384 units, 0 facing south. With no
-/// facing (`None`), 4: angle 0, the client's own default
-/// (`NpcType.spawn_direction`).
+/// The 647 client turns the field into an angle as `(direction + 4) << 11`
+/// and sets it outright (`SteroSoundClientOption`,
+/// `PathingEntity.method4004(angle, true)`); a FaceCoord, by contrast, only
+/// turns an npc whose BAS can turn (`method3996`), so this is the facing such
+/// an npc keeps. The 530 client sets the angle `sg.f` holds at the field's
+/// index on an entity it creates (`oi.a`, `oc.b`). Its angle for a face coord
+/// is `atan2(dx, dz)` in 16384 units, 0 facing south. With no facing
+/// (`None`), angle 0, the client's own default (`NpcType.spawn_direction`).
+#[cfg(since_530)]
 pub fn add_direction(facing: Option<(i32, i32)>) -> u8 {
     let Some((dx, dz)) = facing.filter(|&d| d != (0, 0)) else {
-        return 4;
+        return DIRECTIONS[0];
     };
     // 16384 units to the turn: the client's 2607.5945876176133.
     let angle = ((dx as f64).atan2(dz as f64) * (16384.0 / TAU)) as i32 & 0x3FFF;
-    let octant = ((angle + 1024) >> 11) & 7;
-    ((octant + 4) & 7) as u8
+    DIRECTIONS[(((angle + 1024) >> 11) & 7) as usize]
 }
 
-#[cfg(test)]
+#[cfg(all(test, since_647))]
 mod tests {
     use super::add_direction;
 

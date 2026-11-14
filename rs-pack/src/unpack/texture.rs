@@ -1,22 +1,24 @@
 #![allow(clippy::needless_range_loop)]
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::TEXTURES as TEXTURE_ARCHIVE;
-#[cfg(since_647)]
+#[cfg(all(since_530, before_647))]
+use crate::cache::texture::MATERIAL_FIELDS;
+#[cfg(since_530)]
 use crate::cache::texture::{OP_NAMES, TextureDef, parse_texture};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::unpack;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::Js5Store;
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub const TEXTURE_NAMES: &[&str] = &[
     "door",
     "water",
@@ -73,7 +75,7 @@ pub const TEXTURE_NAMES: &[&str] = &[
     "canvas",
 ];
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
     let tex_dir = output_dir.join("textures");
     let meta_dir = tex_dir.join("meta");
@@ -153,7 +155,7 @@ pub fn unpack_textures(jag: &JagFile, output_dir: &Path, pack_dir: &Path) -> any
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn texture_name(id: u16) -> String {
     TEXTURE_NAMES
         .get(id as usize)
@@ -161,7 +163,7 @@ fn texture_name(id: u16) -> String {
         .unwrap_or_else(|| format!("texture_{id}"))
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn find_texture_id(hash: i32) -> Option<String> {
     for id in 0..256u16 {
         if JagFile::hash(&format!("{id}.dat")) == hash {
@@ -171,14 +173,14 @@ fn find_texture_id(hash: i32) -> Option<String> {
     None
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) fn known_hashes() -> Vec<i32> {
     let mut hashes = vec![JagFile::hash("index.dat")];
     hashes.extend((0..256).map(|id| JagFile::hash(&format!("{id}.dat"))));
     hashes
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn unpack_texture_text(
     store: &mut Js5Store,
     content_dir: &Path,
@@ -193,9 +195,9 @@ pub fn unpack_texture_text(
         .groups
         .clone();
     for info in &groups {
-        let data = store
-            .read_group_raw_decompressed(TEXTURE_ARCHIVE, info.id)?
-            .context("Missing texture group")?;
+        let Some(data) = store.read_group_raw_decompressed(TEXTURE_ARCHIVE, info.id)? else {
+            continue;
+        };
         let text = crate::pack::texture::source::convert(
             &emit_texture_text(&parse_texture(&data)),
             &names,
@@ -218,12 +220,12 @@ pub fn unpack_texture_text(
     Ok(groups.len() as u32)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn r_u8(d: &[u8]) -> u8 {
     d.first().copied().unwrap_or(0)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn r_u16(d: &[u8]) -> u16 {
     u16::from_be_bytes([
         d.first().copied().unwrap_or(0),
@@ -231,19 +233,19 @@ fn r_u16(d: &[u8]) -> u16 {
     ])
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn r_i16(d: &[u8]) -> i16 {
     r_u16(d) as i16
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn r_u24(d: &[u8]) -> u32 {
     ((d.first().copied().unwrap_or(0) as u32) << 16)
         | ((d.get(1).copied().unwrap_or(0) as u32) << 8)
         | (d.get(2).copied().unwrap_or(0) as u32)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_field(op: u8, oc: u8, d: &[u8]) -> String {
     match (op, oc) {
         (0, 0) => format!("value={}", r_u8(d)),
@@ -361,19 +363,29 @@ fn emit_field(op: u8, oc: u8, d: &[u8]) -> String {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn emit_texture_text(def: &TextureDef) -> String {
     let mut out = String::new();
 
     out.push_str("[texture]\n");
     out.push_str(&format!("color=op{}\n", def.color_op));
     out.push_str(&format!("alpha=op{}\n", def.alpha_op));
+    #[cfg(since_647)]
     out.push_str(&format!("mod=op{}\n", def.mod_op));
+    #[cfg(since_647)]
     if !def.trailing_material.is_empty() {
         out.push_str(&format!(
             "trailing={}\n",
             hex_encode(&def.trailing_material)
         ));
+    }
+    #[cfg(all(since_530, before_647))]
+    for (&(key, signed), &value) in MATERIAL_FIELDS.iter().zip(&def.material) {
+        if signed {
+            out.push_str(&format!("{key}={}\n", value as i8));
+        } else {
+            out.push_str(&format!("{key}={value}\n"));
+        }
     }
 
     for (i, op) in def.ops.iter().enumerate() {
@@ -403,7 +415,7 @@ pub fn emit_texture_text(def: &TextureDef) -> String {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn hex_encode(data: &[u8]) -> String {
     let mut s = String::with_capacity(data.len() * 2);
     for &b in data {

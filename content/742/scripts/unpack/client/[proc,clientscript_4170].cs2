@@ -1,0 +1,12 @@
+// 4170
+[proc,clientscript_4170](component $component0, graphic $graphic1, graphic $graphic2, graphic $graphic3, graphic $graphic4)
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic($component0, $graphic1);
+    case 1 :
+        if_setgraphic($component0, $graphic2);
+    case 2 :
+        if_setgraphic($component0, $graphic3);
+    case 3 :
+        if_setgraphic($component0, $graphic4);
+}

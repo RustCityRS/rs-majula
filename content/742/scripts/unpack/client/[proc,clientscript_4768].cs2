@@ -1,0 +1,26 @@
+// 4768
+[proc,clientscript_4768]
+def_int $int0 = 1;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+if (op718 = 1) {
+    $int1 = calc(%varclan_2724 / 100);
+    $int2 = calc(%varclan_2725 / 100);
+    $int3 = calc(%varclan_2728 / 100);
+    $int4 = calc(%varclan_2732 / 100);
+    $int5 = calc(%varclan_2731 / 100);
+    $int6 = calc(%varclan_2730 / 100);
+    $int7 = calc(%varclan_2733 / 100);
+    cc_deleteall(interface_1115:com_67);
+    cc_deleteall(interface_1115:com_65);
+    cc_deleteall(interface_1115:com_63);
+    $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7 = ~clientscript_4769(1, $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7);
+    $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7 = ~clientscript_4769(2, $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7);
+    $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7 = ~clientscript_4769(3, $int0, $int1, $int2, $int3, $int4, $int5, $int6, $int7);
+}
+return;

@@ -1,0 +1,48 @@
+// 4102
+[proc,clientscript_4102](component $component0, int $int1, int $int2, string $string0, int $int3)
+if (%varplayerbit_9030 = 0) {
+    ~deltooltip_action(toplevel_fullscreen:com_81);
+    return;
+}
+if ($component0 = toplevel_fullscreen:topstat_lore & %lore_lore_available = 0) {
+    return;
+}
+def_component $component4 = toplevel_fullscreen:com_81;
+$int1 = calc($int1 + 200);
+$int2 = calc($int2 + if_gety($component0));
+def_int $int5 = 200;
+def_int $int6 = paraheight($string0, $int5, p12_full);
+def_int $int7 = parawidth($string0, $int5, p12_full);
+def_int $int8 = calc($int6 * 14);
+switch_int ($int3) {
+    case 0 :
+        $int1 = calc($int1 - $int7 / 2);
+        $int2 = calc($int2 - 10);
+    case 2 :
+        $int1 = calc($int1 - $int7 / 2);
+        $int2 = calc($int2 + ($int8 + 110));
+    case 1 :
+        $int2 = calc($int2 - $int8 / 2);
+        $int1 = calc($int1 + 10);
+    case 3 :
+        $int2 = calc($int2 - $int8 / 2);
+        $int1 = calc($int1 - ($int7 + 10));
+}
+cc_create($component4, ^iftype_rectangle, 0);
+cc_setsize(calc($int7 + 4), calc(4 + $int6 * 14), ^setsize_abs, ^setsize_abs);
+cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour(0x0e0e0e);
+cc_create($component4, ^iftype_rectangle, 1);
+cc_setsize(calc($int7 + 4), calc(4 + $int6 * 14), ^setsize_abs, ^setsize_abs);
+cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(false);
+cc_setcolour(0xebece6);
+cc_create($component4, ^iftype_text, 2);
+cc_setposition(calc($int1 + 2), calc($int2 + 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int5, 16, ^setsize_abs, ^setsize_abs);
+cc_settextfont(p12_full);
+cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+cc_setcolour(0xf5b241);

@@ -1,0 +1,13 @@
+// 1103
+[proc,script1103]()(boolean)
+switch_int (%skill_multi_num) {
+    case 1 :
+        return(false);
+    case 18 :
+        return(false);
+    case 9 :
+        return(false);
+    case 12 :
+        return(false);
+}
+return(true);

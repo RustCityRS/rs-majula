@@ -1,0 +1,10 @@
+// 4292
+[proc,script4292]()(int)
+def_int $int0 = -1;
+if (activeclanchannel_find_affined = true) {
+    $int0 = activeclanchannel_getuserslot(removetags(chat_playername));
+    if (activeclanchannel_getuserrank($int0) >= 100) {
+        return(1);
+    }
+}
+return(0);

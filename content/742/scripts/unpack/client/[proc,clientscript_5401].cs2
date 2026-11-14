@@ -1,0 +1,75 @@
+// 5401
+[proc,clientscript_5401]
+if (%varplayerbit_9987 = 0) {
+    if_sethide(interface_1170:com_160, true);
+    if_sethide(interface_1170:com_161, false);
+} else {
+    if_sethide(interface_1170:com_160, false);
+    if_sethide(interface_1170:com_161, true);
+}
+if (%varplayerbit_10849 = 0) {
+    if_sethide(interface_1170:com_233, true);
+    if_sethide(interface_1170:com_234, false);
+} else {
+    if_sethide(interface_1170:com_233, false);
+    if_sethide(interface_1170:com_234, true);
+}
+if (%varplayerbit_10850 = 0) {
+    if_sethide(interface_1170:com_236, true);
+    if_sethide(interface_1170:com_237, false);
+} else {
+    if_sethide(interface_1170:com_236, false);
+    if_sethide(interface_1170:com_237, true);
+}
+%tooltip_built = 0;
+if_sethide(interface_1170:com_140, true);
+if (%varplayerbit_10020 = 1) {
+    if_sethide(interface_1170:com_50, false);
+} else {
+    if_sethide(interface_1170:com_50, true);
+}
+if (%varplayerbit_10021 = 1) {
+    if_sethide(interface_1170:com_52, false);
+} else {
+    if_sethide(interface_1170:com_52, true);
+}
+if (%varplayerbit_10022 = 1) {
+    if_sethide(interface_1170:com_53, false);
+} else {
+    if_sethide(interface_1170:com_53, true);
+}
+if (%varplayerbit_10023 = 1) {
+    if_sethide(interface_1170:com_54, false);
+} else {
+    if_sethide(interface_1170:com_54, true);
+}
+if (%varplayerbit_10024 = 1) {
+    if_sethide(interface_1170:com_55, false);
+} else {
+    if_sethide(interface_1170:com_55, true);
+}
+if (%varplayerbit_10025 = 1) {
+    if_sethide(interface_1170:com_56, false);
+} else {
+    if_sethide(interface_1170:com_56, true);
+}
+if (%varplayerbit_10026 = 1) {
+    if_sethide(interface_1170:com_57, false);
+} else {
+    if_sethide(interface_1170:com_57, true);
+}
+if (%varplayerbit_10027 = 1) {
+    if_sethide(interface_1170:com_58, false);
+} else {
+    if_sethide(interface_1170:com_58, true);
+}
+if (%varplayerbit_10848 = 1) {
+    if_sethide(interface_1170:com_59, false);
+} else {
+    if_sethide(interface_1170:com_59, true);
+}
+if (%varplayerbit_10852 = 1) {
+    if_sethide(interface_1170:com_60, false);
+} else {
+    if_sethide(interface_1170:com_60, true);
+}

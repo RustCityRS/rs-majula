@@ -2,6 +2,7 @@ use crate::active_player::ActivePlayer;
 use crate::core::engine;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::idk_savedesign::IdkSaveDesign;
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 
@@ -86,7 +87,7 @@ impl ClientGameHandler for IdkSaveDesign {
             }
 
             let idk = if kit >= 0 {
-                idks.get_by_id(kit as u16)
+                idks.get_by_id(TypeId::from_int(kit))
             } else {
                 None
             };
@@ -115,7 +116,10 @@ impl ClientGameHandler for IdkSaveDesign {
             active.player.colours[i] = self.colour[i];
         }
 
-        active.buildappearance(invs.get_by_debugname("worn").map_or(94, |inv| inv.id));
+        active.buildappearance(
+            invs.get_by_debugname("worn")
+                .map_or(TypeId::new(94), |inv| inv.id),
+        );
 
         Ok(())
     }

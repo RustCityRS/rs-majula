@@ -1,0 +1,14 @@
+// 508
+[proc,clientscript_508]
+if_setonkey(interface_553:name, "clientscript_133(event_keycode, event_keychar)");
+if_setonkey(chatdefault:input, null);
+if_settext(interface_553:name, "<escape(%varclient_656)><col=ffff00>|");
+%snapshot_mute = false;
+if_settext(interface_553:mutetoggle, "Moderator option: Mute player for 48 hours: <lt>OFF<gt>");
+%snapshot_open = 1;
+if (if_gethide(chattop:mes_layer) = false) {
+    if_sethide(chattop:mes_layer, true);
+    if_sethide(chattop:mes_layer_hide, false);
+    %meslayermode = 0;
+    %varclient_654 = "";
+}

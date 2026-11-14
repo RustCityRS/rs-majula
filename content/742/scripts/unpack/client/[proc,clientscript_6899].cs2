@@ -1,0 +1,31 @@
+// 6899
+[proc,clientscript_6899]
+if (%varclient_545 = true) {
+    if_setposition(interface_1365:com_7, 0, 30, ^setpos_abs_centre, ^setpos_abs_top);
+    if_sethide(interface_1365:com_12, false);
+    cc_deleteall(interface_1365:com_12);
+    ~clientscript_6680(interface_1365:com_12);
+    ~clientscript_6902(interface_1365:com_14);
+    if_setoninvtransmit(interface_1365:com_14, "clientscript_6901(event_com){duelwinnings, minecart_temp_inv}");
+} else {
+    if_setposition(interface_1365:com_7, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_sethide(interface_1365:com_12, true);
+    cc_deleteall(interface_1365:com_12);
+    cc_deleteall(interface_1365:com_14);
+    if_setoninvtransmit(interface_1365:com_14, null);
+}
+if_settext(interface_1365:com_26, %varclient_2381);
+~script4532(interface_1365:com_26);
+if (string_length(%varclient_2399) > 0) {
+    if_settext(interface_1365:com_9, %varclient_2399);
+    ~aif_build_button_layer_init(interface_1365:com_16, struct_1773);
+    ~aif_build_button_layer_init(interface_1365:com_17, struct_1774);
+    ~aif_build_button_layer_init(interface_1365:com_18, struct_1775);
+    ~clientscript_3984(interface_1365:com_20, struct_7251);
+    if_setpausetext(interface_1365:com_15, "Offer rematch to <removetags(%varclient_2399)>");
+    if_setontimer(interface_1365:com_26, "clientscript_6900(event_com, calc(clientclock + 50))");
+} else {
+    if_settext(interface_1365:com_9, "(Gone offline)");
+    if_setontimer(interface_1365:com_26, null);
+}
+if_sethide(interface_1365:com_15, true);

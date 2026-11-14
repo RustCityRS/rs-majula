@@ -1,0 +1,2915 @@
+// 313:0
+[tooltip]
+type=layer
+width=512
+height=334
+layer=tooltip_bound
+
+// 313:1
+[layer_1]
+type=layer
+width=512
+height=334
+
+// 313:2
+[tooltip_bound]
+type=layer
+width=512
+height=334
+
+// 313:3
+[com_3]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=layer_1
+graphic=window_texture
+tiling=yes
+
+// 313:4
+[com_4]
+type=graphic
+width=38
+height=72
+layer=layer_1
+graphic="corner_frame_5,2"
+hflip=yes
+
+// 313:5
+[com_5]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=layer_1
+graphic="corner_frame_5,2"
+
+// 313:6
+[cyan]
+type=layer
+x=17
+y=25
+width=158
+height=256
+layer=layer_1
+
+// 313:7
+[com_7]
+type=graphic
+x=1
+y=1
+width=156
+height=254
+layer=cyan
+graphic=glo3_bg2
+
+// 313:8
+[c_colour_1]
+type=rectangle
+x=6
+y=57
+width=31
+height=7
+layer=cyan
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
+
+// 313:9
+[c_colour_1_highlight]
+type=layer
+x=6
+y=57
+width=31
+height=7
+layer=cyan
+
+// 313:10
+[c_colour_1_highlight1]
+type=rectangle
+y=1
+width=6
+height=1
+widthmode=minus
+xmode=abs_centre
+layer=c_colour_1_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:11
+[c_colour_1_highlight2]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+layer=c_colour_1_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:12
+[c_colour_1_highlight3]
+type=rectangle
+width=4
+height=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:13
+[c_colour_1_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:14
+[c_colour_1_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=c_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:15
+[c_colour_1_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=c_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:16
+[glass_c1]
+type=layer
+x=6
+y=25
+width=31
+height=30
+layer=cyan
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script2473(event_com, event_comsubid, glo3_puzzle:tooltip)
+
+// 313:17
+[com_17]
+type=rectangle
+width=32
+height=32
+layer=glass_c1
+colour=0x14100c
+fill=yes
+
+// 313:18
+[c_display_1]
+type=graphic
+y=-1
+width=36
+height=32
+layer=glass_c1
+outline=1
+graphicshadow=2894892
+
+// 313:19
+[com_19]
+type=model
+x=-4
+y=-5
+width=41
+height=163
+layer=glass_c1
+model=model_28317
+modelorigin=34,-18
+modelzoom=1000
+
+// 313:20
+[c_colour_2]
+type=rectangle
+x=121
+y=57
+width=31
+height=7
+layer=cyan
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
+
+// 313:21
+[c_colour_2_highlight]
+type=layer
+x=121
+y=57
+width=31
+height=7
+layer=cyan
+
+// 313:22
+[c_colour_2_highlight1]
+type=rectangle
+y=1
+width=6
+height=1
+widthmode=minus
+xmode=abs_centre
+layer=c_colour_2_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:23
+[c_colour_2_highlight2]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+layer=c_colour_2_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:24
+[c_colour_2_highlight3]
+type=rectangle
+width=4
+height=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:25
+[c_colour_2_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:26
+[c_colour_2_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=c_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:27
+[c_colour_2_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=c_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:28
+[glass_c2]
+type=layer
+x=121
+y=25
+width=31
+height=30
+layer=cyan
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script2474(event_com, event_comsubid, glo3_puzzle:tooltip)
+
+// 313:29
+[com_29]
+type=rectangle
+width=32
+height=32
+layer=glass_c2
+colour=0x14100c
+fill=yes
+
+// 313:30
+[c_display_2]
+type=graphic
+y=-1
+width=36
+height=32
+layer=glass_c2
+outline=1
+graphicshadow=2894892
+
+// 313:31
+[com_31]
+type=model
+x=-5
+y=-5
+width=41
+height=163
+layer=glass_c2
+model=model_28317
+modelorigin=34,-18
+modelzoom=1000
+
+// 313:32
+[c_target_colour]
+type=rectangle
+x=54
+y=51
+width=51
+height=25
+layer=cyan
+colour=0x00ffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Target colour: Pure cyan", 0, 180)
+
+// 313:33
+[c_target_highlight]
+type=layer
+x=54
+y=51
+width=51
+height=25
+layer=cyan
+
+// 313:34
+[c_target_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=c_target_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:35
+[c_target_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=c_target_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:36
+[c_target_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_target_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:37
+[c_target_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_target_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:38
+[c_target_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=c_target_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:39
+[c_target_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=c_target_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:40
+[targetint_10x_c]
+type=model
+x=69
+y=28
+width=11
+height=20
+layer=cyan
+model=model_17201
+modelorigin=0,1
+modelzoom=349
+modelorthog=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
+
+// 313:41
+[targetint_1x_c]
+type=model
+x=81
+y=28
+width=11
+height=20
+layer=cyan
+model=model_17201
+modelorigin=0,1
+modelzoom=349
+modelorthog=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
+
+// 313:42
+[c_int_highlight]
+type=layer
+x=54
+y=25
+width=51
+height=25
+layer=cyan
+
+// 313:43
+[c_int_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=c_int_highlight
+colour=0xffffff
+fill=yes
+trans=150
+
+// 313:44
+[c_int_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=c_int_highlight
+colour=0xffffff
+fill=yes
+trans=210
+
+// 313:45
+[c_int_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_int_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:46
+[c_okint]
+type=graphic
+x=92
+y=36
+width=15
+height=15
+layer=cyan
+graphic="glo3_right_wrong,1"
+
+// 313:47
+[c_okcol]
+type=graphic
+x=92
+y=63
+width=15
+height=15
+layer=cyan
+graphic="glo3_right_wrong,1"
+
+// 313:48
+[c_current_colour]
+type=rectangle
+x=54
+y=87
+width=51
+height=25
+layer=cyan
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Current output colour: ")
+
+// 313:49
+[c_colour_highlight]
+type=layer
+x=54
+y=87
+width=51
+height=25
+layer=cyan
+
+// 313:50
+[c_colour_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=c_colour_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:51
+[c_colour_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=c_colour_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:52
+[c_colour_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_colour_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:53
+[c_colour_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=c_colour_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:54
+[c_colour_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=c_colour_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:55
+[c_colour_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=c_colour_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:56
+[c_red]
+type=rectangle
+x=37
+y=196
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0xff0000
+
+// 313:57
+[c_orange]
+type=rectangle
+x=31
+y=173
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0xff8000
+
+// 313:58
+[c_yellow]
+type=rectangle
+x=37
+y=149
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0xffff00
+
+// 313:59
+[c_green]
+type=rectangle
+x=79
+y=124
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0x00ff00
+
+// 313:60
+[c_blue]
+type=rectangle
+x=121
+y=196
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0x0000ff
+
+// 313:61
+[c_indigo]
+type=rectangle
+x=113
+y=207
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0x4000ff
+
+// 313:62
+[c_violet]
+type=rectangle
+x=103
+y=214
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0x8000ff
+
+// 313:63
+[c_white]
+type=rectangle
+x=79
+y=173
+width=1
+height=1
+layer=cyan
+hide=yes
+colour=0xffffff
+
+// 313:64
+[c_octagon]
+type=graphic
+x=112
+y=138
+width=20
+height=20
+layer=cyan
+graphic="glo3_octagons,0"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target colour: Pure cyan", 50, 180)
+
+// 313:65
+[c_line]
+type=line
+x=37
+y=196
+width=84
+layer=cyan
+hide=yes
+linewid=2
+colour=0x000000
+
+// 313:66
+[c_dia_1]
+type=layer
+x=27
+y=186
+width=20
+height=20
+layer=cyan
+hide=yes
+
+// 313:67
+[c_dia_1_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=c_dia_1
+graphic="glo3_diamonds,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:68
+[com_68]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=c_dia_1
+graphic="glo3_diamonds,0"
+
+// 313:69
+[c_dia_2]
+type=layer
+x=111
+y=186
+width=20
+height=20
+layer=cyan
+hide=yes
+
+// 313:70
+[c_dia_2_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=c_dia_2
+graphic="glo3_diamonds,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:71
+[com_71]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=c_dia_2
+graphic="glo3_diamonds,0"
+
+// 313:72
+[c_dia_t]
+type=layer
+x=69
+y=163
+width=20
+height=20
+layer=cyan
+
+// 313:73
+[c_dia_t_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=c_dia_t
+graphic="glo3_diamonds,3"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:74
+[com_74]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=c_dia_t
+graphic="glo3_diamonds,2"
+
+// 313:75
+[c_cancel]
+type=graphic
+x=90
+y=232
+width=18
+height=18
+layer=cyan
+graphic="glo3_cancel_button,0"
+transmitop=1
+op1=Return-coins
+onmouseover=graphic_swapper(event_com, "glo3_cancel_button,1")
+onmouseleave=graphic_swapper(event_com, "glo3_cancel_button,0")
+
+// 313:76
+[c_slot1]
+type=layer
+x=4
+y=3
+width=35
+height=54
+layer=cyan
+transmitop=1
+op1=Insert-coin
+onmouseover=script867(glo3_puzzle:c_slotg1, "aif_coin_button_1,1", glo3_puzzle:c_slotr1, false)
+onmouseleave=script867(glo3_puzzle:c_slotg1, "aif_coin_button_1,0", glo3_puzzle:c_slotr1, true)
+onvartransmit=script719(glo3_puzzle:c_display_1, glo3_puzzle:c_display_2){eyeglo_operate1_a, eyeglo_operate3_c}
+onclick=script867(glo3_puzzle:c_slotg1, "aif_coin_button_1,2", glo3_puzzle:c_slotr1, true)
+onvarctransmit=script1748(glo3_puzzle:c_current_colour, glo3_puzzle:c_colour_1, glo3_puzzle:c_colour_2, glo3_puzzle:c_dia_1, glo3_puzzle:c_dia_1_tint, glo3_puzzle:c_dia_2, glo3_puzzle:c_dia_2_tint, glo3_puzzle:c_dia_t, glo3_puzzle:c_dia_t_tint, glo3_puzzle:c_line, glo3_puzzle:targetint_10x_c, glo3_puzzle:targetint_1x_c, glo3_puzzle:c_okcol, glo3_puzzle:c_okint){glo3_col1_c, glo3_int1_c, glo3_col2_c, glo3_int2_c}
+
+// 313:77
+[c_slotg1]
+type=graphic
+width=35
+height=20
+layer=c_slot1
+graphic="aif_coin_button_1,0"
+
+// 313:78
+[c_slotr1]
+type=rectangle
+x=1
+y=21
+width=2
+height=32
+widthmode=minus
+layer=c_slot1
+hide=yes
+colour=0xd9d2a0
+trans=129
+
+// 313:79
+[c_slot2]
+type=layer
+x=119
+y=3
+width=35
+height=54
+layer=cyan
+transmitop=1
+op1=Insert-coin
+onmouseover=script867(glo3_puzzle:c_slotg2, "aif_coin_button_1,1", glo3_puzzle:c_slotr2, false)
+onmouseleave=script867(glo3_puzzle:c_slotg2, "aif_coin_button_1,0", glo3_puzzle:c_slotr2, true)
+onclick=script867(glo3_puzzle:c_slotg2, "aif_coin_button_1,2", glo3_puzzle:c_slotr2, true)
+
+// 313:80
+[c_slotg2]
+type=graphic
+width=35
+height=20
+layer=c_slot2
+graphic="aif_coin_button_1,0"
+
+// 313:81
+[c_slotr2]
+type=rectangle
+x=1
+y=21
+width=2
+height=32
+widthmode=minus
+layer=c_slot2
+hide=yes
+colour=0xd9d2a0
+trans=129
+
+// 313:82
+[magenta]
+type=layer
+x=177
+y=25
+width=158
+height=256
+layer=layer_1
+
+// 313:83
+[com_83]
+type=graphic
+x=1
+y=1
+width=156
+height=254
+layer=magenta
+graphic=glo3_bg2
+
+// 313:84
+[m_colour_1]
+type=rectangle
+x=6
+y=57
+width=31
+height=7
+layer=magenta
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
+
+// 313:85
+[m_colour_1_highlight]
+type=layer
+x=6
+y=57
+width=31
+height=7
+layer=magenta
+
+// 313:86
+[m_colour_1_highlight1]
+type=rectangle
+y=1
+width=6
+height=1
+widthmode=minus
+xmode=abs_centre
+layer=m_colour_1_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:87
+[m_colour_1_highlight2]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+layer=m_colour_1_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:88
+[m_colour_1_highlight3]
+type=rectangle
+width=4
+height=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:89
+[m_colour_1_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:90
+[m_colour_1_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=m_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:91
+[m_colour_1_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=m_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:92
+[glass_m1]
+type=layer
+x=6
+y=25
+width=31
+height=30
+layer=magenta
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script3722(event_com, event_comsubid, glo3_puzzle:tooltip)
+
+// 313:93
+[com_93]
+type=rectangle
+width=32
+height=32
+layer=glass_m1
+colour=0x14100c
+fill=yes
+
+// 313:94
+[m_display_1]
+type=graphic
+y=-1
+width=36
+height=32
+layer=glass_m1
+outline=1
+graphicshadow=2894892
+
+// 313:95
+[com_95]
+type=model
+x=-4
+y=-5
+width=41
+height=163
+layer=glass_m1
+model=model_28317
+modelorigin=34,-18
+modelzoom=1000
+
+// 313:96
+[m_colour_2]
+type=rectangle
+x=121
+y=57
+width=31
+height=7
+layer=magenta
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
+
+// 313:97
+[m_colour_2_highlight]
+type=layer
+x=121
+y=57
+width=31
+height=7
+layer=magenta
+
+// 313:98
+[m_colour_2_highlight1]
+type=rectangle
+y=1
+width=6
+height=1
+widthmode=minus
+xmode=abs_centre
+layer=m_colour_2_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:99
+[m_colour_2_highlight2]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+layer=m_colour_2_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:100
+[m_colour_2_highlight3]
+type=rectangle
+width=4
+height=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:101
+[m_colour_2_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:102
+[m_colour_2_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=m_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:103
+[m_colour_2_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=m_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:104
+[glass_m2]
+type=layer
+x=121
+y=25
+width=31
+height=30
+layer=magenta
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script4122(event_com, event_comsubid, glo3_puzzle:tooltip)
+
+// 313:105
+[com_105]
+type=rectangle
+width=32
+height=32
+layer=glass_m2
+colour=0x14100c
+fill=yes
+
+// 313:106
+[m_display_2]
+type=graphic
+y=-1
+width=36
+height=32
+layer=glass_m2
+outline=1
+graphicshadow=2894892
+
+// 313:107
+[com_107]
+type=model
+x=-4
+y=-5
+width=41
+height=163
+layer=glass_m2
+model=model_28317
+modelorigin=34,-18
+modelzoom=1000
+
+// 313:108
+[m_target_colour]
+type=rectangle
+x=54
+y=51
+width=51
+height=25
+layer=magenta
+colour=0xff00ff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Target colour: Pure magenta", 0, 180)
+
+// 313:109
+[m_target_highlight]
+type=layer
+x=54
+y=51
+width=51
+height=25
+layer=magenta
+
+// 313:110
+[m_target_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=m_target_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:111
+[m_target_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=m_target_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:112
+[m_target_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_target_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:113
+[m_target_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_target_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:114
+[m_target_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=m_target_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:115
+[m_target_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=m_target_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:116
+[targetint_10x_m]
+type=model
+x=69
+y=28
+width=11
+height=20
+layer=magenta
+model=model_17201
+modelorigin=0,1
+modelzoom=349
+modelorthog=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
+
+// 313:117
+[targetint_1x_m]
+type=model
+x=81
+y=28
+width=11
+height=20
+layer=magenta
+model=model_17201
+modelorigin=0,1
+modelzoom=349
+modelorthog=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
+
+// 313:118
+[m_int_highlight]
+type=layer
+x=54
+y=25
+width=51
+height=25
+layer=magenta
+
+// 313:119
+[m_int_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_int_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:120
+[m_int_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=m_int_highlight
+colour=0xffffff
+fill=yes
+trans=210
+
+// 313:121
+[m_int_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=m_int_highlight
+colour=0xffffff
+fill=yes
+trans=150
+
+// 313:122
+[m_okint]
+type=graphic
+x=92
+y=36
+width=15
+height=15
+layer=magenta
+graphic="glo3_right_wrong,1"
+
+// 313:123
+[m_okcol]
+type=graphic
+x=92
+y=63
+width=15
+height=15
+layer=magenta
+graphic="glo3_right_wrong,1"
+
+// 313:124
+[m_current_colour]
+type=rectangle
+x=54
+y=87
+width=51
+height=25
+layer=magenta
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Current output colour: ")
+
+// 313:125
+[m_colour_highlight]
+type=layer
+x=54
+y=87
+width=51
+height=25
+layer=magenta
+
+// 313:126
+[m_colour_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=m_colour_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:127
+[m_colour_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=m_colour_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:128
+[m_colour_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_colour_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:129
+[m_colour_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=m_colour_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:130
+[m_colour_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=m_colour_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:131
+[m_colour_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=m_colour_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:132
+[m_red]
+type=rectangle
+x=37
+y=196
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0xff0000
+
+// 313:133
+[m_orange]
+type=rectangle
+x=31
+y=173
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0xff8000
+
+// 313:134
+[m_yellow]
+type=rectangle
+x=37
+y=149
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0xffff00
+
+// 313:135
+[m_green]
+type=rectangle
+x=79
+y=124
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0x00ff00
+
+// 313:136
+[m_blue]
+type=rectangle
+x=121
+y=196
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0x0000ff
+
+// 313:137
+[m_indigo]
+type=rectangle
+x=113
+y=207
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0x4000ff
+
+// 313:138
+[m_violet]
+type=rectangle
+x=103
+y=214
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0x8000ff
+
+// 313:139
+[m_white]
+type=rectangle
+x=79
+y=173
+width=1
+height=1
+layer=magenta
+hide=yes
+colour=0xffffff
+
+// 313:140
+[com_140]
+type=rectangle
+x=75
+y=218
+width=10
+height=12
+layer=magenta
+colour=0xff00ff
+fill=yes
+
+// 313:141
+[m_octagon]
+type=graphic
+x=69
+y=213
+width=20
+height=20
+layer=magenta
+graphic="glo3_octagons,2"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target colour: Pure magenta", 50, 180)
+
+// 313:142
+[m_line]
+type=line
+x=37
+y=196
+width=84
+layer=magenta
+hide=yes
+linewid=2
+colour=0x000000
+
+// 313:143
+[m_dia_1]
+type=layer
+x=27
+y=186
+width=20
+height=20
+layer=magenta
+hide=yes
+
+// 313:144
+[m_dia_1_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=m_dia_1
+graphic="glo3_diamonds,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:145
+[com_145]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=m_dia_1
+graphic="glo3_diamonds,0"
+
+// 313:146
+[m_dia_2]
+type=layer
+x=111
+y=186
+width=20
+height=20
+layer=magenta
+hide=yes
+
+// 313:147
+[m_dia_2_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=m_dia_2
+graphic="glo3_diamonds,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:148
+[com_148]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=m_dia_2
+graphic="glo3_diamonds,0"
+
+// 313:149
+[m_dia_t]
+type=layer
+x=69
+y=163
+width=20
+height=20
+layer=magenta
+
+// 313:150
+[m_dia_t_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=m_dia_t
+graphic="glo3_diamonds,3"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:151
+[com_151]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=m_dia_t
+graphic="glo3_diamonds,2"
+
+// 313:152
+[m_cancel]
+type=graphic
+x=90
+y=232
+width=18
+height=18
+layer=magenta
+graphic="glo3_cancel_button,0"
+transmitop=1
+op1=Return-coins
+onmouseover=graphic_swapper(event_com, "glo3_cancel_button,1")
+onmouseleave=graphic_swapper(event_com, "glo3_cancel_button,0")
+
+// 313:153
+[m_slot1]
+type=layer
+x=4
+y=3
+width=35
+height=54
+layer=magenta
+transmitop=1
+op1=Insert-coin
+onmouseover=script867(glo3_puzzle:m_slotg1, "aif_coin_button_1,1", glo3_puzzle:m_slotr1, false)
+onmouseleave=script867(glo3_puzzle:m_slotg1, "aif_coin_button_1,0", glo3_puzzle:m_slotr1, true)
+onvartransmit=script774(glo3_puzzle:m_display_1, glo3_puzzle:m_display_2){eyeglo_operate2_a, eyeglo_operate2_b}
+onclick=script867(glo3_puzzle:m_slotg1, "aif_coin_button_1,2", glo3_puzzle:m_slotr1, true)
+onvarctransmit=script868(glo3_puzzle:m_current_colour, glo3_puzzle:m_colour_1, glo3_puzzle:m_colour_2, glo3_puzzle:m_dia_1, glo3_puzzle:m_dia_1_tint, glo3_puzzle:m_dia_2, glo3_puzzle:m_dia_2_tint, glo3_puzzle:m_dia_t, glo3_puzzle:m_dia_t_tint, glo3_puzzle:m_line, glo3_puzzle:targetint_10x_m, glo3_puzzle:targetint_1x_m, glo3_puzzle:m_okcol, glo3_puzzle:m_okint){glo3_col1_m, glo3_int1_m, glo3_col2_m, glo3_int2_m}
+
+// 313:154
+[m_slotg1]
+type=graphic
+width=35
+height=20
+layer=m_slot1
+graphic="aif_coin_button_1,0"
+
+// 313:155
+[m_slotr1]
+type=rectangle
+x=1
+y=21
+width=2
+height=32
+widthmode=minus
+layer=m_slot1
+hide=yes
+colour=0xd9d2a0
+trans=129
+
+// 313:156
+[m_slot2]
+type=layer
+x=119
+y=3
+width=35
+height=54
+layer=magenta
+transmitop=1
+op1=Insert-coin
+onmouseover=script867(glo3_puzzle:m_slotg2, "aif_coin_button_1,1", glo3_puzzle:m_slotr2, false)
+onmouseleave=script867(glo3_puzzle:m_slotg2, "aif_coin_button_1,0", glo3_puzzle:m_slotr2, true)
+onclick=script867(glo3_puzzle:m_slotg2, "aif_coin_button_1,2", glo3_puzzle:m_slotr2, true)
+
+// 313:157
+[m_slotg2]
+type=graphic
+width=35
+height=20
+layer=m_slot2
+graphic="aif_coin_button_1,0"
+
+// 313:158
+[m_slotr2]
+type=rectangle
+x=1
+y=21
+width=2
+height=32
+widthmode=minus
+layer=m_slot2
+hide=yes
+colour=0xd9d2a0
+trans=129
+
+// 313:159
+[yellow]
+type=layer
+x=337
+y=25
+width=158
+height=256
+layer=layer_1
+
+// 313:160
+[com_160]
+type=graphic
+x=1
+y=1
+width=156
+height=254
+layer=yellow
+graphic=glo3_bg2
+
+// 313:161
+[y_colour_1]
+type=rectangle
+x=6
+y=57
+width=31
+height=7
+layer=yellow
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
+
+// 313:162
+[y_colour_1_highlight]
+type=layer
+x=6
+y=57
+width=31
+height=7
+layer=yellow
+
+// 313:163
+[y_colour_1_highlight1]
+type=rectangle
+y=1
+width=6
+height=1
+widthmode=minus
+xmode=abs_centre
+layer=y_colour_1_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:164
+[y_colour_1_highlight2]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+layer=y_colour_1_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:165
+[y_colour_1_highlight3]
+type=rectangle
+width=4
+height=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:166
+[y_colour_1_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:167
+[y_colour_1_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=y_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:168
+[y_colour_1_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=y_colour_1_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:169
+[glass_y1]
+type=layer
+x=6
+y=25
+width=31
+height=30
+layer=yellow
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script4123(event_com, event_comsubid, glo3_puzzle:tooltip)
+
+// 313:170
+[com_170]
+type=rectangle
+width=32
+height=32
+layer=glass_y1
+colour=0x14100c
+fill=yes
+
+// 313:171
+[y_display_1]
+type=graphic
+y=-1
+width=36
+height=32
+layer=glass_y1
+outline=1
+graphicshadow=2894892
+
+// 313:172
+[com_172]
+type=model
+x=-4
+y=-5
+width=41
+height=163
+layer=glass_y1
+model=model_28317
+modelorigin=34,-18
+modelzoom=1000
+
+// 313:173
+[y_colour_2]
+type=rectangle
+x=121
+y=57
+width=31
+height=7
+layer=yellow
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Coin colour: ")
+
+// 313:174
+[y_colour_2_highlight]
+type=layer
+x=121
+y=57
+width=31
+height=7
+layer=yellow
+
+// 313:175
+[y_colour_2_highlight1]
+type=rectangle
+y=1
+width=6
+height=1
+widthmode=minus
+xmode=abs_centre
+layer=y_colour_2_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:176
+[y_colour_2_highlight2]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+layer=y_colour_2_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:177
+[y_colour_2_highlight3]
+type=rectangle
+width=4
+height=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:178
+[y_colour_2_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:179
+[y_colour_2_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=y_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:180
+[y_colour_2_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=y_colour_2_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:181
+[glass_y2]
+type=layer
+x=121
+y=25
+width=31
+height=30
+layer=yellow
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script4124(event_com, event_comsubid, glo3_puzzle:tooltip)
+
+// 313:182
+[com_182]
+type=rectangle
+width=32
+height=32
+layer=glass_y2
+colour=0x14100c
+fill=yes
+
+// 313:183
+[y_display_2]
+type=graphic
+y=-1
+width=36
+height=32
+layer=glass_y2
+outline=1
+graphicshadow=2894892
+
+// 313:184
+[com_184]
+type=model
+x=-4
+y=-5
+width=41
+height=163
+layer=glass_y2
+model=model_28317
+modelorigin=34,-18
+modelzoom=1000
+
+// 313:185
+[y_target_colour]
+type=rectangle
+x=54
+y=51
+width=51
+height=25
+layer=yellow
+colour=0xffff00
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Target colour: Pure yellow", 0, 180)
+
+// 313:186
+[y_target_highlight]
+type=layer
+x=54
+y=51
+width=51
+height=25
+layer=yellow
+
+// 313:187
+[y_target_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=y_target_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:188
+[y_target_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=y_target_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:189
+[y_target_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_target_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:190
+[y_target_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_target_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:191
+[y_target_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=y_target_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:192
+[y_target_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=y_target_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:193
+[targetint_10x_y]
+type=model
+x=69
+y=28
+width=11
+height=20
+layer=yellow
+model=model_17201
+modelorigin=0,1
+modelzoom=349
+modelorthog=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
+
+// 313:194
+[targetint_1x_y]
+type=model
+x=81
+y=28
+width=11
+height=20
+layer=yellow
+model=model_17201
+modelorigin=0,1
+modelzoom=349
+modelorthog=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target intensity", 0, 180)
+
+// 313:195
+[y_int_highlight]
+type=layer
+x=54
+y=25
+width=51
+height=25
+layer=yellow
+
+// 313:196
+[y_int_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=y_int_highlight
+colour=0xffffff
+fill=yes
+trans=150
+
+// 313:197
+[y_int_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=y_int_highlight
+colour=0xffffff
+fill=yes
+trans=210
+
+// 313:198
+[y_int_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_int_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:199
+[y_okint]
+type=graphic
+x=92
+y=36
+width=15
+height=15
+layer=yellow
+graphic="glo3_right_wrong,1"
+
+// 313:200
+[y_okcol]
+type=graphic
+x=92
+y=63
+width=15
+height=15
+layer=yellow
+graphic="glo3_right_wrong,1"
+
+// 313:201
+[y_current_colour]
+type=rectangle
+x=54
+y=87
+width=51
+height=25
+layer=yellow
+colour=0xffffff
+fill=yes
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "Current output colour: ")
+
+// 313:202
+[y_colour_highlight]
+type=layer
+x=54
+y=87
+width=51
+height=25
+layer=yellow
+
+// 313:203
+[y_colour_highlight1]
+type=rectangle
+y=2
+width=6
+height=2
+widthmode=minus
+xmode=abs_centre
+layer=y_colour_highlight
+colour=0xffffff
+fill=yes
+trans=100
+
+// 313:204
+[y_colour_highlight2]
+type=rectangle
+y=1
+width=4
+height=5
+widthmode=minus
+xmode=abs_centre
+layer=y_colour_highlight
+colour=0xffffff
+fill=yes
+trans=160
+
+// 313:205
+[y_colour_highlight3]
+type=rectangle
+width=4
+height=3
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_colour_highlight
+colour=0x000000
+fill=yes
+trans=200
+
+// 313:206
+[y_colour_highlight4]
+type=rectangle
+height=1
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=y_colour_highlight
+colour=0x000000
+fill=yes
+trans=150
+
+// 313:207
+[y_colour_highlight5]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+ymode=abs_bottom
+layer=y_colour_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:208
+[y_colour_highlight6]
+type=rectangle
+y=1
+width=2
+height=1
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=y_colour_highlight
+colour=0x000000
+fill=yes
+trans=210
+
+// 313:209
+[y_red]
+type=rectangle
+x=37
+y=196
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0xff0000
+
+// 313:210
+[y_orange]
+type=rectangle
+x=31
+y=173
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0xff8000
+
+// 313:211
+[y_yellow]
+type=rectangle
+x=37
+y=149
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0xffff00
+
+// 313:212
+[y_green]
+type=rectangle
+x=79
+y=124
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0x00ff00
+
+// 313:213
+[y_blue]
+type=rectangle
+x=121
+y=196
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0x0000ff
+
+// 313:214
+[y_indigo]
+type=rectangle
+x=113
+y=207
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0x4000ff
+
+// 313:215
+[y_violet]
+type=rectangle
+x=103
+y=214
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0x8000ff
+
+// 313:216
+[y_white]
+type=rectangle
+x=79
+y=173
+width=1
+height=1
+layer=yellow
+hide=yes
+colour=0xffffff
+
+// 313:217
+[y_octagon]
+type=graphic
+x=26
+y=138
+width=20
+height=20
+layer=yellow
+graphic="glo3_octagons,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=addtooltip(event_com, glo3_puzzle:tooltip, "Target colour: Pure yellow", 50, 180)
+
+// 313:218
+[y_line]
+type=line
+x=37
+y=196
+width=84
+layer=yellow
+hide=yes
+linewid=2
+colour=0x000000
+
+// 313:219
+[y_dia_1]
+type=layer
+x=27
+y=186
+width=20
+height=20
+layer=yellow
+hide=yes
+
+// 313:220
+[y_dia_1_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=y_dia_1
+graphic="glo3_diamonds,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:221
+[com_221]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=y_dia_1
+graphic="glo3_diamonds,0"
+
+// 313:222
+[y_dia_2]
+type=layer
+x=111
+y=186
+width=20
+height=20
+layer=yellow
+hide=yes
+
+// 313:223
+[y_dia_2_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=y_dia_2
+graphic="glo3_diamonds,1"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:224
+[com_224]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=y_dia_2
+graphic="glo3_diamonds,0"
+
+// 313:225
+[y_dia_t]
+type=layer
+x=69
+y=163
+width=20
+height=20
+layer=yellow
+
+// 313:226
+[y_dia_t_tint]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=y_dia_t
+graphic="glo3_diamonds,3"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=glo3_tooltip_colour(event_com, event_comsubid, glo3_puzzle:tooltip, "")
+
+// 313:227
+[com_227]
+type=graphic
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=y_dia_t
+graphic="glo3_diamonds,2"
+
+// 313:228
+[y_cancel]
+type=graphic
+x=90
+y=232
+width=18
+height=18
+layer=yellow
+graphic="glo3_cancel_button,0"
+transmitop=1
+op1=Return-coins
+onmouseover=graphic_swapper(event_com, "glo3_cancel_button,1")
+onmouseleave=graphic_swapper(event_com, "glo3_cancel_button,0")
+
+// 313:229
+[y_slot1]
+type=layer
+x=4
+y=3
+width=35
+height=54
+layer=yellow
+transmitop=1
+op1=Insert-coin
+onmouseover=script867(glo3_puzzle:y_slotg1, "aif_coin_button_1,1", glo3_puzzle:y_slotr1, false)
+onmouseleave=script867(glo3_puzzle:y_slotg1, "aif_coin_button_1,0", glo3_puzzle:y_slotr1, true)
+onvartransmit=script866(glo3_puzzle:y_display_1, glo3_puzzle:y_display_2){eyeglo_operate3_a, eyeglo_operate3_b}
+onclick=script867(glo3_puzzle:y_slotg1, "aif_coin_button_1,2", glo3_puzzle:y_slotr1, true)
+onvarctransmit=script869(glo3_puzzle:y_current_colour, glo3_puzzle:y_colour_1, glo3_puzzle:y_colour_2, glo3_puzzle:y_dia_1, glo3_puzzle:y_dia_1_tint, glo3_puzzle:y_dia_2, glo3_puzzle:y_dia_2_tint, glo3_puzzle:y_dia_t, glo3_puzzle:y_dia_t_tint, glo3_puzzle:y_line, glo3_puzzle:targetint_10x_y, glo3_puzzle:targetint_1x_y, glo3_puzzle:y_okcol, glo3_puzzle:y_okint){glo3_col1_y, glo3_int1_y, glo3_col2_y, glo3_int2_y}
+
+// 313:230
+[y_slotg1]
+type=graphic
+width=35
+height=20
+layer=y_slot1
+graphic="aif_coin_button_1,0"
+
+// 313:231
+[y_slotr1]
+type=rectangle
+x=1
+y=21
+width=2
+height=32
+widthmode=minus
+layer=y_slot1
+hide=yes
+colour=0xd9d2a0
+trans=129
+
+// 313:232
+[y_slot2]
+type=layer
+x=119
+y=3
+width=35
+height=54
+layer=yellow
+transmitop=1
+op1=Insert-coin
+onmouseover=script867(glo3_puzzle:y_slotg2, "aif_coin_button_1,1", glo3_puzzle:y_slotr2, false)
+onmouseleave=script867(glo3_puzzle:y_slotg2, "aif_coin_button_1,0", glo3_puzzle:y_slotr2, true)
+onclick=script867(glo3_puzzle:y_slotg2, "aif_coin_button_1,2", glo3_puzzle:y_slotr2, true)
+
+// 313:233
+[y_slotg2]
+type=graphic
+width=35
+height=20
+layer=y_slot2
+graphic="aif_coin_button_1,0"
+
+// 313:234
+[y_slotr2]
+type=rectangle
+x=1
+y=21
+width=2
+height=32
+widthmode=minus
+layer=y_slot2
+hide=yes
+colour=0xd9d2a0
+trans=129
+
+// 313:235
+[verify]
+type=layer
+y=292
+width=158
+height=24
+xmode=abs_centre
+layer=layer_1
+transmitop=1
+op1=Calibrate
+onmouseover=graphic_swapper3(glo3_puzzle:ver_1, "glo3_button_end,1", glo3_puzzle:ver_2, "glo3_button_mid,1", glo3_puzzle:ver_3, "glo3_button_end,1")
+onmouseleave=graphic_swapper3(glo3_puzzle:ver_1, "glo3_button_end,0", glo3_puzzle:ver_2, "glo3_button_mid,0", glo3_puzzle:ver_3, "glo3_button_end,0")
+
+// 313:236
+[ver_3]
+type=graphic
+width=10
+heightmode=minus
+xmode=abs_right
+layer=verify
+graphic="glo3_button_end,0"
+hflip=yes
+
+// 313:237
+[ver_2]
+type=graphic
+x=10
+width=20
+widthmode=minus
+heightmode=minus
+layer=verify
+graphic="glo3_button_mid,0"
+onmouseleave=deltooltip(glo3_puzzle:tooltip)
+onmouserepeat=script1160(event_com, event_comsubid, glo3_puzzle:tooltip, "Click here to validate your calibration attempt.", 0, 180)
+
+// 313:238
+[ver_1]
+type=graphic
+width=10
+heightmode=minus
+layer=verify
+graphic="glo3_button_end,0"
+
+// 313:239
+[tick]
+type=graphic
+width=14
+height=13
+xmode=abs_centre
+ymode=abs_centre
+layer=verify
+graphic="glo3_x_thick,1"
+
+// 313:240
+[com_240]
+type=graphic
+width=30
+height=7
+widthmode=minus
+xmode=abs_centre
+layer=layer_1
+graphic=frame_border_horizontal
+tiling=yes
+
+// 313:241
+[current_coin]
+type=model
+x=94
+y=273
+width=38
+height=39
+layer=layer_1
+model=null
+modelorigin=1,2
+modelangle=512,648,0
+modelzoom=400
+onvartransmit=eyeglo_machine_transmit(event_com){eyeglo_coin_selected}
+
+// 313:242
+[hand]
+type=model
+x=27
+y=273
+width=149
+height=65
+layer=layer_1
+model=model_17187
+modelorigin=9,6
+modelangle=0,329,0
+modelzoom=605
+
+// 313:243
+[com_243]
+type=graphic
+y=1
+width=32
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=layer_1
+graphic=frame_border_horizontal
+tiling=yes
+
+// 313:244
+[com_244]
+type=graphic
+y=7
+width=7
+height=22
+heightmode=minus
+xmode=abs_right
+layer=layer_1
+graphic=frame_border_vertical
+tiling=yes
+
+// 313:245
+[com_245]
+type=graphic
+y=7
+width=7
+height=22
+heightmode=minus
+layer=layer_1
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+
+// 313:246
+[com_246]
+type=graphic
+width=38
+height=38
+xmode=abs_right
+ymode=abs_bottom
+layer=layer_1
+graphic="corner_flourish,1"
+
+// 313:247
+[com_247]
+type=graphic
+width=38
+height=38
+ymode=abs_bottom
+layer=layer_1
+graphic="corner_flourish,1"
+hflip=yes
+
+// 313:248
+[com_248]
+type=rectangle
+x=15
+y=7
+width=30
+height=1
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=layer_1
+colour=0x37342f
+fill=yes
+
+// 313:249
+[com_249]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+colour=0x000000
+
+// 313:250
+[close]
+type=graphic
+x=486
+y=8
+width=19
+height=17
+graphic="intro_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+onop=closebutton_click

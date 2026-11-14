@@ -1,0 +1,36 @@
+// 6817
+[proc,clientscript_6817](component $component0)(component, component)
+switch_component ($component0) {
+    case interface_1351:com_98 :
+        return(interface_1351:com_43, interface_1351:com_44);
+    case interface_1351:com_101 :
+        return(interface_1351:com_41, interface_1351:com_42);
+    case interface_1351:com_102 :
+        return(interface_1351:com_39, interface_1351:com_40);
+    case interface_1351:com_103 :
+        return(interface_1351:com_37, interface_1351:com_38);
+    case interface_1351:com_104 :
+        return(interface_1351:com_35, interface_1351:com_36);
+    case interface_1351:com_105 :
+        return(interface_1351:com_33, interface_1351:com_34);
+    case interface_1351:com_106 :
+        return(interface_1351:com_27, interface_1351:com_32);
+    case interface_1351:com_107 :
+        return(interface_1351:com_30, interface_1351:com_31);
+    case interface_1351:com_108 :
+        return(interface_1351:com_28, interface_1351:com_29);
+    case interface_1351:com_120 :
+        return(interface_1351:com_49, interface_1351:com_50);
+    case interface_1351:com_121 :
+        return(interface_1351:com_47, interface_1351:com_48);
+    case interface_1351:com_122 :
+        return(interface_1351:com_45, interface_1351:com_46);
+    case interface_1351:com_125 :
+        return(interface_1351:com_55, interface_1351:com_56);
+    case interface_1351:com_126 :
+        return(interface_1351:com_53, interface_1351:com_54);
+    case interface_1351:com_127 :
+        return(interface_1351:com_51, interface_1351:com_52);
+    case interface_1351:com_109 :
+        return(interface_1351:com_0, null);
+}

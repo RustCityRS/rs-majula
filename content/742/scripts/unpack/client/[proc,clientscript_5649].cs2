@@ -1,0 +1,13 @@
+// 5649
+[proc,clientscript_5649](component $component0)
+def_boolean $boolean1 = false;
+if (getwindowmode >= 2) {
+    $boolean1 = if_gethide(toplevel_fullscreen:com_243);
+} else {
+    $boolean1 = if_gethide(toplevel:com_52);
+}
+if ($boolean1 = false) {
+    if_setposition(wilderness_overlay:wilderness_layer, 8, 80, ^setpos_abs_right, ^setpos_abs_top);
+} else {
+    if_setposition(wilderness_overlay:wilderness_layer, 8, 7, ^setpos_abs_right, ^setpos_abs_top);
+}

@@ -1,0 +1,34 @@
+// 6780
+[proc,clientscript_6780](int $int0)(int)
+if (stat_base(agility) < struct_param(enum(int, struct, enum_5530, $int0), param_2236)) {
+    return(0);
+}
+switch_int ($int0) {
+    case 3 :
+        if (~ql4_skill_requirements_cache(struct_537) = false) {
+            return(0);
+        }
+    case 4 :
+        if (~ql4_skill_requirements_cache(struct_628) = false) {
+            return(0);
+        }
+    case 8 :
+        if (~ql4_skill_requirements_cache(struct_537) = false) {
+            return(0);
+        }
+    case 9 :
+        if (stat_base(strength) < 60 | stat_base(ranged) < 60 | ~ql4_skill_requirements_cache(struct_509) = false) {
+            return(0);
+        }
+    case 11 :
+        if (~ql4_skill_requirements_cache(struct_539) = false) {
+            return(0);
+        }
+    case 10 :
+        if (stat_base(thieving) < 75 | stat_base(herblore) < 50) {
+            return(0);
+        }
+    case default :
+        return(1);
+}
+return(1);

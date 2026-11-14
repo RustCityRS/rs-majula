@@ -1,0 +1,179 @@
+// 4791
+[proc,clientscript_4791](int $int0)(graphic, string, int, int, int, int, int, int)
+def_graphic $graphic1 = null;
+def_string $string0 = "";
+def_int $int2 = 0;
+def_struct $struct3 = enum(int, struct, enum_4008, $int0);
+if ($struct3 = null) {
+    mes("Clan Build Tick : Job ID <tostring($int0)> has no associated struct. Please report this as a bug, quoting this line.");
+    return(null, "", 0, 0, 0, 0, 0, 0);
+}
+def_int $int4 = struct_param($struct3, param_1481);
+def_int $int5 = struct_param($struct3, param_1482);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_enum $enum9 = null;
+def_int $int10 = 0;
+def_enum $enum11 = null;
+def_enum $enum12 = null;
+def_int $int13 = 0;
+if (op718 = 1) {
+    switch_int ($int4) {
+        case 1 :
+            $string0 = "Stronghold";
+            $graphic1 = 7418;
+            $int6 = %varclan_2580;
+            $int7 = min(%varclan_2633, calc($int6 - 1));
+            $int2 = calc(%varclan_2600 + %varclan_2616);
+        case 2 :
+            $string0 = "Storehouse";
+            $graphic1 = 7419;
+            $int6 = %varclan_2581;
+            $int7 = min(%varclan_2631, calc($int6 - 1));
+            $int2 = calc(%varclan_2596 + %varclan_2614);
+        case 3 :
+            $string0 = "Battlefield";
+            $graphic1 = 7417;
+            $int6 = %varclan_2582;
+            $int7 = min(%varclan_2632, calc($int6 - 1));
+            $int2 = calc(%varclan_2597 + %varclan_2615);
+        case 4 :
+            switch_int ($int5) {
+                case 1 :
+                    $int8 = %varclan_2553;
+                    $int6 = %varclan_2567;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2617, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2584 + %varclan_2602);
+                case 2 :
+                    $int8 = %varclan_2554;
+                    $int6 = %varclan_2568;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2618, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2585 + %varclan_2603);
+                case 3 :
+                    $int8 = %varclan_2555;
+                    $int6 = %varclan_2569;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2620, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2586 + %varclan_2604);
+                case 4 :
+                    $int8 = %varclan_2556;
+                    $int6 = %varclan_2570;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2621, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2587 + %varclan_2605);
+                case 5 :
+                    $int8 = %varclan_2557;
+                    $int6 = %varclan_2571;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2622, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2588 + %varclan_2606);
+                case 6 :
+                    $int8 = %varclan_2558;
+                    $int6 = %varclan_2572;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2623, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2589 + %varclan_2607);
+                case 7 :
+                    $int8 = %varclan_2560;
+                    $int6 = %varclan_2573;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2624, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2590 + %varclan_2608);
+                case 8 :
+                    $int8 = %varclan_2561;
+                    $int6 = %varclan_2574;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2625, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2591 + %varclan_2609);
+                case 9 :
+                    $int8 = %varclan_2562;
+                    $int6 = %varclan_2576;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2626, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2592 + %varclan_2610);
+                case 10 :
+                    $int8 = %varclan_2563;
+                    $int6 = %varclan_2577;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2627, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2593 + %varclan_2611);
+                case 11 :
+                    $int8 = %varclan_2564;
+                    $int6 = %varclan_2578;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2629, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2594 + %varclan_2612);
+                case 12 :
+                    $int8 = %varclan_2565;
+                    $int6 = %varclan_2579;
+                    if ($int8 = 1) {
+                        $int13 = 1;
+                    }
+                    $int7 = min(%varclan_2630, calc($int6 - $int13));
+                    $int2 = calc(%varclan_2595 + %varclan_2613);
+                case default :
+                    mes("Clan Build Tick : No skill plot found with index <tostring($int5)>. Please report this as a bug, quoting this line.");
+            }
+            $string0 = enum(int, string, enum_4287, $int8);
+            $graphic1 = enum(int, graphic, enum_4288, $int8);
+        case 5 :
+            switch_int ($int5) {
+                case 1 :
+                    $int8 = %varclan_2139;
+                    $int6 = %varclan_2140;
+                case 2 :
+                    $int8 = %varclan_2156;
+                    $int6 = %varclan_2157;
+                case 3 :
+                    $int8 = %varclan_2173;
+                    $int6 = %varclan_2174;
+                case default :
+                    mes("Clan Build Tick : No cosmetic job slot found with index <tostring($int5)>. Please report this as a bug, quoting this line.");
+            }
+            $enum9 = ~clientscript_4820($int5);
+            $enum11 = ~clientscript_4823($int5);
+            $enum12 = ~clientscript_4826($int5);
+            if ($int0 = 16 | $int0 = 17 | $int0 = 18) {
+                $string0 = "Reset hotspot (slot <tostring($int5)>).";
+                $graphic1 = "aif_loyalty_icon_2,0";
+            } else {
+                $string0 = enum(int, string, $enum11, $int8);
+                $graphic1 = enum(int, graphic, $enum12, $int8);
+            }
+        case default :
+            mes("Clan Build Tick : Unexpected job building class <tostring($int4)>. Please report this as a bug, quoting this line.");
+            return(null, "", 0, 0, 0, 0, 0, 0);
+    }
+} else {
+    mes("Clan Build Tick : Could not access clan profile.");
+    return(null, "", 0, 0, 0, 0, 0, 0);
+}
+if ($int0 > 600 & $int4 ! 5) {
+    $int6 = calc($int6 + 1);
+}
+return($graphic1, $string0, $int6, $int7, $int2, $int4, $int5, $int8);

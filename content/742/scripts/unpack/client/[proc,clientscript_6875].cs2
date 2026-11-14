@@ -1,0 +1,38 @@
+// 6875
+[proc,clientscript_6875]
+def_int $int0 = 13777;
+def_graphic $graphic1 = 13780;
+def_graphic $graphic2 = 13779;
+def_graphic $graphic3 = 13778;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int7 = -1;
+while ($int6 < enum_getoutputcount(enum_2345)) {
+    if (cc_find(interface_1311:com_258, calc($int6 * 2 + 1)) = true) {
+        $int7 = enum(int, int, enum_2345, $int6);
+        $string1 = enum(int, string, enum_2344, $int6);
+        if (%varclient_2017 = $int7 & %varclient_2018 = $int7 & %varplayerbit_12196 = 1) {
+            cc_setgraphic($graphic1);
+            $string0 = "Set colour to <$string1>.";
+        } else if (%varclient_2017 = $int7) {
+            if (%varplayerbit_12196 = 1) {
+                cc_setgraphic($graphic2);
+                $string0 = "Click again to set secondary colour.";
+            } else {
+                cc_setgraphic($graphic1);
+                $string0 = "Set colour to <$string1>.";
+            }
+        } else if (%varplayerbit_12196 = 1 & %varclient_2018 = $int7) {
+            cc_setgraphic($graphic3);
+            $string0 = "Click again to set primary colour.";
+        } else {
+            cc_setgraphic(13777);
+            $string0 = "Set colour to <$string1>.";
+        }
+        cc_setonmouserepeat("aif_tooltip(interface_1311:com_87, event_com, event_comsubid, $string0, 350, verdana_11pt_regular, verdana_11pt_regular, 0xb6b6b6, 12, 1, 1, event_mousex, event_mousey)");
+    }
+    $int6 = calc($int6 + 1);
+}

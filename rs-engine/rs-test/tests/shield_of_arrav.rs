@@ -15,6 +15,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_ver::TypeId;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
@@ -23,14 +24,14 @@ const BACKPACK: i32 = 149 << 16;
 /// Black Arm cupboard upstairs (l49_52 level 1, 53,57).
 const PHOENIX_CHEST: (u16, u16, u16) = (2403, 3235, 9761);
 const BLACKARM_CUPBOARD: (u16, u16, u16) = (2400, 3189, 3385);
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
 }
 
 fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
@@ -39,7 +40,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -49,12 +50,12 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, count: u32) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -66,7 +67,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, coun
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -245,7 +246,7 @@ fn oploc2(client: &mut HarnessClient, loc: (u16, u16, u16)) {
 /// The backpack slot holding `name`.
 fn slot_of(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let pack = engine
         .harness_player(client.pid)
         .unwrap()
@@ -268,7 +269,7 @@ fn use_on_npc(
     choices: &[&str],
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
-    let obj = id(engine, "obj", obj) as i32;
+    let obj = id(engine, "obj", obj).int();
     from_about(engine, client, npc, x, z, choices, |client, nid| {
         let mut p = ClientPacket::new();
         p.p2_alt2(obj)
@@ -296,9 +297,9 @@ fn use_on_obj(
     p.p4(BACKPACK)
         .p2_alt1(ts)
         .p2_alt1(us)
-        .p2_alt2(id(engine, "obj", used) as i32)
+        .p2_alt2(id(engine, "obj", used).int())
         .p4_alt1(BACKPACK)
-        .p2(id(engine, "obj", target) as i32);
+        .p2(id(engine, "obj", target).int());
     client.send(ClientProt::IfButtonT, &p.finish());
     converse(engine, client, choices, 300)
 }

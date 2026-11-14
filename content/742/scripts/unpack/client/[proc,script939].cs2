@@ -1,0 +1,11 @@
+// 939
+[proc,script939]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+while ($int0 < inv_size(tradeoffer)) {
+    if (cc_find(trademain:other_offer_layer_back, $int0) = true) {
+        $obj1 = invother_getobj(tradeoffer, $int0);
+        ~script812($obj1);
+    }
+    $int0 = calc($int0 + 1);
+}

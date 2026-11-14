@@ -2,6 +2,7 @@ use crate::engine::{ScriptEngine, engine};
 use crate::state::{LocRef, NpcRef, ObjRef};
 use rs_grid::CoordGrid;
 use rs_pack::types::HuntCheckVis;
+use rs_ver::TypeId;
 
 /// Holds the result set and iteration cursor for NPC search operations.
 ///
@@ -105,7 +106,7 @@ pub fn player_zone<E: ScriptEngine + 'static>(coord: CoordGrid) -> Vec<u16> {
 /// **Calls:** [`ScriptEngine::extend_zone_npcs`], [`rsmod::has_line_of_sight`],
 /// [`rsmod::has_line_of_walk`]
 fn npc_distance_inner<E: ScriptEngine + 'static>(
-    id: Option<u16>,
+    id: Option<TypeId>,
     coord: CoordGrid,
     distance: i32,
     vis: HuntCheckVis,
@@ -176,7 +177,7 @@ fn npc_distance_inner<E: ScriptEngine + 'static>(
 /// # Call Stack
 /// **Calls:** [`npc_distance_inner`]
 pub fn npc_distance<E: ScriptEngine + 'static>(
-    id: u16,
+    id: TypeId,
     coord: CoordGrid,
     distance: i32,
     vis: HuntCheckVis,

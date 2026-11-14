@@ -1,0 +1,105 @@
+// 6425
+[proc,clientscript_6425](component $component0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_component ($component0) {
+    case interface_1309:com_20 :
+        $component2 = interface_1309:com_33;
+        $component3 = interface_1309:com_34;
+        $component4 = interface_1309:com_35;
+    case interface_1309:com_22 :
+        $component2 = interface_1309:com_25;
+        $component3 = interface_1309:com_26;
+        $component4 = interface_1309:com_27;
+    case interface_1309:com_24 :
+        $component2 = interface_1309:com_29;
+        $component3 = interface_1309:com_30;
+        $component4 = interface_1309:com_31;
+    case interface_1308:com_65 :
+        $component2 = interface_1308:com_66;
+        $component3 = interface_1308:com_67;
+        $component4 = interface_1308:com_68;
+    case interface_1308:com_192 :
+        $component2 = interface_1308:com_56;
+        $component3 = interface_1308:com_57;
+        $component4 = interface_1308:com_58;
+    case interface_1308:com_197 :
+        $component2 = interface_1308:com_198;
+        $component3 = interface_1308:com_199;
+        $component4 = interface_1308:com_200;
+    case interface_1308:com_205 :
+        $component2 = interface_1308:com_206;
+        $component3 = interface_1308:com_207;
+        $component4 = interface_1308:com_208;
+    case interface_1308:com_213 :
+        $component2 = interface_1308:com_214;
+        $component3 = interface_1308:com_215;
+        $component4 = interface_1308:com_216;
+    case interface_1308:com_232 :
+        $component2 = interface_1308:com_233;
+        $component3 = interface_1308:com_234;
+        $component4 = interface_1308:com_235;
+    case interface_1308:com_316 :
+        $component2 = interface_1308:com_317;
+        $component3 = interface_1308:com_318;
+        $component4 = interface_1308:com_319;
+    case interface_1308:com_335 :
+        $component2 = interface_1308:com_336;
+        $component3 = interface_1308:com_337;
+        $component4 = interface_1308:com_338;
+    case interface_1308:com_256 :
+        $component2 = interface_1308:com_257;
+        $component3 = interface_1308:com_258;
+        $component4 = interface_1308:com_259;
+    case interface_1308:com_278 :
+        $component2 = interface_1308:com_279;
+        $component3 = interface_1308:com_280;
+        $component4 = interface_1308:com_281;
+    case interface_1308:com_297 :
+        $component2 = interface_1308:com_298;
+        $component3 = interface_1308:com_299;
+        $component4 = interface_1308:com_300;
+    case interface_1308:com_422 :
+        $component2 = interface_1308:com_432;
+        $component3 = interface_1308:com_433;
+        $component4 = interface_1308:com_434;
+    case interface_1308:com_448 :
+        $component2 = interface_1308:com_449;
+        $component3 = interface_1308:com_450;
+        $component4 = interface_1308:com_451;
+    case interface_1308:com_467 :
+        $component2 = interface_1308:com_468;
+        $component3 = interface_1308:com_469;
+        $component4 = interface_1308:com_470;
+    case interface_1308:com_488 :
+        $component2 = interface_1308:com_489;
+        $component3 = interface_1308:com_490;
+        $component4 = interface_1308:com_491;
+    case interface_1308:com_511 :
+        $component2 = interface_1308:com_512;
+        $component3 = interface_1308:com_513;
+        $component4 = interface_1308:com_514;
+    case interface_1308:com_530 :
+        $component2 = interface_1308:com_531;
+        $component3 = interface_1308:com_532;
+        $component4 = interface_1308:com_533;
+    case default :
+        return;
+}
+if ($component2 = null | $component3 = null | $component4 = null) {
+    return;
+}
+if (if_getgraphic($component2) = 7932) {
+    return;
+}
+switch_int ($int1) {
+    case 1 :
+        ~clientscript_6426($component2, $component3, $component4);
+    case 2 :
+        ~clientscript_6427($component2, $component3, $component4, $component0);
+    case 3 :
+        ~clientscript_6428($component2, $component3, $component4);
+    case default :
+        return;
+}

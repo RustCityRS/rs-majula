@@ -22,11 +22,17 @@ fn anim_code(key: &str) -> Option<u8> {
         "walkanim_r" => 42,
         "unknown43" => 43,
         "unknown44" => 44,
+        #[cfg(since_647)]
         "crawlturn_l" => 46,
+        #[cfg(since_647)]
         "crawlturn_r" => 47,
+        #[cfg(since_647)]
         "runturn_l" => 48,
+        #[cfg(since_647)]
         "runturn_r" => 49,
+        #[cfg(since_647)]
         "walkturn_l" => 50,
+        #[cfg(since_647)]
         "walkturn_r" => 51,
         _ => return None,
     })
@@ -44,12 +50,17 @@ pub fn pack_bases(
         &registry.bas,
         constants,
         |client, _, props| {
+            #[cfg(since_647)]
             let mut wrote_random = false;
             for (key, value) in props {
                 if let Some(code) = anim_code(key) {
                     parse_ref(seq, "seq", value, |v| {
                         client.p1(code);
-                        client.p2(v);
+                        if matches!(code, 43 | 44) {
+                            client.p2(v);
+                        } else {
+                            client.pid(v);
+                        }
                     });
                     continue;
                 }
@@ -58,8 +69,8 @@ pub fn pack_bases(
                     "readyanim" => {
                         let (ready, walk) = value.split_once(',').expect("Invalid bas readyanim");
                         client.p1(1);
-                        parse_ref(seq, "seq", ready, |v| client.p2(v));
-                        parse_ref(seq, "seq", walk, |v| client.p2(v));
+                        parse_ref(seq, "seq", ready, |v| client.pid(v));
+                        parse_ref(seq, "seq", walk, |v| client.pid(v));
                     }
 
                     // 26
@@ -81,6 +92,7 @@ pub fn pack_bases(
                     }
 
                     // 28
+                    #[cfg(since_647)]
                     "unknown28" => {
                         let values: Vec<u8> = value
                             .split(',')
@@ -153,6 +165,7 @@ pub fn pack_bases(
                     }),
 
                     // 52
+                    #[cfg(since_647)]
                     "randomreadyanim" => {
                         if !wrote_random {
                             wrote_random = true;
@@ -166,16 +179,18 @@ pub fn pack_bases(
                             for row in rows {
                                 let (anim, weight) =
                                     row.split_once(',').expect("Invalid bas readyanim_random");
-                                parse_ref(seq, "seq", anim, |v| client.p2(v));
+                                parse_ref(seq, "seq", anim, |v| client.pid(v));
                                 parse_number(weight, |v: u8| client.p1(v));
                             }
                         }
                     }
 
                     // 53
+                    #[cfg(since_647)]
                     "unknown53" => client.p1(53),
 
                     // 54
+                    #[cfg(since_647)]
                     "hillrotatelimit" => {
                         let [a, b] = parse_numbers::<u8, 2>(value);
                         client.p1(54);
@@ -184,6 +199,7 @@ pub fn pack_bases(
                     }
 
                     // 55
+                    #[cfg(since_647)]
                     "unknown55" => {
                         let [slot, v] = parse_numbers::<u16, 2>(value);
                         client.p1(55);
@@ -192,6 +208,7 @@ pub fn pack_bases(
                     }
 
                     // 56
+                    #[cfg(since_647)]
                     "slotoffset" => {
                         let [slot, x, y, z] = parse_numbers::<i32, 4>(value);
                         client.p1(56);
