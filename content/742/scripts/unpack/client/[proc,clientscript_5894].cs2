@@ -1,0 +1,23 @@
+// 5894
+[proc,clientscript_5894](int $int0)
+def_component $component1 = interface_1253:com_102;
+def_component $component2 = ~clientscript_5935($int0);
+def_obj $obj3 = null;
+def_int $int4 = 0;
+$obj3, $int4 = ~clientscript_6188($int0);
+def_string $string0 = "";
+def_int $int5 = 0;
+def_struct $struct6 = ~clientscript_5936($int0);
+def_int $int7 = struct_param($struct6, param_2268);
+switch_int ($int7) {
+    case 5, 6, 7, 8, 9, 10 :
+        $string0 = "<~clientscript_5908($obj3)><br><enum(obj, string, enum_5704, $obj3)>";
+    case default :
+        $string0 = "<~clientscript_5908($obj3)><br><enum(obj, string, enum_5704, $obj3)>";
+}
+if_settext(interface_1253:com_282, $string0);
+if_sethide(interface_1253:com_51, false);
+def_int $int8 = calc(if_getx($component2) - if_getwidth($component1) / 2 + if_getwidth($component2) / 2);
+$int8 = min($int8, 596);
+$int8 = max($int8, 1);
+if_setposition($component1, $int8, if_gety($component1), ^setpos_abs_left, ^setpos_abs_top);

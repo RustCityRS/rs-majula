@@ -1,0 +1,9 @@
+// 4327
+[clientscript,clan_flag_background_mouseleave](int $int0, component $component1)
+if (cc_find($component1, $int0) = true) {
+    if ($component1 = clan_flag_selection:flag_backgrounds_layer & %clan_flag_varp = $int0) {
+        cc_setgraphic("aif_smalltabs_whole,3");
+    } else {
+        cc_setgraphic("aif_smalltabs_whole,0");
+    }
+}

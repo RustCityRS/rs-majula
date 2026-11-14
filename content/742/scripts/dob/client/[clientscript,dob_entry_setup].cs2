@@ -1,0 +1,51 @@
+// 2312
+[clientscript,dob_entry_setup]
+def_int $int0 = 0;
+while ($int0 < 31) {
+    cc_create(chatdefault:dayddlist, ^iftype_text, $int0);
+    cc_setsize(46, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(calc($int0 + 1)));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2316($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^green)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(chatdefault:dayddlist, 0, calc($int0 * 20));
+~scrollbar_vertical(chatdefault:dayddscroll, chatdefault:dayddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+$int0 = 0;
+while ($int0 < 12) {
+    cc_create(chatdefault:monthddlist, ^iftype_text, $int0);
+    cc_setsize(158, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(enum(int, string, enum_950, $int0));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2334($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^green)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(chatdefault:monthddlist, 0, calc($int0 * 20));
+~scrollbar_vertical(chatdefault:monthddscroll, chatdefault:monthddlist, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethide(chatdefault:dayddlist, true);
+if_sethide(chatdefault:dayddlistborder, true);
+if_sethide(chatdefault:dayddscroll, true);
+if_sethide(chatdefault:monthddlist, true);
+if_sethide(chatdefault:monthddlistborder, true);
+if_sethide(chatdefault:monthddscroll, true);
+if_sethide(chatdefault:yearddlist, true);
+if_sethide(chatdefault:yearddscroll, true);
+if_sethide(chatdefault:yearddlistborder, true);
+if_sethide(chatdefault:dayddback, true);
+if_sethide(chatdefault:monthddback, true);
+if_sethide(chatdefault:yearddback, true);
+if_sethide(chatdefault:day, false);
+if_sethide(chatdefault:month, false);
+if_sethide(chatdefault:year, false);

@@ -1,0 +1,105 @@
+// 4959
+[proc,clientscript_4959](int $int0)(int)
+if (op718 = 1) {
+    switch_int ($int0) {
+        case 1 :
+            return(%varclan_2580);
+        case 2 :
+            return(%varclan_2581);
+        case 3 :
+            return(%varclan_2582);
+        case 4 :
+            return(%varclan_2567);
+        case 5 :
+            return(%varclan_2568);
+        case 6 :
+            return(%varclan_2569);
+        case 7 :
+            return(%varclan_2570);
+        case 8 :
+            return(%varclan_2571);
+        case 9 :
+            return(%varclan_2572);
+        case 10 :
+            return(%varclan_2573);
+        case 11 :
+            return(%varclan_2574);
+        case 12 :
+            return(%varclan_2576);
+        case 13 :
+            return(%varclan_2577);
+        case 14 :
+            return(%varclan_2578);
+        case 15 :
+            return(%varclan_2579);
+        case 16 :
+            return(%varclan_2331);
+        case 17 :
+            return(%varclan_2341);
+        case 18 :
+            return(%varclan_2351);
+        case 19 :
+            return(%varclan_2361);
+        case 20 :
+            return(%varclan_2371);
+        case 21 :
+            return(%varclan_2381);
+        case 22 :
+            return(%varclan_2391);
+        case 23 :
+            return(%varclan_2401);
+        case 24 :
+            return(%varclan_2461);
+        case 25 :
+            return(%varclan_2471);
+        case 26 :
+            return(%varclan_2481);
+        case 27 :
+            return(%varclan_2491);
+        case 28 :
+            return(%varclan_2501);
+        case 29 :
+            return(%varclan_2411);
+        case 30 :
+            return(%varclan_2421);
+        case 31 :
+            return(%varclan_2431);
+        case 32 :
+            return(%varclan_2441);
+        case 33 :
+            return(%varclan_2451);
+        case 34 :
+            return(%varclan_2511);
+        case 49 :
+            return(%varclan_2847);
+        case 35 :
+            return(%varclan_2211);
+        case 36 :
+            return(%varclan_2221);
+        case 37 :
+            return(%varclan_2241);
+        case 38 :
+            return(%varclan_2191);
+        case 39 :
+            return(%varclan_2231);
+        case 40 :
+            return(%varclan_2201);
+        case 41 :
+            return(%varclan_2261);
+        case 42 :
+            return(%varclan_2271);
+        case 43 :
+            return(%varclan_2281);
+        case 44 :
+            return(%varclan_2251);
+        case 45 :
+            return(%varclan_2291);
+        case 46 :
+            return(%varclan_2301);
+        case 47 :
+            return(%varclan_2311);
+        case 48 :
+            return(%varclan_2321);
+    }
+}
+return(0);

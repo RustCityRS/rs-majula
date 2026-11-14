@@ -1,5 +1,6 @@
 use super::UnpackedPacks;
 use crate::cache::flu::FluType;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_flu_props(
@@ -17,7 +18,7 @@ pub fn emit_flu_props(
         p.push((
             2,
             "material".into(),
-            packs.reference("texture", def.texture.unwrap_or(u16::MAX)),
+            packs.reference("texture", def.texture.unwrap_or(TypeId::NULL)),
         ));
     }
     if opcode == 3 {

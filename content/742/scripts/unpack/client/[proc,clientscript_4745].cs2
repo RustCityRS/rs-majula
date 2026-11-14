@@ -1,0 +1,20 @@
+// 4745
+[proc,clientscript_4745](int $int0, int $int1)
+def_inv $inv2 = null;
+def_obj $obj3 = null;
+def_string $string0 = null;
+if (%varplayerbit_9903 ! 0) {
+    $inv2 = enum(int, inv, enum_3879, %varplayerbit_9903);
+    if ($int1 < inv_size($inv2)) {
+        $obj3 = inv_getobj($inv2, $int1);
+        if ($obj3 ! null) {
+            $string0 = ~clientscript_4747($obj3);
+            if (string_length($string0) > 0) {
+                if_settext(interface_1144:com_23, $string0);
+                if_sethide(interface_1144:com_23, false);
+                if_sethide(interface_1144:com_22, true);
+            }
+        }
+    }
+}
+return;

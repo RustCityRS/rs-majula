@@ -2,6 +2,8 @@ use crate::network::game::info_prot_message::InfoMessage;
 use rs_io::Packet;
 #[cfg(since_647)]
 use rs_ver::STRING_TERMINATOR;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 
 /// The wear positions an appearance lists.
 pub const WEAR_SLOTS: usize = 12;
@@ -12,11 +14,17 @@ const EMPTY: u8 = 0;
 /// Added to a body kit id.
 const KIT: u16 = 0x100;
 
-/// Added to the obj (before 647) or wear model (647) shown in a slot.
+/// Added to the obj (before 647), wear model (647) or obj (742) shown in a slot.
 #[cfg(before_647)]
 const OBJ: u16 = 0x200;
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const OBJ: u16 = 0x8000;
+#[cfg(since_742)]
+const OBJ: u16 = 0x4000;
+
+/// 742 lists one more wear position after ours, the aura, which we never show.
+#[cfg(since_742)]
+const NO_AURA: u8 = EMPTY;
 
 /// In the first slot: the player looks like the npc type that follows.
 #[cfg(since_254)]
@@ -37,7 +45,7 @@ const FEMALE: u8 = 0x1;
 const SKILL_LEVEL: u8 = 0x4;
 
 /// The byte after the flags, which the client reads and never uses.
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const UNUSED: u8 = u8::MAX;
 
 /// No `headicons_pk` or `headicons_prayer` icon.
@@ -77,6 +85,12 @@ const NO_SUMMONING_LEVEL: u8 = 0;
 #[cfg(since_647)]
 const NO_PVP_RANGE: u8 = u8::MAX;
 
+/// 742 reads ten colours: ours, then the default for the rest.
+#[cfg(since_742)]
+const COLOURS: usize = 10;
+#[cfg(since_742)]
+const DEFAULT_COLOUR: u8 = 0;
+
 /// No idle, crawl, walk and run ambient sounds.
 #[cfg(since_647)]
 const NO_SOUNDS: u8 = 0;
@@ -87,11 +101,14 @@ pub struct PlayerInfoAppearance<'a> {
 
 impl InfoMessage for PlayerInfoAppearance<'_> {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
-        #[cfg(before_647)]
+        #[cfg(any(before_647, since_742))]
         buf.p1(self.bytes.len() as u8);
-        #[cfg(since_647)]
+        #[cfg(all(since_647, before_742))]
         buf.p1_alt3(self.bytes.len() as u8);
+        #[cfg(before_742)]
         buf.pdata(self.bytes, 0, self.bytes.len());
+        #[cfg(since_742)]
+        buf.pdata_alt1(self.bytes, 0, self.bytes.len());
     }
 
     fn sizeof(&self) -> usize {
@@ -122,7 +139,7 @@ pub struct Appearance<'a> {
     #[cfg(before_647)]
     pub username37: u64,
     #[cfg(since_647)]
-    pub bas: u16,
+    pub bas: TypeId,
     #[cfg(since_647)]
     pub name: &'a str,
     pub combat_level: u8,
@@ -157,6 +174,7 @@ impl Appearance<'_> {
             0
         };
         buf.p1((self.gender & FEMALE) | skill_level);
+        #[cfg(before_742)]
         buf.p1(UNUSED);
         buf.p1(self.skull());
         buf.p1(self.prayer());
@@ -165,7 +183,11 @@ impl Appearance<'_> {
         for &colour in self.colours {
             buf.p1(colour);
         }
-        buf.p2(self.bas);
+        #[cfg(since_742)]
+        for _ in self.colours.len()..COLOURS {
+            buf.p1(DEFAULT_COLOUR);
+        }
+        buf.p2(self.bas.g2());
         buf.pjstr(self.name, STRING_TERMINATOR);
         buf.p1(self.combat_level);
         if self.skill_level != 0 {
@@ -213,13 +235,18 @@ impl Look {
                         Wear::Obj(obj) => buf.p2(OBJ + obj),
                     }
                 }
+                #[cfg(since_742)]
+                buf.p1(NO_AURA);
                 #[cfg(since_647)]
                 buf.p2(NO_RECOLOURS);
             }
             #[cfg(since_254)]
             Look::Npc(npc) => {
                 buf.p2(NPC);
+                #[cfg(before_742)]
                 buf.p2(*npc);
+                #[cfg(since_742)]
+                buf.psmart2or4null(*npc as i32);
                 #[cfg(since_647)]
                 buf.p1(NO_TEAM);
             }

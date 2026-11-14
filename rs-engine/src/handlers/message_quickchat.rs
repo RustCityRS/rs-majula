@@ -12,6 +12,7 @@ use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::message_quickchat_private_echo::MessageQuickchatPrivateEcho;
 use rs_util::base37::to_userhash;
 use rs_util::bits::getbit_range;
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 
@@ -47,7 +48,7 @@ impl ClientGameHandler for MessageQuickchatPublic {
         if active.last_social == Some(clock) {
             return Ok(());
         }
-        let (values, text) = phrase(active, self.id, &self.bytes)?;
+        let (values, text) = phrase(active, self.id.g2(), &self.bytes)?;
         match self.chat {
             PUBLIC_CHAT => {}
             CLAN_CHAT => {
@@ -62,7 +63,7 @@ impl ClientGameHandler for MessageQuickchatPublic {
         }
 
         let mut bytes = Packet::new(2 + values.len());
-        bytes.p2(self.id);
+        bytes.p2(self.id.g2());
         bytes.pdata(&values, 0, values.len());
         active.player.info.chat_bytes = Some(bytes.data.into_boxed_slice());
         active.player.info.chat_colour = Some(PHRASE_COLOUR);
@@ -89,7 +90,7 @@ impl ClientGameHandler for MessageQuickchatPrivate {
         if active.last_social == Some(clock) {
             return Ok(());
         }
-        let (values, text) = phrase(active, self.id, &self.bytes)?;
+        let (values, text) = phrase(active, self.id.g2(), &self.bytes)?;
         let target37 = to_userhash(&self.name);
         if !active.friends.contains(&(target37 as i64)) {
             return Ok(());
@@ -114,7 +115,7 @@ impl ClientGameHandler for MessageQuickchatPrivate {
 /// a clan or clan chat's count is 0, with none to be in.
 fn phrase(active: &ActivePlayer, id: u16, sent: &[u8]) -> Result<(Vec<u8>, String), ScriptError> {
     let engine = engine();
-    let Some(phrase) = engine.cache.chatphrases.get(id) else {
+    let Some(phrase) = engine.cache.chatphrases.get(TypeId::new(id)) else {
         return Err(ScriptError::Client(format!(
             "Unknown quick chat phrase: {id}"
         )));
@@ -182,7 +183,7 @@ fn phrase(active: &ActivePlayer, id: u16, sent: &[u8]) -> Result<(Vec<u8>, Strin
             "tostring_varbit" => {
                 let varbit = engine
                     .varbits()
-                    .get_by_id(params[0])
+                    .get_by_id(TypeId::new(params[0]))
                     .ok_or(ScriptError::VarbitNotFound(params[0] as i32))?;
                 let base = active.get_var(varbit.basevar).as_int();
                 getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32)
@@ -226,7 +227,7 @@ fn searchable(id: u16, stockmarket: bool) -> bool {
             Some(ParamValue::Int(value)) => *value != 0,
             _ => excluded.default_int != 0,
         });
-    engine.objs().get_by_id(id).is_some_and(|obj| {
+    engine.objs().get_by_id(TypeId::new(id)).is_some_and(|obj| {
         (!stockmarket || obj.stockmarket)
             && obj.certtemplate.is_none()
             && obj.lenttemplate.is_none()
@@ -241,14 +242,14 @@ fn searchable(id: u16, stockmarket: bool) -> bool {
 fn obj_name(id: u16) -> &'static str {
     engine()
         .objs()
-        .get_by_id(id)
+        .get_by_id(TypeId::new(id))
         .and_then(|obj| obj.name.as_deref())
         .unwrap_or("null")
 }
 
 /// The string the client shows for `key` in enum `id`.
 fn enum_string(id: u16, key: i32) -> &'static str {
-    let Some(enum_type) = engine().enums().get_by_id(id) else {
+    let Some(enum_type) = engine().enums().get_by_id(TypeId::new(id)) else {
         return "null";
     };
     match enum_type.values.get(&key) {

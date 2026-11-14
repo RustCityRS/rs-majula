@@ -1,0 +1,36 @@
+// 5069
+[proc,clientscript_5069](enum $enum0, component $component1, int $int2, int $int3)(int)
+def_int $int4 = min(enum_getoutputcount($enum0), 256);
+def_int $int5 = 0;
+def_int $int6 = 0;
+while ($int5 < $int4) {
+    cc_create($component1, ^iftype_rectangle, if_getnextsubid($component1));
+    cc_setsize(0, 14, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int6, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settrans(255);
+    cc_setop(1, "Select");
+    .cc_create($component1, ^iftype_graphic, if_getnextsubid($component1));
+    .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(0, calc($int6 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    if ($int3 = $int5) {
+        .cc_setgraphic("aif_checkbox_small_2,0");
+    } else {
+        .cc_setgraphic("aif_checkbox_small_2,4");
+    }
+    .cc_create($component1, ^iftype_text, if_getnextsubid($component1));
+    .cc_setsize(17, 14, ^setsize_minus, ^setsize_abs);
+    .cc_setposition(0, $int6, ^setpos_abs_right, ^setpos_abs_top);
+    .cc_settextfont(p11_full);
+    .cc_setcolour(0xdfcfbf);
+    .cc_settextshadow(true);
+    .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+    .cc_settext(enum(int, string, $enum0, $int5));
+    cc_setonmouseover("cc_text_colour_swapper(event_com, .cc_getid, ^white)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, .cc_getid, 0xdfcfbf)");
+    cc_setonop("clientscript_5071(event_op, $int2, $int5, $enum0)");
+    $int6 = calc($int6 + 15);
+    $int5 = calc($int5 + 1);
+}
+$int6 = max(calc($int6 - 1), 0);
+if_setsize($component1, 0, $int6, ^setsize_minus, ^setsize_abs);
+return($int6);

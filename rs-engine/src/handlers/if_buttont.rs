@@ -11,7 +11,7 @@ impl ClientGameHandler for IfButtonT {
             opheldu::handle(
                 self.com2, self.slot2, self.obj2, self.com, self.slot, self.obj, active,
             )
-        } else if self.obj == u16::MAX {
+        } else if self.obj.is_null() {
             opheldt::handle(
                 self.com2, self.slot2, self.obj2, self.com, self.slot, active,
             )

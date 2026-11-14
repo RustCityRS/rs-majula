@@ -299,6 +299,12 @@ pub fn pack_seqs(
                     client.p2(max);
                 }
 
+                #[cfg(since_742)]
+                "tertiaryvolumefactor" => parse_number(value, |v: u8| {
+                    client.p1(22);
+                    client.p1(v);
+                }),
+
                 // not found
                 _ => panic!("Unrecognized seq config key: {key}"),
             }

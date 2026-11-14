@@ -27,8 +27,16 @@ impl ServerProtMessage for LocDel {
 #[cfg(since_647)]
 impl ServerProtMessage for LocDel {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1(self.shape_angle);
-        buf.p1_alt3(self.coord);
+        #[cfg(before_742)]
+        {
+            buf.p1(self.shape_angle);
+            buf.p1_alt3(self.coord);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt2(self.coord);
+            buf.p1_alt1(self.shape_angle);
+        }
     }
 
     fn sizeof(&self) -> usize {

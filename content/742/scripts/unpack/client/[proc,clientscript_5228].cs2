@@ -1,0 +1,26 @@
+// 5228
+[proc,clientscript_5228](int $int0)
+def_int $int1 = 0;
+def_string $string0 = "";
+def_component $component2 = ~clientscript_4969($int0);
+def_component $component3 = null;
+def_int $int4 = 2;
+if ($component2 = null) {
+    return;
+}
+if (op718 = 1) {
+    $int1 = ~clientscript_4949($int0);
+    if ($int1 > 0) {
+        $string0 = "Teleport to the <enum(int, string, enum_4287, $int1)> skill plot.";
+        $component3 = op543($component2);
+        if (if_gety($component2) > calc(if_getheight($component3) / 2)) {
+            $int4 = 0;
+        }
+        if_setonmouserepeat($component2, "aif_tooltip(interface_1259:com_57, $component2, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int4, event_mousex, event_mousey)");
+        if_setonmouseleave($component2, "deltooltip(interface_1259:com_57)");
+        if_setop($component2, 1, "Teleport to <enum(int, string, enum_4287, $int1)>");
+        return;
+    }
+}
+if_setonmouserepeat($component2, null);
+if_setonmouseleave($component2, null);

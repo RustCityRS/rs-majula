@@ -1,0 +1,27 @@
+// 6661
+[proc,clientscript_6661](component $component0)
+def_int $int1 = -1;
+switch_component ($component0) {
+    case interface_1321:com_64 :
+        $int1 = 4;
+    case interface_1321:com_71 :
+        $int1 = 3;
+    case interface_1321:com_57 :
+        $int1 = 1;
+    case interface_1321:com_78 :
+        $int1 = 5;
+}
+if ($int1 = -1) {
+    return;
+}
+%varplayerbit_11860 = $int1;
+%varplayerbit_11861 = $int1;
+%varplayerbit_11862 = $int1;
+%varplayerbit_11863 = $int1;
+%varplayerbit_11865 = $int1;
+%varplayerbit_11864 = $int1;
+%varplayerbit_11866 = $int1;
+%varplayerbit_11868 = $int1;
+%varplayerbit_11867 = $int1;
+~clientscript_6650;
+~clientscript_6662;

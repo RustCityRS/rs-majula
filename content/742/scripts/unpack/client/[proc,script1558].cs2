@@ -1,0 +1,70 @@
+// 1558
+[proc,script1558](boolean $boolean0)
+if (~script2709 = 0 & %tutorial = 1000) {
+    if_settext(chatdefault:input, "");
+    if_setonclick(chatdefault:input, null);
+    if_setontimer(chatdefault:input, null);
+    if_sethide(chatdefault:caret, true);
+    if_setposition(chatdefault:scrollarea, 0, 72, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(chatdefault:scrollarea, 488, 72, ^setsize_abs, ^setsize_minus);
+    if_setposition(chatdefault:scrollbar, 0, 72, ^setpos_abs_right, ^setpos_abs_top);
+    if_setsize(chatdefault:scrollbar, 16, 72, ^setsize_abs, ^setsize_minus);
+    if_sethide(chatdefault:divider_line, true);
+    if_sethide(chatdefault:divider_graphic, true);
+    if_sethide(chatdefault:input, true);
+    if_sethide(chatdefault:dob_layer, false);
+    return;
+}
+if_sethide(chatdefault:caret, false);
+if_setposition(chatdefault:scrollarea, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(chatdefault:scrollarea, 488, 17, ^setsize_abs, ^setsize_minus);
+if_setposition(chatdefault:scrollbar, 0, 0, ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(chatdefault:scrollbar, 16, 17, ^setsize_abs, ^setsize_minus);
+if (getwindowmode >= 2) {
+    if_sethide(chatdefault:divider_graphic, false);
+    if_sethide(chatdefault:divider_line, true);
+} else {
+    if_sethide(chatdefault:divider_graphic, true);
+    if_sethide(chatdefault:divider_line, false);
+}
+if_sethide(chatdefault:input, false);
+if_sethide(chatdefault:dob_layer, true);
+if ($boolean0 = true & (userdetail_quickchat = true | map_quickchat = true)) {
+    if_settext(chatdefault:input, "Left-click here to enter Public Quick Chat or right-click for Friends Channel Quick Chat.");
+    if_setonclick(chatdefault:input, null);
+    if_setontimer(chatdefault:input, null);
+    if_sethide(chatdefault:caret, true);
+    return;
+}
+if (%varclient_1650 = true) {
+    if_settext(chatdefault:com_53, "To <%friendtomessage>:");
+} else if (%varclient_1651 = 2) {
+    if_settext(chatdefault:com_53, "Clan Chat<img=3>:");
+} else if (%varclient_1651 = 3) {
+    if_settext(chatdefault:com_53, "Guest Clan Chat<img=3>:");
+} else if (%varclient_1651 = 1) {
+    if_settext(chatdefault:com_53, "Friends Chat<img=3>:");
+} else {
+    if_settext(chatdefault:com_53, "<chat_playername_unfiltered><img=3>:");
+}
+if (getwindowmode >= 2) {
+    if_setcolour(chatdefault:input, 0x7fa9ff);
+    if_setcolour(chatdefault:com_53, ^white);
+    if_setcolour(chatdefault:caret, ^white);
+} else {
+    if_setcolour(chatdefault:input, ^blue);
+    if_setcolour(chatdefault:com_53, ^black);
+    if_setcolour(chatdefault:caret, ^black);
+}
+if_settext(chatdefault:input, escape(%varclient_2023));
+if_setsize(chatdefault:com_53, stringwidth(if_gettext(chatdefault:com_53), p12_full), if_getheight(chatdefault:com_53), ^setsize_abs, ^setsize_abs);
+if_setposition(chatdefault:inputarea, calc(if_getx(chatdefault:com_53) + if_getwidth(chatdefault:com_53) + 2), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+if_setsize(chatdefault:inputarea, calc(if_getwidth(chatdefault:chat) - if_getx(chatdefault:inputarea) - 5), if_getheight(chatdefault:inputarea), ^setsize_abs, ^setsize_abs);
+if_setonclick(chatdefault:input, "script1554(event_mousex, 0)");
+%chat_caret = max(min(%chat_caret, string_length(escape(%varclient_2023))), 0);
+~script1555(0);
+if (string_length(chat_playername_unfiltered) > 0) {
+    if_setontimer(chatdefault:scrollarea, null);
+} else {
+    if_setontimer(chatdefault:scrollarea, "script4308($boolean0)");
+}

@@ -1,0 +1,5 @@
+// 6820
+[proc,clientscript_6820](component $component0)
+if (if_getgraphic($component0) ! null) {
+    if_setgraphic($component0, 13522);
+}

@@ -115,7 +115,3 @@ pub fn pack_archive(
 }
 #[cfg(since_647)]
 pub mod instrument;
-#[cfg(since_647)]
-pub mod vorbis;
-#[cfg(since_647)]
-pub mod vorbis_setup;

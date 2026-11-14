@@ -36,11 +36,20 @@ impl ServerProtMessage for SetPlayerOp<'_> {
 
 #[cfg(since_647)]
 impl ServerProtMessage for SetPlayerOp<'_> {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p2_alt2(0xFFFF);
         buf.p1_alt3(self.primary);
         buf.pjstr(self.value, STRING_TERMINATOR);
         buf.p1_alt3(self.op);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(0xFFFF);
+        buf.p1(self.primary);
+        buf.p1_alt3(self.op);
+        buf.pjstr(self.value, STRING_TERMINATOR);
     }
 
     fn sizeof(&self) -> usize {

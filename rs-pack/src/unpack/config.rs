@@ -22,6 +22,8 @@ use crate::cache::r#enum::EnumTypeRaw;
 use crate::cache::flo::FloTypeRaw;
 #[cfg(since_647)]
 use crate::cache::flu::FluType;
+#[cfg(since_742)]
+use crate::cache::headbar::HeadbarType;
 #[cfg(since_647)]
 use crate::cache::hitmark::HitmarkType;
 use crate::cache::idk::IdkTypeRaw;
@@ -50,6 +52,8 @@ use crate::cache::quickchatcat::QuickChatCatType;
 #[cfg(since_647)]
 use crate::cache::quickchatphrase::QuickChatPhraseType;
 use crate::cache::seq::SeqTypeRaw;
+#[cfg(since_742)]
+use crate::cache::skybox::SkyboxType;
 use crate::cache::spotanim::SpotAnimTypeRaw;
 #[cfg(since_647)]
 use crate::cache::r#struct::StructTypeRaw;
@@ -69,6 +73,7 @@ use rs_io::Packet;
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
 use rs_io::js5::Js5Store;
+use rs_ver::TypeId;
 #[cfg(since_647)]
 use runec::symbol::identifier_form;
 #[cfg(before_647)]
@@ -96,6 +101,8 @@ pub mod r#enum;
 pub mod flo;
 #[cfg(since_647)]
 pub mod flu;
+#[cfg(since_742)]
+pub mod headbar;
 #[cfg(since_647)]
 pub mod hitmark;
 pub mod idk;
@@ -123,6 +130,8 @@ pub mod quickchatcat;
 #[cfg(since_647)]
 pub mod quickchatphrase;
 pub mod seq;
+#[cfg(since_742)]
+pub mod skybox;
 pub mod spotanim;
 #[cfg(since_647)]
 pub mod r#struct;
@@ -135,9 +144,9 @@ mod varclansetting;
 pub mod varp;
 
 #[cfg(before_647)]
-type ConfigEntries = Vec<(u16, Vec<(String, String)>)>;
+type ConfigEntries = Vec<(u32, Vec<(String, String)>)>;
 pub(crate) type ConfigDecoder =
-    fn(&mut Packet, u16, &HashMap<u16, u16>, &mut UnpackedPacks) -> Vec<(String, String)>;
+    fn(&mut Packet, u32, &HashMap<u16, u16>, &mut UnpackedPacks) -> Vec<(String, String)>;
 
 pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
     vec![
@@ -168,7 +177,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
             #[cfg(since_647)]
             let props = {
                 let mut props = props;
-                if packs.transmit_varps.contains(&(id as u32))
+                if packs.transmit_varps.contains(&id)
                     && !props.iter().any(|(key, _)| key == "transmit")
                 {
                     props.push(("transmit".into(), "yes".into()));
@@ -247,6 +256,14 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("hitmark", |buf, id, hsl, packs| {
             decode_record::<HitmarkType>(buf, id, hsl, packs, hitmark::emit_hitmark_props)
         }),
+        #[cfg(since_742)]
+        ("skybox", |buf, id, hsl, packs| {
+            decode_record::<SkyboxType>(buf, id, hsl, packs, skybox::emit_skybox_props)
+        }),
+        #[cfg(since_742)]
+        ("headbar", |buf, id, hsl, packs| {
+            decode_record::<HeadbarType>(buf, id, hsl, packs, headbar::emit_headbar_props)
+        }),
         #[cfg(since_647)]
         ("billboard", |buf, id, hsl, packs| {
             decode_record::<BillboardType>(buf, id, hsl, packs, billboard::emit_billboard_props)
@@ -313,7 +330,11 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("varcstr", |buf, _, _, _| varc::decode_varc_string(buf)),
         #[cfg(since_647)]
         ("varclansetting", |buf, _, _, packs| {
-            varclansetting::decode_varclansetting(buf, packs)
+            varclansetting::decode_clan_var(buf, packs, "varclansetting", 2)
+        }),
+        #[cfg(since_742)]
+        ("varclan", |buf, _, _, packs| {
+            varclansetting::decode_clan_var(buf, packs, "varclan", 3)
         }),
     ]
 }
@@ -408,20 +429,35 @@ impl UnpackedPacks {
     /// A config's name for an id another config refers to, if the name leads
     /// back to that id: registries can repeat a name.
     #[cfg(since_647)]
-    pub fn reference(&self, kind: &str, id: u16) -> String {
-        if id == u16::MAX {
+    pub fn reference(&self, kind: &str, id: TypeId) -> String {
+        if id.is_null() {
             return "null".to_owned();
         }
-        self.named(kind, id)
+        self.named_id(kind, id.raw())
+    }
+
+    /// As [`Self::reference`], for an id held as an `i32` where -1 is null.
+    #[cfg(since_647)]
+    pub fn id_ref(&self, kind: &str, id: i32) -> String {
+        if id < 0 {
+            "null".to_owned()
+        } else {
+            self.named_id(kind, id as u32)
+        }
     }
 
     /// As [`Self::reference`], where the highest id is an id like any other:
     /// a retexture can name it.
     #[cfg(since_647)]
     pub fn named(&self, kind: &str, id: u16) -> String {
+        self.named_id(kind, id as u32)
+    }
+
+    #[cfg(since_647)]
+    fn named_id(&self, kind: &str, id: u32) -> String {
         let name = self
-            .config_name(kind, id as u32)
-            .filter(|name| *name != "null" && self.config_id(kind, name) == Some(id as u32))
+            .config_name(kind, id)
+            .filter(|name| *name != "null" && self.config_id(kind, name) == Some(id))
             .map(str::to_owned)
             .unwrap_or_else(|| {
                 let placeholder = format!("{}_{id}", placeholder_prefix(kind));
@@ -482,7 +518,11 @@ impl UnpackedPacks {
                     "namedobj" => "obj",
                     other => other,
                 };
-                self.reference(kind, value as u16)
+                #[cfg(before_742)]
+                let name = self.reference(kind, TypeId::from_int(value));
+                #[cfg(since_742)]
+                let name = self.id_ref(kind, value);
+                name
             }
         }
     }
@@ -584,6 +624,28 @@ pub(crate) fn format_colour(colour: i32) -> String {
     }
 }
 
+/// A config's name for a big-smart id, or its kind and number when unnamed.
+pub(crate) fn bigid_name(packs: &UnpackedPacks, kind: &str, id: TypeId) -> String {
+    #[cfg(since_742)]
+    if id.is_null() {
+        return "null".to_owned();
+    }
+    packs
+        .config_name(kind, id.raw())
+        .map(str::to_owned)
+        .unwrap_or_else(|| format!("{kind}_{}", id.raw()))
+}
+
+/// The set bits of a recol/retex index mask, lowest first.
+#[cfg(since_742)]
+pub(crate) fn mask_indices(mask: u16) -> String {
+    (0..16)
+        .filter(|bit| mask & (1 << bit) != 0)
+        .map(|bit| bit.to_string())
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
 /// A recolour pair as the dumps print it: as rgb15 when both colours have one,
 /// otherwise as the raw hsl16 values.
 #[cfg(since_647)]
@@ -612,39 +674,37 @@ fn multi_lines(
     (code, key): (u8, &str),
     kind: &str,
     has_default: bool,
-    (varbit, varp): (i32, i32),
-    ids: &[i32],
+    (varbit, varp): (TypeId, TypeId),
+    ids: &[TypeId],
     packs: &UnpackedPacks,
 ) -> Vec<(u8, String, String)> {
     let mut lines = Vec::new();
-    if varbit != -1 {
+    if !varbit.is_null() {
         lines.push((
             code,
             "multivar".to_owned(),
-            packs.reference("varpbit", varbit as u16),
+            packs.reference("varpbit", varbit),
         ));
     }
-    if varp != -1 {
-        lines.push((
-            code,
-            "multivar".to_owned(),
-            packs.reference("varp", varp as u16),
-        ));
+    if !varp.is_null() {
+        lines.push((code, "multivar".to_owned(), packs.reference("varp", varp)));
     }
-    let (default, entries) = ids.split_last().map_or((-1, ids), |(&d, e)| (d, e));
+    let (default, entries) = ids
+        .split_last()
+        .map_or((TypeId::NULL, ids), |(&d, e)| (d, e));
     if has_default {
         lines.push((
             code,
             key.to_owned(),
-            format!("default,{}", packs.reference(kind, default as u16)),
+            format!("default,{}", packs.reference(kind, default)),
         ));
     }
     for (index, &id) in entries.iter().enumerate() {
-        if id != -1 || index + 1 == entries.len() {
+        if !id.is_null() || index + 1 == entries.len() {
             lines.push((
                 code,
                 key.to_owned(),
-                format!("{index},{}", packs.reference(kind, id as u16)),
+                format!("{index},{}", packs.reference(kind, id)),
             ));
         }
     }
@@ -653,19 +713,19 @@ fn multi_lines(
 
 #[cfg(since_647)]
 fn emit_param_list(
-    params: &[(i32, ParamValue)],
+    params: &[(TypeId, ParamValue)],
     packs: &UnpackedPacks,
 ) -> Vec<(u8, String, String)> {
     params
         .iter()
         .map(|(key, value)| {
             let name = packs
-                .config_name("param", *key as u32)
+                .config_name("param", key.raw())
                 .map(str::to_owned)
-                .unwrap_or_else(|| format!("param_{key}"));
+                .unwrap_or_else(|| format!("param_{}", key.raw()));
             let value = match value {
                 ParamValue::Int(value) => {
-                    let ty = packs.param_types.get(&(*key as u32));
+                    let ty = packs.param_types.get(&key.raw());
                     packs.typed_value(ty.map_or("int", String::as_str), *value)
                 }
                 ParamValue::String(value) => value.to_string(),
@@ -675,9 +735,9 @@ fn emit_param_list(
         .collect()
 }
 
-fn entry_name(config_type: &str, id: u16, packs: &UnpackedPacks) -> String {
+fn entry_name(config_type: &str, id: u32, packs: &UnpackedPacks) -> String {
     if config_type == "flo"
-        && let Some(name) = packs.flo_names.get(&id)
+        && let Some(name) = packs.flo_names.get(&(id as u16))
     {
         return name.clone();
     }
@@ -712,7 +772,10 @@ pub fn write_config_pack_file(
     for id in 0..count {
         if config_type == "obj" {
             if let Some(&linked_id) = packs.cert_objs.get(&id) {
-                lines.push(format!("{id}=cert_{}", entry_name("obj", linked_id, packs)));
+                lines.push(format!(
+                    "{id}=cert_{}",
+                    entry_name("obj", linked_id as u32, packs)
+                ));
                 continue;
             }
             if packs.cert_template_id == Some(id) {
@@ -720,7 +783,10 @@ pub fn write_config_pack_file(
                 continue;
             }
         }
-        lines.push(format!("{id}={}", entry_name(config_type, id, packs)));
+        lines.push(format!(
+            "{id}={}",
+            entry_name(config_type, id as u32, packs)
+        ));
     }
     fs::write(
         pack_dir.join(format!("{config_type}.pack")),
@@ -792,10 +858,10 @@ fn write_config_text_file(
     output_dir: &Path,
     config_type: &str,
     count: u16,
-    entries: &[(u16, Vec<(String, String)>)],
+    entries: &[(u32, Vec<(String, String)>)],
     packs: &UnpackedPacks,
 ) -> anyhow::Result<()> {
-    let entry_map: HashMap<u16, &Vec<(String, String)>> =
+    let entry_map: HashMap<u32, &Vec<(String, String)>> =
         entries.iter().map(|(id, props)| (*id, props)).collect();
 
     let mut output = Vec::new();
@@ -807,8 +873,10 @@ fn write_config_text_file(
         }
         write_config_section(
             &mut output,
-            &entry_name(config_type, id, packs),
-            entry_map.get(&id).map_or(&[], |props| props.as_slice()),
+            &entry_name(config_type, id as u32, packs),
+            entry_map
+                .get(&(id as u32))
+                .map_or(&[], |props| props.as_slice()),
         )?;
     }
 
@@ -834,7 +902,7 @@ pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
 }
 
 #[cfg(before_647)]
-pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u16, Vec<u8>)> {
+pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u32, Vec<u8>)> {
     PackedData::entries(dat, idx)
         .expect("Invalid config data/index")
         .map(|(id, data)| (id, data.to_vec()))
@@ -859,7 +927,13 @@ fn config_dat_trailing(dat: &[u8], idx: &[u8]) -> usize {
 }
 
 #[cfg(before_647)]
-fn model_ref(id: u16, suffix: &str, category: ModelCategory, packs: &mut UnpackedPacks) -> String {
+fn model_ref(
+    id: TypeId,
+    suffix: &str,
+    category: ModelCategory,
+    packs: &mut UnpackedPacks,
+) -> String {
+    let id = id.g2();
     let name = if suffix.is_empty() {
         format!("model_{id}")
     } else {
@@ -869,25 +943,25 @@ fn model_ref(id: u16, suffix: &str, category: ModelCategory, packs: &mut Unpacke
 }
 
 #[cfg(before_647)]
-fn seq_ref(id: u16, packs: &UnpackedPacks) -> String {
-    entry_name("seq", id, packs)
+fn seq_ref(id: TypeId, packs: &UnpackedPacks) -> String {
+    entry_name("seq", id.raw(), packs)
 }
 
 #[cfg(before_647)]
-fn obj_ref(id: u16, packs: &UnpackedPacks) -> String {
-    entry_name("obj", id, packs)
-}
-
-#[cfg(since_289)]
-#[cfg(before_647)]
-fn loc_ref(id: u16, packs: &UnpackedPacks) -> String {
-    entry_name("loc", id, packs)
+fn obj_ref(id: TypeId, packs: &UnpackedPacks) -> String {
+    entry_name("obj", id.raw(), packs)
 }
 
 #[cfg(since_289)]
 #[cfg(before_647)]
-fn varbit_ref(id: u16, packs: &UnpackedPacks) -> String {
-    entry_name("varpbit", id, packs)
+fn loc_ref(id: TypeId, packs: &UnpackedPacks) -> String {
+    entry_name("loc", id.raw(), packs)
+}
+
+#[cfg(since_289)]
+#[cfg(before_647)]
+fn varbit_ref(id: TypeId, packs: &UnpackedPacks) -> String {
+    entry_name("varpbit", id.raw(), packs)
 }
 
 #[cfg(before_647)]
@@ -924,13 +998,13 @@ fn texture_ref(id: u16, packs: &mut UnpackedPacks) -> String {
 
 pub fn decode_record<T: CacheType>(
     buf: &mut Packet,
-    id: u16,
+    id: u32,
     hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
     emit: impl Fn(&T, u8, &[u8], &mut UnpackedPacks, &HashMap<u16, u16>) -> Vec<(String, String)>,
 ) -> Vec<(String, String)> {
     let start = buf.pos;
-    let mut def = T::new(id);
+    let mut def = T::new(TypeId::try_from(id).expect("type id"));
     // Resolve types and flags that can follow the properties they describe.
     def.decode(buf);
     buf.pos = start;
@@ -949,7 +1023,7 @@ pub fn decode_record<T: CacheType>(
 
 fn decode_entry(
     name: &'static str,
-    id: u16,
+    id: u32,
     data: Vec<u8>,
     reverse_hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
@@ -974,7 +1048,7 @@ fn decode_entry(
         for (key, value) in &props {
             if let Some(value) = obj_ref_to_id(value, packs) {
                 if key == "certlink" {
-                    packs.cert_objs.insert(id, value);
+                    packs.cert_objs.insert(id as u16, value);
                 } else {
                     packs.cert_template_id = Some(value);
                 }
@@ -987,7 +1061,7 @@ fn decode_entry(
 #[cfg(before_647)]
 pub(crate) fn decode_records(
     name: &'static str,
-    entries: Vec<(u16, Vec<u8>)>,
+    entries: Vec<(u32, Vec<u8>)>,
     hsl: &HashMap<u16, u16>,
     packs: &mut UnpackedPacks,
     decoder: ConfigDecoder,
@@ -1031,7 +1105,7 @@ pub(super) fn unpack_config(
     packs.transmit_varps = varp::transmit_varps(&mut store)?;
     if let Some(group) = store.read_group(archive::CONFIG, archive::CONFIG_GROUP_PARAM)? {
         for entry in &group.entries {
-            let mut param = ParamTypeRaw::new(entry.id as u16);
+            let mut param = ParamTypeRaw::new(TypeId::try_from(entry.id).expect("type id"));
             param.decode(&mut Packet::from(entry.data().to_vec()));
             packs
                 .param_types
@@ -1108,7 +1182,7 @@ pub(super) fn unpack_config(
                         if entry.data().is_empty() {
                             continue;
                         }
-                        let id = (first + group_id * stride + entry.id) as u16;
+                        let id = first + group_id * stride + entry.id;
                         let props = decode_entry(
                             name,
                             id,
@@ -1145,7 +1219,7 @@ fn rename_loc_model(name: &str, shape: u8) -> &str {
 
 #[cfg(before_647)]
 fn push_loc_model_refs(
-    loc_id: u16,
+    loc_id: u32,
     pairs: &[(u16, u8)],
     packs: &mut UnpackedPacks,
     props: &mut Vec<(String, String)>,
@@ -1168,13 +1242,15 @@ fn push_loc_model_refs(
 
 #[cfg(before_647)]
 fn models_have_texture(
-    model_ids: &[u16],
+    model_ids: &[TypeId],
     texture: u16,
     model_textures: &HashMap<u16, HashSet<u16>>,
 ) -> bool {
-    model_ids
-        .iter()
-        .any(|m| model_textures.get(m).is_some_and(|t| t.contains(&texture)))
+    model_ids.iter().any(|m| {
+        model_textures
+            .get(&m.g2())
+            .is_some_and(|t| t.contains(&texture))
+    })
 }
 
 #[cfg(before_647)]

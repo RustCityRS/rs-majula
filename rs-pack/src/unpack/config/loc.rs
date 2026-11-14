@@ -4,6 +4,7 @@ use super::emit_params;
 use crate::cache::loc::LocTypeRaw;
 #[cfg(since_647)]
 use crate::types::loc_shape_key;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_loc_props(
@@ -19,10 +20,10 @@ pub fn emit_loc_props(
         if let Some(models) = &def.models {
             let pairs = models
                 .iter()
-                .map(|model| (model.model, model.shape))
+                .map(|model| (model.model.g2(), model.shape))
                 .collect::<Vec<_>>();
             let mut models = Vec::new();
-            super::push_loc_model_refs(def.id, &pairs, registry, &mut models);
+            super::push_loc_model_refs(def.id.raw(), &pairs, registry, &mut models);
             let code = if opcode == 5 { 5 } else { 1 };
             p.extend(models.into_iter().map(|(key, value)| (code, key, value)));
         }
@@ -65,15 +66,15 @@ pub fn emit_loc_props(
             ));
         }
         #[cfg(since_289)]
-        if let Ok(var) = u16::try_from(def.transform_varbit) {
+        if let Some(var) = def.transform_varbit.non_null() {
             p.push((77, "multivar".into(), super::varbit_ref(var, registry)));
             if let Some(locs) = &def.multiloc {
                 for (i, &loc) in locs.iter().enumerate() {
-                    if loc != -1 {
+                    if !loc.is_null() {
                         p.push((
                             77,
                             "multiloc".into(),
-                            format!("{i},{}", super::loc_ref(loc as u16, registry)),
+                            format!("{i},{}", super::loc_ref(loc, registry)),
                         ));
                     }
                 }
@@ -149,9 +150,9 @@ pub fn emit_loc_props(
     #[cfg(before_647)]
     if opcode == 24 {
         let name = registry
-            .config_name("seq", def.anim.unwrap_or(u16::MAX) as u32)
+            .config_name("seq", def.anim.unwrap_or(TypeId::NULL).raw())
             .map(|s| s.to_string())
-            .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(u16::MAX)));
+            .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(TypeId::NULL)));
         p.push((24, "anim".into(), name));
     }
     #[cfg(since_647)]
@@ -159,7 +160,7 @@ pub fn emit_loc_props(
         p.push((
             24,
             "anim".into(),
-            registry.reference("seq", def.anim.unwrap_or(u16::MAX)),
+            registry.reference("seq", def.anim.unwrap_or(TypeId::NULL)),
         ));
     }
 
@@ -220,6 +221,14 @@ pub fn emit_loc_props(
         for (i, b) in palette.iter().enumerate() {
             p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
         }
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.recolindices {
+        p.push((44, "recolindices".into(), super::mask_indices(mask)));
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.retexindices {
+        p.push((45, "retexindices".into(), super::mask_indices(mask)));
     }
 
     if def.mirror {
@@ -289,7 +298,7 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if let Some(multiloc) = &def.multiloc {
-        let has_default = (opcode == 92) || multiloc.last().copied().unwrap_or(-1) != -1;
+        let has_default = (opcode == 92) || multiloc.last().is_some_and(|id| !id.is_null());
         p.extend(super::multi_lines(
             (if has_default { 92 } else { 77 }, "multiloc"),
             "loc",
@@ -407,7 +416,7 @@ pub fn emit_loc_props(
         p.push((98, "hasparticles".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let Some((op, cursor)) = def.cursor_op1 {
         p.push((
             99,
@@ -416,7 +425,7 @@ pub fn emit_loc_props(
         ));
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let Some((op, cursor)) = def.cursor_op2 {
         p.push((
             100,
@@ -430,7 +439,7 @@ pub fn emit_loc_props(
         p.push((
             101,
             "mapfunction".into(),
-            def.mapfunction.unwrap_or(0).to_string(),
+            def.mapfunction.map_or(0, TypeId::g2).to_string(),
         ));
     }
 
@@ -559,6 +568,20 @@ pub fn emit_loc_props(
         p.push((178, "bgsounddropoffrange".into(), def.op178.to_string()));
     }
 
+    #[cfg(since_742)]
+    if def.antimacro {
+        p.push((189, "antimacro".into(), "yes".into()));
+    }
+    #[cfg(since_742)]
+    for (i, cursor) in def.cursor.iter().enumerate() {
+        if let Some(cursor) = cursor {
+            p.push((
+                190 + i as u8,
+                format!("cursor{}", i + 1),
+                registry.reference("cursor", *cursor),
+            ));
+        }
+    }
     #[cfg(since_647)]
     if opcode == 249 {
         p.extend(emit_params(_data, registry));

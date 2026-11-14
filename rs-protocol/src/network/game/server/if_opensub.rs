@@ -15,17 +15,36 @@ pub struct IfOpensub {
     pub interface: u16,
     pub com: i32,
     pub walkable: u8,
+    #[cfg(since_742)]
+    pub xtea_keys: [i32; 4],
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfOpensub {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt3(self.interface);
-        buf.p4_alt3(self.com);
-        buf.p1_alt1(self.walkable);
+        #[cfg(before_742)]
+        {
+            buf.p2_alt3(self.interface);
+            buf.p4_alt3(self.com);
+            buf.p1_alt1(self.walkable);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4(self.xtea_keys[0]);
+            buf.p4_alt3(self.xtea_keys[1]);
+            buf.p4_alt2(self.com);
+            buf.p1_alt3(self.walkable);
+            buf.p2(self.interface);
+            buf.p4(self.xtea_keys[3]);
+            buf.p4_alt1(self.xtea_keys[2]);
+        }
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.interface) + size_of_val(&self.com) + size_of_val(&self.walkable)
+        #[cfg(before_742)]
+        let keys = 0;
+        #[cfg(since_742)]
+        let keys = size_of_val(&self.xtea_keys);
+        size_of_val(&self.interface) + size_of_val(&self.com) + size_of_val(&self.walkable) + keys
     }
 }

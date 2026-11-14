@@ -29,7 +29,10 @@ impl VarcStrSmall<'_> {
 #[cfg(since_647)]
 impl ServerProtMessage for VarcStrSmall<'_> {
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(since_742)]
+        buf.p2(self.id);
         buf.pjstr(self.val, STRING_TERMINATOR);
+        #[cfg(before_742)]
         buf.p2_alt3(self.id);
     }
 

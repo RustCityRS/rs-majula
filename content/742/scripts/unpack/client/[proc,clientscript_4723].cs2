@@ -1,0 +1,63 @@
+// 4723
+[proc,clientscript_4723](int $int0, int $int1)(int, string)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_struct $struct13 = null;
+if (op718 = 1) {
+    $struct13 = enum(int, struct, enum_4013, %varclan_2580);
+    if ($struct13 ! null) {
+        $int2 = struct_param($struct13, param_1532);
+        $int3 = struct_param($struct13, param_1533);
+        $int4 = struct_param($struct13, param_1534);
+        $int5 = struct_param($struct13, param_1535);
+        $int6 = struct_param($struct13, param_1536);
+        $int7 = struct_param($struct13, param_1538);
+        $int8 = struct_param($struct13, param_1537);
+        $int9 = struct_param($struct13, param_1540);
+        $int10 = struct_param($struct13, param_1539);
+        $int11 = struct_param($struct13, param_1541);
+    }
+    switch_int ($int0) {
+        case 1 :
+            if ($int1 < $int5) {
+                $int12 = 1;
+            }
+        case 2 :
+            if ($int1 < $int6) {
+                $int12 = 1;
+            }
+        case 3 :
+            if ($int1 < $int8) {
+                $int12 = 1;
+            }
+        case 4 :
+            if ($int1 < $int7) {
+                $int12 = 1;
+            }
+        case 7 :
+            if ($int1 < $int11) {
+                $int12 = 1;
+            }
+        case 5 :
+            if ($int1 < $int10) {
+                $int12 = 1;
+            }
+        case 6 :
+            if ($int1 < $int9) {
+                $int12 = 1;
+            }
+    }
+}
+if ($int12 = 1) {
+    return(0, "Downgrading this building would violate the requirements for your citadel walls.");
+}
+return(1, "");

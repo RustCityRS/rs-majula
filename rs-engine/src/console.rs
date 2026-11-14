@@ -8,6 +8,7 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::inv::{InvScope, InvType};
 use rs_pack::types::PlayerStat;
 use rs_stat::{get_exp_by_level, get_level_by_exp};
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptPlayer;
 use std::iter;
 use tokio::sync::oneshot;
@@ -106,7 +107,7 @@ fn stats() -> impl Iterator<Item = (u8, String)> {
 }
 
 fn obj_name(cache: &CacheStore, id: u16) -> String {
-    cache.objs.get_by_id(id).map_or_else(
+    cache.objs.get_by_id(TypeId::new(id)).map_or_else(
         || format!("obj_{id}"),
         |obj| obj.name.as_deref().unwrap_or(&obj.debugname).to_owned(),
     )
@@ -156,10 +157,10 @@ fn sheet_inv(cache: &CacheStore, inv: &InvType, items: Vec<(u16, u16, u32)>) -> 
 /// The saved inventories to list: those with items, and [`LISTED_INVS`].
 fn listed_invs(
     cache: &CacheStore,
-    has_items: impl Fn(u16) -> bool,
+    has_items: impl Fn(TypeId) -> bool,
 ) -> impl Iterator<Item = &InvType> {
     (0..cache.invs.count() as u16)
-        .filter_map(|id| cache.invs.get_by_id(id))
+        .filter_map(|id| cache.invs.get_by_id(TypeId::new(id)))
         .filter(move |inv| {
             inv.scope == InvScope::Perm
                 && (has_items(inv.id) || LISTED_INVS.contains(&&*inv.debugname))
@@ -187,13 +188,13 @@ fn give(
     obj: u16,
     count: u32,
 ) -> Result<String, String> {
-    let Some(obj_type) = cache.objs.get_by_id(obj) else {
+    let Some(obj_type) = cache.objs.get_by_id(TypeId::new(obj)) else {
         return Err(format!("There's no item {obj}."));
     };
     if count == 0 {
         return Err("Give at least 1.".to_owned());
     }
-    let left = inventory.add(obj, count, obj_type.stackable);
+    let left = inventory.add(TypeId::new(obj), count, obj_type.stackable);
     let name = obj_name(cache, obj);
     match left {
         0 => Ok(format!("Gave {count} x {name}.")),
@@ -213,14 +214,14 @@ fn give_all(
     obj: u16,
     count: u32,
 ) -> Result<String, String> {
-    let Some(obj_type) = cache.objs.get_by_id(obj) else {
+    let Some(obj_type) = cache.objs.get_by_id(TypeId::new(obj)) else {
         return Err(format!("There's no item {obj}."));
     };
     if count == 0 {
         return Err("Restore at least 1 of each item.".to_owned());
     }
     let name = obj_name(cache, obj);
-    if inventory.add(obj, count, obj_type.stackable) > 0 {
+    if inventory.add(TypeId::new(obj), count, obj_type.stackable) > 0 {
         return Err(format!(
             "There's no room for {count} x {name} in their {inv}; nothing was restored."
         ));
@@ -240,7 +241,7 @@ fn take(
     count: u32,
 ) -> Result<String, String> {
     let name = obj_name(cache, obj);
-    match inventory.delete(obj, count) {
+    match inventory.delete(TypeId::new(obj), count) {
         0 => Err(format!("They have no {name} there.")),
         taken => Ok(format!("Took {taken} x {name}.")),
     }
@@ -282,7 +283,7 @@ impl Engine {
                         .iter()
                         .enumerate()
                         .filter_map(|(slot, item)| {
-                            item.as_ref().map(|i| (slot as u16, i.obj, i.num))
+                            item.as_ref().map(|i| (slot as u16, i.obj.g2(), i.num))
                         })
                         .collect()
                 });
@@ -309,16 +310,18 @@ impl Engine {
                     xp: profile.stats[id as usize] / 10,
                 })
                 .collect(),
-            invs: listed_invs(cache, |id| profile.invs.iter().any(|i| i.inv_type == id))
-                .map(|inv| {
-                    let items = profile
-                        .invs
-                        .iter()
-                        .find(|i| i.inv_type == inv.id)
-                        .map_or_else(Vec::new, |i| i.items.clone());
-                    sheet_inv(cache, inv, items)
-                })
-                .collect(),
+            invs: listed_invs(cache, |id| {
+                profile.invs.iter().any(|i| i.inv_type == id.g2())
+            })
+            .map(|inv| {
+                let items = profile
+                    .invs
+                    .iter()
+                    .find(|i| i.inv_type == inv.id.g2())
+                    .map_or_else(Vec::new, |i| i.items.clone());
+                sheet_inv(cache, inv, items)
+            })
+            .collect(),
         }
     }
 
@@ -331,7 +334,7 @@ impl Engine {
             .iter()
             .zip(counts)
             .filter_map(|(&obj, &count)| {
-                let obj = self.cache.objs.get_by_id(u16::try_from(obj).ok()?)?;
+                let obj = self.cache.objs.get_by_id(TypeId::try_from(obj).ok()?)?;
                 Some(i64::from(obj.cost.max(0)) * i64::from(count.max(0)))
             })
             .sum();
@@ -481,7 +484,7 @@ impl Engine {
     /// A note is taken as the item it's for.
     pub fn item_forms(&self, obj: u16) -> Option<ItemForms> {
         let objs = &self.cache.objs;
-        let mut item = objs.get_by_id(obj)?;
+        let mut item = objs.get_by_id(TypeId::new(obj))?;
         if item.certtemplate.is_some()
             && let Some(real) = item.certlink.and_then(|id| objs.get_by_id(id))
         {
@@ -489,14 +492,15 @@ impl Engine {
         }
         let forms: Vec<u16> = iter::once(item.id)
             .chain(item.certlink.filter(|&id| objs.get_by_id(id).is_some()))
+            .map(TypeId::g2)
             .collect();
         Some(ItemForms {
-            id: item.id,
-            name: obj_name(self.cache, item.id),
+            id: item.id.g2(),
+            name: obj_name(self.cache, item.id.g2()),
             debugname: item.debugname.to_string(),
             debugnames: forms
                 .iter()
-                .filter_map(|&id| objs.get_by_id(id))
+                .filter_map(|&id| objs.get_by_id(TypeId::new(id)))
                 .map(|obj| obj.debugname.to_string())
                 .collect(),
             forms,
@@ -507,7 +511,7 @@ impl Engine {
     pub fn inv_name(&self, id: i32) -> String {
         u16::try_from(id)
             .ok()
-            .and_then(|id| self.cache.invs.get_by_id(id))
+            .and_then(|id| self.cache.invs.get_by_id(TypeId::new(id)))
             .map_or_else(|| format!("inv_{id}"), |inv| inv.debugname.to_string())
     }
 
@@ -520,9 +524,9 @@ impl Engine {
         let objs = &self.cache.objs;
         let exact = query.parse::<u16>().ok();
         let mut found: Vec<_> = (0..objs.count() as u16)
-            .filter_map(|id| objs.get_by_id(id))
+            .filter_map(|id| objs.get_by_id(TypeId::new(id)))
             .filter(|obj| {
-                Some(obj.id) == exact
+                Some(obj.id.g2()) == exact
                     || obj.debugname.contains(&query)
                     || obj
                         .name
@@ -534,7 +538,7 @@ impl Engine {
         // before `fake_coins`).
         found.sort_by_key(|obj| {
             (
-                Some(obj.id) != exact,
+                Some(obj.id.g2()) != exact,
                 *obj.debugname != *query,
                 obj.name.as_deref().map(str::to_lowercase).as_deref() != Some(query.as_str()),
                 obj.id,
@@ -544,8 +548,8 @@ impl Engine {
             .into_iter()
             .take(limit)
             .map(|obj| ObjMatch {
-                id: obj.id,
-                name: obj_name(self.cache, obj.id),
+                id: obj.id.g2(),
+                name: obj_name(self.cache, obj.id.g2()),
                 debugname: obj.debugname.to_string(),
                 stackable: obj.stackable,
             })
@@ -577,11 +581,11 @@ fn with_profile_inv(
     f: impl FnOnce(&mut Inventory) -> Result<String, String>,
 ) -> Result<String, String> {
     let mut inventory = empty_inv(inv);
-    let saved = profile.invs.iter().position(|i| i.inv_type == inv.id);
+    let saved = profile.invs.iter().position(|i| i.inv_type == inv.id.g2());
     if let Some(index) = saved {
         for &(slot, obj, count) in &profile.invs[index].items {
             if (slot as usize) < inventory.capacity {
-                inventory.set(slot, obj, count);
+                inventory.set(slot, TypeId::new(obj), count);
             }
         }
         #[cfg(since_647)]
@@ -594,7 +598,7 @@ fn with_profile_inv(
         .slots
         .iter()
         .enumerate()
-        .filter_map(|(slot, item)| item.as_ref().map(|i| (slot as u16, i.obj, i.num)))
+        .filter_map(|(slot, item)| item.as_ref().map(|i| (slot as u16, i.obj.g2(), i.num)))
         .collect();
     let vars = inv_vars(&inventory);
     match saved {
@@ -607,7 +611,7 @@ fn with_profile_inv(
         }
         None if items.is_empty() => {}
         None => profile.invs.push(PlayerProfileInv {
-            inv_type: inv.id,
+            inv_type: inv.id.g2(),
             items,
             vars,
         }),
@@ -666,7 +670,7 @@ fn edit_online(
         }
         Change::Restore { ref items } => {
             // Into copies first, so it's all or nothing.
-            let mut staged: Vec<(u16, Inventory)> = Vec::new();
+            let mut staged: Vec<(TypeId, Inventory)> = Vec::new();
             let mut given = Vec::with_capacity(items.len());
             for item in items {
                 let inv_type = giftable_inv(cache, &item.inv)?;

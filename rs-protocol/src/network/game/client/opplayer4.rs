@@ -21,10 +21,19 @@ impl ClientProtMessage for OpPlayer4 {
 }
 
 #[cfg(since_647)]
+#[cfg(before_742)]
 impl ClientProtMessage for OpPlayer4 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let pid = buf.g2_alt2();
         let ctrl = buf.g1() != 0;
+        OpPlayer4 { pid, ctrl }
+    }
+}
+
+#[cfg(since_742)]
+impl ClientProtMessage for OpPlayer4 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let (ctrl, pid) = (buf.g1() != 0, buf.g2_alt1());
         OpPlayer4 { pid, ctrl }
     }
 }

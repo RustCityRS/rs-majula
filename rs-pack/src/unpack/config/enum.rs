@@ -41,13 +41,20 @@ pub fn emit_enum_props(
                 registry.typed_value(&char_to_type_name(def.outputtype as u8), def.default_int),
             ));
         }
-        5 | 6 => {
+        5..=8 => {
             // Entries, in decode order, duplicates included.
             #[cfg(since_647)]
             let (input, output) = (
                 char_to_type_name(def.inputtype as u8),
                 char_to_type_name(def.outputtype as u8),
             );
+            #[cfg(since_742)]
+            let _data = if code >= 7 {
+                props.push(("size".into(), def.size.unwrap_or_default().to_string()));
+                &_data[2..]
+            } else {
+                _data
+            };
             let count = u16::from_be_bytes([_data[0], _data[1]]) as usize;
             for (key, value) in &def.values[def.values.len() - count..] {
                 #[cfg(since_647)]

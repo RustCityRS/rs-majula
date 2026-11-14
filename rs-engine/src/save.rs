@@ -8,6 +8,7 @@ use rs_pack::cache::varp::VarPlayerScope;
 use rs_pack::cache::{CacheStore, VarValue};
 use rs_pack::types::PlayerStat;
 use rs_stat::{get_exp_by_level, get_level_by_exp};
+use rs_ver::TypeId;
 use std::fs::{self, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -83,7 +84,7 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         let id = i as u16;
         let scope = cache
             .varps
-            .get_by_id(id)
+            .get_by_id(TypeId::new(id))
             .map(|v| v.scope)
             .unwrap_or(VarPlayerScope::Temp);
         if scope == VarPlayerScope::Perm {
@@ -107,12 +108,12 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         let mut items = Vec::new();
         for (slot, item) in inventory.slots.iter().enumerate() {
             if let Some(item) = item {
-                items.push((slot as u16, item.obj, item.num));
+                items.push((slot as u16, item.obj.g2(), item.num));
             }
         }
         if !items.is_empty() {
             invs.push(PlayerProfileInv {
-                inv_type: type_id,
+                inv_type: type_id.g2(),
                 items,
                 vars: inv_vars(inventory),
             });
@@ -195,7 +196,7 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
 
     for &(id, value) in &profile.varps {
         if (id as usize) < player.vars.len()
-            && let Some(varp_type) = cache.varps.get_by_id(id)
+            && let Some(varp_type) = cache.varps.get_by_id(TypeId::new(id))
         {
             player
                 .vars
@@ -204,7 +205,7 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
     }
 
     for inv_profile in &profile.invs {
-        let inv_type = cache.invs.get_by_id(inv_profile.inv_type);
+        let inv_type = cache.invs.get_by_id(TypeId::new(inv_profile.inv_type));
         if inv_type.map(|t| t.scope).unwrap_or(InvScope::Temp) != InvScope::Perm {
             continue;
         }
@@ -216,15 +217,16 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
         };
         let mut inv = Inventory::with_stack_mode(capacity, stack_mode);
         for &(slot, obj_id, count) in &inv_profile.items {
-            if (slot as usize) < inv.capacity && cache.objs.get_by_id(obj_id).is_some() {
-                inv.set(slot, obj_id, count);
+            let obj = TypeId::new(obj_id);
+            if (slot as usize) < inv.capacity && cache.objs.get_by_id(obj).is_some() {
+                inv.set(slot, obj, count);
             }
         }
         #[cfg(since_647)]
         for &(slot, var) in &inv_profile.vars {
             inv.set_var(slot, var);
         }
-        player.invs.insert(inv_profile.inv_type, inv);
+        player.invs.insert(TypeId::new(inv_profile.inv_type), inv);
     }
 }
 
@@ -268,7 +270,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
         .map(|i| {
             let cap = cache
                 .invs
-                .get_by_id(i.inv_type)
+                .get_by_id(TypeId::new(i.inv_type))
                 .map(|t| t.size as usize)
                 .unwrap_or(28);
             6 + cap * 7 + i.vars.len() * 6
@@ -304,7 +306,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
     for i in 0..varp_count {
         let scope = cache
             .varps
-            .get_by_id(i)
+            .get_by_id(TypeId::new(i))
             .map(|v| v.scope)
             .unwrap_or(VarPlayerScope::Temp);
         if scope == VarPlayerScope::Perm {
@@ -325,7 +327,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
     let mut inv_count: u8 = 0;
 
     for inv_profile in &profile.invs {
-        let inv_type = cache.invs.get_by_id(inv_profile.inv_type);
+        let inv_type = cache.invs.get_by_id(TypeId::new(inv_profile.inv_type));
         let capacity = inv_type.map(|t| t.size as usize).unwrap_or(28);
 
         sav.p2(inv_profile.inv_type);

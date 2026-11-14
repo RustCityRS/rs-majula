@@ -1,0 +1,25 @@
+// 365
+[proc,playerdesign4_box_outline](component $component0, int $int1, int $int2)
+if ($int2 = 1) {
+    if (cc_find($component0, $int1) = true) {
+        if (cc_getheight > 90) {
+            cc_setgraphic(10552);
+        } else {
+            cc_setgraphic(10550);
+        }
+    }
+} else if ($int2 = 2) {
+    if (cc_find($component0, $int1) = true) {
+        if (cc_getheight > 90) {
+            cc_setgraphic(10552);
+        } else {
+            cc_setgraphic(10550);
+        }
+    }
+} else if (cc_find($component0, $int1) = true) {
+    if (cc_getheight > 90) {
+        cc_setgraphic(10551);
+    } else {
+        cc_setgraphic(10549);
+    }
+}

@@ -1,0 +1,9 @@
+// 6258
+[proc,clientscript_6258]
+if (calc(clientclock % 20) = 0) {
+    if (if_gethide(fishcomp_side:com_108) = false) {
+        if_sethide(fishcomp_side:com_108, true);
+    } else {
+        if_sethide(fishcomp_side:com_108, false);
+    }
+}

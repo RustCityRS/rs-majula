@@ -1,0 +1,10 @@
+// 1129
+[proc,cursors_login]
+setdefaultcursors(cursor_default, cursor_blank);
+sethardcodedopcursors(cursor_use, null);
+if (%option_cursor = true | %option_cursor = false) {
+    detail_customcursors(%option_cursor);
+} else {
+    %option_cursor = true;
+    detail_customcursors(%option_cursor);
+}

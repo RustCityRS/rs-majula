@@ -1,0 +1,20 @@
+// 2354
+[proc,clientscript_2354]
+def_int $int0 = detailget_soundvol;
+def_int $int1 = detailget_musicvol;
+def_int $int2 = detailget_bgsoundvol;
+def_int $int3 = op6142;
+def_int $int4 = detailget_loginvol;
+if (%varplayerbit_10242 = 0) {
+    return;
+}
+if (%varplayerbit_10242 = 2) {
+    if_sethide(lobbyscreen:com_40_, false);
+    if_sethide(lobbyscreen:menu, true);
+    if_setonvartransmit(lobbyscreen:com_40_, "clientscript_5521{varplayer_2411}");
+} else if (%varplayerbit_10242 = 1) {
+    if_sethide(lobbyscreen:com_40_, true);
+    if_sethide(lobbyscreen:menu, false);
+    if_sethide(lobbyscreen:input, true);
+    if_setonvartransmit(lobbyscreen:com_0, null);
+}

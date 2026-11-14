@@ -286,6 +286,10 @@ pub fn archive_name(id: u8) -> &'static str {
         archive::MODELS => "model",
         archive::SPRITES => "sprites",
         archive::TEXTURES => "texture",
+        #[cfg(since_742)]
+        archive::TEXTURES_HDR => "texture",
+        #[cfg(since_742)]
+        archive::CUTSCENES => "cutscene",
         archive::BINARY => "binary",
         archive::JINGLES => "jingle",
         archive::CLIENTSCRIPT => "clientscript",

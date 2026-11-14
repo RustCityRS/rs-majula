@@ -21,7 +21,7 @@ impl ClientGameHandler for ApCoordT {
         // A source holding an obj is an item, and no item is aimed at a tile:
         // the backpack can't target one.
         if active.player.state.delayed
-            || self.obj != u16::MAX
+            || !self.obj.is_null()
             || !spell_component_ok(active, self.com, self.slot, action_target::COORD)
             || !in_build_area(active, self.x, self.z)
         {

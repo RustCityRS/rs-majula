@@ -1,6 +1,6 @@
-use super::decode::{read_array, read_pairs};
+use super::decode::{read_array, read_big_id, read_id, read_pairs};
 #[cfg(since_647)]
-use super::decode::{read_id, read_optional_id, read_transforms};
+use super::decode::{read_optional_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
@@ -9,6 +9,7 @@ use crate::types::MultiVar;
 use crate::types::{BlockWalk, MoveRestrict, NpcMode};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub type NpcTypeProvider = TypeProvider<NpcType>;
@@ -20,18 +21,18 @@ pub struct NpcPatrol {
 }
 
 pub struct NpcType {
-    pub id: u16,
+    pub id: TypeId,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
     pub size: u8,
-    pub category: Option<u16>,
+    pub category: Option<TypeId>,
     pub timer: Option<u16>,
     pub respawnrate: u16,
     pub regenrate: u16,
     pub moverestrict: MoveRestrict,
     pub blockwalk: BlockWalk,
     pub defaultmode: NpcMode,
-    pub huntmode: Option<u16>,
+    pub huntmode: Option<TypeId>,
     pub wanderrange: u16,
     pub maxrange: u16,
     pub huntrange: u8,
@@ -52,8 +53,8 @@ pub struct NpcType {
     #[cfg(since_647)]
     pub multivar: Option<MultiVar>,
     #[cfg(since_647)]
-    pub multinpc: Option<Box<[i32]>>,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    pub multinpc: Option<Box<[TypeId]>>,
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     pub debugname: Box<str>,
 }
 
@@ -63,16 +64,16 @@ impl NpcType {
     /// [`LocType::multi_loc`](super::loc::LocType::multi_loc) picks. `None`
     /// when it shows as nothing; its own id when it is no multi-npc.
     #[cfg(since_647)]
-    pub fn multi_npc(&self, var_value: i32) -> Option<u16> {
+    pub fn multi_npc(&self, var_value: i32) -> Option<TypeId> {
         let Some(multi) = self.multinpc.as_deref() else {
             return Some(self.id);
         };
         multi
             .get(var_value as usize)
             .copied()
-            .filter(|&id| id != -1)
+            .filter(|id| !id.is_null())
             .or_else(|| multi.last().copied())
-            .and_then(|id| u16::try_from(id).ok())
+            .and_then(TypeId::non_null)
     }
 }
 
@@ -126,26 +127,26 @@ impl From<NpcTypeRaw> for NpcType {
 
 #[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct NpcTypeRaw {
-    pub id: u16,
-    pub models: Option<Box<[u16]>>,
+    pub id: TypeId,
+    pub models: Option<Box<[TypeId]>>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
     pub size: u8,
-    pub readyanim: Option<u16>,
-    pub walkanim: Option<u16>,
+    pub readyanim: Option<TypeId>,
+    pub walkanim: Option<TypeId>,
     #[cfg(before_254)]
     pub hasalpha: bool,
-    pub walkanim_b: Option<u16>,
-    pub walkanim_r: Option<u16>,
-    pub walkanim_l: Option<u16>,
-    pub category: Option<u16>,
+    pub walkanim_b: Option<TypeId>,
+    pub walkanim_r: Option<TypeId>,
+    pub walkanim_l: Option<TypeId>,
+    pub category: Option<TypeId>,
     pub timer: Option<u16>,
     pub respawnrate: u16,
     pub regenrate: u16,
     pub moverestrict: MoveRestrict,
     pub blockwalk: BlockWalk,
     pub defaultmode: NpcMode,
-    pub huntmode: Option<u16>,
+    pub huntmode: Option<TypeId>,
     pub wanderrange: u16,
     pub maxrange: Option<u16>,
     pub huntrange: u8,
@@ -162,7 +163,11 @@ pub struct NpcTypeRaw {
     pub retex_d: Option<Box<[u16]>>,
     #[cfg(since_647)]
     pub colour_palette: Option<Box<[u8]>>,
-    pub heads: Option<Box<[u16]>>,
+    #[cfg(since_742)]
+    pub recolindices: Option<u16>,
+    #[cfg(since_742)]
+    pub retexindices: Option<u16>,
+    pub heads: Option<Box<[TypeId]>>,
     pub attack: u16,
     pub defence: u16,
     pub strength: u16,
@@ -187,11 +192,11 @@ pub struct NpcTypeRaw {
     #[cfg(since_289)]
     pub turnspeed: u16,
     #[cfg(since_647)]
-    pub transform_varbit: Option<u16>,
+    pub transform_varbit: Option<TypeId>,
     #[cfg(since_647)]
-    pub transform_varp: Option<u16>,
+    pub transform_varp: Option<TypeId>,
     #[cfg(since_647)]
-    pub transforms: Option<Box<[i32]>>,
+    pub transforms: Option<Box<[TypeId]>>,
     #[cfg(since_647)]
     pub clickable: bool,
     #[cfg(since_647)]
@@ -212,45 +217,45 @@ pub struct NpcTypeRaw {
     #[allow(clippy::type_complexity)]
     pub translations: Option<Box<[(u8, [i8; 3])]>>,
     #[cfg(since_647)]
-    pub hitbar_sprite: Option<u16>,
+    pub hitbar_sprite: Option<TypeId>,
     #[cfg(since_647)]
     pub height: Option<u16>,
     #[cfg(since_647)]
     pub respawn_direction: i8,
     #[cfg(since_647)]
-    pub render_emote: Option<u16>,
+    pub render_emote: Option<TypeId>,
     #[cfg(since_647)]
     pub op128: u8,
     #[cfg(since_647)]
-    pub idle_sound: Option<u16>,
+    pub idle_sound: Option<TypeId>,
     #[cfg(since_647)]
-    pub crawl_sound: Option<u16>,
+    pub crawl_sound: Option<TypeId>,
     #[cfg(since_647)]
-    pub walk_sound: Option<u16>,
+    pub walk_sound: Option<TypeId>,
     #[cfg(since_647)]
-    pub run_sound: Option<u16>,
+    pub run_sound: Option<TypeId>,
     #[cfg(since_647)]
     pub sound_distance: u8,
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     pub primary_cursor_op: Option<u8>,
-    #[cfg(since_647)]
-    pub primary_cursor: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
+    pub primary_cursor: Option<TypeId>,
+    #[cfg(all(since_647, before_742))]
     pub secondary_cursor_op: Option<u8>,
+    #[cfg(all(since_647, before_742))]
+    pub secondary_cursor: Option<TypeId>,
     #[cfg(since_647)]
-    pub secondary_cursor: Option<u16>,
+    pub attack_cursor: Option<TypeId>,
     #[cfg(since_647)]
-    pub attack_cursor: Option<u16>,
+    pub army_icon: Option<TypeId>,
     #[cfg(since_647)]
-    pub army_icon: Option<u16>,
-    #[cfg(since_647)]
-    pub sprite_id: Option<u16>,
+    pub sprite_id: Option<TypeId>,
     #[cfg(since_647)]
     pub ambient_sound_volume: u8,
     #[cfg(since_647)]
     pub visible_priority: bool,
     #[cfg(since_647)]
-    pub mapfunction: Option<u16>,
+    pub mapfunction: Option<TypeId>,
     #[cfg(since_647)]
     pub invisible_priority: bool,
     #[cfg(since_647)]
@@ -279,14 +284,18 @@ pub struct NpcTypeRaw {
     pub pick_size_shift: u8,
     #[cfg(since_647)]
     pub sound_range_min: u8,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    #[cfg(since_742)]
+    pub antimacro: bool,
+    #[cfg(since_742)]
+    pub cursor: [Option<TypeId>; 6],
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     debugname: Box<str>,
 }
 
 impl CacheType for NpcTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         NpcTypeRaw {
             id,
             models: None,
@@ -324,6 +333,10 @@ impl CacheType for NpcTypeRaw {
             retex_d: None,
             #[cfg(since_647)]
             colour_palette: None,
+            #[cfg(since_742)]
+            recolindices: None,
+            #[cfg(since_742)]
+            retexindices: None,
             heads: None,
             attack: 1,
             defence: 1,
@@ -392,13 +405,13 @@ impl CacheType for NpcTypeRaw {
             run_sound: None,
             #[cfg(since_647)]
             sound_distance: 0,
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             primary_cursor_op: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             primary_cursor: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             secondary_cursor_op: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             secondary_cursor: None,
             #[cfg(since_647)]
             attack_cursor: None,
@@ -440,6 +453,10 @@ impl CacheType for NpcTypeRaw {
             pick_size_shift: 0,
             #[cfg(since_647)]
             sound_range_min: 0,
+            #[cfg(since_742)]
+            antimacro: true,
+            #[cfg(since_742)]
+            cursor: [None; 6],
             params: None,
             debugname: Box::default(),
         }
@@ -447,31 +464,31 @@ impl CacheType for NpcTypeRaw {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.models = Some(read_array(buf, Packet::g2)),
+            1 => self.models = Some(read_array(buf, read_big_id)),
             2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             12 => self.size = buf.g1(),
             #[cfg(before_647)]
-            13 => self.readyanim = Some(buf.g2()),
+            13 => self.readyanim = Some(read_id(buf)),
             #[cfg(before_647)]
-            14 => self.walkanim = Some(buf.g2()),
+            14 => self.walkanim = Some(read_id(buf)),
             #[cfg(before_254)]
             16 => self.hasalpha = true,
             #[cfg(before_647)]
             17 => {
-                self.walkanim = Some(buf.g2());
-                self.walkanim_b = Some(buf.g2());
-                self.walkanim_r = Some(buf.g2());
-                self.walkanim_l = Some(buf.g2());
+                self.walkanim = Some(read_id(buf));
+                self.walkanim_b = Some(read_id(buf));
+                self.walkanim_r = Some(read_id(buf));
+                self.walkanim_l = Some(read_id(buf));
             }
-            18 => self.category = Some(buf.g2()),
+            18 => self.category = Some(read_id(buf)),
             19 => self.timer = Some(buf.g2()),
             20 => self.respawnrate = buf.g2(),
             21 => self.regenrate = buf.g2(),
             22 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
             23 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
             24 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
-            25 => self.huntmode = Some(buf.g1() as u16),
+            25 => self.huntmode = Some(TypeId::new(buf.g1().into())),
             26 => self.wanderrange = buf.g2(),
             27 => self.maxrange = Some(buf.g2()),
             28 => self.huntrange = buf.g1(),
@@ -490,7 +507,11 @@ impl CacheType for NpcTypeRaw {
             41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
             #[cfg(since_647)]
             42 => self.colour_palette = Some(read_array(buf, Packet::g1)),
-            60 => self.heads = Some(read_array(buf, Packet::g2)),
+            #[cfg(since_742)]
+            44 => self.recolindices = Some(buf.g2()),
+            #[cfg(since_742)]
+            45 => self.retexindices = Some(buf.g2()),
+            60 => self.heads = Some(read_array(buf, read_big_id)),
             74 => self.attack = buf.g2(),
             75 => self.defence = buf.g2(),
             76 => self.strength = buf.g2(),
@@ -546,13 +567,13 @@ impl CacheType for NpcTypeRaw {
                 }));
             }
             #[cfg(since_647)]
-            122 => self.hitbar_sprite = Some(buf.g2()),
+            122 => self.hitbar_sprite = Some(read_id(buf)),
             #[cfg(since_647)]
             123 => self.height = Some(buf.g2()),
             #[cfg(since_647)]
             125 => self.respawn_direction = buf.g1s(),
             #[cfg(since_647)]
-            127 => self.render_emote = Some(buf.g2()),
+            127 => self.render_emote = Some(read_id(buf)),
             #[cfg(since_647)]
             128 => self.op128 = buf.g1(),
             #[cfg(since_647)]
@@ -563,28 +584,28 @@ impl CacheType for NpcTypeRaw {
                 self.run_sound = read_optional_id(buf);
                 self.sound_distance = buf.g1();
             }
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             135 => {
                 self.primary_cursor_op = Some(buf.g1());
-                self.primary_cursor = Some(buf.g2());
+                self.primary_cursor = Some(read_id(buf));
             }
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             136 => {
                 self.secondary_cursor_op = Some(buf.g1());
-                self.secondary_cursor = Some(buf.g2());
+                self.secondary_cursor = Some(read_id(buf));
             }
             #[cfg(since_647)]
-            137 => self.attack_cursor = Some(buf.g2()),
+            137 => self.attack_cursor = Some(read_id(buf)),
             #[cfg(since_647)]
-            138 => self.army_icon = Some(buf.g2()),
+            138 => self.army_icon = Some(read_big_id(buf)),
             #[cfg(since_647)]
-            139 => self.sprite_id = Some(buf.g2()),
+            139 => self.sprite_id = Some(read_id(buf)),
             #[cfg(since_647)]
             140 => self.ambient_sound_volume = buf.g1(),
             #[cfg(since_647)]
             141 => self.visible_priority = true,
             #[cfg(since_647)]
-            142 => self.mapfunction = Some(buf.g2()),
+            142 => self.mapfunction = Some(read_id(buf)),
             #[cfg(since_647)]
             143 => self.invisible_priority = true,
             #[cfg(since_647)]
@@ -618,6 +639,10 @@ impl CacheType for NpcTypeRaw {
             165 => self.pick_size_shift = buf.g1(),
             #[cfg(since_647)]
             168 => self.sound_range_min = buf.g1(),
+            #[cfg(since_742)]
+            169 => self.antimacro = false,
+            #[cfg(since_742)]
+            170..=175 => self.cursor[code as usize - 170] = Some(read_id(buf)),
             249 => {
                 ParamType::decode_params(
                     buf,
@@ -647,7 +672,11 @@ impl NpcTypeRaw {
     fn decode_multinpc(&mut self, buf: &mut Packet, has_default: bool) {
         self.transform_varbit = read_optional_id(buf);
         self.transform_varp = read_optional_id(buf);
-        let default = if has_default { read_id(buf) } else { -1 };
-        self.transforms = Some(read_transforms(buf, default));
+        let default = if has_default {
+            read_id(buf)
+        } else {
+            TypeId::NULL
+        };
+        self.transforms = Some(read_transforms(buf, default, read_id));
     }
 }

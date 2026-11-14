@@ -32,7 +32,10 @@ impl InfoMessage for PlayerInfoFaceCoord {
 #[cfg(since_647)]
 impl InfoMessage for PlayerInfoFaceCoord {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        #[cfg(before_742)]
         buf.p2_alt2(self.angle());
+        #[cfg(since_742)]
+        buf.p2_alt1(self.angle());
     }
 
     fn sizeof(&self) -> usize {

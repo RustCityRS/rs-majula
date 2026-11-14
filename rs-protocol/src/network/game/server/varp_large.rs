@@ -25,9 +25,16 @@ impl ServerProtMessage for VarpLarge {
 
 #[cfg(since_647)]
 impl ServerProtMessage for VarpLarge {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
         buf.p4_alt2(self.val);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt1(self.val);
+        buf.p2_alt2(self.id);
     }
 
     fn sizeof(&self) -> usize {

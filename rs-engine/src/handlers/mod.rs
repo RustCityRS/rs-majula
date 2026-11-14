@@ -64,6 +64,8 @@ pub mod unsupported;
 pub mod url_request;
 #[cfg(since_647)]
 pub mod window_status;
+#[cfg(since_647)]
+pub mod worldlist_fetch;
 
 use crate::active_player::ActivePlayer;
 use rs_vm::ScriptError;

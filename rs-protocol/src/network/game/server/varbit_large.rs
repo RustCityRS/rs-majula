@@ -18,9 +18,16 @@ pub struct VarbitLarge {
 
 #[cfg(since_647)]
 impl ServerProtMessage for VarbitLarge {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p2_alt1(self.id);
         buf.p4_alt1(self.val);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.val);
+        buf.p2_alt3(self.id);
     }
 
     fn sizeof(&self) -> usize {

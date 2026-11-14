@@ -27,7 +27,8 @@ impl ClientProtMessage for MessagePrivate {
 }
 
 #[cfg(since_647)]
-#[client_prot(VarByte { min: 2 }, UserEvent)]
+#[cfg_attr(before_742, client_prot(VarByte { min: 2 }, UserEvent))]
+#[cfg_attr(since_742, client_prot(VarShort { min: 2 }, UserEvent))]
 pub struct MessagePrivate {
     pub name: String,
     pub chars: u16,

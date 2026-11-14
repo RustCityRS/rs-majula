@@ -58,8 +58,13 @@ pub struct MouseSample {
 }
 
 #[cfg(since_254)]
-#[client_prot(VarByte { min: 0 }, ClientEvent)]
+#[cfg_attr(before_742, client_prot(VarByte { min: 0 }, ClientEvent))]
+#[cfg_attr(since_742, client_prot(VarByte { min: 2 }, ClientEvent))]
 pub struct EventMouseMove {
+    #[cfg(since_742)]
+    pub average_time: u8,
+    #[cfg(since_742)]
+    pub remaining_time: u8,
     pub samples: Vec<MouseSample>,
 }
 
@@ -110,6 +115,8 @@ impl ClientProtMessage for EventMouseMove {
 #[cfg(since_647)]
 impl ClientProtMessage for EventMouseMove {
     fn decode(buf: &mut Packet, len: usize) -> Self {
+        #[cfg(since_742)]
+        let (average_time, remaining_time) = (buf.g1(), buf.g1());
         let mut samples = Vec::with_capacity(len >> 1);
         while buf.pos < len {
             let first = buf.data[buf.pos];
@@ -154,6 +161,12 @@ impl ClientProtMessage for EventMouseMove {
             };
             samples.push(sample);
         }
-        EventMouseMove { samples }
+        EventMouseMove {
+            #[cfg(since_742)]
+            average_time,
+            #[cfg(since_742)]
+            remaining_time,
+            samples,
+        }
     }
 }

@@ -1,0 +1,75 @@
+// 4792
+[proc,clientscript_4792](int $int0, int $int1)(int, int, int, int, int, int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_struct $struct14 = enum(int, struct, enum_4008, $int0);
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_graphic $graphic21 = null;
+def_string $string0 = "";
+if ($int0 < 1 | $int0 > 900) {
+    mes("Clan Build Tick : Attempting to look up build cost for invalid job <tostring($int0)>.");
+    return(0, 0, 0, 0, 0, 0);
+}
+$graphic21, $string0, $int11, $int12, $int13, $int8, $int9, $int10 = ~clientscript_4791($int0);
+def_struct $struct22 = null;
+if ($int0 < 600) {
+    switch_int ($int8) {
+        case 1 :
+            $struct22 = struct_2021;
+        case 2 :
+            $struct22 = struct_2022;
+        case 3 :
+            $struct22 = struct_2023;
+        case 4 :
+            $struct22 = enum(int, struct, enum_4010, $int10);
+        case 5 :
+            $struct22 = $struct14;
+    }
+} else {
+    switch_int ($int8) {
+        case 1 :
+            $struct22 = struct_2031;
+        case 2 :
+            $struct22 = struct_2032;
+        case 3 :
+            $struct22 = struct_2033;
+        case 4 :
+            $struct22 = enum(int, struct, enum_4009, $int10);
+        case 5 :
+            $struct22 = $struct14;
+    }
+}
+if ($int1 = 0) {
+    return(0, 0, 0, 0, 0, 0);
+}
+switch_int ($int1) {
+    case 1 :
+        return(struct_param($struct22, param_1483), struct_param($struct22, param_1490), struct_param($struct22, param_1497), struct_param($struct22, param_1504), struct_param($struct22, param_1511), struct_param($struct22, param_1518));
+    case 2 :
+        return(struct_param($struct22, param_1484), struct_param($struct22, param_1491), struct_param($struct22, param_1498), struct_param($struct22, param_1505), struct_param($struct22, param_1512), struct_param($struct22, param_1519));
+    case 3 :
+        return(struct_param($struct22, param_1485), struct_param($struct22, param_1492), struct_param($struct22, param_1499), struct_param($struct22, param_1506), struct_param($struct22, param_1513), struct_param($struct22, param_1520));
+    case 4 :
+        return(struct_param($struct22, param_1486), struct_param($struct22, param_1493), struct_param($struct22, param_1500), struct_param($struct22, param_1507), struct_param($struct22, param_1514), struct_param($struct22, param_1521));
+    case 5 :
+        return(struct_param($struct22, param_1487), struct_param($struct22, param_1494), struct_param($struct22, param_1501), struct_param($struct22, param_1508), struct_param($struct22, param_1515), struct_param($struct22, param_1522));
+    case 6 :
+        return(struct_param($struct22, param_1488), struct_param($struct22, param_1495), struct_param($struct22, param_1502), struct_param($struct22, param_1509), struct_param($struct22, param_1516), struct_param($struct22, param_1523));
+    case 7 :
+        return(struct_param($struct22, param_1489), struct_param($struct22, param_1496), struct_param($struct22, param_1503), struct_param($struct22, param_1510), struct_param($struct22, param_1517), struct_param($struct22, param_1524));
+}

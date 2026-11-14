@@ -1,0 +1,12 @@
+// 6332
+[proc,clientscript_6332](int $int0, component $component1, component $component2, component $component3)
+if ($int0 = 1) {
+    if_setgraphic($component1, 11512);
+    if_sethide($component2, false);
+    if_settrans($component3, 255);
+    if_setontimer($component3, "clientscript_6333(event_com)");
+    return;
+}
+if_setgraphic($component1, 11511);
+if_sethide($component2, true);
+if_setontimer($component3, null);

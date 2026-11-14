@@ -95,7 +95,6 @@ pub fn has_sections(aid: u8) -> bool {
 
 pub fn extension(aid: u8) -> Option<&'static str> {
     Some(match aid {
-        archive::BASES => "base",
         archive::BINARY => "huffman",
         archive::FONTMETRICS => "fontmetrics",
         archive::DEFAULTS => "defaults",
@@ -127,7 +126,6 @@ pub fn pack(aid: u8, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>
 
 fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
     match aid {
-        archive::BASES => base(c),
         archive::BINARY => {
             c.array("code_lengths", Number::U8, 256)?;
             Ok(())
@@ -139,18 +137,6 @@ fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
         archive::WORLDMAP => worldmap_source::transcode(c),
         _ => bail!("Unsupported text asset {aid}/{gid}"),
     }
-}
-
-fn base(c: &mut TextCodec<'_>) -> Result<()> {
-    let count = c.number("bones", Number::U8)? as usize;
-    c.array("transforms", Number::U8, count)?;
-    c.array("active", Number::U8, count)?;
-    c.array("masks", Number::U16, count)?;
-    let lengths = c.array("label_counts", Number::U8, count)?;
-    for (i, count) in lengths.into_iter().enumerate() {
-        c.array(&format!("bone{i}"), Number::U8, count as usize)?;
-    }
-    Ok(())
 }
 
 fn font(c: &mut TextCodec<'_>) -> Result<()> {

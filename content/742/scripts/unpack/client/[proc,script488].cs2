@@ -1,0 +1,24 @@
+// 488
+[proc,script488](int $int0)(struct)
+switch_int ($int0) {
+    case default :
+        return(null);
+    case 1 :
+        return(struct_293);
+    case 2 :
+        return(struct_299);
+    case 3 :
+        return(struct_300);
+    case 4 :
+        return(struct_301);
+    case 5 :
+        return(struct_305);
+    case 6 :
+        return(struct_1044);
+    case 7 :
+        return(struct_1045);
+    case 8 :
+        return(struct_1046);
+    case 9 :
+        return(struct_1047);
+}

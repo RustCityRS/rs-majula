@@ -106,6 +106,7 @@ pub fn pack_invs(
             for stock in &stocks {
                 let obj = stock.first().map(|s| s.trim()).unwrap();
                 let count = stock.get(1).map(|s| s.trim()).unwrap();
+                #[cfg(before_742)]
                 let rate = stock.get(2).map(|s| s.trim());
 
                 parse_ref(&registry.obj, "obj", obj, |v| {
@@ -113,6 +114,7 @@ pub fn pack_invs(
                     parse_number(count, |v| {
                         server.p2(v);
                     });
+                    #[cfg(before_742)]
                     match rate {
                         Some(r) => parse_number(r, |v| {
                             server.p4(v);
@@ -120,6 +122,16 @@ pub fn pack_invs(
                         None => server.p4(0),
                     }
                 });
+            }
+
+            // 10, the server's restock rates apart from the client's stock
+            #[cfg(since_742)]
+            if stocks.iter().any(|stock| stock.len() > 2) {
+                server.p1(10);
+                server.p1(stocks.len() as u8);
+                for stock in &stocks {
+                    parse_number(stock.get(2).copied().unwrap_or("0"), |v| server.p4(v));
+                }
             }
         }
 
@@ -146,6 +158,25 @@ pub fn pack_invs(
                         client.p1(2);
                         client.p2(v);
                     });
+                }
+            }
+            #[cfg(since_742)]
+            {
+                let stocks: Vec<&str> = props
+                    .iter()
+                    .filter(|(key, _)| key.starts_with("stock"))
+                    .map(|(_, value)| value.as_str())
+                    .collect();
+                if !stocks.is_empty() {
+                    client.p1(4);
+                    client.p1(stocks.len() as u8);
+                    for stock in stocks {
+                        let mut parts = stock.split(',').map(str::trim);
+                        parse_ref(&registry.obj, "obj", parts.next().unwrap(), |v| {
+                            client.p2(v)
+                        });
+                        parse_number(parts.next().unwrap(), |v| client.p2(v));
+                    }
                 }
             }
         },

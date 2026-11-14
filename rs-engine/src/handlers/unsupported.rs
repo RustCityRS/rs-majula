@@ -2,7 +2,6 @@ use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::{
     ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName, FriendSetRank,
-    WorldlistFetch,
 };
 use rs_vm::ScriptError;
 use tracing::debug;
@@ -24,5 +23,4 @@ unsupported!(
     ClanchannelKickUser => "clan channels",
     CreateCheckName => "lobby name checks",
     FriendSetRank => "friends-chat ranks",
-    WorldlistFetch => "world-list service",
 );

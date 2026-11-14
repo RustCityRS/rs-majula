@@ -1,0 +1,27 @@
+// 4043
+[clientscript,warguild_tag_tick]
+if (%warguild_tagged_1st = 0) {
+    if_sethide(warguild_token_overlay:tick_1, true);
+} else {
+    if_sethide(warguild_token_overlay:tick_1, false);
+}
+if (%warguild_tagged_2nd = 0) {
+    if_sethide(warguild_token_overlay:tick_2, true);
+} else {
+    if_sethide(warguild_token_overlay:tick_2, false);
+}
+if (%warguild_tagged_3rd = 0) {
+    if_sethide(warguild_token_overlay:tick_3, true);
+} else {
+    if_sethide(warguild_token_overlay:tick_3, false);
+}
+if (%warguild_tagged_4th = 0) {
+    if_sethide(warguild_token_overlay:tick_4, true);
+} else {
+    if_sethide(warguild_token_overlay:tick_4, false);
+}
+if (%warguild_tagged_5th = 0) {
+    if_sethide(warguild_token_overlay:tick_5, true);
+} else {
+    if_sethide(warguild_token_overlay:tick_5, false);
+}

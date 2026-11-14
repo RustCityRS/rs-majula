@@ -1,0 +1,17 @@
+// 945
+[proc,clientscript_945](int $int0, int $int1, int $int2)
+$int0 = min(100, $int0);
+$int0 = max(0, $int0);
+def_int $int3 = calc($int0 * 25 / 10);
+if_setposition(interface_1246:com_21, 0, calc(250 - $int3), ^setpos_abs_left, ^setpos_abs_top);
+if_settext(interface_1246:com_17, "<tostring($int1)>%");
+if ($int2 = 1) {
+    if_setposition(interface_1246:com_5, 32, 217, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(interface_1246:com_6, 32, 167, ^setpos_abs_left, ^setpos_abs_top);
+} else if ($int2 = 2) {
+    if_setposition(interface_1246:com_5, 32, 130, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(interface_1246:com_6, 32, 92, ^setpos_abs_left, ^setpos_abs_top);
+} else if ($int2 = 3) {
+    if_setposition(interface_1246:com_5, 32, 67, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(interface_1246:com_6, 32, 42, ^setpos_abs_left, ^setpos_abs_top);
+}

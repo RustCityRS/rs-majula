@@ -1,0 +1,11 @@
+// 1988
+[proc,script1988]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %varplayerbit_8180);
+$int0 = calc($int0 + %varplayerbit_8181);
+$int0 = calc($int0 + %varplayerbit_8188);
+$int0 = calc($int0 + %varplayerbit_8191);
+$int0 = calc($int0 + %varplayerbit_8192);
+$int0 = calc($int0 + %varplayerbit_8193);
+$int0 = calc($int0 + %varplayerbit_8194);
+return($int0);

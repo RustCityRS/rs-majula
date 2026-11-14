@@ -1,0 +1,174 @@
+// 4829
+[proc,clientscript_4829](int $int0)(int)
+def_int $int1 = ~clientscript_4830($int0);
+if ($int1 ! 1) {
+    return($int1);
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+switch_int ($int0) {
+    case 1 :
+        $int2 = %varplayerbit_9570;
+        $int3 = %varplayerbit_9562;
+        $int7 = %varplayerbit_9563;
+        $int4 = %varplayerbit_9567;
+        $int5 = %varplayerbit_9568;
+        $int6 = %varplayerbit_9569;
+    case 2 :
+        $int2 = %varplayerbit_9579;
+        $int3 = %varplayerbit_9571;
+        $int7 = %varplayerbit_9572;
+        $int4 = %varplayerbit_9576;
+        $int5 = %varplayerbit_9577;
+        $int6 = %varplayerbit_9578;
+    case 3 :
+        $int2 = %varplayerbit_9588;
+        $int3 = %varplayerbit_9580;
+        $int7 = %varplayerbit_9581;
+        $int4 = %varplayerbit_9585;
+        $int5 = %varplayerbit_9586;
+        $int6 = %varplayerbit_9587;
+}
+switch_int ($int2) {
+    case 100 :
+        if ($int3 = %varclan_2210 & $int7 = %varclan_2211 & $int4 = %varclan_2216 & $int5 = %varclan_2217 & $int6 = %varclan_2218) {
+            $int1 = 4;
+        }
+    case 101 :
+        if ($int3 = %varclan_2220 & $int7 = %varclan_2221 & $int4 = %varclan_2226 & $int5 = %varclan_2227 & $int6 = %varclan_2228) {
+            $int1 = 4;
+        }
+    case 102 :
+        if ($int3 = %varclan_2240 & $int7 = %varclan_2241 & $int4 = %varclan_2246 & $int5 = %varclan_2247 & $int6 = %varclan_2248) {
+            $int1 = 4;
+        }
+    case 103 :
+        if ($int3 = %varclan_2190 & $int7 = %varclan_2191 & $int4 = %varclan_2196 & $int5 = %varclan_2197 & $int6 = %varclan_2198) {
+            $int1 = 4;
+        }
+    case 104 :
+        if ($int3 = %varclan_2230 & $int7 = %varclan_2231 & $int4 = %varclan_2236 & $int5 = %varclan_2237 & $int6 = %varclan_2238) {
+            $int1 = 4;
+        }
+    case 105 :
+        if ($int3 = %varclan_2200 & $int7 = %varclan_2201 & $int4 = %varclan_2206 & $int5 = %varclan_2207 & $int6 = %varclan_2208) {
+            $int1 = 4;
+        }
+    case 106 :
+        if ($int3 = %varclan_2260 & $int7 = %varclan_2261 & $int4 = %varclan_2266 & $int5 = %varclan_2267 & $int6 = %varclan_2268) {
+            $int1 = 4;
+        }
+    case 107 :
+        if ($int3 = %varclan_2270 & $int7 = %varclan_2271 & $int4 = %varclan_2276 & $int5 = %varclan_2277 & $int6 = %varclan_2278) {
+            $int1 = 4;
+        }
+    case 108 :
+        if ($int3 = %varclan_2280 & $int7 = %varclan_2281 & $int4 = %varclan_2286 & $int5 = %varclan_2287 & $int6 = %varclan_2288) {
+            $int1 = 4;
+        }
+    case 109 :
+        if ($int3 = %varclan_2250 & $int7 = %varclan_2251 & $int4 = %varclan_2256 & $int5 = %varclan_2257 & $int6 = %varclan_2258) {
+            $int1 = 4;
+        }
+    case 110 :
+        if ($int3 = %varclan_2290 & $int7 = %varclan_2291 & $int4 = %varclan_2296 & $int5 = %varclan_2297 & $int6 = %varclan_2298) {
+            $int1 = 4;
+        }
+    case 111 :
+        if ($int3 = %varclan_2300 & $int7 = %varclan_2301 & $int4 = %varclan_2306 & $int5 = %varclan_2307 & $int6 = %varclan_2308) {
+            $int1 = 4;
+        }
+    case 112 :
+        if ($int3 = %varclan_2310 & $int7 = %varclan_2311 & $int4 = %varclan_2316 & $int5 = %varclan_2317 & $int6 = %varclan_2318) {
+            $int1 = 4;
+        }
+    case 113 :
+        if ($int3 = %varclan_2320 & $int7 = %varclan_2321 & $int4 = %varclan_2326 & $int5 = %varclan_2327 & $int6 = %varclan_2328) {
+            $int1 = 4;
+        }
+    case 21 :
+        if ($int3 = %varclan_2330 & $int7 = %varclan_2331 & $int4 = %varclan_2336 & $int5 = %varclan_2337 & $int6 = %varclan_2338) {
+            $int1 = 4;
+        }
+    case 22 :
+        if ($int3 = %varclan_2340 & $int7 = %varclan_2341 & $int4 = %varclan_2346 & $int5 = %varclan_2347 & $int6 = %varclan_2348) {
+            $int1 = 4;
+        }
+    case 23 :
+        if ($int3 = %varclan_2350 & $int7 = %varclan_2351 & $int4 = %varclan_2356 & $int5 = %varclan_2357 & $int6 = %varclan_2358) {
+            $int1 = 4;
+        }
+    case 24 :
+        if ($int3 = %varclan_2360 & $int7 = %varclan_2361 & $int4 = %varclan_2366 & $int5 = %varclan_2367 & $int6 = %varclan_2368) {
+            $int1 = 4;
+        }
+    case 25 :
+        if ($int3 = %varclan_2370 & $int7 = %varclan_2371 & $int4 = %varclan_2376 & $int5 = %varclan_2377 & $int6 = %varclan_2378) {
+            $int1 = 4;
+        }
+    case 26 :
+        if ($int3 = %varclan_2380 & $int7 = %varclan_2381 & $int4 = %varclan_2386 & $int5 = %varclan_2387 & $int6 = %varclan_2388) {
+            $int1 = 4;
+        }
+    case 27 :
+        if ($int3 = %varclan_2390 & $int7 = %varclan_2391 & $int4 = %varclan_2396 & $int5 = %varclan_2397 & $int6 = %varclan_2398) {
+            $int1 = 4;
+        }
+    case 28 :
+        if ($int3 = %varclan_2400 & $int7 = %varclan_2401 & $int4 = %varclan_2406 & $int5 = %varclan_2407 & $int6 = %varclan_2408) {
+            $int1 = 4;
+        }
+    case 31 :
+        if ($int3 = %varclan_2460 & $int7 = %varclan_2461 & $int4 = %varclan_2466 & $int5 = %varclan_2467 & $int6 = %varclan_2468) {
+            $int1 = 4;
+        }
+    case 32 :
+        if ($int3 = %varclan_2470 & $int7 = %varclan_2471 & $int4 = %varclan_2476 & $int5 = %varclan_2477 & $int6 = %varclan_2478) {
+            $int1 = 4;
+        }
+    case 33 :
+        if ($int3 = %varclan_2480 & $int7 = %varclan_2481 & $int4 = %varclan_2486 & $int5 = %varclan_2487 & $int6 = %varclan_2488) {
+            $int1 = 4;
+        }
+    case 34 :
+        if ($int3 = %varclan_2490 & $int7 = %varclan_2491 & $int4 = %varclan_2496 & $int5 = %varclan_2497 & $int6 = %varclan_2498) {
+            $int1 = 4;
+        }
+    case 35 :
+        if ($int3 = %varclan_2500 & $int7 = %varclan_2501 & $int4 = %varclan_2506 & $int5 = %varclan_2507 & $int6 = %varclan_2508) {
+            $int1 = 4;
+        }
+    case 41 :
+        if ($int3 = %varclan_2410 & $int7 = %varclan_2411 & $int4 = %varclan_2416 & $int5 = %varclan_2417 & $int6 = %varclan_2418) {
+            $int1 = 4;
+        }
+    case 42 :
+        if ($int3 = %varclan_2420 & $int7 = %varclan_2421 & $int4 = %varclan_2426 & $int5 = %varclan_2427 & $int6 = %varclan_2428) {
+            $int1 = 4;
+        }
+    case 43 :
+        if ($int3 = %varclan_2430 & $int7 = %varclan_2431 & $int4 = %varclan_2436 & $int5 = %varclan_2437 & $int6 = %varclan_2438) {
+            $int1 = 4;
+        }
+    case 44 :
+        if ($int3 = %varclan_2440 & $int7 = %varclan_2441 & $int4 = %varclan_2446 & $int5 = %varclan_2447 & $int6 = %varclan_2448) {
+            $int1 = 4;
+        }
+    case 45 :
+        if ($int3 = %varclan_2450 & $int7 = %varclan_2451 & $int4 = %varclan_2456 & $int5 = %varclan_2457 & $int6 = %varclan_2458) {
+            $int1 = 4;
+        }
+    case 51 :
+        if ($int3 = %varclan_2510 & $int7 = %varclan_2511 & $int4 = %varclan_2516 & $int5 = %varclan_2517 & $int6 = %varclan_2518) {
+            $int1 = 4;
+        }
+    case 61 :
+        if ($int3 = %varclan_2846 & $int7 = %varclan_2847 & $int4 = %varclan_2852 & $int5 = %varclan_2853 & $int6 = %varclan_2854) {
+            $int1 = 4;
+        }
+}
+return($int1);

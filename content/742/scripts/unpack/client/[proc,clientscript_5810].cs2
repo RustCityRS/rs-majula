@@ -1,0 +1,7 @@
+// 5810
+[proc,clientscript_5810](component $component0)
+def_graphic $graphic1 = "aif_bronze_close_button_1,0";
+def_graphic $graphic2 = "aif_bronze_close_button_1,1";
+if_setgraphic($component0, $graphic1);
+if_setonmouseover($component0, "graphic_swapper(event_com, $graphic2)");
+if_setonmouseleave($component0, "graphic_swapper(event_com, $graphic1)");

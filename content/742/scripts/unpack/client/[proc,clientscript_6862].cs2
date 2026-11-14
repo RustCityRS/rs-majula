@@ -1,0 +1,39 @@
+// 6862
+[proc,clientscript_6862](component $component0)
+def_graphic $graphic1 = if_getgraphic($component0);
+def_graphic $graphic2 = $graphic1;
+switch_graphic ($graphic1) {
+    case 13764 :
+        $graphic2 = 13765;
+    case 13765 :
+        $graphic2 = 13764;
+    case 13766 :
+        $graphic2 = 13767;
+    case 13767 :
+        $graphic2 = 13767;
+    case 13760 :
+        $graphic2 = 13761;
+    case 13761 :
+        $graphic2 = 13760;
+    case 13762 :
+        $graphic2 = 13763;
+    case 13763 :
+        $graphic2 = 13763;
+    case 13756 :
+        $graphic2 = 13757;
+    case 13757 :
+        $graphic2 = 13756;
+    case 13758 :
+        $graphic2 = 13759;
+    case 13759 :
+        $graphic2 = 13759;
+    case 13752 :
+        $graphic2 = 13753;
+    case 13753 :
+        $graphic2 = 13752;
+    case 13754 :
+        $graphic2 = 13755;
+    case 13755 :
+        $graphic2 = 13755;
+}
+if_setgraphic($component0, $graphic2);

@@ -40,6 +40,7 @@ use rs_pack::cache::script::ScriptProvider;
 use rs_pack::startup::InterfaceLayout;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
+use rs_ver::TypeId;
 pub use rs_vm::engine::with_engine;
 use rs_vm::engine::{engine_typed, engine_typed_mut};
 use rs_vm::register::OpsRegistry;
@@ -147,7 +148,7 @@ pub struct Engine {
     pub npc_info: NpcInfo,
     pub player_snapshots: PlayerSnapshots,
     pub npc_snapshots: Box<[NpcSnapshot; MAX_NPCS]>,
-    pub invs: FxHashMap<u16, Inventory>,
+    pub invs: FxHashMap<TypeId, Inventory>,
     pub ops: OpsRegistry,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
@@ -157,7 +158,7 @@ pub struct Engine {
     pub controllers: Controllers,
     #[cfg(since_647)]
     pub(crate) dropped_zones: Vec<ZoneCoordGrid>,
-    pub obj_appeared: FxHashMap<(CoordGrid, u16), Instant>,
+    pub obj_appeared: FxHashMap<(CoordGrid, TypeId), Instant>,
     pub world_queue: LinkList<ScriptState>,
     pub npc_events: LinkList<NpcEvent>,
     pub obj_delayed_queue: LinkList<ObjDelayedRequest>,
@@ -424,8 +425,8 @@ impl Engine {
                 if let Some(old) = self.cache.varcs.get_by_id(varc.id, string)
                     && old.var_type == varc.var_type
                 {
-                    let from = self.cache.varcs.index(varc.id, string);
-                    let to = new_store.varcs.index(varc.id, string);
+                    let from = self.cache.varcs.index(varc.id.g2(), string);
+                    let to = new_store.varcs.index(varc.id.g2(), string);
                     varcs[to] = active.player.varcs[from].clone();
                 }
             }

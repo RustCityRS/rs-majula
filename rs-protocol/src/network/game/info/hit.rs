@@ -24,6 +24,14 @@ const HITMARK_DARKER: i32 = 14;
 /// A hit shown at once.
 const NO_DELAY: i32 = 0;
 
+/// Config headbar_0, the health bar every entity shows.
+#[cfg(since_742)]
+const HEADBAR_HEALTH: i32 = 0;
+
+/// A bar set to its fill at once: no end fill follows.
+#[cfg(since_742)]
+const HEADBAR_NOW: i32 = 0;
+
 /// A full health bar.
 const FULL: u32 = 255;
 
@@ -56,10 +64,20 @@ impl Hit {
     /// `HitSplat.write`). `bright` is the view of its receiver and dealer;
     /// anyone else sees it darker, and sees no splat for a hit of nothing
     /// (32766), only the health bar. Both views are the same length (cache
-    /// 786's hitmarks all darken to a one-byte smart).
-    pub fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>, bright: bool) {
+    /// 786's hitmarks all darken to a one-byte smart). From 742 a hit of
+    /// nothing carries a byte, which `none` writes, and the health bar
+    /// follows the hits instead (`encode_health_bar`), so a bystander's
+    /// view of it is a byte longer than the bright one.
+    pub fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(
+        &self,
+        buf: &mut Packet<T>,
+        bright: bool,
+        #[cfg(since_742)] none: impl FnOnce(&mut Packet<T>, u8),
+    ) {
         if !bright && self.damage == 0 && self.soak == 0 {
             buf.psmart1or2(HIT_NONE);
+            #[cfg(since_742)]
+            none(buf, 0);
         } else {
             let darker = |mark: i32| {
                 if bright || mark == HITMARK_HEAL {
@@ -79,27 +97,54 @@ impl Hit {
             }
         }
         buf.psmart1or2(NO_DELAY);
+        #[cfg(before_742)]
         buf.p1(self.health);
     }
 
     pub fn sizeof(&self, bright: bool) -> usize {
         let mut buf = Packet::from([0u8; MAX_SIZE]);
+        #[cfg(before_742)]
         self.encode(&mut buf, bright);
+        #[cfg(since_742)]
+        self.encode(&mut buf, bright, Packet::p1);
         buf.pos
     }
 }
+
+/// The health bar after a tick's hits: the default bar set at once, with no
+/// delay, to `health`, which `fill` writes.
+#[cfg(since_742)]
+pub fn encode_health_bar<T: AsRef<[u8]> + AsMut<[u8]>>(
+    buf: &mut Packet<T>,
+    health: u8,
+    fill: impl FnOnce(&mut Packet<T>, u8),
+) {
+    buf.psmart1or2(HEADBAR_HEALTH);
+    buf.psmart1or2(HEADBAR_NOW);
+    buf.psmart1or2(NO_DELAY);
+    fill(buf, health);
+}
+
+/// The bytes the health bar takes.
+#[cfg(since_742)]
+pub const HEALTH_BAR_SIZE: usize = 4;
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    /// The hit's smarts, without the health byte before 742; from 742 a hit
+    /// of nothing's byte reads as one.
     fn smarts(hit: &Hit, bright: bool) -> Vec<i32> {
         let mut buf = Packet::from([0u8; MAX_SIZE]);
+        #[cfg(before_742)]
         hit.encode(&mut buf, bright);
-        let len = buf.pos;
+        #[cfg(since_742)]
+        hit.encode(&mut buf, bright, Packet::p1);
+        let len = buf.pos - cfg!(before_742) as usize;
         buf.pos = 0;
         let mut out = Vec::new();
-        while buf.pos < len - 1 {
+        while buf.pos < len {
             out.push(buf.gsmart1or2());
         }
         out
@@ -117,6 +162,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn both_views_are_one_length() {
         for hitmark in 0..=27 {
             for damage in [0, 1, 127, 128, u16::MAX] {
@@ -139,7 +185,40 @@ mod tests {
             hitmark: 8,
             ..Hit::default()
         };
+        #[cfg(before_742)]
         assert_eq!(smarts(&hit, false), [HIT_NONE, 0]);
+        #[cfg(since_742)]
+        assert_eq!(smarts(&hit, false), [HIT_NONE, 0, 0]);
         assert_eq!(smarts(&hit, true), [8, 0, 0]);
+    }
+
+    /// The engine keeps a bystander's view and checks room with it, so no
+    /// bright view may be longer.
+    #[test]
+    #[cfg(since_742)]
+    fn a_bright_view_is_never_longer_than_a_bystanders() {
+        for hitmark in 0..=27 {
+            for damage in [0, 1, 127, 128, u16::MAX] {
+                for soak in [0, 1, 127, 128, u16::MAX] {
+                    let hit = Hit {
+                        hitmark,
+                        damage,
+                        soak,
+                        health: 0,
+                    };
+                    let extra = (damage == 0 && soak == 0) as usize;
+                    assert_eq!(hit.sizeof(false), hit.sizeof(true) + extra);
+                }
+            }
+        }
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn the_health_bar_is_the_default_bar_set_at_once() {
+        let mut buf = Packet::from([0u8; HEALTH_BAR_SIZE]);
+        encode_health_bar(&mut buf, 200, Packet::p1_alt1);
+        assert_eq!(buf.pos, HEALTH_BAR_SIZE);
+        assert_eq!(buf.data, [0, 0, 0, 200u8.wrapping_add(128)]);
     }
 }

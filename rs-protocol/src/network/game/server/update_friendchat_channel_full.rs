@@ -47,10 +47,13 @@ impl ServerProtMessage for UpdateFriendchatChannelFull {
             if let Some(ref display) = member.display_name {
                 buf.p1(1);
                 buf.pjstr(display, STRING_TERMINATOR);
+                #[cfg(before_742)]
                 buf.p2(member.world);
             } else {
                 buf.p1(0);
             }
+            #[cfg(since_742)]
+            buf.p2(member.world);
             buf.p1(member.rank as u8);
             buf.pjstr(&member.title, STRING_TERMINATOR);
         }
@@ -69,10 +72,14 @@ impl ServerProtMessage for UpdateFriendchatChannelFull {
             .iter()
             .map(|m| {
                 let base = Packet::sizejstr(&m.name) + 1;
+                #[cfg(before_742)]
                 let display = m
                     .display_name
                     .as_ref()
                     .map_or(0, |d| Packet::sizejstr(d) + 2);
+                #[cfg(since_742)]
+                let display = m.display_name.as_ref().map_or(0, |d| Packet::sizejstr(d))
+                    + size_of_val(&m.world);
                 base + display + size_of_val(&m.rank) + Packet::sizejstr(&m.title)
             })
             .sum();

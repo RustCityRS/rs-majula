@@ -24,11 +24,22 @@ impl ServerProtMessage for CamMoveto {
     fn encode(&self, buf: &mut Packet) {
         // `MapAreaConfig`'s CAM_MOVETO branch, into `Class36.method269`.
         // Height in 1/128-tile units, scaled by the client as for CAM_LOOKAT.
-        buf.p1_alt1(self.local_x);
-        buf.p1_alt2(self.local_z);
-        buf.p1_alt1(self.var_speed);
-        buf.p2(self.height);
-        buf.p1_alt1(self.const_speed);
+        #[cfg(before_742)]
+        {
+            buf.p1_alt1(self.local_x);
+            buf.p1_alt2(self.local_z);
+            buf.p1_alt1(self.var_speed);
+            buf.p2(self.height);
+            buf.p1_alt1(self.const_speed);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt2(self.local_x);
+            buf.p1_alt3(self.local_z);
+            buf.p2_alt1(self.height);
+            buf.p1(self.const_speed);
+            buf.p1_alt3(self.var_speed);
+        }
     }
 
     fn sizeof(&self) -> usize {

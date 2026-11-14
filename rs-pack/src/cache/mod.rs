@@ -36,6 +36,8 @@ use midi::MidiProvider;
 use quickchatphrase::QuickChatPhraseProvider;
 #[cfg(since_647)]
 use rs_crypto::huffman::Huffman;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
@@ -69,6 +71,8 @@ pub mod flo;
 #[cfg(since_647)]
 pub mod flu;
 pub mod font;
+#[cfg(since_742)]
+pub mod headbar;
 #[cfg(since_647)]
 pub mod hitmark;
 pub mod hunt;
@@ -107,6 +111,8 @@ pub mod quickchatphrase;
 pub mod script;
 pub mod seq;
 pub mod seq_frame;
+#[cfg(since_742)]
+pub mod skybox;
 pub mod spotanim;
 pub mod r#struct;
 #[cfg(since_647)]
@@ -176,6 +182,8 @@ pub struct CacheStore {
     pub midi_ids: HashMap<Box<str>, u16>,
     #[cfg(since_254)]
     pub midi_tick_lengths: Box<[Option<u16>]>,
+    #[cfg(all(since_254, before_647))]
+    pub midi_lengths_ms: Box<[Option<u32>]>,
     #[cfg(before_647)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     #[cfg(before_647)]
@@ -188,7 +196,7 @@ pub struct CacheStore {
     #[cfg(since_647)]
     pub area_map: AreaMap,
     #[cfg(since_647)]
-    pub multiway_area: Option<u16>,
+    pub multiway_area: Option<TypeId>,
     #[cfg(since_647)]
     pub varobjs: VarObjTypeProvider,
     #[cfg(since_647)]

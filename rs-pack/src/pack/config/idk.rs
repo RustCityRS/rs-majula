@@ -5,12 +5,15 @@ use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
 #[cfg(before_647)]
 use crate::pack::util::colour::rgb15_to_hsl16;
+#[cfg(since_742)]
+use crate::pack::util::parse_mask_indices;
 #[cfg(since_647)]
-use crate::pack::util::{pack_pairs, parse_number, parse_ref, parse_retex};
+use crate::pack::util::{pack_pairs, parse_bigid, parse_number, parse_retex};
 use crate::pack::util::{parse_bool, parse_model_kind, parse_recol};
 #[cfg(before_647)]
 use crate::types::BodyType;
 use anyhow::Result;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn pack_idks(
@@ -35,7 +38,7 @@ pub fn pack_idks(
             continue;
         };
 
-        let mut models: Vec<(usize, u16)> = Vec::new();
+        let mut models: Vec<(usize, TypeId)> = Vec::new();
         #[cfg(before_647)]
         let mut head_models: Vec<(usize, u16)> = Vec::new();
         let mut recol_s: Vec<(usize, u16)> = Vec::new();
@@ -47,11 +50,15 @@ pub fn pack_idks(
         let mut retex_d = Vec::new();
         #[cfg(since_647)]
         let mut order = Vec::new();
+        #[cfg(since_742)]
+        let mut indices = [None; 2];
 
         for (key, value) in props {
             #[cfg(since_647)]
             if let Some(code) = if key.starts_with("model") {
                 Some(2)
+            } else if key == "recolindices" || key == "retexindices" {
+                None
             } else if key.starts_with("recol") {
                 Some(40)
             } else if key.starts_with("retex") {
@@ -83,7 +90,7 @@ pub fn pack_idks(
 
                 // 2
                 #[cfg(since_647)]
-                "model" => parse_ref(&registry.model, "model", value, |v| {
+                "model" => parse_bigid(&registry.model, "model", value, |v| {
                     models.push((models.len() + 1, v));
                 }),
 
@@ -99,6 +106,12 @@ pub fn pack_idks(
                         server.p1(3);
                     }
                 }),
+
+                #[cfg(since_742)]
+                "recolindices" => indices[0] = Some(parse_mask_indices(value)),
+
+                #[cfg(since_742)]
+                "retexindices" => indices[1] = Some(parse_mask_indices(value)),
 
                 // 40-59
                 _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
@@ -121,13 +134,13 @@ pub fn pack_idks(
                 {
                     parse_model_kind(registry, "head", key, value, |v| {
                         #[cfg(before_647)]
-                        head_models.push((v.0, v.1));
+                        head_models.push((v.0, v.1.g2()));
                         #[cfg(since_647)]
                         {
                             client.p1((59 + v.0) as u8);
-                            client.p2(v.1);
+                            client.pbigid(v.1);
                             server.p1((59 + v.0) as u8);
-                            server.p2(v.1);
+                            server.pbigid(v.1);
                         }
                     })
                 }
@@ -176,8 +189,8 @@ pub fn pack_idks(
                 server.p1(2);
                 server.p1(models.len() as u8);
                 for (_, v) in models {
-                    client.p2(v);
-                    server.p2(v);
+                    client.p2(v.g2());
+                    server.p2(v.g2());
                 }
             }
         }
@@ -190,7 +203,7 @@ pub fn pack_idks(
                         stream.p1(2);
                         stream.p1(u8::try_from(models.len()).expect("Too many models"));
                         for &(_, model) in &models {
-                            stream.p2(model);
+                            stream.pbigid(model);
                         }
                     }
                 }
@@ -207,6 +220,15 @@ pub fn pack_idks(
                     pack_pairs(&mut client, 41, &retex_s, &retex_d);
                 }
                 _ => unreachable!(),
+            }
+        }
+        #[cfg(since_742)]
+        for (code, mask) in [44, 45].into_iter().zip(indices) {
+            if let Some(mask) = mask {
+                for stream in [&mut server, &mut client] {
+                    stream.p1(code);
+                    stream.p2(mask);
+                }
             }
         }
 

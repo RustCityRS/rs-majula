@@ -15,6 +15,7 @@ use rs_pack::pack::config::vars::{pack_string_vars, pack_vars};
 use rs_pack::pack::pack::FileCache;
 use rs_pack::pack::pack_registry::PackRegistry;
 use rs_pack::pack::packed_data::PackedData;
+use rs_ver::TypeId;
 use runec::compile_memory;
 use runec::opcodes::{POP_VARCONBIT, PUSH_VARCONBIT};
 use std::collections::HashMap;
@@ -77,7 +78,7 @@ fn shared_variable_files_route_strings_and_controller_bits() {
 
     let varps = pack_varps(&files, &registry, &constants).unwrap();
     assert_eq!(entries(varps.client.as_ref().unwrap()), [vec![5, 0, 4, 0]]);
-    let mut string = VarPlayerTypeRaw::new(1);
+    let mut string = VarPlayerTypeRaw::new(TypeId::new(1));
     string.decode(&mut Packet::from(entries(&varps.server)[1].clone()));
     assert_eq!(string.var_type, ScriptVarType::String);
     let vars = pack_vars(&files, &registry.vars, "vars", &constants).unwrap();
@@ -94,11 +95,11 @@ fn shared_variable_files_route_strings_and_controller_bits() {
     );
     let bits = pack_varconbits(&files, &registry, &constants).unwrap();
     assert_eq!(&entries(&bits)[0][..5], &[1, 0, 0, 4, 7]);
-    let mut bit = VarbitType::new(0);
+    let mut bit = VarbitType::new(TypeId::new(0));
     bit.decode(&mut Packet::from(entries(&bits)[0].clone()));
     assert_eq!((bit.basevar, bit.start_bit, bit.end_bit), (0, 4, 7));
     let controllers = pack_controllers(&files, &registry, &constants).unwrap();
-    let mut controller = ControllerType::new(0);
+    let mut controller = ControllerType::new(TypeId::new(0));
     controller.decode(&mut Packet::from(entries(&controllers)[0].clone()));
     assert_eq!(controller.varbits.as_ref(), &[(0, 3)]);
 

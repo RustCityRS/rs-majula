@@ -1,0 +1,7 @@
+// 4800
+[proc,clientscript_4800](int $int0)(int)
+if ($int0 = %varclan_2100 | $int0 = %varclan_2101 | $int0 = %varclan_2102 | $int0 = %varclan_2103 | $int0 = %varclan_2104 | $int0 = %varclan_2105 | $int0 = %varclan_2106 | $int0 = %varclan_2107 | $int0 = %varclan_2108 | $int0 = %varclan_2109 | $int0 = %varclan_2110 | $int0 = %varclan_2111 | $int0 = %varclan_2112 | $int0 = %varclan_2113 | $int0 = %varclan_2114 | $int0 = %varclan_2115 | $int0 = %varclan_2116 | $int0 = %varclan_2117 | $int0 = %varclan_2118 | $int0 = %varclan_2119 | $int0 = %varclan_2120 | $int0 = %varclan_2121 | $int0 = %varclan_2122 | $int0 = %varclan_2123 | $int0 = %varclan_2124 | $int0 = %varclan_2125 | $int0 = %varclan_2126 | $int0 = %varclan_2127 | $int0 = %varclan_2128 | $int0 = %varclan_2129 | $int0 = %varclan_2130) {
+    return(1);
+} else {
+    return(0);
+}

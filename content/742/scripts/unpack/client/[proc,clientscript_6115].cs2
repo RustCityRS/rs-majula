@@ -1,0 +1,22 @@
+// 6115
+[proc,clientscript_6115](int $int0)
+def_int $int1 = 1;
+def_int $int2 = 255;
+if ($int0 = 1) {
+    $int1 = 0;
+    $int2 = 0;
+}
+switch_int (%varclient_1884) {
+    case 0, 2 :
+        ~clientscript_6116(interface_1050:com_7, 0, 40);
+        ~clientscript_6116(interface_1050:com_8, 10, 40);
+        ~clientscript_6116(interface_1050:com_9, 20, 40);
+        ~clientscript_6116(interface_1050:com_10, 30, 40);
+        ~clientscript_6116(interface_1050:com_11, 40, 40);
+    case 1, 3 :
+        ~clientscript_6116(interface_1050:com_12, 0, 40);
+        ~clientscript_6116(interface_1050:com_13, 10, 40);
+        ~clientscript_6116(interface_1050:com_14, 20, 40);
+        ~clientscript_6116(interface_1050:com_15, 30, 40);
+        ~clientscript_6116(interface_1050:com_16, 40, 40);
+}

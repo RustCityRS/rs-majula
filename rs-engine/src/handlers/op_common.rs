@@ -7,6 +7,7 @@ use rs_pack::cache::r#if::IfType;
 #[cfg(since_647)]
 use rs_pack::types::IfEvents;
 use rs_pack::types::InvScope;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::{ComId, ScriptError};
 
@@ -132,7 +133,7 @@ pub fn in_build_area(active: &ActivePlayer, x: u16, z: u16) -> bool {
 ///
 /// The matching [`Loc`], or `None` if the zone is not loaded or holds no such
 /// location.
-pub fn zone_loc(x: u16, y: u8, z: u16, id: u16) -> Option<&'static Loc> {
+pub fn zone_loc(x: u16, y: u8, z: u16, id: TypeId) -> Option<&'static Loc> {
     engine().zones.loc_at(x, y, z, id)
 }
 
@@ -152,7 +153,9 @@ pub fn zone_loc(x: u16, y: u8, z: u16, id: u16) -> Option<&'static Loc> {
 /// The matching [`Obj`], or `None` if the zone is not loaded or holds no such
 /// object visible to this receiver.
 pub fn zone_obj(x: u16, y: u8, z: u16, id: u16, receiver37: u64) -> Option<&'static Obj> {
-    engine().zones.obj_at(x, y, z, id, Some(receiver37))
+    engine()
+        .zones
+        .obj_at(x, y, z, TypeId::new(id), Some(receiver37))
 }
 
 /// Builds the [`InteractionTarget::Loc`] for a placed location.
@@ -238,7 +241,7 @@ pub fn held_component_ok(active: &ActivePlayer, com: ComId, slot: u16) -> bool {
     }
 }
 
-pub fn inventory(active: &mut ActivePlayer, inv_id: u16) -> Option<&mut Inventory> {
+pub fn inventory(active: &mut ActivePlayer, inv_id: TypeId) -> Option<&mut Inventory> {
     if engine()
         .invs()
         .get_by_id(inv_id)
@@ -302,7 +305,12 @@ pub fn player_target_ok(active: &ActivePlayer, pid: u16) -> bool {
 /// When blocked, sends the members-server game message and unsets the map flag.
 pub fn members_blocked(active: &mut ActivePlayer, obj: u16) -> bool {
     let engine = engine();
-    if engine.objs().get_by_id(obj).is_some_and(|o| o.members) && !engine.members {
+    if engine
+        .objs()
+        .get_by_id(TypeId::new(obj))
+        .is_some_and(|o| o.members)
+        && !engine.members
+    {
         active.message_game("To use this item please login to a members' server.");
         active.unset_map_flag();
         return true;
@@ -311,7 +319,7 @@ pub fn members_blocked(active: &mut ActivePlayer, obj: u16) -> bool {
 }
 
 /// The inventory transmitted to component `com`, if any.
-pub fn transmitted_inv(active: &ActivePlayer, com: ComId) -> Option<u16> {
+pub fn transmitted_inv(active: &ActivePlayer, com: ComId) -> Option<TypeId> {
     active
         .player
         .inv_transmits
@@ -352,13 +360,13 @@ pub enum HeldCheck {
 ///
 /// [`HeldCheck::Ok`] when the item is really there, otherwise the specific
 /// reason the claim was rejected.
-pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: u16) -> HeldCheck {
+pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: TypeId) -> HeldCheck {
     let Some(inv_id) = transmitted_inv(active, com) else {
         return HeldCheck::NoTransmit;
     };
 
     let Some(inventory) = inventory(active, inv_id) else {
-        return HeldCheck::NoInv(inv_id);
+        return HeldCheck::NoInv(inv_id.g2());
     };
 
     if !inventory.valid_slot(slot) {
@@ -376,7 +384,7 @@ pub fn require_held(
     active: &mut ActivePlayer,
     com: ComId,
     slot: u16,
-    obj: u16,
+    obj: TypeId,
 ) -> Result<bool, ScriptError> {
     match check_held(active, com, slot, obj) {
         HeldCheck::Ok => Ok(true),

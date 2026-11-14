@@ -29,6 +29,7 @@ use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::server_prot::ServerProt;
 #[cfg(since_647)]
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptPlayer, with_engine};
 use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
@@ -273,7 +274,7 @@ impl Engine {
         coord: CoordGrid,
         exit: Option<CoordGrid>,
     ) -> Option<PlayerProfile> {
-        let tutorial_done = *self.cache.varps.debugnames.get("tutorial")?;
+        let tutorial_done = self.cache.varps.get_by_debugname("tutorial")?.id;
         Some(PlayerProfile {
             x: coord.x(),
             z: coord.z(),
@@ -286,7 +287,7 @@ impl Engine {
             stats: [0; STAT_COUNT],
             levels: [1; STAT_COUNT],
             // `login.rs2` sends anyone under 1000 to character creation.
-            varps: vec![(tutorial_done, 1000)],
+            varps: vec![(tutorial_done.g2(), 1000)],
             invs: Vec::new(),
             afk_zones: [0; 2],
             last_afk_zone: 0,
@@ -322,6 +323,8 @@ impl Engine {
             // Fixed, the client's default: content opens `toplevel` (548) for
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
+            lobby: false,
+            world: 1,
         };
         let engine = self as *mut Engine;
         // `ActivePlayer::new` and the `[login]` trigger read the global
@@ -420,7 +423,7 @@ impl Engine {
     }
 
     /// Drops an obj on the ground for everyone, as a map spawn would be.
-    pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: u16, count: u32) {
+    pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: TypeId, count: u32) {
         let coord = CoordGrid::new(x, y, z);
         let engine = self as *mut Engine;
         with_engine(self, || {
@@ -541,7 +544,7 @@ impl Engine {
     }
 
     /// Spawns controller `id` at `coord` as `controller_add` does.
-    pub fn harness_controller_add(&mut self, coord: CoordGrid, id: u16) -> bool {
+    pub fn harness_controller_add(&mut self, coord: CoordGrid, id: TypeId) -> bool {
         self.controller_add(coord, id, 0).is_ok()
     }
 
@@ -636,7 +639,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
 
     let (target, category) = match subject_of(trigger) {
         Subject::Loc => {
-            let id = subject_id as u16;
+            let id = TypeId::from_int(subject_id);
             let zone = engine.zones.zone(grid.x(), grid.y(), grid.z());
             let loc = zone
                 .and_then(|z| z.get_loc(grid.x(), grid.z(), id).map(|i| z.locs[i]))
@@ -659,10 +662,10 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
                 serial: loc.serial(),
             });
             let category = cache.locs.get_by_id(id).and_then(|t| t.category);
-            (Some(target), category.map(|c| c as i32))
+            (Some(target), category.map(|c| c.int()))
         }
         Subject::Npc => {
-            let id = subject_id as u16;
+            let id = TypeId::from_int(subject_id);
             let npc = engine
                 .npc_list
                 .npcs
@@ -672,7 +675,7 @@ fn test_op(s: &mut ScriptState) -> Result<(), ScriptError> {
                 .map(|n| n.npc.uid)
                 .ok_or_else(|| ScriptError::Runtime(format!("test_op: no npc of type {id}")))?;
             let category = cache.npcs.get_by_id(id).and_then(|t| t.category);
-            (Some(ScriptSubject::Npc(npc)), category.map(|c| c as i32))
+            (Some(ScriptSubject::Npc(npc)), category.map(|c| c.int()))
         }
         Subject::Other => (None, None),
     };

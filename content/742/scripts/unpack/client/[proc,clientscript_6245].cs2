@@ -1,0 +1,123 @@
+// 6245
+[proc,clientscript_6245]
+switch_int (%varclient_1924) {
+    case -1, 0 :
+        if_sethide(interface_1285:com_8, false);
+        if_sethide(interface_1285:com_9, false);
+        if_sethide(interface_1285:com_10, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_16, true);
+        if_sethide(interface_1285:com_17, true);
+        if_sethide(interface_1285:com_18, true);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+    case 1 :
+        if_sethide(interface_1285:com_12, false);
+        if_sethide(interface_1285:com_9, false);
+        if_sethide(interface_1285:com_10, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_16, true);
+        if_sethide(interface_1285:com_17, true);
+        if_sethide(interface_1285:com_18, true);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+        if_sethide(interface_1285:com_8, true);
+    case 2 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_9, false);
+        if_sethide(interface_1285:com_10, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_17, true);
+        if_sethide(interface_1285:com_18, true);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+    case 3 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_13, false);
+        if_sethide(interface_1285:com_10, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_17, true);
+        if_sethide(interface_1285:com_18, true);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_9, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+    case 4 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_17, false);
+        if_sethide(interface_1285:com_10, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_18, true);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_9, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+    case 5 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_17, false);
+        if_sethide(interface_1285:com_14, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_18, true);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_9, true);
+        if_sethide(interface_1285:com_10, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_15, true);
+    case 6 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_17, false);
+        if_sethide(interface_1285:com_18, false);
+        if_sethide(interface_1285:com_11, false);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_9, true);
+        if_sethide(interface_1285:com_10, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+    case 7 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_17, false);
+        if_sethide(interface_1285:com_18, false);
+        if_sethide(interface_1285:com_15, false);
+        if_sethide(interface_1285:com_19, true);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_9, true);
+        if_sethide(interface_1285:com_10, true);
+        if_sethide(interface_1285:com_11, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+    case 8 :
+        if_sethide(interface_1285:com_16, false);
+        if_sethide(interface_1285:com_17, false);
+        if_sethide(interface_1285:com_18, false);
+        if_sethide(interface_1285:com_19, false);
+        if_sethide(interface_1285:com_8, true);
+        if_sethide(interface_1285:com_9, true);
+        if_sethide(interface_1285:com_10, true);
+        if_sethide(interface_1285:com_11, true);
+        if_sethide(interface_1285:com_12, true);
+        if_sethide(interface_1285:com_13, true);
+        if_sethide(interface_1285:com_14, true);
+        if_sethide(interface_1285:com_15, true);
+    case default :
+        mes("ERROR: %qbd2_artifacts_state should only be between -1 and 8, was <tostring(%varclient_1924)>");
+}

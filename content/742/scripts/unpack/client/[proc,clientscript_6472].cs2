@@ -1,0 +1,14 @@
+// 6472
+[proc,clientscript_6472](boolean $boolean0)
+def_int $int1 = 0;
+def_enum $enum2 = enum_5960;
+def_enum $enum3 = enum_5961;
+def_component $component4 = null;
+def_component $component5 = null;
+while ($int1 < enum_getoutputcount($enum2)) {
+    $component4 = enum(int, component, $enum2, $int1);
+    $component5 = enum(int, component, $enum3, $int1);
+    if_sethide($component4, $boolean0);
+    if_sethide($component5, $boolean0);
+    $int1 = calc($int1 + 1);
+}

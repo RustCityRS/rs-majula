@@ -11,6 +11,7 @@
 #![cfg(since_647)]
 
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
 use std::collections::{BTreeSet, HashMap};
 use std::fs;
@@ -137,9 +138,9 @@ fn every_2011_clone_answers_its_289_base_s_triggers() {
             let category = engine
                 .cache
                 .npcs
-                .get_by_id(npc as u16)
+                .get_by_id(TypeId::from_int(npc))
                 .and_then(|t| t.category)
-                .map(i32::from);
+                .map(TypeId::int);
             engine
                 .script_by_key(trigger, Some(npc), category)
                 .map(|s| s.id)

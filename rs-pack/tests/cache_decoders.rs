@@ -47,7 +47,7 @@ use rs_pack::pack::config::particleemitter::pack_particleemitters;
 #[cfg(since_647)]
 use rs_pack::pack::config::varc::{pack_varc_strings, pack_varcs};
 #[cfg(since_647)]
-use rs_pack::pack::config::varclansetting::pack_varclansettings;
+use rs_pack::pack::config::varclansetting::pack_clan_vars;
 use rs_pack::pack::pack::FileCache;
 #[cfg(since_647)]
 use rs_pack::pack::pack_registry::PackFile;
@@ -71,11 +71,12 @@ use rs_pack::unpack::config::{
     UnpackedPacks, decode_record, r#enum::emit_enum_props, flo::emit_flo_props,
     flu::emit_flu_props, idk::emit_idk_props, param::emit_param_props,
 };
+use rs_ver::TypeId;
 use std::{collections::HashMap, fs, path::Path};
 
 fn decode<T: CacheType>(data: &[u8]) -> T {
     let mut buf = Packet::from(data.to_vec());
-    let mut value = T::new(0);
+    let mut value = T::new(TypeId::new(0));
     value.decode(&mut buf);
     assert_eq!(buf.pos, data.len());
     value
@@ -135,14 +136,14 @@ fn xtea_json_preserves_signed_keys_and_rejects_invalid_records() {
 #[cfg(since_647)]
 #[test]
 fn wearable_ids_include_linked_items_and_both_genders() {
-    let mut objs: Vec<_> = (0..7).map(ObjTypeRaw::new).collect();
-    objs[1].manwear = Some(123);
-    objs[2].womanwear = Some(456);
+    let mut objs: Vec<_> = (0..7).map(|id| ObjTypeRaw::new(TypeId::new(id))).collect();
+    objs[1].manwear = Some(TypeId::new(123));
+    objs[2].womanwear = Some(TypeId::new(456));
     objs[3].wearpos = Some(WearPos::Ring);
-    objs[4].lenttemplate = Some(6);
-    objs[4].lentlink = Some(1);
-    objs[5].boughttemplate = Some(6);
-    objs[5].boughtlink = Some(2);
+    objs[4].lenttemplate = Some(TypeId::new(6));
+    objs[4].lentlink = Some(TypeId::new(1));
+    objs[5].boughttemplate = Some(TypeId::new(6));
+    objs[5].boughtlink = Some(TypeId::new(2));
     let objs = TypeProvider::<ObjType>::from_types(
         objs,
         ObjContext {
@@ -352,14 +353,19 @@ fn params_share_type_key_value_order() {
     assert_eq!(raw.debugname(), "test");
     let entries = raw.params.as_ref().unwrap();
     assert_eq!(entries.len(), 3);
-    assert_eq!(entries[0].0, 0x12345);
+    assert_eq!(entries[0].0, TypeId::from_int(0x12345));
     assert!(matches!(entries[0].1, ParamValue::Int(-42)));
     let value = StructType::from(raw);
     for params in [loc.params, npc.params, obj.params, value.params] {
         let params = params.unwrap();
         assert_eq!(params.len(), 2);
-        assert!(matches!(params[&0x12345], ParamValue::Int(7)));
-        assert!(matches!(&params[&0x23456], ParamValue::String(value) if value.as_ref() == "oak"));
+        assert!(matches!(
+            params[&TypeId::from_int(0x12345)],
+            ParamValue::Int(7)
+        ));
+        assert!(
+            matches!(&params[&TypeId::from_int(0x23456)], ParamValue::String(value) if value.as_ref() == "oak")
+        );
     }
 }
 
@@ -395,9 +401,9 @@ fn server_param_packer_writes_type_before_key() {
     let value: StructTypeRaw = decode(&packed.dat[2..]);
     let entries = value.params.unwrap();
     assert_eq!(entries.len(), 2);
-    assert_eq!(entries[0].0, 4660);
+    assert_eq!(entries[0].0, TypeId::new(4660));
     assert!(matches!(entries[0].1, ParamValue::Int(-42)));
-    assert_eq!(entries[1].0, 9029);
+    assert_eq!(entries[1].0, TypeId::new(9029));
     assert!(matches!(&entries[1].1, ParamValue::String(value) if value.as_ref() == "oak"));
 }
 
@@ -413,13 +419,13 @@ fn loc_models_preserve_shapes_and_groups() {
     assert_eq!(models[0].shape, 10);
     #[cfg(before_647)]
     {
-        assert_eq!(models[0].model, 291);
-        assert_eq!(models[1].model, 1110);
+        assert_eq!(models[0].model, TypeId::new(291));
+        assert_eq!(models[1].model, TypeId::new(1110));
         assert_eq!(models[1].shape, 4);
     }
     #[cfg(since_647)]
     {
-        assert_eq!(models[0].models.as_ref(), [291, 1110]);
+        assert_eq!(models[0].models.as_ref(), [291, 1110].map(TypeId::new));
         assert!(models[1].models.is_empty());
         assert_eq!(models[1].shape as i8, -1);
     }
@@ -444,20 +450,20 @@ fn loc_opcode_five_preserves_each_model_list() {
     #[cfg(before_647)]
     {
         assert_eq!(models.len(), 2);
-        assert_eq!(models[0].model, 291);
-        assert_eq!(models[1].model, 1110);
+        assert_eq!(models[0].model, TypeId::new(291));
+        assert_eq!(models[1].model, TypeId::new(1110));
         assert!(models.iter().all(|model| model.shape == 10));
     }
     #[cfg(since_647)]
     {
         assert_eq!(models.len(), 1);
-        assert_eq!(models[0].models.as_ref(), [291, 1110]);
+        assert_eq!(models[0].models.as_ref(), [291, 1110].map(TypeId::new));
         let hd = loc.hd_models.unwrap();
         assert_eq!(hd.len(), 2);
         assert_eq!(hd[0].shape, 4);
         assert!(hd[0].models.is_empty());
         assert_eq!(hd[1].shape, 10);
-        assert_eq!(hd[1].models.as_ref(), [1929]);
+        assert_eq!(hd[1].models.as_ref(), [TypeId::new(1929)]);
     }
     assert_eq!(loc.width, 3);
 }
@@ -530,16 +536,31 @@ fn transforms_preserve_missing_ids_and_default_targets() {
     let data = [92, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 14, 3, 0];
     let loc: LocTypeRaw = decode(&data);
     assert_eq!(loc.width, 3);
-    assert_eq!((loc.transform_varbit, loc.transform_varp), (5, -1));
+    assert_eq!(
+        (loc.transform_varbit, loc.transform_varp),
+        (TypeId::new(5), TypeId::NULL)
+    );
     #[cfg(before_647)]
-    assert_eq!(loc.multiloc.unwrap().as_ref(), [65534, -1, -1]);
+    assert_eq!(
+        loc.multiloc.unwrap().as_ref(),
+        [TypeId::new(65534), TypeId::NULL, TypeId::NULL]
+    );
     #[cfg(since_647)]
     {
-        assert_eq!(loc.multiloc.unwrap().as_ref(), [65534, -1, 99]);
+        assert_eq!(
+            loc.multiloc.unwrap().as_ref(),
+            [TypeId::new(65534), TypeId::NULL, TypeId::new(99)]
+        );
         let npc: NpcTypeRaw =
             decode(&[118, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 12, 3, 0]);
-        assert_eq!((npc.transform_varbit, npc.transform_varp), (Some(5), None));
-        assert_eq!(npc.transforms.unwrap().as_ref(), [65534, -1, 99]);
+        assert_eq!(
+            (npc.transform_varbit, npc.transform_varp),
+            (Some(TypeId::new(5)), None)
+        );
+        assert_eq!(
+            npc.transforms.unwrap().as_ref(),
+            [TypeId::new(65534), TypeId::NULL, TypeId::new(99)]
+        );
         assert_eq!(npc.size, 3);
     }
 }
@@ -551,7 +572,10 @@ fn inventory_server_codes_use_upstream_layout() {
         255, 2, 0, 9, 3, 5, 6, 7, 8, 9, 0,
     ]);
     assert_eq!(inv.size, 9);
-    assert_eq!(inv.stockobj.unwrap().as_ref(), [4, u16::MAX]);
+    assert_eq!(
+        inv.stockobj.unwrap().as_ref(),
+        [TypeId::new(4), TypeId::NULL]
+    );
     assert_eq!(inv.stockcount.unwrap().as_ref(), [5, 7]);
     assert_eq!(inv.stockrate.unwrap().as_ref(), [6, -1]);
     assert!(inv.stackall && inv.restock && inv.allstock && inv.runweight && inv.dummyinv);
@@ -585,7 +609,7 @@ fn npc_hunt_ids_survive_packing() {
         (packed.server.dat, packed.client.unwrap().dat)
     };
     let npc: NpcTypeRaw = decode(&server[2..]);
-    assert_eq!(npc.huntmode, Some(255));
+    assert_eq!(npc.huntmode, Some(TypeId::new(255)));
     assert_eq!(npc.timer, Some(257));
     assert_eq!(npc.debugname(), "hellhound");
     let npc: NpcTypeRaw = decode(&client[2..]);
@@ -880,10 +904,16 @@ fn client_var_tables_write_their_opcodes() {
     );
     assert_eq!(provider.index(0, false), 0);
     assert_eq!(provider.index(0, true), 4);
-    assert_eq!(provider.get_by_id(0, false).unwrap().id, 0);
-    assert_eq!(provider.get_by_id(0, true).unwrap().id, 0);
-    assert!(provider.get_by_id(4, false).is_none());
-    assert!(provider.get_by_id(2, true).is_none());
+    assert_eq!(
+        provider.get_by_id(TypeId::new(0), false).unwrap().id,
+        TypeId::new(0)
+    );
+    assert_eq!(
+        provider.get_by_id(TypeId::new(0), true).unwrap().id,
+        TypeId::new(0)
+    );
+    assert!(provider.get_by_id(TypeId::new(4), false).is_none());
+    assert!(provider.get_by_id(TypeId::new(2), true).is_none());
     assert_eq!(
         bytes(varcs),
         [
@@ -894,7 +924,14 @@ fn client_var_tables_write_their_opcodes() {
         ]
     );
     assert_eq!(bytes(strings), [vec![0], vec![2, 0]]);
-    let settings = pack_varclansettings(&cache, &registry.varclansetting, &constants).unwrap();
+    let settings = pack_clan_vars(
+        &cache,
+        "varclansetting",
+        &registry.varclansetting,
+        &constants,
+        2,
+    )
+    .unwrap();
     assert_eq!(
         bytes(settings.client.unwrap()),
         [vec![1, 0xa7, 0], vec![1, 1, 2, 0, 3, 4, 5, 0]]
@@ -946,7 +983,7 @@ fn npc_server_codes_use_upstream_layout() {
     assert_eq!(npc.moverestrict as u8, 6);
     assert_eq!(npc.blockwalk as u8, 1);
     assert_eq!(npc.defaultmode as u8, 2);
-    assert_eq!(npc.huntmode, Some(255));
+    assert_eq!(npc.huntmode, Some(TypeId::new(255)));
     assert_eq!(npc.wanderrange, 0x405);
     assert_eq!(npc.maxrange, Some(0x506));
     assert_eq!(npc.huntrange, 7);
@@ -994,7 +1031,7 @@ fn hunt_server_codes_use_upstream_layout() {
     let inv = hunt.check_inv.unwrap();
     assert_eq!(
         (inv.inv, inv.obj, inv.condition.as_str(), inv.value),
-        (1, 2, ">", 3)
+        (TypeId::new(1), TypeId::new(2), ">", 3)
     );
     let param = hunt.check_invparam.unwrap();
     assert_eq!(
@@ -1004,7 +1041,7 @@ fn hunt_server_codes_use_upstream_layout() {
             param.condition.as_str(),
             param.value
         ),
-        (4, 5, "<", 6)
+        (TypeId::new(4), TypeId::new(5), "<", 6)
     );
     let category = hunt.check_invcat.unwrap();
     assert_eq!(
@@ -1014,14 +1051,13 @@ fn hunt_server_codes_use_upstream_layout() {
             category.condition.as_str(),
             category.value
         ),
-        (7, 8, "=", 9)
+        (TypeId::new(7), TypeId::new(8), "=", 9)
     );
     assert_eq!(hunt.extracheck_vars.len(), 3);
-    for (check, expected) in
-        hunt.extracheck_vars
-            .iter()
-            .zip([(10, "!", 11), (12, "&", 13), (14, "|", -1)])
-    {
+    for (check, expected) in hunt.extracheck_vars.iter().zip(
+        [(10, "!", 11), (12, "&", 13), (14, "|", -1)]
+            .map(|(varp, condition, value)| (TypeId::new(varp), condition, value)),
+    ) {
         assert_eq!(
             (check.varp, check.condition.as_str(), check.value),
             expected

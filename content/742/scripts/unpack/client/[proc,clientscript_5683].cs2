@@ -1,0 +1,151 @@
+// 5683
+[proc,clientscript_5683](int $int0)
+cc_deleteall(interface_1218:com_30);
+cc_deleteall(interface_1218:com_72);
+%varclient_1753 = $int0;
+%varclient_1754 = 1;
+def_int $int1 = 0;
+def_enum $enum2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 30;
+def_int $int6 = 0;
+if_settext(interface_1218:com_172, "Milestones");
+if_sethide(interface_1218:com_3, false);
+if ($int0 > 0) {
+    if_sethide(interface_1218:com_6, false);
+    if_sethide(interface_1218:com_7, false);
+    if_settext(interface_1218:com_85, enum(int, string, enum_108, $int0));
+    if_settext(interface_1218:com_86, tostring(stat_base(enum(int, stat, enum_681, $int0))));
+    cc_deleteall(interface_1218:com_161);
+    $enum2 = enum(int, enum, enum_5421, $int0);
+    $int6 = enum_getoutputcount($enum2);
+    $int1 = calc(35 + enum_getoutputcount($enum2) * 15);
+    if_setsize(interface_1218:com_7, 150, $int1, ^setsize_abs, ^setsize_abs);
+    while ($int3 < $int6) {
+        cc_create(interface_1218:com_161, ^iftype_text, $int4);
+        cc_setonmouseover("clientscript_5708($int4)");
+        cc_setonmouseleave("clientscript_5709($int4)");
+        cc_setonclick("clientscript_5710($int0, $int4)");
+        $int4 = calc($int4 + 1);
+        cc_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settextfont(verdana_13pt_regular);
+        cc_settextshadow(true);
+        if ($int3 < 2) {
+            cc_setcolour(0x8beb74);
+        } else {
+            cc_setcolour(0xe6be78);
+        }
+        cc_settext(enum(int, string, $enum2, $int3));
+        cc_settextalign(^settextalign_centre, ^settextalign_bottom, 0);
+        cc_setsize(0, 15, ^setsize_minus, ^setsize_abs);
+        $int5 = calc($int5 + 15);
+        $int3 = calc($int3 + 1);
+    }
+}
+if_setgraphic(interface_1218:com_31, 7844);
+if_setgraphic(interface_1218:com_82, 7844);
+if_setgraphic(interface_1218:com_112, 7844);
+if_setgraphic(interface_1218:com_106, 7844);
+if_setgraphic(interface_1218:com_145, 7844);
+if_setgraphic(interface_1218:com_124, 7844);
+if_setgraphic(interface_1218:com_91, 7844);
+if_setgraphic(interface_1218:com_109, 7844);
+if_setgraphic(interface_1218:com_155, 7844);
+if_setgraphic(interface_1218:com_148, 7844);
+if_setgraphic(interface_1218:com_142, 7844);
+if_setgraphic(interface_1218:com_127, 7844);
+if_setgraphic(interface_1218:com_117, 7844);
+if_setgraphic(interface_1218:com_133, 7844);
+if_setgraphic(interface_1218:com_100, 7844);
+if_setgraphic(interface_1218:com_136, 7844);
+if_setgraphic(interface_1218:com_97, 7844);
+if_setgraphic(interface_1218:com_94, 7844);
+if_setgraphic(interface_1218:com_103, 7844);
+if_setgraphic(interface_1218:com_130, 7844);
+if_setgraphic(interface_1218:com_139, 7844);
+if_setgraphic(interface_1218:com_88, 7844);
+if_setgraphic(interface_1218:com_158, 7844);
+if_setgraphic(interface_1218:com_121, 7844);
+if_setgraphic(interface_1218:com_152, 7844);
+def_int $int7 = 0;
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic(interface_1218:com_82, 9287);
+        $int7 = 0;
+    case 2 :
+        if_setgraphic(interface_1218:com_88, 9287);
+        $int7 = -640;
+    case 5 :
+        if_setgraphic(interface_1218:com_91, 9287);
+        $int7 = 0;
+    case 3 :
+        if_setgraphic(interface_1218:com_94, 9287);
+        $int7 = -640;
+    case 7 :
+        if_setgraphic(interface_1218:com_97, 9287);
+        $int7 = -640;
+    case 4 :
+        if_setgraphic(interface_1218:com_100, 9287);
+        $int7 = -320;
+    case 6 :
+        if_setgraphic(interface_1218:com_112, 9287);
+        $int7 = 0;
+    case 8 :
+        if_setgraphic(interface_1218:com_31, 9287);
+        $int7 = 0;
+    case 9 :
+        if_setgraphic(interface_1218:com_117, 9287);
+        $int7 = -320;
+    case 10 :
+        if_setgraphic(interface_1218:com_121, 9287);
+        $int7 = -640;
+    case 11 :
+        if_setgraphic(interface_1218:com_124, 9287);
+        $int7 = 0;
+    case 19 :
+        if_setgraphic(interface_1218:com_127, 9287);
+        $int7 = -320;
+    case 13 :
+        if_setgraphic(interface_1218:com_136, 9287);
+        $int7 = -320;
+    case 14 :
+        if_setgraphic(interface_1218:com_139, 9287);
+        $int7 = -640;
+    case 15 :
+        if_setgraphic(interface_1218:com_142, 9287);
+        $int7 = -320;
+    case 16 :
+        if_setgraphic(interface_1218:com_145, 9287);
+        $int7 = 0;
+    case 17 :
+        if_setgraphic(interface_1218:com_148, 9287);
+        $int7 = -320;
+    case 18 :
+        if_setgraphic(interface_1218:com_152, 9287);
+        $int7 = -960;
+    case 12 :
+        if_setgraphic(interface_1218:com_103, 9287);
+        $int7 = -640;
+    case 20 :
+        if_setgraphic(interface_1218:com_130, 9287);
+        $int7 = -640;
+    case 21 :
+        if_setgraphic(interface_1218:com_155, 9287);
+        $int7 = -320;
+    case 22 :
+        if_setgraphic(interface_1218:com_106, 9287);
+        $int7 = 0;
+    case 23 :
+        if_setgraphic(interface_1218:com_133, 9287);
+        $int7 = -320;
+    case 24 :
+        if_setgraphic(interface_1218:com_158, 9287);
+        $int7 = -640;
+    case 25 :
+        if_setgraphic(interface_1218:com_109, 9287);
+        $int7 = 0;
+}
+%varclient_1752 = 0;
+if_setontimer(interface_1218:com_74, null);
+if_setposition(interface_1218:com_32, if_getx(interface_1218:com_32), $int7, ^setpos_abs_left, ^setpos_abs_top);

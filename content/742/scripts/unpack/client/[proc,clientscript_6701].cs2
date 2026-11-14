@@ -1,0 +1,11 @@
+// 6701
+[proc,clientscript_6701](component $component0, component $component1, int $int2)
+if (clientclock < $int2) {
+    return;
+}
+if (%varclient_2012 > 0) {
+    %varclient_2012 = calc(%varclient_2012 - 1);
+    ~clientscript_6700($component0, $component1, 30);
+} else {
+    if_setontimer($component0, null);
+}

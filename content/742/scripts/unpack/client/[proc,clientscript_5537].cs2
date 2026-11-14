@@ -1,0 +1,13 @@
+// 5537
+[proc,clientscript_5537]
+def_int $int0 = 0;
+if (%varclient_1808 < 1) {
+    %varclient_1808 = 1;
+}
+%varclient_1808 = ~clientscript_5540(%varclient_1808, interface_1178:com_17, interface_1178:com_18, interface_1178:com_19);
+%varclient_1807 = ~clientscript_5540(calc(%varclient_1808 - 1), interface_1178:com_14, interface_1178:com_15, interface_1178:com_16);
+%varclient_1806 = ~clientscript_5540(calc(%varclient_1807 - 1), interface_1178:com_11, interface_1178:com_12, interface_1178:com_13);
+%varclient_1805 = ~clientscript_5540(calc(%varclient_1806 - 1), interface_1178:com_8, interface_1178:com_9, interface_1178:com_10);
+%varclient_1809 = ~clientscript_5540(calc(%varclient_1808 + 1), interface_1178:com_20, interface_1178:com_21, interface_1178:com_22);
+%varclient_1810 = ~clientscript_5540(calc(%varclient_1809 + 1), interface_1178:com_23, interface_1178:com_24, interface_1178:com_25);
+%varclient_1811 = ~clientscript_5540(calc(%varclient_1810 + 1), interface_1178:com_26, interface_1178:com_27, interface_1178:com_28);

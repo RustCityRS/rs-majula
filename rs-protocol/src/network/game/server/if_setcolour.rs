@@ -37,9 +37,16 @@ impl ServerProtMessage for IfSetColour {
     // (`MapAreaConfig.java`, IF_SETCOLOUR). `p4_alt1`/`p2` wrote the right number
     // of bytes in the wrong order, so the component hash and colour both
     // arrived scrambled.
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt2(self.com);
         buf.p2_alt3(self.colour);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt2(self.colour);
+        buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {

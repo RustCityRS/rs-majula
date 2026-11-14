@@ -1,5 +1,6 @@
 use super::UnpackedPacks;
 use crate::cache::seq::SeqTypeRaw;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 #[cfg(since_647)]
@@ -12,7 +13,7 @@ fn anim_frame(frame: u32) -> String {
 fn replace_held(value: u16, packs: &UnpackedPacks) -> String {
     match value {
         u16::MAX => "hide".to_owned(),
-        512.. => packs.reference("obj", value - 512),
+        512.. => packs.reference("obj", TypeId::from_g2(value - 512)),
         below => format!("obj_{}", (below as u32).wrapping_sub(512)),
     }
 }
@@ -76,7 +77,7 @@ pub fn emit_seq_props(
                     if value == 0 {
                         "hide".into()
                     } else {
-                        super::obj_ref(value - 512, _registry)
+                        super::obj_ref(TypeId::from_g2(value - 512), _registry)
                     },
                 ));
             }
@@ -209,7 +210,7 @@ pub fn emit_seq_props(
             match slot {
                 Some(sound) => {
                     let mut values = vec![
-                        _registry.reference(kind, (sound.head >> 8) as u16),
+                        _registry.reference(kind, TypeId::from_g2((sound.head >> 8) as u16)),
                         ((sound.head >> 4) & 0xf).to_string(),
                         (sound.head & 0xf).to_string(),
                     ];
@@ -242,6 +243,14 @@ pub fn emit_seq_props(
     #[cfg(since_647)]
     if let Some((idx, a, b)) = def.op20.last() {
         p.push((20, "soundrandomrate".into(), format!("{idx},{a},{b}")));
+    }
+    #[cfg(since_742)]
+    if let Some(factor) = def.tertiaryvolumefactor {
+        p.push((22, "tertiaryvolumefactor".into(), factor.to_string()));
+    }
+    #[cfg(since_742)]
+    if opcode == 249 {
+        p.extend(super::emit_params(_data, _registry));
     }
     p.into_iter()
         .filter(|(code, _, _)| *code == opcode)

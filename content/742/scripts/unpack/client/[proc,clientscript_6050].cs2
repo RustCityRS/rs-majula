@@ -1,0 +1,8 @@
+// 6050
+[proc,clientscript_6050]
+def_component $component0 = interface_1253:com_88;
+def_int $int1 = ~scale_round(%varclient_1801, 360, 65535);
+if_set2dangle($component0, $int1);
+if_setontimer(interface_1253:com_88, "clientscript_5883(0, 0, 0, 0)");
+if_setontimer(interface_1253:com_53, "clientscript_5912(%varclient_1802)");
+if_sethide(interface_1253:com_38, true);

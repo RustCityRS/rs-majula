@@ -1,0 +1,7 @@
+// 1480
+[clientscript,bank_v2_searchresults_tooltip](component $component0, int $int1)
+if (%varclient_188 = false) {
+    ~deltooltip_action(bank_v2_main:com_97);
+    return;
+}
+~addtooltip_action_dynamic($component0, $int1, bank_v2_main:com_97, "Item is in tab <tostring(~bank_v2_get_tab($int1))>", 25, 150);

@@ -1,0 +1,7 @@
+// 6333
+[proc,clientscript_6333](component $component0)
+def_int $int1 = max(calc(if_gettrans($component0) - 40), 50);
+if_settrans($component0, $int1);
+if ($int1 <= 50) {
+    if_setontimer($component0, null);
+}

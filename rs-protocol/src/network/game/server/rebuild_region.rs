@@ -38,11 +38,22 @@ impl RebuildRegion {
 #[cfg(since_647)]
 impl ServerProtMessage for RebuildRegion {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.size);
-        buf.p1_alt3(self.map_type);
-        buf.p2_alt1(self.player_x >> 3);
-        buf.p2_alt1(self.player_z >> 3);
-        buf.p1_alt1(self.force as u8);
+        #[cfg(before_742)]
+        {
+            buf.p1_alt1(self.size);
+            buf.p1_alt3(self.map_type);
+            buf.p2_alt1(self.player_x >> 3);
+            buf.p2_alt1(self.player_z >> 3);
+            buf.p1_alt1(self.force as u8);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2_alt1(self.player_x >> 3);
+            buf.p1_alt2(self.force as u8);
+            buf.p2_alt2(self.player_z >> 3);
+            buf.p1_alt3(self.size);
+            buf.p1(self.map_type);
+        }
 
         let bytes = self.template_bytes();
         let mut bits = Packet::new(bytes);

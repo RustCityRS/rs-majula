@@ -5,6 +5,8 @@ pub(crate) mod controller;
 mod ether;
 mod info;
 mod input;
+#[cfg(since_647)]
+mod lobby;
 pub(crate) mod login;
 pub(crate) mod logout;
 mod npc;

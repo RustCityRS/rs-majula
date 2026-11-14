@@ -1,0 +1,46 @@
+// 5589
+[proc,clientscript_5589](int $int0, string $string0, string $string1, string $string2, string $string3, string $string4)
+if_sethide(interface_1188:com_11, false);
+if_sethide(interface_1188:com_13, false);
+if_sethide(interface_1188:com_14, false);
+if_sethide(interface_1188:com_15, false);
+if_sethide(interface_1188:com_16, false);
+if ($int0 = 2) {
+    if_settext(interface_1188:com_3, $string0);
+    if_settext(interface_1188:com_24, $string1);
+    if_sethide(interface_1188:com_14, true);
+    if_sethide(interface_1188:com_15, true);
+    if_sethide(interface_1188:com_16, true);
+    if_setposition(interface_1188:com_11, 0, 55, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_13, 0, 80, ^setpos_abs_centre, ^setpos_abs_top);
+} else if ($int0 = 3) {
+    if_settext(interface_1188:com_3, $string0);
+    if_settext(interface_1188:com_24, $string1);
+    if_settext(interface_1188:com_29, $string2);
+    if_sethide(interface_1188:com_15, true);
+    if_sethide(interface_1188:com_16, true);
+    if_setposition(interface_1188:com_11, 0, 45, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_13, 0, 70, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_14, 0, 95, ^setpos_abs_centre, ^setpos_abs_top);
+} else if ($int0 = 4) {
+    if_settext(interface_1188:com_3, $string0);
+    if_settext(interface_1188:com_24, $string1);
+    if_settext(interface_1188:com_29, $string2);
+    if_settext(interface_1188:com_34, $string3);
+    if_sethide(interface_1188:com_16, true);
+    if_setposition(interface_1188:com_11, 0, 40, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_13, 0, 60, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_14, 0, 80, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_15, 0, 100, ^setpos_abs_centre, ^setpos_abs_top);
+} else {
+    if_settext(interface_1188:com_3, $string0);
+    if_settext(interface_1188:com_24, $string1);
+    if_settext(interface_1188:com_29, $string2);
+    if_settext(interface_1188:com_34, $string3);
+    if_settext(interface_1188:com_39, $string4);
+    if_setposition(interface_1188:com_11, 0, 33, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_13, 0, 52, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_14, 0, 71, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_15, 0, 90, ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition(interface_1188:com_16, 0, 109, ^setpos_abs_centre, ^setpos_abs_top);
+}

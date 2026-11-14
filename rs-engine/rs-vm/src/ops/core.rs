@@ -11,6 +11,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::cache::provider::CacheType;
 #[cfg(since_254)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
+use rs_ver::TypeId;
 use runec::opcodes::*;
 
 const MAX_ARRAY_SIZE: i32 = 5000;
@@ -69,7 +70,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varp = engine::<E>()
                 .varps()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarpNotFound(id as i32))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && varp.protect {
                 return Err(ScriptError::Runtime(format!("Varp: {} requires protected access!", varp.debugname)))
@@ -108,7 +109,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varn = engine::<E>()
                 .varns()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarnNotFound(id as i32))?;
             let value = if varn.var_type == ScriptVarType::String {
                 VarValue::String(s.pop_string())
@@ -153,7 +154,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let vars = engine::<E>()
                 .varss()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarsNotFound(id as i32))?;
             let value = if vars.var_type == ScriptVarType::String {
                 VarValue::String(s.pop_string())
@@ -206,7 +207,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varbit = engine::<E>()
                 .varbits()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarbitNotFound(id as i32))?;
             let base = get_active_player::<E>(s, secondary)?.get_var(varbit.basevar).as_int();
             s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
@@ -220,11 +221,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varbit = engine::<E>()
                 .varbits()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarbitNotFound(id as i32))?;
             let basevar = engine::<E>()
                 .varps()
-                .get_by_id(varbit.basevar)
+                .get_by_id(TypeId::new(varbit.basevar))
                 .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && basevar.protect {
                 return Err(ScriptError::Runtime(format!("Varbit: {} requires protected access!", varbit.debugname())))
@@ -413,7 +414,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varcon = engine::<E>()
                 .varcons()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {id}")))?;
             let value = if varcon.var_type == ScriptVarType::String {
                 VarValue::String(s.pop_string())
@@ -454,7 +455,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varbit = engine::<E>()
                 .varconbits()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
             let base = engine::<E>()
                 .controller_var(active_controller(s, secondary)?, varbit.basevar)?
@@ -469,11 +470,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = (operand & 0xFFFF) as u16;
             let varbit = engine::<E>()
                 .varconbits()
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .ok_or(ScriptError::VarConBitNotFound(id as i32))?;
             let varcon = engine::<E>()
                 .varcons()
-                .get_by_id(varbit.basevar)
+                .get_by_id(TypeId::new(varbit.basevar))
                 .ok_or_else(|| ScriptError::Runtime(format!("Varcon not found: {}", varbit.basevar)))?;
             let uid = active_controller(s, secondary)?;
             let base = engine::<E>().controller_var(uid, varbit.basevar)?.as_int();

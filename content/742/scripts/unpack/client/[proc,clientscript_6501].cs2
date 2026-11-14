@@ -1,0 +1,7 @@
+// 6501
+[proc,clientscript_6501]
+if (~clientscript_1420 = 0) {
+    mes("You cannot currently alter your camera zoom.");
+    return;
+}
+~clientscript_6590;

@@ -16,7 +16,7 @@ pub enum PlayerInfoProt {
     Damage2 = 0x400,
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 #[repr(u16)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub enum PlayerInfoProt {
@@ -34,6 +34,26 @@ pub enum PlayerInfoProt {
     Damage2 = 0x1000,
     ExactMove = 0x4000,
     BigInfo2 = 0x8000,
+}
+
+#[cfg(since_742)]
+#[repr(u16)]
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+pub enum PlayerInfoProt {
+    SpotAnim = 0x1,
+    FaceCoord = 0x2,
+    Damage = 0x4,
+    BigInfo = 0x8,
+    FaceEntity = 0x10,
+    Appearance = 0x20,
+    Anim = 0x40,
+    MoveType = 0x80,
+    ExactMove = 0x200,
+    Say = 0x400,
+    Chat = 0x800,
+    Damage2 = 0x1000,
+    BigInfo2 = 0x2000,
+    TempMoveType = 0x8000,
 }
 
 impl PlayerInfoProt {
@@ -98,7 +118,7 @@ impl PlayerInfoProt {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     #[inline]
     pub const fn to_index(self) -> usize {
         match self {
@@ -112,6 +132,24 @@ impl PlayerInfoProt {
             Self::SpotAnim => 7,
             Self::Say => 8,
             Self::Appearance => 9,
+            Self::BigInfo | Self::BigInfo2 | Self::Chat => 255,
+        }
+    }
+
+    #[cfg(since_742)]
+    #[inline]
+    pub const fn to_index(self) -> usize {
+        match self {
+            Self::MoveType => 0,
+            Self::Damage | Self::Damage2 => 1,
+            Self::Anim => 2,
+            Self::TempMoveType => 3,
+            Self::Say => 4,
+            Self::FaceCoord => 5,
+            Self::FaceEntity => 6,
+            Self::Appearance => 7,
+            Self::SpotAnim => 8,
+            Self::ExactMove => 9,
             Self::BigInfo | Self::BigInfo2 | Self::Chat => 255,
         }
     }
@@ -132,7 +170,7 @@ pub enum NpcInfoProt {
     FaceCoord = 0x80,
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 #[repr(u16)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub enum NpcInfoProt {
@@ -146,6 +184,22 @@ pub enum NpcInfoProt {
     Anim = 0x80,
     BigInfo2 = 0x100,
     Damage2 = 0x200,
+}
+
+#[cfg(since_742)]
+#[repr(u16)]
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+pub enum NpcInfoProt {
+    Anim = 0x1,
+    FaceCoord = 0x2,
+    BigInfo = 0x4,
+    Damage = 0x8,
+    Say = 0x10,
+    FaceEntity = 0x20,
+    SpotAnim = 0x40,
+    ChangeType = 0x80,
+    Damage2 = 0x200,
+    BigInfo2 = 0x400,
 }
 
 impl NpcInfoProt {
@@ -202,7 +256,7 @@ impl NpcInfoProt {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     #[inline]
     pub const fn to_index(self) -> usize {
         match self {
@@ -213,6 +267,21 @@ impl NpcInfoProt {
             Self::Say => 4,
             Self::Damage | Self::Damage2 => 5,
             Self::Anim => 6,
+            Self::BigInfo | Self::BigInfo2 => 255,
+        }
+    }
+
+    #[cfg(since_742)]
+    #[inline]
+    pub const fn to_index(self) -> usize {
+        match self {
+            Self::SpotAnim => 0,
+            Self::Say => 1,
+            Self::Anim => 2,
+            Self::Damage | Self::Damage2 => 3,
+            Self::FaceCoord => 4,
+            Self::ChangeType => 5,
+            Self::FaceEntity => 6,
             Self::BigInfo | Self::BigInfo2 => 255,
         }
     }
@@ -237,6 +306,7 @@ mod tests {
     use super::*;
 
     #[test]
+    #[cfg(before_742)]
     fn extended_masks_match_the_client_readers() {
         for (wire, player, npc) in [
             (0x80, ([0x80, 0, 0], 1), ([0x80, 0, 0], 1)),
@@ -251,6 +321,31 @@ mod tests {
         assert_eq!(
             PlayerInfoProt::header(PlayerInfoProt::Damage2 as u16),
             ([0x2, 0, 0], 1),
+            "the second hit goes in the hit block"
+        );
+    }
+
+    #[test]
+    #[cfg(since_742)]
+    fn extended_masks_match_the_742_client_readers() {
+        for (wire, player, npc) in [
+            (0x80, ([0x80, 0, 0], 1), ([0x80, 0, 0], 1)),
+            (0x8000, ([0x8, 0x80, 0], 2), ([0x4, 0x80, 0], 2)),
+            (0x10000, ([0x8, 0x20, 1], 3), ([0x4, 0x4, 1], 3)),
+        ] {
+            let big = (PlayerInfoProt::BigInfo, PlayerInfoProt::BigInfo2);
+            assert_eq!(mask_header(wire, big.0 as u32, big.1 as u32), player);
+            let big = (NpcInfoProt::BigInfo, NpcInfoProt::BigInfo2);
+            assert_eq!(mask_header(wire, big.0 as u32, big.1 as u32), npc);
+        }
+        assert_eq!(
+            PlayerInfoProt::header(PlayerInfoProt::Damage2 as u16 | PlayerInfoProt::Chat as u16),
+            ([0x4, 0, 0], 1),
+            "the second hit goes in the hit block, chat in MESSAGE_PUBLIC"
+        );
+        assert_eq!(
+            NpcInfoProt::header(NpcInfoProt::Damage2 as u16),
+            ([0x8, 0, 0], 1),
             "the second hit goes in the hit block"
         );
     }

@@ -2,6 +2,8 @@ use super::UnpackedPacks;
 use crate::cache::flo::FloTypeRaw;
 #[cfg(before_647)]
 use crate::cache::provider::CacheType;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_flo_props(
@@ -28,7 +30,7 @@ pub fn emit_flo_props(
         }
         let name = def.debugname();
         if !name.is_empty() {
-            _registry.flo_names.insert(def.id, name.to_string());
+            _registry.flo_names.insert(def.id.g2(), name.to_string());
         }
     }
     #[cfg(since_647)]
@@ -40,11 +42,11 @@ pub fn emit_flo_props(
             p.push((
                 2,
                 "texture".into(),
-                _registry.reference("texture", def.texture_u8_raw as u16),
+                _registry.reference("texture", TypeId::from_g2(def.texture_u8_raw.into())),
             ));
         }
         if opcode == 3 {
-            let material = _registry.reference("texture", def.texture_u16_raw);
+            let material = _registry.reference("texture", TypeId::from_g2(def.texture_u16_raw));
             p.push((3, "material".into(), material));
         }
         if !def.occlude {
@@ -80,6 +82,18 @@ pub fn emit_flo_props(
         if opcode == 16 {
             let v = def.waterfogoffset;
             p.push((16, "waterfogoffset".into(), v.to_string()));
+        }
+    }
+    #[cfg(since_742)]
+    {
+        if let Some(v) = def.waterfogunknowna {
+            p.push((20, "waterfogunknowna".into(), v.to_string()));
+        }
+        if let Some(v) = def.waterfogunknownb {
+            p.push((21, "waterfogunknownb".into(), v.to_string()));
+        }
+        if let Some(v) = def.waterfogunknownc {
+            p.push((22, "waterfogunknownc".into(), v.to_string()));
         }
     }
     p.into_iter()

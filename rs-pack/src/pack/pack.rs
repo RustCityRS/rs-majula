@@ -12,9 +12,11 @@ use crate::pack::names::AssetNames;
 #[cfg(since_647)]
 use crate::pack::other::{map, shader, song};
 use crate::pack::pack_registry::{PackRegistry, PackedFile, validate_config_packs};
+#[cfg(all(since_647, before_742))]
+use crate::pack::texture;
 use crate::pack::util::verify_crc;
 #[cfg(since_647)]
-use crate::pack::{config, interface, js5, media, model, sound, texture};
+use crate::pack::{config, interface, js5, media, sound};
 use anyhow::{Context, Result, bail};
 #[cfg(since_647)]
 use rayon::join;
@@ -129,6 +131,10 @@ fn pack_cached_assets(
         "cursor",
         #[cfg(since_647)]
         "hitmark",
+        #[cfg(since_742)]
+        "skybox",
+        #[cfg(since_742)]
+        "headbar",
         #[cfg(since_647)]
         "billboard",
         #[cfg(since_647)]
@@ -157,6 +163,8 @@ fn pack_cached_assets(
         "varsstr",
         #[cfg(since_647)]
         "varclansetting",
+        #[cfg(since_742)]
+        "varclan",
         #[cfg(since_647)]
         "area",
         #[cfg(since_647)]
@@ -223,6 +231,10 @@ fn pack_cached_assets(
                     "cursor" => cursor::pack_cursors(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "hitmark" => hitmark::pack_hitmarks(fc, registry, constants)?,
+                    #[cfg(since_742)]
+                    "skybox" => skybox::pack_skyboxes(fc, registry, constants)?,
+                    #[cfg(since_742)]
+                    "headbar" => headbar::pack_headbars(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "billboard" => billboard::pack_billboards(fc, registry, constants)?,
                     #[cfg(since_647)]
@@ -256,10 +268,20 @@ fn pack_cached_assets(
                     #[cfg(since_647)]
                     "varsstr" => vars::pack_string_vars(fc, &registry.varsstr, "vars", constants)?,
                     #[cfg(since_647)]
-                    "varclansetting" => varclansetting::pack_varclansettings(
+                    "varclansetting" => varclansetting::pack_clan_vars(
                         fc,
+                        "varclansetting",
                         &registry.varclansetting,
                         constants,
+                        2,
+                    )?,
+                    #[cfg(since_742)]
+                    "varclan" => varclansetting::pack_clan_vars(
+                        fc,
+                        "varclan",
+                        &registry.varclan,
+                        constants,
+                        3,
                     )?,
                     #[cfg(since_647)]
                     "area" => area::pack_areas(fc, registry, constants)?,
@@ -343,6 +365,10 @@ impl FileCache {
         "cursor",
         #[cfg(since_647)]
         "hitmark",
+        #[cfg(since_742)]
+        "skybox",
+        #[cfg(since_742)]
+        "headbar",
         #[cfg(since_647)]
         "billboard",
         #[cfg(since_647)]
@@ -365,6 +391,8 @@ impl FileCache {
         "varc",
         #[cfg(since_647)]
         "varclansetting",
+        #[cfg(since_742)]
+        "varclan",
         #[cfg(since_647)]
         "area",
         #[cfg(since_647)]
@@ -389,6 +417,18 @@ impl FileCache {
         "config39",
         #[cfg(since_647)]
         "config45",
+        #[cfg(since_742)]
+        "config49",
+        #[cfg(since_742)]
+        "config50",
+        #[cfg(since_742)]
+        "config51",
+        #[cfg(since_742)]
+        "config53",
+        #[cfg(since_742)]
+        "gamelogevent",
+        #[cfg(since_742)]
+        "config74",
         #[cfg(since_647)]
         "wma",
     ];
@@ -743,12 +783,12 @@ pub fn pack_cache(
 ) -> Result<(HashMap<String, PackedFile>, PackedCache)> {
     let versions = archive::load_versions_dir(&content_dir.join("versions"))?;
     let stages = [
-        "animations",
         "shaders",
         "interfaces",
         "binary",
         "synth",
         "songs",
+        #[cfg(before_742)]
         "textures",
         "sprites",
         "maps",
@@ -769,9 +809,6 @@ pub fn pack_cache(
                     let start = Instant::now();
                     let mut cache = PackedCache::default();
                     match stage {
-                        "animations" => {
-                            model::pack_archive(&mut cache, content_dir, &versions, names)?
-                        }
                         "interfaces" => interface::pack_archive(
                             &mut cache,
                             content_dir,
@@ -798,6 +835,7 @@ pub fn pack_cache(
                         "songs" => {
                             song::pack_archive(&mut cache, content_dir, pack_dir, &versions, names)?
                         }
+                        #[cfg(before_742)]
                         "textures" => {
                             texture::pack_archive(&mut cache, content_dir, &versions, names)?
                         }

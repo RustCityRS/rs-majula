@@ -1,0 +1,93 @@
+// 5989
+[proc,clientscript_5989](component $component0, int $int1)
+if ($component0 = null) {
+    return;
+}
+cc_deleteall($component0);
+def_int $int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setgraphic(window_texture_2);
+cc_settiling(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,1");
+cc_settiling(true);
+cc_sethflip(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,1");
+cc_settiling(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,1");
+cc_settiling(true);
+cc_sethflip(true);
+cc_setvflip(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setsize(10, 10, ^setsize_abs, ^setsize_abs);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,1");
+cc_settiling(true);
+cc_setvflip(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize(20, 10, ^setsize_minus, ^setsize_abs);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,0");
+cc_settiling(true);
+cc_setvflip(true);
+cc_sethflip(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(20, 10, ^setsize_minus, ^setsize_abs);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,0");
+cc_settiling(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setsize(10, 20, ^setsize_abs, ^setsize_minus);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,2");
+cc_settiling(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize(10, 20, ^setsize_abs, ^setsize_minus);
+cc_setgraphic("aif_overlay_frame_gold_corner_2,2");
+cc_settiling(true);
+cc_sethflip(true);
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(4, 4, ^setsize_minus, ^setsize_minus);
+cc_setonmouseover("cc_settrans(event_com, $int2, 128)");
+cc_setonmouseleave("cc_settrans(event_com, $int2, 255)");
+cc_settrans(255);
+def_graphic $graphic3 = null;
+switch_int ($int1) {
+    case 0 :
+        $graphic3 = 7396;
+    case 1 :
+        $graphic3 = 7397;
+    case 2 :
+        $graphic3 = 7398;
+    case 3 :
+        $graphic3 = 7399;
+    case default :
+        return;
+}
+$int2 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(30, 20, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic3);
+cc_settiling(true);

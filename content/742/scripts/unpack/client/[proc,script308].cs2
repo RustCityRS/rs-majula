@@ -1,0 +1,5 @@
+// 308
+[proc,script308](component $component0)
+if_setonkey($component0, "worldmap_onkey(event_keycode, event_keychar, $component0, null)");
+if_settext($component0, "Search the map by typing here.");
+if_settextalign($component0, ^settextalign_left, ^settextalign_centre, 0);

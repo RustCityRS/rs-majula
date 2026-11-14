@@ -1,11 +1,12 @@
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type FloTypeProvider = TypeProvider<FloType>;
 
 pub struct FloType {
-    pub id: u16,
+    pub id: TypeId,
     pub colour: i32,
     pub texture: Option<u16>,
     pub overlay: bool,
@@ -14,7 +15,7 @@ pub struct FloType {
 }
 
 pub struct FloTypeRaw {
-    pub id: u16,
+    pub id: TypeId,
     pub colour: i32,
     pub texture: Option<u16>,
     #[cfg(since_647)]
@@ -41,13 +42,19 @@ pub struct FloTypeRaw {
     pub waterfogscale: u8,
     #[cfg(since_647)]
     pub waterfogoffset: u8,
+    #[cfg(since_742)]
+    pub waterfogunknowna: Option<u16>,
+    #[cfg(since_742)]
+    pub waterfogunknownb: Option<u8>,
+    #[cfg(since_742)]
+    pub waterfogunknownc: Option<u16>,
     debugname: Box<str>,
 }
 
 impl CacheType for FloTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             colour: 0,
@@ -76,6 +83,12 @@ impl CacheType for FloTypeRaw {
             waterfogscale: 16,
             #[cfg(since_647)]
             waterfogoffset: 127,
+            #[cfg(since_742)]
+            waterfogunknowna: None,
+            #[cfg(since_742)]
+            waterfogunknownb: None,
+            #[cfg(since_742)]
+            waterfogunknownc: None,
             debugname: Box::default(),
         }
     }
@@ -119,6 +132,12 @@ impl CacheType for FloTypeRaw {
             14 => self.waterfogscale = buf.g1(),
             #[cfg(since_647)]
             16 => self.waterfogoffset = buf.g1(),
+            #[cfg(since_742)]
+            20 => self.waterfogunknowna = Some(buf.g2()),
+            #[cfg(since_742)]
+            21 => self.waterfogunknownb = Some(buf.g1()),
+            #[cfg(since_742)]
+            22 => self.waterfogunknownc = Some(buf.g2()),
             _ => crate::unknown_opcode!("flo", code),
         }
     }

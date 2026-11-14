@@ -2950,9 +2950,9 @@ dependencies = [
 
 [[package]]
 name = "rs-io"
-version = "0.4.2"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "388d3d2d8058a2fd4aad8c33ebfde0ca7b676f94d4fb925b8f730c58fca9e88f"
+checksum = "197e89f547231494c26c923adda6d9ecebdee285f4d8f6613c3cbce258eb83df"
 dependencies = [
  "cc",
  "crc32fast",
@@ -3027,9 +3027,9 @@ dependencies = [
 
 [[package]]
 name = "rs-runec"
-version = "0.5.23"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "446a2f25dd3ccd9bb0fbed51ebd5c7ac094035fba0bc14f8f269451d7cbe86c7"
+checksum = "21cad0c69c67abbf1bdd96633623d0f49e5ad9b7d10c5079ae6f670a5a4aee2f"
 dependencies = [
  "anyhow",
  "clap",

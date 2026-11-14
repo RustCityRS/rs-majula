@@ -1,0 +1,12 @@
+// 4673
+[proc,clientscript_4673](int $int0)
+switch_int ($int0) {
+    case 2, 3, 6 :
+        if_sethide(interface_102:com_61, true);
+        if_sethide(interface_102:com_60, false);
+        if_setontimer(interface_102:com_60, "clientscript_4674");
+    case default :
+        if_sethide(interface_102:com_60, true);
+        if_sethide(interface_102:com_61, false);
+        if_setontimer(interface_102:com_61, "clientscript_4674");
+}

@@ -1,0 +1,24 @@
+// 1518
+[clientscript,player_kit_player_rotate](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($component0, $int1) = true) {
+    if ($int2 > 0) {
+        cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, ~script686(calc(cc_getmodelangle_y - 10), 2048), cc_getmodelangle_z, cc_getmodelzoom);
+    } else if ($int2 < 0) {
+        cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, calc((cc_getmodelangle_y + 10) % 2048), cc_getmodelangle_z, cc_getmodelzoom);
+    } else {
+        $int3 = cc_getmodelangle_y;
+        if ($int3 > 1024) {
+            $int4 = calc($int3 + 15);
+            if ($int4 >= 2048) {
+                $int4 = 0;
+            }
+            cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, $int4, cc_getmodelangle_z, cc_getmodelzoom);
+        } else if ($int3 > 0) {
+            cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, max(calc($int3 - 15), 0), cc_getmodelangle_z, cc_getmodelzoom);
+        } else {
+            cc_setontimer(null);
+        }
+    }
+}

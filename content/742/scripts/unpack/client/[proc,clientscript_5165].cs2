@@ -1,0 +1,4 @@
+// 5165
+[proc,clientscript_5165]
+%varplayer_2347 = max(0, min(%varplayer_2347, 65535));
+resume_hsldialog(%varplayer_2347);

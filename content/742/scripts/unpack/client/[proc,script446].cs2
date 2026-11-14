@@ -1,0 +1,16 @@
+// 446
+[proc,script446](int $int0, obj $obj1)(string)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+if (oc_stackable($obj1) = false) {
+    $string2 = append($string2, "<col=ff981f><oc_name($obj1)><col=ffffff> x <col=fff000><tostring($int0)><br>");
+} else if ($int0 < 100000) {
+    $string0 = ~tostring_spacer($int0, ",");
+    $string2 = append($string2, "<col=ff981f><oc_name($obj1)><col=ffffff> x <col=fff000><$string0><br>");
+} else {
+    $string0 = ~tostring_spacer($int0, ",");
+    $string1 = ~tostring_spacer(calc($int0 / 1000), ",");
+    $string2 = append($string2, "<col=ff981f><oc_name($obj1)><col=ffffff> x <col=ffffff><$string1>K (<$string0>)<br>");
+}
+return($string2);

@@ -1,0 +1,23 @@
+// 6651
+[proc,clientscript_6651](component $component0)
+switch_component ($component0) {
+    case interface_1321:com_89 :
+        %varplayerbit_11870 = 1;
+    case interface_1321:com_96 :
+        %varplayerbit_11870 = 2;
+    case interface_1321:com_138 :
+        %varplayerbit_11870 = 4;
+    case interface_1321:com_124 :
+        %varplayerbit_11870 = 6;
+    case interface_1321:com_117 :
+        %varplayerbit_11870 = 8;
+    case interface_1321:com_145 :
+        %varplayerbit_11870 = 5;
+    case interface_1321:com_131 :
+        %varplayerbit_11870 = 7;
+    case interface_1321:com_110 :
+        %varplayerbit_11870 = 9;
+    case interface_1321:com_103 :
+        %varplayerbit_11870 = 3;
+}
+~clientscript_6652($component0);

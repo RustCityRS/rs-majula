@@ -1,0 +1,6 @@
+// 5174
+[proc,clientscript_5174]()(int, int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0, $int1 = ~clientscript_5813(3);
+return($int0, $int1);

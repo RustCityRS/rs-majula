@@ -22,8 +22,16 @@ impl InfoMessage for NpcInfoFaceCoord {
 #[cfg(since_647)]
 impl InfoMessage for NpcInfoFaceCoord {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
-        buf.p2(self.x);
-        buf.p2_alt1(self.z);
+        #[cfg(before_742)]
+        {
+            buf.p2(self.x);
+            buf.p2_alt1(self.z);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2_alt1(self.x);
+            buf.p2_alt2(self.z);
+        }
     }
 
     fn sizeof(&self) -> usize {

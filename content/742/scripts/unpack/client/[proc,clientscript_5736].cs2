@@ -1,0 +1,81 @@
+// 5736
+[proc,clientscript_5736](int $int0, int $int1, int $int2, component $component3)(int)
+def_struct $struct4 = ~clientscript_6798($int1);
+def_struct $struct5 = null;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_stat $stat8 = null;
+def_int $int9 = 0;
+def_string $string0 = "";
+def_struct $struct10 = null;
+switch_int ($int2) {
+    case 0 :
+        $int6 = struct_param($struct4, param_1294);
+        $int7 = struct_param($struct4, param_1295);
+    case 1 :
+        $int6 = struct_param($struct4, param_1296);
+        $int7 = struct_param($struct4, param_1297);
+    case 2 :
+        $int6 = struct_param($struct4, param_1298);
+        $int7 = struct_param($struct4, param_1299);
+    case 3 :
+        $int6 = struct_param($struct4, param_1300);
+        $int7 = struct_param($struct4, param_1301);
+    case 4 :
+        $int6 = struct_param($struct4, param_1302);
+        $int7 = struct_param($struct4, param_1303);
+    case 5 :
+        $int6 = struct_param($struct4, param_1304);
+        $int7 = struct_param($struct4, param_1305);
+    case 6 :
+        $int6 = struct_param($struct4, param_1306);
+        $int7 = struct_param($struct4, param_1307);
+    case 7 :
+        $int6 = struct_param($struct4, param_1308);
+        $int7 = struct_param($struct4, param_1309);
+    case 8 :
+        $int6 = struct_param($struct4, param_1310);
+        $int7 = struct_param($struct4, param_1311);
+    case 9 :
+        $int6 = struct_param($struct4, param_1312);
+        $int7 = struct_param($struct4, param_1313);
+    case 10 :
+        $int6 = struct_param($struct4, param_2227);
+        $int7 = struct_param($struct4, param_2228);
+    case 11 :
+        $int6 = struct_param($struct4, param_2229);
+        $int7 = struct_param($struct4, param_2230);
+}
+if ($int6 = 0) {
+    return($int0);
+} else if ($int6 < 60) {
+    $stat8 = enum(int, stat, enum_681, $int6);
+    if ($stat8 ! null) {
+        $string0 = "Level <tostring($int7)> <enum(int, string, enum_108, $int6)> required.";
+    }
+} else if ($int6 = 61) {
+    $struct10 = enum(int, struct, enum_2252, $int7);
+    $string0 = "You must complete the quest '<struct_param($struct10, param_845)>'.";
+} else if ($int6 = 60) {
+    $struct5 = ~clientscript_5795($int7);
+    if ($struct5 = null) {
+        return($int0);
+    }
+    $string0 = "You must complete the Task '<struct_param($struct5, param_1266)>'.";
+} else {
+    $string0 = removetags(~task_special_requirements($int1, calc($int2 + 1)));
+}
+def_int $int11 = 0;
+if (compare($string0, "") ! 0) {
+    if_sethide($component3, false);
+    if_settext($component3, $string0);
+    if_settextfont($component3, verdana_11pt_regular);
+    if_settextalign($component3, ^settextalign_left, ^settextalign_centre, 13);
+    $int11 = calc(if_getwidth(if_getlayer($component3)) - 18);
+    $int9 = calc(15 * paraheight($string0, $int11, verdana_11pt_regular));
+    if_setsize($component3, $int11, $int9, ^setsize_abs, ^setsize_abs);
+    if_setposition($component3, 9, $int0, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    $int9 = 0;
+}
+return(calc($int0 + $int9));

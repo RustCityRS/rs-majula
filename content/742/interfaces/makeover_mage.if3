@@ -1,0 +1,465 @@
+// 900:0
+[contents]
+type=layer
+width=475
+height=300
+xmode=abs_centre
+ymode=abs_centre
+
+// 900:1
+[com_1]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+graphic=tradebacking
+
+// 900:2
+[com_2]
+type=graphic
+width=32
+height=32
+layer=contents
+graphic="v2_stone_borders,35"
+
+// 900:3
+[com_3]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=contents
+graphic="v2_stone_borders,37"
+
+// 900:4
+[com_4]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=contents
+graphic="v2_stone_borders,6"
+
+// 900:5
+[com_5]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=contents
+graphic="v2_stone_borders,7"
+
+// 900:6
+[com_6]
+type=graphic
+x=-13
+width=32
+height=64
+heightmode=minus
+ymode=abs_centre
+layer=contents
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 900:7
+[com_7]
+type=graphic
+x=-12
+width=32
+height=64
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=contents
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 900:8
+[com_8]
+type=graphic
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=contents
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 900:9
+[com_9]
+type=graphic
+y=-12
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=contents
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 900:10
+[com_10]
+type=text
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=contents
+textfont=b12_full
+text=Select skin colour and gender
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 900:11
+[close]
+type=graphic
+x=9
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=contents
+graphic="v2_stone_close_button,0"
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 900:12
+[malehead]
+type=model
+x=80
+y=147
+width=32
+height=32
+layer=contents
+model=null
+modelangle=0,1800,0
+modelzoom=1550
+onload=makeover_headsetup(event_com, karamja_man)
+
+// 900:13
+[femalehead]
+type=model
+x=80
+y=148
+width=32
+height=32
+xmode=abs_right
+layer=contents
+model=null
+modelangle=0,200,0
+modelzoom=1400
+onload=makeover_headsetup(event_com, the_lady_of_the_lake)
+
+// 900:14
+[choosemale]
+type=text
+x=40
+y=245
+width=115
+height=15
+layer=contents
+textfont=b12_full
+text=MALE
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Select Male
+onload=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale)
+onvartransmit=makeover_gender_resynch(makeover_mage:choosemale, makeover_mage:choosefemale){gimp_temp_var}
+onop=makeover_gender_force(event_op, 0, makeover_mage:choosemale, makeover_mage:choosefemale)
+
+// 900:15
+[choosefemale]
+type=text
+x=40
+y=245
+width=115
+height=15
+xmode=abs_right
+layer=contents
+textfont=b12_full
+text=FEMALE
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Select Female
+onop=makeover_gender_force(event_op, 1, makeover_mage:choosemale, makeover_mage:choosefemale)
+
+// 900:16
+[choosemale2]
+type=layer
+x=35
+y=70
+width=120
+height=160
+layer=contents
+transmitop=1
+op1=Select Male
+onop=makeover_gender_force(event_op, 0, makeover_mage:choosemale, makeover_mage:choosefemale)
+
+// 900:17
+[choosefemale2]
+type=layer
+x=35
+y=70
+width=120
+height=160
+xmode=abs_right
+layer=contents
+transmitop=1
+op1=Select Female
+onop=makeover_gender_force(event_op, 1, makeover_mage:choosemale, makeover_mage:choosefemale)
+
+// 900:18
+[colours]
+type=layer
+y=30
+width=34
+height=240
+xmode=abs_centre
+layer=contents
+onload=makeover_colour_resynch(makeover_mage:tick)
+onvartransmit=makeover_colour_resynch(makeover_mage:tick){gimp_temp_var}
+
+// 900:19
+[com_19]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=colours
+colour=0x000000
+fill=yes
+
+// 900:20
+[colour9]
+type=rectangle
+y=1
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0xd9cec7
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 9)
+
+// 900:21
+[colour8]
+type=rectangle
+y=21
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0xceb4a1
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 8)
+
+// 900:22
+[colour7]
+type=rectangle
+y=41
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0xd5a985
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 7)
+
+// 900:23
+[colour0]
+type=rectangle
+y=61
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0xbb8f6a
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 0)
+
+// 900:24
+[colour1]
+type=rectangle
+y=81
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0xa47f5d
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 1)
+
+// 900:25
+[colour2]
+type=rectangle
+y=101
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0x9e7a49
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 2)
+
+// 900:26
+[colour3]
+type=rectangle
+y=121
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0x8e6e42
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 3)
+
+// 900:27
+[colour4]
+type=rectangle
+y=141
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0x79582a
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 4)
+
+// 900:28
+[colour5]
+type=rectangle
+y=161
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0x644e24
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 5)
+
+// 900:29
+[colour6]
+type=rectangle
+y=181
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0x4c3d09
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 6)
+
+// 900:30
+[colour10]
+type=rectangle
+y=201
+width=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=colours
+colour=0x2e1c01
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 10)
+
+// 900:31
+[colour11]
+type=rectangle
+y=1
+width=2
+height=222
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=colours
+colour=0x1c120b
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=makeover_colour_force(event_op, event_com, makeover_mage:tick, 11)
+
+// 900:32
+[tick]
+type=graphic
+width=17
+height=17
+layer=colours
+hide=yes
+graphic=graphic_1584
+
+// 900:33
+[confirm]
+type=text
+y=275
+width=300
+height=18
+xmode=abs_centre
+layer=contents
+textfont=b12_full
+text=CONFIRM (3000 Gold)
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Confirm
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)

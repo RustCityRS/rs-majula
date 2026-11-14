@@ -1,0 +1,19 @@
+// 6452
+[proc,clientscript_6452](component $component0, component $component1, int $int2, int $int3, int $int4)
+if ($int2 >= $int3) {
+    if_setontimer($component0, "clientscript_6449($component0, $component1, 0, $int4)");
+    if (cc_find($component1, 0) = true) {
+        if ($int4 = 1) {
+            cc_setmodelanim(seq_12287);
+        } else {
+            if (%player_kit_torso_client ! null) {
+                cc_setmodelanim(bas_getanim_ready(%player_kit_torso_client));
+            } else {
+                cc_setmodelanim(bas_getanim_ready(bas_1426));
+            }
+            cc_setonvarctransmit("script1517(event_com, event_comsubid){player_kit_torso_client}");
+        }
+    }
+} else {
+    if_setontimer($component0, "clientscript_6452($component0, $component1, calc($int2 + 1), $int3, $int4)");
+}

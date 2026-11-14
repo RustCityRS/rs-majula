@@ -40,6 +40,7 @@ use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 use rs_util::random::JavaRandom;
+use rs_ver::TypeId;
 use std::cell::Cell;
 use std::ptr::null_mut;
 use std::sync::Arc;
@@ -139,9 +140,14 @@ pub trait ScriptEngine {
 
     /// Returns how many ticks the midi with `midi` id `id` lasts (from 647 a
     /// song's own id, or a jingle's plus `MIDI_JINGLE_BASE`), for `midi_length`
-    /// and the delay `midi_jingle` sends; `None` if no length is known.
+    /// and, from 647, the delay `midi_jingle` sends; `None` if no length is known.
     #[cfg(since_254)]
     fn midi_tick_length(&self, id: i32) -> Option<u16>;
+    /// Returns how many milliseconds the midi with `midi` id `id` lasts: the
+    /// delay `midi_jingle` sends, which the client counts down 20 a cycle
+    /// before it plays the song again.
+    #[cfg(all(since_254, before_647))]
+    fn midi_length_ms(&self, id: i32) -> Option<u32>;
     /// Looks up a jingle by name, for rev 225's `midi_jingle`, which sends the
     /// jingle's data and `length_ms` itself.
     #[cfg(rev = "225")]
@@ -183,7 +189,7 @@ pub trait ScriptEngine {
     /// A mutable reference to the shared inventory.
     fn get_shared_inv(
         &mut self,
-        id: u16,
+        id: TypeId,
         size: usize,
         stack_mode: rs_inv::StackMode,
     ) -> &mut Inventory;
@@ -195,7 +201,7 @@ pub trait ScriptEngine {
     ///
     /// # Returns
     /// `Some(&mut Inventory)` if the inventory exists, `None` otherwise.
-    fn get_shared_inv_mut(&mut self, id: u16) -> Option<&mut Inventory>;
+    fn get_shared_inv_mut(&mut self, id: TypeId) -> Option<&mut Inventory>;
 
     /// Looks up a player by their slot index (immutable).
     ///
@@ -256,7 +262,7 @@ pub trait ScriptEngine {
     /// with them as `last_item` and `last_slot`. Ops 1-5 have a trigger; any
     /// other op does nothing. The script runs within the protected access
     /// its caller holds, and the caller keeps it.
-    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: u16, slot: u16);
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: TypeId, slot: u16);
 
     /// Rev-647 `p_setdisplayname`: asks the DB service to validate and claim
     /// `name` for the player. The saves phase resumes the player's
@@ -311,7 +317,7 @@ pub trait ScriptEngine {
     fn add_npc_spawned(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         duration: i32,
     ) -> crate::Result<Option<crate::NpcUid>>;
 
@@ -371,7 +377,7 @@ pub trait ScriptEngine {
     fn remove_obj(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         duration: u64,
     ) -> Option<u32>;
@@ -382,7 +388,7 @@ pub trait ScriptEngine {
     fn valid_obj_count(
         &self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         receiver37: Option<u64>,
     ) -> Option<u32>;
@@ -391,17 +397,17 @@ pub trait ScriptEngine {
     /// drop, the player it was revealed from for one everyone can see, or
     /// `None` for one nobody dropped (a map spawn, or one a script put down
     /// for everyone).
-    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> Option<u64>;
+    fn obj_dropped_for(&self, coord: CoordGrid, id: TypeId, serial: ObjSerial) -> Option<u64>;
 
     /// The varobjs of a ground object: 0 for one with none set, or that
     /// isn't there.
     #[cfg(since_647)]
-    fn obj_var(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> i32;
+    fn obj_var(&self, coord: CoordGrid, id: TypeId, serial: ObjSerial) -> i32;
 
     /// Sets the varobjs of a dropped ground object; `false` if it isn't there
     /// or is a map spawn, which keeps none.
     #[cfg(since_647)]
-    fn set_obj_var(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, var: i32) -> bool;
+    fn set_obj_var(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, var: i32) -> bool;
 
     /// Whether staff of level `staffmodlevel` are kept apart from other
     /// players on this world: besides the engine's own checks, they don't
@@ -414,7 +420,7 @@ pub trait ScriptEngine {
     /// If `receiver37` is `Some`, matches objects visible to that player
     /// (receiver-owned or globally visible). If `None`, matches only
     /// globally visible objects.
-    fn find_obj(&self, coord: CoordGrid, id: u16, receiver37: Option<u64>) -> Option<ObjRef>;
+    fn find_obj(&self, coord: CoordGrid, id: TypeId, receiver37: Option<u64>) -> Option<ObjRef>;
 
     /// Returns the valid ground objects in the specified zone, any player's,
     /// newest first.
@@ -437,7 +443,7 @@ pub trait ScriptEngine {
     ///
     /// # Returns
     /// `Some(LocRef)` if a matching location exists, `None` otherwise.
-    fn find_loc(&self, coord: CoordGrid, id: u16) -> Option<LocRef>;
+    fn find_loc(&self, coord: CoordGrid, id: TypeId) -> Option<LocRef>;
 
     /// Adds a new location, or changes the one already on the shape's layer at
     /// the given coordinate (a removed map loc included, which comes back).
@@ -454,7 +460,7 @@ pub trait ScriptEngine {
     fn add_or_change_loc(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         duration: u64,
@@ -467,7 +473,12 @@ pub trait ScriptEngine {
     ///
     /// # Returns
     /// The loc as changed, or `None` if it is gone.
-    fn change_loc(&mut self, loc: LocRef, id: u16, duration: u64) -> crate::Result<Option<LocRef>>;
+    fn change_loc(
+        &mut self,
+        loc: LocRef,
+        id: TypeId,
+        duration: u64,
+    ) -> crate::Result<Option<LocRef>>;
 
     /// Returns `loc` with the type, shape and angle the loc has now (a removed
     /// map loc reads as the type it had when removed), or `loc` unchanged once
@@ -494,7 +505,7 @@ pub trait ScriptEngine {
         coord: CoordGrid,
         shape: LocShape,
         angle: LocAngle,
-        id: u16,
+        id: TypeId,
         start: u16,
         end: u16,
         pid: u16,
@@ -516,7 +527,7 @@ pub trait ScriptEngine {
     /// # Arguments
     /// * `loc` - The location to animate.
     /// * `seq` - The sequence (animation) identifier to play.
-    fn anim_loc(&mut self, loc: LocRef, seq: u16);
+    fn anim_loc(&mut self, loc: LocRef, seq: TypeId);
 
     /// Starts every client observing `coord`'s zone downloading the models
     /// loc type `id` has for `shape`.
@@ -526,7 +537,7 @@ pub trait ScriptEngine {
     /// * `id` - The loc type identifier.
     /// * `shape` - The shape the client looks the models up by.
     #[cfg(since_647)]
-    fn loc_prefetchall(&mut self, coord: CoordGrid, id: u16, shape: u8);
+    fn loc_prefetchall(&mut self, coord: CoordGrid, id: TypeId, shape: u8);
 
     /// Merges a look into `loc` for everyone observing its zone: `models`
     /// replace its models for its shape, `recol` and `retex` its recolour and
@@ -535,7 +546,7 @@ pub trait ScriptEngine {
     fn loc_merge(
         &mut self,
         loc: LocRef,
-        models: Option<Box<[u16]>>,
+        models: Option<Box<[TypeId]>>,
         recol: Option<Box<[u16]>>,
         retex: Option<Box<[u16]>>,
     );
@@ -565,7 +576,7 @@ pub trait ScriptEngine {
         dst_x: u16,
         dst_z: u16,
         target: i16,
-        id: u16,
+        id: TypeId,
         src_height: u8,
         dst_height: u8,
         start: u16,
@@ -583,7 +594,7 @@ pub trait ScriptEngine {
     /// * `spotanim` - The spotanim identifier to display.
     /// * `height` - The height offset above the tile.
     /// * `delay` - The delay in client ticks before the animation plays.
-    fn anim_map(&mut self, y: u8, x: u16, z: u16, spotanim: u16, height: u8, delay: u16);
+    fn anim_map(&mut self, y: u8, x: u16, z: u16, spotanim: TypeId, height: u8, delay: u16);
 
     /// Plays a sound effect anchored to a tile, audible to all players observing
     /// the zone within `range`.
@@ -693,7 +704,7 @@ pub trait ScriptEngine {
 
     /// Indicates if `area` is painted on this coord's tile.
     #[cfg(since_647)]
-    fn inarea(&self, area: u16, coord: CoordGrid) -> bool;
+    fn inarea(&self, area: TypeId, coord: CoordGrid) -> bool;
 
     /// The uid of the region covering `coord`.
     #[cfg(since_647)]
@@ -742,7 +753,7 @@ pub trait ScriptEngine {
     fn controller_add(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         duration: i32,
     ) -> crate::Result<ControllerUid>;
 
@@ -759,7 +770,7 @@ pub trait ScriptEngine {
     /// Finds the controller of type `id` standing exactly on `coord`, the
     /// earliest added when there are several.
     #[cfg(since_647)]
-    fn controller_findexact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid>;
+    fn controller_findexact(&self, coord: CoordGrid, id: TypeId) -> Option<ControllerUid>;
 
     /// Queues the controller's `[ai_conqueue]` after `delay` ticks with `arg`.
     #[cfg(since_647)]
@@ -838,7 +849,7 @@ pub struct ProjAnimHalfsq {
     pub source: i16,
     pub target: i16,
     pub wearpos: Option<u8>,
-    pub spotanim: u16,
+    pub spotanim: TypeId,
     pub src_height: u8,
     pub dst_height: u8,
     pub start: u16,
@@ -953,6 +964,9 @@ pub trait ScriptPlayer {
     /// # Returns
     /// `0` for regular players, higher values for increasing staff privileges.
     fn staffmodlevel(&self) -> u8;
+
+    /// Whether the player is in the lobby rather than the game world.
+    fn map_lobby(&self) -> bool;
 
     /// Checks whether the player currently has access rights for privileged
     /// operations.
@@ -1083,12 +1097,12 @@ pub trait ScriptPlayer {
     /// * `obj` - The obj type id.
     /// * `count` - How many.
     /// * `to37` - The base37 name of the player they went to.
-    fn log_handover(&mut self, inv: &str, obj: u16, count: i32, to37: u64);
+    fn log_handover(&mut self, inv: &str, obj: TypeId, count: i32, to37: u64);
 
     /// Logs items the player dropped on the floor at `coord`, or with
     /// `taken`, picked up from there, so a pickup can be matched to whoever
     /// dropped it.
-    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: u16, count: i32);
+    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: TypeId, count: i32);
 
     /// Sends the last-login info to the client (welcome screen): days since the
     /// previous login, recovery prompt code, and unread message count.
@@ -1216,13 +1230,13 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the ready animation.
-    fn readyanim(&mut self, id: u16);
+    fn readyanim(&mut self, id: TypeId);
 
     /// Sets the player's turn-on-spot animation.
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the turn animation.
-    fn turnanim(&mut self, id: u16);
+    fn turnanim(&mut self, id: TypeId);
 
     /// Opens a tutorial interface and tracks it as the active tutorial modal.
     ///
@@ -1247,31 +1261,31 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the forward walk animation.
-    fn walkanim(&mut self, id: u16);
+    fn walkanim(&mut self, id: TypeId);
 
     /// Sets the player's backward walk animation.
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the backward walk animation.
-    fn walkanim_b(&mut self, id: u16);
+    fn walkanim_b(&mut self, id: TypeId);
 
     /// Sets the player's left strafe walk animation.
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the left walk animation.
-    fn walkanim_l(&mut self, id: u16);
+    fn walkanim_l(&mut self, id: TypeId);
 
     /// Sets the player's right strafe walk animation.
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the right walk animation.
-    fn walkanim_r(&mut self, id: u16);
+    fn walkanim_r(&mut self, id: TypeId);
 
     /// Sets the player's run animation.
     ///
     /// # Arguments
     /// * `id` - The sequence ID for the run animation.
-    fn runanim(&mut self, id: u16);
+    fn runanim(&mut self, id: TypeId);
 
     /// Configures which interface buttons are valid resume targets for a
     /// paused script dialog.
@@ -1416,13 +1430,13 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `id` - The sequence ID to play, or `None` to clear the current animation.
     /// * `delay` - The delay in client ticks before the animation starts.
-    fn anim(&mut self, id: Option<u16>, delay: u8);
+    fn anim(&mut self, id: Option<TypeId>, delay: u8);
 
     /// Rebuilds the player's appearance from their worn equipment inventory.
     ///
     /// # Arguments
     /// * `inv` - The inventory ID to read equipment from.
-    fn buildappearance(&mut self, inv: u16);
+    fn buildappearance(&mut self, inv: TypeId);
 
     /// Sets the player's skin color (appearance color slot 4).
     ///
@@ -1452,7 +1466,7 @@ pub trait ScriptPlayer {
     /// * `idk_type` - The idk body type index (0-6 male, 7-13 female).
     /// * `idk_id` - The identity-kit ID to apply to the body slot.
     /// * `colour` - The color index to apply to the matching color slot.
-    fn setidkit(&mut self, idk_type: u8, idk_id: u16, colour: u8);
+    fn setidkit(&mut self, idk_type: u8, idk_id: TypeId, colour: u8);
 
     /// Sets the player's gender, converting each appearance body part through
     /// the male/female identity-kit mapping.
@@ -1515,7 +1529,7 @@ pub trait ScriptPlayer {
         z: u16,
         height: u8,
         range: u16,
-        model: Option<u16>,
+        model: Option<TypeId>,
     );
 
     /// Rev-647: clears the hint arrow in one slot, leaving the others.
@@ -1533,7 +1547,7 @@ pub trait ScriptPlayer {
     ///   hint_mapedge sprite sheets.
     /// * `model` - The model drawn at the player's feet, or `None`.
     #[cfg(since_647)]
-    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>);
+    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<TypeId>);
 
     /// Returns the player's gender.
     ///
@@ -1616,7 +1630,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `seq` - The sequence (animation) ID to display.
-    fn if_setanim(&mut self, com: i32, seq: u16);
+    fn if_setanim(&mut self, com: i32, seq: TypeId);
 
     /// Sets the colour of an interface component.
     ///
@@ -1637,7 +1651,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `model` - The model ID to display.
-    fn if_setmodel(&mut self, com: i32, model: u16);
+    fn if_setmodel(&mut self, com: i32, model: TypeId);
 
     /// Sets the graphic (a sprite) displayed on an interface component.
     ///
@@ -1645,14 +1659,14 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID.
     /// * `graphic` - The sprite ID to display.
     #[cfg(since_647)]
-    fn if_setgraphic(&mut self, com: i32, graphic: u16);
+    fn if_setgraphic(&mut self, com: i32, graphic: TypeId);
 
     /// Sets an NPC chathead model on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `npc` - The NPC type ID whose head model to display.
-    fn if_setnpchead(&mut self, com: i32, npc: u16);
+    fn if_setnpchead(&mut self, com: i32, npc: TypeId);
 
     /// Displays an object model on an interface component at the given zoom level.
     ///
@@ -1660,7 +1674,7 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID.
     /// * `obj` - The object (item) type ID.
     /// * `scale` - The zoom level for the model display.
-    fn if_setobject(&mut self, com: i32, obj: u16, scale: i32);
+    fn if_setobject(&mut self, com: i32, obj: TypeId, scale: i32);
 
     /// Sets the player's own chathead model on an interface component.
     ///
@@ -1810,7 +1824,7 @@ pub trait ScriptPlayer {
     /// * `id` - The loc type identifier.
     /// * `shape` - The shape the client looks the models up by.
     #[cfg(since_647)]
-    fn loc_prefetch(&mut self, id: u16, shape: u8);
+    fn loc_prefetch(&mut self, id: TypeId, shape: u8);
 
     /// Clears the player's pending action, if any.
     ///
@@ -1913,7 +1927,7 @@ pub trait ScriptPlayer {
     /// * `spotanim` - The spotanim identifier.
     /// * `height` - The height offset above the player model.
     /// * `delay` - The delay in client ticks before the animation plays.
-    fn spotanim(&mut self, spotanim: u16, height: u16, delay: u16);
+    fn spotanim(&mut self, spotanim: TypeId, height: u16, delay: u16);
 
     /// Enqueues a script for deferred execution on this player.
     ///
@@ -2048,7 +2062,7 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some(&Inventory)` if the inventory exists, `None` otherwise.
-    fn get_inv(&mut self, id: u16) -> Option<&Inventory>;
+    fn get_inv(&mut self, id: TypeId) -> Option<&Inventory>;
 
     /// Returns a mutable reference to a player inventory.
     ///
@@ -2057,7 +2071,7 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some(&mut Inventory)` if the inventory exists, `None` otherwise.
-    fn get_inv_mut(&mut self, id: u16) -> Option<&mut Inventory>;
+    fn get_inv_mut(&mut self, id: TypeId) -> Option<&mut Inventory>;
 
     /// Returns mutable references to two distinct player inventories simultaneously.
     ///
@@ -2067,7 +2081,11 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some((&mut Inventory, &mut Inventory))` if both exist, `None` otherwise.
-    fn get_inv_pair_mut(&mut self, a: u16, b: u16) -> Option<(&mut Inventory, &mut Inventory)>;
+    fn get_inv_pair_mut(
+        &mut self,
+        a: TypeId,
+        b: TypeId,
+    ) -> Option<(&mut Inventory, &mut Inventory)>;
 
     /// Retrieves a player inventory, creating it if it does not yet exist.
     ///
@@ -2080,7 +2098,7 @@ pub trait ScriptPlayer {
     /// A mutable reference to the inventory.
     fn get_or_create_inv(
         &mut self,
-        id: u16,
+        id: TypeId,
         size: usize,
         stack_mode: rs_inv::StackMode,
     ) -> &mut Inventory;
@@ -2091,7 +2109,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `inv_id` - The inventory definition ID.
     /// * `com` - The interface component ID that will display the inventory.
-    fn add_inv_transmit(&mut self, inv_id: u16, com: ComId);
+    fn add_inv_transmit(&mut self, inv_id: TypeId, com: ComId);
 
     /// Checks whether a given interface component has a transmit binding.
     ///
@@ -2100,7 +2118,7 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some(inv_id)` if the component is bound, `None` otherwise.
-    fn has_inv_transmit(&self, com: ComId) -> Option<u16>;
+    fn has_inv_transmit(&self, com: ComId) -> Option<TypeId>;
 
     /// Removes every transmit binding of the given interface component.
     ///
@@ -2115,7 +2133,7 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID that will display the inventory.
     /// * `inv_id` - The inventory definition ID to display.
     /// * `uid` - The script-uid of the source player whose inventory is shown.
-    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: u16, uid: i32);
+    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: TypeId, uid: i32);
 
     /// Returns the cross-player inventory listener bound to a component, if any.
     ///
@@ -2124,7 +2142,7 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some((uid, inv_id))` if `com` mirrors another player's inventory, else `None`.
-    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, u16)>;
+    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, TypeId)>;
 
     /// Appends a waypoint to the player's movement queue.
     ///
@@ -2165,7 +2183,7 @@ pub trait ScriptPlayer {
     /// * `id` - The object type identifier.
     /// * `serial` - The serial of the exact object.
     /// * `op` - The interaction opcode.
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8);
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, op: u8);
 
     /// Sets the player's interaction target to another player.
     ///
@@ -2313,14 +2331,14 @@ pub trait ScriptNpc {
     /// * `id` - The object type identifier.
     /// * `serial` - The serial of the exact object.
     /// * `op` - The interaction opcode.
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8);
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, op: u8);
 
     /// Plays an animation on the NPC's model.
     ///
     /// # Arguments
     /// * `id` - The sequence ID to play, or `None` to clear the current animation.
     /// * `delay` - The delay in client ticks before the animation starts.
-    fn anim(&mut self, id: Option<u16>, delay: u8);
+    fn anim(&mut self, id: Option<TypeId>, delay: u8);
 
     /// Displays overhead chat text above the NPC.
     ///
@@ -2462,7 +2480,7 @@ pub trait ScriptNpc {
     /// # Arguments
     /// * `mode` - `Some(hunt_type_id)` to set a hunt mode, or `None` to
     ///   disable hunting.
-    fn set_hunt_mode(&mut self, mode: Option<u16>);
+    fn set_hunt_mode(&mut self, mode: Option<TypeId>);
 
     /// Temporarily transforms the NPC to a different type.
     ///
@@ -2470,7 +2488,7 @@ pub trait ScriptNpc {
     /// * `new_type` - The NPC type ID to transform into.
     /// * `duration` - How many ticks the transformation lasts before reverting.
     /// * `reset` - Whether to reset the NPC's state upon transformation.
-    fn change_type(&mut self, new_type: u16, duration: u64, reset: bool);
+    fn change_type(&mut self, new_type: TypeId, duration: u64, reset: bool);
 
     /// Returns whether the NPC's current target is within its max range.
     fn inrange(&self) -> bool;
@@ -2491,7 +2509,7 @@ pub trait ScriptNpc {
     fn walktrigger(&mut self, trigger: i32, arg: i32);
 
     /// Plays a spot animation (graphic) on the NPC.
-    fn spotanim(&mut self, id: u16, height: u16, delay: u16);
+    fn spotanim(&mut self, id: TypeId, height: u16, delay: u16);
 
     /// Returns the NPC's current coord destination.
     fn destination(&self) -> CoordGrid;

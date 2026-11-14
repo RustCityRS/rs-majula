@@ -1,0 +1,9 @@
+// From 289's pet.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,follower_death]
+if (npc_finduid(%follower_uid) = true) {
+    %follower_uid = null;
+    %varplayer_275 = null;
+    %cat_growth = 0;
+    npc_del;
+}

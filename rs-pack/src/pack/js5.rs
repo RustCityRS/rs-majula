@@ -1,13 +1,11 @@
 use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
-use crate::pack::incremental::{self, Hash, Key, Registry, Stage, dir_key, files_under};
-use crate::pack::model::source as model_source;
+use crate::pack::incremental::{self, Hash, Key, Stage, dir_key, files_under};
 use crate::pack::names::{AssetNames, archive_name};
 use crate::pack::other::{asset, material, wma};
 use crate::pack::pack::collect_config_files;
 use crate::pack::pack_dir::PrivatePack;
 use crate::pack::pack_registry::PackFile;
-use crate::pack::sound::{vorbis, vorbis_setup};
 use anyhow::{Context, Result, ensure};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
@@ -250,6 +248,7 @@ pub fn group_version(versions: &HashMap<u8, ArchiveVersions>, aid: u8, gid: &u32
 }
 
 const SIMPLE_ARCHIVES: &[u8] = &[
+    archive::ANIMS,
     archive::BASES,
     archive::MODELS,
     archive::BINARY,
@@ -263,7 +262,28 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::DLLS,
     archive::LOADING_SCREENS,
     archive::WORLDMAP_LOCS,
+    #[cfg(since_742)]
+    archive::TEXTURES,
+    #[cfg(since_742)]
+    archive::TEXTURES_HDR,
+    #[cfg(since_742)]
+    archive::CUTSCENES,
 ];
+
+/// The extension of an archive whose groups are their raw bytes.
+pub fn raw_extension(aid: u8) -> Option<&'static str> {
+    Some(match aid {
+        archive::ANIMS => "anim",
+        archive::BASES => "base",
+        archive::MODELS => "ob2",
+        archive::VORBIS => "vorbis",
+        #[cfg(since_742)]
+        archive::TEXTURES | archive::TEXTURES_HDR => "png",
+        #[cfg(since_742)]
+        archive::CUTSCENES => "cutscene",
+        _ => return None,
+    })
+}
 
 /// The groups the `.wma` configs make: every map's details, and its elements.
 fn pack_world_maps(
@@ -382,12 +402,9 @@ pub fn pack_asset_archives(
                 return Ok(cache);
             }
 
-            let group_files = if let Some(extension) = asset::extension(aid) {
+            let group_files = if let Some(extension) = asset::extension(aid).or(raw_extension(aid))
+            {
                 names.files(&dir, archive_name(aid), &[extension])?
-            } else if aid == archive::MODELS {
-                names.files(&dir, archive_name(aid), &["model"])?
-            } else if aid == archive::VORBIS {
-                names.files(&dir, "vorbis", &["vorbis", "sample"])?
             } else if aid == archive::DLLS {
                 names.files(&dir, "dlls", &["dll", "dylib", "so"])?
             } else {
@@ -399,31 +416,7 @@ pub fn pack_asset_archives(
                 return Ok(cache);
             }
 
-            let vorbis = if aid == archive::VORBIS {
-                let path = &group_files
-                    .iter()
-                    .find(|(id, _)| *id == 0)
-                    .context("Missing Vorbis setup source")?
-                    .1;
-                // Every sample packs against the setup, so the stage depends
-                // on it, with the names packing it looked up.
-                let view = names.recording();
-                let data = vorbis_setup::pack(&fs::read_to_string(path)?, &view)?;
-                let setup = vorbis::Setup::new(&data, &view)?;
-                let key = Hash::new("setup")
-                    .bytes(&data)
-                    .bytes(&view.recorded())
-                    .key();
-                Some((setup, data, key))
-            } else {
-                None
-            };
-
-            let mut deps = vec![versions_dep(versions, aid)];
-            if let Some((_, _, key)) = &vorbis {
-                deps.push(("setup".to_owned(), *key));
-            }
-            let stage = Stage::new(&format!("archive {aid}"), deps);
+            let stage = Stage::new(&format!("archive {aid}"), vec![versions_dep(versions, aid)]);
             let build = |gid: u32, path: &PathBuf, names: &AssetNames| -> Result<PreparedGroup> {
                 let mut file_ids = None;
                 let data = if asset::extension(aid).is_some() {
@@ -435,20 +428,6 @@ pub fn pack_asset_archives(
                             .map(|(id, data)| (*id, data.as_slice()))
                             .collect::<Vec<_>>(),
                     )
-                } else if aid == archive::MODELS {
-                    model_source::pack(&fs::read_to_string(path)?, names)?
-                } else if aid == archive::VORBIS {
-                    let (setup, data, _) = vorbis.as_ref().unwrap();
-                    if gid == 0 {
-                        data.clone()
-                    } else {
-                        vorbis::pack_sample(
-                            &fs::read_to_string(path)?,
-                            &fs::read(path.with_extension("ogg"))?,
-                            setup,
-                            names,
-                        )?
-                    }
                 } else {
                     fs::read(path)?
                 };
@@ -473,11 +452,7 @@ pub fn pack_asset_archives(
                     Ok(groups)
                 })?
             } else {
-                let sources = |path: &PathBuf| match vorbis {
-                    Some(_) => vec![path.clone(), path.with_extension("ogg")],
-                    None => vec![path.clone()],
-                };
-                stage.groups(names, &group_files, sources, build)?
+                stage.groups(names, &group_files, |path| vec![path.clone()], build)?
             };
             stage.finish(Vec::new());
 

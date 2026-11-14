@@ -9,12 +9,13 @@ use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 #[cfg(since_647)]
 #[server_prot(MessageQuickchatPrivateEcho, Buffered, VarByte)]
 pub struct MessageQuickchatPrivateEcho {
     pub recipient: String,
-    pub phrase_id: u16,
+    pub phrase_id: TypeId,
     pub quickchat_data: Vec<u8>,
 }
 
@@ -22,11 +23,11 @@ pub struct MessageQuickchatPrivateEcho {
 impl ServerProtMessage for MessageQuickchatPrivateEcho {
     fn encode(&self, buf: &mut Packet) {
         buf.pjstr(&self.recipient, STRING_TERMINATOR);
-        buf.p2(self.phrase_id);
+        buf.p2(self.phrase_id.g2());
         buf.pdata(&self.quickchat_data, 0, self.quickchat_data.len());
     }
 
     fn sizeof(&self) -> usize {
-        Packet::sizejstr(&self.recipient) + size_of_val(&self.phrase_id) + self.quickchat_data.len()
+        Packet::sizejstr(&self.recipient) + size_of::<u16>() + self.quickchat_data.len()
     }
 }

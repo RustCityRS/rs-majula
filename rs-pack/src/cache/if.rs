@@ -1,7 +1,7 @@
 #[cfg(since_647)]
 use crate::archive;
 #[cfg(since_647)]
-use crate::cache::decode::{read_id, read_optional_id};
+use crate::cache::decode::{read_big_id, read_optional_id};
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 use crate::types::{IfButtonType, IfComponentType};
@@ -11,6 +11,7 @@ use rs_io::Packet;
 #[cfg(since_647)]
 use rs_io::js5::split_group_entries;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 #[cfg(since_647)]
 use runec::clientscript::HookValue;
 #[cfg(since_647)]
@@ -168,7 +169,7 @@ pub struct IfTypeRaw {
     pub iop: Vec<String>,
     pub fill: bool,
     pub center: bool,
-    pub font: i32,
+    pub font: TypeId,
     pub shadowed: bool,
     pub text: String,
     pub active_text: String,
@@ -186,7 +187,7 @@ pub struct IfTypeRaw {
     #[cfg(before_647)]
     pub graphic: String,
     #[cfg(since_647)]
-    pub graphic: Option<i32>,
+    pub graphic: Option<TypeId>,
     pub active_graphic: String,
     #[cfg(since_647)]
     pub angle_2d: u16,
@@ -202,8 +203,8 @@ pub struct IfTypeRaw {
     pub vflip: bool,
     #[cfg(since_647)]
     pub hflip: bool,
-    pub model: i32,
-    pub active_model: i32,
+    pub model: TypeId,
+    pub active_model: TypeId,
     #[cfg(since_647)]
     pub model_flags: u8,
     #[cfg(since_647)]
@@ -217,8 +218,8 @@ pub struct IfTypeRaw {
     #[cfg(since_647)]
     pub model_zan: u16,
     pub zoom: i32,
-    pub anim: i32,
-    pub active_anim: i32,
+    pub anim: TypeId,
+    pub active_anim: TypeId,
     #[cfg(since_647)]
     pub dynamic_width: u16,
     #[cfg(since_647)]
@@ -242,7 +243,7 @@ pub struct IfTypeRaw {
     #[cfg(since_647)]
     pub op_cursor_count: u8,
     #[cfg(since_647)]
-    pub op_cursors: Vec<(u8, u16)>,
+    pub op_cursors: Vec<(u8, TypeId)>,
     #[cfg(since_647)]
     pub pause_text: String,
     #[cfg(since_647)]
@@ -254,13 +255,25 @@ pub struct IfTypeRaw {
     #[cfg(since_647)]
     pub target_verb: String,
     #[cfg(since_647)]
-    pub target_object_id: Option<u16>,
+    pub target_object_id: Option<TypeId>,
     #[cfg(since_647)]
-    pub target_enter_cursor: Option<u16>,
+    pub target_enter_cursor: Option<TypeId>,
     #[cfg(since_647)]
-    pub target_leave_cursor: Option<u16>,
+    pub target_leave_cursor: Option<TypeId>,
+    #[cfg(since_742)]
+    pub graphic_flag3: bool,
+    #[cfg(since_742)]
+    pub text_flag2: bool,
+    #[cfg(since_742)]
+    pub text_byte0: u8,
+    #[cfg(since_742)]
+    pub cursor: Option<TypeId>,
+    #[cfg(since_742)]
+    pub int_params: Vec<(u32, i32)>,
+    #[cfg(since_742)]
+    pub string_params: Vec<(u32, String)>,
     #[cfg(since_647)]
-    pub hooks: [Option<Vec<HookValue>>; 20],
+    pub hooks: [Option<Vec<HookValue>>; HOOK_NAMES.len()],
     #[cfg(since_647)]
     pub transmit_lists: [Option<Vec<i32>>; 5],
 }
@@ -323,8 +336,13 @@ impl IfTypeRaw {
             com.height_mode = buf.g1s();
             com.x_mode = buf.g1s();
             com.y_mode = buf.g1s();
-            com.parent_id = read_optional_id(buf);
+            com.parent_id = Some(buf.g2()).filter(|&id| id != u16::MAX);
             com.flags = buf.g1();
+            #[cfg(since_742)]
+            if com.format_version() >= 0 {
+                com.no_click_through = com.flags & NO_CLICK_THROUGH != 0;
+                com.flags &= !NO_CLICK_THROUGH;
+            }
         }
         match com.com_type {
             IfComponentType::Layer => {
@@ -383,12 +401,16 @@ impl IfTypeRaw {
                 #[cfg(before_647)]
                 {
                     com.center = buf.g1() != 0;
-                    com.font = buf.g1() as i32;
+                    com.font = TypeId::new(buf.g1().into());
                     com.shadowed = buf.g1() != 0;
                 }
                 #[cfg(since_647)]
                 {
-                    com.font = read_id(buf);
+                    com.font = read_big_id(buf);
+                }
+                #[cfg(since_742)]
+                if com.format_version() >= 2 {
+                    com.text_flag2 = buf.g1() == 1;
                 }
                 com.text = buf.gjstr(STRING_TERMINATOR);
                 #[cfg(before_647)]
@@ -404,6 +426,10 @@ impl IfTypeRaw {
                     com.colour = buf.g4s();
                     com.trans = buf.g1();
                 }
+                #[cfg(since_742)]
+                if com.format_version() >= 0 {
+                    com.text_byte0 = buf.g1();
+                }
             }
             IfComponentType::Graphic => {
                 #[cfg(before_647)]
@@ -413,8 +439,7 @@ impl IfTypeRaw {
                 }
                 #[cfg(since_647)]
                 {
-                    let graphic = buf.g4s();
-                    com.graphic = (graphic != -1).then_some(graphic);
+                    com.graphic = TypeId::from_int(buf.g4s()).non_null();
                     com.angle_2d = buf.g2();
                     let flags = buf.g1();
                     com.tiling = flags & 1 != 0;
@@ -425,22 +450,26 @@ impl IfTypeRaw {
                     com.vflip = buf.g1() == 1;
                     com.hflip = buf.g1() == 1;
                     com.colour = buf.g4s();
+                    #[cfg(since_742)]
+                    if com.format_version() >= 3 {
+                        com.graphic_flag3 = buf.g1() == 1;
+                    }
                 }
             }
             IfComponentType::Model => {
                 #[cfg(before_647)]
                 {
-                    com.model = read_optional_id(buf).map_or(-1, i32::from);
-                    com.active_model = read_optional_id(buf).map_or(-1, i32::from);
-                    com.anim = read_optional_id(buf).map_or(-1, i32::from);
-                    com.active_anim = read_optional_id(buf).map_or(-1, i32::from);
+                    com.model = read_optional_id(buf).map_or(TypeId::NULL, TypeId::new);
+                    com.active_model = read_optional_id(buf).map_or(TypeId::NULL, TypeId::new);
+                    com.anim = read_optional_id(buf).map_or(TypeId::NULL, TypeId::new);
+                    com.active_anim = read_optional_id(buf).map_or(TypeId::NULL, TypeId::new);
                     com.zoom = buf.g2() as i32;
                     com.xan = buf.g2();
                     com.yan = buf.g2();
                 }
                 #[cfg(since_647)]
                 {
-                    com.model = read_id(buf);
+                    com.model = read_big_id(buf);
                     com.model_flags = buf.g1();
                     let position = com.model_flags & 1 != 0;
                     let offset = !position && com.model_flags & 2 != 0;
@@ -455,11 +484,13 @@ impl IfTypeRaw {
                         com.model_zan = buf.g2();
                         com.zoom = if position {
                             buf.g2() as i32
+                        } else if cfg!(since_742) {
+                            buf.g2s() as i32
                         } else {
                             buf.g1s() as i32
                         };
                     }
-                    com.anim = read_id(buf);
+                    com.anim = read_big_id(buf);
                     if com.width_mode != 0 {
                         com.dynamic_width = buf.g2();
                     }
@@ -471,7 +502,7 @@ impl IfTypeRaw {
             #[cfg(before_647)]
             IfComponentType::InvText => {
                 com.center = buf.g1() != 0;
-                com.font = buf.g1() as i32;
+                com.font = TypeId::new(buf.g1().into());
                 com.shadowed = buf.g1() != 0;
                 com.colour = buf.g4s();
                 com.margin_x = buf.g2() as i32;
@@ -537,7 +568,7 @@ impl IfTypeRaw {
                 .collect();
             com.op_cursor_count = ops >> 4;
             com.op_cursors = (0..com.op_cursor_count.min(2))
-                .map(|_| (buf.g1(), buf.g2()))
+                .map(|_| (buf.g1(), TypeId::new(buf.g2())))
                 .collect();
             com.pause_text = buf.gjstr(STRING_TERMINATOR);
             com.drag_deadzone = buf.g1();
@@ -549,7 +580,22 @@ impl IfTypeRaw {
                 com.target_enter_cursor = read_optional_id(buf);
                 com.target_leave_cursor = read_optional_id(buf);
             }
-            com.hooks = from_fn(|_| parse_hook(buf));
+            #[cfg(since_742)]
+            if com.format_version() >= 0 {
+                com.cursor = read_optional_id(buf);
+                com.int_params = (0..buf.g1())
+                    .map(|_| (buf.g3() as u32, buf.g4s()))
+                    .collect();
+                com.string_params = (0..buf.g1())
+                    .map(|_| {
+                        let key = buf.g3() as u32;
+                        buf.g1();
+                        (key, buf.gjstr(STRING_TERMINATOR))
+                    })
+                    .collect();
+            }
+            let version = com.version;
+            com.hooks = from_fn(|hook| has_hook(version, hook).then(|| parse_hook(buf)).flatten());
             com.transmit_lists = from_fn(|_| parse_transmitlist(buf));
         }
         com
@@ -558,6 +604,26 @@ impl IfTypeRaw {
     pub fn is_root(&self) -> bool {
         self.id as i32 == self.root_layer
     }
+
+    /// The layout version the component's bytes follow: 255 is the old one, -1.
+    #[cfg(since_647)]
+    pub fn format_version(&self) -> i32 {
+        if self.version == u8::MAX {
+            -1
+        } else {
+            self.version as i32
+        }
+    }
+}
+
+/// The flag bit a non-legacy component keeps `noclickthrough` in.
+#[cfg(since_742)]
+pub const NO_CLICK_THROUGH: u8 = 2;
+
+/// Whether a component of `version` holds the hook at `hook`.
+#[cfg(since_647)]
+pub fn has_hook(version: u8, hook: usize) -> bool {
+    version != u8::MAX || HOOK_NAMES[hook] != "ontargetuse"
 }
 
 #[cfg(before_647)]
@@ -581,7 +647,7 @@ pub struct OpKey {
 
 /// A component's hooks, in the order its bytes hold them.
 #[cfg(since_647)]
-pub const HOOK_NAMES: [&str; 20] = [
+pub const HOOK_NAMES: [&str; if cfg!(since_742) { 21 } else { 20 }] = [
     "onload",
     "onmouseover",
     "onmouseleave",
@@ -592,6 +658,8 @@ pub const HOOK_NAMES: [&str; 20] = [
     "onstattransmit",
     "ontimer",
     "onop",
+    #[cfg(since_742)]
+    "ontargetuse",
     "onmouserepeat",
     "onclick",
     "onclickrepeat",
@@ -611,8 +679,14 @@ pub const fn hook_transmit_list(hook: usize) -> Option<(usize, &'static str)> {
         5 => Some((0, "varp")),
         6 => Some((1, "inv")),
         7 => Some((2, "stat")),
+        #[cfg(before_742)]
         18 => Some((3, "varc")),
+        #[cfg(before_742)]
         19 => Some((4, "varcstr")),
+        #[cfg(since_742)]
+        19 => Some((3, "varc")),
+        #[cfg(since_742)]
+        20 => Some((4, "varcstr")),
         _ => None,
     }
 }

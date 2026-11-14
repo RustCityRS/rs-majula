@@ -16,6 +16,8 @@ use crate::types::loc_shape_from_key;
 use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::{Context, bail};
+#[cfg(since_647)]
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 #[cfg(before_647)]
@@ -199,9 +201,9 @@ pub fn pack_locs(
                     }),
 
                     // 24
-                    "anim" => parse_ref(&registry.seq, "seq", value, |v| {
+                    "anim" => parse_bigid(&registry.seq, "seq", value, |v| {
                         client.p1(24);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 25
@@ -497,11 +499,11 @@ pub fn pack_locs(
                     }),
 
                     // 99
-                    #[cfg(since_647)]
+                    #[cfg(all(since_647, before_742))]
                     "cursor1" => pack_cursor(&mut client, 99, value, registry),
 
                     // 100
-                    #[cfg(since_647)]
+                    #[cfg(all(since_647, before_742))]
                     "cursor2" => pack_cursor(&mut client, 100, value, registry),
 
                     // 101
@@ -621,6 +623,33 @@ pub fn pack_locs(
                         client.p1(178);
                         client.p1(v);
                     }),
+
+                    #[cfg(since_742)]
+                    "recolindices" => {
+                        client.p1(44);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "retexindices" => {
+                        client.p1(45);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "antimacro" => parse_bool(value, |v| {
+                        if v {
+                            client.p1(189);
+                        }
+                    }),
+
+                    #[cfg(since_742)]
+                    _ if let Some(n) = config_key_index(key, "cursor") => {
+                        parse_ref(&registry.cursor, "cursor", value, |v| {
+                            client.p1(189 + n as u8);
+                            client.p2(v);
+                        })
+                    }
 
                     // 249
                     "param" => {} // handled at the end
@@ -830,6 +859,10 @@ fn batch_code(prop: &(String, String)) -> u8 {
         if config_key_index(key, "recolpalette").is_some() {
             return 42;
         }
+        #[cfg(since_742)]
+        if key == "recolindices" || key == "retexindices" {
+            return 0;
+        }
         if key.starts_with("recol") {
             return 40;
         }
@@ -877,7 +910,7 @@ fn pack_batch(
                 let (seq, weight) = value
                     .split_once(',')
                     .with_context(|| format!("{name}: invalid anim '{value}'"))?;
-                parse_ref(&registry.seq, "seq", seq.trim(), |v| packed.p2(v));
+                parse_bigid(&registry.seq, "seq", seq.trim(), |v| packed.pbigid(v));
                 parse_number(weight.trim(), |v: u8| packed.p1(v));
             }
         }
@@ -897,6 +930,7 @@ fn pack_batch(
             (77, 92),
             props,
             ("loc", &registry.loc),
+            write_loc_id,
             registry,
             name,
         )?,
@@ -931,10 +965,15 @@ fn pack_models(
         packed.p1(shape);
         packed.p1(u8::try_from(group.len()).expect("Too many models"));
         for (_, model) in group {
-            parse_ref(&registry.model, "model", model.trim(), |v| packed.p2(v));
+            parse_bigid(&registry.model, "model", model.trim(), |v| packed.pbigid(v));
         }
     }
     Ok(())
+}
+
+#[cfg(since_647)]
+fn write_loc_id(packed: &mut PackedData, id: i32) {
+    packed.pbigid(TypeId::from_int(id));
 }
 
 #[cfg(since_647)]
@@ -949,13 +988,20 @@ fn emit_smart_packed(out: &mut PackedData, value: i32) {
 #[cfg(all(test, since_647))]
 mod tests {
     use super::pack_locs;
+    #[cfg(before_742)]
     use crate::cache::loc::{LocType, LocTypeRaw};
+    #[cfg(before_742)]
     use crate::cache::provider::CacheType;
     use crate::pack::pack::FileCache;
     use crate::pack::pack_registry::PackRegistry;
+    #[cfg(before_742)]
     use crate::types::MultiVar;
+    #[cfg(before_742)]
     use crate::unpack::config::{UnpackedPacks, decode_record, loc::emit_loc_props};
+    #[cfg(before_742)]
     use rs_io::Packet;
+    #[cfg(before_742)]
+    use rs_ver::TypeId;
     use std::collections::HashMap;
     use std::{env, fs, process};
 
@@ -990,6 +1036,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn multiloc_config_preserves_both_selectors_and_defaults() {
         let dir = env::temp_dir().join(format!("rs-majula-multiloc-{}", process::id()));
         fs::create_dir_all(&dir).unwrap();
@@ -1010,19 +1057,19 @@ mod tests {
         for (bytes, var) in [
             (
                 vec![77, 0, 3, 255, 255, 2, 0, 9, 255, 255, 255, 255, 0],
-                Some(MultiVar::Varbit(3)),
+                Some(MultiVar::Varbit(TypeId::new(3))),
             ),
             (
                 vec![77, 255, 255, 0, 7, 0, 0, 9, 0],
-                Some(MultiVar::Varp(7)),
+                Some(MultiVar::Varp(TypeId::new(7))),
             ),
             (
                 vec![92, 0, 3, 0, 7, 0, 11, 2, 0, 9, 255, 255, 255, 255, 0],
-                Some(MultiVar::Varbit(3)),
+                Some(MultiVar::Varbit(TypeId::new(3))),
             ),
             (vec![92, 255, 255, 255, 255, 255, 255, 0, 255, 255, 0], None),
         ] {
-            let mut def = LocTypeRaw::new(0);
+            let mut def = LocTypeRaw::new(TypeId::new(0));
             def.decode(&mut Packet::from(bytes.clone()));
             let mut text = "[subject]\n".to_string();
             for (key, value) in decode_record(
@@ -1051,7 +1098,7 @@ mod tests {
             let loc = LocType::from(def);
             assert_eq!(loc.multivar, var);
             let default = if bytes[0] == 92 && var.is_some() {
-                Some(11)
+                Some(TypeId::new(11))
             } else {
                 None
             };

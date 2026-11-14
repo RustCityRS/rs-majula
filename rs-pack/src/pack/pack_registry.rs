@@ -179,6 +179,10 @@ pub struct PackRegistry {
     pub cursor: PackFile,
     #[cfg(since_647)]
     pub hitmark: PackFile,
+    #[cfg(since_742)]
+    pub skybox: PackFile,
+    #[cfg(since_742)]
+    pub headbar: PackFile,
     #[cfg(since_647)]
     pub billboard: PackFile,
     #[cfg(since_647)]
@@ -237,6 +241,18 @@ pub struct PackRegistry {
     pub config39: PackFile,
     #[cfg(since_647)]
     pub config45: PackFile,
+    #[cfg(since_742)]
+    pub config49: PackFile,
+    #[cfg(since_742)]
+    pub config50: PackFile,
+    #[cfg(since_742)]
+    pub config51: PackFile,
+    #[cfg(since_742)]
+    pub config53: PackFile,
+    #[cfg(since_742)]
+    pub gamelogevent: PackFile,
+    #[cfg(since_742)]
+    pub config74: PackFile,
     #[cfg(since_647)]
     pub wma: PackFile,
     #[cfg(since_647)]
@@ -339,6 +355,10 @@ registry_files! {
     "cursor" => cursor,
     #[cfg(since_647)]
     "hitmark" => hitmark,
+    #[cfg(since_742)]
+    "skybox" => skybox,
+    #[cfg(since_742)]
+    "headbar" => headbar,
     #[cfg(since_647)]
     "billboard" => billboard,
     #[cfg(since_647)]
@@ -397,6 +417,18 @@ registry_files! {
     "config39" => config39,
     #[cfg(since_647)]
     "config45" => config45,
+    #[cfg(since_742)]
+    "config49" => config49,
+    #[cfg(since_742)]
+    "config50" => config50,
+    #[cfg(since_742)]
+    "config51" => config51,
+    #[cfg(since_742)]
+    "config53" => config53,
+    #[cfg(since_742)]
+    "gamelogevent" => gamelogevent,
+    #[cfg(since_742)]
+    "config74" => config74,
     #[cfg(since_647)]
     "wma" => wma,
 }
@@ -495,6 +527,10 @@ impl PackRegistry {
             cursor: load("cursor")?,
             #[cfg(since_647)]
             hitmark: load("hitmark")?,
+            #[cfg(since_742)]
+            skybox: load("skybox")?,
+            #[cfg(since_742)]
+            headbar: load("headbar")?,
             #[cfg(since_647)]
             billboard: load("billboard")?,
             #[cfg(since_647)]
@@ -553,6 +589,18 @@ impl PackRegistry {
             config39: load("config39")?,
             #[cfg(since_647)]
             config45: load("config45")?,
+            #[cfg(since_742)]
+            config49: load("config49")?,
+            #[cfg(since_742)]
+            config50: load("config50")?,
+            #[cfg(since_742)]
+            config51: load("config51")?,
+            #[cfg(since_742)]
+            config53: load("config53")?,
+            #[cfg(since_742)]
+            gamelogevent: load("gamelogevent")?,
+            #[cfg(since_742)]
+            config74: load("config74")?,
             #[cfg(since_647)]
             wma: load("wma")?,
             #[cfg(since_647)]
@@ -798,6 +846,8 @@ fn register_config_names(path: &Path, ext: &str, names: Vec<String>) -> Result<(
         Err(error) if error.kind() == io::ErrorKind::NotFound => (String::new(), true),
         Err(error) => return Err(error.into()),
     };
+    #[cfg(since_647)]
+    let from_cache = !changed;
     let mut pack = PackFile::parse(&text);
     for name in names {
         // Leave aliases and stale placeholder names for check_content to diagnose.
@@ -809,6 +859,13 @@ fn register_config_names(path: &Path, ext: &str, names: Vec<String>) -> Result<(
                 .is_some_and(|id| pack.get_by_id(id).is_some())
         {
             continue;
+        }
+        #[cfg(since_647)]
+        if from_cache && !matches!(ext, "dbtable" | "dbrow") {
+            bail!(
+                "{}: `{name}` has no id; give it one of the cache's empty entries by renaming that placeholder",
+                path.display()
+            );
         }
         let id = pack.max;
         pack.max = id
@@ -997,20 +1054,54 @@ mod tests {
                 "2=existing\n"
             );
         }
+        #[cfg(before_647)]
+        {
+            check_configs(&files, &dir, false).unwrap();
+            check_configs(&files, &dir, true).unwrap();
+            check_configs(&files, &dir, false).unwrap();
+            for ext in &kinds {
+                assert_eq!(
+                    fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                    "2=existing\n3=new_name\n"
+                );
+            }
+        }
+        #[cfg(since_647)]
+        {
+            let error = check_configs(&files, &dir, false).unwrap_err().to_string();
+            assert!(error.contains("`new_name` has no id"), "{error}");
+            for ext in &kinds {
+                assert_eq!(
+                    fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                    "2=existing\n"
+                );
+            }
+        }
+        fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn only_dbtable_and_dbrow_take_ids_the_cache_lacks() {
+        let dir = env::temp_dir().join(format!("rs-majula-db-ids-{}", process::id()));
+        let scripts = dir.join("scripts");
+        fs::create_dir_all(&scripts).unwrap();
+        for ext in ["dbtable", "dbrow"] {
+            fs::write(dir.join(format!("{ext}.pack")), "2=existing\n").unwrap();
+            fs::write(
+                scripts.join(format!("custom.{ext}")),
+                "[existing]\n[new_name]\n",
+            )
+            .unwrap();
+        }
+        let files = ConfigFiles::new(&scripts);
         check_configs(&files, &dir, false).unwrap();
-        check_configs(&files, &dir, true).unwrap();
-        check_configs(&files, &dir, false).unwrap();
-        for ext in &kinds {
+        for ext in ["dbtable", "dbrow"] {
             assert_eq!(
                 fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
                 "2=existing\n3=new_name\n"
             );
         }
-        #[cfg(since_647)]
-        assert_eq!(
-            fs::read_to_string(dir.join("varcstr.pack")).unwrap(),
-            "0=new_string\n"
-        );
         fs::remove_dir_all(&dir).unwrap();
     }
 }

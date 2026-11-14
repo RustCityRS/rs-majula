@@ -1,0 +1,162 @@
+// 4037
+[proc,script4037](int $int0)(int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $intbool3 = ^false;
+switch_int ($int0) {
+    case 1 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 2 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 3 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 4 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 5 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 6 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 7 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 8 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 9 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 10 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 11 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 12 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 13 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 14 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 15 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 16 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 17 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 18 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 19 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 20 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 21 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 22 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 23 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 24 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+    case 25 :
+        $intbool3 = testbit(%varplayer_1968, $int0);
+}
+switch_int ($int0) {
+    case 1 :
+        $int1 = %varplayer_1969;
+    case 2 :
+        $int1 = %varplayer_1970;
+    case 3 :
+        $int1 = %varplayer_1971;
+    case 4 :
+        $int1 = %varplayer_1972;
+    case 5 :
+        $int1 = %varplayer_1973;
+    case 6 :
+        $int1 = %varplayer_1974;
+    case 7 :
+        $int1 = %varplayer_1975;
+    case 8 :
+        $int1 = %varplayer_1976;
+    case 9 :
+        $int1 = %varplayer_1977;
+    case 10 :
+        $int1 = %varplayer_1978;
+    case 11 :
+        $int1 = %varplayer_1979;
+    case 12 :
+        $int1 = %varplayer_1980;
+    case 13 :
+        $int1 = %varplayer_1981;
+    case 14 :
+        $int1 = %varplayer_1982;
+    case 15 :
+        $int1 = %varplayer_1983;
+    case 16 :
+        $int1 = %varplayer_1984;
+    case 17 :
+        $int1 = %varplayer_1985;
+    case 18 :
+        $int1 = %varplayer_1986;
+    case 19 :
+        $int1 = %varplayer_1987;
+    case 20 :
+        $int1 = %varplayer_1988;
+    case 21 :
+        $int1 = %varplayer_1989;
+    case 22 :
+        $int1 = %varplayer_1990;
+    case 23 :
+        $int1 = %varplayer_1991;
+    case 24 :
+        $int1 = %varplayer_1992;
+    case 25 :
+        $int1 = %varplayer_1993;
+}
+switch_int ($int0) {
+    case 1 :
+        $int2 = %varplayer_1994;
+    case 2 :
+        $int2 = %varplayer_1995;
+    case 3 :
+        $int2 = %varplayer_1996;
+    case 4 :
+        $int2 = %varplayer_1997;
+    case 5 :
+        $int2 = %varplayer_1998;
+    case 6 :
+        $int2 = %varplayer_1999;
+    case 7 :
+        $int2 = %varplayer_2000;
+    case 8 :
+        $int2 = %varplayer_2001;
+    case 9 :
+        $int2 = %varplayer_2002;
+    case 10 :
+        $int2 = %varplayer_2003;
+    case 11 :
+        $int2 = %varplayer_2004;
+    case 12 :
+        $int2 = %varplayer_2005;
+    case 13 :
+        $int2 = %varplayer_2006;
+    case 14 :
+        $int2 = %varplayer_2007;
+    case 15 :
+        $int2 = %varplayer_2008;
+    case 16 :
+        $int2 = %varplayer_2009;
+    case 17 :
+        $int2 = %varplayer_2010;
+    case 18 :
+        $int2 = %varplayer_2011;
+    case 19 :
+        $int2 = %varplayer_2012;
+    case 20 :
+        $int2 = %varplayer_2013;
+    case 21 :
+        $int2 = %varplayer_2014;
+    case 22 :
+        $int2 = %varplayer_2015;
+    case 23 :
+        $int2 = %varplayer_2016;
+    case 24 :
+        $int2 = %varplayer_2017;
+    case 25 :
+        $int2 = %varplayer_2018;
+}
+return($intbool3, $int1, $int2);

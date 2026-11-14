@@ -1,0 +1,34 @@
+// 21
+[proc,magic_updateicon](component $component0, graphic $graphic1, graphic $graphic2, int $int3, boolean $boolean4, obj $obj5, int $int6, obj $obj7, int $int8, obj $obj9, int $int10, obj $obj11, int $int12)
+if (stat(magic) < $int3 & ($boolean4 = false | stat_base(magic) < $int3) & (%varplayerbit_9071 = 0 | $component0 ! magic_lunar:fertile_soil & $component0 ! magic_lunar:energy_trans & $component0 ! magic_lunar:plank_make & $component0 ! magic_lunar:string_jewel & $component0 ! magic_lunar:vengeance_other)) {
+    if (%assist_engaged = 1) {
+        if (%assist_stat_magic < $int3 | enum(component, int, enum_1061, $component0) = 0) {
+            if_setgraphic($component0, $graphic2);
+            return;
+        }
+    } else {
+        if_setgraphic($component0, $graphic2);
+        return;
+    }
+}
+if ($obj5 ! null & ~magic_runecount($obj5, $component0) < $int6) {
+    if_setgraphic($component0, $graphic2);
+    return;
+}
+if ($obj7 ! null & ~magic_runecount($obj7, $component0) < $int8) {
+    if_setgraphic($component0, $graphic2);
+    return;
+}
+if ($obj9 ! null & ~magic_runecount($obj9, $component0) < $int10) {
+    if_setgraphic($component0, $graphic2);
+    return;
+}
+if ($obj11 ! null & ~magic_runecount($obj11, $component0) < $int12) {
+    if_setgraphic($component0, $graphic2);
+    return;
+}
+if ($component0 = magic:xbows_enchant & map_members = false) {
+    if_setgraphic($component0, $graphic2);
+    return;
+}
+if_setgraphic($component0, $graphic1);

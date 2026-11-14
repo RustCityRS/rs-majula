@@ -180,7 +180,9 @@ pub fn pack_dbrows(
 mod tests {
     use super::*;
     use crate::pack::config::param::type_name_to_char;
+    #[cfg(before_742)]
     use crate::pack::pack::{collect_config_files, load_constants, parse_config_sections};
+    #[cfg(before_742)]
     use std::collections::BTreeSet;
     use std::fs;
     use std::path::Path;
@@ -331,6 +333,7 @@ mod tests {
     /// `tests/dbrow_refs_647.known.tsv` does not list, and on a listed one
     /// that now resolves, so the list only shrinks.
     #[test]
+    #[cfg(before_742)]
     fn every_dbrow_value_names_something() {
         let registry = registry();
         let source = Path::new("..").join(crate::CONTENT_DIR).join("scripts");

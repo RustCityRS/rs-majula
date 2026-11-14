@@ -1,0 +1,4 @@
+// Destroy confirmation text, reusing empty packed slot 1 as a server-only param.
+[destroy_message]
+type=string
+default=This item will be destroyed.

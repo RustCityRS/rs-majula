@@ -1,0 +1,9 @@
+// 6237
+[proc,clientscript_6237]
+def_int $int0 = if_gettrans(interface_1285:com_34);
+if ($int0 >= 243) {
+    if_sethide(interface_1285:com_34, true);
+    if_setontimer(interface_1285:com_33, null);
+} else {
+    if_settrans(interface_1285:com_34, calc($int0 + 2));
+}

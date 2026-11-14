@@ -1,0 +1,41 @@
+// 6358
+[proc,clientscript_6358](component $component0)(component)
+if ($component0 = null) {
+    return(null);
+}
+switch_component ($component0) {
+    case toplevel_fullscreen:com_18 :
+        return(toplevel_fullscreen:com_19);
+    case toplevel_fullscreen:com_22 :
+        return(toplevel_fullscreen:com_23);
+    case toplevel_fullscreen:com_25 :
+        return(toplevel_fullscreen:com_26);
+    case toplevel_fullscreen:com_28 :
+        return(toplevel_fullscreen:com_29);
+    case toplevel_fullscreen:com_31 :
+        return(toplevel_fullscreen:com_32);
+    case toplevel_fullscreen:com_34 :
+        return(toplevel_fullscreen:com_35);
+    case toplevel_fullscreen:com_37 :
+        return(toplevel_fullscreen:com_38);
+    case toplevel_fullscreen:com_87 :
+        return(toplevel_fullscreen:com_88);
+    case toplevel:com_250 :
+        return(toplevel:com_251);
+    case toplevel:com_272 :
+        return(toplevel:com_273);
+    case toplevel:com_294 :
+        return(toplevel:com_295);
+    case toplevel:com_316 :
+        return(toplevel:com_317);
+    case toplevel:com_338 :
+        return(toplevel:com_339);
+    case toplevel:com_360 :
+        return(toplevel:com_361);
+    case toplevel:com_382 :
+        return(toplevel:com_383);
+    case toplevel:com_404 :
+        return(toplevel:com_405);
+    case default :
+        return(null);
+}

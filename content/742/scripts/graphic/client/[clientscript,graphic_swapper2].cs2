@@ -1,0 +1,4 @@
+// 4134
+[clientscript,graphic_swapper2](component $component0, graphic $graphic1, component $component2, graphic $graphic3)
+if_setgraphic($component0, $graphic1);
+if_setgraphic($component2, $graphic3);

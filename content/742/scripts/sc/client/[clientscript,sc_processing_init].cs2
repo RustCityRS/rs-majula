@@ -1,0 +1,5 @@
+// 1915
+[clientscript,sc_processing_init]
+if_sethide(sc_processing:highlight_rect, true);
+%sc_client_selected_item = 0;
+if_setonvarctransmit(sc_processing:com_27, "sc_tier_text_refresh{sc_client_tier1_total, sc_client_tier2_total, sc_client_tier3_total, sc_client_tier4_total, sc_client_tier5_total}");

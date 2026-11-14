@@ -28,9 +28,18 @@ impl ServerProtMessage for UpdateStat {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateStat {
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt2(self.exp);
-        buf.p1(self.stat);
-        buf.p1_alt2(self.lvl);
+        #[cfg(before_742)]
+        {
+            buf.p4_alt2(self.exp);
+            buf.p1(self.stat);
+            buf.p1_alt2(self.lvl);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt1(self.stat);
+            buf.p1_alt2(self.lvl);
+            buf.p4_alt2(self.exp);
+        }
     }
 
     fn sizeof(&self) -> usize {

@@ -40,6 +40,7 @@ use format::{
 use rs_protocol::network::game::client_prot::ClientProt;
 #[cfg(before_274)]
 use rs_protocol::network::game::server_prot::ServerProt;
+use rs_ver::TypeId;
 use rs_vm::ComId;
 use rustc_hash::FxHashMap;
 use state::ClientState;
@@ -108,7 +109,7 @@ const MAX_MARKS: u16 = 200;
 /// What a "use" or spell action was done with.
 #[derive(Clone, Copy, Debug, Hash)]
 pub enum Using {
-    Item(u16),
+    Item(TypeId),
     Spell(ComId),
 }
 
@@ -116,10 +117,10 @@ pub enum Using {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum Target {
     Npc(u16),
-    Loc { id: u16, x: u16, z: u16 },
-    Obj { id: u16, x: u16, z: u16 },
+    Loc { id: TypeId, x: u16, z: u16 },
+    Obj { id: TypeId, x: u16, z: u16 },
     Player(u16),
-    Item(u16),
+    Item(TypeId),
     Coord { x: u16, z: u16 },
 }
 

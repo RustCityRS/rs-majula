@@ -180,6 +180,8 @@ use rs_protocol::network::game::client_prot::SetChatfiltersettings;
 use rs_protocol::network::game::client_prot::TutClickSide;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::WindowStatus;
+#[cfg(all(since_647, before_742))]
+use rs_protocol::network::game::client_prot::WorldLatency;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::{
     ApCoordT, ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, ClickWorldMap,
@@ -187,7 +189,7 @@ use rs_protocol::network::game::client_prot::{
     MapBuildLoading, MessageQuickchatPrivate, MessageQuickchatPublic, OpPlayer6, OpPlayer7,
     OpPlayer8, OpPlayer9, OpPlayer10, ReflectionCheckReply, ResumePClanforumqfcDialog,
     ResumePHslDialog, ResumePNameDialog, ResumePObjDialog, SoundSongPreloaded, TransmitvarVerifyId,
-    UrlRequest, VideoEnd, WorldLatency, WorldlistFetch,
+    UrlRequest, VideoEnd, WorldlistFetch,
 };
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot::{
@@ -350,6 +352,7 @@ use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_254)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::QueuePriority;
 #[cfg(since_647)]
@@ -375,8 +378,8 @@ use std::str;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
 
-type PartialInvUpdate = Vec<(u16, Option<(u16, i32)>)>;
-type FullInvUpdate = Vec<Option<(u16, i32)>>;
+type PartialInvUpdate = Vec<(u16, Option<(TypeId, i32)>)>;
+type FullInvUpdate = Vec<Option<(TypeId, i32)>>;
 
 /// Wraps a [`Player`] entity together with its network [`ClientHandle`] and
 /// per-tick buffered output packets.
@@ -410,6 +413,10 @@ pub struct ActivePlayer {
     pub(crate) reflection: ReflectionChecks,
     #[cfg(since_647)]
     pub(crate) last_link: Option<u32>,
+    #[cfg(since_647)]
+    pub lobby: bool,
+    #[cfg(since_647)]
+    pub world: u16,
 }
 
 /// The interface a component is on. From 647 a component is addressed as
@@ -474,7 +481,7 @@ impl ActivePlayer {
         let varps = engine().varps();
         let vars = VarSet::new((0..varps.count()).map(|id| {
             varps
-                .get_by_id(id as u16)
+                .get_by_id(TypeId::from_int(id as i32))
                 .map(|v| v.var_type)
                 .unwrap_or(ScriptVarType::Int)
         }));
@@ -508,6 +515,10 @@ impl ActivePlayer {
             reflection: ReflectionChecks::default(),
             #[cfg(since_647)]
             last_link: None,
+            #[cfg(since_647)]
+            lobby: false,
+            #[cfg(since_647)]
+            world: 0,
         }
     }
 
@@ -893,6 +904,18 @@ impl ActivePlayer {
             self.player.refresh_modal = false;
         }
 
+        // A full-screen toplevel lasts as long as its interface: once the
+        // main modal has closed for the tick, the gameframe comes back.
+        #[cfg(since_647)]
+        if self.player.modal_main.is_none()
+            && engine()
+                .layout
+                .fullscreen_tops
+                .contains(&self.player.toplevel)
+        {
+            self.if_open_top(self.player.frame_toplevel, 0);
+        }
+
         // The client's input report: sent now, then from a fresh start.
         #[cfg(before_274)]
         if engine().clock.is_multiple_of(TRACKING_TICKS) {
@@ -1061,19 +1084,19 @@ impl ActivePlayer {
         }
         let left = mem::replace(&mut self.player.areas, areas);
         for area in left {
-            if area != u16::MAX && !areas.contains(&area) {
+            if !area.is_null() && !areas.contains(&area) {
                 self.trigger_area(ServerTriggerType::AreaExit, area);
             }
         }
         for area in areas {
-            if area != u16::MAX && !left.contains(&area) {
+            if !area.is_null() && !left.contains(&area) {
                 self.trigger_area(ServerTriggerType::Area, area);
             }
         }
     }
 
     #[cfg(since_647)]
-    fn trigger_area(&mut self, trigger: ServerTriggerType, area: u16) {
+    fn trigger_area(&mut self, trigger: ServerTriggerType, area: TypeId) {
         let engine = engine();
         if !engine
             .cache
@@ -1083,7 +1106,7 @@ impl ActivePlayer {
         {
             return;
         }
-        if let Some(script) = engine.script_by_key(trigger, Some(area as i32), None) {
+        if let Some(script) = engine.script_by_key(trigger, Some(area.int()), None) {
             let _ = self
                 .player
                 .state
@@ -1218,8 +1241,12 @@ impl ActivePlayer {
         self.write(HintArrow {
             slot: 0,
             icon: 0,
-            kind: HintArrowKind::Npc { npc_index: nid },
-            model_id: 0xFFFF,
+            kind: HintArrowKind::Npc {
+                npc_index: nid,
+                #[cfg(since_742)]
+                flash_rate: 0,
+            },
+            model_id: TypeId::NULL,
         });
     }
 
@@ -1258,7 +1285,7 @@ impl ActivePlayer {
                     height,
                     range: 0,
                 },
-                model_id: 0xFFFF,
+                model_id: TypeId::NULL,
             });
         }
     }
@@ -1288,7 +1315,7 @@ impl ActivePlayer {
         z: u16,
         height: u8,
         range: u16,
-        model: Option<u16>,
+        model: Option<TypeId>,
     ) {
         self.write(HintArrow {
             slot,
@@ -1301,7 +1328,7 @@ impl ActivePlayer {
                 height,
                 range,
             },
-            model_id: model.unwrap_or(0xFFFF),
+            model_id: model.unwrap_or(TypeId::NULL),
         });
     }
 
@@ -1309,12 +1336,16 @@ impl ActivePlayer {
     /// with a model the client draws at the local player's feet, turned toward
     /// the npc, or none.
     #[cfg(since_647)]
-    pub fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>) {
+    pub fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<TypeId>) {
         self.write(HintArrow {
             slot,
             icon,
-            kind: HintArrowKind::Npc { npc_index: nid },
-            model_id: model.unwrap_or(0xFFFF),
+            kind: HintArrowKind::Npc {
+                npc_index: nid,
+                #[cfg(since_742)]
+                flash_rate: 0,
+            },
+            model_id: model.unwrap_or(TypeId::NULL),
         });
     }
 
@@ -1326,7 +1357,7 @@ impl ActivePlayer {
             slot,
             icon: 0,
             kind: HintArrowKind::Stop,
-            model_id: 0xFFFF,
+            model_id: TypeId::NULL,
         });
     }
 
@@ -1346,8 +1377,12 @@ impl ActivePlayer {
         self.write(HintArrow {
             slot: 0,
             icon: 0,
-            kind: HintArrowKind::Player { player_index: slot },
-            model_id: 0xFFFF,
+            kind: HintArrowKind::Player {
+                player_index: slot,
+                #[cfg(since_742)]
+                flash_rate: 0,
+            },
+            model_id: TypeId::NULL,
         });
     }
 
@@ -1366,7 +1401,7 @@ impl ActivePlayer {
             slot: 0,
             icon: 0,
             kind: HintArrowKind::Stop,
-            model_id: 0xFFFF,
+            model_id: TypeId::NULL,
         });
     }
 
@@ -1529,7 +1564,7 @@ impl ActivePlayer {
     }
 
     /// Sets the animation playing on an interface component.
-    pub fn if_setanim(&mut self, com: i32, seq: u16) {
+    pub fn if_setanim(&mut self, com: i32, seq: TypeId) {
         #[cfg(before_647)]
         self.write(IfSetAnim {
             com: com as u16,
@@ -1562,7 +1597,7 @@ impl ActivePlayer {
     }
 
     /// Sets the model displayed on an interface component.
-    pub fn if_setmodel(&mut self, com: i32, model: u16) {
+    pub fn if_setmodel(&mut self, com: i32, model: TypeId) {
         #[cfg(before_647)]
         self.write(IfSetModel {
             com: com as u16,
@@ -1574,12 +1609,12 @@ impl ActivePlayer {
 
     /// Sets the graphic (a sprite) displayed on an interface component.
     #[cfg(since_647)]
-    pub fn if_setgraphic(&mut self, com: i32, graphic: u16) {
+    pub fn if_setgraphic(&mut self, com: i32, graphic: TypeId) {
         self.write(IfSetGraphic { com, graphic });
     }
 
     /// Sets an NPC head model on an interface component.
-    pub fn if_setnpchead(&mut self, com: i32, npc: u16) {
+    pub fn if_setnpchead(&mut self, com: i32, npc: TypeId) {
         #[cfg(before_647)]
         self.write(IfSetNpcHead {
             com: com as u16,
@@ -1590,7 +1625,7 @@ impl ActivePlayer {
     }
 
     /// Sets an item model on an interface component with a given zoom scale.
-    pub fn if_setobject(&mut self, com: i32, obj: u16, scale: i32) {
+    pub fn if_setobject(&mut self, com: i32, obj: TypeId, scale: i32) {
         #[cfg(before_647)]
         self.write(IfSetObject {
             com: com as u16,
@@ -1922,13 +1957,13 @@ impl ActivePlayer {
     /// members' and banknotes are passed over.
     fn needs_menu(&self, op: Op) -> bool {
         let engine = engine();
-        let obj = |id: u16| {
+        let obj = |id: TypeId| {
             engine
                 .objs()
                 .get_by_id(id)
                 .filter(|t| (engine.members || !t.members) && t.certtemplate.is_none())
         };
-        let inv_top = |com: u16, id: u16| {
+        let inv_top = |com: u16, id: TypeId| {
             let interface = engine.interfaces().get_by_id(com)?;
             let obj = obj(id)?;
             Some(menu::inv_top(
@@ -1973,7 +2008,7 @@ impl ActivePlayer {
         engine()
             .varps()
             .get_by_debugname("option_mouse")
-            .is_some_and(|varp| self.player.vars.get(varp.id).as_int() == 1)
+            .is_some_and(|varp| self.player.vars.get(varp.id.g2()).as_int() == 1)
     }
 
     /// Notes something the player did for the replay's timeline.
@@ -1995,7 +2030,7 @@ impl ActivePlayer {
             return;
         }
         let engine = engine();
-        let obj = |id: u16| {
+        let obj = |id: TypeId| {
             engine
                 .objs()
                 .get_by_id(id)
@@ -2047,7 +2082,7 @@ impl ActivePlayer {
     /// (while clicks on it carry `id`). `None` when it turns into nothing,
     /// which the client offers no options on.
     #[cfg(since_289)]
-    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+    pub fn shown_loc(&self, id: TypeId) -> Option<TypeId> {
         match engine().locs().get_by_id(id) {
             Some(ty) => ty.multi_loc(self.multivar(ty.multivar)),
             None => Some(id),
@@ -2063,14 +2098,14 @@ impl ActivePlayer {
                 .varbits()
                 .get_by_id(var)
                 .map(|var| self.varbit(var)),
-            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var).as_int()),
+            Some(MultiVar::Varp(var)) => Some(self.player.vars.get(var.g2()).as_int()),
             None => None,
         };
         value.unwrap_or(-1)
     }
 
     #[cfg(before_289)]
-    pub fn shown_loc(&self, id: u16) -> Option<u16> {
+    pub fn shown_loc(&self, id: TypeId) -> Option<TypeId> {
         Some(id)
     }
 
@@ -2079,7 +2114,7 @@ impl ActivePlayer {
     /// one's name and options (2011's Osman, npc 5282, is Osman by varbit
     /// 3280). `None` when it shows as nothing.
     #[cfg(since_647)]
-    pub fn shown_npc(&self, id: u16) -> Option<u16> {
+    pub fn shown_npc(&self, id: TypeId) -> Option<TypeId> {
         match engine().npcs().get_by_id(id) {
             Some(ty) => ty.multi_npc(self.multivar(ty.multivar)),
             None => Some(id),
@@ -2087,7 +2122,7 @@ impl ActivePlayer {
     }
 
     #[cfg(before_647)]
-    pub fn shown_npc(&self, id: u16) -> Option<u16> {
+    pub fn shown_npc(&self, id: TypeId) -> Option<TypeId> {
         Some(id)
     }
 
@@ -2293,7 +2328,7 @@ impl ActivePlayer {
         &self,
         event_type: i16,
         coord: CoordGrid,
-        obj: u16,
+        obj: TypeId,
         count: i32,
         to37: Option<u64>,
     ) {
@@ -2388,7 +2423,15 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn if_open_top(&mut self, interface: u16, mode: u8) {
         self.player.toplevel = interface;
-        self.write(IfOpentop { interface, mode });
+        if !engine().layout.fullscreen_tops.contains(&interface) {
+            self.player.frame_toplevel = interface;
+        }
+        self.write(IfOpentop {
+            interface,
+            mode,
+            #[cfg(since_742)]
+            xtea_keys: [0; 4],
+        });
     }
 
     /// Rev-647: mounts a sub-interface at a parent component hash, and
@@ -2402,6 +2445,8 @@ impl ActivePlayer {
             interface,
             com,
             walkable,
+            #[cfg(since_742)]
+            xtea_keys: [0; 4],
         });
     }
 
@@ -2455,7 +2500,7 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn varc_transmit(&mut self, id: u16, val: i32) {
         let varcs = engine().varcs();
-        let varc = varcs.get_by_id(id, false).unwrap();
+        let varc = varcs.get_by_id(TypeId::new(id), false).unwrap();
         self.player.varcs[varcs.index(id, false)] = VarValue::from_int(varc.var_type, val);
         if (-128..=127).contains(&val) {
             self.write(VarcSmall { id, val: val as u8 });
@@ -2801,7 +2846,7 @@ impl ActivePlayer {
 
     /// Sends a full inventory update to the client for the given component.
     #[cfg(before_647)]
-    pub fn update_inv_full(&mut self, com: u16, objs: &[Option<(u16, i32)>]) {
+    pub fn update_inv_full(&mut self, com: u16, objs: &[Option<(TypeId, i32)>]) {
         // prevent a client crash by capping to inv size || interface size
         let size = engine()
             .interfaces()
@@ -2819,19 +2864,19 @@ impl ActivePlayer {
     /// inventories by inv id — the interface binding comes from the cache
     /// component defs, so no component travels on the wire.
     #[cfg(since_647)]
-    pub fn update_inv_full(&mut self, inv_id: u16, objs: &[Option<(u16, i32)>]) {
+    pub fn update_inv_full(&mut self, inv_id: TypeId, objs: &[Option<(TypeId, i32)>]) {
         self.send_inv_full(inv_id, false, objs);
     }
 
     /// Sends another player's inventory whole, which the 647 client keeps
     /// apart from the player's own copy of that inv (trade's other offer).
     #[cfg(since_647)]
-    pub fn update_inv_other_full(&mut self, inv_id: u16, objs: &[Option<(u16, i32)>]) {
+    pub fn update_inv_other_full(&mut self, inv_id: TypeId, objs: &[Option<(TypeId, i32)>]) {
         self.send_inv_full(inv_id, true, objs);
     }
 
     #[cfg(since_647)]
-    fn send_inv_full(&mut self, inv_id: u16, other: bool, objs: &[Option<(u16, i32)>]) {
+    fn send_inv_full(&mut self, inv_id: TypeId, other: bool, objs: &[Option<(TypeId, i32)>]) {
         let slots: Vec<Option<InvItem>> = objs
             .iter()
             .map(|slot| {
@@ -2852,12 +2897,12 @@ impl ActivePlayer {
     /// Sends a partial inventory update to the client.
     ///
     /// Each entry is `(slot, item)` for one changed slot.
-    pub fn update_inv_partial(&mut self, id: u16, objs: &[(u16, Option<(u16, i32)>)]) {
+    pub fn update_inv_partial(&mut self, id: u16, objs: &[(u16, Option<(TypeId, i32)>)]) {
         self.write(UpdateInvPartial {
             #[cfg(before_647)]
             com: id,
             #[cfg(since_647)]
-            inv_id: id,
+            inv_id: TypeId::new(id),
             #[cfg(since_647)]
             other: false,
             objs,
@@ -2966,7 +3011,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sends `update_inv_full` packets for each bound component.
     /// * Clears the `dirty` flag on non-shared inventories.
-    pub fn update_invs(&mut self, shared_invs: &mut FxHashMap<u16, Inventory>) {
+    pub fn update_invs(&mut self, shared_invs: &mut FxHashMap<TypeId, Inventory>) {
         thread_local! {
             // Full payload (every slot) for first-seen components.
             static FULL: RefCell<FullInvUpdate> = RefCell::new(Vec::with_capacity(48));
@@ -3038,16 +3083,16 @@ impl ActivePlayer {
             #[cfg(since_647)]
             {
                 let _ = coms;
-                let first = !self.player.inv_first_seen.contains(inv_id);
+                let first = !self.player.inv_first_seen.contains(&inv_id.g2());
                 if first || has_dirty {
-                    let full: Vec<Option<(u16, i32)>> = inv
+                    let full: Vec<Option<(TypeId, i32)>> = inv
                         .slots
                         .iter()
                         .map(|i| i.map(|it| (it.obj, it.num as i32)))
                         .collect();
                     self.update_inv_full(*inv_id, &full);
                     if first {
-                        self.player.inv_first_seen.insert(*inv_id);
+                        self.player.inv_first_seen.insert(inv_id.g2());
                         any_full = true;
                     }
                 }
@@ -3124,7 +3169,7 @@ impl ActivePlayer {
         let transmits = take(&mut self.player.inv_other_transmits);
         // From 647 one update goes per inv, however many components show it.
         #[cfg(since_647)]
-        let mut sent: Vec<u16> = Vec::new();
+        let mut sent: Vec<TypeId> = Vec::new();
 
         for (&com, &(uid, inv_id)) in &transmits {
             let Some(source) = players.get((uid & 0x7FF) as u16) else {
@@ -3145,17 +3190,17 @@ impl ActivePlayer {
             #[cfg(since_647)]
             {
                 let _ = com;
-                let first = !self.player.inv_other_first_seen.contains(&inv_id);
+                let first = !self.player.inv_other_first_seen.contains(&inv_id.g2());
                 if sent.contains(&inv_id) || (!first && inv.dirty_slots.is_empty()) {
                     continue;
                 }
-                let full: Vec<Option<(u16, i32)>> = inv
+                let full: Vec<Option<(TypeId, i32)>> = inv
                     .slots
                     .iter()
                     .map(|i| i.map(|it| (it.obj, it.num as i32)))
                     .collect();
                 self.update_inv_other_full(inv_id, &full);
-                self.player.inv_other_first_seen.insert(inv_id);
+                self.player.inv_other_first_seen.insert(inv_id.g2());
                 sent.push(inv_id);
             }
             #[cfg(before_647)]
@@ -3253,7 +3298,7 @@ impl ActivePlayer {
     pub fn sync_varps(&mut self) {
         let varps = engine().varps();
         for id in 0..self.player.vars.len() {
-            let Some(varp) = varps.get_by_id(id as u16) else {
+            let Some(varp) = varps.get_by_id(TypeId::from_int(id as i32)) else {
                 continue;
             };
             if !varp.transmit {
@@ -3408,7 +3453,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Sets `player.info.appearance` and enables the
     ///   `PlayerInfoProt::Appearance` mask.
-    pub fn buildappearance(&mut self, inv_id: u16) {
+    pub fn buildappearance(&mut self, inv_id: TypeId) {
         self.player.info.appearance = Some(inv_id);
         self.player.info.masks |= PlayerInfoProt::Appearance as u16;
     }
@@ -3596,18 +3641,18 @@ impl ActivePlayer {
                 colours: &self.player.colours,
                 #[cfg(before_647)]
                 anims: [
-                    info.readyanim.unwrap(),
-                    info.turnanim.unwrap(),
-                    info.walkanim.unwrap(),
-                    info.walkanim_b.unwrap(),
-                    info.walkanim_l.unwrap(),
-                    info.walkanim_r.unwrap(),
-                    info.runanim.unwrap(),
+                    info.readyanim.unwrap().g2(),
+                    info.turnanim.unwrap().g2(),
+                    info.walkanim.unwrap().g2(),
+                    info.walkanim_b.unwrap().g2(),
+                    info.walkanim_l.unwrap().g2(),
+                    info.walkanim_r.unwrap().g2(),
+                    info.runanim.unwrap().g2(),
                 ],
                 #[cfg(before_647)]
                 username37: self.uid().username37(),
                 #[cfg(since_647)]
-                bas: info.readyanim.unwrap_or(DEFAULT_BAS),
+                bas: info.readyanim.unwrap_or(TypeId::new(DEFAULT_BAS)),
                 #[cfg(since_647)]
                 name: &self.player.shown_name(),
                 combat_level: self.player.combat_level,
@@ -3638,7 +3683,7 @@ impl ActivePlayer {
         let worn = self
             .player
             .invs
-            .get(&self.player.info.appearance.unwrap_or(0));
+            .get(&self.player.info.appearance.unwrap_or(TypeId::new(0)));
         let mut skipped_slots = [false; WEAR_SLOTS];
         if let Some(worn) = worn {
             let objs = engine().objs();
@@ -3662,15 +3707,24 @@ impl ActivePlayer {
             if let Some(item) = worn.and_then(|inv| inv.get(slot as u16)) {
                 #[cfg(before_647)]
                 {
-                    *wear = Wear::Obj(item.obj);
+                    *wear = Wear::Obj(item.obj.g2());
                 }
-                #[cfg(since_647)]
+                #[cfg(all(since_647, before_742))]
                 if let Some(wearid) = engine()
                     .objs()
                     .get_by_id(item.obj)
                     .and_then(|obj| obj.wearid)
                 {
                     *wear = Wear::Obj(wearid);
+                }
+                // 742 takes the obj id; a wearid still marks an obj with a wear model.
+                #[cfg(since_742)]
+                if engine()
+                    .objs()
+                    .get_by_id(item.obj)
+                    .is_some_and(|obj| obj.wearid.is_some())
+                {
+                    *wear = Wear::Obj(item.obj.g2());
                 }
             } else if let Some(kit) = self.body_kit(slot) {
                 *wear = Wear::Kit(kit);
@@ -3698,7 +3752,7 @@ impl ActivePlayer {
     /// # Side Effects
     /// * Updates `player.info` animation fields and sets the
     ///   `PlayerInfoProt::Anim` mask.
-    pub fn anim(&mut self, id: Option<u16>, delay: u8) {
+    pub fn anim(&mut self, id: Option<TypeId>, delay: u8) {
         let seqs = engine().seqs();
         let cur_pri = self
             .player
@@ -3769,7 +3823,7 @@ impl ActivePlayer {
         let id = varp.id;
         let transmit = varp.transmit;
         let value = VarValue::from_int(varp.var_type, value);
-        self.set_varp(id, value, transmit);
+        self.set_varp(id.g2(), value, transmit);
         true
     }
 
@@ -3786,7 +3840,7 @@ impl ActivePlayer {
     /// the client is sent the change.
     #[cfg(since_254)]
     pub fn set_varbit(&mut self, varbit: &VarbitType, value: i32) {
-        let Some(varp) = engine().varps().get_by_id(varbit.basevar) else {
+        let Some(varp) = engine().varps().get_by_id(TypeId::new(varbit.basevar)) else {
             return;
         };
         let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
@@ -3838,7 +3892,7 @@ pub trait EnginePlayer {
     /// Re-sends all state needed after a client reconnection.
     fn on_reconnect(&mut self) -> Result<(), ScriptError>;
 
-    /// Writes a single zone event message to the client.
+    /// Writes a follows-type zone event to the client.
     fn write_zone_message(&mut self, message: &ZoneMessage);
 
     /// Sends full and incremental zone updates (objects, locs, events) to
@@ -4021,10 +4075,19 @@ impl EnginePlayer for ActivePlayer {
             engine_mut().flush_input_paths();
         }
 
+        // The lobby answers only its own requests; the rest need the world.
+        #[cfg(since_647)]
+        let ignored =
+            self.lobby && !matches!(prot, ClientProt::NoTimeout | ClientProt::WorldlistFetch);
+        #[cfg(before_647)]
+        let ignored = false;
+
         #[rustfmt::skip]
         let success = if malformed {
             debug!("Malformed {prot:?}: {} byte(s)", buf.len());
             self.watch.anticheat.malformed();
+            false
+        } else if ignored {
             false
         } else {
             let len = buf.len();
@@ -4202,7 +4265,7 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::EventKeyboard => EventKeyboard::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::ClientDetailoptionsStatus => ClientDetailoptionsStatus::decode(&mut buf, len).handle(self),
-                #[cfg(since_647)]
+                #[cfg(all(since_647, before_742))]
                 ClientProt::WorldLatency => WorldLatency::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::MapBuildLoading => MapBuildLoading::decode(&mut buf, len).handle(self),
@@ -4258,6 +4321,12 @@ impl EnginePlayer for ActivePlayer {
                 ClientProt::UrlRequest => UrlRequest::decode(&mut buf, len).handle(self),
                 #[cfg(since_647)]
                 ClientProt::CreateCheckName => CreateCheckName::decode(&mut buf, len).handle(self),
+                #[cfg(since_742)]
+                ClientProt::Unknown1 | ClientProt::Unknown2 | ClientProt::Unknown10 | ClientProt::Unknown14
+                | ClientProt::Unknown15 | ClientProt::Unknown29 | ClientProt::Unknown60 | ClientProt::Unknown61
+                | ClientProt::Unknown63 | ClientProt::Unknown89 | ClientProt::Unknown91 | ClientProt::Unknown92
+                | ClientProt::Unknown93 | ClientProt::Unknown97 | ClientProt::Unknown98 | ClientProt::Unknown100
+                | ClientProt::Unknown101 | ClientProt::Unknown102 => Ok(()),
             };
             match result {
                 Ok(_) => true,
@@ -4402,34 +4471,14 @@ impl EnginePlayer for ActivePlayer {
         Ok(())
     }
 
-    /// Dispatches a zone event message to the client by cloning and writing
-    /// the appropriate server protocol variant (ObjAdd, ObjDel, LocAddChange,
-    /// LocDel, MapAnim, etc.).
-    ///
-    /// # Arguments
-    /// * `message` - The zone event to relay to the client.
+    /// Writes a follows-type zone event to the client. Only private obj
+    /// events are follows-type; the rest go in the shared enclosed buffer.
     fn write_zone_message(&mut self, message: &ZoneMessage) {
         match message {
             ZoneMessage::ObjAdd(m) => self.write(m.clone()),
             ZoneMessage::ObjDel(m) => self.write(m.clone()),
             ZoneMessage::ObjCount(m) => self.write(m.clone()),
-            ZoneMessage::ObjReveal(m) => self.write(m.clone()),
-            ZoneMessage::LocAddChange(m) => self.write(m.clone()),
-            ZoneMessage::LocDel(m) => self.write(m.clone()),
-            ZoneMessage::LocAnim(m) => self.write(m.clone()),
-            ZoneMessage::LocMerge(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::LocPrefetch(m) => self.write(m.clone()),
-            ZoneMessage::MapAnim(m) => self.write(m.clone()),
-            ZoneMessage::MapProjAnim(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::MapProjAnimHalfsq(m) => self.write(m.clone()),
-            #[cfg(since_289)]
-            ZoneMessage::SoundArea(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::SoundVorbisArea(m) => self.write(m.clone()),
-            #[cfg(since_647)]
-            ZoneMessage::TextCoord(m) => self.write(m.clone()),
+            _ => {}
         }
     }
 

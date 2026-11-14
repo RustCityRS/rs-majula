@@ -1,9 +1,11 @@
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
+#[cfg(since_742)]
+use crate::cache::r#if::NO_CLICK_THROUGH;
 #[cfg(since_647)]
 use crate::cache::r#if::{
     DEFAULT_COLOUR, HOOK_NAMES, IfTypeRaw, OpKey, SIZE_MODES, TARGET_MASK, TEXT_ALIGN_H,
-    TEXT_ALIGN_V, X_MODES, Y_MODES, hook_transmit_list, mode_value,
+    TEXT_ALIGN_V, X_MODES, Y_MODES, has_hook, hook_transmit_list, mode_value,
 };
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
@@ -30,6 +32,8 @@ use anyhow::Result;
 use anyhow::{Context, anyhow, bail, ensure};
 #[cfg(since_647)]
 use rs_io::js5::encode_group_entries;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 #[cfg(since_647)]
 use runec::clientscript::{self, HookValue, component_hook};
 #[cfg(since_647)]
@@ -891,13 +895,15 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     out.p1(comp.y_mode as u8);
 
     out.p2(comp.parent_id.unwrap_or(u16::MAX));
+    let var2 = comp.format_version();
+    #[cfg(before_742)]
     out.p1(comp.flags);
-
-    let var2: i32 = if comp.version == 255 {
-        -1
+    #[cfg(since_742)]
+    out.p1(if var2 >= 0 && comp.no_click_through {
+        comp.flags | NO_CLICK_THROUGH
     } else {
-        comp.version as i32
-    };
+        comp.flags
+    });
 
     if comp.com_type == IfComponentType::Layer {
         out.p2(comp.scroll_width);
@@ -908,7 +914,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     }
 
     if comp.com_type == IfComponentType::Graphic {
-        out.p4(comp.graphic.unwrap_or(-1));
+        out.p4(comp.graphic.map_or(-1, TypeId::int));
         out.p2(comp.angle_2d);
         let sf = comp.tiling as u8 | ((comp.alpha as u8) << 1);
         out.p1(sf);
@@ -918,10 +924,14 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p1(comp.vflip as u8);
         out.p1(comp.hflip as u8);
         out.p4(comp.colour);
+        #[cfg(since_742)]
+        if var2 >= 3 {
+            out.p1(comp.graphic_flag3 as u8);
+        }
     }
 
     if comp.com_type == IfComponentType::Model {
-        out.p2(comp.model as u16);
+        put_big_id(&mut out, comp.model);
         out.p1(comp.model_flags);
         let position_set = comp.model_flags & 1 != 0;
         let a_bool_19 = comp.model_flags & 2 != 0;
@@ -939,9 +949,12 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
             out.p2(comp.xan);
             out.p2(comp.yan);
             out.p2(comp.model_zan);
+            #[cfg(before_742)]
             out.p1(comp.zoom as u8);
+            #[cfg(since_742)]
+            out.p2(comp.zoom as u16);
         }
-        out.p2(comp.anim as u16);
+        put_big_id(&mut out, comp.anim);
         if comp.width_mode != 0 {
             out.p2(comp.dynamic_width);
         }
@@ -951,7 +964,11 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     }
 
     if comp.com_type == IfComponentType::Text {
-        out.p2(comp.font as u16);
+        put_big_id(&mut out, comp.font);
+        #[cfg(since_742)]
+        if var2 >= 2 {
+            out.p1(comp.text_flag2 as u8);
+        }
         out.pjstr(&comp.text);
         out.p1(comp.text_style);
         out.p1(comp.text_halign);
@@ -959,6 +976,10 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p1(comp.shadowed as u8);
         out.p4(comp.colour);
         out.p1(comp.trans);
+        #[cfg(since_742)]
+        if var2 >= 0 {
+            out.p1(comp.text_byte0);
+        }
     }
 
     if comp.com_type == IfComponentType::Rect {
@@ -998,11 +1019,11 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     }
     if comp.op_cursor_count > 0 && !comp.op_cursors.is_empty() {
         out.p1(comp.op_cursors[0].0);
-        out.p2(comp.op_cursors[0].1);
+        out.p2(comp.op_cursors[0].1.g2());
     }
     if comp.op_cursor_count > 1 && comp.op_cursors.len() > 1 {
         out.p1(comp.op_cursors[1].0);
-        out.p2(comp.op_cursors[1].1);
+        out.p2(comp.op_cursors[1].1.g2());
     }
 
     out.pjstr(&comp.pause_text);
@@ -1013,13 +1034,31 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
 
     let target_mask = (comp.active_properties >> 11) & 0x7F;
     if target_mask != 0 {
-        out.p2(comp.target_object_id.unwrap_or(u16::MAX));
-        out.p2(comp.target_enter_cursor.unwrap_or(u16::MAX));
-        out.p2(comp.target_leave_cursor.unwrap_or(u16::MAX));
+        out.p2(comp.target_object_id.map_or(u16::MAX, TypeId::g2));
+        out.p2(comp.target_enter_cursor.map_or(u16::MAX, TypeId::g2));
+        out.p2(comp.target_leave_cursor.map_or(u16::MAX, TypeId::g2));
     }
 
-    for hook in &comp.hooks {
-        encode_hook(&mut out, hook);
+    #[cfg(since_742)]
+    if var2 >= 0 {
+        out.p2(comp.cursor.map_or(u16::MAX, TypeId::g2));
+        out.p1(comp.int_params.len() as u8);
+        for &(key, value) in &comp.int_params {
+            out.p3(key as i32);
+            out.p4(value);
+        }
+        out.p1(comp.string_params.len() as u8);
+        for (key, value) in &comp.string_params {
+            out.p3(*key as i32);
+            out.p1(0);
+            out.pjstr(value);
+        }
+    }
+
+    for (hook, values) in comp.hooks.iter().enumerate() {
+        if has_hook(comp.version, hook) {
+            encode_hook(&mut out, values);
+        }
     }
 
     for list in &comp.transmit_lists {
@@ -1027,6 +1066,11 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
     }
 
     out.dat
+}
+
+#[cfg(since_647)]
+fn put_big_id(out: &mut PackedData, id: TypeId) {
+    out.pbigid(id);
 }
 
 #[cfg(since_647)]
@@ -1084,9 +1128,9 @@ pub fn parse_components(
                 id: position as u16,
                 root_layer: group as i32,
                 version: u8::MAX,
-                model: -1,
-                anim: -1,
-                font: -1,
+                model: TypeId::NULL,
+                anim: TypeId::NULL,
+                font: TypeId::NULL,
                 ..IfTypeRaw::default()
             };
             ensure!(
@@ -1106,6 +1150,11 @@ pub fn parse_components(
             .with_context(|| format!("Invalid line: {line}"))?;
     }
     for comp in components.values_mut() {
+        if let Some(hook) = (0..HOOK_NAMES.len())
+            .find(|&hook| comp.hooks[hook].is_some() && !has_hook(comp.version, hook))
+        {
+            bail!("{} needs a newer component version", HOOK_NAMES[hook]);
+        }
         comp.op_cursor_count = comp.op_cursors.len() as u8;
         // Without a placement a model is only its id: all of these stay zero.
         if comp.com_type == IfComponentType::Model
@@ -1165,6 +1214,8 @@ fn parse_property(
             }
         }
         "name" => comp.com_name = Some(value.into()),
+        #[cfg(since_742)]
+        "version" => comp.version = value.parse()?,
         "clientcode" => comp.client_code = value.parse()?,
         "x" => comp.x = value.parse()?,
         "y" => comp.y = value.parse()?,
@@ -1180,8 +1231,7 @@ fn parse_property(
         "scrollheight" => comp.scroll = value.parse()?,
         "noclickthrough" => comp.no_click_through = true,
         "graphic" => {
-            let graphic = reference("sprites")?;
-            comp.graphic = (graphic != -1).then_some(graphic);
+            comp.graphic = TypeId::from_int(reference("sprites")?).non_null();
         }
         "2dangle" => comp.angle_2d = value.parse()?,
         "tiling" => comp.tiling = true,
@@ -1191,9 +1241,28 @@ fn parse_property(
         "graphicshadow" => comp.graphic_shadow = value.parse()?,
         "vflip" => comp.vflip = true,
         "hflip" => comp.hflip = true,
+        #[cfg(since_742)]
+        "graphicflag3" => comp.graphic_flag3 = true,
+        #[cfg(since_742)]
+        "textflag2" => comp.text_flag2 = true,
+        #[cfg(since_742)]
+        "textbyte0" => comp.text_byte0 = value.parse()?,
+        #[cfg(since_742)]
+        "cursor" => {
+            comp.cursor = TypeId::from_int(reference("cursor")?).non_null();
+        }
+        #[cfg(since_742)]
+        "param" => {
+            let (param, value) = value.split_once(',').context("Expected param,value")?;
+            let param = names.resolve("param", param)? as u32;
+            match value.strip_prefix('"').and_then(|v| v.strip_suffix('"')) {
+                Some(text) => comp.string_params.push((param, text.to_owned())),
+                None => comp.int_params.push((param, value.parse()?)),
+            }
+        }
         "colour" => comp.colour = colour()?,
         "fill" => comp.fill = true,
-        "model" => comp.model = reference("model")?,
+        "model" => comp.model = TypeId::from_int(reference("model")?),
         "modelorigin" => {
             let (x, y) = value.split_once(',').context("Expected x,y")?;
             comp.model_origin_x = x.parse()?;
@@ -1212,12 +1281,12 @@ fn parse_property(
             comp.sprite_y_offset = value.parse()?;
             comp.model_flags |= 2;
         }
-        "modelanim" => comp.anim = reference("seq")?,
+        "modelanim" => comp.anim = TypeId::from_int(reference("seq")?),
         "modelorthog" => comp.model_flags |= 4,
         "modelnodepth" => comp.model_flags |= 8,
         "modelobjwidth" => comp.dynamic_width = value.parse()?,
         "modelobjheight" => comp.dynamic_height = value.parse()?,
-        "textfont" => comp.font = reference("fontmetrics")?,
+        "textfont" => comp.font = TypeId::from_int(reference("fontmetrics")?),
         "text" => comp.text = value.to_owned(),
         "textlineheight" => comp.text_style = value.parse()?,
         "textalignh" => comp.text_halign = mode(&TEXT_ALIGN_H)?,
@@ -1250,16 +1319,13 @@ fn parse_property(
         "dragrenderbehaviour" => comp.drag_renderbehavior = value.parse()?,
         "targetverb" => comp.target_verb = value.to_owned(),
         "targetobj" => {
-            let id = reference("obj")? as u16;
-            comp.target_object_id = (id != u16::MAX).then_some(id);
+            comp.target_object_id = TypeId::from_int(reference("obj")?).non_null();
         }
         "targetcursor2" => {
-            let id = reference("cursor")? as u16;
-            comp.target_enter_cursor = (id != u16::MAX).then_some(id);
+            comp.target_enter_cursor = TypeId::from_int(reference("cursor")?).non_null();
         }
         "targetcursor3" => {
-            let id = reference("cursor")? as u16;
-            comp.target_leave_cursor = (id != u16::MAX).then_some(id);
+            comp.target_leave_cursor = TypeId::from_int(reference("cursor")?).non_null();
         }
         _ => {
             if let Some(op) = key.strip_prefix("opkey") {
@@ -1274,7 +1340,7 @@ fn parse_property(
                 });
             } else if let Some(op) = key.strip_prefix("opcursor") {
                 comp.op_cursors
-                    .push((op.parse()?, reference("cursor")? as u16));
+                    .push((op.parse()?, TypeId::new(reference("cursor")? as u16)));
             } else if let Some(op) = key
                 .strip_prefix("op")
                 .and_then(|op| op.parse::<usize>().ok())

@@ -1,0 +1,157 @@
+// 1908
+[clientscript,sc_update_remaining_clay]
+def_int $int0 = 12;
+def_string $string0 = "";
+if_setsize(sc_remaining_clay:basic_clay_graph_layer, 16, calc(%sc_client_basic_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:fishing_tier2_layer, 16, calc(%sc_client_fishing2_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:fishing_tier3_layer, 16, calc(%sc_client_fishing3_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:fishing_tier4_layer, 16, calc(%sc_client_fishing4_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:fishing_tier5_layer, 16, calc(%sc_client_fishing5_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:mining_tier2_layer, 16, calc(%sc_client_mining2_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:mining_tier3_layer, 16, calc(%sc_client_mining3_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:mining_tier4_layer, 16, calc(%sc_client_mining4_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:mining_tier5_layer, 16, calc(%sc_client_mining5_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:woodcutting_tier2_layer, 16, calc(%sc_client_woodcutting2_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:woodcutting_tier3_layer, 16, calc(%sc_client_woodcutting3_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:woodcutting_tier4_layer, 16, calc(%sc_client_woodcutting4_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:woodcutting_tier5_layer, 16, calc(%sc_client_woodcutting5_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:hunting_tier2_layer, 16, calc(%sc_client_hunting2_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:hunting_tier3_layer, 16, calc(%sc_client_hunting3_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:hunting_tier4_layer, 16, calc(%sc_client_hunting4_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if_setsize(sc_remaining_clay:hunting_tier5_layer, 16, calc(%sc_client_hunting5_clay_left * 100 / $int0 * 16384 / 100), ^setsize_abs, ^setsize_rel);
+if (%sc_client_basic_clay_left = 0) {
+    $string0 = "There are no class 1 clay locations in the area.";
+} else if (%sc_client_basic_clay_left = 1) {
+    $string0 = "There is 1 class 1 clay location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_basic_clay_left)> class 1 clay locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:basic_clay_graph_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_fishing2_clay_left = 0) {
+    $string0 = "There are no class 2 fishing locations in the area.";
+} else if (%sc_client_fishing2_clay_left = 1) {
+    $string0 = "There is 1 class 2 fishing location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_fishing2_clay_left)> class 2 fishing locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:fishing_tier2_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_fishing3_clay_left = 0) {
+    $string0 = "There are no class 3 fishing locations in the area.";
+} else if (%sc_client_fishing3_clay_left = 1) {
+    $string0 = "There is 1 class 3 fishing location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_fishing3_clay_left)> class 3 fishing locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:fishing_tier3_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_fishing4_clay_left = 0) {
+    $string0 = "There are no class 4 fishing locations in the area.";
+} else if (%sc_client_fishing4_clay_left = 1) {
+    $string0 = "There is 1 class 4 fishing location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_fishing4_clay_left)> class 4 fishing locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:fishing_tier4_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_fishing5_clay_left = 0) {
+    $string0 = "There are no class 5 fishing locations in the area.";
+} else if (%sc_client_fishing5_clay_left = 1) {
+    $string0 = "There is 1 class 5 fishing location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_fishing5_clay_left)> class 5 fishing locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:fishing_tier5_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_mining2_clay_left = 0) {
+    $string0 = "There are no class 2 mining locations in the area.";
+} else if (%sc_client_mining2_clay_left = 1) {
+    $string0 = "There is 1 class 2 mining location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_mining2_clay_left)> class 2 mining locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:mining_tier2_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_mining3_clay_left = 0) {
+    $string0 = "There are no class 3 mining locations in the area.";
+} else if (%sc_client_mining3_clay_left = 1) {
+    $string0 = "There is 1 class 3 mining location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_mining3_clay_left)> class 3 mining locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:mining_tier3_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_mining4_clay_left = 0) {
+    $string0 = "There are no class 4 mining locations in the area.";
+} else if (%sc_client_mining4_clay_left = 1) {
+    $string0 = "There is 1 class 4 mining location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_mining4_clay_left)> class 4 mining locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:mining_tier4_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_mining5_clay_left = 0) {
+    $string0 = "There are no class 5 mining locations in the area.";
+} else if (%sc_client_mining5_clay_left = 1) {
+    $string0 = "There is 1 class 5 mining location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_mining5_clay_left)> class 5 mining locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:mining_tier5_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_woodcutting2_clay_left = 0) {
+    $string0 = "There are no class 2 woodcutting locations in the area.";
+} else if (%sc_client_woodcutting2_clay_left = 1) {
+    $string0 = "There is 1 class 2 woodcutting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_woodcutting2_clay_left)> class 2 woodcutting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:woodcutting_tier2_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_woodcutting3_clay_left = 0) {
+    $string0 = "There are no class 3 woodcutting locations in the area.";
+} else if (%sc_client_woodcutting3_clay_left = 1) {
+    $string0 = "There is 1 class 3 woodcutting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_woodcutting3_clay_left)> class 3 woodcutting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:woodcutting_tier3_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_woodcutting4_clay_left = 0) {
+    $string0 = "There are no class 4 woodcutting locations in the area.";
+} else if (%sc_client_woodcutting4_clay_left = 1) {
+    $string0 = "There is 1 class 4 woodcutting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_woodcutting4_clay_left)> class 4 woodcutting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:woodcutting_tier4_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_woodcutting5_clay_left = 0) {
+    $string0 = "There are no class 5 woodcutting locations in the area.";
+} else if (%sc_client_woodcutting5_clay_left = 1) {
+    $string0 = "There is 1 class 5 woodcutting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_woodcutting5_clay_left)> class 5 woodcutting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:woodcutting_tier5_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_hunting2_clay_left = 0) {
+    $string0 = "There are no class 2 hunting locations in the area.";
+} else if (%sc_client_hunting2_clay_left = 1) {
+    $string0 = "There is 1 class 2 hunting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_hunting2_clay_left)> class 2 hunting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:hunting_tier2_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_hunting3_clay_left = 0) {
+    $string0 = "There are no class 3 hunting locations in the area.";
+} else if (%sc_client_hunting3_clay_left = 1) {
+    $string0 = "There is 1 class 3 hunting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_hunting3_clay_left)> class 3 hunting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:hunting_tier3_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_hunting4_clay_left = 0) {
+    $string0 = "There are no class 4 hunting locations in the area.";
+} else if (%sc_client_hunting4_clay_left = 1) {
+    $string0 = "There is 1 class 4 hunting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_hunting4_clay_left)> class 4 hunting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:hunting_tier4_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");
+if (%sc_client_hunting5_clay_left = 0) {
+    $string0 = "There are no class 5 hunting locations in the area.";
+} else if (%sc_client_hunting5_clay_left = 1) {
+    $string0 = "There is 1 class 5 hunting location in the area.";
+} else {
+    $string0 = "There are <tostring(%sc_client_hunting5_clay_left)> class 5 hunting locations in the area.";
+}
+if_setonmouserepeat(sc_remaining_clay:hunting_tier5_layer, "addtooltip(event_com, sc_remaining_clay:tooltip_layer, $string0, 25, 100)");

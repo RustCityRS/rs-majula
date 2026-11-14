@@ -1,6 +1,6 @@
 #[cfg(since_647)]
 use crate::pack::config::param::type_name_to_char;
-use crate::pack::pack_registry::{PackFile, PackRegistry};
+use crate::pack::pack_registry::{PackFile, PackId, PackRegistry};
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
@@ -9,6 +9,7 @@ use crate::types::ScriptVarType;
 #[cfg(since_647)]
 use anyhow::{Context, Result, bail};
 use rs_io::crc;
+use rs_ver::TypeId;
 #[cfg(since_647)]
 use std::array::from_fn;
 #[cfg(since_647)]
@@ -88,6 +89,29 @@ pub fn placeholder_prefix(kind: &str) -> &str {
 }
 
 pub fn parse_ref(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce(u16)) {
+    let id = match lookup_ref(pack, kind, value) {
+        None => u16::MAX,
+        #[cfg(before_647)]
+        Some(id) => id,
+        #[cfg(since_647)]
+        Some(id) => {
+            u16::try_from(id).unwrap_or_else(|_| panic!("{kind} reference exceeds 65535: {value}"))
+        }
+    };
+    callback(id);
+}
+
+/// Parses a reference the client reads as a big smart from 742 on.
+pub fn parse_bigid(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce(TypeId)) {
+    #[cfg(before_742)]
+    parse_ref(pack, kind, value, |id| callback(TypeId::new(id)));
+    #[cfg(since_742)]
+    callback(lookup_ref(pack, kind, value).map_or(TypeId::NULL, |id| {
+        TypeId::try_from(id).unwrap_or_else(|_| panic!("{kind} reference out of range: {value}"))
+    }));
+}
+
+fn lookup_ref(pack: &PackFile, kind: &str, value: &str) -> Option<PackId> {
     #[cfg(since_647)]
     let value = value
         .strip_prefix('"')
@@ -95,34 +119,32 @@ pub fn parse_ref(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce
         .unwrap_or(value);
     #[cfg(since_647)]
     let kind = placeholder_prefix(kind);
-    let id = if value == "null" {
-        u16::MAX
-    } else if let Some(id) = pack.get_by_debugname(value) {
-        #[cfg(since_647)]
-        let id =
-            u16::try_from(id).unwrap_or_else(|_| panic!("{kind} reference exceeds 65535: {value}"));
-        id
-    } else {
-        let number = value
-            .strip_prefix(kind)
-            .and_then(|suffix| suffix.strip_prefix('_'))
-            .and_then(|suffix| suffix.split('_').next())
-            .unwrap_or(value);
+    if value == "null" {
+        return None;
+    }
+    if let Some(id) = pack.get_by_debugname(value) {
+        return Some(id);
+    }
+    let number = value
+        .strip_prefix(kind)
+        .and_then(|suffix| suffix.strip_prefix('_'))
+        .and_then(|suffix| suffix.split('_').next())
+        .unwrap_or(value);
+    Some(
         number
             .parse()
-            .unwrap_or_else(|_| panic!("Unknown {kind}: {value}"))
-    };
-    callback(id);
+            .unwrap_or_else(|_| panic!("Unknown {kind}: {value}")),
+    )
 }
 
 pub fn parse_model_kind<F>(registry: &PackRegistry, kind: &str, key: &str, value: &str, callback: F)
 where
-    F: FnOnce((usize, u16)),
+    F: FnOnce((usize, TypeId)),
 {
     if let Some(rest) = key.strip_prefix(kind)
         && let Ok(idx) = rest.parse::<usize>()
     {
-        parse_ref(&registry.model, "model", value, |v| {
+        parse_bigid(&registry.model, "model", value, |v| {
             callback((idx, v));
         });
         return;
@@ -299,6 +321,18 @@ pub fn config_key_index(key: &str, prefix: &str) -> Option<usize> {
     key.strip_prefix(prefix)?.parse().ok()
 }
 
+/// A recol/retex index mask from its comma-separated bit indices.
+#[cfg(since_742)]
+pub fn parse_mask_indices(value: &str) -> u16 {
+    value.split(',').fold(0, |mask, index| {
+        let index: u16 = index
+            .trim()
+            .parse()
+            .unwrap_or_else(|_| panic!("Invalid index list: {value}"));
+        mask | 1 << index
+    })
+}
+
 #[cfg(since_647)]
 /// A colour as `0xRRGGBB` or `0xAARRGGBB`.
 #[cfg(since_647)]
@@ -403,6 +437,7 @@ pub fn pack_multi(
     codes: (u8, u8),
     props: &[(String, String)],
     (kind, pack): (&str, &PackFile),
+    write: fn(&mut PackedData, i32),
     registry: &PackRegistry,
     name: &str,
 ) -> Result<()> {
@@ -432,9 +467,9 @@ pub fn pack_multi(
                 .with_context(|| format!("{name}: invalid {key} '{value}'"))?;
             let target = target.trim();
             let id = if target == "null" {
-                u16::MAX
+                -1
             } else {
-                u16::try_from(
+                i32::try_from(
                     pack.get_by_debugname(target)
                         .or_else(|| placeholder_number(kind, target))
                         .with_context(|| format!("{name}: unknown {key} '{target}'"))?,
@@ -451,12 +486,12 @@ pub fn pack_multi(
     packed.p2(varbit);
     packed.p2(varp);
     if let Some(default) = default {
-        packed.p2(default);
+        write(packed, default);
     }
     let count = targets.last_key_value().map_or(0, |(&index, _)| index);
     packed.p1(count);
     for index in 0..=count {
-        packed.p2(targets.get(&index).copied().unwrap_or(u16::MAX));
+        write(packed, targets.get(&index).copied().unwrap_or(-1));
     }
     Ok(())
 }

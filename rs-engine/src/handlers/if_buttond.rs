@@ -163,7 +163,7 @@ fn resync(active: &mut ActivePlayer, com: ComId, slot: u16, com2: ComId, slot2: 
                     .collect();
                 slots.dedup_by_key(|(slot, _)| *slot);
                 if !slots.is_empty() {
-                    active.update_inv_partial(id, &slots);
+                    active.update_inv_partial(id.g2(), &slots);
                 }
             }
         }

@@ -1,0 +1,24 @@
+// 4853
+[proc,clientscript_4853]
+~clientscript_4863;
+switch_int (%varplayerbit_9552) {
+    case 0 :
+        if_sethide(interface_1259:com_5, true);
+        if (%varclient_1794 = 0) {
+            if_sethide(interface_1259:com_5, false);
+        }
+    case 1 :
+        ~clientscript_4860;
+        ~clientscript_4862;
+    case 2 :
+        ~clientscript_4860;
+    case 4 :
+        ~clientscript_4860;
+        ~clientscript_4861;
+    case 3 :
+        ~clientscript_5170;
+        ~clientscript_4860;
+        ~clientscript_4858;
+}
+~clientscript_4856;
+~clientscript_4857;

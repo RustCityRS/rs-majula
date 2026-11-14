@@ -1,0 +1,7 @@
+// 6563
+[proc,clientscript_6563](component $component0)
+def_int $int1 = if_gety($component0);
+def_int $int2 = if_getx($component0);
+def_int $int3 = if_gettrans(interface_1319:com_0);
+if_settrans(interface_1319:com_0, min(255, calc($int3 + 1)));
+if_settrans(interface_1319:com_2, min(255, calc($int3 - 5)));

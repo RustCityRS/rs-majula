@@ -1,0 +1,5 @@
+// 5102
+[proc,clientscript_5102](component $component0, component $component1, component $component2)
+if_sethide($component1, false);
+if_settext($component2, "Clan settings prevent viewing this relationship");
+if_sethide($component0, false);

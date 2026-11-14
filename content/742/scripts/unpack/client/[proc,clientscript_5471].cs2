@@ -1,0 +1,54 @@
+// 5471
+[proc,clientscript_5471](int $int0)
+def_coord $coord1 = ~coord_0_0(coord);
+if ($int0 = 0) {
+    spline_new(0, 4);
+    spline_new(1, 4);
+    spline_addpoint(0, 0, movecoord($coord1, 38, 2, 41), 2300, movecoord($coord1, 35, 2, 41), 2300, 0);
+    spline_addpoint(1, 0, movecoord($coord1, 38, 2, 36), 1300, movecoord($coord1, 37, 2, 36), 1300, 0);
+    spline_addpoint(0, 1, movecoord($coord1, 31, 2, 36), 2200, movecoord($coord1, 30, 2, 34), 2200, 0);
+    spline_addpoint(1, 1, movecoord($coord1, 36, 2, 34), 1400, movecoord($coord1, 36, 2, 33), 1400, 0);
+    spline_addpoint(0, 2, movecoord($coord1, 31, 2, 28), 2100, movecoord($coord1, 32, 2, 26), 2100, 0);
+    spline_addpoint(1, 2, movecoord($coord1, 36, 2, 31), 1400, movecoord($coord1, 36, 2, 30), 1400, 0);
+    spline_addpoint(0, 3, movecoord($coord1, 38, 2, 24), 1900, movecoord($coord1, 40, 2, 24), 1900, 0);
+    spline_addpoint(1, 3, movecoord($coord1, 38, 2, 29), 1400, movecoord($coord1, 39, 2, 29), 1400, 0);
+} else if ($int0 = 1) {
+    spline_new(0, 4);
+    spline_new(1, 4);
+    spline_addpoint(0, 0, movecoord($coord1, 34, 2, 41), 2400, movecoord($coord1, 32, 2, 40), 2400, 0);
+    spline_addpoint(1, 0, movecoord($coord1, 38, 2, 36), 1300, movecoord($coord1, 37, 2, 36), 1300, 0);
+    spline_addpoint(0, 1, movecoord($coord1, 30, 2, 36), 2300, movecoord($coord1, 29, 2, 34), 2300, 0);
+    spline_addpoint(1, 1, movecoord($coord1, 36, 2, 34), 1400, movecoord($coord1, 36, 2, 33), 1400, 0);
+    spline_addpoint(0, 2, movecoord($coord1, 30, 2, 29), 2200, movecoord($coord1, 31, 2, 27), 2200, 0);
+    spline_addpoint(1, 2, movecoord($coord1, 36, 2, 31), 1400, movecoord($coord1, 36, 2, 30), 1400, 0);
+    spline_addpoint(0, 3, movecoord($coord1, 34, 2, 25), 2000, movecoord($coord1, 35, 2, 25), 2000, 0);
+    spline_addpoint(1, 3, movecoord($coord1, 38, 2, 29), 1400, movecoord($coord1, 39, 2, 29), 1400, 0);
+} else if ($int0 = 2) {
+    spline_new(0, 6);
+    spline_new(1, 6);
+    spline_addpoint(0, 0, movecoord($coord1, 32, 2, 45), 2000, movecoord($coord1, 28, 2, 45), 2000, 0);
+    spline_addpoint(1, 0, movecoord($coord1, 31, 2, 37), 1300, movecoord($coord1, 30, 2, 37), 1300, 0);
+    spline_addpoint(0, 1, movecoord($coord1, 21, 2, 40), 2000, movecoord($coord1, 18, 2, 37), 2000, 0);
+    spline_addpoint(1, 1, movecoord($coord1, 26, 2, 35), 1300, movecoord($coord1, 25, 2, 33), 1300, 0);
+    spline_addpoint(0, 2, movecoord($coord1, 20, 2, 25), 2000, movecoord($coord1, 23, 2, 21), 2000, 0);
+    spline_addpoint(1, 2, movecoord($coord1, 26, 2, 29), 1300, movecoord($coord1, 27, 2, 27), 1300, 0);
+    spline_addpoint(0, 3, movecoord($coord1, 32, 2, 20), 2000, movecoord($coord1, 37, 2, 20), 2000, 0);
+    spline_addpoint(1, 3, movecoord($coord1, 31, 2, 28), 1300, movecoord($coord1, 33, 2, 29), 1300, 0);
+    spline_addpoint(0, 4, movecoord($coord1, 41, 2, 27), 2000, movecoord($coord1, 42, 2, 30), 2000, 0);
+    spline_addpoint(1, 4, movecoord($coord1, 34, 2, 31), 1300, movecoord($coord1, 35, 2, 33), 1300, 0);
+    spline_addpoint(0, 5, movecoord($coord1, 40, 2, 40), 2000, movecoord($coord1, 37, 2, 43), 2000, 0);
+    spline_addpoint(1, 5, movecoord($coord1, 33, 2, 36), 1300, movecoord($coord1, 32, 2, 37), 1300, 0);
+} else {
+    spline_new(0, 4);
+    spline_new(1, 4);
+    spline_addpoint(0, 0, movecoord($coord1, 37, 2, 41), 2200, movecoord($coord1, 35, 2, 40), 2200, 0);
+    spline_addpoint(1, 0, movecoord($coord1, 41, 2, 36), 1300, movecoord($coord1, 40, 2, 36), 1300, 0);
+    spline_addpoint(0, 1, movecoord($coord1, 33, 2, 36), 2100, movecoord($coord1, 32, 2, 34), 2100, 0);
+    spline_addpoint(1, 1, movecoord($coord1, 39, 2, 34), 1400, movecoord($coord1, 39, 2, 33), 1400, 0);
+    spline_addpoint(0, 2, movecoord($coord1, 33, 2, 29), 2000, movecoord($coord1, 34, 2, 27), 2000, 0);
+    spline_addpoint(1, 2, movecoord($coord1, 39, 2, 31), 1400, movecoord($coord1, 39, 2, 30), 1400, 0);
+    spline_addpoint(0, 3, movecoord($coord1, 37, 2, 25), 1800, movecoord($coord1, 38, 2, 25), 1800, 0);
+    spline_addpoint(1, 3, movecoord($coord1, 41, 2, 29), 1400, movecoord($coord1, 42, 2, 29), 1400, 0);
+}
+cam_movealong(0, 0, 400, 400, 1, 0);
+if_setoncamfinished(interface_1172:com_9, "clientscript_5474(0, 400)");

@@ -1,11 +1,12 @@
 use super::decode::read_optional_id;
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct FluType {
-    pub id: u16,
+    pub id: TypeId,
     pub color: i32,
-    pub texture: Option<u16>,
+    pub texture: Option<TypeId>,
     pub size: u16,
     pub op4: bool,
     pub op5: bool,
@@ -14,7 +15,7 @@ pub struct FluType {
 impl CacheType for FluType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             color: 0,

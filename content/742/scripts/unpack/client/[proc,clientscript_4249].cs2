@@ -1,0 +1,42 @@
+// 4249
+[proc,clientscript_4249](string $string0, string $string1, component $component0, component $component1, component $component2, component $component3, component $component4, int $int5, int $int6)(int)
+def_int $int7 = 0;
+if ($int6 < 50) {
+    $int7 = 1;
+}
+def_int $int8 = calc(stringwidth($string0, p12_full) + 3);
+if_settext($component1, $string0);
+if ($component3 ! null) {
+    if_setposition($component3, $int8, 0, ^setpos_abs_left, ^setpos_abs_top);
+}
+$int8 = calc(if_getwidth($component0) - $int8);
+def_int $int9 = max(calc(paraheight($string1, $int8, p12_full) * 15 + 3), 20);
+if ($int7 = 1) {
+    if_setsize($component0, 60, $int9, ^setsize_minus, ^setsize_abs);
+} else {
+    if_setsize($component0, 0, $int9, ^setsize_minus, ^setsize_abs);
+}
+if_setsize($component2, $int8, 0, ^setsize_abs, ^setsize_minus);
+if_settext($component2, $string1);
+if ($int7 = 1) {
+    if_setposition($component0, 60, $int6, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_setposition($component0, 0, $int6, ^setpos_abs_centre, ^setpos_abs_top);
+}
+if ($component3 ! null) {
+    if ($int5 = 2) {
+        if_sethide($component3, true);
+        if_sethide($component2, false);
+        if_clearscripthooks($component3);
+    } else {
+        if_sethide($component2, true);
+        if_sethide($component3, false);
+        if ($component4 ! null) {
+            if_setsize($component3, calc(stringwidth(if_gettext($component4), op1028($component4)) + 10), if_getheight($component3), ^setsize_abs, ^setsize_abs);
+        }
+        if_setonop($component3, "clientscript_4250($component3, $component2)");
+    }
+} else {
+    if_sethide($component2, false);
+}
+return(calc($int6 + $int9));

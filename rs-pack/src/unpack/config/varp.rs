@@ -16,6 +16,8 @@ use crate::types::VarPlayerScope;
 use rs_io::Packet;
 #[cfg(since_647)]
 use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 use std::collections::HashMap;
 #[cfg(since_647)]
 use std::collections::HashSet;
@@ -61,7 +63,7 @@ pub(super) fn transmit_varps(store: &mut Js5Store) -> anyhow::Result<HashSet<u32
         if let Some(group) = store.read_group(archive::CONFIG_VARBIT, group_id)? {
             for entry in group.entries {
                 if !entry.data().is_empty() && varbits.contains(&(group_id * 1024 + entry.id)) {
-                    let mut def = VarbitType::new(0);
+                    let mut def = VarbitType::new(TypeId::new(0));
                     def.decode(&mut Packet::from(entry.data().to_vec()));
                     varps.insert(def.basevar as u32);
                 }

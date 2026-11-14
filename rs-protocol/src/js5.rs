@@ -24,9 +24,19 @@ use std::sync::Arc;
 #[cfg(since_647)]
 use tracing::info;
 
+#[cfg(before_742)]
+pub type Js5Group = u16;
+#[cfg(since_742)]
+pub type Js5Group = u32;
+
+#[cfg(since_647)]
+const BLOCK: usize = 512;
+#[cfg(since_647)]
+const FIRST_BLOCK: usize = BLOCK - size_of::<u8>() - size_of::<Js5Group>();
+
 pub struct Js5Response<'a> {
     pub archive: u8,
-    pub group: u16,
+    pub group: Js5Group,
     pub data: &'a [u8],
 }
 
@@ -52,14 +62,17 @@ impl Js5Response<'_> {
     #[cfg(since_647)]
     pub fn encode(&self, out: &mut Packet, urgent: bool) {
         out.p1(self.archive);
+        #[cfg(before_742)]
         out.p2(self.group);
+        #[cfg(since_742)]
+        out.p4(self.group as i32);
         let start = out.pos;
-        let first = self.data.len().min(509);
+        let first = self.data.len().min(FIRST_BLOCK);
         out.pdata(self.data, 0, first);
         if !urgent && first != 0 {
             out.data[start] |= 0x80;
         }
-        for chunk in self.data[first..].chunks(511) {
+        for chunk in self.data[first..].chunks(BLOCK - 1) {
             out.p1(0xFF);
             out.pdata(chunk, 0, chunk.len());
         }
@@ -79,7 +92,7 @@ impl Js5Response<'_> {
         size_of_val(&self.archive)
             + size_of_val(&self.group)
             + self.data.len()
-            + (self.data.len() + 1) / 511
+            + (self.data.len() + BLOCK - 2 - FIRST_BLOCK) / (BLOCK - 1)
     }
 }
 
@@ -89,12 +102,18 @@ enum Prefetch {
     Group(u8, &'static str),
 }
 
+#[cfg(all(since_647, before_742))]
+const PREFETCH_COUNT: usize = 27;
+#[cfg(since_742)]
+const PREFETCH_COUNT: usize = 26;
+
 #[cfg(since_647)]
-const PREFETCHES: [Prefetch; 27] = [
+const PREFETCHES: [Prefetch; PREFETCH_COUNT] = [
     Archive(DEFAULTS),
     Group(DLLS, "windows/x86/jaclib.dll"),
     Group(DLLS, "windows/x86/jaggl.dll"),
     Group(DLLS, "windows/x86/jagdx.dll"),
+    #[cfg(before_742)]
     Group(DLLS, "windows/x86/jagmisc.dll"),
     Group(DLLS, "windows/x86/sw3d.dll"),
     Group(DLLS, "windows/x86/hw3d.dll"),
@@ -125,7 +144,7 @@ const PREFETCHES: [Prefetch; 27] = [
 pub struct Js5Cache {
     groups: Arc<HashMap<(u8, u32), Range<usize>>>,
     data: Arc<Vec<u8>>,
-    prefetches: [i32; 27],
+    prefetches: [i32; PREFETCH_COUNT],
 }
 
 #[cfg(since_647)]
@@ -194,13 +213,13 @@ impl Js5Cache {
         })
     }
 
-    pub fn get(&self, archive: u8, group: u32) -> Option<&[u8]> {
+    pub fn get(&self, archive: u8, group: impl Into<u32>) -> Option<&[u8]> {
         self.groups
-            .get(&(archive, group))
+            .get(&(archive, group.into()))
             .map(|range| &self.data[range.clone()])
     }
 
-    pub fn prefetches(&self) -> [i32; 27] {
+    pub fn prefetches(&self) -> [i32; PREFETCH_COUNT] {
         self.prefetches
     }
 }
@@ -224,7 +243,7 @@ mod tests {
     fn memory_cache_serves_containers_without_versions_and_signs_the_complete_index() {
         let key = load_rsa_key(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../.keys/private-647.pem"
+            "/../.keys/js5/private.pem"
         ))
         .unwrap();
         let reference = vec![0, 0, 0, 0, 4, 5, 1, 0, 0];
@@ -241,16 +260,22 @@ mod tests {
             &key,
         )
         .unwrap();
-        assert_eq!(cache.get(2, 7), Some(container.as_slice()));
-        assert_eq!(cache.get(REFERENCE_TABLES, 1), Some(reference.as_slice()));
-        assert!(cache.get(2, 8).is_none());
+        assert_eq!(cache.get(2, 7u32), Some(container.as_slice()));
+        assert_eq!(
+            cache.get(REFERENCE_TABLES, 1u32),
+            Some(reference.as_slice())
+        );
+        assert!(cache.get(2, 8u32).is_none());
         let master = cache
             .get(REFERENCE_TABLES, REFERENCE_TABLES as u32)
             .unwrap();
         assert_eq!(Container::parse(master).unwrap().data.len(), master.len());
         assert_eq!(master[5], 3);
         let shared = cache.clone();
-        assert!(ptr::eq(cache.get(2, 7).unwrap(), shared.get(2, 7).unwrap()));
+        assert!(ptr::eq(
+            cache.get(2, 7u32).unwrap(),
+            shared.get(2, 7u32).unwrap()
+        ));
     }
 
     #[cfg(since_647)]
@@ -258,7 +283,7 @@ mod tests {
     fn prefetches_weigh_each_loading_requirement_by_its_download_bytes() {
         let key = load_rsa_key(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../.keys/private-647.pem"
+            "/../.keys/js5/private.pem"
         ))
         .unwrap();
         let table = vec![0, 0, 0, 0, 4, 5, 1, 0, 0];
@@ -297,13 +322,21 @@ mod tests {
         )
         .unwrap();
         let prefetches = cache.prefetches();
+        let config = PREFETCHES
+            .iter()
+            .position(|p| matches!(p, Archive(CONFIG)))
+            .unwrap();
+        let huffman_at = PREFETCHES
+            .iter()
+            .position(|p| matches!(p, Group(BINARY, "huffman")))
+            .unwrap();
         assert_eq!(
-            prefetches[10] as usize,
+            prefetches[config] as usize,
             table.len() + first.len() + second.len()
         );
-        assert_eq!(prefetches[22] as usize, huffman.len());
+        assert_eq!(prefetches[huffman_at] as usize, huffman.len());
         assert_eq!(prefetches[0], 0);
-        assert_eq!(prefetches[26], 0);
+        assert_eq!(prefetches[PREFETCH_COUNT - 1], 0);
     }
 
     #[cfg(before_647)]
@@ -349,10 +382,12 @@ mod tests {
                 reply.encode(&mut buf, urgent);
                 let bytes = &buf.data[1..buf.pos];
                 assert_eq!(bytes.len(), reply.encoded_size());
-                assert_eq!(&bytes[..3], &[19, 0xAB, 0xCD]);
+                let header = BLOCK - FIRST_BLOCK;
+                assert_eq!(bytes[0], 19);
+                assert_eq!(&bytes[1..header], &reply.group.to_be_bytes());
                 let mut data = Vec::new();
-                for (pos, &byte) in bytes.iter().enumerate().skip(3) {
-                    if pos % 512 == 0 {
+                for (pos, &byte) in bytes.iter().enumerate().skip(header) {
+                    if pos % BLOCK == 0 {
                         assert_eq!(byte, 0xFF);
                     } else {
                         data.push(byte);

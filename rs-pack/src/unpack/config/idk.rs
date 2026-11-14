@@ -2,6 +2,7 @@
 use super::ModelCategory;
 use super::UnpackedPacks;
 use crate::cache::idk::IdkTypeRaw;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 #[cfg(before_647)]
@@ -25,11 +26,8 @@ fn bodytype_name(v: u8) -> Option<&'static str> {
     })
 }
 
-fn model_name(registry: &UnpackedPacks, id: u16) -> String {
-    registry
-        .config_name("model", id as u32)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| format!("model_{id}"))
+fn model_name(registry: &UnpackedPacks, id: TypeId) -> String {
+    super::bigid_name(registry, "model", id)
 }
 
 pub fn emit_idk_props(
@@ -142,6 +140,14 @@ pub fn emit_idk_props(
                 model_name(registry, model_id),
             ));
         }
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.recolindices {
+        p.push((44, "recolindices".into(), super::mask_indices(mask)));
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.retexindices {
+        p.push((45, "retexindices".into(), super::mask_indices(mask)));
     }
     p.into_iter()
         .filter(|(code, _, _)| *code == opcode)

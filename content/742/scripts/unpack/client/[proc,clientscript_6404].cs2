@@ -1,0 +1,10 @@
+// 6404
+[proc,clientscript_6404]
+if_settext(interface_1308:com_341, "Current points:");
+if_settext(interface_1308:com_342, tostring(%varplayerbit_4781));
+if_setposition(interface_1308:com_342, 96, 0, ^setpos_abs_left, ^setpos_abs_top);
+if (%varplayerbit_4781 = 0) {
+    if_setcolour(interface_1308:com_342, 0xb52f10);
+} else {
+    if_setcolour(interface_1308:com_342, 0xfbf5e6);
+}

@@ -1,0 +1,55 @@
+// 970
+[proc,script970](component $component0)(int)
+if ($component0 = stats:lvl_icon_attack & %varplayerbit_4732 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_strength & %varplayerbit_4733 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_defence & %varplayerbit_4734 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_ranged & %varplayerbit_4735 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_prayer & %varplayerbit_4736 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_magic & %varplayerbit_4737 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_hitpoints & %varplayerbit_4738 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_agility & %varplayerbit_4739 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_herblore & %varplayerbit_4740 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_thieving & %varplayerbit_4741 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_crafting & %varplayerbit_4742 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_fletching & %varplayerbit_4743 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_mining & %varplayerbit_4744 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_smithing & %varplayerbit_4745 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_fishing & %varplayerbit_4746 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_cooking & %varplayerbit_4747 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_firemaking & %varplayerbit_4748 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_woodcutting & %varplayerbit_4749 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_runecraft & %varplayerbit_4750 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_slayer & %varplayerbit_4751 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_farming & %varplayerbit_4752 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_construction & %varplayerbit_4753 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_hunter & %varplayerbit_4754 = 1) {
+    return(1);
+} else if ($component0 = stats:com_145 & %varplayerbit_4755 = 1) {
+    return(1);
+} else if ($component0 = stats:lvl_icon_dungeoneering & %varplayerbit_7756 = 1) {
+    return(1);
+} else {
+    return(0);
+}

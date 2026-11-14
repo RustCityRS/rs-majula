@@ -72,8 +72,12 @@ pub const LOADING_SPRITES: u8 = 32;
 pub const LOADING_SCREENS: u8 = 33;
 #[cfg(since_647)]
 pub const LOADING_SPRITES_RAW: u8 = 34;
+#[cfg(since_742)]
+pub const CUTSCENES: u8 = 35;
 #[cfg(since_647)]
 pub const WORLDMAP_LOCS: u8 = 36;
+#[cfg(since_742)]
+pub const TEXTURES_HDR: u8 = 37;
 #[cfg(since_647)]
 pub const REFERENCE_TABLES: u8 = 255;
 
@@ -141,5 +145,9 @@ pub const CONFIG_GROUP_HITMARK: u32 = 46;
 pub const CONFIG_GROUP_VARCLAN: u32 = 47;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_ITEMCODE: u32 = 48;
+#[cfg(since_742)]
+pub const CONFIG_GROUP_SKYBOX: u32 = 29;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_VARCLANSETTING: u32 = 54;
+#[cfg(since_742)]
+pub const CONFIG_GROUP_HEADBAR: u32 = 72;

@@ -24,7 +24,10 @@ pub struct VarcStrLarge<'a> {
 #[cfg(since_647)]
 impl ServerProtMessage for VarcStrLarge<'_> {
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
         buf.p2_alt2(self.id);
+        #[cfg(since_742)]
+        buf.p2_alt1(self.id);
         buf.pjstr(self.val, STRING_TERMINATOR);
     }
 

@@ -1,0 +1,41 @@
+// 4796
+[proc,clientscript_4796](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11)(int)
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+if ($int1 > 0) {
+    $int14 = calc($int0 * 1000 / $int1);
+    $int12 = calc($int12 + 1);
+}
+if ($int3 > 0) {
+    $int15 = calc($int2 * 1000 / $int3);
+    $int12 = calc($int12 + 1);
+}
+if ($int5 > 0) {
+    $int16 = calc($int4 * 1000 / $int5);
+    $int12 = calc($int12 + 1);
+}
+if ($int7 > 0) {
+    $int17 = calc($int6 * 1000 / $int7);
+    $int12 = calc($int12 + 1);
+}
+if ($int9 > 0) {
+    $int18 = calc($int8 * 1000 / $int9);
+    $int12 = calc($int12 + 1);
+}
+if ($int11 > 0) {
+    $int19 = calc($int10 * 1000 / $int11);
+    $int12 = calc($int12 + 1);
+}
+$int12 = max($int12, 1);
+def_int $int20 = calc(($int14 + $int15 + $int16 + $int17 + $int18 + $int19) / ($int12 * 10));
+$int13 = calc(100 - $int20);
+if ($int13 = 100 & ($int0 ! $int1 & $int0 ! 0 | $int2 ! $int3 & $int2 ! 0 | $int4 ! $int5 & $int4 ! 0 | $int6 ! $int7 & $int6 ! 0 | $int8 ! $int9 & $int8 ! 0 | $int10 ! $int11 & $int10 ! 0)) {
+    $int13 = 99;
+}
+return($int13);

@@ -3,6 +3,7 @@ use crate::map::apply_loc_collision;
 use rs_entity::{EntityLifeTime, Loc, LocSerial};
 use rs_grid::CoordGrid;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 
 impl Engine {
@@ -46,7 +47,7 @@ impl Engine {
     pub fn add_or_change_loc(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         width: u8,
@@ -124,7 +125,7 @@ impl Engine {
         coord: CoordGrid,
         layer: LocLayer,
         serial: LocSerial,
-        id: u16,
+        id: TypeId,
         width: u8,
         length: u8,
         blockwalk: bool,
@@ -164,7 +165,7 @@ impl Engine {
         &mut self,
         coord: CoordGrid,
         idx: usize,
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         width: u8,
@@ -222,14 +223,14 @@ impl Engine {
     pub(crate) fn placeable_loc_type(
         &self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         angle: LocAngle,
     ) -> rs_vm::Result<(u8, u8, bool, bool)> {
         let loc_type = self
             .cache
             .locs
             .get_by_id(id)
-            .ok_or(ScriptError::LocNotFound(id as i32))?;
+            .ok_or(ScriptError::LocNotFound(id.int()))?;
         let (size_x, size_z) = match angle {
             LocAngle::North | LocAngle::South => (loc_type.length, loc_type.width),
             _ => (loc_type.width, loc_type.length),

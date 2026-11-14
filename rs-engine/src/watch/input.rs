@@ -405,7 +405,15 @@ mod tests {
     #[cfg(since_647)]
     #[test]
     fn decodes_647_mouse_moves() {
+        #[cfg(before_742)]
         let mut buf = Packet::new(11);
+        #[cfg(since_742)]
+        let mut buf = Packet::new(13);
+        #[cfg(since_742)]
+        {
+            buf.p1(0);
+            buf.p1(0);
+        }
         buf.p1(192 + 3);
         buf.p4((200 << 16) | 100);
         buf.p2((2 << 12) | ((2 + 32) << 6) | (32 - 1));
@@ -438,7 +446,10 @@ mod tests {
         let data = {
             let mut buf = Packet::new(6);
             buf.p2((1 << 15) | 12);
+            #[cfg(before_742)]
             buf.p4_alt2((300 << 16) | 400);
+            #[cfg(since_742)]
+            buf.p4((300 << 16) | 400);
             buf.data
         };
         decoder.mouse_click(3_000, &decode(&data).unwrap(), &mut out);
@@ -464,8 +475,10 @@ mod tests {
         {
             #[cfg(before_647)]
             let data = [0x01, 0x80, 0x02, 0x00, 0, 0];
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             let data = [0x02, 0x80, 0x80, 0x01];
+            #[cfg(since_742)]
+            let data = [0x01, 0x00, 0x80, 0x02];
             let len = <EventCameraPosition as ClientProtMessageInfo>::FRAME.min();
             assert!(decoder.packet(
                 &ClientProt::EventCameraPosition,

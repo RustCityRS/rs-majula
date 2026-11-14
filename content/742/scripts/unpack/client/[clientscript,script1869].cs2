@@ -1,0 +1,6 @@
+// 1869
+[clientscript,script1869](component $component0)
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+~script1870($component0);

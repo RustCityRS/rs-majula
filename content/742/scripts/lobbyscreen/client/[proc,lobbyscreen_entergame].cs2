@@ -1,0 +1,63 @@
+// 3062
+[proc,lobbyscreen_entergame](component $component0)
+def_int $int1 = 0;
+def_string $string0 = "";
+def_int $int2 = 0;
+def_string $string1 = "";
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string2 = "";
+if (%login_reply_last = 42 | %login_reply_last = 43) {
+    return;
+}
+if (worldlist_fetch = false) {
+    ~lobbyscreen_loginbutton_text(0);
+    if_setontimer($component0, "lobbyscreen_entergame($component0)");
+    return;
+}
+$int1, $string0, $int2, $string1, $int3, $int4, $string2 = worldlist_specific(map_world);
+if ($int3 < 0) {
+    ~lobby_popup(-5, 1, "Could not connect you to the chosen world. Please choose another.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    ~lobbyscreen_loginbutton_text(1);
+    if_setontimer($component0, null);
+    return;
+}
+%lobby_newuserhack = false;
+~lobbyscreen_loginbutton_text(1);
+if_setontimer($component0, null);
+~lobby_popup_close;
+%login_reply_last = -1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if (~script2727 = true & %loginscreen_pvp_warned = 0) {
+    ~lobby_draw_button_green(lobbyscreen:com_93);
+    ~lobby_draw_button_grey(lobbyscreen:com_91);
+    ~script3026(lobbyscreen:com_93);
+    ~script3025(lobbyscreen:com_91);
+    if_sethide(lobbyscreen:pvp_warning, false);
+    sound_jingle(jingle_349, 0);
+    ~script3412(lobbyscreen:pvp_warning_text_title, lobbyscreen:pvp_warning_text_main);
+    $int7 = if_getwidth(lobbyscreen:pvp_warning_text_main);
+    $int8 = if_getwidth(lobbyscreen:pvp_warning_text_main);
+    $int5 = max(337, calc(stringwidth(if_gettext(lobbyscreen:pvp_warning_text_title), b12_full) + 30));
+    $int8 = max(152, calc(paraheight(if_gettext(lobbyscreen:pvp_warning_text_main), $int7, b12_full) * 16));
+    $int6 = max(243, calc($int8 + 91));
+    if_setsize(lobbyscreen:pvp_warning_text_main, $int7, $int8, ^setsize_abs, ^setsize_abs);
+    if_setsize(lobbyscreen:pvp_warning_window, $int5, $int6, ^setsize_abs, ^setsize_abs);
+    return;
+}
+%loginscreen_hopblocked_time = 0;
+%varclient_1745 = false;
+~lobbyscreen_loginbutton_text(0);
+if (%varplayer_2523 > 0) {
+    ~clientscript_5861(%varplayer_2523);
+}
+unknown_command_5612;
+def_int $int9 = detailget_soundvol;
+def_int $int10 = detailget_musicvol;
+def_int $int11 = detailget_bgsoundvol;
+def_int $int12 = op6142;
+def_int $int13 = detailget_loginvol;
+if_setontimer($component0, "lobbyscreen_entergametimer($component0, map_world, $int9, $int10, $int11, $int12, $int13)");

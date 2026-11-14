@@ -1,0 +1,117 @@
+// 4795
+[proc,clientscript_4795](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7)(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = ~clientscript_4790($int0);
+def_graphic $graphic28 = null;
+def_string $string0 = "";
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = 0;
+if ($int27 < 1 | $int27 > 900) {
+    mes("Clan Build Tick : Check resources for invalid job <tostring($int27)> at position <tostring($int0)>.");
+    return(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+}
+$graphic28, $string0, $int30, $int31, $int34, $int29, $int32, $int33 = ~clientscript_4791($int27);
+if ($int27 > 300 & $int27 < 600) {
+    $int30 = calc($int30 - $int31);
+}
+if ($int27 = 616) {
+    $int8, $int9, $int10, $int11, $int12, $int13 = ~clientscript_4724(1);
+} else if ($int27 = 617) {
+    $int8, $int9, $int10, $int11, $int12, $int13 = ~clientscript_4724(2);
+} else if ($int27 = 618) {
+    $int8, $int9, $int10, $int11, $int12, $int13 = ~clientscript_4724(3);
+} else {
+    $int8, $int9, $int10, $int11, $int12, $int13 = ~clientscript_4792($int27, $int30);
+}
+if ($int34 = 2 & $int27 > 300 & $int27 < 600) {
+    $int8 = calc($int8 * 2);
+    $int9 = calc($int9 * 2);
+    $int10 = calc($int10 * 2);
+    $int11 = calc($int11 * 2);
+    $int12 = calc($int12 * 2);
+    $int13 = calc($int13 * 2);
+}
+if ($int27 < 300) {
+    return($int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+}
+def_int $int35 = $int8;
+def_int $int36 = $int9;
+def_int $int37 = $int10;
+def_int $int38 = $int11;
+def_int $int39 = $int12;
+def_int $int40 = $int13;
+if ($int27 > 600) {
+    $int14, $int15, $int16, $int17, $int18, $int19 = ~clientscript_4793($int29, $int32);
+}
+$int35 = max(0, calc($int35 - $int14));
+$int36 = max(0, calc($int36 - $int15));
+$int37 = max(0, calc($int37 - $int16));
+$int38 = max(0, calc($int38 - $int17));
+$int39 = max(0, calc($int39 - $int18));
+$int40 = max(0, calc($int40 - $int19));
+if ($int35 = 0 & $int36 = 0 & $int37 = 0 & $int38 = 0 & $int39 = 0 & $int40 = 0) {
+    return($int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13, $int14, $int15, $int16, $int17, $int18, $int19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100);
+}
+def_int $int41 = min($int35, $int1);
+def_int $int42 = min($int36, $int2);
+def_int $int43 = min($int37, $int3);
+def_int $int44 = min($int38, $int4);
+def_int $int45 = min($int39, $int5);
+def_int $int46 = min($int40, $int6);
+$int35 = max(0, calc($int35 - $int41));
+$int36 = max(0, calc($int36 - $int42));
+$int37 = max(0, calc($int37 - $int43));
+$int38 = max(0, calc($int38 - $int44));
+$int39 = max(0, calc($int39 - $int45));
+$int40 = max(0, calc($int40 - $int46));
+$int1 = max(0, calc($int1 - $int41));
+$int2 = max(0, calc($int2 - $int42));
+$int3 = max(0, calc($int3 - $int43));
+$int4 = max(0, calc($int4 - $int44));
+$int5 = max(0, calc($int5 - $int45));
+$int6 = max(0, calc($int6 - $int46));
+if ($int35 = 0 & $int36 = 0 & $int37 = 0 & $int38 = 0 & $int39 = 0 & $int40 = 0) {
+    return($int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13, $int14, $int15, $int16, $int17, $int18, $int19, $int41, $int42, $int43, $int44, $int45, $int46, 0, 0, 0, 0, 0, 0, 100);
+}
+$int20 = min($int35, calc($int7 / 1));
+$int35 = max(0, calc($int35 - $int20));
+$int7 = calc($int7 - $int20 * 1);
+$int21 = min($int36, calc($int7 / 1));
+$int36 = max(0, calc($int36 - $int21));
+$int7 = calc($int7 - $int21 * 1);
+$int22 = min($int37, calc($int7 / 3));
+$int37 = max(0, calc($int37 - $int22));
+$int7 = calc($int7 - $int22 * 3);
+$int23 = min($int38, calc($int7 / 1));
+$int38 = max(0, calc($int38 - $int23));
+$int7 = calc($int7 - $int23 * 1);
+$int24 = min($int39, calc($int7 / 1));
+$int39 = max(0, calc($int39 - $int24));
+$int7 = calc($int7 - $int24 * 1);
+$int25 = min($int40, calc($int7 / 3));
+$int40 = max(0, calc($int40 - $int25));
+$int7 = calc($int7 - $int25 * 3);
+$int26 = ~clientscript_4796($int35, $int8, $int36, $int9, $int37, $int10, $int38, $int11, $int39, $int12, $int40, $int13);
+return($int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int9, $int10, $int11, $int12, $int13, $int14, $int15, $int16, $int17, $int18, $int19, $int41, $int42, $int43, $int44, $int45, $int46, $int20, $int21, $int22, $int23, $int24, $int25, $int26);

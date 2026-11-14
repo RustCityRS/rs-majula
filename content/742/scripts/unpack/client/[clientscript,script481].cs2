@@ -1,0 +1,36 @@
+// 481
+[clientscript,script481]
+if_setgraphic(conq_buy_army:unit_1_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_2_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_3_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_4_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_5_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_6_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_7_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_8_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_9_border, graphic_3255);
+if_setgraphic(conq_buy_army:unit_10_border, graphic_3255);
+switch_int (%conq_current_unit_purchase_slot) {
+    case default :
+        return;
+    case 1 :
+        if_setgraphic(conq_buy_army:unit_1_border, graphic_3257);
+    case 2 :
+        if_setgraphic(conq_buy_army:unit_2_border, graphic_3257);
+    case 3 :
+        if_setgraphic(conq_buy_army:unit_3_border, graphic_3257);
+    case 4 :
+        if_setgraphic(conq_buy_army:unit_4_border, graphic_3257);
+    case 5 :
+        if_setgraphic(conq_buy_army:unit_5_border, graphic_3257);
+    case 6 :
+        if_setgraphic(conq_buy_army:unit_6_border, graphic_3257);
+    case 7 :
+        if_setgraphic(conq_buy_army:unit_7_border, graphic_3257);
+    case 8 :
+        if_setgraphic(conq_buy_army:unit_8_border, graphic_3257);
+    case 9 :
+        if_setgraphic(conq_buy_army:unit_9_border, graphic_3257);
+    case 10 :
+        if_setgraphic(conq_buy_army:unit_10_border, graphic_3257);
+}

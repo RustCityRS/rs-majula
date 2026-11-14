@@ -13,6 +13,7 @@ use rs_pack::types::HuntCheckVis;
 #[cfg(since_647)]
 use rs_pack::types::IfEvents;
 use rs_util::colour::rgb24_to_15;
+use rs_ver::TypeId;
 use runec::opcodes::*;
 
 /// The player whose script is running, who a queued hit belongs to: at 647 a
@@ -111,7 +112,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let seq = s.pop_int();
             #[cfg(since_647)]
             test::record_call(ANIM, "anim", &seq.to_string());
-            player.anim((seq != -1).then_some(seq as u16), delay);
+            player.anim(TypeId::from_int(seq).non_null(), delay);
         });
 
         // 2003
@@ -370,7 +371,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 coord.z(),
                 height,
                 range,
-                u16::try_from(model).ok(),
+                TypeId::try_from(model).ok(),
             );
         });
 
@@ -389,7 +390,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let nid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
                 .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?
                 .nid();
-            let model = (model >= 0).then_some(model as u16);
+            let model = TypeId::try_from(model).ok();
             player.hint_npc_slot(nid, slot, icon, model);
         });
 
@@ -497,7 +498,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
             let seq = engine::<E>()
                 .seqs()
-                .get_by_id(seq as u16)
+                .get_by_id(TypeId::from_int(seq))
                 .ok_or(ScriptError::SeqNotFound(seq))?;
             player.if_setanim(com, seq.id);
         });
@@ -518,7 +519,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2041
         active_player_mut!(m, IF_SETMODEL => |s, player| {
-            let model = s.pop_int_as::<u16>()?;
+            let model = s.pop_int_as::<TypeId>()?;
             let com = pop_com(s)?;
             player.if_setmodel(com, model);
         });
@@ -526,14 +527,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2168: 647's IF_SETGRAPHIC, a sprite on a component.
         #[cfg(since_647)]
         active_player_mut!(m, IF_SETGRAPHIC => |s, player| {
-            let graphic = s.pop_int_as::<u16>()?;
+            let graphic = s.pop_int_as::<TypeId>()?;
             let com = s.pop_int();
             player.if_setgraphic(com, graphic);
         });
 
         // 2042
         active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
-            let npc = s.pop_int_as::<u16>()?;
+            let npc = s.pop_int_as::<TypeId>()?;
             let com = pop_com(s)?;
             player.if_setnpchead(com, npc);
         });
@@ -541,7 +542,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2043
         active_player_mut!(m, IF_SETOBJECT => |s, player| {
             let scale = s.pop_int();
-            let obj = s.pop_int_as::<u16>()?;
+            let obj = s.pop_int_as::<TypeId>()?;
             let com = pop_com(s)?;
             player.if_setobject(com, obj, scale);
         });
@@ -846,7 +847,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 if !player.lowmem()
                     && let Some(id) = id
                 {
-                    #[cfg(since_254)]
+                    #[cfg(all(since_254, before_647))]
+                    let delay = midi_length_ms::<E>(id as i32)?;
+                    #[cfg(since_647)]
                     let delay = midi_tick_length::<E>(id as i32)?;
                     // 2011 keeps jingles apart from songs: a jingle's `midi`
                     // id is its own plus MIDI_JINGLE_BASE (a song plays none).
@@ -1151,7 +1154,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let loc_type = engine::<E>()
                 .locs()
                 .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
+                .ok_or(ScriptError::LocNotFound(loc.id.int()))?;
 
             if let Some(ops) = &loc_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1189,7 +1192,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let npc_type = engine::<E>()
                 .npcs()
                 .get_by_id(id)
-                .ok_or(ScriptError::NpcNotFound(id as i32))?;
+                .ok_or(ScriptError::NpcNotFound(id.int()))?;
 
             if let Some(ops) = &npc_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1234,7 +1237,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let obj_type = engine::<E>()
                 .objs()
                 .get_by_id(obj.id)
-                .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
+                .ok_or(ScriptError::ObjNotFound(obj.id.int()))?;
 
             if let Some(ops) = &obj_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1389,13 +1392,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2094
         active_player_mut!(m, READYANIM => |s, player| {
             // anim can be null for example: agility
-            player.readyanim(s.pop_int() as u16);
+            player.readyanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2095
         active_player_mut!(m, RUNANIM => |s, player| {
             // anim can be null for example: agility
-            player.runanim(s.pop_int() as u16);
+            player.runanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2096
@@ -1496,6 +1499,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 test::record_call(SPOTANIM_PL, "spotanim_pl", &arg);
             }
             player.spotanim(spotanim.id, height, delay);
+        });
+
+        // 1029
+        active_player!(m, MAP_LOBBY => |s, player| {
+            s.push_int(player.map_lobby() as i32);
         });
 
         // 2106
@@ -1600,7 +1608,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2119
         active_player_mut!(m, TURNANIM => |s, player| {
             // anim can be null for example: agility
-            player.turnanim(s.pop_int() as u16);
+            player.turnanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2120
@@ -1626,25 +1634,25 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2124
         active_player_mut!(m, WALKANIM_B => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_b(s.pop_int() as u16);
+            player.walkanim_b(TypeId::from_int(s.pop_int()));
         });
 
         // 2125
         active_player_mut!(m, WALKANIM_L => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_l(s.pop_int() as u16);
+            player.walkanim_l(TypeId::from_int(s.pop_int()));
         });
 
         // 2126
         active_player_mut!(m, WALKANIM_R => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_r(s.pop_int() as u16);
+            player.walkanim_r(TypeId::from_int(s.pop_int()));
         });
 
         // 2127
         active_player_mut!(m, WALKANIM => |s, player| {
             // anim can be null for example: agility
-            player.walkanim(s.pop_int() as u16);
+            player.walkanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2128
@@ -1726,49 +1734,49 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // TODO: this is duplicated with `RUNANIM`
         active_player_mut!(m, BAS_RUNNING => |s, player| {
             // anim can be null for example: agility
-            player.runanim(s.pop_int() as u16);
+            player.runanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2138
         // TODO: this is duplicated with `READYANIM`
         active_player_mut!(m, BAS_READYANIM => |s, player| {
             // anim can be null for example: agility
-            player.readyanim(s.pop_int() as u16);
+            player.readyanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2139
         // TODO: this is duplicated with `WALKANIM`
         active_player_mut!(m, BAS_WALK_F => |s, player| {
             // anim can be null for example: agility
-            player.walkanim(s.pop_int() as u16);
+            player.walkanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2140
         // TODO: this is duplicated with `WALKANIM_B`
         active_player_mut!(m, BAS_WALK_B => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_b(s.pop_int() as u16);
+            player.walkanim_b(TypeId::from_int(s.pop_int()));
         });
 
         // 2141
         // TODO: this is duplicated with `WALKANIM_L`
         active_player_mut!(m, BAS_WALK_L => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_l(s.pop_int() as u16);
+            player.walkanim_l(TypeId::from_int(s.pop_int()));
         });
 
         // 2142
         // TODO: this is duplicated with `WALKANIM_R`
         active_player_mut!(m, BAS_WALK_R => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_r(s.pop_int() as u16);
+            player.walkanim_r(TypeId::from_int(s.pop_int()));
         });
 
         // 2143
         // TODO: this is duplicated with `TURNANIM`
         active_player_mut!(m, BAS_TURNONSPOT => |s, player| {
             // anim can be null for example: agility
-            player.turnanim(s.pop_int() as u16);
+            player.turnanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2144

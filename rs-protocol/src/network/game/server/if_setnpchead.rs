@@ -4,23 +4,24 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+use rs_ver::TypeId;
 
 #[cfg(before_647)]
 #[server_prot(IfSetNpcHead, Buffered, Fixed)]
 pub struct IfSetNpcHead {
     pub com: u16,
-    pub npc: u16,
+    pub npc: TypeId,
 }
 
 #[cfg(before_647)]
 impl ServerProtMessage for IfSetNpcHead {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);
-        buf.p2(self.npc);
+        buf.p2(self.npc.g2());
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.com) + size_of_val(&self.npc)
+        size_of_val(&self.com) + size_of::<u16>()
     }
 }
 
@@ -28,17 +29,24 @@ impl ServerProtMessage for IfSetNpcHead {
 #[server_prot(IfSetNpcHead, Buffered, Fixed)]
 pub struct IfSetNpcHead {
     pub com: i32,
-    pub npc: u16,
+    pub npc: TypeId,
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetNpcHead {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt1(self.npc);
+        #[cfg(before_742)]
+        buf.p2_alt1(self.npc.g2());
+        #[cfg(since_742)]
+        buf.p4(self.npc.int());
         buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.com) + size_of_val(&self.npc)
+        #[cfg(before_742)]
+        let npc = size_of::<u16>();
+        #[cfg(since_742)]
+        let npc = size_of::<i32>();
+        size_of_val(&self.com) + npc
     }
 }

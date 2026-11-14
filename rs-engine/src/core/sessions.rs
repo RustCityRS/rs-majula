@@ -14,7 +14,7 @@ use rs_db::LoginDevice;
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
 #[cfg(since_647)]
-use rs_protocol::login::{game_login_reply, reconnect_reply};
+use rs_protocol::login::{game_login_reply, lobby_login_reply, reconnect_reply};
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::base37::to_raw_username;
 use rs_vm::engine::ScriptPlayer;
@@ -42,6 +42,12 @@ pub struct LoginRequest {
     pub device: LoginDevice,
     #[cfg(since_647)]
     pub display_mode: u8,
+    /// A login to the lobby rather than the game world.
+    #[cfg(since_647)]
+    pub lobby: bool,
+    /// The world number the client connected to, for its world list.
+    #[cfg(since_647)]
+    pub world: u16,
 }
 
 /// Tracks the state of a login that is waiting for asynchronous validation.
@@ -68,6 +74,17 @@ pub struct PendingLogin {
     pub claim_sent: bool,
     pub profile: Option<Option<PlayerProfile>>,
     pub played: Vec<rs_db::PlayedSession>,
+}
+
+impl PendingLogin {
+    /// Whether this is a login to the lobby.
+    pub(crate) fn lobby(&self) -> bool {
+        #[cfg(since_647)]
+        let lobby = self.request.lobby;
+        #[cfg(before_647)]
+        let lobby = false;
+        lobby
+    }
 }
 
 /// A departed player's final save, held until the database stores it.
@@ -321,6 +338,10 @@ impl Engine {
 
         let remote_ip = request.remote_addr.ip();
         active.remote_ip = Some(remote_ip);
+        #[cfg(since_647)]
+        {
+            active.world = request.world;
+        }
 
         let uid = active.player.uid;
 
@@ -333,7 +354,12 @@ impl Engine {
             active.player.window_mode = request.display_mode;
             active.player.pathing.last_coord = active.player.pathing.coord;
             active.player.build_area.init_nsn_state(pid);
-            game_login_reply(level, pid)
+            game_login_reply(
+                level,
+                pid,
+                #[cfg(since_742)]
+                &active.player.shown_name(),
+            )
         };
         #[cfg(before_254)]
         let reply = {
@@ -435,6 +461,57 @@ impl Engine {
             && active.player.staff_mod_level.is_isolated()
         {
             active.message_game("You're visible to other players. Use ::setvis 2 to hide.");
+        }
+    }
+
+    /// Starts a lobby session in slot `pid`: the lobby's login reply, the
+    /// player in a slot outside the world, then the `Login` trigger, where
+    /// `map_lobby` is true. No profile is loaded or claimed and ether is not
+    /// told, so the game login that follows finds the account free.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** `try_complete_login`.
+    /// **Calls:** [`PlayerList::add_lobby`](crate::core::PlayerList::add_lobby),
+    /// `run_script_by_trigger`.
+    #[cfg(since_647)]
+    pub(crate) fn accept_lobby(
+        &mut self,
+        request: LoginRequest,
+        staff_mod_level: StaffModLevel,
+        pid: u16,
+    ) {
+        let mut active = ActivePlayer::new(
+            request.handle,
+            pid,
+            request.username,
+            request.low_memory,
+            false,
+        );
+        active.player.staff_mod_level = staff_mod_level;
+        active.player.last_response = self.clock;
+        active.player.last_active = self.clock;
+        active.remote_ip = Some(request.remote_addr.ip());
+        active.lobby = true;
+        active.world = request.world;
+        let uid = active.player.uid;
+        active.handle.send(lobby_login_reply(
+            &active.player.shown_name(),
+            request.world,
+        ));
+        info!("Player '{}' entered the lobby (pid={pid})", uid.username());
+        self.player_list.add_lobby(pid, active);
+
+        let result = self.run_script_by_trigger(
+            (ServerTriggerType::Login, None, None),
+            Some(ScriptSubject::Player(uid)),
+            None,
+            Some(true),
+            None,
+            None,
+        );
+        if result.is_err() {
+            error!("{:?}", result);
         }
     }
 
@@ -723,6 +800,13 @@ impl Engine {
             self.reject_pending_login(idx, LoginResponse::WorldFull);
             return;
         };
+
+        #[cfg(since_647)]
+        if pending.request.lobby {
+            let pending = self.pending_logins.swap_remove(idx);
+            self.accept_lobby(pending.request, staff_mod_level, pid);
+            return;
+        }
 
         if pending.profile.is_none() {
             if !pending.claim_sent

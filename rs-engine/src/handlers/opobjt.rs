@@ -41,7 +41,7 @@ impl ClientGameHandler for OpObjT {
         #[cfg(since_647)]
         let slot = self.slot;
         #[cfg(since_647)]
-        if self.obj2 != u16::MAX {
+        if !self.obj2.is_null() {
             active.unset_map_flag();
             return Ok(());
         }
@@ -57,7 +57,7 @@ impl ClientGameHandler for OpObjT {
 
         let y = active.player.pathing.coord.y();
         let receiver = active.uid().username37();
-        let Some(obj) = zone_obj(self.x, y, self.z, self.obj, receiver) else {
+        let Some(obj) = zone_obj(self.x, y, self.z, self.obj.g2(), receiver) else {
             active.unset_map_flag();
             return Ok(());
         };

@@ -13,6 +13,7 @@
 use rs_engine::Engine;
 use rs_pack::types::ParamValue;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::fs;
 
 /// The categories 289's search hooks answer (`general_use` chests, crates,
@@ -140,11 +141,11 @@ fn locs_on(
             let ty = engine.cache.locs.get_by_id(id);
             let name = locs
                 .iter()
-                .find(|&&(i, _)| i == id as i32)
+                .find(|&&(i, _)| i == id.int())
                 .map_or("?", |(_, n)| n.as_str());
             let cat = ty
                 .and_then(|t| t.category)
-                .and_then(|c| cats.iter().find(|&&(i, _)| i == c as i32))
+                .and_then(|c| cats.iter().find(|&&(i, _)| i == c.int()))
                 .map_or("-", |(_, n)| n.as_str());
             let ops: Vec<&str> = ty
                 .and_then(|t| t.op.as_deref())
@@ -170,13 +171,18 @@ fn every_trail_search_spot_has_a_searchable_loc_in_2011s_map() {
             let Some(params) = engine
                 .cache
                 .objs
-                .get_by_id(*id as u16)
+                .get_by_id(TypeId::new(*id as u16))
                 .and_then(|o| o.params.as_deref())
             else {
                 continue;
             };
-            let searched = matches!(params.get(&trail_loc), Some(ParamValue::Int(1)));
-            if let (true, Some(ParamValue::Int(c))) = (searched, params.get(&trail_coord)) {
+            let searched = matches!(
+                params.get(&TypeId::from_int(trail_loc)),
+                Some(ParamValue::Int(1))
+            );
+            if let (true, Some(ParamValue::Int(c))) =
+                (searched, params.get(&TypeId::from_int(trail_coord)))
+            {
                 let c = *c as u32;
                 let at = (
                     (c >> 28) as u8,

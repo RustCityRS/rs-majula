@@ -1,0 +1,31 @@
+// 6336
+[proc,clientscript_6336](component $component0, int $int1)
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_int $int4 = 0;
+while ($int2 < $int1) {
+    if (cc_find($component0, $int2) = true) {
+        $obj3 = inv_getobj(inv, $int2);
+        if ($obj3 ! null) {
+            cc_sethide(false);
+            $int4 = inv_getnum(inv, $int2);
+            cc_setobject($obj3, $int4);
+            cc_setopbase("<~clientscript_4033($obj3)><oc_name($obj3)>");
+            cc_clearops;
+            if ($int4 > 2) {
+                cc_setop(1, "Add-1");
+                cc_setop(2, "Add-All");
+                cc_setop(3, "Add-X");
+            } else if ($int4 = 2) {
+                cc_setop(1, "Add-1");
+                cc_setop(2, "Add-All");
+            } else {
+                cc_setop(1, "Add");
+            }
+            cc_setop(10, "Examine");
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int2 = calc($int2 + 1);
+}

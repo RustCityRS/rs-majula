@@ -2,8 +2,8 @@ use crate::archive;
 use crate::pack::names::{AssetNames, archive_name};
 use crate::pack::other::{asset, material, wma, worldmap_source};
 use anyhow::{Context, Result, ensure};
-use rs_io::js5::{Entry, Js5Store};
-use std::collections::BTreeMap;
+use rs_io::js5::{Entry, Js5Store, java_string_hash};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fmt::Write;
 use std::fs;
 use std::path::Path;
@@ -67,6 +67,7 @@ pub fn unpack_metadata(store: &Js5Store, pack_dir: &Path, content_dir: &Path) ->
         }
     }
     for (name, groups) in hashes {
+        match_names(pack_dir, name, &groups)?;
         let mut text = String::new();
         for (id, hash) in groups {
             writeln!(text, "{id}={hash}")?;
@@ -76,12 +77,57 @@ pub fn unpack_metadata(store: &Js5Store, pack_dir: &Path, content_dir: &Path) ->
     Ok(count)
 }
 
+/// Keeps each name whose group still carries the hash it was named under, or
+/// that hashes to its group, and moves a name to the group that now carries
+/// its hash: a revision can renumber and replace what a named archive holds.
+fn match_names(pack_dir: &Path, kind: &str, hashes: &BTreeMap<u32, i32>) -> Result<()> {
+    let path = pack_dir.join(format!("{kind}.pack"));
+    let Ok(text) = fs::read_to_string(&path) else {
+        return Ok(());
+    };
+    let previous: HashMap<u32, i32> = fs::read_to_string(pack_dir.join(format!("{kind}.hashes")))
+        .unwrap_or_default()
+        .lines()
+        .filter_map(|line| {
+            let (id, hash) = line.split_once('=')?;
+            Some((id.parse().ok()?, hash.parse().ok()?))
+        })
+        .collect();
+    let names: BTreeMap<u32, &str> = text
+        .lines()
+        .filter_map(|line| {
+            let (id, name) = line.split_once('=')?;
+            Some((id.parse().ok()?, name))
+        })
+        .collect();
+    let mut by_hash = HashMap::new();
+    for (id, name) in &names {
+        by_hash.insert(java_string_hash(&name.to_lowercase()), *name);
+        if let Some(&hash) = previous.get(id) {
+            by_hash.entry(hash).or_insert(*name);
+        }
+    }
+    let mut matched = String::new();
+    for (id, hash) in hashes {
+        if let Some(name) = by_hash.get(hash) {
+            writeln!(matched, "{id}={name}")?;
+        }
+    }
+    if matched != text {
+        fs::write(path, matched)?;
+    }
+    Ok(())
+}
+
 pub fn unpack_archive(
     store: &mut Js5Store,
     aid: u8,
     pack_dir: &Path,
     content_dir: &Path,
 ) -> Result<u32> {
+    if aid == archive::WORLDMAP {
+        write_map_names(store, pack_dir)?;
+    }
     let names = AssetNames::load(pack_dir)?;
     let format = archive::archive_format(aid).context("Unknown asset archive")?;
     let extension = asset::extension(aid).context("Unknown editable asset format")?;
@@ -170,6 +216,56 @@ pub fn unpack_materials(store: &mut Js5Store, pack_dir: &Path, content_dir: &Pat
         fs::write(dir.join(format!("{name}.{}", material::EXTENSION)), text)?;
     }
     Ok(materials.len() as u32)
+}
+
+/// Names each map's id in `wma.pack` by the group its details name, which is its position,
+/// and names the archive groups that hash to a map's own name or its elements group.
+fn write_map_names(store: &mut Js5Store, pack_dir: &Path) -> Result<()> {
+    let names = AssetNames::load(pack_dir)?;
+    let kind = archive_name(archive::WORLDMAP);
+    let details = names.id(kind, wma::DETAILS)?;
+    let group = store
+        .read_group(archive::WORLDMAP, details)?
+        .context("Missing world map details")?;
+    let mut text = String::new();
+    let mut candidates = HashMap::new();
+    for entry in &group.entries {
+        let map = wma::decode_details(entry.data());
+        writeln!(text, "{}={}", entry.id, map.group)?;
+        for name in [map.group.to_lowercase(), wma::elements_group(&map.group)] {
+            candidates.insert(java_string_hash(&name), name);
+        }
+    }
+    let path = pack_dir.join(format!("{}.pack", wma::KIND));
+    if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+        fs::write(path, text)?;
+    }
+
+    let path = pack_dir.join(format!("{kind}.pack"));
+    let mut text = fs::read_to_string(&path).unwrap_or_default();
+    let known: HashSet<u32> = text
+        .lines()
+        .filter_map(|line| line.split_once('=')?.0.parse().ok())
+        .collect();
+    let table = store
+        .reference_table(archive::WORLDMAP)
+        .context("Missing world map table")?;
+    let mut added = false;
+    for info in &table.groups {
+        if let Some(name) = candidates.get(&info.name_hash)
+            && !known.contains(&info.id)
+        {
+            if !text.is_empty() && !text.ends_with('\n') {
+                text.push('\n');
+            }
+            writeln!(text, "{}={name}", info.id)?;
+            added = true;
+        }
+    }
+    if added {
+        fs::write(path, text)?;
+    }
+    Ok(())
 }
 
 /// Writes the `.wma` config and gives the groups it holds, once it reads back to their bytes.

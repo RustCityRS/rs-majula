@@ -396,14 +396,14 @@ struct Args {
     #[arg(long)]
     jaggrab_port: Option<u16>,
     #[cfg(before_647)]
-    #[arg(long, default_value = ".keys/private.pem")]
+    #[arg(long, default_value = ".keys/classic/private.pem")]
     private_key: PathBuf,
     /// Rev-647 signs the JS5 master index over a 65-byte plaintext, which
-    /// needs a wider modulus than the 512-bit `.keys/private.pem` — and that
+    /// needs a wider modulus than the 512-bit `.keys/classic/private.pem` — and that
     /// pair is embedded in the committed pre-647 clients, so 647 gets its own
     /// 2048-bit pair (matched by the RSA-patched vanilla 647 client).
     #[cfg(since_647)]
-    #[arg(long, default_value = ".keys/private-647.pem")]
+    #[arg(long, default_value = ".keys/js5/private.pem")]
     private_key: PathBuf,
     #[arg(long, default_value_t = true, action = ArgAction::Set)]
     members: bool,

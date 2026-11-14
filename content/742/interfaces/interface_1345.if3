@@ -1,0 +1,2273 @@
+// 1345:0
+[com_0]
+type=layer
+height=24
+widthmode=minus
+layer=com_8
+
+// 1345:1
+[com_1]
+type=layer
+y=23
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:2
+[com_2]
+type=layer
+y=46
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:3
+[com_3]
+type=layer
+y=69
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:4
+[com_4]
+type=layer
+y=92
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:5
+[com_5]
+type=layer
+y=115
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:6
+[com_6]
+type=layer
+y=138
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:7
+[com_7]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_66
+colour=0x000000
+fill=yes
+trans=94
+
+// 1345:8
+[com_8]
+type=layer
+y=47
+height=300
+widthmode=minus
+layer=com_77
+
+// 1345:9
+[com_9]
+type=layer
+y=161
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:10
+[com_10]
+type=graphic
+width=4
+heightmode=minus
+layer=com_1
+graphic=graphic_13122
+
+// 1345:11
+[com_11]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_1
+graphic=graphic_13123
+
+// 1345:12
+[com_12]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_1
+graphic=graphic_13124
+
+// 1345:13
+[com_13]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13164
+
+// 1345:14
+[com_14]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+graphic=graphic_13165
+
+// 1345:15
+[com_15]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_1
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:16
+[com_16]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:17
+[com_17]
+type=graphic
+width=304
+height=155
+layer=com_23
+graphic=graphic_13224
+onmouseover=clientscript_6750(interface_1345:com_20)
+onmouseleave=clientscript_6751(interface_1345:com_20)
+
+// 1345:18
+[com_18]
+type=text
+x=7
+y=3
+width=290
+height=24
+layer=com_23
+textfont=verdana_15pt_regular
+text=Quest
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:19
+[com_19]
+type=text
+x=7
+y=3
+width=290
+height=24
+ymode=abs_bottom
+layer=com_23
+textfont=verdana_13pt_regular
+text=Click here to view the quest list!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:20
+[com_20]
+type=graphic
+width=304
+height=155
+layer=com_23
+hide=yes
+graphic=graphic_13258
+
+// 1345:21
+[com_21]
+type=layer
+y=4
+width=737
+height=388
+layer=com_32
+
+// 1345:22
+[com_22]
+type=layer
+width=610
+height=47
+xmode=abs_centre
+layer=com_32
+
+// 1345:23
+[com_23]
+type=layer
+x=63
+y=51
+width=304
+height=155
+layer=com_32
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=clientscript_6755
+onvartransmit=clientscript_6755{varplayer_2754}
+
+// 1345:24
+[com_24]
+type=layer
+x=369
+y=51
+width=304
+height=155
+layer=com_32
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=clientscript_6752
+
+// 1345:25
+[com_25]
+type=layer
+x=63
+y=208
+width=304
+height=155
+layer=com_32
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=clientscript_6753
+onvartransmit=clientscript_6753{varplayer_2753}
+
+// 1345:26
+[com_26]
+type=layer
+x=369
+y=208
+width=304
+height=155
+layer=com_32
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=clientscript_6754
+onvartransmit=clientscript_6754{varplayer_2753, varplayer_2754}
+
+// 1345:27
+[com_27]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+layer=com_41
+onload=clientscript_6749
+onvartransmit=clientscript_6756{varplayer_2754}
+
+// 1345:28
+[com_28]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_34
+colour=0x000000
+fill=yes
+trans=127
+
+// 1345:29
+[com_29]
+type=layer
+width=765
+height=500
+layer=com_27
+
+// 1345:30
+[com_30]
+type=layer
+y=61
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_27
+
+// 1345:31
+[com_31]
+type=layer
+width=765
+height=503
+layer=com_27
+
+// 1345:32
+[com_32]
+type=layer
+x=14
+y=95
+width=737
+height=391
+layer=com_27
+
+// 1345:33
+[com_33]
+type=layer
+x=8
+y=7
+width=19
+height=19
+xmode=abs_right
+layer=com_27
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1345:34
+[com_34]
+type=layer
+width=765
+height=503
+layer=com_27
+hide=yes
+noclickthrough=yes
+
+// 1345:35
+[com_35]
+type=layer
+width=400
+height=115
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+
+// 1345:36
+[com_36]
+type=layer
+width=17013
+height=21084
+widthmode=proportion
+heightmode=proportion
+layer=com_32
+
+// 1345:37
+[com_37]
+type=graphic
+y=3
+width=61
+height=61
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_13156
+2dangle=32768
+hflip=yes
+
+// 1345:38
+[com_38]
+type=graphic
+y=3
+width=61
+height=61
+xmode=abs_right
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_13156
+2dangle=32768
+
+// 1345:39
+[com_39]
+type=rectangle
+x=4
+y=61
+width=8
+height=65
+widthmode=minus
+heightmode=minus
+layer=com_29
+colour=0x0b0b0b
+fill=yes
+
+// 1345:40
+[com_40]
+type=graphic
+width=16391
+height=61
+widthmode=proportion
+layer=com_29
+graphic=graphic_13155
+
+// 1345:41
+[com_41]
+type=layer
+width=16412
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 1345:42
+[com_42]
+type=graphic
+width=618
+height=39
+ymode=abs_bottom
+layer=com_22
+graphic=graphic_13160
+
+// 1345:43
+[com_43]
+type=graphic
+y=12
+width=256
+height=32
+xmode=abs_centre
+layer=com_22
+graphic=graphic_13264
+onload=clientscript_3974(event_com)
+
+// 1345:44
+[com_44]
+type=graphic
+width=15
+height=122
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_29
+graphic=graphic_13158
+hflip=yes
+
+// 1345:45
+[com_45]
+type=graphic
+width=15
+height=122
+heightmode=minus
+ymode=abs_centre
+layer=com_29
+graphic=graphic_13158
+
+// 1345:46
+[com_46]
+type=graphic
+width=122
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_29
+graphic=graphic_13157
+vflip=yes
+
+// 1345:47
+[com_47]
+type=graphic
+y=6
+width=256
+height=32
+xmode=abs_centre
+layer=com_29
+graphic=graphic_13260
+onload=clientscript_3973(event_com)
+
+// 1345:48
+[com_48]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_33
+graphic=graphic_8278
+
+// 1345:49
+[com_49]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_33
+graphic=graphic_8279
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1345:50
+[com_50]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_33
+graphic=graphic_8280
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1345:51
+[com_51]
+type=graphic
+width=20
+height=20
+layer=com_21
+graphic=graphic_11264
+
+// 1345:52
+[com_52]
+type=graphic
+width=20
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=com_21
+graphic=graphic_11262
+
+// 1345:53
+[com_53]
+type=graphic
+width=20
+height=20
+xmode=abs_right
+layer=com_21
+graphic=graphic_11264
+hflip=yes
+
+// 1345:54
+[com_54]
+type=graphic
+width=20
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_21
+graphic=graphic_11262
+hflip=yes
+
+// 1345:55
+[com_55]
+type=graphic
+width=20
+height=20
+ymode=abs_bottom
+layer=com_21
+graphic=graphic_11264
+vflip=yes
+
+// 1345:56
+[com_56]
+type=graphic
+width=40
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+graphic=graphic_11265
+vflip=yes
+
+// 1345:57
+[com_57]
+type=graphic
+width=40
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_21
+graphic=graphic_11265
+
+// 1345:58
+[com_58]
+type=graphic
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_21
+graphic=graphic_11264
+vflip=yes
+hflip=yes
+
+// 1345:59
+[com_59]
+type=graphic
+width=304
+height=155
+layer=com_24
+graphic=graphic_13223
+onmouseover=clientscript_6750(interface_1345:com_62)
+onmouseleave=clientscript_6751(interface_1345:com_62)
+
+// 1345:60
+[com_60]
+type=text
+x=7
+y=3
+width=290
+height=24
+layer=com_24
+textfont=verdana_15pt_regular
+text=Latest Content
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:61
+[com_61]
+type=text
+x=7
+y=3
+width=290
+height=24
+ymode=abs_bottom
+layer=com_24
+textfont=verdana_13pt_regular
+text=Click to see the latest content!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:62
+[com_62]
+type=graphic
+width=304
+height=155
+layer=com_24
+hide=yes
+graphic=graphic_13258
+
+// 1345:63
+[com_63]
+type=graphic
+width=304
+height=155
+layer=com_25
+graphic=graphic_13170
+onmouseover=clientscript_6750(interface_1345:com_67)
+onmouseleave=clientscript_6751(interface_1345:com_67)
+
+// 1345:64
+[com_64]
+type=text
+x=7
+y=3
+width=290
+height=24
+layer=com_25
+textfont=verdana_15pt_regular
+text=Combat
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:65
+[com_65]
+type=text
+x=7
+y=3
+width=290
+height=24
+ymode=abs_bottom
+layer=com_25
+textfont=verdana_13pt_regular
+text=Click to get combat Challenges!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:66
+[com_66]
+type=layer
+width=6
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_25
+hide=yes
+
+// 1345:67
+[com_67]
+type=graphic
+width=304
+height=155
+layer=com_25
+hide=yes
+graphic=graphic_13258
+
+// 1345:68
+[com_68]
+type=graphic
+x=6
+y=27
+width=35
+height=35
+xmode=abs_right
+layer=com_25
+hide=yes
+graphic=graphic_13901
+
+// 1345:69
+[com_69]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_66
+textfont=verdana_11pt_regular_multiline
+text=Challenges are a members-only feature. Click here to subscribe.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:70
+[com_70]
+type=graphic
+width=304
+height=155
+layer=com_26
+graphic=graphic_13169
+onmouseover=clientscript_6750(interface_1345:com_74)
+onmouseleave=clientscript_6751(interface_1345:com_74)
+
+// 1345:71
+[com_71]
+type=text
+x=7
+y=3
+width=290
+height=24
+layer=com_26
+textfont=verdana_15pt_regular
+text=Skill
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:72
+[com_72]
+type=text
+x=7
+y=3
+width=290
+height=24
+ymode=abs_bottom
+layer=com_26
+textfont=verdana_13pt_regular
+text=Click to get skill Challenges!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:73
+[com_73]
+type=layer
+width=6
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_26
+hide=yes
+
+// 1345:74
+[com_74]
+type=graphic
+width=304
+height=155
+layer=com_26
+hide=yes
+graphic=graphic_13258
+
+// 1345:75
+[com_75]
+type=graphic
+x=6
+y=27
+width=35
+height=35
+xmode=abs_right
+layer=com_26
+hide=yes
+graphic=graphic_13901
+
+// 1345:76
+[com_76]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+onload=script4260(event_com)
+
+// 1345:77
+[com_77]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_35
+
+// 1345:78
+[com_78]
+type=layer
+height=47
+widthmode=minus
+layer=com_77
+
+// 1345:79
+[com_79]
+type=text
+height=30
+widthmode=minus
+layer=com_78
+textfont=verdana_13pt_regular
+text=Sorry, you don't meet the requirements for this content.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1345:80
+[com_80]
+type=text
+x=3
+y=30
+width=222
+height=17
+widthmode=minus
+layer=com_78
+textfont=fontmetrics_13121
+text=Requirements
+textalignv=bottom
+textshadow=yes
+colour=0xebbf51
+
+// 1345:81
+[com_81]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+onload=script4261(event_com)
+
+// 1345:82
+[com_82]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_35
+
+// 1345:83
+[com_83]
+type=layer
+x=6
+y=7
+width=20
+height=20
+xmode=abs_right
+layer=com_35
+transmitop=1
+op1=Close
+
+// 1345:84
+[com_84]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_82
+textfont=palatino_linotype_18pt_regular
+text=Requirements not met!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1345:85
+[com_85]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_83
+graphic=graphic_8278
+
+// 1345:86
+[com_86]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_83
+graphic=graphic_8279
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1345:87
+[com_87]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_83
+graphic=graphic_8280
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1345:88
+[com_88]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_73
+colour=0x000000
+fill=yes
+trans=94
+
+// 1345:89
+[com_89]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_73
+textfont=verdana_11pt_regular_multiline
+text=Challenges are a members-only feature. Click here to subscribe.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffbc44
+
+// 1345:90
+[com_90]
+type=graphic
+width=4
+heightmode=minus
+layer=com_2
+graphic=graphic_13122
+
+// 1345:91
+[com_91]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_2
+graphic=graphic_13123
+
+// 1345:92
+[com_92]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_2
+graphic=graphic_13124
+
+// 1345:93
+[com_93]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_2
+graphic=graphic_13164
+
+// 1345:94
+[com_94]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic=graphic_13165
+
+// 1345:95
+[com_95]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_2
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:96
+[com_96]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:97
+[com_97]
+type=graphic
+width=4
+heightmode=minus
+layer=com_3
+graphic=graphic_13122
+
+// 1345:98
+[com_98]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_3
+graphic=graphic_13123
+
+// 1345:99
+[com_99]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_3
+graphic=graphic_13124
+
+// 1345:100
+[com_100]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_3
+graphic=graphic_13164
+
+// 1345:101
+[com_101]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+graphic=graphic_13165
+
+// 1345:102
+[com_102]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_3
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:103
+[com_103]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:104
+[com_104]
+type=graphic
+width=4
+heightmode=minus
+layer=com_4
+graphic=graphic_13122
+
+// 1345:105
+[com_105]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_4
+graphic=graphic_13123
+
+// 1345:106
+[com_106]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_4
+graphic=graphic_13124
+
+// 1345:107
+[com_107]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_4
+graphic=graphic_13164
+
+// 1345:108
+[com_108]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_4
+graphic=graphic_13165
+
+// 1345:109
+[com_109]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_4
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:110
+[com_110]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_4
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:111
+[com_111]
+type=graphic
+width=4
+heightmode=minus
+layer=com_5
+graphic=graphic_13122
+
+// 1345:112
+[com_112]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_5
+graphic=graphic_13123
+
+// 1345:113
+[com_113]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_5
+graphic=graphic_13124
+
+// 1345:114
+[com_114]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_5
+graphic=graphic_13164
+
+// 1345:115
+[com_115]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_5
+graphic=graphic_13165
+
+// 1345:116
+[com_116]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_5
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:117
+[com_117]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_5
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:118
+[com_118]
+type=graphic
+width=4
+heightmode=minus
+layer=com_6
+graphic=graphic_13122
+
+// 1345:119
+[com_119]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_6
+graphic=graphic_13123
+
+// 1345:120
+[com_120]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_6
+graphic=graphic_13124
+
+// 1345:121
+[com_121]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_6
+graphic=graphic_13164
+
+// 1345:122
+[com_122]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_6
+graphic=graphic_13165
+
+// 1345:123
+[com_123]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_6
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:124
+[com_124]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_6
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:125
+[com_125]
+type=graphic
+width=4
+heightmode=minus
+layer=com_9
+graphic=graphic_13122
+
+// 1345:126
+[com_126]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_9
+graphic=graphic_13123
+
+// 1345:127
+[com_127]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_9
+graphic=graphic_13124
+
+// 1345:128
+[com_128]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_9
+graphic=graphic_13164
+
+// 1345:129
+[com_129]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_9
+graphic=graphic_13165
+
+// 1345:130
+[com_130]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_9
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:131
+[com_131]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_9
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:132
+[com_132]
+type=layer
+y=184
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:133
+[com_133]
+type=graphic
+width=4
+heightmode=minus
+layer=com_132
+graphic=graphic_13122
+
+// 1345:134
+[com_134]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_132
+graphic=graphic_13123
+
+// 1345:135
+[com_135]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_132
+graphic=graphic_13124
+
+// 1345:136
+[com_136]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_132
+graphic=graphic_13164
+
+// 1345:137
+[com_137]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_132
+graphic=graphic_13165
+
+// 1345:138
+[com_138]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_132
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:139
+[com_139]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_132
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:140
+[com_140]
+type=layer
+y=207
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:141
+[com_141]
+type=graphic
+width=4
+heightmode=minus
+layer=com_140
+graphic=graphic_13122
+
+// 1345:142
+[com_142]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_140
+graphic=graphic_13123
+
+// 1345:143
+[com_143]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_140
+graphic=graphic_13124
+
+// 1345:144
+[com_144]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_140
+graphic=graphic_13164
+
+// 1345:145
+[com_145]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_140
+graphic=graphic_13165
+
+// 1345:146
+[com_146]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_140
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:147
+[com_147]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_140
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:148
+[com_148]
+type=layer
+y=230
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:149
+[com_149]
+type=graphic
+width=4
+heightmode=minus
+layer=com_148
+graphic=graphic_13122
+
+// 1345:150
+[com_150]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_148
+graphic=graphic_13123
+
+// 1345:151
+[com_151]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_148
+graphic=graphic_13124
+
+// 1345:152
+[com_152]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_148
+graphic=graphic_13164
+
+// 1345:153
+[com_153]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_148
+graphic=graphic_13165
+
+// 1345:154
+[com_154]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_148
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:155
+[com_155]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_148
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:156
+[com_156]
+type=layer
+y=253
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:157
+[com_157]
+type=graphic
+width=4
+heightmode=minus
+layer=com_156
+graphic=graphic_13122
+
+// 1345:158
+[com_158]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_156
+graphic=graphic_13123
+
+// 1345:159
+[com_159]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_156
+graphic=graphic_13124
+
+// 1345:160
+[com_160]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_156
+graphic=graphic_13164
+
+// 1345:161
+[com_161]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_156
+graphic=graphic_13165
+
+// 1345:162
+[com_162]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_156
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:163
+[com_163]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_156
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:164
+[com_164]
+type=layer
+y=276
+height=24
+widthmode=minus
+layer=com_8
+hide=yes
+
+// 1345:165
+[com_165]
+type=graphic
+width=4
+heightmode=minus
+layer=com_164
+graphic=graphic_13122
+
+// 1345:166
+[com_166]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_164
+graphic=graphic_13123
+
+// 1345:167
+[com_167]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_164
+graphic=graphic_13124
+
+// 1345:168
+[com_168]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_164
+graphic=graphic_13164
+
+// 1345:169
+[com_169]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_164
+graphic=graphic_13165
+
+// 1345:170
+[com_170]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_164
+textfont=verdana_13pt_regular
+text=Requirement type
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:171
+[com_171]
+type=text
+x=20
+width=26
+height=13
+xmode=abs_right
+ymode=abs_centre
+layer=com_164
+textfont=verdana_13pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00ff00
+
+// 1345:172
+[com_172]
+type=graphic
+width=4
+heightmode=minus
+layer=com_0
+graphic=graphic_13122
+
+// 1345:173
+[com_173]
+type=graphic
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_0
+graphic=graphic_13123
+
+// 1345:174
+[com_174]
+type=graphic
+width=4
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_13124
+
+// 1345:175
+[com_175]
+type=graphic
+x=4
+width=18
+height=18
+ymode=abs_centre
+layer=com_0
+graphic=graphic_13164
+
+// 1345:176
+[com_176]
+type=graphic
+x=5
+width=15
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic=graphic_13165
+
+// 1345:177
+[com_177]
+type=text
+x=30
+width=75
+height=13
+widthmode=minus
+ymode=abs_centre
+layer=com_0
+textfont=verdana_13pt_regular
+text=Runescape Member
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:178
+[com_178]
+type=layer
+x=1
+width=149
+height=35
+layer=com_30
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:179
+[com_179]
+type=graphic
+width=9
+height=35
+layer=com_178
+graphic=graphic_13142
+
+// 1345:180
+[com_180]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_178
+graphic=graphic_13143
+
+// 1345:181
+[com_181]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_178
+graphic=graphic_13144
+
+// 1345:182
+[com_182]
+type=text
+x=2
+width=147
+height=28
+layer=com_178
+textfont=fontmetrics_13121
+text=Featured
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1345:183
+[com_183]
+type=layer
+x=150
+width=149
+height=35
+layer=com_30
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:184
+[com_184]
+type=graphic
+width=9
+height=35
+layer=com_183
+graphic=graphic_13145
+
+// 1345:185
+[com_185]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_183
+graphic=graphic_13146
+
+// 1345:186
+[com_186]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_183
+graphic=graphic_13147
+
+// 1345:187
+[com_187]
+type=text
+x=2
+width=147
+height=28
+layer=com_183
+textfont=fontmetrics_13121
+text=Challenges
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)
+
+// 1345:188
+[com_188]
+type=layer
+x=299
+width=149
+height=35
+layer=com_30
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:189
+[com_189]
+type=graphic
+width=9
+height=35
+layer=com_188
+graphic=graphic_13145
+
+// 1345:190
+[com_190]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_188
+graphic=graphic_13146
+
+// 1345:191
+[com_191]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_188
+graphic=graphic_13147
+
+// 1345:192
+[com_192]
+type=text
+x=2
+width=147
+height=28
+layer=com_188
+textfont=fontmetrics_13121
+text=Quests
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)
+
+// 1345:193
+[com_193]
+type=layer
+x=448
+width=149
+height=35
+layer=com_30
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:194
+[com_194]
+type=graphic
+width=9
+height=35
+layer=com_193
+graphic=graphic_13145
+
+// 1345:195
+[com_195]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_193
+graphic=graphic_13146
+
+// 1345:196
+[com_196]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_193
+graphic=graphic_13147
+
+// 1345:197
+[com_197]
+type=text
+x=2
+width=147
+height=28
+layer=com_193
+textfont=fontmetrics_13121
+text=Achievements
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)
+
+// 1345:198
+[com_198]
+type=layer
+x=597
+width=149
+height=35
+layer=com_30
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1345:199
+[com_199]
+type=graphic
+width=9
+height=35
+layer=com_198
+graphic=graphic_13145
+
+// 1345:200
+[com_200]
+type=graphic
+width=18
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_198
+graphic=graphic_13146
+
+// 1345:201
+[com_201]
+type=graphic
+width=9
+height=35
+xmode=abs_right
+layer=com_198
+graphic=graphic_13147
+
+// 1345:202
+[com_202]
+type=text
+x=2
+width=147
+height=28
+layer=com_198
+textfont=fontmetrics_13121
+text=Minigames
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+onmouseover=text_colour_swapper(event_com, 0xffe1b5)
+onmouseleave=text_colour_swapper(event_com, 0xe5b051)

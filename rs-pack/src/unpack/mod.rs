@@ -5,6 +5,8 @@ use crate::archive::{self, CONFIG, CONFIG_EMPTY_TABLES};
 #[cfg(before_647)]
 use crate::archive::{JagArchive, JagSource, config_jag_name};
 #[cfg(since_647)]
+use crate::pack::js5::raw_extension;
+#[cfg(since_647)]
 use crate::pack::pack::FileCache;
 #[cfg(before_647)]
 use crate::pack::pack::pack_configs;
@@ -67,6 +69,7 @@ pub mod cs2;
 pub mod interface;
 pub mod map;
 pub mod media;
+#[cfg(before_647)]
 pub mod model;
 #[cfg(before_647)]
 mod namecrack;
@@ -735,7 +738,7 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
     }
     fs::create_dir_all(output_dir)?;
     prepare_pack(pack_dir)?;
-    let config_dir = output_dir.join("scripts/configs");
+    let config_dir = output_dir.join("scripts");
     fs::create_dir_all(config_dir.join("_unpack"))?;
     let mut results: Vec<StepResult> = Vec::new();
     info!("Discovering pack registries from cache...");
@@ -826,13 +829,6 @@ fn unpack_assets(
     pack_dir: &Path,
     output_dir: &Path,
 ) {
-    step(results, "animations", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        model::unpack_anims(&mut store, pack_dir, output_dir).map(|n| format!("{n} frames"))
-    });
-    step(results, "models", || {
-        model::unpack_models(cache_dir, pack_dir, output_dir).map(|n| format!("{n} models"))
-    });
     step(results, "sprites", || {
         let mut store = Js5Store::open(cache_dir)?;
         let stats = media::unpack_all_sprites(&mut store, output_dir, pack_dir)?;
@@ -841,18 +837,38 @@ fn unpack_assets(
             stats.groups, stats.sprites
         ))
     });
+    #[cfg(before_742)]
     step(results, "textures", || {
         let mut store = Js5Store::open(cache_dir)?;
         texture::unpack_texture_text(&mut store, output_dir, pack_dir)
             .map(|n| format!("{n} groups"))
     });
+    for aid in [
+        archive::ANIMS,
+        archive::BASES,
+        archive::MODELS,
+        archive::VORBIS,
+        #[cfg(since_742)]
+        archive::TEXTURES,
+        #[cfg(since_742)]
+        archive::TEXTURES_HDR,
+        #[cfg(since_742)]
+        archive::CUTSCENES,
+    ] {
+        let format = archive::archive_format(aid).unwrap();
+        let extension = raw_extension(aid).unwrap();
+        step(results, format.content_dir, || {
+            let mut store = Js5Store::open(cache_dir)?;
+            binary_assets::unpack_raw(&mut store, aid, output_dir, pack_dir, extension)
+                .map(|n| format!("{n} groups"))
+        });
+    }
     step(results, "music", || {
         let mut store = Js5Store::open(cache_dir)?;
         song::unpack_songs(&mut store, pack_dir, output_dir)
             .map(|n| format!("{n} songs and jingles"))
     });
     for aid in [
-        archive::BASES,
         archive::SYNTH,
         archive::BINARY,
         archive::FONTMETRICS,
@@ -875,11 +891,6 @@ fn unpack_assets(
     step(results, "shaders", || {
         let mut store = Js5Store::open(cache_dir)?;
         shaders::unpack_shaders(&mut store, output_dir, pack_dir).map(|n| format!("{n} groups"))
-    });
-    step(results, "Vorbis", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        crate::pack::sound::vorbis::unpack_archive(&mut store, pack_dir, output_dir)
-            .map(|n| format!("{n} groups"))
     });
     step(results, "native libraries", || {
         let mut store = Js5Store::open(cache_dir)?;

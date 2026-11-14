@@ -4,6 +4,7 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+use rs_ver::TypeId;
 
 #[server_prot(MapProjAnim, Immediate, Fixed)]
 #[derive(Debug, Clone)]
@@ -12,7 +13,7 @@ pub struct MapProjAnim {
     pub dx: i8,
     pub dz: i8,
     pub target: i16,
-    pub spotanim: u16,
+    pub spotanim: TypeId,
     pub src_height: u8,
     pub dst_height: u8,
     pub start_delay: u16,
@@ -22,6 +23,8 @@ pub struct MapProjAnim {
     pub arc: u8,
     #[cfg(since_647)]
     pub arc: u16,
+    #[cfg(since_742)]
+    pub trailing: i16,
 }
 
 impl ServerProtMessage for MapProjAnim {
@@ -33,7 +36,7 @@ impl ServerProtMessage for MapProjAnim {
         buf.p1(self.dx as u8);
         buf.p1(self.dz as u8);
         buf.p2(self.target as u16);
-        buf.p2(self.spotanim);
+        buf.p2(self.spotanim.g2());
         buf.p1(self.src_height);
         buf.p1(self.dst_height);
         buf.p2(self.start_delay);
@@ -43,19 +46,26 @@ impl ServerProtMessage for MapProjAnim {
         buf.p1(self.arc);
         #[cfg(since_647)]
         buf.p2(self.arc);
+        #[cfg(since_742)]
+        buf.p2(self.trailing as u16);
     }
 
     fn sizeof(&self) -> usize {
+        #[cfg(before_742)]
+        let trailing = 0;
+        #[cfg(since_742)]
+        let trailing = size_of_val(&self.trailing);
         size_of_val(&self.coord)
             + size_of_val(&self.dx)
             + size_of_val(&self.dz)
             + size_of_val(&self.target)
-            + size_of_val(&self.spotanim)
+            + size_of::<u16>()
             + size_of_val(&self.src_height)
             + size_of_val(&self.dst_height)
             + size_of_val(&self.start_delay)
             + size_of_val(&self.end_delay)
             + size_of_val(&self.peak)
             + size_of_val(&self.arc)
+            + trailing
     }
 }

@@ -17,6 +17,7 @@ use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -60,15 +61,23 @@ const FORMS: [&str; 4] = [
     "shapeshifterwolf",
 ];
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "loc" => &engine.cache.locs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
+}
+
+fn loc_id(engine: &Engine, name: &str) -> TypeId {
+    engine
+        .cache
+        .locs
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no loc {name}"))
+        .id
 }
 
 fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
@@ -77,7 +86,7 @@ fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -87,12 +96,12 @@ fn set_stage(engine: &mut Engine, client: &HarnessClient, value: i32) {
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -104,7 +113,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -242,10 +251,10 @@ fn op_loc1(
     loc: &str,
     (x, z): (u16, u16),
 ) -> Conversation {
-    let loc = id(engine, "loc", loc);
+    let loc = loc_id(engine, loc);
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -259,9 +268,9 @@ fn op_loc2(
     loc: &str,
     (x, z): (u16, u16),
 ) -> Conversation {
-    let loc = id(engine, "loc", loc);
+    let loc = loc_id(engine, loc);
     let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
+    p.p2_alt1(loc.int())
         .p1_alt2(0)
         .p2_alt2(z as i32)
         .p2_alt3(x as i32);
@@ -271,7 +280,7 @@ fn op_loc2(
 
 fn slot_of(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let bag = engine
         .harness_player(client.pid)
         .unwrap()
@@ -293,13 +302,13 @@ fn use_on_loc(
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
     let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj) as i32)
+    p.p2_alt2(id(engine, "obj", obj).int())
         .p2_alt2(slot)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
         .p2_alt2(x as i32)
         .p1_alt1(0)
-        .p2_alt1(id(engine, "loc", loc) as i32);
+        .p2_alt1(loc_id(engine, loc).int());
     client.send(ClientProt::OpLocT, &p.finish());
     converse(engine, client, &[], 12)
 }
@@ -313,7 +322,7 @@ fn use_on_npc(
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
     let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj) as i32)
+    p.p2_alt2(id(engine, "obj", obj).int())
         .p2_alt2(slot)
         .p2_alt1(nid as i32)
         .p4_alt3(BACKPACK)
@@ -325,7 +334,7 @@ fn use_on_npc(
 /// Take on the ball in the shed (`OPOBJ3`), and what it shows.
 fn take_ball(engine: &mut Engine, client: &mut HarnessClient) -> Conversation {
     let mut p = ClientPacket::new();
-    p.p2_alt1(id(engine, "obj", "ball") as i32)
+    p.p2_alt1(id(engine, "obj", "ball").int())
         .p2_alt2(BALL.1 as i32)
         .p1(0)
         .p2(BALL.0 as i32);
@@ -525,10 +534,10 @@ fn the_basements_gate_shocks_bare_hands_and_the_cupboard_holds_the_magnet() {
         tele(engine, &mut client, east);
         fighter(engine, &client);
         let before = life_points(engine, &client);
-        let gate = id(engine, "loc", "shockgatel");
+        let gate = loc_id(engine, "shockgatel");
         let mut p = ClientPacket::new();
         p.p2_alt1(GATE_NORTH.1 as i32)
-            .p2_alt1(gate as i32)
+            .p2_alt1(gate.int())
             .p1(0)
             .p2_alt2(GATE_NORTH.0 as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
@@ -563,7 +572,7 @@ fn the_basements_gate_shocks_bare_hands_and_the_cupboard_holds_the_magnet() {
         assert_eq!(coord(engine, &client), east, "the gate stays shut");
 
         // Each pair of gloves the 2011 wiki lists opens it; 289 has the leather ones alone.
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
         for (i, gloves) in [
             "leather_gloves",
             "sops_gloves",
@@ -667,7 +676,7 @@ fn cheese_brings_the_mouse_and_the_magnet_unlocks_the_back_door() {
         // Dropped by the hole, the cheese brings a new mouse for the old.
         let mut p = ClientPacket::new();
         p.p4(BACKPACK)
-            .p2_alt3(id(engine, "obj", "cheese") as i32)
+            .p2_alt3(id(engine, "obj", "cheese").int())
             .p2_alt1(1);
         client.send(ClientProt::IfButton8, &p.finish());
         let t = converse(engine, &mut client, &[], 12);
@@ -878,7 +887,7 @@ fn the_witch_catches_a_player_in_the_open_and_not_behind_a_hedge() {
             ("hedge_term", 2915, 3461),
             ("hedgecorner", 2902, 3461),
         ] {
-            let loc = id(engine, "loc", name);
+            let loc = loc_id(engine, name);
             assert!(
                 engine
                     .zones
@@ -965,7 +974,7 @@ fn the_diary_opens_as_a_book() {
         let read = |engine: &mut Engine, client: &mut HarnessClient| {
             let mut p = ClientPacket::new();
             p.p4(BACKPACK)
-                .p2_alt3(id(engine, "obj", "witches_diary") as i32)
+                .p2_alt3(id(engine, "obj", "witches_diary").int())
                 .p2_alt1(0);
             client.send(ClientProt::IfButton1, &p.finish());
             let mut texts = Vec::new();
@@ -1013,7 +1022,7 @@ fn the_boy_takes_his_ball_back() {
                 .harness_player(client.pid)
                 .unwrap()
                 .vars
-                .get(v)
+                .get(v.g2())
                 .as_int()
         };
         let mut t = talk(engine, &mut client, &[]);
@@ -1042,7 +1051,7 @@ fn the_boy_takes_his_ball_back() {
             .harness_player(client.pid)
             .unwrap()
             .vars
-            .get(v)
+            .get(v.g2())
             .as_int();
         assert_eq!(now - qp, 4, "4 quest points");
 

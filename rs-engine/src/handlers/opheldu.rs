@@ -8,6 +8,7 @@ use crate::handlers::op_common::{
 use crate::watch::{Target, Using};
 #[cfg(before_647)]
 use rs_protocol::network::game::client::opheldu::OpHeldU;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
@@ -33,10 +34,10 @@ impl ClientGameHandler for OpHeldU {
 pub(super) fn handle(
     com: ComId,
     slot: u16,
-    obj: u16,
+    obj: TypeId,
     com2: ComId,
     slot2: u16,
-    obj2: u16,
+    obj2: TypeId,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     active.watch_use(Using::Item(obj2), Target::Item(obj));
@@ -63,10 +64,10 @@ pub(super) fn handle(
     let objs = engine().objs();
     let obj = objs
         .get_by_id(obj)
-        .ok_or(ScriptError::ObjNotFound(obj as i32))?;
+        .ok_or(ScriptError::ObjNotFound(obj.int()))?;
     let obj2 = objs
         .get_by_id(obj2)
-        .ok_or(ScriptError::ObjNotFound(obj2 as i32))?;
+        .ok_or(ScriptError::ObjNotFound(obj2.int()))?;
 
     active.player.last_item = Some(obj.id);
     active.player.last_slot = Some(slot);
@@ -103,12 +104,12 @@ pub(super) fn handle(
     Ok(())
 }
 
-fn obj_key(id: u16) -> i32 {
-    ServerTriggerType::OpHeldU as i32 | (0x2 << 8) | ((id as i32) << 10)
+fn obj_key(id: TypeId) -> i32 {
+    ServerTriggerType::OpHeldU as i32 | (0x2 << 8) | (id.int() << 10)
 }
 
-fn category_key(category: u16) -> i32 {
-    ServerTriggerType::OpHeldU as i32 | (0x1 << 8) | ((category as i32) << 10)
+fn category_key(category: TypeId) -> i32 {
+    ServerTriggerType::OpHeldU as i32 | (0x1 << 8) | (category.int() << 10)
 }
 
 /// Looks up the `[opheldu]` script for `obj` (the target) and `obj2` (the
@@ -120,8 +121,8 @@ fn category_key(category: u16) -> i32 {
 /// `last_useitem`: content such as `[opheldu,_murder_flourobj]` relies on
 /// that. Looking up `[opheldu,a_category]` swaps them back.
 fn find_script<T>(
-    (obj, category): (u16, Option<u16>),
-    (obj2, category2): (u16, Option<u16>),
+    (obj, category): (TypeId, Option<TypeId>),
+    (obj2, category2): (TypeId, Option<TypeId>),
     mut get: impl FnMut(i32) -> Option<T>,
 ) -> (Option<T>, bool) {
     // [opheldu,b]
@@ -154,23 +155,24 @@ fn find_script<T>(
 #[cfg(test)]
 mod tests {
     use super::{category_key, find_script, obj_key};
+    use rs_ver::TypeId;
 
-    const MURDERNECKLACEDUST: u16 = 1797;
-    const MURDERPAPER: u16 = 1811;
-    const POT_FLOUR: u16 = 1933;
-    const MURDER_FLOUROBJ: u16 = 50;
-    const MURDER_PROOFOBJ: u16 = 51;
-    const STRENGTH3: u16 = 115;
-    const STRENGTH2: u16 = 117;
-    const POTION: u16 = 175;
+    const MURDERNECKLACEDUST: TypeId = TypeId::new(1797);
+    const MURDERPAPER: TypeId = TypeId::new(1811);
+    const POT_FLOUR: TypeId = TypeId::new(1933);
+    const MURDER_FLOUROBJ: TypeId = TypeId::new(50);
+    const MURDER_PROOFOBJ: TypeId = TypeId::new(51);
+    const STRENGTH3: TypeId = TypeId::new(115);
+    const STRENGTH2: TypeId = TypeId::new(117);
+    const POTION: TypeId = TypeId::new(175);
 
     /// Runs the lookup against a script set, returning the matched key and
     /// the obj the script sees as `last_item`.
     fn run(
-        target: (u16, Option<u16>),
-        used: (u16, Option<u16>),
+        target: (TypeId, Option<TypeId>),
+        used: (TypeId, Option<TypeId>),
         scripts: &[i32],
-    ) -> (Option<i32>, u16) {
+    ) -> (Option<i32>, TypeId) {
         let (key, swapped) = find_script(target, used, |key| scripts.contains(&key).then_some(key));
         (key, if swapped { used.0 } else { target.0 })
     }

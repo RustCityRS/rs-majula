@@ -1,0 +1,3 @@
+// 247
+[clientscript,snapshot_onkey_v1](int $key0, char $char1)
+%snapshot_name = ~add_to_inputstring(%snapshot_name, 2, $key0, $char1);
