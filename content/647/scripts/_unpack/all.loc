@@ -311296,6 +311296,9 @@ model=1,model_27342
 name=Odd-looking wall
 cursor1=1,cursor_open
 occlude=no
+// 289's category and open form, which the wall's script opens it by.
+category=double_door_open_and_close_right
+param=next_loc_stage,elemental_workshop_oddwall_r_open
 
 // 26115
 [elemental_workshop_oddwall_l]
@@ -311307,6 +311310,9 @@ model=1,model_27334
 name=Odd-looking wall
 cursor1=1,cursor_open
 occlude=no
+// 289's category and open form, which the wall's script opens it by.
+category=double_door_open_and_close_left
+param=next_loc_stage,elemental_workshop_oddwall_l_open
 
 // 26116
 [elemental_workshop_oddwall_r_open]
