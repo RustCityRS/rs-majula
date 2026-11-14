@@ -29,9 +29,7 @@ if(%grail > ^grail_not_started) {
             if(inv_total(inv, holy_grail) > 0 & %grail = ^grail_given_whistle) {
                 ~chatplayer("<p,happy>I have retrieved the Grail!");
                 ~chatnpc("<p,happy>Wow! Incredible! You truly are a splendid knight!");
-                // Holy Grail is not ported yet: its completion (289's
-                // [queue,grail_quest_complete]) comes with it. The Grail cannot be had before.
-                // queue(grail_quest_complete, 0, 0);
+                queue(grail_quest_complete, 0, 0);
                 return;
             }
             ~chatplayer("<p,neutral>I am making progress, but I have not recovered the Grail yet.");
