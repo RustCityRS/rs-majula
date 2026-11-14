@@ -1,4 +1,4 @@
-// 289's areas/area_ardougne_west/scripts/clerk.rs2, line for line.
+// 289's areas/area_ardougne_west/scripts/clerk.rs2, line for line but for where Bravek is.
 [opnpc1,clerk]
 switch_int(%elenaquest) {
     case ^quest_elena_spoke_to_plague_house :
@@ -50,7 +50,9 @@ switch_int(%elenaquest) {
 ~chatplayer("<p,angry>This is urgent though!");
 ~chatnpc("<p,neutral>I'll see what I can do I suppose.");
 ~chatnpc("<p,neutral>Mr <nc_name(bravek)> there's a <text_gender("man", "lady")> here who really needs to speak to you.");
-if (.npc_find(coord, bravek, 7, 0) = true) { // yes its possible this doesnt pop off if hes too far
+// 289 looks for Bravek within 7 tiles on the clerk's floor. 2011's Bravek is on the floor above
+// (cache 786's spawn; the 2011 wiki), ten tiles off: looked for there, within 14.
+if (.npc_find(movecoord(coord, 0, 1, 0), bravek, 14, 0) = true) { // yes its possible this doesnt pop off if hes too far
     ~quest_elena_set_progress(^quest_elena_spoke_to_clerk);
     ~.chatnpc("<p,confused>I suppose they can come in then. If they keep it short.");
 }

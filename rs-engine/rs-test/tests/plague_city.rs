@@ -35,6 +35,9 @@ const OPENED_TUNNEL: i32 = 8;
 const TIED_ROPE: i32 = 9;
 const OPENED_PIPE: i32 = 10;
 const SHOWN_PICTURE: i32 = 20;
+const SPOKE_TO_PLAGUE_HOUSE: i32 = 24;
+const SPOKE_TO_CLERK: i32 = 25;
+const SPOKE_TO_BRAVEK: i32 = 26;
 const CURED_BRAVEK: i32 = 27;
 const FREED_ELENA: i32 = 28;
 const COMPLETE: i32 = 29;
@@ -60,6 +63,8 @@ const KEY_BARREL: (u16, u16) = (2534, 3268);
 const STAIRS_DOWN: (u16, u16) = (2536, 3268);
 const CELLAR: (u16, u16) = (2537, 9670);
 const ELENAS_GATE: (u16, u16) = (2539, 9672);
+/// Bravek's door, upstairs in the Civic Office (level 1).
+const BRAVEKS_DOOR: (u16, u16) = (2533, 3315);
 
 fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let v = id(engine, "varp", name);
@@ -654,6 +659,86 @@ fn jethick_knows_the_picture() {
         );
         assert_eq!(stage(engine, &client), SHOWN_PICTURE);
         assert_eq!(held(engine, &client, "turnip_book"), 1);
+        no_errors(engine);
+    });
+}
+
+/// Bravek is upstairs in 2011: his door keeps the player out until the clerk has called up to
+/// him, and a hangover cure gets the warrant.
+#[test]
+fn the_clerk_calls_up_to_bravek() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "pc_bravek", SPOKE_TO_PLAGUE_HOUSE);
+        seasoned(engine, &client);
+        tele(engine, &mut client, (BRAVEKS_DOOR.0 - 1, BRAVEKS_DOOR.1), 1);
+        let t = op_loc(engine, &mut client, 1, "bravekdoorshut", BRAVEKS_DOOR, &[]);
+        says(&t, &["Go away, I'm busy! I'm... Umm... In a meeting!"]);
+        assert_eq!(
+            coord(engine, &client).0,
+            BRAVEKS_DOOR.0 - 1,
+            "the door stays shut"
+        );
+
+        let t = talk_near(
+            engine,
+            &mut client,
+            "clerk",
+            &[
+                "I need permission to enter a plague house.",
+                "Surely you don't let them run everything for you?",
+                "Can I speak to Bravek anyway?",
+                "This is urgent though!",
+            ],
+        );
+        says(
+            &t,
+            &["I suppose they can come in then. If they keep it short."],
+        );
+        assert_eq!(
+            stage(engine, &client),
+            SPOKE_TO_CLERK,
+            "Bravek answers from the floor above"
+        );
+
+        tele(engine, &mut client, (BRAVEKS_DOOR.0 - 1, BRAVEKS_DOOR.1), 1);
+        op_loc(engine, &mut client, 1, "bravekdoorshut", BRAVEKS_DOOR, &[]);
+        settle(engine, &mut client, 3);
+        assert_eq!(
+            coord(engine, &client).0,
+            BRAVEKS_DOOR.0,
+            "through Bravek's door"
+        );
+
+        let t = talk_near(
+            engine,
+            &mut client,
+            "bravek",
+            &[
+                "This is really important though!",
+                "Do you know what is in the cure?",
+            ],
+        );
+        says(
+            &t,
+            &[
+                "My head hurts! I'll speak to you another day...",
+                "Bravek hands you a tatty piece of paper.",
+            ],
+        );
+        assert_eq!(stage(engine, &client), SPOKE_TO_BRAVEK);
+        assert_eq!(held(engine, &client, "scruffy_note"), 1);
+
+        give(engine, &client, 5, "hangover_cure");
+        let t = talk_near(engine, &mut client, "bravek", &["They won't listen to me!"]);
+        says(&t, &["Try this.", "Ooh that's much better!"]);
+        assert_eq!(stage(engine, &client), CURED_BRAVEK);
+        assert_eq!(held(engine, &client, "hangover_cure"), 0);
+        assert_eq!(
+            held(engine, &client, "warrant"),
+            1,
+            "the warrant for the plague house"
+        );
         no_errors(engine);
     });
 }

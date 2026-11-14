@@ -27908,6 +27908,8 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=948
 desc=The door is closed.
+// 289's open form, which the door's script opens it by.
+param=next_loc_stage,bravekdooropen
 
 // 2529
 [bravekdooropen]
@@ -417689,9 +417691,6 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=945
 desc=The door is closed.
-// Its open form (cache 786: door_34808, the same model, op Close), which the door's script
-// (areas/area_ardougne_west/scripts/doors.rs2) opens it by, as 289's bravekdoorshut has.
-param=next_loc_stage,door_34808
 
 // 34808
 [door_34808]

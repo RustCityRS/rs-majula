@@ -20,13 +20,10 @@ if(~check_axis(coord, loc_coord, loc_angle) = false) {
 [oploc1,ardougnewalldoor_left] @west_ardougne_open_city_doors;
 [oploc1,ardougnewalldoor_right] @west_ardougne_open_city_doors;
 
-// Bravek's door is area_ardougne_door1_closed in cache 786's map (0_39_51_34_50, 289's
-// bravekdoorshut's tile). The same loc is a plain door in three other places.
-[oploc1,area_ardougne_door1_closed]
-if (loc_coord ! 0_39_51_34_50) {
-    ~open_and_close_door(loc_param(next_loc_stage), ~check_axis(coord, loc_coord, loc_angle), false);
-    return;
-}
+// Bravek is upstairs in 2011 (cache 786's spawn, level 1; the 2011 wiki's Plague City: "located
+// upstairs in the eastern most room"), and so is his door: cache 786's map has bravekdoorshut
+// on 1_39_51_37_51, where 289 has it on the ground floor.
+[oploc1,bravekdoorshut]
 switch_int(%elenaquest) {
     case ^quest_elena_spoke_to_clerk, ^quest_elena_spoke_to_bravek, ^quest_elena_spoke_cured_bravek, ^quest_elena_freed_elena, ^elena_complete, ^elena_complete_read_scroll : @bravek_enter_room;
     case default : @bravek_go_away_im_busy;
