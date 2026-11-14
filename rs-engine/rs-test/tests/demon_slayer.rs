@@ -597,9 +597,82 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         };
         assert_eq!(find(engine, delrith), None, "no Delrith before the circle");
         engine.harness_telejump(client.pid, CIRCLE.0, 0, CIRCLE.1);
-        ticks(engine, &mut client, 6);
+        // 2011 (2011-04-20 recording, bHxrbaUN3AI, 516s-536s): a fade, the player's own copy
+        // of the circle, and the summoning played out before the fight.
+        let mut cut = converse(engine, &mut client, &[], 150);
+        // The spell's box has no continue and Delrith takes ten ticks to rise: the talk
+        // picks up again after it.
+        let rest = converse(engine, &mut client, &[], 60);
+        cut.texts.extend(rest.texts);
+        no_script_errors(engine, "the summoning");
+        assert_eq!(cut.unanswered, None, "{:?}", cut.texts);
+        for line in [
+            "Arise, O Mighty Delrith! Bring destruction to this soft, weak city!",
+            "Arise, Delrith!",
+            "The wizards cast an evil spell.",
+            "Ha ha ha! At last you are free, my demonic brother!",
+            "Who's that?",
+            "Noo! Not Silverlight! Delrith is not ready yet!",
+            "I've got to get out of here.",
+        ] {
+            assert!(cut.said(line), "2011 has {line:?}; {:?}", cut.texts);
+        }
+        let copy = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert!(
+            copy.x().abs_diff(CIRCLE.0) > 200 || copy.z().abs_diff(CIRCLE.1) > 200,
+            "the player is in a copy of the circle, not at {},{}",
+            copy.x(),
+            copy.z()
+        );
+        for name in [
+            "denath_4663",
+            "dark_wizard_8871",
+            "dark_wizard_8872",
+            "dark_wizard_8873",
+        ] {
+            let ty = npc_type(engine, name);
+            let near = engine.npc_list.npcs.iter().flatten().any(|n| {
+                let c = n.npc.pathing.coord;
+                n.npc.uid.id() == ty
+                    && c.x().abs_diff(copy.x()) < 20
+                    && c.z().abs_diff(copy.z()) < 20
+            });
+            assert!(near, "{name} stands in the copy");
+        }
         let nid = find(engine, delrith).expect("Delrith rises");
         assert_eq!(demon(engine, &client).summoned, 1, "the table is shattered");
+        // The wizards fight first (the recording, 537s on). This case is Delrith's: each
+        // wizard falls to one swing (1 life point, defence 1).
+        for name in ["dark_wizard_8871", "dark_wizard_8872", "dark_wizard_8873"] {
+            let ty = npc_type(engine, name);
+            let near = |engine: &Engine| {
+                engine.npc_list.npcs.iter().flatten().find_map(|n| {
+                    let c = n.npc.pathing.coord;
+                    (n.npc.uid.id() == ty
+                        && c.x().abs_diff(copy.x()) < 20
+                        && c.z().abs_diff(copy.z()) < 20)
+                        .then(|| n.npc.uid.nid())
+                })
+            };
+            for tick in 0..120 {
+                let Some(wizard) = near(engine) else {
+                    break;
+                };
+                let stats = &mut engine.get_npc_mut(wizard).unwrap().npc.stats.levels;
+                stats[NpcStat::Hitpoints as usize] = 1;
+                stats[NpcStat::Defence as usize] = 1;
+                if tick % 6 == 0 {
+                    let mut p = ClientPacket::new();
+                    p.p1_alt2(0).p2_alt3(wizard as i32);
+                    client.send(ClientProt::OpNpc2, &p.finish());
+                }
+                engine.cycle();
+                client.packets();
+            }
+            assert_eq!(near(engine), None, "{name} is beaten");
+        }
+        // Past the "under attack" window the wizards left.
+        ticks(engine, &mut client, 12);
 
         // 1 life point and defence 1, so the first swing that lands weakens him: the test is the
         // weakening's trigger, not the fight's dice (a full run once died to him first, "Oh
@@ -675,6 +748,13 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         assert_eq!(after.stage, 3, "the quest is complete");
         assert_eq!(after.words, [0; 5], "the incantation is forgotten");
         assert_eq!(find(engine, weakened), None, "Delrith is gone");
+        let back = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert!(
+            (3221..=3234).contains(&back.x()) && (3363..=3376).contains(&back.z()),
+            "banished, the player is back in the world's circle: {},{}",
+            back.x(),
+            back.z()
+        );
         assert_eq!(
             total(engine, &client, "worn", "silverlight"),
             1,

@@ -4,11 +4,30 @@
 // fought until he collapses, then Banish asks for the incantation; a wrong one
 // revives him and the fight goes on; the right one sends him back.
 //
-// Waiting: 2011 plays the summoning as a cutscene (Denath and three dark
-// wizards, the table lighting, Delrith rising) in an instance of the circle,
-// fenced by an energy barrier (void-634's Delrith.kt). Without instances he
-// rises at the stone table in the world, where anyone may see him, and one
-// Delrith answers every player on that step of the quest.
+// 2011 plays this in the player's own copy of the circle, ringed by a red
+// energy barrier, and the first visit opens with a cutscene. Read from the
+// 2011-04-20 recording (YouTube bHxrbaUN3AI), seconds into it:
+//   516  the game view fades to black; 517 "Loading - please wait";
+//   518  it fades in on the player's own view, at the ring's edge, the barrier
+//        up; the minimap is black from here to the end;
+//   520  Denath: "Arise, O Mighty Delrith! Bring destruction to this soft, weak
+//        city!";
+//   522  "Dark wizards": "Arise, Delrith!", the same over each wizard's head;
+//   523  "The wizards cast an evil spell." with no continue; the table glows
+//        red, and Delrith rises from it at 525;
+//   529  Denath: "Ha ha ha! At last you are free, my demonic brother! Rest now,
+//        and then have your revenge on this pitiful city!";
+//   531  Dark wizard: "Who's that?";
+//   532  Denath: "Noo! Not Silverlight! Delrith is not ready yet!";
+//   534  Denath: "I've got to get out of here.";
+//   536  the camera and the minimap are the player's again, and the wizards
+//        attack.
+// Not from the recording, so void-634's (Delrith.kt), each to be checked
+// against it in the client: where the wizards, Denath and the player stand,
+// the barrier's ring, the animations and sounds by id (cache 786 has every
+// one), the camera's tiles and heights, and Denath left standing east of the
+// ring. void's camera shake is left out until the recording shows it.
+// Not done: the recording blanks the side tabs' icons while the cutscene runs.
 [zone,0_50_52_16_32] settimer(demon_slayer_stone_circle, 1);
 [zone,0_50_52_24_32] settimer(demon_slayer_stone_circle, 1);
 [zone,0_50_52_32_32] settimer(demon_slayer_stone_circle, 1);
@@ -28,23 +47,264 @@ if (%demonslayer_main ! ^demon_key_hunt | %delrith_silverlight_case = ^false
 if (inzone(0_50_52_21_35, 0_50_52_34_48, coord) = false) {
     return;
 }
+// Busy (a dialogue, a delay): try again next tick.
+if (p_finduid(uid) = false) {
+    return;
+}
 cleartimer(demon_slayer_stone_circle);
-if (npc_find(0_50_52_27_41, delrith, 8, 0) = true | npc_find(0_50_52_27_41, weakened_delrith, 8, 0) = true) {
+@demon_slayer_circle_enter;
+
+// The player's copy of the circle: 96 by 96 tiles about the stone table, two
+// zones in from the region's corner (as Unstable Foundations' house copy).
+[proc,demon_slayer_circle_build]
+region_create(1, 14, 14);
+def_int $a = 0;
+def_int $b = 0;
+while ($a < 12) {
+    $b = 0;
+    while ($b < 12) {
+        region_set(0, calc(2 + $a), calc(2 + $b), movecoord(0_49_51_40_56, calc($a * 8), 0, calc($b * 8)), 0);
+        $b = calc($b + 1);
+    }
+    $a = calc($a + 1);
+}
+region_setexitcoord(0_50_52_22_39);
+
+// A world tile of the circle in the copy the player stands in.
+[proc,demon_slayer_circle_coord](int $x, int $z)(coord)
+return(region_getcoord(0, calc(16 + $x - 3176), calc(16 + $z - 3320)));
+
+// Whether the player stands in a copy, within the ring.
+[proc,demon_slayer_in_circle]()(boolean)
+if (region_findbycoord(coord) = false) {
+    return(false);
+}
+def_coord $origin = region_getcoord(0, 16, 16);
+def_int $x = calc(3176 + coordx(coord) - coordx($origin));
+def_int $z = calc(3320 + coordz(coord) - coordz($origin));
+return($x >= 3221 & $x <= 3234 & $z >= 3363 & $z <= 3376);
+
+// Out of the copy: the same tile in the world.
+[proc,demon_slayer_circle_leave]
+clearsofttimer(demon_slayer_circle_watch);
+if (region_findbycoord(coord) = true) {
+    def_coord $origin = region_getcoord(0, 16, 16);
+    p_telejump(movecoord(0_49_51_40_56, calc(coordx(coord) - coordx($origin)), 0, calc(coordz(coord) - coordz($origin))));
+}
+cam_reset;
+minimap_toggle(0);
+
+// Each tick in the copy: the barrier does not block (cache 786: blockwalk=no),
+// and a player who walks out through it is back in the world (void-634).
+[softtimer,demon_slayer_circle_watch]
+if (~demon_slayer_in_circle = true) {
     return;
 }
-// He rises off the stone table (loc_17454 at 3227,3369) and steps south
-// (void-634: delrith_appear, then to 3227,3367); a second visit finds him
-// already summoned, the table shattered.
-if (%delrith_seen_summoning_cutscene = ^false) {
-    %delrith_seen_summoning_cutscene = ^true;
-    npc_add(0_50_52_27_41, delrith, 500);
-    npc_anim(qip_ds_delrith_summoned, 0); // void-634: delrith_appear
-    sound_synth(ds_break_table, 1, 10); // void-634: demon_slayer_break_table
-    sound_synth(synth_2980, 1, 0); // void-634: demon_slayer_delrith_appear
-    npc_walk(0_50_52_27_39);
+if (p_finduid(uid) = false) {
     return;
 }
-npc_add(0_50_52_27_39, delrith, 500);
+~demon_slayer_circle_leave;
+
+// The ring of energy barrier (void-634's spawnEnergyBarrier): from (3221,
+// 3367) clockwise, each side six straight walls, then four diagonals with a
+// corner piece beside each of the first three.
+[proc,demon_slayer_circle_barrier]
+def_int $x = 3221;
+def_int $z = 3367;
+def_int $side = 0;
+def_int $dx = 0;
+def_int $dz = 1;
+def_int $turn;
+def_int $i;
+while ($side < 4) {
+    $i = 0;
+    while ($i < 6) {
+        loc_add(~demon_slayer_circle_coord($x, $z), demon_slayer_qip_magic_barrier_wall_kit, $side, wall_straight, 0);
+        $x = calc($x + $dx);
+        $z = calc($z + $dz);
+        $i = calc($i + 1);
+    }
+    // A step clockwise: north to north-east, east to south-east, and so on.
+    $turn = $dx;
+    $dx = calc($dx + $dz);
+    $dz = calc($dz - $turn);
+    $i = 0;
+    while ($i < 3) {
+        loc_add(~demon_slayer_circle_coord($x, $z), demon_slayer_qip_magic_barrier_wall_kit, $side, wall_diagonal, 0);
+        // The corner piece: a step clockwise again from this diagonal's heading.
+        loc_add(~demon_slayer_circle_coord(calc($x + ~demon_slayer_sign(calc($dx + $dz))), calc($z + ~demon_slayer_sign(calc($dz - $dx)))), demon_slayer_qip_magic_barrier_wall_kit, $side, wall_diagonalcorner, 0);
+        $x = calc($x + $dx);
+        $z = calc($z + $dz);
+        $i = calc($i + 1);
+    }
+    loc_add(~demon_slayer_circle_coord($x, $z), demon_slayer_qip_magic_barrier_wall_kit, $side, wall_diagonal, 0);
+    $side = calc($side + 1);
+    // On to the next side's heading: north-east to east, and so on.
+    $turn = $dx;
+    $dx = ~demon_slayer_sign(calc($dx + $dz));
+    $dz = ~demon_slayer_sign(calc($dz - $turn));
+    $x = calc($x + $dx);
+    $z = calc($z + $dz);
+}
+
+[proc,demon_slayer_sign](int $n)(int)
+if ($n > 0) {
+    return(1);
+}
+if ($n < 0) {
+    return(-1);
+}
+return(0);
+
+// The three wizards about the table, and Denath (void-634's tiles).
+[proc,demon_slayer_circle_wizards](coord $denath)
+npc_add(~demon_slayer_circle_coord(3226, 3371), dark_wizard_8871, 0);
+npc_setmode(none);
+npc_facesquare(~demon_slayer_circle_coord(3227, 3370));
+npc_add(~demon_slayer_circle_coord(3229, 3371), dark_wizard_8872, 0);
+npc_setmode(none);
+npc_facesquare(~demon_slayer_circle_coord(3228, 3370));
+npc_add(~demon_slayer_circle_coord(3226, 3368), dark_wizard_8873, 0);
+npc_setmode(none);
+npc_facesquare(~demon_slayer_circle_coord(3227, 3369));
+npc_add($denath, denath_4663, 0);
+npc_setmode(none);
+npc_facesquare(~demon_slayer_circle_coord(3228, 3369));
+
+// Each wizard in turn: its summoning animation, or the words over its head.
+[proc,demon_slayer_circle_chant](boolean $say)
+if (npc_find(~demon_slayer_circle_coord(3226, 3371), dark_wizard_8871, 1, 0) = true) {
+    ~demon_slayer_circle_chanter($say);
+}
+if (npc_find(~demon_slayer_circle_coord(3229, 3371), dark_wizard_8872, 1, 0) = true) {
+    ~demon_slayer_circle_chanter($say);
+}
+if (npc_find(~demon_slayer_circle_coord(3226, 3368), dark_wizard_8873, 1, 0) = true) {
+    ~demon_slayer_circle_chanter($say);
+}
+if ($say = false & npc_find(~demon_slayer_circle_coord(3229, 3368), denath_4663, 1, 0) = true) {
+    npc_anim(seq_4617, 0);
+}
+
+[proc,demon_slayer_circle_chanter](boolean $say)
+if ($say = true) {
+    npc_say("Arise, Delrith!");
+    return;
+}
+npc_anim(seq_4617, 0); // void-634: summon_demon
+
+// The cutscene over, the wizards are dark wizards again: they go for the
+// player as theirs in the world do (the recording: one fights the player at
+// the ring's edge from 537s, Delrith waiting by the table).
+[proc,demon_slayer_circle_attack]
+if (npc_find(~demon_slayer_circle_coord(3226, 3371), dark_wizard_8871, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_setmode(null);
+}
+if (npc_find(~demon_slayer_circle_coord(3229, 3371), dark_wizard_8872, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_setmode(null);
+}
+if (npc_find(~demon_slayer_circle_coord(3226, 3368), dark_wizard_8873, 1, 0) = true) {
+    npc_anim(null, 0);
+    npc_setmode(null);
+}
+
+// Into the copy. A later visit finds him already summoned (void-634): Delrith
+// south of the table, Denath where he fled to.
+[label,demon_slayer_circle_enter]
+def_coord $from = coord;
+if (%delrith_seen_summoning_cutscene = ^true) {
+    ~demon_slayer_circle_build;
+    p_telejump(~demon_slayer_circle_coord(coordx($from), coordz($from)));
+    ~demon_slayer_circle_barrier;
+    ~demon_slayer_circle_wizards(~demon_slayer_circle_coord(3236, 3368));
+    npc_add(~demon_slayer_circle_coord(3227, 3367), delrith, 0);
+    softtimer(demon_slayer_circle_watch, 1);
+    ~demon_slayer_circle_attack;
+    return;
+}
+p_stopaction;
+if_openoverlay(fade_to_black);
+p_delay(2);
+~demon_slayer_circle_build;
+p_telejump(~demon_slayer_circle_coord(3222, 3367));
+~demon_slayer_circle_barrier;
+~demon_slayer_circle_wizards(~demon_slayer_circle_coord(3229, 3368));
+minimap_toggle(2);
+p_delay(1);
+facesquare(~demon_slayer_circle_coord(3227, 3369));
+~demon_slayer_circle_chant(false);
+if_openoverlay(fade_from_black);
+p_delay(2);
+if_openoverlay(null);
+cam_moveto(~demon_slayer_circle_coord(3224, 3376), 475, 232, 232);
+cam_lookat(~demon_slayer_circle_coord(3227, 3369), 300, 232, 232);
+cam_moveto(~demon_slayer_circle_coord(3231, 3376), 475, 1, 1);
+~chatnpc_specific("Denath", denath_4663, "<p,happy>Arise, O Mighty Delrith! Bring destruction to this soft, weak city!");
+~demon_slayer_circle_chant(true);
+~chatnpc_specific("Dark wizards", dark_wizard_8871, "<p,neutral>Arise, Delrith!");
+// The spell: ten ticks from the box to Denath's next line (523s to 529s), the
+// table alight at once and Delrith rising two seconds in (525s).
+~mesbox_np("The wizards cast an evil spell.");
+cam_reset;
+cam_lookat(~demon_slayer_circle_coord(3227, 3369), 100, 232, 232);
+cam_moveto(~demon_slayer_circle_coord(3227, 3365), 500, 232, 232);
+sound_synth(summon_npc, 1, 0);
+sound_synth(ds_table_explosion, 1, 0);
+if (loc_find(~demon_slayer_circle_coord(3227, 3369), qip_ds_stone_table) = true) {
+    loc_change(qip_ds_stone_table_explosion, 8);
+}
+p_delay(0);
+if (loc_find(~demon_slayer_circle_coord(3227, 3369), qip_ds_stone_table_explosion) = true) {
+    loc_anim(seq_12609); // void-634: demon_slayer_table_light
+}
+p_delay(0);
+// Four rocks fly from the table to the circle's corners (void-634's targets).
+~coord_projectile(~demon_slayer_circle_coord(3227, 3369), ~demon_slayer_circle_coord(3224, 3366), qip_ds_rock_flying_spotanim, 0, 0, 0, 16, 30, 0, 0);
+~coord_projectile(~demon_slayer_circle_coord(3227, 3370), ~demon_slayer_circle_coord(3231, 3366), qip_ds_rock_flying_spotanim, 0, 0, 0, 16, 30, 0, 0);
+~coord_projectile(~demon_slayer_circle_coord(3228, 3369), ~demon_slayer_circle_coord(3224, 3373), qip_ds_rock_flying_spotanim, 0, 0, 0, 16, 30, 0, 0);
+~coord_projectile(~demon_slayer_circle_coord(3228, 3370), ~demon_slayer_circle_coord(3231, 3373), qip_ds_rock_flying_spotanim, 0, 0, 0, 16, 30, 0, 0);
+p_delay(0);
+spotanim_map(qip_ds_rock_blast_spotanim, ~demon_slayer_circle_coord(3224, 3366), 0, 0);
+spotanim_map(qip_ds_rock_blast_spotanim, ~demon_slayer_circle_coord(3231, 3366), 0, 0);
+spotanim_map(qip_ds_rock_blast_spotanim, ~demon_slayer_circle_coord(3224, 3373), 0, 0);
+spotanim_map(qip_ds_rock_blast_spotanim, ~demon_slayer_circle_coord(3231, 3373), 0, 0);
+p_delay(0);
+// He rises off the stone table (loc 17454 at 3227,3369) and steps south
+// (void-634: delrith_appear, then to 3227,3367).
+%delrith_seen_summoning_cutscene = ^true;
+npc_add(~demon_slayer_circle_coord(3227, 3369), delrith, 0);
+npc_setmode(none);
+npc_anim(qip_ds_delrith_summoned, 0); // void-634: delrith_appear
+sound_synth(ds_break_table, 1, 10); // void-634: demon_slayer_break_table
+sound_synth(synth_2980, 1, 0); // void-634: demon_slayer_delrith_appear
+cam_lookat(~demon_slayer_circle_coord(3227, 3369), 400, 1, 1);
+p_delay(3);
+if (npc_find(~demon_slayer_circle_coord(3227, 3369), delrith, 2, 0) = true) {
+    npc_walk(~demon_slayer_circle_coord(3227, 3367));
+}
+p_delay(1);
+cam_reset;
+cam_moveto(~demon_slayer_circle_coord(3226, 3375), 500, 232, 232);
+cam_lookat(~demon_slayer_circle_coord(3227, 3367), 300, 232, 232);
+p_delay(0);
+~chatnpc_specific("Denath", denath_4663, "<p,laugh>Ha ha ha! At last you are free, my demonic brother! Rest now, and then have your revenge on this pitiful city!");
+~chatnpc_specific("Dark wizard", dark_wizard_8873, "<p,shock>Who's that?");
+~chatnpc_specific("Denath", denath_4663, "<p,shock>Noo! Not Silverlight! Delrith is not ready yet!");
+if (npc_find(~demon_slayer_circle_coord(3229, 3368), denath_4663, 2, 0) = true) {
+    npc_walk(~demon_slayer_circle_coord(3236, 3368));
+}
+cam_reset;
+cam_moveto(~demon_slayer_circle_coord(3226, 3383), 1000, 1, 1);
+~chatnpc_specific("Denath", denath_4663, "<p,shifty>I've got to get out of here.");
+cam_reset;
+minimap_toggle(0);
+softtimer(demon_slayer_circle_watch, 1);
+~demon_slayer_circle_attack;
+if (npc_find(~demon_slayer_circle_coord(3227, 3367), delrith, 3, 0) = true) {
+    npc_setmode(null);
+}
 
 // 289's: at no life points he is not killed but weakened (2011's Weakened
 // Delrith, whose only op is Banish), for 100 ticks, then himself again.
@@ -110,6 +370,8 @@ spotanim_pl(spotanim_778, 0, 0); // void-634: silverlight_sparkle
 %delrith_incantation_3 = 0;
 %delrith_incantation_4 = 0;
 %delrith_incantation_5 = 0;
+// Out of the copy, to the same tile of the world's circle (void-634).
+~demon_slayer_circle_leave;
 session_log(^log_adventure, "Quest complete: Demon Slayer");
 // 2011's scroll (2011-04-20 bHxrbaUN3AI, 592s): "quest" in lower case, on one line.
 ~send_quest_complete2(^questlist_demon, silverlight, 250, ^demon_questpoints, "You have completed the Demon Slayer quest!", "Silverlight");
