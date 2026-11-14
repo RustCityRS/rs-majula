@@ -4,9 +4,8 @@
 // coin, she tells how Wally beat Delrith, and the incantation differs per
 // player. Her lines are void-634's (GypsyAris.kt) unless marked.
 //
-// Waiting: 2011 shows Wally's story as a cutscene (void-634 plays it in an
-// instance of the stone circle, the player as Wally, with camera moves and
-// "Wally the Hero"); without instances it is her and Wally's lines.
+// 2011 shows Wally's story as a cutscene in a copy of the stone circle
+// ([label,gypsy_aris_how_wally_won]).
 [opnpc1,gypsy_aris_9362]
 if (%demonslayer_main = ^demon_not_started) {
     ~chatnpc("<p,neutral>Hello, young one.");
@@ -150,18 +149,109 @@ switch_int (~p_choice3_header("How am I meant to fight a demon who can destroy c
 
 // Wally's story. It deals this player's incantation (void-634 deals it again
 // each time it is told), and then the quest is under way.
+//
+// 2011 plays it as a cutscene in a copy of the stone circle. Read from the
+// 2011-04-20 recording (YouTube bHxrbaUN3AI), seconds into it:
+//   103  the tent fades to black; the minimap is black to the end;
+//   105  Gypsy Aris: "Wally managed to arrive at the stone circle just as
+//        Delrith was summoned by a cult of chaos druids..." over a low shot
+//        across the stone table;
+//   109  Wally: "Die, foul demon!" with no continue, as he runs in sword out
+//        and strikes;
+//   114  Wally: "Now, what was that incantation again?";
+//   115  Wally says the five words;
+//   126  a fade to black;
+//   128  Wally: "I am the greatest demon slayer EVER!" by the stone table, the
+//        sword held up, seen from a little way off;
+//   129  Gypsy Aris: "By reciting the correct magical incantation...";
+//   131  a fade, "Loading - please wait", and at 135 the tent again.
+// Not from the recording, so void-634's (GypsyAris.kt), each to be checked
+// against it in the client: the tiles, the camera's tiles and heights, its
+// shakes, and the animations and sounds by id (cache 786 has each). void turns
+// the player into Wally; here Wally is his own npc (cache 786's wally) and the
+// player waits out of shot, which no source decides between.
 [label,gypsy_aris_how_wally_won]
 ~chatplayer("<p,quiz>So, how did Wally kill Delrith?");
-~chatnpc("<p,neutral>Wally managed to arrive at the stone circle just as Delrith was summoned by a cult of chaos druids...");
-~chatnpc_specific("Wally", wally, "<p,angry>Die, foul demon!");
+def_coord $tent = coord;
+def_npc_uid $aris = npc_uid;
+if_openoverlay(fade_to_black);
+p_delay(2);
+~demon_slayer_circle_build($tent);
+p_telejump(~demon_slayer_circle_coord(3190, 3334));
+minimap_toggle(2);
+npc_add(~demon_slayer_circle_coord(3225, 3363), wally, 0);
+npc_setmode(none);
+p_delay(1);
+cam_moveto(~demon_slayer_circle_coord(3227, 3369), 300, 232, 232);
+cam_lookat(~demon_slayer_circle_coord(3229, 3367), 250, 232, 232);
+cam_shake(1, 0, 10, 10);
+cam_shake(3, 0, 90, 1);
+sound_synth(rumbling, 1, 0);
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
+~chatnpc_specific("Gypsy Aris", gypsy_aris, "<p,neutral>Wally managed to arrive at the stone circle just as Delrith was summoned by a cult of chaos druids...");
+// He runs in from the south and strikes at the table (void-634: to 3227,3367,
+// wally_demon_slay), four seconds under his line.
+cam_lookat(~demon_slayer_circle_coord(3227, 3367), 200, 2, 10);
+cam_shake(3, 0, 0, 0);
+sound_synth(rumbling, 1, 0);
+~chatnpc_specific_np("Wally", wally, "<p,angry>Die, foul demon!");
+if (npc_find(~demon_slayer_circle_coord(3225, 3363), wally, 2, 0) = true) {
+    npc_run(1);
+    npc_walk(~demon_slayer_circle_coord(3227, 3367));
+}
+p_delay(2);
+cam_lookat(~demon_slayer_circle_coord(3227, 3367), 100, 1, 10);
+if (npc_find(~demon_slayer_circle_coord(3227, 3367), wally, 2, 0) = true) {
+    npc_facesquare(~demon_slayer_circle_coord(3227, 3369));
+    npc_anim(seq_4603, 0); // void-634: wally_demon_slay
+}
+sound_synth(ds_wally_sword, 1, 10);
+p_delay(3);
+cam_reset;
+cam_moveto(~demon_slayer_circle_coord(3227, 3369), 100, 2, 10);
+cam_shake(1, 0, 10, 5);
+cam_shake(3, 0, 2, 50);
+sound_synth(rumbling, 1, 0);
 ~chatnpc_specific("Wally", wally, "<p,quiz>Now, what was that incantation again?");
 ~demon_slayer_deal_incantation;
 ~chatnpc_specific("Wally", wally, "<p,angry><~demon_slayer_word(1)>... <~demon_slayer_word(2)>... <~demon_slayer_word(3)>... <~demon_slayer_word(4)>... <~demon_slayer_word(5)>!");
+if_openoverlay(fade_to_black);
+p_delay(3);
+cam_reset;
+cam_shake(1, 0, 0, 0);
+cam_shake(3, 0, 0, 0);
+cam_moveto(~demon_slayer_circle_coord(3225, 3363), 500, 232, 232);
+cam_lookat(~demon_slayer_circle_coord(3227, 3367), 200, 232, 232);
+if (npc_find(~demon_slayer_circle_coord(3227, 3367), wally, 2, 0) = true) {
+    npc_facesquare(~demon_slayer_circle_coord(3226, 3366));
+    npc_anim(seq_12625, 0); // void-634: silverlight_showoff
+    spotanim_npc(spotanim_778, 0, 0); // void-634: silverlight_sparkle
+}
+sound_synth(equip_silverlight, 1, 0);
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
 ~chatnpc_specific("Wally", wally, "<p,happy>I am the greatest demon slayer EVER!");
-~chatnpc("<p,neutral>By reciting the correct magical incantation, and thrusting Silverlight into Delrith while he was newly summoned, Wally was able to imprison Delrith in the stone table at the centre of the circle.");
+~chatnpc_specific("Gypsy Aris", gypsy_aris, "<p,neutral>By reciting the correct magical incantation, and thrusting Silverlight into Delrith while he was newly summoned, Wally was able to imprison Delrith in the stone table at the centre of the circle.");
+// Back to her tent, where the player stood.
+if_openoverlay(fade_to_black);
+p_delay(2);
+p_telejump($tent);
+cam_reset;
+minimap_toggle(0);
+p_delay(1);
+if_openoverlay(fade_from_black);
+p_delay(1);
+if_openoverlay(null);
 if (%demonslayer_main = ^demon_not_started) {
     %demonslayer_main = ^demon_sir_prysin;
     ~send_quest_progress(^questlist_demon, %demonslayer_main, ^demon_complete);
+}
+// The talk goes on with her: the script left her behind for the copy.
+if (npc_finduid($aris) = false) {
+    return;
 }
 ~chatnpc("<p,sad>Delrith will come forth from the stone circle again.");
 ~chatnpc("<p,sad>I would imagine an evil sorcerer is already beginning the rituals to summon Delrith as we speak.");

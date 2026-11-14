@@ -315,19 +315,59 @@ fn gypsy_aris_deals_the_incantation_and_starts_the_quest() {
             0,
             &[("coins", 10)],
         );
-        let talk = converse(
+        let tent = engine.harness_player(client.pid).unwrap().pathing.coord;
+        let mut talk = converse(
             engine,
             &mut client,
             &[
                 "Okay, here you go.",
                 "How am I meant to fight",
                 "So, how did Wally kill Delrith?",
-                "What is the magical incantation?",
-                "Ok thanks.",
             ],
             600,
         );
-        assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
+        // 2011 (2011-04-20 recording, bHxrbaUN3AI, 103s-135s): Wally's story is a cutscene in
+        // a copy of the stone circle, with fades and a line under which he runs in: the talk
+        // picks up again after each gap; her menu, when it is back, is answered in the round
+        // that meets it (its options are read as the box opens).
+        let after = ["What is the magical incantation?", "Ok thanks."];
+        let mut unanswered = None;
+        let mut away = false;
+        for round in 0..8 {
+            let Some(player) = engine.harness_player(client.pid) else {
+                panic!(
+                    "the player left the game in round {round}: {:?} {:?}",
+                    &talk.texts[talk.texts.len().saturating_sub(10)..],
+                    engine.script_errors.take()
+                );
+            };
+            let at = player.pathing.coord;
+            away |= at.x().abs_diff(tent.x()) > 200 || at.z().abs_diff(tent.z()) > 200;
+            let more = converse(engine, &mut client, &after, 40);
+            unanswered = more.unanswered;
+            talk.texts.extend(more.texts);
+            if unanswered.is_some() || talk.said("Ok thanks.") {
+                break;
+            }
+        }
+        assert!(away, "the story is told in a copy of the circle");
+        for line in [
+            "Wally managed to arrive at the stone circle",
+            "Die, foul demon!",
+            "Now, what was that incantation again?",
+            "I am the greatest demon slayer EVER!",
+            "By reciting the correct magical incantation",
+            "Delrith will come forth from the stone circle again.",
+        ] {
+            assert!(talk.said(line), "2011 has {line:?}; {:?}", talk.texts);
+        }
+        let back = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!(
+            (back.x(), back.z()),
+            (tent.x(), tent.z()),
+            "back in the tent"
+        );
+        assert_eq!(unanswered, None, "{:?}", talk.texts);
         no_script_errors(engine, "the gypsy");
         let at = demon(engine, &client);
         assert_eq!(at.stage, 1, "the quest is started");

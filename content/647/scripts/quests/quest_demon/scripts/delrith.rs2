@@ -56,7 +56,7 @@ cleartimer(demon_slayer_stone_circle);
 
 // The player's copy of the circle: 96 by 96 tiles about the stone table, two
 // zones in from the region's corner (as Unstable Foundations' house copy).
-[proc,demon_slayer_circle_build]
+[proc,demon_slayer_circle_build](coord $exit)
 region_create(1, 14, 14);
 def_int $a = 0;
 def_int $b = 0;
@@ -68,7 +68,7 @@ while ($a < 12) {
     }
     $a = calc($a + 1);
 }
-region_setexitcoord(0_50_52_22_39);
+region_setexitcoord($exit);
 
 // A world tile of the circle in the copy the player stands in.
 [proc,demon_slayer_circle_coord](int $x, int $z)(coord)
@@ -237,7 +237,7 @@ if (npc_find(~demon_slayer_circle_coord(3226, 3368), dark_wizard_8873, 1, 0) = t
 [label,demon_slayer_circle_enter]
 def_coord $from = coord;
 if (%delrith_seen_summoning_cutscene = ^true) {
-    ~demon_slayer_circle_build;
+    ~demon_slayer_circle_build(0_50_52_22_39);
     p_telejump(~demon_slayer_circle_coord(coordx($from), coordz($from)));
     ~demon_slayer_circle_barrier;
     ~demon_slayer_circle_wizards(~demon_slayer_circle_coord(3236, 3368));
@@ -249,7 +249,7 @@ if (%delrith_seen_summoning_cutscene = ^true) {
 p_stopaction;
 if_openoverlay(fade_to_black);
 p_delay(2);
-~demon_slayer_circle_build;
+~demon_slayer_circle_build(0_50_52_22_39);
 p_telejump(~demon_slayer_circle_coord(3222, 3367));
 ~demon_slayer_circle_barrier;
 ~demon_slayer_circle_wizards(~demon_slayer_circle_coord(3229, 3368));
