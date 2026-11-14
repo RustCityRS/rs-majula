@@ -29363,6 +29363,10 @@ unknown170=960
 desc=The entrance to the Heroes' Guild.
 
 // 2625
+// 289's (areas/areas_heroes_guild configs): the guild's double door opens by these.
+category=double_door_open_and_close_left
+param=next_loc_stage,inaccastledoubledoorl
+
 [herodoor_r]
 active=yes
 op1=Open
@@ -29379,6 +29383,10 @@ unknown170=960
 desc=The entrance to the Heroes' Guild.
 
 // 2626
+// 289's (areas/areas_heroes_guild configs): the guild's double door opens by these.
+category=double_door_open_and_close_right
+param=next_loc_stage,inaccastledoubledoorr
+
 [grubordoor]
 active=yes
 op1=Open

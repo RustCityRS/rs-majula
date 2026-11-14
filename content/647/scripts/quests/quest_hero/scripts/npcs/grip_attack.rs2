@@ -1,9 +1,0 @@
-// From 289's grip.rs2: the proc other ported content calls,
-// until the rest of that file is ported.
-[proc,grip_attack]()(boolean)
-if (%heroquest >= ^hero_phoenix_talked_charlie & %blackarmgang >= ^phoenixgang_complete) {
-  return(true);
-}
-~chatplayer("<p,neutral>I can't attack the head guard here! There are too many witnesses around to see me do it! I'd have the whole of Brimhaven after me! Besides, if he dies I want the promotion!");
-~mesbox("Perhaps you need another player's help...?");
-return(false);
