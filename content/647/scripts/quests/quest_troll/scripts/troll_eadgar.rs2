@@ -67,9 +67,11 @@ switch_int(~p_choice2("I'd like some mountain goat stew, please.", 1, "No thanks
         sound_synth(eat, 1, 0);
         p_delay(1);
         mes("You eat the mountain goat stew.");
-        if (stat(hitpoints) < stat_base(hitpoints)) {
+        // 289's stat_heal(hitpoints, 20, 0), said only when below full, on 2011's life points (ten to a
+        // hitpoint).
+        if (%life_points < calc(stat(hitpoints) * 10)) {
             mes("It heals some health.");
-            stat_heal(hitpoints, 20, 0);
+            ~heal_lifepoints(200);
         }
     case 2 : @eadgar_nothanks;
 }

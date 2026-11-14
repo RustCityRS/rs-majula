@@ -607,7 +607,8 @@ fn the_secret_door_is_learnt_from_inside() {
     });
 }
 
-/// 2011's arena: the west gate lets the player in and Dad is there to say his line; the
+/// 2011's arena: the west gate lets the player in and Dad is there (added by the gate when he is
+/// not) to say his line; the
 /// north-east gate stays shut until he is beaten.
 #[test]
 fn dad_guards_the_arenas_far_gate() {
@@ -615,10 +616,6 @@ fn dad_guards_the_arenas_far_gate() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "ts_arena", STARTED);
         seasoned(engine, &client);
-        assert!(
-            npcs(engine, "troll_champion").is_empty(),
-            "Dad is added by the gate"
-        );
         tele(engine, &mut client, WEST_GATE, 0);
         let t = op_loc(
             engine,
@@ -680,6 +677,63 @@ fn dad_guards_the_arenas_far_gate() {
             coord(engine, &client)
         );
         no_errors(engine);
+    });
+}
+
+/// Dad gives in when a blow lands with him under a sixth of his life (289: under 20 of his 120
+/// hitpoints; cache 786's Dad has 1,200 life points, so under 200). He is not killed: he stands
+/// there at full life again, and the quest moves on.
+#[test]
+fn dad_gives_in_before_he_dies() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ts_dad", STARTED);
+        seasoned(engine, &client);
+        tele(engine, &mut client, WEST_GATE, 0);
+        op_loc(
+            engine,
+            &mut client,
+            1,
+            "trollheim_trollgate_left",
+            WEST_GATE,
+            &[],
+        );
+        let (nid, ..) = npcs(engine, "troll_champion")
+            .into_iter()
+            .next()
+            .expect("Dad is added");
+        let hp = rs_pack::types::NpcStat::Hitpoints as usize;
+        for tick in 0..300 {
+            if stage(engine, &client) == DEFEATED_DAD {
+                break;
+            }
+            let Some(n) = engine.get_npc_mut(nid) else {
+                break;
+            };
+            let c = n.npc.pathing.coord;
+            let stats = &mut n.npc.stats.levels;
+            // Held between 289's 20 and 2011's 200: a blow that lands should end it, and none
+            // can take him under 20 first.
+            stats[hp] = 150;
+            stats[rs_pack::types::NpcStat::Defence as usize] = 1;
+            if tick % 6 == 0 {
+                let at = (c.x().wrapping_sub(1), c.z());
+                if walkable(at.0, 0, at.1) {
+                    engine.harness_telejump(client.pid, at.0, 0, at.1);
+                }
+                let mut p = ClientPacket::new();
+                p.p1_alt2(0).p2_alt3(nid as i32);
+                client.send(ClientProt::OpNpc2, &p.finish());
+            }
+            engine.cycle();
+            client.packets();
+        }
+        assert_eq!(stage(engine, &client), DEFEATED_DAD, "Dad is beaten");
+        let n = engine
+            .get_npc_mut(nid)
+            .expect("Dad is still there: he gave in, he did not die");
+        assert_eq!(n.npc.stats.levels[hp], 1200, "and is at full life again");
+        let _ = engine.script_errors.take();
     });
 }
 

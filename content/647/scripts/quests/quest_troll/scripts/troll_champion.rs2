@@ -106,7 +106,8 @@ if(npc_getmode = opplayer2 | npc_getmode = applayer2) {
 // then reapply it once damage queue runs, and it doesnt apply on mage splash
 if(finduid(%npc_aggressive_player) = true) {
     if_close; 
-    if(npc_stat(hitpoints) < 20 & p_finduid(%npc_aggressive_player) = true) { // should be correct, confirmed doesnt queue
+    // 289: under 20 of his 120 hitpoints. Cache 786's Dad has 1,200 life points, ten to a hitpoint.
+    if(npc_stat(hitpoints) < 200 & p_finduid(%npc_aggressive_player) = true) { // should be correct, confirmed doesnt queue
         @defeat_dad;
     }
     hint_npc;
