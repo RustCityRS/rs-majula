@@ -49,11 +49,12 @@ if(%death_equiproom = ^death_given_iou) %death_equiproom = ^death_found_combo;
 
 [opheld1,death_combination]
 // https://web.archive.org/web/20061231212357/http://www.runeweb.net/index.php?page=rs2-quest-deathplateau
-if_settext(messagescroll_handwriting:com_2, "Red is North of Blue.");
-if_settext(messagescroll_handwriting:com_3, "Yellow is South of Purple.");
-if_settext(messagescroll_handwriting:com_4, "Green is North of Purple.");
-if_settext(messagescroll_handwriting:com_5, "Blue is West of Yellow.");
-if_settext(messagescroll_handwriting:com_6, "Purple is East of Red.");
+// Cache 786's interface 222 names its lines messagescroll1_hw..11_hw; 289's com_2..com_6 are lines 2 to 6.
+if_settext(messagescroll_handwriting:messagescroll2_hw, "Red is North of Blue.");
+if_settext(messagescroll_handwriting:messagescroll3_hw, "Yellow is South of Purple.");
+if_settext(messagescroll_handwriting:messagescroll4_hw, "Green is North of Purple.");
+if_settext(messagescroll_handwriting:messagescroll5_hw, "Blue is West of Yellow.");
+if_settext(messagescroll_handwriting:messagescroll6_hw, "Purple is East of Red.");
 if_openmain(messagescroll_handwriting);
 
 // 2011 (cache 786's map): both of Tenzing's doors are death_sherpa_door, the front one at
