@@ -494,7 +494,14 @@ fn alco_chunks_catch_a_parrot() {
             HATCH,
             0,
         );
-        says(&t, &["You manage to attract a parrot and catch it."]);
+        says(
+            &t,
+            &[
+                "You manage to attract a parrot and catch it.",
+                "Sqwaawk...*hic*",
+                "It looks drunk! You should NEVER feed alcohol to a parrot!",
+            ],
+        );
         settle(engine, &mut client, 3);
         assert_eq!(held(engine, &client, "eadgar_drunk_parrot"), 1);
         assert_eq!(held(engine, &client, "eadgar_alco_chunks"), 0);
