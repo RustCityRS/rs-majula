@@ -101,6 +101,26 @@ while ($page < $pagetotal) {
     $page = calc($page + 1)
 }
 
+// A line spoken as the npc named with no "Click here to continue" (cache 786's npcchat_np1-4,
+// interfaces 245-248, laid out as npcchat1-4): the script goes on under it, as mesbox_np's does.
+[proc,chatnpc_specific_np](string $npc_name, npc $npc, string $string)
+split_init($string, 380, 4, q8_full)
+def_int $lines = split_linecount(0)
+if ($lines = 0) {
+    return
+}
+def_int $iface = calc(244 + $lines)
+def_int $hash = calc($iface * 65536)
+if_setnpchead(calc($hash + 2), $npc)
+if_setanim(calc($hash + 2), split_getanim(0))
+if_settext(calc($hash + 3), $npc_name)
+def_int $line = 0
+while ($line < $lines) {
+    if_settext(calc($hash + 4 + $line), split_get(0, $line))
+    $line = calc($line + 1)
+}
+if_openchat($iface)
+
 // ── Message Box ─────────────────────────────────────────────────────────────
 
 [proc,mesbox_page](int $page)
