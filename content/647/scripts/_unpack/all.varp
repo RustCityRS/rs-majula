@@ -1796,7 +1796,11 @@ transmit=yes
 transmit=yes
 
 // 395
-[varplayer_395]
+[waterfall_golrie_and_puzzle]
+// 289's waterfall_golrie_and_puzzle (varp 66 there). 647's varp 66 is taken (the starter
+// weapons' count, drop tables/starter_weapons.rs2), so it sits on 395: cache 786 does not
+// transmit varp 395, 289 has no varp of that id, and no 647 content read it.
+scope=perm
 
 // 396
 [waa_varbits]
