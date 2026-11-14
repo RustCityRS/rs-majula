@@ -1,13 +1,13 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::ModelCategory;
 use super::UnpackedPacks;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::emit_params;
 use crate::cache::npc::NpcTypeRaw;
 use rs_ver::TypeId;
 use std::collections::HashMap;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn name_for_model(id: TypeId, registry: &UnpackedPacks) -> String {
     let id = id.g2();
     registry
@@ -16,7 +16,7 @@ fn name_for_model(id: TypeId, registry: &UnpackedPacks) -> String {
         .unwrap_or_else(|| format!("model_{id}_npc"))
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn name_for_head_model(id: TypeId, registry: &UnpackedPacks) -> String {
     let id = id.g2();
     registry
@@ -25,12 +25,12 @@ fn name_for_head_model(id: TypeId, registry: &UnpackedPacks) -> String {
         .unwrap_or_else(|| format!("model_{id}_npc_head"))
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn name_for_model(id: TypeId, registry: &UnpackedPacks) -> String {
     registry.reference("model", id)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn name_for_head_model(id: TypeId, registry: &UnpackedPacks) -> String {
     registry.reference("model", id)
 }
@@ -43,7 +43,7 @@ pub fn emit_npc_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         for &id in def.models.as_deref().unwrap_or_default() {
             super::model_ref(id, "npc", ModelCategory::Npc, registry);
@@ -102,7 +102,7 @@ pub fn emit_npc_props(
     }
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             {
                 p.push((
                     40,
@@ -115,7 +115,7 @@ pub fn emit_npc_props(
                     super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
                 ));
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, src[i], dst[i], _reverse_hsl);
                 p.push((40, ks, vs));
@@ -123,7 +123,7 @@ pub fn emit_npc_props(
             }
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let (Some(src), Some(dst)) = (&def.retex_s, &def.retex_d) {
         for i in 0..src.len() {
             p.push((
@@ -138,7 +138,7 @@ pub fn emit_npc_props(
             ));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(palette) = &def.colour_palette {
         for (i, c) in palette.iter().enumerate() {
             p.push((42, format!("colour{}", i + 1), c.to_string()));
@@ -165,7 +165,7 @@ pub fn emit_npc_props(
         p.push((93, "minimap".into(), "no".into()));
     }
     if opcode == 95 {
-        if cfg!(before_647) && def.vislevel == Some(0) {
+        if cfg!(before_530) && def.vislevel == Some(0) {
             p.push((95, "vislevel".into(), "hide".into()));
         } else {
             p.push((95, "vislevel".into(), def.vislevel.unwrap_or(0).to_string()));
@@ -201,7 +201,7 @@ pub fn emit_npc_props(
     if opcode == 103 {
         p.push((103, "turnspeed".into(), def.turnspeed.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(transforms) = &def.transforms {
         let has_default = (opcode == 118) || transforms.last().is_some_and(|id| !id.is_null());
         p.extend(super::multi_lines(
@@ -216,19 +216,19 @@ pub fn emit_npc_props(
             registry,
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !def.clickable {
         p.push((107, "active".into(), "no".into()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !def.slowwalk {
         p.push((109, "walksmoothing".into(), "no".into()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !def.animateidle {
         p.push((111, "spotshadow".into(), "no".into()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 113 {
         p.push((
             113,
@@ -239,7 +239,7 @@ pub fn emit_npc_props(
             ),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 114 {
         p.push((
             114,
@@ -250,33 +250,41 @@ pub fn emit_npc_props(
             ),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    if let Some((a, b)) = def.unknown_115 {
+        p.push((115, "unknown115".into(), format!("{a},{b}")));
+    }
+    #[cfg(since_530)]
     if opcode == 119 {
         p.push((119, "unknown119".into(), def.walkmask.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(translations) = &def.translations {
         for (index, [x, y, z]) in translations.iter() {
             p.push((121, format!("modeloffset{index}"), format!("{x},{y},{z}")));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(hitbar_sprite) = def.hitbar_sprite {
         p.push((122, "unknown122".into(), hitbar_sprite.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(height) = def.height {
         p.push((123, "overlayheight".into(), height.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 125 {
         p.push((125, "respawndir".into(), def.respawn_direction.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    if let Some(value) = def.unknown_126 {
+        p.push((126, "unknown126".into(), value.to_string()));
+    }
+    #[cfg(since_530)]
     if let Some(render_emote) = def.render_emote {
         p.push((127, "bas".into(), registry.reference("bas", render_emote)));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 128 {
         let mode = match def.op128 {
             0 => "crawl".to_owned(),
@@ -286,8 +294,11 @@ pub fn emit_npc_props(
         };
         p.push((128, "defaultmovemode".into(), mode));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 134 {
+        #[cfg(all(since_530, before_647))]
+        let kind = "synth";
+        #[cfg(since_647)]
         let kind = if def.vorbis { "vorbis" } else { "synth" };
         let sounds = [
             def.idle_sound,
@@ -302,29 +313,25 @@ pub fn emit_npc_props(
             format!("{},{}", sounds.join(","), def.sound_distance),
         ));
     }
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     if let (Some(cursor), Some(op)) = (def.primary_cursor, def.primary_cursor_op) {
         p.push((
             135,
             "cursor1".into(),
-            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+            format!("{},{}", op + 1, registry.cursor(cursor)),
         ));
     }
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     if let (Some(cursor), Some(op)) = (def.secondary_cursor, def.secondary_cursor_op) {
         p.push((
             136,
             "cursor2".into(),
-            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+            format!("{},{}", op + 1, registry.cursor(cursor)),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(attack_cursor) = def.attack_cursor {
-        p.push((
-            137,
-            "cursorattack".into(),
-            registry.reference("cursor", attack_cursor),
-        ));
+        p.push((137, "cursorattack".into(), registry.cursor(attack_cursor)));
     }
     #[cfg(since_647)]
     if let Some(army_icon) = def.army_icon {
@@ -438,7 +445,7 @@ pub fn emit_npc_props(
             ));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 249 {
         p.extend(emit_params(_data, registry));
     }

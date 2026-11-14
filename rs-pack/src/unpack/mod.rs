@@ -1,95 +1,95 @@
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, CONFIG, CONFIG_EMPTY_TABLES};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::{JagArchive, JagSource, config_jag_name};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::raw_extension;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::pack::FileCache;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::pack::pack_configs;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::palette::detect_scan_cols;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::versionlist::{
     TABLE_NAMES, VersionList, VersionListMeta, read_i32_table, read_u16_table,
 };
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::{CONFIG_TYPE_CRCS, CONTENT_DIR, PACK_DIR, config_crc, sheet, tga};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::{CONFIG_TYPE_CRCS, PACK_DIR};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Result, bail, ensure};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use configdiff::ConfigDiffReport;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use model::build_model_textures;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use report::{CrcReport, LeftoverReport, PackDiffReport};
-#[cfg(since_647)]
-use report::{StepResult, step, write_report};
-#[cfg(before_647)]
+#[cfg(since_530)]
+use report::{StepResult, note, step, write_report};
+#[cfg(before_530)]
 use rs_io::Packet;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use rs_io::crc::getcrc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::{JagCompression, JagFile};
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::collections::{HashMap, HashSet};
 use std::fs;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::fs::File;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::io::Write;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::rc::Rc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::thread;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use symbols::discover_symbols;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::info;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::{debug, warn};
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod binary_assets;
 pub mod config;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub mod configdiff;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod cs2;
 pub mod interface;
 pub mod map;
 pub mod media;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub mod model;
-#[cfg(before_647)]
+#[cfg(before_530)]
 mod namecrack;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod names;
 pub mod report;
 #[cfg(since_647)]
 pub mod shaders;
 pub mod song;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub mod sound;
-#[cfg(since_647)]
+#[cfg(since_530)]
 mod symbols;
 pub mod texture;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub mod title;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub mod wordenc;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 const CONFIG_ENTRY_NAMES: &[&str] = &[
     "seq.dat",
     "seq.idx",
@@ -129,15 +129,15 @@ const CONFIG_ENTRY_NAMES: &[&str] = &[
     "hunt.idx",
 ];
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 const INTERFACE_ENTRY_NAMES: &[&str] = &["data"];
 
 pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         unpack_cache(expected_dir, output_dir, pack_dir)
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         debug!("Unpacking assets...");
         debug!("  expected: {}", expected_dir.display());
@@ -411,7 +411,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn pack_committed_configs() -> anyhow::Result<HashMap<String, PackedFile>> {
     pack_configs(
         &Path::new(CONTENT_DIR).join("scripts"),
@@ -420,7 +420,7 @@ fn pack_committed_configs() -> anyhow::Result<HashMap<String, PackedFile>> {
     )
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn same_dir(a: &Path, b: &Path) -> bool {
     match (fs::canonicalize(a), fs::canonicalize(b)) {
         (Ok(ca), Ok(cb)) => ca == cb,
@@ -428,7 +428,7 @@ fn same_dir(a: &Path, b: &Path) -> bool {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn prepare_jag(
     kind: JagArchive,
     bytes: Option<Vec<u8>>,
@@ -444,7 +444,7 @@ fn prepare_jag(
     Some(jag)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn config_known_hashes() -> Vec<i32> {
     CONFIG_ENTRY_NAMES
         .iter()
@@ -452,7 +452,7 @@ fn config_known_hashes() -> Vec<i32> {
         .collect()
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn interface_known_hashes() -> Vec<i32> {
     INTERFACE_ENTRY_NAMES
         .iter()
@@ -460,12 +460,12 @@ fn interface_known_hashes() -> Vec<i32> {
         .collect()
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 fn versionlist_known_hashes() -> Vec<i32> {
     TABLE_NAMES.iter().map(|n| JagFile::hash(n)).collect()
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &mut Js5Store, crc_report: &mut CrcReport) {
     let tables = [
         (archive::MODELS, "model", "model_version", "model_crc"),
@@ -491,7 +491,7 @@ fn collect_js5_ondemand_crcs(vl_jag: &JagFile, cache: &mut Js5Store, crc_report:
     }
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 fn collect_js5_leftovers(
     cache: &mut Js5Store,
     expected_dir: &Path,
@@ -551,7 +551,7 @@ fn collect_js5_leftovers(
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 /// A sprite group decoded from the cache: tile size, palette (RGB triplets,
 /// entry 0 magenta), and per-frame index buffers (`tile_w * tile_h` each).
 pub struct DecodedGroup {
@@ -565,7 +565,7 @@ pub struct DecodedGroup {
     pub scan_cols: Option<usize>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl DecodedGroup {
     /// Check the cache palette against the default scan grid and record the
     /// column count to stamp when a bespoke layout is needed.
@@ -575,7 +575,7 @@ impl DecodedGroup {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 /// Decode one sprite group's `index.dat` metadata and `.dat` pixel data into
 /// per-frame index buffers. Returns `None` if the group is empty or invalid.
 pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> {
@@ -637,7 +637,7 @@ pub fn decode_group(index_data: &[u8], dat_data: &[u8]) -> Option<DecodedGroup> 
     })
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 /// Write one decoded group as an indexed sprite sheet TGA at `path`. The palette
 /// goes in the color map, the grid dimensions (and any scan-grid column stamp)
 /// in the image ID.
@@ -648,7 +648,7 @@ pub fn write_group_sheet(path: &Path, g: &DecodedGroup) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 /// Write a `meta/index.order` sidecar: group keys in `index.dat` order.
 pub fn write_index_order(archive_dir: &Path, keys: &[String]) -> anyhow::Result<()> {
     let meta = archive_dir.join("meta");
@@ -658,7 +658,7 @@ pub fn write_index_order(archive_dir: &Path, keys: &[String]) -> anyhow::Result<
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn dump_jag_entries(
     jag: &JagFile,
     output_dir: &Path,
@@ -690,7 +690,7 @@ pub fn dump_jag_entries(
     Ok(jag_order)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8> {
     let order: Vec<String> = fs::read_to_string(raw_dir.join("_jag_order.txt"))
         .unwrap_or_default()
@@ -708,7 +708,7 @@ pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8>
     jag.build(compression)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn prepare_pack(pack_dir: &Path) -> Result<()> {
     fs::create_dir_all(pack_dir)?;
     for entry in fs::read_dir(PACK_DIR)? {
@@ -722,7 +722,7 @@ fn prepare_pack(pack_dir: &Path) -> Result<()> {
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<()> {
     let configs = FileCache::new(&output_dir.join("scripts"));
     if let Some(path) = CONFIG_TYPE_CRCS
@@ -744,10 +744,23 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
     info!("Discovering pack registries from cache...");
     let report = discover_symbols(expected_dir, pack_dir, false)?;
     info!("  {} registry types processed", report.types.len());
+    let mut absent = Vec::new();
     step(&mut results, "archive metadata", || {
-        let store = Js5Store::open(expected_dir)?;
-        asset::unpack_metadata(&store, pack_dir, output_dir).map(|n| format!("{n} archives"))
+        let mut store = Js5Store::open(expected_dir)?;
+        let (count, groups) = asset::unpack_metadata(&mut store, pack_dir, output_dir)?;
+        absent = groups;
+        Ok(format!("{count} archives"))
     });
+    if !absent.is_empty() {
+        note(
+            &mut results,
+            "absent groups",
+            format!(
+                "{} listed without data; versions keep their crc",
+                absent.join(", ")
+            ),
+        );
+    }
     unpack_configs(&mut results, expected_dir, pack_dir, &config_dir);
     step(&mut results, "clientscripts", || {
         cs2::unpack_cs2_scripts(expected_dir, output_dir, pack_dir).map(|n| format!("{n} scripts"))
@@ -762,7 +775,7 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
 }
 
 /// Writes only the config tables, under `<output>/_unpack`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn unpack_configs_only(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<()> {
     fs::create_dir_all(output_dir.join("_unpack"))?;
     let mut results = Vec::new();
@@ -770,7 +783,7 @@ pub fn unpack_configs_only(cache_dir: &Path, output_dir: &Path, pack_dir: &Path)
     write_report(&results, &output_dir.join("unpack_report.txt"))
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn unpack_configs(
     results: &mut Vec<StepResult>,
     cache_dir: &Path,
@@ -793,7 +806,7 @@ fn unpack_configs(
     });
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn unpack_empty_table(
     store: &mut Js5Store,
     group_id: u32,
@@ -822,7 +835,7 @@ fn unpack_empty_table(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn unpack_assets(
     results: &mut Vec<StepResult>,
     cache_dir: &Path,
@@ -874,7 +887,9 @@ fn unpack_assets(
         archive::FONTMETRICS,
         archive::INSTRUMENTS,
         archive::WORLDMAP,
+        #[cfg(since_647)]
         archive::DEFAULTS,
+        #[cfg(since_647)]
         archive::LOADING_SCREENS,
     ] {
         let format = archive::archive_format(aid).unwrap();
@@ -888,15 +903,17 @@ fn unpack_assets(
         let mut store = Js5Store::open(cache_dir)?;
         asset::unpack_materials(&mut store, pack_dir, output_dir).map(|n| format!("{n} materials"))
     });
+    #[cfg(since_647)]
     step(results, "shaders", || {
         let mut store = Js5Store::open(cache_dir)?;
         shaders::unpack_shaders(&mut store, output_dir, pack_dir).map(|n| format!("{n} groups"))
     });
+    #[cfg(since_647)]
     step(results, "native libraries", || {
         let mut store = Js5Store::open(cache_dir)?;
         binary_assets::unpack_libraries(&mut store, output_dir, pack_dir)
             .map(|n| format!("{n} groups"))
     });
 }
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod asset;

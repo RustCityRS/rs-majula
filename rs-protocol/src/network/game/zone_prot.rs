@@ -17,6 +17,10 @@ pub enum ZoneProt {
     MapProjAnim = ServerProt::MapProjAnim as u8,
     #[cfg(since_289)]
     SoundArea = ServerProt::SoundArea as u8,
+    #[cfg(since_530)]
+    MapProjAnimHalfsq = ServerProt::MapProjAnimHalfsq as u8,
+    #[cfg(since_530)]
+    ServerProt530_104 = ServerProt::ServerProt530_104 as u8,
 }
 
 #[cfg(rev = "647")]

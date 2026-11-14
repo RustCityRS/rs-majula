@@ -2,11 +2,16 @@ use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
 use crate::pack::incremental::{self, Hash, Key, Stage, dir_key, files_under};
 use crate::pack::names::{AssetNames, archive_name};
-use crate::pack::other::{asset, material, wma};
+#[cfg(since_647)]
+use crate::pack::other::wma;
+use crate::pack::other::{asset, material};
+#[cfg(since_647)]
 use crate::pack::pack::collect_config_files;
 use crate::pack::pack_dir::PrivatePack;
 use crate::pack::pack_registry::PackFile;
-use anyhow::{Context, Result, ensure};
+use anyhow::Result;
+#[cfg(since_647)]
+use anyhow::{Context, ensure};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
@@ -168,6 +173,25 @@ pub fn insert_archive(
             files: g.files,
         });
     }
+    // Groups the cache lists without data keep their recorded entry.
+    let absent = versions.get(&aid).map(|v| &v.absent_groups);
+    for (&id, &(crc, name_hash)) in absent.into_iter().flatten() {
+        if group_infos.iter().any(|g| g.id == id) {
+            continue;
+        }
+        let files = build_file_infos(versions, aid, id, 1);
+        store.absent.insert((aid, id));
+        group_infos.push(GroupInfo {
+            id,
+            name_hash,
+            crc,
+            whirlpool: None,
+            version: group_version(versions, aid, &id),
+            size: 0,
+            file_count: files.len() as u32,
+            files,
+        });
+    }
 
     group_infos.sort_by_key(|g| g.id);
 
@@ -258,9 +282,13 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::INSTRUMENTS,
     archive::WORLDMAP,
     archive::MATERIALS,
+    #[cfg(since_647)]
     archive::DEFAULTS,
+    #[cfg(since_647)]
     archive::DLLS,
+    #[cfg(since_647)]
     archive::LOADING_SCREENS,
+    #[cfg(since_647)]
     archive::WORLDMAP_LOCS,
     #[cfg(since_742)]
     archive::TEXTURES,
@@ -286,6 +314,7 @@ pub fn raw_extension(aid: u8) -> Option<&'static str> {
 }
 
 /// The groups the `.wma` configs make: every map's details, and its elements.
+#[cfg(since_647)]
 fn pack_world_maps(
     scripts_dir: &Path,
     pack_dir: &Path,
@@ -402,13 +431,11 @@ pub fn pack_asset_archives(
                 return Ok(cache);
             }
 
-            let group_files = if let Some(extension) = asset::extension(aid).or(raw_extension(aid))
-            {
-                names.files(&dir, archive_name(aid), &[extension])?
-            } else if aid == archive::DLLS {
-                names.files(&dir, "dlls", &["dll", "dylib", "so"])?
-            } else {
-                Vec::new()
+            let group_files = match (asset::extension(aid).or(raw_extension(aid)), aid) {
+                (Some(extension), _) => names.files(&dir, archive_name(aid), &[extension])?,
+                #[cfg(since_647)]
+                (None, archive::DLLS) => names.files(&dir, "dlls", &["dll", "dylib", "so"])?,
+                _ => Vec::new(),
             };
 
             if group_files.is_empty() {
@@ -440,15 +467,21 @@ pub fn pack_asset_archives(
             // A world map's sources name the squares it packs, so the archive
             // is one unit over every file it could read.
             let mut prepared = if aid == archive::WORLDMAP {
+                #[cfg(since_647)]
                 let scripts = content_dir.join("scripts");
-                let mut sources = files_under(slice::from_ref(&dir));
-                sources.extend(collect_config_files(&scripts, wma::KIND));
+                let sources = files_under(slice::from_ref(&dir));
+                #[cfg(since_647)]
+                let sources = [sources, collect_config_files(&scripts, wma::KIND)].concat();
                 stage.unit_groups(names, 0, &sources, |names| {
-                    let mut groups = group_files
+                    let groups = group_files
                         .par_iter()
                         .map(|(gid, path)| build(*gid, path, names))
                         .collect::<Result<Vec<_>>>()?;
-                    groups.extend(pack_world_maps(&scripts, pack_dir, names, versions)?);
+                    #[cfg(since_647)]
+                    let groups: Vec<_> = groups
+                        .into_iter()
+                        .chain(pack_world_maps(&scripts, pack_dir, names, versions)?)
+                        .collect();
                     Ok(groups)
                 })?
             } else {
@@ -540,4 +573,50 @@ pub fn prepare_group(
     })?;
     let crc = compute_group_crc(&raw[..raw.len() - 2]);
     Ok((raw, crc))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{PreparedGroup, insert_archive};
+    use crate::archive::{self, ArchiveVersions};
+    use crate::cache::js5::PackedCache;
+    use std::collections::{HashMap, HashSet};
+
+    #[test]
+    fn absent_groups_enter_the_table_without_data() {
+        let aid = archive::VORBIS;
+        let versions = HashMap::from([(
+            aid,
+            ArchiveVersions {
+                table_version: 26,
+                group_versions: HashMap::from([(0, 1), (1, 1), (2, 3)]),
+                group_file_ids: HashMap::new(),
+                absent_groups: HashMap::from([(1, (0x1fe351ce, -1)), (2, (0xb96c7b96, -1))]),
+            },
+        )]);
+        let setup = PreparedGroup::new(aid, 0, b"setup", &versions).unwrap();
+        let restored = PreparedGroup::new(aid, 2, b"restored", &versions).unwrap();
+        let restored_crc = restored.crc;
+        let mut store = PackedCache::default();
+        let format = archive::archive_format(aid).unwrap();
+        insert_archive(
+            &mut store,
+            aid,
+            format,
+            &versions,
+            vec![setup, restored],
+            "",
+        )
+        .unwrap();
+        let groups: Vec<_> = store.tables[&aid]
+            .groups
+            .iter()
+            .map(|g| (g.id, g.crc, g.version, g.files.len()))
+            .collect();
+        assert_eq!(groups[1], (1, 0x1fe351ce, 1, 1));
+        assert_eq!(groups[2], (2, restored_crc, 3, 1));
+        assert_eq!(store.absent, HashSet::from([(aid, 1)]));
+        assert!(!store.groups.contains_key(&(aid, 1)));
+        assert_eq!(store.groups.len(), 3);
+    }
 }

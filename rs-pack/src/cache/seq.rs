@@ -29,7 +29,7 @@ impl From<SeqTypeRaw> for SeqType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone))]
+#[cfg_attr(since_530, derive(Debug, Clone))]
 pub struct SeqTypeRaw {
     pub id: TypeId,
     pub frames: Option<Box<[u32]>>,
@@ -49,13 +49,13 @@ pub struct SeqTypeRaw {
     pub postanim_move: Option<u8>,
     #[cfg(since_244)]
     pub duplicatebehaviour: Option<u8>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub synths: Option<Box<[Option<SeqSynth>]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub a_bool9: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub tween: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub a_bool8: bool,
     #[cfg(since_647)]
     pub sound_vorbis: bool,
@@ -71,9 +71,9 @@ pub struct SeqTypeRaw {
 }
 
 impl CacheType for SeqTypeRaw {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     type Context = Box<[u8]>;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     type Context = ();
 
     fn new(id: TypeId) -> Self {
@@ -96,13 +96,13 @@ impl CacheType for SeqTypeRaw {
             postanim_move: None,
             #[cfg(since_244)]
             duplicatebehaviour: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             synths: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             a_bool9: false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             tween: false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             a_bool8: false,
             #[cfg(since_647)]
             sound_vorbis: false,
@@ -128,7 +128,7 @@ impl CacheType for SeqTypeRaw {
                 for _ in 0..count {
                     walkmerge.push(buf.g1() as i32);
                 }
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 walkmerge.push(9999999);
                 self.walkmerge = Some(walkmerge.into_boxed_slice());
             }
@@ -144,7 +144,7 @@ impl CacheType for SeqTypeRaw {
             10 => self.postanim_move = Some(buf.g1()),
             #[cfg(since_244)]
             11 => self.duplicatebehaviour = Some(buf.g1()),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             12 => {
                 let count = buf.g1() as usize;
                 self.iframes = Some(
@@ -154,7 +154,7 @@ impl CacheType for SeqTypeRaw {
                         .collect(),
                 );
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             13 => {
                 let len = buf.g2() as usize;
                 let mut synths = Vec::with_capacity(len);
@@ -176,11 +176,11 @@ impl CacheType for SeqTypeRaw {
                 }
                 self.synths = Some(synths.into_boxed_slice());
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             14 => self.a_bool9 = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             15 => self.tween = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             16 => self.a_bool8 = true,
             #[cfg(since_647)]
             18 => self.sound_vorbis = true,
@@ -212,7 +212,7 @@ impl CacheType for SeqTypeRaw {
 
     fn post_decode(types: &mut Vec<Self>, _frame_delays: &Self::Context) {
         for seq in types.iter_mut() {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             if let (Some(frames), Some(delays)) = (&seq.frames, &mut seq.delays) {
                 let delays = delays.as_mut();
                 let mut duration = 0;
@@ -231,7 +231,7 @@ impl CacheType for SeqTypeRaw {
 
             #[cfg(since_244)]
             {
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 if seq.frames.is_none() {
                     seq.frames = Some(Box::new([u16::MAX as u32]));
                     seq.iframes = Some(Box::new([None]));
@@ -253,7 +253,7 @@ impl CacheType for SeqTypeRaw {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone)]
 pub struct SeqSynth {
     pub head: i32,
@@ -262,17 +262,17 @@ pub struct SeqSynth {
 
 impl SeqTypeRaw {
     fn decode_frames(&mut self, buf: &mut Packet) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let count = buf.g1() as usize;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let count = buf.g2() as usize;
         let mut delays = Vec::with_capacity(count);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut frames = Vec::with_capacity(count);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut iframes = Vec::with_capacity(count);
         for _ in 0..count {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             {
                 frames.push(buf.g2() as u32);
                 let iframe = buf.g2();
@@ -280,15 +280,15 @@ impl SeqTypeRaw {
             }
             delays.push(buf.g2());
         }
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let frames = frames.into_boxed_slice();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             self.iframes = Some(iframes.into_boxed_slice());
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let frames = Self::read_frames(buf, count);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             self.duration = delays.iter().map(|&delay| delay as u32).sum();
         }
@@ -296,7 +296,7 @@ impl SeqTypeRaw {
         self.delays = Some(delays.into_boxed_slice());
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn read_frames(buf: &mut Packet, count: usize) -> Box<[u32]> {
         let mut frames: Box<[u32]> = (0..count).map(|_| buf.g2() as u32).collect();
         for frame in &mut frames {

@@ -11,6 +11,16 @@ pub struct FaceSquare {
     pub z: u16,
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for FaceSquare {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let z = buf.g2();
+        let x = buf.g2();
+        FaceSquare { x, z }
+    }
+}
+
+#[cfg(since_647)]
 impl ClientProtMessage for FaceSquare {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         #[cfg(before_742)]

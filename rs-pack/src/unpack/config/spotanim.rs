@@ -1,4 +1,4 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::ModelCategory;
 use super::UnpackedPacks;
 use crate::cache::spotanim::SpotAnimTypeRaw;
@@ -11,16 +11,16 @@ pub fn emit_spotanim_props(
     registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let recol_s = def.recol_s.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let recol_d = def.recol_d.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let retex_s = def.retex_s.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let retex_d = def.retex_d.as_deref().unwrap_or_default();
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         if opcode == 1 {
             super::model_ref(def.model, "spotanim", ModelCategory::Spotanim, registry);
@@ -61,9 +61,9 @@ pub fn emit_spotanim_props(
         p.push((5, "resizev".into(), def.resizev.to_string()));
     }
     if opcode == 6 {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         p.push((6, "angle".into(), def.angle.to_string()));
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         p.push((6, "rotation".into(), def.angle.to_string()));
     }
     if opcode == 7 {
@@ -92,6 +92,13 @@ pub fn emit_spotanim_props(
         if let Some(value) = hillchange {
             p.push((opcode, "hillchange".into(), value));
         }
+    }
+    #[cfg(all(since_530, before_647))]
+    if opcode == 9 {
+        p.push((9, "hillchange".into(), "rotate".into()));
+    }
+    #[cfg(since_530)]
+    {
         for (i, (&s, &d)) in recol_d.iter().zip(recol_s).enumerate() {
             let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, s, d, _reverse_hsl);
             p.push((40, ks, vs));

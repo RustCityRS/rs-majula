@@ -308,7 +308,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 42
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, PUSH_VARC_INT => |s| {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
@@ -318,7 +318,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 43
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, POP_VARC_INT => |s| {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
@@ -337,7 +337,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         m.insert(POP_ARRAY_INT, pop_array_int);
 
         // 47
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, PUSH_VARC_STRING => |s| {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;
@@ -347,7 +347,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 48
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, POP_VARC_STRING => |s| {
             let operand = s.int_operand();
             let secondary = ((operand >> 16) & 0x1) != 0;

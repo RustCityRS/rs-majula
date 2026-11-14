@@ -1,44 +1,44 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::model::load_existing_pack;
 use super::report::RecordLeftover;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::report::{StepResult, step};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::texture::TEXTURE_NAMES;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::PACK_DIR;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::config_jag_name;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::bas::BasType;
 #[cfg(since_647)]
 use crate::cache::billboard::BillboardType;
 #[cfg(since_647)]
 use crate::cache::cursor::CursorType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::r#enum::EnumTypeRaw;
 use crate::cache::flo::FloTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::flu::FluType;
 #[cfg(since_742)]
 use crate::cache::headbar::HeadbarType;
 #[cfg(since_647)]
 use crate::cache::hitmark::HitmarkType;
 use crate::cache::idk::IdkTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::inv::InvTypeRaw;
 #[cfg(since_647)]
 use crate::cache::light::LightType;
 use crate::cache::loc::LocTypeRaw;
 #[cfg(since_647)]
 use crate::cache::mel::MelType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::msi::MsiType;
 use crate::cache::npc::NpcTypeRaw;
 use crate::cache::obj::ObjTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::param::{ParamType, ParamTypeRaw};
 #[cfg(since_647)]
 use crate::cache::particleeffector::ParticleEffectorType;
@@ -47,77 +47,77 @@ use crate::cache::particleemitter::ParticleEmitterType;
 use crate::cache::provider::CacheType;
 #[cfg(since_647)]
 use crate::cache::quest::QuestType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::quickchatcat::QuickChatCatType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::quickchatphrase::QuickChatPhraseType;
 use crate::cache::seq::SeqTypeRaw;
 #[cfg(since_742)]
 use crate::cache::skybox::SkyboxType;
 use crate::cache::spotanim::SpotAnimTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varp::VarPlayerTypeRaw;
 use crate::pack::pack_registry::{PackFile, PackId};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::rgb15_to_hsl16;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::types::LocShape;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::types::ParamValue;
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::Js5Store;
 use rs_ver::TypeId;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use runec::symbol::identifier_form;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::fs::File;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::io::BufWriter;
 use std::io::{self, Write};
 use std::path::Path;
 use std::rc::Rc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod bas;
 #[cfg(since_647)]
 pub mod billboard;
 #[cfg(since_647)]
 pub mod cursor;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod r#enum;
 pub mod flo;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod flu;
 #[cfg(since_742)]
 pub mod headbar;
 #[cfg(since_647)]
 pub mod hitmark;
 pub mod idk;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod inv;
 #[cfg(since_647)]
 pub mod light;
 pub mod loc;
 #[cfg(since_647)]
 pub mod mel;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod msi;
 pub mod npc;
 pub mod obj;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod param;
 #[cfg(since_647)]
 pub mod particleeffector;
@@ -125,25 +125,25 @@ pub mod particleeffector;
 pub mod particleemitter;
 #[cfg(since_647)]
 pub mod quest;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod quickchatcat;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod quickchatphrase;
 pub mod seq;
 #[cfg(since_742)]
 pub mod skybox;
 pub mod spotanim;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod r#struct;
 #[cfg(since_254)]
 pub mod varbit;
-#[cfg(since_647)]
+#[cfg(since_530)]
 mod varc;
 #[cfg(since_647)]
 mod varclansetting;
 pub mod varp;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 type ConfigEntries = Vec<(u32, Vec<(String, String)>)>;
 pub(crate) type ConfigDecoder =
     fn(&mut Packet, u32, &HashMap<u16, u16>, &mut UnpackedPacks) -> Vec<(String, String)>;
@@ -174,7 +174,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("varp", |buf, id, hsl, packs| {
             let props =
                 decode_record::<VarPlayerTypeRaw>(buf, id, hsl, packs, varp::emit_varp_props);
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let props = {
                 let mut props = props;
                 if packs.transmit_varps.contains(&id)
@@ -186,7 +186,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
             };
             props
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("varpstr", |buf, _, _, _| {
             let mut props = decode_empty_record("varpstr", buf);
             props.push(("type".to_owned(), "string".to_owned()));
@@ -194,23 +194,23 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         }),
         #[cfg(since_254)]
         ("varpbit", varbit::decode_varbit),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("param", |buf, id, hsl, packs| {
             decode_record::<ParamTypeRaw>(buf, id, hsl, packs, param::emit_param_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("enum", |buf, id, hsl, packs| {
             decode_record::<EnumTypeRaw>(buf, id, hsl, packs, r#enum::emit_enum_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("inv", |buf, id, hsl, packs| {
             decode_record::<InvTypeRaw>(buf, id, hsl, packs, inv::emit_inv_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("struct", |buf, id, hsl, packs| {
             decode_record::<StructTypeRaw>(buf, id, hsl, packs, r#struct::emit_struct_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("flu", |buf, id, hsl, packs| {
             decode_record::<FluType>(buf, id, hsl, packs, flu::emit_flu_props)
         }),
@@ -218,25 +218,25 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("mesanim", |buf, _, _, _| {
             decode_empty_record("mesanim", buf)
         }),
-        #[cfg(all(since_274, before_647))]
+        #[cfg(all(since_274, before_530))]
         ("mes", |buf, _, _, _| decode_empty_record("mes", buf)),
-        #[cfg(all(since_274, before_647))]
+        #[cfg(all(since_274, before_530))]
         ("param", |buf, _, _, _| decode_empty_record("param", buf)),
         #[cfg(since_274)]
         ("hunt", |buf, _, _, _| decode_empty_record("hunt", buf)),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("area", |buf, _, _, _| decode_empty_record("area", buf)),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("varobj", |buf, _, _, _| decode_empty_record("varobj", buf)),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("vars", |buf, _, _, _| decode_empty_record("vars", buf)),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("varsstr", |buf, _, _, _| {
             let mut props = decode_empty_record("varsstr", buf);
             props.push(("type".to_owned(), "string".to_owned()));
             props
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("varn", |buf, _, _, _| decode_empty_record("varn", buf)),
         #[cfg(since_647)]
         ("dbtable", |buf, _, _, _| {
@@ -244,7 +244,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         }),
         #[cfg(since_647)]
         ("dbrow", |buf, _, _, _| decode_empty_record("dbrow", buf)),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("bas", |buf, id, hsl, packs| {
             decode_record::<BasType>(buf, id, hsl, packs, bas::emit_bas_props)
         }),
@@ -268,7 +268,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("billboard", |buf, id, hsl, packs| {
             decode_record::<BillboardType>(buf, id, hsl, packs, billboard::emit_billboard_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("quickchatcat", |buf, id, hsl, packs| {
             decode_record::<QuickChatCatType>(
                 buf,
@@ -278,7 +278,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
                 quickchatcat::emit_quickchatcat_props,
             )
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("quickchatphrase", |buf, id, hsl, packs| {
             decode_record::<QuickChatPhraseType>(
                 buf,
@@ -316,7 +316,7 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("mel", |buf, id, hsl, packs| {
             decode_record::<MelType>(buf, id, hsl, packs, mel::emit_mel_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("msi", |buf, id, hsl, packs| {
             decode_record::<MsiType>(buf, id, hsl, packs, msi::emit_msi_props)
         }),
@@ -324,9 +324,9 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         ("quest", |buf, id, hsl, packs| {
             decode_record::<QuestType>(buf, id, hsl, packs, quest::emit_quest_props)
         }),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("varc", |buf, _, _, _| varc::decode_varc(buf)),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         ("varcstr", |buf, _, _, _| varc::decode_varc_string(buf)),
         #[cfg(since_647)]
         ("varclansetting", |buf, _, _, packs| {
@@ -360,11 +360,11 @@ pub struct UnpackedPacks {
     pub cert_objs: HashMap<u16, u16>,
     pub cert_template_id: Option<u16>,
     pub flo_names: HashMap<u16, String>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub transmit_varps: HashSet<u32>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub param_types: HashMap<u32, String>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub component_names: HashMap<(u32, u32), String>,
     pub model_textures: Rc<HashMap<u16, HashSet<u16>>>,
     pub leftovers: Vec<RecordLeftover>,
@@ -385,11 +385,11 @@ impl UnpackedPacks {
             cert_objs: HashMap::new(),
             cert_template_id: None,
             flo_names: HashMap::new(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             transmit_varps: HashSet::new(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             param_types: HashMap::new(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             component_names: HashMap::new(),
             model_textures: Rc::new(HashMap::new()),
             leftovers: Vec::new(),
@@ -398,12 +398,12 @@ impl UnpackedPacks {
     }
 
     pub fn load_existing_names(&mut self, pack_dir: &Path) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             self.existing_model_names = load_existing_pack(pack_dir, "model");
         }
         self.existing_config_names = load_committed_config_names(pack_dir);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             let interfaces =
                 fs::read_to_string(pack_dir.join("interface.pack")).unwrap_or_default();
@@ -419,7 +419,7 @@ impl UnpackedPacks {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn config_id(&self, name: &str, value: &str) -> Option<u32> {
         self.existing_config_names
             .get(name)?
@@ -428,7 +428,7 @@ impl UnpackedPacks {
 
     /// A config's name for an id another config refers to, if the name leads
     /// back to that id: registries can repeat a name.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn reference(&self, kind: &str, id: TypeId) -> String {
         if id.is_null() {
             return "null".to_owned();
@@ -448,12 +448,12 @@ impl UnpackedPacks {
 
     /// As [`Self::reference`], where the highest id is an id like any other:
     /// a retexture can name it.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn named(&self, kind: &str, id: u16) -> String {
         self.named_id(kind, id as u32)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn named_id(&self, kind: &str, id: u32) -> String {
         let name = self
             .config_name(kind, id)
@@ -475,8 +475,18 @@ impl UnpackedPacks {
         }
     }
 
-    /// A value of a script type as the dumps print it.
+    #[cfg(all(since_530, before_647))]
+    pub fn cursor(&self, id: TypeId) -> String {
+        id.raw().to_string()
+    }
+
     #[cfg(since_647)]
+    pub fn cursor(&self, id: TypeId) -> String {
+        self.reference("cursor", id)
+    }
+
+    /// A value of a script type as the dumps print it.
+    #[cfg(since_530)]
     pub fn typed_value(&self, ty: &str, value: i32) -> String {
         match ty {
             "int" | "long" => value.to_string(),
@@ -528,7 +538,7 @@ impl UnpackedPacks {
     }
 
     pub fn config_name(&self, name: &str, id: u32) -> Option<&str> {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         if name == "model"
             && let Some(value) = self.model_names.get(&(id as u16))
         {
@@ -539,7 +549,7 @@ impl UnpackedPacks {
             .get_by_id(id as PackId)
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn name_model(&mut self, id: u16, name: String, category: ModelCategory) -> String {
         if let Entry::Vacant(e) = self.model_names.entry(id) {
             let name = self.existing_model_names.get(&id).cloned().unwrap_or(name);
@@ -549,7 +559,7 @@ impl UnpackedPacks {
         self.model_names.get(&id).unwrap().clone()
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn write_pack_files(&self, pack_dir: &Path) -> anyhow::Result<()> {
         write_model_pack(pack_dir, &self.model_names)?;
         write_pack_file(pack_dir, "anim", &self.anim_ids, "anim")?;
@@ -559,7 +569,7 @@ impl UnpackedPacks {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn write_model_pack(pack_dir: &Path, names: &HashMap<u16, String>) -> anyhow::Result<()> {
     if names.is_empty() {
         return Ok(());
@@ -577,7 +587,7 @@ fn write_model_pack(pack_dir: &Path, names: &HashMap<u16, String>) -> anyhow::Re
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn write_pack_file(
     pack_dir: &Path,
     filename: &str,
@@ -615,7 +625,7 @@ pub(crate) fn load_committed_config_names(pack_dir: &Path) -> HashMap<String, Pa
     names
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn format_colour(colour: i32) -> String {
     if colour as u32 > 0xFFFFFF {
         format!("0x{:08x}", colour as u32)
@@ -648,7 +658,7 @@ pub(crate) fn mask_indices(mask: u16) -> String {
 
 /// A recolour pair as the dumps print it: as rgb15 when both colours have one,
 /// otherwise as the raw hsl16 values.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn recol_pair(
     index: usize,
     source: u16,
@@ -669,7 +679,7 @@ fn recol_pair(
 
 /// The `multivar` line and a line per target. The last id is the default,
 /// printed when `has_default` says the record carries one.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn multi_lines(
     (code, key): (u8, &str),
     kind: &str,
@@ -711,7 +721,7 @@ fn multi_lines(
     lines
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_param_list(
     params: &[(TypeId, ParamValue)],
     packs: &UnpackedPacks,
@@ -741,13 +751,13 @@ fn entry_name(config_type: &str, id: u32, packs: &UnpackedPacks) -> String {
     {
         return name.clone();
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let kind = match config_type {
         "quickchatcat" => "chatcat",
         "quickchatphrase" => "chatphrase",
         other => other,
     };
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let kind = config_type;
     if let Some(name) = packs
         .existing_config_names
@@ -756,12 +766,12 @@ fn entry_name(config_type: &str, id: u32, packs: &UnpackedPacks) -> String {
     {
         return name.to_string();
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let config_type = placeholder_prefix(config_type);
     format!("{config_type}_{id}")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn write_config_pack_file(
     pack_dir: &Path,
     config_type: &str,
@@ -795,7 +805,7 @@ pub fn write_config_pack_file(
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn unpack_config(
     jag: &JagFile,
     output_dir: &Path,
@@ -853,7 +863,7 @@ pub fn unpack_config(
     Ok(packs)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn write_config_text_file(
     output_dir: &Path,
     config_type: &str,
@@ -891,7 +901,7 @@ fn write_config_text_file(
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
     let mut table = HashMap::new();
     for rgb15 in 0..32768u16 {
@@ -901,7 +911,7 @@ pub(crate) fn build_reverse_hsl_table() -> HashMap<u16, u16> {
     table
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u32, Vec<u8>)> {
     PackedData::entries(dat, idx)
         .expect("Invalid config data/index")
@@ -909,7 +919,7 @@ pub(crate) fn read_entries(dat: &[u8], idx: &[u8]) -> Vec<(u32, Vec<u8>)> {
         .collect()
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn config_dat_trailing(dat: &[u8], idx: &[u8]) -> usize {
     if dat.len() < 2 || idx.len() < 2 {
         return 0;
@@ -926,7 +936,7 @@ fn config_dat_trailing(dat: &[u8], idx: &[u8]) -> usize {
     dat.len().saturating_sub(consumed)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn model_ref(
     id: TypeId,
     suffix: &str,
@@ -942,29 +952,29 @@ fn model_ref(
     packs.name_model(id, name, category)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn seq_ref(id: TypeId, packs: &UnpackedPacks) -> String {
     entry_name("seq", id.raw(), packs)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn obj_ref(id: TypeId, packs: &UnpackedPacks) -> String {
     entry_name("obj", id.raw(), packs)
 }
 
 #[cfg(since_289)]
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn loc_ref(id: TypeId, packs: &UnpackedPacks) -> String {
     entry_name("loc", id.raw(), packs)
 }
 
 #[cfg(since_289)]
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn varbit_ref(id: TypeId, packs: &UnpackedPacks) -> String {
     entry_name("varpbit", id.raw(), packs)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn obj_ref_to_id(value: &str, packs: &UnpackedPacks) -> Option<u16> {
     if let Some(id) = value
         .strip_prefix("obj_")
@@ -981,13 +991,13 @@ fn obj_ref_to_id(value: &str, packs: &UnpackedPacks) -> Option<u16> {
     })
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn anim_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.anim_ids.insert(id);
     format!("anim_{id}")
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn texture_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.texture_ids.insert(id);
     TEXTURE_NAMES
@@ -1007,6 +1017,7 @@ pub fn decode_record<T: CacheType>(
     let mut def = T::new(TypeId::try_from(id).expect("type id"));
     // Resolve types and flags that can follow the properties they describe.
     def.decode(buf);
+    def.rewind();
     buf.pos = start;
     let mut props = Vec::new();
     while buf.remaining() > 0 {
@@ -1038,7 +1049,7 @@ fn decode_entry(
             bytes: buf.remaining() as usize,
         });
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     if name == "obj"
         && props.len() == 2
         && props
@@ -1058,7 +1069,7 @@ fn decode_entry(
     props
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) fn decode_records(
     name: &'static str,
     entries: Vec<(u32, Vec<u8>)>,
@@ -1092,7 +1103,7 @@ fn write_config_section(
     writeln!(out)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn unpack_config(
     cache_dir: &Path,
     output_dir: &Path,
@@ -1126,6 +1137,7 @@ pub(super) fn unpack_config(
                 "seq" => (archive::CONFIG_SEQ, 128),
                 "spotanim" => (archive::CONFIG_SPOTANIM, 256),
                 "varpbit" => (archive::CONFIG_VARBIT, 1024),
+                #[cfg(since_647)]
                 "billboard" => (archive::BILLBOARDS, 256),
                 "particleemitter" | "particleeffector" => (archive::PARTICLES, 0),
                 "quickchatcat" | "quickchatphrase" => (archive::QUICKCHAT, 0),
@@ -1208,7 +1220,7 @@ pub(super) fn unpack_config(
     }
     Ok(())
 }
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn rename_loc_model(name: &str, shape: u8) -> &str {
     let base = name.strip_suffix("_ld").unwrap_or(name);
     LocShape::try_from(shape)
@@ -1217,7 +1229,7 @@ fn rename_loc_model(name: &str, shape: u8) -> &str {
         .unwrap_or(base)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn push_loc_model_refs(
     loc_id: u32,
     pairs: &[(u16, u8)],
@@ -1240,7 +1252,7 @@ fn push_loc_model_refs(
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn models_have_texture(
     model_ids: &[TypeId],
     texture: u16,
@@ -1253,7 +1265,7 @@ fn models_have_texture(
     })
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn recol_value(value: u16, other: u16, reverse_hsl: &HashMap<u16, u16>) -> u16 {
     if value >= 100 || other >= 100 {
         return reverse_hsl.get(&value).copied().unwrap_or(value);
@@ -1261,7 +1273,7 @@ fn recol_value(value: u16, other: u16, reverse_hsl: &HashMap<u16, u16>) -> u16 {
     value
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn emit_params(data: &[u8], packs: &UnpackedPacks) -> Vec<(u8, String, String)> {
     let mut buf = Packet::from(data.to_vec());
     let params: Vec<_> = (0..buf.g1())
@@ -1315,7 +1327,7 @@ mod tests {
         assert_eq!((packs.leftovers[0].id, packs.leftovers[0].bytes), (7, 1));
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn repeated_loc_fields_keep_texture_detection() {
         let mut packs = UnpackedPacks::new();
@@ -1362,7 +1374,7 @@ mod tests {
         assert_eq!(props, vec![("count1".into(), "obj_2,5".into())]);
     }
 
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     #[test]
     fn varbit_zero_values_and_legacy_debugname_are_preserved() {
         let props = unpack(
@@ -1382,7 +1394,7 @@ mod tests {
         );
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn overlapping_loc_opcodes_keep_their_original_values() {
         let props = unpack(
@@ -1402,7 +1414,7 @@ mod tests {
         );
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn params_keep_repeated_keys_without_reemitting_stale_values() {
         let props = unpack(

@@ -1,0 +1,73 @@
+// 112
+[proc,clientscript_112](int $key0, char $char1)
+if ($key0 = 84) {
+    if (%meslayermode = 12) {
+        ~clientscript_1806(%varclient_654);
+        return;
+    }
+    if (string_length(%varclient_654) > 0) {
+        if (%meslayermode = 4 | %meslayermode = 5) {
+            if (ignore_count < 0) {
+                mes("Unable to update Ignore List: system busy");
+            } else if (%meslayermode = 4) {
+                ignore_add(%varclient_654);
+            } else if (%meslayermode = 5) {
+                ignore_del(%varclient_654);
+            }
+        } else if (%meslayermode < 7) {
+            if (friend_count < 0) {
+                mes("Unable to complete action - system busy");
+            } else if (%meslayermode = 2) {
+                friend_add(%varclient_654);
+            } else if (%meslayermode = 3) {
+                friend_del(%varclient_654);
+            } else if (%meslayermode = 6) {
+                if (chat_getfilter_private = 2) {
+                    chat_setfilter(chat_getfilter_public, 1, chat_getfilter_trade);
+                    ~clientscript_178;
+                    ~clientscript_84;
+                    ~rebuildpmbox;
+                }
+                chat_sendprivate(%varclient_655, %varclient_654);
+            }
+        } else if (%meslayermode = 11) {
+            ~bank_v2_confirmsearch;
+        } else if (%meslayermode = 7) {
+            resume_countdialog(%varclient_654);
+        } else if (%meslayermode = 8) {
+            resume_namedialog(%varclient_654);
+        } else if (%meslayermode = 9) {
+            if (compare(lowercase(%varclient_654), lowercase(%varclient_665)) ! 0) {
+                resume_stringdialog(%varclient_654);
+            } else {
+                mes("Please do not enter your password here!");
+            }
+        } else if (%meslayermode = 10) {
+            clan_joinchat(%varclient_654);
+        }
+    }
+    if_sethide(chattop:mes_layer, true);
+    if_sethide(chattop:mes_layer_large, true);
+    if_sethide(chattop:mes_layer_hide, false);
+    %meslayermode = 0;
+    if (getwindowmode >= 2) {
+        ~clientscript_1364;
+    }
+    return;
+}
+if ($key0 = 13 & %meslayermode = 12) {
+    ~clientscript_1806(%varclient_670);
+    ~clientscript_1548(0);
+    return;
+}
+if (%meslayermode = 6 | %meslayermode = 9 | %meslayermode = 11) {
+    %varclient_654 = ~clientscript_74(%varclient_654, 0, $key0, $char1);
+} else if (%meslayermode = 7) {
+    %varclient_654 = ~clientscript_74(%varclient_654, 1, $key0, $char1);
+} else {
+    %varclient_654 = ~clientscript_74(%varclient_654, 2, $key0, $char1);
+}
+if_settext(chattop:mes_text2, "<escape(%varclient_654)>*");
+if (%meslayermode = 11) {
+    ~bank_v2_search_update;
+}

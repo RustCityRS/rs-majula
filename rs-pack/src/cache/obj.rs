@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::decode::read_array;
 use super::decode::{read_big_id, read_id, read_pairs};
 use super::param::ParamType;
@@ -19,7 +19,7 @@ pub struct ObjContext {
 
 pub struct ObjType {
     pub id: TypeId,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub wearid: Option<u16>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
@@ -32,14 +32,14 @@ pub struct ObjType {
     pub wearpos3: Option<WearPos>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub stockmarket: bool,
     pub weight: i16,
     pub category: Option<TypeId>,
     pub dummyitem: DummyItem,
     pub certlink: Option<TypeId>,
     pub certtemplate: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub lenttemplate: Option<TypeId>,
     #[cfg(since_647)]
     pub boughttemplate: Option<TypeId>,
@@ -63,18 +63,18 @@ impl From<ObjTypeRaw> for ObjType {
             tradeable: raw.tradeable,
             members: raw.members,
             wearpos3: raw.wearpos3,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             wearid: raw.wearid,
             op: raw.op,
             iop: raw.iop,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             stockmarket: raw.stockmarket,
             weight: raw.weight,
             category: raw.category,
             dummyitem: raw.dummyitem,
             certlink: raw.certlink,
             certtemplate: raw.certtemplate,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             lenttemplate: raw.lenttemplate,
             #[cfg(since_647)]
             boughttemplate: raw.boughttemplate,
@@ -87,7 +87,7 @@ impl From<ObjTypeRaw> for ObjType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone))]
+#[cfg_attr(since_530, derive(Debug, Clone))]
 pub struct ObjTypeRaw {
     pub id: TypeId,
     pub model: TypeId,
@@ -115,7 +115,7 @@ pub struct ObjTypeRaw {
     pub womanweary: i8,
     pub womanwear2: Option<TypeId>,
     pub wearpos3: Option<WearPos>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub wearid: Option<u16>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
@@ -127,13 +127,13 @@ pub struct ObjTypeRaw {
     pub recolindices: Option<u16>,
     #[cfg(since_742)]
     pub retexindices: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_s: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub recol_palette: Option<Box<[i8]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub stockmarket: bool,
     pub weight: i16,
     pub manwear3: Option<TypeId>,
@@ -161,25 +161,25 @@ pub struct ObjTypeRaw {
     pub contrast: i8,
     #[cfg(since_289)]
     pub team: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub lentlink: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub lenttemplate: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub manwear_xoff: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub manwear_zoff: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub womanwear_xoff: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub womanwear_zoff: i8,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub cursor1: Option<(u8, TypeId)>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub cursor2: Option<(u8, TypeId)>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub icursor1: Option<(u8, TypeId)>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub icursor2: Option<(u8, TypeId)>,
     #[cfg(since_742)]
     pub cursor: [Option<TypeId>; 5],
@@ -257,12 +257,15 @@ impl ObjTypeRaw {
                     self.params = None;
                 }
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 self.name = Some("Members object".into());
                 self.stockmarket = false;
                 self.team = 0;
-                self.quests = None;
+                #[cfg(since_647)]
+                {
+                    self.quests = None;
+                }
             }
         }
     }
@@ -299,7 +302,7 @@ impl CacheType for ObjTypeRaw {
             womanweary: 0,
             womanwear2: None,
             wearpos3: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             wearid: None,
             op: Some(Box::new([None, None, Some("Take".into()), None, None])),
             iop: Some(Box::new([None, None, None, None, Some("Drop".into())])),
@@ -311,13 +314,13 @@ impl CacheType for ObjTypeRaw {
             recolindices: None,
             #[cfg(since_742)]
             retexindices: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_s: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             recol_palette: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             stockmarket: false,
             weight: 0,
             manwear3: None,
@@ -345,25 +348,25 @@ impl CacheType for ObjTypeRaw {
             contrast: 0,
             #[cfg(since_289)]
             team: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             lentlink: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             lenttemplate: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             manwear_xoff: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             manwear_zoff: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             womanwear_xoff: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             womanwear_zoff: 0,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             cursor1: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             cursor2: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             icursor1: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             icursor2: None,
             #[cfg(since_742)]
             cursor: [None; 5],
@@ -395,9 +398,9 @@ impl CacheType for ObjTypeRaw {
             6 => self.yan2d = buf.g2(),
             7 => self.xof2d = buf.g2s(),
             8 => self.yof2d = buf.g2s(),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             9 => self.code9 = true, // animHasAlpha from code10?
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             10 => self.code10 = Some(buf.g2()), // seq?
             11 => self.stackable = true,
             12 => self.cost = buf.g4s(),
@@ -411,7 +414,7 @@ impl CacheType for ObjTypeRaw {
             18 => self.multistack = Some(read_id(buf)),
             23 => {
                 self.manwear = Some(read_big_id(buf));
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 {
                     self.manweary = buf.g1s();
                 }
@@ -419,7 +422,7 @@ impl CacheType for ObjTypeRaw {
             24 => self.manwear2 = Some(read_big_id(buf)),
             25 => {
                 self.womanwear = Some(read_big_id(buf));
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 {
                     self.womanweary = buf.g1s();
                 }
@@ -439,9 +442,9 @@ impl CacheType for ObjTypeRaw {
                     Some(op.into_boxed_str());
             }
             40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             41 => read_pairs(buf, &mut self.retex_d, &mut self.retex_s),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
             #[cfg(since_742)]
             43 => self.minimenucolour = Some(buf.g4s()),
@@ -449,7 +452,7 @@ impl CacheType for ObjTypeRaw {
             44 => self.recolindices = Some(buf.g2()),
             #[cfg(since_742)]
             45 => self.retexindices = Some(buf.g2()),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             65 => self.stockmarket = true,
             75 => self.weight = buf.g2s(),
             78 => self.manwear3 = Some(read_big_id(buf)),
@@ -483,29 +486,29 @@ impl CacheType for ObjTypeRaw {
             114 => self.contrast = buf.g1s(),
             #[cfg(since_289)]
             115 => self.team = buf.g1(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             121 => self.lentlink = Some(read_id(buf)),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             122 => self.lenttemplate = Some(read_id(buf)),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             125 => {
                 self.manwear_xoff = buf.g1() as i8;
                 self.manweary = buf.g1() as i8;
                 self.manwear_zoff = buf.g1() as i8;
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             126 => {
                 self.womanwear_xoff = buf.g1() as i8;
                 self.womanweary = buf.g1() as i8;
                 self.womanwear_zoff = buf.g1() as i8;
             }
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             127 => self.cursor1 = Some((buf.g1(), read_id(buf))),
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             128 => self.cursor2 = Some((buf.g1(), read_id(buf))),
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             129 => self.icursor1 = Some((buf.g1(), read_id(buf))),
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             130 => self.icursor2 = Some((buf.g1(), read_id(buf))),
             #[cfg(since_647)]
             132 => self.quests = Some(read_array(buf, read_id)),
@@ -533,7 +536,7 @@ impl CacheType for ObjTypeRaw {
     }
 
     fn post_decode(objs: &mut Vec<Self>, ctx: &Self::Context) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let mut wearid = 0;
         for id in 0..objs.len() {
             if let Some(certtemplate) = objs.get(id).and_then(|obj| obj.certtemplate) {
@@ -550,18 +553,18 @@ impl CacheType for ObjTypeRaw {
                 let yof2d: i16 = template.yof2d;
                 let recol_s: Option<Box<[u16]>> = template.recol_s.clone();
                 let recol_d: Option<Box<[u16]>> = template.recol_d.clone();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let retex_s = template.retex_s.clone();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let retex_d = template.retex_d.clone();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let recol_palette = template.recol_palette.clone();
 
                 if let Some(obj) = objs.get_mut(id) {
                     obj.cert_template(
                         model, zoom2d, xan2d, yan2d, zan2d, xof2d, yof2d, recol_s, recol_d,
                     );
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         obj.retex_s = retex_s;
                         obj.retex_d = retex_d;
@@ -584,7 +587,7 @@ impl CacheType for ObjTypeRaw {
                     }
                 }
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 if let (Some(template_id), Some(link_id)) =
                     (objs[id].lenttemplate, objs[id].lentlink)
@@ -597,6 +600,7 @@ impl CacheType for ObjTypeRaw {
                         gen_lent(&mut objs[id], &template, &link);
                     }
                 }
+                #[cfg(since_647)]
                 if let (Some(template_id), Some(link_id)) =
                     (objs[id].boughttemplate, objs[id].boughtlink)
                 {
@@ -622,7 +626,7 @@ impl CacheType for ObjTypeRaw {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn gen_lent(obj: &mut ObjTypeRaw, template: &ObjTypeRaw, link: &ObjTypeRaw) {
     obj.params = link.params.clone();
     obj.womanweary = link.womanweary;

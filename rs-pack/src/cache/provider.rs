@@ -1,4 +1,4 @@
-use crate::pack::packed_data::PackedData;
+use crate::pack::packed_data::{COUNT_LEN, PackedData, read_count};
 use anyhow::Result;
 use rs_io::Packet;
 use rs_ver::TypeId;
@@ -20,6 +20,9 @@ pub trait CacheType: Sized {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8);
     fn post_decode(_types: &mut Vec<Self>, _ctx: &Self::Context) {}
+
+    /// Clears what decoding the record's opcodes again would add to.
+    fn rewind(&mut self) {}
 
     /// The name configs and scripts know the record by. Client records carry
     /// none.
@@ -54,9 +57,8 @@ impl<T> TypeProvider<T> {
         Raw: CacheType,
         T: From<Raw>,
     {
-        let mut dat = Packet::from(dat.to_vec());
-
-        let count = dat.g2() as usize;
+        let count = read_count(dat);
+        let mut dat = Packet::from(dat[COUNT_LEN..].to_vec());
 
         let mut raws: Vec<Raw> = Vec::with_capacity(count);
         for index in 0..count {
@@ -101,7 +103,7 @@ impl<T> TypeProvider<T> {
         self.types.get(id.index())
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn map<U>(self, f: impl FnMut(T) -> U) -> TypeProvider<U> {
         TypeProvider {
             debugnames: self.debugnames,

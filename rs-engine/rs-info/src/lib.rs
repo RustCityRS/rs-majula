@@ -1,3 +1,5 @@
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::info::player::model_anims::ModelAnim;
 use rs_ver::TypeId;
 use std::ops::{Deref, DerefMut};
 mod renderer;
@@ -127,6 +129,8 @@ pub struct EntityMasksCold {
     pub exactmove_finish: Option<u16>,
     pub exactmove_dir: Option<u8>,
     pub changetype: Option<TypeId>,
+    #[cfg(all(since_530, before_647))]
+    pub model_anims: Option<Box<[ModelAnim]>>,
     #[cfg(since_647)]
     pub move_type: Option<u8>,
     #[cfg(since_647)]
@@ -212,6 +216,8 @@ impl EntityMasks {
                 exactmove_finish: None,
                 exactmove_dir: None,
                 changetype: None,
+                #[cfg(all(since_530, before_647))]
+                model_anims: None,
                 #[cfg(since_647)]
                 move_type: None,
                 #[cfg(since_647)]
@@ -319,7 +325,8 @@ impl EntityMasks {
     /// `chat_effects`, `chat_ignored`, `spotanim`, `spotanim_height`,
     /// `spotanim_delay`, `exactmove_start_x`, `exactmove_start_z`,
     /// `exactmove_end_x`, `exactmove_end_z`, `exactmove_begin`,
-    /// `exactmove_finish`, `exactmove_dir`, `changetype`.
+    /// `exactmove_finish`, `exactmove_dir`, `changetype`, and on 530
+    /// `model_anims`.
     ///
     /// **Preserved (persistent):** `appearance`, `last_appearance`,
     /// `last_appearance_info`, `readyanim`, `turnanim`, `walkanim`,
@@ -378,6 +385,10 @@ impl EntityMasks {
         self.exactmove_finish = None;
         self.exactmove_dir = None;
         self.changetype = None;
+        #[cfg(all(since_530, before_647))]
+        {
+            self.model_anims = None;
+        }
         #[cfg(since_647)]
         {
             self.move_type = None;
@@ -391,6 +402,10 @@ impl EntityMasks {
     /// its mask bit into `masks`. Only evaluated by a `debug_assert`, so
     /// release builds compile it away.
     fn transients_clear(&self) -> bool {
+        #[cfg(all(since_530, before_647))]
+        if self.model_anims.is_some() {
+            return false;
+        }
         #[cfg(since_244)]
         let damage2_clear = self.damage2_taken.is_none()
             && self.damage2_type.is_none()

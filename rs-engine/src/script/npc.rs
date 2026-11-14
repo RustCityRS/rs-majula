@@ -1,6 +1,6 @@
 use crate::active_npc::ActiveNpc;
 use crate::core::{Engine, engine};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_entity::MoveSpeed;
 use rs_entity::NpcUid;
 use rs_entity::{InteractionTarget, ObjSerial};
@@ -390,7 +390,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** sets `self.npc.pathing.move_speed`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn run(&mut self, run: u8) {
         self.npc.pathing.move_speed = if run == 1 {
             MoveSpeed::Run

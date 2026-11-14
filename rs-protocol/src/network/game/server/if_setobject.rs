@@ -6,7 +6,7 @@ use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 use rs_ver::TypeId;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(IfSetObject, Buffered, Fixed)]
 pub struct IfSetObject {
     pub com: u16,
@@ -14,7 +14,7 @@ pub struct IfSetObject {
     pub scale: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for IfSetObject {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);
@@ -27,12 +27,31 @@ impl ServerProtMessage for IfSetObject {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(IfSetObject, Buffered, Fixed)]
 pub struct IfSetObject {
     pub com: i32,
     pub obj: TypeId,
     pub scale: i32,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for IfSetObject {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(self.scale);
+        buf.p4_alt3(self.com);
+        buf.p2_alt3(self.obj.g2());
+        buf.p2_alt1(self.verify);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com)
+            + size_of_val(&self.obj)
+            + size_of_val(&self.scale)
+            + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]

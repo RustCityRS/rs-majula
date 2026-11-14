@@ -1,12 +1,12 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol_macros::server_prot;
 
 // Rev-647 IF_OPENTOP (opcode 61), read by MapAreaConfig.java:563 as `ig2
@@ -15,13 +15,28 @@ use rs_protocol_macros::server_prot;
 // Mode 2 also runs ImageSourceTextureOp.method3619:
 // client state 11, the "Loading - please wait." screen that rebuilds the
 // scene, then a cache trim and a garbage collection.
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(IfOpentop, Buffered, Fixed)]
 pub struct IfOpentop {
     pub interface: u16,
     pub mode: u8,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
     #[cfg(since_742)]
     pub xtea_keys: [i32; 4],
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for IfOpentop {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt3(self.interface);
+        buf.p1_alt1(self.mode);
+        buf.p2_alt3(self.verify);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.interface) + size_of_val(&self.mode) + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]

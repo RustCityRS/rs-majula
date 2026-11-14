@@ -18,7 +18,16 @@ pub struct OpLoc6 {
     pub ctrl: bool,
 }
 
-#[cfg(before_742)]
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpLoc6 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        OpLoc6 {
+            loc: TypeId::from_g2(buf.g2_alt3()),
+        }
+    }
+}
+
+#[cfg(all(since_647, before_742))]
 impl ClientProtMessage for OpLoc6 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpLoc6 {

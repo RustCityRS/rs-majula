@@ -81,9 +81,11 @@ content/225/**/*.base text diff
 *.arb -text diff
 *.glsl -text diff
 
-# 647 and 742 check out LF; their .synth and .fm are text (225-289's are binary)
+# 530, 647 and 742 check out LF; their .synth and .fm are text (225-289's are binary)
+content/530/** eol=lf
 content/647/** eol=lf
 content/742/** eol=lf
+content/530/**/*.synth text diff eol=lf
 content/647/**/*.synth text diff eol=lf
 content/647/**/*.fm text diff eol=lf
 content/742/**/*.synth text diff eol=lf

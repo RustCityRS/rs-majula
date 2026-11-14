@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
-use crate::handlers::op_common::{HeldCheck, check_held};
+use crate::handlers::op_common::{HeldCheck, check_held, component};
 use crate::watch::Op;
 use rs_protocol::network::game::client::opheld1::OpHeld1;
 use rs_protocol::network::game::client::opheld2::OpHeld2;
@@ -9,10 +9,10 @@ use rs_protocol::network::game::client::opheld3::OpHeld3;
 use rs_protocol::network::game::client::opheld4::OpHeld4;
 use rs_protocol::network::game::client::opheld5::OpHeld5;
 use rs_ver::TypeId;
-use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
+use rs_vm::{ComId, ScriptError};
 
 /// Handles the `OpHeld1` client protocol message.
 ///
@@ -122,9 +122,10 @@ fn handle(
     op: usize,
     obj: TypeId,
     slot: u16,
-    com: u16,
+    com: impl Into<ComId>,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
+    let com = com.into();
     active.watch_op(Op::Held {
         op: op as u8,
         obj,
@@ -135,23 +136,8 @@ fn handle(
         return Ok(());
     }
 
-    let engine = engine();
-    let interfaces = engine.interfaces();
-    let objs = engine.objs();
-
-    let Some(interface) = interfaces.get_by_id(com) else {
-        return Err(ScriptError::Client(format!(
-            "No interface with id: {}",
-            com
-        )));
-    };
-
-    if !active.player.is_interface_visible(interface.root_layer) {
-        return Err(ScriptError::Client(format!(
-            "Interface is not visible: {}",
-            interface.root_layer
-        )));
-    }
+    let objs = engine().objs();
+    let interface = component(active, com)?;
 
     if !interface.operable {
         return Err(ScriptError::Client(format!(
@@ -160,7 +146,7 @@ fn handle(
         )));
     };
 
-    match check_held(active, com.into(), slot, obj) {
+    match check_held(active, com, slot, obj) {
         HeldCheck::Ok => {}
         HeldCheck::NoTransmit => {
             return Err(ScriptError::Client(format!(

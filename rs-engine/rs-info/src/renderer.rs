@@ -1,6 +1,8 @@
 use crate::EntityMasks;
 use rs_grid::CoordGrid;
 use rs_io::Packet;
+#[cfg(since_530)]
+use rs_protocol::network::game::info::health;
 #[cfg(since_647)]
 use rs_protocol::network::game::info::hit::Hit;
 use rs_protocol::network::game::info::npc::{
@@ -8,10 +10,18 @@ use rs_protocol::network::game::info::npc::{
     face_coord::NpcInfoFaceCoord, face_entity::NpcInfoFaceEntity, say::NpcInfoSay,
     spotanim::NpcInfoSpotAnim,
 };
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::info::npc::{
+    damage::NpcInfoDamage2, model_anims::NpcInfoModelAnims,
+};
 use rs_protocol::network::game::info::player::{
     anim::PlayerInfoAnim, appearance::PlayerInfoAppearance, chat::PlayerInfoChat,
     damage::PlayerInfoDamage, exactmove::PlayerInfoExactMove, face_coord::PlayerInfoFaceCoord,
     face_entity::PlayerInfoFaceEntity, say::PlayerInfoSay, spotanim::PlayerInfoSpotAnim,
+};
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::info::player::{
+    damage::PlayerInfoDamage2, model_anims::PlayerInfoModelAnims,
 };
 #[cfg(since_647)]
 use rs_protocol::network::game::info::player::{
@@ -19,7 +29,7 @@ use rs_protocol::network::game::info::player::{
 };
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::info_prot_message::InfoMessage;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::npc_info::add_direction;
 use rs_ver::TypeId;
 use std::mem;
@@ -27,9 +37,9 @@ use std::mem;
 const MAX_PLAYERS: usize = 2048;
 #[cfg(before_254)]
 const MAX_NPCS: usize = 8192;
-#[cfg(all(since_254, before_647))]
+#[cfg(all(since_254, before_530))]
 const MAX_NPCS: usize = 16384;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const MAX_NPCS: usize = 32768;
 
 #[cfg(before_647)]
@@ -154,6 +164,23 @@ fn facing(info: &EntityMasks, coord: CoordGrid, size: u8) -> (u16, u16) {
             CoordGrid::fine(coord.x(), size),
             CoordGrid::fine(coord.z(), size),
         ))
+}
+
+/// The facing an add entry carries for an entity of `size` tiles at
+/// `coord`: this tick's face coord, else its orientation.
+#[cfg(since_530)]
+fn add_facing(info: &EntityMasks, coord: CoordGrid, size: u8) -> u8 {
+    let facing = info
+        .face_x
+        .zip(info.face_z)
+        .or_else(|| info.orientation_x.zip(info.orientation_z))
+        .map(|(fx, fz)| {
+            (
+                CoordGrid::fine(coord.x(), size) as i32 - fx as i32,
+                CoordGrid::fine(coord.z(), size) as i32 - fz as i32,
+            )
+        });
+    add_direction(facing)
 }
 
 /// A player at `coord` facing fine coords `x`, `z`.
@@ -286,7 +313,7 @@ fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
             hitmark: info.damage_type.unwrap_or(0),
             damage: info.damage_taken.unwrap_or(0),
             soak: info.damage_soak.unwrap_or(0),
-            health: Hit::health(
+            health: health(
                 info.damage_current.unwrap_or(0),
                 info.damage_base.unwrap_or(0),
             ),
@@ -298,7 +325,7 @@ fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
             hitmark: info.damage2_type.unwrap_or(0),
             damage: info.damage2_taken.unwrap_or(0),
             soak: info.damage2_soak.unwrap_or(0),
-            health: Hit::health(
+            health: health(
                 info.damage2_current.unwrap_or(0),
                 info.damage2_base.unwrap_or(0),
             ),
@@ -312,15 +339,18 @@ fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
 /// copied into each observer's packet.
 ///
 /// Fixed-size blocks live in inline [`Slot`]s, one row per block in the
-/// client's read order, while the appearance, say and chat use `Vec<u8>`
-/// buffers. Each player's blocks are also kept together under their mask
-/// header in one high block, with its length (`highs`) and the most an add's
-/// blocks take (`lows`) for the output phase's capacity checks.
+/// client's read order, while the appearance, say, chat and on 530 the model
+/// anims use `Vec<u8>` buffers. Each player's blocks are also kept together
+/// under their mask header in one high block, with its length (`highs`) and
+/// the most an add's blocks take (`lows`) for the output phase's capacity
+/// checks.
 pub struct PlayerRenderer {
     fixed: Box<[[Slot; MAX_PLAYERS]; PlayerInfoProt::COUNT]>,
     appearances: Vec<Option<Vec<u8>>>,
     says: Vec<Option<Vec<u8>>>,
     chats: Vec<Option<Vec<u8>>>,
+    #[cfg(all(since_530, before_647))]
+    model_anims: Vec<Option<Vec<u8>>>,
     #[cfg(since_647)]
     chatted: Box<[u64; MAX_PLAYERS >> 6]>,
     #[cfg(before_647)]
@@ -341,6 +371,8 @@ pub struct PlayerRenderer {
     lows: Box<[u16; MAX_PLAYERS]>,
     ticks: Box<[Blocks; MAX_PLAYERS]>,
     low_faces: Box<[LowFace<PlayerInfoFaceCoord>; MAX_PLAYERS]>,
+    #[cfg(all(since_530, before_647))]
+    add_directions: Box<[u8; MAX_PLAYERS]>,
     appearance_clocks: Box<[Option<u32>; MAX_PLAYERS]>,
     written: Vec<u16>,
 }
@@ -353,6 +385,8 @@ impl PlayerRenderer {
             appearances: vec![None; MAX_PLAYERS],
             says: vec![None; MAX_PLAYERS],
             chats: vec![None; MAX_PLAYERS],
+            #[cfg(all(since_530, before_647))]
+            model_anims: vec![None; MAX_PLAYERS],
             #[cfg(since_647)]
             chatted: Box::new([0; MAX_PLAYERS >> 6]),
             #[cfg(before_647)]
@@ -373,15 +407,18 @@ impl PlayerRenderer {
             lows: Box::new([0; MAX_PLAYERS]),
             ticks: Box::new([Blocks::default(); MAX_PLAYERS]),
             low_faces: Box::new([LowFace::default(); MAX_PLAYERS]),
+            #[cfg(all(since_530, before_647))]
+            add_directions: Box::new([0; MAX_PLAYERS]),
             appearance_clocks: Box::new([None; MAX_PLAYERS]),
             written: Vec::new(),
         }
     }
 
     /// Notes what an observer adding player `pid` this tick gets besides its
-    /// blocks: which way it faces, and which appearance it has. Once a tick
-    /// in the info phase, so an add doesn't read the player;
-    /// [`ready_low`](Self::ready_low) writes the blocks it notes.
+    /// blocks: which way it faces (on 530 also the facing its add entry
+    /// carries), and which appearance it has. Once a tick in the info phase,
+    /// so an add doesn't read the player; [`ready_low`](Self::ready_low)
+    /// writes the blocks it notes.
     #[inline(always)]
     pub fn cache_low(&mut self, pid: u16, info: &EntityMasks, coord: CoordGrid) {
         let next = Self::low_face(info, coord);
@@ -393,6 +430,17 @@ impl PlayerRenderer {
             face.coord = next.coord;
         }
         self.appearance_clocks[pid as usize] = info.last_appearance;
+        #[cfg(all(since_530, before_647))]
+        {
+            self.add_directions[pid as usize] = add_facing(info, coord, ONE_TILE);
+        }
+    }
+
+    /// Which way player `pid` faces in its add entry this tick.
+    #[cfg(all(since_530, before_647))]
+    #[inline(always)]
+    pub fn add_direction(&self, pid: u16) -> u8 {
+        self.add_directions[pid as usize]
     }
 
     /// Caches the facing blocks (and on 647 the move type) that
@@ -518,13 +566,22 @@ impl PlayerRenderer {
             set_bytes(&mut self.says[pid], &PlayerInfoSay { say });
             order |= 1 << PlayerInfoProt::Say.to_index();
         }
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         if masks & PlayerInfoProt::Damage as u16 != 0 {
             let damage = PlayerInfoDamage {
                 damage: info.damage_taken.unwrap() as u8,
                 damage_type: info.damage_type.unwrap(),
                 current: info.damage_current.unwrap(),
                 base: info.damage_base.unwrap(),
+            };
+            order |= self.set(PlayerInfoProt::Damage, pid, &damage);
+        }
+        #[cfg(all(since_530, before_647))]
+        if masks & PlayerInfoProt::Damage as u16 != 0 {
+            let damage = PlayerInfoDamage {
+                damage: info.damage_taken.unwrap(),
+                damage_type: info.damage_type.unwrap(),
+                health: health(info.damage_current.unwrap(), info.damage_base.unwrap()),
             };
             order |= self.set(PlayerInfoProt::Damage, pid, &damage);
         }
@@ -587,7 +644,7 @@ impl PlayerRenderer {
                 order |= self.set(PlayerInfoProt::ExactMove, pid, &exactmove);
             }
         }
-        #[cfg(all(since_244, before_647))]
+        #[cfg(all(since_244, before_530))]
         if masks & PlayerInfoProt::Damage2 as u16 != 0 {
             let damage = PlayerInfoDamage {
                 damage: info.damage2_taken.unwrap() as u8,
@@ -596,6 +653,21 @@ impl PlayerRenderer {
                 base: info.damage2_base.unwrap(),
             };
             order |= self.set(PlayerInfoProt::Damage2, pid, &damage);
+        }
+        #[cfg(all(since_530, before_647))]
+        {
+            if masks & PlayerInfoProt::Damage2 as u16 != 0 {
+                let damage = PlayerInfoDamage2 {
+                    damage: info.damage2_taken.unwrap(),
+                    damage_type: info.damage2_type.unwrap(),
+                };
+                order |= self.set(PlayerInfoProt::Damage2, pid, &damage);
+            }
+            if masks & PlayerInfoProt::ModelAnims as u16 != 0 {
+                let anims = info.model_anims.as_deref().unwrap();
+                set_bytes(&mut self.model_anims[pid], &PlayerInfoModelAnims { anims });
+                order |= 1 << PlayerInfoProt::ModelAnims.to_index();
+            }
         }
         #[cfg(since_647)]
         {
@@ -694,17 +766,21 @@ impl PlayerRenderer {
     }
 
     /// Writes player `pid`'s blocks this tick as `observer` sees them: the
-    /// high block, but a player doesn't get its own chat back, and an exact
-    /// move is relative to the observer's build area.
+    /// high block, but before 530 a player doesn't get its own chat back (the
+    /// 530 client doesn't show what it sends), and an exact move is relative
+    /// to the observer's build area.
     #[cfg(before_647)]
     #[inline(always)]
     pub fn write_high_block_for(&self, buf: &mut Packet, pid: u16, observer: Observer) {
         let tick = self.ticks[pid as usize];
+        #[cfg(before_530)]
         let blocks = if pid == observer.pid {
             tick.without(Blocks::player(PlayerInfoProt::Chat))
         } else {
             tick
         };
+        #[cfg(all(since_530, before_647))]
+        let blocks = tick;
         if blocks.masks != tick.masks || tick.masks & PlayerInfoProt::ExactMove as u16 != 0 {
             self.write_blocks(buf, pid, blocks, observer);
         } else {
@@ -843,6 +919,12 @@ impl PlayerRenderer {
                 i if i == PlayerInfoProt::Chat.to_index() => {
                     self.chats.get_unchecked(pid).as_deref().unwrap_or_default()
                 }
+                #[cfg(all(since_530, before_647))]
+                i if i == PlayerInfoProt::ModelAnims.to_index() => self
+                    .model_anims
+                    .get_unchecked(pid)
+                    .as_deref()
+                    .unwrap_or_default(),
                 _ => self.fixed.get_unchecked(index).get_unchecked(pid).bytes(),
             }
         }
@@ -933,6 +1015,10 @@ impl PlayerRenderer {
             if let Some(chat) = &mut self.chats[idx] {
                 chat.clear();
             }
+            #[cfg(all(since_530, before_647))]
+            if let Some(anims) = &mut self.model_anims[idx] {
+                anims.clear();
+            }
             #[cfg(since_647)]
             {
                 self.chatted[idx >> 6] &= !(1 << (idx & 63));
@@ -976,6 +1062,8 @@ impl PlayerRenderer {
 pub struct NpcRenderer {
     fixed: Box<[[Slot; MAX_NPCS]; NpcInfoProt::COUNT]>,
     says: Vec<Option<Vec<u8>>>,
+    #[cfg(all(since_530, before_647))]
+    model_anims: Vec<Option<Vec<u8>>>,
     #[cfg(since_647)]
     hit_views: Vec<HitView>,
     blocks: Vec<u8>,
@@ -983,7 +1071,7 @@ pub struct NpcRenderer {
     highs: Box<[u16; MAX_NPCS]>,
     ticks: Box<[Blocks; MAX_NPCS]>,
     low_faces: Box<[LowFace<NpcInfoFaceCoord>; MAX_NPCS]>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     add_directions: Box<[u8; MAX_NPCS]>,
     written: Vec<u16>,
 }
@@ -994,6 +1082,8 @@ impl NpcRenderer {
         NpcRenderer {
             fixed: unsafe { Box::new_zeroed().assume_init() },
             says: vec![None; MAX_NPCS],
+            #[cfg(all(since_530, before_647))]
+            model_anims: vec![None; MAX_NPCS],
             #[cfg(since_647)]
             hit_views: vec![HitView::default(); MAX_NPCS],
             blocks: Vec::new(),
@@ -1001,14 +1091,14 @@ impl NpcRenderer {
             highs: Box::new([0; MAX_NPCS]),
             ticks: Box::new([Blocks::default(); MAX_NPCS]),
             low_faces: Box::new([LowFace::default(); MAX_NPCS]),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             add_directions: Box::new([0; MAX_NPCS]),
             written: Vec::new(),
         }
     }
 
     /// Notes what an observer adding NPC `nid` this tick gets besides its
-    /// blocks: which way it faces, and on 647 the facing its add entry
+    /// blocks: which way it faces, and from 530 the facing its add entry
     /// carries. Once a tick in the info phase, so an add doesn't read the
     /// NPC; [`ready_low`](Self::ready_low) writes the blocks it notes.
     #[inline(always)]
@@ -1017,24 +1107,14 @@ impl NpcRenderer {
         nid: u16,
         info: &EntityMasks,
         coord: CoordGrid,
-        #[cfg_attr(before_647, allow(unused_variables))] size: u8,
+        #[cfg_attr(before_530, allow(unused_variables))] size: u8,
     ) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let size = ONE_TILE;
         self.low_faces[nid as usize] = Self::low_face(info, coord, size);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
-            let facing = info
-                .face_x
-                .zip(info.face_z)
-                .or_else(|| info.orientation_x.zip(info.orientation_z))
-                .map(|(fx, fz)| {
-                    (
-                        CoordGrid::fine(coord.x(), size) as i32 - fx as i32,
-                        CoordGrid::fine(coord.z(), size) as i32 - fz as i32,
-                    )
-                });
-            self.add_directions[nid as usize] = add_direction(facing);
+            self.add_directions[nid as usize] = add_facing(info, coord, size);
         }
     }
 
@@ -1046,7 +1126,7 @@ impl NpcRenderer {
     }
 
     /// Which way NPC `nid` faces in its add entry this tick.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[inline(always)]
     pub fn add_direction(&self, nid: u16) -> u8 {
         self.add_directions[nid as usize]
@@ -1079,13 +1159,22 @@ impl NpcRenderer {
             set_bytes(&mut self.says[nid], &NpcInfoSay { say });
             order |= 1 << NpcInfoProt::Say.to_index();
         }
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         if masks & NpcInfoProt::Damage as u16 != 0 {
             let damage = NpcInfoDamage {
                 damage: info.damage_taken.unwrap() as u8,
                 damage_type: info.damage_type.unwrap(),
                 current: info.damage_current.unwrap(),
                 base: info.damage_base.unwrap(),
+            };
+            order |= self.set(NpcInfoProt::Damage, nid, &damage);
+        }
+        #[cfg(all(since_530, before_647))]
+        if masks & NpcInfoProt::Damage as u16 != 0 {
+            let damage = NpcInfoDamage {
+                damage: u8::try_from(info.damage_taken.unwrap()).unwrap_or(u8::MAX),
+                damage_type: info.damage_type.unwrap(),
+                health: health(info.damage_current.unwrap(), info.damage_base.unwrap()),
             };
             order |= self.set(NpcInfoProt::Damage, nid, &damage);
         }
@@ -1108,7 +1197,7 @@ impl NpcRenderer {
             };
             order |= self.set(NpcInfoProt::FaceCoord, nid, &coord);
         }
-        #[cfg(all(since_244, before_647))]
+        #[cfg(all(since_244, before_530))]
         if masks & NpcInfoProt::Damage2 as u16 != 0 {
             let damage = NpcInfoDamage {
                 damage: info.damage2_taken.unwrap() as u8,
@@ -1117,6 +1206,21 @@ impl NpcRenderer {
                 base: info.damage2_base.unwrap(),
             };
             order |= self.set(NpcInfoProt::Damage2, nid, &damage);
+        }
+        #[cfg(all(since_530, before_647))]
+        {
+            if masks & NpcInfoProt::Damage2 as u16 != 0 {
+                let damage = NpcInfoDamage2 {
+                    damage: u8::try_from(info.damage2_taken.unwrap()).unwrap_or(u8::MAX),
+                    damage_type: info.damage2_type.unwrap(),
+                };
+                order |= self.set(NpcInfoProt::Damage2, nid, &damage);
+            }
+            if masks & NpcInfoProt::ModelAnims as u16 != 0 {
+                let anims = info.model_anims.as_deref().unwrap();
+                set_bytes(&mut self.model_anims[nid], &NpcInfoModelAnims { anims });
+                order |= 1 << NpcInfoProt::ModelAnims.to_index();
+            }
         }
         #[cfg(since_647)]
         {
@@ -1275,10 +1379,17 @@ impl NpcRenderer {
     #[inline(always)]
     fn bytes(&self, index: usize, nid: usize) -> &[u8] {
         unsafe {
-            if index == NpcInfoProt::Say.to_index() {
-                self.says.get_unchecked(nid).as_deref().unwrap_or_default()
-            } else {
-                self.fixed.get_unchecked(index).get_unchecked(nid).bytes()
+            match index {
+                i if i == NpcInfoProt::Say.to_index() => {
+                    self.says.get_unchecked(nid).as_deref().unwrap_or_default()
+                }
+                #[cfg(all(since_530, before_647))]
+                i if i == NpcInfoProt::ModelAnims.to_index() => self
+                    .model_anims
+                    .get_unchecked(nid)
+                    .as_deref()
+                    .unwrap_or_default(),
+                _ => self.fixed.get_unchecked(index).get_unchecked(nid).bytes(),
             }
         }
     }
@@ -1323,8 +1434,11 @@ impl NpcRenderer {
 
     /// The most a low-definition update can be: the face coord is always
     /// sent, and the face entity with it when the NPC has one, under one
-    /// mask header.
-    pub const LOW_LEN: usize = LOW_HEADER + size_of::<u16>() + 2 * size_of::<u16>();
+    /// mask header (two bytes on 530, where the face coord's bit is 0x200).
+    pub const LOW_LEN: usize =
+        NpcInfoProt::header(NpcInfoProt::FaceCoord as u16 | NpcInfoProt::FaceEntity as u16).1
+            + size_of::<u16>()
+            + 2 * size_of::<u16>();
 
     /// Clears the blocks of every NPC written this tick. NPCs never written
     /// this tick cost nothing.
@@ -1339,6 +1453,10 @@ impl NpcRenderer {
             }
             if let Some(say) = &mut self.says[idx] {
                 say.clear();
+            }
+            #[cfg(all(since_530, before_647))]
+            if let Some(anims) = &mut self.model_anims[idx] {
+                anims.clear();
             }
             #[cfg(since_647)]
             {
@@ -1382,8 +1500,10 @@ mod face_tests {
         r.compute_info(7, &info, coord);
         r.cache_low(7, &info, coord);
         let east = r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7).to_vec();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         assert_eq!(east, [0x19, 0x2F, 0x19, 0x25]);
+        #[cfg(all(since_530, before_647))]
+        assert_eq!(east, [0x19, 0x2F, 0xA5, 0x19]);
         #[cfg(all(since_647, before_742))]
         assert_eq!(east, [0x30, 0x80]);
         #[cfg(since_742)]
@@ -1414,15 +1534,142 @@ mod face_tests {
         info.reset();
         info.focus_player(x, z - 2, true);
         r.compute_info(7, &info, coord);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         assert_eq!(
             r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7),
             [0x19, 0x2D, 0x19, 0x23]
+        );
+        #[cfg(all(since_530, before_647))]
+        assert_eq!(
+            r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7),
+            [0x19, 0x2D, 0xA3, 0x19]
         );
         #[cfg(all(since_647, before_742))]
         assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), [0, 0x80]);
         #[cfg(since_742)]
         assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), [0, 0]);
+    }
+}
+
+#[cfg(all(test, since_530, before_647))]
+mod classic_tests {
+    use super::*;
+    use rs_protocol::network::game::info::player::model_anims::ModelAnim;
+
+    const ANIMS: [ModelAnim; 1] = [ModelAnim {
+        seq: 0x0102,
+        delay: 3,
+        slots: 0x0801,
+    }];
+
+    #[test]
+    fn a_player_block_follows_the_530_read_order_and_reaches_its_speaker() {
+        let mut r = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::Chat as u16
+            | PlayerInfoProt::Damage as u16
+            | PlayerInfoProt::Anim as u16
+            | PlayerInfoProt::FaceEntity as u16
+            | PlayerInfoProt::Damage2 as u16
+            | PlayerInfoProt::ModelAnims as u16
+            | PlayerInfoProt::SpotAnim as u16;
+        info.chat_bytes = Some(vec![2, 0x48, 0x69].into_boxed_slice());
+        info.chat_colour = Some(3);
+        info.chat_effects = Some(1);
+        info.chat_ignored = Some(2);
+        info.apply_damage(300, 1, 50, 100, PlayerInfoProt::Damage as u16);
+        info.damage2_taken = Some(7);
+        info.damage2_type = Some(2);
+        info.anim_id = Some(TypeId::new(0x1234));
+        info.anim_delay = Some(5);
+        info.face_entity = Some(0x8005);
+        info.model_anims = Some(Box::new(ANIMS));
+        info.spotanim = Some(TypeId::new(0x0123));
+        info.spotanim_height = Some(92);
+        info.spotanim_delay = Some(5);
+        r.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let expected = [
+            0x9B, 0x0B, 1, 3, 2, 3, 0x69, 0x48, 2, 0x81, 0x2C, 0x81, 1, 0x12, 0x34, 5, 0x80, 0x85,
+            7, 0x7E, 0xFF, 2, 1, 0x83, 8, 1, 0x23, 0x01, 0x5C, 0, 5, 0,
+        ];
+        assert_eq!(r.high_block(7), expected);
+        assert_eq!(r.highdefinitions(7), expected.len());
+        let mut buf = Packet::new(64);
+        r.write_high_block_for(
+            &mut buf,
+            7,
+            Observer {
+                pid: 7,
+                ..Observer::default()
+            },
+        );
+        assert_eq!(
+            &buf.data[..buf.pos],
+            expected,
+            "the 530 client shows its own chat only from here"
+        );
+
+        r.remove_temporary();
+        info.reset();
+        assert!(r.high_block(7).is_empty());
+        assert!(!r.has(7, PlayerInfoProt::ModelAnims));
+    }
+
+    #[test]
+    fn an_npc_block_follows_the_530_read_order_under_two_mask_bytes() {
+        let mut r = NpcRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = NpcInfoProt::Damage2 as u16
+            | NpcInfoProt::Anim as u16
+            | NpcInfoProt::ChangeType as u16
+            | NpcInfoProt::Say as u16
+            | NpcInfoProt::ModelAnims as u16
+            | NpcInfoProt::FaceCoord as u16;
+        info.apply_damage(300, 1, 200, 255, NpcInfoProt::Damage as u16);
+        info.damage2_taken = Some(9);
+        info.damage2_type = Some(3);
+        info.anim_id = Some(TypeId::new(0x1234));
+        info.anim_delay = Some(5);
+        info.changetype = Some(TypeId::new(0x1087));
+        info.say = Some("hi".into());
+        info.model_anims = Some(Box::new(ANIMS));
+        info.face_x = Some(0x192F);
+        info.face_z = Some(0x1925);
+        r.compute_info(9, &info);
+        assert_eq!(
+            r.high_block(9),
+            [
+                0x7B, 0x03, 0xFF, 0xFF, 0xB8, 0xF7, 0x7D, 0x12, 0x34, 5, 0x87, 0x10, b'h', b'i', 0,
+                0xFF, 2, 1, 0x7D, 8, 1, 0x19, 0xAF, 0x19, 0x25,
+            ]
+        );
+        assert_eq!(
+            NpcRenderer::LOW_LEN,
+            2 + 2 + 4,
+            "the face coord takes two mask bytes"
+        );
+    }
+
+    #[test]
+    fn adds_carry_the_classic_index_of_the_way_they_face() {
+        let coord = CoordGrid::new(3222, 0, 3218);
+        let (x, z) = (
+            CoordGrid::fine(coord.x(), ONE_TILE),
+            CoordGrid::fine(coord.z(), ONE_TILE),
+        );
+        let mut players = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        players.cache_low(7, &info, coord);
+        assert_eq!(players.add_direction(7), 6, "south with no facing");
+        info.focus_player(x + 2, z, false);
+        players.cache_low(7, &info, coord);
+        assert_eq!(players.add_direction(7), 4, "east");
+
+        let mut npcs = NpcRenderer::new();
+        let mut info = EntityMasks::new();
+        info.focus_npc(CoordGrid::fine(coord.x(), 2), z + 8, false);
+        npcs.cache_low(9, &info, coord, 2);
+        assert_eq!(npcs.add_direction(9), 1, "north of a two-tile npc's centre");
     }
 }
 

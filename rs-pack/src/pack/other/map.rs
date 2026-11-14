@@ -1,70 +1,70 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::worldmap::WorldmapBuilder;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::area::AreaMap;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
 use crate::cache::map::TerrainTile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::map::{
     CameraData, CameraPlane, EnvParams, EnvironmentData, LightData, LocEntry, NpcSpawn, ObjSpawn,
     SkyboxData, TerrainData, load_xtea_keys,
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::incremental::{self, Hash, Stage};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::incremental::{Hash, remember};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::prepare_group;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, group_version, insert_archive, versions_dep};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::AssetNames;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::pack_registry::PackFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::packed_data::PackedData;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::zone_csv::load_csv_zones;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(super) use crate::zone_csv::zone_key;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result, bail, ensure};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::bz2::bz2_compress_with_size;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::crc;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::compression::{CompressionType, Container, compress_xtea};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::compute_group_crc;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::java_string_hash;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::reference::FileInfo;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::TypeId;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::path::PathBuf;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::sync::Arc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::info;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 type PackedMapSquare = (
     MapSquares,
     MapSquareCrcs,
@@ -73,7 +73,7 @@ type PackedMapSquare = (
     WorldmapBuilder,
 );
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(super) struct LocPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
@@ -82,14 +82,14 @@ pub(super) struct LocPlacement {
     pub(super) angle: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(super) struct NpcPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
     pub(super) z: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(super) struct ObjPlacement {
     pub(super) y: u8,
     pub(super) x: u8,
@@ -97,22 +97,22 @@ pub(super) struct ObjPlacement {
     count: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub struct ParsedMap {
     pub(super) locs: HashMap<u16, Vec<LocPlacement>>,
     pub(super) npcs: HashMap<u16, Vec<NpcPlacement>>,
     pub(super) objs: HashMap<u16, Vec<ObjPlacement>>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(super) const TILE_COUNT: usize = 4 << 12;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(super) fn tile_index(y: usize, x: usize, z: usize) -> usize {
     y << 12 | x << 6 | z
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn fast_parse_int(s: &[u8]) -> i32 {
     let mut i = 0;
     let neg = i < s.len() && s[i] == b'-';
@@ -127,7 +127,7 @@ fn fast_parse_int(s: &[u8]) -> i32 {
     if neg { -n } else { n }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn fast_parse_usize(s: &[u8]) -> usize {
     let mut n: usize = 0;
     for &b in s {
@@ -140,7 +140,7 @@ fn fast_parse_usize(s: &[u8]) -> usize {
     n
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn next_word(bytes: &[u8], start: usize) -> (usize, usize) {
     let mut i = start;
     while i < bytes.len() && bytes[i] == b' ' {
@@ -153,7 +153,7 @@ fn next_word(bytes: &[u8], start: usize) -> (usize, usize) {
     (begin, i)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn read_map(bytes: &[u8], tiles: &mut [TerrainTile; TILE_COUNT]) -> ParsedMap {
     tiles.fill(TerrainTile::default());
 
@@ -324,12 +324,12 @@ fn read_map(bytes: &[u8], tiles: &mut [TerrainTile; TILE_COUNT]) -> ParsedMap {
     ParsedMap { locs, npcs, objs }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn memchr3(needle: u8, haystack: &[u8]) -> Option<usize> {
     haystack.iter().position(|&b| b == needle)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -360,7 +360,7 @@ pub fn encode_locs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -388,7 +388,7 @@ pub fn encode_npcs(map: &ParsedMap, out: &mut Packet) {
     out.psmart1or2(0);
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
     out.pos = 0;
 
@@ -419,7 +419,7 @@ pub fn encode_objs(map: &ParsedMap, out: &mut Packet) {
 }
 
 #[cfg(since_244)]
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
     let mut tiles = [TerrainTile::default(); TILE_COUNT];
     let parsed = read_map(jm2_bytes, &mut tiles);
@@ -433,7 +433,7 @@ pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
     (terrain, loc.data[..loc.pos].to_vec())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
     let bz2 = |data: &[u8]| {
         remember(Hash::new("bz2").bytes(data).key(), || {
@@ -547,7 +547,7 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
 /// A server-only spawn layer, packed again only when its squares or the
 /// names they use change.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn pack_spawn_layer(
     map_dirs: &[PathBuf],
     names: &AssetNames,
@@ -571,7 +571,7 @@ fn pack_spawn_layer(
     Ok(packed)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
     pack_spawn_layer(map_dirs, names, "NPC", 'n', is_npc_spawns, |text| {
         let spawns = parse_npc_spawn_text(text);
@@ -582,7 +582,7 @@ pub fn pack_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedDat
 /// Pack global ground-item spawns. Same on-disk container shape as the NPC
 /// packer; the engine merges these as the `o` mapsquare layer and loads them
 /// as `EntityLifeTime::Respawn` objs.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_obj_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
     pack_spawn_layer(map_dirs, names, "obj", 'o', is_obj_spawns, |text| {
         let spawns = parse_obj_spawn_text(text);
@@ -592,7 +592,7 @@ pub fn pack_obj_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<Packe
 
 /// Areas painted on tiles: a line per tile in `a<mx>_<mz>.jm2`,
 /// `level x z: area ...`, up to five areas a tile.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
     let stage = Stage::new("area map", Vec::new());
     let mut sources: Vec<PathBuf> = squares(map_dirs)
@@ -606,7 +606,7 @@ pub fn pack_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
     Ok(areas)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn paint_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
     let pack = PackFile::load(&pack_dir.join("area.pack"))?;
     let mut areas = AreaMap::default();
@@ -659,10 +659,10 @@ fn paint_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
     Ok(areas)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 type Entry = (u8, u8, Vec<u8>);
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn collect(
     map_dirs: &[PathBuf],
     names: &AssetNames,
@@ -695,7 +695,7 @@ fn collect(
     Ok(entries)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn pack_spawn_entries(entries: &[Entry]) -> PackedData {
     let mut packed = PackedData::new(entries.len() as u32);
     for (mx, mz, binary) in entries {
@@ -708,7 +708,7 @@ fn pack_spawn_entries(entries: &[Entry]) -> PackedData {
     packed
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
@@ -881,12 +881,12 @@ fn encode_tiles(tiles: &[TerrainTile], out: &mut Vec<u8>) {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn source_dirs(content_dir: &Path) -> [PathBuf; 1] {
     [content_dir.join("maps")]
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn find_square(dirs: &[PathBuf], name: &str) -> Option<PathBuf> {
     dirs.iter()
         .rev()
@@ -894,7 +894,7 @@ pub fn find_square(dirs: &[PathBuf], name: &str) -> Option<PathBuf> {
         .find(|path| path.is_file())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
     let mut out = BTreeMap::new();
     for dir in dirs {
@@ -920,22 +920,22 @@ pub fn squares(dirs: &[PathBuf]) -> BTreeMap<String, PathBuf> {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn is_landscape(name: &str) -> bool {
     name.starts_with("l") || name.starts_with("ul")
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn is_npc_spawns(name: &str) -> bool {
     name.starts_with("n") && !name.starts_with("nl")
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn is_obj_spawns(name: &str) -> bool {
     name.starts_with('o')
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_terrain_binary(terrain: &TerrainData) -> Vec<u8> {
     let mut out = Vec::with_capacity(4 << 12);
 
@@ -998,7 +998,7 @@ pub fn encode_terrain_binary(terrain: &TerrainData) -> Vec<u8> {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn encode_environment(env: &EnvironmentData, out: &mut Vec<u8>) {
     let mut flags = 0u8;
     if env.sun_color.is_some() {
@@ -1056,7 +1056,7 @@ fn encode_environment(env: &EnvironmentData, out: &mut Vec<u8>) {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn encode_light(light: &LightData, out: &mut Vec<u8>) {
     out.push(light.flags_raw);
     write_u16(out, light.x);
@@ -1073,18 +1073,18 @@ fn encode_light(light: &LightData, out: &mut Vec<u8>) {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn write_u16(out: &mut Vec<u8>, v: u16) {
     out.push((v >> 8) as u8);
     out.push(v as u8);
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn write_i16(out: &mut Vec<u8>, v: i16) {
     write_u16(out, v as u16);
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn write_u32(out: &mut Vec<u8>, v: u32) {
     out.push((v >> 24) as u8);
     out.push((v >> 16) as u8);
@@ -1092,7 +1092,7 @@ fn write_u32(out: &mut Vec<u8>, v: u32) {
     out.push(v as u8);
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_landscape_binary(locs: &[LocEntry]) -> Vec<u8> {
     let mut sorted: Vec<&LocEntry> = locs.iter().collect();
     sorted.sort_by_key(|l| (l.loc_id, l.packed_pos()));
@@ -1123,7 +1123,7 @@ pub fn encode_landscape_binary(locs: &[LocEntry]) -> Vec<u8> {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_npc_spawn_text(text: &str) -> Vec<NpcSpawn> {
     let mut spawns = Vec::new();
     for line in text.lines() {
@@ -1149,7 +1149,7 @@ pub fn parse_npc_spawn_text(text: &str) -> Vec<NpcSpawn> {
     spawns
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_npc_spawn_binary(spawns: &[NpcSpawn]) -> Vec<u8> {
     let mut out = Vec::new();
     for s in spawns {
@@ -1160,7 +1160,7 @@ pub fn encode_npc_spawn_binary(spawns: &[NpcSpawn]) -> Vec<u8> {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_obj_spawn_text(text: &str) -> Vec<ObjSpawn> {
     let mut spawns = Vec::new();
     for line in text.lines() {
@@ -1189,7 +1189,7 @@ pub fn parse_obj_spawn_text(text: &str) -> Vec<ObjSpawn> {
     spawns
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_obj_spawn_binary(spawns: &[ObjSpawn]) -> Vec<u8> {
     let mut out = Vec::new();
     for s in spawns {
@@ -1201,7 +1201,7 @@ pub fn encode_obj_spawn_binary(spawns: &[ObjSpawn]) -> Vec<u8> {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_terrain_text(text: &str) -> TerrainData {
     let mut levels = 4usize;
     for line in text.lines() {
@@ -1437,7 +1437,7 @@ pub fn parse_terrain_text(text: &str) -> TerrainData {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_landscape_text(text: &str) -> Vec<LocEntry> {
     let mut locs = Vec::new();
 
@@ -1474,7 +1474,7 @@ pub fn parse_landscape_text(text: &str) -> Vec<LocEntry> {
     locs
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn write_smart(out: &mut Vec<u8>, value: i32) {
     if value < 128 {
         out.push(value as u8);
@@ -1485,7 +1485,7 @@ pub(crate) fn write_smart(out: &mut Vec<u8>, value: i32) {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn write_lsmart(out: &mut Vec<u8>, value: i32) {
     let mut remaining = value;
     while remaining >= 32767 {

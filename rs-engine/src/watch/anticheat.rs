@@ -1,6 +1,6 @@
 // Rev 647's client sends no heartbeats, op checks or minimap trailer, so what
 // reads those goes unused there.
-#![cfg_attr(since_647, allow(dead_code, unused_variables, unused_imports))]
+#![cfg_attr(since_530, allow(dead_code, unused_variables, unused_imports))]
 
 use super::Target;
 use super::afk::AntiAfk;
@@ -29,6 +29,7 @@ use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_ver::TypeId;
+use rs_vm::ComId;
 use serde_json::{Map, Value, json};
 use std::collections::VecDeque;
 #[cfg(before_647)]
@@ -243,13 +244,13 @@ pub enum Op {
         op: u8,
         obj: TypeId,
         slot: u16,
-        com: u16,
+        com: ComId,
     },
     InvButton {
         op: u8,
         obj: TypeId,
         slot: u16,
-        com: u16,
+        com: ComId,
     },
     Other,
 }
@@ -570,38 +571,38 @@ impl AntiCheat {
             return;
         }
         match prot {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic1 => self.heartbeat(0, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic2 => self.heartbeat(1, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic3 => self.heartbeat(2, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic4 => self.heartbeat(3, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic5 => self.heartbeat(4, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic6 => self.heartbeat(5, data),
             #[cfg(since_254)]
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatCycleLogic7 => self.heartbeat(6, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic1 => self.op_check(0, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic2 => self.op_check(1, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic3 => self.op_check(2, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic4 => self.op_check(3, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic5 => self.op_check(4, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic6 => self.op_check(5, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic7 => self.op_check(6, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic8 => self.op_check(7, data),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             ClientProt::AnticheatOpLogic9 => self.op_check(8, data),
             #[cfg(before_647)]
             ClientProt::IdleTimer => {
@@ -1189,7 +1190,7 @@ impl AntiCheat {
             .filter(|((_, from_loop), _)| *from_loop)
             .map(|(_, &n)| n)
             .sum();
-        if cfg!(before_647) && self.ops >= MIN_OPS && loop_beats == 0 {
+        if cfg!(before_530) && self.ops >= MIN_OPS && loop_beats == 0 {
             flags.push(("no_heartbeat", 40));
         }
         let beat_ratio = self.beat_ratio();
@@ -1217,7 +1218,7 @@ impl AntiCheat {
             .iter()
             .zip(&self.op_received)
             .any(|(&expected, &received)| expected >= 3 && (received << 1) < expected);
-        if cfg!(before_647) && missing {
+        if cfg!(before_530) && missing {
             flags.push(("missing_op_checks", 40));
         }
         if cfg!(since_254) && self.ops >= MIN_OPS && (self.ops_unclicked << 2) > self.ops {
@@ -1396,14 +1397,35 @@ impl Spread {
     }
 }
 
+/// The 530 minimap component (clientcode 1338) is this wide and high in both
+/// toplevels, and its trailer has the click from the component's top left.
+#[cfg(all(since_530, before_647))]
+const MINIMAP_SIZE: u8 = 152;
+
+/// Where a minimap click's trailer has it from the minimap's centre.
+#[cfg(before_647)]
+fn minimap_offset(t: &MinimapTrailer) -> (i32, i32) {
+    #[cfg(before_530)]
+    let offset = (i32::from(t.x), i32::from(t.y));
+    #[cfg(all(since_530, before_647))]
+    let offset = {
+        let centre = i32::from(MINIMAP_SIZE >> 1);
+        (i32::from(t.x as u8) - centre, i32::from(t.y as u8) - centre)
+    };
+    offset
+}
+
 /// A tile's offset into the client's map.
 /// Whether a minimap click's trailer is one the real client could send: its
 /// fixed bytes, and everything else in the range the client keeps it to.
 #[cfg(before_647)]
 pub fn plausible(t: &MinimapTrailer) -> bool {
+    #[cfg(before_530)]
+    let on_map = (-73..=72).contains(&t.x) && (-75..=75).contains(&t.y);
+    #[cfg(all(since_530, before_647))]
+    let on_map = (t.x as u8) < MINIMAP_SIZE && (t.y as u8) < MINIMAP_SIZE;
     (t.magic1, t.magic2, t.magic3) == (57, 89, 63)
-        && (-73..=72).contains(&t.x)
-        && (-75..=75).contains(&t.y)
+        && on_map
         && t.yaw < 2048
         && (-62..=62).contains(&t.angle)
         && (-21..=11).contains(&t.zoom)
@@ -1418,7 +1440,7 @@ fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
     let scale = i32::from(t.zoom) + 256;
     let sin = (table(f64::sin, yaw) * scale) >> 8;
     let cos = (table(f64::cos, yaw) * scale) >> 8;
-    let (x, y) = (i32::from(t.x), i32::from(t.y));
+    let (x, y) = minimap_offset(t);
     let right = (y * sin + x * cos) >> 11;
     let up = (y * cos - x * sin) >> 11;
     (
@@ -1450,7 +1472,7 @@ fn op_count(op: Op, base: MapBase) -> Option<(usize, Count, i64)> {
         Op::Held { op: 1, obj, .. } => (2, Count::By(obj.g2().into()), 97),
         Op::Held { op: 4, slot, .. } => (4, Count::Quarter(slot.into()), 90),
         Op::InvButton { op: 4, slot, .. } => (8, Count::Quarter(slot.into()), 130),
-        Op::InvButton { op: 5, com, .. } => (6, Count::Quarter(com.into()), 55),
+        Op::InvButton { op: 5, com, .. } => (6, Count::Quarter(com), 55),
         _ => return None,
     })
 }
@@ -1489,7 +1511,7 @@ mod tests {
     }
 
     // The jag-era anticheat packets; rev 647 has none.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn real_heartbeats_pass() {
         let mut ac = AntiCheat::default();
@@ -1522,7 +1544,7 @@ mod tests {
     }
 
     // The jag-era anticheat packets; rev 647 has none.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn heartbeats_off_the_loop_s_beat_are_forged() {
         let beat = |index: usize| match index {
@@ -1569,7 +1591,7 @@ mod tests {
     }
 
     // The jag-era anticheat packets; rev 647 has none.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn op_checks_are_mirrored() {
         let mut ac = AntiCheat::default();
@@ -1693,9 +1715,13 @@ mod tests {
     /// from the player drawn mid-tile at (52, 52) in a map from (3152, 3152).
     #[cfg(before_647)]
     fn minimap_click() -> (Vec<u32>, MinimapTrailer) {
+        #[cfg(before_530)]
+        let (x, y) = (10, -20);
+        #[cfg(all(since_530, before_647))]
+        let (x, y) = (76 + 10, 76 - 20);
         let trailer = MinimapTrailer {
-            x: 10,
-            y: -20,
+            x,
+            y,
             yaw: 0,
             magic1: 57,
             angle: 0,

@@ -143,9 +143,9 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     let mut scripts = HashMap::new();
     let format = clientscript::format::Format::load(&pack_dir.join("cs2_command.pack"))?;
     for info in &groups {
-        let data = store
-            .read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)?
-            .context("Missing clientscript")?;
+        let Some(data) = store.read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)? else {
+            continue;
+        };
         scripts.insert(info.id, Script::decode(&data, &format)?);
         original.insert(info.id, data);
     }
@@ -316,9 +316,9 @@ pub fn scan_cs2_varp_refs(store: &mut Js5Store) -> Result<(HashSet<u32>, HashSet
         .groups
         .clone();
     for info in groups {
-        let data = store
-            .read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)?
-            .context("Missing clientscript")?;
+        let Some(data) = store.read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)? else {
+            continue;
+        };
         let script = Script::decode(&data, &format)?;
         for (&opcode, &operand) in script.opcodes.iter().zip(&script.int_operands) {
             match opcode {

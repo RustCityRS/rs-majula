@@ -2,9 +2,9 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::core::engine_mut;
 #[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
-use crate::handlers::op_common::{
-    action_target, held_component_ok, require_held, spell_component_ok,
-};
+#[cfg(before_647)]
+use crate::handlers::op_common::action_target;
+use crate::handlers::op_common::{held_component_ok, require_held, spell_component_ok};
 use crate::watch::{Target, Using};
 #[cfg(before_647)]
 use rs_protocol::network::game::client::opheldt::OpHeldT;
@@ -17,30 +17,38 @@ use rs_vm::{ComId, ScriptError};
 #[cfg(before_647)]
 impl ClientGameHandler for OpHeldT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(before_530)]
+        let (com, spell, spell_slot) = (self.com.into(), self.com2.into(), u16::MAX);
+        #[cfg(since_530)]
+        let (com, spell, spell_slot) = (self.com, self.com2, self.slot2);
         handle(
-            self.com.into(),
+            com,
             self.slot,
             self.obj,
-            self.com2.into(),
-            u16::MAX,
+            spell,
+            spell_slot,
+            action_target::HELD,
             active,
         )
     }
 }
 
+/// A spell cast on a held obj. `target` is the bit the spell's targets must
+/// have: `HELD`, or on 530 `COMPONENT` for an obj in an if3 component.
 pub(super) fn handle(
     com: ComId,
     slot: u16,
     obj: TypeId,
     spell: ComId,
     spell_slot: u16,
+    target: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     active.watch_use(Using::Spell(spell), Target::Item(obj));
     if active.player.state.delayed {
         return Ok(());
     }
-    if !spell_component_ok(active, spell, spell_slot, action_target::HELD)
+    if !spell_component_ok(active, spell, spell_slot, target)
         || !held_component_ok(active, com, slot)
     {
         return Err(ScriptError::Client(format!(

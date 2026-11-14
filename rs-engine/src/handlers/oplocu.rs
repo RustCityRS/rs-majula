@@ -16,11 +16,15 @@ use rs_vm::{ComId, ScriptError};
 #[cfg(before_647)]
 impl ClientGameHandler for OpLocU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(before_530)]
+        let com = self.com.into();
+        #[cfg(since_530)]
+        let com = self.com;
         handle(
             self.x,
             self.z,
             self.loc,
-            self.com.into(),
+            com,
             self.slot,
             self.obj.g2(),
             active,

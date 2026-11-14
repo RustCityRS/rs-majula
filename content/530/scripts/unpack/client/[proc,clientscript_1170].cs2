@@ -1,0 +1,8 @@
+// 1170
+[proc,clientscript_1170](component $component0, graphic $graphic1, component $component2, component $component3, component $component4, int $rgb5, int $rgb6, graphic $graphic7, int $int8, int $int9, graphic $graphic10, graphic $graphic11, graphic $graphic12, graphic $graphic13, graphic $graphic14, graphic $graphic15)
+if (if_gethide($component0) = true) {
+    if_setscrollpos($component2, 0, 0);
+    ~clientscript_1171($component0, $graphic1, $component2, $component3, $component4, $rgb5, $rgb6, $graphic7, $int8, $int9, $graphic10, $graphic11, $graphic12, $graphic13, $graphic14, $graphic15);
+} else {
+    ~dropdownbox_close($component4, $component0, $component2, $component3, $int9);
+}

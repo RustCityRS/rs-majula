@@ -2,10 +2,10 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DB_FENCE, DbRequest};
 use crate::clients::client_ether::{EtherOutbound, max_friends_cap};
 use crate::clients::client_game::ClientHandle;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::console::home_for;
 use crate::core::Engine;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::place_returning;
 use crate::save::*;
 use crate::watch::schedule::{self, End, Played, Schedule};
@@ -13,8 +13,10 @@ use crate::watch::{Target, Watch};
 use rs_db::LoginDevice;
 use rs_entity::StaffModLevel;
 use rs_protocol::LoginResponse;
+#[cfg(since_530)]
+use rs_protocol::login::game_login_reply;
 #[cfg(since_647)]
-use rs_protocol::login::{game_login_reply, lobby_login_reply, reconnect_reply};
+use rs_protocol::login::{lobby_login_reply, reconnect_reply};
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::base37::to_raw_username;
 use rs_vm::engine::ScriptPlayer;
@@ -40,7 +42,7 @@ pub struct LoginRequest {
     pub uid: Option<i32>,
     pub reconnect: bool,
     pub device: LoginDevice,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub display_mode: u8,
     /// A login to the lobby rather than the game world.
     #[cfg(since_647)]
@@ -105,9 +107,9 @@ impl Engine {
     /// The profile `active` saves: where it stands and, in region space, the
     /// exit it logs back in at, as no region outlives the world.
     pub(crate) fn profile_of(&self, active: &ActivePlayer) -> PlayerProfile {
-        #[cfg_attr(before_647, allow(unused_mut))]
+        #[cfg_attr(before_530, allow(unused_mut))]
         let mut profile = extract_profile(&active.player, self.cache);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             profile.exit = self.saved_exit(active.player.pathing.coord, active.player.region_entry);
         }
@@ -347,8 +349,15 @@ impl Engine {
 
         #[cfg(since_254)]
         let level = active.staffmodlevel().min(2);
-        #[cfg(all(since_254, before_647))]
+        #[cfg(all(since_254, before_530))]
         let reply = vec![LoginResponse::SuccessNormal as u8, level, 1];
+        // The 530 client reads the first game packet, REBUILD_NORMAL, as part
+        // of the reply: `on_login` sends it before anything else.
+        #[cfg(all(since_530, before_647))]
+        let reply = {
+            active.player.window_mode = request.display_mode;
+            game_login_reply(level, pid)
+        };
         #[cfg(since_647)]
         let reply = {
             active.player.window_mode = request.display_mode;
@@ -823,7 +832,7 @@ impl Engine {
 
         // A player saved in region space comes back at the exit it saved,
         // before any packet goes to it.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if let Some(Some(profile)) = self.pending_logins[idx].profile.as_mut() {
             place_returning(profile);
         }
@@ -837,7 +846,7 @@ impl Engine {
             return;
         }
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if let Some(Some(profile)) = self.pending_logins[idx].profile.as_mut()
             && !rsmod::is_zone_allocated(profile.x, profile.z, profile.y)
         {

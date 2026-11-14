@@ -1,24 +1,26 @@
 use crate::CONFIG_TYPE_CRCS;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
 use crate::pack::config::*;
 use crate::pack::incremental::{Key, Stage, dir_key};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::interface;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::AssetNames;
 #[cfg(since_647)]
-use crate::pack::other::{map, shader, song};
+use crate::pack::other::shader;
+#[cfg(since_530)]
+use crate::pack::other::{map, song};
 use crate::pack::pack_registry::{PackRegistry, PackedFile, validate_config_packs};
-#[cfg(all(since_647, before_742))]
+#[cfg(all(since_530, before_742))]
 use crate::pack::texture;
 use crate::pack::util::verify_crc;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::{config, interface, js5, media, sound};
 use anyhow::{Context, Result, bail};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rayon::join;
 use rayon::prelude::*;
 use std::collections::HashMap;
@@ -117,15 +119,15 @@ fn pack_cached_assets(
         "spotanim",
         "idk",
         "category",
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         "interface",
         #[cfg(since_254)]
         "varpbit",
-        #[cfg(all(since_274, before_647))]
+        #[cfg(all(since_274, before_530))]
         "mes",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "flu",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "bas",
         #[cfg(since_647)]
         "cursor",
@@ -145,29 +147,29 @@ fn pack_cached_assets(
         "light",
         #[cfg(since_647)]
         "mel",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "msi",
         #[cfg(since_647)]
         "quest",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "quickchatcat",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "quickchatphrase",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varc",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varcstr",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varpstr",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varsstr",
         #[cfg(since_647)]
         "varclansetting",
         #[cfg(since_742)]
         "varclan",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "area",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varobj",
         #[cfg(since_647)]
         "varcon",
@@ -217,15 +219,15 @@ fn pack_cached_assets(
                         server: category::pack_categories(registry)?,
                         client: None,
                     },
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "interface" => interface::pack_interfaces(files.dir(), registry, verify)?,
                     #[cfg(since_254)]
                     "varpbit" => varbit::pack_varbits(fc, registry, constants)?,
-                    #[cfg(all(since_274, before_647))]
+                    #[cfg(all(since_274, before_530))]
                     "mes" => mes::pack_mes(fc, constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "flu" => flu::pack_flus(fc, registry, constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "bas" => bas::pack_bases(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "cursor" => cursor::pack_cursors(fc, registry, constants)?,
@@ -249,23 +251,23 @@ fn pack_cached_assets(
                     "light" => light::pack_lights(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "mel" => mel::pack_mels(fc, registry, constants, param_types)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "msi" => msi::pack_msis(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "quest" => quest::pack_quests(fc, registry, constants, param_types)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "quickchatcat" => quickchatcat::pack_quickchatcats(fc, registry, constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "quickchatphrase" => {
                         quickchatphrase::pack_quickchatphrases(fc, registry, constants)?
                     }
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "varc" => varc::pack_varcs(fc, &registry.varc, constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "varcstr" => varc::pack_varc_strings(fc, &registry.varcstr, constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "varpstr" => vars::pack_string_vars(fc, &registry.varpstr, "varp", constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "varsstr" => vars::pack_string_vars(fc, &registry.varsstr, "vars", constants)?,
                     #[cfg(since_647)]
                     "varclansetting" => varclansetting::pack_clan_vars(
@@ -283,9 +285,9 @@ fn pack_cached_assets(
                         constants,
                         3,
                     )?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "area" => area::pack_areas(fc, registry, constants)?,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "varobj" => varobj::pack_varobjs(fc, registry, constants)?,
                     #[cfg(since_647)]
                     "varcon" => PackedFile {
@@ -341,7 +343,7 @@ impl FileCache {
         "loc",
         "seq",
         "flo",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "flu",
         "inv",
         "enum",
@@ -359,7 +361,7 @@ impl FileCache {
         "if",
         #[cfg(since_254)]
         "varpbit",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "bas",
         #[cfg(since_647)]
         "cursor",
@@ -379,23 +381,23 @@ impl FileCache {
         "light",
         #[cfg(since_647)]
         "mel",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "msi",
         #[cfg(since_647)]
         "quest",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "quickchatcat",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "quickchatphrase",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varc",
         #[cfg(since_647)]
         "varclansetting",
         #[cfg(since_742)]
         "varclan",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "area",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varobj",
         #[cfg(since_647)]
         "controller",
@@ -403,7 +405,7 @@ impl FileCache {
         "varcon",
         #[cfg(since_647)]
         "varconbit",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "varnbit",
         #[cfg(since_647)]
         "varclan",
@@ -429,7 +431,7 @@ impl FileCache {
         "gamelogevent",
         #[cfg(since_742)]
         "config74",
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "wma",
     ];
 
@@ -632,9 +634,9 @@ pub(super) fn parse_sections<'a>(
         let mut current_name: Option<String> = None;
 
         for (line_no, raw_line) in text.lines().enumerate() {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let line = raw_line.split("//").next().unwrap_or("").trim();
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let line = {
                 let line = raw_line.trim_start().trim_end_matches('\r');
                 find_comment_start(line).map_or(line, |index| &line[..index])
@@ -669,7 +671,7 @@ pub(super) fn parse_sections<'a>(
     Ok(configs)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn find_comment_start(line: &str) -> Option<usize> {
     let bytes = line.as_bytes();
     let mut i = 0;
@@ -740,7 +742,7 @@ pub fn pack_config_files(
 ) -> Result<HashMap<String, PackedFile>> {
     let registry = PackRegistry::load(pack_dir)?;
     let assets = pack_cached_assets(&registry, files, verify)?;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let assets = {
         let mut assets = assets;
         let empty = archive::CONFIG_EMPTY_TABLES
@@ -773,7 +775,7 @@ pub fn pack_config_files(
     Ok(assets)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_cache(
     content_dir: &Path,
     pack_dir: &Path,
@@ -783,6 +785,7 @@ pub fn pack_cache(
 ) -> Result<(HashMap<String, PackedFile>, PackedCache)> {
     let versions = archive::load_versions_dir(&content_dir.join("versions"))?;
     let stages = [
+        #[cfg(since_647)]
         "shaders",
         "interfaces",
         "binary",
@@ -825,6 +828,7 @@ pub fn pack_cache(
                             verify,
                         )?,
                         "synth" => sound::pack_archive(&mut cache, content_dir, &versions, names)?,
+                        #[cfg(since_647)]
                         "shaders" => shader::pack_archive(
                             &mut cache,
                             content_dir,

@@ -12,11 +12,23 @@ pub struct PlayerInfoSpotAnim {
     pub delay: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl InfoMessage for PlayerInfoSpotAnim {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
         buf.p2(self.spotanim.g2());
         buf.p4(((self.height as i32) << 16) | self.delay as i32);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of::<u16>() + size_of_val(&self.height) + size_of_val(&self.delay)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl InfoMessage for PlayerInfoSpotAnim {
+    fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        buf.p2_alt1(self.spotanim.g2());
+        buf.p4_alt3(((self.height as i32) << 16) | self.delay as i32);
     }
 
     fn sizeof(&self) -> usize {

@@ -16,7 +16,7 @@ pub struct OpObj1 {
     pub ctrl: bool,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for OpObj1 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpObj1 {
@@ -24,6 +24,16 @@ impl ClientProtMessage for OpObj1 {
             z: buf.g2(),
             obj: TypeId::from_g2(buf.g2()),
         }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpObj1 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let obj = TypeId::from_g2(buf.g2());
+        let x = buf.g2_alt1();
+        let z = buf.g2_alt3();
+        OpObj1 { x, z, obj }
     }
 }
 

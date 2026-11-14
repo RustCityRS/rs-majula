@@ -5,6 +5,10 @@ use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::server::map_projanim_halfsq::{
+    MapProjAnimHalfsq, ServerProt530_104,
+};
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::obj_del::ObjDel;
@@ -77,6 +81,36 @@ fn zone_messages_match_client_ids_and_sizes() {
             #[cfg(since_742)]
             trailing: 0,
         }),
+        #[cfg(all(since_530, before_647))]
+        ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
+            coord: 0xA5,
+            dx: -4,
+            dz: 6,
+            target: -43,
+            spotanim: TypeId::new(91),
+            src_height: 43,
+            dst_height: 31,
+            start_delay: 51,
+            end_delay: 70,
+            peak: 16,
+            arc: 64,
+        }),
+        #[cfg(all(since_530, before_647))]
+        ZoneMessage::ServerProt530_104(ServerProt530_104 {
+            coord: 0xA5,
+            dx: -4,
+            dz: 6,
+            source: -6,
+            wearpos: 3,
+            target: -43,
+            spotanim: TypeId::new(91),
+            src_height: 43,
+            dst_height: 31,
+            start_delay: 51,
+            end_delay: 70,
+            peak: 16,
+            arc: 64,
+        }),
     ];
     #[cfg(before_647)]
     let expected = [
@@ -89,6 +123,10 @@ fn zone_messages_match_client_ids_and_sizes() {
         (ServerProt::ObjReveal as u8, 7),
         (ServerProt::MapAnim as u8, 6),
         (ServerProt::MapProjAnim as u8, 15),
+        #[cfg(all(since_530, before_647))]
+        (121, 15),
+        #[cfg(all(since_530, before_647))]
+        (104, 17),
     ];
     #[cfg(all(since_647, before_742))]
     let expected = [
@@ -134,8 +172,10 @@ fn loc_anim_payload_matches_revision() {
     };
     let mut buf = Packet::new(message.sizeof());
     message.encode(&mut buf);
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     assert_eq!(&buf.data[..buf.pos], &[0x35, 41, 0x12, 0x34]);
+    #[cfg(all(since_530, before_647))]
+    assert_eq!(&buf.data[..buf.pos], &[0x4b, 0x57, 0x34, 0x12]);
     #[cfg(all(since_647, before_742))]
     assert_eq!(&buf.data[..buf.pos], &[0xcb, 41, 0x34, 0x12]);
     #[cfg(since_742)]

@@ -1,18 +1,18 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::config::param::type_name_to_char;
 use crate::pack::pack_registry::{PackFile, PackId, PackRegistry};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::types::ScriptVarType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result, bail};
 use rs_io::crc;
 use rs_ver::TypeId;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::array::from_fn;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::BTreeMap;
 use std::fmt::Display;
 use std::fs;
@@ -91,9 +91,9 @@ pub fn placeholder_prefix(kind: &str) -> &str {
 pub fn parse_ref(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce(u16)) {
     let id = match lookup_ref(pack, kind, value) {
         None => u16::MAX,
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         Some(id) => id,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         Some(id) => {
             u16::try_from(id).unwrap_or_else(|_| panic!("{kind} reference exceeds 65535: {value}"))
         }
@@ -112,12 +112,12 @@ pub fn parse_bigid(pack: &PackFile, kind: &str, value: &str, callback: impl FnOn
 }
 
 fn lookup_ref(pack: &PackFile, kind: &str, value: &str) -> Option<PackId> {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let value = value
         .strip_prefix('"')
         .and_then(|value| value.strip_suffix('"'))
         .unwrap_or(value);
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let kind = placeholder_prefix(kind);
     if value == "null" {
         return None;
@@ -156,7 +156,7 @@ pub fn parse_recol<F>(key: &str, value: &str, callback: F)
 where
     F: FnOnce(RecolType),
 {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(rest) = key.strip_prefix("recolhsl") {
         let (num_part, suffix) = rest.split_at(rest.len().saturating_sub(1));
         if let (Ok(idx), Ok(val)) = (num_part.parse::<usize>(), value.parse::<u16>()) {
@@ -168,7 +168,7 @@ where
         }
         panic!("Invalid recol format for key: '{key}' with value: '{value}'");
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(rest) = key.strip_prefix("recol") {
         let (num_part, suffix) = rest.split_at(rest.len().saturating_sub(1));
         if let (Ok(idx), Ok(val)) = (num_part.parse::<usize>(), value.parse::<u16>()) {
@@ -180,7 +180,7 @@ where
             }
         }
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     if let Some(rest) = key.strip_prefix("recol") {
         let (num_part, suffix) = rest.split_at(rest.len().saturating_sub(1));
         if let (Ok(idx), Ok(val)) = (num_part.parse::<usize>(), value.parse::<u16>()) {
@@ -218,9 +218,9 @@ pub fn parse_script_var_type<F>(value: &str, callback: F)
 where
     F: FnOnce(char),
 {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     callback(ScriptVarType::from_type_name(value).to_char());
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     callback(type_name_to_char(value));
 }
 
@@ -293,7 +293,7 @@ pub fn parse_csv_values(s: &str) -> Vec<String> {
     vals
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_pairs(
     packed: &mut PackedData,
     code: u8,
@@ -316,7 +316,7 @@ pub fn pack_pairs(
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn config_key_index(key: &str, prefix: &str) -> Option<usize> {
     key.strip_prefix(prefix)?.parse().ok()
 }
@@ -333,9 +333,9 @@ pub fn parse_mask_indices(value: &str) -> u16 {
     })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 /// A colour as `0xRRGGBB` or `0xAARRGGBB`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_colour(value: &str) -> i32 {
     let hex = value
         .strip_prefix("0x")
@@ -343,7 +343,7 @@ pub fn parse_colour(value: &str) -> i32 {
     u32::from_str_radix(hex, 16).unwrap_or_else(|_| panic!("Invalid colour: {value}")) as i32
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_numbers<T: FromStr, const N: usize>(value: &str) -> [T; N] {
     let mut values = value.split(',');
     let result = from_fn(|_| {
@@ -356,9 +356,9 @@ pub fn parse_numbers<T: FromStr, const N: usize>(value: &str) -> [T; N] {
     result
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 /// The recolours of a record, in one opcode 40.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_recol_pairs(packed: &mut PackedData, props: &[(String, String)]) {
     let mut pairs = BTreeMap::new();
     for (key, value) in props {
@@ -371,7 +371,7 @@ pub fn pack_recol_pairs(packed: &mut PackedData, props: &[(String, String)]) {
 }
 
 /// The retextures of a record, in one opcode 41.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_retex_pairs(
     packed: &mut PackedData,
     props: &[(String, String)],
@@ -387,7 +387,7 @@ pub fn pack_retex_pairs(
     write_pairs(packed, 41, &pairs);
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn write_pairs(packed: &mut PackedData, code: u8, pairs: &BTreeMap<usize, [u16; 2]>) {
     if let Some((&count, _)) = pairs.last_key_value() {
         packed.p1(code);
@@ -401,7 +401,7 @@ fn write_pairs(packed: &mut PackedData, code: u8, pairs: &BTreeMap<usize, [u16; 
 }
 
 /// A sound by name, and whether it is a vorbis file rather than a synth.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn parse_sound(registry: &PackRegistry, value: &str) -> (u16, bool) {
     if let Some(id) = value.strip_prefix("vorbis_") {
         let id = id
@@ -415,7 +415,7 @@ pub fn parse_sound(registry: &PackRegistry, value: &str) -> (u16, bool) {
 }
 
 /// `op,cursor`, with the op counted from one.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_cursor(packed: &mut PackedData, code: u8, value: &str, registry: &PackRegistry) {
     let (op, cursor) = value
         .split_once(',')
@@ -426,12 +426,24 @@ pub fn pack_cursor(packed: &mut PackedData, code: u8, value: &str, registry: &Pa
         .unwrap_or_else(|_| panic!("Invalid cursor op: {value}"));
     packed.p1(code);
     packed.p1(op - 1);
-    parse_ref(&registry.cursor, "cursor", cursor.trim(), |v| packed.p2(v));
+    parse_cursor(registry, cursor.trim(), |v| packed.p2(v));
+}
+
+/// A cursor by name, or by id before 647, whose caches have no cursor table.
+#[cfg(since_530)]
+pub fn parse_cursor(registry: &PackRegistry, value: &str, callback: impl FnOnce(u16)) {
+    #[cfg(all(since_530, before_647))]
+    {
+        let _ = registry;
+        parse_number(value, callback);
+    }
+    #[cfg(since_647)]
+    parse_ref(&registry.cursor, "cursor", value, callback);
 }
 
 /// A record's `multivar` and target lines as one opcode: `codes.0`, or
 /// `codes.1` when one of the lines is the default.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_multi(
     packed: &mut PackedData,
     codes: (u8, u8),
@@ -496,7 +508,7 @@ pub fn pack_multi(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn placeholder_number<T: FromStr>(kind: &str, value: &str) -> Option<T> {
     value
         .strip_prefix(placeholder_prefix(kind))?
@@ -505,7 +517,7 @@ fn placeholder_number<T: FromStr>(kind: &str, value: &str) -> Option<T> {
         .ok()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_indexed_pairs(
     packed: &mut PackedData,
     code: u8,
@@ -531,7 +543,7 @@ pub fn pack_indexed_pairs(
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_indexed_values<F: Fn(&mut PackedData, &str)>(
     packed: &mut PackedData,
     code: u8,

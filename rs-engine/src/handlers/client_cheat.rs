@@ -11,7 +11,7 @@ use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::cp1252::encode_string;
 use rs_pack::cache::category::CategoryType;
 use rs_pack::cache::r#enum::EnumType;
@@ -37,12 +37,12 @@ use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 use rs_protocol::network::game::client::pack_coord;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::if_settext::IfSetText;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::reflection_checker::ReflectionCheck;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_stat::get_exp_by_level;
 use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_util::wordpack::pack;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
@@ -144,7 +144,7 @@ impl ClientGameHandler for ClientCheat {
 fn cheat_maintainer(
     cmd: &str,
     mut args: Split<'_, char>,
-    #[cfg_attr(before_647, expect(unused_variables))] input: &str,
+    #[cfg_attr(before_530, expect(unused_variables))] input: &str,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     match cmd {
@@ -164,7 +164,7 @@ fn cheat_maintainer(
         "bots" => cheat_spawn_bots(active),
         "localbots" => cheat_spawn_local_bots(active),
         "readerstall" => cheat_reader_stall(active),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "reflect" => cheat_reflect(input, active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
@@ -330,14 +330,18 @@ fn cheat_debugproc(
             ScriptVarType::NpcUid => {}
             ScriptVarType::DbRow => {}
             ScriptVarType::Midi => {}
+            #[cfg(since_530)]
+            ScriptVarType::Graphic
+            | ScriptVarType::Jingle
+            | ScriptVarType::ChatCat
+            | ScriptVarType::Model => {
+                let value = args.next().unwrap_or("0");
+                params.push(ScriptArgument::Int(value.parse::<i32>().unwrap_or(0)));
+            }
             #[cfg(since_647)]
             ScriptVarType::Cursor
             | ScriptVarType::MapArea
-            | ScriptVarType::Graphic
             | ScriptVarType::ChatPhrase
-            | ScriptVarType::Jingle
-            | ScriptVarType::ChatCat
-            | ScriptVarType::Model
             | ScriptVarType::Texture
             | ScriptVarType::Bas
             | ScriptVarType::Vorbis
@@ -715,10 +719,21 @@ fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     else {
         return Ok(());
     };
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let com = com as u16;
-    let text = "x".repeat(MAX_PACKET_SIZE - IfSetText { com, text: "" }.sizeof());
-    let message = IfSetText { com, text: &text };
+    let empty = IfSetText {
+        com,
+        text: "",
+        #[cfg(all(since_530, before_647))]
+        verify: active.next_verify(),
+    };
+    let text = "x".repeat(MAX_PACKET_SIZE - empty.sizeof());
+    let message = IfSetText {
+        com,
+        text: &text,
+        #[cfg(all(since_530, before_647))]
+        verify: empty.verify,
+    };
     let mut body = Packet::new(message.sizeof());
     message.encode(&mut body);
     active.write_varshort_unchecked(ServerProt::IfSetText as u8, [&body.data[..body.pos], &[]]);
@@ -735,7 +750,7 @@ fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
 ///
 /// Usage: `::reflect field <class> <field>`, `::reflect fieldmods <class>
 /// <field>` or `::reflect methodmods <class> <method> [<param class>...]`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn cheat_reflect(input: &str, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let usage = "Usage: ::reflect field|fieldmods <class> <field>, or ::reflect methodmods <class> <method> [<param class>...]";
     let mut args = input.split(' ').skip(1);
@@ -797,7 +812,7 @@ pub(crate) fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
         bot.player.pathing.tele = true;
         bot.player.pathing.jump = true;
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             bot.player.info.readyanim = Some(TypeId::new(808));
             bot.player.info.turnanim = Some(TypeId::new(823));
@@ -853,13 +868,13 @@ pub(crate) fn bot_tick(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     active.facesquare(CoordGrid::new(x, active.player.pathing.coord.y(), z));
 
     let name = active.player.uid.screen_name();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let chat = MessagePublic {
         colour: 0,
         effect: 0,
         bytes: pack(&name),
     };
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let chat = {
         let text = encode_string(&name);
         let mut bytes = vec![0; text.len() << 2];

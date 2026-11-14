@@ -1,0 +1,8 @@
+// 575
+[clientscript,objdialog_delay_timer]
+%objdialog_timer = calc(%objdialog_timer - 1);
+if (%objdialog_timer > 0) {
+    return;
+}
+if_setontimer(objdialog:searchtext, null);
+~objdialog_refreshsearch;

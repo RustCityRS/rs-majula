@@ -1,8 +1,8 @@
 use super::UnpackedPacks;
 use crate::cache::flo::FloTypeRaw;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::provider::CacheType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::TypeId;
 use std::collections::HashMap;
 
@@ -14,7 +14,7 @@ pub fn emit_flo_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         if opcode == 1 {
             p.push((1, "colour".into(), format!("0x{:06X}", def.colour)));
@@ -33,7 +33,7 @@ pub fn emit_flo_props(
             _registry.flo_names.insert(def.id.g2(), name.to_string());
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         if opcode == 1 {
             p.push((1, "colour".into(), format!("0x{:x}", def.colour)));
@@ -79,6 +79,7 @@ pub fn emit_flo_props(
             let v = def.waterfogscale;
             p.push((14, "waterfogscale".into(), v.to_string()));
         }
+        #[cfg(since_647)]
         if opcode == 16 {
             let v = def.waterfogoffset;
             p.push((16, "waterfogoffset".into(), v.to_string()));

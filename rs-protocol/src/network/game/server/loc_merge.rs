@@ -22,7 +22,7 @@ pub struct LocMerge {
     pub north: i8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for LocMerge {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
@@ -41,6 +41,35 @@ impl ServerProtMessage for LocMerge {
         size_of_val(&self.coord)
             + size_of_val(&self.shape_angle)
             + size_of::<u16>()
+            + size_of_val(&self.start)
+            + size_of_val(&self.end)
+            + size_of_val(&self.pid)
+            + size_of_val(&self.south)
+            + size_of_val(&self.east)
+            + size_of_val(&self.north)
+            + size_of_val(&self.west)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for LocMerge {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1(self.shape_angle);
+        buf.p1(self.coord);
+        buf.p1_alt1(self.east as u8);
+        buf.p1_alt1(self.south as u8);
+        buf.p1_alt3(self.north as u8);
+        buf.p2_alt2(self.id.g2());
+        buf.p2_alt1(self.end);
+        buf.p1(self.west as u8);
+        buf.p2(self.start);
+        buf.p2_alt3(!self.pid);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord)
+            + size_of_val(&self.shape_angle)
+            + size_of_val(&self.id)
             + size_of_val(&self.start)
             + size_of_val(&self.end)
             + size_of_val(&self.pid)

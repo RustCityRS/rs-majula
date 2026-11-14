@@ -16,7 +16,7 @@ pub struct MessagePrivate<'a> {
     pub bytes: &'a [u8],
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for MessagePrivate<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p8(self.user37);
@@ -30,6 +30,21 @@ impl ServerProtMessage for MessagePrivate<'_> {
             + size_of_val(&self.id)
             + size_of_val(&self.level)
             + self.bytes.len()
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for MessagePrivate<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.user37);
+        buf.p2((self.id >> 24) as u16);
+        buf.p3(self.id);
+        buf.p1(self.level);
+        buf.pdata(self.bytes, 0, self.bytes.len());
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.user37) + 5 + size_of_val(&self.level) + self.bytes.len()
     }
 }
 

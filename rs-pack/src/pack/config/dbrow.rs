@@ -153,7 +153,7 @@ pub fn pack_dbrows(
         if let Some(tn) = table_name {
             if let Some(tid) = table_pack.get_by_debugname(tn) {
                 server.p1(4);
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let tid = u16::try_from(tid).expect("DB table reference exceeds 65535");
                 server.p2(tid);
             }

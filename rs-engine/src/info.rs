@@ -1,13 +1,15 @@
 use crate::active_npc::ActiveNpc;
 use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::core::OtherPlayers;
 use crate::core::engine;
 use crate::watch::Target;
+#[cfg(since_530)]
+use rs_entity::MoveSpeed;
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS, Npc, PathingEntity, Player};
 #[cfg(since_647)]
-use rs_entity::{MoveSpeed, dir_delta, face_dir};
+use rs_entity::{dir_delta, face_dir};
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_info::{NpcRenderer, Observer, PlayerRenderer};
@@ -84,7 +86,10 @@ impl PlayerSnapshot {
 
     #[cfg(before_647)]
     fn movement(pathing: &PathingEntity) -> (u64, u8) {
+        #[cfg(before_530)]
         let (code, bits) = steps(pathing.walk_dir, pathing.run_dir);
+        #[cfg(all(since_530, before_647))]
+        let (code, bits) = crawl_steps(pathing, |dir| dir as u16);
         (code as u64, bits)
     }
 
@@ -326,29 +331,19 @@ impl NpcSnapshot {
         }
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn movement(pathing: &PathingEntity) -> (u16, u8) {
         steps(pathing.walk_dir, pathing.run_dir)
     }
 
-    /// A run, a crawl (a run of one step), or a walk.
+    #[cfg(all(since_530, before_647))]
+    fn movement(pathing: &PathingEntity) -> (u16, u8) {
+        crawl_steps(pathing, |dir| dir as u16)
+    }
+
     #[cfg(since_647)]
     fn movement(pathing: &PathingEntity) -> (u16, u8) {
-        if pathing.walk_dir == -1 {
-            return (0, 0);
-        }
-        let walk = NPC_DIR_MAP[pathing.walk_dir as usize] as u16;
-        if pathing.move_speed == MoveSpeed::Crawl {
-            // 1 + 2 + 1 + 3 = 7 bits
-            ((0b1100 << 3) | walk, 7)
-        } else if pathing.run_dir != -1 {
-            // 1 + 2 + 1 + 3 + 3 = 10 bits
-            let run = NPC_DIR_MAP[pathing.run_dir as usize] as u16;
-            ((0b1101 << 6) | (walk << 3) | run, 10)
-        } else {
-            // 1 + 2 + 3 = 6 bits
-            ((0b101 << 3) | walk, 6)
-        }
+        crawl_steps(pathing, |dir| NPC_DIR_MAP[dir as usize] as u16)
     }
 
     #[inline(always)]
@@ -368,8 +363,8 @@ impl NpcSnapshot {
     }
 }
 
-/// A run or a walk before 647, without the bit saying a block follows.
-#[cfg(before_647)]
+/// A run or a walk before 530, without the bit saying a block follows.
+#[cfg(before_530)]
 fn steps(walk_dir: i8, run_dir: i8) -> (u16, u8) {
     if run_dir != -1 {
         // 1 + 2 + 3 + 3 = 9 bits
@@ -382,6 +377,28 @@ fn steps(walk_dir: i8, run_dir: i8) -> (u16, u8) {
         ((((1 << 2) | 1) << 3) | walk_dir as u16, 6)
     } else {
         (0, 0)
+    }
+}
+
+/// A run, a crawl (a run of one step) or a walk, without the bit saying a
+/// block follows: 530's players and npcs, and 647's npcs, whose directions
+/// `dir` numbers.
+#[cfg(since_530)]
+#[inline(always)]
+fn crawl_steps(pathing: &PathingEntity, dir: impl Fn(i8) -> u16) -> (u16, u8) {
+    if pathing.walk_dir == -1 {
+        return (0, 0);
+    }
+    let walk = dir(pathing.walk_dir);
+    if pathing.move_speed == MoveSpeed::Crawl {
+        // 1 + 2 + 1 + 3 = 7 bits
+        ((0b1100 << 3) | walk, 7)
+    } else if pathing.run_dir != -1 {
+        // 1 + 2 + 1 + 3 + 3 = 10 bits
+        ((0b1101 << 6) | (walk << 3) | dir(pathing.run_dir), 10)
+    } else {
+        // 1 + 2 + 3 = 6 bits
+        ((0b101 << 3) | walk, 6)
     }
 }
 
@@ -504,10 +521,14 @@ pub struct PlayerInfo {
 }
 
 impl PlayerInfo {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     const BITS_ADD: usize = 11 + 5 + 5 + 1 + 1;
-    #[cfg(before_647)]
+    #[cfg(all(since_530, before_647))]
+    const BITS_ADD: usize = 11 + 1 + 5 + 3 + 1 + 5;
+    #[cfg(before_530)]
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
+    #[cfg(all(since_530, before_647))]
+    const BITS_RUN: usize = 1 + 2 + 1 + 3 + 3 + 1;
     #[cfg(before_647)]
     const BITS_EXTEND: usize = 1 + 2;
     #[cfg(before_647)]
@@ -783,8 +804,9 @@ impl PlayerInfo {
         }
     }
 
-    /// Encodes a player-add entry (23 bits) with position delta and jump flag,
-    /// followed by the low-definition update block.
+    /// Encodes a player-add entry (23 bits, 26 on 530 with the way it faces)
+    /// with position delta and jump flag, followed by the low-definition
+    /// update block.
     #[inline(always)]
     #[cfg(before_647)]
     fn add(
@@ -797,9 +819,21 @@ impl PlayerInfo {
         jump: bool,
     ) {
         // 11 + 5 + 5 + 1 + 1 = 23 bits
+        #[cfg(before_530)]
         self.bw.pbit::<23>(
             &mut self.buf,
             ((pid as i32) << 12) | ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | ((jump as i32) << 1) | 1,
+        );
+        // 11 + 1 + 5 + 3 + 1 + 5 = 26 bits
+        #[cfg(all(since_530, before_647))]
+        self.bw.pbit::<26>(
+            &mut self.buf,
+            ((pid as i32) << 15)
+                | (1 << 14)
+                | ((x & 0x1F) << 9)
+                | ((renderer.add_direction(pid) as i32) << 6)
+                | ((jump as i32) << 5)
+                | (z & 0x1F),
         );
         renderer.ready_low(pid);
         let appearance = Self::low_appearance(renderer, active, pid);
@@ -831,6 +865,7 @@ impl PlayerInfo {
     #[cfg(before_647)]
     fn teleport(&mut self, x: i32, y: i32, z: i32, jump: bool, extend: bool) {
         // 1 + 2 + 2 + 7 + 7 + 1 + 1 = 21 bits
+        #[cfg(before_530)]
         self.bw.pbit::<21>(
             &mut self.buf,
             (((1 << 2) | 3) << 18)
@@ -840,10 +875,21 @@ impl PlayerInfo {
                 | ((jump as i32) << 1)
                 | (extend as i32),
         );
+        // 1 + 2 + 7 + 1 + 2 + 1 + 7 = 21 bits
+        #[cfg(all(since_530, before_647))]
+        self.bw.pbit::<21>(
+            &mut self.buf,
+            (((1 << 2) | 3) << 18)
+                | ((z & 0x7F) << 11)
+                | ((jump as i32) << 10)
+                | ((y & 0x3) << 8)
+                | ((extend as i32) << 7)
+                | (x & 0x7F),
+        );
     }
 
     #[inline(always)]
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn idle(&mut self) {
         self.bw.pbit::<1>(&mut self.buf, 0);
     }
@@ -878,7 +924,7 @@ impl PlayerInfo {
     /// [`BuildArea::forget_untracked_appearances`]).
     ///
     /// Reads the observer's state without changing it.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn keyframe(
         renderer: &mut PlayerRenderer,
         players: OtherPlayers<'_>,
@@ -1181,11 +1227,13 @@ impl NpcInfo {
     const BITS_ADD: usize = 13 + 11 + 5 + 5 + 1;
     #[cfg(all(since_254, before_274))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1;
-    #[cfg(all(since_274, before_647))]
+    #[cfg(all(since_274, before_530))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1 + 1;
-    #[cfg(before_647)]
+    #[cfg(all(since_530, before_647))]
+    const BITS_ADD: usize = 15 + 1 + 3 + 1 + 5 + 14 + 5;
+    #[cfg(before_530)]
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     const BITS_RUN: usize = 1 + 2 + 1 + 3 + 3 + 1;
     #[cfg(all(since_647, before_742))]
     const BITS_ADD: usize = 15 + 2 + 5 + 1 + 3 + 5 + 14 + 1;
@@ -1194,9 +1242,9 @@ impl NpcInfo {
     const BITS_EXTEND: usize = 1 + 2;
     #[cfg(before_254)]
     const BITS_END: usize = 13;
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     const BITS_END: usize = 14;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     const BITS_END: usize = 15;
 
     /// Creates a new `NpcInfo` encoder with pre-allocated buffers.
@@ -1383,13 +1431,28 @@ impl NpcInfo {
         #[cfg(before_254)]
         self.bw
             .pbit::<24>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
-        #[cfg(all(since_254, before_647))]
+        #[cfg(all(since_254, before_530))]
         self.bw
             .pbit::<25>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
         #[cfg(before_274)]
         self.bw
             .pbit::<11>(&mut self.buf, ((x & 0x1F) << 6) | ((z & 0x1F) << 1) | 1);
-        #[cfg(all(since_274, before_647))]
+        // 15 + 1 + 3 + 1 + 5 = 25 bits, then 14 + 5 = 19 bits
+        #[cfg(all(since_530, before_647))]
+        {
+            let jump = s.flags & NpcSnapshot::JUMP != 0;
+            self.bw.pbit::<25>(
+                &mut self.buf,
+                ((nid as i32) << 10)
+                    | ((jump as i32) << 9)
+                    | ((renderer.add_direction(nid) as i32) << 6)
+                    | (1 << 5)
+                    | (z & 0x1F),
+            );
+            self.bw
+                .pbit::<19>(&mut self.buf, ((ntype as i32) << 5) | (x & 0x1F));
+        }
+        #[cfg(all(since_274, before_530))]
         {
             let jump = s.flags & NpcSnapshot::JUMP != 0;
             self.bw.pbit::<12>(
@@ -1458,7 +1521,7 @@ impl NpcInfo {
     /// More than one when they don't all fit in one.
     ///
     /// Reads the observer's state without changing it.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn keyframe(
         renderer: &mut NpcRenderer,
         npcs: &[Option<Box<ActiveNpc>>],

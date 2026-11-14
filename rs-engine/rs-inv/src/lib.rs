@@ -209,7 +209,7 @@ impl Inventory {
 
     /// Sets the varobjs of the item in `slot`. The client never sees them, so
     /// the slot isn't sent again.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn set_var(&mut self, slot: u16, var: i32) {
         if let Some(Some(item)) = self.slots.get_mut(slot as usize) {
             item.var = var;
@@ -554,7 +554,7 @@ impl Inventory {
 pub struct Item {
     pub obj: TypeId,
     pub num: u32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub var: i32,
 }
 
@@ -565,7 +565,7 @@ impl Item {
         Self {
             obj,
             num,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             var: 0,
         }
     }
@@ -578,14 +578,14 @@ impl Item {
     }
 
     /// The 32 bits this item's varobjs share.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[inline]
     pub const fn var(&self) -> i32 {
         self.var
     }
 
     /// The 32 bits this item's varobjs share: none before 647.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[inline]
     pub const fn var(&self) -> i32 {
         0
@@ -1563,7 +1563,7 @@ mod tests {
         assert!(result.is_empty());
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn varobjs_keep_items_apart_and_move_with_them() {
         let with_var = |var, num| Item {

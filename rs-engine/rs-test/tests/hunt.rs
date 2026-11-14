@@ -1,25 +1,27 @@
-//! 289's npc hunting at 647: a Wilderness green dragon attacks a player
-//! beside it.
+//! 289's npc hunting at 530 and 647: a Wilderness green dragon attacks a
+//! player beside it.
 //!
 //! The green dragon's hunt is 289's `cowardly` (huntrange 4): a player hunt
 //! that does not check whether the player is too strong in the Wilderness.
 //! The mode is checked by name: hunt.pack holds the 2011 cache's 397 hunts
-//! with 289's names at 289's ids. 2011's other green dragons (4677-4680) take
-//! 289's green dragon config and its fight.
+//! with 289's names at 289's ids. On 647, 2011's other green dragons (4677-4680)
+//! take 289's green dragon config and its fight.
 //!
 //! 289's duckling hunts its duck (`duck_hunt`):
 //! every 11 ticks it looks for a duck_female in sight and takes it as an
 //! opnpc3 target.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_entity::InteractionTarget;
+#[cfg(since_647)]
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcMode;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_ver::TypeId;
+#[cfg(since_647)]
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::sync::Mutex;
 
@@ -144,6 +146,7 @@ fn a_wilderness_green_dragon_hunts_a_player_beside_it() {
 }
 
 /// The varbit `life_points` (7198): varp 1240, bits 1-15 (cache 786).
+#[cfg(since_647)]
 const LIFE_POINTS_VARP: u16 = 1240;
 
 /// 2011's other green dragons hunt as 289's green dragon does, and fight as
@@ -151,6 +154,7 @@ const LIFE_POINTS_VARP: u16 = 1240;
 /// default npc attack (`[ai_opplayer2,_]`), melee alone. The player, behind
 /// an anti-dragon shield and kept on 990 life points, stands beside the map's
 /// green dragon 4679 until it breathes (one attack in four).
+#[cfg(since_647)]
 #[test]
 fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
     let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());

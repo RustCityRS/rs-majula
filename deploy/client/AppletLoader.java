@@ -34,6 +34,11 @@ public final class AppletLoader implements AppletStub, AppletContext {
     private Applet applet;
 
     public static void main(String[] args) throws Exception {
+        // 742's client reads java.version as 1.x.y_zz; "21.0.7" reads as major 0, which
+        // opens the login screen's Unsupported Java Warning (cs2 op 432 wants 1.6.0_10+).
+        if (!System.getProperty("java.version", "").startsWith("1.")) {
+            System.setProperty("java.version", "1.7.0_80");
+        }
         String url = args.length > 0 ? args[0] : "http://127.0.0.1:8080/jav_config.ws";
         new AppletLoader().run(URI.create(url).toURL(), Arrays.copyOfRange(args, Math.min(1, args.length), args.length));
     }

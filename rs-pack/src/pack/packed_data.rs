@@ -10,9 +10,9 @@ use tracing::debug;
 /// Bytes the entry count takes at the start of `dat` and `idx`: from 742 a
 /// table can hold more entries than a short counts.
 #[cfg(before_742)]
-const COUNT_LEN: usize = 2;
+pub(crate) const COUNT_LEN: usize = 2;
 #[cfg(since_742)]
-const COUNT_LEN: usize = 4;
+pub(crate) const COUNT_LEN: usize = 4;
 
 #[derive(Default)]
 pub struct PackedData {
@@ -61,9 +61,9 @@ impl PackedData {
         let mut dat = Vec::with_capacity(500_000);
         let mut idx = Vec::with_capacity((count as usize + 1) * 2);
         dat.resize(COUNT_LEN, 0);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         Packet::from(&mut dat).p2(count);
-        #[cfg(all(since_647, before_742))]
+        #[cfg(all(since_530, before_742))]
         Packet::from(&mut dat).p2(count as u16);
         #[cfg(since_742)]
         Packet::from(&mut dat).p4(count as i32);
@@ -161,18 +161,18 @@ impl PackedData {
 
     #[inline]
     pub fn pjstr(&mut self, value: &str) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             let mut buf = self.packet(value.len() + 1);
             buf.pdata(value.as_bytes(), 0, value.len());
             buf.p1(STRING_TERMINATOR);
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.packet(Packet::sizejstr(value))
             .pjstr(value, STRING_TERMINATOR);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn pvarint(&mut self, value: u32) {
         let start = self.dat.len();
         let mut buf = self.packet(5);
@@ -208,7 +208,7 @@ impl PackedData {
     }
 }
 
-fn read_count(dat: &[u8]) -> usize {
+pub(crate) fn read_count(dat: &[u8]) -> usize {
     #[cfg(before_742)]
     {
         Packet::from(dat).g2() as usize

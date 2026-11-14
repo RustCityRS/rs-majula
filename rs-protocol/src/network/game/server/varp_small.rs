@@ -11,11 +11,23 @@ pub struct VarpSmall {
     pub val: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for VarpSmall {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
         buf.p1(self.val);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.id) + size_of_val(&self.val)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for VarpSmall {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt2(self.id);
+        buf.p1_alt2(self.val);
     }
 
     fn sizeof(&self) -> usize {

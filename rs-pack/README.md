@@ -144,6 +144,8 @@ Names come from `pack/*.pack`. Assets without recovered names use stable names s
 local geometry indices and numeric values remain numeric. `null` represents an absent
 reference. The text files in `versions` and the `.hashes`/`.fileids` registries retain
 original JS5 versions, file ordering and hashes required for byte-identical reference tables.
+A group the cache lists without data keeps its CRC on its versions line
+(`394=1 absent_crc=0x1fe351ce`) and packs into the table with no data.
 Unpacking exports this metadata and copies the keys used to decode maps into the output tree.
 
 World-map areas list `square=main/file_4/m50_50.fms` paths relative to their `.fm` file.

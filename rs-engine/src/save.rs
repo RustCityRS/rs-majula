@@ -222,7 +222,7 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
                 inv.set(slot, obj, count);
             }
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         for &(slot, var) in &inv_profile.vars {
             inv.set_var(slot, var);
         }

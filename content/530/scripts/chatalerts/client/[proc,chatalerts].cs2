@@ -1,0 +1,35 @@
+// 192
+[proc,chatalerts]
+def_int $int0 = chat_gethistorylength;
+def_int $chattype1 = 0;
+if ($int0 > %chat_lastcount) {
+    if (%chat_view = 0) {
+        %chat_lastcount = $int0;
+        return;
+    }
+    $int0 = calc($int0 - %chat_lastcount - 1);
+    if ($int0 >= 100) {
+        $int0 = 99;
+    }
+    while ($int0 >= 0) {
+        $chattype1 = chat_gethistorytype($int0);
+        if (~filtertest($int0, 0) = true & ~partnercheck($int0) = false) {
+            switch_int ($chattype1) {
+                case 0 :
+                    ~chat_alert_enable(1);
+                case 1, 2, 17 :
+                    ~chat_alert_enable(2);
+                case 3, 5, 6, 7, 18, 19 :
+                    ~chat_alert_enable(3);
+                case 4, 8, 12, 14, 15, 21 :
+                    ~chat_alert_enable(5);
+                case 9, 11, 16, 20 :
+                    ~chat_alert_enable(4);
+                case 10, 13 :
+                    ~chat_alert_enable(6);
+            }
+        }
+        $int0 = calc($int0 - 1);
+    }
+    %chat_lastcount = chat_gethistorylength;
+}

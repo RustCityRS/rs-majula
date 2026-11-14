@@ -1,0 +1,7 @@
+// 1484
+[proc,clientscript_1484]
+if (%varclient_188 = 1) {
+    ~bank_v2_searchmode_off;
+}
+if_setonclick(chatdefault:input, null);
+if_close;

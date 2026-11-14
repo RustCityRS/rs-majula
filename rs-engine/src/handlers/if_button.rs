@@ -1,11 +1,13 @@
 use crate::active_player::ActivePlayer;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::core::engine;
 use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
-use crate::handlers::op_common::{component, component_protected, require_held};
-#[cfg(since_647)]
-use crate::handlers::op_common::{component_events, transmitted_inv};
+#[cfg(all(since_530, before_647))]
+use crate::handlers::op_common::obj_at;
+use crate::handlers::op_common::{component, component_protected, require_held, transmitted_inv};
+#[cfg(since_530)]
+use crate::handlers::op_common::{component_events, other_inv};
 #[cfg(before_647)]
 use crate::watch::Op;
 #[cfg(before_647)]
@@ -15,14 +17,14 @@ use rs_protocol::network::game::client::{
     if_button::IfButton, inv_button1::InvButton1, inv_button2::InvButton2, inv_button3::InvButton3,
     inv_button4::InvButton4, inv_button5::InvButton5,
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::{
     if_button1::IfButton1, if_button2::IfButton2, if_button3::IfButton3, if_button4::IfButton4,
     if_button5::IfButton5, if_button6::IfButton6, if_button7::IfButton7, if_button8::IfButton8,
     if_button9::IfButton9, if_button10::IfButton10,
 };
 use rs_ver::TypeId;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ExecutionState;
 use rs_vm::subject::ScriptSubject;
@@ -32,25 +34,48 @@ use rs_vm::{ComId, ScriptError};
 #[cfg(before_647)]
 impl ClientGameHandler for IfButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        active.watch_button(self.com);
-        handle(0, self.com.into(), u16::MAX, TypeId::NULL, active)
+        #[cfg(before_530)]
+        let com = self.com.into();
+        #[cfg(since_530)]
+        let com = self.com;
+        active.watch_button(com);
+        handle(0, com, u16::MAX, TypeId::NULL, false, active)
     }
 }
 
-macro_rules! impl_button_handler {
+#[cfg(before_647)]
+macro_rules! impl_inv_button_handler {
     ($($ty:ty => $op:expr),* $(,)?) => {
         $(
             impl ClientGameHandler for $ty {
                 fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-                    #[cfg(before_647)]
-                    active.watch_op(Op::InvButton {
-                        op: $op, obj: self.obj, slot: self.slot, com: self.com,
-                    });
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     let com = self.com.into();
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     let com = self.com;
-                    handle($op, com, self.slot, self.obj, active)
+                    active.watch_op(Op::InvButton {
+                        op: $op, obj: self.obj, slot: self.slot, com,
+                    });
+                    handle($op, com, self.slot, self.obj, false, active)
+                }
+            }
+        )*
+    };
+}
+
+/// IF_BUTTON1-10. The 530 client leaves the obj out: it is the one in the
+/// slot of the inventory transmitted to the component.
+#[cfg(since_530)]
+macro_rules! impl_if_button_handler {
+    ($($ty:ty => $op:expr),* $(,)?) => {
+        $(
+            impl ClientGameHandler for $ty {
+                fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+                    #[cfg(all(since_530, before_647))]
+                    let obj = obj_at(active, self.com, self.slot);
+                    #[cfg(since_647)]
+                    let obj = self.obj;
+                    handle($op, self.com, self.slot, obj, true, active)
                 }
             }
         )*
@@ -58,30 +83,33 @@ macro_rules! impl_button_handler {
 }
 
 #[cfg(before_647)]
-impl_button_handler!(
+impl_inv_button_handler!(
     InvButton1 => 1, InvButton2 => 2, InvButton3 => 3, InvButton4 => 4, InvButton5 => 5,
 );
-#[cfg(since_647)]
-impl_button_handler!(
+#[cfg(since_530)]
+impl_if_button_handler!(
     IfButton1 => 1, IfButton2 => 2, IfButton3 => 3, IfButton4 => 4, IfButton5 => 5,
     IfButton6 => 6, IfButton7 => 7, IfButton8 => 8, IfButton9 => 9, IfButton10 => 10,
 );
 
+/// A button on an if1 component (IF_BUTTON and INV_BUTTON1-5, before 647)
+/// or on an if3 one (IF_BUTTON1-10, from 530); 530 has both.
 fn handle(
     op: u8,
     com: ComId,
     slot: u16,
     obj: TypeId,
+    if3: bool,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     #[cfg(before_647)]
-    if op != 0 && active.player.state.delayed {
+    if !if3 && op != 0 && active.player.state.delayed {
         return Ok(());
     }
 
     let _interface = component(active, com)?;
     #[cfg(before_647)]
-    {
+    if !if3 {
         if op == 0 {
             if _interface.button_type == IfButtonType::None {
                 return Err(ScriptError::Client(format!(
@@ -99,31 +127,29 @@ fn handle(
             )));
         }
     }
-    #[cfg(since_647)]
-    if component_events(active, com, slot).is_none_or(|events| !events.allows_op(op)) {
+    #[cfg(since_530)]
+    if if3 && component_events(active, com, slot).is_none_or(|events| !events.allows_op(op)) {
         return Err(ScriptError::Client(format!(
             "Interface option {op} is disabled: {com}, slot {slot}"
         )));
     }
 
-    #[cfg(before_647)]
-    let inventory_click = op != 0;
-    #[cfg(since_647)]
-    let inventory_click = transmitted_inv(active, com).is_some() && slot != u16::MAX;
-    #[cfg(since_647)]
-    if !obj.is_null() && active.player.state.delayed {
+    let inventory_click = if if3 {
+        transmitted_inv(active, com).is_some() && slot != u16::MAX
+    } else {
+        op != 0
+    };
+    #[cfg(since_530)]
+    if if3 && !obj.is_null() && active.player.state.delayed {
         return Ok(());
     }
     if inventory_click && (active.player.state.delayed || !require_held(active, com, slot, obj)?) {
         return Ok(());
     }
-    #[cfg(since_647)]
-    if !inventory_click && slot != u16::MAX {
-        if let Some(&(uid, inv)) = active.player.inv_other_transmits.get(&com) {
-            let held = engine()
-                .get_player((uid & 0x7FF) as u16)
-                .filter(|source| source.player.uid.packed() as i32 == uid)
-                .and_then(|source| source.player.invs.get(&inv))
+    #[cfg(since_530)]
+    if if3 && !inventory_click && slot != u16::MAX {
+        if active.player.inv_other_transmits.contains_key(&com) {
+            let held = other_inv(active, com)
                 .is_some_and(|inv| inv.valid_slot(slot) && inv.has_at(slot, obj));
             if !held {
                 return Ok(());
@@ -134,8 +160,8 @@ fn handle(
             )));
         }
     }
-    #[cfg(since_647)]
-    if !obj.is_null() && engine().objs().get_by_id(obj).is_none() {
+    #[cfg(since_530)]
+    if if3 && !obj.is_null() && engine().objs().get_by_id(obj).is_none() {
         return Err(ScriptError::Client(format!("Unknown obj: {obj}")));
     }
 
@@ -146,11 +172,7 @@ fn handle(
     }
 
     let uid = active.player.uid;
-    #[cfg(before_647)]
-    let resumes = op <= 1;
-    #[cfg(since_647)]
-    let resumes = true;
-    if resumes
+    if (if3 || op <= 1)
         && active
             .player
             .resume_buttons
@@ -186,8 +208,8 @@ fn handle(
         None,
         None,
     );
-    #[cfg(since_647)]
-    let result = if op == 1 && matches!(result, Err(ScriptError::TriggerNotFound(_))) {
+    #[cfg(since_530)]
+    let result = if if3 && op == 1 && matches!(result, Err(ScriptError::TriggerNotFound(_))) {
         engine_mut().run_script_by_trigger(
             (ServerTriggerType::IfButton, Some(com), None),
             Some(ScriptSubject::Player(uid)),
@@ -206,10 +228,8 @@ fn handle(
             {
                 let trigger = match op {
                     0 => "if_button".to_owned(),
-                    #[cfg(before_647)]
+                    _ if if3 => format!("if_button{op}"),
                     _ => format!("inv_button{op}"),
-                    #[cfg(since_647)]
-                    _ => format!("if_button{op}"),
                 };
                 active.message_game(&format!(
                     "No trigger for [{trigger},{}]",

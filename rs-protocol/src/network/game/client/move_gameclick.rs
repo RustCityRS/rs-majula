@@ -14,7 +14,7 @@ pub struct MoveGameClick {
     pub ctrl: bool,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for MoveGameClick {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         let ctrl = buf.g1();
@@ -29,6 +29,30 @@ impl ClientProtMessage for MoveGameClick {
             path.push(pack_coord(
                 x.wrapping_add_signed(buf.g1s() as i16),
                 z.wrapping_add_signed(buf.g1s() as i16),
+            ));
+        }
+        MoveGameClick {
+            path,
+            ctrl: ctrl != 0,
+        }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for MoveGameClick {
+    fn decode(buf: &mut Packet, len: usize) -> Self {
+        let ctrl = buf.g1_alt1();
+        let x = buf.g2();
+        let z = buf.g2_alt2();
+
+        let waypoints = (len - buf.pos) / 2;
+        let mut path = Vec::with_capacity(1 + waypoints.min(24));
+        path.push(pack_coord(x, z));
+
+        for _ in 1..=waypoints.min(24) {
+            path.push(pack_coord(
+                x.wrapping_add_signed(buf.g1_alt1() as i8 as i16),
+                z.wrapping_add_signed(buf.g1_alt3() as i8 as i16),
             ));
         }
         MoveGameClick {

@@ -5,7 +5,7 @@ use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, engine, engine_mut};
 use crate::iterators;
 use crate::iterators::LocIteratorState;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
 #[cfg(since_647)]
@@ -87,7 +87,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_loc!(m, LOC_CHANGE => |s, loc| {
             let duration = s.pop_int();
             let id = s.pop_int_as::<TypeId>()?;
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             test::record_call(LOC_CHANGE, "loc_change", &id.to_string());
             if let Some(changed) = engine_mut::<E>().change_loc(loc, id, duration as u64)? {
                 set_active_loc(s, changed, s.int_operand() != 0);

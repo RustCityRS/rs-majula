@@ -3,14 +3,14 @@ use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::colour::rgb15_to_hsl16;
 #[cfg(since_742)]
 use crate::pack::util::parse_mask_indices;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::util::{pack_pairs, parse_bigid, parse_number, parse_retex};
 use crate::pack::util::{parse_bool, parse_model_kind, parse_recol};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::types::BodyType;
 use anyhow::Result;
 use rs_ver::TypeId;
@@ -33,28 +33,36 @@ pub fn pack_idks(
         client.start_entry();
 
         let Some((debugname, props)) = config_entry("idk", pack, &configs, id) else {
-            server.finish_entry();
-            client.finish_entry();
+            #[cfg(before_530)]
+            {
+                server.finish_entry();
+                client.finish_entry();
+            }
+            #[cfg(since_530)]
+            {
+                server.skip_entry();
+                client.skip_entry();
+            }
             continue;
         };
 
         let mut models: Vec<(usize, TypeId)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut head_models: Vec<(usize, u16)> = Vec::new();
         let mut recol_s: Vec<(usize, u16)> = Vec::new();
         let mut recol_d: Vec<(usize, u16)> = Vec::new();
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let mut retex_s = Vec::new();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let mut retex_d = Vec::new();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let mut order = Vec::new();
         #[cfg(since_742)]
         let mut indices = [None; 2];
 
         for (key, value) in props {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if let Some(code) = if key.starts_with("model") {
                 Some(2)
             } else if key == "recolindices" || key == "retexindices" {
@@ -71,7 +79,7 @@ pub fn pack_idks(
             }
             match key.as_str() {
                 // 1
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "type" => {
                     let v = BodyType::from_config_str(value);
                     client.p1(1);
@@ -80,7 +88,7 @@ pub fn pack_idks(
                     server.p1(v as u8);
                 }
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "bodypart" => parse_number(value, |v: u8| {
                     client.p1(1);
                     client.p1(v);
@@ -89,12 +97,12 @@ pub fn pack_idks(
                 }),
 
                 // 2
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "model" => parse_bigid(&registry.model, "model", value, |v| {
                     models.push((models.len() + 1, v));
                 }),
 
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 _ if key.starts_with("model") => {
                     parse_model_kind(registry, "model", key, value, |v| models.push((v.0, v.1)))
                 }
@@ -119,7 +127,7 @@ pub fn pack_idks(
                     RecolType::D(idx, v) => recol_d.push((idx, v)),
                 }),
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 _ if key.starts_with("retex") => {
                     parse_retex(registry, key, value, |value| match value {
                         RecolType::S(index, value) => retex_s.push((index, value)),
@@ -133,9 +141,9 @@ pub fn pack_idks(
                     .is_some_and(|rest| rest.starts_with(|c: char| c.is_ascii_digit())) =>
                 {
                     parse_model_kind(registry, "head", key, value, |v| {
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         head_models.push((v.0, v.1.g2()));
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             client.p1((59 + v.0) as u8);
                             client.pbigid(v.1);
@@ -150,7 +158,7 @@ pub fn pack_idks(
             }
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             // handle 40-49
             if !recol_s.is_empty() {
@@ -194,7 +202,7 @@ pub fn pack_idks(
                 }
             }
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         for code in order {
             match code {
                 2 => {

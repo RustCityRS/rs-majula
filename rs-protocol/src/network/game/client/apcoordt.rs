@@ -4,17 +4,32 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+#[cfg(since_647)]
 use rs_ver::TypeId;
 
-#[client_prot(Fixed(12), UserEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(10), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(12), UserEvent))]
 pub struct ApCoordT {
     pub x: u16,
     pub z: u16,
+    #[cfg(since_647)]
     pub obj: TypeId,
     pub slot: u16,
     pub com: i32,
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for ApCoordT {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let com = buf.g4s_alt3();
+        let x = buf.g2_alt2();
+        let slot = buf.g2_alt3();
+        let z = buf.g2_alt2();
+        ApCoordT { x, z, slot, com }
+    }
+}
+
+#[cfg(since_647)]
 impl ClientProtMessage for ApCoordT {
     #[cfg(before_742)]
     fn decode(buf: &mut Packet, _: usize) -> Self {

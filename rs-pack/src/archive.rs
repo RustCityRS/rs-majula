@@ -1,36 +1,36 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
 use anyhow::Result;
-#[cfg(since_647)]
-use anyhow::{Context, anyhow, ensure};
-#[cfg(since_647)]
+#[cfg(since_530)]
+use anyhow::{Context, anyhow, bail, ensure};
+#[cfg(since_530)]
 use rayon::prelude::*;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_crypto::whirlpool;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::crc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagCompression;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::compression::{CompressionType, Container, decompress};
-#[cfg(since_647)]
-use rs_io::js5::reference::encode_reference_table;
-#[cfg(since_647)]
+#[cfg(since_530)]
+use rs_io::js5::reference::{GroupInfo, encode_reference_table};
+#[cfg(since_530)]
 use std::collections::HashMap;
-#[cfg(any(rev = "225", since_647))]
+#[cfg(any(rev = "225", since_530))]
 use std::fs;
 use std::path::Path;
 #[cfg(rev = "225")]
 use std::path::PathBuf;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::{info, warn};
 
 #[cfg(since_244)]
 pub use rs_ver::archive::*;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[derive(Clone, Copy)]
 pub enum JagArchive {
     Models = 0,
@@ -45,12 +45,12 @@ pub enum JagArchive {
     Sounds = 8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) fn config_jag_name(kind: &str) -> &str {
     if kind == "varpbit" { "varbit" } else { kind }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub const JAG_ARCHIVES: &[JagArchive] = &[
     JagArchive::Title,
     JagArchive::Config,
@@ -65,7 +65,7 @@ pub const JAG_ARCHIVES: &[JagArchive] = &[
     JagArchive::Sounds,
 ];
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl JagArchive {
     pub const fn name(self) -> &'static str {
         match self {
@@ -122,7 +122,7 @@ impl JagArchive {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) struct JagSource {
     #[cfg(rev = "225")]
     dir: PathBuf,
@@ -130,7 +130,7 @@ pub(crate) struct JagSource {
     cache: Js5Store,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl JagSource {
     pub(crate) fn open(expected_dir: &Path) -> Result<Self> {
         Ok(Self {
@@ -237,6 +237,38 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(-1491954823),
 ];
 
+#[cfg(rev = "530")]
+pub const EXPECTED_CRCS: &[Option<i32>] = &[
+    Some(0x28f9dd35_u32 as i32), // [ 0] anims
+    Some(0xcd698fd9_u32 as i32), // [ 1] bases
+    Some(0xa73b1e66_u32 as i32), // [ 2] config
+    Some(0x0f3350d1_u32 as i32), // [ 3] interfaces
+    Some(0x0dfb0315_u32 as i32), // [ 4] synths
+    Some(0x57d08641_u32 as i32), // [ 5] maps
+    Some(0x54c0f2ae_u32 as i32), // [ 6] music
+    Some(0x7b7d3f12_u32 as i32), // [ 7] models
+    Some(0xa939b8c3_u32 as i32), // [ 8] sprites
+    Some(0x7bfab336_u32 as i32), // [ 9] textures
+    Some(0x2976276a_u32 as i32), // [10] binary
+    Some(0x9a9dd384_u32 as i32), // [11] jingles
+    Some(0x63a46915_u32 as i32), // [12] clientscripts
+    Some(0x8d1bfe8d_u32 as i32), // [13] fontmetrics
+    Some(0xac7a0172_u32 as i32), // [14] vorbis
+    Some(0x6c7a6953_u32 as i32), // [15] instruments
+    Some(0x5ec735b8_u32 as i32), // [16] config_loc
+    Some(0x873e745f_u32 as i32), // [17] config_enum
+    Some(0x96d02faa_u32 as i32), // [18] config_npc
+    Some(0x7d462536_u32 as i32), // [19] config_obj
+    Some(0xe84148ba_u32 as i32), // [20] config_seq
+    Some(0x4e48b2b9_u32 as i32), // [21] config_spot
+    Some(0xb1fa9938_u32 as i32), // [22] config_varbit
+    Some(0x1ccb93db_u32 as i32), // [23] worldmap
+    Some(0x778bda72_u32 as i32), // [24] quickchat
+    Some(0x53cce6cc_u32 as i32), // [25] quickchat_global
+    Some(0xea0d671f_u32 as i32), // [26] materials
+    Some(0x2457425c_u32 as i32), // [27] config_particle
+];
+
 #[cfg(rev = "647")]
 pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(0xea49a80a_u32 as i32), // [ 0] anims
@@ -320,7 +352,7 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
 ];
 
 /// Quickchat categories and phrases of the global archive carry on from here.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub const QUICKCHAT_GLOBAL_FIRST: u16 = 0x8000;
 
 /// Mapping from config file names (as produced by the pack step into
@@ -329,7 +361,7 @@ pub const QUICKCHAT_GLOBAL_FIRST: u16 = 0x8000;
 /// Config types in archives 16-22 (loc, npc, obj, seq, enum, spotanim,
 /// varbit) are NOT listed here — they have their own archives with strided
 /// grouping.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("flu", CONFIG_GROUP_FLU),
     ("hunt", CONFIG_GROUP_HUNT),
@@ -348,19 +380,27 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("varsstr", CONFIG_GROUP_VARSSTR),
     ("varn", CONFIG_GROUP_VARN),
     ("struct", CONFIG_GROUP_STRUCT),
+    #[cfg(since_647)]
     ("light", CONFIG_GROUP_LIGHT),
     ("bas", CONFIG_GROUP_BAS),
+    #[cfg(since_647)]
     ("cursor", CONFIG_GROUP_CURSOR),
     ("msi", CONFIG_GROUP_MSI),
+    #[cfg(since_647)]
     ("quest", CONFIG_GROUP_QUEST),
+    #[cfg(since_647)]
     ("mel", CONFIG_GROUP_MEL),
+    #[cfg(since_647)]
     ("dbtable", CONFIG_GROUP_DBTABLE),
+    #[cfg(since_647)]
     ("dbrow", CONFIG_GROUP_DBROW),
+    #[cfg(since_647)]
     ("hitmark", CONFIG_GROUP_HITMARK),
     #[cfg(since_742)]
     ("skybox", CONFIG_GROUP_SKYBOX),
     #[cfg(since_742)]
     ("headbar", CONFIG_GROUP_HEADBAR),
+    #[cfg(since_647)]
     ("varclansetting", CONFIG_GROUP_VARCLANSETTING),
     #[cfg(since_742)]
     ("varclan", CONFIG_GROUP_VARCLAN),
@@ -368,22 +408,34 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
 
 /// Tables the cache holds empty, packed from their files: extension, group,
 /// the name a section takes, and the packed table's CRC.
-#[cfg(all(since_647, before_742))]
+#[cfg(all(since_530, before_742))]
 pub const CONFIG_EMPTY_TABLES: &[(&str, u32, &str, i32)] = &[
+    #[cfg(rev = "530")]
+    ("varnbit", CONFIG_GROUP_VARNBIT, "varnpcbit", 739854011),
+    #[cfg(rev = "647")]
     ("varnbit", CONFIG_GROUP_VARNBIT, "varnpcbit", -1298439089),
+    #[cfg(since_647)]
     ("config37", 37, "config37", 477744615),
+    #[cfg(since_647)]
     ("config38", 38, "config38", -430249901),
+    #[cfg(since_647)]
     ("config39", 39, "config39", 583011186),
+    #[cfg(since_647)]
     (
         "controller",
         CONFIG_GROUP_CONTROLLER,
         "controller",
         -1179041704,
     ),
+    #[cfg(since_647)]
     ("varcon", CONFIG_GROUP_VARCON, "config43", 1930184948),
+    #[cfg(since_647)]
     ("varconbit", CONFIG_GROUP_VARCONBIT, "varconbit", 812315341),
+    #[cfg(since_647)]
     ("config45", 45, "config45", 260531396),
+    #[cfg(since_647)]
     ("varclan", CONFIG_GROUP_VARCLAN, "varclan", -1864459835),
+    #[cfg(since_647)]
     ("itemcode", CONFIG_GROUP_ITEMCODE, "itemcode", -430249901),
 ];
 #[cfg(since_742)]
@@ -410,15 +462,15 @@ pub const CONFIG_EMPTY_TABLES: &[(&str, u32, &str, i32)] = &[
     ("config74", 74, "config74", -1881575280),
 ];
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub const REF_FORMAT_LEGACY: u8 = 5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub const REF_FORMAT_VERSIONED: u8 = 6;
 #[cfg(since_742)]
 pub const REF_FORMAT_SMART: u8 = 7;
 
 /// The reference table format the revision writes its archives in.
-#[cfg(all(since_647, before_742))]
+#[cfg(all(since_530, before_742))]
 const REF_FORMAT: u8 = REF_FORMAT_VERSIONED;
 #[cfg(since_742)]
 const REF_FORMAT: u8 = REF_FORMAT_SMART;
@@ -431,7 +483,7 @@ const REF_FORMAT: u8 = REF_FORMAT_SMART;
 ///
 /// [`compress_best`]: rs_io::js5::compression::compress_best
 #[derive(Debug, Clone, Copy)]
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub struct ArchiveFormat {
     pub id: u8,
     pub format: u8,
@@ -442,8 +494,8 @@ pub struct ArchiveFormat {
     pub content_dir: &'static str,
 }
 
-/// All archive IDs present in the rev 647 cache.
-#[cfg(since_647)]
+/// All archive IDs present in the cache.
+#[cfg(since_530)]
 pub const ARCHIVE_IDS: &[u8] = &{
     let mut ids = [0; ARCHIVES.len()];
     let mut i = 0;
@@ -455,7 +507,7 @@ pub const ARCHIVE_IDS: &[u8] = &{
 };
 
 /// Static format properties for each archive (revision-specific).
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub const ARCHIVES: &[ArchiveFormat] = &[
     //                                                                                     allow_uncompressed  allow_bzip2
     ArchiveFormat {
@@ -569,7 +621,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
     ArchiveFormat {
         id: CLIENTSCRIPT,
         format: REF_FORMAT,
-        named: true,
+        named: cfg!(since_647),
         whirlpooled: false,
         allow_uncompressed: false,
         allow_bzip2: false,
@@ -703,13 +755,18 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
     },
     ArchiveFormat {
         id: PARTICLES,
-        format: REF_FORMAT,
+        format: if cfg!(since_647) {
+            REF_FORMAT
+        } else {
+            REF_FORMAT_LEGACY
+        },
         named: false,
         whirlpooled: false,
         allow_uncompressed: false,
         allow_bzip2: true,
         content_dir: "particles",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: DEFAULTS,
         format: REF_FORMAT,
@@ -719,6 +776,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: true,
         content_dir: "defaults",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: BILLBOARDS,
         format: REF_FORMAT,
@@ -728,6 +786,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: true,
         content_dir: "billboards",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: DLLS,
         format: REF_FORMAT,
@@ -737,6 +796,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: true,
         content_dir: "dlls",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: SHADERS,
         format: REF_FORMAT,
@@ -746,6 +806,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: cfg!(since_742),
         content_dir: "shaders",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: LOADING_SPRITES,
         format: REF_FORMAT,
@@ -755,6 +816,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: true,
         content_dir: "loading_sprites",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: LOADING_SCREENS,
         format: REF_FORMAT,
@@ -764,6 +826,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: false,
         content_dir: "loading_backgrounds",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: LOADING_SPRITES_RAW,
         format: REF_FORMAT,
@@ -783,6 +846,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         allow_bzip2: true,
         content_dir: "cutscenes",
     },
+    #[cfg(since_647)]
     ArchiveFormat {
         id: WORLDMAP_LOCS,
         format: if cfg!(since_742) {
@@ -809,7 +873,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
 ];
 
 /// Lookup archive format by ID.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn archive_format(id: u8) -> Option<&'static ArchiveFormat> {
     ARCHIVES.iter().find(|a| a.id == id)
 }
@@ -818,12 +882,18 @@ pub fn archive_format(id: u8) -> Option<&'static ArchiveFormat> {
 /// Derived from full-cache analysis of 93,765 bz2/gz groups across cache 786
 /// (build 647). Verified stable across 20 OpenRS2 snapshots (builds 640–650).
 /// The since_742 arms are the 742 cache's (OpenRS2 544) exceptions, found by its CRC gate.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn codec_override(archive_id: u8, group_id: u32) -> Option<CompressionType> {
     match (archive_id, group_id) {
-        #[cfg(before_742)]
+        #[cfg(all(since_647, before_742))]
         (CONFIG, CONFIG_GROUP_STRUCT) => Some(CompressionType::Gzip),
         (REFERENCE_TABLES, id) if id == CLIENTSCRIPT as u32 => Some(CompressionType::Gzip),
+        #[cfg(all(since_530, before_647))]
+        (REFERENCE_TABLES, id) if id == MAPS as u32 || id == MODELS as u32 => {
+            Some(CompressionType::Gzip)
+        }
+        #[cfg(all(since_530, before_647))]
+        (INTERFACES, 413 | 539) => Some(CompressionType::None),
         #[cfg(since_742)]
         (REFERENCE_TABLES, id) if id == MAPS as u32 || id == MODELS as u32 => {
             Some(CompressionType::Gzip)
@@ -836,19 +906,20 @@ pub fn codec_override(archive_id: u8, group_id: u32) -> Option<CompressionType> 
 
 /// Runtime version data loaded from `content/versions/`.
 #[derive(Debug, Clone)]
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub struct ArchiveVersions {
     pub table_version: u32,
     pub group_versions: HashMap<u32, u32>,
     pub group_file_ids: HashMap<u32, Vec<(u32, Option<i32>)>>,
+    pub absent_groups: HashMap<u32, (u32, i32)>,
 }
 
 /// All version data keyed by archive ID.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub type VersionTable = HashMap<u8, ArchiveVersions>;
 
 /// Map archive ID → `.versions` filename stem.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn versions_filename(id: u8) -> Option<&'static str> {
     match id {
         CLIENTSCRIPT => Some("clientscript"),
@@ -863,10 +934,49 @@ pub fn versions_filename(id: u8) -> Option<&'static str> {
     }
 }
 
+/// One `.versions` line: `group_id=version`, plus ` absent_crc=0x...` (and
+/// ` name_hash=N` in a named archive) for a group the cache lists without data.
+#[cfg(since_530)]
+pub fn group_version_line(group: &GroupInfo, absent: bool, named: bool) -> String {
+    let mut line = format!("{}={}", group.id, group.version);
+    if absent {
+        line += &format!(" absent_crc={:#010x}", group.crc);
+        if named {
+            line += &format!(" name_hash={}", group.name_hash);
+        }
+    }
+    line
+}
+
+/// One parsed [`group_version_line`].
+#[cfg(since_530)]
+pub type GroupVersion = (u32, u32, Option<(u32, i32)>);
+
+/// Reads a [`group_version_line`]: the group, its version, and the CRC and
+/// name hash it keeps when absent.
+#[cfg(since_530)]
+pub fn parse_group_version(line: &str) -> Result<GroupVersion> {
+    let (id, rest) = line.split_once('=').context("missing '='")?;
+    let mut fields = rest.split_whitespace();
+    let version = fields.next().context("missing version")?.parse()?;
+    let mut crc = None;
+    let mut name_hash = -1;
+    for field in fields {
+        match field.split_once('=') {
+            Some(("absent_crc", value)) => {
+                crc = Some(u32::from_str_radix(value.trim_start_matches("0x"), 16)?)
+            }
+            Some(("name_hash", value)) => name_hash = value.parse()?,
+            _ => bail!("unknown field '{field}'"),
+        }
+    }
+    Ok((id.trim().parse()?, version, crc.map(|crc| (crc, name_hash))))
+}
+
 /// Load version data from `content/versions/*.versions` text files.
 ///
-/// Each file has a `# table_version=N` header followed by `group_id=version` lines.
-#[cfg(since_647)]
+/// Each file has a `# table_version=N` header followed by [`group_version_line`]s.
+#[cfg(since_530)]
 pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
     let mut table = VersionTable::new();
 
@@ -884,6 +994,7 @@ pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
 
         let mut table_version = 0u32;
         let mut group_versions = HashMap::new();
+        let mut absent_groups = HashMap::new();
 
         for line in text.lines() {
             let line = line.trim();
@@ -896,21 +1007,15 @@ pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
                     .map_err(|e| anyhow!("{}: bad table_version: {e}", path.display()))?;
                 continue;
             }
-            if line.starts_with('#') {
+            if line.starts_with('#') || !line.contains('=') {
                 continue;
             }
-            let Some((gid_str, ver_str)) = line.split_once('=') else {
-                continue;
-            };
-            let gid: u32 = gid_str
-                .trim()
-                .parse()
-                .map_err(|e| anyhow!("{}: bad group id '{gid_str}': {e}", path.display()))?;
-            let ver: u32 = ver_str
-                .trim()
-                .parse()
-                .map_err(|e| anyhow!("{}: bad version '{ver_str}': {e}", path.display()))?;
+            let (gid, ver, absent) = parse_group_version(line)
+                .with_context(|| format!("{}: bad line '{line}'", path.display()))?;
             group_versions.insert(gid, ver);
+            if let Some(absent) = absent {
+                absent_groups.insert(gid, absent);
+            }
         }
 
         // Load .fileids (non-trivial file ID + name_hash lists per group)
@@ -956,6 +1061,7 @@ pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
                 table_version,
                 group_versions,
                 group_file_ids,
+                absent_groups,
             },
         );
     }
@@ -963,7 +1069,7 @@ pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
     Ok(table)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
     info!(
         "CRC gate: verifying all {} archives and group payloads...",
@@ -998,8 +1104,14 @@ pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
                 "CRC gate: archive {aid}: reference metadata differs from its container"
             );
             table.groups.par_iter().try_for_each(|group| -> Result<()> {
-                let raw = store.groups.get(&(aid, group.id))
-                    .with_context(|| format!("CRC gate: archive {aid} group {}: missing payload", group.id))?;
+                let Some(raw) = store.groups.get(&(aid, group.id)) else {
+                    ensure!(
+                        store.absent.contains(&(aid, group.id)),
+                        "CRC gate: archive {aid} group {}: missing payload",
+                        group.id
+                    );
+                    return Ok(());
+                };
                 let container = Container::parse(raw)
                     .with_context(|| format!("CRC gate: archive {aid} group {}: invalid container", group.id))?;
                 ensure!(
@@ -1026,7 +1138,8 @@ pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
             })?;
             Ok(table.groups.len())
         })
-        .sum::<Result<usize>>()?;
+        .sum::<Result<usize>>()?
+        - store.absent.len();
     ensure!(
         store.groups.len() == groups + ARCHIVE_IDS.len(),
         "CRC gate: unreferenced containers: expected {}, got {}",
@@ -1044,4 +1157,43 @@ pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
         );
     }
     Ok(())
+}
+
+#[cfg(all(test, since_530))]
+mod tests {
+    use super::{group_version_line, parse_group_version};
+    use rs_io::js5::reference::{FileInfo, GroupInfo};
+
+    #[test]
+    fn absent_group_lines_keep_their_crc_and_name_hash() {
+        let mut group = GroupInfo {
+            id: 394,
+            name_hash: -1,
+            crc: 0x1fe351ce,
+            whirlpool: None,
+            version: 1,
+            size: 0,
+            file_count: 1,
+            files: vec![FileInfo {
+                id: 0,
+                name_hash: None,
+            }],
+        };
+        assert_eq!(group_version_line(&group, false, false), "394=1");
+        assert_eq!(parse_group_version("394=1").unwrap(), (394, 1, None));
+        let line = group_version_line(&group, true, false);
+        assert_eq!(line, "394=1 absent_crc=0x1fe351ce");
+        assert_eq!(
+            parse_group_version(&line).unwrap(),
+            (394, 1, Some((0x1fe351ce, -1)))
+        );
+        group.name_hash = -12345;
+        let line = group_version_line(&group, true, true);
+        assert_eq!(line, "394=1 absent_crc=0x1fe351ce name_hash=-12345");
+        assert_eq!(
+            parse_group_version(&line).unwrap(),
+            (394, 1, Some((0x1fe351ce, -12345)))
+        );
+        assert!(parse_group_version("394=1 crc=0x1").is_err());
+    }
 }

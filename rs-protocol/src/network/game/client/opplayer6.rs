@@ -5,12 +5,22 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-#[client_prot(Fixed(3), UserEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(2), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(3), UserEvent))]
 pub struct OpPlayer6 {
     pub pid: u16,
+    #[cfg(since_647)]
     pub ctrl: bool,
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpPlayer6 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        OpPlayer6 { pid: buf.g2_alt1() }
+    }
+}
+
+#[cfg(since_647)]
 impl ClientProtMessage for OpPlayer6 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         #[cfg(before_742)]

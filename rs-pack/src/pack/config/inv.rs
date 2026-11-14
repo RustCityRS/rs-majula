@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::client_table_with;
 use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -143,9 +143,9 @@ pub fn pack_invs(
         server.finish_entry();
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let client = None;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = Some(client_table_with(
         file_cache,
         "inv",

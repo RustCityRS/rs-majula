@@ -96,7 +96,7 @@ impl Engine {
 
     #[inline(always)]
     fn process_player(&mut self, pid: u16) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.fall_forward(pid);
         let Some(active) = self.player_list.players[pid as usize].as_mut() else {
             return;
@@ -158,7 +158,7 @@ impl Engine {
         // - engine queue
         Self::process_engine_queue(active);
         // 647: the face lock an op script holds ends with the script.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if active.player.state.active_script.is_none() {
             active.player.interaction.script_focus = None;
         }
@@ -591,7 +591,7 @@ impl Engine {
         // side-steps or backs away facing it (the client picks walk_l/walk_r/walk_b only under a
         // face lock: SpotShadowsClientOption.method2920). Unstable Foundations' dragon cutscene
         // shows it: the player backs away from Sir Vant, facing him (4KO2h2xPtdM @17.3-18.2).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if interacted && active.player.state.active_script.is_some() {
             if let Some(
                 target @ (InteractionTarget::Npc { .. } | InteractionTarget::Player { .. }),

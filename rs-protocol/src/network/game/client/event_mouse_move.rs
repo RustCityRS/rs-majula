@@ -10,9 +10,9 @@ use rs_io::Packet;
 #[cfg(since_254)]
 use rs_protocol_macros::client_prot;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 const FRAME_WIDTH: u32 = 765;
-#[cfg(before_647)]
+#[cfg(before_530)]
 const OUTSIDE: u32 = 0x7ffff;
 #[cfg(since_254)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -21,7 +21,7 @@ pub enum Cursor {
     Outside,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl Cursor {
     pub const fn unpack(pos: u32) -> Self {
         if pos == OUTSIDE {
@@ -34,7 +34,7 @@ impl Cursor {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl Cursor {
     pub const fn unpack(pos: u32) -> Self {
         let (x, y) = (pos as i16, (pos >> 16) as i16);
@@ -68,7 +68,7 @@ pub struct EventMouseMove {
     pub samples: Vec<MouseSample>,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for EventMouseMove {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         let mut samples = Vec::with_capacity(len >> 1);
@@ -112,7 +112,7 @@ impl ClientProtMessage for EventMouseMove {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientProtMessage for EventMouseMove {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         #[cfg(since_742)]

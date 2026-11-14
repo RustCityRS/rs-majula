@@ -32,9 +32,6 @@ const HEADBAR_HEALTH: i32 = 0;
 #[cfg(since_742)]
 const HEADBAR_NOW: i32 = 0;
 
-/// A full health bar.
-const FULL: u32 = 255;
-
 /// The most a two-byte smart carries: a larger damage or soak is written as this.
 const SMART_MAX: u16 = 32767;
 
@@ -50,14 +47,6 @@ pub struct Hit {
 }
 
 impl Hit {
-    /// The health bar's fill, 255 for full: `current` of `base`.
-    pub fn health(current: u8, base: u8) -> u8 {
-        if base == 0 {
-            return 0;
-        }
-        (current as u32 * FULL / base as u32).min(FULL) as u8
-    }
-
     /// The hit as the client reads it (`Class244`): a soaked hit is one entry
     /// with two marks, which the client paints side by side (32767, the hit's
     /// mark and damage, the soak mark and the amount soaked; void-634

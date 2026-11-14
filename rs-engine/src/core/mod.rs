@@ -23,7 +23,7 @@ use crate::map::GameMap;
 use crate::pathfinding::InputPaths;
 #[cfg(since_647)]
 use crate::phases::controller::Controllers;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::Regions;
 use crate::script::errors::ScriptErrors;
 use crate::script::register_ops;
@@ -36,7 +36,7 @@ use rs_info::{NpcRenderer, PlayerRenderer};
 use rs_inv::Inventory;
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::startup::InterfaceLayout;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
@@ -128,7 +128,7 @@ pub struct Engine {
     pub client_pathfinder: bool,
     pub(crate) input_paths: InputPaths,
     pub staff_isolation: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) site_origin: Option<String>,
     pub player_list: PlayerList,
     pub npc_list: NpcList,
@@ -136,7 +136,7 @@ pub struct Engine {
     pub new_player_rx: UnboundedReceiver<LoginRequest>,
     pub scripts: ScriptProvider,
     pub cache: &'static CacheStore,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub layout: InterfaceLayout,
     cache_ptr: *mut CacheStore,
     tick_stats_tx: Option<Sender<TickStats>>,
@@ -152,11 +152,11 @@ pub struct Engine {
     pub ops: OpsRegistry,
     pub zones_tracking: FxHashSet<ZoneCoordGrid>,
     pub pending_zone_events: BTreeMap<u32, Vec<PendingZoneEvent>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub regions: Regions,
     #[cfg(since_647)]
     pub controllers: Controllers,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) dropped_zones: Vec<ZoneCoordGrid>,
     pub obj_appeared: FxHashMap<(CoordGrid, TypeId), Instant>,
     pub world_queue: LinkList<ScriptState>,
@@ -201,7 +201,7 @@ pub fn init_collision() {
 
 impl Engine {
     /// A receiver for the [`TickStats`] each cycle publishes, for the rs-test harness.
-    #[cfg(all(feature = "harness", since_647))]
+    #[cfg(all(feature = "harness", since_530))]
     pub fn harness_tick_stats(&self) -> watch::Receiver<TickStats> {
         self.tick_stats_tx.as_ref().unwrap().subscribe()
     }
@@ -256,7 +256,7 @@ impl Engine {
         scripts: ScriptProvider,
         cache: &'static CacheStore,
         cache_ptr: *mut CacheStore,
-        #[cfg(since_647)] layout: InterfaceLayout,
+        #[cfg(since_530)] layout: InterfaceLayout,
         stats_tx: Sender<TickStats>,
         reload_tx: UnboundedSender<()>,
         node_id: u8,
@@ -284,7 +284,7 @@ impl Engine {
                 rsmod::change_zone(zone.x(), zone.z(), y, ZoneFlag::Free as u8, true);
             }
         }
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         for &key in &cache.multimap {
             let zone = ZoneCoordGrid::from(key);
             rsmod::change_zone(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8, true);
@@ -315,7 +315,7 @@ impl Engine {
             client_pathfinder,
             input_paths: InputPaths::default(),
             staff_isolation: !cfg!(debug_assertions),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             site_origin: None,
             player_list: PlayerList::new(),
             npc_list: NpcList::new(),
@@ -324,7 +324,7 @@ impl Engine {
             scripts,
             cache,
             cache_ptr,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             layout,
             tick_stats_tx: Some(stats_tx),
             gather_output: false,
@@ -339,11 +339,11 @@ impl Engine {
             ops,
             zones_tracking: FxHashSet::default(),
             pending_zone_events: BTreeMap::new(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             regions: Regions::default(),
             #[cfg(since_647)]
             controllers: Controllers::default(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             dropped_zones: Vec::new(),
             obj_appeared: FxHashMap::default(),
             world_queue: LinkList::new(),
@@ -415,9 +415,9 @@ impl Engine {
         &mut self,
         new_store: Box<CacheStore>,
         new_scripts: ScriptProvider,
-        #[cfg(since_647)] layout: InterfaceLayout,
+        #[cfg(since_530)] layout: InterfaceLayout,
     ) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         for active in self.player_list.players.iter_mut().flatten() {
             let mut varcs = VarSet::new(new_store.varcs.types().map(|v| v.var_type));
             for varc in new_store.varcs.types() {
@@ -437,7 +437,7 @@ impl Engine {
             std::ptr::write(self.cache_ptr, *new_store);
         }
         self.scripts = new_scripts;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             self.layout = layout;
             self.regions.forget_squares();

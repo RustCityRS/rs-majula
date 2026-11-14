@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::engine::ProjAnimHalfsq;
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
@@ -580,7 +580,7 @@ pub(crate) fn pop_count(state: &mut ScriptState) -> Result<u32> {
 
 /// Whether something at `from` may be put at `to`: see
 /// [`ScriptEngine::region_allows`], with either region the script selected.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn region_allows<E: ScriptEngine + 'static>(
     state: &ScriptState,
     from: CoordGrid,
@@ -591,7 +591,7 @@ pub(crate) fn region_allows<E: ScriptEngine + 'static>(
         || state.active_region2.is_some() && engine.region_allows(from, to, state.active_region2)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[allow(clippy::extra_unused_type_parameters)]
 pub(crate) fn region_allows<E: ScriptEngine + 'static>(
     _state: &ScriptState,
@@ -615,12 +615,12 @@ pub(crate) fn teleport_allowed<E: ScriptEngine + 'static>(
     allowed
 }
 
-/// Pops an interface component. Before 647 it is the component's own id,
+/// Pops an interface component. Before 530 it is the component's own id,
 /// which must fit a `u16`.
 pub(crate) fn pop_com(state: &mut ScriptState) -> Result<ComId> {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let com = ComId::from(state.pop_int_as::<u16>()?);
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let com = state.pop_int();
     Ok(com)
 }
@@ -816,7 +816,7 @@ pub(crate) fn midi_tick_length<E: ScriptEngine + 'static>(id: i32) -> Result<u16
         .ok_or(ScriptError::SongNotFound(id))
 }
 
-#[cfg(all(since_254, before_647))]
+#[cfg(all(since_254, before_530))]
 pub(crate) fn midi_length_ms<E: ScriptEngine + 'static>(id: i32) -> Result<u16> {
     engine::<E>()
         .midi_length_ms(id)
@@ -968,7 +968,7 @@ pub(crate) fn pop_spotanim<E: ScriptEngine + 'static>(
 
 /// The half square at the centre of a `size` square whose south-west tile
 /// is `coord`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn halfsq(coord: CoordGrid, size: u8) -> (u16, u16) {
     (
         (coord.x() << 1) + size as u16,
@@ -977,10 +977,13 @@ pub(crate) fn halfsq(coord: CoordGrid, size: u8) -> (u16, u16) {
 }
 
 /// Pops a BAS wearpos, or -1 for none.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn pop_wearpos(state: &mut ScriptState) -> Result<Option<u8>> {
     match state.pop_int() {
         -1 => Ok(None),
+        #[cfg(all(since_530, before_647))]
+        wearpos @ 0..=15 => Ok(Some(wearpos as u8)),
+        #[cfg(since_647)]
         wearpos @ 0..=63 => Ok(Some(wearpos as u8)),
         wearpos => Err(ScriptError::Runtime(format!("Invalid wearpos: {wearpos}"))),
     }
@@ -988,7 +991,7 @@ pub(crate) fn pop_wearpos(state: &mut ScriptState) -> Result<Option<u8>> {
 
 /// The spotanim, heights, delays, peak and arc every halfsq projanim command
 /// ends with, popped before the arguments that say where it flies.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) struct ProjAnimTail {
     spotanim: TypeId,
     src_height: i32,
@@ -996,13 +999,19 @@ pub(crate) struct ProjAnimTail {
     start: u16,
     end: u16,
     peak: u8,
+    #[cfg(all(since_530, before_647))]
+    arc: u8,
+    #[cfg(since_647)]
     arc: u16,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn pop_projanim_tail<E: ScriptEngine + 'static>(
     state: &mut ScriptState,
 ) -> Result<ProjAnimTail> {
+    #[cfg(all(since_530, before_647))]
+    let arc = state.pop_int_as::<u8>()?;
+    #[cfg(since_647)]
     let arc = state.pop_int_as::<u16>()?;
     let peak = state.pop_int_as::<u8>()?;
     let end = state.pop_int_as::<u16>()?;
@@ -1021,7 +1030,7 @@ pub(crate) fn pop_projanim_tail<E: ScriptEngine + 'static>(
     })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ProjAnimTail {
     /// Casts the projectile from half square `from` to `to` on `level`. With
     /// a wearpos the client takes the start height as a signed offset.

@@ -14,7 +14,7 @@ pub struct ObjAdd {
     pub count: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for ObjAdd {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
@@ -24,6 +24,19 @@ impl ServerProtMessage for ObjAdd {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.coord) + size_of::<u16>() + size_of_val(&self.count)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for ObjAdd {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.id.g2());
+        buf.p1(self.coord);
+        buf.p2_alt2(self.count);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord) + size_of_val(&self.id) + size_of_val(&self.count)
     }
 }
 

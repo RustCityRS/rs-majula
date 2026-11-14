@@ -1,0 +1,4 @@
+// 1872
+[clientscript,graphic_swapper2](component $component0, graphic $graphic1, component $component2, int $rgb3)
+if_setgraphic($component0, $graphic1);
+if_setcolour($component2, $rgb3);

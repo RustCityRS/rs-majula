@@ -9,7 +9,7 @@ use rs_protocol::network::game::client::oploc2::OpLoc2;
 use rs_protocol::network::game::client::oploc3::OpLoc3;
 use rs_protocol::network::game::client::oploc4::OpLoc4;
 use rs_protocol::network::game::client::oploc5::OpLoc5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::oploc6::OpLoc6;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
@@ -89,7 +89,7 @@ impl ClientGameHandler for OpLoc5 {
 /// Handles the `OpLoc6` client protocol message: Examine. The client sends
 /// only the loc type it shows, and walks nowhere; the answer is the type's
 /// `desc`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientGameHandler for OpLoc6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);

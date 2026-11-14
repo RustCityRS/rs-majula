@@ -1,0 +1,7 @@
+// 169
+[clientscript,kr_mouseleave_colour](int $int0, component $component1)
+if (%kr_tumb_current = $int0) {
+    if_setcolour($component1, 0xdd5032);
+} else {
+    if_setcolour($component1, 0x64501e);
+}

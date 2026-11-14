@@ -13,11 +13,24 @@ pub struct UpdateZonePartialEnclosed<'a> {
     pub bytes: &'a [u8],
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for UpdateZonePartialEnclosed<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.x);
         buf.p1(self.z);
+        buf.pdata(self.bytes, 0, self.bytes.len());
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.x) + size_of_val(&self.z) + self.bytes.len()
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateZonePartialEnclosed<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.z);
+        buf.p1_alt3(self.x);
         buf.pdata(self.bytes, 0, self.bytes.len());
     }
 

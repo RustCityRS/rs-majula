@@ -52,7 +52,7 @@ pub(super) fn read_transforms(
     (0..count).map(|_| read(buf)).chain([default]).collect()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(super) fn read_optional_id(buf: &mut Packet) -> Option<TypeId> {
     read_id(buf).non_null()
 }

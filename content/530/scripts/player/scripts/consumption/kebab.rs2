@@ -1,0 +1,43 @@
+// Kebab: a random outcome on eat, as 289's (player/scripts/consumption/effects/
+// scripts/kebab.rs2). It plays the eat sound itself, as the other foods do:
+// human_eat (seq 829) carries no sound in the cache.
+[label,consume_effect_kebab]
+mes("You eat the kebab.");
+anim(human_eat, 0);
+sound_synth(eat, 1, 0);
+inv_delslot(inv, last_slot);
+def_int $random = random(32);
+if ($random < 1) {
+    // 1/32, amazing kebab: small combat boost + big heal
+    mes("Wow, that was an amazing kebab! You feel really invigorated.");
+    stat_boost(attack, 2, 0);
+    stat_boost(strength, 2, 0);
+    stat_boost(defence, 2, 0);
+    stat_heal(hitpoints, 7, 24);
+} else if ($random < 9) {
+    // 8/32, good kebab
+    mes("That was a good kebab. You feel a lot better.");
+    stat_heal(hitpoints, 6, 14);
+} else if ($random < 29) {
+    // 20/32, heals some (only when below max)
+    if (stat(hitpoints) < stat_base(hitpoints)) {
+        mes("It heals some health.");
+        stat_heal(hitpoints, 3, 7);
+    }
+} else if ($random < 30) {
+    // 1/32, very dodgy: drain combat stats + take some damage
+    mes("That tasted very dodgy. You feel very ill.");
+    stat_drain(attack, 3, 0);
+    stat_drain(strength, 3, 0);
+    stat_drain(defence, 3, 0);
+    if (stat(hitpoints) > 2) {
+        ~damage_self(min(sub(stat(hitpoints), 2), 4));
+    }
+} else if ($random < 31 & stat(hitpoints) > 4) {
+    // 1/32, a bit dodgy: small damage (skipped if too low to be safe)
+    mes("That tasted a bit dodgy. You feel a bit ill.");
+    ~damage_self(3);
+} else {
+    // 1/32, nothing
+    mes("The kebab didn't seem to do a lot.");
+}

@@ -1,14 +1,71 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol_macros::server_prot;
 use rs_ver::STRING_TERMINATOR;
+
+#[cfg(all(since_530, before_647))]
+pub struct FriendchatMember<'a> {
+    pub user37: i64,
+    pub world: u16,
+    pub rank: i8,
+    pub world_name: &'a str,
+}
+
+#[cfg(all(since_530, before_647))]
+#[server_prot(UpdateFriendchatChannelFull, Buffered, VarShort)]
+pub struct UpdateFriendchatChannelFull<'a> {
+    pub owner37: i64,
+    pub channel37: i64,
+    pub min_rank: i8,
+    pub members: &'a [FriendchatMember<'a>],
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateFriendchatChannelFull<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.owner37);
+        if self.owner37 == 0 {
+            return;
+        }
+        buf.p8(self.channel37);
+        buf.p1(self.min_rank as u8);
+        buf.p1(self.members.len() as u8);
+        for member in self.members {
+            buf.p8(member.user37);
+            buf.p2(member.world);
+            buf.p1(member.rank as u8);
+            buf.pjstr(member.world_name, STRING_TERMINATOR);
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        if self.owner37 == 0 {
+            return size_of_val(&self.owner37);
+        }
+        let members: usize = self
+            .members
+            .iter()
+            .map(|m| {
+                size_of_val(&m.user37)
+                    + size_of_val(&m.world)
+                    + size_of_val(&m.rank)
+                    + Packet::sizejstr(m.world_name)
+            })
+            .sum();
+        size_of_val(&self.owner37)
+            + size_of_val(&self.channel37)
+            + size_of_val(&self.min_rank)
+            + 1
+            + members
+    }
+}
 
 #[cfg(since_647)]
 pub struct FriendchatMember {

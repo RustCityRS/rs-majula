@@ -1,10 +1,10 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::engine::ScriptPlayer;
 use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 use crate::iterators::NpcIteratorState;
 #[cfg(since_647)]
 use crate::ops::player::{carried_source, queue_source};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptArgument};
@@ -14,10 +14,10 @@ use crate::{NpcUid, ScriptError, active_npc, handlers, none};
 use crate::{active_npc_mut, iterators};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::types::MultiVar;
 use rs_pack::types::{HuntCheckVis, NpcMode};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_util::bits::getbit_range;
 use rs_ver::TypeId;
 use runec::opcodes::*;
@@ -62,7 +62,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, NPC_ANIM => |s, npc| {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if test::recording() {
                 let arg = format!("{seq},{delay}");
                 test::record_call(NPC_ANIM, "npc_anim", &arg);
@@ -133,12 +133,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let amount = u16::from(s.pop_int_as::<u8>()?);
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let amount = s.pop_int_as::<u16>()?;
             let damage_type = s.pop_int_as::<u8>()?;
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if test::recording() {
                 let arg = format!("{damage_type},{amount}");
                 test::record_call(NPC_DAMAGE, "npc_damage", &arg);
@@ -420,7 +420,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             // A 2011 multi-npc (npc_9359, Sir Prysin) has no name of its own:
             // it is named as the type the active player's var shows, as the
             // client names it.
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let npc_type = match (npc_type.multinpc.is_some(), get_active_player::<E>(s, false)) {
                 (true, Ok(player)) => {
                     use crate::engine::ScriptPlayer as _;
@@ -645,7 +645,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2552 (647). No source names Jagex's command for a running npc; this is P_RUN's
         // shape for an npc.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_npc_mut!(m, NPC_RUN => |s, npc| {
             npc.run(s.pop_int_as::<u8>()?);
         });
@@ -697,11 +697,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             // At 647 `null` is no spotanim: 65535, which the client reads as
             // -1. 289's ranged npcs pass their `proj_launch`, null for one with
             // none. Before 647 it is a script error, as upstream has it.
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let id = s.pop_int_as::<TypeId>()?;
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let id = TypeId::try_from(s.pop_int()).unwrap_or(TypeId::NULL);
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if test::recording() {
                 let arg = format!("{},{height},{delay}", id.g2());
                 test::record_call(SPOTANIM_NPC, "spotanim_npc", &arg);
@@ -735,7 +735,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2550
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_npc!(m, NPC_PROJANIM_HALFSQ => |s, npc| {
             let tail = pop_projanim_tail::<E>(s)?;
             let wearpos = pop_wearpos(s)?;

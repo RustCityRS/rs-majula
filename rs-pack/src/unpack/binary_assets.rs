@@ -4,6 +4,7 @@ use anyhow::{Context, Result};
 use rs_io::js5::Js5Store;
 use std::{fs, path::Path};
 
+#[cfg(since_647)]
 pub fn unpack_libraries(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path) -> Result<u32> {
     unpack_raw(store, archive::DLLS, content_dir, pack_dir, "")
 }
@@ -25,6 +26,11 @@ pub fn unpack_raw(
         .groups
         .clone();
     for info in &groups {
+        #[cfg(all(since_530, before_647))]
+        let Some(data) = store.read_group_raw_decompressed(aid, info.id)? else {
+            continue;
+        };
+        #[cfg(since_647)]
         let data = store
             .read_group_raw_decompressed(aid, info.id)?
             .context("Missing raw group")?;

@@ -1,0 +1,8 @@
+// 200
+[proc,clientscript_200](component $component0, component $component1)
+if_setonfriendtransmit($component0, "clan_noticeboard_event_mouseleave($component0, $component1)");
+~clientscript_202($component0, $component1);
+if (op3328 = 1) {
+    if_settext(interface_590:opt_prefix_head, "Clan channel:");
+    if_setop(interface_590:opt_prefix, 1, "Enable");
+}

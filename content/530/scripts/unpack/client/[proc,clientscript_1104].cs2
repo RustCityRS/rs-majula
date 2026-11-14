@@ -1,0 +1,136 @@
+// 1104
+[proc,clientscript_1104]
+if (%if1 = 1) {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(442);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(null);
+    }
+} else if (%if1 = 2) {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(442);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(null);
+    }
+} else if (%if1 = 3) {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(442);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(null);
+    }
+} else if (%if1 = 4) {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(442);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(null);
+    }
+} else if (%if1 = 5) {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(442);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(null);
+    }
+} else if (%if1 = 6) {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(442);
+    }
+} else {
+    if (if_find(interface_200:com_21) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_22) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_23) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_24) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_25) = true) {
+        cc_setgraphic(null);
+    }
+    if (if_find(interface_200:com_26) = true) {
+        cc_setgraphic(null);
+    }
+}

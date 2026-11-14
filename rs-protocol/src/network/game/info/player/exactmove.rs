@@ -17,7 +17,7 @@ pub struct PlayerInfoExactMove {
     pub dir: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl InfoMessage for PlayerInfoExactMove {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
         buf.p1(self.start_x);
@@ -27,6 +27,29 @@ impl InfoMessage for PlayerInfoExactMove {
         buf.p2(self.begin);
         buf.p2(self.finish);
         buf.p1(self.dir);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.start_x)
+            + size_of_val(&self.start_z)
+            + size_of_val(&self.end_x)
+            + size_of_val(&self.end_z)
+            + size_of_val(&self.begin)
+            + size_of_val(&self.finish)
+            + size_of_val(&self.dir)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl InfoMessage for PlayerInfoExactMove {
+    fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        buf.p1_alt2(self.start_x);
+        buf.p1(self.start_z);
+        buf.p1_alt1(self.end_x);
+        buf.p1(self.end_z);
+        buf.p2_alt1(self.begin);
+        buf.p2_alt1(self.finish);
+        buf.p1_alt2(self.dir);
     }
 
     fn sizeof(&self) -> usize {

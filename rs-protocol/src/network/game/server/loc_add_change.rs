@@ -14,7 +14,7 @@ pub struct LocAddChange {
     pub id: TypeId,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for LocAddChange {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
@@ -24,6 +24,19 @@ impl ServerProtMessage for LocAddChange {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.coord) + size_of_val(&self.shape_angle) + size_of::<u16>()
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for LocAddChange {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.shape_angle);
+        buf.p1(self.coord);
+        buf.p2_alt2(self.id.g2());
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord) + size_of_val(&self.shape_angle) + size_of_val(&self.id)
     }
 }
 

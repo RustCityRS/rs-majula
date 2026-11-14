@@ -1,0 +1,6 @@
+// 1508
+[proc,clientscript_1508]
+if_setsize(interface_674:textbox, 490, 93, 0, 0);
+if_setposition(interface_674:textbox, 10, 20, 0, 0);
+if_sethide(interface_674:com_1, true);
+if_sethide(interface_674:textbox, false);

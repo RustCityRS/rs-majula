@@ -1,3 +1,5 @@
+#[cfg(all(since_530, before_647))]
+use crate::active_player::hit_type;
 use crate::core::{Engine, engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_entity::{EntityLifeTime, Npc, NpcUid};
@@ -134,7 +136,7 @@ impl ActiveNpc {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] = current.saturating_sub(amount);
             amount
         };
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let (remaining, base) = (
             self.npc.stats.levels[NpcStat::Hitpoints as usize] as u8,
             self.npc.stats.base_levels[NpcStat::Hitpoints as usize] as u8,
@@ -142,12 +144,14 @@ impl ActiveNpc {
         // 2011's npc hitpoints are life points (2011 wiki, Constitution), which
         // pass a byte, so the bar's fill is worked out here and sent as a share
         // of 255.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let (remaining, base) = {
             let current = self.npc.stats.levels[NpcStat::Hitpoints as usize] as u32;
             let base = self.npc.stats.base_levels[NpcStat::Hitpoints as usize].max(1) as u32;
             ((current * 255 / base).min(255) as u8, u8::MAX)
         };
+        #[cfg(all(since_530, before_647))]
+        let damage_type = hit_type(damage_type);
 
         #[cfg(since_244)]
         if self.npc.info.apply_damage2(

@@ -1,0 +1,11 @@
+// 138
+[proc,clientscript_138]
+if (%meslayermode = 7 | %meslayermode = 8 | %meslayermode = 9) {
+    if_sethide(chattop:mes_layer, true);
+    if_sethide(chattop:mes_layer_large, true);
+    if_sethide(chattop:mes_layer_hide, false);
+    %meslayermode = 0;
+}
+if (getwindowmode >= 2) {
+    ~clientscript_1364;
+}

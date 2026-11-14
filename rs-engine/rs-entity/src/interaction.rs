@@ -105,7 +105,7 @@ pub struct InteractionState {
     pub target_z: i32,
     pub last_path_src: u32,
     pub last_path_dst: u32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub script_focus: Option<InteractionTarget>,
 }
 
@@ -125,7 +125,7 @@ impl InteractionState {
             target_x: -1,
             target_z: -1,
             last_path_src: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             script_focus: None,
             last_path_dst: 0,
         }
@@ -212,9 +212,9 @@ impl InteractionState {
         let temp = info.face_entity;
         // 647: a player stays turned to the npc or player its op script was started on for as
         // long as that script is suspended (see `script_focus`).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let target = self.target.or(self.script_focus);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let target = self.target;
         if let Some(target) = target {
             match &target {

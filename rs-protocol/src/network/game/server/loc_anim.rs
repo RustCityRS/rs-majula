@@ -14,12 +14,25 @@ pub struct LocAnim {
     pub seq: TypeId,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for LocAnim {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
         buf.p1(self.shape_angle);
         buf.p2(self.seq.g2());
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord) + size_of_val(&self.shape_angle) + 2
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for LocAnim {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt3(self.coord);
+        buf.p1_alt3(self.shape_angle);
+        buf.p2_alt1(self.seq.g2());
     }
 
     fn sizeof(&self) -> usize {

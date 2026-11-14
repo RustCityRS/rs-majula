@@ -1,14 +1,14 @@
 use super::config_entry;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::{client_table, client_table_of, is_string_var};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::pack::ConfigSections;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackFile, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::parse_script_var_type;
 use anyhow::Result;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::ensure;
 use std::collections::HashMap;
 
@@ -51,10 +51,10 @@ pub fn pack_vars(
         server.finish_entry();
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let client = None;
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = Some(if kind == "vars" {
         client_var_table(&configs, pack, false)?
     } else {
@@ -64,7 +64,7 @@ pub fn pack_vars(
     Ok(PackedFile { server, client })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_string_vars(
     file_cache: &FileCache,
     pack: &PackFile,
@@ -78,7 +78,7 @@ pub fn pack_string_vars(
     })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn client_var_table(
     configs: &ConfigSections,
     pack: &PackFile,

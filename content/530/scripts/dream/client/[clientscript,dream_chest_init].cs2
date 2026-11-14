@@ -1,0 +1,61 @@
+// 61
+[clientscript,dream_chest_init]
+def_int $int0 = 0;
+while ($int0 < 5) {
+    cc_create(dream_armour:chest_layer, 5, $int0);
+    cc_setsize(36, 32, 0, 0);
+    if ($int0 = 0) {
+        cc_setposition(0, 43, 0, 0);
+    }
+    if ($int0 = 1) {
+        cc_setposition(50, 2, 0, 0);
+    }
+    if ($int0 = 2) {
+        cc_setposition(50, 43, 0, 0);
+    }
+    if ($int0 = 3) {
+        cc_setposition(50, 85, 0, 0);
+    }
+    if ($int0 = 4) {
+        cc_setposition(50, 125, 0, 0);
+    }
+    if (inv_getobj(dream_crate_inventory, $int0) ! null) {
+        cc_setobject(inv_getobj(dream_crate_inventory, $int0), inv_getnum(dream_crate_inventory, $int0));
+        cc_setopbase(oc_name(inv_getobj(dream_crate_inventory, $int0)));
+        cc_setop(1, "Deposit");
+        cc_setgraphicshadow(0x111111);
+        cc_setoutline(1);
+        if ($int0 = 0) {
+            if_setgraphic(dream_armour:inv_icon_weapon, null);
+        }
+        if ($int0 = 1) {
+            if_setgraphic(dream_armour:inv_icon_helm, null);
+        }
+        if ($int0 = 2) {
+            if_setgraphic(dream_armour:inv_icon_chest, null);
+        }
+        if ($int0 = 3) {
+            if_setgraphic(dream_armour:inv_icon_leggings, null);
+        }
+        if ($int0 = 4) {
+            if_setgraphic(dream_armour:inv_icon_boots, null);
+        }
+    } else {
+        if ($int0 = 0) {
+            if_setgraphic(dream_armour:inv_icon_weapon, 159);
+        }
+        if ($int0 = 1) {
+            if_setgraphic(dream_armour:inv_icon_helm, 156);
+        }
+        if ($int0 = 2) {
+            if_setgraphic(dream_armour:inv_icon_chest, 161);
+        }
+        if ($int0 = 3) {
+            if_setgraphic(dream_armour:inv_icon_leggings, 163);
+        }
+        if ($int0 = 4) {
+            if_setgraphic(dream_armour:inv_icon_boots, 165);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}

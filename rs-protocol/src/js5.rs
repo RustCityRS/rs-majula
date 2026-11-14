@@ -1,27 +1,33 @@
 #[cfg(since_647)]
 use Prefetch::{Archive, Group};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_crypto::rsa::RsaKey;
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(all(since_530, before_647))]
+use rs_io::crc::getcrc;
+#[cfg(since_530)]
 use rs_io::js5::compression::Container;
 #[cfg(since_647)]
 use rs_io::js5::java_string_hash;
+#[cfg(since_530)]
+use rs_io::js5::reference::ReferenceTable;
 #[cfg(since_647)]
-use rs_io::js5::reference::{ReferenceTable, encode_master_index};
+use rs_io::js5::reference::encode_master_index;
+#[cfg(since_530)]
+use rs_ver::archive::REFERENCE_TABLES;
 #[cfg(since_647)]
 use rs_ver::archive::{
     BILLBOARDS, BINARY, CLIENTSCRIPT, CONFIG, CONFIG_ENUM, CONFIG_LOC, CONFIG_NPC, CONFIG_OBJ,
     CONFIG_SEQ, CONFIG_SPOTANIM, CONFIG_VARBIT, DEFAULTS, DLLS, FONTMETRICS, INTERFACES, MATERIALS,
-    PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, REFERENCE_TABLES, SHADERS, WORLDMAP,
+    PARTICLES, QUICKCHAT, QUICKCHAT_GLOBAL, SHADERS, WORLDMAP,
 };
-#[cfg(since_647)]
-use std::collections::HashMap;
-#[cfg(since_647)]
+#[cfg(since_530)]
+use std::collections::{HashMap, HashSet};
+#[cfg(since_530)]
 use std::ops::Range;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::sync::Arc;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::info;
 
 #[cfg(before_742)]
@@ -29,9 +35,9 @@ pub type Js5Group = u16;
 #[cfg(since_742)]
 pub type Js5Group = u32;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 const BLOCK: usize = 512;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const FIRST_BLOCK: usize = BLOCK - size_of::<u8>() - size_of::<Js5Group>();
 
 pub struct Js5Response<'a> {
@@ -41,7 +47,7 @@ pub struct Js5Response<'a> {
 }
 
 impl Js5Response<'_> {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn encode(&self, out: &mut Packet) {
         if self.data.is_empty() || self.data.len() > u16::MAX as usize {
             out.p1(self.archive);
@@ -59,7 +65,7 @@ impl Js5Response<'_> {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn encode(&self, out: &mut Packet, urgent: bool) {
         out.p1(self.archive);
         #[cfg(before_742)]
@@ -78,7 +84,7 @@ impl Js5Response<'_> {
         }
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn encoded_size(&self) -> usize {
         if self.data.is_empty() || self.data.len() > u16::MAX as usize {
             6
@@ -87,7 +93,7 @@ impl Js5Response<'_> {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn encoded_size(&self) -> usize {
         size_of_val(&self.archive)
             + size_of_val(&self.group)
@@ -139,20 +145,22 @@ const PREFETCHES: [Prefetch; PREFETCH_COUNT] = [
     Group(WORLDMAP, "details"),
 ];
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Clone)]
 pub struct Js5Cache {
     groups: Arc<HashMap<(u8, u32), Range<usize>>>,
     data: Arc<Vec<u8>>,
+    absent: Arc<HashSet<(u8, u32)>>,
+    #[cfg(since_647)]
     prefetches: [i32; PREFETCH_COUNT],
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl Js5Cache {
     pub fn new(
         mut groups: HashMap<(u8, u32), Vec<u8>>,
         tables: &HashMap<u8, ReferenceTable>,
-        private_key: &RsaKey,
+        #[cfg_attr(all(since_530, before_647), allow(unused_variables))] private_key: &RsaKey,
     ) -> anyhow::Result<Self> {
         let archive_count = groups
             .keys()
@@ -169,6 +177,15 @@ impl Js5Cache {
             let len = Container::parse(data)?.data.len();
             data.truncate(len);
         }
+        #[cfg(all(since_530, before_647))]
+        let master = encode_master_index((0..archive_count).map(|archive| {
+            let version = tables
+                .get(&(archive as u8))
+                .filter(|table| table.format >= 6)
+                .map_or(0, |table| table.version);
+            (groups[&(REFERENCE_TABLES, archive)].as_ref(), version)
+        }));
+        #[cfg(since_647)]
         let master = encode_master_index(
             (0..archive_count).map(|archive| (groups[&(REFERENCE_TABLES, archive)].as_ref(), 0)),
             private_key,
@@ -183,13 +200,22 @@ impl Js5Cache {
                 (id, start..data.len())
             })
             .collect();
+        let absent = tables
+            .iter()
+            .flat_map(|(&archive, table)| table.groups.iter().map(move |group| (archive, group.id)))
+            .filter(|id| !groups.contains_key(id))
+            .collect();
+        #[cfg(since_647)]
         let mut archive_bytes = [0; REFERENCE_TABLES as usize];
+        #[cfg(since_647)]
         for (&(archive, _), range) in &groups {
             if archive != REFERENCE_TABLES {
                 archive_bytes[archive as usize] += range.len();
             }
         }
+        #[cfg(since_647)]
         let len = |archive: u8, group: u32| groups.get(&(archive, group)).map_or(0, Range::len);
+        #[cfg(since_647)]
         let prefetches = PREFETCHES.map(|prefetch| {
             let size = match prefetch {
                 Archive(archive) => {
@@ -209,6 +235,8 @@ impl Js5Cache {
         Ok(Self {
             groups: Arc::new(groups),
             data: Arc::new(data),
+            absent: Arc::new(absent),
+            #[cfg(since_647)]
             prefetches,
         })
     }
@@ -219,24 +247,113 @@ impl Js5Cache {
             .map(|range| &self.data[range.clone()])
     }
 
+    /// Whether `group` is listed in its archive's reference table without data,
+    /// as in the original cache.
+    pub fn is_absent(&self, archive: u8, group: impl Into<u32>) -> bool {
+        self.absent.contains(&(archive, group.into()))
+    }
+
+    #[cfg(since_647)]
     pub fn prefetches(&self) -> [i32; PREFETCH_COUNT] {
         self.prefetches
     }
 }
 
+#[cfg(all(since_530, before_647))]
+fn encode_master_index<'a>(archives: impl ExactSizeIterator<Item = (&'a [u8], u32)>) -> Vec<u8> {
+    let len = archives.len() << 3;
+    let mut out = Packet::new(5 + len);
+    out.p1(0);
+    out.p4(len as i32);
+    for (data, version) in archives {
+        out.p4(getcrc(data, 0, data.len()));
+        out.p4(version as i32);
+    }
+    out.data
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     use rs_crypto::rsa::load_rsa_key;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     use rs_io::js5::compression::{CompressionType, compress};
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     use rs_io::js5::reference::GroupInfo;
     #[cfg(since_647)]
     use rs_ver::archive::{CONFIG_GROUP_FLU, CONFIG_GROUP_HUNT};
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     use std::ptr;
+
+    #[cfg(all(since_530, before_647))]
+    #[test]
+    fn memory_cache_serves_containers_without_versions_and_an_unsigned_index() {
+        let key = load_rsa_key(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../.keys/classic/private.pem"
+        ))
+        .unwrap();
+        let reference = vec![0, 0, 0, 0, 4, 5, 1, 0, 0];
+        let container = compress(&[11, 22, 33], CompressionType::Gzip).unwrap();
+        let mut versioned = container.clone();
+        versioned.extend_from_slice(&321u16.to_be_bytes());
+        let group = |id| GroupInfo {
+            id,
+            name_hash: 0,
+            crc: 0,
+            whirlpool: None,
+            version: 0,
+            size: 0,
+            file_count: 1,
+            files: Vec::new(),
+        };
+        let table = |archive_id, format, version, groups| ReferenceTable {
+            archive_id,
+            format,
+            version,
+            named: false,
+            whirlpooled: false,
+            groups,
+        };
+        let cache = Js5Cache::new(
+            HashMap::from([
+                ((REFERENCE_TABLES, 0), reference.clone()),
+                ((REFERENCE_TABLES, 2), reference.clone()),
+                ((2, 7), versioned),
+            ]),
+            &HashMap::from([
+                (0, table(0, 5, 9, Vec::new())),
+                (2, table(2, 6, 77, vec![group(7), group(8)])),
+            ]),
+            &key,
+        )
+        .unwrap();
+        assert_eq!(cache.get(2, 7u32), Some(container.as_slice()));
+        assert!(cache.get(2, 8u32).is_none());
+        assert!(cache.is_absent(2, 8u32));
+        assert!(!cache.is_absent(2, 7u32));
+        assert!(!cache.is_absent(2, 9u32));
+        assert_eq!(
+            cache.get(REFERENCE_TABLES, 1u32),
+            Some(reference.as_slice())
+        );
+        let crc = getcrc(&reference, 0, reference.len()).to_be_bytes();
+        let mut expected = vec![0, 0, 0, 0, 24];
+        for version in [0, 0, 77] {
+            expected.extend_from_slice(&crc);
+            expected.extend_from_slice(&i32::to_be_bytes(version));
+        }
+        assert_eq!(
+            cache.get(REFERENCE_TABLES, REFERENCE_TABLES as u32),
+            Some(expected.as_slice())
+        );
+        let shared = cache.clone();
+        assert!(ptr::eq(
+            cache.get(2, 7u32).unwrap(),
+            shared.get(2, 7u32).unwrap()
+        ));
+    }
 
     #[cfg(since_647)]
     #[test]
@@ -339,7 +456,7 @@ mod tests {
         assert_eq!(prefetches[PREFETCH_COUNT - 1], 0);
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn ondemand_chunks_keep_the_file_length_and_part_order() {
         for len in [0, 1, 499, 500, 501, 1000, 1001, 65535, 65536] {
@@ -367,7 +484,7 @@ mod tests {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn js5_chunks_match_the_client_windows() {
         for len in [0, 1, 508, 509, 510, 511, 512, 1019, 1020, 1021, 1531, 4096] {

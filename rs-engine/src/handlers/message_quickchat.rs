@@ -10,6 +10,7 @@ use rs_pack::types::DummyItem;
 use rs_protocol::network::game::client_prot::{MessageQuickchatPrivate, MessageQuickchatPublic};
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::message_quickchat_private_echo::MessageQuickchatPrivateEcho;
+#[cfg(since_647)]
 use rs_util::base37::to_userhash;
 use rs_util::bits::getbit_range;
 use rs_ver::TypeId;
@@ -82,7 +83,7 @@ impl ClientGameHandler for MessageQuickchatPublic {
 ///
 /// A phrase for a friend, one per tick shared with all chat, even from a muted
 /// player. One for a name not on the friends list is dropped. The sender gets
-/// it back as `MESSAGE_QUICKCHAT_PRIVATE_ECHO`; 647's ether relay is not built
+/// it back as `MESSAGE_QUICKCHAT_PRIVATE_ECHO`; the ether relays no phrases
 /// yet, so it goes no further.
 impl ClientGameHandler for MessageQuickchatPrivate {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
@@ -91,11 +92,21 @@ impl ClientGameHandler for MessageQuickchatPrivate {
             return Ok(());
         }
         let (values, text) = phrase(active, self.id.g2(), &self.bytes)?;
+        #[cfg(all(since_530, before_647))]
+        let target37 = self.user37 as u64;
+        #[cfg(since_647)]
         let target37 = to_userhash(&self.name);
         if !active.friends.contains(&(target37 as i64)) {
             return Ok(());
         }
 
+        #[cfg(all(since_530, before_647))]
+        active.write(MessageQuickchatPrivateEcho {
+            user37: self.user37,
+            phrase: self.id,
+            bytes: &values,
+        });
+        #[cfg(since_647)]
         active.write(MessageQuickchatPrivateEcho {
             recipient: self.name,
             phrase_id: self.id,
@@ -228,10 +239,13 @@ fn searchable(id: u16, stockmarket: bool) -> bool {
             _ => excluded.default_int != 0,
         });
     engine.objs().get_by_id(TypeId::new(id)).is_some_and(|obj| {
+        #[cfg(since_647)]
+        if obj.boughttemplate.is_some() {
+            return false;
+        }
         (!stockmarket || obj.stockmarket)
             && obj.certtemplate.is_none()
             && obj.lenttemplate.is_none()
-            && obj.boughttemplate.is_none()
             && obj.dummyitem == DummyItem::None
             && !excluded
             && !obj_name(id).eq_ignore_ascii_case("null")

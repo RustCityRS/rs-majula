@@ -1,0 +1,700 @@
+// 655:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+colour=0x46341d
+fill=yes
+trans=96
+
+// 655:1
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 655:2
+[com_2]
+type=layer
+width=512
+height=334
+layer=content_layer
+
+// 655:3
+[com_3]
+type=rectangle
+width=512
+height=334
+layer=com_2
+colour=0x201810
+fill=yes
+
+// 655:4
+[com_4]
+type=model
+x=-72
+y=-221
+width=687
+height=715
+layer=com_2
+model=model_30136
+modelorigin=-10,75
+modelzoom=290
+modelorthog=yes
+modelunknown=65403,3000,0
+
+// 655:5
+[com_5]
+type=graphic
+x=452
+y=53
+width=26
+height=23
+layer=com_2
+graphic=graphic_541
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 542)
+onmouseleave=graphic_swapper(event_com, 541)
+onop=if_close
+
+// 655:6
+[com_6]
+type=text
+x=141
+y=58
+width=251
+height=28
+layer=com_2
+textfont=fontmetrics_764
+text=Rogues
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+
+// 655:7
+[subtitle]
+type=text
+x=141
+y=86
+width=251
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Players who hunt and kill anyone
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcccccc
+
+// 655:8
+[com_8]
+type=text
+x=66
+y=113
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=1)
+textshadow=yes
+colour=0xcccccc
+
+// 655:9
+[com_9]
+type=text
+x=66
+y=128
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=2)
+textshadow=yes
+colour=0xcccccc
+
+// 655:10
+[com_10]
+type=text
+x=66
+y=143
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=3)
+textshadow=yes
+colour=0xcccccc
+
+// 655:11
+[com_11]
+type=text
+x=66
+y=158
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=4)
+textshadow=yes
+colour=0xcccccc
+
+// 655:12
+[com_12]
+type=text
+x=66
+y=173
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=5)
+textshadow=yes
+colour=0xcccccc
+
+// 655:13
+[com_13]
+type=text
+x=66
+y=188
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=6)
+textshadow=yes
+colour=0xcccccc
+
+// 655:14
+[com_14]
+type=text
+x=66
+y=203
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=7)
+textshadow=yes
+colour=0xcccccc
+
+// 655:15
+[com_15]
+type=text
+x=66
+y=218
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=8)
+textshadow=yes
+colour=0xcccccc
+
+// 655:16
+[com_16]
+type=text
+x=66
+y=233
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=9)
+textshadow=yes
+colour=0xcccccc
+
+// 655:17
+[com_17]
+type=text
+x=66
+y=248
+width=9
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=10)
+textshadow=yes
+colour=0xcccccc
+
+// 655:18
+[com_18]
+type=text
+x=84
+y=113
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:19
+[com_19]
+type=text
+x=84
+y=128
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:20
+[com_20]
+type=text
+x=84
+y=143
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:21
+[com_21]
+type=text
+x=84
+y=158
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:22
+[com_22]
+type=text
+x=84
+y=173
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:23
+[com_23]
+type=text
+x=84
+y=188
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:24
+[com_24]
+type=text
+x=84
+y=203
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:25
+[com_25]
+type=text
+x=84
+y=218
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:26
+[com_26]
+type=text
+x=84
+y=233
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:27
+[com_27]
+type=text
+x=84
+y=248
+width=320
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=Nobody yet
+textshadow=yes
+colour=0xcccccc
+
+// 655:28
+[com_28]
+type=text
+x=420
+y=113
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:29
+[com_29]
+type=text
+x=420
+y=128
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:30
+[com_30]
+type=text
+x=420
+y=143
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:31
+[com_31]
+type=text
+x=420
+y=158
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:32
+[com_32]
+type=text
+x=420
+y=173
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:33
+[com_33]
+type=text
+x=420
+y=188
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:34
+[com_34]
+type=text
+x=420
+y=203
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:35
+[com_35]
+type=text
+x=420
+y=218
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:36
+[com_36]
+type=text
+x=420
+y=233
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:37
+[com_37]
+type=text
+x=420
+y=248
+width=50
+height=14
+layer=com_2
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0xcccccc
+
+// 655:38
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 655:39
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 655:40
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_821
+tiling=yes
+
+// 655:41
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_820
+tiling=yes
+
+// 655:42
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_822
+tiling=yes
+
+// 655:43
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_823
+tiling=yes
+
+// 655:44
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_824
+tiling=yes
+
+// 655:45
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_825
+tiling=yes
+
+// 655:46
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_827
+tiling=yes
+
+// 655:47
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic=graphic_826
+tiling=yes
+
+// 655:48
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 655:49
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 655:50
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 655:51
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 655:52
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 655:53
+[com_53]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 655:54
+[com_54]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 655:55
+[com_55]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=graphic_297
+tiling=yes
+outline=2
+
+// 655:56
+[com_56]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=graphic_297
+tiling=yes
+outline=2

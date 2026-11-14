@@ -1,0 +1,8 @@
+// 925
+[proc,clientscript_925]
+if (%varplayerbit_4538 >= 43) {
+    return;
+}
+if_settext(interface_725:com_20, "<\"Earlgrey\"><\" (1000)\">");
+if_settext(interface_725:com_22, "<\"Fairtrade\"><\" (1000)\">");
+%if_side_modal2_stone = 0;

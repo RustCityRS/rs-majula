@@ -1,36 +1,36 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::JagArchive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::incremental::Stage;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, insert_archive, insert_empty_archive, versions_dep};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::AssetNames;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::other::asset;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::pack_registry::PackRegistry;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::Result;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::path::PathBuf;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path) -> Vec<u8> {
     let synth_dir = content_dir.join("synth");
     if !synth_dir.exists() {
@@ -80,7 +80,7 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     jag.build(JagArchive::Sounds.compression())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
@@ -113,5 +113,5 @@ pub fn pack_archive(
 
     Ok(())
 }
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod instrument;

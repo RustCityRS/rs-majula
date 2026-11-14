@@ -6,7 +6,10 @@ use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 use rs_ver::TypeId;
 
-#[cfg(before_647)]
+#[cfg(all(since_530, before_647))]
+const OTHER: i32 = -70001;
+
+#[cfg(before_530)]
 #[server_prot(UpdateInvFull, Immediate, VarShort)]
 pub struct UpdateInvFull<'a> {
     pub com: u16,
@@ -54,7 +57,7 @@ impl ServerProtMessage for UpdateInvFull<'_> {
     }
 }
 
-#[cfg(all(since_289, before_647))]
+#[cfg(all(since_289, before_530))]
 impl ServerProtMessage for UpdateInvFull<'_> {
     fn encode(&self, buf: &mut Packet) {
         // only send up to the last slot in use (anything beyond is cleared by the client)
@@ -95,7 +98,7 @@ impl ServerProtMessage for UpdateInvFull<'_> {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl UpdateInvFull<'_> {
     fn find_max_pos(&self) -> usize {
         self.objs
@@ -107,22 +110,64 @@ impl UpdateInvFull<'_> {
 
 /// One populated inventory slot. `None` in `UpdateInvFull::slots`
 /// represents an empty slot.
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone, Copy)]
 pub struct InvItem {
     pub id: TypeId,
     pub count: u32,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(UpdateInvFull, Immediate, VarShort)]
 pub struct UpdateInvFull {
+    #[cfg(all(since_530, before_647))]
+    pub com: i32,
     pub inv_id: TypeId,
     /// The other player's copy of the inv (flags bit 0): the client keeps
     /// it apart from the player's own, as trade's other offer.
     pub other: bool,
     pub capacity: u16,
     pub slots: Vec<Option<InvItem>>,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateInvFull {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4(if self.other { OTHER } else { self.com });
+        buf.p2(self.inv_id.g2());
+        buf.p2(self.capacity);
+        for slot in &self.slots {
+            match slot {
+                Some(item) => {
+                    if item.count >= 255 {
+                        buf.p1_alt3(255);
+                        buf.p4(item.count as i32);
+                    } else {
+                        buf.p1_alt3(item.count as u8);
+                    }
+                    buf.p2(item.id.g2() + 1);
+                }
+                None => {
+                    buf.p1_alt3(0);
+                    buf.p2(0);
+                }
+            }
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com)
+            + size_of::<u16>()
+            + size_of_val(&self.capacity)
+            + self
+                .slots
+                .iter()
+                .map(|slot| match slot {
+                    Some(item) if item.count >= 255 => 7,
+                    _ => 3,
+                })
+                .sum::<usize>()
+    }
 }
 
 #[cfg(since_647)]

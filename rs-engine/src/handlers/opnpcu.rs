@@ -15,7 +15,11 @@ use rs_vm::{ComId, ScriptError};
 #[cfg(before_647)]
 impl ClientGameHandler for OpNpcU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        handle(self.nid, self.com.into(), self.slot, self.obj.g2(), active)
+        #[cfg(before_530)]
+        let com = self.com.into();
+        #[cfg(since_530)]
+        let com = self.com;
+        handle(self.nid, com, self.slot, self.obj.g2(), active)
     }
 }
 

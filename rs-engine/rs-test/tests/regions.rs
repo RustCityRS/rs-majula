@@ -1,8 +1,8 @@
-//! Regions: static zones copied into region space, built as the 647 client
+//! Regions: static zones copied into region space, built as the client
 //! builds them from the same templates, sent with REBUILD_REGION, saved at
 //! their exit and torn down.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
@@ -303,11 +303,12 @@ fn players_get_a_region_map_and_leave_with_the_region() {
             .map(|(_, payload)| payload)
             .expect("REBUILD_REGION");
         let (templates, bytes) = templates(rebuild);
-        assert_eq!(
-            rebuild.len() - 7 - bytes,
-            16,
-            "one key, for mapsquare 50_50"
-        );
+        // The 530 packet ends with the zone z after the keys.
+        #[cfg(all(since_530, before_647))]
+        let keys = rebuild.len() - 7 - bytes - 2;
+        #[cfg(since_647)]
+        let keys = rebuild.len() - 7 - bytes;
+        assert_eq!(keys, 16, "one key, for mapsquare 50_50");
         // The player's zone, area zone (1, 1) turned once, came from area
         // zone (2, 1): zone 402, 401 of level 0, turned once.
         assert_eq!(
@@ -343,7 +344,9 @@ fn players_get_a_region_map_and_leave_with_the_region() {
             engine.harness_saved_exits(client.pid),
             Some((Some(exit), Some(exit)))
         );
+        #[cfg(since_647)]
         let manager = engine.harness_region_coord(uid, 0, 0, 0).unwrap();
+        #[cfg(since_647)]
         assert!(engine.harness_controller_add(manager, TypeId::new(0)));
 
         engine.harness_region_free(uid);
@@ -353,6 +356,7 @@ fn players_get_a_region_map_and_leave_with_the_region() {
             !rsmod::is_zone_allocated(inside.x(), inside.z(), 0),
             "nothing reaches a freed region later in its tick"
         );
+        #[cfg(since_647)]
         assert!(!engine.harness_controller_add(manager, TypeId::new(0)));
         engine.cycle();
         assert!(
@@ -386,7 +390,9 @@ fn a_save_in_region_space_logs_in_at_its_exit() {
 /// Types `input` into the client's command box.
 fn cheat(client: &mut HarnessClient, input: &str) {
     let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
+    #[cfg(since_647)]
+    p.p1(0).p1(0);
+    p.pjstr(input);
     client.send(ClientProt::ClientCheat, &p.finish());
 }
 

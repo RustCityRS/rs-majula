@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::decode::read_pairs;
 use super::decode::{read_array, read_big_id};
 use super::provider::{CacheType, TypeProvider};
@@ -32,9 +32,9 @@ pub struct IdkTypeRaw {
     pub disable: bool,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_s: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_d: Option<Box<[u16]>>,
     #[cfg(since_742)]
     pub recolindices: Option<u16>,
@@ -55,9 +55,9 @@ impl CacheType for IdkTypeRaw {
             disable: false,
             recol_s: None,
             recol_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_s: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_d: None,
             #[cfg(since_742)]
             recolindices: None,
@@ -73,13 +73,13 @@ impl CacheType for IdkTypeRaw {
             1 => self.body_type = BodyType::try_from(buf.g1()).unwrap(),
             2 => self.models = Some(read_array(buf, read_big_id)),
             3 => self.disable = true,
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             40..=49 => {
                 self.recol_s
                     .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 40] =
                     buf.g2();
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             40 | 41 => {
                 let (s, d) = if code == 40 {
                     (&mut self.recol_s, &mut self.recol_d)
@@ -92,7 +92,7 @@ impl CacheType for IdkTypeRaw {
             44 => self.recolindices = Some(buf.g2()),
             #[cfg(since_742)]
             45 => self.retexindices = Some(buf.g2()),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             50..=59 => {
                 self.recol_d
                     .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 50] =

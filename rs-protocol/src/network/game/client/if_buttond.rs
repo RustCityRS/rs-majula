@@ -4,18 +4,39 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+#[cfg(since_647)]
 use rs_ver::TypeId;
 
-#[client_prot(Fixed(16), UserEvent)]
+#[cfg_attr(before_647, client_prot(Fixed(12), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(16), UserEvent))]
 pub struct IfButtonD {
     pub com: i32,
     pub slot: u16,
+    #[cfg(since_647)]
     pub obj: TypeId,
     pub com2: i32,
     pub slot2: u16,
+    #[cfg(since_647)]
     pub obj2: TypeId,
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for IfButtonD {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let com = buf.g4s_alt3();
+        let slot2 = buf.g2_alt1();
+        let com2 = buf.g4s();
+        let slot = buf.g2_alt1();
+        IfButtonD {
+            com,
+            slot,
+            com2,
+            slot2,
+        }
+    }
+}
+
+#[cfg(since_647)]
 impl ClientProtMessage for IfButtonD {
     #[cfg(before_742)]
     fn decode(buf: &mut Packet, _: usize) -> Self {

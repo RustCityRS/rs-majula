@@ -9,7 +9,7 @@ use rs_grid::CoordGrid;
 use rs_hero::HeroPoints;
 use rs_info::{EntityMasks, FocusKind, PlayerInfoProt};
 use rs_inv::Inventory;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::area::{NO_AREAS, TileAreas};
 use rs_pack::types::{BlockWalk, MoveRestrict, PlayerStat};
 use rs_stat::Stats;
@@ -114,7 +114,7 @@ pub struct Player {
     #[cfg(since_274)]
     pub skill_level: u16,
     pub vars: VarSet,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varcs: VarSet,
     pub state: EntityState,
     pub interaction: InteractionState,
@@ -126,7 +126,7 @@ pub struct Player {
     pub temp_move_speed: Option<MoveSpeed>,
     #[cfg(since_647)]
     pub client_move_type: Option<MoveSpeed>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub region_entry: Option<CoordGrid>,
     pub move_request: bool,
     pub modal_state: u8,
@@ -134,15 +134,15 @@ pub struct Player {
     pub last_modal_main: Option<u16>,
     pub modal_chat: Option<u16>,
     pub last_modal_chat: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub modal_chat_parent: i32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub modal_main_parent: i32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub modal_side_parent: i32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub open_subs: FxHashMap<i32, (u16, u8)>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub if_events: FxHashMap<(i32, u16), u32>,
     pub modal_side: Option<u16>,
     pub last_modal_side: Option<u16>,
@@ -169,15 +169,15 @@ pub struct Player {
     pub pending_login: bool,
     #[cfg(since_647)]
     pub chat_mode: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub toplevel: u16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub frame_toplevel: u16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub window_mode: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub window_width: u16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub window_height: u16,
     #[cfg(since_647)]
     pub display_name: Option<String>,
@@ -187,13 +187,16 @@ pub struct Player {
     pub name_suggestion_page: usize,
     pub inv_transmits: FxHashMap<TypeId, Vec<ComId>>,
     pub inv_other_transmits: FxHashMap<ComId, (i32, TypeId)>,
+    #[cfg(any(before_530, since_647))]
     pub inv_first_seen: FxHashSet<u16>,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    pub inv_first_seen: FxHashSet<ComId>,
+    #[cfg(since_530)]
     pub inv_other_first_seen: FxHashSet<u16>,
     pub build_area: BuildArea,
     pub last_zone: CoordGrid,
     pub last_map_zone: CoordGrid,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub areas: TileAreas,
     pub afk_event_ready: bool,
     pub afk_zones: [u32; 2],
@@ -213,9 +216,9 @@ pub struct PlayerCold {
     pub last_com: Option<ComId>,
     pub last_slot: Option<u16>,
     pub last_target_slot: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub last_target_com: Option<i32>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub last_coord: Option<CoordGrid>,
     pub last_use_slot: Option<u16>,
     pub last_item: Option<TypeId>,
@@ -278,7 +281,7 @@ impl Player {
             #[cfg(since_274)]
             skill_level: 0,
             vars,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varcs: VarSet::new([].into_iter()),
             state: EntityState::new(),
             info: EntityMasks::new(),
@@ -294,7 +297,7 @@ impl Player {
             temp_move_speed: None,
             #[cfg(since_647)]
             client_move_type: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             region_entry: None,
             move_request: false,
             modal_state: MODAL_NONE,
@@ -302,15 +305,15 @@ impl Player {
             last_modal_main: None,
             modal_chat: None,
             last_modal_chat: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             modal_chat_parent: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             modal_main_parent: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             modal_side_parent: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             open_subs: FxHashMap::default(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if_events: FxHashMap::default(),
             modal_side: None,
             last_modal_side: None,
@@ -327,15 +330,15 @@ impl Player {
             pending_login: true,
             #[cfg(since_647)]
             chat_mode: CHAT_MODE_PUBLIC,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             toplevel: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             frame_toplevel: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             window_mode: 1,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             window_width: 765,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             window_height: 503,
             #[cfg(since_647)]
             display_name: None,
@@ -356,12 +359,12 @@ impl Player {
             inv_transmits: FxHashMap::default(),
             inv_other_transmits: FxHashMap::default(),
             inv_first_seen: FxHashSet::default(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             inv_other_first_seen: FxHashSet::default(),
             build_area: BuildArea::new(),
             last_zone: CoordGrid::new(0, 0, 0),
             last_map_zone: CoordGrid::new(0, 0, 0),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             areas: NO_AREAS,
             afk_event_ready: false,
             afk_zones: [0; 2],
@@ -378,9 +381,9 @@ impl Player {
                 last_com: None,
                 last_slot: None,
                 last_target_slot: None,
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 last_target_com: None,
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 last_coord: None,
                 last_use_slot: None,
                 last_item: None,
@@ -409,7 +412,7 @@ impl Player {
 
     /// Rev-647: records IF_OPENSUB. As the client does, whatever was mounted
     /// on `parent` closes first.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn sub_opened(&mut self, parent: i32, sub: u16, kind: u8) {
         self.sub_closed(parent);
         self.open_subs.insert(parent, (sub, kind));
@@ -419,7 +422,7 @@ impl Player {
     /// `parent`, then, recursively, every type-3 sub mounted inside it
     /// (`LightDetailClientOption.method2499`); others stay in its table,
     /// unreachable until something re-parents them.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn sub_closed(&mut self, parent: i32) {
         let Some((closed, _)) = self.open_subs.remove(&parent) else {
             return;
@@ -440,7 +443,7 @@ impl Player {
     /// Rev-647: the IF_OPENSUB type for a sub mounted on `parent`: that of
     /// the sub holding `parent`'s interface, or 1 on the toplevel. A main or
     /// chat modal mounts as type 0 at the end of the tick, after the script.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn sub_kind(&self, parent: i32) -> u8 {
         let iface = (parent as u32 >> 16) as u16;
         if self.modal_main == Some(iface) || self.modal_chat == Some(iface) {
@@ -454,7 +457,7 @@ impl Player {
 
     /// Rev-647: records IF_MOVESUB -- the sub on `from` moves to `to`,
     /// closing whatever `to` held, as the client's branch for it does.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn sub_moved(&mut self, from: i32, to: i32) {
         let moving = self.open_subs.remove(&from);
         self.sub_closed(to);
@@ -467,7 +470,7 @@ impl Player {
     /// sub mounted on a component of something that is. A sub left on a
     /// parent that is no longer reachable (after IF_OPENTOP swaps the root)
     /// is in the client's table but drawn nowhere.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn is_interface_open(&self, iface: u16) -> bool {
         let mut current = iface;
         // Each step climbs one parent; a mount chain is a handful deep, and
@@ -577,19 +580,25 @@ impl Player {
     /// # Side Effects
     /// * Removes `com` from every entry in `self.inv_transmits`.
     pub fn clear_inv_transmits(&mut self, com: ComId) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.if_events.retain(|&(component, _), _| component != com);
         for coms in self.inv_transmits.values_mut() {
             coms.retain(|&c| c != com);
         }
         self.inv_other_transmits.remove(&com);
-        // Before 647 a component is seen afresh once it stops; from 647 the
-        // client keys inventories by inv id, and so does first-sight.
-        #[cfg(before_647)]
+        // Before 647 a component is seen afresh once it stops (530's if1
+        // inventories hold their own items); from 647 the client keys
+        // inventories by inv id, and so does first-sight.
+        #[cfg(before_530)]
         self.inv_first_seen.remove(&(com as u16));
-        // From 647 an inventory no component transmits any more is dropped:
-        // it stops going to the client (a closed shop's restocks), and the
-        // next transmit sends it whole again.
+        // From 530 an inventory no component transmits any more is dropped:
+        // it stops going to the client (a closed shop's restocks), and from
+        // 647 the next transmit sends it whole again.
+        #[cfg(all(since_530, before_647))]
+        {
+            self.inv_first_seen.remove(&com);
+            self.inv_transmits.retain(|_, coms| !coms.is_empty());
+        }
         #[cfg(since_647)]
         {
             let first_seen = &mut self.inv_first_seen;
@@ -599,8 +608,11 @@ impl Player {
                 }
                 !coms.is_empty()
             });
-            // Another player's inv no component shows any more goes whole
-            // next time, so a new trade starts from its partner's offer.
+        }
+        // Another player's inv no component shows any more goes whole next
+        // time, so a new trade starts from its partner's offer.
+        #[cfg(since_530)]
+        {
             let others = &self.inv_other_transmits;
             self.inv_other_first_seen
                 .retain(|inv| others.values().any(|&(_, other)| other.g2() == *inv));
@@ -1038,7 +1050,7 @@ impl Player {
             return;
         }
         let speed = self.temp_move_speed.unwrap_or(self.move_speed);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let speed = if self.info.runanim.is_some_and(|anim| !anim.is_null()) {
             speed
         } else {
@@ -1221,7 +1233,7 @@ mod move_speed_tests {
     /// `runanim(null)` is how 289 content stops a player running (the
     /// Fishing Trawler's sinking boat, `~playerwalk`); the reference walks
     /// them at `runanim === -1`.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn no_run_animation_walks() {
         let mut p = make_player();
@@ -1705,13 +1717,13 @@ mod interaction_tests {
 
     // ---- rev-647 open interfaces ----
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hash(iface: u16, com: u16) -> i32 {
         ((iface as i32) << 16) | com as i32
     }
 
     /// A sub is open when it hangs, mount by mount, off the toplevel.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn an_interface_is_open_when_it_hangs_off_the_toplevel() {
         let mut p = make_player();
@@ -1727,7 +1739,7 @@ mod interaction_tests {
 
     /// IF_OPENTOP leaves the client's sub table alone; what hung off the old
     /// root is no longer drawn.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn a_new_toplevel_strands_what_hung_off_the_old_one() {
         let mut p = make_player();
@@ -1741,7 +1753,7 @@ mod interaction_tests {
 
     /// Mounting on an occupied component closes the occupant, and closing a
     /// sub takes its type-3 children with it.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn opening_over_a_sub_closes_it_and_its_type_3_children() {
         let mut p = make_player();
@@ -1768,7 +1780,7 @@ mod interaction_tests {
     /// `inventory:inv` (149:0) and the bank's component 0 (762:0) share a
     /// component index. Cut to 16 bits they were the same key, so stopping one
     /// stopped the other.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn stopping_one_component_leaves_another_with_the_same_index() {
         let mut p = make_player();
@@ -1820,7 +1832,7 @@ mod interaction_tests {
     /// Another player's inv is forgotten once no component shows it (a
     /// trade's other offer, when its screen closes), and kept while one does
     /// (the trade's confirm screen, after the offer screen stops).
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn another_players_inventory_nothing_shows_is_forgotten() {
         let mut p = make_player();

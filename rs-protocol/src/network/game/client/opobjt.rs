@@ -6,7 +6,7 @@ use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 use rs_ver::TypeId;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[client_prot(Fixed(8), UserEvent)]
 pub struct OpObjT {
     pub x: u16,
@@ -15,7 +15,7 @@ pub struct OpObjT {
     pub com: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for OpObjT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpObjT {
@@ -27,16 +27,37 @@ impl ClientProtMessage for OpObjT {
     }
 }
 
-#[cfg(since_647)]
-#[client_prot(Fixed(15), UserEvent)]
+#[cfg(since_530)]
+#[cfg_attr(before_647, client_prot(Fixed(12), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(15), UserEvent))]
 pub struct OpObjT {
     pub obj: TypeId,
     pub x: u16,
     pub z: u16,
+    #[cfg(since_647)]
     pub obj2: TypeId,
     pub slot: u16,
     pub com: i32,
+    #[cfg(since_647)]
     pub ctrl: bool,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpObjT {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let com = buf.g4s_alt2();
+        let z = buf.g2();
+        let obj = TypeId::from_g2(buf.g2_alt3());
+        let x = buf.g2_alt3();
+        let slot = buf.g2_alt1();
+        OpObjT {
+            obj,
+            x,
+            z,
+            slot,
+            com,
+        }
+    }
 }
 
 #[cfg(since_647)]

@@ -27,6 +27,7 @@ pub fn emit_flu_props(
     if def.op4 {
         p.push((4, "hardshadow".into(), "no".into()));
     }
+    #[cfg(since_647)]
     if def.op5 {
         p.push((5, "occlude".into(), "no".into()));
     }

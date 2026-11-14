@@ -1,11 +1,11 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::ModelCategory;
 use super::UnpackedPacks;
 use crate::cache::idk::IdkTypeRaw;
 use rs_ver::TypeId;
 use std::collections::HashMap;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn bodytype_name(v: u8) -> Option<&'static str> {
     Some(match v {
         0 => "man_hair",
@@ -38,17 +38,17 @@ pub fn emit_idk_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let models = def.models.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let recol_s = def.recol_s.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let recol_d = def.recol_d.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let retex_s = def.retex_s.as_deref().unwrap_or_default();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let retex_d = def.retex_d.as_deref().unwrap_or_default();
     let heads = def.heads.as_deref().unwrap_or_default();
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         let cat = if def.body_type as u8 >= 7 {
             ModelCategory::IdkWoman
@@ -80,23 +80,23 @@ pub fn emit_idk_props(
         }
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     if opcode == 1 {
         let value = bodytype_name(def.body_type as u8)
             .map(str::to_string)
             .unwrap_or_else(|| (def.body_type as u8).to_string());
         p.push((1, "type".into(), value));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 1 {
         p.push((1, "bodypart".into(), (def.body_type as u8).to_string()));
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     for (i, id) in models.iter().enumerate() {
         p.push((2, format!("model{}", i + 1), model_name(registry, *id)));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     for id in models {
         p.push((2, "model".into(), model_name(registry, *id)));
     }
@@ -105,7 +105,7 @@ pub fn emit_idk_props(
         p.push((3, "disable".into(), "yes".into()));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !recol_s.is_empty() {
         for i in 0..recol_s.len() {
             let [(ks, vs), (kd, vd)] =
@@ -115,7 +115,7 @@ pub fn emit_idk_props(
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if !retex_s.is_empty() {
         for i in 0..retex_s.len() {
             let n = i + 1;

@@ -1,0 +1,10 @@
+// 289's orb charging and superheat jump to two quests' own casts, which are
+// not ported yet; these stand in until each quest comes across, and end the
+// cast as 289's labels end the script. Port the quest, then delete its label
+// here.
+
+// Legends' Quest: the magic trial's gate (289 quests/quest_legends/scripts/quest_legends.rs2).
+[label,legends_cast_orb_door](dbrow $spell_data)
+
+// Tai Bwo Wannai Trio: superheating jogre bones (289 quests/quest_tbwt/scripts/tbwt_jogre_bones.rs2).
+[label,tbwt_jogre_bones_superheat]

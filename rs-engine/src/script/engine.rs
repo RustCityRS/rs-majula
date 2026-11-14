@@ -3,7 +3,7 @@ use crate::active_npc::ActiveNpc;
 use crate::clients::client_db::DbRequest;
 use crate::core::{Engine, ObjDelayedRequest};
 use crate::counters::{self, COUNTERS};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::REGION_X;
 use crate::script::errors::{Context, Subject};
 use rs_entity::StaffModLevel;
@@ -35,12 +35,12 @@ use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
 use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
@@ -48,8 +48,10 @@ use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::server::map_projanim_halfsq::ServerProt530_104;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
 #[cfg(since_647)]
@@ -59,15 +61,17 @@ use rs_protocol::network::game::server::text_coord::TextCoord;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
 use rs_ver::TypeId;
-use rs_vm::ScriptError;
 #[cfg(since_647)]
+use rs_vm::ControllerUid;
+#[cfg(since_530)]
+use rs_vm::RegionUid;
+use rs_vm::ScriptError;
+#[cfg(since_530)]
 use rs_vm::engine::ProjAnimHalfsq;
 use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer};
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
-#[cfg(since_647)]
-use rs_vm::{ControllerUid, RegionUid};
 #[cfg(since_647)]
 use rs_zone::ZoneEventType;
 use rs_zone::ZoneMessage;
@@ -119,7 +123,7 @@ impl ScriptEngine for Engine {
         &self.cache.varps
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varcs(&self) -> &VarClientTypeProvider {
         &self.cache.varcs
     }
@@ -129,7 +133,7 @@ impl ScriptEngine for Engine {
         &self.cache.varbits
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varobjs(&self) -> &VarObjTypeProvider {
         &self.cache.varobjs
     }
@@ -233,7 +237,7 @@ impl ScriptEngine for Engine {
             .flatten()
     }
 
-    #[cfg(all(since_254, before_647))]
+    #[cfg(all(since_254, before_530))]
     fn midi_length_ms(&self, id: i32) -> Option<u32> {
         self.cache
             .midi_lengths_ms
@@ -544,7 +548,7 @@ impl ScriptEngine for Engine {
         let mut active = ActiveNpc::new(id, 0, coord, npc_type.size, vars, self.cache);
         active.npc.lifecycle = EntityLifeTime::Despawn;
         active.npc.lifecycle_at = Some(duration.max(1) as u32);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if duration == 0 && coord.x() >= REGION_X {
             active.npc.lifecycle_at = None;
         }
@@ -654,14 +658,14 @@ impl ScriptEngine for Engine {
             .obj_dropped_for(coord.x(), coord.z(), id, serial)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn obj_var(&self, coord: CoordGrid, id: TypeId, serial: ObjSerial) -> i32 {
         self.zones
             .zone(coord.x(), coord.y(), coord.z())
             .map_or(0, |zone| zone.obj_var(coord.x(), coord.z(), id, serial))
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn set_obj_var(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, var: i32) -> bool {
         self.zones.zone(coord.x(), coord.y(), coord.z()).is_some()
             && self
@@ -1150,17 +1154,52 @@ impl ScriptEngine for Engine {
     }
 
     /// Queues a half-square projectile in the zone holding its start, whose
-    /// 16 by 16 half squares the coord byte indexes.
+    /// 16 by 16 half squares the coord byte indexes. The 530 client has no
+    /// source in MAP_PROJANIM_HALFSQ: one leaving a source's wear position
+    /// goes as its own zone message.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::map_proj_anim`, `Engine::track_zone`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn map_proj_anim_halfsq(&mut self, projectile: ProjAnimHalfsq) {
         let (x, y, z) = (projectile.x >> 1, projectile.level, projectile.z >> 1);
+        let coord = ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8;
+        #[cfg(all(since_530, before_647))]
+        let message = match projectile.wearpos {
+            Some(wearpos) => ZoneMessage::ServerProt530_104(ServerProt530_104 {
+                coord,
+                dx: projectile.dx,
+                dz: projectile.dz,
+                source: projectile.source,
+                wearpos,
+                target: projectile.target,
+                spotanim: projectile.spotanim,
+                src_height: projectile.src_height,
+                dst_height: projectile.dst_height,
+                start_delay: projectile.start,
+                end_delay: projectile.end,
+                peak: projectile.peak,
+                arc: projectile.arc,
+            }),
+            None => ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
+                coord,
+                dx: projectile.dx,
+                dz: projectile.dz,
+                target: projectile.target,
+                spotanim: projectile.spotanim,
+                src_height: projectile.src_height,
+                dst_height: projectile.dst_height,
+                start_delay: projectile.start,
+                end_delay: projectile.end,
+                peak: projectile.peak,
+                arc: projectile.arc,
+            }),
+        };
+        #[cfg(since_647)]
         let message = ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
-            coord: ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8,
+            coord,
             ground: false,
             wearpos: projectile.wearpos,
             dx: projectile.dx,
@@ -1365,7 +1404,7 @@ impl ScriptEngine for Engine {
         Ok(self.multiway(coord))
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn inarea(&self, area: TypeId, coord: CoordGrid) -> bool {
         let coord = self.area_tile(coord);
         !area.is_null()
@@ -1376,29 +1415,29 @@ impl ScriptEngine for Engine {
                 .contains(&area)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_find(&self, coord: CoordGrid) -> Option<RegionUid> {
         self.regions
             .find(coord.x(), coord.z())
             .map(|region| region.uid)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_exists(&self, uid: RegionUid) -> bool {
         self.regions.get(uid).is_some()
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_coord(&self, uid: RegionUid, level: i32, x: i32, z: i32) -> rs_vm::Result<CoordGrid> {
         Engine::region_coord(self, uid, level, x, z)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_create(&mut self, levels: i32, east: i32, north: i32) -> rs_vm::Result<RegionUid> {
         Engine::region_create(self, levels, east, north)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_set(
         &mut self,
         uid: RegionUid,
@@ -1411,12 +1450,12 @@ impl ScriptEngine for Engine {
         Engine::region_set(self, uid, level, east, north, source, rotation)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_set_exit(&mut self, uid: RegionUid, exit: CoordGrid) -> rs_vm::Result<()> {
         Engine::region_set_exit(self, uid, exit)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<RegionUid>) -> bool {
         Engine::region_allows(self, from, to, selected)
     }

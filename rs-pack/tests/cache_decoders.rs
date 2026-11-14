@@ -2,33 +2,33 @@ use rs_io::Packet;
 use rs_pack::ParamValue;
 #[cfg(since_647)]
 use rs_pack::cache::dbrow::{DbRowType, DbRowValue};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::r#enum::{EnumType, EnumTypeRaw};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::flo::{FloType, FloTypeRaw};
 use rs_pack::cache::hunt::HuntType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::idk::IdkTypeRaw;
 use rs_pack::cache::inv::InvTypeRaw;
 use rs_pack::cache::loc::LocTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::map::load_xtea_keys;
 use rs_pack::cache::npc::NpcTypeRaw;
 use rs_pack::cache::obj::ObjTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::obj::{ObjContext, ObjType};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::param::{ParamType, ParamTypeRaw};
 use rs_pack::cache::provider::CacheType;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::provider::TypeProvider;
 use rs_pack::cache::seq::SeqTypeRaw;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::spotanim::SpotAnimTypeRaw;
 use rs_pack::cache::r#struct::{StructType, StructTypeRaw};
 #[cfg(since_647)]
 use rs_pack::cache::varc::VarClientTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::pack::config::bas::pack_bases;
 #[cfg(since_647)]
 use rs_pack::pack::config::billboard::pack_billboards;
@@ -36,9 +36,9 @@ use rs_pack::pack::config::billboard::pack_billboards;
 use rs_pack::pack::config::dbrow::pack_dbrows;
 use rs_pack::pack::config::hunt::pack_hunts;
 use rs_pack::pack::config::npc::pack_npcs;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::pack::config::pack_empty_table;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_pack::pack::config::param::parse_params;
 #[cfg(since_647)]
 use rs_pack::pack::config::particleeffector::pack_particleeffectors;
@@ -49,16 +49,18 @@ use rs_pack::pack::config::varc::{pack_varc_strings, pack_varcs};
 #[cfg(since_647)]
 use rs_pack::pack::config::varclansetting::pack_clan_vars;
 use rs_pack::pack::pack::FileCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::pack::pack_registry::PackFile;
 use rs_pack::pack::pack_registry::PackRegistry;
 use rs_pack::pack::packed_data::PackedData;
 use rs_pack::types::HuntCheckAfk;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::types::HuntModeType;
 #[cfg(since_647)]
-use rs_pack::types::{ScriptVarType, VarPlayerScope, WearPos};
-#[cfg(since_647)]
+use rs_pack::types::VarPlayerScope;
+#[cfg(since_530)]
+use rs_pack::types::{ScriptVarType, WearPos};
+#[cfg(since_530)]
 use rs_pack::unpack::config::bas::emit_bas_props;
 #[cfg(since_647)]
 use rs_pack::unpack::config::billboard::emit_billboard_props;
@@ -66,13 +68,18 @@ use rs_pack::unpack::config::billboard::emit_billboard_props;
 use rs_pack::unpack::config::particleeffector::emit_particleeffector_props;
 #[cfg(since_647)]
 use rs_pack::unpack::config::particleemitter::emit_particleemitter_props;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::unpack::config::{
     UnpackedPacks, decode_record, r#enum::emit_enum_props, flo::emit_flo_props,
     flu::emit_flu_props, idk::emit_idk_props, param::emit_param_props,
 };
 use rs_ver::TypeId;
 use std::{collections::HashMap, fs, path::Path};
+
+#[cfg(before_742)]
+const COUNT_LEN: usize = 2;
+#[cfg(since_742)]
+const COUNT_LEN: usize = 4;
 
 fn decode<T: CacheType>(data: &[u8]) -> T {
     let mut buf = Packet::from(data.to_vec());
@@ -97,7 +104,7 @@ fn rendering_fields_keep_their_wire_values() {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn xtea_json_preserves_signed_keys_and_rejects_invalid_records() {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join("xtea_json");
@@ -133,7 +140,7 @@ fn xtea_json_preserves_signed_keys_and_rejects_invalid_records() {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn wearable_ids_include_linked_items_and_both_genders() {
     let mut objs: Vec<_> = (0..7).map(|id| ObjTypeRaw::new(TypeId::new(id))).collect();
@@ -142,8 +149,11 @@ fn wearable_ids_include_linked_items_and_both_genders() {
     objs[3].wearpos = Some(WearPos::Ring);
     objs[4].lenttemplate = Some(TypeId::new(6));
     objs[4].lentlink = Some(TypeId::new(1));
-    objs[5].boughttemplate = Some(TypeId::new(6));
-    objs[5].boughtlink = Some(TypeId::new(2));
+    #[cfg(since_647)]
+    {
+        objs[5].boughttemplate = Some(TypeId::new(6));
+        objs[5].boughtlink = Some(TypeId::new(2));
+    }
     let objs = TypeProvider::<ObjType>::from_types(
         objs,
         ObjContext {
@@ -151,25 +161,35 @@ fn wearable_ids_include_linked_items_and_both_genders() {
             autodisable_params: Box::new([]),
         },
     );
+    #[cfg(all(since_530, before_647))]
+    let wearids = [None, Some(0), Some(1), None, Some(2), None, None];
+    #[cfg(since_647)]
+    let wearids = [None, Some(0), Some(1), None, Some(2), Some(3), None];
     assert_eq!(
         objs.types.iter().map(|obj| obj.wearid).collect::<Vec<_>>(),
-        [None, Some(0), Some(1), None, Some(2), Some(3), None]
+        wearids
     );
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn modern_script_types_survive_projection() {
     for (byte, expected) in [
+        #[cfg(since_647)]
         (64, ScriptVarType::Cursor),
+        #[cfg(since_647)]
         (96, ScriptVarType::MapArea),
         (100, ScriptVarType::Graphic),
         (106, ScriptVarType::Jingle),
         (107, ScriptVarType::ChatCat),
         (109, ScriptVarType::Model),
+        #[cfg(since_647)]
         (120, ScriptVarType::Texture),
+        #[cfg(since_647)]
         (128, ScriptVarType::Bas),
+        #[cfg(since_647)]
         (171, ScriptVarType::Vorbis),
+        #[cfg(since_647)]
         (181, ScriptVarType::MapElement),
     ] {
         let raw: EnumTypeRaw = decode(&[1, byte, 2, byte, 0]);
@@ -180,7 +200,7 @@ fn modern_script_types_survive_projection() {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn explicit_defaults_and_sentinels_survive_unpacking() {
     let mut registry = UnpackedPacks::new();
@@ -238,8 +258,12 @@ fn explicit_defaults_and_sentinels_survive_unpacking() {
             ("default".into(), "0".into()),
         ]
     );
+    #[cfg(all(since_530, before_742))]
+    let idk = [1, 0, 60, 0, 0, 62, 255, 255, 0];
+    #[cfg(since_742)]
+    let idk = [1, 0, 60, 0, 0, 62, 127, 255, 0];
     let props = decode_record(
-        &mut Packet::from([1, 0, 60, 0, 0, 62, 255, 255, 0].to_vec()),
+        &mut Packet::from(idk.to_vec()),
         0,
         &HashMap::new(),
         &mut registry,
@@ -335,9 +359,9 @@ fn dbrow_packer_writes_the_schema_width() {
 
 #[test]
 fn params_share_type_key_value_order() {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let terminator = 10;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let terminator = 0;
     let data = [
         249, 2, 0, 1, 35, 69, 255, 255, 255, 214, 1, 2, 52, 86, b'o', b'a', b'k', terminator, 249,
@@ -369,7 +393,7 @@ fn params_share_type_key_value_order() {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[test]
 fn server_param_packer_writes_type_before_key() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("param_layout");
@@ -484,7 +508,7 @@ fn recolours_preserve_pair_order() {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn retextures_preserve_each_clients_pair_order() {
     let data = [41, 1, 0, 7, 0, 9, 0];
@@ -507,19 +531,19 @@ fn retextures_preserve_each_clients_pair_order() {
 
 #[test]
 fn sequence_frames_preserve_interleaved_and_split_layouts() {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let data = [1, 2, 18, 52, 255, 255, 0, 7, 171, 205, 0, 9, 0, 11, 5, 8, 0];
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let data = [1, 0, 2, 0, 7, 0, 11, 18, 52, 171, 205, 0, 1, 0, 2, 5, 8, 0];
     let seq: SeqTypeRaw = decode(&data);
     assert_eq!(seq.delays.unwrap().as_ref(), [7, 11]);
     assert_eq!(seq.priority, 8);
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         assert_eq!(seq.frames.unwrap().as_ref(), [0x1234, 0xabcd]);
         assert_eq!(seq.iframes.unwrap().as_ref(), [None, Some(9)]);
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         assert_eq!(seq.frames.unwrap().as_ref(), [0x11234, 0x2abcd]);
         assert!(seq.iframes.is_none());
@@ -530,22 +554,26 @@ fn sequence_frames_preserve_interleaved_and_split_layouts() {
 #[cfg(since_289)]
 #[test]
 fn transforms_preserve_missing_ids_and_default_targets() {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let data = [77, 0, 5, 1, 255, 254, 255, 255, 14, 3, 0];
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_742))]
     let data = [92, 0, 5, 255, 255, 0, 99, 1, 255, 254, 255, 255, 14, 3, 0];
+    #[cfg(since_742)]
+    let data = [
+        92, 0, 5, 255, 255, 0, 99, 1, 128, 0, 255, 254, 127, 255, 14, 3, 0,
+    ];
     let loc: LocTypeRaw = decode(&data);
     assert_eq!(loc.width, 3);
     assert_eq!(
         (loc.transform_varbit, loc.transform_varp),
         (TypeId::new(5), TypeId::NULL)
     );
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     assert_eq!(
         loc.multiloc.unwrap().as_ref(),
         [TypeId::new(65534), TypeId::NULL, TypeId::NULL]
     );
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         assert_eq!(
             loc.multiloc.unwrap().as_ref(),
@@ -567,9 +595,15 @@ fn transforms_preserve_missing_ids_and_default_targets() {
 
 #[test]
 fn inventory_server_codes_use_upstream_layout() {
+    #[cfg(before_742)]
     let inv: InvTypeRaw = decode(&[
         4, 1, 0, 1, 0, 2, 0, 0, 0, 3, 4, 2, 0, 4, 0, 5, 0, 0, 0, 6, 255, 255, 0, 7, 255, 255, 255,
         255, 2, 0, 9, 3, 5, 6, 7, 8, 9, 0,
+    ]);
+    #[cfg(since_742)]
+    let inv: InvTypeRaw = decode(&[
+        4, 1, 0, 1, 0, 2, 10, 1, 0, 0, 0, 3, 4, 2, 0, 4, 0, 5, 255, 255, 0, 7, 10, 2, 0, 0, 0, 6,
+        255, 255, 255, 255, 2, 0, 9, 3, 5, 6, 7, 8, 9, 0,
     ]);
     assert_eq!(inv.size, 9);
     assert_eq!(
@@ -580,7 +614,10 @@ fn inventory_server_codes_use_upstream_layout() {
     assert_eq!(inv.stockrate.unwrap().as_ref(), [6, -1]);
     assert!(inv.stackall && inv.restock && inv.allstock && inv.runweight && inv.dummyinv);
     assert!(!inv.protect);
+    #[cfg(before_742)]
     let empty: InvTypeRaw = decode(&[4, 1, 0, 1, 0, 2, 0, 0, 0, 3, 4, 0, 0]);
+    #[cfg(since_742)]
+    let empty: InvTypeRaw = decode(&[4, 1, 0, 1, 0, 2, 10, 1, 0, 0, 0, 3, 4, 0, 0]);
     assert!(empty.stockobj.unwrap().is_empty());
     assert!(empty.stockcount.unwrap().is_empty());
     assert!(empty.stockrate.unwrap().is_empty());
@@ -608,11 +645,11 @@ fn npc_hunt_ids_survive_packing() {
         .unwrap();
         (packed.server.dat, packed.client.unwrap().dat)
     };
-    let npc: NpcTypeRaw = decode(&server[2..]);
+    let npc: NpcTypeRaw = decode(&server[COUNT_LEN..]);
     assert_eq!(npc.huntmode, Some(TypeId::new(255)));
     assert_eq!(npc.timer, Some(257));
     assert_eq!(npc.debugname(), "hellhound");
-    let npc: NpcTypeRaw = decode(&client[2..]);
+    let npc: NpcTypeRaw = decode(&client[COUNT_LEN..]);
     assert_eq!(npc.huntmode, None);
     assert_eq!(npc.name.as_deref(), Some("Hellhound"));
 
@@ -633,7 +670,7 @@ fn npc_hunt_ids_survive_packing() {
     );
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn bas_anims_keep_their_names_weights_and_order() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("bas_round_trip");
@@ -644,9 +681,19 @@ fn bas_anims_keep_their_names_weights_and_order() {
     )
     .unwrap();
     fs::write(path.join("bas.pack"), "0=bas_0\n").unwrap();
+    #[cfg(all(since_530, before_647))]
+    let data = [
+        38, 2, 225, 6, 2, 225, 1, 2, 226, 255, 255, 30, 2, 225, 43, 2, 225, 0,
+    ];
+    #[cfg(all(since_647, before_742))]
     let data = [
         38, 2, 225, 6, 2, 225, 1, 2, 226, 255, 255, 52, 2, 2, 225, 7, 234, 96, 3, 30, 2, 225, 55,
         2, 2, 225, 0,
+    ];
+    #[cfg(since_742)]
+    let data = [
+        38, 2, 225, 6, 2, 225, 1, 2, 226, 127, 255, 52, 2, 2, 225, 7, 128, 0, 234, 96, 3, 30, 2,
+        225, 55, 2, 2, 225, 0,
     ];
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(&path);
@@ -660,6 +707,14 @@ fn bas_anims_keep_their_names_weights_and_order() {
     .iter()
     .map(|(key, value)| format!("{key}={value}\n"))
     .collect();
+    #[cfg(all(since_530, before_647))]
+    assert_eq!(
+        text,
+        "readyanim_l=human_climbing\nrunanim=human_climbing\n\
+         readyanim=human_climbing_ready,null\n\
+         turnmax=737\nunknown43=human_climbing\n"
+    );
+    #[cfg(since_647)]
     assert_eq!(
         text,
         "readyanim_l=human_climbing\nrunanim=human_climbing\n\
@@ -670,7 +725,7 @@ fn bas_anims_keep_their_names_weights_and_order() {
     fs::write(path.join("all.bas"), format!("[bas_0]\n{text}")).unwrap();
     let registry = PackRegistry::load(&path).unwrap();
     let packed = pack_bases(&FileCache::new(&path), &registry, &HashMap::new()).unwrap();
-    assert_eq!(packed.client.unwrap().dat[2..], data);
+    assert_eq!(packed.client.unwrap().dat[COUNT_LEN..], data);
 }
 
 #[cfg(since_647)]
@@ -814,7 +869,7 @@ fn billboards_keep_their_keys_in_cache_order() {
     assert_eq!(props, expected);
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn empty_tables_use_registered_ids() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("empty_tables");
@@ -832,7 +887,7 @@ fn empty_tables_use_registered_ids() {
         pack_empty_table(&path, "varnbit", &PackFile::empty())
             .unwrap()
             .dat,
-        [0, 0]
+        [0; COUNT_LEN]
     );
     assert!(pack_empty_table(&path, "controller", &PackFile::empty()).is_err());
 
@@ -938,7 +993,7 @@ fn client_var_tables_write_their_opcodes() {
     );
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[test]
 fn server_only_table_keeps_the_cache_ids() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("server_only_table");
@@ -1012,16 +1067,16 @@ fn hunt_afk_packing_preserves_explicit_and_default_values() {
             &HashMap::new(),
         )
         .unwrap();
-        let hunt: HuntType = decode(&packed.server.dat[2..]);
+        let hunt: HuntType = decode(&packed.server.dat[COUNT_LEN..]);
         assert_eq!(hunt.check_afk, expected);
     }
 }
 
 #[test]
 fn hunt_server_codes_use_upstream_layout() {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let terminator = 10;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let terminator = 0;
     let hunt: HuntType = decode(&[
         16, 0, 1, 0, 2, b'>', terminator, 0, 0, 0, 3, 17, 0, 4, 0, 5, b'<', terminator, 0, 0, 0, 6,

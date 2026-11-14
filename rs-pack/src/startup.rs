@@ -1,6 +1,7 @@
 use crate::cache::CacheStore;
 use crate::cache::area::{AreaMap, AreaType, MULTIWAY};
 use crate::cache::category::CategoryType;
+#[cfg(since_647)]
 use crate::cache::controller::ControllerType;
 use crate::cache::dbrow::DbRowType;
 use crate::cache::dbtable::{DbTableIndex, DbTableType};
@@ -28,6 +29,7 @@ use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varbit::VarbitType;
 use crate::cache::varc::VarClientTypeProvider;
+#[cfg(since_647)]
 use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
@@ -200,6 +202,12 @@ fn load_cache(
     let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
     let varbits = load_config::<VarbitType, _>(assets, "varpbit", ())?;
     let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
+    #[cfg(all(since_530, before_647))]
+    let varcs = VarClientTypeProvider::from_indexed_bytes(
+        server_config(assets, "varc")?,
+        server_config(assets, "varcstr")?,
+    )?;
+    #[cfg(since_647)]
     let varcs = VarClientTypeProvider::from_indexed_bytes(
         client_config(assets, "varc")?,
         client_config(assets, "varcstr")?,
@@ -217,8 +225,11 @@ fn load_cache(
     let categories = load_config::<CategoryType, _>(assets, "category", ())?;
     let areas: TypeProvider<AreaType> = load_config::<AreaType, _>(assets, "area", ())?;
     let varobjs: TypeProvider<VarObjType> = load_config::<VarObjType, _>(assets, "varobj", ())?;
+    #[cfg(since_647)]
     let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
+    #[cfg(since_647)]
     let varconbits = load_config::<VarbitType, _>(assets, "varconbit", ())?;
+    #[cfg(since_647)]
     let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
     let phrases = client_config(assets, "quickchatphrase")?;
     let chatphrases = QuickChatPhraseProvider::from_indexed_bytes(&phrases.dat, &phrases.idx)?;
@@ -277,8 +288,11 @@ fn load_cache(
         areas,
         area_map,
         varobjs,
+        #[cfg(since_647)]
         varcons,
+        #[cfg(since_647)]
         varconbits,
+        #[cfg(since_647)]
         controllers,
         chatphrases,
     }))
@@ -287,7 +301,10 @@ fn load_cache(
 /// Rev-647 chatbox child component that hosts dialogue_box interfaces
 /// (npc/player chat, message box, multi-choice): `chattop:chatmodallarge`,
 /// void's `dialogue_box parent="chat_box" index=13`.
+#[cfg(any(before_530, since_647))]
 const DIALOGUE_BOX_INDEX: i32 = 13;
+#[cfg(all(since_530, before_647))]
+const DIALOGUE_BOX_INDEX: i32 = 12;
 
 const CHATBOX_INTERFACE: &str = "chattop";
 
@@ -298,6 +315,23 @@ const SWITCH_SIDE: &str = "if_switchside_varc";
 
 /// The varcs of the character design screen, in the order `applydesign`
 /// reads them: seven body kits, then five colours.
+#[cfg(all(since_530, before_647))]
+const DESIGN: [&str; 12] = [
+    "playerdesign2_client_head",
+    "playerdesign2_client_jaw",
+    "playerdesign2_client_torso",
+    "playerdesign2_client_arms",
+    "playerdesign2_client_hands",
+    "playerdesign2_client_legs",
+    "playerdesign2_client_feet",
+    "playerdesign2_client_haircol",
+    "varclient_95",
+    "varclient_96",
+    "playerdesign2_client_feetcol",
+    "playerdesign2_client_skincol",
+];
+
+#[cfg(since_647)]
 const DESIGN: [&str; 12] = [
     "playerdesign3_head",
     "playerdesign3_jaw",
@@ -471,6 +505,17 @@ fn client_config<'a>(
         .get(name)
         .and_then(|asset| asset.client.as_ref())
         .with_context(|| format!("Missing {name} client config"))
+}
+
+#[cfg(all(since_530, before_647))]
+fn server_config<'a>(
+    assets: &'a HashMap<String, PackedFile>,
+    name: &str,
+) -> Result<&'a PackedData> {
+    assets
+        .get(name)
+        .map(|asset| &asset.server)
+        .with_context(|| format!("Missing {name} config"))
 }
 
 fn load_config<Raw: CacheType, Stored: From<Raw>>(

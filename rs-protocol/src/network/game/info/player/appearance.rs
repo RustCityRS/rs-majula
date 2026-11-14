@@ -2,7 +2,7 @@ use crate::network::game::info_prot_message::InfoMessage;
 use rs_io::Packet;
 #[cfg(since_647)]
 use rs_ver::STRING_TERMINATOR;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::TypeId;
 
 /// The wear positions an appearance lists.
@@ -14,10 +14,10 @@ const EMPTY: u8 = 0;
 /// Added to a body kit id.
 const KIT: u16 = 0x100;
 
-/// Added to the obj (before 647), wear model (647) or obj (742) shown in a slot.
-#[cfg(before_647)]
+/// Added to the obj (before 530), wear model (530, 647) or obj (742) shown in a slot.
+#[cfg(before_530)]
 const OBJ: u16 = 0x200;
-#[cfg(all(since_647, before_742))]
+#[cfg(all(since_530, before_742))]
 const OBJ: u16 = 0x8000;
 #[cfg(since_742)]
 const OBJ: u16 = 0x4000;
@@ -35,13 +35,13 @@ const NPC: u16 = u16::MAX;
 const NO_RECOLOURS: u16 = 0;
 
 /// After a transmog npc: the team cape the player wears.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const NO_TEAM: u8 = 0;
 
 /// The first byte's flags (`PlayerEntity.method4076`).
-#[cfg(since_647)]
+#[cfg(since_530)]
 const FEMALE: u8 = 0x1;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const SKILL_LEVEL: u8 = 0x4;
 
 /// The byte after the flags, which the client reads and never uses.
@@ -49,29 +49,29 @@ const SKILL_LEVEL: u8 = 0x4;
 const UNUSED: u8 = u8::MAX;
 
 /// No `headicons_pk` or `headicons_prayer` icon.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const NO_ICON: u8 = u8::MAX;
 
 /// The headicon bit scripts set for a skull (`headicon.constant`), and the
 /// `headicons_pk` sprite 2011 draws for it.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const HEADICON_SKULL: u8 = 1 << 0;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const PK_SKULL: u8 = 0;
 
 /// The headicon bits scripts set (`headicon.constant`) that 2011 draws as
 /// prayer icons, and their `headicons_prayer` sprites.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const HEADICON_PROTECT_MELEE: u8 = 1 << 3;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const HEADICON_PROTECT_RANGE: u8 = 1 << 4;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const HEADICON_PROTECT_MAGIC: u8 = 1 << 5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const PRAYER_PROTECT_MELEE: u8 = 0;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const PRAYER_PROTECT_RANGE: u8 = 1;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const PRAYER_PROTECT_MAGIC: u8 = 2;
 
 /// Not hidden from other players' minimaps and menus.
@@ -80,9 +80,9 @@ const VISIBLE: u8 = 0;
 
 /// Without a skill level: no summoning on top of the combat level, and no
 /// PvP level range.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const NO_SUMMONING_LEVEL: u8 = 0;
-#[cfg(since_647)]
+#[cfg(since_530)]
 const NO_PVP_RANGE: u8 = u8::MAX;
 
 /// 742 reads ten colours: ours, then the default for the rest.
@@ -92,7 +92,7 @@ const COLOURS: usize = 10;
 const DEFAULT_COLOUR: u8 = 0;
 
 /// No idle, crawl, walk and run ambient sounds.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const NO_SOUNDS: u8 = 0;
 
 pub struct PlayerInfoAppearance<'a> {
@@ -101,8 +101,10 @@ pub struct PlayerInfoAppearance<'a> {
 
 impl InfoMessage for PlayerInfoAppearance<'_> {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
-        #[cfg(any(before_647, since_742))]
+        #[cfg(any(before_530, since_742))]
         buf.p1(self.bytes.len() as u8);
+        #[cfg(all(since_530, before_647))]
+        buf.p1_alt1(self.bytes.len() as u8);
         #[cfg(all(since_647, before_742))]
         buf.p1_alt3(self.bytes.len() as u8);
         #[cfg(before_742)]
@@ -134,11 +136,11 @@ pub struct Appearance<'a> {
     pub headicons: u8,
     pub look: Look,
     pub colours: &'a [u8; 5],
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub anims: [u16; 7],
     #[cfg(before_647)]
     pub username37: u64,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub bas: TypeId,
     #[cfg(since_647)]
     pub name: &'a str,
@@ -149,7 +151,7 @@ pub struct Appearance<'a> {
 
 impl Appearance<'_> {
     /// The appearance block's body, which the engine encodes once per change.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub fn encode(&self, buf: &mut Packet) {
         buf.p1(self.gender);
         buf.p1(self.headicons);
@@ -164,6 +166,32 @@ impl Appearance<'_> {
         buf.p1(self.combat_level);
         #[cfg(since_274)]
         buf.p2(self.skill_level);
+    }
+
+    #[cfg(all(since_530, before_647))]
+    pub fn encode(&self, buf: &mut Packet) {
+        let skill_level = if self.skill_level != 0 {
+            SKILL_LEVEL
+        } else {
+            0
+        };
+        buf.p1((self.gender & FEMALE) | skill_level);
+        buf.p1(self.skull());
+        buf.p1(self.prayer());
+        self.look.encode(buf);
+        for &colour in self.colours {
+            buf.p1(colour);
+        }
+        buf.p2(self.bas.g2());
+        buf.p8(self.username37 as i64);
+        buf.p1(self.combat_level);
+        if self.skill_level != 0 {
+            buf.p2(self.skill_level);
+        } else {
+            buf.p1(NO_SUMMONING_LEVEL);
+            buf.p1(NO_PVP_RANGE);
+        }
+        buf.p1(NO_SOUNDS);
     }
 
     #[cfg(since_647)]
@@ -200,7 +228,7 @@ impl Appearance<'_> {
     }
 
     /// The skull the 2011 client draws for the headicon bits.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn skull(&self) -> u8 {
         if self.headicons & HEADICON_SKULL != 0 {
             PK_SKULL
@@ -210,7 +238,7 @@ impl Appearance<'_> {
     }
 
     /// The prayer icon the 2011 client draws for the headicon bits.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn prayer(&self) -> u8 {
         if self.headicons & HEADICON_PROTECT_MAGIC != 0 {
             PRAYER_PROTECT_MAGIC
@@ -247,7 +275,7 @@ impl Look {
                 buf.p2(*npc);
                 #[cfg(since_742)]
                 buf.psmart2or4null(*npc as i32);
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 buf.p1(NO_TEAM);
             }
         }

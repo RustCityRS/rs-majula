@@ -10,7 +10,7 @@ use rs_protocol::network::game::client::opobj2::OpObj2;
 use rs_protocol::network::game::client::opobj3::OpObj3;
 use rs_protocol::network::game::client::opobj4::OpObj4;
 use rs_protocol::network::game::client::opobj5::OpObj5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::opobj6::OpObj6;
 use rs_ver::TypeId;
 use rs_vm::ScriptError;
@@ -89,7 +89,9 @@ impl ClientGameHandler for OpObj5 {
 
 /// Handles the `OpObj6` client protocol message: Examine. The client sends
 /// only the obj type, and walks nowhere; the answer is the type's `desc`.
-#[cfg(since_647)]
+/// The 530 client sends it for a held obj too, unless more than 100000 are
+/// stacked: it shows that count itself.
+#[cfg(since_530)]
 impl ClientGameHandler for OpObj6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);

@@ -19,14 +19,12 @@ use std::mem::swap;
 #[cfg(before_647)]
 impl ClientGameHandler for OpHeldU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(before_530)]
+        let (com, com2) = (self.com.into(), self.com2.into());
+        #[cfg(since_530)]
+        let (com, com2) = (self.com, self.com2);
         handle(
-            self.com.into(),
-            self.slot,
-            self.obj,
-            self.com2.into(),
-            self.slot2,
-            self.obj2,
-            active,
+            com, self.slot, self.obj, com2, self.slot2, self.obj2, active,
         )
     }
 }

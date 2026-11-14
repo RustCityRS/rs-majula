@@ -100,15 +100,15 @@ pub enum LocShape {
 }
 
 /// The key a dump prints each shape id as.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const LOC_SHAPE_KEYS: &[u8; 23] = b"1234QWERT589ASDFGHZXCV0";
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn loc_shape_key(shape: u8) -> char {
     LOC_SHAPE_KEYS[shape as usize] as char
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn loc_shape_from_key(key: &str) -> Option<u8> {
     let [key] = key.as_bytes() else {
         return None;
@@ -206,7 +206,7 @@ impl LocShape {
     }
 
     /// The shape the 647 client files this shape's models under.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub const fn model_shape(self) -> Self {
         match self {
             Self::CentrepieceDiagonal => Self::CentrepieceStraight,
@@ -287,7 +287,7 @@ impl ForceApproach {
         Self::try_from(bits).expect("Invalid forceapproach")
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn config_str(self) -> String {
         let bits = self as u8;
         let sides: Vec<_> = [
@@ -363,15 +363,15 @@ pub enum ScriptVarType {
     Cursor = 64,
     #[cfg(since_647)]
     MapArea = 96,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Graphic = 100,
     #[cfg(since_647)]
     ChatPhrase = 101,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Jingle = 106,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ChatCat = 107,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Model = 109,
     #[cfg(since_647)]
     Texture = 120,
@@ -421,15 +421,15 @@ impl ScriptVarType {
             "cursor" => Self::Cursor,
             #[cfg(since_647)]
             "maparea" => Self::MapArea,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             "graphic" => Self::Graphic,
             #[cfg(since_647)]
             "chatphrase" => Self::ChatPhrase,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             "jingle" => Self::Jingle,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             "chatcat" => Self::ChatCat,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             "model" => Self::Model,
             #[cfg(since_647)]
             "texture" => Self::Texture,
@@ -473,15 +473,15 @@ impl ScriptVarType {
             Self::Cursor => "cursor",
             #[cfg(since_647)]
             Self::MapArea => "maparea",
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             Self::Graphic => "graphic",
             #[cfg(since_647)]
             Self::ChatPhrase => "chatphrase",
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             Self::Jingle => "jingle",
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             Self::ChatCat => "chatcat",
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             Self::Model => "model",
             #[cfg(since_647)]
             Self::Texture => "texture",
@@ -989,11 +989,11 @@ impl BodyType {
 
 // --- interface ---
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub struct IfEvents(pub u32);
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl IfEvents {
     const OPS_SHIFT: u32 = 1;
     const OPS_MASK: u32 = 0x3FF;
@@ -1051,13 +1051,17 @@ impl IfEvents {
 pub enum IfComponentType {
     #[default]
     Layer = 0,
+    #[cfg(all(since_530, before_647))]
+    Unknown1 = 1,
     Inv = 2,
     Rect = 3,
     Text = 4,
     Graphic = 5,
     Model = 6,
     InvText = 7,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    Unknown8 = 8,
+    #[cfg(since_530)]
     Line = 9,
 }
 
@@ -1065,13 +1069,17 @@ impl IfComponentType {
     pub fn from_config_str(s: &str) -> Self {
         match s {
             "layer" | "overlay" => Self::Layer,
+            #[cfg(all(since_530, before_647))]
+            "unknown1" => Self::Unknown1,
             "inv" => Self::Inv,
             "rect" => Self::Rect,
             "text" => Self::Text,
             "graphic" => Self::Graphic,
             "model" => Self::Model,
             "invtext" => Self::InvText,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            "unknown8" => Self::Unknown8,
+            #[cfg(since_530)]
             "line" => Self::Line,
             _ => panic!("Unknown component type: {s}"),
         }
@@ -1080,13 +1088,17 @@ impl IfComponentType {
     pub const fn config_str(self) -> &'static str {
         match self {
             Self::Layer => "layer",
+            #[cfg(all(since_530, before_647))]
+            Self::Unknown1 => "unknown1",
             Self::Inv => "inv",
             Self::Rect => "rect",
             Self::Text => "text",
             Self::Graphic => "graphic",
             Self::Model => "model",
             Self::InvText => "invtext",
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            Self::Unknown8 => "unknown8",
+            #[cfg(since_530)]
             Self::Line => "line",
         }
     }

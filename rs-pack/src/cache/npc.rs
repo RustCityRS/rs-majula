@@ -1,10 +1,10 @@
 use super::decode::{read_array, read_big_id, read_id, read_pairs};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::decode::{read_optional_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::types::MultiVar;
 use crate::types::{BlockWalk, MoveRestrict, NpcMode};
 use rs_io::Packet;
@@ -14,7 +14,7 @@ use rustc_hash::FxHashMap;
 
 pub type NpcTypeProvider = TypeProvider<NpcType>;
 
-#[cfg_attr(since_647, derive(Debug, Clone))]
+#[cfg_attr(since_530, derive(Debug, Clone))]
 pub struct NpcPatrol {
     pub coord: i32,
     pub delay: u8,
@@ -50,9 +50,9 @@ pub struct NpcType {
     pub vislevel: Option<u16>,
     #[cfg(since_289)]
     pub turnspeed: u16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub multivar: Option<MultiVar>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub multinpc: Option<Box<[TypeId]>>,
     pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     pub debugname: Box<str>,
@@ -63,7 +63,7 @@ impl NpcType {
     /// that index, else the default (the list's last), as
     /// [`LocType::multi_loc`](super::loc::LocType::multi_loc) picks. `None`
     /// when it shows as nothing; its own id when it is no multi-npc.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn multi_npc(&self, var_value: i32) -> Option<TypeId> {
         let Some(multi) = self.multinpc.as_deref() else {
             return Some(self.id);
@@ -112,12 +112,12 @@ impl From<NpcTypeRaw> for NpcType {
             vislevel: raw.vislevel,
             #[cfg(since_289)]
             turnspeed: raw.turnspeed,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             multivar: raw
                 .transform_varbit
                 .map(MultiVar::Varbit)
                 .or_else(|| raw.transform_varp.map(MultiVar::Varp)),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             multinpc: raw.transforms,
             params: raw.params,
             debugname: raw.debugname,
@@ -125,7 +125,7 @@ impl From<NpcTypeRaw> for NpcType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone))]
+#[cfg_attr(since_530, derive(Debug, Clone))]
 pub struct NpcTypeRaw {
     pub id: TypeId,
     pub models: Option<Box<[TypeId]>>,
@@ -157,11 +157,11 @@ pub struct NpcTypeRaw {
     pub givechase: bool,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_s: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub colour_palette: Option<Box<[u8]>>,
     #[cfg(since_742)]
     pub recolindices: Option<u16>,
@@ -191,60 +191,64 @@ pub struct NpcTypeRaw {
     pub headicon: Option<u16>,
     #[cfg(since_289)]
     pub turnspeed: u16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub transform_varbit: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub transform_varp: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub transforms: Option<Box<[TypeId]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub clickable: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub slowwalk: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub animateidle: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub primary_shadow_colour: i16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub secondary_shadow_colour: i16,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub primary_shadow_modifier: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub secondary_shadow_modifier: i8,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    pub unknown_115: Option<(u8, u8)>,
+    #[cfg(since_530)]
     pub walkmask: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[allow(clippy::type_complexity)]
     pub translations: Option<Box<[(u8, [i8; 3])]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hitbar_sprite: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub height: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub respawn_direction: i8,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    pub unknown_126: Option<u16>,
+    #[cfg(since_530)]
     pub render_emote: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub op128: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub idle_sound: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub crawl_sound: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub walk_sound: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub run_sound: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub sound_distance: u8,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub primary_cursor_op: Option<u8>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub primary_cursor: Option<TypeId>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub secondary_cursor_op: Option<u8>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub secondary_cursor: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub attack_cursor: Option<TypeId>,
     #[cfg(since_647)]
     pub army_icon: Option<TypeId>,
@@ -327,11 +331,11 @@ impl CacheType for NpcTypeRaw {
             givechase: true,
             recol_s: None,
             recol_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_s: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             colour_palette: None,
             #[cfg(since_742)]
             recolindices: None,
@@ -360,60 +364,64 @@ impl CacheType for NpcTypeRaw {
             #[cfg(since_244)]
             headicon: None,
             #[cfg(since_289)]
-            turnspeed: if cfg!(since_647) { 32 } else { 0 },
-            #[cfg(since_647)]
+            turnspeed: if cfg!(since_530) { 32 } else { 0 },
+            #[cfg(since_530)]
             transform_varbit: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             transform_varp: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             transforms: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             clickable: true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             slowwalk: true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             animateidle: true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             primary_shadow_colour: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             secondary_shadow_colour: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             primary_shadow_modifier: -96,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             secondary_shadow_modifier: -16,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            unknown_115: None,
+            #[cfg(since_530)]
             walkmask: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             translations: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hitbar_sprite: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             height: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             respawn_direction: 4,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            unknown_126: None,
+            #[cfg(since_530)]
             render_emote: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             op128: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             idle_sound: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             crawl_sound: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             walk_sound: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             run_sound: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             sound_distance: 0,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             primary_cursor_op: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             primary_cursor: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             secondary_cursor_op: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             secondary_cursor: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             attack_cursor: None,
             #[cfg(since_647)]
             army_icon: None,
@@ -468,13 +476,13 @@ impl CacheType for NpcTypeRaw {
             2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             12 => self.size = buf.g1(),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             13 => self.readyanim = Some(read_id(buf)),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             14 => self.walkanim = Some(read_id(buf)),
             #[cfg(before_254)]
             16 => self.hasalpha = true,
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             17 => {
                 self.walkanim = Some(read_id(buf));
                 self.walkanim_b = Some(read_id(buf));
@@ -503,9 +511,9 @@ impl CacheType for NpcTypeRaw {
             36 => self.members = true,
             37 => self.givechase = false,
             40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             42 => self.colour_palette = Some(read_array(buf, Packet::g1)),
             #[cfg(since_742)]
             44 => self.recolindices = Some(buf.g2()),
@@ -518,11 +526,11 @@ impl CacheType for NpcTypeRaw {
             77 => self.hitpoints = buf.g2(),
             78 => self.ranged = buf.g2(),
             79 => self.magic = buf.g2(),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             90 => self.resizex = Some(buf.g2()),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             91 => self.resizey = Some(buf.g2()),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             92 => self.resizez = Some(buf.g2()),
             93 => self.minimap = false,
             95 => self.vislevel = Some(buf.g2()),
@@ -538,45 +546,49 @@ impl CacheType for NpcTypeRaw {
             102 => self.headicon = Some(buf.g2()),
             #[cfg(since_289)]
             103 => self.turnspeed = buf.g2(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             106 => self.decode_multinpc(buf, false),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             107 => self.clickable = false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             109 => self.slowwalk = false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             111 => self.animateidle = false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             113 => {
                 self.primary_shadow_colour = buf.g2s();
                 self.secondary_shadow_colour = buf.g2s();
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             114 => {
                 self.primary_shadow_modifier = buf.g1s();
                 self.secondary_shadow_modifier = buf.g1s();
             }
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            115 => self.unknown_115 = Some((buf.g1(), buf.g1())),
+            #[cfg(since_530)]
             118 => self.decode_multinpc(buf, true),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             119 => self.walkmask = buf.g1s(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             121 => {
                 self.translations = Some(read_array(buf, |buf| {
                     (buf.g1(), [buf.g1s(), buf.g1s(), buf.g1s()])
                 }));
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             122 => self.hitbar_sprite = Some(read_id(buf)),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             123 => self.height = Some(buf.g2()),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             125 => self.respawn_direction = buf.g1s(),
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            126 => self.unknown_126 = Some(buf.g2()),
+            #[cfg(since_530)]
             127 => self.render_emote = Some(read_id(buf)),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             128 => self.op128 = buf.g1(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             134 => {
                 self.idle_sound = read_optional_id(buf);
                 self.crawl_sound = read_optional_id(buf);
@@ -584,17 +596,17 @@ impl CacheType for NpcTypeRaw {
                 self.run_sound = read_optional_id(buf);
                 self.sound_distance = buf.g1();
             }
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             135 => {
                 self.primary_cursor_op = Some(buf.g1());
                 self.primary_cursor = Some(read_id(buf));
             }
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             136 => {
                 self.secondary_cursor_op = Some(buf.g1());
                 self.secondary_cursor = Some(read_id(buf));
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             137 => self.attack_cursor = Some(read_id(buf)),
             #[cfg(since_647)]
             138 => self.army_icon = Some(read_big_id(buf)),
@@ -668,7 +680,7 @@ impl NpcTypeRaw {
         }));
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn decode_multinpc(&mut self, buf: &mut Packet, has_default: bool) {
         self.transform_varbit = read_optional_id(buf);
         self.transform_varp = read_optional_id(buf);

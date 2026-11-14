@@ -1,7 +1,7 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::ModelCategory;
 use super::UnpackedPacks;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::emit_params;
 use crate::cache::obj::ObjTypeRaw;
 use rs_ver::TypeId;
@@ -13,9 +13,9 @@ fn model_name(registry: &UnpackedPacks, id: TypeId) -> String {
 
 fn obj_name(registry: &UnpackedPacks, id: TypeId) -> String {
     if let Some(name) = registry.config_name("obj", id.raw()) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         return name.to_string();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if registry.config_id("obj", name) == Some(id.raw()) {
             return name.to_string();
         }
@@ -31,7 +31,7 @@ pub fn emit_obj_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         if opcode == 1 {
             super::model_ref(def.model, "obj", ModelCategory::Obj, registry);
@@ -116,7 +116,7 @@ pub fn emit_obj_props(
     if opcode == 23 {
         p.push((23, "manwear".into(), {
             let name = model_name(registry, def.manwear.unwrap_or_default());
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let name = format!("{name},{}", def.manweary as u8);
             name
         }));
@@ -131,7 +131,7 @@ pub fn emit_obj_props(
     if opcode == 25 {
         p.push((25, "womanwear".into(), {
             let name = model_name(registry, def.womanwear.unwrap_or_default());
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let name = format!("{name},{}", def.womanweary as u8);
             name
         }));
@@ -164,7 +164,7 @@ pub fn emit_obj_props(
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
             let n = i + 1;
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             {
                 p.push((
                     40,
@@ -177,7 +177,7 @@ pub fn emit_obj_props(
                     super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
                 ));
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 let [(ks, vs), (kd, vd)] = super::recol_pair(n, src[i], dst[i], _reverse_hsl);
                 p.push((40, ks, vs));
@@ -185,7 +185,7 @@ pub fn emit_obj_props(
             }
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let (Some(dst), Some(src)) = (&def.retex_s, &def.retex_d) {
         for i in 0..src.len() {
             let n = i + 1;
@@ -193,7 +193,7 @@ pub fn emit_obj_props(
             p.push((41, format!("retex{n}d"), registry.named("texture", dst[i])));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(palette) = &def.recol_palette {
         for (i, b) in palette.iter().enumerate() {
             p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
@@ -211,7 +211,7 @@ pub fn emit_obj_props(
     if let Some(mask) = def.retexindices {
         p.push((45, "retexindices".into(), super::mask_indices(mask)));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.stockmarket {
         p.push((65, "stockmarket".into(), "yes".into()));
     }
@@ -325,15 +325,15 @@ pub fn emit_obj_props(
     if opcode == 115 {
         p.push((115, "team".into(), def.team.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(lentlink) = def.lentlink {
         p.push((121, "lentlink".into(), obj_name(registry, lentlink)));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(lenttemplate) = def.lenttemplate {
         p.push((122, "lenttemplate".into(), obj_name(registry, lenttemplate)));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 125 {
         p.push((
             125,
@@ -341,7 +341,7 @@ pub fn emit_obj_props(
             format!("{},{},{}", def.manwear_xoff, def.manweary, def.manwear_zoff),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 126 {
         p.push((
             126,
@@ -352,36 +352,36 @@ pub fn emit_obj_props(
             ),
         ));
     }
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     if let Some((a, b)) = def.cursor1 {
         p.push((
             127,
             "cursor1".into(),
-            format!("{},{}", a + 1, registry.reference("cursor", b)),
+            format!("{},{}", a + 1, registry.cursor(b)),
         ));
     }
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     if let Some((a, b)) = def.cursor2 {
         p.push((
             128,
             "cursor2".into(),
-            format!("{},{}", a + 1, registry.reference("cursor", b)),
+            format!("{},{}", a + 1, registry.cursor(b)),
         ));
     }
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     if let Some((a, b)) = def.icursor1 {
         p.push((
             129,
             "icursor1".into(),
-            format!("{},{}", a + 1, registry.reference("cursor", b)),
+            format!("{},{}", a + 1, registry.cursor(b)),
         ));
     }
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     if let Some((a, b)) = def.icursor2 {
         p.push((
             130,
             "icursor2".into(),
-            format!("{},{}", a + 1, registry.reference("cursor", b)),
+            format!("{},{}", a + 1, registry.cursor(b)),
         ));
     }
     #[cfg(since_647)]
@@ -426,7 +426,7 @@ pub fn emit_obj_props(
             ));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 249 {
         p.extend(emit_params(_data, registry));
     }

@@ -50,7 +50,7 @@ pub struct MoveMinimapClick {
     pub trailer: MinimapTrailer,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for MoveMinimapClick {
     fn decode(buf: &mut Packet, len: usize) -> Self {
         let ctrl = buf.g1();
@@ -77,7 +77,34 @@ impl ClientProtMessage for MoveMinimapClick {
     }
 }
 
-#[cfg(all(test, before_647))]
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for MoveMinimapClick {
+    fn decode(buf: &mut Packet, len: usize) -> Self {
+        let ctrl = buf.g1_alt1();
+        let x = buf.g2();
+        let z = buf.g2_alt2();
+
+        let waypoints = (len - buf.pos - 14) / 2;
+        let mut path = Vec::with_capacity(1 + waypoints.min(24));
+        path.push(pack_coord(x, z));
+
+        for _ in 1..=waypoints.min(24) {
+            path.push(pack_coord(
+                x.wrapping_add_signed(buf.g1_alt1() as i8 as i16),
+                z.wrapping_add_signed(buf.g1_alt3() as i8 as i16),
+            ));
+        }
+        buf.pos = len - 14;
+        let trailer = MinimapTrailer::decode(buf);
+        MoveMinimapClick {
+            path,
+            ctrl: ctrl != 0,
+            trailer,
+        }
+    }
+}
+
+#[cfg(all(test, before_530))]
 mod tests {
     use super::*;
 

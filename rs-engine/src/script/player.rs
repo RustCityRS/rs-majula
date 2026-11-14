@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::core::engine;
 use crate::counters::COUNTERS;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::REGION_X;
 use rs_cam::CamKind;
 use rs_db::transfer;
@@ -100,13 +100,13 @@ impl ScriptPlayer for ActivePlayer {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn last_targetcom(&self) -> i32 {
         self.player.last_target_com.unwrap_or(-1)
     }
 
     /// Returns the tile the last ground target was aimed at, or `-1` if none.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn last_coord(&self) -> i32 {
         self.player
             .last_coord
@@ -254,7 +254,7 @@ impl ScriptPlayer for ActivePlayer {
     fn afk_event(&mut self) -> bool {
         let ready = self.player.afk_event_ready;
         self.player.afk_event_ready = false;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if self.player.pathing.coord.x() >= REGION_X {
             return false;
         }
@@ -432,7 +432,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `Stats::add_xp`, `change_stat`, `Engine::script_by_key`, `ScriptQueue::add`,
     /// `recalc_combat_and_appearance`
     fn add_xp(&mut self, stat: usize, xp: i32) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let before = self.player.stats.base_level(stat);
         if !self.player.stats.add_xp(stat, xp) {
             return;
@@ -440,11 +440,11 @@ impl ScriptPlayer for ActivePlayer {
         self.change_stat(stat);
         // Rev-647: the level-up script runs once for the award and is told how many levels it
         // crossed, for 2011's "You've just advanced 2 Mining levels!" (levelup.rs2).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let args = Some(vec![ScriptArgument::Int(i32::from(
             self.player.stats.base_level(stat).saturating_sub(before),
         ))]);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let args = None;
         if let Some(script) =
             engine().script_by_key(ServerTriggerType::AdvanceStat, Some(stat as i32), None)
@@ -601,7 +601,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::hit`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>) {
         self.hit(amount, hitmark, soak, healthbar, source);
     }
@@ -795,54 +795,54 @@ impl ScriptPlayer for ActivePlayer {
         self.message_game_typed(i32::from(kind), msg);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn window_mode(&self) -> u8 {
         self.player.window_mode
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_opentop(&mut self, com: u16, mode: u8) {
         self.if_open_top(com, mode);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_opensub(&mut self, sub_id: u16, parent_hash: i32) {
         let kind = self.player.sub_kind(parent_hash);
         self.if_open_sub(sub_id, parent_hash, kind);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_closesub(&mut self, component_hash: i32) {
         self.if_close_sub(component_hash);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_movesub(&mut self, from: i32, to: i32) {
         self.if_move_sub(from, to);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
         self.if_set_events(com, slot1, slot2, settings);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn sendvarc(&mut self, id: u16, value: i32) {
         self.varc_transmit(id, value);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn sendvarc_str(&mut self, id: u16, value: &str) {
         self.varc_str_transmit(id, value);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varc(&self, id: u16) -> i32 {
         let index = engine().varcs().index(id, false);
         self.player.varcs[index].as_int()
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varc_str(&self, id: u16) -> &str {
         let index = engine().varcs().index(id, true);
         match &self.player.varcs[index] {
@@ -851,12 +851,12 @@ impl ScriptPlayer for ActivePlayer {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn runclientscript(&mut self, script_id: i32) {
         self.run_client_script(script_id);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
         self.run_client_script_with_params(script_id, args);
     }
@@ -870,7 +870,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait (`applydesign`)
     /// **Calls:** `setidkit`, writes `self.player.colours`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn applydesign(&mut self) {
         let [
             hair,
@@ -1172,7 +1172,7 @@ impl ScriptPlayer for ActivePlayer {
         self.stop_hint();
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hint_coord_slot(
         &mut self,
         slot: u8,
@@ -1188,12 +1188,12 @@ impl ScriptPlayer for ActivePlayer {
         self.hint_coord_slot(slot, icon, offset, level, x, z, height, range, model);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hint_stop_slot(&mut self, slot: u8) {
         self.hint_stop_slot(slot);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<TypeId>) {
         self.hint_npc_slot(nid, slot, icon, model);
     }

@@ -1,24 +1,24 @@
 use crate::archive;
 use crate::pack::incremental::{Lookups, Registry, answer};
 use crate::pack::pack_registry::PackFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
 use crate::pack::util::walk;
 use anyhow::{Context, Result, bail, ensure};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::java_string_hash;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use runec::lexer::Lexer;
 use runec::symbol::identifier_form;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use runec::token::Kind;
 use std::collections::HashMap;
 use std::fs;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::{info, warn};
 
 pub struct AssetNames {
@@ -222,11 +222,11 @@ impl AssetNames {
             .and_then(|v| v.get(&file))
             .cloned()
             .unwrap_or_else(|| {
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 {
                     format!("com{file}")
                 }
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 {
                     format!("com_{file}")
                 }
@@ -261,7 +261,7 @@ impl AssetNames {
 
 /// What an asset of a table goes by without a name of its own. Textures keep
 /// their table's name: their files carry it.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn asset_prefix(kind: &str) -> &str {
     if kind == "texture" {
         kind
@@ -270,7 +270,7 @@ fn asset_prefix(kind: &str) -> &str {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn asset_prefix(kind: &str) -> &str {
     kind
 }
@@ -298,11 +298,17 @@ pub fn archive_name(id: u8) -> &'static str {
         archive::INSTRUMENTS => "instrument",
         archive::WORLDMAP => "worldmap",
         archive::MATERIALS => "material",
+        #[cfg(since_647)]
         archive::DEFAULTS => "defaults",
+        #[cfg(since_647)]
         archive::DLLS => "dlls",
+        #[cfg(since_647)]
         archive::SHADERS => "shaders",
+        #[cfg(since_647)]
         archive::LOADING_SPRITES | archive::LOADING_SPRITES_RAW => "loading_sprites",
+        #[cfg(since_647)]
         archive::LOADING_SCREENS => "loading_backgrounds",
+        #[cfg(since_647)]
         archive::WORLDMAP_LOCS => "worldmap_loc",
         _ => "asset",
     }
@@ -310,7 +316,7 @@ pub fn archive_name(id: u8) -> &'static str {
 
 /// The 647 client's script triggers. A trigger script's cache name hash is
 /// `trigger | subject << 10` (`GLXTexture3D.method3079`), not a string hash.
-#[cfg(since_647)]
+#[cfg(since_530)]
 const CLIENT_TRIGGERS: [(&str, i32); 10] = [
     ("opworldmapelement1", 10),
     ("opworldmapelement2", 11),
@@ -329,7 +335,7 @@ const CLIENT_TRIGGERS: [(&str, i32); 10] = [
 /// was made from nor the placeholder for its id. A real interface or component
 /// name that isn't an identifier must lex as one in its identifier form, used
 /// by no other name in its scope: that form is how scripts write it.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn verify_names(content_dir: &Path, pack_dir: &Path, strict: bool) -> Result<()> {
     let (checked, problems) = name_problems(content_dir, pack_dir)?;
     if problems.is_empty() {
@@ -355,7 +361,7 @@ pub fn verify_names(content_dir: &Path, pack_dir: &Path, strict: bool) -> Result
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn name_problems(content_dir: &Path, pack_dir: &Path) -> Result<(usize, Vec<String>)> {
     let names = AssetNames::load(pack_dir)?;
     let mut kinds = Vec::new();
@@ -440,7 +446,7 @@ fn name_problems(content_dir: &Path, pack_dir: &Path) -> Result<(usize, Vec<Stri
     Ok((checked, problems))
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn identifier_problems(kind: &str, mut entries: Vec<(String, &str)>, problems: &mut Vec<String>) {
     entries.sort();
     let mut forms = HashMap::new();
@@ -460,7 +466,7 @@ fn identifier_problems(kind: &str, mut entries: Vec<(String, &str)>, problems: &
 }
 
 /// runec's parser also takes a trigger keyword (`login`, `logout`) as a name.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn lexes_as_identifier(form: &str) -> bool {
     let path = PathBuf::new();
     Lexer::new(form, &path)
@@ -475,7 +481,7 @@ fn lexes_as_identifier(form: &str) -> bool {
         })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn read_pairs(path: &Path) -> Result<HashMap<String, String>> {
     match fs::read_to_string(path) {
         Ok(text) => Ok(text
@@ -488,7 +494,7 @@ fn read_pairs(path: &Path) -> Result<HashMap<String, String>> {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn is_placeholder(kind: &str, name: &str, id: u32) -> bool {
     match kind {
         "clientscript" => {
@@ -500,7 +506,7 @@ fn is_placeholder(kind: &str, name: &str, id: u32) -> bool {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn trigger_hash(names: &AssetNames, name: &str) -> Option<i32> {
     let (trigger, subject) = name.strip_prefix('[')?.strip_suffix(']')?.split_once(',')?;
     let (_, id) = CLIENT_TRIGGERS.iter().find(|(t, _)| *t == trigger)?;
@@ -514,7 +520,7 @@ fn trigger_hash(names: &AssetNames, name: &str) -> Option<i32> {
     Some(id | subject << 10)
 }
 
-#[cfg(all(test, since_647))]
+#[cfg(all(test, since_530))]
 mod tests {
     use super::*;
     use std::process;

@@ -5,12 +5,12 @@ use crate::register::OpsRegistry;
 use crate::state::ExecutionState;
 #[cfg(since_274)]
 use crate::util::midi_tick_length;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::util::{halfsq, pop_projanim_tail};
 use crate::util::{pop_coord, pop_seq, pop_spotanim};
 use crate::{handlers, none};
 use rs_grid::CoordGrid;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::TypeId;
 use runec::opcodes::*;
 
@@ -304,7 +304,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 1025
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, INAREA => |s| {
             let coord = pop_coord(s)?;
             let area = s.pop_int();
@@ -312,7 +312,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 1026
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, PROJANIM_HALFSQ => |s| {
             let tail = pop_projanim_tail::<E>(s)?;
             let to_size = s.pop_int_as::<u8>()?;

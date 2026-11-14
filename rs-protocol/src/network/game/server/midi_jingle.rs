@@ -31,7 +31,7 @@ pub struct MidiJingle {
     pub delay: u16,
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 impl ServerProtMessage for MidiJingle {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
@@ -40,6 +40,19 @@ impl ServerProtMessage for MidiJingle {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.id) + size_of_val(&self.delay)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for MidiJingle {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.delay);
+        buf.p1(0);
+        buf.p2_alt1(self.id);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.delay) + 1 + size_of_val(&self.id)
     }
 }
 

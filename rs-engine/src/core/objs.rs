@@ -149,7 +149,7 @@ impl Engine {
     ) -> ObjSerial {
         let obj = Obj::new(coord, EntityLifeTime::Despawn, item.obj, item.num);
         let serial = self.add_obj(coord, obj, receiver, duration);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if item.var != 0 {
             self.zones
                 .zone_mut(coord.x(), coord.y(), coord.z())

@@ -4,7 +4,7 @@ pub mod network;
 #[cfg(since_244)]
 pub mod js5;
 /// 289's `@xxx@` text codes as 2011's tags.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod markup;
 
 #[derive(Debug)]
@@ -36,7 +36,7 @@ pub enum LoginResponse {
     ProfileTransfer = 21,
     #[cfg(since_647)]
     MovingTooFast = 22,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     NotLoggedIn = 23,
     #[cfg(since_647)]
     IpBanned = 26,
@@ -64,8 +64,9 @@ pub enum CheckEmailResponse {
     EmailAddressIsAlreadyInUse = 20,
 }
 
-/// Create-account service (service byte 22) response codes — rev 647.
-#[cfg(since_647)]
+/// Create-account service response codes: 530's services 36, 147 and 186,
+/// and 647's 22.
+#[cfg(since_530)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
 pub enum CreateAccountResponse {

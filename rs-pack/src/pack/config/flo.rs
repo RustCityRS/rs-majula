@@ -2,7 +2,7 @@ use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::util::parse_number;
 use crate::pack::util::parse_ref;
 use crate::pack::util::{parse_bool, parse_hex};
@@ -43,9 +43,9 @@ pub fn pack_flos(
 
                 // 2
                 "texture" => parse_ref(&registry.texture, "texture", value, |v| {
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     let v = v as u8;
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     let v = u8::try_from(v).expect("Floor texture exceeds 255");
                     client.p1(2);
                     client.p1(v);
@@ -54,7 +54,7 @@ pub fn pack_flos(
                 }),
 
                 // 3
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "overlay" => parse_bool(value, |v| {
                     if v {
                         client.p1(3);
@@ -62,7 +62,7 @@ pub fn pack_flos(
                     }
                 }),
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "material" => parse_ref(&registry.texture, "texture", value, |v| {
                     server.p1(3);
                     server.p2(v);
@@ -79,7 +79,7 @@ pub fn pack_flos(
                 }),
 
                 // 7
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "mapcolour" => parse_hex(value, |v| {
                     server.p1(7);
                     server.p3(v);
@@ -88,14 +88,14 @@ pub fn pack_flos(
                 }),
 
                 // 8
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "unknown8" => {
                     server.p1(8);
                     client.p1(8);
                 }
 
                 // 9
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "texturescale" => parse_number(value, |v: u16| {
                     server.p1(9);
                     server.p2(v);
@@ -104,7 +104,7 @@ pub fn pack_flos(
                 }),
 
                 // 10
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "hardshadow" => parse_bool(value, |v| {
                     if !v {
                         server.p1(10);
@@ -113,7 +113,7 @@ pub fn pack_flos(
                 }),
 
                 // 11
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "priority" => parse_number(value, |v: u8| {
                     server.p1(11);
                     server.p1(v);
@@ -122,14 +122,14 @@ pub fn pack_flos(
                 }),
 
                 // 12
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "smoothedges" => {
                     server.p1(12);
                     client.p1(12);
                 }
 
                 // 13
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "waterfogcolour" => parse_hex(value, |v| {
                     server.p1(13);
                     server.p3(v);
@@ -138,7 +138,7 @@ pub fn pack_flos(
                 }),
 
                 // 14
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "waterfogscale" => parse_number(value, |v: u8| {
                     server.p1(14);
                     server.p1(v);
@@ -180,7 +180,7 @@ pub fn pack_flos(
         // 6
         server.p1(6);
         server.pjstr(debugname);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         if !debugname.starts_with("flo_") {
             // yes, this was originally transmitted!
             client.p1(6);

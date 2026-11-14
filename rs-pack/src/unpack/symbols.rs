@@ -24,7 +24,7 @@
 //! hatch for regenerating from the cache after a rename.
 use crate::archive;
 use crate::cache::loader;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::util::placeholder_prefix;
 use anyhow::{Context, Result, ensure};
 use rs_io::js5::Js5Store;
@@ -34,7 +34,7 @@ use std::io::Write;
 use std::path::Path;
 use tracing::{info, warn};
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn placeholder_prefix(kind: &str) -> &str {
     kind
 }
@@ -215,18 +215,25 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         ("mesanim", "mesanim", archive::CONFIG_GROUP_MESANIM),
         ("vars", "varworld", archive::CONFIG_GROUP_VARS),
         ("varn", "varnpc", archive::CONFIG_GROUP_VARN),
+        #[cfg(since_647)]
         ("dbtable", "dbtable", archive::CONFIG_GROUP_DBTABLE),
+        #[cfg(since_647)]
         ("dbrow", "dbrow", archive::CONFIG_GROUP_DBROW),
         ("bas", "bas", archive::CONFIG_GROUP_BAS),
+        #[cfg(since_647)]
         ("cursor", "cursor", archive::CONFIG_GROUP_CURSOR),
+        #[cfg(since_647)]
         ("hitmark", "hitmark", archive::CONFIG_GROUP_HITMARK),
         #[cfg(since_742)]
         ("skybox", "skybox", archive::CONFIG_GROUP_SKYBOX),
         #[cfg(since_742)]
         ("headbar", "headbar", archive::CONFIG_GROUP_HEADBAR),
+        #[cfg(since_647)]
         ("light", "light", archive::CONFIG_GROUP_LIGHT),
+        #[cfg(since_647)]
         ("mel", placeholder_prefix("mel"), archive::CONFIG_GROUP_MEL),
         ("msi", "msi", archive::CONFIG_GROUP_MSI),
+        #[cfg(since_647)]
         ("quest", "quest", archive::CONFIG_GROUP_QUEST),
         (
             "varc",
@@ -236,14 +243,23 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         ("area", "area", archive::CONFIG_GROUP_AREA),
         ("varobj", "varobject", archive::CONFIG_GROUP_VAROBJ),
         ("varnbit", "varnpcbit", archive::CONFIG_GROUP_VARNBIT),
+        #[cfg(since_647)]
         ("config37", "config37", 37),
+        #[cfg(since_647)]
         ("config38", "config38", 38),
+        #[cfg(since_647)]
         ("config39", "config39", 39),
+        #[cfg(since_647)]
         ("controller", "controller", archive::CONFIG_GROUP_CONTROLLER),
+        #[cfg(since_647)]
         ("varcon", "config43", archive::CONFIG_GROUP_VARCON),
+        #[cfg(since_647)]
         ("varconbit", "varconbit", archive::CONFIG_GROUP_VARCONBIT),
+        #[cfg(since_647)]
         ("config45", "config45", 45),
+        #[cfg(since_647)]
         ("varclan", "varclan", archive::CONFIG_GROUP_VARCLAN),
+        #[cfg(since_647)]
         ("itemcode", "itemcode", archive::CONFIG_GROUP_ITEMCODE),
         #[cfg(since_742)]
         ("config49", "config49", 49),
@@ -257,6 +273,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         ("gamelogevent", "gamelogevent", 70),
         #[cfg(since_742)]
         ("config74", "config74", 74),
+        #[cfg(since_647)]
         (
             "varclansetting",
             "varclansetting",
@@ -278,6 +295,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
         );
     }
 
+    #[cfg(since_647)]
     report.record(
         "billboard",
         generate_auto_pack_named(
@@ -291,6 +309,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
             force,
         )?,
     );
+    #[cfg(since_647)]
     for (name, group) in [("particleemitter", 0), ("particleeffector", 1)] {
         report.record(
             name,
@@ -1049,9 +1068,9 @@ fn generate_interface_packs(
 
         let fc = file_counts.get(&gid).copied().unwrap_or(0);
         for cid in 0..fc {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let auto_comp_name = format!("com{}", cid);
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let auto_comp_name = format!("com_{}", cid);
             if let Some(name) = existing_comps.get(&(gid, cid)) {
                 if *name != auto_comp_name && !force {

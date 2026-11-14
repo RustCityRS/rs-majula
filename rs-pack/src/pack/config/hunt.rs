@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::client_table;
 use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -352,10 +352,10 @@ pub fn pack_hunts(
     #[cfg(before_274)]
     let client = None;
 
-    #[cfg(all(since_274, before_647))]
+    #[cfg(all(since_274, before_530))]
     let client = Some(PackedData::new(0));
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = Some(client_table(file_cache, "hunt", pack, constants)?);
 
     Ok(PackedFile { server, client })

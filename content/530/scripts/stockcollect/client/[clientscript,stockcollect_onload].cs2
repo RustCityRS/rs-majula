@@ -1,0 +1,5 @@
+// 654
+[clientscript,stockcollect_onload]
+if_setoninvtransmit(stockcollect:title, "clan_vote_restore{stockmarket_collect0, stockmarket_collect1, stockmarket_collect2, stockmarket_collect3, stockmarket_collect4, stockmarket_collect5}");
+if_setonstocktransmit(stockcollect:title, "clientscript_655");
+~clientscript_657;

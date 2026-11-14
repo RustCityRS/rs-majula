@@ -3,13 +3,13 @@ use crate::cache::seq::SeqTypeRaw;
 use rs_ver::TypeId;
 use std::collections::HashMap;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn anim_frame(frame: u32) -> String {
     format!("animframe_{}_{}", frame >> 16, frame as u16)
 }
 
 /// `hide`, or an obj. Below the objs' range a dump still takes 512 off.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn replace_held(value: u16, packs: &UnpackedPacks) -> String {
     match value {
         u16::MAX => "hide".to_owned(),
@@ -26,7 +26,7 @@ pub fn emit_seq_props(
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         if let (Some(frames), Some(delays), Some(iframes)) =
             (&def.frames, &def.delays, &def.iframes)
@@ -116,14 +116,14 @@ pub fn emit_seq_props(
             }
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let (Some(frames), Some(delays)) = (&def.frames, &def.delays) {
         for i in 0..frames.len() {
             p.push((1, format!("frame{}", i + 1), anim_frame(frames[i])));
             p.push((1, format!("delay{}", i + 1), delays[i].to_string()));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 2 {
         p.push((
             2,
@@ -131,7 +131,7 @@ pub fn emit_seq_props(
             (def.loops.unwrap_or(u16::MAX) as i16).to_string(),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(mask) = &def.walkmerge {
         let labels = mask
             .iter()
@@ -140,10 +140,14 @@ pub fn emit_seq_props(
             .join(",");
         p.push((3, "walkmerge".into(), labels));
     }
+    #[cfg(all(since_530, before_647))]
+    if def.reachforward {
+        p.push((4, "reachforward".into(), "yes".into()));
+    }
     if opcode == 5 {
         p.push((5, "priority".into(), def.priority.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 6 {
         p.push((
             6,
@@ -151,7 +155,7 @@ pub fn emit_seq_props(
             replace_held(def.replaceheldleft.unwrap_or(u16::MAX), _registry),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 7 {
         p.push((
             7,
@@ -162,18 +166,19 @@ pub fn emit_seq_props(
     if opcode == 8 {
         p.push((8, "maxloops".into(), def.maxloops.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 9 {
         let value = match def.preanim_move.unwrap_or(u8::MAX) {
             0 => "delaymove".to_owned(),
             1 => "delayanim".to_owned(),
             2 => "merge".to_owned(),
+            #[cfg(since_647)]
             3 => "abortanim".to_owned(),
             other => other.to_string(),
         };
         p.push((9, "preanim_move".into(), value));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 10 {
         let value = match def.postanim_move.unwrap_or(u8::MAX) {
             0 => "delaymove".to_owned(),
@@ -183,7 +188,7 @@ pub fn emit_seq_props(
         };
         p.push((10, "postanim_move".into(), value));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 11 {
         let value = match def.duplicatebehaviour.unwrap_or(2) {
             0 => "ignore".to_owned(),
@@ -193,7 +198,7 @@ pub fn emit_seq_props(
         };
         p.push((11, "duplicatebehaviour".into(), value));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(iframes) = &def.iframes {
         for (i, frame) in iframes.iter().enumerate() {
             p.push((
@@ -203,8 +208,11 @@ pub fn emit_seq_props(
             ));
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if let Some(synths) = &def.synths {
+        #[cfg(all(since_530, before_647))]
+        let kind = "synth";
+        #[cfg(since_647)]
         let kind = if def.sound_vorbis { "vorbis" } else { "synth" };
         for (i, slot) in synths.iter().enumerate() {
             match slot {
@@ -224,15 +232,15 @@ pub fn emit_seq_props(
             }
         }
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.a_bool9 {
         p.push((14, "unknown14".into(), "yes".into()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.tween {
         p.push((15, "unknown15".into(), "yes".into()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if def.a_bool8 {
         p.push((16, "unknown16".into(), "yes".into()));
     }

@@ -1,5 +1,5 @@
 use super::decode::read_big_id;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::decode::read_pairs;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
@@ -28,17 +28,17 @@ pub struct SpotAnimTypeRaw {
     pub angle: u16,
     pub ambient: u8,
     pub contrast: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hillskew: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hillskew_param: Option<i32>,
     #[cfg(since_647)]
     pub allowloop: bool,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_s: Option<Box<[u16]>>,
     #[cfg(since_742)]
     pub recolindices: Option<u16>,
@@ -61,17 +61,17 @@ impl CacheType for SpotAnimTypeRaw {
             angle: 0,
             ambient: 0,
             contrast: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hillskew: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hillskew_param: None,
             #[cfg(since_647)]
             allowloop: false,
             recol_s: None,
             recol_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_s: None,
             #[cfg(since_742)]
             recolindices: None,
@@ -85,14 +85,14 @@ impl CacheType for SpotAnimTypeRaw {
         match code {
             1 => self.model = read_big_id(buf),
             2 => self.anim = Some(read_big_id(buf)),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             3 => self.hasalpha = true,
             4 => self.resizeh = buf.g2(),
             5 => self.resizev = buf.g2(),
             6 => self.angle = buf.g2(),
             7 => self.ambient = buf.g1(),
             8 => self.contrast = buf.g1(),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             9 => {
                 self.hillskew = 3;
                 self.hillskew_param = Some(8224);
@@ -121,7 +121,7 @@ impl CacheType for SpotAnimTypeRaw {
                 let param = buf.g4s();
                 self.hillskew_param = (param != -1).then_some(param);
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             40 | 41 => {
                 let (s, d) = if code == 40 {
                     (&mut self.recol_s, &mut self.recol_d)
@@ -134,13 +134,13 @@ impl CacheType for SpotAnimTypeRaw {
             44 => self.recolindices = Some(buf.g2()),
             #[cfg(since_742)]
             45 => self.retexindices = Some(buf.g2()),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             40..=49 => {
                 self.recol_s
                     .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 40] =
                     buf.g2()
             }
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             50..=59 => {
                 self.recol_d
                     .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 50] =

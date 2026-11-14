@@ -173,12 +173,12 @@ pub struct LocTypeRaw {
     pub models: Option<Box<[LocModelShape]>>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hd_models: Option<Box<[LocModelShape]>>,
     pub width: u8,
     pub length: u8,
     pub blockwalk: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub interact_type: i32,
     pub blockrange: bool,
     pub active: Option<u8>,
@@ -193,11 +193,11 @@ pub struct LocTypeRaw {
     pub contrast: i8,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_s: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub recol_palette: Option<Box<[i8]>>,
     #[cfg(since_742)]
     pub recolindices: Option<u16>,
@@ -223,37 +223,41 @@ pub struct LocTypeRaw {
     pub transform_varbit: TypeId,
     pub transform_varp: TypeId,
     pub multiloc: Option<Box<[TypeId]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub ambient_sfx_id: Option<TypeId>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub ambient_sfx_range: u8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub sfx_random_pri: i32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub sfx_random_sec: i32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub sfx_random_ids: Option<Box<[TypeId]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hillskew_param: Option<i32>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hide_minimap: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub minimap_visible: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub blocks_npcs: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub unknown_90: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub members_only: bool,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    pub unknown_96: bool,
+    #[cfg(since_530)]
     pub msirotate: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub hasparticles: bool,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub cursor_op1: Option<(u8, TypeId)>,
-    #[cfg(all(since_647, before_742))]
+    #[cfg(all(since_530, before_742))]
     pub cursor_op2: Option<(u8, TypeId)>,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    pub unknown_101: Option<u8>,
+    #[cfg(since_530)]
     pub msi_id: Option<TypeId>,
     #[cfg(since_647)]
     pub interaction_side_flags: u8,
@@ -310,12 +314,12 @@ impl CacheType for LocTypeRaw {
             models: None,
             name: None,
             desc: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hd_models: None,
             width: 1,
             length: 1,
             blockwalk: true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             interact_type: 2,
             blockrange: true,
             active: None,
@@ -330,11 +334,11 @@ impl CacheType for LocTypeRaw {
             contrast: 0,
             recol_s: None,
             recol_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_s: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             recol_palette: None,
             #[cfg(since_742)]
             recolindices: None,
@@ -360,37 +364,41 @@ impl CacheType for LocTypeRaw {
             transform_varbit: TypeId::NULL,
             transform_varp: TypeId::NULL,
             multiloc: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             ambient_sfx_id: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             ambient_sfx_range: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             sfx_random_pri: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             sfx_random_sec: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             sfx_random_ids: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hillskew_param: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hide_minimap: false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             minimap_visible: true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             blocks_npcs: true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             unknown_90: false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             members_only: false,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            unknown_96: false,
+            #[cfg(since_530)]
             msirotate: false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             hasparticles: false,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             cursor_op1: None,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             cursor_op2: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            unknown_101: None,
+            #[cfg(since_530)]
             msi_id: None,
             #[cfg(since_647)]
             interaction_side_flags: 255,
@@ -441,12 +449,12 @@ impl CacheType for LocTypeRaw {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.models = Some(read_models(buf, code)),
+            1 => self.set_models(read_models(buf, code)),
             2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             #[cfg(since_254)]
             5 => {
-                self.models = Some(read_models(buf, code));
+                self.set_models(read_models(buf, code));
                 #[cfg(since_647)]
                 {
                     self.hd_models = Some(read_models(buf, code));
@@ -456,7 +464,7 @@ impl CacheType for LocTypeRaw {
             15 => self.length = buf.g1(),
             17 => {
                 self.blockwalk = false;
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 {
                     self.interact_type = 0;
                 }
@@ -464,7 +472,7 @@ impl CacheType for LocTypeRaw {
             18 => self.blockrange = false,
             19 => {
                 let active = buf.g1();
-                self.active = Some(if cfg!(before_647) {
+                self.active = Some(if cfg!(before_530) {
                     (active == 1) as u8
                 } else {
                     active
@@ -476,12 +484,12 @@ impl CacheType for LocTypeRaw {
             #[cfg(before_742)]
             24 => {
                 let anim = read_id(buf);
-                self.anim = (cfg!(before_647) || !anim.is_null()).then_some(anim);
+                self.anim = (cfg!(before_530) || !anim.is_null()).then_some(anim);
             }
             #[cfg(since_742)]
             24 => self.anim = read_big_id(buf).non_null(),
             25 => self.hasalpha = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             27 => self.interact_type = 1,
             28 => self.wallwidth = buf.g1(),
             29 => self.ambient = buf.g1s(),
@@ -493,9 +501,9 @@ impl CacheType for LocTypeRaw {
             }
             39 => self.contrast = buf.g1s(),
             40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
             #[cfg(since_742)]
             44 => self.recolindices = Some(buf.g2()),
@@ -509,7 +517,7 @@ impl CacheType for LocTypeRaw {
             65 => self.resizex = buf.g2(),
             66 => self.resizey = buf.g2(),
             67 => self.resizez = buf.g2(),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             68 => self.mapscene = Some(buf.g2()),
             69 => self.forceapproach = ForceApproach::try_from(buf.g1()).unwrap(),
             70 => self.offsetx = buf.g2s(),
@@ -522,59 +530,65 @@ impl CacheType for LocTypeRaw {
             75 => self.raiseobject = Some(buf.g1()),
             #[cfg(since_289)]
             77 => self.decode_multiloc(buf, false),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             78 => {
                 self.ambient_sfx_id = Some(read_id(buf));
                 self.ambient_sfx_range = buf.g1();
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             79 => {
                 self.sfx_random_pri = buf.g2() as i32;
                 self.sfx_random_sec = buf.g2() as i32;
                 self.ambient_sfx_range = buf.g1();
                 self.sfx_random_ids = Some(read_array(buf, read_id));
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             81 => {
                 self.hillskew = 2;
                 self.hillskew_param = Some((buf.g1() as i32) * 256);
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             82 => self.hide_minimap = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             88 => self.minimap_visible = false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             89 => self.blocks_npcs = false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             90 => self.unknown_90 = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             91 => self.members_only = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             92 => self.decode_multiloc(buf, true),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             93 => {
                 self.hillskew = 3;
                 self.hillskew_param = Some(buf.g2() as i32);
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             94 => self.hillskew = 4,
+            #[cfg(all(since_530, before_647))]
+            95 => self.hillskew = 5,
             #[cfg(since_647)]
             95 => {
                 self.hillskew = 5;
                 let param = buf.g2s() as i32;
                 self.hillskew_param = (param != -1).then_some(param);
             }
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_647))]
+            96 => self.unknown_96 = true,
+            #[cfg(since_530)]
             97 => self.msirotate = true,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             98 => self.hasparticles = true,
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             99 => self.cursor_op1 = Some((buf.g1(), read_id(buf))),
-            #[cfg(all(since_647, before_742))]
+            #[cfg(all(since_530, before_742))]
             100 => self.cursor_op2 = Some((buf.g1(), read_id(buf))),
+            #[cfg(all(since_530, before_647))]
+            101 => self.unknown_101 = Some(buf.g1()),
             #[cfg(since_647)]
             101 => self.mapfunction = Some(TypeId::new(buf.g1().into())),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             102 => self.msi_id = Some(read_id(buf)),
             #[cfg(since_647)]
             103 => self.occlude = false,
@@ -668,11 +682,17 @@ impl CacheType for LocTypeRaw {
                     .is_some_and(|op| cfg!(before_647) || op.iter().any(Option::is_some));
                 loc.active = Some(active as u8);
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if loc.raiseobject.is_none() {
                 loc.raiseobject = Some((loc.interact_type != 0) as u8);
             }
         }
+    }
+
+    #[cfg(all(since_530, before_647))]
+    fn rewind(&mut self) {
+        self.models = None;
+        self.hd_models = None;
     }
 
     fn debugname(&self) -> &str {
@@ -681,10 +701,20 @@ impl CacheType for LocTypeRaw {
 }
 
 impl LocTypeRaw {
+    fn set_models(&mut self, models: Box<[LocModelShape]>) {
+        // A repeated model opcode is the low detail set.
+        #[cfg(all(since_530, before_647))]
+        if self.models.is_some() {
+            self.hd_models = Some(models);
+            return;
+        }
+        self.models = Some(models);
+    }
+
     #[cfg(since_289)]
     fn decode_multiloc(&mut self, buf: &mut Packet, has_default: bool) {
         self.transform_varbit = read_id(buf);
-        if cfg!(since_647) {
+        if cfg!(since_530) {
             self.transform_varp = read_id(buf);
         }
         let default = if has_default {

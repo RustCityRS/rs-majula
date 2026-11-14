@@ -1,4 +1,4 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[repr(u16)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub enum PlayerInfoProt {
@@ -14,6 +14,24 @@ pub enum PlayerInfoProt {
     ExactMove = 0x200,
     #[cfg(since_244)]
     Damage2 = 0x400,
+}
+
+#[cfg(rev = "530")]
+#[repr(u16)]
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+pub enum PlayerInfoProt {
+    Damage = 0x1,
+    FaceEntity = 0x2,
+    Appearance = 0x4,
+    Anim = 0x8,
+    BigInfo = 0x10,
+    Say = 0x20,
+    FaceCoord = 0x40,
+    Chat = 0x80,
+    SpotAnim = 0x100,
+    Damage2 = 0x200,
+    ExactMove = 0x400,
+    ModelAnims = 0x800,
 }
 
 #[cfg(all(since_647, before_742))]
@@ -60,8 +78,10 @@ impl PlayerInfoProt {
     /// How many blocks [`to_index`](Self::to_index) orders.
     #[cfg(rev = "225")]
     pub const COUNT: usize = 9;
-    #[cfg(all(since_244, before_647))]
+    #[cfg(all(since_244, before_530))]
     pub const COUNT: usize = 10;
+    #[cfg(all(since_530, before_647))]
+    pub const COUNT: usize = 11;
     #[cfg(since_647)]
     pub const COUNT: usize = 10;
 
@@ -69,12 +89,7 @@ impl PlayerInfoProt {
     /// are sent.
     #[cfg(before_647)]
     pub const fn header(masks: u16) -> ([u8; 3], usize) {
-        if masks > 0xff {
-            let wire = masks | Self::BigInfo as u16;
-            ([wire as u8, (wire >> 8) as u8, 0], 2)
-        } else {
-            ([masks as u8, 0, 0], 1)
-        }
+        short_header(masks, Self::BigInfo as u16)
     }
 
     #[cfg(since_647)]
@@ -99,7 +114,7 @@ impl PlayerInfoProt {
     }
 
     /// Where the block sits in the order the client reads them.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[inline]
     pub const fn to_index(self) -> usize {
         match self {
@@ -115,6 +130,25 @@ impl PlayerInfoProt {
             #[cfg(since_244)]
             PlayerInfoProt::Damage2 => 9,
             PlayerInfoProt::BigInfo => 255, // unused
+        }
+    }
+
+    #[cfg(all(since_530, before_647))]
+    #[inline]
+    pub const fn to_index(self) -> usize {
+        match self {
+            Self::Chat => 0,
+            Self::Damage => 1,
+            Self::Anim => 2,
+            Self::Appearance => 3,
+            Self::FaceEntity => 4,
+            Self::ExactMove => 5,
+            Self::Say => 6,
+            Self::Damage2 => 7,
+            Self::ModelAnims => 8,
+            Self::SpotAnim => 9,
+            Self::FaceCoord => 10,
+            Self::BigInfo => 255,
         }
     }
 
@@ -155,7 +189,7 @@ impl PlayerInfoProt {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[repr(u16)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub enum NpcInfoProt {
@@ -168,6 +202,22 @@ pub enum NpcInfoProt {
     ChangeType = 0x20,
     SpotAnim = 0x40,
     FaceCoord = 0x80,
+}
+
+#[cfg(rev = "530")]
+#[repr(u16)]
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+pub enum NpcInfoProt {
+    ChangeType = 0x1,
+    Damage2 = 0x2,
+    FaceEntity = 0x4,
+    BigInfo = 0x8,
+    Anim = 0x10,
+    Say = 0x20,
+    Damage = 0x40,
+    SpotAnim = 0x80,
+    ModelAnims = 0x100,
+    FaceCoord = 0x200,
 }
 
 #[cfg(all(since_647, before_742))]
@@ -206,16 +256,23 @@ impl NpcInfoProt {
     /// How many blocks [`to_index`](Self::to_index) orders.
     #[cfg(rev = "225")]
     pub const COUNT: usize = 7;
-    #[cfg(all(since_244, before_647))]
+    #[cfg(all(since_244, before_530))]
     pub const COUNT: usize = 8;
+    #[cfg(all(since_530, before_647))]
+    pub const COUNT: usize = 9;
     #[cfg(since_647)]
     pub const COUNT: usize = 7;
 
     /// The mask header for the blocks in `masks`, and how many of its bytes
     /// are sent.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     pub const fn header(masks: u16) -> ([u8; 3], usize) {
         ([masks as u8, 0, 0], 1)
+    }
+
+    #[cfg(all(since_530, before_647))]
+    pub const fn header(masks: u16) -> ([u8; 3], usize) {
+        short_header(masks, Self::BigInfo as u16)
     }
 
     #[cfg(since_647)]
@@ -239,7 +296,7 @@ impl NpcInfoProt {
     }
 
     /// Where the block sits in the order the client reads them.
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[inline]
     pub const fn to_index(self) -> usize {
         let offset = cfg!(since_244) as usize;
@@ -253,6 +310,23 @@ impl NpcInfoProt {
             NpcInfoProt::FaceCoord => offset + 6,
             #[cfg(since_244)]
             NpcInfoProt::Damage2 => 0,
+        }
+    }
+
+    #[cfg(all(since_530, before_647))]
+    #[inline]
+    pub const fn to_index(self) -> usize {
+        match self {
+            Self::Damage => 0,
+            Self::Damage2 => 1,
+            Self::Anim => 2,
+            Self::FaceEntity => 3,
+            Self::SpotAnim => 4,
+            Self::ChangeType => 5,
+            Self::Say => 6,
+            Self::ModelAnims => 7,
+            Self::FaceCoord => 8,
+            Self::BigInfo => 255,
         }
     }
 
@@ -284,6 +358,17 @@ impl NpcInfoProt {
             Self::FaceEntity => 6,
             Self::BigInfo | Self::BigInfo2 => 255,
         }
+    }
+}
+
+/// One mask byte, or two with `big` set in the first.
+#[cfg(before_647)]
+const fn short_header(masks: u16, big: u16) -> ([u8; 3], usize) {
+    if masks > 0xff {
+        let wire = masks | big;
+        ([wire as u8, (wire >> 8) as u8, 0], 2)
+    } else {
+        ([masks as u8, 0, 0], 1)
     }
 }
 

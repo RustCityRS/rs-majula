@@ -1,8 +1,8 @@
 use crate::active_player::ActivePlayer;
 use crate::handlers::ClientGameHandler;
-use rs_protocol::network::game::client_prot::{
-    ClanJoinchatLeavechat, ClanKickUser, ClanchannelKickUser, CreateCheckName, FriendSetRank,
-};
+use rs_protocol::network::game::client_prot::{ClanJoinchatLeavechat, ClanKickUser, FriendSetRank};
+#[cfg(since_647)]
+use rs_protocol::network::game::client_prot::{ClanchannelKickUser, CreateCheckName};
 use rs_vm::ScriptError;
 use tracing::debug;
 
@@ -20,7 +20,11 @@ macro_rules! unsupported {
 unsupported!(
     ClanJoinchatLeavechat => "friends chat",
     ClanKickUser => "friends chat",
+    FriendSetRank => "friends-chat ranks",
+);
+
+#[cfg(since_647)]
+unsupported!(
     ClanchannelKickUser => "clan channels",
     CreateCheckName => "lobby name checks",
-    FriendSetRank => "friends-chat ranks",
 );

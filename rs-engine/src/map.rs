@@ -4,9 +4,9 @@ use rs_entity::{EntityLifeTime, Loc, Obj};
 use rs_grid::CoordGrid;
 use rs_grid::mapsquare_coord::MapsquareCoordGrid;
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::bz2::bz2_decompress;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::compression::decompress;
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::dbrow::DbRowValue;
@@ -55,7 +55,7 @@ pub struct GameMap;
 ///
 /// # Returns
 /// A [`Packet`] wrapping the decompressed bytes.
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn decompress_map(data: &[u8]) -> Packet {
     let size = u32::from_be_bytes(data[..4].try_into().unwrap()) as usize;
     Packet::from(bz2_decompress(&data[4..], size, true, 0))
@@ -184,7 +184,7 @@ pub(crate) struct MapLocEntry {
 /// The locs are in map order within each zone, the zones in turn by level,
 /// x and z, so a copied zone reads only its own, and each zone keeps the
 /// longest side of its locs.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) struct SquareTemplate {
     pub(crate) lands: Box<[u8; MAPSQUARE]>,
     locs: Vec<MapLocEntry>,
@@ -192,7 +192,7 @@ pub(crate) struct SquareTemplate {
     largest: Box<[u8; 256]>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl SquareTemplate {
     fn new(
         lands: Box<[u8; MAPSQUARE]>,
@@ -272,7 +272,7 @@ struct MapsquareData {
 /// # Panics
 /// On a container that does not decompress: the map decoders read unchecked,
 /// so a broken pack stops the load here.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn decompress_map(data: &[u8]) -> Packet {
     match decompress(data) {
         Ok(bytes) => Packet::from(bytes.to_vec()),
@@ -280,12 +280,12 @@ fn decompress_map(data: &[u8]) -> Packet {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn read_loc_id_offset(buf: &mut Packet) -> i32 {
     buf.gsmart1or2()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn read_loc_id_offset(buf: &mut Packet) -> i32 {
     buf.gextended1or2()
 }
@@ -637,7 +637,7 @@ impl GameMap {
     }
 
     /// Decodes mapsquare (`mx`, `mz`) for copying its zones into a region.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) fn decode_template(cache: &CacheStore, mx: u8, mz: u8) -> SquareTemplate {
         let mut lands = Box::new([0; MAPSQUARE]);
         if let Some(data) = cache.mapsquares.get(&('m', mx, mz)) {
@@ -675,7 +675,7 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn decode_npcs(
         buf: &mut Packet,
         cache: &CacheStore,
@@ -735,7 +735,7 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn decode_objs(
         buf: &mut Packet,
         marks: &mut ZoneMarks,
@@ -780,7 +780,7 @@ impl GameMap {
     /// `(level << 14) | (local_x << 7) | local_z` -- matching the deob client
     /// and the rs-pack map codec that writes `map.dat`. Decoded into
     /// the same entries, and marked the same way, as [`decode_npcs`] above.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn decode_npcs(
         buf: &mut Packet,
         cache: &CacheStore,
@@ -820,7 +820,7 @@ impl GameMap {
     /// as flat `(u16 packed_pos, u16 obj_id, u16 count)` triples, the position
     /// packed as the jag-era files pack it (`(level << 12) | (local_x << 6) |
     /// local_z`). Decoded into the same entries as [`decode_objs`] above.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn decode_objs(
         buf: &mut Packet,
         marks: &mut ZoneMarks,
@@ -1366,7 +1366,7 @@ pub fn change_loc_collision(
     }
 }
 
-#[cfg(all(test, since_647))]
+#[cfg(all(test, since_530))]
 mod tests {
     use super::decompress_map;
     use rs_io::js5::compression::{CompressionType, compress};

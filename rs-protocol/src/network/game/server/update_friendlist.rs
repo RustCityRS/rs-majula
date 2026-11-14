@@ -4,17 +4,17 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::STRING_TERMINATOR;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(UpdateFriendList, Buffered, Fixed)]
 pub struct UpdateFriendList {
     pub user37: i64,
     pub node: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for UpdateFriendList {
     fn encode(&self, buf: &mut Packet) {
         buf.p8(self.user37);
@@ -23,6 +23,39 @@ impl ServerProtMessage for UpdateFriendList {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.user37) + size_of_val(&self.node)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+#[server_prot(UpdateFriendList, Buffered, VarByte)]
+pub struct UpdateFriendList<'a> {
+    pub user37: i64,
+    pub world: u16,
+    pub rank: u8,
+    pub world_name: &'a str,
+    pub world_flag: u8,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateFriendList<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.user37 | ((self.world_flag == 0) as i64) << 63);
+        buf.p2(self.world);
+        buf.p1(self.rank);
+        if self.world > 0 {
+            buf.pjstr(self.world_name, STRING_TERMINATOR);
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.user37)
+            + size_of_val(&self.world)
+            + size_of_val(&self.rank)
+            + if self.world > 0 {
+                Packet::sizejstr(self.world_name)
+            } else {
+                0
+            }
     }
 }
 

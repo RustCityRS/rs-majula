@@ -7,14 +7,14 @@ use rs_protocol_macros::client_prot;
 #[cfg(since_647)]
 use rs_ver::TypeId;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[client_prot(Fixed(4), UserEvent)]
 pub struct OpPlayerT {
     pub pid: u16,
     pub com: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for OpPlayerT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpPlayerT {
@@ -24,14 +24,27 @@ impl ClientProtMessage for OpPlayerT {
     }
 }
 
-#[cfg(since_647)]
-#[client_prot(Fixed(11), UserEvent)]
+#[cfg(since_530)]
+#[cfg_attr(before_647, client_prot(Fixed(8), UserEvent))]
+#[cfg_attr(since_647, client_prot(Fixed(11), UserEvent))]
 pub struct OpPlayerT {
     pub pid: u16,
+    #[cfg(since_647)]
     pub obj: TypeId,
     pub slot: u16,
     pub com: i32,
+    #[cfg(since_647)]
     pub ctrl: bool,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpPlayerT {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let slot = buf.g2_alt2();
+        let com = buf.g4s_alt1();
+        let pid = buf.g2_alt3();
+        OpPlayerT { pid, slot, com }
+    }
 }
 
 #[cfg(since_647)]

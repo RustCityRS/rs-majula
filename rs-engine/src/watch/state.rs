@@ -1,4 +1,4 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server_prot::ServerProt;
 use rustc_hash::FxHashMap;
 use std::collections::VecDeque;
@@ -9,7 +9,7 @@ const MESSAGES: usize = 100;
 
 /// What to keep of a packet.
 #[derive(Clone, Copy)]
-#[cfg_attr(since_647, allow(dead_code))]
+#[cfg_attr(since_530, allow(dead_code))]
 enum Keep {
     No,
     One,
@@ -20,11 +20,11 @@ enum Keep {
 fn table() -> &'static [Keep; 256] {
     static TABLE: OnceLock<[Keep; 256]> = OnceLock::new();
     TABLE.get_or_init(|| {
-        #[cfg_attr(since_647, allow(unused_mut))]
+        #[cfg_attr(since_530, allow(unused_mut))]
         let mut table = [Keep::No; 256];
         // The jag-era opcodes. Rev 647's replay keyframes aren't kept yet, so
         // its client state remembers nothing.
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             let key = |prot: u8, at: u8, len: u8| Keep::Key {
                 group: prot,
@@ -167,10 +167,10 @@ impl ClientState {
     /// A friend the client took off its list. Nothing is sent for that, so
     /// the friend's last status update goes here instead.
     pub fn forget_friend(&mut self, user37: u64) {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         self.packets
             .remove(&(ServerProt::UpdateFriendList as u8, user37));
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let _ = user37;
     }
 
@@ -185,7 +185,7 @@ impl ClientState {
     }
 }
 
-#[cfg(all(test, before_647))]
+#[cfg(all(test, before_530))]
 mod tests {
     use super::*;
 

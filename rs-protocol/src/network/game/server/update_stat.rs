@@ -12,12 +12,25 @@ pub struct UpdateStat {
     pub lvl: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for UpdateStat {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.stat);
         buf.p4(self.exp);
         buf.p1(self.lvl);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.stat) + size_of_val(&self.exp) + size_of_val(&self.lvl)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateStat {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.lvl);
+        buf.p4_alt2(self.exp);
+        buf.p1(self.stat);
     }
 
     fn sizeof(&self) -> usize {

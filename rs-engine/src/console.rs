@@ -588,7 +588,7 @@ fn with_profile_inv(
                 inventory.set(slot, TypeId::new(obj), count);
             }
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         for &(slot, var) in &profile.invs[index].vars {
             inventory.set_var(slot, var);
         }

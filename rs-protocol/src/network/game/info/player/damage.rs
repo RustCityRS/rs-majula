@@ -5,7 +5,11 @@ use crate::network::game::info::hit::{HEALTH_BAR_SIZE, encode_health_bar};
 use crate::network::game::info_prot_message::InfoMessage;
 use rs_io::Packet;
 
-#[cfg(before_647)]
+/// The most a two-byte smart carries: a larger hit is written as this.
+#[cfg(all(since_530, before_647))]
+const SMART_MAX: u16 = 32767;
+
+#[cfg(before_530)]
 pub struct PlayerInfoDamage {
     pub damage: u8,
     pub damage_type: u8,
@@ -13,7 +17,7 @@ pub struct PlayerInfoDamage {
     pub base: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl InfoMessage for PlayerInfoDamage {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
         buf.p1(self.damage);
@@ -28,6 +32,49 @@ impl InfoMessage for PlayerInfoDamage {
             + size_of_val(&self.current)
             + size_of_val(&self.base)
     }
+}
+
+#[cfg(all(since_530, before_647))]
+pub struct PlayerInfoDamage {
+    pub damage: u16,
+    pub damage_type: u8,
+    pub health: u8,
+}
+
+#[cfg(all(since_530, before_647))]
+impl InfoMessage for PlayerInfoDamage {
+    fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        buf.psmart1or2(self.damage.min(SMART_MAX) as i32);
+        buf.p1_alt1(self.damage_type);
+        buf.p1_alt3(self.health);
+    }
+
+    fn sizeof(&self) -> usize {
+        sizeof_smart(self.damage) + size_of_val(&self.damage_type) + size_of_val(&self.health)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+pub struct PlayerInfoDamage2 {
+    pub damage: u16,
+    pub damage_type: u8,
+}
+
+#[cfg(all(since_530, before_647))]
+impl InfoMessage for PlayerInfoDamage2 {
+    fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        buf.psmart1or2(self.damage.min(SMART_MAX) as i32);
+        buf.p1_alt3(self.damage_type);
+    }
+
+    fn sizeof(&self) -> usize {
+        sizeof_smart(self.damage) + size_of_val(&self.damage_type)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+const fn sizeof_smart(value: u16) -> usize {
+    if value < 128 { 1 } else { 2 }
 }
 
 #[cfg(since_647)]

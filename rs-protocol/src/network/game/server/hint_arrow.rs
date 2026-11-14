@@ -4,10 +4,10 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::TypeId;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(HintArrow, Buffered, Fixed)] // TODO: what should priority be?
 pub struct HintArrow {
     pub hint: u8,
@@ -16,7 +16,7 @@ pub struct HintArrow {
     pub arg3: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for HintArrow {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.hint);
@@ -63,7 +63,7 @@ const PADDING: usize = 6;
 #[cfg(since_742)]
 const PADDING: usize = 4;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub enum HintArrowKind {
     /// Point at a world coordinate.
     Coord {
@@ -91,7 +91,7 @@ pub enum HintArrowKind {
     Stop,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(HintArrow, Buffered, Fixed)]
 pub struct HintArrow {
     pub slot: u8,
@@ -99,6 +99,59 @@ pub struct HintArrow {
     pub kind: HintArrowKind,
     /// Arrow model ID (-1 for default).
     pub model_id: TypeId,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for HintArrow {
+    fn encode(&self, buf: &mut Packet) {
+        let head = |kind: u8| (self.slot << 6) | kind;
+        match self.kind {
+            HintArrowKind::Coord {
+                offset,
+                x,
+                z,
+                height,
+                ..
+            } => {
+                buf.p1(head(offset));
+                buf.p1(self.icon);
+                buf.p2(x);
+                buf.p2(z);
+                buf.p1(height >> 1);
+                buf.p2(self.model_id.g2());
+            }
+            HintArrowKind::Npc { npc_index } => {
+                buf.p1(head(1));
+                buf.p1(self.icon);
+                buf.p2(npc_index);
+                for _ in 0..3 {
+                    buf.p1(0);
+                }
+                buf.p2(self.model_id.g2());
+            }
+            HintArrowKind::Player { player_index } => {
+                buf.p1(head(10));
+                buf.p1(self.icon);
+                buf.p2(player_index);
+                for _ in 0..3 {
+                    buf.p1(0);
+                }
+                buf.p2(self.model_id.g2());
+            }
+            HintArrowKind::Stop => {
+                buf.p1(head(0));
+                buf.p1(self.icon);
+                buf.p2(self.model_id.g2());
+                for _ in 0..5 {
+                    buf.p1(0);
+                }
+            }
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        9
+    }
 }
 
 #[cfg(since_647)]

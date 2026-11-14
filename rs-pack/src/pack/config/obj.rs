@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::{cache_params, mark_client_params};
 use crate::pack::config::param::parse_params;
 #[cfg(since_647)]
@@ -10,7 +10,7 @@ use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::PackFile;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::colour::{RecolType, rgb15_to_hsl16};
 use crate::pack::util::*;
 use crate::types::{DummyItem, WearPos};
@@ -28,7 +28,7 @@ pub fn pack_objs(
     #[cfg(since_647)]
     let varobjs = parse_config_sections_cached(file_cache, "varobj", constants)?;
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let cache_params = cache_params(file_cache, &registry.param);
 
     let mut server = PackedData::new(pack.max);
@@ -39,9 +39,9 @@ pub fn pack_objs(
         client.start_entry();
 
         let Some(debugname) = pack.get_by_id(id) else {
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             panic!("Unknown obj id: {id}");
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 server.finish_entry();
                 client.skip_entry();
@@ -49,7 +49,7 @@ pub fn pack_objs(
             }
         };
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let Some(props) = configs.get(debugname) else {
             server.p1(250);
             server.pjstr(debugname);
@@ -57,15 +57,15 @@ pub fn pack_objs(
             client.skip_entry();
             continue;
         };
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let props = &mark_client_params(props, &registry.param, &cache_params);
         #[cfg(since_647)]
         let has_objvar = props.iter().any(|(key, _)| key == "objvar");
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut cert_props_owned;
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let cert_props;
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let props: &Vec<(String, String)> = if debugname.starts_with("cert_") {
             cert_props = vec![
                 (
@@ -99,15 +99,15 @@ pub fn pack_objs(
             }
         };
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut recol_s: Vec<(usize, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut recol_d: Vec<(usize, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut name = None;
 
         for group in props.chunk_by(|a, b| batch_code(&a.0) == batch_code(&b.0)) {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if batch_code(&group[0].0) != 0 {
                 let start = client.dat.len();
                 pack_batch(&mut client, group, registry, param_types, debugname);
@@ -125,11 +125,11 @@ pub fn pack_objs(
 
                     // 2
                     "name" => {
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             name = Some(value);
                         }
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             client.p1(2);
                             client.pjstr(value);
@@ -138,12 +138,12 @@ pub fn pack_objs(
 
                     // 3
                     "desc" => {
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             client.p1(3);
                             client.pjstr(value);
                         }
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             server.p1(3);
                             server.pjstr(value);
@@ -181,7 +181,7 @@ pub fn pack_objs(
                     }),
 
                     // 9
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "code9" => parse_bool(value, |v| {
                         if v {
                             client.p1(9);
@@ -189,7 +189,7 @@ pub fn pack_objs(
                     }),
 
                     // 10
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "code10" => parse_ref(&registry.seq, "seq", value, |v| {
                         client.p1(10);
                         client.p2(v);
@@ -265,7 +265,7 @@ pub fn pack_objs(
                             client.p1(23);
                             client.pbigid(v);
                         });
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         parse_number(parts.next().expect("Missing wear offset"), |v| client.p1(v));
                         assert!(parts.next().is_none(), "Invalid manwear: {value}");
                     }
@@ -283,7 +283,7 @@ pub fn pack_objs(
                             client.p1(25);
                             client.pbigid(v);
                         });
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         parse_number(parts.next().expect("Missing wear offset"), |v| client.p1(v));
                         assert!(parts.next().is_none(), "Invalid womanwear: {value}");
                     }
@@ -320,13 +320,13 @@ pub fn pack_objs(
                     }
 
                     // 40
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
                         RecolType::S(idx, v) => recol_s.push((idx, v)),
                         RecolType::D(idx, v) => recol_d.push((idx, v)),
                     }),
 
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "stockmarket" => parse_bool(value, |v| {
                         if v {
                             client.p1(65);
@@ -344,9 +344,9 @@ pub fn pack_objs(
                         } else if let Some(v) = value.strip_suffix('g') {
                             v.parse::<f64>().unwrap_or(f64::NAN)
                         } else {
-                            #[cfg(before_647)]
+                            #[cfg(before_530)]
                             panic!("Invalid weight value: {value}");
-                            #[cfg(since_647)]
+                            #[cfg(since_530)]
                             value.parse::<f64>().expect("Invalid weight")
                         };
                         if grams.is_nan() || !(-32768.0..=32767.0).contains(&grams) {
@@ -425,7 +425,7 @@ pub fn pack_objs(
                     }),
 
                     // 96
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "dummyitem" if value.parse::<u8>().is_ok() => parse_number(value, |v: u8| {
                         client.p1(96);
                         client.p1(v);
@@ -457,7 +457,7 @@ pub fn pack_objs(
                         }
                         parse_ref(&registry.obj, "obj", parts[0], |v| {
                             parse_number(parts[1], |x| {
-                                if cfg!(before_647) && x == 0 {
+                                if cfg!(before_530) && x == 0 {
                                     panic!("Invalid count value: {key}={value}");
                                 }
                                 let Some(idx) = key.strip_prefix("count") else {
@@ -514,19 +514,19 @@ pub fn pack_objs(
                         client.p1(v);
                     }),
 
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "lentlink" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(121);
                         client.p2(v);
                     }),
 
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "lenttemplate" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(122);
                         client.p2(v);
                     }),
 
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "manwearoff" | "womanwearoff" => {
                         client.p1(if key == "manwearoff" { 125 } else { 126 });
                         for v in parse_numbers::<i8, 3>(value) {
@@ -534,7 +534,7 @@ pub fn pack_objs(
                         }
                     }
 
-                    #[cfg(all(since_647, before_742))]
+                    #[cfg(all(since_530, before_742))]
                     "cursor1" | "cursor2" | "icursor1" | "icursor2" => {
                         let (op, cursor) = value.split_once(',').expect("Invalid obj cursor");
                         let op = op.trim().parse::<u8>().expect("Invalid obj cursor") - 1;
@@ -547,7 +547,7 @@ pub fn pack_objs(
                             _ => 130,
                         });
                         parse_number(op.trim(), |v| client.p1(v));
-                        parse_ref(&registry.cursor, "cursor", cursor.trim(), |v| client.p2(v));
+                        parse_cursor(registry, cursor.trim(), |v| client.p2(v));
                     }
 
                     #[cfg(since_647)]
@@ -600,7 +600,7 @@ pub fn pack_objs(
             }
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             // reverse-lookup the certificate (so the server can find it quicker)
             if let Some(cert) = registry.obj.get_by_debugname(&format!("cert_{debugname}")) {
@@ -661,7 +661,7 @@ pub fn pack_objs(
 }
 
 fn batch_code(key: &str) -> u8 {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         if config_key_index(key, "recolpalette").is_some() {
             return 42;
@@ -676,6 +676,7 @@ fn batch_code(key: &str) -> u8 {
         if key.starts_with("retex") {
             return 41;
         }
+        #[cfg(since_647)]
         if key == "quest" {
             return 132;
         }
@@ -683,12 +684,12 @@ fn batch_code(key: &str) -> u8 {
             return 249;
         }
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let _ = key;
     0
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn pack_batch(
     packed: &mut PackedData,
     props: &[(String, String)],
@@ -702,6 +703,7 @@ fn pack_batch(
         42 => pack_indexed_values(packed, 42, props, "recolpalette", |packed, value| {
             parse_number(value, |v: i8| packed.p1(v as u8))
         }),
+        #[cfg(since_647)]
         132 => {
             packed.p1(132);
             packed.p1(u8::try_from(props.len()).expect("Too many obj quests"));

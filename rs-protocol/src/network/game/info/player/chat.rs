@@ -8,6 +8,7 @@ pub struct PlayerInfoChat<'a> {
     pub bytes: &'a [u8],
 }
 
+#[cfg(any(before_530, since_647))]
 impl InfoMessage for PlayerInfoChat<'_> {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
         buf.p1(self.colour);
@@ -23,6 +24,24 @@ impl InfoMessage for PlayerInfoChat<'_> {
             + size_of_val(&self.effects)
             + size_of_val(&self.ignored)
             + cfg!(before_647) as usize
+            + self.bytes.len()
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl InfoMessage for PlayerInfoChat<'_> {
+    fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        buf.p2_alt1(((self.colour as u16) << 8) | self.effects as u16);
+        buf.p1(self.ignored);
+        buf.p1(self.bytes.len() as u8);
+        buf.pdata_alt1(self.bytes, 0, self.bytes.len());
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.colour)
+            + size_of_val(&self.effects)
+            + size_of_val(&self.ignored)
+            + 1
             + self.bytes.len()
     }
 }

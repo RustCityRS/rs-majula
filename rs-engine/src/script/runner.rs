@@ -504,7 +504,7 @@ impl Engine {
                         // A dialogue that ends on a choice leaves its resume buttons: with no
                         // suspended script left, close_modal does not clear them, and 647's
                         // RESUME_PAUSEBUTTON check would refuse the next dialogue's button.
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             active.player.resume_buttons = None;
                         }
