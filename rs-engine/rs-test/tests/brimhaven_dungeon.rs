@@ -294,3 +294,46 @@ fn a_fall_into_the_lava_costs_a_tenth_of_the_life_points_and_ten_more() {
         assert_eq!(lost, Some(vec![100]), "a fall in forty crossings, for 100");
     });
 }
+
+/// The vines by the entrance (loc 5103 at 2690,9564) are chopped through from 289's tile
+/// (2691,9564) to its other side (2689,9564) at 10 Woodcutting with an axe: one Chop-down,
+/// which repeats on the vines' hidden op (289's op3=hidden) until a swing gets through.
+#[test]
+fn one_chop_down_hacks_through_the_vines() {
+    const WOODCUTTING: usize = 8;
+    const VINES: (u16, u16, u16) = (5103, 2690, 9564);
+    const BEFORE: (u16, u16) = (2691, 9564);
+    const BEYOND: (u16, u16) = (2689, 9564);
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = visitor(engine, "vinecutter", BEFORE);
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let axe = *engine.cache.objs.debugnames.get("bronze_axe").unwrap();
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        player.stats.levels[WOODCUTTING] = 99;
+        player.stats.base_levels[WOODCUTTING] = 99;
+        player.invs.get_mut(&inv).unwrap().set(0, axe, 1);
+        engine.cycle();
+        client.packets();
+        op_loc1(&mut client, VINES);
+        let mut chat = Vec::new();
+        for _ in 0..40 {
+            engine.cycle();
+            chat.extend(
+                HarnessClient::game_messages(&client.packets())
+                    .into_iter()
+                    .map(|(_, m)| m),
+            );
+            if at(engine, &client) == BEYOND {
+                break;
+            }
+        }
+        assert_eq!(at(engine, &client), BEYOND, "{chat:?}");
+        assert!(
+            chat.iter()
+                .any(|m| m == "You hack your way through the vines."),
+            "{chat:?}"
+        );
+    });
+}
