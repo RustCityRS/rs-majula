@@ -1,0 +1,116 @@
+// 289's quests/quest_mortton/configs/quest_mortton.enum, as procs: cache 786 has no free enum id for a
+// server enum. Each proc returns its enum's value for the key; a key the enum lacks gets the default
+// an enum without one gives (-1, or null).
+
+[proc,pyre_loc_coords](coord $key)(int)
+switch_coord($key) {
+    case 0_54_51_6_18 : return(1);
+    case 0_54_51_6_30 : return(2);
+    case 0_54_51_8_6 : return(3);
+    case 0_54_51_9_15 : return(4);
+    case 0_54_51_9_19 : return(5);
+    case 0_54_51_9_27 : return(6);
+    case 0_54_51_9_31 : return(7);
+    case 0_54_51_10_18 : return(8);
+    case 0_54_51_10_30 : return(9);
+    case 0_54_51_11_3 : return(10);
+    case 0_54_51_11_7 : return(11);
+    case 0_54_51_12_6 : return(12);
+    case 0_54_51_17_4 : return(13);
+    case 0_54_51_20_1 : return(14);
+    case 0_54_51_20_5 : return(15);
+    case 0_54_51_21_4 : return(16);
+    case 0_54_51_41_4 : return(17);
+    case 0_54_51_44_1 : return(18);
+    case 0_54_51_44_5 : return(19);
+    case 0_54_51_45_4 : return(20);
+    case 0_54_51_48_11 : return(21);
+    case 0_54_51_51_8 : return(22);
+    case 0_54_51_51_12 : return(23);
+    case 0_54_51_52_11 : return(24);
+    case default : return(-1);
+}
+
+[proc,loar_shade_keys_high](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_bronze_bloodred);
+    case 2 : return(shadekey_bronze_brown);
+    case 3 : return(shadekey_bronze_crimson);
+    case default : return(null);
+}
+
+[proc,phrin_shade_keys_low](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_bronze_black);
+    case 2 : return(shadekey_bronze_purple);
+    case default : return(null);
+}
+
+[proc,phrin_shade_keys_high](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_steel_bloodred);
+    case 2 : return(shadekey_steel_brown);
+    case 3 : return(shadekey_steel_crimson);
+    case default : return(null);
+}
+
+[proc,riyl_shade_keys_low](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_steel_black);
+    case 2 : return(shadekey_steel_purple);
+    case default : return(null);
+}
+
+[proc,riyl_shade_keys_high](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_black_bloodred);
+    case 2 : return(shadekey_black_brown);
+    case 3 : return(shadekey_black_crimson);
+    case default : return(null);
+}
+
+[proc,asyn_shade_keys_low](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_black_black);
+    case 2 : return(shadekey_black_purple);
+    case default : return(null);
+}
+
+[proc,asyn_shade_keys_high](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_silver_bloodred);
+    case 2 : return(shadekey_silver_brown);
+    case 3 : return(shadekey_silver_crimson);
+    case default : return(null);
+}
+
+[proc,fiyr_shade_keys_low](int $key)(namedobj)
+switch_int($key) {
+    case 1 : return(shadekey_silver_black);
+    case 2 : return(shadekey_silver_purple);
+    case 3 : return(shadekey_silver_bloodred);
+    case 4 : return(shadekey_silver_brown);
+    case 5 : return(shadekey_silver_crimson);
+    case default : return(null);
+}
+
+[proc,pyre_log_level](loc $key)(int)
+switch_loc($key) {
+    case temple_pyre_bones_logs : return(0);
+    case temple_pyre_bones_oak : return(0);
+    case temple_pyre_bones_willow : return(1);
+    case temple_pyre_bones_maple : return(1);
+    case temple_pyre_bones_yew : return(2);
+    case temple_pyre_bones_magic : return(3);
+    case default : return(-1);
+}
+
+[proc,pyre_shade_level](obj $key)(int)
+switch_obj($key) {
+    case shade_bones1 : return(0);
+    case shade_bones2 : return(0);
+    case shade_bones3 : return(1);
+    case shade_bones4 : return(2);
+    case shade_bones5 : return(3);
+    case default : return(-1);
+}

@@ -45088,6 +45088,9 @@ model=8,model_4135
 name=Broken Wall
 occlude=yes
 desc=Looks like a pile of ancient rubble.
+category=category_226
+param=next_loc_stage,templewall_1
+param=temple_wall_level,0
 
 // 4069
 [templewall_1]
@@ -45097,6 +45100,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_2
+param=prev_loc_stage,templewall_base
+param=temple_wall_level,1
 
 // 4070
 [templewall_2]
@@ -45106,6 +45113,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_3
+param=prev_loc_stage,templewall_1
+param=temple_wall_level,2
 
 // 4071
 [templewall_3]
@@ -45115,6 +45126,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_4
+param=prev_loc_stage,templewall_2
+param=temple_wall_level,3
 
 // 4072
 [templewall_4]
@@ -45124,6 +45139,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_5
+param=prev_loc_stage,templewall_3
+param=temple_wall_level,4
 
 // 4073
 [templewall_5]
@@ -45133,6 +45152,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_6
+param=prev_loc_stage,templewall_4
+param=temple_wall_level,5
 
 // 4074
 [templewall_6]
@@ -45142,6 +45165,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_7
+param=prev_loc_stage,templewall_5
+param=temple_wall_level,6
 
 // 4075
 [templewall_7]
@@ -45151,6 +45178,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_8
+param=prev_loc_stage,templewall_6
+param=temple_wall_level,7
 
 // 4076
 [templewall_8]
@@ -45160,6 +45191,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=The starting of a wall.
+category=category_226
+param=next_loc_stage,templewall_9
+param=prev_loc_stage,templewall_7
+param=temple_wall_level,8
 
 // 4077
 [templewall_9]
@@ -45169,6 +45204,10 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=It's nearly a wall.
+category=category_226
+param=next_loc_stage,templewall_10
+param=prev_loc_stage,templewall_8
+param=temple_wall_level,9
 
 // 4078
 [templewall_10]
@@ -45178,6 +45217,9 @@ model=8,model_4134
 name=Temple wall
 occlude=yes
 desc=A rebuilt wall.
+category=category_226
+param=temple_wall_level,10
+param=prev_loc_stage,templewall_9
 
 // 4079
 [templewallcorner_base]
@@ -45186,6 +45228,9 @@ model=8,model_4137
 name=Broken Wall
 occlude=yes
 desc=The broken wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_1
+param=temple_wall_level,0
 
 // 4080
 [templewallcorner_1]
@@ -45195,6 +45240,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_2
+param=prev_loc_stage,templewallcorner_base
+param=temple_wall_level,1
 
 // 4081
 [templewallcorner_2]
@@ -45204,6 +45253,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_3
+param=prev_loc_stage,templewallcorner_1
+param=temple_wall_level,2
 
 // 4082
 [templewallcorner_3]
@@ -45213,6 +45266,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_4
+param=prev_loc_stage,templewallcorner_2
+param=temple_wall_level,3
 
 // 4083
 [templewallcorner_4]
@@ -45222,6 +45279,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_5
+param=prev_loc_stage,templewallcorner_3
+param=temple_wall_level,4
 
 // 4084
 [templewallcorner_5]
@@ -45231,6 +45292,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_6
+param=prev_loc_stage,templewallcorner_4
+param=temple_wall_level,5
 
 // 4085
 [templewallcorner_6]
@@ -45240,6 +45305,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_7
+param=prev_loc_stage,templewallcorner_5
+param=temple_wall_level,6
 
 // 4086
 [templewallcorner_7]
@@ -45249,6 +45318,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_8
+param=prev_loc_stage,templewallcorner_6
+param=temple_wall_level,7
 
 // 4087
 [templewallcorner_8]
@@ -45258,6 +45331,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The partially repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_9
+param=prev_loc_stage,templewallcorner_7
+param=temple_wall_level,8
 
 // 4088
 [templewallcorner_9]
@@ -45267,6 +45344,10 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The nearly repaired wall of a desicrated temple.
+category=category_226
+param=next_loc_stage,templewallcorner_10
+param=prev_loc_stage,templewallcorner_8
+param=temple_wall_level,9
 
 // 4089
 [templewallcorner_10]
@@ -45276,6 +45357,9 @@ model=8,model_4136
 name=Temple wall
 occlude=yes
 desc=The repaired wall of a temple.
+category=category_226
+param=prev_loc_stage,templewallcorner_9
+param=temple_wall_level,10
 
 // 4090
 [templefire_altar]
@@ -45322,6 +45406,8 @@ model=8,model_4138
 name=Funeral pyre
 occlude=yes
 desc=A place to cremate the dead. Needs a body.
+category=category_2051
+param=next_loc_stage,temple_pyre_bones_logs
 
 // 4095
 [temple_pyre_oak]
@@ -45335,6 +45421,8 @@ model=8,model_4138
 name=Funeral pyre
 occlude=yes
 desc=A place to cremate the dead. Needs a body.
+category=category_2051
+param=next_loc_stage,temple_pyre_bones_oak
 
 // 4096
 [temple_pyre_willow]
@@ -45344,6 +45432,8 @@ model=8,model_4138
 name=Funeral pyre
 occlude=yes
 desc=A place to cremate the dead. Needs a body.
+category=category_2051
+param=next_loc_stage,temple_pyre_bones_willow
 
 // 4097
 [temple_pyre_maple]
@@ -45357,6 +45447,8 @@ model=8,model_4138
 name=Funeral pyre
 occlude=yes
 desc=A place to cremate the dead. Needs a body.
+category=category_2051
+param=next_loc_stage,temple_pyre_bones_maple
 
 // 4098
 [temple_pyre_yew]
@@ -45366,6 +45458,8 @@ model=8,model_4138
 name=Funeral pyre
 occlude=yes
 desc=A place to cremate the dead. Needs a body.
+category=category_2051
+param=next_loc_stage,temple_pyre_bones_yew
 
 // 4099
 [afr_hotel_bed_multi]
@@ -45385,6 +45479,8 @@ name=Funeral pyre
 cursor1=1,cursor_firemaking
 occlude=yes
 desc=A place to cremate the dead. Needs a light.
+category=category_2052
+param=funeral_pyre_struct,pyre_logs
 
 // 4101
 [temple_pyre_bones_oak]
@@ -45399,6 +45495,8 @@ name=Funeral pyre
 cursor1=1,cursor_firemaking
 occlude=yes
 desc=A place to cremate the dead. Needs a light.
+category=category_2052
+param=funeral_pyre_struct,pyre_oak_logs
 
 // 4102
 [temple_pyre_bones_willow]
@@ -45409,6 +45507,8 @@ name=Funeral pyre
 cursor1=1,cursor_firemaking
 occlude=yes
 desc=A place to cremate the dead. Needs a light.
+category=category_2052
+param=funeral_pyre_struct,pyre_willow_logs
 
 // 4103
 [temple_pyre_bones_maple]
@@ -45423,6 +45523,8 @@ name=Funeral pyre
 cursor1=1,cursor_firemaking
 occlude=yes
 desc=A place to cremate the dead. Needs a light.
+category=category_2052
+param=funeral_pyre_struct,pyre_maple_logs
 
 // 4104
 [temple_pyre_bones_yew]
@@ -45433,6 +45535,8 @@ name=Funeral pyre
 cursor1=1,cursor_firemaking
 occlude=yes
 desc=A place to cremate the dead. Needs a light.
+category=category_2052
+param=funeral_pyre_struct,pyre_yew_logs
 
 // 4105
 [afr_hairdryer_multi]
@@ -346235,6 +346339,8 @@ recol2d=1451
 model=8,model_32061
 name=Funeral pyre
 occlude=yes
+category=category_2051
+param=next_loc_stage,temple_pyre_bones_magic
 
 // 29182
 [temple_pyre_bones_magic]
@@ -346248,6 +346354,8 @@ model=8,model_32061
 name=Funeral pyre
 cursor1=1,cursor_firemaking
 occlude=yes
+category=category_2052
+param=funeral_pyre_struct,pyre_magic_logs
 
 // 29183
 [loc_29183]

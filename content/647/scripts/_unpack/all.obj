@@ -58540,6 +58540,11 @@ recol1d=1423
 name=Serum 207 (4)
 cursor1=3,cursor_take
 desc=4 doses serum 207 as described in Herbi Flax's diary.
+category=category_108
+param=next_obj_stage,mort_serum3
+param=next_obj_stage_temple,mort_serum_perm4
+param=dose_count,4
+param=decant_potion_enum,potion_mortserum
 
 // 3409
 [cert_mort_serum4]
@@ -58563,6 +58568,11 @@ recol1d=1423
 name=Serum 207 (3)
 cursor1=3,cursor_take
 desc=3 doses serum 207 as described in Herbi Flax's diary.
+category=category_108
+param=next_obj_stage,mort_serum2
+param=next_obj_stage_temple,mort_serum_perm3
+param=dose_count,3
+param=decant_potion_enum,potion_mortserum
 
 // 3411
 [cert_mort_serum3]
@@ -58586,6 +58596,11 @@ recol1d=1423
 name=Serum 207 (2)
 cursor1=3,cursor_take
 desc=2 doses serum 207 as described in Herbi Flax's diary.
+category=category_108
+param=next_obj_stage,mort_serum1
+param=next_obj_stage_temple,mort_serum_perm2
+param=dose_count,2
+param=decant_potion_enum,potion_mortserum
 
 // 3413
 [cert_mort_serum2]
@@ -58609,6 +58624,11 @@ recol1d=1423
 name=Serum 207 (1)
 cursor1=3,cursor_take
 desc=1 dose serum 207 as described in Herbi Flax's diary.
+category=category_108
+param=next_obj_stage,vial_empty
+param=next_obj_stage_temple,mort_serum_perm1
+param=dose_count,1
+param=decant_potion_enum,potion_mortserum
 
 // 3415
 [cert_mort_serum1]
@@ -58633,6 +58653,10 @@ name=Serum 208 (4)
 param=param_1397,1
 cursor1=3,cursor_take
 desc=4 doses permanent serum 208 as described in Herbi Flax's diary.
+param=next_obj_stage,mort_serum_perm3
+param=dose_count,4
+param=decant_potion_enum,potion_mortserumperm
+category=category_109
 
 // 3417
 [mort_serum_perm3]
@@ -58650,6 +58674,10 @@ name=Serum 208 (3)
 param=param_1397,1
 cursor1=3,cursor_take
 desc=3 doses permanent serum 208 as described in Herbi Flax's diary.
+param=next_obj_stage,mort_serum_perm2
+param=dose_count,3
+param=decant_potion_enum,potion_mortserumperm
+category=category_109
 
 // 3418
 [mort_serum_perm2]
@@ -58667,6 +58695,10 @@ name=Serum 208 (2)
 param=param_1397,1
 cursor1=3,cursor_take
 desc=2 doses permanent serum 208 as described in Herbi Flax's diary.
+param=next_obj_stage,mort_serum_perm1
+param=dose_count,2
+param=decant_potion_enum,potion_mortserumperm
+category=category_109
 
 // 3419
 [mort_serum_perm1]
@@ -58684,6 +58716,10 @@ name=Serum 208 (1)
 param=param_1397,1
 cursor1=3,cursor_take
 desc=1 dose permanent serum 208 as described in Herbi Flax's diary.
+param=next_obj_stage,vial_empty
+param=dose_count,1
+param=decant_potion_enum,potion_mortserumperm
+category=category_109
 
 // 3420
 [limestonebrick]
@@ -58724,6 +58760,10 @@ name=Olive oil (4)
 certlink=cert_oliveoil4
 cursor1=3,cursor_take
 desc=4 doses of olive oil.
+category=category_110
+param=next_obj_stage,sacred_oil4
+param=dose_count,4
+param=decant_potion_enum,potion_oliveoil
 
 // 3423
 [cert_oliveoil4]
@@ -58747,6 +58787,10 @@ name=Olive oil (3)
 certlink=cert_oliveoil3
 cursor1=3,cursor_take
 desc=3 doses of olive oil.
+category=category_110
+param=next_obj_stage,sacred_oil3
+param=dose_count,3
+param=decant_potion_enum,potion_oliveoil
 
 // 3425
 [cert_oliveoil3]
@@ -58770,6 +58814,10 @@ name=Olive oil (2)
 certlink=cert_oliveoil2
 cursor1=3,cursor_take
 desc=2 doses of olive oil.
+category=category_110
+param=next_obj_stage,sacred_oil2
+param=dose_count,2
+param=decant_potion_enum,potion_oliveoil
 
 // 3427
 [cert_oliveoil2]
@@ -58793,6 +58841,10 @@ name=Olive oil (1)
 certlink=cert_oliveoil1
 cursor1=3,cursor_take
 desc=1 dose of olive oil.
+category=category_110
+param=next_obj_stage,sacred_oil1
+param=dose_count,1
+param=decant_potion_enum,potion_oliveoil
 
 // 3429
 [cert_oliveoil1]
