@@ -1,10 +1,14 @@
-// Elkoy (289's areas/area_gnome/scripts/elkoy.rs2), line for line. Cache 786's elkoy is a
-// multi-npc on %treequest: with the quest begun he shows a second op, Follow (elkoy_2ops).
-// What Follow skips of his talk is in no source found, so it starts the same talk.
-[opnpc3,elkoy] @elkoy_talk;
-[opnpc1,elkoy] @elkoy_talk;
+// Elkoy (289's areas/area_gnome/scripts/elkoy.rs2), line for line, with 2011's Follow.
+// Cache 786's elkoy and elkoy_village are multi-npcs on %treequest: with the quest begun they
+// show a second op, Follow (elkoy_2ops). Sal's Realm's guide (captured 2011-06-05,
+// web.archive.org/web/20110605163105/http://runescape.salmoneus.net/quests/TreeGnomeVillage.html):
+// "Head back to the entrance of the Tree Gnome Maze, right click Elkoy and click follow." So
+// Follow is the walk through the maze itself, to the tiles his talk leads to. What he says on
+// the way is in no source found: nothing is said.
+[opnpc3,elkoy] p_telejump(^elkoy_maze_coord);
+[opnpc3,elkoy_village] p_telejump(^elkoy_entrance_coord);
 
-[label,elkoy_talk]
+[opnpc1,elkoy]
 switch_int(%treequest) {
     case ^tree_not_started : @elkoy_intro;
     case ^tree_started, ^tree_spoken_montai, ^tree_given_logs_montai, ^tree_finding_trackers, ^tree_ballista_fired : @elkoy_looking_orbs;

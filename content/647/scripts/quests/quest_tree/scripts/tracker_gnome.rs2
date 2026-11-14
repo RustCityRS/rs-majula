@@ -86,6 +86,11 @@ switch_int(%treequest) {
         ~chatnpc("<p,confused>Who holds the stronghold?");
         ~chatplayer("<p,confused>What?");
         // random riddles/x-coord in 2005/2006? Not sure because Rune HQ mentions the random riddles by late 2005 (with a mismatched value it seems)
+        // 2011: Sal's Realm's guide (captured 2011-06-05, web.archive.org/web/20110605163105/
+        // http://runescape.salmoneus.net/quests/TreeGnomeVillage.html) has "one of five possible
+        // riddles": "Less than my hands" 1, "More than my head" 2, "Less than our feet" 1-3,
+        // "Less than my fingers" 1-4, "My legs and your legs" 4. It gives the phrases, not his
+        // whole lines, and cache 786 has no var for the pick, so 289's one riddle (3) stands.
         // random values don't seem to appear in any guides until mid/late 2006
         ~chatnpc("<p,confused>More than me, less than our feet.");
         ~chatplayer("<p,confused>You're mad.");

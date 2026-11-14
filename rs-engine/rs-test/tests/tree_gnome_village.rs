@@ -620,6 +620,17 @@ fn elkoy_leads_the_orb_to_the_king() {
         );
         assert_eq!(coord(engine, &client), MAZE_INSIDE, "led into the village");
 
+        // Follow, 2011's second op on him, is the walk itself: out with the one in the village,
+        // in again with the one at the entrance.
+        for (elkoy, to) in [("elkoy_village", MAZE_ENTRANCE), ("elkoy", MAZE_INSIDE)] {
+            let nid = stand_near(engine, &mut client, elkoy, 2);
+            let mut p = ClientPacket::new();
+            p.p1_alt3(0).p2_alt2(nid as i32);
+            client.send(ClientProt::OpNpc3, &p.finish());
+            settle(engine, &mut client, 6);
+            assert_eq!(coord(engine, &client), to, "{elkoy}'s Follow");
+        }
+
         let t = talk_near(
             engine,
             &mut client,
