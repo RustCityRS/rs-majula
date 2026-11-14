@@ -130,7 +130,8 @@ switch_int(%biohazard) { // ^biohazard_used_birdfeed intentionally has no dialog
                 ~chatnpc("<p,neutral>I was hoping you would say that.|Unfortunately they discovered the tunnel and filled it in.|We need another way over the wall.");
                 ~chatplayer("<p,quiz>Any ideas?");
                 %biohazard = ^biohazard_started;
-                ~send_quest_progress(questlist:biohazard, %biohazard, ^biohazard_complete);
+                ~quest_elena_2011_bits; // the dug hole is filled in
+                ~send_quest_progress(^questlist_biohazard, %biohazard, ^biohazard_complete);
                 ~chatnpc("<p,neutral>My father's friend Jerico is in communication with West Ardougne. He might be able to help us, he lives next to the chapel.");
             case 2 :
                 ~chatplayer("<p,neutral>Well, good luck.");
