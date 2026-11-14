@@ -1,0 +1,15 @@
+// Sheep Herder (289's quests/quest_sheepherder/scripts/quest_sheepherder.rs2),
+// line for line. W is the 2011 wiki's Sheep Herder page (2011-04-20).
+// Varps
+// https://chisel.weirdgloop.org/varbs/display?varplayer=60
+// https://chisel.weirdgloop.org/varbs/display?varplayer=61
+
+[queue,sheepherder_complete]
+%sheepherderquest = ^sheepherder_complete;
+// W: "3100 coins (reimbursement for Plague suit, and 3,000 coins' reward)",
+// "4 quest points".
+inv_add(inv, coins, 3100);
+session_log(^log_adventure, "Quest complete: Sheep Herder");
+// No source found shows 2011's scroll (W's picture of it is not on the local
+// wiki): the sentence is 289's, the reward line is W's.
+~send_quest_complete2(^questlist_sheepherder, coins_25, 260, ^sheepherder_questpoints, "You have completed the Sheep Herder Quest!", "3100 coins");

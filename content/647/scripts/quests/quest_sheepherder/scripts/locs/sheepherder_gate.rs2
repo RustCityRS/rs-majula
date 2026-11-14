@@ -1,0 +1,47 @@
+// The enclosure's gate (289's quests/quest_sheepherder/scripts/locs/sheepherder_gate.rs2),
+// line for line. Cache 786 (C) has the two leaves where 289 does
+// (maps/l40_52.jm2: 0_40_52_34_34 and _34_33, shape 0 angle 2).
+// - 289 swings them open as inacfishinggateclosedl/r, which C still has on
+//   the old model (model_14353) while these gates are model_25029/25030. No
+//   source found shows which locs 2011 used: guidorgatelopen/ropen are C's
+//   only op-less pair on those two models.
+// - 289's door_open has no synth of that name at 647; gate_open is what 647's
+//   gates play (general_use/scripts/gates.rs2). No source has 2011's sound.
+[oploc1,_sheepherder_gate]
+if(~check_axis(coord, loc_coord, loc_angle) = true) {
+    if (%sheepherderquest = ^sheepherder_not_started) {
+        ~mesbox("This is a restricted area.|You cannot enter without protective clothing.");
+        return;
+    }
+
+    if (%sheepherderquest > ^sheepherder_not_started
+        & (inv_total(worn, plague_jacket) < 1 | inv_total(worn, plague_trousers) < 1)) {
+        ~chatplayer("<p,neutral>It doesn't look very safe in there. I'm not going in without decent protective clothing.");
+        return;
+    }
+}
+
+if(coordx(coord) <= coordx(loc_coord)) {
+    p_teleport(movecoord(loc_coord, 1, 0, 0));
+} else {
+    p_teleport(movecoord(loc_coord, 0, 0, 0));
+}
+~open_sheepherder_gate;
+
+[proc,open_sheepherder_gate]
+loc_findallzone(coord);
+while(loc_findnext = true) {
+     if(loc_category = sheepherder_gate) {
+            def_coord $central_coord = loc_coord;
+            def_loc $type = loc_type;
+            // Temp note: dur updated
+            loc_change(inviswall, 3);
+            if($type = plaguesheep_gatel) {
+                // Temp note: dur updated
+                loc_add(movecoord($central_coord, 1, 0, 0), guidorgatelopen, 1, loc_shape, 3);
+                loc_add(movecoord($central_coord, 2, 0, 0), guidorgateropen, 1, loc_shape, 3);
+            }
+     }
+}
+sound_synth(gate_open, 1, 0);
+p_delay(0);
