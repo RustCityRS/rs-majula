@@ -765,7 +765,14 @@ fn the_coffin_plays_2011s_cutscene() {
             {
                 swing_at = Some(t);
             }
-            if hit_at.is_none() && !calls_for("npc_damage").is_empty() {
+            // The hits on him alone ("npc_hit_on" is "<npc>:<who>"): other npcs are hit in
+            // the world meanwhile (Tree Gnome Village's catapult).
+            let on_him = format!("{nid}:");
+            if hit_at.is_none()
+                && calls_for("npc_hit_on")
+                    .iter()
+                    .any(|h| h.starts_with(&on_him))
+            {
                 hit_at = Some(t);
             }
             forget_calls();
