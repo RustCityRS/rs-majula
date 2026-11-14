@@ -772,6 +772,12 @@ fn elena_is_freed_and_edmond_rewards() {
         settle(engine, &mut client, 4);
         let t = talk_near(engine, &mut client, "elenap", &[]);
         says(&t, &["Hi, you're free to go!", "Go and see my father,"]);
+        // She is still in the cell for her last line: every line of hers is titled Elena.
+        assert!(
+            !t.texts.iter().any(|l| l == "elenap") && t.texts.iter().any(|l| l == "Elena"),
+            "she speaks as Elena throughout: {:?}",
+            t.texts
+        );
         assert_eq!(stage(engine, &client), FREED_ELENA);
         assert_eq!(
             extra(engine, &client),
