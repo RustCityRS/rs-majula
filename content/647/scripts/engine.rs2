@@ -1234,7 +1234,8 @@
 
 // [command,inv_setvar](inv $inv, int $slot, obj $obj, int $value)
 // [command,inv_getvar](inv $inv, int $slot, obj $obj)(int)
-// [command,p_transmogrify](npc $npc)
+// info: Show the player as an npc ($npc), or as themselves again (null)
+[command,p_transmogrify](npc $npc)
 // [command,if_setevents](component $component, int $int1, int $int2, boolean $boolean1, int $int3, int $int4, int $int5, boolean $boolean2, boolean $boolean3)
 [command,runclientscript](clientscript $hook)
 // info: Set interface component events — engine builds the access mask
