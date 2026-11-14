@@ -89,6 +89,8 @@ inv_del(inv, eadgar_alco_chunks, 1);
 queue(eadgar_get_parrot, 0, 0); // appears to be queued here judging by indio's clip
 ~mesbox("You manage to attract a parrot and catch it.");
 ~chatplayer("<p,happy>Hah! Got you now!");
+// 289's head model for the parrot is model 3624. Cache 786 has no model 3624 (its parrots are
+// remodelled), so the box draws no head; 2011's parrot head is not identified.
 ~chatnpc_model("Parrot", 3624, "<p,parrot>Sqwaawk...*hic*");
 if(.npc_find(coord, eadgar_zoo_keeper_aviary, 14, 0) = true) {
     ~.chatnpc("<p,angry>Hey! What are you doing with that parrot?");
