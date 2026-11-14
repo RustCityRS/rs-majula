@@ -8,6 +8,7 @@ use crate::handlers::op_common::{
 use crate::watch::{Target, Using};
 #[cfg(before_647)]
 use rs_protocol::network::game::client::opheldt::OpHeldT;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -30,7 +31,7 @@ impl ClientGameHandler for OpHeldT {
 pub(super) fn handle(
     com: ComId,
     slot: u16,
-    obj: u16,
+    obj: TypeId,
     spell: ComId,
     spell_slot: u16,
     active: &mut ActivePlayer,

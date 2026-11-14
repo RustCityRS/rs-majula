@@ -1,0 +1,6 @@
+// 4678
+[proc,clientscript_4678](component $component0, component $component1)
+def_int $int2 = if_getwidth($component1);
+def_int $int3 = calc($int2 / enum(int, int, enum_3840, %varplayerbit_9373));
+def_int $int4 = calc(%varplayerbit_9376 * $int3);
+if_setsize($component0, $int4, if_getheight($component0), ^setsize_abs, ^setsize_abs);

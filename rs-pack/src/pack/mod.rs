@@ -4,6 +4,7 @@ pub mod interface;
 #[cfg(since_647)]
 pub(crate) mod js5;
 pub mod media;
+#[cfg(before_647)]
 pub mod model;
 #[cfg(since_647)]
 pub mod names;

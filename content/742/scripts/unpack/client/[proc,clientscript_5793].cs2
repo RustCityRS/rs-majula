@@ -1,0 +1,7 @@
+// 5793
+[proc,clientscript_5793](int $int0)
+~clientscript_5796($int0, 1, interface_1221:com_10, interface_1221:com_9, interface_1221:com_8, null, null, null);
+def_int $int1 = 303;
+$int1 = calc(141 + 13 * paraheight(if_gettext(interface_1221:com_8), 334, verdana_11pt_regular));
+if_setsize(interface_1221:com_0, if_getwidth(interface_1221:com_0), $int1, ^setsize_abs, ^setsize_abs);
+if_setsize(toplevel_fullscreen:com_50, 363, $int1, ^setsize_abs, ^setsize_abs);

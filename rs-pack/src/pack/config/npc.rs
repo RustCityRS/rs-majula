@@ -69,7 +69,9 @@ pub fn pack_npcs(
                     // 1
                     #[cfg(before_647)]
                     _ if key.starts_with("model") => {
-                        parse_model_kind(registry, "model", key, value, |v| models.push((v.0, v.1)))
+                        parse_model_kind(registry, "model", key, value, |v| {
+                            models.push((v.0, v.1.g2()))
+                        })
                     }
 
                     // 2
@@ -277,7 +279,7 @@ pub fn pack_npcs(
                         .is_some_and(|rest| rest.starts_with(|c: char| c.is_ascii_digit())) =>
                     {
                         parse_model_kind(registry, "head", key, value, |v| {
-                            head_models.push((v.0, v.1))
+                            head_models.push((v.0, v.1.g2()))
                         })
                     }
 
@@ -522,11 +524,11 @@ pub fn pack_npcs(
                     }
 
                     // 135
-                    #[cfg(since_647)]
+                    #[cfg(all(since_647, before_742))]
                     "cursor1" => pack_cursor(&mut client, 135, value, registry),
 
                     // 136
-                    #[cfg(since_647)]
+                    #[cfg(all(since_647, before_742))]
                     "cursor2" => pack_cursor(&mut client, 136, value, registry),
 
                     // 137
@@ -538,9 +540,9 @@ pub fn pack_npcs(
 
                     // 138
                     #[cfg(since_647)]
-                    "covermarker" => parse_ref(&registry.sprites, "sprites", value, |v| {
+                    "covermarker" => parse_bigid(&registry.sprites, "sprites", value, |v| {
                         client.p1(138);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 139
@@ -633,6 +635,33 @@ pub fn pack_npcs(
                         client.p1(168);
                         client.p1(v);
                     }),
+
+                    #[cfg(since_742)]
+                    "recolindices" => {
+                        client.p1(44);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "retexindices" => {
+                        client.p1(45);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "antimacro" => parse_bool(value, |v| {
+                        if !v {
+                            client.p1(169);
+                        }
+                    }),
+
+                    #[cfg(since_742)]
+                    _ if let Some(n) = config_key_index(key, "cursor") => {
+                        parse_ref(&registry.cursor, "cursor", value, |v| {
+                            client.p1(169 + n as u8);
+                            client.p2(v);
+                        })
+                    }
 
                     // 249
                     "param" => {} // handled at the end
@@ -759,6 +788,10 @@ fn batch_code(key: &str) -> u8 {
         if config_key_index(key, "head").is_some() {
             return 60;
         }
+        #[cfg(since_742)]
+        if key == "recolindices" || key == "retexindices" {
+            return 0;
+        }
         if key.starts_with("recol") {
             return 40;
         }
@@ -802,7 +835,7 @@ fn pack_batch(
             for (_, value) in props {
                 match code {
                     42 => parse_number(value, |v| packed.p1(v)),
-                    _ => parse_ref(&registry.model, "model", value, |v| packed.p2(v)),
+                    _ => parse_bigid(&registry.model, "model", value, |v| packed.pbigid(v)),
                 }
             }
         }
@@ -835,6 +868,7 @@ fn pack_batch(
             (106, 118),
             props,
             ("npc", &registry.npc),
+            |packed, id| packed.p2(id as u16),
             registry,
             name,
         )?,

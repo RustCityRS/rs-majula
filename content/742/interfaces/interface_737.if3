@@ -1,0 +1,366 @@
+// 737:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=clientscript_5590
+
+// 737:1
+[com_1]
+type=graphic
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+graphic=graphic_9039
+tiling=yes
+
+// 737:2
+[com_2]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+layer=com_0
+graphic=graphic_9042
+
+// 737:3
+[com_3]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_9045
+
+// 737:4
+[com_4]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+layer=com_0
+graphic=graphic_9043
+
+// 737:5
+[com_5]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=graphic_9044
+
+// 737:6
+[com_6]
+type=layer
+width=250
+height=30
+xmode=abs_centre
+layer=com_0
+
+// 737:7
+[com_7]
+type=graphic
+width=80
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_6
+graphic=graphic_9041
+hflip=yes
+
+// 737:8
+[com_8]
+type=graphic
+width=42
+height=35
+layer=com_6
+graphic=graphic_9040
+
+// 737:9
+[com_9]
+type=graphic
+width=42
+height=35
+xmode=abs_right
+layer=com_6
+graphic=graphic_9040
+hflip=yes
+
+// 737:10
+[com_10]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+textfont=verdana_13pt_regular
+text=Pick a Kitten
+textalignh=centre
+textalignv=centre
+colour=0xe6be78
+
+// 737:11
+[com_11]
+type=layer
+height=30
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+
+// 737:12
+[com_12]
+type=graphic
+x=-5
+width=95
+height=95
+ymode=abs_centre
+layer=com_11
+graphic=graphic_9049
+trans=10
+
+// 737:13
+[com_13]
+type=graphic
+x=79
+width=95
+height=95
+ymode=abs_centre
+layer=com_11
+graphic=graphic_9049
+trans=10
+
+// 737:14
+[com_14]
+type=graphic
+x=163
+width=95
+height=95
+ymode=abs_centre
+layer=com_11
+graphic=graphic_9049
+trans=10
+
+// 737:15
+[com_15]
+type=graphic
+x=163
+width=95
+height=95
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+graphic=graphic_9049
+trans=10
+
+// 737:16
+[com_16]
+type=graphic
+x=79
+width=95
+height=95
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+graphic=graphic_9049
+trans=10
+
+// 737:17
+[com_17]
+type=graphic
+x=-5
+width=95
+height=95
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+graphic=graphic_9049
+trans=10
+
+// 737:18
+[com_18]
+type=model
+x=22
+width=41
+height=39
+ymode=abs_centre
+layer=com_11
+model=model_34108
+modelorigin=0,3
+modelzoom=325
+
+// 737:19
+[com_19]
+type=model
+x=106
+width=41
+height=39
+ymode=abs_centre
+layer=com_11
+model=model_34109
+modelorigin=0,3
+modelzoom=325
+
+// 737:20
+[com_20]
+type=model
+x=191
+width=41
+height=39
+ymode=abs_centre
+layer=com_11
+model=model_34110
+modelorigin=0,3
+modelzoom=325
+
+// 737:21
+[com_21]
+type=model
+x=191
+width=41
+height=39
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+model=model_34106
+modelorigin=0,3
+modelzoom=325
+
+// 737:22
+[com_22]
+type=model
+x=106
+width=41
+height=39
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+model=model_34107
+modelorigin=0,3
+modelzoom=325
+
+// 737:23
+[com_23]
+type=model
+x=22
+width=41
+height=39
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+model=model_34111
+modelorigin=0,3
+modelzoom=325
+
+// 737:24
+[com_24]
+type=rectangle
+x=3
+width=80
+height=80
+ymode=abs_centre
+layer=com_11
+colour=0x000000
+fill=yes
+trans=255
+pausebutton=yes
+pausetext=Pick me!
+onmouseover=settrans(interface_737:com_12, 75)
+onmouseleave=settrans(interface_737:com_12, 10)
+
+// 737:25
+[com_25]
+type=rectangle
+x=86
+width=80
+height=80
+ymode=abs_centre
+layer=com_11
+colour=0x000000
+fill=yes
+trans=255
+pausebutton=yes
+pausetext=Pick me!
+onmouseover=settrans(interface_737:com_13, 75)
+onmouseleave=settrans(interface_737:com_13, 10)
+
+// 737:26
+[com_26]
+type=rectangle
+x=170
+width=80
+height=80
+ymode=abs_centre
+layer=com_11
+colour=0x000000
+fill=yes
+trans=255
+pausebutton=yes
+pausetext=Pick me!
+onmouseover=settrans(interface_737:com_14, 75)
+onmouseleave=settrans(interface_737:com_14, 10)
+
+// 737:27
+[com_27]
+type=rectangle
+x=170
+width=80
+height=80
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+colour=0x000000
+fill=yes
+trans=255
+pausebutton=yes
+pausetext=Pick me!
+onmouseover=settrans(interface_737:com_15, 75)
+onmouseleave=settrans(interface_737:com_15, 10)
+
+// 737:28
+[com_28]
+type=rectangle
+x=86
+width=80
+height=80
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+colour=0x000000
+fill=yes
+trans=255
+pausebutton=yes
+pausetext=Pick me!
+onmouseover=settrans(interface_737:com_16, 75)
+onmouseleave=settrans(interface_737:com_16, 10)
+
+// 737:29
+[com_29]
+type=rectangle
+x=3
+width=80
+height=80
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+colour=0x000000
+fill=yes
+trans=255
+pausebutton=yes
+pausetext=Pick me!
+onmouseover=settrans(interface_737:com_17, 75)
+onmouseleave=settrans(interface_737:com_17, 10)

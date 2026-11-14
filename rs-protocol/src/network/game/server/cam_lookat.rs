@@ -21,6 +21,7 @@ pub struct CamLookat {
 
 #[cfg(since_647)]
 impl ServerProtMessage for CamLookat {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         // `MapAreaConfig`'s CAM_LOOKAT branch, into `AClass13.method622`.
         // Height is in 1/128-tile units, as before 647; the client scales it
@@ -30,6 +31,15 @@ impl ServerProtMessage for CamLookat {
         buf.p1_alt3(self.local_z);
         buf.p1_alt2(self.const_speed);
         buf.p1_alt3(self.var_speed);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.height);
+        buf.p1(self.local_x);
+        buf.p1_alt2(self.var_speed);
+        buf.p1_alt1(self.const_speed);
+        buf.p1_alt3(self.local_z);
     }
 
     fn sizeof(&self) -> usize {

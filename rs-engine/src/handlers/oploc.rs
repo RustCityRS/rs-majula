@@ -11,6 +11,7 @@ use rs_protocol::network::game::client::oploc4::OpLoc4;
 use rs_protocol::network::game::client::oploc5::OpLoc5;
 #[cfg(since_647)]
 use rs_protocol::network::game::client::oploc6::OpLoc6;
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::trigger::ServerTriggerType;
@@ -92,7 +93,7 @@ impl ClientGameHandler for OpLoc5 {
 impl ClientGameHandler for OpLoc6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
-        let desc = engine().locs().get_by_id(self.loc);
+        let desc = engine().locs().get_by_id(TypeId::from_int(self.loc.int()));
         if let Some(desc) = desc.and_then(|t| t.desc.as_deref()) {
             active.message_game(desc);
         }
@@ -134,7 +135,7 @@ fn handle(
     op: u8,
     x: u16,
     z: u16,
-    loc_id: u16,
+    loc_id: TypeId,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     active.watch_op(Op::Loc {
@@ -170,7 +171,7 @@ fn handle(
         active.clear_pending_action()?;
         return Ok(());
     };
-    let has_op = |id: u16| {
+    let has_op = |id: TypeId| {
         engine.locs().get_by_id(id).is_none_or(|lt| {
             lt.op
                 .as_deref()

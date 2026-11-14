@@ -29,6 +29,8 @@ pub fn unpack_shaders(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path)
                     let text = shader::unpack(data)?;
                     let packed = shader::pack(&text)?;
                     ("shader", text.into_bytes(), packed)
+                } else if cfg!(since_742) && data.starts_with(&[4, 0]) {
+                    ("program", data.to_vec(), data.to_vec())
                 } else {
                     std::str::from_utf8(data)?;
                     (

@@ -155,6 +155,23 @@ pub fn pack_flos(
                     client.p1(v);
                 }),
 
+                #[cfg(since_742)]
+                "waterfogunknowna" | "waterfogunknownc" => parse_number(value, |v: u16| {
+                    let code = if key == "waterfogunknowna" { 20 } else { 22 };
+                    server.p1(code);
+                    server.p2(v);
+                    client.p1(code);
+                    client.p2(v);
+                }),
+
+                #[cfg(since_742)]
+                "waterfogunknownb" => parse_number(value, |v: u8| {
+                    server.p1(21);
+                    server.p1(v);
+                    client.p1(21);
+                    client.p1(v);
+                }),
+
                 // not found
                 _ => panic!("Unrecognized flo config key: {key}"),
             }

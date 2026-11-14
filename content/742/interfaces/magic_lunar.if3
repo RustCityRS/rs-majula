@@ -1,0 +1,1124 @@
+// 430:0
+[spells_layer]
+type=layer
+width=190
+height=229
+
+// 430:1
+[xp_button_layer]
+type=layer
+width=190
+height=261
+transmitop=10
+op10=  
+
+// 430:2
+[com_2]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 430:3
+[order_buttons_layer]
+type=layer
+width=190
+height=261
+
+// 430:4
+[filter_buttons_layer]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 430:5
+[com_5]
+type=graphic
+x=41
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 430:6
+[com_6]
+type=graphic
+x=41
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 430:7
+[com_7]
+type=graphic
+x=67
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 430:8
+[com_8]
+type=graphic
+x=67
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,10"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 430:9
+[filter_misc_button]
+type=graphic
+x=93
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=magre_filter_button_mouserepeat(event_com)
+
+// 430:10
+[filter_misc_icon]
+type=graphic
+x=93
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=filter_buttons_layer
+graphic="magic_icon_set,8"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 430:11
+[order0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1
+op1=Sort
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=script2058(0)
+
+// 430:12
+[order1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10= 
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=script2058(1)
+
+// 430:13
+[order2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10= 
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=script2058(2)
+
+// 430:14
+[order_icon0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,3"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 430:15
+[order_icon1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,4"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 430:16
+[order_icon2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=order_buttons_layer
+graphic="magic_icon_set,5"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 430:17
+[com_17]
+type=graphic
+x=2
+y=216
+width=186
+height=32
+layer=com_2
+graphic="v2_stone_borders,23"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 430:18
+[com_18]
+type=graphic
+x=16
+width=32
+height=30
+ymode=abs_bottom
+layer=com_2
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 430:19
+[com_19]
+type=graphic
+x=51
+width=32
+height=30
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 430:20
+[com_20]
+type=graphic
+x=6
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=xp_button_layer
+graphic="magic_icon_set,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Defensive Casting
+op10=  
+onmouseover=script1125(event_com)
+onmouseleave=script1126(event_com)
+onvartransmit=script1128(event_com){alternate_spells}
+onmouserepeat=script1127(event_com)
+
+// 430:21
+[com_21]
+type=graphic
+x=6
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=xp_button_layer
+graphic="magic_icon_set,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 430:22
+[tele_barb_out]
+type=graphic
+x=132
+y=62
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,4"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,4", "lunar_magic_off,4", 75, false, "Barbarian Teleport", "Teleports you to the Barbarian Outpost", astralrune, 2, lawrune, 2, firerune, 3, null, 0)
+
+// 430:23
+[cure_other]
+type=graphic
+x=162
+y=4
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,16"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, false, "Cure Other", "Cure poisoned and diseased players", astralrune, 1, earthrune, 10, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,16", "lunar_magic_off,16", 68, false, "Cure Other", "Cure poisoned and diseased players", astralrune, 1, earthrune, 10, null, 0, null, 0){assist_stat_magic}
+
+// 430:24
+[fertile_soil]
+type=graphic
+x=39
+y=119
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,10"
+colour=0xffffffff
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, false, "Fertile Soil", "Fertilise a farming patch with super compost", astralrune, 3, naturerune, 2, earthrune, 15, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,10", "lunar_magic_off,10", 83, false, "Fertile Soil", "Fertilise a farming patch with super compost", astralrune, 3, naturerune, 2, earthrune, 15, null, 0){assist_stat_magic, varplayer_2089}
+
+// 430:25
+[cure_group]
+type=graphic
+x=68
+y=62
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,22"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, false, "Cure Group", "Cure poison and disease on players", astralrune, 2, cosmicrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,22", "lunar_magic_off,22", 74, false, "Cure Group", "Cure poison and disease on players", astralrune, 2, cosmicrune, 2, null, 0, null, 0){assist_stat_magic}
+
+// 430:26
+[npc_contact]
+type=graphic
+x=132
+y=4
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,25"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, false, "NPC Contact", "Speak with varied NPCs", astralrune, 1, cosmicrune, 1, airrune, 2, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,25", "lunar_magic_off,25", 67, false, "NPC Contact", "Speak with varied NPCs", astralrune, 1, cosmicrune, 1, airrune, 2, null, 0){assist_stat_magic}
+
+// 430:27
+[energy_trans]
+type=graphic
+x=132
+y=149
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,15"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, false, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astralrune, 3, lawrune, 2, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,15", "lunar_magic_off,15", 91, false, "Energy Transfer", "Spend life points and SA energy to give another SA and run energy", astralrune, 3, lawrune, 2, naturerune, 1, null, 0){assist_stat_magic, varplayer_2089}
+
+// 430:28
+[monster_examine]
+type=graphic
+x=100
+y=4
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,34"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, false, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,34", "lunar_magic_off,34", 66, false, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0){assist_stat_magic}
+
+// 430:29
+[humidify]
+type=graphic
+x=7
+y=33
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,35"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, false, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,35", "lunar_magic_off,35", 68, false, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0){assist_stat_magic}
+
+// 430:30
+[hunter_kit]
+type=graphic
+x=163
+y=33
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,36"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, false, "Hunter Kit", "Get a kit of hunter gear", astralrune, 2, earthrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,36", "lunar_magic_off,36", 71, false, "Hunter Kit", "Get a kit of hunter gear", astralrune, 2, earthrune, 2, null, 0, null, 0){assist_stat_magic}
+
+// 430:31
+[stat_spy]
+type=graphic
+x=100
+y=62
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,33"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, false, "Stat Spy", "Cast on another player to see their skill levels", astralrune, 2, cosmicrune, 2, bodyrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,33", "lunar_magic_off,33", 75, false, "Stat Spy", "Cast on another player to see their skill levels", astralrune, 2, cosmicrune, 2, bodyrune, 5, null, 0){assist_stat_magic}
+
+// 430:32
+[dream]
+type=graphic
+x=100
+y=91
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,37"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, false, "Dream", "Take a rest and restore life points five times faster than normal", astralrune, 2, cosmicrune, 1, bodyrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,37", "lunar_magic_off,37", 79, false, "Dream", "Take a rest and restore life points five times faster than normal", astralrune, 2, cosmicrune, 1, bodyrune, 5, null, 0){assist_stat_magic}
+
+// 430:33
+[plank_make]
+type=graphic
+x=162
+y=120
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,38"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, false, "Plank Make", "Turn logs into planks", astralrune, 2, earthrune, 15, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,38", "lunar_magic_off,38", 86, false, "Plank Make", "Turn logs into planks", astralrune, 2, earthrune, 15, naturerune, 1, null, 0){assist_stat_magic, varplayer_2089}
+
+// 430:34
+[spellbook_swap]
+type=graphic
+x=100
+y=178
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,39"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, false, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astralrune, 3, cosmicrune, 2, lawrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,39", "lunar_magic_off,39", 96, false, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astralrune, 3, cosmicrune, 2, lawrune, 1, null, 0){assist_stat_magic}
+
+// 430:35
+[com_35]
+type=graphic
+x=133
+y=178
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,39"
+colour=0xffffffff
+targetmask=loc,com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 7684, 7688, 87, false, "Tune Bane Ore", "Tunes bane ore against a specific creature", astralrune, 2, earthrune, 4, bane_ore, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 7684, 7688, 87, false, "Tune Bane Ore", "Tunes bane ore against a specific creature", astralrune, 2, earthrune, 4, bane_ore, 1, null, 0){assist_stat_magic}
+
+// 430:36
+[magic_imbue]
+type=graphic
+x=7
+y=119
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,9"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, false, "Magic Imbue", "Combine runes without a talisman", astralrune, 2, firerune, 7, waterrune, 7, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,9", "lunar_magic_off,9", 82, false, "Magic Imbue", "Combine runes without a talisman", astralrune, 2, firerune, 7, waterrune, 7, null, 0){assist_stat_magic}
+
+// 430:37
+[vengeance]
+type=graphic
+x=36
+y=178
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,21"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,21", "lunar_magic_off,21", 94, false, "Vengeance", "Rebound damage to an opponent", astralrune, 4, deathrune, 2, earthrune, 10, null, 0)
+
+// 430:38
+[burn_fuel]
+type=graphic
+x=36
+y=4
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,0"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, false, "Bake Pie", "Bake pies without a stove", astralrune, 1, firerune, 5, waterrune, 4, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,0", "lunar_magic_off,0", 65, false, "Bake Pie", "Bake pies without a stove", astralrune, 1, firerune, 5, waterrune, 4, null, 0){assist_stat_magic}
+
+// 430:39
+[home_teleport]
+type=graphic
+x=7
+y=4
+width=24
+height=24
+layer=spells_layer
+graphic="magicon2,37"
+colour=0xffffffff
+transmitop=1,2
+op1=Cast
+op2=Previous-destination
+onload=magic_init(event_com, magic_lunar:tooltip, "magicon2,37", "magicoff2,37", 0, false, "Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+
+// 430:40
+[tele_fish]
+type=graphic
+x=100
+y=120
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,12"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,12", "lunar_magic_off,12", 85, false, "Fishing Guild Teleport", "Teleports you to the Fishing Guild", astralrune, 3, lawrune, 3, waterrune, 8, null, 0)
+
+// 430:41
+[tele_khazard]
+type=graphic
+x=39
+y=91
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,6"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,6", "lunar_magic_off,6", 78, false, "Khazard Teleport", "Teleports you to Port Khazard", astralrune, 2, lawrune, 2, waterrune, 4, null, 0)
+
+// 430:42
+[vengeance_other]
+type=graphic
+x=7
+y=178
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,18"
+colour=0xffffffff
+targetmask=npc,player
+opbase=bb
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, false, "Vengeance Other", "Allows another player to rebound damage to an opponent", astralrune, 3, deathrune, 2, earthrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,18", "lunar_magic_off,18", 93, false, "Vengeance Other", "Allows another player to rebound damage to an opponent", astralrune, 3, deathrune, 2, earthrune, 10, null, 0){varplayer_2089}
+
+// 430:43
+[tele_moonclan]
+type=graphic
+x=36
+y=33
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,1"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,1", "lunar_magic_off,1", 69, false, "Moonclan Teleport", "Teleports you to Moonclan Island", astralrune, 2, lawrune, 1, earthrune, 2, null, 0)
+
+// 430:44
+[tele_cather]
+type=graphic
+x=7
+y=149
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,13"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,13", "lunar_magic_off,13", 87, false, "Catherby Teleport", "Teleports you to Catherby", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
+
+// 430:45
+[string_jewel]
+type=graphic
+x=132
+y=91
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,7"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, false, "String Jewellery", "String amulets without wool", astralrune, 2, earthrune, 10, waterrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,7", "lunar_magic_off,7", 80, false, "String Jewellery", "String amulets without wool", astralrune, 2, earthrune, 10, waterrune, 5, null, 0){assist_stat_magic, varplayer_2089}
+
+// 430:46
+[cure_me]
+type=graphic
+x=132
+y=33
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,19"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, false, "Cure Me", "Cure Poison and disease", astralrune, 2, cosmicrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,19", "lunar_magic_off,19", 71, false, "Cure Me", "Cure Poison and disease", astralrune, 2, cosmicrune, 2, null, 0, null, 0){assist_stat_magic}
+
+// 430:47
+[tele_waterbirth]
+type=graphic
+x=9
+y=62
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,2"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,2", "lunar_magic_off,2", 72, false, "Waterbirth Teleport", "Teleports you to Waterbirth Island", astralrune, 2, lawrune, 1, waterrune, 1, null, 0)
+
+// 430:48
+[superglass]
+type=graphic
+x=8
+y=91
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,5"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, false, "Superglass Make", "Make glass without a furnace", astralrune, 2, firerune, 6, airrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,5", "lunar_magic_off,5", 77, false, "Superglass Make", "Make glass without a furnace", astralrune, 2, firerune, 6, airrune, 10, null, 0){assist_stat_magic}
+
+// 430:49
+[supply_setslot]
+type=graphic
+x=68
+y=119
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,8"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, false, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astralrune, 3, earthrune, 12, waterrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,8", "lunar_magic_off,8", 84, false, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astralrune, 3, earthrune, 12, waterrune, 10, null, 0){assist_stat_magic}
+
+// 430:50
+[rest_pot_share]
+type=graphic
+x=162
+y=91
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,11"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, false, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astralrune, 2, earthrune, 10, waterrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,11", "lunar_magic_off,11", 81, false, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astralrune, 2, earthrune, 10, waterrune, 10, null, 0){assist_stat_magic}
+
+// 430:51
+[tele_ghorrock]
+type=graphic
+x=68
+y=149
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,14"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,14", "lunar_magic_off,14", 89, false, "Ice Plateau Teleport", "Teleports you to the ice plateau in the Wilderness", astralrune, 3, lawrune, 3, waterrune, 8, null, 0)
+
+// 430:52
+[heal_other]
+type=graphic
+x=162
+y=149
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,17"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, false, "Heal Other", "Transfers up to 75% of life points to another player", astralrune, 3, lawrune, 3, bloodrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,17", "lunar_magic_off,17", 92, false, "Heal Other", "Transfers up to 75% of life points to another player", astralrune, 3, lawrune, 3, bloodrune, 1, null, 0){assist_stat_magic}
+
+// 430:53
+[heal_group]
+type=graphic
+x=68
+y=178
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,23"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, false, "Heal Group", "Transfers up to 75% of life points to a group", astralrune, 4, bloodrune, 2, lawrune, 3, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,23", "lunar_magic_off,23", 95, false, "Heal Group", "Transfers up to 75% of life points to a group", astralrune, 4, bloodrune, 2, lawrune, 3, null, 0){assist_stat_magic}
+
+// 430:54
+[com_53]
+type=graphic
+x=100
+y=33
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,40"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,40", "lunar_magic_off,40", 71, false, "Ourania Teleport", "Teleports you to Ourania rune altar", astralrune, 2, lawrune, 1, earthrune, 6, null, 0)
+
+// 430:55
+[cure_plant]
+type=graphic
+x=68
+y=4
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,24"
+colour=0xffffffff
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, false, "Cure Plant", "Cures disease on farming patch", astralrune, 1, earthrune, 8, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,24", "lunar_magic_off,24", 66, false, "Cure Plant", "Cures disease on farming patch", astralrune, 1, earthrune, 8, null, 0, null, 0){assist_stat_magic}
+
+// 430:56
+[tele_group_moonclan]
+type=graphic
+x=68
+y=33
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,26"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,26", "lunar_magic_off,26", 70, false, "Tele Group Moonclan", "Teleports players to Moonclan Island", astralrune, 2, lawrune, 1, earthrune, 4, null, 0)
+
+// 430:57
+[tele_group_waterbirth]
+type=graphic
+x=39
+y=62
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,27"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,27", "lunar_magic_off,27", 73, false, "Tele Group Waterbirth", "Teleports players to Waterbirth Island", astralrune, 2, lawrune, 1, waterrune, 5, null, 0)
+
+// 430:58
+[tele_group_barbarian]
+type=graphic
+x=162
+y=62
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,28"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,28", "lunar_magic_off,28", 76, false, "Tele Group Barbarian", "Teleports players to the Barbarian Outpost", astralrune, 2, lawrune, 2, firerune, 6, null, 0)
+
+// 430:59
+[tele_group_khazard]
+type=graphic
+x=68
+y=91
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,29"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,29", "lunar_magic_off,29", 79, false, "Tele Group Khazard", "Teleports players to Port Khazard", astralrune, 2, lawrune, 2, waterrune, 8, null, 0)
+
+// 430:60
+[tele_group_fishing_guild]
+type=graphic
+x=132
+y=120
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,30"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,30", "lunar_magic_off,30", 86, false, "Tele Group Fishing Guild", "Teleports players to the Fishing Guild", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
+
+// 430:61
+[tele_group_catherby]
+type=graphic
+x=39
+y=149
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,31"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,31", "lunar_magic_off,31", 88, false, "Tele Group Catherby", "Teleports players to Catherby", astralrune, 3, lawrune, 3, waterrune, 12, null, 0)
+
+// 430:62
+[tele_group_ghorrock]
+type=graphic
+x=100
+y=149
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,32"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,32", "lunar_magic_off,32", 90, false, "Tele Group Ice Plateau", "Teleports players  to the ice plateau in the Wilderness", astralrune, 3, lawrune, 3, waterrune, 16, null, 0)
+
+// 430:63
+[scrollbar_layer]
+type=layer
+x=1
+y=1
+width=16
+height=228
+xmode=abs_right
+transmitop=10
+op10=   
+
+// 430:64
+[tooltip2_bounds]
+type=layer
+y=25
+width=10
+height=40
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+
+// 430:65
+[tooltip2]
+type=layer
+x=3
+y=2
+width=42
+height=14
+layer=tooltip2_bounds
+
+// 430:66
+[tooltip]
+type=layer
+width=190
+height=261
+opbase=bb
+
+// 430:67
+[com_66]
+type=graphic
+x=6
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,42"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,42", "lunar_magic_off,42", 72, false, "South Falador Teleport", "Teleports you to South Falador", astralrune, 2, lawrune, 1, airrune, 2, null, 0)
+
+// 430:68
+[com_67]
+type=graphic
+x=28
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,43"
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,43", "lunar_magic_off,43", 75, false, "Repair Rune Pouch", "Repairs and strengthens any degraded rune pouch", astralrune, 2, cosmicrune, 1, lawrune, 1, null, 0)
+
+// 430:69
+[com_68]
+type=graphic
+x=51
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,44"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,44", "lunar_magic_off,44", 76, false, "North Ardougne Teleport", "Teleports you to North Ardougne", astralrune, 2, lawrune, 1, waterrune, 5, null, 0)
+
+// 430:70
+[com_69]
+type=graphic
+x=76
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,45"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,45", "lunar_magic_off,45", 78, false, "Remote Farm", "See your crop status and cure any disease", astralrune, 2, earthrune, 2, naturerune, 3, null, 0)
+
+// 430:71
+[com_70]
+type=graphic
+x=100
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,47"
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,47", "lunar_magic_off,47", 80, false, "Spiritualise Food", "Use on ordinary food to heal your familiar; boost its combat stats and extend its timer", astralrune, 2, cosmicrune, 3, bodyrune, 5, null, 0)
+
+// 430:72
+[com_71]
+type=graphic
+x=124
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,46"
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,46", "lunar_magic_off,46", 83, false, "Make Leather", "Turn hides into leather in sets of 5", astralrune, 2, firerune, 2, bodyrune, 2, null, 0)
+
+// 430:73
+[com_72]
+type=graphic
+x=147
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,48"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,48", "lunar_magic_off,48", 90, false, "Disruption Shield", "Nullify the next hit you receive from another player", astralrune, 3, bloodrune, 3, bodyrune, 10, null, 0)
+
+// 430:74
+[com_73]
+type=graphic
+x=170
+y=206
+width=24
+height=24
+layer=spells_layer
+graphic="lunar_magic_off,49"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, "lunar_magic_on,49", "lunar_magic_off,49", 95, false, "Vengeance Group", "Those nearby get to rebound damage", astralrune, 4, deathrune, 3, earthrune, 11, null, 0)
+
+// 430:75
+[com_75]
+type=graphic
+x=157
+y=178
+width=24
+height=24
+layer=spells_layer
+graphic=graphic_7689
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 7685, 7689, 92, false, "Trollheim Teleport", "Teleports you to the farming patch in Trollheim", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
+
+// 430:76
+[com_76]
+type=graphic
+x=152
+y=189
+width=24
+height=24
+layer=spells_layer
+graphic=graphic_7690
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 7686, 7690, 93, false, "Tele Group Trollheim", "Teleports players to the farming patch in Trollheim", astralrune, 3, lawrune, 3, waterrune, 20, null, 0)
+
+// 430:77
+[com_77]
+type=graphic
+x=152
+y=189
+width=24
+height=24
+layer=spells_layer
+graphic=graphic_7691
+targetmask=obj,npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 7687, 7691, 99, false, "Borrowed Power", "Casts a spell from the normal spellbook", astralrune, 3, arcane_capacitor__c, 1, null, 0, null, 0)
+onmouseover=clientscript_5263(event_com)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 7687, 7691, 99, false, "Borrowed Power", "Casts a spell from the normal spellbook", astralrune, 3, arcane_capacitor__c, 1, null, 0, null, 0){assist_stat_magic}
+
+// 430:78
+[com_78]
+type=graphic
+x=152
+y=189
+width=24
+height=24
+layer=spells_layer
+hide=yes
+graphic=graphic_7691
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 7687, 7691, 99, false, "Borrowed Power", "Casts a spell from the normal spellbook", astralrune, 3, arcane_capacitor__c, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 7687, 7691, 99, false, "Borrowed Power", "Casts a spell from the normal spellbook", astralrune, 3, arcane_capacitor__c, 1, null, 0, null, 0){assist_stat_magic}
+
+// 430:79
+[com_79]
+type=graphic
+x=152
+y=189
+width=24
+height=24
+layer=spells_layer
+hide=yes
+graphic=graphic_7691
+transmitop=1
+op1=Cast
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 7687, 7691, 99, false, "Borrowed Power", "Casts a spell from the normal spellbook", astralrune, 3, arcane_capacitor__c, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 7687, 7691, 99, false, "Borrowed Power", "Casts a spell from the normal spellbook", astralrune, 3, arcane_capacitor__c, 1, null, 0, null, 0){assist_stat_magic}

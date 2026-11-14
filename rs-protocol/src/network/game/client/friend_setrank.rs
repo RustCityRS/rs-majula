@@ -13,13 +13,22 @@ pub struct FriendSetRank {
 }
 
 impl ClientProtMessage for FriendSetRank {
+    #[cfg(before_742)]
     fn validate(data: &[u8]) -> bool {
         string_end(data, 1) == Some(data.len())
     }
 
+    #[cfg(since_742)]
+    fn validate(data: &[u8]) -> bool {
+        string_end(data, 0).is_some_and(|end| end + 1 == data.len())
+    }
+
     fn decode(buf: &mut Packet, _: usize) -> Self {
+        #[cfg(before_742)]
         let rank = buf.g1_alt1() as i8;
         let name = buf.gjstr(STRING_TERMINATOR);
+        #[cfg(since_742)]
+        let rank = buf.g1_alt1() as i8;
         FriendSetRank { rank, name }
     }
 }

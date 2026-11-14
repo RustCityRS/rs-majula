@@ -1,0 +1,15 @@
+// 1818
+[proc,clanwars_end_defeat](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_settext($component0, "Defeat!");
+if_setposition($component0, 64, 49, ^setpos_abs_left, ^setpos_abs_top);
+if_settext($component1, "Your clan has been defeated.");
+if_setposition($component1, 41, 93, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition($component2, 41, 179, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component2, 180, 125, ^setsize_abs, ^setsize_abs);
+if_setposition($component3, 38, 81, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide($component0, false);
+if_sethide($component1, false);
+if_sethide($component2, false);
+if_sethide($component3, false);
+if_sethide($component4, true);
+if_sethide($component5, false);

@@ -1,0 +1,15 @@
+// 6789
+[proc,clientscript_6789](int $int0)
+def_struct $struct1 = ~clientscript_5795($int0);
+if ($int0 = 4095) {
+    if_sethide(interface_1056:com_17, true);
+} else {
+    if_sethide(interface_1056:com_17, false);
+}
+if ($struct1 = null) {
+    return;
+}
+~clientscript_5796($int0, 0, interface_1056:com_15, interface_1056:com_14, interface_1056:com_13, null, null, null);
+~clientscript_5791;
+~clientscript_6793($int0, %varplayerbit_8578);
+~clientscript_6794($int0, %varplayerbit_8578);

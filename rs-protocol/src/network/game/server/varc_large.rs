@@ -19,8 +19,16 @@ pub struct VarcLarge {
 #[cfg(since_647)]
 impl ServerProtMessage for VarcLarge {
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt1(self.val);
-        buf.p2_alt3(self.id);
+        #[cfg(before_742)]
+        {
+            buf.p4_alt1(self.val);
+            buf.p2_alt3(self.id);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4(self.val);
+            buf.p2_alt2(self.id);
+        }
     }
 
     fn sizeof(&self) -> usize {

@@ -1,0 +1,48 @@
+// 5118
+[proc,clientscript_5118](component $component0)
+~aif_gold_frame_2(interface_1119:com_3);
+~aif_gold_frame_2(interface_1119:com_7);
+%varclient_777 = -1;
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = calc(126 + 1);
+while ($int2 <= $int3) {
+    cc_create(interface_1119:com_11, ^iftype_rectangle, if_getnextsubid(interface_1119:com_11));
+    cc_setsize(0, 14, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settrans(255);
+    .cc_create(interface_1119:com_11, ^iftype_graphic, if_getnextsubid(interface_1119:com_11));
+    .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(5, calc($int1 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    $string0 = enum(int, string, enum_3725, $int2);
+    if (string_length($string0) > 0) {
+        .cc_create(interface_1119:com_11, ^iftype_text, if_getnextsubid(interface_1119:com_11));
+        .cc_setsize(22, 14, ^setsize_minus, ^setsize_abs);
+        .cc_setposition(0, $int1, ^setpos_abs_right, ^setpos_abs_top);
+        .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+        .cc_settextfont(p11_full);
+        .cc_settextshadow(true);
+        .cc_settext($string0);
+        cc_setop(1, $string0);
+        cc_setonop("clientscript_5119($int2)");
+        $int1 = calc($int1 + cc_getheight);
+    } else {
+        cc_sethide(true);
+        .cc_sethide(true);
+        .cc_create(interface_1119:com_11, ^iftype_text, if_getnextsubid(interface_1119:com_11));
+        .cc_sethide(true);
+    }
+    $int2 = calc($int2 + 1);
+}
+if ($int1 > if_getheight(interface_1119:com_11)) {
+    if_setscrollsize(interface_1119:com_11, 0, $int1);
+} else {
+    if_setscrollsize(interface_1119:com_11, 0, 0);
+}
+if_setscrollpos(interface_1119:com_11, 0, 0);
+~scrollbar_vertical(interface_1119:com_12, interface_1119:com_11, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+~clientscript_5121;
+if_setonvartransmit($component0, "clientscript_5120{varplayer_1734}");
+~clientscript_5124;
+if_setonvarctransmit($component0, "clientscript_5123{varclient_696}");

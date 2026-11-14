@@ -1,0 +1,123 @@
+// 4647
+[proc,clientscript_4647]
+if_sethide(interface_173:com_2, true);
+if_sethide(interface_173:com_3, true);
+if_sethide(interface_173:com_1, false);
+if_sethide(interface_173:com_62, false);
+if_sethide(interface_173:com_63, false);
+if (testbit(%varplayer_2194, 0) = ^true) {
+    if_sethide(interface_173:com_64, false);
+} else {
+    if_sethide(interface_173:com_64, false);
+    if_setgraphic(interface_173:com_64, "rand_map_rooms_on,2");
+}
+if (testbit(%varplayer_2194, 1) = ^true) {
+    if_sethide(interface_173:com_66, false);
+} else if (testbit(%varplayer_2194, 0) = ^true) {
+    if_sethide(interface_173:com_66, false);
+    if_setgraphic(interface_173:com_66, "rand_map_rooms_on,2");
+} else {
+    if_sethide(interface_173:com_66, true);
+}
+if (testbit(%varplayer_2194, 2) = ^true) {
+    if_sethide(interface_173:com_67, false);
+} else if (testbit(%varplayer_2194, 1) = ^true) {
+    if_sethide(interface_173:com_67, false);
+    if_setgraphic(interface_173:com_67, "rand_map_rooms_on,1");
+} else {
+    if_sethide(interface_173:com_67, true);
+}
+if (testbit(%varplayer_2194, 3) = ^true) {
+    if_sethide(interface_173:com_68, false);
+} else if (testbit(%varplayer_2194, 2) = ^true) {
+    if_sethide(interface_173:com_68, false);
+    if_setgraphic(interface_173:com_68, "rand_map_rooms_on,1");
+} else {
+    if_sethide(interface_173:com_68, true);
+}
+if (testbit(%varplayer_2194, 4) = ^true) {
+    if_sethide(interface_173:com_69, false);
+} else if (testbit(%varplayer_2194, 3) = ^true) {
+    if_sethide(interface_173:com_69, false);
+    if_setgraphic(interface_173:com_69, "rand_map_rooms_on,0");
+} else {
+    if_sethide(interface_173:com_69, true);
+}
+if (testbit(%varplayer_2194, 5) = ^true) {
+    if_sethide(interface_173:com_72, false);
+} else {
+    if_setgraphic(interface_173:com_72, "rand_map_rooms_on,1");
+}
+if (testbit(%varplayer_2194, 6) = ^true) {
+    if_sethide(interface_173:com_73, false);
+} else if (testbit(%varplayer_2194, 5) = ^true) {
+    if_sethide(interface_173:com_73, false);
+    if_setgraphic(interface_173:com_73, "rand_map_rooms_on,2");
+} else {
+    if_sethide(interface_173:com_73, true);
+}
+if (testbit(%varplayer_2194, 7) = ^true) {
+    if_sethide(interface_173:com_65, false);
+} else {
+    if_setgraphic(interface_173:com_65, "rand_map_rooms_on,0");
+}
+if (testbit(%varplayer_2194, 8) = ^true) {
+    if_sethide(interface_173:com_74, false);
+} else if (testbit(%varplayer_2194, 7) = ^true) {
+    if_sethide(interface_173:com_74, false);
+    if_setgraphic(interface_173:com_74, "rand_map_rooms_on,1");
+} else {
+    if_sethide(interface_173:com_74, true);
+}
+if (testbit(%varplayer_2194, 9) = ^true) {
+    if_sethide(interface_173:com_75, false);
+} else if (testbit(%varplayer_2194, 8) = ^true) {
+    if_sethide(interface_173:com_75, false);
+    if_setgraphic(interface_173:com_75, "rand_map_rooms_on,1");
+} else {
+    if_sethide(interface_173:com_75, true);
+}
+if (testbit(%varplayer_2194, 10) = ^true) {
+    if_sethide(interface_173:com_77, false);
+} else if (testbit(%varplayer_2194, 9) = ^true) {
+    if_sethide(interface_173:com_77, false);
+    if_setgraphic(interface_173:com_77, "rand_map_rooms_on,1");
+} else {
+    if_sethide(interface_173:com_77, true);
+}
+if (testbit(%varplayer_2194, 11) = ^true) {
+    if_sethide(interface_173:com_78, false);
+} else if (testbit(%varplayer_2194, 9) = ^true) {
+    if_sethide(interface_173:com_78, false);
+    if_setgraphic(interface_173:com_78, "rand_map_rooms_on,2");
+} else {
+    if_sethide(interface_173:com_78, true);
+}
+if (testbit(%varplayer_2194, 12) = ^true) {
+    if_sethide(interface_173:com_79, false);
+} else if (testbit(%varplayer_2194, 11) = ^true) {
+    if_sethide(interface_173:com_79, false);
+    if_setgraphic(interface_173:com_79, "rand_map_rooms_on,1");
+} else {
+    if_sethide(interface_173:com_79, true);
+}
+if (testbit(%varplayer_2194, 13) = ^true) {
+    if_sethide(interface_173:com_76, false);
+} else if (testbit(%varplayer_2194, 9) = ^true) {
+    if_sethide(interface_173:com_76, false);
+    if_setgraphic(interface_173:com_76, "rand_map_rooms_on,0");
+} else {
+    if_sethide(interface_173:com_76, true);
+}
+if (testbit(%varplayer_2194, 14) = ^true) {
+    if_sethide(interface_173:com_70, false);
+    if_sethide(interface_173:com_71, false);
+} else if (testbit(%varplayer_2194, 7) = ^true) {
+    if_sethide(interface_173:com_70, false);
+    if_setgraphic(interface_173:com_70, "rand_map_rooms_on,0");
+    if_sethide(interface_173:com_71, true);
+} else {
+    if_sethide(interface_173:com_70, true);
+    if_sethide(interface_173:com_71, true);
+}
+~clientscript_4653;

@@ -1,0 +1,12 @@
+// 6285
+[proc,clientscript_6285](int $int0)
+def_int $int1 = 0;
+if (calc(clientclock % 6) = 0 & cc_find(interface_1296:com_14, $int0) = true) {
+    $int1 = cc_gettrans;
+    if ($int1 >= 235) {
+        cc_delete;
+        if_setontimer(interface_1296:com_14, null);
+    } else {
+        cc_settrans(calc($int1 + 20));
+    }
+}

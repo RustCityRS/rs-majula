@@ -1,0 +1,10 @@
+// 6604
+[proc,clientscript_6604](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = scale(503, 765, 10000);
+if (scale($int2, $int1, 10000) < $int3) {
+    if_setsize($component0, scale(765, 503, $int2), 0, ^setsize_abs, ^setsize_minus);
+} else {
+    if_setsize($component0, 0, scale(503, 765, $int1), ^setsize_minus, ^setsize_abs);
+}

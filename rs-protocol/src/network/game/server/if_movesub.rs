@@ -19,8 +19,16 @@ pub struct IfMovesub {
 #[cfg(since_647)]
 impl ServerProtMessage for IfMovesub {
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt2(self.com2);
-        buf.p4_alt2(self.com);
+        #[cfg(before_742)]
+        {
+            buf.p4_alt2(self.com2);
+            buf.p4_alt2(self.com);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4_alt1(self.com);
+            buf.p4_alt1(self.com2);
+        }
     }
 
     fn sizeof(&self) -> usize {

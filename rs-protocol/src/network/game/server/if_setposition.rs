@@ -44,9 +44,18 @@ impl ServerProtMessage for IfSetPosition {
     // as x and y (`VarbitType`: `x = anInt5264`, `y = anInt5267`, both modes
     // 0, so the position is set outright, not offset).
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt3(self.com);
-        buf.p2_alt3(self.x);
-        buf.p2_alt3(self.y);
+        #[cfg(before_742)]
+        {
+            buf.p4_alt3(self.com);
+            buf.p2_alt3(self.x);
+            buf.p2_alt3(self.y);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4(self.com);
+            buf.p2_alt3(self.y);
+            buf.p2_alt1(self.x);
+        }
     }
 
     fn sizeof(&self) -> usize {

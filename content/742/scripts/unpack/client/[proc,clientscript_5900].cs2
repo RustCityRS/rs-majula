@@ -1,0 +1,12 @@
+// 5900
+[proc,clientscript_5900]
+switch_int (random(4)) {
+    case 0 :
+        sound_vorbis_rate(~clientscript_6712(9891));
+    case 1 :
+        sound_vorbis_rate(~clientscript_6712(14230));
+    case 2 :
+        sound_vorbis_rate(~clientscript_6712(9908));
+    case 3 :
+        sound_vorbis_rate(~clientscript_6712(9892));
+}

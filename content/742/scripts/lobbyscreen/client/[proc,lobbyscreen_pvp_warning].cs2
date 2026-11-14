@@ -1,0 +1,7 @@
+// 3092
+[proc,lobbyscreen_pvp_warning](int $int0)
+%loginscreen_pvp_warned = $int0;
+if_sethide(lobbyscreen:pvp_warning, true);
+if (%loginscreen_pvp_warned = 1) {
+    ~lobbyscreen_entergame(lobbyscreen:loginbutton);
+}

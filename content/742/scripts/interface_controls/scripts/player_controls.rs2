@@ -1,0 +1,96 @@
+// 289's controls tab (interface_controls/scripts/player_controls.rs2) is gone
+// by 2011, its buttons spread over three places (cache 786):
+// - auto retaliate (289's com_2 on, com_3 off): the combat tab's one toggle,
+//   in skill_combat/scripts/player/player_attackstyles.rs2;
+// - run (com_4 off, com_5 on): the run orb's toggle, player/scripts/run.rs2;
+// - the emotes (com_13-24, com_41-45): the emotes tab (emotes, 464), one
+//   button each, below, by its op (com2 "Yes" ... com53 "Invoke Spring").
+// [if_button,controls:com_2]
+// [if_button,controls:com_3]
+// [if_button,controls:com_4]
+// [if_button,controls:com_5]
+
+// 289's emotes on 2011's buttons. 2011's tab has more (Shrug, Jump for Joy,
+// Yawn, ...), which 289 does not: they do nothing here yet. The animations
+// are 289's (the seq ids are 2011's same; 289's emote_blow_kiss is 1374,
+// unnamed in 647's seq.pack). void-634 adds a spotanim to the blow kiss
+// (emotes.gfx.toml, 1702) that 289 does not have; no 2011 source found.
+// [if_button,controls:com_13] cry
+[if_button,emotes:emote_cry] @controls_emote(emote_cry);
+// [if_button,controls:com_14] think
+[if_button,emotes:emote_think] @controls_emote(emote_think);
+// [if_button,controls:com_15] wave
+[if_button,emotes:emote_wave] @controls_emote(emote_wave);
+// [if_button,controls:com_16] bow
+[if_button,emotes:emote_bow] @controls_emote(emote_bow);
+// [if_button,controls:com_17] angry
+[if_button,emotes:emote_angry] @controls_emote(emote_angry);
+// [if_button,controls:com_18] dance
+[if_button,emotes:emote_dance] @controls_emote(emote_dance);
+// [if_button,controls:com_19] beckon
+[if_button,emotes:emote_beckon] @controls_emote(emote_beckon);
+// [if_button,controls:com_20] yes
+[if_button,emotes:emote_yes] @controls_emote(emote_yes);
+// [if_button,controls:com_21] no
+[if_button,emotes:emote_no] @controls_emote(emote_no);
+// [if_button,controls:com_22] laugh
+[if_button,emotes:emote_laugh] @controls_emote(emote_laugh);
+// [if_button,controls:com_23] cheer
+[if_button,emotes:emote_cheer] @controls_emote(emote_cheer);
+// [if_button,controls:com_24] clap
+[if_button,emotes:emote_clap] @controls_emote(emote_clap);
+
+// The Mime's four, locked until the Mime gives them (%emote_access, varp 313,
+// which the 2011 tab redraws on: 464 com1's vartransmit_list).
+// [if_button,controls:com_41] glass wall
+[if_button,emotes:emote_glasswall]
+if(testbit(%emote_access, ^macro_mime_glass_wall) = ^false) {
+    @lockemote_mime_event;
+}
+@controls_emote(emote_glass_wall);
+
+// [if_button,controls:com_42] glass box
+[if_button,emotes:emote_glassbox]
+if(testbit(%emote_access, ^macro_mime_glass_box) = ^false) {
+    @lockemote_mime_event;
+}
+@controls_emote(emote_glass_box);
+
+// [if_button,controls:com_43] climb rope
+[if_button,emotes:emote_climbrope]
+if(testbit(%emote_access, ^macro_mime_climb_rope) = ^false) {
+    @lockemote_mime_event;
+}
+@controls_emote(emote_climbing_rope);
+
+// [if_button,controls:com_44] lean
+[if_button,emotes:emote_lean]
+if(testbit(%emote_access, ^macro_mime_lean) = ^false) {
+    @lockemote_mime_event;
+}
+@controls_emote(emote_mime_lean);
+
+// [if_button,controls:com_45] blow kiss
+[if_button,emotes:emote_blow_kiss] @controls_emote(seq_1374);
+
+[label,controls_emote](seq $anim)
+if_close;
+if (p_finduid(uid) = false) {
+    // mes("You're already doing an emote!");
+    return;
+}
+if (~inzone_coord_pair_table(trawler_wreck_zones, coord) = true) {
+    mes("You cannot perform that emote whilst swimming."); // osrs
+    return;
+}
+p_stopaction;
+anim($anim, 20);
+// p_delay(~seqlength20ms($anim));
+// 289 tells Throne of Miscellania of the emote (~misc_quest_handle_emote):
+// waits for the Throne of Miscellania port.
+// ~misc_quest_handle_emote($anim); // For throne of miscellania quest
+
+[label,lockemote_mime_event]
+if (p_finduid(uid) = true) {
+    ~mesbox("You can't use that emote yet."); // https://www.youtube.com/watch?v=Ke-iZF6aZ98&t=185s july 06 (https://www.youtube.com/watch?v=s083tB35i-8&t=80s changed late 06)
+}

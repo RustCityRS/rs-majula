@@ -207,7 +207,10 @@ pub fn pack_hunts(
                     }
                     parse_ref(&registry.loc, "loc", value, |v| {
                         server.p1(15);
+                        #[cfg(before_742)]
                         server.p2(v);
+                        #[cfg(since_742)]
+                        server.p4(v as i32);
                     });
                 }
 

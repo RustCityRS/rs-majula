@@ -21,6 +21,7 @@ use rs_protocol::network::game::client::{
     if_button5::IfButton5, if_button6::IfButton6, if_button7::IfButton7, if_button8::IfButton8,
     if_button9::IfButton9, if_button10::IfButton10,
 };
+use rs_ver::TypeId;
 #[cfg(since_647)]
 use rs_vm::engine::ScriptEngine;
 use rs_vm::state::ExecutionState;
@@ -32,7 +33,7 @@ use rs_vm::{ComId, ScriptError};
 impl ClientGameHandler for IfButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_button(self.com);
-        handle(0, self.com.into(), u16::MAX, u16::MAX, active)
+        handle(0, self.com.into(), u16::MAX, TypeId::NULL, active)
     }
 }
 
@@ -70,7 +71,7 @@ fn handle(
     op: u8,
     com: ComId,
     slot: u16,
-    obj: u16,
+    obj: TypeId,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     #[cfg(before_647)]
@@ -110,7 +111,7 @@ fn handle(
     #[cfg(since_647)]
     let inventory_click = transmitted_inv(active, com).is_some() && slot != u16::MAX;
     #[cfg(since_647)]
-    if obj != u16::MAX && active.player.state.delayed {
+    if !obj.is_null() && active.player.state.delayed {
         return Ok(());
     }
     if inventory_click && (active.player.state.delayed || !require_held(active, com, slot, obj)?) {
@@ -127,21 +128,21 @@ fn handle(
             if !held {
                 return Ok(());
             }
-        } else if obj != u16::MAX {
+        } else if !obj.is_null() {
             return Err(ScriptError::Client(format!(
                 "No inv transmit for interface with id: {com}"
             )));
         }
     }
     #[cfg(since_647)]
-    if obj != u16::MAX && engine().objs().get_by_id(obj).is_none() {
+    if !obj.is_null() && engine().objs().get_by_id(obj).is_none() {
         return Err(ScriptError::Client(format!("Unknown obj: {obj}")));
     }
 
     active.player.last_com = Some(com);
     if op != 0 {
         active.player.last_slot = (slot != u16::MAX).then_some(slot);
-        active.player.last_item = (obj != u16::MAX).then_some(obj);
+        active.player.last_item = obj.non_null();
     }
 
     let uid = active.player.uid;

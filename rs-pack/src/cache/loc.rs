@@ -1,12 +1,13 @@
-use super::decode::{read_array, read_pairs};
+use super::decode::{read_array, read_id, read_pairs};
 #[cfg(since_289)]
-use super::decode::{read_id, read_transforms};
+use super::decode::{read_big_id, read_transforms};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
 use crate::types::{ForceApproach, LocShape, MultiVar};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub type LocTypeProvider = TypeProvider<LocType>;
@@ -14,14 +15,14 @@ pub type LocTypeProvider = TypeProvider<LocType>;
 #[cfg_attr(since_647, derive(Debug, Clone, PartialEq))]
 pub struct LocModelShape {
     #[cfg(before_647)]
-    pub model: u16,
+    pub model: TypeId,
     #[cfg(since_647)]
-    pub models: Box<[u16]>,
+    pub models: Box<[TypeId]>,
     pub shape: u8,
 }
 
 pub struct LocType {
-    pub id: u16,
+    pub id: TypeId,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
     pub width: u8,
@@ -30,14 +31,24 @@ pub struct LocType {
     pub blockrange: bool,
     pub active: Option<bool>,
     pub op: Option<Box<[Option<Box<str>>]>>,
-    pub category: Option<u16>,
+    pub category: Option<TypeId>,
     pub forceapproach: ForceApproach,
     pub multivar: Option<MultiVar>,
-    pub multiloc: Option<Box<[i32]>>,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    pub multiloc: Option<Box<[TypeId]>>,
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     pub debugname: Box<str>,
     #[cfg(since_647)]
-    look: Option<Box<[u16]>>,
+    look: Option<Box<Look>>,
+}
+
+#[cfg(since_647)]
+struct Look {
+    animated: bool,
+    shapes: bool,
+    two_model_sets: bool,
+    models: Box<[LocModelShape]>,
+    recol: Box<[u16]>,
+    retex: Box<[u16]>,
 }
 
 /// What a 647 LocMerge copies from a loc type or checks on the loc it merges.
@@ -50,85 +61,69 @@ pub struct LocLook<'a> {
     pub animated: bool,
     pub shapes: bool,
     pub two_model_sets: bool,
-    models: &'a [u16],
+    models: &'a [LocModelShape],
     pub recol: &'a [u16],
     pub retex: &'a [u16],
 }
 
 #[cfg(since_647)]
 impl<'a> LocLook<'a> {
-    pub fn models(&self, shape: LocShape) -> Option<&'a [u16]> {
-        let mut rest = self.models;
-        while let [group_shape, count, tail @ ..] = rest {
-            let (models, next) = tail.split_at(*count as usize);
-            if *group_shape == shape as u16 {
-                return Some(models);
-            }
-            rest = next;
-        }
-        None
+    pub fn models(&self, shape: LocShape) -> Option<&'a [TypeId]> {
+        self.models
+            .iter()
+            .find(|group| group.shape == shape as u8)
+            .map(|group| &*group.models)
     }
 }
 
 impl LocType {
     #[cfg(since_647)]
     pub fn look(&self) -> LocLook<'_> {
-        let Some(&[flags, models, recols, ref rest @ ..]) = self.look.as_deref() else {
+        let Some(look) = self.look.as_deref() else {
             return LocLook::default();
         };
-        let (models, rest) = rest.split_at(models as usize);
-        let (recol, retex) = rest.split_at(recols as usize);
         LocLook {
-            animated: flags & 1 != 0,
-            shapes: flags & 4 != 0,
-            two_model_sets: flags & 2 != 0,
-            models,
-            recol,
-            retex,
+            animated: look.animated,
+            shapes: look.shapes,
+            two_model_sets: look.two_model_sets,
+            models: &look.models,
+            recol: &look.recol,
+            retex: &look.retex,
         }
     }
 
-    pub fn multi_loc(&self, var_value: i32) -> Option<u16> {
+    pub fn multi_loc(&self, var_value: i32) -> Option<TypeId> {
         let Some(multi) = self.multiloc.as_deref() else {
             return Some(self.id);
         };
         multi
             .get(var_value as usize)
             .copied()
-            .filter(|&id| id != -1)
+            .filter(|id| !id.is_null())
             .or_else(|| multi.last().copied())
-            .and_then(|id| u16::try_from(id).ok())
+            .and_then(TypeId::non_null)
     }
 }
 
-/// Packs [`LocLook`] as `[flags, models len, recols, (shape, count,
-/// models..).., recol_d.., retex_d..]`.
 #[cfg(since_647)]
-fn pack_look(raw: &LocTypeRaw) -> Option<Box<[u16]>> {
+fn pack_look(raw: &LocTypeRaw) -> Option<Box<Look>> {
     let animated =
         raw.anim.is_some() || raw.random_anim_ids.is_some() || raw.hasparticles || raw.unknown_177;
     let two_model_sets = raw.hd_models.is_some() && raw.hd_models != raw.models;
-    let flags = animated as u16 | (two_model_sets as u16) << 1 | (raw.models.is_some() as u16) << 2;
-    let models: Vec<u16> = raw
-        .models
-        .iter()
-        .flatten()
-        .flat_map(|group| {
-            [group.shape as u16, group.models.len() as u16]
-                .into_iter()
-                .chain(group.models.iter().copied())
-        })
-        .collect();
-    let recol = raw.recol_d.as_deref().unwrap_or_default();
-    let retex = raw.retex_d.as_deref().unwrap_or_default();
-    if flags == 0 && recol.is_empty() && retex.is_empty() {
+    let recol = raw.recol_d.clone().unwrap_or_default();
+    let retex = raw.retex_d.clone().unwrap_or_default();
+    if !animated && !two_model_sets && raw.models.is_none() && recol.is_empty() && retex.is_empty()
+    {
         return None;
     }
-    let mut look = vec![flags, models.len() as u16, recol.len() as u16];
-    look.extend(models);
-    look.extend_from_slice(recol);
-    look.extend_from_slice(retex);
-    Some(look.into_boxed_slice())
+    Some(Box::new(Look {
+        animated,
+        shapes: raw.models.is_some(),
+        two_model_sets,
+        models: raw.models.clone().unwrap_or_default(),
+        recol,
+        retex,
+    }))
 }
 
 impl From<LocTypeRaw> for LocType {
@@ -174,7 +169,7 @@ impl From<LocTypeRaw> for LocType {
 
 #[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct LocTypeRaw {
-    pub id: u16,
+    pub id: TypeId,
     pub models: Option<Box<[LocModelShape]>>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
@@ -190,7 +185,7 @@ pub struct LocTypeRaw {
     pub hillskew: u8,
     pub sharelight: bool,
     pub occlude: bool,
-    pub anim: Option<u16>,
+    pub anim: Option<TypeId>,
     pub hasalpha: bool,
     pub wallwidth: u8,
     pub ambient: i8,
@@ -204,8 +199,12 @@ pub struct LocTypeRaw {
     pub retex_d: Option<Box<[u16]>>,
     #[cfg(since_647)]
     pub recol_palette: Option<Box<[i8]>>,
-    pub mapfunction: Option<u16>,
-    pub category: Option<u16>,
+    #[cfg(since_742)]
+    pub recolindices: Option<u16>,
+    #[cfg(since_742)]
+    pub retexindices: Option<u16>,
+    pub mapfunction: Option<TypeId>,
+    pub category: Option<TypeId>,
     pub mirror: bool,
     pub shadow: bool,
     pub resizex: u16,
@@ -221,11 +220,11 @@ pub struct LocTypeRaw {
     pub breakroutefinding: bool,
     #[cfg(since_254)]
     pub raiseobject: Option<u8>,
-    pub transform_varbit: i32,
-    pub transform_varp: i32,
-    pub multiloc: Option<Box<[i32]>>,
+    pub transform_varbit: TypeId,
+    pub transform_varp: TypeId,
+    pub multiloc: Option<Box<[TypeId]>>,
     #[cfg(since_647)]
-    pub ambient_sfx_id: Option<u16>,
+    pub ambient_sfx_id: Option<TypeId>,
     #[cfg(since_647)]
     pub ambient_sfx_range: u8,
     #[cfg(since_647)]
@@ -233,7 +232,7 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub sfx_random_sec: i32,
     #[cfg(since_647)]
-    pub sfx_random_ids: Option<Box<[u16]>>,
+    pub sfx_random_ids: Option<Box<[TypeId]>>,
     #[cfg(since_647)]
     pub hillskew_param: Option<i32>,
     #[cfg(since_647)]
@@ -250,26 +249,26 @@ pub struct LocTypeRaw {
     pub msirotate: bool,
     #[cfg(since_647)]
     pub hasparticles: bool,
+    #[cfg(all(since_647, before_742))]
+    pub cursor_op1: Option<(u8, TypeId)>,
+    #[cfg(all(since_647, before_742))]
+    pub cursor_op2: Option<(u8, TypeId)>,
     #[cfg(since_647)]
-    pub cursor_op1: Option<(u8, u16)>,
-    #[cfg(since_647)]
-    pub cursor_op2: Option<(u8, u16)>,
-    #[cfg(since_647)]
-    pub msi_id: Option<u16>,
+    pub msi_id: Option<TypeId>,
     #[cfg(since_647)]
     pub interaction_side_flags: u8,
     #[cfg(since_647)]
     pub msimirror: bool,
     #[cfg(since_647)]
-    pub random_anim_ids: Option<Box<[u16]>>,
+    pub random_anim_ids: Option<Box<[TypeId]>>,
     #[cfg(since_647)]
     pub random_anim_weights: Option<Box<[u8]>>,
     #[cfg(since_647)]
-    pub map_element: Option<u16>,
+    pub map_element: Option<TypeId>,
     #[cfg(since_647)]
     pub members_op: [Option<Box<str>>; 5],
     #[cfg(since_647)]
-    pub quest_ids: Option<Box<[u16]>>,
+    pub quest_ids: Option<Box<[TypeId]>>,
     #[cfg(since_647)]
     pub tint: [i8; 4],
     #[cfg(since_647)]
@@ -294,14 +293,18 @@ pub struct LocTypeRaw {
     pub unknown_177: bool,
     #[cfg(since_647)]
     pub op178: u8,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    #[cfg(since_742)]
+    pub antimacro: bool,
+    #[cfg(since_742)]
+    pub cursor: [Option<TypeId>; 6],
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     debugname: Box<str>,
 }
 
 impl CacheType for LocTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         LocTypeRaw {
             id,
             models: None,
@@ -333,6 +336,10 @@ impl CacheType for LocTypeRaw {
             retex_d: None,
             #[cfg(since_647)]
             recol_palette: None,
+            #[cfg(since_742)]
+            recolindices: None,
+            #[cfg(since_742)]
+            retexindices: None,
             mapfunction: None,
             category: None,
             mirror: false,
@@ -350,8 +357,8 @@ impl CacheType for LocTypeRaw {
             breakroutefinding: false,
             #[cfg(since_254)]
             raiseobject: None,
-            transform_varbit: -1,
-            transform_varp: -1,
+            transform_varbit: TypeId::NULL,
+            transform_varp: TypeId::NULL,
             multiloc: None,
             #[cfg(since_647)]
             ambient_sfx_id: None,
@@ -379,9 +386,9 @@ impl CacheType for LocTypeRaw {
             msirotate: false,
             #[cfg(since_647)]
             hasparticles: false,
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             cursor_op1: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_647, before_742))]
             cursor_op2: None,
             #[cfg(since_647)]
             msi_id: None,
@@ -423,6 +430,10 @@ impl CacheType for LocTypeRaw {
             unknown_177: false,
             #[cfg(since_647)]
             op178: 0,
+            #[cfg(since_742)]
+            antimacro: false,
+            #[cfg(since_742)]
+            cursor: [None; 6],
             params: None,
             debugname: Box::default(),
         }
@@ -462,10 +473,13 @@ impl CacheType for LocTypeRaw {
             21 => self.hillskew = 1,
             22 => self.sharelight = true,
             23 => self.occlude = true,
+            #[cfg(before_742)]
             24 => {
-                let anim = buf.g2();
-                self.anim = (cfg!(before_647) || anim != u16::MAX).then_some(anim);
+                let anim = read_id(buf);
+                self.anim = (cfg!(before_647) || !anim.is_null()).then_some(anim);
             }
+            #[cfg(since_742)]
+            24 => self.anim = read_big_id(buf).non_null(),
             25 => self.hasalpha = true,
             #[cfg(since_647)]
             27 => self.interact_type = 1,
@@ -483,9 +497,13 @@ impl CacheType for LocTypeRaw {
             41 => read_pairs(buf, &mut self.retex_s, &mut self.retex_d),
             #[cfg(since_647)]
             42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
+            #[cfg(since_742)]
+            44 => self.recolindices = Some(buf.g2()),
+            #[cfg(since_742)]
+            45 => self.retexindices = Some(buf.g2()),
             #[cfg(before_647)]
-            60 => self.mapfunction = Some(buf.g2()),
-            61 => self.category = Some(buf.g2()),
+            60 => self.mapfunction = Some(read_id(buf)),
+            61 => self.category = Some(read_id(buf)),
             62 => self.mirror = true,
             64 => self.shadow = false,
             65 => self.resizex = buf.g2(),
@@ -506,7 +524,7 @@ impl CacheType for LocTypeRaw {
             77 => self.decode_multiloc(buf, false),
             #[cfg(since_647)]
             78 => {
-                self.ambient_sfx_id = Some(buf.g2());
+                self.ambient_sfx_id = Some(read_id(buf));
                 self.ambient_sfx_range = buf.g1();
             }
             #[cfg(since_647)]
@@ -514,7 +532,7 @@ impl CacheType for LocTypeRaw {
                 self.sfx_random_pri = buf.g2() as i32;
                 self.sfx_random_sec = buf.g2() as i32;
                 self.ambient_sfx_range = buf.g1();
-                self.sfx_random_ids = Some(read_array(buf, Packet::g2));
+                self.sfx_random_ids = Some(read_array(buf, read_id));
             }
             #[cfg(since_647)]
             81 => {
@@ -550,14 +568,14 @@ impl CacheType for LocTypeRaw {
             97 => self.msirotate = true,
             #[cfg(since_647)]
             98 => self.hasparticles = true,
+            #[cfg(all(since_647, before_742))]
+            99 => self.cursor_op1 = Some((buf.g1(), read_id(buf))),
+            #[cfg(all(since_647, before_742))]
+            100 => self.cursor_op2 = Some((buf.g1(), read_id(buf))),
             #[cfg(since_647)]
-            99 => self.cursor_op1 = Some((buf.g1(), buf.g2())),
+            101 => self.mapfunction = Some(TypeId::new(buf.g1().into())),
             #[cfg(since_647)]
-            100 => self.cursor_op2 = Some((buf.g1(), buf.g2())),
-            #[cfg(since_647)]
-            101 => self.mapfunction = Some(buf.g1() as u16),
-            #[cfg(since_647)]
-            102 => self.msi_id = Some(buf.g2()),
+            102 => self.msi_id = Some(read_id(buf)),
             #[cfg(since_647)]
             103 => self.occlude = false,
             #[cfg(since_647)]
@@ -570,14 +588,14 @@ impl CacheType for LocTypeRaw {
                 let mut ids = Vec::with_capacity(count);
                 let mut weights = Vec::with_capacity(count);
                 for _ in 0..count {
-                    ids.push(buf.g2());
+                    ids.push(read_big_id(buf));
                     weights.push(buf.g1());
                 }
                 self.random_anim_ids = Some(ids.into_boxed_slice());
                 self.random_anim_weights = Some(weights.into_boxed_slice());
             }
             #[cfg(since_647)]
-            107 => self.map_element = Some(buf.g2()),
+            107 => self.map_element = Some(read_id(buf)),
             #[cfg(since_647)]
             150..=154 => {
                 let slot = (code - 150) as usize;
@@ -589,7 +607,7 @@ impl CacheType for LocTypeRaw {
                 };
             }
             #[cfg(since_647)]
-            160 => self.quest_ids = Some(read_array(buf, Packet::g2)),
+            160 => self.quest_ids = Some(read_array(buf, read_id)),
             #[cfg(since_647)]
             162 => {
                 self.hillskew = 3;
@@ -620,6 +638,10 @@ impl CacheType for LocTypeRaw {
             177 => self.unknown_177 = true,
             #[cfg(since_647)]
             178 => self.op178 = buf.g1(),
+            #[cfg(since_742)]
+            189 => self.antimacro = true,
+            #[cfg(since_742)]
+            190..=195 => self.cursor[code as usize - 190] = Some(read_id(buf)),
             249 => {
                 ParamType::decode_params(
                     buf,
@@ -665,8 +687,12 @@ impl LocTypeRaw {
         if cfg!(since_647) {
             self.transform_varp = read_id(buf);
         }
-        let default = if has_default { read_id(buf) } else { -1 };
-        self.multiloc = Some(read_transforms(buf, default));
+        let default = if has_default {
+            read_big_id(buf)
+        } else {
+            TypeId::NULL
+        };
+        self.multiloc = Some(read_transforms(buf, default, read_big_id));
     }
 }
 
@@ -677,13 +703,17 @@ mod multiloc_tests {
     /// 2011's Mill Lane flour bin (36880): on varp 695, 0 the empty bin
     /// (36879), 1-30 the full one (36878); its default is none.
     fn flour_bin() -> LocType {
-        let mut multi = vec![36879, 36878, 36878, 36878];
-        multi.push(-1);
-        LocType::from(LocTypeRaw::new(36880)).with_multi(MultiVar::Varp(695), multi)
+        let multi = [36879, 36878, 36878, 36878]
+            .map(TypeId::new)
+            .into_iter()
+            .chain([TypeId::NULL])
+            .collect();
+        LocType::from(LocTypeRaw::new(TypeId::new(36880)))
+            .with_multi(MultiVar::Varp(TypeId::new(695)), multi)
     }
 
     impl LocType {
-        fn with_multi(mut self, var: MultiVar, multi: Vec<i32>) -> Self {
+        fn with_multi(mut self, var: MultiVar, multi: Vec<TypeId>) -> Self {
             self.multivar = Some(var);
             self.multiloc = Some(multi.into_boxed_slice());
             self
@@ -693,9 +723,9 @@ mod multiloc_tests {
     #[test]
     fn a_multiloc_is_the_loc_its_var_picks() {
         let bin = flour_bin();
-        assert_eq!(bin.multi_loc(0), Some(36879), "empty");
-        assert_eq!(bin.multi_loc(1), Some(36878), "full");
-        assert_eq!(bin.multi_loc(3), Some(36878), "full");
+        assert_eq!(bin.multi_loc(0), Some(TypeId::new(36879)), "empty");
+        assert_eq!(bin.multi_loc(1), Some(TypeId::new(36878)), "full");
+        assert_eq!(bin.multi_loc(3), Some(TypeId::new(36878)), "full");
     }
 
     /// Out of range, or -1, the client takes the default: none here.
@@ -708,15 +738,15 @@ mod multiloc_tests {
 
     #[test]
     fn a_loc_that_is_no_multiloc_is_itself() {
-        let loc = LocType::from(LocTypeRaw::new(2718));
-        assert_eq!(loc.multi_loc(7), Some(2718));
+        let loc = LocType::from(LocTypeRaw::new(TypeId::new(2718)));
+        assert_eq!(loc.multi_loc(7), Some(TypeId::new(2718)));
     }
 }
 
 fn read_models(buf: &mut Packet, _code: u8) -> Box<[LocModelShape]> {
     read_array(buf, |buf| {
         #[cfg(before_647)]
-        let model = buf.g2();
+        let model = read_id(buf);
         #[cfg(before_647)]
         let shape = if _code == 1 {
             buf.g1()
@@ -726,7 +756,7 @@ fn read_models(buf: &mut Packet, _code: u8) -> Box<[LocModelShape]> {
         #[cfg(since_647)]
         let shape = buf.g1();
         #[cfg(since_647)]
-        let models = read_array(buf, Packet::g2);
+        let models = read_array(buf, read_big_id);
         LocModelShape {
             #[cfg(before_647)]
             model,

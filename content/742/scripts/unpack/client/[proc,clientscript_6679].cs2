@@ -1,0 +1,7 @@
+// 6679
+[proc,clientscript_6679]()(int)
+if (%varplayer_2526 = %varplayer_2527 & playermember = true) {
+    return(1);
+} else {
+    return(0);
+}

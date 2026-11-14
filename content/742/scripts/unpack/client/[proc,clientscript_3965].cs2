@@ -1,0 +1,11 @@
+// 3965
+[proc,clientscript_3965](component $component0)
+if ((%varclient_1885 < 5 | %varclient_1885 > 9) & if_gettrans($component0) ! 255) {
+    if_settrans($component0, 255);
+    if_sethide(interface_1050:com_1, true);
+    if_sethide(interface_1050:com_2, true);
+} else if (%varclient_1885 > 4 & %varclient_1885 < 10 & if_gettrans($component0) ! 0) {
+    if_settrans($component0, 0);
+    if_sethide(interface_1050:com_1, false);
+    if_sethide(interface_1050:com_2, false);
+}

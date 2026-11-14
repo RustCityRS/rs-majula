@@ -18,7 +18,10 @@ pub struct IfClosesub {
 #[cfg(since_647)]
 impl ServerProtMessage for IfClosesub {
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
         buf.p4_alt3(self.com);
+        #[cfg(since_742)]
+        buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {

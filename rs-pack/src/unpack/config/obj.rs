@@ -4,25 +4,23 @@ use super::UnpackedPacks;
 #[cfg(since_647)]
 use super::emit_params;
 use crate::cache::obj::ObjTypeRaw;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
-fn model_name(registry: &UnpackedPacks, id: u16) -> String {
-    registry
-        .config_name("model", id as u32)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| format!("model_{id}"))
+fn model_name(registry: &UnpackedPacks, id: TypeId) -> String {
+    super::bigid_name(registry, "model", id)
 }
 
-fn obj_name(registry: &UnpackedPacks, id: u16) -> String {
-    if let Some(name) = registry.config_name("obj", id as u32) {
+fn obj_name(registry: &UnpackedPacks, id: TypeId) -> String {
+    if let Some(name) = registry.config_name("obj", id.raw()) {
         #[cfg(before_647)]
         return name.to_string();
         #[cfg(since_647)]
-        if registry.config_id("obj", name) == Some(id as u32) {
+        if registry.config_id("obj", name) == Some(id.raw()) {
             return name.to_string();
         }
     }
-    format!("obj_{id}")
+    format!("obj_{}", id.raw())
 }
 
 pub fn emit_obj_props(
@@ -62,7 +60,11 @@ pub fn emit_obj_props(
             p.push((9, "code9".into(), "yes".into()));
         }
         if let Some(seq) = def.code10 {
-            p.push((10, "code10".into(), super::seq_ref(seq, registry)));
+            p.push((
+                10,
+                "code10".into(),
+                super::seq_ref(TypeId::from_g2(seq), registry),
+            ));
         }
     }
     if opcode == 1 {
@@ -95,13 +97,25 @@ pub fn emit_obj_props(
     if def.members {
         p.push((16, "members".into(), "yes".into()));
     }
+    #[cfg(since_742)]
+    for (code, key, pos) in [
+        (13, "wearpos", def.wearpos),
+        (14, "wearpos2", def.wearpos2),
+        (27, "wearpos3", def.wearpos3),
+    ] {
+        if opcode == code
+            && let Some(pos) = pos
+        {
+            p.push((code, key.into(), pos.config_str().into()));
+        }
+    }
     #[cfg(since_647)]
     if let Some(multistack) = def.multistack {
         p.push((18, "multistack".into(), obj_name(registry, multistack)));
     }
     if opcode == 23 {
         p.push((23, "manwear".into(), {
-            let name = model_name(registry, def.manwear.unwrap_or(0));
+            let name = model_name(registry, def.manwear.unwrap_or_default());
             #[cfg(before_647)]
             let name = format!("{name},{}", def.manweary as u8);
             name
@@ -111,12 +125,12 @@ pub fn emit_obj_props(
         p.push((
             24,
             "manwear2".into(),
-            model_name(registry, def.manwear2.unwrap_or(0)),
+            model_name(registry, def.manwear2.unwrap_or_default()),
         ));
     }
     if opcode == 25 {
         p.push((25, "womanwear".into(), {
-            let name = model_name(registry, def.womanwear.unwrap_or(0));
+            let name = model_name(registry, def.womanwear.unwrap_or_default());
             #[cfg(before_647)]
             let name = format!("{name},{}", def.womanweary as u8);
             name
@@ -126,7 +140,7 @@ pub fn emit_obj_props(
         p.push((
             26,
             "womanwear2".into(),
-            model_name(registry, def.womanwear2.unwrap_or(0)),
+            model_name(registry, def.womanwear2.unwrap_or_default()),
         ));
     }
     for (slot, opt) in def.op.as_deref().unwrap_or_default().iter().enumerate() {
@@ -185,6 +199,18 @@ pub fn emit_obj_props(
             p.push((42, format!("recolpalette{}", i + 1), b.to_string()));
         }
     }
+    #[cfg(since_742)]
+    if let Some(colour) = def.minimenucolour {
+        p.push((43, "minimenucolour".into(), super::format_colour(colour)));
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.recolindices {
+        p.push((44, "recolindices".into(), super::mask_indices(mask)));
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.retexindices {
+        p.push((45, "retexindices".into(), super::mask_indices(mask)));
+    }
     #[cfg(since_647)]
     if def.stockmarket {
         p.push((65, "stockmarket".into(), "yes".into()));
@@ -193,42 +219,42 @@ pub fn emit_obj_props(
         p.push((
             78,
             "manwear3".into(),
-            model_name(registry, def.manwear3.unwrap_or(0)),
+            model_name(registry, def.manwear3.unwrap_or_default()),
         ));
     }
     if opcode == 79 {
         p.push((
             79,
             "womanwear3".into(),
-            model_name(registry, def.womanwear3.unwrap_or(0)),
+            model_name(registry, def.womanwear3.unwrap_or_default()),
         ));
     }
     if opcode == 90 {
         p.push((
             90,
             "manhead".into(),
-            model_name(registry, def.manhead.unwrap_or(0)),
+            model_name(registry, def.manhead.unwrap_or_default()),
         ));
     }
     if opcode == 91 {
         p.push((
             91,
             "womanhead".into(),
-            model_name(registry, def.womanhead.unwrap_or(0)),
+            model_name(registry, def.womanhead.unwrap_or_default()),
         ));
     }
     if opcode == 92 {
         p.push((
             92,
             "manhead2".into(),
-            model_name(registry, def.manhead2.unwrap_or(0)),
+            model_name(registry, def.manhead2.unwrap_or_default()),
         ));
     }
     if opcode == 93 {
         p.push((
             93,
             "womanhead2".into(),
-            model_name(registry, def.womanhead2.unwrap_or(0)),
+            model_name(registry, def.womanhead2.unwrap_or_default()),
         ));
     }
     if opcode == 95 {
@@ -241,14 +267,14 @@ pub fn emit_obj_props(
         p.push((
             97,
             "certlink".into(),
-            obj_name(registry, def.certlink.unwrap_or(0)),
+            obj_name(registry, def.certlink.unwrap_or_default()),
         ));
     }
     if opcode == 98 {
         p.push((
             98,
             "certtemplate".into(),
-            obj_name(registry, def.certtemplate.unwrap_or(0)),
+            obj_name(registry, def.certtemplate.unwrap_or_default()),
         ));
     }
     if let (Some(countobj), Some(countco)) = (&def.countobj, &def.countco) {
@@ -326,7 +352,7 @@ pub fn emit_obj_props(
             ),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let Some((a, b)) = def.cursor1 {
         p.push((
             127,
@@ -334,7 +360,7 @@ pub fn emit_obj_props(
             format!("{},{}", a + 1, registry.reference("cursor", b)),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let Some((a, b)) = def.cursor2 {
         p.push((
             128,
@@ -342,7 +368,7 @@ pub fn emit_obj_props(
             format!("{},{}", a + 1, registry.reference("cursor", b)),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let Some((a, b)) = def.icursor1 {
         p.push((
             129,
@@ -350,7 +376,7 @@ pub fn emit_obj_props(
             format!("{},{}", a + 1, registry.reference("cursor", b)),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let Some((a, b)) = def.icursor2 {
         p.push((
             130,
@@ -379,6 +405,26 @@ pub fn emit_obj_props(
             "boughttemplate".into(),
             obj_name(registry, boughttemplate),
         ));
+    }
+    #[cfg(since_742)]
+    for (i, cursor) in def.cursor.iter().enumerate() {
+        if let Some(cursor) = cursor {
+            p.push((
+                142 + i as u8,
+                format!("cursor{}", i + 1),
+                registry.reference("cursor", *cursor),
+            ));
+        }
+    }
+    #[cfg(since_742)]
+    for (i, cursor) in def.icursor.iter().enumerate() {
+        if let Some(cursor) = cursor {
+            p.push((
+                150 + i as u8,
+                format!("icursor{}", i + 1),
+                registry.reference("cursor", *cursor),
+            ));
+        }
     }
     #[cfg(since_647)]
     if opcode == 249 {

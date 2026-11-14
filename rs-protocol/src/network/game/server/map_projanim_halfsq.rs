@@ -8,6 +8,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
+use rs_ver::TypeId;
 
 #[cfg(since_647)]
 #[server_prot(MapProjAnimHalfsq, Immediate, Fixed)]
@@ -20,13 +21,15 @@ pub struct MapProjAnimHalfsq {
     pub dz: i8,
     pub source: i16,
     pub target: i16,
-    pub spotanim: u16,
+    pub spotanim: TypeId,
     pub src_height: u8,
     pub dst_height: u8,
     pub start_delay: u16,
     pub end_delay: u16,
     pub peak: u8,
     pub arc: u16,
+    #[cfg(since_742)]
+    pub trailing: i16,
 }
 
 #[cfg(since_647)]
@@ -38,28 +41,33 @@ impl ServerProtMessage for MapProjAnimHalfsq {
         buf.p1(self.dz as u8);
         buf.p2(self.source as u16);
         buf.p2(self.target as u16);
-        buf.p2(self.spotanim);
+        buf.p2(self.spotanim.g2());
         buf.p1(self.src_height);
         buf.p1(self.dst_height);
         buf.p2(self.start_delay);
         buf.p2(self.end_delay);
         buf.p1(self.peak);
         buf.p2(self.arc);
+        #[cfg(since_742)]
+        buf.p2(self.trailing as u16);
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.coord)
+        let size = size_of_val(&self.coord)
             + 1 // ground, wearpos
             + size_of_val(&self.dx)
             + size_of_val(&self.dz)
             + size_of_val(&self.source)
             + size_of_val(&self.target)
-            + size_of_val(&self.spotanim)
+            + size_of::<u16>()
             + size_of_val(&self.src_height)
             + size_of_val(&self.dst_height)
             + size_of_val(&self.start_delay)
             + size_of_val(&self.end_delay)
             + size_of_val(&self.peak)
-            + size_of_val(&self.arc)
+            + size_of_val(&self.arc);
+        #[cfg(since_742)]
+        let size = size + size_of_val(&self.trailing);
+        size
     }
 }

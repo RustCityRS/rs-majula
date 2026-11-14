@@ -34,7 +34,8 @@ impl ServerProtMessage for MessagePrivate<'_> {
 }
 
 #[cfg(since_647)]
-#[server_prot(MessagePrivate, Immediate, VarByte)]
+#[cfg_attr(before_742, server_prot(MessagePrivate, Immediate, VarByte))]
+#[cfg_attr(since_742, server_prot(MessagePrivate, Immediate, VarShort))]
 pub struct MessagePrivate {
     pub sender: String,
     pub display_name: Option<String>,

@@ -42,6 +42,8 @@ pub mod r#enum;
 pub mod flo;
 #[cfg(since_647)]
 pub mod flu;
+#[cfg(since_742)]
+pub mod headbar;
 #[cfg(since_647)]
 pub mod hitmark;
 pub mod hunt;
@@ -71,6 +73,8 @@ pub mod quickchatcat;
 #[cfg(since_647)]
 pub mod quickchatphrase;
 pub mod seq;
+#[cfg(since_742)]
+pub mod skybox;
 pub mod spotanim;
 pub mod r#struct;
 #[cfg(since_254)]
@@ -212,7 +216,6 @@ fn read_config_entries<'a>(
     Ok(PackedData::entries(&client.dat, &client.idx)
         .with_context(|| format!("Reading {name} configs"))?
         .filter(|(_, data)| !data.is_empty())
-        .map(|(id, data)| (id as u32, data))
         .collect())
 }
 

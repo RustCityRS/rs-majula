@@ -104,8 +104,7 @@ PNG previews or `manifest.json` files in `content/647`.
 
 | Folder | Editable source |
 |---|---|
-| `animations`, `skeletons` | `.anim` frames and `.base` bone transforms, masks and labels |
-| `models` | `.model` vertex coordinates, triangle indices, colours, named materials, texture mappings and particle attachments |
+| `animations`, `skeletons`, `models`, `vorbis` | `.anim`, `.base`, `.ob2` and `.vorbis` groups: the cache's raw bytes, decompressed |
 | `interfaces` | `.if3` components by position, named asset references and hooks written as script calls (`onop=closebutton_click`, `onmouseover=graphic_swapper(event_com, "name,1")`) |
 | `maps` | `.jm2` terrain, named loc placements and server spawns, using the existing map text layout |
 | `sprites`, `loading_sprites`, `loading_sprites_raw` | Indexed `.tga` sheets with `.sprite` frame metadata; `.alpha.tga` masks where needed; original JPEGs |
@@ -113,7 +112,6 @@ PNG previews or `manifest.json` files in `content/647`.
 | `scripts` (recursive) | `.rs2` server source, `.cs2` client source, `.gs2` procedures compiled for both targets, configs and constants |
 | `synth`, `instruments` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
 | `songs`, `jingles` | Standard `.mid` files |
-| `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
 | `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
 | `defaults` | `graphics.defaults`, `unknown1.defaults` and `wearpos.defaults` named properties |
 | `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
@@ -153,12 +151,6 @@ Each square file contains the original 64-by-64 square or its 8-by-8 chunks. Kee
 listed order: a square revisited later uses a numbered part such as `m50_50_2.fms`.
 The area palette stays in `.fm`. Packing reads one square at a time and combines
 its bytes into the original cache entry. Inline square data is also accepted.
-
-For example, a model vertex is `vertex0=-40,-10,-16`, a triangle is
-`face0.vertices=0,1,2`, and a material is `face0.material=texture_12`. Texture mappings
-have their own properties such as `mapping0.type=cylindrical`. Coordinate deltas, stream
-lengths and triangle compression are derived during packing. Rare explicit `.encoding`
-properties preserve original compression choices; geometry edits still regenerate valid data.
 
 Sprite sheets preserve palette indices, including distinct entries with identical colours.
 Keep the indexed palette when editing a TGA. `.sprite` records the original canvas and each
@@ -237,12 +229,7 @@ limit (4096 by default). Regeneration removes obsolete generated files when thei
 names or paths change. Scripts without a recovered name keep their numeric fallback
 in `scripts/unpack/client`.
 
-Vorbis packets are wrapped in Ogg without audio re-encoding. Edit playback rate, sample
-count and loop points in `.sample`. The client shares one codebook/setup across every
-sample, so replacing an Ogg requires the same setup and block sizes. Packing rejects
-incompatible Oggs and invalid page CRCs. Changing the shared setup requires updating the
-audio consistently. Instrument references explicitly distinguish `vorbis:name,loop` from
-`synth:name,once`.
+Instrument references explicitly distinguish `vorbis:name,loop` from `synth:name,once`.
 
 Native libraries remain compiled binaries. The 34 landscape groups with no available XTEA
 keys remain encrypted `.js5` containers under `maps/encrypted`, named by map square; their

@@ -1,0 +1,14 @@
+// 6682
+[proc,clientscript_6682](component $component0, int $int1)
+def_int $int2 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int2 = max(calc(cc_gettrans - 15), 0);
+    cc_settrans($int2);
+    if (.cc_find($component0, calc($int1 + 1)) = true) {
+        .cc_settrans($int2);
+    }
+    if (.cc_find($component0, calc($int1 + 2)) = true) {
+        .cc_settrans($int2);
+    }
+}
+if_setontimer($component0, "clientscript_6683(event_com, $int1, calc(clientclock + 1))");

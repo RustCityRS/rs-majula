@@ -1,0 +1,26 @@
+// 4901
+[proc,clientscript_4901]
+def_graphic $graphic0 = null;
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+def_int $int4 = 1;
+if (op718 = 1) {
+    $int4 = %varclan_2580;
+    $graphic0 = ~clientscript_4904(0, 0, $int4);
+    if ($graphic0 ! null) {
+        if_setgraphic(interface_1259:com_24, $graphic0);
+    }
+    $graphic1 = ~clientscript_4904(0, 1, $int4);
+    if ($graphic1 ! null) {
+        if_setgraphic(interface_1259:com_23, $graphic1);
+    }
+    $graphic2 = ~clientscript_4904(0, 2, $int4);
+    if ($graphic2 ! null) {
+        if_setgraphic(interface_1259:com_22, $graphic2);
+    }
+    $graphic3 = ~clientscript_4904(0, 3, $int4);
+    if ($graphic3 ! null) {
+        if_setgraphic(interface_1259:com_21, $graphic3);
+    }
+}

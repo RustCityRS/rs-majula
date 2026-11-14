@@ -1,0 +1,17 @@
+// 6195
+[proc,clientscript_6195]
+def_int $int0 = 0;
+if_setonkey(chatdefault:input, null);
+if (%varclient_1920 = 1) {
+    if_setonkey(lobbyscreen:com_361, "clientscript_6196(event_keycode, event_keychar, event_com, $int0)");
+    %varclient_1921 = 0;
+    if_setonclick(lobbyscreen:com_361, "clientscript_6197(event_mousex, event_mousey, lobbyscreen:com_361, lobbyscreen:com_362)");
+    ~clientscript_6199(lobbyscreen:com_361, lobbyscreen:com_362, "");
+    if_sethide(lobbyscreen:com_362, true);
+} else if (%varclient_1920 = 2) {
+    if_setonkey(lobbyscreen:com_368, "clientscript_6196(event_keycode, event_keychar, event_com, $int0)");
+    %varclient_1922 = 0;
+    if_setonclick(lobbyscreen:com_368, "clientscript_6197(event_mousex, event_mousey, lobbyscreen:com_368, lobbyscreen:com_369)");
+    ~clientscript_6199(lobbyscreen:com_368, lobbyscreen:com_369, "");
+    if_sethide(lobbyscreen:com_369, true);
+}

@@ -1,13 +1,15 @@
+use super::decode::read_big_id;
 #[cfg(since_647)]
 use super::decode::read_pairs;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type SpotAnimTypeProvider = TypeProvider<SpotAnimType>;
 
 pub struct SpotAnimType {
-    pub id: u16,
+    pub id: TypeId,
 }
 
 impl From<SpotAnimTypeRaw> for SpotAnimType {
@@ -17,9 +19,9 @@ impl From<SpotAnimTypeRaw> for SpotAnimType {
 }
 
 pub struct SpotAnimTypeRaw {
-    pub id: u16,
-    pub model: u16,
-    pub anim: Option<u16>,
+    pub id: TypeId,
+    pub model: TypeId,
+    pub anim: Option<TypeId>,
     pub hasalpha: bool,
     pub resizeh: u16,
     pub resizev: u16,
@@ -38,16 +40,20 @@ pub struct SpotAnimTypeRaw {
     pub retex_d: Option<Box<[u16]>>,
     #[cfg(since_647)]
     pub retex_s: Option<Box<[u16]>>,
+    #[cfg(since_742)]
+    pub recolindices: Option<u16>,
+    #[cfg(since_742)]
+    pub retexindices: Option<u16>,
     debugname: Box<str>,
 }
 
 impl CacheType for SpotAnimTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         SpotAnimTypeRaw {
             id,
-            model: 0,
+            model: TypeId::default(),
             anim: None,
             hasalpha: false,
             resizeh: 128,
@@ -67,14 +73,18 @@ impl CacheType for SpotAnimTypeRaw {
             retex_d: None,
             #[cfg(since_647)]
             retex_s: None,
+            #[cfg(since_742)]
+            recolindices: None,
+            #[cfg(since_742)]
+            retexindices: None,
             debugname: Box::default(),
         }
     }
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.model = buf.g2(),
-            2 => self.anim = Some(buf.g2()),
+            1 => self.model = read_big_id(buf),
+            2 => self.anim = Some(read_big_id(buf)),
             #[cfg(before_647)]
             3 => self.hasalpha = true,
             4 => self.resizeh = buf.g2(),
@@ -120,6 +130,10 @@ impl CacheType for SpotAnimTypeRaw {
                 };
                 read_pairs(buf, d, s);
             }
+            #[cfg(since_742)]
+            44 => self.recolindices = Some(buf.g2()),
+            #[cfg(since_742)]
+            45 => self.retexindices = Some(buf.g2()),
             #[cfg(before_647)]
             40..=49 => {
                 self.recol_s

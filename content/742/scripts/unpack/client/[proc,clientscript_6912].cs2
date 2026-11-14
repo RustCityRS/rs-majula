@@ -1,0 +1,9 @@
+// 6912
+[proc,clientscript_6912](component $component0, component $component1)
+if (%varclient_545 = true) {
+    if_sethide($component1, false);
+    if_setsize($component0, 0, 0, ^setsize_minus, ^setsize_minus);
+} else {
+    if_sethide($component1, true);
+    if_setsize($component0, if_getwidth($component1), 0, ^setsize_minus, ^setsize_minus);
+}

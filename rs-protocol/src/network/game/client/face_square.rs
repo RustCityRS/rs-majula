@@ -13,8 +13,10 @@ pub struct FaceSquare {
 
 impl ClientProtMessage for FaceSquare {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let x = buf.g2_alt2();
-        let z = buf.g2_alt1();
+        #[cfg(before_742)]
+        let (x, z) = (buf.g2_alt2(), buf.g2_alt1());
+        #[cfg(since_742)]
+        let (z, x) = (buf.g2_alt3(), buf.g2());
         FaceSquare { x, z }
     }
 }

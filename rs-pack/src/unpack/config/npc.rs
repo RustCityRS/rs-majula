@@ -4,10 +4,12 @@ use super::UnpackedPacks;
 #[cfg(since_647)]
 use super::emit_params;
 use crate::cache::npc::NpcTypeRaw;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 #[cfg(before_647)]
-fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
+fn name_for_model(id: TypeId, registry: &UnpackedPacks) -> String {
+    let id = id.g2();
     registry
         .config_name("model", id as u32)
         .map(|s| s.to_string())
@@ -15,7 +17,8 @@ fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
 }
 
 #[cfg(before_647)]
-fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
+fn name_for_head_model(id: TypeId, registry: &UnpackedPacks) -> String {
+    let id = id.g2();
     registry
         .config_name("model", id as u32)
         .map(|s| s.to_string())
@@ -23,12 +26,12 @@ fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
 }
 
 #[cfg(since_647)]
-fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
+fn name_for_model(id: TypeId, registry: &UnpackedPacks) -> String {
     registry.reference("model", id)
 }
 
 #[cfg(since_647)]
-fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
+fn name_for_head_model(id: TypeId, registry: &UnpackedPacks) -> String {
     registry.reference("model", id)
 }
 
@@ -60,9 +63,9 @@ pub fn emit_npc_props(
             if opcode == 17 {
                 let anims = [
                     anim,
-                    super::seq_ref(def.walkanim_b.unwrap_or(u16::MAX), registry),
-                    super::seq_ref(def.walkanim_r.unwrap_or(u16::MAX), registry),
-                    super::seq_ref(def.walkanim_l.unwrap_or(u16::MAX), registry),
+                    super::seq_ref(def.walkanim_b.unwrap_or(TypeId::NULL), registry),
+                    super::seq_ref(def.walkanim_r.unwrap_or(TypeId::NULL), registry),
+                    super::seq_ref(def.walkanim_l.unwrap_or(TypeId::NULL), registry),
                 ];
                 p.push((17, "walkanim".into(), anims.join(",")));
             }
@@ -141,6 +144,14 @@ pub fn emit_npc_props(
             p.push((42, format!("colour{}", i + 1), c.to_string()));
         }
     }
+    #[cfg(since_742)]
+    if let Some(mask) = def.recolindices {
+        p.push((44, "recolindices".into(), super::mask_indices(mask)));
+    }
+    #[cfg(since_742)]
+    if let Some(mask) = def.retexindices {
+        p.push((45, "retexindices".into(), super::mask_indices(mask)));
+    }
     if let Some(heads) = &def.heads {
         for (i, id) in heads.iter().enumerate() {
             p.push((
@@ -192,14 +203,14 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if let Some(transforms) = &def.transforms {
-        let has_default = (opcode == 118) || transforms.last().copied().unwrap_or(-1) != -1;
+        let has_default = (opcode == 118) || transforms.last().is_some_and(|id| !id.is_null());
         p.extend(super::multi_lines(
             (if has_default { 118 } else { 106 }, "multinpc"),
             "npc",
             has_default,
             (
-                def.transform_varbit.map_or(-1, i32::from),
-                def.transform_varp.map_or(-1, i32::from),
+                def.transform_varbit.unwrap_or(TypeId::NULL),
+                def.transform_varp.unwrap_or(TypeId::NULL),
             ),
             transforms,
             registry,
@@ -284,14 +295,14 @@ pub fn emit_npc_props(
             def.walk_sound,
             def.run_sound,
         ]
-        .map(|sound| registry.reference(kind, sound.unwrap_or(u16::MAX)));
+        .map(|sound| registry.reference(kind, sound.unwrap_or(TypeId::NULL)));
         p.push((
             134,
             "bgsound".into(),
             format!("{},{}", sounds.join(","), def.sound_distance),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let (Some(cursor), Some(op)) = (def.primary_cursor, def.primary_cursor_op) {
         p.push((
             135,
@@ -299,7 +310,7 @@ pub fn emit_npc_props(
             format!("{},{}", op + 1, registry.reference("cursor", cursor)),
         ));
     }
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     if let (Some(cursor), Some(op)) = (def.secondary_cursor, def.secondary_cursor_op) {
         p.push((
             136,
@@ -385,7 +396,7 @@ pub fn emit_npc_props(
     if let Some(campaigns) = &def.campaigns {
         let quests: Vec<_> = campaigns
             .iter()
-            .map(|&quest| registry.reference("quest", quest as u16))
+            .map(|&quest| registry.reference("quest", TypeId::from_g2(quest as u16)))
             .collect();
         p.push((160, "quest".into(), quests.join(",")));
     }
@@ -412,6 +423,20 @@ pub fn emit_npc_props(
             "bgsounddropoffrange".into(),
             def.sound_range_min.to_string(),
         ));
+    }
+    #[cfg(since_742)]
+    if !def.antimacro {
+        p.push((169, "antimacro".into(), "no".into()));
+    }
+    #[cfg(since_742)]
+    for (i, cursor) in def.cursor.iter().enumerate() {
+        if let Some(cursor) = cursor {
+            p.push((
+                170 + i as u8,
+                format!("cursor{}", i + 1),
+                registry.reference("cursor", *cursor),
+            ));
+        }
     }
     #[cfg(since_647)]
     if opcode == 249 {

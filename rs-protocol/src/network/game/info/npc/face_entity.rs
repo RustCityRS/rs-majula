@@ -19,7 +19,10 @@ impl InfoMessage for NpcInfoFaceEntity {
 #[cfg(since_647)]
 impl InfoMessage for NpcInfoFaceEntity {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        #[cfg(before_742)]
         buf.p2_alt1(self.entity);
+        #[cfg(since_742)]
+        buf.p2(self.entity);
     }
 
     fn sizeof(&self) -> usize {

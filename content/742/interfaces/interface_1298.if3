@@ -1,0 +1,538 @@
+// 1298:0
+[com_0]
+type=text
+x=7
+y=4
+width=155
+height=17
+layer=com_25
+textfont=verdana_13pt_regular
+text=Breakdown
+textlineheight=15
+textshadow=yes
+colour=0xff7d1f
+
+// 1298:1
+[com_1]
+type=text
+x=7
+y=26
+width=432
+height=62
+layer=com_25
+textfont=verdana_11pt_regular
+text=The above fee will be taken from your money pouch should you proceed into the arena. You can get a certain amount of this fee back (potentially all of it) depending on your actions by visiting one of the banks in the arena.
+textlineheight=15
+textshadow=yes
+colour=0xff7d1f
+
+// 1298:2
+[com_2]
+type=text
+x=7
+y=96
+width=432
+height=44
+layer=com_25
+textfont=verdana_11pt_regular
+text=Target abandonment: When you have a bounty target, if you log out for more than 5 minutes or return to one of the bank areas, part of your bounty fee will go to your opponent:
+textlineheight=15
+textshadow=yes
+colour=0xff7d1f
+
+// 1298:3
+[com_3]
+type=text
+x=7
+y=152
+width=432
+height=60
+layer=com_25
+textfont=verdana_11pt_regular
+text=Death: You are expected to risk a certain value of equipment relative to your combat levels. If your bounty target kills you, you will lose from your fee a value equal to the appropriate amount of risk for your combat levels minus the value of items you are risking. So, the more you risk, the smaller this fee will be. This is:
+textlineheight=15
+textshadow=yes
+colour=0xff7d1f
+
+// 1298:4
+[com_4]
+type=text
+x=7
+y=235
+width=432
+height=30
+layer=com_25
+textfont=verdana_11pt_regular
+text=Your total fee is the amount for 'target abandonment' plus the fee on death: 
+textlineheight=15
+textshadow=yes
+colour=0xff7d1f
+
+// 1298:5
+[com_5]
+type=text
+x=236
+y=126
+width=80
+height=26
+layer=com_25
+textfont=verdana_11pt_regular
+text=Z
+textlineheight=15
+textshadow=yes
+colour=0xffcc00
+
+// 1298:6
+[com_6]
+type=text
+x=273
+y=212
+width=80
+height=30
+layer=com_25
+textfont=verdana_11pt_regular
+text=X-Y
+textlineheight=15
+textshadow=yes
+colour=0xffcc00
+
+// 1298:7
+[com_7]
+type=text
+x=50
+y=250
+width=313
+height=18
+layer=com_25
+textfont=verdana_11pt_regular
+text=F = ( X - Y ) + Z
+textlineheight=15
+textshadow=yes
+colour=0xffcc00
+
+// 1298:8
+[com_8]
+type=graphic
+width=20
+height=20
+layer=com_19
+graphic=graphic_11264
+
+// 1298:9
+[com_9]
+type=graphic
+width=20
+height=20
+xmode=abs_right
+layer=com_19
+graphic=graphic_11264
+hflip=yes
+
+// 1298:10
+[com_10]
+type=graphic
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_19
+graphic=graphic_11264
+vflip=yes
+hflip=yes
+
+// 1298:11
+[com_11]
+type=graphic
+width=20
+height=20
+ymode=abs_bottom
+layer=com_19
+graphic=graphic_11264
+vflip=yes
+
+// 1298:12
+[com_12]
+type=graphic
+width=425
+height=20
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_19
+graphic=graphic_11265
+vflip=yes
+
+// 1298:13
+[com_13]
+type=graphic
+width=425
+height=20
+xmode=abs_centre
+layer=com_19
+graphic=graphic_11265
+
+// 1298:14
+[com_14]
+type=graphic
+width=20
+height=121
+ymode=abs_centre
+layer=com_19
+graphic=graphic_11262
+
+// 1298:15
+[com_15]
+type=graphic
+width=20
+height=121
+xmode=abs_right
+ymode=abs_centre
+layer=com_19
+graphic=graphic_11262
+hflip=yes
+
+// 1298:16
+[com_16]
+type=graphic
+x=70
+y=6
+width=50
+height=33
+layer=com_24
+graphic=graphic_9239
+
+// 1298:17
+[com_17]
+type=graphic
+y=6
+width=90
+height=33
+xmode=abs_centre
+layer=com_24
+graphic=graphic_9240
+
+// 1298:18
+[com_18]
+type=graphic
+x=70
+y=6
+width=50
+height=33
+xmode=abs_right
+layer=com_24
+graphic=graphic_9241
+
+// 1298:19
+[com_19]
+type=layer
+x=7
+y=51
+width=450
+height=153
+layer=com_33
+
+// 1298:20
+[com_20]
+type=layer
+x=39
+y=229
+width=200
+height=50
+layer=com_33
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1298:21
+[com_21]
+type=layer
+x=39
+y=229
+width=200
+height=50
+xmode=abs_right
+layer=com_33
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1298:22
+[com_22]
+type=layer
+x=64
+y=209
+width=317
+height=18
+layer=com_33
+
+// 1298:23
+[com_23]
+type=text
+y=11
+width=313
+height=18
+xmode=abs_centre
+layer=com_24
+textfont=verdana_15pt_regular
+text=F
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfffffe
+
+// 1298:24
+[com_24]
+type=layer
+y=4
+width=325
+height=46
+xmode=abs_centre
+layer=com_33
+
+// 1298:25
+[com_25]
+type=layer
+x=10
+y=53
+width=444
+height=149
+layer=com_33
+scrollheight=270
+
+// 1298:26
+[com_26]
+type=graphic
+width=240
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+graphic=graphic_11257
+onmouseover=graphic_swapper(event_com, 11258)
+onmouseleave=graphic_swapper(event_com, 11257)
+
+// 1298:27
+[com_27]
+type=graphic
+width=240
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+graphic=graphic_11259
+onmouseover=graphic_swapper(event_com, 11260)
+onmouseleave=graphic_swapper(event_com, 11259)
+
+// 1298:28
+[com_28]
+type=text
+width=201
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+textfont=palatino_linotype_18pt_regular
+text=Cancel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfaf091
+
+// 1298:29
+[com_29]
+type=text
+width=201
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+textfont=palatino_linotype_18pt_regular
+text=Proceed
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfaf091
+
+// 1298:30
+[com_30]
+type=layer
+x=462
+y=50
+width=17
+height=153
+layer=com_33
+onload=scrollbar_vertical_graphics(event_com, interface_1298:com_25, 8383, 8380, 8381, 8382, 8375, 8374)
+
+// 1298:31
+[com_31]
+type=layer
+width=504
+height=325
+xmode=abs_centre
+ymode=abs_centre
+
+// 1298:32
+[com_32]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+onload=script4260(event_com)
+
+// 1298:33
+[com_33]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_31
+
+// 1298:34
+[com_34]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+onload=script4261(event_com)
+
+// 1298:35
+[com_35]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_31
+
+// 1298:36
+[com_36]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+textfont=palatino_linotype_18pt_regular
+text=Bounty Fee
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1298:37
+[com_37]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_31
+onload=aif_build_close_button_layer(event_com)
+
+// 1298:38
+[com_38]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1298:39
+[com_39]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+onload=aif_build_close_button_over(event_com)
+
+// 1298:40
+[com_40]
+type=text
+x=99
+width=200
+height=15
+ymode=abs_centre
+layer=com_22
+textfont=p12_full
+text=Don't show this message again.
+textalignv=centre
+textshadow=yes
+
+// 1298:41
+[com_41]
+type=layer
+x=76
+width=16
+height=16
+ymode=abs_centre
+layer=com_22
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=clientscript_6033(interface_1298:com_42, interface_1298:com_44)
+
+// 1298:42
+[com_42]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_41
+hide=yes
+onload=aif_checkbox_selected_layer_onload(event_com)
+
+// 1298:43
+[com_43]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_41
+onload=checkbox_selected_disabled_layer_onload(event_com)
+
+// 1298:44
+[com_44]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_41
+onload=aif_checkbox_deselected_layer_onload(event_com)
+
+// 1298:45
+[com_45]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_41
+onload=checkbox_deselected_disabled_layer_onload(event_com)

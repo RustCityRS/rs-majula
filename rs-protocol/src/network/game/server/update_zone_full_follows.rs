@@ -35,8 +35,16 @@ pub struct UpdateZoneFullFollows {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateZoneFullFollows {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.y);
-        buf.p1(self.x);
+        #[cfg(before_742)]
+        {
+            buf.p1_alt1(self.y);
+            buf.p1(self.x);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt1(self.x);
+            buf.p1_alt3(self.y);
+        }
         buf.p1_alt2(self.z);
     }
 

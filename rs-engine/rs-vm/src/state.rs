@@ -9,6 +9,7 @@ use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_ver::TypeId;
 use std::any::type_name;
 use std::mem;
 use std::sync::Arc;
@@ -83,11 +84,11 @@ pub struct ScriptState {
     pub queue_source: Option<u16>,
 
     pub(crate) split_pages: Option<Vec<Vec<String>>>,
-    pub(crate) split_mesanim: Option<u16>,
+    pub(crate) split_mesanim: Option<TypeId>,
 
-    pub(crate) db_table: Option<u16>,
+    pub(crate) db_table: Option<TypeId>,
     pub(crate) db_row: Option<u16>,
-    pub(crate) db_row_query: Vec<u16>,
+    pub(crate) db_row_query: Vec<TypeId>,
 
     pub(crate) npc_iterator: Option<NpcIteratorState>,
     pub(crate) loc_iterator: Option<LocIteratorState>,
@@ -1270,7 +1271,7 @@ pub struct TimedScript {
 #[derive(Debug, Clone, Copy)]
 pub struct NpcRef {
     pub nid: u16,
-    pub id: u16,
+    pub id: TypeId,
     pub coord: CoordGrid,
 }
 
@@ -1287,7 +1288,7 @@ pub struct NpcRef {
 #[derive(Debug, Clone, Copy)]
 pub struct LocRef {
     pub coord: CoordGrid,
-    pub id: u16,
+    pub id: TypeId,
     pub shape: LocShape,
     pub angle: LocAngle,
     pub layer: LocLayer,
@@ -1306,7 +1307,7 @@ pub struct LocRef {
 #[derive(Debug, Clone, Copy)]
 pub struct ObjRef {
     pub coord: CoordGrid,
-    pub id: u16,
+    pub id: TypeId,
     pub serial: ObjSerial,
 }
 

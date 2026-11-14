@@ -1,0 +1,7 @@
+// 2754
+[clientscript,script2754](component $component0, int $int1, component $component2)
+if (calc(%varplayerbit_3756 - 1) ! -1) {
+    ~script2755($component0, $int1, $component2);
+} else {
+    if_setontimer(toplevel_fullscreen:stones_off, null);
+}

@@ -1,0 +1,63 @@
+// 4738
+[proc,clientscript_4738](component $component0, component $component1)
+def_int $int2 = calc(36 / 4);
+def_int $int3 = 0;
+def_obj $obj4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_inv $inv8 = enum(int, inv, enum_3879, %varplayerbit_9903);
+def_int $int9 = 0;
+while ($int3 < inv_size($inv8)) {
+    if (cc_find($component0, $int3) = true) {
+        $obj4 = inv_getobj($inv8, $int3);
+        $int5 = inv_total($inv8, $obj4);
+        if ($obj4 ! null & ~clientscript_4733($int3) = ^true & $int5 > 0) {
+            $int9 = calc($int9 + $int5);
+            if (calc($int7 + 36) >= if_getwidth($component0)) {
+                $int7 = 0;
+                $int6 = calc($int6 + $int2 + 36);
+            }
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition($int7, $int6, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(false);
+            cc_setobject($obj4, $int5);
+            cc_setgraphicshadow(0x333333);
+            cc_setoutline(1);
+            cc_setop(1, "Delete");
+            cc_setop(10, "Examine");
+            cc_setopbase("<col=ff9040><oc_name($obj4)>");
+            $int7 = calc($int7 + $int2 + 36);
+            cc_setonop(clientscript_4739, event_com, event_comsubid, event_op, "Iii");
+            cc_setonmouseover(clientscript_4745, event_com, event_comsubid, "Ii");
+            cc_setonmouseleave(clientscript_4746, event_com, event_comsubid, "Ii");
+        } else {
+            cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_sethide(true);
+            cc_setonop(null);
+        }
+    }
+    $int3 = calc($int3 + 1);
+}
+def_int $int10 = 0;
+if ($int9 = 1) {
+    $int10 = 1;
+}
+if_settext(interface_1144:com_22, "Found <col=ffff80><tostring($int9)></col> <text_switch($int10, "item", "items")> of junk in your <enum(inv, string, enum_3882, $inv8)>");
+if ($int7 > 0) {
+    $int6 = calc($int6 + 32);
+}
+if ($int6 > if_getheight($component0)) {
+    if_setscrollsize($component0, 0, $int6);
+    if_setposition($component0, -8, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top);
+    ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if (cc_find($component1, 1) = true) {
+        ~scrollbar_vertical_doscroll($component1, $component0, if_getscrolly($component0), true);
+    }
+} else {
+    if_setscrollsize($component0, 0, 0);
+    if_setscrollpos($component0, 0, 0);
+    cc_deleteall($component1);
+    if_setposition($component0, 0, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top);
+}

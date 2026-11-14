@@ -1,0 +1,8 @@
+// 5396
+[proc,clientscript_5396]
+if (~clientscript_5393 = 1) {
+    if_sethide(clan_chat:perm_ban_button_layer, false);
+    if_sethide(clan_chat:com_122_, true);
+} else {
+    if_sethide(clan_chat:com_122_, false);
+}

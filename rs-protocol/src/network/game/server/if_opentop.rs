@@ -20,16 +20,34 @@ use rs_protocol_macros::server_prot;
 pub struct IfOpentop {
     pub interface: u16,
     pub mode: u8,
+    #[cfg(since_742)]
+    pub xtea_keys: [i32; 4],
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfOpentop {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt1(self.interface);
-        buf.p1_alt1(self.mode);
+        #[cfg(before_742)]
+        {
+            buf.p2_alt1(self.interface);
+            buf.p1_alt1(self.mode);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1(self.mode);
+            buf.p4_alt1(self.xtea_keys[0]);
+            buf.p2_alt1(self.interface);
+            buf.p4(self.xtea_keys[2]);
+            buf.p4_alt1(self.xtea_keys[3]);
+            buf.p4_alt2(self.xtea_keys[1]);
+        }
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.interface) + size_of_val(&self.mode)
+        #[cfg(before_742)]
+        let keys = 0;
+        #[cfg(since_742)]
+        let keys = size_of_val(&self.xtea_keys);
+        size_of_val(&self.interface) + size_of_val(&self.mode) + keys
     }
 }

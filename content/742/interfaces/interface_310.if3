@@ -1,0 +1,280 @@
+// 310:0
+[com_0]
+type=graphic
+width=16
+height=15
+xmode=abs_right
+layer=com_15
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 310:1
+[com_1]
+type=graphic
+width=16
+height=15
+xmode=abs_right
+layer=com_15
+onload=aif_build_close_button_over(event_com)
+
+// 310:2
+[com_2]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_22
+colour=0x141210
+fill=yes
+trans=128
+
+// 310:3
+[com_3]
+type=layer
+width=174
+heightmode=minus
+layer=com_17
+
+// 310:4
+[com_4]
+type=rectangle
+y=15
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:5
+[com_5]
+type=rectangle
+y=45
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:6
+[com_6]
+type=rectangle
+y=75
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:7
+[com_7]
+type=rectangle
+y=105
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:8
+[com_8]
+type=rectangle
+y=135
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:9
+[com_9]
+type=rectangle
+y=165
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:10
+[com_10]
+type=rectangle
+y=195
+height=15
+widthmode=minus
+layer=com_3
+colour=0x807c69
+fill=yes
+trans=108
+
+// 310:11
+[com_11]
+type=layer
+width=174
+heightmode=minus
+layer=com_17
+
+// 310:12
+[com_12]
+type=layer
+width=174
+heightmode=minus
+layer=com_17
+
+// 310:13
+[com_13]
+type=layer
+width=174
+heightmode=minus
+layer=com_17
+
+// 310:14
+[com_14]
+type=layer
+width=174
+heightmode=minus
+layer=com_17
+
+// 310:15
+[com_15]
+type=layer
+x=6
+y=7
+width=16
+height=15
+xmode=abs_right
+layer=com_22
+onload=aif_build_close_button_layer(event_com)
+onmouseleave=deltooltip(interface_310:com_26)
+onmouserepeat=clientscript_5332(event_com, interface_310:com_26, "Closing this interface will stop using the Prop Machine.", 20, 170)
+
+// 310:16
+[com_16]
+type=layer
+y=3
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_22
+
+// 310:17
+[com_17]
+type=layer
+y=26
+width=16
+height=53
+widthmode=minus
+heightmode=minus
+layer=com_22
+scrollwidth=164
+scrollheight=225
+
+// 310:18
+[com_18]
+type=layer
+width=174
+heightmode=minus
+layer=com_17
+
+// 310:19
+[com_19]
+type=layer
+y=26
+width=16
+height=53
+heightmode=minus
+xmode=abs_right
+layer=com_22
+
+// 310:20
+[com_20]
+type=graphic
+x=8
+y=238
+width=16
+height=16
+layer=com_22
+graphic="aif_checkbox_large,5"
+transmitop=1
+op1=Toggle-restrict
+onop=clientscript_5331
+
+// 310:21
+[com_21]
+type=text
+x=25
+y=236
+width=158
+height=20
+layer=com_22
+textfont=p11_full
+text=Restrict Access to Stage
+textalignv=centre
+textshadow=yes
+onmouseleave=deltooltip(interface_310:com_26)
+onmouserepeat=clientscript_5332(event_com, interface_310:com_26, "Selecting this option will only allow those players listed in this inteface to access the stage.", 20, 170)
+
+// 310:22
+[com_22]
+type=layer
+width=190
+height=261
+onload=clientscript_5325(event_com)
+
+// 310:23
+[com_23]
+type=line
+y=26
+widthmode=minus
+xmode=abs_centre
+layer=com_22
+colour=0x4a4138
+
+// 310:24
+[com_24]
+type=line
+y=234
+widthmode=minus
+xmode=abs_centre
+layer=com_22
+colour=0x4a4138
+
+// 310:25
+[com_25]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+
+// 310:26
+[com_26]
+type=layer
+width=190
+height=261
+layer=com_25
+
+// 310:27
+[com_27]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+textfont=palatino_linotype_14pt_regular
+text=Actors
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build_new(event_com, "Actors", palatino_linotype_14pt_regular, 0xebe0bc, ^black)

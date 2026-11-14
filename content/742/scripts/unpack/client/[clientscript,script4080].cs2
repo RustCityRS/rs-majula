@@ -1,0 +1,11 @@
+// 4080
+[clientscript,script4080]
+if (if_find(xmas10_seal_scoring:reset_end1) = true) {
+    cc_setgraphic("set_but_end_2,1");
+}
+if (if_find(xmas10_seal_scoring:reset_end2) = true) {
+    cc_setgraphic("set_but_end_2,4");
+}
+if (if_find(xmas10_seal_scoring:reset_mid) = true) {
+    cc_setgraphic("set_but_fill_2,1");
+}

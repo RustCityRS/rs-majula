@@ -1,0 +1,31 @@
+// 5686
+[proc,clientscript_5686](int $int0, string $string0)(int)
+cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+cc_setgraphic(9042);
+cc_setsize(130, 105, ^setsize_abs, ^setsize_abs);
+cc_setposition(5, $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+cc_setgraphic(9045);
+cc_setsize(130, 105, ^setsize_abs, ^setsize_abs);
+cc_setposition(5, $int0, ^setpos_abs_right, ^setpos_abs_top);
+cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+cc_setgraphic(9043);
+cc_setsize(138, 105, ^setsize_abs, ^setsize_abs);
+cc_setposition(135, $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+cc_setgraphic(9044);
+cc_setsize(138, 105, ^setsize_abs, ^setsize_abs);
+cc_setposition(135, $int0, ^setpos_abs_right, ^setpos_abs_top);
+cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+cc_setgraphic("quest_rating_icon,5");
+cc_setsize(64, 64, ^setsize_abs, ^setsize_abs);
+cc_setposition(30, calc($int0 + 25), ^setpos_abs_left, ^setpos_abs_top);
+cc_create(interface_1218:com_72, ^iftype_text, if_getnextsubid(interface_1218:com_72));
+cc_setposition(135, $int0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(verdana_13pt_regular);
+cc_settextshadow(false);
+cc_setcolour(^black);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+cc_setsize(380, 100, ^setsize_abs, ^setsize_abs);
+cc_settext($string0);
+return(calc($int0 + 105));

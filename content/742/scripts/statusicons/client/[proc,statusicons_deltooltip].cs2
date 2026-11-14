@@ -1,0 +1,14 @@
+// 1952
+[proc,statusicons_deltooltip]
+def_component $component0 = null;
+def_component $component1 = null;
+if (getwindowmode < 2) {
+    $component0 = toplevel:statusicon_tooltip;
+    $component1 = toplevel:statusicon_tooltip_text;
+} else {
+    $component0 = toplevel_fullscreen:statusicon_tooltip;
+    $component1 = toplevel_fullscreen:statusicon_tooltip_text;
+}
+if_settext($component1, "");
+if_sethide($component0, true);
+%tooltip_built = 0;

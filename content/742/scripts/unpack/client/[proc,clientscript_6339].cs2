@@ -1,0 +1,28 @@
+// 6339
+[proc,clientscript_6339](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_obj $obj5 = null;
+while ($int2 < $int1) {
+    if (cc_find($component0, $int2) = true) {
+        if (~clientscript_6340($int2) = true) {
+            $obj5 = enum(int, obj, enum_5918, $int2);
+            $int4 = enum(int, int, enum_5919, $int2);
+            if (oc_stackable($obj5) = false | $int2 = 0) {
+                $int4 = calc($int4 - inv_total(inv, $obj5));
+            }
+            if ($int4 > 0) {
+                cc_setobject($obj5, $int4);
+                cc_sethide(false);
+                cc_setposition(calc(50 * ($int3 % 3)), calc(50 * ($int3 / 3)), ^setpos_abs_left, ^setpos_abs_top);
+                $int3 = calc($int3 + 1);
+            } else {
+                cc_sethide(true);
+            }
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int2 = calc($int2 + 1);
+}

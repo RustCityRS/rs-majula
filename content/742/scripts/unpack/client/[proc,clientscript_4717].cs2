@@ -1,0 +1,57 @@
+// 4717
+[proc,clientscript_4717](component $component0, int $int1, component $component2, enum $enum3)
+cc_deleteall($component0);
+def_int $int4 = 48;
+def_int $int5 = 48;
+def_int $int6 = 0;
+def_struct $struct7 = null;
+def_graphic $graphic8 = null;
+def_int $int9 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_boolean $boolean10 = true;
+def_enum $enum11 = null;
+def_int $int12 = 0;
+if_settext(interface_590:com_20, "1");
+switch_enum ($enum3) {
+    case enum_3874 :
+        $enum11 = enum_3873;
+    case default :
+        $enum11 = enum_3873;
+}
+while ($int6 < enum_getoutputcount($enum3)) {
+    $struct7 = enum(int, struct, $enum3, $int6);
+    $graphic8 = struct_param($struct7, param_1420);
+    $boolean10 = ~clientscript_4718($struct7);
+    $string0 = struct_param($struct7, param_1419);
+    cc_create($component0, ^iftype_graphic, $int6);
+    cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if ($boolean10 = false) {
+        $graphic8 = struct_param($struct7, param_1421);
+    }
+    if ($struct7 = struct_1783) {
+        if (gender > 0) {
+            $struct7 = struct_1789;
+            $graphic8 = struct_param($struct7, param_1420);
+            $string0 = struct_param($struct7, param_1419);
+            $string1 = "Curtsy";
+            cc_setop(1, "Curtsy");
+            cc_setop(2, "Bow");
+            cc_setonmouserepeat("addtooltip_dynamic(event_com, event_comsubid, $component2, $string1, 25, 190)");
+        } else {
+            cc_setop(1, "Bow");
+            cc_setop(2, "Curtsy");
+            $string1 = "Bow";
+            cc_setonmouserepeat("addtooltip_dynamic(event_com, event_comsubid, $component2, $string1, 25, 190)");
+        }
+    } else {
+        cc_setop(1, $string0);
+        cc_setonmouserepeat("addtooltip_dynamic(event_com, event_comsubid, $component2, $string0, 25, 190)");
+    }
+    cc_setgraphic($graphic8);
+    cc_setonmouseleave("deltooltip($component2)");
+    $int6 = calc($int6 + 1);
+}
+~clientscript_4716(interface_590:com_8, interface_590:com_7, $enum3, -5, 10, $int12);
+~clientscript_4709($enum3, $enum11, $int12, 0, enum_getoutputcount($enum11), interface_590:com_14, interface_590:com_12, interface_590:com_13, interface_590:com_15, 897, 788, 788, tradebacking_light, ^white, ^red, ^yellow, p11_full, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

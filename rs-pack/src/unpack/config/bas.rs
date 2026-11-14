@@ -1,5 +1,6 @@
 use super::UnpackedPacks;
 use crate::cache::bas::BasType;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn anim_key(code: u8) -> String {
@@ -36,8 +37,8 @@ pub fn emit_bas_props(
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if opcode == 1 {
-        let ready = packs.reference("seq", def.readyanim.unwrap_or(u16::MAX));
-        let walk = packs.reference("seq", def.walkanim.unwrap_or(u16::MAX));
+        let ready = packs.reference("seq", def.readyanim.unwrap_or(TypeId::NULL));
+        let walk = packs.reference("seq", def.walkanim.unwrap_or(TypeId::NULL));
         p.push((1, "readyanim".into(), format!("{ready},{walk}")));
     }
     if let Some((code, anim)) = def.anims.last() {

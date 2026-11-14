@@ -1,0 +1,15 @@
+// 6266
+[proc,clientscript_6266]
+def_int $int0 = 0;
+def_component $component1 = null;
+def_graphic $graphic2 = null;
+def_int $int3 = 200;
+while (($component1 ! null | $int0 = 0) & $int0 < $int3) {
+    $component1 = ~clientscript_6268($int0);
+    if ($component1 ! null) {
+        $graphic2 = if_getgraphic($component1);
+        $graphic2 = ~clientscript_6267($graphic2);
+        if_setgraphic($component1, $graphic2);
+    }
+    $int0 = calc($int0 + 1);
+}

@@ -1,0 +1,4 @@
+// 6327
+[proc,clientscript_6327](component $component0)
+if_settrans($component0, max(calc(if_gettrans($component0) - 20), 0));
+if_setontimer($component0, "clientscript_6328(event_com, calc(clientclock + 2))");

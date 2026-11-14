@@ -1,0 +1,17 @@
+// 820
+[clientscript,script820]
+if (%lore_animal_hunger_percent ! 101) {
+    if_settext(lore_cats_side:hunger, "<tostring(%lore_animal_hunger_percent)>%");
+    if (%lore_animal_hunger_percent > 74) {
+        if_setcolour(lore_cats_side:hunger, ^red);
+    } else {
+        if_setcolour(lore_cats_side:hunger, ^white);
+    }
+} else {
+    if_settext(lore_cats_side:hunger, "NA");
+}
+if (%lore_animal_size_percent ! 101) {
+    if_settext(lore_cats_side:size_percentage, "<tostring(%lore_animal_size_percent)>%");
+} else {
+    if_settext(lore_cats_side:size_percentage, "NA");
+}

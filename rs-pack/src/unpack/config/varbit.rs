@@ -5,7 +5,7 @@ use std::collections::HashMap;
 
 pub(super) fn decode_varbit(
     buf: &mut Packet,
-    _: u16,
+    _: u32,
     _: &HashMap<u16, u16>,
     _packs: &mut UnpackedPacks,
 ) -> Vec<(String, String)> {

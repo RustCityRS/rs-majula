@@ -422,7 +422,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
             lines.push(format!(
                 "font={}",
-                Font::try_from(com.font as u8)
+                Font::try_from(com.font.g2() as u8)
                     .expect("unknown interface font")
                     .name()
             ));
@@ -446,20 +446,20 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
         }
         IfComponentType::Model => {
-            if com.model >= 0 {
-                let model = com.model as u16;
+            if !com.model.is_null() {
+                let model = com.model.g2();
                 lines.push(format!("model={}", ctx.model(model)));
             }
-            if com.active_model >= 0 {
-                let model = com.active_model as u16;
+            if !com.active_model.is_null() {
+                let model = com.active_model.g2();
                 lines.push(format!("activemodel={}", ctx.model(model)));
             }
-            if com.anim >= 0 {
-                let anim = com.anim as u16;
+            if !com.anim.is_null() {
+                let anim = com.anim.g2();
                 lines.push(format!("anim={}", ctx.seq(anim)));
             }
-            if com.active_anim >= 0 {
-                let anim = com.active_anim as u16;
+            if !com.active_anim.is_null() {
+                let anim = com.active_anim.g2();
                 lines.push(format!("activeanim={}", ctx.seq(anim)));
             }
             if com.zoom != 0 {
@@ -478,7 +478,7 @@ fn export_type_specific(lines: &mut Vec<String>, com: &IfTypeRaw, ctx: &Ctx) {
             }
             lines.push(format!(
                 "font={}",
-                Font::try_from(com.font as u8)
+                Font::try_from(com.font.g2() as u8)
                     .expect("unknown interface font")
                     .name()
             ));
@@ -802,6 +802,10 @@ fn emit_component(
     if let Some(name) = &comp.com_name {
         writeln!(out, "name={name}")?;
     }
+    #[cfg(since_742)]
+    if comp.version != u8::MAX {
+        writeln!(out, "version={}", comp.version)?;
+    }
     if comp.client_code != 0 {
         writeln!(out, "clientcode={}", comp.client_code)?;
     }
@@ -852,6 +856,9 @@ fn emit_component(
         "Unknown component flags {}",
         comp.flags
     );
+    if comp.no_click_through && comp.com_type != IfComponentType::Layer {
+        writeln!(out, "noclickthrough=yes")?;
+    }
     match comp.com_type {
         IfComponentType::Layer => emit_layer(out, comp)?,
         IfComponentType::Rect => {
@@ -888,7 +895,31 @@ fn emit_component(
         ("targetcursor3", "cursor", comp.target_leave_cursor),
     ] {
         if let Some(value) = value {
-            writeln!(out, "{key}={}", names.reference(kind, value as i64))?;
+            writeln!(out, "{key}={}", names.reference(kind, value.int().into()))?;
+        }
+    }
+    #[cfg(since_742)]
+    {
+        if let Some(cursor) = comp.cursor {
+            writeln!(
+                out,
+                "cursor={}",
+                names.reference("cursor", cursor.int().into())
+            )?;
+        }
+        for &(param, value) in &comp.int_params {
+            writeln!(
+                out,
+                "param={},{value}",
+                names.reference("param", param as i64)
+            )?;
+        }
+        for (param, value) in &comp.string_params {
+            writeln!(
+                out,
+                "param={},\"{value}\"",
+                names.reference("param", *param as i64)
+            )?;
         }
     }
     emit_hooks(out, comp, signatures, names, registry)
@@ -913,8 +944,12 @@ fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<(
     writeln!(
         out,
         "textfont={}",
-        names.reference("fontmetrics", comp.font as i64)
+        names.reference("fontmetrics", comp.font.int().into())
     )?;
+    #[cfg(since_742)]
+    if comp.text_flag2 {
+        writeln!(out, "textflag2=yes")?;
+    }
     if !comp.text.is_empty() {
         writeln!(out, "text={}", comp.text)?;
     }
@@ -944,13 +979,17 @@ fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<(
     if comp.trans != 0 {
         writeln!(out, "trans={}", comp.trans)?;
     }
+    #[cfg(since_742)]
+    if comp.text_byte0 != 0 {
+        writeln!(out, "textbyte0={}", comp.text_byte0)?;
+    }
     Ok(())
 }
 
 #[cfg(since_647)]
 fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
     if let Some(graphic) = comp.graphic {
-        let graphic = names.reference("sprites", graphic as i64);
+        let graphic = names.reference("sprites", graphic.int().into());
         if graphic.contains(',') {
             writeln!(out, "graphic=\"{graphic}\"")?;
         } else {
@@ -981,6 +1020,10 @@ fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Resul
     if comp.hflip {
         writeln!(out, "hflip=yes")?;
     }
+    #[cfg(since_742)]
+    if comp.graphic_flag3 {
+        writeln!(out, "graphicflag3=yes")?;
+    }
     if comp.colour != DEFAULT_COLOUR {
         writeln!(out, "colour={}", format_colour(comp.colour))?;
     }
@@ -989,7 +1032,11 @@ fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Resul
 
 #[cfg(since_647)]
 fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()> {
-    writeln!(out, "model={}", names.reference("model", comp.model as i64))?;
+    writeln!(
+        out,
+        "model={}",
+        names.reference("model", comp.model.int().into())
+    )?;
     if comp.model_origin_x != 0 || comp.model_origin_y != 0 {
         writeln!(
             out,
@@ -1010,11 +1057,11 @@ fn emit_model(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<
     if comp.model_flags & 2 != 0 {
         writeln!(out, "modeloffset={}", comp.sprite_y_offset)?;
     }
-    if comp.anim != -1 {
+    if !comp.anim.is_null() {
         writeln!(
             out,
             "modelanim={}",
-            names.reference("seq", comp.anim as i64)
+            names.reference("seq", comp.anim.int().into())
         )?;
     }
     if comp.model_flags & 4 != 0 {
@@ -1103,7 +1150,7 @@ fn emit_ops(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<()
         writeln!(
             out,
             "opcursor{op}={}",
-            names.reference("cursor", cursor as i64)
+            names.reference("cursor", cursor.g2().into())
         )?;
     }
     for key in &comp.opkeys {

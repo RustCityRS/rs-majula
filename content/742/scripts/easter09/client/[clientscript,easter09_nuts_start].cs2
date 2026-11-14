@@ -1,0 +1,43 @@
+// 398
+[clientscript,easter09_nuts_start]
+if_clearops(easter09_nuts:end);
+%easter09_nuts_correct = 0;
+%easter09_nuts_model1 = null;
+%easter09_nuts_model2 = null;
+%easter09_nuts_model3 = null;
+%easter09_nuts_model4 = null;
+%easter09_nuts_tagged = 0;
+%easter09_nuts_bar = 0;
+if_setontimer(easter09_nuts:control1, null);
+if_setontimer(easter09_nuts:control2, null);
+if_setontimer(easter09_nuts:control3, null);
+if_setontimer(easter09_nuts:control4, null);
+if_setontimer(easter09_nuts:bar, null);
+if_setontimer(easter09_nuts:result, null);
+if_settext(easter09_nuts:correct_count, "Correct: <tostring(%easter09_nuts_correct)>/<tostring(10)>");
+%easter09_nuts_model1 = enum(int, model, enum_208, 1);
+if (%easter09_nuts_model1 ! null) {
+    if_setmodel(easter09_nuts:model1, %easter09_nuts_model1);
+    if_setmodelangle(easter09_nuts:model1, 0, 0, 512, 0, 0, 800);
+}
+%easter09_nuts_model2 = enum(int, model, enum_208, 2);
+if (%easter09_nuts_model2 ! null) {
+    if_setmodel(easter09_nuts:model2, %easter09_nuts_model2);
+    if_setmodelangle(easter09_nuts:model2, 0, 0, 512, 0, 0, 800);
+}
+%easter09_nuts_model3 = enum(int, model, enum_208, 3);
+if (%easter09_nuts_model3 ! null) {
+    if_setmodel(easter09_nuts:model3, %easter09_nuts_model3);
+    if_setmodelangle(easter09_nuts:model3, 0, 0, 512, 0, 0, 800);
+}
+%easter09_nuts_model4 = enum(int, model, enum_208, 4);
+if (%easter09_nuts_model4 ! null) {
+    if_setmodel(easter09_nuts:model4, %easter09_nuts_model4);
+    if_setmodelangle(easter09_nuts:model4, 0, 0, 512, 0, 0, 800);
+}
+if_setposition(easter09_nuts:model1, calc(0 - if_getwidth(easter09_nuts:model1)), if_gety(easter09_nuts:model1), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter09_nuts:model2, calc(0 - if_getwidth(easter09_nuts:model2)), if_gety(easter09_nuts:model2), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter09_nuts:model3, calc(0 - if_getwidth(easter09_nuts:model3)), if_gety(easter09_nuts:model3), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter09_nuts:model4, calc(0 - if_getwidth(easter09_nuts:model4)), if_gety(easter09_nuts:model4), ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(easter09_nuts:bar, if_getx(easter09_nuts:band), 200, ^setpos_abs_left, ^setpos_abs_top);
+if_setontimer(easter09_nuts:control1, "script399(easter09_nuts:model1)");

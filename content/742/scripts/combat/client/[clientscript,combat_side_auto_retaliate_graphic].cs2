@@ -1,0 +1,11 @@
+// 1140
+[clientscript,combat_side_auto_retaliate_graphic](component $component0)
+if (%option_nodef = 1) {
+    if_setgraphic($component0, "combatboxes_very_large,0");
+    if_setonmouseover($component0, "clientscript_5646($component0, 0, 1)");
+    if_setonmouseleave($component0, "clientscript_5646($component0, 0, 0)");
+} else {
+    if_setgraphic($component0, "combatboxes_very_large,1");
+    if_setonmouseover($component0, "clientscript_5646($component0, 1, 1)");
+    if_setonmouseleave($component0, "clientscript_5646($component0, 1, 0)");
+}

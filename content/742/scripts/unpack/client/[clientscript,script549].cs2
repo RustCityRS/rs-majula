@@ -1,0 +1,11 @@
+// 549
+[clientscript,script549]
+if (%lotg_connectors_1 = 15) {
+    sound_synth(lotg_fairyring_adjust_max, 1, 0);
+    return;
+}
+%lotg_connectors_1 = calc(%lotg_connectors_1 + 1);
+def_int $int0 = calc((15 - %lotg_connectors_1) * 6);
+if_setposition(lotg_fairy_ring_power_interface:meter_1, 0, $int0, ^setpos_abs_left, ^setpos_abs_top);
+if_settext(lotg_fairy_ring_power_interface:counter1, tostring(%lotg_connectors_1));
+sound_synth(lotg_fairyring_adjust, 1, 0);

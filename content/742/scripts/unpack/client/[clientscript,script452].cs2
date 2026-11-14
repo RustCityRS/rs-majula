@@ -1,0 +1,7 @@
+// 452
+[clientscript,script452]
+if (%conq_ignore_truce = 0) {
+    if_setgraphic(conq_truce_offer:ignore_truce_check, "km_tickbox,0");
+} else {
+    if_setgraphic(conq_truce_offer:ignore_truce_check, "km_tickbox,1");
+}

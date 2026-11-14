@@ -1,0 +1,49 @@
+// 6469
+[proc,clientscript_6469](int $int0)
+def_component $component1 = enum(int, component, enum_5960, $int0);
+def_component $component2 = enum(int, component, enum_5961, $int0);
+if ($component2 ! null) {
+    sound_vorbis_rate(6185, 1, 0, 50, 512);
+    if (if_gethide($component2) = true) {
+        if_sethide($component2, false);
+        if ($component2 = %varclient_1966) {
+            if_sethide(interface_1311:com_173, false);
+        }
+        if (cc_find($component1, 0) = true) {
+            cc_setgraphic(11866);
+        }
+        if (cc_find($component1, 1) = true) {
+            cc_setgraphic(11867);
+        }
+        if (cc_find($component1, 2) = true) {
+            cc_setgraphic(11868);
+        }
+        if (cc_find($component1, 4) = true) {
+            cc_setgraphic(11808);
+            cc_set2dangle(49152);
+            cc_setvflip(true);
+        }
+        ~clientscript_6467;
+        ~clientscript_6470($component1, $component2);
+    } else {
+        if_sethide($component2, true);
+        if ($component2 = %varclient_1966) {
+            if_sethide(interface_1311:com_173, true);
+        }
+        if (cc_find($component1, 0) = true) {
+            cc_setgraphic(11863);
+        }
+        if (cc_find($component1, 1) = true) {
+            cc_setgraphic(11864);
+        }
+        if (cc_find($component1, 2) = true) {
+            cc_setgraphic(11865);
+        }
+        if (cc_find($component1, 4) = true) {
+            cc_setgraphic(11808);
+            cc_set2dangle(0);
+            cc_setvflip(false);
+        }
+        ~clientscript_6467;
+    }
+}

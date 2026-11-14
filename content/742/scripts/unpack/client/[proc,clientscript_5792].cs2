@@ -1,0 +1,124 @@
+// 5792
+[proc,clientscript_5792](int $int0)
+def_struct $struct1 = ~clientscript_5795($int0);
+def_string $string0 = "";
+if ($struct1 = null) {
+    return;
+}
+~clientscript_5796($int0, 0, interface_1219:com_11, interface_1219:com_2, interface_1219:com_3, null, null, null);
+def_int $int2 = 1;
+def_int $int3 = 0;
+while ($int2 < 8 & $int3 = 0) {
+    switch_int ($int2) {
+        case 1 :
+            if (struct_param($struct1, param_1283) = null) {
+                $int3 = 1;
+            }
+        case 2 :
+            if (struct_param($struct1, param_1284) = null) {
+                $int3 = 1;
+            }
+        case 3 :
+            if (struct_param($struct1, param_1285) = null) {
+                $int3 = 1;
+            }
+        case 4 :
+            if (struct_param($struct1, param_1286) = null) {
+                $int3 = 1;
+            }
+        case 5 :
+            if (struct_param($struct1, param_1287) = null) {
+                $int3 = 1;
+            }
+        case 6 :
+            if (struct_param($struct1, param_1288) = null) {
+                $int3 = 1;
+            }
+        case 7 :
+            if (struct_param($struct1, param_1289) = null) {
+                $int3 = 1;
+            }
+    }
+    if ($int3 = 0) {
+        $int2 = calc($int2 + 1);
+    }
+}
+cc_deleteall(interface_1219:com_7);
+cc_deleteall(interface_1219:com_6);
+cc_deleteall(interface_1219:com_15);
+cc_deleteall(interface_1219:com_13);
+cc_deleteall(interface_1219:com_14);
+def_int $int4 = ~clientscript_5797($int0, null, calc($int2 - 1), 1, 2, 97, interface_1219:com_7, interface_1219:com_6, interface_1219:com_8, interface_1219:com_5, 79888400);
+switch_int ($int2) {
+    case 1 :
+        $string0 = struct_param($struct1, param_1274);
+    case 2 :
+        $string0 = struct_param($struct1, param_1275);
+    case 3 :
+        $string0 = struct_param($struct1, param_1276);
+    case 4 :
+        $string0 = struct_param($struct1, param_1277);
+    case 5 :
+        $string0 = struct_param($struct1, param_1278);
+    case 6 :
+        $string0 = struct_param($struct1, param_1279);
+    case 7 :
+        $string0 = struct_param($struct1, param_1280);
+    case 8 :
+        $string0 = struct_param($struct1, param_1281);
+}
+def_int $int5 = ~clientscript_5798($int0, $struct1, 0, $string0, 0, interface_1219:com_15, interface_1219:com_13, 79888400);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 16777215;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_string $string1 = "";
+if (cc_find(interface_1219:com_15, 0) = true) {
+    cc_setop(1, "Toggle-hint");
+    cc_setcolour(0xf7edb7);
+    cc_setopcursor(1, cursor_info);
+    $int6 = cc_getheight;
+    $int9 = cc_getwidth;
+    $string1 = cc_gettext;
+    $int7 = cc_getx;
+    $int8 = cc_gety;
+    while ($int11 < 4) {
+        if ($int11 < 2) {
+            $int12 = calc($int7 - 1);
+        } else {
+            $int12 = calc($int7 + 1);
+        }
+        if (calc($int11 % 2) = 0) {
+            $int13 = calc($int8 - 1);
+        } else {
+            $int13 = calc($int8 + 1);
+        }
+        cc_create(interface_1219:com_14, ^iftype_text, $int11);
+        cc_setsize($int9, $int6, ^setsize_abs, ^setsize_abs);
+        cc_settext($string1);
+        cc_settextfont(verdana_11pt_regular);
+        cc_setcolour(^black);
+        cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+        cc_setposition($int12, $int13, ^setpos_abs_left, ^setpos_abs_top);
+        $int11 = calc($int11 + 1);
+    }
+}
+cc_create(interface_1219:com_13, ^iftype_graphic, 0);
+cc_sethide(false);
+cc_setop(1, "Toggle-hint");
+cc_setopcursor(1, cursor_info);
+cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc(($int6 - cc_getheight) / 2), ^setpos_rel_left, ^setpos_abs_top);
+if (%varplayerbit_8578 = $int2 & %varplayerbit_8594 = $int0) {
+    cc_setgraphic(9615);
+    ~clientscript_5779(1, $int2, interface_1219:com_13);
+} else {
+    cc_setgraphic(9618);
+    ~clientscript_5779(0, $int2, interface_1219:com_13);
+}
+if_setscrollpos(interface_1219:com_5, 0, 0);
+if_setsize(interface_1219:com_0, if_getwidth(interface_1219:com_0), 306, ^setsize_abs, ^setsize_abs);

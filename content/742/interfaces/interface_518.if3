@@ -1,0 +1,429 @@
+// 518:0
+[com_0]
+type=graphic
+x=-3
+y=-2
+width=30
+height=32
+layer=com_12
+graphic=graphic_6355
+
+// 518:1
+[com_1]
+type=graphic
+x=25
+y=-2
+width=121
+height=32
+layer=com_12
+graphic=graphic_6356
+
+// 518:2
+[com_2]
+type=graphic
+x=144
+y=-2
+width=30
+height=32
+layer=com_12
+graphic=graphic_6357
+
+// 518:3
+[com_3]
+type=layer
+x=1
+y=-17
+width=479
+height=291
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+
+// 518:4
+[com_4]
+type=layer
+x=2
+y=-15
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+
+// 518:5
+[com_5]
+type=layer
+x=2
+y=-15
+width=510
+height=349
+layer=com_14
+
+// 518:6
+[com_6]
+type=graphic
+x=21
+y=52
+width=290
+height=34
+layer=com_5
+graphic=graphic_7666
+onload=clientscript_1624
+
+// 518:7
+[com_7]
+type=layer
+x=477
+y=10
+width=14
+height=17
+layer=com_14
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(interface_518:com_8, "aif_bronze_close_button_1,1")
+onmouseleave=graphic_swapper(interface_518:com_8, "aif_bronze_close_button_1,0")
+onclick=graphic_swapper(interface_518:com_8, "aif_bronze_close_button_1,4")
+onrelease=graphic_swapper(interface_518:com_8, "aif_bronze_close_button_1,0")
+
+// 518:8
+[com_8]
+type=graphic
+width=16
+height=15
+layer=com_7
+graphic="aif_bronze_close_button_1,0"
+
+// 518:9
+[com_9]
+type=layer
+x=15
+y=3
+width=1029
+height=342
+layer=com_14
+
+// 518:10
+[com_10]
+type=layer
+x=9
+y=1
+width=512
+height=334
+layer=com_5
+
+// 518:11
+[com_11]
+type=text
+x=29
+y=128
+width=269
+height=33
+layer=com_10
+textfont=verdana_13pt_regular
+text=The items from your mystery cracker have
+textshadow=yes
+colour=0xfbf1d0
+
+// 518:12
+[com_12]
+type=layer
+x=81
+y=234
+width=175
+height=31
+layer=com_5
+transmitop=1
+op1=Close
+onmouseover=clientscript_1310(33947660)
+onmouseleave=clientscript_1623(33947660)
+onclick=clientscript_1622(33947660)
+onrelease=clientscript_1623(33947660)
+
+// 518:13
+[com_13]
+type=text
+x=6
+y=3
+width=163
+height=22
+layer=com_12
+textfont=verdana_13pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xfcfcc2
+
+// 518:14
+[com_14]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 518:15
+[com_15]
+type=graphic
+x=16
+y=305
+width=120
+height=7
+layer=com_4
+graphic=aif_window_stone_bot_brdr_left
+
+// 518:16
+[com_16]
+type=graphic
+x=366
+y=305
+width=120
+height=7
+layer=com_4
+graphic=aif_window_stone_bot_brdr_right
+
+// 518:17
+[com_17]
+type=graphic
+x=135
+y=305
+width=244
+height=6
+layer=com_4
+graphic=aif_window_stone_bot_brdr_middle
+
+// 518:18
+[com_18]
+type=graphic
+x=14
+y=259
+width=64
+height=53
+layer=com_4
+graphic=aif_window_stone_bot_corn
+
+// 518:19
+[com_19]
+type=graphic
+x=14
+y=155
+width=8
+height=106
+layer=com_4
+graphic=aif_window_stone_side_brdr_large
+
+// 518:20
+[com_20]
+type=graphic
+x=315
+y=20
+width=120
+height=7
+layer=com_4
+graphic=aif_window_stone_bot_brdr_right
+
+// 518:21
+[com_21]
+type=graphic
+x=77
+y=20
+width=120
+height=7
+layer=com_4
+graphic=aif_window_stone_bot_brdr_left
+
+// 518:22
+[com_22]
+type=graphic
+x=195
+y=20
+width=120
+height=7
+layer=com_4
+graphic=aif_window_stone_bot_brdr_middle
+
+// 518:23
+[com_23]
+type=graphic
+x=14
+y=60
+width=8
+height=106
+layer=com_4
+graphic=aif_window_stone_side_brdr_large
+
+// 518:24
+[com_24]
+type=graphic
+x=14
+y=20
+width=64
+height=53
+layer=com_4
+graphic=aif_window_stone_topl_corn
+
+// 518:25
+[com_25]
+type=graphic
+x=487
+y=66
+width=8
+height=106
+layer=com_4
+graphic=aif_window_stone_side_brdr_large
+
+// 518:26
+[com_26]
+type=graphic
+x=432
+y=20
+width=64
+height=53
+layer=com_4
+graphic=aif_window_stone_topr_corn
+
+// 518:27
+[com_27]
+type=graphic
+x=5
+y=3
+width=117
+height=143
+layer=com_3
+graphic=graphic_486
+
+// 518:28
+[com_28]
+type=graphic
+x=121
+y=3
+width=117
+height=143
+layer=com_3
+graphic=graphic_487
+
+// 518:29
+[com_29]
+type=graphic
+x=238
+y=3
+width=117
+height=143
+layer=com_3
+graphic=graphic_488
+
+// 518:30
+[com_30]
+type=graphic
+x=355
+y=3
+width=117
+height=143
+layer=com_3
+graphic=graphic_490
+
+// 518:31
+[com_31]
+type=graphic
+x=5
+y=145
+width=117
+height=143
+layer=com_3
+graphic=graphic_491
+
+// 518:32
+[com_32]
+type=graphic
+x=122
+y=145
+width=117
+height=143
+layer=com_3
+graphic=graphic_492
+
+// 518:33
+[com_33]
+type=graphic
+x=238
+y=146
+width=117
+height=143
+layer=com_3
+graphic=graphic_530
+
+// 518:34
+[com_34]
+type=graphic
+x=355
+y=146
+width=117
+height=143
+layer=com_3
+graphic=graphic_531
+
+// 518:35
+[com_35]
+type=graphic
+x=487
+y=161
+width=8
+height=106
+layer=com_4
+graphic=aif_window_stone_side_brdr_large
+
+// 518:36
+[com_36]
+type=graphic
+x=431
+y=259
+width=64
+height=53
+layer=com_4
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 518:37
+[com_37]
+type=layer
+x=-6
+y=-25
+width=515
+height=377
+layer=com_5
+
+// 518:38
+[com_38]
+type=text
+x=30
+y=144
+width=276
+height=33
+layer=com_10
+textfont=verdana_13pt_regular
+text=been placed in your inventory!
+textshadow=yes
+colour=0xfbf1d0
+
+// 518:39
+[com_39]
+type=text
+x=29
+y=169
+width=276
+height=33
+layer=com_10
+textfont=verdana_13pt_regular
+text=Use the inventory tab to access them!
+textshadow=yes
+colour=0xfbf1d0
+
+// 518:40
+[com_40]
+type=layer
+x=461
+y=5
+width=17
+height=19
+layer=com_9
+onmouseleave=deltooltip(interface_518:com_37)
+onmouserepeat=aif_tooltip(interface_518:com_37, event_com, -1, "Close this window", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)

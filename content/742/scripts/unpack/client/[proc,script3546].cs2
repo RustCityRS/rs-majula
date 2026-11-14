@@ -1,0 +1,3 @@
+// 3546
+[proc,script3546](int $int0)(int)
+return(enum(int, int, ~script3549(%varplayerbit_7392), calc(($int0 + %varplayerbit_7389) % enum_getoutputcount(~script3549(%varplayerbit_7392)))));

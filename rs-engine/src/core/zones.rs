@@ -1,6 +1,7 @@
 use crate::core::Engine;
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_pack::types::LocLayer;
+use rs_ver::TypeId;
 #[cfg(before_647)]
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 
@@ -18,17 +19,17 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 pub enum PendingZoneEvent {
     ObjReveal {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         receiver37: u64,
     },
     ObjDelete {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         clock: u32,
     },
     ObjAdd {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
     },
     LocDelete {
         coord: CoordGrid,

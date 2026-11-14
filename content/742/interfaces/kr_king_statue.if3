@@ -1,0 +1,39 @@
+// 584:0
+[background]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+colour=0x000000
+fill=yes
+onload=kr_statue_onload
+
+// 584:1
+[rockwall]
+type=model
+x=61
+y=-41
+width=1194
+height=620
+xmode=abs_centre
+ymode=abs_centre
+model=model_27219
+modelorigin=-87,190
+modelangle=89,67,0
+modelzoom=400
+
+// 584:2
+[statue]
+type=model
+x=-32
+y=-367
+width=193
+height=1151
+xmode=abs_centre
+ymode=abs_centre
+model=model_27526
+modelorigin=6,516
+modelangle=89,67,0
+modelzoom=400
+modelanim=kr_king_arthur_reveal

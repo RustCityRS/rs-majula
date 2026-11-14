@@ -1,0 +1,33 @@
+// 1319:0
+[com_0]
+type=graphic
+x=2
+y=3
+width=340
+height=120
+layer=com_1
+graphic=graphic_11975
+
+// 1319:1
+[com_1]
+type=layer
+y=-100
+width=345
+height=126
+xmode=abs_centre
+ymode=abs_centre
+ontimer=clientscript_6563(event_com)
+
+// 1319:2
+[com_2]
+type=text
+x=34
+y=50
+width=279
+height=35
+layer=com_1
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0b9

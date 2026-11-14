@@ -22,6 +22,7 @@ use rs_io::js5::{
     compression::{CompressionType, compress},
     java_string_hash,
 };
+use rs_ver::TypeId;
 use std::{collections::HashMap, sync::Arc};
 use tracing::{debug, info, warn};
 
@@ -83,7 +84,7 @@ fn load_strided_archive<T: CacheType>(
     let mut types = if group_count == 0 {
         Vec::new()
     } else {
-        vec![T::new(0)]
+        vec![T::new(TypeId::new(0))]
     };
     let mut loaded = 0usize;
 
@@ -103,7 +104,9 @@ fn load_strided_archive<T: CacheType>(
         for entry in &group.entries {
             let id = (group_id * stride + entry.id) as usize;
             if id >= types.len() {
-                types.extend((types.len()..=id).map(|i| T::new(i as u16)));
+                types.extend(
+                    (types.len()..=id).map(|i| T::new(TypeId::try_from(i).expect("type id"))),
+                );
             }
             let mut buf = Packet::from(entry.data().to_vec());
             types[id].decode(&mut buf);
@@ -141,7 +144,9 @@ fn load_config_group<T: CacheType>(
     let max_id = group.entries.iter().map(|e| e.id).max().unwrap_or(0) as usize;
 
     let count = max_id + 1;
-    let mut types: Vec<T> = (0..count).map(|i| T::new(i as u16)).collect();
+    let mut types: Vec<T> = (0..count)
+        .map(|i| T::new(TypeId::try_from(i).expect("type id")))
+        .collect();
 
     for entry in &group.entries {
         let id = entry.id as usize;

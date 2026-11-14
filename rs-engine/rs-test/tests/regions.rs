@@ -16,6 +16,7 @@ use rs_pack::types::{LocAngle, LocShape};
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::RegionUid;
 use rs_vm::engine::ScriptEngine;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
@@ -95,7 +96,12 @@ fn turned_loc(x: u16, z: u16, width: u16, length: u16, angle: u8, rotation: usiz
 
 /// Every active loc on `level` lying wholly in the area from (`x`, `z`), as
 /// `(id, x, z, angle, shape, width, length)` relative to (`x`, `z`).
-fn locs_on(engine: &Engine, x: u16, z: u16, level: u8) -> Vec<(u16, u16, u16, u8, u8, u16, u16)> {
+fn locs_on(
+    engine: &Engine,
+    x: u16,
+    z: u16,
+    level: u8,
+) -> Vec<(TypeId, u16, u16, u8, u8, u16, u16)> {
     let mut locs = Vec::new();
     for zx in (0..TILES + 16).step_by(8) {
         for zz in (0..TILES + 16).step_by(8) {
@@ -131,7 +137,7 @@ fn locs_on(engine: &Engine, x: u16, z: u16, level: u8) -> Vec<(u16, u16, u16, u8
 }
 
 /// Every active loc on the ground lying wholly in the area from (`x`, `z`).
-fn locs(engine: &Engine, x: u16, z: u16) -> Vec<(u16, u16, u16, u8, u8, u16, u16)> {
+fn locs(engine: &Engine, x: u16, z: u16) -> Vec<(TypeId, u16, u16, u8, u8, u16, u16)> {
     locs_on(engine, x, z, 0)
 }
 
@@ -338,7 +344,7 @@ fn players_get_a_region_map_and_leave_with_the_region() {
             Some((Some(exit), Some(exit)))
         );
         let manager = engine.harness_region_coord(uid, 0, 0, 0).unwrap();
-        assert!(engine.harness_controller_add(manager, 0));
+        assert!(engine.harness_controller_add(manager, TypeId::new(0)));
 
         engine.harness_region_free(uid);
         let coord = engine.harness_player(client.pid).unwrap().pathing.coord;
@@ -347,7 +353,7 @@ fn players_get_a_region_map_and_leave_with_the_region() {
             !rsmod::is_zone_allocated(inside.x(), inside.z(), 0),
             "nothing reaches a freed region later in its tick"
         );
-        assert!(!engine.harness_controller_add(manager, 0));
+        assert!(!engine.harness_controller_add(manager, TypeId::new(0)));
         engine.cycle();
         assert!(
             client
@@ -623,7 +629,7 @@ fn regions_keep_to_the_size_they_were_created_with() {
 /// A blocking active loc on the ground of mapsquare 50_50 that crosses its
 /// zone's east edge but not its north one, as `(id, x, z, angle, width,
 /// length)`, its width and length as it lies.
-fn crossing_loc(engine: &Engine) -> (u16, u16, u16, u8, u16, u16) {
+fn crossing_loc(engine: &Engine) -> (TypeId, u16, u16, u8, u16, u16) {
     for x0 in (3200..3264).step_by(8) {
         for z0 in (3200..3264).step_by(8) {
             let Some(zone) = engine.zones.zone(x0, 0, z0) else {
@@ -727,7 +733,7 @@ fn collision_by_a_copys_edge_leaves_the_void_beside_it() {
         for (wall, beside) in [(at(8, 3), at(7, 3)), (at(0, 11), at(-1, 11))] {
             engine.add_or_change_loc(
                 wall,
-                1,
+                TypeId::new(1),
                 LocShape::WallStraight,
                 LocAngle::West,
                 1,

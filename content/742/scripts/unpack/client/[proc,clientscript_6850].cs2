@@ -1,0 +1,38 @@
+// 6850
+[proc,clientscript_6850](component $component0)(int)
+switch_component ($component0) {
+    case interface_1354:com_3 :
+        return(1);
+    case interface_1354:com_4 :
+        return(2);
+    case interface_1354:com_5 :
+        return(3);
+    case interface_1354:com_6 :
+        return(4);
+    case interface_1354:com_7 :
+        return(5);
+    case interface_1354:com_8 :
+        return(6);
+    case interface_1354:com_9 :
+        return(7);
+    case interface_1354:com_10 :
+        return(8);
+    case interface_1354:com_11 :
+        return(9);
+    case interface_1354:com_12 :
+        return(10);
+    case interface_1354:com_13 :
+        return(11);
+    case interface_1354:com_14 :
+        return(12);
+    case interface_1354:com_15 :
+        return(13);
+    case interface_1354:com_16 :
+        return(14);
+    case interface_1354:com_17 :
+        return(15);
+    case interface_1354:com_18 :
+        return(16);
+    case default :
+        return(-1);
+}

@@ -88,10 +88,20 @@ impl ServerProtMessage for RebuildNormal {
             );
             buf.pdata(&init.data, 0, init.pos);
         }
-        buf.p2_alt1(self.player_x >> 3);
-        buf.p1_alt2(self.login as u8);
-        buf.p1_alt2(0);
-        buf.p2_alt3(self.player_z >> 3);
+        #[cfg(before_742)]
+        {
+            buf.p2_alt1(self.player_x >> 3);
+            buf.p1_alt2(self.login as u8);
+            buf.p1_alt2(0);
+            buf.p2_alt3(self.player_z >> 3);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt1(0);
+            buf.p2(self.player_z >> 3);
+            buf.p2(self.player_x >> 3);
+            buf.p1(self.login as u8);
+        }
         for keys in &self.xtea_keys {
             for &k in keys {
                 buf.p4(k);

@@ -8,6 +8,7 @@ use rs_protocol::network::game::client::opheld2::OpHeld2;
 use rs_protocol::network::game::client::opheld3::OpHeld3;
 use rs_protocol::network::game::client::opheld4::OpHeld4;
 use rs_protocol::network::game::client::opheld5::OpHeld5;
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::subject::ScriptSubject;
@@ -119,7 +120,7 @@ impl ClientGameHandler for OpHeld5 {
 /// **Calls:** `engine_mut().run_script_by_trigger`
 fn handle(
     op: usize,
-    obj: u16,
+    obj: TypeId,
     slot: u16,
     com: u16,
     active: &mut ActivePlayer,
@@ -225,8 +226,8 @@ fn handle(
     let result = engine_mut().run_script_by_trigger(
         (
             trigger,
-            Some(obj.id as i32),
-            Some(obj.category.map(|x| x as i32).unwrap_or(-1)),
+            Some(obj.id.int()),
+            Some(obj.category.map(|x| x.int()).unwrap_or(-1)),
         ),
         Some(ScriptSubject::Player(active.player.uid)),
         None,

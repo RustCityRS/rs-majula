@@ -1,11 +1,18 @@
+#[cfg(since_742)]
+use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
+#[cfg(since_742)]
+use crate::ParamValue;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
+#[cfg(since_742)]
+use rustc_hash::FxHashMap;
 
 pub type SeqTypeProvider = TypeProvider<SeqType>;
 
 pub struct SeqType {
-    pub id: u16,
+    pub id: TypeId,
     pub duration: u32,
     pub priority: u8,
     pub debugname: Box<str>,
@@ -24,7 +31,7 @@ impl From<SeqTypeRaw> for SeqType {
 
 #[cfg_attr(since_647, derive(Debug, Clone))]
 pub struct SeqTypeRaw {
-    pub id: u16,
+    pub id: TypeId,
     pub frames: Option<Box<[u32]>>,
     pub iframes: Option<Box<[Option<u32>]>>,
     pub delays: Option<Box<[u16]>>,
@@ -56,6 +63,10 @@ pub struct SeqTypeRaw {
     pub op19: Vec<(u8, u8)>,
     #[cfg(since_647)]
     pub op20: Vec<(u8, u16, u16)>,
+    #[cfg(since_742)]
+    pub tertiaryvolumefactor: Option<u8>,
+    #[cfg(since_742)]
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     debugname: Box<str>,
 }
 
@@ -65,7 +76,7 @@ impl CacheType for SeqTypeRaw {
     #[cfg(since_647)]
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         SeqTypeRaw {
             id,
             frames: None,
@@ -99,6 +110,10 @@ impl CacheType for SeqTypeRaw {
             op19: Vec::new(),
             #[cfg(since_647)]
             op20: Vec::new(),
+            #[cfg(since_742)]
+            tertiaryvolumefactor: None,
+            #[cfg(since_742)]
+            params: None,
             debugname: Box::default(),
         }
     }
@@ -182,6 +197,14 @@ impl CacheType for SeqTypeRaw {
                 let b = buf.g2();
                 self.op20.push((idx, a, b));
             }
+            #[cfg(since_742)]
+            22 => self.tertiaryvolumefactor = Some(buf.g1()),
+            #[cfg(since_742)]
+            249 => ParamType::decode_params(
+                buf,
+                self.params
+                    .get_or_insert_with(|| Box::new(FxHashMap::default())),
+            ),
             250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
             _ => crate::unknown_opcode!("seq", code),
         }

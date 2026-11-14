@@ -10,6 +10,8 @@ use crate::util::{halfsq, pop_projanim_tail};
 use crate::util::{pop_coord, pop_seq, pop_spotanim};
 use crate::{handlers, none};
 use rs_grid::CoordGrid;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 use runec::opcodes::*;
 
 /// Registers server and world-level opcodes for coordinate utilities, map queries,
@@ -306,7 +308,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         none!(m, INAREA => |s| {
             let coord = pop_coord(s)?;
             let area = s.pop_int();
-            s.push_int(engine::<E>().inarea(area as u16, coord) as i32);
+            s.push_int(engine::<E>().inarea(TypeId::from_int(area), coord) as i32);
         });
 
         // 1026

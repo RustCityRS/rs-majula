@@ -13,22 +13,23 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 #[test]
 fn examine_answers_with_the_types_desc() {
     runner::on_loaded_engine(|engine| {
-        let npc = *engine.cache.npcs.debugnames.get("hans").expect("hans");
+        let npc = engine.cache.npcs.get_by_debugname("hans").expect("hans").id;
         // Locs load from the JS5 cache, which has no names: `tree2`.
         let loc = 1278;
-        let obj = *engine
+        let obj = engine
             .cache
             .objs
-            .debugnames
-            .get("tinderbox")
-            .expect("tinderbox");
+            .get_by_debugname("tinderbox")
+            .expect("tinderbox")
+            .id;
 
         assert_eq!(
-            examine(engine, ClientProt::OpNpc6, npc),
+            examine(engine, ClientProt::OpNpc6, npc.g2()),
             [(0, "Servant of the Duke of Lumbridge.".to_string())]
         );
         assert_eq!(
@@ -36,7 +37,7 @@ fn examine_answers_with_the_types_desc() {
             [(0, "A commonly found tree.".to_string())]
         );
         assert_eq!(
-            examine(engine, ClientProt::OpObj6, obj),
+            examine(engine, ClientProt::OpObj6, obj.g2()),
             [(0, "Useful for lighting a fire.".to_string())]
         );
 
@@ -46,7 +47,7 @@ fn examine_answers_with_the_types_desc() {
                 engine
                     .cache
                     .objs
-                    .get_by_id(id)
+                    .get_by_id(TypeId::new(id))
                     .is_some_and(|t| t.desc.is_none())
             })
             .expect("an obj with no desc");

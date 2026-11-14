@@ -1,0 +1,21 @@
+// 5317
+[proc,clientscript_5317]
+if (if_gethide(interface_319:com_38) = true) {
+    if_sethide(interface_319:com_38, false);
+    if_sethide(interface_319:com_30, true);
+    if_sethide(interface_319:com_6, true);
+    if_sethide(interface_319:com_9, true);
+    if_sethide(interface_319:com_10, true);
+    if_sethide(interface_319:com_7, false);
+    if_sethide(interface_319:com_8, false);
+    if_sethide(interface_319:com_12, false);
+} else {
+    if_sethide(interface_319:com_38, true);
+    if_sethide(interface_319:com_30, false);
+    if_sethide(interface_319:com_6, false);
+    if_sethide(interface_319:com_9, false);
+    if_sethide(interface_319:com_10, false);
+    if_sethide(interface_319:com_7, true);
+    if_sethide(interface_319:com_8, true);
+    if_sethide(interface_319:com_12, true);
+}

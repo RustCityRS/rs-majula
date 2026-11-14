@@ -1,0 +1,17 @@
+// 726
+[clientscript,mainmodal_fullscreen_background_update](component $component0, component $component1)
+if (if_hassub($component1) = false | %mainmodal_fullscreen_colour = null) {
+    cc_deleteall($component0);
+    %mainmodal_fullscreen_colour = null;
+    if_setontimer($component0, null);
+    if_setonresize($component0, null);
+    return;
+}
+if_setontimer($component0, "mainmodal_fullscreen_background_clear($component0, $component1)");
+if_setonresize($component0, "mainmodal_fullscreen_background_update($component0, $component1)");
+cc_create($component0, ^iftype_rectangle, 0);
+cc_setposition(0, 0, ^setpos_rel_left, ^setpos_rel_top);
+cc_setsize(16384, 16384, ^setsize_rel, ^setsize_rel);
+cc_setcolour(%mainmodal_fullscreen_colour);
+cc_settrans(%mainmodal_fullscreen_trans);
+cc_setfill(true);

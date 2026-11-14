@@ -1,0 +1,26 @@
+// 6923
+[proc,clientscript_6923](component $component0, component $component1, int $int2, string $string0)
+cc_deleteall($component0);
+~clientscript_6930($component0, 0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic("miscgraphics,0");
+cc_setonmouserepeat("aif_tooltip($component1, event_com, -1, $string0, 150, p11_full, p11_full, null, 10, 2, 1, event_mousex, event_mousey)");
+cc_setonmouseleave("deltooltip($component1)");
+cc_create($component0, ^iftype_graphic, 1);
+~clientscript_6925($int2);
+cc_setoninvtransmit("clientscript_6924(event_com, event_comsubid, $int2){worn}");
+.cc_create($component0, ^iftype_graphic, 2);
+.cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+.cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+.cc_setgraphic(duel_misc_graphic);
+~clientscript_6927($int2);
+cc_setonvartransmit("clientscript_6926(event_com, .cc_getid, $int2){dueloptions}");
+if_setonop($component0, "clientscript_6928(event_com, .cc_getid, $int2, event_op)");
+.cc_create($component0, ^iftype_graphic, 3);
+.cc_setsize(10, 32, ^setsize_abs, ^setsize_abs);
+.cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+.cc_setgraphic(exclamation_mark);
+.cc_sethide(true);
+cc_setontimer("clientscript_6931(event_com, .cc_getid)");

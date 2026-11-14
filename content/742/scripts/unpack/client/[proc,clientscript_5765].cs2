@@ -1,0 +1,13 @@
+// 5765
+[proc,clientscript_5765](stat $stat0)(int)
+if ($stat0 = null) {
+    return(~clientscript_5766(10));
+} else if (stat_base($stat0) >= 10) {
+    return(1);
+} else if ($stat0 = attack) {
+    if (stat_base(attack) > 10 | stat_base(strength) > 10 | stat_base(defence) > 10 | stat_base(magic) > 10 | stat_base(ranged) > 10 | ~comlevel > 10) {
+        return(1);
+    }
+} else {
+    return(0);
+}

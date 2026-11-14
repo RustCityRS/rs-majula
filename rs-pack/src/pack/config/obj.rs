@@ -118,9 +118,9 @@ pub fn pack_objs(
                 let start = client.dat.len();
                 match key.as_str() {
                     // 1
-                    "model" => parse_ref(&registry.model, "model", value, |v| {
+                    "model" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(1);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 2
@@ -213,15 +213,23 @@ pub fn pack_objs(
                     // 13
                     "wearpos" => {
                         let pos = WearPos::from_config_str(value) as u8;
-                        server.p1(13);
-                        server.p1(pos);
+                        #[cfg(before_742)]
+                        let out = &mut server;
+                        #[cfg(since_742)]
+                        let out = &mut client;
+                        out.p1(13);
+                        out.p1(pos);
                     }
 
                     // 14
                     "wearpos2" => {
                         let pos = WearPos::from_config_str(value) as u8;
-                        server.p1(14);
-                        server.p1(pos);
+                        #[cfg(before_742)]
+                        let out = &mut server;
+                        #[cfg(since_742)]
+                        let out = &mut client;
+                        out.p1(14);
+                        out.p1(pos);
                     }
 
                     // 15
@@ -253,9 +261,9 @@ pub fn pack_objs(
                     // 23
                     "manwear" => {
                         let mut parts = value.split(',');
-                        parse_ref(&registry.model, "model", parts.next().unwrap(), |v| {
+                        parse_bigid(&registry.model, "model", parts.next().unwrap(), |v| {
                             client.p1(23);
-                            client.p2(v);
+                            client.pbigid(v);
                         });
                         #[cfg(before_647)]
                         parse_number(parts.next().expect("Missing wear offset"), |v| client.p1(v));
@@ -263,17 +271,17 @@ pub fn pack_objs(
                     }
 
                     // 24
-                    "manwear2" => parse_ref(&registry.model, "model", value, |v| {
+                    "manwear2" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(24);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 25
                     "womanwear" => {
                         let mut parts = value.split(',');
-                        parse_ref(&registry.model, "model", parts.next().unwrap(), |v| {
+                        parse_bigid(&registry.model, "model", parts.next().unwrap(), |v| {
                             client.p1(25);
-                            client.p2(v);
+                            client.pbigid(v);
                         });
                         #[cfg(before_647)]
                         parse_number(parts.next().expect("Missing wear offset"), |v| client.p1(v));
@@ -281,16 +289,20 @@ pub fn pack_objs(
                     }
 
                     // 26
-                    "womanwear2" => parse_ref(&registry.model, "model", value, |v| {
+                    "womanwear2" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(26);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 27
                     "wearpos3" => {
                         let pos = WearPos::from_config_str(value) as u8;
-                        server.p1(27);
-                        server.p1(pos);
+                        #[cfg(before_742)]
+                        let out = &mut server;
+                        #[cfg(since_742)]
+                        let out = &mut client;
+                        out.p1(27);
+                        out.p1(pos);
                     }
 
                     // 30-34
@@ -346,40 +358,58 @@ pub fn pack_objs(
                         server.p2(grams as i16 as u16);
                     }
 
+                    #[cfg(since_742)]
+                    "minimenucolour" => {
+                        client.p1(43);
+                        client.p4(parse_colour(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "recolindices" => {
+                        client.p1(44);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "retexindices" => {
+                        client.p1(45);
+                        client.p2(parse_mask_indices(value));
+                    }
+
                     // 78
-                    "manwear3" => parse_ref(&registry.model, "model", value, |v| {
+                    "manwear3" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(78);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 79
-                    "womanwear3" => parse_ref(&registry.model, "model", value, |v| {
+                    "womanwear3" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(79);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 90
-                    "manhead" => parse_ref(&registry.model, "model", value, |v| {
+                    "manhead" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(90);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 91
-                    "womanhead" => parse_ref(&registry.model, "model", value, |v| {
+                    "womanhead" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(91);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 92
-                    "manhead2" => parse_ref(&registry.model, "model", value, |v| {
+                    "manhead2" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(92);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 93
-                    "womanhead2" => parse_ref(&registry.model, "model", value, |v| {
+                    "womanhead2" => parse_bigid(&registry.model, "model", value, |v| {
                         client.p1(93);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 94
@@ -504,7 +534,7 @@ pub fn pack_objs(
                         }
                     }
 
-                    #[cfg(since_647)]
+                    #[cfg(all(since_647, before_742))]
                     "cursor1" | "cursor2" | "icursor1" | "icursor2" => {
                         let (op, cursor) = value.split_once(',').expect("Invalid obj cursor");
                         let op = op.trim().parse::<u8>().expect("Invalid obj cursor") - 1;
@@ -537,6 +567,22 @@ pub fn pack_objs(
                         client.p1(140);
                         client.p2(v);
                     }),
+
+                    #[cfg(since_742)]
+                    _ if let Some(n) = config_key_index(key, "icursor") => {
+                        parse_ref(&registry.cursor, "cursor", value, |v| {
+                            client.p1(149 + n as u8);
+                            client.p2(v);
+                        })
+                    }
+
+                    #[cfg(since_742)]
+                    _ if let Some(n) = config_key_index(key, "cursor") => {
+                        parse_ref(&registry.cursor, "cursor", value, |v| {
+                            client.p1(141 + n as u8);
+                            client.p2(v);
+                        })
+                    }
 
                     // 201
                     "respawnrate" => parse_number(value, |v| {
@@ -619,6 +665,10 @@ fn batch_code(key: &str) -> u8 {
     {
         if config_key_index(key, "recolpalette").is_some() {
             return 42;
+        }
+        #[cfg(since_742)]
+        if key == "recolindices" || key == "retexindices" {
+            return 0;
         }
         if key.starts_with("recol") {
             return 40;

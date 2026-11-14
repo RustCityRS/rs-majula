@@ -2,9 +2,17 @@ use crate::pack::pack_registry::PackId;
 use anyhow::{Result, ensure};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use std::fs;
 use std::path::Path;
 use tracing::debug;
+
+/// Bytes the entry count takes at the start of `dat` and `idx`: from 742 a
+/// table can hold more entries than a short counts.
+#[cfg(before_742)]
+const COUNT_LEN: usize = 2;
+#[cfg(since_742)]
+const COUNT_LEN: usize = 4;
 
 #[derive(Default)]
 pub struct PackedData {
@@ -18,34 +26,47 @@ impl PackedData {
     pub fn entries<'a>(
         dat: &'a [u8],
         idx: &'a [u8],
-    ) -> Result<impl ExactSizeIterator<Item = (u16, &'a [u8])>> {
-        ensure!(dat.len() >= 2 && idx.len() >= 2, "Missing config count");
-        let count = Packet::from(dat).g2() as usize;
-        ensure!(dat[..2] == idx[..2], "Config data and index counts differ");
-        ensure!(idx.len() >= 2 + (count << 1), "Truncated config index");
-        let lengths = idx[2..2 + (count << 1)].as_chunks::<2>().0.iter();
+    ) -> Result<impl ExactSizeIterator<Item = (u32, &'a [u8])>> {
+        ensure!(
+            dat.len() >= COUNT_LEN && idx.len() >= COUNT_LEN,
+            "Missing config count"
+        );
+        let count = read_count(dat);
+        ensure!(
+            dat[..COUNT_LEN] == idx[..COUNT_LEN],
+            "Config data and index counts differ"
+        );
+        ensure!(
+            idx.len() >= COUNT_LEN + (count << 1),
+            "Truncated config index"
+        );
+        let lengths = idx[COUNT_LEN..COUNT_LEN + (count << 1)]
+            .as_chunks::<2>()
+            .0
+            .iter();
         let length = |bytes: &[u8; 2]| Packet::from(bytes).g2() as usize;
         ensure!(
-            2 + lengths.clone().map(length).sum::<usize>() <= dat.len(),
+            COUNT_LEN + lengths.clone().map(length).sum::<usize>() <= dat.len(),
             "Truncated config data"
         );
-        let mut offset = 2;
+        let mut offset = COUNT_LEN;
         Ok(lengths.enumerate().map(move |(id, bytes)| {
             let start = offset;
             offset += length(bytes);
-            (id as u16, &dat[start..offset])
+            (id as u32, &dat[start..offset])
         }))
     }
 
     pub fn new(count: PackId) -> Self {
         let mut dat = Vec::with_capacity(500_000);
         let mut idx = Vec::with_capacity((count as usize + 1) * 2);
-        dat.resize(2, 0);
+        dat.resize(COUNT_LEN, 0);
         #[cfg(before_647)]
-        let header_count = count;
-        #[cfg(since_647)]
-        let header_count = count as u16;
-        Packet::from(&mut dat).p2(header_count);
+        Packet::from(&mut dat).p2(count);
+        #[cfg(all(since_647, before_742))]
+        Packet::from(&mut dat).p2(count as u16);
+        #[cfg(since_742)]
+        Packet::from(&mut dat).p4(count as i32);
         idx.extend_from_slice(&dat);
         let entry_start = dat.len();
         Self {
@@ -58,8 +79,8 @@ impl PackedData {
 
     /// Data an earlier pack made, from its `dat` and `idx`.
     pub fn from_parts(dat: Vec<u8>, idx: Vec<u8>) -> Self {
-        let count = if dat.len() >= 2 {
-            Packet::from(&dat[..2]).g2() as PackId
+        let count = if dat.len() >= COUNT_LEN {
+            read_count(&dat) as PackId
         } else {
             0
         };
@@ -120,6 +141,25 @@ impl PackedData {
     }
 
     #[inline]
+    pub fn pbigid(&mut self, value: TypeId) {
+        #[cfg(before_742)]
+        self.p2(value.g2());
+        #[cfg(since_742)]
+        self.packet(if (-1..32767).contains(&value.int()) {
+            2
+        } else {
+            4
+        })
+        .psmart2or4null(value.int());
+    }
+
+    /// Writes a two-byte seq or graphic id as the client reads it.
+    #[inline]
+    pub fn pid(&mut self, value: u16) {
+        self.pbigid(TypeId::from_g2(value));
+    }
+
+    #[inline]
     pub fn pjstr(&mut self, value: &str) {
         #[cfg(before_647)]
         {
@@ -168,21 +208,38 @@ impl PackedData {
     }
 }
 
+fn read_count(dat: &[u8]) -> usize {
+    #[cfg(before_742)]
+    {
+        Packet::from(dat).g2() as usize
+    }
+    #[cfg(since_742)]
+    {
+        Packet::from(dat).g4s() as usize
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn indexed_entries_preserve_gaps_and_check_lengths() {
-        let dat = [0, 3, 0, 1, 7, 0];
-        let idx = [0, 3, 0, 1, 0, 0, 0, 3];
+        let count = &3u32.to_be_bytes()[4 - COUNT_LEN..];
+        let dat = [count, &[0, 1, 7, 0]].concat();
+        let idx = [count, &[0, 1, 0, 0, 0, 3]].concat();
+        let c = COUNT_LEN;
         assert_eq!(
             PackedData::entries(&dat, &idx).unwrap().collect::<Vec<_>>(),
-            vec![(0, &dat[2..3]), (1, &dat[3..3]), (2, &dat[3..6])]
+            vec![
+                (0, &dat[c..c + 1]),
+                (1, &dat[c + 1..c + 1]),
+                (2, &dat[c + 1..c + 4])
+            ]
         );
         assert!(PackedData::entries(&[], &idx).is_err());
-        assert!(PackedData::entries(&dat, &idx[..6]).is_err());
-        assert!(PackedData::entries(&dat[..5], &idx).is_err());
+        assert!(PackedData::entries(&dat, &idx[..c + 4]).is_err());
+        assert!(PackedData::entries(&dat[..c + 3], &idx).is_err());
         assert!(PackedData::entries(&dat, &[0, 0]).is_err());
     }
 }

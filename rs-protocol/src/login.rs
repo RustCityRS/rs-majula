@@ -12,19 +12,25 @@ use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 pub const LOGIN_MAX_PAYLOAD: usize = u8::MAX as usize;
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 pub const LOGIN_MAX_PAYLOAD: usize = 4 + RSA_BLOCK_MAX + MAX_USERNAME_LEN + 1 + 6 + 140 + 8;
+#[cfg(since_742)]
+pub const LOGIN_MAX_PAYLOAD: usize = 4096;
 #[cfg(before_647)]
 const MAX_USERNAME_LEN: usize = 12;
 #[cfg(since_647)]
 const MAX_USERNAME_LEN: usize = 320;
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const RSA_BLOCK_MAX: usize = 2 + 257;
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 pub const CREATE_ACCOUNT_MAX_PAYLOAD: usize =
     2 + RSA_BLOCK_MAX + 2 + 8 + 1 + 1 + 24 + 1 + 1 + 1 + 7 + 321 + 129 + 257;
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 pub const CHECK_NAME_MAX_PAYLOAD: usize = 2 + RSA_BLOCK_MAX + 1 + 7 + 321;
+#[cfg(all(since_647, before_742))]
+const ARCHIVE_CRCS: usize = 35;
+#[cfg(since_742)]
+const ARCHIVE_CRCS: usize = 37;
 
 pub struct LoginBlock {
     pub username: String,
@@ -35,7 +41,9 @@ pub struct LoginBlock {
     #[cfg(since_647)]
     pub settings: ClientSettings,
     #[cfg(since_647)]
-    pub archive_crcs: [i32; 35],
+    pub archive_crcs: [i32; ARCHIVE_CRCS],
+    #[cfg(since_742)]
+    pub reconnect: bool,
 }
 
 impl LoginBlock {
@@ -85,29 +93,49 @@ impl LoginBlock {
         lobby: bool,
     ) -> Result<Self, LoginResponse> {
         require(&buf, 4)?;
-        if buf.g4s() != 647 {
+        if buf.g4s().to_string() != env!("REV") {
             return Err(LoginResponse::InvalidCredentials);
         }
+        #[cfg(since_742)]
+        let reconnect = {
+            require(&buf, 4 + usize::from(!lobby))?;
+            if buf.g4s() != 1 {
+                return Err(LoginResponse::InvalidCredentials);
+            }
+            !lobby && buf.g1() == 1
+        };
         let (mut rsa_buf, seed) = decrypt_rsa(&mut buf, rsa)?;
         require(&rsa_buf, 8)?;
         rsa_buf.pos += 8;
         let password = read_string(&mut rsa_buf, 128)?.to_lowercase();
         require(&rsa_buf, 16)?;
         let mut buf = decrypt_xtea(buf, seed)?;
+        #[cfg(since_742)]
+        {
+            require(&buf, 1)?;
+            if buf.g1() != 1 {
+                return Err(LoginResponse::InvalidCredentials);
+            }
+        }
         let username = read_string(&mut buf, MAX_USERNAME_LEN)?.to_lowercase();
         if username.is_empty() || username.len() > MAX_USERNAME_LEN {
             return Err(LoginResponse::InvalidCredentials);
         }
         let mut settings = ClientSettings::default();
         if !lobby {
-            require(&buf, 7)?;
-            buf.pos += 1;
+            #[cfg(before_742)]
+            {
+                require(&buf, 7)?;
+                buf.pos += 1;
+            }
+            #[cfg(since_742)]
+            require(&buf, 6)?;
             settings.window_mode = buf.g1();
             settings.screen_width = buf.g2();
             settings.screen_height = buf.g2();
             settings.detail = buf.g1();
         }
-        let mut archive_crcs = [0; 35];
+        let mut archive_crcs = [0; ARCHIVE_CRCS];
         require(&buf, size_of_val(&archive_crcs))?;
         buf.pos = buf.len() - size_of_val(&archive_crcs);
         for crc in &mut archive_crcs {
@@ -121,6 +149,8 @@ impl LoginBlock {
             uid: None,
             settings,
             archive_crcs,
+            #[cfg(since_742)]
+            reconnect,
         })
     }
 }
@@ -193,7 +223,7 @@ fn decrypt_xtea(buf: Packet, seed: [i32; 4]) -> Result<Packet, LoginResponse> {
     Ok(Packet::from(data))
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 fn decode_account(mut buf: Packet, rsa: &'static RsaKey) -> Result<Packet, LoginResponse> {
     require(&buf, 2)?;
     if buf.g2() != 647 {
@@ -212,14 +242,14 @@ pub struct ClientSettings {
     pub detail: u8,
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 pub struct CreateAccountRequest {
     pub username: String,
     pub password: String,
     pub age: u8,
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 impl CreateAccountRequest {
     pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
         let mut buf = decode_account(buf, rsa)?;
@@ -245,12 +275,12 @@ impl CreateAccountRequest {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 pub struct CheckNameRequest {
     pub name: String,
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 impl CheckNameRequest {
     pub fn decode(buf: Packet, rsa: &'static RsaKey) -> Result<Self, LoginResponse> {
         let mut buf = decode_account(buf, rsa)?;
@@ -264,10 +294,18 @@ impl CheckNameRequest {
 }
 
 #[cfg(since_647)]
-pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
-    let mut buf = Packet::new(15);
+pub fn game_login_reply(
+    staffmodlevel: u8,
+    pid: u16,
+    #[cfg(since_742)] display_name: &str,
+) -> Vec<u8> {
+    #[cfg(before_742)]
+    let len = 13;
+    #[cfg(since_742)]
+    let len = 13 + Packet::sizejstr(display_name);
+    let mut buf = Packet::new(2 + len);
     buf.p1(LoginResponse::SuccessNormal as u8);
-    buf.p1(13);
+    buf.p1(len as u8);
     buf.p1(staffmodlevel);
     buf.p1(0);
     buf.p1(0);
@@ -278,6 +316,75 @@ pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
     buf.p1(1);
     buf.p3(0);
     buf.p1(1);
+    #[cfg(since_742)]
+    buf.pjstr(display_name, 0);
+    buf.data
+}
+
+/// The lobby's login reply. Its account details are fixed: on 742 the flags
+/// byte says member with an active subscription, so the lobby shows no
+/// membership expiry.
+#[cfg(since_647)]
+pub fn lobby_login_reply(display_name: &str, world: u16) -> Vec<u8> {
+    #[cfg(before_742)]
+    let len = 59 + Packet::sizejstr(display_name);
+    #[cfg(since_742)]
+    let len = 68 + Packet::sizejstr(display_name);
+    let mut buf = Packet::new(2 + len);
+    buf.p1(LoginResponse::SuccessNormal as u8);
+    buf.p1(len as u8);
+    #[cfg(before_742)]
+    {
+        buf.p1(2);
+        buf.p1(0);
+        buf.p1(1);
+        buf.p1(0);
+        buf.p1(0);
+        buf.p4(0);
+        buf.p4(0);
+        buf.p1(0);
+        buf.p4(0);
+        buf.p1(3);
+        buf.p4(0x7f000001u32 as i32);
+        buf.p2(0);
+        buf.p2(0);
+        buf.p2(0);
+        buf.p4(0);
+        buf.p1(3);
+    }
+    #[cfg(since_742)]
+    {
+        buf.p1(2);
+        buf.p1(0);
+        buf.p1(0);
+        buf.p3(0);
+        buf.p1(0);
+        buf.p1(0);
+        buf.p1(0);
+        buf.p8(0);
+        buf.p1(0);
+        buf.p4(0);
+        buf.p1(3);
+        buf.p4(0);
+        buf.p1(0);
+        buf.p4(0);
+        buf.p2(0);
+        buf.p2(0);
+        buf.p2(0);
+        buf.p4(0x7f000001u32 as i32);
+        buf.p1(3);
+    }
+    buf.p2(0xD1DF);
+    buf.p2(0xD1DF);
+    buf.p1(0);
+    buf.p1(0);
+    buf.pjstr(display_name, 0);
+    buf.p1(10);
+    buf.p4(0x0046F489);
+    buf.p1(0);
+    buf.p2(world);
+    buf.p1(0);
+    buf.pjstr("127.0.0.1", 0);
     buf.data
 }
 
@@ -373,8 +480,11 @@ Az5KOlJPE6c=
     fn login_payload(lobby: bool, extra: usize) -> Packet {
         let rsa = rsa_block(123);
         let mut body = Packet::new(512);
+        #[cfg(since_742)]
+        body.p1(1);
         body.pjstr("Player", 0);
         if !lobby {
+            #[cfg(before_742)]
             body.p1(0);
             body.p1(2);
             body.p2(800);
@@ -383,15 +493,23 @@ Az5KOlJPE6c=
         }
         body.pdata(&[42; 24], 0, 24);
         body.pos += extra;
-        for crc in 0..35 {
+        for crc in 0..ARCHIVE_CRCS as i32 {
             body.p4(crc - 17);
         }
         let len = body.pos & !7;
         Xtea::encrypt(&mut body.data[..len], &SEED.map(|key| key as u32)).unwrap();
-        let mut buf = Packet::new(4 + rsa.pos + body.pos);
-        buf.p4(647);
+        let mut buf = Packet::new(9 + rsa.pos + body.pos);
+        buf.p4(env!("REV").parse().unwrap());
+        #[cfg(since_742)]
+        {
+            buf.p4(1);
+            if !lobby {
+                buf.p1(1);
+            }
+        }
         buf.pdata(&rsa.data, 0, rsa.pos);
         buf.pdata(&body.data, 0, body.pos);
+        buf.data.truncate(buf.pos);
         buf.pos = 0;
         buf
     }
@@ -428,6 +546,8 @@ Az5KOlJPE6c=
                 assert!(!login.low_memory);
                 assert_eq!(login.uid, None);
                 assert_eq!(login.archive_crcs, array::from_fn(|i| i as i32 - 17));
+                #[cfg(since_742)]
+                assert_eq!(login.reconnect, !lobby);
                 if !lobby {
                     assert_eq!(login.settings.window_mode, 2);
                     assert_eq!(login.settings.screen_width, 800);
@@ -446,8 +566,14 @@ Az5KOlJPE6c=
         let payload = login_payload(false, 0);
         #[cfg(before_647)]
         let end = payload.len();
+        #[cfg(all(since_647, before_742))]
+        let rsa_at = 4;
+        #[cfg(since_742)]
+        let rsa_at = 9;
         #[cfg(since_647)]
-        let end = 6 + u16::from_be_bytes([payload.data[4], payload.data[5]]) as usize;
+        let end = rsa_at
+            + 2
+            + u16::from_be_bytes([payload.data[rsa_at], payload.data[rsa_at + 1]]) as usize;
         for len in 0..end {
             let result = LoginBlock::decode(
                 Packet::from(payload.data[..len].to_vec()),
@@ -466,7 +592,7 @@ Az5KOlJPE6c=
         assert!(read_string(&mut string, 320).is_err());
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     #[test]
     fn account_services_share_the_rsa_and_xtea_envelope() {
         for create in [false, true] {
@@ -515,13 +641,27 @@ Az5KOlJPE6c=
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(all(since_647, before_742))]
     #[test]
     fn game_login_reply_matches_the_client_fields() {
         for level in 0..=2 {
             assert_eq!(
                 game_login_reply(level, 0x123),
                 [2, 13, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 1]
+            );
+        }
+    }
+
+    #[cfg(since_742)]
+    #[test]
+    fn game_login_reply_ends_with_the_display_name() {
+        for level in 0..=2 {
+            assert_eq!(
+                game_login_reply(level, 0x123, "Zezima"),
+                [
+                    2, 20, level, 0, 0, 0, 1, 0, 1, 0x23, 1, 0, 0, 0, 1, b'Z', b'e', b'z', b'i',
+                    b'm', b'a', 0
+                ]
             );
         }
     }

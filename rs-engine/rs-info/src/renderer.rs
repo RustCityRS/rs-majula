@@ -21,6 +21,7 @@ use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::info_prot_message::InfoMessage;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::npc_info::add_direction;
+use rs_ver::TypeId;
 use std::mem;
 
 const MAX_PLAYERS: usize = 2048;
@@ -34,7 +35,8 @@ const MAX_NPCS: usize = 32768;
 #[cfg(before_647)]
 const SLOT_SIZE: usize = 8;
 // Two soaked hits are the largest block: a count, then per hit 32767, mark,
-// damage, soak mark, soak, delay and health bar (1 + 2 * 10 bytes).
+// damage, soak mark, soak, delay and health bar (1 + 2 * 10 bytes). From 742
+// one health bar follows the hits instead (1 + 2 * 9 + 1 + 4 bytes).
 #[cfg(since_647)]
 const SLOT_SIZE: usize = 24;
 #[cfg(since_647)]
@@ -498,7 +500,7 @@ impl PlayerRenderer {
         }
         if masks & PlayerInfoProt::Anim as u16 != 0 {
             let anim = PlayerInfoAnim {
-                seq: info.anim_id.unwrap_or(u16::MAX),
+                seq: info.anim_id.unwrap_or(TypeId::NULL),
                 delay: info.anim_delay.unwrap_or(0),
             };
             order |= self.set(PlayerInfoProt::Anim, pid, &anim);
@@ -553,7 +555,7 @@ impl PlayerRenderer {
         }
         if masks & PlayerInfoProt::SpotAnim as u16 != 0 {
             let spotanim = PlayerInfoSpotAnim {
-                spotanim: info.spotanim.unwrap_or(u16::MAX),
+                spotanim: info.spotanim.unwrap_or(TypeId::NULL),
                 height: info.spotanim_height.unwrap_or(0),
                 delay: info.spotanim_delay.unwrap_or(0),
             };
@@ -1063,7 +1065,7 @@ impl NpcRenderer {
         let mut order = 0;
         if masks & NpcInfoProt::Anim as u16 != 0 {
             let anim = NpcInfoAnim {
-                seq: info.anim_id.unwrap_or(u16::MAX),
+                seq: info.anim_id.unwrap_or(TypeId::NULL),
                 delay: info.anim_delay.unwrap_or(0),
             };
             order |= self.set(NpcInfoProt::Anim, nid, &anim);
@@ -1093,7 +1095,7 @@ impl NpcRenderer {
         }
         if masks & NpcInfoProt::SpotAnim as u16 != 0 {
             let spotanim = NpcInfoSpotAnim {
-                spotanim: info.spotanim.unwrap_or(u16::MAX),
+                spotanim: info.spotanim.unwrap_or(TypeId::NULL),
                 height: info.spotanim_height.unwrap_or(0),
                 delay: info.spotanim_delay.unwrap_or(0),
             };
@@ -1382,8 +1384,10 @@ mod face_tests {
         let east = r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7).to_vec();
         #[cfg(before_647)]
         assert_eq!(east, [0x19, 0x2F, 0x19, 0x25]);
-        #[cfg(since_647)]
+        #[cfg(all(since_647, before_742))]
         assert_eq!(east, [0x30, 0x80]);
+        #[cfg(since_742)]
+        assert_eq!(east, [0, 0x30]);
 
         r.remove_temporary();
         info.reset();
@@ -1399,7 +1403,7 @@ mod face_tests {
 
         r.remove_temporary();
         info.masks |= PlayerInfoProt::Anim as u16;
-        info.anim_id = Some(733);
+        info.anim_id = Some(TypeId::new(733));
         info.anim_delay = Some(0);
         r.compute_info(7, &info, coord);
         assert_eq!(r.ticks[7].masks, PlayerInfoProt::Anim as u16);
@@ -1415,8 +1419,10 @@ mod face_tests {
             r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7),
             [0x19, 0x2D, 0x19, 0x23]
         );
-        #[cfg(since_647)]
+        #[cfg(all(since_647, before_742))]
         assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), [0, 0x80]);
+        #[cfg(since_742)]
+        assert_eq!(r.bytes(PlayerInfoProt::FaceCoord.to_index(), 7), [0, 0]);
     }
 }
 
@@ -1425,8 +1431,10 @@ mod move_type_tests {
     use super::*;
 
     fn move_type_block(r: &PlayerRenderer, pid: u16) -> Option<u8> {
-        r.has(pid, PlayerInfoProt::MoveType)
-            .then(|| r.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize].data[0])
+        let byte = r.fixed[PlayerInfoProt::MoveType.to_index()][pid as usize].data[0];
+        #[cfg(since_742)]
+        let byte = byte.wrapping_sub(128);
+        r.has(pid, PlayerInfoProt::MoveType).then_some(byte)
     }
 
     #[test]
@@ -1495,7 +1503,11 @@ mod move_type_tests {
         info.masks = PlayerInfoProt::MoveType as u16;
         info.move_type = Some(2);
         player.compute_info(7, &info, coord);
-        assert_eq!(player.high_block(7), &[0x8, 2]);
+        #[cfg(before_742)]
+        let block: &[u8] = &[0x8, 2];
+        #[cfg(since_742)]
+        let block: &[u8] = &[0x80, 130];
+        assert_eq!(player.high_block(7), block);
         player.cache_face(
             7,
             LowFace {
@@ -1504,14 +1516,18 @@ mod move_type_tests {
             },
         );
         player.cache_move_type(7);
-        assert_eq!(player.high_block(7), &[0x8, 2]);
+        assert_eq!(player.high_block(7), block);
         assert_eq!(player.highdefinitions(7), 2);
         assert!(player.has(7, PlayerInfoProt::Appearance));
 
         info.masks = NpcInfoProt::ChangeType as u16;
-        info.changetype = Some(4231);
+        info.changetype = Some(TypeId::new(4231));
         npc.compute_info(9, &info);
-        assert_eq!(npc.high_block(9), &[0x2, 0x10, 0x87]);
+        #[cfg(before_742)]
+        let block: &[u8] = &[0x2, 0x10, 0x87];
+        #[cfg(since_742)]
+        let block: &[u8] = &[0x80, 0x10, 0x87];
+        assert_eq!(npc.high_block(9), block);
         npc.cache_face(
             9,
             LowFace {
@@ -1519,7 +1535,7 @@ mod move_type_tests {
                 coord: NpcInfoFaceCoord { x: 6445, z: 6437 },
             },
         );
-        assert_eq!(npc.high_block(9), &[0x2, 0x10, 0x87]);
+        assert_eq!(npc.high_block(9), block);
         assert_eq!(npc.highdefinitions(9), 3);
 
         player.remove_temporary();

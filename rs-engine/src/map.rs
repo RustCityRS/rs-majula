@@ -12,6 +12,7 @@ use rs_pack::cache::CacheStore;
 use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::types::{LocAngle, LocLayer, LocShape, ParamValue, ScriptVarType};
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use tracing::info;
@@ -174,7 +175,7 @@ fn loc_zone_rect(shape: LocShape, x: u16, z: u16, extent: u16) -> (u16, u16, u16
 /// A decoded loc entry from an `l` mapsquare file, buffered between the
 /// decode and apply passes.
 pub(crate) struct MapLocEntry {
-    pub(crate) id: u16,
+    pub(crate) id: TypeId,
     pub(crate) coord: u16,
     pub(crate) info: u8,
 }
@@ -196,7 +197,7 @@ impl SquareTemplate {
     fn new(
         lands: Box<[u8; MAPSQUARE]>,
         mut locs: Vec<MapLocEntry>,
-        side: impl Fn(u16) -> u8,
+        side: impl Fn(TypeId) -> u8,
     ) -> SquareTemplate {
         let zone = |entry: &MapLocEntry| {
             let coord = MapsquareCoordGrid::from(entry.coord);
@@ -626,7 +627,7 @@ impl GameMap {
                 let info = buf.g1();
                 coord_offset = buf.gsmart1or2();
                 visit(MapLocEntry {
-                    id: id as u16,
+                    id: TypeId::from_int(id),
                     coord: coord as u16,
                     info,
                 });
@@ -702,7 +703,7 @@ impl GameMap {
                     coord: packed,
                 });
 
-                let Some(npc) = cache.npcs.get_by_id(id as u16) else {
+                let Some(npc) = cache.npcs.get_by_id(TypeId::from_int(id)) else {
                     continue;
                 };
 
@@ -800,7 +801,7 @@ impl GameMap {
                 coord: (level << 12) | (lx << 6) | lz,
             });
 
-            let Some(npc) = cache.npcs.get_by_id(id) else {
+            let Some(npc) = cache.npcs.get_by_id(TypeId::new(id)) else {
                 continue;
             };
             let size = npc.size.max(1) as u16;
@@ -879,14 +880,14 @@ impl GameMap {
             }
         }
 
-        let coord_params: Vec<i32> = cache
+        let coord_params: Vec<TypeId> = cache
             .params
             .types
             .iter()
             .filter(|param| param.var_type == ScriptVarType::Coord)
             .map(|param| {
                 marks.mark_packed(param.default_int);
-                param.id as i32
+                param.id
             })
             .collect();
 
@@ -1184,7 +1185,7 @@ impl GameMap {
         for entry in npcs {
             let coord = MapsquareCoordGrid::from(entry.coord);
 
-            let Some(npc) = cache.npcs.get_by_id(entry.id) else {
+            let Some(npc) = cache.npcs.get_by_id(TypeId::new(entry.id)) else {
                 continue;
             };
 
@@ -1205,7 +1206,14 @@ impl GameMap {
             }
 
             let vars = VarSet::new(cache.varns.types.iter().map(|v| v.var_type));
-            out.push(ActiveNpc::new(entry.id, 0, coord, npc.size, vars, cache));
+            out.push(ActiveNpc::new(
+                TypeId::new(entry.id),
+                0,
+                coord,
+                npc.size,
+                vars,
+                cache,
+            ));
         }
     }
 
@@ -1239,7 +1247,7 @@ impl GameMap {
         for entry in objs {
             let coord = MapsquareCoordGrid::from(entry.coord);
 
-            let Some(obj) = cache.objs.get_by_id(entry.id) else {
+            let Some(obj) = cache.objs.get_by_id(TypeId::new(entry.id)) else {
                 continue;
             };
 

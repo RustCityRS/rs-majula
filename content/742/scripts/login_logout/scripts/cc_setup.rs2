@@ -1,0 +1,115 @@
+[proc,cc_open_interface]()
+%character_part = 1;
+
+def_int $hair_count = enum_getoutputcount(enum_3304);
+def_int $hair_index = random($hair_count);
+def_int $hair = -1;
+def_int $hair_struct = enum(105, 74, enum_3304, $hair_index);
+if ($hair_struct ! -1) {
+    $hair = struct_param($hair_struct, param_788);
+    if ($hair ! -1) { setidkit($hair, 0); }
+}
+%character_creation_hair_style = $hair_index;
+
+def_int $colour_count = enum_getoutputcount(enum_2345);
+def_int $colour_index = random($colour_count);
+def_int $hair_colour = enum(105, 105, enum_2345, $colour_index);
+if ($hair_colour ! -1) {
+    setidkcolour(0, $hair_colour);
+    %playerdesign3_haircol = $hair_colour;
+}
+
+if ($hair ! -1) { %playerdesign3_head = $hair; }
+%playerdesign3_jaw = 14;
+
+if_opentop(playerdesign4);
+allowdesign(^true);
+// 2011 plays Destiny while the character is designed (Qh_-AMJpVd0, 2011-05-10, 40-159 s, matched by
+// chroma; the 2011 wiki's Destiny page @ 2011-05-07: "character creation"), not the region's track.
+~uf_play_song(music_Destiny);
+~cc_enable_events();
+~cc_transmit_invs();
+
+[proc,cc_send_makeover_varcs]()
+%playerdesign3_head = 0
+%playerdesign3_jaw = 14
+%playerdesign3_torso = 18
+%playerdesign3_arms = 26
+%playerdesign3_hands = 34
+%playerdesign3_legs = 38
+%playerdesign3_feet = 42
+%playerdesign3_haircol = 0
+%playerdesign3_torsocol = 0
+%playerdesign3_legscol = 0
+%playerdesign3_feetcol = 0
+
+// The invs go out on the screen's backdrop, which nobody clicks: a click with a slot on a
+// component that transmits an inv is an inventory click to the engine (handlers/if_button.rs),
+// dropped unless that slot holds the obj clicked, and the skin colours are clicked by slot.
+// UPDATE_INV_FULL carries the inv alone, so the client sees no difference.
+[proc,cc_transmit_invs]()
+inv_transmit(ranging_guild_bowshop_skillcape, playerdesign4:com_0)
+inv_transmit(poh_costume_room_treasure_trail_2a_inv, playerdesign4:com_0)
+inv_transmit(poh_costume_room_treasure_trail_2a_inv_check, playerdesign4:com_0)
+inv_transmit(playerkit_default, playerdesign4:com_0)
+inv_transmit(playerkit_mage, playerdesign4:com_0)
+inv_transmit(playerkit_chef, playerdesign4:com_0)
+inv_transmit(playerkit_crafter, playerdesign4:com_0)
+inv_transmit(playerkit_fletcher, playerdesign4:com_0)
+inv_transmit(playerkit_herbalist, playerdesign4:com_0)
+inv_transmit(playerkit_priest, playerdesign4:com_0)
+inv_transmit(playerkit_slayer, playerdesign4:com_0)
+inv_transmit(playerkit_smith, playerdesign4:com_0)
+inv_transmit(playerkit_warrior, playerdesign4:com_0)
+inv_transmit(playerkit_woodcutter, playerdesign4:com_0)
+inv_transmit(playerkit_fisher, playerdesign4:com_0)
+inv_transmit(playerkit_farmer, playerdesign4:com_0)
+inv_transmit(playerkit_runecrafter, playerdesign4:com_0)
+inv_transmit(playerkit_summoner, playerdesign4:com_0)
+
+[proc,cc_enable_events]()
+if_setevents(playerdesign4:skincolours, 0, 20, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:menu, 0, 200, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:colours, 0, 200, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:colour_set, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:confirm, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:male, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:female, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:skin, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:hair, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:torso, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:legs, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:boots, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:beard, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role0, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role1, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role2, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role3, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role4, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role5, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role6, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role7, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role8, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role9, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role10, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role11, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role12, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role13, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role14, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role15, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role16, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role17, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role18, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:role19, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:outfit0, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:outfit1, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:outfit2, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:outfit3, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:outfit4, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:outfit5, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:suggestion_1, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:suggestion_2, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:suggestion_3, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:previous_suggestions, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:more_suggestions, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:continue, 0, 0, ^if_op1, 0, 0, ^false, ^false)

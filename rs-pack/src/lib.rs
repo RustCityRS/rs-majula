@@ -288,6 +288,47 @@ pub(crate) mod config_crc {
     pub const VAROBJ: i32 = -1949850762;
 }
 
+#[cfg(rev = "742")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = 822424184;
+    pub const LOC: i32 = 591428126;
+    pub const FLO: i32 = -1927731403;
+    pub const SPOTANIM: i32 = 1914635226;
+    pub const OBJ: i32 = 684382992;
+    pub const NPC: i32 = 1397148603;
+    pub const IDK: i32 = -1771042825;
+    pub const VARP: i32 = -1008474832;
+    pub const VARPSTR: i32 = 856957251;
+    pub const VARBIT: i32 = 715464995;
+    pub const PARAM: i32 = 1642273378;
+    pub const ENUM: i32 = 1232165464;
+    pub const INV: i32 = 86456445;
+    pub const STRUCT: i32 = 1482465779;
+    pub const FLU: i32 = 1267222278;
+    pub const HUNT: i32 = 1893771613;
+    pub const MESANIM: i32 = -1355666276;
+    pub const VARS: i32 = -793941846;
+    pub const VARSSTR: i32 = -864816207;
+    pub const VARN: i32 = 144793752;
+    pub const DBTABLE: i32 = -1868400215;
+    pub const DBROW: i32 = -1319056745;
+    pub const BAS: i32 = -11826152;
+    pub const CURSOR: i32 = 288743627;
+    pub const HITMARK: i32 = 127691160;
+    pub const PARTICLEEFFECTOR: i32 = -1496366599;
+    pub const PARTICLEEMITTER: i32 = -655130601;
+    pub const BILLBOARD: i32 = -1819247011;
+    pub const LIGHT: i32 = 579995304;
+    pub const MEL: i32 = -261720288;
+    pub const MSI: i32 = 2128927486;
+    pub const QUEST: i32 = 260670437;
+    pub const VARC: i32 = -1574236957;
+    pub const VARCSTR: i32 = 781678318;
+    pub const VARCLANSETTING: i32 = -26763671;
+    pub const AREA: i32 = -859085337;
+    pub const VAROBJ: i32 = 618822531;
+}
+
 pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("seq", config_crc::SEQ),
     ("loc", config_crc::LOC),
@@ -706,22 +747,24 @@ pub fn pack_all(
         .collect();
 
     #[cfg(since_254)]
-    let midi_tick_lengths: Box<[Option<u16>]> = {
+    let (midi_tick_lengths, midi_lengths_ms) = {
         let size = midi_ids
             .values()
             .map(|&id| id as usize + 1)
             .max()
             .unwrap_or(0);
         let mut lengths: Vec<Option<u16>> = vec![None; size];
+        let mut lengths_ms: Vec<Option<u32>> = vec![None; size];
         for (name, &id) in &midi_ids {
             if let Some(midi) = midi_songs
                 .get_by_name(name)
                 .or_else(|| midi_jingles.get_by_name(name))
             {
                 lengths[id as usize] = Some(midi.tick_length() as u16);
+                lengths_ms[id as usize] = Some(midi.length_ms);
             }
         }
-        lengths.into_boxed_slice()
+        (lengths.into_boxed_slice(), lengths_ms.into_boxed_slice())
     };
 
     debug!(
@@ -814,6 +857,8 @@ pub fn pack_all(
         midi_ids,
         #[cfg(since_254)]
         midi_tick_lengths,
+        #[cfg(since_254)]
+        midi_lengths_ms,
         static_assets: load_static_assets(),
         multimap,
         freemap,

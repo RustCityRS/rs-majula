@@ -31,7 +31,10 @@ pub struct IfSetPlayerHead {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetPlayerHead {
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
         buf.p4_alt1(self.com);
+        #[cfg(since_742)]
+        buf.p4(self.com);
     }
 
     fn sizeof(&self) -> usize {

@@ -1,0 +1,8 @@
+// 5958
+[proc,clientscript_5958]
+if (if_getgraphic(interface_1260:com_89) = "aif_checkbox_small,1") {
+    if_setgraphic(interface_1260:com_89, "aif_checkbox_small,3");
+} else if (if_getgraphic(interface_1260:com_89) = "aif_checkbox_small,3") {
+    if_setgraphic(interface_1260:com_89, "aif_checkbox_small,1");
+    if_setgraphic(interface_1260:com_87, "aif_checkbox_small,3");
+}

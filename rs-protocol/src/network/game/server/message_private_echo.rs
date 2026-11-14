@@ -11,7 +11,8 @@ use rs_protocol_macros::server_prot;
 use rs_ver::STRING_TERMINATOR;
 
 #[cfg(since_647)]
-#[server_prot(MessagePrivateEcho, Immediate, VarByte)]
+#[cfg_attr(before_742, server_prot(MessagePrivateEcho, Immediate, VarByte))]
+#[cfg_attr(since_742, server_prot(MessagePrivateEcho, Immediate, VarShort))]
 pub struct MessagePrivateEcho {
     pub recipient: String,
     pub message_data: Vec<u8>,

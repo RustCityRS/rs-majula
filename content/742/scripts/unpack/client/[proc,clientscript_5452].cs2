@@ -1,0 +1,132 @@
+// 5452
+[proc,clientscript_5452]
+%varclient_1684 = 1;
+~clientscript_5456;
+if (%varplayerbit_10017 = 1) {
+    ~clientscript_5453(1, 1);
+} else {
+    ~clientscript_5453(0, 1);
+}
+if (%varplayerbit_10028 = 1) {
+    ~clientscript_5453(1, 2);
+} else {
+    ~clientscript_5453(0, 2);
+}
+if (%varplayerbit_10018 = 1) {
+    ~clientscript_5453(1, 3);
+} else {
+    ~clientscript_5453(0, 3);
+}
+if (%varplayerbit_10029 = 1) {
+    ~clientscript_5453(1, 4);
+} else {
+    ~clientscript_5453(0, 4);
+}
+if (%varplayerbit_10057 >= 100) {
+    ~clientscript_5453(1, 5);
+} else {
+    ~clientscript_5453(0, 5);
+}
+if (%varplayerbit_10058 = 1) {
+    ~clientscript_5453(1, 6);
+} else {
+    ~clientscript_5453(0, 6);
+}
+if (%varplayerbit_10035 = 1 & %varplayerbit_10036 = 1 & %varplayerbit_10037 = 1 & %varplayerbit_10038 = 1 & %varplayerbit_10039 = 1 & %varplayerbit_10040 = 1 & %varplayerbit_10041 = 1 & %varplayerbit_10042 = 1 & %varplayerbit_10043 = 1 & %varplayerbit_10044 = 1 & %varplayerbit_10045 = 1 & %varplayerbit_10046 = 1 & %varplayerbit_10047 = 1 & %varplayerbit_10048 = 1 & %varplayerbit_10049 = 1 & %varplayerbit_10050 = 1 & %varplayerbit_10051 = 1 & %varplayerbit_10052 = 1 & %varplayerbit_10053 = 1 & %varplayerbit_10054 = 1 & %varplayerbit_10055 = 1 & %varplayerbit_10056 = 1) {
+    ~clientscript_5453(1, 7);
+} else {
+    ~clientscript_5453(0, 7);
+}
+if (%varplayerbit_10031 = 1 & %varplayerbit_10032 = 1 & %varplayerbit_10033 = 1 & %varplayerbit_10034 = 1) {
+    ~clientscript_5453(1, 8);
+} else {
+    ~clientscript_5453(0, 8);
+}
+if (%varplayerbit_10057 >= 200) {
+    ~clientscript_5453(1, 9);
+} else {
+    ~clientscript_5453(0, 9);
+}
+if (%varplayerbit_10030 = 1) {
+    ~clientscript_5453(1, 10);
+} else {
+    ~clientscript_5453(0, 10);
+}
+if (%varplayerbit_10019 = 1) {
+    ~clientscript_5453(1, 11);
+} else {
+    ~clientscript_5453(0, 11);
+}
+if (%varplayerbit_10057 >= 300) {
+    ~clientscript_5453(1, 12);
+} else {
+    ~clientscript_5453(0, 12);
+}
+if (%varplayerbit_10059 = 1) {
+    ~clientscript_5453(1, 13);
+} else {
+    ~clientscript_5453(0, 13);
+}
+if (%varplayerbit_10061 = 1 & %varplayerbit_10059 = 1) {
+    ~clientscript_5453(1, 14);
+} else {
+    ~clientscript_5453(0, 14);
+}
+if (%varplayerbit_10020 = 1 & %varplayerbit_10021 = 1 & %varplayerbit_10022 = 1 & %varplayerbit_10023 = 1 & %varplayerbit_10024 = 1 & %varplayerbit_10025 = 1 & %varplayerbit_10026 = 1 & %varplayerbit_10027 = 1 & %varplayerbit_10057 >= 400) {
+    ~clientscript_5453(1, 15);
+} else {
+    ~clientscript_5453(0, 15);
+}
+if (%varplayerbit_10057 >= 450 & %varplayerbit_10062 = 1) {
+    if_settext(interface_1156:com_152, "Complete 5 climber, endurance or special fights.");
+    if_settext(interface_1156:com_153, "100 dreadnips (on purchase must complete 5 more)");
+    if (%varplayerbit_10117 > 0) {
+        ~clientscript_5453(1, 16);
+    } else {
+        ~clientscript_5453(0, 16);
+    }
+} else {
+    ~clientscript_5453(0, 16);
+}
+if (%varplayerbit_10063 = 1 & %varplayerbit_10066 = 1 & %varplayerbit_10069 = 1 & %varplayerbit_10072 = 1 & %varplayerbit_10075 = 1 & %varplayerbit_10078 = 1 & %varplayerbit_10057 >= 500) {
+    if_settext(interface_1156:com_155, "Complete 5 climber, endurance or special fights.");
+    if_settext(interface_1156:com_157, "Goliath gloves (on purchase must complete 5 more)");
+    if_settext(interface_1156:com_156, "");
+    if (%varplayerbit_10117 > 0) {
+        ~clientscript_5453(1, 17);
+    } else {
+        ~clientscript_5453(0, 17);
+    }
+}
+if (%varplayerbit_10065 = 1 & %varplayerbit_10068 = 1 & %varplayerbit_10071 = 1 & %varplayerbit_10074 = 1 & %varplayerbit_10077 = 1 & %varplayerbit_10080 = 1 & %varplayerbit_10057 >= 500) {
+    if_settext(interface_1156:com_159, "Complete 5 climber, endurance or special fights.");
+    if_settext(interface_1156:com_161, "Spellcaster gloves (on purchase must complete 5 more)");
+    if_settext(interface_1156:com_160, "");
+    if (%varplayerbit_10117 > 0) {
+        ~clientscript_5453(1, 18);
+    } else {
+        ~clientscript_5453(0, 18);
+    }
+}
+if (%varplayerbit_10064 = 1 & %varplayerbit_10067 = 1 & %varplayerbit_10070 = 1 & %varplayerbit_10073 = 1 & %varplayerbit_10076 = 1 & %varplayerbit_10079 = 1 & %varplayerbit_10057 >= 500) {
+    if_settext(interface_1156:com_163, "Complete 5 climber, endurance or special fights.");
+    if_settext(interface_1156:com_165, "Swift gloves (on purchase must complete 5 more)");
+    if_settext(interface_1156:com_164, "");
+    if (%varplayerbit_10117 > 0) {
+        ~clientscript_5453(1, 19);
+    } else {
+        ~clientscript_5453(0, 19);
+    }
+}
+if (%varplayerbit_10111 >= 500) {
+    ~clientscript_5453(1, 20);
+} else {
+    ~clientscript_5453(0, 20);
+}
+if (%varplayerbit_10057 >= 500 & %varplayerbit_10062 = 1 & %varplayerbit_10019 = 1 & %varplayerbit_10030 = 1 & %varplayerbit_10035 = 1 & %varplayerbit_10036 = 1 & %varplayerbit_10037 = 1 & %varplayerbit_10038 = 1 & %varplayerbit_10039 = 1 & %varplayerbit_10040 = 1 & %varplayerbit_10041 = 1 & %varplayerbit_10042 = 1 & %varplayerbit_10043 = 1 & %varplayerbit_10044 = 1 & %varplayerbit_10045 = 1 & %varplayerbit_10046 = 1 & %varplayerbit_10047 = 1 & %varplayerbit_10048 = 1 & %varplayerbit_10049 = 1 & %varplayerbit_10050 = 1 & %varplayerbit_10051 = 1 & %varplayerbit_10052 = 1 & %varplayerbit_10053 = 1 & %varplayerbit_10054 = 1 & %varplayerbit_10055 = 1 & %varplayerbit_10056 = 1 & %varplayerbit_10031 = 1 & %varplayerbit_10032 = 1 & %varplayerbit_10033 = 1 & %varplayerbit_10034 = 1 & %varplayerbit_10059 = 1 & %varplayerbit_10061 = 1 & %varplayerbit_10020 = 1 & %varplayerbit_10021 = 1 & %varplayerbit_10022 = 1 & %varplayerbit_10023 = 1 & %varplayerbit_10024 = 1 & %varplayerbit_10025 = 1 & %varplayerbit_10026 = 1 & %varplayerbit_10027 = 1 & %varplayerbit_10063 = 1 & %varplayerbit_10066 = 1 & %varplayerbit_10069 = 1 & %varplayerbit_10072 = 1 & %varplayerbit_10075 = 1 & %varplayerbit_10078 = 1 & %varplayerbit_10064 = 1 & %varplayerbit_10067 = 1 & %varplayerbit_10070 = 1 & %varplayerbit_10073 = 1 & %varplayerbit_10076 = 1 & %varplayerbit_10079 = 1 & %varplayerbit_10065 = 1 & %varplayerbit_10068 = 1 & %varplayerbit_10071 = 1 & %varplayerbit_10074 = 1 & %varplayerbit_10077 = 1 & %varplayerbit_10080 = 1) {
+    ~clientscript_5453(1, 21);
+    ~clientscript_5453(1, 22);
+} else {
+    ~clientscript_5453(0, 21);
+    ~clientscript_5453(0, 22);
+}

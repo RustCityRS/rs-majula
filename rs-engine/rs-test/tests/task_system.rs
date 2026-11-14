@@ -17,6 +17,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -107,21 +108,21 @@ fn finishing_cooks_assistant_completes_its_task() {
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "tasks_cook");
         assert_eq!(progress(engine, &client), (LUMBRIDGE_TASKS, 0));
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let cookquest = *engine.cache.varps.debugnames.get("cookquest").unwrap();
-        let items: Vec<u16> = ["cook_milk", "cook_flour", "cook_egg"]
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let cookquest = engine.cache.varps.get_by_debugname("cookquest").unwrap().id;
+        let items: Vec<TypeId> = ["cook_milk", "cook_flour", "cook_egg"]
             .iter()
-            .map(|n| *engine.cache.objs.debugnames.get(*n).unwrap())
+            .map(|n| engine.cache.objs.get_by_debugname(n).unwrap().id)
             .collect();
         {
             let player = engine.harness_player_mut(client.pid).unwrap();
-            player.vars.set(cookquest, VarValue::Int(1));
+            player.vars.set(cookquest.g2(), VarValue::Int(1));
             let pack = player.invs.get_mut(&inv).unwrap();
             for (slot, o) in items.iter().enumerate() {
                 pack.set(slot as u16, *o, 1);
             }
         }
-        let cook = *engine.cache.npcs.debugnames.get("cook").unwrap();
+        let cook = engine.cache.npcs.get_by_debugname("cook").unwrap().id;
         let (nid, x, y, z) = engine
             .npc_list
             .npcs
@@ -154,7 +155,7 @@ fn finishing_cooks_assistant_completes_its_task() {
             );
         }
         assert_eq!(
-            varp(engine, &client, cookquest),
+            varp(engine, &client, cookquest.g2()),
             2,
             "Cook's Assistant complete"
         );

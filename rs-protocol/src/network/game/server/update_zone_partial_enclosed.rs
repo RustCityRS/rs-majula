@@ -38,9 +38,18 @@ pub struct UpdateZonePartialEnclosed<'a> {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateZonePartialEnclosed<'_> {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1(self.x);
-        buf.p1_alt2(self.y);
-        buf.p1(self.z);
+        #[cfg(before_742)]
+        {
+            buf.p1(self.x);
+            buf.p1_alt2(self.y);
+            buf.p1(self.z);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1(self.y);
+            buf.p1_alt1(self.x);
+            buf.p1_alt3(self.z);
+        }
         buf.pdata(self.bytes, 0, self.bytes.len());
     }
 

@@ -49,6 +49,8 @@ use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
 use rs_io::js5::reference::FileInfo;
 #[cfg(since_647)]
+use rs_ver::TypeId;
+#[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
@@ -643,7 +645,12 @@ fn paint_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
                     .get_by_debugname(name)
                     .with_context(|| format!("Unknown area {name}: {}", context()))?;
                 areas
-                    .paint(level as u8, (mx << 6) | x, (mz << 6) | z, id as u16)
+                    .paint(
+                        level as u8,
+                        (mx << 6) | x,
+                        (mz << 6) | z,
+                        TypeId::try_from(id)?,
+                    )
                     .with_context(context)?;
             }
         }

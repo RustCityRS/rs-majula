@@ -4,6 +4,8 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+#[cfg(since_647)]
+use rs_ver::TypeId;
 
 #[cfg(before_647)]
 #[server_prot(HintArrow, Buffered, Fixed)] // TODO: what should priority be?
@@ -52,6 +54,15 @@ impl ServerProtMessage for HintArrow {
 // and its range in 32-tile units: the client draws it on the minimap only
 // while the player is within `range * 32` tiles of it (Linkable_Sub13).
 
+#[cfg(all(since_647, before_742))]
+const SIZE: usize = 12;
+#[cfg(since_742)]
+const SIZE: usize = 14;
+#[cfg(all(since_647, before_742))]
+const PADDING: usize = 6;
+#[cfg(since_742)]
+const PADDING: usize = 4;
+
 #[cfg(since_647)]
 pub enum HintArrowKind {
     /// Point at a world coordinate.
@@ -64,9 +75,18 @@ pub enum HintArrowKind {
         range: u16,
     },
     /// Point at an NPC by viewport index.
-    Npc { npc_index: u16 },
+    Npc {
+        npc_index: u16,
+        /// Blink frequency in millihertz; 0 keeps the arrow steady.
+        #[cfg(since_742)]
+        flash_rate: u16,
+    },
     /// Point at a player by slot index (rev-647 type-tag 10).
-    Player { player_index: u16 },
+    Player {
+        player_index: u16,
+        #[cfg(since_742)]
+        flash_rate: u16,
+    },
     /// Remove the slot's arrow.
     Stop,
 }
@@ -77,8 +97,8 @@ pub struct HintArrow {
     pub slot: u8,
     pub icon: u8,
     pub kind: HintArrowKind,
-    /// Arrow model ID (typically `0xFFFF` for default).
-    pub model_id: u16,
+    /// Arrow model ID (-1 for default).
+    pub model_id: TypeId,
 }
 
 #[cfg(since_647)]
@@ -101,36 +121,50 @@ impl ServerProtMessage for HintArrow {
                 buf.p2(z);
                 buf.p1(height);
                 buf.p2(range);
-                buf.p2(self.model_id);
             }
-            HintArrowKind::Npc { npc_index } => {
+            HintArrowKind::Npc {
+                npc_index,
+                #[cfg(since_742)]
+                flash_rate,
+            } => {
                 buf.p1(head(1));
                 buf.p1(self.icon);
                 buf.p2(npc_index);
-                for _ in 0..6 {
+                #[cfg(since_742)]
+                buf.p2(flash_rate);
+                for _ in 0..PADDING {
                     buf.p1(0);
                 }
-                buf.p2(self.model_id);
             }
-            HintArrowKind::Player { player_index } => {
+            HintArrowKind::Player {
+                player_index,
+                #[cfg(since_742)]
+                flash_rate,
+            } => {
                 buf.p1(head(10));
                 buf.p1(self.icon);
                 buf.p2(player_index);
-                for _ in 0..6 {
+                #[cfg(since_742)]
+                buf.p2(flash_rate);
+                for _ in 0..PADDING {
                     buf.p1(0);
                 }
-                buf.p2(self.model_id);
             }
             HintArrowKind::Stop => {
                 buf.p1(head(0));
-                for _ in 0..11 {
+                for _ in 1..SIZE {
                     buf.p1(0);
                 }
+                return;
             }
         }
+        #[cfg(before_742)]
+        buf.p2(self.model_id.g2());
+        #[cfg(since_742)]
+        buf.p4(self.model_id.int());
     }
 
     fn sizeof(&self) -> usize {
-        12
+        SIZE
     }
 }

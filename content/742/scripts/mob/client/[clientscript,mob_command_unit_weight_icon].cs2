@@ -1,0 +1,9 @@
+// 2638
+[clientscript,mob_command_unit_weight_icon]
+if (%mob_side_command_weight = 0) {
+    if_setgraphic(mob_side_command:weight_graphic, "mob_heavy_light_icons,1");
+    if_settext(mob_side_command:weight_txt, "Light");
+} else if (%mob_side_command_weight = 1) {
+    if_setgraphic(mob_side_command:weight_graphic, "mob_heavy_light_icons,0");
+    if_settext(mob_side_command:weight_txt, "Heavy");
+}

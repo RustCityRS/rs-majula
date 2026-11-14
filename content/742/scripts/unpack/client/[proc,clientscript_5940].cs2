@@ -1,0 +1,25 @@
+// 5940
+[proc,clientscript_5940]
+%create_send_me_news = true;
+%varclient_2385 = "";
+%varclient_2386 = "";
+%varclient_1919 = 0;
+if_sethide(lobbyscreen:com_31, true);
+if_sethide(lobbyscreen:com_34, false);
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic(lobbyscreen:com_344, 10940);
+        if_setgraphic(lobbyscreen:com_376, 10795);
+    case 1 :
+        if_setgraphic(lobbyscreen:com_344, 10942);
+        if_setgraphic(lobbyscreen:com_376, 10797);
+    case 2 :
+        if_setgraphic(lobbyscreen:com_344, 10941);
+        if_setgraphic(lobbyscreen:com_376, 10796);
+    case 3 :
+        if_setgraphic(lobbyscreen:com_344, 10943);
+        if_setgraphic(lobbyscreen:com_376, 10798);
+}
+if_settext(lobbyscreen:com_352, "Validate your email now for increased account security and these great rewards:");
+if_setsize(lobbyscreen:com_346, 240, if_getheight(lobbyscreen:com_346), ^setsize_abs, ^setsize_abs);
+if_setonvartransmit(lobbyscreen:com_338, "clientscript_6213{varplayer_2611}");

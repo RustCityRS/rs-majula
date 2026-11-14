@@ -8,6 +8,7 @@ use rs_pack::cache::npc::NpcType;
 use rs_pack::types::{BlockWalk, MoveRestrict, NpcStat};
 use rs_protocol::network::game::info_prot::NpcInfoProt;
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptEngine;
 
 /// Wraps an [`Npc`] entity with engine-level behavior such as animation,
@@ -41,7 +42,7 @@ impl ActiveNpc {
     /// # Call Stack
     /// **Calls:** [`Npc::new`], [`ActiveNpc::set_timer`]
     pub fn new(
-        id: u16,
+        id: TypeId,
         nid: u16,
         coord: CoordGrid,
         size: u8,
@@ -83,7 +84,7 @@ impl ActiveNpc {
     ///
     /// # Side Effects
     /// * Updates `npc.info` animation fields and sets the `NpcInfoProt::Anim` mask.
-    pub fn anim(&mut self, id: Option<u16>, delay: u8) {
+    pub fn anim(&mut self, id: Option<TypeId>, delay: u8) {
         let seqs = engine().seqs();
         let cur_pri = self
             .npc
@@ -244,7 +245,7 @@ impl ActiveNpc {
     /// * Sets the lifecycle countdown (`npc.lifecycle_at`) to `duration`: a
     ///   revert for a `Respawn` NPC, and for a `Despawn` NPC its despawn, as in
     ///   the reference engine where both share `lifecycleTick`.
-    pub fn change_type(&mut self, new_type: u16, duration: u64, reset: bool) {
+    pub fn change_type(&mut self, new_type: TypeId, duration: u64, reset: bool) {
         if duration < 1 {
             return;
         }

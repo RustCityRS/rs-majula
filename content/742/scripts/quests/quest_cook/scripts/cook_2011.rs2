@@ -1,0 +1,105 @@
+// Cook's Assistant's 2011 rework (15 December 2009): the people and things it
+// added near Lumbridge. Dialogue: void-634 (GillieGroats, MillieMiller,
+// MilkCow).
+
+// Gillie Groats, the milkmaid by the field north-east of the castle.
+[opnpc1,gillie_the_milkmaid]
+~chatnpc("<p,happy>Hello, I'm Gillie the Milkmaid. What can I do for you?");
+def_int $option;
+if (%cookquest = 1 & inv_total(inv, cook_milk) = 0) {
+    $option = ~p_choice4("I'm after some Top-quality milk.", 1, "Who are you?", 2, "Can you tell me how to milk a cow?", 3, "I'm fine, thanks.", 4);
+} else {
+    $option = ~p_choice3("Who are you?", 2, "Can you tell me how to milk a cow?", 3, "I'm fine, thanks.", 4);
+}
+if ($option = 1) {
+    ~chatplayer("<p,neutral>I'm after some Top-quality milk.");
+    ~chatnpc("<p,neutral>Really? Is it for something special?");
+    ~chatplayer("<p,happy>Most certainly! It's for the cook to make a cake foe Duke Horacio!");
+    ~chatnpc("<p,neutral>Wow, it's quite an honour that you'd pick my cows. I'd suggest you get some milk from my prized cow.");
+    ~chatplayer("<p,quiz>Which one's that?");
+    ~chatnpc("<p,neutral>She's on the east side of the field, over by the cliff. Be gentle!");
+} else if ($option = 2) {
+    ~chatplayer("<p,neutral>Who are you?");
+    ~chatnpc("<p,happy>My name's Gillie Groats. My father is a farmer and I milk the cows for him.");
+    ~chatplayer("<p,quiz>Do you have any buckets of milk spare?");
+    ~chatnpc("<p,happy>I'm afraid not. We need all of our milk to sell to market, but you can milk the cow yourself if you need milk.");
+    ~chatplayer("<p,quiz>Thanks.");
+} else if ($option = 3) {
+    ~chatplayer("<p,quiz>So how do you get milk from a cow then?");
+    ~chatnpc("<p,happy>It's very easy. First you need an empty bucket to hold the milk.");
+    ~chatnpc("<p,happy>Then find a dairy cow to milk - you can't milk just any cow.");
+    ~chatplayer("<p,quiz>How do I find a dairy cow?");
+    ~chatnpc("<p,happy>They are easy to spot - they are dark brown and white, unlike beef cows, which are light brown and white. We also tether them to a post to stop them wandering around all over the place.");
+    ~chatnpc("<p,happy>There are a couple very near, in this field.");
+    ~chatnpc("<p,happy>Then just milk the cow and your bucket will fill with tasty, nutritious milk.");
+} else {
+    ~chatplayer("<p,happy>I'm fine, thanks.");
+}
+
+// The prized dairy cow, east of Gillie's field by the cliff.
+[oploc1,prized_dairy_cow]
+if (inv_total(inv, bucket_empty) < 1) {
+    mes("You'll need an empty bucket to collect the milk.");
+    return;
+}
+if (%cookquest ! 1) {
+    ~mesbox("If you're after ordinary milk, you should use an ordinary dairy cow.");
+}
+if (inv_total(inv, cook_milk) > 0) {
+    mes("You've already got some top-quality milk; you should take it to the cook.");
+    return;
+}
+p_arrivedelay;
+anim(milkit, 0);
+sound_synth(milk_cow, 1, 0);
+p_delay(4);
+inv_del(inv, bucket_empty, 1);
+inv_add(inv, cook_milk, 1);
+mes("You milk the cow for top-quality milk.");
+
+// Millie Miller, of Mill Lane Mill.
+[opnpc1,millie_the_miller]
+~chatnpc("<p,happy>Hello Adventurer. Welcome to Mill Lane Mill. Can I help you?");
+@millie_miller_menu;
+
+[label,millie_miller_menu]
+def_int $option;
+if (%cookquest = 1 & inv_total(inv, cook_flour) = 0) {
+    $option = ~p_choice5("I'm looking for extra fine flour.", 1, "Who are you?", 2, "What is this place?", 3, "How do I mill flour?", 4, "I'm fine, thanks.", 5);
+} else {
+    $option = ~p_choice4("Who are you?", 2, "What is this place?", 3, "How do I mill flour?", 4, "I'm fine, thanks.", 5);
+}
+if ($option = 1) {
+    ~chatplayer("<p,neutral>I'm looking for extra fine flour.");
+    ~chatnpc("<p,quiz>What's wrong with ordinary flour?");
+    ~chatplayer("<p,neutral>Well, I'm no expert chef, but apparently it makes better cakes. This cake, you see, is for Duke Horacio.");
+    ~chatnpc("<p,happy>Really? How marvellous! Well, I can sure help you out there. Go ahead and use the mill and I'll realign the millstones to produce extra fine flour. Anything else?");
+    %cookquest_millie = ^true;
+    $option = ~p_choice2("How do I mill flour?", 4, "I'm fine, thanks.", 5);
+}
+if ($option = 2) {
+    ~chatplayer("<p,quiz>Who are you?");
+    ~chatnpc("<p,happy>I'm Miss Millicent Miller the Miller of Mill Lane Mill. Our family have been milling flour for generations.");
+    ~chatplayer("<p,quiz>Don't you ever get fed up with flour?");
+    ~chatnpc("<p,neutral>It's a good business to be in. People will always need flour.");
+    @millie_miller_menu;
+} else if ($option = 3) {
+    ~chatplayer("<p,quiz>What is this place?");
+    ~chatnpc("<p,happy>This is Mill Lane Mill. Source of the finest flour in Gielinor, and home to the Miller family for many generations.");
+    ~chatnpc("<p,happy>We take wheat from the field nearby and mill into flour.");
+    @millie_miller_menu;
+} else if ($option = 4) {
+    ~chatplayer("<p,quiz>How do I mill flour?");
+    ~chatnpc("<p,happy>Making flour is pretty easy. First of all you need to get some wheat. You can pick some from wheat fields. There is one just outside the Mill, but there are many others scattered across the world.");
+    ~chatnpc("<p,happy>Feel free to pick from our field! There always seems to be plenty of wheat there.");
+    ~chatplayer("<p,quiz>Then I bring my wheat here?");
+    ~chatnpc("<p,happy>Yes, or one of the other mills in Gielinor. They all work the same way.");
+    ~chatnpc("<p,happy>Just take your wheat up two levels to the top floor of the mill and place some into the hopper.");
+    ~chatnpc("<p,happy>Then you need to start the grinding process by pulling the lever near the hopper. You add more wheat, but each time you add wheat you'll have to pull the hopper lever again.");
+    ~chatplayer("<p,quiz>So where does the flour go then?");
+    ~chatnpc("<p,happy>The flour appears in this room here, you'll need an empty pot to put the flour into. One pot will hold the flour made by one load of wheat.");
+    ~chatnpc("<p,happy>That's all there is to it and you'll have a pot of flour.");
+    ~chatplayer("<p,happy>Great! Thanks for your help.");
+    @millie_miller_menu;
+}
+~chatplayer("<p,happy>I'm fine, thanks.");

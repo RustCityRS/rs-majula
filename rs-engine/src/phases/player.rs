@@ -8,6 +8,7 @@ use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
 use rs_entity::interaction::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_info::FocusKind;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::{ExecutionState, QueuePriority, ScriptArgument, TimerPriority};
 use rs_vm::subject::ScriptSubject;
@@ -884,14 +885,14 @@ impl Engine {
         match target {
             InteractionTarget::Obj { id, .. } => {
                 if let Some(obj_type) = engine().objs().get_by_id(*id) {
-                    type_id = obj_type.id as i32;
-                    category_id = obj_type.category.map(|c| c as i32).unwrap_or(-1);
+                    type_id = obj_type.id.int();
+                    category_id = obj_type.category.map(|c| c.int()).unwrap_or(-1);
                 }
             }
             InteractionTarget::Loc { id, .. } => {
-                let loc = |id: u16| {
+                let loc = |id: TypeId| {
                     let loc_type = engine().locs().get_by_id(id)?;
-                    Some((id, loc_type.category.map(|c| c as i32).unwrap_or(-1)))
+                    Some((id, loc_type.category.map(|c| c.int()).unwrap_or(-1)))
                 };
                 let mut chosen = loc(*id);
                 // From 289 a loc can turn into another, which is what the
@@ -899,8 +900,8 @@ impl Engine {
                 // loc's own (type, then category).
                 if let Some(shown) = active.shown_loc(*id).filter(|s| s != id).and_then(loc) {
                     let com = active.player.interaction.target_subject_com;
-                    let script = |t: u16| {
-                        engine().has_script_for(trigger, Some(com.unwrap_or(i32::from(t))), -1)
+                    let script = |t: TypeId| {
+                        engine().has_script_for(trigger, Some(com.unwrap_or(t.int())), -1)
                     };
                     let category = |c| engine().has_script_for(trigger, None, c);
                     let base = chosen.is_some_and(|(t, _)| script(t));
@@ -909,7 +910,7 @@ impl Engine {
                     }
                 }
                 if let Some((t, c)) = chosen {
-                    type_id = t as i32;
+                    type_id = t.int();
                     category_id = c;
                 }
             }
@@ -917,8 +918,8 @@ impl Engine {
                 if let Some(npc_active) = engine().get_npc(*nid) {
                     let npc_type_id = npc_active.npc.uid.id();
                     if let Some(npc_type) = engine().npcs().get_by_id(npc_type_id) {
-                        type_id = npc_type.id as i32;
-                        category_id = npc_type.category.map(|c| c as i32).unwrap_or(-1);
+                        type_id = npc_type.id.int();
+                        category_id = npc_type.category.map(|c| c.int()).unwrap_or(-1);
                     }
                 }
             }

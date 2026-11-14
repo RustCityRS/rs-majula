@@ -1,0 +1,60 @@
+// 1249:0
+[com_0]
+type=layer
+x=1
+y=2
+width=200
+height=100
+xmode=abs_right
+onload=clientscript_946(event_com, interface_1249:com_1, interface_1249:com_5)
+onvartransmit=clientscript_946(event_com, interface_1249:com_1, interface_1249:com_5){varplayer_2518}
+
+// 1249:1
+[com_1]
+type=layer
+y=35
+width=149
+height=33
+xmode=abs_centre
+layer=com_0
+
+// 1249:2
+[com_2]
+type=graphic
+width=33
+height=33
+layer=com_1
+graphic=graphic_8542
+
+// 1249:3
+[com_3]
+type=graphic
+x=33
+width=83
+height=33
+layer=com_1
+graphic=graphic_8543
+
+// 1249:4
+[com_4]
+type=graphic
+x=116
+width=33
+height=33
+layer=com_1
+graphic=graphic_8544
+
+// 1249:5
+[com_5]
+type=text
+y=36
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+hide=yes
+textfont=verdana_15pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf

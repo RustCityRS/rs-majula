@@ -1,0 +1,11 @@
+// 273
+[proc,fishcomp_show_history]
+if_setsize(fishcomp_overlay:com_47, if_getwidth(fishcomp_overlay:com_47), 200, ^setsize_abs, ^setsize_abs);
+~scrollbar_vertical(fishcomp_overlay:com_58, fishcomp_overlay:history_scrolllayer, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if_setvflip(fishcomp_overlay:com_68, false);
+if_setvflip(fishcomp_overlay:com_69, false);
+if_sethide(fishcomp_overlay:com_48, false);
+if_sethide(fishcomp_overlay:com_53, false);
+if_sethide(fishcomp_overlay:com_56, false);
+if_sethide(fishcomp_overlay:com_86, true);
+if_setposition(fishcomp_overlay:com_55, 180, 13, ^setpos_abs_left, ^setpos_abs_bottom);

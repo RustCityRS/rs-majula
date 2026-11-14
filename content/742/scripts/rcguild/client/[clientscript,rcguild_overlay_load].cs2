@@ -1,0 +1,13 @@
+// 731
+[clientscript,rcguild_overlay_load]
+if_setmodel(rcguild_overlay:model_altar_1, null);
+if_setmodel(rcguild_overlay:model_altar_2, null);
+if_setmodel(rcguild_overlay:model_altar_3, null);
+if_setmodel(rcguild_overlay:model_altar_4, null);
+if_setmodel(rcguild_overlay:model_altar_5, null);
+if_setmodel(rcguild_overlay:model_altar_6, null);
+if_setmodel(rcguild_overlay:model_altar_7, null);
+if_setmodel(rcguild_overlay:model_altar_8, null);
+if_setmodelanim(rcguild_overlay:green_timer, seq_10139);
+if_setmodelanim(rcguild_overlay:yellow_timer, seq_10139);
+if_sethide(rcguild_overlay:flash_text, true);

@@ -26,7 +26,7 @@ use tracing::{info, warn};
 
 pub struct RecordLeftover {
     pub config_type: &'static str,
-    pub id: u16,
+    pub id: u32,
     pub bytes: usize,
 }
 
@@ -861,7 +861,11 @@ where
 
 #[cfg(since_647)]
 pub(super) fn write_report(results: &[StepResult], report_path: &Path) -> Result<()> {
-    let mut report_text = String::from("rev-647 unpack report\n=====================\n");
+    let mut report_text = String::from(concat!(
+        "rev-",
+        env!("REV"),
+        " unpack report\n=====================\n"
+    ));
     let mut failures = 0usize;
     for r in results {
         if !r.ok {

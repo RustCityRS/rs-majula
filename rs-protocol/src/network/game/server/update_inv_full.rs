@@ -4,12 +4,13 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+use rs_ver::TypeId;
 
 #[cfg(before_647)]
 #[server_prot(UpdateInvFull, Immediate, VarShort)]
 pub struct UpdateInvFull<'a> {
     pub com: u16,
-    pub objs: &'a [Option<(u16, i32)>],
+    pub objs: &'a [Option<(TypeId, i32)>],
 }
 
 #[cfg(before_289)]
@@ -26,7 +27,7 @@ impl ServerProtMessage for UpdateInvFull<'_> {
                     buf.p1(0);
                 }
                 Some(obj) => {
-                    buf.p2(obj.0.saturating_add(1));
+                    buf.p2(obj.0.g2().saturating_add(1));
                     let count = obj.1;
                     if count >= u8::MAX as i32 {
                         buf.p1(u8::MAX);
@@ -67,7 +68,7 @@ impl ServerProtMessage for UpdateInvFull<'_> {
                     buf.p1(0);
                 }
                 Some(obj) => {
-                    buf.p2(obj.0.saturating_add(1));
+                    buf.p2(obj.0.g2().saturating_add(1));
                     let count = obj.1;
                     if count >= u8::MAX as i32 {
                         buf.p1(u8::MAX);
@@ -109,14 +110,14 @@ impl UpdateInvFull<'_> {
 #[cfg(since_647)]
 #[derive(Debug, Clone, Copy)]
 pub struct InvItem {
-    pub id: u16,
+    pub id: TypeId,
     pub count: u32,
 }
 
 #[cfg(since_647)]
 #[server_prot(UpdateInvFull, Immediate, VarShort)]
 pub struct UpdateInvFull {
-    pub inv_id: u16,
+    pub inv_id: TypeId,
     /// The other player's copy of the inv (flags bit 0): the client keeps
     /// it apart from the player's own, as trade's other offer.
     pub other: bool,
@@ -127,7 +128,7 @@ pub struct UpdateInvFull {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateInvFull {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2(self.inv_id);
+        buf.p2(self.inv_id.g2());
         buf.p1(self.other as u8);
         buf.p2(self.capacity);
         for slot in &self.slots {
@@ -135,25 +136,38 @@ impl ServerProtMessage for UpdateInvFull {
                 Some(item) => {
                     if item.count >= 255 {
                         buf.p1(255);
+                        #[cfg(before_742)]
                         buf.p4_alt1(item.count as i32);
+                        #[cfg(since_742)]
+                        buf.p4(item.count as i32);
                     } else {
                         buf.p1(item.count as u8);
                     }
-                    let id_plus_one = item.id + 1;
-                    buf.p1((id_plus_one >> 8) as u8);
-                    buf.p1_alt1(id_plus_one as u8);
+                    let id_plus_one = item.id.g2() + 1;
+                    #[cfg(before_742)]
+                    {
+                        buf.p1((id_plus_one >> 8) as u8);
+                        buf.p1_alt1(id_plus_one as u8);
+                    }
+                    #[cfg(since_742)]
+                    buf.p2_alt3(id_plus_one);
                 }
                 None => {
                     buf.p1(0);
-                    buf.p1(0);
-                    buf.p1_alt1(0);
+                    #[cfg(before_742)]
+                    {
+                        buf.p1(0);
+                        buf.p1_alt1(0);
+                    }
+                    #[cfg(since_742)]
+                    buf.p2_alt3(0);
                 }
             }
         }
     }
 
     fn sizeof(&self) -> usize {
-        size_of_val(&self.inv_id)
+        size_of::<u16>()
             + size_of_val(&self.other)
             + size_of_val(&self.capacity)
             + self

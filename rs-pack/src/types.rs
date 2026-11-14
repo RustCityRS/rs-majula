@@ -1,4 +1,5 @@
 use num_enum::TryFromPrimitive;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
@@ -315,18 +316,17 @@ pub enum ParamValue {
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub enum MultiVar {
-    Varbit(u16),
-    Varp(u16),
+    Varbit(TypeId),
+    Varp(TypeId),
 }
 
 impl MultiVar {
-    /// The variable a transform is picked by, the varbit before the varp;
-    /// -1 is none.
-    pub fn new(varbit: i32, varp: i32) -> Option<Self> {
-        u16::try_from(varbit)
-            .ok()
+    /// The variable a transform is picked by, the varbit before the varp.
+    pub fn new(varbit: TypeId, varp: TypeId) -> Option<Self> {
+        varbit
+            .non_null()
             .map(Self::Varbit)
-            .or_else(|| u16::try_from(varp).ok().map(Self::Varp))
+            .or_else(|| varp.non_null().map(Self::Varp))
     }
 }
 
@@ -877,6 +877,8 @@ pub enum WearPos {
     Jaw = 11,
     Ring = 12,
     Quiver = 13,
+    #[cfg(since_742)]
+    Aura = 14,
 }
 
 impl WearPos {
@@ -896,7 +898,30 @@ impl WearPos {
             "jaw" => Self::Jaw,
             "ring" => Self::Ring,
             "quiver" => Self::Quiver,
+            #[cfg(since_742)]
+            "aura" => Self::Aura,
             _ => panic!("Invalid wearpos value: {s}"),
+        }
+    }
+
+    #[cfg(since_742)]
+    pub fn config_str(self) -> &'static str {
+        match self {
+            Self::Hat => "hat",
+            Self::Back => "back",
+            Self::Front => "front",
+            Self::RightHand => "righthand",
+            Self::Torso => "torso",
+            Self::LeftHand => "lefthand",
+            Self::Arms => "arms",
+            Self::Legs => "legs",
+            Self::Head => "head",
+            Self::Hands => "hands",
+            Self::Feet => "feet",
+            Self::Jaw => "jaw",
+            Self::Ring => "ring",
+            Self::Quiver => "quiver",
+            Self::Aura => "aura",
         }
     }
 }

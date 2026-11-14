@@ -1,0 +1,153 @@
+// 4722
+[proc,clientscript_4722](int $int0, int $int1)(int, string)
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_enum $enum27 = null;
+def_struct $struct28 = null;
+if (op718 = 1) {
+    $int2 = %varclan_2580;
+    $int3 = %varclan_2581;
+    $int4 = %varclan_2582;
+    $int22 = 4;
+    while ($int22 <= 15) {
+        $int24 = ~clientscript_4949($int22);
+        $int23 = ~clientscript_4959($int22);
+        switch_int ($int24) {
+            case 1 :
+                $int5 = $int23;
+            case 2 :
+                $int6 = $int23;
+            case 3 :
+                $int8 = $int23;
+            case 4 :
+                $int7 = $int23;
+            case 5 :
+                $int10 = $int23;
+            case 6 :
+                $int9 = $int23;
+            case 7 :
+                $int11 = $int23;
+        }
+        $int22 = calc($int22 + 1);
+    }
+    $enum27 = enum(int, enum, enum_4012, $int0);
+    $struct28 = enum(int, struct, $enum27, $int1);
+    $int12 = struct_param($struct28, param_1532);
+    $int13 = struct_param($struct28, param_1533);
+    $int14 = struct_param($struct28, param_1534);
+    $int15 = struct_param($struct28, param_1535);
+    $int16 = struct_param($struct28, param_1536);
+    $int17 = struct_param($struct28, param_1538);
+    $int18 = struct_param($struct28, param_1537);
+    $int19 = struct_param($struct28, param_1540);
+    $int20 = struct_param($struct28, param_1539);
+    $int21 = struct_param($struct28, param_1541);
+    $int25 = calc($int12 - $int2);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your citadel is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your citadel is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int13 - $int3);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your warehouse is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your warehouse is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int14 - $int4);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your battlefield is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your battlefield is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int15 - $int5);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Woodcutting plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Woodcutting plot is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int16 - $int6);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Mining plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Mining plot is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int18 - $int8);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Firemaking plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Firemaking plot is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int17 - $int7);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Smithing plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Smithing plot is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int20 - $int10);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Crafting plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Crafting plot is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int19 - $int9);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Cooking plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Cooking plot is one tier too low. ");
+        $int26 = 1;
+    }
+    $int25 = calc($int21 - $int11);
+    if ($int25 > 1) {
+        $string0 = append($string0, "Your Summoning plot is <tostring($int25)> tiers too low. ");
+        $int26 = 1;
+    } else if ($int25 = 1) {
+        $string0 = append($string0, "Your Summoning plot is one tier too low. ");
+        $int26 = 1;
+    }
+    if ($int26 = 0) {
+        return(1, $string0);
+    }
+}
+return(0, $string0);

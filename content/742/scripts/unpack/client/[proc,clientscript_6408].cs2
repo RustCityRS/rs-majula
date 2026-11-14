@@ -1,0 +1,32 @@
+// 6408
+[proc,clientscript_6408]
+if (%smki_missile_make = 1) {
+    ~clientscript_6414(interface_1308:com_36, 1);
+} else if (%varplayerbit_4781 < 300) {
+    ~clientscript_6414(interface_1308:com_36, 0);
+}
+if (%smki_ring_make = 1) {
+    ~clientscript_6414(interface_1308:com_38, 1);
+} else if (%varplayerbit_4781 < 300) {
+    ~clientscript_6414(interface_1308:com_38, 0);
+}
+if (%smki_head_make = 1) {
+    ~clientscript_6414(interface_1308:com_40, 1);
+} else if (%varplayerbit_4781 < 400) {
+    ~clientscript_6414(interface_1308:com_40, 0);
+}
+if (%varplayerbit_7235 = 1) {
+    ~clientscript_6414(interface_1308:com_237, 1);
+} else if (%varplayerbit_4781 < 50) {
+    ~clientscript_6414(interface_1308:com_237, 0);
+}
+if (%varplayerbit_7237 = 1) {
+    ~clientscript_6414(interface_1308:com_240, 1);
+} else if (%varplayerbit_4781 < 400) {
+    ~clientscript_6414(interface_1308:com_240, 0);
+}
+if (%smki_ice_strykewyrm_nofire = 1) {
+    ~clientscript_6414(interface_1308:com_242, 1);
+} else if (%varplayerbit_4781 < 2000) {
+    ~clientscript_6414(interface_1308:com_242, 0);
+}

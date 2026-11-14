@@ -1,0 +1,7 @@
+// 6742
+[proc,clientscript_6742](int $int0, int $int1)(int)
+if (%varplayerbit_11985 = $int0 & %varplayerbit_11986 = $int1 | %varplayerbit_11989 = $int0 & %varplayerbit_11990 = $int1 | %varplayerbit_11993 = $int0 & %varplayerbit_11994 = $int1 | %varplayerbit_11997 = $int0 & %varplayerbit_11998 = $int1 | %varplayerbit_12001 = $int0 & %varplayerbit_12002 = $int1) {
+    return(1);
+} else {
+    return(0);
+}

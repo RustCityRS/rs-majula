@@ -44,6 +44,7 @@ use crate::types::ParamValue;
 use crate::zone_csv::load_csv_zones;
 use crate::{archive, compile_scripts, unwrap_thread};
 use anyhow::{Context, Result};
+use rs_ver::TypeId;
 use runec::symbol::identifier_form;
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
@@ -68,6 +69,7 @@ pub struct InterfaceLayout {
     pub main_screen: HashMap<u16, u16>,
     pub wide_screen: HashMap<u16, u16>,
     pub wide_screen_ifaces: HashSet<u16>,
+    pub fullscreen_tops: HashSet<u16>,
     pub overlay_tab: HashMap<u16, u16>,
     pub overlay: HashMap<u16, u16>,
     pub chatbox: HashMap<u16, u16>,
@@ -311,11 +313,15 @@ const DESIGN: [&str; 12] = [
     "playerdesign3_skincol",
 ];
 
+const FULLSCREEN_INTERFACE: &str = "fullscreen_interface";
+
 /// The clientscript `p_countdialog` runs to ask for a number in the chat box.
 const COUNT_DIALOG: &str = "[clientscript,meslayer_mode7]";
 
 /// The layout slot a component of the fixed (`toplevel`, 548) or resizable
-/// (`toplevel_fullscreen`, 746) toplevel fills, by Jagex's names.
+/// (`toplevel_fullscreen`, 746) toplevel fills, by Jagex's names. A toplevel
+/// with a `fullscreen_interface` (753) is a black screen around one wide
+/// interface, raised over the gameframe while that interface is open.
 fn toplevel_slot<'a>(
     layout: &'a mut InterfaceLayout,
     interface: &str,
@@ -323,9 +329,9 @@ fn toplevel_slot<'a>(
 ) -> Option<&'a mut HashMap<u16, u16>> {
     Some(match (interface, component) {
         ("toplevel" | "toplevel_fullscreen", "mainmodal") => &mut layout.main_screen,
-        ("toplevel", "mainoverlay_clipped") | ("toplevel_fullscreen", "mainmodal_fullscreen") => {
-            &mut layout.wide_screen
-        }
+        ("toplevel", "mainoverlay_clipped")
+        | ("toplevel_fullscreen", "mainmodal_fullscreen")
+        | (_, FULLSCREEN_INTERFACE) => &mut layout.wide_screen,
         ("toplevel" | "toplevel_fullscreen", "mainoverlay") => &mut layout.overlay,
         ("toplevel" | "toplevel_fullscreen", "sidemodal") => &mut layout.overlay_tab,
         ("toplevel" | "toplevel_fullscreen", "chattop") => &mut layout.chatbox,
@@ -373,6 +379,9 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
         if let Some(slot) = toplevel_slot(&mut layout, interface, name) {
             slot.insert(iface, comp);
         }
+        if name == FULLSCREEN_INTERFACE {
+            layout.fullscreen_tops.insert(iface);
+        }
         layout.component_roots.insert(comp, iface as i32);
         layout.component_names.insert(
             ((iface as i32) << 16) | comp as i32,
@@ -404,7 +413,7 @@ fn load_dialogue_slots(
     let enum_id = contents.lines().find_map(|line| {
         let (id, name) = line.trim().split_once('=')?;
         (name == ENUM_NAME)
-            .then(|| id.parse::<u16>().ok())
+            .then(|| id.parse::<u16>().ok().map(TypeId::new))
             .flatten()
     });
     let Some(enum_id) = enum_id else { return };
@@ -440,7 +449,7 @@ fn load_wide_screen_ifaces(
         .find_map(|line| {
             let (id, name) = line.trim().split_once('=')?;
             (name == ENUM_NAME)
-                .then(|| id.parse::<u16>().ok())
+                .then(|| id.parse::<u16>().ok().map(TypeId::new))
                 .flatten()
         })
         .and_then(|id| enums.get_by_id(id))

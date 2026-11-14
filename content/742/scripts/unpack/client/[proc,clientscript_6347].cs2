@@ -1,0 +1,16 @@
+// 6347
+[proc,clientscript_6347](boolean $boolean0, int $int1, int $int2)
+def_int $int3 = detailget_soundvol;
+def_int $int4 = detailget_musicvol;
+def_int $int5 = detailget_bgsoundvol;
+def_int $int6 = op6142;
+def_int $int7 = detailget_loginvol;
+if (%varplayer_2567 ! 0) {
+    if (%varclient_1882 = 1 & playermember = false) {
+        if_setontimer(lobbyscreen:com_0, "clientscript_1999(lobbyscreen:com_0, $boolean0, $int1, 0, $int3, $int4, $int5, $int6, $int7)");
+    } else {
+        if_setontimer(lobbyscreen:com_0, null);
+        ~lobbyscreen_load($boolean0, $int1);
+    }
+    %varclient_1882 = 0;
+}

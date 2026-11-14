@@ -42,8 +42,12 @@ pub struct FriendEntry {
     pub previous_name: String,
     pub world: u16,
     pub rank: u8,
+    #[cfg(since_742)]
+    pub sort_flag: bool,
     pub world_name: Option<String>,
     pub world_flag: Option<u8>,
+    #[cfg(since_742)]
+    pub world_int: i32,
 }
 
 #[cfg(since_647)]
@@ -61,12 +65,16 @@ impl ServerProtMessage for UpdateFriendlist {
             buf.pjstr(&friend.previous_name, STRING_TERMINATOR);
             buf.p2(friend.world);
             buf.p1(friend.rank);
+            #[cfg(since_742)]
+            buf.p1(friend.sort_flag as u8);
             if friend.world > 0 {
                 buf.pjstr(
                     friend.world_name.as_deref().unwrap_or(""),
                     STRING_TERMINATOR,
                 );
                 buf.p1(friend.world_flag.unwrap_or(0));
+                #[cfg(since_742)]
+                buf.p4(friend.world_int);
             }
         }
     }
@@ -80,9 +88,15 @@ impl ServerProtMessage for UpdateFriendlist {
                     + Packet::sizejstr(&f.previous_name)
                     + size_of_val(&f.world)
                     + size_of_val(&f.rank);
+                #[cfg(since_742)]
+                let base = base + size_of_val(&f.sort_flag);
                 if f.world > 0 {
-                    base + f.world_name.as_ref().map_or(1, |s| Packet::sizejstr(s))
-                        + size_of_val(&f.world_flag)
+                    let online = base
+                        + f.world_name.as_ref().map_or(1, |s| Packet::sizejstr(s))
+                        + size_of::<u8>();
+                    #[cfg(since_742)]
+                    let online = online + size_of_val(&f.world_int);
+                    online
                 } else {
                     base
                 }

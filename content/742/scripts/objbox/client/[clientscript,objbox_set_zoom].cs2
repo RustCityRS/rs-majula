@@ -1,0 +1,4 @@
+// 3449
+[clientscript,objbox_set_zoom](obj $obj0, int $int1)
+if_setobject(interface_1189:com_1, $obj0, 0);
+if_setmodelzoom(interface_1189:com_1, $int1);

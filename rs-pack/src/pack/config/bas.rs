@@ -49,7 +49,11 @@ pub fn pack_bases(
                 if let Some(code) = anim_code(key) {
                     parse_ref(seq, "seq", value, |v| {
                         client.p1(code);
-                        client.p2(v);
+                        if matches!(code, 43 | 44) {
+                            client.p2(v);
+                        } else {
+                            client.pid(v);
+                        }
                     });
                     continue;
                 }
@@ -58,8 +62,8 @@ pub fn pack_bases(
                     "readyanim" => {
                         let (ready, walk) = value.split_once(',').expect("Invalid bas readyanim");
                         client.p1(1);
-                        parse_ref(seq, "seq", ready, |v| client.p2(v));
-                        parse_ref(seq, "seq", walk, |v| client.p2(v));
+                        parse_ref(seq, "seq", ready, |v| client.pid(v));
+                        parse_ref(seq, "seq", walk, |v| client.pid(v));
                     }
 
                     // 26
@@ -166,7 +170,7 @@ pub fn pack_bases(
                             for row in rows {
                                 let (anim, weight) =
                                     row.split_once(',').expect("Invalid bas readyanim_random");
-                                parse_ref(seq, "seq", anim, |v| client.p2(v));
+                                parse_ref(seq, "seq", anim, |v| client.pid(v));
                                 parse_number(weight, |v: u8| client.p1(v));
                             }
                         }

@@ -23,6 +23,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const BANK: u16 = 762;
 const SIDE: u16 = 763;
@@ -35,13 +36,13 @@ const BOOTH: (u16, u8, u16, u16) = (36786, 2, 3208, 3221);
 const BANKCERT: u16 = 115;
 const LAST_AMOUNT: u16 = 1249;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16, Vec<u8>)> {
@@ -85,21 +86,21 @@ fn scripts(packets: &[(u16, Vec<u8>)]) -> Vec<i32> {
 }
 
 fn count(engine: &Engine, pid: u16, inv: &str, obj: u16) -> i32 {
-    let id = *engine.cache.invs.debugnames.get(inv).unwrap();
+    let id = engine.cache.invs.get_by_debugname(inv).unwrap().id;
     let inv = engine.harness_player(pid).unwrap().invs.get(&id).unwrap();
     (0..inv.capacity as u16)
         .filter_map(|s| inv.get(s))
-        .filter(|i| i.obj == obj)
+        .filter(|i| i.obj == TypeId::new(obj))
         .map(|i| i.num as i32)
         .sum()
 }
 
 /// The backpack slot holding `obj`.
 fn slot_of(engine: &Engine, pid: u16, obj: u16) -> u16 {
-    let id = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let id = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let inv = engine.harness_player(pid).unwrap().invs.get(&id).unwrap();
     (0..inv.capacity as u16)
-        .find(|&s| inv.get(s).is_some_and(|i| i.obj == obj))
+        .find(|&s| inv.get(s).is_some_and(|i| i.obj == TypeId::new(obj)))
         .expect("in the backpack")
 }
 
@@ -129,8 +130,8 @@ fn banker(engine: &mut Engine, name: &str) -> HarnessClient {
 
 /// Puts `items` in the open bank (which opening it made), one to a slot.
 fn fill_bank(engine: &mut Engine, client: &mut HarnessClient, items: &[(&str, i32)]) {
-    let objs: Vec<(u16, i32)> = items.iter().map(|&(n, c)| (obj(engine, n), c)).collect();
-    let id = *engine.cache.invs.debugnames.get("bank").unwrap();
+    let objs: Vec<(TypeId, i32)> = items.iter().map(|&(n, c)| (obj(engine, n), c)).collect();
+    let id = engine.cache.invs.get_by_debugname("bank").unwrap().id;
     let player = engine.harness_player_mut(client.pid).unwrap();
     let inv = player
         .invs
@@ -218,27 +219,27 @@ fn withdraw_and_deposit_take_289s_amounts_on_2011s_ops() {
         let pid = client.pid;
         // Withdraw-1, -5, -10.
         for (op, n) in [(1, 1), (2, 5), (3, 10)] {
-            button(&mut client, op, BANK_INV, coins, 0);
+            button(&mut client, op, BANK_INV, coins.g2(), 0);
             ticks(engine, &mut client, 1);
             assert_eq!(
-                count(engine, pid, "inv", coins),
+                count(engine, pid, "inv", coins.g2()),
                 [0, 1, 6, 16][op as usize],
                 "Withdraw-{n}"
             );
         }
         // Deposit-All of the backpack's coins.
-        let slot = slot_of(engine, pid, coins);
-        button(&mut client, 6, SIDE_INV, coins, slot);
+        let slot = slot_of(engine, pid, coins.g2());
+        button(&mut client, 6, SIDE_INV, coins.g2(), slot);
         ticks(engine, &mut client, 1);
-        assert_eq!(count(engine, pid, "inv", coins), 0, "Deposit-All");
-        assert_eq!(count(engine, pid, "bank", coins), 1000);
+        assert_eq!(count(engine, pid, "inv", coins.g2()), 0, "Deposit-All");
+        assert_eq!(count(engine, pid, "bank", coins.g2()), 1000);
         // 2011's Withdraw-All but one, then Withdraw-All.
-        button(&mut client, 7, BANK_INV, coins, 0);
+        button(&mut client, 7, BANK_INV, coins.g2(), 0);
         ticks(engine, &mut client, 1);
-        assert_eq!(count(engine, pid, "inv", coins), 999, "All but one");
-        button(&mut client, 6, BANK_INV, coins, 0);
+        assert_eq!(count(engine, pid, "inv", coins.g2()), 999, "All but one");
+        button(&mut client, 6, BANK_INV, coins.g2(), 0);
         ticks(engine, &mut client, 1);
-        assert_eq!(count(engine, pid, "inv", coins), 1000, "All");
+        assert_eq!(count(engine, pid, "inv", coins.g2()), 1000, "All");
     });
 }
 
@@ -249,7 +250,7 @@ fn withdraw_x_asks_and_withdraw_star_takes_the_same_again() {
         let mut client = banker(engine, "xteller");
         use_booth(engine, &mut client, 2);
         fill_bank(engine, &mut client, &[("coins", 1000)]);
-        button(&mut client, 5, BANK_INV, coins, 0);
+        button(&mut client, 5, BANK_INV, coins.g2(), 0);
         let asked = ticks(engine, &mut client, 1);
         assert!(
             scripts(&asked).contains(&108),
@@ -259,7 +260,11 @@ fn withdraw_x_asks_and_withdraw_star_takes_the_same_again() {
         p.p4(7);
         client.send(ClientProt::ResumePCountDialog, &p.finish());
         ticks(engine, &mut client, 2);
-        assert_eq!(count(engine, client.pid, "inv", coins), 7, "Withdraw-X: 7");
+        assert_eq!(
+            count(engine, client.pid, "inv", coins.g2()),
+            7,
+            "Withdraw-X: 7"
+        );
         let last = engine
             .harness_player(client.pid)
             .unwrap()
@@ -267,10 +272,10 @@ fn withdraw_x_asks_and_withdraw_star_takes_the_same_again() {
             .get(LAST_AMOUNT)
             .as_int();
         assert_eq!(last, 7, "the X remembered (varp 1249)");
-        button(&mut client, 4, BANK_INV, coins, 0);
+        button(&mut client, 4, BANK_INV, coins.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(
-            count(engine, client.pid, "inv", coins),
+            count(engine, client.pid, "inv", coins.g2()),
             14,
             "Withdraw-7 again"
         );
@@ -293,10 +298,14 @@ fn note_mode_withdraws_notes() {
             .get(BANKCERT)
             .as_int();
         assert_eq!(mode, 1, "note mode on (varp 115)");
-        button(&mut client, 6, BANK_INV, logs, 0);
+        button(&mut client, 6, BANK_INV, logs.g2(), 0);
         ticks(engine, &mut client, 1);
-        assert_eq!(count(engine, client.pid, "inv", cert), 10, "ten noted logs");
-        assert_eq!(count(engine, client.pid, "inv", logs), 0);
+        assert_eq!(
+            count(engine, client.pid, "inv", cert.g2()),
+            10,
+            "ten noted logs"
+        );
+        assert_eq!(count(engine, client.pid, "inv", logs.g2()), 0);
         // Off again.
         engine
             .harness_player_mut(client.pid)
@@ -318,7 +327,11 @@ fn note_mode_withdraws_notes() {
 #[test]
 fn the_2011_booths_keep_their_two_sided_approach() {
     runner::on_loaded_engine(|engine| {
-        let booth = engine.cache.locs.get_by_id(BOOTH.0).expect("booth");
+        let booth = engine
+            .cache
+            .locs
+            .get_by_id(TypeId::new(BOOTH.0))
+            .expect("booth");
         assert_eq!(
             booth.forceapproach as u8, 10,
             "open north and south, as the cache has it"
@@ -400,8 +413,8 @@ fn bank_hidden(engine: &Engine, client: &HarnessClient) -> u32 {
 }
 
 /// The bank, slot by slot, up to its first empty slot.
-fn bank_objs(engine: &Engine, client: &HarnessClient) -> Vec<u16> {
-    let id = *engine.cache.invs.debugnames.get("bank").unwrap();
+fn bank_objs(engine: &Engine, client: &HarnessClient) -> Vec<TypeId> {
+    let id = engine.cache.invs.get_by_debugname("bank").unwrap().id;
     let inv = engine
         .harness_player(client.pid)
         .unwrap()
@@ -414,9 +427,13 @@ fn bank_objs(engine: &Engine, client: &HarnessClient) -> Vec<u16> {
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, inv: &str, slot: u16, obj: u16, n: u32) {
-    let id = *engine.cache.invs.debugnames.get(inv).unwrap();
+    let id = engine.cache.invs.get_by_debugname(inv).unwrap().id;
     let player = engine.harness_player_mut(client.pid).unwrap();
-    player.invs.get_mut(&id).unwrap().set(slot, obj, n);
+    player
+        .invs
+        .get_mut(&id)
+        .unwrap()
+        .set(slot, TypeId::new(obj), n);
 }
 
 /// Each IF_SETTEXT on `iface` as `(com, text)`.
@@ -468,7 +485,7 @@ fn bank_drag(
     to_com: i32,
     to_slot: i32,
 ) {
-    let bank = *engine.cache.invs.debugnames.get("bank").unwrap();
+    let bank = engine.cache.invs.get_by_debugname("bank").unwrap().id;
     let target = if to_com == BANK_INV {
         engine
             .harness_player(client.pid)
@@ -476,7 +493,7 @@ fn bank_drag(
             .invs
             .get(&bank)
             .and_then(|inv| inv.get(to_slot as u16))
-            .map_or(-1, |item| item.obj as i32)
+            .map_or(-1, |item| item.obj.int())
     } else {
         -1
     };
@@ -508,24 +525,28 @@ fn deposit_carried_and_worn_empty_them_into_the_bank() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_the_bank(engine, "depositor");
         let (logs, sword) = (obj(engine, "logs"), obj(engine, "bronze_sword"));
-        give(engine, &client, "inv", 0, logs, 1);
-        give(engine, &client, "inv", 5, logs, 1);
-        give(engine, &client, "worn", 3, sword, 1);
+        give(engine, &client, "inv", 0, logs.g2(), 1);
+        give(engine, &client, "inv", 5, logs.g2(), 1);
+        give(engine, &client, "worn", 3, sword.g2(), 1);
         ticks(engine, &mut client, 1);
 
         button(&mut client, 1, DEPOSIT_CARRIED, 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 2);
         assert_eq!(
-            count(engine, client.pid, "inv", logs),
+            count(engine, client.pid, "inv", logs.g2()),
             0,
             "the backpack emptied"
         );
-        assert_eq!(count(engine, client.pid, "bank", logs), 2);
+        assert_eq!(count(engine, client.pid, "bank", logs.g2()), 2);
 
         button(&mut client, 1, DEPOSIT_WORN, 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 2);
-        assert_eq!(count(engine, client.pid, "worn", sword), 0, "nothing worn");
-        assert_eq!(count(engine, client.pid, "bank", sword), 1);
+        assert_eq!(
+            count(engine, client.pid, "worn", sword.g2()),
+            0,
+            "nothing worn"
+        );
+        assert_eq!(count(engine, client.pid, "bank", sword.g2()), 1);
 
         // Both empty now, and no familiar: each says so.
         button(&mut client, 1, DEPOSIT_CARRIED, 0xFFFF, 0xFFFF);
@@ -547,7 +568,7 @@ fn the_banks_equipment_button_shows_the_stats_screen_and_show_bank_returns() {
     runner::on_loaded_engine(|engine| {
         let mut client = at_the_bank(engine, "statsbank");
         let sword = obj(engine, "bronze_sword");
-        give(engine, &client, "worn", 3, sword, 1);
+        give(engine, &client, "worn", 3, sword.g2(), 1);
         ticks(engine, &mut client, 1);
 
         button(&mut client, 1, SHOW_STATS, 0xFFFF, 0xFFFF);
@@ -641,7 +662,7 @@ fn the_stats_screen_totals_the_worn_absorb() {
             (5, "dragon_sq_shield"),
         ] {
             let id = obj(engine, name);
-            give(engine, &client, "worn", slot, id, 1);
+            give(engine, &client, "worn", slot, id.g2(), 1);
         }
         ticks(engine, &mut client, 1);
         button(&mut client, 1, WORN_SHOW_STATS, 0xFFFF, 0xFFFF);
@@ -665,15 +686,15 @@ fn remove_and_equip_on_the_stats_screen_keep_it_open() {
     runner::on_loaded_engine(|engine| {
         let mut client = banker(engine, "statsequip");
         let sword = obj(engine, "bronze_sword");
-        give(engine, &client, "worn", 3, sword, 1);
+        give(engine, &client, "worn", 3, sword.g2(), 1);
         ticks(engine, &mut client, 1);
         button(&mut client, 1, WORN_SHOW_STATS, 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 2);
 
-        button(&mut client, 1, SCREEN_WORN, sword, 3);
+        button(&mut client, 1, SCREEN_WORN, sword.g2(), 3);
         let packets = ticks(engine, &mut client, 2);
-        assert_eq!(count(engine, client.pid, "worn", sword), 0, "removed");
-        assert_eq!(count(engine, client.pid, "inv", sword), 1);
+        assert_eq!(count(engine, client.pid, "worn", sword.g2()), 0, "removed");
+        assert_eq!(count(engine, client.pid, "inv", sword.g2()), 1);
         assert!(
             engine
                 .harness_player(client.pid)
@@ -687,11 +708,11 @@ fn remove_and_equip_on_the_stats_screen_keep_it_open() {
             "the bonuses follow"
         );
 
-        let slot = slot_of(engine, client.pid, sword);
-        button(&mut client, 1, SCREEN_SIDE, sword, slot);
+        let slot = slot_of(engine, client.pid, sword.g2());
+        button(&mut client, 1, SCREEN_SIDE, sword.g2(), slot);
         let packets = ticks(engine, &mut client, 2);
         assert_eq!(
-            count(engine, client.pid, "worn", sword),
+            count(engine, client.pid, "worn", sword.g2()),
             1,
             "equipped again"
         );
@@ -725,13 +746,13 @@ fn a_drag_onto_a_tab_button_makes_a_tab_and_taking_it_all_out_ends_it() {
         );
 
         // The bar onto the new-tab button (tab 1): it leads the bank in tab 1.
-        bank_drag(engine, &mut client, 2, bar, tab_button(1), -1);
+        bank_drag(engine, &mut client, 2, bar.g2(), tab_button(1), -1);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![bar, logs, coins]);
         assert_eq!(tab_size(engine, &client, 1), 1);
 
         // Coins onto tab 2's button, past the first empty one: tab 2.
-        bank_drag(engine, &mut client, 2, coins, tab_button(5), -1);
+        bank_drag(engine, &mut client, 2, coins.g2(), tab_button(5), -1);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![bar, coins, logs]);
         assert_eq!(
@@ -744,7 +765,7 @@ fn a_drag_onto_a_tab_button_makes_a_tab_and_taking_it_all_out_ends_it() {
         button(&mut client, 1, tab_button(2), 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 1);
         assert_eq!(open_tab(engine, &client), 3);
-        button(&mut client, 6, BANK_INV, bar, 0);
+        button(&mut client, 6, BANK_INV, bar.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![coins, logs], "no gap left");
         assert_eq!(
@@ -765,14 +786,14 @@ fn a_new_item_goes_into_the_tab_on_view_and_collapse_returns_it() {
             obj(engine, "coins"),
             obj(engine, "bronze_bar"),
         );
-        bank_drag(engine, &mut client, 1, coins, tab_button(1), -1);
+        bank_drag(engine, &mut client, 1, coins.g2(), tab_button(1), -1);
         ticks(engine, &mut client, 1);
         button(&mut client, 1, tab_button(1), 0xFFFF, 0xFFFF);
-        give(engine, &client, "inv", 0, bar, 1);
+        give(engine, &client, "inv", 0, bar.g2(), 1);
         ticks(engine, &mut client, 1);
 
         // Deposit-1 from the backpack beside the bank.
-        button(&mut client, 1, SIDE_INV, bar, 0);
+        button(&mut client, 1, SIDE_INV, bar.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![coins, bar, logs]);
         assert_eq!(tab_size(engine, &client, 1), 2);
@@ -800,12 +821,12 @@ fn inserting_into_another_tab_moves_the_item_to_it() {
             obj(engine, "coins"),
             obj(engine, "bronze_bar"),
         );
-        bank_drag(engine, &mut client, 2, bar, tab_button(1), -1);
+        bank_drag(engine, &mut client, 2, bar.g2(), tab_button(1), -1);
         ticks(engine, &mut client, 1);
         // Insert mode (com15), then logs from the rest onto the bar.
         button(&mut client, 1, (BANK as i32) << 16 | 15, 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 1);
-        bank_drag(engine, &mut client, 1, logs, BANK_INV, 0);
+        bank_drag(engine, &mut client, 1, logs.g2(), BANK_INV, 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![logs, bar, coins]);
         assert_eq!(tab_size(engine, &client, 1), 2, "the logs joined tab 1");
@@ -823,13 +844,17 @@ fn all_but_one_of_one_says_it_does_nothing() {
         use_booth(engine, &mut client, 2);
         fill_bank(engine, &mut client, &[("leather_gloves", 1)]);
         let pid = client.pid;
-        button(&mut client, 7, BANK_INV, gloves, 0);
+        button(&mut client, 7, BANK_INV, gloves.g2(), 0);
         let said: Vec<String> = HarnessClient::game_messages(&ticks(engine, &mut client, 2))
             .into_iter()
             .map(|(_, m)| m)
             .collect();
-        assert_eq!(count(engine, pid, "inv", gloves), 0, "nothing withdrawn");
-        assert_eq!(count(engine, pid, "bank", gloves), 1, "still banked");
+        assert_eq!(
+            count(engine, pid, "inv", gloves.g2()),
+            0,
+            "nothing withdrawn"
+        );
+        assert_eq!(count(engine, pid, "bank", gloves.g2()), 1, "still banked");
         assert!(
             said.contains(
                 &"You only have one of this item, so withdrawing all but one does nothing."

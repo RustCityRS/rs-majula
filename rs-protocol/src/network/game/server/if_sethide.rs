@@ -33,9 +33,16 @@ pub struct IfSetHide {
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetHide {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt3(self.com);
         buf.p1_alt2(self.hidden as u8);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.hidden as u8);
+        buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {

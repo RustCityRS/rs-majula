@@ -1,0 +1,40 @@
+// 5536
+[proc,clientscript_5536](int $int0)
+%varclient_1725 = $int0;
+%varclient_1724 = 1;
+%varclient_1808 = 1;
+if ($int0 >= 1 & $int0 <= 4) {
+    ~clientscript_6071(0);
+} else if ($int0 >= 11 & $int0 <= 12) {
+    ~clientscript_6071(1);
+}
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic(interface_1178:com_49, 10422);
+        if_settext(interface_1178:com_77, "Tool Belt - General");
+        if_sethide(interface_1178:com_79, false);
+    case 2 :
+        if_setgraphic(interface_1178:com_50, 10423);
+        if_settext(interface_1178:com_77, "Tool Belt - Fishing");
+        if_sethide(interface_1178:com_79, false);
+    case 3 :
+        if_setgraphic(interface_1178:com_51, 10424);
+        if_settext(interface_1178:com_77, "Tool Belt - Crafting");
+        if_sethide(interface_1178:com_79, false);
+    case 4 :
+        if_setgraphic(interface_1178:com_52, 10425);
+        if_settext(interface_1178:com_77, "Tool Belt - Farming");
+        if_sethide(interface_1178:com_79, false);
+    case 11 :
+        if_setgraphic(interface_1178:com_53, 10426);
+        if_settext(interface_1178:com_77, "Dungeoneering - Tools");
+        if_sethide(interface_1178:com_79, false);
+    case 12 :
+        if_setgraphic(interface_1178:com_54, 10427);
+        if_settext(interface_1178:com_77, "Dungeoneering - Keys");
+        if_sethide(interface_1178:com_79, true);
+}
+~clientscript_6069;
+~clientscript_5537;
+~clientscript_5539;
+~clientscript_5544;

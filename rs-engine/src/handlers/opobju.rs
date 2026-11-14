@@ -10,6 +10,7 @@ use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::opobju::OpObjU;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ComId, ScriptError};
@@ -32,10 +33,10 @@ impl ClientGameHandler for OpObjU {
 pub(super) fn handle(
     x: u16,
     z: u16,
-    obj: u16,
+    obj: TypeId,
     com: ComId,
     slot: u16,
-    use_obj: u16,
+    use_obj: TypeId,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     active.watch_use(Using::Item(use_obj), Target::Obj { id: obj, x, z });
@@ -51,7 +52,7 @@ pub(super) fn handle(
 
     let y = active.player.pathing.coord.y();
     let receiver = active.uid().username37();
-    let Some(obj) = zone_obj(x, y, z, obj, receiver) else {
+    let Some(obj) = zone_obj(x, y, z, obj.g2(), receiver) else {
         active.unset_map_flag();
         return Ok(());
     };
@@ -74,7 +75,7 @@ pub(super) fn handle(
 
     active.clear_pending_action()?;
 
-    if members_blocked(active, use_obj) {
+    if members_blocked(active, use_obj.g2()) {
         return Ok(());
     }
 

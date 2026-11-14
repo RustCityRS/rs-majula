@@ -46,7 +46,7 @@ impl ClientGameHandler for ResumePObjDialog {
             )));
         }
         resume(active, ExecutionState::ObjDialog, |state| {
-            state.last_int = Some(self.id as i32);
+            state.last_int = Some(i32::from(self.id.g2()));
         })
     }
 }

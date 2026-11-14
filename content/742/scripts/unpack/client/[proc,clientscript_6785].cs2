@@ -1,0 +1,15 @@
+// 6785
+[proc,clientscript_6785]
+if (%varplayer_1385 = 0 | ~ql4_getprogress(%varplayer_1385) = 2) {
+    if_sethide(questlist_v4:com_69, true);
+    if_sethide(questlist_v4:com_433, true);
+    return;
+}
+def_int $int0 = enum(int, int, enum_6161, %varplayer_1385);
+if (~script3999($int0) = 1) {
+    if_sethide(questlist_v4:com_69, true);
+    if_sethide(questlist_v4:com_433, true);
+    return;
+}
+if_sethide(questlist_v4:com_69, false);
+if_sethide(questlist_v4:com_433, false);

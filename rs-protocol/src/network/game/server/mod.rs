@@ -185,6 +185,7 @@ pub mod update_friendlist;
 #[cfg(before_647)]
 pub mod update_ignorelist;
 #[cfg(since_647)]
+#[cfg(before_742)]
 pub mod update_ignorelist_full;
 pub mod update_inv_full;
 pub mod update_inv_partial;
@@ -221,6 +222,8 @@ pub mod vorbis_sound;
 pub mod vorbis_speech_sound;
 #[cfg(since_647)]
 pub mod vorbis_speech_stop;
+#[cfg(since_647)]
+pub mod worldlist_fetch_reply;
 
 pub use crate::network::game::server_prot_message::ServerProtMessage;
 

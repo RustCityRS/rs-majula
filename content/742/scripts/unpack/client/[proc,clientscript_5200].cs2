@@ -1,0 +1,89 @@
+// 5200
+[proc,clientscript_5200](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        if (%lumbcat_quest >= 60) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 2 :
+        if (%motwl_main >= 60) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 3 :
+        if (%vampire_quest >= 3) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 4 :
+        if (%varclient_1594 >= 56) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 5 :
+        if (%romcom_quest >= 100) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 6 :
+        if (%phoenixgang >= 7 | %blackarmgang >= 4) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 7 :
+        if (%demonslayer_main >= 3) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 8 :
+        if (%varclient_1594 >= 17) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 9 :
+        if (%gobdip_main >= 6) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 10 :
+        if (%squire >= 7) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 11 :
+        if (%spy >= 4) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 12 :
+        if (%varclient_1594 >= 11) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 14 :
+        if (%dragonquest >= 10) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case 15 :
+        if (%varplayerbit_10197 >= 25) {
+            return(1);
+        } else {
+            return(0);
+        }
+}
+return(0);

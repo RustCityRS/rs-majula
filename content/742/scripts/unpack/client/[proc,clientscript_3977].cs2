@@ -1,0 +1,23 @@
+// 3977
+[proc,clientscript_3977](int $int0)
+if_sethide(interface_1348:com_23, true);
+if_sethide(interface_1348:com_27, true);
+if_sethide(interface_1348:com_31, true);
+if_setcolour(interface_1348:com_24, 0xfffb00);
+if_setcolour(interface_1348:com_28, 0xfffb00);
+if_setcolour(interface_1348:com_32, 0xfffb00);
+sound_vorbis_volume(6185, 1, 0, 150);
+switch_int ($int0) {
+    case 0 :
+        if_sethide(interface_1348:com_23, false);
+        if_setcolour(interface_1348:com_24, ^white);
+        if_settext(interface_1348:com_20, "The accused is squashed by the Claw of Justice!");
+    case 1 :
+        if_sethide(interface_1348:com_27, false);
+        if_setcolour(interface_1348:com_28, ^white);
+        if_settext(interface_1348:com_20, "The accused is swallowed by an Abyssal Wyrm!");
+    case 2 :
+        if_sethide(interface_1348:com_31, false);
+        if_setcolour(interface_1348:com_32, ^white);
+        if_settext(interface_1348:com_20, "The accused is blasted apart by godly wrath!");
+}

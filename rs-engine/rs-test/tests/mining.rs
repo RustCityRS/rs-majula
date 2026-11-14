@@ -53,9 +53,19 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
     let ore_name = ore.to_string();
     let said_ore = said_ore.to_string();
     runner::on_loaded_engine(move |engine| {
-        let pickaxe = *engine.cache.objs.debugnames.get("bronze_pickaxe").unwrap();
-        let ore = *engine.cache.objs.debugnames.get(ore_name.as_str()).unwrap();
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let pickaxe = engine
+            .cache
+            .objs
+            .get_by_debugname("bronze_pickaxe")
+            .unwrap()
+            .id;
+        let ore = engine
+            .cache
+            .objs
+            .get_by_debugname(ore_name.as_str())
+            .unwrap()
+            .id;
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let mut client = engine

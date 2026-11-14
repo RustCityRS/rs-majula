@@ -19,6 +19,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::NpcMode;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::sync::Mutex;
 
@@ -35,7 +36,7 @@ fn nearest(engine: &Engine, id: u16, x: u16, z: u16) -> Option<usize> {
         .iter()
         .enumerate()
         .filter_map(|(nid, slot)| Some((nid, slot.as_ref()?)))
-        .filter(|(_, a)| a.npc.uid.id() == id && a.npc.active)
+        .filter(|(_, a)| a.npc.uid.id() == TypeId::new(id) && a.npc.active)
         .map(|(nid, a)| {
             let c = a.npc.pathing.coord;
             (
@@ -89,7 +90,11 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
         engine.cycle();
     }
     let nid = nearest(engine, id, x, z).unwrap_or_else(|| panic!("no npc {id} near {x},{z}"));
-    let size = engine.cache.npcs.get_by_id(id).map_or(1, |t| t.size.max(1)) as i32;
+    let size = engine
+        .cache
+        .npcs
+        .get_by_id(TypeId::new(id))
+        .map_or(1, |t| t.size.max(1)) as i32;
     let (mut targeted, mut attacked) = (false, false);
     for tick in 0..120 {
         // The client's keep-alive: 100 silent ticks would log the player out.
@@ -119,8 +124,16 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
 fn a_wilderness_green_dragon_hunts_a_player_beside_it() {
     let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());
     runner::on_loaded_engine(|engine| {
-        let mode = engine.cache.npcs.get_by_id(941).and_then(|t| t.huntmode);
-        let cowardly = engine.cache.hunts.debugnames.get("cowardly").copied();
+        let mode = engine
+            .cache
+            .npcs
+            .get_by_id(TypeId::new(941))
+            .and_then(|t| t.huntmode);
+        let cowardly = engine
+            .cache
+            .hunts
+            .get_by_debugname("cowardly")
+            .map(|t| t.id);
         assert!(cowardly.is_some(), "hunt.pack names cowardly");
         assert_eq!(mode, cowardly, "green_dragon is cowardly");
         // The map's green dragon (941) at 2982,3618 (map square 46_56).
@@ -147,13 +160,13 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
         for _ in 0..10 {
             engine.cycle();
         }
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
-        let shield = *engine
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
+        let shield = engine
             .cache
             .objs
-            .debugnames
-            .get("antidragonbreathshield")
-            .unwrap();
+            .get_by_debugname("antidragonbreathshield")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -166,7 +179,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
         let size = engine
             .cache
             .npcs
-            .get_by_id(4679)
+            .get_by_id(TypeId::new(4679))
             .map_or(1, |t| t.size.max(1)) as i32;
         forget_calls();
         let (mut targeted, mut breathed) = (false, false);

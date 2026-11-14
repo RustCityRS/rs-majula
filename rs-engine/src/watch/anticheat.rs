@@ -28,6 +28,7 @@ use rs_protocol::network::game::client::event_tracking::EventTracking;
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_ver::TypeId;
 use serde_json::{Map, Value, json};
 use std::collections::VecDeque;
 #[cfg(before_647)]
@@ -224,13 +225,13 @@ pub enum Op {
     },
     Loc {
         op: u8,
-        id: u16,
+        id: TypeId,
         x: u16,
         z: u16,
     },
     Obj {
         op: u8,
-        id: u16,
+        id: TypeId,
         x: u16,
         z: u16,
     },
@@ -240,13 +241,13 @@ pub enum Op {
     },
     Held {
         op: u8,
-        obj: u16,
+        obj: TypeId,
         slot: u16,
         com: u16,
     },
     InvButton {
         op: u8,
-        obj: u16,
+        obj: TypeId,
         slot: u16,
         com: u16,
     },
@@ -1446,7 +1447,7 @@ fn op_count(op: Op, base: MapBase) -> Option<(usize, Count, i64)> {
         Op::Loc { op: 4, x, .. } => (0, Count::Quarter(offset(x, base.x)), 99),
         Op::Loc { op: 5, .. } => (5, Count::By(base.z.into()), 92),
         Op::Player { op: 2, .. } => (7, Count::One, 90),
-        Op::Held { op: 1, obj, .. } => (2, Count::By(obj.into()), 97),
+        Op::Held { op: 1, obj, .. } => (2, Count::By(obj.g2().into()), 97),
         Op::Held { op: 4, slot, .. } => (4, Count::Quarter(slot.into()), 90),
         Op::InvButton { op: 4, slot, .. } => (8, Count::Quarter(slot.into()), 130),
         Op::InvButton { op: 5, com, .. } => (6, Count::Quarter(com.into()), 55),
@@ -1465,7 +1466,7 @@ fn op_count(op: Op, base: MapBase) -> Option<(usize, Count, i64)> {
         Op::Player { op: 1, .. } => (3, Count::One, 52),
         Op::Player { op: 4, pid } => (4, Count::By(pid.into()), 66),
         Op::Held { op: 4, .. } => (8, Count::One, 116),
-        Op::InvButton { op: 1, obj, .. } => (5, Count::Quarter(obj.into()), 133),
+        Op::InvButton { op: 1, obj, .. } => (5, Count::Quarter(obj.g2().into()), 133),
         _ => return None,
     })
 }
@@ -1582,7 +1583,7 @@ mod tests {
         let (op, check, threshold) = (
             Op::Loc {
                 op: 3,
-                id: 1,
+                id: TypeId::new(1),
                 x: 3200,
                 z: 3200,
             },
@@ -1786,12 +1787,12 @@ mod tests {
             Target::Npc(5),
             Target::Npc(7),
             Target::Loc {
-                id: 1,
+                id: TypeId::new(1),
                 x: 3160,
                 z: 3250,
             },
             Target::Obj {
-                id: 1,
+                id: TypeId::new(1),
                 x: 3201,
                 z: 3203,
             },
@@ -1809,13 +1810,13 @@ mod tests {
             // Long gone.
             Target::Npc(7),
             Target::Loc {
-                id: 1,
+                id: TypeId::new(1),
                 x: 3160,
                 z: 3250,
             },
             // In the map, but its zone was never sent.
             Target::Obj {
-                id: 1,
+                id: TypeId::new(1),
                 x: 3410,
                 z: 3410,
             },

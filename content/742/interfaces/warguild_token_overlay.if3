@@ -1,0 +1,413 @@
+// 1057:0
+[keg_tag_text]
+type=text
+width=16391
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=keg_tag_layer
+textfont=p11_full
+text=Tag the above locations in order for some extra strength xp!
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+
+// 1057:1
+[tag_layer_1]
+type=layer
+width=65
+height=65
+xmode=abs_centre
+layer=keg_tag_layer
+
+// 1057:2
+[gfc1]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+layer=tag_layer_1
+graphic="warguild_icons_large,0"
+
+// 1057:3
+[tag_layer_2]
+type=layer
+x=-65
+width=65
+height=65
+xmode=abs_centre
+layer=keg_tag_layer
+
+// 1057:4
+[gfc2]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+layer=tag_layer_2
+graphic="warguild_icons_large,4"
+
+// 1057:5
+[tag_layer_3]
+type=layer
+x=65
+width=65
+height=65
+xmode=abs_centre
+layer=keg_tag_layer
+
+// 1057:6
+[gfc3]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+layer=tag_layer_3
+graphic="warguild_icons_large,1"
+
+// 1057:7
+[tag_layer_4]
+type=layer
+x=-130
+width=65
+height=65
+xmode=abs_centre
+layer=keg_tag_layer
+
+// 1057:8
+[gfc4]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+layer=tag_layer_4
+graphic="warguild_icons_large,3"
+
+// 1057:9
+[tag_layer_5]
+type=layer
+x=130
+width=65
+height=65
+xmode=abs_centre
+layer=keg_tag_layer
+
+// 1057:10
+[gfc5]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+layer=tag_layer_5
+graphic="warguild_icons_large,2"
+
+// 1057:11
+[bal_token]
+type=graphic
+x=1
+y=1
+width=21
+height=21
+layer=bal_layer
+graphic="warguild_token_small_icons,4"
+
+// 1057:12
+[bal_arrow]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=bal_layer
+hide=yes
+graphic="red_green_arrows,1"
+
+// 1057:13
+[keg_text]
+type=text
+x=24
+y=1
+width=40
+height=21
+layer=bal_layer
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+onvartransmit=warguild_update_tokens_balance(event_com){warguild_tokens2}
+
+// 1057:14
+[str_token]
+type=graphic
+x=1
+y=1
+width=21
+height=21
+layer=str_layer
+graphic="warguild_token_small_icons,2"
+
+// 1057:15
+[str_arrow]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=str_layer
+hide=yes
+graphic="red_green_arrows,1"
+
+// 1057:16
+[str_text]
+type=text
+x=24
+y=1
+width=40
+height=21
+layer=str_layer
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+onvartransmit=warguild_update_tokens_strength(event_com){warguild_games}
+
+// 1057:17
+[com_token]
+type=graphic
+x=1
+y=1
+width=21
+height=21
+layer=com_layer
+graphic="warguild_token_small_icons,1"
+
+// 1057:18
+[com_arrow]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_layer
+hide=yes
+graphic="red_green_arrows,1"
+
+// 1057:19
+[com_text]
+type=text
+x=24
+y=1
+width=40
+height=21
+layer=com_layer
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+onvartransmit=warguild_update_tokens_combat(event_com){warguild_tokens2}
+
+// 1057:20
+[def_token]
+type=graphic
+x=1
+y=1
+width=21
+height=21
+layer=def_layer
+graphic="warguild_token_small_icons,3"
+
+// 1057:21
+[def_arrow]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=def_layer
+hide=yes
+graphic="red_green_arrows,1"
+
+// 1057:22
+[def_text]
+type=text
+x=24
+y=1
+width=40
+height=21
+layer=def_layer
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+onvartransmit=warguild_update_tokens_defence(event_com){warguild_tokens}
+
+// 1057:23
+[att_token]
+type=graphic
+x=1
+y=1
+width=21
+height=21
+layer=att_layer
+graphic="warguild_token_small_icons,0"
+
+// 1057:24
+[att_arrow]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=att_layer
+hide=yes
+graphic="red_green_arrows,1"
+
+// 1057:25
+[att_text]
+type=text
+x=24
+y=1
+width=40
+height=21
+layer=att_layer
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+onvartransmit=warguild_update_tokens_attack(event_com){warguild_tokens}
+
+// 1057:26
+[token_type_text]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=token_type_layer
+textfont=p11_full
+text=Using all tokens
+textalignv=centre
+textshadow=yes
+
+// 1057:27
+[token_type_layer]
+type=layer
+x=7
+y=245
+width=191
+height=20
+layer=content_layer
+onvartransmit=warguild_update_multi_status{warguild_games}
+
+// 1057:28
+[att_layer]
+type=layer
+x=6
+y=211
+width=75
+height=32
+layer=content_layer
+
+// 1057:29
+[def_layer]
+type=layer
+x=6
+y=180
+width=75
+height=32
+layer=content_layer
+
+// 1057:30
+[com_layer]
+type=layer
+x=6
+y=149
+width=75
+height=32
+layer=content_layer
+
+// 1057:31
+[str_layer]
+type=layer
+x=6
+y=118
+width=75
+height=32
+layer=content_layer
+
+// 1057:32
+[bal_layer]
+type=layer
+x=6
+y=86
+width=75
+height=32
+layer=content_layer
+
+// 1057:33
+[content_layer]
+type=layer
+widthmode=minus
+heightmode=minus
+onvartransmit=warguild_tag_setup{war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs}
+
+// 1057:34
+[keg_tag_layer]
+type=layer
+y=11
+width=343
+height=65
+xmode=abs_centre
+layer=content_layer
+hide=yes
+onvartransmit=warguild_tag_tick{war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs, war_strength_kegs}
+
+// 1057:35
+[tick_1]
+type=graphic
+x=-130
+y=5
+width=28
+height=28
+xmode=abs_centre
+layer=keg_tag_layer
+hide=yes
+graphic="mob_exchange_tick,0"
+
+// 1057:36
+[tick_2]
+type=graphic
+x=-65
+y=5
+width=28
+height=28
+xmode=abs_centre
+layer=keg_tag_layer
+hide=yes
+graphic="mob_exchange_tick,0"
+
+// 1057:37
+[tick_3]
+type=graphic
+y=5
+width=28
+height=28
+xmode=abs_centre
+layer=keg_tag_layer
+hide=yes
+graphic="mob_exchange_tick,0"
+
+// 1057:38
+[tick_4]
+type=graphic
+x=65
+y=5
+width=28
+height=28
+xmode=abs_centre
+layer=keg_tag_layer
+hide=yes
+graphic="mob_exchange_tick,0"
+
+// 1057:39
+[tick_5]
+type=graphic
+x=130
+y=5
+width=28
+height=28
+xmode=abs_centre
+layer=keg_tag_layer
+hide=yes
+graphic="mob_exchange_tick,0"

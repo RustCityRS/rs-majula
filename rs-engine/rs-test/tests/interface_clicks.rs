@@ -10,18 +10,25 @@ use rs_entity::MoveSpeed;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const BACKPACK: i32 = 149 << 16;
 const RUN_ORB: i32 = (750 << 16) | 1;
+const NO_OBJ: TypeId = TypeId::new(u16::MAX);
 const HIGH_ALCHEMY: i32 = (192 << 16) | 59;
 
-fn fresh(engine: &mut Engine) -> (HarnessClient, u16, u16, u16) {
+fn fresh(engine: &mut Engine) -> (HarnessClient, TypeId, TypeId, TypeId) {
     engine.harness_reset();
     let client = engine.harness_login_returning("click_checks").unwrap();
     engine.cycle();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let logs = *engine.cache.objs.debugnames.get("logs").unwrap();
-    let sword = *engine.cache.objs.debugnames.get("bronze_sword").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let logs = engine.cache.objs.get_by_debugname("logs").unwrap().id;
+    let sword = engine
+        .cache
+        .objs
+        .get_by_debugname("bronze_sword")
+        .unwrap()
+        .id;
     let held = engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -87,7 +94,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             let (mut client, inv, logs, sword) = fresh(engine);
             let (com, slot, obj) = match case {
                 0 => (BACKPACK, 0, sword),
-                1 => (BACKPACK, 0, u16::MAX),
+                1 => (BACKPACK, 0, NO_OBJ),
                 2 => (BACKPACK, 28, logs),
                 3 => (BACKPACK | 0xFFFF, 0, logs),
                 4 => ((762 << 16) | 93, 0, logs),
@@ -106,7 +113,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                 }
                 _ => {}
             }
-            client.send(ClientProt::IfButton8, &button(com, slot, obj));
+            client.send(ClientProt::IfButton8, &button(com, slot, obj.g2()));
             engine.harness_inputs();
             let player = engine.harness_player(client.pid).unwrap();
             assert!(
@@ -120,7 +127,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         }
 
         let (mut client, _, logs, _) = fresh(engine);
-        client.send(ClientProt::IfButton10, &button(BACKPACK, 0, logs));
+        client.send(ClientProt::IfButton10, &button(BACKPACK, 0, logs.g2()));
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().last_item,
@@ -147,13 +154,13 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         for case in 0..7 {
             let (mut client, inv, logs, sword) = fresh(engine);
             let (slot, obj, com2, slot2, obj2) = match case {
-                0 => (5, sword, BACKPACK, 33, u16::MAX),
-                1 => (0, logs, BACKPACK, 56, u16::MAX),
-                2 => (28, u16::MAX, BACKPACK, 33, u16::MAX),
+                0 => (5, sword, BACKPACK, 33, NO_OBJ),
+                1 => (0, logs, BACKPACK, 56, NO_OBJ),
+                2 => (28, NO_OBJ, BACKPACK, 33, NO_OBJ),
                 3 => (0, sword, BACKPACK, 1, logs),
-                4 => (0, logs, RUN_ORB, u16::MAX, u16::MAX),
-                5 => (0, u16::MAX, BACKPACK, 33, u16::MAX),
-                _ => (0, logs, BACKPACK, 33, u16::MAX),
+                4 => (0, logs, RUN_ORB, u16::MAX, NO_OBJ),
+                5 => (0, NO_OBJ, BACKPACK, 33, NO_OBJ),
+                _ => (0, logs, BACKPACK, 33, NO_OBJ),
             };
             if matches!(case, 3 | 6) {
                 engine.harness_player_mut(client.pid).unwrap().state.delayed = true;
@@ -177,7 +184,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             }
             client.send(
                 ClientProt::IfButtonD,
-                &drag(BACKPACK, slot, obj, com2, slot2, obj2),
+                &drag(BACKPACK, slot, obj.g2(), com2, slot2, obj2.g2()),
             );
             engine.harness_inputs();
             let player = engine.harness_player(client.pid).unwrap();
@@ -202,14 +209,9 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
                     .map(|(_, bytes)| bytes.as_slice())
                     .collect();
                 let mut expected = ClientPacket::new();
-                expected
-                    .p2(inv as i32)
-                    .p1(0)
-                    .p1(0)
-                    .p2(logs as i32 + 1)
-                    .p1(1);
+                expected.p2(inv.int()).p1(0).p1(0).p2(logs.int() + 1).p1(1);
                 if case == 3 {
-                    expected.p1(1).p2(sword as i32 + 1).p1(1);
+                    expected.p1(1).p2(sword.int() + 1).p1(1);
                 }
                 assert_eq!(
                     partials,
@@ -251,11 +253,14 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             }
             let (com, slot, obj, slot2, obj2) = match case {
                 0 => (BACKPACK, 0, logs, 0, logs),
-                3 => (RUN_ORB, u16::MAX, u16::MAX, 1, sword),
+                3 => (RUN_ORB, u16::MAX, NO_OBJ, 1, sword),
                 4 => (BACKPACK, 0, sword, 1, sword),
                 _ => (BACKPACK, 0, logs, 1, sword),
             };
-            client.send(ClientProt::IfButtonT, &target(com, slot, obj, slot2, obj2));
+            client.send(
+                ClientProt::IfButtonT,
+                &target(com, slot, obj.g2(), slot2, obj2.g2()),
+            );
             engine.harness_inputs();
             let player = engine.harness_player(client.pid).unwrap();
             assert_eq!(
@@ -271,7 +276,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         let (mut client, _, logs, _) = fresh(engine);
         client.send(
             ClientProt::IfButtonT,
-            &target(HIGH_ALCHEMY, u16::MAX, u16::MAX, 0, logs),
+            &target(HIGH_ALCHEMY, u16::MAX, u16::MAX, 0, logs.g2()),
         );
         engine.harness_inputs();
         assert_eq!(
@@ -305,7 +310,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
             .p2_alt1(0)
             .p4(BACKPACK)
             .p1_alt3(0)
-            .p2_alt1(logs as i32);
+            .p2_alt1(logs.int());
         client.send(ClientProt::OpPlayerT, &p.finish());
         engine.harness_inputs();
         assert_eq!(
@@ -326,7 +331,7 @@ fn clicks_require_server_permissions_and_current_inventory_contents() {
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.sub_closed(parent);
         player.sub_opened(parent, 149, 1);
-        client.send(ClientProt::IfButton8, &button(BACKPACK, 0, logs));
+        client.send(ClientProt::IfButton8, &button(BACKPACK, 0, logs.g2()));
         engine.harness_inputs();
         assert_eq!(
             engine.harness_player(client.pid).unwrap().last_item,

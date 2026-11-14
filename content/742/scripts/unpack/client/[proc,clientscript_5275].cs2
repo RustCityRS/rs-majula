@@ -1,0 +1,110 @@
+// 5275
+[proc,clientscript_5275](component $component0)
+def_int $int1 = 0;
+def_component $component2 = null;
+def_obj $obj3 = null;
+def_int $int4 = 1;
+def_string $string0 = "";
+def_model $model5 = null;
+def_seq $seq6 = null;
+def_enum $enum7 = null;
+def_enum $enum8 = null;
+switch_int (%varplayerbit_9828) {
+    case 0 :
+        return;
+    case 1 :
+        $model5 = model_52948;
+        $seq6 = human_ready;
+        $enum7 = enum_5138;
+        $enum8 = enum_5139;
+    case 2 :
+        $model5 = model_52954;
+        $seq6 = human_ready;
+        $enum7 = enum_5134;
+        $enum8 = enum_5135;
+    case 3 :
+        $model5 = model_52984;
+        $seq6 = human_ready;
+        $enum7 = enum_5136;
+        $enum8 = enum_5137;
+}
+cc_deleteall(interface_1138:com_31);
+cc_create(interface_1138:com_31, ^iftype_model, if_getnextsubid(interface_1138:com_31));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setmodel($model5);
+cc_setmodelangle(0, 125, 0, 0, 0, 375);
+cc_setmodelanim($seq6);
+~script2647(interface_1138:com_31);
+cc_deleteall(interface_1138:com_33);
+while ($int1 < inv_size(worn)) {
+    $int4 = 1;
+    switch_int ($int1) {
+        case 0 :
+            $component2 = interface_1138:com_34;
+        case 1 :
+            $component2 = interface_1138:com_36;
+        case 2 :
+            $component2 = interface_1138:com_37;
+        case 3 :
+            $component2 = interface_1138:com_39;
+        case 4 :
+            $component2 = interface_1138:com_40;
+        case 5 :
+            $component2 = interface_1138:com_41;
+        case 7 :
+            $component2 = interface_1138:com_42;
+        case 9 :
+            $component2 = interface_1138:com_44;
+        case 10 :
+            $component2 = interface_1138:com_43;
+        case 12 :
+            $component2 = interface_1138:com_45;
+        case 13 :
+            $component2 = interface_1138:com_38;
+            $int4 = 900;
+        case 14 :
+            $component2 = interface_1138:com_35;
+        case default :
+            $component2 = null;
+    }
+    cc_create(interface_1138:com_33, ^iftype_graphic, $int1);
+    if ($component2 ! null) {
+        $obj3 = enum(int, obj, $enum8, $int1);
+        if ($obj3 ! null) {
+            cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(~script788($component2, 2, 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setobject($obj3, $int4);
+            cc_setopbase(append("<col=ff9040>", oc_name($obj3)));
+            cc_setop(1, "Information");
+            cc_setgraphicshadow(0x302020);
+            cc_setoutline(1);
+            cc_setonop("script1620(event_com, event_comsubid, 100, 0, 8)");
+        } else {
+            cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+            cc_setposition(~script788($component2, 2, 2), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setgraphic(enum(int, graphic, enum_796, $int1));
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_settext(interface_1138:com_50, append_signnum("Stab: ", enum(int, int, $enum7, 0)));
+if_settext(interface_1138:com_51, append_signnum("Slash: ", enum(int, int, $enum7, 1)));
+if_settext(interface_1138:com_52, append_signnum("Crush: ", enum(int, int, $enum7, 2)));
+if_settext(interface_1138:com_53, append_signnum("Magic: ", enum(int, int, $enum7, 3)));
+if_settext(interface_1138:com_54, append_signnum("Ranged: ", enum(int, int, $enum7, 4)));
+if_settext(interface_1138:com_55, append_signnum("Stab: ", enum(int, int, $enum7, 5)));
+if_settext(interface_1138:com_56, append_signnum("Slash: ", enum(int, int, $enum7, 6)));
+if_settext(interface_1138:com_57, append_signnum("Crush: ", enum(int, int, $enum7, 7)));
+if_settext(interface_1138:com_59, append_signnum("Ranged: ", enum(int, int, $enum7, 9)));
+if_settext(interface_1138:com_60, append_signnum("Summoning: ", enum(int, int, $enum7, 10)));
+if_settext(interface_1138:com_58, append_signnum("Magic: ", enum(int, int, $enum7, 8)));
+if_settext(interface_1138:com_61, append(append_signnum("Absorb Melee: ", enum(int, int, $enum7, 11)), "%"));
+if_settext(interface_1138:com_62, append(append_signnum("Absorb Magic: ", enum(int, int, $enum7, 12)), "%"));
+if_settext(interface_1138:com_63, append(append_signnum("Absorb Ranged: ", enum(int, int, $enum7, 13)), "%"));
+if_settext(interface_1138:com_64, append_signnum("Strength: ", enum(int, int, $enum7, 14)));
+if_settext(interface_1138:com_65, append_signnum("Ranged Strength: ", enum(int, int, $enum7, 15)));
+if_settext(interface_1138:com_66, append_signnum("Prayer: ", enum(int, int, $enum7, 16)));
+if_settext(interface_1138:com_67, append(append_signnum("Magic Damage: ", enum(int, int, $enum7, 17)), "%"));

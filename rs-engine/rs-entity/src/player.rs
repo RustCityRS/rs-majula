@@ -14,6 +14,7 @@ use rs_pack::cache::area::{NO_AREAS, TileAreas};
 use rs_pack::types::{BlockWalk, MoveRestrict, PlayerStat};
 use rs_stat::Stats;
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::ComId;
 pub use rs_vm::PlayerUid;
 use rustc_hash::{FxHashMap, FxHashSet};
@@ -163,13 +164,15 @@ pub struct Player {
     pub active: bool,
     pub move_clicked: bool,
     pub block_walk: BlockWalk,
-    pub invs: FxHashMap<u16, Inventory>,
+    pub invs: FxHashMap<TypeId, Inventory>,
     #[cfg(since_647)]
     pub pending_login: bool,
     #[cfg(since_647)]
     pub chat_mode: u8,
     #[cfg(since_647)]
     pub toplevel: u16,
+    #[cfg(since_647)]
+    pub frame_toplevel: u16,
     #[cfg(since_647)]
     pub window_mode: u8,
     #[cfg(since_647)]
@@ -182,8 +185,8 @@ pub struct Player {
     pub name_suggestions: Vec<String>,
     #[cfg(since_647)]
     pub name_suggestion_page: usize,
-    pub inv_transmits: FxHashMap<u16, Vec<ComId>>,
-    pub inv_other_transmits: FxHashMap<ComId, (i32, u16)>,
+    pub inv_transmits: FxHashMap<TypeId, Vec<ComId>>,
+    pub inv_other_transmits: FxHashMap<ComId, (i32, TypeId)>,
     pub inv_first_seen: FxHashSet<u16>,
     #[cfg(since_647)]
     pub inv_other_first_seen: FxHashSet<u16>,
@@ -215,8 +218,8 @@ pub struct PlayerCold {
     #[cfg(since_647)]
     pub last_coord: Option<CoordGrid>,
     pub last_use_slot: Option<u16>,
-    pub last_item: Option<u16>,
-    pub last_use_item: Option<u16>,
+    pub last_item: Option<TypeId>,
+    pub last_use_item: Option<TypeId>,
     pub last_use_com: Option<ComId>,
     pub resume_buttons: Option<Vec<i32>>,
     pub tabs: [Option<u16>; 14],
@@ -326,6 +329,8 @@ impl Player {
             chat_mode: CHAT_MODE_PUBLIC,
             #[cfg(since_647)]
             toplevel: 0,
+            #[cfg(since_647)]
+            frame_toplevel: 0,
             #[cfg(since_647)]
             window_mode: 1,
             #[cfg(since_647)]
@@ -590,7 +595,7 @@ impl Player {
             let first_seen = &mut self.inv_first_seen;
             self.inv_transmits.retain(|inv, coms| {
                 if coms.is_empty() {
-                    first_seen.remove(inv);
+                    first_seen.remove(&inv.g2());
                 }
                 !coms.is_empty()
             });
@@ -598,7 +603,7 @@ impl Player {
             // next time, so a new trade starts from its partner's offer.
             let others = &self.inv_other_transmits;
             self.inv_other_first_seen
-                .retain(|inv| others.values().any(|&(_, other)| other == *inv));
+                .retain(|inv| others.values().any(|&(_, other)| other.g2() == *inv));
         }
     }
 
@@ -1034,7 +1039,7 @@ impl Player {
         }
         let speed = self.temp_move_speed.unwrap_or(self.move_speed);
         #[cfg(before_647)]
-        let speed = if self.info.runanim.is_some_and(|anim| anim != u16::MAX) {
+        let speed = if self.info.runanim.is_some_and(|anim| !anim.is_null()) {
             speed
         } else {
             MoveSpeed::Walk
@@ -1198,7 +1203,7 @@ mod move_speed_tests {
     #[test]
     fn a_temporary_speed_wins_for_its_route() {
         let mut p = make_player();
-        p.info.runanim = Some(824);
+        p.info.runanim = Some(TypeId::new(824));
         for (own, temp) in [
             (MoveSpeed::Walk, MoveSpeed::Run),
             (MoveSpeed::Run, MoveSpeed::Walk),
@@ -1223,10 +1228,10 @@ mod move_speed_tests {
         p.move_speed = MoveSpeed::Run;
         p.update_move_speed();
         assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "none set yet");
-        p.info.runanim = Some(824);
+        p.info.runanim = Some(TypeId::new(824));
         p.update_move_speed();
         assert_eq!(p.pathing.move_speed, MoveSpeed::Run);
-        p.info.runanim = Some(u16::MAX);
+        p.info.runanim = Some(TypeId::NULL);
         p.update_move_speed();
         assert_eq!(p.pathing.move_speed, MoveSpeed::Walk, "runanim(null)");
         p.move_speed = MoveSpeed::Walk;
@@ -1242,7 +1247,7 @@ mod move_speed_tests {
         rsmod::allocate_if_absent(3222, 3222, 0);
         rsmod::allocate_if_absent(3224, 3222, 0);
         let mut p = make_player();
-        p.info.runanim = Some(824);
+        p.info.runanim = Some(TypeId::new(824));
         p.move_speed = MoveSpeed::Run;
         p.pathing.queue_waypoint(CoordGrid::new(3226, 0, 3222));
         p.jump();
@@ -1613,7 +1618,7 @@ mod interaction_tests {
     fn obj_target() -> InteractionTarget {
         InteractionTarget::Obj {
             coord: CoordGrid::new(3225, 0, 3222),
-            id: 100,
+            id: TypeId::new(100),
             serial: ObjSerial::FIRST,
         }
     }
@@ -1621,7 +1626,7 @@ mod interaction_tests {
     fn loc_target() -> InteractionTarget {
         InteractionTarget::Loc {
             coord: CoordGrid::new(3225, 0, 3222),
-            id: 200,
+            id: TypeId::new(200),
             width: 1,
             length: 1,
             shape: LocShape::CentrepieceStraight,
@@ -1658,14 +1663,14 @@ mod interaction_tests {
     fn set_interaction_stores_obj_type_as_subject() {
         let mut p = make_player();
         p.set_interaction(obj_target(), ServerTriggerType::ApObj1 as u8, true);
-        assert_eq!(p.interaction.target_subject_type, Some(100)); // obj id
+        assert_eq!(p.interaction.target_subject_type, Some(TypeId::new(100))); // obj id
     }
 
     #[test]
     fn set_interaction_stores_loc_type_as_subject() {
         let mut p = make_player();
         p.set_interaction(loc_target(), ServerTriggerType::ApLoc1 as u8, true);
-        assert_eq!(p.interaction.target_subject_type, Some(200)); // loc id
+        assert_eq!(p.interaction.target_subject_type, Some(TypeId::new(200))); // loc id
     }
 
     #[test]
@@ -1769,11 +1774,17 @@ mod interaction_tests {
         let mut p = make_player();
         let backpack = 149 << 16;
         let bank = 762 << 16;
-        p.inv_transmits.entry(93).or_default().push(backpack);
-        p.inv_transmits.entry(95).or_default().push(bank);
+        p.inv_transmits
+            .entry(TypeId::new(93))
+            .or_default()
+            .push(backpack);
+        p.inv_transmits
+            .entry(TypeId::new(95))
+            .or_default()
+            .push(bank);
         p.clear_inv_transmits(bank);
-        assert_eq!(p.inv_transmits[&93], vec![backpack]);
-        assert!(!p.inv_transmits.contains_key(&95));
+        assert_eq!(p.inv_transmits[&TypeId::new(93)], vec![backpack]);
+        assert!(!p.inv_transmits.contains_key(&TypeId::new(95)));
     }
 
     /// An inventory no component transmits any more is dropped and forgotten,
@@ -1787,16 +1798,22 @@ mod interaction_tests {
         let shop_side = 621 << 16;
         let shop = 620 << 16 | 25;
         p.inv_transmits
-            .entry(93)
+            .entry(TypeId::new(93))
             .or_default()
             .extend([backpack, shop_side]);
-        p.inv_transmits.entry(1).or_default().push(shop);
+        p.inv_transmits
+            .entry(TypeId::new(1))
+            .or_default()
+            .push(shop);
         p.inv_first_seen.extend([93, 1]);
         p.clear_inv_transmits(shop_side);
         p.clear_inv_transmits(shop);
-        assert_eq!(p.inv_transmits[&93], vec![backpack]);
+        assert_eq!(p.inv_transmits[&TypeId::new(93)], vec![backpack]);
         assert!(p.inv_first_seen.contains(&93), "the backpack is still out");
-        assert!(!p.inv_transmits.contains_key(&1), "the shop is dropped");
+        assert!(
+            !p.inv_transmits.contains_key(&TypeId::new(1)),
+            "the shop is dropped"
+        );
         assert!(!p.inv_first_seen.contains(&1), "and goes whole next time");
     }
 
@@ -1809,8 +1826,10 @@ mod interaction_tests {
         let mut p = make_player();
         let offer_screen = 335 << 16 | 34;
         let confirm_screen = 334 << 16 | 34;
-        p.inv_other_transmits.insert(offer_screen, (7, 90));
-        p.inv_other_transmits.insert(confirm_screen, (7, 90));
+        p.inv_other_transmits
+            .insert(offer_screen, (7, TypeId::new(90)));
+        p.inv_other_transmits
+            .insert(confirm_screen, (7, TypeId::new(90)));
         p.inv_other_first_seen.insert(90);
         p.clear_inv_transmits(offer_screen);
         assert!(
@@ -2350,7 +2369,7 @@ mod interaction_tests {
     fn new_click_replaces_existing_interaction() {
         let mut p = make_player();
         p.set_interaction(obj_target(), ServerTriggerType::ApObj1 as u8, true);
-        assert_eq!(p.interaction.target_subject_type, Some(100)); // obj id
+        assert_eq!(p.interaction.target_subject_type, Some(TypeId::new(100))); // obj id
 
         // Player clicks a different loc
         p.clear_interaction();
@@ -2359,7 +2378,7 @@ mod interaction_tests {
             p.interaction.target_op,
             Some(ServerTriggerType::ApLoc2 as u8)
         );
-        assert_eq!(p.interaction.target_subject_type, Some(200)); // loc id
+        assert_eq!(p.interaction.target_subject_type, Some(TypeId::new(200))); // loc id
     }
 
     // ---- Delayed player cannot interact ----

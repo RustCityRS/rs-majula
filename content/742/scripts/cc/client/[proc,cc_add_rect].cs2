@@ -1,0 +1,8 @@
+// 2996
+[proc,cc_add_rect](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $rgb6, boolean $boolean7, int $int8)
+cc_create($component0, ^iftype_rectangle, $int1);
+cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setcolour($rgb6);
+cc_setfill($boolean7);
+cc_settrans($int8);

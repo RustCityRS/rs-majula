@@ -1,0 +1,12 @@
+// 2618
+[clientscript,mob_camera_control](int $int0)
+switch_int ($int0) {
+    case 1 :
+        op65;
+    case 2 :
+        op232;
+    case 3 :
+        op159;
+    case 4 :
+        op898;
+}

@@ -1,0 +1,17 @@
+// 4757
+[proc,clientscript_4757](component $component0)
+def_int $int1 = scale(16384, 1600, %varplayer_2245);
+$int1 = min(max($int1, 0), 16384);
+if_setsize(interface_642:com_123, $int1, 0, ^setsize_rel, ^setsize_minus);
+if_settext($component0, tostring(%varplayer_2245));
+if (%varplayer_2245 <= 300) {
+    if_setcolour(interface_642:com_124, 0xff2266);
+    if_setcolour(interface_642:com_126, 0xff2266);
+    if_setcolour(interface_642:com_125, 0xff2266);
+    if_setmodelanim(interface_642:com_104, seq_2601);
+} else {
+    if_setcolour(interface_642:com_124, ^white);
+    if_setcolour(interface_642:com_126, ^white);
+    if_setcolour(interface_642:com_125, ^white);
+    if_setmodelanim(interface_642:com_104, chatidle2);
+}

@@ -1,0 +1,19 @@
+// 6165
+[proc,clientscript_6165](int $int0)
+if_settext(interface_1273:com_68, "0");
+cc_deleteall(interface_1273:com_13);
+cc_deleteall(interface_1273:com_14);
+cc_deleteall(interface_1273:com_15);
+cc_deleteall(interface_1273:com_16);
+%varclient_1911 = -1;
+if_sethide(interface_1273:com_14, true);
+if_sethide(interface_1273:com_15, true);
+if_sethide(interface_1273:com_16, true);
+switch_int ($int0) {
+    case 0 :
+        ~clientscript_6166;
+    case 1 :
+        ~clientscript_6168;
+    case 2 :
+        ~clientscript_6169;
+}

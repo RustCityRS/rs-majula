@@ -1,0 +1,27 @@
+// 6510
+[proc,clientscript_6510](int $int0)
+return;
+def_component $component1 = null;
+if ($int0 = 0) {
+    $component1 = interface_1302:com_22;
+} else if ($int0 = 1) {
+    $component1 = interface_1302:com_28;
+} else if ($int0 = 2) {
+    $component1 = interface_1302:com_14;
+}
+def_graphic $graphic2 = null;
+switch_graphic (if_getgraphic($component1)) {
+    case 11643 :
+        $graphic2 = 11642;
+    case 11631 :
+        $graphic2 = 11630;
+    case 11634 :
+        $graphic2 = 11633;
+    case 11628 :
+        $graphic2 = 11627;
+    case 11637 :
+        $graphic2 = 11636;
+    case 11640 :
+        $graphic2 = 11639;
+}
+if_setgraphic($component1, $graphic2);

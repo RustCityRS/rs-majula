@@ -1,0 +1,62 @@
+// 6769
+[proc,clientscript_6769](int $int0)(int)
+if (stat_base(firemaking) < struct_param(enum(int, struct, enum_5520, $int0), param_2236)) {
+    return(0);
+}
+switch_int ($int0) {
+    case 5 :
+        if (%phoenix_last_completed = date_runeday | ~ql4_skill_requirements_cache(struct_657) = false | stat_base(slayer) < 51) {
+            return(0);
+        }
+    case 7 :
+        if (~ql4_skill_requirements_cache(struct_653) = false) {
+            return(0);
+        }
+    case 8 :
+        if (~ql4_skill_requirements_cache(struct_653) = false) {
+            return(0);
+        }
+    case 9 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false) {
+            return(0);
+        }
+    case 10 :
+        if (~ql4_skill_requirements_cache(struct_2813) = false | %varplayerbit_10380 = 1 | %varplayerbit_10381 = 1) {
+            return(0);
+        }
+    case 12 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false | ~ql4_skill_requirements_cache(struct_615) = false) {
+            return(0);
+        }
+    case 13 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false | ~ql4_skill_requirements_cache(struct_615) = false) {
+            return(0);
+        }
+    case 14 :
+        if (stat_base(woodcutting) < 83) {
+            return(0);
+        }
+    case 15 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false | ~ql4_skill_requirements_cache(struct_615) = false) {
+            return(0);
+        }
+    case 16 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false | ~ql4_skill_requirements_cache(struct_615) = false) {
+            return(0);
+        }
+    case 17 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false | ~ql4_skill_requirements_cache(struct_615) = false) {
+            return(0);
+        }
+    case 18 :
+        if (~ql4_skill_requirements_cache(struct_2813) = false | %varplayerbit_10389 = calc(date_runeday / 7)) {
+            return(0);
+        }
+    case 19 :
+        if (~ql4_skill_requirements_cache(struct_653) = false | ~ql4_skill_requirements_cache(struct_640) = false | ~ql4_skill_requirements_cache(struct_615) = false) {
+            return(0);
+        }
+    case default :
+        return(1);
+}
+return(1);
