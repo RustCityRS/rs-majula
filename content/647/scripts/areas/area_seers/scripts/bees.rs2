@@ -26,7 +26,7 @@ if(%beehive_free = true) {
 // https://youtu.be/yC68rzkRvCQ?si=VSPc8U4LsvI0GqgS&t=30
 if(%beehive_free ! true) {
     mes("Suddenly bees fly out of the hive and sting you.");
-    ~damage_self(2); // queue
+    ~damage_self(20); // queue. 289's 2 hitpoints; 2011 counts life points, ten to a hitpoint
     return;
 }
 ~mesbox("You try to get some wax from the beehive.");
