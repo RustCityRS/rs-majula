@@ -180,6 +180,7 @@ p_delay(2);
 p_telejump(~demon_slayer_circle_coord(3225, 3371));
 p_transmogrify(wally);
 minimap_toggle(2);
+~demon_slayer_cutscene_tabs(true);
 p_delay(1);
 cam_moveto(~demon_slayer_circle_coord(3227, 3369), 300, 232, 232);
 cam_lookat(~demon_slayer_circle_coord(3229, 3367), 250, 232, 232);
@@ -197,7 +198,8 @@ cam_shake(3, 0, 0, 0);
 sound_synth(rumbling, 1, 0);
 ~chatnpc_specific_np("Wally", wally, "<p,angry>Die, foul demon!");
 p_telejump(~demon_slayer_circle_coord(3225, 3363));
-p_delay(1);
+// He is in shot 1.8s after his line opens and it stands 5s (the recording, 109s to 114s):
+// no wait before the run (with one he came in a second late, sampled beside it in the client).
 p_run(1);
 p_walk(~demon_slayer_circle_coord(3227, 3367));
 p_delay(2);
@@ -238,6 +240,7 @@ p_transmogrify(null);
 p_telejump($tent);
 cam_reset;
 minimap_toggle(0);
+~demon_slayer_cutscene_tabs(false);
 p_delay(1);
 if_openoverlay(fade_from_black);
 p_delay(1);

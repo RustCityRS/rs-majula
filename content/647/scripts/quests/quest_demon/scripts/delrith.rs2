@@ -26,8 +26,13 @@
 // against it in the client: where the wizards, Denath and the player stand,
 // the barrier's ring, the animations and sounds by id (cache 786 has every
 // one), the camera's tiles and heights, and Denath left standing east of the
-// ring. void's camera shake is left out until the recording shows it.
-// Not done: the recording blanks the side tabs' icons while the cutscene runs.
+// ring. Sampled three times a second beside the recording, the spell matches
+// it shot for shot: the steep view of the table alight, the rocks, then the
+// low shot of his rise with the barrier behind. void's camera shake is left
+// out: the recording's frames do not show one.
+// While a cutscene runs the recording has the side panel down to four tabs,
+// friends, friends chat, clan chat and music, the Friends List showing (108s
+// and 522s; every tab is back at 540s): [proc,demon_slayer_cutscene_tabs].
 [zone,0_50_52_16_32] settimer(demon_slayer_stone_circle, 1);
 [zone,0_50_52_24_32] settimer(demon_slayer_stone_circle, 1);
 [zone,0_50_52_32_32] settimer(demon_slayer_stone_circle, 1);
@@ -53,6 +58,38 @@ if (p_finduid(uid) = false) {
 }
 cleartimer(demon_slayer_stone_circle);
 @demon_slayer_circle_enter;
+
+// The side tabs a cutscene shuts (above), or all of them back.
+[proc,demon_slayer_cutscene_tabs](boolean $shut)
+if ($shut = false) {
+    ~initalltabs;
+    return;
+}
+if (getwindowmode = 1) {
+    if_closesub(toplevel:side0);
+    if_closesub(toplevel:side1);
+    if_closesub(toplevel:side2);
+    if_closesub(toplevel:side3);
+    if_closesub(toplevel:side4);
+    if_closesub(toplevel:side5);
+    if_closesub(toplevel:side6);
+    if_closesub(toplevel:side7);
+    if_closesub(toplevel:side12);
+    if_closesub(toplevel:side13);
+    if_closesub(toplevel:side15);
+} else {
+    if_closesub(toplevel_fullscreen:side0);
+    if_closesub(toplevel_fullscreen:side1);
+    if_closesub(toplevel_fullscreen:side2);
+    if_closesub(toplevel_fullscreen:side3);
+    if_closesub(toplevel_fullscreen:side4);
+    if_closesub(toplevel_fullscreen:side5);
+    if_closesub(toplevel_fullscreen:side6);
+    if_closesub(toplevel_fullscreen:side7);
+    if_closesub(toplevel_fullscreen:side12);
+    if_closesub(toplevel_fullscreen:side13);
+    if_closesub(toplevel_fullscreen:side15);
+}
 
 // The player's copy of the circle: 96 by 96 tiles about the stone table, two
 // zones in from the region's corner (as Unstable Foundations' house copy).
@@ -254,6 +291,7 @@ p_telejump(~demon_slayer_circle_coord(3222, 3367));
 ~demon_slayer_circle_barrier;
 ~demon_slayer_circle_wizards(~demon_slayer_circle_coord(3229, 3368));
 minimap_toggle(2);
+~demon_slayer_cutscene_tabs(true);
 p_delay(1);
 facesquare(~demon_slayer_circle_coord(3227, 3369));
 ~demon_slayer_circle_chant(false);
@@ -330,6 +368,7 @@ cam_moveto(~demon_slayer_circle_coord(3226, 3383), 1000, 1, 1);
 ~chatnpc_specific("Denath", denath_4663, "<p,shifty>I've got to get out of here.");
 cam_reset;
 minimap_toggle(0);
+~demon_slayer_cutscene_tabs(false);
 softtimer(demon_slayer_circle_watch, 1);
 ~demon_slayer_circle_attack;
 if (npc_find(~demon_slayer_circle_coord(3227, 3367), delrith, 3, 0) = true) {
