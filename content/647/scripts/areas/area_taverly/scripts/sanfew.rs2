@@ -4,8 +4,6 @@
 //        with Sanfew, word for word.
 //   V  = void-634's Sanfew.kt, unverified.
 //   289 = 289's line, kept where no 2011 source shows the line.
-// Waiting: Eadgar's Ruse's hand-in ([label,sanfew_complete_eadgar] and its check before the
-// menus), which queues the quest's completion; 647 has no eadgar_quest_complete yet.
 
 [opnpc1,sanfew]
 if (%druidquest = ^druid_spoken_sanfew) {
@@ -14,7 +12,9 @@ if (%druidquest = ^druid_spoken_sanfew) {
 ~chatnpc("<p,quiz>What can I do for you young 'un?"); // R
 // "Actually, I don't need to speak to you.": R shows the comma on the quest's menu, V has it
 // on the others too (289's options have none).
-if (%eadgar_quest >= ^eadgar_started & %eadgar_quest <= ^eadgar_unlocked_storeroom) {
+if (%eadgar_quest = ^eadgar_unlocked_storeroom & inv_total(inv, eadgar_goutweed_herb) > 0) { //this should fire AFTER "What can I do for you young 'un?"
+    @sanfew_complete_eadgar;
+} else if (%eadgar_quest >= ^eadgar_started & %eadgar_quest <= ^eadgar_unlocked_storeroom) {
     if (%eadgar_quest = ^eadgar_needs_items) {
         if (inv_total(inv, eadgar_dirty_druid_robe) = 0 & inv_total(bank, eadgar_dirty_druid_robe) = 0) {
             @eadgar_sanfew_dirty_clothes;
@@ -148,6 +148,15 @@ if (%death_equiproom = ^death_complete & %troll_quest = ^troll_complete) {
 ~chatnpc("<p,confused>Now why would he need that?"); // 289
 ~chatplayer("<p,neutral>It's a long story."); // 289
 ~chatnpc("<p,neutral>Never mind then... I think Tegid is doing his laundry|outside. You could ask him if you can borrow one of|his dirty robes."); // 289
+
+// 289
+[label,sanfew_complete_eadgar]
+inv_del(inv, eadgar_goutweed_herb, 1);
+queue(eadgar_quest_complete, 0, 0);
+// rsprox/branon
+~chatplayer("<p,happy>I have some goutweed!");
+~chatnpc("<p,happy>Excellent! I will be able to complete the next part of the|ritual now. I will teach you a new spell and give you|some of my knowledge in herblore as a token of thanks."); // https://www.global-rs.com/img/eadgarsruse_congrats.gif
+~chatnpc("<p,neutral>If you ever come across more goutweed, bring it to me; I don't need any more for the ritual, but it's still quite difficult for me to get. I'll exchange it for some other herbs.");
 
 [label,sanfew_goutweed_exchange]
 if (inv_total(inv, eadgar_goutweed_herb) > 0) {

@@ -20,8 +20,9 @@ if (npc_range(coord) > 1) {
     return;
 }
 /* Eadgar's Ruse dialog trees */
-// HELD until Eadgar's Ruse is ported: 289 goes to that quest's talk here
-// (`%eadgar_quest > ^eadgar_started & %eadgar_quest ! ^eadgar_complete` -> @eadgar_quest_dialog).
+if(%eadgar_quest > ^eadgar_started & %eadgar_quest ! ^eadgar_complete) {
+    @eadgar_quest_dialog;
+}
 ~chatplayer("<p,happy>Hi!");
 switch_int(random(4)) {
     case 0 : ~chatnpc("<p,happy>Welcome to Mad Eadgar's! Happiness in a bowl!");
@@ -31,8 +32,11 @@ switch_int(random(4)) {
 }
 ~chatnpc("<p,happy>Would you care to sample our delicious home cooking?");
 /* When first meeting Eadgar for Eadgar's Ruse, the dialog takes place here */
-// HELD until Eadgar's Ruse is ported: 289 goes to @eadgar_quest_initial_tree at ^eadgar_started.
-@eadgar_default_tree;
+if(%eadgar_quest = ^eadgar_started) {
+    @eadgar_quest_initial_tree;
+} else {
+    @eadgar_default_tree;
+}
 
 [opnpcu,eadgar]
 p_opnpc(1);
