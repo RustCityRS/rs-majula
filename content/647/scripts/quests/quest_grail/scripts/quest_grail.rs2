@@ -67,7 +67,11 @@ if(~obj_gettotal(holy_grail) > 0) {
     ~mesbox("You feel that taking more than one Holy Grail might be greedy...");
     return;
 }
-inv_add(inv, holy_grail, 1); // no space check
+// 289: inv_add(inv, holy_grail, 1); // no space check
+// 289 leaves the Grail lying on the table as it is taken. Here it is taken as any ground item
+// is (it goes from the table and comes back on its spawn's timer): the project owner's call
+// (2026-11-13), no 2011 source found either way.
+@pickup_obj;
 
 [opheld1,magic_golden_feather]
 if(%grail ! ^grail_finding_percival) {
