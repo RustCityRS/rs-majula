@@ -337,7 +337,13 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
-            on_cow.extend(calls_for("npc_hit_by"));
+            // The record is "<npc>:<who>" for every npc hit in the world: the cow's alone.
+            let cow = format!("{nid}:");
+            on_cow.extend(
+                calls_for("npc_hit_by")
+                    .into_iter()
+                    .filter_map(|hit| hit.strip_prefix(&cow).map(str::to_string)),
+            );
             on_player.extend(calls_for("hit_by"));
             forget_calls();
         }
