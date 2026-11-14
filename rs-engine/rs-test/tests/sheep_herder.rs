@@ -196,8 +196,11 @@ fn in_gate_zone((x, z): (u16, u16)) -> bool {
     (x0..=x1).contains(&x) && (z0..=z1).contains(&z)
 }
 
-/// The prods that take a sheep from `from` to the gate: each step one tile along an axis the
-/// sheep can walk, with a walkable tile behind it for the player to prod from.
+/// How far a prod sends a sheep in 2011 (Sal's Realm's guide, captured 2011-06-06).
+const PROD_TILES: u16 = 3;
+
+/// The prods that take a sheep from `from` to the gate: each sends it up to three tiles along
+/// an axis, as far as it can walk, with a walkable tile behind it for the player to prod from.
 fn route(from: (u16, u16)) -> Option<Vec<(i8, i8)>> {
     let mut came: HashMap<Tile, (Tile, Step)> = HashMap::new();
     let mut queue = VecDeque::from([from]);
@@ -208,27 +211,31 @@ fn route(from: (u16, u16)) -> Option<Vec<(i8, i8)>> {
             break;
         }
         for (dx, dz) in [(-1i8, 0i8), (0, 1), (0, -1), (1, 0)] {
-            let next = (
-                at.0.wrapping_add_signed(dx as i16),
-                at.1.wrapping_add_signed(dz as i16),
-            );
             let behind = (
                 at.0.wrapping_add_signed(-dx as i16),
                 at.1.wrapping_add_signed(-dz as i16),
             );
+            let mut next = at;
+            let mut through_pen = false;
+            for _ in 0..PROD_TILES {
+                if !rsmod::can_travel(0, next.0, next.1, dx, dz, 1, 0, CollisionType::Normal) {
+                    break;
+                }
+                next = (
+                    next.0.wrapping_add_signed(dx as i16),
+                    next.1.wrapping_add_signed(dz as i16),
+                );
+                // Not through 289's sheepherder_in_pen: a sheep there is not prodded.
+                through_pen |= (PEN_ZONE.0.0..=PEN_ZONE.1.0).contains(&next.0)
+                    && (PEN_ZONE.0.1..=PEN_ZONE.1.1).contains(&next.1);
+            }
+            if next == at || through_pen {
+                continue;
+            }
             if next.0.abs_diff(from.0) > 60 || next.1.abs_diff(from.1) > 60 {
                 continue;
             }
-            // Not through 289's sheepherder_in_pen: a sheep there is not prodded.
-            if (PEN_ZONE.0.0..=PEN_ZONE.1.0).contains(&next.0)
-                && (PEN_ZONE.0.1..=PEN_ZONE.1.1).contains(&next.1)
-            {
-                continue;
-            }
             if next == from || came.contains_key(&next) || !walkable(behind.0, 0, behind.1) {
-                continue;
-            }
-            if !rsmod::can_travel(0, at.0, at.1, dx, dz, 1, 0, CollisionType::Normal) {
                 continue;
             }
             came.insert(next, (at, (dx, dz)));
@@ -632,7 +639,7 @@ fn a_sheep_is_prodded_in_the_suit_with_the_prod() {
     });
 }
 
-/// The whole of one sheep: prodded a tile at a time to the gate, where it jumps into the
+/// The whole of one sheep: prodded three tiles at a time to the gate, where it jumps into the
 /// enclosure as the player's own; fed there, it dies and leaves its bones; the bones burn in
 /// the incinerator.
 #[test]
@@ -664,6 +671,7 @@ fn a_sheep_is_herded_fed_and_burned() {
         let nth = ["first", "second", "third", "fourth"][n - 1];
         let mut prods = 0;
         let mut jumped = false;
+        let mut farthest = 0;
         // Another sheep of its flock in the way holds it up: plan again, up to 80 times.
         'herd: for _ in 0..200 {
             let from = npc_at(engine, nid).expect("the sheep");
@@ -675,8 +683,9 @@ fn a_sheep_is_herded_fed_and_burned() {
             if steps.is_empty() {
                 steps.push((0, 1));
             }
-            let mut at = from;
-            for (dx, dz) in steps {
+            let at = from;
+            // One prod, then plan again from where the sheep stops.
+            if let Some(&(dx, dz)) = steps.first() {
                 let behind = (
                     at.0.wrapping_add_signed(-dx as i16),
                     at.1.wrapping_add_signed(-dz as i16),
@@ -707,14 +716,15 @@ fn a_sheep_is_herded_fed_and_burned() {
                     jumped = true;
                     break 'herd;
                 }
-                let next = (
-                    at.0.wrapping_add_signed(dx as i16),
-                    at.1.wrapping_add_signed(dz as i16),
-                );
-                match npc_at(engine, nid) {
-                    Some(now) if now == next => at = now,
-                    // It wandered or was held up: plan again from where it is.
-                    _ => continue 'herd,
+                // A tile a tick from the tick after the prod: two ticks more for the third tile.
+                settle(engine, &mut client, 2);
+                if let Some(now) = npc_at(engine, nid) {
+                    let along = if dx != 0 {
+                        (now.1 == at.1).then(|| now.0.abs_diff(at.0))
+                    } else {
+                        (now.0 == at.0).then(|| now.1.abs_diff(at.1))
+                    };
+                    farthest = farthest.max(along.unwrap_or(0));
                 }
             }
         }
@@ -722,7 +732,10 @@ fn a_sheep_is_herded_fed_and_burned() {
             jumped,
             "the sheep reached the gate and jumped ({prods} prods)"
         );
-        assert!(prods > 5, "it was herded a tile at a time: {prods} prods");
+        assert_eq!(
+            farthest, PROD_TILES,
+            "a prod sends the sheep three tiles ({prods} prods)"
+        );
         assert_eq!(sheep(engine, &client, n), 1, "herded: its own sheep shows");
         assert_eq!(sheep(engine, &client, n % 4 + 1), 0);
         let lines = journal(engine, &mut client);

@@ -112,9 +112,15 @@ npc_say("BAAAAA!");
 npc_setmode(none);
 
 // OSRS moves the sheep four tiles
-// Sal's Realm guide says the sheep move 1 tile at a time.
+// 289: Sal's Realm guide says the sheep move 1 tile at a time.
 // https://web.archive.org/web/20050827052609/http://www.runescape.salmoneus.net/quests/SheepHerder.html
-npc_walk(~movecoord_indirection(npc_coord, ~coord_direction(coord, npc_coord), 1));
+// 2011: the same guide, captured 2011-06-06, has three: "When proded, the sheep will move 3
+// squares, always in north, south, east or west direction, and always in the direction you are
+// facing when you prod it."
+// https://web.archive.org/web/20110606070659/http://runescape.salmoneus.net/quests/SheepHerder.html
+// The 2011 wiki's Sheep Herder (2011-04-20) gives no count but agrees it is more than a step:
+// "Do not wait for the sheep to stop before you prod it again."
+npc_walk(~movecoord_indirection(npc_coord, ~coord_direction(coord, npc_coord), 3));
 
 if (~inzone_coord_pair_table(sheepherder_pen_gate, npc_coord) = true) {
     npc_tele(0_40_52_35_33);
