@@ -897,18 +897,16 @@ fn repairing_the_temple() {
         give(engine, &client, 1, "woodplank");
         give(engine, &client, 2, "limestonebrick");
         give_n(engine, &client, 3, "swamppaste", 5);
-        // One Repair does not always land here (the temple's shades attack the player meanwhile;
-        // what stops it was not traced): Repair again until one does.
+        // One Repair: it repeats on the wall's hidden op (289's op3=hidden) until a repair lands.
         let mut seen: Vec<String> = Vec::new();
-        'repair: for _ in 0..8 {
-            for at in about(TEMPLE_WALL, 0) {
-                tele(engine, &mut client, at, 0);
-                let t = search(engine, &mut client, "templewall_base", TEMPLE_WALL, 8);
-                clean(&t);
-                seen.extend(t.messages);
-                if stage(engine, &client) == REBUILD_TEMPLE {
-                    break 'repair;
-                }
+        for at in about(TEMPLE_WALL, 0) {
+            tele(engine, &mut client, at, 0);
+            let t = search(engine, &mut client, "templewall_base", TEMPLE_WALL, 14);
+            clean(&t);
+            let unreached = t.messages.iter().any(|m| m == "I can't reach that!");
+            seen.extend(t.messages);
+            if !unreached {
+                break;
             }
         }
         assert_eq!(stage(engine, &client), REBUILD_TEMPLE, "{seen:?}");
@@ -919,9 +917,10 @@ fn repairing_the_temple() {
     });
 }
 
-/// Pyre logs go on a funeral pyre (the 24 pyres stand on 289's tiles).
+/// Pyre logs go on a funeral pyre (the 24 pyres stand on 289's tiles), a shade's remains on the
+/// logs, and a tinderbox lights it: the lighting repeats on the pyre's hidden op (289's op4).
 #[test]
-fn pyre_logs_go_on_a_pyre() {
+fn a_shade_is_burnt_on_a_pyre() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "mortpyre", CREATED_PYRE_LOGS);
@@ -931,6 +930,31 @@ fn pyre_logs_go_on_a_pyre() {
         tells(&t, "You put some logs on the pyre.");
         assert_eq!(stage(engine, &client), LOGS_ON_PYRE);
         assert_eq!(held(engine, &client, "logs_pyre"), 0);
+
+        give(engine, &client, 1, "shade_bones1");
+        give(engine, &client, 2, "tinderbox");
+        let t = use_on(
+            engine,
+            &mut client,
+            "shade_bones1",
+            "temple_pyre_logs",
+            PYRE,
+            4,
+        );
+        clean(&t);
+        tells(&t, "You place the shade's remains on the logs.");
+        assert_eq!(held(engine, &client, "shade_bones1"), 0);
+        let t = use_on(
+            engine,
+            &mut client,
+            "tinderbox",
+            "temple_pyre_bones_logs",
+            PYRE,
+            14,
+        );
+        clean(&t);
+        tells(&t, "You attempt to light the funeral pyre.");
+        assert_eq!(stage(engine, &client), LIT_PYRE, "{:?}", t.messages);
         no_errors(engine);
     });
 }

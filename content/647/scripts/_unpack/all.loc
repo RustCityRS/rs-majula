@@ -45091,6 +45091,7 @@ desc=Looks like a pile of ancient rubble.
 category=category_226
 param=next_loc_stage,templewall_1
 param=temple_wall_level,0
+op3=hidden
 
 // 4069
 [templewall_1]
@@ -45104,6 +45105,7 @@ category=category_226
 param=next_loc_stage,templewall_2
 param=prev_loc_stage,templewall_base
 param=temple_wall_level,1
+op3=hidden
 
 // 4070
 [templewall_2]
@@ -45117,6 +45119,7 @@ category=category_226
 param=next_loc_stage,templewall_3
 param=prev_loc_stage,templewall_1
 param=temple_wall_level,2
+op3=hidden
 
 // 4071
 [templewall_3]
@@ -45130,6 +45133,7 @@ category=category_226
 param=next_loc_stage,templewall_4
 param=prev_loc_stage,templewall_2
 param=temple_wall_level,3
+op3=hidden
 
 // 4072
 [templewall_4]
@@ -45143,6 +45147,7 @@ category=category_226
 param=next_loc_stage,templewall_5
 param=prev_loc_stage,templewall_3
 param=temple_wall_level,4
+op3=hidden
 
 // 4073
 [templewall_5]
@@ -45156,6 +45161,7 @@ category=category_226
 param=next_loc_stage,templewall_6
 param=prev_loc_stage,templewall_4
 param=temple_wall_level,5
+op3=hidden
 
 // 4074
 [templewall_6]
@@ -45169,6 +45175,7 @@ category=category_226
 param=next_loc_stage,templewall_7
 param=prev_loc_stage,templewall_5
 param=temple_wall_level,6
+op3=hidden
 
 // 4075
 [templewall_7]
@@ -45182,6 +45189,7 @@ category=category_226
 param=next_loc_stage,templewall_8
 param=prev_loc_stage,templewall_6
 param=temple_wall_level,7
+op3=hidden
 
 // 4076
 [templewall_8]
@@ -45195,6 +45203,7 @@ category=category_226
 param=next_loc_stage,templewall_9
 param=prev_loc_stage,templewall_7
 param=temple_wall_level,8
+op3=hidden
 
 // 4077
 [templewall_9]
@@ -45208,6 +45217,7 @@ category=category_226
 param=next_loc_stage,templewall_10
 param=prev_loc_stage,templewall_8
 param=temple_wall_level,9
+op3=hidden
 
 // 4078
 [templewall_10]
@@ -45220,6 +45230,7 @@ desc=A rebuilt wall.
 category=category_226
 param=temple_wall_level,10
 param=prev_loc_stage,templewall_9
+op3=hidden
 
 // 4079
 [templewallcorner_base]
@@ -45231,6 +45242,7 @@ desc=The broken wall of a desicrated temple.
 category=category_226
 param=next_loc_stage,templewallcorner_1
 param=temple_wall_level,0
+op3=hidden
 
 // 4080
 [templewallcorner_1]
@@ -45244,6 +45256,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_2
 param=prev_loc_stage,templewallcorner_base
 param=temple_wall_level,1
+op3=hidden
 
 // 4081
 [templewallcorner_2]
@@ -45257,6 +45270,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_3
 param=prev_loc_stage,templewallcorner_1
 param=temple_wall_level,2
+op3=hidden
 
 // 4082
 [templewallcorner_3]
@@ -45270,6 +45284,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_4
 param=prev_loc_stage,templewallcorner_2
 param=temple_wall_level,3
+op3=hidden
 
 // 4083
 [templewallcorner_4]
@@ -45283,6 +45298,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_5
 param=prev_loc_stage,templewallcorner_3
 param=temple_wall_level,4
+op3=hidden
 
 // 4084
 [templewallcorner_5]
@@ -45296,6 +45312,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_6
 param=prev_loc_stage,templewallcorner_4
 param=temple_wall_level,5
+op3=hidden
 
 // 4085
 [templewallcorner_6]
@@ -45309,6 +45326,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_7
 param=prev_loc_stage,templewallcorner_5
 param=temple_wall_level,6
+op3=hidden
 
 // 4086
 [templewallcorner_7]
@@ -45322,6 +45340,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_8
 param=prev_loc_stage,templewallcorner_6
 param=temple_wall_level,7
+op3=hidden
 
 // 4087
 [templewallcorner_8]
@@ -45335,6 +45354,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_9
 param=prev_loc_stage,templewallcorner_7
 param=temple_wall_level,8
+op3=hidden
 
 // 4088
 [templewallcorner_9]
@@ -45348,6 +45368,7 @@ category=category_226
 param=next_loc_stage,templewallcorner_10
 param=prev_loc_stage,templewallcorner_8
 param=temple_wall_level,9
+op3=hidden
 
 // 4089
 [templewallcorner_10]
@@ -45360,6 +45381,7 @@ desc=The repaired wall of a temple.
 category=category_226
 param=prev_loc_stage,templewallcorner_9
 param=temple_wall_level,10
+op3=hidden
 
 // 4090
 [templefire_altar]
@@ -45380,6 +45402,7 @@ name=Fire altar
 cursor1=1,cursor_firemaking
 occlude=yes
 desc=An ancient fire altar.
+op3=hidden
 
 // 4092
 [templefire_altar_nofire_broken]
@@ -45397,6 +45420,7 @@ model=8,model_4138
 name=Funeral Pyre
 occlude=yes
 desc=A place to cremate the dead. Needs some wood.
+op4=hidden
 
 // 4094
 [temple_pyre_logs]
@@ -45481,6 +45505,7 @@ occlude=yes
 desc=A place to cremate the dead. Needs a light.
 category=category_2052
 param=funeral_pyre_struct,pyre_logs
+op4=hidden
 
 // 4101
 [temple_pyre_bones_oak]
@@ -45497,6 +45522,7 @@ occlude=yes
 desc=A place to cremate the dead. Needs a light.
 category=category_2052
 param=funeral_pyre_struct,pyre_oak_logs
+op4=hidden
 
 // 4102
 [temple_pyre_bones_willow]
@@ -45509,6 +45535,7 @@ occlude=yes
 desc=A place to cremate the dead. Needs a light.
 category=category_2052
 param=funeral_pyre_struct,pyre_willow_logs
+op4=hidden
 
 // 4103
 [temple_pyre_bones_maple]
@@ -45525,6 +45552,7 @@ occlude=yes
 desc=A place to cremate the dead. Needs a light.
 category=category_2052
 param=funeral_pyre_struct,pyre_maple_logs
+op4=hidden
 
 // 4104
 [temple_pyre_bones_yew]
@@ -45537,6 +45565,7 @@ occlude=yes
 desc=A place to cremate the dead. Needs a light.
 category=category_2052
 param=funeral_pyre_struct,pyre_yew_logs
+op4=hidden
 
 // 4105
 [afr_hairdryer_multi]
@@ -346356,6 +346385,7 @@ cursor1=1,cursor_firemaking
 occlude=yes
 category=category_2052
 param=funeral_pyre_struct,pyre_magic_logs
+op4=hidden
 
 // 29183
 [loc_29183]
