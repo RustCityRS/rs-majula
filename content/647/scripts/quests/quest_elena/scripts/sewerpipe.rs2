@@ -1,0 +1,58 @@
+// 289's quests/quest_elena/scripts/sewerpipe.rs2, on 2011's pipe and grill.
+// 289's one sewer pipe is two locs in cache 786: the pipe (plaguesewerpipe_open, op Climb-up)
+// and the grill before it (plague_grill, op Open, a multiloc that goes with plaguecity_pipe).
+// Either answers as 289's pipe does.
+[oploc1,plaguesewerpipe_open] @elena_sewer_pipe;
+[oploc1,plague_grill] @elena_sewer_pipe;
+
+[label,elena_sewer_pipe]
+switch_int(%elenaquest) {
+    case ^quest_elena_opened_tunnel, ^quest_elena_tied_rope : ~mesbox("The grill is too secure.|You can't pull it off alone.");
+    case ^quest_elena_opened_pipe, ^quest_elena_shown_picture, ^quest_elena_returned_book, ^quest_elena_spoken_martha_ted, ^quest_elena_spoke_to_milli, ^quest_elena_spoke_to_plague_house, ^quest_elena_spoke_to_clerk, ^quest_elena_spoke_to_bravek, ^quest_elena_spoke_cured_bravek, ^quest_elena_freed_elena :
+        if (inv_getobj(worn, ^wearpos_hat) = gasmask) {
+            @elena_climb_through_sewerpipe;
+        } else if (npc_find(coord, edmond_bottom, 20, 0) = true) { // 2011's Edmond in the sewer
+            ~chatnpc("<p,neutral>I can't let you enter the city without your gas mask on.");
+        }
+    case ^elena_complete, ^elena_complete_read_scroll :
+        if (inv_getobj(worn, ^wearpos_hat) = gasmask) {
+            @elena_climb_through_sewerpipe;
+        } else {
+            mes("You should wear your gasmask before entering West Ardougne."); // https://i.imgur.com/UvbExAf.png
+        }
+    case default : ~displaymessage(^dm_default);
+}
+
+[oplocu,plaguesewerpipe_open] @elena_sewer_pipe_use(last_useitem);
+[oplocu,plague_grill] @elena_sewer_pipe_use(last_useitem);
+
+[label,elena_sewer_pipe_use](obj $useitem)
+switch_int(%elenaquest) {
+    case ^quest_elena_opened_tunnel :
+        switch_obj($useitem) {
+            case rope :
+                ~quest_elena_set_progress(^quest_elena_tied_rope);
+                inv_del(inv, rope, 1);
+                ~mesbox("You tie the end of the rope to the sewer pipe's grill and hold the other end in your hand.");
+            case default : ~displaymessage(^dm_default);
+        }
+    case default : ~displaymessage(^dm_default);
+}
+
+[label,elena_climb_through_sewerpipe]
+// Enter tube
+~forcewalk2(^quest_elena_sewer_sewerpipe_enter_coord); // 289: the tile north of its one-tile pipe
+if(%elena_pipe_used >= map_clock) {
+    mes("The pipe is being used"); 
+    return;
+}
+%elena_pipe_used = calc(map_clock + 6);
+sound_synth(squeeze_in, 1, 0);
+mes("You climb through the sewer pipe.");
+~agility_exactmove(human_doublepipesqueeze, 30, 5, coord, movecoord(coord, 0, 0, -3), 30, 126, ^exact_south, true);
+p_telejump(^quest_elena_west_ardy_manhole_tele_coord);
+if(loc_find(^quest_elena_west_ardy_manhole_coord, plaguemanholeclosed) = true) {
+    // Temp note: dur does not need updated
+    loc_change(plaguemanholeopen, 500);
+    loc_add(movecoord(loc_coord, 0, 0, -1), plaguemanholecover, loc_angle, centrepiece_straight, 500);
+}

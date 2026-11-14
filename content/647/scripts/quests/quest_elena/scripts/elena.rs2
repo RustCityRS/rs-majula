@@ -1,0 +1,16 @@
+// 289's quests/quest_elena/scripts/elena.rs2, line for line but for when 2011's Elena goes home.
+[opnpc1,elenap]
+switch_int(%elenaquest) {
+    case ^elena_complete, ^elena_complete_read_scroll : mes("You have already rescued Elena."); // RSC
+    case default :
+        ~chatplayer("<p,happy>Hi, you're free to go!|Your kidnappers don't seem to be about right now.");
+        ~chatnpc("<p,neutral>Thank you, being kidnapped was so inconvenient. I was on my way back to East Ardougne with some samples, I want to see if I can diagnose a cure for this plague.");
+        ~chatplayer("<p,neutral>Well you can leave via the manhole in the middle of the city.");
+        // 289 sets the stage here, before her last line. In 2011 the stage also sends her home
+        // (plaguecity_elena_at_home hides the captive Elena, a multinpc), so the varbits follow
+        // once she has said it: she is still in the cell to say it.
+        %elenaquest = ^quest_elena_freed_elena;
+        ~send_quest_progress(^questlist_elena, %elenaquest, ^elena_complete);
+        ~chatnpc("<p,neutral>Go and see my father,|I'll make sure he adequately rewards you.");
+        ~quest_elena_2011_bits;
+}

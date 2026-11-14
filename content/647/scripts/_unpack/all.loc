@@ -27827,6 +27827,9 @@ name=Wardrobe
 cursor1=1,cursor_open
 occlude=yes
 desc=I wonder what's inside?
+// 289's category and other form, which its script opens it by.
+category=cupboard_closed
+param=cupboard_other,alrenascupboardopen
 
 // 2525
 [alrenascupboardopen]
@@ -27850,6 +27853,9 @@ name=Wardrobe
 cursor1=1,cursor_search
 occlude=yes
 desc=It's open.
+// 289's category and other form, which its script opens it by.
+category=cupboard_opened
+param=cupboard_other,alrenascupboardshut
 
 // 2526
 [elenagateshut]
@@ -27868,6 +27874,9 @@ name=Door
 cursor1=1,cursor_open
 occlude=no
 desc=The door of a small prison.
+// 289's category and other form, which its script opens it by.
+category=door_open_and_close
+param=next_loc_stage,elenagateopen
 
 // 2527
 [elenagateopen]
@@ -27884,6 +27893,9 @@ model=1,model_27252
 name=Door
 occlude=no
 desc=The door of a small prison.
+// 289's category and other form, which its script opens it by.
+category=door_open_and_close
+param=next_loc_stage,elenagateshut
 
 // 2528
 [bravekdoorshut]
@@ -27896,6 +27908,8 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=948
 desc=The door is closed.
+// 289's open form, which the door's script opens it by.
+param=next_loc_stage,bravekdooropen
 
 // 2529
 [bravekdooropen]
@@ -28015,6 +28029,9 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=948
 desc=The door is closed.
+// 289's category and other form, which its script opens it by.
+category=door_open_and_close
+param=next_loc_stage,rehnisondooropen
 
 // 2538
 [rehnisondooropen]
@@ -28033,6 +28050,9 @@ name=Door
 occlude=yes
 unknown170=948
 desc=A door.
+// 289's category and other form, which its script opens it by.
+category=door_open_and_close
+param=next_loc_stage,rehnisondoorshut
 
 // 2539
 [rehnisonstairs]
@@ -28077,6 +28097,8 @@ name=Manhole
 cursor1=1,cursor_open
 occlude=yes
 desc=There's a cover over this manhole.
+// 289's other form, which the manhole's script swaps it by.
+param=next_loc_stage,plaguemanholeopen
 
 // 2544
 [plaguemanholeopen]
@@ -28090,6 +28112,8 @@ name=Manhole
 cursor1=1,cursor_climb_down
 occlude=yes
 desc=How dangerous, someone has left this manhole open.
+// 289's other form, which the manhole's script swaps it by.
+param=next_loc_stage,plaguemanholeclosed
 
 // 2545
 [plaguemanholecover]
