@@ -1,0 +1,158 @@
+// https://www.youtube.com/watch?v=cz0FGYbfzzk
+// https://www.youtube.com/watch?v=IC2n8t76DDY
+[advancestat,attack](int $levels) @levelup(enum(int, stat, stats, ^attack), $levels);
+[advancestat,strength](int $levels) @levelup(enum(int, stat, stats, ^strength), $levels);
+[advancestat,ranged](int $levels) @levelup(enum(int, stat, stats, ^ranged), $levels);
+[advancestat,magic](int $levels) @levelup(enum(int, stat, stats, ^magic), $levels);
+[advancestat,defence](int $levels) @levelup(enum(int, stat, stats, ^defence), $levels);
+[advancestat,hitpoints](int $levels) @levelup(enum(int, stat, stats, ^hitpoints), $levels);
+[advancestat,prayer](int $levels) @levelup(enum(int, stat, stats, ^prayer), $levels);
+[advancestat,agility](int $levels) @levelup(enum(int, stat, stats, ^agility), $levels);
+[advancestat,herblore](int $levels) @levelup(enum(int, stat, stats, ^herblore), $levels);
+[advancestat,thieving](int $levels) @levelup(enum(int, stat, stats, ^thieving), $levels);
+[advancestat,crafting](int $levels) @levelup(enum(int, stat, stats, ^crafting), $levels);
+[advancestat,runecraft](int $levels) @levelup(enum(int, stat, stats, ^runecraft), $levels);
+[advancestat,mining](int $levels) @levelup(enum(int, stat, stats, ^mining), $levels);
+[advancestat,smithing](int $levels) @levelup(enum(int, stat, stats, ^smithing), $levels);
+[advancestat,fishing](int $levels) @levelup(enum(int, stat, stats, ^fishing), $levels);
+[advancestat,cooking](int $levels) @levelup(enum(int, stat, stats, ^cooking), $levels);
+[advancestat,firemaking](int $levels) @levelup(enum(int, stat, stats, ^firemaking), $levels);
+[advancestat,woodcutting](int $levels) @levelup(enum(int, stat, stats, ^woodcutting), $levels);
+[advancestat,fletching](int $levels) @levelup(enum(int, stat, stats, ^fletching), $levels);
+
+// $levels: how many levels the xp crossed (the engine passes it; 647).
+[label,levelup](stat $stat, int $levels)
+db_find(levelup:stat, $stat);
+def_dbrow $unlock_row = db_findnext;
+if ($unlock_row = null) {
+    return;
+}
+def_int $level = stat_base($stat);
+// Unstable Foundations' practice: Roddeck's word and the Task tab follow the level's box below.
+// Queued as well, and first: a click on the floor shuts that box and drops this script, and the
+// level comes once (the user's play-through, 2026-11-12).
+if (%tutorial >= 140 & %tutorial < 150) {
+    queue(uf_level_box_gone, 0, 0);
+}
+// Task 425 "How To Train and Level" at Mining 2 (tasks/task_system.rs2), queued behind the boxes.
+if ($stat = mining & $level >= 2 & %task_tut4_how_to_2 = 0) {
+    queue(task_how_to_train_and_level, 0, 0);
+}
+// In Unstable Foundations' cellar the level comes as a plain box: s068 / s069 "Congratulations:
+// You have reached level 2 Mining." (4KO2h2xPtdM @568, 11 and 10 of 31 recordings), before
+// Roddeck's word; no level-up window.
+if (%tutorial >= 5 & %tutorial < 1000) {
+    spotanim_pl(levelup_anim, 124, 0);
+    ~mesbox("Congratulations: You have reached level <tostring($level)> <~stat_name($stat)>.");
+    ~uf_levelled($stat);
+    return;
+}
+// 2011's line, game-wide: "You've just advanced a Woodcutting level! You have reached level 4."
+// (xqWnfqno_1M 2010-12-12 @372 and four more 2010-11 recordings) and "You've just advanced 2
+// Mining levels! You have reached level 4." (4KO2h2xPtdM 2011-04-30 @612). 289's levelup:message
+// ("Congratulations, you just advanced a mining level.") is 2004's. "an" before Attack and
+// Agility: English, no recording shows either.
+def_string $name = ~stat_name($stat);
+if ($levels > 1) {
+    mes("You've just advanced <tostring($levels)> <$name> levels! You have reached level <tostring($level)>.");
+} else if ($stat = attack | $stat = agility) {
+    mes("You've just advanced an <$name> level! You have reached level <tostring($level)>.");
+} else {
+    mes("You've just advanced a <$name> level! You have reached level <tostring($level)>.");
+}
+// play the fireworks
+spotanim_pl(levelup_anim, 124, 0);
+// 2011's "Level up fireworks" sound, which "plays when you level up in any skill" (2011 wiki,
+// Skills, 15 May 2011): synth 4860, whose whistle and crackles match the level-ups in
+// u2OnbN30zfE 2009-10-02 @116, xXoR84Qyblk 2011-03-04 @16 and SO-q8cZ0K88 2011-05-26 @7.6.
+// Cache 786's `firework` (2396) is a different sound.
+sound_synth(synth_4860, 1, 0);
+// 289 plays the stat's second jingle at a level that unlocks something
+// (levelup_unlocks.enum). 2011's "changes ... to be slightly more complex,
+// whenever the skill reaches level 50" (2011 wiki, Skills, 15 May 2011): the
+// second jingles are the ones with more notes. No 2011 recording at hand has a
+// level-up that tells the two rules apart (each is level 4 or below).
+// def_enum $unlocks_levels = db_getfield($unlock_row, levelup:unlocks_levels, 0);
+// def_boolean $has_unlocks = false;
+// if ($unlocks_levels ! null) {
+//     $has_unlocks = ~enum_containsintvalue($unlocks_levels, $level);
+// }
+// play the jingle
+def_midi $jingle;
+if ($level < 50) {
+    $jingle = db_getfield($unlock_row, levelup:levelup_jingle, 0);
+} else {
+    $jingle = db_getfield($unlock_row, levelup:unlocks_jingle, 0);
+}
+~music_jingle($jingle);
+// 2011: the stat's icon flashes in the stats tab until it is clicked
+// (skill_guide.rs2), and the level-up box shows the stat's icon. Both are bits
+// of %skill_stat_flash (varp 1179).
+~levelup_flash($unlock_row);
+// Unstable Foundations' reward, in Explorer Jack's house copy: the line alone, no level-up box
+// (VwpdbjfigD4 2011-01-17 @788-796, the scroll closed then "You've just advanced a Woodcutting
+// level!"; 4KO2h2xPtdM 2011-04-30 @606-636). Why 2011 showed none there: no source.
+if (~uf_in_house = true) {
+    return;
+}
+// the level up dialogue box
+if_settext(db_getfield($unlock_row, levelup:title, 0), db_getfield($unlock_row, levelup:title_text, 0));
+if_settext(db_getfield($unlock_row, levelup:body, 0), "<db_getfield($unlock_row, levelup:level_prefix, 0)> <tostring($level)>!");
+if_openchat(db_getfield($unlock_row, levelup:interface, 0));
+p_pausebutton;
+// 2011's 99, once the box is continued: the line in dark red, then three rockets 1.2 s apart,
+// synth 4859 (4860 with a bang). gybcOtPkPHM 2011-03-16 @17.5 and UrcTiwPWLHo 2011-01-13 @27.6:
+// the line is in chat on the first frame after the box closes, the rockets start 0.2 s later
+// and run 2.4 s first to last; o6Ga2FGG1Dc 2011-05-27 @64. #800000 is the 2010 wiki's "99
+// chatbox message" image and both recordings' glyphs.
+// The graphic: spotanims 1630-1637 came in with synths 4859 and 4860 in the 21 May 2008 level-up
+// update (OpenRS2 caches 240 and 706). 1637 is the one with three 1.2 s rockets, in step with the
+// sounds, and opens on the white star of the 2011 wiki's 99levelup.gif; at height 92 its bursts
+// sit as high over the head as there. That gif and the 2009 one also send rockets out to the
+// sides, which 1637 alone doesn't; what else went with it: no source found.
+if ($level = 99) {
+    mes("<col=800000>Well done! You've achieved the highest possible level in this skill!");
+    spotanim_pl(spotanim_1637, 92, 0);
+    sound_synth(synth_4859, 1, 0);
+    sound_synth(synth_4859, 1, 60);
+    sound_synth(synth_4859, 1, 120);
+}
+// if ($has_unlocks = false) {
+//     return;
+// }
+// 2011's level-up box tells the player what a level unlocks is in the stats
+// tab ("Open your stats menu and click on the flashing icon for more
+// information.", interface 740 in cache 786), where the level-up messages are
+// read (2011 wiki, Update:Level-up Messages, 21 May 2008); so this shows no
+// unlock messages after it: 289's levelup_unlocks_*.rs2 are not applicable
+// (tools/port_289_not_applicable.tsv).
+// jump(~levelup_unlocks($stat));
+
+// 2011: the stat's bit of %skill_stat_flash (varp 1179) lights its icon in the
+// stats tab (clientscript 970) until it is clicked, and %level_up_icon
+// (varbit 4757, the same varp's top bits) puts its icon in the box
+// (clientscript 971), as void-634's LevelUp.kt does.
+[proc,levelup_flash](dbrow $row)
+%skill_stat_flash = setbit(%skill_stat_flash, db_getfield($row, levelup:flash_bit, 0));
+%level_up_icon = db_getfield($row, levelup:icon, 0);
+
+// 289's unlock messages after a level-up (levelup_unlocks.rs2 and
+// levelup_unlocks_<stat>.rs2), which 2011 does not show (above):
+// [proc,levelup_unlocks]
+// [label,levelup_agility]
+// [label,levelup_attack]
+// [label,levelup_cooking]
+// [label,levelup_crafting]
+// [label,levelup_defence]
+// [label,levelup_firemaking]
+// [label,levelup_fishing]
+// [label,levelup_fletching]
+// [label,levelup_herblore]
+// [label,levelup_magic]
+// [label,levelup_mining]
+// [label,levelup_prayer]
+// [label,levelup_ranged]
+// [label,levelup_runecraft]
+// [label,levelup_smithing]
+// [label,levelup_thieving]
+// [label,levelup_woodcutting]

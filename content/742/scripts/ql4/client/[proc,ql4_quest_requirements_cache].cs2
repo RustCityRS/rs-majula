@@ -1,0 +1,87 @@
+// 2155
+[proc,ql4_quest_requirements_cache](struct $struct0)(boolean)
+def_int $int1 = struct_param($struct0, param_859);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_860);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_861);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_862);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_863);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_864);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_865);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_866);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_867);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_868);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_869);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+$int1 = struct_param($struct0, param_870);
+if ($int1 = -1) {
+    return(true);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(false);
+}
+return(true);

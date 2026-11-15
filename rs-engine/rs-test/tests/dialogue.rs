@@ -74,7 +74,12 @@ fn resume(client: &mut HarnessClient, com: i32) {
 #[test]
 fn the_cook_s_choice_answers_the_option_clicked() {
     runner::on_loaded_engine(|engine| {
-        let cook = *engine.cache.npcs.debugnames.get("cook").expect("npc cook");
+        let cook = engine
+            .cache
+            .npcs
+            .get_by_debugname("cook")
+            .expect("npc cook")
+            .id;
         let (nid, x, z) = engine
             .npc_list
             .npcs
@@ -153,7 +158,12 @@ fn chat_lines(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
 #[test]
 fn the_cook_s_long_answer_wraps_as_2011_s_does() {
     runner::on_loaded_engine(|engine| {
-        let cook = *engine.cache.npcs.debugnames.get("cook").expect("npc cook");
+        let cook = engine
+            .cache
+            .npcs
+            .get_by_debugname("cook")
+            .expect("npc cook")
+            .id;
         let (nid, x, z) = engine
             .npc_list
             .npcs

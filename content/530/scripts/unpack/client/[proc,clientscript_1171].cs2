@@ -1,0 +1,43 @@
+// 1171
+[proc,clientscript_1171](component $component0, graphic $graphic1, component $component2, component $component3, component $component4, int $rgb5, int $rgb6, graphic $graphic7, int $int8, int $int9, graphic $graphic10, graphic $graphic11, graphic $graphic12, graphic $graphic13, graphic $graphic14, graphic $graphic15)
+if (cc_find($component4, $int9) = true) {
+    cc_setvflip(true);
+}
+cc_create($component0, 5, if_getnextsubid($component0));
+cc_setposition(0, 0, 0, 0);
+cc_setsize(if_getwidth($component0), if_getheight($component0), 0, 0);
+cc_setgraphic($graphic1);
+cc_settiling(true);
+cc_create($component0, 3, if_getnextsubid($component0));
+cc_setposition(0, 0, 0, 0);
+cc_setsize(if_getwidth($component0), if_getheight($component0), 0, 0);
+cc_setcolour(^black);
+if_setscrollsize($component2, if_getwidth($component2), calc(fullscreen_modecount * 15));
+def_int $int16 = 0;
+def_int $int17 = -1;
+def_string $string0 = "";
+def_int $int18 = 0;
+def_int $int19 = 0;
+while ($int16 < fullscreen_modecount) {
+    $int17 = if_getnextsubid($component2);
+    cc_create($component2, 4, $int17);
+    $int18, $int19 = fullscreen_getmode($int16);
+    $string0 = "<tostring($int18)> x <tostring($int19)>";
+    cc_settext($string0);
+    cc_setcolour($rgb5);
+    cc_settextalign(0, 1, 0);
+    cc_setposition(5, calc($int16 * 15), 0, 0);
+    cc_setsize(calc(if_getwidth($component2) - 16), 15, 0, 0);
+    cc_settextshadow(false);
+    cc_settextfont($graphic7);
+    cc_setonmouseover("dropdownbox_mouseoverelement($component2, $int17, $rgb6)");
+    cc_setonmouseleave("dropdownbox_mouseoutelement($component2, $int17, $rgb5)");
+    cc_setonclick("dropdownbox_selectelement($component0, $component2, $component3, $component4, $int8, $int9, $string0, $rgb5)");
+    $int16 = calc($int16 + 1);
+}
+if ($component3 ! null) {
+    ~clientscript_31($component3, $component2, $graphic10, $graphic11, $graphic12, $graphic13, $graphic14, $graphic15);
+    if_sethide($component3, false);
+}
+if_sethide($component0, false);
+if_sethide($component2, false);

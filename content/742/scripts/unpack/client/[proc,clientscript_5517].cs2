@@ -1,0 +1,8 @@
+// 5517
+[proc,clientscript_5517](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    cc_settrans(max(0, calc(cc_gettrans - 15)));
+    if (cc_gettrans = 0) {
+        cc_setontimer(null);
+    }
+}

@@ -1,0 +1,570 @@
+// 667:0
+[background]
+type=layer
+width=512
+height=334
+
+// 667:1
+[com_1]
+type=graphic
+y=23
+width=489
+height=297
+xmode=abs_centre
+layer=background
+graphic=graphic_297
+
+// 667:2
+[content_layer]
+type=layer
+y=4
+width=489
+height=303
+xmode=abs_centre
+ymode=abs_centre
+
+// 667:3
+[com_3]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+layer=background
+graphic=graphic_826
+
+// 667:4
+[com_4]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+layer=background
+graphic=graphic_824
+
+// 667:5
+[com_5]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+xmode=abs_right
+layer=background
+graphic=graphic_825
+
+// 667:6
+[com_6]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+xmode=abs_right
+layer=background
+graphic=graphic_827
+
+// 667:7
+[com_7]
+type=graphic
+x=-8
+y=52
+width=32
+height=240
+layer=background
+graphic=graphic_821
+tiling=yes
+
+// 667:8
+[com_8]
+type=graphic
+x=-7
+y=52
+width=32
+height=239
+xmode=abs_right
+layer=background
+graphic=graphic_823
+tiling=yes
+
+// 667:9
+[com_9]
+type=graphic
+y=7
+width=444
+height=32
+xmode=abs_centre
+layer=background
+graphic=graphic_820
+tiling=yes
+
+// 667:10
+[com_10]
+type=graphic
+y=303
+width=448
+height=32
+xmode=abs_centre
+layer=background
+graphic=graphic_822
+tiling=yes
+
+// 667:11
+[close_button]
+type=graphic
+x=475
+y=27
+width=26
+height=23
+layer=background
+graphic=graphic_535
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 536)
+onmouseleave=graphic_swapper(event_com, 535)
+onop=if_close
+
+// 667:12
+[com_12]
+type=text
+x=4
+y=10
+width=458
+height=14
+layer=content_layer
+textfont=fontmetrics_496
+text=Equip Your Character...
+textshadow=yes
+colour=0xff981f
+
+// 667:13
+[com_13]
+type=model
+clientcode=328
+x=181
+y=80
+width=112
+height=198
+layer=content_layer
+model=model_6675
+modelorigin=15,90
+modelzoom=550
+modelunknown=65236,1123,0
+
+// 667:14
+[worn_items_layer]
+type=layer
+x=324
+y=40
+width=163
+height=239
+layer=content_layer
+oninvtransmit=booth_init{worn}
+
+// 667:15
+[com_15]
+type=layer
+x=-4
+y=37
+width=161
+height=261
+layer=content_layer
+
+// 667:16
+[com_16]
+type=graphic
+x=124
+y=116
+width=32
+height=50
+layer=worn_items_layer
+graphic=graphic_841
+tiling=yes
+
+// 667:17
+[com_17]
+type=graphic
+x=66
+y=35
+width=32
+height=130
+layer=worn_items_layer
+graphic=graphic_841
+tiling=yes
+
+// 667:18
+[com_18]
+type=graphic
+x=11
+y=116
+width=32
+height=50
+layer=worn_items_layer
+graphic=graphic_841
+tiling=yes
+
+// 667:19
+[com_19]
+type=graphic
+x=59
+y=44
+width=48
+height=32
+layer=worn_items_layer
+graphic=graphic_828
+tiling=yes
+
+// 667:20
+[com_20]
+type=graphic
+x=43
+y=82
+width=82
+height=32
+layer=worn_items_layer
+graphic=graphic_828
+tiling=yes
+
+// 667:21
+[headslot]
+type=graphic
+x=64
+y=3
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:22
+[capeslot]
+type=graphic
+x=23
+y=42
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:23
+[necklaceslot]
+type=graphic
+x=64
+y=42
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:24
+[arrowslot]
+type=graphic
+x=105
+y=42
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:25
+[weaponslot]
+type=graphic
+x=10
+y=81
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+opbase=weaponslot
+
+// 667:26
+[bodyslot]
+type=graphic
+x=64
+y=81
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:27
+[shieldslot]
+type=graphic
+x=122
+y=81
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:28
+[legslot]
+type=graphic
+x=64
+y=121
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:29
+[footslot]
+type=graphic
+x=64
+y=161
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:30
+[handslot]
+type=graphic
+x=10
+y=161
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:31
+[ringslot]
+type=graphic
+x=122
+y=161
+width=36
+height=36
+layer=worn_items_layer
+graphic=graphic_170
+
+// 667:32
+[com_32]
+type=text
+x=73
+y=218
+width=62
+height=17
+layer=worn_items_layer
+textfont=fontmetrics_495
+text=%1kg
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 667:33
+[com_33]
+type=graphic
+x=52
+y=217
+width=17
+height=18
+layer=worn_items_layer
+graphic=graphic_649
+
+// 667:34
+[com_34]
+type=text
+x=7
+y=1
+width=139
+height=15
+layer=com_15
+textfont=fontmetrics_496
+text=Attack bonus
+textshadow=yes
+colour=0xff981f
+
+// 667:35
+[com_35]
+type=text
+x=7
+y=93
+width=139
+height=15
+layer=com_15
+textfont=fontmetrics_496
+text=Defence bonus
+textshadow=yes
+colour=0xff981f
+
+// 667:36
+[stabatt]
+type=text
+x=11
+y=15
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Stab: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:37
+[slashatt]
+type=text
+x=11
+y=29
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Slash:+120
+textshadow=yes
+colour=0xff981f
+
+// 667:38
+[crushatt]
+type=text
+x=11
+y=43
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Crush:+120
+textshadow=yes
+colour=0xff981f
+
+// 667:39
+[magicatt]
+type=text
+x=11
+y=57
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Magic: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:40
+[rangeatt]
+type=text
+x=11
+y=71
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Ranged: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:41
+[stabdef]
+type=text
+x=11
+y=107
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Stab: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:42
+[slashdef]
+type=text
+x=11
+y=121
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Slash: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:43
+[crushdef]
+type=text
+x=11
+y=135
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Crush: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:44
+[magicdef]
+type=text
+x=11
+y=149
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Magic: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:45
+[rangedef]
+type=text
+x=11
+y=163
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Range: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:46
+[summoningdef]
+type=text
+x=11
+y=177
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Summoning: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:47
+[com_47]
+type=text
+x=7
+y=200
+width=139
+height=15
+layer=com_15
+textfont=fontmetrics_496
+text=Other bonuses
+textshadow=yes
+colour=0xff981f
+
+// 667:48
+[wearstrength]
+type=text
+x=11
+y=214
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Strength: +120
+textshadow=yes
+colour=0xff981f
+
+// 667:49
+[wearprayer]
+type=text
+x=11
+y=228
+width=143
+height=15
+layer=com_15
+textfont=fontmetrics_495
+text=Prayer: +120
+textshadow=yes
+colour=0xff981f

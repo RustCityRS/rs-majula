@@ -1,0 +1,129 @@
+// 550:0
+[com_0]
+type=rectangle
+y=25
+width=190
+height=195
+colour=0x170801
+fill=yes
+trans=166
+
+// 550:1
+[com_1]
+type=layer
+x=174
+y=24
+width=16
+height=196
+
+// 550:2
+[com_2]
+type=layer
+x=8
+y=24
+width=158
+height=196
+scrollwidth=158
+scrollheight=195
+opbase=r    
+onload=clientscript_123
+
+// 550:3
+[friends_title]
+type=text
+y=2
+width=190
+height=14
+textfont=fontmetrics_495
+text=Friends List - RuneScape XXX
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 550:4
+[com_4]
+type=text
+x=20
+y=227
+width=61
+height=32
+textfont=fontmetrics_494
+text=Add Friend
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 550:5
+[com_5]
+type=text
+x=109
+y=227
+width=60
+height=32
+textfont=fontmetrics_494
+text=Del Friend
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 550:6
+[com_6]
+type=graphic
+y=9
+width=190
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 550:7
+[com_7]
+type=graphic
+y=208
+width=190
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 550:8
+[loadingmes]
+type=text
+x=9
+y=25
+width=155
+height=100
+textfont=fontmetrics_495
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 550:9
+[com_9]
+type=layer
+x=15
+y=226
+width=72
+height=32
+transmitop=1,10
+op1=Add Friend
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=meslayer_mode2
+
+// 550:10
+[com_10]
+type=layer
+x=103
+y=226
+width=72
+height=32
+transmitop=1,10
+op1=Delete Friend
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=meslayer_mode3

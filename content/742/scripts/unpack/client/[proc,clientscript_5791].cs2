@@ -1,0 +1,41 @@
+// 5791
+[proc,clientscript_5791]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "Keep doing this for as long as you want.";
+def_int $int4 = 0;
+def_string $string1 = "";
+if_sethide(interface_1220:com_10, true);
+if (%varplayerbit_8576 ! 3036 & %varplayerbit_8576 ! 3037 & %varplayerbit_8576 ! 3038 & %varplayerbit_8576 ! 3039 & %varplayerbit_8576 ! 3040 & %varplayerbit_8576 ! 3041) {
+    if_sethide(interface_1220:com_2, true);
+}
+if_sethide(interface_1220:com_25, true);
+if (~script3999(%varplayerbit_10700) = 0 & %varplayerbit_10700 = %varplayerbit_8576) {
+    if_sethide(interface_1220:com_25, false);
+    ~aif_text_layer_build_new(interface_1220:com_32, "Recommended", verdana_13pt_regular, 0xebe0bc, ^black);
+    if_setposition(interface_1220:com_26, if_getx(interface_1220:com_26), calc(if_gety(interface_1220:com_16) + 2), ^setpos_abs_left, ^setpos_abs_top);
+    ~clientscript_5784(interface_1220:com_16);
+} else if (%varplayerbit_9030 = 1) {
+    ~aif_text_layer_build_new(interface_1220:com_32, "Next Task", verdana_13pt_regular, 0xebe0bc, ^black);
+    if_setposition(interface_1220:com_26, if_getx(interface_1220:com_26), calc(if_gety(interface_1220:com_16) + 2), ^setpos_abs_left, ^setpos_abs_top);
+    $int0, $int1, $int2 = ~clientscript_5814(%varplayerbit_8576);
+    if ($int0 ! 0 & map_members = true) {
+        if_sethide(interface_1220:com_10, false);
+        if_sethide(interface_1220:com_2, false);
+        ~aif_progressbar_set(scale($int1, $int2, 100), interface_1220:com_37, interface_1220:com_42);
+        ~aif_text_layer_build_new(interface_1220:com_42, "", p11_full, 0xebe0bc, ^black);
+        if_settext(interface_1220:com_14, enum(int, string, enum_5482, $int0));
+        if_setcolour(interface_1220:com_14, 0xe5b051);
+        $string1 = "<tostring($int1)> of <tostring($int2)> Tasks done in this stage.";
+        if_setonmouserepeat(interface_1220:com_2, "aif_tooltip(interface_1220:com_31, event_com, -1, $string1, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    } else if (%varplayerbit_8576 = 3036 | %varplayerbit_8576 = 3037 | %varplayerbit_8576 = 3038 | %varplayerbit_8576 = 3039 | %varplayerbit_8576 = 3040 | %varplayerbit_8576 = 3041) {
+        if_sethide(interface_1220:com_2, false);
+    }
+    ~script4531(interface_1220:com_16);
+} else {
+    ~aif_text_layer_build_new(interface_1220:com_32, "Active Task", verdana_13pt_regular, 0xebe0bc, ^black);
+    if_setposition(interface_1220:com_26, if_getx(interface_1220:com_26), calc(if_gety(interface_1220:com_16) + 2), ^setpos_abs_left, ^setpos_abs_top);
+    ~script4531(interface_1220:com_16);
+}

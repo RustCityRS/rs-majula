@@ -1,0 +1,23 @@
+// 6748
+[proc,clientscript_6748]
+if_settext(interface_1344:com_90, "Select a minigame");
+if_settext(interface_1344:com_96, "Select a minigame in the list on the left to view its details.");
+if_settext(interface_1344:com_57, "Select a minigame to view hints.");
+if_sethide(interface_1344:com_57, false);
+if_settext(interface_1344:com_58, "");
+if_sethide(interface_1344:com_58, true);
+if_settext(interface_1344:com_59, "");
+if_sethide(interface_1344:com_59, true);
+if_settext(interface_1344:com_60, "");
+if_sethide(interface_1344:com_60, true);
+if_settext(interface_1344:com_61, "");
+if_sethide(interface_1344:com_61, true);
+if_settext(interface_1344:com_62, "");
+if_sethide(interface_1344:com_62, true);
+if_settext(interface_1344:com_63, "");
+if_sethide(interface_1344:com_63, true);
+if_settext(interface_1344:com_64, "");
+if_sethide(interface_1344:com_64, true);
+if_sethide(interface_1344:com_53, false);
+if_sethide(interface_1344:com_5, true);
+if_sethide(interface_1344:com_55, true);

@@ -1,0 +1,103 @@
+// 1226
+[proc,chosen_statue_interface_choose](int $int0)
+if_sethide(chosen_reward_statue_interface:female_melee_preview, true);
+if_sethide(chosen_reward_statue_interface:male_melee_preview, true);
+if_setgraphic(chosen_reward_statue_interface:com_35, "radio_buttons,0");
+if_sethide(chosen_reward_statue_interface:com_13, true);
+if_sethide(chosen_reward_statue_interface:com_12, true);
+if_setgraphic(chosen_reward_statue_interface:com_34, "radio_buttons,0");
+if_sethide(chosen_reward_statue_interface:female_ranger_preview, true);
+if_sethide(chosen_reward_statue_interface:male_ranger_preview, true);
+if_setgraphic(chosen_reward_statue_interface:com_33, "radio_buttons,0");
+if_sethide(chosen_reward_statue_interface:com_9, true);
+if_sethide(chosen_reward_statue_interface:com_8, true);
+if_setgraphic(chosen_reward_statue_interface:com_39, "radio_buttons,0");
+if_sethide(chosen_reward_statue_interface:com_7, true);
+if_sethide(chosen_reward_statue_interface:com_6, true);
+if_setgraphic(chosen_reward_statue_interface:com_37, "radio_buttons,0");
+if_sethide(chosen_reward_statue_interface:female_feeding_preview, true);
+if_sethide(chosen_reward_statue_interface:male_feeding_preview, true);
+if_setgraphic(chosen_reward_statue_interface:com_36, "radio_buttons,0");
+if_sethide(chosen_reward_statue_interface:com_3, true);
+if_sethide(chosen_reward_statue_interface:com_2, true);
+if_setgraphic(chosen_reward_statue_interface:com_38, "radio_buttons,0");
+if (gender = 1) {
+    switch_int ($int0) {
+        case 0 :
+            if_sethide(chosen_reward_statue_interface:female_melee_preview, false);
+            if_setgraphic(chosen_reward_statue_interface:com_35, "radio_buttons,1");
+        case 1 :
+            if_sethide(chosen_reward_statue_interface:com_13, false);
+            if_setgraphic(chosen_reward_statue_interface:com_34, "radio_buttons,1");
+        case 2 :
+            if_sethide(chosen_reward_statue_interface:female_ranger_preview, false);
+            if_setgraphic(chosen_reward_statue_interface:com_33, "radio_buttons,1");
+        case 3 :
+            if_sethide(chosen_reward_statue_interface:com_9, false);
+            if_setgraphic(chosen_reward_statue_interface:com_39, "radio_buttons,1");
+        case 4 :
+            if_sethide(chosen_reward_statue_interface:com_7, false);
+            if_setgraphic(chosen_reward_statue_interface:com_37, "radio_buttons,1");
+        case 5 :
+            if_sethide(chosen_reward_statue_interface:female_feeding_preview, false);
+            if_setgraphic(chosen_reward_statue_interface:com_36, "radio_buttons,1");
+        case 6 :
+            if_sethide(chosen_reward_statue_interface:com_3, false);
+            if_setgraphic(chosen_reward_statue_interface:com_38, "radio_buttons,1");
+    }
+} else {
+    switch_int ($int0) {
+        case 0 :
+            if_sethide(chosen_reward_statue_interface:male_melee_preview, false);
+            if_setgraphic(chosen_reward_statue_interface:com_35, "radio_buttons,1");
+        case 1 :
+            if_sethide(chosen_reward_statue_interface:com_12, false);
+            if_setgraphic(chosen_reward_statue_interface:com_34, "radio_buttons,1");
+        case 2 :
+            if_sethide(chosen_reward_statue_interface:male_ranger_preview, false);
+            if_setgraphic(chosen_reward_statue_interface:com_33, "radio_buttons,1");
+        case 3 :
+            if_sethide(chosen_reward_statue_interface:com_8, false);
+            if_setgraphic(chosen_reward_statue_interface:com_39, "radio_buttons,1");
+        case 4 :
+            if_sethide(chosen_reward_statue_interface:com_6, false);
+            if_setgraphic(chosen_reward_statue_interface:com_37, "radio_buttons,1");
+        case 5 :
+            if_sethide(chosen_reward_statue_interface:male_feeding_preview, false);
+            if_setgraphic(chosen_reward_statue_interface:com_36, "radio_buttons,1");
+        case 6 :
+            if_sethide(chosen_reward_statue_interface:com_2, false);
+            if_setgraphic(chosen_reward_statue_interface:com_38, "radio_buttons,1");
+    }
+}
+if (gender = 1) {
+    if_sethide(chosen_reward_statue_interface:female_melee, false);
+    if_sethide(chosen_reward_statue_interface:female_wizard, false);
+    if_sethide(chosen_reward_statue_interface:female_ranger, false);
+    if_sethide(chosen_reward_statue_interface:com_26, false);
+    if_sethide(chosen_reward_statue_interface:com_28, false);
+    if_sethide(chosen_reward_statue_interface:female_feeding, false);
+    if_sethide(chosen_reward_statue_interface:com_32, false);
+    if_sethide(chosen_reward_statue_interface:male_melee, true);
+    if_sethide(chosen_reward_statue_interface:male_wizard, true);
+    if_sethide(chosen_reward_statue_interface:male_ranger, true);
+    if_sethide(chosen_reward_statue_interface:com_25, true);
+    if_sethide(chosen_reward_statue_interface:com_27, true);
+    if_sethide(chosen_reward_statue_interface:male_feeding, true);
+    if_sethide(chosen_reward_statue_interface:com_31, true);
+} else {
+    if_sethide(chosen_reward_statue_interface:female_melee, true);
+    if_sethide(chosen_reward_statue_interface:female_wizard, true);
+    if_sethide(chosen_reward_statue_interface:female_ranger, true);
+    if_sethide(chosen_reward_statue_interface:com_26, true);
+    if_sethide(chosen_reward_statue_interface:com_28, true);
+    if_sethide(chosen_reward_statue_interface:female_feeding, true);
+    if_sethide(chosen_reward_statue_interface:com_32, true);
+    if_sethide(chosen_reward_statue_interface:male_melee, false);
+    if_sethide(chosen_reward_statue_interface:male_wizard, false);
+    if_sethide(chosen_reward_statue_interface:male_ranger, false);
+    if_sethide(chosen_reward_statue_interface:com_25, false);
+    if_sethide(chosen_reward_statue_interface:com_27, false);
+    if_sethide(chosen_reward_statue_interface:male_feeding, false);
+    if_sethide(chosen_reward_statue_interface:com_31, false);
+}

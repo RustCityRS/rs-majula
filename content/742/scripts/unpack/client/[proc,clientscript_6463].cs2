@@ -1,0 +1,37 @@
+// 6463
+[proc,clientscript_6463](int $int0)
+if ($int0 = 0) {
+    return;
+}
+~clientscript_6476(0, 0, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22);
+if_setonmouseover(interface_1311:com_28, "clientscript_6475(0, 1, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22)");
+if_setonmouseleave(interface_1311:com_28, "clientscript_6475(0, 0, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22)");
+~clientscript_6476(0, 0, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20);
+if_setonmouseover(interface_1311:com_31, "clientscript_6475(0, 1, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20)");
+if_setonmouseleave(interface_1311:com_31, "clientscript_6475(0, 0, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20)");
+~clientscript_6476(0, 0, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26);
+if_setonmouseover(interface_1311:com_29, "clientscript_6475(0, 1, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26)");
+if_setonmouseleave(interface_1311:com_29, "clientscript_6475(0, 0, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26)");
+~clientscript_6476(0, 0, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34);
+if_setonmouseover(interface_1311:com_30, "clientscript_6475(0, 1, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34)");
+if_setonmouseleave(interface_1311:com_30, "clientscript_6475(0, 0, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34)");
+if_sethide(interface_1311:com_70, true);
+switch_int ($int0) {
+    case 1 :
+        ~clientscript_6476(1, 0, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20);
+        if_setonmouseover(interface_1311:com_31, "clientscript_6475(1, 1, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20)");
+        if_setonmouseleave(interface_1311:com_31, "clientscript_6475(1, 0, interface_1311:com_18, interface_1311:com_19, interface_1311:com_20)");
+    case 2 :
+        ~clientscript_6476(1, 0, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22);
+        if_setonmouseover(interface_1311:com_28, "clientscript_6475(1, 1, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22)");
+        if_setonmouseleave(interface_1311:com_28, "clientscript_6475(1, 0, interface_1311:com_16, interface_1311:com_17, interface_1311:com_22)");
+        if_sethide(interface_1311:com_70, false);
+    case 3 :
+        ~clientscript_6476(1, 0, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26);
+        if_setonmouseover(interface_1311:com_29, "clientscript_6475(1, 1, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26)");
+        if_setonmouseleave(interface_1311:com_29, "clientscript_6475(1, 0, interface_1311:com_24, interface_1311:com_25, interface_1311:com_26)");
+    case 4 :
+        ~clientscript_6476(1, 0, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34);
+        if_setonmouseover(interface_1311:com_30, "clientscript_6475(1, 1, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34)");
+        if_setonmouseleave(interface_1311:com_30, "clientscript_6475(1, 0, interface_1311:com_32, interface_1311:com_33, interface_1311:com_34)");
+}

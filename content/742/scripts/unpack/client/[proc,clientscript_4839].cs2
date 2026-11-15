@@ -1,0 +1,54 @@
+// 4839
+[proc,clientscript_4839](component $component0, int $int1)
+def_int $int2 = 0;
+def_component $component3 = null;
+switch_component ($component0) {
+    case interface_1258:com_420 :
+        $component3 = interface_1258:com_423;
+        $int2 = if_getnextsubid(interface_1258:com_428);
+    case interface_1258:com_352 :
+        $component3 = interface_1258:com_355;
+        $int2 = if_getnextsubid(interface_1258:com_360);
+    case interface_1258:com_278 :
+        $component3 = interface_1258:com_281;
+        $int2 = if_getnextsubid(interface_1258:com_286);
+    case interface_1258:com_408 :
+        $component3 = interface_1258:com_411;
+        $int2 = if_getnextsubid(interface_1258:com_416);
+    case interface_1258:com_338 :
+        $component3 = interface_1258:com_341;
+        $int2 = if_getnextsubid(interface_1258:com_346);
+    case interface_1258:com_262 :
+        $component3 = interface_1258:com_265;
+        $int2 = if_getnextsubid(interface_1258:com_270);
+    case interface_1258:com_396 :
+        $component3 = interface_1258:com_399;
+        $int2 = if_getnextsubid(interface_1258:com_404);
+    case interface_1258:com_324 :
+        $component3 = interface_1258:com_327;
+        $int2 = if_getnextsubid(interface_1258:com_332);
+    case interface_1258:com_246 :
+        $component3 = interface_1258:com_249;
+        $int2 = if_getnextsubid(interface_1258:com_254);
+}
+if (if_find($component0) = true) {
+    cc_setscrollsize(0, cc_param(param_1564));
+    if ($int1 >= 0) {
+        cc_setsize(0, 27, ^setsize_minus, ^setsize_abs);
+        cc_setscrollpos(0, $int1);
+        if ($component3 ! null) {
+            if_setposition($component3, if_getx($component3), $int1, ^setpos_abs_left, ^setpos_abs_top);
+            if ($int2 > 1) {
+                if_sethide($component3, false);
+            } else {
+                if_sethide($component3, true);
+            }
+        }
+    } else {
+        cc_setsize(0, cc_param(param_1564), ^setsize_minus, ^setsize_abs);
+        cc_setscrollpos(0, 0);
+        if ($component3 ! null) {
+            if_sethide($component3, true);
+        }
+    }
+}

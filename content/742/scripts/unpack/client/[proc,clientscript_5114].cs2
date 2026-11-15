@@ -1,0 +1,45 @@
+// 5114
+[proc,clientscript_5114](component $component0, component $component1, component $component2, int $int3, int $int4, component $component5, int $int6)
+if_sethide(interface_1116:com_85, true);
+if_settext(interface_1116:com_600, if_gettext($component0));
+if_setgraphic(interface_1116:com_602, if_getgraphic($component1));
+if_setgraphic(interface_1116:com_615, if_getgraphic($component2));
+if_setcolour(interface_1116:com_602, op790($component1));
+if_setcolour(interface_1116:com_615, op790($component2));
+if_setcolour(interface_1116:com_611, op790($int3));
+if_setcolour(interface_1116:com_612, op790($int4));
+def_string $string0 = "";
+switch_graphic (if_getgraphic($component5)) {
+    case "clans_portaicons_small,0" :
+        if_setgraphic(interface_1116:com_591, "clans_portaicons_large,0");
+        $string0 = "This clan is flagged as a nemesis.";
+    case "clans_portaicons_small,1" :
+        if_setgraphic(interface_1116:com_591, "clans_portaicons_large,1");
+        $string0 = "This clan is flagged as an enemy.";
+    case "clans_portaicons_small,2" :
+        if_setgraphic(interface_1116:com_591, "clans_portaicons_large,2");
+        $string0 = "This clan is flagged as neutral.";
+    case "clans_portaicons_small,3" :
+        if_setgraphic(interface_1116:com_591, "clans_portaicons_large,3");
+        $string0 = "This clan is flagged as a friend.";
+    case "clans_portaicons_small,4" :
+        if_setgraphic(interface_1116:com_591, "clans_portaicons_large,4");
+        $string0 = "This clan is flagged as an ally.";
+}
+if_setonmouserepeat(interface_1116:com_591, "aif_tooltip(interface_1116:com_51, interface_1116:com_591, -1, $string0, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1116:com_591, "deltooltip(interface_1116:com_51)");
+~clientscript_5106;
+if ($int6 = 1) {
+    if (if_gethide(interface_1116:com_3) = true) {
+        if_sethide(interface_1116:com_4, false);
+    } else {
+        if_sethide(interface_1116:com_3, false);
+    }
+    if_sethide(interface_1116:com_115, true);
+    if_sethide(interface_1116:com_122, true);
+    if_sethide(interface_1116:com_108, true);
+    if_sethide(interface_1116:com_101, true);
+    if_sethide(interface_1116:com_94, true);
+} else {
+    if_sethide(interface_1116:com_40, false);
+}

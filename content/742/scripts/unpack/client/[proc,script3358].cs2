@@ -1,0 +1,26 @@
+// 3358
+[proc,script3358]()(int, string, obj)
+switch_obj (%follower_obj) {
+    case default :
+        return(2, "Poisonous Shot (Tier 1)", rand_loreran_01_spell);
+    case rand_loreran_01 :
+        return(2, "Poisonous Shot (Tier 1)", rand_loreran_01_spell);
+    case rand_loreran_02 :
+        return(12, "Poisonous Shot (Tier 2)", rand_loreran_02_spell);
+    case rand_loreran_03 :
+        return(22, "Poisonous Shot (Tier 3)", rand_loreran_03_spell);
+    case rand_loreran_04 :
+        return(32, "Poisonous Shot (Tier 4)", rand_loreran_04_spell);
+    case rand_loreran_05 :
+        return(42, "Poisonous Shot (Tier 5)", rand_loreran_05_spell);
+    case rand_loreran_06 :
+        return(52, "Poisonous Shot (Tier 6)", rand_loreran_06_spell);
+    case rand_loreran_07 :
+        return(62, "Poisonous Shot (Tier 7)", rand_loreran_07_spell);
+    case rand_loreran_08 :
+        return(72, "Poisonous Shot (Tier 8)", rand_loreran_08_spell);
+    case rand_loreran_09 :
+        return(82, "Poisonous Shot (Tier 9)", rand_loreran_09_spell);
+    case rand_loreran_10 :
+        return(92, "Poisonous Shot (Tier 10)", rand_loreran_10_spell);
+}

@@ -1,0 +1,18 @@
+// 2176
+[clientscript,ql4_tooltip](component $component0)
+def_string $string0 = "";
+switch_component ($component0) {
+    case questlist_v4:button_filter, questlist_v4:com_28 :
+        if (%ql4_filter_doable = 1) {
+            $string0 = "Click to hide the quests you cannot start.<br><br>Some recommended stats and abilities (such as combat levels) are left for you to decide.";
+        } else {
+            $string0 = "Click to show all quests regardless of requirements.";
+        }
+    case questlist_v4:com_35, questlist_v4:com_32 :
+        if (%ql4_filter_doable = 1) {
+            $string0 = "Click to hide the quests you have completed.";
+        } else {
+            $string0 = "Click to show all quests regardless of completion status.";
+        }
+}
+~addtooltip_action_dynamic(questlist_v4:com_47, -1, questlist_v4:com_48, $string0, 25, 450);

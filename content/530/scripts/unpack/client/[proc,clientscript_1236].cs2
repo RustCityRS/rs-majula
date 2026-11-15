@@ -1,0 +1,54 @@
+// 1236
+[proc,clientscript_1236]
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+if (create_reply = -3) {
+    return;
+}
+if_setontimer(loginscreen:com_405, null);
+if_sethide(loginscreen:com_388, false);
+if_settext(loginscreen:com_389, "Next");
+if_setonclick(loginscreen:com_389, "clientscript_1235");
+if (create_reply = 2) {
+    ~clientscript_1174(loginscreen:com_406);
+    return;
+}
+if_setcolour(loginscreen:com_385, 0x8c320a);
+if (create_reply = -4) {
+    if_settext(loginscreen:com_385, "There was an error contacting the server.<br>Please try using a different world.");
+} else if (create_reply = -5) {
+    if_settext(loginscreen:com_385, "Connection timed out.<br>Please try using a different world.");
+} else if (create_reply = -5) {
+    if_settext(loginscreen:com_385, "No response from server.<br>Please try using a different world.");
+} else if (create_reply = 3) {
+    if_settext(loginscreen:com_385, "There was an error contacting the create system.<br>Please try again.");
+} else if (create_reply = 7) {
+    if_settext(loginscreen:com_385, "The server is very busy.<br>Please try again in a minute.");
+} else if (create_reply = 9) {
+    if_settext(loginscreen:com_385, "You cannot create an account at this time. Please try again later.");
+} else if (create_reply = 20) {
+    if_settext(loginscreen:com_385, "That username is not available.<br>Please choose again.");
+} else if (create_reply = 21) {
+    if_settext(loginscreen:com_385, "That username is not available.<br>Please choose again.");
+    $string0, $string1, $string2, $string3, $string4 = op5610;
+    if (compare($string4, "") ! 0) {
+        if_settext(loginscreen:com_386, "Alternatively, the following usernames are available:<br><br><$string0><br><$string1><br><$string2><br><$string3><br><$string4>");
+    } else if (compare($string3, "") ! 0) {
+        if_settext(loginscreen:com_386, "Alternatively, the following usernames are available:<br><br><$string0><br><$string1><br><$string2><br><$string3>");
+    } else if (compare($string2, "") ! 0) {
+        if_settext(loginscreen:com_386, "Alternatively, the following usernames are available:<br><br><$string0><br><$string1><br><$string2>");
+    } else if (compare($string1, "") ! 0) {
+        if_settext(loginscreen:com_386, "Alternatively, the following usernames are available:<br><br><$string0><br><$string1>");
+    } else if (compare($string0, "") ! 0) {
+        if_settext(loginscreen:com_386, "Alternatively, the following username is available:<br><br><$string0>");
+    } else {
+        if_settext(loginscreen:com_386, "We could not find any suitable alternative account names to suggest, please choose again.");
+    }
+} else if (create_reply = 22) {
+    if_settext(loginscreen:com_385, "That is not a valid username.<br>Please choose again.");
+} else {
+    if_settext(loginscreen:com_385, "Unexpected server response.<br>Please try again.");
+}

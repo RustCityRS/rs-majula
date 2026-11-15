@@ -1,0 +1,26 @@
+// 2492
+[clientscript,mob_invest_tooltips]
+if (compare(%varclient_2206, "") = 0) {
+    if_setonmouserepeat(mob_invest:special_item1, "addtooltip(mob_invest:special_item1, mob_invest:tooltip, %varclient_2206, 50, 250)");
+    if_setonmouseleave(mob_invest:special_item1, "deltooltip(mob_invest:tooltip)");
+}
+if (compare(%varclient_2207, "") = 0) {
+    if_setonmouserepeat(mob_invest:special_item2, "addtooltip(mob_invest:special_item2, mob_invest:tooltip, %varclient_2207, 50, 250)");
+    if_setonmouseleave(mob_invest:special_item2, "deltooltip(mob_invest:tooltip)");
+}
+if (compare(%varclient_2208, "") = 0) {
+    if_setonmouserepeat(mob_invest:special_item3, "addtooltip(mob_invest:special_item3, mob_invest:tooltip, %varclient_2208, 50, 250)");
+    if_setonmouseleave(mob_invest:special_item3, "deltooltip(mob_invest:tooltip)");
+}
+if (compare(%varclient_2209, "") = 0) {
+    if_setonmouserepeat(mob_invest:special_item4, "addtooltip(mob_invest:special_item4, mob_invest:tooltip, %varclient_2209, 50, 250)");
+    if_setonmouseleave(mob_invest:special_item4, "deltooltip(mob_invest:tooltip)");
+}
+if (compare(%varclient_2210, "") = 0) {
+    if_setonmouserepeat(mob_invest:special_item5, "addtooltip(mob_invest:special_item5, mob_invest:tooltip, %varclient_2210, 50, 250)");
+    if_setonmouseleave(mob_invest:special_item5, "deltooltip(mob_invest:tooltip)");
+}
+if (compare(%varclient_2211, "") = 0) {
+    if_setonmouserepeat(mob_invest:special_item6, "addtooltip(mob_invest:special_item6, mob_invest:tooltip, %varclient_2211, 50, 250)");
+    if_setonmouseleave(mob_invest:special_item6, "deltooltip(mob_invest:tooltip)");
+}

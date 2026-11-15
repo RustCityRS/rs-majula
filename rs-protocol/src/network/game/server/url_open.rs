@@ -6,7 +6,8 @@ use rs_protocol_macros::server_prot;
 
 /// A page for the client to open in the browser. The whole frame is the
 /// URL, CP-1252 with no terminator, so `url` must be ASCII.
-#[server_prot(UrlOpen, Immediate, VarByte)]
+#[cfg_attr(before_742, server_prot(UrlOpen, Immediate, VarByte))]
+#[cfg_attr(since_742, server_prot(UrlOpen, Immediate, VarShort))]
 pub struct UrlOpen<'a> {
     pub url: &'a str,
 }

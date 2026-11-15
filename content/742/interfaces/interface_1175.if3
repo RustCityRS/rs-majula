@@ -1,0 +1,228 @@
+// 1175:0
+[com_0]
+type=graphic
+x=-12
+y=-10
+width=127
+height=166
+layer=com_15
+graphic=graphic_8467
+
+// 1175:1
+[com_1]
+type=graphic
+x=115
+y=-10
+width=127
+height=166
+layer=com_15
+graphic=graphic_8468
+
+// 1175:2
+[com_2]
+type=graphic
+x=241
+y=-10
+width=127
+height=166
+layer=com_15
+graphic=graphic_8469
+
+// 1175:3
+[com_3]
+type=graphic
+x=-11
+y=-10
+width=127
+height=166
+xmode=abs_right
+layer=com_15
+graphic=graphic_8470
+
+// 1175:4
+[com_4]
+type=graphic
+x=-12
+y=156
+width=127
+height=166
+layer=com_15
+graphic=graphic_8471
+
+// 1175:5
+[com_5]
+type=graphic
+x=115
+y=156
+width=127
+height=166
+layer=com_15
+graphic=graphic_8472
+
+// 1175:6
+[com_6]
+type=graphic
+x=241
+y=156
+width=127
+height=166
+layer=com_15
+graphic=graphic_8473
+
+// 1175:7
+[com_7]
+type=graphic
+x=368
+y=156
+width=127
+height=166
+layer=com_15
+graphic=graphic_8474
+
+// 1175:8
+[com_8]
+type=graphic
+x=2
+y=1
+width=32
+height=169
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+graphic=graphic_8477
+onload=clientscript_5482
+onvartransmit=clientscript_5482{varplayer_2434}
+
+// 1175:9
+[com_9]
+type=graphic
+x=2
+y=1
+width=32
+height=169
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+graphic=graphic_8476
+2dangle=16384
+
+// 1175:10
+[com_10]
+type=graphic
+x=2
+y=1
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+graphic=graphic_8475
+
+// 1175:11
+[com_11]
+type=layer
+width=507
+height=332
+
+// 1175:12
+[com_12]
+type=graphic
+x=21
+y=28
+width=92
+height=92
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_8479
+transmitop=1
+op1=Turn Clockwise
+onmouseover=graphic_swapper(event_com, 8481)
+onmouseleave=graphic_swapper(event_com, 8479)
+
+// 1175:13
+[com_13]
+type=graphic
+x=17
+y=28
+width=92
+height=92
+ymode=abs_bottom
+graphic=graphic_8478
+transmitop=1
+op1=Turn Anticlockwise
+onmouseover=graphic_swapper(event_com, 8480)
+onmouseleave=graphic_swapper(event_com, 8478)
+
+// 1175:14
+[com_14]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+onload=clientscript_4758(event_com)
+
+// 1175:15
+[com_15]
+type=layer
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_11
+
+// 1175:16
+[com_16]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+onload=clientscript_4759(event_com)
+
+// 1175:17
+[com_17]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_11
+onload=aif_build_close_button_layer(event_com)
+onclick=closebutton_click
+
+// 1175:18
+[com_18]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1175:19
+[com_19]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+onload=aif_build_close_button_over(event_com)

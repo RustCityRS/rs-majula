@@ -1,0 +1,8 @@
+// 5297
+[proc,clientscript_5297]
+if (%varplayerbit_9889 = 1) {
+    %varplayerbit_9889 = 0;
+} else {
+    %varplayerbit_9889 = 1;
+}
+~clientscript_5301;

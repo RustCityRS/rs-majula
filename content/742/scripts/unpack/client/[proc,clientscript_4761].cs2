@@ -1,0 +1,11 @@
+// 4761
+[proc,clientscript_4761](int $int0)(boolean)
+if (%tooltip_time < calc(clientclock + $int0)) {
+    if (%tooltip_time < clientclock) {
+        %tooltip_time = clientclock;
+    }
+    %tooltip_time = calc(%tooltip_time + 2);
+    return(false);
+}
+%tooltip_time = calc(clientclock + $int0 + 10);
+return(true);

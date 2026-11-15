@@ -1,0 +1,10 @@
+// 5586
+[proc,clientscript_5586](component $component0, component $component1)
+def_int $int2 = 240;
+if (string_length(if_gettext($component1)) > 0) {
+    $int2 = calc(parawidth(if_gettext($component1), 500, verdana_13pt_regular) + 80);
+    if ($int2 > if_getwidth($component0)) {
+        if_setsize($component0, $int2, 30, ^setsize_abs, ^setsize_abs);
+    }
+    if_setontimer($component0, null);
+}

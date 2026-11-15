@@ -1,0 +1,132 @@
+// 5461
+[proc,clientscript_5461]
+def_struct $struct0 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = chat_playername_unfiltered;
+def_int $int1 = 0;
+$struct0 = enum(int, struct, enum_5332, %varplayerbit_9988);
+if ($struct0 = null) {
+    $struct0 = enum(int, struct, enum_5213, %varplayerbit_9983);
+}
+%varclient_1676 = 0;
+$string0 = struct_param($struct0, param_2095);
+if (%varplayerbit_9988 = 7) {
+    if_sethide(interface_1159:com_42, false);
+} else {
+    if_sethide(interface_1159:com_42, true);
+}
+%varclient_1670 = 0;
+%varclient_1671 = 0;
+if_settext(interface_1159:com_41, $string0);
+if_settext(interface_1159:com_40, $string2);
+if (%varplayerbit_9984 > 0) {
+    $string1 = "Climber. Floor <tostring(%varplayerbit_9984)>";
+} else if (%varplayerbit_9985 > 0) {
+    $string1 = "Endurance. Floor <tostring(%varplayerbit_9985)>";
+} else if (%varplayerbit_9988 > 0) {
+    $string1 = "Special. Fight: <$string0>";
+} else if (%varplayerbit_9983 ! 0) {
+    $string1 = "Freestyle. Fight: <$string0>";
+} else {
+    $string1 = "Unknown";
+}
+if_settext(interface_1159:com_32, $string1);
+if_setsize(interface_1159:com_23, if_getwidth(interface_1159:com_23), 37, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1159:com_31, if_getwidth(interface_1159:com_31), 1, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1159:com_35, calc(if_getwidth(interface_1159:com_33) - 10), if_getheight(interface_1159:com_35), ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1159:com_17, calc(if_getwidth(interface_1159:com_39) - 10), if_getheight(interface_1159:com_17), ^setsize_abs, ^setsize_abs);
+sound_vorbis_volume(8105, 1, 60, 255);
+if (%varplayerbit_9991 = 1) {
+    ~clientscript_5462(1, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9997 = 1) {
+    ~clientscript_5462(2, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9998 = 1) {
+    ~clientscript_5462(3, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9994 = 1) {
+    ~clientscript_5462(4, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9999 = 1) {
+    ~clientscript_5462(5, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10000 = 1) {
+    ~clientscript_5462(6, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10001 = 1) {
+    ~clientscript_5462(7, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9993 = 1) {
+    ~clientscript_5462(8, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10004 = 1) {
+    ~clientscript_5462(9, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10012 = 1) {
+    ~clientscript_5462(10, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10005 = 1) {
+    ~clientscript_5462(11, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10008 = 1) {
+    ~clientscript_5462(12, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9992 = 1) {
+    ~clientscript_5462(13, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10003 = 1) {
+    ~clientscript_5462(14, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10007 = 1) {
+    ~clientscript_5462(15, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9995 = 1) {
+    ~clientscript_5462(16, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10009 = 1) {
+    ~clientscript_5462(17, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10002 = 1) {
+    ~clientscript_5462(18, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_9996 = 1) {
+    ~clientscript_5462(19, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10010 = 1) {
+    ~clientscript_5462(20, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10006 = 1) {
+    ~clientscript_5462(21, $int1);
+    $int1 = calc($int1 + 1);
+}
+if (%varplayerbit_10011 = 1) {
+    ~clientscript_5462(22, $int1);
+    $int1 = calc($int1 + 1);
+}
+if_setontimer(interface_1159:com_30, "clientscript_5467");
+%varclient_1674 = -45;
+%varclient_1675 = -75;
+if_setposition(interface_1159:com_22, 0, %varclient_1674, ^setpos_abs_centre, ^setpos_abs_top);
+if_setposition(interface_1159:com_23, 3, %varclient_1675, ^setpos_abs_right, ^setpos_abs_bottom);

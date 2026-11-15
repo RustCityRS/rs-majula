@@ -1,0 +1,8 @@
+// 400
+[proc,clientscript_400]
+def_int $int0 = paraheight(if_gettext(interface_378:com_193), if_getwidth(interface_378:com_193), 495);
+if ($int0 < 2) {
+    $int0 = 2;
+}
+if_setsize(interface_378:com_150, if_getwidth(interface_378:com_150), calc($int0 * 15 + 110), 0, 0);
+if_setontimer(interface_378:com_193, null);

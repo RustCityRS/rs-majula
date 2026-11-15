@@ -1,0 +1,11 @@
+// 1534
+[clientscript,topstat_run_button_op](component $component0, int $int1)
+if ($int1 ! 1) {
+    return;
+}
+if (~bool_to_int(%varclient_214) = 1) {
+    %varclient_214 = false;
+} else {
+    %varclient_214 = true;
+}
+~clientscript_1741($component0);

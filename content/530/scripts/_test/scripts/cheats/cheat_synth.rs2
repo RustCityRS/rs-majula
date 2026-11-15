@@ -1,0 +1,18 @@
+// Audition a sound effect by name or raw id, to find the right firemaking (and
+// other) SFX by ear. Dev console: `synth fire_lit`, `synth 2597` (flint),
+// `synth tinderbox_strike`, `synth 3557`.
+//
+// The cheat arg parser (rs-engine/src/handlers/client_cheat.rs) resolves
+// synth-typed params via synth.pack names, or takes a numeric raw archive-4
+// id (= the wire id; synth.pack is stride-1 since 2026-06-12) for sweeping.
+// loops must be >=1 — the 647 client discards repeat==0 sounds.
+// See docs/cache/sound-effects-and-seq-audio.md.
+[debugproc,synth](synth $synth)
+sound_synth($synth, 1, 0);
+mes("Playing synth <tostring($synth)>");
+
+// Same, with explicit loops + delay (ticks) for envelope/repeat testing:
+//   `synthx <id> <loops> <delay>`
+[debugproc,synthx](synth $synth, int $loops, int $delay)
+sound_synth($synth, $loops, $delay);
+mes("Playing synth <tostring($synth)> loops=<tostring($loops)> delay=<tostring($delay)>");

@@ -1,0 +1,18 @@
+// 6669
+[proc,clientscript_6669]
+~clientscript_5917;
+~clientscript_6678;
+if_sethide(interface_1253:com_39, false);
+if_sethide(interface_1253:com_34, true);
+if (%varplayerbit_10861 <= 0) {
+    return;
+}
+if (playermember = false & %varplayerbit_11874 = 1) {
+    if_settext(interface_1253:com_238, "Discard item");
+    return;
+}
+if (%varplayer_2740 > 0) {
+    if_settext(interface_1253:com_238, "Convert to coin");
+} else {
+    if_settext(interface_1253:com_238, "Discard item");
+}

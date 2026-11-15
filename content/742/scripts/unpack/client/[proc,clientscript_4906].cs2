@@ -1,0 +1,164 @@
+// 4906
+[proc,clientscript_4906](int $int0)
+def_struct $struct1 = null;
+def_struct $struct2 = null;
+def_coord $coord3 = 0_0_0_0_0;
+def_component $component4 = ~clientscript_4968($int0);
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = 1;
+if (%varclient_1794 = 1) {
+    $int7 = 0;
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_component $component10 = null;
+if (op718 = 1) {
+    if (%varclient_1794 = 0) {
+        $struct1 = ~clientscript_5116(%varclan_2598, %varclan_2580);
+        $struct2 = ~clientscript_5117(%varclan_2598, %varclan_2580);
+    } else {
+        $struct1 = ~clientscript_5116(%varclan_2074, %varclan_2580);
+        $struct2 = ~clientscript_5117(%varclan_2074, %varclan_2580);
+    }
+    if ($struct1 = null) {
+        return;
+    }
+    if ($struct2 = null) {
+        return;
+    }
+    $int8 = ~clientscript_4978($int0);
+    if ($int8 < 4) {
+        $int8 = $int0;
+    }
+    if ($int7 = 1) {
+        $int9 = $int0;
+    } else {
+        $int9 = $int8;
+    }
+    switch_int ($int9) {
+        case 4 :
+            $int5 = struct_param($struct1, param_1655);
+            $int6 = struct_param($struct1, param_1656);
+        case 5 :
+            $int5 = struct_param($struct1, param_1661);
+            $int6 = struct_param($struct1, param_1662);
+        case 6 :
+            $int5 = struct_param($struct1, param_1667);
+            $int6 = struct_param($struct1, param_1668);
+        case 7 :
+            $int5 = struct_param($struct1, param_1673);
+            $int6 = struct_param($struct1, param_1674);
+        case 8 :
+            $int5 = struct_param($struct1, param_1679);
+            $int6 = struct_param($struct1, param_1680);
+        case 9 :
+            $int5 = struct_param($struct1, param_1685);
+            $int6 = struct_param($struct1, param_1686);
+        case 10 :
+            $int5 = struct_param($struct1, param_1691);
+            $int6 = struct_param($struct1, param_1692);
+        case 11 :
+            $int5 = struct_param($struct1, param_1697);
+            $int6 = struct_param($struct1, param_1698);
+        case 12 :
+            $int5 = struct_param($struct1, param_1703);
+            $int6 = struct_param($struct1, param_1704);
+        case 13 :
+            $int5 = struct_param($struct1, param_1709);
+            $int6 = struct_param($struct1, param_1710);
+        case 14 :
+            $int5 = struct_param($struct1, param_1715);
+            $int6 = struct_param($struct1, param_1716);
+        case 15 :
+            $int5 = struct_param($struct1, param_1721);
+            $int6 = struct_param($struct1, param_1722);
+        case 3 :
+            $int5 = struct_param($struct1, param_1649);
+            $int6 = struct_param($struct1, param_1650);
+        case 2 :
+            $int5 = calc(struct_param($struct1, param_1627) + 14);
+            $int6 = struct_param($struct1, param_1628);
+        case 1 :
+            $int5 = calc(struct_param($struct1, param_1627) - 14);
+            $int6 = struct_param($struct1, param_1628);
+        case 16 :
+            $coord3 = struct_param($struct2, param_1723);
+        case 17 :
+            $coord3 = struct_param($struct2, param_1726);
+        case 18 :
+            $coord3 = struct_param($struct2, param_1729);
+        case 19 :
+            $coord3 = struct_param($struct2, param_1732);
+        case 20 :
+            $coord3 = struct_param($struct2, param_1735);
+        case 21 :
+            $coord3 = struct_param($struct2, param_1738);
+        case 22 :
+            $coord3 = struct_param($struct2, param_1741);
+        case 23 :
+            $coord3 = struct_param($struct2, param_1744);
+        case 24 :
+            $coord3 = struct_param($struct2, param_1747);
+        case 25 :
+            $coord3 = struct_param($struct2, param_1750);
+        case 26 :
+            $coord3 = struct_param($struct2, param_1753);
+        case 27 :
+            $coord3 = struct_param($struct2, param_1756);
+        case 28 :
+            $coord3 = struct_param($struct2, param_1759);
+        case 29 :
+            $coord3 = struct_param($struct2, param_1762);
+        case 30 :
+            $coord3 = struct_param($struct2, param_1765);
+        case 31 :
+            $coord3 = struct_param($struct2, param_1768);
+        case 32 :
+            $coord3 = struct_param($struct2, param_1771);
+        case 33 :
+            $coord3 = struct_param($struct2, param_1772);
+        case 34 :
+            $coord3 = struct_param($struct2, param_1775);
+        case 49 :
+            $coord3 = struct_param($struct1, param_1635);
+        case 35 :
+            $coord3 = struct_param($struct2, param_1778);
+        case 36 :
+            $coord3 = struct_param($struct2, param_1779);
+        case 37 :
+            $coord3 = struct_param($struct2, param_1780);
+        case 38 :
+            $coord3 = struct_param($struct2, param_1781);
+        case 39 :
+            $coord3 = struct_param($struct2, param_1782);
+        case 40 :
+            $coord3 = struct_param($struct2, param_1783);
+        case 41 :
+            $coord3 = struct_param($struct2, param_1784);
+        case 42 :
+            $coord3 = struct_param($struct2, param_1785);
+        case 43 :
+            $coord3 = struct_param($struct2, param_1786);
+        case 44 :
+            $coord3 = struct_param($struct2, param_1787);
+        case 45 :
+            $coord3 = struct_param($struct2, param_1788);
+        case 46 :
+            $coord3 = struct_param($struct2, param_1789);
+        case 47 :
+            $coord3 = struct_param($struct2, param_1790);
+        case 48 :
+            $coord3 = struct_param($struct2, param_1791);
+    }
+    if ($coord3 ! 0_0_0_0_0 & $coord3 ! null) {
+        $int5, $int6 = ~clientscript_4909($coord3);
+        $int5 = calc($int5 + 14);
+        $int6 = calc($int6 + 3);
+    }
+    if_setposition($component4, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    $component10 = ~clientscript_5213($int0);
+    if ($component10 ! null) {
+        if_setposition($component10, $int5, $int6, ^setpos_abs_left, ^setpos_abs_top);
+    }
+}

@@ -1,0 +1,83 @@
+// 1339:0
+[com_0]
+type=layer
+width=324
+height=148
+xmode=abs_centre
+ymode=abs_centre
+
+// 1339:1
+[com_1]
+type=graphic
+width=324
+height=148
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+graphic=graphic_12879
+
+// 1339:2
+[com_2]
+type=graphic
+width=324
+height=148
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+graphic=graphic_12878
+
+// 1339:3
+[com_3]
+type=text
+x=1
+y=1
+width=115
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+textfont=p11_full
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0x646464
+
+// 1339:4
+[com_4]
+type=text
+width=115
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+textfont=p11_full
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1339:5
+[com_5]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_0
+graphic=graphic_8278
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1339:6
+[com_6]
+type=graphic
+width=19
+height=19
+xmode=abs_right
+layer=com_0
+graphic=graphic_8279
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)

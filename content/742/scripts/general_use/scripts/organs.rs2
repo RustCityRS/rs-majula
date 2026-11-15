@@ -1,0 +1,15 @@
+// Paterdomus Temple
+// Cache 786's map puts no organ on 289's smallchurchorgan spot (0_53_54_17_27)
+// and places smallchurchorgan nowhere. The one Church organ in that map square
+// is church_organ_30754 (op1 Play) at 0_53_54_22_38, which this port takes for
+// the temple's (2011 wiki, Paterdomus, 2011-05-17: "The ground floor also has
+// an intact church organ"). 289's music:com_177 is music_v3:now_playing_text here, the
+// component music/scripts/music.rs2 writes the playing song's name to.
+[oploc1,church_organ_30754]
+if(random(2) = 0) {
+    midi_song("church music 1");
+    if_settext(music_v3:now_playing_text, "");
+} else {
+    midi_song("church music 2");
+    if_settext(music_v3:now_playing_text, "");
+}

@@ -14,6 +14,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::converse;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::fs;
 
@@ -23,13 +24,13 @@ const BACKPACK: i32 = 149 << 16;
 const HAT_STAND: (u16, u16) = (2710, 3482);
 const STAND_TILE: (u16, u16) = (2710, 3481);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// A fresh world with one player at `x, z` holding `objs` from slot 0.
@@ -38,13 +39,13 @@ fn holding(engine: &mut Engine, name: &str, x: u16, z: u16, objs: &[u16]) -> Har
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.harness_telejump(client.pid, x, 0, z);
     engine.cycle();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine
         .harness_player_mut(client.pid)
         .and_then(|p| p.invs.get_mut(&inv))
         .expect("backpack");
     for (slot, &o) in objs.iter().enumerate() {
-        backpack.set(slot as u16, o, 1);
+        backpack.set(slot as u16, TypeId::new(o), 1);
     }
     engine.cycle();
     client.packets();
@@ -73,10 +74,10 @@ fn said(line: &str) -> bool {
 #[test]
 fn a_hat_falls_off_the_hat_stand_and_nothing_else_goes_on_it() {
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let hat = obj(engine, "bluewizhat");
-        let mut client = holding(engine, "hatter", STAND_TILE.0, STAND_TILE.1, &[hat]);
-        use_on_hat_stand(&mut client, hat);
+        let mut client = holding(engine, "hatter", STAND_TILE.0, STAND_TILE.1, &[hat.g2()]);
+        use_on_hat_stand(&mut client, hat.g2());
         for _ in 0..10 {
             engine.cycle();
         }
@@ -87,8 +88,8 @@ fn a_hat_falls_off_the_hat_stand_and_nothing_else_goes_on_it() {
         assert!(!backpack.has_at(0, hat), "the hat left the backpack");
 
         let logs = obj(engine, "logs");
-        let mut client = holding(engine, "hatter2", STAND_TILE.0, STAND_TILE.1, &[logs]);
-        use_on_hat_stand(&mut client, logs);
+        let mut client = holding(engine, "hatter2", STAND_TILE.0, STAND_TILE.1, &[logs.g2()]);
+        use_on_hat_stand(&mut client, logs.g2());
         for _ in 0..10 {
             engine.cycle();
         }
@@ -101,16 +102,16 @@ fn a_hat_falls_off_the_hat_stand_and_nothing_else_goes_on_it() {
 fn a_hammer_on_a_semi_precious_gem() {
     runner::on_loaded_engine(|engine| {
         let (hammer, topaz) = (obj(engine, "hammer"), obj(engine, "red_topaz"));
-        let mut client = holding(engine, "smasher", 3222, 3219, &[hammer, topaz]);
+        let mut client = holding(engine, "smasher", 3222, 3219, &[hammer.g2(), topaz.g2()]);
         let mut p = ClientPacket::new();
         // The topaz (slot 1) used on the hammer (slot 0): 289's [opheldu,hammer]
         // switches on the item used.
         p.p4(BACKPACK)
             .p2_alt1(0)
             .p2_alt1(1)
-            .p2_alt2(topaz as i32)
+            .p2_alt2(topaz.int())
             .p4_alt1(BACKPACK)
-            .p2(hammer as i32);
+            .p2(hammer.int());
         client.send(ClientProt::IfButtonT, &p.finish());
         for _ in 0..3 {
             engine.cycle();
@@ -140,7 +141,7 @@ fn loc_at(engine: &Engine, name: &str, x: u16, level: u8, z: u16) -> bool {
     engine
         .zones
         .zone(x, level, z)
-        .is_some_and(|zone| zone.get_loc(x, z, id).is_some())
+        .is_some_and(|zone| zone.get_loc(x, z, TypeId::from(id)).is_some())
 }
 
 /// A walkable tile beside `x`,`z` on `level`.
@@ -208,8 +209,8 @@ fn cycles(engine: &mut Engine, ticks: usize) {
     }
 }
 
-fn slot0(engine: &Engine, pid: u16) -> Option<u16> {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+fn slot0(engine: &Engine, pid: u16) -> Option<TypeId> {
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine.harness_player(pid).and_then(|p| p.invs.get(&inv))?;
     backpack.get(0).map(|item| item.obj)
 }
@@ -279,8 +280,14 @@ fn a_table_takes_an_item_and_a_tap_barrel_fills_a_glass() {
         // table_11743 at 0_40_51_42_22, on a 289 usable table's spot.
         const TABLE: (u16, u8, u16) = (2602, 0, 3286);
         let logs = obj(engine, "logs");
-        let mut client = beside_loc(engine, "waiter", TABLE, &[logs]);
-        use_on_loc(&mut client, logs, loc_id("table_11743"), TABLE.0, TABLE.2);
+        let mut client = beside_loc(engine, "waiter", TABLE, &[logs.g2()]);
+        use_on_loc(
+            &mut client,
+            logs.g2(),
+            loc_id("table_11743"),
+            TABLE.0,
+            TABLE.2,
+        );
         cycles(engine, 6);
         assert_eq!(
             slot0(engine, client.pid),
@@ -291,10 +298,10 @@ fn a_table_takes_an_item_and_a_tap_barrel_fills_a_glass() {
         // barrelwithtap at 0_48_51_23_2 (cache 786 map).
         const BARREL: (u16, u8, u16) = (3095, 0, 3266);
         let (glass, beer) = (obj(engine, "beer_glass"), obj(engine, "beer"));
-        let mut client = beside_loc(engine, "drinker", BARREL, &[glass]);
+        let mut client = beside_loc(engine, "drinker", BARREL, &[glass.g2()]);
         use_on_loc(
             &mut client,
-            glass,
+            glass.g2(),
             loc_id("barrelwithtap"),
             BARREL.0,
             BARREL.2,
@@ -343,8 +350,8 @@ fn mithril_seeds_plant_flowers_and_the_paterdomus_organ_plays() {
     runner::on_loaded_engine(|engine| {
         let seeds = obj(engine, "mithril_seed");
         let (x, z) = (3222, 3219);
-        let mut client = holding(engine, "gardener", x, z, &[seeds]);
-        op_held(&mut client, 1, seeds, 0);
+        let mut client = holding(engine, "gardener", x, z, &[seeds.g2()]);
+        op_held(&mut client, 1, seeds.g2(), 0);
         cycles(engine, 3);
         assert!(said("You drop a seed by your feet."));
         let flowers = [
@@ -518,8 +525,8 @@ fn a_bucket_fills_at_a_sink_and_a_well() {
                 "You fill the bucket from the well.",
             ),
         ] {
-            let mut client = beside_loc(engine, name, (x, 0, z), &[bucket]);
-            use_on_loc(&mut client, bucket, loc_id(loc), x, z);
+            let mut client = beside_loc(engine, name, (x, 0, z), &[bucket.g2()]);
+            use_on_loc(&mut client, bucket.g2(), loc_id(loc), x, z);
             cycles(engine, 8);
             assert!(said(line), "{loc}: {:?}", calls_for("mes"));
             assert_eq!(

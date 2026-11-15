@@ -1,0 +1,69 @@
+// 5476
+[proc,clientscript_5476](int $int0, int $int1)
+def_struct $struct2 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_graphic $graphic3 = null;
+def_string $string2 = "";
+def_int $int4 = 0;
+if (%varplayerbit_9987 = 0) {
+    if_sethide(interface_1163:com_103, true);
+    if_sethide(interface_1163:com_104, false);
+} else {
+    if_sethide(interface_1163:com_103, false);
+    if_sethide(interface_1163:com_104, true);
+}
+if (%varplayerbit_10849 = 0) {
+    if_sethide(interface_1163:com_179, true);
+    if_sethide(interface_1163:com_180, false);
+} else {
+    if_sethide(interface_1163:com_179, false);
+    if_sethide(interface_1163:com_180, true);
+}
+if (%varplayerbit_10850 = 0) {
+    if_sethide(interface_1163:com_181, true);
+    if_sethide(interface_1163:com_182, false);
+} else {
+    if_sethide(interface_1163:com_181, false);
+    if_sethide(interface_1163:com_182, true);
+}
+if_settext(interface_1163:com_34, tostring(%varplayerbit_9990));
+if (%varplayerbit_9990 > 0) {
+    if_settext(interface_1163:com_38, tostring(calc(%varplayerbit_9990 / 3)));
+} else {
+    if_settext(interface_1163:com_38, "0");
+}
+%tooltip_built = 0;
+sound_vorbis_volume(8099, 1, 0, 255);
+if ($int1 = 0) {
+    if_settext(interface_1163:com_50, tostring(calc(%varplayerbit_9984 + 1)));
+    %varclient_1678 = calc(1 + random(48));
+    %varclient_1679 = 30;
+    %varclient_1677 = $int0;
+    if_sethide(interface_1163:com_89, true);
+    if_setontimer(interface_1163:com_45, "clientscript_5477");
+} else {
+    %varclient_1677 = $int0;
+    if_settext(interface_1163:com_50, tostring(%varplayerbit_9984));
+    $struct2 = enum(int, struct, enum_5213, %varclient_1677);
+    $string0 = struct_param($struct2, param_2095);
+    $string1 = struct_param($struct2, param_2184);
+    $graphic3 = struct_param($struct2, param_2101);
+    if (struct_param($struct2, param_2097) = 1) {
+        $string2 = "<col=f5b241>Arena</col>: Single-way combat.";
+    } else if (struct_param($struct2, param_2097) = 2) {
+        $string2 = "<col=f5b241>Arena</col>: Multi-way combat.";
+    } else if (struct_param($struct2, param_2097) = 3) {
+        $string2 = "<col=f5b241>Arena</col>: Single-way combat with small blocking pillars.";
+    } else if (struct_param($struct2, param_2097) = 4) {
+        $string2 = "<col=f5b241>Arena</col>: Multi-way combat with large blocking pillars.";
+    } else if (struct_param($struct2, param_2097) = 5) {
+        $string2 = "<col=f5b241>Arena</col>: Multi-way combat with podiums";
+    }
+    if_settext(interface_1163:com_88, $string0);
+    if_settext(interface_1163:com_40, "<$string1><br><br><$string2>");
+    ~clientscript_5475("<$string1><br><br><$string2>", interface_1163:com_40, interface_1163:com_43, interface_1163:com_42);
+    if_setgraphic(interface_1163:com_25, $graphic3);
+    $int4 = ~clientscript_5459(1);
+    if_settext(interface_1163:com_36, tostring($int4));
+}

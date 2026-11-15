@@ -1,0 +1,74 @@
+// 6744
+[proc,clientscript_6744]
+def_enum $enum0 = null;
+switch_int (%varplayer_2751) {
+    case 0 :
+        $enum0 = enum_6452;
+    case 1 :
+        $enum0 = enum_6157;
+    case 2 :
+        $enum0 = enum_6158;
+    case 3 :
+        $enum0 = enum_6159;
+    case 4 :
+        $enum0 = enum_6160;
+}
+cc_deleteall(interface_1344:com_30);
+cc_deleteall(interface_1344:com_31);
+cc_deleteall(interface_1344:com_32);
+cc_deleteall(interface_1344:com_33);
+cc_deleteall(interface_1344:com_34);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = enum_getoutputcount($enum0);
+def_struct $struct4 = null;
+while ($int1 < $int3) {
+    $struct4 = enum(int, struct, $enum0, calc(1 + $int1));
+    if (~task_requirements_fulfilled(struct_param($struct4, param_1268)) = true) {
+        cc_create(interface_1344:com_30, ^iftype_graphic, $int1);
+        if (calc(%varplayer_2752 - 1) = $int1) {
+            cc_setgraphic(13136);
+        } else {
+            cc_setgraphic(13133);
+            cc_setonmouserepeat("clientscript_6729(interface_1344:com_30, event_comsubid)");
+            cc_setonmouseleave("clientscript_6730(interface_1344:com_30, event_comsubid)");
+        }
+        cc_setsize(254, 43, ^setsize_abs, ^setsize_abs);
+        cc_setposition(1, calc(0 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_create(interface_1344:com_31, ^iftype_graphic, $int1);
+        cc_setgraphic(13259);
+        cc_setsize(30, 30, ^setsize_abs, ^setsize_abs);
+        cc_setposition(6, calc(8 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_create(interface_1344:com_32, ^iftype_text, $int1);
+        cc_settextfont(verdana_11pt_regular_multiline);
+        cc_setcolour(^white);
+        cc_settext(struct_param($struct4, param_1266));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+        cc_setsize(179, 43, ^setsize_abs, ^setsize_abs);
+        cc_setposition(40, calc(2 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_create(interface_1344:com_33, ^iftype_rectangle, $int1);
+        cc_setsize(254, 43, ^setsize_abs, ^setsize_abs);
+        cc_setposition(1, calc(0 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_settrans(255);
+        cc_setop(1, "Select");
+        cc_setonop("clientscript_6733(interface_1344:com_30, event_comsubid)");
+        $int2 = calc($int2 + 1);
+    } else {
+        cc_create(interface_1344:com_30, ^iftype_graphic, $int1);
+        cc_sethide(true);
+        cc_create(interface_1344:com_31, ^iftype_graphic, $int1);
+        cc_sethide(true);
+        cc_create(interface_1344:com_32, ^iftype_text, $int1);
+        cc_sethide(true);
+        cc_create(interface_1344:com_33, ^iftype_rectangle, $int1);
+        cc_sethide(true);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_setscrollsize(interface_1344:com_29, 0, calc($int2 * (3 + 43)));
+if_setscrollpos(interface_1344:com_29, 0, 0);
+if (if_getscrollheight(interface_1344:com_29) > if_getheight(interface_1344:com_28)) {
+    ~scrollbar_vertical(interface_1344:com_34, interface_1344:com_29, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+} else {
+    ~scrollbar_vertical(interface_1344:com_34, interface_1344:com_28, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+}

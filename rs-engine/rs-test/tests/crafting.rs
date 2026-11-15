@@ -31,6 +31,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const CRAFTING: usize = 12;
@@ -65,13 +66,13 @@ const UNHOLY_NEED: i32 = SILVER_IF | 26;
 /// collision map: the cases take turns.
 static TURN: Mutex<()> = Mutex::new(());
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
@@ -95,7 +96,7 @@ fn beside(
     (x, level, z): (u16, u8, u16),
     objs: &[u16],
 ) -> HarnessClient {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
@@ -107,7 +108,7 @@ fn beside(
     let player = engine.harness_player_mut(client.pid).unwrap();
     let backpack = player.invs.get_mut(&inv).unwrap();
     for (slot, &o) in objs.iter().enumerate() {
-        backpack.set(slot as u16, o, 1);
+        backpack.set(slot as u16, TypeId::new(o), 1);
     }
     for _ in 0..3 {
         engine.cycle();
@@ -135,13 +136,13 @@ fn wool_on_lumbridge_castle_s_wheel_spins_a_ball_of_wool() {
     runner::on_loaded_engine(|engine| {
         let wool = obj(engine, "wool");
         let ball = obj(engine, "ball_of_wool");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let mut client = beside(engine, "spinner", (3209, 1, 3213), &[wool]);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let mut client = beside(engine, "spinner", (3209, 1, 3213), &[wool.g2()]);
         let player = engine.harness_player(client.pid).unwrap();
         let xp = player.stats.xp[CRAFTING];
         let counted = player.vars.get(XP_COUNTER).as_int();
 
-        use_on(&mut client, wool, 0, (36970, 3209, 3212));
+        use_on(&mut client, wool.g2(), 0, (36970, 3209, 3212));
         let said = ticks(engine, &mut client, 8);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -161,13 +162,18 @@ fn sand_and_soda_ash_on_lumbridge_s_furnace_make_molten_glass() {
         let ash = obj(engine, "soda_ash");
         let glass = obj(engine, "molten_glass");
         let bucket = obj(engine, "bucket_empty");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let mut client = beside(engine, "glassmaker", (3226, 0, 3255), &[sand, ash]);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let mut client = beside(
+            engine,
+            "glassmaker",
+            (3226, 0, 3255),
+            &[sand.g2(), ash.g2()],
+        );
         let player = engine.harness_player(client.pid).unwrap();
         let xp = player.stats.xp[CRAFTING];
         let counted = player.vars.get(XP_COUNTER).as_int();
 
-        use_on(&mut client, sand, 0, (45310, 3226, 3256));
+        use_on(&mut client, sand.g2(), 0, (45310, 3226, 3256));
         let said = ticks(engine, &mut client, 8);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -189,13 +195,13 @@ fn soft_clay_on_a_potter_s_wheel_shapes_a_pot() {
     runner::on_loaded_engine(|engine| {
         let clay = obj(engine, "softclay");
         let pot = obj(engine, "pot_unfired");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let wheel = (2642, 2935, 3289);
-        let mut client = beside(engine, "potter", (2935, 0, 3288), &[clay]);
+        let mut client = beside(engine, "potter", (2935, 0, 3288), &[clay.g2()]);
         let player = engine.harness_player(client.pid).unwrap();
         let xp = player.stats.xp[CRAFTING];
 
-        use_on(&mut client, clay, 0, wheel);
+        use_on(&mut client, clay.g2(), 0, wheel);
         let said = ticks(engine, &mut client, 6);
         assert!(
             engine
@@ -283,8 +289,13 @@ fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
         let mould = obj(engine, "ring_mould");
         let sapphire = obj(engine, "sapphire");
         let ring = obj(engine, "sapphire_ring");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let mut client = beside(engine, "goldsmith", AT_FURNACE, &[bar, mould, sapphire]);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let mut client = beside(
+            engine,
+            "goldsmith",
+            AT_FURNACE,
+            &[bar.g2(), mould.g2(), sapphire.g2()],
+        );
         let player = engine.harness_player_mut(client.pid).unwrap();
         // Level 20, 4,470 xp (in tenths): 40 xp more is no level.
         player.stats.levels[CRAFTING] = 20;
@@ -293,7 +304,7 @@ fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
         let xp = player.stats.xp[CRAFTING];
         let counted = player.vars.get(XP_COUNTER).as_int();
 
-        use_on(&mut client, bar, 0, FURNACE);
+        use_on(&mut client, bar.g2(), 0, FURNACE);
         let (sent, said) = sent_over(engine, &mut client, 6);
         assert!(
             engine
@@ -303,7 +314,7 @@ fn a_gold_bar_on_lumbridge_s_furnace_makes_a_sapphire_ring() {
             "2011's gold interface; the game said {said:?}"
         );
         assert!(
-            objects(&sent).contains(&(SAPPHIRE_RING, ring)),
+            objects(&sent).contains(&(SAPPHIRE_RING, ring.g2())),
             "the sapphire ring in its model; sent {:?}",
             objects(&sent)
         );
@@ -340,8 +351,13 @@ fn a_silver_bar_on_lumbridge_s_furnace_casts_holy_symbols() {
         let bar = obj(engine, "silver_bar");
         let mould = obj(engine, "holy_symbol_mould");
         let symbol = obj(engine, "nostringstar");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let mut client = beside(engine, "silversmith", AT_FURNACE, &[bar, mould, bar]);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let mut client = beside(
+            engine,
+            "silversmith",
+            AT_FURNACE,
+            &[bar.g2(), mould.g2(), bar.g2()],
+        );
         let player = engine.harness_player_mut(client.pid).unwrap();
         // Level 16, 2,411 xp (in tenths): 100 xp more is no level.
         player.stats.levels[CRAFTING] = 16;
@@ -349,7 +365,7 @@ fn a_silver_bar_on_lumbridge_s_furnace_casts_holy_symbols() {
         player.stats.xp[CRAFTING] = 24110;
         let xp = player.stats.xp[CRAFTING];
 
-        use_on(&mut client, bar, 0, FURNACE);
+        use_on(&mut client, bar.g2(), 0, FURNACE);
         let (sent, said) = sent_over(engine, &mut client, 6);
         assert!(
             engine
@@ -359,7 +375,7 @@ fn a_silver_bar_on_lumbridge_s_furnace_casts_holy_symbols() {
             "2011's silver casting; the game said {said:?}"
         );
         assert!(
-            objects(&sent).contains(&(HOLY_MODEL, symbol)),
+            objects(&sent).contains(&(HOLY_MODEL, symbol.g2())),
             "the symbol in its row; sent {:?}",
             objects(&sent)
         );
@@ -394,11 +410,11 @@ fn a_ball_of_wool_strings_a_gold_amulet() {
         let wool = obj(engine, "ball_of_wool");
         let amulet = obj(engine, "unstrung_gold_amulet");
         let strung = obj(engine, "strung_gold_amulet");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let mut client = beside(engine, "stringer", AT_FURNACE, &[wool, amulet]);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let mut client = beside(engine, "stringer", AT_FURNACE, &[wool.g2(), amulet.g2()]);
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[CRAFTING];
 
-        use_on_obj(&mut client, (wool, 0), (amulet, 1));
+        use_on_obj(&mut client, (wool.g2(), 0), (amulet.g2(), 1));
         let said = ticks(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -446,16 +462,16 @@ fn a_needle_on_leather_asks_in_2011_s_make_x_and_makes_gloves() {
         let thread = obj(engine, "thread");
         let leather = obj(engine, "leather");
         let gloves = obj(engine, "leather_gloves");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (mut client, xp) = crafter(
             engine,
             "leatherworker",
-            &[needle, thread, leather, leather],
+            &[needle.g2(), thread.g2(), leather.g2(), leather.g2()],
             1,
             0,
         );
 
-        use_on_obj(&mut client, (needle, 0), (leather, 2));
+        use_on_obj(&mut client, (needle.g2(), 0), (leather.g2(), 2));
         let said = ticks(engine, &mut client, 3);
         assert!(
             engine
@@ -485,11 +501,11 @@ fn a_chisel_cuts_a_sapphire() {
         let chisel = obj(engine, "chisel");
         let uncut = obj(engine, "uncut_sapphire");
         let sapphire = obj(engine, "sapphire");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         // Level 20, 4,470 xp: 50 xp more is no level.
-        let (mut client, xp) = crafter(engine, "gemcutter", &[chisel, uncut], 20, 44700);
+        let (mut client, xp) = crafter(engine, "gemcutter", &[chisel.g2(), uncut.g2()], 20, 44700);
 
-        use_on_obj(&mut client, (chisel, 0), (uncut, 1));
+        use_on_obj(&mut client, (chisel.g2(), 0), (uncut.g2(), 1));
         let said = ticks(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -507,11 +523,11 @@ fn studs_on_a_leather_body_make_a_studded_body() {
         let studs = obj(engine, "studs");
         let body = obj(engine, "leather_armour");
         let studded = obj(engine, "studded_body");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         // Level 41, 22,406 xp.
-        let (mut client, xp) = crafter(engine, "studder", &[studs, body], 41, 224060);
+        let (mut client, xp) = crafter(engine, "studder", &[studs.g2(), body.g2()], 41, 224060);
 
-        use_on_obj(&mut client, (studs, 0), (body, 1));
+        use_on_obj(&mut client, (studs.g2(), 0), (body.g2(), 1));
         let said = ticks(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -529,11 +545,11 @@ fn a_fire_orb_on_a_battlestaff_makes_a_fire_battlestaff() {
         let staff = obj(engine, "battlestaff");
         let orb = obj(engine, "fire_orb");
         let fire_staff = obj(engine, "fire_battlestaff");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         // Level 62, 333,804 xp.
-        let (mut client, xp) = crafter(engine, "staffmaker", &[orb, staff], 62, 3338040);
+        let (mut client, xp) = crafter(engine, "staffmaker", &[orb.g2(), staff.g2()], 62, 3338040);
 
-        use_on_obj(&mut client, (orb, 0), (staff, 1));
+        use_on_obj(&mut client, (orb.g2(), 0), (staff.g2(), 1));
         let said = ticks(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -552,17 +568,27 @@ fn red_and_yellow_dye_make_orange_which_dyes_a_cape() {
         let orange = obj(engine, "orangedye");
         let black_cape = obj(engine, "black_cape");
         let orange_cape = obj(engine, "orange_cape");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let (mut client, xp) = crafter(engine, "dyer", &[red, yellow, black_cape], 1, 0);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let (mut client, xp) = crafter(
+            engine,
+            "dyer",
+            &[red.g2(), yellow.g2(), black_cape.g2()],
+            1,
+            0,
+        );
 
-        use_on_obj(&mut client, (red, 0), (yellow, 1));
+        use_on_obj(&mut client, (red.g2(), 0), (yellow.g2(), 1));
         let mut said = ticks(engine, &mut client, 3);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
         let slot = (0..28)
             .find(|&s| backpack.get(s).is_some_and(|o| o.obj == orange))
             .unwrap_or_else(|| panic!("an orange dye; the game said {said:?}"));
-        use_on_obj(&mut client, (orange, slot as i32), (black_cape, 2));
+        use_on_obj(
+            &mut client,
+            (orange.g2(), slot as i32),
+            (black_cape.g2(), 2),
+        );
         said.extend(ticks(engine, &mut client, 3));
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();

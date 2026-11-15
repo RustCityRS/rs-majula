@@ -15,18 +15,19 @@ use rs_vm::trigger::ServerTriggerType;
 
 impl ClientGameHandler for OpLocT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let com = self.com.into();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let com = self.com;
+        let loc = self.loc;
         #[cfg(since_647)]
         if transmitted_inv(active, com).is_some() {
-            return oplocu::handle(self.x, self.z, self.loc, com, self.slot, self.obj, active);
+            return oplocu::handle(self.x, self.z, loc, com, self.slot, self.obj.g2(), active);
         }
         active.watch_use(
             Using::Spell(com),
             Target::Loc {
-                id: self.loc,
+                id: loc,
                 x: self.x,
                 z: self.z,
             },
@@ -36,12 +37,12 @@ impl ClientGameHandler for OpLocT {
             return Ok(());
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let slot = u16::MAX;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let slot = self.slot;
         #[cfg(since_647)]
-        if self.obj != u16::MAX {
+        if !self.obj.is_null() {
             active.unset_map_flag();
             return Ok(());
         }
@@ -56,16 +57,16 @@ impl ClientGameHandler for OpLocT {
         }
 
         let y = active.player.pathing.coord.y();
-        let Some(loc) = zone_loc(self.x, y, self.z, self.loc) else {
+        let Some(found) = zone_loc(self.x, y, self.z, loc) else {
             active.unset_map_flag();
             return Ok(());
         };
-        if active.shown_loc(self.loc).is_none() {
+        if active.shown_loc(loc).is_none() {
             active.unset_map_flag();
             return Ok(());
         }
 
-        let target = loc_target(CoordGrid::new(self.x, y, self.z), loc);
+        let target = loc_target(CoordGrid::new(self.x, y, self.z), found);
 
         active.clear_pending_action()?;
         active

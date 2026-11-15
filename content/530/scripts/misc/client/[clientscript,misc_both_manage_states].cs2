@@ -1,0 +1,417 @@
+// 1395
+[clientscript,misc_both_manage_states]
+if (%royal_quest >= 30) {
+    if_sethide(misc_both_manage:miscb_if_rarewood, false);
+    if_sethide(misc_both_manage:miscb_if_farm, false);
+} else {
+    if_sethide(misc_both_manage:miscb_if_rarewood, true);
+    if_sethide(misc_both_manage:miscb_if_farm, true);
+}
+if_settext(misc_both_manage:miscb_if_coffers_money, tostring(%misc_coffers));
+if (%misc_points_fish > 0) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar1, ^black);
+}
+if (%misc_points_fish > 1) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar2, ^black);
+}
+if (%misc_points_fish > 2) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar3, ^black);
+}
+if (%misc_points_fish > 3) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar4, ^black);
+}
+if (%misc_points_fish > 4) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar5, ^black);
+}
+if (%misc_points_fish > 5) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar6, ^black);
+}
+if (%misc_points_fish > 6) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar7, ^black);
+}
+if (%misc_points_fish > 7) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar8, ^black);
+}
+if (%misc_points_fish > 8) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar9, ^black);
+}
+if (%misc_points_fish > 9) {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_fishing_bar10, ^black);
+}
+if (%misc_points_mine > 0) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar1, ^black);
+}
+if (%misc_points_mine > 1) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar2, ^black);
+}
+if (%misc_points_mine > 2) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar3, ^black);
+}
+if (%misc_points_mine > 3) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar4, ^black);
+}
+if (%misc_points_mine > 4) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar5, ^black);
+}
+if (%misc_points_mine > 5) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar6, ^black);
+}
+if (%misc_points_mine > 6) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar7, ^black);
+}
+if (%misc_points_mine > 7) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar8, ^black);
+}
+if (%misc_points_mine > 8) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar9, ^black);
+}
+if (%misc_points_mine > 9) {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_mining_bar10, ^black);
+}
+if (%misc_points_herb > 0) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar1, ^black);
+}
+if (%misc_points_herb > 1) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar2, ^black);
+}
+if (%misc_points_herb > 2) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar3, ^black);
+}
+if (%misc_points_herb > 3) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar4, ^black);
+}
+if (%misc_points_herb > 4) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar5, ^black);
+}
+if (%misc_points_herb > 5) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar6, ^black);
+}
+if (%misc_points_herb > 6) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar7, ^black);
+}
+if (%misc_points_herb > 7) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar8, ^black);
+}
+if (%misc_points_herb > 8) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar9, ^black);
+}
+if (%misc_points_herb > 9) {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_herbs_bar10, ^black);
+}
+if (%misc_points_wood > 0) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar1, ^black);
+}
+if (%misc_points_wood > 1) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar2, ^black);
+}
+if (%misc_points_wood > 2) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar3, ^black);
+}
+if (%misc_points_wood > 3) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar4, ^black);
+}
+if (%misc_points_wood > 4) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar5, ^black);
+}
+if (%misc_points_wood > 5) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar6, ^black);
+}
+if (%misc_points_wood > 6) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar7, ^black);
+}
+if (%misc_points_wood > 7) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar8, ^black);
+}
+if (%misc_points_wood > 8) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar9, ^black);
+}
+if (%misc_points_wood > 9) {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_wood_bar10, ^black);
+}
+if (%misc_points_rarewood > 0) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar1, ^black);
+}
+if (%misc_points_rarewood > 1) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar2, ^black);
+}
+if (%misc_points_rarewood > 2) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar3, ^black);
+}
+if (%misc_points_rarewood > 3) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar4, ^black);
+}
+if (%misc_points_rarewood > 4) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar5, ^black);
+}
+if (%misc_points_rarewood > 5) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar6, ^black);
+}
+if (%misc_points_rarewood > 6) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar7, ^black);
+}
+if (%misc_points_rarewood > 7) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar8, ^black);
+}
+if (%misc_points_rarewood > 8) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar9, ^black);
+}
+if (%misc_points_rarewood > 9) {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_rarewood_bar10, ^black);
+}
+if (%misc_points_farm > 0) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar1, ^black);
+}
+if (%misc_points_farm > 1) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar2, ^black);
+}
+if (%misc_points_farm > 2) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar3, ^black);
+}
+if (%misc_points_farm > 3) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar4, ^black);
+}
+if (%misc_points_farm > 4) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar5, ^black);
+}
+if (%misc_points_farm > 5) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar6, ^black);
+}
+if (%misc_points_farm > 6) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar7, ^black);
+}
+if (%misc_points_farm > 7) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar8, ^black);
+}
+if (%misc_points_farm > 8) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar9, ^black);
+}
+if (%misc_points_farm > 9) {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_farm_bar10, ^black);
+}
+if (%if1 > 0) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar1, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar1, ^black);
+}
+if (%if1 > 1) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar2, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar2, ^black);
+}
+if (%if1 > 2) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar3, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar3, ^black);
+}
+if (%if1 > 3) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar4, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar4, ^black);
+}
+if (%if1 > 4) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar5, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar5, ^black);
+}
+if (%if1 > 5) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar6, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar6, ^black);
+}
+if (%if1 > 6) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar7, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar7, ^black);
+}
+if (%if1 > 7) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar8, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar8, ^black);
+}
+if (%if1 > 8) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar9, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar9, ^black);
+}
+if (%if1 > 9) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar10, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar10, ^black);
+}
+if (%if1 > 10) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar11, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar11, ^black);
+}
+if (%if1 > 11) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar12, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar12, ^black);
+}
+if (%if1 > 12) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar13, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar13, ^black);
+}
+if (%if1 > 13) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar14, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar14, ^black);
+}
+if (%if1 > 14) {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar15, ^white);
+} else {
+    if_setcolour(misc_both_manage:miscb_if_idle_bar15, ^black);
+}
+if (%if2 = 1) {
+    if_sethide(misc_both_manage:miscb_help_1, false);
+    if_sethide(misc_both_manage:miscb_help_2, false);
+} else {
+    if_sethide(misc_both_manage:miscb_help_1, true);
+    if_sethide(misc_both_manage:miscb_help_2, true);
+}
+if (%misc_herbs_or_flax = 1) {
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseherb, 180);
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseflax, 181);
+} else {
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseherb, 181);
+    if_setgraphic(misc_both_manage:miscb_if_herbs_chooseflax, 180);
+}
+if (%misc_rarewood_type = 0) {
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, 181);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, 180);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, 180);
+} else if (%misc_rarewood_type = 1) {
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, 180);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, 181);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, 180);
+} else {
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_choosemahogany, 180);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseteak, 180);
+    if_setgraphic(misc_both_manage:miscb_if_rarewood_chooseboth, 181);
+}
+if (%misc_cooked = 0) {
+    if_setgraphic(misc_both_manage:miscb_if_fishing_cooked, 180);
+} else {
+    if_setgraphic(misc_both_manage:miscb_if_fishing_cooked, 181);
+}

@@ -1,0 +1,88 @@
+// 6204
+[proc,clientscript_6204]
+~clientscript_5523;
+switch_int (%varplayerbit_10243) {
+    case 12 :
+        if_sethide(lobbyscreen:com_34, false);
+        if_sethide(lobbyscreen:com_338, true);
+        if_sethide(lobbyscreen:com_382, true);
+        if_sethide(lobbyscreen:com_409, false);
+        ~clientscript_6192;
+    case 1, 2, 8, 9 :
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 14 :
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 3, 4 :
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "The email validation process will continue once we have ensured that your addresses are secure. To speed up this process, please submit codes from both of your email addresses.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 5, 10, 11 :
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. The submitted code was invalid. Please check and try again.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 6 :
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. The submitted code has expired. Please re-register your email address.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 7 :
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. The code has already been submitted. Please request a new code, or submit an unused code.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 22 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_338, true);
+        if_sethide(lobbyscreen:com_382, false);
+        ~clientscript_6189;
+    case 13 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 15 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 16 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 17 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 18 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    case 19 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "This email address has already been registered with another account.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+        ~clientscript_5940;
+    case 20 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "The two email addresses did not match.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+        ~clientscript_5940;
+    case 21 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "The email address you entered was not valid.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+        ~clientscript_5940;
+    case 31 :
+        ~clientscript_5523;
+        if_setontimer(lobbyscreen:com_235, null);
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "The email address you entered could not be registered.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+        ~clientscript_5940;
+    case default :
+        ~clientscript_5523;
+        if_sethide(lobbyscreen:com_34, true);
+        ~lobby_popup(-5, 1, "There has been a failure in validating your email. An internal error has occurred. Please try again later.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+}

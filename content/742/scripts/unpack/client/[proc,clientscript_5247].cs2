@@ -1,0 +1,17 @@
+// 5247
+[proc,clientscript_5247]
+if_sethide(interface_1128:com_99, true);
+if_setgraphic(interface_1128:com_4, "aif_checkbox_large,5");
+if_sethide(interface_1128:com_129, true);
+if_setgraphic(interface_1128:com_106, "aif_checkbox_large,5");
+if_sethide(interface_1128:com_167, true);
+if_setgraphic(interface_1128:com_144, "aif_checkbox_large,5");
+if_sethide(interface_1128:com_204, true);
+if_setgraphic(interface_1128:com_181, "aif_checkbox_large,5");
+if_sethide(interface_1128:com_241, true);
+if_setgraphic(interface_1128:com_218, "aif_checkbox_large,5");
+if_sethide(interface_1128:com_278, true);
+if_setgraphic(interface_1128:com_255, "aif_checkbox_large,5");
+if_sethide(interface_1128:com_315, true);
+if_setgraphic(interface_1128:com_292, "aif_checkbox_large,5");
+if_settext(interface_1128:com_13, tostring(%varplayerbit_5505));

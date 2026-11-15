@@ -1,0 +1,30 @@
+// 670:0
+[layer_1]
+type=layer
+x=15
+y=8
+width=165
+height=245
+onload=script2737(event_com)
+
+// 670:1
+[popup]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+noclickthrough=yes
+
+// 670:2
+[com_2]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup
+colour=0x000000
+fill=yes
+trans=175

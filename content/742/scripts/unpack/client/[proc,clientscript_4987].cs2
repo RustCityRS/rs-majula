@@ -1,0 +1,26 @@
+// 4987
+[proc,clientscript_4987](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_struct $struct3 = null;
+def_struct $struct4 = null;
+def_int $int5 = 0;
+def_int $int6 = ~clientscript_4966($component0);
+if (op718 = 1) {
+    $int1 = ~clientscript_4949($int6);
+    %varplayerbit_9550 = $int1;
+}
+if (%varplayerbit_9552 = 1 | %varplayerbit_9552 = 2) {
+    $int1, $int2, $struct3, $struct4, $int5 = ~clientscript_4958($int6);
+    ~clientscript_4988(%varplayerbit_9550);
+    ~clientscript_4937;
+} else if (%varplayerbit_9552 = 4 | %varplayerbit_9552 = 3) {
+    %varplayerbit_9550 = ~clientscript_4949($int6);
+    ~clientscript_4988(%varplayerbit_9550);
+    ~clientscript_4937;
+    ~clientscript_4905;
+    ~clientscript_4907;
+    %varplayerbit_9552 = 1;
+    ~clientscript_4899(1);
+}
+return;

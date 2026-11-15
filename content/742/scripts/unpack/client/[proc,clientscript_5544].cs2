@@ -1,0 +1,26 @@
+// 5544
+[proc,clientscript_5544]
+def_int $int0 = ~clientscript_5542;
+if (map_members = false) {
+    switch_int (%varclient_1725) {
+        case 1 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(7)>");
+        case 2 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(6)>");
+        case 3 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(6)>");
+        case 4 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(1)>");
+    }
+} else {
+    switch_int (%varclient_1725) {
+        case 1 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(13)>");
+        case 2 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(8)>");
+        case 3 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(13)>");
+        case 4 :
+            if_settext(interface_1178:com_74, "<tostring($int0)> / <tostring(5)>");
+    }
+}

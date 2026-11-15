@@ -1,0 +1,44 @@
+// Take a free bronze axe from the pile of logs at the chicken farm by the
+// Lumbridge cow field (local 2011 wiki: "pick one up at the chicken farm by the
+// Lumbridge cow field"). The loc `fai_lumbridge_log_withaxe` (36974) shows a
+// hatchet; taking it swaps to the empty pile `fai_lumbridge_log_withoutaxe`
+// (36975) and reverts after a respawn delay — the same loc_change(stage,
+// respawn) mechanic our trees use to deplete to a stump and grow back. Global
+// (shared) respawn, like all RS ground spawns.
+//
+// 36974 is in the map landscape at (3232, 3296) (cache 786; 36975 is placed
+// nowhere, it is only swapped to); this was just missing its [oploc1]
+// handler. Symbol names from ref/rs3/config/dump.loc.
+//
+// After OSRS (captured via rsprox), not 2011: if you already own any axe you
+// get a plain mesbox (OSRS's "You already have an axe.", here "You already
+// have a hatchet."); otherwise the bronze axe is added, synth `take_axe`
+// plays and it is shown in an objbox. 2733 is the id of OSRS's live
+// sound_synth packet; no 2011 source found for the sound id or the messages.
+
+[oploc1,fai_lumbridge_log_withaxe]
+if (~has_axe = true) {
+    ~mesbox("You already have a hatchet.");
+    return;
+}
+if (inv_freespace(inv) < 1) {
+    ~mesbox("You don't have enough inventory space to take the hatchet.");
+    return;
+}
+inv_add(inv, bronze_axe, 1);
+loc_change(fai_lumbridge_log_withoutaxe, 100);
+sound_synth(remove_axe, 1, 0);
+~objbox(bronze_axe, "You take a bronze hatchet from the logs.", 400, 0, 0);
+
+// Returns true if the player already owns any axe (worn weapon slot or inv).
+// Mirrors OSRS's "you already have an axe" gate; obj names are the 647 `_hatchet`
+// family (rs-majula uses the `_axe` aliases).
+[proc,has_axe]()(boolean)
+def_obj $worn = inv_getobj(worn, ^weapon_slot);
+if ($worn = bronze_axe | $worn = iron_axe | $worn = steel_axe | $worn = black_axe | $worn = mithril_axe | $worn = adamant_axe | $worn = rune_axe | $worn = dragon_axe) {
+    return(true);
+}
+if (inv_total(inv, bronze_axe) > 0 | inv_total(inv, iron_axe) > 0 | inv_total(inv, steel_axe) > 0 | inv_total(inv, black_axe) > 0 | inv_total(inv, mithril_axe) > 0 | inv_total(inv, adamant_axe) > 0 | inv_total(inv, rune_axe) > 0 | inv_total(inv, dragon_axe) > 0) {
+    return(true);
+}
+return(false);

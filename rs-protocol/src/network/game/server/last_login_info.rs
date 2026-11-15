@@ -31,7 +31,7 @@ impl ServerProtMessage for LastLoginInfo {
     }
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 #[server_prot(LastLoginInfo, Buffered, Fixed)]
 pub struct LastLoginInfo {
     pub ip: i32,
@@ -41,7 +41,7 @@ pub struct LastLoginInfo {
     pub warn_members_in_non_members: bool,
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 impl ServerProtMessage for LastLoginInfo {
     fn encode(&self, buf: &mut Packet) {
         buf.p4(self.ip);
@@ -60,10 +60,21 @@ impl ServerProtMessage for LastLoginInfo {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(LastLoginInfo, Buffered, Fixed)]
 pub struct LastLoginInfo {
     pub login: i32,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for LastLoginInfo {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt2(self.login);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.login)
+    }
 }
 
 #[cfg(since_647)]

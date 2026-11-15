@@ -1,0 +1,163 @@
+// 5444
+[proc,clientscript_5444](int $int0)
+def_struct $struct1 = null;
+def_struct $struct2 = null;
+def_struct $struct3 = null;
+def_struct $struct4 = null;
+def_struct $struct5 = null;
+def_struct $struct6 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_graphic $graphic13 = null;
+def_graphic $graphic14 = null;
+def_graphic $graphic15 = null;
+def_graphic $graphic16 = null;
+def_graphic $graphic17 = null;
+def_graphic $graphic18 = null;
+%varclient_1681 = 0;
+if_setgraphic(interface_1168:com_28, 8430);
+if_setgraphic(interface_1168:com_27, 8430);
+if_setgraphic(interface_1168:com_26, 8430);
+if_setgraphic(interface_1168:com_25, 8430);
+if_setgraphic(interface_1168:com_24, 8430);
+if_setgraphic(interface_1168:com_23, 8430);
+if_settext(interface_1168:com_101, "Please select a monster.");
+if_settext(interface_1168:com_2, "");
+if_setcolour(interface_1168:com_77, 0xf5b241);
+if_setcolour(interface_1168:com_80, 0xf5b241);
+if_setcolour(interface_1168:com_82, 0xf5b241);
+if_setcolour(interface_1168:com_81, 0xf5b241);
+if_setcolour(interface_1168:com_83, 0xf5b241);
+if_setcolour(interface_1168:com_84, 0xf5b241);
+if_setcolour(interface_1168:com_85, 0xf5b241);
+if_setcolour(interface_1168:com_97, 0xf5b241);
+%varclient_1680 = $int0;
+if ($int0 = 1) {
+    if_setcolour(interface_1168:com_77, ^white);
+    $int7 = 1;
+    $int8 = 2;
+    $int9 = 3;
+    $int10 = 4;
+    $int11 = 5;
+    $int12 = 6;
+} else if ($int0 = 2) {
+    if_setcolour(interface_1168:com_80, ^white);
+    $int7 = 7;
+    $int8 = 8;
+    $int9 = 9;
+    $int10 = 10;
+    $int11 = 11;
+    $int12 = 12;
+} else if ($int0 = 3) {
+    if_setcolour(interface_1168:com_82, ^white);
+    $int7 = 13;
+    $int8 = 14;
+    $int9 = 15;
+    $int10 = 16;
+    $int11 = 17;
+    $int12 = 18;
+} else if ($int0 = 4) {
+    if_setcolour(interface_1168:com_81, ^white);
+    $int7 = 19;
+    $int8 = 20;
+    $int9 = 21;
+    $int10 = 22;
+    $int11 = 23;
+    $int12 = 24;
+} else if ($int0 = 5) {
+    if_setcolour(interface_1168:com_83, ^white);
+    $int7 = 25;
+    $int8 = 26;
+    $int9 = 27;
+    $int10 = 28;
+    $int11 = 29;
+    $int12 = 30;
+} else if ($int0 = 6) {
+    if_setcolour(interface_1168:com_84, ^white);
+    $int7 = 31;
+    $int8 = 32;
+    $int9 = 33;
+    $int10 = 34;
+    $int11 = 35;
+    $int12 = 36;
+} else if ($int0 = 7) {
+    if_setcolour(interface_1168:com_85, ^white);
+    $int7 = 37;
+    $int8 = 38;
+    $int9 = 39;
+    $int10 = 40;
+    $int11 = 41;
+    $int12 = 42;
+} else if ($int0 = 8) {
+    if_setcolour(interface_1168:com_97, ^white);
+    $int7 = 43;
+    $int8 = 44;
+    $int9 = 45;
+    $int10 = 46;
+    $int11 = 47;
+    $int12 = 48;
+}
+$struct1 = enum(int, struct, enum_5213, $int7);
+$struct2 = enum(int, struct, enum_5213, $int8);
+$struct3 = enum(int, struct, enum_5213, $int9);
+$struct4 = enum(int, struct, enum_5213, $int10);
+$struct5 = enum(int, struct, enum_5213, $int11);
+$struct6 = enum(int, struct, enum_5213, $int12);
+$string0 = struct_param($struct1, param_2095);
+$string1 = struct_param($struct2, param_2095);
+$string2 = struct_param($struct3, param_2095);
+$string3 = struct_param($struct4, param_2095);
+$string4 = struct_param($struct5, param_2095);
+$string5 = struct_param($struct6, param_2095);
+$graphic13 = struct_param($struct1, param_2101);
+$graphic14 = struct_param($struct2, param_2101);
+$graphic15 = struct_param($struct3, param_2101);
+$graphic16 = struct_param($struct4, param_2101);
+$graphic17 = struct_param($struct5, param_2101);
+$graphic18 = struct_param($struct6, param_2101);
+if_setgraphic(interface_1168:com_17, $graphic13);
+if_setgraphic(interface_1168:com_18, $graphic14);
+if_setgraphic(interface_1168:com_19, $graphic15);
+if_setgraphic(interface_1168:com_20, $graphic16);
+if_setgraphic(interface_1168:com_21, $graphic17);
+if_setgraphic(interface_1168:com_22, $graphic18);
+if (~clientscript_5451($int7) = 1) {
+    ~clientscript_5445(0, $string0, interface_1168:com_30, interface_1168:com_31, 1);
+} else {
+    ~clientscript_5445(0, $string0, interface_1168:com_30, interface_1168:com_31, 2);
+}
+if (~clientscript_5451($int8) = 1) {
+    ~clientscript_5445(0, $string1, interface_1168:com_32, interface_1168:com_33, 1);
+} else {
+    ~clientscript_5445(0, $string1, interface_1168:com_32, interface_1168:com_33, 2);
+}
+if (~clientscript_5451($int9) = 1) {
+    ~clientscript_5445(0, $string2, interface_1168:com_34, interface_1168:com_35, 1);
+} else {
+    ~clientscript_5445(0, $string2, interface_1168:com_34, interface_1168:com_35, 2);
+}
+if (~clientscript_5451($int10) = 1) {
+    ~clientscript_5445(0, $string3, interface_1168:com_36, interface_1168:com_37, 1);
+} else {
+    ~clientscript_5445(0, $string3, interface_1168:com_36, interface_1168:com_37, 2);
+}
+if (~clientscript_5451($int11) = 1) {
+    ~clientscript_5445(0, $string4, interface_1168:com_38, interface_1168:com_39, 1);
+} else {
+    ~clientscript_5445(0, $string4, interface_1168:com_38, interface_1168:com_39, 2);
+}
+if (~clientscript_5451($int12) = 1) {
+    ~clientscript_5445(0, $string5, interface_1168:com_40, interface_1168:com_41, 1);
+} else {
+    ~clientscript_5445(0, $string5, interface_1168:com_40, interface_1168:com_41, 2);
+}

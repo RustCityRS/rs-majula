@@ -1,0 +1,37 @@
+// 5080
+[proc,clientscript_5080](component $component0)
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(enum_3921);
+def_enum $enum3 = null;
+while ($int1 < $int2) {
+    $enum3 = enum(int, enum, enum_3921, $int1);
+    if ($enum3 ! null & cc_find($component0, calc($int1 * 10 + 9)) = true) {
+        cc_settext(enum(int, string, $enum3, ~clientscript_5089($enum3)));
+    }
+    $int1 = calc($int1 + 1);
+}
+switch_int (%varplayerbit_9539) {
+    case 1 :
+        if (%varclient_1095 = true) {
+            if_settext(interface_1114:com_8, "Press 'Confirm' when you've made your choices.");
+        } else {
+            if_settext(interface_1114:com_8, "Waiting for the battle's initiator to choose the rules...");
+        }
+    case 2 :
+        if (%varclient_1095 = true) {
+            if_settext(interface_1114:com_8, "Press 'Confirm' when you've made your choices.");
+        } else {
+            if_settext(interface_1114:com_8, "Waiting for <%varclient_2151> to choose the rules...");
+        }
+    case 3 :
+        if_settext(interface_1114:com_8, "Loading elements...");
+    case 4 :
+        if_settext(interface_1114:com_8, "Building elements...");
+    case 5 :
+        if_settext(interface_1114:com_8, "Failed to build battlefield.");
+    case 6 :
+        if_settext(interface_1114:com_8, "Initialising build mode.");
+    case default :
+        if_settext(interface_1114:com_8, "Loading...");
+}
+~clientscript_5085($component0);

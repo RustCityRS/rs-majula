@@ -1,0 +1,14 @@
+// 1809
+[proc,clientscript_1809](component $component0, component $component1, component $component2)
+def_string $string0 = "";
+if (string_length(%varclient_670) > 0) {
+    $string0 = ~clientscript_1814(%varclient_670);
+    if_settext($component1, $string0);
+    if_setsize($component1, parawidth($string0, 512, 496), 15, 0, 0);
+} else {
+    if_settext($component1, "");
+    if_setsize($component1, 0, 15, 0, 0);
+}
+%clanwars_caller_lastindex = -1;
+%varclient_671 = "";
+~clientscript_1811($component0, $component1, $component2);

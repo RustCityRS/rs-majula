@@ -1,0 +1,96 @@
+// 6417
+[proc,clientscript_6417](component $component0)
+switch_component ($component0) {
+    case interface_1308:com_14, interface_1308:com_70, interface_1308:com_72, interface_1308:com_74, interface_1308:com_76 :
+        ~clientscript_6406;
+    case interface_1308:com_36 :
+        if (%smki_missile_make = 1) {
+            ~clientscript_6408;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_38 :
+        if (%smki_ring_make = 1) {
+            ~clientscript_6408;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_40 :
+        if (%smki_head_make = 1) {
+            ~clientscript_6408;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_237 :
+        if (%varplayerbit_7235 = 1) {
+            ~clientscript_6408;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_240 :
+        if (%varplayerbit_7237 = 1) {
+            ~clientscript_6408;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_242 :
+        if (%smki_ice_strykewyrm_nofire = 1) {
+            ~clientscript_6408;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_12 :
+        if (%varplayerbit_11471 = 1) {
+            ~clientscript_6413;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_472 :
+        if (testbit(%varplayer_2381, calc(33 % 32)) = ^true) {
+            ~clientscript_6413;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_493 :
+        if (%varplayerbit_11472 = 1) {
+            ~clientscript_6413;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_495 :
+        if (testbit(%varplayer_2381, calc(34 % 32)) = ^true) {
+            ~clientscript_6413;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_19 :
+        if (%slayer_count = 0) {
+            ~clientscript_6410;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_21 :
+        if (%slayer_count = 0) {
+            ~clientscript_6410;
+            ~clientscript_6414($component0, 1);
+        }
+    case interface_1308:com_23 :
+        if (%varplayerbit_4785 = 0) {
+            ~clientscript_6410;
+            ~clientscript_6415($component0);
+        }
+    case interface_1308:com_25 :
+        if (%varplayerbit_4783 = 0) {
+            ~clientscript_6410;
+            ~clientscript_6415($component0);
+        }
+    case interface_1308:com_27 :
+        if (%varplayerbit_4786 = 0) {
+            ~clientscript_6410;
+            ~clientscript_6415($component0);
+        }
+    case interface_1308:com_29 :
+        if (%varplayerbit_4787 = 0) {
+            ~clientscript_6410;
+            ~clientscript_6415($component0);
+        }
+    case interface_1308:com_31 :
+        if (%varplayerbit_7234 = 0) {
+            ~clientscript_6410;
+            ~clientscript_6415($component0);
+        }
+    case interface_1308:com_33 :
+        if (%varplayerbit_10241 = 0) {
+            ~clientscript_6410;
+            ~clientscript_6415($component0);
+        }
+}

@@ -1,0 +1,45 @@
+// 760:0
+[textbox]
+type=text
+x=100
+y=20
+width=400
+height=93
+textfont=fontmetrics_307
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 760:1
+[com_1]
+type=model
+x=10
+y=20
+width=90
+height=93
+model=null
+modelzoom=400
+modelunknown=0,400,0
+
+// 760:2
+[com_2]
+type=graphic
+x=10
+y=20
+width=90
+height=93
+
+// 760:3
+[mesnext]
+type=text
+x=1
+y=111
+width=504
+height=17
+textfont=fontmetrics_307
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

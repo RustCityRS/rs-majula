@@ -1,0 +1,6 @@
+// 6503
+[proc,clientscript_6503](component $component0, component $component1)
+def_int $int2 = 0;
+def_int $int3 = calc(if_getwidth($component0) - if_getwidth($component1));
+$int2 = scale($int3, 100, calc(%varclient_1971 - 170));
+if_setposition($component1, $int2, 0, ^setpos_abs_left, ^setpos_abs_top);

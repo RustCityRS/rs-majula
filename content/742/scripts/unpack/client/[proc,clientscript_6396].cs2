@@ -1,0 +1,6 @@
+// 6396
+[proc,clientscript_6396]
+if_sethide(interface_1307:com_42, false);
+if_sethide(interface_1307:com_72, false);
+if_settext(interface_1307:com_108, "Rewards Locked");
+if_settext(interface_1307:com_109, "You need to purchase the 'Unlock Silver Tier' reward to buy this item.");

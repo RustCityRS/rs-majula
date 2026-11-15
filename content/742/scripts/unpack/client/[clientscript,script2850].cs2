@@ -1,0 +1,25 @@
+// 2850
+[clientscript,script2850]
+%machinima_livecamera_height = 500;
+%machinima_livecamera_position = movecoord(coord, 0, 0, -8);
+%machinima_livecamera_lookatposition = 0;
+%machinima_livecamera_lookatpositioncoord = coord;
+%machinima_livecamera_lookatheight = 450;
+%machinima_livecamera_targetmode = 0;
+%machinima_livecamera_plannedmove_cameraspeed = 25;
+cam_moveto(%machinima_livecamera_position, %machinima_livecamera_height, 10, 3);
+cam_lookat(~script2865(%machinima_livecamera_position, %machinima_livecamera_lookatposition), %machinima_livecamera_lookatheight, 10, 3);
+%machinima_compass_angle = 0;
+%machinima_compass_current_angle = 0;
+if_setonkey(machinima_livecamera:blockclick, "script2851(event_com, event_keycode, 0)");
+if_sethide(machinima_livecamera:com_54, false);
+if_sethide(machinima_livecamera:compasslayer, false);
+if_sethide(machinima_livecamera:storemovie, false);
+if_sethide(machinima_livecamera:com_33, true);
+if_setgraphic(machinima_livecamera:mode_icon, "catcon_catapult_icons,8");
+if_settext(machinima_livecamera:message_text, "You are now in Aim Mode");
+if_setontimer(machinima_livecamera:blockclick, "script2853(machinima_livecamera:blockclick, clientclock)");
+if_setontimer(machinima_livecamera:compasslayer, "script2852(machinima_livecamera:compasslayer)");
+if_sethide(machinima_livecamera:exithint, false);
+if_setontimer(machinima_livecamera:exithint, "script2870(event_com, calc(clientclock + 150))");
+~script3455;

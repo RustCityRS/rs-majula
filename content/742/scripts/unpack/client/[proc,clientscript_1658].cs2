@@ -1,0 +1,15 @@
+// 1658
+[proc,clientscript_1658]
+if (%varclient_1734 = 1) {
+    if_set2dangle(interface_1180:com_43, 0);
+    if_sethide(interface_1180:com_41, false);
+    if_setsize(interface_1180:com_6, 172, 179, ^setsize_abs, ^setsize_abs);
+    if_setop(interface_1180:com_43, 1, "Hide");
+    %varclient_1734 = 0;
+} else {
+    if_set2dangle(interface_1180:com_43, 32768);
+    if_sethide(interface_1180:com_41, true);
+    if_setsize(interface_1180:com_6, 172, 50, ^setsize_abs, ^setsize_abs);
+    if_setop(interface_1180:com_43, 1, "Unhide");
+    %varclient_1734 = 1;
+}

@@ -1,0 +1,18 @@
+// 4801
+[proc,clientscript_4801](int $int0)
+switch_int ($int0) {
+    case default :
+        %varclient_1659 = 0;
+        if_settext(interface_1143:com_31, "Price: Low-High");
+    case 1 :
+        %varclient_1659 = 1;
+        if_settext(interface_1143:com_31, "Price: High-Low");
+    case 2 :
+        %varclient_1659 = 2;
+        if_settext(interface_1143:com_31, "Name: A-Z");
+    case 3 :
+        %varclient_1659 = 3;
+        if_settext(interface_1143:com_31, "Name: Z-A");
+}
+if_sethide(interface_1143:com_26, true);
+~clientscript_5350(%varplayerbit_9487, interface_1143:com_5);

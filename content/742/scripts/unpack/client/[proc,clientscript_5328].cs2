@@ -1,0 +1,44 @@
+// 5328
+[proc,clientscript_5328]
+def_int $int0 = 0;
+def_int $int1 = 1;
+def_int $int2 = calc((if_getwidth(interface_951:com_24) - (8 - 1) * $int1) / 8);
+def_int $int3 = calc(($int2 + $int1) * 8 - $int1);
+if_setsize(interface_951:com_2, calc($int3 + 12), if_getheight(interface_951:com_2), ^setsize_abs, ^setsize_abs);
+cc_deleteall(interface_951:com_24);
+def_int $int4 = 0;
+while ($int0 < 8) {
+    cc_create(interface_951:com_24, ^iftype_graphic, calc($int0 * 6));
+    cc_setgraphic("aif_progress_bar_fill_3,0");
+    cc_setsize(6, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(0x535353);
+    cc_create(interface_951:com_24, ^iftype_graphic, calc($int0 * 6 + 1));
+    cc_setgraphic("aif_progress_bar_fill_3,1");
+    cc_setsize(calc($int2 - 12), 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(calc($int4 + 6), 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_sethide(false);
+    cc_setcolour(0x535353);
+    cc_create(interface_951:com_24, ^iftype_graphic, calc($int0 * 6 + 2));
+    cc_setgraphic("aif_progress_bar_fill_3,2");
+    cc_setsize(6, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(calc($int4 + $int2 - 6), 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setcolour(0x535353);
+    cc_create(interface_951:com_24, ^iftype_graphic, calc($int0 * 6 + 3));
+    cc_setgraphic("aif_progress_bar_fill_3,0");
+    cc_setsize(6, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_create(interface_951:com_24, ^iftype_graphic, calc($int0 * 6 + 4));
+    cc_setgraphic("aif_progress_bar_fill_3,1");
+    cc_setsize(calc($int2 - 12), 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(calc($int4 + 6), 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_sethide(false);
+    cc_create(interface_951:com_24, ^iftype_graphic, calc($int0 * 6 + 5));
+    cc_setgraphic("aif_progress_bar_fill_3,2");
+    cc_setsize(6, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(calc($int4 + $int2 - 6), 0, ^setpos_abs_left, ^setpos_abs_top);
+    $int4 = calc($int4 + $int1 + $int2);
+    $int0 = calc($int0 + 1);
+}
+%varclient_1657 = -1;
+%varclient_1658 = 0;

@@ -1,0 +1,30 @@
+// 2872
+[proc,music_playlist_toggle_interface]
+if (%music_playlist_toggle_varc = true) {
+    if_setgraphic(music_v3:playlist_interface, "music_header_icons,1");
+    ~music_playlist_onload;
+    if_sethide(music_v3:jukebox, true);
+    if_sethide(music_v3:scrollbar, true);
+    if_sethide(music_v3:music_search, true);
+    if_sethide(music_v3:music_search_empty, true);
+    if_sethide(music_v3:playlist, false);
+    if_sethide(music_v3:playlist_on, false);
+    if_sethide(music_v3:playlist_clear, false);
+    if_sethide(music_v3:playlist_random, false);
+    ~music_search_close;
+    if (%playlist_0 = 32767) {
+        if_sethide(music_v3:playlist_empty, false);
+    }
+} else {
+    if_setgraphic(music_v3:playlist_interface, "music_header_icons,0");
+    if_sethide(music_v3:playlist, true);
+    if_sethide(music_v3:playlist_on, true);
+    if_sethide(music_v3:playlist_clear, true);
+    if_sethide(music_v3:playlist_random, true);
+    if_sethide(music_v3:playlist_empty, true);
+    if_sethide(music_v3:music_search_empty, true);
+    if_sethide(music_v3:jukebox, false);
+    if_sethide(music_v3:scrollbar, false);
+    if_sethide(music_v3:music_search, false);
+}
+%tooltip_built = 0;

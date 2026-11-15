@@ -1,0 +1,432 @@
+// 742's quest list (questlist_v4, 190) works out each row's state itself (clientscript 2193,
+// ql4_getprogress): 0 not started, 1 started, 2 complete. Its rows' ops depend on that state, so
+// the server reads them with the same switch, copied here.
+[proc,quest_state](int $quest)(int)
+switch_int ($quest) {
+    case 147 :
+        return(~quest_state_basic(%tutorial, 1000));
+    case 159 :
+        return(~quest_state_basic(%spy, 4));
+    case 1 :
+        return(~quest_state_basic(%cookquest, 2));
+    case 2 :
+        return(~quest_state_basic(%demonslayer_main, 3));
+    case 4 :
+        return(~quest_state_basic(%dragonquest, 10));
+    case 5 :
+        return(~quest_state_basic(%haunted, 3));
+    case 6 :
+        return(~quest_state_basic(%gobdip_main, 6));
+    case 7 :
+        return(~quest_state_basic(%imp, 2));
+    case 8 :
+        return(~quest_state_basic(%squire, 7));
+    case 9 :
+        return(~quest_state_basic(%hunt, 4));
+    case 11 :
+        return(~quest_state_basic(%prieststart, 5));
+    case 13 :
+        return(~quest_state_basic(%runemysteries, 6));
+    case 15 :
+        return(~quest_state_multi(%phoenixgang, 7, %blackarmgang, 4));
+    case 16 :
+        return(~quest_state_basic(%vampire_quest, 3));
+    case 18 :
+        return(~quest_state_basic(%anma_main, 240));
+    case 19 :
+        return(~quest_state_basic(%dwarfrock_quest, 110));
+    case 20 :
+        return(~quest_state_basic(%chompybird, 65));
+    case 21 :
+        return(~quest_state_basic(%biohazard, 16));
+    case 22 :
+        return(~quest_state_basic(%varplayer_655, 140));
+    case 23 :
+        return(~quest_state_basic(%cogquest, 8));
+    case 24 :
+        return(~quest_state_basic(%contact, 130));
+    case 25 :
+        return(~quest_state_basic(%zogre, 14));
+    case 26 :
+        if (%fenk_quest > 6) {
+            return(2);
+        }
+        if (%fenk_quest = 0 & %fenk_read_signpost = 0) {
+            return(0);
+        }
+        return(1);
+    case 27 :
+        return(~quest_state_basic(%myq3_main_quest, 320));
+    case 28 :
+        return(~quest_state_basic(%dttd_main, 13));
+    case 29 :
+        if (%death_equiproom >= 80) {
+            return(2);
+        } else {
+            return(~quest_state_basic(%varplayerbit_10761, 65));
+        }
+    case 30 :
+        return(~quest_state_basic(%deserttreasure, 15));
+    case 31 :
+        return(~quest_state_basic(%devious_main, 80));
+    case 32 :
+        return(~quest_state_basic(%itexamlevel, 9));
+    case 33 :
+        if (%druidquest >= 4) {
+            return(2);
+        } else {
+            return(~quest_state_basic(%varplayerbit_10776, 8));
+        }
+    case 34 :
+        return(~quest_state_basic(%mcannon, 11));
+    case 35 :
+        return(~quest_state_basic(%eadgar_quest, 110));
+    case 36 :
+        return(~quest_state_basic(%eaglepeak_quest, 40));
+    case 37 :
+        if (testbit(%elemental_workshop_bits, 20) = ^true) {
+            return(2);
+        } else if (testbit(%elemental_workshop_bits, 1) = ^false) {
+            return(0);
+        } else {
+            return(1);
+        }
+    case 38 :
+        return(~quest_state_basic(%elemental_quest_2_main, 11));
+    case 39 :
+        return(~quest_state_basic(%enakh_quest, 70));
+    case 40 :
+        return(~quest_state_basic(%zep_quest, 200));
+    case 41 :
+        return(~quest_state_basic(%eyeglo_quest, 60));
+    case 42 :
+        return(~quest_state_basic(%fairy_farmers_quest, 90));
+    case 43 :
+        return(~quest_state_basic(%fairy2_queencure_quest, 90));
+    case 44 :
+        return(~quest_state_basic(%crestquest, 11));
+    case 45 :
+        return(~quest_state_basic(%feud_var, 28));
+    case 46 :
+        return(~quest_state_basic(%arenaquest, 14));
+    case 47 :
+        return(~quest_state_basic(%fishingcompo, 5));
+    case 48 :
+        return(~quest_state_basic(%forget_quest, 140));
+    case 49 :
+        return(~quest_state_basic(%viking, 10));
+    case 50 :
+        return(~quest_state_basic(%waterfall_quest, 10));
+    case 51 :
+        return(~quest_state_basic(%garden_quest, 60));
+    case 52 :
+        return(~quest_state_basic(%fluffs, 6));
+    case 53 :
+        return(~quest_state_basic(%ahoy_questvar, 8));
+    case 54 :
+        return(~quest_state_basic(%giantdwarf_quest, 50));
+    case 55 :
+        return(~quest_state_basic(%golem_a, 10));
+    case 56 :
+        return(~quest_state_basic(%grandtree, 160));
+    case 57 :
+        return(~quest_state_basic(%handsand_quest, 160));
+    case 58 :
+        return(~quest_state_basic(%hauntedmine, 11));
+    case 59 :
+        return(~quest_state_basic(%hazeelcultquest, 9));
+    case 60 :
+        return(~quest_state_basic(%heroquest, 15));
+    case 61 :
+        return(~quest_state_basic(%grail, 10));
+    case 62 :
+        return(~quest_state_basic(%horrorquest, 10));
+    case 63 :
+        return(~quest_state_basic(%ics_little_var, 26));
+    case 64 :
+        return(~quest_state_basic(%myreque_2_quest, 430));
+    case 65 :
+        return(~quest_state_basic(%routequest, 105));
+    case 66 :
+        return(~quest_state_basic(%junglepotion, 12));
+    case 67 :
+        return(~quest_state_basic(%legendsquest, 75));
+    case 68 :
+        return(~quest_state_basic(%zanaris, 6));
+    case 69 :
+        return(~quest_state_basic(%lost_tribe_quest, 11));
+    case 70 :
+        return(~quest_state_basic(%lunar_quest_main, 190));
+    case 71 :
+        return(~quest_state_basic(%makinghistory_prog, 4));
+    case 72 :
+        return(~quest_state_basic(%arthur, 7));
+    case 73 :
+        return(~quest_state_detail(%mm_main, 1, 9));
+    case 74 :
+        return(~quest_state_basic(%drunkmonkquest, 80));
+    case 75 :
+        return(~quest_state_basic(%mdaughter_quest_var, 70));
+    case 76 :
+        return(~quest_state_basic(%varplayer_517, 8));
+    case 77 :
+        return(~quest_state_detail(%mourning_quest_main, 9, 60));
+    case 78 :
+        return(~quest_state_basic(%murderquest, 2));
+    case 79 :
+        return(~quest_state_basic(%myarm, 320));
+    case 80 :
+        return(~quest_state_basic(%druidspirit, 110));
+    case 81 :
+        return(~quest_state_basic(%itgronigen, 7));
+    case 82 :
+        return(~quest_state_basic(%varplayer_416, 280));
+    case 83 :
+        return(~quest_state_basic(%elenaquest, 29));
+    case 84 :
+        return(~quest_state_basic(%priestperil, 60));
+    case 85 :
+        return(~quest_state_basic(%varplayerbit_6178, 4));
+    case 86 :
+        return(~quest_state_basic(%ratcatch_var, 127));
+    case 87 :
+        return(~quest_state_basic(%hundred_main_quest_var, 5));
+    case 88 :
+        return(~quest_state_basic(%rd_main, 2));
+    case 89 :
+        return(~quest_state_basic(%regicide_quest, 15));
+    case 90 :
+        return(~quest_state_basic(%varplayer_402, 6));
+    case 91 :
+        return(~quest_state_basic(%royal_quest, 30));
+    case 92 :
+        return(~quest_state_basic(%varplayer_600, 19));
+    case 93 :
+        return(~quest_state_basic(%scorpcatcher, 6));
+    case 94 :
+        return(~quest_state_basic(%seaslugquest, 12));
+    case 95 :
+        return(~quest_state_basic(%slug2_main, 14));
+    case 96 :
+        return(~quest_state_basic(%morttonquest, 85));
+    case 97 :
+        return(~quest_state_basic(%agrith_quest, 125));
+    case 98 :
+        return(~quest_state_basic(%sheepherderquest, 3));
+    case 99 :
+        return(~quest_state_basic(%zombiequeen, 15));
+    case 100 :
+        return(~quest_state_basic(%soulbane_prog, 13));
+    case 101 :
+        return(~quest_state_basic(%elidquest, 60));
+    case 102 :
+        return(~quest_state_basic(%swansong, 200));
+    case 103 :
+        return(~quest_state_detail(%tbwt_main, 3, 6));
+    case 104 :
+        return(~quest_state_basic(%twocats_quest, 70));
+    case 105 :
+        return(~quest_state_basic(%tog_juna_bowl, 2));
+    case 106 :
+        return(~quest_state_basic(%ikov, 80));
+    case 107 :
+        return(~quest_state_basic(%misc_quest, 100));
+    case 108 :
+        return(~quest_state_basic(%desertrescue, 30));
+    case 109 :
+        return(~quest_state_basic(%ballquest, 7));
+    case 110 :
+        return(~quest_state_basic(%treequest, 9));
+    case 111 :
+        return(~quest_state_basic(%totemquest, 5));
+    case 112 :
+        return(~quest_state_basic(%troll_love, 45));
+    case 113 :
+        return(~quest_state_basic(%troll_quest, 50));
+    case 114 :
+        if (%upass = 10) {
+            return(2);
+        }
+        if (testbit(%ibanmulti, 11) = ^false) {
+            return(0);
+        }
+        return(1);
+    case 115 :
+        return(~quest_state_basic(%wanted_main, 11));
+    case 116 :
+        return(~quest_state_basic(%itwatchtower, 13));
+    case 117 :
+        return(~quest_state_basic(%peng_quest, 135));
+    case 118 :
+        return(~quest_state_basic(%fris_quest, 340));
+    case 119 :
+        return(~quest_state_basic(%tol_prog, 18));
+    case 120 :
+        return(~quest_state_basic(%brain_quest_var, 130));
+    case 121 :
+        return(~quest_state_basic(%surok_quest, 150));
+    case 122 :
+        return(~quest_state_basic(%olaf_quest_var, 80));
+    case 123 :
+        return(~quest_state_basic(%slice_quest, 11));
+    case 124 :
+        return(~quest_state_basic(%dream_prog, 28));
+    case 125 :
+        return(~quest_state_basic(%grim_quest, 60));
+    case 126 :
+        return(~quest_state_basic(%kr_quest, 90));
+    case 127 :
+        return(~quest_state_basic(%pog_main, 200));
+    case 128 :
+        return(~quest_state_basic(%roots_quest, 65));
+    case 129 :
+        return(~quest_state_basic(%lotg_quest, 18));
+    case 130 :
+        return(~quest_state_basic(%scab, 700));
+    case 131 :
+        if (%wolf_quest >= 110) {
+            return(2);
+        } else {
+            return(~quest_state_basic(%varplayerbit_10733, 35));
+        }
+    case 132 :
+        return(~quest_state_detail(%afr_quest, 10, 200));
+    case 133 :
+        return(~quest_state_basic(%catcon_main, 60));
+    case 134 :
+        return(~quest_state_basic(%ken_main, 100));
+    case 135 :
+        return(~quest_state_basic(%myq4_main_quest, 500));
+    case 136 :
+        return(~quest_state_basic(%icemt_quest, 150));
+    case 137 :
+        return(~quest_state_basic(%dillo_quest, 63));
+    case 138 :
+        return(~quest_state_basic(%smki, 250));
+    case 139 :
+        return(~quest_state_basic(%rocko_quest, 100));
+    case 140 :
+        return(~quest_state_basic(%sum1_quest, 80));
+    case 141 :
+        return(~quest_state_basic(%hist_prog, 20));
+    case 142 :
+        return(~quest_state_basic(%firedup_quest, 90));
+    case 143 :
+        return(~quest_state_basic(%sum2_quest, 35));
+    case 144 :
+        return(~quest_state_basic(%zemo_main, 250));
+    case 145 :
+        return(~quest_state_basic(%luc2_main_quest, 910));
+    case 146 :
+        return(~quest_state_basic(%phoenix_quest_var, 30));
+    case 148 :
+        return(~quest_state_basic(%motwl_main, 60));
+    case 149 :
+        return(~quest_state_detail(%glomem_quest, 3, 45));
+    case 150 :
+        return(~quest_state_detail(%mah1_quest, 10, 250));
+    case 155 :
+        return(~quest_state_basic(%mom2_main, 60));
+    case 156 :
+        return(~quest_state_basic(%mah3_main, 240));
+    case 157 :
+        return(~quest_state_basic(%mah4_main, 90));
+    case 151 :
+        return(~quest_state_detail(%peng_rak_quest, 2, 140));
+    case 152 :
+        return(~quest_state_basic(%chosen_quest, 110));
+    case 153 :
+        return(~quest_state_basic(%swept_quest, 50));
+    case 154 :
+        return(~quest_state_detail(%varplayerbit_6307, 2, 5));
+    case 158 :
+        return(~quest_state_detail(%ft3_quest, 10, 180));
+    case 160 :
+        return(~quest_state_basic(%ra3_quest, 90));
+    case 161 :
+        return(~quest_state_basic(%wtl_main_quest_var, 46));
+    case 162 :
+        return(~quest_state_basic(%nom_quest, 12));
+    case 163 :
+        return(~quest_state_detail(%evq_quest, 3, 147));
+    case 165 :
+        return(~quest_state_basic(%rm_quest, 35));
+    case 167 :
+        return(~quest_state_basic(%thigui_humble, 30));
+    case 168 :
+        return(~quest_state_basic(%love, 150));
+    case 170 :
+        return(~quest_state_basic(%lumbcat_quest, 60));
+    case 171 :
+        return(~quest_state_basic(%vkq1_quest, 90));
+    case 172 :
+        return(~quest_state_basic(%elem_3_main, 5));
+    case 173 :
+        return(~quest_state_detail(%vkq2_quest, 2, 63));
+    case 14 :
+        return(~quest_state_basic(%ra4_quest, 90));
+    case 174 :
+        return(~quest_state_basic(%vkq3_quest, 40));
+    case 17 :
+        return(~quest_state_basic(%romcom_quest, 100));
+    case 176 :
+        return(~quest_state_basic(%varplayerbit_9829, 400));
+    case 179 :
+        return(~quest_state_detail(%apmeken_master, 10, 315));
+    case 12 :
+        return(~quest_state_basic(%glo3_main, 120));
+    case 180 :
+        return(~quest_state_basic(%elem_4_main, 9));
+    case 181 :
+        return(~quest_state_detail(%acs_quest, 10, 210));
+    case 182 :
+        return(~quest_state_basic(%varplayerbit_9369, 50));
+    case 183 :
+        return(~quest_state_detail(%varplayerbit_9491, 5, 250));
+    case 184 :
+        return(~quest_state_basic(%varplayerbit_9757, 170));
+    case 187 :
+        return(~quest_state_basic(%varplayerbit_10138, 100));
+    case 188 :
+        return(~quest_state_basic(%varplayerbit_10747, 40));
+    case 190 :
+        return(~quest_state_basic(%varplayerbit_10809, 170));
+    case 191 :
+        return(~quest_state_basic(%varplayerbit_10383, 270));
+    case 178 :
+        return(~quest_state_detail(%varplayerbit_11402, 5, 100));
+    case 164 :
+        return(2);
+    case 192 :
+        return(~quest_state_basic(%varplayerbit_11169, 75));
+    case 193 :
+        return(~quest_state_detail(%varplayerbit_11787, 5, 175));
+    case 175 :
+        return(~quest_state_basic(%varplayerbit_12052, 105));
+    case 177 :
+        return(~quest_state_basic(%varplayerbit_12032, 120));
+    case 3 :
+        return(~quest_state_detail(%duelwornoptions, 4, 55));
+    case default :
+        return(0);
+}
+
+[proc,quest_state_basic](int $var, int $complete)(int)
+return(~quest_state_detail($var, 1, $complete));
+
+[proc,quest_state_detail](int $var, int $start, int $complete)(int)
+if ($var < $start) {
+    return(0);
+}
+if ($var < $complete) {
+    return(1);
+}
+return(2);
+
+[proc,quest_state_multi](int $var1, int $complete1, int $var2, int $complete2)(int)
+if ($var1 = 0 & $var2 = 0) {
+    return(0);
+} else if ($var1 < $complete1 & $var2 < $complete2) {
+    return(1);
+}
+return(2);

@@ -1,0 +1,10 @@
+// 719
+[proc,clientscript_719](component $component0, component $component1, component $component2, graphic $graphic3, graphic $graphic4, int $int5, string $string0, string $string1, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11, obj $obj12, int $int13)
+if ($obj6 = lore_bull_rush) {
+    $int5, $string0, $obj6 = ~clientscript_775($obj6);
+}
+if_setopbase($component0, "<col=00ff00><$string0>");
+$string0 = append($string0, " (<tostring(%varplayerbit_4288)> Special Move points)");
+~lore_updateicon($component0, lore_stats_side:build_layer, $graphic3, $graphic4, $int5, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13);
+if_setonmouserepeat($component0, "magic_addtooltip($component0, lore_stats_side:build_layer, $int5, $string0, $string1, $obj6, $int7, $obj8, $int9, $obj10, $int11, $obj12, $int13)");
+if_setonmouseleave($component0, "lore_deltooltip(lore_stats_side:build_layer)");

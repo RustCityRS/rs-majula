@@ -1,0 +1,21 @@
+// Keeps the rev-647 HP orb coherent when the Constitution skill level changes.
+//
+// In the 2011 (Constitution) model, current life points live in varbit
+// life_points (7198) as a granular pool (0..max), driven by combat damage
+// (engine) and the [timer,health_regen] timer. Max is derived client-side from
+// the Hitpoints skill level x10. This trigger fires when that skill level
+// changes (level-up / boost / drain); it only clamps current life points DOWN
+// to the new max, so a level-up never reduces current HP, and damage (which
+// does NOT fire this) never snaps the orb back to full.
+[changestat,hitpoints]
+def_int $max = calc(stat(hitpoints) * 10);
+if (%life_points > $max) {
+    %life_points = $max;
+}
+// 289's [changestat,_] answers every stat; this trigger takes hitpoints from
+// it, so it runs 289's combat stat update too.
+gosub(player_combat_stat);
+
+// 289's player/scripts/changestat.rs2: a stat's change recomputes the combat
+// varps (attack and defence rolls, max hit) from the new level.
+[changestat,_] gosub(player_combat_stat);

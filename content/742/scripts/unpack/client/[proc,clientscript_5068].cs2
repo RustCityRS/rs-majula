@@ -1,0 +1,11 @@
+// 5068
+[proc,clientscript_5068](string $string0, int $int0)(int)
+cc_create(interface_1111:com_27, ^iftype_text, if_getnextsubid(interface_1111:com_27));
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(0xdfcfbf);
+def_int $int1 = calc(paraheight($string0, if_getwidth(interface_1111:com_27), p11_full) * 10 + 2);
+cc_setsize(0, $int1, ^setsize_minus, ^setsize_abs);
+cc_settext($string0);
+cc_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top);
+return($int1);

@@ -1,0 +1,18 @@
+// 6857
+[proc,clientscript_6857](int $int0, component $component1, int $int2)
+def_int $int3 = calc(clientclock - $int0);
+if ($int3 = 0 & $int2 = 1) {
+    if_setmodelanim(interface_1355:com_1, seq_17717);
+}
+if ($int3 < 50) {
+    if_settrans($component1, calc(255 - scale($int3, 50, 255)));
+} else if ($int3 = 50) {
+    if_settrans($component1, 0);
+    if_setmodelanim(interface_1355:com_1, null);
+    if_setmodel(interface_1355:com_1, null);
+} else if ($int3 > 100) {
+    if_settrans($component1, scale(calc($int3 - 100), 150, 255));
+}
+if ($int3 >= 250) {
+    if_setontimer($component1, null);
+}

@@ -1,0 +1,41 @@
+// 6036
+[proc,clientscript_6036](stat $stat0, int $int1, obj $obj2)(string)
+if ($stat0 = null) {
+    return("N/A");
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (oc_param($obj2, param_2549) > -1) {
+    return("<enum(stat, string, enum_680, $stat0)> XP");
+}
+switch_obj ($obj2) {
+    case default :
+        $int3 = calc($int1 / 10);
+    case peng_spy_notebook, reward_book, reward_book_20936, small_xp_lamp, medium_xp_lamp, large_xp_lamp, huge_xp_lamp, easter_lamp :
+        return("<enum(stat, string, enum_680, $stat0)> XP");
+    case macro_genilamp, swept_bowl, humble_pie :
+        $int3 = calc(stat_base($stat0) * 10);
+    case pattern_reward :
+        $int3 = calc(stat_base($stat0) * 15);
+    case lmm_xp_lamp :
+        $int4 = stat_base($stat0);
+        if ($int4 <= 18) {
+            $int3 = calc(enum(int, int, enum_716, calc($int4 + 1)) - enum(int, int, enum_716, $int4));
+        } else {
+            $int3 = calc(stat_base($stat0) * 25);
+        }
+    case effi_dragonkin_lamp :
+        $int4 = stat_base($stat0);
+        if ($int4 < 30) {
+            $int3 = calc(enum(int, int, enum_716, calc($int4 + 1)) - enum(int, int, enum_716, $int4));
+        } else {
+            $int3 = calc($int4 * $int4 - 2 * $int4 + 100);
+            $int3 = calc($int3 * ($int4 * 10000 / 20));
+            $int3 = calc($int3 / 10000);
+        }
+    case reward_book_20960, clan_cloak :
+        $int4 = stat_base($stat0);
+        $int3 = pow($int4, 2);
+        $int3 = calc($int3 - 2 * $int4 + 100);
+}
+return("<enum(stat, string, enum_680, $stat0)>: <tostring_localised($int3, true)> XP");

@@ -1,0 +1,38 @@
+// 7
+[proc,clientscript_7]
+if_settext(interface_274:com_2, "Quest Points: <tostring(%qp)>");
+def_int $int0 = 0;
+def_int $int1 = 0;
+while ($int0 <= 17) {
+    $int1 = ~clientscript_4($int0);
+    if ($int1 = 2) {
+        if_setcolour(enum(int, component, enum_208, $int0), ^green);
+    } else if ($int1 = 1) {
+        if_setcolour(enum(int, component, enum_208, $int0), ^yellow);
+    } else {
+        if_setcolour(enum(int, component, enum_208, $int0), ^red);
+    }
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+$int1 = 0;
+while ($int0 <= 130) {
+    $int1 = ~clientscript_5($int0);
+    if ($int1 = 2) {
+        if_setcolour(enum(int, component, enum_209, $int0), ^green);
+    } else if ($int1 = 1) {
+        if_setcolour(enum(int, component, enum_209, $int0), ^yellow);
+    } else {
+        if_setcolour(enum(int, component, enum_209, $int0), ^red);
+    }
+    $int0 = calc($int0 + 1);
+}
+if (%tutorial = 1000) {
+    if_setcolour(interface_274:com_5, ^green);
+} else if (%tutorial > 0) {
+    if_setcolour(interface_274:com_5, ^yellow);
+} else {
+    if_setcolour(interface_274:com_5, ^red);
+}
+~booth_confirm_mouseleave;
+~booth_confirm_mouseover;

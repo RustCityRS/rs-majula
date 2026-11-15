@@ -1,0 +1,5 @@
+// 1561
+[proc,clientscript_1561](component $component0, graphic $graphic1, component $component2)
+if_setgraphic($component0, $graphic1);
+if_setonmouseover($component0, null);
+if_setonmouseleave($component0, "deltooltip($component2)");

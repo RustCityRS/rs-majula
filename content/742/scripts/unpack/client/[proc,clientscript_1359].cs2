@@ -1,0 +1,7 @@
+// 1359
+[proc,clientscript_1359](string $string0, string $string1)
+if (map_members = false) {
+    if_setonmouserepeat(trademain:com_44, "clientscript_5484(event_com, trademain:com_56, $string0)");
+    if_setonmouserepeat(trademain:com_45, "clientscript_5484(event_com, trademain:com_56, $string1)");
+    %tooltip_built = 0;
+}

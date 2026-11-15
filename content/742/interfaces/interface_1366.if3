@@ -1,0 +1,423 @@
+// 1366:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_6910(event_com, interface_1366:com_1, interface_1366:com_4, interface_1366:com_33)
+
+// 1366:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+
+// 1366:2
+[com_2]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4260(event_com)
+
+// 1366:3
+[com_3]
+type=layer
+y=11
+width=26
+height=44
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+onload=clientscript_6892
+oninvtransmit=clientscript_6892{dueloffer}
+onvarctransmit=clientscript_6892{varclient_546, varclient_1333}
+
+// 1366:4
+[com_4]
+type=layer
+width=200
+heightmode=minus
+ymode=abs_centre
+layer=com_3
+
+// 1366:5
+[com_5]
+type=layer
+height=144
+widthmode=minus
+xmode=abs_centre
+layer=com_4
+onload=clientscript_5924(event_com)
+
+// 1366:6
+[com_6]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1366:7
+[com_7]
+type=layer
+x=6
+y=20
+width=28
+height=25
+widthmode=minus
+heightmode=minus
+layer=com_5
+
+// 1366:8
+[com_8]
+type=layer
+x=6
+y=20
+width=16
+height=25
+heightmode=minus
+xmode=abs_right
+layer=com_5
+
+// 1366:9
+[com_9]
+type=layer
+height=144
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+onload=clientscript_5924(event_com)
+
+// 1366:10
+[com_10]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1366:11
+[com_11]
+type=layer
+x=6
+y=20
+width=28
+height=25
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 1366:12
+[com_12]
+type=layer
+x=6
+y=20
+width=16
+height=25
+heightmode=minus
+xmode=abs_right
+layer=com_9
+
+// 1366:13
+[com_13]
+type=layer
+width=286
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+onload=clientscript_6889(interface_1366:com_16, interface_1366:com_17, interface_1366:com_20, interface_1366:com_21)
+onvartransmit=clientscript_6889(interface_1366:com_16, interface_1366:com_17, interface_1366:com_20, interface_1366:com_21){dueloptions, alternate_spells}
+oninvtransmit=clientscript_6889(interface_1366:com_16, interface_1366:com_17, interface_1366:com_20, interface_1366:com_21){inv, worn}
+
+// 1366:14
+[com_14]
+type=layer
+height=90
+widthmode=minus
+xmode=abs_centre
+layer=com_13
+onload=clientscript_5924(event_com)
+
+// 1366:15
+[com_15]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_14
+textfont=verdana_11pt_regular
+text=Before the duel...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1366:16
+[com_16]
+type=layer
+x=6
+y=20
+width=28
+height=25
+widthmode=minus
+heightmode=minus
+layer=com_14
+
+// 1366:17
+[com_17]
+type=layer
+x=6
+y=20
+width=16
+height=25
+heightmode=minus
+xmode=abs_right
+layer=com_14
+
+// 1366:18
+[com_18]
+type=layer
+y=90
+height=136
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_13
+onload=clientscript_5924(event_com)
+
+// 1366:19
+[com_19]
+type=text
+y=5
+width=12
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_18
+textfont=verdana_11pt_regular
+text=During the duel...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1366:20
+[com_20]
+type=layer
+x=6
+y=20
+width=28
+height=25
+widthmode=minus
+heightmode=minus
+layer=com_18
+
+// 1366:21
+[com_21]
+type=layer
+x=6
+y=20
+width=16
+height=25
+heightmode=minus
+xmode=abs_right
+layer=com_18
+
+// 1366:22
+[com_22]
+type=layer
+height=46
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_13
+onload=clientscript_6895(event_com)
+
+// 1366:23
+[com_23]
+type=text
+height=24
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_22
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1366:24
+[com_24]
+type=layer
+width=150
+height=24
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_22
+transmitop=1
+op1=Confirm
+
+// 1366:25
+[com_25]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1366:26
+[com_26]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1366:27
+[com_27]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 1366:28
+[com_28]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1366:29
+[com_29]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+
+// 1366:30
+[com_30]
+type=text
+width=16
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 1366:31
+[com_31]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4261(event_com)
+
+// 1366:32
+[com_32]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 1366:33
+[com_33]
+type=text
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=palatino_linotype_18pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1366:34
+[com_34]
+type=layer
+x=8
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_1
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1366:35
+[com_35]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="aif_bronze_close_button_1,0"
+
+// 1366:36
+[com_36]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)

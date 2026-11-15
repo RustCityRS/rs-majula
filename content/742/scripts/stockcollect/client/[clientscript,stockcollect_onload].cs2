@@ -1,0 +1,6 @@
+// 654
+[clientscript,stockcollect_onload]
+if_setoninvtransmit(stockcollect:title, "stockcollect_refresh{stockmarket_collect0, stockmarket_collect1, stockmarket_collect2, stockmarket_collect3, stockmarket_collect4, stockmarket_collect5, lent_items}");
+if_setonstocktransmit(stockcollect:title, "stockcollect_refresh");
+if_setonvartransmit(stockcollect:title, "stockcollect_refresh{varplayer_1267, varplayer_1269}");
+~stockcollect_refresh;

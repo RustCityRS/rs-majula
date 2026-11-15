@@ -1,0 +1,11 @@
+// 4988
+[proc,clientscript_4988](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_struct $struct3 = null;
+def_struct $struct4 = null;
+if (op718 = 1) {
+    $int1, $struct3, $struct4, $int2 = ~clientscript_4957($int0);
+    ~clientscript_4981($int0, $int1, $struct3, $struct4, $int2);
+    ~clientscript_4937;
+}

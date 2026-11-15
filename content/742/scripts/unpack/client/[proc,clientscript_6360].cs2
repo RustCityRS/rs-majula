@@ -1,0 +1,26 @@
+// 6360
+[proc,clientscript_6360](component $component0)
+~clientscript_6361(0);
+if (~clientscript_6352($component0) = false) {
+    return;
+}
+if (~clientscript_6365($component0) = true) {
+    return;
+}
+if (~clientscript_6352(%varclient_1939) = false) {
+    %varclient_1939 = $component0;
+} else if (~clientscript_6352(%varclient_1940) = false) {
+    %varclient_1940 = $component0;
+} else if (~clientscript_6352(%varclient_1941) = false) {
+    %varclient_1941 = $component0;
+} else if (~clientscript_6352(%varclient_1942) = false) {
+    %varclient_1942 = $component0;
+} else if (~clientscript_6352(%varclient_1943) = false) {
+    %varclient_1943 = $component0;
+} else if (~clientscript_6352(%varclient_1944) = false) {
+    %varclient_1944 = $component0;
+} else if (~clientscript_6352(%varclient_1945) = false) {
+    %varclient_1945 = $component0;
+} else if (~clientscript_6352(%varclient_1946) = false) {
+    %varclient_1946 = $component0;
+}

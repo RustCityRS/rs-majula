@@ -1,10 +1,10 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::client_table;
 use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-#[cfg(all(since_274, before_647))]
+#[cfg(all(since_274, before_530))]
 use crate::pack::util::load_order;
 use crate::pack::util::parse_ref;
 use anyhow::Result;
@@ -57,7 +57,7 @@ pub fn pack_mesanims(
     #[cfg(before_274)]
     let client = None;
 
-    #[cfg(all(since_274, before_647))]
+    #[cfg(all(since_274, before_530))]
     let client = {
         let ids = load_order(&registry.pack_dir().join("mesanim.order"));
         let count = ids.iter().max().map_or(0, |id| id + 1);
@@ -73,7 +73,7 @@ pub fn pack_mesanims(
         Some(client)
     };
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = Some(client_table(file_cache, "mesanim", pack, constants)?);
 
     Ok(PackedFile { server, client })

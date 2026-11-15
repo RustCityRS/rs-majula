@@ -9,6 +9,7 @@ use rs_pack::cache::inv::{InvScope, InvType};
 use rs_pack::types::DummyItem;
 #[cfg(since_647)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
+use rs_ver::TypeId;
 use runec::opcodes::*;
 
 /// Registers inventory management opcodes for adding, removing, moving,
@@ -300,7 +301,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let slot = s.pop_int();
             let inv = pop_inv::<E>(s)?;
             let inventory = get_inv::<E>(inv, player)?;
-            s.push_int(inventory.get(slot as u16).map(|x| x.obj).map_or(-1, |v| v as i32));
+            s.push_int(inventory.get(slot as u16).map(|x| x.obj).map_or(-1, |v| v.int()));
         });
 
         // 4316
@@ -528,7 +529,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             let inventory = get_inv::<E>(inv, player)?;
-            s.push_int(inventory.total(obj as u16) as i32);
+            s.push_int(inventory.total(TypeId::from_int(obj)) as i32);
         });
 
         // 4328
@@ -545,7 +546,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     objs
                         .get_by_id(item.obj)
                         .and_then(|o| o.category)
-                        .is_some_and(|cat| cat as i32 == category)
+                        .is_some_and(|cat| cat.int() == category)
                 })
                 .map(|item| item.num)
                 .fold(0u32, |a, b| a.saturating_add(b));

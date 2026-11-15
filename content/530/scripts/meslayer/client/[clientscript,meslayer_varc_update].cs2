@@ -1,0 +1,5 @@
+// 1547
+[clientscript,meslayer_varc_update]
+if (%meslayermode = 0 | %meslayermode = 1) {
+    ~clientscript_1548(0);
+}

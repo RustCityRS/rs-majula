@@ -1,0 +1,57 @@
+// 1530
+[proc,clientscript_1530](int $int0)(boolean, component)
+def_npc $npc1 = enum(int, npc, enum_1630, $int0);
+switch_npc ($npc1) {
+    case npc_7951 :
+        if (%varplayerbit_4926 = 50) {
+            return(true, interface_765:box1);
+        } else {
+            return(false, interface_765:box1);
+        }
+    case thigui_robin2 :
+        if (%varplayerbit_4927 = 20) {
+            return(true, interface_765:box2);
+        } else {
+            return(false, interface_765:box2);
+        }
+    case npc_7953 :
+        if (compare(if_gettext(interface_765:box3), "remove") = 0 | %varplayerbit_4928 = 25) {
+            return(true, interface_765:box3);
+        } else {
+            return(false, interface_765:box3);
+        }
+    case npc_7952 :
+        if (compare(if_gettext(interface_765:box4), "remove") = 0 | %varplayerbit_4929 = 25) {
+            return(true, interface_765:box4);
+        } else {
+            return(false, interface_765:box4);
+        }
+    case npc_7957 :
+        return(true, null);
+    case npc_7961 :
+        if (%varplayerbit_4931 = 30) {
+            return(true, interface_765:box6);
+        } else {
+            return(false, interface_765:box6);
+        }
+    case tutorial2_mining :
+        return(true, null);
+    case tutorial2_smithing_master, npc_7958 :
+        return(true, null);
+    case npc_7960 :
+        if (%tutorial2_wood = 15) {
+            return(true, interface_765:box9);
+        } else {
+            return(false, interface_765:box9);
+        }
+    case npc_7967 :
+        if (compare(if_gettext(interface_765:box10), "remove") = 0 | %tutorial2_fire = 20) {
+            return(true, interface_765:box10);
+        } else {
+            return(false, interface_765:box10);
+        }
+    case hans :
+        return(true, interface_765:com_9);
+    case default :
+        return(true, interface_765:com_9);
+}

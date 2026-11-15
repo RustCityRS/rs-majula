@@ -1,0 +1,48 @@
+// 1331
+[proc,clientscript_1331](component $component0)
+def_graphic $graphic1 = "toplevel_worldmap_button,1";
+if (%varplayerbit_6090 = 2) {
+    if_setgraphic($component0, 7435);
+    if_setonmouseover($component0, "clientscript_5115(event_com, 1)");
+    if_setonmouseleave($component0, "clientscript_5115(event_com, 0)");
+    if_clearops($component0);
+    if_setop($component0, 1, "Citadel Interface");
+} else if (%varplayerbit_6090 = 1) {
+    if (getwindowmode >= 2) {
+        $graphic1 = 8663;
+    } else {
+        $graphic1 = "toplevel_worldmap_button,3";
+    }
+    if_setonmouseover($component0, "graphic_swapper(event_com, $graphic1)");
+    if (getwindowmode >= 2) {
+        $graphic1 = 8662;
+    } else {
+        $graphic1 = "toplevel_worldmap_button,2";
+    }
+    if_setgraphic($component0, $graphic1);
+    if_setonmouseleave($component0, "graphic_swapper(event_com, $graphic1)");
+    if_clearops($component0);
+    if (%varplayerbit_10304 > 0) {
+        if_setop($component0, 1, "Factory Layout");
+    } else {
+        if_setop($component0, 1, "Daemonheim Map");
+    }
+} else {
+    if (getwindowmode >= 2) {
+        $graphic1 = 8660;
+        if_setgraphic($component0, $graphic1);
+        if_setonmouseleave($component0, "graphic_swapper(event_com, $graphic1)");
+        $graphic1 = 8661;
+        if_setonmouseover($component0, "graphic_swapper(event_com, $graphic1)");
+    } else {
+        if_setgraphic($component0, "toplevel_worldmap_button,0");
+        if_setonmouseover($component0, "graphic_swapper(event_com, $graphic1)");
+        $graphic1 = "toplevel_worldmap_button,0";
+        if_setonmouseleave($component0, "graphic_swapper(event_com, $graphic1)");
+    }
+    if_clearops($component0);
+    if_setop($component0, 1, "World Map");
+    if (%playerdesign2_col ! null & %playerdesign2_col ! 0_0_0_0_0) {
+        if_setop($component0, 2, "Clear your marker");
+    }
+}

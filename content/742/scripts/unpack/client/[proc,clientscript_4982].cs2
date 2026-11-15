@@ -1,0 +1,205 @@
+// 4982
+[proc,clientscript_4982](struct $struct0, struct $struct1, int $int2, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = calc($int2 - $int4);
+$int23 = max($int23, 0);
+if (op718 = 1) {
+    switch_int ($int2) {
+        case 0 :
+            $int17 = struct_param($struct0, param_1483);
+            $int18 = struct_param($struct0, param_1490);
+            $int19 = struct_param($struct0, param_1497);
+            $int20 = struct_param($struct0, param_1504);
+            $int21 = struct_param($struct0, param_1511);
+            $int22 = struct_param($struct0, param_1518);
+        case 1 :
+            $int17 = struct_param($struct0, param_1484);
+            $int18 = struct_param($struct0, param_1491);
+            $int19 = struct_param($struct0, param_1498);
+            $int20 = struct_param($struct0, param_1505);
+            $int21 = struct_param($struct0, param_1512);
+            $int22 = struct_param($struct0, param_1519);
+        case 2 :
+            $int17 = struct_param($struct0, param_1485);
+            $int18 = struct_param($struct0, param_1492);
+            $int19 = struct_param($struct0, param_1499);
+            $int20 = struct_param($struct0, param_1506);
+            $int21 = struct_param($struct0, param_1513);
+            $int22 = struct_param($struct0, param_1520);
+        case 3 :
+            $int17 = struct_param($struct0, param_1486);
+            $int18 = struct_param($struct0, param_1493);
+            $int19 = struct_param($struct0, param_1500);
+            $int20 = struct_param($struct0, param_1507);
+            $int21 = struct_param($struct0, param_1514);
+            $int22 = struct_param($struct0, param_1521);
+        case 4 :
+            $int17 = struct_param($struct0, param_1487);
+            $int18 = struct_param($struct0, param_1494);
+            $int19 = struct_param($struct0, param_1501);
+            $int20 = struct_param($struct0, param_1508);
+            $int21 = struct_param($struct0, param_1515);
+            $int22 = struct_param($struct0, param_1522);
+        case 5 :
+            $int17 = struct_param($struct0, param_1488);
+            $int18 = struct_param($struct0, param_1495);
+            $int19 = struct_param($struct0, param_1502);
+            $int20 = struct_param($struct0, param_1509);
+            $int21 = struct_param($struct0, param_1516);
+            $int22 = struct_param($struct0, param_1523);
+        case 6 :
+            $int17 = struct_param($struct0, param_1489);
+            $int18 = struct_param($struct0, param_1496);
+            $int19 = struct_param($struct0, param_1503);
+            $int20 = struct_param($struct0, param_1510);
+            $int21 = struct_param($struct0, param_1517);
+            $int22 = struct_param($struct0, param_1524);
+    }
+    switch_int ($int2) {
+        case 1 :
+            $int5 = struct_param($struct1, param_1483);
+            $int6 = struct_param($struct1, param_1490);
+            $int7 = struct_param($struct1, param_1497);
+            $int8 = struct_param($struct1, param_1504);
+            $int9 = struct_param($struct1, param_1511);
+            $int10 = struct_param($struct1, param_1518);
+        case 2 :
+            $int5 = struct_param($struct1, param_1484);
+            $int6 = struct_param($struct1, param_1491);
+            $int7 = struct_param($struct1, param_1498);
+            $int8 = struct_param($struct1, param_1505);
+            $int9 = struct_param($struct1, param_1512);
+            $int10 = struct_param($struct1, param_1519);
+        case 3 :
+            $int5 = struct_param($struct1, param_1485);
+            $int6 = struct_param($struct1, param_1492);
+            $int7 = struct_param($struct1, param_1499);
+            $int8 = struct_param($struct1, param_1506);
+            $int9 = struct_param($struct1, param_1513);
+            $int10 = struct_param($struct1, param_1520);
+        case 4 :
+            $int5 = struct_param($struct1, param_1486);
+            $int6 = struct_param($struct1, param_1493);
+            $int7 = struct_param($struct1, param_1500);
+            $int8 = struct_param($struct1, param_1507);
+            $int9 = struct_param($struct1, param_1514);
+            $int10 = struct_param($struct1, param_1521);
+        case 5 :
+            $int5 = struct_param($struct1, param_1487);
+            $int6 = struct_param($struct1, param_1494);
+            $int7 = struct_param($struct1, param_1501);
+            $int8 = struct_param($struct1, param_1508);
+            $int9 = struct_param($struct1, param_1515);
+            $int10 = struct_param($struct1, param_1522);
+        case 6 :
+            $int5 = struct_param($struct1, param_1488);
+            $int6 = struct_param($struct1, param_1495);
+            $int7 = struct_param($struct1, param_1502);
+            $int8 = struct_param($struct1, param_1509);
+            $int9 = struct_param($struct1, param_1516);
+            $int10 = struct_param($struct1, param_1523);
+        case 7 :
+            $int5 = struct_param($struct1, param_1489);
+            $int6 = struct_param($struct1, param_1496);
+            $int7 = struct_param($struct1, param_1503);
+            $int8 = struct_param($struct1, param_1510);
+            $int9 = struct_param($struct1, param_1517);
+            $int10 = struct_param($struct1, param_1524);
+    }
+    if ($int23 > 0) {
+        switch_int ($int23) {
+            case 1 :
+                $int11 = struct_param($struct1, param_1483);
+                $int12 = struct_param($struct1, param_1490);
+                $int13 = struct_param($struct1, param_1497);
+                $int14 = struct_param($struct1, param_1504);
+                $int15 = struct_param($struct1, param_1511);
+                $int16 = struct_param($struct1, param_1518);
+            case 2 :
+                $int11 = struct_param($struct1, param_1484);
+                $int12 = struct_param($struct1, param_1491);
+                $int13 = struct_param($struct1, param_1498);
+                $int14 = struct_param($struct1, param_1505);
+                $int15 = struct_param($struct1, param_1512);
+                $int16 = struct_param($struct1, param_1519);
+            case 3 :
+                $int11 = struct_param($struct1, param_1485);
+                $int12 = struct_param($struct1, param_1492);
+                $int13 = struct_param($struct1, param_1499);
+                $int14 = struct_param($struct1, param_1506);
+                $int15 = struct_param($struct1, param_1513);
+                $int16 = struct_param($struct1, param_1520);
+            case 4 :
+                $int11 = struct_param($struct1, param_1486);
+                $int12 = struct_param($struct1, param_1493);
+                $int13 = struct_param($struct1, param_1500);
+                $int14 = struct_param($struct1, param_1507);
+                $int15 = struct_param($struct1, param_1514);
+                $int16 = struct_param($struct1, param_1521);
+            case 5 :
+                $int11 = struct_param($struct1, param_1487);
+                $int12 = struct_param($struct1, param_1494);
+                $int13 = struct_param($struct1, param_1501);
+                $int14 = struct_param($struct1, param_1508);
+                $int15 = struct_param($struct1, param_1515);
+                $int16 = struct_param($struct1, param_1522);
+            case 6 :
+                $int11 = struct_param($struct1, param_1488);
+                $int12 = struct_param($struct1, param_1495);
+                $int13 = struct_param($struct1, param_1502);
+                $int14 = struct_param($struct1, param_1509);
+                $int15 = struct_param($struct1, param_1516);
+                $int16 = struct_param($struct1, param_1523);
+        }
+    } else {
+        $int11 = 0;
+        $int12 = 0;
+        $int13 = 0;
+        $int14 = 0;
+        $int15 = 0;
+        $int16 = 0;
+    }
+    if ($int3 = 1 & $int2 = 1) {
+        $int5 = calc($int5 * 2);
+        $int6 = calc($int6 * 2);
+        $int7 = calc($int7 * 2);
+        $int8 = calc($int8 * 2);
+        $int9 = calc($int9 * 2);
+        $int10 = calc($int10 * 2);
+    }
+    if_settext(interface_1261:com_58, tostring($int5));
+    if_settext(interface_1261:com_59, tostring($int6));
+    if_settext(interface_1261:com_60, tostring($int7));
+    if_settext(interface_1261:com_61, tostring($int8));
+    if_settext(interface_1261:com_62, tostring($int9));
+    if_settext(interface_1261:com_63, tostring($int10));
+    if_settext(interface_1261:com_66, tostring($int17));
+    if_settext(interface_1261:com_67, tostring($int18));
+    if_settext(interface_1261:com_68, tostring($int19));
+    if_settext(interface_1261:com_69, tostring($int20));
+    if_settext(interface_1261:com_70, tostring($int21));
+    if_settext(interface_1261:com_71, tostring($int22));
+    if_settext(interface_1261:com_73, tostring($int11));
+    if_settext(interface_1261:com_74, tostring($int12));
+    if_settext(interface_1261:com_75, tostring($int13));
+    if_settext(interface_1261:com_76, tostring($int14));
+    if_settext(interface_1261:com_77, tostring($int15));
+    if_settext(interface_1261:com_78, tostring($int16));
+}

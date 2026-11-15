@@ -1,0 +1,317 @@
+// 324:0
+[com_0]
+type=layer
+x=150
+y=5
+width=336
+height=170
+layer=com_12
+onload=clientscript_4003(event_com)
+
+// 324:1
+[com_1]
+type=graphic
+width=294
+height=282
+layer=com_12
+graphic=graphic_10979
+
+// 324:2
+[com_2]
+type=text
+x=150
+y=7
+width=153
+height=22
+widthmode=minus
+layer=com_12
+textfont=verdana_13pt_regular
+text=Sign up for membership to enter Fish Flingers.
+textalignh=centre
+textshadow=yes
+colour=0xefb063
+
+// 324:3
+[com_3]
+type=text
+x=150
+y=47
+width=153
+height=30
+widthmode=minus
+layer=com_12
+textfont=verdana_11pt_regular
+text=You must be a member to access the Fish Flingers fishing competition.
+textlineheight=13
+textalignh=centre
+textshadow=yes
+
+// 324:4
+[com_4]
+type=text
+x=21
+y=89
+width=253
+height=30
+widthmode=minus
+xmode=abs_right
+layer=com_12
+textfont=verdana_11pt_regular
+text=Win fabulous prizes and enjoy increased Fishing XP rewards!
+textlineheight=13
+textalignh=right
+textshadow=yes
+
+// 324:5
+[com_5]
+type=text
+x=153
+y=134
+width=162
+height=40
+widthmode=minus
+layer=com_12
+textfont=verdana_13pt_regular
+text=Subscribe now to receive<br>daily fishing competition tickets.
+textlineheight=16
+textalignh=centre
+textshadow=yes
+colour=0xefb063
+
+// 324:6
+[com_6]
+type=graphic
+width=48
+height=55
+layer=com_13
+graphic=graphic_9644
+
+// 324:7
+[com_7]
+type=graphic
+x=48
+width=95
+height=55
+widthmode=minus
+layer=com_13
+graphic=graphic_9645
+
+// 324:8
+[com_8]
+type=graphic
+x=-1
+width=48
+height=55
+xmode=abs_right
+layer=com_13
+graphic=graphic_9646
+
+// 324:9
+[com_9]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_13
+
+// 324:10
+[com_10]
+type=layer
+width=512
+height=325
+xmode=abs_centre
+ymode=abs_centre
+
+// 324:11
+[com_11]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+onload=script4260(event_com)
+
+// 324:12
+[com_12]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_10
+
+// 324:13
+[com_13]
+type=layer
+x=9
+y=176
+width=323
+height=55
+xmode=abs_right
+layer=com_12
+transmitop=1
+op1=Activate
+onmouseover=clientscript_5803(interface_324:com_6, interface_324:com_7, interface_324:com_8, 1, 1)
+onmouseleave=clientscript_5803(interface_324:com_6, interface_324:com_7, interface_324:com_8, 0, 1)
+
+// 324:14
+[com_14]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+onload=script4261(event_com)
+
+// 324:15
+[com_15]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_10
+
+// 324:16
+[com_16]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+textfont=palatino_linotype_18pt_regular
+text=Become a Member!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 324:17
+[com_17]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_10
+onload=aif_build_close_button_layer(event_com)
+
+// 324:18
+[com_18]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 324:19
+[com_19]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+onload=aif_build_close_button_over(event_com)
+
+// 324:20
+[com_20]
+type=layer
+x=41
+y=232
+width=257
+height=42
+xmode=abs_right
+layer=com_12
+transmitop=1
+op1=Close
+onmouseover=clientscript_5803(interface_324:com_21, interface_324:com_22, interface_324:com_23, 1, 0)
+onmouseleave=clientscript_5803(interface_324:com_21, interface_324:com_22, interface_324:com_23, 0, 0)
+
+// 324:21
+[com_21]
+type=graphic
+width=45
+height=43
+layer=com_20
+graphic=graphic_9620
+
+// 324:22
+[com_22]
+type=graphic
+x=44
+width=88
+height=43
+widthmode=minus
+layer=com_20
+graphic=graphic_9621
+
+// 324:23
+[com_23]
+type=graphic
+width=45
+height=43
+xmode=abs_right
+layer=com_20
+graphic=graphic_9622
+
+// 324:24
+[com_24]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_20
+
+// 324:25
+[com_25]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+textfont=verdana_13pt_regular
+text=I want to sign up.
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 324:26
+[com_26]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+textfont=verdana_13pt_regular
+text=I'm not ready yet.
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)

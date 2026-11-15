@@ -1,0 +1,7 @@
+// 4173
+[proc,clientscript_4173](int $int0)(obj)
+def_int $int1 = enum(int, int, enum_6673, $int0);
+if ($int1 < 0 | $int1 >= inv_size(inv_675)) {
+    return(null);
+}
+return(inv_getobj(inv_675, $int1));

@@ -1,0 +1,31 @@
+// 812
+[proc,script812](obj $obj0)
+cc_sethide(true);
+if ($obj0 = null) {
+    return;
+}
+if (oc_param($obj0, param_740) > 1) {
+    if (~obj_wear_requirements($obj0) = true & ~obj_use_requirements($obj0) = true) {
+        return;
+    }
+    cc_sethide(false);
+    return;
+}
+if (oc_param($obj0, param_740) = 1) {
+    if (~obj_wear_requirements($obj0) = true) {
+        return;
+    }
+    cc_sethide(false);
+    return;
+}
+if (~script928($obj0) = true) {
+    if (~obj_use_requirements($obj0) = true) {
+        return;
+    }
+    cc_sethide(false);
+    return;
+}
+if (~obj_wear_requirements($obj0) = true) {
+    return;
+}
+cc_sethide(false);

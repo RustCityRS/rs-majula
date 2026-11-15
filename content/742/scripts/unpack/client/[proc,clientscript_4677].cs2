@@ -1,0 +1,54 @@
+// 4677
+[proc,clientscript_4677]
+switch_int (%varplayerbit_9306) {
+    case 1 :
+        if (%varplayerbit_9298 = 10) {
+            if (stat_base(magic) >= 30 & stat_base(ranged) >= 30 & stat_base(attack) >= 30) {
+                if_settext(interface_102:com_54, "Carn is no more, his behemoth has been dealt with, and Linza has her ore. The tales of Great Ozan can continue!");
+            } else {
+                if_settext(interface_102:com_54, "Carn has been defeated and Linza appreciates her new ore. The story still feels incomplete, somehow.");
+            }
+        } else {
+            if_settext(interface_102:com_54, "Carn's defeated, but the story still feels incomplete somehow.");
+        }
+    case 2 :
+        if (%varplayerbit_9298 = 10) {
+            if (stat_base(agility) >= 55 & stat_base(thieving) >= 55) {
+                if_settext(interface_102:com_54, "I have become Vengeance: death to those who callously disregard life. They, and everyone like them, will pay for what they have done.");
+            } else {
+                if_settext(interface_102:com_54, "Am I done now? No, there's more that must be done. Vengeance has not yet been satisfied.");
+            }
+        } else {
+            if_settext(interface_102:com_54, "I killed them...but in doing so I never thought to check for survivors. Am I a monster?");
+        }
+    case 4 :
+        if (%varplayerbit_9298 = 10) {
+            if (stat_base(strength) >= 70) {
+                if_settext(interface_102:com_54, "Ha! Thok stronger than squishy monsters in dungeon! None are as mighty as Thok.");
+            } else {
+                if_settext(interface_102:com_54, "Odd... Thok remember being much stronger in dungeon.");
+            }
+        } else {
+            if_settext(interface_102:com_54, "Thok save Marm, but Thok not show how mighty Thok is. Thok need to do more.");
+        }
+    case 3 :
+        if (stat_base(attack) >= 60 & stat_base(thieving) >= 45 & stat_base(dungeoneering) >= 55) {
+            if (%varplayerbit_9298 = 10) {
+                if_settext(interface_102:com_54, "I finally completed my task; the perfect spy, the perfect assassin.");
+            } else {
+                if_settext(interface_102:com_54, "I completed my task, but...I made mistakes, left things undone...");
+            }
+        } else {
+            if_settext(interface_102:com_54, "My task is incomplete, this story still unfinished. I remember there was...more...");
+        }
+    case 6 :
+        if (stat_base(strength) >= 75) {
+            if (%varplayerbit_9298 = 10) {
+                if_settext(interface_102:com_54, "A mighty adventure for Thok and Marmaros! Thok have best adventures.");
+            } else {
+                if_settext(interface_102:com_54, "Thok smash bone face good...but Thok still have more to do!");
+            }
+        } else {
+            if_settext(interface_102:com_54, "Thok enjoy smashing foes...but Thok remember being stronger before.");
+        }
+}

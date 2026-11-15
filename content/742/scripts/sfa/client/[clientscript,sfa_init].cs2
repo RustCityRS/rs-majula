@@ -1,0 +1,9 @@
+// 2886
+[clientscript,sfa_init]
+%sfa_client_time = %sfa_event_time;
+%sfa_initial_disappear = 0;
+def_int $int0 = clientclock;
+if_setontimer(sfa:initial, "script2892(sfa:initial, $int0)");
+sound_synth(synth_8641, 1, 0);
+if_setonresize(sfa:content_layer, "script2887");
+~script2888;

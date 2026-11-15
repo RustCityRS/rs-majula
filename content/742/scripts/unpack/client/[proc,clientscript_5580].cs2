@@ -1,0 +1,100 @@
+// 5580
+[proc,clientscript_5580]
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int0 = -1;
+if_sethide(interface_1181:com_67, true);
+if_sethide(interface_1181:com_79, true);
+if_sethide(interface_1181:com_91, true);
+if_sethide(interface_1181:com_103, true);
+if_sethide(interface_1181:com_115, true);
+if_sethide(interface_1181:com_127, true);
+if_sethide(interface_1181:com_139, true);
+if_sethide(interface_1181:com_151, true);
+if_sethide(interface_1181:com_222, true);
+if_sethide(interface_1181:com_234, true);
+if_sethide(interface_1181:com_245, true);
+if_sethide(interface_1181:com_256, true);
+if_sethide(interface_1181:com_267, true);
+if_sethide(interface_1181:com_278, true);
+switch_int (%varplayerbit_10334) {
+    case 0, -1 :
+        $string0 = "Select an item to buy";
+        $string1 = "Select an item to buy";
+        $int0 = -1;
+    case 1 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 1,200 Thieving XP";
+        $string1 = "1.2k Thieving XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(10 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_67, false);
+    case 2 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 12,000 Thieving XP";
+        $string1 = "12k Thieving XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(100 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_79, false);
+    case 3 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 120,000 Thieving XP";
+        $string1 = "120k Thieving XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(1000 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_91, false);
+    case 4 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 1.2M Thieving XP";
+        $string1 = "1.2M Thieving XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(10000 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_103, false);
+    case 5 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 950 Agility XP";
+        $string1 = "950 Agility XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(10 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_115, false);
+    case 6 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 9,500 Agility XP";
+        $string1 = "9.5k Agility XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(100 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_127, false);
+    case 7 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 95,000 Agility XP";
+        $string1 = "95k Agility XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(1000 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_139, false);
+    case 8 :
+        $string0 = "<tostring(%varplayerbit_10335)>x 950,000 Agility XP";
+        $string1 = "950k Agility XP (x<tostring(%varplayerbit_10335)>)";
+        $int0 = calc(10000 * %varplayerbit_10335);
+        if_sethide(interface_1181:com_151, false);
+    case 9 :
+        $string0 = "Factory mask";
+        $string1 = "Factory mask";
+        $int0 = 2250;
+        if_sethide(interface_1181:com_222, false);
+    case 10 :
+        $string0 = "Factory body";
+        $string1 = "Factory body";
+        $int0 = 3500;
+        if_sethide(interface_1181:com_234, false);
+    case 11 :
+        $string0 = "Factory legs";
+        $string1 = "Factory legs";
+        $int0 = 2750;
+        if_sethide(interface_1181:com_245, false);
+    case 12 :
+        $string0 = "Factory gloves";
+        $string1 = "Factory gloves";
+        $int0 = 1750;
+        if_sethide(interface_1181:com_256, false);
+    case 13 :
+        $string0 = "Factory boots";
+        $string1 = "Factory boots";
+        $int0 = 1750;
+        if_sethide(interface_1181:com_267, false);
+    case 14 :
+        $string0 = "Rogues' Den multitool";
+        $string1 = "Vintage Rogues' Den multitool kit";
+        $int0 = 35;
+        if_sethide(interface_1181:com_278, false);
+    case default :
+        return;
+}
+if_settext(interface_1181:com_166, $string0);
+if_settext(interface_1181:com_6, "Buy <$string0> for <tostring($int0)> points?");
+~clientscript_5578($int0);

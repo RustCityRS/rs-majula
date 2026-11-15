@@ -1,0 +1,18 @@
+// 562
+[proc,clientscript_562]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = if_getscrolly(interface_631:your_stake);
+$int1 = if_getscrolly(interface_631:opponent_stake);
+if_setscrollsize(interface_631:your_stake, 0, 15);
+~clientscript_31(interface_631:com_98, interface_631:your_stake, 792, 789, 790, 791, 773, 788);
+~scrollbar_ondrag_doscroll(interface_631:com_98, interface_631:your_stake, $int0, 1);
+if_setscrollsize(interface_631:opponent_stake, 0, 15);
+~clientscript_31(interface_631:com_99, interface_631:opponent_stake, 792, 789, 790, 791, 773, 788);
+~scrollbar_ondrag_doscroll(interface_631:com_99, interface_631:opponent_stake, $int1, 1);
+if (map_members = true) {
+    if_setscrollsize(interface_631:com_56, 0, 221);
+    ~clientscript_31(interface_631:com_54, interface_631:com_56, 792, 789, 790, 791, 773, 788);
+} else {
+    if_sethide(interface_631:com_55, true);
+}

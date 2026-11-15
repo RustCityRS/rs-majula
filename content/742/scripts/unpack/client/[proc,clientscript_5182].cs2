@@ -1,0 +1,15 @@
+// 5182
+[proc,clientscript_5182]
+if (if_getscrollwidth(interface_1122:com_82) = 0) {
+    if_sethide(interface_1122:com_81, false);
+    if_sethide(interface_1122:com_355, false);
+} else if (if_getscrollx(interface_1122:com_82) = 0) {
+    if_sethide(interface_1122:com_81, false);
+    if_sethide(interface_1122:com_355, true);
+} else if (if_getscrollx(interface_1122:com_82) = calc(if_getscrollwidth(interface_1122:com_82) - if_getwidth(interface_1122:com_82))) {
+    if_sethide(interface_1122:com_81, true);
+    if_sethide(interface_1122:com_355, false);
+} else {
+    if_sethide(interface_1122:com_81, true);
+    if_sethide(interface_1122:com_355, true);
+}

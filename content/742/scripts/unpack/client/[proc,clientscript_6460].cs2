@@ -1,0 +1,6 @@
+// 6460
+[proc,clientscript_6460](int $int0)
+sound_vorbis_volume(14378, 1, 0, 200);
+~clientscript_6876($int0);
+~clientscript_6463($int0);
+~clientscript_6464($int0, %varplayerbit_11480, 1);

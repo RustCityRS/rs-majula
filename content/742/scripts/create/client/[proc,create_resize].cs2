@@ -1,0 +1,9 @@
+// 3211
+[proc,create_resize]
+if (getwindowmode < 2) {
+    if_setposition(account_create:main, -85, 25, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setposition(account_create:com_25, -85, 25, ^setpos_abs_centre, ^setpos_abs_centre);
+} else {
+    if_setposition(account_create:main, -85, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setposition(account_create:com_25, -85, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+}

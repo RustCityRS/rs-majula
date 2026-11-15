@@ -1,0 +1,17 @@
+// 5377
+[proc,clientscript_5377]
+if (if_find(interface_1150:com_56) = true) {
+    cc_sethide(true);
+}
+if (if_find(interface_1150:com_57) = true) {
+    cc_sethide(false);
+}
+if (if_find(interface_1150:com_58) = true) {
+    cc_sethide(true);
+}
+if (if_find(interface_1150:com_50) = true) {
+    cc_settext("Page 3");
+}
+if (if_find(interface_1150:com_51) = true) {
+    cc_settext("Page 4");
+}

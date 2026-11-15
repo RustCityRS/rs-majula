@@ -1,0 +1,7 @@
+// 4016
+[proc,clientscript_4016]
+if (%varplayerbit_5759 = 0) {
+    ~aif_checkbox_build_layer(questlist_v4:com_447, 8367, 8366, 8368);
+} else {
+    ~aif_checkbox_build_layer(questlist_v4:com_447, 8364, 8365, 8364);
+}

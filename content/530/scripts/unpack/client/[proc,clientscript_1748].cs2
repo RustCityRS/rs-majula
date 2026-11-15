@@ -1,0 +1,33 @@
+// 1748
+[proc,clientscript_1748](component $component0, component $component1)
+def_obj $obj2 = inv_getobj(lent_items, 0);
+if ($obj2 = null) {
+    if_setobject($component0, null, -1);
+    if_sethide($component0, true);
+    if_setcolour($component1, 0xff9040);
+    if_settext($component1, "Nothing!");
+    if_clearops($component0);
+    if_setopbase($component0, "");
+} else if (%varplayer_1267 ! -1 | %varplayer_1269 > 0) {
+    if_setobject($component0, $obj2, -1);
+    if_setoutline($component0, 1);
+    if_setgraphicshadow($component0, 0x333333);
+    if_settrans($component0, 200);
+    if_sethide($component0, false);
+    if_setcolour($component1, ^red);
+    if_settext($component1, "Still on loan");
+    if_setop($component0, 1, "Demand");
+    if_setop($component0, 10, "Examine");
+    if_setopbase($component0, "<col=ff9040><oc_name($obj2)></col>");
+} else {
+    if_setobject($component0, $obj2, -1);
+    if_setoutline($component0, 1);
+    if_setgraphicshadow($component0, 0x333333);
+    if_settrans($component0, 0);
+    if_sethide($component0, false);
+    if_setcolour($component1, 0x00df00);
+    if_settext($component1, "Available");
+    if_setop($component0, 1, "Reclaim");
+    if_setop($component0, 10, "Examine");
+    if_setopbase($component0, "<col=ff9040><oc_name($obj2)></col>");
+}

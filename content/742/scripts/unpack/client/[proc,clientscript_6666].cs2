@@ -1,0 +1,11 @@
+// 6666
+[proc,clientscript_6666]
+if (%varclient_2004 >= 0 & %varclient_2005 >= 0) {
+    if_settext(interface_1332:com_23, "<tostring(%varclient_2004)>/<tostring(%varclient_2005)>");
+    if_setsize(interface_1332:com_0, scale(%varclient_2004, %varclient_2005, 16384), if_getheight(interface_1332:com_0), ^setsize_rel, ^setsize_abs);
+    if_setcolour(interface_1332:com_23, ^white);
+} else {
+    if_settext(interface_1332:com_23, "0/0");
+    if_setcolour(interface_1332:com_23, 0x999999);
+    if_setsize(interface_1332:com_0, 0, if_getheight(interface_1332:com_0), ^setsize_rel, ^setsize_abs);
+}

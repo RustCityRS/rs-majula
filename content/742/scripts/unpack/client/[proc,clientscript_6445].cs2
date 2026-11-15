@@ -1,0 +1,7 @@
+// 6445
+[proc,clientscript_6445](component $component0, int $int1, int $int2)
+if ($int1 = 0) {
+    if_setontimer(interface_1311:com_138, "clientscript_6449(event_com, $component0, 0, $int2)");
+} else {
+    if_setontimer(interface_1311:com_138, clientscript_6450, event_com, $component0, 0, $int2, "IIii");
+}

@@ -1,0 +1,55 @@
+// 5097
+[proc,clientscript_5097]
+switch_int (%varplayerbit_9539) {
+    case 1 :
+        if_settext(interface_1113:com_4, "Unable to load your clan data.");
+        if_settext(interface_1113:com_6, "Sorry!");
+        if_setgraphic(interface_1113:com_7, 7532);
+        if_settext(interface_1113:com_8, "Please try again later when the system is less busy.");
+    case 2 :
+        if_settext(interface_1113:com_4, "And the winner is:");
+        if_settext(interface_1113:com_6, "<col=ff7f7f>Red Team!</col>");
+        if_setgraphic(interface_1113:com_7, 7531);
+        if (%varplayerbit_9540 = 1) {
+            if_settext(interface_1113:com_8, "Congratulations, your team won!");
+        } else if (%varplayerbit_9540 = 2) {
+            if_settext(interface_1113:com_8, "Oh dear, better luck next time.");
+        } else {
+            if_settext(interface_1113:com_8, "Better luck next time to the Blue Team.");
+        }
+    case 3 :
+        if_settext(interface_1113:com_4, "And the winner is:");
+        if_settext(interface_1113:com_6, "<col=7f7fff>Blue Team!</col>");
+        if_setgraphic(interface_1113:com_7, 7530);
+        if (%varplayerbit_9540 = 2) {
+            if_settext(interface_1113:com_8, "Congratulations, your team won!");
+        } else if (%varplayerbit_9540 = 1) {
+            if_settext(interface_1113:com_8, "Oh dear, better luck next time.");
+        } else {
+            if_settext(interface_1113:com_8, "Better luck next time to the Red Team.");
+        }
+    case 5 :
+        if_settext(interface_1113:com_4, "And the result is:");
+        if_settext(interface_1113:com_6, "It's a draw!");
+        if_setgraphic(interface_1113:com_7, 7532);
+        if_settext(interface_1113:com_8, "Well done, everyone!");
+    case 4 :
+        if_settext(interface_1113:com_4, "And the winner is:");
+        if (string_length(%varclient_2151) > 0) {
+            if_settext(interface_1113:com_6, %varclient_2151);
+        } else {
+            if_settext(interface_1113:com_6, "... missing!");
+        }
+        if_setgraphic(interface_1113:com_7, 7532);
+        if_settext(interface_1113:com_8, "Better luck next time to everyone else.");
+    case 6 :
+        if_settext(interface_1113:com_4, "And the winner is:");
+        if_settext(interface_1113:com_6, "YOU!");
+        if_setgraphic(interface_1113:com_7, 7532);
+        if_settext(interface_1113:com_8, "Congratulations!");
+    case default :
+        if_settext(interface_1113:com_4, "");
+        if_settext(interface_1113:com_6, "");
+        if_setgraphic(interface_1113:com_7, null);
+        if_settext(interface_1113:com_8, "");
+}

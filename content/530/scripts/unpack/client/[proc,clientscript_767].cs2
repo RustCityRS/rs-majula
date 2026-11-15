@@ -1,0 +1,411 @@
+// 767
+[proc,clientscript_767](obj $obj0)(obj, obj, obj, obj, obj, obj, obj, obj, obj, int, int, int, int, int, int, int, int, int)
+def_obj $objarray0(9);
+def_int $intarray1(9);
+def_int $int1 = 0;
+if (enum(obj, int, enum_1270, $obj0) > 0) {
+    $objarray0($int1) = lore_spirit_shard;
+    $intarray1($int1) = enum(obj, int, enum_1270, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1190, $obj0) > 0) {
+    $objarray0($int1) = lore_creature_charm;
+    $intarray1($int1) = enum(obj, int, enum_1190, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1194, $obj0) > 0) {
+    $objarray0($int1) = lore_insect_charm;
+    $intarray1($int1) = enum(obj, int, enum_1194, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1191, $obj0) > 0) {
+    $objarray0($int1) = lore_monster_charm;
+    $intarray1($int1) = enum(obj, int, enum_1191, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1210, $obj0) > 0) {
+    $objarray0($int1) = lore_outsider_charm;
+    $intarray1($int1) = enum(obj, int, enum_1210, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1215, $obj0) > 0) {
+    $objarray0($int1) = lore_nailbeast_charm;
+    $intarray1($int1) = enum(obj, int, enum_1215, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1218, $obj0) > 0) {
+    $objarray0($int1) = lore_leech_charm;
+    $intarray1($int1) = enum(obj, int, enum_1218, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1232, $obj0) > 0) {
+    $objarray0($int1) = lore_abby_titan_token;
+    $intarray1($int1) = enum(obj, int, enum_1232, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1233, $obj0) > 0) {
+    $objarray0($int1) = lore_pest_ravager_token;
+    $intarray1($int1) = enum(obj, int, enum_1233, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1234, $obj0) > 0) {
+    $objarray0($int1) = lore_pest_shifter_token;
+    $intarray1($int1) = enum(obj, int, enum_1234, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1235, $obj0) > 0) {
+    $objarray0($int1) = lore_pest_spinner_token;
+    $intarray1($int1) = enum(obj, int, enum_1235, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1236, $obj0) > 0) {
+    $objarray0($int1) = lore_pest_torcher_token;
+    $intarray1($int1) = enum(obj, int, enum_1236, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1189, $obj0) > 0) {
+    $objarray0($int1) = wolf_bones;
+    $intarray1($int1) = enum(obj, int, enum_1189, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1192, $obj0) > 0) {
+    $objarray0($int1) = raw_chicken;
+    $intarray1($int1) = enum(obj, int, enum_1192, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1193, $obj0) > 0) {
+    $objarray0($int1) = village_spider_carcass;
+    $intarray1($int1) = enum(obj, int, enum_1193, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1195, $obj0) > 0) {
+    $objarray0($int1) = iron_ore;
+    $intarray1($int1) = enum(obj, int, enum_1195, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1196, $obj0) > 0) {
+    $objarray0($int1) = bucket_sand;
+    $intarray1($int1) = enum(obj, int, enum_1196, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1197, $obj0) > 0) {
+    $objarray0($int1) = cactus_potato;
+    $intarray1($int1) = enum(obj, int, enum_1197, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1198, $obj0) > 0) {
+    $objarray0($int1) = vampire_dust;
+    $intarray1($int1) = enum(obj, int, enum_1198, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1199, $obj0) > 0) {
+    $objarray0($int1) = lore_honeycomb;
+    $intarray1($int1) = enum(obj, int, enum_1199, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1200, $obj0) > 0) {
+    $objarray0($int1) = lore_evil_turnip_face;
+    $intarray1($int1) = enum(obj, int, enum_1200, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1201, $obj0) > 0) {
+    $objarray0($int1) = gold_ring;
+    $intarray1($int1) = enum(obj, int, enum_1201, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1317, $obj0) > 0) {
+    $objarray0($int1) = swamp_toad;
+    $intarray1($int1) = enum(obj, int, enum_1317, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1203, $obj0) > 0) {
+    $objarray0($int1) = banana;
+    $intarray1($int1) = enum(obj, int, enum_1203, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1204, $obj0) > 0) {
+    $objarray0($int1) = enakh_granite_tiny;
+    $intarray1($int1) = enum(obj, int, enum_1204, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1205, $obj0) > 0) {
+    $objarray0($int1) = butterfly_jar_ruby;
+    $intarray1($int1) = enum(obj, int, enum_1205, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1206, $obj0) > 0) {
+    $objarray0($int1) = unicorn_horn;
+    $intarray1($int1) = enum(obj, int, enum_1206, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1207, $obj0) > 0) {
+    $objarray0($int1) = yak_hide;
+    $intarray1($int1) = enum(obj, int, enum_1207, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1208, $obj0) > 0) {
+    $objarray0($int1) = battle_tortoise_shell;
+    $intarray1($int1) = enum(obj, int, enum_1208, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1209, $obj0) > 0) {
+    $objarray0($int1) = village_snake_hide;
+    $intarray1($int1) = enum(obj, int, enum_1209, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1211, $obj0) > 0) {
+    $objarray0($int1) = fishbowl_empty;
+    $intarray1($int1) = enum(obj, int, enum_1211, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1212, $obj0) > 0) {
+    $objarray0($int1) = raw_rabbit;
+    $intarray1($int1) = enum(obj, int, enum_1212, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1202, $obj0) > 0) {
+    $objarray0($int1) = willow_branch;
+    $intarray1($int1) = enum(obj, int, enum_1202, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1216, $obj0) > 0) {
+    $objarray0($int1) = bucket_compost;
+    $intarray1($int1) = enum(obj, int, enum_1216, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1217, $obj0) > 0) {
+    $objarray0($int1) = snail_corpse1;
+    $intarray1($int1) = enum(obj, int, enum_1217, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1219, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_1;
+    $intarray1($int1) = enum(obj, int, enum_1219, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1220, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_2;
+    $intarray1($int1) = enum(obj, int, enum_1220, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1221, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_3;
+    $intarray1($int1) = enum(obj, int, enum_1221, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1222, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_4;
+    $intarray1($int1) = enum(obj, int, enum_1222, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1223, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_5;
+    $intarray1($int1) = enum(obj, int, enum_1223, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1224, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_6;
+    $intarray1($int1) = enum(obj, int, enum_1224, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1225, $obj0) > 0) {
+    $objarray0($int1) = lore_cockatrice_egg_7;
+    $intarray1($int1) = enum(obj, int, enum_1225, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1226, $obj0) > 0) {
+    $objarray0($int1) = water_talisman;
+    $intarray1($int1) = enum(obj, int, enum_1226, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1227, $obj0) > 0) {
+    $objarray0($int1) = bucket_supercompost;
+    $intarray1($int1) = enum(obj, int, enum_1227, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1228, $obj0) > 0) {
+    $objarray0($int1) = raw_shark;
+    $intarray1($int1) = enum(obj, int, enum_1228, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1230, $obj0) > 0) {
+    $objarray0($int1) = hunting_fur_leopard_perfect;
+    $intarray1($int1) = enum(obj, int, enum_1230, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1229, $obj0) > 0) {
+    $objarray0($int1) = hunting_fur_tiger_perfect;
+    $intarray1($int1) = enum(obj, int, enum_1229, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1231, $obj0) > 0) {
+    $objarray0($int1) = steel_bar;
+    $intarray1($int1) = enum(obj, int, enum_1231, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1238, $obj0) > 0) {
+    $objarray0($int1) = mosquito_proboscis;
+    $intarray1($int1) = enum(obj, int, enum_1238, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1240, $obj0) > 0) {
+    $objarray0($int1) = iron_bar;
+    $intarray1($int1) = enum(obj, int, enum_1240, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1239, $obj0) > 0) {
+    $objarray0($int1) = hunting_fur_jaguar_perfect;
+    $intarray1($int1) = enum(obj, int, enum_1239, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1241, $obj0) > 0) {
+    $objarray0($int1) = bronze_claws;
+    $intarray1($int1) = enum(obj, int, enum_1241, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1242, $obj0) > 0) {
+    $objarray0($int1) = raw_rat_meat;
+    $intarray1($int1) = enum(obj, int, enum_1242, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1244, $obj0) > 0) {
+    $objarray0($int1) = pot_flour;
+    $intarray1($int1) = enum(obj, int, enum_1244, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1245, $obj0) > 0) {
+    $objarray0($int1) = willow_logs;
+    $intarray1($int1) = enum(obj, int, enum_1245, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1243, $obj0) > 0) {
+    $objarray0($int1) = marigold;
+    $intarray1($int1) = enum(obj, int, enum_1243, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1249, $obj0) > 0) {
+    $objarray0($int1) = guam_leaf;
+    $intarray1($int1) = enum(obj, int, enum_1249, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1248, $obj0) > 0) {
+    $objarray0($int1) = cabbage;
+    $intarray1($int1) = enum(obj, int, enum_1248, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1246, $obj0) > 0) {
+    $objarray0($int1) = tinderbox;
+    $intarray1($int1) = enum(obj, int, enum_1246, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1247, $obj0) > 0) {
+    $objarray0($int1) = raw_beef;
+    $intarray1($int1) = enum(obj, int, enum_1247, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1250, $obj0) > 0) {
+    $objarray0($int1) = chinchompa_captured;
+    $intarray1($int1) = enum(obj, int, enum_1250, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1251, $obj0) > 0) {
+    $objarray0($int1) = spit_raw_bird_meat;
+    $intarray1($int1) = enum(obj, int, enum_1251, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1252, $obj0) > 0) {
+    $objarray0($int1) = jug_water;
+    $intarray1($int1) = enum(obj, int, enum_1252, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1253, $obj0) > 0) {
+    $objarray0($int1) = harpoon;
+    $intarray1($int1) = enum(obj, int, enum_1253, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1254, $obj0) > 0) {
+    $objarray0($int1) = ground_desert_goat_horn;
+    $intarray1($int1) = enum(obj, int, enum_1254, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1255, $obj0) > 0) {
+    $objarray0($int1) = poh_sapling_plant_1;
+    $intarray1($int1) = enum(obj, int, enum_1255, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1256, $obj0) > 0) {
+    $objarray0($int1) = huntingbeast_polar_fur;
+    $intarray1($int1) = enum(obj, int, enum_1256, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1257, $obj0) > 0) {
+    $objarray0($int1) = flowers_waterfall_quest_red;
+    $intarray1($int1) = enum(obj, int, enum_1257, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1258, $obj0) > 0) {
+    $objarray0($int1) = air_talisman;
+    $intarray1($int1) = enum(obj, int, enum_1258, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1259, $obj0) > 0) {
+    $objarray0($int1) = earth_talisman;
+    $intarray1($int1) = enum(obj, int, enum_1259, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1260, $obj0) > 0) {
+    $objarray0($int1) = fire_talisman;
+    $intarray1($int1) = enum(obj, int, enum_1260, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1261, $obj0) > 0) {
+    $objarray0($int1) = water_orb;
+    $intarray1($int1) = enum(obj, int, enum_1261, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1262, $obj0) > 0) {
+    $objarray0($int1) = dagganoth_hide;
+    $intarray1($int1) = enum(obj, int, enum_1262, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1263, $obj0) > 0) {
+    $objarray0($int1) = green_salamander;
+    $intarray1($int1) = enum(obj, int, enum_1263, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1264, $obj0) > 0) {
+    $objarray0($int1) = bronze_bar;
+    $intarray1($int1) = enum(obj, int, enum_1264, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1265, $obj0) > 0) {
+    $objarray0($int1) = mithril_bar;
+    $intarray1($int1) = enum(obj, int, enum_1265, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1266, $obj0) > 0) {
+    $objarray0($int1) = adamantite_bar;
+    $intarray1($int1) = enum(obj, int, enum_1266, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1267, $obj0) > 0) {
+    $objarray0($int1) = runite_bar;
+    $intarray1($int1) = enum(obj, int, enum_1267, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1268, $obj0) > 0) {
+    $objarray0($int1) = iron_platebody;
+    $intarray1($int1) = enum(obj, int, enum_1268, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_1269, $obj0) > 0) {
+    $objarray0($int1) = steel_platebody;
+    $intarray1($int1) = enum(obj, int, enum_1269, $obj0);
+    $int1 = calc($int1 + 1);
+}
+if (enum(obj, int, enum_2160, $obj0) > 0) {
+    $objarray0($int1) = lore_phoenix_pinion;
+    $intarray1($int1) = enum(obj, int, enum_2160, $obj0);
+    $int1 = calc($int1 + 1);
+}
+return($objarray0(0), $objarray0(1), $objarray0(2), $objarray0(3), $objarray0(4), $objarray0(5), $objarray0(6), $objarray0(7), $objarray0(8), $intarray1(0), $intarray1(1), $intarray1(2), $intarray1(3), $intarray1(4), $intarray1(5), $intarray1(6), $intarray1(7), $intarray1(8));

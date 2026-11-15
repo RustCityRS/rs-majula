@@ -1,0 +1,25 @@
+// 4963
+[proc,clientscript_4963](component $component0)(int)
+switch_component ($component0) {
+    case interface_1261:com_184 :
+        return(17);
+    case interface_1261:com_192 :
+        return(18);
+    case interface_1261:com_200 :
+        return(19);
+    case interface_1261:com_208 :
+        return(1);
+    case interface_1261:com_216 :
+        return(2);
+    case interface_1261:com_224 :
+        return(3);
+    case interface_1261:com_232 :
+        return(4);
+    case interface_1261:com_240 :
+        return(6);
+    case interface_1261:com_248 :
+        return(7);
+    case interface_1261:com_257 :
+        return(5);
+}
+return(-1);

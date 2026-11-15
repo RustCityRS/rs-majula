@@ -1,0 +1,9 @@
+// 4750
+[proc,clientscript_4750]
+if (getwindowmode <= 1) {
+    if_setposition(rand_dungeon_rewards_v2:main, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    return;
+}
+def_int $int0 = calc((if_getwidth(rand_dungeon_rewards_v2:fade_layer) - if_getwidth(rand_dungeon_rewards_v2:main)) / 2);
+def_int $int1 = calc((if_getheight(rand_dungeon_rewards_v2:fade_layer) - if_getheight(rand_dungeon_rewards_v2:main)) / 2);
+if_setposition(rand_dungeon_rewards_v2:main, max($int0, 223), max($int1, 165), ^setpos_abs_right, ^setpos_abs_bottom);

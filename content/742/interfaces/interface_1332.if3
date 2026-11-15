@@ -1,0 +1,516 @@
+// 1332:0
+[com_0]
+type=graphic
+width=12943
+height=12
+widthmode=proportion
+layer=com_18
+graphic=graphic_12297
+tiling=yes
+
+// 1332:1
+[com_1]
+type=graphic
+width=9
+height=9
+layer=com_19
+graphic=graphic_12290
+alpha=yes
+
+// 1332:2
+[com_2]
+type=graphic
+width=9
+height=9
+ymode=abs_bottom
+layer=com_19
+graphic=graphic_12293
+alpha=yes
+
+// 1332:3
+[com_3]
+type=graphic
+width=9
+height=9
+xmode=abs_right
+layer=com_19
+graphic=graphic_12292
+alpha=yes
+
+// 1332:4
+[com_4]
+type=graphic
+width=9
+height=9
+xmode=abs_right
+ymode=abs_bottom
+layer=com_19
+graphic=graphic_12295
+alpha=yes
+
+// 1332:5
+[com_5]
+type=graphic
+width=9
+height=9
+widthmode=minus
+xmode=abs_centre
+layer=com_19
+graphic=graphic_12291
+tiling=yes
+alpha=yes
+
+// 1332:6
+[com_6]
+type=graphic
+width=9
+height=9
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_19
+graphic=graphic_12294
+alpha=yes
+
+// 1332:7
+[com_7]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+graphic=graphic_12315
+
+// 1332:8
+[com_8]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 1332:9
+[com_9]
+type=text
+width=16391
+height=20
+widthmode=proportion
+xmode=abs_centre
+layer=com_8
+textfont=verdana_13pt_regular
+text=Clan Avatar
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebb452
+
+// 1332:10
+[com_10]
+type=line
+y=23
+width=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+colour=0x472306
+
+// 1332:11
+[com_11]
+type=line
+y=89
+width=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+colour=0x472306
+
+// 1332:12
+[com_12]
+type=line
+y=166
+width=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+colour=0x472306
+
+// 1332:13
+[com_13]
+type=line
+y=22
+width=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+colour=0x6d3407
+
+// 1332:14
+[com_14]
+type=line
+y=88
+width=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+colour=0x6d3407
+
+// 1332:15
+[com_15]
+type=line
+y=165
+width=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+colour=0x6d3407
+
+// 1332:16
+[com_16]
+type=layer
+y=49
+width=24
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+onvarctransmit=clientscript_6666{varclient_2004, varclient_2005}
+
+// 1332:17
+[com_17]
+type=graphic
+width=8
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+graphic=graphic_12296
+tiling=yes
+
+// 1332:18
+[com_18]
+type=layer
+x=4
+width=8
+height=12
+widthmode=minus
+ymode=abs_centre
+layer=com_16
+
+// 1332:19
+[com_19]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_16
+
+// 1332:20
+[com_20]
+type=layer
+x=11
+y=117
+width=40
+height=40
+layer=com_8
+
+// 1332:21
+[com_21]
+type=layer
+y=217
+width=24
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+onvarctransmit=clientscript_6668{varclient_2006, varclient_2007, varclient_2008}
+
+// 1332:22
+[com_22]
+type=text
+y=28
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+textfont=verdana_11pt_regular
+text=Avatar Lifepoints
+textalignh=centre
+colour=0xebb452
+
+// 1332:23
+[com_23]
+type=text
+y=66
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+textfont=verdana_11pt_regular
+text=X/X
+textalignh=centre
+
+// 1332:24
+[com_24]
+type=text
+y=97
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+textfont=verdana_11pt_regular
+text=Buff
+textalignh=centre
+colour=0xebb452
+
+// 1332:25
+[com_25]
+type=text
+x=54
+y=118
+width=130
+height=36
+layer=com_8
+textfont=verdana_11pt_regular
+text=Buff Information
+onvarctransmit=clientscript_6667{varclient_2009}
+
+// 1332:26
+[com_26]
+type=text
+y=170
+width=24
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+textfont=verdana_11pt_regular
+text=Resource Gathering
+textalignh=centre
+colour=0xebb452
+
+// 1332:27
+[com_27]
+type=text
+y=236
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+textfont=verdana_11pt_regular
+text=X/X
+textalignh=centre
+
+// 1332:28
+[com_28]
+type=graphic
+x=12
+y=190
+width=20
+height=20
+layer=com_8
+graphic=graphic_7376
+
+// 1332:29
+[com_29]
+type=text
+x=37
+y=191
+width=142
+height=16
+layer=com_8
+textfont=verdana_11pt_regular
+text=Resource
+
+// 1332:30
+[com_30]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_8
+
+// 1332:31
+[com_31]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_20
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1332:32
+[com_32]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_20
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1332:33
+[com_33]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_20
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1332:34
+[com_34]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_20
+onload=script4205(event_com, struct_1746)
+
+// 1332:35
+[com_35]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_20
+
+// 1332:36
+[com_36]
+type=layer
+x=4
+y=4
+width=65390
+height=65319
+widthmode=minus
+heightmode=minus
+layer=com_20
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1332:37
+[com_37]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_36
+colour=0x000000
+fill=yes
+trans=150
+
+// 1332:38
+[com_38]
+type=graphic
+width=8
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+graphic=graphic_12296
+tiling=yes
+
+// 1332:39
+[com_39]
+type=layer
+x=4
+width=8
+height=12
+widthmode=minus
+ymode=abs_centre
+layer=com_21
+
+// 1332:40
+[com_40]
+type=graphic
+width=21
+height=12
+layer=com_39
+graphic=graphic_12298
+tiling=yes
+
+// 1332:41
+[com_41]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_21
+
+// 1332:42
+[com_42]
+type=graphic
+width=9
+height=9
+layer=com_41
+graphic=graphic_12290
+alpha=yes
+
+// 1332:43
+[com_43]
+type=graphic
+width=9
+height=9
+ymode=abs_bottom
+layer=com_41
+graphic=graphic_12293
+alpha=yes
+
+// 1332:44
+[com_44]
+type=graphic
+width=9
+height=9
+xmode=abs_right
+layer=com_41
+graphic=graphic_12292
+alpha=yes
+
+// 1332:45
+[com_45]
+type=graphic
+width=9
+height=9
+xmode=abs_right
+ymode=abs_bottom
+layer=com_41
+graphic=graphic_12295
+alpha=yes
+
+// 1332:46
+[com_46]
+type=graphic
+width=9
+height=9
+widthmode=minus
+xmode=abs_centre
+layer=com_41
+graphic=graphic_12291
+tiling=yes
+alpha=yes
+
+// 1332:47
+[com_47]
+type=graphic
+width=9
+height=9
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_41
+graphic=graphic_12294
+alpha=yes

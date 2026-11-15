@@ -1,0 +1,9 @@
+// 1156
+[proc,script1156]
+if (detailget_stereo = 0) {
+    if_setgraphic(interface_429:com_16, "radio_buttons,0");
+    if_setgraphic(interface_429:com_14, "radio_buttons,1");
+} else {
+    if_setgraphic(interface_429:com_14, "radio_buttons,0");
+    if_setgraphic(interface_429:com_16, "radio_buttons,1");
+}

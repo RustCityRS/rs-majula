@@ -1,0 +1,4 @@
+// 1878
+[clientscript,script1878](int $int0, component $component1, component $component2)
+%lobby_caret = ~script1401(calc($int0 + if_getx($component1)), %lobbyscreen_input, verdana_11pt_regular, if_getx($component1));
+~script1879($component1, $component2, %lobbyscreen_input);

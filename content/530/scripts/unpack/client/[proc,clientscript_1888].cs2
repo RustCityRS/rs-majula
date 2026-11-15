@@ -1,0 +1,5 @@
+// 1888
+[proc,clientscript_1888]
+if (%last_windowmode >= 1 & getwindowmode = 0 | %last_windowmode = 0 & getwindowmode >= 1) {
+    ~clientscript_1887(loginscreen:com_125, loginscreen:com_127, loginscreen:fader, loginscreen:com_128, loginscreen:com_129);
+}

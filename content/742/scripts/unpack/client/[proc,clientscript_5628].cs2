@@ -1,0 +1,7 @@
+// 5628
+[proc,clientscript_5628](int $int0, int $int1)
+if (if_getwidth(interface_1199:com_14) ! $int0) {
+    ~clientscript_5622;
+} else if (if_getheight(interface_1199:com_14) ! $int1) {
+    ~clientscript_5622;
+}

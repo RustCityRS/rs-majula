@@ -1,0 +1,38 @@
+// 5999
+[proc,clientscript_5999](intarray $intarray0, int $int1, int $int2, enum $enum3)
+def_int $int4 = calc(($int1 + $int2) / 2);
+def_int $int5 = $intarray0($int4);
+$intarray0($int4) = $intarray0($int2);
+$intarray0($int2) = $int5;
+def_int $int6 = $int1;
+def_int $int7 = $int1;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+while ($int7 < $int2) {
+    if (struct_param(enum(int, struct, $enum3, $intarray0($int7)), param_1933) > 0) {
+        $int9 = struct_param(enum(int, struct, $enum3, $intarray0($int7)), param_1933);
+    } else {
+        $int9 = struct_param(enum(int, struct, $enum3, $intarray0($int7)), param_1932);
+    }
+    if (struct_param(enum(int, struct, $enum3, $int5), param_1933) > 0) {
+        $int10 = struct_param(enum(int, struct, $enum3, $int5), param_1933);
+    } else {
+        $int10 = struct_param(enum(int, struct, $enum3, $int5), param_1932);
+    }
+    if ($int9 < $int10) {
+        $int8 = $intarray0($int7);
+        $intarray0($int7) = $intarray0($int6);
+        $intarray0($int6) = $int8;
+        $int6 = calc($int6 + 1);
+    }
+    $int7 = calc($int7 + 1);
+}
+$intarray0($int2) = $intarray0($int6);
+$intarray0($int6) = $int5;
+if ($int1 < calc($int6 - 1)) {
+    ~clientscript_5999(intarray0, $int1, calc($int6 - 1), $enum3);
+}
+if (calc($int6 + 1) < $int2) {
+    ~clientscript_5999(intarray0, calc($int6 + 1), $int2, $enum3);
+}

@@ -1,0 +1,9 @@
+// 1034
+[proc,quickchat_tutorial_addtext](int $int0, int $int1, int $int2, int $int3, int $int4, string $string0, int $rgb5)
+cc_create(quickchat_tutorial:text, 4, $int0);
+cc_setposition($int1, $int2, 0, 0);
+cc_setsize($int3, $int4, 0, 0);
+cc_setcolour($rgb5);
+cc_settextshadow(true);
+cc_settextfont(495);
+cc_settext($string0);

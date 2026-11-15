@@ -1,0 +1,10 @@
+// 1777
+[proc,clanwars_resynch_prayer]
+if (%clanwars_rulevarc_noprayer = false) {
+    if_setgraphic(clanwars_setup:prayer_indicator, "options_radio_buttons,2");
+    if_settrans(clanwars_setup:prayer, 0);
+} else {
+    if_setgraphic(clanwars_setup:prayer_indicator, "options_radio_buttons,1");
+    if_settrans(clanwars_setup:prayer, 225);
+}
+~clanwars_updateside;

@@ -1,0 +1,7 @@
+// 1968
+[proc,clientscript_1968]
+if_sethide(interface_1253:com_171, true);
+if (op18("1066") = 1 & op56("1066") = 1 & %varplayerbit_10862 = 0 & %varplayerbit_11026 = 0 & max(%varclient_1800, 0) = 0 & %varplayerbit_10861 = 0 & %varplayerbit_11325 = 0) {
+    if_setgraphic(interface_1253:com_353, ~clientscript_6270);
+    if_sethide(interface_1253:com_171, false);
+}

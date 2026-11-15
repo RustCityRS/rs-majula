@@ -1,0 +1,9 @@
+// 2291
+[clientscript,prayer_custom_varupdate](component $component0, int $int1)
+if (~prayer_topstat_getvar($int1) = 1) {
+    if (cc_find($component0, $int1) = true) {
+        cc_setgraphic("miscgraphics,11");
+    }
+} else if (cc_find($component0, $int1) = true) {
+    cc_setgraphic("miscgraphics,10");
+}

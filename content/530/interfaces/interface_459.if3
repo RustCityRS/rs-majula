@@ -1,0 +1,477 @@
+// 459:0
+[background]
+type=graphic
+x=17
+y=26
+width=480
+height=294
+graphic=graphic_297
+tiling=yes
+opbase=  
+
+// 459:1
+[left_side]
+type=graphic
+y=26
+width=36
+height=276
+graphic=graphic_821
+tiling=yes
+opbase= 
+
+// 459:2
+[right_side]
+type=graphic
+x=479
+y=26
+width=24
+height=272
+graphic=graphic_823
+tiling=yes
+opbase= 
+
+// 459:3
+[bottom]
+type=graphic
+x=15
+y=302
+width=466
+height=25
+graphic=graphic_822
+tiling=yes
+
+// 459:4
+[top]
+type=graphic
+x=14
+y=10
+width=475
+height=38
+graphic=graphic_820
+tiling=yes
+opbase= 
+
+// 459:5
+[bottom_right]
+type=graphic
+x=467
+y=290
+width=32
+height=32
+graphic=graphic_827
+opbase= 
+
+// 459:6
+[bottom_left]
+type=graphic
+x=13
+y=290
+width=32
+height=32
+graphic=graphic_826
+
+// 459:7
+[top_left]
+type=graphic
+x=13
+y=23
+width=32
+height=32
+graphic=graphic_824
+opbase= 
+
+// 459:8
+[top_right]
+type=graphic
+x=467
+y=23
+width=32
+height=32
+graphic=graphic_825
+opbase= 
+
+// 459:9
+[title_bar]
+type=graphic
+x=16
+y=38
+width=479
+height=33
+graphic=graphic_828
+tiling=yes
+
+// 459:10
+[left_joint]
+type=graphic
+x=13
+y=40
+width=32
+height=32
+graphic=graphic_829
+tiling=yes
+
+// 459:11
+[right_joint]
+type=graphic
+x=467
+y=40
+width=32
+height=32
+graphic=graphic_830
+tiling=yes
+
+// 459:12
+[close_button]
+type=graphic
+x=471
+y=32
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 459:13
+[title]
+type=text
+x=19
+y=32
+width=474
+height=15
+textfont=fontmetrics_496
+text=What would you like to spin?
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 459:14
+[com_14]
+type=model
+x=243
+y=87
+width=38
+height=39
+model=model_18331
+modelorigin=5,3
+modelangle=172,1905,0
+modelzoom=400
+modelunknown=0,3000,0
+
+// 459:15
+[com_15]
+type=text
+x=237
+y=134
+width=50
+height=16
+textfont=fontmetrics_495
+text=Bow String<br>(Flax)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 10)
+
+// 459:16
+[com_16]
+type=layer
+x=230
+y=84
+width=64
+height=80
+
+// 459:17
+[com_17]
+type=text
+x=1
+y=-1
+width=64
+height=80
+layer=com_16
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Bow String
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 10)
+
+// 459:18
+[com_18]
+type=layer
+x=95
+y=83
+width=64
+height=80
+
+// 459:19
+[com_19]
+type=text
+x=1
+y=1
+width=64
+height=80
+layer=com_18
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Ball of Wool
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 1)
+
+// 459:20
+[com_20]
+type=model
+x=113
+y=85
+width=32
+height=35
+model=model_2795
+modelorigin=3,4
+modelangle=134,220,0
+modelzoom=480
+modelunknown=0,3000,0
+
+// 459:21
+[com_21]
+type=text
+x=102
+y=131
+width=50
+height=16
+textfont=fontmetrics_495
+text=Ball of Wool<br>(Wool)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 1)
+
+// 459:22
+[com_22]
+type=layer
+x=352
+y=84
+width=64
+height=80
+
+// 459:23
+[com_23]
+type=text
+x=2
+width=61
+height=79
+layer=com_22
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Magic String
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 19)
+
+// 459:24
+[com_24]
+type=model
+x=362
+y=86
+width=38
+height=39
+model=model_18331
+modelorigin=4,3
+modelangle=170,1900,0
+modelzoom=400
+modelunknown=0,3000,0
+
+// 459:25
+[com_25]
+type=text
+x=361
+y=130
+width=50
+height=16
+textfont=fontmetrics_495
+text=Magic Amulet<br>String<br>(Magic Roots)
+textlineheight=15
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 19)
+
+// 459:26
+[com_26]
+type=layer
+x=229
+y=204
+width=64
+height=80
+
+// 459:27
+[com_27]
+type=text
+width=64
+height=80
+layer=com_26
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Crossbow String
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 10)
+
+// 459:28
+[com_28]
+type=model
+x=234
+y=199
+width=56
+height=49
+model=model_18332
+modelorigin=-2,0
+modelangle=255,84,0
+modelzoom=464
+modelunknown=0,3000,0
+
+// 459:29
+[com_29]
+type=text
+x=236
+y=252
+width=50
+height=16
+textfont=fontmetrics_495
+text=C'Bow String<br>(Sinew)
+textlineheight=15
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 10)
+
+// 459:30
+[com_30]
+type=layer
+x=96
+y=203
+width=64
+height=80
+
+// 459:31
+[com_31]
+type=text
+width=64
+height=80
+layer=com_30
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Crossbow String
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 10)
+
+// 459:32
+[com_32]
+type=model
+x=101
+y=196
+width=56
+height=48
+model=model_18332
+modelorigin=-2,0
+modelangle=250,79,0
+modelzoom=464
+modelunknown=0,3000,0
+
+// 459:33
+[com_33]
+type=text
+x=103
+y=251
+width=50
+height=16
+textfont=fontmetrics_495
+text=C'Bow String<br>(Tree Roots)
+textlineheight=15
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 10)
+
+// 459:34
+[com_34]
+type=layer
+x=350
+y=204
+width=64
+height=80
+
+// 459:35
+[com_35]
+type=text
+width=64
+height=80
+layer=com_34
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+opbase=<col=ff9040>Rope
+op1=Make 1
+op2=Make 5
+op3=Make All
+op4=Make X
+onload=crafting_level_hide(event_com, 30)
+
+// 459:36
+[com_36]
+type=model
+x=357
+y=205
+width=59
+height=39
+model=model_1842
+modelorigin=-5,6
+modelangle=188,1976,0
+modelzoom=616
+modelunknown=0,3000,0
+
+// 459:37
+[rope_text]
+type=text
+x=357
+y=252
+width=50
+height=16
+textfont=fontmetrics_495
+text=Rope<br>(Yak Hair)
+textlineheight=15
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=crafting_level(event_com, 30)

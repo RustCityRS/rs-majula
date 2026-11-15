@@ -1,0 +1,27 @@
+// 5100
+[proc,clientscript_5100](int $int0, string $string0, graphic $graphic1, graphic $graphic2, int $int3, int $int4, int $int5, int $int6, int $int7, boolean $boolean8, int $int9, component $component10, int $int11, component $component12, component $component13, component $component14, component $component15, component $component16, component $component17, component $component18, component $component19, component $component20)
+if_sethide($component13, true);
+if_sethide($component12, false);
+if_sethide($component15, true);
+if_setop($component14, 1, "Details");
+if_settext($component16, $string0);
+switch_int ($int7) {
+    case -2 :
+        if_setgraphic($component10, "clans_portaicons_small,0");
+    case -1 :
+        if_setgraphic($component10, "clans_portaicons_small,1");
+    case 0 :
+        if_setgraphic($component10, "clans_portaicons_small,2");
+    case 1 :
+        if_setgraphic($component10, "clans_portaicons_small,3");
+    case 2 :
+        if_setgraphic($component10, "clans_portaicons_small,4");
+}
+if_setgraphic($component17, $graphic1);
+if_setgraphic($component18, $graphic2);
+if_setcolour($component17, op879($int3));
+if_setcolour($component18, op879($int4));
+if_setcolour($component19, op879($int5));
+if_setcolour($component20, op879($int6));
+if_setonop($component14, clientscript_5111, $int0, $boolean8, "i1");
+if_sethide($component13, true);

@@ -1,0 +1,23 @@
+// 3185
+[clientscript,lobbyscreen_report_abuse_stage1_keyboard](int $key0, char $char1, component $component2)
+switch_int ($key0) {
+    case ^key_return :
+        ~lobbyscreen_report_abuse_stage1_next;
+        return;
+    case ^key_escape :
+        ~lobbyscreen_report_abuse_stage1_close;
+        return;
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        %lobby_caret = ~script1553($key0, %lobby_caret, %lobbyscreen_input);
+        ~script1879(lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret, %lobbyscreen_input);
+        return;
+    case null, ^key_backspace, ^key_del :
+        if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
+            if ($key0 = null & string_length(removetags(append_char("", $char1))) = 0) {
+                return;
+            }
+            %lobbyscreen_input, %lobby_caret = ~script802(%lobby_caret, %lobbyscreen_input, 2, $key0, $char1);
+            if_settext($component2, %lobbyscreen_input);
+            ~script1879(lobbyscreen_report_abuse_stage1:name, lobbyscreen_report_abuse_stage1:name_caret, %lobbyscreen_input);
+        }
+}

@@ -1,3 +1,6 @@
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::info::player::model_anims::ModelAnim;
+use rs_ver::TypeId;
 use std::ops::{Deref, DerefMut};
 mod renderer;
 
@@ -75,17 +78,17 @@ pub struct EntityMasks {
 }
 
 pub struct EntityMasksCold {
-    pub appearance: Option<u16>,
+    pub appearance: Option<TypeId>,
     pub last_appearance: Option<u32>,
     pub last_appearance_info: Option<Box<[u8]>>,
-    pub readyanim: Option<u16>,
-    pub turnanim: Option<u16>,
-    pub walkanim: Option<u16>,
-    pub walkanim_b: Option<u16>,
-    pub walkanim_l: Option<u16>,
-    pub walkanim_r: Option<u16>,
-    pub runanim: Option<u16>,
-    pub anim_id: Option<u16>,
+    pub readyanim: Option<TypeId>,
+    pub turnanim: Option<TypeId>,
+    pub walkanim: Option<TypeId>,
+    pub walkanim_b: Option<TypeId>,
+    pub walkanim_l: Option<TypeId>,
+    pub walkanim_r: Option<TypeId>,
+    pub runanim: Option<TypeId>,
+    pub anim_id: Option<TypeId>,
     pub anim_delay: Option<u8>,
     pub anim_protect: bool,
     pub say: Option<Box<str>>,
@@ -115,7 +118,7 @@ pub struct EntityMasksCold {
     pub chat_colour: Option<u8>,
     pub chat_effects: Option<u8>,
     pub chat_ignored: Option<u8>,
-    pub spotanim: Option<u16>,
+    pub spotanim: Option<TypeId>,
     pub spotanim_height: Option<u16>,
     pub spotanim_delay: Option<u16>,
     pub exactmove_start_x: Option<u16>,
@@ -125,7 +128,9 @@ pub struct EntityMasksCold {
     pub exactmove_begin: Option<u16>,
     pub exactmove_finish: Option<u16>,
     pub exactmove_dir: Option<u8>,
-    pub changetype: Option<u16>,
+    pub changetype: Option<TypeId>,
+    #[cfg(all(since_530, before_647))]
+    pub model_anims: Option<Box<[ModelAnim]>>,
     #[cfg(since_647)]
     pub move_type: Option<u8>,
     #[cfg(since_647)]
@@ -211,6 +216,8 @@ impl EntityMasks {
                 exactmove_finish: None,
                 exactmove_dir: None,
                 changetype: None,
+                #[cfg(all(since_530, before_647))]
+                model_anims: None,
                 #[cfg(since_647)]
                 move_type: None,
                 #[cfg(since_647)]
@@ -290,7 +297,7 @@ impl EntityMasks {
     /// renderer knows to encode this update.
     pub fn set_anim(
         &mut self,
-        id: Option<u16>,
+        id: Option<TypeId>,
         delay: u8,
         mask_bit: u16,
         current_priority: Option<u16>,
@@ -318,7 +325,8 @@ impl EntityMasks {
     /// `chat_effects`, `chat_ignored`, `spotanim`, `spotanim_height`,
     /// `spotanim_delay`, `exactmove_start_x`, `exactmove_start_z`,
     /// `exactmove_end_x`, `exactmove_end_z`, `exactmove_begin`,
-    /// `exactmove_finish`, `exactmove_dir`, `changetype`.
+    /// `exactmove_finish`, `exactmove_dir`, `changetype`, and on 530
+    /// `model_anims`.
     ///
     /// **Preserved (persistent):** `appearance`, `last_appearance`,
     /// `last_appearance_info`, `readyanim`, `turnanim`, `walkanim`,
@@ -377,6 +385,10 @@ impl EntityMasks {
         self.exactmove_finish = None;
         self.exactmove_dir = None;
         self.changetype = None;
+        #[cfg(all(since_530, before_647))]
+        {
+            self.model_anims = None;
+        }
         #[cfg(since_647)]
         {
             self.move_type = None;
@@ -390,6 +402,10 @@ impl EntityMasks {
     /// its mask bit into `masks`. Only evaluated by a `debug_assert`, so
     /// release builds compile it away.
     fn transients_clear(&self) -> bool {
+        #[cfg(all(since_530, before_647))]
+        if self.model_anims.is_some() {
+            return false;
+        }
         #[cfg(since_244)]
         let damage2_clear = self.damage2_taken.is_none()
             && self.damage2_type.is_none()
@@ -609,7 +625,7 @@ mod tests {
         masks.masks = 0xFFFF;
         masks.face_x = Some(100);
         masks.face_z = Some(200);
-        masks.anim_id = Some(50);
+        masks.anim_id = Some(TypeId::new(50));
         masks.anim_delay = Some(3);
         masks.say = Some("hello".into());
         masks.damage_taken = Some(10);
@@ -620,7 +636,7 @@ mod tests {
         masks.chat_colour = Some(5);
         masks.chat_effects = Some(2);
         masks.chat_ignored = Some(0);
-        masks.spotanim = Some(300);
+        masks.spotanim = Some(TypeId::new(300));
         masks.spotanim_height = Some(200);
         masks.spotanim_delay = Some(10);
         masks.exactmove_start_x = Some(1);
@@ -630,7 +646,7 @@ mod tests {
         masks.exactmove_begin = Some(5);
         masks.exactmove_finish = Some(10);
         masks.exactmove_dir = Some(7);
-        masks.changetype = Some(99);
+        masks.changetype = Some(TypeId::new(99));
 
         masks.reset();
 
@@ -664,16 +680,16 @@ mod tests {
     #[test]
     fn reset_preserves_persistent_fields() {
         let mut masks = EntityMasks::new();
-        masks.appearance = Some(42);
+        masks.appearance = Some(TypeId::new(42));
         masks.last_appearance = Some(12345);
         masks.last_appearance_info = Some(vec![10, 20].into_boxed_slice());
-        masks.readyanim = Some(100);
-        masks.turnanim = Some(101);
-        masks.walkanim = Some(102);
-        masks.walkanim_b = Some(103);
-        masks.walkanim_l = Some(104);
-        masks.walkanim_r = Some(105);
-        masks.runanim = Some(106);
+        masks.readyanim = Some(TypeId::new(100));
+        masks.turnanim = Some(TypeId::new(101));
+        masks.walkanim = Some(TypeId::new(102));
+        masks.walkanim_b = Some(TypeId::new(103));
+        masks.walkanim_l = Some(TypeId::new(104));
+        masks.walkanim_r = Some(TypeId::new(105));
+        masks.runanim = Some(TypeId::new(106));
         masks.face_entity = Some(200);
         masks.orientation_x = Some(300);
         masks.orientation_z = Some(400);
@@ -682,16 +698,16 @@ mod tests {
 
         masks.reset();
 
-        assert_eq!(masks.appearance, Some(42));
+        assert_eq!(masks.appearance, Some(TypeId::new(42)));
         assert_eq!(masks.last_appearance, Some(12345));
         assert!(masks.last_appearance_info.is_some());
-        assert_eq!(masks.readyanim, Some(100));
-        assert_eq!(masks.turnanim, Some(101));
-        assert_eq!(masks.walkanim, Some(102));
-        assert_eq!(masks.walkanim_b, Some(103));
-        assert_eq!(masks.walkanim_l, Some(104));
-        assert_eq!(masks.walkanim_r, Some(105));
-        assert_eq!(masks.runanim, Some(106));
+        assert_eq!(masks.readyanim, Some(TypeId::new(100)));
+        assert_eq!(masks.turnanim, Some(TypeId::new(101)));
+        assert_eq!(masks.walkanim, Some(TypeId::new(102)));
+        assert_eq!(masks.walkanim_b, Some(TypeId::new(103)));
+        assert_eq!(masks.walkanim_l, Some(TypeId::new(104)));
+        assert_eq!(masks.walkanim_r, Some(TypeId::new(105)));
+        assert_eq!(masks.runanim, Some(TypeId::new(106)));
         assert_eq!(masks.face_entity, Some(200));
         assert_eq!(masks.orientation_x, Some(300));
         assert_eq!(masks.orientation_z, Some(400));
@@ -702,8 +718,8 @@ mod tests {
     #[test]
     fn set_and_read_appearance() {
         let mut masks = EntityMasks::new();
-        masks.appearance = Some(1234);
-        assert_eq!(masks.appearance, Some(1234));
+        masks.appearance = Some(TypeId::new(1234));
+        assert_eq!(masks.appearance, Some(TypeId::new(1234)));
     }
 
     #[test]
@@ -759,7 +775,7 @@ mod tests {
     fn multiple_reset_cycles() {
         let mut masks = EntityMasks::new();
         for _ in 0..3 {
-            masks.anim_id = Some(42);
+            masks.anim_id = Some(TypeId::new(42));
             masks.say = Some("test".into());
             masks.damage_taken = Some(5);
             masks.masks = 7;
@@ -775,10 +791,10 @@ mod tests {
     fn spotanim_fields() {
         let mut masks = EntityMasks::new();
         masks.masks = 1;
-        masks.spotanim = Some(500);
+        masks.spotanim = Some(TypeId::new(500));
         masks.spotanim_height = Some(128);
         masks.spotanim_delay = Some(10);
-        assert_eq!(masks.spotanim, Some(500));
+        assert_eq!(masks.spotanim, Some(TypeId::new(500)));
         assert_eq!(masks.spotanim_height, Some(128));
         assert_eq!(masks.spotanim_delay, Some(10));
         masks.reset();
@@ -833,21 +849,21 @@ mod tests {
     #[test]
     fn all_animation_fields_persist() {
         let mut masks = EntityMasks::new();
-        masks.readyanim = Some(1);
-        masks.turnanim = Some(2);
-        masks.walkanim = Some(3);
-        masks.walkanim_b = Some(4);
-        masks.walkanim_l = Some(5);
-        masks.walkanim_r = Some(6);
-        masks.runanim = Some(7);
+        masks.readyanim = Some(TypeId::new(1));
+        masks.turnanim = Some(TypeId::new(2));
+        masks.walkanim = Some(TypeId::new(3));
+        masks.walkanim_b = Some(TypeId::new(4));
+        masks.walkanim_l = Some(TypeId::new(5));
+        masks.walkanim_r = Some(TypeId::new(6));
+        masks.runanim = Some(TypeId::new(7));
         masks.reset();
-        assert_eq!(masks.readyanim, Some(1));
-        assert_eq!(masks.turnanim, Some(2));
-        assert_eq!(masks.walkanim, Some(3));
-        assert_eq!(masks.walkanim_b, Some(4));
-        assert_eq!(masks.walkanim_l, Some(5));
-        assert_eq!(masks.walkanim_r, Some(6));
-        assert_eq!(masks.runanim, Some(7));
+        assert_eq!(masks.readyanim, Some(TypeId::new(1)));
+        assert_eq!(masks.turnanim, Some(TypeId::new(2)));
+        assert_eq!(masks.walkanim, Some(TypeId::new(3)));
+        assert_eq!(masks.walkanim_b, Some(TypeId::new(4)));
+        assert_eq!(masks.walkanim_l, Some(TypeId::new(5)));
+        assert_eq!(masks.walkanim_r, Some(TypeId::new(6)));
+        assert_eq!(masks.runanim, Some(TypeId::new(7)));
     }
 
     #[test]
@@ -865,24 +881,24 @@ mod tests {
         let mut masks = EntityMasks::new();
         // Set everything
         masks.masks = 0xFFFF;
-        masks.appearance = Some(1);
+        masks.appearance = Some(TypeId::new(1));
         masks.face_entity = Some(2);
         masks.orientation_x = Some(3);
-        masks.readyanim = Some(4);
-        masks.anim_id = Some(5);
+        masks.readyanim = Some(TypeId::new(4));
+        masks.anim_id = Some(TypeId::new(5));
         masks.say = Some("hi".into());
         masks.damage_taken = Some(6);
-        masks.spotanim = Some(7);
+        masks.spotanim = Some(TypeId::new(7));
         masks.exactmove_start_x = Some(8);
-        masks.changetype = Some(9);
+        masks.changetype = Some(TypeId::new(9));
 
         masks.reset();
 
         // Persistent
-        assert_eq!(masks.appearance, Some(1));
+        assert_eq!(masks.appearance, Some(TypeId::new(1)));
         assert_eq!(masks.face_entity, Some(2));
         assert_eq!(masks.orientation_x, Some(3));
-        assert_eq!(masks.readyanim, Some(4));
+        assert_eq!(masks.readyanim, Some(TypeId::new(4)));
 
         // Temporary (cleared)
         assert_eq!(masks.masks, 0);
@@ -908,7 +924,7 @@ mod tests {
     fn changetype_is_temporary() {
         let mut masks = EntityMasks::new();
         masks.masks = 1;
-        masks.changetype = Some(42);
+        masks.changetype = Some(TypeId::new(42));
         masks.reset();
         assert!(masks.changetype.is_none());
     }

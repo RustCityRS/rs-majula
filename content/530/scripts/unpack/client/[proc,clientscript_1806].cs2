@@ -1,0 +1,41 @@
+// 1806
+[proc,clientscript_1806](string $string0)
+~clientscript_1548(12);
+$string0 = lowercase(removetags($string0));
+def_int $int0 = string_indexof_string($string0, "_", 0);
+def_int $int1 = string_length($string0);
+def_string $string1 = "";
+def_string $string2 = "";
+while ($int0 ! -1) {
+    if ($int0 = 0) {
+        $string0 = substring($string0, 1, $int1);
+    } else if ($int0 = calc($int1 - 1)) {
+        $string0 = substring($string0, 0, calc($int1 - 1));
+    } else {
+        $string1 = substring($string0, 0, $int0);
+        $string2 = substring($string0, calc($int0 + 1), $int1);
+        $string0 = append($string1, append(" ", $string2));
+    }
+    $int1 = string_length($string0);
+    $int0 = string_indexof_string($string0, "_", 0);
+}
+while (string_indexof_string($string0, " ", 0) = 0 & $int1 > 0) {
+    $string0 = substring($string0, 1, $int1);
+    $int1 = string_length($string0);
+}
+while (string_indexof_string($string0, " ", 0) = calc($int1 - 1) & $int1 > 0) {
+    $string0 = substring($string0, 0, calc($int1 - 1));
+    $int1 = string_length($string0);
+}
+if (compare(%varclient_670, $string0) = 0) {
+    mes("Caller not changed.");
+    return;
+}
+%varclient_670 = $string0;
+if (string_length(%varclient_670) > 0) {
+    mes("Caller set: <~clientscript_1814(%varclient_670)>");
+} else {
+    mes("Caller feature disabled.");
+}
+~clientscript_1809(clanwars_overlay:caller_layer, clanwars_overlay:caller_name, clanwars_overlay:caller_text);
+~clientscript_1809(clanwars_ffa_overlay:caller_layer, clanwars_ffa_overlay:caller_name, clanwars_ffa_overlay:caller_text);

@@ -1,0 +1,23 @@
+// 926
+[proc,clientscript_926]
+if (%varplayerbit_4538 >= 43) {
+    mes("The game has ended.");
+    if_close;
+    return;
+}
+if (%if_side_modal2_stone = %varplayerbit_4538) {
+    return;
+}
+if (%if_side_modal2_stone = 0) {
+    while (%if_side_modal2_stone < %varplayerbit_4538) {
+        %if_side_modal2_stone = calc(%if_side_modal2_stone + 1);
+        ~clientscript_927(%if_side_modal2_stone, 0);
+    }
+    ~clientscript_928(%varplayerbit_4538, "Earlgrey", "Fairtrade", interface_725:text_1);
+    return;
+}
+%if_side_modal2_stone = %varplayerbit_4538;
+~clientscript_927(%varplayerbit_4538, 1);
+if (%varplayerbit_4538 < calc(43 - 1)) {
+    ~clientscript_928(%varplayerbit_4538, "Earlgrey", "Fairtrade", interface_725:text_1);
+}

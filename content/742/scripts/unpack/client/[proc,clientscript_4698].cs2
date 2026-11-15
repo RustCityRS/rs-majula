@@ -1,0 +1,8 @@
+// 4698
+[proc,clientscript_4698]
+def_int $int0 = 0;
+$int0 = calc(%varclient_1545 / 2);
+if_setsize(interface_500:com_12, calc($int0 * 16384 / 100), if_getheight(interface_500:com_12), ^setsize_rel, ^setsize_abs);
+if ($int0 < 97) {
+    if_sethide(interface_500:com_13, true);
+}

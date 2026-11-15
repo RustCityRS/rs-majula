@@ -1,0 +1,4 @@
+// 1465
+[proc,clientscript_1465]
+if_settext(bank_v2_main:com_97, tostring(%varclient_192));
+if_settext(bank_v2_main:bank_space, tostring(~clientscript_1466));

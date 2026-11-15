@@ -1,0 +1,36 @@
+// 6691
+[proc,clientscript_6691](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13, component $component14)
+cc_deleteall($component1);
+~clientscript_6680($component1);
+cc_deleteall($component3);
+~clientscript_6680($component3);
+cc_deleteall($component5);
+~clientscript_6680($component5);
+cc_deleteall($component7);
+~clientscript_6680($component7);
+cc_deleteall($component10);
+~clientscript_6680($component10);
+def_string $string0 = "Points:";
+if_setsize($component5, calc(parawidth(~clientscript_6696($string0, 1500), ^max_32bit_int, op1028($component6)) + 10), if_getheight($component5), ^setsize_abs, ^setsize_abs);
+def_int $int15 = calc(stringwidth(if_gettext($component9), op1028($component9)) + 5);
+if_setsize($component7, calc($int15 + stringwidth(~clientscript_6702(calc(20 * 100)), op1028($component8)) + 10), if_getheight($component7), ^setsize_abs, ^setsize_abs);
+if_setsize($component8, calc($int15 + 10), if_getheight($component8), ^setsize_minus, ^setsize_abs);
+if_setsize($component10, calc(max(stringwidth(if_gettext($component11), op1028($component11)), if_getwidth($component12)) + 10), if_getheight($component10), ^setsize_abs, ^setsize_abs);
+~clientscript_6704($component0, $component1);
+if_setonresize($component0, "clientscript_6703($component0, $component1)");
+def_int $int16 = min(if_getwidth($component0), 200);
+~clientscript_6693($component1, $component2, $component13, $component14, $int16);
+if_setonvarctransmit($component1, "clientscript_6692($component1, $component2, $component13, $component14, $int16){varclient_2011}");
+if_setonmouseleave($component1, "deltooltip($component14)");
+~clientscript_6695($component5, $component6, $component14, $string0);
+if_setonvartransmit($component0, "clientscript_6694($component5, $component6, $component14, $string0){varplayer_2746}");
+def_string $string1 = "This shows the number of points you have scored during this hunt.";
+if_setonmouserepeat($component5, "script1160($component5, -1, $component14, $string1, 25, $int16)");
+if_setonmouseleave($component5, "deltooltip($component14)");
+~clientscript_6698($component3, $component4, $component10, $component14, $int16);
+if_setonvarctransmit($component3, "clientscript_6697($component3, $component4, $component10, $component14, $int16){varclient_2013}");
+~clientscript_6700($component7, $component8, 15);
+if_setonvarctransmit($component7, "clientscript_6699($component7, $component8){varclient_2012}");
+$string1 = "This is the remaining time during which moths may be caught.";
+if_setonmouserepeat($component7, "script1160($component7, -1, $component14, $string1, 25, $int16)");
+if_setonmouseleave($component7, "deltooltip($component14)");
