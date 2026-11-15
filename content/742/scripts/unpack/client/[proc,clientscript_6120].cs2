@@ -1,0 +1,9 @@
+// 6120
+[proc,clientscript_6120](component $component0, boolean $boolean1, int $int2, int $int3)
+$int3 = calc($int3 + 1);
+if ($int3 > $int2) {
+    if_sethide($component0, $boolean1);
+    if_setontimer($component0, null);
+} else {
+    if_setontimer($component0, "clientscript_6120(event_com, $boolean1, $int2, $int3)");
+}

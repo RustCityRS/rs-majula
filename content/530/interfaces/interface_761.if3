@@ -1,0 +1,298 @@
+// 761:0
+[com_0]
+type=rectangle
+width=16455
+height=16734
+widthmode=proportion
+heightmode=proportion
+colour=0x46341d
+fill=yes
+trans=160
+
+// 761:1
+[com_1]
+type=model
+x=27
+y=4
+width=464
+height=47
+layer=layer_1
+model=model_40720
+modelorigin=-1,-6
+modelzoom=720
+modelunknown=64781,1436,0
+
+// 761:2
+[com_2]
+type=model
+x=40
+y=80
+width=436
+height=222
+layer=layer_1
+model=model_40721
+modelorigin=0,-6
+modelzoom=666
+modelunknown=64845,1332,0
+
+// 761:3
+[com_3]
+type=model
+x=19
+y=59
+width=479
+height=31
+layer=layer_1
+model=model_40722
+modelorigin=0,1
+modelzoom=666
+modelunknown=64836,1343,0
+
+// 761:4
+[com_4]
+type=model
+x=19
+y=294
+width=478
+height=30
+layer=layer_1
+model=model_40722
+modelorigin=0,-1
+modelangle=1024,1024,0
+modelzoom=666
+modelunknown=64837,1342,0
+
+// 761:5
+[com_5]
+type=graphic
+x=451
+y=61
+width=21
+height=20
+layer=layer_1
+graphic=graphic_537
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 538)
+onmouseleave=graphic_swapper(event_com, 537)
+onop=if_close
+
+// 761:6
+[title]
+type=text
+x=84
+y=5
+width=352
+height=18
+layer=layer_1
+textfont=fontmetrics_645
+text=Sir Vant's Requests
+textalignh=centre
+colour=0x46320a
+
+// 761:7
+[layer2]
+type=layer
+x=8
+y=22
+width=499
+height=311
+layer=layer_1
+
+// 761:8
+[qj_layer]
+type=layer
+x=45
+y=83
+width=420
+height=221
+layer=layer_1
+onload=clientscript_1520
+
+// 761:9
+[questname]
+type=text
+x=53
+y=62
+width=352
+height=18
+layer=layer_1
+textfont=fontmetrics_497
+text=Click on the request you wish to know more about:
+textshadow=yes
+colour=0xc80000
+
+// 761:10
+[chap1]
+type=text
+y=31
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Defeat the goblin
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:11
+[chap2]
+type=text
+y=48
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Prepare to ascend to the surface
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:12
+[chap3]
+type=text
+y=65
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Practice Ranged
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:13
+[chap4]
+type=text
+y=82
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Fish for crayfish
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:14
+[chap5]
+type=text
+y=99
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Cook some crayfish
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:15
+[chap6]
+type=text
+y=116
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Obtain a bag of runes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:16
+[chap12]
+type=text
+x=-1
+y=133
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Chop down trees for logs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:17
+[chap13]
+type=text
+x=-1
+y=150
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Prepare a fire
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:18
+[finale]
+type=text
+x=-1
+y=167
+width=417
+height=17
+layer=qj_layer
+textfont=fontmetrics_307
+text=Showdown!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=clientscript_1521(event_com)
+
+// 761:19
+[layer_1]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

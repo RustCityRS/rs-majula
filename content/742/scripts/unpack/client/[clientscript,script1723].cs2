@@ -1,0 +1,9 @@
+// 1723
+[clientscript,script1723](component $component0, int $int1, graphic $graphic2, int $int3)
+if (clientclock < $int3) {
+    return;
+}
+if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
+    cc_setgraphic($graphic2);
+    cc_setontimer(null);
+}

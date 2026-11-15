@@ -1,10 +1,14 @@
 use super::UnpackedPacks;
 use super::param::char_to_type_name;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
-pub(super) fn decode_varclansetting(
+/// A clan setting, or from 742 a clan var, whose bit range comes on `bitcode`.
+pub(super) fn decode_clan_var(
     buf: &mut Packet,
     packs: &UnpackedPacks,
+    kind: &str,
+    bitcode: u8,
 ) -> Vec<(String, String)> {
     let mut props = Vec::new();
     loop {
@@ -18,15 +22,15 @@ pub(super) fn decode_varclansetting(
                 };
                 props.push(("type".into(), ty));
             }
-            2 => {
+            code if code == bitcode => {
                 props.push((
                     "basevar".into(),
-                    packs.reference("varclansetting", buf.g2()),
+                    packs.reference(kind, TypeId::from_g2(buf.g2())),
                 ));
                 props.push(("startbit".into(), buf.g1().to_string()));
                 props.push(("endbit".into(), buf.g1().to_string()));
             }
-            code => panic!("Unrecognized varclansetting config code: {code}"),
+            code => panic!("Unrecognized {kind} config code: {code}"),
         }
     }
 }

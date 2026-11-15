@@ -1,0 +1,455 @@
+// 13:0
+[com_0]
+type=graphic
+x=12
+y=20
+width=488
+height=304
+graphic=tradebacking
+
+// 13:1
+[digit_1]
+type=text
+x=424
+y=30
+width=16
+height=16
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+
+// 13:2
+[digit_2]
+type=text
+x=440
+y=30
+width=16
+height=16
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+
+// 13:3
+[digit_3]
+type=text
+x=456
+y=30
+width=16
+height=16
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+
+// 13:4
+[digit_4]
+type=text
+x=472
+y=30
+width=16
+height=16
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+
+// 13:5
+[numberbuttons]
+type=layer
+x=33
+y=103
+width=336
+height=208
+
+// 13:6
+[com_6]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:7
+[com_7]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:8
+[com_8]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:9
+[com_9]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:10
+[com_10]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:11
+[com_11]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:12
+[com_12]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:13
+[com_13]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:14
+[com_14]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:15
+[com_15]
+type=layer
+width=64
+height=64
+layer=numberbuttons
+pausebutton=yes
+pausetext=Select digit
+
+// 13:16
+[enter_box]
+type=layer
+x=20
+y=25
+width=170
+height=61
+xmode=abs_right
+ymode=abs_bottom
+onload=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel)
+onvarctransmit=bankpin_buttonbox(bankpin_main:forgotten, bankpin_main:cancel){playerdesign2_client_skincol}
+
+// 13:17
+[com_17]
+type=graphic
+width=6
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=enter_box
+graphic=tex_brown
+tiling=yes
+
+// 13:18
+[com_18]
+type=graphic
+width=32
+height=32
+layer=enter_box
+graphic="v2_stone_borders,18"
+tiling=yes
+
+// 13:19
+[com_19]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=enter_box
+graphic="v2_stone_borders,19"
+tiling=yes
+
+// 13:20
+[com_20]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=enter_box
+graphic="v2_stone_borders,21"
+tiling=yes
+
+// 13:21
+[com_21]
+type=graphic
+y=-14
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=enter_box
+graphic="v2_stone_borders,8"
+tiling=yes
+
+// 13:22
+[com_22]
+type=graphic
+y=-12
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=enter_box
+graphic="v2_stone_borders,8"
+tiling=yes
+
+// 13:23
+[com_23]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=enter_box
+graphic="v2_stone_borders,20"
+tiling=yes
+
+// 13:24
+[forgotten]
+type=text
+y=12
+width=12
+height=24
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=enter_box
+textfont=b12_full
+text=I don't know it.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 13:25
+[cancel]
+type=text
+y=-12
+width=12
+height=24
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=enter_box
+textfont=b12_full
+text=Exit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1
+op1=Exit
+opcursor0=cursor_enter
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+onop=bankpin_cancel
+
+// 13:26
+[message]
+type=text
+x=18
+y=57
+width=476
+height=14
+textfont=b12_full
+text=Please enter your FOUR DIGIT PIN using the buttons below.
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 13:27
+[title]
+type=text
+x=20
+y=29
+width=402
+height=17
+textfont=b12_full
+text=YOUR PIN WILL BE DELETED IN X DAYS
+textshadow=yes
+colour=0xaa0000
+
+// 13:28
+[next_digit_instruction]
+type=text
+x=18
+y=80
+width=476
+height=14
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+onload=bankpin_init
+onvartransmit=bankpin_resynch{bankpin_2}
+
+// 13:29
+[com_29]
+type=graphic
+x=11
+y=19
+width=32
+height=32
+graphic="v2_stone_borders,4"
+
+// 13:30
+[com_30]
+type=graphic
+x=11
+y=295
+width=32
+height=32
+graphic="v2_stone_borders,6"
+
+// 13:31
+[com_31]
+type=graphic
+x=471
+y=19
+width=32
+height=32
+graphic="v2_stone_borders,5"
+
+// 13:32
+[com_32]
+type=graphic
+x=471
+y=295
+width=32
+height=32
+graphic="v2_stone_borders,7"
+
+// 13:33
+[com_33]
+type=graphic
+x=483
+y=51
+width=32
+height=246
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 13:34
+[com_34]
+type=graphic
+x=-2
+y=51
+width=32
+height=244
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 13:35
+[com_35]
+type=graphic
+x=43
+y=6
+width=428
+height=32
+graphic="v2_stone_borders,0"
+tiling=yes
+
+// 13:36
+[com_36]
+type=graphic
+x=18
+y=35
+width=478
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+
+// 13:37
+[com_37]
+type=graphic
+x=11
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+tiling=yes
+
+// 13:38
+[com_38]
+type=graphic
+x=471
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+tiling=yes
+
+// 13:39
+[com_39]
+type=graphic
+x=43
+y=307
+width=428
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 13:40
+[com_40]
+type=model
+x=25
+y=83
+width=102
+height=99
+xmode=abs_right
+model=model_11205
+modelorigin=-2,38
+modelangle=113,229,0
+modelzoom=786
+
+// 13:41
+[com_41]
+type=model
+x=318
+y=170
+width=75
+height=73
+model=model_2775
+modelorigin=16,31
+modelangle=113,44,0
+modelzoom=402

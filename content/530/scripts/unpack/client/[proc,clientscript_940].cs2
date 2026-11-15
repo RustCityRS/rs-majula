@@ -1,0 +1,387 @@
+// 940
+[proc,clientscript_940](int $int0, int $int1)
+if (cc_find(interface_727:board, 24) = true) {
+    cc_delete;
+}
+if ($int0 = 1) {
+    ~clientscript_941(11, 16, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 2) {
+    ~clientscript_941(15, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 3) {
+    ~clientscript_941(7, 12, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 4) {
+    ~clientscript_941(13, 19, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 5) {
+    ~clientscript_941(10, 14, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 6) {
+    ~clientscript_941(15, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 7) {
+    ~clientscript_941(3, 8, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 8) {
+    ~clientscript_941(19, 24, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 9) {
+    ~clientscript_941(5, 11, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 10) {
+    ~clientscript_941(15, 6, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(5, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 11) {
+    ~clientscript_941(1, 11, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(15, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 12) {
+    ~clientscript_941(12, 17, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 13) {
+    ~clientscript_941(7, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 14) {
+    ~clientscript_941(13, 12, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(7, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 15) {
+    ~clientscript_941(3, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(13, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 16) {
+    ~clientscript_941(17, 22, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 17) {
+    ~clientscript_941(6, 12, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 18) {
+    ~clientscript_941(17, 19, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 19) {
+    ~clientscript_941(3, 22, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(17, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 20) {
+    ~clientscript_941(18, 18, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(3, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 21) {
+    ~clientscript_941(10, 21, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(18, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 22) {
+    ~clientscript_941(16, 18, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(10, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 23) {
+    ~clientscript_941(9, 13, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 24) {
+    ~clientscript_941(12, 10, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(9, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 25) {
+    ~clientscript_941(4, 14, 21, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(12, 16, $int1, $int0);
+    ~clientscript_942(16, 32, $int1, $int0);
+    return;
+}
+if ($int0 = 26) {
+    ~clientscript_941(20, 25, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 27) {
+    ~clientscript_941(6, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 28) {
+    ~clientscript_941(20, 18, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(4, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 29) {
+    ~clientscript_941(0, 5, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 30) {
+    ~clientscript_941(22, 28, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 31) {
+    ~clientscript_941(0, 10, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 32) {
+    ~clientscript_941(14, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 33) {
+    ~clientscript_941(11, 23, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(14, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 34) {
+    ~clientscript_941(22, 19, 12, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(11, 16, $int1, $int0);
+    ~clientscript_942(6, 32, $int1, $int0);
+    return;
+}
+if ($int0 = 35) {
+    ~clientscript_941(0, 13, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 36) {
+    ~clientscript_941(22, 8, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 37) {
+    ~clientscript_941(0, 22, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(20, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 38) {
+    ~clientscript_941(22, 4, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 39) {
+    ~clientscript_941(1, 14, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 40) {
+    ~clientscript_941(19, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 41) {
+    ~clientscript_941(1, 18, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 42) {
+    ~clientscript_941(19, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 43) {
+    ~clientscript_941(1, 21, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 44) {
+    ~clientscript_941(19, 11, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 45) {
+    ~clientscript_941(0, 26, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 46) {
+    ~clientscript_941(22, 8, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 47) {
+    ~clientscript_941(0, 29, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 48) {
+    ~clientscript_941(22, 12, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 49) {
+    ~clientscript_941(0, 25, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 50) {
+    ~clientscript_941(19, 7, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 51) {
+    ~clientscript_941(1, 26, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 52) {
+    ~clientscript_941(21, 21, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(1, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 53) {
+    ~clientscript_941(0, 18, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(21, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 54) {
+    ~clientscript_941(19, 4, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 55) {
+    ~clientscript_941(8, 13, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 56) {
+    ~clientscript_941(23, 28, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 57) {
+    ~clientscript_941(8, 17, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 58) {
+    ~clientscript_941(23, 23, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 59) {
+    ~clientscript_941(0, 14, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 60) {
+    ~clientscript_941(23, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 61) {
+    ~clientscript_941(8, 21, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 62) {
+    ~clientscript_941(22, 16, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 63) {
+    ~clientscript_941(8, 26, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 64) {
+    ~clientscript_941(23, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 65) {
+    ~clientscript_941(0, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(23, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 66) {
+    ~clientscript_941(22, 23, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(0, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 67) {
+    ~clientscript_941(8, 30, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 68) {
+    ~clientscript_941(22, 19, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 69) {
+    ~clientscript_941(2, 6, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 70) {
+    ~clientscript_941(22, 14, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 71) {
+    ~clientscript_941(8, 27, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 72) {
+    ~clientscript_941(19, 7, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 73) {
+    ~clientscript_941(8, 23, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 74) {
+    ~clientscript_941(19, 3, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 75) {
+    ~clientscript_941(2, 10, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 76) {
+    ~clientscript_941(22, 5, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(2, 16, $int1, $int0);
+    return;
+}
+if ($int0 = 77) {
+    ~clientscript_941(8, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 78) {
+    ~clientscript_941(19, 7, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 79) {
+    ~clientscript_941(8, 16, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 80) {
+    ~clientscript_941(22, 10, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 81) {
+    ~clientscript_941(8, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 82) {
+    ~clientscript_941(22, 14, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 83) {
+    ~clientscript_941(8, 15, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 84) {
+    ~clientscript_941(19, 3, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 85) {
+    ~clientscript_941(8, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 86) {
+    ~clientscript_941(22, 19, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 87) {
+    ~clientscript_941(8, 24, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 88) {
+    ~clientscript_941(22, 23, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 89) {
+    ~clientscript_941(8, 20, -1, -1, -1, -1, -1, $int1, $int0);
+    return;
+}
+if ($int0 = 90) {
+    ~clientscript_941(22, 16, -1, -1, -1, -1, -1, $int1, $int0);
+    ~clientscript_942(8, 16, $int1, $int0);
+    return;
+}

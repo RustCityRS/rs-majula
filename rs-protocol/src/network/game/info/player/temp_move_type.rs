@@ -7,7 +7,10 @@ pub struct PlayerInfoTempMoveType {
 
 impl InfoMessage for PlayerInfoTempMoveType {
     fn encode<T: AsRef<[u8]> + AsMut<[u8]>>(&self, buf: &mut Packet<T>) {
+        #[cfg(before_742)]
         buf.p1_alt2(self.move_type);
+        #[cfg(since_742)]
+        buf.p1_alt3(self.move_type);
     }
 
     fn sizeof(&self) -> usize {

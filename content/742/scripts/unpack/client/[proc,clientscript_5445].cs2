@@ -1,0 +1,10 @@
+// 5445
+[proc,clientscript_5445](int $int0, string $string0, component $component1, component $component2, int $int3)
+cc_deleteall($component1);
+if ($int3 = 2) {
+    cc_create($component1, ^iftype_graphic, $int0);
+    cc_setsize(88, 88, ^setsize_abs, ^setsize_abs);
+    cc_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(8276);
+}
+if_settext($component2, $string0);

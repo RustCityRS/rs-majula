@@ -1,0 +1,20 @@
+// 483
+[proc,script483](int $int0)(string)
+switch_int ($int0) {
+    case default :
+        return("No Troop");
+    case 1 :
+        return("Scout");
+    case 2 :
+        return("Foot Soldier");
+    case 3 :
+        return("Halberdier");
+    case 4 :
+        return("Archer");
+    case 5 :
+        return("Mage");
+    case 6 :
+        return("Knight");
+    case 7 :
+        return("Champion");
+}

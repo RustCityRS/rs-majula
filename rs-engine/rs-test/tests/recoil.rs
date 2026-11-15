@@ -11,6 +11,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const COW: u16 = 12362;
@@ -34,7 +35,7 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
             .flatten()
             .find(|n| {
                 let c = n.npc.pathing.coord;
-                n.npc.uid.id() == COW
+                n.npc.uid.id() == TypeId::new(COW)
                     && (3254..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
                     && n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS
@@ -47,8 +48,13 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
                 )
             })
             .expect("an unhurt cow in the Lumbridge field");
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
-        let ring = *engine.cache.objs.debugnames.get("ring_of_recoil").unwrap();
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
+        let ring = engine
+            .cache
+            .objs
+            .get_by_debugname("ring_of_recoil")
+            .unwrap()
+            .id;
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&worn).unwrap().set(12, ring, 1);
         // Enough life points (varp 1240 holds them shifted by one) to take a strong cow's bites.

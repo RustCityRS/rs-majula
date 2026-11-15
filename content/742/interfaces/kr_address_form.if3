@@ -1,0 +1,94 @@
+// 586:0
+[address_form]
+type=model
+x=137
+y=6
+width=243
+height=322
+layer=content_layer
+model=model_27220
+modelorigin=5,-5
+modelangle=532,0,0
+modelzoom=814
+
+// 586:1
+[heading]
+type=text
+x=149
+y=20
+width=210
+height=100
+layer=content_layer
+textfont=quill_oblique_large
+text=Change of address form for the citizens of Seers' Village.
+textalignh=centre
+textalignv=centre
+colour=0x46320a
+
+// 586:2
+[line]
+type=rectangle
+x=174
+y=144
+width=168
+height=4
+layer=content_layer
+colour=0x46320a
+fill=yes
+
+// 586:3
+[line_1]
+type=rectangle
+x=174
+y=176
+width=168
+height=4
+layer=content_layer
+colour=0x46320a
+fill=yes
+
+// 586:4
+[line_2]
+type=rectangle
+x=174
+y=210
+width=168
+height=4
+layer=content_layer
+colour=0x46320a
+fill=yes
+
+// 586:5
+[line_3]
+type=rectangle
+x=269
+y=278
+width=72
+height=4
+layer=content_layer
+colour=0x46320a
+fill=yes
+
+// 586:6
+[close_button]
+type=graphic
+x=344
+y=17
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 586:7
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

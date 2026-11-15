@@ -1,0 +1,346 @@
+// 1315:0
+[com_0]
+type=layer
+width=287
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+onvartransmit=clientscript_6490{varplayer_2623, varplayer_2624, varplayer_2624}
+
+// 1315:1
+[com_1]
+type=layer
+x=7
+y=31
+width=182
+height=100
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+
+// 1315:2
+[com_2]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 1315:3
+[com_3]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4260(event_com)
+
+// 1315:4
+[com_4]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1315:5
+[com_5]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4261(event_com)
+
+// 1315:6
+[com_6]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 1315:7
+[com_7]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+textfont=palatino_linotype_18pt_regular
+text=Recolour Gear
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1315:8
+[com_8]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_0
+onload=aif_build_close_button_layer(event_com)
+
+// 1315:9
+[com_9]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1315:10
+[com_10]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+onload=aif_build_close_button_over(event_com)
+
+// 1315:11
+[com_11]
+type=layer
+x=12
+width=240
+height=230
+xmode=abs_right
+ymode=abs_centre
+layer=com_4
+
+// 1315:12
+[com_12]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_11
+
+// 1315:13
+[com_13]
+type=layer
+x=29
+y=30
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 0)
+
+// 1315:14
+[com_14]
+type=layer
+x=82
+y=30
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 1)
+
+// 1315:15
+[com_15]
+type=layer
+x=84
+y=30
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 2)
+
+// 1315:16
+[com_16]
+type=layer
+x=31
+y=30
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 3)
+
+// 1315:17
+[com_17]
+type=layer
+x=29
+y=80
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 4)
+
+// 1315:18
+[com_18]
+type=layer
+x=82
+y=80
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 5)
+
+// 1315:19
+[com_19]
+type=layer
+x=84
+y=80
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 6)
+
+// 1315:20
+[com_20]
+type=layer
+x=31
+y=80
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 7)
+
+// 1315:21
+[com_21]
+type=layer
+x=29
+y=130
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 8)
+
+// 1315:22
+[com_22]
+type=layer
+x=82
+y=130
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 9)
+
+// 1315:23
+[com_23]
+type=layer
+x=84
+y=130
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 10)
+
+// 1315:24
+[com_24]
+type=layer
+x=31
+y=130
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 11)
+
+// 1315:25
+[com_25]
+type=layer
+x=29
+y=180
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 12)
+
+// 1315:26
+[com_26]
+type=layer
+x=82
+y=180
+width=20
+height=20
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 13)
+
+// 1315:27
+[com_27]
+type=layer
+x=84
+y=180
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 14)
+
+// 1315:28
+[com_28]
+type=layer
+x=31
+y=180
+width=20
+height=20
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 15)

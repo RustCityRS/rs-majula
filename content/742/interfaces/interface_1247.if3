@@ -1,0 +1,748 @@
+// 1247:0
+[com_0]
+type=text
+x=46
+y=-1
+width=99
+height=25
+layer=com_11
+textfont=p11_full
+text=Fire Bolt
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 1247:1
+[com_1]
+type=graphic
+x=20
+y=-4
+width=24
+height=24
+layer=com_11
+graphic="magicon,17"
+
+// 1247:2
+[com_2]
+type=layer
+width=125
+height=26
+layer=com_4
+
+// 1247:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 1247:4
+[com_4]
+type=layer
+y=15
+width=125
+height=26
+xmode=abs_centre
+layer=com_3
+
+// 1247:5
+[com_5]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_2
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1247:6
+[com_6]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_2
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1247:7
+[com_7]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_2
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1247:8
+[com_8]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_2
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1247:9
+[com_9]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_2
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:10
+[com_10]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_2
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1247:11
+[com_11]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_2
+
+// 1247:12
+[com_12]
+type=layer
+y=45
+width=125
+height=26
+xmode=abs_centre
+layer=com_3
+
+// 1247:13
+[com_13]
+type=layer
+width=125
+height=26
+layer=com_12
+
+// 1247:14
+[com_14]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1247:15
+[com_15]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1247:16
+[com_16]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1247:17
+[com_17]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1247:18
+[com_18]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_13
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:19
+[com_19]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_13
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1247:20
+[com_20]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_13
+
+// 1247:21
+[com_21]
+type=text
+x=46
+y=-1
+width=99
+height=25
+layer=com_20
+textfont=p11_full
+text=Fire Blast
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 1247:22
+[com_22]
+type=graphic
+x=20
+y=-4
+width=24
+height=24
+layer=com_20
+graphic="magicon,29"
+
+// 1247:23
+[com_23]
+type=layer
+y=75
+width=125
+height=26
+xmode=abs_centre
+layer=com_3
+
+// 1247:24
+[com_24]
+type=layer
+width=125
+height=26
+layer=com_23
+
+// 1247:25
+[com_25]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_24
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1247:26
+[com_26]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_24
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1247:27
+[com_27]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_24
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1247:28
+[com_28]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_24
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1247:29
+[com_29]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_24
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:30
+[com_30]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_24
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1247:31
+[com_31]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_24
+
+// 1247:32
+[com_32]
+type=text
+x=46
+y=-1
+width=99
+height=25
+layer=com_31
+textfont=p11_full
+text=Fire Wave
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 1247:33
+[com_33]
+type=graphic
+x=20
+y=-4
+width=24
+height=24
+layer=com_31
+graphic="magicon,37"
+
+// 1247:34
+[com_34]
+type=layer
+y=120
+width=125
+height=26
+xmode=abs_centre
+layer=com_3
+
+// 1247:35
+[com_35]
+type=layer
+width=125
+height=26
+layer=com_34
+
+// 1247:36
+[com_36]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_35
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1247:37
+[com_37]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_35
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1247:38
+[com_38]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_35
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1247:39
+[com_39]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_35
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1247:40
+[com_40]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_35
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:41
+[com_41]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_35
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1247:42
+[com_42]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_35
+
+// 1247:43
+[com_43]
+type=text
+x=46
+y=-1
+width=99
+height=25
+layer=com_42
+textfont=p11_full
+text=Water Bolt
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 1247:44
+[com_44]
+type=graphic
+x=20
+y=-4
+width=24
+height=24
+layer=com_42
+graphic="magicon,11"
+
+// 1247:45
+[com_45]
+type=layer
+y=150
+width=125
+height=26
+xmode=abs_centre
+layer=com_3
+
+// 1247:46
+[com_46]
+type=layer
+width=125
+height=26
+layer=com_45
+
+// 1247:47
+[com_47]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_46
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1247:48
+[com_48]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_46
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1247:49
+[com_49]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_46
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1247:50
+[com_50]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_46
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1247:51
+[com_51]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_46
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:52
+[com_52]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_46
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1247:53
+[com_53]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_46
+
+// 1247:54
+[com_54]
+type=text
+x=46
+y=-1
+width=99
+height=25
+layer=com_53
+textfont=p11_full
+text=Water Blast
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 1247:55
+[com_55]
+type=graphic
+x=20
+y=-4
+width=24
+height=24
+layer=com_53
+graphic="magicon,23"
+
+// 1247:56
+[com_56]
+type=layer
+y=180
+width=125
+height=26
+xmode=abs_centre
+layer=com_3
+
+// 1247:57
+[com_57]
+type=layer
+width=125
+height=26
+layer=com_56
+
+// 1247:58
+[com_58]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_57
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1247:59
+[com_59]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_57
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1247:60
+[com_60]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_57
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1247:61
+[com_61]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_57
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1247:62
+[com_62]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_57
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:63
+[com_63]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_57
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1247:64
+[com_64]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_57
+
+// 1247:65
+[com_65]
+type=text
+x=46
+y=-1
+width=99
+height=25
+layer=com_64
+textfont=p11_full
+text=Water Wave
+textalignv=centre
+textshadow=yes
+colour=0xe3cccf
+
+// 1247:66
+[com_66]
+type=graphic
+x=20
+y=-4
+width=24
+height=24
+layer=com_64
+graphic="magicon,33"
+
+// 1247:67
+[com_67]
+type=layer
+y=230
+width=125
+height=26
+xmode=abs_centre
+
+// 1247:68
+[com_68]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_67
+onload=clientscript_5724(event_com, struct_2834)
+
+// 1247:69
+[com_69]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_67
+onload=clientscript_5724(event_com, struct_2835)
+
+// 1247:70
+[com_70]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_67
+onload=clientscript_5724(event_com, struct_2836)
+
+// 1247:71
+[com_71]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_67
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1247:72
+[com_72]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_67
+
+// 1247:73
+[com_73]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_72
+textfont=verdana_11pt_regular
+text=Exit
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)

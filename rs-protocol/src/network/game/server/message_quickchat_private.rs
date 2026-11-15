@@ -1,14 +1,46 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol_macros::server_prot;
+#[cfg(since_647)]
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
+
+#[cfg(all(since_530, before_647))]
+#[server_prot(MessageQuickchatPrivate, Buffered, VarByte)]
+pub struct MessageQuickchatPrivate<'a> {
+    pub user37: i64,
+    pub id: i32,
+    pub level: u8,
+    pub phrase: TypeId,
+    pub bytes: &'a [u8],
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for MessageQuickchatPrivate<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.user37);
+        buf.p2((self.id >> 24) as u16);
+        buf.p3(self.id);
+        buf.p1(self.level);
+        buf.p2(self.phrase.g2());
+        buf.pdata(self.bytes, 0, self.bytes.len());
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.user37)
+            + 5
+            + size_of_val(&self.level)
+            + size_of::<u16>()
+            + self.bytes.len()
+    }
+}
 
 #[cfg(since_647)]
 #[server_prot(MessageQuickchatPrivate, Buffered, VarByte)]
@@ -18,7 +50,7 @@ pub struct MessageQuickchatPrivate {
     pub msg_uid_hi: u16,
     pub msg_uid_lo: i32,
     pub tier: u8,
-    pub phrase_id: u16,
+    pub phrase_id: TypeId,
     pub quickchat_data: Vec<u8>,
 }
 
@@ -36,7 +68,7 @@ impl ServerProtMessage for MessageQuickchatPrivate {
         buf.p2(self.msg_uid_hi);
         buf.p3(self.msg_uid_lo);
         buf.p1(self.tier);
-        buf.p2(self.phrase_id);
+        buf.p2(self.phrase_id.g2());
         buf.pdata(&self.quickchat_data, 0, self.quickchat_data.len());
     }
 
@@ -46,7 +78,7 @@ impl ServerProtMessage for MessageQuickchatPrivate {
             + size_of_val(&self.msg_uid_hi)
             + 3 // msg_uid_lo
             + size_of_val(&self.tier)
-            + size_of_val(&self.phrase_id)
+            + size_of::<u16>()
             + self.quickchat_data.len()
     }
 }

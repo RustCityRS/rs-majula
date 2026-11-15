@@ -1,0 +1,84 @@
+// 4637
+[proc,clientscript_4637](int $int0)
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+if_sethide(interface_153:com_52, false);
+if_settext(interface_153:com_50, "");
+sound_vorbis_volume(6185, 1, 0, 150);
+switch_int ($int0) {
+    case 1 :
+        if (if_gethide(interface_153:com_104) = false) {
+            return;
+        }
+        $string0 = "Three's Company<br><br>";
+        if (~clientscript_4643(1) = 0) {
+            $string0 = append($string0, "<col=cb6b3d>Attack 30, Ranged 30, Magic 30 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Manage a party of adventurers in this saga. <br><br>+ Select 'Switch' to change to a target character. <br>+ Select 'Mark' on an enemy to focus your allies' attacks on that target.<br>+ Human enemies will focus their attacks on you, animals will attack your allies.");
+        cc_create(interface_153:com_42, ^iftype_text, 0);
+    case 2 :
+        if (if_gethide(interface_153:com_117) = false) {
+            return;
+        }
+        $string0 = "Vengeance<br><br>";
+        if (~clientscript_4643(2) = 0) {
+            $string0 = append($string0, "<col=cb6b3d>Agility 55, Thieving 55 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "A tragic tale of grief, warped into furious vengeance.<br><br>+ At some point in this saga, you will become poisoned. Keep an eye on your health. You will not take poison damage whilst in a conversation.<br>+ Look for alternative methods of defeating your human foes. Your environment may offer more indirect solutions.<br>+ Hellhounds will drop antipoison elixirs that will lessen your suffering temporarily.<br>+ Spiders drop food, but their bites may negate the effect of an antipoison elixir.<br>+ Choices you make in the saga will lead you towards 'noble' or 'ruthless' vengeance. Each has a different special attack. The further along that path you are, the more potent the special attack.");
+    case 4 :
+        if (if_gethide(interface_153:com_130) = false) {
+            return;
+        }
+        $string0 = "Thok It To 'Em<br><br>";
+        if (~clientscript_4643(4) = 0) {
+            $string0 = append($string0, "<col=cb6b3d>Strength 70 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Control mighty Thok, Fremennik warrior.<br><br>+ Thok heals damage and recovers special attack by killing enemies. Bosses provide greater health and special attack boosts than normal enemies.<br>+ Thok can eat food raw. He likes the taste.<br>+ Thok will randomly choose a special attack when you perform one. These include the awe-inspiring 'Northern Kiss'.");
+    case 5 :
+        if (if_gethide(interface_153:com_173) = false) {
+            return;
+        }
+        $string0 = "Love stories are so often tied to tragedy, and few are as tragic as this tale of two sorcerors.";
+    case 3 :
+        if (if_gethide(interface_153:com_206) = false) {
+            return;
+        }
+        $string0 = "Nadir<br><br>";
+        if (~clientscript_4643(3) = 0) {
+            $string0 = append($string0, "<col=cb6b3d>Attack 60, Thieving 45 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Take command of the mysterious Moia.<br><br>+ Moia works best undetected. Find information in the minds of others to progress safely.<br>+ Avoid the suspicions of those around you to avoid later combat.<br>+ At some point in the saga, Moia will enter a special combat mode. Keep an eye on her ability meter.<br>+ There is a wealth of information to find. Stay a while, and listen to the people of Daemonheim.");
+    case 6 :
+        if (if_gethide(interface_153:com_190) = false) {
+            return;
+        }
+        $string0 = "Thok Your Block Off<br><br>";
+        $int1, $int2 = ~clientscript_4644(4);
+        if ($int1 = 0 & $int2 = 0) {
+            $string0 = append($string0, "<col=cb6b3d>You must complete </col>Thok It To 'Em<col=cb6b3d> to play this saga.<br><br>");
+        } else if (~clientscript_4643(6) = 0) {
+            $string0 = append($string0, "<col=cb6b3d>Strength 75 required to play the unabridged version.<br><br>");
+        }
+        $string0 = append($string0, "Mighty Thok returns with his brother Marmaros.<br><br>+ Kill more enemies than your brother Marmaros to become the best brother.<br>+ Thok heals damage and recovers special attack by killing enemies.<br>+ Thok can heal by eating raw fish.<br>+ Thok brings his special attack 'Northern Kiss' into battle once again.<br>+ Thok will upgrade his fists during the tale, dealing greater damage.<br>+ Thok can obtain a special item that will yield him many fish.");
+}
+if_settext(interface_153:com_44, $string0);
+def_int $int3 = paraheight($string0, 366, p12_full);
+def_int $int4 = calc($int3 * 15);
+if (cc_find(interface_153:com_42, 0) = true) {
+    if ($int0 = 1) {
+        cc_setposition(5, calc($int4 + 7), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(366, 15, ^setsize_abs, ^setsize_abs);
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        $string0 = "All three characters must survive.";
+        cc_settext($string0);
+        cc_settextfont(b12_full);
+        cc_setcolour(0xcb6b3d);
+        $int4 = calc($int4 + 24);
+    } else {
+        cc_delete;
+    }
+}
+if_setscrollsize(interface_153:com_42, 0, $int4);
+~scrollbar_resize(interface_153:com_43, interface_153:com_42, 0);
+~clientscript_4638($int0);

@@ -1,0 +1,8 @@
+// 6109
+[proc,clientscript_6109]
+def_boolean $boolean0 = true;
+if (if_gethide(interface_1265:com_61) = true) {
+    $boolean0 = false;
+}
+if_sethide(interface_1265:com_61, $boolean0);
+~clientscript_6111;

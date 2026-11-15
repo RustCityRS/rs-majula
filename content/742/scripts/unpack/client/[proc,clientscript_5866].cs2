@@ -1,0 +1,20 @@
+// 5866
+[proc,clientscript_5866]
+def_struct $struct0 = enum(int, struct, enum_2252, %varplayer_1385);
+if ($struct0 = null | struct_param($struct0, param_694) ! 1) {
+    if_sethide(questlist_v4:com_385, true);
+    cc_deleteall(questlist_v4:com_385);
+    if_sethide(questlist_v4:com_386, true);
+    cc_deleteall(questlist_v4:com_386);
+    if_sethide(questlist_v4:com_387, true);
+    cc_deleteall(questlist_v4:com_387);
+    if_sethide(questlist_v4:com_388, true);
+} else {
+    if_sethide(questlist_v4:com_385, false);
+    ~clientscript_5867(questlist_v4:com_385, struct_2750);
+    if_sethide(questlist_v4:com_386, false);
+    ~clientscript_5867(questlist_v4:com_386, struct_2751);
+    if_sethide(questlist_v4:com_387, false);
+    ~clientscript_5867(questlist_v4:com_387, struct_2752);
+    if_sethide(questlist_v4:com_388, false);
+}

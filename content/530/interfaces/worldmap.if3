@@ -1,0 +1,512 @@
+// 755:0
+[universe]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+onload=clientscript_1369(event_com, worldmap:com_12, worldmap:com_13, worldmap:sort_text, worldmap:findbox_text, worldmap:worldmap_overlay)
+onvartransmit=aif_progressbar_set(worldmap:com_12, worldmap:com_13, worldmap:sort_text){lastdegrade}
+onvarctransmit=clientscript_1369(event_com, worldmap:com_12, worldmap:com_13, worldmap:sort_text, worldmap:findbox_text, worldmap:worldmap_overlay){worldmap_focus}
+
+// 755:1
+[com_1]
+type=graphic
+y=23
+width=12
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+graphic=graphic_851
+tiling=yes
+
+// 755:2
+[mainwin]
+type=layer
+y=7
+width=12
+height=49
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=universe
+dragrenderbehaviour=1
+onscrollwheel=clientscript_1370(event_mousey)
+
+// 755:3
+[close]
+type=graphic
+x=9
+y=10
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 755:4
+[worldmap]
+type=layer
+clientcode=1400
+widthmode=minus
+heightmode=minus
+layer=mainwin
+
+// 755:5
+[worldmap_overlay]
+type=layer
+width=32
+height=32
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=mainwin
+onload=clientscript_2045(worldmap:worldmap_overlay, worldmap:worldmap)
+ontimer=clientscript_2045(worldmap:worldmap_overlay, worldmap:worldmap)
+
+// 755:6
+[you_are_here]
+type=layer
+width=50
+height=50
+layer=worldmap_overlay
+
+// 755:7
+[arrow0]
+type=layer
+width=50
+height=50
+layer=worldmap_overlay
+
+// 755:8
+[arrow1]
+type=layer
+width=50
+height=50
+layer=worldmap_overlay
+
+// 755:9
+[arrow2]
+type=layer
+width=50
+height=50
+layer=worldmap_overlay
+
+// 755:10
+[arrow3]
+type=layer
+width=50
+height=50
+layer=worldmap_overlay
+
+// 755:11
+[com_11]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=xv_repaint01
+graphic=graphic_297
+tiling=yes
+
+// 755:12
+[com_12]
+type=layer
+width=19
+height=32
+widthmode=minus
+heightmode=minus
+layer=xv_repaint01
+
+// 755:13
+[com_13]
+type=layer
+x=3
+width=16
+height=34
+heightmode=minus
+xmode=abs_right
+layer=xv_repaint01
+
+// 755:14
+[com_14]
+type=graphic
+width=3
+heightmode=minus
+xmode=abs_right
+layer=xv_repaint01
+graphic=graphic_1122
+tiling=yes
+
+// 755:15
+[bottombar]
+type=layer
+y=7
+width=12
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+
+// 755:16
+[com_16]
+type=graphic
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=bottombar
+graphic=graphic_297
+tiling=yes
+
+// 755:17
+[com_17]
+type=graphic
+x=73
+width=35
+height=35
+ymode=abs_centre
+layer=bottombar
+graphic=graphic_1385
+transmitop=1
+op1=Key
+onmouseover=graphic_swapper(event_com, 1386)
+onmouseleave=graphic_swapper(event_com, 1385)
+
+// 755:18
+[overviewtoggle]
+type=graphic
+x=58
+width=35
+height=35
+xmode=abs_right
+ymode=abs_centre
+layer=bottombar
+graphic=graphic_1383
+transmitop=1
+op1=Overview
+onmouseover=graphic_swapper(event_com, 1384)
+onmouseleave=graphic_swapper(event_com, 1383)
+
+// 755:19
+[com_19]
+type=graphic
+x=166
+width=35
+height=35
+xmode=abs_right
+ymode=abs_centre
+layer=bottombar
+graphic=graphic_1381
+transmitop=1
+op1=Overview
+onmouseover=graphic_swapper(event_com, 1382)
+onmouseleave=graphic_swapper(event_com, 1381)
+
+// 755:20
+[findbox]
+type=layer
+x=188
+width=350
+height=20
+ymode=abs_centre
+layer=bottombar
+
+// 755:21
+[com_21]
+type=graphic
+width=20
+height=20
+layer=findbox
+graphic=graphic_1387
+
+// 755:22
+[com_22]
+type=graphic
+x=20
+width=310
+height=20
+layer=findbox
+graphic=graphic_1388
+tiling=yes
+
+// 755:23
+[com_23]
+type=graphic
+x=330
+width=20
+height=20
+layer=findbox
+graphic=graphic_1389
+
+// 755:24
+[findbox_text]
+type=text
+x=22
+width=330
+height=20
+layer=findbox
+textfont=fontmetrics_494
+text=Search the map by typing here.
+textalignv=centre
+textshadow=yes
+colour=0x999999
+
+// 755:25
+[overviewframe]
+type=layer
+width=153
+height=153
+xmode=abs_right
+ymode=abs_bottom
+layer=mainwin
+noclickthrough=yes
+
+// 755:26
+[com_26]
+type=layer
+x=166
+width=35
+height=175
+xmode=abs_right
+ymode=abs_bottom
+layer=mainwin
+noclickthrough=yes
+
+// 755:27
+[xv_repaint01]
+type=layer
+width=185
+height=16391
+heightmode=proportion
+layer=mainwin
+noclickthrough=yes
+
+// 755:28
+[com_28]
+type=graphic
+height=32
+widthmode=minus
+layer=sort_layer
+graphic=graphic_1121
+tiling=yes
+
+// 755:29
+[sort_button]
+type=graphic
+x=4
+y=1
+width=35
+height=35
+ymode=abs_centre
+layer=sort_layer
+graphic=graphic_1431
+transmitop=1
+op1=Re-sort key
+onmouseover=clientscript_691(worldmap:sort_button, worldmap:sort_button_image, 1433, 150)
+onmouseleave=clientscript_691(worldmap:sort_button, worldmap:sort_button_image, 1431, 0)
+onop=worldmap_keysort_button(worldmap:com_12, worldmap:com_13, worldmap:sort_text)
+
+// 755:30
+[sort_button_image]
+type=graphic
+x=4
+y=1
+width=35
+height=35
+ymode=abs_centre
+layer=sort_layer
+graphic=graphic_1426
+
+// 755:31
+[sort_text]
+type=text
+y=1
+width=39
+height=35
+widthmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=sort_layer
+textfont=fontmetrics_495
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 755:32
+[sort_layer]
+type=layer
+width=3
+height=34
+widthmode=minus
+ymode=abs_bottom
+layer=xv_repaint01
+
+// 755:33
+[com_33]
+type=graphic
+width=35
+height=35
+layer=com_26
+graphic=graphic_1146
+transmitop=1
+op1=37% zoom
+onop=fishcomp_add_hook(37)
+
+// 755:34
+[com_34]
+type=text
+height=35
+widthmode=minus
+layer=com_26
+textfont=fontmetrics_494
+text=37%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 755:35
+[com_35]
+type=graphic
+y=35
+width=35
+height=35
+layer=com_26
+graphic=graphic_1146
+transmitop=1
+op1=50% zoom
+onop=fishcomp_add_hook(50)
+
+// 755:36
+[com_36]
+type=text
+y=35
+height=35
+widthmode=minus
+layer=com_26
+textfont=fontmetrics_494
+text=50%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 755:37
+[com_37]
+type=graphic
+y=70
+width=35
+height=35
+layer=com_26
+graphic=graphic_1146
+transmitop=1
+op1=75% zoom
+onop=fishcomp_add_hook(75)
+
+// 755:38
+[com_38]
+type=text
+y=70
+height=35
+widthmode=minus
+layer=com_26
+textfont=fontmetrics_494
+text=75%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 755:39
+[com_39]
+type=graphic
+y=105
+width=35
+height=35
+layer=com_26
+graphic=graphic_1146
+transmitop=1
+op1=100% zoom
+onop=fishcomp_add_hook(100)
+
+// 755:40
+[com_40]
+type=text
+y=105
+height=35
+widthmode=minus
+layer=com_26
+textfont=fontmetrics_494
+text=100%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 755:41
+[com_41]
+type=graphic
+y=140
+width=35
+height=35
+layer=com_26
+graphic=graphic_1146
+transmitop=1
+op1=100% zoom
+onop=fishcomp_add_hook(200)
+
+// 755:42
+[com_42]
+type=text
+y=140
+height=35
+widthmode=minus
+layer=com_26
+textfont=fontmetrics_494
+text=200%
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 755:43
+[com_43]
+type=graphic
+width=32
+height=32
+layer=overviewframe
+graphic=graphic_856
+
+// 755:44
+[com_44]
+type=graphic
+x=32
+width=120
+height=32
+layer=overviewframe
+graphic=graphic_1121
+
+// 755:45
+[com_45]
+type=graphic
+y=32
+width=32
+height=121
+layer=overviewframe
+graphic=graphic_1122
+
+// 755:46
+[overview]
+type=layer
+clientcode=1401
+width=150
+height=150
+xmode=abs_right
+ymode=abs_bottom
+layer=overviewframe
+onscrollwheel=clientscript_1370(event_mousey)

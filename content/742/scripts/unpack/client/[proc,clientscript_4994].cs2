@@ -1,0 +1,119 @@
+// 4994
+[proc,clientscript_4994]
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_int $int8 = -1;
+def_int $int9 = -1;
+def_int $int10 = -1;
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_int $int13 = -1;
+def_int $int14 = -1;
+def_int $int15 = -1;
+def_int $int16 = -1;
+def_int $int17 = -1;
+def_int $int18 = -1;
+def_int $int19 = -1;
+def_int $int20 = -1;
+def_int $int21 = -1;
+def_int $int22 = -1;
+def_int $int23 = -1;
+def_int $int24 = -1;
+def_int $int25 = -1;
+def_int $int26 = -1;
+def_int $int27 = -1;
+if (op718 = 1) {
+    $int0 = ~clientscript_4948(1);
+    $int1 = ~clientscript_4948(2);
+    $int2 = ~clientscript_4948(3);
+    $int3 = ~clientscript_4948(4);
+    $int4 = ~clientscript_4948(7);
+    $int5 = ~clientscript_4948(6);
+    $int6 = ~clientscript_4948(5);
+    $int7 = ~clientscript_4959($int0);
+    $int8 = ~clientscript_4959($int1);
+    $int9 = ~clientscript_4959($int2);
+    $int10 = ~clientscript_4959($int3);
+    $int11 = ~clientscript_4959($int4);
+    $int12 = ~clientscript_4959($int5);
+    $int13 = ~clientscript_4959($int6);
+    $int14 = ~clientscript_4961($int0, 3);
+    $int15 = ~clientscript_4961($int1, 3);
+    $int16 = ~clientscript_4961($int2, 3);
+    $int17 = ~clientscript_4961($int3, 3);
+    $int18 = ~clientscript_4961($int4, 3);
+    $int19 = ~clientscript_4961($int5, 3);
+    $int20 = ~clientscript_4961($int6, 3);
+    $int21 = ~clientscript_4953($int14);
+    $int22 = ~clientscript_4953($int15);
+    $int23 = ~clientscript_4953($int16);
+    $int24 = ~clientscript_4953($int17);
+    $int25 = ~clientscript_4953($int18);
+    $int26 = ~clientscript_4953($int19);
+    $int27 = ~clientscript_4953($int20);
+    if_settext(interface_1261:com_187, "Tier <tostring(%varclan_2580)>");
+    if_settext(interface_1261:com_195, "Tier <tostring(%varclan_2581)>");
+    if_settext(interface_1261:com_203, "Tier <tostring(%varclan_2582)>");
+    if_settext(interface_1261:com_211, "Tier <tostring($int7)>");
+    if_settext(interface_1261:com_219, "Tier <tostring($int8)>");
+    if_settext(interface_1261:com_227, "Tier <tostring($int9)>");
+    if_settext(interface_1261:com_235, "Tier <tostring($int10)>");
+    if_settext(interface_1261:com_251, "Tier <tostring($int11)>");
+    if_settext(interface_1261:com_243, "Tier <tostring($int12)>");
+    if_settext(interface_1261:com_260, "Tier <tostring($int13)>");
+    if ($int7 = 0) {
+        if ($int21 > 0) {
+            if_settext(interface_1261:com_211, "Building");
+        } else {
+            if_settext(interface_1261:com_211, "Buy");
+        }
+    }
+    if ($int8 = 0) {
+        if ($int22 > 0) {
+            if_settext(interface_1261:com_219, "Building");
+        } else {
+            if_settext(interface_1261:com_219, "Buy");
+        }
+    }
+    if ($int9 = 0) {
+        if ($int23 > 0) {
+            if_settext(interface_1261:com_227, "Building");
+        } else {
+            if_settext(interface_1261:com_227, "Buy");
+        }
+    }
+    if ($int10 = 0) {
+        if ($int24 > 0) {
+            if_settext(interface_1261:com_235, "Building");
+        } else {
+            if_settext(interface_1261:com_235, "Buy");
+        }
+    }
+    if ($int11 = 0) {
+        if ($int25 > 0) {
+            if_settext(interface_1261:com_251, "Building");
+        } else {
+            if_settext(interface_1261:com_251, "Buy");
+        }
+    }
+    if ($int12 = 0) {
+        if ($int26 > 0) {
+            if_settext(interface_1261:com_243, "Building");
+        } else {
+            if_settext(interface_1261:com_243, "Buy");
+        }
+    }
+    if ($int13 = 0) {
+        if ($int27 > 0) {
+            if_settext(interface_1261:com_260, "Building");
+        } else {
+            if_settext(interface_1261:com_260, "Buy");
+        }
+    }
+}

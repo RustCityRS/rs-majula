@@ -1,0 +1,46 @@
+// 2865
+[proc,script2865](coord $coord0, int $int1)(coord)
+def_coord $coord2 = $coord0;
+switch_int ($int1) {
+    case 0 :
+        $coord2 = movecoord($coord0, 0, 0, 4);
+    case 1 :
+        $coord2 = movecoord($coord0, 1, 0, 4);
+    case 2 :
+        $coord2 = movecoord($coord0, 2, 0, 3);
+    case 3 :
+        $coord2 = movecoord($coord0, 3, 0, 2);
+    case 4 :
+        $coord2 = movecoord($coord0, 4, 0, 1);
+    case 5 :
+        $coord2 = movecoord($coord0, 4, 0, 0);
+    case 6 :
+        $coord2 = movecoord($coord0, 4, 0, -1);
+    case 7 :
+        $coord2 = movecoord($coord0, 3, 0, -2);
+    case 8 :
+        $coord2 = movecoord($coord0, 2, 0, -3);
+    case 9 :
+        $coord2 = movecoord($coord0, 1, 0, -4);
+    case 10 :
+        $coord2 = movecoord($coord0, 0, 0, -4);
+    case 11 :
+        $coord2 = movecoord($coord0, -1, 0, -4);
+    case 12 :
+        $coord2 = movecoord($coord0, -2, 0, -3);
+    case 13 :
+        $coord2 = movecoord($coord0, -3, 0, -2);
+    case 14 :
+        $coord2 = movecoord($coord0, -4, 0, -1);
+    case 15 :
+        $coord2 = movecoord($coord0, -4, 0, 0);
+    case 16 :
+        $coord2 = movecoord($coord0, -4, 0, 1);
+    case 17 :
+        $coord2 = movecoord($coord0, -3, 0, 2);
+    case 18 :
+        $coord2 = movecoord($coord0, -2, 0, 3);
+    case 19 :
+        $coord2 = movecoord($coord0, -1, 0, 4);
+}
+return($coord2);

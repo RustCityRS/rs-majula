@@ -1,0 +1,7 @@
+// 1233
+[proc,clientscript_1233]
+if_sethide(loginscreen:com_364, true);
+if_settext(loginscreen:com_365, "Please wait...");
+if_setonclick(loginscreen:com_365, null);
+op5603(%signpost_if_model, %mourning_mirror, %prayer_custom_view_client, %topstat_prayer_button_client);
+if_setontimer(loginscreen:com_404, "clientscript_1234");

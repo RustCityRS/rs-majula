@@ -1,0 +1,33 @@
+// 5271
+[proc,clientscript_5271](component $component0, string $string0, coord $coord1, int $int2, int $int3)(int)
+def_string $string1 = "";
+if ($coord1 = null) {
+    $string1 = "Your coord";
+} else if ($coord1 = -2) {
+    $string1 = "Safe Clanwars";
+} else {
+    $string1 = ~mescoord($coord1);
+}
+def_string $string2 = " - ";
+if (if_getwidth($component0) < 260) {
+    $string2 = "<br>";
+}
+def_string $string3 = "max";
+if ($int2 >= 0) {
+    $string3 = tostring($int2);
+}
+cc_create($component0, ^iftype_text, $int3);
+cc_settext("<$string0><$string2>@ <$string1> - Max: <$string3>");
+cc_settextshadow(true);
+cc_setcolour(0xcccccc);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0xcccccc)");
+cc_setop(1, "Spawn");
+cc_setop(2, "Pick spawn number");
+cc_setop(3, "Kill");
+cc_create($component0, ^iftype_rectangle, calc($int3 + 1));
+cc_setcolour(^white);
+cc_settrans(226);
+cc_setfill(true);
+return(calc($int3 + 2));

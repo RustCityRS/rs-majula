@@ -1,0 +1,19 @@
+// 1382
+[proc,clientscript_1382](int $key0, char $char1, component $component2)
+if ($key0 = 84) {
+    op5203(%varclient_663);
+    %varclient_663 = "";
+    return;
+}
+def_string $string0 = ~clientscript_74(%varclient_663, 0, $key0, $char1);
+if (string_length($string0) = 0) {
+    if_settext($component2, "Search the map by typing here.");
+    %varclient_663 = "";
+    return;
+}
+def_string $string1 = op5204($string0);
+if (string_length($string1) > 0) {
+    %varclient_663 = substring($string1, 0, string_length($string0));
+    $string1 = substring($string1, string_length($string0), string_length($string1));
+    if_settext($component2, "<col=ffffff><escape(%varclient_663)></col><$string1>");
+}

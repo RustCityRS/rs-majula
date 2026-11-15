@@ -1,0 +1,70 @@
+// 364:0
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 364:1
+[trail_reward_scroll]
+type=model
+x=88
+y=13
+width=330
+height=313
+layer=content_layer
+model=model_3395
+modelorigin=-15,15
+modelangle=511,2047,0
+modelzoom=591
+modelunknown=64192,3000,0
+
+// 364:2
+[trail_reward_chestopen]
+type=model
+x=117
+y=157
+width=99
+height=99
+layer=content_layer
+model=model_11205
+modelorigin=4,38
+modelangle=113,1716,0
+modelzoom=786
+modelunknown=64027,3000,0
+
+// 364:3
+[trail_reward_close]
+type=graphic
+x=473
+y=13
+width=26
+height=23
+layer=content_layer
+graphic=graphic_539
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(trail_reward:trail_reward_close, 540)
+onmouseleave=graphic_swapper(trail_reward:trail_reward_close, 539)
+onop=if_close
+
+// 364:4
+[trail_reward_box]
+type=layer
+x=222
+y=81
+width=128
+height=130
+layer=content_layer
+oninvtransmit=trail_reward_generation{trail_rewardinv}
+
+// 364:5
+[trail_reward_close_button]
+type=layer
+x=472
+y=9
+width=32
+height=32
+layer=content_layer
+hide=yes

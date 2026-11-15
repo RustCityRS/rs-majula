@@ -1,0 +1,17 @@
+// 1921
+[proc,clientscript_1921]
+if (%sc_lobby_clan_size > 0) {
+    if_settext(sc_lobby_clan_overlay:clan_leader_text, append(append_num(append(%varclient_672, " ("), %sc_lobby_clan_size), ")"));
+} else {
+    if_settext(sc_lobby_clan_overlay:clan_leader_text, %varclient_672);
+}
+if (%sc_lobby_ally_size_1 > 0) {
+    if_settext(sc_lobby_clan_overlay:ally_1_text, append(append_num(append(%varclient_673, " ("), %sc_lobby_ally_size_1), ")"));
+} else {
+    if_settext(sc_lobby_clan_overlay:ally_1_text, %varclient_673);
+}
+if (%sc_lobby_ally_size_2 > 0) {
+    if_settext(sc_lobby_clan_overlay:ally_2_text, append(append_num(append(%varclient_674, " ("), %sc_lobby_ally_size_2), ")"));
+} else {
+    if_settext(sc_lobby_clan_overlay:ally_2_text, %varclient_674);
+}

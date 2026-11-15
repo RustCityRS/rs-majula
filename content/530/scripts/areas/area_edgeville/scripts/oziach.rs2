@@ -1,0 +1,136 @@
+// Oziach: 289's areas/area_edgeville/scripts/oziach.rs2 with Dragon Slayer's 2011 lines, word for
+// word, from the 2011-05-04 recordings (YouTube UYp0v2Pc1yI 64.4-90.0s, mYqjoMQCOHI 353.6-362.6s;
+// runescape/target/refs/dragon/transcript_0504_p{1,2}.md):
+// - the player opens with "Good day to you." (64.4s, 353.6s);
+// - "Can you sell me a rune platebody?", "The Guildmaster of the Champions' Guild told me.", his
+//   "fancy-pants 'heroes'", "*Sigh*" and "Slay the dragon of Crandor!" (289: RSC's lines);
+// - he sends the player back to the Guildmaster, who now tells of the map, the ship and the
+//   shield (guild_master.rs2; 289: Oziach did);
+// - "Have ye slayed that dragon yet?" and Elvarg's head end the quest here (quest_dragon.rs2).
+// Branches no recording shows ("I am a master detective.", "That's a pity, I'm not a hero.", "I
+// may be a champion...", the small talk, a quest in progress without the head) are 289's,
+// unverified for 2011.
+[opnpc1,oziach]
+if(map_members = ^true & inv_total(inv, trail_clue_hard_riddle014) > 0) {
+    @trail_oziach;
+}
+~chatplayer("<p,neutral>Good day to you.");
+if (%dragonquest >= ^quest_dragon_spoken_to_oziach & %dragonquest < ^dragon_complete) {
+    // 2011's opener during the quest (mYqjoMQCOHI 355.4s). Only the answer with Elvarg's head
+    // is recorded; without it nothing more is said.
+    ~chatnpc("<p,quiz>Have ye slayed that dragon yet?");
+    if (inv_total(inv, dragon_slayer_qip_elvargs_head) > 0) {
+        @oziach_elvargs_head;
+    }
+    return;
+}
+if (%dragonquest >= ^dragon_complete) {
+    @oziach_dragon_complete;
+}
+~chatnpc("<p,shifty>Aye, 'tis a fair day my friend.");
+if (%dragonquest = ^quest_dragon_spoken_to_guildmaster) {
+    @multi3("Can you sell me a rune platebody?", oziach_can_sell_rune_plate, "I'm not your friend.", oziach_not_friend, "Yes, it's a very nice day.", oziach_nice_day);
+}
+@multi2("I'm not your friend.", oziach_not_friend, "Yes, it's a very nice day.", oziach_nice_day);
+
+[opnpc3,oziach]
+if (%dragonquest < ^quest_dragon_spoken_to_oziach) {
+    //osrs
+    ~chatnpc("<p,angry>I ain't got nothing to sell ye, adventurer.");
+    return;
+}
+if (%dragonquest < ^dragon_complete) {
+    // osrs
+    ~chatnpc("<p,angry>I'm not sellin' ye anything till you've slayed that dragon!");
+    return;
+}
+~openshop_activenpc;
+
+[label,oziach_not_friend]
+~chatplayer("<p,angry>I'm not your friend.");
+~chatnpc("<p,angry>I'm surprised if you're anyone's friend with those kind of manners.");
+
+[label,oziach_nice_day]
+~chatplayer("<p,neutral>Yes, it's a very nice day.");
+// rsc: 289's
+~chatnpc("<p,neutral>Aye, may the gods walk by yer side.");
+
+[label,oziach_can_sell_rune_plate]
+~chatplayer("<p,quiz>Can you sell me a rune platebody?");
+~chatnpc("<p,shock>So, how does thee know I 'ave some?");
+@multi2("The Guildmaster of the Champions' Guild told me.", oziach_guildmaster, "I am a master detective.", oziach_detective);
+
+[label,oziach_detective]
+~chatplayer("<p,neutral>I am a master detective.");
+// 289's line, wrapped by the 2011 client
+~chatnpc("<p,neutral>Well, however you found out about it, I'm not going to let just anyone wear my rune platemail. It's only for heroes.");
+
+[label,oziach_guildmaster]
+~chatplayer("<p,neutral>The Guildmaster of the Champions' Guild told me.");
+~chatnpc("<p,angry>Yes, I suppose he would, wouldn't he? He's always sending you fancy-pants 'heroes' up to bother me. Telling me I'll give them a quest or sommat like that.");
+~chatnpc("<p,angry>Well, I'm not going to let just anyone wear my rune platemail. It's only for heroes. So, leave me alone.");
+if (~p_choice2("I thought you were going to give me a quest.", 1, "That's a pity, I'm not a hero.", 2) = 2) {
+    ~chatplayer("<p,sad>That's a pity, I'm not a hero.");
+    return;
+}
+~chatplayer("<p,quiz>I thought you were going to give me a quest.");
+~chatnpc("<p,sad>*Sigh*");
+~chatnpc("<p,neutral>All right, I'll give ye a quest. I'll let ye wear my rune platemail if ye...");
+~chatnpc("<p,angry>Slay the dragon of Crandor!");
+if (~p_choice2("A dragon, that sounds like fun.", 1, "I may be a champion, but I don't think I'm up to dragon-killing yet.", 2) = 2) {
+    ~chatplayer("<p,sad>I may be a champion, but I don't think I'm up to dragon-killing yet.");
+    // 289's answer, unverified for 2011
+    ~chatnpc("<p,neutral>Yes, I can understand that.");
+    return;
+}
+~chatplayer("<p,happy>A dragon, that sounds like fun!");
+~chatnpc("<p,laugh>Hah, yes, you are a typical reckless adventurer, aren't you? Now go kill the dragon and get out of my face.");
+%dragonquest = ^quest_dragon_spoken_to_oziach;
+~send_quest_progress(^questlist_dragon, %dragonquest, ^dragon_complete);
+~chatplayer("<p,quiz>But how can I defeat the dragon?");
+~chatnpc("<p,neutral>Go talk to the Guildmaster in the Champions' Guild. He'll help ye out if yer so keen on doing a quest. I'm not going to be handholding any adventurers.");
+
+[label,oziach_dragon_complete]
+// rsc: 289's, unverified for 2011
+~chatnpc("<p,happy>Well done!");
+def_int $choice = ~p_choice2("Can I buy a rune plate mail body now please?", 0, "Thank you.", 1);
+if ($choice = 1) {
+    ~chatplayer("<p,happy>Thank you.");
+    return;
+}
+~chatplayer("<p,happy>Can I buy a rune plate mail body now please?");
+~openshop_activenpc;
+
+[label,trail_oziach]
+if(inv_total(inv, trail_clue_hard_riddle014_puzzlebox) > 0) {
+    @puzzle_oziach;
+}
+~give_trail_puzzle(trail_clue_hard_riddle014_puzzlebox, "<p,neutral>The solving of this puzzle could be the key to your treasure.", "Oziach has given you a puzzle box!");
+
+[label,puzzle_oziach]
+if(inv_total(inv, trail_clue_hard_riddle014_puzzlebox) = 0) {
+    ~chatplayer("<p,neutral>I don't have the puzzle box with me.");
+    ~chatnpc("<p,angry>That's not much use - go and fetch it!");
+    return;
+}
+// 289 checks trail_clue_hard_riddle017_puzzlebox here (Bentnoze's); Oziach's own box (289's
+// trail_clue_hard_riddle014_puzzlebox, obj 2795, 2011's puzzle_box) is the one he gave.
+if(~trail_puzzle_complete(trail_clue_hard_riddle014_puzzlebox) = true) {
+    ~chatnpc("<p,neutral>Well done, traveller.");
+    inv_del(inv, trail_clue_hard_riddle014_puzzlebox, 1);
+    ~progress_clue_hard(trail_clue_hard_riddle014, "Oziach has given you another clue scroll!");
+    return;
+}
+~chatnpc("<p,neutral>That isn't right, keep trying.");
+
+// 2011's ending, word for word (mYqjoMQCOHI 356.6-362.6s): the quest completes here, after the
+// head is shown (289 completed it as Elvarg died). The head is not in the backpack on the scroll
+// (364s), so Oziach keeps it.
+[label,oziach_elvargs_head]
+~chatplayer("<p,happy>Yes, I have!");
+~chatplayer("<p,happy>I have its head here.");
+~chatnpc("<p,shock>You actually did it?");
+~chatnpc("<p,neutral>I underestimated ye, adventurer. I apologise.");
+~chatnpc("<p,happy>Yer a true hero, and I'd be happy to sell ye rune platebodies.");
+inv_del(inv, dragon_slayer_qip_elvargs_head, 1);
+queue(dragon_complete, 0, 0);

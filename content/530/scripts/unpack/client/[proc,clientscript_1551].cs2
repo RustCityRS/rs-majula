@@ -1,0 +1,27 @@
+// 1551
+[proc,clientscript_1551]
+%playerdesign2_client_head = 0;
+%playerdesign2_client_jaw = 0;
+%playerdesign2_client_torso = 0;
+%playerdesign2_client_arms = 0;
+%playerdesign2_client_hands = 0;
+%playerdesign2_client_legs = 0;
+%playerdesign2_client_feet = 0;
+%playerdesign2_client_gender = 0;
+%playerdesign2_client_haircol = 0;
+%varclient_95 = 0;
+%varclient_96 = 0;
+%playerdesign2_client_feetcol = 0;
+%playerdesign2_client_skincol = 0;
+~clientscript_1560;
+~clientscript_1561(interface_771:com_14, 1419, interface_771:com_403);
+~clientscript_1562(interface_771:com_16, 1418, 1421, interface_771:com_403);
+~clientscript_1562(interface_771:com_18, 1418, 1421, interface_771:com_403);
+~clientscript_1562(interface_771:com_20, 1418, 1421, interface_771:com_403);
+if (%playerdesign2_client_random = 0) {
+    if_setgraphic(interface_771:com_381, 941);
+    if_setgraphic(interface_771:com_398, 941);
+} else if (%playerdesign2_client_random > 0) {
+    if_setgraphic(interface_771:com_381, 942);
+    if_setgraphic(interface_771:com_398, 942);
+}

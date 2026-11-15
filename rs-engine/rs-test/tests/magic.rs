@@ -22,6 +22,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 
 const SPELLBOOK: i32 = 192 << 16;
@@ -38,13 +39,13 @@ const SMITHING: usize = 13;
 /// Lumbridge, outside the castle.
 const TILE: (u16, u16) = (3222, 3218);
 
-fn id(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn id(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// A player at Lumbridge with `magic` and the backpack given, slot by slot.
@@ -53,8 +54,8 @@ fn caster(engine: &mut Engine, name: &str, magic: u16, items: &[(&str, u32)]) ->
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
     engine.harness_telejump(client.pid, TILE.0, 0, TILE.1);
-    let ids: Vec<u16> = items.iter().map(|(n, _)| id(engine, n)).collect();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let ids: Vec<TypeId> = items.iter().map(|(n, _)| id(engine, n)).collect();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let player = engine.harness_player_mut(client.pid).unwrap();
     player.stats.base_levels[MAGIC] = magic;
     player.stats.levels[MAGIC] = magic;
@@ -110,11 +111,11 @@ fn cast_on(client: &mut HarnessClient, spell: i32, slot: u16, obj: u16) {
 }
 
 fn count(engine: &Engine, pid: u16, obj: u16) -> u32 {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine.harness_player(pid).unwrap().invs.get(&inv).unwrap();
     (0..backpack.capacity as u16)
         .filter_map(|s| backpack.get(s))
-        .filter(|i| i.obj == obj)
+        .filter(|i| i.obj == TypeId::new(obj))
         .map(|i| i.num)
         .sum()
 }
@@ -143,7 +144,11 @@ fn varrock_teleport_takes_its_runes_and_lands_in_varrock() {
             "landed at {x},{z}"
         );
         for (rune, _) in runes {
-            assert_eq!(count(engine, client.pid, id(engine, rune)), 0, "{rune}");
+            assert_eq!(
+                count(engine, client.pid, id(engine, rune).g2()),
+                0,
+                "{rune}"
+            );
         }
         assert_eq!(xp(engine, client.pid, MAGIC) - before, 350);
     });
@@ -163,7 +168,7 @@ fn a_spell_above_the_level_is_refused() {
         );
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!((player.pathing.coord.x(), player.pathing.coord.z()), TILE);
-        assert_eq!(count(engine, client.pid, id(engine, "lawrune")), 1);
+        assert_eq!(count(engine, client.pid, id(engine, "lawrune").g2()), 1);
     });
 }
 
@@ -191,18 +196,18 @@ fn high_alchemy_turns_an_item_to_coins() {
         let gold_bar = id(engine, "gold_bar");
         let cost = engine.cache.objs.get_by_id(gold_bar).unwrap().cost;
         let before = xp(engine, client.pid, MAGIC);
-        cast_on(&mut client, HIGH_LEVEL_ALCHEMY, 2, gold_bar);
+        cast_on(&mut client, HIGH_LEVEL_ALCHEMY, 2, gold_bar.g2());
         let packets = ticks(engine, &mut client, 3);
         // 289 turns back to the spellbook: 2011's selected tab, varc 168, is
         // the magic tab (7).
         assert!(varcs(&packets).contains(&(168, 7)), "{:?}", varcs(&packets));
-        assert_eq!(count(engine, client.pid, gold_bar), 0);
+        assert_eq!(count(engine, client.pid, gold_bar.g2()), 0);
         assert_eq!(
-            count(engine, client.pid, id(engine, "coins")) as i32,
+            count(engine, client.pid, id(engine, "coins").g2()) as i32,
             (cost * 6 / 10).max(1)
         );
-        assert_eq!(count(engine, client.pid, id(engine, "naturerune")), 0);
-        assert_eq!(count(engine, client.pid, id(engine, "firerune")), 0);
+        assert_eq!(count(engine, client.pid, id(engine, "naturerune").g2()), 0);
+        assert_eq!(count(engine, client.pid, id(engine, "firerune").g2()), 0);
         assert_eq!(xp(engine, client.pid, MAGIC) - before, 650);
     });
 }
@@ -217,12 +222,12 @@ fn superheat_smelts_iron_ore() {
         player.stats.base_levels[SMITHING] = 15;
         player.stats.levels[SMITHING] = 15;
         let iron_ore = id(engine, "iron_ore");
-        cast_on(&mut client, SUPERHEAT_ITEM, 2, iron_ore);
+        cast_on(&mut client, SUPERHEAT_ITEM, 2, iron_ore.g2());
         ticks(engine, &mut client, 3);
         let said = calls_for("mes");
-        assert_eq!(count(engine, client.pid, iron_ore), 0, "{said:?}");
-        assert_eq!(count(engine, client.pid, id(engine, "iron_bar")), 1);
-        assert_eq!(count(engine, client.pid, id(engine, "naturerune")), 0);
+        assert_eq!(count(engine, client.pid, iron_ore.g2()), 0, "{said:?}");
+        assert_eq!(count(engine, client.pid, id(engine, "iron_bar").g2()), 1);
+        assert_eq!(count(engine, client.pid, id(engine, "naturerune").g2()), 0);
     });
 }
 
@@ -243,11 +248,11 @@ fn bones_to_bananas_turns_every_bone() {
         ticks(engine, &mut client, 3);
         let said = calls_for("mes");
         assert_eq!(
-            count(engine, client.pid, id(engine, "bones")),
+            count(engine, client.pid, id(engine, "bones").g2()),
             0,
             "{said:?}"
         );
-        assert_eq!(count(engine, client.pid, id(engine, "banana")), 3);
+        assert_eq!(count(engine, client.pid, id(engine, "banana").g2()), 3);
     });
 }
 
@@ -258,10 +263,13 @@ fn lvl_1_enchant_makes_a_ring_of_recoil() {
         let items = [("waterrune", 1), ("cosmicrune", 1), ("sapphire_ring", 1)];
         let mut client = caster(engine, "enchanter", 7, &items);
         let ring = id(engine, "sapphire_ring");
-        cast_on(&mut client, LVL_1_ENCHANT, 2, ring);
+        cast_on(&mut client, LVL_1_ENCHANT, 2, ring.g2());
         ticks(engine, &mut client, 3);
-        assert_eq!(count(engine, client.pid, ring), 0);
-        assert_eq!(count(engine, client.pid, id(engine, "ring_of_recoil")), 1);
+        assert_eq!(count(engine, client.pid, ring.g2()), 0);
+        assert_eq!(
+            count(engine, client.pid, id(engine, "ring_of_recoil").g2()),
+            1
+        );
     });
 }
 
@@ -280,7 +288,7 @@ fn telekinetic_grab_refuses_the_finished_god_books() {
             client.packets();
             let mut p = ClientPacket::new();
             p.p2_alt1(-1)
-                .p2_alt1(obj as i32)
+                .p2_alt1(obj.int())
                 .p2(-1)
                 .p4_alt2(TELEKINETIC_GRAB)
                 .p1_alt1(0)
@@ -295,7 +303,7 @@ fn telekinetic_grab_refuses_the_finished_god_books() {
                 said.contains(&"I can't use Telekinetic Grab on this object.".to_string()),
                 "{book}: {said:?}"
             );
-            assert_eq!(count(engine, client.pid, obj), 0, "{book} stays put");
+            assert_eq!(count(engine, client.pid, obj.g2()), 0, "{book} stays put");
         }
     });
 }

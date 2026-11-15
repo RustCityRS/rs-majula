@@ -4,7 +4,7 @@
 //! compiling the scripts dominates the run, and each label resets the world
 //! before it starts. The report lists each label, so a failure names itself.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_test::runner;
 

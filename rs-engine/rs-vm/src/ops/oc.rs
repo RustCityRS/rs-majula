@@ -27,13 +27,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4200
         none!(m, OC_CATEGORY => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_int(obj.category.map(|x| x as i32).unwrap_or(-1));
+            s.push_int(obj.category.map(|x| x.int()).unwrap_or(-1));
         });
 
         // 4201
         none!(m, OC_CERT => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_int(cert(obj) as i32);
+            s.push_int(cert(obj).int());
         });
 
         // 4202
@@ -108,7 +108,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4212
         none!(m, OC_UNCERT => |s| {
             let obj = pop_obj::<E>(s)?;
-            s.push_int(uncert(obj) as i32);
+            s.push_int(uncert(obj).int());
         });
 
         // 4213

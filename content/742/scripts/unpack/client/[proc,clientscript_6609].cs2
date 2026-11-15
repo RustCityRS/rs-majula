@@ -1,0 +1,24 @@
+// 6609
+[proc,clientscript_6609](component $component0, int $int1, component $component2, int $int3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+if ($component2 ! null) {
+    if ($int3 = -1) {
+        if (if_find($component2) = true & $component2 = interface_1324:com_15) {
+            $int6 = $int4;
+            $int7 = $int5;
+            if (.cc_find($component0, $int1) = true) {
+                .cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+            }
+        }
+    } else {
+        if (cc_find($component2, $int3) = true) {
+            $int6 = cc_getx;
+            $int7 = cc_gety;
+        }
+        if (.cc_find($component0, $int1) = true) {
+            sound_vorbis_volume(16950, 1, 0, 120);
+            .cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+}

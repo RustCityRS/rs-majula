@@ -1,0 +1,58 @@
+// 5346
+[proc,clientscript_5346]
+if_settext(interface_1180:com_84, tostring(%varplayerbit_10301));
+if_settext(interface_1180:com_70, tostring(%varclient_1732));
+if_settext(interface_1180:com_56, "<tostring(%varplayerbit_10313)>%");
+if (%varclient_1731 ! 1) {
+    if_settext(interface_1180:com_77, "<tostring(%varclient_1731)> sets");
+} else {
+    if_settext(interface_1180:com_77, "1 set");
+}
+switch_int (%varclient_1731) {
+    case 0 :
+        if_setcolour(interface_1180:com_77, 0xc4312d);
+    case 1 :
+        if_setcolour(interface_1180:com_77, 0xc4312d);
+    case 2 :
+        if_setcolour(interface_1180:com_77, 0xd0c420);
+    case 3 :
+        if_setcolour(interface_1180:com_77, 0xd0c420);
+    case 4 :
+        if_setcolour(interface_1180:com_77, 0xd0c420);
+    case 5 :
+        if_setcolour(interface_1180:com_77, 0x28c851);
+    case 6 :
+        if_setcolour(interface_1180:com_77, 0x28c851);
+}
+if (%varclient_1732 < 3) {
+    if_setcolour(interface_1180:com_70, 0xc4312d);
+} else {
+    if_setcolour(interface_1180:com_70, 0x28c851);
+}
+switch_int (%varclient_1730) {
+    case 0 :
+        if_settext(interface_1180:com_63, "None");
+        if_setcolour(interface_1180:com_63, 0xc4312d);
+    case 1 :
+        if_settext(interface_1180:com_63, "A");
+        if_setcolour(interface_1180:com_63, 0xd0c420);
+    case 2 :
+        if_settext(interface_1180:com_63, "B");
+        if_setcolour(interface_1180:com_63, 0xd0c420);
+    case 3 :
+        if_settext(interface_1180:com_63, "A & B");
+        if_setcolour(interface_1180:com_63, 0x28c851);
+}
+if_settext(interface_1180:com_49, "<tostring(%varplayerbit_10304)> mins");
+if (%varplayerbit_10304 < 4) {
+    if_setcolour(interface_1180:com_49, 0xc4312d);
+} else {
+    if_setcolour(interface_1180:com_49, 0x28c851);
+}
+if (%varclient_1733 = 0) {
+    if_setgraphic(interface_1180:com_30, "conq_tick_box,0");
+    if_sethide(interface_1180:com_11, false);
+} else {
+    if_setgraphic(interface_1180:com_30, "conq_tick_box,1");
+    if_sethide(interface_1180:com_11, true);
+}

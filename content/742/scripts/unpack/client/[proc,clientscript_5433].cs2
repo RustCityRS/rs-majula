@@ -1,0 +1,60 @@
+// 5433
+[proc,clientscript_5433](int $int0, int $int1)
+def_graphic $graphic2 = 8154;
+switch_int (%varclient_1664) {
+    case 1 :
+        $graphic2 = 8154;
+    case 2 :
+        $graphic2 = 8160;
+    case 3 :
+        $graphic2 = 8161;
+    case 4 :
+        $graphic2 = 8157;
+    case 5 :
+        $graphic2 = 8163;
+    case 6 :
+        $graphic2 = 8164;
+    case 7 :
+        $graphic2 = 8162;
+    case 8 :
+        $graphic2 = 8155;
+    case 9 :
+        $graphic2 = 8167;
+    case 10 :
+        $graphic2 = 8175;
+    case 11 :
+        $graphic2 = 8169;
+    case 12 :
+        $graphic2 = 8166;
+    case 13 :
+        $graphic2 = 8156;
+    case 14 :
+        $graphic2 = 8168;
+    case 15 :
+        $graphic2 = 8171;
+    case 16 :
+        $graphic2 = 8159;
+    case 17 :
+        $graphic2 = 8172;
+    case 18 :
+        $graphic2 = 8165;
+    case 19 :
+        $graphic2 = 8158;
+    case 20 :
+        $graphic2 = 8173;
+    case 21 :
+        $graphic2 = 8170;
+    case 22 :
+        $graphic2 = 8174;
+    case default :
+        $graphic2 = 8154;
+}
+cc_create(interface_1167:com_1, ^iftype_graphic, $int0);
+cc_setgraphic($graphic2);
+cc_setsize(80, 80, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+if (%varclient_1664 < 22) {
+    %varclient_1664 = calc(%varclient_1664 + 1);
+} else {
+    %varclient_1664 = 1;
+}

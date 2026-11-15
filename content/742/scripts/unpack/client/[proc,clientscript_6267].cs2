@@ -1,0 +1,265 @@
+// 6267
+[proc,clientscript_6267](graphic $graphic0)(graphic)
+def_graphic $graphic1 = $graphic0;
+if (%varclient_1928 = 0) {
+    switch_graphic ($graphic0) {
+        case 12962, 13996 :
+            $graphic1 = 12962;
+        case 12963, 13997 :
+            $graphic1 = 12963;
+        case 12964, 13998 :
+            $graphic1 = 12964;
+        case 12965, 13999 :
+            $graphic1 = 12965;
+        case 12966, 14000 :
+            $graphic1 = 12966;
+        case 12967, 14001 :
+            $graphic1 = 12967;
+        case 12968, 14002 :
+            $graphic1 = 12968;
+        case 12969, 14003 :
+            $graphic1 = 12969;
+        case 12970, 14004 :
+            $graphic1 = 12970;
+        case 12971, 14005 :
+            $graphic1 = 12971;
+        case 12972, 14006 :
+            $graphic1 = 12972;
+        case 12973, 14007 :
+            $graphic1 = 12973;
+        case 12974, 14008 :
+            $graphic1 = 12974;
+        case 12975, 14009 :
+            $graphic1 = 12975;
+        case 12976, 14010 :
+            $graphic1 = 12976;
+        case 12977, 14011 :
+            $graphic1 = 12977;
+        case 12978, 14012 :
+            $graphic1 = 12978;
+        case 12979, 14013 :
+            $graphic1 = 12979;
+        case 12980, 14014 :
+            $graphic1 = 12980;
+        case 12981, 14015 :
+            $graphic1 = 12981;
+        case 12982, 14033 :
+            $graphic1 = 12982;
+        case 12983, 14034 :
+            $graphic1 = 12983;
+        case 12984, 14035 :
+            $graphic1 = 12984;
+        case 12985, 14036 :
+            $graphic1 = 12985;
+        case 12986, 14037 :
+            $graphic1 = 12986;
+        case 12987, 14038 :
+            $graphic1 = 12987;
+        case 12988, 14039 :
+            $graphic1 = 12988;
+        case 12989, 14040 :
+            $graphic1 = 12989;
+        case 12990, 14041 :
+            $graphic1 = 12990;
+        case 12991, 14042 :
+            $graphic1 = 12991;
+        case 12992, 14043 :
+            $graphic1 = 12992;
+        case 12993, 14044 :
+            $graphic1 = 12993;
+        case 12994, 14045 :
+            $graphic1 = 12994;
+        case 12995, 14046 :
+            $graphic1 = 12995;
+        case 12996, 14047 :
+            $graphic1 = 12996;
+        case 12997, 14048 :
+            $graphic1 = 12997;
+        case 12998, 14049 :
+            $graphic1 = 12998;
+        case 12999, 14050 :
+            $graphic1 = 12999;
+        case 13000, 14051 :
+            $graphic1 = 13000;
+        case 13001, 14052 :
+            $graphic1 = 13001;
+        case 10244, 14016 :
+            $graphic1 = 10244;
+        case 14061 :
+            $graphic1 = 12585;
+        case 14062 :
+            $graphic1 = 12586;
+        case 14068 :
+            $graphic1 = 12592;
+        case 9957, 14028 :
+            $graphic1 = 9957;
+        case 9958, 14029 :
+            $graphic1 = 9958;
+        case 9959, 14030 :
+            $graphic1 = 9959;
+        case 9960, 14031 :
+            $graphic1 = 9960;
+        case 10219 :
+            $graphic1 = 10219;
+        case 9908, 14017 :
+            $graphic1 = 9908;
+        case 9909, 14018 :
+            $graphic1 = 9909;
+        case 9910, 14019 :
+            $graphic1 = 9910;
+        case 9911, 14020 :
+            $graphic1 = 9911;
+        case 9886, 14021 :
+            $graphic1 = 9886;
+        case 9887, 14022 :
+            $graphic1 = 9887;
+        case 9888, 14023 :
+            $graphic1 = 9888;
+        case 9889, 14024 :
+            $graphic1 = 9889;
+        case 9890, 14025 :
+            $graphic1 = 9890;
+        case 12093 :
+            $graphic1 = 12093;
+        case 12094 :
+            $graphic1 = 12094;
+        case 12095 :
+            $graphic1 = 12095;
+        case 9872, 12098 :
+            if (%varplayerbit_11768 = 1 | %varplayerbit_11768 = 3) {
+                $graphic1 = 9872;
+            } else {
+                $graphic1 = 12098;
+            }
+    }
+} else if (%varclient_1928 = 1) {
+    switch_graphic ($graphic0) {
+        case 12962 :
+            $graphic1 = 13996;
+        case 12963 :
+            $graphic1 = 13997;
+        case 12964 :
+            $graphic1 = 13998;
+        case 12965 :
+            $graphic1 = 13999;
+        case 12966 :
+            $graphic1 = 14000;
+        case 12967 :
+            $graphic1 = 14001;
+        case 12968 :
+            $graphic1 = 14002;
+        case 12969 :
+            $graphic1 = 14003;
+        case 12970 :
+            $graphic1 = 14004;
+        case 12971 :
+            $graphic1 = 14005;
+        case 12972 :
+            $graphic1 = 14006;
+        case 12973 :
+            $graphic1 = 14007;
+        case 12974 :
+            $graphic1 = 14008;
+        case 12975 :
+            $graphic1 = 14009;
+        case 12976 :
+            $graphic1 = 14010;
+        case 12977 :
+            $graphic1 = 14011;
+        case 12978 :
+            $graphic1 = 14012;
+        case 12979 :
+            $graphic1 = 14013;
+        case 12980 :
+            $graphic1 = 14014;
+        case 12981 :
+            $graphic1 = 14015;
+        case 12982 :
+            $graphic1 = 14033;
+        case 12983 :
+            $graphic1 = 14034;
+        case 12984 :
+            $graphic1 = 14035;
+        case 12985 :
+            $graphic1 = 14036;
+        case 12986 :
+            $graphic1 = 14037;
+        case 12987 :
+            $graphic1 = 14038;
+        case 12988 :
+            $graphic1 = 14039;
+        case 12989 :
+            $graphic1 = 14040;
+        case 12990 :
+            $graphic1 = 14041;
+        case 12991 :
+            $graphic1 = 14042;
+        case 12992 :
+            $graphic1 = 14043;
+        case 12993 :
+            $graphic1 = 14044;
+        case 12994 :
+            $graphic1 = 14045;
+        case 12995 :
+            $graphic1 = 14046;
+        case 12996 :
+            $graphic1 = 14047;
+        case 12997 :
+            $graphic1 = 14048;
+        case 12998 :
+            $graphic1 = 14049;
+        case 12999 :
+            $graphic1 = 14050;
+        case 13000 :
+            $graphic1 = 14051;
+        case 13001 :
+            $graphic1 = 14052;
+        case 10244, 14016 :
+            $graphic1 = 14016;
+        case 12585 :
+            $graphic1 = 14061;
+        case 12586 :
+            $graphic1 = 14062;
+        case 12592 :
+            $graphic1 = 14068;
+        case 9957, 14028 :
+            $graphic1 = 14028;
+        case 9958, 14029 :
+            $graphic1 = 14029;
+        case 9959, 14030 :
+            $graphic1 = 14030;
+        case 9960, 14031 :
+            $graphic1 = 14031;
+        case 9908, 14017 :
+            $graphic1 = 14017;
+        case 9909, 14018 :
+            $graphic1 = 14018;
+        case 9910, 14019 :
+            $graphic1 = 14019;
+        case 9911, 14020 :
+            $graphic1 = 14020;
+        case 9886, 14021 :
+            $graphic1 = 14021;
+        case 9887, 14022 :
+            $graphic1 = 14022;
+        case 9888, 14023 :
+            $graphic1 = 14023;
+        case 9889, 14024 :
+            $graphic1 = 14024;
+        case 9890 :
+            $graphic1 = 14025;
+        case 12093 :
+            $graphic1 = 14026;
+        case 12094 :
+            $graphic1 = 14027;
+        case 9872, 12098 :
+            if (%varplayerbit_11768 = 1 | %varplayerbit_11768 = 3) {
+                $graphic1 = 9872;
+            } else {
+                $graphic1 = 12098;
+            }
+    }
+} else if (%varclient_1928 = 2) {
+    return($graphic1);
+}
+return($graphic1);

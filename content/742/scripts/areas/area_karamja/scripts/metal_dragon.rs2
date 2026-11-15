@@ -1,0 +1,125 @@
+// https://www.youtube.com/watch?v=JpnnkC4Z-4M
+// 289's metal dragons of Brimhaven Dungeon. 2011 keeps their ids (1590-1592)
+// on a new model and skeleton (bas_1851: seq 14250, frame group 3315, cache
+// 786), so their seqs here are that skeleton's, named by void-634
+// (dragon.anims.toml: metal_dragon_breath 14246, _shoot 14252). Damage is in
+// 2011's life points: ten to 289's hitpoint.
+[ai_queue1,bronze_dragon] ~npc_default_retaliate_ap;
+[ai_opplayer2,bronze_dragon] npc_setmode(applayer2);
+[ai_applayer2,bronze_dragon] @metal_dragon_attack;
+
+[ai_queue1,iron_dragon] ~npc_default_retaliate_ap;
+[ai_opplayer2,iron_dragon] npc_setmode(applayer2);
+[ai_applayer2,iron_dragon] @metal_dragon_attack;
+
+[ai_queue1,steel_dragon] ~npc_default_retaliate_ap;
+[ai_opplayer2,steel_dragon] npc_setmode(applayer2);
+[ai_applayer2,steel_dragon] @metal_dragon_attack;
+
+[label,metal_dragon_attack]
+if (%npc_action_delay > map_clock) {
+    return;
+}
+if (~npc_check_notcombat = false) {
+    npc_setmode(null);
+    return;
+}
+if (~npc_check_notcombat_self = false) {
+    return;
+}
+
+if(npc_range(coord) < 2) { // melee range (metal drags melee in ap)
+    if (random(4) = 0) {
+        // 289: metal dragon breath does not take prot magic into account. The
+        // 2011 wiki (Dragonfire, 20 May 2011) says Protect from Magic lessens
+        // dragonfire and names no dragon it does not work on; nothing dated
+        // says it for a metal dragon, so 289's stays.
+        ~metal_dragon_fire;
+    } else {
+        ~npc_default_attack; // these only use the "headbutt" attack, unlike regular drags
+    }
+} else {
+    ~metal_dragon_dragonfire_far;
+}
+
+[proc,metal_dragon_dragonfire_far]
+if_close;
+def_coord $npc_coord = movecoord(npc_coord, 2, 0, 2);
+def_coord $player_coord = coord;
+def_coord $projectile_coord;
+
+def_int $z = calc(coordz($npc_coord) - coordz($player_coord));
+def_int $x = calc(coordx($npc_coord) - coordx($player_coord));
+// do corners first
+if (calc($z / 2) <= $x & calc($x / 2) <= $z) { // south-west
+    $projectile_coord = movecoord($npc_coord, -1, 0, -1);
+} else if (calc($z / 2) <= multiply($x, -1) & calc($x / 2) >= multiply($z, -1)) { // south-east
+    $projectile_coord = movecoord($npc_coord, 1, 0, -1);
+} else if (calc($x / 2) >= $z & calc($z / 2) >= $x) { // north-east
+    $projectile_coord = movecoord($npc_coord, 1, 0, 1);
+} else if (calc($z / 2) >= multiply($x, -1) & calc($z / 2 * -1) >= $x) { // north-west
+    $projectile_coord = movecoord($npc_coord, -1, 0, 1);
+} else if (calc($x / 2) <= $z & calc($z / 2) >= $x) { // south
+    $projectile_coord = movecoord($npc_coord, 0, 0, -1);
+}  else if (calc($x / 2) <= $z & calc($x / 2) <= multiply($z, -1)) { // east
+    $projectile_coord = movecoord($npc_coord, 1, 0, 0);
+} else if (calc($z / 2) <= $x & calc($z / 2 * -1) >= $x) { // north
+    $projectile_coord = movecoord($npc_coord, 0, 0, 1);
+} else { // west
+    $projectile_coord = movecoord($npc_coord, -1, 0, 0);
+}
+// 289's projectile (spotanim 54) and sound, both still in cache 786. void-634
+// launches spotanim 393 with sound 3749 instead; no 2011 recording was checked
+// for either, so 289's stay.
+def_int $duration = ~player_projectile($projectile_coord, coord, uid, firebreath_travel, 43, 31, 51, 32, -5, 127, 10);
+
+// 289's dragon_firebreath_middle_attack is the old skeleton's. void-634's
+// metal_dragon_shoot (14252) is on this one (frame group 3315, cache 786).
+npc_anim(seq_14252, 0);
+sound_synth(dragonbreath, 1, 30);
+%npc_action_delay = add(map_clock, 4);
+
+def_int $damage = randominc(~metal_dragon_breath_maxhit);
+queue(combat_damage_player, calc($duration / 30), $damage);
+queue*(playerhit_n_retaliate, calc($duration / 30))(npc_uid);
+~npc_set_attack_vars;
+
+[proc,metal_dragon_breath_maxhit]()(int)
+def_int $attack_roll = ~npc_magic_attack_roll;
+def_int $defence_roll = ~player_defence_roll_specific(npc_param(damagetype));
+// Life points: 289's 30, 5, +20 and -15 times ten. Unprotected that is up to
+// 500, as the 2011 wiki has it ("500+", Bronze dragon, 18 May 2011). The
+// shield's and the potion's messages are 2011's, as dragon.rs2's (2011 wiki,
+// Protect from Magic, 8 May 2011).
+def_int $maxhit = 300;
+if (inv_total(worn, antidragonbreathshield) > 0) {
+    $maxhit = 50;
+    mes("Your shield absorbs most of the dragon's fiery breath!");
+} else if (randominc($attack_roll) > randominc($defence_roll)) {
+    $maxhit = add($maxhit, 200);
+    // these messages only show for unprotected or antifire protected players
+    mes("You're horribly burnt by the dragon fire!");
+} else {
+    mes("You manage to resist some of the dragon fire!");
+}
+
+if (map_clock < %dragonresist) {
+    $maxhit = sub($maxhit, 150);
+    mes("Your potion slightly protects you from the heat of the dragon's breath.");
+}
+return (max($maxhit, 0));
+
+[proc,metal_dragon_fire]
+if_close;
+// 289's fire is spotanim 1 at height 92 with the old skeleton's breath. On
+// 2011's: void-634's metal_dragon_breath (14246, 129 client cycles, frame
+// group 3315) with the remodelled dragons' fire on the dragon itself, spotanim
+// 2465 (127 cycles; dragon.rs2's) and its sound.
+spotanim_npc(dragon_breath_shoot, 0, 0);
+npc_anim(seq_14246, 0);
+sound_synth(dragonslayer_dragonbreath, 1, 30);
+%npc_action_delay = add(map_clock, 4);
+def_int $damage = randominc(~metal_dragon_breath_maxhit);
+queue(combat_damage_player, 0, $damage);
+queue*(playerhit_n_retaliate, 0)(npc_uid);
+~npc_set_attack_vars;

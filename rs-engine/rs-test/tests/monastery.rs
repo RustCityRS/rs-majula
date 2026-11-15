@@ -137,12 +137,17 @@ fn the_monastery_ladder_keeps_out_all_but_the_order() {
 
         // A member of the order climbs.
         let mut client = monk(engine, "member", 0, (LADDER.1, LADDER.2), 31);
-        let guild = *engine.cache.varps.debugnames.get("prayer_guild").unwrap();
+        let guild = engine
+            .cache
+            .varps
+            .get_by_debugname("prayer_guild")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
             .vars
-            .set(guild, VarValue::Int(1));
+            .set(guild.g2(), VarValue::Int(1));
         op_loc1(&mut client, LADDER);
         let (said, _) = run(engine, &mut client, 8);
         let player = engine.harness_player(client.pid).unwrap();

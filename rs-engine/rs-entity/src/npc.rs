@@ -10,6 +10,7 @@ use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::{BlockWalk, MoveRestrict, NpcMode};
 use rs_stat::Stats;
 use rs_var::VarSet;
+use rs_ver::TypeId;
 pub use rs_vm::NpcUid;
 use std::ops::{Deref, DerefMut};
 
@@ -28,7 +29,7 @@ pub struct Npc {
     pub wander_range: u16,
     pub attack_range: u8,
     pub regen_rate: u16,
-    pub category: Option<u16>,
+    pub category: Option<TypeId>,
     pub block_walk: BlockWalk,
     pub stuck_counter: u16,
     pub info: EntityMasks,
@@ -36,7 +37,7 @@ pub struct Npc {
     pub active: bool,
     pub lifecycle: EntityLifeTime,
     pub lifecycle_at: Option<u32>,
-    pub hunt_mode: Option<u16>,
+    pub hunt_mode: Option<TypeId>,
     pub hunt_range: u8,
     pub hunt_clock: u16,
     pub hunt_target: Option<InteractionTarget>,
@@ -54,7 +55,7 @@ pub struct NpcCold {
     pub target_player: Option<u16>,
     pub stats: Stats<6>,
     pub hero_points: HeroPoints,
-    pub base_type: u16,
+    pub base_type: TypeId,
     pub next_patrol_point: u8,
     pub patrol_delay_ticks_remaining: i64,
     pub revert_reset: bool,
@@ -92,7 +93,7 @@ impl Npc {
     ///
     /// # Call Stack
     /// **Called by:** `Engine::add_npc_spawned`, map loading
-    pub fn new(id: u16, nid: u16, coord: CoordGrid, size: u8, vars: VarSet) -> Self {
+    pub fn new(id: TypeId, nid: u16, coord: CoordGrid, size: u8, vars: VarSet) -> Self {
         Self {
             uid: NpcUid::new(id, nid),
             pathing: PathingEntity::new(coord, size, MoveRestrict::Normal, MoveStrategy::Naive),
@@ -220,7 +221,7 @@ impl Npc {
     pub fn reset_defaults(
         &mut self,
         default_mode: NpcMode,
-        hunt_mode: Option<u16>,
+        hunt_mode: Option<TypeId>,
         hunt_range: u8,
         timer_interval: Option<u16>,
     ) {

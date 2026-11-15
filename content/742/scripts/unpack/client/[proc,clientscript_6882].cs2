@@ -1,0 +1,20 @@
+// 6882
+[proc,clientscript_6882](struct $struct0)(int)
+if ($struct0 = null) {
+    return(0);
+}
+def_int $int1 = struct_param($struct0, param_2772);
+if ($struct0 ! null & $int1 = -1) {
+    return(0);
+}
+def_enum $enum2 = null;
+if (gender = 1) {
+    $enum2 = enum_2342;
+} else {
+    $enum2 = enum_2339;
+}
+if ($int1 = enum(idkit, int, $enum2, %varplayer_2794)) {
+    return(1);
+} else {
+    return(0);
+}

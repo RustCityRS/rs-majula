@@ -1,0 +1,88 @@
+// 6172
+[proc,clientscript_6172](int $int0, int $int1)(int)
+def_struct $struct2 = enum(int, struct, enum_5838, $int0);
+if ($struct2 = null) {
+    return($int1);
+}
+def_int $int3 = struct_param($struct2, param_2390);
+def_int $int4 = struct_param($struct2, param_2391);
+def_string $string0 = struct_param($struct2, param_2392);
+def_graphic $graphic5 = 10735;
+if (cc_find(interface_1273:com_14, $int0) = true) {
+    cc_setgraphic(10734);
+    cc_setsize(84, 78, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setnoclickthrough(true);
+    cc_setonmouseover("clientscript_5343(event_com, event_comsubid, $graphic5)");
+    cc_setonmouseleave("clientscript_6170(event_com, event_comsubid)");
+    cc_setonmouserepeat("addtooltip_dynamic(interface_1273:com_14, $int0, interface_1273:com_18, $string0, 5, 300)");
+    cc_setop(1, "Buy 1");
+    cc_setop(2, "Buy 2");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setonop("clientscript_6171($int0, event_com)");
+    if (struct_param($struct2, param_2378) = 0) {
+        cc_setopbase(struct_param($struct2, param_2376));
+        cc_create(interface_1273:com_14, ^iftype_text, $int1);
+        cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, calc($int4 - 30), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settext(struct_param($struct2, param_2376));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_settextshadow(false);
+        cc_setcolour(^white);
+        $int1 = calc($int1 + 1);
+        cc_setopbase(struct_param($struct2, param_2376));
+    } else {
+        cc_setopbase("<struct_param($struct2, param_2376)> <struct_param($struct2, param_2377)>");
+        cc_create(interface_1273:com_14, ^iftype_text, $int1);
+        cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, calc($int4 - 37), ^setpos_abs_left, ^setpos_abs_top);
+        if (map_lang = 3 | map_lang = 2) {
+            cc_settext(struct_param($struct2, param_2377));
+        } else {
+            cc_settext(struct_param($struct2, param_2376));
+        }
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_settextshadow(false);
+        cc_setcolour(^white);
+        $int1 = calc($int1 + 1);
+        cc_create(interface_1273:com_14, ^iftype_text, $int1);
+        cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+        cc_setposition($int3, calc($int4 - 23), ^setpos_abs_left, ^setpos_abs_top);
+        if (map_lang = 3 | map_lang = 2) {
+            cc_settext(struct_param($struct2, param_2376));
+        } else {
+            cc_settext(struct_param($struct2, param_2377));
+        }
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+        cc_settextfont(p12_full);
+        cc_settextshadow(false);
+        cc_setcolour(^white);
+        $int1 = calc($int1 + 1);
+        cc_setopbase(append(append(struct_param($struct2, param_2376), " "), struct_param($struct2, param_2377)));
+    }
+    cc_create(interface_1273:com_14, ^iftype_text, $int1);
+    cc_setsize(84, 14, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int3, calc($int4 + 82), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settext("<struct_param($struct2, param_2380)> Points");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextfont(b12_full);
+    cc_settextshadow(false);
+    cc_setcolour(0xfa8119);
+    $int1 = calc($int1 + 1);
+    cc_create(interface_1273:com_14, ^iftype_model, $int1);
+    cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+    cc_setmodel(struct_param($struct2, param_2383));
+    cc_setmodelangle(struct_param($struct2, param_2388), struct_param($struct2, param_2389), struct_param($struct2, param_2385), struct_param($struct2, param_2386), struct_param($struct2, param_2387), struct_param($struct2, param_2384));
+    if ($int0 < 4) {
+        op1132(1, 2040, 2055);
+    }
+    $int3 = calc($int3 + struct_param($struct2, param_2388) + (84 - cc_getwidth) / 2);
+    $int4 = calc($int4 + struct_param($struct2, param_2389) + (70 - cc_getheight) / 2);
+    cc_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setnoclickthrough(false);
+    $int1 = calc($int1 + 1);
+}
+return($int1);

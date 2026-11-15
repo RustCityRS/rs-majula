@@ -1,0 +1,27 @@
+// 1988
+[proc,clientscript_1988]
+if_setgraphic(interface_205:graphic1, null);
+if_setgraphic(interface_205:graphic2, null);
+if_setgraphic(interface_205:graphic3, null);
+if_setgraphic(interface_205:graphic4, null);
+if_setgraphic(interface_205:graphic5, null);
+if_setgraphic(interface_205:graphic6, null);
+if_setgraphic(interface_205:graphic7, null);
+if_setgraphic(interface_205:graphic8, null);
+if (%if2 = 1) {
+    if_setgraphic(interface_205:graphic1, 442);
+} else if (%if2 = 2) {
+    if_setgraphic(interface_205:graphic2, 442);
+} else if (%if2 = 3) {
+    if_setgraphic(interface_205:graphic3, 442);
+} else if (%if2 = 4) {
+    if_setgraphic(interface_205:graphic4, 442);
+} else if (%if2 = 5) {
+    if_setgraphic(interface_205:graphic5, 442);
+} else if (%if2 = 6) {
+    if_setgraphic(interface_205:graphic6, 442);
+} else if (%if2 = 7) {
+    if_setgraphic(interface_205:graphic7, 442);
+} else if (%if2 = 8) {
+    if_setgraphic(interface_205:graphic8, 442);
+}

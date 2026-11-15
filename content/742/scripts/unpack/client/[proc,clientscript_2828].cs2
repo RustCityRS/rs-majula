@@ -1,0 +1,9 @@
+// 2828
+[proc,clientscript_2828]
+if (%varplayer_2523 < 1) {
+    return;
+}
+if (compare(substring(chat_playername, 0, 1), "#") = 0) {
+    return;
+}
+~clientscript_5861(%varplayer_2523);

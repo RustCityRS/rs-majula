@@ -1,0 +1,8 @@
+// 609
+[proc,sm_offerprice_settimer]
+if (%stock_offerprice_timer <= 0) {
+    %stock_offerprice_timer = 100;
+} else {
+    %stock_offerprice_timer = calc(%stock_offerprice_timer + 10);
+}
+if_setontimer(stockmarket:offerprice, "script610");

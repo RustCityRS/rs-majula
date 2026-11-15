@@ -1,0 +1,46 @@
+// 6784
+[proc,clientscript_6784](int $int0, int $int1)(int)
+switch_int ($int0) {
+    case 1 :
+        return(~clientscript_6764($int1));
+    case 8 :
+        return(~clientscript_6780($int1));
+    case 9 :
+        return(~clientscript_6771($int1));
+    case 10 :
+        return(~clientscript_6781($int1));
+    case 19 :
+        return(~clientscript_6776($int1));
+    case 21 :
+        return(~clientscript_6768($int1));
+    case 22 :
+        return(~clientscript_6772($int1));
+    case 23 :
+        return(~clientscript_6763($int1));
+    case 24 :
+        return(~clientscript_6774($int1));
+    case 20 :
+        return(~clientscript_6775($int1));
+    case 13 :
+        return(~clientscript_6779($int1));
+    case 12 :
+        return(~clientscript_6762($int1));
+    case 14 :
+        return(~clientscript_6782($int1));
+    case 11 :
+        return(~clientscript_6777($int1));
+    case 15 :
+        return(~clientscript_6766($int1));
+    case 16 :
+        return(~clientscript_6765($int1));
+    case 17 :
+        return(~clientscript_6769($int1));
+    case 18 :
+        return(~clientscript_6778($int1));
+    case 7 :
+        return(~clientscript_6767($int1));
+    case 25 :
+        return(~clientscript_6773($int1));
+    case default :
+        return(0);
+}

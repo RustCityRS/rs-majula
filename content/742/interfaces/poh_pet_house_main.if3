@@ -1,0 +1,185 @@
+// 879:0
+[main_layer]
+type=layer
+width=512
+height=334
+
+// 879:1
+[background]
+type=graphic
+width=28
+height=26
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:2
+[top]
+type=graphic
+y=-5
+width=80
+height=32
+widthmode=minus
+xmode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:3
+[left]
+type=graphic
+x=-5
+width=32
+height=80
+heightmode=minus
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:4
+[bottom]
+type=graphic
+y=-4
+width=80
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:5
+[right]
+type=graphic
+x=-4
+width=32
+height=80
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:6
+[top_left]
+type=graphic
+x=8
+y=8
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:7
+[top_right]
+type=graphic
+x=8
+y=8
+width=32
+height=32
+xmode=abs_right
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:8
+[bottom_left]
+type=graphic
+x=8
+y=8
+width=32
+height=32
+ymode=abs_bottom
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:9
+[bottom_right]
+type=graphic
+x=8
+y=8
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:10
+[title]
+type=text
+x=-5
+y=15
+width=449
+height=32
+xmode=abs_centre
+textfont=quill_oblique_large
+text=~ Pet House ~
+textalignh=centre
+textshadow=yes
+colour=0xcc6600
+transmitop=10
+op10= 
+
+// 879:11
+[exit_button]
+type=graphic
+x=16
+y=16
+width=16
+height=16
+xmode=abs_right
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 879:12
+[com_12]
+type=graphic
+y=30
+width=32
+height=32
+widthmode=minus
+xmode=abs_centre
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 879:13
+[build_layer]
+type=layer
+x=27
+y=47
+width=457
+height=259

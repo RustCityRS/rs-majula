@@ -5,14 +5,14 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(IfSetHide, Buffered, Fixed)]
 pub struct IfSetHide {
     pub com: u16,
     pub hide: bool,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for IfSetHide {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);
@@ -24,18 +24,40 @@ impl ServerProtMessage for IfSetHide {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(IfSetHide, Buffered, Fixed)]
 pub struct IfSetHide {
     pub com: i32,
     pub hidden: bool,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for IfSetHide {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt2(self.hidden as u8);
+        buf.p2(self.verify);
+        buf.p4_alt1(self.com);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com) + size_of_val(&self.hidden) + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetHide {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt3(self.com);
         buf.p1_alt2(self.hidden as u8);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.hidden as u8);
+        buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {

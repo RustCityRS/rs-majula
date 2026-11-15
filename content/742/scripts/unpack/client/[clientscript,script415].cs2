@@ -1,0 +1,11 @@
+// 415
+[clientscript,script415]
+if_sethide(conq_scroll_overlay:arrow_top, true);
+if_sethide(conq_scroll_overlay:arrow_bottom, true);
+if_sethide(conq_scroll_overlay:arrow_left, true);
+if_sethide(conq_scroll_overlay:arrow_right, true);
+if_sethide(conq_scroll_overlay:arrow_top_right, true);
+if_sethide(conq_scroll_overlay:arrow_bottom_right, true);
+if_sethide(conq_scroll_overlay:arrow_top_left, true);
+if_sethide(conq_scroll_overlay:arrow_bottom_left, true);
+%conq_camera_delay = 0;

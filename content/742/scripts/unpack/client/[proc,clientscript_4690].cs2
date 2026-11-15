@@ -1,0 +1,38 @@
+// 4690
+[proc,clientscript_4690](component $component0, int $int1)
+def_int $rgb2 = 0xebe0bc;
+def_int $int3 = 0;
+def_component $component4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+switch_component ($component0) {
+    case default :
+        return;
+    case interface_551:com_9 :
+        $int3 = %varclient_1549;
+        $component4 = interface_551:com_15;
+        $int6 = %varclient_1549;
+        $int7 = enum(int, int, enum_3856, 1);
+    case interface_551:com_33 :
+        $int3 = %varclient_1550;
+        $component4 = interface_551:com_41;
+        $int6 = %varclient_1550;
+        $int7 = enum(int, int, enum_3856, 2);
+    case interface_551:com_47 :
+        $int3 = %varclient_1551;
+        $component4 = interface_551:com_55;
+        $int6 = %varclient_1551;
+        $int7 = enum(int, int, enum_3856, 3);
+    case interface_551:com_61 :
+        $int3 = %varclient_1552;
+        $component4 = interface_551:com_69;
+        $int6 = %varclient_1552;
+        $int7 = enum(int, int, enum_3856, 4);
+}
+if ($int6 = 0 & %varplayerbit_9465 >= $int7) {
+    if ($int1 = 1) {
+        $rgb2 = ^white;
+    }
+    if_setcolour($component4, $rgb2);
+}

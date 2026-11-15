@@ -1,0 +1,8 @@
+// 6629
+[proc,clientscript_6629]
+if_sethide(topstat_lore:call_op1, true);
+if_sethide(topstat_lore:call_layer, true);
+if_sethide(topstat_lore:dismiss_op1, true);
+if_sethide(topstat_lore:dismiss_layer, true);
+if_sethide(topstat_lore:details_op1, true);
+if_sethide(topstat_lore:details_layer, true);

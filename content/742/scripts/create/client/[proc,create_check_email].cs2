@@ -1,0 +1,14 @@
+// 3936
+[proc,create_check_email](string $string0)(boolean)
+def_int $int0 = string_length($string0);
+if ($int0 > 320) {
+    return(false);
+}
+def_int $int1 = 0;
+while ($int1 < $int0) {
+    if (string_indexof_string("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_.{}~@", substring($string0, $int1, calc($int1 + 1)), 0) = -1) {
+        return(false);
+    }
+    $int1 = calc($int1 + 1);
+}
+return(true);

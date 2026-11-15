@@ -1,0 +1,9 @@
+// 3997
+[clientscript,task_main_display_totals]
+if_settext(task_main:com_53, tostring(%varclient_1424));
+if_settext(task_main:com_55, tostring(%varclient_1423));
+if_settext(task_main:com_44, tostring(%varplayerbit_8601));
+if_settext(task_main:com_46, tostring(534));
+if_settext(task_main:com_56, "Progress:");
+def_int $int0 = calc(%varclient_1424 * (if_getwidth(task_main:com_48) - 4) / max(%varclient_1423, 1));
+if_setsize(task_main:com_52, $int0, 16, ^setsize_abs, ^setsize_abs);

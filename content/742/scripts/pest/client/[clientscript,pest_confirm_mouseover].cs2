@@ -1,0 +1,7 @@
+// 1965
+[clientscript,pest_confirm_mouseover](component $component0)
+if (%if1 > 0) {
+    if_settrans($component0, 255);
+} else {
+    if_settrans($component0, 200);
+}

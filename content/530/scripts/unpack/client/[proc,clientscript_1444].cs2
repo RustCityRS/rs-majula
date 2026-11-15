@@ -1,0 +1,6 @@
+// 1444
+[proc,clientscript_1444]
+~clientscript_1447(0);
+if_settext(bank_v2_help:com_27, tostring(%varclient_192));
+if_settext(bank_v2_help:bank_space, tostring(~clientscript_1466));
+if_setonvarctransmit(bank_v2_help:main, "clientscript_1445(bank_v2_help:com_27){varclient_192}");

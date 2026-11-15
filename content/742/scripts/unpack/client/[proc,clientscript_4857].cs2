@@ -1,0 +1,21 @@
+// 4857
+[proc,clientscript_4857]
+if (op718 = 1) {
+    ~clientscript_4854;
+    if (%varclan_2580 < 7) {
+        if_sethide(interface_1258:com_21, true);
+        if_sethide(interface_1258:com_20, true);
+        if_sethide(interface_1258:com_9, true);
+        if_sethide(interface_1258:com_10, true);
+    }
+    if (%varclan_2580 < 5) {
+        if_sethide(interface_1258:com_18, true);
+        if_sethide(interface_1258:com_19, true);
+        if_sethide(interface_1258:com_7, true);
+        if_sethide(interface_1258:com_8, true);
+    }
+    if (%varclan_2580 < 3) {
+        if_sethide(interface_1258:com_5, true);
+        if_sethide(interface_1258:com_6, true);
+    }
+}

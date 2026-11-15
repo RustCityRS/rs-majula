@@ -1,0 +1,6549 @@
+// 1083:0
+[com_0]
+type=layer
+x=3
+y=3
+width=234
+height=23
+layer=com_508
+
+// 1083:1
+[com_1_]
+type=layer
+x=3
+y=33
+width=234
+height=23
+layer=com_508
+
+// 1083:2
+[com_2_]
+type=layer
+x=3
+y=63
+width=234
+height=23
+layer=com_508
+
+// 1083:3
+[com_3]
+type=layer
+x=3
+y=93
+width=234
+height=23
+layer=com_508
+
+// 1083:4
+[com_4_]
+type=layer
+x=3
+y=123
+width=234
+height=23
+layer=com_508
+
+// 1083:5
+[com_5]
+type=layer
+x=3
+y=153
+width=234
+height=23
+layer=com_508
+
+// 1083:6
+[com_6_]
+type=layer
+x=3
+y=183
+width=234
+height=23
+layer=com_508
+
+// 1083:7
+[com_7_]
+type=layer
+x=3
+y=213
+width=234
+height=23
+layer=com_508
+
+// 1083:8
+[com_8]
+type=layer
+x=3
+y=243
+width=234
+height=23
+layer=com_508
+
+// 1083:9
+[task_name]
+type=text
+x=57
+y=113
+width=100
+height=15
+layer=task_list
+textfont=p12_full
+text=Task
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:10
+[com_1]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=plank_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:11
+[com_2]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=plank_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:12
+[plank_selected_layer]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=plank_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:13
+[com_4]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=plank_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:14
+[plank_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=plank_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(14)
+
+// 1083:15
+[com_6]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=burn_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:16
+[com_7]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=burn_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:17
+[burn_selected_layer]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=burn_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:18
+[com_9]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=burn_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:19
+[burn_button]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=burn_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(13)
+
+// 1083:20
+[com_11]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=runes_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:21
+[com_12]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=runes_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:22
+[runes_selected_layer]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=runes_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:23
+[com_14]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=runes_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:24
+[runes_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=runes_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(12)
+
+// 1083:25
+[com_16]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=vial_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:26
+[com_17]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=vial_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:27
+[vial_selected_layer]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=vial_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:28
+[com_19]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=vial_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:29
+[vial_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=vial_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(11)
+
+// 1083:30
+[com_21]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=herb_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:31
+[com_22]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=herb_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:32
+[herb_selected_layer]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=herb_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:33
+[com_24]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=herb_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:34
+[herb_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=herb_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(10)
+
+// 1083:35
+[com_26]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=seed_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:36
+[com_27]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=seed_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:37
+[seed_selected_layer]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=seed_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:38
+[com_29]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=seed_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:39
+[seed_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=seed_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(9)
+
+// 1083:40
+[com_31]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:41
+[com_32]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:42
+[vengeance_selected_layer]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:43
+[com_34]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:44
+[vengeance_button]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=vengeance_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(8)
+
+// 1083:45
+[com_36]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=shield_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:46
+[com_37]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=shield_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:47
+[shield_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=shield_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:48
+[com_39]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=shield_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:49
+[shield_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=shield_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(7)
+
+// 1083:50
+[com_41]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=leather_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:51
+[com_42]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=leather_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:52
+[leather_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=leather_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:53
+[com_44]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=leather_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:54
+[leather_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=leather_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(6)
+
+// 1083:55
+[com_46]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=spirit_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:56
+[com_47]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=spirit_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:57
+[spirit_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=spirit_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:58
+[com_49]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=spirit_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:59
+[spirit_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=spirit_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(5)
+
+// 1083:60
+[com_51]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=remote_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:61
+[com_52]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=remote_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:62
+[remote_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=remote_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:63
+[com_54]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=remote_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:64
+[remote_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=remote_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(4)
+
+// 1083:65
+[com_56]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:66
+[com_57]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:67
+[ardougne_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:68
+[com_59]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:69
+[ardougne_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ardougne_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(3)
+
+// 1083:70
+[com_61]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=rune_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:71
+[com_62]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=rune_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:72
+[rune_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=rune_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:73
+[com_64]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=rune_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:74
+[rune_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=rune_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(2)
+
+// 1083:75
+[back]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=gold_frame_list
+graphic=window_texture_2
+tiling=yes
+
+// 1083:76
+[back_1]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=gold_frame_desc
+graphic=window_texture_2
+tiling=yes
+
+// 1083:77
+[vengeance_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=vengeance_layer
+
+// 1083:78
+[shield_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=shield_layer
+
+// 1083:79
+[leather_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=leather_layer
+
+// 1083:80
+[spirit_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=spiritualise_layer
+
+// 1083:81
+[remote_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=remote_farm_layer
+
+// 1083:82
+[ardougne_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=ardougne_layer
+
+// 1083:83
+[rune_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=rune_pouch_layer
+
+// 1083:84
+[falador_highlight]
+type=layer
+x=15
+width=220
+height=23
+layer=falador_layer
+
+// 1083:85
+[name]
+type=text
+x=8
+y=5
+width=160
+height=29
+layer=breakdown_layer
+textfont=p12_full
+text=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:86
+[com_77]
+type=rectangle
+y=37
+width=14909
+height=2
+widthmode=proportion
+xmode=abs_centre
+layer=breakdown_layer
+colour=0x010000
+trans=182
+
+// 1083:87
+[description]
+type=text
+x=10
+y=51
+width=195
+height=49
+layer=breakdown_layer
+textfont=p11_full
+text=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:88
+[com_79]
+type=rectangle
+y=152
+width=14909
+height=2
+widthmode=proportion
+xmode=abs_centre
+layer=breakdown_layer
+colour=0x010000
+trans=182
+
+// 1083:89
+[extra_info]
+type=text
+x=2
+y=111
+width=193
+height=32
+xmode=abs_centre
+layer=breakdown_layer
+textfont=p11_full
+text=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:90
+[spell_icon_layer]
+type=layer
+x=171
+y=3
+width=28
+height=28
+layer=breakdown_layer
+
+// 1083:91
+[com_82]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=spell_icon_layer
+colour=0x000000
+fill=yes
+trans=204
+
+// 1083:92
+[com_83]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=spell_icon_layer
+colour=0x000000
+trans=204
+
+// 1083:93
+[spell_icon]
+type=graphic
+width=24
+height=24
+xmode=abs_centre
+ymode=abs_centre
+layer=spell_icon_layer
+
+// 1083:94
+[spells_button_falador]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+
+// 1083:95
+[spells_button_rune]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:96
+[spells_button_ardougne]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:97
+[spells_button_remote]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:98
+[spells_button_spiritualise]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:99
+[spells_button_leather]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:100
+[spells_button_shield]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:101
+[spells_button_vengeance]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:102
+[wishes_button_seeds]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:103
+[wishes_button_herbs]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:104
+[wishes_button_vials]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:105
+[wishes_button_runes]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:106
+[wishes_button_fish]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:107
+[wishes_button_planks]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:108
+[spell_name_vengeance]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_layer
+textfont=p11_full
+text=Vengeance Group
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:109
+[spell_points_vengeance]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:110
+[number_8]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=vengeance_layer
+textfont=p11_full
+text=8.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:111
+[spell_unlock_vengeance]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=vengeance_layer
+graphic=symbol_lock
+
+// 1083:112
+[spell_name_shield]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=shield_layer
+textfont=p11_full
+text=Disruption Shield
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:113
+[spell_points_shield]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=shield_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:114
+[number_7]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=shield_layer
+textfont=p11_full
+text=7.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:115
+[spell_unlock_shield]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=shield_layer
+graphic=symbol_lock
+
+// 1083:116
+[spell_name_leather]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=leather_layer
+textfont=p11_full
+text=Make Leather
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:117
+[spell_points_leather]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=leather_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:118
+[number_6]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=leather_layer
+textfont=p11_full
+text=6.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:119
+[spell_unlock_leather]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=leather_layer
+graphic=symbol_lock
+
+// 1083:120
+[spell_name_spirit]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=spiritualise_layer
+textfont=p11_full
+text=Spiritualise Food
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:121
+[spell_points_spirit]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=spiritualise_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:122
+[number_5]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=spiritualise_layer
+textfont=p11_full
+text=5.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:123
+[spell_unlock_spirit]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=spiritualise_layer
+graphic=symbol_lock
+
+// 1083:124
+[spell_name_remote]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=remote_farm_layer
+textfont=p11_full
+text=Remote Farming
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:125
+[spell_points_remote]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=remote_farm_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:126
+[number_4]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=remote_farm_layer
+textfont=p11_full
+text=4.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:127
+[spell_unlock_remote]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=remote_farm_layer
+graphic=symbol_lock
+
+// 1083:128
+[spell_name_ardougne]
+type=text
+x=21
+width=143
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_layer
+textfont=p11_full
+text=Teleport to North Ardougne
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:129
+[spell_points_ardougne]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:130
+[number_3]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=ardougne_layer
+textfont=p11_full
+text=3.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:131
+[spell_unlock_ardougne]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=ardougne_layer
+graphic=symbol_lock
+
+// 1083:132
+[spell_name_rune]
+type=text
+x=21
+width=135
+height=16384
+heightmode=proportion
+ymode=abs_centre
+layer=rune_pouch_layer
+textfont=p11_full
+text=Repair Rune Pouch
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:133
+[spell_points_rune]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=rune_pouch_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:134
+[number_2]
+type=text
+x=3
+width=20
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=rune_pouch_layer
+textfont=p11_full
+text=2.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:135
+[spell_unlock_rune]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=rune_pouch_layer
+graphic=symbol_lock
+
+// 1083:136
+[spell_name_falador]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=falador_layer
+textfont=p11_full
+text=Teleport to South Falador
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:137
+[spell_points_falador]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=falador_layer
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:138
+[number_1]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=falador_layer
+textfont=p11_full
+text=1.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:139
+[spell_unlock_falador]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=falador_layer
+graphic=symbol_lock
+
+// 1083:140
+[falador_layer]
+type=layer
+x=1
+y=2
+width=237
+height=23
+layer=spells_list
+
+// 1083:141
+[rune_pouch_layer]
+type=layer
+x=1
+y=27
+width=237
+height=23
+layer=spells_list
+
+// 1083:142
+[ardougne_layer]
+type=layer
+x=1
+y=52
+width=237
+height=23
+layer=spells_list
+
+// 1083:143
+[remote_farm_layer]
+type=layer
+x=1
+y=77
+width=237
+height=23
+layer=spells_list
+
+// 1083:144
+[spiritualise_layer]
+type=layer
+x=1
+y=102
+width=237
+height=23
+layer=spells_list
+
+// 1083:145
+[leather_layer]
+type=layer
+x=1
+y=127
+width=237
+height=23
+layer=spells_list
+
+// 1083:146
+[shield_layer]
+type=layer
+x=1
+y=152
+width=237
+height=23
+layer=spells_list
+
+// 1083:147
+[vengeance_layer]
+type=layer
+x=1
+y=177
+width=237
+height=23
+layer=spells_list
+
+// 1083:148
+[com_140]
+type=layer
+x=3
+y=20
+width=7
+height=24
+widthmode=minus
+heightmode=minus
+layer=background
+
+// 1083:149
+[com_141]
+type=graphic
+x=330
+y=60
+width=8
+height=23
+layer=background
+graphic="aif_info_display_brown_1,0"
+
+// 1083:150
+[com_142]
+type=graphic
+x=482
+y=60
+width=8
+height=23
+layer=background
+graphic="aif_info_display_brown_1,2"
+
+// 1083:151
+[com_143]
+type=graphic
+x=338
+y=60
+width=146
+height=23
+layer=background
+graphic="aif_info_display_brown_1,1"
+
+// 1083:152
+[current_points_title]
+type=text
+x=336
+y=64
+width=91
+height=15
+layer=background
+textfont=p11_full
+text=Current produce
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:153
+[background]
+type=layer
+width=512
+height=334
+transmitop=10
+op10= 
+onload=lunarfm_rewards_onload
+
+// 1083:154
+[spells_button]
+type=layer
+x=22
+y=61
+width=93
+height=28
+
+// 1083:155
+[wishes_button]
+type=layer
+x=124
+y=61
+width=93
+height=28
+
+// 1083:156
+[xp_button]
+type=layer
+x=225
+y=61
+width=93
+height=28
+
+// 1083:157
+[gold_frame_list]
+type=layer
+x=21
+y=101
+width=247
+height=210
+hide=yes
+
+// 1083:158
+[gold_frame_desc]
+type=layer
+x=270
+y=101
+width=220
+height=210
+hide=yes
+
+// 1083:159
+[gold_frame_tasks]
+type=layer
+x=22
+y=101
+width=468
+height=210
+hide=yes
+
+// 1083:160
+[com_160_]
+type=layer
+x=262
+y=101
+width=15
+height=210
+hide=yes
+onload=scrollbar_vertical_graphics(event_com, lunarfm_rewards_new:spells_list, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0")
+
+// 1083:161
+[spells_list]
+type=layer
+x=23
+y=105
+width=240
+height=204
+hide=yes
+scrollheight=280
+
+// 1083:162
+[wishes_list]
+type=layer
+width=512
+height=334
+
+// 1083:163
+[com_163_]
+type=layer
+x=262
+y=101
+width=15
+height=210
+layer=wishes_list
+onload=scrollbar_vertical_graphics(event_com, lunarfm_rewards_new:com_508, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0")
+
+// 1083:164
+[task_list]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 1083:165
+[breakdown_layer]
+type=layer
+x=275
+y=106
+width=209
+height=200
+hide=yes
+
+// 1083:166
+[com_156]
+type=graphic
+y=1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_140
+graphic=window_texture_1
+tiling=yes
+
+// 1083:167
+[com_157]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_140
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 1083:168
+[com_158]
+type=graphic
+width=265
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_bot_brdr_left
+
+// 1083:169
+[com_159]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_140
+graphic=aif_window_stone_close_corner_3
+
+// 1083:170
+[com_160]
+type=graphic
+width=8
+height=162
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_140
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1083:171
+[com_161]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_140
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1083:172
+[com_162]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_140
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 1083:173
+[com_163]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_bot_brdr_left
+
+// 1083:174
+[com_164]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_bot_brdr_left
+
+// 1083:175
+[com_165]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1083:176
+[com_166]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_140
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1083:177
+[com_167]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_140
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1083:178
+[com_168]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_140
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 1083:179
+[com_169]
+type=graphic
+width=8
+height=162
+heightmode=minus
+ymode=abs_centre
+layer=com_140
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1083:180
+[com_170]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_side_brdr_small
+
+// 1083:181
+[com_171]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1083:182
+[com_172]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_140
+graphic=aif_window_stone_close_corner_1
+
+// 1083:183
+[com_173]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_140
+graphic=aif_window_stone_left_corner_1
+
+// 1083:184
+[com_174]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_140
+graphic=aif_window_stone_bot_corn
+
+// 1083:185
+[com_175]
+type=graphic
+width=8
+height=29
+layer=com_140
+graphic=aif_window_stone_left_corner_2
+
+// 1083:186
+[com_176]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_140
+graphic=aif_window_stone_close_corner_2
+
+// 1083:187
+[dropshadow_side_graphic]
+type=graphic
+x=-4
+y=1
+width=4
+height=1
+heightmode=minus
+xmode=abs_right
+layer=com_140
+graphic=button_dropshadow_left
+tiling=yes
+
+// 1083:188
+[dropshadow_bottom_graphic]
+type=graphic
+y=-4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_140
+graphic=button_dropshadow_bottom
+tiling=yes
+
+// 1083:189
+[dropshadow_corner_graphic]
+type=graphic
+x=-4
+y=-4
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_140
+graphic=button_dropshadow_corner
+tiling=yes
+
+// 1083:190
+[com_180]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_140
+
+// 1083:191
+[com_181]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_180
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1083:192
+[com_182]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_180
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1083:193
+[com_183]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_180
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1083:194
+[title_layer]
+type=layer
+width=16391
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_140
+
+// 1083:195
+[com_185]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=title_layer
+textfont=palatino_linotype_18pt_regular
+text=Rewards
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1083:196
+[bot_left]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1083:197
+[bot_right]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1083:198
+[bot]
+type=graphic
+x=8
+width=15564
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 1083:199
+[right]
+type=graphic
+width=10
+height=200
+xmode=abs_right
+ymode=abs_centre
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1083:200
+[left]
+type=graphic
+width=10
+height=201
+ymode=abs_centre
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1083:201
+[current_points]
+type=text
+x=432
+y=64
+width=51
+height=15
+layer=background
+textfont=p11_full
+text=9999999
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:202
+[top]
+type=graphic
+x=7
+width=15528
+height=10
+widthmode=proportion
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1083:203
+[top_left]
+type=graphic
+width=10
+height=10
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1083:204
+[top_right]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=gold_frame_list
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1083:205
+[bot_1]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1083:206
+[bot_right_1]
+type=graphic
+width=12
+height=12
+xmode=abs_right
+ymode=abs_bottom
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1083:207
+[bot_2]
+type=graphic
+x=8
+width=15564
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 1083:208
+[right_1]
+type=graphic
+width=10
+height=196
+xmode=abs_right
+ymode=abs_centre
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1083:209
+[left_1]
+type=graphic
+width=10
+height=197
+ymode=abs_centre
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1083:210
+[top_1]
+type=graphic
+x=2
+width=15564
+height=10
+widthmode=proportion
+xmode=abs_centre
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1083:211
+[top_2]
+type=graphic
+width=10
+height=10
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1083:212
+[top_right_1]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=gold_frame_desc
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1083:213
+[seed_highlight]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_0
+noclickthrough=yes
+
+// 1083:214
+[wish_name_seeds]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Let it Rain Seeds!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:215
+[wish_points_seeds]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_0
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:216
+[wish_unlock_seeds]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_0
+graphic=symbol_lock
+
+// 1083:217
+[herb_highlight]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_1_
+
+// 1083:218
+[wish_name_herbs]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_1_
+textfont=p11_full
+text=Gimme Herbs!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:219
+[wish_points_herbs]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_1_
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:220
+[wish_unlock_herbs]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_1_
+graphic=symbol_lock
+
+// 1083:221
+[vial_highlight]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_2_
+
+// 1083:222
+[wish_name_vial]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_2_
+textfont=p11_full
+text=Vial My Herbs!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:223
+[wish_points_vial]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_2_
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:224
+[wish_unlock_vials]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_2_
+graphic=symbol_lock
+
+// 1083:225
+[runes_highlight]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_3
+
+// 1083:226
+[wish_name_runes]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_3
+textfont=p11_full
+text=Turn Lunar Lumber into Runes!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:227
+[wish_points_runes]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_3
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:228
+[wish_unlock_runes]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_3
+graphic=symbol_lock
+
+// 1083:229
+[burn_highlight]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_4_
+
+// 1083:230
+[wish_name_burn]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_4_
+textfont=p11_full
+text=Reduce the Fish I Burn!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:231
+[wish_points_burn]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_4_
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:232
+[wish_unlock_burn]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_4_
+graphic=symbol_lock
+
+// 1083:233
+[plank_highlight]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_5
+
+// 1083:234
+[wish_name_planks]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_5
+textfont=p11_full
+text=More Planks, Please!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:235
+[wish_points_planks]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_5
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:236
+[wish_unlock_planks]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_5
+graphic=symbol_lock
+
+// 1083:237
+[com_232]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:238
+[com_233]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:239
+[com_234]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:240
+[com_235]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:241
+[com_236]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:242
+[com_237]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:243
+[spells_button_selected_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 1083:244
+[spells_button_active]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=lunarfm_rewards_spells_display
+
+// 1083:245
+[aif_bronze_button_text_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button
+
+// 1083:246
+[aif_bronze_button_text]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=aif_bronze_button_text_layer
+textfont=verdana_13pt_regular
+text=Spells
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:247
+[com_242]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:248
+[com_243]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:249
+[com_244]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:250
+[com_245]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:251
+[com_246]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:252
+[com_247]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:253
+[wishes_button_selected_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 1083:254
+[wishes_button_active]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=lunarfm_rewards_wishes_display
+
+// 1083:255
+[com_250]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button
+
+// 1083:256
+[aif_bronze_button_text_1]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_250
+textfont=verdana_13pt_regular
+text=Wishes
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:257
+[com_252]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_falador
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:258
+[com_253]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_falador
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:259
+[com_254]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_falador
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:260
+[com_255]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_falador
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:261
+[com_256]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_falador
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:262
+[com_257]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_falador
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:263
+[unlock_falador]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_falador
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:264
+[com_259]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_falador
+
+// 1083:265
+[aif_bronze_button_text_2]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_259
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:266
+[com_261]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_rune
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:267
+[com_262]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_rune
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:268
+[com_263]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_rune
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:269
+[com_264]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_rune
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:270
+[com_265]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_rune
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:271
+[com_266]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_rune
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:272
+[unlock_rune]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_rune
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:273
+[com_268]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_rune
+
+// 1083:274
+[aif_bronze_button_text_3]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_268
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:275
+[com_270]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_ardougne
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:276
+[com_271]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_ardougne
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:277
+[com_272]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_ardougne
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:278
+[com_273]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_ardougne
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:279
+[com_274]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_ardougne
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:280
+[com_275]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_ardougne
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:281
+[unlock_ardougne]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_ardougne
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:282
+[com_277]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_ardougne
+
+// 1083:283
+[aif_bronze_button_text_4]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_277
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:284
+[com_279]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_remote
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:285
+[com_280]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_remote
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:286
+[com_281]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_remote
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:287
+[com_282]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_remote
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:288
+[com_283]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_remote
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:289
+[com_284]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_remote
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:290
+[unlock_remote]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_remote
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:291
+[com_286]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_remote
+
+// 1083:292
+[aif_bronze_button_text_5]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_286
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:293
+[com_288]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_spiritualise
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:294
+[com_289]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_spiritualise
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:295
+[com_290]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_spiritualise
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:296
+[com_291]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_spiritualise
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:297
+[com_292]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_spiritualise
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:298
+[com_293]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_spiritualise
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:299
+[unlock_spirit]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_spiritualise
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:300
+[com_295]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_spiritualise
+
+// 1083:301
+[aif_bronze_button_text_6]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_295
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:302
+[com_297]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_leather
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:303
+[com_298]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_leather
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:304
+[com_299]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_leather
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:305
+[com_300]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_leather
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:306
+[com_301]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_leather
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:307
+[com_302]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_leather
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:308
+[unlock_leather]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_leather
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:309
+[com_304]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_leather
+
+// 1083:310
+[aif_bronze_button_text_7]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_304
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:311
+[com_306]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_shield
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:312
+[com_307]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_shield
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:313
+[com_308]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_shield
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:314
+[com_309]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_shield
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:315
+[com_310]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_shield
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:316
+[com_311]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_shield
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:317
+[unlock_shield]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_shield
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:318
+[com_313]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_shield
+
+// 1083:319
+[aif_bronze_button_text_8]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_313
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:320
+[com_315]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=spells_button_vengeance
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:321
+[com_316]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=spells_button_vengeance
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:322
+[com_317]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=spells_button_vengeance
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:323
+[com_318]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_vengeance
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:324
+[com_319]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_vengeance
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:325
+[com_320]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_vengeance
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:326
+[unlock_vengeance]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_vengeance
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:327
+[com_322]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=spells_button_vengeance
+
+// 1083:328
+[aif_bronze_button_text_9]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_322
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:329
+[com_324]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button_seeds
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:330
+[com_325]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button_seeds
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:331
+[com_326]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button_seeds
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:332
+[com_327]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_seeds
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:333
+[com_328]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_seeds
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:334
+[com_329]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_seeds
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:335
+[wish_button_seeds]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_seeds
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:336
+[com_331]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_seeds
+
+// 1083:337
+[aif_bronze_button_text_10]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_331
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:338
+[com_333]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button_herbs
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:339
+[com_334]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button_herbs
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:340
+[com_335]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button_herbs
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:341
+[com_336]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_herbs
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:342
+[com_337]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_herbs
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:343
+[com_338]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_herbs
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:344
+[wish_button_herbs]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_herbs
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:345
+[com_340]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_herbs
+
+// 1083:346
+[aif_bronze_button_text_11]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_340
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:347
+[com_342]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button_vials
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:348
+[com_343]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button_vials
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:349
+[com_344]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button_vials
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:350
+[com_345]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_vials
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:351
+[com_346]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_vials
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:352
+[com_347]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_vials
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:353
+[wish_button_vials]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_vials
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:354
+[com_349]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_vials
+
+// 1083:355
+[aif_bronze_button_text_12]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_349
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:356
+[com_351]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button_runes
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:357
+[com_352]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button_runes
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:358
+[com_353]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button_runes
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:359
+[com_354]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_runes
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:360
+[com_355]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_runes
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:361
+[com_356]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_runes
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:362
+[wish_button_runes]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_runes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:363
+[com_358]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_runes
+
+// 1083:364
+[aif_bronze_button_text_13]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_358
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:365
+[com_360]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button_fish
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:366
+[com_361]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button_fish
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:367
+[com_362]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button_fish
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:368
+[com_363]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_fish
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:369
+[com_364]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_fish
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:370
+[com_365]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_fish
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:371
+[wish_button_burn]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_fish
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:372
+[com_367]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_fish
+
+// 1083:373
+[aif_bronze_button_text_14]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_367
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:374
+[com_369]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=wishes_button_planks
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:375
+[com_370]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=wishes_button_planks
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:376
+[com_371]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=wishes_button_planks
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:377
+[com_372]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_planks
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:378
+[com_373]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_planks
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:379
+[com_374]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_planks
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:380
+[wish_button_planks]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_planks
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:381
+[com_376]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=wishes_button_planks
+
+// 1083:382
+[aif_bronze_button_text_15]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_376
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:383
+[com_378]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=falador_highlight
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:384
+[com_379]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=falador_highlight
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:385
+[falador_selected_layer]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=falador_highlight
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:386
+[com_381]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=falador_highlight
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:387
+[falador_button]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=falador_highlight
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(1)
+
+// 1083:388
+[com_383]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=xp_button
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:389
+[com_384]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=xp_button
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:390
+[com_385]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=xp_button
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:391
+[com_386]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:392
+[com_387]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:393
+[com_388]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:394
+[xp_button_selected_layer]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=xp_button
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 1083:395
+[xp_button_active]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=xp_button
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=lunarfm_rewards_xp_display
+
+// 1083:396
+[com_391]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=xp_button
+
+// 1083:397
+[aif_bronze_button_text_16]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_391
+textfont=verdana_13pt_regular
+text=Tasks
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:398
+[com_393]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=gold_frame_tasks
+graphic=window_texture_2
+tiling=yes
+
+// 1083:399
+[bot_3]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1083:400
+[bot_right_2]
+type=graphic
+width=12
+height=12
+xmode=abs_right
+ymode=abs_bottom
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1083:401
+[bot_4]
+type=graphic
+x=8
+width=16056
+height=10
+widthmode=proportion
+ymode=abs_bottom
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,0"
+vflip=yes
+hflip=yes
+
+// 1083:402
+[right_2]
+type=graphic
+width=10
+height=196
+xmode=abs_right
+ymode=abs_centre
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1083:403
+[left_2]
+type=graphic
+width=10
+height=197
+ymode=abs_centre
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1083:404
+[top_3]
+type=graphic
+x=2
+width=16056
+height=10
+widthmode=proportion
+xmode=abs_centre
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1083:405
+[top_4]
+type=graphic
+width=10
+height=10
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1083:406
+[top_right_2]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=gold_frame_tasks
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1083:407
+[points]
+type=text
+x=214
+y=113
+width=100
+height=15
+layer=task_list
+textfont=p12_full
+text=Produce Earned
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:408
+[xp]
+type=text
+x=336
+y=113
+width=100
+height=15
+layer=task_list
+textfont=p12_full
+text=XP
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:409
+[com_404]
+type=rectangle
+y=137
+width=13762
+height=2
+widthmode=proportion
+xmode=abs_centre
+layer=task_list
+colour=0x010000
+trans=182
+
+// 1083:410
+[description_1]
+type=text
+x=57
+y=148
+width=150
+height=16
+layer=task_list
+textfont=p11_full
+text=Curing Livid
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:411
+[description_2]
+type=text
+x=57
+y=169
+width=150
+height=16
+layer=task_list
+textfont=p11_full
+text=Fertilising Patches
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:412
+[description_3]
+type=text
+x=57
+y=190
+width=150
+height=16
+layer=task_list
+textfont=p11_full
+text=Depositing Livid Bunches
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:413
+[description_4]
+type=text
+x=57
+y=212
+width=150
+height=16
+layer=task_list
+textfont=p11_full
+text=Fixing Fences
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:414
+[description_5]
+type=text
+x=57
+y=234
+width=150
+height=16
+layer=task_list
+textfont=p11_full
+text=Energising Pauline
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:415
+[points_1]
+type=text
+x=214
+y=148
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=x
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:416
+[points_2]
+type=text
+x=214
+y=169
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=x
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:417
+[points_3]
+type=text
+x=214
+y=190
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=x
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:418
+[points_4]
+type=text
+x=214
+y=212
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=x
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:419
+[points_5]
+type=text
+x=214
+y=234
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=x
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:420
+[xp_1]
+type=text
+x=336
+y=147
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=xx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:421
+[xp_2]
+type=text
+x=336
+y=169
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=xx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:422
+[xp_3]
+type=text
+x=336
+y=190
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=xx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:423
+[xp_4]
+type=text
+x=336
+y=212
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=xx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:424
+[xp_5]
+type=text
+x=336
+y=234
+width=100
+height=16
+layer=task_list
+textfont=p11_full
+text=xx
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:425
+[com_420]
+type=rectangle
+y=260
+width=13767
+height=2
+widthmode=proportion
+xmode=abs_centre
+layer=task_list
+colour=0x010000
+trans=182
+
+// 1083:426
+[explanation]
+type=text
+y=270
+width=13434
+height=32
+widthmode=proportion
+xmode=abs_centre
+layer=task_list
+textfont=p11_full
+text=Each task helps Pauline make produce. If you don't have the Magic skill level to cast the spell used in a task, you won't get any Magic XP and you'll only assist in making half the produce.
+textalignh=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:427
+[com_427]
+type=layer
+x=1
+y=202
+width=237
+height=23
+layer=spells_list
+
+// 1083:428
+[com_428]
+type=layer
+x=15
+width=220
+height=23
+layer=com_427
+
+// 1083:429
+[com_429]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_428
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:430
+[com_430]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_428
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:431
+[com_431]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_428
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:432
+[com_432]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_428
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:433
+[com_433]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_428
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(15)
+
+// 1083:434
+[com_434]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_427
+textfont=p11_full
+text=Teleport to Trollheim
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:435
+[com_435]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_427
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:436
+[com_436]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_427
+textfont=p11_full
+text=9.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:437
+[com_437]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=com_427
+graphic=symbol_lock
+
+// 1083:438
+[com_438]
+type=layer
+x=1
+y=227
+width=237
+height=23
+layer=spells_list
+
+// 1083:439
+[com_439]
+type=layer
+x=15
+width=220
+height=23
+layer=com_438
+
+// 1083:440
+[com_440]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_439
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:441
+[com_441]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_439
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:442
+[com_442]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_439
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:443
+[com_443]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_439
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:444
+[com_444]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_439
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(16)
+
+// 1083:445
+[com_445]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_438
+textfont=p11_full
+text=Teleport Group to Trollheim
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:446
+[com_446]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_438
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:447
+[com_447]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_438
+textfont=p11_full
+text=10.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:448
+[com_448]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=com_438
+graphic=symbol_lock
+
+// 1083:449
+[com_449]
+type=layer
+x=1
+y=252
+width=237
+height=23
+layer=spells_list
+
+// 1083:450
+[com_450]
+type=layer
+x=15
+width=220
+height=23
+layer=com_449
+
+// 1083:451
+[com_451]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_450
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:452
+[com_452]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_450
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:453
+[com_453]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_450
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:454
+[com_454]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_450
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:455
+[com_455]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_450
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(17)
+
+// 1083:456
+[com_456]
+type=text
+x=21
+width=135
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_449
+textfont=p11_full
+text=Borrowed Power
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:457
+[com_457]
+type=text
+x=155
+width=63
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_449
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:458
+[com_458]
+type=text
+x=3
+width=15
+height=16391
+heightmode=proportion
+ymode=abs_centre
+layer=com_449
+textfont=p11_full
+text=11.
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:459
+[com_459]
+type=graphic
+x=215
+width=14
+height=14
+ymode=abs_centre
+layer=com_449
+graphic=symbol_lock
+
+// 1083:460
+[com_460]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:461
+[com_461]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_460
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:462
+[com_462]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_460
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:463
+[com_463]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_460
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:464
+[com_464]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_460
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:465
+[com_465]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_460
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:466
+[com_466]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_460
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:467
+[com_467]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_460
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:468
+[com_468]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_460
+
+// 1083:469
+[com_469]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_468
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:470
+[com_470]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:471
+[com_471]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_470
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:472
+[com_472]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_470
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:473
+[com_473]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_470
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:474
+[com_474]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_470
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:475
+[com_475]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_470
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:476
+[com_476]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_470
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:477
+[com_477]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_470
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:478
+[com_478]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_470
+
+// 1083:479
+[com_479]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_478
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:480
+[com_480]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:481
+[com_481]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_480
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:482
+[com_482]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_480
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:483
+[com_483]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_480
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:484
+[com_484]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_480
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:485
+[com_485]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_480
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:486
+[com_486]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_480
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:487
+[com_487]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_480
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:488
+[com_488]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_480
+
+// 1083:489
+[com_489]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_488
+textfont=verdana_13pt_regular
+text=Learn
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:490
+[com_490]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_6_
+
+// 1083:491
+[com_491]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_490
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:492
+[com_492]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_490
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:493
+[com_493]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_490
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:494
+[com_494]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_490
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:495
+[com_495]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_490
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(18)
+
+// 1083:496
+[com_496]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_6_
+textfont=p11_full
+text=Let it Rain Awesome Seeds!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:497
+[com_497]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_6_
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:498
+[com_498]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_6_
+graphic=symbol_lock
+
+// 1083:499
+[com_499]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_7_
+
+// 1083:500
+[com_500]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_499
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:501
+[com_501]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_499
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:502
+[com_502]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_499
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:503
+[com_503]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_499
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:504
+[com_504]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_499
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(19)
+
+// 1083:505
+[com_505]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_7_
+textfont=p11_full
+text=I'd Like A New Patch!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:506
+[com_506]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_7_
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:507
+[com_507]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_7_
+graphic=symbol_lock
+
+// 1083:508
+[com_508]
+type=layer
+x=24
+y=104
+width=240
+height=204
+layer=wishes_list
+scrollheight=305
+
+// 1083:509
+[com_509]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_8
+
+// 1083:510
+[com_510]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_509
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:511
+[com_511]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_509
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:512
+[com_512]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_509
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:513
+[com_513]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_509
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:514
+[com_514]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_509
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(20)
+
+// 1083:515
+[com_515]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_8
+textfont=p11_full
+text=Give Me An Arcane Capacitor!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:516
+[com_516]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_8
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:517
+[com_517]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_8
+graphic=symbol_lock
+
+// 1083:518
+[com_518]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:519
+[com_519]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_518
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:520
+[com_520]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_518
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:521
+[com_521]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_518
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:522
+[com_522]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_518
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:523
+[com_523]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_518
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:524
+[com_524]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_518
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:525
+[com_525]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_518
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:526
+[com_526]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_518
+
+// 1083:527
+[com_527]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_526
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:528
+[com_528]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:529
+[com_529]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_528
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:530
+[com_530]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_528
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:531
+[com_531]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_528
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:532
+[com_532]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_528
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:533
+[com_533]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_528
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:534
+[com_534]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_528
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:535
+[com_535]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_528
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:536
+[com_536]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_528
+
+// 1083:537
+[com_537]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_536
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:538
+[com_538]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:539
+[com_539]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_538
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:540
+[com_540]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_538
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:541
+[com_541]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_538
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:542
+[com_542]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_538
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:543
+[com_543]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_538
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:544
+[com_544]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_538
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:545
+[com_545]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_538
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:546
+[com_546]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_538
+
+// 1083:547
+[com_547]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_546
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1083:548
+[com_548]
+type=layer
+x=3
+y=273
+width=234
+height=23
+layer=com_508
+
+// 1083:549
+[com_549]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+layer=com_548
+
+// 1083:550
+[com_550]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_549
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 1083:551
+[com_551]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_549
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 1083:552
+[com_552]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_549
+hide=yes
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 1083:553
+[com_553]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_549
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 1083:554
+[com_554]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_549
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=script4268(21)
+
+// 1083:555
+[com_555]
+type=text
+x=6
+width=154
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_548
+textfont=p11_full
+text=Protect a patch for me!
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:556
+[com_556]
+type=text
+x=161
+width=48
+height=49871
+heightmode=proportion
+ymode=abs_centre
+layer=com_548
+textfont=p11_full
+text=99,999
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe9deb9
+
+// 1083:557
+[com_557]
+type=graphic
+x=212
+width=14
+height=14
+ymode=abs_centre
+layer=com_548
+graphic=symbol_lock
+
+// 1083:558
+[com_558]
+type=layer
+y=7
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_bottom
+layer=breakdown_layer
+hide=yes
+
+// 1083:559
+[com_559]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_558
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1083:560
+[com_560]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_558
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1083:561
+[com_561]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_558
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1083:562
+[com_562]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_558
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1083:563
+[com_563]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_558
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1083:564
+[com_564]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_558
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1083:565
+[com_565]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_558
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1083:566
+[com_566]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_558
+
+// 1083:567
+[com_567]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_566
+textfont=verdana_13pt_regular
+text=Wish
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)

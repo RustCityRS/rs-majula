@@ -1,0 +1,7 @@
+// 1208
+[proc,clientscript_1208]
+if (getwindowmode = 0) {
+    ~dropdownbox_refuse("High Detail only", loginscreen:com_100, loginscreen:com_101, loginscreen:com_102, null, 884, 0x7f0000, 494);
+    return;
+}
+~clientscript_1435(enum_1582, unknown_command_6111, 2, loginscreen:com_100, loginscreen:com_101, loginscreen:com_102, null, 884, 1248, 1250, 1402, 0x7f0000, ^white, 0xffc61a, 494, 798, 795, 796, 797, 793, 794);

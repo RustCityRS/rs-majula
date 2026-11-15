@@ -46,7 +46,7 @@ pub struct WordEncProvider {
 impl WordEncProvider {
     /// Rev-647 chat is huffman-coded and unfiltered (matching the source
     /// repo), so the provider carries no word lists.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn empty() -> WordEncProvider {
         WordEncProvider {
             bads: Box::new([]),

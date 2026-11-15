@@ -8,6 +8,7 @@ use rs_inv::Item;
 use rs_pack::ParamValue;
 #[cfg(since_647)]
 use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
+use rs_ver::TypeId;
 use runec::opcodes::*;
 
 /// Registers ground-item (obj) opcodes for spawning, removing, picking up,
@@ -44,7 +45,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             let obj_type = engine::<E>()
                 .objs()
-                .get_by_id(obj_id as u16)
+                .get_by_id(TypeId::from_int(obj_id))
                 .ok_or(ScriptError::ObjNotFound(obj_id))?;
             check_obj_stack(count)?;
 
@@ -60,7 +61,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
 
-            let id = obj_id as u16;
+            let id = obj_type.id;
             let count = count as u32;
             let receiver = s.active_player;
             let item = Item::new(id, count);
@@ -86,7 +87,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
             let obj_type = engine::<E>()
                 .objs()
-                .get_by_id(obj_id as u16)
+                .get_by_id(TypeId::from_int(obj_id))
                 .ok_or(ScriptError::ObjNotFound(obj_id))?;
             check_obj_stack(count)?;
 
@@ -95,7 +96,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
 
-            let id = obj_id as u16;
+            let id = obj_type.id;
             let item = Item::new(id, count as u32);
 
             if let Some(serial) =
@@ -131,7 +132,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3505
         none!(m, OBJ_FIND => |s| {
-            let id = s.pop_int_as::<u16>()?;
+            let id = s.pop_int_as::<TypeId>()?;
             let coord = pop_coord(s)?;
             let receiver37 = s.active_player.map(|uid| uid.username37());
 
@@ -176,7 +177,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let obj_type = engine::<E>()
                 .objs()
                 .get_by_id(obj.id)
-                .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
+                .ok_or(ScriptError::ObjNotFound(obj.id.int()))?;
             s.push_string(obj_type.name.as_deref().unwrap_or(&obj_type.debugname));
         });
 
@@ -186,7 +187,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let value = engine::<E>()
                 .objs()
                 .get_by_id(obj.id)
-                .ok_or(ScriptError::ParamNotFound(param.id as i32))?
+                .ok_or(ScriptError::ParamNotFound(param.id.int()))?
                 .params
                 .as_ref()
                 .and_then(|p| param.get_param_or_default(p))
@@ -208,7 +209,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let obj_type = engine::<E>()
                 .objs()
                 .get_by_id(obj.id)
-                .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
+                .ok_or(ScriptError::ObjNotFound(obj.id.int()))?;
 
             let stackable = obj_type.stackable;
             let obj_id = obj.id;
@@ -250,7 +251,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3511
         active_obj!(m, OBJ_TYPE => |s, obj| {
-            s.push_int(obj.id as i32);
+            s.push_int(obj.id.int());
         });
 
         // 3512

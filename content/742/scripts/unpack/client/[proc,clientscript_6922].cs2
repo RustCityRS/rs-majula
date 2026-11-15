@@ -1,0 +1,14 @@
+// 6922
+[proc,clientscript_6922](component $component0, int $int1, int $int2, component $component3, int $int4, boolean $boolean5, int $int6)
+if ($int6 ! 1) {
+    return;
+}
+sound_vorbis_volume(6185, 1, 0, 200);
+if (testbit(%dueloptions, $int4) = ^true) {
+    %dueloptions = clearbit(%dueloptions, $int4);
+} else {
+    %dueloptions = setbit(%dueloptions, $int4);
+}
+if (cc_find($component0, $int1) = true & .cc_find($component0, $int2) = true) {
+    ~clientscript_6921($component0, $component3, $int4, $boolean5);
+}

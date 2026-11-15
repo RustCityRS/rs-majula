@@ -1,0 +1,221 @@
+// 77:0
+[com_0]
+type=text
+x=16
+y=28
+width=120
+height=60
+hide=yes
+textfont=p11_full
+textlineheight=14
+textshadow=yes
+colour=0xe2e2a2
+onvartransmit=rand_update_dungeon_stats(event_com){varplayer_1774, rand_perm_int_02}
+
+// 77:1
+[com_1]
+type=graphic
+x=2
+y=27
+width=12
+height=12
+hide=yes
+graphic="rand_overlay_icons_16x16,0"
+colour=0xffffffff
+
+// 77:2
+[com_2]
+type=layer
+y=2
+width=207
+height=43
+xmode=abs_centre
+hide=yes
+ontimer=clientscript_4655
+
+// 77:3
+[com_3]
+type=rectangle
+x=2
+y=10
+width=198
+height=21
+heightmode=minus
+layer=com_2
+colour=0x000000
+fill=yes
+transmitop=10
+op10= 
+
+// 77:4
+[com_4]
+type=graphic
+y=13
+width=15
+height=15
+xmode=abs_right
+layer=com_2
+graphic="rand_framea_edges,1"
+2dangle=49152
+colour=0xffffffff
+
+// 77:5
+[com_5]
+type=graphic
+x=15
+y=2
+width=30
+height=15
+widthmode=minus
+ymode=abs_bottom
+layer=com_2
+graphic="rand_framea_edges,1"
+vflip=yes
+colour=0xffffffff
+
+// 77:6
+[com_6]
+type=graphic
+y=13
+width=15
+height=15
+layer=com_2
+graphic="rand_framea_edges,1"
+2dangle=16384
+colour=0xffffffff
+
+// 77:7
+[com_7]
+type=graphic
+x=15
+width=30
+height=15
+widthmode=minus
+layer=com_2
+graphic="rand_framea_edges,1"
+colour=0xffffffff
+
+// 77:8
+[com_8]
+type=graphic
+y=2
+width=15
+height=15
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic="rand_framea_edges,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+
+// 77:9
+[com_9]
+type=graphic
+y=2
+width=15
+height=15
+ymode=abs_bottom
+layer=com_2
+graphic="rand_framea_edges,0"
+vflip=yes
+colour=0xffffffff
+
+// 77:10
+[com_10]
+type=graphic
+width=15
+height=15
+layer=com_2
+graphic="rand_framea_edges,0"
+colour=0xffffffff
+
+// 77:11
+[com_11]
+type=graphic
+width=15
+height=15
+xmode=abs_right
+layer=com_2
+graphic="rand_framea_edges,0"
+2dangle=49152
+colour=0xffffffff
+
+// 77:12
+[com_12]
+type=graphic
+x=5
+y=15
+width=199
+height=18
+layer=com_2
+graphic=rand_grad_02
+colour=0xffffffff
+
+// 77:13
+[com_13]
+type=graphic
+x=4
+y=15
+width=4
+height=18
+layer=com_2
+graphic="rand_grad_caps_black_alpha,0"
+alpha=yes
+colour=0xffffffff
+
+// 77:14
+[com_14]
+type=text
+y=2
+width=200
+height=15
+xmode=abs_centre
+layer=com_2
+textfont=p11_full
+text= Progress bar text
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 77:15
+[com_15]
+type=layer
+x=4
+y=16
+width=200
+height=32
+layer=com_2
+
+// 77:16
+[com_16]
+type=rectangle
+width=197
+height=18
+widthmode=minus
+xmode=abs_right
+layer=com_15
+colour=0x000000
+fill=yes
+transmitop=10
+op10=  
+
+// 77:17
+[com_17]
+type=layer
+x=199
+y=15
+width=7
+height=18
+layer=com_2
+
+// 77:18
+[com_18]
+type=graphic
+width=3
+height=18
+layer=com_17
+graphic="rand_grad_caps_black_alpha,1"
+alpha=yes
+colour=0xffffffff

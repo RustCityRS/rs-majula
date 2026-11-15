@@ -25,7 +25,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4000
         none!(m, NC_CATEGORY => |s| {
             let npc = pop_npc::<E>(s)?;
-            s.push_int(npc.category.map(|x| x as i32).unwrap_or(-1));
+            s.push_int(npc.category.map(|x| x.int()).unwrap_or(-1));
         });
 
         // 4001

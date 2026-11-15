@@ -1,0 +1,12 @@
+// 3369
+[proc,clientscript_3369](int $int0, int $int1, int $int2)
+$int2 = calc($int2 + 1);
+if (cc_find(interface_1216:com_0, $int0) = true) {
+    cc_setontimer("clientscript_3369($int0, $int1, $int2)");
+    if (clientclock > calc($int1 + 50)) {
+        cc_setposition(cc_getx, max(calc(cc_gety - 2), 0), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if ($int2 > 100 & cc_gety < 20) {
+        cc_delete;
+    }
+}

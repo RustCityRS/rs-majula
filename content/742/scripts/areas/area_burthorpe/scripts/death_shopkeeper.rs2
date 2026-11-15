@@ -1,0 +1,11 @@
+[opnpc1,death_shopkeeper]
+~chatplayer("<p,happy>Hi!");
+~chatnpc("<p,happy>Welcome to Burthorpe Supplies. Your last shop before heading north into the mountains!");
+~chatnpc("<p,neutral>Would you like to buy something?");
+switch_int(~p_choice2("Yes, please.", 1, "No, thanks.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Yes, please.");
+        ~openshop_activenpc;
+    case 2 :
+        ~chatplayer("<p,neutral>No, thanks.");
+}

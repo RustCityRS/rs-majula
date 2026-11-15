@@ -1,10 +1,11 @@
 use super::decode::read_optional_id;
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct BillboardType {
-    pub id: u16,
-    pub material: Option<u16>,
+    pub id: TypeId,
+    pub material: Option<TypeId>,
     pub width_minus_one: u16,
     pub height_minus_one: u16,
     pub unused: u8,
@@ -15,7 +16,7 @@ pub struct BillboardType {
 impl CacheType for BillboardType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             material: None,

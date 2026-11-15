@@ -1,0 +1,7 @@
+// 2074
+[clientscript,script2074]
+if (%snp_game_in_progress_client = 0) {
+    if_settext(snp_waiting_room:text_title, "Players needed");
+} else {
+    if_settext(snp_waiting_room:text_title, "Players in game");
+}

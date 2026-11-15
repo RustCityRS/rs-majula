@@ -1,0 +1,5 @@
+// 1562
+[proc,clientscript_1562](component $component0, graphic $graphic1, graphic $graphic2, component $component3)
+if_setgraphic($component0, $graphic2);
+if_setonmouseover($component0, "graphic_swapper($component0, $graphic1)");
+if_setonmouseleave($component0, "deltooltip_graphic_swapper($component3, $component0, $graphic2)");

@@ -1,0 +1,406 @@
+// 114:0
+[com_0]
+type=graphic
+x=6
+y=141
+width=88
+height=60
+graphic=tradebacking
+colour=0x000000
+
+// 114:1
+[com_1]
+type=graphic
+x=92
+y=141
+width=88
+height=60
+graphic=tradebacking
+colour=0x000000
+
+// 114:2
+[com_2]
+type=graphic
+x=6
+y=181
+width=88
+height=60
+graphic=tradebacking
+colour=0x000000
+
+// 114:3
+[com_3]
+type=graphic
+x=92
+y=181
+width=88
+height=60
+graphic=tradebacking
+colour=0x000000
+
+// 114:4
+[com_4]
+type=graphic
+x=6
+y=141
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 114:5
+[com_5]
+type=graphic
+x=154
+y=141
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 114:6
+[com_6]
+type=graphic
+x=166
+y=185
+width=32
+height=32
+graphic="v2_stone_borders,3"
+colour=0x000000
+
+// 114:7
+[com_7]
+type=graphic
+x=154
+y=211
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 114:8
+[com_8]
+type=graphic
+x=166
+y=161
+width=32
+height=32
+graphic="v2_stone_borders,3"
+colour=0x000000
+
+// 114:9
+[com_9]
+type=graphic
+x=126
+y=128
+width=32
+height=32
+graphic="v2_stone_borders,0"
+colour=0x000000
+
+// 114:10
+[com_10]
+type=graphic
+x=31
+y=128
+width=39
+height=31
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 114:11
+[com_11]
+type=graphic
+x=127
+y=223
+width=32
+height=32
+graphic="v2_stone_borders,2"
+colour=0x000000
+
+// 114:12
+[com_12]
+type=graphic
+x=67
+y=128
+width=32
+height=32
+graphic="v2_stone_borders,0"
+colour=0x000000
+
+// 114:13
+[com_13]
+type=graphic
+x=99
+y=128
+width=32
+height=32
+graphic="v2_stone_borders,0"
+colour=0x000000
+
+// 114:14
+[com_14]
+type=graphic
+x=-7
+y=165
+width=32
+height=32
+graphic="v2_stone_borders,1"
+colour=0x000000
+
+// 114:15
+[com_15]
+type=graphic
+x=-7
+y=192
+width=32
+height=32
+graphic="v2_stone_borders,1"
+colour=0x000000
+
+// 114:16
+[com_16]
+type=graphic
+x=6
+y=211
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 114:17
+[com_17]
+type=graphic
+x=35
+y=223
+width=32
+height=32
+graphic="v2_stone_borders,2"
+colour=0x000000
+
+// 114:18
+[com_18]
+type=graphic
+x=98
+y=223
+width=32
+height=32
+graphic="v2_stone_borders,2"
+colour=0x000000
+
+// 114:19
+[com_19]
+type=graphic
+x=67
+y=223
+width=32
+height=32
+graphic="v2_stone_borders,2"
+colour=0x000000
+
+// 114:20
+[dr_text_sc1]
+type=text
+x=77
+y=172
+width=99
+height=14
+textfont=p12_full
+text=Schematic 1
+textalignh=right
+textshadow=yes
+colour=0xaa8822
+
+// 114:21
+[dr_text_sc2]
+type=text
+x=77
+y=192
+width=99
+height=14
+textfont=p12_full
+text=Schematic 2
+textalignh=right
+textshadow=yes
+colour=0xaa8822
+
+// 114:22
+[dr_text_sc3]
+type=text
+x=77
+y=212
+width=99
+height=14
+textfont=p12_full
+text=Schematic 3
+textalignh=right
+textshadow=yes
+colour=0xaa8822
+
+// 114:23
+[dr_text_hide]
+type=text
+x=14
+y=152
+width=130
+height=14
+textfont=p12_full
+text=Show/Select
+textshadow=yes
+colour=0xaa8822
+
+// 114:24
+[f4_select1]
+type=graphic
+x=55
+y=172
+width=17
+height=17
+graphic="miscgraphics,11"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onvartransmit=f4_select1{dwarfrock_main, if1}
+
+// 114:25
+[f4_select2]
+type=graphic
+x=55
+y=192
+width=17
+height=16
+graphic="miscgraphics,10"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onvartransmit=f4_select2{dwarfrock_main, if2}
+
+// 114:26
+[f4_select3]
+type=graphic
+x=55
+y=212
+width=17
+height=18
+graphic="miscgraphics,10"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onvartransmit=f4_select3{dwarfrock_main, if3}
+
+// 114:27
+[f4_hide1]
+type=graphic
+x=23
+y=172
+width=18
+height=16
+graphic="miscgraphics,11"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Show
+onvartransmit=f4_hide1{dwarfrock_main, gnome_course_progress}
+
+// 114:28
+[f4_hide2]
+type=graphic
+x=23
+y=192
+width=19
+height=16
+graphic="miscgraphics,11"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Show
+onvartransmit=f4_hide2{dwarfrock_main, barbarian_course_progress}
+
+// 114:29
+[f4_hide3]
+type=graphic
+x=23
+y=212
+width=19
+height=17
+graphic="miscgraphics,11"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Show
+onvartransmit=f4_hide3{dwarfrock_main, wilderness_course_progress}
+
+// 114:30
+[dr_rotate_button]
+type=model
+x=75
+y=49
+width=41
+height=41
+model=model_5823
+modelangle=500,0,0
+modelzoom=1000
+transmitop=1
+op1=Rotate
+
+// 114:31
+[dr_move_up]
+type=model
+x=75
+y=9
+width=41
+height=41
+model=model_5822
+modelangle=500,0,0
+modelzoom=1000
+transmitop=1
+op1=Move-up
+
+// 114:32
+[dr_move_right]
+type=model
+x=115
+y=48
+width=43
+height=42
+model=model_5822
+modelorigin=0,-1
+modelangle=500,500,0
+modelzoom=1000
+transmitop=1
+op1=Move-right
+
+// 114:33
+[dr_move_left]
+type=model
+x=36
+y=48
+width=41
+height=42
+model=model_5822
+modelorigin=0,-1
+modelangle=500,1530,0
+modelzoom=1000
+transmitop=1
+op1=Move-left
+
+// 114:34
+[dr_move_down]
+type=model
+x=75
+y=88
+width=41
+height=42
+model=model_5822
+modelorigin=0,-1
+modelangle=500,1015,0
+modelzoom=1000
+transmitop=1
+op1=Move-down

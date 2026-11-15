@@ -1,0 +1,36 @@
+// 2945
+[proc,login_dologin]
+%login_reply_last = -1;
+if (op437 = 0 & (string_length(%varclient_2054) = 0 | string_length(%loginscreen_password) = 0)) {
+    ~login_open(11);
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+%loginscreen_hopblocked_time = 0;
+%loginscreen_videoad = 0;
+def_component $component4 = login:login_button_text;
+def_component $component5 = login:login_button;
+if (op437 = 1) {
+    $component4 = south_progress9:login_button_text;
+    $component5 = south_progress9:login_button;
+}
+if_settext($component4, "Logging in...");
+if_setonclick($component5, null);
+~login_popup(-3, 0, "Logging In - Please Wait", 1, null, 0, -1, "", 0, "");
+if_sethide(login:com_8, true);
+%login_reply_last = -3;
+def_string $string0 = %varclient_2054;
+def_string $string1 = %loginscreen_password;
+if (op437 = 1) {
+    $string0 = "";
+    $string1 = "";
+}
+unknown_command_5615($string0, $string1);
+if (op437 = 1) {
+    if_setontimer(south_progress9:popup, "login_reply(0)");
+} else {
+    if_setontimer(login:popup, "login_reply(0)");
+}

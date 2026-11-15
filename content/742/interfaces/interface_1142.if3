@@ -1,0 +1,79 @@
+// 1142:0
+[com_0]
+type=graphic
+x=478
+y=6
+width=26
+height=23
+layer=com_6
+graphic="close_buttons,6"
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(event_com, "close_buttons,5")
+onop=closebutton_click
+onmouserepeat=graphic_swapper(event_com, "close_buttons,4")
+
+// 1142:1
+[com_1]
+type=model
+x=11
+y=-2
+width=462
+height=338
+layer=com_6
+model=model_55891
+modelorigin=23,-19
+modelangle=490,513,0
+modelzoom=1119
+
+// 1142:2
+[com_2]
+type=text
+x=125
+y=29
+width=266
+height=17
+layer=com_6
+textfont=q8_full
+text=The Cake is a Lie
+textalignh=centre
+colour=0x382911
+
+// 1142:3
+[com_3]
+type=layer
+x=63
+y=54
+width=348
+height=250
+layer=com_6
+scrollheight=1000
+
+// 1142:4
+[com_4]
+type=layer
+x=413
+y=54
+width=16
+height=250
+layer=com_6
+onload=scrollbar_vertical_graphics(event_com, interface_1142:com_3, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 1142:5
+[com_5]
+type=text
+width=348
+height=1000
+layer=com_3
+textfont=q8_full
+text=Lorem Ipsum random flipsum gypsum ripsome ect Lorem Ipsum random flipsum gypsum ripsome ect Lorem Ipsum random flipsum gypsum ripsome ect Lorem Ipsum random flipsum gypsum ripsome ect Lorem Ipsum random flipsum gypsum ripsome ect Lorem Ipsum random flipsum gypsum ripsome ect Lorem Ipsum random flipsum gypsum ripsome ect
+textalignh=centre
+colour=0x382911
+
+// 1142:6
+[com_6]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

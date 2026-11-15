@@ -1,0 +1,20 @@
+// 6291
+[proc,clientscript_6291]
+def_int $int0 = 0;
+if (calc(clientclock % 4) = 0 & cc_find(interface_1296:com_3, 0) = true) {
+    if (%varclient_1933 = 0) {
+        $int0 = cc_gety;
+        $int0 = calc($int0 + 1);
+        if ($int0 > 30) {
+            %varclient_1933 = 1;
+        } else {
+            cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top);
+        }
+    } else {
+        %varclient_1933 = calc(%varclient_1933 + 1);
+        if (%varclient_1933 = 30) {
+            cc_delete;
+            if_setontimer(interface_1296:com_3, null);
+        }
+    }
+}

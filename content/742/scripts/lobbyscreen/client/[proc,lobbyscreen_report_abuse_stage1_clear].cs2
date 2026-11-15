@@ -1,0 +1,9 @@
+// 3181
+[proc,lobbyscreen_report_abuse_stage1_clear]
+if_settext(lobbyscreen_report_abuse_stage1:name, "");
+if_setonkey(lobbyscreen_report_abuse_stage1:name, null);
+if_setonop(lobbyscreen_report_abuse_stage1:next_button, null);
+if_sethide(lobbyscreen_report_abuse_stage1:mute_layer, true);
+if_setgraphic(lobbyscreen_report_abuse_stage1:com_23, "check_box_2,0");
+%lobbyscreen_input = "";
+%lobbyscreen_report_abuse_bug = false;

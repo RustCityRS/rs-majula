@@ -1,0 +1,6 @@
+// Canonical XP grant (naming from osrs-rs2 `~givexp(skill,amount)`). Skills and
+// combat call this instead of stat_advance. 530 has no XP counter orb and no
+// Bonus XP events (2011's xp_counter and doublexp vars are not in its cache), so
+// it is stat_advance.
+[proc,givexp](stat $stat, int $xp)
+stat_advance($stat, $xp);

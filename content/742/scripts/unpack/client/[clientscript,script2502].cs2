@@ -1,0 +1,12 @@
+// 2502
+[clientscript,script2502]
+switch_int (%mob_client_scenario) {
+    case 1 :
+        if_sethide(interface_291:com_58, false);
+    case 2 :
+        if_sethide(interface_291:com_55, false);
+    case 3 :
+        if_sethide(interface_291:com_57, false);
+    case 4 :
+        if_sethide(interface_291:com_56, false);
+}

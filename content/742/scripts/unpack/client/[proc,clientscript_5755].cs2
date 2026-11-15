@@ -1,0 +1,117 @@
+// 5755
+[proc,clientscript_5755](stat $stat0, struct $struct1)(int, string)
+if ($stat0 = attack) {
+    if (~comlevel < struct_param($struct1, param_2233)) {
+        return(struct_param($struct1, param_2233), "combat");
+    }
+    switch_int (struct_param($struct1, param_1294)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1294))) < struct_param($struct1, param_1295)) {
+                return(struct_param($struct1, param_1295), enum(int, string, enum_108, struct_param($struct1, param_1294)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1296)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1296))) < struct_param($struct1, param_1297)) {
+                return(struct_param($struct1, param_1297), enum(int, string, enum_108, struct_param($struct1, param_1296)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1298)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1298))) < struct_param($struct1, param_1299)) {
+                return(struct_param($struct1, param_1299), enum(int, string, enum_108, struct_param($struct1, param_1298)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1300)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1300))) < struct_param($struct1, param_1301)) {
+                return(struct_param($struct1, param_1301), enum(int, string, enum_108, struct_param($struct1, param_1300)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1302)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1302))) < struct_param($struct1, param_1303)) {
+                return(struct_param($struct1, param_1303), enum(int, string, enum_108, struct_param($struct1, param_1302)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1304)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1304))) < struct_param($struct1, param_1305)) {
+                return(struct_param($struct1, param_1305), enum(int, string, enum_108, struct_param($struct1, param_1304)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1306)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1306))) < struct_param($struct1, param_1307)) {
+                return(struct_param($struct1, param_1307), enum(int, string, enum_108, struct_param($struct1, param_1306)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1308)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1308))) < struct_param($struct1, param_1309)) {
+                return(struct_param($struct1, param_1309), enum(int, string, enum_108, struct_param($struct1, param_1308)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1310)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1310))) < struct_param($struct1, param_1311)) {
+                return(struct_param($struct1, param_1311), enum(int, string, enum_108, struct_param($struct1, param_1310)));
+            }
+    }
+    switch_int (struct_param($struct1, param_1312)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_1312))) < struct_param($struct1, param_1313)) {
+                return(struct_param($struct1, param_1313), enum(int, string, enum_108, struct_param($struct1, param_1312)));
+            }
+    }
+    switch_int (struct_param($struct1, param_2227)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_2227))) < struct_param($struct1, param_2228)) {
+                return(struct_param($struct1, param_2228), enum(int, string, enum_108, struct_param($struct1, param_2227)));
+            }
+    }
+    switch_int (struct_param($struct1, param_2229)) {
+        case 1, 2, 5, 3, 4, 6 :
+            if (stat_base(enum(int, stat, enum_681, struct_param($struct1, param_2229))) < struct_param($struct1, param_2230)) {
+                return(struct_param($struct1, param_2230), enum(int, string, enum_108, struct_param($struct1, param_2229)));
+            }
+    }
+} else {
+    if (struct_param($struct1, param_1294) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1295)) {
+        return(struct_param($struct1, param_1295), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1296) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1297)) {
+        return(struct_param($struct1, param_1297), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1298) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1299)) {
+        return(struct_param($struct1, param_1299), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1300) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1301)) {
+        return(struct_param($struct1, param_1301), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1302) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1303)) {
+        return(struct_param($struct1, param_1303), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1304) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1305)) {
+        return(struct_param($struct1, param_1305), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1306) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1307)) {
+        return(struct_param($struct1, param_1307), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1308) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1309)) {
+        return(struct_param($struct1, param_1309), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1310) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1311)) {
+        return(struct_param($struct1, param_1311), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_1312) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_1313)) {
+        return(struct_param($struct1, param_1313), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_2227) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_2228)) {
+        return(struct_param($struct1, param_2228), enum(stat, string, enum_680, $stat0));
+    }
+    if (struct_param($struct1, param_2229) = enum(stat, int, enum_1482, $stat0) & stat_base($stat0) < struct_param($struct1, param_2230)) {
+        return(struct_param($struct1, param_2230), enum(stat, string, enum_680, $stat0));
+    }
+}
+return(0, "error");

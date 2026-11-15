@@ -1,0 +1,20 @@
+// 913
+[proc,clan_switch_tab](component $component0)
+if_sethide(interface_728:com_20, true);
+if_sethide(interface_728:back, true);
+if_sethide(interface_728:com_22, true);
+if_sethide(interface_728:com_23, true);
+if_sethide(interface_728:com_17, true);
+if_sethide(interface_728:text_1, true);
+if_sethide(interface_728:text_2, true);
+if_sethide(interface_728:text_3, true);
+if_sethide(interface_728:text_4, true);
+if_sethide(interface_728:text_5, true);
+if_sethide(interface_728:text_6, true);
+if_sethide(interface_728:text_7, true);
+if_sethide(interface_728:text_8, true);
+if_sethide(interface_728:text_9, true);
+if_sethide(interface_728:text_10, true);
+if_sethide(interface_728:com_14, true);
+~deltooltip_action(interface_728:tooltip);
+if_sethide($component0, true);

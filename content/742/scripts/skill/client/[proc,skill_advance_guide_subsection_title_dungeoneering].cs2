@@ -1,0 +1,18 @@
+// 3354
+[proc,skill_advance_guide_subsection_title_dungeoneering](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
+        return("Bosses", 0);
+    case 1 :
+        return("Floors", 0);
+    case 2 :
+        return("Item Binding", 0);
+    case 3 :
+        return("Rewards", 0);
+    case 4 :
+        return("Areas", 0);
+    case 5 :
+        return("Milestones", 0);
+    case default :
+        return("", -1);
+}

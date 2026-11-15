@@ -16,6 +16,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, explore, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -30,30 +31,30 @@ const AT_WHEEL: (u16, u8, u16) = (3209, 1, 3213);
 /// collision map: the cases take turns.
 static TURN: Mutex<()> = Mutex::new(());
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
-fn npc(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn npc(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no npc {name}"))
+        .id
 }
 
-fn inv(engine: &Engine, name: &str) -> u16 {
-    *engine.cache.invs.debugnames.get(name).unwrap()
+fn inv(engine: &Engine, name: &str) -> TypeId {
+    engine.cache.invs.get_by_debugname(name).unwrap().id
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine.cache.varps.debugnames.get(name).unwrap()
+    engine.cache.varps.get_by_debugname(name).unwrap().id.g2()
 }
 
 /// The npc of type `kind` nearest (x, z): its nid, and a tile beside it that
@@ -64,7 +65,7 @@ fn beside(engine: &Engine, kind: u16, (x, z): (u16, u16)) -> (u16, u16, u16) {
         .npcs
         .iter()
         .flatten()
-        .filter(|n| n.npc.uid.id() == kind)
+        .filter(|n| n.npc.uid.id() == TypeId::new(kind))
         .map(|n| {
             let c = n.npc.pathing.coord;
             (n.npc.uid.nid(), c.x(), c.z())
@@ -129,14 +130,14 @@ fn total(engine: &Engine, client: &HarnessClient, inv_id: u16, o: u16) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .invs
-        .get(&inv_id)
-        .map_or(0, |i| i.total(o) as i32)
+        .get(&TypeId::new(inv_id))
+        .map_or(0, |i| i.total(TypeId::new(o)) as i32)
 }
 
 /// Walks to Fred and talks, taking `choices`.
 fn talk_to_fred(engine: &mut Engine, client: &mut HarnessClient, choices: &[&str]) -> Conversation {
     let fred = npc(engine, "fred_the_farmer");
-    let (nid, x, z) = beside(engine, fred, (3190, 3273));
+    let (nid, x, z) = beside(engine, fred.g2(), (3190, 3273));
     engine.harness_telejump(client.pid, x, 0, z);
     for _ in 0..3 {
         engine.cycle();
@@ -159,7 +160,7 @@ fn shear_a_black_sheep(
     let mut said = Vec::new();
     // Sheep get away one time in four (289's): try again until one is shorn.
     for _ in 0..12 {
-        let (nid, x, z) = beside(engine, black, (3200, 3268));
+        let (nid, x, z) = beside(engine, black.g2(), (3200, 3268));
         engine.harness_telejump(client.pid, x, 0, z);
         for _ in 0..3 {
             engine.cycle();
@@ -200,7 +201,7 @@ fn fred_s_job_from_taking_it_to_his_pay() {
         // Before the job, the black sheep are not for shearing.
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&backpack).unwrap().set(0, shears, 1);
-        let said = shear_a_black_sheep(engine, &mut client, (backpack, black_wool));
+        let said = shear_a_black_sheep(engine, &mut client, (backpack.g2(), black_wool.g2()));
         assert!(
             said.contains(
                 &"The farmer wouldn't like you shearing these special sheep. Try the white ones."
@@ -208,7 +209,7 @@ fn fred_s_job_from_taking_it_to_his_pay() {
             ),
             "before the job: {said:?}"
         );
-        assert_eq!(total(engine, &client, backpack, black_wool), 0);
+        assert_eq!(total(engine, &client, backpack.g2(), black_wool.g2()), 0);
 
         // Fred offers work, and the player takes it.
         let talk = talk_to_fred(
@@ -237,8 +238,12 @@ fn fred_s_job_from_taking_it_to_his_pay() {
         assert_eq!(player.vars.get(sheep).as_int(), 1, "the job is on");
 
         // A black sheep gives black wool now.
-        let said = shear_a_black_sheep(engine, &mut client, (backpack, black_wool));
-        assert_eq!(total(engine, &client, backpack, black_wool), 1, "{said:?}");
+        let said = shear_a_black_sheep(engine, &mut client, (backpack.g2(), black_wool.g2()));
+        assert_eq!(
+            total(engine, &client, backpack.g2(), black_wool.g2()),
+            1,
+            "{said:?}"
+        );
         assert!(
             said.contains(&"You get some black wool.".to_string()),
             "{said:?}"
@@ -262,10 +267,14 @@ fn fred_s_job_from_taking_it_to_his_pay() {
             engine.cycle();
         }
         client.packets();
-        use_on(&mut client, black_wool, slot, WHEEL);
+        use_on(&mut client, black_wool.g2(), slot, WHEEL);
         let said = ticks(engine, &mut client, 8);
-        assert_eq!(total(engine, &client, backpack, ball), 1, "spun: {said:?}");
-        assert_eq!(total(engine, &client, backpack, black_wool), 0);
+        assert_eq!(
+            total(engine, &client, backpack.g2(), ball.g2()),
+            1,
+            "spun: {said:?}"
+        );
+        assert_eq!(total(engine, &client, backpack.g2(), black_wool.g2()), 0);
         assert_eq!(
             engine.harness_player(client.pid).unwrap().stats.xp[CRAFTING] - xp,
             25,
@@ -288,7 +297,7 @@ fn fred_s_job_from_taking_it_to_his_pay() {
             "{:?}",
             talk.texts
         );
-        assert_eq!(total(engine, &client, backpack, ball), 0);
+        assert_eq!(total(engine, &client, backpack.g2(), ball.g2()), 0);
         assert_eq!(
             engine
                 .harness_player(client.pid)
@@ -339,10 +348,18 @@ fn fred_s_job_from_taking_it_to_his_pay() {
             "done (cache quest 173)"
         );
         assert_eq!(player.stats.xp[CRAFTING] - xp, 1500, "150 Crafting xp");
-        assert_eq!(total(engine, &client, backpack, coins), 2000);
+        assert_eq!(total(engine, &client, backpack.g2(), coins.g2()), 2000);
         for o in [ball, black_wool] {
-            assert_eq!(total(engine, &client, backpack, o), 0, "pack keeps {o}");
-            assert_eq!(total(engine, &client, bank, o), 0, "bank keeps {o}");
+            assert_eq!(
+                total(engine, &client, backpack.g2(), o.g2()),
+                0,
+                "pack keeps {o}"
+            );
+            assert_eq!(
+                total(engine, &client, bank.g2(), o.g2()),
+                0,
+                "bank keeps {o}"
+            );
         }
         let held = engine
             .harness_player(client.pid)
@@ -359,7 +376,7 @@ fn fred_s_job_from_taking_it_to_his_pay() {
         // Afterwards, the black sheep are not for shearing again.
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&backpack).unwrap().set(16, shears, 1);
-        let said = shear_a_black_sheep(engine, &mut client, (backpack, black_wool));
+        let said = shear_a_black_sheep(engine, &mut client, (backpack.g2(), black_wool.g2()));
         assert!(
             said.iter()
                 .any(|m| m.starts_with("The farmer wouldn't like")),
@@ -390,7 +407,7 @@ fn every_branch(engine: &mut Engine, stage: i32, thing: bool, balls: u16) -> usi
             for _ in 0..10 {
                 engine.cycle();
             }
-            let (nid, x, z) = beside(engine, fred, (3190, 3273));
+            let (nid, x, z) = beside(engine, fred.g2(), (3190, 3273));
             engine.harness_telejump(client.pid, x, 0, z);
             let player = engine.harness_player_mut(client.pid).unwrap();
             player.vars.set(sheep, VarValue::Int(stage));

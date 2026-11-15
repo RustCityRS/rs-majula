@@ -1,0 +1,30 @@
+// 384:0
+[cutscene_controller]
+type=text
+x=34
+y=34
+width=32
+height=32
+textfont=p11_full
+textshadow=yes
+colour=0xffff00
+
+// 384:1
+[fade]
+type=model
+width=16807
+height=19088
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+model=model_4835
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=127
+modelnodepth=yes
+modelobjwidth=525
+modelobjheight=389
+transmitop=10
+op10= 
+onload=fade_in_darkness(event_com)

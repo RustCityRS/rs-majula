@@ -1,0 +1,58 @@
+// 4035
+[proc,task_kudos_available]()(int)
+def_int $int0 = 88;
+if (%zemo_main = 250) {
+    $int0 = calc($int0 + 5);
+}
+if (%demonslayer_main >= 3) {
+    $int0 = calc($int0 + 5);
+}
+if (%itexamlevel >= 9) {
+    $int0 = calc($int0 + 5);
+}
+if (%deserttreasure = 15) {
+    $int0 = calc($int0 + 10);
+}
+if (%glomem_quest >= 45) {
+    $int0 = calc($int0 + 10);
+}
+if (%grandtree >= 160) {
+    $int0 = calc($int0 + 5);
+}
+if (%hazeelcultquest >= 9) {
+    $int0 = calc($int0 + 5);
+}
+if (%myreque_2_quest >= 430) {
+    $int0 = calc($int0 + 5);
+}
+if (%makinghistory_prog >= 4) {
+    $int0 = calc($int0 + 5);
+}
+if (%hist_prog = 20) {
+    $int0 = calc($int0 + 5);
+}
+if (%arthur >= 7) {
+    $int0 = calc($int0 + 5);
+}
+if (%itgronigen >= 7) {
+    $int0 = calc($int0 + 5);
+}
+if (%priestperil >= 61) {
+    $int0 = calc($int0 + 5);
+}
+if (%runemysteries >= 6) {
+    $int0 = calc($int0 + 5);
+}
+if (%phoenixgang >= 7 | %blackarmgang >= 4) {
+    $int0 = calc($int0 + 5);
+}
+if (%twocats_quest >= 70) {
+    $int0 = calc($int0 + 5);
+}
+if (%ikov >= 80) {
+    $int0 = calc($int0 + 5);
+}
+if (%surok_quest >= 150) {
+    $int0 = calc($int0 + 5);
+}
+return($int0);

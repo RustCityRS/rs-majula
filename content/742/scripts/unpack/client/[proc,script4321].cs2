@@ -1,0 +1,8 @@
+// 4321
+[proc,script4321]
+~script4307;
+~clansettings_clanmate_details_refresh;
+if_sethide(clansettings:clanmate_details_loading_blackout_layer, false);
+if_settext(clansettings:loading_clanmate_data_txt, "Please select a clanmate to view.");
+~script4501(clansettings:com_261, "");
+~script4501(clansettings:com_247, "");

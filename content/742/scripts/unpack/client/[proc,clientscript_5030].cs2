@@ -1,0 +1,3 @@
+// 5030
+[proc,clientscript_5030](int $int0)(int)
+return(calc($int0 / pow(2, 8) & 63));

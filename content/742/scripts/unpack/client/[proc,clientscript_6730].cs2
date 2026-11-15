@@ -1,0 +1,5 @@
+// 6730
+[proc,clientscript_6730](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    cc_setgraphic(13133);
+}

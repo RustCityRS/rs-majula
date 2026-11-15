@@ -1,0 +1,80 @@
+// Unstable Foundations' goblin (8862) at Sir Vant's bag, from the dragon cutscene's shot 9 until the
+// player fights it. It talks to itself as it rummages: "Heh heh heh.", "Mine, all mine!", "Ooh!" and
+// "Me get rich!" (4KO2h2xPtdM 2011-04-30 @56.0, 60.6, 65.5, 68.5, 75.6; read at 3x). Which line
+// comes next looks random; the gaps between them, about 8, 8, 5 and 12 ticks (one frame a second),
+// look like a 1-in-8 chance every tick rather than a fixed timer. That cadence is fitted to those
+// four gaps; no script source gives it.
+//
+// Its fight, from two 2011 recordings:
+// - Kw7h2jY9ANQ (2011-05-13) @197.5-210: it stands on its square facing the player and hits at
+//   198.1, 200.0, 201.8, 203.6, 205.5, 207.2 and 209.1, every 3 ticks: seven hits against the
+//   player's six (197.6 to 209.7, every 4 ticks). So it fights on its own cycle; the 2011 wiki's
+//   "He only hits back once per player's hit" ("Goblin (Unstable Foundations)", 2011-04-16) does
+//   not hold in that recording.
+// - 4KO2h2xPtdM (2011-04-30): bent over the bag until @96.55, it stands and turns as the player's
+//   first swing starts; that hit shows @97.13 and its own hits @97.67, 99.55 and 101.4. So its
+//   first swing comes two ticks after the player's.
+// - Neither fight shows one of its mutters.
+// - The wiki's page: it "never moves out of his square", and "If you stop attacking him, he
+//   would go back to rummaging Sir Vant's pack, even if you are still within melee range". How
+//   soon: no source. Here 289's measure of a fight being over, 8 ticks after the last hit it
+//   took (%npc_lastcombat).
+[ai_timer,tutorial3_goblin]
+if (add(%npc_lastcombat, 8) > map_clock) {
+    ~uf_goblin_attack;
+    return;
+}
+if (%npc_attacking_uid ! null) {
+    // Left alone: back to the bag, east of it.
+    %npc_attacking_uid = null;
+    npc_setmode(none);
+    npc_facesquare(movecoord(npc_coord, 1, 0, 0));
+    npc_anim(seq_9963, 0);
+    return;
+}
+if (random(8) = 0) {
+    switch_int (random(4)) {
+        case 0 : npc_say("Heh heh heh.");
+        case 1 : npc_say("Mine, all mine!");
+        case 2 : npc_say("Ooh!");
+        case 3 : npc_say("Me get rich!");
+    }
+}
+
+// Its swing, when one is due: npc_default_attack from its timer, since the modes that run that
+// script (opplayer2) walk the npc after its target.
+[proc,uf_goblin_attack]
+// The first hit's retaliation (ai_queue1, after the timer in the npc's turn) has not run yet.
+if (%npc_attacking_uid = null | npc_stat(hitpoints) = 0) {
+    return;
+}
+if (finduid(%npc_attacking_uid) = false) {
+    return;
+}
+if (%death = ^true) {
+    return;
+}
+// The engine drops a mode whose target is more than the npc's maxrange (7) + 1 from where the
+// npc was added, and with it this timer: stop facing a player that far off before it does. The
+// cutscene adds the goblin 2 squares from the bag, so 6 from the goblin is inside both.
+if (distance(coord, npc_coord) > 6) {
+    npc_setmode(none);
+    return;
+}
+// Melee's reach: beside it, not diagonal.
+if (add(abs(sub(coordx(coord), coordx(npc_coord))), abs(sub(coordz(coord), coordz(npc_coord)))) ! 1) {
+    return;
+}
+~npc_default_attack;
+
+// A hit on it. The first of a fight: 289's flinch (half its attack rate: one tick), and it
+// faces the player from where it stands (playerface: opplayer2 would follow them).
+[ai_queue1,tutorial3_goblin]
+if (finduid(%npc_aggressive_player) = false) {
+    return;
+}
+if (%npc_attacking_uid = null) {
+    %npc_action_delay = add(map_clock, divide(npc_param(attackrate), 2));
+}
+%npc_attacking_uid = %npc_aggressive_player;
+npc_setmode(playerface);

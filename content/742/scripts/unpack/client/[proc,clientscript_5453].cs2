@@ -1,0 +1,85 @@
+// 5453
+[proc,clientscript_5453](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+switch_int ($int1) {
+    case 1 :
+        $component2 = interface_1156:com_90;
+        $component3 = interface_1156:com_89;
+    case 2 :
+        $component2 = interface_1156:com_200;
+        $component3 = interface_1156:com_198;
+    case 3 :
+        $component2 = interface_1156:com_206;
+        $component3 = interface_1156:com_204;
+    case 4 :
+        $component2 = interface_1156:com_212;
+        $component3 = interface_1156:com_210;
+    case 5 :
+        $component2 = interface_1156:com_218;
+        $component3 = interface_1156:com_216;
+    case 6 :
+        $component2 = interface_1156:com_224;
+        $component3 = interface_1156:com_222;
+    case 7 :
+        $component2 = interface_1156:com_230;
+        $component3 = interface_1156:com_228;
+    case 8 :
+        $component2 = interface_1156:com_236;
+        $component3 = interface_1156:com_234;
+    case 9 :
+        $component2 = interface_1156:com_242;
+        $component3 = interface_1156:com_240;
+    case 10 :
+        $component2 = interface_1156:com_248;
+        $component3 = interface_1156:com_246;
+    case 11 :
+        $component2 = interface_1156:com_254;
+        $component3 = interface_1156:com_252;
+    case 12 :
+        $component2 = interface_1156:com_260;
+        $component3 = interface_1156:com_258;
+    case 13 :
+        $component2 = interface_1156:com_266;
+        $component3 = interface_1156:com_264;
+    case 14 :
+        $component2 = interface_1156:com_272;
+        $component3 = interface_1156:com_270;
+    case 15 :
+        $component2 = interface_1156:com_278;
+        $component3 = interface_1156:com_276;
+    case 16 :
+        $component2 = interface_1156:com_284;
+        $component3 = interface_1156:com_282;
+    case 17 :
+        $component2 = interface_1156:com_290;
+        $component3 = interface_1156:com_288;
+    case 18 :
+        $component2 = interface_1156:com_296;
+        $component3 = interface_1156:com_294;
+    case 19 :
+        $component2 = interface_1156:com_302;
+        $component3 = interface_1156:com_300;
+    case 20 :
+        $component2 = interface_1156:com_308;
+        $component3 = interface_1156:com_306;
+    case 21 :
+        $component2 = interface_1156:com_314;
+        $component3 = interface_1156:com_312;
+    case 22 :
+        $component2 = interface_1156:com_326;
+        $component3 = interface_1156:com_324;
+}
+if ($int0 = 1) {
+    if ($int1 = 4 | $int1 = 5 | $int1 = 9 | $int1 = 12 | $int1 = 15 | $int1 = 20 | $int1 = 21 | $int1 = 22) {
+        if_settext($component2, "<col=37addd>Claim");
+    } else if ($int1 = 16 | $int1 = 17 | $int1 = 18 | $int1 = 19) {
+        if_settext($component2, "<col=37addd>Claim (<tostring(%varplayerbit_10117)> set avail)");
+    } else {
+        if_settext($component2, "Unlocked !");
+    }
+    if_sethide($component3, true);
+    if_setcolour($component2, 0xf5b241);
+} else {
+    if_settext($component2, "Locked");
+}

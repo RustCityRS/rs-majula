@@ -1,0 +1,302 @@
+// 1079:0
+[listener]
+type=layer
+width=1
+height=1
+xmode=abs_centre
+ymode=abs_centre
+transmitop=1,2,3,4
+op1=*
+op2=*
+op3=*
+op4=*
+opkey1=96,0,1
+opkey2=97,0,1
+opkey3=98,0,1
+opkey4=99,0,1
+onload=tutorial3_cameracontrols_init(event_com, tutorial4_cameracontrols:mouseglow1, null)
+onop=tutorial3_cameracontrols_rotate(event_op, tutorial4_cameracontrols:left, tutorial4_cameracontrols:right, tutorial4_cameracontrols:up, tutorial4_cameracontrols:down, tutorial4_cameracontrols:left_arrow, tutorial4_cameracontrols:right_arrow, tutorial4_cameracontrols:up_arrow, tutorial4_cameracontrols:down_arrow)
+
+// 1079:1
+[universe]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+noclickthrough=yes
+onclick=tutorial3_cameracontrols_click(tutorial4_cameracontrols:instruction)
+
+// 1079:2
+[com_2]
+type=layer
+width=378
+height=261
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+
+// 1079:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+
+// 1079:4
+[com_4]
+type=layer
+x=14
+y=-31
+width=120
+height=80
+ymode=abs_centre
+layer=com_2
+
+// 1079:5
+[up]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+layer=com_4
+graphic="km_camerakeys,0"
+colour=0xffffffff
+
+// 1079:6
+[left]
+type=graphic
+x=11
+y=17
+width=32
+height=32
+ymode=abs_bottom
+layer=com_4
+graphic="km_camerakeys,0"
+colour=0xffffffff
+
+// 1079:7
+[down]
+type=graphic
+y=17
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+graphic="km_camerakeys,0"
+colour=0xffffffff
+
+// 1079:8
+[right]
+type=graphic
+x=11
+y=17
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic="km_camerakeys,0"
+colour=0xffffffff
+
+// 1079:9
+[up_arrow]
+type=graphic
+x=-2
+y=-3
+width=32
+height=32
+xmode=abs_centre
+layer=com_4
+graphic="km_camerakeys,3"
+colour=0xffffffff
+
+// 1079:10
+[left_arrow]
+type=graphic
+x=12
+y=18
+width=32
+height=32
+ymode=abs_bottom
+layer=com_4
+graphic="km_camerakeys,2"
+colour=0xffffffff
+
+// 1079:11
+[down_arrow]
+type=graphic
+x=-2
+y=18
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+graphic="km_camerakeys,4"
+colour=0xffffffff
+
+// 1079:12
+[right_arrow]
+type=graphic
+x=10
+y=18
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic="km_camerakeys,1"
+colour=0xffffffff
+
+// 1079:13
+[com_29]
+type=text
+x=14
+y=-31
+width=156
+height=70
+widthmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+textfont=p12_full
+text=Arrow keys rotate the camera.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1079:14
+[com_14]
+type=layer
+x=14
+y=45
+width=120
+height=42
+ymode=abs_centre
+layer=com_2
+
+// 1079:15
+[com_31]
+type=graphic
+width=22
+height=38
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+graphic="km_mousebuttonimages,3"
+colour=0xffffffff
+
+// 1079:16
+[mouseglow1]
+type=graphic
+width=22
+height=38
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+graphic="km_mousebuttonimages,4"
+trans=255
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1079:17
+[com_33]
+type=text
+x=14
+y=45
+width=156
+height=42
+widthmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+textfont=p12_full
+text=Click on the ground or minimap to walk.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1079:18
+[instruction]
+type=text
+y=216
+width=28
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+textfont=b12_full
+text=Please rotate the camera to begin.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff3030
+
+// 1079:19
+[com_19]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4260(event_com)
+
+// 1079:20
+[com_20]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1079:21
+[com_21]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4261(event_com)
+
+// 1079:22
+[com_22]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+
+// 1079:23
+[com_23]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+textfont=palatino_linotype_18pt_regular
+text=Controls
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)

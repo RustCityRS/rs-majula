@@ -1,0 +1,10 @@
+// 742's shop is interface 1265 (a Buy/Sell transaction panel) with side panel 1266, not 2011's
+// shop_template (620/621) that 647's shop script drives. Until the shop runs on 1265,
+// shopkeepers say so.
+[opnpc3,_shop_keeper] ~openshop_activenpc;
+
+[proc,openshop](inv $shop, int $shop_buy, int $shop_sell, int $shop_haggle, string $title)
+mes("This shop is not open on this world yet.");
+
+[proc,openshop_activenpc]
+mes("This shop is not open on this world yet.");

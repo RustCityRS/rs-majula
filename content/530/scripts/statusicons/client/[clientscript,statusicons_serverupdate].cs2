@@ -1,0 +1,9 @@
+// 1951
+[clientscript,statusicons_serverupdate]
+if (%multiway_icon = 1) {
+    if_sethide(statusicons:multiway_icon, false);
+} else {
+    %multiway_icon = 0;
+    if_sethide(statusicons:multiway_icon, true);
+    ~clientscript_1952;
+}

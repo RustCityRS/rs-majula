@@ -1,0 +1,10 @@
+// 4820
+[proc,clientscript_4820](int $int0)(enum)
+switch_int ($int0) {
+    case 1 :
+        return(~clientscript_4821(%varclan_2148));
+    case 2 :
+        return(~clientscript_4821(%varclan_2165));
+    case 3 :
+        return(~clientscript_4821(%varclan_2182));
+}

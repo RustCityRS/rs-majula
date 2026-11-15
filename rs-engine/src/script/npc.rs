@@ -1,6 +1,6 @@
 use crate::active_npc::ActiveNpc;
 use crate::core::{Engine, engine};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_entity::MoveSpeed;
 use rs_entity::NpcUid;
 use rs_entity::{InteractionTarget, ObjSerial};
@@ -8,6 +8,7 @@ use rs_grid::CoordGrid;
 use rs_pack::cache::VarValue;
 use rs_pack::types::{NpcMode, NpcStat};
 use rs_protocol::network::game::info_prot::NpcInfoProt;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptNpc};
 use rs_vm::state::*;
 
@@ -184,7 +185,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `Npc::set_interaction`
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8) {
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, op: u8) {
         let target = InteractionTarget::Obj { coord, id, serial };
         self.npc.set_interaction(target, op, false);
     }
@@ -195,7 +196,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `ActiveNpc::anim`
-    fn anim(&mut self, id: Option<u16>, delay: u8) {
+    fn anim(&mut self, id: Option<TypeId>, delay: u8) {
         self.anim(id, delay);
     }
 
@@ -389,7 +390,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** sets `self.npc.pathing.move_speed`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn run(&mut self, run: u8) {
         self.npc.pathing.move_speed = if run == 1 {
             MoveSpeed::Run
@@ -414,7 +415,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** sets `self.npc.hunt_mode`
-    fn set_hunt_mode(&mut self, mode: Option<u16>) {
+    fn set_hunt_mode(&mut self, mode: Option<TypeId>) {
         self.npc.hunt_mode = mode;
     }
 
@@ -424,7 +425,7 @@ impl ScriptNpc for ActiveNpc {
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
     /// **Calls:** `ActiveNpc::change_type`
-    fn change_type(&mut self, new_type: u16, duration: u64, reset: bool) {
+    fn change_type(&mut self, new_type: TypeId, duration: u64, reset: bool) {
         self.change_type(new_type, duration, reset);
     }
 
@@ -493,7 +494,7 @@ impl ScriptNpc for ActiveNpc {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptNpc` trait
-    fn spotanim(&mut self, id: u16, height: u16, delay: u16) {
+    fn spotanim(&mut self, id: TypeId, height: u16, delay: u16) {
         self.npc.info.spotanim = Some(id);
         self.npc.info.spotanim_height = Some(height);
         self.npc.info.spotanim_delay = Some(delay);

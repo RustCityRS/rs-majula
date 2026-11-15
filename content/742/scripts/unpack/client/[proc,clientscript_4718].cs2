@@ -1,0 +1,456 @@
+// 4718
+[proc,clientscript_4718](struct $struct0)(boolean)
+switch_struct ($struct0) {
+    case struct_1817 :
+        if (%emote_glassbox = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1818 :
+        if (%emote_climbrope = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1819 :
+        if (%emote_lean = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1806 :
+        if (%emote_glasswall = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1832 :
+        if (%emote_terrified = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1837 :
+        if (%sos_emote_doh = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1839 :
+        if (%sos_emote_stamp = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1836 :
+        if (%sos_emote_flap = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1838 :
+        if (%sos_emote_idea = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1834 :
+        if (%emote_zombie_walk = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1833 :
+        if (%emote_zombie_dance = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1840 :
+        if (%emote_bunny_hop = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1855 :
+        if (%emote_skillcape = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1835 :
+        if (%hw07_prog ! 12) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1841 :
+        if (%emote_xmas07 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1842 :
+        if (%emote_music = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1843 :
+        if (%emote_sops = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1844 :
+        if (%emote_atlum = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1845 :
+        if (%swept_hw08_emote = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1846 :
+        if (%emote_xmas08 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1847 :
+        if (%emote_tg08 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1849 :
+        if (%xmas09_emote = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1850 :
+        if (%varplayerbit_6095 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1851 :
+        if (%hw10_main ! 20) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1852 :
+        if (%varplayerbit_8688 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1853 :
+        if (%varplayerbit_8601 ! 534) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1831, struct_1830 :
+        if (%lost_tribe_quest < 7) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1848 :
+        if (%easter09_main < 85 & %easter10_main < 18 & %easter11_earned_sunbeam_crown = 0 & %varplayerbit_11036 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_1854 :
+        if (%easter11_earned_sunbeam_crown = 0 & %varplayerbit_11036 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2812 :
+        if (%varplayerbit_10138 < 100) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2658 :
+        if (testbit(%varplayer_2230, 0) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2654 :
+        if (testbit(%varplayer_2230, 1) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2651 :
+        if (testbit(%varplayer_2230, 2) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2652 :
+        if (testbit(%varplayer_2230, 3) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2657 :
+        if (testbit(%varplayer_2230, 4) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2661 :
+        if (testbit(%varplayer_2230, 5) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2653 :
+        if (testbit(%varplayer_2230, 6) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2650 :
+        if (testbit(%varplayer_2230, 7) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2659 :
+        if (testbit(%varplayer_2230, 8) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2660 :
+        if (testbit(%varplayer_2230, 9) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2655 :
+        if (testbit(%varplayer_2230, 10) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2656 :
+        if (testbit(%varplayer_2230, 11) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2749 :
+        if (%varplayerbit_9930 ! 15) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2662 :
+        if (testbit(%varplayer_2230, 12) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2663 :
+        if (testbit(%varplayer_2230, 13) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2664 :
+        if (testbit(%varplayer_2230, 14) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2665 :
+        if (testbit(%varplayer_2230, 15) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2666 :
+        if (testbit(%varplayer_2230, 16) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2667 :
+        if (testbit(%varplayer_2230, 17) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2935 :
+        if (testbit(%varplayer_2230, 18) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2936 :
+        if (testbit(%varplayer_2230, 19) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2937 :
+        if (testbit(%varplayer_2230, 20) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2938 :
+        if (testbit(%varplayer_2230, 21) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2939 :
+        if (testbit(%varplayer_2230, 22) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2940 :
+        if (testbit(%varplayer_2230, 23) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2941 :
+        if (testbit(%varplayer_2230, 24) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2942 :
+        if (testbit(%varplayer_2230, 25) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_9780 :
+        if (testbit(%varplayer_2230, 26) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_9781 :
+        if (testbit(%varplayer_2230, 27) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_9782 :
+        if (testbit(%varplayer_2230, 28) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_9783 :
+        if (testbit(%varplayer_2230, 29) = ^false) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_2943 :
+        if (%varplayerbit_10340 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11187 :
+        if (%varplayerbit_11633 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11188 :
+        if (%varplayerbit_11634 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11189 :
+        if (%varplayerbit_11635 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11190 :
+        if (%varplayerbit_11636 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11191 :
+        if (%varplayerbit_11637 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11192 :
+        if (%varplayerbit_11638 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11387 :
+        if (%varplayerbit_11677 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11388 :
+        if (%varplayerbit_11678 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11408 :
+        if (%varplayerbit_11733 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11409 :
+        if (%varplayerbit_11721 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_11410 :
+        if (%varplayerbit_11734 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_13876 :
+        if (%varplayerbit_12239 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case struct_13875 :
+        if (%varplayerbit_12240 = 0) {
+            return(false);
+        } else {
+            return(true);
+        }
+    case default :
+        return(true);
+}

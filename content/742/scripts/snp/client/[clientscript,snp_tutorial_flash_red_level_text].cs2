@@ -1,0 +1,12 @@
+// 2096
+[clientscript,snp_tutorial_flash_red_level_text]
+if (%snp_tut_flash_counter_client < 100) {
+    %snp_tut_flash_counter_client = calc(%snp_tut_flash_counter_client + 1);
+}
+if (%snp_tut_flash_counter_client = 50) {
+    if_setcolour(snp_tutorial_game_overlay:red_level, ^white);
+}
+if (%snp_tut_flash_counter_client = 100) {
+    if_setcolour(snp_tutorial_game_overlay:red_level, 0xff2323);
+    %snp_tut_flash_counter_client = 0;
+}

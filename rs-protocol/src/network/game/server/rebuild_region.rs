@@ -1,15 +1,28 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::packet::BitWriter;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol_macros::server_prot;
+
+#[cfg(all(since_530, before_647))]
+const LOCAL_ORIGIN: u16 = 6 << 3;
+
+#[cfg(all(since_530, before_647))]
+#[server_prot(RebuildRegion, Immediate, VarShort)]
+pub struct RebuildRegion {
+    pub player_x: u16,
+    pub player_z: u16,
+    pub player_plane: u8,
+    pub templates: Vec<Option<u32>>,
+    pub xtea_keys: Vec<[i32; 4]>,
+}
 
 #[cfg(since_647)]
 #[server_prot(RebuildRegion, Immediate, VarShort)]
@@ -23,7 +36,7 @@ pub struct RebuildRegion {
     pub xtea_keys: Vec<[i32; 4]>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl RebuildRegion {
     fn template_bytes(&self) -> usize {
         let bits: usize = self
@@ -33,17 +46,8 @@ impl RebuildRegion {
             .sum();
         (bits + 7) >> 3
     }
-}
 
-#[cfg(since_647)]
-impl ServerProtMessage for RebuildRegion {
-    fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.size);
-        buf.p1_alt3(self.map_type);
-        buf.p2_alt1(self.player_x >> 3);
-        buf.p2_alt1(self.player_z >> 3);
-        buf.p1_alt1(self.force as u8);
-
+    fn encode_templates(&self, buf: &mut Packet) {
         let bytes = self.template_bytes();
         let mut bits = Packet::new(bytes);
         let mut writer = BitWriter::new();
@@ -58,6 +62,56 @@ impl ServerProtMessage for RebuildRegion {
         }
         writer.finish(&mut bits);
         buf.pdata(&bits.data, 0, bytes);
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for RebuildRegion {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt3(LOCAL_ORIGIN + (self.player_x & 7));
+        buf.p2_alt3(self.player_x >> 3);
+        buf.p1_alt3(self.player_plane);
+        buf.p2_alt3(LOCAL_ORIGIN + (self.player_z & 7));
+        self.encode_templates(buf);
+        for keys in &self.xtea_keys {
+            for &key in keys {
+                buf.p4_alt3(key);
+            }
+        }
+        buf.p2(self.player_z >> 3);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.player_x)
+            + size_of_val(&self.player_x)
+            + size_of_val(&self.player_plane)
+            + size_of_val(&self.player_z)
+            + self.template_bytes()
+            + (self.xtea_keys.len() << 4)
+            + size_of_val(&self.player_z)
+    }
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for RebuildRegion {
+    fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_742)]
+        {
+            buf.p1_alt1(self.size);
+            buf.p1_alt3(self.map_type);
+            buf.p2_alt1(self.player_x >> 3);
+            buf.p2_alt1(self.player_z >> 3);
+            buf.p1_alt1(self.force as u8);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2_alt1(self.player_x >> 3);
+            buf.p1_alt2(self.force as u8);
+            buf.p2_alt2(self.player_z >> 3);
+            buf.p1_alt3(self.size);
+            buf.p1(self.map_type);
+        }
+        self.encode_templates(buf);
 
         for keys in &self.xtea_keys {
             for &key in keys {

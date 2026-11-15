@@ -1,0 +1,77 @@
+#testscript
+
+// 289's metal dragons (areas/area_karamja/scripts/metal_dragon.rs2). Each case breathes fire at a 99-hitpoint player twenty times, back
+// to full hitpoints before each breath, as
+// dragon_tests.rs2's do: a breath holds the dragon's next attack for four
+// ticks, and each tick ends the test's access to the player.
+
+// Behind an anti-dragon shield the close fire is at most 5, with 2011's
+// message, on 289's fire and breath.
+[label,test_metal_dragon_fire_behind_an_anti_dragon_shield_takes_at_most_5]
+def_player_uid $uid = setup_player("test_player");
+~test_skip_design;
+p_telejump(0_50_50_10_30);
+stat_advance(hitpoints, 130344310);
+inv_setslot(worn, ^wearpos_lhand, antidragonbreathshield, 1);
+npc_add(movecoord(coord, 1, 0, 0), bronze_dragon, 100);
+def_int $i = 0;
+while ($i < 20) {
+    stat_heal(hitpoints, 0, 100);
+    ~metal_dragon_fire;
+    test_tick(2);
+    if_close;
+    assert_true(p_finduid($uid));
+    assert_gte(stat(hitpoints), 94);
+    $i = add($i, 1);
+}
+assert_called_with("mes", "Your shield absorbs most of the dragon's fiery breath!");
+assert_called_with("spotanim_npc", "1,92,0");
+assert_called_with("npc_anim", "84,0");
+
+// Unprotected it reaches up to 50, and in twenty breaths past 10.
+// Protect from Magic does not lessen it (289's).
+[label,test_unprotected_metal_dragon_fire_takes_up_to_50]
+def_player_uid $uid = setup_player("test_player");
+~test_skip_design;
+p_telejump(0_50_50_10_38);
+stat_advance(hitpoints, 130344310);
+npc_add(movecoord(coord, 1, 0, 0), iron_dragon, 100);
+def_int $worst = 0;
+def_int $i = 0;
+while ($i < 20) {
+    stat_heal(hitpoints, 0, 100);
+    %prayer12 = ^true;
+    ~metal_dragon_fire;
+    test_tick(2);
+    if_close;
+    assert_true(p_finduid($uid));
+    $worst = max($worst, sub(99, stat(hitpoints)));
+    $i = add($i, 1);
+}
+assert_gt($worst, 10);
+assert_lte($worst, 50);
+
+// From afar the fire flies as 289's projectile, with 289's breath (seq 84),
+// and under antifire an unprotected hit is 15 less: at most 35.
+[label,test_far_metal_dragon_fire_under_antifire_takes_at_most_35]
+def_player_uid $uid = setup_player("test_player");
+~test_skip_design;
+p_telejump(0_50_50_10_46);
+stat_advance(hitpoints, 130344310);
+npc_add(movecoord(coord, 5, 0, 0), steel_dragon, 100);
+def_int $worst = 0;
+def_int $i = 0;
+while ($i < 20) {
+    stat_heal(hitpoints, 0, 100);
+    %dragonresist = add(map_clock, 600);
+    ~metal_dragon_dragonfire_far;
+    test_tick(2);
+    if_close;
+    assert_true(p_finduid($uid));
+    $worst = max($worst, sub(99, stat(hitpoints)));
+    $i = add($i, 1);
+}
+assert_gt($worst, 5);
+assert_lte($worst, 35);
+assert_called_with("mes", "Your potion slightly protects you from the heat of the dragon's breath.");
+assert_called_with("npc_anim", "84,0");

@@ -1,0 +1,3 @@
+// 5032
+[proc,clientscript_5032](int $int0)(int)
+return(calc($int0 / pow(2, 8) & 15));

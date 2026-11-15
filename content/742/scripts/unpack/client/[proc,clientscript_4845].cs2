@@ -1,0 +1,14 @@
+// 4845
+[proc,clientscript_4845](int $int0)
+if (~clientscript_4828(%varplayerbit_9558) = true) {
+    return;
+}
+switch_int (%varplayerbit_9558) {
+    case 1 :
+        %varplayerbit_9563 = $int0;
+    case 2 :
+        %varplayerbit_9572 = $int0;
+    case 3 :
+        %varplayerbit_9581 = $int0;
+}
+~clientscript_4846($int0);

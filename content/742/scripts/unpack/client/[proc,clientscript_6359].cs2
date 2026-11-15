@@ -1,0 +1,10 @@
+// 6359
+[proc,clientscript_6359]
+if (%varclient_1937 ! null) {
+    ~clientscript_6360(%varclient_1937);
+    %varclient_1937 = null;
+}
+if (%varclient_1938 ! null) {
+    ~clientscript_6364(%varclient_1938);
+    %varclient_1938 = null;
+}

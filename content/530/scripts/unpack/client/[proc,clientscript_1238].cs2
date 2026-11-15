@@ -1,0 +1,44 @@
+// 1238
+[proc,clientscript_1238]
+if (create_reply = -3) {
+    return;
+}
+if_setontimer(loginscreen:com_409, null);
+if_sethide(loginscreen:com_427, false);
+if_settext(loginscreen:com_428, "Create");
+if_setonclick(loginscreen:com_428, "clientscript_1237");
+if (create_reply = 2) {
+    ~clientscript_1174(loginscreen:com_410);
+}
+if_setcolour(loginscreen:com_413, 0x8c320a);
+if (create_reply = -4) {
+    if_settext(loginscreen:com_413, "There was an error contacting the server.<br>Please try using a different world.");
+} else if (create_reply = -5) {
+    if_settext(loginscreen:com_413, "Connection timed out.<br>Please try using a different world.");
+} else if (create_reply = -5) {
+    if_settext(loginscreen:com_413, "No response from server.<br>Please try using a different world.");
+} else if (create_reply = 3) {
+    if_settext(loginscreen:com_413, "There was an error contacting the create system.<br>Please try again.");
+} else if (create_reply = 7) {
+    if_settext(loginscreen:com_413, "The server is very busy.<br>Please try again in a minute.");
+} else if (create_reply = 9) {
+    if_settext(loginscreen:com_413, "You cannot create an account now.<br>Please try again later.");
+} else if (create_reply = 10) {
+    if_settext(loginscreen:com_413, "The date of birth you entered was invalid.<br>Please go back and try again.");
+} else if (create_reply = 20) {
+    if_settext(loginscreen:com_413, "That username is no longer available.<br>Please go back and choose again.");
+} else if (create_reply = 30) {
+    if_settext(loginscreen:com_413, "Your password was an invalid length.<br>Please try again.");
+} else if (create_reply = 31) {
+    if_settext(loginscreen:com_413, "Your password contained invalid characters.<br>Please try again.");
+} else if (create_reply = 32 | create_reply = 33) {
+    if_settext(loginscreen:com_413, "Your password is too easy to guess.<br>Please try again.");
+} else if (create_reply = 34 | create_reply = 35 | create_reply = 36) {
+    if_settext(loginscreen:com_413, "Your password is too similar to your username.<br>Please try again.");
+} else if (create_reply = 37) {
+    if_settext(loginscreen:com_413, "RuneScape has been updated!<br>Please reload this page and try again.");
+} else if (create_reply = 38) {
+    if_settext(loginscreen:com_413, "You cannot create an account at this time.<br>Please try again later.");
+} else {
+    if_settext(loginscreen:com_413, "Unexpected server response.<br>Please try again.");
+}
