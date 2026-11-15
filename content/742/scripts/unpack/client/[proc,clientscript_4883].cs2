@@ -1,0 +1,111 @@
+// 4883
+[proc,clientscript_4883](component $component0, string $string0, int $int1)
+def_int $int2 = ~clientscript_4964($component0);
+def_int $int3 = ~clientscript_4971($int2);
+def_component $component4 = op543($component0);
+def_component $component5 = op543($component4);
+def_component $component6 = ~clientscript_5216($int2);
+if ($component6 = null) {
+    $component6 = $component0;
+}
+def_string $string1 = "";
+def_int $int7 = 0;
+if (op718 = 1) {
+    switch_component ($component0) {
+        case interface_1258:com_560 :
+            $int1 = 1;
+            $string0 = "Build a new party room chair customisation.";
+            if (%varclan_2210 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_568 :
+            $int1 = 1;
+            $string0 = "Build a new party room table customisation.";
+            if (%varclan_2220 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_564 :
+            $int1 = 1;
+            $string0 = "Build a new flag customisation.";
+            if (%varclan_2240 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_572 :
+            $int1 = 1;
+            $string0 = "Build a new potted plant customisation.";
+            if (%varclan_2190 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_576 :
+            $int1 = 1;
+            $string0 = "Build a new sundial customisation.";
+            if (%varclan_2230 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_580 :
+            $int1 = 1;
+            $string0 = "Build a new keep flag customisation.";
+            if (%varclan_2200 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_584 :
+            $int1 = 1;
+            $string0 = "Build a new keep tapestry customisation.";
+            if (%varclan_2260 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_588 :
+            $int1 = 1;
+            $string0 = "Build a new keep banner customisation.";
+            if (%varclan_2270 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_592 :
+            $int1 = 1;
+            $string0 = "Build a new keep shield customisation.";
+            if (%varclan_2280 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_596 :
+            $int1 = 1;
+            $string0 = "Build a new keep fireplace customisation.";
+            if (%varclan_2250 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_600 :
+            $int1 = 1;
+            $string0 = "Build a new keep lower window customisation.";
+            if (%varclan_2290 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_604 :
+            $int1 = 1;
+            $string0 = "Build a new keep upper window customisation.";
+            if (%varclan_2300 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_608 :
+            $int1 = 1;
+            $string0 = "Build a new keep door customisation.";
+            if (%varclan_2310 > 0) {
+                $int7 = 1;
+            }
+        case interface_1258:com_612 :
+            $int1 = 1;
+            $string0 = "Build a new keep wall pattern customisation.";
+            if (%varclan_2320 > 0) {
+                $int7 = 1;
+            }
+        case default :
+            $string0 = "Build over: <~clientscript_4914($int3)>";
+    }
+    if ($int7 = 1) {
+        $string0 = "Build over <~clientscript_4914($int3)>";
+    }
+    if (if_getx($component4) < calc(if_getwidth($component5) / 2 - 30)) {
+        $int1 = 1;
+    }
+}
+if_setonmouserepeat($component0, "aif_tooltip(interface_1258:com_121, $component0, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouserepeat($component6, "aif_tooltip(interface_1258:com_121, $component0, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int1, event_mousex, event_mousey)");
+if_setonmouseleave($component0, "deltooltip(interface_1258:com_121)");

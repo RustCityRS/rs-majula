@@ -1,0 +1,12 @@
+// 6368
+[proc,clientscript_6368](int $int0)
+def_component $component1 = ~clientscript_6357($int0);
+def_component $component2 = null;
+def_int $int3 = -1;
+$component2, $int3 = ~clientscript_6348($int0);
+if ($component2 ! null) {
+    if_setsize(~clientscript_6358($component1), 0, 0, ^setsize_abs, ^setsize_abs);
+    if_setontimer($component1, "clientscript_6369($int0, event_com)");
+} else {
+    ~clientscript_6371($int0, $component1);
+}

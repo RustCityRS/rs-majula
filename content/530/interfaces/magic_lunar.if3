@@ -1,0 +1,621 @@
+// 430:0
+[tele_barb_out]
+type=graphic
+x=133
+y=66
+width=24
+height=24
+graphic=graphic_597
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 547, 597, 75, "Barbarian Teleport", "Teleports you to the Barbarian Outpost", astralrune, 2, lawrune, 2, firerune, 3, null, 0)
+
+// 430:1
+[cure_other]
+type=graphic
+x=163
+y=8
+width=24
+height=24
+graphic=graphic_609
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 559, 609, 68, "Cure Other", "Cure poisoned players", astralrune, 1, lawrune, 1, earthrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 559, 609, 68, "Cure Other", "Cure poisoned players", astralrune, 1, lawrune, 1, earthrune, 10, null, 0){assist_stat_magic}
+
+// 430:2
+[fertile_soil]
+type=graphic
+x=40
+y=123
+width=24
+height=24
+graphic=graphic_603
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 553, 603, 83, "Fertile Soil", "Fertilise a farming patch with super compost", astralrune, 3, naturerune, 2, earthrune, 15, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 553, 603, 83, "Fertile Soil", "Fertilise a farming patch with super compost", astralrune, 3, naturerune, 2, earthrune, 15, null, 0){assist_stat_magic}
+
+// 430:3
+[cure_group]
+type=graphic
+x=69
+y=66
+width=24
+height=24
+graphic=graphic_615
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 565, 615, 74, "Cure Group", "Cure poison on players", astralrune, 2, cosmicrune, 2, lawrune, 2, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 565, 615, 74, "Cure Group", "Cure poison on players", astralrune, 2, cosmicrune, 2, lawrune, 2, null, 0){assist_stat_magic}
+
+// 430:4
+[npc_contact]
+type=graphic
+x=133
+y=8
+width=24
+height=24
+graphic=graphic_618
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 568, 618, 67, "NPC Contact", "Speak with varied NPCs", astralrune, 1, cosmicrune, 1, airrune, 2, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 568, 618, 67, "NPC Contact", "Speak with varied NPCs", astralrune, 1, cosmicrune, 1, airrune, 2, null, 0){assist_stat_magic}
+
+// 430:5
+[energy_trans]
+type=graphic
+x=133
+y=153
+width=24
+height=24
+graphic=graphic_608
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 558, 608, 91, "Energy Transfer", "Spend hitpoints and SA energy to give another SA and run energy", astralrune, 3, lawrune, 2, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 558, 608, 91, "Energy Transfer", "Spend hitpoints and SA energy to give another SA and run energy", astralrune, 3, lawrune, 2, naturerune, 1, null, 0){assist_stat_magic}
+
+// 430:6
+[monster_examine]
+type=graphic
+x=101
+y=8
+width=24
+height=24
+graphic=graphic_627
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 577, 627, 66, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 577, 627, 66, "Monster Examine", "Detect the combat statistics of a monster", astralrune, 1, cosmicrune, 1, mindrune, 1, null, 0){assist_stat_magic}
+
+// 430:7
+[humidify]
+type=graphic
+x=8
+y=37
+width=24
+height=24
+graphic=graphic_628
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 578, 628, 68, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 578, 628, 68, "Humidify", "Fills certain vessels with water", astralrune, 1, waterrune, 3, firerune, 1, null, 0){assist_stat_magic}
+
+// 430:8
+[hunter_kit]
+type=graphic
+x=164
+y=37
+width=24
+height=24
+graphic=graphic_629
+transmitop=1
+op1=Cast
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 579, 629, 71, "Hunter Kit", "Get a kit of hunter gear", astralrune, 2, earthrune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 579, 629, 71, "Hunter Kit", "Get a kit of hunter gear", astralrune, 2, earthrune, 2, null, 0, null, 0){assist_stat_magic}
+
+// 430:9
+[stat_spy]
+type=graphic
+x=101
+y=66
+width=24
+height=24
+graphic=graphic_626
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 576, 626, 75, "Stat Spy", "Cast on another player to see their skill levels", astralrune, 2, cosmicrune, 2, bodyrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 576, 626, 75, "Stat Spy", "Cast on another player to see their skill levels", astralrune, 2, cosmicrune, 2, bodyrune, 5, null, 0){assist_stat_magic}
+
+// 430:10
+[dream]
+type=graphic
+x=101
+y=95
+width=24
+height=24
+graphic=graphic_630
+transmitop=1
+op1=Cast
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 580, 630, 79, "Dream", "Take a rest and restore hitpoints 3 times faster", astralrune, 2, cosmicrune, 1, bodyrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 580, 630, 79, "Dream", "Take a rest and restore hitpoints 3 times faster", astralrune, 2, cosmicrune, 1, bodyrune, 5, null, 0){assist_stat_magic}
+
+// 430:11
+[plank_make]
+type=graphic
+x=163
+y=124
+width=24
+height=24
+graphic=graphic_631
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 581, 631, 86, "Plank Make", "Turn logs into planks", astralrune, 2, earthrune, 15, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 581, 631, 86, "Plank Make", "Turn logs into planks", astralrune, 2, earthrune, 15, naturerune, 1, null, 0){assist_stat_magic}
+
+// 430:12
+[spellbook_swap]
+type=graphic
+x=101
+y=182
+width=24
+height=24
+graphic=graphic_632
+transmitop=1
+op1=Cast
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 582, 632, 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astralrune, 3, cosmicrune, 2, lawrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 582, 632, 96, "Spellbook Swap", "Change to another spellbook for 1 spell cast", astralrune, 3, cosmicrune, 2, lawrune, 1, null, 0){assist_stat_magic}
+
+// 430:13
+[magic_imbue]
+type=graphic
+x=8
+y=123
+width=24
+height=24
+graphic=graphic_602
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 552, 602, 82, "Magic Imbue", "Combine runes without a talisman", astralrune, 2, firerune, 7, waterrune, 7, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 552, 602, 82, "Magic Imbue", "Combine runes without a talisman", astralrune, 2, firerune, 7, waterrune, 7, null, 0){assist_stat_magic}
+
+// 430:14
+[vengeance]
+type=graphic
+x=37
+y=182
+width=24
+height=24
+graphic=graphic_614
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 564, 614, 94, "Vengeance", "Rebound damage to an opponent", astralrune, 4, deathrune, 2, earthrune, 10, null, 0)
+
+// 430:15
+[burn_fuel]
+type=graphic
+x=37
+y=8
+width=24
+height=24
+graphic=graphic_593
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 543, 593, 65, "Bake Pie", "Bake pies without a stove", astralrune, 1, firerune, 5, waterrune, 4, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 543, 593, 65, "Bake Pie", "Bake pies without a stove", astralrune, 1, firerune, 5, waterrune, 4, null, 0){assist_stat_magic}
+
+// 430:16
+[home_teleport]
+type=graphic
+x=8
+y=8
+width=24
+height=24
+graphic=graphic_356
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 356, 406, 0, "Lunar Home Teleport", "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+
+// 430:17
+[tele_fish]
+type=graphic
+x=101
+y=124
+width=24
+height=24
+graphic=graphic_605
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 555, 605, 85, "Fishing Guild Teleport", "Teleports you to the Fishing Guild", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
+
+// 430:18
+[tele_khazard]
+type=graphic
+x=40
+y=95
+width=24
+height=24
+graphic=graphic_599
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 549, 599, 78, "Khazard Teleport", "Teleports you to Port Khazard", astralrune, 2, lawrune, 2, waterrune, 4, null, 0)
+
+// 430:19
+[vengeance_other]
+type=graphic
+x=8
+y=182
+width=24
+height=24
+graphic=graphic_611
+targetmask=npc,player
+opbase=bb
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 561, 611, 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astralrune, 3, deathrune, 2, earthrune, 10, null, 0)
+
+// 430:20
+[tele_moonclan]
+type=graphic
+x=37
+y=37
+width=24
+height=24
+graphic=graphic_594
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 544, 594, 69, "Moonclan Teleport", "Teleports you to Moonclan Island", astralrune, 2, lawrune, 1, earthrune, 2, null, 0)
+
+// 430:21
+[tele_cather]
+type=graphic
+x=8
+y=153
+width=24
+height=24
+graphic=graphic_606
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 556, 606, 87, "Catherby Teleport", "Teleports you to Catherby", astralrune, 3, lawrune, 3, waterrune, 10, null, 0)
+
+// 430:22
+[string_jewel]
+type=graphic
+x=133
+y=95
+width=24
+height=24
+graphic=graphic_600
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 550, 600, 80, "String Jewellery", "String amulets without wool", astralrune, 2, earthrune, 10, waterrune, 5, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 550, 600, 80, "String Jewellery", "String amulets without wool", astralrune, 2, earthrune, 10, waterrune, 5, null, 0){assist_stat_magic}
+
+// 430:23
+[cure_me]
+type=graphic
+x=133
+y=37
+width=24
+height=24
+graphic=graphic_612
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 562, 612, 71, "Cure Me", "Cure Poison", astralrune, 2, cosmicrune, 2, lawrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 562, 612, 71, "Cure Me", "Cure Poison", astralrune, 2, cosmicrune, 2, lawrune, 1, null, 0){assist_stat_magic}
+
+// 430:24
+[tele_waterbirth]
+type=graphic
+x=10
+y=66
+width=24
+height=24
+graphic=graphic_595
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 545, 595, 72, "Waterbirth Teleport", "Teleports you to Waterbirth Island", astralrune, 2, lawrune, 1, waterrune, 1, null, 0)
+
+// 430:25
+[superglass]
+type=graphic
+x=9
+y=95
+width=24
+height=24
+graphic=graphic_598
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 548, 598, 77, "Superglass Make", "Make glass without a furnace", astralrune, 2, firerune, 6, airrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 548, 598, 77, "Superglass Make", "Make glass without a furnace", astralrune, 2, firerune, 6, airrune, 10, null, 0){assist_stat_magic}
+
+// 430:26
+[supply_setslot]
+type=graphic
+x=69
+y=123
+width=24
+height=24
+graphic=graphic_601
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 551, 601, 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astralrune, 3, earthrune, 12, waterrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 551, 601, 84, "Boost Potion Share", "Shares a potion with up to 4 nearby players", astralrune, 3, earthrune, 12, waterrune, 10, null, 0){assist_stat_magic}
+
+// 430:27
+[rest_pot_share]
+type=graphic
+x=163
+y=95
+width=24
+height=24
+graphic=graphic_604
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 554, 604, 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astralrune, 2, earthrune, 10, waterrune, 10, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 554, 604, 81, "Stat Restore Pot Share", "Shares a potion with up to 4 nearby players", astralrune, 2, earthrune, 10, waterrune, 10, null, 0){assist_stat_magic}
+
+// 430:28
+[tele_ghorrock]
+type=graphic
+x=69
+y=153
+width=24
+height=24
+graphic=graphic_607
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 557, 607, 89, "Ice Plateau Teleport", "Teleports you to Ice Plateau", astralrune, 3, lawrune, 3, waterrune, 8, null, 0)
+
+// 430:29
+[heal_other]
+type=graphic
+x=163
+y=153
+width=24
+height=24
+graphic=graphic_610
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 560, 610, 92, "Heal Other", "Transfers up to 75% of hitpoints to another player", astralrune, 3, lawrune, 3, bloodrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 560, 610, 92, "Heal Other", "Transfers up to 75% of hitpoints to another player", astralrune, 3, lawrune, 3, bloodrune, 1, null, 0){assist_stat_magic}
+
+// 430:30
+[heal_group]
+type=graphic
+x=69
+y=182
+width=24
+height=24
+graphic=graphic_616
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 566, 616, 95, "Heal Group", "Transfers up to 75% of hitpoints to a group", astralrune, 4, bloodrune, 3, lawrune, 6, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 566, 616, 95, "Heal Group", "Transfers up to 75% of hitpoints to a group", astralrune, 4, bloodrune, 3, lawrune, 6, null, 0){assist_stat_magic}
+
+// 430:31
+[com_31]
+type=graphic
+x=101
+y=37
+width=24
+height=24
+graphic=graphic_633
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 583, 633, 71, "Ourania Teleport", "Teleports you to Ourania rune altar", astralrune, 2, lawrune, 1, earthrune, 6, null, 0)
+
+// 430:32
+[cure_plant]
+type=graphic
+x=69
+y=8
+width=24
+height=24
+graphic=graphic_617
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 567, 617, 66, "Cure Plant", "Cures disease on farming patch", astralrune, 1, earthrune, 8, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic_lunar:tooltip, 567, 617, 66, "Cure Plant", "Cures disease on farming patch", astralrune, 1, earthrune, 8, null, 0, null, 0){assist_stat_magic}
+
+// 430:33
+[tele_group_moonclan]
+type=graphic
+x=69
+y=37
+width=24
+height=24
+graphic=graphic_619
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 569, 619, 70, "Tele Group Moonclan", "Teleports players to Moonclan Island", astralrune, 2, lawrune, 1, earthrune, 4, null, 0)
+
+// 430:34
+[tele_group_waterbirth]
+type=graphic
+x=40
+y=66
+width=24
+height=24
+graphic=graphic_620
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 570, 620, 73, "Tele Group Waterbirth", "Teleports players to Waterbirth Island", astralrune, 2, lawrune, 1, waterrune, 5, null, 0)
+
+// 430:35
+[tele_group_barbarian]
+type=graphic
+x=163
+y=66
+width=24
+height=24
+graphic=graphic_621
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 571, 621, 76, "Tele Group Barbarian", "Teleports players to the Barbarian Outpost", astralrune, 2, lawrune, 2, firerune, 6, null, 0)
+
+// 430:36
+[tele_group_khazard]
+type=graphic
+x=69
+y=95
+width=24
+height=24
+graphic=graphic_622
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 572, 622, 79, "Tele Group Khazard", "Teleports players to Port Khazard", astralrune, 2, lawrune, 2, waterrune, 8, null, 0)
+
+// 430:37
+[tele_group_fishing_guild]
+type=graphic
+x=133
+y=124
+width=24
+height=24
+graphic=graphic_623
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 573, 623, 86, "Tele Group Fishing Guild", "Teleports players to the Fishing Guild", astralrune, 3, lawrune, 3, waterrune, 14, null, 0)
+
+// 430:38
+[tele_group_catherby]
+type=graphic
+x=40
+y=153
+width=24
+height=24
+graphic=graphic_624
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 574, 624, 88, "Tele Group Catherby", "Teleports players to Catherby", astralrune, 3, lawrune, 3, waterrune, 15, null, 0)
+
+// 430:39
+[tele_group_ghorrock]
+type=graphic
+x=101
+y=153
+width=24
+height=24
+graphic=graphic_625
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_lunar:tooltip, 575, 625, 90, "Tele Group Ice Plateau", "Teleports players to Ice Plateau", astralrune, 3, lawrune, 3, waterrune, 16, null, 0)
+
+// 430:40
+[order0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1701
+transmitop=1
+op1=Sort
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(0)
+
+// 430:41
+[order1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1702
+transmitop=1,10
+op1=Sort
+op10= 
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(1)
+
+// 430:42
+[order2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1702
+transmitop=1,10
+op1=Sort
+op10= 
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(2)
+
+// 430:43
+[order_icon0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1704
+transmitop=10
+op10= 
+
+// 430:44
+[order_icon1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1705
+transmitop=10
+op10=  
+
+// 430:45
+[order_icon2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1706
+transmitop=10
+op10=  
+
+// 430:46
+[tooltip]
+type=layer
+width=190
+height=261
+opbase=bb
+
+// 430:47
+[tooltip2_bounds]
+type=layer
+y=29
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+
+// 430:48
+[tooltip2]
+type=layer
+x=3
+y=2
+width=42
+height=14
+layer=tooltip2_bounds

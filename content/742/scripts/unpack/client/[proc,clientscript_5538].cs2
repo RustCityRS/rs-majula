@@ -1,0 +1,41 @@
+// 5538
+[proc,clientscript_5538](component $component0)
+def_string $string0 = "";
+def_int $int1 = 0;
+switch_component ($component0) {
+    case interface_1178:com_2 :
+        $int1 = %varclient_1806;
+    case interface_1178:com_3 :
+        $int1 = %varclient_1807;
+    case interface_1178:com_4 :
+        $int1 = %varclient_1808;
+    case interface_1178:com_5 :
+        $int1 = %varclient_1809;
+    case interface_1178:com_6 :
+        $int1 = %varclient_1810;
+    case interface_1178:com_30 :
+        $int1 = %varclient_1808;
+}
+switch_int (%varclient_1725) {
+    case 1 :
+        $string0 = oc_name(enum(int, obj, enum_5350, $int1));
+    case 2 :
+        $string0 = oc_name(enum(int, obj, enum_5353, $int1));
+    case 3 :
+        $string0 = oc_name(enum(int, obj, enum_5356, $int1));
+    case 4 :
+        $string0 = oc_name(enum(int, obj, enum_5359, $int1));
+    case 11 :
+        if ($int1 = 1) {
+            $string0 = oc_name(enum(int, obj, enum_5732, %varplayerbit_4293));
+        } else if ($int1 = 2) {
+            $string0 = oc_name(enum(int, obj, enum_5733, %varplayerbit_11047));
+        } else {
+            $string0 = oc_name(enum(int, obj, enum_5731, $int1));
+        }
+    case 12 :
+        $string0 = oc_name(enum(int, obj, enum_5734, $int1));
+}
+if ($int1 > 0 & $int1 <= ~clientscript_5550) {
+    ~script1163($component0, -1, interface_1178:com_0, $string0, 25, 190);
+}

@@ -1,0 +1,79 @@
+// 787
+[clientscript,booth_init]
+cc_deleteall(equip_screen2:worn_items_layer);
+def_int $int0 = 0;
+while ($int0 < 14) {
+    cc_create(equip_screen2:worn_items_layer, 5, $int0);
+    if ($int0 ! 6 & $int0 ! 8 & $int0 ! 11) {
+        if (inv_getobj(worn, $int0) ! null) {
+            cc_setsize(36, 32, 0, 0);
+            if ($int0 = 0) {
+                cc_setposition(~clientscript_788(equip_screen2:headslot, 2, 2), 0, 0);
+            } else if ($int0 = 1) {
+                cc_setposition(~clientscript_788(equip_screen2:capeslot, 2, 2), 0, 0);
+            } else if ($int0 = 2) {
+                cc_setposition(~clientscript_788(equip_screen2:necklaceslot, 2, 2), 0, 0);
+            } else if ($int0 = 3) {
+                cc_setposition(~clientscript_788(equip_screen2:weaponslot, 2, 2), 0, 0);
+            } else if ($int0 = 4) {
+                cc_setposition(~clientscript_788(equip_screen2:bodyslot, 2, 2), 0, 0);
+            } else if ($int0 = 5) {
+                cc_setposition(~clientscript_788(equip_screen2:shieldslot, 2, 2), 0, 0);
+            } else if ($int0 = 7) {
+                cc_setposition(~clientscript_788(equip_screen2:legslot, 2, 2), 0, 0);
+            } else if ($int0 = 9) {
+                cc_setposition(~clientscript_788(equip_screen2:handslot, 2, 2), 0, 0);
+            } else if ($int0 = 10) {
+                cc_setposition(~clientscript_788(equip_screen2:footslot, 2, 2), 0, 0);
+            } else if ($int0 = 12) {
+                cc_setposition(~clientscript_788(equip_screen2:ringslot, 2, 2), 0, 0);
+            } else if ($int0 = 13) {
+                cc_setposition(~clientscript_788(equip_screen2:arrowslot, 2, 2), 0, 0);
+            }
+            cc_setobject(inv_getobj(worn, $int0), inv_getnum(worn, $int0));
+            cc_setopbase(oc_name(inv_getobj(worn, $int0)));
+            cc_setop(1, "Remove<col=ff9040>");
+            cc_setop(2, "Operate<col=ff9040>");
+            cc_setop(10, "Examine<col=ff9040>");
+            cc_setgraphicshadow(0x111111);
+            cc_setoutline(1);
+        } else {
+            cc_setsize(32, 32, 0, 0);
+            if ($int0 = 0) {
+                cc_setposition(~clientscript_788(equip_screen2:headslot, 2, 2), 0, 0);
+                cc_setgraphic(156);
+            } else if ($int0 = 1) {
+                cc_setposition(~clientscript_788(equip_screen2:capeslot, 2, 2), 0, 0);
+                cc_setgraphic(157);
+            } else if ($int0 = 2) {
+                cc_setposition(~clientscript_788(equip_screen2:necklaceslot, 2, 2), 0, 0);
+                cc_setgraphic(158);
+            } else if ($int0 = 3) {
+                cc_setposition(~clientscript_788(equip_screen2:weaponslot, 2, 2), 0, 0);
+                cc_setgraphic(159);
+            } else if ($int0 = 4) {
+                cc_setposition(~clientscript_788(equip_screen2:bodyslot, 2, 2), 0, 0);
+                cc_setgraphic(161);
+            } else if ($int0 = 5) {
+                cc_setposition(~clientscript_788(equip_screen2:shieldslot, 2, 2), 0, 0);
+                cc_setgraphic(162);
+            } else if ($int0 = 7) {
+                cc_setposition(~clientscript_788(equip_screen2:legslot, 2, 2), 0, 0);
+                cc_setgraphic(163);
+            } else if ($int0 = 9) {
+                cc_setposition(~clientscript_788(equip_screen2:handslot, 2, 2), 0, 0);
+                cc_setgraphic(164);
+            } else if ($int0 = 10) {
+                cc_setposition(~clientscript_788(equip_screen2:footslot, 2, 2), 0, 0);
+                cc_setgraphic(165);
+            } else if ($int0 = 12) {
+                cc_setposition(~clientscript_788(equip_screen2:ringslot, 2, 2), 0, 0);
+                cc_setgraphic(160);
+            } else if ($int0 = 13) {
+                cc_setposition(~clientscript_788(equip_screen2:arrowslot, 2, 2), 0, 0);
+                cc_setgraphic(166);
+            }
+        }
+    }
+    $int0 = calc($int0 + 1);
+}

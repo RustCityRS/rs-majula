@@ -1,0 +1,186 @@
+// 182:0
+[com_0]
+type=layer
+x=5
+y=6
+width=16
+height=16
+layer=com_8_
+
+// 182:1
+[advice]
+type=text
+y=23
+width=10
+height=112
+widthmode=minus
+xmode=abs_centre
+textfont=p12_full
+textlineheight=18
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=logout_init
+
+// 182:2
+[button1_container]
+type=layer
+y=139
+width=155
+height=36
+xmode=abs_centre
+
+// 182:3
+[com_2]
+type=graphic
+width=64
+height=36
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button1_container
+graphic="miscgraphics,14"
+tiling=yes
+colour=0xffffffff
+
+// 182:4
+[com_3]
+type=graphic
+width=36
+height=36
+ymode=abs_centre
+layer=button1_container
+graphic="miscgraphics,7"
+colour=0xffffffff
+
+// 182:5
+[com_4]
+type=graphic
+width=36
+height=36
+xmode=abs_right
+ymode=abs_centre
+layer=button1_container
+graphic="miscgraphics,8"
+colour=0xffffffff
+
+// 182:6
+[button1]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button1_container
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf7f0df
+transmitop=1
+op1=*
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+
+// 182:7
+[button2_container]
+type=layer
+y=183
+width=155
+height=36
+xmode=abs_centre
+
+// 182:8
+[com_8_]
+type=layer
+x=4
+y=222
+width=181
+height=28
+hide=yes
+transmitop=1
+op1=Toggle
+
+// 182:9
+[com_9_]
+type=text
+x=25
+width=25
+widthmode=minus
+heightmode=minus
+layer=com_8_
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 182:10
+[com_7]
+type=graphic
+width=64
+height=36
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button2_container
+graphic="miscgraphics,14"
+tiling=yes
+
+// 182:11
+[com_8]
+type=graphic
+width=36
+height=36
+ymode=abs_centre
+layer=button2_container
+graphic="miscgraphics,7"
+
+// 182:12
+[com_9]
+type=graphic
+width=36
+height=36
+xmode=abs_right
+ymode=abs_centre
+layer=button2_container
+graphic="miscgraphics,8"
+
+// 182:13
+[button2]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button2_container
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf7f0df
+transmitop=1
+op1=*
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+
+// 182:14
+[com_14]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+hide=yes
+onload=aif_checkbox_selected_layer_onload(event_com)
+
+// 182:15
+[com_15]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+onload=aif_checkbox_deselected_layer_onload(event_com)

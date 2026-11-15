@@ -4,6 +4,7 @@ use rs_entity::{MoveStrategy, PathingEntity};
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_pack::types::BlockWalk;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::state::{LocRef, ObjRef};
 use rs_vm::subject::ScriptSubject;
@@ -122,7 +123,7 @@ impl Engine {
     pub(crate) fn entity_validate_target(
         y: u8,
         target: &InteractionTarget,
-        subject_type: Option<u16>,
+        subject_type: Option<TypeId>,
         user37: Option<u64>,
         allow_delayed_npc: bool,
     ) -> bool {

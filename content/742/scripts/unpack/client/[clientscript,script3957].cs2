@@ -1,0 +1,15 @@
+// 3957
+[clientscript,script3957](component $component0)
+def_graphic $graphic1 = if_getgraphic($component0);
+switch_graphic ($graphic1) {
+    case default :
+        return;
+    case graphic_4117 :
+        if_setgraphic($component0, graphic_4122);
+    case graphic_4118 :
+        if_setgraphic($component0, graphic_4123);
+    case graphic_4119 :
+        if_setgraphic($component0, graphic_4124);
+}
+if_setsize(loginscreen:toolbar_layer, 133, 16, ^setsize_abs, ^setsize_abs);
+if_setontimer(loginscreen:tool_bar_vol_slider, "script3961(0, loginscreen:tool_bar_vol_slider)");

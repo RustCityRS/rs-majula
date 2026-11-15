@@ -1,0 +1,29 @@
+// 2930
+[clientscript,loginscreen_options_button_timer](component $component0, boolean $boolean1, int $int2, component $component3, component $component4, component $component5, int $int6, int $int7, int $int8, int $int9)
+if ($int7 < $int8) {
+    $int7 = calc($int7 + 1);
+    if_setontimer($component0, "loginscreen_options_button_timer($component0, $boolean1, $int2, $component3, $component4, $component5, $int6, $int7, $int8, $int9)");
+    return;
+}
+def_int $int10 = if_getwidth($component0);
+if ($boolean1 = true) {
+    if (calc($int10 - $int2) < $int6) {
+        if_setsize($component0, min(calc($int10 + $int9), calc($int6 + $int2)), 31, ^setsize_abs, ^setsize_abs);
+    } else {
+        if_setontimer($component0, null);
+        if_setsize($component0, calc($int6 + $int2), 31, ^setsize_abs, ^setsize_abs);
+    }
+    if_setgraphic($component3, "login_lobby_button,11");
+    if_setgraphic($component4, "login_lobby_button,10");
+    if_setgraphic($component5, "login_lobby_button,10");
+} else {
+    if ($int10 > 32) {
+        if_setsize($component0, max(calc($int10 - $int9), 32), 31, ^setsize_abs, ^setsize_abs);
+    } else {
+        if_setontimer($component0, null);
+        if_setsize($component0, 32, 31, ^setsize_abs, ^setsize_abs);
+    }
+    if_setgraphic($component3, "login_lobby_button,9");
+    if_setgraphic($component4, "login_lobby_button,8");
+    if_setgraphic($component5, "login_lobby_button,8");
+}

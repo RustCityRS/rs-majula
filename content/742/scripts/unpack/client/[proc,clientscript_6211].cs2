@@ -1,0 +1,31 @@
+// 6211
+[proc,clientscript_6211](component $component0, component $component1, boolean $boolean2, int $int3)
+def_graphic $graphic4 = 10872;
+def_graphic $graphic5 = 10876;
+def_graphic $graphic6 = 10871;
+def_graphic $graphic7 = 10875;
+def_int $rgb8 = 0xf9c465;
+def_int $rgb9 = 0xe5b051;
+if ($int3 = 1) {
+    if ($component1 ! null) {
+        if_setcolour($component1, $rgb8);
+    }
+    if ($component0 ! null) {
+        if ($boolean2 = true) {
+            if_setgraphic($component0, $graphic4);
+        } else {
+            if_setgraphic($component0, $graphic5);
+        }
+    }
+} else {
+    if ($component1 ! null) {
+        if_setcolour($component1, $rgb9);
+    }
+    if ($component0 ! null) {
+        if ($boolean2 = true) {
+            if_setgraphic($component0, $graphic6);
+        } else {
+            if_setgraphic($component0, $graphic7);
+        }
+    }
+}

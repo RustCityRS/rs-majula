@@ -1,0 +1,11 @@
+// 5017
+[proc,clientscript_5017](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, int $int5, int $int6)
+if_setgraphic($component0, $graphic2);
+if_setgraphic($component1, $graphic3);
+if ($int6 >= 5) {
+    if_setcolour($component0, op879($int4));
+    if_setcolour($component1, op879($int5));
+} else {
+    if_setcolour($component0, op879(6716));
+    if_setcolour($component1, op879(6716));
+}

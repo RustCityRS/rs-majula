@@ -1,0 +1,14 @@
+// 827
+[clientscript,script827](int $int0)
+def_int $int1 = 0;
+if (clientclock >= calc($int0 + 32) & clientclock < calc($int0 + 140)) {
+    if_settext(afr_newspaper_interface:title, "Varrock Herald");
+    if_settext(afr_newspaper_interface:slogan, "Covering all of Misthalin and beyond.");
+    if_settext(afr_newspaper_interface:price, "1 gp");
+    if_settext(afr_newspaper_interface:byline, "Oo'glog Ogresses Open Health Spa!");
+} else {
+    if_settext(afr_newspaper_interface:title, " ");
+    if_settext(afr_newspaper_interface:slogan, " ");
+    if_settext(afr_newspaper_interface:price, " ");
+    if_settext(afr_newspaper_interface:byline, " ");
+}

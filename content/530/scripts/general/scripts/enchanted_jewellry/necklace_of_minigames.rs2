@@ -1,0 +1,41 @@
+// 289's games necklace (enchanted_jewellry/necklace_of_minigames.rs2); Rub is
+// op 4 in 2011 (cache 786). 289 offers Burthorpe's Games Rooms; 2011 adds the
+// Barbarian Outpost, and the Corporeal Beast once Summer's End is done (2011
+// wiki, Games necklace, 29 April 2011: "Burthorpe Games Room", "Corporeal
+// Beast (only after completion of Summer's End)", "Barbarian Outpost"). The
+// Outpost option is worded as void-634's (GamesNecklace.kt) and lands in its
+// barbarian_outpost_teleport (2519-2521 x 3572-3574). The Corporeal Beast
+// waits for the Summer's End port; no source found gives its option's words.
+// The messages are 289's: no source gives 2011's.
+[opheld4,_necklace_of_minigames]
+// https://youtu.be/sB2oqPgruaM?si=7EKqWR-U07U1ncoR&t=272
+mes("You rub the necklace...");
+def_obj $item = last_item;
+def_int $slot = last_slot;
+p_delay(1);
+def_int $choice = ~p_choice3_header("Burthorpe Games Rooms.", 1, "Barbarian Outpost.", 2, "Nowhere.", 3, "Where would you like to teleport to?");
+if($choice = 3) {
+    return;
+}
+if (~wilderness_level(coord) > 20) {
+    // yes it actually says this in osrs
+    mes("A mysterious force blocks your teleport spell!");
+    mes("You can't use this teleport after level 20 wilderness.");
+    return;
+}
+if (~pre_tele_checks(coord) = false) {
+    return;
+}
+if ($choice = 1) {
+    ~player_teleport_normal(map_findsquare(0_34_77_31_12, 0, 2, ^map_findsquare_lineofwalk));
+} else {
+    ~player_teleport_normal(map_findsquare(0_39_55_24_53, 0, 2, ^map_findsquare_lineofwalk));
+}
+def_namedobj $new_necklace = oc_param($item, next_obj_stage);
+if ($new_necklace = null) {
+    inv_delslot(inv, $slot);
+    mes("Your Games Necklace crumbles to dust.");
+} else {
+    inv_setslot(inv, $slot, $new_necklace, 1);
+    mes("Your Games Necklace has <~pluralise(oc_param($new_necklace, charges), "use")> left.");
+}

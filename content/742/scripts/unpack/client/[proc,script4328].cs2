@@ -1,0 +1,7 @@
+// 4328
+[proc,script4328](component $component0)
+if (%clan_flag_sanction_varclan = 0) {
+    if_setgraphic($component0, enum(int, graphic, enum_3721, %clan_region_varclan));
+} else {
+    if_setgraphic($component0, enum(int, graphic, enum_3721, 0));
+}

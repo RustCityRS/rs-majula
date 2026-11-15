@@ -1,0 +1,7 @@
+// 1730
+[proc,component_flashtext_start](component $component0, int $int1)
+if (($int1 = -1 & if_find($component0) = true | cc_find($component0, $int1) = true) & %flashing_int ! 1) {
+    cc_sethide(false);
+    %flashing_int = 1;
+    cc_setontimer("script2196($component0, $int1, cc_gettext)");
+}

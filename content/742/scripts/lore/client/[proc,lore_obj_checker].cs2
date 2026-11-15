@@ -1,0 +1,51 @@
+// 767
+[proc,lore_obj_checker](obj $obj0)(obj, obj, obj, obj, obj, obj, obj, obj, obj, obj, int, int, int, int, int, int, int, int, int, int)
+def_obj $objarray0(10);
+def_int $intarray1(10);
+def_int $int1 = 0;
+if (oc_param($obj0, param_538) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_538);
+    $intarray1($int1) = oc_param($obj0, param_539);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_540) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_540);
+    $intarray1($int1) = oc_param($obj0, param_541);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_542) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_542);
+    $intarray1($int1) = oc_param($obj0, param_543);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_697) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_697);
+    $intarray1($int1) = oc_param($obj0, param_698);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_699) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_699);
+    $intarray1($int1) = oc_param($obj0, param_700);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_701) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_701);
+    $intarray1($int1) = oc_param($obj0, param_702);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_703) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_703);
+    $intarray1($int1) = oc_param($obj0, param_704);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_705) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_705);
+    $intarray1($int1) = oc_param($obj0, param_706);
+    $int1 = calc($int1 + 1);
+}
+if (oc_param($obj0, param_707) ! null) {
+    $objarray0($int1) = oc_param($obj0, param_707);
+    $intarray1($int1) = oc_param($obj0, param_708);
+    $int1 = calc($int1 + 1);
+}
+return($objarray0(0), $objarray0(1), $objarray0(2), $objarray0(3), $objarray0(4), $objarray0(5), $objarray0(6), $objarray0(7), $objarray0(8), $objarray0(9), $intarray1(0), $intarray1(1), $intarray1(2), $intarray1(3), $intarray1(4), $intarray1(5), $intarray1(6), $intarray1(7), $intarray1(8), $intarray1(9));

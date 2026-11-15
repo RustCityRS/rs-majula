@@ -1,0 +1,25 @@
+// 6214
+[proc,clientscript_6214]
+if (%varplayer_2611 = 1) {
+    switch_int (map_lang) {
+        case 0 :
+            if_setgraphic(lobbyscreen:com_388, 10948);
+        case 1 :
+            if_setgraphic(lobbyscreen:com_388, 10950);
+        case 2 :
+            if_setgraphic(lobbyscreen:com_388, 10949);
+        case 3 :
+            if_setgraphic(lobbyscreen:com_388, 10951);
+    }
+    if_setposition(lobbyscreen:com_395, if_getx(lobbyscreen:com_395), 130, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen:com_398, if_getx(lobbyscreen:com_398), 345, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen:com_396, if_getx(lobbyscreen:com_396), 185, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen:com_397, if_getx(lobbyscreen:com_397), 232, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen:com_403, if_getx(lobbyscreen:com_403), 302, ^setpos_abs_left, ^setpos_abs_top);
+    if_setposition(lobbyscreen:com_390, if_getx(lobbyscreen:com_390), 372, ^setpos_abs_left, ^setpos_abs_top);
+    if_settext(lobbyscreen:com_395, "An email from noreply@email.runescape.com has been sent to your inbox.");
+    if_settext(lobbyscreen:com_396, "In addition to all the members' benefits, you'll also receive these great rewards so hurry and check your inbox!");
+    if_sethide(lobbyscreen:com_404, true);
+    if_setsize(lobbyscreen:com_390, 300, if_getheight(lobbyscreen:com_390), ^setsize_abs, ^setsize_abs);
+    if_setonvartransmit(lobbyscreen:com_382, null);
+}

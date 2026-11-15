@@ -1,0 +1,13 @@
+// 5263
+[proc,clientscript_5263](component $component0)
+def_component $component1 = magic_lunar:com_78;
+def_component $component2 = magic_lunar:com_79;
+if (%varplayerbit_9814 = 1) {
+    if_setposition($component1, if_getx($component0), if_gety($component0), ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide($component0, true);
+    if_sethide($component1, false);
+} else if (%varplayerbit_9815 = 1) {
+    if_setposition($component2, if_getx($component0), if_gety($component0), ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide($component0, true);
+    if_sethide($component2, false);
+}

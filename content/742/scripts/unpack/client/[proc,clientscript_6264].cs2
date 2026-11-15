@@ -1,0 +1,68 @@
+// 6264
+[proc,clientscript_6264]()(obj, int, obj, int, int, int, any, any)
+def_obj $obj0 = null;
+def_int $int1 = 0;
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_int $int4 = %varplayerbit_7295;
+def_int $int5 = -1;
+def_int $int6 = -1;
+if (stat_base(fishing) >= 76) {
+    $obj0 = cert_raw_shark;
+    $int5 = 383;
+    $obj2 = cert_raw_swordfish;
+    $int6 = 371;
+} else if (stat_base(fishing) >= 50) {
+    $obj0 = cert_raw_swordfish;
+    $int5 = 371;
+    $obj2 = cert_raw_lobster;
+    $int6 = 377;
+} else if (stat_base(fishing) >= 40) {
+    $obj0 = cert_raw_lobster;
+    $int5 = 377;
+    $obj2 = cert_raw_tuna;
+    $int6 = 359;
+} else if (stat_base(fishing) >= 35) {
+    $obj0 = cert_raw_tuna;
+    $int5 = 359;
+    $obj2 = cert_raw_salmon;
+    $int6 = 331;
+} else if (stat_base(fishing) >= 30) {
+    $obj0 = cert_raw_salmon;
+    $int5 = 331;
+    $obj2 = cert_raw_pike;
+    $int6 = 349;
+} else if (stat_base(fishing) >= 25) {
+    $obj0 = cert_raw_pike;
+    $int5 = 349;
+    $obj2 = cert_raw_trout;
+    $int6 = 335;
+} else if (stat_base(fishing) >= 20) {
+    $obj0 = cert_raw_trout;
+    $int5 = 335;
+    $obj2 = cert_raw_herring;
+    $int6 = 345;
+} else if (stat_base(fishing) >= 10) {
+    $obj0 = cert_raw_herring;
+    $int5 = 345;
+    $obj2 = cert_raw_sardine;
+    $int6 = 345;
+} else if (stat_base(fishing) >= 5) {
+    $obj0 = cert_raw_sardine;
+    $int5 = 327;
+    $obj2 = cert_raw_shrimp;
+    $int6 = 317;
+} else {
+    $obj0 = cert_raw_shrimp;
+    $int5 = 317;
+    $obj2 = null;
+    $int6 = -1;
+}
+if ($obj2 = null) {
+    $int1 = calc(%varplayerbit_7295 / 2);
+} else {
+    $int1 = calc(%varplayerbit_7295 * 2 / 3 / 2);
+    $int3 = calc(%varplayerbit_7295 / 3 / 2);
+    $int4 = calc($int4 - ($int1 + $int3) * 2);
+}
+return($obj0, $int1, $obj2, $int3, calc(2 * ($int1 + $int3)), $int4, $int5, $int6);

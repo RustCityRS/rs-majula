@@ -1,0 +1,24 @@
+// 1971
+[proc,seer_varcupdate](int $int0, component $component1)
+switch_int ($int0) {
+    case 0 :
+        if (%seer_a < 0 | %seer_a > 25) {
+            %seer_a = 0;
+        }
+        if_settext($component1, enum(int, string, enum_2121, %seer_a));
+    case 1 :
+        if (%seer_b < 0 | %seer_b > 25) {
+            %seer_b = 0;
+        }
+        if_settext($component1, enum(int, string, enum_2121, %seer_b));
+    case 2 :
+        if (%seer_c < 0 | %seer_c > 25) {
+            %seer_c = 0;
+        }
+        if_settext($component1, enum(int, string, enum_2121, %seer_c));
+    case 3 :
+        if (%seer_d < 0 | %seer_d > 25) {
+            %seer_d = 0;
+        }
+        if_settext($component1, enum(int, string, enum_2121, %seer_d));
+}

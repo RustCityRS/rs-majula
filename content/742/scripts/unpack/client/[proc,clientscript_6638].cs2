@@ -1,0 +1,5 @@
+// 6638
+[proc,clientscript_6638](component $component0, int $int1, component $component2, int $int3)
+if (cc_find($component2, $int3) = true) {
+    if_setgraphic($component0, cc_getgraphic);
+}

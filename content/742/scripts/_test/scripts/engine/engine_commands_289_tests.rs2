@@ -1,0 +1,24 @@
+#testscript
+
+// 289's engine commands that 647's engine.rs2 did not declare, though the
+// engine has their ops (rs-vm): content ported from 289 calls them.
+
+// date_minutes and date_runeday share one clock: a runeday is a day since 27
+// February 2002, 11745 days after 1 January 1970.
+[label,test_289_s_date_commands_share_the_clock]
+assert_gt(date_runeday, 8000)
+assert_eq(calc(date_minutes / 1440 - date_runeday), 11745)
+
+// An npc that is not walking is where it is going.
+[label,test_npc_destination_of_a_standing_npc_is_its_square]
+setup_player("test_player")
+p_telejump(0_50_50_20_20)
+npc_add(movecoord(coord, 2, 0, 0), man, 50)
+assert_true(npc_destination = npc_coord)
+
+// p_temprun and set_skill_level run on the active player.
+[label,test_p_temprun_and_set_skill_level_run]
+setup_player("test_player")
+p_temprun;
+set_skill_level(5);
+assert_true(true)

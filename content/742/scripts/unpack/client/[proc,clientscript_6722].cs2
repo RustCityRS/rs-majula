@@ -1,0 +1,5 @@
+// 6722
+[proc,clientscript_6722](string $string0)
+def_int $int0 = stringwidth($string0, op1028(questlist_v4:com_383));
+if_setsize(questlist_v4:com_2, calc($int0 + 30), if_getheight(questlist_v4:com_2), ^setsize_abs, ^setsize_abs);
+if_settext(questlist_v4:com_383, $string0);

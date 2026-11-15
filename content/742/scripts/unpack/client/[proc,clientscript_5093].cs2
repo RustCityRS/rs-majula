@@ -1,0 +1,6 @@
+// 5093
+[proc,clientscript_5093](component $component0, int $int1)
+%varclient_995 = max(calc(%varclient_995 - 1), 0);
+if (cc_find($component0, $int1) = true) {
+    cc_settext(~clientscript_5094);
+}

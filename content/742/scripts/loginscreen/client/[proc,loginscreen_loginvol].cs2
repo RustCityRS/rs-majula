@@ -1,0 +1,20 @@
+// 2007
+[proc,loginscreen_loginvol](component $component0, component $component1, int $int2, int $int3)
+if_setdraggable($component1, $component0, -1);
+def_int $int4 = calc(if_getwidth($component0) - if_getwidth($component1));
+def_int $int5 = scale(detailget_loginvol, 255, $int4);
+if_setposition($component1, $int5, 0, ^setpos_abs_left, ^setpos_abs_top);
+if (detailget_loginvol > 0) {
+    if ($int3 = 1) {
+        if_setgraphic(loginscreen:tool_bar_vol_button, graphic_4123);
+    } else {
+        if_setgraphic(loginscreen:tool_bar_vol_button, graphic_4118);
+    }
+} else if ($int3 = 1) {
+    if_setgraphic(loginscreen:tool_bar_vol_button, graphic_4124);
+} else {
+    if_setgraphic(loginscreen:tool_bar_vol_button, graphic_4119);
+}
+if ($int2 = 1) {
+    %loginscreen_musicvol_last = detailget_loginvol;
+}

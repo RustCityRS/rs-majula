@@ -1,0 +1,36 @@
+// 750:0
+[topstat_run]
+type=layer
+width=57
+height=34
+noclickthrough=yes
+onload=topstat_run_button_init(topstat_run:button)
+
+// 750:1
+[button]
+type=graphic
+width=57
+height=34
+layer=topstat_run
+graphic=graphic_423
+transmitop=1
+op1=Turn run mode on
+onload=topstat_set_graphic_lore
+onvartransmit=topstat_set_graphic_lore{lore_incubators_var}
+onstattransmit=clientscript_815{summoning}
+
+// 750:2
+[text]
+type=text
+x=29
+y=15
+width=24
+height=14
+layer=topstat_run
+textfont=fontmetrics_494
+text=100
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800
+onload=topstat_run_text_init(event_com)

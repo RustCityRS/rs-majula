@@ -1,0 +1,22 @@
+// 1468
+[proc,bank_v2_get_tab](int $int0)(int)
+$int0 = calc($int0 + 1);
+if ($int0 <= %bank_tab_1) {
+    return(2);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2)) {
+    return(3);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3)) {
+    return(4);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4)) {
+    return(5);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5)) {
+    return(6);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5 + %bank_tab_6)) {
+    return(7);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5 + %bank_tab_6 + %bank_tab_7)) {
+    return(8);
+} else if ($int0 <= calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5 + %bank_tab_6 + %bank_tab_7 + %bank_tab_8)) {
+    return(9);
+} else {
+    return(1);
+}

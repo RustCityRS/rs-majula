@@ -1,0 +1,475 @@
+// 193:0
+[ice_rush]
+type=graphic
+x=64
+y=36
+width=24
+height=24
+graphic=graphic_375
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 325, 375, 58, "Ice Rush", "A single target ice attack", chaosrune, 2, deathrune, 2, waterrune, 2, null, 0)
+
+// 193:1
+[ice_blitz]
+type=graphic
+x=151
+y=120
+width=24
+height=24
+graphic=graphic_377
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 327, 377, 82, "Ice Blitz", "A single target strong ice attack", deathrune, 2, bloodrune, 2, waterrune, 3, null, 0)
+
+// 193:2
+[ice_burst]
+type=graphic
+x=19
+y=92
+width=24
+height=24
+graphic=graphic_376
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 326, 376, 70, "Ice Burst", "A multi-target ice attack", chaosrune, 4, deathrune, 2, waterrune, 4, null, 0)
+
+// 193:3
+[ice_barrage]
+type=graphic
+x=110
+y=176
+width=24
+height=24
+graphic=graphic_378
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 328, 378, 94, "Ice Barrage", "A multi-target strong ice attack", deathrune, 4, bloodrune, 2, waterrune, 6, null, 0)
+
+// 193:4
+[blood_rush]
+type=graphic
+x=19
+y=36
+width=24
+height=24
+graphic=graphic_383
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 333, 383, 56, "Blood Rush", "A single target blood attack", chaosrune, 2, deathrune, 2, bloodrune, 1, null, 0)
+
+// 193:5
+[blood_blitz]
+type=graphic
+x=110
+y=120
+width=24
+height=24
+graphic=graphic_385
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 335, 385, 80, "Blood Blitz", "A single target strong blood attack", deathrune, 2, bloodrune, 4, null, 0, null, 0)
+
+// 193:6
+[blood_burst]
+type=graphic
+x=151
+y=64
+width=24
+height=24
+graphic=graphic_384
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 334, 384, 68, "Blood Burst", "A multi-target blood attack", chaosrune, 4, deathrune, 2, bloodrune, 2, null, 0)
+
+// 193:7
+[blood_barrage]
+type=graphic
+x=64
+y=176
+width=24
+height=24
+graphic=graphic_386
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 336, 386, 92, "Blood Barrage", "A multi-target strong blood attack", deathrune, 4, bloodrune, 4, soulrune, 1, null, 0)
+
+// 193:8
+[smoke_rush]
+type=graphic
+x=64
+y=8
+width=24
+height=24
+graphic=graphic_379
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 329, 379, 50, "Smoke Rush", "A single target smoke attack", chaosrune, 2, deathrune, 2, firerune, 1, airrune, 1)
+
+// 193:9
+[smoke_blitz]
+type=graphic
+x=151
+y=92
+width=24
+height=24
+graphic=graphic_381
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 331, 381, 74, "Smoke Blitz", "A single target strong smoke attack", deathrune, 2, bloodrune, 2, firerune, 2, airrune, 2)
+
+// 193:10
+[smoke_burst]
+type=graphic
+x=19
+y=64
+width=24
+height=24
+graphic=graphic_380
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 330, 380, 62, "Smoke Burst", "A multi-target smoke attack", chaosrune, 4, deathrune, 2, firerune, 2, airrune, 2)
+
+// 193:11
+[smoke_barrage]
+type=graphic
+x=110
+y=148
+width=24
+height=24
+graphic=graphic_382
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 332, 382, 86, "Smoke Barrage", "A multi-target strong smoke attack", deathrune, 4, bloodrune, 2, firerune, 4, airrune, 4)
+
+// 193:12
+[shadow_rush]
+type=graphic
+x=110
+y=8
+width=24
+height=24
+graphic=graphic_387
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 337, 387, 52, "Shadow Rush", "A single target shadow attack", chaosrune, 2, deathrune, 2, airrune, 1, soulrune, 1)
+
+// 193:13
+[shadow_blitz]
+type=graphic
+x=19
+y=120
+width=24
+height=24
+graphic=graphic_389
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 339, 389, 76, "Shadow Blitz", "A single target strong shadow attack", deathrune, 2, bloodrune, 2, airrune, 2, soulrune, 2)
+
+// 193:14
+[shadow_burst]
+type=graphic
+x=64
+y=64
+width=24
+height=24
+graphic=graphic_388
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 338, 388, 64, "Shadow Burst", "A multi-target shadow attack", chaosrune, 4, deathrune, 2, airrune, 1, soulrune, 2)
+
+// 193:15
+[shadow_barrage]
+type=graphic
+x=151
+y=148
+width=24
+height=24
+graphic=graphic_390
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 340, 390, 88, "Shadow Barrage", "A multi-target strong shadow attack", deathrune, 4, bloodrune, 2, airrune, 4, soulrune, 3)
+
+// 193:16
+[shroud_rush]
+type=graphic
+x=151
+y=36
+width=24
+height=24
+graphic=graphic_1574
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 1568, 1574, 61, "Miasmic Rush", "A single target miasmic attack", pvpw_staff, 1, chaosrune, 2, earthrune, 1, soulrune, 1)
+
+// 193:17
+[shroud_blitz]
+type=graphic
+x=64
+y=148
+width=24
+height=24
+graphic=graphic_1573
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 1567, 1573, 85, "Miasmic Blitz", "A single target strong miasmic attack", pvpw_staff, 1, bloodrune, 2, earthrune, 3, soulrune, 3)
+
+// 193:18
+[shroud_burst]
+type=graphic
+x=110
+y=92
+width=24
+height=24
+graphic=graphic_1575
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 1569, 1575, 73, "Miasmic Burst", "A multi-target miasmic attack", pvpw_staff, 1, chaosrune, 4, earthrune, 2, soulrune, 2)
+
+// 193:19
+[shroud_barrage]
+type=graphic
+x=19
+y=204
+width=24
+height=24
+graphic=graphic_1572
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 1566, 1572, 97, "Miasmic Barrage", "A multi-target strong miasmic attack", pvpw_staff, 1, bloodrune, 4, earthrune, 4, soulrune, 4)
+
+// 193:20
+[teleport1]
+type=graphic
+x=151
+y=8
+width=24
+height=24
+graphic=graphic_391
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 341, 391, 54, "Paddewwa Teleport", "A teleportation spell", lawrune, 2, firerune, 1, airrune, 1, null, 0)
+
+// 193:21
+[teleport2]
+type=graphic
+x=110
+y=36
+width=24
+height=24
+graphic=graphic_392
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 342, 392, 60, "Senntisten Teleport", "A teleportation spell", lawrune, 2, soulrune, 1, null, 0, null, 0)
+
+// 193:22
+[teleport3]
+type=graphic
+x=110
+y=64
+width=24
+height=24
+graphic=graphic_393
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 343, 393, 66, "Kharyrll Teleport", "A teleportation spell", lawrune, 2, bloodrune, 1, null, 0, null, 0)
+
+// 193:23
+[teleport4]
+type=graphic
+x=64
+y=92
+width=24
+height=24
+graphic=graphic_394
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 344, 394, 72, "Lassar Teleport", "A teleportation spell", lawrune, 2, waterrune, 4, null, 0, null, 0)
+
+// 193:24
+[teleport5]
+type=graphic
+x=64
+y=120
+width=24
+height=24
+graphic=graphic_395
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 345, 395, 78, "Dareeyak Teleport", "A teleportation spell", lawrune, 2, firerune, 3, airrune, 2, null, 0)
+
+// 193:25
+[teleport6]
+type=graphic
+x=19
+y=148
+width=24
+height=24
+graphic=graphic_396
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 346, 396, 84, "Carrallangar Teleport", "A teleportation spell", lawrune, 2, soulrune, 2, null, 0, null, 0)
+
+// 193:26
+[teleport7]
+type=graphic
+x=19
+y=176
+width=24
+height=24
+graphic=graphic_397
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 347, 397, 90, "Annakarl Teleport", "A teleportation spell", lawrune, 2, bloodrune, 2, null, 0, null, 0)
+
+// 193:27
+[teleport8]
+type=graphic
+x=151
+y=176
+width=24
+height=24
+graphic=graphic_398
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 348, 398, 96, "Ghorrock Teleport", "A teleportation spell", lawrune, 2, waterrune, 8, null, 0, null, 0)
+
+// 193:28
+[teleport_home]
+type=graphic
+x=19
+y=8
+width=24
+height=24
+graphic=graphic_356
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic_zaros:tooltip, 356, 406, 0, "Edgeville Home Teleport", "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+
+// 193:29
+[order0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1701
+transmitop=1,10
+op1=Sort
+op10= 
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(0)
+
+// 193:30
+[order1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1702
+transmitop=1,10
+op1=Sort
+op10=  
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(1)
+
+// 193:31
+[order2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1702
+transmitop=1,10
+op1=Sort
+op10=  
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(2)
+
+// 193:32
+[order_icon0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1704
+transmitop=10
+op10=  
+
+// 193:33
+[order_icon1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1705
+transmitop=10
+op10=   
+
+// 193:34
+[order_icon2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1706
+transmitop=10
+op10=   
+
+// 193:35
+[tooltip]
+type=layer
+width=190
+height=261
+
+// 193:36
+[tooltip2_bounds]
+type=layer
+y=29
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+transmitop=10
+op10= 
+
+// 193:37
+[tooltip2]
+type=layer
+x=3
+y=2
+width=42
+height=14
+layer=tooltip2_bounds
+transmitop=10
+op10= 

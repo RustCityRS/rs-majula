@@ -1,0 +1,3 @@
+// 3282
+[clientscript,rand_map_tooltip](component $component0, int $int1, component $component2, string $string0)
+~script3364($component0, $int1, $component2, $string0, 25, if_getwidth(if_getlayer($component2)), 11, 11);

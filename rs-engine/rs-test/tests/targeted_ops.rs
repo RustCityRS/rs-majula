@@ -32,6 +32,7 @@ use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::calls_for;
 use rs_vm::trigger::ServerTriggerType;
 
@@ -56,22 +57,22 @@ const SNOWBALL: i32 = (1061 << 16) | 8;
 /// Lumbridge's spawn, with open ground east of it (see `pathfinding.rs`).
 const SPAWN: (u16, u16) = (3222, 3218);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
-fn inv(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn inv(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .invs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no inv {name}"))
+        .id
 }
 
 /// A fresh world with one player logged in and standing at `x, z`.
@@ -92,7 +93,7 @@ fn hold(engine: &mut Engine, pid: u16, slot: u16, obj: u16) {
         .harness_player_mut(pid)
         .and_then(|p| p.invs.get_mut(&inv))
         .expect("backpack transmitted at login")
-        .set(slot, obj, 1);
+        .set(slot, TypeId::new(obj), 1);
 }
 
 #[test]
@@ -215,7 +216,7 @@ fn a_ground_target_approaches_its_tile() {
 #[test]
 fn a_ground_target_is_refused_where_the_client_could_not_aim() {
     runner::on_loaded_engine(|engine| {
-        let tinderbox = obj(engine, "tinderbox") as i32;
+        let tinderbox = obj(engine, "tinderbox").int();
         // modern:wind_strike aims at npcs and players, not tiles.
         let spell = (192 << 16) | 25;
         let (x, z) = SPAWN;
@@ -284,12 +285,12 @@ fn item_on_ground_obj(engine: &mut Engine) {
     let logs = obj(engine, "logs");
     let (x, z) = FIRE_TILE;
     let mut client = player_at(engine, "op_t_obj", x, z);
-    hold(engine, client.pid, 0, tinderbox);
+    hold(engine, client.pid, 0, tinderbox.g2());
     engine.harness_add_obj(x, 0, z, logs, 1);
 
     let mut p = ClientPacket::new();
-    p.p2_alt1(tinderbox as i32)
-        .p2_alt1(logs as i32)
+    p.p2_alt1(tinderbox.int())
+        .p2_alt1(logs.int())
         .p2(0)
         .p4_alt2(BACKPACK)
         .p1_alt1(0)
@@ -329,10 +330,10 @@ fn item_on_ground_obj(engine: &mut Engine) {
 fn item_on_loc(engine: &mut Engine) {
     let tinderbox = obj(engine, "tinderbox");
     let mut client = player_at(engine, "op_t_loc", TILE.0, TILE.1);
-    hold(engine, client.pid, 3, tinderbox);
+    hold(engine, client.pid, 3, tinderbox.g2());
 
     let mut p = ClientPacket::new();
-    p.p2_alt2(tinderbox as i32)
+    p.p2_alt2(tinderbox.int())
         .p2_alt2(3)
         .p2(3450)
         .p4_alt2(BACKPACK)
@@ -352,7 +353,7 @@ fn item_on_loc(engine: &mut Engine) {
     assert!(
         matches!(
             player.interaction.target,
-            Some(InteractionTarget::Loc { id: 1276, .. })
+            Some(InteractionTarget::Loc { id, .. }) if id == TypeId::new(1276)
         ),
         "targets the tree"
     );
@@ -419,7 +420,7 @@ fn item_on_player(engine: &mut Engine) {
         .expect("second login");
     engine.harness_telejump(other.pid, x + 1, 0, z);
     engine.cycle();
-    hold(engine, client.pid, 0, tinderbox);
+    hold(engine, client.pid, 0, tinderbox.g2());
     assert!(
         engine
             .harness_player(client.pid)
@@ -435,7 +436,7 @@ fn item_on_player(engine: &mut Engine) {
         .p2_alt1(0)
         .p4(BACKPACK)
         .p1_alt3(0)
-        .p2_alt1(tinderbox as i32);
+        .p2_alt1(tinderbox.int());
     client.send(ClientProt::OpPlayerT, &p.finish());
     engine.harness_inputs();
 
@@ -447,7 +448,7 @@ fn item_on_player(engine: &mut Engine) {
     );
     assert_eq!(
         player.interaction.target_subject_com,
-        Some(tinderbox as i32),
+        Some(tinderbox.int()),
         "keyed on the used item"
     );
 }
@@ -458,10 +459,10 @@ fn forged_item_is_dropped(engine: &mut Engine) {
     let tinderbox = obj(engine, "tinderbox");
     let logs = obj(engine, "logs");
     let mut client = player_at(engine, "op_t_forged", TILE.0, TILE.1);
-    hold(engine, client.pid, 0, tinderbox);
+    hold(engine, client.pid, 0, tinderbox.g2());
 
     let mut p = ClientPacket::new();
-    p.p2_alt2(logs as i32)
+    p.p2_alt2(logs.int())
         .p2_alt2(0)
         .p2(3450)
         .p4_alt2(BACKPACK)
@@ -493,8 +494,8 @@ fn a_forged_spell_source_is_dropped(engine: &mut Engine) {
     };
 
     let mut client = player_at(engine, "op_t_stray_obj", TILE.0, TILE.1);
-    hold(engine, client.pid, 0, tinderbox);
-    client.send(ClientProt::OpLocT, &on_tree(wind_strike, tinderbox as i32));
+    hold(engine, client.pid, 0, tinderbox.g2());
+    client.send(ClientProt::OpLocT, &on_tree(wind_strike, tinderbox.int()));
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(
@@ -504,7 +505,7 @@ fn a_forged_spell_source_is_dropped(engine: &mut Engine) {
     assert_eq!(player.last_use_item, None, "and no item is used");
 
     let mut client = player_at(engine, "op_t_no_obj", TILE.0, TILE.1);
-    hold(engine, client.pid, 0, tinderbox);
+    hold(engine, client.pid, 0, tinderbox.g2());
     client.send(ClientProt::OpLocT, &on_tree(BACKPACK, NO_OBJ));
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();

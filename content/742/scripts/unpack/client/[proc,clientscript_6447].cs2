@@ -1,0 +1,23 @@
+// 6447
+[proc,clientscript_6447](component $component0, int $int1, int $int2, int $int3)
+if (if_getgraphic(interface_1311:com_1) = 3030) {
+    return;
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+$int2 = calc($int2 - if_getwidth($component0) / 2);
+if (cc_find($component0, $int1) = true) {
+    if ($int2 > 0) {
+        $int5 = ~script686(calc(cc_getmodelangle_y - 10), 2048);
+    } else if ($int2 < 0) {
+        $int5 = calc((cc_getmodelangle_y + 10) % 2048);
+    }
+    if ($int3 = 1) {
+        if ($int5 > 1024) {
+            $int5 = max($int5, 1572);
+        } else {
+            $int5 = min($int5, 512);
+        }
+    }
+    cc_setmodelangle(cc_getmodelxof, cc_getmodelyof, cc_getmodelangle_x, $int5, cc_getmodelangle_z, cc_getmodelzoom);
+}

@@ -1,0 +1,8 @@
+// 5073
+[proc,clientscript_5073](boolean $boolean0)
+if_sethide(interface_1111:com_18, $boolean0);
+if ($boolean0 = true) {
+    if_sethide(interface_1111:com_108, false);
+} else {
+    if_sethide(interface_1111:com_108, true);
+}

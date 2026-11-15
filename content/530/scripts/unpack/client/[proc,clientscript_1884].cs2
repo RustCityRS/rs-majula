@@ -1,0 +1,21 @@
+// 1884
+[proc,clientscript_1884](component $component0, int $int1, int $int2, int $rgb3, graphic $graphic4, graphic $graphic5, int $int6, int $int7)
+if ($int7 < 24) {
+    if (cc_find($component0, $int1) = true) {
+        cc_setcolour($rgb3);
+    }
+    if (cc_find($component0, $int2) = true) {
+        cc_setgraphic($graphic4);
+    }
+} else {
+    if (cc_find($component0, $int1) = true) {
+        if ($int6 ! -1) {
+            cc_setcolour(0x776442);
+        } else {
+            cc_setcolour($rgb3);
+        }
+    }
+    if (cc_find($component0, $int2) = true) {
+        cc_setgraphic($graphic5);
+    }
+}

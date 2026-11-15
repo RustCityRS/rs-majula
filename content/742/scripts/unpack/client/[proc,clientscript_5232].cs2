@@ -1,0 +1,13 @@
+// 5232
+[proc,clientscript_5232](component $component0, int $int1)
+if (spline_length(0) = 5 & %tutorial3_cutscene_tracker = 2) {
+    if ($int1 = 1) {
+        cam_movealong(0, 1, 800, 700, 1, 1);
+        if_setoncamfinished($component0, "clientscript_5232($component0, 2)");
+        return;
+    }
+    if ($int1 = 2) {
+        cam_movealong(0, 2, 700, 40, 1, 2);
+    }
+}
+if_setoncamfinished($component0, null);

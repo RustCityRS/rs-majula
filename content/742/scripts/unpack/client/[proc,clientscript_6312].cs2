@@ -1,0 +1,102 @@
+// 6312
+[proc,clientscript_6312](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+cc_deleteall($component1);
+cc_deleteall($component5);
+def_obj $obj7 = inv_getobj(poh_furniture_menu_inv, calc($int0 - 1));
+if ($obj7 = null | $obj7 = poh_null_furniture_object) {
+    if_sethide($component2, true);
+    if_sethide($component3, true);
+    if_sethide($component4, true);
+    if_sethide($component5, true);
+    if_sethide($component6, true);
+    return;
+}
+if_sethide($component2, false);
+if_sethide($component3, false);
+if_sethide($component5, false);
+cc_create($component5, ^iftype_graphic, 0);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(12, 4, ^setpos_abs_left, ^setpos_abs_top);
+cc_setobject_nonum($obj7, 1);
+cc_setoutline(1);
+cc_setgraphicshadow(0x302020);
+cc_create($component5, ^iftype_text, 1);
+cc_setsize(60, calc(32 + 4), ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext("Level <tostring(oc_param($obj7, param_23))>");
+cc_create($component5, ^iftype_text, 2);
+cc_setsize(60, 12, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext(oc_name($obj7));
+cc_create($component5, ^iftype_text, 3);
+cc_setsize(60, 12, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(0xcccccc);
+cc_settextshadow(true);
+def_string $string0 = oc_param($obj7, param_2522);
+if (string_length($string0) <= 0) {
+    $string0 = ~clientscript_6313("", oc_param($obj7, param_211), oc_param($obj7, param_212));
+    $string0 = ~clientscript_6313($string0, oc_param($obj7, param_213), oc_param($obj7, param_214));
+    $string0 = ~clientscript_6313($string0, oc_param($obj7, param_215), oc_param($obj7, param_216));
+    $string0 = ~clientscript_6313($string0, oc_param($obj7, param_217), oc_param($obj7, param_218));
+    $string0 = ~clientscript_6313($string0, oc_param($obj7, param_219), oc_param($obj7, param_220));
+    $string0 = ~clientscript_6313($string0, oc_param($obj7, param_221), oc_param($obj7, param_222));
+}
+cc_settext($string0);
+if (testbit(%varclient_841, $int0) = ^false) {
+    if_sethide($component4, true);
+    if_sethide($component6, false);
+} else {
+    if_sethide($component4, false);
+    if_sethide($component6, true);
+}
+def_int $int8 = 0;
+if (testbit(%varclient_841, 0) = ^true) {
+    $int8 = 1;
+}
+cc_create($component1, ^iftype_text, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+op1310("Make All");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 1);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+op1310("Make X");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 2);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+op1310("Make 10");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 3);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+op1310("Make 5");
+if ($int8 = 0) {
+    cc_sethide(true);
+}
+cc_create($component1, ^iftype_text, 4);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if ($int8 = 0) {
+    op1310("Build");
+} else {
+    op1310("Make 1");
+}

@@ -1,0 +1,352 @@
+// 469:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+colour=0x2d2406
+fill=yes
+
+// 469:1
+[com_1]
+type=model
+x=-58
+y=145
+width=648
+height=195
+layer=contents
+model=model_19486
+modelorigin=22,-128
+modelangle=309,1996,0
+modelzoom=505
+modelanim=zep_balloon_journey_castlewars_entrana
+
+// 469:2
+[com_2]
+type=model
+x=-78
+y=-25
+width=683
+height=357
+layer=contents
+model=model_19487
+modelorigin=25,-46
+modelangle=309,1996,0
+modelzoom=505
+
+// 469:3
+[castle]
+type=text
+x=65
+y=232
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Castle
+colour=0x2d2406
+
+// 469:4
+[wars]
+type=text
+x=74
+y=251
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Wars
+colour=0x2d2406
+
+// 469:5
+[grand]
+type=text
+x=53
+y=126
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Grand
+textlineheight=21
+colour=0x2d2406
+
+// 469:6
+[tree]
+type=text
+x=66
+y=146
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Tree
+colour=0x2d2406
+
+// 469:7
+[varrock]
+type=text
+x=358
+y=27
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Varrock
+colour=0x2d2406
+
+// 469:8
+[entrana]
+type=text
+x=199
+y=119
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Entrana
+colour=0x2d2406
+
+// 469:9
+[taverley]
+type=text
+x=266
+y=54
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Taverley
+colour=0x2d2406
+
+// 469:10
+[crafting]
+type=text
+x=290
+y=132
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Crafting
+colour=0x2d2406
+
+// 469:11
+[guild]
+type=text
+x=305
+y=151
+width=32
+height=32
+layer=contents
+textfont=quill_oblique_large
+text=Guild
+colour=0x2d2406
+
+// 469:12
+[zep_interface_balloon]
+type=model
+x=223
+y=55
+width=45
+height=77
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=307,1991,0
+modelzoom=505
+
+// 469:13
+[zep_close]
+type=graphic
+x=483
+y=4
+width=26
+height=23
+layer=contents
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 469:14
+[btn_cast]
+type=graphic
+x=58
+y=229
+width=99
+height=53
+layer=contents
+colour=0x000000
+transmitop=1
+op1=Castle Wars
+onmouseleave=zep_mouse_leave(zep_balloon_map:castle, zep_balloon_map:wars)
+onmouserepeat=zep_mouse_over(zep_balloon_map:castle, zep_balloon_map:wars)
+
+// 469:15
+[btn_gno]
+type=graphic
+x=51
+y=125
+width=99
+height=53
+layer=contents
+colour=0x000000
+transmitop=1
+op1=Grand Tree
+onmouseleave=zep_mouse_leave(zep_balloon_map:grand, zep_balloon_map:tree)
+onmouserepeat=zep_mouse_over(zep_balloon_map:grand, zep_balloon_map:tree)
+
+// 469:16
+[btn_craft]
+type=graphic
+x=289
+y=133
+width=116
+height=53
+layer=contents
+colour=0x000000
+transmitop=1
+op1=Crafting Guild
+onmouseleave=zep_mouse_leave(zep_balloon_map:crafting, zep_balloon_map:guild)
+onmouserepeat=zep_mouse_over(zep_balloon_map:crafting, zep_balloon_map:guild)
+
+// 469:17
+[btn_ent]
+type=graphic
+x=199
+y=121
+width=77
+height=34
+layer=contents
+colour=0x000000
+transmitop=1
+op1=Entrana
+onmouseleave=zep_mouse_leave(zep_balloon_map:entrana, null)
+onmouserepeat=zep_mouse_over(zep_balloon_map:entrana, null)
+
+// 469:18
+[btn_tav]
+type=graphic
+x=266
+y=54
+width=81
+height=35
+layer=contents
+colour=0x000000
+transmitop=1
+op1=Taverley
+onmouseleave=zep_mouse_leave(zep_balloon_map:taverley, null)
+onmouserepeat=zep_mouse_over(zep_balloon_map:taverley, null)
+
+// 469:19
+[btn_varr]
+type=graphic
+x=356
+y=25
+width=83
+height=35
+layer=contents
+colour=0x000000
+transmitop=1
+op1=Varrock
+onmouseleave=zep_mouse_leave(zep_balloon_map:varrock, null)
+onmouserepeat=zep_mouse_over(zep_balloon_map:varrock, null)
+
+// 469:20
+[mod_craft]
+type=model
+x=317
+y=107
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+
+// 469:21
+[mod_varr]
+type=model
+x=386
+y=3
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+
+// 469:22
+[mod_tav]
+type=model
+x=295
+y=16
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+
+// 469:23
+[mod_gno]
+type=model
+x=69
+y=100
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+
+// 469:24
+[mod_cast]
+type=model
+x=80
+y=198
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+
+// 469:25
+[mod_ent]
+type=model
+x=221
+y=103
+width=45
+height=79
+layer=contents
+hide=yes
+model=model_19485
+modelorigin=43,14
+modelangle=301,1985,0
+modelzoom=505
+
+// 469:26
+[contents]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre

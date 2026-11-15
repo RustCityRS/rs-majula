@@ -1,0 +1,16 @@
+// 6077
+[proc,clientscript_6077](obj $obj0)(int)
+if ($obj0 = null) {
+    return(0);
+}
+$obj0 = oc_uncert($obj0);
+def_int $int1 = enum(obj, int, enum_732, $obj0);
+if (%shop_currency = tzhaar_token & $int1 ! -1) {
+    return($int1);
+}
+$int1 = enum(obj, int, enum_1441, $obj0);
+if ($int1 ! -1 & $int1 > 0) {
+    return($int1);
+}
+$int1 = max(1, scale(oc_cost($obj0), 100, 30));
+return($int1);

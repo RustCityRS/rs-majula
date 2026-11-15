@@ -1,0 +1,5 @@
+// 383
+[proc,playerdesign4_tooltip_clear]
+cc_deleteall(playerdesign4:tooltip);
+if_sethide(playerdesign4:tooltip, true);
+%tooltip_built, %player_kit_scroll_length = -1, -1;

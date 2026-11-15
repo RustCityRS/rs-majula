@@ -1,0 +1,4 @@
+// 289's guard2, Falador's crossbow guard, is 2011's 3229 (npc_289_base.npc).
+[ai_queue1,guard_3229] ~npc_default_retaliate_ap;
+[ai_opplayer2,guard_3229] npc_setmode(applayer2);
+[ai_applayer2,guard_3229] ~npc_rangeattack;

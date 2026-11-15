@@ -1,0 +1,13 @@
+// 6375
+[proc,clientscript_6375]()(boolean)
+if (~clientscript_6351 = false) {
+    return(false);
+}
+if (~clientscript_6377 = true) {
+    return(false);
+}
+if (~clientscript_6376 = true) {
+    return(false);
+} else {
+    return(true);
+}

@@ -1,0 +1,75 @@
+// 13
+[proc,skill_advance_guide_subsection_title](int $int0, int $int1)(string, int)
+if ($int0 = 1) {
+    return(~skill_advance_guide_subsection_title_attack($int1));
+}
+if ($int0 = 2) {
+    return(~skill_advance_guide_subsection_title_strength($int1));
+}
+if ($int0 = 5) {
+    return(~skill_advance_guide_subsection_title_defence($int1));
+}
+if ($int0 = 3) {
+    return(~skill_advance_guide_subsection_title_ranged($int1));
+}
+if ($int0 = 7) {
+    return(~skill_advance_guide_subsection_title_prayer($int1));
+}
+if ($int0 = 4) {
+    return(~skill_advance_guide_subsection_title_magic($int1));
+}
+if ($int0 = 6) {
+    return(~clientscript_993($int1));
+}
+if ($int0 = 8) {
+    return(~clientscript_1007($int1));
+}
+if ($int0 = 9) {
+    return(~skill_advance_guide_subsection_title_herblore($int1));
+}
+if ($int0 = 10) {
+    return(~skill_advance_guide_subsection_title_thieving($int1));
+}
+if ($int0 = 11) {
+    return(~skill_advance_guide_subsection_title_crafting($int1));
+}
+if ($int0 = 19) {
+    return(~skill_advance_guide_subsection_title_fletching($int1));
+}
+if ($int0 = 13) {
+    return(~skill_advance_guide_subsection_title_mining($int1));
+}
+if ($int0 = 14) {
+    return(~skill_advance_guide_subsection_title_smithing($int1));
+}
+if ($int0 = 15) {
+    return(~clientscript_997($int1));
+}
+if ($int0 = 16) {
+    return(~skill_advance_guide_subsection_title_cooking($int1));
+}
+if ($int0 = 17) {
+    return(~skill_advance_guide_subsection_title_firemaking($int1));
+}
+if ($int0 = 18) {
+    return(~skill_advance_guide_subsection_title_woodcutting($int1));
+}
+if ($int0 = 12) {
+    return(~skill_advance_guide_subsection_title_runecraft($int1));
+}
+if ($int0 = 20) {
+    return(~skill_advance_guide_subsection_title_slayer($int1));
+}
+if ($int0 = 21) {
+    return(~skill_advance_guide_subsection_title_farming($int1));
+}
+if ($int0 = 22) {
+    return(~skill_advance_guide_subsection_title_construction($int1));
+}
+if ($int0 = 23) {
+    return(~skill_advance_guide_subsection_title_hunter($int1));
+}
+if ($int0 = 24) {
+    return(~skill_advance_guide_subsection_title_summoning($int1));
+}
+return("", -1);

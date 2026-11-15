@@ -1,0 +1,6 @@
+// 4015
+[proc,clientscript_4015]
+if_sethide(lobbyscreen:com_36_, true);
+if_setontimer(lobbyscreen:com_466, null);
+if_sethide(lobbyscreen:com_38_, false);
+op400(lobbyscreen:com_38_);

@@ -1,0 +1,526 @@
+// 416:0
+[com_0]
+type=model
+x=251
+y=182
+width=533
+height=378
+model=model_15707
+modelorigin=3,5
+modelangle=525,3,0
+modelzoom=400
+
+// 416:1
+[parts_table]
+type=layer
+y=126
+width=513
+height=208
+layer=content_layer
+
+// 416:2
+[bridge_button]
+type=text
+x=16
+y=163
+width=166
+height=102
+layer=content_layer
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1,2,3,4
+op1=Craft 1
+op2=Craft 5
+op3=Craft 10
+op4=Craft X
+
+// 416:3
+[pipe_button]
+type=text
+x=201
+y=152
+width=108
+height=111
+layer=content_layer
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1,2,3,4
+op1=Craft 1
+op2=Craft 5
+op3=Craft 10
+op4=Craft X
+
+// 416:4
+[plank_button]
+type=text
+x=353
+y=156
+width=131
+height=103
+layer=content_layer
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1,2,3,4
+op1=Craft 1
+op2=Craft 5
+op3=Craft 10
+op4=Craft X
+
+// 416:5
+[bridge_banner]
+type=layer
+x=4
+y=18
+width=204
+height=70
+layer=content_layer
+hide=yes
+
+// 416:6
+[pipe_banner]
+type=layer
+x=148
+y=91
+width=204
+height=70
+layer=content_layer
+hide=yes
+
+// 416:7
+[planks_banner]
+type=layer
+x=291
+y=20
+width=204
+height=70
+layer=content_layer
+hide=yes
+
+// 416:8
+[close_button]
+type=graphic
+x=482
+y=4
+width=26
+height=23
+layer=content_layer
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(brew_worktable:close_button, "close_buttons,5")
+onmouseleave=graphic_swapper(brew_worktable:close_button, "close_buttons,4")
+onop=closebutton_click
+
+// 416:9
+[bridge_scroll]
+type=model
+x=1
+y=5
+width=201
+height=60
+layer=bridge_banner
+model=model_10119
+modelorigin=1,-9
+modelangle=363,9,0
+modelzoom=784
+
+// 416:10
+[bridge_scroll_text]
+type=text
+x=37
+y=11
+width=129
+height=35
+layer=bridge_banner
+textfont=q8_full
+text=Bridge Section
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 416:11
+[pipe_scroll]
+type=model
+x=2
+y=6
+width=200
+height=58
+layer=pipe_banner
+model=model_10119
+modelorigin=0,-9
+modelangle=363,6,0
+modelzoom=784
+
+// 416:12
+[pipe_scroll_text]
+type=text
+x=41
+y=12
+width=124
+height=35
+layer=pipe_banner
+textfont=q8_full
+text=Pipe Section
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 416:13
+[planks_scroll]
+type=model
+x=2
+y=7
+width=201
+height=57
+layer=planks_banner
+model=model_10119
+modelorigin=0,-9
+modelangle=354,2044,0
+modelzoom=784
+
+// 416:14
+[planks_scroll_text]
+type=text
+x=44
+y=9
+width=122
+height=40
+layer=planks_banner
+textfont=q8_full
+text=Wooden Planks
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 416:15
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+transmitop=10
+op10= 
+
+// 416:16
+[worktable]
+type=model
+x=-133
+width=775
+height=332
+layer=parts_table
+model=model_15786
+modelorigin=3,126
+modelangle=204,0,0
+modelzoom=272
+
+// 416:17
+[bridge_part]
+type=model
+x=11
+y=60
+width=169
+height=101
+layer=parts_table
+model=model_1089
+modelorigin=0,-10
+modelangle=180,1858,0
+modelzoom=528
+
+// 416:18
+[planks]
+type=model
+x=360
+y=59
+width=120
+height=96
+layer=parts_table
+model=model_15785
+modelorigin=-33,103
+modelangle=252,39,0
+modelzoom=394
+
+// 416:19
+[pipe_section]
+type=model
+x=217
+y=51
+width=78
+height=105
+layer=parts_table
+model=model_15747
+modelorigin=39,114
+modelangle=237,1828,0
+modelzoom=400
+
+// 416:20
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+transmitop=10
+op10= 
+
+// 416:21
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+transmitop=10
+op10= 
+
+// 416:22
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 416:23
+[com_23]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:24
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 416:25
+[com_25]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:26
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 416:27
+[com_27]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:28
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 416:29
+[com_29]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:30
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+transmitop=10
+op10= 
+
+// 416:31
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:32
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:33
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:34
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:35
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:36
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:37
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 416:38
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 

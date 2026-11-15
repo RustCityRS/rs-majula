@@ -1,0 +1,79 @@
+// 6627
+[proc,clientscript_6627](component $component0)
+def_int $int1 = 100;
+def_inv $inv2 = boardgames_boardinv;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_obj $obj9 = null;
+def_component $component10 = interface_1323:com_46;
+def_enum $enum11 = enum_6060;
+if (%varplayerbit_11787 = 160) {
+    $enum11 = enum_6061;
+}
+def_obj $objarray0(enum_getoutputcount($enum11));
+while ($int6 < enum_getoutputcount($enum11)) {
+    $int3 = 0;
+    $obj9 = enum(int, obj, enum_6062, $int6);
+    if (inv_total(boardgames_boardinv, $obj9) = 0) {
+        while ($int3 < $int1) {
+            if (inv_getobj($inv2, $int3) = enum(obj, obj, enum_6065, $obj9)) {
+                cc_create($component0, ^iftype_graphic, $int4);
+                if (inv_getobj($inv2, calc($int3 + 1)) = enum(obj, obj, enum_6065, $obj9)) {
+                    $int5 = 1;
+                } else {
+                    $int5 = 2;
+                }
+                if ($int5 = 2) {
+                    if (enum(int, int, $enum11, $int6) = 1) {
+                        cc_setgraphic(12169);
+                        $int7, $int8 = op706;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 2) {
+                        cc_setgraphic(12167);
+                        $int7, $int8 = op706;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 3) {
+                        cc_setgraphic(12163);
+                        $int7, $int8 = op706;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 4) {
+                        cc_setgraphic(12159);
+                        $int7, $int8 = op706;
+                    }
+                    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+                }
+                if ($int5 = 1) {
+                    if (enum(int, int, $enum11, $int6) = 1) {
+                        cc_setgraphic(12168);
+                        $int7, $int8 = op706;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 2) {
+                        cc_setgraphic(12166);
+                        $int7, $int8 = op706;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 3) {
+                        cc_setgraphic(12162);
+                        $int7, $int8 = op706;
+                    }
+                    if (enum(int, int, $enum11, $int6) = 4) {
+                        cc_setgraphic(12158);
+                        $int7, $int8 = op706;
+                    }
+                    cc_setsize($int7, $int8, ^setsize_abs, ^setsize_abs);
+                }
+                if (.cc_find($component10, $int3) = true) {
+                    cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+                }
+                $int3 = $int1;
+                $int4 = calc($int4 + 1);
+            } else {
+                $int3 = calc($int3 + 1);
+            }
+        }
+    }
+    $int6 = calc($int6 + 1);
+}

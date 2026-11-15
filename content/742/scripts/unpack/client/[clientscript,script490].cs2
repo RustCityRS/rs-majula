@@ -1,0 +1,67 @@
+// 490
+[clientscript,script490]
+def_struct $struct0 = ~script488(%conq_command_ability_1);
+def_struct $struct1 = ~script488(%conq_command_ability_2);
+def_struct $struct2 = ~script488(%conq_command_ability_3);
+def_struct $struct3 = ~script488(%conq_command_ability_4);
+def_component $component4 = ~script489(%conq_command_ability_1);
+def_component $component5 = ~script489(%conq_command_ability_2);
+def_component $component6 = ~script489(%conq_command_ability_3);
+def_component $component7 = ~script489(%conq_command_ability_4);
+if_setcolour(conq_buy_army:battle_cry_name_text, 0xff981f);
+if_setcolour(conq_buy_army:stoicism_name_text, 0xff981f);
+if_setcolour(conq_buy_army:regenerate_name_text, 0xff981f);
+if_setcolour(conq_buy_army:barrage_name_text, 0xff981f);
+if_setcolour(conq_buy_army:bloodlust_name_text, 0xff981f);
+if_setcolour(conq_buy_army:chastise_name_text, 0xff981f);
+if_setcolour(conq_buy_army:vigilance_name_text, 0xff981f);
+if_setcolour(conq_buy_army:shield_wall_name_text, 0xff981f);
+if_setcolour(conq_buy_army:com_66, 0xff981f);
+if ($component4 ! null) {
+    if_setcolour($component4, 0x585042);
+}
+if ($component5 ! null) {
+    if_setcolour($component5, 0x585042);
+}
+if ($component6 ! null) {
+    if_setcolour($component6, 0x585042);
+}
+if ($component7 ! null) {
+    if_setcolour($component7, 0x585042);
+}
+if ($struct0 = null) {
+    if_sethide(conq_buy_army:command_ability_1_details_layer, true);
+    if_sethide(conq_buy_army:com_97, false);
+} else {
+    if_sethide(conq_buy_army:command_ability_1_details_layer, false);
+    if_sethide(conq_buy_army:com_97, true);
+    if_settext(conq_buy_army:command_ability_1_name, struct_param($struct0, param_1150));
+    if_setgraphic(conq_buy_army:command_ability_1_icon, struct_param($struct0, param_1153));
+}
+if ($struct1 = null) {
+    if_sethide(conq_buy_army:command_ability_2_details_layer, true);
+    if_sethide(conq_buy_army:com_93, false);
+} else {
+    if_sethide(conq_buy_army:command_ability_2_details_layer, false);
+    if_sethide(conq_buy_army:com_93, true);
+    if_settext(conq_buy_army:command_ability_2_name, struct_param($struct1, param_1150));
+    if_setgraphic(conq_buy_army:command_ability_2_icon, struct_param($struct1, param_1153));
+}
+if ($struct2 = null) {
+    if_sethide(conq_buy_army:command_ability_3_details_layer, true);
+    if_sethide(conq_buy_army:com_87, false);
+} else {
+    if_sethide(conq_buy_army:command_ability_3_details_layer, false);
+    if_sethide(conq_buy_army:com_87, true);
+    if_settext(conq_buy_army:command_ability_3_name, struct_param($struct2, param_1150));
+    if_setgraphic(conq_buy_army:command_ability_3_icon, struct_param($struct2, param_1153));
+}
+if ($struct3 = null) {
+    if_sethide(conq_buy_army:command_ability_4_details_layer, true);
+    if_sethide(conq_buy_army:com_81, false);
+} else {
+    if_sethide(conq_buy_army:command_ability_4_details_layer, false);
+    if_sethide(conq_buy_army:com_81, true);
+    if_settext(conq_buy_army:command_ability_4_name, struct_param($struct3, param_1150));
+    if_setgraphic(conq_buy_army:command_ability_4_icon, struct_param($struct3, param_1153));
+}

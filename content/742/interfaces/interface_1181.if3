@@ -1,0 +1,3257 @@
+// 1181:0
+[com_0]
+type=graphic
+x=12
+y=16
+width=36
+height=32
+layer=com_280
+
+// 1181:1
+[com_1]
+type=graphic
+x=12
+y=16
+width=36
+height=32
+layer=com_269
+
+// 1181:2
+[com_2]
+type=graphic
+x=11
+y=16
+width=36
+height=32
+layer=com_258
+
+// 1181:3
+[com_3]
+type=graphic
+x=13
+y=16
+width=36
+height=32
+layer=com_247
+
+// 1181:4
+[com_4]
+type=graphic
+x=12
+y=16
+width=36
+height=32
+layer=com_236
+
+// 1181:5
+[com_5]
+type=layer
+width=1
+height=1
+onload=clientscript_5576
+onvartransmit=clientscript_5580{varplayer_2455}
+
+// 1181:6
+[com_6]
+type=text
+y=10
+width=4
+height=40
+widthmode=minus
+xmode=abs_centre
+layer=com_178
+textfont=verdana_11pt_regular
+text=Buy this reward item for this many reward points?
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:7
+[com_7]
+type=layer
+x=45
+y=35
+width=441
+height=273
+
+// 1181:8
+[com_8]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+onload=script4260(event_com)
+
+// 1181:9
+[com_9]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 1181:10
+[com_10]
+type=layer
+height=39
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 1181:11
+[com_11]
+type=layer
+y=194
+width=184
+height=28
+layer=com_9
+
+// 1181:12
+[com_12]
+type=layer
+x=185
+y=192
+width=233
+height=32
+layer=com_9
+
+// 1181:13
+[com_13]
+type=layer
+x=-2
+y=-14
+width=227
+height=121
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+hide=yes
+noclickthrough=yes
+
+// 1181:14
+[com_14]
+type=layer
+x=-1
+width=227
+height=121
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+hide=yes
+
+// 1181:15
+[com_15]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+onload=script4261(event_com)
+
+// 1181:16
+[com_16]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_7
+
+// 1181:17
+[com_17]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+textfont=palatino_linotype_18pt_regular
+text=Flash Factory Rewards
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1181:18
+[com_18]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_7
+onload=aif_build_close_button_layer(event_com)
+
+// 1181:19
+[com_19]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1181:20
+[com_20]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+onload=aif_build_close_button_over(event_com)
+
+// 1181:21
+[com_21]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+graphic=window_texture_2
+tiling=yes
+
+// 1181:22
+[com_22]
+type=graphic
+width=10
+height=10
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1181:23
+[com_23]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1181:24
+[com_24]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1181:25
+[com_25]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1181:26
+[com_26]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1181:27
+[com_27]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1181:28
+[com_28]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1181:29
+[com_29]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_10
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 1181:30
+[com_30]
+type=layer
+x=9
+y=6
+width=32
+height=9
+widthmode=minus
+heightmode=minus
+layer=com_10
+scrollheight=282
+
+// 1181:31
+[com_31]
+type=layer
+x=51
+y=6
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Thieving XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:32
+[com_32]
+type=layer
+x=123
+y=6
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Thieving XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:33
+[com_33]
+type=layer
+x=196
+y=6
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Thieving XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:34
+[com_34]
+type=layer
+x=268
+y=6
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Thieving XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:35
+[com_35]
+type=layer
+x=51
+y=74
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Agility XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:36
+[com_36]
+type=layer
+x=123
+y=74
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Agility XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:37
+[com_37]
+type=layer
+x=196
+y=74
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Agility XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:38
+[com_38]
+type=layer
+x=268
+y=74
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Spend points on Agility XP.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 1181:39
+[com_39]
+type=layer
+x=51
+y=142
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "The Factory helm improves your luck when searching rubble.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1181:40
+[com_40]
+type=layer
+x=123
+y=142
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "The Factory body gives you two minutes more in the Factory per game.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1181:41
+[com_41]
+type=layer
+x=196
+y=142
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "The Factory legs give you 50% more catalyst on starting a game.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1181:42
+[com_42]
+type=layer
+x=268
+y=142
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "The Factory gloves enhance your pickpocketing ability in the Factory.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1181:43
+[com_43]
+type=layer
+x=51
+y=209
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "The Factory boots improve your performance on obstacles in the Factory.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1181:44
+[com_44]
+type=layer
+x=123
+y=209
+width=64
+height=64
+layer=com_30
+onmouseleave=deltooltip(interface_1181:com_283)
+onmouserepeat=aif_tooltip(interface_1181:com_283, event_com, -1, "Ah, nostalgia.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1181:45
+[com_45]
+type=layer
+x=394
+y=6
+width=15
+height=182
+layer=com_10
+
+// 1181:46
+[com_46]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+graphic=window_texture_2
+tiling=yes
+
+// 1181:47
+[com_47]
+type=graphic
+width=10
+height=10
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1181:48
+[com_48]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1181:49
+[com_49]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1181:50
+[com_50]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1181:51
+[com_51]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1181:52
+[com_52]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1181:53
+[com_53]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1181:54
+[com_54]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_11
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1181:55
+[com_55]
+type=text
+x=7
+y=4
+width=100
+height=20
+layer=com_11
+textfont=verdana_11pt_regular
+text=Current points:
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebf4bc
+
+// 1181:56
+[com_56]
+type=layer
+x=4
+y=2
+width=76
+height=24
+xmode=abs_right
+layer=com_11
+
+// 1181:57
+[com_57]
+type=graphic
+width=8
+height=23
+xmode=abs_right
+ymode=abs_centre
+layer=com_56
+graphic="aif_info_display_brown_1,0"
+hflip=yes
+
+// 1181:58
+[com_58]
+type=graphic
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+graphic="aif_info_display_brown_1,1"
+tiling=yes
+hflip=yes
+
+// 1181:59
+[com_59]
+type=graphic
+width=8
+height=23
+ymode=abs_centre
+layer=com_56
+graphic="aif_info_display_brown_1,0"
+
+// 1181:60
+[com_60]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_56
+textfont=verdana_11pt_regular
+text=50,000
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:61
+[com_61]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_31
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:62
+[com_62]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_31
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:63
+[com_63]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_31
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:64
+[com_64]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4205(event_com, struct_1746)
+
+// 1181:65
+[com_65]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4205(event_com, struct_1747)
+
+// 1181:66
+[com_66]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4205(event_com, struct_1748)
+
+// 1181:67
+[com_67]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4205(event_com, struct_1749)
+
+// 1181:68
+[com_68]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_31
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:69
+[com_69]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_31
+
+// 1181:70
+[com_70]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_69
+graphic="staticons_high_res_clean,9"
+
+// 1181:71
+[com_71]
+type=text
+y=2
+height=14
+widthmode=minus
+layer=com_69
+textfont=p11_full
+text=1200 xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:72
+[com_72]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_69
+textfont=p11_full
+text=10 points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:73
+[com_73]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:74
+[com_74]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:75
+[com_75]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:76
+[com_76]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1746)
+
+// 1181:77
+[com_77]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1747)
+
+// 1181:78
+[com_78]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1748)
+
+// 1181:79
+[com_79]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1749)
+
+// 1181:80
+[com_80]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:81
+[com_81]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+
+// 1181:82
+[com_82]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_81
+graphic="staticons_high_res_clean,9"
+
+// 1181:83
+[com_83]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_81
+textfont=p11_full
+text=12k xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:84
+[com_84]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_81
+textfont=p11_full
+text=100 points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:85
+[com_85]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_33
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:86
+[com_86]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_33
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:87
+[com_87]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_33
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:88
+[com_88]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4205(event_com, struct_1746)
+
+// 1181:89
+[com_89]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4205(event_com, struct_1747)
+
+// 1181:90
+[com_90]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4205(event_com, struct_1748)
+
+// 1181:91
+[com_91]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4205(event_com, struct_1749)
+
+// 1181:92
+[com_92]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_33
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:93
+[com_93]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_33
+
+// 1181:94
+[com_94]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_93
+graphic="staticons_high_res_clean,9"
+
+// 1181:95
+[com_95]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_93
+textfont=p11_full
+text=120k xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:96
+[com_96]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_93
+textfont=p11_full
+text=1k points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:97
+[com_97]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_34
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:98
+[com_98]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_34
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:99
+[com_99]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_34
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:100
+[com_100]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_34
+onload=script4205(event_com, struct_1746)
+
+// 1181:101
+[com_101]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_34
+onload=script4205(event_com, struct_1747)
+
+// 1181:102
+[com_102]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_34
+onload=script4205(event_com, struct_1748)
+
+// 1181:103
+[com_103]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_34
+onload=script4205(event_com, struct_1749)
+
+// 1181:104
+[com_104]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_34
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:105
+[com_105]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_34
+
+// 1181:106
+[com_106]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_105
+graphic="staticons_high_res_clean,9"
+
+// 1181:107
+[com_107]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_105
+textfont=p11_full
+text=1.2M xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:108
+[com_108]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_105
+textfont=p11_full
+text=10k points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:109
+[com_109]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_35
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:110
+[com_110]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_35
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:111
+[com_111]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_35
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:112
+[com_112]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_35
+onload=script4205(event_com, struct_1746)
+
+// 1181:113
+[com_113]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_35
+onload=script4205(event_com, struct_1747)
+
+// 1181:114
+[com_114]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_35
+onload=script4205(event_com, struct_1748)
+
+// 1181:115
+[com_115]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_35
+onload=script4205(event_com, struct_1749)
+
+// 1181:116
+[com_116]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_35
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:117
+[com_117]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_35
+
+// 1181:118
+[com_118]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_117
+graphic="staticons_high_res_clean,7"
+
+// 1181:119
+[com_119]
+type=text
+x=1
+y=3
+height=14
+widthmode=minus
+layer=com_117
+textfont=p11_full
+text=950 xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:120
+[com_120]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_117
+textfont=p11_full
+text=10 points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:121
+[com_121]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_36
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:122
+[com_122]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_36
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:123
+[com_123]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_36
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:124
+[com_124]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_36
+onload=script4205(event_com, struct_1746)
+
+// 1181:125
+[com_125]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_36
+onload=script4205(event_com, struct_1747)
+
+// 1181:126
+[com_126]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_36
+onload=script4205(event_com, struct_1748)
+
+// 1181:127
+[com_127]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_36
+onload=script4205(event_com, struct_1749)
+
+// 1181:128
+[com_128]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_36
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:129
+[com_129]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_36
+
+// 1181:130
+[com_130]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_129
+graphic="staticons_high_res_clean,7"
+
+// 1181:131
+[com_131]
+type=text
+x=1
+y=3
+height=14
+widthmode=minus
+layer=com_129
+textfont=p11_full
+text=9.5k xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:132
+[com_132]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_129
+textfont=p11_full
+text=100 points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:133
+[com_133]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_37
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:134
+[com_134]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_37
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:135
+[com_135]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_37
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:136
+[com_136]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_37
+onload=script4205(event_com, struct_1746)
+
+// 1181:137
+[com_137]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_37
+onload=script4205(event_com, struct_1747)
+
+// 1181:138
+[com_138]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_37
+onload=script4205(event_com, struct_1748)
+
+// 1181:139
+[com_139]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_37
+onload=script4205(event_com, struct_1749)
+
+// 1181:140
+[com_140]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_37
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:141
+[com_141]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_37
+
+// 1181:142
+[com_142]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_141
+graphic="staticons_high_res_clean,7"
+
+// 1181:143
+[com_143]
+type=text
+x=1
+y=3
+height=14
+widthmode=minus
+layer=com_141
+textfont=p11_full
+text=95k xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:144
+[com_144]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_141
+textfont=p11_full
+text=1k points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:145
+[com_145]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_38
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:146
+[com_146]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_38
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:147
+[com_147]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_38
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:148
+[com_148]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_38
+onload=script4205(event_com, struct_1746)
+
+// 1181:149
+[com_149]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_38
+onload=script4205(event_com, struct_1747)
+
+// 1181:150
+[com_150]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_38
+onload=script4205(event_com, struct_1748)
+
+// 1181:151
+[com_151]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_38
+onload=script4205(event_com, struct_1749)
+
+// 1181:152
+[com_152]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_38
+transmitop=1,2,3,4,5
+op1=Buy-1
+op2=Buy-2
+op3=Buy-3
+op4=Buy-4
+op5=Buy-5
+onload=script4213(event_com)
+onop=clientscript_5577(-1)
+
+// 1181:153
+[com_153]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_38
+
+// 1181:154
+[com_154]
+type=graphic
+y=1
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_153
+graphic="staticons_high_res_clean,7"
+
+// 1181:155
+[com_155]
+type=text
+x=1
+y=3
+height=14
+widthmode=minus
+layer=com_153
+textfont=p11_full
+text=950k xp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:156
+[com_156]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_153
+textfont=p11_full
+text=10k points
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:157
+[com_157]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+graphic=window_texture_2
+tiling=yes
+
+// 1181:158
+[com_158]
+type=graphic
+width=10
+height=10
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1181:159
+[com_159]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1181:160
+[com_160]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1181:161
+[com_161]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1181:162
+[com_162]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1181:163
+[com_163]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1181:164
+[com_164]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1181:165
+[com_165]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1181:166
+[com_166]
+type=text
+x=4
+y=2
+width=145
+height=28
+layer=com_12
+textfont=verdana_11pt_regular
+text=Select an item above
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebf4bc
+
+// 1181:167
+[com_167]
+type=layer
+x=148
+y=3
+width=84
+height=28
+layer=com_12
+
+// 1181:168
+[com_168]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1181:169
+[com_169]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1181:170
+[com_170]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1181:171
+[com_171]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+onload=aif_build_button_layer(event_com, struct_1776)
+
+// 1181:172
+[com_172]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1181:173
+[com_173]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 1181:174
+[com_174]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_167
+
+// 1181:175
+[com_175]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_174
+textfont=verdana_13pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1181:176
+[com_176]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_173
+colour=0x000000
+fill=yes
+trans=100
+
+// 1181:177
+[com_177]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4758(event_com)
+
+// 1181:178
+[com_178]
+type=layer
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_13
+
+// 1181:179
+[com_179]
+type=layer
+x=-51
+y=66
+width=93
+height=26
+xmode=abs_centre
+layer=com_178
+
+// 1181:180
+[com_180]
+type=layer
+x=51
+y=66
+width=93
+height=26
+xmode=abs_centre
+layer=com_178
+
+// 1181:181
+[com_181]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4759(event_com)
+
+// 1181:182
+[com_182]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_180
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:183
+[com_183]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_180
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:184
+[com_184]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_180
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:185
+[com_185]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_180
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1181:186
+[com_186]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_180
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1181:187
+[com_187]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_180
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1181:188
+[com_188]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_180
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1181:189
+[com_189]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_180
+
+// 1181:190
+[com_190]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_180
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 1181:191
+[com_191]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_189
+textfont=verdana_13pt_regular
+text=Yes
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1181:192
+[com_192]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_179
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:193
+[com_193]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_179
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:194
+[com_194]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_179
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:195
+[com_195]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_179
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1181:196
+[com_196]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_179
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1181:197
+[com_197]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_179
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1181:198
+[com_198]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_179
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1181:199
+[com_199]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_179
+
+// 1181:200
+[com_200]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_199
+textfont=verdana_13pt_regular
+text=No
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1181:201
+[com_201]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_190
+colour=0x000000
+fill=yes
+trans=100
+
+// 1181:202
+[com_202]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4758(event_com)
+
+// 1181:203
+[com_203]
+type=layer
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_14
+
+// 1181:204
+[com_204]
+type=text
+y=10
+width=4
+height=40
+widthmode=minus
+xmode=abs_centre
+layer=com_203
+textfont=verdana_11pt_regular
+text=You bought this reward for this many reward points.
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:205
+[com_205]
+type=layer
+y=66
+width=93
+height=26
+xmode=abs_centre
+layer=com_203
+
+// 1181:206
+[com_206]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_205
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:207
+[com_207]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_205
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:208
+[com_208]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_205
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:209
+[com_209]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_205
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1181:210
+[com_210]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_205
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1181:211
+[com_211]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_205
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1181:212
+[com_212]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_205
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1181:213
+[com_213]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_205
+
+// 1181:214
+[com_214]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_213
+textfont=verdana_13pt_regular
+text=OK
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1181:215
+[com_215]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+onload=clientscript_4759(event_com)
+
+// 1181:216
+[com_216]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_39
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:217
+[com_217]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_39
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:218
+[com_218]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_39
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:219
+[com_219]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_39
+onload=script4205(event_com, struct_1746)
+
+// 1181:220
+[com_220]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_39
+onload=script4205(event_com, struct_1747)
+
+// 1181:221
+[com_221]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_39
+onload=script4205(event_com, struct_1748)
+
+// 1181:222
+[com_222]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_39
+onload=script4205(event_com, struct_1749)
+
+// 1181:223
+[com_223]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_39
+transmitop=1
+op1=Buy
+onload=script4213(event_com)
+
+// 1181:224
+[com_224]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_39
+
+// 1181:225
+[com_225]
+type=graphic
+x=12
+y=16
+width=36
+height=32
+layer=com_224
+
+// 1181:226
+[com_226]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_224
+textfont=p11_full
+text=Helm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:227
+[com_227]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_224
+textfont=p11_full
+text=2250pts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:228
+[com_228]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_40
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:229
+[com_229]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_40
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:230
+[com_230]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_40
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:231
+[com_231]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_40
+onload=script4205(event_com, struct_1746)
+
+// 1181:232
+[com_232]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_40
+onload=script4205(event_com, struct_1747)
+
+// 1181:233
+[com_233]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_40
+onload=script4205(event_com, struct_1748)
+
+// 1181:234
+[com_234]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_40
+onload=script4205(event_com, struct_1749)
+
+// 1181:235
+[com_235]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_40
+transmitop=1
+op1=Buy
+onload=script4213(event_com)
+
+// 1181:236
+[com_236]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_40
+
+// 1181:237
+[com_237]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_236
+textfont=p11_full
+text=Body
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:238
+[com_238]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_236
+textfont=p11_full
+text=3500pts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:239
+[com_239]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_41
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:240
+[com_240]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_41
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:241
+[com_241]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_41
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:242
+[com_242]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_41
+onload=script4205(event_com, struct_1746)
+
+// 1181:243
+[com_243]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_41
+onload=script4205(event_com, struct_1747)
+
+// 1181:244
+[com_244]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_41
+onload=script4205(event_com, struct_1748)
+
+// 1181:245
+[com_245]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_41
+onload=script4205(event_com, struct_1749)
+
+// 1181:246
+[com_246]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_41
+transmitop=1
+op1=Buy
+onload=script4213(event_com)
+
+// 1181:247
+[com_247]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_41
+
+// 1181:248
+[com_248]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_247
+textfont=p11_full
+text=Legs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:249
+[com_249]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_247
+textfont=p11_full
+text=2750pts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:250
+[com_250]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_42
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:251
+[com_251]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_42
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:252
+[com_252]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_42
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:253
+[com_253]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_42
+onload=script4205(event_com, struct_1746)
+
+// 1181:254
+[com_254]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_42
+onload=script4205(event_com, struct_1747)
+
+// 1181:255
+[com_255]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_42
+onload=script4205(event_com, struct_1748)
+
+// 1181:256
+[com_256]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_42
+onload=script4205(event_com, struct_1749)
+
+// 1181:257
+[com_257]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_42
+transmitop=1
+op1=Buy
+onload=script4213(event_com)
+
+// 1181:258
+[com_258]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_42
+
+// 1181:259
+[com_259]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_258
+textfont=p11_full
+text=Gloves
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:260
+[com_260]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_258
+textfont=p11_full
+text=1750pts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:261
+[com_261]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_43
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:262
+[com_262]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_43
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:263
+[com_263]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_43
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:264
+[com_264]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4205(event_com, struct_1746)
+
+// 1181:265
+[com_265]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4205(event_com, struct_1747)
+
+// 1181:266
+[com_266]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4205(event_com, struct_1748)
+
+// 1181:267
+[com_267]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4205(event_com, struct_1749)
+
+// 1181:268
+[com_268]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_43
+transmitop=1
+op1=Buy
+onload=script4213(event_com)
+
+// 1181:269
+[com_269]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_43
+
+// 1181:270
+[com_270]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_269
+textfont=p11_full
+text=Boots
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:271
+[com_271]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_269
+textfont=p11_full
+text=1750pts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:272
+[com_272]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_44
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1181:273
+[com_273]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_44
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1181:274
+[com_274]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_44
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1181:275
+[com_275]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4205(event_com, struct_1746)
+
+// 1181:276
+[com_276]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4205(event_com, struct_1747)
+
+// 1181:277
+[com_277]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4205(event_com, struct_1748)
+
+// 1181:278
+[com_278]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4205(event_com, struct_1749)
+
+// 1181:279
+[com_279]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_44
+transmitop=1
+op1=Buy
+onload=script4213(event_com)
+
+// 1181:280
+[com_280]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_44
+
+// 1181:281
+[com_281]
+type=text
+y=4
+height=14
+widthmode=minus
+layer=com_280
+textfont=p11_full
+text=Multitool
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:282
+[com_282]
+type=text
+height=14
+widthmode=minus
+ymode=abs_bottom
+layer=com_280
+textfont=p11_full
+text=35pts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1181:283
+[com_283]
+type=layer
+width=512
+height=334

@@ -1,0 +1,25 @@
+// 5215
+[proc,clientscript_5215](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        return(%varclan_2734);
+    case 2 :
+        return(%varclan_2735);
+    case 3 :
+        return(%varclan_2736);
+    case 4 :
+        return(%varclan_2737);
+    case 5 :
+        return(%varclan_2738);
+    case 6 :
+        return(%varclan_2739);
+    case 7 :
+        return(%varclan_2740);
+    case 8 :
+        return(%varclan_2741);
+    case 10 :
+        return(%varclan_2743);
+    case 9 :
+        return(%varclan_2742);
+}
+return(-1);

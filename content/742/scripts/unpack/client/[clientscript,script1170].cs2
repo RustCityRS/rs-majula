@@ -1,0 +1,7 @@
+// 1170
+[clientscript,script1170]
+if (if_gettrans(godwars_overlay:tint_box) > %godwars2_overlay_fade) {
+    if_settrans(godwars_overlay:tint_box, max(50, calc(if_gettrans(godwars_overlay:tint_box) - 1)));
+} else {
+    if_settrans(godwars_overlay:tint_box, min(255, calc(if_gettrans(godwars_overlay:tint_box) + 1)));
+}

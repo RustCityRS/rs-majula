@@ -1,12 +1,13 @@
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type VarObjTypeProvider = TypeProvider<VarObjType>;
 
 /// Bits `start_bit..=end_bit` of the 32 an obj carries for its varobjs.
 pub struct VarObjType {
-    pub id: u16,
+    pub id: TypeId,
     pub start_bit: u8,
     pub end_bit: u8,
     debugname: Box<str>,
@@ -15,7 +16,7 @@ pub struct VarObjType {
 impl CacheType for VarObjType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         VarObjType {
             id,
             start_bit: 0,

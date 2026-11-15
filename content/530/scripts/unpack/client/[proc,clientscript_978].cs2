@@ -1,0 +1,655 @@
+// 978
+[proc,clientscript_978](int $int0, int $int1)(int, obj, string, string)
+switch_int ($int0) {
+    case 0 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, bronze_sq_shield, "Bronze square shield", "You can now wield <col=000080>bronze square shields</col>.");
+            case 1 :
+                return(1, bronze_kiteshield, "Bronze kiteshield", "You can now wield <col=000080>bronze kiteshields</col>.");
+            case 2 :
+                return(1, bronze_med_helm, "Bronze medium helm", "You can now wear <col=000080>bronze medium helms</col>.");
+            case 3 :
+                return(1, bronze_full_helm, "Bronze full helm", "You can now wear <col=000080>bronze full helms</col>.");
+            case 4 :
+                return(1, bronze_chainbody, "Bronze chainbody", "You can now wear <col=000080>bronze chainbodies</col>.");
+            case 5 :
+                return(1, bronze_platebody, "Bronze platebody", "You can now wear <col=000080>bronze platebodies</col>.");
+            case 6 :
+                return(1, bronze_plateskirt, "Bronze plateskirt", "You can now wear <col=000080>bronze plateskirts</col>.");
+            case 7 :
+                return(1, bronze_platelegs, "Bronze platelegs", "You can now wear <col=000080>bronze platelegs</col>.");
+            case 8 :
+                return(1, bronze_armoured_boots, "Members: Bronze boots", "Members can now wear <col=000080>bronze boots</col>.");
+            case 9 :
+                return(1, bronze_parryingdagger, "Members: Bronze defender", "Members can now wield <col=000080>bronze defenders</col>.");
+            case 10 :
+                return(1, hvh_bronze_gauntlets, "Bronze gauntlets", "You can now wear <col=000080>bronze gauntlets</col>.");
+        }
+    case 1 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, iron_sq_shield, "Iron square shield", "You can now wield <col=000080>iron square shields</col>.");
+            case 1 :
+                return(1, iron_kiteshield, "Iron kiteshield", "You can now wield <col=000080>iron kiteshields</col>.");
+            case 2 :
+                return(1, iron_med_helm, "Iron medium helm", "You can now wear <col=000080>iron medium helms</col>.");
+            case 3 :
+                return(1, iron_full_helm, "Iron full helm", "You can now wear <col=000080>iron full helms</col>.");
+            case 4 :
+                return(1, iron_chainbody, "Iron chainbody", "You can now wear <col=000080>iron chainbodies</col>.");
+            case 5 :
+                return(1, iron_platebody, "Iron platebody", "You can now wear <col=000080>iron platebodies</col>.");
+            case 6 :
+                return(1, iron_plateskirt, "Iron plateskirt", "You can now wear <col=000080>iron plateskirts</col>.");
+            case 7 :
+                return(1, iron_platelegs, "Iron platelegs", "You can now wear <col=000080>iron platelegs</col>.");
+            case 8 :
+                return(1, iron_armoured_boots, "Members: Iron boots", "Members can now wear <col=000080>iron boots</col>.");
+            case 9 :
+                return(1, iron_parryingdagger, "Members: Iron defender", "Members can now wield <col=000080>iron defenders</col>.");
+            case 10 :
+                return(1, hvh_iron_gauntlets, "Iron gauntlets", "You can now wear <col=000080>iron gauntlets</col>.");
+        }
+    case 2 :
+        switch_int ($int1) {
+            case 0 :
+                return(5, steel_sq_shield, "Steel square shield", "You can now wield <col=000080>steel square shields</col>.");
+            case 1 :
+                return(5, steel_kiteshield, "Steel kiteshield", "You can now wield <col=000080>steel kiteshields</col>.");
+            case 2 :
+                return(5, steel_med_helm, "Steel medium helm", "You can now wear <col=000080>steel medium helms</col>.");
+            case 3 :
+                return(5, steel_full_helm, "Steel full helm", "You can now wear <col=000080>steel full helms</col>.");
+            case 4 :
+                return(5, steel_chainbody, "Steel chainbody", "You can now wear <col=000080>steel chainbodies</col>.");
+            case 5 :
+                return(5, steel_platebody, "Steel platebody", "You can now wear <col=000080>steel platebodies</col>.");
+            case 6 :
+                return(5, steel_plateskirt, "Steel plateskirt", "You can now wear <col=000080>steel plateskirts</col>.");
+            case 7 :
+                return(5, steel_platelegs, "Steel platelegs", "You can now wear <col=000080>steel platelegs</col>.");
+            case 8 :
+                return(5, steel_armoured_boots, "Members: Steel boots", "Members can now wear <col=000080>steel boots</col>.");
+            case 9 :
+                return(5, steel_parryingdagger, "Members: Steel defender", "Members now have the Defence level required to wield <col=000080>steel defenders</col>. (They also need level 5 Attack.)");
+            case 10 :
+                return(5, hvh_steel_gauntlets, "Steel gauntlets", "You can now wear <col=000080>steel gauntlets</col>.");
+        }
+    case 3 :
+        switch_int ($int1) {
+            case 0 :
+                return(10, black_sq_shield, "Black square shield", "You can now wield <col=000080>black square shields</col>.");
+            case 1 :
+                return(10, black_kiteshield, "Black kiteshield", "You can now wield <col=000080>black kiteshields</col>.");
+            case 2 :
+                return(10, black_med_helm, "Black medium helm", "You can now wear <col=000080>black medium helms</col>.");
+            case 3 :
+                return(10, black_full_helm, "Black full helm", "You can now wear <col=000080>black full helms</col>.");
+            case 4 :
+                return(10, black_chainbody, "Black chainbody", "You can now wear <col=000080>black chainbodies</col>.");
+            case 5 :
+                return(10, black_platebody, "Black platebody", "You can now wear <col=000080>black platebodies</col>.");
+            case 6 :
+                return(10, black_plateskirt, "Black plateskirt", "You can now wear <col=000080>black plateskirts</col>.");
+            case 7 :
+                return(10, black_platelegs, "Black platelegs", "You can now wear <col=000080>black platelegs</col>.");
+            case 8 :
+                return(10, black_armoured_boots, "Members: Black boots", "Members can now wear <col=000080>black boots</col>.");
+            case 9 :
+                return(10, black_parryingdagger, "Members: Black defender", "Members now have the Defence level required to wield <col=000080>black defenders</col>. (They also need level 10 Attack.)");
+            case 10 :
+                return(10, hvh_black_gauntlets, "Black gauntlets", "You can now wear <col=000080>black gauntlets</col>.");
+            case 11 :
+                return(40, elite_black_full_helm, "Members: Elite black full helm", "Members can now wear <col=000080>elite black full helms</col>.");
+            case 12 :
+                return(40, elite_black_platebody, "Members: Elite black platebody", "Members can now wear <col=000080>elite black platebodies</col>.");
+            case 13 :
+                return(40, elite_black_platelegs, "Members: Elite black platelegs", "Members can now wear <col=000080>elite black platelegs</col>.");
+        }
+    case 4 :
+        switch_int ($int1) {
+            case 0 :
+                return(-1, invis_rod, "To use any white equipment, you must have completed Wanted!.", "");
+            case 1 :
+                return(10, white_sq_shield, "White square shield", "Members can now wield <col=000080>white square shields</col> (after finishing Wanted!).");
+            case 2 :
+                return(10, white_kiteshield, "White kiteshield", "Members can now wield <col=000080>white kiteshields</col> (after finishing Wanted!).");
+            case 3 :
+                return(10, white_med_helm, "White medium helm", "Members can now wear <col=000080>white medium helms</col> (after finishing Wanted!).");
+            case 4 :
+                return(10, white_full_helm, "White full helm", "Members can now wear <col=000080>white full helms</col> (after finishing Wanted!).");
+            case 5 :
+                return(10, white_chainbody, "White chainbody", "Members can now wear <col=000080>white chainbodies</col> (after finishing Wanted!).");
+            case 6 :
+                return(10, white_platebody, "White platebody", "Members can now wear <col=000080>white platebodies</col> (after finishing Wanted!).");
+            case 7 :
+                return(10, white_plateskirt, "White plateskirt", "Members can now wear <col=000080>white plateskirts</col> (after finishing Wanted!).");
+            case 8 :
+                return(10, white_platelegs, "White platelegs", "Members can now wear <col=000080>white platelegs</col> (after finishing Wanted!).");
+            case 9 :
+                return(10, white_armoured_boots, "White boots", "Members can now wear <col=000080>white boots</col> (after finishing Wanted!).");
+            case 10 :
+                return(10, white_gloves, "White gloves", "Members can now wear <col=000080>white gloves</col> (after finishing Wanted!).");
+        }
+    case 5 :
+        switch_int ($int1) {
+            case 0 :
+                return(20, mithril_sq_shield, "Mithril square shield", "You can now wield <col=000080>mithril square shields</col>.");
+            case 1 :
+                return(20, mithril_kiteshield, "Mithril kiteshield", "You can now wield <col=000080>mithril kiteshields</col>.");
+            case 2 :
+                return(20, mithril_med_helm, "Mithril medium helm", "You can now wear <col=000080>mithril medium helms</col>.");
+            case 3 :
+                return(20, mithril_full_helm, "Mithril full helm", "You can now wear <col=000080>mithril full helms</col>.");
+            case 4 :
+                return(20, mithril_chainbody, "Mithril chainbody", "You can now wear <col=000080>mithril chainbodies</col>.");
+            case 5 :
+                return(20, mithril_platebody, "Mithril platebody", "You can now wear <col=000080>mithril platebodies</col>.");
+            case 6 :
+                return(20, mithril_plateskirt, "Mithril plateskirt", "You can now wear <col=000080>mithril plateskirts</col>.");
+            case 7 :
+                return(20, mithril_platelegs, "Mithril platelegs", "You can now wear <col=000080>mithril platelegs</col>.");
+            case 8 :
+                return(20, mithril_armoured_boots, "Members: Mithril boots", "Members can now wear <col=000080>mithril boots</col>.");
+            case 9 :
+                return(20, mithril_parryingdagger, "Members: Defender<br> (with 20 Attack)", "Members now have the Defence level required to wield <col=000080>mithril defenders</col>. (They also need level 20 Attack.)");
+            case 10 :
+                return(20, hvh_mithril_gauntlets, "Mithril gauntlets", "You can now wear <col=000080>mithril gauntlets</col>.");
+        }
+    case 6 :
+        switch_int ($int1) {
+            case 0 :
+                return(30, adamant_sq_shield, "Adamant square shield", "You can now wield <col=000080>adamant square shields</col>.");
+            case 1 :
+                return(30, adamant_kiteshield, "Adamant kiteshield", "You can now wield <col=000080>adamant kiteshields</col>.");
+            case 2 :
+                return(30, adamant_med_helm, "Adamant medium helm", "You can now wear <col=000080>adamant medium helms</col>.");
+            case 3 :
+                return(30, adamant_full_helm, "Adamant full helm", "You can now wear <col=000080>adamant full helms</col>.");
+            case 4 :
+                return(30, adamant_chainbody, "Adamant chainbody", "You can now wear <col=000080>adamant chainbodies</col>.");
+            case 5 :
+                return(30, adamant_platebody, "Adamant platebody", "You can now wear <col=000080>adamant platebodies</col>.");
+            case 6 :
+                return(30, adamant_plateskirt, "Adamant plateskirt", "You can now wear <col=000080>adamant plateskirts</col>.");
+            case 7 :
+                return(30, adamant_platelegs, "Adamant platelegs", "You can now wear <col=000080>adamant platelegs</col>.");
+            case 8 :
+                return(30, adamant_armoured_boots, "Members: Adamant boots", "Members can now wear <col=000080>adamant boots</col>.");
+            case 9 :
+                return(30, adamant_parryingdagger, "Members: Adamant defender<br> (with 30 Attack)", "Members now have the Defence level required to wield <col=000080>adamant defenders</col>. (They also need level 30 Attack.)");
+            case 10 :
+                return(30, hvh_adamant_gauntlets, "Adamant gauntlets", "You can now wear <col=000080>adamant gauntlets</col>.");
+            case 11 :
+                return(35, hvh_spiked_adam_kite_shield_100, "Adamant berserker shield", "You can now wield <col=000080>adamant berserker shields</col>.");
+            case 12 :
+                return(35, hvh_spiked_adam_sq_shield_100, "Adamant spikeshield", "You can now wield <col=000080>adamant spikeshields</col>.");
+        }
+    case 7 :
+        switch_int ($int1) {
+            case 0 :
+                return(40, rune_sq_shield, "Rune square shield", "You can now wield <col=000080>rune square shields</col>.");
+            case 1 :
+                return(40, rune_kiteshield, "Rune kiteshield", "You can now wield <col=000080>rune kiteshields</col>.");
+            case 2 :
+                return(40, rune_med_helm, "Rune medium helm", "You can now wear <col=000080>rune medium helms</col>.");
+            case 3 :
+                return(40, rune_full_helm, "Rune full helm", "You can now wear <col=000080>rune full helms</col>.");
+            case 4 :
+                return(40, rune_chainbody, "Rune chainbody", "You can now wear <col=000080>rune chainbodies</col>.");
+            case 5 :
+                return(40, rune_platebody, "Rune platebody<br> (after Dragon Slayer)", "You can now wear <col=000080>rune platebodies</col> (after Dragon Slayer).");
+            case 6 :
+                return(40, rune_plateskirt, "Rune plateskirt", "You can now wear <col=000080>rune plateskirts</col>.");
+            case 7 :
+                return(40, rune_platelegs, "Rune platelegs", "You can now wear <col=000080>rune platelegs</col>.");
+            case 8 :
+                return(40, rune_armoured_boots, "Members: Rune boots", "Members can now wear <col=000080>rune boots</col>.");
+            case 9 :
+                return(40, rune_parryingdagger, "Members: Rune defender<br> (with 40 Attack)", "Members now have the Defence level required to wield <col=000080>rune defenders</col>. (They also need level 40 Attack.)");
+            case 10 :
+                return(40, hvh_rune_gauntlets, "Rune gauntlets", "You can now wear <col=000080>rune gauntlets</col>.");
+            case 11 :
+                return(45, hvh_spiked_rune_kite_shield_100, "Rune berserker shield", "You can now wield <col=000080>rune berserker shields</col>.");
+            case 12 :
+                return(45, hvh_spiked_rune_sq_shield_100, "Rune spikeshield", "You can now wield <col=000080>rune spikeshields</col>.");
+        }
+    case 8 :
+        switch_int ($int1) {
+            case 0 :
+                return(60, dragon_sq_shield, "Members: Dragon square shield<br> (after Legends' Quest)", "Members can now wear <col=000080>dragon square shields</col> (after Legends' Quest).");
+            case 1 :
+                return(60, dragon_med_helm, "Members: Dragon medium helm", "Members can now wear <col=000080>dragon medium helms</col>.");
+            case 2 :
+                return(60, brut_dragon_full_helm, "Members: Dragon full helm", "Members can now wear <col=000080>dragon full helms</col>.");
+            case 3 :
+                return(60, dragon_chainbody, "Members: Dragon chainbody", "Members can now wear <col=000080>dragon chainbodies</col>.");
+            case 4 :
+                return(60, luc2_dragonplate_torso, "Members: Dragon platebody", "Members can now wear <col=000080>dragon platebodies</col>.");
+            case 5 :
+                return(60, dragon_plateskirt, "Members: Dragon plateskirt", "Members can now wear <col=000080>dragon plateskirts</col>.");
+            case 6 :
+                return(60, dragon_platelegs, "Members: Dragon platelegs", "Members can now wear <col=000080>dragon platelegs</col>.");
+            case 7 :
+                return(60, hvh_dragon_gauntlets, "Members: Dragon gauntlets", "Members can now wear <col=000080>dragon gauntlets</col>.");
+            case 8 :
+                return(60, godwars_dragon_boots, "Members: Dragon boots", "Members can now wear <col=000080>dragon boots</col>.");
+            case 9 :
+                return(60, pvpw_dragon_sq_shield, "Corrupt dragon square shield", "You can now wear <col=000080>corrupt dragon square shields</col>.");
+            case 10 :
+                return(60, pvpw_dragon_med_helm, "Corrupt dragon medium helm", "You can now wear <col=000080>corrupt dragon medium helms</col>.");
+            case 11 :
+                return(60, pvpw_dragon_chainbody, "Corrupt dragon chainbody", "You can now wear <col=000080>corrupt dragon chainbodies</col>.");
+            case 12 :
+                return(60, pvpw_dragon_plateskirt, "Corrupt dragon plateskirt", "You can now wear <col=000080>corrupt dragon plateskirts</col>.");
+            case 13 :
+                return(60, pvpw_dragon_platelegs, "Corrupt dragon platelegs", "You can now wear <col=000080>corrupt dragon platelegs</col>.");
+        }
+    case 9 :
+        switch_int ($int1) {
+            case 0 :
+                return(70, barrows_ahrim_head, "Ahrim's hood<br> (with 70 Magic)", "Members now have the Defence level required to wear <col=000080>Ahrim's hood</col>. (They also need level 70 Magic.)");
+            case 1 :
+                return(70, barrows_ahrim_body, "Ahrim's robe top<br> (with 70 Magic)", "Members now have the Defence level required to wear <col=000080>Ahrim's robe top</col>. (You also need level 70 Magic.)");
+            case 2 :
+                return(70, barrows_ahrim_legs, "Ahrim's robeskirt<br> (with 70 Magic)", "Members now have the Defence level required to wear <col=000080>Ahrim's robeskirt</col>. (They also need level 70 Magic.)");
+            case 3 :
+                return(70, barrows_dharok_head, "Dharok's helm", "Members can now wear <col=000080>Dharok's helm</col>.");
+            case 4 :
+                return(70, barrows_dharok_body, "Dharok's platebody", "Members can now wear <col=000080>Dharok's platebody</col>.");
+            case 5 :
+                return(70, barrows_dharok_legs, "Dharok's platelegs", "Members can now wear <col=000080>Dharok's platelegs</col>.");
+            case 6 :
+                return(70, barrows_guthan_head, "Guthan's helm", "Members can now wear <col=000080>Guthan's helm</col>.");
+            case 7 :
+                return(70, barrows_guthan_body, "Guthan's platebody", "Members can now wear <col=000080>Guthan's platebody</col>.");
+            case 8 :
+                return(70, barrows_guthan_legs, "Guthan's chainskirt", "Members can now wear <col=000080>Guthan's chainskirt</col>.");
+            case 9 :
+                return(70, barrows_karil_head, "Karil's coif<br> (with 70 Ranged)", "Members now have the Defence level required to wear <col=000080>Karil's coif</col>. (They also need level 70 Ranged.)");
+            case 10 :
+                return(70, barrows_karil_body, "Karil's leather top<br> (with 70 Ranged)", "Members now have the Defence level required to wear <col=000080>Karil's leather top</col>. (They also need level 70 Ranged.)");
+            case 11 :
+                return(70, barrows_karil_legs, "Karil's leather skirt<br> (with 70 Ranged)", "Members now have the Defence level required to wear <col=000080>Karil's leather skirt</col>. (They also need level 70 Ranged.)");
+            case 12 :
+                return(70, barrows_torag_head, "Torag's helm", "Members can now wear <col=000080>Torag's helm</col>.");
+            case 13 :
+                return(70, barrows_torag_body, "Torag's platebody", "Members can now wear <col=000080>Torag's platebody</col>.");
+            case 14 :
+                return(70, barrows_torag_legs, "Torag's platelegs", "Members can now wear <col=000080>Torag's platelegs</col>.");
+            case 15 :
+                return(70, barrows_verac_head, "Verac's helm", "Members can now wear <col=000080>Verac's helm</col>.");
+            case 16 :
+                return(70, barrows_verac_body, "Verac's brassard", "Members can now wear <col=000080>Verac's brassard</col>.");
+            case 17 :
+                return(70, barrows_verac_legs, "Verac's plateskirt", "Members can now wear <col=000080>Verac's plateskirt</col>.");
+        }
+    case 10 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, dagganoth_mage_gloves, "Members: Skeletal gloves", "Members can now wear <col=000080>skeletal gloves</col>.");
+            case 1 :
+                return(1, dagganoth_mage_feet, "Members: Skeletal boots", "Members can now wear <col=000080>skeletal boots</col>.");
+            case 2 :
+                return(1, elemental_shield, "Members: Elemental shield<br> (after Elemental Workshop)", "Members can now wear <col=000080>elemental shields</col> (after Elemental Workshop).");
+            case 3 :
+                return(1, elem_elemental_helm, "Members: Elemental helmet<br> (after Elemental Workshop)", "Members can now wear <col=000080>elemental helms</col> (after Elemental Workshop).");
+            case 4 :
+                return(1, elemental_mind_shield, "Members: Mind shield<br> (after Elemental Workshop II)", "Members can now wear <col=000080>mind shields</col> (after Elemental Workshop II).");
+            case 5 :
+                return(1, elem_mind_helm, "Members: Mind helmet<br> (after Elemental Workshop II)", "Members can now wear <col=000080>mind helmets</col> (after Elemental Workshop II).");
+            case 6 :
+                return(10, hvh_combat_head_100, "Combat hood<br> (with 20 Magic)", "You now have the Defence level required to wear <col=000080>combat hoods</col>. (You also need level 20 Magic.)");
+            case 7 :
+                return(10, hvh_combat_body_100, "Combat robe top<br> (with 20 Magic)", "You now have the Defence level required to wear <col=000080>combat robe tops</col>. (You also need level 20 Magic.)");
+            case 8 :
+                return(10, hvh_combat_legs_100, "Combat robe bottom<br> (with 20 Magic)", "You now have the Defence level required to wear <col=000080>combat robe bottoms</col>. (You also need level 20 Magic.)");
+            case 9 :
+                return(10, hvh_guthix_head_100, "Druidic mage hood<br> (with 20 Magic)", "You now have the Defence level required to wear <col=000080>druidic mage hoods</col>. (You also need level 20 Magic.)");
+            case 10 :
+                return(10, hvh_guthix_body_100, "Druidic mage top<br> (with 20 Magic)", "You now have the Defence level required to wear <col=000080>druidic mage tops</col>. (You also need level 20 Magic.)");
+            case 11 :
+                return(10, hvh_guthix_legs_100, "Druidic mage bottom<br> (with 20 Magic)", "You now have the Defence level required to wear <col=000080>druidic mage bottoms</col>. (You also need level 20 Magic.)");
+            case 12 :
+                return(20, enchanted_hat, "Members: Enchanted hat<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>enchanted hats</col>. (They also need level 40 Magic.)");
+            case 13 :
+                return(20, enchanted_robetop, "Members: Enchanted robe top<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>enchanted robe tops</col>. (They also need level 40 Magic.)");
+            case 14 :
+                return(20, enchanted_robelegs, "Members: Enchanted robe<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>enchanted robes</col>. (They also need level 40 Magic.)");
+            case 15 :
+                return(20, mystic_hat, "Members: Mystic hat<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>mystic hats</col>. (They also need level 40 Magic.)");
+            case 16 :
+                return(20, mystic_robe_top, "Members: Mystic robe top<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>mystic robe tops</col>. (They also need level 40 Magic.)");
+            case 17 :
+                return(20, mystic_robe_bottom, "Members: Mystic robe<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>mystic robes</col>. (They also need level 40 Magic.)");
+            case 18 :
+                return(20, mystic_gloves, "Members: Mystic gloves<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>mystic gloves</col>. (They also need level 40 Magic.)");
+            case 19 :
+                return(20, mystic_boots, "Members: Mystic boots<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>mystic boots</col>. (They also need level 40 Magic.)");
+            case 20 :
+                return(20, pvpw_hood_20, "Members: Corrupt Zuriel's hood<br> (with 20 Magic)", "Members now have the Defence level required to wear <col=000080>corrupt Zuriel's hood</col>. (They also need level 20 Magic.)");
+            case 21 :
+                return(20, pvpw_robe_top_20, "Members: Corrupt Zuriel's robe top<br> (with 20 Magic)", "Members now have the Defence level required to wear <col=000080>corrupt Zuriel's robe top</col>. (They also need level 20 Magic.)");
+            case 22 :
+                return(20, pvpw_robe_bottom_20, "Members: Corrupt Zuriel's robe bottom<br> (with 20 Magic)", "Members now have the Defence level required to wear <col=000080>corrupt Zuriel's robe bottom</col>. (They also need level 20 Magic.)");
+            case 23 :
+                return(25, magictraining_infinityhat, "Members: Infinity hat<br> (with 50 Magic)", "Members now have the Defence level required to wear <col=000080>infinity hats</col>. (They also need level 50 Magic.)");
+            case 24 :
+                return(25, magictraining_infinitytop, "Members: Infinity top<br> (with 50 Magic)", "Members now have the Defence level required to wear <col=000080>infinity tops</col>. (They also need level 50 Magic.)");
+            case 25 :
+                return(25, magictraining_infinitybottom, "Members: Infinity bottom<br> (with 50 Magic)", "Members now have the Defence level required to wear <col=000080>infinity robe bottoms</col>. (They also need level 50 Magic.)");
+            case 26 :
+                return(25, magictraining_infinitygloves, "Members: Infinity gloves<br> (with 50 Magic)", "Members now have the Defence level required to wear <col=000080>infinity gloves</col>. (They also need level 50 Magic.)");
+            case 27 :
+                return(25, magictraining_infinityboots, "Members: Infinity boots<br> (with 50 Magic)", "Members now have the Defence level required to wear <col=000080>infinity boots</col>. (They also need level 50 Magic.)");
+            case 28 :
+                return(30, trail_mage_hat, "Members: Third-Age mage hat<br> (with 65 Magic)", "Members now have the Defence level required to wear <col=000080>Third-Age mage hats</col>. (They also need level 65 Magic.)");
+            case 29 :
+                return(30, trail_mage_torso, "Members: Third-Age robe top<br> (with 65 Magic)", "Members now have the Defence level required to wear <col=000080>Third-Age robe tops</col>. (They also need level 65 Magic.)");
+            case 30 :
+                return(30, trail_mage_legs, "Members: Third-Age robe<br> (with 65 Magic)", "Members now have the Defence level required to wear <col=000080>Third-Age robes</col>. (They also need level 65 Magic.)");
+            case 31 :
+                return(30, trail_mage_amulet, "Members: Third-Age amulet<br> (with 65 Magic)", "Members now have the Defence level required to wear <col=000080>Third-Age amulets</col>. (They also need level 65 Magic.)");
+            case 32 :
+                return(40, splitbark_helm, "Members: Splitbark helm<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>splitbark helms</col>. (They also need level 40 Magic.)");
+            case 33 :
+                return(40, splitbark_body, "Members: Splitbark body<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>splitbark body</col>. (They also need level 40 Magic.)");
+            case 34 :
+                return(40, splitbark_legs, "Members: Splitbark legs<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>splitbark legs</col>. (They also need level 40 Magic.)");
+            case 35 :
+                return(40, splitbark_gauntlets, "Members: Splitbark gauntlets<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>splitbark gauntlets</col>. (They also need level 40 Magic.)");
+            case 36 :
+                return(40, splitbark_greaves, "Members: Splitbark boots<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>splitbark boots</col>. (They also need level 40 Magic.)");
+            case 37 :
+                return(40, dagganoth_mage_helm, "Members: Skeletal helm<br> (after Fremennik Trials, with 40 Magic)", "Members now have the Defence level required to wear <col=000080>skeletal helms</col> (after Fremennik Trials and with level 40 Magic).");
+            case 38 :
+                return(40, dagganoth_mage_body, "Members: Skeletal top<br> (after Fremennik Trials, with 40 Magic)", "Members now have the Defence level required to wear <col=000080>skeletal tops</col> (after Fremennik Trials and with level 40 Magic).");
+            case 39 :
+                return(40, dagganoth_mage_legs, "Members: Skeletal bottoms<br> (after Fremennik Trials, with 40 Magic)", "Members now have the Defence level required to wear <col=000080>skeletal bottoms</col> (after Fremennik Trials and with level 40 Magic).");
+            case 40 :
+                return(40, lunar_helmet, "Members: Lunar helm<br> (after Lunar Diplomacy, with 65 Magic)", "Members now have the Defence level required to wear <col=000080>lunar helms</col> (after Lunar Diplomacy and with level 65 Magic).");
+            case 41 :
+                return(40, lunar_torso, "Members: Lunar torso<br> (after Lunar Diplomacy, with 65 Magic)", "Members now have the Defence level required to wear <col=000080>lunar torsos</col> (after Lunar Diplomacy and with level 65 Magic).");
+            case 42 :
+                return(40, lunar_gloves, "Members: Lunar gloves<br> (after Lunar Diplomacy, with 65 Magic)", "Members now have the Defence level required to wear <col=000080>lunar gloves</col> (after Lunar Diplomacy and with level 65 Magic).");
+            case 43 :
+                return(40, lunar_legs, "Members: Lunar legs<br> (after Lunar Diplomacy, with 65 Magic)", "Members now have the Defence level required to wear <col=000080>lunar legs</col> (after Lunar Diplomacy and with level 65 Magic).");
+            case 44 :
+                return(40, lunar_boots, "Members: Lunar boots<br> (after Lunar Diplomacy, with 65 Magic)", "Members now have the Defence level required to wear <col=000080>lunar boots</col> (after Lunar Diplomacy and with level 65 Magic).");
+            case 45 :
+                return(40, lunar_cape, "Members: Lunar cape<br> (after Lunar Diplomacy, with 65 Magic)", "Members now have the Defence level required to wear <col=000080>lunar capes</col> (after Lunar Diplomacy and with level 65 Magic).");
+            case 46 :
+                return(40, sc_reward_hat, "Members: Sacred clay hat<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>sacred clay hats</col>. (They also need level 40 Magic.)");
+            case 47 :
+                return(40, sc_reward_robetop, "Members: Sacred clay robe top<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>sacred clay robe tops</col>. (They also need level 40 Magic.)");
+            case 48 :
+                return(40, sc_reward_robebottom, "Members: Sacred clay robe bottom<br> (with 40 Magic)", "Members now have the Defence level required to wear <col=000080>sacred clay robe bottoms</col>. (They also need level 40 Magic.)");
+            case 49 :
+                return(45, viking_helmet_magic, "Members: Farseer helm<br> (after Fremennik Trials)", "Members can now wear <col=000080>farseer helms</col> (after Fremennik Trials).");
+            case 50 :
+                return(50, hvh_ench_combat_head_100, "Members: Battle hood<br> (with 60 Magic)", "Members now have the Defence level required to wear <col=000080>battle hoods</col>. (They also need level 60 Magic.)");
+            case 51 :
+                return(50, hvh_ench_combat_body_100, "Members: Battle robe top<br> (with 60 Magic)", "Members now have the Defence level required to wear <col=000080>battle robe tops</col>. (They also need level 60 Magic.)");
+            case 52 :
+                return(50, hvh_ench_combat_legs_100, "Members: Battle robe bottom<br> (with 60 Magic)", "Members now have the Defence level required to wear <col=000080>battle robe bottoms</col>. (They also need level 60 Magic.)");
+            case 53 :
+                return(78, pvpw_hood, "Members: Zuriel's hood<br> (with 78 Magic)", "Members now have the Defence level required to wear <col=000080>Zuriel's hood</col>. (They also need level 78 Magic.)");
+            case 54 :
+                return(78, pvpw_robe_top, "Members: Zuriel's robe top<br> (with 78 Magic)", "Members now have the Defence level required to wear <col=000080>Zuriel's robe top</col>. (They also need level 78 Magic.)");
+            case 55 :
+                return(78, pvpw_robe_bottom, "Members: Zuriel's robe bottom<br> (with 78 Magic)", "Members now have the Defence level required to wear <col=000080>Zuriel's robe bottom</col>. (They also need level 78 Magic.)");
+        }
+    case 11 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, khazard_platemail, "Members: Khazard armour", "Members can now wear <col=000080>Khazard armour</col>.");
+            case 1 :
+                return(1, antidragonbreathshield, "Anti-dragonbreath shield", "You can now wield <col=000080>anti-dragonbreath shields</col>.");
+            case 2 :
+                return(1, dagganoth_range_gloves, "Members: Spined gloves", "Members can now wear <col=000080>spined gloves</col>.");
+            case 3 :
+                return(1, dagganoth_range_feet, "Members: Spined boots", "Members can now wear <col=000080>spined boots</col>.");
+            case 4 :
+                return(1, dagganoth_melee_gloves, "Members: Rock-shell gloves", "Members can now wear <col=000080>rock-shell gloves</col>.");
+            case 5 :
+                return(1, dagganoth_melee_feet, "Members: Rock-shell boots", "Members can now wear <col=000080>rock-shell boots</col>.");
+            case 6 :
+                return(5, wallbeast_spike_helmet, "Members: Spiny helmet", "Members now have the Defence level required to wear <col=000080>spiny helmets</col> to ward off wall beast attacks.");
+            case 7 :
+                return(10, hardleather_body, "Hard leather body", "You can now wear <col=000080>hard leather bodies</col>.");
+            case 8 :
+                return(10, smki_inv_full_slayer_helmet, "Slayer helmet<br> (after Smoking Kills)", "You can now wear <col=000080>slayer helmets</col> (after Smoking Kills).");
+            case 9 :
+                return(20, studded_body, "Studded body<br> (with 20 Ranged)", "You now have the Defence level required to wear <col=000080>studded bodies</col>. (You also need level 20 Ranged.)");
+            case 10 :
+                return(20, yak_hide_armour_body, "Members: Yak-hide bodies", "Members can now wear <col=000080>yak-hide bodies</col>.");
+            case 11 :
+                return(20, yak_hide_armour_greaves, "Members: Yak-hide legs", "Members can now wear <col=000080>yak-hide legs</col>.");
+            case 12 :
+                return(20, basic_tk_helm, "Members: Initiate sallet<br> (after Recruitment Drive, with 10 Prayer)", "Members now have the Defence level required to wear <col=000080>initiate sallets</col> (after Recruitment Drive and with level 10 Prayer).");
+            case 13 :
+                return(20, basic_tk_body, "Members: Initiate hauberk<br> (after Recruitment Drive, with 10 Prayer)", "Members now have the Defence level required to wear <col=000080>initiate hauberks</col> (after Recruitment Drive and with level 10 Prayer).");
+            case 14 :
+                return(20, basic_tk_legs, "Members: Initiate cuisse<br> (after Recruitment Drive, with 10 Prayer)", "Members now have the Defence level required to wear <col=000080>initiate cuisses</col> (after Recruitment Drive and with level 10 Prayer).");
+            case 15 :
+                return(20, slayer_mirror_shield, "Members: Mirror shield<br> (with 25 Slayer)", "Members now have the Defence level required to wield <col=000080>mirror shields</col> to protect against cockatrices and basilisks. (They also need level 25 Slayer.)");
+            case 16 :
+                return(20, pvpw_coif_20, "Members: Corrupt Morrigan's coif<br> (with 20 Ranged)", "Members now have the Defence level required to wield <col=000080>corrupt Morrigan's coif</col>. (They also need level 20 Ranged.)");
+            case 17 :
+                return(20, pvpw_leather_body_20, "Members: Corrupt Morrigan's leather body<br> (with 20 Ranged)", "Members now have the Defence level required to wield <col=000080>corrupt Morrigan's leather body</col>. (They also need level 20 Ranged.)");
+            case 18 :
+                return(20, pvpw_leather_chaps_20, "Members: Corrupt Morrigan's leather chaps<br> (with 20 Ranged)", "Members now have the Defence level required to wield <col=000080>corrupt Morrigan's leather chaps</col>. (They also need level 20 Ranged.)");
+            case 19 :
+                return(20, pvpw_full_helm_20, "Members: Corrupt Statius's full helm", "Members now have the Defence level required to wield <col=000080>corrupt Statius's full helm</col>.");
+            case 20 :
+                return(20, pvpw_platebody_20, "Members: Corrupt Statius's platebody", "Members now have the Defence level required to wield <col=000080>corrupt Statius's platebody</col>.");
+            case 21 :
+                return(20, pvpw_chainbody_20, "Members: Corrupt Vesta's chainbody", "Members now have the Defence level required to wield <col=000080>corrupt Vesta's chainbody</col>.");
+            case 22 :
+                return(20, pvpw_platelegs_20, "Members: Corrupt Statius' platelegs", "Members now have the Defence level required to wield <col=000080>corrupt Statius' platelegs</col>.");
+            case 23 :
+                return(20, pvpw_plateskirt_20, "Members: Corrupt Vesta's plateskirt", "Members now have the Defence level required to wield <col=000080>corrupt Vesta's plateskirt</col>.");
+            case 24 :
+                return(25, fremmenik_round_shield, "Members: Fremennik round shield", "Members can now wield Fremennik round shields</col>.");
+            case 25 :
+                return(25, dorgesh_frog_armour_top, "Members: Frog-leather body<br> (with 25 Ranged)", "Members now have the Defence level required to wear <col=000080>frog-leather bodies</col>. (They also need level 25 Ranged.)");
+            case 26 :
+                return(25, dorgesh_frog_armour_bottoms, "Members: Frog-leather chaps<br> (with 25 Ranged)", "Members now have the Defence level required to wear <col=000080>frog-leather chaps</col>. (They also need level 25 Ranged.)");
+            case 27 :
+                return(25, dorgesh_frog_armour_shoes, "Members: Frog-leather boots<br> (with 25 Ranged)", "Members now have the Defence level required to <col=000080>frog-leather boots</col>. (They also need level 25 Ranged.).");
+            case 28 :
+                return(30, viking_shield, "Members: Fremennik shield", "Members can now wield <col=000080>Fremennik shields</col>.");
+            case 29 :
+                return(30, viking_helmet, "Members: Fremennik helm", "Members can now wear <col=000080>Fremennik helms</col>.");
+            case 30 :
+                return(30, dwarf_goldrock_helmet, "Members: Gold helmet", "Members can now wear <col=000080>gold helmets</col>.");
+            case 31 :
+                return(30, rag_ram_helm, "Members: Ram skull helm (after Rag and Bone Man)", "Members can now wear <col=000080>ram skull helms</col> (after Rag and Bone Man).");
+            case 32 :
+                return(30, basic_tk_rank2_helm, "Members: Proselyte sallet<br> (after Slug Menace and with 20 Prayer)", "Members now have the Defence level required to wear <col=000080>proselyte sallets</col> (after Slug Menace, with level 20 Prayer).");
+            case 33 :
+                return(30, basic_tk_rank2_body, "Members: Proselyte hauberk<br> (after Slug Menace and with 20 Prayer)", "Members now have the Defence level required to wear <col=000080>proselyte hauberks</col> (after Slug Menace, with level 20 Prayer).");
+            case 34 :
+                return(30, basic_tk_rank2_plateskirt, "Members: Proselyte tasset<br> (after Slug Menace and with 20 Prayer)", "Members now have the Defence level required to wear <col=000080>proselyte tassets</col> (after Slug Menace, with level 20 Prayer).");
+            case 35 :
+                return(30, basic_tk_rank2_legs, "Members: Proselyte cuisse<br> (after Slug Menace and with 20 Prayer)", "Members now have the Defence level required to wear <col=000080>proselyte cuisses</col> (after Slug Menace, with level 20 Prayer).");
+            case 36 :
+                return(30, snakeskin_bandana, "Members: Snakeskin bandana (with 30 Ranged)", "Members now have the Defence level required to wear <col=000080>snakeskin bandanas</col>. (They also need level 30 Ranged.)");
+            case 37 :
+                return(30, snakeskin_body, "Members: Snakeskin body (with 30 Ranged)", "Members now have the Defence level required to wear <col=000080>snakeskin bodies</col>. (They also need level 30 Ranged.)");
+            case 38 :
+                return(30, snakeskin_chaps, "Members: Snakeskin chaps (with 30 Ranged)", "Members now have the Defence level required to wear <col=000080>snakeskin chaps</col>. (They also need level 30 Ranged.)");
+            case 39 :
+                return(30, snakeskin_vambraces, "Members: Snakeskin vambraces (with 30 Ranged)", "Members now have the Defence level required to wear <col=000080>snakeskin vambraces</col>. (They also need level 30 Ranged.)");
+            case 40 :
+                return(30, snakeskin_boots, "Members: Snakeskin boots (with 30 Ranged)", "Members now have the Defence level required to wear <col=000080>snakeskin boots</col>. (They also need level 30 Ranged.)");
+            case 41 :
+                return(40, dragonhide_body, "Green dragonhide body<br> (with 40 Ranged)", "You now have the Defence level required to wear <col=000080>green dragonhide bodies</col>. (You also need level 40 Ranged.)");
+            case 42 :
+                return(40, hvh_green_dhide_coif_100, "Green dragonhide coif<br> (with 40 Ranged)", "You now have the Defence level required to wear <col=000080>green dragonhide coifs</col>. (You also need level 40 Ranged.)");
+            case 43 :
+                return(40, blue_dragonhide_body, "Members: Blue dragonhide body<br> (with 50 Ranged)", "Members now have the Defence level required to wear <col=000080>blue dragonhide bodies</col>. (They also need level 50 Ranged.)");
+            case 44 :
+                return(40, hvh_blue_dhide_coif_100, "Members: Blue dragonhide coif<br> (with 50 Ranged)", "Members now have the Defence level required to wear <col=000080>blue dragonhide coifs</col>. (They also need level 50 Ranged.)");
+            case 45 :
+                return(40, red_dragonhide_body, "Members: Red dragonhide body<br> (with 60 Ranged)", "Members now have the Defence level required to wear <col=000080>red dragonhide bodies</col>. (They also need level 60 Ranged.)");
+            case 46 :
+                return(40, hvh_red_dhide_coif_100, "Members: Red dragonhide coif<br> (with 60 Ranged)", "Members now have the Defence level required to wear <col=000080>red dragonhide coifs</col>. (They also need level 60 Ranged.)");
+            case 47 :
+                return(40, black_dragonhide_body, "Members: Black dragonhide body<br> (with 70 Ranged)", "Members now have the Defence level required to wear <col=000080>black dragonhide bodies</col>. (They also need level 70 Ranged.)");
+            case 48 :
+                return(40, hvh_black_dhide_coif_100, "Members: Black dragonhide coif<br> (with 70 Ranged)", "Members now have the Defence level required to wear <col=000080>black dragonhide coifs</col>. (They also need level 70 Ranged.)");
+            case 49 :
+                return(40, trail_zamorak_coif, "Members: Blessed dragonhide coif<br> (with 70 Ranged)", "Members now have the Defence level required to wear <col=000080>blessed dragonhide coifs</col>. (They also need level 70 Ranged.)");
+            case 50 :
+                return(40, dagganoth_ranged_helm, "Members: Spined helm<br> (after Fremennik Trials and with 40 Ranged)", "Members now have the Defence level required to wear <col=000080>spined helms</col> (after Fremennik Trials and with level 40 Ranged).");
+            case 51 :
+                return(40, dagganoth_ranged_body, "Members: Spined body<br> (after Fremennik Trials and with 40 Ranged)", "Members now have the Defence level required to wear <col=000080>spined bodies</col> (after Fremennik Trials and with level 40 Ranged).");
+            case 52 :
+                return(40, dagganoth_ranged_legs, "Members: Spined chaps<br> (after Fremennik Trials and with 40 Ranged)", "Members now have the Defence level required to wear <col=000080>spined chaps</col> (after Fremennik Trials and with level 40 Ranged).");
+            case 53 :
+                return(40, dagganoth_melee_helm, "Members: Rock-shell helm<br> (after Fremennik Trials)", "Members now have the Defence level required to wear <col=000080>rock-shell helms</col> (after Fremennik Trials).");
+            case 54 :
+                return(40, dagganoth_melee_body, "Members: Rock-shell plate<br> (after Fremennik Trials)", "Members now have the Defence level required to wear <col=000080>rock-shell plates</col> (after Fremennik Trials).");
+            case 55 :
+                return(40, dagganoth_melee_legs, "Members: Rock-shell legs<br> (after Fremennik Trials)", "Members now have the Defence level required to wear <col=000080>rock-shell legs</col> (after Fremennik Trials).");
+            case 56 :
+                return(40, barbassault_penance_fighter_torso, "Members: Fighter torso", "Members can now wear <col=000080>fighter torsos</col>.");
+            case 57 :
+                return(40, barbassault_penance_gloves, "Members: Penance gloves", "Members can now wear <col=000080>penance gloves</col>.");
+            case 58 :
+                return(40, barbassault_penance_ranger_legs, "Members: Penance skirt<br> (with 60 Ranged)", "Members now have the Defence level required to wear <col=000080>penance skirts</col>. (They also need level 60 Ranged.)");
+            case 59 :
+                return(40, barbassault_penance_runner_boots, "Members: Runner boots", "Members can now wear <col=000080>runner boots</col>.");
+            case 60 :
+                return(40, sum2_spirit_shield, "Members: Spirit shield<br> (after Summer's End and with 55 Prayer)", "Members now have the Defence level required to wield <col=000080>spirit shields</col> (after Summer's End, with level 55 Prayer).");
+            case 61 :
+                return(40, sc_reward_helmet, "Sacred clay helmet", "Members now have the Defence level required to wear <col=000080>Sacred clay helmets</col>.");
+            case 62 :
+                return(40, sc_reward_platebody, "Sacred clay platebody", "Members now have the Defence level required to wear <col=000080>Sacred clay platebodies</col>.");
+            case 63 :
+                return(40, sc_reward_platelegs, "Sacred clay platelegs", "Members now have the Defence level required to wear <col=000080>Sacred clay platelegs</col>.");
+            case 64 :
+                return(40, sc_reward_coif, "Members: Sacred clay coif<br> (with 40 Ranged)", "Members now have the Defence level required to wear <col=000080>sacred clay coifs</col>. (They also need level 40 Ranged.)");
+            case 65 :
+                return(40, sc_reward_leather_body, "Members: Sacred clay body<br> (with 40 Ranged)", "Members now have the Defence level required to wear <col=000080>sacred clay bodies</col>. (They also need level 40 Ranged.)");
+            case 66 :
+                return(40, sc_reward_chaps, "Members: Sacred clay chaps<br> (with 40 Ranged)", "Members now have the Defence level required to wear <col=000080>sacred clay chaps</col>. (They also need level 40 Ranged.)");
+            case 67 :
+                return(45, barbassault_penance_healer_hat, "Members: Healer hat", "Members can now wear <col=000080>healer hats</col>.");
+            case 68 :
+                return(45, barbassault_penance_fighter_hat, "Members: Fighter hat", "Members can now wear <col=000080>fighter hats</col>.");
+            case 69 :
+                return(45, barbassault_penance_ranger_hat, "Members: Ranger hat", "Members can now wear <col=000080>ranger hats</col>.");
+            case 70 :
+                return(45, barbassault_penance_runner_hat, "Members: Runner hat", "Members can now wear <col=000080>runner hats</col>.");
+            case 71 :
+                return(45, viking_helmet_crush, "Members: Berserker helm<br> (after Fremennik Trials)", "Members now have the Defence level required to wear <col=000080>berserker helms</col> (after Fremennik Trials).");
+            case 72 :
+                return(45, viking_helmet_slash, "Members: Warrior helm<br> (after Fremennik Trials)", "Members now have the Defence level required to wear <col=000080>warrior helms</col> (after Fremennik Trials).");
+            case 73 :
+                return(45, viking_helmet_range, "Members: Archer helm<br> (after Fremennik Trials)", "Members now have the Defence level required to wear <col=000080>archer helms</col> (after Fremennik Trials).");
+            case 74 :
+                return(50, grim_wear_helmet, "Members: Dwarven helmet<br> (after Grim Tales)", "Members can now wear <col=000080>dwarven helmets</col> (after Grim Tales).");
+            case 75 :
+                return(50, granite_helm, "Members: Granite helm<br> (with 50 Strength)", "Members now have the Defence level required to wear <col=000080>granite helms</col>. (They also need level 50 Strength.)");
+            case 76 :
+                return(50, granite_body, "Members: Granite body<br> (with 50 Strength)", "Members now have the Defence level required to wear <col=000080>granite bodies</col>. (They also need level 50 Strength.)");
+            case 77 :
+                return(50, granite_legs, "Members: Granite legs<br> (with 50 Strength)", "Members now have the Defence level required to wear <col=000080>granite legs</col>. (They also need level 50 Strength.)");
+            case 78 :
+                return(50, granite_shield, "Members: Granite shield<br> (with 50 Strength)", "Members now have the Defence level required to wield <col=000080>granite shields</col>. (They also need level 50 Strength.)");
+            case 79 :
+                return(55, fris_kingly_helm, "Members: Helm of Neitiznot<br> (after Fremennik Isles)", "Members now have the Defence level required to wear the <col=000080>Helm of Neitiznot</col> (after Fremennik Isles).");
+            case 80 :
+                return(60, tzhaar_spikeshield, "Members: TokTz-Ket-Xil", "Members can now wield <col=000080>TokTz-Ket-Xil</col>.");
+            case 81 :
+                return(65, trail_fighter_helm, "Members: Third-Age full helm", "Members can now wear <col=000080>Third-Age full helms</col>.");
+            case 82 :
+                return(65, trail_silver_plate_chest, "Members: Third-Age platebody", "Members can now wear <col=000080>Third-Age platebodies</col>.");
+            case 83 :
+                return(65, trail_silver_plate_legs, "Members: Third-Age platelegs", "Members can now wear <col=000080>Third-Age platelegs</col>.");
+            case 84 :
+                return(65, trail_fighter_shield, "Members: Third-Age kiteshield", "Members can now wield <col=000080>Third-Age kiteshields</col>.");
+            case 85 :
+                return(65, godwars_armor_bandos_chestplate, "Members: Bandos chestplate", "Members can now wear <col=000080>Bandos chestplates</col>.");
+            case 86 :
+                return(65, godwars_armor_bandos_armored_skirt, "Members: Bandos tassets", "Members can now wear <col=000080>Bandos tassets</col>.");
+            case 87 :
+                return(65, godwars_armor_bandos_armored_boots, "Members: Bandos boots", "Members can now wear <col=000080>Bandos boots</col>.");
+            case 88 :
+                return(70, roving_crystal_shield_new, "Members: Crystal shield<br> (with 50 Agility)", "Members now have the Defence level required to wield <col=000080>crystal shields</col>. (They also need level 50 Agility.)");
+            case 89 :
+                return(70, godwars_armor_armadyl_helmet, "Members: Armadyl helmet<br> (with 70 Ranged)", "Members now have the Defence level required to wear Armadyl helmets. (They also need level 70 Ranged.)");
+            case 90 :
+                return(70, godwars_armor_armadyl_chestplate, "Members: Armadyl chestplate<br> (with 70 Ranged)", "Members now have the Defence level required to wear Armadyl chestplates. (They also need level 70 Ranged.)");
+            case 91 :
+                return(70, godwars_armor_armadyl_armored_skirt, "Members: Armadyl plateskirt<br> (with 70 Ranged)", "Members now have the Defence level required to wear Armadyl plateskirts. (They also need level 70 Ranged.)");
+            case 92 :
+                return(70, sum2_spirit_shield_blessed, "Members: Blessed spirit shield<br> (after Summer's End and with 60 Prayer)", "Members now have the Defence level required to wield <col=000080>blessed spirit shields</col> (after Summer's End, with level 60 Prayer).");
+            case 93 :
+                return(75, dragonfire_shield, "Members: Dragonfire shield", "Members can now wield <col=000080>dragonfire shields</col>.");
+            case 94 :
+                return(75, sum2_spirit_shield_arcane, "Members: Arcane spirit shield<br> (after Summer's End and with 70 Prayer and 65 Magic)", "Members now have the Defence level required to wield <col=000080>arcane spirit shields</col> (after Summer's End, with level 65 Magic and level 70 Prayer).");
+            case 95 :
+                return(75, sum2_spirit_shield_divine, "Members: Divine spirit shield<br> (after Summer's End and with 75 Prayer)", "Members now have the Defence level required to wield <col=000080>divine spirit shields</col> (after Summer's End, with level 75 Prayer).");
+            case 96 :
+                return(75, sum2_spirit_shield_elysian, "Members: Elysian spirit shield<br> (after Summer's End and with 75 Prayer)", "Members now have the Defence level required to wield <col=000080>elysian spirit shields</col> (after Summer's End, with level 75 Prayer).");
+            case 97 :
+                return(75, sum2_spirit_shield_spectral, "Members: Spectral spirit shield<br> (after Summer's End and with 70 Prayer and 65 Magic)", "Members now have the Defence level required to wield <col=000080>spectral spirit shields</col> (after Summer's End, with level 65 Magic and level 70 Prayer).");
+            case 98 :
+                return(78, pvpw_coif, "Members: Morrigan's coif<br> (with 78 Ranged)", "Members now have the Defence level required to wield <col=000080>Morrigan's coif</col>. (They also need level 78 Ranged.)");
+            case 99 :
+                return(78, pvpw_leather_body, "Members: Morrigan's leather body<br> (with 78 Ranged)", "Members now have the Defence level required to wield <col=000080>Morrigan's leather body</col>. (They also need level 78 Ranged.)");
+            case 100 :
+                return(78, pvpw_leather_chaps, "Members: Morrigan's leather chaps<br> (with 78 Ranged)", "Members now have the Defence level required to wield <col=000080>Morrigan's leather chaps</col>. (They also need level 78 Ranged.)");
+            case 101 :
+                return(78, pvpw_full_helm, "Members: Statius's full helm", "Members now have the Defence level required to wield <col=000080>Statius's full helm</col>.");
+            case 102 :
+                return(78, pvpw_platebody, "Members: Statius's platebody", "Members now have the Defence level required to wield <col=000080>Statius's platebody</col>.");
+            case 103 :
+                return(78, pvpw_chainbody, "Members: Vesta's chainbody", "Members now have the Defence level required to wield <col=000080>Vesta's chainbody</col>.");
+            case 104 :
+                return(78, pvpw_platelegs, "Members: Statius's platelegs", "Members now have the Defence level required to wield <col=000080>Statius's platelegs</col>.");
+            case 105 :
+                return(78, pvpw_plateskirt, "Members: Vesta's plateskirt", "Members now have the Defence level required to wield <col=000080>Vesta's plateskirt</col>.");
+        }
+    case 12 :
+        switch_int ($int1) {
+            case 0 :
+                return(1, sc_helmet_1, "Stealing Creation - class 1 helmet", "Members can now wear <col=000080>class 1 helmets</col> in the Stealing Creation minigame.");
+            case 1 :
+                return(1, sc_platelegs_1, "Stealing Creation - class 1 platelegs", "Members can now wear <col=000080>class 1 platelegs</col> in the Stealing Creation minigame.");
+            case 2 :
+                return(1, sc_platebody_1, "Stealing Creation - class 1 platebody", "Members can now wear <col=000080>class 1 platebodies</col> in the Stealing Creation minigame.");
+            case 3 :
+                return(20, sc_helmet_2, "Stealing Creation - class 2 helmet", "Members can now wear <col=000080>class 2 helmets</col> in the Stealing Creation minigame.");
+            case 4 :
+                return(20, sc_platelegs_2, "Stealing Creation - class 2 platelegs", "Members can now wear <col=000080>class 2 platelegs</col> in the Stealing Creation minigame.");
+            case 5 :
+                return(20, sc_platebody_2, "Stealing Creation - class 2 platebody", "Members can now wear <col=000080>class 2 platebodies</col> in the Stealing Creation minigame.");
+            case 6 :
+                return(40, sc_helmet_3, "Stealing Creation - class 3 helmet", "Members can now wear <col=000080>class 3 helmets</col> in the Stealing Creation minigame.");
+            case 7 :
+                return(40, sc_platelegs_3, "Stealing Creation - class 3 platelegs", "Members can now wear <col=000080>class 3 platelegs</col> in the Stealing Creation minigame.");
+            case 8 :
+                return(40, sc_platebody_3, "Stealing Creation - class 3 platebody", "Members can now wear <col=000080>class 3 platebodies</col> in the Stealing Creation minigame.");
+            case 9 :
+                return(60, sc_helmet_4, "Stealing Creation - class 4 helmet", "Members can now wear <col=000080>class 4 helmets</col> in the Stealing Creation minigame.");
+            case 10 :
+                return(60, sc_platelegs_4, "Stealing Creation - class 4 platelegs", "Members can now wear <col=000080>class 4 platelegs</col> in the Stealing Creation minigame.");
+            case 11 :
+                return(60, sc_platebody_4, "Stealing Creation - class 4 platebody", "Members can now wear <col=000080>class 4 platebodies</col> in the Stealing Creation minigame.");
+            case 12 :
+                return(80, sc_helmet_5, "Stealing Creation - class 5 helmet", "Members can now wear <col=000080>class 5 helmets</col> in the Stealing Creation minigame.");
+            case 13 :
+                return(80, sc_platelegs_5, "Stealing Creation - class 5 platelegs", "Members can now wear <col=000080>class 5 platelegs</col> in the Stealing Creation minigame.");
+            case 14 :
+                return(80, sc_platebody_5, "Stealing Creation - class 5 platebody", "Members can now wear <col=000080>class 5 platebodies</col> in the Stealing Creation minigame.");
+        }
+    case 13 :
+        if ($int1 = 0) {
+            return(99, skillcape_defence, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Defence<col=000080>. Why not visit the <col=800000>Melee Combat Tutor<col=000080> in <col=800000>Lumbridge<col=000080>? He has something special that is only available to true masters of the <col=800000>Defence<col=000080> skill!");
+        }
+}

@@ -123,8 +123,9 @@ impl Engine {
                                     continue;
                                 }
                                 #[cfg(since_254)]
-                                if let Some(secs) =
-                                    profile_transfer_wait(staff_mod_level, left_other_world)
+                                if !self.pending_logins[idx].lobby()
+                                    && let Some(secs) =
+                                        profile_transfer_wait(staff_mod_level, left_other_world)
                                 {
                                     self.reject_pending_login_with(
                                         idx,

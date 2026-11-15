@@ -1,0 +1,40 @@
+// 1741
+[proc,topstat_run_button_update](component $component0)
+def_graphic $graphic1 = "topstat_icon,2";
+def_graphic $graphic2 = "topstat_icon,4";
+def_graphic $graphic3 = "topstat_icon,5";
+def_graphic $graphic4 = "topstat_icon,6";
+def_graphic $graphic5 = "topstat_fill_full,2";
+def_graphic $graphic6 = "topstat_fill_full,6";
+if (getwindowmode >= 2) {
+    $graphic1 = 8655;
+    $graphic2 = 8657;
+    $graphic3 = 8658;
+    $graphic4 = 8659;
+    $graphic5 = 8643;
+    $graphic6 = 8647;
+    if_setsize(topstat_run:topstat_prayer, 67, 34, ^setsize_abs, ^setsize_abs);
+    if_setposition(topstat_run:com_5, 2, 2, ^setpos_abs_right, ^setpos_abs_top);
+    if_setgraphic($component0, 8625);
+    if_setposition(topstat_run:run_text, 3, 15, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(topstat_run:run_text, 34, 14, ^setsize_abs, ^setsize_abs);
+} else {
+    if_setsize(topstat_run:topstat_prayer, 57, 34, ^setsize_abs, ^setsize_abs);
+    if_setposition(topstat_run:com_5, 1, 1, ^setpos_abs_left, ^setpos_abs_top);
+    if_setgraphic($component0, graphic_1206);
+    if_setposition(topstat_run:run_text, 31, 15, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize(topstat_run:run_text, 24, 14, ^setsize_abs, ^setsize_abs);
+}
+if (%option_run_status_varc = 1) {
+    if_setgraphic(topstat_run:com_2, $graphic2);
+    if_setgraphic(topstat_run:com_0, $graphic6);
+    if_setop($component0, 1, "Turn run mode off");
+} else if (%option_run_status_varc = 0) {
+    if_setgraphic(topstat_run:com_2, $graphic1);
+    if_setgraphic(topstat_run:com_0, $graphic5);
+    if_setop($component0, 1, "Turn run mode on");
+} else if (%option_run_status_varc = 3) {
+    if_setgraphic(topstat_run:com_2, $graphic3);
+} else if (%option_run_status_varc = 4) {
+    if_setgraphic(topstat_run:com_2, $graphic4);
+}

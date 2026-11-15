@@ -1,0 +1,18 @@
+// 1450
+[proc,bank_v2_build_slots]
+def_int $int0 = 0;
+def_int $int1 = inv_size(bank);
+while ($int0 < $int1) {
+    cc_create(bank_v2_main:bank_v2_inv, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    cc_sethide(true);
+    if (inv_getobj(bank, $int0) ! null) {
+        ~script1453($int0);
+    }
+    cc_setoutline(1);
+    cc_setgraphicshadow(0x333333);
+    cc_setonmouserepeat("bank_v2_searchresults_tooltip(bank_v2_main:bank_v2_inv, $int0)");
+    cc_setonmouseleave("deltooltip(bank_v2_main:com_97)");
+    $int0 = calc($int0 + 1);
+}

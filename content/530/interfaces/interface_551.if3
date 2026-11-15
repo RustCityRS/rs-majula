@@ -1,0 +1,130 @@
+// 551:0
+[com_0]
+type=rectangle
+y=25
+width=190
+height=195
+colour=0x170801
+fill=yes
+trans=166
+
+// 551:1
+[ignorebox]
+type=layer
+x=8
+y=24
+width=158
+height=196
+scrollwidth=158
+scrollheight=195
+opbase=r    
+onload=clientscript_127
+
+// 551:2
+[ignorescroll]
+type=layer
+x=174
+y=24
+width=16
+height=196
+
+// 551:3
+[com_3]
+type=text
+x=4
+y=2
+width=180
+height=14
+textfont=fontmetrics_495
+text=Ignore List
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 551:4
+[com_4]
+type=text
+x=20
+y=227
+width=61
+height=32
+textfont=fontmetrics_494
+text=Add Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 551:5
+[com_5]
+type=text
+x=109
+y=227
+width=60
+height=32
+textfont=fontmetrics_494
+text=Del Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 551:6
+[com_6]
+type=graphic
+y=9
+width=190
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 551:7
+[com_7]
+type=graphic
+y=208
+width=190
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 551:8
+[loadingmes]
+type=text
+x=9
+y=25
+width=155
+height=100
+textfont=fontmetrics_495
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 551:9
+[com_9]
+type=layer
+x=15
+y=226
+width=72
+height=32
+transmitop=1,10
+op1=Add Name
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=meslayer_mode4
+
+// 551:10
+[com_10]
+type=layer
+x=103
+y=226
+width=72
+height=32
+transmitop=1,10
+op1=Delete Name
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=meslayer_mode5

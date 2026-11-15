@@ -1,0 +1,8 @@
+// 5919
+[proc,clientscript_5919]
+def_component $component0 = interface_1253:com_31;
+if_setposition($component0, -35, -16, ^setpos_abs_centre, ^setpos_abs_centre);
+if_sethide(interface_1253:com_31, false);
+if_sethide(interface_1253:com_178, true);
+if_setontimer($component0, "clientscript_5920(event_com, -35)");
+sound_vorbis_volume(~clientscript_2336(14234));

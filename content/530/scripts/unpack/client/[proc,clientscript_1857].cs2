@@ -1,0 +1,49 @@
+// 1857
+[proc,clientscript_1857](int $int0)
+def_int $int1 = op6505;
+if (testbit($int0, 0) = ^true) {
+    $int1 = setbit($int1, 14);
+} else {
+    $int1 = clearbit($int1, 14);
+}
+if (testbit($int0, 1) = ^true) {
+    $int1 = setbit($int1, 15);
+} else {
+    $int1 = clearbit($int1, 15);
+}
+if (testbit($int0, 2) = ^true) {
+    $int1 = setbit($int1, 16);
+} else {
+    $int1 = clearbit($int1, 16);
+}
+if (testbit($int0, 3) = ^true) {
+    $int1 = setbit($int1, 17);
+} else {
+    $int1 = clearbit($int1, 17);
+}
+if (testbit($int0, 4) = ^true) {
+    $int1 = setbit($int1, 18);
+} else {
+    $int1 = clearbit($int1, 18);
+}
+if (testbit($int0, 5) = ^true) {
+    $int1 = setbit($int1, 19);
+} else {
+    $int1 = clearbit($int1, 19);
+}
+if (testbit($int0, 6) = ^true) {
+    $int1 = setbit($int1, 20);
+} else {
+    $int1 = clearbit($int1, 20);
+}
+if (testbit($int0, 7) = ^true) {
+    $int1 = setbit($int1, 21);
+} else {
+    $int1 = clearbit($int1, 21);
+}
+if (testbit($int0, 8) = ^true) {
+    $int1 = setbit($int1, 22);
+} else {
+    $int1 = clearbit($int1, 22);
+}
+op6504($int1);

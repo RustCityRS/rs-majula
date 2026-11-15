@@ -1,0 +1,20 @@
+// 2143
+[clientscript,player_prefix_highlight](component $component0, int $int1)
+def_enum $enum2 = enum_1093;
+if (gender = 1) {
+    $enum2 = enum_3872;
+}
+def_int $int3 = 0;
+while ($int3 <= enum_getoutputcount($enum2)) {
+    if (cc_find($component0, $int3) = true) {
+        if (~player_prefix_check($int3) = 1) {
+            cc_setcolour(0x11ff00);
+        } else {
+            cc_setcolour(0xff1100);
+        }
+    }
+    $int3 = calc(1 + $int3);
+}
+if (cc_find($component0, $int1) = true) {
+    cc_setcolour(^white);
+}

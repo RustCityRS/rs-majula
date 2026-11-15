@@ -1,0 +1,8 @@
+// 2000
+[proc,clientscript_2000](int $int0, int $int1, int $int2)
+def_int $int3 = op747($int0, $int1);
+if ($int3 = $int2) {
+    mes_typed(^chattype_gamemessage, 0, "Passed inventory test");
+} else {
+    mes_typed(^chattype_gamemessage, 0, "Failed inventory test");
+}

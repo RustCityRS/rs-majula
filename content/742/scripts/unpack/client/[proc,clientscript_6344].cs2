@@ -1,0 +1,12 @@
+// 6344
+[proc,clientscript_6344]
+switch_int (map_lang) {
+    case 0 :
+        openurl("rswiki", "en/Customer_Support", false);
+    case 2 :
+        openurl("rswiki", "fr/Service_clientèle", false);
+    case 1 :
+        openurl("rswiki", "de/Kundenbetreuung", false);
+    case 3 :
+        openurl("rswiki", "pt/Suporte_ao_Cliente", false);
+}

@@ -1,0 +1,25 @@
+// 6325
+[proc,clientscript_6325]
+def_string $string0 = "<col=c8c8c8>";
+def_graphic $graphic0 = 11504;
+if (%varclient_1936 = 2) {
+    ~clientscript_6326(1, interface_1304:com_13, interface_1304:com_14);
+    ~clientscript_6326(0, interface_1304:com_16, interface_1304:com_17);
+    ~clientscript_6326(0, interface_1304:com_19, interface_1304:com_20);
+    $graphic0 = 11505;
+} else if (%varclient_1936 = 1) {
+    ~clientscript_6326(0, interface_1304:com_13, interface_1304:com_14);
+    ~clientscript_6326(1, interface_1304:com_16, interface_1304:com_17);
+    ~clientscript_6326(0, interface_1304:com_19, interface_1304:com_20);
+} else {
+    ~clientscript_6326(0, interface_1304:com_13, interface_1304:com_14);
+    ~clientscript_6326(0, interface_1304:com_16, interface_1304:com_17);
+    ~clientscript_6326(1, interface_1304:com_19, interface_1304:com_20);
+    $string0 = "<col=787878>";
+}
+if_setgraphic(interface_1304:com_12, $graphic0);
+if (%varclient_1935 > 0) {
+    if_settext(interface_1304:com_6, "<$string0><tostring(min(%varclient_1935, 999999999))></col>");
+} else {
+    if_settext(interface_1304:com_6, "<$string0>None</col>");
+}

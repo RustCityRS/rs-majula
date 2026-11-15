@@ -1,0 +1,90 @@
+// 2153
+[proc,ql4_skill_requirements_cache](struct $struct0)(boolean)
+def_stat $stat1 = struct_param($struct0, param_871);
+if (struct_param($struct0, param_897) = 1 & calc(stat_base(attack) + stat_base(strength)) < 130) {
+    return(false);
+}
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_872)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_873);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_874)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_875);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_876)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_877);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_878)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_879);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_880)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_881);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_882)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_883);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_884)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_885);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_886)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_887);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_888)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_889);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_890)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_891);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_892)) {
+    return(false);
+}
+$stat1 = struct_param($struct0, param_893);
+if ($stat1 = null) {
+    return(true);
+}
+if (stat_base($stat1) < struct_param($struct0, param_894)) {
+    return(false);
+}
+return(true);

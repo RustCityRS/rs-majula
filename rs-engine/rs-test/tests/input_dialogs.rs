@@ -24,6 +24,7 @@ use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 fn developer(engine: &mut Engine, name: &str) -> HarnessClient {
     let mut client = engine.harness_login_returning(name).expect("login");
@@ -105,7 +106,7 @@ fn an_obj_dialog_takes_an_obj_the_stockmarket_search_lists() {
         engine.harness_reset();
         let objs = &engine.cache.objs;
         let listed = (0..objs.count() as u16)
-            .filter_map(|id| objs.get_by_id(id))
+            .filter_map(|id| objs.get_by_id(TypeId::new(id)))
             .find(|obj| {
                 obj.stockmarket
                     && obj.certtemplate.is_none()
@@ -118,17 +119,20 @@ fn an_obj_dialog_takes_an_obj_the_stockmarket_search_lists() {
         let (id, cert) = (listed.id, listed.certlink.unwrap());
         let label = format!("obj: {}", listed.name.as_deref().unwrap());
         let unlisted = (0..objs.count() as u16)
-            .find(|&id| objs.get_by_id(id).is_some_and(|obj| !obj.stockmarket))
+            .find(|&id| {
+                objs.get_by_id(TypeId::new(id))
+                    .is_some_and(|obj| !obj.stockmarket)
+            })
             .expect("an obj off the stockmarket");
         let mut client = developer(engine, "objdialog");
         let obj = ClientProt::ResumePObjDialog;
 
         open(engine, &mut client, "~objdialog");
-        for bad in [cert, unlisted, u16::MAX] {
-            let resumed = answer(engine, &mut client, obj, &word(bad), "obj:");
+        for bad in [cert, TypeId::new(unlisted), TypeId::new(u16::MAX)] {
+            let resumed = answer(engine, &mut client, obj, &word(bad.g2()), "obj:");
             assert!(resumed.is_empty(), "obj {bad} resumed {resumed:?}");
         }
-        let resumed = answer(engine, &mut client, obj, &word(id), "obj:");
+        let resumed = answer(engine, &mut client, obj, &word(id.g2()), "obj:");
         assert_eq!(resumed, [label]);
     });
 }

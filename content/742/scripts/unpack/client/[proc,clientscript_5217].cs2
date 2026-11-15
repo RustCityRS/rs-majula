@@ -1,0 +1,9 @@
+// 5217
+[proc,clientscript_5217](component $component0, int $int1, component $component2, component $component3)
+~clientscript_5981($component0);
+~script4161($component0, 255);
+if_setonmouseover($component0, null);
+if_setonmouseover($component3, null);
+if_setonmouseover($component2, "clientscript_5218($component0, $component3, 0, 0, $component2)");
+if_setonmouseleave($component0, "clientscript_5218($component0, $component3, 1, 0, $component2)");
+if_sethide(op543($component3), true);

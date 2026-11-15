@@ -1,0 +1,4 @@
+// 616
+[clientscript,stock_backbutton_highlight_off](component $component0)
+if_setgraphic($component0, "bank_buttons,6");
+~deltooltip_action(stockmarket:offertooltip);

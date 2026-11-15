@@ -1,0 +1,16 @@
+// From 289's duel_arena.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,duel_arena_checks]()(boolean)
+if (~inzone_coord_pair_table(duel_arena_zones, coord) = true & ~in_duel_arena(coord) = false) {
+    mes("You cannot attack players in the challenge area."); // https://youtu.be/r606q1TBTJ8?t=53 https://youtu.be/zcFLOWkTSIo?t=3
+    return(false);
+}
+if (.uid ! %duel2accept) {
+    mes("You can only attack your opponent!"); // https://storage.googleapis.com/tannerdino/images/batwifahat-purpl.jpg
+    return(false);
+}
+if (%duelstatus < ^duelstatus_start | .%duelstatus < ^duelstatus_start) {
+    mes("The duel has not started yet!"); // https://youtu.be/64GEUr-lgS8?t=106
+    return(false);
+}
+return(true);

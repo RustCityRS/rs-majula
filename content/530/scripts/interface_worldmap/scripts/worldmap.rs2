@@ -1,0 +1,64 @@
+// 530's world map: interface 755 (worldmap).
+//
+// The globe beside the minimap (toplevel:worldmap_icon, 548:66, fixed;
+// toplevel_fullscreen:worldmap_button, 746:110, resizable; op1 "World Map")
+// swaps the whole game screen for the map: no game view, tabs or chat, in
+// either frame (worldmap.if3 755:0 sizes itself to the canvas; Jagex Knowledge
+// Base, Controls - The Basics, Wayback snapshot 2011-01-19). Zoom, panning,
+// the key, search and the overview run in the client.
+//
+// The server says where the player is: the map opens on the player, "even if
+// you are in a dungeon (with a small number of exceptions)" (Jagex Knowledge
+// Base, Controls - World Map View, snapshot 2011-05-20). clientscript 1369,
+// 755's onload, picks the map holding varc 622 and centres on it, falling
+// back to the surface; clientscript 2045 draws "You are here" at the player's
+// own tile. No clientscript writes varc 622, so it is set before the
+// IF_OPENTOP that loads the map.
+
+[if_button1,toplevel:worldmap_icon] @worldmap_open;
+[if_button1,toplevel_fullscreen:worldmap_button] @worldmap_open;
+
+[label,worldmap_open]
+// "For obvious reasons, you will not be able to load the world map while you
+// are in combat." (Jagex Knowledge Base, Controls - World Map View, Wayback
+// snapshot 2011-05-20; 2011 wiki, World map, rev 2011-05-10). No source gives
+// the combat refusal's text: the busy refusal stands in for it, unverified.
+// That one is sourced (2011 wiki, Magic carpet, rev 2011-04-17).
+if (p_finduid(uid) = false) {
+    mes("Please finish what you are doing before opening the world map.");
+    return;
+}
+if (add(%lastcombat, 8) > map_clock) {
+    mes("Please finish what you are doing before opening the world map.");
+    return;
+}
+%worldmap_focus = coord;
+if_opentop(worldmap);
+
+// The X at the top right (755:3, op1 "Close"). The client keeps every
+// sub-interface across IF_OPENTOP, so the frame comes back with its tabs,
+// orbs and chat as they were. Mode 2 has the client rebuild the scene behind
+// its loading screen, as void-634 sends on close (WorldMap.kt).
+[if_button1,worldmap:close]
+if (getwindowmode < 2) {
+    if_opentop_mode(toplevel, 2);
+} else {
+    if_opentop_mode(toplevel_fullscreen, 2);
+}
+
+// "Re-sort key" (755:29): Traditional, Alphabetical, Categorised, in turn
+// (clientscript 692 worldmap_keysort_button, which rebuilds the key in the
+// next order). The order is varbit 5367 of varp 463, which the client reads;
+// the server keeps it, picking the order the client has just drawn, or the
+// varp's next update snaps the key back.
+[if_button1,worldmap:sort_button]
+%worldmap_keysort = ~worldmap_keysort_next(%worldmap_keysort);
+
+// The key's next order after $order, as clientscript 692 rebuilds it: 0
+// Traditional, 1 Alphabetical, 2 Categorised, then back to 0.
+[proc,worldmap_keysort_next](int $order)(int)
+switch_int ($order) {
+    case 0 : return(1);
+    case 1 : return(2);
+    case default : return(0);
+}

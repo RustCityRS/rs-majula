@@ -1,0 +1,5 @@
+// 1307
+[proc,clientscript_1307](component $component0)
+if (%csi_gather_evid_1 = 0 | %csi_active_case = 8 & %varplayerbit_7921 = 1 & %csi_gather_evid_5 = 0) {
+    if_setmodel(csi_fingerprint:fingerprint_magnified, op2614($component0));
+}

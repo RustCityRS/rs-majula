@@ -1,0 +1,7 @@
+// 5703
+[proc,clientscript_5703](int $int0)
+if ($int0 < 0) {
+    ~clientscript_5705(1);
+} else {
+    ~clientscript_5705(0);
+}

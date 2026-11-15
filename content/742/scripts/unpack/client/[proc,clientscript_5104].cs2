@@ -1,0 +1,13 @@
+// 5104
+[proc,clientscript_5104](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_sethide($component1, true);
+if_sethide($component2, false);
+if ($int0 = 1) {
+    if_settext($component3, "Click to add<br>clan relationship");
+    if_setop($component4, 1, "Add");
+    if_sethide($component5, true);
+} else {
+    if_settext($component3, "No clan set");
+    if_clearops($component4);
+    if_sethide($component5, false);
+}

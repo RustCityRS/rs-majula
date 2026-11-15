@@ -1,0 +1,13 @@
+// 698
+[proc,clientscript_698](component $component0)
+if (%bankpin_counter = 0) {
+    if_settext($component0, "First click the FIRST digit.");
+} else if (%bankpin_counter = 1) {
+    if_settext($component0, "Now click the SECOND digit.");
+} else if (%bankpin_counter = 2) {
+    if_settext($component0, "Time for the THIRD digit.");
+} else if (%bankpin_counter = 3) {
+    if_settext($component0, "Finally, the FOURTH digit.");
+} else {
+    if_settext($component0, "Thanks!");
+}

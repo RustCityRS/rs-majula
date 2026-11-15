@@ -42,26 +42,30 @@ fn pack_table(
         }
     }
     let count = entries.last_key_value().map_or(0, |(&id, _)| id + 1);
-    let mut client = PackedData::new(count);
+    let mut packed = PackedData::new(count);
+    #[cfg(all(since_530, before_647))]
+    let mut empty = PackedData::new(count);
     for id in 0..count {
         let Some(props) = entries.get(&id) else {
-            client.skip_entry();
+            packed.skip_entry();
+            #[cfg(all(since_530, before_647))]
+            empty.skip_entry();
             continue;
         };
-        client.start_entry();
+        packed.start_entry();
         for (key, value) in *props {
             match key.as_str() {
                 // 1
                 "type" if !strings => parse_script_var_type(value, |v| {
-                    client.p1(1);
-                    client.p1(v as u8);
+                    packed.p1(1);
+                    packed.p1(v as u8);
                 }),
                 "type" => {}
 
                 // 2
                 "scope" => {
                     if VarPlayerScope::from_config_str(value) != VarPlayerScope::Temp {
-                        client.p1(2);
+                        packed.p1(2);
                     }
                 }
 
@@ -69,10 +73,20 @@ fn pack_table(
                 _ => panic!("Unrecognized varc config key: {key}"),
             }
         }
-        client.finish_entry();
+        packed.finish_entry();
+        #[cfg(all(since_530, before_647))]
+        {
+            empty.start_entry();
+            empty.finish_entry();
+        }
     }
+    // The 530 cache's varc tables are empty records: the types are the server's.
+    #[cfg(all(since_530, before_647))]
+    let (server, client) = (packed, empty);
+    #[cfg(since_647)]
+    let (server, client) = (PackedData::default(), packed);
     Ok(PackedFile {
-        server: PackedData::default(),
+        server,
         client: Some(client),
     })
 }

@@ -1,0 +1,35 @@
+// 384
+[proc,playerdesign4_getoutfit](int $int0, struct $struct1, boolean $boolean2)(struct)
+switch_int ($int0) {
+    case 0 :
+        if ($boolean2 = true) {
+            return(struct_param($struct1, param_1175));
+        }
+        return(struct_param($struct1, param_1169));
+    case 1 :
+        if ($boolean2 = true) {
+            return(struct_param($struct1, param_1176));
+        }
+        return(struct_param($struct1, param_1170));
+    case 2 :
+        if ($boolean2 = true) {
+            return(struct_param($struct1, param_1177));
+        }
+        return(struct_param($struct1, param_1171));
+    case 3 :
+        if ($boolean2 = true) {
+            return(struct_param($struct1, param_1178));
+        }
+        return(struct_param($struct1, param_1172));
+    case 4 :
+        if ($boolean2 = true) {
+            return(struct_param($struct1, param_1179));
+        }
+        return(struct_param($struct1, param_1173));
+    case 5 :
+        if ($boolean2 = true) {
+            return(struct_param($struct1, param_1180));
+        }
+        return(struct_param($struct1, param_1174));
+}
+return(null);

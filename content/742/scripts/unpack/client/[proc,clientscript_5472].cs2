@@ -1,0 +1,14 @@
+// 5472
+[proc,clientscript_5472](coord $coord0)
+spline_new(0, 4);
+spline_new(1, 4);
+spline_addpoint(0, 0, movecoord($coord0, -7, 2, -7), 1800, movecoord($coord0, -6, 2, -9), 1800, 0);
+spline_addpoint(1, 0, movecoord($coord0, -2, 2, -2), 1200, movecoord($coord0, -1, 2, -3), 1200, 0);
+spline_addpoint(0, 1, movecoord($coord0, 5, 2, -7), 1800, movecoord($coord0, 9, 2, -3), 1800, 0);
+spline_addpoint(1, 1, movecoord($coord0, 1, 2, -2), 1200, movecoord($coord0, 2, 2, -1), 1200, 0);
+spline_addpoint(0, 2, movecoord($coord0, 5, 2, 6), 1800, movecoord($coord0, 2, 2, 8), 1800, 0);
+spline_addpoint(1, 2, movecoord($coord0, 1, 2, 1), 1200, movecoord($coord0, 0, 2, 2), 1200, 0);
+spline_addpoint(0, 3, movecoord($coord0, -7, 2, 5), 1800, movecoord($coord0, -11, 2, 1), 1800, 0);
+spline_addpoint(1, 3, movecoord($coord0, -2, 2, 1), 1200, movecoord($coord0, -3, 2, 0), 1200, 0);
+cam_movealong(0, 0, 450, 450, 1, 0);
+if_setoncamfinished(interface_1172:com_9, "clientscript_5474(0, 450)");

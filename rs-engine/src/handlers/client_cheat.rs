@@ -11,7 +11,7 @@ use rs_entity::StaffModLevel;
 use rs_grid::CoordGrid;
 use rs_info::Visibility;
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::cp1252::encode_string;
 use rs_pack::cache::category::CategoryType;
 use rs_pack::cache::r#enum::EnumType;
@@ -37,13 +37,14 @@ use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 use rs_protocol::network::game::client::pack_coord;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::if_settext::IfSetText;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::reflection_checker::ReflectionCheck;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_stat::get_exp_by_level;
 use rs_util::base37::{is_valid_userhash, to_screen_name, to_userhash};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_util::wordpack::pack;
+use rs_ver::TypeId;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::ScriptArgument;
@@ -143,7 +144,7 @@ impl ClientGameHandler for ClientCheat {
 fn cheat_maintainer(
     cmd: &str,
     mut args: Split<'_, char>,
-    #[cfg_attr(before_647, expect(unused_variables))] input: &str,
+    #[cfg_attr(before_530, expect(unused_variables))] input: &str,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     match cmd {
@@ -163,7 +164,7 @@ fn cheat_maintainer(
         "bots" => cheat_spawn_bots(active),
         "localbots" => cheat_spawn_local_bots(active),
         "readerstall" => cheat_reader_stall(active),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         "reflect" => cheat_reflect(input, active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
@@ -277,16 +278,16 @@ fn cheat_debugproc(
                 params.push(ScriptArgument::String(args.next().unwrap_or("").into()))
             }
             ScriptVarType::Enum => parse_enum(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Obj | ScriptVarType::NamedObj => parse_obj(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Loc => parse_loc(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Struct => parse_struct(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Boolean => {
                 parse_bool(args.next(), |v| params.push(ScriptArgument::Int(v as i32)))?
@@ -295,19 +296,19 @@ fn cheat_debugproc(
                 params.push(ScriptArgument::Int(v.packed() as i32))
             })?,
             ScriptVarType::Category => parse_category(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Spotanim => parse_spotanim(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Npc => parse_npc(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Inv => parse_inv(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Seq => parse_seq(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::Stat => {
                 parse_stat(args.next(), |v| params.push(ScriptArgument::Int(v as i32)))?
@@ -319,7 +320,7 @@ fn cheat_debugproc(
                 parse_npcstat(args.next(), |v| params.push(ScriptArgument::Int(v as i32)))?
             }
             ScriptVarType::Idkit => parse_idk(args.next(), |v| {
-                params.push(ScriptArgument::Int(v.id as i32))
+                params.push(ScriptArgument::Int(v.id.int()))
             })?,
             ScriptVarType::AutoInt => {}
             ScriptVarType::Component => {}
@@ -329,14 +330,18 @@ fn cheat_debugproc(
             ScriptVarType::NpcUid => {}
             ScriptVarType::DbRow => {}
             ScriptVarType::Midi => {}
+            #[cfg(since_530)]
+            ScriptVarType::Graphic
+            | ScriptVarType::Jingle
+            | ScriptVarType::ChatCat
+            | ScriptVarType::Model => {
+                let value = args.next().unwrap_or("0");
+                params.push(ScriptArgument::Int(value.parse::<i32>().unwrap_or(0)));
+            }
             #[cfg(since_647)]
             ScriptVarType::Cursor
             | ScriptVarType::MapArea
-            | ScriptVarType::Graphic
             | ScriptVarType::ChatPhrase
-            | ScriptVarType::Jingle
-            | ScriptVarType::ChatCat
-            | ScriptVarType::Model
             | ScriptVarType::Texture
             | ScriptVarType::Bas
             | ScriptVarType::Vorbis
@@ -387,7 +392,7 @@ fn cheat_give(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(), S
 }
 
 /// Logs `count` of `obj` made by a staff command, for the economy tools.
-fn log_spawned(active: &ActivePlayer, obj: u16, count: u32) {
+fn log_spawned(active: &ActivePlayer, obj: TypeId, count: u32) {
     if count > 0 {
         let coord = active.player.pathing.coord;
         active.log_transfer(transfer::SPAWNED, coord, obj, count as i32, None);
@@ -538,7 +543,7 @@ fn cheat_give_crap(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let mut added = Vec::new();
     for _ in 0..inventory.capacity {
         loop {
-            let Some(obj) = objs.get_by_id(rng.next_int_bound(count) as u16) else {
+            let Some(obj) = objs.get_by_id(TypeId::from_int(rng.next_int_bound(count))) else {
                 continue;
             };
             if (!world_members && obj.members)
@@ -571,7 +576,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
     if let Some(varbit) = name.and_then(|n| engine().varbits().get_by_debugname(n)) {
         let varp = engine()
             .varps()
-            .get_by_id(varbit.basevar)
+            .get_by_id(TypeId::new(varbit.basevar))
             .ok_or(ScriptError::VarpNotFound(varbit.basevar as i32))?;
         if varp.protect && !take_protected_access(active) {
             return Ok(());
@@ -587,7 +592,7 @@ fn cheat_setvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
         }
         let value = build_var_value(v, args);
         active.message_game(&format!("Set {}: to {:?}", v.debugname, value));
-        active.set_varp(v.id, value, v.transmit);
+        active.set_varp(v.id.g2(), value, v.transmit);
     })
 }
 
@@ -634,7 +639,7 @@ fn cheat_getvar(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<(),
         return Ok(());
     }
     parse_varp(name, |v| {
-        let value = active.player.vars.get(v.id);
+        let value = active.player.vars.get(v.id.g2());
         active.message_game(&format!("Get {}: {:?}", v.debugname, value));
     })
 }
@@ -714,10 +719,21 @@ fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     else {
         return Ok(());
     };
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let com = com as u16;
-    let text = "x".repeat(MAX_PACKET_SIZE - IfSetText { com, text: "" }.sizeof());
-    let message = IfSetText { com, text: &text };
+    let empty = IfSetText {
+        com,
+        text: "",
+        #[cfg(all(since_530, before_647))]
+        verify: active.next_verify(),
+    };
+    let text = "x".repeat(MAX_PACKET_SIZE - empty.sizeof());
+    let message = IfSetText {
+        com,
+        text: &text,
+        #[cfg(all(since_530, before_647))]
+        verify: empty.verify,
+    };
     let mut body = Packet::new(message.sizeof());
     message.encode(&mut body);
     active.write_varshort_unchecked(ServerProt::IfSetText as u8, [&body.data[..body.pos], &[]]);
@@ -734,7 +750,7 @@ fn cheat_reader_stall(active: &mut ActivePlayer) -> Result<(), ScriptError> {
 ///
 /// Usage: `::reflect field <class> <field>`, `::reflect fieldmods <class>
 /// <field>` or `::reflect methodmods <class> <method> [<param class>...]`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn cheat_reflect(input: &str, active: &mut ActivePlayer) -> Result<(), ScriptError> {
     let usage = "Usage: ::reflect field|fieldmods <class> <field>, or ::reflect methodmods <class> <method> [<param class>...]";
     let mut args = input.split(' ').skip(1);
@@ -756,6 +772,8 @@ fn cheat_reflect(input: &str, active: &mut ActivePlayer) -> Result<(), ScriptErr
             class,
             method: member,
             params: args.map(str::to_string).collect(),
+            #[cfg(since_742)]
+            return_type: String::new(),
         },
         _ => {
             active.message_game(usage);
@@ -794,18 +812,18 @@ pub(crate) fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
         bot.player.pathing.tele = true;
         bot.player.pathing.jump = true;
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
-            bot.player.info.readyanim = Some(808);
-            bot.player.info.turnanim = Some(823);
-            bot.player.info.walkanim = Some(819);
-            bot.player.info.walkanim_b = Some(820);
-            bot.player.info.walkanim_l = Some(821);
-            bot.player.info.walkanim_r = Some(822);
-            bot.player.info.runanim = Some(824);
+            bot.player.info.readyanim = Some(TypeId::new(808));
+            bot.player.info.turnanim = Some(TypeId::new(823));
+            bot.player.info.walkanim = Some(TypeId::new(819));
+            bot.player.info.walkanim_b = Some(TypeId::new(820));
+            bot.player.info.walkanim_l = Some(TypeId::new(821));
+            bot.player.info.walkanim_r = Some(TypeId::new(822));
+            bot.player.info.runanim = Some(TypeId::new(824));
         }
 
-        bot.buildappearance(0);
+        bot.buildappearance(TypeId::new(0));
 
         engine.add_player(pid, bot, pid as i64);
         spawned += 1;
@@ -844,19 +862,19 @@ pub(crate) fn bot_tick(active: &mut ActivePlayer) -> Result<(), ScriptError> {
     #[cfg(since_647)]
     MoveGameClick { x, z, ctrl: false }.handle(active)?;
 
-    let inv = active.player.info.appearance.unwrap_or(0);
+    let inv = active.player.info.appearance.unwrap_or(TypeId::new(0));
     active.buildappearance(inv);
-    active.anim(Some(EMOTE_WAVE), 0);
+    active.anim(Some(TypeId::new(EMOTE_WAVE)), 0);
     active.facesquare(CoordGrid::new(x, active.player.pathing.coord.y(), z));
 
     let name = active.player.uid.screen_name();
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let chat = MessagePublic {
         colour: 0,
         effect: 0,
         bytes: pack(&name),
     };
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let chat = {
         let text = encode_string(&name);
         let mut bytes = vec![0; text.len() << 2];

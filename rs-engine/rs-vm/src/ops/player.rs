@@ -1,19 +1,25 @@
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::iterators::{self, PlayerIteratorState};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::ops::test;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, QueuePriority, ScriptArgument, ScriptState, TimerPriority};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
 use crate::*;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::MIDI_JINGLE_BASE;
 use rs_pack::types::HuntCheckVis;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::types::IfEvents;
 use rs_util::colour::rgb24_to_15;
+use rs_ver::TypeId;
 use runec::opcodes::*;
+
+#[cfg(all(since_530, before_647))]
+const HINT_SLOTS: u8 = 4;
+#[cfg(since_647)]
+const HINT_SLOTS: u8 = 8;
 
 /// The player whose script is running, who a queued hit belongs to: at 647 a
 /// queued script remembers them (`QueuedScript::source`), because 2011 paints
@@ -109,9 +115,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, ANIM => |s, player| {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             test::record_call(ANIM, "anim", &seq.to_string());
-            player.anim((seq != -1).then_some(seq as u16), delay);
+            player.anim(TypeId::from_int(seq).non_null(), delay);
         });
 
         // 2003
@@ -198,7 +204,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 647's damage(uid, type, amount, soak, healthbar) only paints:
         // content owns the life points and works out the soak
         // (content/647/scripts/player/scripts/damage.rs2).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, DAMAGE => |s| {
             let healthbar = s.pop_int_as::<u8>()?;
             let soak = s.pop_int_as::<u16>()?;
@@ -210,6 +216,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 test::record_call(DAMAGE, "damage", &arg);
             }
             let pid = (uid & 0x7FF) as u16;
+            #[cfg(all(since_530, before_647))]
+            let source = None;
+            #[cfg(since_647)]
             let source = hit_source(s, pid);
             if test::recording() {
                 let arg = source.map_or(-1, i32::from).to_string();
@@ -223,7 +232,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2015
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         none!(m, DAMAGE => |s| {
             let amount = s.pop_int_as::<u8>()?;
             let damage_type = s.pop_int_as::<u8>()?;
@@ -346,8 +355,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.stop_hint();
         });
 
-        // 2158: a tile hint arrow in one of 647's eight slots.
-        #[cfg(since_647)]
+        // 2158: a tile hint arrow in one of the client's slots.
+        #[cfg(since_530)]
         active_player_mut!(m, HINT_COORD_SLOT => |s, player| {
             let model = s.pop_int();
             let range = s.pop_int_as::<u16>()?;
@@ -356,9 +365,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let offset = s.pop_int_as::<u8>()?;
             let icon = s.pop_int_as::<u8>()?;
             let slot = s.pop_int_as::<u8>()?;
-            if slot > 7 || !(2..=6).contains(&offset) {
+            if slot >= HINT_SLOTS || !(2..=6).contains(&offset) {
                 return Err(ScriptError::Runtime(format!(
-                    "hint_coord_slot: slot {slot} (0-7), offset {offset} (2-6)"
+                    "hint_coord_slot: slot {slot} (0-{}), offset {offset} (2-6)",
+                    HINT_SLOTS - 1
                 )));
             }
             player.hint_coord_slot(
@@ -370,36 +380,38 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 coord.z(),
                 height,
                 range,
-                u16::try_from(model).ok(),
+                TypeId::try_from(model).ok(),
             );
         });
 
-        // 2159: an npc hint arrow in one of 647's eight slots, with a model at the
+        // 2159: an npc hint arrow in one of the client's slots, with a model at the
         // player's feet (-1 for none).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, HINT_NPC_SLOT => |s, player| {
             let model = s.pop_int();
             let icon = s.pop_int_as::<u8>()?;
             let slot = s.pop_int_as::<u8>()?;
-            if slot > 7 {
+            if slot >= HINT_SLOTS {
                 return Err(ScriptError::Runtime(format!(
-                    "hint_npc_slot: slot {slot} (0-7)"
+                    "hint_npc_slot: slot {slot} (0-{})",
+                    HINT_SLOTS - 1
                 )));
             }
             let nid = if s.int_operand() != 0 { s.active_npc2 } else { s.active_npc }
                 .ok_or_else(|| ScriptError::Runtime("no active_npc".into()))?
                 .nid();
-            let model = (model >= 0).then_some(model as u16);
+            let model = TypeId::try_from(model).ok();
             player.hint_npc_slot(nid, slot, icon, model);
         });
 
-        // 2160: clears one of 647's eight hint arrow slots.
-        #[cfg(since_647)]
+        // 2160: clears one of the client's hint arrow slots.
+        #[cfg(since_530)]
         active_player_mut!(m, HINT_STOP_SLOT => |s, player| {
             let slot = s.pop_int_as::<u8>()?;
-            if slot > 7 {
+            if slot >= HINT_SLOTS {
                 return Err(ScriptError::Runtime(format!(
-                    "hint_stop_slot: slot {slot} (0-7)"
+                    "hint_stop_slot: slot {slot} (0-{})",
+                    HINT_SLOTS - 1
                 )));
             }
             player.hint_stop_slot(slot);
@@ -497,7 +509,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
             let seq = engine::<E>()
                 .seqs()
-                .get_by_id(seq as u16)
+                .get_by_id(TypeId::from_int(seq))
                 .ok_or(ScriptError::SeqNotFound(seq))?;
             player.if_setanim(com, seq.id);
         });
@@ -518,7 +530,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2041
         active_player_mut!(m, IF_SETMODEL => |s, player| {
-            let model = s.pop_int_as::<u16>()?;
+            let model = s.pop_int_as::<TypeId>()?;
             let com = pop_com(s)?;
             player.if_setmodel(com, model);
         });
@@ -526,14 +538,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2168: 647's IF_SETGRAPHIC, a sprite on a component.
         #[cfg(since_647)]
         active_player_mut!(m, IF_SETGRAPHIC => |s, player| {
-            let graphic = s.pop_int_as::<u16>()?;
+            let graphic = s.pop_int_as::<TypeId>()?;
             let com = s.pop_int();
             player.if_setgraphic(com, graphic);
         });
 
         // 2042
         active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
-            let npc = s.pop_int_as::<u16>()?;
+            let npc = s.pop_int_as::<TypeId>()?;
             let com = pop_com(s)?;
             player.if_setnpchead(com, npc);
         });
@@ -541,7 +553,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2043
         active_player_mut!(m, IF_SETOBJECT => |s, player| {
             let scale = s.pop_int();
-            let obj = s.pop_int_as::<u16>()?;
+            let obj = s.pop_int_as::<TypeId>()?;
             let com = pop_com(s)?;
             player.if_setobject(com, obj, scale);
         });
@@ -650,7 +662,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 647's drag (IF_BUTTOND) carries the component it ended on, which
         // the bank's tabs need: an item dropped on a tab's button goes into
         // that tab. Safe where `last_targetslot` is.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player!(m, LAST_TARGETCOM => |s, player| {
             if let Some(trigger) = s.trigger && !trigger.allows_last_targetslot() {
                 return Err(ScriptError::Runtime(
@@ -662,7 +674,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2169
         // The tile 647's ground target (`[apcoordt]`) was aimed at.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player!(m, LAST_COORD => |s, player| {
             if let Some(trigger) = s.trigger && !trigger.allows_last_coord() {
                 return Err(ScriptError::Runtime(
@@ -693,7 +705,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2170
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         none!(m, LAST_STRING => |s| {
             let val = s.last_string.clone().unwrap_or_default();
             s.push_string(&val);
@@ -732,7 +744,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2062
         active_player_mut!(m, MES => |s, player| {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             test::record_call(MES, "mes", s.peek_string(0));
             player.mes(s.peek_string(0));
             s.drop_strings(1);
@@ -747,21 +759,30 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.drop_strings(1);
         });
 
+        // 2172: 530's MESSAGE_GAME carries no chat type.
+        #[cfg(all(since_530, before_647))]
+        active_player_mut!(m, MES_TYPED => |s, player| {
+            s.pop_int_as::<u16>()?;
+            test::record_call(MES_TYPED, "mes_typed", s.peek_string(0));
+            player.mes(s.peek_string(0));
+            s.drop_strings(1);
+        });
+
         // 2157
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player!(m, GETWINDOWMODE => |s, player| {
             s.push_int(player.window_mode() as i32);
         });
 
         // 2165
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, IF_OPENTOP => |s, player| {
             let com = s.pop_int_as::<u16>()?;
             player.if_opentop(com, 0);
         });
 
         // 2166: if_opentop with IF_OPENTOP's mode byte.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, IF_OPENTOP_MODE => |s, player| {
             let mode = s.pop_int_as::<u8>()?;
             let com = s.pop_int_as::<u16>()?;
@@ -769,7 +790,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2164
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, IF_OPENSUB => |s, player| {
             let parent_hash = s.pop_int();
             let sub_id = s.pop_int_as::<u16>()?;
@@ -777,14 +798,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2161
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, IF_CLOSESUB => |s, player| {
             let component_hash = s.pop_int();
             player.if_closesub(component_hash);
         });
 
         // 2162
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, IF_MOVESUB => |s, player| {
             let to = s.pop_int();
             let from = s.pop_int();
@@ -792,7 +813,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2167
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, IF_SETEVENTS => |s, player| {
             let can_target = s.pop_int() != 0;
             let allow_drag = s.pop_int() != 0;
@@ -808,7 +829,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2186
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, RUNCLIENTSCRIPT => |s, player| {
             let script_id = s.pop_int();
             player.runclientscript(script_id);
@@ -817,7 +838,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2187
         // runclientscript*(id)(args...): vararg CS2 invocation with typed
         // params (int/string), encoded on the wire in reverse stack order.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, RUNCLIENTSCRIPTVARARG => |s, player| {
             let args = s.pop_script_args();
             let script_id = s.pop_int();
@@ -846,15 +867,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 if !player.lowmem()
                     && let Some(id) = id
                 {
-                    #[cfg(since_254)]
+                    #[cfg(all(since_254, before_530))]
+                    let delay = midi_length_ms::<E>(id as i32)?;
+                    #[cfg(since_530)]
                     let delay = midi_tick_length::<E>(id as i32)?;
                     // 2011 keeps jingles apart from songs: a jingle's `midi`
                     // id is its own plus MIDI_JINGLE_BASE (a song plays none).
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     let Some(id) = id.checked_sub(MIDI_JINGLE_BASE as u16) else {
                         return Ok(());
                     };
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     test::record_call(MIDI_JINGLE, "midi_jingle", &id.to_string());
                     #[allow(clippy::unnecessary_cast)]
                     player.midi_jingle(id, delay as u16);
@@ -879,12 +902,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 let id = Some(s.pop_int_as::<u16>()?);
 
                 // A `midi` id past the songs is a jingle (MIDI_JINGLE_BASE).
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let id = id.filter(|&id| (id as usize) < MIDI_JINGLE_BASE);
                 if !player.lowmem()
                     && let Some(id) = id
                 {
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     test::record_call(MIDI_SONG, "midi_song", &id.to_string());
                     player.midi_song(id);
                 }
@@ -893,7 +916,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2173: 647's music_playjingle(jingle id, duration) -- a cache jingle
         // by id, the client resuming its song after `duration`.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, MUSIC_PLAYJINGLE => |s, player| {
             let duration = s.pop_int_as::<u16>()?;
             let id = s.pop_int_as::<u16>()?;
@@ -904,7 +927,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2174: 647's music_playsong(song id) -- a cache song by id.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, MUSIC_PLAYSONG => |s, player| {
             let id = s.pop_int_as::<u16>()?;
             if !player.lowmem() {
@@ -949,19 +972,19 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2185
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         protected_active_player_mut!(m, P_STRINGDIALOG => |s, _player| {
             s.execution = ExecutionState::StringDialog;
         });
 
         // 2178
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         protected_active_player!(m, P_NAMEDIALOG => |s, _player| {
             s.execution = ExecutionState::NameDialog;
         });
 
         // 2180
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         protected_active_player!(m, P_OBJDIALOG => |s, _player| {
             s.execution = ExecutionState::ObjDialog;
         });
@@ -1108,7 +1131,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2075
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         protected_active_player_mut!(m, P_LOGOUT => |_s, player| {
             player.logout(true);
         });
@@ -1122,6 +1145,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             } else {
                 player.logout_full();
             }
+        });
+
+        // 2075 at 530 has no lobby to land on.
+        #[cfg(all(since_530, before_647))]
+        protected_active_player_mut!(m, P_LOGOUT => |s, player| {
+            s.pop_int();
+            player.logout(true);
         });
 
         // 2076
@@ -1151,7 +1181,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let loc_type = engine::<E>()
                 .locs()
                 .get_by_id(loc.id)
-                .ok_or(ScriptError::LocNotFound(loc.id as i32))?;
+                .ok_or(ScriptError::LocNotFound(loc.id.int()))?;
 
             if let Some(ops) = &loc_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1189,7 +1219,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let npc_type = engine::<E>()
                 .npcs()
                 .get_by_id(id)
-                .ok_or(ScriptError::NpcNotFound(id as i32))?;
+                .ok_or(ScriptError::NpcNotFound(id.int()))?;
 
             if let Some(ops) = &npc_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1234,7 +1264,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let obj_type = engine::<E>()
                 .objs()
                 .get_by_id(obj.id)
-                .ok_or(ScriptError::ObjNotFound(obj.id as i32))?;
+                .ok_or(ScriptError::ObjNotFound(obj.id.int()))?;
 
             if let Some(ops) = &obj_type.op {
                 if ops.get(op as usize - 1).is_none_or(|o| o.is_none()) {
@@ -1389,13 +1419,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2094
         active_player_mut!(m, READYANIM => |s, player| {
             // anim can be null for example: agility
-            player.readyanim(s.pop_int() as u16);
+            player.readyanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2095
         active_player_mut!(m, RUNANIM => |s, player| {
             // anim can be null for example: agility
-            player.runanim(s.pop_int() as u16);
+            player.runanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2096
@@ -1461,7 +1491,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if player.lowmem() || synth == -1 {
                 return Ok(());
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if test::recording() {
                 let arg = format!("{synth},{loops},{delay}");
                 test::record_call(SOUND_SYNTH, "sound_synth", &arg);
@@ -1490,12 +1520,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u16>()?;
             let spotanim = pop_spotanim::<E>(s)?;
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if test::recording() {
                 let arg = format!("{},{height},{delay}", spotanim.id);
                 test::record_call(SPOTANIM_PL, "spotanim_pl", &arg);
             }
             player.spotanim(spotanim.id, height, delay);
+        });
+
+        // 1029
+        active_player!(m, MAP_LOBBY => |s, player| {
+            s.push_int(player.map_lobby() as i32);
         });
 
         // 2106
@@ -1600,7 +1635,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2119
         active_player_mut!(m, TURNANIM => |s, player| {
             // anim can be null for example: agility
-            player.turnanim(s.pop_int() as u16);
+            player.turnanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2120
@@ -1626,25 +1661,25 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2124
         active_player_mut!(m, WALKANIM_B => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_b(s.pop_int() as u16);
+            player.walkanim_b(TypeId::from_int(s.pop_int()));
         });
 
         // 2125
         active_player_mut!(m, WALKANIM_L => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_l(s.pop_int() as u16);
+            player.walkanim_l(TypeId::from_int(s.pop_int()));
         });
 
         // 2126
         active_player_mut!(m, WALKANIM_R => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_r(s.pop_int() as u16);
+            player.walkanim_r(TypeId::from_int(s.pop_int()));
         });
 
         // 2127
         active_player_mut!(m, WALKANIM => |s, player| {
             // anim can be null for example: agility
-            player.walkanim(s.pop_int() as u16);
+            player.walkanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2128
@@ -1695,7 +1730,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2156
         // Applies the character-design preview varcs (`playerdesign3_*`) to the
         // player's body kit and colours; buildappearance then makes it render.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player_mut!(m, APPLYDESIGN => |_s, player| {
             player.applydesign();
         });
@@ -1726,49 +1761,49 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // TODO: this is duplicated with `RUNANIM`
         active_player_mut!(m, BAS_RUNNING => |s, player| {
             // anim can be null for example: agility
-            player.runanim(s.pop_int() as u16);
+            player.runanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2138
         // TODO: this is duplicated with `READYANIM`
         active_player_mut!(m, BAS_READYANIM => |s, player| {
             // anim can be null for example: agility
-            player.readyanim(s.pop_int() as u16);
+            player.readyanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2139
         // TODO: this is duplicated with `WALKANIM`
         active_player_mut!(m, BAS_WALK_F => |s, player| {
             // anim can be null for example: agility
-            player.walkanim(s.pop_int() as u16);
+            player.walkanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2140
         // TODO: this is duplicated with `WALKANIM_B`
         active_player_mut!(m, BAS_WALK_B => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_b(s.pop_int() as u16);
+            player.walkanim_b(TypeId::from_int(s.pop_int()));
         });
 
         // 2141
         // TODO: this is duplicated with `WALKANIM_L`
         active_player_mut!(m, BAS_WALK_L => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_l(s.pop_int() as u16);
+            player.walkanim_l(TypeId::from_int(s.pop_int()));
         });
 
         // 2142
         // TODO: this is duplicated with `WALKANIM_R`
         active_player_mut!(m, BAS_WALK_R => |s, player| {
             // anim can be null for example: agility
-            player.walkanim_r(s.pop_int() as u16);
+            player.walkanim_r(TypeId::from_int(s.pop_int()));
         });
 
         // 2143
         // TODO: this is duplicated with `TURNANIM`
         active_player_mut!(m, BAS_TURNONSPOT => |s, player| {
             // anim can be null for example: agility
-            player.turnanim(s.pop_int() as u16);
+            player.turnanim(TypeId::from_int(s.pop_int()));
         });
 
         // 2144
@@ -1865,7 +1900,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2154
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         active_player!(m, P_PROJANIM_HALFSQ => |s, player| {
             let tail = pop_projanim_tail::<E>(s)?;
             let wearpos = pop_wearpos(s)?;

@@ -1,0 +1,10 @@
+// 5899
+[proc,clientscript_5899]
+if (%varclient_1782 ! %varclient_1783) {
+    %varclient_1782 = calc(%varclient_1782 + 1);
+    ~clientscript_5900;
+    if (%varclient_1782 >= 13) {
+        %varclient_1782 = 0;
+    }
+}
+~clientscript_5890(%varclient_1782);

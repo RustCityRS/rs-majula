@@ -1,0 +1,8 @@
+// 2748
+[clientscript,script2748](int $int0)
+if_settext(dob_confirm_login:daytext, tostring(calc($int0 + 1)));
+if_setvflip(dob_confirm_login:dayarrow, false);
+if_sethide(dob_confirm_login:dayddlist, true);
+if_sethide(dob_confirm_login:dayddscroll, true);
+if_sethide(dob_confirm_login:dayddlistborder, true);
+if_sethide(dob_confirm_login:dayddback, true);

@@ -1,0 +1,17 @@
+// 518
+[proc,clientscript_518]
+%client_timer = calc(%client_timer + 1);
+if (%client_timer > 499) {
+    %client_timer = 0;
+    if (%loot_waiting_on = 1 | %loot_waiting_off = 1) {
+        if_setgraphic(interface_589:loot_button, 1071);
+    } else if (%loot_share_on = 1) {
+        if (%loot_coinshare = 1) {
+            if_setgraphic(interface_589:loot_button, 306);
+        } else {
+            if_setgraphic(interface_589:loot_button, 1069);
+        }
+    } else {
+        if_setgraphic(interface_589:loot_button, 1070);
+    }
+}

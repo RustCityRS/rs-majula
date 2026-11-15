@@ -1,0 +1,86 @@
+// 5462
+[proc,clientscript_5462](int $int0, int $int1)
+def_graphic $graphic2 = null;
+def_string $string0 = "";
+switch_int ($int0) {
+    case 1 :
+        $graphic2 = 8178;
+        $string0 = "Reduced melee attack";
+    case 2 :
+        $graphic2 = 8184;
+        $string0 = "No shield";
+    case 3 :
+        $graphic2 = 8185;
+        $string0 = "No food";
+    case 4 :
+        $graphic2 = 8181;
+        $string0 = "Reduced melee defence";
+    case 5 :
+        $graphic2 = 8187;
+        $string0 = "Random freeze";
+    case 6 :
+        $graphic2 = 8188;
+        $string0 = "Halved HP";
+    case 7 :
+        $graphic2 = 8186;
+        $string0 = "No body armour";
+    case 8 :
+        $graphic2 = 8179;
+        $string0 = "Reduced ranged attack";
+    case 9 :
+        $graphic2 = 8191;
+        $string0 = "No familiar";
+    case 10 :
+        $graphic2 = 8199;
+        $string0 = "Monster stun";
+    case 11 :
+        $graphic2 = 8193;
+        $string0 = "No prayers";
+    case 12 :
+        $graphic2 = 8190;
+        $string0 = "Slippery fingers";
+    case 13 :
+        $graphic2 = 8180;
+        $string0 = "Reduced magic attack";
+    case 14 :
+        $graphic2 = 8192;
+        $string0 = "Diseased";
+    case 15 :
+        $graphic2 = 8195;
+        $string0 = "No special attacks";
+    case 16 :
+        $graphic2 = 8183;
+        $string0 = "Reduced magic defence";
+    case 17 :
+        $graphic2 = 8196;
+        $string0 = "Random daze";
+    case 18 :
+        $graphic2 = 8189;
+        $string0 = "Poisoned";
+    case 19 :
+        $graphic2 = 8182;
+        $string0 = "Reduced ranged defence";
+    case 20 :
+        $graphic2 = 8197;
+        $string0 = "No powerups";
+    case 21 :
+        $graphic2 = 8194;
+        $string0 = "No potions";
+    case 22 :
+        $graphic2 = 8198;
+        $string0 = "Life saver";
+    case default :
+        $graphic2 = 8178;
+}
+cc_create(interface_1159:com_31, ^iftype_graphic, $int1);
+cc_setgraphic($graphic2);
+cc_setsize(23, 23, ^setsize_abs, ^setsize_abs);
+cc_setposition(%varclient_1670, %varclient_1671, ^setpos_abs_right, ^setpos_abs_bottom);
+%varclient_1670 = calc(%varclient_1670 + 24);
+if (%varclient_1670 > 180) {
+    %varclient_1670 = 0;
+    %varclient_1671 = calc(%varclient_1671 + 24);
+}
+~clientscript_5464;
+cc_setonmouserepeat("addtooltip_dynamic(event_com, $int1, interface_1159:com_44, $string0, 10, 100)");
+cc_setonmouseleave("deltooltip(interface_1159:com_44)");

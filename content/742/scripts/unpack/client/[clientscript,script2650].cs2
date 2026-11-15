@@ -1,0 +1,7 @@
+// 2650
+[clientscript,script2650]
+def_enum $enum0 = enum_1093;
+if (gender = 1) {
+    $enum0 = enum_3872;
+}
+if_setsize(chatdefault:com_53, stringwidth("<enum(int, string, $enum0, %varplayer_1442)><chat_playername_unfiltered><img=3>:", p12_full), if_getheight(chatdefault:com_53), ^setsize_abs, ^setsize_abs);

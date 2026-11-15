@@ -1,0 +1,6 @@
+// 4310
+[proc,clansettings_clanmate_details_onclansettingstransmit]
+if (~script4309 = 1) {
+    ~clansettings_clanmate_details_loading_hide;
+}
+~clansettings_clanmate_details_refresh;

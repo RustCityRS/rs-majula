@@ -4,17 +4,17 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::STRING_TERMINATOR;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(UpdateFriendList, Buffered, Fixed)]
 pub struct UpdateFriendList {
     pub user37: i64,
     pub node: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for UpdateFriendList {
     fn encode(&self, buf: &mut Packet) {
         buf.p8(self.user37);
@@ -23,6 +23,39 @@ impl ServerProtMessage for UpdateFriendList {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.user37) + size_of_val(&self.node)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+#[server_prot(UpdateFriendList, Buffered, VarByte)]
+pub struct UpdateFriendList<'a> {
+    pub user37: i64,
+    pub world: u16,
+    pub rank: u8,
+    pub world_name: &'a str,
+    pub world_flag: u8,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateFriendList<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.user37 | ((self.world_flag == 0) as i64) << 63);
+        buf.p2(self.world);
+        buf.p1(self.rank);
+        if self.world > 0 {
+            buf.pjstr(self.world_name, STRING_TERMINATOR);
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.user37)
+            + size_of_val(&self.world)
+            + size_of_val(&self.rank)
+            + if self.world > 0 {
+                Packet::sizejstr(self.world_name)
+            } else {
+                0
+            }
     }
 }
 
@@ -42,8 +75,12 @@ pub struct FriendEntry {
     pub previous_name: String,
     pub world: u16,
     pub rank: u8,
+    #[cfg(since_742)]
+    pub sort_flag: bool,
     pub world_name: Option<String>,
     pub world_flag: Option<u8>,
+    #[cfg(since_742)]
+    pub world_int: i32,
 }
 
 #[cfg(since_647)]
@@ -61,12 +98,16 @@ impl ServerProtMessage for UpdateFriendlist {
             buf.pjstr(&friend.previous_name, STRING_TERMINATOR);
             buf.p2(friend.world);
             buf.p1(friend.rank);
+            #[cfg(since_742)]
+            buf.p1(friend.sort_flag as u8);
             if friend.world > 0 {
                 buf.pjstr(
                     friend.world_name.as_deref().unwrap_or(""),
                     STRING_TERMINATOR,
                 );
                 buf.p1(friend.world_flag.unwrap_or(0));
+                #[cfg(since_742)]
+                buf.p4(friend.world_int);
             }
         }
     }
@@ -80,9 +121,15 @@ impl ServerProtMessage for UpdateFriendlist {
                     + Packet::sizejstr(&f.previous_name)
                     + size_of_val(&f.world)
                     + size_of_val(&f.rank);
+                #[cfg(since_742)]
+                let base = base + size_of_val(&f.sort_flag);
                 if f.world > 0 {
-                    base + f.world_name.as_ref().map_or(1, |s| Packet::sizejstr(s))
-                        + size_of_val(&f.world_flag)
+                    let online = base
+                        + f.world_name.as_ref().map_or(1, |s| Packet::sizejstr(s))
+                        + size_of::<u8>();
+                    #[cfg(since_742)]
+                    let online = online + size_of_val(&f.world_int);
+                    online
                 } else {
                     base
                 }

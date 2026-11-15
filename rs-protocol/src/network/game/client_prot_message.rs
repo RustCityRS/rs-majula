@@ -1,7 +1,7 @@
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_ver::STRING_TERMINATOR;
 
 pub trait ClientProtMessageInfo {
@@ -23,7 +23,7 @@ pub trait ClientProtMessage: ClientProtMessageInfo {
     fn decode(buf: &mut Packet, len: usize) -> Self;
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn string_end(data: &[u8], start: usize) -> Option<usize> {
     data.get(start..)?
         .iter()
@@ -31,7 +31,7 @@ pub(crate) fn string_end(data: &[u8], start: usize) -> Option<usize> {
         .map(|len| start + len + 1)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn smart_end(data: &[u8], start: usize) -> Option<usize> {
     let size = if *data.get(start)? < 128 { 1 } else { 2 };
     (start + size <= data.len()).then_some(start + size)

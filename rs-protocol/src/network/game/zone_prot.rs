@@ -17,6 +17,10 @@ pub enum ZoneProt {
     MapProjAnim = ServerProt::MapProjAnim as u8,
     #[cfg(since_289)]
     SoundArea = ServerProt::SoundArea as u8,
+    #[cfg(since_530)]
+    MapProjAnimHalfsq = ServerProt::MapProjAnimHalfsq as u8,
+    #[cfg(since_530)]
+    ServerProt530_104 = ServerProt::ServerProt530_104 as u8,
 }
 
 #[cfg(rev = "647")]
@@ -38,4 +42,25 @@ pub enum ZoneProt {
     MapProjAnimHalfsq = 12,
     LocAddChange = 13,
     MapProjAnim = 14,
+}
+
+#[cfg(rev = "742")]
+#[repr(u8)]
+#[derive(Debug)]
+pub enum ZoneProt {
+    SoundVorbisArea = 0,
+    LocDel = 1,
+    ObjAdd = 2,
+    ObjReveal = 3,
+    LocAnim = 4,
+    MapProjAnim = 5,
+    LocAddChange = 6,
+    MapProjAnimHalfsq = 7,
+    SoundArea = 8,
+    ObjDel = 9,
+    LocPrefetch = 10,
+    LocMerge = 11,
+    MapAnim = 12,
+    TextCoord = 13,
+    ObjCount = 14,
 }

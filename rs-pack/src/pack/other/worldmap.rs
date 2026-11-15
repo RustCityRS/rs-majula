@@ -8,6 +8,7 @@ use crate::pack::util::media::{emit_group, read_group};
 use crate::pack::util::palette;
 use crate::types::{LocShape, MapSquareCsv};
 use rs_io::jag::{JagCompression, JagFile};
+use rs_ver::TypeId;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -160,7 +161,10 @@ impl WorldmapBuilder {
         for (mx, mz, square) in &self.npcs {
             let mut present = [false; 1 << 12];
             for &(id, tile) in square {
-                if npcs.get_by_id(id).is_some_and(|npc| npc.minimap) {
+                if npcs
+                    .get_by_id(TypeId::new(id))
+                    .is_some_and(|npc| npc.minimap)
+                {
                     present[tile] = true;
                 }
             }
@@ -228,7 +232,7 @@ fn encode_locs(square: &[SquareLoc], locs: &TypeProvider<LocTypeRaw>, out: &mut 
     let mut mapfunctions = [None; 1 << 12];
 
     for loc in square {
-        let Some(ty) = locs.get_by_id(loc.id) else {
+        let Some(ty) = locs.get_by_id(TypeId::new(loc.id)) else {
             continue;
         };
         if ty.mapscene == Some(HIDDEN_MAPSCENE) {
@@ -255,7 +259,7 @@ fn encode_locs(square: &[SquareLoc], locs: &TypeProvider<LocTypeRaw>, out: &mut 
             out.push((29 + mapscene) as u8);
         }
         if let Some(mapfunction) = mapfunctions[tile] {
-            out.push((160 + mapfunction) as u8);
+            out.push((160 + mapfunction.g2()) as u8);
         }
         out.push(0);
     }

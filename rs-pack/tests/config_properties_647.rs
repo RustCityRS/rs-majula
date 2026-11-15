@@ -16,6 +16,7 @@ use rs_pack::unpack::config::{
     particleemitter::emit_particleemitter_props, quest::emit_quest_props,
     spotanim::emit_spotanim_props,
 };
+use rs_ver::TypeId;
 use std::collections::HashMap;
 use std::fs;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -153,7 +154,7 @@ fn identified_properties_preserve_encoding_and_reject_old_names() {
 
 #[test]
 fn spotanim_terrain_mode_uses_client_defaults_and_overwrites_previous_modes() {
-    let mut spot = SpotAnimTypeRaw::new(0);
+    let mut spot = SpotAnimTypeRaw::new(TypeId::new(0));
     assert_eq!((spot.hillskew, spot.hillskew_param), (0, None));
     spot.decode(&mut Packet::from(vec![9, 0]));
     assert_eq!((spot.hillskew, spot.hillskew_param), (3, Some(8224)));

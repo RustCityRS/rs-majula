@@ -1,0 +1,21 @@
+// 6081
+[proc,clientscript_6081]
+def_int $int0 = inv_total(inv, %shop_currency);
+def_int $int1 = 0;
+if (%shop ! null) {
+    if_setontimer(interface_1265:com_90, null);
+    ~clientscript_6107;
+    if (%shop_currency = coins) {
+        $int0 = calc($int0 + inv_total(inv_623, %shop_currency));
+    }
+    if ($int0 = 0) {
+        if_settext(interface_1265:com_207, "None!");
+        if_setgraphic(interface_1265:com_206, "km_shopitems,0");
+    } else {
+        if_settext(interface_1265:com_207, ~tostring_shortform($int0));
+        if_setgraphic(interface_1265:com_206, enum(obj, graphic, enum_200, %shop_currency));
+    }
+    $int1 = parawidth(if_gettext(interface_1265:com_207), if_getwidth(interface_1265:com_77), verdana_11pt_regular);
+    $int1 = calc($int1 + 2 + if_getwidth(interface_1265:com_206));
+    if_setsize(interface_1265:com_16, $int1, 15, ^setsize_abs, ^setsize_abs);
+}

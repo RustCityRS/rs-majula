@@ -1,0 +1,171 @@
+// The Restless Ghost was reworked on 15 December 2009 (2011 wiki, The
+// Restless Ghost, 22 May 2011): the skull now lies in rocks south of the
+// graveyard. The ghost's lines are void-634's (RestlessGhost.kt), its flow
+// too: the wiki quotes none of them. The faces are void-634's expressions
+// (Idle is neutral, Disheartened sad).
+
+[opnpc1,ghostx]
+switch_int (%prieststart) {
+    case ^priest_not_started :
+        // void-634
+        ~chatnpc("<p,neutral>Wooooo! Ooooooh!");
+        ~chatplayer("<p,confused>I can't understand a word you are saying. Maybe Father Aereck will be able to help.");
+    case ^priest_started, ^priest_spoken_urhney : @restless_ghost_ghost;
+    case ^priest_spoken_ghost, ^priest_obtained_skull : @restless_ghost_mining_spot;
+    // void-634
+    case default : mes("The ghost doesn't appear to be interested in talking.");
+}
+
+// void-634 (RestlessGhost.kt, ghost)
+[label,restless_ghost_ghost]
+if (inv_total(worn, amulet_of_ghostspeak) > 0) {
+    ~chatplayer("<p,neutral>Hello ghost, how are you?");
+    ~chatnpc("<p,neutral>Not very good actually.");
+    ~chatplayer("<p,quiz>What's the problem then?");
+    ~chatnpc("<p,neutral>Did you just understand what I said???");
+    switch_int (~p_choice3("Yep, now tell me what the problem is.", 1, "No, you sound like you're speaking nonsense to me.", 2, "Wow, this amulet works!", 3)) {
+        case 1 :
+            ~chatplayer("<p,neutral>Yep, now tell me what the problem is.");
+            ~chatnpc("<p,neutral>WOW! This is INCREDIBLE! I didn't expect anyone to ever understand me again!");
+            ~chatplayer("<p,angry>Ok, Ok, I can understand you!");
+            ~chatplayer("<p,quiz>But have you any idea WHY you're doomed to be a ghost?");
+            ~chatnpc("<p,neutral>Well, to be honest, I'm not sure.");
+            @restless_ghost_task;
+        case 2 :
+            ~chatplayer("<p,happy>No, you sound like you're speaking nonsense to me.");
+            ~chatnpc("<p,neutral>Oh that's a pity. You got my hopes up there.");
+            ~chatplayer("<p,neutral>Yeah, it is a pity. Sorry about that.");
+            ~chatnpc("<p,neutral>Hang on a second... you CAN understand me!");
+            switch_int (~p_choice2("No I can't.", 1, "Yep, clever aren't I?", 2)) {
+                case 1 :
+                    ~chatplayer("<p,neutral>No I can't.");
+                    ~chatnpc("<p,neutral>Great.");
+                    ~chatnpc("<p,neutral>The first person I can speak to in ages...");
+                    ~chatnpc("<p,neutral>..and they're a moron.");
+                case 2 :
+                    ~chatplayer("<p,happy>Yep, clever aren't I?");
+                    ~chatnpc("<p,neutral>I'm impressed. You must be very powerful. I don't suppose you can stop me being a ghost?");
+                    @restless_ghost_help_me;
+            }
+        case 3 :
+            ~chatplayer("<p,happy>Wow, this amulet works!");
+            ~chatnpc("<p,neutral>Oh! It's your amulet that's doing it! I did wonder. I don't suppose you can help me? I don't like being a ghost.");
+            @restless_ghost_help_me;
+    }
+} else if (inv_total(inv, amulet_of_ghostspeak) > 0) {
+    ~chatnpc("<p,neutral>Wooo wooo wooooo!");
+    ~chatplayer("<p,neutral>Why can't I understand you? Oh, yeah, it might help if I wear this amulet!");
+} else {
+    @restless_ghost_no_amulet;
+}
+
+// void-634 (helpMe)
+[label,restless_ghost_help_me]
+switch_int (~p_choice2("Yes, ok. Do you know WHY you're a ghost?", 1, "No, you're scary!", 2)) {
+    case 1 :
+        ~chatplayer("<p,happy>Yes, ok. Do you know WHY you're a ghost?");
+        @restless_ghost_task;
+    case 2 :
+        ~chatplayer("<p,neutral>No, you're scary!");
+        ~chatnpc("<p,neutral>Great.");
+        ~chatnpc("<p,neutral>The first person I can speak to in ages...");
+        ~chatnpc("<p,neutral>..and they're an idiot.");
+}
+
+// void-634 (task). The mine "just south of this graveyard" is 2011's (2011
+// wiki: "the mining area south of the graveyard").
+[label,restless_ghost_task]
+~chatnpc("<p,neutral>I should think it's because I've lost my head.");
+~chatplayer("<p,neutral>What? I can see your head perfectly fine well, see through it at least.");
+~chatnpc("<p,neutral>No, no, I mean from my REAL body. If you look in my coffin you'll see my corpse is without its skull. Last thing I remember was being attacked by a warlock while I was mining. It was at the mine just south of this");
+~chatnpc("<p,neutral>graveyard.");
+~chatplayer("<p,neutral>Okay. I'll try to get your skull back for you so you can rest in peace.");
+%prieststart = ^priest_spoken_ghost;
+~send_quest_progress(^questlist_priest, %prieststart, ^priest_complete);
+
+// void-634 (miningSpot)
+[label,restless_ghost_mining_spot]
+if (inv_total(worn, amulet_of_ghostspeak) > 0) {
+    ~chatplayer("<p,neutral>Hello ghost, how are you?");
+    ~chatnpc("<p,neutral>How are you doing finding my skull?");
+    if (inv_total(inv, ghostskull) > 0) {
+        ~chatplayer("<p,happy>I have found it!");
+        ~chatnpc("<p,neutral>Hurrah! Now I can stop being a ghost! You just need to put it in my coffin there, and I will be free!");
+    } else {
+        ~chatplayer("<p,sad>Sorry, I can't find it at the moment.");
+        ~chatnpc("<p,neutral>Ah well. Keep on looking.");
+        ~chatnpc("<p,neutral>I'm pretty sure it's somewhere near the mining spot south of here. I really hope it's still there somewhere.");
+    }
+} else if (inv_total(inv, amulet_of_ghostspeak) > 0) {
+    ~chatnpc("<p,neutral>Wooo wooo wooooo!");
+    ~chatplayer("<p,neutral>Why can't I understand you? Oh, yeah, it might help if I wear this amulet!");
+} else {
+    @restless_ghost_no_amulet;
+}
+
+// void-634 (noGhostAmulet)
+[label,restless_ghost_no_amulet]
+~chatplayer("<p,neutral>Hello ghost, how are you?");
+~chatnpc("<p,neutral>Wooo wooo wooooo!");
+switch_int (~p_choice3("Sorry, I don't speak ghost.", 1, "Ooh... THAT'S interesting.", 2, "Any hints where I can find some treasure?", 3)) {
+    case 1 : @restless_ghost_dont_speak_ghost;
+    case 2 :
+        ~chatplayer("<p,happy>Ooh... THAT'S interesting.");
+        ~chatnpc("<p,neutral>Woo wooo. Woooooooooooooooooo!");
+        switch_int (~p_choice2("Did he really?", 1, "Yeah, that's what I thought.", 2)) {
+            case 1 :
+                ~chatplayer("<p,quiz>Did he really?");
+                ~chatnpc("<p,neutral>Woo.");
+                switch_int (~p_choice2("My brother had EXACTLY the same problem.", 1, "Goodbye. Thanks for the chat.", 2)) {
+                    case 1 :
+                        ~chatplayer("<p,neutral>My brother had EXACTLY the same problem.");
+                        ~chatnpc("<p,neutral>Woo Wooooo!");
+                        ~chatnpc("<p,neutral>Wooooo Woo woo woo!");
+                        switch_int (~p_choice2("Goodbye. Thanks for the chat.", 1, "You'll have to give me the recipe some time...", 2)) {
+                            case 1 : @restless_ghost_goodbye;
+                            case 2 :
+                                ~chatplayer("<p,neutral>You'll have to give me the recipe some time...");
+                                ~chatnpc("<p,neutral>Wooooooo woo woooooooo.");
+                                @restless_ghost_goodbye_or_not_sure;
+                        }
+                    case 2 : @restless_ghost_goodbye;
+                }
+            case 2 :
+                ~chatplayer("<p,happy>Yeah, that's what I thought.");
+                ~chatnpc("<p,neutral>Wooo woooooooooooooo...");
+                @restless_ghost_goodbye_or_not_sure;
+        }
+    case 3 :
+        ~chatplayer("<p,quiz>Any hints where I can find some treasure?");
+        ~chatnpc("<p,neutral>Wooooooo woo! Wooooo woo wooooo woowoowoo woo Woo wooo. Wooooo woo woo? Woooooooooooooooooo!");
+        switch_int (~p_choice2("Sorry, I don't speak ghost.", 1, "Thank you. You've been very helpful.", 2)) {
+            case 1 : @restless_ghost_dont_speak_ghost;
+            case 2 :
+                ~chatplayer("<p,happy>Thank you. You've been very helpful.");
+                ~chatnpc("<p,neutral>Wooooooo.");
+        }
+}
+
+[label,restless_ghost_goodbye_or_not_sure]
+switch_int (~p_choice2("Goodbye. Thanks for the chat.", 1, "Hmm... I'm not so sure about that.", 2)) {
+    case 1 : @restless_ghost_goodbye;
+    case 2 :
+        ~chatplayer("<p,quiz>Hmm... I'm not so sure about that.");
+        ~chatnpc("<p,neutral>Wooo woo?");
+        ~chatplayer("<p,angry>Well, if you INSIST.");
+        ~chatnpc("<p,neutral>Wooooooooo!");
+        ~chatplayer("<p,neutral>Ah well, better be off now...");
+        ~chatnpc("<p,neutral>Woo.");
+        ~chatplayer("<p,neutral>Bye.");
+}
+
+[label,restless_ghost_goodbye]
+~chatplayer("<p,neutral>Goodbye. Thanks for the chat.");
+~chatnpc("<p,neutral>Wooo wooo?");
+
+[label,restless_ghost_dont_speak_ghost]
+~chatplayer("<p,confused>Sorry, I don't speak ghost.");
+~chatnpc("<p,neutral>Woo woo?");
+~chatplayer("<p,neutral>Nope, still don't understand you.");
+~chatnpc("<p,neutral>WOOOOOOOOO!");
+~chatplayer("<p,neutral>Never mind.");

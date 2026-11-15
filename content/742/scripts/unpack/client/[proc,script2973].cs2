@@ -1,0 +1,37 @@
+// 2973
+[proc,script2973]
+if (stat(construction) < 56) {
+    if_setcolour(ecosystem_environmental_feature:boneyard_layer, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:boneyard_layer, 0xeae7c4);
+}
+if (stat(construction) < 57) {
+    if_setcolour(ecosystem_environmental_feature:house_text, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:house_text, 0xeae7c4);
+}
+if (stat(construction) < 59) {
+    if_setcolour(ecosystem_environmental_feature:vent_text, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:vent_text, 0xeae7c4);
+}
+if (stat(construction) < 62) {
+    if_setcolour(ecosystem_environmental_feature:grass_text, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:grass_text, 0xeae7c4);
+}
+if (stat(construction) < 65) {
+    if_setcolour(ecosystem_environmental_feature:pond_text, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:pond_text, 0xeae7c4);
+}
+if (stat(construction) < 70) {
+    if_setcolour(ecosystem_environmental_feature:stones_text, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:stones_text, 0xeae7c4);
+}
+if (stat(construction) < 80) {
+    if_setcolour(ecosystem_environmental_feature:pit_layer, 0x868360);
+} else {
+    if_setcolour(ecosystem_environmental_feature:pit_layer, 0xeae7c4);
+}
