@@ -1,0 +1,39 @@
+// 5906
+[proc,clientscript_5906]
+~clientscript_5219(interface_1253:com_52);
+if_sethide(interface_1253:com_51, true);
+if_sethide(interface_1253:com_31, true);
+~clientscript_6669;
+~clientscript_6570;
+~clientscript_5219(interface_1253:com_52);
+%varclient_1784 = 0;
+if_sethide(interface_1253:com_178, true);
+if (%varplayerbit_10861 > 0) {
+    if_sethide(interface_1253:com_178, false);
+}
+def_struct $struct0 = ~clientscript_5936(%varplayerbit_10860);
+def_int $int1 = struct_param($struct0, param_2268);
+def_obj $obj2 = inv_getobj(inv_665, %varplayerbit_10860);
+def_int $int3 = inv_getnum(inv_665, %varplayerbit_10860);
+if (%varplayerbit_10861 > 0) {
+    if_setobject(interface_1253:com_210, $obj2, $int3);
+    if_setobject(interface_1253:com_36, $obj2, $int3);
+    if_sethide(interface_1253:com_178, false);
+    if_settext(interface_1253:com_169, ~clientscript_5909($int1, %varplayerbit_10865, $obj2, $int3));
+} else {
+    if_setobject(interface_1253:com_210, null, 0);
+    if_setobject(interface_1253:com_36, null, 0);
+    if_settext(interface_1253:com_169, "");
+}
+if_settext(interface_1253:com_168, "Spins remaining: <tostring(max(0, calc(%varplayerbit_10862 + %varplayerbit_11026 + %varclient_1800)))>");
+if_settext(interface_1253:com_42, ~clientscript_789);
+def_graphic $graphic4 = ~clientscript_5941(%varplayerbit_10860);
+if (%varplayerbit_10861 > 0) {
+    if_setgraphic(interface_1253:com_209, $graphic4);
+    if_setgraphic(interface_1253:com_35, $graphic4);
+} else {
+    if_setgraphic(interface_1253:com_209, null);
+    if_setgraphic(interface_1253:com_35, null);
+}
+~clientscript_6506;
+~clientscript_6569;

@@ -4,13 +4,13 @@ use crate::counters::{self, CHAT_PUBLIC, COUNTERS};
 use crate::handlers::ClientGameHandler;
 #[cfg(since_647)]
 use rs_entity::player::CHAT_MODE_CLAN;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::cp1252::{decode_string, encode_string};
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
@@ -21,13 +21,13 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 /// `3` = shake, `4` = scroll and `5` = slide.
 #[cfg(before_289)]
 const MAX_CHAT_EFFECT: u8 = 2;
-#[cfg(all(since_289, before_647))]
+#[cfg(all(since_289, before_530))]
 const MAX_CHAT_EFFECT: u8 = 5;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 const MAX_CHAT_COLOUR: u8 = 11;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 const MAX_CHAT_LEN: usize = 100;
 
 /// Handles the `MessagePublic` client protocol message.
@@ -58,7 +58,7 @@ const MAX_CHAT_LEN: usize = 100;
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** `cache().wordenc.filter`, `pack`/`unpack`
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientGameHandler for MessagePublic {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let clock = engine().clock;
@@ -97,18 +97,23 @@ impl ClientGameHandler for MessagePublic {
 const CLAN_CHAT: i32 = 11;
 
 /// The most characters 647's chat box takes (`script802`).
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) const MAX_CHAT_CHARS: usize = 80;
 
 /// 2011's line for chat meant for the clan chat when the player is in none,
-/// as every player is: there is no clan chat to be in.
-#[cfg(since_647)]
+/// as every player is: there is no clan chat to be in. 530's game messages
+/// have no type.
+#[cfg(since_530)]
 pub(crate) fn not_in_clan_chat(active: &mut ActivePlayer) {
-    active.message_game_typed(CLAN_CHAT, "You must be in a clan chat to talk.");
+    let line = "You must be in a clan chat to talk.";
+    #[cfg(all(since_530, before_647))]
+    active.message_game(line);
+    #[cfg(since_647)]
+    active.message_game_typed(CLAN_CHAT, line);
 }
 
 /// The text of a 647 chat message: `chars` characters, huffman-compressed.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn decode_chat(mut bytes: Vec<u8>, chars: usize) -> Result<String, ScriptError> {
     let len = bytes.len();
     bytes.resize(len.max(chars << 2), 0);
@@ -125,7 +130,7 @@ pub(crate) fn decode_chat(mut bytes: Vec<u8>, chars: usize) -> Result<String, Sc
 
 /// `text` as a 647 chat message carries it: through the word filter with its
 /// first letter capitalised, then a smart character count and huffman.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) fn filtered_chat(text: &str) -> Vec<u8> {
     let mut decoded = encode_string(&engine().wordenc().filter(text));
     if let Some(first) = decoded.first_mut() {
@@ -141,9 +146,10 @@ pub(crate) fn filtered_chat(text: &str) -> Vec<u8> {
     bytes.data
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientGameHandler for MessagePublic {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(since_647)]
         if active.player.chat_mode == CHAT_MODE_CLAN {
             not_in_clan_chat(active);
             return Ok(());

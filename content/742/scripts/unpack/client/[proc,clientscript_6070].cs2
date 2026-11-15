@@ -1,0 +1,138 @@
+// 6070
+[proc,clientscript_6070]()(int)
+def_int $int0 = 64;
+def_int $int1 = 0;
+while ($int0 ! 0) {
+    switch_int ($int0) {
+        case 1 :
+            $int1 = calc($int1 + %varclient_1812);
+        case 2 :
+            $int1 = calc($int1 + %varclient_1813);
+        case 3 :
+            $int1 = calc($int1 + %varclient_1814);
+        case 4 :
+            $int1 = calc($int1 + %varclient_1815);
+        case 5 :
+            $int1 = calc($int1 + %varclient_1816);
+        case 6 :
+            $int1 = calc($int1 + %varclient_1817);
+        case 7 :
+            $int1 = calc($int1 + %varclient_1818);
+        case 8 :
+            $int1 = calc($int1 + %varclient_1819);
+        case 9 :
+            $int1 = calc($int1 + %varclient_1820);
+        case 10 :
+            $int1 = calc($int1 + %varclient_1821);
+        case 11 :
+            $int1 = calc($int1 + %varclient_1822);
+        case 12 :
+            $int1 = calc($int1 + %varclient_1823);
+        case 13 :
+            $int1 = calc($int1 + %varclient_1824);
+        case 14 :
+            $int1 = calc($int1 + %varclient_1825);
+        case 15 :
+            $int1 = calc($int1 + %varclient_1826);
+        case 16 :
+            $int1 = calc($int1 + %varclient_1827);
+        case 17 :
+            $int1 = calc($int1 + %varclient_1828);
+        case 18 :
+            $int1 = calc($int1 + %varclient_1829);
+        case 19 :
+            $int1 = calc($int1 + %varclient_1830);
+        case 20 :
+            $int1 = calc($int1 + %varclient_1831);
+        case 21 :
+            $int1 = calc($int1 + %varclient_1832);
+        case 22 :
+            $int1 = calc($int1 + %varclient_1833);
+        case 23 :
+            $int1 = calc($int1 + %varclient_1834);
+        case 24 :
+            $int1 = calc($int1 + %varclient_1835);
+        case 25 :
+            $int1 = calc($int1 + %varclient_1836);
+        case 26 :
+            $int1 = calc($int1 + %varclient_1837);
+        case 27 :
+            $int1 = calc($int1 + %varclient_1838);
+        case 28 :
+            $int1 = calc($int1 + %varclient_1839);
+        case 29 :
+            $int1 = calc($int1 + %varclient_1840);
+        case 30 :
+            $int1 = calc($int1 + %varclient_1841);
+        case 31 :
+            $int1 = calc($int1 + %varclient_1842);
+        case 32 :
+            $int1 = calc($int1 + %varclient_1843);
+        case 33 :
+            $int1 = calc($int1 + %varclient_1844);
+        case 34 :
+            $int1 = calc($int1 + %varclient_1845);
+        case 35 :
+            $int1 = calc($int1 + %varclient_1846);
+        case 36 :
+            $int1 = calc($int1 + %varclient_1847);
+        case 37 :
+            $int1 = calc($int1 + %varclient_1848);
+        case 38 :
+            $int1 = calc($int1 + %varclient_1849);
+        case 39 :
+            $int1 = calc($int1 + %varclient_1850);
+        case 40 :
+            $int1 = calc($int1 + %varclient_1851);
+        case 41 :
+            $int1 = calc($int1 + %varclient_1852);
+        case 42 :
+            $int1 = calc($int1 + %varclient_1853);
+        case 43 :
+            $int1 = calc($int1 + %varclient_1854);
+        case 44 :
+            $int1 = calc($int1 + %varclient_1855);
+        case 45 :
+            $int1 = calc($int1 + %varclient_1856);
+        case 46 :
+            $int1 = calc($int1 + %varclient_1857);
+        case 47 :
+            $int1 = calc($int1 + %varclient_1858);
+        case 48 :
+            $int1 = calc($int1 + %varclient_1859);
+        case 49 :
+            $int1 = calc($int1 + %varclient_1860);
+        case 50 :
+            $int1 = calc($int1 + %varclient_1861);
+        case 51 :
+            $int1 = calc($int1 + %varclient_1862);
+        case 52 :
+            $int1 = calc($int1 + %varclient_1863);
+        case 53 :
+            $int1 = calc($int1 + %varclient_1864);
+        case 54 :
+            $int1 = calc($int1 + %varclient_1865);
+        case 55 :
+            $int1 = calc($int1 + %varclient_1866);
+        case 56 :
+            $int1 = calc($int1 + %varclient_1867);
+        case 57 :
+            $int1 = calc($int1 + %varclient_1868);
+        case 58 :
+            $int1 = calc($int1 + %varclient_1869);
+        case 59 :
+            $int1 = calc($int1 + %varclient_1870);
+        case 60 :
+            $int1 = calc($int1 + %varclient_1871);
+        case 61 :
+            $int1 = calc($int1 + %varclient_1872);
+        case 62 :
+            $int1 = calc($int1 + %varclient_1873);
+        case 63 :
+            $int1 = calc($int1 + %varclient_1874);
+        case 64 :
+            $int1 = calc($int1 + %varclient_1875);
+    }
+    $int0 = calc($int0 - 1);
+}
+return($int1);

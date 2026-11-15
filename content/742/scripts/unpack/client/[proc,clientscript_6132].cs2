@@ -1,0 +1,31 @@
+// 6132
+[proc,clientscript_6132]
+if (%varclient_1892 = 0) {
+    return;
+}
+%varclient_1892 = calc(%varclient_1892 - 1);
+if (%varclient_1892 = 0) {
+    if_sethide(interface_1270:com_35, true);
+    return;
+}
+if (%varclient_1893 = 0) {
+    if_sethide(interface_1270:com_35, false);
+}
+if_setposition(interface_1270:com_35, calc(%varclient_1889 - if_getwidth(interface_1270:com_35) / 2), calc(%varclient_1890 - if_getheight(interface_1270:com_35) / 2), ^setpos_abs_left, ^setpos_abs_top);
+def_int $int0 = 9999;
+if (if_gethide(interface_1270:com_122) = false) {
+    $int0 = min(~clientscript_6133(%varclient_1889, %varclient_1890, %varclient_1894, %varclient_1895), $int0);
+}
+if (if_gethide(interface_1270:com_123) = false) {
+    $int0 = min(~clientscript_6133(%varclient_1889, %varclient_1890, %varclient_1896, %varclient_1897), $int0);
+}
+if (if_gethide(interface_1270:com_124) = false) {
+    $int0 = min(~clientscript_6133(%varclient_1889, %varclient_1890, %varclient_1898, %varclient_1899), $int0);
+}
+def_int $int1 = 4;
+if ($int0 < 400) {
+    $int1 = 12;
+} else if ($int0 < 1600) {
+    $int1 = 8;
+}
+if_setontimer(interface_1270:com_35, "clientscript_6134($int1)");

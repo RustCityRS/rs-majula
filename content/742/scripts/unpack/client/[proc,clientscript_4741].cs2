@@ -1,0 +1,27 @@
+// 4741
+[proc,clientscript_4741]
+def_int $int0 = 0;
+def_obj $obj1 = null;
+def_inv $inv2 = null;
+if (%varplayerbit_9904 < 99999 & %varplayerbit_9903 ! 0) {
+    $inv2 = enum(int, inv, enum_3879, %varplayerbit_9903);
+    if (cc_find(interface_1144:com_0, %varplayerbit_9904) = true) {
+        $int0 = inv_getnum($inv2, %varplayerbit_9904);
+        if ($int0 > 0) {
+            $obj1 = inv_getobj($inv2, %varplayerbit_9904);
+            if ($obj1 ! null) {
+                if_sethide(interface_1144:com_23, true);
+                if_sethide(interface_1144:com_22, false);
+                if_sethide(interface_1144:com_9, false);
+                if_sethide(interface_1144:com_39, false);
+                if ($int0 = 1) {
+                    if_settext(interface_1144:com_49, "Are you sure you want to delete <col=ffff80><oc_name($obj1)></col>?");
+                } else {
+                    if_settext(interface_1144:com_49, "Are you sure you want to delete <col=ffff80><oc_name($obj1)></col> (<col=ffffff><tostring($int0)></col> items)?");
+                }
+                if_setobject(interface_1144:com_50, $obj1, $int0);
+            }
+        }
+    }
+}
+return;

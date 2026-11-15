@@ -1,0 +1,9 @@
+// 597
+[clientscript,stock_offercount_plus]
+def_string $string0 = null;
+if (%stock_offercount_visible < ^max_32bit_int) {
+    %stock_offercount_visible = calc(%stock_offercount_visible + 1);
+    $string0 = tostring_localised(%stock_offercount_visible, true);
+    if_settext(stockmarket:offercount, $string0);
+    ~sm_offercount_settimer;
+}

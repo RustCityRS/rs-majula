@@ -1,0 +1,192 @@
+// 6414
+[proc,clientscript_6414](component $component0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+def_component $component9 = null;
+switch_component ($component0) {
+    case interface_1308:com_14 :
+        $component2 = interface_1308:com_15;
+        $component3 = interface_1308:com_62;
+        $component4 = interface_1308:com_63;
+        $component5 = interface_1308:com_66;
+        $component6 = interface_1308:com_67;
+        $component7 = interface_1308:com_68;
+        $component8 = interface_1308:com_69;
+        $component9 = interface_1308:com_0;
+    case interface_1308:com_70 :
+        $component2 = interface_1308:com_71;
+        $component3 = interface_1308:com_189;
+        $component4 = interface_1308:com_190;
+        $component5 = interface_1308:com_56;
+        $component6 = interface_1308:com_57;
+        $component7 = interface_1308:com_58;
+        $component8 = interface_1308:com_193;
+        $component9 = interface_1308:com_545;
+    case interface_1308:com_72 :
+        $component2 = interface_1308:com_73;
+        $component3 = interface_1308:com_194;
+        $component4 = interface_1308:com_195;
+        $component5 = interface_1308:com_198;
+        $component6 = interface_1308:com_199;
+        $component7 = interface_1308:com_200;
+        $component8 = interface_1308:com_201;
+        $component9 = interface_1308:com_547;
+    case interface_1308:com_74 :
+        $component2 = interface_1308:com_75;
+        $component3 = interface_1308:com_202;
+        $component4 = interface_1308:com_203;
+        $component5 = interface_1308:com_206;
+        $component6 = interface_1308:com_207;
+        $component7 = interface_1308:com_208;
+        $component8 = interface_1308:com_209;
+        $component9 = interface_1308:com_549;
+    case interface_1308:com_76 :
+        $component2 = interface_1308:com_77;
+        $component3 = interface_1308:com_210;
+        $component4 = interface_1308:com_211;
+        $component5 = interface_1308:com_214;
+        $component6 = interface_1308:com_215;
+        $component7 = interface_1308:com_216;
+        $component8 = interface_1308:com_217;
+        $component9 = interface_1308:com_551;
+    case interface_1308:com_36 :
+        $component2 = interface_1308:com_37;
+        $component3 = interface_1308:com_229;
+        $component4 = interface_1308:com_230;
+        $component5 = interface_1308:com_233;
+        $component6 = interface_1308:com_234;
+        $component7 = interface_1308:com_235;
+        $component8 = interface_1308:com_236;
+        $component9 = interface_1308:com_0;
+    case interface_1308:com_38 :
+        $component2 = interface_1308:com_39;
+        $component3 = interface_1308:com_313;
+        $component4 = interface_1308:com_314;
+        $component5 = interface_1308:com_317;
+        $component6 = interface_1308:com_318;
+        $component7 = interface_1308:com_319;
+        $component8 = interface_1308:com_320;
+        $component9 = interface_1308:com_545;
+    case interface_1308:com_40 :
+        $component2 = interface_1308:com_41;
+        $component3 = interface_1308:com_332;
+        $component4 = interface_1308:com_333;
+        $component5 = interface_1308:com_336;
+        $component6 = interface_1308:com_337;
+        $component7 = interface_1308:com_338;
+        $component8 = interface_1308:com_339;
+        $component9 = interface_1308:com_547;
+    case interface_1308:com_237 :
+        $component2 = interface_1308:com_238;
+        $component3 = interface_1308:com_253;
+        $component4 = interface_1308:com_254;
+        $component5 = interface_1308:com_257;
+        $component6 = interface_1308:com_258;
+        $component7 = interface_1308:com_259;
+        $component8 = interface_1308:com_260;
+        $component9 = interface_1308:com_549;
+    case interface_1308:com_240 :
+        $component2 = interface_1308:com_241;
+        $component3 = interface_1308:com_275;
+        $component4 = interface_1308:com_276;
+        $component5 = interface_1308:com_279;
+        $component6 = interface_1308:com_280;
+        $component7 = interface_1308:com_281;
+        $component8 = interface_1308:com_282;
+        $component9 = interface_1308:com_551;
+    case interface_1308:com_242 :
+        $component2 = interface_1308:com_243;
+        $component3 = interface_1308:com_294;
+        $component4 = interface_1308:com_295;
+        $component5 = interface_1308:com_298;
+        $component6 = interface_1308:com_299;
+        $component7 = interface_1308:com_300;
+        $component8 = interface_1308:com_301;
+        $component9 = interface_1308:com_553;
+    case interface_1308:com_19 :
+        $component2 = interface_1308:com_20;
+        $component3 = interface_1308:com_420;
+        $component4 = interface_1308:com_421;
+        $component5 = interface_1308:com_432;
+        $component6 = interface_1308:com_433;
+        $component7 = interface_1308:com_434;
+        $component8 = interface_1308:com_435;
+        $component9 = interface_1308:com_536;
+    case interface_1308:com_21 :
+        $component2 = interface_1308:com_22;
+        $component3 = interface_1308:com_446;
+        $component4 = interface_1308:com_447;
+        $component5 = interface_1308:com_449;
+        $component6 = interface_1308:com_450;
+        $component7 = interface_1308:com_451;
+        $component8 = interface_1308:com_452;
+        $component9 = interface_1308:com_538;
+    case interface_1308:com_12 :
+        $component2 = interface_1308:com_13;
+        $component3 = interface_1308:com_464;
+        $component4 = interface_1308:com_465;
+        $component5 = interface_1308:com_468;
+        $component6 = interface_1308:com_469;
+        $component7 = interface_1308:com_470;
+        $component8 = interface_1308:com_471;
+        $component9 = interface_1308:com_0;
+    case interface_1308:com_472 :
+        $component2 = interface_1308:com_473;
+        $component3 = interface_1308:com_485;
+        $component4 = interface_1308:com_486;
+        $component5 = interface_1308:com_489;
+        $component6 = interface_1308:com_490;
+        $component7 = interface_1308:com_491;
+        $component8 = interface_1308:com_492;
+        $component9 = interface_1308:com_545;
+    case interface_1308:com_493 :
+        $component2 = interface_1308:com_494;
+        $component3 = interface_1308:com_508;
+        $component4 = interface_1308:com_509;
+        $component5 = interface_1308:com_512;
+        $component6 = interface_1308:com_513;
+        $component7 = interface_1308:com_514;
+        $component8 = interface_1308:com_515;
+        $component9 = interface_1308:com_549;
+    case interface_1308:com_495 :
+        $component2 = interface_1308:com_496;
+        $component3 = interface_1308:com_527;
+        $component4 = interface_1308:com_528;
+        $component5 = interface_1308:com_531;
+        $component6 = interface_1308:com_532;
+        $component7 = interface_1308:com_533;
+        $component8 = interface_1308:com_534;
+        $component9 = interface_1308:com_551;
+    case default :
+        return;
+}
+if ($component2 = null | $component3 = null | $component4 = null | $component5 = null | $component6 = null | $component7 = null | $component8 = null) {
+    return;
+}
+if_setcolour($component3, 0x5b5959);
+if_setcolour($component4, 0x863928);
+if_setgraphic($component5, 7932);
+if_setgraphic($component6, 7933);
+if_setgraphic($component7, 7934);
+if_setcolour($component8, 0x5b5959);
+if_sethide($component2, false);
+if ($component0 ! interface_1308:com_19 & $component0 ! interface_1308:com_21) {
+    if ($int1 = 1) {
+        if ($component0 = interface_1308:com_472 | $component0 = interface_1308:com_495) {
+            if_settext($component4, "Already owned");
+        } else {
+            if_settext($component4, "Already learned");
+        }
+    }
+} else {
+    if_settext(interface_1308:com_420, "Cancel current task.");
+    if_settext(interface_1308:com_446, "Never assign task again.");
+}
+if ($component9 ! null) {
+    ~deltooltip_action($component9);
+}

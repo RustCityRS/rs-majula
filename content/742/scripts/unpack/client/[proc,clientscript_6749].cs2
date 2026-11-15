@@ -1,0 +1,10 @@
+// 6749
+[proc,clientscript_6749]
+if (map_members = false) {
+    if_sethide(interface_1345:com_66, false);
+    if_sethide(interface_1345:com_73, false);
+    if (playermember = true) {
+        if_settext(interface_1345:com_69, "Challenges are a members-only feature. Please log in to a Member's world.");
+        if_settext(interface_1345:com_89, "Challenges are a members-only feature. Please log in to a Member's world.");
+    }
+}

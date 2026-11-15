@@ -1,0 +1,50 @@
+// 4852
+[proc,clientscript_4852]
+def_enum $enum0 = null;
+def_string $string0 = "This build slot is available, select your options and click the buy button.";
+if (op718 = 1) {
+    $enum0 = ~clientscript_4825(1);
+    if_set2dangle(interface_1258:com_232, 0);
+    if_set2dangle(interface_1258:com_223, 0);
+    if_set2dangle(interface_1258:com_214, 0);
+    if (%varplayerbit_9562 > 0 & %varplayerbit_9562 = %varclan_2139) {
+        if_setgraphic(interface_1258:com_232, enum(int, graphic, $enum0, %varplayerbit_9562));
+        $string0 = "This build slot is full, you may view the contents of it, but to modify you will need to cancel the job.";
+    } else if (%varclan_2143 = 1) {
+        if_setgraphic(interface_1258:com_232, "aif_loyalty_icon_2,0");
+        if_set2dangle(interface_1258:com_232, 49149);
+        $string0 = "This build slot is full, you may view the contents of it, but to modify you will need to cancel the job.";
+    } else {
+        if_setgraphic(interface_1258:com_232, null);
+    }
+    if_setonmouserepeat(interface_1258:com_230, "aif_tooltip(interface_1258:com_110, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_230, "deltooltip(interface_1258:com_110)");
+    $enum0 = ~clientscript_4825(2);
+    $string0 = "This build slot available, select your options and click the buy button.";
+    if (%varplayerbit_9571 > 0 & %varplayerbit_9571 = %varclan_2156) {
+        if_setgraphic(interface_1258:com_223, enum(int, graphic, $enum0, %varplayerbit_9571));
+        $string0 = "This build slot is full, you may view the contents of it, but to modify you will need to cancel the job.";
+    } else if (%varclan_2160 = 1) {
+        if_setgraphic(interface_1258:com_223, "aif_loyalty_icon_2,0");
+        if_set2dangle(interface_1258:com_223, 49149);
+        $string0 = "This build slot is full, you may view the contents of it, but to modify you will need to cancel the job.";
+    } else {
+        if_setgraphic(interface_1258:com_223, null);
+    }
+    if_setonmouserepeat(interface_1258:com_221, "aif_tooltip(interface_1258:com_110, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_221, "deltooltip(interface_1258:com_110)");
+    $enum0 = ~clientscript_4825(3);
+    $string0 = "This build slot available, select your options and click the buy button.";
+    if (%varplayerbit_9580 > 0 & %varplayerbit_9580 = %varclan_2173) {
+        if_setgraphic(interface_1258:com_214, enum(int, graphic, $enum0, %varplayerbit_9580));
+        $string0 = "This build slot is full, you may view the contents of it, but to modify you will need to cancel the job.";
+    } else if (%varclan_2177 = 1) {
+        if_setgraphic(interface_1258:com_214, "aif_loyalty_icon_2,0");
+        if_set2dangle(interface_1258:com_214, 49149);
+        $string0 = "This build slot is full, you may view the contents of it, but to modify you will need to cancel the job.";
+    } else {
+        if_setgraphic(interface_1258:com_214, null);
+    }
+    if_setonmouserepeat(interface_1258:com_212, "aif_tooltip(interface_1258:com_110, event_com, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_212, "deltooltip(interface_1258:com_110)");
+}

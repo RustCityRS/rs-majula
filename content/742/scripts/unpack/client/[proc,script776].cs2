@@ -1,0 +1,37 @@
+// 776
+[proc,script776]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "Hello";
+def_string $string1 = "00:00";
+def_string $string2 = "1.2x";
+if (map_members = true) {
+    $string2 = "2x";
+}
+if (%doublexp_setupflag = 1) {
+    $int0 = calc(%doublexp_timetotal / 60);
+    $int1 = calc(%doublexp_timetotal % 60);
+    $int2 = calc(1200 / 1000);
+    $int3 = calc(1200 % 1000 / 100);
+    if (map_members = true) {
+        $int2 = calc(2000 / 1000);
+        $int3 = calc(2000 % 1000 / 100);
+    }
+    if ($int1 < 10) {
+        if ($int0 < 10) {
+            $string1 = "0<tostring($int0)>:0<tostring($int1)>";
+        } else {
+            $string1 = "<tostring($int0)>:0<tostring($int1)>";
+        }
+    } else if ($int0 < 10) {
+        $string1 = "0<tostring($int0)>:<tostring($int1)>";
+    } else {
+        $string1 = "<tostring($int0)>:<tostring($int1)>";
+    }
+    $string2 = "<tostring($int2)>.<tostring($int3)>x";
+    $string0 = "Multiplier: <col=ff0000><$string2></col><br>Elapsed: <col=ff0000><$string1></col><br>Bonus: <col=ff0000><tostring(calc(%doublexp_runningtotal / 10))>xp</col>";
+    if_setonmouserepeat(interface_1215:com_1, "clientscript_5647($string0)");
+    if_setonmouseleave(interface_1215:com_1, "clientscript_5648");
+}

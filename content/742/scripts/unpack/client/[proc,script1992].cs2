@@ -1,0 +1,17 @@
+// 1992
+[proc,script1992]()(int)
+def_int $int0 = 0;
+$int0 = calc(%varplayerbit_5811 + %varplayerbit_5806 + %varplayerbit_5810 + %varplayerbit_5809 + %varplayerbit_5808 + %varplayerbit_5812 + %varplayerbit_5813);
+if (%varplayerbit_5807 = 5) {
+    $int0 = calc($int0 + 1);
+}
+if (%varplayerbit_5814 = 5) {
+    $int0 = calc($int0 + 1);
+}
+if (%varplayerbit_5815 = 5) {
+    $int0 = calc($int0 + 1);
+}
+if (%varplayerbit_5816 = 5) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

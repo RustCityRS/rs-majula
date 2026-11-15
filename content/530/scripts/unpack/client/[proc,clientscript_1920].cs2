@@ -1,0 +1,14 @@
+// 1920
+[proc,clientscript_1920]
+if_setonvarcstrtransmit(sc_lobby_clan_overlay:clan_leader_text, "clientscript_1921{varclient_672}");
+if_setonvarcstrtransmit(sc_lobby_clan_overlay:ally_1_text, "clientscript_1921{varclient_673}");
+if_setonvarcstrtransmit(sc_lobby_clan_overlay:ally_2_text, "clientscript_1921{varclient_674}");
+if_setonvarctransmit(sc_lobby_clan_overlay:clan_leader_text, "clientscript_1921{sc_lobby_clan_size}");
+if_setonvarctransmit(sc_lobby_clan_overlay:ally_1_text, "clientscript_1921{sc_lobby_ally_size_1}");
+if_setonvarctransmit(sc_lobby_clan_overlay:ally_2_text, "clientscript_1921{sc_lobby_ally_size_2}");
+%varclient_672 = "You have no clan leader.";
+%varclient_673 = "You have no allied clans.";
+%varclient_674 = "";
+%sc_lobby_clan_size = 0;
+%sc_lobby_ally_size_1 = 0;
+%sc_lobby_ally_size_2 = 0;

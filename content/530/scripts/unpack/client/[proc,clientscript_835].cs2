@@ -1,0 +1,11 @@
+// 835
+[proc,clientscript_835]
+if (%music_v3_protect = 1 | %cutscene_status = 1) {
+    if_setgraphic(music_v3:com_11, 10);
+    return;
+}
+if (%musicloop = 0) {
+    if_setgraphic(music_v3:com_11, 10);
+} else if (%musicloop = 1) {
+    if_setgraphic(music_v3:com_11, 9);
+}

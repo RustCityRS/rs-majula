@@ -1,0 +1,7 @@
+// 742 has no 2011 quest-start window (its interface 178 is a members' upsell), so the quest is
+// asked for in the chat box, as 289 did.
+[proc,quest_intro](struct $quest)(boolean)
+if (~p_choice2_header("Yes.", 1, "No.", 2, "Start <struct_param($quest, param_845)>?") = 1) {
+    return(true);
+}
+return(false);

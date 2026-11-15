@@ -1,0 +1,23 @@
+// 1923
+[clientscript,sc_lobby_all_comer_overlay_refresh]
+def_int $int0 = %sc_lobby_all_comer_countdown;
+def_int $int1 = %sc_lobby_all_comer_size_1;
+def_int $int2 = %sc_lobby_all_comer_size_2;
+def_int $int3 = 0;
+if ($int0 = 0) {
+    $int1 = max(0, min(calc(5 - $int1), 5));
+    $int2 = max(0, min(calc(5 - $int2), 5));
+    if_settext(sc_lobby_team_overlay:size, tostring($int1));
+    if_settext(sc_lobby_team_overlay:enemy_size, tostring($int2));
+    if_sethide(sc_lobby_team_overlay:player_count, false);
+} else {
+    if_sethide(sc_lobby_team_overlay:player_count, true);
+    if (calc($int0 % 100) ! 0) {
+        $int3 = 1;
+    }
+    $int0 = calc($int0 * 60 / 100 / 60);
+    if ($int3 = 1) {
+        $int0 = calc($int0 + 1);
+    }
+    if_settext(sc_lobby_team_overlay:start_time_text, "Game start : <tostring($int0)> mins");
+}

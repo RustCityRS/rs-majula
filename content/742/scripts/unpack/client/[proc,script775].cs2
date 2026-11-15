@@ -1,0 +1,18 @@
+// 775
+[proc,script775]()(int, string, obj)
+switch_obj (%follower_obj) {
+    case default :
+        return(36, "Bronze Bull Rush", lore_bull_rush);
+    case lore_minotaur :
+        return(36, "Bronze Bull Rush", lore_bull_rush);
+    case lore_minotaur_2 :
+        return(46, "Iron Bull Rush", lore_bull_rush_2);
+    case lore_minotaur_3 :
+        return(56, "Steel Bull Rush", lore_bull_rush_3);
+    case lore_minotaur_4 :
+        return(66, "Mithril Bull Rush", lore_bull_rush_4);
+    case lore_minotaur_5 :
+        return(76, "Adamant Bull Rush", lore_bull_rush_5);
+    case lore_minotaur_6 :
+        return(86, "Rune Bull Rush", lore_bull_rush_6);
+}

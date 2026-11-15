@@ -1,0 +1,513 @@
+// 5662
+[proc,clientscript_5662](boolean $boolean0, int $int1)
+~clientscript_5651;
+if (%varplayerbit_10443 = 1) {
+    if ($int1 = 1) {
+        ~clientscript_5653;
+    }
+    return;
+}
+def_int $int2 = 0;
+if ($boolean0 = false) {
+    ~clientscript_5659;
+    if (stat_base(attack) > 0 & stat_base(strength) > 0 & stat_base(defence) > 0 & stat_base(ranged) > 0 & stat_base(magic) > 0 & stat_base(hitpoints) > 0 & stat_base(prayer) > 0 & stat_base(runecraft) > 0 & stat_base(crafting) > 0 & stat_base(mining) > 0 & stat_base(smithing) > 0 & stat_base(fishing) > 0 & stat_base(cooking) > 0 & stat_base(firemaking) > 0 & stat_base(woodcutting) > 0 & stat_base(agility) > 0 & stat_base(herblore) > 0 & stat_base(thieving) > 0 & stat_base(fletching) > 0 & stat_base(slayer) > 0 & stat_base(farming) > 0 & stat_base(construction) > 0 & stat_base(hunter) > 0 & stat_base(summoning) > 0 & stat_base(dungeoneering) > 0) {
+        if_setonstattransmit(interface_1213:com_3, "clientscript_5661(true)");
+    }
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = calc(stat_visible_xp(attack) - %xpdisplay_attack);
+if ($int4 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int5 = calc(stat_visible_xp(strength) - %xpdisplay_strength);
+if ($int5 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int6 = calc(stat_visible_xp(defence) - %xpdisplay_defence);
+if ($int6 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int7 = calc(stat_visible_xp(ranged) - %xpdisplay_ranged);
+if ($int7 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int8 = calc(stat_visible_xp(magic) - %xpdisplay_magic);
+if ($int8 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int9 = calc(stat_visible_xp(hitpoints) - %xpdisplay_constitution);
+if ($int9 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int10 = calc(stat_visible_xp(prayer) - %xpdisplay_prayer);
+if ($int10 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int11 = calc(stat_visible_xp(runecraft) - %xpdisplay_runecrafting);
+if ($int11 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int12 = calc(stat_visible_xp(crafting) - %xpdisplay_crafting);
+if ($int12 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int13 = calc(stat_visible_xp(mining) - %xpdisplay_mining);
+if ($int13 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int14 = calc(stat_visible_xp(smithing) - %xpdisplay_smithing);
+if ($int14 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int15 = calc(stat_visible_xp(fishing) - %xpdisplay_fishing);
+if ($int15 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int16 = calc(stat_visible_xp(cooking) - %xpdisplay_cooking);
+if ($int16 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int17 = calc(stat_visible_xp(firemaking) - %xpdisplay_firemaking);
+if ($int17 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int18 = calc(stat_visible_xp(woodcutting) - %xpdisplay_woodcutting);
+if ($int18 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int19 = calc(stat_visible_xp(agility) - %xpdisplay_agility);
+if ($int19 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int20 = calc(stat_visible_xp(herblore) - %xpdisplay_herblore);
+if ($int20 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int21 = calc(stat_visible_xp(thieving) - %xpdisplay_thieving);
+if ($int21 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int22 = calc(stat_visible_xp(fletching) - %xpdisplay_fletching);
+if ($int22 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int23 = calc(stat_visible_xp(slayer) - %xpdisplay_slayer);
+if ($int23 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int24 = calc(stat_visible_xp(farming) - %xpdisplay_farming);
+if ($int24 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int25 = calc(stat_visible_xp(construction) - %xpdisplay_construction);
+if ($int25 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int26 = calc(stat_visible_xp(hunter) - %xpdisplay_hunter);
+if ($int26 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int27 = calc(stat_visible_xp(summoning) - %xpdisplay_summoning);
+if ($int27 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+def_int $int28 = calc(stat_visible_xp(dungeoneering) - %xpdisplay_dungeoneering);
+if ($int28 ! 0) {
+    $int3 = calc($int3 + 1);
+}
+$int2 = calc($int4 + $int5 + $int6 + $int7 + $int8 + $int9 + $int10 + $int11 + $int12 + $int13 + $int14 + $int15 + $int16 + $int17 + $int18 + $int19 + $int20 + $int21 + $int22 + $int23 + $int24 + $int25 + $int26 + $int27 + $int28);
+if ($int2 < 1) {
+    return;
+}
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_string $string0 = "";
+def_int $int33 = 0;
+def_stat $stat34 = null;
+def_int $int35 = 0;
+if (if_gethide(interface_1213:com_3) = false) {
+    if (%varplayer_2044 > 0) {
+        $int35 = calc(%varplayer_2044 % 10);
+        if ($int35 > 0) {
+            $string0 = "(<tostring(calc(%varplayer_2044 / 10))>.<tostring($int35)> bonus xp)";
+        } else {
+            $string0 = "(<tostring(calc(%varplayer_2044 / 10))> bonus xp)";
+        }
+    }
+    cc_create(interface_1213:com_1, ^iftype_text, if_getnextsubid(interface_1213:com_1));
+    cc_settext("+<tostring_localised($int2, true)> xp <$string0>");
+    cc_setontimer("clientscript_5657(event_com, cc_getid, 0)");
+    cc_setsize(150, 25, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(verdana_15pt_regular);
+    cc_setcolour(0xf5b241);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setposition(0, 7373, ^setpos_abs_centre, ^setpos_rel_top);
+} else {
+    cc_deleteall(interface_1213:com_1);
+}
+def_int $int36 = 0;
+def_component $component37 = null;
+def_component $component38 = null;
+def_component $component39 = null;
+def_component $component40 = null;
+def_component $component41 = null;
+def_component $component42 = null;
+def_int $int43 = 0;
+def_int $intbool44 = ^false;
+def_int $int45 = 0;
+def_int $int46 = 0;
+def_int $int47 = 0;
+while ($int36 < $int3) {
+    if ($int4 ! 0) {
+        $component37 = interface_1213:com_30;
+        $int33 = 1;
+        $int43 = %varplayer_1969;
+        $int45 = %varplayer_1994;
+        $intbool44 = testbit(%varplayer_1968, 1);
+        $int4 = 0;
+    } else if ($int5 ! 0) {
+        $component37 = interface_1213:com_31;
+        $int33 = 2;
+        $int43 = %varplayer_1970;
+        $int45 = %varplayer_1995;
+        $intbool44 = testbit(%varplayer_1968, 2);
+        $int5 = 0;
+    } else if ($int6 ! 0) {
+        $component37 = interface_1213:com_32;
+        $int33 = 5;
+        $int43 = %varplayer_1973;
+        $int45 = %varplayer_1998;
+        $intbool44 = testbit(%varplayer_1968, 5);
+        $int6 = 0;
+    } else if ($int7 ! 0) {
+        $component37 = interface_1213:com_33;
+        $int33 = 3;
+        $int43 = %varplayer_1971;
+        $int45 = %varplayer_1996;
+        $intbool44 = testbit(%varplayer_1968, 3);
+        $int7 = 0;
+    } else if ($int10 ! 0) {
+        $component37 = interface_1213:com_34;
+        $int33 = 7;
+        $int43 = %varplayer_1975;
+        $int45 = %varplayer_2000;
+        $intbool44 = testbit(%varplayer_1968, 7);
+        $int10 = 0;
+    } else if ($int8 ! 0) {
+        $component37 = interface_1213:com_35;
+        $int33 = 4;
+        $int43 = %varplayer_1972;
+        $int45 = %varplayer_1997;
+        $intbool44 = testbit(%varplayer_1968, 4);
+        $int8 = 0;
+    } else if ($int9 ! 0) {
+        $component37 = interface_1213:com_36;
+        $int33 = 6;
+        $int43 = %varplayer_1974;
+        $int45 = %varplayer_1999;
+        $intbool44 = testbit(%varplayer_1968, 6);
+        $int9 = 0;
+    } else if ($int19 ! 0) {
+        $component37 = interface_1213:com_37;
+        $int33 = 8;
+        $int43 = %varplayer_1976;
+        $int45 = %varplayer_2001;
+        $intbool44 = testbit(%varplayer_1968, 8);
+        $int19 = 0;
+    } else if ($int20 ! 0) {
+        $component37 = interface_1213:com_38;
+        $int33 = 9;
+        $int43 = %varplayer_1977;
+        $int45 = %varplayer_2002;
+        $intbool44 = testbit(%varplayer_1968, 9);
+        $int20 = 0;
+    } else if ($int21 ! 0) {
+        $component37 = interface_1213:com_39;
+        $int33 = 10;
+        $int43 = %varplayer_1978;
+        $int45 = %varplayer_2003;
+        $intbool44 = testbit(%varplayer_1968, 10);
+        $int21 = 0;
+    } else if ($int12 ! 0) {
+        $component37 = interface_1213:com_40;
+        $int33 = 11;
+        $int43 = %varplayer_1979;
+        $int45 = %varplayer_2004;
+        $intbool44 = testbit(%varplayer_1968, 11);
+        $int12 = 0;
+    } else if ($int22 ! 0) {
+        $component37 = interface_1213:com_41;
+        $int33 = 19;
+        $int43 = %varplayer_1987;
+        $int45 = %varplayer_2012;
+        $intbool44 = testbit(%varplayer_1968, 19);
+        $int22 = 0;
+    } else if ($int13 ! 0) {
+        $component37 = interface_1213:com_42;
+        $int33 = 13;
+        $int43 = %varplayer_1981;
+        $int45 = %varplayer_2006;
+        $intbool44 = testbit(%varplayer_1968, 13);
+        $int13 = 0;
+    } else if ($int14 ! 0) {
+        $component37 = interface_1213:com_43;
+        $int33 = 14;
+        $int43 = %varplayer_1982;
+        $int45 = %varplayer_2007;
+        $intbool44 = testbit(%varplayer_1968, 14);
+        $int14 = 0;
+    } else if ($int15 ! 0) {
+        $component37 = interface_1213:com_44;
+        $int33 = 15;
+        $int43 = %varplayer_1983;
+        $int45 = %varplayer_2008;
+        $intbool44 = testbit(%varplayer_1968, 15);
+        $int15 = 0;
+    } else if ($int16 ! 0) {
+        $component37 = interface_1213:com_45;
+        $int33 = 16;
+        $int43 = %varplayer_1984;
+        $int45 = %varplayer_2009;
+        $intbool44 = testbit(%varplayer_1968, 16);
+        $int16 = 0;
+    } else if ($int17 ! 0) {
+        $component37 = interface_1213:com_46;
+        $int33 = 17;
+        $int43 = %varplayer_1985;
+        $int45 = %varplayer_2010;
+        $intbool44 = testbit(%varplayer_1968, 17);
+        $int17 = 0;
+    } else if ($int18 ! 0) {
+        $component37 = interface_1213:com_47;
+        $int33 = 18;
+        $int43 = %varplayer_1986;
+        $int45 = %varplayer_2011;
+        $intbool44 = testbit(%varplayer_1968, 18);
+        $int18 = 0;
+    } else if ($int11 ! 0) {
+        $component37 = interface_1213:com_48;
+        $int33 = 12;
+        $int43 = %varplayer_1980;
+        $int45 = %varplayer_2005;
+        $intbool44 = testbit(%varplayer_1968, 12);
+        $int11 = 0;
+    } else if ($int23 ! 0) {
+        $component37 = interface_1213:com_49;
+        $int33 = 20;
+        $int43 = %varplayer_1988;
+        $int45 = %varplayer_2013;
+        $intbool44 = testbit(%varplayer_1968, 20);
+        $int23 = 0;
+    } else if ($int24 ! 0) {
+        $component37 = interface_1213:com_50;
+        $int33 = 21;
+        $int43 = %varplayer_1989;
+        $int45 = %varplayer_2014;
+        $intbool44 = testbit(%varplayer_1968, 21);
+        $int24 = 0;
+    } else if ($int26 ! 0) {
+        $component37 = interface_1213:com_51;
+        $int33 = 23;
+        $int43 = %varplayer_1991;
+        $int45 = %varplayer_2016;
+        $intbool44 = testbit(%varplayer_1968, 23);
+        $int26 = 0;
+    } else if ($int25 ! 0) {
+        $component37 = interface_1213:com_52;
+        $int33 = 22;
+        $int43 = %varplayer_1990;
+        $int45 = %varplayer_2015;
+        $intbool44 = testbit(%varplayer_1968, 22);
+        $int25 = 0;
+    } else if ($int27 ! 0) {
+        $component37 = interface_1213:com_53;
+        $int33 = 24;
+        $int43 = %varplayer_1992;
+        $int45 = %varplayer_2017;
+        $intbool44 = testbit(%varplayer_1968, 24);
+        $int27 = 0;
+    } else if ($int28 ! 0) {
+        $component37 = interface_1213:com_54;
+        $int33 = 25;
+        $int43 = %varplayer_1993;
+        $int45 = %varplayer_2018;
+        $intbool44 = testbit(%varplayer_1968, 25);
+        $int28 = 0;
+    }
+    if (if_gethide($component37) = false) {
+        if (if_getx($component37) = calc(if_getx(interface_1213:com_12) + 18)) {
+            $component38 = interface_1213:com_12;
+        } else if (if_getx($component37) = calc(if_getx(interface_1213:com_11) + 18)) {
+            $component38 = interface_1213:com_11;
+        } else if (if_getx($component37) = calc(if_getx(interface_1213:com_10) + 18)) {
+            $component38 = interface_1213:com_10;
+        } else if (if_getx($component37) = calc(if_getx(interface_1213:com_9) + 18)) {
+            $component38 = interface_1213:com_9;
+        } else if (if_getx($component37) = calc(if_getx(interface_1213:com_8) + 18)) {
+            $component38 = interface_1213:com_8;
+        } else if (if_getx($component37) = calc(if_getx(interface_1213:com_7) + 18)) {
+            $component38 = interface_1213:com_7;
+        } else {
+            $component38 = interface_1213:com_13;
+        }
+    } else if (if_gethide(interface_1213:com_13) = true) {
+        $component38 = interface_1213:com_13;
+    } else if (if_gethide(interface_1213:com_12) = true) {
+        $component38 = interface_1213:com_12;
+    } else if (if_gethide(interface_1213:com_11) = true) {
+        $component38 = interface_1213:com_11;
+    } else if (if_gethide(interface_1213:com_10) = true) {
+        $component38 = interface_1213:com_10;
+    } else if (if_gethide(interface_1213:com_9) = true) {
+        $component38 = interface_1213:com_9;
+    } else if (if_gethide(interface_1213:com_8) = true) {
+        $component38 = interface_1213:com_8;
+    } else if (if_gethide(interface_1213:com_7) = true) {
+        $component38 = interface_1213:com_7;
+    } else {
+        switch_int (%varclient_1763) {
+            case default :
+                $component38 = interface_1213:com_13;
+            case 2 :
+                $component38 = interface_1213:com_12;
+            case 3 :
+                $component38 = interface_1213:com_11;
+            case 4 :
+                $component38 = interface_1213:com_10;
+            case 5 :
+                $component38 = interface_1213:com_9;
+            case 6 :
+                $component38 = interface_1213:com_8;
+            case 7 :
+                $component38 = interface_1213:com_7;
+        }
+        if_sethide(%varclient_1770, true);
+    }
+    %varclient_1763 = %varclient_1762;
+    %varclient_1762 = %varclient_1761;
+    %varclient_1761 = %varclient_1760;
+    %varclient_1760 = %varclient_1759;
+    %varclient_1759 = %varclient_1758;
+    %varclient_1758 = %varclient_1757;
+    %varclient_1770 = %varclient_1769;
+    %varclient_1769 = %varclient_1768;
+    %varclient_1768 = %varclient_1767;
+    %varclient_1767 = %varclient_1766;
+    %varclient_1766 = %varclient_1765;
+    %varclient_1765 = %varclient_1764;
+    %varclient_1764 = $component37;
+    switch_component ($component38) {
+        case default :
+            %varclient_1757 = 1;
+            $component39 = interface_1213:com_16;
+            $component40 = interface_1213:com_17;
+            $component41 = interface_1213:com_15;
+            $component42 = interface_1213:com_14;
+            $int47 = %varclient_1774;
+        case interface_1213:com_12 :
+            %varclient_1757 = 2;
+            $component39 = interface_1213:com_18;
+            $component40 = interface_1213:com_19;
+            $component41 = interface_1213:com_55;
+            $component42 = interface_1213:com_56;
+            $int47 = %varclient_1775;
+        case interface_1213:com_11 :
+            %varclient_1757 = 3;
+            $component39 = interface_1213:com_20;
+            $component40 = interface_1213:com_21;
+            $component41 = interface_1213:com_57;
+            $component42 = interface_1213:com_58;
+            $int47 = %varclient_1776;
+        case interface_1213:com_10 :
+            %varclient_1757 = 4;
+            $component39 = interface_1213:com_22;
+            $component40 = interface_1213:com_23;
+            $component41 = interface_1213:com_59;
+            $component42 = interface_1213:com_60;
+            $int47 = %varclient_1777;
+        case interface_1213:com_9 :
+            %varclient_1757 = 5;
+            $component39 = interface_1213:com_24;
+            $component40 = interface_1213:com_25;
+            $component41 = interface_1213:com_61;
+            $component42 = interface_1213:com_62;
+            $int47 = %varclient_1778;
+        case interface_1213:com_8 :
+            %varclient_1757 = 6;
+            $component39 = interface_1213:com_26;
+            $component40 = interface_1213:com_27;
+            $component41 = interface_1213:com_63;
+            $component42 = interface_1213:com_64;
+            $int47 = %varclient_1779;
+        case interface_1213:com_7 :
+            %varclient_1757 = 7;
+            $component39 = interface_1213:com_28;
+            $component40 = interface_1213:com_29;
+            $component41 = interface_1213:com_65;
+            $component42 = interface_1213:com_66;
+            $int47 = %varclient_1780;
+    }
+    $stat34 = enum(int, stat, enum_681, $int33);
+    if ($stat34 ! null) {
+        if ($stat34 = dungeoneering & stat_base($stat34) < 120) {
+            $int46 = 1;
+        } else if (stat_base($stat34) < 99) {
+            $int46 = 1;
+        } else {
+            $int46 = 0;
+        }
+        if ($int46 = 1) {
+            $int30 = enum(int, int, enum_716, calc(stat_base($stat34) + 1));
+            $int30 = calc($int30 - enum(int, int, enum_716, stat_base($stat34)));
+            $int29 = calc(stat_visible_xp($stat34) - enum(int, int, enum_716, stat_base($stat34)));
+            $int31 = scale($int29, $int30, 100);
+            $int32 = calc(~clientscript_5664($int33) - enum(int, int, enum_716, stat_base($stat34)));
+            $int32 = scale($int32, $int30, 100);
+            if ($int31 < $int32 | $int32 < 1 | $int47 ! $int33) {
+                if_setsize($component39, if_getwidth($component39), max(scale(45, 50, min($int31, 50)), 1), ^setsize_abs, ^setsize_abs);
+                if_setsize($component40, if_getwidth($component40), max(calc(max(calc($int31 - 50), 0) * 2), 0), ^setsize_abs, ^setsize_abs);
+            } else {
+                if_setsize($component39, if_getwidth($component39), max(if_getheight($component39), 1), ^setsize_abs, ^setsize_abs);
+                if_setsize($component40, if_getwidth($component40), max(if_getheight($component40), 0), ^setsize_abs, ^setsize_abs);
+            }
+            switch_component ($component38) {
+                case default :
+                    %varclient_1774 = $int33;
+                case interface_1213:com_12 :
+                    %varclient_1775 = $int33;
+                case interface_1213:com_11 :
+                    %varclient_1776 = $int33;
+                case interface_1213:com_10 :
+                    %varclient_1777 = $int33;
+                case interface_1213:com_9 :
+                    %varclient_1778 = $int33;
+                case interface_1213:com_8 :
+                    %varclient_1779 = $int33;
+                case interface_1213:com_7 :
+                    %varclient_1780 = $int33;
+            }
+            if_setontimer($component39, "clientscript_5655($component39, $component40, $int31, 0)");
+            if_sethide($component37, false);
+            if_settrans($component37, 0);
+            if_setontimer($component37, "clientscript_5656(true, event_com, 0)");
+            if_setposition($component37, calc(if_getx($component38) + 18), 17, ^setpos_abs_left, ^setpos_abs_top);
+            if_sethide($component38, false);
+            if_settrans($component38, 0);
+            if_setontimer($component38, "clientscript_5656(true, event_com, 0)");
+            if_sethide($component41, false);
+            if_settrans($component41, 0);
+            if_setontimer($component41, "clientscript_5656(true, event_com, 0)");
+            if_sethide($component42, false);
+            if_settrans($component42, 0);
+            if_setontimer($component42, "clientscript_5656(true, event_com, 0)");
+        }
+    }
+    $int36 = calc($int36 + 1);
+}
+if ($int1 = 1) {
+    ~clientscript_5653;
+}

@@ -1,8 +1,9 @@
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct LightType {
-    pub id: u16,
+    pub id: TypeId,
     pub function: u8,
     pub speed: u16,
     pub amplitude: u16,
@@ -12,7 +13,7 @@ pub struct LightType {
 impl CacheType for LightType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             function: 0,

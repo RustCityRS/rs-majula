@@ -1,0 +1,13 @@
+// 6056
+[proc,clientscript_6056]
+def_component $component0 = toplevel:com_19;
+if (getwindowmode >= 2) {
+    $component0 = toplevel_fullscreen:com_79;
+}
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, 0);
+cc_setsize(220, 200, ^setsize_abs, ^setsize_abs);
+cc_settiling(true);
+cc_setgraphic(~clientscript_6267(10219));
+cc_setposition(-219, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setontimer("clientscript_6057($component0, 0, 0, 0)");

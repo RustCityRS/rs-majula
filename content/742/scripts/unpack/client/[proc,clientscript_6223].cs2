@@ -1,0 +1,8 @@
+// 6223
+[proc,clientscript_6223](int $int0, int $int1, component $component2, int $int3, int $int4)
+if ($int0 <= $int1) {
+    cam_movealong(0, $int0, $int3, $int4, 1, $int0);
+    if_setoncamfinished($component2, "clientscript_6223(calc($int0 + 1), $int1, $component2, $int3, $int4)");
+} else {
+    if_setoncamfinished($component2, null);
+}

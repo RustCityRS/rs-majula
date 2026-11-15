@@ -210,7 +210,10 @@ fn chunks(c: &mut TextCodec<'_>, palettes: &[Vec<i64>; 2]) -> Result<()> {
                     if flags & 16 != 0 {
                         let count = c.number("locs", Number::U8)?;
                         for _ in 0..count {
+                            #[cfg(before_742)]
                             c.reference("loc", Number::U16, "loc")?;
+                            #[cfg(since_742)]
+                            c.reference("loc", Number::BigSmart, "loc")?;
                             shape(c, "loc_shape_rotation")?;
                         }
                     }

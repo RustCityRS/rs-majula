@@ -1,0 +1,9 @@
+// 6259
+[proc,clientscript_6259](component $component0)
+if ($component0 = fishcomp_side:com_67) {
+    if_sethide(fishcomp_side:com_2, false);
+} else if ($component0 = fishcomp_side:com_72) {
+    if_sethide(fishcomp_side:com_68, false);
+} else if ($component0 = fishcomp_side:com_77) {
+    if_sethide(fishcomp_side:com_73, false);
+}

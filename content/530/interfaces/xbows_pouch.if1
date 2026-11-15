@@ -1,0 +1,432 @@
+// 433:0
+[com_0]
+type=model
+x=148
+y=39
+width=32
+height=32
+model=model_16961
+modelangle=340,104,0
+modelzoom=475
+
+// 433:1
+[com_1]
+type=graphic
+x=16
+y=33
+width=36
+height=36
+graphic=graphic_170
+
+// 433:2
+[xbows_model1]
+type=model
+x=18
+y=35
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:3
+[com_3]
+type=text
+x=16
+y=33
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Wield bolts
+
+// 433:4
+[com_4]
+type=text
+x=16
+y=33
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Remove from Pouch
+
+// 433:5
+[com_5]
+type=graphic
+x=16
+y=69
+width=36
+height=36
+graphic=graphic_170
+
+// 433:6
+[xbows_model2]
+type=model
+x=18
+y=71
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:7
+[com_7]
+type=text
+x=16
+y=69
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Wield bolts
+
+// 433:8
+[com_8]
+type=text
+x=16
+y=69
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Remove from Pouch
+
+// 433:9
+[com_9]
+type=graphic
+x=16
+y=105
+width=36
+height=36
+graphic=graphic_170
+
+// 433:10
+[xbows_model3]
+type=model
+x=18
+y=107
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:11
+[com_11]
+type=text
+x=16
+y=105
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Wield bolts
+
+// 433:12
+[com_12]
+type=text
+x=16
+y=105
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Remove from Pouch
+
+// 433:13
+[com_13]
+type=graphic
+x=16
+y=141
+width=36
+height=36
+graphic=graphic_170
+
+// 433:14
+[xbows_model4]
+type=model
+x=18
+y=143
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:15
+[com_15]
+type=text
+x=16
+y=141
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Wield bolts
+
+// 433:16
+[com_16]
+type=text
+x=16
+y=141
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Remove from Pouch
+
+// 433:17
+[com_17]
+type=graphic
+x=16
+y=199
+width=36
+height=36
+graphic=graphic_170
+
+// 433:18
+[xbows_model5]
+type=model
+x=18
+y=201
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:19
+[com_19]
+type=text
+x=16
+y=199
+width=36
+height=36
+buttontype=normal
+textfont=fontmetrics_497
+textalignh=centre
+textshadow=yes
+colour=0x000000
+overcolour=0x00c000
+option=Unwield bolts
+
+// 433:20
+[num1]
+type=text
+x=58
+y=35
+width=17
+height=14
+script1=gt,0
+script1op1=push_varbit,xbows_pouch_num1
+textfont=fontmetrics_495
+text=%1
+textshadow=yes
+colour=0xff0033
+activecolour=0x00c000
+
+// 433:21
+[num2]
+type=text
+x=58
+y=71
+width=17
+height=14
+script1=gt,0
+script1op1=push_varbit,xbows_pouch_num2
+textfont=fontmetrics_495
+text=%1
+textshadow=yes
+colour=0xff0033
+activetext=%1
+activecolour=0x00c000
+
+// 433:22
+[num3]
+type=text
+x=58
+y=106
+width=17
+height=14
+script1=gt,0
+script1op1=push_varbit,xbows_pouch_num3
+textfont=fontmetrics_495
+text=%1
+textshadow=yes
+colour=0xff0033
+activetext=%1
+activecolour=0x00c000
+
+// 433:23
+[num4]
+type=text
+x=58
+y=143
+width=17
+height=14
+script1=gt,0
+script1op1=push_varbit,xbows_pouch_num4
+textfont=fontmetrics_495
+text=%1
+textshadow=yes
+colour=0xff0033
+activetext=%1
+activecolour=0x00c000
+
+// 433:24
+[num5]
+type=text
+x=54
+y=201
+width=8
+height=14
+textfont=fontmetrics_495
+text=0
+textshadow=yes
+colour=0xff0033
+activetext=0
+activecolour=0x00c000
+
+// 433:25
+[text1]
+type=text
+x=58
+y=54
+width=122
+height=13
+textfont=fontmetrics_495
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:26
+[text2]
+type=text
+x=58
+y=89
+width=122
+height=15
+textfont=fontmetrics_495
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:27
+[text3]
+type=text
+x=58
+y=125
+width=122
+height=15
+textfont=fontmetrics_495
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:28
+[text4]
+type=text
+x=58
+y=161
+width=124
+height=15
+textfont=fontmetrics_495
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:29
+[text5]
+type=text
+x=54
+y=219
+width=129
+height=13
+textfont=fontmetrics_495
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:30
+[com_30]
+type=text
+x=6
+y=12
+width=175
+height=13
+textfont=fontmetrics_496
+text=Crossbow Bolt Pouch
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 433:31
+[com_31]
+type=text
+x=17
+y=183
+width=158
+height=14
+textfont=fontmetrics_496
+text=Current Ammo
+textshadow=yes
+colour=0xff9933
+
+// 433:32
+[com_32]
+type=graphic
+x=159
+y=232
+width=26
+height=23
+overlayer=com_34
+graphic=graphic_539
+
+// 433:33
+[com_33]
+type=graphic
+x=2
+y=6
+width=26
+height=23
+layer=com_34
+buttontype=close
+graphic=graphic_540
+
+// 433:34
+[com_34]
+type=layer
+x=157
+y=226
+width=32
+height=32
+hide=yes

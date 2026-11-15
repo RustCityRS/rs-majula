@@ -1,0 +1,29 @@
+// Dev cheats for rs-test's input_dialogs.rs: each waits in one of 2011's
+// input dialogs and says the answer its RESUME_P_* packet brought back.
+
+[debugproc,namedialog]
+if (p_finduid(uid) = true) {
+    p_namedialog;
+    def_string $name = last_string;
+    mes("name: <$name>");
+}
+
+[debugproc,objdialog]
+if (p_finduid(uid) = true) {
+    p_objdialog;
+    def_obj $obj = last_int;
+    mes("obj: <oc_name($obj)>");
+}
+
+[debugproc,hsldialog]
+if (p_finduid(uid) = true) {
+    p_hsldialog;
+    mes("hsl: <tostring(last_int)>");
+}
+
+[debugproc,qfcdialog]
+if (p_finduid(uid) = true) {
+    p_clanforumqfcdialog;
+    def_string $code = last_string;
+    mes("qfc: <$code>");
+}

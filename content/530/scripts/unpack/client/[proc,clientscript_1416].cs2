@@ -1,0 +1,3 @@
+// 1416
+[proc,clientscript_1416]
+if_settext(ntk_overlay:com_6, "Room <tostring(%ntk_room_number)> of 8 <br>Thieving  level required: <tostring(%ntk_thieving_required)>");

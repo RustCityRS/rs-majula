@@ -1,0 +1,12 @@
+// 4059
+[clientscript,script4059](component $component0, component $component1)
+def_int $int2 = 5;
+if (if_gety($component0) >= 0) {
+    if_setposition($component0, 0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    %warguild_roller_delay = 0;
+    if_setop(warguild_token_choice:single_token_button, 1, "Select");
+    if_setop(warguild_token_choice:multi_token_button, 1, "Select");
+    if_setontimer($component1, null);
+} else {
+    if_setposition($component0, 0, calc(if_gety($component0) + $int2), ^setpos_abs_centre, ^setpos_abs_top);
+}

@@ -1,0 +1,27 @@
+// 5196
+[proc,clientscript_5196]
+if_sethide(interface_1122:com_55, true);
+if_sethide(interface_1122:com_243, true);
+if_sethide(interface_1122:com_255, true);
+if_sethide(interface_1122:com_267, true);
+if_sethide(interface_1122:com_279, true);
+if_sethide(interface_1122:com_222, true);
+if_sethide(interface_1122:com_231, true);
+if_sethide(interface_1122:com_345, true);
+if_sethide(interface_1122:com_73, false);
+if (%varclient_1595 < 4) {
+    if_sethide(interface_1122:com_279, false);
+    if_sethide(interface_1122:com_231, false);
+}
+if (%varclient_1595 < 3) {
+    if_sethide(interface_1122:com_267, false);
+    if_sethide(interface_1122:com_345, false);
+}
+if (%varclient_1595 < 2) {
+    if_sethide(interface_1122:com_255, false);
+    if_sethide(interface_1122:com_222, false);
+    if_sethide(interface_1122:com_73, true);
+}
+if (%varclient_1595 < 1) {
+    if_sethide(interface_1122:com_243, false);
+}

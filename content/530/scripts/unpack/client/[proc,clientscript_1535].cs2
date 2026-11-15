@@ -1,0 +1,161 @@
+// 1535
+[proc,clientscript_1535](int $int0, int $int1)(int)
+switch_int ($int0) {
+    case 0 :
+        if ($int1 = 0) {
+            if (~atjun_easy_done = ~atjun_easy_total) {
+                return(2);
+            } else if (~atjun_easy_done > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 1) {
+            if (~atjun_med_done = ~clientscript_689) {
+                return(2);
+            } else if (~atjun_med_done > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 2) {
+            if (~atjun_hard_done = ~clientscript_1106) {
+                return(2);
+            } else if (~atjun_hard_done > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        }
+    case 1 :
+        if ($int1 = 0) {
+            if (~clientscript_1108 = ~clientscript_1112) {
+                return(2);
+            } else if (~clientscript_1108 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 1) {
+            if (~clientscript_1113 = ~clientscript_1114) {
+                return(2);
+            } else if (~clientscript_1113 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 2) {
+            if (~clientscript_1115 = ~clientscript_1116) {
+                return(2);
+            } else if (~clientscript_1115 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        }
+    case 3 :
+        if ($int1 = 0) {
+            if (~clientscript_1541 = ~clientscript_1542) {
+                return(2);
+            } else if (~clientscript_1541 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 1) {
+            if (~clientscript_1543 = ~clientscript_1544) {
+                return(2);
+            } else if (~clientscript_1543 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 2) {
+            if (~clientscript_1545 = ~clientscript_1546) {
+                return(2);
+            } else if (~clientscript_1545 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        }
+    case 4 :
+        if ($int1 = 0) {
+            if (~clientscript_1981 = ~clientscript_1984) {
+                return(2);
+            } else if (~clientscript_1981 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 1) {
+            if (~clientscript_1982 = ~clientscript_1985) {
+                return(2);
+            } else if (~clientscript_1982 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 2) {
+            if (~clientscript_1983 = ~clientscript_1986) {
+                return(2);
+            } else if (~clientscript_1983 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        }
+    case 5 :
+        if ($int1 = 0) {
+            if (~clientscript_1975 = ~clientscript_1976) {
+                return(2);
+            } else if (~clientscript_1975 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 1) {
+            if (~clientscript_1977 = ~clientscript_1978) {
+                return(2);
+            } else if (~clientscript_1977 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 2) {
+            if (~clientscript_1979 = ~clientscript_1980) {
+                return(2);
+            } else if (~clientscript_1979 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        }
+    case 6 :
+        if ($int1 = 0) {
+            if (~clientscript_2034 = ~clientscript_2035) {
+                return(2);
+            } else if (~clientscript_2034 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 1) {
+            if (~clientscript_2036 = ~clientscript_2037) {
+                return(2);
+            } else if (~clientscript_2036 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        } else if ($int1 = 2) {
+            if (~clientscript_2038 = ~clientscript_2039) {
+                return(2);
+            } else if (~clientscript_2038 > 0) {
+                return(1);
+            } else {
+                return(0);
+            }
+        }
+}
+return(0);

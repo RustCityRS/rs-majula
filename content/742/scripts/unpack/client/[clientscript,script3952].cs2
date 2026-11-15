@@ -1,0 +1,24 @@
+// 3952
+[clientscript,script3952](int $int0)
+%varclient_2353 = %varclient_2359;
+%varclient_2354 = %varclient_2360;
+%varclient_2355 = %varclient_2361;
+%varclient_2356 = %varclient_2362;
+%varclient_2357 = %varclient_2363;
+%varclient_2358 = %varclient_2364;
+if ($int0 = 1) {
+    if_settext(playerdesign4:suggestion_1, append("<u=ebe0bc>", %varclient_2353));
+    if_settext(playerdesign4:suggestion_2, append("<u=ebe0bc>", %varclient_2354));
+    if_settext(playerdesign4:suggestion_3, append("<u=ebe0bc>", %varclient_2355));
+    if_settext(playerdesign4:suggestion_4, append("<u=ebe0bc>", %varclient_2356));
+    if_settext(playerdesign4:suggestion_5, append("<u=ebe0bc>", %varclient_2357));
+    if_settext(playerdesign4:suggestion_6, append("<u=ebe0bc>", %varclient_2358));
+} else {
+    if_settext(no_displayname:suggestion_1, append("<u=ebe0bc>", %varclient_2353));
+    if_settext(no_displayname:suggestion_2, append("<u=ebe0bc>", %varclient_2354));
+    if_settext(no_displayname:suggestion_3, append("<u=ebe0bc>", %varclient_2355));
+    if_settext(no_displayname:suggestion_4, append("<u=ebe0bc>", %varclient_2356));
+    if_settext(no_displayname:suggestion_5, append("<u=ebe0bc>", %varclient_2357));
+    if_settext(no_displayname:suggestion_6, append("<u=ebe0bc>", %varclient_2358));
+}
+~script3947(%varclient_2353, %varclient_2354, %varclient_2355, %varclient_2356, %varclient_2357, %varclient_2358, $int0);

@@ -1,0 +1,31 @@
+// 6371
+[proc,clientscript_6371](int $int0, component $component1)
+if_setontimer($component1, null);
+if_setsize(~clientscript_6358($component1), 0, 0, ^setsize_abs, ^setsize_abs);
+if_sethide(~clientscript_6358($component1), true);
+switch_int ($int0) {
+    case 0 :
+        %varclient_1947 = null;
+        %varclient_1948 = -1;
+    case 1 :
+        %varclient_1949 = null;
+        %varclient_1950 = -1;
+    case 2 :
+        %varclient_1951 = null;
+        %varclient_1952 = -1;
+    case 3 :
+        %varclient_1953 = null;
+        %varclient_1954 = -1;
+    case 4 :
+        %varclient_1955 = null;
+        %varclient_1956 = -1;
+    case 5 :
+        %varclient_1957 = null;
+        %varclient_1958 = -1;
+    case 6 :
+        %varclient_1959 = null;
+        %varclient_1960 = -1;
+    case 7 :
+        %varclient_1961 = null;
+        %varclient_1962 = -1;
+}

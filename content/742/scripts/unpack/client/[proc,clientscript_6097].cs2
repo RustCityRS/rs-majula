@@ -1,0 +1,37 @@
+// 6097
+[proc,clientscript_6097](int $int0)
+if ($int0 = 1) {
+    if_sethide(interface_1265:com_226, true);
+    if_sethide(interface_1265:com_33, false);
+    if_setsize(interface_1265:com_29, if_getwidth(interface_1265:com_29), 22, ^setsize_abs, ^setsize_abs);
+    if_setsize(interface_1265:com_28, if_getwidth(interface_1265:com_28), 20, ^setsize_abs, ^setsize_abs);
+    if_setcolour(interface_1265:com_227, 0xf7edb7);
+    if_setcolour(interface_1265:com_34, 0xe5b051);
+    if_setgraphic(interface_1265:com_223, 10465);
+    if_setgraphic(interface_1265:com_224, 10466);
+    if_setgraphic(interface_1265:com_225, 10465);
+    if_setgraphic(interface_1265:com_30, 10463);
+    if_setgraphic(interface_1265:com_31, 10464);
+    if_setgraphic(interface_1265:com_32, 10463);
+    if_setonmouseover(interface_1265:com_29, "clientscript_6098(1, 1, interface_1265:com_223, interface_1265:com_224, interface_1265:com_225)");
+    if_setonmouseleave(interface_1265:com_29, "clientscript_6098(1, 0, interface_1265:com_223, interface_1265:com_224, interface_1265:com_225)");
+    if_setonmouseover(interface_1265:com_28, "clientscript_6098(0, 1, interface_1265:com_30, interface_1265:com_31, interface_1265:com_32)");
+    if_setonmouseleave(interface_1265:com_28, "clientscript_6098(0, 0, interface_1265:com_30, interface_1265:com_31, interface_1265:com_32)");
+} else {
+    if_sethide(interface_1265:com_33, true);
+    if_sethide(interface_1265:com_226, false);
+    if_setsize(interface_1265:com_28, if_getwidth(interface_1265:com_28), 22, ^setsize_abs, ^setsize_abs);
+    if_setsize(interface_1265:com_29, if_getwidth(interface_1265:com_29), 20, ^setsize_abs, ^setsize_abs);
+    if_setcolour(interface_1265:com_34, 0xf7edb7);
+    if_setcolour(interface_1265:com_227, 0xe5b051);
+    if_setgraphic(interface_1265:com_30, 10465);
+    if_setgraphic(interface_1265:com_31, 10466);
+    if_setgraphic(interface_1265:com_32, 10465);
+    if_setgraphic(interface_1265:com_223, 10463);
+    if_setgraphic(interface_1265:com_224, 10464);
+    if_setgraphic(interface_1265:com_225, 10463);
+    if_setonmouseover(interface_1265:com_28, "clientscript_6098(1, 1, interface_1265:com_30, interface_1265:com_31, interface_1265:com_32)");
+    if_setonmouseleave(interface_1265:com_28, "clientscript_6098(1, 0, interface_1265:com_30, interface_1265:com_31, interface_1265:com_32)");
+    if_setonmouseover(interface_1265:com_29, "clientscript_6098(0, 1, interface_1265:com_223, interface_1265:com_224, interface_1265:com_225)");
+    if_setonmouseleave(interface_1265:com_29, "clientscript_6098(0, 0, interface_1265:com_223, interface_1265:com_224, interface_1265:com_225)");
+}

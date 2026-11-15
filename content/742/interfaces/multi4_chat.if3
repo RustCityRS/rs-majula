@@ -1,0 +1,141 @@
+// 233:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 233:1
+[multi4t_chat]
+type=text
+y=14
+width=480
+height=17
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=Select an Option
+textalignh=centre
+colour=0x800000
+
+// 233:2
+[multi4a_chat]
+type=text
+y=32
+width=480
+height=17
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option1
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 233:3
+[multi4b_chat]
+type=text
+y=52
+width=480
+height=17
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option2
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 233:4
+[multi4c_chat]
+type=text
+y=72
+width=480
+height=17
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option3
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 233:5
+[multi4d_chat]
+type=text
+y=92
+width=480
+height=17
+xmode=abs_centre
+layer=layer_1
+textfont=q8_full
+text=option4
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 233:6
+[com_6]
+type=graphic
+width=57
+height=13
+layer=multi4swords_chat
+graphic="sworddecor,1"
+colour=0x000000
+
+// 233:7
+[com_7]
+type=graphic
+width=57
+height=13
+xmode=abs_right
+layer=multi4swords_chat
+graphic="sworddecor,0"
+colour=0x000000
+
+// 233:8
+[multi4swords_chat]
+type=layer
+y=15
+width=337
+height=13
+xmode=abs_centre
+layer=layer_1
+
+// 233:9
+[com_9]
+type=layer
+y=15
+width=476
+height=13
+xmode=abs_centre
+layer=layer_1
+hide=yes
+
+// 233:10
+[com_10]
+type=graphic
+width=57
+height=13
+layer=com_9
+graphic="sworddecor,1"
+colour=0x000000
+
+// 233:11
+[com_11]
+type=graphic
+width=57
+height=13
+xmode=abs_right
+layer=com_9
+graphic="sworddecor,0"
+colour=0x000000

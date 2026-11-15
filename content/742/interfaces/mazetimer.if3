@@ -1,0 +1,82 @@
+// 209:0
+[contents_1]
+type=layer
+y=19
+width=382
+height=32
+xmode=abs_centre
+
+// 209:1
+[mazetimerlayer]
+type=layer
+x=6
+y=6
+width=341
+height=77
+layer=contents_2
+
+// 209:2
+[com_2]
+type=text
+x=6
+y=5
+width=370
+height=21
+layer=contents_1
+textfont=q8_full
+text=Complete the Maze as fast as possible!
+textalignh=centre
+textshadow=yes
+colour=0xeaeaea
+
+// 209:3
+[com_3]
+type=text
+x=122
+y=6
+width=146
+height=18
+layer=mazetimerlayer
+textfont=q8_full
+text=There is...
+textalignh=centre
+textshadow=yes
+colour=0xd1d1d1
+
+// 209:4
+[percentage_reward]
+type=text
+x=225
+y=26
+width=63
+height=16
+layer=mazetimerlayer
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0x948000
+onvartransmit=script116{macro_transmit}
+
+// 209:5
+[com_5]
+type=text
+x=120
+y=44
+width=219
+height=19
+layer=mazetimerlayer
+textfont=q8_full
+text=... of the Reward left!
+textalignh=right
+textshadow=yes
+colour=0xd1d1d1
+
+// 209:6
+[contents_2]
+type=layer
+x=5
+y=40
+width=354
+height=89
+xmode=abs_right
+ymode=abs_bottom

@@ -5,7 +5,7 @@ use std::collections::HashMap;
 
 pub(super) fn decode_varbit(
     buf: &mut Packet,
-    _: u16,
+    _: u32,
     _: &HashMap<u16, u16>,
     _packs: &mut UnpackedPacks,
 ) -> Vec<(String, String)> {
@@ -20,10 +20,10 @@ pub(super) fn decode_varbit(
                 let basevar = buf.g2();
                 let start = buf.g1();
                 let end = buf.g1();
-                if cfg!(before_647) || basevar != 0 || start != 0 || end != 0 {
-                    #[cfg(before_647)]
+                if cfg!(before_530) || basevar != 0 || start != 0 || end != 0 {
+                    #[cfg(before_530)]
                     let name = format!("varp_{basevar}");
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     let name = _packs
                         .config_name("varp", basevar as u32)
                         .map(str::to_string)
@@ -33,7 +33,7 @@ pub(super) fn decode_varbit(
                     props.push(("endbit".into(), end.to_string()));
                 }
             }
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             10 => props.push(("debugname".into(), buf.gjstr(STRING_TERMINATOR))),
             250 => {
                 buf.gjstr(STRING_TERMINATOR);

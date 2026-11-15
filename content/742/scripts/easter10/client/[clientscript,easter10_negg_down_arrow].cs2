@@ -1,0 +1,7 @@
+// 2235
+[clientscript,easter10_negg_down_arrow]
+if (%easter10_neggworkers > 0) {
+    sound_synth(synth_8729, 1, 0);
+    %easter10_neggworkers = calc(%easter10_neggworkers - 1);
+    ~script2220;
+}

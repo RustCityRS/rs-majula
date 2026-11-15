@@ -1,0 +1,16 @@
+// 6241
+[proc,clientscript_6241]
+def_int $int0 = if_getwidth(interface_1285:com_5);
+def_int $int1 = max(1, calc(100 - scale(%varclient_1923, 7500, 100)));
+~aif_progressbar_set($int1, interface_1285:com_5, null);
+def_int $int2 = if_getwidth(interface_1285:com_5);
+def_int $int3 = calc($int0 - $int2);
+if ($int3 > 0) {
+    if_setsize(interface_1285:com_25, $int3, if_getheight(interface_1285:com_25), ^setsize_abs, ^setsize_abs);
+    if_settrans(interface_1285:com_26, 0);
+    if_settrans(interface_1285:com_27, 0);
+    if_settrans(interface_1285:com_28, 0);
+    if_setposition(interface_1285:com_25, if_getwidth(interface_1285:com_5), if_gety(interface_1285:com_25), ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(interface_1285:com_25, false);
+    if_setontimer(interface_1285:com_5, "clientscript_6242");
+}

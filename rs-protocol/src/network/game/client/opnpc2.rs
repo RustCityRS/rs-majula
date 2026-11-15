@@ -13,17 +13,27 @@ pub struct OpNpc2 {
     pub ctrl: bool,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for OpNpc2 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpNpc2 { nid: buf.g2() }
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpNpc2 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        OpNpc2 { nid: buf.g2_alt3() }
+    }
+}
+
 #[cfg(since_647)]
 impl ClientProtMessage for OpNpc2 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
+        #[cfg(before_742)]
         let (ctrl, nid) = (buf.g1_alt2() != 0, buf.g2_alt3());
+        #[cfg(since_742)]
+        let (ctrl, nid) = (buf.g1() != 0, buf.g2_alt1());
         OpNpc2 { nid, ctrl }
     }
 }

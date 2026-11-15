@@ -1,11 +1,11 @@
 use super::config_entry;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::{cache_params, mark_client_params};
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::colour::{RecolType, rgb15_to_hsl16};
 use crate::pack::util::parse_coord;
 use crate::pack::util::*;
@@ -23,7 +23,7 @@ pub fn pack_npcs(
 
     let configs = parse_config_sections_cached(file_cache, "npc", constants)?;
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let cache_params = cache_params(file_cache, &registry.param);
 
     let mut server = PackedData::new(pack.max);
@@ -39,24 +39,24 @@ pub fn pack_npcs(
             continue;
         };
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let props = &mark_client_params(props, &registry.param, &cache_params);
 
         // Collected fields written after the loop
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut models: Vec<(usize, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut head_models: Vec<(usize, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut recol_s: Vec<(usize, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut recol_d: Vec<(usize, u16)> = Vec::new();
         let mut patrols: Vec<(i32, u8)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut has_vislevel = false;
 
         for group in props.chunk_by(|a, b| batch_code(&a.0) == batch_code(&b.0)) {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if batch_code(&group[0].0) != 0 {
                 let start = client.dat.len();
                 pack_batch(&mut client, group, registry, param_types, debugname)?;
@@ -67,14 +67,16 @@ pub fn pack_npcs(
                 let start = client.dat.len();
                 match key.as_str() {
                     // 1
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key.starts_with("model") => {
-                        parse_model_kind(registry, "model", key, value, |v| models.push((v.0, v.1)))
+                        parse_model_kind(registry, "model", key, value, |v| {
+                            models.push((v.0, v.1.g2()))
+                        })
                     }
 
                     // 2
                     "name" => {
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             client.p1(2);
                             client.pjstr(value);
@@ -83,12 +85,12 @@ pub fn pack_npcs(
 
                     // 3
                     "desc" => {
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             client.p1(3);
                             client.pjstr(value);
                         }
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             server.p1(3);
                             server.pjstr(value);
@@ -102,14 +104,14 @@ pub fn pack_npcs(
                     }),
 
                     // 13
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "readyanim" => parse_ref(&registry.seq, "seq", value, |v| {
                         client.p1(13);
                         client.p2(v);
                     }),
 
                     // 14 or 17
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "walkanim" => {
                         if !value.contains(',') {
                             // 14
@@ -264,20 +266,20 @@ pub fn pack_npcs(
                     }),
 
                     // 40
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
                         RecolType::S(idx, v) => recol_s.push((idx, v)),
                         RecolType::D(idx, v) => recol_d.push((idx, v)),
                     }),
 
                     // 60
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key
                         .strip_prefix("head")
                         .is_some_and(|rest| rest.starts_with(|c: char| c.is_ascii_digit())) =>
                     {
                         parse_model_kind(registry, "head", key, value, |v| {
-                            head_models.push((v.0, v.1))
+                            head_models.push((v.0, v.1.g2()))
                         })
                     }
 
@@ -318,21 +320,21 @@ pub fn pack_npcs(
                     }),
 
                     // 90
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "resizex" => parse_number(value, |v| {
                         client.p1(90);
                         client.p2(v);
                     }),
 
                     // 91
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "resizey" => parse_number(value, |v| {
                         client.p1(91);
                         client.p2(v);
                     }),
 
                     // 92
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "resizez" => parse_number(value, |v| {
                         client.p1(92);
                         client.p2(v);
@@ -356,7 +358,7 @@ pub fn pack_npcs(
                         };
                         client.p1(95);
                         client.p2(val);
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             has_vislevel = true;
                         }
@@ -411,7 +413,7 @@ pub fn pack_npcs(
                     }),
 
                     // 107
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "active" => parse_bool(value, |v| {
                         if !v {
                             client.p1(107);
@@ -419,7 +421,7 @@ pub fn pack_npcs(
                     }),
 
                     // 109
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "walksmoothing" => parse_bool(value, |v| {
                         if !v {
                             client.p1(109);
@@ -427,7 +429,7 @@ pub fn pack_npcs(
                     }),
 
                     // 111
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "spotshadow" => parse_bool(value, |v| {
                         if !v {
                             client.p1(111);
@@ -435,7 +437,7 @@ pub fn pack_npcs(
                     }),
 
                     // 113
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "spotshadowcolour" => {
                         let values = parse_numbers::<i16, 2>(value);
                         client.p1(113);
@@ -445,7 +447,7 @@ pub fn pack_npcs(
                     }
 
                     // 114
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "spotshadowtrans" => {
                         let values = parse_numbers::<i8, 2>(value);
                         client.p1(114);
@@ -454,43 +456,59 @@ pub fn pack_npcs(
                         }
                     }
 
+                    // 115
+                    #[cfg(all(since_530, before_647))]
+                    "unknown115" => {
+                        client.p1(115);
+                        for v in parse_numbers::<u8, 2>(value) {
+                            client.p1(v);
+                        }
+                    }
+
                     // 119
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "unknown119" => parse_number(value, |v: i8| {
                         client.p1(119);
                         client.p1(v as u8);
                     }),
 
                     // 122
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "unknown122" => parse_number(value, |v: u16| {
                         client.p1(122);
                         client.p2(v);
                     }),
 
                     // 123
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "overlayheight" => parse_number(value, |v: u16| {
                         client.p1(123);
                         client.p2(v);
                     }),
 
                     // 125
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "respawndir" => parse_number(value, |v: i8| {
                         client.p1(125);
                         client.p1(v as u8);
                     }),
 
+                    // 126
+                    #[cfg(all(since_530, before_647))]
+                    "unknown126" => parse_number(value, |v: u16| {
+                        client.p1(126);
+                        client.p2(v);
+                    }),
+
                     // 127
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "bas" => parse_ref(&registry.bas, "bas", value, |v| {
                         client.p1(127);
                         client.p2(v);
                     }),
 
                     // 128
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "defaultmovemode" => {
                         client.p1(128);
                         client.p1(match value.as_str() {
@@ -502,7 +520,7 @@ pub fn pack_npcs(
                     }
 
                     // 134, and 162 when the sounds are vorbis files
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "bgsound" => {
                         let parts: Vec<_> = value.split(',').collect();
                         let [idle, crawl, walk, run, range] = parts[..] else {
@@ -517,30 +535,33 @@ pub fn pack_npcs(
                         }
                         parse_number(range.trim(), |v: u8| client.p1(v));
                         if vorbis {
+                            #[cfg(all(since_530, before_647))]
+                            panic!("{debugname}: vorbis bgsound '{value}' needs 647");
+                            #[cfg(since_647)]
                             client.p1(162);
                         }
                     }
 
                     // 135
-                    #[cfg(since_647)]
+                    #[cfg(all(since_530, before_742))]
                     "cursor1" => pack_cursor(&mut client, 135, value, registry),
 
                     // 136
-                    #[cfg(since_647)]
+                    #[cfg(all(since_530, before_742))]
                     "cursor2" => pack_cursor(&mut client, 136, value, registry),
 
                     // 137
-                    #[cfg(since_647)]
-                    "cursorattack" => parse_ref(&registry.cursor, "cursor", value, |v| {
+                    #[cfg(since_530)]
+                    "cursorattack" => parse_cursor(registry, value, |v| {
                         client.p1(137);
                         client.p2(v);
                     }),
 
                     // 138
                     #[cfg(since_647)]
-                    "covermarker" => parse_ref(&registry.sprites, "sprites", value, |v| {
+                    "covermarker" => parse_bigid(&registry.sprites, "sprites", value, |v| {
                         client.p1(138);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 139
@@ -634,6 +655,33 @@ pub fn pack_npcs(
                         client.p1(v);
                     }),
 
+                    #[cfg(since_742)]
+                    "recolindices" => {
+                        client.p1(44);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "retexindices" => {
+                        client.p1(45);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "antimacro" => parse_bool(value, |v| {
+                        if !v {
+                            client.p1(169);
+                        }
+                    }),
+
+                    #[cfg(since_742)]
+                    _ if let Some(n) = config_key_index(key, "cursor") => {
+                        parse_ref(&registry.cursor, "cursor", value, |v| {
+                            client.p1(169 + n as u8);
+                            client.p2(v);
+                        })
+                    }
+
                     // 249
                     "param" => {} // handled at the end
 
@@ -644,7 +692,7 @@ pub fn pack_npcs(
             }
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             let start = client.dat.len();
             // handle 40
@@ -737,7 +785,7 @@ pub fn pack_npcs(
 
         // done
         server.finish_entry();
-        if cfg!(before_647) || !client.entry().is_empty() {
+        if cfg!(before_530) || !client.entry().is_empty() {
             client.finish_entry();
         } else {
             client.skip_entry();
@@ -751,13 +799,17 @@ pub fn pack_npcs(
 }
 
 fn batch_code(key: &str) -> u8 {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         if config_key_index(key, "model").is_some() {
             return 1;
         }
         if config_key_index(key, "head").is_some() {
             return 60;
+        }
+        #[cfg(since_742)]
+        if key == "recolindices" || key == "retexindices" {
+            return 0;
         }
         if key.starts_with("recol") {
             return 40;
@@ -771,6 +823,7 @@ fn batch_code(key: &str) -> u8 {
         if config_key_index(key, "modeloffset").is_some() {
             return 121;
         }
+        #[cfg(since_647)]
         if key == "quest" {
             return 160;
         }
@@ -781,12 +834,12 @@ fn batch_code(key: &str) -> u8 {
             return 249;
         }
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let _ = key;
     0
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn pack_batch(
     packed: &mut PackedData,
     props: &[(String, String)],
@@ -802,7 +855,7 @@ fn pack_batch(
             for (_, value) in props {
                 match code {
                     42 => parse_number(value, |v| packed.p1(v)),
-                    _ => parse_ref(&registry.model, "model", value, |v| packed.p2(v)),
+                    _ => parse_bigid(&registry.model, "model", value, |v| packed.pbigid(v)),
                 }
             }
         }
@@ -819,6 +872,7 @@ fn pack_batch(
                 }
             }
         }
+        #[cfg(since_647)]
         160 => {
             let quests: Vec<_> = props
                 .iter()
@@ -835,6 +889,7 @@ fn pack_batch(
             (106, 118),
             props,
             ("npc", &registry.npc),
+            |packed, id| packed.p2(id as u16),
             registry,
             name,
         )?,

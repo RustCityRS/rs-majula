@@ -1,0 +1,236 @@
+// 59:0
+[zamorak_score]
+type=text
+x=-56
+y=23
+width=96
+height=12
+xmode=abs_centre
+textfont=fontmetrics_494
+text=Zamorak = %1
+textalignh=centre
+textshadow=yes
+onload=castlewars_zamorak_update_status
+onvartransmit=castlewars_zamorak_update_status{castlewars_saradomin, castlewars_zamorak, castlewars_timer}
+
+// 59:1
+[saradomin_score]
+type=text
+x=50
+y=23
+width=111
+height=12
+xmode=abs_centre
+textfont=fontmetrics_494
+text=%1 = Saradomin
+textalignh=centre
+textshadow=yes
+
+// 59:2
+[com_2]
+type=model
+x=4
+y=25
+width=25
+height=32
+model=model_4858
+modelorigin=0,64
+modelzoom=2134
+modelunknown=63719,3000,0
+
+// 59:3
+[com_3]
+type=model
+x=4
+y=60
+width=25
+height=32
+model=model_4862
+modelorigin=0,64
+modelzoom=2134
+modelunknown=63719,3000,0
+
+// 59:4
+[saradomin_flag]
+type=text
+x=35
+y=38
+width=11
+height=11
+textfont=fontmetrics_494
+colour=0x55c855
+
+// 59:5
+[zamorak_flag]
+type=text
+x=35
+y=73
+width=11
+height=11
+textfont=fontmetrics_494
+colour=0x55c855
+onvartransmit=castlewars_zamorak_update_status{castlewars_saradomin, castlewars_zamorak}
+
+// 59:6
+[castlewars_icon_zam]
+type=layer
+y=6
+width=106
+height=148
+ymode=abs_bottom
+
+// 59:7
+[health]
+type=text
+x=33
+y=16
+width=69
+height=25
+layer=castlewars_icon_zam
+textfont=fontmetrics_494
+text=Health %1%
+colour=0x00ff00
+
+// 59:8
+[time_remaining]
+type=text
+x=2
+y=23
+width=68
+height=11
+xmode=abs_right
+textfont=fontmetrics_494
+text=%1 Min
+textalignh=centre
+
+// 59:9
+[com_9]
+type=model
+x=5
+y=6
+width=24
+height=29
+layer=castlewars_icon_zam
+model=model_4855
+modelangle=512,0,0
+modelzoom=1244
+modelunknown=63861,3000,0
+
+// 59:10
+[com_10]
+type=model
+x=9
+y=44
+width=15
+height=23
+layer=castlewars_icon_zam
+model=model_4859
+modelorigin=-5,-4
+modelangle=512,0,0
+modelzoom=1165
+modelunknown=63878,3000,0
+
+// 59:11
+[door]
+type=text
+x=33
+y=49
+width=71
+height=26
+layer=castlewars_icon_zam
+textfont=fontmetrics_494
+text=Locked
+colour=0x00ff00
+
+// 59:12
+[com_12]
+type=model
+x=5
+y=74
+width=26
+height=18
+layer=castlewars_icon_zam
+model=model_4861
+modelorigin=-1,-8
+modelangle=512,0,0
+modelzoom=2063
+modelunknown=63728,3000,0
+
+// 59:13
+[tunnel1]
+type=text
+x=33
+y=79
+width=71
+height=22
+layer=castlewars_icon_zam
+textfont=fontmetrics_494
+text=Collapsed
+colour=0x00ff00
+
+// 59:14
+[tunnel2]
+type=text
+x=33
+y=103
+width=71
+height=22
+layer=castlewars_icon_zam
+textfont=fontmetrics_494
+text=Collapsed
+colour=0x00ff00
+
+// 59:15
+[com_15]
+type=model
+x=5
+y=123
+width=26
+height=20
+layer=castlewars_icon_zam
+model=model_4853
+modelorigin=-2,-6
+modelangle=512,0,0
+modelzoom=1135
+modelunknown=63885,3000,0
+
+// 59:16
+[com_16]
+type=model
+x=5
+y=99
+width=26
+height=18
+layer=castlewars_icon_zam
+model=model_4861
+modelorigin=-1,-8
+modelangle=512,0,0
+modelzoom=2063
+modelunknown=63728,3000,0
+
+// 59:17
+[catapult]
+type=text
+x=33
+y=128
+width=71
+height=19
+layer=castlewars_icon_zam
+textfont=fontmetrics_494
+text=Operational
+colour=0x00ff00
+opbase= 
+
+// 59:18
+[castlewars_zamorak_eject]
+type=text
+x=-7
+y=-46
+width=4
+height=4
+xmode=abs_centre
+ymode=abs_centre
+textfont=fontmetrics_495
+textalignh=centre
+textshadow=yes
+colour=0xffff00

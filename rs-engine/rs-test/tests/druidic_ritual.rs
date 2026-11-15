@@ -16,6 +16,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -29,15 +30,23 @@ const QUEST_LIST: i32 = 190 << 16 | 18;
 const DRUIDIC_RITUAL: i32 = 33;
 const JOURNAL_LINE_1: u32 = 275 << 16 | 16;
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "loc" => &engine.cache.locs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
+}
+
+fn loc_id(engine: &Engine, name: &str) -> TypeId {
+    engine
+        .cache
+        .locs
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no loc {name}"))
+        .id
 }
 
 fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
@@ -46,13 +55,13 @@ fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -64,7 +73,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -101,7 +110,7 @@ fn login(engine: &mut Engine, name: &str, stage: i32) -> HarnessClient {
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(stage));
+        .set(v.g2(), VarValue::Int(stage));
     client
 }
 
@@ -151,15 +160,15 @@ fn says(t: &Conversation, lines: &[&str]) {
 /// Uses the backpack's `slot` on the cauldron and returns the game messages that follow.
 fn dip(engine: &mut Engine, client: &mut HarnessClient, obj: &str, slot: u16) -> Vec<String> {
     let obj = id(engine, "obj", obj);
-    let cauldron = id(engine, "loc", "cauldron_of_thunder");
+    let cauldron = loc_id(engine, "cauldron_of_thunder");
     let mut p = ClientPacket::new();
-    p.p2_alt2(obj as i32)
+    p.p2_alt2(obj.int())
         .p2_alt2(slot as i32)
         .p2(CAULDRON.1 as i32)
         .p4_alt2(BACKPACK)
         .p2_alt2(CAULDRON.0 as i32)
         .p1_alt1(0)
-        .p2_alt1(cauldron as i32);
+        .p2_alt1(cauldron.int());
     client.send(ClientProt::OpLocT, &p.finish());
     let mut out = Vec::new();
     for _ in 0..4 {

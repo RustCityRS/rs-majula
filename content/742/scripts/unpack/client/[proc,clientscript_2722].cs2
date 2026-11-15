@@ -1,0 +1,32 @@
+// 2722
+[proc,clientscript_2722](component $component0, int $int1, boolean $boolean2)
+if (cc_find($component0, 0) = true) {
+    if ($int1 = 1) {
+        cc_setgraphic(8710);
+    } else if ($boolean2 = true) {
+        cc_setgraphic(8711);
+    } else {
+        cc_setgraphic(8709);
+    }
+}
+if (cc_find($component0, 1) = true) {
+    if ($int1 = 1) {
+        cc_setgraphic(8704);
+    } else if ($boolean2 = true) {
+        cc_setgraphic(8705);
+    } else {
+        cc_setgraphic(8703);
+    }
+}
+if (cc_find($component0, 2) = true) {
+    if ($int1 = 1) {
+        cc_setgraphic(8704);
+    } else if ($boolean2 = true) {
+        cc_setgraphic(8705);
+    } else {
+        cc_setgraphic(8703);
+    }
+}
+if ($int1 = 0) {
+    ~playerdesign4_tooltip_clear;
+}

@@ -22,6 +22,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 const AERECK: u16 = 456;
@@ -36,8 +37,8 @@ const COFFIN: (u16, u16, u16) = (2145, 3249, 3192);
 const OPEN_COFFIN: u16 = 15061;
 const ROCKS: (u16, u16, u16) = (47713, 3234, 3145);
 
-fn id(engine: &Engine, obj: &str) -> u16 {
-    *engine.cache.objs.debugnames.get(obj).unwrap()
+fn id(engine: &Engine, obj: &str) -> TypeId {
+    engine.cache.objs.get_by_debugname(obj).unwrap().id
 }
 
 /// A player at `stage`, beside the npc `npc` (or at `at`), carrying `objs`
@@ -57,9 +58,9 @@ fn player(
         engine.cycle();
     }
     engine.harness_telejump(client.pid, at.0, 0, at.1);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let worn_inv = *engine.cache.invs.debugnames.get("worn").unwrap();
-    let ids: Vec<u16> = objs.iter().map(|o| id(engine, o)).collect();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let worn_inv = engine.cache.invs.get_by_debugname("worn").unwrap().id;
+    let ids: Vec<TypeId> = objs.iter().map(|o| id(engine, o)).collect();
     let worn_id = worn.map(|o| id(engine, o));
     let p = engine.harness_player_mut(client.pid).unwrap();
     p.vars.set(PRIESTSTART, VarValue::Int(stage));
@@ -84,7 +85,7 @@ fn npc_near(engine: &Engine, npc: u16) -> Option<(u16, u16, u16)> {
         .npcs
         .iter()
         .flatten()
-        .find(|n| n.npc.uid.id() == npc)
+        .find(|n| n.npc.uid.id() == TypeId::new(npc))
         .map(|n| {
             (
                 n.npc.uid.nid(),
@@ -104,7 +105,7 @@ fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
 }
 
 fn total(engine: &Engine, client: &HarnessClient, inv: &str, obj: &str) -> i64 {
-    let inv = *engine.cache.invs.debugnames.get(inv).unwrap();
+    let inv = engine.cache.invs.get_by_debugname(inv).unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -131,7 +132,7 @@ fn open_the_coffin(engine: &mut Engine, client: &mut HarnessClient) {
         engine
             .zones
             .zone(x, 0, z)
-            .and_then(|zone| zone.get_loc(x, z, id))
+            .and_then(|zone| zone.get_loc(x, z, TypeId::from(id)))
             .is_some()
     };
     if !here(engine, shut) {
@@ -324,7 +325,7 @@ fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
         open_the_coffin(engine, &mut client);
         messages(engine, &mut client, 6);
         let mut p = ClientPacket::new();
-        p.p2_alt2(skull as i32)
+        p.p2_alt2(skull.int())
             .p2_alt2(0)
             .p2(COFFIN.2 as i32)
             .p4_alt2(BACKPACK)

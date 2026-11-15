@@ -1,0 +1,103 @@
+// 387
+[proc,script387](boolean $boolean0)
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+$string0, $string1 = if_getop(playerdesign4:male, 1), if_getop(playerdesign4:female, 1);
+def_int $int3 = enum_getoutputcount(enum_3280);
+def_int $int4 = 0;
+def_int $int5 = 73;
+def_enum $enum6 = enum_3278;
+$int2 = calc($int1 + 20);
+$int1 = calc(max(stringwidth($string0, p12_full), stringwidth($string1, p12_full)) + 30);
+def_boolean $boolean7 = true;
+def_string $string2 = "";
+if (%character_creation_female = 1) {
+    $boolean7 = false;
+}
+~clientscript_2719(playerdesign4:male, $string0, $int1, $string2, $boolean7);
+if_setonop(playerdesign4:male, "clientscript_2718(playerdesign4:male, $string0, $int1, $string2, true)");
+$int2 = calc($int2 + $int1 + 10);
+def_boolean $boolean8 = false;
+if ($boolean7 = false) {
+    $boolean8 = true;
+}
+~clientscript_2719(playerdesign4:female, $string1, $int1, $string2, $boolean8);
+if_setonop(playerdesign4:female, "clientscript_2718(playerdesign4:female, $string1, $int1, $string2, true)");
+$int4 = min($int3, enum_getoutputcount($enum6));
+$int1 = max(calc(($int4 + 1) * $int5 + (89 - $int5)), scale(4, 5, 765));
+$int1 = calc($int4 * $int5 + (89 - $int5));
+if_setsize(playerdesign4:com_35, $int1, 26, ^setsize_abs, ^setsize_minus);
+if_setsize(playerdesign4:roles, 0, 180, ^setsize_minus, ^setsize_abs);
+if_setposition(playerdesign4:no_role, 0, 237, ^setpos_abs_centre, ^setpos_abs_top);
+~script389;
+def_int $int9 = calc(%playerdesign2_client_random - 1);
+if ($int9 <= -1) {
+    if_sethide(playerdesign4:com_139_, true);
+    if_sethide(playerdesign4:confirm, true);
+    if_sethide(playerdesign4:player, true);
+    if_sethide(playerdesign4:spotanim, true);
+} else {
+    if_sethide(playerdesign4:com_139_, false);
+    if (%character_creation_multipage = 1 & %character_creation_page = 0) {
+        if_sethide(playerdesign4:confirm, true);
+    } else {
+        if_sethide(playerdesign4:confirm, false);
+    }
+    if_sethide(playerdesign4:player, false);
+    if_sethide(playerdesign4:spotanim, false);
+}
+def_component $component10 = null;
+def_string $string3 = "";
+def_graphic $graphic11 = null;
+def_int $int12 = 0;
+def_int $int13 = 1;
+def_struct $struct14 = enum(int, struct, $enum6, $int9);
+~playerdesign4_backdrop($struct14);
+$int2 = calc(if_getheight(playerdesign4:roles) - (89 + 17));
+while ($int12 < $int4) {
+    $component10 = enum(int, component, enum_3280, $int12);
+    if ($component10 ! null) {
+        if ($int12 = $int9) {
+            if_setposition($component10, calc($int5 * $int12), 0, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            if_setposition($component10, calc($int5 * $int12), $int2, ^setpos_abs_left, ^setpos_abs_bottom);
+        }
+        if ($int12 <= $int9 | $int9 <= -1) {
+            op400($component10);
+        } else {
+            op1040($component10);
+        }
+        if_setsize($component10, 89, 89, ^setsize_abs, ^setsize_abs);
+        $struct14 = enum(int, struct, $enum6, $int12);
+        if ($struct14 ! null) {
+            if ($boolean0 = true) {
+                $graphic11 = struct_param($struct14, param_1162);
+            } else {
+                $graphic11 = struct_param($struct14, param_1161);
+            }
+            if ($int12 = $int9) {
+                $int13 = 1;
+            } else {
+                $int13 = 0;
+            }
+            ~playerdesign4_box($component10, $int9, enum_3280, $graphic11, true, 89, 89, 2, "", $int13, "");
+            if_setonop($component10, "script351(event_op, calc($int12 + 1))");
+        } else {
+            ~playerdesign4_box($component10, -1, null, null, false, 0, 0, 0, "", 0, "");
+        }
+    }
+    $int12 = calc($int12 + 1);
+}
+while ($int12 < $int3) {
+    $component10 = enum(int, component, enum_3280, $int12);
+    if ($component10 ! null) {
+        if_sethide($component10, true);
+    }
+    $int12 = calc($int12 + 1);
+}
+$component10 = enum(int, component, enum_3280, $int9);
+if ($component10 ! null) {
+    op400($component10);
+}

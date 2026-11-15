@@ -1,0 +1,17 @@
+// 6140
+[proc,clientscript_6140](int $int0, int $int1)
+def_int $int2 = 10;
+def_int $int3 = calc($int0 * 100 - %varclient_1886);
+def_int $int4 = calc($int1 * 100 - %varclient_1887);
+def_int $int5 = 100;
+if ($int3 <= $int5 & $int3 >= calc(0 - $int5) & $int4 <= $int5 & $int4 >= calc(0 - $int5)) {
+    ~clientscript_6142($int0, $int1);
+    %varclient_1886 = calc($int0 * 100);
+    %varclient_1887 = calc($int1 * 100);
+} else {
+    $int3 = scale($int2, 100, $int3);
+    $int4 = scale($int2, 100, $int4);
+    %varclient_1886 = calc(%varclient_1886 + $int3);
+    %varclient_1887 = calc(%varclient_1887 + $int4);
+    ~clientscript_6142(calc(%varclient_1886 / 100), calc(%varclient_1887 / 100));
+}

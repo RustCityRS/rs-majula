@@ -1,115 +1,115 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::{JAG_ARCHIVES, JagArchive};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::CacheStore;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::category::CategoryType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::dbrow::DbRowType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::dbtable::{DbTableIndex, DbTableType};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::r#enum::{EnumType, EnumTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::flo::{FloType, FloTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::font::FontTypeProvider;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::hunt::HuntType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::idk::{IdkType, IdkTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::r#if::IfTypeProvider;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::inv::{InvType, InvTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::loc::{LocType, LocTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::mesanim::MesAnimType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::midi::MidiProvider;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::npc::{NpcType, NpcTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::obj::{ObjContext, ObjType, ObjTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::param::{ParamType, ParamTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::provider::{CacheType, TypeProvider};
 use crate::cache::script::ScriptProvider;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::seq::{SeqType, SeqTypeRaw};
 #[cfg(rev = "225")]
 use crate::cache::seq_frame::SeqFrameProvider;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::cache::seq_frame::anim_frame_delays;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::spotanim::{SpotAnimType, SpotAnimTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::r#struct::{StructType, StructTypeRaw};
-#[cfg(all(since_254, before_647))]
+#[cfg(all(since_254, before_530))]
 use crate::cache::varbit::VarbitType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::varn::VarnType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::vars::VarsType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::wordenc::WordEncProvider;
 use crate::pack::incremental::{self, Session};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::incremental::{Hash, Key, remember};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::incremental::{Stage, files_under};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::media::pack_media_jag;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::model::pack_models;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::pack::ondemand::{OndemandArtifacts, build_ondemand_artifacts};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::other::map::pack_maps;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::other::song::pack_midis;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::pack::{ConfigFiles, check_configs, pack_config_files};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::script::compile as compile_runescript;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::sound::pack_sounds;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::texture::pack_textures_jag;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::title::pack_title_jag;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::wordenc::pack_wordenc;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::types::OndemandBlobs;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::unpack::model::load_existing_pack;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rayon::ThreadPoolBuilder;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::crc;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::collections::HashMap;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::fs;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::mem::take;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::path::PathBuf;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::sync::Arc;
 use std::thread;
 #[cfg(all(since_244, before_274))]
 use std::time::{SystemTime, UNIX_EPOCH};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 use tracing::warn;
 
@@ -117,15 +117,15 @@ pub mod archive;
 pub mod back;
 pub mod cache;
 pub mod pack;
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub mod pyxel;
 pub mod sheet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod startup;
 pub mod tga;
 pub mod types;
 pub mod unpack;
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 pub mod versionlist;
 pub mod zone_csv;
 
@@ -246,6 +246,36 @@ pub(crate) mod config_crc {
     pub const HUNT: i32 = 1104745215;
 }
 
+#[cfg(rev = "530")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = 1836234074;
+    pub const LOC: i32 = 1894477728;
+    pub const FLO: i32 = -307464293;
+    pub const SPOTANIM: i32 = -1542107969;
+    pub const OBJ: i32 = -1307997824;
+    pub const NPC: i32 = -1016108905;
+    pub const IDK: i32 = 1761448388;
+    pub const VARP: i32 = -1455560908;
+    pub const VARPSTR: i32 = 1481820782;
+    pub const VARBIT: i32 = 1696381996;
+    pub const PARAM: i32 = -1326052345;
+    pub const ENUM: i32 = 993097790;
+    pub const INV: i32 = 807130584;
+    pub const STRUCT: i32 = -949987784;
+    pub const FLU: i32 = -826416919;
+    pub const HUNT: i32 = -1674061915;
+    pub const MESANIM: i32 = 1517653961;
+    pub const VARS: i32 = 1512484603;
+    pub const VARSSTR: i32 = 356599140;
+    pub const VARN: i32 = 2129060492;
+    pub const BAS: i32 = 1409643251;
+    pub const MSI: i32 = 88732081;
+    pub const VARC: i32 = -851348263;
+    pub const VARCSTR: i32 = 777134514;
+    pub const AREA: i32 = 810376230;
+    pub const VAROBJ: i32 = 368092874;
+}
+
 #[cfg(rev = "647")]
 pub(crate) mod config_crc {
     pub const SEQ: i32 = -66602266;
@@ -288,6 +318,47 @@ pub(crate) mod config_crc {
     pub const VAROBJ: i32 = -1949850762;
 }
 
+#[cfg(rev = "742")]
+pub(crate) mod config_crc {
+    pub const SEQ: i32 = 822424184;
+    pub const LOC: i32 = 591428126;
+    pub const FLO: i32 = -1927731403;
+    pub const SPOTANIM: i32 = 1914635226;
+    pub const OBJ: i32 = 684382992;
+    pub const NPC: i32 = 1397148603;
+    pub const IDK: i32 = -1771042825;
+    pub const VARP: i32 = -1008474832;
+    pub const VARPSTR: i32 = 856957251;
+    pub const VARBIT: i32 = 715464995;
+    pub const PARAM: i32 = 1642273378;
+    pub const ENUM: i32 = 1232165464;
+    pub const INV: i32 = 86456445;
+    pub const STRUCT: i32 = 1482465779;
+    pub const FLU: i32 = 1267222278;
+    pub const HUNT: i32 = 1893771613;
+    pub const MESANIM: i32 = -1355666276;
+    pub const VARS: i32 = -793941846;
+    pub const VARSSTR: i32 = -864816207;
+    pub const VARN: i32 = 144793752;
+    pub const DBTABLE: i32 = -1868400215;
+    pub const DBROW: i32 = -1319056745;
+    pub const BAS: i32 = -11826152;
+    pub const CURSOR: i32 = 288743627;
+    pub const HITMARK: i32 = 127691160;
+    pub const PARTICLEEFFECTOR: i32 = -1496366599;
+    pub const PARTICLEEMITTER: i32 = -655130601;
+    pub const BILLBOARD: i32 = -1819247011;
+    pub const LIGHT: i32 = 579995304;
+    pub const MEL: i32 = -261720288;
+    pub const MSI: i32 = 2128927486;
+    pub const QUEST: i32 = 260670437;
+    pub const VARC: i32 = -1574236957;
+    pub const VARCSTR: i32 = 781678318;
+    pub const VARCLANSETTING: i32 = -26763671;
+    pub const AREA: i32 = -859085337;
+    pub const VAROBJ: i32 = 618822531;
+}
+
 pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("seq", config_crc::SEQ),
     ("loc", config_crc::LOC),
@@ -301,33 +372,33 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("varpbit", config_crc::VARBIT),
     #[cfg(since_274)]
     ("mesanim", config_crc::MESANIM),
-    #[cfg(all(since_274, before_647))]
+    #[cfg(all(since_274, before_530))]
     ("mes", config_crc::MES),
     #[cfg(since_274)]
     ("param", config_crc::PARAM),
     #[cfg(since_274)]
     ("hunt", config_crc::HUNT),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("enum", config_crc::ENUM),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("inv", config_crc::INV),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("struct", config_crc::STRUCT),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("flu", config_crc::FLU),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("vars", config_crc::VARS),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("varpstr", config_crc::VARPSTR),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("varsstr", config_crc::VARSSTR),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("varn", config_crc::VARN),
     #[cfg(since_647)]
     ("dbtable", config_crc::DBTABLE),
     #[cfg(since_647)]
     ("dbrow", config_crc::DBROW),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("bas", config_crc::BAS),
     #[cfg(since_647)]
     ("cursor", config_crc::CURSOR),
@@ -343,23 +414,23 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("light", config_crc::LIGHT),
     #[cfg(since_647)]
     ("mel", config_crc::MEL),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("msi", config_crc::MSI),
     #[cfg(since_647)]
     ("quest", config_crc::QUEST),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("varc", config_crc::VARC),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("varcstr", config_crc::VARCSTR),
     #[cfg(since_647)]
     ("varclansetting", config_crc::VARCLANSETTING),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("area", config_crc::AREA),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ("varobj", config_crc::VAROBJ),
 ];
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn insert_jag(
     crcs: &mut HashMap<&'static str, i32>,
     packs: &mut HashMap<&'static str, Arc<[u8]>>,
@@ -385,7 +456,7 @@ fn insert_jag(
 
 /// A builder's output, reused while its sources and `deps` are as an earlier
 /// pack found them.
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn cached(
     name: &str,
     sources: Vec<PathBuf>,
@@ -421,7 +492,7 @@ pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvi
 
 /// Packs `source` for the server. With a `cache` directory, what an earlier
 /// pack made from sources that haven't changed since is reused.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
@@ -439,7 +510,7 @@ pub fn pack_all(
 
 /// Packs `source` for the server. With a `cache` directory, what an earlier
 /// pack made from sources that haven't changed since is reused.
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
@@ -706,22 +777,24 @@ pub fn pack_all(
         .collect();
 
     #[cfg(since_254)]
-    let midi_tick_lengths: Box<[Option<u16>]> = {
+    let (midi_tick_lengths, midi_lengths_ms) = {
         let size = midi_ids
             .values()
             .map(|&id| id as usize + 1)
             .max()
             .unwrap_or(0);
         let mut lengths: Vec<Option<u16>> = vec![None; size];
+        let mut lengths_ms: Vec<Option<u32>> = vec![None; size];
         for (name, &id) in &midi_ids {
             if let Some(midi) = midi_songs
                 .get_by_name(name)
                 .or_else(|| midi_jingles.get_by_name(name))
             {
                 lengths[id as usize] = Some(midi.tick_length() as u16);
+                lengths_ms[id as usize] = Some(midi.length_ms);
             }
         }
-        lengths.into_boxed_slice()
+        (lengths.into_boxed_slice(), lengths_ms.into_boxed_slice())
     };
 
     debug!(
@@ -814,6 +887,8 @@ pub fn pack_all(
         midi_ids,
         #[cfg(since_254)]
         midi_tick_lengths,
+        #[cfg(since_254)]
+        midi_lengths_ms,
         static_assets: load_static_assets(),
         multimap,
         freemap,
@@ -824,7 +899,7 @@ pub fn pack_all(
     Ok((store, scripts))
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     let dir = Path::new("public");
     let mut assets = HashMap::new();
@@ -839,7 +914,7 @@ fn load_static_assets() -> HashMap<Box<str>, Arc<[u8]>> {
     assets
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn load_assets_recursive(
     base: &Path,
     dir: &Path,
@@ -867,7 +942,7 @@ fn load_assets_recursive(
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn build_type_provider<T: CacheType>(
     assets: &HashMap<String, PackedFile>,
     name: &str,
@@ -876,7 +951,7 @@ fn build_type_provider<T: CacheType>(
     build_type_provider_into::<T, T>(assets, name, ctx)
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn build_type_provider_into<Raw, Stored>(
     assets: &HashMap<String, PackedFile>,
     name: &str,
@@ -893,7 +968,7 @@ where
         .unwrap_or_else(|error| panic!("Invalid {name} configs: {error}"))
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn assemble_config_jag(assets: &mut HashMap<String, PackedFile>, pack_dir: &Path) -> Vec<u8> {
     let order: Vec<String> = fs::read_to_string(pack_dir.join("config.order"))
         .expect("Missing config.order")
@@ -939,7 +1014,7 @@ fn assemble_config_jag(assets: &mut HashMap<String, PackedFile>, pack_dir: &Path
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn assemble_interface_jag(assets: &mut HashMap<String, PackedFile>) -> Vec<u8> {
     if let Some(packed_file) = assets.get_mut("interface")
         && let Some(client) = packed_file.client.take()
@@ -952,7 +1027,7 @@ fn assemble_interface_jag(assets: &mut HashMap<String, PackedFile>) -> Vec<u8> {
     Vec::new()
 }
 
-#[cfg(all(since_274, before_647))]
+#[cfg(all(since_274, before_530))]
 fn crc_table_footer(crctable: &[i32]) -> i32 {
     let mut acc: i32 = 1234;
     for &c in crctable {

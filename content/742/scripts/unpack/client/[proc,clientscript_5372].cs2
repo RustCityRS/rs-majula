@@ -1,0 +1,10 @@
+// 5372
+[proc,clientscript_5372](component $component0, int $int1)
+def_int $int2 = 3;
+def_int $int3 = calc(if_getx($component0) + if_getwidth($component0) / 2 - if_getwidth(interface_951:com_14) / 2);
+if ($int3 >= $int1) {
+    if_setposition($component0, $int1, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top);
+    if_setontimer($component0, null);
+} else {
+    if_setposition($component0, calc($int3 + $int2), if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top);
+}

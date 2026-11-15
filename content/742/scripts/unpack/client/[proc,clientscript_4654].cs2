@@ -1,0 +1,29 @@
+// 4654
+[proc,clientscript_4654](int $int0, int $int1, int $int2)
+if ($int0 = -1 | $int1 = -1) {
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_component $component5 = interface_173:com_80;
+if (%varplayerbit_9306 = 1) {
+    $component5 = interface_173:com_80;
+}
+if (%varplayerbit_9306 = 2) {
+    $component5 = interface_173:com_61;
+}
+if (%varplayerbit_9306 = 4) {
+    if (%varplayerbit_9367 = 1) {
+        $component5 = interface_173:com_7;
+    }
+    if (%varplayerbit_9367 = 2) {
+        $component5 = interface_173:com_38;
+    }
+    if (%varplayerbit_9367 = 3) {
+        $component5 = interface_173:com_41;
+    }
+}
+cc_create($component5, ^iftype_graphic, 0);
+cc_setgraphic("rand_map_player_pips,0");
+cc_setposition(calc($int0 * 32 + 10 + $int3), calc($int1 * 32 + 10 + $int4), ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);

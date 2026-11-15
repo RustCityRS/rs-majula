@@ -1,0 +1,9 @@
+// 667
+[proc,script667](int $int0, component $component1, int $int2)
+if (cc_find($component1, $int2) = true) {
+    cc_setfill(true);
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settrans(0);
+    cc_setontimer("script668(calc(clientclock + $int0), $component1, $int2)");
+}

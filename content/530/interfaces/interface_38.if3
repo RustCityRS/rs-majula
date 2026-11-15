@@ -1,0 +1,49 @@
+// 38:0
+[runelink_board]
+type=model
+x=6
+y=5
+width=74
+height=66
+layer=content_layer
+model=model_4608
+modelorigin=0,25
+modelzoom=512
+modelunknown=64129,3000,0
+
+// 38:1
+[title]
+type=text
+x=7
+y=68
+width=72
+height=17
+layer=content_layer
+textfont=fontmetrics_495
+text=Runelink
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+
+// 38:2
+[rank]
+type=text
+x=7
+y=84
+width=72
+height=13
+layer=content_layer
+textfont=fontmetrics_494
+text=Rank: %1
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+onload=clientscript_1274
+onvartransmit=clientscript_1274{boardgames_runelink_rank}
+
+// 38:3
+[content_layer]
+type=layer
+width=86
+height=105
+xmode=abs_right

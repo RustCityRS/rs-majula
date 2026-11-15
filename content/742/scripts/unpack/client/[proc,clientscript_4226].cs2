@@ -1,0 +1,6 @@
+// 4226
+[proc,clientscript_4226](int $int0, graphic $graphic1, int $int2)
+if (cc_find(interface_1216:com_3, $int0) = true & cc_getgraphic = null & clientclock > $int2) {
+    cc_setgraphic($graphic1);
+}
+~clientscript_3370($int0, $int2);

@@ -1,0 +1,7 @@
+// 1427
+[proc,clientscript_1427]
+if (%varclient_1686 = true | %varclient_1686 = false) {
+    return;
+} else {
+    %varclient_1686 = true;
+}

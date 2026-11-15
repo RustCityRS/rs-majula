@@ -1,0 +1,7 @@
+// 1987
+[proc,clientscript_1987]()(int)
+if (calc(~clientscript_1983 + ~clientscript_1982 + ~clientscript_1981) = calc(9 + 11 + 10)) {
+    return(1);
+} else {
+    return(0);
+}

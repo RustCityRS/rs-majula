@@ -1,0 +1,70 @@
+// 4688
+[proc,clientscript_4688]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+def_component $component6 = null;
+def_int $int7 = 1;
+while ($int7 < 5) {
+    switch_int ($int7) {
+        case 1 :
+            $component6 = interface_551:com_18;
+            $int0 = %varclient_1549;
+            $int1 = enum(int, int, enum_3856, $int7);
+            $component2 = interface_551:com_17;
+            $component3 = interface_551:com_19;
+            $component4 = interface_551:com_15;
+            $component5 = interface_551:com_16;
+        case 2 :
+            $component6 = interface_551:com_44;
+            $int0 = %varclient_1550;
+            $int1 = enum(int, int, enum_3856, $int7);
+            $component2 = interface_551:com_43;
+            $component3 = interface_551:com_45;
+            $component4 = interface_551:com_41;
+            $component5 = interface_551:com_42;
+        case 3 :
+            $component6 = interface_551:com_58;
+            $int0 = %varclient_1551;
+            $int1 = enum(int, int, enum_3856, $int7);
+            $component2 = interface_551:com_57;
+            $component3 = interface_551:com_59;
+            $component4 = interface_551:com_55;
+            $component5 = interface_551:com_56;
+        case 4 :
+            $component6 = interface_551:com_72;
+            $int0 = %varclient_1552;
+            $int1 = enum(int, int, enum_3856, $int7);
+            $component2 = interface_551:com_71;
+            $component3 = interface_551:com_73;
+            $component4 = interface_551:com_69;
+            $component5 = interface_551:com_70;
+        case default :
+            return;
+    }
+    if (if_find($component6) = true) {
+        if ($int0 > 0) {
+            cc_sethide(false);
+            cc_setfill(true);
+            cc_setsize(cc_getwidth, calc($int0 * 26 / 100), ^setsize_abs, ^setsize_abs);
+        } else {
+            cc_sethide(true);
+            cc_setfill(false);
+            cc_setsize(cc_getwidth, 26, ^setsize_abs, ^setsize_abs);
+        }
+    }
+    if ($int0 > 0 | %varplayerbit_9465 < $int1) {
+        if_sethide($component3, false);
+        if_setcolour($component4, 0x7d7d7d);
+        if_setcolour($component5, 0x7d7d7d);
+    } else {
+        if_setcolour($component2, ^black);
+        if_sethide($component3, true);
+        if_setcolour($component4, 0xebe0bc);
+        if_setcolour($component5, 0xebe0bc);
+    }
+    $int7 = calc($int7 + 1);
+}

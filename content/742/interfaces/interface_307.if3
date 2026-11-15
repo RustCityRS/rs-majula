@@ -1,0 +1,488 @@
+// 307:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 307:1
+[com_1]
+type=text
+y=250
+width=400
+height=43
+xmode=abs_centre
+textfont=p11_full
+text=Pick which items you want wisely! You can take only three items with you on your trip and once you look away from this wreckage you won't be able to look at its contents again.
+textlineheight=12
+textalignh=centre
+textshadow=yes
+
+// 307:2
+[com_2]
+type=graphic
+y=55
+width=449
+height=194
+xmode=abs_centre
+graphic=graphic_6281
+
+// 307:3
+[com_3]
+type=graphic
+x=132
+y=115
+width=39
+height=39
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:4
+[com_4]
+type=graphic
+x=200
+y=115
+width=39
+height=39
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:5
+[com_5]
+type=graphic
+x=269
+y=115
+width=39
+height=39
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:6
+[com_6]
+type=graphic
+x=137
+y=115
+width=39
+height=39
+xmode=abs_right
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:7
+[com_7]
+type=graphic
+x=132
+y=131
+width=39
+height=39
+ymode=abs_bottom
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:8
+[com_8]
+type=graphic
+x=200
+y=131
+width=39
+height=39
+ymode=abs_bottom
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:9
+[com_9]
+type=graphic
+x=269
+y=131
+width=39
+height=39
+ymode=abs_bottom
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:10
+[com_10]
+type=graphic
+x=137
+y=131
+width=39
+height=39
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_6014
+onmouseover=graphic_swapper(event_com, graphic_6015)
+onmouseleave=graphic_swapper(event_com, graphic_6014)
+
+// 307:11
+[com_11]
+type=layer
+x=-1
+y=-8
+width=272
+height=252
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 307:12
+[com_12]
+type=layer
+width=54
+height=62
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+
+// 307:13
+[com_13]
+type=graphic
+y=1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+graphic=window_texture_1
+tiling=yes
+
+// 307:14
+[com_14]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_12
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 307:15
+[com_15]
+type=graphic
+width=265
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_bot_brdr_left
+
+// 307:16
+[com_16]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_12
+graphic=aif_window_stone_close_corner_3
+
+// 307:17
+[com_17]
+type=graphic
+width=8
+height=162
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_12
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 307:18
+[com_18]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_12
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 307:19
+[com_19]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_12
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 307:20
+[com_20]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_bot_brdr_left
+
+// 307:21
+[com_21]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_bot_brdr_left
+
+// 307:22
+[com_22]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 307:23
+[com_23]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_12
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 307:24
+[com_24]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_12
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 307:25
+[com_25]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_12
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 307:26
+[com_26]
+type=graphic
+width=8
+height=162
+heightmode=minus
+ymode=abs_centre
+layer=com_12
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 307:27
+[com_27]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_side_brdr_small
+
+// 307:28
+[com_28]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 307:29
+[com_29]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_12
+graphic=aif_window_stone_close_corner_1
+
+// 307:30
+[com_30]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_12
+graphic=aif_window_stone_left_corner_1
+
+// 307:31
+[com_31]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_12
+graphic=aif_window_stone_bot_corn
+
+// 307:32
+[com_32]
+type=graphic
+width=8
+height=29
+layer=com_12
+graphic=aif_window_stone_left_corner_2
+
+// 307:33
+[com_33]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_12
+graphic=aif_window_stone_close_corner_2
+
+// 307:34
+[com_34]
+type=graphic
+x=-4
+y=1
+width=4
+height=1
+heightmode=minus
+xmode=abs_right
+layer=com_12
+graphic=button_dropshadow_left
+tiling=yes
+
+// 307:35
+[com_35]
+type=graphic
+y=-4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_12
+graphic=button_dropshadow_bottom
+tiling=yes
+
+// 307:36
+[com_36]
+type=graphic
+x=-4
+y=-4
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_12
+graphic=button_dropshadow_corner
+tiling=yes
+
+// 307:37
+[com_37]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_12
+
+// 307:38
+[com_38]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_37
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 307:39
+[com_39]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_37
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 307:40
+[com_40]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_37
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 307:41
+[com_41]
+type=layer
+width=16391
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_12
+
+// 307:42
+[com_42]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_41
+textfont=palatino_linotype_18pt_regular
+text=Wreckage Loot
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)

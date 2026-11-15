@@ -1,0 +1,22 @@
+// 4689
+[proc,clientscript_4689]
+if_sethide(interface_551:com_9, false);
+if_settext(interface_551:com_15, enum(int, string, enum_3855, 1));
+if_setgraphic(interface_551:com_17, "aif_loyalty_icon_1,0");
+if_settext(interface_551:com_16, tostring(enum(int, int, enum_3856, 1)));
+if_sethide(interface_551:com_33, false);
+if_settext(interface_551:com_41, enum(int, string, enum_3855, 2));
+if_setgraphic(interface_551:com_43, "aif_loyalty_icon_1,1");
+if_settext(interface_551:com_42, tostring(enum(int, int, enum_3856, 2)));
+if_sethide(interface_551:com_47, false);
+if_settext(interface_551:com_55, enum(int, string, enum_3855, 3));
+if_setgraphic(interface_551:com_57, "aif_loyalty_icon_1,2");
+if_settext(interface_551:com_56, tostring(enum(int, int, enum_3856, 3)));
+if_sethide(interface_551:com_61, false);
+if_settext(interface_551:com_69, enum(int, string, enum_3855, 4));
+if_setgraphic(interface_551:com_71, "aif_loyalty_icon_1,3");
+if_settext(interface_551:com_70, tostring(enum(int, int, enum_3856, 4)));
+if_setonmouserepeat(interface_551:com_10, "clientscript_4692(event_com, 80)");
+if_setonmouserepeat(interface_551:com_36, "clientscript_4692(event_com, 129)");
+if_setonmouserepeat(interface_551:com_50, "clientscript_4692(event_com, 31)");
+if_setonmouserepeat(interface_551:com_64, "clientscript_4692(event_com, 80)");

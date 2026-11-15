@@ -1,24 +1,27 @@
-//! 289's npc hunting at 647: a Wilderness green dragon attacks a player
-//! beside it.
+//! 289's npc hunting at 530 and 647: a Wilderness green dragon attacks a
+//! player beside it.
 //!
 //! The green dragon's hunt is 289's `cowardly` (huntrange 4): a player hunt
 //! that does not check whether the player is too strong in the Wilderness.
 //! The mode is checked by name: hunt.pack holds the 2011 cache's 397 hunts
-//! with 289's names at 289's ids. 2011's other green dragons (4677-4680) take
-//! 289's green dragon config and its fight.
+//! with 289's names at 289's ids. On 647, 2011's other green dragons (4677-4680)
+//! take 289's green dragon config and its fight.
 //!
 //! 289's duckling hunts its duck (`duck_hunt`):
 //! every 11 ticks it looks for a duck_female in sight and takes it as an
 //! opnpc3 target.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_entity::InteractionTarget;
+#[cfg(since_647)]
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcMode;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
+#[cfg(since_647)]
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::sync::Mutex;
 
@@ -35,7 +38,7 @@ fn nearest(engine: &Engine, id: u16, x: u16, z: u16) -> Option<usize> {
         .iter()
         .enumerate()
         .filter_map(|(nid, slot)| Some((nid, slot.as_ref()?)))
-        .filter(|(_, a)| a.npc.uid.id() == id && a.npc.active)
+        .filter(|(_, a)| a.npc.uid.id() == TypeId::new(id) && a.npc.active)
         .map(|(nid, a)| {
             let c = a.npc.pathing.coord;
             (
@@ -89,7 +92,11 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
         engine.cycle();
     }
     let nid = nearest(engine, id, x, z).unwrap_or_else(|| panic!("no npc {id} near {x},{z}"));
-    let size = engine.cache.npcs.get_by_id(id).map_or(1, |t| t.size.max(1)) as i32;
+    let size = engine
+        .cache
+        .npcs
+        .get_by_id(TypeId::new(id))
+        .map_or(1, |t| t.size.max(1)) as i32;
     let (mut targeted, mut attacked) = (false, false);
     for tick in 0..120 {
         // The client's keep-alive: 100 silent ticks would log the player out.
@@ -119,8 +126,16 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
 fn a_wilderness_green_dragon_hunts_a_player_beside_it() {
     let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());
     runner::on_loaded_engine(|engine| {
-        let mode = engine.cache.npcs.get_by_id(941).and_then(|t| t.huntmode);
-        let cowardly = engine.cache.hunts.debugnames.get("cowardly").copied();
+        let mode = engine
+            .cache
+            .npcs
+            .get_by_id(TypeId::new(941))
+            .and_then(|t| t.huntmode);
+        let cowardly = engine
+            .cache
+            .hunts
+            .get_by_debugname("cowardly")
+            .map(|t| t.id);
         assert!(cowardly.is_some(), "hunt.pack names cowardly");
         assert_eq!(mode, cowardly, "green_dragon is cowardly");
         // The map's green dragon (941) at 2982,3618 (map square 46_56).
@@ -131,6 +146,7 @@ fn a_wilderness_green_dragon_hunts_a_player_beside_it() {
 }
 
 /// The varbit `life_points` (7198): varp 1240, bits 1-15 (cache 786).
+#[cfg(since_647)]
 const LIFE_POINTS_VARP: u16 = 1240;
 
 /// 2011's other green dragons hunt as 289's green dragon does, and fight as
@@ -138,6 +154,7 @@ const LIFE_POINTS_VARP: u16 = 1240;
 /// default npc attack (`[ai_opplayer2,_]`), melee alone. The player, behind
 /// an anti-dragon shield and kept on 990 life points, stands beside the map's
 /// green dragon 4679 until it breathes (one attack in four).
+#[cfg(since_647)]
 #[test]
 fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
     let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());
@@ -147,13 +164,13 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
         for _ in 0..10 {
             engine.cycle();
         }
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
-        let shield = *engine
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
+        let shield = engine
             .cache
             .objs
-            .debugnames
-            .get("antidragonbreathshield")
-            .unwrap();
+            .get_by_debugname("antidragonbreathshield")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -166,7 +183,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
         let size = engine
             .cache
             .npcs
-            .get_by_id(4679)
+            .get_by_id(TypeId::new(4679))
             .map_or(1, |t| t.size.max(1)) as i32;
         forget_calls();
         let (mut targeted, mut breathed) = (false, false);

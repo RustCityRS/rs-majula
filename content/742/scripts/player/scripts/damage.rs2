@@ -1,0 +1,144 @@
+// 289's player/scripts/damage.rs2, on 2011's life points. 289's engine owns
+// hitpoints, and its damage(uid, type, amount) takes them off. At 647 the pool
+// is content (%life_points, varbit 7198, ten to a hitpoint), so ~player_damage
+// takes them off and hands the engine the hitsplat and the health bar's fill
+// (0-255) to paint.
+[proc,player_damage](int $type, int $amount)
+~player_damage_soaked($type, $amount, 0);
+
+// A hit with what armour soaked off it, which 2011 paints in a blue splat
+// beside the hit (2011 wiki, Hitsplat, 2011-04-13).
+[proc,player_damage_soaked](int $type, int $amount, int $soaked)
+def_int $dealt = $amount;
+if ($dealt > %life_points) {
+    $dealt = %life_points;
+}
+if ($dealt < 0) {
+    $dealt = 0;
+}
+%life_points = calc(%life_points - $dealt);
+def_int $max = calc(stat_base(hitpoints) * 10);
+// Life points over the base level's (a boosted hitpoints level) still fill the bar.
+damage(uid, $type, $dealt, $soaked, min(255, calc(%life_points * 255 / $max)));
+
+[proc,damage_self](int $amount)
+~damage_self_hitmark($amount, ^hitmark_damage);
+
+// A hit with its 2011 hitmark: a combat style's, its crit, or the plain one.
+[proc,damage_self_hitmark](int $amount, int $hitmark)
+if (%life_points = 0) {
+    return;
+}
+if_close;
+if ($amount > 0) {
+    def_int $soaked = ~damage_soaked($amount, $hitmark);
+    ~player_damage_soaked($hitmark, calc($amount - $soaked), $soaked);
+    ~human_hit_sound;
+} else {
+    ~player_damage(^hitmark_block, 0);
+    sound_synth(%armourhitsound, 1, 20);
+}
+
+if (%life_points = 0) {
+    queue(player_death, 0, 0);
+    return;
+}
+
+~ring_of_life_check;
+
+[queue,damage_player](int $amount)
+~damage_self($amount);
+
+// 2011's damage soaking (2011 wiki, Damage soaking, 2011-05-11): a melee,
+// ranged or magic hit over 200 life points loses the absorb percent, summed
+// over the head, body, legs and shield, of what is over 200, s = (d - 200) *
+// a / 100. The wiki's example: a 450 ranged hit on full dragon (30%) soaks 75.
+// The wiki gives no rounding; void-634 (CombatHitsplats) floors it. Other
+// hits (poison, recoil, a plain hit) are not soaked.
+[proc,damage_soaked](int $damage, int $hitmark)(int)
+if ($damage <= 200) {
+    return(0);
+}
+def_int $style = $hitmark;
+if ($style >= ^hitmark_crit) {
+    $style = sub($style, ^hitmark_crit);
+}
+if ($style ! ^hitmark_melee & $style ! ^hitmark_ranged & $style ! ^hitmark_magic) {
+    return(0);
+}
+return(divide(multiply(sub($damage, 200), ~worn_absorb($style)), 100));
+
+// The absorb percent the worn head, body, legs and shield give against a
+// style's hitmark (2011 wiki, Damage soaking: "only applied to helmets, legs,
+// chest, and shield areas").
+[proc,worn_absorb](int $style)(int)
+def_int $total = ~worn_absorb_slot(^wearpos_hat, $style);
+$total = add($total, ~worn_absorb_slot(^wearpos_torso, $style));
+$total = add($total, ~worn_absorb_slot(^wearpos_legs, $style));
+return(add($total, ~worn_absorb_slot(^wearpos_lhand, $style)));
+
+[proc,worn_absorb_slot](int $slot, int $style)(int)
+def_obj $obj = inv_getobj(worn, $slot);
+if ($obj = null) {
+    return(0);
+}
+switch_int ($style) {
+    case ^hitmark_melee : return(oc_param($obj, absorbmelee));
+    case ^hitmark_ranged : return(oc_param($obj, absorbranged));
+    case ^hitmark_magic : return(oc_param($obj, absorbmagic));
+}
+return(0);
+
+[proc,human_hit_sound]
+def_int $rand;
+def_synth $sound;
+if (gender() = 0) {
+    $rand = random(3);
+    switch_int($rand) {
+        case 0 : $sound = human_hit2;
+        case 1 : $sound = human_hit3;
+        case 2 : $sound = human_hit4;
+        case default : $sound = human_hit2;
+    }
+} else {
+    $rand = random(2);
+    switch_int($rand) {
+        case 0 : $sound = female_hit1;
+        case 1 : $sound = female_hit2;
+        case default : $sound = female_hit1;
+    }
+}
+sound_synth($sound, 1, 20);
+
+// Dev: `::hit [amount]` renders a hitsplat on yourself and drains the life-point
+// pool, refilling to full first when the hit would be lethal so repeated calls stay
+// observable. Replaces the old Rust `::hit` cheat (the engine no longer owns HP).
+// Defaults to 10 damage.
+[debugproc,hit](int $amount)
+if (p_finduid(uid) = false) {
+    return;
+}
+def_int $hit = $amount;
+if ($hit <= 0) {
+    $hit = 10;
+}
+def_int $max = calc(stat_base(hitpoints) * 10);
+if (%life_points <= $hit) {
+    %life_points = $max;
+}
+~damage_self($hit);
+mes("Hitsplat: <tostring($hit)> (life <tostring(%life_points)> / <tostring($max)>)");
+
+// Dev: `::hitas <hitmark> <amount>` lands a hit with a 2011 hitmark (0-2 a
+// combat style's, 10-12 its crit, 3 plain), soaked as a real hit is, refilling
+// the life points first when it would be lethal.
+[debugproc,hitas](int $hitmark, int $amount)
+if (p_finduid(uid) = false) {
+    return;
+}
+def_int $max = calc(stat_base(hitpoints) * 10);
+if (%life_points <= $amount) {
+    %life_points = $max;
+}
+~damage_self_hitmark($amount, $hitmark);
+mes("Hit <tostring($amount)> as hitmark <tostring($hitmark)>, soaked <tostring(~damage_soaked($amount, $hitmark))> (life <tostring(%life_points)> / <tostring($max)>)");

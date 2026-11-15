@@ -1,0 +1,7 @@
+// 6811
+[proc,clientscript_6811](int $int0, int $int1, int $int2, component $component3, int $int4)
+if (if_hassuboverlay(interface_753:mainoverlay_clipped, interface_1352) = false & if_hassuboverlay(toplevel_fullscreen:mainoverlay_clipped, interface_1352) = false & if_hassuboverlay(toplevel:mainoverlay_clipped, interface_1352) = false) {
+    return;
+}
+if_setoncamfinished($component3, null);
+cam_movealong(0, $int0, $int1, $int2, 1, 0);

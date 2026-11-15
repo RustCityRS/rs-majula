@@ -1,0 +1,63 @@
+// 218:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 218:1
+[com_1]
+type=text
+y=-5200
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 218:2
+[com_2]
+type=text
+y=-2660
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line2
+textalignh=centre
+colour=0x000000
+
+// 218:3
+[com_3]
+type=text
+y=-120
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line3
+textalignh=centre
+colour=0x000000
+
+// 218:4
+[com_4]
+type=text
+y=2420
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line4
+textalignh=centre
+colour=0x000000

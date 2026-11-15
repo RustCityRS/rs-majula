@@ -1,0 +1,49 @@
+// 46:0
+[content_layer]
+type=layer
+width=95
+height=109
+xmode=abs_right
+
+// 46:1
+[com_1]
+type=model
+x=-8
+y=-11
+width=111
+height=110
+layer=content_layer
+model=model_11102
+modelangle=512,0,0
+modelzoom=470
+modelunknown=64159,3000,0
+
+// 46:2
+[com_2]
+type=text
+x=11
+y=79
+width=73
+height=16
+layer=content_layer
+textfont=fontmetrics_495
+text=Runeversi
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+
+// 46:3
+[rank]
+type=text
+x=11
+y=94
+width=74
+height=11
+layer=content_layer
+textfont=fontmetrics_494
+text=Rank: %1
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+onload=clientscript_1276
+onvartransmit=clientscript_1276{boardgames_runeversi_rank}

@@ -1,0 +1,32 @@
+// The side tabs' stones: the 530 toplevel (548) and toplevel_fullscreen (746) stones carry an op1
+// the server hears (transmitop=1, onop clientscript 1303 with the tab's index). One trigger each,
+// for everything that listens to a tab click: 289's Tutorial Island (tutorial/tutorial_tabs.rs2).
+// Two sets of triggers on the same stones leave only one of them running.
+[if_button,toplevel:stone0] ~tutorial_tab_clicked(0);
+[if_button,toplevel:stone1] ~tutorial_tab_clicked(1);
+[if_button,toplevel:stone2] ~tutorial_tab_clicked(2);
+[if_button,toplevel:stone3] ~tutorial_tab_clicked(3);
+[if_button,toplevel:stone4] ~tutorial_tab_clicked(4);
+[if_button,toplevel:stone5] ~tutorial_tab_clicked(5);
+[if_button,toplevel:stone6] ~tutorial_tab_clicked(6);
+[if_button,toplevel:stone7] ~tutorial_tab_clicked(7);
+[if_button,toplevel:stone8] ~tutorial_tab_clicked(8);
+[if_button,toplevel:stone9] ~tutorial_tab_clicked(9);
+[if_button,toplevel:stone10] ~tutorial_tab_clicked(10);
+[if_button,toplevel:stone11] ~tutorial_tab_clicked(11);
+[if_button,toplevel:stone12] ~tutorial_tab_clicked(12);
+[if_button,toplevel:stone13] ~tutorial_tab_clicked(13);
+[if_button,toplevel_fullscreen:stone0] ~tutorial_tab_clicked(0);
+[if_button,toplevel_fullscreen:stone1] ~tutorial_tab_clicked(1);
+[if_button,toplevel_fullscreen:stone2] ~tutorial_tab_clicked(2);
+[if_button,toplevel_fullscreen:stone3] ~tutorial_tab_clicked(3);
+[if_button,toplevel_fullscreen:stone4] ~tutorial_tab_clicked(4);
+[if_button,toplevel_fullscreen:stone5] ~tutorial_tab_clicked(5);
+[if_button,toplevel_fullscreen:stone6] ~tutorial_tab_clicked(6);
+[if_button,toplevel_fullscreen:stone7] ~tutorial_tab_clicked(7);
+[if_button,toplevel_fullscreen:stone8] ~tutorial_tab_clicked(8);
+[if_button,toplevel_fullscreen:stone9] ~tutorial_tab_clicked(9);
+[if_button,toplevel_fullscreen:stone10] ~tutorial_tab_clicked(10);
+[if_button,toplevel_fullscreen:stone11] ~tutorial_tab_clicked(11);
+[if_button,toplevel_fullscreen:stone12] ~tutorial_tab_clicked(12);
+[if_button,toplevel_fullscreen:stone13] ~tutorial_tab_clicked(13);

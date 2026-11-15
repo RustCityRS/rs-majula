@@ -1,0 +1,10 @@
+// 6790
+[proc,clientscript_6790]
+def_struct $struct0 = ~clientscript_5795(%varplayerbit_8576);
+if ($struct0 = null) {
+    return;
+}
+~clientscript_5796(%varplayerbit_8576, 0, interface_1220:com_24, interface_1220:com_23, interface_1220:com_22, null, null, null);
+~clientscript_5791;
+~clientscript_6793(%varplayerbit_8576, %varplayerbit_8578);
+~clientscript_6794(%varplayerbit_8576, %varplayerbit_8578);

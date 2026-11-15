@@ -1,0 +1,10 @@
+// 3376
+[proc,script3376](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_string $string0 = removetags(if_gettext($component0));
+def_int $int2 = paraheight($string0, $int1, verdana_11pt_regular);
+if ($int2 = 1) {
+    if_setsize($component0, stringwidth($string0, verdana_11pt_regular), 19, ^setsize_abs, ^setsize_abs);
+} else {
+    if_setsize($component0, $int1, calc(14 * $int2 + 5), ^setsize_abs, ^setsize_abs);
+}

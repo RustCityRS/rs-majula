@@ -1,0 +1,10 @@
+// 4842
+[proc,clientscript_4842](int $int0)
+switch_int ($int0) {
+    case 1 :
+        if_sethide(interface_1258:com_484, false);
+    case 2 :
+        if_sethide(interface_1258:com_475, false);
+    case 3 :
+        if_sethide(interface_1258:com_466, false);
+}

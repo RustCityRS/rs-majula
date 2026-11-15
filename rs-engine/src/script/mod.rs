@@ -12,7 +12,7 @@ use rs_vm::register::OpsRegistry;
 ///
 /// Collects opcode handler functions from the operation modules (core, db, debug,
 /// enum, inv, lc, loc, nc, npc, number, obj, oc, player, server, string, struct,
-/// and from rev 647 region and controller) and registers them in a single
+/// region from rev 530 and controller from rev 647) and registers them in a single
 /// registry that the VM uses at runtime to dispatch script opcodes.
 ///
 /// # Returns
@@ -41,10 +41,9 @@ pub fn register_ops() -> OpsRegistry {
     ops.extend(ops::server::build::<Engine>());
     ops.extend(ops::string::build::<Engine>());
     ops.extend(ops::r#struct::build::<Engine>());
+    #[cfg(since_530)]
+    ops.extend(ops::region::build::<Engine>());
     #[cfg(since_647)]
-    {
-        ops.extend(ops::region::build::<Engine>());
-        ops.extend(ops::controller::build::<Engine>());
-    }
+    ops.extend(ops::controller::build::<Engine>());
     ops
 }

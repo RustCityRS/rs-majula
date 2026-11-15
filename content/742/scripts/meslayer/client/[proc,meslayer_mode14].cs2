@@ -1,0 +1,19 @@
+// 3685
+[proc,meslayer_mode14]
+if (%snapshot_open = true) {
+    mes("You can't do that while you're reporting abuse.");
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, "Enter the name of the song you wish to search for:");
+%meslayermode = 14;
+~meslayer_setupinput("");
+if_setonclick(chattop:mes_layer, null);
+~script2026;
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+~script1188;

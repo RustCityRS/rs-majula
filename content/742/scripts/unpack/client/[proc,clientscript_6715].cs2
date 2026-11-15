@@ -1,0 +1,18 @@
+// 6715
+[proc,clientscript_6715]
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string0 = "";
+%loginscreen_hopblocked_time = calc(%loginscreen_hopblocked_time - 1);
+if (%loginscreen_hopblocked_time < 1) {
+    $string0 = "Your ban has expired. You can log in game now.";
+    if_setontimer(login:popup, null);
+} else {
+    $int0, $int1, $int2 = ~clientscript_6716(%loginscreen_hopblocked_time);
+    $string0 = "Your ban will be lifted in<br><tostring($int0)> hours, <tostring($int1)> minutes, <tostring($int2)> seconds";
+}
+~login_popup_text_update($string0);

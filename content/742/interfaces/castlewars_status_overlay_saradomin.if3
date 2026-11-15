@@ -1,0 +1,209 @@
+// 58:0
+[zamorak_score]
+type=text
+x=-56
+y=24
+width=105
+height=11
+xmode=abs_centre
+textfont=p11_full
+text=Zamorak = %1
+textalignh=centre
+textshadow=yes
+onload=castlewars_saradomin_update_status
+onvartransmit=castlewars_saradomin_update_status{castlewars_saradomin, castlewars_zamorak, castlewars_timer}
+
+// 58:1
+[saradomin_score]
+type=text
+x=49
+y=24
+width=108
+height=11
+xmode=abs_centre
+textfont=p11_full
+text=%1 = Saradomin
+textalignh=centre
+textshadow=yes
+
+// 58:2
+[saradomin_flag]
+type=text
+x=35
+y=38
+width=11
+height=11
+textfont=p11_full
+colour=0x55c855
+
+// 58:3
+[zamorak_flag]
+type=text
+x=35
+y=73
+width=11
+height=11
+textfont=p11_full
+colour=0x55c855
+
+// 58:4
+[sara_flag]
+type=graphic
+x=1
+y=28
+width=32
+height=32
+colour=0xffffffff
+
+// 58:5
+[zam_flag]
+type=graphic
+x=1
+y=62
+width=32
+height=32
+colour=0xffffffff
+
+// 58:6
+[time_remaining]
+type=text
+x=2
+y=23
+width=69
+height=11
+xmode=abs_right
+textfont=p11_full
+text=%1 min
+textalignh=centre
+
+// 58:7
+[castlewars_saradomin_eject]
+type=text
+x=7
+y=5844
+width=4
+height=4
+xmode=proportion_centre
+ymode=proportion_top
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xffff00
+
+// 58:8
+[castlewars_icon_sar]
+type=layer
+y=6
+width=153
+height=148
+ymode=abs_bottom
+
+// 58:9
+[health]
+type=text
+x=33
+y=16
+width=90
+height=15
+layer=castlewars_icon_sar
+textfont=p11_full
+text=Health %1%
+colour=0x00ff00
+
+// 58:10
+[door]
+type=text
+x=33
+y=49
+width=90
+height=15
+layer=castlewars_icon_sar
+textfont=p11_full
+text=Locked
+colour=0x00ff00
+
+// 58:11
+[tunnel1]
+type=text
+x=33
+y=77
+width=90
+height=15
+layer=castlewars_icon_sar
+textfont=p11_full
+text=Collapsed
+colour=0x00ff00
+
+// 58:12
+[tunnel2]
+type=text
+x=33
+y=103
+width=90
+height=15
+layer=castlewars_icon_sar
+textfont=p11_full
+text=Collapsed
+colour=0x00ff00
+
+// 58:13
+[catapult]
+type=text
+x=33
+y=128
+width=90
+height=15
+layer=castlewars_icon_sar
+textfont=p11_full
+text=Operational
+colour=0x00ff00
+
+// 58:14
+[main_door_pic]
+type=graphic
+x=1
+y=8
+width=32
+height=32
+layer=castlewars_icon_sar
+colour=0xffffffff
+
+// 58:15
+[side_door_pic]
+type=graphic
+x=1
+y=39
+width=32
+height=32
+layer=castlewars_icon_sar
+colour=0xffffffff
+
+// 58:16
+[tunnel1_pic]
+type=graphic
+x=1
+y=67
+width=32
+height=32
+layer=castlewars_icon_sar
+colour=0xffffffff
+
+// 58:17
+[tunnel2_pic]
+type=graphic
+x=1
+y=93
+width=32
+height=32
+layer=castlewars_icon_sar
+colour=0xffffffff
+
+// 58:18
+[catapult_pic]
+type=graphic
+x=1
+y=120
+width=32
+height=32
+layer=castlewars_icon_sar
+colour=0xffffffff

@@ -1,0 +1,40 @@
+// 6010
+[proc,clientscript_6010](int $int0)(int)
+def_int $int1 = -1;
+$int1 = activeclansettings_getaffinedslot(removetags(chat_playername));
+if ($int1 < 0) {
+    return(0);
+}
+if ($int0 = -1) {
+    $int0 = activeclansettings_getaffinedrank($int1);
+}
+switch_int ($int0) {
+    case 0 :
+        return(%varclansetting_295);
+    case 1 :
+        return(%varclansetting_296);
+    case 2 :
+        return(%varclansetting_297);
+    case 3 :
+        return(%varclansetting_298);
+    case 4 :
+        return(%varclansetting_299);
+    case 5 :
+        return(%varclansetting_300);
+    case 100 :
+        return(%varclansetting_243);
+    case 101 :
+        return(%varclansetting_244);
+    case 102 :
+        return(%varclansetting_245);
+    case 103 :
+        return(%varclansetting_246);
+    case 125 :
+        return(%varclansetting_247);
+    case 126 :
+        return(1);
+    case 127 :
+        return(1);
+    case default :
+        return(0);
+}

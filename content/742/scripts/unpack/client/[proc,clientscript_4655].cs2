@@ -1,0 +1,10 @@
+// 4655
+[proc,clientscript_4655]
+if_settext(interface_77:com_14, %varclient_2337);
+if (%rand_progress_bar_fill_value > 200) {
+    %rand_progress_bar_fill_value = 200;
+}
+def_int $int0 = %rand_progress_bar_fill_value;
+$int0 = calc($int0 * 37 / 40 + 14);
+if_setsize(interface_77:com_16, $int0, 18, ^setsize_minus, ^setsize_abs);
+if_setposition(interface_77:com_17, calc($int0 + 1), 15, ^setpos_abs_left, ^setpos_abs_top);

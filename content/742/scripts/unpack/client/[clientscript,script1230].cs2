@@ -1,0 +1,34 @@
+// 1230
+[clientscript,script1230]
+def_obj $obj0 = null;
+def_model $model1 = null;
+def_component $component2 = null;
+def_int $int3 = 0;
+while ($int3 < 16) {
+    $obj0 = inv_getobj(roguetrader_toughsudukuinv, $int3);
+    switch_obj ($obj0) {
+        case airrune, roguetrader_airrune :
+            $model1 = model_8975;
+        case waterrune, roguetrader_waterrune :
+            $model1 = model_8987;
+        case earthrune, roguetrader_earthrune :
+            $model1 = model_8979;
+        case firerune, roguetrader_firerune :
+            $model1 = model_8980;
+        case default :
+            $model1 = null;
+    }
+    $component2 = enum(int, component, enum_2273, $int3);
+    if (if_find($component2) = true) {
+        cc_setmodel($model1);
+    } else {
+    }
+    if ($obj0 = roguetrader_airrune | $obj0 = roguetrader_airrune | $obj0 = roguetrader_waterrune | $obj0 = roguetrader_earthrune | $obj0 = roguetrader_firerune) {
+        $component2 = enum(int, component, enum_2276, $int3);
+        if (if_find($component2) = true) {
+            cc_setcolour(0x440000);
+        } else {
+        }
+    }
+    $int3 = calc($int3 + 1);
+}

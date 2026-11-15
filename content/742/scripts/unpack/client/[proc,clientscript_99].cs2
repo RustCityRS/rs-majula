@@ -1,0 +1,39 @@
+// 99
+[proc,clientscript_99]
+def_int $int0 = 0;
+if (%varplayerbit_4276 < 5) {
+    if_setsize(interface_629:com_6, 160, 30, ^setsize_abs, ^setsize_abs);
+    if (if_find(interface_629:com_5) = true) {
+        $int0 = calc(%varplayerbit_4276 * 32);
+        if (cc_getwidth < $int0) {
+            if_setsize(interface_629:com_5, calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs);
+        } else if (cc_getwidth > $int0) {
+            if_setsize(interface_629:com_5, calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs);
+        }
+    }
+} else if (%varplayerbit_4276 > 5) {
+    if_setsize(interface_629:com_5, 160, 30, ^setsize_abs, ^setsize_abs);
+    if (if_find(interface_629:com_6) = true) {
+        $int0 = calc((10 - %varplayerbit_4276) * 32);
+        if (cc_getwidth < $int0) {
+            if_setsize(interface_629:com_6, calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs);
+        } else if (cc_getwidth > $int0) {
+            if_setsize(interface_629:com_6, calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs);
+        }
+    }
+} else {
+    if (if_find(interface_629:com_5) = true) {
+        if (cc_getwidth < 157) {
+            if_setsize(interface_629:com_5, calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs);
+        } else if (cc_getwidth > 157) {
+            if_setsize(interface_629:com_5, calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs);
+        }
+    }
+    if (if_find(interface_629:com_6) = true) {
+        if (cc_getwidth < 157) {
+            if_setsize(interface_629:com_6, calc(cc_getwidth + 1), 30, ^setsize_abs, ^setsize_abs);
+        } else if (cc_getwidth > 157) {
+            if_setsize(interface_629:com_6, calc(cc_getwidth - 1), 30, ^setsize_abs, ^setsize_abs);
+        }
+    }
+}

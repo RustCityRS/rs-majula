@@ -1,0 +1,39 @@
+// 4662
+[proc,clientscript_4662](component $component0, int $rgb1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int2, $int3 = ~clientscript_4661;
+if ($int2 = 1 & $int3 >= 3) {
+    switch_component ($component0) {
+        case interface_23:com_2 :
+            if_setcolour($component0, $rgb1);
+        case interface_23:com_3 :
+            if_setcolour($component0, $rgb1);
+        case interface_23:com_4 :
+            return;
+        case interface_23:com_5 :
+            return;
+    }
+} else if ($int2 = 2 & $int3 >= 3) {
+    switch_component ($component0) {
+        case interface_23:com_4 :
+            if_setcolour($component0, $rgb1);
+        case interface_23:com_5 :
+            if_setcolour($component0, $rgb1);
+        case interface_23:com_2 :
+            return;
+        case interface_23:com_3 :
+            return;
+    }
+} else {
+    switch_component ($component0) {
+        case interface_23:com_3 :
+            if_setcolour($component0, $rgb1);
+        case interface_23:com_4 :
+            if_setcolour($component0, $rgb1);
+        case interface_23:com_2 :
+            return;
+        case interface_23:com_5 :
+            return;
+    }
+}

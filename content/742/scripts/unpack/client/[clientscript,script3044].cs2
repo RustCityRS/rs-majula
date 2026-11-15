@@ -1,0 +1,7 @@
+// 3044
+[clientscript,script3044](component $component0)
+if (chat_getfilter_private = null) {
+    return;
+}
+if_setontimer($component0, null);
+~script3045;

@@ -1,0 +1,23 @@
+// 4917
+[proc,clientscript_4917]
+if (op718 = 1) {
+    if_sethook1430(interface_1259:com_51, "clientscript_4918");
+    if_sethook1430(interface_1261:com_145, "clientscript_4918");
+    %varplayerbit_9548 = %varclan_2074;
+    %varplayerbit_9549 = %varclan_2075;
+    ~clientscript_5974;
+    ~clientscript_4991;
+    ~clientscript_4900;
+    ~clientscript_4905;
+    ~clientscript_4907;
+    ~clientscript_5012;
+    ~clientscript_5975;
+    ~clientscript_4864;
+    ~clientscript_4994;
+    ~clientscript_4889;
+    ~clientscript_4853;
+    ~clientscript_4913;
+} else {
+    mes("Clan stronghold information not yet available.");
+}
+return;

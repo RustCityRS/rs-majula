@@ -1,0 +1,9 @@
+// 912
+[proc,clientscript_912](component $component0)
+if (%varplayerbit_4537 = 0) {
+    if_settext($component0, "");
+} else if (%varplayerbit_4537 <= %option_run_status_varc) {
+    if_settext($component0, "<tostring(%varplayerbit_4537)> / <tostring(%option_run_status_varc)>");
+} else {
+    if_settext($component0, tostring(%varplayerbit_4537));
+}

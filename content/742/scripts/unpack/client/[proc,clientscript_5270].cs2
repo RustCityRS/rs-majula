@@ -1,0 +1,6 @@
+// 5270
+[proc,clientscript_5270](int $int0, int $int1, int $int2)
+if_settext(interface_1137:com_48, tostring($int0));
+if_settext(interface_1137:com_39, tostring(calc($int1 + $int2)));
+if_settext(interface_1137:com_67, tostring($int1));
+if_settext(interface_1137:com_73, tostring($int2));

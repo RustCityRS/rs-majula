@@ -1,0 +1,4 @@
+// 1945
+[clientscript,sc_tutorial_update_score]
+def_int $int0 = calc(%sc_score_clay_gathered + %sc_score_clay_processed + %sc_score_damage_inflicted + 2 * (%sc_score_clay_deposited - %sc_score_clay_taken));
+if_settext(sc_tutorial_overlay:score, "Score: <tostring($int0)>");

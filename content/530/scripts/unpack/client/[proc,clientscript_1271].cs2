@@ -1,0 +1,14 @@
+// 1271
+[proc,clientscript_1271]
+def_string $string0 = null;
+if (%option_run = 0) {
+    if_setgraphic(options:com_3, 761);
+    $string0 = "Run (currently off)";
+    if_setonmouserepeat(options:com_3, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
+} else if (%option_run = 1) {
+    if_setgraphic(options:com_3, 762);
+    $string0 = "Run (currently on)";
+    if_setonmouserepeat(options:com_3, "addtooltip(event_com, options:options_tooltip, $string0, 25, 180)");
+    %tooltip_built = 0;
+}

@@ -1,0 +1,58 @@
+// 3014
+[proc,lobby_message_of_the_week]
+def_string $string0 = "news";
+def_string $string1 = "mad-may-and-wild-weekends";
+def_int $int0 = random(3);
+if_sethide(lobby_message_of_the_week:bubble, true);
+if_sethide(lobby_message_of_the_week:com_30, false);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_boolean $boolean3 = false;
+$int1, $int2, $boolean3 = userdetail_lobby_membership;
+switch_int ($int0) {
+    case default :
+        switch_int (map_lang) {
+            case 0 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14122);
+            case 1 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14123);
+            case 2 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14124);
+            case 3 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14125);
+        }
+    case 1 :
+        switch_int (map_lang) {
+            case 0 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14126);
+            case 1 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14127);
+            case 2 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14128);
+            case 3 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14129);
+        }
+    case 2 :
+        switch_int (map_lang) {
+            case 0 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14130);
+            case 1 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14131);
+            case 2 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14132);
+            case 3 :
+                if_setgraphic(lobby_message_of_the_week:com_31, 14133);
+        }
+}
+if_setgraphic(lobby_message_of_the_week:com_35, null);
+if_settext(lobby_message_of_the_week:com_33_, "");
+if_setsize(lobby_message_of_the_week:com_33_, 345, 35, ^setsize_abs, ^setsize_abs);
+if_setposition(lobby_message_of_the_week:com_33_, 231, 5, ^setpos_abs_left, ^setpos_abs_top);
+if_setcolour(lobby_message_of_the_week:com_33_, 0x0e1903);
+if_settextfont(lobby_message_of_the_week:com_33_, welcome_font_large);
+if_settextalign(lobby_message_of_the_week:com_33_, ^settextalign_centre, ^settextalign_bottom, 0);
+if_settext(lobby_message_of_the_week:com_32, "");
+if_setposition(lobby_message_of_the_week:com_32, 231, 46, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(lobby_message_of_the_week:com_32, 345, 70, ^setsize_abs, ^setsize_abs);
+if_setcolour(lobby_message_of_the_week:com_32, 0x0e1903);
+if_settextalign(lobby_message_of_the_week:com_32, ^settextalign_centre, ^settextalign_centre, 0);
