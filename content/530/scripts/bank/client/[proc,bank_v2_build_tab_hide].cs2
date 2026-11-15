@@ -1,0 +1,4 @@
+// 1462
+[proc,bank_v2_build_tab_hide](int $int0)
+if_sethide(enum(int, component, enum_1614, $int0), true);
+if_sethide(enum(int, component, enum_1615, $int0), true);

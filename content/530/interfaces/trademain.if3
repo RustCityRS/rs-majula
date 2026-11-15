@@ -1,0 +1,868 @@
+// 335:0
+[com_0]
+type=graphic
+x=7
+y=25
+width=498
+height=302
+graphic=graphic_297
+tiling=yes
+
+// 335:1
+[com_1]
+type=graphic
+x=-13
+y=51
+width=32
+height=251
+graphic=graphic_821
+tiling=yes
+
+// 335:2
+[com_2]
+type=graphic
+y=20
+width=32
+height=32
+graphic=graphic_824
+
+// 335:3
+[com_3]
+type=graphic
+x=492
+y=52
+width=32
+height=250
+graphic=graphic_823
+tiling=yes
+
+// 335:4
+[com_4]
+type=graphic
+x=32
+y=7
+width=448
+height=34
+graphic=graphic_820
+tiling=yes
+
+// 335:5
+[com_5]
+type=graphic
+x=32
+y=314
+width=448
+height=32
+graphic=graphic_822
+tiling=yes
+
+// 335:6
+[com_6]
+type=graphic
+y=302
+width=32
+height=32
+graphic=graphic_826
+
+// 335:7
+[com_7]
+type=graphic
+x=480
+y=20
+width=32
+height=32
+graphic=graphic_825
+
+// 335:8
+[com_8]
+type=graphic
+x=480
+y=302
+width=32
+height=32
+graphic=graphic_827
+
+// 335:9
+[com_9]
+type=graphic
+x=11
+y=35
+width=490
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 335:10
+[com_10]
+type=graphic
+y=37
+width=32
+height=32
+graphic=graphic_829
+
+// 335:11
+[com_11]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+graphic=graphic_830
+
+// 335:12
+[closebutton]
+type=graphic
+x=485
+y=30
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 335:13
+[com_13]
+type=rectangle
+x=6
+y=300
+width=499
+height=27
+colour=0x000000
+fill=yes
+trans=200
+
+// 335:14
+[com_14]
+type=graphic
+x=241
+y=54
+width=32
+height=244
+graphic=graphic_852
+tiling=yes
+
+// 335:15
+[tradetitle]
+type=text
+x=19
+y=30
+width=474
+height=16
+textfont=fontmetrics_496
+text=Trading With: Unknown
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onvartransmit=clientscript_141{traderemoved, traderemoved_other}
+
+// 335:16
+[accept_button]
+type=layer
+x=223
+y=124
+width=65
+height=32
+transmitop=1
+op1=Accept
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 335:17
+[accept_text]
+type=text
+x=223
+y=124
+width=65
+height=32
+textfont=fontmetrics_495
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00c000
+
+// 335:18
+[decline_button]
+type=layer
+x=223
+y=164
+width=65
+height=32
+transmitop=1
+op1=Decline
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 335:19
+[decline_text]
+type=text
+x=223
+y=164
+width=65
+height=32
+textfont=fontmetrics_495
+text=Decline
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc00000
+
+// 335:20
+[com_20]
+type=rectangle
+x=213
+y=66
+width=91
+height=47
+colour=0x221717
+fill=yes
+
+// 335:21
+[free_space_text]
+type=text
+x=215
+y=68
+width=82
+height=41
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:22
+[com_22]
+type=graphic
+x=238
+y=47
+width=40
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 335:23
+[com_23]
+type=graphic
+x=207
+y=61
+width=32
+height=32
+graphic=graphic_846
+
+// 335:24
+[com_24]
+type=graphic
+x=274
+y=61
+width=32
+height=32
+graphic=graphic_847
+
+// 335:25
+[com_25]
+type=graphic
+x=207
+y=85
+width=32
+height=32
+graphic=graphic_848
+
+// 335:26
+[com_26]
+type=graphic
+x=274
+y=85
+width=32
+height=32
+graphic=graphic_849
+
+// 335:27
+[com_27]
+type=graphic
+x=239
+y=97
+width=35
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 335:28
+[com_28]
+type=graphic
+x=6
+y=285
+width=499
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 335:29
+[no]
+type=layer
+x=7
+y=26
+width=497
+height=301
+onload=clientscript_172
+
+// 335:30
+[your_offer_layer]
+type=layer
+x=12
+y=72
+width=177
+height=223
+
+// 335:31
+[your_offer_layer_flashy]
+type=layer
+x=12
+y=72
+width=177
+height=223
+
+// 335:32
+[other_offer_layer]
+type=layer
+x=322
+y=72
+width=177
+height=223
+
+// 335:33
+[other_offer_layer_flashy]
+type=layer
+x=322
+y=72
+width=177
+height=223
+
+// 335:34
+[com_34]
+type=text
+x=311
+y=56
+width=171
+height=14
+textfont=fontmetrics_495
+text=Trader's Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:35
+[com_35]
+type=text
+x=56
+y=56
+width=119
+height=14
+textfont=fontmetrics_495
+text=Your Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:36
+[tradestatus]
+type=text
+x=131
+y=281
+width=252
+height=15
+textfont=fontmetrics_495
+text=Waiting for other player
+textalignh=centre
+textshadow=yes
+
+// 335:37
+[bowl_guests]
+type=layer
+x=466
+y=22
+width=32
+height=32
+hide=yes
+
+// 335:38
+[trade_removed_warning_left]
+type=text
+x=26
+y=32
+width=188
+height=16
+hide=yes
+textfont=fontmetrics_494
+text=Trade modified
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 335:39
+[trade_removed_warning_right]
+type=text
+x=300
+y=32
+width=175
+height=16
+hide=yes
+textfont=fontmetrics_494
+text=Trade modified
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 335:40
+[com_40]
+type=text
+x=9
+y=302
+width=60
+height=10
+textfont=fontmetrics_494
+text=Limit: 3000
+textshadow=yes
+colour=0xbebe5e
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:41
+[com_41]
+type=text
+x=181
+y=302
+width=150
+height=10
+textfont=fontmetrics_494
+text=Wealth transfer
+textalignh=centre
+textshadow=yes
+colour=0xbebe5e
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:42
+[com_42]
+type=text
+x=439
+y=302
+width=60
+height=10
+textfont=fontmetrics_494
+text=Limit: 3000
+textalignh=right
+textshadow=yes
+colour=0xbebe5e
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:43
+[divider]
+type=model
+model=null
+modelzoom=400
+modelunknown=0,400,0
+
+// 335:44
+[com_44]
+type=graphic
+x=10
+y=308
+width=490
+height=32
+graphic=graphic_1074
+tiling=yes
+opbase=  
+
+// 335:45
+[com_45]
+type=line
+x=8
+y=325
+width=493
+colour=0x8e8e54
+
+// 335:46
+[com_46]
+type=line
+x=8
+y=326
+width=493
+colour=0xcccccc
+
+// 335:47
+[com_47]
+type=line
+x=9
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:48
+[com_48]
+type=line
+x=11
+y=317
+height=7
+colour=0x8e8e54
+
+// 335:49
+[com_49]
+type=line
+x=10
+y=316
+height=9
+colour=0xcccccc
+
+// 335:50
+[com_50]
+type=line
+x=50
+y=320
+height=5
+linewid=2
+colour=0x8e8e54
+
+// 335:51
+[com_51]
+type=line
+x=91
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:52
+[com_52]
+type=line
+x=93
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:53
+[com_53]
+type=line
+x=92
+y=316
+height=9
+colour=0xcccccc
+
+// 335:54
+[com_54]
+type=line
+x=132
+y=320
+height=5
+linewid=2
+colour=0x8e8e54
+
+// 335:55
+[com_55]
+type=line
+x=173
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:56
+[com_56]
+type=line
+x=175
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:57
+[com_57]
+type=line
+x=174
+y=316
+height=9
+colour=0xcccccc
+
+// 335:58
+[com_58]
+type=line
+x=214
+y=320
+height=5
+linewid=2
+colour=0x8e8e54
+opbase= 
+
+// 335:59
+[com_59]
+type=line
+x=255
+y=317
+height=8
+linewid=2
+colour=0x8e8e54
+
+// 335:60
+[com_60]
+type=line
+x=296
+y=320
+height=5
+linewid=2
+colour=0x8e8e54
+
+// 335:61
+[com_61]
+type=line
+x=337
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:62
+[com_62]
+type=line
+x=339
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:63
+[com_63]
+type=line
+x=338
+y=316
+height=9
+colour=0xcccccc
+
+// 335:64
+[com_64]
+type=line
+x=378
+y=320
+height=5
+linewid=2
+colour=0x8e8e54
+
+// 335:65
+[com_65]
+type=line
+x=419
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:66
+[com_66]
+type=line
+x=421
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:67
+[com_67]
+type=line
+x=420
+y=316
+height=9
+colour=0xcccccc
+
+// 335:68
+[com_68]
+type=line
+x=460
+y=320
+height=5
+linewid=2
+colour=0x8e8e54
+
+// 335:69
+[com_69]
+type=line
+x=499
+y=317
+height=8
+colour=0x8e8e54
+
+// 335:70
+[com_70]
+type=line
+x=501
+y=317
+height=8
+colour=0x8e8e54
+opbase= 
+
+// 335:71
+[com_71]
+type=line
+x=500
+y=316
+height=9
+colour=0xcccccc
+opbase= 
+
+// 335:72
+[divider1]
+type=model
+model=null
+modelzoom=400
+modelunknown=0,400,0
+
+// 335:73
+[pointer]
+type=graphic
+x=250
+y=313
+width=12
+height=12
+graphic=graphic_1187
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:74
+[com_74]
+type=graphic
+x=250
+y=313
+width=12
+height=12
+graphic=graphic_1188
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:75
+[com_75]
+type=graphic
+x=250
+y=313
+width=12
+height=12
+graphic=graphic_1189
+trans=100
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:76
+[com_76]
+type=graphic
+x=250
+y=313
+width=12
+height=12
+graphic=graphic_1189
+trans=100
+onmouseleave=deltooltip(trademain:tooltip_layer)
+
+// 335:77
+[your_loan_offer_layer]
+type=layer
+x=191
+y=204
+width=60
+height=76
+onload=clientscript_507(trademain:your_loan_offer_layer, trademain:your_loan_offer_item, trademain:your_loan_offer_duration, trademain:your_loan_offer_fakebutton, trademain:other_loan_offer_layer, trademain:other_loan_offer_item, trademain:other_loan_offer_duration)
+
+// 335:78
+[other_loan_offer_layer]
+type=layer
+x=261
+y=204
+width=60
+height=76
+
+// 335:79
+[com_79]
+type=layer
+width=512
+height=334
+
+// 335:80
+[com_80]
+type=text
+height=16
+widthmode=minus
+layer=other_loan_offer_layer
+textfont=fontmetrics_494
+text=Loan:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:81
+[tooltip_layer]
+type=layer
+x=10
+y=10
+width=10
+height=10
+layer=com_79
+
+// 335:82
+[other_loan_offer_item]
+type=graphic
+y=14
+width=36
+height=32
+xmode=abs_centre
+layer=other_loan_offer_layer
+
+// 335:83
+[other_loan_offer_duration]
+type=text
+height=30
+widthmode=minus
+ymode=abs_bottom
+layer=other_loan_offer_layer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:84
+[com_84]
+type=text
+height=16
+widthmode=minus
+layer=your_loan_offer_layer
+textfont=fontmetrics_494
+text=Loan:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 335:85
+[your_loan_offer_fakebutton]
+type=layer
+y=2
+width=4
+height=28
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=your_loan_offer_layer
+
+// 335:86
+[your_loan_offer_item]
+type=graphic
+y=14
+width=36
+height=32
+xmode=abs_centre
+layer=your_loan_offer_layer
+
+// 335:87
+[your_loan_offer_duration]
+type=text
+y=1
+height=30
+widthmode=minus
+ymode=abs_bottom
+layer=your_loan_offer_layer
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f

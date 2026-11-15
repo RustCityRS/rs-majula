@@ -1,0 +1,4 @@
+// 901
+[clientscript,script901]
+if_setmodelangle(easter08_incubator_side:water_button, 0, 0, 0, 0, 1024, 400);
+if_setposition(easter08_incubator_side:water_button, calc(if_getx(easter08_incubator_side:water_button) - 2), calc(if_gety(easter08_incubator_side:water_button) - 2), ^setpos_abs_left, ^setpos_abs_top);

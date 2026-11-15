@@ -1,0 +1,33 @@
+// 5347
+[proc,clientscript_5347]
+def_graphic $graphic0 = null;
+def_graphic $graphic1 = null;
+switch_int (map_lang) {
+    case default :
+        $graphic0 = 7790;
+        $graphic1 = 7791;
+    case 1 :
+        $graphic0 = 7794;
+        $graphic1 = 7795;
+    case 2 :
+        $graphic0 = 7792;
+        $graphic1 = 7793;
+    case 3 :
+        $graphic0 = 7796;
+        $graphic1 = 7797;
+}
+switch_int (%varclient_1659) {
+    case default :
+        if_settext(interface_1143:com_31, "Sort By...");
+    case 0 :
+        if_settext(interface_1143:com_31, "Price: Low-High");
+    case 1 :
+        if_settext(interface_1143:com_31, "Price: High-Low");
+    case 2 :
+        if_settext(interface_1143:com_31, "Name: A-Z");
+    case 3 :
+        if_settext(interface_1143:com_31, "Name: Z-A");
+}
+if_sethide(interface_1143:com_26, true);
+if_setgraphic(interface_1143:com_85, $graphic0);
+if_setgraphic(interface_1143:com_86, $graphic1);

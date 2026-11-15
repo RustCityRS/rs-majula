@@ -1,0 +1,8 @@
+// 4737
+[proc,clientscript_4737](component $component0)
+if (cc_find(interface_1144:com_0, 0) = true) {
+    ~clientscript_4738(interface_1144:com_0, interface_1144:com_1);
+}
+if_sethide(interface_1144:com_39, true);
+if_sethide(interface_1144:com_9, true);
+return;

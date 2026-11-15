@@ -1,0 +1,17 @@
+// 1871
+[proc,clientscript_1871](int $int0, int $int1)
+if (worldlist_switch($int0) = true) {
+    ~clientscript_1174(loginscreen:com_241);
+    if ($int1 = 1) {
+        %varclient_545 = 0;
+    } else if ($int1 = 2) {
+        %varclient_546 = 0;
+    }
+    return;
+}
+if ($int1 = 1) {
+    %varclient_545 = 1;
+} else if ($int1 = 2) {
+    %varclient_546 = 1;
+}
+~clientscript_1868;

@@ -1,0 +1,16 @@
+// 5939
+[proc,clientscript_5939](int $int0)(int)
+def_int $int1 = 0;
+if ($int0 = calc(%varplayerbit_11155 - 1)) {
+    $int1 = 3;
+} else {
+    switch_int ($int0) {
+        case 1, 3, 5, 7, 10, 12 :
+            $int1 = 0;
+        case 2, 6, 9, 11 :
+            $int1 = 1;
+        case 0, 4, 8 :
+            $int1 = 2;
+    }
+}
+return($int1);

@@ -1,0 +1,11 @@
+// 5108
+[proc,clientscript_5108](int $int0)
+if ($int0 = 1) {
+    if_setsize(interface_1116:com_50, 0, 20, ^setsize_minus, ^setsize_minus);
+    if_sethide(interface_1116:com_40, false);
+    ~clientscript_5110(1);
+} else {
+    if_setsize(interface_1116:com_50, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_sethide(interface_1116:com_40, true);
+    ~clientscript_5110(0);
+}

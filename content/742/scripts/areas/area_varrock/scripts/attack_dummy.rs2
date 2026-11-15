@@ -1,0 +1,15 @@
+[oploc2,sworddummy]
+if (%damagetype = ^ranged_style | ~player_autocast_enabled = true) {
+    mes("You can't use ranged attacks on the dummy.");
+    return;
+}
+mes("You swing at the dummy...");
+if (stat_base(attack) > 7) {
+    mes("There is nothing more you can learn from hitting a dummy.");
+    return;
+}
+mes("You hit the dummy.");
+stat_advance(attack, 50);
+anim(%com_attackanim, 0);
+sound_synth(%com_attacksound, 1, 0);
+p_delay(4);

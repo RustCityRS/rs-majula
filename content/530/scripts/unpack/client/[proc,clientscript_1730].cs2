@@ -1,0 +1,7 @@
+// 1730
+[proc,clientscript_1730](component $component0)
+if (%flashing_int ! 1) {
+    if_sethide($component0, false);
+    %flashing_int = 1;
+    if_setontimer($component0, "clientscript_1731($component0, if_gettext($component0))");
+}

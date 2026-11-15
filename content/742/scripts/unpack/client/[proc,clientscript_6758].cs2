@@ -1,0 +1,67 @@
+// 6758
+[proc,clientscript_6758](int $int0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6, component $component7, component $component8)
+def_struct $struct9 = null;
+if_sethide($component4, false);
+if ($int2 > 0 & $int2 < 60) {
+    if_setgraphic($component7, enum(int, graphic, enum_6155, $int2));
+    if_settext($component5, enum(int, string, enum_108, $int2));
+    if_settext($component6, tostring($int3));
+    if (stat_base(enum(int, stat, enum_681, $int2)) < $int3) {
+        if_setgraphic($component8, 13166);
+        if_setcolour($component6, ^red);
+        if_setcolour($component5, 0x959595);
+        if_setonmouseover($component5, "clientscript_6759(event_com)");
+        if_setonmouseleave($component5, "clientscript_6760(event_com)");
+    } else {
+        if_setgraphic($component8, 13165);
+        if_setcolour($component6, ^green);
+        if_setcolour($component5, 0x676767);
+    }
+} else if ($int2 = 60) {
+    $struct9 = ~clientscript_5795($int3);
+    if ($struct9 ! null) {
+        if_setgraphic($component7, "task_main_icon,0");
+        if_settext($component5, struct_param($struct9, param_1266));
+        if_settext($component6, "");
+        if (~task_get_progress($int3) ! 2) {
+            if_setgraphic($component8, 13166);
+            if_setcolour($component6, ^red);
+            if_setcolour($component5, 0x959595);
+            if_setonmouseover($component5, "clientscript_6759(event_com)");
+            if_setonmouseleave($component5, "clientscript_6760(event_com)");
+        } else {
+            if_setgraphic($component8, 13165);
+            if_setcolour($component6, ^green);
+            if_setcolour($component5, 0x676767);
+        }
+    }
+} else if ($int2 = 61) {
+    $struct9 = enum(int, struct, enum_2252, $int3);
+    if_setgraphic($component7, 13168);
+    if_settext($component5, struct_param($struct9, param_845));
+    if_settext($component6, "");
+    if (~ql4_getprogress($int3) ! 2) {
+        if_setgraphic($component8, 13166);
+        if_setcolour($component6, ^red);
+        if_setcolour($component5, 0x959595);
+        if_setonmouseover($component5, "clientscript_6759(event_com)");
+        if_setonmouseleave($component5, "clientscript_6760(event_com)");
+    } else {
+        if_setgraphic($component8, 13165);
+        if_setcolour($component6, ^green);
+        if_setcolour($component5, 0x676767);
+    }
+} else if ($int2 = 62) {
+    if_setgraphic($component7, 13152);
+    if_settext($component5, removetags(~task_special_requirements($int0, $int1)));
+    if_settext($component6, "");
+    if (~clientscript_5812($int0, $int1) = 0) {
+        if_setgraphic($component8, 13166);
+        if_setcolour($component6, ^red);
+        if_setcolour($component5, 0x959595);
+    } else {
+        if_setgraphic($component8, 13165);
+        if_setcolour($component6, ^green);
+        if_setcolour($component5, 0x676767);
+    }
+}

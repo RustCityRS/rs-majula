@@ -1,0 +1,8 @@
+// 5265
+[proc,clientscript_5265]
+if (%varplayerbit_9822 = 0) {
+    if_sethide(interface_1137:com_5, false);
+    if_sethide(interface_1137:com_62, true);
+} else {
+    if_sethide(interface_1137:com_5, true);
+}

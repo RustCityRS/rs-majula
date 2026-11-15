@@ -1,0 +1,15 @@
+// 1523
+[proc,clientscript_1523]
+if (%tutorial_version = 2) {
+    cc_create(questjournal_scroll:back_layer, 4, 0);
+    cc_setposition(0, -2, 0, 0);
+    cc_setsize(102, 23, 0, 0);
+    cc_settextfont(645);
+    cc_settextalign(0, 1, 0);
+    cc_settext("Back");
+    cc_setcolour(0x46320a);
+    cc_settextshadow(false);
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x46320a)");
+    if_setop(questjournal_scroll:back_layer, 1, "Back to Index");
+}

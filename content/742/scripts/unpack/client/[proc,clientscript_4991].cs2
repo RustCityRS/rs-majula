@@ -1,0 +1,37 @@
+// 4991
+[proc,clientscript_4991]
+~clientscript_4993;
+~clientscript_4994;
+def_int $int0 = -1;
+def_int $int1 = 0;
+if (op718 = 1) {
+    $int0 = %varclan_2580;
+    if_sethide(interface_1261:com_36, false);
+    if_sethide(interface_1261:com_37, false);
+    if_sethide(interface_1261:com_38, false);
+    if_sethide(interface_1261:com_39, false);
+    $int1 = 4;
+    if ($int0 >= 2) {
+        if_sethide(interface_1261:com_40, false);
+        $int1 = calc($int1 + 1);
+    }
+    if ($int0 >= 3) {
+        if_sethide(interface_1261:com_41, false);
+        if_sethide(interface_1261:com_42, false);
+        $int1 = calc($int1 + 2);
+    }
+    if ($int0 >= 5) {
+        if_sethide(interface_1261:com_44, false);
+        if_sethide(interface_1261:com_253, false);
+        $int1 = calc($int1 + 2);
+    }
+    if ($int0 >= 6) {
+        if_sethide(interface_1261:com_43, false);
+        $int1 = calc($int1 + 1);
+    }
+    if (calc($int1 % 2) ! 0) {
+        $int1 = calc($int1 + 1);
+    }
+    if_setscrollsize(interface_1261:com_56, if_getwidth(interface_1261:com_56), calc($int1 / 2 * 58 + 6));
+    ~scrollbar_vertical(interface_1261:com_55, interface_1261:com_56, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}

@@ -1,0 +1,7 @@
+// From 289's duel_arena_start.rs2: the walktrigger other ported content calls,
+// until the rest of that file is ported.
+[walktrigger,duel_arena_no_move]
+if (~duel_arena_movement_check = ^true & ~in_duel_arena(coord) = true) {
+    p_walk(coord);
+    walktrigger(duel_arena_no_move);
+}

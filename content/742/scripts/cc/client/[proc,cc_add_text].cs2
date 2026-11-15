@@ -1,0 +1,10 @@
+// 2995
+[proc,cc_add_text](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, string $string0, int $rgb6, graphic $graphic7, int $settextalignh8, int $settextalignv9, int $int10, boolean $boolean11)
+cc_create($component0, ^iftype_text, $int1);
+cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_settext($string0);
+cc_setcolour($rgb6);
+cc_settextfont($graphic7);
+cc_settextalign($settextalignh8, $settextalignv9, $int10);
+cc_settextshadow($boolean11);

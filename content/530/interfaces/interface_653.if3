@@ -1,0 +1,179 @@
+// 653:0
+[complete_layer]
+type=layer
+width=184
+height=63
+xmode=abs_right
+
+// 653:1
+[com_1]
+type=rectangle
+x=5
+y=4
+width=170
+height=50
+layer=complete_layer
+colour=0x660000
+fill=yes
+trans=150
+
+// 653:2
+[com_2]
+type=rectangle
+x=5
+y=54
+width=170
+height=2
+layer=complete_layer
+colour=0x983434
+fill=yes
+trans=150
+
+// 653:3
+[com_3]
+type=rectangle
+x=3
+y=2
+width=174
+height=2
+layer=complete_layer
+colour=0x1a0000
+fill=yes
+trans=150
+
+// 653:4
+[com_4]
+type=rectangle
+x=175
+y=4
+width=2
+height=52
+layer=complete_layer
+colour=0x983434
+fill=yes
+trans=150
+
+// 653:5
+[com_5]
+type=rectangle
+x=2
+y=1
+width=176
+height=56
+layer=complete_layer
+colour=0x000000
+
+// 653:6
+[com_6]
+type=rectangle
+x=3
+y=4
+width=2
+height=52
+layer=complete_layer
+colour=0x1a0000
+fill=yes
+trans=150
+
+// 653:7
+[com_7]
+type=text
+x=9
+y=8
+width=61
+height=16
+layer=complete_layer
+textfont=fontmetrics_495
+text=Target:
+textshadow=yes
+colour=0xffcccc
+
+// 653:8
+[target_name]
+type=text
+x=74
+y=8
+width=97
+height=16
+layer=complete_layer
+textfont=fontmetrics_496
+text=None
+textalignh=right
+textshadow=yes
+colour=0xff6666
+
+// 653:9
+[com_9]
+type=layer
+x=6
+y=29
+width=170
+height=20
+layer=complete_layer
+hide=yes
+
+// 653:10
+[com_10]
+type=text
+x=4
+y=1
+width=105
+height=16
+layer=com_9
+textfont=fontmetrics_495
+text=Pickup penalty:
+textalignv=centre
+textshadow=yes
+colour=0xff3333
+
+// 653:11
+[com_11]
+type=text
+x=112
+y=1
+width=54
+height=16
+layer=com_9
+textfont=fontmetrics_496
+text=100 Sec
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff6666
+
+// 653:12
+[com_12]
+type=layer
+x=6
+y=29
+width=170
+height=20
+layer=complete_layer
+hide=yes
+
+// 653:13
+[com_13]
+type=text
+x=3
+y=1
+width=105
+height=16
+layer=com_12
+textfont=fontmetrics_495
+text=Can't leave for:
+textshadow=yes
+colour=0xff3333
+
+// 653:14
+[com_14]
+type=text
+x=112
+y=1
+width=52
+height=16
+layer=com_12
+textfont=fontmetrics_496
+text=100 Sec
+textalignh=right
+textshadow=yes
+colour=0xff6666

@@ -1,0 +1,16 @@
+// 5616
+[proc,clientscript_5616]
+if (%varplayerbit_10418 = 0) {
+    if_setsize(interface_1198:com_3, 0, if_getheight(interface_1198:com_3), ^setsize_abs, ^setsize_abs);
+} else {
+    switch_int (%varplayerbit_10418) {
+        case 1 :
+            if_setontimer(interface_1198:com_10, "clientscript_5617(calc(if_getwidth(interface_1198:com_10) / 4))");
+        case 2 :
+            if_setontimer(interface_1198:com_10, "clientscript_5617(calc(if_getwidth(interface_1198:com_10) / 2))");
+        case 3 :
+            if_setontimer(interface_1198:com_10, "clientscript_5617(calc(if_getwidth(interface_1198:com_10) / 4 * 3))");
+        case 4 :
+            if_setontimer(interface_1198:com_10, "clientscript_5617(if_getwidth(interface_1198:com_10))");
+    }
+}

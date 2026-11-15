@@ -1,0 +1,3 @@
+// 1232
+[proc,clientscript_1232](int $int0)
+%topstat_prayer_button_client = enum(int, int, enum_1669, ~dropdownbox_getselected($int0, loginscreen:com_371));

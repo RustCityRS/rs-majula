@@ -1,0 +1,9 @@
+// 5743
+[proc,clientscript_5743](int $int0, string $string0)
+if ($int0 = 81068081) {
+    if_settext(interface_1237:com_57, $string0);
+    ~aif_text_layer_build(interface_1237:com_57, verdana_11pt_regular, 0xe3cccf, 0x27220f);
+} else if ($int0 = 81068090) {
+    if_settext(interface_1237:com_66, $string0);
+    ~aif_text_layer_build(interface_1237:com_66, verdana_11pt_regular, 0xe3cccf, 0x27220f);
+}

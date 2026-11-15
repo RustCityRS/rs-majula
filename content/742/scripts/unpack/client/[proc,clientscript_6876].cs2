@@ -1,0 +1,11 @@
+// 6876
+[proc,clientscript_6876](int $int0)
+if ($int0 = 1) {
+    if_sethide(interface_1311:com_73, false);
+    if_setsize(interface_1311:com_44, 384, 80, ^setsize_minus, ^setsize_minus);
+    if_setposition(interface_1311:com_44, 0, 40, ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_sethide(interface_1311:com_73, true);
+    if_setsize(interface_1311:com_44, 300, 80, ^setsize_minus, ^setsize_minus);
+    if_setposition(interface_1311:com_44, 300, 40, ^setpos_abs_right, ^setpos_abs_top);
+}

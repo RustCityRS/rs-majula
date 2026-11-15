@@ -1,0 +1,61 @@
+// 6591
+[proc,clientscript_6591]
+def_graphic $graphic0 = null;
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+if (playermember = true) {
+    switch_int (map_lang) {
+        case 2 :
+            $graphic0 = 12449;
+            $graphic1 = 12450;
+            $graphic2 = 12451;
+            $graphic3 = 12452;
+        case 1 :
+            $graphic0 = 12454;
+            $graphic1 = 12455;
+            $graphic2 = 12456;
+            $graphic3 = 12457;
+        case 3 :
+            $graphic0 = 12445;
+            $graphic1 = 12446;
+            $graphic2 = 12447;
+            $graphic3 = 12448;
+        case default :
+            $graphic0 = 12441;
+            $graphic1 = 12442;
+            $graphic2 = 12443;
+            $graphic3 = 12444;
+    }
+    if_sethide(interface_1322:com_10, false);
+    if_sethide(interface_1322:com_6, true);
+} else {
+    switch_int (map_lang) {
+        case 2 :
+            $graphic0 = 12143;
+            $graphic1 = 12144;
+            $graphic2 = 12145;
+            $graphic3 = 12146;
+        case 1 :
+            $graphic0 = 12147;
+            $graphic1 = 12148;
+            $graphic2 = 12149;
+            $graphic3 = 12150;
+        case 3 :
+            $graphic0 = 12139;
+            $graphic1 = 12140;
+            $graphic2 = 12141;
+            $graphic3 = 12142;
+        case default :
+            $graphic0 = 12135;
+            $graphic1 = 12136;
+            $graphic2 = 12137;
+            $graphic3 = 12138;
+    }
+    if_sethide(interface_1322:com_10, false);
+    if_sethide(interface_1322:com_6, true);
+}
+if_setgraphic(interface_1322:com_1, $graphic0);
+if_setgraphic(interface_1322:com_2, $graphic1);
+if_setgraphic(interface_1322:com_4, $graphic2);
+if_setgraphic(interface_1322:com_5, $graphic3);

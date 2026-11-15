@@ -1,0 +1,13 @@
+// 6146
+[proc,clientscript_6146](component $component0)
+def_int $int1 = 1;
+if (random(2) = 0) {
+    $int1 = calc(0 - $int1);
+}
+switch_int (%varclient_1903) {
+    case 0 :
+        cam_forceangle(%varclient_1908, %varclient_1907);
+        ~clientscript_6147($component0, random(8), calc(400 + %varclient_1906), -1, $int1);
+    case 4 :
+        cam_inc_x;
+}

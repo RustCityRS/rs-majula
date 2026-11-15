@@ -1,0 +1,11 @@
+// 1514
+[proc,clientscript_1514]
+if (%option_mouse = 1 & string_length(if_gettext(interface_769:com_2)) > 0) {
+    if_sethide(interface_769:com_2, false);
+    if_sethide(interface_769:textbox, true);
+    return;
+} else {
+    if_sethide(interface_769:textbox, false);
+    if_sethide(interface_769:com_2, true);
+    return;
+}

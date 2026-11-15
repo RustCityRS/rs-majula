@@ -1,0 +1,16 @@
+// 6203
+[proc,clientscript_6203]
+if (compare(%varclient_2385, %varclient_2386) ! 0 & (string_length(%varclient_2385) > 0 | string_length(%varclient_2386) > 0)) {
+    ~lobby_popup(-5, 1, "Please ensure both email addresses are the same.", 0, "loadingwheel,9", 0, -1, "", "", 1, "Back", "Back");
+    return;
+}
+if_setonvartransmit(lobbyscreen:com_235, "clientscript_6204{varplayer_2411}");
+~clientscript_5522;
+if_settext(lobbyscreen:popup_text, "Please wait...");
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (%create_send_me_news = true) {
+    $int0 = 1;
+    $int1 = 1;
+}
+op560(%varclient_2385, 1, $int0, $int1);

@@ -1,0 +1,214 @@
+// 765:0
+[title]
+type=text
+x=1
+width=504
+height=17
+textfont=fontmetrics_497
+text=Select Task
+textalignh=centre
+colour=0x800000
+
+// 765:1
+[box1]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Ranged task
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:2
+[com_2]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=I don't want to choose.
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:3
+[box2]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Fishing task
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:4
+[box3]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Cooking task
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:5
+[box4]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Magic task
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:6
+[box6]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Banking
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:7
+[box9]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Woodcutting task
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:8
+[box10]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=Firemaking task
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1525
+
+// 765:9
+[com_9]
+type=text
+x=1
+y=1
+width=504
+height=16
+layer=layer
+hide=yes
+textfont=fontmetrics_497
+text=More...
+textalignh=centre
+colour=0x000000
+transmitop=1
+op1=Okay
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+onop=clientscript_1528
+
+// 765:10
+[com_10]
+type=graphic
+width=57
+height=13
+layer=multi5swords
+graphic=graphic_302
+
+// 765:11
+[com_11]
+type=graphic
+x=280
+width=57
+height=13
+layer=multi5swords
+graphic=graphic_301
+
+// 765:12
+[multi5swords]
+type=layer
+x=80
+y=1
+width=337
+height=13
+
+// 765:13
+[layer]
+type=layer
+y=14
+width=506
+height=110
+onload=prayer_on_var_transmit

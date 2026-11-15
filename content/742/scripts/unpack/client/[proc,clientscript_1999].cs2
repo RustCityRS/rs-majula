@@ -1,0 +1,55 @@
+// 1999
+[proc,clientscript_1999](component $component0, boolean $boolean1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)
+def_int $int9 = %varplayer_2525;
+def_int $int10 = %varplayer_2526;
+def_int $int11 = %varplayer_2527;
+def_int $int12 = %varplayer_2528;
+if ($int3 = 0 & ($int10 ! 0 | $int11 ! 0 | $int12 ! 0 | %varplayer_2525 ! 0)) {
+    $int3 = 1;
+}
+if ($int3 = 1) {
+    if (%varclient_1745 = true) {
+        if (op512 = 0) {
+        }
+        if (op512 = 1) {
+            ~lobbyscreen_load($boolean1, $int2);
+            if_setontimer($component0, null);
+            detail_soundvol($int4);
+            detail_musicvol($int5);
+            detail_bgsoundvol($int6);
+            op6037($int7);
+            unknown_command_6038($int8);
+            %varclient_1745 = false;
+            return;
+        }
+    } else {
+        if (playermember = false & $int11 > 0 & $int11 < $int12) {
+            if (op711(5) = 1) {
+            }
+            %varclient_1745 = true;
+            ~clientscript_5874;
+            return;
+        }
+        if (date_runeday <= calc($int9 + 30)) {
+            if (op711(1) = 1) {
+            }
+            %varclient_1745 = true;
+            ~clientscript_5874;
+        } else if (date_runeday <= calc($int9 + 182)) {
+            if (op711(2) = 1) {
+            }
+            %varclient_1745 = true;
+            ~clientscript_5874;
+        } else if (date_runeday <= calc($int9 + 365)) {
+            if (op711(3) = 1) {
+            }
+            %varclient_1745 = true;
+            ~clientscript_5874;
+        } else {
+            if (op711(4) = 1) {
+            }
+            %varclient_1745 = true;
+            ~clientscript_5874;
+        }
+    }
+}

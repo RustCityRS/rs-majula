@@ -4,6 +4,7 @@ use crate::pack::packed_data::PackedData;
 use anyhow::Result;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 /// A value the sender of a phrase fills in, as the client's
@@ -70,7 +71,7 @@ pub struct QuickChatCommand {
 }
 
 pub struct QuickChatPhraseType {
-    pub id: u16,
+    pub id: TypeId,
     pub text: Option<Box<str>>,
     pub responses: Box<[u16]>,
     pub commands: Box<[QuickChatCommand]>,
@@ -79,7 +80,7 @@ pub struct QuickChatPhraseType {
 impl CacheType for QuickChatPhraseType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             text: None,
@@ -112,13 +113,14 @@ impl CacheType for QuickChatPhraseType {
 /// The phrases a quick chat message can name, by the id the client sends (the
 /// global archive's from `QUICKCHAT_GLOBAL_FIRST`). One with no text is not
 /// one: the client fails to decode it.
-pub struct QuickChatPhraseProvider(FxHashMap<u16, QuickChatPhraseType>);
+pub struct QuickChatPhraseProvider(FxHashMap<TypeId, QuickChatPhraseType>);
 
 impl QuickChatPhraseProvider {
     pub fn from_indexed_bytes(dat: &[u8], idx: &[u8]) -> Result<Self> {
         let phrases = PackedData::entries(dat, idx)?
             .filter(|(_, data)| !data.is_empty())
             .map(|(id, data)| {
+                let id = TypeId::try_from(id).expect("type id");
                 let mut phrase = QuickChatPhraseType::new(id);
                 phrase.decode(&mut Packet::from(data.to_vec()));
                 (id, phrase)
@@ -128,7 +130,7 @@ impl QuickChatPhraseProvider {
         Ok(Self(phrases))
     }
 
-    pub fn get(&self, id: u16) -> Option<&QuickChatPhraseType> {
+    pub fn get(&self, id: TypeId) -> Option<&QuickChatPhraseType> {
         self.0.get(&id)
     }
 }

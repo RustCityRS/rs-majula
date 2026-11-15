@@ -1,0 +1,10 @@
+// 1656
+[proc,script1656]
+if (%bank_help_bankavailable = 0) {
+    if_setonop(bank_v2_help:close_button, "closebutton_click");
+    if_sethide(bank_v2_help:open_bank, true);
+} else {
+    if_setonop(bank_v2_help:close_button, null);
+    if_sethide(bank_v2_help:open_bank, false);
+    ~v2_stone_button(bank_v2_help:com_55);
+}

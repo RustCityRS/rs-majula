@@ -1,0 +1,4 @@
+// 5613
+[proc,clientscript_5613](component $component0, int $int1, int $int2, int $int3, int $int4)
+$int2, $int3, $int4 = ~clientscript_5614($component0, $int1, $int2, $int3, $int4);
+if_setontimer($component0, "clientscript_5613($component0, $int1, $int2, $int3, $int4)");

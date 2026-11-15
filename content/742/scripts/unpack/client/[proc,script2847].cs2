@@ -1,0 +1,31 @@
+// 2847
+[proc,script2847](component $component0)
+def_int $int1 = 308;
+def_int $int2 = 55;
+def_int $int3 = 0;
+def_int $int4 = enum_getoutputcount(enum_903);
+def_int $intarray0($int4);
+$intarray0(0) = 5;
+$intarray0(1) = 8;
+$intarray0(2) = 2;
+$intarray0(3) = 0;
+$intarray0(4) = 4;
+$intarray0(5) = 1;
+$intarray0(6) = 3;
+$intarray0(7) = 7;
+$intarray0(8) = 6;
+while ($int3 < $int4) {
+    if (cc_find($component0, $intarray0($int3)) = true) {
+        cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int3 = calc($int3 + 1);
+    if ($int3 = 3) {
+        $int1 = calc(308 + 48);
+        $int2 = 55;
+    } else if ($int3 = 6) {
+        $int1 = calc(308 + 96);
+        $int2 = 55;
+    } else {
+        $int2 = calc(48 + $int2);
+    }
+}

@@ -22,7 +22,7 @@ pub fn pack_hitmarks(
                     // 1
                     "damagefont" => parse_ref(&registry.fontmetrics, "fontmetrics", value, |v| {
                         client.p1(1);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 2
@@ -34,25 +34,25 @@ pub fn pack_hitmarks(
                     // 3
                     "classgraphic" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(3);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 4
                     "leftgraphic" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(4);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 5
                     "middlegraphic" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(5);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 6
                     "rightgraphic" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(6);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 7

@@ -1,0 +1,13 @@
+// 1172
+[proc,clientscript_1172](component $component0, component $component1, component $component2, component $component3, component $component4)
+%varclient_664 = "";
+%varclient_665 = "";
+%last_windowmode = getwindowmode;
+%loginscreen_pvp_warned = 0;
+if_setonkey(loginscreen:com_134, "clientscript_1221(event_keycode, event_keychar)");
+if_setonresize(loginscreen:background_layer, "clientscript_1176");
+~clientscript_1174(loginscreen:com_226);
+if (%selectedresolution <= 0) {
+    %selectedresolution = max(fullscreen_lastmode, 0);
+}
+~clientscript_1887($component0, $component1, $component2, $component3, $component4);

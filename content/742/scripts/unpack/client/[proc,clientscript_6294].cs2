@@ -1,0 +1,10 @@
+// 6294
+[proc,clientscript_6294](int $int0)
+def_int $int1 = calc($int0 + 1);
+if ($int1 >= calc(spline_length(0) - 1)) {
+    if_setoncamfinished(interface_1161:com_0, null);
+    cam_reset;
+} else {
+    cam_movealong(0, $int1, 100, 100, 1, $int1);
+    if_setoncamfinished(interface_1161:com_0, "clientscript_6294($int1)");
+}

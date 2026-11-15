@@ -1,0 +1,39 @@
+// 5948
+[proc,clientscript_5948](component $component0, int $int1, int $int2)
+def_graphic $graphic3 = null;
+def_int $int4 = $int2;
+if ($int1 = 0 & $int2 = 0) {
+    switch_int (random(4)) {
+        case 0 :
+            sound_vorbis_volume(~clientscript_2337(5705));
+        case 1 :
+            sound_vorbis_volume(~clientscript_2337(5706));
+        case 2 :
+            sound_vorbis_volume(~clientscript_2337(5707));
+        case 3 :
+            sound_vorbis_volume(~clientscript_2337(5708));
+    }
+}
+if ($int2 <= 0) {
+    switch_int ($int1) {
+        case 1 :
+            $graphic3 = 9862;
+            $int4 = 15;
+        case 2 :
+            $graphic3 = 9861;
+            $int4 = 5;
+        case default :
+            $graphic3 = 9860;
+            $int4 = 5;
+    }
+    $int1 = calc($int1 + 1);
+    if ($int1 >= 3) {
+        $int1 = 0;
+    }
+    if ($graphic3 ! null) {
+        if_setgraphic(interface_1252:com_6, $graphic3);
+    }
+} else {
+    $int4 = calc($int2 - 1);
+}
+if_setontimer($component0, "clientscript_5948($component0, $int1, $int4)");

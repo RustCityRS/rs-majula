@@ -165,7 +165,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     let mesanim = engine::<E>()
                         .mesanims()
                         .get_by_id(v)
-                        .ok_or(ScriptError::MesanimNotFound(v as i32))?;
+                        .ok_or(ScriptError::MesanimNotFound(v.int()))?;
                     let line_count = s.split_pages
                         .as_ref()
                         .and_then(|pages| pages.get(page as usize))

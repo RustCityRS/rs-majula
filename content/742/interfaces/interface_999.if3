@@ -1,0 +1,593 @@
+// 999:0
+[background]
+type=layer
+width=512
+height=334
+onload=script2913(event_com, 0)
+
+// 999:1
+[background_top]
+type=graphic
+y=22
+width=5
+height=70
+widthmode=minus
+xmode=abs_centre
+layer=background
+graphic=graphic_2042
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 999:2
+[background_mid]
+type=graphic
+y=92
+width=5
+height=140
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=background
+graphic=km_middlefillcolour
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 999:3
+[background_bot]
+type=graphic
+y=2
+width=5
+height=46
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=background
+graphic=graphic_2038
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 999:4
+[container]
+type=layer
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 999:5
+[layer_1]
+type=layer
+x=10
+y=24
+width=48
+height=52
+widthmode=minus
+heightmode=minus
+layer=container
+
+// 999:6
+[s_layer]
+type=layer
+x=5
+y=5
+width=48
+height=52
+layer=layer_1
+transmitop=1,2,3
+opbase=<col=FF981F>Damaged book</col>
+op1=Info
+op2=Buy
+op3=Examine
+onmouseover=comp_sethide(false, interface_999:s_outline)
+onmouseleave=comp_sethide(true, interface_999:s_outline)
+
+// 999:7
+[com_7]
+type=graphic
+width=48
+height=52
+layer=s_layer
+graphic="km_shoptile,0"
+colour=0xffffffff
+
+// 999:8
+[s_outline]
+type=graphic
+width=48
+height=52
+layer=s_layer
+hide=yes
+graphic="km_shoptile,1"
+colour=0xffffffff
+
+// 999:9
+[s_coin]
+type=graphic
+x=2
+y=38
+width=12
+height=12
+layer=s_layer
+graphic="km_shopitems,1"
+colour=0xffffffff
+
+// 999:10
+[com_10]
+type=text
+x=13
+y=39
+width=31
+height=12
+layer=s_layer
+textfont=p11_full
+text=5000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 999:11
+[z_layer]
+type=layer
+x=5
+y=5
+width=48
+height=52
+layer=layer_1
+transmitop=1,2,3,10
+opbase=<col=FF981F>Damaged book</col>
+op1=Info
+op2=Buy
+op3=Examine
+op10= 
+onmouseover=comp_sethide(false, interface_999:z_outline)
+onmouseleave=comp_sethide(true, interface_999:z_outline)
+
+// 999:12
+[g_layer]
+type=layer
+x=5
+y=5
+width=48
+height=52
+layer=layer_1
+transmitop=1,2,3,10
+opbase=<col=FF981F>Damaged book</col>
+op1=Info
+op2=Buy
+op3=Examine
+op10= 
+onmouseover=comp_sethide(false, interface_999:g_outline)
+onmouseleave=comp_sethide(true, interface_999:g_outline)
+
+// 999:13
+[a_layer]
+type=layer
+x=5
+y=5
+width=48
+height=52
+layer=layer_1
+transmitop=1,2,3,10
+opbase=<col=FF981F>Damaged book</col>
+op1=Info
+op2=Buy
+op3=Examine
+op10= 
+onmouseover=comp_sethide(false, interface_999:a_outline)
+onmouseleave=comp_sethide(true, interface_999:a_outline)
+
+// 999:14
+[b_layer]
+type=layer
+x=5
+y=5
+width=48
+height=52
+layer=layer_1
+transmitop=1,2,3,10
+opbase=<col=FF981F>Damaged book</col>
+op1=Info
+op2=Buy
+op3=Examine
+op10= 
+onmouseover=comp_sethide(false, interface_999:b_outline)
+onmouseleave=comp_sethide(true, interface_999:b_outline)
+
+// 999:15
+[com_15]
+type=graphic
+width=48
+height=52
+layer=b_layer
+graphic="km_shoptile,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:16
+[b_outline]
+type=graphic
+width=48
+height=52
+layer=b_layer
+hide=yes
+graphic="km_shoptile,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:17
+[b_coin]
+type=graphic
+x=2
+y=38
+width=12
+height=12
+layer=b_layer
+graphic="km_shopitems,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:18
+[com_18]
+type=text
+x=13
+y=39
+width=31
+height=12
+layer=b_layer
+textfont=p11_full
+text=5000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 999:19
+[zs_layer]
+type=layer
+x=5
+y=5
+width=48
+height=52
+layer=layer_1
+transmitop=1,2,3,10
+opbase=<col=FF981F>Damaged book</col>
+op1=Info
+op2=Buy
+op3=Examine
+op10= 
+onmouseover=comp_sethide(false, interface_999:zs_outline)
+onmouseleave=comp_sethide(true, interface_999:zs_outline)
+
+// 999:20
+[com_20]
+type=graphic
+width=48
+height=52
+layer=zs_layer
+graphic="km_shoptile,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:21
+[zs_outline]
+type=graphic
+width=48
+height=52
+layer=zs_layer
+hide=yes
+graphic="km_shoptile,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:22
+[zs_coin]
+type=graphic
+x=2
+y=38
+width=12
+height=12
+layer=zs_layer
+graphic="km_shopitems,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:23
+[com_23]
+type=text
+x=13
+y=39
+width=31
+height=12
+layer=zs_layer
+textfont=p11_full
+text=5000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 999:24
+[zs_graphic]
+type=graphic
+y=4
+width=36
+height=32
+xmode=abs_centre
+layer=zs_layer
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:25
+[b_graphic]
+type=graphic
+y=4
+width=36
+height=32
+xmode=abs_centre
+layer=b_layer
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:26
+[com_26]
+type=graphic
+width=48
+height=52
+layer=a_layer
+graphic="km_shoptile,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:27
+[a_outline]
+type=graphic
+width=48
+height=52
+layer=a_layer
+hide=yes
+graphic="km_shoptile,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:28
+[a_coin]
+type=graphic
+x=2
+y=38
+width=12
+height=12
+layer=a_layer
+graphic="km_shopitems,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:29
+[com_29]
+type=text
+x=13
+y=39
+width=31
+height=12
+layer=a_layer
+textfont=p11_full
+text=5000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 999:30
+[a_graphic]
+type=graphic
+y=4
+width=36
+height=32
+xmode=abs_centre
+layer=a_layer
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:31
+[com_31]
+type=graphic
+width=48
+height=52
+layer=g_layer
+graphic="km_shoptile,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:32
+[g_outline]
+type=graphic
+width=48
+height=52
+layer=g_layer
+hide=yes
+graphic="km_shoptile,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:33
+[g_coin]
+type=graphic
+x=2
+y=38
+width=12
+height=12
+layer=g_layer
+graphic="km_shopitems,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:34
+[com_34]
+type=text
+x=13
+y=39
+width=31
+height=12
+layer=g_layer
+textfont=p11_full
+text=5000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 999:35
+[g_graphic]
+type=graphic
+y=4
+width=36
+height=32
+xmode=abs_centre
+layer=g_layer
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:36
+[com_36]
+type=graphic
+width=48
+height=52
+layer=z_layer
+graphic="km_shoptile,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:37
+[z_outline]
+type=graphic
+width=48
+height=52
+layer=z_layer
+hide=yes
+graphic="km_shoptile,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:38
+[z_coin]
+type=graphic
+x=2
+y=38
+width=12
+height=12
+layer=z_layer
+graphic="km_shopitems,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:39
+[com_39]
+type=text
+x=13
+y=39
+width=31
+height=12
+layer=z_layer
+textfont=p11_full
+text=5000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 999:40
+[z_graphic]
+type=graphic
+y=4
+width=36
+height=32
+xmode=abs_centre
+layer=z_layer
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 999:41
+[com_41]
+type=text
+y=4
+width=135
+height=25
+xmode=abs_centre
+layer=container
+textfont=b12_full
+text=Book shop
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,2,3
+op1=Info
+op2=Buy
+op3=Examine
+
+// 999:42
+[s_graphic]
+type=graphic
+y=4
+width=36
+height=32
+xmode=abs_centre
+layer=s_layer
+outline=1
+colour=0xffffffff
+
+// 999:43
+[com_43]
+type=graphic
+x=487
+y=3
+width=16
+height=16
+layer=container
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

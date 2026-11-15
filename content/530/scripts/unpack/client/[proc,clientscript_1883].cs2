@@ -1,0 +1,76 @@
+// 1883
+[proc,clientscript_1883](int $int0, int $int1)
+if ($int0 < 1) {
+    if_settext(loginscreen:com_217, "That's an invalid world number (<tostring($int0)>).");
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int1 < 24) {
+    $int2 = ~clientscript_1853;
+    if ($int2 = $int0) {
+        ~clientscript_1857(0);
+        %varclient_545 = 0;
+        if (unknown_command_5420 = true) {
+            if_settext(loginscreen:com_217, "<col=7f0000>Your changes cannot be saved because</col><br><col=7f0000>you are using the unsigned client.</col>");
+        } else {
+            if_settext(loginscreen:com_217, "World <tostring($int0)> has been removed from your favourites.");
+        }
+        ~clientscript_1299;
+        return;
+    }
+    $int3 = ~clientscript_1854;
+    if ($int3 = $int0) {
+        ~clientscript_1858(0);
+        %varclient_546 = 0;
+        if (unknown_command_5420 = true) {
+            if_settext(loginscreen:com_217, "<col=7f0000>Your changes cannot be saved because</col><br><col=7f0000>you are using the unsigned client.</col>");
+        } else {
+            if_settext(loginscreen:com_217, "World <tostring($int0)> has been removed from your favourites.");
+        }
+        ~clientscript_1299;
+        return;
+    }
+    if ($int2 > 0) {
+        if ($int3 > 0) {
+            if_settext(loginscreen:com_217, "<col=7f0000>Please delete one of your existing favourites before setting more.</col>");
+            return;
+        }
+        ~clientscript_1858($int0);
+        %varclient_546 = 0;
+        if (unknown_command_5420 = true) {
+            if_settext(loginscreen:com_217, "<col=7f0000>Your changes cannot be saved because</col><br><col=7f0000>you are using the unsigned client.</col>");
+        } else {
+            if_settext(loginscreen:com_217, "World <tostring($int0)> has been added to your favourites.");
+        }
+        ~clientscript_1299;
+        return;
+    }
+    ~clientscript_1857($int0);
+    %varclient_545 = 0;
+    if (unknown_command_5420 = true) {
+        if_settext(loginscreen:com_217, "<col=7f0000>Your changes cannot be saved because</col><br><col=7f0000>you are using the unsigned client.</col>");
+    } else {
+        if_settext(loginscreen:com_217, "World <tostring($int0)> has been added to your favourites.");
+    }
+    ~clientscript_1299;
+    return;
+}
+def_int $int4 = 0;
+def_string $string0 = "";
+def_int $int5 = 0;
+def_string $string1 = "";
+def_int $int6 = 0;
+$int4, $string0, $int5, $string1, $int6 = worldlist_specific($int0);
+if ($int6 = -1) {
+    if_settext(loginscreen:com_217, "World <tostring($int0)> is currently offline.<br>Please choose a different one.");
+    ~clientscript_1874;
+    return;
+}
+if (worldlist_switch($int0) = true) {
+    ~clientscript_1874;
+    ~clientscript_1174(loginscreen:com_226);
+    return;
+}
+if_settext(loginscreen:com_217, "Sorry, we couldn't contact World <tostring($int0)>.<br>Please choose a different one.");
+~clientscript_1874;

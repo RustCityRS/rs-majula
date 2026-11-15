@@ -1,0 +1,17 @@
+// 2903
+[clientscript,ii_exchange_onclick](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, int $int8)
+if (%ii_elnex_varc = $int8) {
+    %ii_elnex_varc = 0;
+    if_sethide($component0, true);
+    if_sethide($component1, true);
+} else {
+    %ii_elnex_varc = $int8;
+    if_sethide($component0, false);
+    if_sethide($component1, false);
+}
+if_sethide($component2, true);
+if_sethide($component3, true);
+if_sethide($component4, true);
+if_sethide($component5, true);
+if_sethide($component6, true);
+if_sethide($component7, true);

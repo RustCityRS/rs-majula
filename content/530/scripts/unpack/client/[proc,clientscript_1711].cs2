@@ -1,0 +1,20 @@
+// 1711
+[proc,clientscript_1711]
+~clientscript_1710;
+baseidkit(0, enum(int, idkit, enum_701, %playerdesign2_client_head));
+baseidkit(1, enum(int, idkit, enum_703, %playerdesign2_client_jaw));
+baseidkit(2, enum(int, idkit, enum_1128, %playerdesign2_client_torso));
+baseidkit(3, enum(int, idkit, enum_1130, %playerdesign2_client_arms));
+baseidkit(4, enum(int, idkit, enum_1132, %playerdesign2_client_hands));
+baseidkit(5, enum(int, idkit, enum_1134, %playerdesign2_client_legs));
+baseidkit(6, enum(int, idkit, enum_1136, %playerdesign2_client_feet));
+basecolour(0, %wc_update09_got_job);
+basecolour(1, %varplayerbit_4216);
+basecolour(2, %varplayerbit_4217);
+basecolour(3, %varplayerbit_4218);
+basecolour(4, %varplayerbit_4219);
+~clientscript_1717;
+~clientscript_1718;
+~clientscript_1719;
+~clientscript_1720;
+~clientscript_1721;

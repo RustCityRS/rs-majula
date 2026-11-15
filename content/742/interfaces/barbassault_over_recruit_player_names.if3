@@ -1,0 +1,261 @@
+// 256:0
+[layer_1]
+type=layer
+y=1
+width=278
+height=110
+xmode=abs_right
+
+// 256:1
+[top_outline]
+type=rectangle
+x=5
+y=5
+width=10
+height=18
+widthmode=minus
+layer=layer_1
+colour=0x000000
+
+// 256:2
+[bottom_outline]
+type=rectangle
+x=5
+y=22
+width=10
+height=82
+widthmode=minus
+layer=layer_1
+colour=0x000000
+
+// 256:3
+[top_bg]
+type=rectangle
+x=5
+y=5
+width=10
+height=18
+widthmode=minus
+layer=layer_1
+colour=0x000000
+fill=yes
+trans=128
+
+// 256:4
+[bottom_bg]
+type=rectangle
+x=5
+y=22
+width=10
+height=82
+widthmode=minus
+layer=layer_1
+colour=0x000000
+fill=yes
+trans=196
+
+// 256:5
+[barbassault_current_team]
+type=text
+x=28
+y=7
+width=165
+height=16
+layer=layer_1
+textfont=b12_full
+text=Current team
+textshadow=yes
+colour=0xffa81f
+
+// 256:6
+[barbassault_leader_name]
+type=text
+x=88
+y=26
+width=111
+height=16
+layer=layer_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xffa81f
+
+// 256:7
+[barbassault_player_1_name]
+type=text
+x=88
+y=41
+width=111
+height=16
+layer=layer_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xffa81f
+
+// 256:8
+[barbassault_player_2_name]
+type=text
+x=88
+y=56
+width=111
+height=16
+layer=layer_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xffa81f
+
+// 256:9
+[barbassault_player_3_name]
+type=text
+x=88
+y=71
+width=111
+height=16
+layer=layer_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xffa81f
+
+// 256:10
+[barbassault_player_4_name]
+type=text
+x=88
+y=86
+width=111
+height=16
+layer=layer_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xffa81f
+
+// 256:11
+[leader_label]
+type=text
+x=28
+y=26
+width=46
+height=16
+layer=layer_1
+textfont=p12_full
+text=Leader:
+textshadow=yes
+colour=0xffa800
+
+// 256:12
+[p1_label]
+type=text
+x=28
+y=41
+width=46
+height=16
+layer=layer_1
+textfont=p12_full
+text=Player 1:
+textshadow=yes
+colour=0xffa800
+
+// 256:13
+[p2_label]
+type=text
+x=28
+y=56
+width=46
+height=16
+layer=layer_1
+textfont=p12_full
+text=Player 2:
+textshadow=yes
+colour=0xffa800
+
+// 256:14
+[p3_label]
+type=text
+x=28
+y=71
+width=46
+height=16
+layer=layer_1
+textfont=p12_full
+text=Player 3:
+textshadow=yes
+colour=0xffa800
+
+// 256:15
+[p4_label]
+type=text
+x=28
+y=86
+width=46
+height=16
+layer=layer_1
+textfont=p12_full
+text=Player 4:
+textshadow=yes
+colour=0xffa800
+
+// 256:16
+[barbassault_leader_icon]
+type=model
+x=11
+y=27
+width=16
+height=16
+layer=layer_1
+model=null
+modelorigin=0,-1
+modelangle=512,0,0
+modelzoom=4000
+
+// 256:17
+[barbassault_player1_icon]
+type=model
+x=11
+y=42
+width=16
+height=16
+layer=layer_1
+model=null
+modelorigin=0,-1
+modelangle=512,0,0
+modelzoom=4000
+
+// 256:18
+[barbassault_player2_icon]
+type=model
+x=11
+y=57
+width=16
+height=16
+layer=layer_1
+model=null
+modelorigin=0,-1
+modelangle=512,0,0
+modelzoom=4000
+
+// 256:19
+[barbassault_player3_icon]
+type=model
+x=13
+y=72
+width=13
+height=15
+layer=layer_1
+model=null
+modelangle=512,0,0
+modelzoom=4000
+
+// 256:20
+[barbassault_player4_icon]
+type=model
+x=13
+y=87
+width=13
+height=15
+layer=layer_1
+model=null
+modelangle=512,0,0
+modelzoom=4000

@@ -1,0 +1,19 @@
+// 113
+[clientscript,gravedigger_spin](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (random(2) = 0) {
+    $int1 = calc(5 + random(12));
+} else {
+    $int1 = calc(-5 - random(12));
+}
+if (random(2) = 0) {
+    $int2 = calc(5 + random(12));
+} else {
+    $int2 = calc(-5 - random(12));
+}
+def_int $int3 = random(63);
+def_int $int4 = random(127);
+op713($int3, 4, 60, $int4, $component0);
+def_int $int5 = calc(clientclock + 100);
+if_setontimer($component0, "clientscript_5612($component0, $int3, $int4, random(2), $int5, $int1, $int2)");

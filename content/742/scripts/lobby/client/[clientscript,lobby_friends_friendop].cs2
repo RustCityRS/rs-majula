@@ -1,0 +1,16 @@
+// 3039
+[clientscript,lobby_friends_friendop](int $int0, int $int1, string $string0, int $int2)
+switch_int ($int0) {
+    case 1 :
+        if (userdetail_quickchat = false) {
+            ~lobbyscreen_input("Send message to <$string0>", "", 0, $string0, "");
+        } else {
+            mes("Users restricted to quick-chat cannot send messages from the Lobby.");
+        }
+    case 2 :
+        ~lobby_friends_join($int1);
+    case 3, 4 :
+        mes("That player is currently offline.");
+    case 10 :
+        friend_del(removetags($string0));
+}

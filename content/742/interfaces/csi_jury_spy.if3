@@ -1,0 +1,1365 @@
+// 987:0
+[background]
+type=layer
+width=512
+height=334
+transmitop=10
+op10=  
+
+// 987:1
+[close_button]
+type=graphic
+x=480
+y=3
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=  
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+
+// 987:2
+[background_top]
+type=graphic
+x=6
+y=22
+width=18
+height=70
+widthmode=minus
+layer=background
+graphic=graphic_2042
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 987:3
+[background_mid]
+type=graphic
+x=6
+y=92
+width=18
+height=148
+widthmode=minus
+heightmode=minus
+layer=background
+graphic=km_middlefillcolour
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 987:4
+[background_bot]
+type=graphic
+x=6
+y=11
+width=18
+height=46
+widthmode=minus
+ymode=abs_bottom
+layer=background
+graphic=graphic_2038
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 987:5
+[border_left]
+type=graphic
+x=-13
+y=32
+width=32
+height=69
+heightmode=minus
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 987:6
+[border_right]
+type=graphic
+x=-6
+y=32
+width=32
+height=69
+heightmode=minus
+xmode=abs_right
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 987:7
+[border_top]
+type=graphic
+x=32
+width=70
+height=32
+widthmode=minus
+layer=background
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=         
+
+// 987:8
+[border_bottom]
+type=graphic
+x=7
+y=-7
+width=32
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 987:9
+[border_top_left]
+type=graphic
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=         
+
+// 987:10
+[border_top_right]
+type=graphic
+x=6
+width=32
+height=32
+xmode=abs_right
+layer=background
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=         
+
+// 987:11
+[border_bottom_left]
+type=graphic
+y=5
+width=32
+height=32
+ymode=abs_bottom
+layer=background
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 987:12
+[border_bottom_right]
+type=graphic
+x=6
+y=5
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=background
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 987:13
+[confirm_layer]
+type=layer
+x=211
+y=293
+width=78
+height=30
+transmitop=1,10
+op1=Confirm Selection
+op10= 
+onmouseover=csi_jury_confirm_mouseover
+onmouseleave=csi_jury_confirm_mouseleave
+onvartransmit=csi_jury_select_highlight{varplayer_1840}
+
+// 987:14
+[confirm_m]
+type=graphic
+x=19
+y=3
+width=42
+height=22
+layer=confirm_layer
+graphic=graphic_3164
+tiling=yes
+colour=0x000000
+
+// 987:15
+[confirm_l]
+type=graphic
+x=3
+y=3
+width=16
+height=22
+layer=confirm_layer
+graphic=graphic_3163
+colour=0x000000
+
+// 987:16
+[confirm_r]
+type=graphic
+x=59
+y=3
+width=16
+height=22
+layer=confirm_layer
+graphic=graphic_3163
+hflip=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:17
+[bounding]
+type=layer
+width=512
+height=334
+
+// 987:18
+[jury_mem_2]
+type=layer
+x=95
+y=28
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 2)
+
+// 987:19
+[jury_mem_1]
+type=layer
+x=16
+y=28
+width=82
+height=130
+layer=bounding
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 1)
+
+// 987:20
+[jury_mem_3]
+type=layer
+x=174
+y=28
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=  
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 3)
+
+// 987:21
+[jury_mem_4]
+type=layer
+x=253
+y=28
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 4)
+
+// 987:22
+[jury_mem_5]
+type=layer
+x=332
+y=28
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=    
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 5)
+
+// 987:23
+[jury_mem_6]
+type=layer
+x=411
+y=28
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=     
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 6)
+
+// 987:24
+[jury_mem_7]
+type=layer
+x=16
+y=161
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 7)
+
+// 987:25
+[jury_mem_8]
+type=layer
+x=95
+y=161
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=  
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 8)
+
+// 987:26
+[jury_mem_9]
+type=layer
+x=174
+y=161
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 9)
+
+// 987:27
+[jury_mem_10]
+type=layer
+x=253
+y=161
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=    
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 10)
+
+// 987:28
+[jury_mem_11]
+type=layer
+x=332
+y=161
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=     
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 11)
+
+// 987:29
+[jury_mem_12]
+type=layer
+x=411
+y=161
+width=82
+height=130
+layer=bounding
+transmitop=1,10
+op1=Select
+op10=      
+opcursor0=cursor_use
+onmouseleave=deltooltip(csi_jury_spy:tooltip)
+onmouserepeat=csi_jury_tooltip(event_com, csi_jury_spy:tooltip, 12)
+
+// 987:30
+[selected]
+type=layer
+x=16
+y=28
+width=90
+height=140
+layer=bounding
+
+// 987:31
+[com_31]
+type=graphic
+width=8
+height=130
+layer=selected
+graphic=graphic_2285
+colour=0x000000
+
+// 987:32
+[com_32]
+type=graphic
+x=8
+width=64
+height=130
+layer=selected
+graphic=graphic_2286
+tiling=yes
+colour=0x000000
+
+// 987:33
+[com_33]
+type=graphic
+x=68
+width=8
+height=130
+layer=selected
+graphic=graphic_2285
+hflip=yes
+colour=0x000000
+
+// 987:34
+[com_34]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_12
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 987:35
+[com_35]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_12
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=      
+
+// 987:36
+[com_36]
+type=graphic
+width=8
+height=130
+layer=jury_mem_12
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=      
+
+// 987:37
+[jury_model_12]
+type=model
+x=11
+y=25
+width=53
+height=74
+layer=jury_mem_12
+model=model_57730
+modelorigin=4,2
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14704
+transmitop=10
+op10=      
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:38
+[jury_name_12]
+type=text
+x=6
+y=99
+width=64
+height=32
+layer=jury_mem_12
+textfont=p12_full
+text=Elderly Citizen
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=      
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:39
+[com_39]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_11
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 987:40
+[com_40]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_11
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 987:41
+[com_41]
+type=graphic
+width=8
+height=130
+layer=jury_mem_11
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=     
+
+// 987:42
+[jury_model_11]
+type=model
+x=10
+y=21
+width=57
+height=79
+layer=jury_mem_11
+model=model_57723
+modelorigin=3,4
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14706
+transmitop=10
+op10=     
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:43
+[jury_name_11]
+type=text
+x=7
+y=99
+width=64
+height=32
+layer=jury_mem_11
+textfont=p12_full
+text=Desert Dweller
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=     
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:44
+[com_44]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_10
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 987:45
+[com_45]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_10
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 987:46
+[com_46]
+type=graphic
+width=8
+height=130
+layer=jury_mem_10
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=    
+
+// 987:47
+[jury_model_10]
+type=model
+x=15
+y=22
+width=48
+height=77
+layer=jury_mem_10
+model=model_57731
+modelorigin=2,4
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14702
+transmitop=10
+op10=    
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:48
+[jury_name_10]
+type=text
+x=5
+y=100
+width=64
+height=32
+layer=jury_mem_10
+textfont=p12_full
+text=Shady Individual
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:49
+[com_49]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_9
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=   
+
+// 987:50
+[com_50]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_9
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=   
+
+// 987:51
+[com_51]
+type=graphic
+width=8
+height=130
+layer=jury_mem_9
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=   
+
+// 987:52
+[jury_model_9]
+type=model
+x=16
+y=24
+width=47
+height=75
+layer=jury_mem_9
+model=model_57724
+modelorigin=2,3
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14701
+transmitop=10
+op10=   
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:53
+[jury_name_9]
+type=text
+x=5
+y=100
+width=64
+height=32
+layer=jury_mem_9
+textfont=p12_full
+text=Young Woman
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:54
+[com_54]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_8
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=  
+
+// 987:55
+[com_55]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_8
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=  
+
+// 987:56
+[com_56]
+type=graphic
+width=8
+height=130
+layer=jury_mem_8
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=  
+
+// 987:57
+[jury_model_8]
+type=model
+x=11
+y=25
+width=53
+height=74
+layer=jury_mem_8
+model=model_57729
+modelorigin=4,2
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14710
+transmitop=10
+op10=  
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:58
+[jury_name_8]
+type=text
+x=5
+y=99
+width=64
+height=32
+layer=jury_mem_8
+textfont=p12_full
+text=Elderly Gentleman
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:59
+[com_59]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_7
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:60
+[com_60]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_7
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:61
+[com_61]
+type=graphic
+width=8
+height=130
+layer=jury_mem_7
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:62
+[jury_model_7]
+type=model
+x=15
+y=25
+width=47
+height=74
+layer=jury_mem_7
+model=model_57725
+modelorigin=3,2
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14708
+transmitop=10
+op10= 
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:63
+[jury_name_7]
+type=text
+x=5
+y=107
+width=64
+height=32
+layer=jury_mem_7
+textfont=p12_full
+text=Barbarian
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:64
+[com_64]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_6
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 987:65
+[com_65]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_6
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 987:66
+[com_66]
+type=graphic
+width=8
+height=130
+layer=jury_mem_6
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=     
+
+// 987:67
+[jury_model_6]
+type=model
+x=12
+y=22
+width=52
+height=77
+layer=jury_mem_6
+model=model_57734
+modelorigin=3,4
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14707
+transmitop=10
+op10=     
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:68
+[jury_name_6]
+type=text
+x=5
+y=99
+width=64
+height=32
+layer=jury_mem_6
+textfont=p12_full
+text=Young Man
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=     
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:69
+[com_69]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_5
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 987:70
+[com_70]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_5
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 987:71
+[com_71]
+type=graphic
+width=8
+height=130
+layer=jury_mem_5
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=    
+
+// 987:72
+[jury_model_5]
+type=model
+x=1
+y=11
+width=75
+height=87
+layer=jury_mem_5
+model=model_57728
+modelorigin=3,5
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14705
+transmitop=10
+op10=    
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:73
+[jury_name_5]
+type=text
+x=6
+y=99
+width=64
+height=32
+layer=jury_mem_5
+textfont=p12_full
+text=Shady Gentleman
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:74
+[com_74]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_4
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=   
+
+// 987:75
+[com_75]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_4
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=   
+
+// 987:76
+[com_76]
+type=graphic
+width=8
+height=130
+layer=jury_mem_4
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=   
+
+// 987:77
+[jury_model_4]
+type=model
+x=4
+y=-1
+width=73
+height=104
+layer=jury_mem_4
+model=model_57726
+modelorigin=1,17
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_12287
+transmitop=10
+op10=   
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:78
+[jury_name_4]
+type=text
+x=5
+y=107
+width=64
+height=32
+layer=jury_mem_4
+textfont=p12_full
+text=Cook
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:79
+[com_79]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_3
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10=  
+
+// 987:80
+[com_80]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_3
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=  
+
+// 987:81
+[com_81]
+type=graphic
+width=8
+height=130
+layer=jury_mem_3
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10=  
+
+// 987:82
+[jury_model_3]
+type=model
+x=12
+y=22
+width=51
+height=77
+layer=jury_mem_3
+model=model_57727
+modelorigin=4,4
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14711
+transmitop=10
+op10=  
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:83
+[jury_name_3]
+type=text
+x=5
+y=107
+width=64
+height=32
+layer=jury_mem_3
+textfont=p12_full
+text=Miner
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:84
+[com_84]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_1
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+
+// 987:85
+[com_85]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_1
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+
+// 987:86
+[com_86]
+type=graphic
+width=8
+height=130
+layer=jury_mem_1
+graphic=graphic_2283
+colour=0x000000
+
+// 987:87
+[jury_model_01]
+type=model
+x=11
+y=10
+width=59
+height=89
+layer=jury_mem_1
+model=model_57733
+modelorigin=1,10
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14709
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:88
+[jury_name_01]
+type=text
+x=5
+y=107
+width=64
+height=32
+layer=jury_mem_1
+textfont=p12_full
+text=Ranger
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:89
+[com_89]
+type=graphic
+x=68
+width=8
+height=130
+layer=jury_mem_2
+graphic=graphic_2283
+hflip=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:90
+[com_90]
+type=graphic
+x=8
+width=61
+height=130
+layer=jury_mem_2
+graphic=graphic_2284
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:91
+[com_91]
+type=graphic
+width=8
+height=130
+layer=jury_mem_2
+graphic=graphic_2283
+colour=0x000000
+transmitop=10
+op10= 
+
+// 987:92
+[jury_model_2]
+type=model
+x=-15
+y=15
+width=112
+height=84
+layer=jury_mem_2
+model=model_57732
+modelorigin=0,7
+modelangle=30,1999,0
+modelzoom=2600
+modelanim=seq_14702
+transmitop=10
+op10= 
+onmouseover=script3444(event_com)
+onmouseleave=script3445(event_com)
+
+// 987:93
+[jury_name_2]
+type=text
+x=5
+y=107
+width=64
+height=32
+layer=jury_mem_2
+textfont=p12_full
+text=Wizard
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xf1b670)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 987:94
+[tooltip]
+type=layer
+x=88
+y=243
+width=151
+height=68
+layer=bounding
+
+// 987:95
+[confirm]
+type=text
+x=5
+y=6
+width=70
+height=20
+layer=confirm_layer
+textfont=b12_full
+text=Confirm
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 987:96
+[title]
+type=text
+x=79
+y=2
+width=352
+height=17
+textfont=b12_full
+text=Choose a Jury Member
+textalignh=centre
+textshadow=yes
+colour=0xff981f

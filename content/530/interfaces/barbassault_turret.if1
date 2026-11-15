@@ -1,0 +1,867 @@
+// 495:0
+[com_0]
+type=model
+x=75
+y=238
+width=32
+height=32
+model=model_20553
+modelzoom=1800
+
+// 495:1
+[com_1]
+type=model
+x=36
+y=81
+width=32
+height=32
+model=model_20551
+modelzoom=1800
+
+// 495:2
+[com_2]
+type=model
+y=29
+width=32
+height=32
+model=model_20544
+modelzoom=1040
+
+// 495:3
+[com_3]
+type=model
+y=58
+width=32
+height=32
+model=model_20545
+modelzoom=1040
+
+// 495:4
+[com_4]
+type=model
+x=1
+y=86
+width=32
+height=32
+model=model_20543
+modelzoom=1040
+
+// 495:5
+[com_5]
+type=model
+x=-58
+y=-29
+width=32
+height=32
+layer=com_8
+model=model_38337
+modelzoom=1040
+
+// 495:6
+[com_6]
+type=model
+x=-34
+y=24
+width=32
+height=32
+layer=com_9
+model=model_38336
+modelzoom=1040
+
+// 495:7
+[com_7]
+type=model
+x=-81
+y=4
+width=32
+height=32
+layer=com_10
+model=model_38334
+modelzoom=1040
+
+// 495:8
+[com_8]
+type=layer
+x=58
+y=58
+width=32
+height=32
+hide=yes
+
+// 495:9
+[com_9]
+type=layer
+x=34
+y=34
+width=32
+height=32
+hide=yes
+
+// 495:10
+[com_10]
+type=layer
+x=82
+y=82
+width=32
+height=32
+hide=yes
+
+// 495:11
+[barbassault_poison_healer]
+type=text
+x=34
+y=21
+width=52
+height=28
+buttontype=normal
+overlayer=com_8
+textfont=fontmetrics_495
+text=Poison
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Poison egg -> Healer
+
+// 495:12
+[barbassault_explosive_healer]
+type=text
+x=34
+y=50
+width=52
+height=28
+buttontype=normal
+overlayer=com_9
+textfont=fontmetrics_495
+text=Explosive
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Explosive egg -> Healer
+
+// 495:13
+[barbassault_stun_healer]
+type=text
+x=34
+y=80
+width=52
+height=28
+buttontype=normal
+overlayer=com_10
+textfont=fontmetrics_495
+text=Stun
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Stun egg -> Healer
+
+// 495:14
+[com_14]
+type=model
+x=130
+y=81
+width=32
+height=32
+model=model_20556
+modelzoom=1800
+
+// 495:15
+[com_15]
+type=model
+x=94
+y=27
+width=32
+height=32
+model=model_20544
+modelzoom=1040
+
+// 495:16
+[com_16]
+type=model
+x=94
+y=56
+width=32
+height=32
+model=model_20545
+modelzoom=1040
+
+// 495:17
+[com_17]
+type=model
+x=94
+y=84
+width=32
+height=32
+model=model_20543
+modelzoom=1040
+
+// 495:18
+[com_18]
+type=model
+x=-36
+y=-104
+width=32
+height=32
+layer=com_21
+model=model_38337
+modelzoom=1040
+
+// 495:19
+[com_19]
+type=model
+x=-60
+y=-99
+width=32
+height=32
+layer=com_22
+model=model_38336
+modelzoom=1040
+
+// 495:20
+[com_20]
+type=model
+x=86
+y=-95
+width=32
+height=32
+layer=com_23
+model=model_38334
+modelzoom=1040
+
+// 495:21
+[com_21]
+type=layer
+x=130
+y=130
+width=32
+height=32
+hide=yes
+
+// 495:22
+[com_22]
+type=layer
+x=154
+y=154
+width=32
+height=32
+hide=yes
+
+// 495:23
+[com_23]
+type=layer
+x=8
+y=178
+width=32
+height=32
+hide=yes
+
+// 495:24
+[barbassault_poison_runner]
+type=text
+x=129
+y=21
+width=52
+height=28
+buttontype=normal
+overlayer=com_21
+textfont=fontmetrics_495
+text=Poison
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Poison egg -> Runner
+
+// 495:25
+[barbassault_explosive_runner]
+type=text
+x=129
+y=50
+width=52
+height=28
+buttontype=normal
+overlayer=com_22
+textfont=fontmetrics_495
+text=Explosive
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Explosive egg -> Runner
+
+// 495:26
+[barbassault_stun_runner]
+type=text
+x=129
+y=80
+width=52
+height=28
+buttontype=normal
+overlayer=com_23
+textfont=fontmetrics_495
+text=Stun
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Stun egg -> Runner
+
+// 495:27
+[com_27]
+type=model
+x=35
+y=164
+width=32
+height=32
+model=model_20548
+modelzoom=1800
+
+// 495:28
+[com_28]
+type=model
+y=115
+width=32
+height=32
+model=model_20544
+modelzoom=1040
+
+// 495:29
+[com_29]
+type=model
+y=144
+width=32
+height=32
+model=model_20545
+modelzoom=1040
+
+// 495:30
+[com_30]
+type=model
+x=1
+y=172
+width=32
+height=32
+model=model_20543
+modelzoom=1040
+
+// 495:31
+[com_31]
+type=model
+x=-106
+y=9
+width=32
+height=32
+layer=com_34
+model=model_38337
+modelzoom=1040
+
+// 495:32
+[com_32]
+type=model
+x=-56
+y=-82
+width=32
+height=32
+layer=com_35
+model=model_38336
+modelzoom=1040
+
+// 495:33
+[com_33]
+type=model
+x=-79
+y=163
+width=32
+height=32
+layer=com_36
+model=model_38334
+modelzoom=1040
+
+// 495:34
+[com_34]
+type=layer
+x=106
+y=106
+width=32
+height=32
+hide=yes
+
+// 495:35
+[com_35]
+type=layer
+x=56
+y=226
+width=32
+height=32
+hide=yes
+
+// 495:36
+[com_36]
+type=layer
+x=80
+y=9
+width=32
+height=32
+hide=yes
+
+// 495:37
+[barbassault_poison_fighter]
+type=text
+x=34
+y=104
+width=52
+height=28
+buttontype=normal
+overlayer=com_34
+textfont=fontmetrics_495
+text=Poison
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Poison egg -> Fighter
+
+// 495:38
+[barbassault_explosive_fighter]
+type=text
+x=34
+y=133
+width=52
+height=28
+buttontype=normal
+overlayer=com_35
+textfont=fontmetrics_495
+text=Explosive
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Explosive egg -> Fighter
+
+// 495:39
+[barbassault_stun_fighter]
+type=text
+x=34
+y=162
+width=52
+height=28
+buttontype=normal
+overlayer=com_36
+textfont=fontmetrics_495
+text=Stun
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Stun egg -> Fighter
+
+// 495:40
+[com_40]
+type=model
+x=129
+y=163
+width=32
+height=32
+model=model_20555
+modelzoom=1800
+
+// 495:41
+[com_41]
+type=model
+x=94
+y=114
+width=32
+height=32
+model=model_20544
+modelzoom=1040
+
+// 495:42
+[com_42]
+type=model
+x=94
+y=143
+width=32
+height=32
+model=model_20545
+modelzoom=1040
+
+// 495:43
+[com_43]
+type=model
+x=94
+y=171
+width=32
+height=32
+model=model_20543
+modelzoom=1040
+
+// 495:44
+[com_44]
+type=model
+x=-10
+y=81
+width=32
+height=32
+layer=com_47
+model=model_38337
+modelzoom=1040
+
+// 495:45
+[com_45]
+type=model
+x=62
+y=-59
+width=32
+height=32
+layer=com_48
+model=model_38336
+modelzoom=1040
+
+// 495:46
+[com_46]
+type=model
+x=-34
+y=114
+width=32
+height=32
+layer=com_49
+model=model_38334
+modelzoom=1040
+
+// 495:47
+[com_47]
+type=layer
+x=104
+y=33
+width=32
+height=32
+hide=yes
+
+// 495:48
+[com_48]
+type=layer
+x=32
+y=202
+width=32
+height=32
+hide=yes
+
+// 495:49
+[com_49]
+type=layer
+x=128
+y=57
+width=32
+height=32
+hide=yes
+
+// 495:50
+[barbassault_poison_ranger]
+type=text
+x=129
+y=104
+width=52
+height=28
+buttontype=normal
+overlayer=com_47
+textfont=fontmetrics_495
+text=Poison
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Poison egg -> Ranger
+
+// 495:51
+[barbassault_explosive_ranger]
+type=text
+x=129
+y=133
+width=52
+height=28
+buttontype=normal
+overlayer=com_48
+textfont=fontmetrics_495
+text=Explosive
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Explosive egg -> Ranger
+
+// 495:52
+[barbassault_stun_ranger]
+type=text
+x=129
+y=162
+width=52
+height=28
+buttontype=normal
+overlayer=com_49
+textfont=fontmetrics_495
+text=Stun
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Stun egg -> Ranger
+
+// 495:53
+[com_53]
+type=model
+x=41
+y=238
+width=32
+height=32
+model=model_20572
+modelzoom=1040
+
+// 495:54
+[com_54]
+type=model
+x=-111
+y=157
+width=32
+height=32
+layer=com_55
+model=model_38335
+modelzoom=1040
+
+// 495:55
+[com_55]
+type=layer
+x=152
+y=81
+width=32
+height=32
+hide=yes
+
+// 495:56
+[barbassault_omega_queen]
+type=text
+x=75
+y=229
+width=42
+height=28
+buttontype=normal
+overlayer=com_55
+textfont=fontmetrics_495
+text=Omega
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+overcolour=0xe1981f
+option=Omega egg -> Queen
+
+// 495:57
+[owned_340]
+type=text
+x=2
+y=27
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:58
+[owned_341]
+type=text
+x=2
+y=56
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:59
+[owned_342]
+type=text
+x=2
+y=87
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:60
+[owned_343]
+type=text
+x=95
+y=25
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:61
+[owned_344]
+type=text
+x=95
+y=54
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:62
+[owned_345]
+type=text
+x=95
+y=85
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:63
+[owned_346]
+type=text
+x=1
+y=110
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:64
+[owned_347]
+type=text
+x=1
+y=139
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:65
+[owned_348]
+type=text
+x=1
+y=170
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:66
+[com_66]
+type=text
+x=95
+y=109
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:67
+[com_67]
+type=text
+x=95
+y=138
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:68
+[com_68]
+type=text
+x=95
+y=169
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:69
+[com_69]
+type=text
+x=40
+y=236
+width=30
+height=16
+textfont=fontmetrics_495
+text=##
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 495:70
+[com_70]
+type=graphic
+x=163
+y=8
+width=16
+height=16
+overlayer=com_72
+graphic=graphic_831
+
+// 495:71
+[com_71]
+type=graphic
+width=16
+height=16
+layer=com_72
+graphic=graphic_832
+
+// 495:72
+[com_72]
+type=layer
+x=164
+y=8
+width=16
+height=16
+hide=yes
+buttontype=normal
+option=Close

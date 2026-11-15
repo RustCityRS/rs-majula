@@ -5,7 +5,7 @@
 //! square at all. Multi-combat is the `multiway` area painted in the maps'
 //! `a<mx>_<mz>.jm2` files.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_grid::CoordGrid;
 use rs_test::runner;

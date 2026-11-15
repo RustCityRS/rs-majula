@@ -1,0 +1,39 @@
+// 502
+[clientscript,script502](component $component0, component $component1)
+if ($component0 = conq_set_formation:unit_1_text & %conq_unit_1_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_2_text & %conq_unit_2_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_3_text & %conq_unit_3_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_4_text & %conq_unit_4_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_5_text & %conq_unit_5_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_6_text & %conq_unit_6_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_7_text & %conq_unit_7_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_8_text & %conq_unit_8_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_9_text & %conq_unit_9_type = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:unit_10_text & %conq_unit_10_type = 0) {
+    return;
+}
+switch_component ($component1) {
+    case default :
+        return;
+    case conq_set_formation:tile_text_1, conq_set_formation:tile_text_2, conq_set_formation:tile_text_3, conq_set_formation:tile_text_4, conq_set_formation:tile_text_5, conq_set_formation:tile_text_6, conq_set_formation:tile_text_7, conq_set_formation:tile_text_8, conq_set_formation:tile_text_9, conq_set_formation:tile_text_10, conq_set_formation:tile_text_11, conq_set_formation:tile_text_12, conq_set_formation:tile_text_13, conq_set_formation:tile_text_14, conq_set_formation:tile_text_15, conq_set_formation:tile_text_16, conq_set_formation:tile_text_17, conq_set_formation:tile_text_18, conq_set_formation:tile_text_19, conq_set_formation:tile_text_20, conq_set_formation:tile_text_21, conq_set_formation:tile_text_22, conq_set_formation:tile_text_23, conq_set_formation:tile_text_24, conq_set_formation:tile_text_25, conq_set_formation:tile_text_26, conq_set_formation:tile_text_27, conq_set_formation:tile_text_28, conq_set_formation:tile_text_29, conq_set_formation:tile_text_30, conq_set_formation:tile_text_31, conq_set_formation:tile_text_32, conq_set_formation:tile_text_33, conq_set_formation:tile_text_34, conq_set_formation:tile_text_35, conq_set_formation:tile_text_36, conq_set_formation:tile_text_37, conq_set_formation:tile_text_38, conq_set_formation:tile_text_39, conq_set_formation:tile_text_40, conq_set_formation:tile_text_41, conq_set_formation:tile_text_42, conq_set_formation:tile_text_43, conq_set_formation:tile_text_44, conq_set_formation:tile_text_45, conq_set_formation:tile_text_46, conq_set_formation:tile_text_47, conq_set_formation:tile_text_48, conq_set_formation:tile_text_49, conq_set_formation:tile_text_50, conq_set_formation:tile_text_51, conq_set_formation:tile_text_52, conq_set_formation:tile_text_53, conq_set_formation:tile_text_54, conq_set_formation:tile_text_55, conq_set_formation:tile_text_56, conq_set_formation:tile_text_57, conq_set_formation:tile_text_58, conq_set_formation:tile_text_59, conq_set_formation:tile_text_60 :
+        if_sethide($component0, true);
+        %conq_loading = 1;
+}

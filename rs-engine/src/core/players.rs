@@ -16,6 +16,10 @@ pub struct PlayerList {
     cursor: u16,
     pid_scratch: Vec<u16>,
     pub(super) isolated: u16,
+    /// The lobby's players: in a slot, out of the processing order and the
+    /// user37 index, so no world phase sees them.
+    #[cfg(since_647)]
+    pub lobby: Vec<u16>,
 }
 
 impl PlayerList {
@@ -32,6 +36,8 @@ impl PlayerList {
             cursor: (MAX_PLAYERS - 2) as u16,
             pid_scratch: Vec::with_capacity(MAX_PLAYERS),
             isolated: 0,
+            #[cfg(since_647)]
+            lobby: Vec::new(),
         }
     }
 
@@ -77,6 +83,11 @@ impl PlayerList {
     /// still names `pid`, and uncounts it if it is isolated staff.
     pub fn remove(&mut self, pid: u16) -> Option<ActivePlayer> {
         let active = self.players[pid as usize].take()?;
+        #[cfg(since_647)]
+        if active.lobby {
+            self.lobby.retain(|&p| p != pid);
+            return Some(active);
+        }
         self.processing.unlink(self.node_map[pid as usize]);
         self.isolated -= active.player.staff_mod_level.is_isolated() as u16;
         let user37 = active.player.uid.username37();
@@ -84,6 +95,15 @@ impl PlayerList {
             self.by_user37.remove(&user37);
         }
         Some(active)
+    }
+
+    /// Puts lobby player `active` in slot `pid`, outside the processing
+    /// order and the user37 index.
+    #[cfg(since_647)]
+    pub fn add_lobby(&mut self, pid: u16, active: ActivePlayer) {
+        self.cursor = pid;
+        self.lobby.push(pid);
+        self.players[pid as usize] = Some(active);
     }
 
     /// The player in slot `pid`, if any.

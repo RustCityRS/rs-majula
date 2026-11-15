@@ -1,0 +1,35 @@
+[proc,starter_weapon_count](obj $weapon)(int)
+if ($weapon ! staff_of_air & $weapon ! sling) {
+    return(0);
+}
+// Varp 66 is server-only: staff count, sling count, then the runeday.
+if (getbit_range(%varplayer_66, 6, 31) ! date_runeday) {
+    %varplayer_66 = setbit_range_toint(0, date_runeday, 6, 31);
+}
+switch_obj($weapon) {
+    case staff_of_air : return(getbit_range(%varplayer_66, 0, 2));
+    case sling : return(getbit_range(%varplayer_66, 3, 5));
+}
+return(0);
+
+[proc,starter_weapon_can_drop](obj $weapon)(boolean)
+return(inv_total(inv, $weapon) = 0 & ~starter_weapon_count($weapon) < 5);
+
+[proc,starter_weapon_drop](namedobj $weapon, int $chance)
+if (~starter_weapon_can_drop($weapon) = true & random($chance) = 0) {
+    obj_add(npc_coord, $weapon, 1, ^lootdrop_duration);
+}
+
+[proc,starter_weapon_pickup_check](obj $weapon)(boolean)
+if (~starter_weapon_count($weapon) >= 5) {
+    mes("You may only collect five of these per day.");
+    return(false);
+}
+return(true);
+
+[proc,starter_weapon_collected](obj $weapon, int $amount)
+def_int $count = calc(~starter_weapon_count($weapon) + $amount);
+switch_obj($weapon) {
+    case staff_of_air : %varplayer_66 = setbit_range_toint(%varplayer_66, $count, 0, 2);
+    case sling : %varplayer_66 = setbit_range_toint(%varplayer_66, $count, 3, 5);
+}

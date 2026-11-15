@@ -1,0 +1,930 @@
+// 1151:0
+[com_0]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_63
+graphic="aif_notetabs,0"
+
+// 1151:1
+[com_1]
+type=layer
+x=6
+y=18
+width=15
+height=31
+widthmode=minus
+heightmode=minus
+
+// 1151:2
+[com_2]
+type=layer
+x=154
+y=123
+width=205
+height=142
+
+// 1151:3
+[com_3]
+type=layer
+x=182
+y=42
+width=209
+height=193
+
+// 1151:4
+[com_4]
+type=layer
+x=13
+y=48
+width=177
+height=80
+
+// 1151:5
+[com_5]
+type=layer
+x=10
+y=192
+width=209
+height=193
+
+// 1151:6
+[com_6]
+type=layer
+x=164
+y=202
+width=180
+height=127
+
+// 1151:7
+[com_7]
+type=graphic
+y=1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+graphic=window_texture_1
+tiling=yes
+
+// 1151:8
+[com_8]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 1151:9
+[com_9]
+type=graphic
+width=364
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_bot_brdr_left
+
+// 1151:10
+[com_10]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_1
+graphic=aif_window_stone_close_corner_3
+
+// 1151:11
+[com_11]
+type=graphic
+width=8
+height=190
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1151:12
+[com_12]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_1
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1151:13
+[com_13]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_1
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 1151:14
+[com_14]
+type=graphic
+x=63
+width=120
+height=7
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_bot_brdr_left
+
+// 1151:15
+[com_15]
+type=graphic
+x=63
+width=120
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_bot_brdr_left
+
+// 1151:16
+[com_16]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1151:17
+[com_17]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_1
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1151:18
+[com_18]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1151:19
+[com_19]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_1
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 1151:20
+[com_20]
+type=graphic
+width=8
+height=190
+heightmode=minus
+ymode=abs_centre
+layer=com_1
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1151:21
+[com_21]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_side_brdr_small
+
+// 1151:22
+[com_22]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1151:23
+[com_23]
+type=graphic
+x=8
+width=56
+height=29
+xmode=abs_right
+layer=com_1
+graphic=aif_window_stone_close_corner_1
+
+// 1151:24
+[com_24]
+type=graphic
+x=8
+width=56
+height=29
+layer=com_1
+graphic=aif_window_stone_left_corner_1
+
+// 1151:25
+[com_25]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_1
+graphic=aif_window_stone_bot_corn
+
+// 1151:26
+[com_26]
+type=graphic
+width=8
+height=29
+layer=com_1
+graphic=aif_window_stone_left_corner_2
+
+// 1151:27
+[com_27]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_1
+graphic=aif_window_stone_close_corner_2
+
+// 1151:28
+[com_28]
+type=layer
+x=5
+y=5
+width=15
+height=13
+xmode=abs_right
+layer=com_1
+
+// 1151:29
+[com_29]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_28
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1151:30
+[com_30]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_28
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1151:31
+[com_31]
+type=graphic
+width=15
+height=13
+xmode=abs_right
+layer=com_28
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1151:32
+[com_32]
+type=layer
+width=16391
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_1
+
+// 1151:33
+[com_33]
+type=text
+width=8192
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=palatino_linotype_18pt_regular
+text=Deathcon II Noticeboard
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1151:34
+[com_34]
+type=layer
+x=294
+y=195
+width=193
+height=121
+
+// 1151:35
+[com_35]
+type=text
+x=30
+y=26
+width=132
+height=48
+layer=com_63
+textfont=verdana_13pt_regular
+text=Help needed setting up welcome portal statues, per favore.
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:36
+[com_36]
+type=text
+x=25
+y=85
+width=131
+height=48
+layer=com_63
+textfont=verdana_13pt_regular
+text=-Beauty<br>xoxo
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:37
+[com_37]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_42
+graphic="aif_notetabs,1"
+
+// 1151:38
+[com_38]
+type=text
+x=19
+y=18
+width=131
+height=48
+layer=com_42
+textfont=verdana_13pt_regular
+text=Party room.<br>Dance floor.<br>Help.
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:39
+[com_39]
+type=text
+x=-24
+y=71
+width=131
+height=48
+layer=com_42
+textfont=verdana_13pt_regular
+text=-Infinity
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:40
+[com_40]
+type=layer
+x=374
+y=53
+width=120
+height=111
+
+// 1151:41
+[com_41]
+type=layer
+x=324
+y=136
+width=180
+height=127
+
+// 1151:42
+[com_42]
+type=layer
+x=358
+y=68
+width=120
+height=111
+
+// 1151:43
+[com_43]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_64
+graphic="aif_notetabs,2"
+
+// 1151:44
+[com_44]
+type=text
+x=31
+y=23
+width=131
+height=48
+layer=com_64
+textfont=verdana_13pt_regular
+text=Could someone give me a hand with the fireworks, up on the roof?
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:45
+[com_45]
+type=text
+x=38
+y=106
+width=131
+height=48
+layer=com_64
+textfont=verdana_13pt_regular
+text=-Frank & Horses
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:46
+[com_46]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_62
+graphic="aif_notetabs,4"
+
+// 1151:47
+[com_47]
+type=text
+x=31
+y=30
+width=131
+height=48
+layer=com_62
+textfont=verdana_13pt_regular
+text=What: Special event<br><br>When: Saturday 29th October, ~2pm (BST)<br><br>Where: the theatre (on the roof)...
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:48
+[com_48]
+type=text
+x=54
+y=151
+width=131
+height=48
+layer=com_62
+textfont=verdana_13pt_regular
+text=-Death
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:49
+[com_49]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_40
+graphic="aif_notetabs,4"
+
+// 1151:50
+[com_50]
+type=text
+x=19
+y=18
+width=131
+height=48
+layer=com_40
+textfont=verdana_13pt_regular
+text=Party room.<br>After party!<br>Hot tunes.
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:51
+[com_51]
+type=text
+x=-24
+y=71
+width=131
+height=48
+layer=com_40
+textfont=verdana_13pt_regular
+text=-Infinity
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:52
+[com_52]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_34
+graphic="aif_notetabs,1"
+
+// 1151:53
+[com_53]
+type=text
+x=31
+y=23
+width=131
+height=48
+layer=com_34
+textfont=verdana_13pt_regular
+text=Fireworks display! Come to the roof anytime!
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:54
+[com_54]
+type=text
+x=39
+y=81
+width=131
+height=48
+layer=com_34
+textfont=verdana_13pt_regular
+text=-Frank & Horses
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:55
+[com_55]
+type=graphic
+x=8
+y=8
+width=14752
+height=14068
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+graphic="aif_notetabs,1"
+
+// 1151:56
+[com_56]
+type=text
+x=30
+y=26
+width=132
+height=48
+layer=com_6
+textfont=verdana_13pt_regular
+text=Could whoever keeps stealing my kills please stop?
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:57
+[com_57]
+type=text
+x=25
+y=85
+width=131
+height=48
+layer=com_6
+textfont=verdana_13pt_regular
+text=-Death
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:58
+[com_58]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_4
+graphic="aif_notetabs,0"
+
+// 1151:59
+[com_59]
+type=text
+x=19
+y=18
+width=136
+height=48
+layer=com_4
+textfont=verdana_13pt_regular
+text=You'll never stop me!
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:60
+[com_60]
+type=text
+x=21
+y=45
+width=131
+height=48
+layer=com_4
+textfont=verdana_13pt_regular
+text=-Bill Posters
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:61
+[com_61]
+type=layer
+x=28
+y=103
+width=201
+height=138
+
+// 1151:62
+[com_62]
+type=layer
+x=15
+y=111
+width=209
+height=193
+
+// 1151:63
+[com_63]
+type=layer
+x=174
+y=64
+width=194
+height=147
+
+// 1151:64
+[com_64]
+type=layer
+x=303
+y=171
+width=194
+height=147
+
+// 1151:65
+[com_65]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_61
+graphic="aif_notetabs,2"
+
+// 1151:66
+[com_66]
+type=text
+x=31
+y=23
+width=131
+height=48
+layer=com_61
+textfont=verdana_13pt_regular
+text=I'll be making a public appearance in the theatre, up on the keep roof.
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:67
+[com_67]
+type=text
+x=42
+y=100
+width=131
+height=48
+layer=com_61
+textfont=verdana_13pt_regular
+text=-Fame
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:68
+[com_68]
+type=graphic
+x=1
+y=3
+width=15935
+height=12004
+widthmode=proportion
+heightmode=proportion
+layer=com_41
+graphic="aif_notetabs,2"
+
+// 1151:69
+[com_69]
+type=text
+x=24
+y=20
+width=132
+height=48
+layer=com_41
+textfont=verdana_13pt_regular
+text=Craggyteeth woz 'ere!
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:70
+[com_70]
+type=text
+x=25
+y=54
+width=131
+height=48
+layer=com_41
+textfont=verdana_13pt_regular
+text=-Craggyteeth
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:71
+[com_71]
+type=graphic
+x=2
+y=8
+width=13804
+height=9175
+widthmode=proportion
+heightmode=proportion
+layer=com_5
+graphic="aif_notetabs,4"
+
+// 1151:72
+[com_72]
+type=text
+x=31
+y=30
+width=131
+height=48
+layer=com_5
+textfont=verdana_13pt_regular
+text=23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:73
+[com_73]
+type=text
+x=17
+y=75
+width=131
+height=48
+layer=com_5
+textfont=verdana_13pt_regular
+text=-Burroughs
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:74
+[com_74]
+type=graphic
+x=7
+y=8
+width=15371
+height=10024
+widthmode=proportion
+heightmode=proportion
+layer=com_3
+graphic="aif_notetabs,3"
+
+// 1151:75
+[com_75]
+type=text
+x=31
+y=30
+width=131
+height=48
+layer=com_3
+textfont=verdana_13pt_regular
+text=Would everyone please stop drinking my bath water!
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:76
+[com_76]
+type=text
+x=12
+y=84
+width=173
+height=35
+layer=com_3
+textfont=verdana_13pt_regular
+text=-Punchy (the octopus)
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:77
+[com_77]
+type=graphic
+x=1
+y=-4
+width=16550
+height=13621
+widthmode=proportion
+heightmode=proportion
+layer=com_2
+graphic="aif_notetabs,0"
+
+// 1151:78
+[com_78]
+type=text
+x=27
+y=17
+width=158
+height=47
+layer=com_2
+textfont=verdana_13pt_regular
+text=Lost human. Answers to the name of Unferth. If found, please return to Burthorpe.
+textlineheight=15
+textshadow=yes
+colour=0xebe0bc
+
+// 1151:79
+[com_79]
+type=text
+x=50
+y=82
+width=131
+height=48
+layer=com_2
+textfont=verdana_13pt_regular
+text=-Bob the cat
+textlineheight=15
+textalignh=right
+textshadow=yes
+colour=0xebe0bc

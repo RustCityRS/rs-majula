@@ -1,0 +1,120 @@
+// 427:0
+[com_0]
+type=model
+x=21
+y=45
+width=470
+height=261
+model=model_9853
+modelorigin=5,9
+modelangle=490,0,0
+modelzoom=800
+
+// 427:1
+[messagescroll1_gf]
+type=text
+x=81
+y=89
+width=344
+height=17
+textfont=q8_full
+text=I (insert full name here) do hereby swear fealty   
+textalignh=centre
+colour=0x362407
+
+// 427:2
+[messagescroll2_gf]
+type=text
+x=82
+y=113
+width=344
+height=17
+textfont=q8_full
+text=and indebtedness to the Fairy Godfather until
+textalignh=centre
+colour=0x362407
+
+// 427:3
+[messagescroll3_gf]
+type=text
+x=82
+y=137
+width=295
+height=17
+textfont=q8_full
+text=such time as he releases me from my bond.
+textalignh=centre
+colour=0x362407
+
+// 427:4
+[messagescroll4_gf]
+type=text
+x=82
+y=160
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 427:5
+[messagescroll5_gf]
+type=text
+x=82
+y=182
+width=44
+height=17
+textfont=q8_full
+text=Signed
+textalignh=centre
+colour=0x362407
+
+// 427:6
+[messagescroll6_gf]
+type=text
+x=82
+y=204
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 427:7
+[messagescroll7_gf]
+type=text
+x=82
+y=226
+width=214
+height=17
+textfont=q8_full
+text=(insert full name and date here)
+textalignh=centre
+colour=0x362407
+
+// 427:8
+[messagescroll8_gf]
+type=text
+x=82
+y=249
+width=340
+height=16
+textfont=q8_full
+textalignh=centre
+colour=0x362407
+
+// 427:9
+[close_button]
+type=graphic
+x=420
+y=52
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=         
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

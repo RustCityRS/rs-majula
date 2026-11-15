@@ -1,0 +1,9 @@
+// 5606
+[proc,clientscript_5606]
+if_settext(interface_290:com_10, tostring(%varclient_1747));
+if_settext(interface_290:com_11, tostring(%varclient_1746));
+if (%varclient_1748 = true) {
+    if_settext(interface_290:com_8, "Whitezag");
+} else {
+    if_settext(interface_290:com_8, "Grayzag");
+}

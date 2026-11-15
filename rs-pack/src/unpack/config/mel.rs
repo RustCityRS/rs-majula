@@ -1,12 +1,13 @@
 use super::{UnpackedPacks, format_colour};
 use crate::cache::mel::{MelType, ShowVar};
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn condition(var: &ShowVar, packs: &UnpackedPacks) -> String {
     let name = if let Some(varbit) = var.varbit {
         packs.reference("varpbit", varbit)
     } else {
-        packs.reference("varp", var.varp.unwrap_or(u16::MAX))
+        packs.reference("varp", var.varp.unwrap_or(TypeId::NULL))
     };
     format!("{name},{},{}", var.min, var.max)
 }

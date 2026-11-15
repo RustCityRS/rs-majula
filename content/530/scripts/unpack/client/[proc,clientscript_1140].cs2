@@ -1,0 +1,6 @@
+// 1140
+[proc,clientscript_1140](int $int0, component $component1)
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = 0 | $int2 = 1 | $int2 = 2) {
+    unknown_command_6011($int2);
+}

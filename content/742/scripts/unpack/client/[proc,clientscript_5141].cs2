@@ -1,0 +1,7 @@
+// 5141
+[proc,clientscript_5141](component $component0)
+if (if_gethide($component0) = true) {
+    if_sethide($component0, false);
+} else {
+    if_sethide($component0, true);
+}

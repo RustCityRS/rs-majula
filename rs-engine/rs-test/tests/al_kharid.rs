@@ -13,6 +13,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{explore, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -23,12 +24,12 @@ static TURN: Mutex<()> = Mutex::new(());
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
 /// the npc reaches (npcs wander).
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
@@ -126,14 +127,15 @@ fn al_kharid_s_npcs_answer_every_branch() {
 fn ellis_tans_on_2011_s_tanning_interface() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let obj = |engine: &Engine, name: &str| *engine.cache.objs.debugnames.get(name).unwrap();
+        let obj =
+            |engine: &Engine, name: &str| engine.cache.objs.get_by_debugname(name).unwrap().id;
         let (cowhide, leather, hard, coins) = (
             obj(engine, "cow_hide"),
             obj(engine, "leather"),
             obj(engine, "hard_leather"),
             obj(engine, "coins"),
         );
-        let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         engine.harness_reset();
         let mut client = engine
             .harness_login_returning("tanner_customer")
@@ -181,7 +183,7 @@ fn ellis_tans_on_2011_s_tanning_interface() {
                 .invs
                 .get(&backpack)
                 .unwrap()
-                .total(o)
+                .total(TypeId::new(o))
         };
         press(&mut client, ClientProt::IfButton1, 1);
         for _ in 0..3 {
@@ -189,9 +191,9 @@ fn ellis_tans_on_2011_s_tanning_interface() {
         }
         assert_eq!(
             (
-                total(engine, leather),
-                total(engine, cowhide),
-                total(engine, coins)
+                total(engine, leather.g2()),
+                total(engine, cowhide.g2()),
+                total(engine, coins.g2())
             ),
             (1, 2, 9)
         );
@@ -208,9 +210,9 @@ fn ellis_tans_on_2011_s_tanning_interface() {
         }
         assert_eq!(
             (
-                total(engine, hard),
-                total(engine, cowhide),
-                total(engine, coins)
+                total(engine, hard.g2()),
+                total(engine, cowhide.g2()),
+                total(engine, coins.g2())
             ),
             (2, 0, 3)
         );

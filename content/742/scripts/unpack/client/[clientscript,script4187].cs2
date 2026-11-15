@@ -1,0 +1,7 @@
+// 4187
+[clientscript,script4187](int $int0)
+if (clientclock < $int0) {
+    return;
+}
+if_setontimer(interface_1072:blocker, null);
+if_sethide(interface_1072:blocker, true);

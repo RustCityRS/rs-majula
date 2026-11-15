@@ -1,0 +1,17 @@
+// 5524
+[proc,clientscript_5524](int $int0)
+if (if_gethide(skillmulti2010_numbers:com_4_) = false) {
+    if ($int0 = 1) {
+        if_setgraphic(skillmulti2010_numbers:com_1, graphic_3860);
+        if_setgraphic(skillmulti2010_numbers:com_2_, graphic_3861);
+        if_setgraphic(skillmulti2010_numbers:com_0, graphic_3862);
+        if_setgraphic(skillmulti2010_numbers:com_3_, graphic_3884);
+    }
+    if ($int0 = 0) {
+        if_setgraphic(skillmulti2010_numbers:com_1, graphic_3857);
+        if_setgraphic(skillmulti2010_numbers:com_2_, graphic_3858);
+        if_setgraphic(skillmulti2010_numbers:com_0, graphic_3859);
+        if_setgraphic(skillmulti2010_numbers:com_3_, graphic_3883);
+        ~deltooltip_action(skillmulti2010:tooltip);
+    }
+}

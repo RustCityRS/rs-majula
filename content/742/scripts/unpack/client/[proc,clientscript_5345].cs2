@@ -1,0 +1,16 @@
+// 5345
+[proc,clientscript_5345]
+if_sethide(interface_622:com_6, true);
+if_sethide(interface_622:com_7, true);
+if_sethide(interface_622:com_9, true);
+if_sethide(interface_622:com_8, true);
+switch_int (map_lang) {
+    case default :
+        if_sethide(interface_622:com_6, false);
+    case 1 :
+        if_sethide(interface_622:com_9, false);
+    case 2 :
+        if_sethide(interface_622:com_7, false);
+    case 3 :
+        if_sethide(interface_622:com_8, false);
+}

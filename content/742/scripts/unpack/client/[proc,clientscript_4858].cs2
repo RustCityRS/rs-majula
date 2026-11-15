@@ -1,0 +1,49 @@
+// 4858
+[proc,clientscript_4858]
+def_int $int0 = 0;
+if (op718 = 1) {
+    if_sethide(interface_1261:com_48, true);
+    if_sethide(interface_1261:com_50, true);
+    if_sethide(interface_1261:com_52, true);
+    $int0 = ~clientscript_4948(%varplayerbit_9550);
+    if ($int0 <= 0) {
+        return;
+    }
+    if_sethide(~clientscript_4968($int0), true);
+    if (%varclan_2076 >= 4 & %varclan_2076 ! 4) {
+        if_sethide(interface_1261:com_12, true);
+    }
+    if (%varclan_2077 >= 4 & %varclan_2077 ! 5) {
+        if_sethide(interface_1261:com_14, true);
+    }
+    if (%varclan_2078 >= 4 & %varclan_2078 ! 6) {
+        if_sethide(interface_1261:com_16, true);
+    }
+    if (%varclan_2079 >= 4 & %varclan_2079 ! 7) {
+        if_sethide(interface_1261:com_18, true);
+    }
+    if (%varclan_2080 >= 4 & %varclan_2080 ! 8) {
+        if_sethide(interface_1261:com_20, true);
+    }
+    if (%varclan_2081 >= 4 & %varclan_2081 ! 9) {
+        if_sethide(interface_1261:com_22, true);
+    }
+    if (%varclan_2082 >= 4 & %varclan_2082 ! 10) {
+        if_sethide(interface_1261:com_24, true);
+    }
+    if (%varclan_2083 >= 4 & %varclan_2083 ! 11) {
+        if_sethide(interface_1261:com_26, true);
+    }
+    if (%varclan_2084 >= 4 & %varclan_2084 ! 12) {
+        if_sethide(interface_1261:com_28, true);
+    }
+    if (%varclan_2085 >= 4 & %varclan_2085 ! 13) {
+        if_sethide(interface_1261:com_30, true);
+    }
+    if (%varclan_2086 >= 4 & %varclan_2086 ! 14) {
+        if_sethide(interface_1261:com_32, true);
+    }
+    if (%varclan_2087 >= 4 & %varclan_2087 ! 15) {
+        if_sethide(interface_1261:com_34, true);
+    }
+}

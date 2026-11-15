@@ -21,6 +21,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 use std::fs;
 use std::sync::Mutex;
@@ -40,13 +41,13 @@ const NONE: i32 = 0xFFFF;
 /// Lumbridge castle's cook-o-matic (289's `cooking_range`), 1x2.
 const RANGE: (u16, u16, u16) = (114, 3212, 3215);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
@@ -68,7 +69,7 @@ fn three_shrimps_on_a_range_in_one_go() {
         let raw = obj(engine, "raw_shrimp");
         let cooked = obj(engine, "shrimp");
         let burnt = obj(engine, "burntfish1");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let mut client = engine.harness_login_returning("cook").expect("login");
@@ -88,7 +89,7 @@ fn three_shrimps_on_a_range_in_one_go() {
 
         let (loc, x, z) = RANGE;
         let mut p = ClientPacket::new();
-        p.p2_alt2(raw as i32)
+        p.p2_alt2(raw.int())
             .p2_alt2(0)
             .p2(z as i32)
             .p4_alt2(BACKPACK)
@@ -244,7 +245,7 @@ fn the_guild_door_lets_anyone_out() {
 #[test]
 fn the_head_chef_and_cooked_meats_take_289s_configs() {
     runner::on_loaded_engine(|engine| {
-        let chef = *engine.cache.npcs.debugnames.get("head_chef").unwrap();
+        let chef = engine.cache.npcs.get_by_debugname("head_chef").unwrap().id;
         let chef = engine.cache.npcs.get_by_id(chef).unwrap();
         assert_eq!((chef.wanderrange, chef.maxrange), (3, 3));
         let meat: u16 = fs::read_to_string(format!(
@@ -256,9 +257,9 @@ fn the_head_chef_and_cooked_meats_take_289s_configs() {
         .find_map(|l| l.strip_suffix("=meat")?.parse().ok())
         .expect("meat is in category.pack");
         for name in ["cooked_chicken", "cooked_meat", "cooked_ugthanki_meat"] {
-            let obj = *engine.cache.objs.debugnames.get(name).expect(name);
+            let obj = engine.cache.objs.get_by_debugname(name).expect(name).id;
             let category = engine.cache.objs.get_by_id(obj).and_then(|o| o.category);
-            assert_eq!(category, Some(meat), "{name}");
+            assert_eq!(category, Some(TypeId::new(meat)), "{name}");
         }
     });
 }

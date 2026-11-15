@@ -1,0 +1,7 @@
+// 70
+[clientscript,tzhaar_fightpit_foesremaining]
+if (%tzhaar_fightpit_remaining < 1) {
+    if_settext(interface_373:com_0, "You're the Winner!");
+} else {
+    if_settext(interface_373:com_0, "Foes Remaining: <tostring(%tzhaar_fightpit_remaining)>");
+}

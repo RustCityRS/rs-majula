@@ -1,0 +1,326 @@
+// 1256:0
+[com_0]
+type=text
+x=104
+y=88
+width=306
+height=44
+layer=com_6
+textfont=b12_full
+text=You will need to log out and enter the lobby to purchase membership.
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 1256:1
+[com_1]
+type=text
+x=104
+y=136
+width=284
+height=33
+layer=com_6
+textfont=b12_full
+text=If you are ready now, click continue.
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 1256:2
+[com_2]
+type=text
+x=104
+y=173
+width=304
+height=53
+layer=com_6
+textfont=b12_full
+text=If you don't want to log out just now, you can purchase membership when you next enter the lobby.
+textalignv=centre
+textshadow=yes
+colour=0xefb063
+
+// 1256:3
+[com_3]
+type=layer
+x=120
+y=241
+width=126
+height=24
+layer=com_6
+
+// 1256:4
+[com_4]
+type=layer
+x=267
+y=241
+width=126
+height=24
+layer=com_6
+
+// 1256:5
+[com_5]
+type=layer
+width=396
+height=249
+xmode=abs_centre
+ymode=abs_centre
+
+// 1256:6
+[com_6]
+type=layer
+width=512
+height=334
+
+// 1256:7
+[com_7]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+onload=script4260(event_com)
+
+// 1256:8
+[com_8]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_5
+
+// 1256:9
+[com_9]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+onload=script4261(event_com)
+
+// 1256:10
+[com_10]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+
+// 1256:11
+[com_11]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+textfont=palatino_linotype_18pt_regular
+text=Log Out Request
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1256:12
+[com_12]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_5
+onload=aif_build_close_button_layer(event_com)
+
+// 1256:13
+[com_13]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1256:14
+[com_14]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+onload=aif_build_close_button_over(event_com)
+
+// 1256:15
+[com_15]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1256:16
+[com_16]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1256:17
+[com_17]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1776)
+
+// 1256:18
+[com_18]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1256:19
+[com_19]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1256:20
+[com_20]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 1256:21
+[com_21]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1256:22
+[com_22]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+textfont=verdana_13pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1256:23
+[com_23]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1256:24
+[com_24]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1256:25
+[com_25]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 1256:26
+[com_26]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+onload=aif_build_button_layer(event_com, struct_1776)
+
+// 1256:27
+[com_27]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 1256:28
+[com_28]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 1256:29
+[com_29]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_4
+
+// 1256:30
+[com_30]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+textfont=verdana_13pt_regular
+text=Not right now
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)

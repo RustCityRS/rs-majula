@@ -1,0 +1,37 @@
+// 1198
+[clientscript,ra3_package_update_interface]
+if (inv_total(inv, ra3_rod) > 0 | inv_total(bank, ra3_rod) > 0 | %ra3_quest >= 44) {
+    if_sethide(ra3_package:handled_rod, true);
+} else {
+    if_sethide(ra3_package:handled_rod, false);
+}
+if (inv_total(inv, ra3_turnscrew) > 0 | inv_total(bank, ra3_turnscrew) > 0) {
+    if_sethide(ra3_package:turn_screw, true);
+} else {
+    if_sethide(ra3_package:turn_screw, false);
+}
+if (inv_total(inv, ra3_bowl) > 0 | inv_total(bank, ra3_bowl) > 0 | %ra3_quest = 42) {
+    if_sethide(ra3_package:bowl, true);
+} else {
+    if_sethide(ra3_package:bowl, false);
+}
+if (inv_total(inv, ra3_boot) > 0 | inv_total(bank, ra3_boot) > 0) {
+    if_sethide(ra3_package:boot, true);
+} else {
+    if_sethide(ra3_package:boot, false);
+}
+if (inv_total(inv, ra3_green_stone) > 0 | inv_total(bank, ra3_green_stone) > 0 | %ra3_quest >= 52 | %ra3_cart_switch = 1) {
+    if_sethide(ra3_package:green_stone, true);
+} else {
+    if_sethide(ra3_package:green_stone, false);
+}
+if (inv_total(inv, ra3_yellow_stone) > 0 | inv_total(bank, ra3_yellow_stone) > 0 | %ra3_quest >= 52 | %ra3_cart_switch = 2) {
+    if_sethide(ra3_package:yellow_stone, true);
+} else {
+    if_sethide(ra3_package:yellow_stone, false);
+}
+if (inv_total(inv, ra3_rectangle) > 0 | inv_total(bank, ra3_rectangle) > 0) {
+    if_sethide(ra3_package:sheet, true);
+} else {
+    if_sethide(ra3_package:sheet, false);
+}

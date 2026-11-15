@@ -1,0 +1,25 @@
+// 107
+[proc,meslayer_mode6](string $string0)
+if (%snapshot_open = 1) {
+    mes("You can't do that while you're reporting abuse.");
+    return;
+}
+if (%tutorial < 1000 & %tutorial_version = 2) {
+    mes("You need to complete 'Learning the Ropes' before talking to other players using Private Chat.");
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+%varclient_655 = $string0;
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, "Enter message to send to <%varclient_655>");
+if_settext(chattop:mes_text2, "*");
+%meslayermode = 6;
+%varclient_654 = "";
+if_setonclick(chattop:mes_layer, null);
+~clientscript_2026;
+if_setonkey(chattop:mes_text2, "clientscript_112(event_keycode, event_keychar)");
+~clientscript_1188;

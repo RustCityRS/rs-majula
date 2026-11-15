@@ -1,0 +1,7 @@
+// 1328
+[clientscript,rebuildpmbox_timer]
+if (worldlist_fetch = false) {
+    return;
+}
+if_setontimer(loginscreen:com_224, null);
+~clientscript_1879;

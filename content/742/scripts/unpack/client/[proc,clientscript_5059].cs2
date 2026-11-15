@@ -1,0 +1,53 @@
+// 5059
+[proc,clientscript_5059](component $component0, obj $obj1, int $int2)
+def_int $int3 = calc($obj1 * 12);
+if ($int2 = 1) {
+    if (cc_find($component0, calc($int3 + 2)) = true) {
+        cc_setgraphic(7555);
+    }
+    if (cc_find($component0, calc($int3 + 3)) = true) {
+        cc_setgraphic(7554);
+    }
+    if (cc_find($component0, calc($int3 + 4)) = true) {
+        cc_setgraphic(7556);
+    }
+    if (cc_find($component0, $int3) = true) {
+        cc_setonmouseover(null);
+        cc_setonmouseleave(null);
+    }
+    if (if_gethide(interface_1111:com_18) = true) {
+        ~clientscript_5063($component0, $obj1, 0);
+        if (cc_find($component0, calc($int3 + 1)) = true) {
+            cc_setonmouseover(clientscript_5061, event_com, $obj1, 1, 0, "Ii11");
+            cc_setonmouseleave(clientscript_5061, event_com, $obj1, 0, 0, "Ii11");
+        }
+    } else {
+        if (cc_find($component0, calc($int3 + 5)) = true) {
+            cc_setgraphic(7555);
+        }
+        if (cc_find($component0, calc($int3 + 6)) = true) {
+            cc_setgraphic(7554);
+        }
+        if (cc_find($component0, calc($int3 + 7)) = true) {
+            cc_setgraphic(7556);
+        }
+        if (cc_find($component0, calc($int3 + 10)) = true) {
+            cc_setgraphic(7408);
+        }
+        if (cc_find($component0, calc($int3 + 1)) = true) {
+            cc_setonmouseover(null);
+            cc_setonmouseleave(null);
+        }
+    }
+} else {
+    ~clientscript_5062($component0, $obj1, 0);
+    ~clientscript_5063($component0, $obj1, 0);
+    if (cc_find($component0, $int3) = true) {
+        cc_setonmouseover(clientscript_5060, event_com, $obj1, 1, "Ii1");
+        cc_setonmouseleave(clientscript_5060, event_com, $obj1, 0, "Ii1");
+    }
+    if (cc_find($component0, calc($int3 + 1)) = true) {
+        cc_setonmouseover(clientscript_5061, event_com, $obj1, 1, 1, "Ii11");
+        cc_setonmouseleave(clientscript_5061, event_com, $obj1, 0, 1, "Ii11");
+    }
+}

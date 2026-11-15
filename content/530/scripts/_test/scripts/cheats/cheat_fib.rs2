@@ -1,0 +1,16 @@
+[proc,fib](int $n)(int)
+def_int $a = 0
+def_int $b = 1
+def_int $i = 0
+while ($i < $n) {
+    def_int $temp = $b
+    $b = calc($a + $b)
+    $a = $temp
+    $i = calc($i + 1)
+}
+return($a)
+
+[debugproc,fib]
+def_int $n = 31000
+def_int $result = ~fib($n)
+mes("fib(<tostring($n)>) = <tostring($result)>")

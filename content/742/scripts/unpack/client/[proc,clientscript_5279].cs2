@@ -1,0 +1,53 @@
+// 5279
+[proc,clientscript_5279](component $component0)
+def_boolean $boolean1 = ~int_to_bool(%varplayerbit_9897);
+if_sethide(interface_388:com_17, $boolean1);
+if_sethide(interface_388:com_30, $boolean1);
+if_sethide(interface_388:com_43, $boolean1);
+if_sethide(interface_388:com_56, $boolean1);
+if_sethide(interface_388:com_69, $boolean1);
+if_sethide(interface_388:com_102, $boolean1);
+if_sethide(interface_388:com_116, $boolean1);
+if_sethide(interface_388:com_130, $boolean1);
+if_sethide(interface_388:com_143, $boolean1);
+if_sethide(interface_388:com_158, $boolean1);
+if_sethide(interface_388:com_172, $boolean1);
+if_sethide(interface_388:com_186, $boolean1);
+if_sethide(interface_388:com_200, $boolean1);
+if_sethide(interface_388:com_84, $boolean1);
+if ($boolean1 = true) {
+    if_settext($component0, "Theatre Options");
+    if_setonop(interface_388:com_99, clientscript_5293, event_op, 1, 0, "ii1");
+    if_setonop(interface_388:com_112, clientscript_5293, event_op, 2, 0, "ii1");
+    if_setonop(interface_388:com_126, clientscript_5293, event_op, 3, 0, "ii1");
+    if_setonop(interface_388:com_140, clientscript_5293, event_op, 4, 0, "ii1");
+    if_setonop(interface_388:com_154, clientscript_5293, event_op, 5, 0, "ii1");
+    if_setonop(interface_388:com_168, clientscript_5293, event_op, 6, 0, "ii1");
+    if_setonop(interface_388:com_182, clientscript_5293, event_op, 7, 0, "ii1");
+    if_setonop(interface_388:com_196, clientscript_5293, event_op, 8, 0, "ii1");
+    if_setonop(interface_388:com_14, clientscript_5293, event_op, 1, 1, "ii1");
+    if_setonop(interface_388:com_27, clientscript_5293, event_op, 2, 1, "ii1");
+    if_setonop(interface_388:com_40, clientscript_5293, event_op, 3, 1, "ii1");
+    if_setonop(interface_388:com_53, clientscript_5293, event_op, 4, 1, "ii1");
+    if_setonop(interface_388:com_66, clientscript_5293, event_op, 5, 1, "ii1");
+} else {
+    if (%varplayerbit_9887 = 0 | %varplayerbit_9896 = 0) {
+        if_settext($component0, "Waiting on technician to select options...");
+    } else {
+        if_settext($component0, "Waiting on technician to unlock theatre...");
+    }
+    if_setonop(interface_388:com_99, null);
+    if_setonop(interface_388:com_112, null);
+    if_setonop(interface_388:com_126, null);
+    if_setonop(interface_388:com_140, null);
+    if_setonop(interface_388:com_154, null);
+    if_setonop(interface_388:com_168, null);
+    if_setonop(interface_388:com_182, null);
+    if_setonop(interface_388:com_196, null);
+    if_setonop(interface_388:com_14, null);
+    if_setonop(interface_388:com_27, null);
+    if_setonop(interface_388:com_40, null);
+    if_setonop(interface_388:com_53, null);
+    if_setonop(interface_388:com_66, null);
+}
+~script4532($component0);

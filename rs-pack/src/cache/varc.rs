@@ -4,6 +4,7 @@ use crate::pack::packed_data::PackedData;
 use crate::types::VarPlayerScope;
 use anyhow::Result;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct VarClientTypeProvider {
     ints: TypeProvider<VarClientType>,
@@ -26,7 +27,7 @@ impl VarClientTypeProvider {
         self.ints.types.iter().chain(self.strings.types.iter())
     }
 
-    pub fn get_by_id(&self, id: u16, string: bool) -> Option<&VarClientType> {
+    pub fn get_by_id(&self, id: TypeId, string: bool) -> Option<&VarClientType> {
         if string {
             self.strings.get_by_id(id)
         } else {
@@ -46,7 +47,7 @@ impl VarClientTypeProvider {
 }
 
 pub struct VarClientType {
-    pub id: u16,
+    pub id: TypeId,
     pub var_type: ScriptVarType,
     pub scope: VarPlayerScope,
 }
@@ -54,7 +55,7 @@ pub struct VarClientType {
 impl CacheType for VarClientType {
     type Context = bool;
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             var_type: ScriptVarType::Int,

@@ -2,9 +2,10 @@ use super::decode::read_array;
 use super::provider::CacheType;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub struct QuickChatCatType {
-    pub id: u16,
+    pub id: TypeId,
     pub desc: Option<Box<str>>,
     pub subcats: Box<[(u16, u8)]>,
     pub phrases: Box<[(u16, u8)]>,
@@ -13,7 +14,7 @@ pub struct QuickChatCatType {
 impl CacheType for QuickChatCatType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             desc: None,

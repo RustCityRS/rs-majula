@@ -1,0 +1,9 @@
+// 942
+[proc,clientscript_942](int $int0, int $int1, int $int2, int $int3)
+if (cc_find(interface_727:board, $int0) = true) {
+    if ($int2 = 1) {
+        cc_sethide(true);
+        return;
+    }
+    cc_setontimer("clientscript_945(event_comsubid, calc(clientclock + $int1), $int3)");
+}

@@ -1,0 +1,509 @@
+// 411:0
+[com_0]
+type=layer
+x=17
+y=196
+width=160
+height=53
+
+// 411:1
+[com_1]
+type=layer
+x=17
+y=140
+width=160
+height=53
+
+// 411:2
+[com_2]
+type=layer
+x=17
+y=83
+width=160
+height=53
+
+// 411:3
+[com_3]
+type=layer
+x=17
+y=27
+width=160
+height=53
+
+// 411:4
+[title]
+type=text
+x=19
+y=4
+width=151
+height=14
+textfont=verdana_13pt_regular
+text=Defence style
+textalignh=centre
+textshadow=yes
+colour=0xe1e1e1
+onvartransmit=clientscript_4245{warguild_games}
+
+// 411:5
+[stab_model]
+type=model
+x=21
+y=31
+width=43
+height=41
+model=model_15376
+modelorigin=0,17
+modelangle=39,1676,0
+modelzoom=554
+modelanim=warguild_projspin
+
+// 411:6
+[com_6]
+type=model
+x=23
+y=88
+width=44
+height=45
+model=model_15373
+modelorigin=-3,14
+modelangle=11,1619,0
+modelzoom=554
+modelanim=warguild_projspin
+
+// 411:7
+[slash_model]
+type=model
+x=23
+y=148
+width=38
+height=31
+model=model_15375
+modelorigin=3,14
+modelangle=0,1950,0
+modelzoom=500
+modelanim=warguild_projspin
+
+// 411:8
+[magic_model]
+type=model
+x=25
+y=207
+width=34
+height=35
+model=model_15374
+modelorigin=-1,17
+modelangle=0,1573,0
+modelzoom=528
+modelanim=warguild_projspin
+
+// 411:9
+[com_9]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 411:10
+[com_10]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 411:11
+[com_11]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 411:12
+[com_12]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 411:13
+[com_13]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_4248(1)
+
+// 411:14
+[com_14]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 411:15
+[com_15]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+textfont=verdana_13pt_regular
+text=Stab defence
+textalignh=right
+textalignv=centre
+colour=0xe1e1e1
+
+// 411:16
+[com_16]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 411:17
+[com_17]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+colour=0x000000
+fill=yes
+trans=100
+
+// 411:18
+[com_18]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 411:19
+[com_19]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 411:20
+[com_20]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 411:21
+[com_21]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 411:22
+[com_22]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_4248(2)
+
+// 411:23
+[com_23]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+
+// 411:24
+[com_24]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_23
+textfont=verdana_13pt_regular
+text=Blunt defence
+textalignh=right
+textalignv=centre
+colour=0xe1e1e1
+
+// 411:25
+[com_25]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 411:26
+[com_26]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_25
+colour=0x000000
+fill=yes
+trans=100
+
+// 411:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 411:28
+[com_28]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 411:29
+[com_29]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 411:30
+[com_30]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 411:31
+[com_31]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_4248(3)
+
+// 411:32
+[com_32]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 411:33
+[com_33]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=verdana_13pt_regular
+text=Slash defence
+textalignh=right
+textalignv=centre
+colour=0xe1e1e1
+
+// 411:34
+[com_34]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 411:35
+[com_35]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_34
+colour=0x000000
+fill=yes
+trans=100
+
+// 411:36
+[com_36]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 411:37
+[com_37]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 411:38
+[com_38]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 411:39
+[com_39]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 411:40
+[com_40]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_4248(0)
+
+// 411:41
+[com_41]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 411:42
+[com_42]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_41
+textfont=verdana_13pt_regular
+text=Magic defence
+textalignh=right
+textalignv=centre
+colour=0xe1e1e1
+
+// 411:43
+[com_43]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 411:44
+[com_44]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_43
+colour=0x000000
+fill=yes
+trans=100

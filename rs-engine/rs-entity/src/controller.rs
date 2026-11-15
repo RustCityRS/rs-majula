@@ -1,6 +1,7 @@
 use rs_grid::CoordGrid;
 use rs_queue::ScriptQueue;
 use rs_var::VarSet;
+use rs_ver::TypeId;
 pub use rs_vm::ControllerUid;
 
 /// An npc without a body: it stands on a coord, keeps its own vars and runs
@@ -8,7 +9,7 @@ pub use rs_vm::ControllerUid;
 /// `[controller_queue]` scripts.
 pub struct Controller {
     pub uid: ControllerUid,
-    pub id: u16,
+    pub id: TypeId,
     pub coord: CoordGrid,
     pub queues: ScriptQueue,
     pub timer_interval: Option<u16>,
@@ -20,7 +21,7 @@ pub struct Controller {
 impl Controller {
     pub fn new(
         uid: ControllerUid,
-        id: u16,
+        id: TypeId,
         coord: CoordGrid,
         lifecycle_at: Option<u32>,
         vars: VarSet,

@@ -17,6 +17,8 @@ pub struct ClanChannelUser {
     pub real_name: Option<String>,
     pub rank: u8,
     pub status: u8,
+    #[cfg(since_742)]
+    pub world: u16,
 }
 
 #[cfg(since_647)]
@@ -61,10 +63,14 @@ impl ServerProtMessage for ClanchannelFull {
                         user.display_name.as_deref().unwrap_or(""),
                         STRING_TERMINATOR,
                     );
+                    #[cfg(before_742)]
                     buf.pjstr(user.real_name.as_deref().unwrap_or(""), STRING_TERMINATOR);
                 }
                 buf.p1(user.rank);
+                #[cfg(before_742)]
                 buf.p1(user.status);
+                #[cfg(since_742)]
+                buf.p2(user.world);
             }
         }
     }
@@ -88,13 +94,19 @@ impl ServerProtMessage for ClanchannelFull {
                     .users
                     .iter()
                     .map(|u| {
+                        #[cfg(before_742)]
                         let mut sz = size_of_val(&u.rank) + size_of_val(&u.status);
+                        #[cfg(since_742)]
+                        let mut sz = size_of_val(&u.rank) + size_of_val(&u.world);
                         if use_hashes {
                             sz += size_of_val(&u.user_hash.unwrap_or(0));
                         }
                         if use_names {
                             sz += u.display_name.as_ref().map_or(1, |s| Packet::sizejstr(s));
-                            sz += u.real_name.as_ref().map_or(1, |s| Packet::sizejstr(s));
+                            #[cfg(before_742)]
+                            {
+                                sz += u.real_name.as_ref().map_or(1, |s| Packet::sizejstr(s));
+                            }
                         }
                         sz
                     })

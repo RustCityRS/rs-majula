@@ -1,0 +1,8 @@
+// 1292
+[proc,clientscript_1292](component $component0, boolean $boolean1)
+if ($boolean1 = true) {
+    if_setgraphic($component0, 8549);
+} else {
+    if_setgraphic($component0, 8547);
+    ~clientscript_5516(toplevel_fullscreen:com_80, $component0);
+}

@@ -1,0 +1,21 @@
+// 5324
+[proc,clientscript_5324](int $int0)
+~clientscript_5323;
+switch_int ($int0) {
+    case 1 :
+        if_sethide(interface_797:com_21, false);
+    case 2 :
+        if_sethide(interface_797:com_34, false);
+    case 3 :
+        if_sethide(interface_797:com_48, false);
+    case 4 :
+        if_sethide(interface_797:com_62, false);
+    case 5 :
+        if_sethide(interface_797:com_76, false);
+    case 6 :
+        if_sethide(interface_797:com_90, false);
+    case 7 :
+        if_sethide(interface_797:com_104, false);
+    case 8 :
+        if_sethide(interface_797:com_118, false);
+}

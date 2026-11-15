@@ -1,0 +1,30 @@
+// 5389
+[proc,clientscript_5389]
+if (%food_type_10 = 1) {
+    if_sethide(interface_1128:com_99, false);
+    if_setgraphic(interface_1128:com_4, "aif_checkbox_large,3");
+}
+if (%food_type_11 = 1) {
+    if_sethide(interface_1128:com_129, false);
+    if_setgraphic(interface_1128:com_106, "aif_checkbox_large,3");
+}
+if (%food_type_12 = 1) {
+    if_sethide(interface_1128:com_167, false);
+    if_setgraphic(interface_1128:com_144, "aif_checkbox_large,3");
+}
+if (%food_type_13 = 1) {
+    if_sethide(interface_1128:com_204, false);
+    if_setgraphic(interface_1128:com_181, "aif_checkbox_large,3");
+}
+if (%food_type_14 = 1) {
+    if_sethide(interface_1128:com_241, false);
+    if_setgraphic(interface_1128:com_218, "aif_checkbox_large,3");
+}
+if (%food_type_15 = 1) {
+    if_sethide(interface_1128:com_278, false);
+    if_setgraphic(interface_1128:com_255, "aif_checkbox_large,3");
+}
+if (%food_type_16 = 1) {
+    if_sethide(interface_1128:com_315, false);
+    if_setgraphic(interface_1128:com_292, "aif_checkbox_large,3");
+}

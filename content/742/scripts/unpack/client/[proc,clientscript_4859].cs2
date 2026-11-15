@@ -1,0 +1,70 @@
+// 4859
+[proc,clientscript_4859]
+def_struct $struct0 = null;
+if (op718 = 1) {
+    ~clientscript_4855;
+    $struct0 = ~clientscript_5116(%varclan_2598, %varclan_2580);
+    if ($struct0 = null) {
+        return;
+    }
+    if (struct_param($struct0, param_1723) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_3, false);
+    }
+    if (struct_param($struct0, param_1726) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_4, false);
+    }
+    if (struct_param($struct0, param_1729) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_5, false);
+    }
+    if (struct_param($struct0, param_1732) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_6, false);
+    }
+    if (struct_param($struct0, param_1735) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_7, false);
+    }
+    if (struct_param($struct0, param_1738) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_8, false);
+    }
+    if (struct_param($struct0, param_1741) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_9, false);
+    }
+    if (struct_param($struct0, param_1744) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_10, false);
+    }
+    if (struct_param($struct0, param_1747) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_11, false);
+    }
+    if (struct_param($struct0, param_1750) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_13, false);
+    }
+    if (struct_param($struct0, param_1753) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_14, false);
+    }
+    if (struct_param($struct0, param_1756) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_15, false);
+    }
+    if (struct_param($struct0, param_1759) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_15, false);
+    }
+    if (struct_param($struct0, param_1762) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_16, false);
+    }
+    if (struct_param($struct0, param_1765) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_17, false);
+    }
+    if (struct_param($struct0, param_1768) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_18, false);
+    }
+    if (struct_param($struct0, param_1771) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_19, false);
+    }
+    if (struct_param($struct0, param_1772) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_20, false);
+    }
+    if (struct_param($struct0, param_1775) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_21, false);
+    }
+    if (struct_param($struct0, param_1635) ! 0_0_0_0_0) {
+        if_sethide(interface_1258:com_22, false);
+    }
+}

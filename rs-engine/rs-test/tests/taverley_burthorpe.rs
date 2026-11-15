@@ -26,12 +26,12 @@ static TURN: Mutex<()> = Mutex::new(());
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
 /// the npc reaches (npcs wander).
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
@@ -125,13 +125,14 @@ fn taverley_and_burthorpe_npcs_answer_every_branch() {
 fn the_crystal_key_halves_join() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let obj = |engine: &Engine, name: &str| *engine.cache.objs.debugnames.get(name).unwrap();
+        let obj =
+            |engine: &Engine, name: &str| engine.cache.objs.get_by_debugname(name).unwrap().id;
         let (tooth, lp, key) = (
             obj(engine, "keyhalf1"),
             obj(engine, "keyhalf2"),
             obj(engine, "crystal_key"),
         );
-        let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         engine.harness_reset();
         let mut client = engine.harness_login_returning("key_maker").expect("login");
         engine.cycle();
@@ -153,9 +154,9 @@ fn the_crystal_key_halves_join() {
         p.p4(backpack_if)
             .p2_alt1(1)
             .p2_alt1(0)
-            .p2_alt2(tooth as i32)
+            .p2_alt2(tooth.int())
             .p4_alt1(backpack_if)
-            .p2(lp as i32);
+            .p2(lp.int());
         client.send(ClientProt::IfButtonT, &p.finish());
         for _ in 0..4 {
             engine.cycle();

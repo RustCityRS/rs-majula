@@ -1,0 +1,11 @@
+// 559
+[proc,clientscript_559](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = calc($int1 - 2);
+def_int $int4 = calc($int2 - 2);
+def_int $int5 = if_getnextsubid($component0);
+~create_graphic($component0, $int5, 1076, 0, 0, $int1, 2);
+~create_graphic($component0, calc($int5 + 1), 1076, 1, $int4, calc($int1 - 1), 2);
+~create_graphic($component0, calc($int5 + 2), 1077, 0, 1, 2, calc($int2 - 3));
+~create_graphic($component0, calc($int5 + 3), 1077, $int3, 1, 2, calc($int2 - 2));

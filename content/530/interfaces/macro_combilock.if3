@@ -1,0 +1,336 @@
+// 185:0
+[com_0]
+type=model
+x=-20
+y=-33
+width=556
+height=411
+model=model_7748
+modelorigin=-92,-13
+modelzoom=256
+modelanim=seq_2308
+modelunknown=10,550,0
+
+// 185:1
+[com_1]
+type=model
+x=36
+y=119
+width=261
+height=81
+model=model_7754
+modelzoom=255
+modelanim=seq_2308
+modelunknown=0,510,0
+
+// 185:2
+[com_2]
+type=model
+x=36
+y=37
+width=261
+height=243
+model=model_7749
+modelorigin=0,1
+modelzoom=256
+modelanim=seq_2308
+modelunknown=0,523,0
+
+// 185:3
+[com_3]
+type=model
+x=136
+y=3
+width=63
+height=319
+model=model_7747
+modelorigin=-1,-7
+modelzoom=256
+modelunknown=0,529,0
+
+// 185:4
+[com_4]
+type=model
+x=45
+y=3
+width=63
+height=319
+model=model_7747
+modelorigin=-1,-7
+modelzoom=256
+modelunknown=0,529,0
+
+// 185:5
+[com_5]
+type=model
+x=227
+y=3
+width=63
+height=319
+model=model_7747
+modelorigin=-1,-7
+modelzoom=256
+modelunknown=0,529,0
+
+// 185:6
+[com_6]
+type=model
+x=60
+y=61
+width=39
+height=26
+model=model_7753
+modelorigin=0,2
+modelangle=1900,0,0
+modelzoom=420
+modelunknown=65133,855,0
+onload=set_spinner(13, 14, 0, event_com)
+
+// 185:7
+[com_7]
+type=model
+x=154
+y=65
+width=25
+height=21
+model=model_7750
+modelorigin=0,1
+modelangle=1900,0,0
+modelzoom=420
+modelunknown=65132,858,0
+onload=set_spinner(13, 10, 0, event_com)
+
+// 185:8
+[com_8]
+type=model
+x=234
+y=61
+width=39
+height=26
+model=model_7753
+modelorigin=0,2
+modelangle=1900,0,0
+modelzoom=420
+modelunknown=65133,855,0
+onload=set_spinner(10, 14, 0, event_com)
+
+// 185:9
+[com_9]
+type=model
+x=56
+y=154
+width=39
+height=11
+model=model_7753
+modelzoom=420
+modelunknown=65133,856,0
+onload=set_spinner(13, 0, 14, event_com)
+
+// 185:10
+[com_10]
+type=model
+x=147
+y=154
+width=39
+height=11
+model=model_7753
+modelzoom=420
+modelunknown=65133,856,0
+onload=set_spinner(5, 0, 14, event_com)
+
+// 185:11
+[com_11]
+type=model
+x=240
+y=148
+width=35
+height=20
+model=model_7751
+modelorigin=0,1
+modelzoom=420
+modelunknown=65133,860,0
+onload=set_spinner(13, 0, 5, event_com)
+
+// 185:12
+[com_12]
+type=model
+x=57
+y=231
+width=54
+height=24
+model=model_7752
+modelorigin=-5,2
+modelangle=150,0,0
+modelzoom=420
+modelunknown=65129,867,0
+onload=set_spinner(0, 10, 14, event_com)
+
+// 185:13
+[com_13]
+type=model
+x=146
+y=233
+width=39
+height=25
+model=model_7753
+modelorigin=0,1
+modelangle=150,0,0
+modelzoom=420
+modelunknown=65134,854,0
+onload=set_spinner(0, 10, 7, event_com)
+
+// 185:14
+[com_14]
+type=model
+x=235
+y=233
+width=39
+height=25
+model=model_7753
+modelorigin=0,1
+modelangle=150,0,0
+modelzoom=420
+modelunknown=65134,854,0
+onload=set_spinner(0, 5, 14, event_com)
+
+// 185:15
+[com_15]
+type=text
+x=23
+y=317
+width=97
+height=17
+textfont=fontmetrics_496
+text=DIAMOND
+textalignh=centre
+colour=0xceaf7e
+
+// 185:16
+[com_16]
+type=text
+x=121
+y=317
+width=90
+height=17
+textfont=fontmetrics_496
+text=COINS
+textalignh=centre
+colour=0xceaf7e
+
+// 185:17
+[com_17]
+type=text
+x=212
+y=317
+width=88
+height=17
+textfont=fontmetrics_496
+text=RING
+textalignh=centre
+colour=0xceaf7e
+
+// 185:18
+[com_18]
+type=text
+x=361
+y=141
+width=112
+height=37
+textfont=fontmetrics_496
+text=U N L O C K
+textalignh=centre
+textalignv=centre
+colour=0x4f3f26
+transmitop=1
+op1=Unlock
+
+// 185:19
+[com_19]
+type=model
+x=49
+y=4
+width=54
+height=33
+model=null
+modelzoom=400
+modelunknown=0,400,0
+transmitop=1
+op1=Up
+
+// 185:20
+[com_20]
+type=model
+x=141
+y=4
+width=54
+height=33
+model=null
+modelzoom=400
+modelunknown=0,400,0
+transmitop=1
+op1=Up
+
+// 185:21
+[com_21]
+type=model
+x=232
+y=4
+width=54
+height=33
+model=null
+modelzoom=400
+modelunknown=0,400,0
+transmitop=1
+op1=Up
+
+// 185:22
+[com_22]
+type=model
+x=47
+y=285
+width=54
+height=33
+model=null
+modelzoom=400
+modelunknown=0,400,0
+transmitop=1
+op1=Down
+
+// 185:23
+[com_23]
+type=model
+x=138
+y=286
+width=54
+height=33
+model=null
+modelzoom=400
+modelunknown=0,400,0
+transmitop=1
+op1=Down
+
+// 185:24
+[com_24]
+type=model
+x=229
+y=287
+width=54
+height=33
+model=null
+modelzoom=400
+modelunknown=0,400,0
+transmitop=1
+op1=Down
+
+// 185:25
+[com_25]
+type=text
+x=341
+y=201
+width=152
+height=132
+textfont=fontmetrics_495
+text=For each column, make the MIDDLE picture match the word at the bottom.<br><br>Then click UNLOCK.
+textalignh=centre
+textshadow=yes
+colour=0xceaf7e

@@ -1,0 +1,11 @@
+// 2997
+[proc,cc_add_model](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, model $model6, obj $obj7, int $int8, int $int9, int $int10, int $int11, int $int12, int $int13)
+cc_create($component0, ^iftype_model, $int1);
+cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+if ($model6 ! null) {
+    cc_setmodel($model6);
+    cc_setmodelangle($int8, $int9, $int10, $int11, $int12, $int13);
+} else {
+    cc_setobject($obj7, -1);
+}

@@ -1,0 +1,22 @@
+// 6317
+[proc,clientscript_6317](component $component0, component $component1)
+def_component $component2 = if_getlayer($component0);
+def_int $int3 = calc(paraheight(%varclient_2381, if_getwidth($component2), op1028($component0)) * 15 + 5);
+if ($int3 <= if_getheight($component2)) {
+    cc_deleteall($component1);
+    if_sethide($component1, true);
+    if_setscrollsize($component2, 0, 0);
+    if_setposition($component2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setsize($component0, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_settextalign($component0, ^settextalign_centre, ^settextalign_centre, 0);
+} else {
+    cc_deleteall($component1);
+    if_sethide($component1, false);
+    if_setscrollsize($component2, 0, $int3);
+    if_setposition($component2, 0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    if_setsize($component0, 0, $int3, ^setsize_minus, ^setsize_abs);
+    if_settextalign($component0, ^settextalign_centre, ^settextalign_top, 0);
+    ~scrollbar_vertical($component1, $component2, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
+}
+if_setscrollpos($component2, 0, 0);
+if_settext($component0, %varclient_2381);

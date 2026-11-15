@@ -1,0 +1,12 @@
+// 6063
+[proc,clientscript_6063]()(any)
+switch_int (map_lang) {
+    case 0 :
+        return(10232);
+    case 1 :
+        return(10234);
+    case 2 :
+        return(10235);
+    case 3 :
+        return(10233);
+}

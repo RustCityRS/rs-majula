@@ -1,0 +1,233 @@
+// 1192:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 1192:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1192:2
+[com_2]
+type=layer
+width=250
+height=30
+xmode=abs_centre
+layer=com_0
+
+// 1192:3
+[com_3]
+type=graphic
+width=16391
+height=30
+widthmode=proportion
+xmode=abs_centre
+layer=com_1
+graphic=graphic_9039
+tiling=yes
+
+// 1192:4
+[com_4]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+layer=com_1
+graphic=graphic_9042
+
+// 1192:5
+[com_5]
+type=graphic
+y=25
+width=128
+height=20
+heightmode=minus
+xmode=abs_right
+layer=com_1
+graphic=graphic_9045
+
+// 1192:6
+[com_6]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+layer=com_1
+graphic=graphic_9043
+
+// 1192:7
+[com_7]
+type=graphic
+x=128
+y=25
+width=378
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_1
+graphic=graphic_9044
+
+// 1192:8
+[com_8]
+type=graphic
+y=-5
+width=134
+height=134
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_9038
+
+// 1192:9
+[com_9]
+type=graphic
+y=-5
+width=134
+height=134
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_9038
+trans=110
+vflip=yes
+
+// 1192:10
+[com_10]
+type=graphic
+y=-5
+width=134
+height=134
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_9037
+
+// 1192:11
+[com_11]
+type=model
+x=50
+y=40
+width=32
+height=32
+ymode=abs_bottom
+layer=com_0
+model=null
+modelangle=40,1882,0
+modelzoom=2150
+
+// 1192:12
+[com_12]
+type=text
+x=20
+y=20
+width=350
+height=70
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+textfont=verdana_11pt_regular
+textlineheight=15
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1192:13
+[com_13]
+type=graphic
+width=80
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+graphic=graphic_9041
+hflip=yes
+
+// 1192:14
+[com_14]
+type=graphic
+width=42
+height=35
+layer=com_2
+graphic=graphic_9040
+
+// 1192:15
+[com_15]
+type=graphic
+width=42
+height=35
+xmode=abs_right
+layer=com_2
+graphic=graphic_9040
+hflip=yes
+
+// 1192:16
+[com_16]
+type=text
+width=23223
+height=9291
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+textfont=verdana_13pt_regular
+text=Name
+textlineheight=15
+textalignh=centre
+textalignv=centre
+colour=0xe6be78
+
+// 1192:17
+[com_17]
+type=layer
+y=-3
+width=80
+height=20
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+hide=yes
+pausebutton=yes
+onload=clientscript_5584(event_com, interface_1192:com_19, interface_1192:com_2, interface_1192:com_16)
+
+// 1192:18
+[com_18]
+type=graphic
+width=80
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+graphic=graphic_9056
+
+// 1192:19
+[com_19]
+type=graphic
+width=80
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+graphic=graphic_9057
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1192:20
+[com_20]
+type=graphic
+width=80
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+graphic=graphic_9058
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)

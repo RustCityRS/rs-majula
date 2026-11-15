@@ -1,0 +1,22 @@
+// 2513
+[clientscript,script2513]
+if (%mob_client_cannon_qty < 0) {
+    %mob_client_cannon_qty = 0;
+}
+if (%mob_client_glider_qty < 0) {
+    %mob_client_glider_qty = 0;
+}
+if (%mob_client_chinchompa_qty < 0) {
+    %mob_client_chinchompa_qty = 0;
+}
+if (%mob_client_distractor_qty < 0) {
+    %mob_client_distractor_qty = 0;
+}
+if (%mob_client_barricade_qty < 0) {
+    %mob_client_barricade_qty = 0;
+}
+if_settext(mob_special_units:quantity_field1, tostring(%mob_client_cannon_qty));
+if_settext(mob_special_units:quantity_field2, tostring(%mob_client_glider_qty));
+if_settext(mob_special_units:quantity_field3, tostring(%mob_client_chinchompa_qty));
+if_settext(mob_special_units:quantity_field4, tostring(%mob_client_distractor_qty));
+if_settext(mob_special_units:quantity_field5, tostring(%mob_client_barricade_qty));

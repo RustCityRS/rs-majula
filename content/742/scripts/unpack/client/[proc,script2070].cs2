@@ -1,0 +1,11 @@
+// 2070
+[proc,script2070](int $int0, int $int1, component $component2, component $component3, component $component4)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 >= %sidebook_pagecount | $int1 < 0) {
+    return;
+}
+%sidebook_currentpage = $int1;
+sound_vorbis_volume(vorbis_3550, 1, 0, 100);
+~sidebook_build($component2, $component3, $component4);

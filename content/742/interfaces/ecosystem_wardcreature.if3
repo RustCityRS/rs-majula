@@ -1,0 +1,813 @@
+// 311:0
+[draconic_box]
+type=graphic
+x=410
+y=237
+width=80
+height=61
+layer=draconic_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:1
+[draconic]
+type=model
+x=400
+y=234
+width=87
+height=56
+layer=draconic_layer
+model=model_62238
+modelorigin=3,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62238, "Draconic Jadinko", ecosystem_wardcreature:draconic_ward, ecosystem_wardcreature:draconic_box)
+
+// 311:2
+[draconic_q]
+type=text
+x=432
+y=246
+width=32
+height=32
+layer=draconic_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:3
+[draconic_ward]
+type=text
+x=525
+y=407
+width=100
+height=29
+layer=draconic_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:4
+[carrion_box]
+type=graphic
+x=409
+y=147
+width=80
+height=61
+layer=carrion_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:5
+[carrion]
+type=model
+x=398
+y=141
+width=87
+height=56
+layer=carrion_layer
+model=model_62248
+modelorigin=3,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62248, "Carrion Jadinko", ecosystem_wardcreature:carrion_ward, ecosystem_wardcreature:carrion_box)
+
+// 311:6
+[carrion_q]
+type=text
+x=433
+y=152
+width=32
+height=32
+layer=carrion_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:7
+[carrion_ward]
+type=text
+x=600
+y=317
+width=100
+height=29
+layer=carrion_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:8
+[amphibious_box]
+type=graphic
+x=409
+y=62
+width=80
+height=61
+layer=amphibious_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:9
+[amphibious]
+type=model
+x=397
+y=60
+width=87
+height=56
+layer=amphibious_layer
+model=model_62243
+modelorigin=3,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62243, "Amphibious Jadinko", ecosystem_wardcreature:amphibious_ward, ecosystem_wardcreature:amphibious_box)
+
+// 311:10
+[amphibious_q]
+type=text
+x=430
+y=72
+width=32
+height=32
+layer=amphibious_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:11
+[amphibious_ward]
+type=text
+x=676
+y=232
+width=100
+height=29
+layer=amphibious_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:12
+[aquatic_box]
+type=graphic
+x=26
+y=267
+width=80
+height=61
+layer=aquatic_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:13
+[aquatic]
+type=model
+x=17
+y=266
+width=87
+height=55
+layer=aquatic_layer
+model=model_62250
+modelorigin=2,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62250, "Aquatic Jadinko", ecosystem_wardcreature:aquatic_ward, ecosystem_wardcreature:aquatic_box)
+
+// 311:14
+[aquatic_q]
+type=text
+x=48
+y=279
+width=32
+height=32
+layer=aquatic_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:15
+[aquatic_ward]
+type=text
+x=104
+y=498
+width=100
+height=29
+layer=aquatic_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:16
+[carnivorous_box]
+type=graphic
+x=241
+y=29
+width=80
+height=61
+layer=carnivorous_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:17
+[carnivorous]
+type=model
+x=232
+y=31
+width=87
+height=56
+layer=carnivorous_layer
+model=model_62241
+modelorigin=3,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62241, "Cannibal Jadinko", ecosystem_wardcreature:carnivorous_ward, ecosystem_wardcreature:carnivorous_box)
+
+// 311:18
+[carnivorous_q]
+type=text
+x=262
+y=42
+width=32
+height=32
+layer=carnivorous_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:19
+[carnivorous_ward]
+type=text
+x=395
+y=260
+width=100
+height=29
+layer=carnivorous_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:20
+[igneous_box]
+type=graphic
+x=25
+y=108
+width=80
+height=61
+layer=igneous_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:21
+[igneous]
+type=model
+x=13
+y=110
+width=88
+height=56
+layer=igneous_layer
+model=model_62249
+modelorigin=3,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62249, "Igneous Jadinko", ecosystem_wardcreature:igneous_ward, ecosystem_wardcreature:igneous_box)
+
+// 311:22
+[igneous_q]
+type=text
+x=47
+y=120
+width=32
+height=32
+layer=igneous_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:23
+[igneous_ward]
+type=text
+x=255
+y=339
+width=100
+height=29
+layer=igneous_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:24
+[basic_box]
+type=graphic
+x=26
+y=34
+width=80
+height=61
+layer=basic_layer
+graphic=graphic_4041
+onmouseover=graphic_swapper(event_com, graphic_4042)
+onmouseleave=graphic_swapper(event_com, graphic_4041)
+
+// 311:25
+[basic]
+type=model
+x=15
+y=32
+width=87
+height=56
+layer=basic_layer
+model=model_62244
+modelorigin=3,27
+modelangle=0,1786,0
+modelzoom=1009
+modelanim=seq_3288
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=ecosystem_big_model(model_62244, "Common Jadinko", ecosystem_wardcreature:basic_ward, ecosystem_wardcreature:basic_box)
+
+// 311:26
+[basic_q]
+type=text
+x=46
+y=46
+width=32
+height=32
+layer=basic_layer
+hide=yes
+textfont=verdana_11pt_regular
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+
+// 311:27
+[window_layer]
+type=layer
+x=-4
+y=-4
+width=520
+height=342
+
+// 311:28
+[jadinko_layer]
+type=layer
+x=11
+y=26
+width=489
+height=298
+
+// 311:29
+[basic_layer]
+type=layer
+x=75
+y=23
+width=512
+height=334
+
+// 311:30
+[draconic_layer]
+type=layer
+x=-118
+y=-119
+width=628
+height=474
+
+// 311:31
+[carrion_layer]
+type=layer
+x=-193
+y=-29
+width=718
+height=395
+
+// 311:32
+[aquatic_layer]
+type=layer
+x=303
+y=-210
+width=595
+height=555
+
+// 311:33
+[carnivorous_layer]
+type=layer
+x=12
+y=28
+width=487
+height=301
+
+// 311:34
+[igneous_layer]
+type=layer
+x=152
+y=-51
+width=525
+height=388
+
+// 311:35
+[amphibious_layer]
+type=layer
+x=-269
+y=56
+width=776
+height=334
+
+// 311:36
+[button_left]
+type=graphic
+x=409
+y=263
+width=26
+height=26
+layer=jadinko_layer
+graphic="set_but_end_2,1"
+
+// 311:37
+[button_main]
+type=graphic
+x=435
+y=263
+width=25
+height=26
+layer=jadinko_layer
+graphic="set_but_fill_2,1"
+
+// 311:38
+[button_right]
+type=graphic
+x=456
+y=263
+width=26
+height=26
+layer=jadinko_layer
+graphic="set_but_end_2,1"
+hflip=yes
+
+// 311:39
+[basic_ward]
+type=text
+x=396
+y=262
+width=100
+height=29
+layer=jadinko_layer
+textfont=verdana_11pt_regular
+text=Ward Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Ward
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:40
+[com_40]
+type=rectangle
+x=4
+y=4
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+layer=window_layer
+colour=0x000000
+fill=yes
+trans=188
+
+// 311:41
+[com_41]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=window_layer
+colour=0x000000
+fill=yes
+trans=233
+
+// 311:42
+[frame_layer]
+type=layer
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=window_layer
+
+// 311:43
+[com_43]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=frame_layer
+graphic=tradebacking
+tiling=yes
+
+// 311:44
+[com_44]
+type=graphic
+y=326
+width=16391
+height=12877
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=proportion_centre
+layer=frame_layer
+graphic=km_middlefillcolour
+tiling=yes
+colour=0x000000
+
+// 311:45
+[com_45]
+type=graphic
+width=16384
+height=70
+widthmode=proportion
+xmode=abs_centre
+layer=frame_layer
+graphic=graphic_2045
+tiling=yes
+colour=0x000000
+
+// 311:46
+[com_46]
+type=graphic
+width=16384
+height=46
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=frame_layer
+graphic=graphic_2044
+tiling=yes
+colour=0x000000
+
+// 311:47
+[com_47]
+type=graphic
+width=32
+height=32
+layer=frame_layer
+graphic="v2_stone_borders,35"
+
+// 311:48
+[com_48]
+type=graphic
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=frame_layer
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 311:49
+[com_49]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=frame_layer
+graphic="v2_stone_borders,37"
+
+// 311:50
+[com_50]
+type=graphic
+y=-12
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=frame_layer
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 311:51
+[com_51]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=frame_layer
+graphic="v2_stone_borders,6"
+
+// 311:52
+[com_52]
+type=graphic
+x=-12
+width=32
+height=64
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=frame_layer
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 311:53
+[com_53]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=frame_layer
+graphic="v2_stone_borders,7"
+
+// 311:54
+[com_54]
+type=graphic
+x=-13
+width=32
+height=64
+heightmode=minus
+ymode=abs_centre
+layer=frame_layer
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 311:55
+[close_button_1]
+type=graphic
+x=11
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=frame_layer
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onload=ecosystem_critter_hide
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 311:56
+[com_56]
+type=text
+y=-11
+width=16391
+height=43
+widthmode=proportion
+xmode=abs_centre
+layer=frame_layer
+textfont=b12_full
+text=Which Jadinko Do You Want To Ward Off?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 311:57
+[bigmodel]
+type=model
+x=109
+y=147
+width=289
+height=151
+layer=jadinko_layer
+model=model_62244
+modelorigin=1,55
+modelangle=108,256,0
+modelzoom=358
+modelanim=seq_3286
+
+// 311:58
+[button_text]
+type=text
+x=396
+y=262
+width=100
+height=29
+layer=jadinko_layer
+textfont=b12_full
+text= 
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onmouseover=ecosystem_button_swapper
+onmouseleave=script3926
+
+// 311:59
+[name]
+type=text
+x=118
+y=-3
+width=249
+height=49
+layer=jadinko_layer
+textfont=b12_full
+text=Common Jadinko
+textalignh=centre
+textalignv=centre
+textshadow=yes

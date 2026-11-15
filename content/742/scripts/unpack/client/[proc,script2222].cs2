@@ -1,0 +1,18 @@
+// 2222
+[proc,script2222](int $key0)
+switch_int ($key0) {
+    case ^key_escape :
+        unknown_command_5616;
+        op385(18);
+        ~loginscreen_setactivemenu(11);
+    case ^key_return :
+        if (if_gethide(account_create_success:u13_layer) = true) {
+            if (%create_success_billing_link = true) {
+                ~clientscript_5635("dob", "set_members_dob.ws");
+            } else {
+                ~clientscript_5637;
+            }
+        } else {
+            ~create_u13_continue;
+        }
+}

@@ -1,0 +1,14 @@
+// 6116
+[proc,clientscript_6116](component $component0, int $int1, int $int2)
+if_sethide($component0, false);
+switch_int (%varclient_1884) {
+    case 0 :
+        if_setposition($component0, 16383, if_gety($component0), ^setpos_rel_right, ^setpos_abs_top);
+    case 1 :
+        if_setposition($component0, if_getx($component0), 16383, ^setpos_abs_left, ^setpos_rel_bottom);
+    case 2 :
+        if_setposition($component0, 16383, if_gety($component0), ^setpos_rel_left, ^setpos_abs_top);
+    case 3 :
+        if_setposition($component0, if_getx($component0), 16383, ^setpos_abs_left, ^setpos_rel_top);
+}
+if_setontimer($component0, "clientscript_6117(event_com, $int1, 0, $int2, 0)");

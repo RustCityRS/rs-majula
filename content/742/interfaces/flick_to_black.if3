@@ -1,0 +1,23 @@
+// 795:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+colour=0x000000
+fill=yes
+onload=script1380(event_com)
+onvartransmit=script1380(event_com){fov_status}
+
+// 795:1
+[fade_text]
+type=text
+x=71
+y=3342
+width=477
+height=75
+xmode=proportion_centre
+ymode=proportion_top
+textfont=p12_full
+textalignh=centre

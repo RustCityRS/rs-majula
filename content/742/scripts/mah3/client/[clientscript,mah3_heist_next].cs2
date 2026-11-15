@@ -1,0 +1,10 @@
+// 2658
+[clientscript,mah3_heist_next]
+%mah3_spline_leg = calc(%mah3_spline_leg + 1);
+if (%mah3_spline_leg >= calc(spline_length(0) - 1)) {
+    %mah3_spline_leg = 0;
+    if_setoncamfinished(mah3_heistsplines:controller, null);
+    return;
+}
+cam_movealong(0, %mah3_spline_leg, 600, 400, 1, %mah3_spline_leg);
+if_setoncamfinished(mah3_heistsplines:controller, "mah3_heist_next");

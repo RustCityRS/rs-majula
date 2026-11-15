@@ -1,0 +1,28 @@
+// 1229:0
+[com_0]
+type=text
+x=4
+y=4
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+textfont=verdana_13pt_regular
+text=This is the bank interface.<br><br>Click on an item in the bank to withdraw one, or on an item in your inventory to deposit one.<br><br>You can deposit or withdraw multiples of stacked items by right-clicking and choosing how many you wish to move.
+textlineheight=13
+textalignh=centre
+textalignv=centre
+colour=0x010101
+
+// 1229:1
+[com_1]
+type=graphic
+x=227
+y=-39
+width=16
+height=15
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close

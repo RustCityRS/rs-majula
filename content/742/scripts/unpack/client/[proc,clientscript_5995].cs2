@@ -1,0 +1,25 @@
+// 5995
+[proc,clientscript_5995](int $int0)(any, int)
+if (%varclient_1928 = 0) {
+    switch_int ($int0) {
+        case 504 :
+            return(504, 100);
+        case 501 :
+            return(501, 100);
+        case 503 :
+            return(503, 100);
+        case 502 :
+            return(502, 100);
+    }
+} else if (%varclient_1928 = 1) {
+    switch_int ($int0) {
+        case 504 :
+            return(504, 100);
+        case 501 :
+            return(501, 100);
+        case 503 :
+            return(503, 100);
+        case 502 :
+            return(502, 100);
+    }
+}

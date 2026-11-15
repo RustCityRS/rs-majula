@@ -1,0 +1,11 @@
+// 801
+[clientscript,topstat_set_text_skill](component $component0, stat $stat1)
+if_setcolour($component0, ~topstat_set_text_colour_skill($stat1));
+if ($stat1 = prayer) {
+    if_settext($component0, tostring(%varplayerbit_9816));
+} else {
+    if_settext($component0, tostring(stat($stat1)));
+}
+if ($stat1 = summoning) {
+    ~topstat_set_lore_icon;
+}

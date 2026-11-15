@@ -1,0 +1,26 @@
+// 6121
+[proc,clientscript_6121](int $int0)
+def_string $string0 = "";
+switch_int ($int0) {
+    case 0 :
+        $string0 = "Kill them all!";
+    case 1 :
+        $string0 = "Kill the enemies until reinforcements stop coming!";
+    case 2 :
+        $string0 = "Everything is dead! Marmaros has stopped fighting too.";
+    case 3 :
+        $string0 = "Kill that boss!";
+    case 4 :
+        $string0 = "The boss has legged it with your sword - get him!";
+    case 5 :
+        $string0 = "Kill more enemies than Marmaros to be the best brother!";
+    case default :
+        $string0 = "Unexpected value <tostring($int0)>.";
+}
+if (compare($string0, if_gettext(interface_621:com_34)) = 0) {
+    return;
+}
+def_int $int1 = stringwidth($string0, p11_full);
+if_setsize(interface_621:com_34, $int1, 32, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_621:com_11, calc($int1 + 64), 28, ^setsize_abs, ^setsize_abs);
+if_settext(interface_621:com_34, $string0);

@@ -1,0 +1,16 @@
+// 6601
+[proc,clientscript_6601](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (if_find(interface_1325:com_12) = true) {
+    $int2 = cc_getwidth;
+    $int3 = cc_getx;
+}
+$int1 = calc($int2 * %varplayerbit_11805 / 100 + $int3);
+if ($int1 <= $int3) {
+    $int1 = $int3;
+}
+if (if_find($component0) = true) {
+    cc_setposition($int1, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}

@@ -1,0 +1,45 @@
+// Druidic Ritual as of May 2011 (cache 786): still the 2005 quest, 289's quest_druid line for
+// line. Sources:
+//   R  = the 2011 recording (YouTube agUATXHTRIg, uploaded 2011-04-27), the quest from start to
+//        scroll.
+//   W  = the 2011 wiki, Druidic Ritual (2011-05-03): 4 quest points, 250 Herblore xp, access to
+//        the Herblore skill.
+//   V  = void-634's DruidicRitual.kt and Kaqemeex.kt, unverified.
+//   289 = 289's quest_druid, kept where nothing later says otherwise.
+
+[queue,druid_quest_complete]
+%druidquest = ^druid_complete;
+stat_advance(herblore, 2500);
+session_log(^log_adventure, "Quest complete: Druidic Ritual");
+// R's scroll: "You have completed the Druidic Ritual quest!", "4 Quest Points", "250 Herblore
+// XP", "Access to Herblore skill", a green herb beside them (289's is its marrentill).
+~send_quest_complete2(^questlist_druid, marentill, 220, ^druid_questpoints, "You have completed the Druidic Ritual quest!", "250 Herblore XP|Access to Herblore skill");
+// 289 queues Kaqemeex's "I will now explain the fundamentals of Herblore:" behind the scroll,
+// by the uid this queue took. 2011 does not: in R nothing opens once the scroll is closed, and
+// V has the fundamentals only on "Can you explain the fundamentals again?".
+
+[oplocu,cauldron_of_thunder]
+def_obj $useitem = last_useitem;
+if (%druidquest ! ^druid_spoken_sanfew) {
+    ~displaymessage(^dm_default);
+    return;
+}
+if ($useitem = raw_rat_meat) {
+    mes("You dip the raw rat meat in the cauldron."); // R
+    inv_del(inv, raw_rat_meat, 1);
+    inv_add(inv, enchanted_rat_meat, 1);
+} else if ($useitem = raw_beef) {
+    mes("You dip the raw beef in the cauldron."); // R
+    inv_del(inv, raw_beef, 1);
+    inv_add(inv, enchanted_beef, 1);
+} else if ($useitem = raw_bear_meat) {
+    mes("You dip the raw bear meat in the cauldron."); // R
+    inv_del(inv, raw_bear_meat, 1);
+    inv_add(inv, enchanted_bear_meat, 1);
+} else if ($useitem = raw_chicken) {
+    mes("You dip the raw chicken in the cauldron."); // R
+    inv_del(inv, raw_chicken, 1);
+    inv_add(inv, enchanted_chicken, 1);
+} else {
+    ~displaymessage(^dm_default);
+}

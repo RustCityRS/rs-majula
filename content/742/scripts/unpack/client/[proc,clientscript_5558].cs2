@@ -1,0 +1,15 @@
+// 5558
+[proc,clientscript_5558](int $int0)
+if ($int0 ! 1) {
+    return;
+}
+if (if_gethide(toplevel_fullscreen:com_246) = true) {
+    if_sethide(toplevel_fullscreen:com_246, false);
+} else {
+    if_sethide(toplevel_fullscreen:com_246, true);
+}
+if (if_gethide(toplevel:com_200) = true) {
+    if_sethide(toplevel:com_200, false);
+} else {
+    if_sethide(toplevel:com_200, true);
+}

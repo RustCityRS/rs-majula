@@ -1,0 +1,34 @@
+// 1623
+[proc,clientscript_1623](int $int0)
+switch_int ($int0) {
+    case 21561344 :
+        if (if_find(interface_329:com_2) = true) {
+            cc_setgraphic(6355);
+        }
+        if (if_find(interface_329:com_3) = true) {
+            cc_setgraphic(6356);
+        }
+        if (if_find(interface_329:com_4) = true) {
+            cc_setgraphic(6357);
+        }
+    case 33947660 :
+        if (if_find(interface_518:com_0) = true) {
+            cc_setgraphic(6355);
+        }
+        if (if_find(interface_518:com_1) = true) {
+            cc_setgraphic(6356);
+        }
+        if (if_find(interface_518:com_2) = true) {
+            cc_setgraphic(6357);
+        }
+    case 21561345 :
+        if (if_find(interface_329:com_40) = true) {
+            cc_setgraphic(6355);
+        }
+        if (if_find(interface_329:com_41) = true) {
+            cc_setgraphic(6356);
+        }
+        if (if_find(interface_329:com_42) = true) {
+            cc_setgraphic(6357);
+        }
+}

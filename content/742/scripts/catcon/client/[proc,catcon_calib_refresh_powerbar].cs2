@@ -1,0 +1,27 @@
+// 861
+[proc,catcon_calib_refresh_powerbar]
+if_sethide(catcon_calibration_puzzle_control:com_29, false);
+if_sethide(catcon_calibration_puzzle_control:com_30, true);
+if_sethide(catcon_calibration_puzzle_control:com_31, true);
+if_sethide(catcon_calibration_puzzle_control:com_32, true);
+if_sethide(catcon_calibration_puzzle_control:com_33, true);
+if_sethide(catcon_calibration_puzzle_control:com_34, true);
+if_sethide(catcon_calibration_puzzle_control:com_35, true);
+if (%catcon_calib_client_powerbar > 0) {
+    if_sethide(catcon_calibration_puzzle_control:com_30, false);
+}
+if (%catcon_calib_client_powerbar > 1) {
+    if_sethide(catcon_calibration_puzzle_control:com_31, false);
+}
+if (%catcon_calib_client_powerbar > 2) {
+    if_sethide(catcon_calibration_puzzle_control:com_32, false);
+}
+if (%catcon_calib_client_powerbar > 3) {
+    if_sethide(catcon_calibration_puzzle_control:com_33, false);
+}
+if (%catcon_calib_client_powerbar > 4) {
+    if_sethide(catcon_calibration_puzzle_control:com_34, false);
+}
+if (%catcon_calib_client_powerbar > 5) {
+    if_sethide(catcon_calibration_puzzle_control:com_35, false);
+}

@@ -1,0 +1,35 @@
+// 2187
+[proc,script2187](int $int0)(int)
+switch_int ($int0) {
+    case 0 :
+        return(%varplayerbit_7301);
+    case 1 :
+        return(%varplayerbit_7302);
+    case 2 :
+        return(%varplayerbit_7303);
+    case 3 :
+        return(%varplayerbit_7304);
+    case 4 :
+        return(%varplayerbit_7305);
+    case 5 :
+        return(%varplayerbit_7298);
+    case 6 :
+        return(%varplayerbit_7299);
+    case 7 :
+        return(%varplayerbit_7300);
+    case 8 :
+        return(%varplayerbit_7296);
+    case 9 :
+        return(%varplayerbit_7297);
+    case 10 :
+        return(%varplayerbit_11305);
+    case 11 :
+        return(%varplayerbit_11311);
+    case 12 :
+        return(%varplayerbit_11312);
+    case 13 :
+        return(%varplayerbit_11313);
+    case 14 :
+        return(%varplayerbit_11314);
+}
+return(-1);

@@ -1,0 +1,2391 @@
+// 1002:0
+[container]
+type=layer
+widthmode=minus
+heightmode=minus
+transmitop=10
+op10= 
+
+// 1002:1
+[com_1]
+type=model
+x=-1057
+y=-726
+width=2621
+height=1815
+layer=container
+model=model_58567
+modelorigin=0,-9
+modelangle=512,0,0
+modelzoom=261
+transmitop=10
+op10= 
+
+// 1002:2
+[main]
+type=layer
+x=-6
+y=-10
+width=518
+height=343
+layer=container
+transmitop=10
+op10=  
+onload=bank_v2_help_init
+
+// 1002:3
+[com_3]
+type=graphic
+x=38
+y=312
+width=454
+height=32
+layer=main
+graphic="v2_stone_borders_alt,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:4
+[com_4]
+type=graphic
+x=486
+y=42
+width=32
+height=274
+layer=main
+graphic="v2_stone_borders_alt,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:5
+[com_5]
+type=graphic
+x=6
+y=42
+width=7
+height=276
+layer=main
+graphic="v2_stone_borders_alt,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:6
+[com_6]
+type=graphic
+x=6
+y=312
+width=32
+height=32
+layer=main
+graphic="v2_stone_borders_alt,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:7
+[com_7]
+type=graphic
+x=486
+y=10
+width=32
+height=32
+layer=main
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1002:8
+[com_8]
+type=graphic
+x=486
+y=312
+width=32
+height=32
+layer=main
+graphic="v2_stone_borders_alt,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:9
+[com_9]
+type=graphic
+x=38
+y=10
+width=451
+height=32
+layer=main
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1002:10
+[com_10]
+type=graphic
+x=6
+y=10
+width=32
+height=32
+layer=main
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1002:11
+[text]
+type=layer
+x=-31
+y=25
+width=474
+height=235
+layer=main
+transmitop=10
+op10=  
+
+// 1002:12
+[com_12]
+type=text
+x=20
+y=4
+width=100
+height=24
+widthmode=minus
+xmode=abs_centre
+layer=container
+textfont=p12_full
+text=Paths interlace and intersect. May runes match where they meet.
+textshadow=yes
+colour=0xc69b01
+transmitop=10
+op10= 
+
+// 1002:13
+[closebutton]
+type=graphic
+x=4
+y=4
+width=16
+height=16
+xmode=abs_right
+layer=container
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1002:14
+[knot]
+type=layer
+x=-7
+y=39
+width=418
+height=268
+xmode=abs_centre
+layer=container
+
+// 1002:15
+[graphic10]
+type=graphic
+x=89
+y=282
+width=43
+height=39
+layer=container
+graphic=graphic_2545
+colour=0xffffffff
+transmitop=10
+op10=         
+
+// 1002:16
+[graphic11]
+type=graphic
+x=71
+y=282
+width=30
+height=39
+layer=container
+graphic=graphic_2543
+colour=0xffffffff
+transmitop=10
+op10=         
+
+// 1002:17
+[graphic12]
+type=graphic
+x=123
+y=282
+width=30
+height=39
+layer=container
+graphic=graphic_2543
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=         
+
+// 1002:18
+[invert_layer]
+type=layer
+x=75
+y=286
+width=74
+height=32
+layer=container
+transmitop=10
+op10=    
+onmouseover=lobbyscreen_button_highlight(trail_knot_00:com_19, "lobby_buttons_sml,2", trail_knot_00:com_20, "lobby_buttons_sml,3", trail_knot_00:com_21, "lobby_buttons_sml,2")
+onmouseleave=lobbyscreen_button_highlight(trail_knot_00:com_19, "lobby_buttons_sml,0", trail_knot_00:com_20, "lobby_buttons_sml,1", trail_knot_00:com_21, "lobby_buttons_sml,0")
+
+// 1002:19
+[com_19]
+type=graphic
+width=16
+height=32
+layer=invert_layer
+graphic="lobby_buttons_sml,0"
+colour=0xffffffff
+transmitop=10
+op10=          
+
+// 1002:20
+[com_20]
+type=graphic
+x=15
+width=45
+height=32
+layer=invert_layer
+graphic="lobby_buttons_sml,1"
+colour=0xffffffff
+transmitop=10
+op10=          
+
+// 1002:21
+[com_21]
+type=graphic
+x=58
+width=16
+height=32
+layer=invert_layer
+graphic="lobby_buttons_sml,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=          
+
+// 1002:22
+[invert]
+type=text
+width=74
+height=32
+layer=invert_layer
+textfont=p12_full
+text= Invert  paths 
+textalignh=centre
+textalignv=centre
+colour=0xcccccc
+transmitop=10
+op10=      
+onmouseover=script3629(trail_knot_00:hiddenrunes, event_com, ^white)
+onmouseleave=script3630(trail_knot_00:hiddenrunes, event_com, 0xcccccc)
+
+// 1002:23
+[unlock_layer]
+type=layer
+x=362
+y=282
+width=75
+height=39
+layer=container
+transmitop=10
+op10=   
+onmouseover=lobbyscreen_button_highlight(trail_knot_00:unlock0, "lobby_buttons,2", trail_knot_00:unlock1, "lobby_buttons,3", trail_knot_00:unlock2, "lobby_buttons,2")
+onmouseleave=lobbyscreen_button_highlight(trail_knot_00:unlock0, "lobby_buttons,0", trail_knot_00:unlock1, "lobby_buttons,1", trail_knot_00:unlock2, "lobby_buttons,0")
+
+// 1002:24
+[unlock0]
+type=graphic
+width=18
+height=39
+layer=unlock_layer
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=        
+
+// 1002:25
+[unlock1]
+type=graphic
+x=18
+width=39
+height=39
+layer=unlock_layer
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=        
+
+// 1002:26
+[unlock2]
+type=graphic
+x=57
+width=18
+height=39
+layer=unlock_layer
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=        
+
+// 1002:27
+[confirm]
+type=text
+width=75
+height=39
+layer=unlock_layer
+textfont=b12_full
+text=Unlock
+textlineheight=1
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=1,10
+op1=Unlock
+op10=      
+
+// 1002:28
+[track_0_cw]
+type=graphic
+x=14
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,9"
+colour=0xffffffff
+transmitop=1,10
+op1=Rotate clockwise
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+onmouseover=graphic_swapper(event_com, "trail_puzzel_icons,13")
+onmouseleave=graphic_swapper(event_com, "trail_puzzel_icons,9")
+onclick=graphic_swapper(event_com, "trail_puzzel_icons,17")
+onrelease=graphic_swapper(event_com, "trail_puzzel_icons,13")
+
+// 1002:29
+[track_0_ccw]
+type=graphic
+x=14
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,11"
+colour=0xffffffff
+transmitop=1,10
+op1=Rotate anticlockwise
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+onmouseover=graphic_swapper(event_com, "trail_puzzel_icons,15")
+onmouseleave=graphic_swapper(event_com, "trail_puzzel_icons,11")
+onclick=graphic_swapper(event_com, "trail_puzzel_icons,19")
+onrelease=graphic_swapper(event_com, "trail_puzzel_icons,15")
+
+// 1002:30
+[track_1_cw]
+type=graphic
+x=164
+y=229
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,10"
+colour=0xffffffff
+transmitop=1,10
+op1=Rotate clockwise
+op10= 
+onload=text_colour_swapper(event_com, 0x484879)
+onmouseover=graphic_swapper(event_com, "trail_puzzel_icons,14")
+onmouseleave=graphic_swapper(event_com, "trail_puzzel_icons,10")
+onclick=graphic_swapper(event_com, "trail_puzzel_icons,18")
+onrelease=graphic_swapper(event_com, "trail_puzzel_icons,14")
+
+// 1002:31
+[track_1_ccw]
+type=graphic
+x=214
+y=229
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,9"
+colour=0xffffffff
+transmitop=1,10
+op1=Rotate anticlockwise
+op10= 
+onload=text_colour_swapper(event_com, 0x484879)
+onmouseover=graphic_swapper(event_com, "trail_puzzel_icons,13")
+onmouseleave=graphic_swapper(event_com, "trail_puzzel_icons,9")
+onclick=graphic_swapper(event_com, "trail_puzzel_icons,17")
+onrelease=graphic_swapper(event_com, "trail_puzzel_icons,13")
+
+// 1002:32
+[track_2_cw]
+type=graphic
+x=364
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,8"
+colour=0xffffffff
+transmitop=1,10
+op1=Rotate clockwise
+op10=  
+onload=text_colour_swapper(event_com, 0x958c77)
+onmouseover=graphic_swapper(event_com, "trail_puzzel_icons,12")
+onmouseleave=graphic_swapper(event_com, "trail_puzzel_icons,8")
+onclick=graphic_swapper(event_com, "trail_puzzel_icons,16")
+onrelease=graphic_swapper(event_com, "trail_puzzel_icons,12")
+
+// 1002:33
+[track_2_ccw]
+type=graphic
+x=364
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,10"
+colour=0xffffffff
+transmitop=1,10
+op1=Rotate anticlockwise
+op10=  
+onload=text_colour_swapper(event_com, 0x958c77)
+onmouseover=graphic_swapper(event_com, "trail_puzzel_icons,14")
+onmouseleave=graphic_swapper(event_com, "trail_puzzel_icons,10")
+onclick=graphic_swapper(event_com, "trail_puzzel_icons,18")
+onrelease=graphic_swapper(event_com, "trail_puzzel_icons,14")
+
+// 1002:34
+[track0_8]
+type=graphic
+x=139
+y=4
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:35
+[track0_9]
+type=graphic
+x=164
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:36
+[track0_11]
+type=graphic
+x=214
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:37
+[track0_12]
+type=graphic
+x=239
+y=104
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,5"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:38
+[track0_13]
+type=graphic
+x=214
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:39
+[track1_0]
+type=graphic
+x=189
+y=204
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,4"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:40
+[track1_1]
+type=graphic
+x=164
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:41
+[track1_2]
+type=graphic
+x=139
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:42
+[track1_3]
+type=graphic
+x=114
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:43
+[track1_8]
+type=graphic
+x=189
+y=4
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:44
+[track1_9]
+type=graphic
+x=214
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:45
+[track1_10]
+type=graphic
+x=239
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:46
+[track1_11]
+type=graphic
+x=264
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:47
+[track2_0]
+type=graphic
+x=239
+y=204
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:48
+[track2_1]
+type=graphic
+x=214
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:49
+[track2_3]
+type=graphic
+x=164
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:50
+[track2_5]
+type=graphic
+x=164
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:51
+[track2_6]
+type=graphic
+x=189
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:52
+[track2_13]
+type=graphic
+x=314
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:53
+[rune_1_00]
+type=model
+x=203
+y=218
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+onload=script3631(event_com)
+
+// 1002:54
+[rune_1_01]
+type=model
+x=178
+y=193
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+onload=script3631(event_com)
+
+// 1002:55
+[track0_shade1]
+type=graphic
+x=164
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1002:56
+[track0_15]
+type=graphic
+x=164
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:57
+[x4_fill]
+type=graphic
+x=175
+y=190
+width=27
+height=27
+layer=knot
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=quest_param_coordy(event_com)
+onvartransmit=script3611(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:58
+[track0_0]
+type=graphic
+x=139
+y=204
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,4"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:59
+[track0_1]
+type=graphic
+x=114
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:60
+[track0_2]
+type=graphic
+x=89
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:61
+[track0_3]
+type=graphic
+x=64
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:62
+[track0_4]
+type=graphic
+x=39
+y=104
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,3"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:63
+[track0_5]
+type=graphic
+x=64
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:64
+[track0_6]
+type=graphic
+x=89
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:65
+[track0_7]
+type=graphic
+x=114
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:66
+[rune_0_15]
+type=model
+x=177
+y=193
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:67
+[rune_0_00]
+type=model
+x=152
+y=218
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10= 
+onload=script3631(event_com)
+
+// 1002:68
+[rune_0_01]
+type=model
+x=127
+y=193
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10= 
+onload=script3631(event_com)
+
+// 1002:69
+[rune_0_02]
+type=model
+x=102
+y=168
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+onload=script3631(event_com)
+
+// 1002:70
+[rune_0_03]
+type=model
+x=77
+y=143
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+onload=script3631(event_com)
+
+// 1002:71
+[rune_0_04]
+type=model
+x=52
+y=118
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+onload=script3631(event_com)
+
+// 1002:72
+[rune_0_05]
+type=model
+x=77
+y=93
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:73
+[rune_0_06]
+type=model
+x=102
+y=68
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+onload=script3631(event_com)
+
+// 1002:74
+[rune_0_07]
+type=model
+x=127
+y=43
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:75
+[track0_14]
+type=graphic
+x=189
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:76
+[rune_0_13]
+type=model
+x=227
+y=143
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:77
+[rune_0_14]
+type=model
+x=202
+y=168
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:78
+[com_78]
+type=graphic
+x=189
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1002:79
+[track2_2]
+type=graphic
+x=189
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:80
+[x3_fill]
+type=graphic
+x=200
+y=165
+width=27
+height=27
+layer=knot
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=quest_param_coordx(event_com)
+onvartransmit=script3608(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:81
+[track2_4]
+type=graphic
+x=139
+y=104
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,3"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:82
+[track1_12]
+type=graphic
+x=289
+y=104
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,5"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:83
+[track1_13]
+type=graphic
+x=264
+y=129
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:84
+[track1_14]
+type=graphic
+x=239
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:85
+[rune_2_00]
+type=model
+x=252
+y=218
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=   
+onload=script3631(event_com)
+
+// 1002:86
+[rune_2_01]
+type=model
+x=227
+y=193
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=   
+onload=script3631(event_com)
+
+// 1002:87
+[track2_shade1]
+type=graphic
+x=214
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:88
+[track1_15]
+type=graphic
+x=214
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:89
+[x6_fill]
+type=graphic
+x=225
+y=190
+width=27
+height=27
+layer=knot
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script3616(event_com)
+onvartransmit=script3617(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:90
+[rune_1_08]
+type=model
+x=202
+y=18
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:91
+[rune_1_09]
+type=model
+x=227
+y=43
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:92
+[com_92]
+type=graphic
+x=214
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1002:93
+[track2_7]
+type=graphic
+x=214
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:94
+[x5_fill]
+type=graphic
+x=225
+y=40
+width=27
+height=27
+layer=knot
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=quest_param_coordz(event_com)
+onvartransmit=script3614(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:95
+[track2_8]
+type=graphic
+x=239
+y=4
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,1"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:96
+[track2_9]
+type=graphic
+x=264
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=     
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:97
+[track2_10]
+type=graphic
+x=289
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:98
+[track2_11]
+type=graphic
+x=314
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:99
+[track2_12]
+type=graphic
+x=339
+y=104
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:100
+[track2_14]
+type=graphic
+x=289
+y=154
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:101
+[track2_15]
+type=graphic
+x=264
+y=179
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=    
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:102
+[rune_2_05]
+type=model
+x=177
+y=93
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:103
+[rune_2_06]
+type=model
+x=202
+y=68
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:104
+[track2_shade]
+type=graphic
+x=189
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1002:105
+[track0_10]
+type=graphic
+x=189
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:106
+[x2_fill]
+type=graphic
+x=200
+y=65
+width=27
+height=27
+layer=knot
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script3604(event_com)
+onvartransmit=script3605(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:107
+[rune_0_10]
+type=model
+x=202
+y=68
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:108
+[rune_0_11]
+type=model
+x=227
+y=93
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:109
+[rune_0_12]
+type=model
+x=252
+y=118
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:110
+[track1_4]
+type=graphic
+x=89
+y=104
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,3"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:111
+[track1_5]
+type=graphic
+x=114
+y=79
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:112
+[track1_6]
+type=graphic
+x=139
+y=54
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:113
+[rune_0_08]
+type=model
+x=152
+y=18
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:114
+[rune_0_09]
+type=model
+x=177
+y=43
+width=24
+height=23
+layer=knot
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:115
+[track1_shade2]
+type=graphic
+x=164
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 1002:116
+[track1_7]
+type=graphic
+x=164
+y=29
+width=50
+height=50
+layer=knot
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:117
+[x1_fill]
+type=graphic
+x=175
+y=40
+width=27
+height=27
+layer=knot
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script3601(event_com)
+onvartransmit=script3602(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:118
+[rune_1_02]
+type=model
+x=152
+y=168
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=   
+onload=script3631(event_com)
+
+// 1002:119
+[rune_1_03]
+type=model
+x=127
+y=143
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=   
+onload=script3631(event_com)
+
+// 1002:120
+[rune_1_04]
+type=model
+x=102
+y=118
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=   
+onload=script3631(event_com)
+
+// 1002:121
+[rune_1_05]
+type=model
+x=127
+y=93
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:122
+[rune_1_06]
+type=model
+x=152
+y=68
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=   
+onload=script3631(event_com)
+
+// 1002:123
+[rune_1_07]
+type=model
+x=177
+y=43
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:124
+[rune_1_10]
+type=model
+x=252
+y=68
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:125
+[rune_1_11]
+type=model
+x=277
+y=93
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=     
+onload=script3631(event_com)
+
+// 1002:126
+[rune_1_12]
+type=model
+x=302
+y=118
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:127
+[rune_1_13]
+type=model
+x=277
+y=143
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:128
+[rune_1_14]
+type=model
+x=252
+y=168
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:129
+[rune_1_15]
+type=model
+x=227
+y=193
+width=24
+height=23
+layer=knot
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:130
+[rune_2_02]
+type=model
+x=202
+y=168
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:131
+[rune_2_03]
+type=model
+x=177
+y=143
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:132
+[rune_2_04]
+type=model
+x=152
+y=118
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+onload=script3631(event_com)
+
+// 1002:133
+[rune_2_07]
+type=model
+x=227
+y=43
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:134
+[rune_2_08]
+type=model
+x=252
+y=18
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=       
+onload=script3631(event_com)
+
+// 1002:135
+[rune_2_09]
+type=model
+x=277
+y=43
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:136
+[rune_2_10]
+type=model
+x=302
+y=68
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=       
+onload=script3631(event_com)
+
+// 1002:137
+[rune_2_11]
+type=model
+x=327
+y=93
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=      
+onload=script3631(event_com)
+
+// 1002:138
+[rune_2_12]
+type=model
+x=352
+y=118
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=       
+onload=script3631(event_com)
+
+// 1002:139
+[rune_2_13]
+type=model
+x=327
+y=143
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=       
+onload=script3631(event_com)
+
+// 1002:140
+[rune_2_14]
+type=model
+x=302
+y=168
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=       
+onload=script3631(event_com)
+
+// 1002:141
+[rune_2_15]
+type=model
+x=277
+y=193
+width=24
+height=23
+layer=knot
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=       
+onload=script3631(event_com)
+
+// 1002:142
+[hiddenrunes]
+type=layer
+x=2
+y=18
+width=339
+height=230
+layer=knot
+hide=yes
+transmitop=10
+op10= 
+onvartransmit=script3594{varplayer_1856, varplayer_1856, varplayer_1856}
+
+// 1002:143
+[com_143]
+type=graphic
+x=212
+y=161
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1002:144
+[com_144]
+type=graphic
+x=212
+y=161
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=   
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:145
+[com_145]
+type=graphic
+x=187
+y=136
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:146
+[com_146]
+type=graphic
+x=187
+y=136
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:147
+[com_147]
+type=graphic
+x=162
+y=161
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:148
+[com_148]
+type=graphic
+x=162
+y=161
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:149
+[com_149]
+type=graphic
+x=162
+y=11
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:150
+[com_150]
+type=graphic
+x=162
+y=11
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0xa04632)
+
+// 1002:151
+[com_151]
+type=graphic
+x=187
+y=36
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:152
+[com_152]
+type=graphic
+x=187
+y=36
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x958c77)
+
+// 1002:153
+[com_153]
+type=graphic
+x=212
+y=11
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1002:154
+[com_154]
+type=graphic
+x=212
+y=11
+width=50
+height=50
+layer=hiddenrunes
+graphic="trail_puzzel_icons,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=text_colour_swapper(event_com, 0x484879)
+
+// 1002:155
+[com_155]
+type=graphic
+x=173
+y=22
+width=27
+height=27
+layer=hiddenrunes
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script3601(event_com)
+onvartransmit=script3602(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:156
+[com_156]
+type=graphic
+x=198
+y=47
+width=27
+height=27
+layer=hiddenrunes
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script3604(event_com)
+onvartransmit=script3605(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:157
+[com_157]
+type=graphic
+x=198
+y=147
+width=27
+height=27
+layer=hiddenrunes
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10=  
+onload=quest_param_coordx(event_com)
+onvartransmit=script3608(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:158
+[com_158]
+type=graphic
+x=173
+y=172
+width=27
+height=27
+layer=hiddenrunes
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=quest_param_coordy(event_com)
+onvartransmit=script3611(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:159
+[com_159]
+type=graphic
+x=223
+y=22
+width=27
+height=27
+layer=hiddenrunes
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=quest_param_coordz(event_com)
+onvartransmit=script3614(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:160
+[com_160]
+type=graphic
+x=223
+y=172
+width=27
+height=27
+layer=hiddenrunes
+graphic=compass_ring
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script3616(event_com)
+onvartransmit=script3617(event_com){varplayer_1856, varplayer_1856}
+
+// 1002:161
+[rune_x1]
+type=model
+x=175
+y=25
+width=24
+height=23
+layer=hiddenrunes
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+
+// 1002:162
+[rune_x2]
+type=model
+x=200
+y=50
+width=24
+height=23
+layer=hiddenrunes
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+
+// 1002:163
+[rune_x3]
+type=model
+x=200
+y=150
+width=24
+height=23
+layer=hiddenrunes
+model=model_2735
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=  
+
+// 1002:164
+[rune_x4]
+type=model
+x=175
+y=175
+width=24
+height=23
+layer=hiddenrunes
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10=    
+
+// 1002:165
+[rune_x5]
+type=model
+x=225
+y=25
+width=24
+height=23
+layer=hiddenrunes
+model=model_2481
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10= 
+
+// 1002:166
+[rune_x6]
+type=model
+x=225
+y=175
+width=24
+height=23
+layer=hiddenrunes
+model=model_7516
+modelangle=512,1024,0
+modelzoom=825
+transmitop=10
+op10= 

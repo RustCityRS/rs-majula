@@ -1,0 +1,684 @@
+// 319:0
+[com_0]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+onload=aif_build_close_button_layer(event_com)
+onmouseleave=deltooltip(interface_319:com_5)
+onmouserepeat=clientscript_5332(event_com, interface_319:com_5, "Closing this interface will stop using the Sound Effects Machine.", 20, 170)
+
+// 319:1
+[com_1]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+
+// 319:2
+[com_2]
+type=layer
+x=6
+y=30
+width=10
+height=37
+widthmode=minus
+heightmode=minus
+onload=clientscript_5312(event_com)
+
+// 319:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+
+// 319:4
+[com_4]
+type=layer
+widthmode=minus
+heightmode=minus
+hide=yes
+noclickthrough=yes
+
+// 319:5
+[com_5]
+type=layer
+width=190
+height=261
+layer=com_3
+
+// 319:6
+[com_6]
+type=layer
+y=20
+width=16
+height=175
+widthmode=minus
+layer=com_2
+
+// 319:7
+[com_7]
+type=layer
+y=20
+width=16
+height=175
+widthmode=minus
+layer=com_2
+
+// 319:8
+[com_8]
+type=layer
+y=20
+width=16
+height=175
+xmode=abs_right
+layer=com_2
+
+// 319:9
+[com_9]
+type=layer
+y=20
+width=16
+height=175
+xmode=abs_right
+layer=com_2
+
+// 319:10
+[com_10]
+type=layer
+y=2
+width=96
+height=19
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+
+// 319:11
+[com_11]
+type=layer
+height=21
+widthmode=minus
+layer=com_2
+onclick=clientscript_5317
+onvarctransmit=clientscript_5314(interface_319:com_6, interface_319:com_18, interface_319:com_19, interface_319:com_20, interface_319:com_21){varclient_1608, varclient_1609, varclient_1610, varclient_1611, varclient_1612, varclient_1613, varclient_1614, varclient_1615, varclient_1616, varclient_1617, varclient_1618, varclient_1619, varclient_1620, varclient_1621, varclient_1622, varclient_1623, varclient_1624, varclient_1625, varclient_1626, varclient_1627, varclient_1628, varclient_1629, varclient_1630, varclient_1631, varclient_1632, varclient_1633, varclient_1634, varclient_1635, varclient_1636, varclient_1637, varclient_1638, varclient_1639, varclient_1640, varclient_1641, varclient_1642, varclient_1643, varclient_1644, varclient_1645, varclient_1646, varclient_1647}
+
+// 319:12
+[com_12]
+type=layer
+y=2
+width=96
+height=19
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+
+// 319:13
+[com_13]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_4
+colour=0x000000
+fill=yes
+trans=75
+
+// 319:14
+[com_14]
+type=text
+x=9
+y=54
+width=157
+height=68
+layer=com_4
+textfont=verdana_11pt_regular_multiline
+text=Are you sure you want to clear the favourites list?
+textalignh=centre
+textalignv=centre
+colour=0xff3333
+
+// 319:15
+[com_15]
+type=layer
+x=27
+y=133
+width=126
+height=24
+layer=com_4
+
+// 319:16
+[com_16]
+type=layer
+x=28
+y=166
+width=126
+height=24
+layer=com_4
+
+// 319:17
+[com_17]
+type=layer
+width=8192
+height=20
+widthmode=proportion
+layer=com_11
+onmouseleave=deltooltip(interface_319:com_5)
+onmouserepeat=aif_tooltip(interface_319:com_5, event_com, -1, "This is a list of all possible sound effects. You may sort it alphabetically, add items to your Favourites list with the + button or play them directly from this list.", 140, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 319:18
+[com_18]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 319:19
+[com_19]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 319:20
+[com_20]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 319:21
+[com_21]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 319:22
+[com_22]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 319:23
+[com_23]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 319:24
+[com_24]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 319:25
+[com_25]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_7
+
+// 319:26
+[com_26]
+type=layer
+width=8192
+height=20
+widthmode=proportion
+xmode=abs_right
+layer=com_11
+onmouseleave=deltooltip(interface_319:com_5)
+onmouserepeat=aif_tooltip(interface_319:com_5, event_com, -1, "This is your Favourites sound list. You can remove items by using the - button and play sound effects with the play button. You may clear the list by clicking Clear. This list will persist for the duration of the theatre instance.", 140, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 319:27
+[com_27]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_26
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 319:28
+[com_28]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_26
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 319:29
+[com_29]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_26
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 319:30
+[com_30]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_26
+onload=aif_build_tab_layer(event_com, struct_1772)
+
+// 319:31
+[com_31]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+
+// 319:32
+[com_32]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+textfont=verdana_11pt_regular
+text=Favourites
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 319:33
+[com_33]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+transmitop=1
+op1=Bookmarks
+onload=script4213(event_com)
+
+// 319:34
+[com_34]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_26
+onload=aif_build_tab_layer(event_com, struct_2431)
+
+// 319:35
+[com_35]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=aif_build_tab_layer(event_com, struct_1769)
+
+// 319:36
+[com_36]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=aif_build_tab_layer(event_com, struct_1770)
+
+// 319:37
+[com_37]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=aif_build_tab_layer(event_com, struct_1771)
+
+// 319:38
+[com_38]
+type=layer
+width=16391
+height=20
+widthmode=proportion
+ymode=abs_centre
+layer=com_17
+onload=clientscript_5630(event_com, struct_1772)
+
+// 319:39
+[com_39]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_17
+
+// 319:40
+[com_40]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+textfont=verdana_11pt_regular
+text=Sounds
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)
+
+// 319:41
+[com_41]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_17
+transmitop=1
+op1=Sound List
+onload=script4213(event_com)
+
+// 319:42
+[com_42]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 319:43
+[com_43]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 319:44
+[com_44]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 319:45
+[com_45]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+transmitop=1
+op1=Sort
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_319:com_5)
+onop=clientscript_5310
+onmouserepeat=aif_tooltip(interface_319:com_5, event_com, -1, "Reverse the order of the list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 319:46
+[com_46]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+
+// 319:47
+[com_47]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_46
+textfont=verdana_13pt_regular
+text=Sort
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 319:48
+[com_48]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+textfont=palatino_linotype_14pt_regular
+text=Sound Effects
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build_new(event_com, "Sound Effects", palatino_linotype_14pt_regular, 0xebe0bc, ^black)
+
+// 319:49
+[com_49]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 319:50
+[com_50]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=aif_build_close_button_over(event_com)
+
+// 319:51
+[com_51]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 319:52
+[com_52]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 319:53
+[com_53]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 319:54
+[com_54]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_319:com_5)
+onmouserepeat=aif_tooltip(interface_319:com_5, event_com, -1, "Clears all bookmarked sound effects from the favourites list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 319:55
+[com_55]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+
+// 319:56
+[com_56]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_55
+textfont=verdana_13pt_regular
+text=Clear
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 319:57
+[com_57]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_16
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 319:58
+[com_58]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_16
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 319:59
+[com_59]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_16
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 319:60
+[com_60]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_16
+transmitop=1
+op1=Confirm
+onload=script4213(event_com)
+
+// 319:61
+[com_61]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_16
+
+// 319:62
+[com_62]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_61
+textfont=verdana_13pt_regular
+text=Confirm
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 319:63
+[com_63]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 319:64
+[com_64]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 319:65
+[com_65]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 319:66
+[com_66]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_15
+transmitop=1
+op1=Cancel
+onload=script4213(event_com)
+
+// 319:67
+[com_67]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_15
+
+// 319:68
+[com_68]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_67
+textfont=verdana_13pt_regular
+text=Cancel
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)

@@ -1,0 +1,13 @@
+// 2448
+[clientscript,notes_click](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 ! -1) {
+    if ($int1 = %notes_selected) {
+        %notes_selected = -1;
+    } else {
+        %notes_selected = $int1;
+    }
+}
+~notes_click(1);

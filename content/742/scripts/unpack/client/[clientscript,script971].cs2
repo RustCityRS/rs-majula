@@ -1,0 +1,5 @@
+// 971
+[clientscript,script971]
+if (%level_up_icon > 0) {
+    if_setgraphic(interface_740:icons, enum(int, graphic, enum_1478, %level_up_icon));
+}

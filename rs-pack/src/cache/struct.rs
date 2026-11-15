@@ -3,26 +3,27 @@ use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub type StructTypeProvider = TypeProvider<StructType>;
 
 pub struct StructType {
-    pub id: u16,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    pub id: TypeId,
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     pub debugname: Box<str>,
 }
 
 pub struct StructTypeRaw {
-    pub id: u16,
-    pub params: Option<Vec<(i32, ParamValue)>>,
+    pub id: TypeId,
+    pub params: Option<Vec<(TypeId, ParamValue)>>,
     debugname: Box<str>,
 }
 
 impl CacheType for StructTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             params: None,

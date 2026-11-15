@@ -1,0 +1,112 @@
+// 2921
+[proc,lobbyscreen_report_abuse_stage1_namelist](string $string0, int $int0, int $int1)
+if_opensubclient(lobbyscreen:com_43, lobbyscreen_report_abuse_stage1_namelist);
+%lobbyscreen_report_abuse_name = $string0;
+~lobbyscreen_report_abuse_stage1_namelist_update_select_button;
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(0);
+}
+if_setonkey(lobbyscreen_report_abuse_stage1_namelist:main, "lobbyscreen_report_abuse_stage1_namelist_keyboard(event_keycode, event_keychar, event_com)");
+if_setonop(lobbyscreen_report_abuse_stage1_namelist:next_button, "lobbyscreen_report_abuse_stage1_namelist_next");
+def_int $int2 = 100;
+def_int $int3 = 0;
+def_int $chattype4 = ^chattype_gamemessage;
+def_int $int5 = 1;
+def_string $string1 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+cc_deleteall(lobbyscreen_report_abuse_stage1_namelist:build_layer);
+cc_deleteall(lobbyscreen_report_abuse_stage1_namelist:highlight_name_layer);
+cc_deleteall(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer);
+if_setscrollsize(lobbyscreen_report_abuse_stage1_namelist:build_layer, 0, 0);
+if_setscrollpos(lobbyscreen_report_abuse_stage1_namelist:build_layer, 0, 0);
+while ($int2 >= 0) {
+    $chattype4 = chat_gethistorytype($int2);
+    if ($chattype4 ! ^chattype_gamemessage & $chattype4 ! ^chattype_engine & $chattype4 ! ^chattype_obj_examine & $chattype4 ! ^chattype_npc_examine & $chattype4 ! ^chattype_loc_examine & $chattype4 ! ^chattype_clanmessage & $chattype4 ! ^chattype_trade_notification & $chattype4 ! ^chattype_assist_notification & $chattype4 ! ^chattype_snapshotfeedback & $chattype4 ! ^chattype_friendnotification & $chattype4 ! ^chattype_ignorenotification & $chattype4 ! ^chattype_system_broadcast & compare(chat_gethistoryname($int2), "") ! 0 & compare(chat_gethistorymessage($int2), "") ! 0) {
+        if ($chattype4 ! ^chattype_privatechatout & $chattype4 ! ^chattype_quickchat_private_outgoing) {
+            if ($chattype4 = ^chattype_clanchat | $chattype4 = ^chattype_clanguestchat | $chattype4 = ^chattype_friendschat) {
+                if (compare(removetags(chat_gethistoryname($int2)), chat_playername_unfiltered) ! 0 & $chattype4 ! ^chattype_privatechatout & $chattype4 ! ^chattype_quickchat_private_outgoing) {
+                    $int6 = 0;
+                } else {
+                    $int6 = 14798;
+                }
+                $string1 = "<col=$text_colour>[</col><col=8888ff><chat_gethistoryclan($int2)></col><col=$text_colour>]<chat_gethistoryname($int2)>: <chat_gethistorymessage($int2)>";
+            } else {
+                $string1 = " <chat_gethistoryname($int2)>: <chat_gethistorymessage($int2)>";
+            }
+        } else {
+            $string1 = "To <chat_gethistoryname($int2)>: <chat_gethistorymessage($int2)>";
+        }
+        $int5 = paraheight($string1, calc(if_getwidth(lobbyscreen_report_abuse_stage1_namelist:build_layer) - 10), p12_full);
+        if (compare(removetags(chat_gethistoryname($int2)), chat_playername_unfiltered) ! 0 & $chattype4 ! ^chattype_privatechatout & $chattype4 ! ^chattype_quickchat_private_outgoing) {
+            $int7 = 1;
+            cc_create(lobbyscreen_report_abuse_stage1_namelist:highlight_name_layer, ^iftype_rectangle, if_getnextsubid(lobbyscreen_report_abuse_stage1_namelist:highlight_name_layer));
+            cc_setposition(2, calc($int3 * 15 + 1), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(4, calc($int5 * 15), ^setsize_minus, ^setsize_abs);
+            cc_setcolour(0x606060);
+            cc_settrans(255);
+            cc_setfill(true);
+            cc_setonmouseover("script3392(event_comsubid)");
+            cc_setonmouseleave("script3393(event_comsubid)");
+            cc_create(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer, ^iftype_rectangle, if_getnextsubid(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer));
+            cc_setposition(2, calc($int3 * 15 + 1), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setsize(4, calc($int5 * 15), ^setsize_minus, ^setsize_abs);
+            cc_setcolour(0x494949);
+            cc_settrans(255);
+            cc_setfill(true);
+            cc_setonmouseover("lobbyscreen_report_abuse_stage1_namelist_selected_highlight(event_comsubid)");
+        }
+        cc_create(lobbyscreen_report_abuse_stage1_namelist:build_layer, ^iftype_text, if_getnextsubid(lobbyscreen_report_abuse_stage1_namelist:build_layer));
+        cc_setposition(5, calc($int3 * 15), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(10, calc($int5 * 15), ^setsize_minus, ^setsize_abs);
+        cc_settext($string1);
+        cc_setcolour(0x666678);
+        if (compare(removetags(chat_gethistoryname($int2)), chat_playername_unfiltered) ! 0 & $chattype4 ! ^chattype_privatechatout & $chattype4 ! ^chattype_quickchat_private_outgoing) {
+            cc_setopbase(removetags(chat_gethistoryname($int2)));
+            cc_setop(1, "Report");
+            cc_setonop("script3396(event_comsubid)");
+            cc_setcolour(^white);
+        }
+        cc_settextfont(p12_full);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 15);
+        $int3 = calc($int3 + $int5);
+    }
+    $int2 = calc($int2 - 1);
+}
+if ($int7 = 0) {
+    cc_create(lobbyscreen_report_abuse_stage1_namelist:build_layer, ^iftype_text, if_getnextsubid(lobbyscreen_report_abuse_stage1_namelist:build_layer));
+    cc_setposition(5, calc($int3 * 15), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(16384, 15, ^setsize_rel, ^setsize_abs);
+    cc_settext("There is no chat to report at the moment.");
+    cc_setcolour(0x7d7dd1);
+    cc_settextfont(p12_full);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 15);
+}
+if ($int3 > calc(if_getheight(lobbyscreen_report_abuse_stage1_namelist:list_layer) / 15)) {
+    if_setsize(lobbyscreen_report_abuse_stage1_namelist:list_layer, 38, if_getheight(lobbyscreen_report_abuse_stage1_namelist:list_layer), ^setsize_minus, ^setsize_abs);
+    if_setscrollsize(lobbyscreen_report_abuse_stage1_namelist:scrolled_layer, 0, calc($int3 * 15 + 5));
+    ~scrollbar_vertical(lobbyscreen_report_abuse_stage1_namelist:scroll_layer, lobbyscreen_report_abuse_stage1_namelist:scrolled_layer, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if (cc_find(lobbyscreen_report_abuse_stage1_namelist:scroll_layer, 1) = true) {
+        ~scrollbar_vertical_doscroll(lobbyscreen_report_abuse_stage1_namelist:scroll_layer, lobbyscreen_report_abuse_stage1_namelist:scrolled_layer, if_getscrollheight(lobbyscreen_report_abuse_stage1_namelist:scrolled_layer), true);
+    }
+} else {
+    if_setsize(lobbyscreen_report_abuse_stage1_namelist:list_layer, 21, if_getheight(lobbyscreen_report_abuse_stage1_namelist:list_layer), ^setsize_minus, ^setsize_abs);
+}
+if ($int0 = 1) {
+    if (%snapshot_mute = false) {
+        if_setgraphic(lobbyscreen_report_abuse_stage1_namelist:com_20, "options_radio_buttons_boxed,0");
+    } else {
+        if_setgraphic(lobbyscreen_report_abuse_stage1_namelist:com_20, "options_radio_buttons_boxed,2");
+    }
+    if ($int1 = 5 | $int1 = 6) {
+        if_settext(lobbyscreen_report_abuse_stage1_namelist:mute_text, "Suggest to mute this player for 48 hours");
+    } else {
+        if_settext(lobbyscreen_report_abuse_stage1_namelist:mute_text, "Mute this player for 48 hours");
+    }
+    if_setsize(lobbyscreen_report_abuse_stage1_namelist:mute_layer, calc(stringwidth(if_gettext(lobbyscreen_report_abuse_stage1_namelist:mute_text), p11_full) + 18), if_getheight(lobbyscreen_report_abuse_stage1_namelist:mute_layer), ^setsize_abs, ^setsize_abs);
+    if_setposition(lobbyscreen_report_abuse_stage1_namelist:select_player_layer, 18, 273, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(lobbyscreen_report_abuse_stage1_namelist:mute_layer, false);
+} else {
+    if_setposition(lobbyscreen_report_abuse_stage1_namelist:select_player_layer, 18, 266, ^setpos_abs_left, ^setpos_abs_top);
+}
+if_sethide(lobbyscreen:report_abuse_stage1_namelist, false);
