@@ -1,0 +1,15 @@
+// 5413
+[proc,clientscript_5413]
+def_string $string0 = "Shows a 'Report' option when right-clicking on other players or chat.";
+if_setonmouserepeat(options:com_28, "clientscript_5332(event_com, options:options_tooltip, $string0, 25, 180)");
+if_setonmouseleave(options:com_28, "deltooltip(options:options_tooltip)");
+%tooltip_built = 0;
+if (%varplayerbit_9982 = 1) {
+    if_setgraphic(options:com_6, "aif_checkbox_large,0");
+    if_setgraphic(options:com_7, "aif_checkbox_large,1");
+} else {
+    if_setgraphic(options:com_6, "aif_checkbox_large,5");
+    if_setgraphic(options:com_7, "aif_checkbox_large,6");
+}
+~rebuildchatbox;
+~rebuildpmbox;

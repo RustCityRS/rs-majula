@@ -1,0 +1,40 @@
+// 5106
+[proc,clientscript_5106]
+if_sethide(interface_1116:com_33, true);
+if_sethide(interface_1116:com_161, true);
+if_sethide(interface_1116:com_210, true);
+if_sethide(interface_1116:com_259, true);
+if_sethide(interface_1116:com_308, true);
+if_sethide(interface_1116:com_357, true);
+if_sethide(interface_1116:com_406, true);
+if_sethide(interface_1116:com_455, true);
+if_sethide(interface_1116:com_504, true);
+switch_int (%varplayer_2317) {
+    case 1 :
+        if_sethide(interface_1116:com_33, false);
+        ~clientscript_5107(%varplayer_2307);
+    case 2 :
+        if_sethide(interface_1116:com_161, false);
+        ~clientscript_5107(%varplayer_2308);
+    case 3 :
+        if_sethide(interface_1116:com_210, false);
+        ~clientscript_5107(%varplayer_2309);
+    case 4 :
+        if_sethide(interface_1116:com_259, false);
+        ~clientscript_5107(%varplayer_2310);
+    case 5 :
+        if_sethide(interface_1116:com_308, false);
+        ~clientscript_5107(%varplayer_2311);
+    case 6 :
+        if_sethide(interface_1116:com_357, false);
+        ~clientscript_5107(%varplayer_2312);
+    case 7 :
+        if_sethide(interface_1116:com_406, false);
+        ~clientscript_5107(%varplayer_2313);
+    case 8 :
+        if_sethide(interface_1116:com_455, false);
+        ~clientscript_5107(%varplayer_2314);
+    case 9 :
+        if_sethide(interface_1116:com_504, false);
+        ~clientscript_5107(%varplayer_2315);
+}

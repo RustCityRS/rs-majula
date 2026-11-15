@@ -1,0 +1,9 @@
+// 5050
+[proc,clientscript_5050](int $int0, int $int1, int $int2)
+$int0 = calc($int0 * $int1);
+if ($int2 = 1) {
+    if_setscrollpos(interface_1111:com_12, if_getscrollx(interface_1111:com_12), max(calc(if_getscrolly(interface_1111:com_12) + $int0), 0));
+} else {
+    if_setscrollpos(interface_1111:com_12, max(calc(if_getscrollx(interface_1111:com_12) + $int0), 0), if_getscrolly(interface_1111:com_12));
+}
+~clientscript_5053(0, 0);

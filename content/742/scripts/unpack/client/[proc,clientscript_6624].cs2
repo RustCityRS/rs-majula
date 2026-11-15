@@ -1,0 +1,49 @@
+// 6624
+[proc,clientscript_6624](component $component0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_component $component9 = interface_1323:com_21;
+if (%boardgames_control = 1) {
+} else {
+    if ($int4 ! %boardgames_myturn) {
+        if (%boardgames_myturn = 1) {
+            $component0 = interface_1323:com_95;
+            $int4 = 1;
+        } else {
+            $component0 = interface_1323:com_23;
+            $int4 = 0;
+        }
+        if (.if_find($component9) = true) {
+            $int7, $int8 = .op706;
+        }
+        if (%boardgames_timepermove = 0) {
+            $int2 = 15;
+            $int1 = 15;
+        } else if (%boardgames_timepermove = 1) {
+            $int2 = 30;
+            $int1 = 30;
+        } else if (%boardgames_timepermove = 2) {
+            $int2 = 60;
+            $int1 = 60;
+        } else if (%boardgames_timepermove = 3) {
+            $int2 = 120;
+            $int1 = 120;
+        }
+        if_setsize($component0, if_getwidth($component0), $int8, ^setsize_abs, ^setsize_abs);
+    }
+    if (clientclock > $int3) {
+        if (.if_find($component9) = true) {
+            $int7, $int8 = .op706;
+        }
+        $int5 = scale($int1, $int2, 100);
+        $int6 = calc($int5 * $int8 / 100);
+        if_setsize($component0, if_getwidth($component0), $int6, ^setsize_abs, ^setsize_abs);
+        $int3 = calc(clientclock + 25);
+        $int1 = calc($int1 - 1);
+        sound_vorbis_volume(16938, 1, 0, 100);
+        sound_vorbis_volume(16938, 1, 16, 50);
+    }
+}
+if_setontimer(interface_1323:com_1, "clientscript_6624($component0, $int1, $int2, $int3, $int4)");

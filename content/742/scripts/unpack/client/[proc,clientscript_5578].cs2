@@ -1,0 +1,9 @@
+// 5578
+[proc,clientscript_5578](int $int0)
+if ($int0 = -1 | $int0 > %varplayerbit_10300) {
+    if_sethide(interface_1181:com_190, false);
+    if_sethide(interface_1181:com_173, false);
+} else {
+    if_sethide(interface_1181:com_190, true);
+    if_sethide(interface_1181:com_173, true);
+}

@@ -1,0 +1,7 @@
+// 2371
+[clientscript,script2371]
+if (%equipment_bank_button = 1) {
+    if_sethide(equip_screen2:bank_button, false);
+} else {
+    if_sethide(equip_screen2:bank_button, true);
+}

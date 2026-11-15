@@ -1,0 +1,27 @@
+// The run orb (topstat_run, interface 750). At 530 the orb replaces 289's two
+// controls-tab buttons (interface_controls/scripts/player_controls.rs2, com_4
+// off and com_5 on) with one: op1 on com_1 toggles, its label flipping between
+// "Turn run mode on" and "off" client-side (from varp 173).
+//
+// Running out of energy turns run off in the engine (Player::update_energy),
+// which pushes %option_run back to the orb itself.
+[if_button1,topstat_run:button]
+if (p_finduid(uid) = true) {
+    p_clearpendingaction; // https://youtu.be/XhJ0tjJ9J60?t=62
+    if (%option_run = ^player_run_on) {
+        p_run(^player_run_off);
+        return;
+    }
+    if (runenergy < 100) {
+        p_run(^player_run_off);
+        return;
+    }
+    // 289's island hook, on its controls tab's run button (com_5)
+    if (%varplayer_419 = ^tutorial_open_player_controls) {
+        %varplayer_419 = ^tutorial_has_toggled_on_run;
+        ~set_tutorial_progress;
+    }
+    p_run(^player_run_on);
+    return;
+}
+%option_run = %option_run; // resync varp

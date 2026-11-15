@@ -1,0 +1,38 @@
+// 6855
+[proc,clientscript_6855](int $int0)(graphic, component)
+switch_int ($int0) {
+    case 1 :
+        return(13572, interface_1354:com_19);
+    case 2 :
+        return(13570, interface_1354:com_20);
+    case 3 :
+        return(13568, interface_1354:com_21);
+    case 4 :
+        return(13566, interface_1354:com_22);
+    case 5 :
+        return(13564, interface_1354:com_23);
+    case 6 :
+        return(13562, interface_1354:com_24);
+    case 7 :
+        return(13560, interface_1354:com_25);
+    case 8 :
+        return(13558, interface_1354:com_26);
+    case 9 :
+        return(13556, interface_1354:com_27);
+    case 10 :
+        return(13554, interface_1354:com_28);
+    case 11 :
+        return(13552, interface_1354:com_29);
+    case 12 :
+        return(13550, interface_1354:com_30);
+    case 13 :
+        return(13548, interface_1354:com_31);
+    case 14 :
+        return(13546, interface_1354:com_32);
+    case 15 :
+        return(13544, interface_1354:com_33);
+    case 16 :
+        return(13574, interface_1354:com_34);
+    case default :
+        return(null, null);
+}

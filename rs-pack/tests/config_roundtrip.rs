@@ -82,10 +82,7 @@ fn original_configs_survive_unpack_and_repack() -> anyhow::Result<()> {
                 if let Some(group) = store.read_group(aid, gid)? {
                     for entry in group.entries {
                         if !entry.data().is_empty() {
-                            original.insert(
-                                (first + gid * stride + entry.id) as u16,
-                                entry.data().to_vec(),
-                            );
+                            original.insert(first + gid * stride + entry.id, entry.data().to_vec());
                         }
                     }
                 }

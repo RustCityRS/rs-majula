@@ -1,0 +1,13 @@
+// 1376
+[proc,clientscript_1376](int $int0, component $component1)
+if ($int0 = 1) {
+    if_sethide(worldmap:xv_repaint01, false);
+    if_setop(worldmap:com_17, 1, "Hide key");
+    if_setsize($component1, if_getwidth(worldmap:xv_repaint01), 0, 1, 1);
+} else {
+    if_sethide(worldmap:xv_repaint01, true);
+    if_setop(worldmap:com_17, 1, "Show key");
+    if_setsize($component1, 0, 0, 1, 1);
+}
+~clientscript_2046;
+if_setonop(worldmap:com_17, "clientscript_1375($component1)");

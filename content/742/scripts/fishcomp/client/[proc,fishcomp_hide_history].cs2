@@ -1,0 +1,12 @@
+// 275
+[proc,fishcomp_hide_history]
+if_setsize(fishcomp_overlay:com_47, if_getwidth(fishcomp_overlay:com_47), 88, ^setsize_abs, ^setsize_abs);
+cc_deleteall(fishcomp_overlay:com_58);
+if_setvflip(fishcomp_overlay:com_68, true);
+if_setvflip(fishcomp_overlay:com_69, true);
+if_setscrollpos(fishcomp_overlay:history_scrolllayer, 0, 0);
+if_sethide(fishcomp_overlay:com_48, true);
+if_sethide(fishcomp_overlay:com_53, true);
+if_sethide(fishcomp_overlay:com_56, true);
+if_sethide(fishcomp_overlay:com_86, false);
+if_setposition(fishcomp_overlay:com_55, 177, 9, ^setpos_abs_left, ^setpos_abs_bottom);

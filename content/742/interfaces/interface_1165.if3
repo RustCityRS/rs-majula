@@ -1,0 +1,271 @@
+// 1165:0
+[com_0]
+type=layer
+y=-4
+width=200
+height=269
+xmode=abs_centre
+
+// 1165:1
+[com_1]
+type=text
+y=153
+width=144
+height=36
+xmode=abs_centre
+textfont=p11_full
+text=Click the above button then on your target enemy.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1165:2
+[com_2]
+type=text
+y=196
+width=144
+height=36
+xmode=abs_centre
+textfont=p11_full
+text=The dreadnip will attack pretty much anything except players and boss monsters.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xdbaa58
+
+// 1165:3
+[com_3]
+type=layer
+y=48
+width=156
+height=101
+xmode=abs_centre
+targetmask=npc,player
+opbase=Dreadnip
+targetverb=Target
+onload=script4213(event_com)
+onmouseover=graphic_swapper(interface_1165:com_4, 8337)
+onmouseleave=graphic_swapper(interface_1165:com_4, 8336)
+
+// 1165:4
+[com_4]
+type=graphic
+width=156
+height=101
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+graphic=graphic_8336
+
+// 1165:5
+[com_5]
+type=graphic
+x=9
+y=9
+width=178
+height=248
+layer=com_0
+graphic=graphic_8384
+tiling=yes
+
+// 1165:6
+[com_6]
+type=graphic
+width=96
+height=22
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_8385
+
+// 1165:7
+[com_7]
+type=graphic
+width=96
+height=22
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_8385
+hflip=yes
+
+// 1165:8
+[com_8]
+type=graphic
+y=21
+width=22
+height=78
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_8388
+
+// 1165:9
+[com_9]
+type=graphic
+x=1
+width=21
+height=142
+ymode=abs_centre
+layer=com_0
+graphic=graphic_8389
+tiling=yes
+
+// 1165:10
+[com_10]
+type=graphic
+y=1
+width=30
+height=43
+xmode=abs_centre
+layer=com_0
+graphic=graphic_8394
+tiling=yes
+hflip=yes
+
+// 1165:11
+[com_11]
+type=graphic
+y=1
+width=22
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_8387
+tiling=yes
+hflip=yes
+
+// 1165:12
+[com_12]
+type=graphic
+x=1
+y=41
+width=21
+height=56
+layer=com_0
+graphic=graphic_8390
+
+// 1165:13
+[com_13]
+type=graphic
+width=96
+height=44
+layer=com_0
+graphic=graphic_8393
+
+// 1165:14
+[com_14]
+type=graphic
+y=21
+width=22
+height=78
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_8388
+hflip=yes
+
+// 1165:15
+[com_15]
+type=graphic
+x=1
+width=21
+height=132
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic=graphic_8389
+tiling=yes
+hflip=yes
+
+// 1165:16
+[com_16]
+type=graphic
+x=1
+y=41
+width=21
+height=56
+xmode=abs_right
+layer=com_0
+graphic=graphic_8390
+hflip=yes
+
+// 1165:17
+[com_17]
+type=graphic
+width=96
+height=44
+xmode=abs_right
+layer=com_0
+graphic=graphic_8393
+hflip=yes
+
+// 1165:18
+[com_18]
+type=graphic
+x=37
+y=7
+width=42
+height=35
+layer=com_0
+graphic=graphic_8391
+tiling=yes
+
+// 1165:19
+[com_19]
+type=graphic
+x=37
+y=7
+width=42
+height=35
+xmode=abs_right
+layer=com_0
+graphic=graphic_8391
+tiling=yes
+hflip=yes
+
+// 1165:20
+[com_20]
+type=graphic
+y=7
+width=40
+height=35
+xmode=abs_centre
+layer=com_0
+graphic=graphic_8392
+tiling=yes
+hflip=yes
+
+// 1165:21
+[com_21]
+type=text
+y=13
+width=483
+height=20
+xmode=abs_centre
+layer=com_0
+textfont=p12_full
+text=Dreadnip
+textalignh=centre
+textalignv=centre
+colour=0xf5b241
+
+// 1165:22
+[com_22]
+type=layer
+x=169
+y=12
+width=19
+height=19
+layer=com_0
+transmitop=1
+op1=Close
+onmouseover=clientscript_5399(interface_1165:com_23)
+onmouseleave=clientscript_5400(interface_1165:com_23)
+
+// 1165:23
+[com_23]
+type=graphic
+width=19
+height=19
+layer=com_22
+graphic=graphic_8278

@@ -1,0 +1,12 @@
+// 927
+[proc,script927](obj $obj0)(boolean)
+if (oc_param($obj0, param_749) ! null) {
+    return(true);
+}
+if (oc_param($obj0, param_743) > -1) {
+    return(true);
+}
+if (oc_param($obj0, param_741) = 1) {
+    return(true);
+}
+return(false);

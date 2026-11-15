@@ -5,7 +5,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(IfSetPosition, Buffered, Fixed)]
 pub struct IfSetPosition {
     pub com: u16,
@@ -13,7 +13,7 @@ pub struct IfSetPosition {
     pub y: u16,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for IfSetPosition {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);
@@ -26,12 +26,31 @@ impl ServerProtMessage for IfSetPosition {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[server_prot(IfSetPosition, Buffered, Fixed)]
 pub struct IfSetPosition {
     pub com: i32,
     pub x: u16,
     pub y: u16,
+    #[cfg(all(since_530, before_647))]
+    pub verify: u16,
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for IfSetPosition {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt2(self.verify);
+        buf.p4_alt1(self.com);
+        buf.p2(self.x);
+        buf.p2_alt2(self.y);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com)
+            + size_of_val(&self.x)
+            + size_of_val(&self.y)
+            + size_of_val(&self.verify)
+    }
 }
 
 #[cfg(since_647)]
@@ -44,9 +63,18 @@ impl ServerProtMessage for IfSetPosition {
     // as x and y (`VarbitType`: `x = anInt5264`, `y = anInt5267`, both modes
     // 0, so the position is set outright, not offset).
     fn encode(&self, buf: &mut Packet) {
-        buf.p4_alt3(self.com);
-        buf.p2_alt3(self.x);
-        buf.p2_alt3(self.y);
+        #[cfg(before_742)]
+        {
+            buf.p4_alt3(self.com);
+            buf.p2_alt3(self.x);
+            buf.p2_alt3(self.y);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4(self.com);
+            buf.p2_alt3(self.y);
+            buf.p2_alt1(self.x);
+        }
     }
 
     fn sizeof(&self) -> usize {

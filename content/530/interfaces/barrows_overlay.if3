@@ -1,0 +1,93 @@
+// 24:0
+[com_0]
+type=text
+x=10
+y=8
+width=124
+height=16
+xmode=abs_right
+ymode=abs_bottom
+textfont=fontmetrics_495
+text=Kill Count: %1
+textalignh=right
+textshadow=yes
+colour=0x7d7d4b
+onvartransmit=clientscript_1394{barrows_kills}
+
+// 24:1
+[barrows_ahrim]
+type=model
+x=-154
+y=-42
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 24:2
+[barrows_dharok]
+type=model
+x=-74
+y=38
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 24:3
+[barrows_guthan]
+type=model
+x=200
+y=-13
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 24:4
+[barrows_karil]
+type=model
+x=125
+y=50
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 24:5
+[barrows_torag]
+type=model
+x=163
+y=-10
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 24:6
+[barrows_verac]
+type=model
+x=-115
+y=14
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+model=null
+modelzoom=400
+modelunknown=0,3000,0

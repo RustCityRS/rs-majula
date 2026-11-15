@@ -1,0 +1,21 @@
+// Per-door lock data, ported from rs-majula
+// (ref/rs-majula/content/289/scripts/skill_thieving/configs/doors/locked_door.dbtable).
+//
+// `loc` is INDEXED because the scripts look a door up by its own type:
+// db_find(locked_door:loc, $loc).
+//
+// Optional columns are read with db_getfieldcount first -- a door with no
+// `tool` row needs no lockpick, a door with no `trap_successchance` has no trap.
+// `lock_inversed` flips which side of the doorway counts as locked, for the
+// doors you can leave freely but not enter.
+[locked_door]
+column=loc,loc,INDEXED,REQUIRED
+column=replacement,loc
+column=level,int
+column=experience,int
+column=tool,namedobj,string
+column=mirror,boolean
+column=gate,boolean
+column=lock_inversed,boolean
+column=door_successchance,int,int
+column=trap_successchance,int,int

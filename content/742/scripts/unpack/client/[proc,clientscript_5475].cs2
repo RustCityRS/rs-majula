@@ -1,0 +1,13 @@
+// 5475
+[proc,clientscript_5475](string $string0, component $component0, component $component1, component $component2)
+def_int $int3 = 0;
+if_setscrollpos($component1, 0, 0);
+$int3 = paraheight($string0, if_getwidth($component0), p11_full);
+$int3 = calc($int3 * 12);
+if_setscrollsize($component1, 0, $int3);
+if ($int3 > if_getheight($component1)) {
+    if_sethide($component2, false);
+    ~scrollbar_vertical($component2, $component1, 8383, 8380, 8381, 8382, 8375, 8374);
+} else {
+    if_sethide($component2, true);
+}

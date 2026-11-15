@@ -1,0 +1,14 @@
+// 6287
+[proc,clientscript_6287]
+if (%varclient_1931 < 0) {
+    %varclient_1931 = 0;
+}
+if (%varclient_1931 = 0) {
+    %varclient_1931 = 1;
+    if_sethide(interface_1296:com_1, false);
+    if_set2dangle(interface_1296:com_4, 32768);
+} else {
+    %varclient_1931 = 0;
+    if_sethide(interface_1296:com_1, true);
+    if_set2dangle(interface_1296:com_4, 0);
+}

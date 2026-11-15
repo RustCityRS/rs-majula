@@ -1,0 +1,73 @@
+// 794:0
+[com_0]
+type=model
+x=-3
+y=-10
+width=517
+height=339
+model=model_42525
+modelorigin=0,-11
+modelangle=527,0,0
+modelzoom=228
+modelunknown=65453,379,0
+
+// 794:1
+[closebutton]
+type=graphic
+x=459
+y=3
+width=26
+height=23
+graphic=graphic_541
+transmitop=1
+candrop=yes
+op1=Close
+onmouseover=graphic_swapper(event_com, 542)
+onmouseleave=graphic_swapper(event_com, 541)
+onop=if_close
+
+// 794:2
+[bookmacro_bigindex_right]
+type=graphic
+x=440
+y=290
+width=39
+height=39
+graphic=graphic_1063
+transmitop=1
+op1=Next Page
+
+// 794:3
+[bookmacro_bigindex_left]
+type=graphic
+x=31
+y=290
+width=39
+height=39
+graphic=graphic_1062
+transmitop=1
+op1=Previous Page
+
+// 794:4
+[textright]
+type=text
+x=299
+y=49
+width=133
+height=255
+textfont=fontmetrics_494
+textlineheight=12
+colour=0x333333
+onvartransmit=clientscript_1383{zemo_base1}
+
+// 794:5
+[textleft]
+type=text
+x=94
+y=48
+width=133
+height=255
+textfont=fontmetrics_494
+textlineheight=12
+colour=0x333333
+onvartransmit=clientscript_1383{zemo_base1}

@@ -1,0 +1,16 @@
+// 6523
+[proc,clientscript_6523](int $int0)(graphic)
+switch_int ($int0) {
+    case 1 :
+        return(11630);
+    case 2 :
+        return(11633);
+    case 3 :
+        return(11627);
+    case 4 :
+        return(11636);
+    case 5 :
+        return(11639);
+    case default :
+        return(11642);
+}

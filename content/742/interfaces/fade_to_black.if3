@@ -1,0 +1,31 @@
+// 120:0
+[fade]
+type=model
+width=16807
+height=19088
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+model=model_4835
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=127
+modelnodepth=yes
+modelobjwidth=525
+modelobjheight=389
+onload=fade_out_darkness(event_com)
+onvartransmit=fade_out_darkness(event_com){goblin_caves}
+
+// 120:1
+[fade_text]
+type=text
+x=71
+y=3342
+width=477
+height=75
+xmode=proportion_centre
+ymode=proportion_top
+textfont=p12_full
+text= 
+textalignh=centre

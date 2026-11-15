@@ -1,0 +1,30 @@
+// 6039
+[proc,clientscript_6039](int $int0, component $component1, component $component2)
+def_int $int3 = enum(stat, int, enum_1482, $int0);
+def_boolean $boolean4 = ~clientscript_6035($int0, %varclient_1798, %varclient_1799, 0);
+def_enum $enum5 = enum_3495;
+if ($boolean4 = true) {
+    $enum5 = enum_371;
+}
+cc_deleteall($component1);
+cc_create($component1, ^iftype_graphic, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+def_graphic $graphic6 = 10203;
+def_graphic $graphic7 = 10204;
+if ($int3 ! %varclient_1796) {
+    cc_setgraphic($graphic6);
+    if ($boolean4 = true) {
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic7)");
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic6)");
+    }
+} else {
+    cc_setgraphic(10205);
+}
+.cc_create($component1, ^iftype_graphic, 1);
+.cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+.cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+.cc_setgraphic(enum(int, graphic, $enum5, $int3));
+cc_setop(1, "Choose");
+cc_setopbase(enum(stat, string, enum_680, $int0));
+cc_setonop(clientscript_6040, $int0, $int3, $component1, $component2, "SiII");

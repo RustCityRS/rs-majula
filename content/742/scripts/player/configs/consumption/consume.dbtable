@@ -1,0 +1,15 @@
+// Ported/adapted from Jordan's rev-225: player/configs/consumption/consume.dbtable
+// MVP (single-bite staple foods): just the heal list. consume_sound, stat_change
+// (stat boosts) and the messages table are deferred with multi-bite/potions.
+[consume_table]
+column=consumable,obj,LIST,INDEXED,REQUIRED
+column=stat_heal,stat,int,int,LIST
+
+// 289's messages table, for its potions (consume_effect_messages).
+[consume_messages_table]
+column=consumable,obj,LIST,INDEXED,REQUIRED
+column=consume_message1,string
+column=consume_message2,string
+column=restore_message1,string
+column=restore_message2,string
+column=message_delay,int

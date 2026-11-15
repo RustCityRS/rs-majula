@@ -1,0 +1,8 @@
+// 6470
+[proc,clientscript_6470](component $component0, component $component1)
+def_int $int2 = calc(if_gety($component1) + if_getheight($component1));
+def_int $int3 = 0;
+if (calc(if_getscrolly(interface_1311:com_78) + if_getheight(interface_1311:com_44)) < $int2) {
+    $int3 = min(if_gety($component0), if_getscrollheight(interface_1311:com_78));
+    ~scrollbar_resize(interface_1311:com_82, interface_1311:com_78, $int3);
+}

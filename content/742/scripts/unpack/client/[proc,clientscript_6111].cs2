@@ -1,0 +1,31 @@
+// 6111
+[proc,clientscript_6111]
+def_obj $obj0 = inv_getobj(%varplayer_2561, %varplayer_2563);
+def_int $int1 = op447($obj0);
+if ($int1 = -1) {
+    return;
+}
+def_obj $obj2 = inv_getobj(worn, $int1);
+~clientscript_6112(oc_param($obj0, param_6), oc_param($obj2, param_6), interface_1265:com_112, interface_1265:com_113);
+~clientscript_6112(oc_param($obj0, param_1), oc_param($obj2, param_1), interface_1265:com_107, interface_1265:com_108);
+~clientscript_6112(oc_param($obj0, param_5), oc_param($obj2, param_5), interface_1265:com_118, interface_1265:com_119);
+~clientscript_6112(oc_param($obj0, param_0), oc_param($obj2, param_0), interface_1265:com_115, interface_1265:com_116);
+~clientscript_6112(oc_param($obj0, param_7), oc_param($obj2, param_7), interface_1265:com_124, interface_1265:com_125);
+~clientscript_6112(oc_param($obj0, param_2), oc_param($obj2, param_2), interface_1265:com_121, interface_1265:com_122);
+~clientscript_6112(oc_param($obj0, param_9), oc_param($obj2, param_9), interface_1265:com_130, interface_1265:com_131);
+~clientscript_6112(oc_param($obj0, param_4), oc_param($obj2, param_4), interface_1265:com_127, interface_1265:com_128);
+~clientscript_6112(oc_param($obj0, param_8), oc_param($obj2, param_8), interface_1265:com_136, interface_1265:com_137);
+~clientscript_6112(oc_param($obj0, param_3), oc_param($obj2, param_3), interface_1265:com_133, interface_1265:com_134);
+~clientscript_6112(oc_param($obj0, param_417), oc_param($obj2, param_417), interface_1265:com_139, interface_1265:com_140);
+~clientscript_6112(oc_param($obj0, param_967), oc_param($obj2, param_967), interface_1265:com_151, interface_1265:com_152);
+~clientscript_6112(oc_param($obj0, param_968), oc_param($obj2, param_968), interface_1265:com_154, interface_1265:com_155);
+~clientscript_6112(oc_param($obj0, param_969), oc_param($obj2, param_969), interface_1265:com_157, interface_1265:com_158);
+~clientscript_6112(oc_param($obj0, param_641), oc_param($obj2, param_641), interface_1265:com_142, interface_1265:com_143);
+~clientscript_6112(oc_param($obj0, param_643), oc_param($obj2, param_643), interface_1265:com_145, interface_1265:com_146);
+~clientscript_6112(oc_param($obj0, param_685), oc_param($obj2, param_685), interface_1265:com_148, interface_1265:com_149);
+~clientscript_6112(oc_param($obj0, param_11), oc_param($obj2, param_11), interface_1265:com_160, interface_1265:com_161);
+if ($int1 = 3 & enum(obj, boolean, enum_3446, $obj0) = false) {
+    ~clientscript_6112(oc_param($obj0, param_14), oc_param($obj2, param_14), interface_1265:com_165, interface_1265:com_166);
+}
+if_settext(interface_1265:com_163, ~clientscript_2001($obj0));
+if_settext(interface_1265:com_101, "Stats for <oc_name($obj0)>:");

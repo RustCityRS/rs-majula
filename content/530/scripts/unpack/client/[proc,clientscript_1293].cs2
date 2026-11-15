@@ -1,0 +1,9 @@
+// 1293
+[proc,clientscript_1293](obj $obj0)(int)
+if ($obj0 = secateurs | $obj0 = fairy_enchanted_secateurs) {
+    return(calc(inv_total(inv, secateurs) + inv_total(inv, fairy_enchanted_secateurs)));
+}
+if ($obj0 = watering_can_dummy | $obj0 = watering_can_8 | $obj0 = watering_can_7 | $obj0 = watering_can_6 | $obj0 = watering_can_5 | $obj0 = watering_can_4 | $obj0 = watering_can_3 | $obj0 = watering_can_2 | $obj0 = watering_can_1 | $obj0 = watering_can_0) {
+    return(calc(inv_total(inv, watering_can_8) + inv_total(inv, watering_can_7) + inv_total(inv, watering_can_6) + inv_total(inv, watering_can_5) + inv_total(inv, watering_can_4) + inv_total(inv, watering_can_3) + inv_total(inv, watering_can_2) + inv_total(inv, watering_can_1) + inv_total(inv, watering_can_0)));
+}
+return(inv_total(inv, $obj0));

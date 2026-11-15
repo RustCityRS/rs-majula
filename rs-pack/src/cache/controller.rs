@@ -2,12 +2,13 @@ use super::provider::{CacheType, TypeProvider};
 use crate::types::ParamValue;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type ControllerTypeProvider = TypeProvider<ControllerType>;
 
 /// A controller type: the values its configs give its varcons.
 pub struct ControllerType {
-    pub id: u16,
+    pub id: TypeId,
     pub vars: Box<[(u16, ParamValue)]>,
     pub varbits: Box<[(u16, i32)]>,
     debugname: Box<str>,
@@ -16,7 +17,7 @@ pub struct ControllerType {
 impl CacheType for ControllerType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         ControllerType {
             id,
             vars: Box::new([]),

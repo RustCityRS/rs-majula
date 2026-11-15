@@ -12,10 +12,22 @@ pub struct UpdateZonePartialFollows {
     pub z: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for UpdateZonePartialFollows {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.x);
+        buf.p1(self.z);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.x) + size_of_val(&self.z)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for UpdateZonePartialFollows {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt2(self.x);
         buf.p1(self.z);
     }
 
@@ -35,9 +47,18 @@ pub struct UpdateZonePartialFollows {
 #[cfg(since_647)]
 impl ServerProtMessage for UpdateZonePartialFollows {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt2(self.y);
-        buf.p1(self.x);
-        buf.p1_alt3(self.z);
+        #[cfg(before_742)]
+        {
+            buf.p1_alt2(self.y);
+            buf.p1(self.x);
+            buf.p1_alt3(self.z);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt1(self.z);
+            buf.p1_alt1(self.x);
+            buf.p1(self.y);
+        }
     }
 
     fn sizeof(&self) -> usize {

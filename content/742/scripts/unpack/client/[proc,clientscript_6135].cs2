@@ -1,0 +1,54 @@
+// 6135
+[proc,clientscript_6135]
+if (%varclient_1893 = 1) {
+    return;
+}
+%varclient_1893 = 1;
+def_component $component0 = null;
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (if_gethide(interface_1270:com_107) = false) {
+    $int3 = calc($int3 + 1);
+}
+if (if_gethide(interface_1270:com_111) = false) {
+    $int3 = calc($int3 + 1);
+}
+if (if_gethide(interface_1270:com_115) = false) {
+    $int3 = calc($int3 + 1);
+}
+switch_int ($int3) {
+    case 0 :
+        $int2 = %varclient_1900;
+    case 1 :
+        $int2 = %varclient_1901;
+    case 2 :
+        $int2 = %varclient_1902;
+    case default :
+        return;
+}
+$component0 = ~clientscript_6139($int2);
+if_sethide($component0, false);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 256;
+if (cc_find($component0, 0) = true) {
+    $int4 = calc(%varclient_1889 - if_getx($component0));
+    $int5 = calc(%varclient_1890 - if_gety($component0));
+    $int4 = calc($int4 - if_getwidth($component0) / 2);
+    $int5 = calc($int5 - if_getheight($component0) / 2);
+    cc_setposition($int4, $int5, ^setpos_abs_centre, ^setpos_abs_centre);
+    $int6 = cc_getwidth;
+}
+if_setontimer($component0, "clientscript_6141(event_com, $int2, $int4, $int5, 0, 0, 0, 0, 0, 0, 0)");
+$int3 = calc($int3 + 1);
+if ($int3 > 0) {
+    if_setgraphic(interface_1270:com_42, 10576);
+}
+if ($int3 > 1) {
+    if_setgraphic(interface_1270:com_43, 10576);
+}
+if ($int3 > 2) {
+    if_setgraphic(interface_1270:com_44, 10576);
+}
+sound_vorbis_volume(14660, 1, 0, 120);

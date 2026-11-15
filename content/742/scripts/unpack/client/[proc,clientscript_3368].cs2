@@ -1,0 +1,11 @@
+// 3368
+[proc,clientscript_3368](int $int0, int $int1, string $string0)
+if (cc_find(interface_1216:com_3, $int0) = true & string_length(cc_gettext) = 0 & clientclock > $int1) {
+    $string0 = append("New: ", $string0);
+    cc_settext($string0);
+    cc_settextfont(verdana_15pt_regular);
+    cc_settextshadow(true);
+    cc_setcolour(0xf5b241);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+}
+~clientscript_3370($int0, $int1);

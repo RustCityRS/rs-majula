@@ -1,0 +1,2680 @@
+// 0
+[clan_time_offset_varclan]
+type=int
+
+// 1
+[clan_motto_varclan]
+type=string
+
+// 2
+[clan_qfc_varclan]
+type=clanforumqfc
+
+// 3
+[clan_general_settings_varclan]
+type=int
+
+// 4
+[clan_is_recruiting_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=0
+endbit=0
+
+// 5
+[clan_events_time_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=1
+endbit=1
+
+// 6
+[clan_homeworld_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=2
+endbit=9
+
+// 7
+[clan_region_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=10
+endbit=20
+
+// 8
+[clan_lootshare_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=21
+endbit=21
+
+// 9
+[clan_motto_sanction_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=22
+endbit=22
+
+// 10
+[clan_motif_sanction_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=23
+endbit=23
+
+// 11
+[clan_flag_sanction_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=24
+endbit=24
+
+// 12
+[clan_defaults_set_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=25
+endbit=25
+
+// 13
+[clan_custom_motif_varclan]
+type=int
+
+// 14
+[clan_custom_motif_a_varclan]
+type=bit
+basevar=clan_custom_motif_varclan
+startbit=0
+endbit=15
+
+// 15
+[clan_custom_motif_b_varclan]
+type=bit
+basevar=clan_custom_motif_varclan
+startbit=16
+endbit=31
+
+// 16
+[clan_custom_motif_colour1_varclan]
+type=int
+
+// 17
+[clan_custom_motif_colour2_varclan]
+type=int
+
+// 18
+[clan_custom_colour1_varclan]
+type=int
+
+// 19
+[clan_custom_colour2_varclan]
+type=int
+
+// 20
+[clan_keyword_main1_varclan]
+type=int
+
+// 21
+[clan_keyword_main2_varclan]
+type=int
+
+// 22
+[clan_keyword_main3_varclan]
+type=int
+
+// 23
+[clan_keyword_main4_varclan]
+type=int
+
+// 24
+[clan_keyword_main5_varclan]
+type=int
+
+// 25
+[clan_keyword_cat1_varclan]
+type=bit
+basevar=clan_keyword_main1_varclan
+startbit=0
+endbit=5
+
+// 26
+[clan_keyword1_varclan]
+type=bit
+basevar=clan_keyword_main1_varclan
+startbit=6
+endbit=15
+
+// 27
+[clan_keyword_cat2_varclan]
+type=bit
+basevar=clan_keyword_main1_varclan
+startbit=16
+endbit=21
+
+// 28
+[clan_keyword2_varclan]
+type=bit
+basevar=clan_keyword_main1_varclan
+startbit=22
+endbit=31
+
+// 29
+[clan_keyword_cat3_varclan]
+type=bit
+basevar=clan_keyword_main2_varclan
+startbit=0
+endbit=5
+
+// 30
+[clan_keyword3_varclan]
+type=bit
+basevar=clan_keyword_main2_varclan
+startbit=6
+endbit=15
+
+// 31
+[clan_keyword_cat4_varclan]
+type=bit
+basevar=clan_keyword_main2_varclan
+startbit=16
+endbit=21
+
+// 32
+[clan_keyword4_varclan]
+type=bit
+basevar=clan_keyword_main2_varclan
+startbit=22
+endbit=31
+
+// 33
+[clan_keyword_cat5_varclan]
+type=bit
+basevar=clan_keyword_main3_varclan
+startbit=0
+endbit=5
+
+// 34
+[clan_keyword5_varclan]
+type=bit
+basevar=clan_keyword_main3_varclan
+startbit=6
+endbit=15
+
+// 35
+[clan_keyword_cat6_varclan]
+type=bit
+basevar=clan_keyword_main3_varclan
+startbit=16
+endbit=21
+
+// 36
+[clan_keyword6_varclan]
+type=bit
+basevar=clan_keyword_main3_varclan
+startbit=22
+endbit=31
+
+// 37
+[clan_keyword_cat7_varclan]
+type=bit
+basevar=clan_keyword_main4_varclan
+startbit=0
+endbit=5
+
+// 38
+[clan_keyword7_varclan]
+type=bit
+basevar=clan_keyword_main4_varclan
+startbit=6
+endbit=15
+
+// 39
+[clan_keyword_cat8_varclan]
+type=bit
+basevar=clan_keyword_main4_varclan
+startbit=16
+endbit=21
+
+// 40
+[clan_keyword8_varclan]
+type=bit
+basevar=clan_keyword_main4_varclan
+startbit=22
+endbit=31
+
+// 41
+[clan_keyword_cat9_varclan]
+type=bit
+basevar=clan_keyword_main5_varclan
+startbit=0
+endbit=5
+
+// 42
+[clan_keyword9_varclan]
+type=bit
+basevar=clan_keyword_main5_varclan
+startbit=6
+endbit=15
+
+// 43
+[clan_keyword_cat10_varclan]
+type=bit
+basevar=clan_keyword_main5_varclan
+startbit=16
+endbit=21
+
+// 44
+[clan_keyword10_varclan]
+type=bit
+basevar=clan_keyword_main5_varclan
+startbit=22
+endbit=31
+
+// 45
+[clan_event_main_type1_varclan]
+type=int
+
+// 46
+[clan_event_main_type2_varclan]
+type=int
+
+// 47
+[clan_event_main_place1_varclan]
+type=int
+
+// 48
+[clan_event_main_place2_varclan]
+type=int
+
+// 49
+[clan_event_main_place3_varclan]
+type=int
+
+// 50
+[clan_event_main_place4_varclan]
+type=int
+
+// 51
+[clan_event_main_world1_varclan]
+type=int
+
+// 52
+[clan_event_main_world2_varclan]
+type=int
+
+// 53
+[clan_event_main_date1_varclan]
+type=int
+
+// 54
+[clan_event_main_date2_varclan]
+type=int
+
+// 55
+[clan_event_main_date3_varclan]
+type=int
+
+// 56
+[clan_event_main_date4_varclan]
+type=int
+
+// 57
+[clan_event_main_time1_varclan]
+type=int
+
+// 58
+[clan_event_main_time2_varclan]
+type=int
+
+// 59
+[clan_event_main_time3_varclan]
+type=int
+
+// 60
+[clan_event_main_time4_varclan]
+type=int
+
+// 61
+[clan_event_main_specific1_varclan]
+type=int
+
+// 62
+[clan_event_main_specific2_varclan]
+type=int
+
+// 63
+[clan_event_main_specific3_varclan]
+type=int
+
+// 64
+[clan_event_main_specific4_varclan]
+type=int
+
+// 65
+[clan_event_who_1_varclan]
+type=int
+
+// 66
+[clan_event_who_2_varclan]
+type=int
+
+// 67
+[clan_event_who_3_varclan]
+type=int
+
+// 68
+[clan_event_who_4_varclan]
+type=int
+
+// 69
+[clan_event_who_5_varclan]
+type=int
+
+// 70
+[clan_event_who_6_varclan]
+type=int
+
+// 71
+[clan_event_who_7_varclan]
+type=int
+
+// 72
+[clan_event_who_8_varclan]
+type=int
+
+// 73
+[clan_event_bits_varclan]
+type=int
+
+// 74
+[clan_event_type_1_varclan]
+type=bit
+basevar=clan_event_main_type1_varclan
+startbit=0
+endbit=7
+
+// 75
+[clan_event_type_2_varclan]
+type=bit
+basevar=clan_event_main_type1_varclan
+startbit=8
+endbit=15
+
+// 76
+[clan_event_type_3_varclan]
+type=bit
+basevar=clan_event_main_type1_varclan
+startbit=16
+endbit=23
+
+// 77
+[clan_event_type_4_varclan]
+type=bit
+basevar=clan_event_main_type1_varclan
+startbit=24
+endbit=31
+
+// 78
+[clan_event_type_5_varclan]
+type=bit
+basevar=clan_event_main_type2_varclan
+startbit=0
+endbit=7
+
+// 79
+[clan_event_type_6_varclan]
+type=bit
+basevar=clan_event_main_type2_varclan
+startbit=8
+endbit=15
+
+// 80
+[clan_event_type_7_varclan]
+type=bit
+basevar=clan_event_main_type2_varclan
+startbit=16
+endbit=23
+
+// 81
+[clan_event_type_8_varclan]
+type=bit
+basevar=clan_event_main_type2_varclan
+startbit=24
+endbit=31
+
+// 82
+[clan_event_place_1_varclan]
+type=bit
+basevar=clan_event_main_place1_varclan
+startbit=0
+endbit=15
+
+// 83
+[clan_event_place_2_varclan]
+type=bit
+basevar=clan_event_main_place1_varclan
+startbit=16
+endbit=31
+
+// 84
+[clan_event_place_3_varclan]
+type=bit
+basevar=clan_event_main_place2_varclan
+startbit=0
+endbit=15
+
+// 85
+[clan_event_place_4_varclan]
+type=bit
+basevar=clan_event_main_place2_varclan
+startbit=16
+endbit=31
+
+// 86
+[clan_event_place_5_varclan]
+type=bit
+basevar=clan_event_main_place3_varclan
+startbit=0
+endbit=15
+
+// 87
+[clan_event_place_6_varclan]
+type=bit
+basevar=clan_event_main_place3_varclan
+startbit=16
+endbit=31
+
+// 88
+[clan_event_place_7_varclan]
+type=bit
+basevar=clan_event_main_place4_varclan
+startbit=0
+endbit=15
+
+// 89
+[clan_event_place_8_varclan]
+type=bit
+basevar=clan_event_main_place4_varclan
+startbit=16
+endbit=31
+
+// 90
+[clan_event_world_1_varclan]
+type=bit
+basevar=clan_event_main_world1_varclan
+startbit=0
+endbit=7
+
+// 91
+[clan_event_world_2_varclan]
+type=bit
+basevar=clan_event_main_world1_varclan
+startbit=8
+endbit=15
+
+// 92
+[clan_event_world_3_varclan]
+type=bit
+basevar=clan_event_main_world1_varclan
+startbit=16
+endbit=23
+
+// 93
+[clan_event_world_4_varclan]
+type=bit
+basevar=clan_event_main_world1_varclan
+startbit=24
+endbit=31
+
+// 94
+[clan_event_world_5_varclan]
+type=bit
+basevar=clan_event_main_world2_varclan
+startbit=0
+endbit=7
+
+// 95
+[clan_event_world_6_varclan]
+type=bit
+basevar=clan_event_main_world2_varclan
+startbit=8
+endbit=15
+
+// 96
+[clan_event_world_7_varclan]
+type=bit
+basevar=clan_event_main_world2_varclan
+startbit=16
+endbit=23
+
+// 97
+[clan_event_world_8_varclan]
+type=bit
+basevar=clan_event_main_world2_varclan
+startbit=24
+endbit=31
+
+// 98
+[clan_event_date_1_varclan]
+type=bit
+basevar=clan_event_main_date1_varclan
+startbit=0
+endbit=15
+
+// 99
+[clan_event_date_2_varclan]
+type=bit
+basevar=clan_event_main_date1_varclan
+startbit=16
+endbit=31
+
+// 100
+[clan_event_date_3_varclan]
+type=bit
+basevar=clan_event_main_date2_varclan
+startbit=0
+endbit=15
+
+// 101
+[clan_event_date_4_varclan]
+type=bit
+basevar=clan_event_main_date2_varclan
+startbit=16
+endbit=31
+
+// 102
+[clan_event_date_5_varclan]
+type=bit
+basevar=clan_event_main_date3_varclan
+startbit=0
+endbit=15
+
+// 103
+[clan_event_date_6_varclan]
+type=bit
+basevar=clan_event_main_date3_varclan
+startbit=16
+endbit=31
+
+// 104
+[clan_event_date_7_varclan]
+type=bit
+basevar=clan_event_main_date4_varclan
+startbit=0
+endbit=15
+
+// 105
+[clan_event_date_8_varclan]
+type=bit
+basevar=clan_event_main_date4_varclan
+startbit=16
+endbit=31
+
+// 106
+[clan_event_time_1_varclan]
+type=bit
+basevar=clan_event_main_time1_varclan
+startbit=0
+endbit=11
+
+// 107
+[clan_event_time_2_varclan]
+type=bit
+basevar=clan_event_main_time1_varclan
+startbit=12
+endbit=23
+
+// 108
+[clan_event_time_3_varclan]
+type=bit
+basevar=clan_event_main_time2_varclan
+startbit=0
+endbit=11
+
+// 109
+[clan_event_time_4_varclan]
+type=bit
+basevar=clan_event_main_time2_varclan
+startbit=12
+endbit=23
+
+// 110
+[clan_event_time_5_varclan]
+type=bit
+basevar=clan_event_main_time3_varclan
+startbit=0
+endbit=11
+
+// 111
+[clan_event_time_6_varclan]
+type=bit
+basevar=clan_event_main_time3_varclan
+startbit=12
+endbit=23
+
+// 112
+[clan_event_time_7_varclan]
+type=bit
+basevar=clan_event_main_time4_varclan
+startbit=0
+endbit=11
+
+// 113
+[clan_event_time_8_varclan]
+type=bit
+basevar=clan_event_main_time4_varclan
+startbit=12
+endbit=23
+
+// 114
+[clan_event_specific_1_varclan]
+type=bit
+basevar=clan_event_main_specific1_varclan
+startbit=0
+endbit=15
+
+// 115
+[clan_event_specific_2_varclan]
+type=bit
+basevar=clan_event_main_specific1_varclan
+startbit=16
+endbit=31
+
+// 116
+[clan_event_specific_3_varclan]
+type=bit
+basevar=clan_event_main_specific2_varclan
+startbit=0
+endbit=15
+
+// 117
+[clan_event_specific_4_varclan]
+type=bit
+basevar=clan_event_main_specific2_varclan
+startbit=16
+endbit=31
+
+// 118
+[clan_event_specific_5_varclan]
+type=bit
+basevar=clan_event_main_specific3_varclan
+startbit=0
+endbit=15
+
+// 119
+[clan_event_specific_6_varclan]
+type=bit
+basevar=clan_event_main_specific3_varclan
+startbit=16
+endbit=31
+
+// 120
+[clan_event_specific_7_varclan]
+type=bit
+basevar=clan_event_main_specific4_varclan
+startbit=0
+endbit=15
+
+// 121
+[clan_event_specific_8_varclan]
+type=bit
+basevar=clan_event_main_specific4_varclan
+startbit=16
+endbit=31
+
+// 122
+[clan_event_qfc_1_varclan]
+type=clanforumqfc
+
+// 123
+[clan_event_qfc_2_varclan]
+type=clanforumqfc
+
+// 124
+[clan_event_qfc_3_varclan]
+type=clanforumqfc
+
+// 125
+[clan_event_qfc_4_varclan]
+type=clanforumqfc
+
+// 126
+[clan_event_qfc_5_varclan]
+type=clanforumqfc
+
+// 127
+[clan_event_qfc_6_varclan]
+type=clanforumqfc
+
+// 128
+[clan_event_qfc_7_varclan]
+type=clanforumqfc
+
+// 129
+[clan_event_qfc_8_varclan]
+type=clanforumqfc
+
+// 130
+[clan_event_vexillum_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=8
+endbit=11
+
+// 131
+[clan_event_time_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=12
+endbit=12
+
+// 132
+[clan_event_mandatory_1_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=13
+endbit=13
+
+// 133
+[clan_event_mandatory_2_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=14
+endbit=14
+
+// 134
+[clan_event_mandatory_3_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=15
+endbit=15
+
+// 135
+[clan_event_mandatory_4_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=16
+endbit=16
+
+// 136
+[clan_event_mandatory_5_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=17
+endbit=17
+
+// 137
+[clan_event_mandatory_6_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=18
+endbit=18
+
+// 138
+[clan_event_mandatory_7_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=19
+endbit=19
+
+// 139
+[clan_event_mandatory_8_varclan]
+type=bit
+basevar=clan_event_bits_varclan
+startbit=20
+endbit=20
+
+// 140
+[clan_name_sanction_varclan]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=26
+endbit=26
+
+// 141
+[varclansetting_141]
+type=int
+
+// 142
+[varclansetting_142]
+type=int
+
+// 143
+[varclansetting_143]
+type=int
+
+// 144
+[varclansetting_144]
+type=int
+
+// 145
+[varclansetting_145]
+type=int
+
+// 146
+[varclansetting_146]
+type=bit
+basevar=varclansetting_141
+startbit=6
+endbit=6
+
+// 147
+[varclansetting_147]
+type=bit
+basevar=varclansetting_141
+startbit=7
+endbit=7
+
+// 148
+[varclansetting_148]
+type=bit
+basevar=varclansetting_141
+startbit=8
+endbit=8
+
+// 149
+[varclansetting_149]
+type=bit
+basevar=varclansetting_141
+startbit=9
+endbit=9
+
+// 150
+[varclansetting_150]
+type=bit
+basevar=varclansetting_141
+startbit=10
+endbit=10
+
+// 151
+[varclansetting_151]
+type=bit
+basevar=varclansetting_141
+startbit=17
+endbit=17
+
+// 152
+[varclansetting_152]
+type=bit
+basevar=varclansetting_141
+startbit=18
+endbit=18
+
+// 153
+[varclansetting_153]
+type=bit
+basevar=varclansetting_141
+startbit=19
+endbit=19
+
+// 154
+[varclansetting_154]
+type=bit
+basevar=varclansetting_141
+startbit=20
+endbit=20
+
+// 155
+[varclansetting_155]
+type=bit
+basevar=varclansetting_141
+startbit=21
+endbit=21
+
+// 156
+[varclansetting_156]
+type=bit
+basevar=varclansetting_141
+startbit=22
+endbit=22
+
+// 157
+[varclansetting_157]
+type=bit
+basevar=varclansetting_141
+startbit=23
+endbit=23
+
+// 158
+[varclansetting_158]
+type=bit
+basevar=varclansetting_141
+startbit=24
+endbit=24
+
+// 159
+[varclansetting_159]
+type=bit
+basevar=varclansetting_141
+startbit=25
+endbit=25
+
+// 160
+[varclansetting_160]
+type=bit
+basevar=varclansetting_141
+startbit=26
+endbit=26
+
+// 161
+[varclansetting_161]
+type=bit
+basevar=varclansetting_141
+startbit=27
+endbit=27
+
+// 162
+[varclansetting_162]
+type=bit
+basevar=varclansetting_141
+startbit=28
+endbit=28
+
+// 163
+[varclansetting_163]
+type=bit
+basevar=varclansetting_141
+startbit=29
+endbit=29
+
+// 164
+[varclansetting_164]
+type=bit
+basevar=varclansetting_141
+startbit=30
+endbit=30
+
+// 165
+[varclansetting_165]
+type=bit
+basevar=varclansetting_141
+startbit=31
+endbit=31
+
+// 166
+[varclansetting_166]
+type=bit
+basevar=varclansetting_142
+startbit=0
+endbit=0
+
+// 167
+[varclansetting_167]
+type=bit
+basevar=varclansetting_142
+startbit=1
+endbit=1
+
+// 168
+[varclansetting_168]
+type=bit
+basevar=varclansetting_142
+startbit=2
+endbit=2
+
+// 169
+[varclansetting_169]
+type=bit
+basevar=varclansetting_142
+startbit=3
+endbit=3
+
+// 170
+[varclansetting_170]
+type=bit
+basevar=varclansetting_142
+startbit=4
+endbit=4
+
+// 171
+[varclansetting_171]
+type=bit
+basevar=varclansetting_142
+startbit=5
+endbit=5
+
+// 172
+[varclansetting_172]
+type=bit
+basevar=varclansetting_142
+startbit=6
+endbit=6
+
+// 173
+[varclansetting_173]
+type=bit
+basevar=varclansetting_142
+startbit=7
+endbit=7
+
+// 174
+[varclansetting_174]
+type=bit
+basevar=varclansetting_142
+startbit=8
+endbit=8
+
+// 175
+[varclansetting_175]
+type=bit
+basevar=varclansetting_142
+startbit=9
+endbit=9
+
+// 176
+[varclansetting_176]
+type=bit
+basevar=varclansetting_142
+startbit=10
+endbit=10
+
+// 177
+[varclansetting_177]
+type=bit
+basevar=varclansetting_142
+startbit=11
+endbit=11
+
+// 178
+[varclansetting_178]
+type=bit
+basevar=varclansetting_142
+startbit=12
+endbit=12
+
+// 179
+[varclansetting_179]
+type=bit
+basevar=varclansetting_142
+startbit=13
+endbit=13
+
+// 180
+[varclansetting_180]
+type=bit
+basevar=varclansetting_142
+startbit=14
+endbit=14
+
+// 181
+[varclansetting_181]
+type=bit
+basevar=varclansetting_142
+startbit=15
+endbit=15
+
+// 182
+[varclansetting_182]
+type=bit
+basevar=varclansetting_142
+startbit=16
+endbit=16
+
+// 183
+[varclansetting_183]
+type=bit
+basevar=varclansetting_142
+startbit=17
+endbit=17
+
+// 184
+[varclansetting_184]
+type=bit
+basevar=varclansetting_142
+startbit=18
+endbit=18
+
+// 185
+[varclansetting_185]
+type=bit
+basevar=varclansetting_142
+startbit=19
+endbit=19
+
+// 186
+[varclansetting_186]
+type=bit
+basevar=varclansetting_142
+startbit=20
+endbit=20
+
+// 187
+[varclansetting_187]
+type=bit
+basevar=varclansetting_142
+startbit=21
+endbit=21
+
+// 188
+[varclansetting_188]
+type=bit
+basevar=varclansetting_142
+startbit=22
+endbit=22
+
+// 189
+[varclansetting_189]
+type=bit
+basevar=varclansetting_142
+startbit=23
+endbit=23
+
+// 190
+[varclansetting_190]
+type=bit
+basevar=varclansetting_142
+startbit=24
+endbit=24
+
+// 191
+[varclansetting_191]
+type=bit
+basevar=varclansetting_142
+startbit=25
+endbit=25
+
+// 192
+[varclansetting_192]
+type=bit
+basevar=varclansetting_142
+startbit=26
+endbit=26
+
+// 193
+[varclansetting_193]
+type=bit
+basevar=varclansetting_142
+startbit=27
+endbit=27
+
+// 194
+[varclansetting_194]
+type=bit
+basevar=varclansetting_142
+startbit=28
+endbit=28
+
+// 195
+[varclansetting_195]
+type=bit
+basevar=varclansetting_142
+startbit=29
+endbit=29
+
+// 196
+[varclansetting_196]
+type=bit
+basevar=varclansetting_142
+startbit=30
+endbit=30
+
+// 197
+[varclansetting_197]
+type=bit
+basevar=varclansetting_142
+startbit=31
+endbit=31
+
+// 198
+[varclansetting_198]
+type=bit
+basevar=varclansetting_143
+startbit=0
+endbit=0
+
+// 199
+[varclansetting_199]
+type=bit
+basevar=varclansetting_143
+startbit=1
+endbit=1
+
+// 200
+[varclansetting_200]
+type=bit
+basevar=varclansetting_143
+startbit=2
+endbit=2
+
+// 201
+[varclansetting_201]
+type=bit
+basevar=varclansetting_143
+startbit=3
+endbit=3
+
+// 202
+[varclansetting_202]
+type=bit
+basevar=varclansetting_143
+startbit=4
+endbit=4
+
+// 203
+[varclansetting_203]
+type=bit
+basevar=varclansetting_143
+startbit=5
+endbit=5
+
+// 204
+[varclansetting_204]
+type=bit
+basevar=varclansetting_143
+startbit=6
+endbit=6
+
+// 205
+[varclansetting_205]
+type=bit
+basevar=varclansetting_143
+startbit=7
+endbit=7
+
+// 206
+[varclansetting_206]
+type=bit
+basevar=varclansetting_143
+startbit=8
+endbit=8
+
+// 207
+[varclansetting_207]
+type=bit
+basevar=varclansetting_143
+startbit=9
+endbit=9
+
+// 208
+[varclansetting_208]
+type=bit
+basevar=varclansetting_143
+startbit=10
+endbit=10
+
+// 209
+[varclansetting_209]
+type=bit
+basevar=varclansetting_143
+startbit=11
+endbit=11
+
+// 210
+[varclansetting_210]
+type=bit
+basevar=varclansetting_143
+startbit=12
+endbit=12
+
+// 211
+[varclansetting_211]
+type=bit
+basevar=varclansetting_143
+startbit=13
+endbit=13
+
+// 212
+[varclansetting_212]
+type=bit
+basevar=varclansetting_143
+startbit=14
+endbit=14
+
+// 213
+[varclansetting_213]
+type=bit
+basevar=varclansetting_143
+startbit=15
+endbit=15
+
+// 214
+[varclansetting_214]
+type=bit
+basevar=varclansetting_143
+startbit=16
+endbit=16
+
+// 215
+[varclansetting_215]
+type=bit
+basevar=varclansetting_143
+startbit=17
+endbit=17
+
+// 216
+[varclansetting_216]
+type=bit
+basevar=varclansetting_143
+startbit=18
+endbit=18
+
+// 217
+[varclansetting_217]
+type=bit
+basevar=varclansetting_143
+startbit=19
+endbit=19
+
+// 218
+[varclansetting_218]
+type=bit
+basevar=varclansetting_143
+startbit=20
+endbit=20
+
+// 219
+[varclansetting_219]
+type=bit
+basevar=varclansetting_143
+startbit=21
+endbit=21
+
+// 220
+[varclansetting_220]
+type=bit
+basevar=varclansetting_143
+startbit=22
+endbit=22
+
+// 221
+[varclansetting_221]
+type=bit
+basevar=varclansetting_143
+startbit=23
+endbit=23
+
+// 222
+[varclansetting_222]
+type=bit
+basevar=varclansetting_143
+startbit=24
+endbit=24
+
+// 223
+[varclansetting_223]
+type=bit
+basevar=varclansetting_143
+startbit=25
+endbit=25
+
+// 224
+[varclansetting_224]
+type=bit
+basevar=varclansetting_143
+startbit=26
+endbit=26
+
+// 225
+[varclansetting_225]
+type=bit
+basevar=varclansetting_143
+startbit=27
+endbit=27
+
+// 226
+[varclansetting_226]
+type=bit
+basevar=varclansetting_143
+startbit=28
+endbit=28
+
+// 227
+[varclansetting_227]
+type=bit
+basevar=varclansetting_143
+startbit=29
+endbit=29
+
+// 228
+[varclansetting_228]
+type=bit
+basevar=varclansetting_143
+startbit=30
+endbit=30
+
+// 229
+[varclansetting_229]
+type=bit
+basevar=varclansetting_143
+startbit=31
+endbit=31
+
+// 230
+[varclansetting_230]
+type=bit
+basevar=varclansetting_144
+startbit=0
+endbit=0
+
+// 231
+[varclansetting_231]
+type=bit
+basevar=varclansetting_144
+startbit=1
+endbit=1
+
+// 232
+[varclansetting_232]
+type=bit
+basevar=varclansetting_144
+startbit=2
+endbit=2
+
+// 233
+[varclansetting_233]
+type=bit
+basevar=varclansetting_144
+startbit=3
+endbit=3
+
+// 234
+[varclansetting_234]
+type=bit
+basevar=varclansetting_144
+startbit=4
+endbit=4
+
+// 235
+[varclansetting_235]
+type=bit
+basevar=varclansetting_144
+startbit=5
+endbit=5
+
+// 236
+[varclansetting_236]
+type=bit
+basevar=varclansetting_144
+startbit=6
+endbit=6
+
+// 237
+[varclansetting_237]
+type=bit
+basevar=varclansetting_144
+startbit=7
+endbit=7
+
+// 238
+[varclansetting_238]
+type=bit
+basevar=varclansetting_144
+startbit=8
+endbit=8
+
+// 239
+[varclansetting_239]
+type=bit
+basevar=varclansetting_144
+startbit=9
+endbit=9
+
+// 240
+[varclansetting_240]
+type=bit
+basevar=varclansetting_144
+startbit=10
+endbit=10
+
+// 241
+[varclansetting_241]
+type=bit
+basevar=varclansetting_144
+startbit=11
+endbit=11
+
+// 242
+[varclansetting_242]
+type=bit
+basevar=varclansetting_144
+startbit=12
+endbit=12
+
+// 243
+[varclansetting_243]
+type=bit
+basevar=varclansetting_144
+startbit=13
+endbit=13
+
+// 244
+[varclansetting_244]
+type=bit
+basevar=varclansetting_144
+startbit=14
+endbit=14
+
+// 245
+[varclansetting_245]
+type=bit
+basevar=varclansetting_144
+startbit=15
+endbit=15
+
+// 246
+[varclansetting_246]
+type=bit
+basevar=varclansetting_144
+startbit=16
+endbit=16
+
+// 247
+[varclansetting_247]
+type=bit
+basevar=varclansetting_144
+startbit=17
+endbit=17
+
+// 248
+[varclansetting_248]
+type=bit
+basevar=varclansetting_144
+startbit=18
+endbit=18
+
+// 249
+[varclansetting_249]
+type=bit
+basevar=varclansetting_144
+startbit=19
+endbit=19
+
+// 250
+[varclansetting_250]
+type=bit
+basevar=varclansetting_144
+startbit=20
+endbit=20
+
+// 251
+[varclansetting_251]
+type=bit
+basevar=varclansetting_144
+startbit=21
+endbit=21
+
+// 252
+[varclansetting_252]
+type=bit
+basevar=varclansetting_144
+startbit=22
+endbit=22
+
+// 253
+[varclansetting_253]
+type=bit
+basevar=varclansetting_144
+startbit=23
+endbit=23
+
+// 254
+[varclansetting_254]
+type=bit
+basevar=varclansetting_144
+startbit=24
+endbit=24
+
+// 255
+[varclansetting_255]
+type=bit
+basevar=varclansetting_144
+startbit=25
+endbit=25
+
+// 256
+[varclansetting_256]
+type=bit
+basevar=varclansetting_144
+startbit=26
+endbit=26
+
+// 257
+[varclansetting_257]
+type=bit
+basevar=varclansetting_144
+startbit=27
+endbit=27
+
+// 258
+[varclansetting_258]
+type=bit
+basevar=varclansetting_144
+startbit=28
+endbit=28
+
+// 259
+[varclansetting_259]
+type=bit
+basevar=varclansetting_144
+startbit=29
+endbit=29
+
+// 260
+[varclansetting_260]
+type=bit
+basevar=varclansetting_144
+startbit=30
+endbit=30
+
+// 261
+[varclansetting_261]
+type=bit
+basevar=varclansetting_144
+startbit=31
+endbit=31
+
+// 262
+[varclansetting_262]
+type=bit
+basevar=varclansetting_145
+startbit=0
+endbit=0
+
+// 263
+[varclansetting_263]
+type=bit
+basevar=varclansetting_145
+startbit=1
+endbit=1
+
+// 264
+[varclansetting_264]
+type=bit
+basevar=varclansetting_145
+startbit=2
+endbit=2
+
+// 265
+[varclansetting_265]
+type=bit
+basevar=varclansetting_145
+startbit=3
+endbit=3
+
+// 266
+[varclansetting_266]
+type=bit
+basevar=varclansetting_145
+startbit=4
+endbit=4
+
+// 267
+[varclansetting_267]
+type=bit
+basevar=varclansetting_145
+startbit=5
+endbit=5
+
+// 268
+[varclansetting_268]
+type=bit
+basevar=varclansetting_145
+startbit=6
+endbit=6
+
+// 269
+[varclansetting_269]
+type=bit
+basevar=varclansetting_145
+startbit=7
+endbit=7
+
+// 270
+[varclansetting_270]
+type=bit
+basevar=varclansetting_145
+startbit=8
+endbit=8
+
+// 271
+[varclansetting_271]
+type=bit
+basevar=varclansetting_145
+startbit=9
+endbit=9
+
+// 272
+[varclansetting_272]
+type=bit
+basevar=varclansetting_145
+startbit=10
+endbit=10
+
+// 273
+[varclansetting_273]
+type=bit
+basevar=varclansetting_145
+startbit=11
+endbit=11
+
+// 274
+[varclansetting_274]
+type=bit
+basevar=varclansetting_145
+startbit=12
+endbit=12
+
+// 275
+[varclansetting_275]
+type=bit
+basevar=varclansetting_145
+startbit=13
+endbit=13
+
+// 276
+[varclansetting_276]
+type=bit
+basevar=varclansetting_145
+startbit=14
+endbit=14
+
+// 277
+[varclansetting_277]
+type=bit
+basevar=varclansetting_145
+startbit=15
+endbit=15
+
+// 278
+[varclansetting_278]
+type=bit
+basevar=varclansetting_145
+startbit=16
+endbit=16
+
+// 279
+[varclansetting_279]
+type=bit
+basevar=varclansetting_145
+startbit=17
+endbit=17
+
+// 280
+[varclansetting_280]
+type=bit
+basevar=varclansetting_145
+startbit=18
+endbit=18
+
+// 281
+[varclansetting_281]
+type=bit
+basevar=varclansetting_145
+startbit=19
+endbit=19
+
+// 282
+[varclansetting_282]
+type=bit
+basevar=varclansetting_145
+startbit=20
+endbit=20
+
+// 283
+[varclansetting_283]
+type=bit
+basevar=varclansetting_145
+startbit=21
+endbit=21
+
+// 284
+[varclansetting_284]
+type=bit
+basevar=varclansetting_145
+startbit=22
+endbit=22
+
+// 285
+[varclansetting_285]
+type=bit
+basevar=varclansetting_145
+startbit=23
+endbit=23
+
+// 286
+[varclansetting_286]
+type=bit
+basevar=varclansetting_145
+startbit=24
+endbit=24
+
+// 287
+[varclansetting_287]
+type=bit
+basevar=varclansetting_145
+startbit=25
+endbit=25
+
+// 288
+[varclansetting_288]
+type=bit
+basevar=varclansetting_145
+startbit=26
+endbit=26
+
+// 289
+[varclansetting_289]
+type=bit
+basevar=varclansetting_145
+startbit=27
+endbit=27
+
+// 290
+[varclansetting_290]
+type=bit
+basevar=varclansetting_145
+startbit=28
+endbit=28
+
+// 291
+[varclansetting_291]
+type=bit
+basevar=varclansetting_145
+startbit=29
+endbit=29
+
+// 292
+[varclansetting_292]
+type=bit
+basevar=varclansetting_145
+startbit=30
+endbit=31
+
+// 293
+[varclansetting_293]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=27
+endbit=27
+
+// 294
+[varclansetting_294]
+type=int
+
+// 295
+[varclansetting_295]
+type=bit
+basevar=varclansetting_294
+startbit=0
+endbit=0
+
+// 296
+[varclansetting_296]
+type=bit
+basevar=varclansetting_294
+startbit=1
+endbit=1
+
+// 297
+[varclansetting_297]
+type=bit
+basevar=varclansetting_294
+startbit=2
+endbit=2
+
+// 298
+[varclansetting_298]
+type=bit
+basevar=varclansetting_294
+startbit=3
+endbit=3
+
+// 299
+[varclansetting_299]
+type=bit
+basevar=varclansetting_294
+startbit=4
+endbit=4
+
+// 300
+[varclansetting_300]
+type=bit
+basevar=varclansetting_294
+startbit=5
+endbit=5
+
+// 301
+[varclansetting_301]
+type=int
+
+// 302
+[varclansetting_302]
+type=bit
+basevar=varclansetting_294
+startbit=6
+endbit=6
+
+// 303
+[varclansetting_303]
+type=bit
+basevar=varclansetting_294
+startbit=7
+endbit=7
+
+// 304
+[varclansetting_304]
+type=bit
+basevar=varclansetting_294
+startbit=8
+endbit=8
+
+// 305
+[varclansetting_305]
+type=bit
+basevar=varclansetting_294
+startbit=9
+endbit=9
+
+// 306
+[varclansetting_306]
+type=bit
+basevar=varclansetting_294
+startbit=10
+endbit=10
+
+// 307
+[varclansetting_307]
+type=bit
+basevar=clan_general_settings_varclan
+startbit=28
+endbit=30
+
+// 308
+[varclansetting_308]
+type=int
+
+// 309
+[varclansetting_309]
+type=int
+
+// 310
+[varclansetting_310]
+type=bit
+basevar=varclansetting_309
+startbit=1
+endbit=1
+
+// 311
+[varclansetting_311]
+type=bit
+basevar=varclansetting_294
+startbit=11
+endbit=11
+
+// 312
+[varclansetting_312]
+type=bit
+basevar=varclansetting_294
+startbit=12
+endbit=12
+
+// 313
+[varclansetting_313]
+type=bit
+basevar=varclansetting_294
+startbit=13
+endbit=13
+
+// 314
+[varclansetting_314]
+type=bit
+basevar=varclansetting_294
+startbit=14
+endbit=14
+
+// 315
+[varclansetting_315]
+type=bit
+basevar=varclansetting_294
+startbit=15
+endbit=15
+
+// 316
+[varclansetting_316]
+type=bit
+basevar=varclansetting_294
+startbit=16
+endbit=16
+
+// 317
+[varclansetting_317]
+type=bit
+basevar=varclansetting_294
+startbit=17
+endbit=17
+
+// 318
+[varclansetting_318]
+type=bit
+basevar=varclansetting_294
+startbit=18
+endbit=18
+
+// 319
+[varclansetting_319]
+type=bit
+basevar=varclansetting_294
+startbit=19
+endbit=19
+
+// 320
+[varclansetting_320]
+type=bit
+basevar=varclansetting_294
+startbit=20
+endbit=20
+
+// 321
+[varclansetting_321]
+type=bit
+basevar=varclansetting_294
+startbit=21
+endbit=21
+
+// 322
+[varclansetting_322]
+type=bit
+basevar=varclansetting_294
+startbit=22
+endbit=22
+
+// 323
+[varclansetting_323]
+type=bit
+basevar=varclansetting_294
+startbit=23
+endbit=23
+
+// 324
+[varclansetting_324]
+type=bit
+basevar=varclansetting_294
+startbit=24
+endbit=24
+
+// 325
+[varclansetting_325]
+type=bit
+basevar=varclansetting_294
+startbit=25
+endbit=25
+
+// 326
+[varclansetting_326]
+type=bit
+basevar=varclansetting_294
+startbit=26
+endbit=26
+
+// 327
+[varclansetting_327]
+type=int
+
+// 328
+[varclansetting_328]
+type=bit
+basevar=varclansetting_327
+startbit=0
+endbit=0
+
+// 329
+[varclansetting_329]
+type=bit
+basevar=varclansetting_327
+startbit=1
+endbit=1
+
+// 330
+[varclansetting_330]
+type=bit
+basevar=varclansetting_327
+startbit=2
+endbit=2
+
+// 331
+[varclansetting_331]
+type=bit
+basevar=varclansetting_327
+startbit=3
+endbit=3
+
+// 332
+[varclansetting_332]
+type=bit
+basevar=varclansetting_327
+startbit=4
+endbit=4
+
+// 333
+[varclansetting_333]
+type=bit
+basevar=varclansetting_327
+startbit=5
+endbit=5
+
+// 334
+[varclansetting_334]
+type=bit
+basevar=varclansetting_327
+startbit=6
+endbit=6
+
+// 335
+[varclansetting_335]
+type=bit
+basevar=varclansetting_327
+startbit=7
+endbit=7
+
+// 336
+[varclansetting_336]
+type=bit
+basevar=varclansetting_327
+startbit=8
+endbit=8
+
+// 337
+[varclansetting_337]
+type=bit
+basevar=varclansetting_327
+startbit=9
+endbit=9
+
+// 338
+[varclansetting_338]
+type=bit
+basevar=varclansetting_327
+startbit=10
+endbit=10
+
+// 339
+[varclansetting_339]
+type=bit
+basevar=varclansetting_327
+startbit=11
+endbit=11
+
+// 340
+[varclansetting_340]
+type=bit
+basevar=varclansetting_327
+startbit=12
+endbit=12
+
+// 341
+[varclansetting_341]
+type=bit
+basevar=varclansetting_327
+startbit=13
+endbit=13
+
+// 342
+[varclansetting_342]
+type=bit
+basevar=varclansetting_327
+startbit=14
+endbit=14
+
+// 343
+[varclansetting_343]
+type=int
+
+// 344
+[varclansetting_344]
+type=bit
+basevar=varclansetting_343
+startbit=0
+endbit=6
+
+// 345
+[varclansetting_345]
+type=bit
+basevar=varclansetting_343
+startbit=7
+endbit=13
+
+// 346
+[varclansetting_346]
+type=bit
+basevar=varclansetting_343
+startbit=14
+endbit=21
+
+// 347
+[varclansetting_347]
+type=bit
+basevar=varclansetting_343
+startbit=22
+endbit=28
+
+// 348
+[varclansetting_348]
+type=int
+
+// 349
+[varclansetting_349]
+type=bit
+basevar=varclansetting_348
+startbit=0
+endbit=6
+
+// 350
+[varclansetting_350]
+type=bit
+basevar=varclansetting_348
+startbit=7
+endbit=13
+
+// 351
+[varclansetting_351]
+type=bit
+basevar=varclansetting_348
+startbit=14
+endbit=21
+
+// 352
+[varclansetting_352]
+type=bit
+basevar=varclansetting_348
+startbit=22
+endbit=28
+
+// 353
+[varclansetting_353]
+type=int
+
+// 354
+[varclansetting_354]
+type=int
+
+// 355
+[varclansetting_355]
+type=int
+
+// 356
+[varclansetting_356]
+type=bit
+basevar=varclansetting_348
+startbit=29
+endbit=31
+
+// 357
+[varclansetting_357]
+type=int
+
+// 358
+[varclansetting_358]
+type=bit
+basevar=varclansetting_357
+startbit=0
+endbit=4
+
+// 359
+[varclansetting_359]
+type=bit
+basevar=varclansetting_357
+startbit=5
+endbit=9
+
+// 360
+[varclansetting_360]
+type=bit
+basevar=varclansetting_357
+startbit=10
+endbit=14
+
+// 361
+[varclansetting_361]
+type=bit
+basevar=varclansetting_357
+startbit=15
+endbit=19
+
+// 362
+[varclansetting_362]
+type=bit
+basevar=varclansetting_357
+startbit=20
+endbit=24
+
+// 363
+[varclansetting_363]
+type=bit
+basevar=varclansetting_357
+startbit=25
+endbit=29
+
+// 364
+[varclansetting_364]
+type=int
+
+// 365
+[varclansetting_365]
+type=bit
+basevar=varclansetting_364
+startbit=0
+endbit=4
+
+// 366
+[varclansetting_366]
+type=bit
+basevar=varclansetting_364
+startbit=5
+endbit=9
+
+// 367
+[varclansetting_367]
+type=bit
+basevar=varclansetting_364
+startbit=10
+endbit=14
+
+// 368
+[varclansetting_368]
+type=int
+
+// 369
+[varclansetting_369]
+type=bit
+basevar=varclansetting_368
+startbit=0
+endbit=6
+
+// 370
+[varclansetting_370]
+type=bit
+basevar=varclansetting_368
+startbit=7
+endbit=13
+
+// 371
+[varclansetting_371]
+type=bit
+basevar=varclansetting_368
+startbit=14
+endbit=21
+
+// 372
+[varclansetting_372]
+type=bit
+basevar=varclansetting_368
+startbit=22
+endbit=28
+
+// 373
+[varclansetting_373]
+type=int
+
+// 374
+[varclansetting_374]
+type=bit
+basevar=varclansetting_373
+startbit=0
+endbit=6
+
+// 375
+[varclansetting_375]
+type=bit
+basevar=varclansetting_373
+startbit=7
+endbit=13
+
+// 376
+[varclansetting_376]
+type=bit
+basevar=varclansetting_373
+startbit=14
+endbit=21
+
+// 377
+[varclansetting_377]
+type=bit
+basevar=varclansetting_373
+startbit=22
+endbit=28
+
+// 378
+[varclansetting_378]
+type=int
+
+// 379
+[varclansetting_379]
+type=int
+
+// 380
+[varclansetting_380]
+type=int
+
+// 381
+[varclansetting_381]
+type=bit
+basevar=varclansetting_373
+startbit=29
+endbit=31
+
+// 382
+[varclansetting_382]
+type=int
+
+// 383
+[varclansetting_383]
+type=bit
+basevar=varclansetting_382
+startbit=0
+endbit=4
+
+// 384
+[varclansetting_384]
+type=bit
+basevar=varclansetting_382
+startbit=5
+endbit=9
+
+// 385
+[varclansetting_385]
+type=bit
+basevar=varclansetting_382
+startbit=10
+endbit=14
+
+// 386
+[varclansetting_386]
+type=bit
+basevar=varclansetting_382
+startbit=15
+endbit=19
+
+// 387
+[varclansetting_387]
+type=bit
+basevar=varclansetting_382
+startbit=20
+endbit=24
+
+// 388
+[varclansetting_388]
+type=bit
+basevar=varclansetting_382
+startbit=25
+endbit=29
+
+// 389
+[varclansetting_389]
+type=int
+
+// 390
+[varclansetting_390]
+type=bit
+basevar=varclansetting_389
+startbit=0
+endbit=4
+
+// 391
+[varclansetting_391]
+type=bit
+basevar=varclansetting_389
+startbit=5
+endbit=9
+
+// 392
+[varclansetting_392]
+type=bit
+basevar=varclansetting_389
+startbit=10
+endbit=14
+
+// 393
+[varclansetting_393]
+type=int
+
+// 394
+[varclansetting_394]
+type=bit
+basevar=varclansetting_393
+startbit=0
+endbit=6
+
+// 395
+[varclansetting_395]
+type=bit
+basevar=varclansetting_393
+startbit=7
+endbit=13
+
+// 396
+[varclansetting_396]
+type=bit
+basevar=varclansetting_393
+startbit=14
+endbit=21
+
+// 397
+[varclansetting_397]
+type=bit
+basevar=varclansetting_393
+startbit=22
+endbit=28
+
+// 398
+[varclansetting_398]
+type=int
+
+// 399
+[varclansetting_399]
+type=bit
+basevar=varclansetting_398
+startbit=0
+endbit=6
+
+// 400
+[varclansetting_400]
+type=bit
+basevar=varclansetting_398
+startbit=7
+endbit=13
+
+// 401
+[varclansetting_401]
+type=bit
+basevar=varclansetting_398
+startbit=14
+endbit=21
+
+// 402
+[varclansetting_402]
+type=bit
+basevar=varclansetting_398
+startbit=22
+endbit=28
+
+// 403
+[varclansetting_403]
+type=int
+
+// 404
+[varclansetting_404]
+type=int
+
+// 405
+[varclansetting_405]
+type=int
+
+// 406
+[varclansetting_406]
+type=bit
+basevar=varclansetting_398
+startbit=29
+endbit=31
+
+// 407
+[varclansetting_407]
+type=int
+
+// 408
+[varclansetting_408]
+type=bit
+basevar=varclansetting_407
+startbit=0
+endbit=4
+
+// 409
+[varclansetting_409]
+type=bit
+basevar=varclansetting_407
+startbit=5
+endbit=9
+
+// 410
+[varclansetting_410]
+type=bit
+basevar=varclansetting_407
+startbit=10
+endbit=14
+
+// 411
+[varclansetting_411]
+type=bit
+basevar=varclansetting_407
+startbit=15
+endbit=19
+
+// 412
+[varclansetting_412]
+type=bit
+basevar=varclansetting_407
+startbit=20
+endbit=24
+
+// 413
+[varclansetting_413]
+type=bit
+basevar=varclansetting_407
+startbit=25
+endbit=29
+
+// 414
+[varclansetting_414]
+type=int
+
+// 415
+[varclansetting_415]
+type=bit
+basevar=varclansetting_414
+startbit=0
+endbit=4
+
+// 416
+[varclansetting_416]
+type=bit
+basevar=varclansetting_414
+startbit=5
+endbit=9
+
+// 417
+[varclansetting_417]
+type=bit
+basevar=varclansetting_414
+startbit=10
+endbit=14
+

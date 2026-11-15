@@ -1,0 +1,104 @@
+// 4676
+[proc,clientscript_4676](int $int0)
+switch_int ($int0) {
+    case 1 :
+        if (%varplayerbit_9314 = 1) {
+            if_sethide(interface_102:com_15, true);
+            if_sethide(interface_102:com_17, true);
+        } else if (%varplayerbit_9298 = 10 & stat_base(magic) >= 30 & stat_base(ranged) >= 30 & stat_base(attack) >= 30) {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_15, false);
+            if_sethide(interface_102:com_17, false);
+            if (%varplayerbit_9315 = 0) {
+                if_settext(interface_102:com_70, "You receive two new books.");
+            }
+        }
+        if (%varplayerbit_9315 = 1) {
+            if_sethide(interface_102:com_14, true);
+            if_sethide(interface_102:com_16, true);
+        } else {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_14, false);
+            if_sethide(interface_102:com_16, false);
+        }
+    case 2 :
+        if (%varplayerbit_9316 = 1) {
+            if_sethide(interface_102:com_15, true);
+            if_sethide(interface_102:com_17, true);
+        } else if (%varplayerbit_9298 = 10 & stat_base(agility) >= 55 & stat_base(thieving) >= 55) {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_15, false);
+            if_sethide(interface_102:com_17, false);
+            if (%varplayerbit_9317 = 0) {
+                if_settext(interface_102:com_70, "You receive two new books.");
+            }
+        }
+        if (%varplayerbit_9317 = 1) {
+            if_sethide(interface_102:com_14, true);
+            if_sethide(interface_102:com_16, true);
+        } else {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_14, false);
+            if_sethide(interface_102:com_16, false);
+        }
+    case 4 :
+        if (%varplayerbit_9318 = 1) {
+            if_sethide(interface_102:com_15, true);
+            if_sethide(interface_102:com_17, true);
+        } else if (%varplayerbit_9298 = 10 & stat_base(strength) >= 70) {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_15, false);
+            if_sethide(interface_102:com_17, false);
+            if (%varplayerbit_9319 = 0) {
+                if_settext(interface_102:com_70, "You receive two new books.");
+            }
+        }
+        if (%varplayerbit_9319 = 1) {
+            if_sethide(interface_102:com_14, true);
+            if_sethide(interface_102:com_16, true);
+        } else {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_14, false);
+            if_sethide(interface_102:com_16, false);
+        }
+    case 3 :
+        if (%varplayerbit_11060 = 1) {
+            if_sethide(interface_102:com_15, true);
+            if_sethide(interface_102:com_17, true);
+        } else if (%varplayerbit_9298 = 10 & stat_base(attack) >= 60 & stat_base(thieving) >= 45 & stat_base(dungeoneering) >= 55) {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_15, false);
+            if_sethide(interface_102:com_17, false);
+            if (%varplayerbit_11061 = 0) {
+                if_settext(interface_102:com_70, "You receive two new books.");
+            }
+        }
+        if (%varplayerbit_11061 = 1) {
+            if_sethide(interface_102:com_14, true);
+            if_sethide(interface_102:com_16, true);
+        } else {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_14, false);
+            if_sethide(interface_102:com_16, false);
+        }
+    case 6 :
+        if (%varplayerbit_11062 = 1) {
+            if_sethide(interface_102:com_15, true);
+            if_sethide(interface_102:com_17, true);
+        } else if (%varplayerbit_9298 = 10 & stat_base(strength) >= 75) {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_15, false);
+            if_sethide(interface_102:com_17, false);
+            if (%varplayerbit_11063 = 0) {
+                if_settext(interface_102:com_70, "You receive two new books.");
+            }
+        }
+        if (%varplayerbit_11063 = 1) {
+            if_sethide(interface_102:com_14, true);
+            if_sethide(interface_102:com_16, true);
+        } else {
+            if_sethide(interface_102:com_70, false);
+            if_sethide(interface_102:com_14, false);
+            if_sethide(interface_102:com_16, false);
+        }
+}

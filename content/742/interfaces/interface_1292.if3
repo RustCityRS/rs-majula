@@ -1,0 +1,348 @@
+// 1292:0
+[com_0]
+type=graphic
+width=250
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+graphic=graphic_11257
+onmouseover=graphic_swapper(event_com, 11258)
+onmouseleave=graphic_swapper(event_com, 11257)
+
+// 1292:1
+[com_1]
+type=graphic
+width=250
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+graphic=graphic_11259
+onmouseover=graphic_swapper(event_com, 11260)
+onmouseleave=graphic_swapper(event_com, 11259)
+
+// 1292:2
+[com_2]
+type=graphic
+x=-142
+y=-59
+width=142
+height=117
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=graphic_11205
+
+// 1292:3
+[com_3]
+type=graphic
+x=-142
+y=58
+width=142
+height=117
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=graphic_11208
+
+// 1292:4
+[com_4]
+type=graphic
+y=-59
+width=142
+height=117
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=graphic_11206
+
+// 1292:5
+[com_5]
+type=graphic
+y=58
+width=142
+height=117
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=graphic_11209
+
+// 1292:6
+[com_6]
+type=graphic
+x=142
+y=-59
+width=142
+height=117
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=graphic_11207
+
+// 1292:7
+[com_7]
+type=graphic
+x=142
+y=58
+width=142
+height=117
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=graphic_11210
+
+// 1292:8
+[com_8]
+type=text
+width=201
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+textfont=palatino_linotype_18pt_regular
+text=Stay out
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfaf091
+
+// 1292:9
+[com_9]
+type=text
+width=201
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+textfont=palatino_linotype_18pt_regular
+text=Enter
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfaf091
+
+// 1292:10
+[com_10]
+type=layer
+x=-19
+y=203
+width=317
+height=30
+xmode=abs_centre
+layer=com_18
+hide=yes
+
+// 1292:11
+[com_11]
+type=text
+y=7
+width=315
+height=87
+xmode=abs_centre
+layer=com_18
+textfont=verdana_13pt_regular
+text=You are about to enter a dangerous area where others can attack you.<br><br>If you die you will lose all the items you are carrying.
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+
+// 1292:12
+[com_12]
+type=layer
+y=97
+width=218
+height=50
+xmode=abs_centre
+layer=com_18
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1292:13
+[com_13]
+type=layer
+y=147
+width=218
+height=50
+xmode=abs_centre
+layer=com_18
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 1292:14
+[com_14]
+type=layer
+width=442
+height=283
+xmode=abs_centre
+ymode=abs_centre
+
+// 1292:15
+[com_15]
+type=text
+x=99
+width=200
+height=15
+ymode=abs_centre
+layer=com_10
+textfont=p12_full
+text=Don't show this message again.
+textalignv=centre
+textshadow=yes
+
+// 1292:16
+[com_16]
+type=layer
+x=76
+width=16
+height=16
+ymode=abs_centre
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onop=clientscript_6033(interface_1292:com_25, interface_1292:com_27)
+
+// 1292:17
+[com_17]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+onload=script4260(event_com)
+
+// 1292:18
+[com_18]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_14
+
+// 1292:19
+[com_19]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+onload=script4261(event_com)
+
+// 1292:20
+[com_20]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_14
+
+// 1292:21
+[com_21]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+textfont=palatino_linotype_18pt_regular
+text=Warning
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1292:22
+[com_22]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_14
+onload=aif_build_close_button_layer(event_com)
+
+// 1292:23
+[com_23]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1292:24
+[com_24]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+onload=aif_build_close_button_over(event_com)
+
+// 1292:25
+[com_25]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+hide=yes
+onload=aif_checkbox_selected_layer_onload(event_com)
+
+// 1292:26
+[com_26]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+onload=checkbox_selected_disabled_layer_onload(event_com)
+
+// 1292:27
+[com_27]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+onload=aif_checkbox_deselected_layer_onload(event_com)
+
+// 1292:28
+[com_28]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_16
+onload=checkbox_deselected_disabled_layer_onload(event_com)

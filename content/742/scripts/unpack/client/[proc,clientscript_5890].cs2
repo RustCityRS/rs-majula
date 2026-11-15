@@ -1,0 +1,16 @@
+// 5890
+[proc,clientscript_5890](int $int0)
+def_component $component1 = ~clientscript_5933($int0);
+def_int $int2 = ~clientscript_5939($int0);
+def_graphic $graphic3 = null;
+switch_int ($int2) {
+    case 1 :
+        $graphic3 = 9877;
+    case 2 :
+        $graphic3 = 9880;
+    case 3 :
+        $graphic3 = 9883;
+    case default :
+        $graphic3 = 9874;
+}
+if_setgraphic($component1, ~clientscript_6267($graphic3));

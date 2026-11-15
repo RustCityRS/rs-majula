@@ -19,6 +19,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const FLETCHING: usize = 9;
@@ -39,23 +40,23 @@ const FIVE: i32 = NUMBERS | 6;
 const FIRST_ITEM: i32 = MAKE | 14;
 const NONE: i32 = 0xFFFF;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
-fn knife_on_logs(client: &mut HarnessClient, knife: u16, logs: u16, logs_slot: u16) {
+fn knife_on_logs(client: &mut HarnessClient, knife: TypeId, logs: TypeId, logs_slot: u16) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
         .p2_alt1(logs_slot as i32)
         .p2_alt1(0)
-        .p2_alt2(knife as i32)
+        .p2_alt2(knife.int())
         .p4_alt1(BACKPACK)
-        .p2(logs as i32);
+        .p2(logs.int());
     client.send(ClientProt::IfButtonT, &p.finish());
 }
 
@@ -91,7 +92,7 @@ fn cutting_logs_through_2011s_make_x() {
         let knife = obj(engine, "knife");
         let logs = obj(engine, "logs");
         let shafts = obj(engine, "arrow_shaft");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let mut client = engine.harness_login_returning("fletcher").expect("login");
@@ -167,8 +168,13 @@ fn a_knife_cuts_achey_logs_into_ogre_arrow_shafts() {
         let knife = obj(engine, "knife");
         let logs = obj(engine, "achey_tree_logs");
         let shafts = obj(engine, "ogre_arrow_shaft");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let chompybird = *engine.cache.varps.debugnames.get("chompybird").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let chompybird = engine
+            .cache
+            .varps
+            .get_by_debugname("chompybird")
+            .unwrap()
+            .id;
 
         engine.harness_reset();
         let mut client = engine
@@ -181,7 +187,7 @@ fn a_knife_cuts_achey_logs_into_ogre_arrow_shafts() {
         backpack.set(1, logs, 1);
         player.stats.levels[FLETCHING] = 5;
         player.stats.base_levels[FLETCHING] = 5;
-        player.vars.set(chompybird, VarValue::Int(1));
+        player.vars.set(chompybird.g2(), VarValue::Int(1));
         let xp = player.stats.xp[FLETCHING];
         let counted = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();

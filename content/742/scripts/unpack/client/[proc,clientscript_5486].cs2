@@ -1,0 +1,50 @@
+// 5486
+[proc,clientscript_5486]
+def_int $int0 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string4 = "";
+def_string $string5 = "";
+if (%varclient_1686 = false) {
+    return;
+}
+$int0, $string1, $string0, $string3 = op919;
+$int1, $int2 = op267;
+$int3, $string5, $string4 = op462;
+if ($int3 = 1 & $int1 < 2) {
+    $string0 = $string5;
+    $string1 = "-> <$string4>";
+    $string3 = "";
+    $int0 = -1;
+}
+if (%varclient_1687 = -1) {
+    %varclient_1687 = 20;
+}
+if (compare($string0, %varclient_2326) ! 0 & %varclient_1690 = null) {
+    %varclient_2326 = $string0;
+    %varclient_1689 = clientclock;
+    ~clientscript_5487;
+}
+$string2 = $string1;
+if (compare($string0, "") ! 0) {
+    $string2 = "<$string2> <$string0> <$string3>";
+}
+switch_int ($int0) {
+    case 4, 3, 2, 7 :
+        ~clientscript_5488($string2);
+    case 1 :
+        if (%varclient_1691 ! null) {
+            ~clientscript_5488($string2);
+        } else {
+            ~clientscript_5487;
+        }
+    case default :
+        if (%varclient_1688 = true) {
+            ~clientscript_5487;
+        }
+}

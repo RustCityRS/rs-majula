@@ -1,0 +1,19 @@
+// 5094
+[proc,clientscript_5094]()(string)
+def_int $int0 = calc(%varclient_995 / 50);
+def_int $int1 = calc($int0 / 60);
+def_int $int2 = calc($int1 / 60);
+$int1, $int0 = calc($int1 % 60), calc($int0 % 60);
+def_string $string0 = "";
+def_string $string1 = "";
+if ($int1 < 10) {
+    $string1 = "0<tostring($int1)>";
+} else {
+    $string1 = tostring($int1);
+}
+if ($int0 < 10) {
+    $string0 = "0<tostring($int0)>";
+} else {
+    $string0 = tostring($int0);
+}
+return("<tostring($int2)>:<$string1>:<$string0>");

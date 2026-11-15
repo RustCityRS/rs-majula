@@ -1,0 +1,48 @@
+// 6281
+[proc,clientscript_6281](int $int0)
+if (%varclient_1930 > 0) {
+    return;
+}
+switch_int ($int0) {
+    case 1 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15746, 1, 0, 255);
+        %varclient_1930 = 315;
+    case 2 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15744, 1, 0, 255);
+        %varclient_1930 = 72;
+    case 3 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15739, 1, 0, 255);
+        %varclient_1930 = 140;
+    case 4 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15720, 1, 0, 255);
+        %varclient_1930 = 192;
+    case 5 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15730, 1, 0, 255);
+        %varclient_1930 = 140;
+    case 6 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15740, 1, 0, 255);
+        %varclient_1930 = 212;
+    case 7 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15738, 1, 0, 255);
+        %varclient_1930 = 244;
+    case 8 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15724, 1, 0, 255);
+        %varclient_1930 = 190;
+    case 9 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15745, 1, 0, 255);
+        %varclient_1930 = 190;
+    case 10 :
+        mes("Playing sound...");
+        sound_vorbis_volume(15742, 1, 0, 255);
+        %varclient_1930 = 145;
+}
+if_setontimer(interface_1297:com_165, "clientscript_6282");

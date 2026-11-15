@@ -1,0 +1,244 @@
+// 1174
+[proc,clientscript_1174](component $component0)
+%loginscreen_focustime = clientclock;
+~deltooltip_action(loginscreen:tooltip);
+%tooltip_time = 0;
+switch_component ($component0) {
+    case loginscreen:com_403, loginscreen:com_404, loginscreen:com_405, loginscreen:com_406, loginscreen:com_409, loginscreen:com_410 :
+        if_sethide(loginscreen:com_131, true);
+        if_sethide(loginscreen:com_132, false);
+        if_sethide(loginscreen:com_133, true);
+    case loginscreen:com_176 :
+        if_sethide(loginscreen:com_131, true);
+        if_sethide(loginscreen:com_132, true);
+        if_setsize(loginscreen:com_133, if_getwidth(loginscreen:com_133), 10, 0, 1);
+        if_sethide(loginscreen:com_133, false);
+    case loginscreen:com_138 :
+        if_sethide(loginscreen:com_131, true);
+        if_sethide(loginscreen:com_132, true);
+        if_setsize(loginscreen:com_133, if_getwidth(loginscreen:com_133), 440, 0, 0);
+        if_sethide(loginscreen:com_133, false);
+    case default :
+        if_sethide(loginscreen:com_131, false);
+        if_sethide(loginscreen:com_132, true);
+        if_sethide(loginscreen:com_133, true);
+}
+if_setontimer(loginscreen:com_134, null);
+%loginscreen_focus = 0;
+if ($component0 = loginscreen:com_226) {
+    if (map_world ! -1) {
+        if_settext(loginscreen:com_254, ~world_x_pvp);
+    } else {
+        if_settext(loginscreen:com_254, "World Select");
+    }
+    ~clientscript_1868;
+    %loginscreen_pvp_warned = 0;
+    ~clientscript_1895(1, loginscreen:com_230, loginscreen:com_229, loginscreen:com_234, null, null, null, loginscreen:com_231, loginscreen:com_232, loginscreen:com_233, null, null, null, ^white, 0x461e00);
+    ~loginscreen_musicvol(loginscreen:com_272, loginscreen:music_slider);
+    if_sethide(loginscreen:com_226, false);
+} else {
+    if_sethide(loginscreen:com_226, true);
+}
+if ($component0 = loginscreen:windowmode_confirm) {
+    %loginscreen_focus = 6;
+    %loginscreen_res_counter = 500;
+    if_settext(loginscreen:windowmode_confirm_countdown_text, "Changing in <tostring(calc(%loginscreen_res_counter / 50 + 1))> seconds...");
+    if_setontimer(loginscreen:windowmode_confirm, "clientscript_1892");
+    if_sethide(loginscreen:windowmode_confirm, false);
+} else {
+    if_sethide(loginscreen:windowmode_confirm, true);
+}
+if ($component0 = loginscreen:com_241) {
+    if_sethide(loginscreen:com_241, false);
+    if_setonclick(loginscreen:com_334, null);
+    if_setontimer(loginscreen:com_134, "clientscript_1180");
+    if (map_world = -1) {
+        if_settext(loginscreen:com_333, "World: Auto");
+    } else {
+        if_settext(loginscreen:com_333, ~world_x_pvp);
+    }
+    if_settext(loginscreen:username, %varclient_664);
+    %varclient_665 = "";
+    if_settext(loginscreen:password, %varclient_665);
+    if (compare(%varclient_664, "") ! 0) {
+        %loginscreen_focus = 2;
+    } else {
+        %loginscreen_focus = 1;
+    }
+} else {
+    if_sethide(loginscreen:com_241, true);
+    %varclient_665 = "";
+    login_resetreply;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+if ($component0 = loginscreen:general_messages) {
+    if_setsize(loginscreen:general_messages_text, 0, calc(paraheight(if_gettext(loginscreen:general_messages_text), if_getwidth(loginscreen:general_messages_text), 495) * 15 + 5), 1, 0);
+    if_setposition(loginscreen:general_messages_continue, 0, min(calc((if_getheight(loginscreen:general_messages) + if_getheight(loginscreen:general_messages_text)) / 2 + 45), calc(if_getheight(loginscreen:general_messages) - if_getheight(loginscreen:general_messages_continue))), 1, 0);
+    $string0 = if_gettext(loginscreen:com_136);
+    if (string_length($string0) > 0) {
+        $string1 = "<col=461e00><u=461e00><$string0></u></col>";
+        if_settext(loginscreen:com_136, $string1);
+        if_setonmouseleave(loginscreen:com_136, "text_swapper(loginscreen:com_136, $string1)");
+        $string1 = "<col=ffffff><u=ffffff><$string0></u></col>";
+        if_setonmouseover(loginscreen:com_136, "text_swapper(loginscreen:com_136, $string1)");
+        if_setposition(loginscreen:com_136, 0, min(calc((if_getheight(loginscreen:general_messages) + if_getheight(loginscreen:general_messages_text)) / 2 + 15), calc(if_gety(loginscreen:general_messages_continue) - if_getheight(loginscreen:com_136))), 1, 0);
+        if_sethide(loginscreen:com_136, false);
+    } else {
+        if_setonmouseover(loginscreen:com_136, null);
+        if_setonmouseleave(loginscreen:com_136, null);
+        if_setonclick(loginscreen:com_136, null);
+        if_sethide(loginscreen:com_136, true);
+    }
+    if_sethide(loginscreen:general_messages, false);
+} else {
+    if_sethide(loginscreen:general_messages, true);
+    if_settext(loginscreen:com_136, "");
+    if_setonclick(loginscreen:com_136, null);
+}
+if ($component0 = loginscreen:com_403) {
+    if_sethide(loginscreen:com_403, false);
+    unknown_command_5606;
+    ~clientscript_1388;
+    if_settext(loginscreen:com_361, "Please input your date of birth:");
+    if_setcolour(loginscreen:com_361, 0x461e00);
+} else {
+    if_sethide(loginscreen:com_403, true);
+}
+if ($component0 = loginscreen:com_404) {
+    if_sethide(loginscreen:com_404, false);
+    unknown_command_5606;
+} else {
+    if_sethide(loginscreen:com_404, true);
+}
+if ($component0 = loginscreen:com_405) {
+    if_sethide(loginscreen:com_405, false);
+    unknown_command_5606;
+    if_settext(loginscreen:com_385, "Please input a username, then click `Next' to check that it is available.");
+    if_setcolour(loginscreen:com_385, 0x461e00);
+    if_settext(loginscreen:com_386, "Usernames can be a maximum of 12 characters long and may contain letters, numbers and underscores. Note: first letters will be capitalised and underscores will be converted into spaces. For example, the username red_rooster would display in the game as Red Rooster.");
+    if_setcolour(loginscreen:com_386, 0x461e00);
+    if_setontimer(loginscreen:com_134, "clientscript_1227");
+    %loginscreen_focus = 3;
+} else {
+    if_sethide(loginscreen:com_405, true);
+}
+def_string $string2 = %varclient_666;
+if ($component0 = loginscreen:com_406) {
+    unknown_command_5606;
+    if_sethide(loginscreen:com_406, false);
+    if_setcolour(loginscreen:com_395, 0x461e00);
+    if (compare($string2, "") ! 0) {
+        if_settext(loginscreen:com_395, "Congratulations! The username <col=8c320a><$string2></col> is currently available.");
+    } else {
+        if_settext(loginscreen:com_395, "Congratulations! That username is currently available.");
+    }
+} else {
+    if_sethide(loginscreen:com_406, true);
+}
+if ($component0 = loginscreen:com_409) {
+    unknown_command_5606;
+    if_settext(loginscreen:com_413, "Please choose a password and click `Create' to create your account.");
+    if_setcolour(loginscreen:com_413, 0x461e00);
+    if_sethide(loginscreen:com_409, false);
+    if_setontimer(loginscreen:com_134, "clientscript_1228");
+    %loginscreen_focus = 4;
+} else {
+    if_sethide(loginscreen:com_409, true);
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 1;
+def_int $int4 = 0;
+if ($component0 = loginscreen:com_410) {
+    if_sethide(loginscreen:com_410, false);
+    $int1 = date_runeday;
+    if ($int1 < 2303) {
+        $int1 = 2303;
+        if_settext(loginscreen:com_412, "We have reason to believe that you are under 13. For this reason, your account has been locked into Quick Chat until you are of a suitable age. Please review out Terms & Conditions for more information.");
+    }
+    $int2 = op6302(%signpost_if_model, %mourning_mirror, %prayer_custom_view_client);
+    if (%mourning_mirror > 1) {
+        while ($int3 <= 13) {
+            if (op6304(calc(%prayer_custom_view_client + $int3)) = 1) {
+                $int4 = calc($int4 + 366);
+            } else {
+                $int4 = calc($int4 + 365);
+            }
+            $int3 = calc($int3 + 1);
+        }
+    } else {
+        while ($int3 <= 13) {
+            if (op6304(calc(%prayer_custom_view_client + ($int3 - 1))) = 1) {
+                $int4 = calc($int4 + 366);
+            } else {
+                $int4 = calc($int4 + 365);
+            }
+            $int3 = calc($int3 + 1);
+        }
+    }
+    if (calc($int2 + $int4) > $int1) {
+        if_sethide(loginscreen:com_430, false);
+    } else {
+        if_sethide(loginscreen:com_430, true);
+    }
+} else {
+    if_sethide(loginscreen:com_410, true);
+}
+if ($component0 = loginscreen:com_138) {
+    ~clientscript_1895(2, loginscreen:com_275, loginscreen:com_154, loginscreen:com_155, loginscreen:com_276, loginscreen:com_151, loginscreen:com_152, loginscreen:com_277, loginscreen:com_148, loginscreen:com_149, loginscreen:com_278, loginscreen:com_145, loginscreen:com_146, ^white, 0x461e00);
+    $int3 = calc(fullscreen_modecount * 15);
+    $int3 = min($int3, 240);
+    $int3 = max($int3, 40);
+    if_setsize(loginscreen:com_284, if_getwidth(loginscreen:com_284), calc($int3 + 2), 0, 0);
+    if_setsize(loginscreen:com_285, if_getwidth(loginscreen:com_285), $int3, 0, 0);
+    if_setsize(loginscreen:com_286, if_getwidth(loginscreen:com_286), $int3, 0, 0);
+    ~clientscript_1169(loginscreen:com_283, loginscreen:com_284, loginscreen:com_285, loginscreen:com_286, 884, 1248, 1250, 1402, 0x7f0000, 0xffc61a, 494, 798, 795, 796, 797, 793, 794);
+    ~loginscreen_brightness(loginscreen:brightness_dragzone, loginscreen:brightness_slider);
+    ~clientscript_1192;
+    ~clientscript_1194;
+    ~clientscript_1196;
+    ~clientscript_1198;
+    ~clientscript_1200;
+    ~clientscript_1202;
+    ~clientscript_1204;
+    ~clientscript_1206;
+    ~clientscript_1208;
+    ~clientscript_1210;
+    ~clientscript_1222;
+    ~clientscript_1329;
+    ~clientscript_1359;
+    if_sethide(loginscreen:com_138, false);
+} else {
+    ~dropdownbox_close(loginscreen:com_293, loginscreen:com_294, loginscreen:com_295, null, 2);
+    ~dropdownbox_close(loginscreen:com_290, loginscreen:com_291, loginscreen:com_292, null, 2);
+    ~dropdownbox_close(loginscreen:com_287, loginscreen:com_288, loginscreen:com_289, null, 2);
+    ~dropdownbox_close(loginscreen:com_108, loginscreen:com_109, loginscreen:com_110, null, 2);
+    ~dropdownbox_close(loginscreen:com_17, loginscreen:com_18, loginscreen:com_19, null, 2);
+    ~dropdownbox_close(loginscreen:com_42, loginscreen:com_43, loginscreen:com_44, null, 2);
+    ~dropdownbox_close(loginscreen:com_64, loginscreen:com_65, loginscreen:com_66, null, 2);
+    ~dropdownbox_close(loginscreen:com_86, loginscreen:com_87, loginscreen:com_88, null, 2);
+    ~dropdownbox_close(loginscreen:com_100, loginscreen:com_101, loginscreen:com_102, null, 2);
+    ~dropdownbox_close(loginscreen:com_9, loginscreen:com_10, loginscreen:com_11, null, 2);
+    ~dropdownbox_close(loginscreen:com_34, loginscreen:com_35, loginscreen:com_36, null, 2);
+    ~dropdownbox_close(loginscreen:com_56, loginscreen:com_57, loginscreen:com_58, null, 2);
+    ~dropdownbox_close(loginscreen:com_78, loginscreen:com_79, loginscreen:com_80, null, 2);
+    ~dropdownbox_close(loginscreen:com_283, loginscreen:com_284, loginscreen:com_285, loginscreen:com_286, 2);
+    if_sethide(loginscreen:com_138, true);
+}
+if ($component0 = loginscreen:com_402) {
+    ~loginscreen_soundvol(loginscreen:com_304, loginscreen:com_315);
+    ~loginscreen_musicvol(loginscreen:com_314, loginscreen:com_316);
+    ~loginscreen_bgsoundvol(loginscreen:com_325, loginscreen:com_305);
+    ~clientscript_1220;
+    if_sethide(loginscreen:com_402, false);
+} else {
+    if_sethide(loginscreen:com_402, true);
+}
+if ($component0 = loginscreen:com_176) {
+    ~clientscript_1873;
+    if_sethide(loginscreen:com_176, false);
+    if_sethide(loginscreen:com_138, true);
+} else {
+    if_sethide(loginscreen:com_176, true);
+}

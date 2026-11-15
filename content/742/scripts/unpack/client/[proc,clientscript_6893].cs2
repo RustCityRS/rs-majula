@@ -1,0 +1,16 @@
+// 6893
+[proc,clientscript_6893](int $int0, obj $obj1, string $string0)(string)
+def_string $string1 = "";
+if (oc_stackable($obj1) = false) {
+    $string1 = "<col=ff9040><oc_name($obj1)> <col=ffffff>x <col=fff000><tostring($int0)>";
+} else if ($int0 < 100000) {
+    $string1 = "<col=ff9040><oc_name($obj1)><col=ffffff> x <col=ffff00><tostring_localised($int0, true)>";
+} else if ($int0 < 10000000) {
+    $string1 = "<col=ff9040><oc_name($obj1)><col=ffffff> x <col=ffffff><tostring_localised(calc($int0 / 1000), true)>K (<tostring_localised($int0, true)>)";
+} else {
+    $string1 = "<col=ff9040><oc_name($obj1)><col=ffffff> x <col=00ff80><tostring_localised(calc($int0 / 1000000), true)>M (<tostring_localised($int0, true)>)";
+}
+if (string_length($string0) > 0) {
+    return(append(append($string0, "<br>"), $string1));
+}
+return($string1);

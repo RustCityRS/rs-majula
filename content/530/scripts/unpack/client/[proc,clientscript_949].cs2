@@ -1,0 +1,91 @@
+// 949
+[proc,clientscript_949](int $int0, int $int1)
+cc_deleteall(interface_726:com_187);
+def_component $component2 = enum(int, component, enum_1443, $int0);
+if ($component2 = interface_726:text_1) {
+    if_setobject(interface_726:com_150, firerune, -1);
+    if_setobject(interface_726:com_151, lawrune, -1);
+    if_setobject(interface_726:com_159, firerune, -1);
+    if_setobject(interface_726:com_158, lawrune, -1);
+    return;
+}
+if ($component2 = null) {
+    if_close;
+    return;
+}
+def_obj $obj3 = firerune;
+if (calc($int0 % 2) = 0) {
+    $obj3 = lawrune;
+}
+if_setobject($component2, $obj3, -1);
+if ($int1 = 1) {
+    cc_create(interface_726:com_187, 6, 0);
+    cc_setsize(32, 32, 0, 0);
+    cc_setposition(if_getx($component2), if_gety($component2), 0, 0);
+    cc_setmodel(model_4611);
+    cc_setmodelangle(0, 0, 512, 0, 0, 768);
+    cc_setmodelanim(runeflash);
+    sound_synth(runelink_bottom, 1, 0);
+}
+def_int $int4 = -1;
+def_int $int5 = -1;
+$int4, $int5 = ~clientscript_951($component2);
+if ($int4 = -1 | $int5 = -1) {
+    return;
+}
+if ($int5 < 7) {
+    ~clientscript_950($int4, $int5, 0, 1, $obj3);
+    if ($int4 < 7) {
+        ~clientscript_950($int4, $int5, 1, 1, $obj3);
+    }
+}
+if ($int4 < 7) {
+    ~clientscript_950($int4, $int5, 1, 0, $obj3);
+    if ($int5 > 0) {
+        ~clientscript_950($int4, $int5, 1, -1, $obj3);
+    }
+}
+if ($int5 > 0) {
+    ~clientscript_950($int4, $int5, 0, -1, $obj3);
+    if ($int4 > 0) {
+        ~clientscript_950($int4, $int5, -1, -1, $obj3);
+    }
+}
+if ($int4 > 0) {
+    ~clientscript_950($int4, $int5, -1, 0, $obj3);
+    if ($int5 < 7) {
+        ~clientscript_950($int4, $int5, -1, 1, $obj3);
+    }
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+if ($int0 = calc(61 - 1)) {
+    $int4 = 0;
+    while ($int4 < 8) {
+        $int5 = 0;
+        while ($int5 < 8) {
+            if (if_getinvobject(~clientscript_952($int4, $int5)) = firerune) {
+                $int6 = calc($int6 + 1);
+            } else if (if_getinvobject(~clientscript_952($int4, $int5)) = lawrune) {
+                $int7 = calc($int7 + 1);
+            }
+            $int5 = calc($int5 + 1);
+        }
+        $int4 = calc($int4 + 1);
+    }
+    if ($int6 > $int7) {
+        sound_jingle(110, 6656);
+        if_settext(interface_726:text_1, "<\"Teapotspout\"><\" wins!\">");
+    } else if ($int6 < $int7) {
+        sound_jingle(110, 6656);
+        if_settext(interface_726:text_1, "<\"Hotwater\"><\" wins!\">");
+    } else {
+        sound_jingle(108, 6449);
+        if_settext(interface_726:text_1, "It's a draw.");
+    }
+    if (calc($int6 + $int7) >= 64) {
+        if_settext(interface_726:text_2, "The board is full.");
+    } else {
+        if_settext(interface_726:text_2, "Neither player can move.");
+    }
+}

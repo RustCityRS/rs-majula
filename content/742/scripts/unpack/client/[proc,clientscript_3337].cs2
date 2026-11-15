@@ -1,0 +1,146 @@
+// 3337
+[proc,clientscript_3337](int $int0, int $int1)
+def_int $int2 = 0;
+switch_int ($int0) {
+    case 1 :
+        $int2 = %lvl_attack_before_levelup_varc;
+    case 2 :
+        $int2 = %lvl_strength_before_levelup_varc;
+    case 5 :
+        $int2 = %lvl_defence_before_levelup_varc;
+    case 3 :
+        $int2 = %lvl_ranged_before_levelup_varc;
+    case 7 :
+        $int2 = %lvl_prayer_before_levelup_varc;
+    case 4 :
+        $int2 = %lvl_magic_before_levelup_varc;
+    case 6 :
+        $int2 = %lvl_hitpoints_before_levelup_varc;
+    case 8 :
+        $int2 = %lvl_agility_before_levelup_varc;
+    case 9 :
+        $int2 = %lvl_herblore_before_levelup_varc;
+    case 10 :
+        $int2 = %lvl_thieving_before_levelup_varc;
+    case 11 :
+        $int2 = %lvl_crafting_before_levelup_varc;
+    case 19 :
+        $int2 = %lvl_fletching_before_levelup_varc;
+    case 13 :
+        $int2 = %lvl_mining_before_levelup_varc;
+    case 14 :
+        $int2 = %lvl_smithing_before_levelup_varc;
+    case 15 :
+        $int2 = %lvl_fishing_before_levelup_varc;
+    case 16 :
+        $int2 = %lvl_cooking_before_levelup_varc;
+    case 17 :
+        $int2 = %lvl_firemaking_before_levelup_varc;
+    case 18 :
+        $int2 = %lvl_woodcutting_before_levelup_varc;
+    case 12 :
+        $int2 = %lvl_runecraft_before_levelup_varc;
+    case 20 :
+        $int2 = %lvl_slayer_before_levelup_varc;
+    case 21 :
+        $int2 = %lvl_farming_before_levelup_varc;
+    case 22 :
+        $int2 = %lvl_construction_before_levelup_varc;
+    case 23 :
+        $int2 = %lvl_hunter_before_levelup_varc;
+    case 24 :
+        $int2 = %lvl_summoning_before_levelup_varc;
+    case 25 :
+        $int2 = %lvl_dungeoneering_before_levelup_varc;
+}
+def_int $int3 = stat_base(enum(int, stat, enum_681, $int0));
+def_enum $enum4 = enum(int, enum, enum_5420, $int0);
+def_int $int5 = enum_getoutputcount($enum4);
+def_stat $stat6 = enum(int, stat, enum_681, $int0);
+$stat6 = enum(stat, stat, enum_744, $stat6);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_graphic $graphic10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string0 = "";
+$int1 = calc($int1 / 5);
+if ($int3 > $int2) {
+    if (%varplayerbit_5395 = 1) {
+        %varplayerbit_5395 = 0;
+        ~clientscript_3367("Increased Combat level!", $int9, $int1);
+        $int9 = calc($int9 + 1);
+    }
+    if ($int0 = 7 | $int0 = 6) {
+        if ($int0 = 7) {
+            ~clientscript_3367("More prayer points!", $int9, $int1);
+        } else {
+            ~clientscript_3367("More lifepoints!", $int9, $int1);
+        }
+        $int9 = calc($int9 + 1);
+    }
+    while ($int8 < $int5 & $int9 < 5) {
+        $int7 = struct_param(enum(int, struct, $enum4, $int8), param_2212);
+        if ($int7 = $int3 & struct_param(enum(int, struct, $enum4, $int8), param_2219) = true) {
+            cc_create(interface_1216:com_3, ^iftype_text, if_getnextsubid(interface_1216:com_3));
+            cc_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_bottom);
+            $int12 = calc(stringwidth(struct_param(enum(int, struct, $enum4, $int8), param_2210), verdana_15pt_regular) + stringwidth("New", verdana_15pt_regular));
+            if (struct_param(enum(int, struct, $enum4, $int8), param_2217) = false) {
+                $stat6 = attack;
+            } else {
+                $stat6 = null;
+            }
+            cc_setsize(0, 33, ^setsize_minus, ^setsize_abs);
+            cc_setontimer("clientscript_3368(event_comsubid, struct_param(enum(int, struct, $enum4, $int8), param_2210), calc(clientclock + $int9 * $int1))");
+            $int11 = cc_getx;
+            cc_create(interface_1216:com_3, ^iftype_graphic, if_getnextsubid(interface_1216:com_3));
+            cc_setposition(0, 24, ^setpos_abs_centre, ^setpos_abs_bottom);
+            cc_setsize($int12, 33, ^setsize_abs, ^setsize_abs);
+            cc_settiling(true);
+            if ($stat6 = null) {
+                $graphic10 = 9257;
+            } else {
+                $graphic10 = 9240;
+            }
+            cc_setontimer("clientscript_4226(event_comsubid, $graphic10, calc(clientclock + $int9 * $int1))");
+            op1025;
+            $int11 = cc_getx;
+            $int12 = cc_getwidth;
+            cc_create(interface_1216:com_3, ^iftype_graphic, if_getnextsubid(interface_1216:com_3));
+            cc_setposition(calc($int11 - 50), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+            if ($stat6 = null) {
+                $graphic10 = 9256;
+            } else {
+                $graphic10 = 9239;
+            }
+            cc_setontimer("clientscript_4226(event_comsubid, $graphic10, calc(clientclock + $int9 * $int1))");
+            op1025;
+            cc_create(interface_1216:com_3, ^iftype_graphic, if_getnextsubid(interface_1216:com_3));
+            cc_setposition(calc($int11 + $int12), 24, ^setpos_abs_left, ^setpos_abs_bottom);
+            cc_setsize(50, 33, ^setsize_abs, ^setsize_abs);
+            if ($stat6 = null) {
+                $graphic10 = 9258;
+            } else {
+                $graphic10 = 9241;
+            }
+            cc_setontimer("clientscript_4226(event_comsubid, $graphic10, calc(clientclock + $int9 * $int1))");
+            op1025;
+            cc_create(interface_1216:com_0, ^iftype_model, if_getnextsubid(interface_1216:com_0));
+            cc_setmodel(model_32144);
+            cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+            cc_setmodelanim(seq_15754);
+            cc_setmodelangle(0, 0, 512, 0, 0, calc(1500 + random(1000)));
+            $int12 = calc(stringwidth(struct_param(enum(int, struct, $enum4, $int8), param_2210), verdana_15pt_regular) / 2 + 20);
+            if (random(2) = 0) {
+                cc_setposition($int12, 120, ^setpos_abs_centre, ^setpos_abs_top);
+            } else {
+                cc_setposition(calc($int12 * -1), 120, ^setpos_abs_centre, ^setpos_abs_top);
+            }
+            cc_setontimer("clientscript_3369(event_comsubid, calc(clientclock + $int9 * $int1), 0)");
+            $int9 = calc($int9 + 1);
+        }
+        $int8 = calc($int8 + 1);
+    }
+}

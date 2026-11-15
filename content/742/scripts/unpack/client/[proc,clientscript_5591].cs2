@@ -1,0 +1,11 @@
+// 5591
+[proc,clientscript_5591](int $int0, int $int1)
+if ($int0 = 16) {
+    if_setcolour(interface_1185:com_20, 0xdb9000);
+    if_setcolour(interface_1185:com_21, 0xdb9000);
+    if_sendtofront(interface_1185:com_15);
+} else if ($int0 = 17) {
+    if_setcolour(interface_1185:com_25, 0xdb9000);
+    if_setcolour(interface_1185:com_26, 0xdb9000);
+    if_sendtofront(interface_1185:com_16);
+}

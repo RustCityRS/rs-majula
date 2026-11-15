@@ -1,0 +1,4 @@
+// 725
+[clientscript,mainmodal_fullscreen_background_load](component $component0, component $component1)
+%mainmodal_fullscreen_colour = null;
+if_setonvarctransmit($component0, "mainmodal_fullscreen_background_update($component0, $component1){mainmodal_fullscreen_colour, mainmodal_fullscreen_trans}");

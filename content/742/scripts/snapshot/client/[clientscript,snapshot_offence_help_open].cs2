@@ -1,0 +1,7 @@
+// 226
+[clientscript,snapshot_offence_help_open]
+~snapshot_hide_help;
+~snapshot_help_show_blackout;
+if_sethide(snapshot_main_v2:offence_help_layer, false);
+if_sethide(snapshot_main_v2:com_210, false);
+if_sethide(snapshot_main_v2:com_212, true);

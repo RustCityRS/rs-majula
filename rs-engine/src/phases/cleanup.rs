@@ -48,10 +48,10 @@ impl Engine {
         self.reset_players();
         self.reset_npcs();
         // Before the despawned npcs go, so a freed region's go with them.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.free_empty_regions();
         self.remove_despawned_npcs();
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         self.drop_region_zones();
         self.reset_shared_invs();
         self.restock_invs();

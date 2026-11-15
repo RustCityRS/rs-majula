@@ -1,0 +1,77 @@
+// 4841
+[proc,clientscript_4841](int $int0)(int, int, int, int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (op718 = 1) {
+    switch_int ($int0) {
+        case 1 :
+            $int3 = %varplayerbit_9570;
+            $int1 = %varplayerbit_9562;
+            $int2 = %varplayerbit_9563;
+            $int4 = %varplayerbit_9567;
+            $int5 = %varplayerbit_9568;
+            $int6 = %varplayerbit_9569;
+        case 2 :
+            $int3 = %varplayerbit_9579;
+            $int1 = %varplayerbit_9571;
+            $int2 = %varplayerbit_9572;
+            $int4 = %varplayerbit_9576;
+            $int5 = %varplayerbit_9577;
+            $int6 = %varplayerbit_9578;
+        case 3 :
+            $int3 = %varplayerbit_9588;
+            $int1 = %varplayerbit_9580;
+            $int2 = %varplayerbit_9581;
+            $int4 = %varplayerbit_9585;
+            $int5 = %varplayerbit_9586;
+            $int6 = %varplayerbit_9587;
+    }
+}
+def_int $int7 = 1;
+def_int $int8 = 1;
+def_enum $enum9 = null;
+def_struct $struct10 = null;
+def_enum $enum11 = null;
+def_enum $enum12 = null;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+$enum11 = enum(int, enum, enum_4043, $int1);
+if ($enum11 = null) {
+    return(0, 0, 0, 0, 0, 0);
+}
+$enum12 = enum(int, enum, $enum11, $int2);
+if ($enum12 = null) {
+    return(0, 0, 0, 0, 0, 0);
+}
+while ($int7 <= 3) {
+    $enum9 = enum(int, enum, $enum12, $int7);
+    if ($enum9 ! null) {
+        switch_int ($int7) {
+            case 1 :
+                $struct10 = enum(int, struct, $enum9, $int4);
+            case 2 :
+                $struct10 = enum(int, struct, $enum9, $int5);
+            case 3 :
+                $struct10 = enum(int, struct, $enum9, $int6);
+        }
+        if ($struct10 ! null) {
+            $int13 = struct_param($struct10, param_1571);
+            $int16 = calc($int16 + struct_param($struct10, param_1573));
+            $int14 = struct_param($struct10, param_1575);
+            $int17 = calc($int17 + struct_param($struct10, param_1577));
+            $int15 = struct_param($struct10, param_1579);
+            $int18 = calc($int18 + struct_param($struct10, param_1581));
+        }
+    }
+    $enum9 = null;
+    $int7 = calc($int7 + 1);
+}
+return($int13, $int16, $int14, $int17, $int15, $int18);

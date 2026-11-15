@@ -1,0 +1,75 @@
+// 6605
+[proc,clientscript_6605](component $component0)
+cc_deleteall($component0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 100;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if (if_find(interface_1324:com_4) = true) {
+    $int3 = cc_getx;
+    $int4 = cc_gety;
+    $int1 = cc_getx;
+    $int2 = cc_gety;
+}
+while ($int5 < $int6) {
+    cc_create($component0, ^iftype_text, $int5);
+    cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    $int5 = calc($int5 + 1);
+    if (calc($int5 % 10) = 0) {
+        $int1 = $int3;
+        $int2 = calc($int2 + 21);
+    } else {
+        $int1 = calc(21 + $int1);
+    }
+}
+if (if_find(interface_1324:com_15) = true) {
+    $int3 = cc_getx;
+    $int4 = cc_gety;
+    $int1 = cc_getx;
+    $int2 = cc_gety;
+    $int8 = calc(cc_getheight + cc_gety);
+}
+$int6 = enum_getoutputcount(enum_6060);
+$int6 = calc($int6 + $int5);
+$int7 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+while ($int5 < $int6) {
+    cc_create($component0, ^iftype_graphic, $int5);
+    if (enum(int, int, enum_6060, $int7) = 1) {
+        cc_setgraphic(12168);
+        $int9, $int10 = op706;
+    }
+    if (enum(int, int, enum_6060, $int7) = 2) {
+        cc_setgraphic(12166);
+        $int9, $int10 = op706;
+    }
+    if (enum(int, int, enum_6060, $int7) = 3) {
+        cc_setgraphic(12162);
+        $int9, $int10 = op706;
+    }
+    if (enum(int, int, enum_6060, $int7) = 4) {
+        cc_setgraphic(12158);
+        $int9, $int10 = op706;
+    }
+    cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+    $int2 = calc($int2 + $int10 + 1);
+    cc_setondrag("clientscript_6608(event_com, event_comsubid, event_mousex, event_mousey)");
+    cc_setondragcomplete("clientscript_6609(event_com, event_comsubid, event_com2, event_comsubid2, event_mousex, event_mousey)");
+    cc_setdragrenderbehaviour(2);
+    cc_setdragdeadzone(14);
+    $int5 = calc($int5 + 1);
+    $int7 = calc($int7 + 1);
+    $int2 = calc($int2 + 1);
+    if ($int2 > $int8) {
+        $int2 = $int4;
+        $int1 = calc($int1 + 84);
+    }
+}
+if_setonvartransmit($component0, "clientscript_6606($component0){varplayer_2720, varplayer_2721, varplayer_2722}");

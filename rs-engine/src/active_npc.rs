@@ -1,3 +1,5 @@
+#[cfg(all(since_530, before_647))]
+use crate::active_player::hit_type;
 use crate::core::{Engine, engine, engine_mut};
 use crate::phases::shared::EntityId;
 use rs_entity::{EntityLifeTime, Npc, NpcUid};
@@ -8,6 +10,7 @@ use rs_pack::cache::npc::NpcType;
 use rs_pack::types::{BlockWalk, MoveRestrict, NpcStat};
 use rs_protocol::network::game::info_prot::NpcInfoProt;
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptEngine;
 
 /// Wraps an [`Npc`] entity with engine-level behavior such as animation,
@@ -41,7 +44,7 @@ impl ActiveNpc {
     /// # Call Stack
     /// **Calls:** [`Npc::new`], [`ActiveNpc::set_timer`]
     pub fn new(
-        id: u16,
+        id: TypeId,
         nid: u16,
         coord: CoordGrid,
         size: u8,
@@ -83,7 +86,7 @@ impl ActiveNpc {
     ///
     /// # Side Effects
     /// * Updates `npc.info` animation fields and sets the `NpcInfoProt::Anim` mask.
-    pub fn anim(&mut self, id: Option<u16>, delay: u8) {
+    pub fn anim(&mut self, id: Option<TypeId>, delay: u8) {
         let seqs = engine().seqs();
         let cur_pri = self
             .npc
@@ -133,7 +136,7 @@ impl ActiveNpc {
             self.npc.stats.levels[NpcStat::Hitpoints as usize] = current.saturating_sub(amount);
             amount
         };
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let (remaining, base) = (
             self.npc.stats.levels[NpcStat::Hitpoints as usize] as u8,
             self.npc.stats.base_levels[NpcStat::Hitpoints as usize] as u8,
@@ -141,12 +144,14 @@ impl ActiveNpc {
         // 2011's npc hitpoints are life points (2011 wiki, Constitution), which
         // pass a byte, so the bar's fill is worked out here and sent as a share
         // of 255.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let (remaining, base) = {
             let current = self.npc.stats.levels[NpcStat::Hitpoints as usize] as u32;
             let base = self.npc.stats.base_levels[NpcStat::Hitpoints as usize].max(1) as u32;
             ((current * 255 / base).min(255) as u8, u8::MAX)
         };
+        #[cfg(all(since_530, before_647))]
+        let damage_type = hit_type(damage_type);
 
         #[cfg(since_244)]
         if self.npc.info.apply_damage2(
@@ -244,7 +249,7 @@ impl ActiveNpc {
     /// * Sets the lifecycle countdown (`npc.lifecycle_at`) to `duration`: a
     ///   revert for a `Respawn` NPC, and for a `Despawn` NPC its despawn, as in
     ///   the reference engine where both share `lifecycleTick`.
-    pub fn change_type(&mut self, new_type: u16, duration: u64, reset: bool) {
+    pub fn change_type(&mut self, new_type: TypeId, duration: u64, reset: bool) {
         if duration < 1 {
             return;
         }

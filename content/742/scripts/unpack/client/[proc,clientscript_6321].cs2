@@ -1,0 +1,14 @@
+// 6321
+[proc,clientscript_6321](component $component0)
+cc_create(interface_1304:com_5, ^iftype_graphic, 0);
+cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setoutline(1);
+cc_setgraphicshadow(0x302020);
+cc_setoninvtransmit("clientscript_6322(event_com, event_comsubid){inv_662}");
+~clientscript_6323;
+if_setonvarctransmit($component0, "clientscript_6324{varclient_1935, varclient_1936}");
+~clientscript_6325;
+~clientscript_6326(0, interface_1304:com_22, interface_1304:com_23);
+if_setonvartransmit($component0, "clientscript_6330{varplayer_2646}");
+~clientscript_6331;

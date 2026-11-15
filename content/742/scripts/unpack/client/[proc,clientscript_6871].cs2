@@ -1,0 +1,11 @@
+// 6871
+[proc,clientscript_6871](int $int0, int $int1)
+if (cc_find(interface_1360:com_0, $int0) = true) {
+    cc_setcolour(0xeec900);
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 1)) = true) {
+    cc_setcolour(0xeec900);
+}
+if (cc_find(interface_1360:com_0, calc($int0 + 2)) = true) {
+    cc_setcolour(0xeec900);
+}

@@ -1,0 +1,13 @@
+// 6878
+[proc,clientscript_6878]
+def_graphic $graphic0 = 13783;
+def_graphic $graphic1 = 13782;
+if (%varplayerbit_12196 = 0) {
+    if_settrans(interface_1311:com_264, 160);
+    if_setonmouseover(interface_1311:com_260, null);
+    if_setonmouseleave(interface_1311:com_260, null);
+} else {
+    if_settrans(interface_1311:com_264, 0);
+    if_setonmouseover(interface_1311:com_260, "graphic_swapper(event_com, $graphic0)");
+    if_setonmouseleave(interface_1311:com_260, "graphic_swapper(event_com, $graphic1)");
+}

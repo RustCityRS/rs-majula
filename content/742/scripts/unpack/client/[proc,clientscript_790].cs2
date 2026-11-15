@@ -1,0 +1,12 @@
+// 790
+[proc,clientscript_790]()(string)
+def_int $int0 = random(75);
+def_string $string0 = "";
+if ($int0 < 25) {
+    $string0 = "Did you know that most monsters can drop bonus spins?";
+} else if ($int0 < 50) {
+    $string0 = "Earn bonus spins for gathering resources, making things, and other skilling.";
+} else {
+    $string0 = "Keep doing the things you like: there are lots of ways to get bonus spins!";
+}
+return($string0);

@@ -1,0 +1,30 @@
+// 6413
+[proc,clientscript_6413]
+if_settext(interface_1308:com_341, "Current co-op points:");
+if_settext(interface_1308:com_342, tostring(%varplayerbit_11473));
+if_setposition(interface_1308:com_342, 120, 0, ^setpos_abs_left, ^setpos_abs_top);
+if (%varplayerbit_4781 = 0) {
+    if_setcolour(interface_1308:com_342, 0xb52f10);
+} else {
+    if_setcolour(interface_1308:com_342, 0xfbf5e6);
+}
+if (%varplayerbit_11471 = 1) {
+    ~clientscript_6414(interface_1308:com_12, 1);
+} else if (%varplayerbit_11473 < 25) {
+    ~clientscript_6414(interface_1308:com_12, 0);
+}
+if (testbit(%varplayer_2381, calc(33 % 32)) = ^true) {
+    ~clientscript_6414(interface_1308:com_472, 1);
+} else if (%varplayerbit_11473 < 50) {
+    ~clientscript_6414(interface_1308:com_472, 0);
+}
+if (%varplayerbit_11472 = 1) {
+    ~clientscript_6414(interface_1308:com_493, 1);
+} else if (%varplayerbit_11473 < 75) {
+    ~clientscript_6414(interface_1308:com_493, 0);
+}
+if (testbit(%varplayer_2381, calc(34 % 42)) = ^true) {
+    ~clientscript_6414(interface_1308:com_495, 1);
+} else if (%varplayerbit_11473 < 100) {
+    ~clientscript_6414(interface_1308:com_495, 0);
+}

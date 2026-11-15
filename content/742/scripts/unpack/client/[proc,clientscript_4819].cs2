@@ -1,0 +1,10 @@
+// 4819
+[proc,clientscript_4819](int $int0)(enum)
+switch_int ($int0) {
+    case 1 :
+        return(~clientscript_4821(%varplayerbit_9570));
+    case 2 :
+        return(~clientscript_4821(%varplayerbit_9579));
+    case 3 :
+        return(~clientscript_4821(%varplayerbit_9588));
+}

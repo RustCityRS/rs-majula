@@ -1,15 +1,16 @@
-use super::decode::read_versioned_str;
+use super::decode::{read_big_id, read_versioned_str};
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct HitmarkType {
-    pub id: u16,
-    pub damagefont: Option<u16>,
+    pub id: TypeId,
+    pub damagefont: Option<TypeId>,
     pub damagecolour: i32,
-    pub classgraphic: Option<u16>,
-    pub leftgraphic: Option<u16>,
-    pub middlegraphic: Option<u16>,
-    pub rightgraphic: Option<u16>,
+    pub classgraphic: Option<TypeId>,
+    pub leftgraphic: Option<TypeId>,
+    pub middlegraphic: Option<TypeId>,
+    pub rightgraphic: Option<TypeId>,
     pub scrolltooffsetx: i16,
     pub damageformat: String,
     pub sticktime: u16,
@@ -22,7 +23,7 @@ pub struct HitmarkType {
 impl CacheType for HitmarkType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             damagefont: None,
@@ -43,12 +44,12 @@ impl CacheType for HitmarkType {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.damagefont = Some(buf.g2()),
+            1 => self.damagefont = Some(read_big_id(buf)),
             2 => self.damagecolour = buf.g3(),
-            3 => self.classgraphic = Some(buf.g2()),
-            4 => self.leftgraphic = Some(buf.g2()),
-            5 => self.middlegraphic = Some(buf.g2()),
-            6 => self.rightgraphic = Some(buf.g2()),
+            3 => self.classgraphic = Some(read_big_id(buf)),
+            4 => self.leftgraphic = Some(read_big_id(buf)),
+            5 => self.middlegraphic = Some(read_big_id(buf)),
+            6 => self.rightgraphic = Some(read_big_id(buf)),
             7 => self.scrolltooffsetx = buf.g2s(),
             8 => self.damageformat = read_versioned_str(buf),
             9 => self.sticktime = buf.g2(),

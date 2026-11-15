@@ -1,0 +1,37 @@
+// 5047
+[proc,clientscript_5047](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = calc($int0 * (112 + 2 + 2));
+if_setscrollsize(interface_1111:com_12, $int5, $int5);
+def_int $int6 = calc($int5 - if_getwidth(interface_1111:com_12));
+if (if_getscrollx(interface_1111:com_12) > $int6) {
+    if_setscrollpos(interface_1111:com_12, $int6, if_getscrolly(interface_1111:com_12));
+}
+if (if_getscrolly(interface_1111:com_12) > $int6) {
+    if_setscrollpos(interface_1111:com_12, if_getscrollx(interface_1111:com_12), $int6);
+}
+if_setsize(interface_1111:com_13, $int5, $int5, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1111:com_15, $int5, $int5, ^setsize_abs, ^setsize_abs);
+def_int $int7 = 0;
+def_int $int8 = calc($int0 - 1);
+def_int $int9 = 0;
+def_int $int10 = $int1;
+while ($int10 < $int2) {
+    $int9 = calc($int5 - ($int10 + 2 + 1) * $int0);
+    while ($int7 < 112) {
+        if (cc_find(interface_1111:com_13, calc($int10 * 112 + $int7)) = true) {
+            cc_setsize($int8, $int8, ^setsize_abs, ^setsize_abs);
+            cc_setposition(calc(($int7 + 2) * $int0), $int9, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setdragdeadzone(calc($int0 / 2));
+        }
+        $int7 = calc($int7 + 1);
+    }
+    $int7 = 0;
+    $int10 = calc($int10 + 1);
+}
+if ($int1 <= 0) {
+    ~clientscript_5053($int3, $int4);
+    $int9 = calc($int0 * 2 - 3);
+    if_setposition(interface_1111:com_14, $int9, $int9, ^setpos_abs_left, ^setpos_abs_top);
+    $int9 = calc($int0 * 112 + 5);
+    if_setsize(interface_1111:com_14, $int9, $int9, ^setsize_abs, ^setsize_abs);
+}

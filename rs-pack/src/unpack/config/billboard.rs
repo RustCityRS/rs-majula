@@ -1,5 +1,6 @@
 use super::UnpackedPacks;
 use crate::cache::billboard::BillboardType;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_billboard_props(
@@ -14,7 +15,7 @@ pub fn emit_billboard_props(
         p.push((
             1,
             "material".into(),
-            packs.reference("texture", def.material.unwrap_or(u16::MAX)),
+            packs.reference("texture", def.material.unwrap_or(TypeId::NULL)),
         ));
     }
     if opcode == 2 {

@@ -1,0 +1,12 @@
+// 246
+[proc,script246]
+if_setonkey(snapshot_main_v2:name, "snapshot_onkey_v1(event_keycode, event_keychar)");
+if_setonkey(chatdefault:input, null);
+%snapshot_mute = false;
+%snapshot_open = true;
+if (if_gethide(chattop:mes_layer) = false) {
+    if_sethide(chattop:mes_layer, true);
+    if_sethide(chattop:mes_layer_hide, false);
+    %meslayermode = 0;
+    %meslayerinput = "";
+}

@@ -1,0 +1,13 @@
+// 270
+[proc,clientscript_270](int $int0, component $component1)
+if ($int0 <= calc(spline_length(0) - 2)) {
+    if ($int0 ! calc(spline_length(0) - 2)) {
+        cam_movealong(0, $int0, 1000, 1000, 1, $int0);
+    } else {
+        cam_movealong(0, $int0, 250, 50, 1, $int0);
+    }
+} else {
+    if_setoncamfinished($component1, null);
+    return;
+}
+if_setoncamfinished($component1, "clientscript_270(min(calc(spline_length(0) - 1), calc(1 + $int0)), $component1)");

@@ -1,0 +1,130 @@
+// 768:0
+[com_0]
+type=layer
+width=507
+height=170
+layer=control
+hide=yes
+
+// 768:1
+[arrow]
+type=model
+x=33
+y=24
+width=441
+height=134
+layer=com_0
+model=model_40850
+modelorigin=0,-7
+modelzoom=1500
+modelanim=seq_1317
+modelunknown=63815,3000,1
+
+// 768:2
+[text]
+type=text
+x=72
+y=81
+width=358
+height=48
+layer=com_0
+textfont=fontmetrics_496
+text=Please follow the instructions<br>below to continue.
+textalignh=centre
+textshadow=yes
+colour=0xffe1be
+
+// 768:3
+[control]
+type=layer
+width=16391
+height=170
+widthmode=proportion
+ymode=abs_bottom
+onload=clientscript_1509
+onvartransmit=clientscript_1511{tutorial2_tracking}
+
+// 768:4
+[text_layer]
+type=layer
+width=16391
+height=142
+widthmode=proportion
+ymode=abs_bottom
+onload=clan_chat_onclansettingstransmit
+onvartransmit=clan_chat_onclansettingstransmit{option_mouse, tutorial2_tracking}
+
+// 768:5
+[com_5]
+type=graphic
+x=6
+width=500
+height=142
+layer=text_layer
+hide=yes
+graphic=graphic_1017
+
+// 768:6
+[title]
+type=text
+x=6
+y=10
+width=506
+height=17
+layer=text_layer
+hide=yes
+textfont=fontmetrics_307
+text=This is the Title
+textalignh=centre
+textalignv=centre
+colour=0x000000
+onload=clientscript_1513
+onvartransmit=clientscript_1513{option_mouse}
+
+// 768:7
+[textbox]
+type=text
+x=6
+y=27
+width=478
+height=110
+layer=text_layer
+hide=yes
+textfont=fontmetrics_307
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 768:8
+[com_8]
+type=text
+x=6
+y=27
+width=430
+height=110
+layer=text_layer
+textfont=fontmetrics_307
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 768:9
+[com_9]
+type=graphic
+x=20
+y=61
+width=36
+height=32
+layer=text_layer
+graphic=graphic_1413
+
+// 768:10
+[chat_border]
+type=layer
+x=6
+width=501
+height=16391
+heightmode=proportion
+layer=text_layer
+hide=yes
+onload=clientscript_1087(event_com, 0)

@@ -1,0 +1,8 @@
+// 6403
+[proc,clientscript_6403]
+if (%smki < 250) {
+    if_sethide(interface_1308:com_83, false);
+    if_sethide(interface_1308:com_85, false);
+    if_sethide(interface_1308:com_87, false);
+    ~clientscript_6400(interface_1308:com_88);
+}

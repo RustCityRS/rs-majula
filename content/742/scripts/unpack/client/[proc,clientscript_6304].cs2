@@ -1,0 +1,11 @@
+// 6304
+[proc,clientscript_6304]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+while ($int0 < 10) {
+    if (string_length(~clientscript_6302($int0)) > 0) {
+        $int1 = calc($int1 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+return($int1);

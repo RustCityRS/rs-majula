@@ -1,0 +1,80 @@
+// 90
+[proc,filtertest](int $int0, int $int1)(boolean)
+switch_int (chat_gethistorytype($int0)) {
+    case null :
+        return(false);
+    case 0, 1 :
+        return(true);
+    case 2, 17 :
+        if (chat_getfilter_public = 0) {
+            return(true);
+        }
+        if (chat_getfilter_public = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case 3, 18 :
+        if (%option_pm = 1 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+            return(false);
+        }
+        if (chat_getfilter_private = 0) {
+            return(true);
+        }
+        if (chat_getfilter_private = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case 4, 8, 14, 15, 21 :
+        if (chat_getfilter_trade = 0) {
+            return(true);
+        }
+        if (chat_getfilter_trade = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case 5, 6, 19 :
+        if (%option_pm = 1 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+            return(false);
+        }
+        if (chat_getfilter_private < 2) {
+            return(true);
+        }
+        return(false);
+    case 7 :
+        if (%option_pm = 1 & %chat_view >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+            return(false);
+        }
+        return(true);
+    case 9, 16, 20 :
+        if (%varplayer_1054 = 0) {
+            return(true);
+        }
+        if (%varplayer_1054 = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case 10 :
+        if (%varplayer_1055 = 0) {
+            return(true);
+        }
+        if (%varplayer_1055 = 1 & friend_test(chat_gethistoryname($int0)) = true) {
+            return(true);
+        }
+        return(false);
+    case 11 :
+        if (%varplayer_1054 < 2) {
+            return(true);
+        }
+        return(false);
+    case 12 :
+        if (chat_getfilter_trade < 2) {
+            return(true);
+        }
+        return(false);
+    case 13 :
+        if (%varplayer_1055 < 2) {
+            return(true);
+        }
+        return(false);
+}
+return(true);

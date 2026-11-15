@@ -1,0 +1,23 @@
+// 267
+[proc,clientscript_267](component $component0)
+def_coord $coord1 = ~coord_0_0(coord);
+switch_int (%tutorial3_cutscene_tracker) {
+    case 0 :
+        ~tutorial3_fadeout(^black, 0, $component0);
+    case 1 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 4);
+        spline_new(1, 4);
+        spline_addpoint(0, 0, movecoord($coord1, 33, 0, 18), 326, movecoord($coord1, 31, 0, 20), 326, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 32, 0, 15), 300, movecoord($coord1, 32, 0, 15), 300, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 33, 0, 18), 326, movecoord($coord1, 31, 0, 20), 326, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 32, 0, 15), 300, movecoord($coord1, 32, 0, 15), 300, 0);
+        spline_addpoint(0, 2, movecoord($coord1, 25, 0, 19), 970, movecoord($coord1, 23, 0, 18), 1035, 0);
+        spline_addpoint(1, 2, movecoord($coord1, 32, 0, 15), 300, movecoord($coord1, 32, 0, 15), 300, 0);
+        spline_addpoint(0, 3, movecoord($coord1, 23, 0, 11), 1055, movecoord($coord1, 24, 0, 9), 1055, 0);
+        spline_addpoint(1, 3, movecoord($coord1, 32, 0, 15), 300, movecoord($coord1, 32, 0, 15), 300, 0);
+        cam_movealong(0, 0, 0, 0, 1, 0);
+    case 2 :
+        cam_movealong(0, 1, 1500, 1500, 1, 0);
+        if_setoncamfinished($component0, "clientscript_269(2, $component0)");
+}

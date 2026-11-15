@@ -1,0 +1,61 @@
+// 6747
+[proc,clientscript_6747](struct $struct0)
+if_settext(interface_1344:com_90, struct_param($struct0, param_1266));
+if_settext(interface_1344:com_96, struct_param($struct0, param_1273));
+def_int $int1 = 0;
+def_int $int2 = 4094;
+if (compare(struct_param($struct0, param_1274), "") ! 0) {
+    $int1 = ~clientscript_6739(1, $int1, struct_param($struct0, param_1274), interface_1344:com_57, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_57, "There are no hints available for this task. Good luck!");
+    if_sethide(interface_1344:com_57, false);
+    if_settextfont(interface_1344:com_57, verdana_11pt_regular_multiline);
+    if_settextalign(interface_1344:com_57, ^settextalign_centre, ^settextalign_centre, 13);
+    if_setposition(interface_1344:com_57, 0, $int1, ^setpos_abs_centre, ^setpos_abs_top);
+}
+if (compare(struct_param($struct0, param_1275), "") ! 0) {
+    $int1 = ~clientscript_6739(2, $int1, struct_param($struct0, param_1275), interface_1344:com_58, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_58, "");
+}
+if (compare(struct_param($struct0, param_1276), "") ! 0) {
+    $int1 = ~clientscript_6739(3, $int1, struct_param($struct0, param_1276), interface_1344:com_59, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_59, "");
+}
+if (compare(struct_param($struct0, param_1277), "") ! 0) {
+    $int1 = ~clientscript_6739(4, $int1, struct_param($struct0, param_1277), interface_1344:com_60, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_60, "");
+}
+if (compare(struct_param($struct0, param_1278), "") ! 0) {
+    $int1 = ~clientscript_6739(5, $int1, struct_param($struct0, param_1278), interface_1344:com_61, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_61, "");
+}
+if (compare(struct_param($struct0, param_1279), "") ! 0) {
+    $int1 = ~clientscript_6739(6, $int1, struct_param($struct0, param_1279), interface_1344:com_62, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_62, "");
+}
+if (compare(struct_param($struct0, param_1280), "") ! 0) {
+    $int1 = ~clientscript_6739(7, $int1, struct_param($struct0, param_1280), interface_1344:com_63, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_63, "");
+}
+if (compare(struct_param($struct0, param_1281), "") ! 0) {
+    $int1 = ~clientscript_6739(8, $int1, struct_param($struct0, param_1281), interface_1344:com_64, interface_1344:com_101);
+} else {
+    if_settext(interface_1344:com_64, "");
+}
+if_sethide(interface_1344:com_53, true);
+if_sethide(interface_1344:com_5, false);
+if ($int1 > if_getheight(interface_1344:com_101)) {
+    if_setscrollsize(interface_1344:com_101, 0, $int1);
+    ~scrollbar_vertical(interface_1344:com_102, interface_1344:com_101, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+}
+if (struct_param($struct0, param_2700) = 0_0_0_0_0 & struct_param($struct0, param_2701) = -1) {
+    if_sethide(interface_1344:com_55, true);
+} else {
+    if_sethide(interface_1344:com_55, false);
+}

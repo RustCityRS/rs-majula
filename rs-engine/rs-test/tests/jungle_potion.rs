@@ -16,6 +16,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -92,15 +93,23 @@ const SPOTS: [Spot; 5] = [
     },
 ];
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "loc" => &engine.cache.locs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
+}
+
+fn loc_id(engine: &Engine, name: &str) -> TypeId {
+    engine
+        .cache
+        .locs
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no loc {name}"))
+        .id
 }
 
 fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
@@ -109,7 +118,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -119,7 +128,7 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
@@ -128,7 +137,7 @@ fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -140,7 +149,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str) {
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -230,19 +239,19 @@ fn says(t: &Conversation, lines: &[&str]) {
 }
 
 /// `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
-fn op_loc1(client: &mut HarnessClient, loc: u16, (x, z): (u16, u16)) {
+fn op_loc1(client: &mut HarnessClient, loc: TypeId, (x, z): (u16, u16)) {
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
 /// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
-fn op_loc2(client: &mut HarnessClient, loc: u16, (x, z): (u16, u16)) {
+fn op_loc2(client: &mut HarnessClient, loc: TypeId, (x, z): (u16, u16)) {
     let mut p = ClientPacket::new();
-    p.p2_alt1(loc as i32)
+    p.p2_alt1(loc.int())
         .p1_alt2(0)
         .p2_alt2(z as i32)
         .p2_alt3(x as i32);
@@ -251,7 +260,7 @@ fn op_loc2(client: &mut HarnessClient, loc: u16, (x, z): (u16, u16)) {
 
 /// Stands at the spot and searches it, answering whatever box follows.
 fn search(engine: &mut Engine, client: &mut HarnessClient, spot: &Spot) -> Conversation {
-    let loc = id(engine, "loc", spot.loc);
+    let loc = loc_id(engine, spot.loc);
     // The fungus wall is a wall (shape 0) on a tile of rock: it too is searched from beside it.
     let (x, z) = beside(spot.at.0, 0, spot.at.1);
     engine.harness_telejump(client.pid, x, 0, z);
@@ -510,7 +519,7 @@ fn the_rocks_lead_into_the_cave_and_the_hand_holds_out() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "jungle_herbalist", 9);
-        let pothole = id(engine, "loc", "pothole_cave_entrance");
+        let pothole = loc_id(engine, "pothole_cave_entrance");
         let (x, z) = beside(POTHOLE.0 - 1, 0, POTHOLE.1);
         engine.harness_telejump(client.pid, x, 0, z);
         settle(engine, &mut client, 3);
@@ -539,7 +548,7 @@ fn the_rocks_lead_into_the_cave_and_the_hand_holds_out() {
         assert_eq!(inside, (2830, 9520), "289's tile, in 2011's cave");
         assert!(walkable(inside.0, 0, inside.1), "a floor tile of the cave");
 
-        let holds = id(engine, "loc", "jp_caverocksout");
+        let holds = loc_id(engine, "jp_caverocksout");
         op_loc1(&mut client, holds, HAND_HOLDS);
         let t = converse(engine, &mut client, &[], 40);
         says(&t, &["You attempt to climb the rocks back out."]);

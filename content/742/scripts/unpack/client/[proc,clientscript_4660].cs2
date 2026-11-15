@@ -1,0 +1,10 @@
+// 4660
+[proc,clientscript_4660](component $component0)
+def_int $int1 = calc(%varplayer_2203 / 3);
+if_settext($component0, tostring(%varplayer_2203));
+~aif_progressbar_set($int1, interface_22:com_96, interface_22:com_101);
+if (%varplayer_2203 <= 100) {
+    if_setmodelanim(interface_22:com_0, seq_9777);
+} else {
+    if_setmodelanim(interface_22:com_0, chatidle2);
+}

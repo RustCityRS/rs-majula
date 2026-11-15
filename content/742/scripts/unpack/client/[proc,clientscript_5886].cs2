@@ -1,0 +1,11 @@
+// 5886
+[proc,clientscript_5886](int $int0)(int, int)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_struct $struct3 = ~clientscript_5936($int0);
+if ($struct3 = null) {
+    return(-1, -1);
+}
+$int1 = calc(struct_param($struct3, param_2266) + 3);
+$int2 = calc(struct_param($struct3, param_2267) - 3);
+return(calc($int1 + 127), calc($int2 + 127));

@@ -1,0 +1,4 @@
+// 4029
+[proc,clientscript_4029]
+if_settrans(interface_1050:com_17, 254);
+if_setontimer(interface_1050:com_17, "clientscript_6113(event_com, 3)");

@@ -1,0 +1,14 @@
+// 6587
+[proc,clientscript_6587](component $component0)
+def_int $int1 = 14;
+if (%varplayerbit_11768 = 2 | %varplayerbit_11768 = 4) {
+    $int1 = calc($int1 * 2);
+}
+def_int $int2 = calc(if_getx($component0) + $int1);
+def_int $int3 = calc(if_gety($component0) - $int1);
+if_setposition($component0, $int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if ($int3 < calc(0 - if_getwidth($component0))) {
+    if_setontimer($component0, null);
+} else {
+    if_setontimer($component0, "clientscript_6587(event_com)");
+}

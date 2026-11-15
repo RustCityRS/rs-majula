@@ -1,0 +1,9 @@
+// 4184
+[clientscript,script4184](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+%artisan_temp_bar_number = max(min(calc(%artisan_temp_bar_number + $int1), 28), 1);
+if_settext(interface_1072:bar_count, tostring(%artisan_temp_bar_number));
+if_setontimer(interface_1072:blocker, "script4187(calc(clientclock + 15))");
+if_sethide(interface_1072:blocker, false);

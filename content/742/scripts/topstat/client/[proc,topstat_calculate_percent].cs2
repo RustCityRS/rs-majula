@@ -1,0 +1,11 @@
+// 807
+[proc,topstat_calculate_percent](stat $stat0)(int)
+def_int $int1 = 0;
+if (stat_base($stat0) > 0) {
+    if ($stat0 = prayer) {
+        $int1 = calc(100 * %varplayerbit_9816 / ~clientscript_5255);
+    } else {
+        $int1 = calc(100 * stat($stat0) / stat_base($stat0));
+    }
+}
+return($int1);

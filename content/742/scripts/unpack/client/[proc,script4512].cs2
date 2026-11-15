@@ -1,0 +1,13 @@
+// 4512
+[proc,script4512](component $component0, struct $struct1)
+if ($component0 = null | $struct1 = null) {
+    return;
+}
+def_graphic $graphic2 = struct_param($struct1, param_1351);
+def_int $int3 = struct_param($struct1, param_1358);
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(60, 60, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic2);
+cc_settrans($int3);

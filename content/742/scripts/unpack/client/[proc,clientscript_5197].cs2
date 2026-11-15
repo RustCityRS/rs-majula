@@ -1,0 +1,16 @@
+// 5197
+[proc,clientscript_5197](component $component0, int $int1, int $int2)
+if ($int2 = 0) {
+    if_sethide(interface_1122:com_51, true);
+    if_sethide(interface_1122:com_239, true);
+    if_sethide(interface_1122:com_251, true);
+    if_sethide(interface_1122:com_263, true);
+    if_sethide(interface_1122:com_275, true);
+    if_sethide($component0, false);
+} else if ($int1 = %varplayerbit_9674) {
+    if_sethide($component0, false);
+} else {
+    if_sethide($component0, true);
+}
+%varclient_1600 = $int1;
+~clientscript_5202(1);

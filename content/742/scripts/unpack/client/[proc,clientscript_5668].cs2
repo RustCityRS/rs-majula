@@ -1,0 +1,21 @@
+// 5668
+[proc,clientscript_5668]
+if_setcolour(interface_1214:com_22, 0xebe0bc);
+if_settext(interface_1214:com_22, "<u=ebe0bc><removetags(if_gettext(interface_1214:com_22))>");
+if_setcolour(interface_1214:com_23, 0xebe0bc);
+if_settext(interface_1214:com_23, "<u=ebe0bc><removetags(if_gettext(interface_1214:com_23))>");
+if_setcolour(interface_1214:com_24, 0xebe0bc);
+if_settext(interface_1214:com_24, "<u=ebe0bc><removetags(if_gettext(interface_1214:com_24))>");
+switch_int (%varplayer_2478) {
+    case default :
+        if_setcolour(interface_1214:com_22, 0xd8690f);
+        if_settext(interface_1214:com_22, "<u=d8690f><removetags(if_gettext(interface_1214:com_22))>");
+    case 2 :
+        if_setcolour(interface_1214:com_23, 0xd8690f);
+        if_settext(interface_1214:com_23, "<u=d8690f><removetags(if_gettext(interface_1214:com_23))>");
+    case 3 :
+        if_setcolour(interface_1214:com_24, 0xd8690f);
+        if_settext(interface_1214:com_24, "<u=d8690f><removetags(if_gettext(interface_1214:com_24))>");
+}
+~clientscript_5666;
+~clientscript_5675;

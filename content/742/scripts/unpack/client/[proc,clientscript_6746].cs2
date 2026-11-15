@@ -1,0 +1,29 @@
+// 6746
+[proc,clientscript_6746]
+if (%varplayer_2752 < 1) {
+    ~clientscript_6748;
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_struct $struct2 = null;
+def_enum $enum3 = null;
+def_int $int4 = 0;
+switch_int (%varplayer_2751) {
+    case 0 :
+        $enum3 = enum_6452;
+    case 1 :
+        $enum3 = enum_6157;
+    case 2 :
+        $enum3 = enum_6158;
+    case 3 :
+        $enum3 = enum_6159;
+    case 4 :
+        $enum3 = enum_6160;
+}
+if ($enum3 = null) {
+    ~clientscript_6748;
+    return;
+}
+$struct2 = enum(int, struct, $enum3, %varplayer_2752);
+~clientscript_6747($struct2);

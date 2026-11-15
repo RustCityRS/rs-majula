@@ -1,0 +1,42 @@
+// 4849
+[proc,clientscript_4849]
+def_component $component0 = interface_1258:com_201;
+def_component $component1 = interface_1258:com_200;
+def_component $component2 = interface_1258:com_204;
+def_component $component3 = interface_1258:com_205;
+def_component $component4 = interface_1258:com_202;
+def_component $component5 = interface_1258:com_203;
+if_sethide(interface_1258:com_229, true);
+if_sethide(interface_1258:com_220, true);
+if_sethide(interface_1258:com_211, true);
+switch_int (%varplayerbit_9558) {
+    case 1 :
+        if_sethide(interface_1258:com_229, false);
+        if (%varplayerbit_9570 = 0) {
+            ~clientscript_4940;
+            ~clientscript_4850($component0, $component1, $component2, $component3, $component4, $component5);
+        } else {
+            ~clientscript_4942;
+            ~clientscript_4851($component0, $component1, $component2, $component3, $component4, $component5);
+        }
+    case 2 :
+        if_sethide(interface_1258:com_220, false);
+        if (%varplayerbit_9579 = 0) {
+            ~clientscript_4940;
+            ~clientscript_4850($component0, $component1, $component2, $component3, $component4, $component5);
+        } else {
+            ~clientscript_4942;
+            ~clientscript_4851($component0, $component1, $component2, $component3, $component4, $component5);
+        }
+    case 3 :
+        if_sethide(interface_1258:com_211, false);
+        if (%varplayerbit_9588 = 0) {
+            ~clientscript_4940;
+            ~clientscript_4850($component0, $component1, $component2, $component3, $component4, $component5);
+        } else {
+            ~clientscript_4942;
+            ~clientscript_4851($component0, $component1, $component2, $component3, $component4, $component5);
+        }
+}
+~clientscript_4804;
+~clientscript_4852;

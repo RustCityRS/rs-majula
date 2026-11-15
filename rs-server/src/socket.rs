@@ -1,7 +1,7 @@
 use crate::{ConnectionGuard, ConnectionPermit, ServerIO, Socket};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::{REVISION, SocketType};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::anyhow;
 use anyhow::bail;
 use mpsc::{Sender, UnboundedReceiver, UnboundedSender};
@@ -9,22 +9,26 @@ use num_enum::TryFromPrimitive;
 #[cfg(before_647)]
 use rand::RngExt;
 use rs_crypto::isaac::IsaacPair;
+#[cfg(before_647)]
+use rs_db::is_typeable_password;
 use rs_engine::{ClientIO, LoginRequest, MAX_UNSENT, create_io};
 use rs_io::Packet;
+#[cfg(all(since_647, before_742))]
+use rs_protocol::CheckEmailResponse;
+#[cfg(all(since_530, before_742))]
+use rs_protocol::CreateAccountResponse;
 use rs_protocol::LoginResponse;
 #[cfg(since_244)]
-use rs_protocol::js5::Js5Response;
-#[cfg(since_647)]
+use rs_protocol::js5::{Js5Group, Js5Response};
+#[cfg(all(since_647, before_742))]
+use rs_protocol::login::{CHECK_NAME_MAX_PAYLOAD, CREATE_ACCOUNT_MAX_PAYLOAD};
+#[cfg(all(since_530, before_742))]
+use rs_protocol::login::{CheckNameRequest, CreateAccountRequest};
+#[cfg(all(since_530, before_647))]
 use rs_protocol::login::{
-    CHECK_NAME_MAX_PAYLOAD, CREATE_ACCOUNT_MAX_PAYLOAD, CheckNameRequest, CreateAccountRequest,
+    Country, World, WorldList, WorldListRequest, WorldSelectRequest, world_select_reply,
 };
 use rs_protocol::login::{LOGIN_MAX_PAYLOAD, LoginBlock};
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot::ClientProt;
-#[cfg(since_647)]
-use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
-#[cfg(since_647)]
-use rs_protocol::{CheckEmailResponse, CreateAccountResponse};
 #[cfg(since_244)]
 use std::collections::VecDeque;
 #[cfg(since_244)]
@@ -32,7 +36,7 @@ use std::future::ready;
 use std::mem::take;
 #[cfg(since_244)]
 use std::net::SocketAddr;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::sync::PoisonError;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::{Duration, Instant};
@@ -49,13 +53,24 @@ pub enum HandshakeType {
     #[cfg(since_244)]
     Js5 = 15,
     Login = 16,
+    #[cfg(before_742)]
     Reconnect = 18,
     #[cfg(since_647)]
     Lobby = 19,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    CreateAccount = 36,
+    #[cfg(all(since_647, before_742))]
     CreateAccount = 22,
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    CheckName = 186,
+    #[cfg(all(since_647, before_742))]
     CheckName = 28,
+    #[cfg(all(since_530, before_647))]
+    Unknown147 = 147,
+    #[cfg(all(since_530, before_647))]
+    WorldSelect = 210,
+    #[cfg(all(since_530, before_647))]
+    WorldList = 255,
 }
 
 pub async fn serve(
@@ -127,7 +142,7 @@ async fn acquire_permit(
 /// `status`, 0 to go on with the login or a [`LoginResponse`] code. A code
 /// sent any sooner is skipped, and the client shows "Unexpected server
 /// response".
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 const fn key_exchange_reply(status: u8) -> [u8; 9] {
     let mut reply = [0; 9];
     reply[8] = status;
@@ -139,7 +154,7 @@ const fn key_exchange_reply(status: u8) -> [u8; 9] {
 const PROCEED: u8 = 0;
 
 /// A login turned away for its address's limit.
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 const LIMIT_REACHED: [u8; 9] = key_exchange_reply(LoginResponse::TooManyConnections as u8);
 
 #[cfg(rev = "225")]
@@ -168,7 +183,7 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
         if permit.is_none() {
             let refusal: &[u8] = match kind {
                 HandshakeType::Js5 => &[],
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 HandshakeType::New => &LIMIT_REACHED,
                 _ => &[LoginResponse::TooManyConnections as u8],
             };
@@ -185,7 +200,10 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                 #[cfg(before_647)]
                 {
                     timeout(HANDSHAKE_TIMEOUT, client.read_exact(1)).await??;
+                    #[cfg(before_530)]
                     let mut reply = key_exchange_reply(PROCEED).to_vec();
+                    #[cfg(since_530)]
+                    let mut reply = vec![PROCEED];
                     reply.extend_from_slice(&make_seed().data);
                     client.write(&reply).await?;
                 }
@@ -199,17 +217,28 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                         client.addr
                     );
                 }
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 client.write(&[0; 8]).await?;
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 {
-                    let bytes = timeout(HANDSHAKE_TIMEOUT, client.read_exact(4)).await??;
-                    let revision = u32::from_be_bytes(bytes.try_into().unwrap());
-                    if revision.to_string() != REVISION {
+                    #[cfg(before_742)]
+                    let current = {
+                        let bytes = timeout(HANDSHAKE_TIMEOUT, client.read_exact(4)).await??;
+                        u32::from_be_bytes(bytes.try_into().unwrap()).to_string() == REVISION
+                    };
+                    #[cfg(since_742)]
+                    let current = {
+                        let len = timeout(HANDSHAKE_TIMEOUT, client.read_exact(1)).await??[0];
+                        let bytes =
+                            timeout(HANDSHAKE_TIMEOUT, client.read_exact(len.into())).await??;
+                        let mut buf = Packet::from(bytes);
+                        buf.len() >= 8 && buf.g4s().to_string() == REVISION && buf.g4s() == 1
+                    };
+                    if !current {
                         client
                             .write(&[LoginResponse::RuneScapeUpdated as u8])
                             .await?;
-                        bail!("{}: js5 wrong revision: {revision}", client.addr);
+                        bail!("{}: js5 wrong revision", client.addr);
                     }
                     client.server_io.js5 = client
                         .server_io
@@ -217,22 +246,33 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                         .read()
                         .unwrap_or_else(PoisonError::into_inner)
                         .clone();
-                    let prefetches = client.server_io.js5.prefetches();
-                    let mut reply = Packet::new(1 + size_of_val(&prefetches));
-                    reply.p1(0);
-                    for size in prefetches {
-                        reply.p4(size);
+                    #[cfg(before_647)]
+                    client.write(&[0]).await?;
+                    #[cfg(since_647)]
+                    {
+                        let prefetches = client.server_io.js5.prefetches();
+                        let mut reply = Packet::new(1 + size_of_val(&prefetches));
+                        reply.p1(0);
+                        for size in prefetches {
+                            reply.p4(size);
+                        }
+                        client.write(&reply.data).await?;
                     }
-                    client.write(&reply.data).await?;
                 }
                 break js5_loop(client).await;
             }
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_742))]
             HandshakeType::CreateAccount => break create_account(&mut client).await,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_742))]
             HandshakeType::CheckName => break check_name(&mut client).await,
+            #[cfg(all(since_530, before_647))]
+            HandshakeType::Unknown147 => break unknown147(&mut client).await,
+            #[cfg(all(since_530, before_647))]
+            HandshakeType::WorldSelect => break world_select(&mut client).await,
+            #[cfg(all(since_530, before_647))]
+            HandshakeType::WorldList => break world_list(&mut client).await,
             kind => {
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 if key_exchanges == 0 {
                     bail!("{}: login before service handshake", client.addr);
                 }
@@ -246,9 +286,9 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
 
 async fn read_login_block(client: &mut Socket, max: usize) -> anyhow::Result<Packet> {
     timeout(HANDSHAKE_TIMEOUT, async {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let len = client.read_exact(1).await?[0] as usize;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let len = {
             let bytes = client.read_exact(2).await?;
             u16::from_be_bytes([bytes[0], bytes[1]]) as usize
@@ -266,7 +306,7 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
     let login = LoginBlock::decode(
         buf,
         client.server_io.rsa,
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         client.server_io.cache.read(|cache| cache.crc_buffer32),
         #[cfg(since_647)]
         matches!(kind, HandshakeType::Lobby),
@@ -281,7 +321,7 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
         }
     };
     #[cfg(before_647)]
-    if !rs_db::is_typeable_password(&login.password) {
+    if !is_typeable_password(&login.password) {
         client
             .write(&[LoginResponse::InvalidCredentials as u8])
             .await?;
@@ -290,11 +330,9 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
 
     let isaac = IsaacPair::from_client_seeds(&login.seed);
     #[cfg(since_647)]
-    if matches!(kind, HandshakeType::Lobby) {
-        client.write(&[LoginResponse::SuccessNormal as u8]).await?;
-        send_lobby_response(&mut client, &login.username).await?;
-        return lobby_loop(client, isaac).await;
-    }
+    let lobby = matches!(kind, HandshakeType::Lobby);
+    #[cfg(since_647)]
+    let world = world_id(&client).or_else(|e| if lobby { Err(e) } else { Ok(0) })?;
 
     let ClientIO {
         handle,
@@ -314,10 +352,17 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
             low_memory: login.low_memory,
             remote_addr: client.addr,
             uid: login.uid,
+            #[cfg(before_742)]
             reconnect: matches!(kind, HandshakeType::Reconnect),
+            #[cfg(since_742)]
+            reconnect: login.reconnect,
             device: take(&mut client.device),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             display_mode: login.settings.window_mode,
+            #[cfg(since_647)]
+            lobby,
+            #[cfg(since_647)]
+            world,
         })
         .is_err()
     {
@@ -334,135 +379,34 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
     .await
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn world_id(client: &Socket) -> anyhow::Result<u16> {
     let SocketType::Tcp(stream) = &client.socket_type else {
-        bail!("647 lobby requires a TCP connection");
+        bail!("a world id needs a TCP connection");
     };
     stream
         .local_addr()?
         .port()
         .checked_sub(40000)
         .filter(|id| (1..=15535).contains(id))
-        .ok_or_else(|| anyhow!("invalid 647 world port"))
+        .ok_or_else(|| anyhow!("invalid world port"))
 }
 
-#[cfg(since_647)]
-async fn send_lobby_response(client: &mut Socket, display_name: &str) -> anyhow::Result<()> {
-    let len = u8::try_from(59 + Packet::sizejstr(display_name))?;
-    let mut pkt = Packet::new(1 + len as usize);
-    pkt.p1(len);
-
-    pkt.p1(2);
-    pkt.p1(0);
-    pkt.p1(1);
-    pkt.p1(0);
-    pkt.p1(0);
-    pkt.p4(0);
-    pkt.p4(0);
-    pkt.p1(0);
-    pkt.p4(0);
-    pkt.p1(3);
-    pkt.p4(0x7f000001u32 as i32);
-    pkt.p2(0);
-    pkt.p2(0);
-    pkt.p2(0);
-    pkt.p4(0);
-    pkt.p1(3);
-    pkt.p2(0xD1DF);
-    pkt.p2(0xD1DF);
-    pkt.p1(0);
-    pkt.p1(0);
-    pkt.pjstr(display_name, 0);
-    pkt.p1(10);
-    pkt.p4(0x0046F489);
-    pkt.p1(0);
-    pkt.p2(world_id(client)?);
-    pkt.p1(0);
-    pkt.pjstr("127.0.0.1", 0);
-
-    client.write(&pkt.data[..pkt.pos]).await?;
-    client.flush().await?;
-    Ok(())
+#[cfg(all(since_530, before_647))]
+async fn read_service_block(client: &mut Socket) -> anyhow::Result<Packet> {
+    timeout(HANDSHAKE_TIMEOUT, async {
+        let len = client.read_exact(1).await?[0] as usize;
+        client.read_exact(len).await.map(Packet::from)
+    })
+    .await?
 }
 
-#[cfg(since_647)]
-async fn lobby_loop(mut client: Socket, mut isaac: IsaacPair) -> anyhow::Result<()> {
-    loop {
-        let raw = client.read_exact(1).await?[0];
-        let opcode = raw.wrapping_sub(isaac.decode.next_int() as u8);
-
-        let size = match ClientProt::try_from(opcode) {
-            Ok(prot) => match prot.info().frame {
-                ClientProtFrame::VarByte { .. } => client.read_exact(1).await?[0] as usize,
-                ClientProtFrame::VarShort { .. } => {
-                    let b = client.read_exact(2).await?;
-                    ((b[0] as usize) << 8) | b[1] as usize
-                }
-                ClientProtFrame::Fixed(len) => len as usize,
-            },
-            Err(_) => bail!("{}: unknown lobby opcode {opcode}", client.addr),
-        };
-        let _payload = client.read_exact(size).await?;
-
-        match opcode {
-            0 => {
-                let encoded = 12u8.wrapping_add(isaac.encode.next_int() as u8);
-                client.write(&[encoded]).await?;
-                client.flush().await?;
-            }
-            45 => {
-                send_world_list(&mut client, &mut isaac).await?;
-            }
-            _ => {}
-        }
-    }
-}
-
-#[cfg(since_647)]
-async fn send_world_list(client: &mut Socket, isaac: &mut IsaacPair) -> anyhow::Result<()> {
-    let world_id = world_id(client)? as i32;
-    let mut inner = Packet::new(128);
-
-    inner.p1(2);
-    inner.p1(1);
-
-    inner.psmart1or2(1);
-    inner.psmart1or2(0);
-    inner.p1(0);
-    inner.pjstr("Otherworld", 0);
-
-    inner.psmart1or2(world_id);
-    inner.psmart1or2(world_id);
-    inner.psmart1or2(1);
-
-    inner.psmart1or2(0);
-    inner.p1(0);
-    inner.p4(1);
-    inner.p1(0);
-    inner.pjstr("", 0);
-    inner.p1(0);
-    inner.pjstr("127.0.0.1", 0);
-
-    inner.p4(0);
-
-    inner.psmart1or2(0);
-    inner.p2(10);
-
-    let mut frame = Packet::new(4 + inner.pos);
-    frame.p1(107u8.wrapping_add(isaac.encode.next_int() as u8));
-    frame.p2((1 + inner.pos) as u16);
-    frame.p1(1);
-    frame.pdata(&inner.data, 0, inner.pos);
-
-    client.write(&frame.data[..frame.pos]).await?;
-    client.flush().await?;
-    Ok(())
-}
-
-#[cfg(since_647)]
+#[cfg(all(since_530, before_742))]
 async fn create_account(client: &mut Socket) -> anyhow::Result<()> {
     let request = async {
+        #[cfg(before_647)]
+        let payload = read_service_block(client).await?;
+        #[cfg(since_647)]
         let payload = read_login_block(client, CREATE_ACCOUNT_MAX_PAYLOAD).await?;
         CreateAccountRequest::decode(payload, client.server_io.rsa)
             .map_err(|e| anyhow!("{}: create-account decode failed: {e:?}", client.addr))
@@ -475,14 +419,29 @@ async fn create_account(client: &mut Socket) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(all(since_530, before_742))]
 async fn check_name(client: &mut Socket) -> anyhow::Result<()> {
     let request = async {
-        let payload = read_login_block(client, CHECK_NAME_MAX_PAYLOAD).await?;
-        CheckNameRequest::decode(payload, client.server_io.rsa)
-            .map_err(|e| anyhow!("{}: check-name decode failed: {e:?}", client.addr))
+        #[cfg(before_647)]
+        let request = {
+            let bytes = timeout(HANDSHAKE_TIMEOUT, client.read_exact(8)).await??;
+            CheckNameRequest::decode(Packet::from(bytes))
+        };
+        #[cfg(since_647)]
+        let request = {
+            let payload = read_login_block(client, CHECK_NAME_MAX_PAYLOAD).await?;
+            CheckNameRequest::decode(payload, client.server_io.rsa)
+        };
+        request.map_err(|e| anyhow!("{}: check-name decode failed: {e:?}", client.addr))
     }
     .await;
+    #[cfg(before_647)]
+    let response = if request.is_ok() {
+        CreateAccountResponse::ServerOffline
+    } else {
+        CreateAccountResponse::NameInvalid
+    };
+    #[cfg(since_647)]
     let response = if request.is_ok() {
         CheckEmailResponse::ErrorContactingServer
     } else {
@@ -493,18 +452,83 @@ async fn check_name(client: &mut Socket) -> anyhow::Result<()> {
     Ok(())
 }
 
+/// The date of birth and country check before an account is made, refused as
+/// the other account services are.
+#[cfg(all(since_530, before_647))]
+async fn unknown147(client: &mut Socket) -> anyhow::Result<()> {
+    timeout(HANDSHAKE_TIMEOUT, client.read_exact(6)).await??;
+    client
+        .write(&[CreateAccountResponse::ServerOffline as u8])
+        .await
+}
+
+#[cfg(all(since_530, before_647))]
+async fn world_select(client: &mut Socket) -> anyhow::Result<()> {
+    let payload = read_service_block(client).await?;
+    let request = match WorldSelectRequest::decode(payload, client.server_io.rsa) {
+        Ok(request) => request,
+        Err(response) => {
+            client.write(&[response as u8]).await?;
+            bail!("{}: invalid world-select block", client.addr);
+        }
+    };
+    if !is_typeable_password(&request.password) {
+        client
+            .write(&[LoginResponse::InvalidCredentials as u8])
+            .await?;
+        bail!("{}: invalid password", client.addr);
+    }
+    client.write(&world_select_reply(world_id(client)?)).await
+}
+
+/// This world alone, at the address the client reached it on: the client
+/// logs in to the host and world the list gives.
+#[cfg(all(since_530, before_647))]
+async fn world_list(client: &mut Socket) -> anyhow::Result<()> {
+    let bytes = timeout(HANDSHAKE_TIMEOUT, client.read_exact(4)).await??;
+    let request = WorldListRequest::decode(Packet::from(bytes))
+        .map_err(|e| anyhow!("{}: world-list decode failed: {e:?}", client.addr))?;
+    let SocketType::Tcp(stream) = &client.socket_type else {
+        bail!("a world list needs a TCP connection");
+    };
+    let host = stream.local_addr()?.ip().to_canonical().to_string();
+    let id = world_id(client)?;
+    let list = WorldList {
+        countries: &[Country {
+            flag: 0,
+            name: "Otherworld",
+        }],
+        worlds: &[World {
+            id,
+            country: 0,
+            flags: 1,
+            activity: "",
+            host: &host,
+            players: client.server_io.tick_stats.borrow().player_count as u16,
+        }],
+        checksum: i32::from(id),
+    };
+    client
+        .write(&list.encode(request.checksum != list.checksum))
+        .await
+}
+
 #[cfg(since_244)]
 const MAX_QUEUED_REQUESTS: usize = 8192;
 #[cfg(since_244)]
 const JS5_IDLE_TIMEOUT: Duration = Duration::from_secs(30);
 #[cfg(since_244)]
 const JS5_SEND_TIMEOUT: Duration = Duration::from_secs(60);
+#[cfg(all(since_244, before_742))]
+const REQUEST_LEN: usize = 4;
+#[cfg(since_742)]
+const REQUEST_LEN: usize = 6;
 
 #[cfg(since_244)]
 async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
-    let mut queues: [VecDeque<(u8, u16)>; 3] = Default::default();
+    let mut queues: [VecDeque<(u8, Js5Group)>; 3] = Default::default();
     let mut partial = Vec::new();
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let mut xor = 0;
     loop {
         let bytes = if queues.iter().all(|q| q.is_empty()) {
@@ -528,7 +552,7 @@ async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
                 &mut queues,
                 &mut partial,
                 &bytes,
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 &mut xor,
             )? {
                 return Ok(());
@@ -537,15 +561,15 @@ async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
         }
         if let Some(priority) = queues.iter().position(|q| !q.is_empty()) {
             let (archive, file) = queues[priority].pop_front().unwrap();
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let urgent = priority == 0;
             let send = send_js5_file(
                 &mut client,
                 archive,
                 file,
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 urgent,
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 xor,
             );
             match timeout(JS5_SEND_TIMEOUT, send).await {
@@ -559,16 +583,18 @@ async fn js5_loop(mut client: Socket) -> anyhow::Result<()> {
 #[cfg(since_244)]
 fn enqueue_requests(
     addr: SocketAddr,
-    queues: &mut [VecDeque<(u8, u16)>; 3],
+    queues: &mut [VecDeque<(u8, Js5Group)>; 3],
     partial: &mut Vec<u8>,
     bytes: &[u8],
-    #[cfg(since_647)] xor: &mut u8,
+    #[cfg(since_530)] xor: &mut u8,
 ) -> anyhow::Result<bool> {
     partial.extend_from_slice(bytes);
-    let complete = partial.len() & !3;
-    for &[a, b, c, d] in partial[..complete].as_chunks::<4>().0 {
-        #[cfg(before_647)]
+    let complete = partial.len() - partial.len() % REQUEST_LEN;
+    for request in partial[..complete].as_chunks::<REQUEST_LEN>().0 {
+        let (a, b) = (request[0], request[1]);
+        #[cfg(before_530)]
         let (archive, file, priority) = {
+            let (c, d) = (request[2], request[3]);
             let priority = match d {
                 2 => 0,
                 1 => 1,
@@ -581,9 +607,13 @@ fn enqueue_requests(
             }
             (a, u16::from_be_bytes([b, c]), priority)
         };
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let (archive, file, priority) = match a {
-            0 | 1 => (b, u16::from_be_bytes([c, d]), usize::from(a == 0)),
+            0 | 1 => (
+                b,
+                Js5Group::from_be_bytes(request[2..].try_into().unwrap()),
+                usize::from(a == 0),
+            ),
             2 | 3 | 6 => continue,
             4 => {
                 *xor = b;
@@ -601,22 +631,21 @@ fn enqueue_requests(
     Ok(true)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 async fn send_js5_file(
     client: &mut Socket,
     archive: u8,
-    file: u16,
+    file: Js5Group,
     urgent: bool,
     xor: u8,
 ) -> anyhow::Result<()> {
-    let data = client
-        .server_io
-        .js5
-        .get(archive, file as u32)
-        .unwrap_or_else(|| {
+    let js5 = &client.server_io.js5;
+    let data = js5.get(archive, file).unwrap_or_else(|| {
+        if !js5.is_absent(archive, file) {
             warn!("JS5 missing: archive={archive} group={file}");
-            &[0; 5]
-        });
+        }
+        &[0; 5]
+    });
     let reply = Js5Response {
         archive,
         group: file,
@@ -632,7 +661,7 @@ async fn send_js5_file(
     client.write(&buf.data[..buf.pos]).await
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::Result<()> {
     let buf = client.server_io.cache.read(|cache| {
         let data = cache
@@ -712,18 +741,23 @@ mod tests {
     #[test]
     fn cache_requests_keep_priority_and_partial_frames() {
         let addr = "127.0.0.1:1".parse().unwrap();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let bytes = [
             0, 0, 11, 0, 1, 0, 12, 2, 0, 0, 0, 10, 2, 0, 13, 1, 3, 0, 14, 2,
         ];
-        #[cfg(since_647)]
+        #[cfg(all(since_530, before_742))]
         let bytes = [
             0, 0, 0, 11, 1, 1, 0, 12, 2, 0, 0, 0, 4, 42, 0, 0, 1, 3, 0, 14,
+        ];
+        #[cfg(since_742)]
+        let bytes = [
+            0, 0, 0, 0, 0, 11, 1, 1, 0, 0, 0, 12, 2, 0, 0, 0, 0, 0, 4, 42, 0, 0, 0, 0, 1, 3, 0, 0,
+            0, 14,
         ];
         for size in 1..=bytes.len() {
             let mut queues = Default::default();
             let mut partial = Vec::new();
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let mut xor = 0;
             for chunk in bytes.chunks(size) {
                 assert!(
@@ -732,7 +766,7 @@ mod tests {
                         &mut queues,
                         &mut partial,
                         chunk,
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         &mut xor,
                     )
                     .unwrap()
@@ -740,18 +774,18 @@ mod tests {
             }
             assert!(partial.is_empty());
             assert_eq!(queues[0], [(1, 12), (3, 14)]);
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             {
                 assert_eq!(queues[1], [(2, 13)]);
                 assert_eq!(queues[2], [(0, 11)]);
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 assert_eq!(queues[1], [(0, 11)]);
                 assert!(queues[2].is_empty());
                 assert_eq!(xor, 42);
                 assert!(
-                    !enqueue_requests(addr, &mut queues, &mut partial, &[7, 0, 0, 0], &mut xor)
+                    !enqueue_requests(addr, &mut queues, &mut partial, &[7; REQUEST_LEN], &mut xor)
                         .unwrap()
                 );
             }
@@ -761,10 +795,13 @@ mod tests {
     #[test]
     fn cache_requests_keep_the_queue_limit_and_reject_invalid_frames() {
         let addr = "127.0.0.1:1".parse().unwrap();
-        for bytes in [vec![0; (MAX_QUEUED_REQUESTS + 1) * 4], vec![255; 4]] {
+        for bytes in [
+            vec![0; (MAX_QUEUED_REQUESTS + 1) * REQUEST_LEN],
+            vec![255; REQUEST_LEN],
+        ] {
             let mut queues = Default::default();
             let mut partial = Vec::new();
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let mut xor = 0;
             assert!(
                 enqueue_requests(
@@ -772,7 +809,7 @@ mod tests {
                     &mut queues,
                     &mut partial,
                     &bytes,
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     &mut xor,
                 )
                 .is_err()

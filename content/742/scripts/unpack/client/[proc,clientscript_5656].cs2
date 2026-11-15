@@ -1,0 +1,20 @@
+// 5656
+[proc,clientscript_5656](boolean $boolean0, component $component1, int $int2)
+if ($boolean0 = true) {
+    if_settrans($component1, 0);
+}
+if ($int2 < 500) {
+    $int2 = calc($int2 + 1);
+    if_setontimer($component1, "clientscript_5656(false, $component1, $int2)");
+    return;
+}
+if (if_gettrans($component1) < 255) {
+    if_settrans($component1, min(calc(if_gettrans($component1) + 5), 255));
+}
+if (if_gettrans($component1) >= 255) {
+    if_sethide($component1, true);
+    if_settrans($component1, 0);
+    if_setontimer($component1, null);
+} else {
+    if_setontimer($component1, "clientscript_5656(false, $component1, $int2)");
+}

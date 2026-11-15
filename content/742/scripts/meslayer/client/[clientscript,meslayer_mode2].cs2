@@ -1,0 +1,21 @@
+// 103
+[clientscript,meslayer_mode2]
+if (%has_displayname_client = false) {
+    return;
+}
+if (%snapshot_open = true) {
+    ~script675;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, "Enter name of friend to add to list");
+%meslayermode = 2;
+~meslayer_setupinput("");
+if_setonclick(chattop:mes_layer, null);
+~script2026;
+if_setonkey(chattop:mes_text2, "meslayer_onkey(event_keycode, event_keychar)");
+~script1188;

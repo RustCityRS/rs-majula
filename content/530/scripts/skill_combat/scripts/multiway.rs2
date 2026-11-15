@@ -1,0 +1,6 @@
+// The client shows its multiway icon (statusicons:multiway_icon) while varc 616 is 1.
+[area,multiway]
+%multiway_icon = true;
+
+[areaexit,multiway]
+%multiway_icon = false;

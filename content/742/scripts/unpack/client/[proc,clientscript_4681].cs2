@@ -1,0 +1,9 @@
+// 4681
+[proc,clientscript_4681]
+def_int $int0 = 0;
+$int0 = calc(%varplayerbit_9436 + %varplayerbit_9437 + %varplayerbit_9438 + %varplayerbit_9439 + %varplayerbit_9440 + %varplayerbit_9441 + %varplayerbit_9442 + %varplayerbit_9443 + %varplayerbit_9444 + %varplayerbit_9445 + %varplayerbit_9446 + %varplayerbit_9447 + %varplayerbit_9448 + %varplayerbit_9449 + %varplayerbit_9450 + %varplayerbit_9451 + %varplayerbit_9452 + %varplayerbit_9453 + %varplayerbit_9454 + %varplayerbit_9455 + %varplayerbit_9456 + %varplayerbit_9457 + %varplayerbit_9458 + %varplayerbit_9459 + %varplayerbit_9460 + %varplayerbit_9461 + %varplayerbit_9462);
+if ($int0 = 26) {
+    if_settext(interface_314:com_13, "Final wreck to loot!");
+} else {
+    if_settext(interface_314:com_13, "Wrecks looted: <tostring($int0)>/27");
+}

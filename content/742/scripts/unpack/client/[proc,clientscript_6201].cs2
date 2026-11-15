@@ -1,0 +1,11 @@
+// 6201
+[proc,clientscript_6201](int $int0, component $component1)
+if (calc((clientclock - $int0) % 40) < 20 & applet_hasfocus = true) {
+    if (%varclient_1920 = 1 & $component1 ! lobbyscreen:com_362 | %varclient_1920 = 2 & $component1 ! lobbyscreen:com_369) {
+        if_sethide($component1, true);
+        return;
+    }
+    if_sethide($component1, false);
+} else {
+    if_sethide($component1, true);
+}

@@ -1,0 +1,28 @@
+// 4358
+[proc,clan_noticeboard_event_edit_selection](component $component0)
+if_sethide(clan_noticeboard_event_edit:com_267, true);
+if_sethide(clan_noticeboard_event_edit:com_276, true);
+if_sethide(clan_noticeboard_event_edit:com_285, true);
+if_sethide(clan_noticeboard_event_edit:event_olr, true);
+if_sethide(clan_noticeboard_event_edit:com_303, true);
+if_sethide(clan_noticeboard_event_edit:com_312, true);
+if_sethide(clan_noticeboard_event_edit:com_321, true);
+if_sethide(clan_noticeboard_event_edit:com_330, true);
+switch_component ($component0) {
+    case clan_noticeboard_event_edit:event_1 :
+        if_sethide(clan_noticeboard_event_edit:com_267, false);
+    case clan_noticeboard_event_edit:event_2 :
+        if_sethide(clan_noticeboard_event_edit:com_276, false);
+    case clan_noticeboard_event_edit:event_3 :
+        if_sethide(clan_noticeboard_event_edit:com_285, false);
+    case clan_noticeboard_event_edit:event_4 :
+        if_sethide(clan_noticeboard_event_edit:event_olr, false);
+    case clan_noticeboard_event_edit:event_5 :
+        if_sethide(clan_noticeboard_event_edit:com_303, false);
+    case clan_noticeboard_event_edit:event_6 :
+        if_sethide(clan_noticeboard_event_edit:com_312, false);
+    case clan_noticeboard_event_edit:event_7 :
+        if_sethide(clan_noticeboard_event_edit:com_321, false);
+    case clan_noticeboard_event_edit:event_8 :
+        if_sethide(clan_noticeboard_event_edit:com_330, false);
+}

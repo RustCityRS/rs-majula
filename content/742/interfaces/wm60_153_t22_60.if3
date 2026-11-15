@@ -1,0 +1,405 @@
+// 1026:0
+[com_0]
+type=layer
+width=512
+height=334
+transmitop=10
+op10=   
+
+// 1026:1
+[com_1]
+type=graphic
+x=116
+y=89
+width=280
+height=174
+layer=com_0
+graphic=km_middlefillcolour
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:2
+[bottom_left_corner]
+type=graphic
+x=109
+y=238
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:3
+[top_left_corner]
+type=graphic
+x=109
+y=67
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:4
+[top_right_corner]
+type=graphic
+x=109
+y=67
+width=32
+height=32
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:5
+[bottom_right_corner]
+type=graphic
+x=109
+y=238
+width=32
+height=32
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:6
+[left_1]
+type=graphic
+x=96
+y=99
+width=32
+height=139
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:7
+[right_1]
+type=graphic
+x=97
+y=99
+width=32
+height=139
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:8
+[top_1]
+type=graphic
+x=141
+y=67
+width=230
+height=32
+layer=com_0
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:9
+[bottom_1]
+type=graphic
+x=141
+y=250
+width=230
+height=32
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1026:10
+[border_shadow_3]
+type=rectangle
+x=116
+y=89
+width=280
+height=174
+layer=com_0
+colour=0x000000
+transmitop=10
+op10=   
+
+// 1026:11
+[border_shadow_4]
+type=rectangle
+x=118
+y=91
+width=276
+height=170
+layer=com_0
+colour=0x000000
+trans=192
+transmitop=10
+op10=   
+
+// 1026:12
+[border_shadow_5]
+type=rectangle
+x=117
+y=90
+width=278
+height=172
+layer=com_0
+colour=0x000000
+trans=64
+transmitop=10
+op10=   
+
+// 1026:13
+[close_button]
+type=graphic
+x=377
+y=70
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=   
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1026:14
+[com_14]
+type=rectangle
+x=124
+y=97
+width=264
+height=158
+layer=com_0
+colour=0x5a5349
+transmitop=10
+op10=    
+
+// 1026:15
+[com_15]
+type=rectangle
+x=124
+y=97
+width=263
+height=157
+layer=com_0
+colour=0x403931
+fill=yes
+transmitop=10
+op10=    
+
+// 1026:16
+[com_16]
+type=rectangle
+x=126
+y=99
+width=260
+height=154
+layer=com_0
+colour=0x2d261e
+fill=yes
+transmitop=10
+op10=    
+
+// 1026:17
+[com_17]
+type=rectangle
+x=125
+y=98
+width=262
+height=156
+layer=com_0
+colour=0x000000
+transmitop=10
+op10=    
+
+// 1026:18
+[main_title_text]
+type=text
+y=70
+width=200
+height=15
+xmode=abs_centre
+layer=com_0
+textfont=b12_full
+text=Select Challenge Type
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=    
+
+// 1026:19
+[round_time_background_layer]
+type=layer
+y=104
+width=250
+height=70
+xmode=abs_centre
+transmitop=10
+op10=   
+
+// 1026:20
+[buttons_layer]
+type=layer
+y=16
+width=512
+height=334
+onvartransmit=script434{conq_base_temp}
+
+// 1026:21
+[regular_graphic]
+type=graphic
+x=172
+y=101
+width=15
+height=15
+layer=buttons_layer
+graphic="radio_buttons,0"
+tiling=yes
+colour=0xffffffff
+
+// 1026:22
+[regular_text]
+type=text
+x=191
+y=101
+width=150
+height=15
+layer=buttons_layer
+textfont=welcome_font_tiny
+text=Regular Conquest
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Regular Conquest
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+onop=script436(event_com)
+
+// 1026:23
+[staked_graphic]
+type=graphic
+x=172
+y=130
+width=15
+height=15
+layer=buttons_layer
+graphic="radio_buttons,0"
+tiling=yes
+colour=0xffffffff
+
+// 1026:24
+[staked_text]
+type=text
+x=191
+y=130
+width=140
+height=15
+layer=buttons_layer
+textfont=welcome_font_tiny
+text=Staked Conquest
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Staked Conquest
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+onop=script436(event_com)
+
+// 1026:25
+[challenge_button_layer]
+type=layer
+y=191
+width=90
+height=43
+xmode=abs_centre
+transmitop=10
+op10= 
+
+// 1026:26
+[challenge_graphic]
+type=graphic
+width=90
+height=43
+layer=challenge_button_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1026:27
+[challenge_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=challenge_button_layer
+textfont=welcome_font_tiny
+text=Challenge
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+op1=Challenge
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1026:28
+[com_28]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=round_time_background_layer
+colour=0x201c17
+
+// 1026:29
+[com_29]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=round_time_background_layer
+colour=0x595143
+
+// 1026:30
+[com_30]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=round_time_background_layer
+colour=0x161410
+fill=yes

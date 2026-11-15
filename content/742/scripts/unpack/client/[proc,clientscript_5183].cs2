@@ -1,0 +1,7 @@
+// 5183
+[proc,clientscript_5183](int $int0, int $int1, int $int2, int $int3)(int)
+%varplayer_2347 = $int0;
+%varplayerbit_9642 = min(63, max(0, calc(%varplayerbit_9642 + $int1)));
+%varplayerbit_9643 = min(7, max(0, calc(%varplayerbit_9643 + $int2)));
+%varplayerbit_9644 = min(127, max(0, calc(%varplayerbit_9644 + $int3)));
+return(%varplayer_2347);

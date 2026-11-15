@@ -1,0 +1,155 @@
+// 5764
+[proc,clientscript_5764](stat $stat0, enum $enum1, int $int2)(int)
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+def_int $int7 = -1;
+def_struct $struct8 = null;
+def_struct $struct9 = null;
+def_int $int10 = -1;
+if ($int2 = -1) {
+    $int2 = 0;
+}
+def_struct $struct11 = enum(int, struct, $enum1, $int2);
+$struct9 = enum(struct, struct, enum_5483, $struct11);
+if ($struct9 ! null) {
+    $struct11 = $struct9;
+}
+def_int $int12 = struct_param($struct11, param_2232);
+def_int $int13 = calc(enum_getoutputcount($enum1) - 1);
+def_int $int14 = 0;
+while ($int13 >= 0 & $int14 = 0) {
+    $struct8 = enum(int, struct, $enum1, $int13);
+    $struct9 = enum(struct, struct, enum_5483, $struct8);
+    if ($struct9 ! null) {
+        $struct8 = $struct9;
+    }
+    if ((~task_get_progress(struct_param($struct8, param_1268)) ! 2 | ~clientscript_5732($struct8) ! 0) & ~clientscript_5729($struct8, $stat0) = true & ~task_requirements_fulfilled(struct_param($struct8, param_1268)) = true) {
+        $int10 = struct_param($struct8, param_2232);
+        if ($int10 = $int12) {
+            if ($int13 ! $int2) {
+                switch_int ($int10) {
+                    case 4 :
+                        if ($int13 > $int3 | $int13 < $int3 & $int3 > $int2) {
+                            $int3 = $int13;
+                        }
+                    case 3 :
+                        if ($int13 > $int4 | $int13 < $int4 & $int4 > $int2) {
+                            $int4 = $int13;
+                        }
+                    case 2 :
+                        if ($int13 > $int5 | $int13 < $int5 & $int5 > $int2) {
+                            $int5 = $int13;
+                        }
+                    case 1 :
+                        if ($int13 > $int6 | $int13 < $int6 & $int6 > $int2) {
+                            $int6 = $int13;
+                        }
+                    case 0 :
+                        if ($int13 > $int7 | $int13 < $int7 & $int7 > $int2) {
+                            $int7 = $int13;
+                        }
+                }
+            }
+        } else {
+            switch_int ($int10) {
+                case 4 :
+                    if ($int13 > $int3) {
+                        $int3 = $int13;
+                    }
+                case 3 :
+                    if ($int13 > $int4) {
+                        $int4 = $int13;
+                    }
+                case 2 :
+                    if ($int13 > $int5) {
+                        $int5 = $int13;
+                    }
+                case 1 :
+                    if ($int13 > $int6) {
+                        $int6 = $int13;
+                    }
+                case 0 :
+                    if ($int13 > $int7) {
+                        $int7 = $int13;
+                    }
+            }
+        }
+    }
+    $int13 = calc($int13 - 1);
+}
+def_int $int15 = -1;
+switch_int ($int12) {
+    case 4 :
+        if ($int3 < $int2 & $int3 > -1) {
+            $int15 = $int3;
+        } else if ($int4 > -1) {
+            $int15 = $int4;
+        } else if ($int5 > -1) {
+            $int15 = $int5;
+        } else if ($int6 > -1) {
+            $int15 = $int6;
+        } else if ($int7 > -1) {
+            $int15 = $int7;
+        } else if ($int3 > -1) {
+            $int15 = $int3;
+        }
+    case 3 :
+        if ($int4 < $int2 & $int4 > -1) {
+            $int15 = $int4;
+        } else if ($int5 > -1) {
+            $int15 = $int5;
+        } else if ($int6 > -1) {
+            $int15 = $int6;
+        } else if ($int7 > -1) {
+            $int15 = $int7;
+        } else if ($int3 > -1) {
+            $int15 = $int3;
+        } else if ($int4 > -1) {
+            $int15 = $int4;
+        }
+    case 2 :
+        if ($int5 < $int2 & $int5 > -1) {
+            $int15 = $int5;
+        } else if ($int6 > -1) {
+            $int15 = $int6;
+        } else if ($int7 > -1) {
+            $int15 = $int7;
+        } else if ($int3 > -1) {
+            $int15 = $int3;
+        } else if ($int4 > -1) {
+            $int15 = $int4;
+        } else if ($int5 > -1) {
+            $int15 = $int5;
+        }
+    case 1 :
+        if ($int6 < $int2 & $int6 > -1) {
+            $int15 = $int6;
+        } else if ($int7 > -1) {
+            $int15 = $int7;
+        } else if ($int3 > -1) {
+            $int15 = $int3;
+        } else if ($int4 > -1) {
+            $int15 = $int4;
+        } else if ($int5 > -1) {
+            $int15 = $int5;
+        } else if ($int6 > -1) {
+            $int15 = $int6;
+        }
+    case 0 :
+        if ($int7 < $int2 & $int7 > -1) {
+            $int15 = $int7;
+        } else if ($int3 > -1) {
+            $int15 = $int3;
+        } else if ($int4 > -1) {
+            $int15 = $int4;
+        } else if ($int5 > -1) {
+            $int15 = $int5;
+        } else if ($int6 > -1) {
+            $int15 = $int6;
+        } else if ($int7 > -1) {
+            $int15 = $int7;
+        }
+}
+return($int15);

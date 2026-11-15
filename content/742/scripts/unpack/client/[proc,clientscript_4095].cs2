@@ -1,0 +1,12 @@
+// 4095
+[proc,clientscript_4095]
+def_int $int0 = if_gettrans(interface_1202:com_0);
+if ($int0 > 75) {
+    if_settrans(interface_1202:com_0, 80);
+    if_settrans(interface_1202:com_2, 40);
+    if_setontimer(interface_1202:com_0, null);
+    return;
+} else {
+    if_settrans(interface_1202:com_0, calc($int0 + 4));
+    if_settrans(interface_1202:com_2, calc(($int0 + 4) / 2));
+}

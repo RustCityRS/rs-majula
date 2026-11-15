@@ -16,20 +16,21 @@ use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 const BACKPACK: i32 = 149 << 16;
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let map = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
         _ => unreachable!(),
     };
-    *map.get(name).unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
 }
 
 fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
@@ -38,7 +39,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -48,12 +49,12 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, count: u32) {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
@@ -65,7 +66,7 @@ fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, name: &str, coun
 
 fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -382,7 +383,7 @@ fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: (u16, u16, u
 /// The backpack slot holding `name`.
 fn slot_of(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
     let o = id(engine, "obj", name);
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let pack = engine
         .harness_player(client.pid)
         .unwrap()
@@ -410,9 +411,9 @@ fn use_on_obj(
     p.p4(BACKPACK)
         .p2_alt1(ts)
         .p2_alt1(us)
-        .p2_alt2(id(engine, "obj", used) as i32)
+        .p2_alt2(id(engine, "obj", used).int())
         .p4_alt1(BACKPACK)
-        .p2(id(engine, "obj", target) as i32);
+        .p2(id(engine, "obj", target).int());
     client.send(ClientProt::IfButtonT, &p.finish());
     converse(engine, client, choices, 300)
 }
@@ -470,7 +471,7 @@ fn the_oracle_thalzars_door_and_chest() {
         for (slot, (name, line)) in items.iter().enumerate() {
             use_on_loc(
                 &mut client,
-                id(engine, "obj", name),
+                id(engine, "obj", name).g2(),
                 slot as u16,
                 MAGIC_DOOR,
             );
@@ -648,7 +649,12 @@ fn melzars_maze_doors_take_2011s_keys() {
         set_var(engine, &client, "dragonquest", 2);
         give(engine, &client, 0, "melzarkey", 1);
         tele(engine, &mut client, 2942, 0, 3248);
-        use_on_loc(&mut client, id(engine, "obj", "melzarkey"), 0, MAZE_DOOR);
+        use_on_loc(
+            &mut client,
+            id(engine, "obj", "melzarkey").g2(),
+            0,
+            MAZE_DOOR,
+        );
         let said = messages(engine, &mut client, 8);
         assert!(
             said.iter()
@@ -663,7 +669,12 @@ fn melzars_maze_doors_take_2011s_keys() {
 
         give(engine, &client, 1, "redkey", 1);
         tele(engine, &mut client, 2927, 0, 3244);
-        use_on_loc(&mut client, id(engine, "obj", "redkey"), 1, MAZE_RED_DOOR);
+        use_on_loc(
+            &mut client,
+            id(engine, "obj", "redkey").g2(),
+            1,
+            MAZE_RED_DOOR,
+        );
         let said = messages(engine, &mut client, 8);
         assert!(
             said.iter()
@@ -709,7 +720,7 @@ fn the_maze_zombie_rat_drops_the_red_key() {
         let (kx, kz) = last.expect("the rat was seen alive");
         let redkey = id(engine, "obj", "redkey");
         let mut p = ClientPacket::new();
-        p.p2_alt1(redkey as i32)
+        p.p2_alt1(redkey.int())
             .p2_alt2(kz as i32)
             .p1(0)
             .p2(kx as i32);
@@ -838,7 +849,7 @@ fn the_lady_lumbridges_hole_takes_three_planks() {
         give(engine, &client, 0, "woodplank", 3);
         give(engine, &client, 1, "nails", 90);
         give(engine, &client, 2, "hammer", 1);
-        use_on_loc(&mut client, id(engine, "obj", "woodplank"), 0, HOLE);
+        use_on_loc(&mut client, id(engine, "obj", "woodplank").g2(), 0, HOLE);
         let t = converse(engine, &mut client, &[], 60);
         says(
             &t,
@@ -1052,7 +1063,7 @@ fn elvarg_slain_gives_her_head() {
         // 600, so a swing or two that miss her 1 life point can't let her kill the player first
         // (which a full run's dice once did: "Oh dear, you are dead!").
         let shield = id(engine, "obj", "antidragonbreathshield");
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()

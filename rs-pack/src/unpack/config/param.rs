@@ -13,11 +13,11 @@ pub fn emit_param_props(
     if opcode == 1 {
         p.push((1, "type".into(), char_to_type_name(def.var_type as u8)));
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     if opcode == 2 {
         p.push((2, "defaultint".into(), def.default_int.to_string()));
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     if opcode == 2 {
         let ty = char_to_type_name(def.var_type as u8);
         p.push((
@@ -30,12 +30,12 @@ pub fn emit_param_props(
         p.push((4, "autodisable".into(), "no".into()));
     }
     if let Some(ds) = &def.default_str {
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         p.push((5, "defaultstring".into(), ds.to_string()));
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         p.push((5, "default".into(), ds.to_string()));
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let _ = registry;
     p.into_iter()
         .filter(|(code, _, _)| *code == opcode)
@@ -48,7 +48,7 @@ pub(super) fn char_to_type_name(c: u8) -> String {
         b'i' => Some("int"),
         b's' => Some("string"),
         b'c' => Some("coord"),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         b'd' => Some("graphic"),
         #[cfg(since_647)]
         0xa7 => Some("long"),
@@ -56,11 +56,11 @@ pub(super) fn char_to_type_name(c: u8) -> String {
         b'@' => Some("cursor"),
         #[cfg(since_647)]
         b'`' => Some("wma"),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         b'M' => Some("midi"),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         b'j' => Some("jingle"),
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         b'k' => Some("chatcat"),
         #[cfg(since_647)]
         b'e' => Some("chatphrase"),

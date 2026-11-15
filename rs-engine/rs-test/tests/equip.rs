@@ -17,18 +17,19 @@ use rs_engine::Engine;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 
 /// `inventory:inv`.
 const BACKPACK: i32 = 149 << 16;
 
-fn id(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn id(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// Logs a returning player in holding `obj` in backpack slot 0, with every
@@ -40,7 +41,7 @@ fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let player = engine.harness_player_mut(client.pid).unwrap();
     for stat in 0..player.stats.base_levels.len() {
         player.stats.base_levels[stat] = level;
@@ -50,7 +51,7 @@ fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
     forget_calls();
 
     let mut p = ClientPacket::new();
-    p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
+    p.p4(BACKPACK).p2_alt3(obj.int()).p2_alt1(0);
     client.send(ClientProt::IfButton2, &p.finish());
     engine.cycle();
 
@@ -156,7 +157,7 @@ fn a_wielded_weapon_brings_its_2011_stance() {
     runner::on_loaded_engine(|engine| {
         let two_handed = id(engine, "bronze_2h_sword");
         let sword = id(engine, "bronze_sword");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         engine.harness_reset();
         let mut client = engine.harness_login_returning("stance").expect("login");
         engine.cycle();
@@ -166,22 +167,26 @@ fn a_wielded_weapon_brings_its_2011_stance() {
         backpack.set(1, sword, 1);
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(two_handed as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(two_handed.int()).p2_alt1(0);
         client.send(ClientProt::IfButton2, &p.finish());
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(
             player.info.readyanim,
-            Some(124),
+            Some(TypeId::new(124)),
             "the two-handed sword's stance"
         );
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(sword as i32).p2_alt1(1);
+        p.p4(BACKPACK).p2_alt3(sword.int()).p2_alt1(1);
         client.send(ClientProt::IfButton2, &p.finish());
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(player.info.readyanim, Some(1381), "the sword's stance");
+        assert_eq!(
+            player.info.readyanim,
+            Some(TypeId::new(1381)),
+            "the sword's stance"
+        );
     });
 }
 
@@ -195,8 +200,8 @@ fn wearing_the_elemental_shield_plays_its_shimmer() {
         engine.harness_reset();
         let mut client = engine.harness_login_returning("elemental").expect("login");
         engine.cycle();
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -207,7 +212,7 @@ fn wearing_the_elemental_shield_plays_its_shimmer() {
         engine.cycle();
         client.packets();
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(obj.int()).p2_alt1(0);
         client.send(ClientProt::IfButton2, &p.finish());
         let mut packets = Vec::new();
         for _ in 0..4 {
