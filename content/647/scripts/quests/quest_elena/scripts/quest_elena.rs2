@@ -15,7 +15,9 @@
 // hole from the dig, Edmond below from "Edmond follows you down the hole" until the quest is
 // done, the rope from the tying and the grill's going from the pull, Elena home once freed.
 [proc,quest_elena_2011_bits]
-if (%elenaquest >= ^quest_elena_opened_tunnel) {
+// Biohazard fills the tunnel in ("they discovered the tunnel and filled it in", Elena's line as
+// it starts; 289's patch then says "The ground's been filled in and packed hard."): no hole.
+if (%elenaquest >= ^quest_elena_opened_tunnel & %biohazard < ^biohazard_started) {
     %plaguecity_dug_mud_pile = 1;
 } else {
     %plaguecity_dug_mud_pile = 0;
