@@ -1,0 +1,6510 @@
+// 906:0
+[com_0]
+type=layer
+y=50
+height=50
+widthmode=minus
+heightmode=minus
+onload=lobbyscreen_load(false, 0)
+
+// 906:1
+[com_1]
+type=layer
+height=50
+widthmode=minus
+onload=clientscript_6384(lobbyscreen:com_510, lobbyscreen:com_526, lobbyscreen:com_518, lobbyscreen:com_541, lobbyscreen:com_534, lobbyscreen:com_515, lobbyscreen:com_531, lobbyscreen:com_523, lobbyscreen:com_546, lobbyscreen:com_539)
+
+// 906:2
+[com_2]
+type=rectangle
+x=-107
+y=275
+width=504
+height=1
+xmode=abs_centre
+layer=com_300
+colour=0x161513
+
+// 906:3
+[com_3]
+type=rectangle
+x=-107
+y=320
+width=504
+height=1
+xmode=abs_centre
+layer=com_300
+colour=0x161513
+
+// 906:4
+[com_4]
+type=text
+x=-257
+y=48
+width=102
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_300
+textfont=b12_full
+text=Validation Code
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:5
+[com_5]
+type=layer
+x=-107
+y=284
+width=170
+height=27
+xmode=abs_centre
+layer=com_300
+transmitop=6
+op6=Paste
+onload=clientscript_3379(lobbyscreen:com_306)
+onmouseover=clientscript_3380(lobbyscreen:com_302, lobbyscreen:com_303, lobbyscreen:com_304, graphic_3817, graphic_3818, graphic_3819)
+onmouseleave=clientscript_3380(lobbyscreen:com_302, lobbyscreen:com_303, lobbyscreen:com_304, graphic_3814, graphic_3815, graphic_3816)
+ontimer=caret_flash(0, lobbyscreen:com_307)
+onop=clientscript_3378(event_op)
+
+// 906:6
+[com_6]
+type=graphic
+width=2
+height=37
+layer=com_55_
+graphic="favorite_world_border,0"
+
+// 906:7
+[com_7]
+type=graphic
+x=2
+width=4
+height=37
+widthmode=minus
+layer=com_55_
+graphic="favorite_world_border,1"
+
+// 906:8
+[com_8]
+type=graphic
+width=2
+height=37
+xmode=abs_right
+layer=com_55_
+graphic="favorite_world_border,2"
+
+// 906:9
+[com_9]
+type=rectangle
+x=17
+y=4
+width=30
+height=14
+xmode=abs_right
+layer=com_55_
+colour=0x302c2a
+fill=yes
+
+// 906:10
+[com_10]
+type=rectangle
+x=17
+y=5
+width=30
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_55_
+colour=0x302c2a
+fill=yes
+
+// 906:11
+[com_11]
+type=text
+x=20
+width=10
+height=7
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_55_
+textfont=verdana_11pt_regular
+text=999
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 906:12
+[com_12_]
+type=text
+x=20
+width=10
+height=9
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_55_
+textfont=verdana_11pt_regular
+text=999
+textalignh=right
+textalignv=bottom
+textshadow=yes
+colour=0xebe0bc
+
+// 906:13
+[com_13]
+type=text
+x=50
+width=60
+height=7
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_55_
+textfont=verdana_11pt_regular
+text=Queued World:
+textalignh=right
+textshadow=yes
+colour=0xebe0bc
+
+// 906:14
+[com_14_]
+type=text
+x=50
+width=60
+height=9
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_55_
+textfont=verdana_11pt_regular
+text=Position:
+textalignh=right
+textalignv=bottom
+textshadow=yes
+colour=0xebe0bc
+
+// 906:15
+[com_15]
+type=graphic
+x=1
+y=1
+width=13
+height=35
+xmode=abs_right
+layer=com_55_
+graphic=graphic_6298
+onmouseover=script3082(event_com, -1, "Cancel")
+onmouseleave=script3086(event_com, -1)
+onclick=clientscript_4702
+
+// 906:16
+[no_left]
+type=graphic
+width=15
+height=31
+layer=windowmode_confirm_no
+graphic=graphic_4690
+
+// 906:17
+[no_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=windowmode_confirm_no
+graphic=graphic_4691
+
+// 906:18
+[no_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=windowmode_confirm_no
+graphic=graphic_4692
+
+// 906:19
+[yes_left]
+type=graphic
+width=15
+height=31
+layer=windowmode_confirm_yes
+graphic=graphic_4690
+
+// 906:20
+[yes_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=windowmode_confirm_yes
+graphic=graphic_4691
+
+// 906:21
+[yes_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=windowmode_confirm_yes
+graphic=graphic_4692
+
+// 906:22
+[input_close_button_left]
+type=graphic
+width=15
+height=31
+layer=input_close
+graphic=graphic_4690
+
+// 906:23
+[input_close_button_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=input_close
+graphic=graphic_4691
+
+// 906:24
+[input_close_button_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=input_close
+graphic=graphic_4692
+
+// 906:25
+[options_tab_graphic]
+type=graphic
+height=30
+widthmode=minus
+layer=options_tab
+graphic=graphic_4672
+
+// 906:26
+[clanchat_tab_graphic]
+type=graphic
+height=30
+widthmode=minus
+layer=clanchat_tab
+graphic=graphic_4672
+
+// 906:27
+[friendslist_tab_graphic]
+type=graphic
+height=30
+widthmode=minus
+layer=friendslist_tab
+graphic=graphic_4672
+
+// 906:28
+[com_12]
+type=graphic
+height=30
+widthmode=minus
+layer=worldselect_tab
+graphic=graphic_4672
+
+// 906:29
+[com_14]
+type=layer
+clientcode=1407
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+transmitop=10
+op10= 
+
+// 906:30
+[fader]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_0
+hide=yes
+colour=0x000000
+fill=yes
+transmitop=10
+op10= 
+
+// 906:31
+[com_31]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_0
+hide=yes
+
+// 906:32
+[menu]
+type=layer
+width=110
+height=26
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+
+// 906:33
+[update_timer]
+type=layer
+y=291
+width=110
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+
+// 906:34
+[com_34]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 906:35
+[com_35]
+type=layer
+y=80
+width=512
+height=325
+xmode=abs_centre
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 906:36
+[com_36_]
+type=layer
+y=180
+width=250
+height=154
+xmode=abs_centre
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 906:37
+[com_37_]
+type=layer
+y=160
+width=300
+height=200
+xmode=abs_centre
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 906:38
+[com_38_]
+type=layer
+x=1
+y=1
+width=300
+height=200
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 906:39
+[com_39_]
+type=layer
+x=5
+y=5
+width=17
+height=24
+layer=com_0
+
+// 906:40
+[com_40_]
+type=layer
+width=550
+height=400
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+
+// 906:41
+[com_41_]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_39_
+onvartransmit=clientscript_947{varplayer_2522}
+
+// 906:42
+[com_42_]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_39_
+onvartransmit=clientscript_2167{varplayer_2522}
+
+// 906:43
+[com_43_]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_39_
+onvartransmit=clientscript_2828{varplayer_2523}
+
+// 906:44
+[popup_body]
+type=layer
+width=250
+height=154
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+
+// 906:45
+[update_timer_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=update_timer
+hide=yes
+
+// 906:46
+[com_21]
+type=rectangle
+y=1
+width=1
+height=3
+heightmode=minus
+layer=update_timer_bg
+colour=0x450b0b
+fill=yes
+trans=96
+transmitop=10
+op10=   
+
+// 906:47
+[com_22]
+type=rectangle
+x=1
+width=2
+height=1
+widthmode=minus
+heightmode=minus
+layer=update_timer_bg
+colour=0x450b0b
+fill=yes
+trans=96
+transmitop=10
+op10=  
+
+// 906:48
+[com_23]
+type=rectangle
+y=1
+width=1
+height=3
+heightmode=minus
+xmode=abs_right
+layer=update_timer_bg
+colour=0x450b0b
+fill=yes
+trans=96
+transmitop=10
+op10=    
+
+// 906:49
+[update_timer_text]
+type=text
+width=655
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=update_timer
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+colour=0xffff00
+
+// 906:50
+[background_texture]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=menu
+graphic=window_texture
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:51
+[tabs]
+type=layer
+x=-1
+y=1
+height=41
+widthmode=minus
+layer=menu
+
+// 906:52
+[border]
+type=layer
+width=655
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu
+transmitop=10
+op10= 
+
+// 906:53
+[panels]
+type=layer
+x=3
+y=40
+width=649
+height=43
+heightmode=minus
+layer=menu
+
+// 906:54
+[login]
+type=layer
+y=9
+width=23
+height=39
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=menu
+
+// 906:55
+[com_55_]
+type=layer
+width=180
+height=39
+layer=login
+hide=yes
+
+// 906:56
+[input]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=menu
+hide=yes
+noclickthrough=yes
+
+// 906:57
+[windowmode_confirm]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10= 
+
+// 906:58
+[pvp_warning]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10=  
+
+// 906:59
+[popup]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10= 
+
+// 906:60
+[report_abuse_stage1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10=  
+
+// 906:61
+[report_abuse_stage1_namelist]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10=   
+
+// 906:62
+[com_36]
+type=graphic
+width=3
+height=3
+layer=report_abuse_stage1_namelist
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 906:63
+[com_37]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=report_abuse_stage1_namelist
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 906:64
+[com_38]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=report_abuse_stage1_namelist
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 906:65
+[com_39]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=report_abuse_stage1_namelist
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=       
+
+// 906:66
+[com_40]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=report_abuse_stage1_namelist
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=     
+
+// 906:67
+[com_41]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=report_abuse_stage1_namelist
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=      
+
+// 906:68
+[com_42]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=report_abuse_stage1_namelist
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=       
+
+// 906:69
+[com_43]
+type=layer
+width=492
+height=303
+xmode=abs_centre
+ymode=abs_centre
+layer=report_abuse_stage1_namelist
+transmitop=10
+op10= 
+
+// 906:70
+[report_abuse_stage2]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10=   
+
+// 906:71
+[report_abuse_ignore]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=menu
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10=    
+
+// 906:72
+[com_46]
+type=graphic
+width=3
+height=3
+layer=report_abuse_ignore
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 906:73
+[com_47]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=report_abuse_ignore
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=       
+
+// 906:74
+[com_48]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=report_abuse_ignore
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=       
+
+// 906:75
+[com_49]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=report_abuse_ignore
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=        
+
+// 906:76
+[com_50]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=report_abuse_ignore
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=      
+
+// 906:77
+[com_51]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=report_abuse_ignore
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=       
+
+// 906:78
+[com_52]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=report_abuse_ignore
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=        
+
+// 906:79
+[report_abuse_ignore_body]
+type=layer
+width=453
+height=300
+xmode=abs_centre
+ymode=abs_centre
+layer=report_abuse_ignore
+transmitop=10
+op10= 
+
+// 906:80
+[com_54]
+type=graphic
+width=3
+height=3
+layer=report_abuse_stage2
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 906:81
+[com_55]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=report_abuse_stage2
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 906:82
+[com_56]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=report_abuse_stage2
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 906:83
+[com_57]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=report_abuse_stage2
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=       
+
+// 906:84
+[com_58]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=report_abuse_stage2
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=     
+
+// 906:85
+[com_59]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=report_abuse_stage2
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=      
+
+// 906:86
+[com_60]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=report_abuse_stage2
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=       
+
+// 906:87
+[report_abuse_stage2_body]
+type=layer
+width=487
+height=312
+xmode=abs_centre
+ymode=abs_centre
+layer=report_abuse_stage2
+
+// 906:88
+[com_62]
+type=graphic
+width=3
+height=3
+layer=report_abuse_stage1
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 906:89
+[com_63]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=report_abuse_stage1
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 906:90
+[com_64]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=report_abuse_stage1
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 906:91
+[com_65]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=report_abuse_stage1
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 906:92
+[com_66]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=report_abuse_stage1
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=    
+
+// 906:93
+[com_67]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=report_abuse_stage1
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=     
+
+// 906:94
+[com_68]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=report_abuse_stage1
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=      
+
+// 906:95
+[report_abuse_stage1_body]
+type=layer
+width=418
+height=122
+xmode=abs_centre
+ymode=abs_centre
+layer=report_abuse_stage1
+
+// 906:96
+[com_70]
+type=graphic
+width=3
+height=3
+layer=popup
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:97
+[com_71]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=popup
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 906:98
+[com_72]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=popup
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 906:99
+[com_73]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=popup
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 906:100
+[com_74]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=popup
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=   
+
+// 906:101
+[com_75]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=popup
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=    
+
+// 906:102
+[com_76]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=popup
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=     
+
+// 906:103
+[com_77]
+type=graphic
+width=3
+height=3
+layer=pvp_warning
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:104
+[com_78]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=pvp_warning
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:105
+[com_79]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=pvp_warning
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:106
+[com_80]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=pvp_warning
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 906:107
+[com_81]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=pvp_warning
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=  
+
+// 906:108
+[com_82]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=pvp_warning
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=   
+
+// 906:109
+[com_83]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=pvp_warning
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=    
+
+// 906:110
+[pvp_warning_window]
+type=layer
+width=337
+height=243
+xmode=abs_centre
+ymode=abs_centre
+layer=pvp_warning
+transmitop=10
+op10=  
+
+// 906:111
+[pvp_warning_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=pvp_warning_window
+transmitop=10
+op10=  
+
+// 906:112
+[pvp_warning_text_title]
+type=text
+y=3
+width=30
+height=19
+widthmode=minus
+xmode=abs_centre
+layer=pvp_warning_window
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 906:113
+[pvp_warning_text_main]
+type=text
+y=-11
+width=165
+height=152
+xmode=abs_centre
+ymode=abs_centre
+layer=pvp_warning_window
+textfont=b12_full
+textlineheight=16
+textalignh=centre
+textalignv=centre
+transmitop=10
+op10=  
+
+// 906:114
+[skull_left]
+type=model
+x=-126
+y=-11
+width=54
+height=64
+xmode=abs_centre
+ymode=abs_centre
+layer=pvp_warning_window
+model=model_24207
+modelorigin=1,3
+modelzoom=2440
+transmitop=10
+op10=  
+
+// 906:115
+[skull_right]
+type=model
+x=126
+y=-11
+width=55
+height=64
+xmode=abs_centre
+ymode=abs_centre
+layer=pvp_warning_window
+model=model_24206
+modelorigin=1,3
+modelzoom=2440
+transmitop=10
+op10=  
+
+// 906:116
+[pvp_warning_buttons]
+type=layer
+y=13
+width=249
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=pvp_warning_window
+transmitop=10
+op10=  
+
+// 906:117
+[com_91]
+type=layer
+width=122
+heightmode=minus
+layer=pvp_warning_buttons
+transmitop=1,10
+op1=Go Back
+op10=   
+onop=lobbyscreen_pvp_warning(0)
+
+// 906:118
+[com_92]
+type=text
+width=127
+widthmode=minus
+heightmode=minus
+layer=pvp_warning_buttons
+textfont=tutorial_font_big
+text=Go back
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=10
+op10=   
+
+// 906:119
+[com_93]
+type=layer
+width=122
+heightmode=minus
+xmode=abs_right
+layer=pvp_warning_buttons
+transmitop=1,10
+op1=Log In
+op10=  
+onop=lobbyscreen_pvp_warning(1)
+
+// 906:120
+[com_94]
+type=text
+x=127
+width=127
+widthmode=minus
+heightmode=minus
+layer=pvp_warning_buttons
+textfont=tutorial_font_big
+text=Log in
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=10
+op10=  
+
+// 906:121
+[com_95]
+type=graphic
+x=5
+y=22
+width=10
+height=24
+widthmode=minus
+heightmode=minus
+layer=pvp_warning_bg
+graphic="login_lobby_titlegrade,1"
+alpha=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:122
+[com_96]
+type=graphic
+y=22
+width=16
+height=38
+heightmode=minus
+layer=pvp_warning_bg
+graphic="login_lobby_border,2"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:123
+[com_97]
+type=graphic
+width=16
+height=16
+ymode=abs_bottom
+layer=pvp_warning_bg
+graphic="login_lobby_border,0"
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:124
+[com_98]
+type=graphic
+x=16
+width=32
+height=16
+widthmode=minus
+ymode=abs_bottom
+layer=pvp_warning_bg
+graphic="login_lobby_border,1"
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:125
+[com_99]
+type=graphic
+y=22
+width=16
+height=38
+heightmode=minus
+xmode=abs_right
+layer=pvp_warning_bg
+graphic="login_lobby_border,2"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:126
+[com_100]
+type=graphic
+width=16
+height=16
+xmode=abs_right
+ymode=abs_bottom
+layer=pvp_warning_bg
+graphic="login_lobby_border,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:127
+[com_101]
+type=graphic
+x=16
+width=32
+height=22
+widthmode=minus
+layer=pvp_warning_bg
+graphic="login_lobby_window_border,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:128
+[com_102]
+type=graphic
+width=16
+height=22
+xmode=abs_right
+layer=pvp_warning_bg
+graphic="login_lobby_window_border,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:129
+[com_103]
+type=graphic
+width=16
+height=22
+layer=pvp_warning_bg
+graphic="login_lobby_window_border,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:130
+[com_104]
+type=graphic
+width=3
+height=3
+layer=windowmode_confirm
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:131
+[com_105]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=windowmode_confirm
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:132
+[com_106]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=windowmode_confirm
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:133
+[com_107]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=windowmode_confirm
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:134
+[com_108]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=windowmode_confirm
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10= 
+
+// 906:135
+[com_109]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=windowmode_confirm
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=  
+
+// 906:136
+[com_110]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=windowmode_confirm
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=   
+
+// 906:137
+[windowmode_confirm_window]
+type=layer
+width=265
+height=144
+xmode=abs_centre
+ymode=abs_centre
+layer=windowmode_confirm
+transmitop=10
+op10= 
+
+// 906:138
+[windowmode_confirm_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=windowmode_confirm_window
+transmitop=10
+op10= 
+
+// 906:139
+[windowmode_confirm_text]
+type=text
+y=29
+width=30
+height=97
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=windowmode_confirm_window
+textfont=verdana_11pt_regular
+text=Your display has been changed. Do you want to keep this setting?
+textlineheight=17
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10= 
+
+// 906:140
+[qip_optext]
+type=layer
+y=29
+width=249
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=windowmode_confirm_window
+transmitop=10
+op10= 
+
+// 906:141
+[windowmode_confirm_countdown]
+type=text
+y=8
+width=30
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=windowmode_confirm_window
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=   
+
+// 906:142
+[windowmode_confirm_yes]
+type=layer
+width=122
+heightmode=minus
+layer=qip_optext
+transmitop=1,10
+op1=Yes
+op10=  
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:yes_left, graphic_4693, lobbyscreen:yes_mid, graphic_4694, lobbyscreen:yes_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:yes_left, graphic_4690, lobbyscreen:yes_mid, graphic_4691, lobbyscreen:yes_right, graphic_4692)
+
+// 906:143
+[com_117]
+type=text
+width=127
+widthmode=minus
+heightmode=minus
+layer=qip_optext
+textfont=verdana_13pt_regular
+text=Yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:144
+[windowmode_confirm_no]
+type=layer
+width=122
+heightmode=minus
+xmode=abs_right
+layer=qip_optext
+transmitop=1,10
+op1=No
+op10= 
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:no_left, graphic_4693, lobbyscreen:no_mid, graphic_4694, lobbyscreen:no_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:no_left, graphic_4690, lobbyscreen:no_mid, graphic_4691, lobbyscreen:no_right, graphic_4692)
+
+// 906:145
+[com_119]
+type=text
+x=127
+width=127
+widthmode=minus
+heightmode=minus
+layer=qip_optext
+textfont=verdana_13pt_regular
+text=No
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10= 
+
+// 906:146
+[confirm_background]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=windowmode_confirm_bg
+graphic=window_texture
+tiling=yes
+alpha=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:147
+[confirm_left_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=windowmode_confirm_bg
+graphic=frame_border_vertical
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:148
+[confirm_bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=windowmode_confirm_bg
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:149
+[confirm_bottom_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=windowmode_confirm_bg
+graphic=frame_border_horizontal
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:150
+[confirm_right_side]
+type=graphic
+y=22
+width=7
+height=171
+heightmode=minus
+xmode=abs_right
+layer=windowmode_confirm_bg
+graphic=frame_border_vertical
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:151
+[confirm_bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=windowmode_confirm_bg
+graphic="corner_frame_5,4"
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:152
+[confirm_top_side]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=windowmode_confirm_bg
+graphic=frame_border_horizontal
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:153
+[confirm_top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=windowmode_confirm_bg
+graphic="corner_frame_5,4"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:154
+[confirm_top_left]
+type=graphic
+width=38
+height=72
+layer=windowmode_confirm_bg
+graphic="corner_frame_5,4"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:155
+[com_129]
+type=graphic
+width=3
+height=3
+layer=input
+graphic=lobby_input_corner
+trans=43
+colour=0xffffffff
+
+// 906:156
+[com_130]
+type=graphic
+width=3
+height=3
+ymode=abs_bottom
+layer=input
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:157
+[com_131]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+layer=input
+graphic=lobby_input_corner
+trans=43
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:158
+[com_132]
+type=graphic
+width=3
+height=3
+xmode=abs_right
+ymode=abs_bottom
+layer=input
+graphic=lobby_input_corner
+trans=43
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:159
+[com_133]
+type=rectangle
+y=3
+height=6
+widthmode=minus
+heightmode=minus
+layer=input
+colour=0x000000
+fill=yes
+trans=43
+
+// 906:160
+[com_134]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+layer=input
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10= 
+
+// 906:161
+[com_135]
+type=rectangle
+x=3
+width=6
+height=3
+widthmode=minus
+ymode=abs_bottom
+layer=input
+colour=0x000000
+fill=yes
+trans=43
+transmitop=10
+op10=  
+
+// 906:162
+[input_window]
+type=layer
+width=265
+height=144
+xmode=abs_centre
+ymode=abs_centre
+layer=input
+
+// 906:163
+[input_bg]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=input_window
+
+// 906:164
+[input_title]
+type=text
+y=3
+width=30
+height=19
+widthmode=minus
+xmode=abs_centre
+layer=input_window
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xebe0bc
+
+// 906:165
+[wipe_button_player_member_0]
+type=layer
+y=27
+width=30
+height=64
+widthmode=minus
+xmode=abs_centre
+layer=input_window
+
+// 906:166
+[input_text]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=wipe_button_player_member_0
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:167
+[input_caret]
+type=rectangle
+y=26
+width=1
+height=12
+xmode=abs_centre
+layer=wipe_button_player_member_0
+hide=yes
+colour=0x999999
+fill=yes
+
+// 906:168
+[input_link]
+type=text
+y=45
+width=30
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=input_window
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10= 
+
+// 906:169
+[input_buttons]
+type=layer
+y=9
+width=24
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=input_window
+
+// 906:170
+[input_ok]
+type=layer
+width=8034
+widthmode=proportion
+heightmode=minus
+layer=input_buttons
+transmitop=1,10
+op1=Ok
+op10= 
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:input_ok_button_left, graphic_4693, lobbyscreen:input_ok_button_mid, graphic_4694, lobbyscreen:input_ok_button_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:input_ok_button_left, graphic_4690, lobbyscreen:input_ok_button_mid, graphic_4691, lobbyscreen:input_ok_button_right, graphic_4692)
+
+// 906:171
+[input_ok_button_left]
+type=graphic
+width=15
+height=31
+layer=input_ok
+graphic=graphic_4690
+
+// 906:172
+[input_ok_button_mid]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=input_ok
+graphic=graphic_4691
+
+// 906:173
+[input_ok_button_right]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=input_ok
+graphic=graphic_4692
+
+// 906:174
+[input_ok_text]
+type=text
+width=8034
+widthmode=proportion
+heightmode=minus
+layer=input_buttons
+textfont=verdana_13pt_regular
+text=Okay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10= 
+
+// 906:175
+[input_close]
+type=layer
+width=8034
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=input_buttons
+transmitop=1
+op1=Close
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:input_close_button_left, graphic_4693, lobbyscreen:input_close_button_mid, graphic_4694, lobbyscreen:input_close_button_right, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:input_close_button_left, graphic_4690, lobbyscreen:input_close_button_mid, graphic_4691, lobbyscreen:input_close_button_right, graphic_4692)
+onop=lobbyscreen_input_close
+
+// 906:176
+[input_close_text]
+type=text
+width=8034
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=input_buttons
+textfont=verdana_13pt_regular
+text=Close
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:177
+[input_background]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=input_bg
+graphic=window_texture
+tiling=yes
+alpha=yes
+colour=0xffffffff
+
+// 906:178
+[input_left_side]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=input_bg
+graphic=frame_border_vertical
+hflip=yes
+colour=0xffffffff
+
+// 906:179
+[input_bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=input_bg
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+
+// 906:180
+[input_bottom]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=input_bg
+graphic=frame_border_horizontal
+vflip=yes
+colour=0xffffffff
+
+// 906:181
+[input_right]
+type=graphic
+y=22
+width=16
+height=38
+heightmode=minus
+xmode=abs_right
+layer=input_bg
+graphic="login_lobby_border,2"
+hflip=yes
+colour=0xffffffff
+
+// 906:182
+[input_bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=input_bg
+graphic="corner_frame_5,4"
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:183
+[input_top]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=input_bg
+graphic=frame_border_horizontal
+tiling=yes
+colour=0xffffffff
+
+// 906:184
+[input_top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=input_bg
+graphic="corner_frame_5,4"
+colour=0xffffffff
+
+// 906:185
+[input_top_left]
+type=graphic
+width=38
+height=72
+layer=input_bg
+graphic="corner_frame_5,4"
+hflip=yes
+colour=0xffffffff
+
+// 906:186
+[loginbutton]
+type=layer
+width=6553
+height=39
+widthmode=proportion
+xmode=abs_centre
+layer=login
+onmouseover=lobbyscreen_button_highlight(lobbyscreen:com_170, graphic_4664, lobbyscreen:button_tile, graphic_4666, lobbyscreen:com_172, graphic_4664)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen:com_170, graphic_4663, lobbyscreen:button_tile, graphic_4665, lobbyscreen:com_172, graphic_4663)
+
+// 906:187
+[login_favs]
+type=layer
+x=46
+width=121
+height=39
+xmode=abs_right
+layer=login
+
+// 906:188
+[login_favs_l]
+type=graphic
+width=2
+height=37
+layer=login_favs
+graphic="favorite_world_border,0"
+colour=0xffffffff
+onmouseover=script3082(event_com, -1, "Your selected favourite worlds")
+onmouseleave=script3086(event_com, -1)
+
+// 906:189
+[login_favs_m]
+type=graphic
+x=2
+width=4
+height=37
+widthmode=minus
+layer=login_favs
+graphic="favorite_world_border,1"
+onmouseover=script3082(event_com, -1, "Your selected favourite worlds")
+onmouseleave=script3086(event_com, -1)
+
+// 906:190
+[login_favs_icon]
+type=graphic
+x=1
+y=1
+width=30
+height=35
+layer=login_favs
+graphic=favorite_world_icon2
+onmouseover=script3082(event_com, -1, "Your selected favourite worlds")
+onmouseleave=script3086(event_com, -1)
+
+// 906:191
+[com_165]
+type=graphic
+x=32
+y=3
+width=42
+height=31
+layer=login_favs
+graphic=graphic_4660
+colour=0xffffffff
+onmouseleave=script3086(event_com, -1)
+
+// 906:192
+[com_166]
+type=graphic
+x=76
+y=3
+width=42
+height=31
+layer=login_favs
+graphic=graphic_4660
+colour=0xffffffff
+transmitop=10
+op10= 
+onmouseleave=script3086(event_com, -1)
+
+// 906:193
+[login_favs_text1]
+type=text
+x=31
+y=1
+width=43
+heightmode=minus
+layer=login_favs
+textfont=b12_full
+text=100
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10= 
+
+// 906:194
+[login_favs_text2]
+type=text
+x=75
+y=1
+width=43
+heightmode=minus
+layer=login_favs
+textfont=b12_full
+text=100
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:195
+[login_favs_r]
+type=graphic
+width=2
+height=37
+xmode=abs_right
+layer=login_favs
+graphic="favorite_world_border,2"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:196
+[com_170]
+type=graphic
+width=25
+height=37
+layer=loginbutton
+graphic=graphic_4663
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:197
+[button_tile]
+type=graphic
+x=25
+width=50
+height=37
+widthmode=minus
+layer=loginbutton
+graphic=graphic_4665
+tiling=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:198
+[com_172]
+type=graphic
+width=25
+height=37
+xmode=abs_right
+layer=loginbutton
+graphic=graphic_4663
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:199
+[loginbutton_text]
+type=text
+y=9
+width=610
+height=20
+xmode=abs_centre
+layer=loginbutton
+textfont=welcome_font_small
+text=Play
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:200
+[com_200]
+type=graphic
+width=38
+height=72
+layer=border
+graphic="corner_frame_5,4"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:201
+[com_201]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_5,4"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:202
+[com_202]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+layer=border
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:203
+[com_203]
+type=graphic
+y=72
+width=7
+height=144
+heightmode=minus
+xmode=abs_right
+layer=border
+graphic=frame_border_vertical
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:204
+[com_204]
+type=graphic
+x=38
+width=72
+height=7
+widthmode=minus
+layer=border
+graphic=frame_border_horizontal
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 906:205
+[com_205]
+type=graphic
+x=38
+width=76
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=border
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:206
+[com_206]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=border
+graphic="corner_frame_5,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 906:207
+[com_207]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=border
+graphic="corner_frame_5,4"
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 906:208
+[playerinfo_panel]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+layer=panels
+hide=yes
+
+// 906:209
+[worldselect_panel]
+type=layer
+width=16
+height=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=panels
+hide=yes
+
+// 906:210
+[friendslist_panel]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+layer=panels
+hide=yes
+
+// 906:211
+[friendschat_panel]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+layer=panels
+hide=yes
+
+// 906:212
+[clanchat_panel]
+type=layer
+height=50
+widthmode=minus
+heightmode=minus
+layer=panels
+hide=yes
+transmitop=10
+op10= 
+
+// 906:213
+[options_panel]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=panels
+hide=yes
+transmitop=10
+op10= 
+
+// 906:214
+[playerinfo_tab]
+type=layer
+x=8
+y=6
+width=102
+height=30
+layer=tabs
+transmitop=1
+op1=Player Info
+onop=lobbyscreen_tabswitch(0)
+
+// 906:215
+[worldselect_tab]
+type=layer
+x=110
+y=6
+width=102
+height=30
+layer=tabs
+transmitop=1,10
+op1=World Select
+op10= 
+onop=lobbyscreen_tabswitch(1)
+
+// 906:216
+[friendslist_tab]
+type=layer
+x=212
+y=6
+width=102
+height=30
+layer=tabs
+transmitop=1,10
+op1=Friends
+op10= 
+onop=lobbyscreen_tabswitch(2)
+
+// 906:217
+[com_191]
+type=layer
+x=314
+y=6
+width=102
+height=30
+layer=tabs
+transmitop=1
+op1=Friends Chat
+onop=lobbyscreen_tabswitch(3)
+
+// 906:218
+[clanchat_tab]
+type=layer
+x=416
+y=6
+width=102
+height=30
+layer=tabs
+transmitop=1,10
+op1=Clan Chat
+op10= 
+onop=lobbyscreen_tabswitch(5)
+
+// 906:219
+[options_tab]
+type=layer
+x=518
+y=6
+width=102
+height=30
+layer=tabs
+transmitop=1,10
+op1=Options
+op10= 
+onop=lobbyscreen_tabswitch(4)
+
+// 906:220
+[com_194]
+type=rectangle
+x=611
+y=35
+width=38
+height=1
+layer=tabs
+colour=0x948a80
+fill=yes
+
+// 906:221
+[logoutbutton]
+type=graphic
+x=627
+y=12
+width=19
+height=17
+layer=tabs
+graphic="intro_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Logout
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onop=lobbyscreen_leavelobby
+
+// 906:222
+[options_tab_text]
+type=text
+x=32
+y=5
+width=34
+height=22
+widthmode=minus
+layer=options_tab
+textfont=verdana_11pt_regular
+text=Options
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:223
+[options_icon]
+type=graphic
+x=10
+y=5
+width=22
+height=22
+layer=options_tab
+graphic=graphic_4441
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:224
+[clanchat_tab_text]
+type=text
+x=32
+y=5
+width=34
+height=22
+widthmode=minus
+layer=clanchat_tab
+textfont=verdana_11pt_regular
+text=Clan<br>Chat
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:225
+[clanchat_icon]
+type=graphic
+x=10
+y=5
+width=22
+height=22
+layer=clanchat_tab
+graphic=graphic_4440
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:226
+[friendslist_tab_text]
+type=text
+x=32
+y=5
+width=34
+height=22
+widthmode=minus
+layer=friendslist_tab
+textfont=verdana_11pt_regular
+text=Friends
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:227
+[friendslist_icon]
+type=graphic
+x=10
+y=5
+width=22
+height=22
+layer=friendslist_tab
+graphic=graphic_4439
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:228
+[worldselect_tab_text]
+type=text
+x=32
+y=5
+width=34
+height=22
+widthmode=minus
+layer=worldselect_tab
+textfont=verdana_11pt_regular
+text=World<br>Select
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:229
+[worldselect_icon]
+type=graphic
+x=10
+y=5
+width=22
+height=22
+layer=worldselect_tab
+graphic=graphic_4438
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 906:230
+[playerinfo_tab_graphic]
+type=graphic
+height=30
+widthmode=minus
+layer=playerinfo_tab
+graphic=graphic_4671
+
+// 906:231
+[playerinfo_tab_text]
+type=text
+x=32
+y=5
+width=34
+height=22
+widthmode=minus
+layer=playerinfo_tab
+textfont=verdana_11pt_regular
+text=Player<br>Info
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=10
+op10=  
+
+// 906:232
+[playerinfo_icon]
+type=graphic
+x=10
+y=5
+width=22
+height=22
+layer=playerinfo_tab
+graphic=graphic_4437
+colour=0xffffffff
+
+// 906:233
+[debug]
+type=text
+clientcode=1405
+x=5
+y=5
+width=175
+height=106
+xmode=abs_right
+layer=com_0
+textfont=p11_full
+textshadow=yes
+colour=0xffff00
+
+// 906:234
+[tooltip]
+type=layer
+x=577
+y=395
+width=100
+height=17
+layer=com_0
+hide=yes
+transmitop=10
+op10= 
+
+// 906:235
+[com_235]
+type=layer
+width=10
+height=10
+layer=com_0
+
+// 906:236
+[com_236]
+type=layer
+width=1
+height=1
+layer=com_0
+
+// 906:237
+[com_237_]
+type=rectangle
+clientcode=1403
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+colour=0xffff00
+trans=255
+transmitop=10
+op10=  
+
+// 906:238
+[tooltip_outer]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=tooltip
+colour=0x000000
+transmitop=10
+op10= 
+
+// 906:239
+[tooltip_inner]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=tooltip
+colour=0xffffa0
+fill=yes
+transmitop=10
+op10= 
+
+// 906:240
+[tooltip_text]
+type=text
+x=4
+y=2
+width=8
+widthmode=minus
+heightmode=minus
+layer=tooltip
+textfont=p12_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 906:241
+[popup_border]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_body
+
+// 906:242
+[login_bg_gfx]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_border
+graphic=window_texture
+tiling=yes
+alpha=yes
+
+// 906:243
+[popup_top_left]
+type=graphic
+width=38
+height=72
+layer=popup_border
+vflip=yes
+hflip=yes
+
+// 906:244
+[popup_bottom_left]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=popup_border
+hflip=yes
+
+// 906:245
+[popup_top_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+layer=popup_border
+graphic="corner_frame_2,2"
+tiling=yes
+vflip=yes
+
+// 906:246
+[popup_bottom_side]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=popup_border
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 906:247
+[popup_top_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=popup_border
+vflip=yes
+
+// 906:248
+[popup_bottom_right]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=popup_border
+
+// 906:249
+[popup_left_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+layer=popup_border
+graphic="corner_frame_1,1"
+hflip=yes
+
+// 906:250
+[popup_right_side]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=popup_border
+graphic="corner_frame_1,1"
+
+// 906:251
+[popup_throbber]
+type=graphic
+y=7
+width=111
+height=111
+xmode=abs_centre
+layer=popup_body
+graphic="loading_wheel_1,0"
+alpha=yes
+
+// 906:252
+[popup_text]
+type=text
+y=105
+width=20
+height=42
+widthmode=minus
+xmode=abs_centre
+layer=popup_body
+textfont=verdana_11pt_regular
+text=Logging in - please wait...
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:253
+[popup_small_button]
+type=layer
+y=5
+width=80
+height=26
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_body
+hide=yes
+
+// 906:254
+[popup_small_button_left]
+type=graphic
+width=25
+height=25
+layer=popup_small_button
+graphic="set_but_end_1,0"
+
+// 906:255
+[popup_small_button_mid]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=popup_small_button
+graphic="set_but_fill_1,0"
+tiling=yes
+
+// 906:256
+[popup_small_button_right]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=popup_small_button
+graphic="set_but_end_1,0"
+hflip=yes
+
+// 906:257
+[popup_small_button_text]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_small_button
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:258
+[popup_big_button]
+type=layer
+y=5
+width=80
+height=26
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=popup_body
+hide=yes
+
+// 906:259
+[popup_big_button_left]
+type=graphic
+width=25
+height=25
+layer=popup_big_button
+graphic="set_but_end_1,0"
+
+// 906:260
+[popup_big_button_mid]
+type=graphic
+x=25
+width=51
+height=25
+widthmode=minus
+layer=popup_big_button
+graphic="set_but_fill_1,0"
+tiling=yes
+
+// 906:261
+[popup_big_button_right]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=popup_big_button
+graphic="set_but_end_1,0"
+hflip=yes
+
+// 906:262
+[popup_big_button_text]
+type=text
+y=-1
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=popup_big_button
+textfont=verdana_11pt_regular
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:263
+[com_237]
+type=graphic
+x=-120
+y=-126
+width=239
+height=250
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:264
+[com_238]
+type=graphic
+x=-359
+y=-126
+width=239
+height=250
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:265
+[com_239]
+type=graphic
+x=119
+y=-126
+width=239
+height=250
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:266
+[com_240]
+type=graphic
+x=358
+y=-126
+width=239
+height=250
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:267
+[telekinetic_push]
+type=graphic
+x=-120
+y=125
+width=239
+height=253
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:268
+[com_242]
+type=graphic
+x=-359
+y=125
+width=239
+height=253
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:269
+[com_243]
+type=graphic
+x=119
+y=125
+width=239
+height=253
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:270
+[com_244]
+type=graphic
+x=358
+y=125
+width=239
+height=253
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+
+// 906:271
+[com_245]
+type=layer
+width=956
+height=503
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+onload=lobby_resize
+
+// 906:272
+[com_246]
+type=graphic
+width=38
+height=38
+layer=com_245
+hflip=yes
+
+// 906:273
+[com_247]
+type=graphic
+y=38
+width=7
+height=76
+heightmode=minus
+layer=com_245
+graphic=frame_border_vertical
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 906:274
+[com_248]
+type=graphic
+width=38
+height=38
+ymode=abs_bottom
+layer=com_245
+vflip=yes
+hflip=yes
+
+// 906:275
+[com_249]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=com_245
+graphic="corner_frame_5,4"
+
+// 906:276
+[com_250]
+type=graphic
+y=38
+width=7
+height=76
+heightmode=minus
+xmode=abs_right
+layer=com_245
+graphic=frame_border_vertical
+tiling=yes
+
+// 906:277
+[com_251]
+type=graphic
+width=38
+height=38
+xmode=abs_right
+ymode=abs_bottom
+layer=com_245
+vflip=yes
+
+// 906:278
+[com_252]
+type=graphic
+x=38
+width=76
+height=7
+widthmode=minus
+layer=com_245
+graphic=frame_border_horizontal
+tiling=yes
+
+// 906:279
+[com_253]
+type=graphic
+x=38
+width=76
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=com_245
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+
+// 906:280
+[com_254]
+type=graphic
+height=30
+widthmode=minus
+layer=com_191
+graphic=graphic_4672
+
+// 906:281
+[com_255]
+type=text
+x=32
+y=5
+width=34
+height=22
+widthmode=minus
+layer=com_191
+textfont=verdana_11pt_regular
+text=Friends<br>Chat
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:282
+[com_282]
+type=graphic
+x=10
+y=5
+width=22
+height=22
+layer=com_191
+graphic=graphic_7908
+
+// 906:283
+[com_283]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_40_
+
+// 906:284
+[com_284]
+type=graphic
+width=54
+height=13
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_283
+graphic=window_texture
+tiling=yes
+
+// 906:285
+[com_285]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=com_283
+graphic="corner_frame_1,2"
+hflip=yes
+
+// 906:286
+[com_286]
+type=graphic
+width=38
+height=72
+heightmode=minus
+ymode=abs_centre
+layer=com_283
+graphic="corner_frame_1,1"
+tiling=yes
+hflip=yes
+
+// 906:287
+[com_287]
+type=graphic
+y=72
+width=38
+height=72
+heightmode=minus
+xmode=abs_right
+layer=com_283
+graphic="corner_frame_1,1"
+tiling=yes
+
+// 906:288
+[com_288]
+type=graphic
+y=50
+width=385
+height=150
+xmode=abs_centre
+layer=com_283
+graphic=runescape_logo
+
+// 906:289
+[com_289]
+type=graphic
+width=72
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=com_283
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 906:290
+[com_290]
+type=graphic
+width=72
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_283
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 906:291
+[com_291]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=com_283
+graphic="corner_frame_1,2"
+
+// 906:292
+[com_292]
+type=graphic
+y=35
+width=72
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=com_283
+graphic="corner_frame_2,1"
+tiling=yes
+
+// 906:293
+[com_293]
+type=rectangle
+x=8
+y=8
+width=16
+height=27
+widthmode=minus
+layer=com_283
+colour=0x000000
+fill=yes
+trans=200
+
+// 906:294
+[com_294]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=com_283
+graphic="corner_frame_1,0"
+
+// 906:295
+[com_295]
+type=graphic
+width=38
+height=72
+layer=com_283
+graphic="corner_frame_1,0"
+hflip=yes
+
+// 906:296
+[com_296]
+type=graphic
+x=518
+y=12
+width=19
+height=17
+layer=com_283
+graphic="intro_close_button,0"
+transmitop=1
+op1=Logout
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onop=lobbyscreen_leavelobby
+
+// 906:297
+[com_297]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_40_
+
+// 906:298
+[com_298]
+type=text
+y=6
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_297
+textfont=verdana_15pt_regular
+text=E-mail Validation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:299
+[com_299]
+type=text
+y=202
+width=50
+height=80
+widthmode=minus
+xmode=abs_centre
+layer=com_297
+textfont=verdana_11pt_regular
+text=Congratulations, you are only one step away from entering RuneScape. You were sent an email with a link. Pressing this link will verify your email address and activate your account. If you can’t find the email check your ‘Junk’ folder or request a new email via the button below.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+onload=clientscript_4252(event_com)
+
+// 906:300
+[com_300]
+type=layer
+width=22795
+height=20609
+widthmode=proportion
+heightmode=proportion
+layer=com_297
+hide=yes
+
+// 906:301
+[com_301]
+type=layer
+x=-100
+y=320
+width=170
+height=26
+xmode=abs_centre
+layer=com_297
+transmitop=1
+op1=Resend E-mail
+onmouseover=script3937(lobbyscreen:com_309, 8702, lobbyscreen:com_310, 8700, lobbyscreen:com_312, 8700, lobbyscreen:com_311, 8702)
+onmouseleave=script3937(lobbyscreen:com_309, 8701, lobbyscreen:com_310, 8699, lobbyscreen:com_312, 8699, lobbyscreen:com_311, 8701)
+onop=clientscript_5501
+
+// 906:302
+[com_302]
+type=graphic
+width=16
+height=27
+layer=com_5
+graphic=graphic_3814
+
+// 906:303
+[com_303]
+type=graphic
+width=32
+height=27
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+graphic=graphic_3815
+
+// 906:304
+[com_304]
+type=graphic
+width=16
+height=27
+xmode=abs_right
+layer=com_5
+graphic=graphic_3816
+
+// 906:305
+[com_305]
+type=layer
+x=1
+y=1
+width=168
+height=25
+layer=com_5
+
+// 906:306
+[com_306]
+type=text
+x=4
+width=4000
+height=25
+ymode=abs_centre
+layer=com_305
+textfont=b12_full
+textalignv=centre
+textshadow=yes
+
+// 906:307
+[com_307]
+type=line
+x=4
+height=16
+ymode=abs_centre
+layer=com_305
+colour=0xffffff
+
+// 906:308
+[com_308]
+type=layer
+x=43
+y=286
+width=101
+height=26
+xmode=abs_centre
+layer=com_300
+transmitop=1
+op1=Resend E-mail
+onmouseover=script3937(lobbyscreen:com_322, 8702, lobbyscreen:com_323, 8700, lobbyscreen:com_325, 8700, lobbyscreen:com_324, 8702)
+onmouseleave=script3937(lobbyscreen:com_322, 8701, lobbyscreen:com_323, 8699, lobbyscreen:com_325, 8699, lobbyscreen:com_324, 8701)
+onop=clientscript_5520
+
+// 906:309
+[com_309]
+type=graphic
+width=25
+height=25
+layer=com_301
+graphic=graphic_8701
+
+// 906:310
+[com_310]
+type=graphic
+x=25
+width=25
+height=25
+layer=com_301
+graphic=graphic_8699
+tiling=yes
+
+// 906:311
+[com_311]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=com_301
+graphic=graphic_8701
+hflip=yes
+
+// 906:312
+[com_312]
+type=graphic
+x=50
+width=94
+height=25
+layer=com_301
+graphic=graphic_8699
+tiling=yes
+hflip=yes
+
+// 906:313
+[com_313]
+type=text
+x=1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_301
+textfont=verdana_11pt_regular
+text=Resend e-mail
+textalignh=centre
+textalignv=centre
+colour=0x7b5513
+
+// 906:314
+[com_314]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_301
+textfont=verdana_11pt_regular
+text=Resend e-mail
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 906:315
+[com_315]
+type=layer
+x=100
+y=320
+width=170
+height=26
+xmode=abs_centre
+layer=com_297
+transmitop=1
+op1=Resend E-mail
+onmouseover=script3937(lobbyscreen:com_316, 8702, lobbyscreen:com_317, 8700, lobbyscreen:com_319, 8700, lobbyscreen:com_318, 8702)
+onmouseleave=script3937(lobbyscreen:com_316, 8701, lobbyscreen:com_317, 8699, lobbyscreen:com_319, 8699, lobbyscreen:com_318, 8701)
+onop=clientscript_5502
+
+// 906:316
+[com_316]
+type=graphic
+width=25
+height=25
+layer=com_315
+graphic=graphic_8701
+
+// 906:317
+[com_317]
+type=graphic
+x=25
+width=25
+height=25
+layer=com_315
+graphic=graphic_8699
+tiling=yes
+
+// 906:318
+[com_318]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=com_315
+graphic=graphic_8701
+hflip=yes
+
+// 906:319
+[com_319]
+type=graphic
+x=50
+width=94
+height=25
+layer=com_315
+graphic=graphic_8699
+tiling=yes
+hflip=yes
+
+// 906:320
+[com_320]
+type=text
+x=1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_315
+textfont=verdana_11pt_regular
+text=Change e-mail address
+textalignh=centre
+textalignv=centre
+colour=0x7b5513
+
+// 906:321
+[com_321]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_315
+textfont=verdana_11pt_regular
+text=Change e-mail address
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 906:322
+[com_322]
+type=graphic
+width=25
+height=25
+layer=com_308
+graphic=graphic_8701
+
+// 906:323
+[com_323]
+type=graphic
+x=25
+width=25
+height=25
+layer=com_308
+graphic=graphic_8699
+tiling=yes
+
+// 906:324
+[com_324]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=com_308
+graphic=graphic_8701
+hflip=yes
+
+// 906:325
+[com_325]
+type=graphic
+x=50
+width=25
+height=25
+layer=com_308
+graphic=graphic_8699
+tiling=yes
+hflip=yes
+
+// 906:326
+[com_326]
+type=text
+x=1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_308
+textfont=verdana_11pt_regular
+text=Submit
+textalignh=centre
+textalignv=centre
+colour=0x7b5513
+
+// 906:327
+[com_327]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_308
+textfont=verdana_11pt_regular
+text=Submit
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 906:328
+[com_328]
+type=layer
+x=-107
+y=335
+width=101
+height=26
+xmode=abs_centre
+layer=com_300
+transmitop=1
+op1=Resend E-mail
+onmouseover=script3937(lobbyscreen:com_329, 8702, lobbyscreen:com_330, 8700, lobbyscreen:com_332, 8700, lobbyscreen:com_331, 8702)
+onmouseleave=script3937(lobbyscreen:com_329, 8701, lobbyscreen:com_330, 8699, lobbyscreen:com_332, 8699, lobbyscreen:com_331, 8701)
+onop=clientscript_5504
+
+// 906:329
+[com_329]
+type=graphic
+width=25
+height=25
+layer=com_328
+graphic=graphic_8701
+
+// 906:330
+[com_330]
+type=graphic
+x=25
+width=25
+height=25
+layer=com_328
+graphic=graphic_8699
+tiling=yes
+
+// 906:331
+[com_331]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=com_328
+graphic=graphic_8701
+hflip=yes
+
+// 906:332
+[com_332]
+type=graphic
+x=50
+width=25
+height=25
+layer=com_328
+graphic=graphic_8699
+tiling=yes
+hflip=yes
+
+// 906:333
+[com_333]
+type=text
+x=1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_328
+textfont=verdana_11pt_regular
+text=Cancel
+textalignh=centre
+textalignv=centre
+colour=0x7b5513
+
+// 906:334
+[com_334]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_328
+textfont=verdana_11pt_regular
+text=Cancel
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 906:335
+[com_335]
+type=layer
+y=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+
+// 906:336
+[com_336]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_335
+colour=0x010000
+fill=yes
+trans=255
+
+// 906:337
+[com_337]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_34
+colour=0x010000
+fill=yes
+
+// 906:338
+[com_338]
+type=layer
+width=152
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_34
+
+// 906:339
+[com_339]
+type=layer
+width=613
+height=479
+xmode=abs_centre
+layer=com_338
+
+// 906:340
+[com_340]
+type=graphic
+x=-153
+width=307
+height=240
+xmode=abs_centre
+layer=com_339
+graphic=graphic_10767
+
+// 906:341
+[com_341]
+type=graphic
+x=153
+width=307
+height=240
+xmode=abs_centre
+layer=com_339
+graphic=graphic_10768
+
+// 906:342
+[com_342]
+type=graphic
+x=-153
+y=240
+width=307
+height=240
+xmode=abs_centre
+layer=com_339
+graphic=graphic_10769
+
+// 906:343
+[com_343]
+type=graphic
+x=153
+y=240
+width=307
+height=240
+xmode=abs_centre
+layer=com_339
+graphic=graphic_10770
+
+// 906:344
+[com_344]
+type=graphic
+y=95
+width=376
+height=46
+xmode=abs_centre
+layer=com_339
+graphic=graphic_10940
+alpha=yes
+
+// 906:345
+[com_345]
+type=graphic
+x=282
+y=66
+width=19
+height=19
+xmode=abs_centre
+layer=com_339
+graphic=graphic_8278
+transmitop=1
+op1=Logout
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onop=clientscript_6206
+
+// 906:346
+[com_346]
+type=layer
+y=136
+width=240
+height=72
+xmode=abs_centre
+layer=com_338
+
+// 906:347
+[com_347]
+type=graphic
+width=60
+height=60
+ymode=abs_centre
+layer=com_346
+graphic=graphic_10803
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "More bank space!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:348
+[com_348]
+type=graphic
+x=180
+width=60
+height=60
+ymode=abs_centre
+layer=com_346
+graphic=graphic_10806
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "A new title!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:349
+[com_349]
+type=graphic
+x=120
+width=60
+height=60
+ymode=abs_centre
+layer=com_346
+graphic=graphic_10807
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "A unique Cape!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:350
+[com_350]
+type=graphic
+x=60
+width=60
+height=60
+ymode=abs_centre
+layer=com_346
+graphic=graphic_10805
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "An XP lamp!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:351
+[com_351]
+type=text
+y=176
+width=348
+height=37
+xmode=abs_centre
+layer=com_338
+hide=yes
+textfont=verdana_11pt_regular
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:352
+[com_352]
+type=text
+y=216
+width=350
+height=35
+xmode=abs_centre
+layer=com_338
+textfont=verdana_11pt_regular
+textlineheight=12
+colour=0xbfbfbf
+
+// 906:353
+[com_353]
+type=text
+y=250
+width=236
+height=16
+xmode=abs_centre
+layer=com_338
+textfont=verdana_11pt_regular
+text=- A unique Cape!<br>- An exclusive in-game title 'The Real'<br>- up to 20 additional Bank Spaces<br>- An XP lamp in a skill of your choice
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:354
+[com_354]
+type=layer
+y=297
+width=250
+height=95
+xmode=abs_centre
+layer=com_338
+
+// 906:355
+[com_355]
+type=text
+x=6
+y=7
+width=45
+height=19
+layer=com_354
+textfont=verdana_11pt_regular
+text=Email:
+textlineheight=12
+colour=0x55b6eb
+
+// 906:356
+[com_356]
+type=layer
+y=22
+width=250
+height=27
+layer=com_354
+onclick=clientscript_6194(1)
+
+// 906:357
+[com_357]
+type=graphic
+width=10
+height=24
+ymode=abs_centre
+layer=com_356
+graphic=graphic_10906
+
+// 906:358
+[com_358]
+type=graphic
+x=-1
+width=22
+height=24
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_356
+graphic=graphic_10907
+tiling=yes
+
+// 906:359
+[com_359]
+type=graphic
+x=238
+width=10
+height=24
+ymode=abs_centre
+layer=com_356
+graphic=graphic_10908
+
+// 906:360
+[com_360]
+type=layer
+width=238
+heightmode=minus
+layer=com_356
+
+// 906:361
+[com_361]
+type=text
+x=10
+width=229
+heightmode=minus
+layer=com_360
+textfont=verdana_11pt_regular
+textalignv=centre
+colour=0xebe0bc
+onclick=clientscript_6197(event_mousex, event_mousey, lobbyscreen:com_361, lobbyscreen:com_362)
+
+// 906:362
+[com_362]
+type=rectangle
+x=6
+width=1
+height=14
+ymode=abs_centre
+layer=com_356
+hide=yes
+colour=0xebe0bc
+fill=yes
+
+// 906:363
+[com_363]
+type=layer
+y=65
+width=250
+height=27
+layer=com_354
+onclick=clientscript_6194(2)
+
+// 906:364
+[com_364]
+type=graphic
+width=10
+height=24
+ymode=abs_centre
+layer=com_363
+graphic=graphic_10906
+
+// 906:365
+[com_365]
+type=graphic
+x=10
+width=21
+height=24
+widthmode=minus
+ymode=abs_centre
+layer=com_363
+graphic=graphic_10907
+tiling=yes
+
+// 906:366
+[com_366]
+type=graphic
+x=238
+width=10
+height=24
+ymode=abs_centre
+layer=com_363
+graphic=graphic_10908
+
+// 906:367
+[com_367]
+type=layer
+width=238
+heightmode=minus
+layer=com_363
+
+// 906:368
+[com_368]
+type=text
+x=10
+width=229
+heightmode=minus
+layer=com_367
+textfont=verdana_11pt_regular
+textalignv=centre
+colour=0xebe0bc
+onclick=clientscript_6197(event_mousex, event_mousey, lobbyscreen:com_368, lobbyscreen:com_369)
+
+// 906:369
+[com_369]
+type=rectangle
+x=6
+width=1
+height=14
+ymode=abs_centre
+layer=com_363
+hide=yes
+colour=0xebe0bc
+fill=yes
+
+// 906:370
+[com_370]
+type=text
+x=6
+y=51
+width=45
+height=19
+layer=com_354
+textfont=verdana_11pt_regular
+text=Confirm Email:
+textlineheight=12
+colour=0x55b6eb
+
+// 906:371
+[com_371]
+type=layer
+y=389
+width=339
+height=22
+xmode=abs_centre
+layer=com_338
+onmouseover=clientscript_6209(lobbyscreen:com_372, lobbyscreen:com_373, 1)
+onmouseleave=clientscript_6209(lobbyscreen:com_372, lobbyscreen:com_373, 0)
+onclick=clientscript_6212
+
+// 906:372
+[com_372]
+type=graphic
+width=17
+height=17
+ymode=abs_centre
+layer=com_371
+graphic=graphic_10871
+
+// 906:373
+[com_373]
+type=text
+width=21
+height=22
+widthmode=minus
+xmode=abs_right
+layer=com_371
+textfont=verdana_11pt_regular
+text=Please send me news and updates.
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 906:374
+[com_374]
+type=layer
+y=410
+width=216
+height=43
+xmode=abs_centre
+layer=com_338
+transmitop=1
+op1=Submit
+onmouseover=graphic_swapper(lobbyscreen:com_375, 10885)
+onmouseleave=graphic_swapper(lobbyscreen:com_375, 10884)
+onop=clientscript_6202
+
+// 906:375
+[com_375]
+type=graphic
+width=216
+height=48
+xmode=abs_centre
+ymode=abs_centre
+layer=com_374
+graphic=graphic_10884
+
+// 906:376
+[com_376]
+type=graphic
+y=2
+width=216
+height=48
+xmode=abs_centre
+ymode=abs_centre
+layer=com_374
+graphic=graphic_10795
+
+// 906:377
+[com_377]
+type=layer
+x=146
+y=419
+width=84
+height=25
+xmode=abs_centre
+layer=com_338
+transmitop=1
+op1=Skip
+onmouseover=graphic_swapper3(lobbyscreen:com_378, 10856, lobbyscreen:com_379, 10857, lobbyscreen:com_380, 10858)
+onmouseleave=graphic_swapper3(lobbyscreen:com_378, 10853, lobbyscreen:com_379, 10854, lobbyscreen:com_380, 10855)
+onop=clientscript_6193
+
+// 906:378
+[com_378]
+type=graphic
+width=12
+height=24
+ymode=abs_centre
+layer=com_377
+graphic=graphic_10853
+
+// 906:379
+[com_379]
+type=graphic
+x=11
+width=62
+height=24
+ymode=abs_centre
+layer=com_377
+graphic=graphic_10854
+
+// 906:380
+[com_380]
+type=graphic
+x=72
+width=12
+height=24
+ymode=abs_centre
+layer=com_377
+graphic=graphic_10855
+
+// 906:381
+[com_381]
+type=text
+y=-2
+width=62
+height=10
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_377
+textfont=verdana_11pt_regular
+text=Skip
+textalignh=centre
+textalignv=centre
+colour=0xe5b051
+
+// 906:382
+[com_382]
+type=layer
+width=152
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_34
+hide=yes
+
+// 906:383
+[com_383]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_382
+
+// 906:384
+[com_384]
+type=graphic
+x=-153
+width=307
+height=240
+xmode=abs_centre
+layer=com_383
+graphic=graphic_10767
+
+// 906:385
+[com_385]
+type=graphic
+x=153
+width=307
+height=240
+xmode=abs_centre
+layer=com_383
+graphic=graphic_10768
+
+// 906:386
+[com_386]
+type=graphic
+x=-153
+y=240
+width=307
+height=240
+xmode=abs_centre
+layer=com_383
+graphic=graphic_10769
+
+// 906:387
+[com_387]
+type=graphic
+x=153
+y=240
+width=307
+height=240
+xmode=abs_centre
+layer=com_383
+graphic=graphic_10770
+
+// 906:388
+[com_388]
+type=graphic
+y=95
+width=376
+height=46
+xmode=abs_centre
+layer=com_383
+graphic=graphic_10940
+alpha=yes
+
+// 906:389
+[com_389]
+type=graphic
+x=282
+y=66
+width=19
+height=19
+xmode=abs_centre
+layer=com_383
+graphic=graphic_8278
+transmitop=1
+op1=Logout
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onop=clientscript_6206
+
+// 906:390
+[com_390]
+type=layer
+y=366
+width=240
+height=72
+xmode=abs_centre
+layer=com_382
+
+// 906:391
+[com_391]
+type=graphic
+width=60
+height=60
+ymode=abs_centre
+layer=com_390
+graphic=graphic_10803
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "More bank space!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:392
+[com_392]
+type=graphic
+x=180
+width=60
+height=60
+ymode=abs_centre
+layer=com_390
+graphic=graphic_10806
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "A new title!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:393
+[com_393]
+type=graphic
+x=120
+width=60
+height=60
+ymode=abs_centre
+layer=com_390
+graphic=graphic_10807
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "A unique Cape!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:394
+[com_394]
+type=graphic
+x=60
+width=60
+height=60
+ymode=abs_centre
+layer=com_390
+graphic=graphic_10805
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "An XP lamp!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:395
+[com_395]
+type=text
+y=144
+width=348
+height=47
+xmode=abs_centre
+layer=com_382
+textfont=verdana_11pt_regular
+text=An email from noreply@email.runescape.com has been sent to you, simply click the link in the email to validate your address.
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:396
+[com_396]
+type=text
+y=190
+width=348
+height=38
+xmode=abs_centre
+layer=com_382
+textfont=verdana_11pt_regular
+text=By validating your Email you'll receive a 14 day FREE Trial and these great rewards:
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:397
+[com_397]
+type=text
+y=227
+width=315
+height=66
+xmode=abs_centre
+layer=com_382
+textfont=verdana_11pt_regular
+text=- A unique Cape!<br>- An exclusive in-game title 'The Real'<br>- Up to 20 additional Bank Spaces<br>- An XP lamp in a skill of your choice
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:398
+[com_398]
+type=layer
+y=336
+width=191
+height=25
+xmode=abs_centre
+layer=com_382
+transmitop=1
+op1=Back
+onmouseover=graphic_swapper3(lobbyscreen:com_399, 10856, lobbyscreen:com_400, 10857, lobbyscreen:com_401, 10858)
+onmouseleave=graphic_swapper3(lobbyscreen:com_399, 10853, lobbyscreen:com_400, 10854, lobbyscreen:com_401, 10855)
+onop=clientscript_6205
+
+// 906:399
+[com_399]
+type=graphic
+width=12
+height=24
+ymode=abs_centre
+layer=com_398
+graphic=graphic_10853
+
+// 906:400
+[com_400]
+type=graphic
+width=167
+height=24
+xmode=abs_centre
+ymode=abs_centre
+layer=com_398
+graphic=graphic_10854
+
+// 906:401
+[com_401]
+type=graphic
+width=12
+height=24
+xmode=abs_right
+ymode=abs_centre
+layer=com_398
+graphic=graphic_10855
+
+// 906:402
+[com_402]
+type=text
+y=-2
+width=51
+height=10
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_398
+textfont=verdana_11pt_regular
+text=Re-enter your email address
+textalignh=centre
+textalignv=centre
+colour=0xe5b051
+
+// 906:403
+[com_403]
+type=text
+y=292
+width=331
+height=45
+xmode=abs_centre
+layer=com_382
+textfont=verdana_11pt_regular
+text=If the email isn't in your inbox, try the Spam/Junk folder. If you entered the wrong email, click below.
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:404
+[com_404]
+type=layer
+x=145
+y=336
+width=84
+height=25
+xmode=abs_centre
+layer=com_382
+transmitop=1
+op1=Skip
+onmouseover=graphic_swapper3(lobbyscreen:com_405, 10856, lobbyscreen:com_406, 10857, lobbyscreen:com_407, 10858)
+onmouseleave=graphic_swapper3(lobbyscreen:com_405, 10853, lobbyscreen:com_406, 10854, lobbyscreen:com_407, 10855)
+onop=clientscript_6193
+
+// 906:405
+[com_405]
+type=graphic
+width=12
+height=24
+ymode=abs_centre
+layer=com_404
+graphic=graphic_10853
+
+// 906:406
+[com_406]
+type=graphic
+x=11
+width=62
+height=24
+ymode=abs_centre
+layer=com_404
+graphic=graphic_10854
+
+// 906:407
+[com_407]
+type=graphic
+x=72
+width=12
+height=24
+ymode=abs_centre
+layer=com_404
+graphic=graphic_10855
+
+// 906:408
+[com_408]
+type=text
+y=-2
+width=62
+height=10
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_404
+textfont=verdana_11pt_regular
+text=Skip
+textalignh=centre
+textalignv=centre
+colour=0xe5b051
+
+// 906:409
+[com_409]
+type=layer
+width=152
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_34
+hide=yes
+
+// 906:410
+[com_410]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_409
+
+// 906:411
+[com_411]
+type=graphic
+x=-153
+width=307
+height=240
+xmode=abs_centre
+layer=com_410
+graphic=graphic_10767
+
+// 906:412
+[com_412]
+type=graphic
+x=153
+width=307
+height=240
+xmode=abs_centre
+layer=com_410
+graphic=graphic_10768
+
+// 906:413
+[com_413]
+type=graphic
+x=-153
+y=240
+width=307
+height=240
+xmode=abs_centre
+layer=com_410
+graphic=graphic_10769
+
+// 906:414
+[com_414]
+type=graphic
+x=153
+y=240
+width=307
+height=240
+xmode=abs_centre
+layer=com_410
+graphic=graphic_10770
+
+// 906:415
+[com_415]
+type=graphic
+y=95
+width=376
+height=46
+xmode=abs_centre
+layer=com_410
+graphic=graphic_10787
+alpha=yes
+
+// 906:416
+[com_416]
+type=graphic
+x=282
+y=66
+width=19
+height=19
+xmode=abs_centre
+layer=com_410
+graphic=graphic_8278
+transmitop=1
+op1=Logout
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onop=clientscript_6206
+
+// 906:417
+[com_417]
+type=text
+y=150
+width=361
+height=78
+xmode=abs_centre
+layer=com_409
+textfont=verdana_11pt_regular
+text=Thank you for validating your Email. Head over to Diango in Draynor Market to claim your rewards. Your extra bank space has already been added to your account.
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:418
+[com_418]
+type=text
+y=200
+width=236
+height=100
+xmode=abs_centre
+layer=com_409
+textfont=verdana_11pt_regular
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:419
+[com_419]
+type=graphic
+y=307
+width=385
+height=64
+xmode=abs_centre
+layer=com_409
+hide=yes
+
+// 906:420
+[com_420]
+type=text
+y=350
+width=350
+height=40
+xmode=abs_centre
+layer=com_409
+textfont=verdana_11pt_regular
+textlineheight=12
+textshadow=yes
+colour=0xbfbfbf
+
+// 906:421
+[com_421]
+type=layer
+y=371
+width=216
+height=46
+xmode=abs_centre
+layer=com_409
+onmouseover=graphic_swapper(lobbyscreen:com_423, 10885)
+onmouseleave=graphic_swapper(lobbyscreen:com_423, 10884)
+onclick=clientscript_6207
+
+// 906:422
+[com_422]
+type=text
+width=110
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_421
+textfont=verdana_11pt_regular_multiline
+text=Play
+textalignh=centre
+textalignv=centre
+
+// 906:423
+[com_423]
+type=graphic
+width=216
+height=48
+ymode=abs_centre
+layer=com_421
+graphic=graphic_10884
+
+// 906:424
+[com_424]
+type=graphic
+y=2
+width=216
+height=48
+ymode=abs_centre
+layer=com_421
+graphic=graphic_10791
+
+// 906:425
+[com_425]
+type=layer
+y=208
+width=240
+height=72
+xmode=abs_centre
+layer=com_409
+
+// 906:426
+[com_426]
+type=graphic
+width=60
+height=60
+ymode=abs_centre
+layer=com_425
+graphic=graphic_10803
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "More bank space!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:427
+[com_427]
+type=graphic
+x=180
+width=60
+height=60
+ymode=abs_centre
+layer=com_425
+graphic=graphic_10806
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "A new title!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:428
+[com_428]
+type=graphic
+x=120
+width=60
+height=60
+ymode=abs_centre
+layer=com_425
+graphic=graphic_10807
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "A unique Cape!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:429
+[com_429]
+type=graphic
+x=60
+width=60
+height=60
+ymode=abs_centre
+layer=com_425
+graphic=graphic_10805
+alpha=yes
+onmouseleave=deltooltip(lobbyscreen:com_430)
+onmouserepeat=aif_tooltip(lobbyscreen:com_430, event_com, -1, "An XP lamp!", 150, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 906:430
+[com_430]
+type=layer
+width=765
+height=503
+layer=com_34
+
+// 906:431
+[com_431]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+onload=script4260(event_com)
+
+// 906:432
+[com_432]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_35
+
+// 906:433
+[com_433]
+type=layer
+x=150
+y=5
+width=336
+height=170
+layer=com_432
+onload=clientscript_4003(event_com)
+
+// 906:434
+[com_434]
+type=graphic
+width=294
+height=282
+layer=com_432
+graphic=graphic_9696
+
+// 906:435
+[com_435]
+type=text
+x=150
+width=153
+height=30
+widthmode=minus
+layer=com_432
+textfont=verdana_13pt_regular
+text=Your 14 days of free membership await...
+textlineheight=13
+textalignh=centre
+textshadow=yes
+colour=0xefb063
+
+// 906:436
+[com_436]
+type=text
+x=150
+y=20
+width=153
+height=105
+widthmode=minus
+layer=com_432
+textfont=verdana_11pt_regular
+text=You're eligible for a free trial of the members-only<br>features of RuneScape!<br><br>Click the button below to start your two weeks of<br>membership and explore the wider and fuller world <br>we offer.
+textlineheight=13
+textalignh=centre
+textshadow=yes
+
+// 906:437
+[com_437]
+type=text
+x=153
+y=142
+width=159
+height=37
+widthmode=minus
+layer=com_432
+textfont=verdana_13pt_regular
+text=Enter Burthorpe and help the beleaguered Imperial Guard drive back the troll invaders!
+textlineheight=16
+textalignh=centre
+textshadow=yes
+colour=0xefb063
+
+// 906:438
+[com_438]
+type=layer
+x=9
+y=176
+width=323
+height=55
+xmode=abs_right
+layer=com_432
+transmitop=1
+op1=Activate
+onmouseover=clientscript_5803(lobbyscreen:com_439, lobbyscreen:com_440, lobbyscreen:com_441, 1, 1)
+onmouseleave=clientscript_5803(lobbyscreen:com_439, lobbyscreen:com_440, lobbyscreen:com_441, 0, 1)
+onop=clientscript_2161(1)
+
+// 906:439
+[com_439]
+type=graphic
+width=48
+height=55
+layer=com_438
+graphic=graphic_9644
+
+// 906:440
+[com_440]
+type=graphic
+x=48
+width=95
+height=55
+widthmode=minus
+layer=com_438
+graphic=graphic_9645
+
+// 906:441
+[com_441]
+type=graphic
+x=-1
+width=48
+height=55
+xmode=abs_right
+layer=com_438
+graphic=graphic_9646
+
+// 906:442
+[com_442]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_438
+
+// 906:443
+[com_443]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_442
+textfont=verdana_13pt_regular
+text=Activate my trial!
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 906:444
+[com_444]
+type=layer
+x=41
+y=232
+width=257
+height=42
+xmode=abs_right
+layer=com_432
+transmitop=1
+op1=Close
+onmouseover=clientscript_5803(lobbyscreen:com_445, lobbyscreen:com_446, lobbyscreen:com_447, 1, 0)
+onmouseleave=clientscript_5803(lobbyscreen:com_445, lobbyscreen:com_446, lobbyscreen:com_447, 0, 0)
+onop=clientscript_2161(0)
+
+// 906:445
+[com_445]
+type=graphic
+width=45
+height=43
+layer=com_444
+graphic=graphic_9620
+
+// 906:446
+[com_446]
+type=graphic
+x=44
+width=88
+height=43
+widthmode=minus
+layer=com_444
+graphic=graphic_9621
+
+// 906:447
+[com_447]
+type=graphic
+width=45
+height=43
+xmode=abs_right
+layer=com_444
+graphic=graphic_9622
+
+// 906:448
+[com_448]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_444
+
+// 906:449
+[com_449]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_448
+textfont=verdana_13pt_regular
+text=I'm not ready yet.
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 906:450
+[com_450]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+onload=script4261(event_com)
+
+// 906:451
+[com_451]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_35
+
+// 906:452
+[com_452]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_451
+textfont=palatino_linotype_18pt_regular
+text=Congratulations!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 906:453
+[com_453]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_35
+
+// 906:454
+[com_454]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_453
+transmitop=1
+op1=Close
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onclick=clientscript_2161(0)
+
+// 906:455
+[com_455]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_453
+
+// 906:456
+[com_456]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_36_
+
+// 906:457
+[com_457]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_456
+graphic=window_texture
+tiling=yes
+alpha=yes
+
+// 906:458
+[com_458]
+type=graphic
+width=38
+height=72
+layer=com_456
+graphic="corner_frame_1,3"
+hflip=yes
+
+// 906:459
+[com_459]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=com_456
+graphic="corner_frame_1,2"
+hflip=yes
+
+// 906:460
+[com_460]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+layer=com_456
+graphic="corner_frame_2,2"
+tiling=yes
+vflip=yes
+
+// 906:461
+[com_461]
+type=graphic
+x=38
+width=76
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=com_456
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 906:462
+[com_462]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=com_456
+graphic="corner_frame_1,2"
+vflip=yes
+
+// 906:463
+[com_463]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=com_456
+graphic="corner_frame_1,2"
+
+// 906:464
+[com_464]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+layer=com_456
+graphic="corner_frame_1,1"
+hflip=yes
+
+// 906:465
+[com_465]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=com_456
+graphic="corner_frame_1,1"
+
+// 906:466
+[com_466]
+type=graphic
+y=7
+width=111
+height=111
+xmode=abs_centre
+layer=com_36_
+graphic="loading_wheel_1,0"
+alpha=yes
+
+// 906:467
+[com_467]
+type=text
+y=105
+width=20
+height=42
+widthmode=minus
+xmode=abs_centre
+layer=com_36_
+textfont=verdana_11pt_regular
+text=Activating trial...
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 906:468
+[com_468]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37_
+onload=script4260(event_com)
+
+// 906:469
+[com_469]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_37_
+
+// 906:470
+[com_470]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=com_469
+graphic=graphic_9485
+
+// 906:471
+[com_471]
+type=text
+x=3
+y=17
+width=142
+height=124
+xmode=abs_right
+layer=com_469
+textfont=verdana_11pt_regular
+text=Your 14 day members' trial is now active.<br><br>Go to the Troll Warzone and start your members' adventures by clicking below:
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 906:472
+[com_472]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37_
+onload=script4261(event_com)
+
+// 906:473
+[com_473]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_37_
+
+// 906:474
+[com_474]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_473
+textfont=palatino_linotype_18pt_regular
+text=CONGRATULATIONS!
+textalignh=centre
+textalignv=centre
+colour=0xe5b051
+onload=script4262(event_com)
+
+// 906:475
+[com_475]
+type=layer
+x=8
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_37_
+
+// 906:476
+[com_476]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_475
+transmitop=1
+op1=Close
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onclick=clientscript_2827
+
+// 906:477
+[com_477]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_475
+
+// 906:478
+[com_478]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38_
+onload=script4260(event_com)
+
+// 906:479
+[com_479]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_38_
+
+// 906:480
+[com_480]
+type=text
+x=3
+y=10
+width=6
+height=124
+widthmode=minus
+xmode=abs_right
+layer=com_479
+textfont=verdana_13pt_regular
+text=Something seems to have gone wrong, and your trial could not be activated.<br><br>Please try again later.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 906:481
+[com_481]
+type=layer
+x=68
+y=127
+width=126
+height=24
+xmode=abs_centre
+layer=com_479
+
+// 906:482
+[com_482]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 906:483
+[com_483]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 906:484
+[com_484]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 906:485
+[com_485]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+onload=aif_build_button_layer(event_com, struct_1776)
+
+// 906:486
+[com_486]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_2161(0)
+
+// 906:487
+[com_487]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 906:488
+[com_488]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_481
+
+// 906:489
+[com_489]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_488
+textfont=verdana_13pt_regular
+text=Retry Later
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 906:490
+[com_490]
+type=layer
+x=-68
+y=127
+width=126
+height=24
+xmode=abs_centre
+layer=com_479
+
+// 906:491
+[com_491]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 906:492
+[com_492]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 906:493
+[com_493]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 906:494
+[com_494]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+onload=aif_build_button_layer(event_com, struct_1776)
+
+// 906:495
+[com_495]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onop=clientscript_2161(1)
+
+// 906:496
+[com_496]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 906:497
+[com_497]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_490
+
+// 906:498
+[com_498]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_497
+textfont=verdana_13pt_regular
+text=Retry Now
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 906:499
+[com_499]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38_
+onload=script4261(event_com)
+
+// 906:500
+[com_500]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_38_
+
+// 906:501
+[com_501]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_500
+textfont=palatino_linotype_18pt_regular
+text=Oops...
+textalignh=centre
+textalignv=centre
+colour=0xe5b051
+onload=script4262(event_com)
+
+// 906:502
+[com_502]
+type=layer
+x=8
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_38_
+
+// 906:503
+[com_503]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_502
+transmitop=1
+op1=Close
+onmouseover=lobbyscreen_button_highlight(event_com, "intro_close_button,1", null, null, null, null)
+onmouseleave=lobbyscreen_button_highlight(event_com, "intro_close_button,0", null, null, null, null)
+onop=clientscript_4034
+
+// 906:504
+[com_504]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_502
+
+// 906:505
+[com_505]
+type=graphic
+height=54
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10158
+tiling=yes
+
+// 906:506
+[com_506]
+type=graphic
+y=1
+width=611
+height=47
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10153
+tiling=yes
+
+// 906:507
+[com_507]
+type=graphic
+x=-330
+y=1
+width=50
+height=47
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10152
+
+// 906:508
+[com_508]
+type=graphic
+x=330
+y=1
+width=50
+height=47
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10152
+hflip=yes
+
+// 906:509
+[com_509]
+type=layer
+x=-233
+y=6
+width=145
+height=35
+xmode=abs_centre
+layer=com_1
+transmitop=1
+op1=Home
+onmouseover=clientscript_6383(false, lobbyscreen:com_511, null, lobbyscreen:com_516)
+onmouseleave=clientscript_6383(true, lobbyscreen:com_511, null, lobbyscreen:com_516)
+
+// 906:510
+[com_510]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_509
+graphic=graphic_10159
+
+// 906:511
+[com_511]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_509
+hide=yes
+
+// 906:512
+[com_512]
+type=graphic
+width=20
+height=48
+ymode=abs_centre
+layer=com_511
+graphic=graphic_10156
+
+// 906:513
+[com_513]
+type=graphic
+x=20
+width=40
+height=48
+widthmode=minus
+ymode=abs_centre
+layer=com_511
+graphic=graphic_10157
+
+// 906:514
+[com_514]
+type=graphic
+width=20
+height=48
+xmode=abs_right
+ymode=abs_centre
+layer=com_511
+graphic=graphic_10156
+hflip=yes
+
+// 906:515
+[com_515]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_511
+graphic=graphic_10164
+
+// 906:516
+[com_516]
+type=graphic
+x=-155
+width=10
+height=47
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10154
+
+// 906:517
+[com_517]
+type=layer
+x=-78
+y=6
+width=145
+height=35
+xmode=abs_centre
+layer=com_1
+transmitop=1
+op1=Support
+onmouseover=clientscript_6383(false, lobbyscreen:com_519, lobbyscreen:com_516, lobbyscreen:com_524)
+onmouseleave=clientscript_6383(true, lobbyscreen:com_519, lobbyscreen:com_516, lobbyscreen:com_524)
+
+// 906:518
+[com_518]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_517
+graphic=graphic_10160
+
+// 906:519
+[com_519]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_517
+hide=yes
+
+// 906:520
+[com_520]
+type=graphic
+width=20
+height=48
+ymode=abs_centre
+layer=com_519
+graphic=graphic_10156
+
+// 906:521
+[com_521]
+type=graphic
+x=20
+width=40
+height=48
+widthmode=minus
+ymode=abs_centre
+layer=com_519
+graphic=graphic_10157
+
+// 906:522
+[com_522]
+type=graphic
+width=20
+height=48
+xmode=abs_right
+ymode=abs_centre
+layer=com_519
+graphic=graphic_10156
+hflip=yes
+
+// 906:523
+[com_523]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_519
+graphic=graphic_10165
+
+// 906:524
+[com_524]
+type=graphic
+width=10
+height=47
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10154
+
+// 906:525
+[com_525]
+type=layer
+x=77
+y=6
+width=145
+height=35
+xmode=abs_centre
+layer=com_1
+transmitop=1
+op1=Forums
+onmouseover=clientscript_6383(false, lobbyscreen:com_527, lobbyscreen:com_524, lobbyscreen:com_532)
+onmouseleave=clientscript_6383(true, lobbyscreen:com_527, lobbyscreen:com_524, lobbyscreen:com_532)
+
+// 906:526
+[com_526]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_525
+graphic=graphic_10161
+
+// 906:527
+[com_527]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_525
+hide=yes
+
+// 906:528
+[com_528]
+type=graphic
+width=20
+height=48
+ymode=abs_centre
+layer=com_527
+graphic=graphic_10156
+
+// 906:529
+[com_529]
+type=graphic
+x=20
+width=40
+height=48
+widthmode=minus
+ymode=abs_centre
+layer=com_527
+graphic=graphic_10157
+
+// 906:530
+[com_530]
+type=graphic
+width=20
+height=48
+xmode=abs_right
+ymode=abs_centre
+layer=com_527
+graphic=graphic_10156
+hflip=yes
+
+// 906:531
+[com_531]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_527
+graphic=graphic_10166
+
+// 906:532
+[com_532]
+type=graphic
+x=155
+width=10
+height=47
+xmode=abs_centre
+layer=com_1
+graphic=graphic_10154
+
+// 906:533
+[com_533]
+type=layer
+x=232
+y=6
+width=145
+height=35
+xmode=abs_centre
+layer=com_1
+transmitop=1
+op1=Clans
+onmouseover=clientscript_6383(false, lobbyscreen:com_535, lobbyscreen:com_532, null)
+onmouseleave=clientscript_6383(true, lobbyscreen:com_535, lobbyscreen:com_532, null)
+
+// 906:534
+[com_534]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_533
+graphic=graphic_10163
+
+// 906:535
+[com_535]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_533
+hide=yes
+
+// 906:536
+[com_536]
+type=graphic
+width=20
+height=48
+ymode=abs_centre
+layer=com_535
+graphic=graphic_10156
+
+// 906:537
+[com_537]
+type=graphic
+x=20
+width=40
+height=48
+widthmode=minus
+ymode=abs_centre
+layer=com_535
+graphic=graphic_10157
+
+// 906:538
+[com_538]
+type=graphic
+width=20
+height=48
+xmode=abs_right
+ymode=abs_centre
+layer=com_535
+graphic=graphic_10156
+hflip=yes
+
+// 906:539
+[com_539]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_535
+graphic=graphic_10168
+
+// 906:540
+[com_540]
+type=layer
+x=232
+y=6
+width=145
+height=35
+xmode=abs_centre
+layer=com_1
+hide=yes
+transmitop=1
+op1=Subscribe
+onmouseover=clientscript_6383(false, lobbyscreen:com_542, lobbyscreen:com_532, null)
+onmouseleave=clientscript_6383(true, lobbyscreen:com_542, lobbyscreen:com_532, null)
+
+// 906:541
+[com_541]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_540
+graphic=graphic_10162
+
+// 906:542
+[com_542]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_540
+hide=yes
+
+// 906:543
+[com_543]
+type=graphic
+width=20
+height=48
+ymode=abs_centre
+layer=com_542
+graphic=graphic_10156
+
+// 906:544
+[com_544]
+type=graphic
+x=20
+width=40
+height=48
+widthmode=minus
+ymode=abs_centre
+layer=com_542
+graphic=graphic_10157
+
+// 906:545
+[com_545]
+type=graphic
+width=20
+height=48
+xmode=abs_right
+ymode=abs_centre
+layer=com_542
+graphic=graphic_10156
+hflip=yes
+
+// 906:546
+[com_546]
+type=graphic
+y=2
+width=145
+height=30
+xmode=abs_centre
+layer=com_542
+graphic=graphic_10167

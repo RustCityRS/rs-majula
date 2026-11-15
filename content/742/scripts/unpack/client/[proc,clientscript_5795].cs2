@@ -1,0 +1,13 @@
+// 5795
+[proc,clientscript_5795](int $int0)(struct)
+def_struct $struct1 = ~clientscript_6798($int0);
+def_struct $struct2 = null;
+if (enum(int, int, enum_5479, $int0) = 1 & if_hassuboverlay(toplevel_fullscreen:com_50, interface_1222) = false) {
+    $struct2 = enum(struct, struct, enum_5911, $struct1);
+} else if (map_members = true & %varplayerbit_9030 = 1 | %varplayerbit_10700 = $int0) {
+    $struct2 = enum(struct, struct, enum_5483, $struct1);
+}
+if ($struct2 ! null) {
+    $struct1 = $struct2;
+}
+return($struct1);

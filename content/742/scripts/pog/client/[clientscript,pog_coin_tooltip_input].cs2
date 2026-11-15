@@ -1,0 +1,20 @@
+// 509
+[clientscript,pog_coin_tooltip_input](component $component0)
+def_string $string0 = "";
+if ($component0 = pog_coin_machine:pog_coin_display1_1) {
+    $string0 = oc_name(%pog_coin_display1_obj);
+    if (%pog_coin_display1_obj = null) {
+        $string0 = "Empty";
+    }
+} else if ($component0 = pog_coin_machine:pog_coin_display2_1) {
+    $string0 = oc_name(%pog_coin_display2_1_obj);
+    if (%pog_coin_display2_1_obj = null) {
+        $string0 = "Empty";
+    }
+} else if ($component0 = pog_coin_machine:pog_coin_display2_2) {
+    $string0 = oc_name(%pog_coin_display2_2_obj);
+    if (%pog_coin_display2_2_obj = null) {
+        $string0 = "Empty";
+    }
+}
+~addtooltip_action($component0, pog_coin_machine:tooltip_input, $string0, 25, 199);

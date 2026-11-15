@@ -1,0 +1,25 @@
+// 5937
+[proc,clientscript_5937]
+if (compare(substring(chat_playername, 0, 1), "#") = 0) {
+    return;
+}
+if (%varplayerbit_11162 ! 0) {
+    if_setonvartransmit(lobbyscreen:com_235, null);
+    return;
+}
+switch_int (%varplayer_2610) {
+    case 0 :
+        ~clientscript_5940;
+    case 1 :
+        ~clientscript_6190;
+    case 2, 5 :
+        if_setonvartransmit(lobbyscreen:com_235, "clientscript_6204{varplayer_2411}");
+        ~clientscript_6189;
+    case 3 :
+        if_setonvarctransmit(lobbyscreen:com_235, null);
+        ~clientscript_6192;
+    case 4 :
+        ~clientscript_5940;
+    case default :
+        ~clientscript_6190;
+}

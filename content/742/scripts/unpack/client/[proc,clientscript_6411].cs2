@@ -1,0 +1,11 @@
+// 6411
+[proc,clientscript_6411](int $int0, int $int1, int $int2, string $string0)
+if ($int0 = 1) {
+    ~clientscript_6414(interface_1308:com_21, 0);
+}
+if ($int1 = 1) {
+    ~clientscript_6414(interface_1308:com_19, 0);
+}
+if ($int2 = 1) {
+    if_settext(interface_1308:com_421, $string0);
+}

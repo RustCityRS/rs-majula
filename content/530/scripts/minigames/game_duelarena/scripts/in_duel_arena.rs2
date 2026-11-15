@@ -1,0 +1,26 @@
+[proc,in_duel_arena](coord $coord)(boolean)
+if (~inzone_coord_pair_table(duel_arena_fight_zones, $coord) = true | ~inzone_coord_pair_table(duel_arena_obstacle_fight_zones, $coord) = true) {
+    return(true);
+}
+return(false);
+
+// From 289's duel_arena_settings.rs2: the duel's food and potion rules.
+[proc,duel_arena_consume_check](obj $obj)(boolean)
+if (~in_duel_arena(coord) = false) {
+    return(true);
+}
+if (oc_category($obj) = potion & testbit(%dueloptions, ^no_potions) = ^true) {
+    mes("Use of potions has been turned off for this duel."); // guess based on no food
+    return(false);
+}
+if (oc_category($obj) ! potion & testbit(%dueloptions, ^no_food) = ^true) {
+    mes("Use of food has been turned off for this duel."); // https://imgur.com/E0l52P2
+    return(false);
+}
+return(true);
+
+[proc,.in_duel_arena](coord $coord)(boolean)
+if (~.inzone_coord_pair_table(duel_arena_fight_zones, $coord) = true | ~.inzone_coord_pair_table(duel_arena_obstacle_fight_zones, $coord) = true) {
+    return(true);
+}
+return(false);

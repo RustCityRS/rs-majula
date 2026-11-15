@@ -1,0 +1,4 @@
+// 904
+[clientscript,script904]
+if_setmodelangle(easter08_incubator_side:coal_button, 0, 0, 0, 0, 0, 400);
+if_setposition(easter08_incubator_side:coal_button, calc(if_getx(easter08_incubator_side:coal_button) + 2), calc(if_gety(easter08_incubator_side:coal_button) + 2), ^setpos_abs_left, ^setpos_abs_top);

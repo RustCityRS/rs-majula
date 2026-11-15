@@ -1,0 +1,17 @@
+// 4246
+[proc,clientscript_4246]
+~clientscript_4247;
+switch_int (%warguild_defence_type) {
+    case 0 :
+        if_sethide(warguild_defence_mini:com_39, false);
+        ~script4161(warguild_defence_mini:com_39, 0);
+    case 1 :
+        if_sethide(warguild_defence_mini:com_12, false);
+        ~script4161(warguild_defence_mini:com_12, 0);
+    case 2 :
+        if_sethide(warguild_defence_mini:com_21, false);
+        ~script4161(warguild_defence_mini:com_21, 0);
+    case 3 :
+        if_sethide(warguild_defence_mini:com_30, false);
+        ~script4161(warguild_defence_mini:com_30, 0);
+}

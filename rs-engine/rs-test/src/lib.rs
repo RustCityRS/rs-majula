@@ -6,10 +6,10 @@
 //! socket is missing -- players log in through the harness instead -- so a
 //! passing test exercises the same script, VM and engine code a client would.
 //!
-//! Rev 647 only: the test commands are declared by `content/647`'s
-//! `engine.rs2`, and the harness is built on the 647 login path.
+//! Rev 530 and 647 only: the test commands are declared by the content's
+//! `engine.rs2`, and the harness is built on the 530 and 647 login paths.
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod runner;
 #[cfg(since_647)]
 pub mod talk;

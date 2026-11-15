@@ -1,0 +1,3 @@
+// 5021
+[proc,clientscript_5021](int $int0)(int)
+return(max(calc($int0 / pow(2, 7) & 127), 1));

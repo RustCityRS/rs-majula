@@ -1,0 +1,11 @@
+// 5601
+[proc,clientscript_5601](component $component0, int $int1, int $int2, int $int3)
+if (spline_length(0) > calc($int1 + 1)) {
+    cam_movealong(0, $int1, $int2, $int3, 1, $int1);
+}
+if (spline_length(0) = calc($int1 + 1)) {
+    if_setoncamfinished($component0, null);
+} else {
+    $int1 = calc($int1 + 1);
+    if_setoncamfinished($component0, "clientscript_5601(event_com, $int1, 800, 800)");
+}

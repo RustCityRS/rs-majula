@@ -1,0 +1,95 @@
+// 358
+[clientscript,playerdesign4_coloursetbutton](int $int0)
+if ($int0 ! 1) {
+    return;
+}
+sound_synth(synth_9830, 1, 0);
+%character_creation_colour_offset = calc((%character_creation_colour_offset + 1) % 8);
+def_int $int1 = 0;
+def_struct $struct2 = ~script361(%playerdesign3_torso, 3);
+if ($struct2 = null) {
+    $struct2 = struct_1076;
+}
+switch_int (calc((%character_creation_hair_style + %character_creation_colour_offset) % 8)) {
+    case default :
+        $int1 = struct_param($struct2, param_1187);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1188);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1189);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 1 :
+        $int1 = struct_param($struct2, param_1190);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1191);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1192);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 2 :
+        $int1 = struct_param($struct2, param_1193);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1194);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1195);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 3 :
+        $int1 = struct_param($struct2, param_1196);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1197);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1198);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 4 :
+        $int1 = struct_param($struct2, param_1199);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1200);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1201);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 5 :
+        $int1 = struct_param($struct2, param_1202);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1203);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1204);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 6 :
+        $int1 = struct_param($struct2, param_1205);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1206);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1207);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+    case 7 :
+        $int1 = struct_param($struct2, param_1208);
+        %playerdesign3_torsocol = $int1;
+        basecolour(1, $int1);
+        $int1 = struct_param($struct2, param_1209);
+        %playerdesign3_legscol = $int1;
+        basecolour(2, $int1);
+        $int1 = struct_param($struct2, param_1210);
+        %playerdesign3_feetcol = $int1;
+        basecolour(3, $int1);
+}
+~playerdesign4_rebuildmenu;

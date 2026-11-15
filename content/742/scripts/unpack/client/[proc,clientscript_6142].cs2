@@ -1,0 +1,22 @@
+// 6142
+[proc,clientscript_6142](int $int0, int $int1)
+def_int $int2 = if_getwidth(interface_1270:com_34);
+def_int $int3 = if_getheight(interface_1270:com_34);
+def_component $component4 = null;
+def_int $int5 = 0;
+def_int $int6 = 14;
+def_int $int7 = calc($int2 / 2);
+def_int $int8 = calc($int3 / 2);
+def_int $int9 = calc(-100 * ($int0 - $int7) / $int7);
+def_int $int10 = calc(-100 * ($int1 - $int8) / $int8);
+def_int $int11 = 0;
+def_int $int12 = 0;
+while ($int5 <= $int6) {
+    $component4 = ~clientscript_6139($int5);
+    $int11 = calc((if_getwidth($component4) - $int2) / 2);
+    $int12 = calc((if_getheight($component4) - $int3) / 2);
+    $int11 = calc($int9 * $int11 / 100);
+    $int12 = calc($int10 * $int12 / 100);
+    if_setposition($component4, $int11, $int12, ^setpos_abs_centre, ^setpos_abs_centre);
+    $int5 = calc($int5 + 1);
+}

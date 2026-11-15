@@ -18,6 +18,7 @@ use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -78,31 +79,32 @@ impl Demon {
     }
 }
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("obj.pack names {name}"))
+        .id
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine
+    engine
         .cache
         .varps
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("varp.pack names {name}"))
+        .id
+        .g2()
 }
 
-fn npc_type(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn npc_type(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id
 }
 
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
@@ -162,8 +164,8 @@ fn login(
         varp(engine, "demonstart"),
         varp(engine, "demon_slayer_bones"),
     );
-    let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let items: Vec<(u16, i32)> = items.iter().map(|&(n, c)| (obj(engine, n), c)).collect();
+    let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let items: Vec<(TypeId, i32)> = items.iter().map(|&(n, c)| (obj(engine, n), c)).collect();
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     for _ in 0..10 {
@@ -208,7 +210,7 @@ fn demon(engine: &Engine, client: &HarnessClient) -> Demon {
 }
 
 fn total(engine: &Engine, client: &HarnessClient, inv: &str, name: &str) -> i32 {
-    let inv = *engine.cache.invs.debugnames.get(inv).unwrap();
+    let inv = engine.cache.invs.get_by_debugname(inv).unwrap().id;
     let o = obj(engine, name);
     engine
         .harness_player(client.pid)
@@ -454,7 +456,7 @@ fn water_washes_the_drain_key_into_the_sewer() {
             &[("bucket_water", 1)],
         );
         let mut p = ClientPacket::new();
-        p.p2_alt2(bucket as i32)
+        p.p2_alt2(bucket.int())
             .p2_alt2(0)
             .p2(DRAIN.2 as i32)
             .p4_alt2(BACKPACK)
@@ -551,7 +553,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
-        let worn = *engine.cache.invs.debugnames.get("worn").unwrap();
+        let worn = engine.cache.invs.get_by_debugname("worn").unwrap().id;
         let silverlight = obj(engine, "silverlight");
         let (delrith, weakened) = (
             npc_type(engine, "delrith"),
@@ -592,13 +594,17 @@ fn delrith_is_banished_with_the_player_s_incantation() {
                 .npcs
                 .iter()
                 .flatten()
-                .find(|n| n.npc.uid.id() == ty)
+                .find(|n| n.npc.uid.id() == TypeId::new(ty))
                 .map(|n| n.npc.uid.nid())
         };
-        assert_eq!(find(engine, delrith), None, "no Delrith before the circle");
+        assert_eq!(
+            find(engine, delrith.g2()),
+            None,
+            "no Delrith before the circle"
+        );
         engine.harness_telejump(client.pid, CIRCLE.0, 0, CIRCLE.1);
         ticks(engine, &mut client, 6);
-        let nid = find(engine, delrith).expect("Delrith rises");
+        let nid = find(engine, delrith.g2()).expect("Delrith rises");
         assert_eq!(demon(engine, &client).summoned, 1, "the table is shattered");
 
         // 1 life point and defence 1, so the first swing that lands weakens him: the test is the
@@ -620,7 +626,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
                 }
                 engine.cycle();
                 said.extend(HarnessClient::game_messages(&client.packets()));
-                if find(engine, weakened).is_some() {
+                if find(engine, weakened.g2()).is_some() {
                     return;
                 }
             }
@@ -638,7 +644,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         fight(engine, &mut client, nid, "the first fight");
         no_script_errors(engine, "the fight");
 
-        talk_to(&mut client, find(engine, weakened).unwrap());
+        talk_to(&mut client, find(engine, weakened.g2()).unwrap());
         let wrong = ["Aber", "Carlem", "Purchai", "Gabindo", "Camerinthum"];
         let talk = converse(engine, &mut client, &wrong, 200);
         assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
@@ -647,7 +653,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
             "{:?}",
             talk.texts
         );
-        let nid = find(engine, delrith).expect("Delrith revives");
+        let nid = find(engine, delrith.g2()).expect("Delrith revives");
         assert_eq!(demon(engine, &client).stage, 2);
 
         // 1 life point and defence 1, so the first swing that lands weakens him: the test is the
@@ -662,7 +668,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
             nid,
             "the fight after the wrong incantation",
         );
-        talk_to(&mut client, find(engine, weakened).unwrap());
+        talk_to(&mut client, find(engine, weakened.g2()).unwrap());
         let right = ["Carlem", "Aber", "Purchai", "Gabindo", "Camerinthum"];
         let talk = converse(engine, &mut client, &right, 300);
         no_script_errors(engine, "the banishing");
@@ -674,7 +680,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         let after = demon(engine, &client);
         assert_eq!(after.stage, 3, "the quest is complete");
         assert_eq!(after.words, [0; 5], "the incantation is forgotten");
-        assert_eq!(find(engine, weakened), None, "Delrith is gone");
+        assert_eq!(find(engine, weakened.g2()), None, "Delrith is gone");
         assert_eq!(
             total(engine, &client, "worn", "silverlight"),
             1,

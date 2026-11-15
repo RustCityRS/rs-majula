@@ -1,0 +1,13 @@
+// 1512
+[clientscript,script1512](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+switch_int ($int1) {
+    case 1, 2 :
+        if (~script361(%playerdesign3_torso, 3) ! null) {
+            return;
+        }
+}
+%player_kit_body_layer = $int1;
+~player_kit_body_redraw;

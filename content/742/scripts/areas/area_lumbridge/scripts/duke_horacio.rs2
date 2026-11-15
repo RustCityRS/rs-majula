@@ -1,0 +1,101 @@
+[opnpc1,duke_of_lumbridge]
+~chatnpc("<p,neutral>Greetings. Welcome to my castle.");
+
+// Dragon Slayer: 2011 offers the shield first once the Guildmaster has told of it (289: Oziach),
+// and again after the quest. 289 offered it only without a shield held or worn; the 2011 wiki
+// (Dragon Slayer, 2011-05-22) says the Duke gives another "whenever you want another", so 2011's
+// menu does not check (2011-05-04 recording, YouTube UYp0v2Pc1yI 199.4s, with the option's
+// "dragonbreath").
+if (%dragon_shield = ^quest_dragon_knows_about_shield | %dragonquest >= ^dragon_complete) {
+    @multi3("I seek a shield that will protect me from dragonbreath.", duke_of_lumbridge_shield, "Have you any quests for me?", duke_handle_rune_mysteries, "Where can I find money?", duke_of_lumbridge_money);
+}
+@multi2("Have you any quests for me?", duke_handle_rune_mysteries, "Where can I find money?", duke_of_lumbridge_money);
+
+// @duke_of_lumbridge_money; // 289's, after both choices jump: never reached
+
+[label,duke_handle_rune_mysteries]
+if (%runemysteries = ^runemysteries_not_started) @duke_rune_mysteries_start;
+else if (%runemysteries = ^runemysteries_complete) @duke_rune_mysteries_complete;
+else @duke_rune_mysteries_in_progress;
+
+[label,duke_of_lumbridge_money]
+~chatplayer("<p,quiz>Where can I find money?");
+~chatnpc("<p,neutral>I've heard that the blacksmiths are prosperous amongst the peasantry. Maybe you could try your hand at that?");
+
+[label,duke_rune_mysteries_start]
+~chatplayer("<p,quiz>Have you any quests for me?");
+// 2011-05-22 recording (YouTube VIE8MXrw-7M, 25.5-32.8s): 2011's lines, then 2011's quest-start
+// window (quest_intro.rs2, cache struct_524) where 289 asks in a chat choice.
+~chatnpc("<p,neutral>Well, it's not really a quest, but I recently discovered this strange talisman.");
+~chatnpc("<p,neutral>It's not like anything I have seen before. Would you take it to the head wizard in the basement of");
+~chatnpc("<p,neutral>the Wizards' Tower for me? It should not take you very long at all and I would be awfully grateful.");
+if (~quest_intro(struct_524) = true) {
+    ~chatplayer("<p,happy>Sure, no problem.");
+    %runemysteries = ^runemysteries_started;
+    ~send_quest_progress(^questlist_runemysteries, %runemysteries, ^runemysteries_complete);
+    ~chatnpc("<p,happy>Thank you very much, stranger.");
+    ~chatnpc("<p,happy>I am sure the head wizard will reward you for such an interesting find.");
+    // An item box with the talisman's picture; "talisman" in dark blue, read as 2011's navy
+    // (the video's darkest pixels of the word are (68,59,103) on the beige box).
+    ~objbox(air_talisman, "The Duke hands you a <col=000080>talisman</col>.", 250, 0, 0);
+    inv_add(inv, air_talisman, 1);
+    return;
+}
+// After No: 289's lines. No 2011 recording of it is found.
+~chatplayer("<p,neutral>Not right now.");
+~chatnpc("<p,sad>As you wish, stranger, although I have this strange feeling that it is important. Unfortunately, I cannot leave my castle unattended.");
+
+[label,duke_rune_mysteries_in_progress]
+if(~obj_gettotal(air_talisman) = 0) {
+    ~chatnpc("<p,neutral>Did you speak to the head wizard for me yet, adventurer?");
+    ~chatplayer("<p,neutral>No, I lost that talisman that you gave me.");
+    ~chatnpc("<p,neutral>Ah, that would explain it. One of my servants found this outside, and it seemed too much of a coincidence that more than one strange.");
+    ~chatnpc("<p,neutral>object would appear on my land in such a short period of time. Please take this to the head wizard at the Wizards' Tower, south-west of here, and don't lose it this time.");
+    ~mesbox("The Duke hands you an @blu@air talisman.");
+    inv_add(inv, air_talisman, 1);
+} else {
+    ~chatnpc("<p,neutral>The only task remotely approaching a quest is the delivery of that talisman I gave you to the head wizard of the Wizards' Tower,");
+    ~chatnpc("<p,neutral>south-west of here. I suggest you deliver it to him as soon as possible. I have the oddest feeling that it is important...");
+}
+
+[label,duke_rune_mysteries_complete]
+~chatplayer("<p,neutral>Have you any quests for me?");
+~chatnpc("<p,neutral>No, all is well for me."); // chisel
+
+// Dragon Slayer's shield: 2011's lines, word for word (UYp0v2Pc1yI 202.0-226.6s). Branches no
+// recording shows ("Oh, no dragon in particular.", "I'd better leave that dragon alone.") end on
+// the player's line, and No at "Well, are you sure?" ends the talk; 289 had none of them.
+[label,duke_of_lumbridge_shield]
+~chatplayer("<p,neutral>I seek a shield that will protect me from dragonbreath.");
+~chatnpc("<p,quiz>A knight going on a dragon quest, hmm? What dragon do you intend to slay?");
+if (~p_choice2("Elvarg, the dragon of Crandor island!", 1, "Oh, no dragon in particular.", 2) = 2) {
+    ~chatplayer("<p,neutral>Oh, no dragon in particular.");
+    return;
+}
+~chatplayer("<p,angry>Elvarg, the dragon of Crandor island!");
+~chatnpc("<p,shock>Elvarg? Are you sure?");
+if (~p_choice2_header("Yes", 1, "No", 2, "Well, are you sure?") = 2) {
+    return;
+}
+~chatplayer("<p,angry>Yes!");
+~chatnpc("<p,neutral>Well, you're a braver man than I!");
+~chatplayer("<p,quiz>Why is everyone so scared of this dragon?");
+~chatnpc("<p,neutral>Back in my father's day, Crandor was an important city-state. Politically, it was as important as Falador or Varrock and its ships traded with every port.");
+~chatnpc("<p,sad>But, one day when I was little, all contact was lost. The trading ships and the diplomatic envoys just stopped coming.");
+~chatnpc("<p,sad>I remember my father being very scared. He posted lookouts on the roof to warn if the dragon was approaching. All the city rulers were worried that Elvarg would devastate the whole continent.");
+if (~p_choice2("I'd better leave that dragon alone.", 1, "So, are you going to give me the shield or not?", 2) = 1) {
+    ~chatplayer("<p,neutral>I'd better leave that dragon alone.");
+    return;
+}
+~chatplayer("<p,quiz>So, are you going to give me the shield or not?");
+~chatnpc("<p,neutral>If you really think you're up to it then perhaps you are the one who can kill this dragon.");
+inv_add(inv, antidragonbreathshield, 1);
+~objbox(antidragonbreathshield, "The Duke hands you a heavy orange shield.", 250, 0, 0);
+~chatnpc("<p,neutral>Take care out there. If you kill it...");
+~chatnpc("<p,angry>If you kill it, for Saradomin's sake make sure it's really dead!");
+// 2011's Task System: the shield completes "Always Be Prepared" (task 107, done at varbit 4996;
+// the recording's chat at 228.0s, after the Duke's last line).
+if (%varplayerbit_4996 = 0) {
+    %varplayerbit_4996 = 1;
+    ~task_complete(107);
+}

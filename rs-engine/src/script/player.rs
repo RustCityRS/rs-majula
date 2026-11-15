@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::core::engine;
 use crate::counters::COUNTERS;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::REGION_X;
 use rs_cam::CamKind;
 use rs_db::transfer;
@@ -15,6 +15,7 @@ use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
+use rs_ver::TypeId;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 use rs_vm::state::*;
 use rs_vm::trigger::ServerTriggerType;
@@ -99,13 +100,13 @@ impl ScriptPlayer for ActivePlayer {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn last_targetcom(&self) -> i32 {
         self.player.last_target_com.unwrap_or(-1)
     }
 
     /// Returns the tile the last ground target was aimed at, or `-1` if none.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn last_coord(&self) -> i32 {
         self.player
             .last_coord
@@ -119,7 +120,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
     fn last_item(&self) -> i32 {
-        self.player.last_item.map(|v| v as i32).unwrap_or(-1)
+        self.player.last_item.map(|v| v.int()).unwrap_or(-1)
     }
 
     /// Returns the use-item type ID from an item-on-X interaction, or `-1` if none.
@@ -129,7 +130,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `Option::map`, `Option::unwrap_or`
     fn last_useitem(&self) -> i32 {
-        self.player.last_use_item.map(|v| v as i32).unwrap_or(-1)
+        self.player.last_use_item.map(|v| v.int()).unwrap_or(-1)
     }
 
     /// Indicates whether the player's client is running in low-memory mode.
@@ -160,6 +161,14 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** reads `self.player.staff_mod_level`
     fn staffmodlevel(&self) -> u8 {
         self.player.staff_mod_level as u8
+    }
+
+    fn map_lobby(&self) -> bool {
+        #[cfg(since_647)]
+        let lobby = self.lobby;
+        #[cfg(before_647)]
+        let lobby = false;
+        lobby
     }
 
     /// Checks whether the player has access rights for privileged operations.
@@ -245,7 +254,7 @@ impl ScriptPlayer for ActivePlayer {
     fn afk_event(&mut self) -> bool {
         let ready = self.player.afk_event_ready;
         self.player.afk_event_ready = false;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if self.player.pathing.coord.x() >= REGION_X {
             return false;
         }
@@ -347,7 +356,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** `BOTH_MOVEINV` via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::log_transfer`
-    fn log_handover(&mut self, inv: &str, obj: u16, count: i32, to37: u64) {
+    fn log_handover(&mut self, inv: &str, obj: TypeId, count: i32, to37: u64) {
         let event_type = match inv {
             "tradeoffer" => transfer::TRADE,
             "dueloffer" => transfer::STAKE,
@@ -362,7 +371,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** the drop ops and `OBJ_TAKEITEM` via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::log_transfer`
-    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: u16, count: i32) {
+    fn log_floor(&mut self, taken: bool, coord: CoordGrid, obj: TypeId, count: i32) {
         let event_type = if taken {
             transfer::TAKE
         } else {
@@ -423,7 +432,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Calls:** `Stats::add_xp`, `change_stat`, `Engine::script_by_key`, `ScriptQueue::add`,
     /// `recalc_combat_and_appearance`
     fn add_xp(&mut self, stat: usize, xp: i32) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let before = self.player.stats.base_level(stat);
         if !self.player.stats.add_xp(stat, xp) {
             return;
@@ -431,11 +440,11 @@ impl ScriptPlayer for ActivePlayer {
         self.change_stat(stat);
         // Rev-647: the level-up script runs once for the award and is told how many levels it
         // crossed, for 2011's "You've just advanced 2 Mining levels!" (levelup.rs2).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let args = Some(vec![ScriptArgument::Int(i32::from(
             self.player.stats.base_level(stat).saturating_sub(before),
         ))]);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let args = None;
         if let Some(script) =
             engine().script_by_key(ServerTriggerType::AdvanceStat, Some(stat as i32), None)
@@ -592,7 +601,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::hit`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>) {
         self.hit(amount, hitmark, soak, healthbar, source);
     }
@@ -623,7 +632,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.readyanim`
-    fn readyanim(&mut self, id: u16) {
+    fn readyanim(&mut self, id: TypeId) {
         self.player.info.readyanim = Some(id);
     }
 
@@ -633,7 +642,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.turnanim`
-    fn turnanim(&mut self, id: u16) {
+    fn turnanim(&mut self, id: TypeId) {
         self.player.info.turnanim = Some(id);
     }
 
@@ -673,7 +682,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.walkanim`
-    fn walkanim(&mut self, id: u16) {
+    fn walkanim(&mut self, id: TypeId) {
         self.player.info.walkanim = Some(id);
     }
 
@@ -683,7 +692,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.walkanim_b`
-    fn walkanim_b(&mut self, id: u16) {
+    fn walkanim_b(&mut self, id: TypeId) {
         self.player.info.walkanim_b = Some(id);
     }
     /// Sets the player's left strafe walk animation.
@@ -692,7 +701,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.walkanim_l`
-    fn walkanim_l(&mut self, id: u16) {
+    fn walkanim_l(&mut self, id: TypeId) {
         self.player.info.walkanim_l = Some(id);
     }
 
@@ -702,7 +711,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.walkanim_r`
-    fn walkanim_r(&mut self, id: u16) {
+    fn walkanim_r(&mut self, id: TypeId) {
         self.player.info.walkanim_r = Some(id);
     }
 
@@ -712,7 +721,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.runanim`
-    fn runanim(&mut self, id: u16) {
+    fn runanim(&mut self, id: TypeId) {
         self.player.info.runanim = Some(id);
     }
 
@@ -786,54 +795,54 @@ impl ScriptPlayer for ActivePlayer {
         self.message_game_typed(i32::from(kind), msg);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn window_mode(&self) -> u8 {
         self.player.window_mode
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_opentop(&mut self, com: u16, mode: u8) {
         self.if_open_top(com, mode);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_opensub(&mut self, sub_id: u16, parent_hash: i32) {
         let kind = self.player.sub_kind(parent_hash);
         self.if_open_sub(sub_id, parent_hash, kind);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_closesub(&mut self, component_hash: i32) {
         self.if_close_sub(component_hash);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_movesub(&mut self, from: i32, to: i32) {
         self.if_move_sub(from, to);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
         self.if_set_events(com, slot1, slot2, settings);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn sendvarc(&mut self, id: u16, value: i32) {
         self.varc_transmit(id, value);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn sendvarc_str(&mut self, id: u16, value: &str) {
         self.varc_str_transmit(id, value);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varc(&self, id: u16) -> i32 {
         let index = engine().varcs().index(id, false);
         self.player.varcs[index].as_int()
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varc_str(&self, id: u16) -> &str {
         let index = engine().varcs().index(id, true);
         match &self.player.varcs[index] {
@@ -842,12 +851,12 @@ impl ScriptPlayer for ActivePlayer {
         }
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn runclientscript(&mut self, script_id: i32) {
         self.run_client_script(script_id);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
         self.run_client_script_with_params(script_id, args);
     }
@@ -861,7 +870,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait (`applydesign`)
     /// **Calls:** `setidkit`, writes `self.player.colours`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn applydesign(&mut self) {
         let [
             hair,
@@ -885,8 +894,8 @@ impl ScriptPlayer for ActivePlayer {
             if id < 0 {
                 return;
             }
-            if let Some(idk) = engine().cache.idks.get_by_id(id as u16) {
-                self.setidkit(idk.body_type as u8, id as u16, colour);
+            if let Some(idk) = engine().cache.idks.get_by_id(TypeId::from_int(id)) {
+                self.setidkit(idk.body_type as u8, TypeId::from_int(id), colour);
             }
         };
 
@@ -956,7 +965,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::anim`
-    fn anim(&mut self, id: Option<u16>, delay: u8) {
+    fn anim(&mut self, id: Option<TypeId>, delay: u8) {
         self.anim(id, delay);
     }
 
@@ -966,7 +975,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::buildappearance`
-    fn buildappearance(&mut self, inv: u16) {
+    fn buildappearance(&mut self, inv: TypeId) {
         self.buildappearance(inv);
     }
 
@@ -1000,7 +1009,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** writes `self.player.body` and `self.player.colours`
-    fn setidkit(&mut self, idk_type: u8, idk_id: u16, colour: u8) {
+    fn setidkit(&mut self, idk_type: u8, idk_id: TypeId, colour: u8) {
         // Female idks occupy body types 7-13; map them onto the 7 body slots.
         let slot = if self.player.gender == 1 {
             idk_type as i32 - 7
@@ -1011,7 +1020,7 @@ impl ScriptPlayer for ActivePlayer {
             return;
         }
         let slot = slot as usize;
-        self.player.body[slot] = idk_id as i32;
+        self.player.body[slot] = idk_id.int();
         // hair/jaw -> 0, torso/arms -> 1, legs -> 2, feet -> 3; hands (4) keep skin.
         let colour_slot = match slot {
             0 | 1 => Some(0),
@@ -1163,7 +1172,7 @@ impl ScriptPlayer for ActivePlayer {
         self.stop_hint();
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hint_coord_slot(
         &mut self,
         slot: u8,
@@ -1174,18 +1183,18 @@ impl ScriptPlayer for ActivePlayer {
         z: u16,
         height: u8,
         range: u16,
-        model: Option<u16>,
+        model: Option<TypeId>,
     ) {
         self.hint_coord_slot(slot, icon, offset, level, x, z, height, range, model);
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn hint_stop_slot(&mut self, slot: u8) {
         self.hint_stop_slot(slot);
     }
 
-    #[cfg(since_647)]
-    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<u16>) {
+    #[cfg(since_530)]
+    fn hint_npc_slot(&mut self, nid: u16, slot: u8, icon: u8, model: Option<TypeId>) {
         self.hint_npc_slot(nid, slot, icon, model);
     }
 
@@ -1313,7 +1322,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setanim`
-    fn if_setanim(&mut self, com: i32, seq: u16) {
+    fn if_setanim(&mut self, com: i32, seq: TypeId) {
         self.if_setanim(com, seq);
     }
 
@@ -1343,7 +1352,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setmodel`
-    fn if_setmodel(&mut self, com: i32, model: u16) {
+    fn if_setmodel(&mut self, com: i32, model: TypeId) {
         self.if_setmodel(com, model);
     }
 
@@ -1354,7 +1363,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setgraphic`
     #[cfg(since_647)]
-    fn if_setgraphic(&mut self, com: i32, graphic: u16) {
+    fn if_setgraphic(&mut self, com: i32, graphic: TypeId) {
         self.if_setgraphic(com, graphic);
     }
 
@@ -1364,7 +1373,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setnpchead`
-    fn if_setnpchead(&mut self, com: i32, npc: u16) {
+    fn if_setnpchead(&mut self, com: i32, npc: TypeId) {
         self.if_setnpchead(com, npc);
     }
 
@@ -1374,7 +1383,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::if_setobject`
-    fn if_setobject(&mut self, com: i32, obj: u16, scale: i32) {
+    fn if_setobject(&mut self, com: i32, obj: TypeId, scale: i32) {
         self.if_setobject(com, obj, scale);
     }
 
@@ -1585,7 +1594,7 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::write`
     #[cfg(since_647)]
-    fn loc_prefetch(&mut self, id: u16, shape: u8) {
+    fn loc_prefetch(&mut self, id: TypeId, shape: u8) {
         self.write(LocPrefetch { id, shape });
     }
 
@@ -1745,7 +1754,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** sets `self.player.info.spotanim*` fields
-    fn spotanim(&mut self, spotanim: u16, height: u16, delay: u16) {
+    fn spotanim(&mut self, spotanim: TypeId, height: u16, delay: u16) {
         self.player.info.spotanim = Some(spotanim);
         self.player.info.spotanim_height = Some(height);
         self.player.info.spotanim_delay = Some(delay);
@@ -1886,7 +1895,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `FxHashMap::get`
-    fn get_inv(&mut self, id: u16) -> Option<&Inventory> {
+    fn get_inv(&mut self, id: TypeId) -> Option<&Inventory> {
         self.player.invs.get(&id)
     }
     /// Returns a mutable reference to a player inventory.
@@ -1895,7 +1904,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `FxHashMap::get_mut`
-    fn get_inv_mut(&mut self, id: u16) -> Option<&mut Inventory> {
+    fn get_inv_mut(&mut self, id: TypeId) -> Option<&mut Inventory> {
         self.player.invs.get_mut(&id)
     }
 
@@ -1909,7 +1918,11 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `FxHashMap::get_mut` (via raw pointers for split borrows)
-    fn get_inv_pair_mut(&mut self, a: u16, b: u16) -> Option<(&mut Inventory, &mut Inventory)> {
+    fn get_inv_pair_mut(
+        &mut self,
+        a: TypeId,
+        b: TypeId,
+    ) -> Option<(&mut Inventory, &mut Inventory)> {
         assert_ne!(a, b, "get_inv_pair_mut: keys must differ");
         let pa = self.player.invs.get_mut(&a)? as *mut Inventory;
         let pb = self.player.invs.get_mut(&b)? as *mut Inventory;
@@ -1926,7 +1939,12 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `FxHashMap::entry`, `Inventory::with_stack_mode`, `Inventory::set`
-    fn get_or_create_inv(&mut self, id: u16, size: usize, stack_mode: StackMode) -> &mut Inventory {
+    fn get_or_create_inv(
+        &mut self,
+        id: TypeId,
+        size: usize,
+        stack_mode: StackMode,
+    ) -> &mut Inventory {
         self.player.invs.entry(id).or_insert_with(|| {
             let mut inv = Inventory::with_stack_mode(size, stack_mode);
             if let Some(inv_type) = engine().invs().get_by_id(id) {
@@ -1951,7 +1969,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `FxHashMap::entry`
-    fn add_inv_transmit(&mut self, inv_id: u16, com: ComId) {
+    fn add_inv_transmit(&mut self, inv_id: TypeId, com: ComId) {
         self.player
             .inv_transmits
             .entry(inv_id)
@@ -1969,7 +1987,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** iterates `self.player.inv_transmits`
-    fn has_inv_transmit(&self, com: ComId) -> Option<u16> {
+    fn has_inv_transmit(&self, com: ComId) -> Option<TypeId> {
         self.player
             .inv_transmits
             .iter()
@@ -1998,7 +2016,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait (`INVOTHER_TRANSMIT`)
     /// **Calls:** `HashMap::insert`
-    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: u16, uid: i32) {
+    fn add_inv_other_transmit(&mut self, com: ComId, inv_id: TypeId, uid: i32) {
         self.player.inv_other_transmits.insert(com, (uid, inv_id));
     }
 
@@ -2008,7 +2026,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait (`INVOTHER_TRANSMIT`)
     /// **Calls:** `HashMap::get`
-    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, u16)> {
+    fn has_inv_other_transmit(&self, com: ComId) -> Option<(i32, TypeId)> {
         self.player.inv_other_transmits.get(&com).copied()
     }
 
@@ -2103,7 +2121,7 @@ impl ScriptPlayer for ActivePlayer {
     ///
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `EnginePlayer::set_interaction`
-    fn set_interaction_obj(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, op: u8) {
+    fn set_interaction_obj(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, op: u8) {
         let target = InteractionTarget::Obj { coord, id, serial };
         self.player.set_interaction(target, op, false);
     }

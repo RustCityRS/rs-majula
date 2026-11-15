@@ -1,0 +1,9 @@
+// 3017
+[proc,lobbyscreen_input_close]
+~lobbyscreen_input_clear;
+if_sethide(lobbyscreen:input, true);
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(1);
+} else if (if_gethide(enum(int, component, enum_941, 3)) = false) {
+    ~script4556(1);
+}

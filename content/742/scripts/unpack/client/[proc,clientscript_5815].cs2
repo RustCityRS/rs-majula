@@ -1,0 +1,19 @@
+// 5815
+[proc,clientscript_5815]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = if_getx(smithing_new:smith_arrowtip);
+$int1 = if_gety(smithing_new:smith_arrowtip);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_wire);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_nails);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_darttip);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_sword);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_bolts);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_mace);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_arrowtip);
+$int0 = if_getx(smithing_new:smith_dagger);
+$int1 = if_gety(smithing_new:smith_dagger);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_medhelm);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_axe);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_arrowtip);
+$int0, $int1 = ~clientscript_5816($int0, $int1, smithing_new:smith_dagger);

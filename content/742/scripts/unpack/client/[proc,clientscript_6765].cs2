@@ -1,0 +1,30 @@
+// 6765
+[proc,clientscript_6765](int $int0)(int)
+if (stat_base(cooking) < struct_param(enum(int, struct, enum_5515, $int0), param_2236)) {
+    return(0);
+}
+switch_int ($int0) {
+    case 5 :
+        if (stat_base(crafting) < 2) {
+            return(0);
+        }
+    case 10 :
+        if (stat_base(crafting) < 12) {
+            return(0);
+        }
+    case 23 :
+        if (stat_base(crafting) < 36) {
+            return(0);
+        }
+    case 33 :
+        if (stat_base(crafting) < 51) {
+            return(0);
+        }
+    case 39 :
+        if (stat_base(crafting) < 81) {
+            return(0);
+        }
+    case default :
+        return(1);
+}
+return(1);

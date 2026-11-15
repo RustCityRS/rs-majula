@@ -1,0 +1,18 @@
+// 2486
+[proc,script2486]
+if (%mob_scen1_level1_players ! -1) {
+    if_settext(mob_scenario_select:com_42, "Players: <tostring(%mob_scen1_level1_players)>");
+}
+if (%mob_scen2_level1_players ! -1) {
+    if_settext(mob_scenario_select:com_31, "Players: <tostring(%mob_scen2_level1_players)>");
+}
+if (%mob_scen3_level1_players ! -1) {
+    if_settext(mob_scenario_select:com_38, "Players: <tostring(%mob_scen3_level1_players)>");
+}
+if (%mob_scen4_level1_players ! -1) {
+    if_settext(mob_scenario_select:com_26, "Players: <tostring(%mob_scen4_level1_players)>");
+}
+if_setcolour(mob_scenario_select:com_42, 0xe1981f);
+if_setcolour(mob_scenario_select:com_31, 0xe1981f);
+if_setcolour(mob_scenario_select:com_38, 0xe1981f);
+if_setcolour(mob_scenario_select:com_26, 0xe1981f);

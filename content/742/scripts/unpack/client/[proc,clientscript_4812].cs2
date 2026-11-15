@@ -1,0 +1,12 @@
+// 4812
+[proc,clientscript_4812](graphic $graphic0, int $int1, int $int2, string $string0)
+if (~clientscript_4761($int2) = false) {
+    return;
+}
+if (%tooltip_built ! 1) {
+    $string0 = "<$string0><br>Requires tier <tostring($int1)> resources.";
+    if_setgraphic(interface_1258:com_498, $graphic0);
+    if_settext(interface_1258:com_499, $string0);
+    if_sethide(interface_1258:com_487, false);
+    %tooltip_built = 1;
+}

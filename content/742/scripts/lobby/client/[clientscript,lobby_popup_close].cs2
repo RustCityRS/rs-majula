@@ -1,0 +1,6 @@
+// 3096
+[clientscript,lobby_popup_close]
+~lobby_popup_close;
+if (userdetail_dob = 0 | compare(substring(chat_playername, 0, 1), "#") = 0) {
+    ~lobbyscreen_leavelobby;
+}

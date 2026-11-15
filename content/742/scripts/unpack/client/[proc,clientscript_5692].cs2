@@ -1,0 +1,66 @@
+// 5692
+[proc,clientscript_5692](int $int0, int $int1, struct $struct2)
+.cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+.cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+.cc_setposition(10, calc($int1 + 5), ^setpos_abs_left, ^setpos_abs_top);
+if (enum(int, stat, enum_681, struct_param($struct2, param_2215)) = null | $struct2 = null) {
+    return;
+}
+if (stat_base(enum(int, stat, enum_681, struct_param($struct2, param_2215))) < struct_param($struct2, param_2212)) {
+    .cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    .cc_setgraphic(8277);
+    .cc_setposition(13, calc($int1 + 9), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setonmouseover(clientscript_5693, event_comsubid, 1, "i1");
+    .cc_setonmouseleave("clientscript_5694");
+} else if (struct_param($struct2, param_2213) = null) {
+    .cc_setgraphic(struct_param($struct2, param_2214));
+} else {
+    .cc_setobject(struct_param($struct2, param_2213), -1);
+}
+.cc_create(interface_1218:com_72, ^iftype_text, if_getnextsubid(interface_1218:com_72));
+.cc_setposition(45, calc($int1 + 5), ^setpos_abs_left, ^setpos_abs_top);
+.cc_settextfont(verdana_13pt_regular);
+.cc_settextshadow(true);
+if (struct_param($struct2, param_2212) = 0) {
+    .cc_settext("");
+} else {
+    .cc_settext(tostring(struct_param($struct2, param_2212)));
+}
+.cc_setcolour(0xdb9000);
+.cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+.cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+if (struct_param($struct2, param_2217) = true) {
+    .cc_create(interface_1218:com_72, ^iftype_text, if_getnextsubid(interface_1218:com_72));
+    .cc_setposition(80, calc($int1 + 5), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
+    .cc_setonmouseover(clientscript_5693, event_comsubid, 0, "i1");
+    .cc_setonmouseleave("clientscript_5694");
+}
+.cc_create(interface_1218:com_72, ^iftype_text, if_getnextsubid(interface_1218:com_72));
+.cc_setposition(100, calc($int1 + 8), ^setpos_abs_left, ^setpos_abs_top);
+.cc_settext(struct_param($struct2, param_2210));
+.cc_settextfont(verdana_13pt_regular);
+.cc_settextshadow(true);
+.cc_setcolour(0xe6be78);
+.cc_settextalign(^settextalign_centre, ^settextalign_centre, 12);
+.cc_setsize(430, 16, ^setsize_abs, ^setsize_abs);
+if (compare("", struct_param($struct2, param_2216)) ! 0) {
+    .cc_create(interface_1218:com_72, ^iftype_text, if_getnextsubid(interface_1218:com_72));
+    .cc_setposition(100, calc($int1 + 23), ^setpos_abs_left, ^setpos_abs_top);
+    .cc_settextfont(verdana_11pt_regular);
+    .cc_settextshadow(true);
+    .cc_settext(struct_param($struct2, param_2216));
+    .cc_setcolour(0xdb9000);
+    .cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+    .cc_setsize(430, 16, ^setsize_abs, ^setsize_abs);
+}
+if (string_length(struct_param($struct2, param_2211)) > 0) {
+    .cc_create(interface_1218:com_72, ^iftype_graphic, if_getnextsubid(interface_1218:com_72));
+    .cc_setposition(15, calc($int1 + 10), ^setpos_abs_right, ^setpos_abs_top);
+    .cc_setgraphic(8485);
+    .cc_setsize(17, 19, ^setsize_abs, ^setsize_abs);
+}
+if (cc_find(interface_1218:com_30, $int0) = true) {
+    cc_setposition(5, $int1, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setontimer(null);
+}

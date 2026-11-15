@@ -1,0 +1,7 @@
+// 677
+[proc,clientscript_677]
+if (%varplayer_1135 = 0) {
+    if_settext(partydrop_main_rwt:time, "");
+} else {
+    if_settext(partydrop_main_rwt:time, tostring(%varplayer_1135));
+}

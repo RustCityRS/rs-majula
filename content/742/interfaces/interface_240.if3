@@ -1,0 +1,403 @@
+// 240:0
+[grab_evil_twin_panel]
+type=model
+x=7
+y=10
+width=176
+height=240
+model=model_14944
+modelorigin=0,-7
+modelangle=505,0,0
+modelzoom=856
+
+// 240:1
+[grab_evil_twin_arrows]
+type=model
+x=15
+y=54
+width=162
+height=154
+model=model_14937
+modelorigin=0,-4
+modelangle=400,2047,0
+modelzoom=2192
+
+// 240:2
+[grab_evil_twin_joystick]
+type=model
+x=64
+y=87
+width=63
+height=72
+model=model_14940
+modelorigin=0,5
+modelangle=402,0,0
+modelzoom=2320
+
+// 240:3
+[grab_evil_twin_panel_1]
+type=model
+x=-33
+y=-65
+width=176
+height=240
+layer=com_7
+model=model_14944
+modelorigin=0,-7
+modelangle=505,0,0
+modelzoom=856
+
+// 240:4
+[grab_evil_twin_arrows_1]
+type=model
+x=-25
+y=-21
+width=162
+height=154
+layer=com_7
+model=model_14937
+modelorigin=0,-4
+modelangle=400,2047,0
+modelzoom=2192
+
+// 240:5
+[grab_evil_twin_joystick_up]
+type=model
+x=24
+y=-3
+width=63
+height=87
+layer=com_7
+model=model_14943
+modelorigin=0,13
+modelangle=402,0,0
+modelzoom=2320
+
+// 240:6
+[com_6]
+type=layer
+x=79
+y=52
+width=32
+height=39
+
+// 240:7
+[com_7]
+type=layer
+x=40
+y=75
+width=107
+height=101
+hide=yes
+
+// 240:8
+[grab_evil_twin_panel_2]
+type=model
+x=-33
+y=-65
+width=176
+height=240
+layer=com_12
+model=model_14944
+modelorigin=0,-7
+modelangle=505,0,0
+modelzoom=856
+
+// 240:9
+[grab_evil_twin_arrows_2]
+type=model
+x=-25
+y=-21
+width=162
+height=154
+layer=com_12
+model=model_14937
+modelorigin=0,-4
+modelangle=400,2047,0
+modelzoom=2192
+
+// 240:10
+[grab_evil_twin_joystick_down]
+type=model
+x=24
+y=25
+width=63
+height=59
+layer=com_12
+model=model_14939
+modelorigin=0,-1
+modelangle=402,0,0
+modelzoom=2320
+
+// 240:11
+[com_11]
+type=layer
+x=75
+y=162
+width=40
+height=51
+
+// 240:12
+[com_12]
+type=layer
+x=40
+y=75
+width=107
+height=101
+hide=yes
+
+// 240:13
+[grab_evil_twin_panel_3]
+type=model
+x=-33
+y=-65
+width=176
+height=240
+layer=com_17
+model=model_14944
+modelorigin=0,-7
+modelangle=505,0,0
+modelzoom=856
+
+// 240:14
+[grab_evil_twin_arrows_3]
+type=model
+x=-25
+y=-21
+width=162
+height=154
+layer=com_17
+model=model_14937
+modelorigin=0,-4
+modelangle=400,2047,0
+modelzoom=2192
+
+// 240:15
+[grab_evil_twin_joystick_left]
+type=model
+x=11
+y=14
+width=76
+height=70
+layer=com_17
+model=model_14941
+modelorigin=6,4
+modelangle=402,0,0
+modelzoom=2320
+
+// 240:16
+[com_16]
+type=layer
+x=11
+y=110
+width=47
+height=36
+
+// 240:17
+[com_17]
+type=layer
+x=40
+y=75
+width=107
+height=101
+hide=yes
+
+// 240:18
+[grab_evil_twin_panel_4]
+type=model
+x=-33
+y=-65
+width=176
+height=240
+layer=com_22
+model=model_14944
+modelorigin=0,-7
+modelangle=505,0,0
+modelzoom=856
+
+// 240:19
+[grab_evil_twin_arrows_4]
+type=model
+x=-25
+y=-21
+width=162
+height=154
+layer=com_22
+model=model_14937
+modelorigin=0,-4
+modelangle=400,2047,0
+modelzoom=2192
+
+// 240:20
+[grab_evil_twin_joystick_right]
+type=model
+x=24
+y=14
+width=74
+height=70
+layer=com_22
+model=model_14942
+modelorigin=-6,4
+modelangle=402,0,0
+modelzoom=2320
+
+// 240:21
+[com_21]
+type=layer
+x=133
+y=110
+width=47
+height=36
+
+// 240:22
+[com_22]
+type=layer
+x=40
+y=75
+width=107
+height=101
+hide=yes
+
+// 240:23
+[grab_evil_twin_button]
+type=model
+x=132
+y=201
+width=42
+height=40
+model=model_14938
+modelorigin=0,-1
+modelangle=400,2029,0
+modelzoom=2320
+
+// 240:24
+[grab_evil_twin_button_pushed]
+type=model
+x=3
+y=2
+width=42
+height=40
+layer=grab_evil_twin_grab_button_layer
+model=model_14936
+modelorigin=0,-1
+modelangle=400,2029,0
+modelzoom=2320
+
+// 240:25
+[grab_evil_twin_grab_button_button]
+type=layer
+x=129
+y=199
+width=43
+height=45
+
+// 240:26
+[grab_evil_twin_grab_button_layer]
+type=layer
+x=129
+y=199
+width=43
+height=45
+hide=yes
+
+// 240:27
+[com_27]
+type=text
+x=13
+y=14
+width=137
+height=29
+textfont=p12_full
+text=Tries = 3
+textshadow=yes
+colour=0x909069
+
+// 240:28
+[grab_evil_twin_grab_button_action]
+type=text
+x=129
+y=199
+width=43
+height=45
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Grab
+onmouseover=model_swapper(interface_240:grab_evil_twin_button, model_14936)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_button, model_14938)
+
+// 240:29
+[com_29]
+type=text
+x=79
+y=52
+width=32
+height=39
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Up
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14943)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
+
+// 240:30
+[com_30]
+type=text
+x=75
+y=162
+width=40
+height=51
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Down
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14939)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
+
+// 240:31
+[observer_repaint_1]
+type=text
+x=11
+y=110
+width=47
+height=36
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Left
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14941)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
+
+// 240:32
+[com_32]
+type=text
+x=133
+y=110
+width=47
+height=36
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+transmitop=1
+op1=Right
+onmouseover=model_swapper(interface_240:grab_evil_twin_joystick, model_14942)
+onmouseleave=model_swapper(interface_240:grab_evil_twin_joystick, model_14940)
+
+// 240:33
+[com_33]
+type=graphic
+x=155
+y=12
+width=26
+height=23
+graphic="close_buttons,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,1")
+onmouseleave=graphic_swapper(event_com, "close_buttons,0")
+onop=closebutton_click

@@ -1,0 +1,11 @@
+// 2167
+[proc,clientscript_2167]
+if (compare(substring(chat_playername, 0, 1), "#") = 0) {
+    return;
+}
+if (%varplayer_2522 = 2) {
+    if_sethide(lobbyscreen:com_36_, true);
+    if_setontimer(lobbyscreen:com_466, null);
+    if_sethide(lobbyscreen:com_37_, false);
+    op400(lobbyscreen:com_37_);
+}

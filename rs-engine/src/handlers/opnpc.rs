@@ -8,7 +8,7 @@ use rs_protocol::network::game::client::opnpc2::OpNpc2;
 use rs_protocol::network::game::client::opnpc3::OpNpc3;
 use rs_protocol::network::game::client::opnpc4::OpNpc4;
 use rs_protocol::network::game::client::opnpc5::OpNpc5;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::client::opnpc6::OpNpc6;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptEngine;
@@ -87,7 +87,7 @@ impl ClientGameHandler for OpNpc5 {
 /// Handles the `OpNpc6` client protocol message: Examine. The client sends
 /// only the npc type it shows, and walks nowhere; the answer is the type's
 /// `desc`.
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl ClientGameHandler for OpNpc6 {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);

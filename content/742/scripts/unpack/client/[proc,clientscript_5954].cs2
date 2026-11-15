@@ -1,0 +1,9 @@
+// 5954
+[proc,clientscript_5954](component $component0)
+def_int $int1 = if_gettrans($component0);
+if ($int1 < 253) {
+    if_settrans($component0, calc($int1 + 2));
+} else {
+    if_settrans($component0, 255);
+    if_setontimer(lobbyscreen:com_335, null);
+}

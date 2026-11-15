@@ -17,6 +17,8 @@ pub enum Number {
     I32,
     Smart,
     SignedSmart,
+    BigSmart,
+    BigSmartNull,
     VarInt,
 }
 
@@ -151,6 +153,22 @@ impl<'a> TextCodec<'a> {
                         - if signed { 49152 } else { 32768 }
                 }
             }
+            Number::BigSmartNull => match self.read_number(Number::BigSmart)? {
+                32767 => -1,
+                value => value,
+            },
+            Number::BigSmart => {
+                if self
+                    .source
+                    .context("Not decoding an asset")?
+                    .get(self.pos)
+                    .is_some_and(|b| b & 0x80 != 0)
+                {
+                    (u32::from_be_bytes(self.read(4)?.try_into()?) & 0x7fffffff) as i64
+                } else {
+                    u16::from_be_bytes(self.read(2)?.try_into()?) as i64
+                }
+            }
             Number::VarInt => {
                 let mut value = 0i64;
                 loop {
@@ -214,6 +232,21 @@ impl<'a> TextCodec<'a> {
                 } else {
                     self.data
                         .extend_from_slice(&((value + 49152) as u16).to_be_bytes());
+                }
+            }
+            Number::BigSmartNull => {
+                self.write_number(Number::BigSmart, if value == -1 { 32767 } else { value })?
+            }
+            Number::BigSmart => {
+                ensure!(
+                    (0..=0x7fffffff).contains(&value),
+                    "Big smart out of range: {value}"
+                );
+                if value < 32768 {
+                    self.data.extend_from_slice(&(value as u16).to_be_bytes());
+                } else {
+                    self.data
+                        .extend_from_slice(&(value as u32 | 0x80000000).to_be_bytes());
                 }
             }
             Number::VarInt => {

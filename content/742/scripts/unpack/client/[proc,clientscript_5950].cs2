@@ -1,0 +1,8 @@
+// 5950
+[proc,clientscript_5950]
+if (%varclient_1791 = false) {
+    %varclient_1791 = true;
+    %varclient_1795 = clientclock;
+    if_setontimer(lobbyscreen:com_236, "clientscript_6032");
+}
+return;

@@ -1,0 +1,11 @@
+// 1359
+[proc,clientscript_1359]
+if (getwindowmode = 0) {
+    ~dropdownbox_refuse("High Detail only", loginscreen:com_78, loginscreen:com_79, loginscreen:com_80, null, 884, 0x7f0000, 494);
+    return;
+}
+if (op6121 = 0) {
+    ~dropdownbox_refuse("Incompatible", loginscreen:com_78, loginscreen:com_79, loginscreen:com_80, null, 884, 0x7f0000, 494);
+    return;
+}
+~clientscript_1435(enum_1583, detailget_antialiasing, 2, loginscreen:com_78, loginscreen:com_79, loginscreen:com_80, null, 884, 1248, 1250, 1402, 0x7f0000, ^white, 0xffc61a, 494, 798, 795, 796, 797, 793, 794);

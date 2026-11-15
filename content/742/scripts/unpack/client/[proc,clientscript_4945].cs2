@@ -1,0 +1,30 @@
+// 4945
+[proc,clientscript_4945](int $int0)(int)
+if (op718 = 1) {
+    if (%varclan_2553 = $int0) {
+        return(1);
+    } else if (%varclan_2554 = $int0) {
+        return(2);
+    } else if (%varclan_2555 = $int0) {
+        return(3);
+    } else if (%varclan_2556 = $int0) {
+        return(4);
+    } else if (%varclan_2557 = $int0) {
+        return(5);
+    } else if (%varclan_2558 = $int0) {
+        return(6);
+    } else if (%varclan_2560 = $int0) {
+        return(7);
+    } else if (%varclan_2561 = $int0) {
+        return(8);
+    } else if (%varclan_2562 = $int0) {
+        return(9);
+    } else if (%varclan_2563 = $int0) {
+        return(10);
+    } else if (%varclan_2564 = $int0) {
+        return(11);
+    } else if (%varclan_2565 = $int0) {
+        return(12);
+    }
+}
+return(-1);

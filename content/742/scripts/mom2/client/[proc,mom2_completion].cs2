@@ -1,0 +1,29 @@
+// 2656
+[proc,mom2_completion]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = calc($int0 + %mom2_name_progress);
+$int1 = calc((1 + %mom2_shadow_progress) / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%mom2_mummy_body_progress / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%mom2_mummy_hand_progress / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%mom2_mummy_jar_1_progress + %mom2_mummy_jar_2_progress + (%mom2_mummy_jar_3_progress + %mom2_mummy_jar_4_progress));
+$int0 = calc($int0 + $int1);
+$int0 = calc(%mom2_mummy_ushabti_progress + $int0);
+$int1 = calc(%mom2_furniture_progress / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%mom2_wine_progress / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%mom2_grain_progress / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%mom2_personality_progress / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6151 + %varplayerbit_6152 + (%varplayerbit_6153 + %varplayerbit_6154) + %varplayerbit_6155);
+$int0 = calc($int0 + $int1);
+$int0 = calc($int0 * 4);
+if (%mom2_main = 20 & $int0 > 75) {
+    %mom2_main = 50;
+}
+return($int0);

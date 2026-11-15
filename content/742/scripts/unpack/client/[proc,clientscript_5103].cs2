@@ -1,0 +1,22 @@
+// 5103
+[proc,clientscript_5103](int $int0, int $int1)
+switch_int ($int0) {
+    case 1 :
+        ~clientscript_5104($int1, interface_1116:com_35, interface_1116:com_53, interface_1116:com_90, interface_1116:com_34, interface_1116:com_52);
+    case 2 :
+        ~clientscript_5104($int1, interface_1116:com_163, interface_1116:com_205, interface_1116:com_206, interface_1116:com_162, interface_1116:com_203);
+    case 3 :
+        ~clientscript_5104($int1, interface_1116:com_212, interface_1116:com_254, interface_1116:com_255, interface_1116:com_211, interface_1116:com_252);
+    case 4 :
+        ~clientscript_5104($int1, interface_1116:com_261, interface_1116:com_303, interface_1116:com_304, interface_1116:com_260, interface_1116:com_301);
+    case 5 :
+        ~clientscript_5104($int1, interface_1116:com_310, interface_1116:com_352, interface_1116:com_353, interface_1116:com_309, interface_1116:com_350);
+    case 6 :
+        ~clientscript_5104($int1, interface_1116:com_359, interface_1116:com_401, interface_1116:com_402, interface_1116:com_358, interface_1116:com_399);
+    case 7 :
+        ~clientscript_5104($int1, interface_1116:com_408, interface_1116:com_450, interface_1116:com_451, interface_1116:com_407, interface_1116:com_448);
+    case 8 :
+        ~clientscript_5104($int1, interface_1116:com_457, interface_1116:com_499, interface_1116:com_500, interface_1116:com_456, interface_1116:com_497);
+    case 9 :
+        ~clientscript_5104($int1, interface_1116:com_506, interface_1116:com_548, interface_1116:com_549, interface_1116:com_505, interface_1116:com_546);
+}

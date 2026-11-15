@@ -1,0 +1,14 @@
+// 5208
+[proc,clientscript_5208](int $int0)
+switch_int ($int0) {
+    case 75497500 :
+        if (%varplayerbit_9950 = 1) {
+            if_setgraphic(interface_1152:com_2, "aif_bronze_icon_button_1,3");
+            if_setgraphic(interface_1152:com_77, "aif_bronze_icon_button_1,0");
+        }
+    case 75497548 :
+        if (%varplayerbit_9950 = 0) {
+            if_setgraphic(interface_1152:com_77, "aif_bronze_icon_button_1,3");
+            if_setgraphic(interface_1152:com_2, "aif_bronze_icon_button_1,0");
+        }
+}

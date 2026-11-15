@@ -1,0 +1,10 @@
+// 2994
+[proc,cc_add_graphic](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, graphic $graphic6, boolean $boolean7, boolean $boolean8, boolean $boolean9, int $int10)
+cc_create($component0, ^iftype_graphic, $int1);
+cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic($graphic6);
+cc_sethflip($boolean7);
+cc_setvflip($boolean8);
+cc_settiling($boolean9);
+cc_settrans($int10);

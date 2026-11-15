@@ -1,0 +1,85 @@
+// 749:0
+[com_0]
+type=graphic
+width=31
+height=31
+layer=com_5
+graphic="topstat_fill_full,1"
+colour=0xffffffff
+onvarctransmit=topstat_prayer_button_update{topstat_prayer_button_client}
+
+// 749:1
+[com_1]
+type=graphic
+height=31
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+graphic="topstat_fill_full,4"
+tiling=yes
+alpha=yes
+colour=0xffffffff
+
+// 749:2
+[com_2]
+type=graphic
+y=1
+width=20
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+graphic=graphic_8654
+tiling=yes
+colour=0xffffffff
+
+// 749:3
+[topstat_prayer]
+type=layer
+width=57
+height=34
+
+// 749:4
+[topstat_background_prayer]
+type=graphic
+height=34
+widthmode=minus
+layer=topstat_prayer
+graphic=graphic_1206
+colour=0xffffffff
+transmitop=1,2
+op1=Turn Quick Prayers On
+op2=Select Quick Prayers
+onload=script2298
+onmouseover=topstat_prayer_button_mouseover(event_com)
+onmouseleave=topstat_prayer_button_mouseleave(event_com)
+onvartransmit=topstat_prayer_custom(event_com){varplayer_1584, varplayer_2382}
+onstattransmit=script2298{prayer}
+onop=topstat_prayer_button_op(event_op)
+onvarctransmit=topstat_prayer_custom(event_com){prayer_custom_view_client}
+
+// 749:5
+[com_5]
+type=layer
+x=1
+y=1
+width=31
+height=31
+layer=topstat_prayer
+
+// 749:6
+[from_define_101]
+type=text
+x=31
+y=15
+width=24
+height=14
+layer=topstat_prayer
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800
+onload=topstat_set_text_skill(event_com, prayer)
+onvartransmit=topstat_set_text_skill(event_com, prayer){varplayer_2382}
+onstattransmit=topstat_set_text_skill(event_com, prayer){prayer}

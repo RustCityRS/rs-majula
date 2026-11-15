@@ -1,0 +1,6 @@
+// 6009
+[proc,clientscript_6009](int $int0)(int)
+if (activeclansettings_find_affined = true) {
+    return(~clientscript_6010($int0));
+}
+return(0);

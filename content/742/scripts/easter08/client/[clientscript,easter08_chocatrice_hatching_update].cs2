@@ -1,0 +1,9 @@
+// 911
+[clientscript,easter08_chocatrice_hatching_update]
+if (%easter08_fade_to_black = 1 & %easter08_cl_fade_amount < 253) {
+    %easter08_cl_fade_amount = calc(%easter08_cl_fade_amount + 3);
+    if_settrans(easter08_chocatrice_hatching:blackout_rect, calc(255 - %easter08_cl_fade_amount));
+} else if (%easter08_fade_to_black = 0 & %easter08_cl_fade_amount > 3) {
+    %easter08_cl_fade_amount = calc(%easter08_cl_fade_amount - 3);
+    if_settrans(easter08_chocatrice_hatching:blackout_rect, calc(255 - %easter08_cl_fade_amount));
+}

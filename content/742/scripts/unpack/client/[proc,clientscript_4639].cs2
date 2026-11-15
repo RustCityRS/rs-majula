@@ -1,0 +1,20 @@
+// 4639
+[proc,clientscript_4639]
+if (testbit(%varplayer_2189, 1) = ^false) {
+    if_sethide(interface_153:com_104, false);
+}
+if (testbit(%varplayer_2189, 2) = ^false) {
+    if_sethide(interface_153:com_117, false);
+}
+if (testbit(%varplayer_2189, 3) = ^false) {
+    if_sethide(interface_153:com_206, false);
+}
+if (testbit(%varplayer_2189, 4) = ^false) {
+    if_sethide(interface_153:com_130, false);
+}
+if (testbit(%varplayer_2189, 5) = ^false) {
+    if_sethide(interface_153:com_173, false);
+}
+if (testbit(%varplayer_2189, 6) = ^false) {
+    if_sethide(interface_153:com_190, false);
+}

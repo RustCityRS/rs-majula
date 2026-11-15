@@ -1,0 +1,31 @@
+// 4285
+[clientscript,clan_create_text_input](component $component0, component $component1, char $char2, int $key3, component $component4)
+%clan_create_input_varc = if_gettext($component0);
+switch_int ($key3) {
+    case ^key_return :
+        if (compare("", %clan_create_input_varc) ! 0) {
+            ~clan_create_return;
+        }
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        if (keyheld_shift = false) {
+            return;
+        }
+        ~script1553($key3, %clan_create_input_caret_varc, %clan_create_input_varc);
+    case ^key_backspace :
+        if (string_length(%clan_create_input_varc) > 0) {
+            %clan_create_input_varc = substring(%clan_create_input_varc, 0, calc(string_length(%clan_create_input_varc) - 1));
+        }
+    case default :
+        if (string_length(%clan_create_input_varc) < 20) {
+            %clan_create_input_varc = ~add_to_inputstring(%clan_create_input_varc, 0, $key3, $char2);
+        }
+}
+%clan_create_input_caret_varc = ~script1552(%clan_create_input_caret_varc, %clan_create_input_varc, verdana_11pt_regular_multiline, $component0, -1);
+if_setposition($component4, %clan_create_input_caret_varc, if_gety($component4), ^setpos_abs_left, ^setpos_abs_top);
+if_settext($component1, "<tostring(string_length(%clan_create_input_varc))>/20");
+if (string_length(%clan_create_input_varc) >= 15) {
+    if_setcolour($component1, 0xdd0000);
+} else {
+    if_setcolour($component1, 0x1f1d19);
+}
+if_settext($component0, %clan_create_input_varc);

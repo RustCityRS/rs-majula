@@ -1,0 +1,11 @@
+// 1832
+[clientscript,clanwars_setup_potions](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%clanwars_rulevarc_nopotions = false) {
+    %clanwars_rulevarc_nopotions = true;
+} else {
+    %clanwars_rulevarc_nopotions = false;
+}
+~clanwars_resynch_potions;

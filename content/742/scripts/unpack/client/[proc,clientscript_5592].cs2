@@ -1,0 +1,19 @@
+// 5592
+[proc,clientscript_5592]
+if_setcolour(interface_1188:com_3, 0xc8c8c8);
+if_setcolour(interface_1188:com_24, 0xc8c8c8);
+if_setcolour(interface_1188:com_29, 0xc8c8c8);
+if_setcolour(interface_1188:com_34, 0xc8c8c8);
+if_setcolour(interface_1188:com_39, 0xc8c8c8);
+if_setcolour(interface_1188:com_12, 0xc8c8c8);
+if_setcolour(interface_1188:com_25, 0xc8c8c8);
+if_setcolour(interface_1188:com_30, 0xc8c8c8);
+if_setcolour(interface_1188:com_35, 0xc8c8c8);
+if_setcolour(interface_1188:com_40, 0xc8c8c8);
+if_setsize(interface_1188:com_5, 250, 30, ^setsize_abs, ^setsize_abs);
+if_setontimer(interface_1188:com_11, "clientscript_5594(interface_1188:com_11, interface_1188:com_3)");
+if_setontimer(interface_1188:com_13, "clientscript_5594(interface_1188:com_13, interface_1188:com_24)");
+if_setontimer(interface_1188:com_14, "clientscript_5594(interface_1188:com_14, interface_1188:com_29)");
+if_setontimer(interface_1188:com_15, "clientscript_5594(interface_1188:com_15, interface_1188:com_34)");
+if_setontimer(interface_1188:com_16, "clientscript_5594(interface_1188:com_16, interface_1188:com_39)");
+if_setonkey(interface_1188:com_4, clientscript_5593, event_keycode, event_keychar, "iz");

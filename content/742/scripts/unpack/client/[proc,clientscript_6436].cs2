@@ -1,0 +1,7 @@
+// 6436
+[proc,clientscript_6436](component $component0)
+if (%varplayer_2663 ! -1) {
+    ~clientscript_5335($component0, -1, interface_1309:com_0, "Cancel your pending invitation.", 60, 200, 1);
+} else {
+    ~clientscript_5335($component0, -1, interface_1309:com_0, "Invite a player to join your group.", 60, 200, 1);
+}

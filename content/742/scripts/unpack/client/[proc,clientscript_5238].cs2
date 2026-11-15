@@ -1,0 +1,24 @@
+// 5238
+[proc,clientscript_5238](int $int0)
+def_string $string0 = "Ability";
+def_struct $struct1 = enum(int, struct, enum_5033, %varplayerbit_9712);
+if_sethide(interface_1126:com_4, true);
+if_sethide(interface_1126:com_5, true);
+if_sethide(interface_1126:com_6, true);
+if_sethide(interface_1126:com_7, true);
+switch_int ($int0) {
+    case 1 :
+        $string0 = struct_param($struct1, param_1900);
+        if_sethide(interface_1126:com_4, false);
+    case 2 :
+        $string0 = struct_param($struct1, param_1903);
+        if_sethide(interface_1126:com_5, false);
+    case 3 :
+        $string0 = struct_param($struct1, param_1906);
+        if_sethide(interface_1126:com_6, false);
+    case 4 :
+        $string0 = struct_param($struct1, param_1909);
+        if_sethide(interface_1126:com_7, false);
+}
+if_settext(interface_1126:com_49, $string0);
+if_sethide(interface_1126:com_47, false);

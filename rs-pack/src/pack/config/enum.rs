@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::client_table_with;
 use super::config_entry;
 use crate::ParamValue;
@@ -39,9 +39,9 @@ pub fn pack_enums(
         server.finish_entry();
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let client = None;
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let client = Some(client_table_with(
         file_cache,
         "enum",
@@ -92,11 +92,25 @@ fn encode_enum(
     };
     let inputtype = type_of("inputtype");
     let outputtype = type_of("outputtype");
+    #[cfg(since_742)]
+    let size = props
+        .iter()
+        .find(|(k, _)| k == "size")
+        .map(|(_, v)| v.parse::<u16>().expect("Invalid enum size"));
+    #[cfg(before_742)]
+    let size = None;
 
     for group in props.chunk_by(|a, b| (a.0 == "val") == (b.0 == "val")) {
         if group[0].0 == "val" {
             let vals: Vec<_> = group.iter().map(|(_, value)| value.as_str()).collect();
-            pack_values(packed, &vals, inputtype, outputtype, registry, debugname);
+            pack_values(
+                packed,
+                &vals,
+                (inputtype, outputtype),
+                size,
+                registry,
+                debugname,
+            );
             continue;
         }
         for (key, value) in group {
@@ -138,6 +152,9 @@ fn encode_enum(
                     }
                 }
 
+                #[cfg(since_742)]
+                "size" => {}
+
                 // not found
                 _ => panic!("Unrecognized enum config key: {key}"),
             }
@@ -148,18 +165,16 @@ fn encode_enum(
 fn pack_values(
     packed: &mut PackedData,
     vals: &[&str],
-    inputtype: &str,
-    outputtype: &str,
+    (inputtype, outputtype): (&str, &str),
+    size: Option<u16>,
     registry: &PackRegistry,
     debugname: &str,
 ) {
-    // handle 5 or 6
-    if outputtype == "string" {
-        // 5
-        packed.p1(5);
-    } else {
-        // 6
-        packed.p1(6);
+    // 5 or 6, or the dense 7 or 8
+    let dense = size.is_some();
+    packed.p1(if outputtype == "string" { 5 } else { 6 } + if dense { 2 } else { 0 });
+    if let Some(size) = size {
+        packed.p2(size);
     }
 
     packed.p2(vals.len() as u16);
@@ -170,10 +185,15 @@ fn pack_values(
     for (index, val) in vals.iter().enumerate() {
         // input key
         if input_is_autoint {
-            packed.p4(index as i32);
+            if dense {
+                packed.p2(index as u16);
+            } else {
+                packed.p4(index as i32);
+            }
         } else {
             let key = val.split_once(',').map(|(k, _)| k).unwrap_or(val);
             match enum_value(inputtype, registry, key) {
+                Some(ParamValue::Int(v)) if dense => packed.p2(v as u16),
                 Some(ParamValue::Int(v)) => packed.p4(v),
                 _ => panic!("Param type '{inputtype}' for [{debugname}] value [{key}] must be int"),
             }

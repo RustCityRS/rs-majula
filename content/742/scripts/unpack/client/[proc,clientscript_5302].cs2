@@ -1,0 +1,11 @@
+// 5302
+[proc,clientscript_5302](component $component0, component $component1)
+if (if_gethide($component0) = true) {
+    ~clientscript_5306;
+    if_sethide($component0, false);
+    if_setgraphic($component1, "aif_symbol_set_1,5");
+} else {
+    if_sethide($component0, true);
+    if_setgraphic($component1, "aif_symbol_set_1,4");
+    ~clientscript_5219(interface_824:com_33);
+}

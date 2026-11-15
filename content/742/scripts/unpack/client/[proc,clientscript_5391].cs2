@@ -1,0 +1,175 @@
+// 5391
+[proc,clientscript_5391](component $component0, component $component1, obj $obj2, int $int3)
+def_int $int4 = enum(obj, int, enum_5331, $obj2);
+def_int $int5 = 0;
+switch_obj ($obj2) {
+    case rake :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_rake;
+    case dibber :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_dibber;
+    case spade :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_spade;
+    case gardening_trowel :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_trowel;
+    case secateurs, fairy_enchanted_secateurs :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_secateurs;
+        if ($int5 > 0 & %farming_tools_fairysecateurs = 1) {
+            $obj2 = fairy_enchanted_secateurs;
+        }
+    case watering_can_dummy :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $obj2 = enum(int, obj, enum_136, %farming_tools_wateringcan);
+        if ($obj2 ! watering_can_dummy) {
+            $int5 = 1;
+        }
+    case bucket_empty :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1357, 2, "IIo1Y");
+        }
+        $int5 = calc(%varplayerbit_10204 * 32 + %farming_tools_buckets);
+    case bucket_compost :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_compost;
+    case bucket_supercompost :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 615, 1, "IIo1Y");
+        }
+        $int5 = %farming_tools_supercompost;
+    case scarecrow_complete :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1357, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_1778;
+    case plant_cure :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1357, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10205;
+    case "3doseadvanced_hunter_potion" :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_8399;
+    case "3dosefarming_potion" :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_8400;
+    case "3dosescentless_potion" :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_8401;
+    case "3dosesaradomin_potion" :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_8403;
+    case "3dosezamorak_potion" :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_8404;
+    case "3doseguthix_potion" :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_8402;
+    case ecosystem_corrupt_vine :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1746, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10206;
+    case ecosystem_marble_vine :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1746, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10207;
+    case ecosystem_shadow_vine :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1746, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10208;
+    case ecosystem_saradomin_vine :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1746, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10209;
+    case ecosystem_zamorak_vine :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1746, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10210;
+    case ecosystem_guthix_vine :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1935, 1746, 2, "IIo1Y");
+        }
+        $int5 = calc(%varplayerbit_10212 * 8 + %varplayerbit_10211);
+    case fungal_flake :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1022, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10235;
+    case grifolic_flake :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1059, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10236;
+    case ganodermic_flake :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1059, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10237;
+    case polypore_spore :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1022, 1, "IIo1Y");
+        }
+        $int5 = %varplayerbit_10234;
+    case neem_oil :
+        if ($int3 = 1) {
+            if_setonvartransmit($component0, clientscript_5391, event_com, $component1, $obj2, 0, 1022, 1059, 2, "IIo1Y");
+        }
+        $int5 = calc(%varplayerbit_10239 * 32 + %varplayerbit_10238);
+    case default :
+        return;
+}
+def_graphic $graphic6 = graphic_6014;
+if ($int4 > 1) {
+    if_setobject_alwaysnum($component0, $obj2, $int5);
+    if ($int5 >= $int4) {
+        $graphic6 = graphic_6017;
+    }
+} else {
+    if_setobject_nonum($component0, $obj2, $int5);
+}
+if_setopbase($component0, "<col=ff9040><oc_name($obj2)>");
+def_graphic $graphic7 = graphic_6015;
+if ($int5 > 0) {
+    if_settrans($component0, 0);
+    if_setgraphic($component1, $graphic6);
+    if_setonmouseover($component1, "graphic_swapper(event_com, $graphic7)");
+    if_setonmouseleave($component1, "graphic_swapper(event_com, $graphic6)");
+} else {
+    if_settrans($component0, 175);
+    if_setgraphic($component1, graphic_6016);
+    if_clearscripthooks($component1);
+}

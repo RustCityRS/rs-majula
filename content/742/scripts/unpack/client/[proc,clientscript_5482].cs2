@@ -1,0 +1,6 @@
+// 5482
+[proc,clientscript_5482]
+def_int $int0 = calc(65535 * %varplayerbit_10192 / 60);
+if_set2dangle(interface_1175:com_8, $int0);
+def_int $int1 = calc(65535 * %varplayerbit_10192 / 60 / 12);
+if_set2dangle(interface_1175:com_9, $int1);

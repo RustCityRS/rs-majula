@@ -1,0 +1,6 @@
+// 2916
+[proc,script2916]()(int)
+if (%varclient_1533 = 1) {
+    return(calc(max(stat(hitpoints), 0) * 10));
+}
+return(calc(max(stat_base(hitpoints), 1) * 10));

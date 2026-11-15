@@ -1,0 +1,183 @@
+// 5092
+[proc,clientscript_5092]
+cc_deleteall(interface_1112:com_4);
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_string $string7 = "";
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+if (%varplayerbit_9540 ! 3) {
+    if (%varplayerbit_9520 > 0) {
+        $string0 = "<br>Members:<br>Score:";
+        $string3 = $string0;
+        $string1 = "<br><tostring_localised(calc(%varclient_788 & 1023), true)>";
+        $string4 = "<br><tostring_localised(calc(%varclient_788 / pow(2, 10) & 1023), true)>";
+        $string1 = "<$string1><br><tostring_localised(calc(%varclient_786 & 65535), true)>";
+        $int8 = calc(%varclient_786 / pow(2, 16));
+        if ($int8 < 0) {
+            $int8 = calc(pow(2, 16) + $int8);
+        }
+        $string4 = "<$string4><br><tostring_localised($int8, true)>";
+        $int8 = enum(int, int, enum_3928, %varplayerbit_9521);
+        if ($int8 < ^max_32bit_int) {
+            $string1 = "<$string1> / <tostring_localised($int8, true)>";
+            $string4 = "<$string4> / <tostring_localised($int8, true)>";
+        }
+        if (%varplayerbit_9520 < 2) {
+            $string6 = "<br><br><br>Neutral players:";
+            $string7 = "<br><br><br><tostring_localised(calc(%varclient_788 / pow(2, 20)), true)>";
+        } else {
+            $string6, $string7 = "<br><br><br>", "<br><br><br>";
+        }
+        if (%varplayerbit_9540 = 1) {
+            $string2, $string5 = "Your team:", "Blue team:";
+        } else if (%varplayerbit_9540 = 2) {
+            $string2, $string5 = "Red team:", "Your team:";
+        } else {
+            $string2, $string5 = "Red team:", "Blue team:";
+            if (%varplayerbit_9520 < 2) {
+                $string6 = "<$string6><br>Your score:";
+                $string7 = "<$string7><br><tostring_localised(%varplayerbit_9541, true)>";
+                $int8 = enum(int, int, enum_3928, %varplayerbit_9522);
+                if ($int8 < ^max_32bit_int) {
+                    $string7 = "<$string7> / <tostring_localised($int8, true)>";
+                }
+            }
+        }
+    } else {
+        $string6, $string7 = "Score:", tostring_localised(%varplayerbit_9541, true);
+    }
+    $int8 = enum(int, int, enum_3940, %varplayerbit_9532);
+    if ($int8 ! 0) {
+        $string6 = "<$string6><br>Reward for pking:";
+        if ($int8 > 0) {
+            $string7 = "<$string7><br><tostring($int8)>";
+        } else {
+            $string7 = "<$string7><br>A key";
+        }
+    }
+    if (%varclient_787 < 0) {
+        $string6 = "<$string6><br>Scoring begins in:";
+        if (%varclient_787 <= ^min_32bit_int) {
+            $string7 = "<$string7><br>-";
+        } else {
+            $int6 = calc(0 - %varclient_787);
+        }
+    }
+    if (%varplayerbit_9523 > 0 & %varclient_787 > 0) {
+        $string6 = "<$string6><br>Time remaining:";
+        $int6 = %varclient_787;
+    }
+    $int5 = calc(paraheight($string6, ^max_32bit_int, p11_full) * 10 + 2);
+    $int0 = calc(parawidth($string0, ^max_32bit_int, p11_full) + 3 + parawidth($string1, ^max_32bit_int, p11_full));
+    $int0 = max($int0, parawidth($string2, ^max_32bit_int, p11_full));
+    $int1 = calc(parawidth($string3, ^max_32bit_int, p11_full) + 3 + parawidth($string4, ^max_32bit_int, p11_full));
+    $int1 = max($int1, parawidth($string5, ^max_32bit_int, p11_full));
+    $int3 = calc(parawidth($string6, ^max_32bit_int, p11_full) + 3 + max(parawidth($string7, ^max_32bit_int, p11_full), 40));
+    $int2 = calc($int0 + 5 + $int1);
+    $int4 = max($int3, $int2);
+    $int2 = calc(($int4 - $int2) / 2);
+    $int0, $int1 = calc($int0 + $int2), calc($int1 + $int2);
+    if_setsize(interface_1112:com_1, calc($int4 + 8), calc($int5 + 8), ^setsize_abs, ^setsize_abs);
+    cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    .cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    cc_setsize($int0, 0, ^setsize_abs, ^setsize_minus);
+    .cc_setsize($int0, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    .cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextfont(p11_full);
+    .cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    .cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    .cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_setcolour(^red);
+    .cc_setcolour(^red);
+    cc_settext($string0);
+    .cc_settext($string1);
+    cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    cc_setsize($int0, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    cc_setcolour(^red);
+    cc_settext($string2);
+    cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    .cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    cc_setsize($int1, 0, ^setsize_abs, ^setsize_minus);
+    .cc_setsize($int1, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    .cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    cc_settextfont(p11_full);
+    .cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    .cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    .cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_setcolour(0x7f7fff);
+    .cc_setcolour(0x7f7fff);
+    cc_settext($string3);
+    .cc_settext($string4);
+    cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    cc_setsize($int1, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+    cc_setcolour(0x7f7fff);
+    cc_settext($string5);
+    if (string_length($string0) > 0) {
+        cc_create(interface_1112:com_4, ^iftype_line, if_getnextsubid(interface_1112:com_4));
+        .cc_create(interface_1112:com_4, ^iftype_line, if_getnextsubid(interface_1112:com_4));
+        cc_setsize(0, 27, ^setsize_abs, ^setsize_abs);
+        .cc_setsize(0, 27, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int0 + 2), 3, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setposition(calc(cc_getx + 1), calc(cc_gety + 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setcolour(0x7f7f7f);
+        .cc_setcolour(0x3f3f3f);
+    }
+    cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    .cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+    cc_setsize($int3, 0, ^setsize_abs, ^setsize_minus);
+    .cc_setsize($int3, 0, ^setsize_abs, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    .cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settextfont(p11_full);
+    .cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    .cc_settextshadow(true);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    .cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+    cc_setcolour(0xcfcfcf);
+    .cc_setcolour(0xcfcfcf);
+    cc_settext($string6);
+    .cc_settext($string7);
+    if ($int6 > 0) {
+        cc_create(interface_1112:com_4, ^iftype_text, if_getnextsubid(interface_1112:com_4));
+        cc_setsize($int3, 12, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc(max(calc($int4 - $int3), 0) / 2), 0, ^setpos_abs_right, ^setpos_abs_bottom);
+        cc_settextfont(p11_full);
+        cc_settextshadow(true);
+        cc_settextalign(^settextalign_right, ^settextalign_top, 0);
+        cc_setcolour(0xcfcfcf);
+        $int7 = calc($int6 * 30);
+        if ($int7 > %varclient_995 | calc($int7 + 29) < %varclient_995) {
+            %varclient_995 = calc($int7 + 15);
+        }
+        cc_settext(~clientscript_5094);
+        cc_setontimer("clientscript_5093(event_com, event_comsubid)");
+    }
+}

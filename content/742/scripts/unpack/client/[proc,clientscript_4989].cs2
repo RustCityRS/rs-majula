@@ -1,0 +1,12 @@
+// 4989
+[proc,clientscript_4989](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_struct $struct4 = null;
+def_struct $struct5 = null;
+$int1, $int2, $struct4, $struct5, $int3 = ~clientscript_4958($int0);
+~clientscript_4988(%varplayerbit_9550);
+~clientscript_4937;
+%varplayerbit_9550 = $int1;
+%varplayerbit_9551 = ~clientscript_4945($int1);

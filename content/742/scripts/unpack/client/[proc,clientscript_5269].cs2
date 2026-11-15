@@ -1,0 +1,82 @@
+// 5269
+[proc,clientscript_5269](int $int0, int $int1, coord $coord2, int $int3, int $int4, coord $coord5, int $int6, int $int7, coord $coord8, int $int9, int $int10, coord $coord11, int $int12, int $int13, coord $coord14, int $int15, int $int16, coord $coord17, int $int18, int $int19, coord $coord20, int $int21, int $int22, coord $coord23, int $int24, int $int25, int $int26, int $int27, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6, string $string7, string $string8, string $string9)
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = 0;
+if_settext(interface_1137:com_43, $string0);
+if_setonmouserepeat(interface_1137:com_30, "script1160(event_com, -1, interface_1137:com_6, $string1, 25, 519)");
+if_setonmouseleave(interface_1137:com_6, "deltooltip(interface_1137:com_6)");
+if_settext(interface_1137:com_48, tostring($int25));
+if_settext(interface_1137:com_39, tostring(calc($int26 + $int27)));
+cc_deleteall(interface_1137:com_28);
+cc_deleteall(interface_1137:com_83);
+cc_deleteall(interface_1137:com_94);
+if ($int0 = 1) {
+    if_sethide(interface_1137:com_15, true);
+    if_sethide(interface_1137:com_16, false);
+    if_sethide(interface_1137:com_17, false);
+    if_settext(interface_1137:com_67, tostring($int26));
+    if_settext(interface_1137:com_73, tostring($int27));
+    if ($int1 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_83, $string2, $coord2, $int3, $int28);
+    }
+    if ($int4 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_83, $string3, $coord5, $int6, $int28);
+    }
+    if ($int7 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_83, $string4, $coord8, $int9, $int28);
+    }
+    if ($int10 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_83, $string5, $coord11, $int12, $int28);
+    }
+    if ($int13 ! -1) {
+        $int29 = ~clientscript_5271(interface_1137:com_94, $string6, $coord14, $int15, $int29);
+    }
+    if ($int16 ! -1) {
+        $int29 = ~clientscript_5271(interface_1137:com_94, $string7, $coord17, $int18, $int29);
+    }
+    if ($int19 ! -1) {
+        $int29 = ~clientscript_5271(interface_1137:com_94, $string8, $coord20, $int21, $int29);
+    }
+    if ($int22 ! -1) {
+        $int29 = ~clientscript_5271(interface_1137:com_94, $string9, $coord23, $int24, $int29);
+    }
+    while ($int30 < $int28) {
+        $int30 = ~clientscript_5272(interface_1137:com_83, $int30, $int28);
+    }
+    $int30 = 0;
+    while ($int30 < $int29) {
+        $int30 = ~clientscript_5272(interface_1137:com_94, $int30, $int29);
+    }
+} else {
+    if_sethide(interface_1137:com_15, false);
+    if_sethide(interface_1137:com_16, true);
+    if_sethide(interface_1137:com_17, true);
+    if ($int1 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string2, $coord2, $int3, $int28);
+    }
+    if ($int4 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string3, $coord5, $int6, $int28);
+    }
+    if ($int7 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string4, $coord8, $int9, $int28);
+    }
+    if ($int10 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string5, $coord11, $int12, $int28);
+    }
+    if ($int13 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string6, $coord14, $int15, $int28);
+    }
+    if ($int16 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string7, $coord17, $int18, $int28);
+    }
+    if ($int19 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string8, $coord20, $int21, $int28);
+    }
+    if ($int22 ! -1) {
+        $int28 = ~clientscript_5271(interface_1137:com_28, $string9, $coord23, $int24, $int28);
+    }
+    while ($int30 < $int28) {
+        $int30 = ~clientscript_5272(interface_1137:com_28, $int30, $int28);
+    }
+}

@@ -1,0 +1,9 @@
+// 6619
+[proc,clientscript_6619]
+~clientscript_6620(interface_1323:com_46);
+~clientscript_6620(interface_1323:com_7);
+if_setoninvtransmit(interface_1323:com_46, "clientscript_6621(interface_1323:com_46, boardgames_boardinv){boardgames_boardinv}");
+if_setoninvtransmit(interface_1323:com_7, "clientscript_6621(interface_1323:com_7, inv_674){inv_674}");
+if_setontimer(interface_1323:com_1, "clientscript_6624(null, 0, 0, 0, -1)");
+if_setoninvtransmit(interface_1323:com_18, "clientscript_6626(interface_1323:com_18){inv_674}");
+if_setoninvtransmit(interface_1323:com_17, "clientscript_6627(interface_1323:com_17){boardgames_boardinv}");

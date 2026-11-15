@@ -11,6 +11,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -31,7 +32,7 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[&str]) -> (HarnessClient, u1
         .npcs
         .iter()
         .flatten()
-        .find(|n| n.npc.uid.id() == MIZGOG)
+        .find(|n| n.npc.uid.id() == TypeId::new(MIZGOG))
         .map(|n| {
             (
                 n.npc.uid.nid(),
@@ -60,14 +61,14 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[&str]) -> (HarnessClient, u1
         })
         .expect("a walkable tile beside Mizgog");
     engine.harness_telejump(client.pid, sx, 2, sz);
-    let varp = *engine.cache.varps.debugnames.get("imp").unwrap();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let ids: Vec<u16> = objs
+    let varp = engine.cache.varps.get_by_debugname("imp").unwrap().id;
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let ids: Vec<TypeId> = objs
         .iter()
-        .map(|o| *engine.cache.objs.debugnames.get(*o).unwrap())
+        .map(|o| engine.cache.objs.get_by_debugname(o).unwrap().id)
         .collect();
     let player = engine.harness_player_mut(client.pid).unwrap();
-    player.vars.set(varp, VarValue::Int(stage));
+    player.vars.set(varp.g2(), VarValue::Int(stage));
     let backpack = player.invs.get_mut(&inv).unwrap();
     for (slot, id) in ids.into_iter().enumerate() {
         backpack.set(slot as u16, id, 1);
@@ -80,12 +81,12 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[&str]) -> (HarnessClient, u1
 }
 
 fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
-    let varp = *engine.cache.varps.debugnames.get("imp").unwrap();
+    let varp = engine.cache.varps.get_by_debugname("imp").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 
@@ -163,10 +164,10 @@ fn mizgog_takes_the_four_beads_for_an_amulet_of_accuracy() {
             "Imp Catcher complete; said {:?}",
             talk.texts
         );
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
-        let id = |o: &str| *engine.cache.objs.debugnames.get(o).unwrap();
+        let id = |o: &str| engine.cache.objs.get_by_debugname(o).unwrap().id;
         assert_eq!(
             backpack.total(id("amulet_of_accuracy")) as i64,
             1,

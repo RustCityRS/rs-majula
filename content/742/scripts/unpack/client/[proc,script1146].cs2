@@ -1,0 +1,9 @@
+// 1146
+[proc,script1146](int $int0)(int)
+if ($int0 >= 10000000) {
+    return(65408);
+} else if ($int0 >= 100000) {
+    return(16777215);
+} else {
+    return(16776960);
+}

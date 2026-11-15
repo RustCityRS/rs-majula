@@ -2,7 +2,7 @@ use anyhow::Result;
 use clap::{ArgAction, Parser, Subcommand};
 use rs_io::jag::JagFile;
 use rs_io::js5::java_string_hash;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_pack::pyxel;
 use rs_pack::unpack;
 use std::io::{BufRead, stdin};
@@ -19,7 +19,7 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Recover missing registry names by matching dictionary candidates to cache hashes
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     RecoverNames {
         #[arg(long, default_value = rs_pack::PACK_DIR)]
         pack: PathBuf,
@@ -31,7 +31,7 @@ enum Commands {
         dictionaries: Vec<PathBuf>,
     },
     /// Decompile only the configs, to compare them with another dump
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     UnpackConfigs {
         #[arg(short, long, default_value = "expected")]
         expected: PathBuf,
@@ -41,7 +41,7 @@ enum Commands {
         pack: PathBuf,
     },
     /// Decompile client scripts to editable RuneScript source and verify their bytes
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     UnpackClientscripts {
         #[arg(short, long, default_value = "expected")]
         expected: PathBuf,
@@ -84,14 +84,14 @@ enum Commands {
         pack: Option<PathBuf>,
     },
     /// Generate editable .pyxel sprite docs next to the content TGAs
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     ToPyxel {
         /// Content directory holding the sprite TGAs
         #[arg(short, long, default_value = rs_pack::CONTENT_DIR)]
         source: PathBuf,
     },
     /// Rebuild content TGAs from edited .pyxel docs (run before `pack`)
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     FromPyxel {
         /// Content directory holding the .pyxel docs
         #[arg(short, long, default_value = rs_pack::CONTENT_DIR)]
@@ -115,7 +115,7 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         Commands::RecoverNames {
             pack,
             kind,
@@ -125,13 +125,13 @@ fn main() -> Result<()> {
             let count = unpack::names::recover(&pack, &kind, &dictionaries, max_index)?;
             tracing::info!("Recovered {count} {kind} names");
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         Commands::UnpackConfigs {
             expected,
             output,
             pack,
         } => unpack::unpack_configs_only(&expected, &output, &pack)?,
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         Commands::UnpackClientscripts {
             expected,
             output,
@@ -140,7 +140,7 @@ fn main() -> Result<()> {
             let count = unpack::cs2::unpack_cs2_scripts(&expected, &output, &pack)?;
             tracing::info!("Decompiled and byte-verified {count} clientscripts");
         }
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         Commands::Pack {
             source,
             pack,
@@ -162,7 +162,7 @@ fn main() -> Result<()> {
                 scripts.count(),
             );
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         Commands::Pack {
             source,
             pack,
@@ -184,9 +184,9 @@ fn main() -> Result<()> {
                 result.store.varbits.count(),
             );
         }
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         Commands::ToPyxel { source } => pyxel::content_to_pyxel(&source)?,
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         Commands::FromPyxel { source } => pyxel::content_from_pyxel(&source)?,
         Commands::Unpack {
             expected,

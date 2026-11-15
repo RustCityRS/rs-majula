@@ -1,0 +1,14 @@
+// 6928
+[proc,clientscript_6928](component $component0, int $int1, int $int2, int $int3)
+if ($int3 ! 1) {
+    return;
+}
+sound_vorbis_volume(6185, 1, 0, 200);
+if (testbit(%varplayerbit_12261, $int2) = ^true) {
+    %varplayerbit_12261 = clearbit(%varplayerbit_12261, $int2);
+} else {
+    %varplayerbit_12261 = setbit(%varplayerbit_12261, $int2);
+}
+if (.cc_find($component0, $int1) = true) {
+    ~clientscript_6927($int2);
+}

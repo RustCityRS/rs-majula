@@ -1,0 +1,13 @@
+// 194
+[proc,clientscript_194](int $int0)
+if (%tutorial < 1000 & %tutorial_version = 2) {
+    mes("You need to complete 'Learning the Ropes' before joining Clan Chat.");
+    return;
+}
+if ($int0 = 1) {
+    if (clan_getchatcount > 0) {
+        clan_leavechat;
+    } else {
+        ~clientscript_111;
+    }
+}

@@ -1,0 +1,548 @@
+// 513:0
+[com_0]
+type=layer
+width=250
+height=300
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_5118(event_com)
+
+// 513:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4260(event_com)
+
+// 513:2
+[com_2]
+type=layer
+y=10
+width=30
+height=43
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+
+// 513:3
+[com_3]
+type=layer
+height=122
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+
+// 513:4
+[com_4]
+type=text
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+textfont=p11_full
+text=Potions
+textalignv=centre
+textshadow=yes
+
+// 513:5
+[com_5]
+type=layer
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+onload=clientscript_5254(event_com)
+
+// 513:6
+[com_6]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+graphic=window_texture_2
+tiling=yes
+
+// 513:7
+[com_7]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_5
+
+// 513:8
+[com_8]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_5
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_7, "3doseadvanced_hunter_potion", 1)
+
+// 513:9
+[com_9]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_5
+
+// 513:10
+[com_10]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_5
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_9, "3dosefarming_potion", 1)
+
+// 513:11
+[com_11]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_5
+
+// 513:12
+[com_12]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_5
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_11, "3dosescentless_potion", 1)
+
+// 513:13
+[com_13]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+
+// 513:14
+[com_14]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_13, "3dosesaradomin_potion", 1)
+
+// 513:15
+[com_15]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+
+// 513:16
+[com_16]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_15, "3dosezamorak_potion", 1)
+
+// 513:17
+[com_17]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+
+// 513:18
+[hunter_remove]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_17, "3doseguthix_potion", 1)
+
+// 513:19
+[com_19]
+type=layer
+y=130
+height=122
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+
+// 513:20
+[com_20]
+type=text
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_19
+textfont=p11_full
+text=Ingredients
+textalignv=centre
+textshadow=yes
+
+// 513:21
+[com_21]
+type=layer
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_19
+onload=clientscript_5254(event_com)
+
+// 513:22
+[com_22]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+graphic=window_texture_2
+tiling=yes
+
+// 513:23
+[com_23]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_21
+
+// 513:24
+[com_24]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_21
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_23, ecosystem_corrupt_vine, 1)
+
+// 513:25
+[com_25]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_21
+
+// 513:26
+[farming_remove]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_21
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_25, ecosystem_marble_vine, 1)
+
+// 513:27
+[com_27]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+layer=com_21
+
+// 513:28
+[saradomin_remove]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+layer=com_21
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_27, ecosystem_shadow_vine, 1)
+
+// 513:29
+[com_29]
+type=graphic
+x=-55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+
+// 513:30
+[guthix_remove]
+type=graphic
+x=-53
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_29, ecosystem_saradomin_vine, 1)
+
+// 513:31
+[com_31]
+type=graphic
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+
+// 513:32
+[zamorak_remove]
+type=graphic
+x=2
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_31, ecosystem_zamorak_vine, 1)
+
+// 513:33
+[com_33]
+type=graphic
+x=55
+y=10
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+
+// 513:34
+[scentless_remove]
+type=graphic
+x=57
+y=12
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_21
+outline=1
+graphicshadow=3153952
+transmitop=1,2,3,4,10
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=clientscript_5391(event_com, ecosystem_potion_storage:com_33, ecosystem_guthix_vine, 1)
+
+// 513:35
+[com_35]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4261(event_com)
+
+// 513:36
+[com_36]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 513:37
+[com_37]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_36
+textfont=palatino_linotype_18pt_regular
+text=Potion Store
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 513:38
+[com_38]
+type=layer
+x=8
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_0
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 513:39
+[com_39]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+graphic="aif_bronze_close_button_1,0"
+
+// 513:40
+[com_40]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)

@@ -1,0 +1,73 @@
+[debugproc,lineofwalk]
+def_boolean $west = lineofwalk(coord, movecoord(coord, -1, 0, 0));
+def_boolean $east = lineofwalk(coord, movecoord(coord, 1, 0, 0));
+def_boolean $north = lineofwalk(coord, movecoord(coord, 0, 0, 1));
+def_boolean $south = lineofwalk(coord, movecoord(coord, 0, 0, -1));
+if ($west = true) {
+    mes("Line of Walk: West Free");
+}
+if ($east = true) {
+    mes("Line of Walk: East Free");
+}
+if ($north = true) {
+    mes("Line of Walk: North Free");
+}
+if ($south = true) {
+    mes("Line of Walk: South Free");
+}
+
+[debugproc,map_blocked]
+def_boolean $west = map_blocked(movecoord(coord, -1, 0, 0));
+def_boolean $east = map_blocked(movecoord(coord, 1, 0, 0));
+def_boolean $north = map_blocked(movecoord(coord, 0, 0, 1));
+def_boolean $south = map_blocked(movecoord(coord, 0, 0, -1));
+if ($west = false) {
+    mes("Map Blocked: West Free");
+}
+if ($east = false) {
+    mes("Map Blocked: East Free");
+}
+if ($north = false) {
+    mes("Map Blocked: North Free");
+}
+if ($south = false) {
+    mes("Map Blocked: South Free");
+}
+
+[debugproc,map_findsquare](int $min, int $max)
+if (p_finduid(uid) = true) {
+    p_telejump(map_findsquare(coord, $min, $max, 0));
+}
+
+[debugproc,huntall_test]
+huntall(coord, 10, 0);
+while (huntnext = true) {
+    mes("Found player nearby.");
+}
+
+[debugproc,npc_huntall_test]
+npc_huntall(coord, 10, 0);
+while (npc_findnext = true) {
+    npc_say("Hello noob");
+}
+
+[debugproc,npc_findallany_test]
+npc_findallany(coord, 10, ^vis_off);
+while (npc_findnext = true) {
+    npc_say("FOUND!");
+}
+
+[debugproc,busy_test]
+if (busy = true) {
+    mes("I am busy.");
+} else {
+    mes("I am not busy.");
+}
+
+[debugproc,antilog](int $duration)
+if (p_finduid(uid) = true) {
+    p_preventlogout("Antilog test", $duration);
+}
+
+[debugproc,map_playercount_test]
+mes(tostring(map_playercount(movecoord(coord, -10, 0, -10), movecoord(coord, 10, 0, 10))));

@@ -1,0 +1,254 @@
+// 6737
+[proc,clientscript_6737]
+if (%varplayer_2752 < 1) {
+    ~clientscript_6740;
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_struct $struct3 = null;
+def_enum $enum4 = null;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (%varplayer_2751 = 0) {
+    switch_int (%varplayer_2752) {
+        case 1 :
+            $int0 = 8;
+            $enum4 = enum_5530;
+        case 2 :
+            $int0 = 1;
+            $enum4 = enum_5513;
+        case 3 :
+            $int0 = 22;
+            $enum4 = enum_5526;
+        case 4 :
+            $int0 = 16;
+            $enum4 = enum_5515;
+        case 5 :
+            $int0 = 11;
+            $enum4 = enum_5532;
+        case 6 :
+            $int0 = 25;
+            $enum4 = enum_5519;
+        case 7 :
+            $int0 = 21;
+            $enum4 = enum_5522;
+        case 8 :
+            $int0 = 17;
+            $enum4 = enum_5520;
+        case 9 :
+            $int0 = 15;
+            $enum4 = enum_5524;
+        case 10 :
+            $int0 = 19;
+            $enum4 = enum_5523;
+        case 11 :
+            $int0 = 9;
+            $enum4 = enum_5525;
+        case 12 :
+            $int0 = 23;
+            $enum4 = enum_5514;
+        case 13 :
+            $int0 = 13;
+            $enum4 = enum_5516;
+        case 14 :
+            $int0 = 7;
+            $enum4 = enum_5529;
+        case 15 :
+            $int0 = 12;
+            $enum4 = enum_5521;
+        case 16 :
+            $int0 = 20;
+            $enum4 = enum_5527;
+        case 17 :
+            $int0 = 14;
+            $enum4 = enum_5528;
+        case 18 :
+            $int0 = 24;
+            $enum4 = enum_5517;
+        case 19 :
+            $int0 = 10;
+            $enum4 = enum_5518;
+        case 20 :
+            $int0 = 18;
+            $enum4 = enum_5531;
+    }
+    if ($int0 = %varplayerbit_11985) {
+        $struct3 = enum(int, struct, $enum4, %varplayerbit_11986);
+    } else if ($int0 = %varplayerbit_11989) {
+        $struct3 = enum(int, struct, $enum4, %varplayerbit_11990);
+    } else if ($int0 = %varplayerbit_11993) {
+        $struct3 = enum(int, struct, $enum4, %varplayerbit_11994);
+    } else if ($int0 = %varplayerbit_11997) {
+        $struct3 = enum(int, struct, $enum4, %varplayerbit_11998);
+    } else if ($int0 = %varplayerbit_12001) {
+        $struct3 = enum(int, struct, $enum4, %varplayerbit_12002);
+    } else {
+        $int6 = enum_getoutputcount($enum4);
+        while ($int6 > 0 & $struct3 = null) {
+            if (~clientscript_6784(enum(int, int, enum_6153, %varplayer_2752), $int6) = 1) {
+                $struct3 = enum(int, struct, $enum4, $int6);
+            }
+            $int6 = calc($int6 - 1);
+        }
+    }
+    if ($struct3 = null) {
+        ~clientscript_6740;
+        return;
+    }
+} else if (%varplayer_2751 = 63) {
+    switch_int (%varplayer_2752) {
+        case 1 :
+            $int1 = %varplayerbit_11985;
+            $int0 = %varplayerbit_11985;
+            $int2 = %varplayerbit_11986;
+            $int5 = 1;
+        case 2 :
+            $int1 = %varplayerbit_11989;
+            $int0 = %varplayerbit_11989;
+            $int2 = %varplayerbit_11990;
+            $int5 = 2;
+        case 3 :
+            $int1 = %varplayerbit_11993;
+            $int0 = %varplayerbit_11993;
+            $int2 = %varplayerbit_11994;
+            $int5 = 3;
+        case 4 :
+            $int1 = %varplayerbit_11997;
+            $int0 = %varplayerbit_11997;
+            $int2 = %varplayerbit_11998;
+            $int5 = 4;
+        case 5 :
+            $int1 = %varplayerbit_12001;
+            $int0 = %varplayerbit_12001;
+            $int2 = %varplayerbit_12002;
+            $int5 = 5;
+    }
+    switch_int ($int1) {
+        case 8 :
+            $struct3 = enum(int, struct, enum_5530, $int2);
+        case 1 :
+            $struct3 = enum(int, struct, enum_5513, $int2);
+        case 22 :
+            $struct3 = enum(int, struct, enum_5526, $int2);
+        case 16 :
+            $struct3 = enum(int, struct, enum_5515, $int2);
+        case 11 :
+            $struct3 = enum(int, struct, enum_5532, $int2);
+        case 25 :
+            $struct3 = enum(int, struct, enum_5519, $int2);
+        case 21 :
+            $struct3 = enum(int, struct, enum_5522, $int2);
+        case 17 :
+            $struct3 = enum(int, struct, enum_5520, $int2);
+        case 15 :
+            $struct3 = enum(int, struct, enum_5524, $int2);
+        case 19 :
+            $struct3 = enum(int, struct, enum_5523, $int2);
+        case 9 :
+            $struct3 = enum(int, struct, enum_5525, $int2);
+        case 23 :
+            $struct3 = enum(int, struct, enum_5514, $int2);
+        case 13 :
+            $struct3 = enum(int, struct, enum_5516, $int2);
+        case 7 :
+            $struct3 = enum(int, struct, enum_5529, $int2);
+        case 12 :
+            $struct3 = enum(int, struct, enum_5521, $int2);
+        case 20 :
+            $struct3 = enum(int, struct, enum_5527, $int2);
+        case 14 :
+            $struct3 = enum(int, struct, enum_5528, $int2);
+        case 24 :
+            $struct3 = enum(int, struct, enum_5517, $int2);
+        case 10 :
+            $struct3 = enum(int, struct, enum_5518, $int2);
+        case 18 :
+            $struct3 = enum(int, struct, enum_5531, $int2);
+    }
+} else {
+    switch_int (%varplayer_2751) {
+        case 8 :
+            $int0 = 8;
+            $enum4 = enum_5530;
+        case 1 :
+            $int0 = 1;
+            $enum4 = enum_5513;
+        case 22 :
+            $int0 = 22;
+            $enum4 = enum_5526;
+        case 16 :
+            $int0 = 16;
+            $enum4 = enum_5515;
+        case 11 :
+            $int0 = 11;
+            $enum4 = enum_5532;
+        case 25 :
+            $int0 = 25;
+            $enum4 = enum_5519;
+        case 21 :
+            $int0 = 21;
+            $enum4 = enum_5522;
+        case 17 :
+            $int0 = 17;
+            $enum4 = enum_5520;
+        case 15 :
+            $int0 = 15;
+            $enum4 = enum_5524;
+        case 19 :
+            $int0 = 19;
+            $enum4 = enum_5523;
+        case 9 :
+            $int0 = 9;
+            $enum4 = enum_5525;
+        case 23 :
+            $int0 = 23;
+            $enum4 = enum_5514;
+        case 13 :
+            $int0 = 13;
+            $enum4 = enum_5516;
+        case 7 :
+            $int0 = 7;
+            $enum4 = enum_5529;
+        case 12 :
+            $int0 = 12;
+            $enum4 = enum_5521;
+        case 20 :
+            $int0 = 20;
+            $enum4 = enum_5527;
+        case 14 :
+            $int0 = 14;
+            $enum4 = enum_5528;
+        case 24 :
+            $int0 = 24;
+            $enum4 = enum_5517;
+        case 10 :
+            $int0 = 10;
+            $enum4 = enum_5518;
+        case 18 :
+            $int0 = 18;
+            $enum4 = enum_5531;
+    }
+    if ($enum4 = null) {
+        ~clientscript_6740;
+        return;
+    }
+    $struct3 = enum(int, struct, $enum4, %varplayer_2752);
+}
+if ($struct3 = ~clientscript_6783(1)) {
+    $int5 = 1;
+}
+if ($struct3 = ~clientscript_6783(2)) {
+    $int5 = 2;
+}
+if ($struct3 = ~clientscript_6783(3)) {
+    $int5 = 3;
+}
+if ($struct3 = ~clientscript_6783(4)) {
+    $int5 = 4;
+}
+if ($struct3 = ~clientscript_6783(5)) {
+    $int5 = 5;
+}
+~clientscript_6738($int0, $struct3, $int5);

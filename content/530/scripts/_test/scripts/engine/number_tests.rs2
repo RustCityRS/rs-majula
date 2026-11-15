@@ -1,0 +1,7 @@
+#testscript
+
+// The bit range commands take the number, then the first and last bit.
+[label,test_bit_ranges_take_the_number_first]
+assert_eq(clearbit_range(255, 0, 3), 240)
+assert_eq(setbit_range(0, 4, 7), 240)
+assert_eq(getbit_range(240, 4, 7), 15)

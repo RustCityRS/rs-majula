@@ -1,0 +1,5 @@
+// 5751
+[proc,clientscript_5751]
+if (if_find(interface_1239:com_8) = true) {
+    %varclient_1771 = cc_getscrolly;
+}

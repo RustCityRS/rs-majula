@@ -1,0 +1,9 @@
+// 6355
+[proc,clientscript_6355]()(int)
+def_int $int0 = cc_getx;
+def_component $component1 = op1506;
+while ($component1 ! null) {
+    $int0 = calc($int0 + if_getx($component1) - if_getscrollx($component1));
+    $component1 = op543($component1);
+}
+return($int0);

@@ -1,0 +1,162 @@
+// 5690
+[proc,clientscript_5690]
+cc_deleteall(interface_1218:com_30);
+cc_deleteall(interface_1218:com_72);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_string $string0 = "";
+def_obj $obj2 = null;
+def_int $int3 = 0;
+def_enum $enum4 = enum(int, enum, enum_5420, %varclient_1753);
+def_int $int5 = enum_getoutputcount($enum4);
+def_int $intarray0(calc($int5 + 1));
+def_int $int6 = 0;
+def_int $int7 = 1;
+switch_int (%varclient_1753) {
+    case 1 :
+        $int7 = %lvl_attack_before_levelup_varc;
+    case 2 :
+        $int7 = %lvl_strength_before_levelup_varc;
+    case 5 :
+        $int7 = %lvl_defence_before_levelup_varc;
+    case 3 :
+        $int7 = %lvl_ranged_before_levelup_varc;
+    case 7 :
+        $int7 = %lvl_prayer_before_levelup_varc;
+    case 4 :
+        $int7 = %lvl_magic_before_levelup_varc;
+    case 6 :
+        $int7 = %lvl_hitpoints_before_levelup_varc;
+    case 8 :
+        $int7 = %lvl_agility_before_levelup_varc;
+    case 9 :
+        $int7 = %lvl_herblore_before_levelup_varc;
+    case 10 :
+        $int7 = %lvl_thieving_before_levelup_varc;
+    case 11 :
+        $int7 = %lvl_crafting_before_levelup_varc;
+    case 19 :
+        $int7 = %lvl_fletching_before_levelup_varc;
+    case 13 :
+        $int7 = %lvl_mining_before_levelup_varc;
+    case 14 :
+        $int7 = %lvl_smithing_before_levelup_varc;
+    case 15 :
+        $int7 = %lvl_fishing_before_levelup_varc;
+    case 16 :
+        $int7 = %lvl_cooking_before_levelup_varc;
+    case 17 :
+        $int7 = %lvl_firemaking_before_levelup_varc;
+    case 18 :
+        $int7 = %lvl_woodcutting_before_levelup_varc;
+    case 12 :
+        $int7 = %lvl_runecraft_before_levelup_varc;
+    case 20 :
+        $int7 = %lvl_slayer_before_levelup_varc;
+    case 21 :
+        $int7 = %lvl_farming_before_levelup_varc;
+    case 22 :
+        $int7 = %lvl_construction_before_levelup_varc;
+    case 23 :
+        $int7 = %lvl_hunter_before_levelup_varc;
+    case 24 :
+        $int7 = %lvl_summoning_before_levelup_varc;
+    case 25 :
+        $int7 = %lvl_dungeoneering_before_levelup_varc;
+}
+~clientscript_5712(%varclient_1753);
+def_int $int8 = stat_base(enum(int, stat, enum_681, %varclient_1753));
+def_struct $struct9 = null;
+def_int $int10 = 0;
+if ($int8 > $int7) {
+    while ($int0 ! -1) {
+        $int0 = 0;
+        $string0, $obj2, $int0 = ~lvl_quest_check(enum(int, stat, enum_681, %varclient_1753), $int1);
+        if ($int0 = 1) {
+            $int3 = ~clientscript_5686($int3, $string0);
+        }
+        $int1 = calc($int1 + 1);
+    }
+    while ($int6 < $int5) {
+        $struct9 = enum(int, struct, $enum4, $int6);
+        $int10 = struct_param($struct9, param_2212);
+        if ($int10 > $int7 & $int10 <= $int8) {
+            cc_create(interface_1218:com_30, ^iftype_graphic, if_getnextsubid(interface_1218:com_30));
+            if (struct_param($struct9, param_2217) = true) {
+                cc_setgraphic(9310);
+            } else {
+                cc_setgraphic(9308);
+            }
+            cc_setsize(540, 40, ^setsize_abs, ^setsize_abs);
+            cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+            cc_setontimer("clientscript_5692(event_comsubid, $int3, $struct9)");
+            cc_setonclick(clientscript_5697, event_comsubid, $struct9, struct_param($struct9, param_2211), "iJs");
+            $int3 = calc(cc_getheight + $int3);
+        }
+        $int6 = calc($int6 + 1);
+    }
+    if ($int3 > 0) {
+        if_sethide(interface_1218:com_6, true);
+        if_sethide(interface_1218:com_7, true);
+        if_setsize(interface_1218:com_4, 546, 260, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1218:com_5, 16, 260, ^setsize_abs, ^setsize_abs);
+        if_sethide(interface_1218:com_2, false);
+        if_sethide(interface_1218:com_3, true);
+        if_setscrollsize(interface_1218:com_4, 0, $int3);
+        if_setscrollpos(interface_1218:com_4, 0, 0);
+        if_setsize(interface_1218:com_30, 0, $int3, ^setsize_minus, ^setsize_abs);
+        if_setsize(interface_1218:com_72, 0, $int3, ^setsize_minus, ^setsize_abs);
+        ~scrollbar_vertical(interface_1218:com_5, interface_1218:com_4, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+        return;
+    }
+}
+$int6 = 0;
+if_setsize(interface_1218:com_4, 546, 355, ^setsize_abs, ^setsize_abs);
+if_setsize(interface_1218:com_5, 16, 355, ^setsize_abs, ^setsize_abs);
+if_sethide(interface_1218:com_2, true);
+while ($int6 < $int5) {
+    cc_create(interface_1218:com_30, ^iftype_graphic, $int6);
+    $struct9 = enum(int, struct, $enum4, $int6);
+    if (struct_param($struct9, param_2217) = true) {
+        cc_setgraphic(9310);
+    } else {
+        cc_setgraphic(9308);
+    }
+    cc_setsize(540, 40, ^setsize_abs, ^setsize_abs);
+    cc_setposition(5, 5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonmouseover("clientscript_5695(event_comsubid)");
+    cc_setonmouseleave("clientscript_5696(event_comsubid)");
+    cc_setonclick(clientscript_5697, event_comsubid, $struct9, struct_param($struct9, param_2211), "iJs");
+    $intarray0($int6) = $int6;
+    $int6 = calc($int6 + 1);
+}
+%varclient_1754 = 1;
+$intarray0($int5) = -1;
+~clientscript_5698(intarray0, 0, calc($int5 - 1), $enum4);
+$int6 = 0;
+if_setparam_int(interface_1218:com_30, param_2221, $intarray0($int6));
+if_setparam_int(interface_1218:com_30, param_2222, $intarray0(calc($int5 - 1)));
+while ($int6 < $int5) {
+    if (cc_find(interface_1218:com_30, $intarray0($int6)) = true) {
+        cc_setparam_int(param_2221, $intarray0(calc($int6 + 1)));
+        if ($int6 > 0) {
+            cc_setparam_int(param_2222, $intarray0(calc($int6 - 1)));
+        }
+    }
+    $int6 = calc($int6 + 1);
+}
+$int6 = 0;
+~clientscript_5699(intarray0, 0, calc($int5 - 1), $enum4);
+if_setparam_int(interface_1218:com_30, param_2223, $intarray0($int6));
+if_setparam_int(interface_1218:com_30, param_2224, $intarray0(calc($int5 - 1)));
+while ($int6 < $int5) {
+    if (cc_find(interface_1218:com_30, $intarray0($int6)) = true) {
+        cc_setparam_int(param_2223, $intarray0(calc($int6 + 1)));
+        if ($int6 > 0) {
+            cc_setparam_int(param_2224, $intarray0(calc($int6 - 1)));
+        }
+    }
+    $int6 = calc($int6 + 1);
+}
+if_setscrollpos(interface_1218:com_4, 0, 0);
+~clientscript_5691(%varclient_1753);

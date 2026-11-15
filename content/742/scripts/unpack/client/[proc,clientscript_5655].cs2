@@ -1,0 +1,30 @@
+// 5655
+[proc,clientscript_5655](component $component0, component $component1, int $int2, int $int3)
+if ($int3 < 5) {
+    $int3 = calc($int3 + 1);
+    if_setontimer($component0, "clientscript_5655($component0, $component1, $int2, $int3)");
+    return;
+} else {
+    $int3 = 0;
+    if_setontimer($component0, "clientscript_5655($component0, $component1, $int2, $int3)");
+}
+def_int $int4 = scale(if_getheight($component0), 45, 100);
+def_int $int5 = scale(if_getheight($component1), 45, 100);
+if ($int2 <= 50) {
+    if_setsize($component1, if_getwidth($component1), 0, ^setsize_abs, ^setsize_abs);
+    $int2 = calc($int2 * 2);
+    if ($int4 < $int2) {
+        if_setsize($component0, if_getwidth($component0), min(calc(if_getheight($component0) + 1), 45), ^setsize_abs, ^setsize_abs);
+    } else {
+        if_setontimer($component0, null);
+    }
+} else if ($int4 < 100) {
+    if_setsize($component0, if_getwidth($component0), min(calc(if_getheight($component0) + 1), 45), ^setsize_abs, ^setsize_abs);
+} else {
+    if ($int5 < calc(($int2 - 50) * 2)) {
+        if_setsize($component1, if_getwidth($component1), min(calc(if_getheight($component1) + 1), 45), ^setsize_abs, ^setsize_abs);
+    }
+    if ($int5 >= calc(($int2 - 50) * 2)) {
+        if_setontimer($component0, null);
+    }
+}

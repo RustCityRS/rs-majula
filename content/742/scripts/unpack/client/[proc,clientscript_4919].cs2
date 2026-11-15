@@ -1,0 +1,23 @@
+// 4919
+[proc,clientscript_4919]
+def_int $int0 = 0;
+if (op718 = 1) {
+    if (%varplayerbit_9550 > 0) {
+        if (if_gethide(interface_1261:com_103) = false) {
+            ~clientscript_4989(~clientscript_4948(%varplayerbit_9550));
+        }
+    } else {
+        ~clientscript_5007;
+        ~clientscript_4935;
+        ~clientscript_4905;
+        ~clientscript_4907;
+        ~clientscript_5012;
+        ~clientscript_5975;
+        ~clientscript_4864;
+        ~clientscript_4994;
+        ~clientscript_4889;
+        ~clientscript_4881;
+    }
+    ~clientscript_4853;
+}
+return;

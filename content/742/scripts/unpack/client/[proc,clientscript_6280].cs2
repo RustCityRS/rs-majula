@@ -1,0 +1,25 @@
+// 6280
+[proc,clientscript_6280](int $int0)
+if_sethide(interface_1297:com_239, true);
+if_sethide(interface_1297:com_238, true);
+if_sethide(interface_1297:com_237, true);
+if_sethide(interface_1297:com_241, true);
+if_sethide(interface_1297:com_240, true);
+if_sethide(interface_1297:com_270, true);
+if_sethide(interface_1297:com_263, true);
+if_sethide(interface_1297:com_256, true);
+if ($int0 = 1) {
+    if_settext(interface_1297:com_124, "Taunt");
+    if_sethide(interface_1297:com_239, false);
+    if_sethide(interface_1297:com_240, false);
+    if_sethide(interface_1297:com_270, false);
+} else if ($int0 = 2) {
+    if_settext(interface_1297:com_124, "Title");
+    if_sethide(interface_1297:com_238, false);
+    if_sethide(interface_1297:com_241, false);
+    if_sethide(interface_1297:com_263, false);
+} else {
+    if_settext(interface_1297:com_124, "Reward");
+    if_sethide(interface_1297:com_237, false);
+    if_sethide(interface_1297:com_256, false);
+}

@@ -1,0 +1,12 @@
+// 4092
+[proc,clientscript_4092](int $int0)
+def_int $int1 = if_gettrans(interface_1202:com_0);
+if ($int1 < calc(30 + ($int0 - 1))) {
+    if_settrans(interface_1202:com_0, 30);
+    if_settrans(interface_1202:com_2, 20);
+    if_setontimer(interface_1202:com_0, null);
+    return;
+} else {
+    if_settrans(interface_1202:com_0, calc($int1 - $int0));
+    if_settrans(interface_1202:com_2, calc(($int1 - $int0) / 2));
+}

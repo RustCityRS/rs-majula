@@ -1,0 +1,9 @@
+// 5610
+[proc,clientscript_5610]
+if (%varclient_1750 < 0) {
+    %varclient_1750 = 0;
+}
+if (%varclient_1750 > 100) {
+    %varclient_1750 = 100;
+}
+~clientscript_5611(%varclient_1750, interface_1195:com_17);

@@ -1,26 +1,26 @@
 #![allow(clippy::needless_range_loop)]
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::{AssetNames, archive_name};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::{back, unpack};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::{sheet, tga};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Result, ensure};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::Js5Store;
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::info;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 const MEDIA_NAMES: &[&str] = &[
     "backbase1",
     "backbase2",
@@ -84,7 +84,7 @@ const MEDIA_NAMES: &[&str] = &[
     "wornicons",
 ];
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let sprite_dir = output_dir.join("sprites");
     let meta_dir = sprite_dir.join("meta");
@@ -152,7 +152,7 @@ pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn find_media_name(hash: i32) -> Option<&'static str> {
     for name in MEDIA_NAMES {
         if JagFile::hash(&format!("{name}.dat")) == hash {
@@ -162,7 +162,7 @@ fn find_media_name(hash: i32) -> Option<&'static str> {
     None
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub(crate) fn known_hashes() -> Vec<i32> {
     let mut hashes = vec![JagFile::hash("index.dat")];
     hashes.extend(
@@ -173,7 +173,7 @@ pub(crate) fn known_hashes() -> Vec<i32> {
     hashes
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Debug)]
 struct Sprite {
     width: u16,
@@ -187,7 +187,7 @@ struct Sprite {
     palette: Vec<u32>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn write_sprite_group(data: &[u8], path: &Path) -> Result<usize> {
     let output = |extension: &str| {
         let mut name = path.as_os_str().to_os_string();
@@ -265,7 +265,7 @@ height={height}
     Ok(sprites.len())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
     if data.len() < 2 {
         anyhow::bail!("sprite data too short: {} bytes", data.len());
@@ -402,7 +402,7 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
     Ok((sprites, area_width, area_height, palette_size))
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn unpack_sprites(
     store: &mut Js5Store,
     archive_id: u8,
@@ -435,7 +435,7 @@ pub fn unpack_sprites(
     Ok(stats)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn unpack_all_sprites(
     store: &mut Js5Store,
     content_dir: &Path,
@@ -449,6 +449,7 @@ pub fn unpack_all_sprites(
     total.groups += s.groups;
     total.sprites += s.sprites;
 
+    #[cfg(since_647)]
     for (aid, name) in [
         (archive::LOADING_SPRITES, "loading_sprites"),
         (archive::LOADING_SPRITES_RAW, "loading_sprites_raw"),
@@ -466,7 +467,7 @@ pub fn unpack_all_sprites(
     Ok(total)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 #[derive(Default)]
 pub struct UnpackSpriteStats {
     pub groups: u32,

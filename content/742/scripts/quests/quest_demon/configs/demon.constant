@@ -1,0 +1,22 @@
+// 2011's %demon_slayer stages (varbit 2561; void-634's demon_slayer.varbits.toml
+// list): clientscript 2193 completes the quest at 3. ^demon_complete is in
+// general/configs/quest.constant.
+^demon_not_started = 0
+^demon_sir_prysin = 1
+^demon_key_hunt = 2
+
+// %demon_slayer_bones: Traiborn wants 25 sets of bones (2011 wiki; void-634).
+^demon_bones_wanted = 25
+^demon_bones_given = -1
+
+// %demon_slayer_drain_dislodged (varbit 2568). The cache's multilocs: at 0 the
+// key sits in the palace drain (loc_31759 shows drain_17424), at 1 it lies in
+// the sewer (loc_17431 shows rusty_key, Take), at 2 the sewer shows mud_12972.
+^demon_key_in_drain = 0
+^demon_key_in_sewer = 1
+^demon_key_taken = 2
+
+// %demon_slayer_silverlight_case (varbit 6922): void-634's closed, open, empty.
+^demon_case_closed = 0
+^demon_case_open = 1
+^demon_case_empty = 2

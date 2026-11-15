@@ -4,14 +4,15 @@ use rs_entity::{EntityLifeTime, Loc, Obj};
 use rs_grid::CoordGrid;
 use rs_grid::mapsquare_coord::MapsquareCoordGrid;
 use rs_io::Packet;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::bz2::bz2_decompress;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::compression::decompress;
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::types::{LocAngle, LocLayer, LocShape, ParamValue, ScriptVarType};
 use rs_var::VarSet;
+use rs_ver::TypeId;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use tracing::info;
@@ -54,7 +55,7 @@ pub struct GameMap;
 ///
 /// # Returns
 /// A [`Packet`] wrapping the decompressed bytes.
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn decompress_map(data: &[u8]) -> Packet {
     let size = u32::from_be_bytes(data[..4].try_into().unwrap()) as usize;
     Packet::from(bz2_decompress(&data[4..], size, true, 0))
@@ -174,7 +175,7 @@ fn loc_zone_rect(shape: LocShape, x: u16, z: u16, extent: u16) -> (u16, u16, u16
 /// A decoded loc entry from an `l` mapsquare file, buffered between the
 /// decode and apply passes.
 pub(crate) struct MapLocEntry {
-    pub(crate) id: u16,
+    pub(crate) id: TypeId,
     pub(crate) coord: u16,
     pub(crate) info: u8,
 }
@@ -183,7 +184,7 @@ pub(crate) struct MapLocEntry {
 /// The locs are in map order within each zone, the zones in turn by level,
 /// x and z, so a copied zone reads only its own, and each zone keeps the
 /// longest side of its locs.
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub(crate) struct SquareTemplate {
     pub(crate) lands: Box<[u8; MAPSQUARE]>,
     locs: Vec<MapLocEntry>,
@@ -191,12 +192,12 @@ pub(crate) struct SquareTemplate {
     largest: Box<[u8; 256]>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl SquareTemplate {
     fn new(
         lands: Box<[u8; MAPSQUARE]>,
         mut locs: Vec<MapLocEntry>,
-        side: impl Fn(u16) -> u8,
+        side: impl Fn(TypeId) -> u8,
     ) -> SquareTemplate {
         let zone = |entry: &MapLocEntry| {
             let coord = MapsquareCoordGrid::from(entry.coord);
@@ -271,7 +272,7 @@ struct MapsquareData {
 /// # Panics
 /// On a container that does not decompress: the map decoders read unchecked,
 /// so a broken pack stops the load here.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn decompress_map(data: &[u8]) -> Packet {
     match decompress(data) {
         Ok(bytes) => Packet::from(bytes.to_vec()),
@@ -279,12 +280,12 @@ fn decompress_map(data: &[u8]) -> Packet {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn read_loc_id_offset(buf: &mut Packet) -> i32 {
     buf.gsmart1or2()
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn read_loc_id_offset(buf: &mut Packet) -> i32 {
     buf.gextended1or2()
 }
@@ -626,7 +627,7 @@ impl GameMap {
                 let info = buf.g1();
                 coord_offset = buf.gsmart1or2();
                 visit(MapLocEntry {
-                    id: id as u16,
+                    id: TypeId::from_int(id),
                     coord: coord as u16,
                     info,
                 });
@@ -636,7 +637,7 @@ impl GameMap {
     }
 
     /// Decodes mapsquare (`mx`, `mz`) for copying its zones into a region.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) fn decode_template(cache: &CacheStore, mx: u8, mz: u8) -> SquareTemplate {
         let mut lands = Box::new([0; MAPSQUARE]);
         if let Some(data) = cache.mapsquares.get(&('m', mx, mz)) {
@@ -674,7 +675,7 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn decode_npcs(
         buf: &mut Packet,
         cache: &CacheStore,
@@ -702,7 +703,7 @@ impl GameMap {
                     coord: packed,
                 });
 
-                let Some(npc) = cache.npcs.get_by_id(id as u16) else {
+                let Some(npc) = cache.npcs.get_by_id(TypeId::from_int(id)) else {
                     continue;
                 };
 
@@ -734,7 +735,7 @@ impl GameMap {
     ///
     /// # Call Stack
     /// **Called by:** [`load`](Self::load)
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     fn decode_objs(
         buf: &mut Packet,
         marks: &mut ZoneMarks,
@@ -779,7 +780,7 @@ impl GameMap {
     /// `(level << 14) | (local_x << 7) | local_z` -- matching the deob client
     /// and the rs-pack map codec that writes `map.dat`. Decoded into
     /// the same entries, and marked the same way, as [`decode_npcs`] above.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn decode_npcs(
         buf: &mut Packet,
         cache: &CacheStore,
@@ -800,7 +801,7 @@ impl GameMap {
                 coord: (level << 12) | (lx << 6) | lz,
             });
 
-            let Some(npc) = cache.npcs.get_by_id(id) else {
+            let Some(npc) = cache.npcs.get_by_id(TypeId::new(id)) else {
                 continue;
             };
             let size = npc.size.max(1) as u16;
@@ -819,7 +820,7 @@ impl GameMap {
     /// as flat `(u16 packed_pos, u16 obj_id, u16 count)` triples, the position
     /// packed as the jag-era files pack it (`(level << 12) | (local_x << 6) |
     /// local_z`). Decoded into the same entries as [`decode_objs`] above.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn decode_objs(
         buf: &mut Packet,
         marks: &mut ZoneMarks,
@@ -879,14 +880,14 @@ impl GameMap {
             }
         }
 
-        let coord_params: Vec<i32> = cache
+        let coord_params: Vec<TypeId> = cache
             .params
             .types
             .iter()
             .filter(|param| param.var_type == ScriptVarType::Coord)
             .map(|param| {
                 marks.mark_packed(param.default_int);
-                param.id as i32
+                param.id
             })
             .collect();
 
@@ -1184,7 +1185,7 @@ impl GameMap {
         for entry in npcs {
             let coord = MapsquareCoordGrid::from(entry.coord);
 
-            let Some(npc) = cache.npcs.get_by_id(entry.id) else {
+            let Some(npc) = cache.npcs.get_by_id(TypeId::new(entry.id)) else {
                 continue;
             };
 
@@ -1205,7 +1206,14 @@ impl GameMap {
             }
 
             let vars = VarSet::new(cache.varns.types.iter().map(|v| v.var_type));
-            out.push(ActiveNpc::new(entry.id, 0, coord, npc.size, vars, cache));
+            out.push(ActiveNpc::new(
+                TypeId::new(entry.id),
+                0,
+                coord,
+                npc.size,
+                vars,
+                cache,
+            ));
         }
     }
 
@@ -1239,7 +1247,7 @@ impl GameMap {
         for entry in objs {
             let coord = MapsquareCoordGrid::from(entry.coord);
 
-            let Some(obj) = cache.objs.get_by_id(entry.id) else {
+            let Some(obj) = cache.objs.get_by_id(TypeId::new(entry.id)) else {
                 continue;
             };
 
@@ -1358,7 +1366,7 @@ pub fn change_loc_collision(
     }
 }
 
-#[cfg(all(test, since_647))]
+#[cfg(all(test, since_530))]
 mod tests {
     use super::decompress_map;
     use rs_io::js5::compression::{CompressionType, compress};

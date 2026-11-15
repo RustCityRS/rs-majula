@@ -1,0 +1,394 @@
+// 4724
+[proc,clientscript_4724](int $int0)(int, int, int, int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+if (op718 = 1) {
+    switch_int ($int0) {
+        case 1 :
+            $int3 = %varclan_2148;
+            $int1 = %varclan_2139;
+            $int2 = %varclan_2140;
+            $int4 = %varclan_2145;
+            $int5 = %varclan_2146;
+            $int6 = %varclan_2147;
+        case 2 :
+            $int3 = %varclan_2165;
+            $int1 = %varclan_2156;
+            $int2 = %varclan_2157;
+            $int4 = %varclan_2162;
+            $int5 = %varclan_2163;
+            $int6 = %varclan_2164;
+        case 3 :
+            $int3 = %varclan_2182;
+            $int1 = %varclan_2173;
+            $int2 = %varclan_2174;
+            $int4 = %varclan_2179;
+            $int5 = %varclan_2180;
+            $int6 = %varclan_2181;
+    }
+    switch_int ($int3) {
+        case 21 :
+            $int7 = %varclan_2330;
+            $int8 = %varclan_2331;
+            $int10 = %varclan_2336;
+            $int11 = %varclan_2337;
+            $int12 = %varclan_2338;
+        case 22 :
+            $int7 = %varclan_2340;
+            $int8 = %varclan_2341;
+            $int10 = %varclan_2346;
+            $int11 = %varclan_2347;
+            $int12 = %varclan_2348;
+        case 23 :
+            $int7 = %varclan_2350;
+            $int8 = %varclan_2351;
+            $int10 = %varclan_2356;
+            $int11 = %varclan_2357;
+            $int12 = %varclan_2358;
+        case 24 :
+            $int7 = %varclan_2360;
+            $int8 = %varclan_2361;
+            $int10 = %varclan_2366;
+            $int11 = %varclan_2367;
+            $int12 = %varclan_2368;
+        case 25 :
+            $int7 = %varclan_2370;
+            $int8 = %varclan_2371;
+            $int10 = %varclan_2376;
+            $int11 = %varclan_2377;
+            $int12 = %varclan_2378;
+        case 26 :
+            $int7 = %varclan_2380;
+            $int8 = %varclan_2381;
+            $int10 = %varclan_2386;
+            $int11 = %varclan_2387;
+            $int12 = %varclan_2388;
+        case 27 :
+            $int7 = %varclan_2390;
+            $int8 = %varclan_2391;
+            $int10 = %varclan_2396;
+            $int11 = %varclan_2397;
+            $int12 = %varclan_2398;
+        case 28 :
+            $int7 = %varclan_2400;
+            $int8 = %varclan_2401;
+            $int10 = %varclan_2406;
+            $int11 = %varclan_2407;
+            $int12 = %varclan_2408;
+        case 31 :
+            $int7 = %varclan_2460;
+            $int8 = %varclan_2461;
+            $int10 = %varclan_2466;
+            $int11 = %varclan_2467;
+            $int12 = %varclan_2468;
+        case 32 :
+            $int7 = %varclan_2470;
+            $int8 = %varclan_2471;
+            $int10 = %varclan_2476;
+            $int11 = %varclan_2477;
+            $int12 = %varclan_2478;
+        case 33 :
+            $int7 = %varclan_2480;
+            $int8 = %varclan_2481;
+            $int10 = %varclan_2486;
+            $int11 = %varclan_2487;
+            $int12 = %varclan_2488;
+        case 34 :
+            $int7 = %varclan_2490;
+            $int8 = %varclan_2491;
+            $int10 = %varclan_2496;
+            $int11 = %varclan_2497;
+            $int12 = %varclan_2498;
+        case 35 :
+            $int7 = %varclan_2500;
+            $int8 = %varclan_2501;
+            $int10 = %varclan_2506;
+            $int11 = %varclan_2507;
+            $int12 = %varclan_2508;
+        case 41 :
+            $int7 = %varclan_2410;
+            $int8 = %varclan_2411;
+            $int10 = %varclan_2416;
+            $int11 = %varclan_2417;
+            $int12 = %varclan_2418;
+        case 42 :
+            $int7 = %varclan_2420;
+            $int8 = %varclan_2421;
+            $int10 = %varclan_2426;
+            $int11 = %varclan_2427;
+            $int12 = %varclan_2428;
+        case 43 :
+            $int7 = %varclan_2430;
+            $int8 = %varclan_2431;
+            $int10 = %varclan_2436;
+            $int11 = %varclan_2437;
+            $int12 = %varclan_2438;
+        case 44 :
+            $int7 = %varclan_2440;
+            $int8 = %varclan_2441;
+            $int10 = %varclan_2446;
+            $int11 = %varclan_2447;
+            $int12 = %varclan_2448;
+        case 45 :
+            $int7 = %varclan_2450;
+            $int8 = %varclan_2451;
+            $int10 = %varclan_2456;
+            $int11 = %varclan_2457;
+            $int12 = %varclan_2458;
+        case 51 :
+            $int7 = %varclan_2510;
+            $int8 = %varclan_2511;
+            $int10 = %varclan_2516;
+            $int11 = %varclan_2517;
+            $int12 = %varclan_2518;
+        case 61 :
+            $int7 = %varclan_2846;
+            $int8 = %varclan_2847;
+            $int10 = %varclan_2852;
+            $int11 = %varclan_2853;
+            $int12 = %varclan_2854;
+        case 100 :
+            $int7 = %varclan_2210;
+            $int8 = %varclan_2211;
+            $int10 = %varclan_2216;
+            $int11 = %varclan_2217;
+            $int12 = %varclan_2218;
+        case 101 :
+            $int7 = %varclan_2220;
+            $int8 = %varclan_2221;
+            $int10 = %varclan_2226;
+            $int11 = %varclan_2227;
+            $int12 = %varclan_2228;
+        case 102 :
+            $int7 = %varclan_2240;
+            $int8 = %varclan_2241;
+            $int10 = %varclan_2246;
+            $int11 = %varclan_2247;
+            $int12 = %varclan_2248;
+        case 103 :
+            $int7 = %varclan_2190;
+            $int8 = %varclan_2191;
+            $int10 = %varclan_2196;
+            $int11 = %varclan_2197;
+            $int12 = %varclan_2198;
+        case 104 :
+            $int7 = %varclan_2230;
+            $int8 = %varclan_2231;
+            $int10 = %varclan_2236;
+            $int11 = %varclan_2237;
+            $int12 = %varclan_2238;
+        case 105 :
+            $int7 = %varclan_2200;
+            $int8 = %varclan_2201;
+            $int10 = %varclan_2206;
+            $int11 = %varclan_2207;
+            $int12 = %varclan_2208;
+        case 106 :
+            $int7 = %varclan_2260;
+            $int8 = %varclan_2261;
+            $int10 = %varclan_2266;
+            $int11 = %varclan_2267;
+            $int12 = %varclan_2268;
+        case 107 :
+            $int7 = %varclan_2270;
+            $int8 = %varclan_2271;
+            $int10 = %varclan_2276;
+            $int11 = %varclan_2277;
+            $int12 = %varclan_2278;
+        case 108 :
+            $int7 = %varclan_2280;
+            $int8 = %varclan_2281;
+            $int10 = %varclan_2286;
+            $int11 = %varclan_2287;
+            $int12 = %varclan_2288;
+        case 109 :
+            $int7 = %varclan_2250;
+            $int8 = %varclan_2251;
+            $int10 = %varclan_2256;
+            $int11 = %varclan_2257;
+            $int12 = %varclan_2258;
+        case 110 :
+            $int7 = %varclan_2290;
+            $int8 = %varclan_2291;
+            $int10 = %varclan_2296;
+            $int11 = %varclan_2297;
+            $int12 = %varclan_2298;
+        case 111 :
+            $int7 = %varclan_2300;
+            $int8 = %varclan_2301;
+            $int10 = %varclan_2306;
+            $int11 = %varclan_2307;
+            $int12 = %varclan_2308;
+        case 112 :
+            $int7 = %varclan_2310;
+            $int8 = %varclan_2311;
+            $int10 = %varclan_2316;
+            $int11 = %varclan_2317;
+            $int12 = %varclan_2318;
+        case 113 :
+            $int7 = %varclan_2320;
+            $int8 = %varclan_2321;
+            $int10 = %varclan_2326;
+            $int11 = %varclan_2327;
+            $int12 = %varclan_2328;
+    }
+}
+def_int $int13 = 1;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_enum $enum26 = null;
+def_struct $struct27 = null;
+def_enum $enum28 = null;
+def_enum $enum29 = null;
+$enum28 = enum(int, enum, enum_4043, $int1);
+if ($enum28 = null) {
+    return(0, 0, 0, 0, 0, 0);
+}
+$enum29 = enum(int, enum, $enum28, $int2);
+if ($enum29 = null) {
+    return(0, 0, 0, 0, 0, 0);
+}
+while ($int13 <= 3) {
+    $enum26 = enum(int, enum, $enum29, $int13);
+    if ($enum26 ! null) {
+        switch_int ($int13) {
+            case 1 :
+                $struct27 = enum(int, struct, $enum26, $int4);
+            case 2 :
+                $struct27 = enum(int, struct, $enum26, $int5);
+            case 3 :
+                $struct27 = enum(int, struct, $enum26, $int6);
+        }
+        if ($struct27 ! null) {
+            if (struct_param($struct27, param_1571) = 1) {
+                $int14 = calc($int14 + struct_param($struct27, param_1573));
+            } else if (struct_param($struct27, param_1571) = 2) {
+                $int15 = calc($int15 + struct_param($struct27, param_1573));
+            } else if (struct_param($struct27, param_1571) = 5) {
+                $int16 = calc($int16 + struct_param($struct27, param_1573));
+            } else if (struct_param($struct27, param_1571) = 9) {
+                $int17 = calc($int17 + struct_param($struct27, param_1573));
+            } else if (struct_param($struct27, param_1571) = 8) {
+                $int18 = calc($int18 + struct_param($struct27, param_1573));
+            } else if (struct_param($struct27, param_1571) = 7) {
+                $int19 = calc($int19 + struct_param($struct27, param_1573));
+            }
+            if (struct_param($struct27, param_1575) = 1) {
+                $int14 = calc($int14 + struct_param($struct27, param_1577));
+            } else if (struct_param($struct27, param_1575) = 2) {
+                $int15 = calc($int15 + struct_param($struct27, param_1577));
+            } else if (struct_param($struct27, param_1575) = 5) {
+                $int16 = calc($int16 + struct_param($struct27, param_1577));
+            } else if (struct_param($struct27, param_1575) = 9) {
+                $int17 = calc($int17 + struct_param($struct27, param_1577));
+            } else if (struct_param($struct27, param_1575) = 8) {
+                $int18 = calc($int18 + struct_param($struct27, param_1577));
+            } else if (struct_param($struct27, param_1575) = 7) {
+                $int19 = calc($int19 + struct_param($struct27, param_1577));
+            }
+            if (struct_param($struct27, param_1579) = 1) {
+                $int14 = calc($int14 + struct_param($struct27, param_1581));
+            } else if (struct_param($struct27, param_1579) = 2) {
+                $int15 = calc($int15 + struct_param($struct27, param_1581));
+            } else if (struct_param($struct27, param_1579) = 5) {
+                $int16 = calc($int16 + struct_param($struct27, param_1581));
+            } else if (struct_param($struct27, param_1579) = 9) {
+                $int17 = calc($int17 + struct_param($struct27, param_1581));
+            } else if (struct_param($struct27, param_1579) = 8) {
+                $int18 = calc($int18 + struct_param($struct27, param_1581));
+            } else if (struct_param($struct27, param_1579) = 7) {
+                $int19 = calc($int19 + struct_param($struct27, param_1581));
+            }
+        }
+    }
+    $enum26 = null;
+    $int13 = calc($int13 + 1);
+}
+$int13 = 1;
+if ($int7 = $int1 & $int8 = $int2) {
+    $enum28 = enum(int, enum, enum_4043, $int7);
+    $enum29 = enum(int, enum, $enum28, $int8);
+    while ($int13 <= 3) {
+        $enum26 = enum(int, enum, $enum29, $int13);
+        if ($enum26 ! null) {
+            switch_int ($int13) {
+                case 1 :
+                    $struct27 = enum(int, struct, $enum26, $int10);
+                case 2 :
+                    $struct27 = enum(int, struct, $enum26, $int11);
+                case 3 :
+                    $struct27 = enum(int, struct, $enum26, $int12);
+            }
+            if ($struct27 ! null) {
+                if (struct_param($struct27, param_1571) = 1) {
+                    $int20 = calc($int20 + struct_param($struct27, param_1573));
+                } else if (struct_param($struct27, param_1571) = 2) {
+                    $int21 = calc($int21 + struct_param($struct27, param_1573));
+                } else if (struct_param($struct27, param_1571) = 5) {
+                    $int22 = calc($int22 + struct_param($struct27, param_1573));
+                } else if (struct_param($struct27, param_1571) = 9) {
+                    $int23 = calc($int23 + struct_param($struct27, param_1573));
+                } else if (struct_param($struct27, param_1571) = 8) {
+                    $int24 = calc($int24 + struct_param($struct27, param_1573));
+                } else if (struct_param($struct27, param_1571) = 7) {
+                    $int25 = calc($int25 + struct_param($struct27, param_1573));
+                }
+                if (struct_param($struct27, param_1575) = 1) {
+                    $int20 = calc($int20 + struct_param($struct27, param_1577));
+                } else if (struct_param($struct27, param_1575) = 2) {
+                    $int21 = calc($int21 + struct_param($struct27, param_1577));
+                } else if (struct_param($struct27, param_1575) = 5) {
+                    $int22 = calc($int22 + struct_param($struct27, param_1577));
+                } else if (struct_param($struct27, param_1575) = 9) {
+                    $int23 = calc($int23 + struct_param($struct27, param_1577));
+                } else if (struct_param($struct27, param_1575) = 8) {
+                    $int24 = calc($int24 + struct_param($struct27, param_1577));
+                } else if (struct_param($struct27, param_1575) = 7) {
+                    $int25 = calc($int25 + struct_param($struct27, param_1577));
+                }
+                if (struct_param($struct27, param_1579) = 1) {
+                    $int20 = calc($int20 + struct_param($struct27, param_1581));
+                } else if (struct_param($struct27, param_1579) = 2) {
+                    $int21 = calc($int21 + struct_param($struct27, param_1581));
+                } else if (struct_param($struct27, param_1579) = 5) {
+                    $int22 = calc($int22 + struct_param($struct27, param_1581));
+                } else if (struct_param($struct27, param_1579) = 9) {
+                    $int23 = calc($int23 + struct_param($struct27, param_1581));
+                } else if (struct_param($struct27, param_1579) = 8) {
+                    $int24 = calc($int24 + struct_param($struct27, param_1581));
+                } else if (struct_param($struct27, param_1579) = 7) {
+                    $int25 = calc($int25 + struct_param($struct27, param_1581));
+                }
+            }
+        }
+        $enum26 = null;
+        $int13 = calc($int13 + 1);
+    }
+}
+$int14 = max(0, calc($int14 - $int20));
+$int15 = max(0, calc($int15 - $int21));
+$int16 = max(0, calc($int16 - $int22));
+$int17 = max(0, calc($int17 - $int23));
+$int18 = max(0, calc($int18 - $int24));
+$int19 = max(0, calc($int19 - $int25));
+return($int14, $int15, $int16, $int17, $int18, $int19);

@@ -1,0 +1,67 @@
+// 5016
+[proc,clientscript_5016](int $int0)
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_component $component3 = ~clientscript_4969($int0);
+def_int $int4 = -1;
+def_int $int5 = -1;
+if (op718 = 1) {
+    $struct1 = ~clientscript_5116(%varclan_2598, %varclan_2580);
+    if ($struct1 = null) {
+        return;
+    }
+    switch_int ($int0) {
+        case 4 :
+            $int4 = struct_param($struct1, param_1655);
+            $int5 = struct_param($struct1, param_1656);
+        case 5 :
+            $int4 = struct_param($struct1, param_1661);
+            $int5 = struct_param($struct1, param_1662);
+        case 6 :
+            $int4 = struct_param($struct1, param_1667);
+            $int5 = struct_param($struct1, param_1668);
+        case 7 :
+            $int4 = struct_param($struct1, param_1673);
+            $int5 = struct_param($struct1, param_1674);
+        case 8 :
+            $int4 = struct_param($struct1, param_1679);
+            $int5 = struct_param($struct1, param_1680);
+        case 9 :
+            $int4 = struct_param($struct1, param_1685);
+            $int5 = struct_param($struct1, param_1686);
+        case 10 :
+            $int4 = struct_param($struct1, param_1691);
+            $int5 = struct_param($struct1, param_1692);
+        case 11 :
+            $int4 = struct_param($struct1, param_1697);
+            $int5 = struct_param($struct1, param_1698);
+        case 12 :
+            $int4 = struct_param($struct1, param_1703);
+            $int5 = struct_param($struct1, param_1704);
+        case 13 :
+            $int4 = struct_param($struct1, param_1709);
+            $int5 = struct_param($struct1, param_1710);
+        case 14 :
+            $int4 = struct_param($struct1, param_1715);
+            $int5 = struct_param($struct1, param_1716);
+        case 15 :
+            $int4 = struct_param($struct1, param_1721);
+            $int5 = struct_param($struct1, param_1722);
+        case 3 :
+            $int4 = struct_param($struct1, param_1649);
+            $int5 = struct_param($struct1, param_1650);
+        case 102 :
+            $int4 = struct_param($struct1, param_1633);
+            $int5 = struct_param($struct1, param_1634);
+        case 103 :
+            $int4 = struct_param($struct1, param_1637);
+            $int5 = struct_param($struct1, param_1638);
+        case 100 :
+            $int4 = struct_param($struct1, param_1619);
+            $int5 = struct_param($struct1, param_1620);
+        case 101 :
+            $int4 = struct_param($struct1, param_1627);
+            $int5 = struct_param($struct1, param_1628);
+    }
+    if_setposition($component3, $int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+}

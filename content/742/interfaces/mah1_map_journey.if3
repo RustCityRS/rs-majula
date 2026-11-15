@@ -1,0 +1,185 @@
+// 727:0
+[com_0]
+type=model
+x=35
+width=448
+height=332
+layer=layer_1
+model=model_4652
+modelorigin=-20,-15
+modelangle=479,2,0
+modelzoom=894
+
+// 727:1
+[background_layer]
+type=layer
+width=512
+height=334
+
+// 727:2
+[com_2]
+type=model
+x=75
+y=35
+width=368
+height=264
+layer=layer_1
+model=model_46305
+modelorigin=0,-1
+modelangle=506,0,0
+modelzoom=776
+
+// 727:3
+[ice_path]
+type=text
+x=286
+y=202
+width=148
+height=18
+layer=layer_1
+textfont=p11_full
+text=Ice<br>Path
+textalignh=centre
+colour=0x282315
+
+// 727:4
+[waterbirth_island]
+type=text
+x=80
+y=228
+width=97
+height=30
+layer=layer_1
+textfont=p11_full
+text=Waterbirth<br>Island
+textalignh=centre
+colour=0x282315
+
+// 727:5
+[miscellania]
+type=text
+x=47
+y=176
+width=120
+height=16
+layer=layer_1
+textfont=p11_full
+text=Miscellania
+textalignh=centre
+colour=0x282315
+
+// 727:6
+[etceteria]
+type=text
+x=116
+y=104
+width=92
+height=16
+layer=layer_1
+textfont=p11_full
+text=Etceteria
+textalignh=centre
+colour=0x282315
+
+// 727:7
+[trollweiss_mountain]
+type=text
+x=279
+y=158
+width=75
+height=18
+layer=layer_1
+textfont=p11_full
+text=Trollweiss Mountain
+colour=0x282315
+
+// 727:8
+[god_wars_dungeon]
+type=text
+x=375
+y=259
+width=135
+height=18
+layer=layer_1
+textfont=p11_full
+text=God Wars<br>Dungeon
+colour=0x282315
+
+// 727:9
+[keldagrim_entrance]
+type=text
+x=196
+y=284
+width=122
+height=18
+layer=layer_1
+textfont=p11_full
+text=Keldagrim Entrance
+textalignh=centre
+colour=0x282315
+
+// 727:10
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 727:11
+[map_return]
+type=model
+x=179
+y=67
+width=201
+height=152
+layer=com_12
+model=model_46304
+modelorigin=-17,26
+modelangle=506,0,0
+modelzoom=776
+modelanim=seq_11576
+transmitop=10
+op10= 
+
+// 727:12
+[com_12]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+hide=yes
+
+// 727:13
+[com_13]
+type=model
+x=179
+y=67
+width=194
+height=152
+layer=com_14
+model=model_46304
+modelorigin=-14,26
+modelangle=506,0,0
+modelzoom=776
+modelanim=seq_11575
+
+// 727:14
+[com_14]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=layer_1
+hide=yes
+
+// 727:15
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

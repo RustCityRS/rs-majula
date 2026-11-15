@@ -1,0 +1,7 @@
+// 6091
+[proc,clientscript_6091]
+def_inv $inv0 = %shop;
+if (%varplayer_2565 = 1) {
+    $inv0 = inv;
+}
+~clientscript_6093($inv0);

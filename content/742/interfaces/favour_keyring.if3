@@ -1,0 +1,316 @@
+// 127:0
+[com_0]
+type=rectangle
+width=16391
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x202020
+fill=yes
+trans=120
+
+// 127:1
+[com_1]
+type=graphic
+x=462
+y=26
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 127:2
+[com_2]
+type=model
+x=61
+y=208
+width=82
+height=77
+layer=layer_1
+model=model_5622
+modelorigin=-6,-5
+modelangle=328,20,0
+modelzoom=238
+
+// 127:3
+[com_3]
+type=model
+x=122
+y=48
+width=267
+height=163
+layer=layer_1
+model=model_5624
+modelorigin=0,-7
+modelangle=207,309,0
+modelzoom=234
+
+// 127:4
+[favour_key_01]
+type=model
+x=61
+y=208
+width=82
+height=77
+layer=layer_1
+model=model_5622
+modelorigin=-6,-5
+modelangle=328,20,0
+modelzoom=238
+
+// 127:5
+[favour_key_02]
+type=model
+x=126
+y=246
+width=64
+height=58
+layer=layer_1
+model=model_5622
+modelorigin=-5,-4
+modelangle=328,20,0
+modelzoom=308
+
+// 127:6
+[favour_key_03]
+type=model
+x=194
+y=263
+width=44
+height=41
+layer=layer_1
+model=model_5622
+modelorigin=-4,-2
+modelangle=328,20,0
+modelzoom=441
+
+// 127:7
+[favour_key_04]
+type=model
+x=256
+y=253
+width=32
+height=30
+layer=layer_1
+model=model_5622
+modelorigin=-3,-2
+modelangle=328,20,0
+modelzoom=616
+
+// 127:8
+[favour_key_05]
+type=model
+x=306
+y=245
+width=28
+height=26
+layer=layer_1
+model=model_5622
+modelorigin=-3,-2
+modelangle=328,20,0
+modelzoom=700
+
+// 127:9
+[favour_key_06]
+type=model
+x=348
+y=223
+width=28
+height=26
+layer=layer_1
+model=model_5622
+modelorigin=-3,-2
+modelangle=328,20,0
+modelzoom=700
+
+// 127:10
+[favour_down_arrow]
+type=model
+x=398
+y=149
+width=30
+height=46
+layer=layer_1
+model=model_5626
+modelorigin=-1,2
+modelangle=513,1887,0
+modelzoom=1451
+transmitop=1
+op1=Rotate-back
+onmouseover=model_swapper(favour_keyring:favour_down_arrow_highlight, model_5628)
+onmouseleave=model_swapper(favour_keyring:favour_down_arrow_highlight, null)
+
+// 127:11
+[favour_up_arrow]
+type=model
+x=42
+y=137
+width=43
+height=62
+layer=layer_1
+model=model_5625
+modelorigin=1,4
+modelangle=593,153,0
+modelzoom=1035
+transmitop=1
+op1=Rotate-forward
+onmouseover=model_swapper(favour_keyring:favour_up_arrow_highlight, model_5630)
+onmouseleave=model_swapper(favour_keyring:favour_up_arrow_highlight, null)
+
+// 127:12
+[com_12]
+type=graphic
+x=250
+y=122
+width=36
+height=36
+layer=layer_1
+graphic="miscgraphics,4"
+colour=0x000000
+
+// 127:13
+[com_13]
+type=graphic
+x=227
+y=122
+width=36
+height=36
+layer=layer_1
+graphic="miscgraphics,4"
+colour=0x000000
+
+// 127:14
+[com_14]
+type=graphic
+x=205
+y=122
+width=36
+height=36
+layer=layer_1
+graphic="miscgraphics,4"
+colour=0x000000
+
+// 127:15
+[com_15]
+type=graphic
+x=271
+y=122
+width=36
+height=36
+layer=layer_1
+graphic="miscgraphics,6"
+colour=0x000000
+
+// 127:16
+[com_16]
+type=text
+x=204
+y=163
+width=105
+height=12
+layer=layer_1
+textfont=p11_full
+text=***************
+textalignh=centre
+textshadow=yes
+colour=0xa6a692
+
+// 127:17
+[com_17]
+type=text
+x=205
+y=80
+width=100
+height=14
+layer=layer_1
+textfont=b12_full
+text=**********
+textalignh=centre
+textshadow=yes
+colour=0xa6a692
+
+// 127:18
+[com_18]
+type=text
+x=167
+y=99
+width=168
+height=12
+layer=layer_1
+textfont=p11_full
+text=************************
+textalignh=centre
+textshadow=yes
+colour=0xa6a692
+
+// 127:19
+[favour_remove_button]
+type=text
+x=207
+y=124
+width=98
+height=31
+layer=layer_1
+textfont=p11_full
+text=Remove this key
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa6a692
+transmitop=1
+op1=Remove
+onmouseover=text_swapper(favour_keyring:favour_remove_text_highlight, "Remove this key")
+onmouseleave=text_swapper(favour_keyring:favour_remove_text_highlight, " ")
+
+// 127:20
+[favour_remove_text_highlight]
+type=text
+x=207
+y=124
+width=98
+height=31
+layer=layer_1
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x33ff00
+
+// 127:21
+[favour_up_arrow_highlight]
+type=model
+x=37
+y=136
+width=54
+height=72
+layer=layer_1
+model=null
+modelangle=593,153,0
+modelzoom=1035
+
+// 127:22
+[favour_down_arrow_highlight]
+type=model
+x=391
+y=151
+width=43
+height=47
+layer=layer_1
+model=null
+modelangle=513,1887,0
+modelzoom=1451
+
+// 127:23
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre

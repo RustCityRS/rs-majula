@@ -1,0 +1,8 @@
+// 5553
+[proc,clientscript_5553](component $component0, graphic $graphic1, graphic $graphic2, graphic $graphic3, graphic $graphic4)
+if (if_getgraphic($component0) = $graphic1) {
+    if_setgraphic($component0, $graphic2);
+}
+if (if_getgraphic($component0) = $graphic3) {
+    if_setgraphic($component0, $graphic4);
+}

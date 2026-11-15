@@ -1,12 +1,13 @@
 use rs_io::js5::Result;
 use rs_io::js5::compression::{decompress, decompress_xtea};
 use rs_io::js5::reference::ReferenceTable;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 #[derive(Default)]
 pub struct PackedCache {
     pub groups: HashMap<(u8, u32), Vec<u8>>,
     pub tables: HashMap<u8, ReferenceTable>,
+    pub absent: HashSet<(u8, u32)>,
 }
 
 impl PackedCache {
@@ -42,5 +43,6 @@ impl PackedCache {
     pub fn extend(&mut self, other: Self) {
         self.groups.extend(other.groups);
         self.tables.extend(other.tables);
+        self.absent.extend(other.absent);
     }
 }

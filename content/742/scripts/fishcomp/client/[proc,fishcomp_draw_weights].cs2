@@ -1,0 +1,32 @@
+// 266
+[proc,fishcomp_draw_weights]
+if_sethide(fishcomp_side:com_2, true);
+if_sethide(fishcomp_side:com_68, true);
+if_sethide(fishcomp_side:com_73, true);
+if (%fishcomp_client_weight_1 = 0) {
+    if_sethide(fishcomp_side:com_3, true);
+    if_settext(fishcomp_side:com_66, "");
+} else {
+    if_sethide(fishcomp_side:com_3, false);
+    if_settext(fishcomp_side:com_66, "1");
+}
+if (%fishcomp_client_weight_2 = 0) {
+    if_sethide(fishcomp_side:com_69, true);
+    if_settext(fishcomp_side:com_71, "");
+} else {
+    if_sethide(fishcomp_side:com_69, false);
+    if_settext(fishcomp_side:com_71, "2");
+}
+if (%fishcomp_client_weight_3 = 0) {
+    if_sethide(fishcomp_side:com_74, true);
+    if_settext(fishcomp_side:com_76, "");
+} else {
+    if_sethide(fishcomp_side:com_74, false);
+    if_settext(fishcomp_side:com_76, "3");
+}
+if (%fishcomp_client_weight_1 = 0 & %fishcomp_client_weight_2 = 0 & %fishcomp_client_weight_3 = 0) {
+    if_setontimer(fishcomp_side:com_109, "clientscript_6258");
+} else {
+    if_setontimer(fishcomp_side:com_109, null);
+    if_sethide(fishcomp_side:com_108, false);
+}

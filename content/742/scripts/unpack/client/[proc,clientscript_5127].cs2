@@ -1,0 +1,5 @@
+// 5127
+[proc,clientscript_5127]
+if_sethide(clansettings:com_39, true);
+if_sethide(clansettings:com_377_, false);
+if_settext(clansettings:com_384, "Loading, please wait.");

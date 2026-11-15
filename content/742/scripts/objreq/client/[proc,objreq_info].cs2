@@ -1,0 +1,70 @@
+// 917
+[proc,objreq_info]
+cc_deleteall(obj_info:info);
+%objreq_lines = 0;
+def_int $int0 = inv_total(inv, %objreq_currency);
+def_int $int1 = -1;
+if (calc(^max_32bit_int - inv_total(inv, coins) - inv_total(inv_623, coins)) > 0) {
+    $int1 = calc(inv_total(inv, coins) + inv_total(inv_623, coins));
+} else {
+    $int1 = ^max_32bit_int;
+}
+if_setcolour(obj_info:title, %objreq_fontcol);
+if_setcolour(obj_info:obj_name, %objreq_fontcol);
+if_setcolour(obj_info:buy_button_text, %objreq_fontcol);
+if_setcolour(obj_info:buy_text, %objreq_fontcol);
+if (%objreq_currency ! null) {
+    if (%objreq_currency = coins) {
+        $int0 = $int1;
+    }
+    ~objreq_buy_pane;
+    if_sethide(obj_info:buy, false);
+    if_setsize(obj_info:content, 16384, 147, ^setsize_rel, ^setsize_abs);
+} else {
+    if_setobject_nonum(obj_info:buy_graphic, null, -1);
+    if_sethide(obj_info:buy, true);
+    if_setsize(obj_info:content, 16384, 187, ^setsize_rel, ^setsize_abs);
+    if (%varplayer_1109 ! null & ~clientscript_5567(coins, calc(%varplayer_1111 * %varplayer_1110)) = 0) {
+        if_setcolour(obj_info:player_has, ^red);
+    } else {
+        if_setcolour(obj_info:player_has, %objreq_fontcol);
+    }
+}
+if (%objreq_currency = null) {
+    switch_int ($int1) {
+        case 0 :
+            if_settext(obj_info:player_has, "You have no coins.");
+        case 1 :
+            if_settext(obj_info:player_has, "You have one coin.");
+        case ^max_32bit_int :
+            if_settext(obj_info:player_has, "You have more than <~tostring_shortform($int1)> coins!");
+        case default :
+            if_settext(obj_info:player_has, "You have <~tostring_shortform($int1)> coins.");
+    }
+} else {
+    switch_int ($int0) {
+        case 0 :
+            if_settext(obj_info:player_has, "You have no <enum(obj, string, enum_62, %objreq_currency)>.");
+        case 1 :
+            if_settext(obj_info:player_has, "You have one <enum(obj, string, enum_923, %objreq_currency)>.");
+        case ^max_32bit_int :
+            if_settext(obj_info:player_has, "You have more than <~tostring_shortform($int0)> <enum(obj, string, enum_62, %objreq_currency)>!");
+        case default :
+            if_settext(obj_info:player_has, "You have <~tostring_shortform($int0)> <enum(obj, string, enum_62, %objreq_currency)>.");
+    }
+}
+def_int $int2 = 181;
+def_int $int3 = ~objreq_info_draw($int2);
+if ($int3 > if_getheight(obj_info:info)) {
+    $int2 = 165;
+    cc_deleteall(obj_info:info);
+    $int3 = ~objreq_info_draw($int2);
+} else {
+    cc_deleteall(obj_info:scrollbar);
+}
+if_setscrollsize(obj_info:info, $int2, $int3);
+if_setsize(obj_info:info, $int2, 6, ^setsize_abs, ^setsize_minus);
+if_setscrollpos(obj_info:info, 0, 0);
+if ($int3 > if_getheight(obj_info:info)) {
+    ~scrollbar_vertical(obj_info:scrollbar, obj_info:info, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}
