@@ -50580,6 +50580,8 @@ cursor1=1,cursor_talkto
 desc=A frail little troll.
 // cache 786 walk mode 1: stands
 wanderrange=0
+defaultmode=none
+moverestrict=nomove
 
 // 1554
 [trollromance_aga]
@@ -50595,6 +50597,8 @@ cursor1=1,cursor_talkto
 desc=A beautiful troll.
 // cache 786 walk mode 1: stands
 wanderrange=0
+defaultmode=none
+moverestrict=nomove
 
 // 1555
 [trollromance_arrg]
@@ -50615,6 +50619,30 @@ cursor1=1,cursor_talkto
 desc=A massive, scary-looking troll.
 // cache 786 walk mode 1: stands
 wanderrange=0
+maxrange=10
+hitpoints=1400
+attack=70
+strength=140
+defence=40
+magic=0
+ranged=70
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,100
+param=stabdefence,35
+param=slashdefence,60
+param=crushdefence,35
+param=magicdefence,200
+param=rangedefence,200
+param=damagetype,^slash_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,warhammer_crush
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+defaultmode=none
+moverestrict=nomove
 
 // 1556
 [trollromance_arrg_attackable]
@@ -50633,6 +50661,32 @@ head1=model_62655
 unknown119=1
 cursorattack=cursor_attack
 desc=A massive, scary-looking troll.
+wanderrange=0
+maxrange=20
+hitpoints=1400
+attack=70
+strength=140
+defence=40
+magic=0
+ranged=70
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,100
+param=stabdefence,35
+param=slashdefence,60
+param=crushdefence,35
+param=magicdefence,200
+param=rangedefence,200
+param=damagetype,^slash_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,warhammer_crush
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+param=death_drop,bones
+param=rangeattack_sound,troll_throw_rock
+param=proj_travel,troll_rock_travel
 
 // 1557
 [acs_battleships_playership]
@@ -50663,6 +50717,23 @@ model1=model_26266
 unknown119=3
 cursorattack=cursor_attack
 desc=Not man's best friend.
+wanderrange=6
+respawnrate=100
+hitpoints=700
+attack=100
+strength=90
+defence=70
+param=attackrate,4
+param=damagetype,^stab_style
+param=attack_anim,seq_75
+param=defend_anim,seq_76
+param=death_anim,seq_78
+param=attack_sound,wolf_attack
+param=defend_sound,wolf_hit
+param=death_sound,wolf_death
+param=death_drop,wolf_bones
+huntmode=cowardly
+huntrange=5
 
 // 1559
 [ra4_lfm_miner_6_cutscene]
@@ -50730,6 +50801,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=800
+attack=140
+strength=120
+defence=80
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,troll_attack
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1561
 [trollromance_icetroll_melee2]
@@ -50748,6 +50840,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=800
+attack=120
+strength=120
+defence=100
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,troll_attack
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1562
 [trollromance_icetroll_melee3]
@@ -50767,6 +50880,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=1000
+attack=100
+strength=100
+defence=120
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,troll_attack
+param=defend_sound,crystal_armour_2
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1563
 [trollromance_icetroll_melee4]
@@ -50785,6 +50919,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=800
+attack=100
+strength=120
+defence=120
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,mace_crush
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1564
 [trollromance_icetroll_melee5]
@@ -50804,6 +50959,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=1200
+attack=120
+strength=80
+defence=100
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,mace_crush
+param=defend_sound,crystal_armour_2
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1565
 [trollromance_icetroll_melee6]
@@ -50822,6 +50998,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=800
+attack=80
+strength=120
+defence=140
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,shard_attack
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1566
 [trollromance_icetroll_melee7]
@@ -50840,6 +51037,27 @@ unknown119=3
 cursorattack=cursor_attack
 desc=Brrrrr...he must be cold!
 wanderrange=5
+respawnrate=100
+hitpoints=800
+attack=100
+strength=120
+defence=120
+param=attackrate,4
+param=attackbonus,60
+param=strengthbonus,60
+param=stabdefence,30
+param=slashdefence,60
+param=crushdefence,30
+param=damagetype,^crush_style
+param=attack_anim,troll_attack
+param=defend_anim,troll_block
+param=death_anim,troll_death
+param=attack_sound,mace_crush
+param=defend_sound,troll_hit
+param=death_sound,troll_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
 
 // 1567
 [route_cyreg_paddlehorn]

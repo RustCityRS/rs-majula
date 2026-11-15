@@ -49,15 +49,18 @@ if_settext(questscroll_ver3:quest_reward8_ver3, "");
 if_openmain(questscroll_ver3);
 // Update Quest Tab color
 ~send_quest_progress_colour($quest, 1, 1);
-mes("Congratulations! Quest complete!");
+// 289's two procs say this for Troll Romance, and the plain line for every other quest.
+if ($quest = ^questlist_troll_love) {
+    mes("Congratulations! You've helped a lonely troll find love. Quest complete!");
+} else {
+    mes("Congratulations! Quest complete!");
+}
 
 // 289's send_quest_complete2: the quest complete scroll with the rewards
 // given as text, a line each between |s, where 289 shows them on its own
 // scroll (questscroll_death, 4 lines 200 wide in q8_full). 2011's one scroll
 // (277) lists rewards below the quest's points (com10) on com11-17 in p12_full
-// (cache 786, font 495), wrapped narrower than their 213 px (below). For Troll Romance both of 289's procs
-// say "You've helped a lonely troll find love": that waits for the Troll
-// Romance port.
+// (cache 786, font 495), wrapped narrower than their 213 px (below).
 [proc,send_quest_complete2](int $quest, namedobj $obj, int $objscale, int $questpoints, string $questmessage, string $rewardtext)
 ~send_quest_complete($quest, $obj, $objscale, $questpoints, $questmessage);
 // 2011's scrolls wrap their reward lines narrower than the 213-px components: between 155 and
@@ -275,6 +278,9 @@ if (%horrorquest = ^horror_complete) {
 }
 if (%eadgar_quest = ^eadgar_complete) {
     $questpoints = add($questpoints, ^eadgar_questpoints); 
+}
+if (%troll_love = ^troll_love_complete) {
+    $questpoints = add($questpoints, ^troll_love_questpoints);
 }
 return ($questpoints);
 
