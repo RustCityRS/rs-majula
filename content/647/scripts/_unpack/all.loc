@@ -39283,6 +39283,9 @@ model=5,model_1511
 name=Gate
 cursor1=1,cursor_open
 desc=A wrought iron gate.
+// 289's category and open form (its loc of that id, named inacmetalgateopenl in cache 786), which the gate's script opens it by.
+category=double_door_open_and_close_left
+param=next_loc_stage,inacmetalgateopenl
 
 // 3507
 [mortmyre_metalgateclosed_r]
@@ -39295,6 +39298,9 @@ model=5,model_1511
 name=Gate
 cursor1=1,cursor_open
 desc=A wrought iron gate.
+// 289's category and open form (its loc of that id, named inacmetalgateopenr in cache 786), which the gate's script opens it by.
+category=double_door_open_and_close_right
+param=next_loc_stage,inacmetalgateopenr
 
 // 3508
 [log_druidicspirit]
@@ -39308,6 +39314,9 @@ model=8,model_3595
 name=Rotting log
 occlude=yes
 desc=Not sure if i should sit on that.
+// 289's bloomed form and sound, which the bloom spell's script changes it by.
+param=next_loc_stage,log_druidicspirit2
+param=open_sound,bloom_mushroom
 
 // 3509
 [log_druidicspirit2]
@@ -39332,6 +39341,9 @@ model=8,model_3592
 name=Rotting branch
 occlude=yes
 desc=Not sure if that's any use.
+// 289's bloomed form and sound, which the bloom spell's script changes it by.
+param=next_loc_stage,branch_druidicspirit2
+param=open_sound,bloom_branch
 
 // 3511
 [branch_druidicspirit2]
@@ -39351,6 +39363,9 @@ model=8,model_3601
 name=A small bush
 occlude=yes
 desc=It'll probably die soon.
+// 289's bloomed form and sound, which the bloom spell's script changes it by.
+param=next_loc_stage,peartree_druidicspirit2
+param=open_sound,bloom_pears
 
 // 3513
 [peartree_druidicspirit2]
