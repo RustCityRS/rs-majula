@@ -3,3 +3,8 @@
 ^troll_defeated_dad = 20
 ^troll_entered_prison = 30
 ^troll_freed_godric = 40
+
+// Dad's tile. 289 adds him at 0_45_56_32_29, which is rock in cache 786's map: 2011's arena lies
+// east of it, between the gates at 0_45_56_32_25 and 0_45_56_47_35. No source gives his 2011 tile (the
+// map has no npc file for this square); this one is open ground in the middle of the arena.
+^troll_arena_dad = 0_45_56_41_29

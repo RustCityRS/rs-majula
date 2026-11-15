@@ -10,8 +10,7 @@ if(%troll_quest = ^troll_freed_godric) {
     ~chatnpc("<p,happy>He is safe and sound, thanks to you my friend!");
     ~chatplayer("<p,happy>I'm glad to hear it.");
     ~chatnpc("<p,happy>I have very little to offer you in way of thanks, but perhaps you will accept this family heirloom. It was found by my great-great-grandfather, but we still don't have any idea what it does.");
-    // HELD: 289 queues troll_quest_complete here; Troll Stronghold's end comes with that quest's port
-    // (no player can reach ^troll_freed_godric until then).
+    queue(troll_quest_complete, 0, 0);
     return;
 }
 if(%troll_quest < ^troll_freed_godric & %troll_quest >= ^troll_started) {
@@ -62,11 +61,8 @@ if(~death_get_map = ^death_spoken_smithy) {
 }
  if (%troll_love >= ^troll_love_waxed_sled) {
     ~chatnpc("<p,happy>Well, if it isn't our very own sledder!|What can I do for you today?");
-    if (~obj_gettotal(law_talisman) = 0) {
-        @multi5("Can I have another law talisman?", dunstan_lawtali, "Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "Can you make me another sled?", trollromance_dunstan_another_sled, "What do I need for the sled wax again?", trollromance_dunstan_sled_wax, "Nothing, thanks.", dunstan_nothing);
-    } else {
-        @multi4("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "Can you make me another sled?", trollromance_dunstan_another_sled, "What do I need for the sled wax again?", trollromance_dunstan_sled_wax, "Nothing, thanks.", dunstan_nothing);
-    }
+    // HELD: 289 offers "Can I have another law talisman?" first when the player has none (see the note below).
+    @multi4("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "Can you make me another sled?", trollromance_dunstan_another_sled, "What do I need for the sled wax again?", trollromance_dunstan_sled_wax, "Nothing, thanks.", dunstan_nothing);
 }
 ~chatnpc("<p,happy>Hi! Did you want something?");
 @dunstan_ops;
@@ -80,19 +76,10 @@ switch_obj(last_useitem) {
 ~chatnpc("<p,neutral>Anything else before I get on with my work?");
 @dunstan_ops;
 
-// TODO: this is guessed based off OSRS dialogue, reclaim used to be free if you didn't have a law talisman
-[label,dunstan_lawtali]
-~chatplayer("<p,neutral>Can I have another law talisman?");
-~chatnpc("<p,neutral>Well, I've got one here you can have if you'd like it?");
-~chatplayer("<p,happy>Yes, I'll take it.");
-if (inv_freespace(inv) = 0) {
-    ~chatnpc("<p,sad>Looks like you don't have any room to carry it just now, come back when you do.");
-    return;
-}
-inv_add(inv, law_talisman, 1);
-mes("Dunstan hands you a law talisman.");
-~objbox(law_talisman, "Dunstan hands you a law talisman.", 250, 0, 0);
-~chatplayer("<p,neutral>Thanks.");
+// HELD: 289's label for "Can I have another law talisman?", which hands one over (289 marks its words
+// as guessed). In 2011 the quest's reward is two mysterious lamps, not the talisman (the 2011 wiki's
+// Mysterious lamp page), and a lost lamp is had again from Dunstan, but no source found gives his
+// words for it: neither the talisman nor a replacement lamp is offered.
 
 [label,dunstan_ops]
 if (%troll_love = ^troll_love_learnt_about_trollweiss) {
@@ -110,9 +97,7 @@ if(%troll_quest < ^troll_complete & %troll_quest >= ^troll_started) {
     @multi3("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
 }
 if(~death_get_map >= ^death_given_supplies) {
-    if(%troll_quest = ^troll_complete & ~obj_gettotal(law_talisman) = 0) {
-        @multi5("Can I have another law talisman?", dunstan_lawtali, "Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "How is your son getting on?", dunstan_son, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
-    }
+    // HELD: 289 offers "Can I have another law talisman?" first after Troll Stronghold when the player has none.
     @multi4("Can you put some spikes on my Climbing boots?", dunstan_spikeboots, "How is your son getting on?", dunstan_son, "Is it OK if I use your anvil?", dunstan_anvil, "Nothing, thanks.", dunstan_nothing);
 }
 switch_int(%death_equiproom) {

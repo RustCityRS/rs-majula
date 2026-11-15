@@ -1,0 +1,349 @@
+// 289's quests/quest_troll/scripts/quest_troll.rs2, on 2011's Trollheim.
+//
+// Cache 786's map redraws the whole mountain (trollheim_mountain_*). What 289's triggers operate is
+// placed differently, so each is bound to 2011's loc and tiles; the lines themselves are 289's.
+// - "Rocks" are troll_climbingrocks (3 placed) and troll_climbingrocks_low (2 placed), each five tiles
+//   long with one gap in the middle to cross by. 289's [oploc1,troll_climbingrocks] lines run for both.
+// - 289's troll_climbingrocks_top/_bottom and troll_mountain_shortcut_climbingrocks2 are not placed
+//   and have no name here; troll_mountain_shortcut_climbingrocks1 is one of 2011's "Cliffside"
+//   scrambles. Those scrambles (with trollheim_*_agility_mountain_climbing_wall and
+//   asc_troll_mountain_climbrock_*) are Agility shortcuts 289 does not have (the 2011 wiki's Shortcuts
+//   page: Trollheim scrambles at 41, 43, 44 and 47 Agility): none is ported, and 289's three-tile
+//   climbs, which have no loc left, are left out.
+// - The passes and doors are caves now: see troll_cave_entrance below.
+[oploc1,troll_climbingrocks] @troll_rocks;
+[oploc1,troll_climbingrocks_low] @troll_rocks;
+
+[label,troll_rocks]
+if(%troll_quest < ^troll_started) {
+    mes("That looks dangerous. I'll need a good reason before I venture that way.");
+    return;
+}
+// these all check both ways on every rock
+if(stat(agility) < 15) {
+    mes("You need an Agility level of at least 15 to attempt this.");
+    return;
+}
+// 289 asks for the boots on the rocks north of the secret path, from their south side
+// (`coordz(coord) = 3611`). In cache 786's map those rocks are the troll_climbingrocks at 0_44_56_30_36,
+// crossed from (2848,3619). Either of 2011's two pairs of boots will do.
+if(inv_total(worn, death_climbingboots) = 0 & inv_total(worn, death_climbingboots_quest) = 0 & loc_coord = 0_44_56_30_36 & coordz(coord) < coordz(loc_coord)) {
+    mes("You'll need some climbing boots to go that way.");
+    return;
+}
+@troll_rocks_cross;
+
+// 289's [label,rockslide_obstacle] (quests/quest_upass/scripts/upass_obstacles.rs2), for a rock five
+// tiles long: the far tile is beside the rock's middle tile, on the side the player is not on.
+[label,troll_rocks_cross]
+def_int $dir;
+def_coord $end;
+def_coord $middle;
+if(loc_angle = ^loc_west | loc_angle = ^loc_east) {
+    // The rock lies west to east: crossed north or south.
+    $middle = movecoord(loc_coord, 2, 0, 0);
+    if(coordz(coord) > coordz(loc_coord)) {
+        $dir = ^exact_south;
+        $end = movecoord($middle, 0, 0, -1);
+    } else {
+        $dir = ^exact_north;
+        $end = movecoord($middle, 0, 0, 1);
+    }
+} else {
+    // The rock lies south to north: crossed east or west.
+    $middle = movecoord(loc_coord, 0, 0, 2);
+    if(coordx(coord) > coordx(loc_coord)) {
+        $dir = ^exact_west;
+        $end = movecoord($middle, -1, 0, 0);
+    } else {
+        $dir = ^exact_east;
+        $end = movecoord($middle, 1, 0, 0);
+    }
+}
+p_arrivedelay;
+mes("You climb onto the rock...");
+facesquare($middle);
+if(stat_random(agility, 160, 300) = false) {
+    p_delay(0);
+    anim(human_stumble_back, 0);
+    mes("...but you slip back down.");
+    ~damage_self(30); // fixed dmg (289: 3 hitpoints; life points here)
+    return;
+}
+mes("...and step down the other side.");
+sound_synth(climbing_loop, 3, 4);
+~agility_exactmove(human_walk_style, 0, 2, coord, $end, 0, 60, $dir, true); // probably same seq for all directions
+
+// 2011's arena (cache 786's map): the gates are trollheim_trollgate_left/right, a pair on the west
+// (0_45_56_32_25 and _26, 289's entrance) and a pair on the north-east (0_45_56_47_35 and _48_35, 289's
+// exit). The west pair faces the other way from 289's, so its leaves swing the other way; the
+// north-east pair faces as 289's.
+[oploc1,trollheim_trollgate_left]
+if(coordx(loc_coord) = coordx(0_45_56_32_25)) {
+    @open_troll_stronghold_arena_entrance(^loc_north, trollheim_trollgate_left_open);
+}
+@open_troll_stronghold_arena_exit(^loc_west, trollheim_trollgate_left_open);
+
+[oploc1,trollheim_trollgate_right]
+if(coordx(loc_coord) = coordx(0_45_56_32_25)) {
+    @open_troll_stronghold_arena_entrance(^loc_south, trollheim_trollgate_right_open);
+}
+@open_troll_stronghold_arena_exit(^loc_east, trollheim_trollgate_right_open);
+
+[label,open_troll_stronghold_arena_entrance](int $dir, loc $open)
+// 289: `coordx(coord) >= coordx(loc_coord)` (its gate is on its tile's west edge; 2011's is on the east edge).
+if(coordx(coord) > coordx(loc_coord)) {
+    hint_stop();
+}
+~open_and_close_door_dir($open, ~check_axis(coord, loc_coord, loc_angle), $dir, iron_door_open);
+if(%troll_told = ^false) {
+    %troll_told = ^true;
+    if(npc_find(^troll_arena_dad, troll_champion, 16, 0) = false | (add(%npc_lastcombat, 8) > map_clock & %npc_aggressive_player ! uid)) {
+        npc_add(^troll_arena_dad, troll_champion, 1000); // osrs 1000t
+    }
+    ~chatnpc_specific(nc_name(troll_champion), troll_champion, "<p,angry>No human pass through arena without defeating Dad!");
+}
+
+[label,open_troll_stronghold_arena_exit](int $dir, loc $open)
+if(%troll_quest < ^troll_defeated_dad) {
+    if(npc_find(^troll_arena_dad, troll_champion, 16, 0) = false | (add(%npc_lastcombat, 8) > map_clock & %npc_aggressive_player ! uid)) {
+        npc_add(^troll_arena_dad, troll_champion, 1000); // osrs 1000t
+    }
+    %npc_aggressive_player = uid;
+    %npc_lastcombat = sub(^max_32bit_int, 8);
+    if(%troll_accepted_challenge = ^false) %troll_accepted_challenge = ^true;
+    npc_setmode(opplayer2);
+    hint_npc;
+    ~chatnpc_specific(nc_name(troll_champion), troll_champion, "<p,angry>No human pass through arena without defeating Dad!");
+    return;
+}
+~open_and_close_door_dir($open, ~check_axis(coord, loc_coord, loc_angle), $dir, iron_door_open);
+
+[oploc1,troll_stronghold_entrance]
+if(%troll_opened_back_exit = ^false & %troll_quest < ^troll_freed_godric) {
+    mes("You don't know how to open the secret door.");
+    return;
+}
+p_teleport(0_44_157_7_2);
+mes("You open the secret door.");
+
+[oploc1,troll_stronghold_exit]
+if(%troll_opened_back_exit = ^false) %troll_opened_back_exit = ^true;
+// 289: 0_44_56_11_62. 2011's secret entrance stands at 0_44_56_13_54; the tile is the one before it.
+p_teleport(0_44_56_14_53);
+mes("You open the door.");
+
+// 2011 (cache 786's map): 289's pass, Mad Eadgar's cave and the stronghold's door are each entered by
+// a trollheim_mountain_cave_entrance_4x4_1a, as Saba's cave is (quest_death.rs2 has the loc's one
+// trigger and sends the other tiles here). The destinations inside are 289's.
+[label,troll_cave_entrance]
+switch_coord(loc_coord) {
+    // 289's [oploc1,troll_pass_entrance]: the cave before the arena's north-east gate...
+    case 0_45_56_30_53 : p_teleport(0_45_156_27_35);
+    // ...and its other end, below the mountain.
+    case 0_45_57_40_6 : p_teleport(0_45_156_27_51);
+    // 289's [oploc1,troll_mad_eadgar_entrance]: the cave at the top of the mountain.
+    case 0_45_57_5_25 :
+        if(%troll_freed_eadgar = ^true) p_teleport(2_45_157_13_26);
+        else p_teleport(0_45_157_13_26);
+    // 289's [oploc1,troll_stronghold_door].
+    case 0_44_57_31_40 :
+        p_teleport(2_44_157_21_42);
+        if(%troll_entered_stronghold = ^false) %troll_entered_stronghold = ^true;
+    case default : ~displaymessage(^dm_default);
+}
+
+[oploc1,troll_pass_exit]
+// 289: 0_45_57_28_6 and 0_45_56_24_59. The tiles are the ones before 2011's two caves.
+if(loc_angle = ^loc_west) p_teleport(0_45_57_41_10);
+else p_teleport(0_45_56_31_52);
+
+// 289's [oploc1,troll_mad_eadgar_exit]: di2_cave_wall_exit_light_grey here, on 289's two tiles
+// (quest_death.rs2 has the loc's one trigger). 289's tile outside is still open ground.
+[label,troll_cave_exit]
+if(loc_coord = 0_45_157_12_24 | loc_coord = 2_45_157_12_24) {
+    p_teleport(0_45_57_13_23);
+    return;
+}
+~displaymessage(^dm_default);
+
+// 289's [oploc1,_troll_stronghold_top_exit]: cache 786 has the one loc, troll_stronghold_top_exit_mid.
+// 289: 0_44_57_24_42; the tile is the one before 2011's cave.
+[oploc1,troll_stronghold_top_exit_mid]
+p_teleport(0_44_57_32_39);
+
+[oploc1,troll_stronghold_stairstop]
+p_arrivedelay;
+switch_int(loc_angle) {
+    case ^loc_west : p_teleport(movecoord(loc_coord, 0, -1, -2));
+    case ^loc_north : p_teleport(movecoord(loc_coord, -2, -1, 0));
+    case ^loc_east : p_teleport(movecoord(loc_coord, 0, -1, 3));
+    case default : mes("Unhandled troll stairs, loc_angle <tostring(loc_angle)>");
+}
+
+[oploc1,troll_stronghold_stairs]
+p_arrivedelay;
+switch_int(loc_angle) {
+    case ^loc_west : p_teleport(movecoord(loc_coord, 0, 1, 3));
+    case ^loc_north : p_teleport(movecoord(loc_coord, 3, 1, 0));
+    case ^loc_east : p_teleport(movecoord(loc_coord, 0, 1, -1));
+    case default : mes("Unhandled troll stairs, loc_angle <tostring(loc_angle)>");
+}
+
+[oploc1,troll_stronghold_prison_door_closed]
+if(inv_total(inv, troll_key_prison) = 0 & %troll_quest < ^troll_entered_prison) {
+    mes("You need a key.");
+    return;
+}
+if(%troll_quest < ^troll_entered_prison) {
+    mes("You unlock the prison door.");
+    inv_del(inv, troll_key_prison, 1);
+    %troll_quest = ^troll_entered_prison;
+}
+sound_synth(lockeddoor, 1, 0);
+~open_and_close_door2(troll_stronghold_prison_door_open, ~check_axis(coord, loc_coord, loc_angle), door_open);
+
+[oplocu,troll_stronghold_prison_door_closed]
+// NO NIH
+if(last_useitem = troll_key_prison) {
+    p_oploc(1);
+}
+
+[oploc1,troll_celldoor_godric] @troll_unlock_cell_1;
+
+[oplocu,troll_celldoor_godric]
+// no nih
+if(last_useitem = troll_key_godric) {
+    @troll_unlock_cell_1;
+} else if(last_useitem = troll_key_eadgar) {
+    mes("This key doesn't open this door.");
+}
+
+[oploc1,troll_celldoor_eadgar] @troll_unlock_cell_2;
+
+[oplocu,troll_celldoor_eadgar]
+// no nih
+if(last_useitem = troll_key_eadgar) {
+    @troll_unlock_cell_2;
+} else if(last_useitem = troll_key_eadgar) {
+    mes("This key doesn't open this door.");
+}
+
+[label,troll_unlock_cell_1]
+if(%cell_1_unlock_timer > map_clock) { // idk if this is the correct way, but can't unlock the door for 15t after anyone has unlocked
+    mes("The door is already unlocked.");
+    return;
+}
+if(inv_total(inv, troll_key_godric) = 0) {
+    sound_synth(locked, 1, 0);
+    mes("You need a key to unlock the door.");
+    return;
+}
+if(npc_find(coord, godric, 10, 0) = false) {
+    npc_add(0_44_157_11_29, godric, 100);
+    // this doesnt have var check
+    @troll_free_godric;
+}
+if(%troll_quest >= ^troll_freed_godric) {
+    mes("You have no need to do this.");
+    return;
+}
+@troll_free_godric;
+
+[label,troll_unlock_cell_2]
+if(%cell_2_unlock_timer > map_clock) { // idk if this is the correct way, but can't unlock the door for 15t after anyone has unlocked
+    mes("The door is already unlocked.");
+    return;
+}
+if(inv_total(inv, troll_key_eadgar) = 0) {
+    sound_synth(locked, 1, 0);
+    mes("You need a key to unlock the door.");
+    return;
+}
+if(npc_find(coord, eadgar, 10, 0) = false) {
+    npc_add(0_44_157_11_33, eadgar, 100);
+    // this doesnt have var check
+    @troll_free_eadgar;
+}
+if(%troll_freed_eadgar = ^true) {
+    mes("You have no need to do this.");
+    return;
+}
+@troll_free_eadgar;
+
+[label,troll_free_godric]
+sound_synth(locked, 1, 0);
+if(%troll_quest < ^troll_freed_godric) %troll_quest = ^troll_freed_godric;
+inv_del(inv, troll_key_godric, 1);
+mes("You unlock the cell door.");
+npc_queue(5, 0, 1);
+~chatnpc("<p,happy>Thank you, my friend.");
+
+[ai_queue5,godric]
+npc_setmode(none);
+%cell_1_unlock_timer = add(map_clock, 15);
+~npc_forcewalk(0_44_157_15_30);
+if(loc_find(0_44_157_16_30, troll_celldoor_godric) = true) {
+    def_int $x;
+    def_int $z;
+    def_coord $loc_coord = loc_coord;
+    def_int $angle = loc_angle;
+    def_locshape $shape = loc_shape;
+    $x, $z = ~door_open($angle, loc_shape);
+    // Temp note: dur updated
+    loc_change(inviswall, 3);
+    loc_add(movecoord($loc_coord, $x, 0, $z), troll_celldoor_godric_open, modulo(add($angle, 1), 4), $shape, 3);
+}
+~npc_forcewalk(0_44_157_19_30);
+~npc_forcewalk(0_44_157_19_14);
+~npc_forcewalk(0_44_157_8_2);
+npc_delay(0);
+npc_del;
+
+[label,troll_free_eadgar]
+sound_synth(locked, 1, 0);
+if(%troll_freed_eadgar = ^false) %troll_freed_eadgar = ^true;
+inv_del(inv, troll_key_eadgar, 1);
+mes("You unlock the cell door.");
+npc_queue(5, 0, 1);
+~chatnpc("<p,happy>Thanks! I'm off back home!");
+
+[ai_queue5,eadgar]
+npc_setmode(none);
+%cell_2_unlock_timer = add(map_clock, 15);
+~npc_forcewalk(0_44_157_15_34);
+if(loc_find(0_44_157_16_34, troll_celldoor_eadgar) = true) {
+    def_int $x;
+    def_int $z;
+    def_coord $loc_coord = loc_coord;
+    def_int $angle = loc_angle;
+    def_locshape $shape = loc_shape;
+    $x, $z = ~door_open($angle, loc_shape);
+    // Temp note: dur updated
+    loc_change(inviswall, 3);
+    loc_add(movecoord($loc_coord, $x, 0, $z), troll_celldoor_eadgar_open, modulo(add($angle, 1), 4), $shape, 3);
+}
+~npc_forcewalk(0_44_157_19_34);
+~npc_forcewalk(0_44_157_19_14);
+~npc_forcewalk(0_44_157_8_2);
+npc_delay(0);
+npc_del;
+
+// 289's troll_eadgar_cooking_pot is di2_fire_cooking_pot here, on 289's tile (it stands elsewhere too).
+[oplocu,di2_fire_cooking_pot]
+if(loc_coord = 2_45_157_13_27) {
+    ~chatplayer("<p,neutral>I'd better not mess around with Eadgar's stew!");
+    return;
+}
+~displaymessage(^dm_default);
+
+[queue,troll_quest_complete]
+// https://web.archive.org/web/20051108023748/http://runescape.salmoneus.net/quests/TrollStronghold/trollstrholdcomplt.png
+session_log(^log_adventure, "Quest complete: Troll Stronghold");
+%troll_quest = ^troll_complete;
+// 2011 (the 2011 wiki's Troll Stronghold and Mysterious lamp pages; cache 786's law_reward_lamp):
+// since 7 May 2008 the reward is two mysterious lamps, each 10,000 experience in a skill of level
+// 30 or more, in place of 289's law talisman; 1 quest point. No source found shows the scroll's
+// words: the sentence is 289's and the reward line is plain.
+inv_add(inv, law_reward_lamp, 2);
+~send_quest_complete2(^questlist_troll, law_reward_lamp, 250, ^troll_questpoints, "You have completed<br>Troll Stronghold!", "2 mysterious lamps");

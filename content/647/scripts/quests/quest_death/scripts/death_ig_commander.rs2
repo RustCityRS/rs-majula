@@ -82,10 +82,15 @@ switch_int(~p_choice2("I'm sorry to hear that.", 1, "Is there anything I can do 
     case 2 :
         ~chatplayer("<p,neutral>Is there anything I can do to help?");
         ~chatnpc("<p,sad>The way to the stronghold is treacherous, friend. Even if you manage to climb your way up, there will be many trolls defending the stronghold.");
-        // HELD until Troll Stronghold is ported: 289 offers "I'll get Godric back!" here, which starts
-        // that quest (%troll_quest = ^troll_started, the quest list's row, "God speed friend! ..."). Until
-        // then only 289's other answer is given, so no player starts a quest that has no content.
-        ~chatplayer("<p,sad>I'm sorry, there's nothing I can do.");
+        switch_int(~p_choice2("I'll get Godric back!", 1, "I'm sorry, there's nothing I can do.", 2)) {
+            case 1 :
+                %troll_quest = ^troll_started;
+                ~send_quest_progress_colour(^questlist_troll, %troll_quest, ^troll_complete);
+                ~chatplayer("<p,angry>I'll get Godric back!");
+                ~chatnpc("<p,happy>God speed friend! I would send some of my men with you, but none of them are brave enough to follow.");
+            case 2 :
+                ~chatplayer("<p,sad>I'm sorry, there's nothing I can do.");
+        }
 }
 
 [label,denulth_quests]
