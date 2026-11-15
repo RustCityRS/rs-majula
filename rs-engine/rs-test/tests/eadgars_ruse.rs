@@ -14,6 +14,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -54,7 +55,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -64,7 +65,7 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn login(engine: &mut Engine, name: &str, stage: i32) -> HarnessClient {
@@ -176,7 +177,7 @@ fn talk_near(
     panic!("{npc} was never reached: {:?}", last.messages);
 }
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let map = match kind {
         "obj" => &engine.cache.objs.debugnames,
         "npc" => &engine.cache.npcs.debugnames,
@@ -248,12 +249,12 @@ fn op_loc(
     let mut p = ClientPacket::new();
     if op == 1 {
         p.p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
+            .p2_alt1(loc.int())
             .p1(0)
             .p2_alt2(x as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
     } else {
-        p.p2_alt1(loc as i32)
+        p.p2_alt1(loc.int())
             .p1_alt2(0)
             .p2_alt2(z as i32)
             .p2_alt3(x as i32);
@@ -332,7 +333,7 @@ fn search(
     let loc = id(engine, "loc", loc);
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -353,13 +354,13 @@ fn use_on(
     let slot = slot_of(engine, client, obj);
     let (obj, loc) = (id(engine, "obj", obj), id(engine, "loc", loc));
     let mut p = ClientPacket::new();
-    p.p2_alt2(obj as i32)
+    p.p2_alt2(obj.int())
         .p2_alt2(slot)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
         .p2_alt2(x as i32)
         .p1_alt1(0)
-        .p2_alt1(loc as i32);
+        .p2_alt1(loc.int());
     client.send(ClientProt::OpLocT, &p.finish());
     watch(engine, client, ticks)
 }
