@@ -514,6 +514,27 @@ cursor1=3,cursor_take
 desc=This used to belong to King Arthur.
 wearpos=righthand
 param=param_0,equip_sword
+// 289's Excalibur (quests/quest_arthur/configs/quest_arthur.obj): its weapon category, weight,
+// bonuses, speed, animations, sounds and special-attack flag. The 2011 wiki's Excalibur
+// (2011-05-21) has the same bonuses: stab +20, slash +29, crush -2, slash def +3, crush def +2,
+// magic def +1, strength +25, speed 5.
+category=weapon_slash
+weight=5lb
+tradeable=no
+param=stabattack,20
+param=slashattack,29
+param=crushattack,-2
+param=slashdefence,3
+param=crushdefence,2
+param=magicdefence,1
+param=strengthbonus,25
+param=attackrate,5
+param=slashattack_anim,human_sword_slash
+param=stabattack_anim,human_sword_stab
+param=defend_anim,human_sword_def
+param=slash_sound,hacksword_slash
+param=stab_sound,hacksword_stab
+param=specwep,^true
 
 // 36
 [unlit_candle]
