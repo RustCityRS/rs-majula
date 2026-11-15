@@ -10,7 +10,7 @@ use rs_io::Packet;
 use rs_ver::TypeId;
 use std::fmt::Write;
 
-const GROUP_UNKNOWN1: u32 = 1;
+const GROUP_MAP: u32 = 1;
 const GROUP_GRAPHICS: u32 = 3;
 #[cfg(since_742)]
 const GROUP_AUDIO: u32 = 4;
@@ -34,18 +34,19 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
         match (group, code) {
             (_, 0) => break,
             // 1
-            (GROUP_UNKNOWN1, 1) => {
+            (GROUP_MAP, 1) => {
                 let textures: Vec<_> = (0..6)
                     .map(|_| names.name("texture", buf.g2() as u32))
                     .collect();
-                writeln!(out, "unknown1={}", textures.join(","))?;
+                writeln!(out, "environmentmap={}", textures.join(","))?;
             }
             // 4 and 5
-            (GROUP_UNKNOWN1, 4 | 5) => {
+            (GROUP_MAP, 4 | 5) => {
                 let enums: Vec<_> = (0..buf.g1())
                     .map(|_| names.name("enum", buf.g2() as u32))
                     .collect();
-                writeln!(out, "unknown{code}={}", enums.join(","))?;
+                let key = if code == 4 { "titles" } else { "femaletitles" };
+                writeln!(out, "{key}={}", enums.join(","))?;
             }
             // 1
             (GROUP_GRAPHICS, 1) => {
@@ -190,18 +191,18 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
             .with_context(|| format!("Invalid line: {line}"))?;
         let list = value.split(',');
         match (group, key) {
-            (GROUP_UNKNOWN1, "unknown1") => {
+            (GROUP_MAP, "environmentmap") => {
                 out.p1(1);
                 let textures = list
                     .map(|texture| names.id("texture", texture))
                     .collect::<Result<Vec<_>>>()?;
-                ensure!(textures.len() == 6, "unknown1 takes six textures");
+                ensure!(textures.len() == 6, "environmentmap takes six textures");
                 for texture in textures {
                     out.p2(texture as u16);
                 }
             }
-            (GROUP_UNKNOWN1, "unknown4" | "unknown5") => {
-                out.p1(if key == "unknown4" { 4 } else { 5 });
+            (GROUP_MAP, "titles" | "femaletitles") => {
+                out.p1(if key == "titles" { 4 } else { 5 });
                 let enums = list
                     .map(|id| names.id("enum", id))
                     .collect::<Result<Vec<_>>>()?;

@@ -113,7 +113,7 @@ PNG previews or `manifest.json` files in `content/647`.
 | `synth`, `instruments` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
 | `songs`, `jingles` | Standard `.mid` files |
 | `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
-| `defaults` | `graphics.defaults`, `unknown1.defaults` and `wearpos.defaults` named properties |
+| `defaults` | `map.defaults`, `graphics.defaults`, `wearpos.defaults` and (742) `audio.defaults`, `minimenu.defaults`, `cutscene.defaults` named properties |
 | `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
 | `worldmap` | `.fm` area palettes; `.fms` map squares with coordinates and named floors/locs |
 | `shaders` | Direct3D `.shader` assembly and constant tables; original OpenGL `.arb`/`.glsl` source |
