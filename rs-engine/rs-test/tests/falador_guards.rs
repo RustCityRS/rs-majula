@@ -19,6 +19,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::ParamValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 use std::fs;
 
@@ -42,9 +43,9 @@ fn param(engine: &Engine, npc: u16, name: &str) -> Option<i32> {
     let params = engine
         .cache
         .npcs
-        .get_by_id(npc)
+        .get_by_id(TypeId::new(npc))
         .and_then(|n| n.params.as_deref())?;
-    match params.get(&pack_id("param", name)) {
+    match params.get(&TypeId::from_int(pack_id("param", name))) {
         Some(ParamValue::Int(v)) => Some(*v),
         _ => None,
     }
@@ -56,7 +57,11 @@ fn param(engine: &Engine, npc: u16, name: &str) -> Option<i32> {
 fn falador_s_sword_guards_fight_as_289_s_guard() {
     runner::on_loaded_engine(|engine| {
         for npc in [3228, 3230, 3231, 3232, 3233, 3241] {
-            let t = engine.cache.npcs.get_by_id(npc).expect("a guard");
+            let t = engine
+                .cache
+                .npcs
+                .get_by_id(TypeId::new(npc))
+                .expect("a guard");
             assert_eq!(t.hitpoints, 220, "{npc}: 289's 22 hitpoints as life points");
             assert_eq!(param(engine, npc, "attack_anim"), Some(386), "{npc} attack");
             assert_eq!(param(engine, npc, "defend_anim"), Some(424), "{npc} defend");
@@ -73,7 +78,7 @@ fn falador_s_crossbow_guard_is_289_s_guard2() {
         let t = engine
             .cache
             .npcs
-            .get_by_id(3229)
+            .get_by_id(TypeId::new(3229))
             .expect("the crossbow guard");
         assert_eq!(t.hitpoints, 220);
         assert_eq!(param(engine, 3229, "attack_anim"), Some(4230));
@@ -98,7 +103,7 @@ fn the_crossbow_guard_shoots_back() {
             .npcs
             .iter()
             .flatten()
-            .find(|n| n.npc.base_type == 3229)
+            .find(|n| n.npc.base_type == TypeId::new(3229))
             .map(|n| {
                 (
                     n.npc.uid.nid(),

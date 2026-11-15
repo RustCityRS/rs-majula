@@ -1,0 +1,14 @@
+// 6906
+[proc,clientscript_6906](int $int0, component $component1)
+if (cc_find($component1, 0) = true & .cc_find($component1, 1) = true) {
+    if ($int0 = 1) {
+        cc_setgraphic("aif_checkbox_small_2,0");
+        if_setonmouseover($component1, null);
+        if_setonmouseleave($component1, null);
+    } else {
+        cc_setgraphic("aif_checkbox_small_2,4");
+        if_setonmouseover($component1, clientscript_6907, event_com, 1, "I1");
+        if_setonmouseleave($component1, clientscript_6907, event_com, 0, "I1");
+    }
+    .cc_setcolour(0xf4b13c);
+}

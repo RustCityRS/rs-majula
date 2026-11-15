@@ -1,0 +1,7 @@
+// 4752
+[proc,clientscript_4752]
+if (if_gethide(interface_1143:com_26) = true) {
+    if_sethide(interface_1143:com_26, false);
+} else {
+    if_sethide(interface_1143:com_26, true);
+}

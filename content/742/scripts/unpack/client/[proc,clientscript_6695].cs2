@@ -1,0 +1,9 @@
+// 6695
+[proc,clientscript_6695](component $component0, component $component1, component $component2, string $string0)
+if (%varplayerbit_11932 ! 2047) {
+    if_sethide($component0, false);
+    if_settext($component1, ~clientscript_6696($string0, %varplayerbit_11932));
+} else {
+    if_sethide($component0, true);
+    ~deltooltip_action($component2);
+}

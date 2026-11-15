@@ -1,0 +1,6 @@
+// 2883
+[clientscript,script2883]
+if (%music_v3_protect = 1 | %cutscene_status = 1) {
+    return;
+}
+~addtooltip_action(music_v3:playlist_clear, music_v3:music_tooltip_layer, "Clear playlist", 25, 189);

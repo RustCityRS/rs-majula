@@ -1,0 +1,49 @@
+// 5582
+[proc,clientscript_5582](component $component0, component $component1)
+def_int $int2 = 240;
+if (string_length(if_gettext($component1)) > 0) {
+    $int2 = calc(parawidth(if_gettext($component1), 500, verdana_11pt_regular) + 80);
+    if ($int2 > if_getwidth($component0)) {
+        if_setsize(interface_1193:com_11, $int2, 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1193:com_13, $int2, 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1193:com_14, $int2, 20, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1193:com_15, $int2, 20, ^setsize_abs, ^setsize_abs);
+    }
+    if (if_gethide(interface_1193:com_11) = true) {
+        if_setcolour(interface_1193:com_3, 0x666666);
+        if_setcolour(interface_1193:com_12, 0x666666);
+        if_setonmouseover(interface_1193:com_11, null);
+        if_setonmouseleave(interface_1193:com_11, null);
+        if_sethide(interface_1193:com_11, false);
+        if_sethide(interface_1193:com_3, false);
+    }
+    if (if_gethide(interface_1193:com_13) = true) {
+        if_setcolour(interface_1193:com_23, 0x666666);
+        if_setcolour(interface_1193:com_24, 0x666666);
+        if_setonmouseover(interface_1193:com_13, null);
+        if_setonmouseleave(interface_1193:com_13, null);
+        if_sethide(interface_1193:com_13, false);
+        if_sethide(interface_1193:com_23, false);
+    }
+    if (if_gethide(interface_1193:com_14) = true) {
+        if_setcolour(interface_1193:com_28, 0x666666);
+        if_setcolour(interface_1193:com_29, 0x666666);
+        if_setonmouseover(interface_1193:com_14, null);
+        if_setonmouseleave(interface_1193:com_14, null);
+        if_sethide(interface_1193:com_14, false);
+        if_sethide(interface_1193:com_28, false);
+    }
+    if (if_gethide(interface_1193:com_15) = true) {
+        if_setcolour(interface_1193:com_33, 0x666666);
+        if_setcolour(interface_1193:com_34, 0x666666);
+        if_setonmouseover(interface_1193:com_15, null);
+        if_setonmouseleave(interface_1193:com_15, null);
+        if_sethide(interface_1193:com_15, false);
+        if_sethide(interface_1193:com_33, false);
+    }
+    $int2 = calc(parawidth(if_gettext(interface_1193:com_19), 500, verdana_13pt_regular) + 80);
+    if ($int2 > if_getwidth(interface_1193:com_5)) {
+        if_setsize(interface_1193:com_5, $int2, 30, ^setsize_abs, ^setsize_abs);
+    }
+    if_setontimer($component0, null);
+}

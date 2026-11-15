@@ -1,0 +1,8 @@
+// 6212
+[proc,clientscript_6212]
+if (%create_send_me_news = true) {
+    %create_send_me_news = false;
+} else {
+    %create_send_me_news = true;
+}
+~clientscript_6211(lobbyscreen:com_372, lobbyscreen:com_373, %create_send_me_news, 1);

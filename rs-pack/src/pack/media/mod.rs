@@ -1,36 +1,36 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::JagArchive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::incremental::Stage;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::names::{AssetNames, archive_name};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::{media, palette};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::sheet::Parsed;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::{sheet, tga};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result, bail, ensure};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
 use std::fs;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use std::mem::take;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
     let sprite_dir = content_dir.join("sprites");
     if !sprite_dir.exists() {
@@ -80,7 +80,7 @@ pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
     jag.build(JagArchive::Media.compression())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
@@ -90,7 +90,9 @@ pub fn pack_archive(
 ) -> Result<()> {
     for &(aid, dir_name) in &[
         (archive::SPRITES, "sprites"),
+        #[cfg(since_647)]
         (archive::LOADING_SPRITES, "loading_sprites"),
+        #[cfg(since_647)]
         (archive::LOADING_SPRITES_RAW, "loading_sprites_raw"),
     ] {
         let format = archive::archive_format(aid).unwrap();
@@ -131,7 +133,7 @@ pub fn pack_archive(
     Ok(())
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 struct SpriteGroup {
     area_width: u16,
     area_height: u16,
@@ -140,7 +142,7 @@ struct SpriteGroup {
     sprites: Vec<SpriteFrame>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 struct SpriteFrame {
     width: u16,
     height: u16,
@@ -152,7 +154,7 @@ struct SpriteFrame {
     alphas: Option<Vec<u8>>,
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn encode_sprite_sheet(path: &Path) -> Result<Vec<u8>> {
     if path.extension().is_some_and(|e| e == "jpg") {
         return Ok(fs::read(path)?);
@@ -264,7 +266,7 @@ pub fn encode_sprite_sheet(path: &Path) -> Result<Vec<u8>> {
     }))
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn encode_sprite_group_binary(group: &SpriteGroup) -> Vec<u8> {
     let sprite_count = group.sprites.len();
     let palette = &group.palette;

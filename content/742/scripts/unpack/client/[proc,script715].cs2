@@ -1,0 +1,19 @@
+// 715
+[proc,script715](int $int0, int $int1, int $int2, int $int3)(int)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int4, $int5, $int6 = ~hex_to_rgb($int0);
+$int7, $int8, $int9 = ~hex_to_rgb($int2);
+$int4 = calc($int4 * $int1 + $int7 * $int3);
+$int5 = calc($int5 * $int1 + $int8 * $int3);
+$int6 = calc($int6 * $int1 + $int9 * $int3);
+def_int $int10 = max($int4, max($int5, $int6));
+$int7 = ~scale_round(255, $int10, $int4);
+$int8 = ~scale_round(255, $int10, $int5);
+$int9 = ~scale_round(255, $int10, $int6);
+$int4, $int5, $int6 = ~rgb_to_hsl($int7, $int8, $int9);
+return(~rgb_to_hex($int7, $int8, $int9));

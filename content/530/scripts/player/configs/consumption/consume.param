@@ -1,0 +1,9 @@
+// Server-only consumption params. next_obj_stage is the obj a multi-bite food
+// transforms into on each bite (apple_pie -> half_an_apple_pie -> pie_dish, etc).
+// Read server-side via oc_param; registered beyond the cache param range (id
+// 2006) and never written to all.param, so it stays out of the client param
+// archive (no CRC impact) — same server-only pattern as firemaking.param's
+// [product]. Adapted from rs-majula consumption/consume.param.
+[next_obj_stage]
+type=namedobj
+default=null

@@ -1,0 +1,22 @@
+// 5113
+[proc,clientscript_5113](int $int0)
+switch_int (%varplayer_2317) {
+    case 1 :
+        ~clientscript_5114(interface_1116:com_60, interface_1116:com_62, interface_1116:com_72, 73138257, 73138258, interface_1116:com_157, $int0);
+    case 2 :
+        ~clientscript_5114(interface_1116:com_191, interface_1116:com_166, interface_1116:com_177, 73138363, 73138364, interface_1116:com_202, $int0);
+    case 3 :
+        ~clientscript_5114(interface_1116:com_240, interface_1116:com_215, interface_1116:com_226, 73138412, 73138413, interface_1116:com_251, $int0);
+    case 4 :
+        ~clientscript_5114(interface_1116:com_289, interface_1116:com_264, interface_1116:com_275, 73138461, 73138462, interface_1116:com_300, $int0);
+    case 5 :
+        ~clientscript_5114(interface_1116:com_338, interface_1116:com_313, interface_1116:com_324, 73138510, 73138511, interface_1116:com_349, $int0);
+    case 6 :
+        ~clientscript_5114(interface_1116:com_387, interface_1116:com_362, interface_1116:com_373, 73138559, 73138560, interface_1116:com_398, $int0);
+    case 7 :
+        ~clientscript_5114(interface_1116:com_436, interface_1116:com_411, interface_1116:com_422, 73138608, 73138609, interface_1116:com_447, $int0);
+    case 8 :
+        ~clientscript_5114(interface_1116:com_485, interface_1116:com_460, interface_1116:com_471, 73138657, 73138658, interface_1116:com_496, $int0);
+    case 9 :
+        ~clientscript_5114(interface_1116:com_534, interface_1116:com_509, interface_1116:com_520, 73138706, 73138707, interface_1116:com_545, $int0);
+}

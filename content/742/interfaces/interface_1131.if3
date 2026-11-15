@@ -1,0 +1,38 @@
+// 1131:0
+[com_0]
+type=layer
+y=180
+width=95
+height=42
+xmode=abs_centre
+transmitop=1
+op1=Exit
+opcursor0=cursor_enter
+onmouseover=graphic_swapper(interface_1131:com_1, "login_lobby_favorite_button_v2,2")
+onmouseleave=graphic_swapper(interface_1131:com_1, "login_lobby_favorite_button_v2,1")
+onop=graphic_swapper(interface_1131:com_1, "login_lobby_favorite_button_v2,0")
+onclickrepeat=graphic_swapper(interface_1131:com_1, "login_lobby_favorite_button_v2,0")
+onrelease=graphic_swapper(interface_1131:com_1, "login_lobby_favorite_button_v2,1")
+
+// 1131:1
+[com_1]
+type=graphic
+y=-6
+width=95
+height=51
+layer=com_0
+graphic="login_lobby_favorite_button_v2,1"
+
+// 1131:2
+[com_2]
+type=text
+x=1
+y=-2
+width=95
+height=44
+layer=com_0
+textfont=welcome_font_tiny
+text=Cancel
+textalignh=centre
+textalignv=centre
+textshadow=yes

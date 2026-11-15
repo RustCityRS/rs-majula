@@ -1,0 +1,7 @@
+// 910
+[clientscript,script910]
+if (%easter08_chocatrice_targeting = 1 | %easter08_chocatrice_mouseover = 1) {
+    if_setoutline(easter08_chocatrice_side:target_icon, 2);
+} else {
+    if_setoutline(easter08_chocatrice_side:target_icon, 0);
+}

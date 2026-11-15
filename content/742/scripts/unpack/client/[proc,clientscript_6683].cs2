@@ -1,0 +1,21 @@
+// 6683
+[proc,clientscript_6683](component $component0, int $int1, int $int2)
+if (clientclock < $int2) {
+    return;
+}
+def_int $int3 = 0;
+if (cc_find($component0, $int1) = true) {
+    $int3 = min(calc(cc_gettrans + 15), 255);
+    cc_settrans($int3);
+    if (.cc_find($component0, calc($int1 + 1)) = true) {
+        .cc_settrans($int3);
+    }
+    if (.cc_find($component0, calc($int1 + 2)) = true) {
+        .cc_settrans($int3);
+    }
+    if ($int3 >= 255) {
+        if_setontimer($component0, null);
+    }
+} else {
+    if_setontimer($component0, null);
+}

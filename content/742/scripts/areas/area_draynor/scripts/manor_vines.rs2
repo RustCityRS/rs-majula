@@ -1,0 +1,16 @@
+// 289's Draynor Manor vines (areas/area_draynor/scripts/manor_vines.rs2). 2011's
+// still whip from the ground, for 10 or 20 life points (2011 wiki, Draynor
+// Manor: "invisible vines which will attack the player from the ground, and
+// always hit for 10 or 20 lifepoints"); 289's hit for 1.
+[zone,0_48_52_40_8] settimer(draynor_manor_vines, 5);
+
+[timer,draynor_manor_vines]
+// will only start timer after you enter the zone, but will continue 1 tile n/e outside of the zone
+if(inzone(0_48_52_40_8, movecoord(0_48_52_40_8, 9, 0, 9), coord) = false) { 
+    cleartimer(draynor_manor_vines);
+    return;
+}
+mes("A vine whips out and attacks you!");
+spotanim_map(whippingplant_attack, coord, 0, 0);
+sound_synth(nasty_tree_attack, 1, 0);
+queue(damage_player, 0, calc((random(2) + 1) * 10));

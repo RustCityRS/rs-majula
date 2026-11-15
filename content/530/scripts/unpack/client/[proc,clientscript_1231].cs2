@@ -1,0 +1,3 @@
+// 1231
+[proc,clientscript_1231](int $int0)
+%prayer_custom_view_client = calc(2009 - ~dropdownbox_getselected($int0, loginscreen:com_375));

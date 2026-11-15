@@ -1,0 +1,36 @@
+// 6816
+[proc,clientscript_6816](component $component0)(graphic, graphic)
+switch_component ($component0) {
+    case interface_1351:com_98 :
+        return(if_getgraphic(interface_1351:com_43), if_getgraphic(interface_1351:com_44));
+    case interface_1351:com_101 :
+        return(if_getgraphic(interface_1351:com_41), if_getgraphic(interface_1351:com_42));
+    case interface_1351:com_102 :
+        return(if_getgraphic(interface_1351:com_39), if_getgraphic(interface_1351:com_40));
+    case interface_1351:com_103 :
+        return(if_getgraphic(interface_1351:com_37), if_getgraphic(interface_1351:com_38));
+    case interface_1351:com_104 :
+        return(if_getgraphic(interface_1351:com_35), if_getgraphic(interface_1351:com_36));
+    case interface_1351:com_105 :
+        return(if_getgraphic(interface_1351:com_33), if_getgraphic(interface_1351:com_34));
+    case interface_1351:com_106 :
+        return(if_getgraphic(interface_1351:com_27), if_getgraphic(interface_1351:com_32));
+    case interface_1351:com_107 :
+        return(if_getgraphic(interface_1351:com_30), if_getgraphic(interface_1351:com_31));
+    case interface_1351:com_108 :
+        return(if_getgraphic(interface_1351:com_28), if_getgraphic(interface_1351:com_29));
+    case interface_1351:com_120 :
+        return(if_getgraphic(interface_1351:com_49), if_getgraphic(interface_1351:com_50));
+    case interface_1351:com_121 :
+        return(if_getgraphic(interface_1351:com_47), if_getgraphic(interface_1351:com_48));
+    case interface_1351:com_122 :
+        return(if_getgraphic(interface_1351:com_45), if_getgraphic(interface_1351:com_46));
+    case interface_1351:com_125 :
+        return(if_getgraphic(interface_1351:com_55), if_getgraphic(interface_1351:com_56));
+    case interface_1351:com_126 :
+        return(if_getgraphic(interface_1351:com_53), if_getgraphic(interface_1351:com_54));
+    case interface_1351:com_127 :
+        return(if_getgraphic(interface_1351:com_51), if_getgraphic(interface_1351:com_52));
+    case interface_1351:com_109 :
+        return(if_getgraphic(interface_1351:com_0), null);
+}

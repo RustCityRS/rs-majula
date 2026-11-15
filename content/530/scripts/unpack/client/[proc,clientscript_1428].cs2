@@ -1,0 +1,11 @@
+// 1428
+[proc,clientscript_1428](int $int0, component $component1)
+if ($int0 ! 1) {
+    return;
+}
+if_setontimer($component1, null);
+if_setonsubchange(toplevel:mainmodal, null);
+if (getwindowmode < 3) {
+    setdefaultwindowmode(getwindowmode);
+}
+detail_antialiasing_default(detailget_antialiasing);

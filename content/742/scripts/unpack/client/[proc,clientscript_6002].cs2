@@ -1,0 +1,61 @@
+// 6002
+[proc,clientscript_6002](component $component0, string $string0)
+def_int $int1 = calc(if_getx($component0) - 101);
+def_int $int2 = if_gety($component0);
+def_graphic $graphic3 = ~clientscript_6003(if_getgraphic($component0));
+$int1 = max($int1, 20);
+$int1 = min($int1, 230);
+if ($int2 <= 150) {
+    $int2 = calc($int2 + 40);
+} else {
+    $int2 = calc($int2 - 50);
+}
+def_int $int4 = 0;
+switch_component ($component0) {
+    case interface_1092:com_7 :
+        if (%deserttreasure = 15) {
+            $int4 = 1;
+        }
+    case interface_1092:com_39 :
+        if (%lunar_quest_main = 190) {
+            $int4 = 1;
+        }
+    case interface_1092:com_40 :
+        $int4 = %varplayerbit_10900;
+    case interface_1092:com_41 :
+        $int4 = %varplayerbit_10901;
+    case interface_1092:com_42 :
+        $int4 = %varplayerbit_10902;
+    case interface_1092:com_43 :
+        $int4 = %varplayerbit_10903;
+    case interface_1092:com_44 :
+        $int4 = %varplayerbit_10904;
+    case interface_1092:com_45 :
+        $int4 = %varplayerbit_10905;
+    case interface_1092:com_46 :
+        $int4 = %varplayerbit_10906;
+    case interface_1092:com_47 :
+        $int4 = %varplayerbit_10907;
+    case interface_1092:com_48 :
+        $int4 = %varplayerbit_10908;
+    case interface_1092:com_49 :
+        $int4 = %varplayerbit_10909;
+    case interface_1092:com_50 :
+        $int4 = %varplayerbit_10910;
+    case interface_1092:com_51 :
+        $int4 = %varplayerbit_10911;
+    case interface_1092:com_52 :
+        $int4 = %varplayerbit_10912;
+}
+if ($int4 = 1) {
+    if_settext(interface_1092:com_66, "Click to teleport<br>to this lodestone.");
+} else {
+    if_settext(interface_1092:com_66, "This lodestone<br>is not yet active.");
+}
+if_setgraphic(interface_1092:com_64, $graphic3);
+if_settext(interface_1092:com_65, $string0);
+if_setposition(interface_1092:com_55, $int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(interface_1092:com_55, false);
+if_setgraphic(interface_1092:com_54, $graphic3);
+if_setposition(interface_1092:com_53, calc(if_getx($component0) - 5), calc(if_gety($component0) - 5), ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(interface_1092:com_53, false);

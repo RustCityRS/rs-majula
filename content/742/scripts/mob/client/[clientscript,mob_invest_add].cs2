@@ -1,0 +1,41 @@
+// 2508
+[clientscript,mob_invest_add](component $component0)
+switch_component ($component0) {
+    case interface_852:offercount_0 :
+        %mob_client_invest_scenario = 0;
+    case interface_852:offercount_10 :
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 10) & %mob_client_invest >= 10 & ~script2509(10) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 10);
+            %mob_client_invest = calc(%mob_client_invest - 10);
+        }
+    case interface_852:offercount_100 :
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 100) & %mob_client_invest >= 100 & ~script2509(100) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 100);
+            %mob_client_invest = calc(%mob_client_invest - 100);
+        }
+    case interface_852:offercount_500 :
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 500) & %mob_client_invest >= 500 & ~script2509(500) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 500);
+            %mob_client_invest = calc(%mob_client_invest - 500);
+        }
+    case interface_852:offercount_1k :
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 1000) & %mob_client_invest >= 1000 & ~script2509(1000) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 1000);
+            %mob_client_invest = calc(%mob_client_invest - 1000);
+        }
+    case interface_852:offercount_10k :
+        if (%mob_client_invest_scenario < calc(^max_32bit_int - 10000) & %mob_client_invest >= 10000 & ~script2509(10000) = 1) {
+            %mob_client_invest_scenario = calc(%mob_client_invest_scenario + 10000);
+            %mob_client_invest = calc(%mob_client_invest - 10000);
+        }
+    case interface_852:offercount_all :
+        if (%mob_client_invest < ~script2687) {
+            %mob_client_invest_scenario = %mob_client_invest;
+            %mob_client_invest = 0;
+        } else if (%mob_client_invest_scenario < ~script2687) {
+            %mob_client_invest_scenario = ~script2687;
+            %mob_client_invest = calc(%mob_client_invest - ~script2687);
+        }
+}
+if_settext(interface_852:com_63, ~tostring_spacer(%mob_client_invest_scenario, ","));
+if_settext(interface_852:invest_total, ~tostring_spacer(%mob_client_invest, ","));

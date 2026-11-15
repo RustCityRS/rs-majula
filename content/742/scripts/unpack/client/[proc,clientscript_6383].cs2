@@ -1,0 +1,19 @@
+// 6383
+[proc,clientscript_6383](boolean $boolean0, component $component1, component $component2, component $component3)
+if_sethide($component1, $boolean0);
+if ($component2 ! null) {
+    if ($boolean0 = true) {
+        if_setgraphic($component2, 10154);
+    } else {
+        if_setgraphic($component2, 10155);
+    }
+}
+if ($component3 ! null) {
+    if ($boolean0 = true) {
+        if_setgraphic($component3, 10154);
+        if_sethflip($component3, false);
+    } else {
+        if_setgraphic($component3, 10155);
+        if_sethflip($component3, true);
+    }
+}

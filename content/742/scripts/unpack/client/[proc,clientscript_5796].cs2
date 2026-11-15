@@ -1,0 +1,44 @@
+// 5796
+[proc,clientscript_5796](int $int0, int $int1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+def_struct $struct8 = ~clientscript_5795($int0);
+if ($struct8 = null) {
+    return;
+}
+if ($component2 ! null) {
+    if (struct_param($struct8, param_1270) ! 4094) {
+        if_setgraphic($component2, struct_param(enum(int, struct, enum_2252, struct_param($struct8, param_1270)), param_952));
+    } else {
+        if_setgraphic($component2, struct_param($struct8, param_1271));
+    }
+}
+if ($component3 ! null) {
+    if_settext($component3, struct_param($struct8, param_1266));
+}
+def_string $string0 = "";
+if ($component4 ! null) {
+    $string0 = struct_param($struct8, param_1273);
+    if (struct_param($struct8, param_1322) = 1 & $component4 ! interface_1221:com_8 & $component4 ! interface_1220:com_22 & $component4 ! interface_1056:com_13 & $int1 = 1 & %varplayerbit_9030 = 0) {
+        $string0 = append($string0, "<br><br>(This Task is not a requirement for the Taskmaster emote.)");
+    }
+    if_settext($component4, $string0);
+}
+def_graphic $graphic9 = null;
+if ($component5 ! null) {
+    $graphic9 = enum(int, graphic, enum_3492, struct_param($struct8, param_1272));
+    if (~task_requirements_quick($int0) = 0 & ~script3999($int0) = 0) {
+        $graphic9 = symbol_lock;
+    }
+    if_setgraphic($component5, $graphic9);
+}
+def_graphic $graphic10 = null;
+if ($component6 ! null) {
+    $graphic10 = enum(int, graphic, enum_3491, struct_param($struct8, param_1267));
+    if_setgraphic($component6, $graphic10);
+}
+def_graphic $graphic11 = null;
+if ($component7 ! null) {
+    if (struct_param($struct8, param_1293) ! 0 & struct_param($struct8, param_1293) ! 63) {
+        $graphic11 = small_compass;
+    }
+    if_setgraphic($component7, $graphic11);
+}

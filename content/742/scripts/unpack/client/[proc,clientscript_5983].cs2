@@ -1,0 +1,12 @@
+// 5983
+[proc,clientscript_5983](component $component0)
+cc_deleteall($component0);
+def_int $int1 = if_getnextsubid($component0);
+cc_create($component0, ^iftype_rectangle, if_getnextsubid($component0));
+cc_setcolour(^black);
+cc_setfill(true);
+cc_setposition(2, 2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(4, 4, ^setsize_minus, ^setsize_minus);
+cc_settrans(255);
+cc_setonclick("cc_settrans($component0, $int1, 180)");
+cc_setonrelease("cc_settrans($component0, $int1, 255)");

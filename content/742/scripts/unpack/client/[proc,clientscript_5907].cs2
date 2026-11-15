@@ -1,0 +1,26 @@
+// 5907
+[proc,clientscript_5907](int $int0, int $int1)(int)
+switch_int ($int0) {
+    case 1 :
+        if ($int1 = 1) {
+            return(2);
+        } else {
+            return(1);
+        }
+    case 2 :
+        if ($int1 = 4 | $int1 = 5) {
+            return(2);
+        } else {
+            return(1);
+        }
+    case 4 :
+        if ($int1 = 2 | $int1 = 3) {
+            return(2);
+        } else {
+            return(1);
+        }
+    case 3 :
+        return(1);
+    case default :
+        return(0);
+}

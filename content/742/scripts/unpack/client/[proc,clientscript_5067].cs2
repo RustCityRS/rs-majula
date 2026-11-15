@@ -1,0 +1,79 @@
+// 5067
+[proc,clientscript_5067]
+def_obj $obj0 = mcannonremains;
+def_obj $obj1 = enum_getoutputcount(enum_3943);
+def_int $int2 = 0;
+while ($obj0 < $obj1) {
+    if (%varplayerbit_9516 = $obj0) {
+        $int2 = 1;
+    } else {
+        $int2 = 0;
+    }
+    if (enum_hasoutput(int, enum_3944, $obj0) = true) {
+        ~clientscript_5059(interface_1111:com_54, $obj0, $int2);
+    }
+    if (enum_hasoutput(int, enum_3945, $obj0) = true) {
+        ~clientscript_5059(interface_1111:com_57, $obj0, $int2);
+    }
+    if (enum_hasoutput(int, enum_3946, $obj0) = true) {
+        ~clientscript_5059(interface_1111:com_60, $obj0, $int2);
+    }
+    if (enum_hasoutput(int, enum_3947, $obj0) = true) {
+        ~clientscript_5059(interface_1111:com_63, $obj0, $int2);
+    }
+    $obj0 = calc($obj0 + 1);
+}
+cc_deleteall(interface_1111:com_27);
+cc_deleteall(interface_1111:com_28);
+cc_deleteall(interface_1111:com_29);
+cc_deleteall(interface_1111:com_30);
+def_int $int3 = 0;
+def_struct $struct4 = enum(int, struct, enum_3943, %varplayerbit_9516);
+def_string $string0 = "";
+def_enum $enum5 = null;
+if ($struct4 ! null) {
+    if_settext(interface_1111:com_26, struct_param($struct4, param_1463));
+    if_setgraphic(interface_1111:com_24, struct_param($struct4, param_1465));
+    $string0 = struct_param($struct4, param_1464);
+    if (struct_param($struct4, param_1466) = 1 & $struct4 ! struct_1918) {
+        $string0 = append($string0, "<br><br>Drag your mouse over the grid to fill an area with this element.");
+    }
+    $int3 = calc($int3 + ~clientscript_5068($string0, $int3));
+    $enum5 = struct_param($struct4, param_1470);
+    if ($enum5 ! null) {
+        $int3 = calc($int3 + 5);
+        $int3 = calc($int3 + ~clientscript_5068(enum(int, string, $enum5, -1), $int3));
+        if_setposition(interface_1111:com_28, 0, $int3, ^setpos_abs_centre, ^setpos_abs_top);
+        $int3 = calc($int3 + ~clientscript_5069($enum5, interface_1111:com_28, 1, %varplayerbit_9517));
+    } else {
+        if_setsize(interface_1111:com_28, 0, 0, ^setsize_minus, ^setsize_abs);
+    }
+    $enum5 = struct_param($struct4, param_1471);
+    if ($enum5 ! null) {
+        $int3 = calc($int3 + 5);
+        $int3 = calc($int3 + ~clientscript_5068(enum(int, string, $enum5, -1), $int3));
+        if_setposition(interface_1111:com_29, 0, $int3, ^setpos_abs_centre, ^setpos_abs_top);
+        $int3 = calc($int3 + ~clientscript_5069($enum5, interface_1111:com_29, 2, %varplayerbit_9518));
+    } else {
+        if_setsize(interface_1111:com_29, 0, 0, ^setsize_minus, ^setsize_abs);
+    }
+    $enum5 = struct_param($struct4, param_1472);
+    if ($enum5 ! null) {
+        $int3 = calc($int3 + 5);
+        $int3 = calc($int3 + ~clientscript_5068(enum(int, string, $enum5, -1), $int3));
+        if_setposition(interface_1111:com_30, 0, $int3, ^setpos_abs_centre, ^setpos_abs_top);
+        $int3 = calc($int3 + ~clientscript_5069($enum5, interface_1111:com_30, 3, %varplayerbit_9519));
+    } else {
+        if_setsize(interface_1111:com_30, 0, 0, ^setsize_minus, ^setsize_abs);
+    }
+} else {
+    if_settext(interface_1111:com_26, "");
+    if_setgraphic(interface_1111:com_24, null);
+}
+if ($int3 > if_getheight(interface_1111:com_27)) {
+    if_setscrollsize(interface_1111:com_27, 0, $int3);
+} else {
+    if_setscrollsize(interface_1111:com_27, 0, 0);
+}
+if_setscrollpos(interface_1111:com_27, 0, min(if_getscrolly(interface_1111:com_27), $int3));
+~scrollbar_vertical(interface_1111:com_31, interface_1111:com_27, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");

@@ -1,0 +1,8 @@
+// 4956
+[proc,clientscript_4956](int $int0)(int, int, struct, struct, int)
+def_int $int1 = ~clientscript_4948($int0);
+def_int $int2 = ~clientscript_4959($int1);
+def_int $int3 = ~clientscript_4980($int0);
+def_struct $struct4 = ~clientscript_4954($int0);
+def_struct $struct5 = ~clientscript_4955($int0);
+return($int1, $int2, $struct4, $struct5, $int3);

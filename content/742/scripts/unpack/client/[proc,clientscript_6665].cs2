@@ -1,0 +1,14 @@
+// 6665
+[proc,clientscript_6665](component $component0, component $component1, int $int2)
+if ($int2 = -1) {
+    if_setontimer($component0, "clientscript_6664(event_com, $component1, 0)");
+    if_setonclick($component0, "clientscript_6665(event_com, $component1, event_mousex)");
+} else {
+    $int2 = calc($int2 - if_getwidth($component0) / 2);
+    if ($int2 >= 0) {
+        if_setontimer($component0, "clientscript_6664(event_com, $component1, 1)");
+    } else {
+        if_setontimer($component0, "clientscript_6664(event_com, $component1, -1)");
+    }
+    if_setonclick($component0, "clientscript_6665(event_com, $component1, -1)");
+}

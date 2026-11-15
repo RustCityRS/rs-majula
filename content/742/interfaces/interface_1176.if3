@@ -1,0 +1,225 @@
+// 1176:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 1176:1
+[com_1]
+type=graphic
+width=53
+heightmode=minus
+ymode=abs_centre
+layer=com_0
+graphic=graphic_7997
+
+// 1176:2
+[com_2]
+type=graphic
+width=53
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic=graphic_7998
+
+// 1176:3
+[com_3]
+type=graphic
+y=2
+width=106
+height=47
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+graphic=graphic_8001
+
+// 1176:4
+[com_4]
+type=graphic
+y=2
+width=106
+height=47
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_7996
+
+// 1176:5
+[com_5]
+type=graphic
+width=106
+height=98
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+graphic=graphic_7999
+tiling=yes
+
+// 1176:6
+[com_6]
+type=text
+y=50
+width=230
+height=300
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=tutorial_font_big
+text=Alternative Thanksgiving Feast Shopping List
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1176:7
+[com_7]
+type=graphic
+x=90
+y=110
+width=16
+height=16
+layer=com_0
+hide=yes
+graphic=graphic_8488
+
+// 1176:8
+[com_8]
+type=graphic
+x=90
+y=110
+width=16
+height=16
+layer=com_0
+graphic=graphic_8487
+
+// 1176:9
+[com_9]
+type=graphic
+x=90
+y=175
+width=16
+height=16
+layer=com_0
+hide=yes
+graphic=graphic_8488
+
+// 1176:10
+[com_10]
+type=graphic
+x=90
+y=175
+width=16
+height=16
+layer=com_0
+graphic=graphic_8487
+
+// 1176:11
+[com_11]
+type=graphic
+x=90
+y=240
+width=16
+height=16
+layer=com_0
+hide=yes
+graphic=graphic_8488
+
+// 1176:12
+[com_12]
+type=graphic
+x=90
+y=240
+width=16
+height=16
+layer=com_0
+graphic=graphic_8487
+
+// 1176:13
+[com_13]
+type=text
+x=90
+y=95
+width=300
+height=45
+xmode=abs_right
+layer=com_0
+textfont=q8_full
+text=Herbs and spices from Bob Barter at the Grand Exchange.
+textalignv=centre
+colour=0x000000
+
+// 1176:14
+[com_14]
+type=text
+x=90
+y=160
+width=300
+height=45
+xmode=abs_right
+layer=com_0
+textfont=q8_full
+text=The finest wines and ales known to man from the Blue Moon Inn.
+textalignv=centre
+colour=0x000000
+
+// 1176:15
+[com_15]
+type=text
+x=90
+y=225
+width=300
+height=45
+xmode=abs_right
+layer=com_0
+textfont=q8_full
+text=Copious amounts of fruit and veg from the general store, to make up for the lack of turkey!
+textalignv=centre
+colour=0x000000
+
+// 1176:16
+[com_16]
+type=line
+y=150
+width=340
+xmode=abs_centre
+layer=com_0
+colour=0x915a34
+
+// 1176:17
+[com_17]
+type=line
+y=215
+width=340
+xmode=abs_centre
+layer=com_0
+colour=0x915a34
+
+// 1176:18
+[com_18]
+type=line
+y=280
+width=340
+xmode=abs_centre
+layer=com_0
+colour=0x915a34
+
+// 1176:19
+[com_19]
+type=graphic
+x=40
+y=40
+width=26
+height=23
+xmode=abs_right
+layer=com_0
+graphic="close_buttons,6"
+colour=0x917043
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onclick=closebutton_click_paper

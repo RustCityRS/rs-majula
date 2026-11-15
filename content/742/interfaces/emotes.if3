@@ -1,0 +1,806 @@
+// 464:0
+[emote_scroll]
+type=layer
+x=173
+y=1
+width=16
+height=258
+
+// 464:1
+[emote_page_one]
+type=layer
+y=1
+width=173
+height=258
+scrollwidth=174
+scrollheight=658
+onload=scrollbar_vertical(emotes:emote_scroll, emotes:emote_page_one)
+onvartransmit=emote_unlock{emote_access, lost_tribe, sos_emote, hw07_main, swept2, varplayer_1374, easter09, varplayer_1842, hw10_var, xmas10_base, varplayer_1958, easter11_base}
+
+// 464:2
+[emote_yes]
+type=graphic
+x=-2
+y=6
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,0"
+colour=0xffffffff
+transmitop=1
+op1=Yes
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Yes", 50, 150)
+
+// 464:3
+[emote_no]
+type=graphic
+x=42
+y=6
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,1"
+colour=0xffffffff
+transmitop=1
+op1=No
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "No", 50, 150)
+
+// 464:4
+[emote_bow]
+type=graphic
+x=86
+y=6
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,3"
+colour=0xffffffff
+transmitop=1,2
+op1=Bow
+op2=Curtsy
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Bow", 50, 150)
+
+// 464:5
+[emote_angry]
+type=graphic
+x=130
+y=6
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,4"
+colour=0xffffffff
+transmitop=1
+op1=Angry
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Angry", 50, 150)
+
+// 464:6
+[emote_think]
+type=graphic
+x=-2
+y=55
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,2"
+colour=0xffffffff
+transmitop=1
+op1=Think
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Think", 50, 150)
+
+// 464:7
+[emote_wave]
+type=graphic
+x=42
+y=55
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,8"
+colour=0xffffffff
+transmitop=1
+op1=Wave
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Wave", 50, 150)
+
+// 464:8
+[emote_shrug]
+type=graphic
+x=86
+y=55
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,20"
+colour=0xffffffff
+transmitop=1
+op1=Shrug
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Shrug", 50, 150)
+
+// 464:9
+[emote_cheer]
+type=graphic
+x=130
+y=55
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,7"
+colour=0xffffffff
+transmitop=1
+op1=Cheer
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Cheer", 50, 150)
+
+// 464:10
+[emote_beckon]
+type=graphic
+x=-3
+y=104
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,9"
+colour=0xffffffff
+transmitop=1
+op1=Beckon
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Beckon", 50, 150)
+
+// 464:11
+[emote_jump_with_joy]
+type=graphic
+x=86
+y=104
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,16"
+colour=0xffffffff
+transmitop=1
+op1=Jump for Joy
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Jump For Joy", 50, 150)
+
+// 464:12
+[emote_laugh]
+type=graphic
+x=39
+y=104
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,6"
+colour=0xffffffff
+transmitop=1
+op1=Laugh
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Laugh", 50, 150)
+
+// 464:13
+[emote_yawn]
+type=graphic
+x=130
+y=104
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,18"
+colour=0xffffffff
+transmitop=1
+op1=Yawn
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Yawn", 50, 150)
+
+// 464:14
+[emote_dance]
+type=graphic
+x=-1
+y=153
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,10"
+colour=0xffffffff
+transmitop=1
+op1=Dance
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Dance", 50, 150)
+
+// 464:15
+[emote_dance_scottish]
+type=graphic
+x=42
+y=153
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,13"
+colour=0xffffffff
+transmitop=1
+op1=Jig
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Jig", 50, 150)
+
+// 464:16
+[emote_dance_spin]
+type=graphic
+x=86
+y=153
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,14"
+colour=0xffffffff
+transmitop=1
+op1=Twirl
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Twirl", 50, 150)
+
+// 464:17
+[emote_dance_headbang]
+type=graphic
+x=130
+y=153
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,15"
+colour=0xffffffff
+transmitop=1
+op1=Headbang
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Headbang", 50, 150)
+
+// 464:18
+[emote_cry]
+type=graphic
+x=-1
+y=202
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,5"
+colour=0xffffffff
+transmitop=1
+op1=Cry
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Cry", 50, 150)
+
+// 464:19
+[emote_blow_kiss]
+type=graphic
+x=42
+y=202
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,21"
+colour=0xffffffff
+transmitop=1
+op1=Blow Kiss
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Blow Kiss", 50, 150)
+
+// 464:20
+[emote_panic]
+type=graphic
+x=86
+y=202
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,12"
+colour=0xffffffff
+transmitop=1
+op1=Panic
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Panic", 50, 150)
+
+// 464:21
+[emote_ya_boo_sucks]
+type=graphic
+x=130
+y=202
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,17"
+colour=0xffffffff
+transmitop=1
+op1=Raspberry
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Raspberry", 50, 150)
+
+// 464:22
+[emote_clap]
+type=graphic
+x=-1
+y=252
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,11"
+colour=0xffffffff
+transmitop=1
+op1=Clap
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Clap", 50, 150)
+
+// 464:23
+[emote_fremmenik_salute]
+type=graphic
+x=42
+y=252
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes,19"
+colour=0xffffffff
+transmitop=1
+op1=Salute
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Salute", 50, 150)
+
+// 464:24
+[emote_goblin_bow]
+type=graphic
+x=86
+y=252
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,6"
+colour=0xffffffff
+transmitop=1
+op1=Goblin Bow
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Goblin Bow", 50, 150)
+
+// 464:25
+[emote_goblin_salute]
+type=graphic
+x=130
+y=252
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,7"
+colour=0xffffffff
+transmitop=1
+op1=Goblin Salute
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Goblin Salute", 50, 150)
+
+// 464:26
+[emote_glassbox]
+type=graphic
+x=-2
+y=302
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,2"
+colour=0xffffffff
+transmitop=1
+op1=Glass Box
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Glass Box", 50, 150)
+
+// 464:27
+[emote_climbrope]
+type=graphic
+x=42
+y=302
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,3"
+colour=0xffffffff
+transmitop=1
+opbase= 
+op1=Climb Rope
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Climb Rope", 50, 150)
+
+// 464:28
+[emote_lean]
+type=graphic
+x=86
+y=302
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,4"
+colour=0xffffffff
+transmitop=1
+op1=Lean
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Lean", 50, 150)
+
+// 464:29
+[emote_glasswall]
+type=graphic
+x=130
+y=302
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,5"
+colour=0xffffffff
+transmitop=1
+op1=Glass Wall
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Glass Wall", 50, 150)
+
+// 464:30
+[emote_doh]
+type=graphic
+x=130
+y=352
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,9"
+colour=0xffffffff
+transmitop=1
+op1=Slap Head
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Slap Head", 50, 150)
+
+// 464:31
+[emote_stamp]
+type=graphic
+x=42
+y=352
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,10"
+colour=0xffffffff
+transmitop=1
+op1=Stomp
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Stomp", 50, 150)
+
+// 464:32
+[emote_flap]
+type=graphic
+x=86
+y=352
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,11"
+colour=0xffffffff
+transmitop=1
+op1=Flap
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Flap", 50, 150)
+
+// 464:33
+[emote_idea]
+type=graphic
+x=-6
+y=352
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,12"
+colour=0xffffffff
+transmitop=1
+op1=Idea
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Idea", 50, 150)
+
+// 464:34
+[emote_zombie_walk]
+type=graphic
+x=-3
+y=403
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,13"
+colour=0xffffffff
+transmitop=1
+op1=Zombie Walk
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Zombie Walk", 50, 150)
+
+// 464:35
+[emote_zombie_dance]
+type=graphic
+x=42
+y=403
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,14"
+colour=0xffffffff
+transmitop=1
+op1=Zombie Dance
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Zombie Dance", 50, 150)
+
+// 464:36
+[emote_zombie_hand]
+type=graphic
+x=86
+y=403
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,17"
+colour=0xffffffff
+transmitop=1
+op1=Zombie Hand
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Zombie Hand", 50, 150)
+
+// 464:37
+[emote_terrified]
+type=graphic
+x=130
+y=403
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,8"
+colour=0xffffffff
+transmitop=1
+op1=Scared
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Scared", 50, 150)
+
+// 464:38
+[emote_rabbit]
+type=graphic
+x=-3
+y=453
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,15"
+colour=0xffffffff
+transmitop=1
+op1=Bunny Hop
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Bunny-hop", 50, 150)
+
+// 464:39
+[emote_skillcape]
+type=graphic
+x=42
+y=453
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,16"
+colour=0xffffffff
+transmitop=1
+op1=Skillcape
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Skillcape", 50, 150)
+
+// 464:40
+[emote_snowman_dance]
+type=graphic
+x=86
+y=453
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,18"
+colour=0xffffffff
+transmitop=1
+op1=Snowman Dance
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Snowman Dance", 50, 150)
+
+// 464:41
+[emote_music]
+type=graphic
+x=130
+y=453
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,19"
+colour=0xffffffff
+transmitop=1
+op1=Air Guitar
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Air Guitar", 50, 150)
+
+// 464:42
+[com_42]
+type=graphic
+x=-2
+y=503
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,20"
+colour=0xffffffff
+transmitop=1
+op1=Safety First
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Safety First", 50, 150)
+
+// 464:43
+[com_43]
+type=graphic
+x=42
+y=503
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,21"
+colour=0xffffffff
+transmitop=1
+op1=Explore
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Explore", 50, 150)
+
+// 464:44
+[emote_scare]
+type=graphic
+x=86
+y=503
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,11"
+colour=0xffffffff
+transmitop=1
+op1=Trick
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Trick", 50, 150)
+
+// 464:45
+[emote_freeze]
+type=graphic
+x=130
+y=503
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,24"
+colour=0xffffffff
+transmitop=1
+op1=Freeze
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Freeze", 50, 150)
+
+// 464:46
+[emote_thanksgiving]
+type=graphic
+y=554
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,25"
+colour=0xffffffff
+transmitop=1,10
+op1=Give Thanks
+op10= 
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Give Thanks", 50, 150)
+
+// 464:47
+[emote_easter09]
+type=graphic
+x=45
+y=554
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,26"
+colour=0xffffffff
+transmitop=1
+op1=Around the World in Eggty Days
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Around the World in Eggty Days", 50, 150)
+
+// 464:48
+[emote_point]
+type=graphic
+x=89
+y=554
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,21"
+colour=0xffffffff
+transmitop=1
+op1=Dramatic Point
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Dramatic Point", 50, 150)
+
+// 464:49
+[emote_faint]
+type=graphic
+x=130
+y=554
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,29"
+colour=0xffffffff
+transmitop=1,10
+op1=Faint
+op10= 
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Faint", 50, 150)
+
+// 464:50
+[emote_puppet_master]
+type=graphic
+x=-4
+y=605
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,30"
+transmitop=1
+op1=Puppet master
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Puppet Master", 50, 150)
+
+// 464:51
+[emote_taskmaster]
+type=graphic
+x=43
+y=605
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,32"
+transmitop=1
+op1=Taskmaster
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Taskmaster", 50, 150)
+
+// 464:52
+[emote_seal]
+type=graphic
+x=92
+y=605
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,31"
+transmitop=1
+op1=Seal of Approval
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Seal of Approval", 50, 150)
+
+// 464:53
+[emote_easter11]
+type=graphic
+x=130
+y=605
+width=48
+height=48
+layer=emote_page_one
+graphic="emotes_locked,46"
+transmitop=1
+op1=Invoke Spring
+onmouseleave=deltooltip(emotes:emote_tool_tip)
+onmouserepeat=addtooltip(event_com, emotes:emote_tool_tip, "Invoke Spring", 50, 150)
+
+// 464:54
+[emote_tool_tip]
+type=layer
+x=34
+y=119
+width=100
+height=50
+layer=emote_page_one

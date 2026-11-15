@@ -1,0 +1,10 @@
+// 6244
+[proc,clientscript_6244]
+%varclient_1923 = calc(%varclient_1923 - 7500 / 50);
+def_int $int0 = max(1, calc(100 - scale(%varclient_1923, 7500, 100)));
+if (%varclient_1923 <= 0) {
+    %varclient_1923 = 0;
+    if_setontimer(interface_1285:com_3, null);
+} else {
+    ~aif_progressbar_set($int0, interface_1285:com_5, null);
+}

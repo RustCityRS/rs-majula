@@ -1,0 +1,6 @@
+// 6037
+[proc,clientscript_6037](int $int0, component $component1, component $component2)
+if_setonvarctransmit($component1, clientscript_6038, $int0, $component1, $component2, 1796, 1797, 1798, 1799, 4, "SIIY");
+if_setonstattransmit($component1, clientscript_6038, $int0, $component1, $component2, $int0, 1, "SIIY");
+if_setonresize($component1, clientscript_6038, $int0, $component1, $component2, "SII");
+~clientscript_6039($int0, $component1, $component2);

@@ -1,0 +1,7 @@
+// 6131
+[proc,clientscript_6131](int $int0, int $int1)
+%varclient_1889 = $int0;
+%varclient_1890 = $int1;
+%varclient_1892 = 50;
+if_setontimer(interface_1270:com_34, null);
+if_setontimer(interface_1270:com_34, "clientscript_6140($int0, $int1)");

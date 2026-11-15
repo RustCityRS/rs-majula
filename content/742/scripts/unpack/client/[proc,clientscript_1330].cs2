@@ -1,0 +1,11 @@
+// 1330
+[proc,clientscript_1330]
+if (if_gethide(interface_1180:com_11) = true) {
+    if_setgraphic(interface_1180:com_30, "conq_tick_box,0");
+    if_sethide(interface_1180:com_11, false);
+    %varclient_1733 = 0;
+} else {
+    if_setgraphic(interface_1180:com_30, "conq_tick_box,1");
+    if_sethide(interface_1180:com_11, true);
+    %varclient_1733 = 1;
+}

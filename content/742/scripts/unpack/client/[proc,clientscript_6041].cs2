@@ -1,0 +1,12 @@
+// 6041
+[proc,clientscript_6041](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+~clientscript_5867($component1, struct_2750);
+~clientscript_5867($component2, struct_2751);
+~clientscript_5867($component3, struct_2752);
+~clientscript_5867($component4, struct_2754);
+if_setop($component4, 1, "Confirm");
+if_setonop($component4, "clientscript_6044");
+if_setonvarctransmit($component0, "clientscript_6042($component0, $component4, $component5){varclient_1796, varclient_1797, varclient_1799}");
+if_setonstattransmit($component0, "clientscript_6042($component0, $component4, $component5)");
+if_setonresize($component0, "clientscript_6042($component0, $component4, $component5)");
+~clientscript_6043($component0, $component4, $component5);

@@ -1,0 +1,129 @@
+// 4168
+[proc,clientscript_4168](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 1;
+def_int $int3 = inv_total(inv, ectoplasm);
+switch_int ($int0) {
+    case 1 :
+        $int1 = %varplayerbit_12324;
+    case 2 :
+        $int1 = %varplayerbit_12325;
+    case 3 :
+        $int1 = %varplayerbit_12326;
+    case 4 :
+        $int1 = %varplayerbit_12328;
+    case 5 :
+        $int1 = %varplayerbit_12327;
+    case 6 :
+        $int1 = %varplayerbit_12329;
+    case 7 :
+        $int1 = %varplayerbit_12323;
+}
+if ($int1 = 1) {
+    switch_int ($int0) {
+        case 1 :
+            if_sethide(interface_632:com_63, true);
+            if_sethide(interface_632:com_67, false);
+            if_settext(interface_632:com_61, "You have already purchased this item.");
+        case 2 :
+            if_sethide(interface_632:com_86, true);
+            if_sethide(interface_632:com_90, false);
+            if_settext(interface_632:com_84, "You have already purchased this item.");
+        case 3 :
+            if_sethide(interface_632:com_99, true);
+            if_sethide(interface_632:com_103, false);
+            if_settext(interface_632:com_97, "You have already purchased this item.");
+        case 4 :
+            if_sethide(interface_632:com_112, true);
+            if_sethide(interface_632:com_116, false);
+            if_settext(interface_632:com_110, "You have already purchased this item.");
+        case 5 :
+            if_sethide(interface_632:com_125, true);
+            if_sethide(interface_632:com_129, false);
+            if_settext(interface_632:com_123, "You have already purchased this item.");
+        case 6 :
+            if_sethide(interface_632:com_138, true);
+            if_sethide(interface_632:com_142, false);
+            if_settext(interface_632:com_136, "You have already purchased this item.");
+        case 7 :
+            if_sethide(interface_632:com_152, true);
+            if_sethide(interface_632:com_156, false);
+            if_settext(interface_632:com_149, "You have already purchased this item.");
+    }
+    return;
+} else {
+    switch_int ($int0) {
+        case 1 :
+            if ($int3 < 25) {
+                $int2 = 0;
+                if_sethide(interface_632:com_63, true);
+                if_sethide(interface_632:com_67, false);
+                if_settext(interface_632:com_61, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 2 :
+            if ($int3 < 25) {
+                $int2 = 0;
+                if_sethide(interface_632:com_86, true);
+                if_sethide(interface_632:com_90, false);
+                if_settext(interface_632:com_84, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 3 :
+            if ($int3 < 25) {
+                $int2 = 0;
+                if_sethide(interface_632:com_99, true);
+                if_sethide(interface_632:com_103, false);
+                if_settext(interface_632:com_97, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 4 :
+            if ($int3 < 25) {
+                $int2 = 0;
+                if_sethide(interface_632:com_112, true);
+                if_sethide(interface_632:com_116, false);
+                if_settext(interface_632:com_110, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 5 :
+            if ($int3 < 25) {
+                $int2 = 0;
+                if_sethide(interface_632:com_125, true);
+                if_sethide(interface_632:com_129, false);
+                if_settext(interface_632:com_123, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 6 :
+            if ($int3 < 25) {
+                $int2 = 0;
+                if_sethide(interface_632:com_138, true);
+                if_sethide(interface_632:com_142, false);
+                if_settext(interface_632:com_136, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 7 :
+            if ($int3 < 50) {
+                $int2 = 0;
+                if_sethide(interface_632:com_152, true);
+                if_sethide(interface_632:com_156, false);
+                if_settext(interface_632:com_149, "You do not have enough ectoplasm to buy this item.");
+            }
+        case 8 :
+            if ($int3 < 1) {
+                $int2 = 0;
+                if_sethide(interface_632:com_166, true);
+                if_sethide(interface_632:com_170, false);
+            }
+    }
+    if ($int2 = 0) {
+        return;
+    } else if ($int0 = 7) {
+        if (calc(inv_total(worn, hallowed_hood) + inv_total(worn, unhallowed_hood)) < 1 | calc(inv_total(worn, hallowed_torso) + inv_total(worn, unhallowed_torso)) < 1 | calc(inv_total(worn, hallowed_robe_skirt) + inv_total(worn, unhallowed_robe_skirt)) < 1 | calc(inv_total(worn, hallowed_boots) + inv_total(worn, unhallowed_boots)) < 1 | calc(inv_total(worn, hallowed_gloves) + inv_total(worn, unhallowed_gloves)) < 1 | calc(inv_total(worn, hallowed_cloak) + inv_total(worn, unhallowed_cloak)) < 1) {
+            if_sethide(interface_632:com_152, true);
+            if_sethide(interface_632:com_156, false);
+            if_settext(interface_632:com_149, "You can only buy this item while wearing the full robe set.");
+        }
+    } else if ($int0 = 8) {
+        if (%varplayerbit_12324 = 0 | %varplayerbit_12325 = 0 | %varplayerbit_12326 = 0 | %varplayerbit_12328 = 0 | %varplayerbit_12327 = 0 | %varplayerbit_12329 = 0 | %varplayerbit_12323 = 0) {
+            if_sethide(interface_632:com_166, true);
+            if_sethide(interface_632:com_170, false);
+        } else {
+            if_sethide(interface_632:com_166, false);
+            if_sethide(interface_632:com_170, true);
+        }
+    }
+}

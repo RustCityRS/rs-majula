@@ -1,0 +1,11 @@
+// 6366
+[proc,clientscript_6366]()(boolean)
+def_int $int0 = 0;
+while ($int0 < 8) {
+    if (~clientscript_6352(~clientscript_6362($int0)) = false) {
+        $int0 = calc($int0 + 1);
+    } else {
+        return(true);
+    }
+}
+return(false);

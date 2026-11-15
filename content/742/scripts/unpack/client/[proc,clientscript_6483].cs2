@@ -1,0 +1,5 @@
+// 6483
+[proc,clientscript_6483](component $component0, component $component1, component $component2)
+if_setontimer($component0, "clientscript_6484($component0)");
+if_setontimer($component1, "clientscript_6484($component1)");
+if_setontimer($component2, "clientscript_6484($component2)");

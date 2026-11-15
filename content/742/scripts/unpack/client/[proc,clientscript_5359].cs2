@@ -1,0 +1,124 @@
+// 5359
+[proc,clientscript_5359](component $component0, int $int1, struct $struct2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 4;
+def_obj $obj9 = struct_param($struct2, param_1935);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+if ($int3 = 1 & struct_param($struct2, param_1937) ! 2 & cc_find($component0, $int1) = true) {
+    $int4 = cc_getx;
+    $int5 = cc_gety;
+    $int6 = cc_getwidth;
+    $int4 = calc($int4 + $int6);
+    $int5 = calc($int5 + $int8);
+    $int15 = if_getscrolly(interface_1143:com_5);
+    if (calc($int5 - $int15) <= 0) {
+        $int16 = 2;
+        $int5 = $int15;
+    }
+    if_setposition(interface_1143:com_79, $int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    if_settext(interface_1143:com_114, struct_param($struct2, param_1931));
+    if (struct_param($struct2, param_1937) = 1) {
+        $int10 = calc(oc_param($obj9, param_1430) / 100);
+        $string0 = "Duration: <tostring($int10)> mins.";
+        $int11 = calc(oc_param($obj9, param_1429) / 100);
+        $string1 = "Recharge: <tostring($int11)> mins.";
+        if ($int10 > 60) {
+            $int12 = calc($int10 % 60);
+            $int10 = calc($int10 / 60);
+            if ($int12 > 0) {
+                if ($int10 > 1) {
+                    $string0 = "Duration: <tostring($int10)> hours, <tostring($int12)> mins.";
+                } else {
+                    $string0 = "Duration: 1 hour, <tostring($int12)> mins.";
+                }
+            } else if ($int10 > 1) {
+                $string0 = "Duration: <tostring($int10)> hours.";
+            } else {
+                $string0 = "Duration: 1 hour.";
+            }
+        }
+        if ($int11 > 60) {
+            $int12 = calc($int11 % 60);
+            $int11 = calc($int11 / 60);
+            if ($int12 > 0) {
+                if ($int11 > 1) {
+                    $string1 = "Recharge: <tostring($int11)> hours, <tostring($int12)> mins.";
+                } else {
+                    $string1 = "Recharge: 1 hour, <tostring($int12)> mins.";
+                }
+            } else if ($int11 > 1) {
+                $string1 = "Recharge: <tostring($int11)> hours.";
+            } else {
+                $string1 = "Recharge: 1 hour.";
+            }
+        }
+        $string2 = "<br><br><$string0><br><$string1>";
+        if_settext(interface_1143:com_114, append(if_gettext(interface_1143:com_114), $string2));
+    } else if (struct_param($struct2, param_1937) = 4) {
+        while ($int13 < enum_getoutputcount(enum_5184) & $int14 = 0) {
+            if (enum(int, struct, enum_5184, $int13) = $struct2) {
+                $string4 = enum(int, string, enum_5187, $int13);
+                $string3 = enum(int, string, enum_5186, $int13);
+                $int14 = 1;
+            }
+            $int13 = calc($int13 + 1);
+        }
+        $string3 = append("Male Title: ", $string3);
+        $string4 = append("Female Title: ", $string4);
+        if_settext(interface_1143:com_114, "<$string3><br><$string4>");
+    }
+    $int7 = paraheight(if_gettext(interface_1143:com_114), if_getwidth(interface_1143:com_114), op1028(interface_1143:com_114));
+    $int7 = calc($int7 * 13 + $int8 * 2);
+    if_setsize(interface_1143:com_79, if_getwidth(interface_1143:com_79), $int7, ^setsize_abs, ^setsize_abs);
+    if_sethide(interface_1143:com_79, false);
+    if (calc($int5 - $int15 + $int7) > if_getheight(interface_1143:com_5)) {
+        $int5 = calc($int15 + (if_getheight(interface_1143:com_5) - $int7));
+        if_setposition(interface_1143:com_79, $int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        $int16 = 1;
+    }
+    if (calc(if_getwidth(interface_1143:com_79) + if_getx(interface_1143:com_79)) > if_getwidth(interface_1143:com_5)) {
+        $int4 = calc(cc_getx - if_getwidth(interface_1143:com_79) + 2);
+        if_setposition(interface_1143:com_79, $int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(interface_1143:com_32, 12, if_gety(interface_1143:com_32), ^setpos_abs_right, ^setpos_abs_top);
+        if_setposition(interface_1143:com_111, 10, if_gety(interface_1143:com_111), ^setpos_abs_right, ^setpos_abs_top);
+        if_setposition(interface_1143:com_112, 11, if_gety(interface_1143:com_112), ^setpos_abs_right, ^setpos_abs_top);
+        if_setposition(interface_1143:com_114, 14, if_gety(interface_1143:com_114), ^setpos_abs_right, ^setpos_abs_top);
+        if_setposition(interface_1143:com_113, 0, 10, ^setpos_abs_right, ^setpos_abs_top);
+        if_sethflip(interface_1143:com_113, true);
+    } else {
+        if_setposition(interface_1143:com_32, 12, if_gety(interface_1143:com_32), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(interface_1143:com_111, 10, if_gety(interface_1143:com_111), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(interface_1143:com_112, 11, if_gety(interface_1143:com_112), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(interface_1143:com_114, 14, if_gety(interface_1143:com_114), ^setpos_abs_left, ^setpos_abs_top);
+        if_setposition(interface_1143:com_113, 0, 10, ^setpos_abs_left, ^setpos_abs_top);
+        if_sethflip(interface_1143:com_113, false);
+    }
+    if (if_getheight(interface_1143:com_79) < calc(if_getheight(interface_1143:com_113) + 40)) {
+        if_setposition(interface_1143:com_113, if_getx(interface_1143:com_113), 0, ^setpos_abs_left, ^setpos_abs_centre);
+    } else {
+        if_setposition(interface_1143:com_113, if_getx(interface_1143:com_113), 10, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if ($int16 > 0) {
+        if ($int16 = 1) {
+            if_setposition(interface_1143:com_113, if_getx(interface_1143:com_113), 0, ^setpos_abs_left, ^setpos_abs_bottom);
+        } else {
+            if_setposition(interface_1143:com_113, if_getx(interface_1143:com_113), 0, ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+    return;
+}
+if_sethide(interface_1143:com_79, true);

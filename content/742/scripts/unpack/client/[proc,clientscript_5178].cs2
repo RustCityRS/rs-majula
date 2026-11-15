@@ -1,0 +1,224 @@
+// 5178
+[proc,clientscript_5178](int $int0, int $int1)
+switch_int ($int1) {
+    case 1 :
+        if (cc_find(interface_1122:com_82, calc($int0 + 0)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,0");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 1)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,1");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 2)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,0");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 3)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,10");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 4)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,11");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 5)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,10");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 6)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,20");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 7)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,21");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 8)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,20");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 9)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,30");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 10)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,31");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 11)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,30");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 12)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,24");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 13)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,25");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 14)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,24");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 15)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,34");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 16)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,35");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 17)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,34");
+        }
+    case 2 :
+        if (cc_find(interface_1122:com_82, calc($int0 + 0)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,2");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 1)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,3");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 2)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,2");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 3)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,12");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 4)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,13");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 5)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,12");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 6)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,22");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 7)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,23");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 8)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,22");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 9)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,32");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 10)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,33");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 11)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,32");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 12)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,22");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 13)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,23");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 14)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,22");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 15)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,32");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 16)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,33");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 17)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,32");
+        }
+    case 3 :
+        if (cc_find(interface_1122:com_82, calc($int0 + 0)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,4");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 1)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,5");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 2)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,4");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 3)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,14");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 4)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,15");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 5)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,14");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 6)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,24");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 7)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,25");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 8)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,24");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 9)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,34");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 10)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,35");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 11)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,34");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 12)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,28");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 13)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,29");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 14)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,28");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 15)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,38");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 16)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,39");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 17)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,38");
+        }
+    case 4 :
+        if (cc_find(interface_1122:com_82, calc($int0 + 0)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,6");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 1)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,7");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 2)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,6");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 3)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,16");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 4)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,17");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 5)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,16");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 6)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,26");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 7)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,27");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 8)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,26");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 9)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,36");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 10)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,37");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 11)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,36");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 12)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,26");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 13)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,27");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 14)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,26");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 15)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,36");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 16)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,37");
+        }
+        if (cc_find(interface_1122:com_82, calc($int0 + 17)) = true) {
+            cc_setgraphic("aif_bronze_icon_button_3,36");
+        }
+}

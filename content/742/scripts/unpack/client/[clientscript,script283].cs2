@@ -1,0 +1,14 @@
+// 283
+[clientscript,script283]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = scale(%snp_idle, 1000, 100);
+$int0 = enum(int, int, enum_706, $int2);
+$int1 = enum(int, int, enum_707, $int2);
+if_setposition(snp_tutorial_game_overlay:activity_bar_fill, 15, $int0, ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(snp_tutorial_game_overlay:activity_bar_fill, 14, $int1, ^setsize_abs, ^setsize_abs);
+if ($int2 < 25) {
+    if_setcolour(snp_tutorial_game_overlay:activity_bar_fill, 0xff9623);
+} else {
+    if_setcolour(snp_tutorial_game_overlay:activity_bar_fill, 0x048306);
+}

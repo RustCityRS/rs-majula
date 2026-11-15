@@ -1,0 +1,47 @@
+// 6001
+[proc,clientscript_6001]
+if (%deserttreasure < 15) {
+    if_setgraphic(interface_1092:com_7, 10130);
+}
+if (%lunar_quest_main < 190) {
+    if_setgraphic(interface_1092:com_39, 10131);
+}
+if (%varplayerbit_10900 = 0) {
+    if_setgraphic(interface_1092:com_40, 10129);
+}
+if (%varplayerbit_10901 = 0) {
+    if_setgraphic(interface_1092:com_41, 10120);
+}
+if (%varplayerbit_10902 = 0) {
+    if_setgraphic(interface_1092:com_42, 10122);
+}
+if (%varplayerbit_10903 = 0) {
+    if_setgraphic(interface_1092:com_43, 10123);
+}
+if (%varplayerbit_10904 = 0) {
+    if_setgraphic(interface_1092:com_44, 10126);
+}
+if (%varplayerbit_10905 = 0) {
+    if_setgraphic(interface_1092:com_45, 10128);
+}
+if (%varplayerbit_10906 = 0) {
+    if_setgraphic(interface_1092:com_46, 10119);
+}
+if (%varplayerbit_10907 = 0) {
+    if_setgraphic(interface_1092:com_47, 10117);
+}
+if (%varplayerbit_10908 = 0) {
+    if_setgraphic(interface_1092:com_48, 10125);
+}
+if (%varplayerbit_10909 = 0) {
+    if_setgraphic(interface_1092:com_49, 10124);
+}
+if (%varplayerbit_10910 = 0) {
+    if_setgraphic(interface_1092:com_50, 10121);
+}
+if (%varplayerbit_10911 = 0) {
+    if_setgraphic(interface_1092:com_51, 10118);
+}
+if (%varplayerbit_10912 = 0) {
+    if_setgraphic(interface_1092:com_52, 10127);
+}

@@ -1,0 +1,41 @@
+// 5551
+[proc,clientscript_5551](int $int0, int $int1, int $int2, int $int3)
+def_int $int4 = 0;
+def_int $int5 = 5;
+if ($int0 = 0) {
+    $int3 = calc($int3 - 1);
+    if_sethide(interface_1178:com_55, false);
+    ~clientscript_5539;
+    cc_deleteall(interface_1178:com_78);
+    if_setontimer(interface_1178:com_78, null);
+    %varclient_1726 = false;
+    if ($int3 > 0) {
+        if ($int2 = 0) {
+            ~clientscript_5547($int3);
+        }
+        if ($int2 = 1) {
+            ~clientscript_5549($int3);
+        }
+    }
+} else {
+    while ($int4 < $int1) {
+        if (cc_find(interface_1178:com_78, $int4) = true) {
+            if ($int2 = 0) {
+                cc_setposition(calc(cc_getx - $int5), 0, ^setpos_abs_left, ^setpos_abs_centre);
+            } else if ($int2 = 1) {
+                cc_setposition(calc(cc_getx + $int5), 0, ^setpos_abs_left, ^setpos_abs_centre);
+            } else {
+                $int0 = 0;
+            }
+        }
+        $int4 = calc($int4 + 1);
+    }
+    if ($int2 = 0) {
+        $int0 = calc($int0 + $int5);
+    } else if ($int2 = 1) {
+        $int0 = calc($int0 - $int5);
+    } else {
+        $int0 = 0;
+    }
+    if_setontimer(interface_1178:com_78, "clientscript_5551($int0, $int1, $int2, $int3)");
+}

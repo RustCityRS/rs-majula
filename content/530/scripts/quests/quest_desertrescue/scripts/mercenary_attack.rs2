@@ -1,0 +1,33 @@
+// From 289's mercenary.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,mercenary_attack]
+if(%desertrescue = ^desertrescue_complete) {
+    return;
+}
+p_stopaction;
+npc_say("Guards!! Guards!"); // non-click here to continue dialogue in osrs
+if_close;
+npc_setmode(opplayer2);
+p_delay(2);
+npc_say("Let's see how good you are with Desert Survival techniques.");
+p_delay(3);
+mes("You're bundled into the back of a cart and blindfolded... ");
+p_delay(3);
+mes("Sometime later you wake up in the desert.");
+switch_int(random(3)) {
+    case 0 : p_teleport(0_50_48_38_19);
+    case 1 : p_teleport(0_50_48_9_47);
+    case 2 : p_teleport(0_50_47_29_38);
+}
+p_delay(0);
+// seq doesn't exist (probably rework)
+if(inv_total(inv, water_skin1) > 0 | inv_total(inv, water_skin2) > 0 | inv_total(inv, water_skin3) > 0 | inv_total(inv, water_skin4) > 0) {
+    mes("Guard: You won't be needing that water anymore!");
+    mes("The guards throw your water away.");
+    inv_del(inv, water_skin1, ^max_32bit_int);
+    inv_del(inv, water_skin2, ^max_32bit_int);
+    inv_del(inv, water_skin3, ^max_32bit_int);
+    inv_del(inv, water_skin4, ^max_32bit_int);
+    if(inv_total(inv, water_skin0) = 0) inv_add(inv, water_skin0, 1);
+}
+mes("The guards move off leaving you stranded in the desert.");

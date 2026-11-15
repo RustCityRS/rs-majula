@@ -1,0 +1,361 @@
+// 382:0
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 382:1
+[com_1]
+type=rectangle
+x=78
+y=28
+width=373
+height=243
+layer=content_layer
+colour=0x000000
+fill=yes
+trans=200
+
+// 382:2
+[com_2]
+type=graphic
+x=76
+y=24
+width=361
+height=236
+layer=content_layer
+graphic=graphic_297
+tiling=yes
+
+// 382:3
+[com_3]
+type=graphic
+x=57
+y=53
+width=32
+height=202
+layer=content_layer
+graphic=graphic_821
+tiling=yes
+
+// 382:4
+[com_4]
+type=graphic
+x=70
+y=20
+width=32
+height=32
+layer=content_layer
+graphic=graphic_824
+
+// 382:5
+[com_5]
+type=graphic
+x=424
+y=51
+width=32
+height=205
+layer=content_layer
+graphic=graphic_823
+tiling=yes
+
+// 382:6
+[com_6]
+type=graphic
+x=86
+y=245
+width=341
+height=32
+layer=content_layer
+graphic=graphic_822
+tiling=yes
+
+// 382:7
+[com_7]
+type=graphic
+x=70
+y=233
+width=32
+height=32
+layer=content_layer
+graphic=graphic_826
+
+// 382:8
+[com_8]
+type=graphic
+x=412
+y=20
+width=32
+height=32
+layer=content_layer
+graphic=graphic_825
+
+// 382:9
+[com_9]
+type=graphic
+x=412
+y=233
+width=32
+height=32
+layer=content_layer
+graphic=graphic_827
+
+// 382:10
+[com_10]
+type=graphic
+x=80
+y=35
+width=358
+height=32
+layer=content_layer
+graphic=graphic_828
+tiling=yes
+opbase= 
+
+// 382:11
+[com_11]
+type=graphic
+x=70
+y=37
+width=32
+height=32
+layer=content_layer
+graphic=graphic_829
+
+// 382:12
+[com_12]
+type=graphic
+x=412
+y=37
+width=32
+height=32
+layer=content_layer
+graphic=graphic_830
+
+// 382:13
+[close_button]
+type=graphic
+x=417
+y=30
+width=16
+height=16
+layer=content_layer
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onclick=if_close
+
+// 382:14
+[com_14]
+type=model
+x=410
+y=57
+width=24
+height=28
+layer=content_layer
+model=model_24206
+modelorigin=0,1
+modelzoom=5488
+modelorthog=yes
+modelunknown=59685,3000,0
+
+// 382:15
+[com_15]
+type=model
+x=82
+y=59
+width=24
+height=28
+layer=content_layer
+model=model_24207
+modelorigin=0,1
+modelzoom=5488
+modelorthog=yes
+modelunknown=59685,3000,0
+
+// 382:16
+[com_16]
+type=model
+x=82
+y=226
+width=24
+height=28
+layer=content_layer
+model=model_24207
+modelorigin=0,1
+modelzoom=5488
+modelunknown=31746,3000,0
+
+// 382:17
+[com_17]
+type=model
+x=410
+y=227
+width=24
+height=28
+layer=content_layer
+model=model_24206
+modelorigin=0,1
+modelzoom=5488
+modelunknown=31746,3000,0
+
+// 382:18
+[enter_button]
+type=graphic
+x=144
+y=200
+width=90
+height=56
+layer=content_layer
+graphic=graphic_833
+transmitop=1
+op1=Ok
+onmouseover=graphic_swapper(event_com, 834)
+onmouseleave=graphic_swapper(event_com, 833)
+
+// 382:19
+[cancel_button]
+type=graphic
+x=275
+y=200
+width=90
+height=56
+layer=content_layer
+graphic=graphic_833
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 834)
+onmouseleave=graphic_swapper(event_com, 833)
+onclick=if_close
+
+// 382:20
+[com_20]
+type=graphic
+x=196
+y=28
+width=19
+height=19
+layer=content_layer
+graphic=graphic_940
+
+// 382:21
+[com_21]
+type=graphic
+x=302
+y=28
+width=19
+height=19
+layer=content_layer
+graphic=graphic_940
+
+// 382:22
+[com_22]
+type=text
+x=186
+y=30
+width=146
+height=19
+layer=content_layer
+textfont=fontmetrics_496
+text=WARNING!
+textalignh=centre
+textshadow=yes
+colour=0xe19900
+
+// 382:23
+[com_23]
+type=text
+x=107
+y=50
+width=300
+height=144
+layer=content_layer
+textfont=fontmetrics_495
+text=If you go any further you will enter the Wilderness. This is a very dangerous area, haunted by ghosts! The further north you go, the more dangerous it becomes.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+
+// 382:24
+[com_24]
+type=text
+x=144
+y=201
+width=90
+height=55
+layer=content_layer
+textfont=fontmetrics_496
+text=Enter Wilderness
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+
+// 382:25
+[com_25]
+type=text
+x=274
+y=200
+width=91
+height=56
+layer=content_layer
+textfont=fontmetrics_496
+text=Don't go
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+
+// 382:26
+[cws_warning_layer]
+type=layer
+x=159
+y=175
+width=255
+height=20
+layer=content_layer
+hide=yes
+
+// 382:27
+[warn3]
+type=text
+x=28
+y=3
+width=227
+height=15
+layer=cws_warning_layer
+textfont=fontmetrics_495
+text=Don't ask me this again
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 382:28
+[cws_toggle_button]
+type=graphic
+x=3
+y=1
+width=19
+height=19
+layer=cws_warning_layer
+graphic=graphic_941
+transmitop=1
+op1=Off/On
+onvartransmit=cws_graphic_swap(wilderness_warning:cws_toggle_button, 7){cws_var}
+onclick=cws_toggle(wilderness_warning:cws_toggle_button)
+
+// 382:29
+[com_29]
+type=graphic
+x=102
+y=7
+width=310
+height=32
+layer=content_layer
+graphic=graphic_820
+tiling=yes

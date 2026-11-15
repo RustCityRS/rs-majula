@@ -17,6 +17,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -25,13 +26,13 @@ static TURN: Mutex<()> = Mutex::new(());
 const CRAFTING: usize = 12;
 const BACKPACK: i32 = 149 << 16;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// Varp 62: %varplayerbit_2378 is bits 0-5 (the quest), %varplayerbit_1782 bits 9-10
@@ -48,12 +49,12 @@ fn varp62(engine: &Engine, client: &HarnessClient) -> (i32, i32) {
 
 /// A spawn of npc `name`: its nid, and a tile beside it one step from it reaches.
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
@@ -120,7 +121,7 @@ fn talk(
 fn goblin_diplomacy_as_2011s_rework() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (orange, blue, brown, gold) = (
             obj(engine, "goblin_armour_orange"),
             obj(engine, "goblin_armour_darkblue"),
@@ -246,7 +247,7 @@ fn goblin_diplomacy_as_2011s_rework() {
 fn goblin_mail_dyes_as_2011_says() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (mail, blue_dye, blue) = (
             obj(engine, "goblin_armour"),
             obj(engine, "bluedye"),
@@ -276,9 +277,9 @@ fn goblin_mail_dyes_as_2011_says() {
         p.p4(BACKPACK)
             .p2_alt1(1)
             .p2_alt1(0)
-            .p2_alt2(blue_dye as i32)
+            .p2_alt2(blue_dye.int())
             .p4_alt1(BACKPACK)
-            .p2(mail as i32);
+            .p2(mail.int());
         client.send(ClientProt::IfButtonT, &p.finish());
         let mut said = Vec::new();
         for _ in 0..4 {
@@ -312,7 +313,7 @@ fn goblin_mail_dyes_as_2011_says() {
 fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let mail = obj(engine, "goblin_armour");
         let _ = engine.script_errors.take();
         engine.harness_reset();
@@ -367,7 +368,7 @@ fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
 fn the_generals_wander_as_289s_did() {
     runner::on_loaded_engine(|engine| {
         for name in ["general_bentnoze_red", "general_wartface_green"] {
-            let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+            let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
             let general = engine.cache.npcs.get_by_id(id).unwrap();
             assert_eq!(general.wanderrange, 3, "{name}");
         }

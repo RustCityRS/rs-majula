@@ -1,0 +1,21 @@
+// 6043
+[proc,clientscript_6043](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+if (enum(int, stat, enum_681, %varclient_1796) = null) {
+    if_sethide($component1, false);
+    ~clientscript_6046("Choose a skill...", $component2, 50);
+    return;
+}
+if_sethide($component1, true);
+def_int $int3 = 0;
+while ($int3 < %varclient_1796) {
+    cc_create($component0, ^iftype_rectangle, $int3);
+    cc_sethide(true);
+    $int3 = calc($int3 + 1);
+}
+cc_create($component0, ^iftype_rectangle, $int3);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settrans(255);
+op1310("Confirm: <enum(int, string, enum_108, %varclient_1796)>");
+~clientscript_6046(~clientscript_6036(enum(int, stat, enum_681, %varclient_1796), %varclient_1797, %varclient_1799), $component2, 50);

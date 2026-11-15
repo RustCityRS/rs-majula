@@ -1,14 +1,14 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::archive;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::js5::PackedCache;
 use crate::types::Font;
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::java_string_hash;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::HashMap;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing::warn;
 
 #[cfg(before_274)]
@@ -73,7 +73,7 @@ impl FontType {
             // we need to split on the next word boundary
             let mut split_index = remaining.len();
             // How many characters the break itself takes: a space or a | goes, a hyphen stays.
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let mut skip = 1;
             let bytes = remaining.as_bytes();
 
@@ -84,13 +84,13 @@ impl FontType {
                         break;
                     }
                     split_index = i;
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         skip = 1;
                     }
                 } else if bytes[i] == b'|' {
                     split_index = i;
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         skip = 1;
                     }
@@ -100,7 +100,7 @@ impl FontType {
                 // once the hyphen itself fits (FontMetrics.method1482, char 45); 2011's dialogue
                 // breaks there too (Katrine's "'keep-your-life-" / "pleasant'", YouTube
                 // TSNR-A0LI8s, 2011-02-28, 193.8s).
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 if bytes[i] == b'-' {
                     if self.string_width(&remaining[..=i]) > max_width {
                         break;
@@ -137,9 +137,9 @@ impl FontType {
             lines.push(line);
 
             // advance past the split point
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             let start = (split_index + 1).min(remaining.len());
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             let start = (split_index + skip).min(remaining.len());
             let mut next = remaining[start..].to_string();
 
@@ -224,7 +224,7 @@ fn decode_draw_width(jag: &JagFile, font: Font) -> [u8; 256] {
 
 pub struct FontTypeProvider {
     pub fonts: Vec<FontType>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub id_index: HashMap<u16, usize>,
 }
 
@@ -245,7 +245,7 @@ impl FontTypeProvider {
     pub fn from_slots(fonts: Vec<FontType>) -> FontTypeProvider {
         FontTypeProvider {
             fonts,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             id_index: HashMap::new(),
         }
     }
@@ -258,7 +258,7 @@ impl FontTypeProvider {
         // An id map, once populated, is authoritative: falling back to the
         // ordinal would silently hand back the wrong font for any cache id that
         // happens to be small.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if !self.id_index.is_empty() {
             return self.id_index.get(&id).and_then(|&i| self.fonts.get(i));
         }
@@ -274,7 +274,12 @@ impl FontTypeProvider {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+const METRICS_HEADER: usize = 0;
 #[cfg(since_647)]
+const METRICS_HEADER: usize = 2;
+
+#[cfg(since_530)]
 impl FontTypeProvider {
     pub fn from_cache(cache: &PackedCache) -> FontTypeProvider {
         let slot_names: [(&str, Font); 4] = [
@@ -312,12 +317,12 @@ impl FontTypeProvider {
             else {
                 continue;
             };
-            // 2-byte header then one advance per code point.
-            if data.len() < 258 {
+            // One advance per code point, after the header.
+            if data.len() < METRICS_HEADER + 256 {
                 continue;
             }
             let mut draw_width = [0u8; 256];
-            draw_width.copy_from_slice(&data[2..258]);
+            draw_width.copy_from_slice(&data[METRICS_HEADER..METRICS_HEADER + 256]);
 
             let index = match slot_of_group.get(&group.id) {
                 Some(&slot) => {
@@ -341,7 +346,7 @@ impl FontTypeProvider {
     }
 }
 
-#[cfg(all(test, since_647))]
+#[cfg(all(test, since_530))]
 mod tests {
     use super::FontType;
 

@@ -1,0 +1,13 @@
+// 4705
+[proc,clientscript_4705](int $int0)(int, int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int3 = calc($int0 * 6 / 10);
+$int2 = calc($int3 / 60);
+$int3 = calc($int3 % 60);
+if ($int2 > 59) {
+    $int1 = calc($int2 / 60);
+    $int2 = calc($int2 % 60);
+}
+return($int1, $int2, $int3);

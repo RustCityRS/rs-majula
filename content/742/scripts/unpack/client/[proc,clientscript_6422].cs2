@@ -1,0 +1,37 @@
+// 6422
+[proc,clientscript_6422](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_component $component5 = null;
+switch_int ($int0) {
+    case 1 :
+        $component1 = interface_1309:com_33;
+        $component2 = interface_1309:com_34;
+        $component3 = interface_1309:com_35;
+        $component4 = interface_1309:com_36;
+        $component5 = interface_1309:com_21;
+    case 2 :
+        $component1 = interface_1309:com_25;
+        $component2 = interface_1309:com_26;
+        $component3 = interface_1309:com_27;
+        $component4 = interface_1309:com_37;
+        $component5 = interface_1309:com_23;
+    case 3 :
+        $component1 = interface_1309:com_29;
+        $component2 = interface_1309:com_30;
+        $component3 = interface_1309:com_31;
+        $component4 = interface_1309:com_38;
+        $component5 = interface_1309:com_28;
+    case default :
+        return;
+}
+if ($component1 = null | $component2 = null | $component3 = null | $component4 = null) {
+    return;
+}
+if_setgraphic($component1, 7932);
+if_setgraphic($component2, 7933);
+if_setgraphic($component3, 7934);
+if_setcolour($component4, 0x606062);
+if_sethide($component5, false);

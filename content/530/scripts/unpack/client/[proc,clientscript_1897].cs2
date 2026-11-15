@@ -1,0 +1,13 @@
+// 1897
+[proc,clientscript_1897](int $int0)
+%selectedresolution = ~dropdownbox_getselected($int0, loginscreen:com_285);
+if (getwindowmode = 3 & fullscreen_lastmode ! %selectedresolution) {
+    if (fullscreen_enter(fullscreen_getmode(%selectedresolution)) = true) {
+        if_setonclick(loginscreen:windowmode_confirm_yes, "clientscript_1890(loginscreen:com_138)");
+        ~clientscript_1174(loginscreen:windowmode_confirm);
+    } else {
+        setwindowmode(getdefaultwindowmode);
+        ~clientscript_1888;
+        %last_windowmode = getwindowmode;
+    }
+}

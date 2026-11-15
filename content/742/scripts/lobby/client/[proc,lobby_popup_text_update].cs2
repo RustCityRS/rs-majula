@@ -1,0 +1,3 @@
+// 1871
+[proc,lobby_popup_text_update](string $string0)
+if_settext(lobbyscreen:popup_text, $string0);

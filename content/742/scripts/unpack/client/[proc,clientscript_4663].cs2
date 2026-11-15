@@ -1,0 +1,16 @@
+// 4663
+[proc,clientscript_4663](component $component0)
+switch_int (%varclient_1534) {
+    case default :
+        cam_reset;
+    case 1 :
+        ~clientscript_4664($component0);
+    case 2 :
+        ~clientscript_4665($component0);
+    case 3 :
+        ~clientscript_4666($component0);
+    case 4 :
+        ~clientscript_4667($component0);
+    case 5 :
+        ~clientscript_4668($component0);
+}

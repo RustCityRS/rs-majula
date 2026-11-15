@@ -1,12 +1,20 @@
 use crate::active_player::ActivePlayer;
+#[cfg(since_647)]
 use crate::core::{engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::client_prot::GameloginContinue;
+#[cfg(since_647)]
 use rs_protocol::network::game::client_prot::{
-    ClickWorldMap, ClientDetailoptionsStatus, EventKeyboard, MapBuildLoading, SoundSongPreloaded,
-    TransmitvarVerifyId, VideoEnd, WorldLatency,
+    ClickWorldMap, EventKeyboard, VideoEnd, WorldLatency,
+};
+use rs_protocol::network::game::client_prot::{
+    ClientDetailoptionsStatus, MapBuildLoading, SoundSongPreloaded, TransmitvarVerifyId,
 };
 use rs_vm::ScriptError;
+#[cfg(since_647)]
 use rs_vm::state::ScriptArgument;
+#[cfg(since_647)]
 use rs_vm::subject::ScriptSubject;
 
 macro_rules! client_status {
@@ -21,13 +29,16 @@ macro_rules! client_status {
 
 client_status!(
     ClientDetailoptionsStatus,
-    EventKeyboard,
     MapBuildLoading,
     SoundSongPreloaded,
     TransmitvarVerifyId,
-    VideoEnd,
-    WorldLatency,
 );
+
+#[cfg(since_647)]
+client_status!(EventKeyboard, VideoEnd, WorldLatency);
+
+#[cfg(all(since_530, before_647))]
+client_status!(GameloginContinue);
 
 /// Handles `ClickWorldMap`, rev-647 CLICKWORLDMAP (opcode 60): a press on the
 /// world map (clientcode 1400) with the tile as `level << 28 | x << 14 | z`.
@@ -35,6 +46,7 @@ client_status!(
 /// means is content's to decide: this runs `[proc,clickworldmap](coord)`
 /// unprotected, as the map's buttons run, and content without the proc
 /// ignores the packet.
+#[cfg(since_647)]
 impl ClientGameHandler for ClickWorldMap {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let iface = engine().layout.world_map;

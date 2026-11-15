@@ -1,0 +1,21 @@
+// 249
+[clientscript,snapshot_update_display]
+%snapshot_cursor_delay = calc(%snapshot_cursor_delay + 1);
+if (%snapshot_cursor_delay >= 30) {
+    %snapshot_cursor_delay = 0;
+    if (%snapshot_cursor_hidden = true) {
+        %snapshot_cursor_hidden = false;
+    } else {
+        %snapshot_cursor_hidden = true;
+    }
+}
+if (%snapshot_cursor_hidden = true) {
+    if_settext(snapshot_main_v2:name, "<escape(%snapshot_name)><col=ffff00> ");
+} else {
+    if_settext(snapshot_main_v2:name, "<escape(%snapshot_name)><col=ffff00>|");
+}
+if (compare(%snapshot_name, "") = 0) {
+    if_setcolour(snapshot_main_v2:name_next_text, 0xbbbbbb);
+} else {
+    if_setcolour(snapshot_main_v2:name_next_text, ^white);
+}

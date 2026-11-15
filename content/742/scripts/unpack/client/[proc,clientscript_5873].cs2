@@ -1,0 +1,5 @@
+// 5873
+[proc,clientscript_5873]
+def_int $int0 = calc(if_getwidth(interface_429:com_58) - if_getwidth(interface_429:com_59));
+def_int $int1 = scale(op6142, 127, $int0);
+if_setposition(interface_429:com_59, $int1, 0, ^setpos_abs_left, ^setpos_abs_top);

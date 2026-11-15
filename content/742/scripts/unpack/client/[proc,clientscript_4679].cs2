@@ -1,0 +1,10 @@
+// 4679
+[proc,clientscript_4679]
+if (enum(int, int, enum_3839, %varclient_1535) < 1) {
+    if_setposition(interface_302:com_23, 10, 26, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide(interface_302:com_24, true);
+    if_settext(interface_302:com_11, "Difficulty: <tostring(%varclient_1535)>/10");
+} else {
+    if_sethide(interface_302:com_24, false);
+    if_settext(interface_302:com_11, "Difficulty: <tostring(%varclient_1535)>/10");
+}

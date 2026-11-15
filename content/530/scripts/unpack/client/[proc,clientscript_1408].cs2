@@ -1,0 +1,15 @@
+// 1408
+[proc,clientscript_1408]
+if_setgraphic("boardgames_options:15seconds1", 180);
+if_setgraphic("boardgames_options:30seconds1", 180);
+if_setgraphic("boardgames_options:1minute1", 180);
+if_setgraphic("boardgames_options:2minutes1", 180);
+if (%boardgames_timepermove = 0) {
+    if_setgraphic("boardgames_options:15seconds1", 181);
+} else if (%boardgames_timepermove = 1) {
+    if_setgraphic("boardgames_options:30seconds1", 181);
+} else if (%boardgames_timepermove = 2) {
+    if_setgraphic("boardgames_options:1minute1", 181);
+} else if (%boardgames_timepermove = 3) {
+    if_setgraphic("boardgames_options:2minutes1", 181);
+}

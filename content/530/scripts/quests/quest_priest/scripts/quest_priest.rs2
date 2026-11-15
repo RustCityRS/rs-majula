@@ -1,0 +1,187 @@
+// The Restless Ghost before its rework of 15 December 2009, which moved the
+// skull to Lumbridge Swamp. The skull lies on the altar in the Wizards' Tower
+// basement (loc 2146 at 0_48_149_48_30, a multiloc on %restless_ghost_altar_var:
+// 0 15050 with the skull, 1 15051 without), and taking it brings a skeleton,
+// as in 289. The coffin (shutghostcoffin, 2145) opens to 15061, which shows
+// 15052 without a skull and 15053 with one (%restless_ghost_coffin_var). The
+// altar and both coffin looks carry 647's names for their ids.
+
+// ── The coffin ──────────────────────────────────────────────────────────────
+// 289: the coffin opens for 300 ticks and the ghost rises from it.
+// void-634: Search opens it too.
+[oploc1,shutghostcoffin] @restless_ghost_coffin_open;
+[oploc2,shutghostcoffin] @restless_ghost_coffin_open;
+
+[label,restless_ghost_coffin_open]
+p_arrivedelay;
+mes("You open the coffin.");
+anim(human_openchest, 0);
+sound_synth(coffin_open, 1, 0);
+~check_restlessghost_spawn;
+p_delay(0);
+loc_change(loc_15061, 300);
+
+// The open coffin's Close and Search, on either look.
+[oploc1,vkq3_storeroom_crate_r5] @restless_ghost_coffin_close;
+[oploc1,vkq3_storeroom_crate_r6] @restless_ghost_coffin_close;
+[oploc2,vkq3_storeroom_crate_r5] @restless_ghost_coffin_search;
+[oploc2,vkq3_storeroom_crate_r6] @restless_ghost_coffin_search;
+
+[label,restless_ghost_coffin_close]
+mes("You close the coffin.");
+anim(human_closechest, 0);
+// 289's coffin_close sound (synth 333 at 289): no source found for its
+// 2011 id (void-634 names the sound but gives no id).
+// sound_synth(coffin_close, 1, 0);
+p_delay(0);
+loc_change(shutghostcoffin, 300);
+
+[label,restless_ghost_coffin_search]
+if (%prieststart = ^priest_complete) {
+    // 289, void-634
+    ~mesbox("There's a nice and complete skeleton in here!");
+    return;
+}
+if (%prieststart = ^priest_obtained_skull & inv_total(inv, ghostskull) > 0) {
+    @restless_ghost_return_skull;
+}
+// void-634
+mes("You search the coffin and find some human remains.");
+~check_restlessghost_spawn;
+
+// 289: the ghost, near the coffin, for 100 ticks.
+[proc,check_restlessghost_spawn]
+if (%prieststart = ^priest_complete) {
+    return;
+}
+if (npc_find(0_50_49_49_58, ghostx, 4, 0) = true) {
+    // void-634
+    mes("There's a skeleton without a skull in here. There's no point in disturbing it.");
+    return;
+}
+npc_add(0_50_49_49_58, ghostx, 100);
+
+[oplocu,shutghostcoffin]
+if (last_useitem = ghostskull) {
+    // 289, void-634
+    ~mesbox("Maybe I should open it first.");
+    return;
+}
+~displaymessage(^dm_default);
+
+[oplocu,vkq3_storeroom_crate_r5]
+if (last_useitem = ghostskull & %prieststart = ^priest_obtained_skull) {
+    @restless_ghost_return_skull;
+}
+~displaymessage(^dm_default);
+
+// void-634 thanks the player in a cutscene (camera moves, the ghost flies to
+// the River Lum: "a cutscene will show him thanking you, then flying into the
+// River Lum", 2011 wiki). 647 has no cutscenes yet: the ghost says void-634's
+// line where it stands, plays its ascending (seq 4018, void-634's
+// restless_ghost_ascends) and goes. The camera waits for a cutscene port.
+[label,restless_ghost_return_skull]
+// void-634
+mes("You put the skull in the coffin.");
+inv_del(inv, ghostskull, 1);
+%restless_ghost_coffin_var = 1;
+if (npc_find(0_50_49_49_58, ghostx, 8, 0) = true) {
+    npc_say("Release! Thank you stranger.");
+    npc_anim(restless_ghost_vanish, 0);
+    p_delay(2);
+    if (npc_find(0_50_49_49_58, ghostx, 8, 0) = true) {
+        npc_del;
+    }
+}
+queue(priest_quest_complete, 0, 0);
+
+// ── The skull on the altar ──────────────────────────────────────────────────
+[oploc1,xmas09_landofsnow_forest3]
+if (%prieststart ! ^priest_spoken_ghost & %prieststart ! ^priest_obtained_skull) {
+    // 289
+    ~mesbox("That skull looks scary. I've got no reason to take it, I think I'll leave|it alone.");
+    return;
+}
+if (inv_freespace(inv) = 0) {
+    mes("You don't have enough inventory space.");
+    return;
+}
+inv_add(inv, ghostskull, 1);
+%restless_ghost_altar_var = 1;
+%prieststart = ^priest_obtained_skull;
+~send_quest_progress(^questlist_priest, %prieststart, ^priest_complete);
+// 289
+npc_add(0_48_149_48_29, skull_skeleton, 500);
+~npc_retaliate(0);
+mes("Out of nowhere a skeleton appears!");
+
+[oploc1,xmas09_landofsnow_forest_passage]
+if (%prieststart = ^priest_complete) {
+    mes("There's nothing of any interest.");
+} else {
+    mes("You already have the ghost's skull.");
+}
+
+// The skull's Destroy: the altar holds the skull again.
+[opheld5,ghostskull]
+~mesbox("If you get rid of the skull you'll have to search for it again.");
+def_int $choice = ~p_choice2_header("Yes.", 1, "No.", 2, "Are you sure you want to drop the skull?");
+if ($choice = 1) {
+    inv_del(inv, ghostskull, 1);
+    %restless_ghost_altar_var = 0;
+}
+if_close;
+
+// ── Completion ──────────────────────────────────────────────────────────────
+// 289's reward.
+[queue,priest_quest_complete]
+%prieststart = ^priest_complete;
+stat_advance(prayer, 11250);
+session_log(^log_adventure, "Quest complete: The Restless Ghost");
+~send_quest_complete2(^questlist_priest, ghostskull, 220, ^priest_questpoints, "You have completed The Restless Ghost!", "1125 Prayer XP");
+
+// ── Journal ─────────────────────────────────────────────────────────────────
+// 289's.
+[label,questlist_priest]
+def_string $x;
+def_string $n = "The Restless Ghost";
+
+// https://github.com/Indio3/quest-journals/tree/master/quest_priest
+if(%prieststart = ^priest_not_started) {
+    $x = "@dbl@I can start this quest by speaking to @dre@Father Aereck@dbl@ in the @dre@church@dbl@ next to @dre@Lumbridge Castle|";
+    $x = append($x, "@dbl@I must be unafraid of a @dre@Level 13 Skeleton");
+    ~quest_journal($n, $x);
+    return;
+}
+
+$x = "@str@Father Aereck asked me to help him deal with the Ghost in|@str@the graveyard next to the church.|";
+if(%prieststart = ^priest_started) {
+    $x = append($x, "@dbl@I should find @dre@Father Urhney@dbl@ who is an expert on @dre@ghosts@dbl@.|@dbl@He lives in a @dre@shack@dbl@ in @dre@Lumbridge Swamp@dbl@.");
+    ~quest_journal($n, $x);
+    return;
+}
+
+$x = append($x, "@str@I found Father Urhney in the swamp south of Lumbridge. He|@str@gave me an Amulet of Ghostspeak to talk to the ghost.|");
+if(%prieststart = ^priest_spoken_urhney) {
+    $x = append($x, "@dbl@I should talk to the @dre@Ghost@dbl@ to find out why it is haunting the|@dre@graveyard crypt@dbl@.");
+    ~quest_journal($n, $x);
+    return;
+}
+
+$x = append($x, "@str@I spoke to the Ghost and he told me he could not rest in|@str@peace because an evil wizard had stolen his skull.|");
+if(%prieststart = ^priest_spoken_ghost) {
+    $x = append($x, "@dbl@I should go and search the @dre@Wizard's Tower South West of|@dre@Lumbridge@dbl@ for the @dre@Ghost's Skull@dbl@.");
+    ~quest_journal($n, $x);
+    return;
+}
+
+$x = append($x, "@str@I found the Ghost's Skull in the basement of the Wizards'|@str@Tower. It was guarded by a skeleton, but I took it anyway.|");
+if(%prieststart = ^priest_obtained_skull) {
+    $x = append($x, "@dbl@I should take the @dre@Skull@dbl@ back to the @dre@Ghost@dbl@ so it can rest");
+    ~quest_journal($n, $x);
+    return;
+}
+
+$x = append($x, "@str@I placed the Skull in the Ghost's coffin, and allowed it to rest|@str@in peace once more, with gratitude for my help.||");
+$x = append($x, "@red@QUEST COMPLETE!");
+~quest_journal($n, $x);

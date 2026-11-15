@@ -1,0 +1,5 @@
+// 5116
+[proc,clientscript_5116](int $int0, int $int1)(struct)
+def_enum $enum2 = enum_4515;
+def_enum $enum3 = enum(int, enum, $enum2, $int0);
+return(enum(int, struct, $enum3, $int1));

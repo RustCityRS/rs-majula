@@ -19,8 +19,16 @@ pub struct IfSetVideo {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetVideo {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt1(self.video);
-        buf.p4(self.com);
+        #[cfg(before_742)]
+        {
+            buf.p2_alt1(self.video);
+            buf.p4(self.com);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p4_alt1(self.com);
+            buf.p2(self.video);
+        }
     }
 
     fn sizeof(&self) -> usize {

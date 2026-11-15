@@ -1,0 +1,14 @@
+// 607
+[clientscript,stock_offerprice_market]
+if (%varplayer_1109 = null) {
+    %stock_offerprice_visible = 1;
+    return;
+}
+def_int $int0 = %varplayer_1114;
+if ($int0 < 0) {
+    %stock_offerprice_visible = 1;
+} else {
+    %stock_offerprice_visible = %varplayer_1114;
+}
+if_settext(stockmarket:offerprice, "<tostring_localised(%stock_offerprice_visible, true)> gp");
+~sm_offerprice_settimer;

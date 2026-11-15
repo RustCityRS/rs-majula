@@ -1,0 +1,58 @@
+// 1294
+[clientscript,hauntedmine_controls_load]
+if (testbit(%hauntedmine_bits, 1) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points1, model_4912);
+}
+if (testbit(%hauntedmine_bits, 2) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points2, model_4912);
+}
+if (testbit(%hauntedmine_bits, 3) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points3, model_4913);
+}
+if (testbit(%hauntedmine_bits, 4) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points4, model_4912);
+}
+if (testbit(%hauntedmine_bits, 5) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points5, model_4912);
+}
+if (testbit(%hauntedmine_bits, 6) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points6, model_4913);
+}
+if (testbit(%hauntedmine_bits, 7) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points7, model_4913);
+}
+if (testbit(%hauntedmine_bits, 8) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_points8, model_4912);
+}
+if (%hauntedmine_bits > 8191) {
+    if_sethide(hauntedmine_controls:hauntedmine_cart0, true);
+    if_setgraphic(hauntedmine_controls:start_button, "combatboxes,3");
+}
+if (testbit(%hauntedmine_bits, 14) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart2, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart2, hauntedmine_cartright);
+}
+if (testbit(%hauntedmine_bits, 15) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart3, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart3, hauntedmine_cartright);
+}
+if (testbit(%hauntedmine_bits, 16) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart4, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart4, hauntedmine_cartright);
+}
+if (testbit(%hauntedmine_bits, 17) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart5, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart5, hauntedmine_cartleft);
+}
+if (testbit(%hauntedmine_bits, 18) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart6, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart6, hauntedmine_cartleft);
+}
+if (testbit(%hauntedmine_bits, 19) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart7, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart7, hauntedmine_cart_travel);
+}
+if (testbit(%hauntedmine_bits, 20) = ^true) {
+    if_setmodel(hauntedmine_controls:hauntedmine_cart8, model_4910);
+    if_setmodelanim(hauntedmine_controls:hauntedmine_cart8, hauntedmine_cart_travel);
+}

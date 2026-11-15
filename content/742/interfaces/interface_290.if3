@@ -1,0 +1,164 @@
+// 290:0
+[com_0]
+type=graphic
+x=53
+y=2
+width=406
+height=47
+layer=com_14
+graphic=graphic_8001
+
+// 290:1
+[com_1]
+type=graphic
+width=53
+height=16391
+heightmode=proportion
+xmode=abs_right
+layer=com_14
+graphic=graphic_7998
+
+// 290:2
+[com_2]
+type=graphic
+x=53
+y=1
+width=406
+height=47
+ymode=abs_bottom
+layer=com_14
+graphic=graphic_7996
+
+// 290:3
+[com_3]
+type=graphic
+width=53
+height=16391
+heightmode=proportion
+layer=com_14
+graphic=graphic_7997
+
+// 290:4
+[com_4]
+type=graphic
+x=53
+y=49
+width=406
+height=238
+layer=com_14
+graphic=graphic_7999
+tiling=yes
+
+// 290:5
+[com_5]
+type=layer
+x=47
+y=43
+width=16
+height=15
+xmode=abs_right
+layer=com_14
+onload=aif_build_close_button_layer(event_com)
+
+// 290:6
+[com_6]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_14
+
+// 290:7
+[com_7]
+type=graphic
+x=59
+y=65
+width=406
+height=238
+layer=com_6
+graphic=graphic_9131
+
+// 290:8
+[com_8]
+type=text
+x=325
+y=73
+width=90
+height=34
+layer=com_6
+textfont=quill_oblique_large
+text=Whitezag
+colour=0x000000
+
+// 290:9
+[com_9]
+type=text
+x=92
+y=72
+width=104
+height=38
+layer=com_6
+textfont=quill_oblique_large
+text=Frumscone
+colour=0x000000
+
+// 290:10
+[com_10]
+type=text
+x=36
+y=144
+width=205
+height=73
+layer=com_6
+textfont=quill_caps_large
+text=12345679
+textalignh=centre
+colour=0x000000
+
+// 290:11
+[com_11]
+type=text
+x=275
+y=143
+width=202
+height=72
+layer=com_6
+textfont=quill_caps_large
+text=12345679
+textalignh=centre
+colour=0x000000
+
+// 290:12
+[com_12]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+onload=aif_build_close_button_over(event_com)
+
+// 290:13
+[com_13]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 290:14
+[com_14]
+type=layer
+width=512
+height=334
+onload=clientscript_5606
+onvarctransmit=clientscript_5606

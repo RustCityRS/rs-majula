@@ -1,0 +1,63 @@
+// 748:0
+[topstat_hitpoints]
+type=layer
+width=57
+height=34
+
+// 748:1
+[com_1]
+type=graphic
+width=57
+height=34
+layer=topstat_hitpoints
+graphic=graphic_1206
+onload=clientscript_811
+onstattransmit=clientscript_811{hitpoints}
+
+// 748:2
+[com_2]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_hitpoints
+graphic=graphic_1208
+
+// 748:3
+[com_3]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_hitpoints
+graphic=graphic_1245
+tiling=yes
+
+// 748:4
+[com_4]
+type=text
+x=31
+y=15
+width=24
+height=14
+layer=topstat_hitpoints
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800
+onload=topstat_set_text_skill(event_com, hitpoints)
+onstattransmit=topstat_set_text_skill(event_com, hitpoints){hitpoints}
+
+// 748:5
+[com_5]
+type=graphic
+x=7
+y=7
+width=20
+height=20
+layer=topstat_hitpoints
+graphic=graphic_1197
+ontimer=topstat_flash_hitpoints_icon

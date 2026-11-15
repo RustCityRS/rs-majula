@@ -1,0 +1,15 @@
+// 1176
+[proc,clientscript_1176]
+if (%last_windowmode = 3 & getwindowmode ! 3) {
+    if (%loginscreen_focus = 6) {
+        ~clientscript_1893(1);
+        return;
+    }
+    ~clientscript_1888;
+    if (if_gethide(loginscreen:com_226) = false) {
+        ~clientscript_1174(loginscreen:com_226);
+    } else if (if_gethide(loginscreen:com_138) = false) {
+        ~clientscript_1174(loginscreen:com_138);
+    }
+    %last_windowmode = getwindowmode;
+}

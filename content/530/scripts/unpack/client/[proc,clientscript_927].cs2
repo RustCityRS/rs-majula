@@ -1,0 +1,35 @@
+// 927
+[proc,clientscript_927](int $int0, int $int1)
+cc_deleteall(interface_725:com_70);
+def_component $component2 = enum(int, component, enum_1442, $int0);
+if ($component2 = interface_725:text_1) {
+    return;
+}
+if ($component2 = null) {
+    if_close;
+    return;
+}
+def_obj $obj3 = cosmicrune;
+if (calc($int0 % 2) = 0) {
+    $obj3 = naturerune;
+}
+if_setobject($component2, $obj3, -1);
+if ($int1 = 1) {
+    cc_create(interface_725:com_70, 6, 0);
+    cc_setsize(32, 32, 0, 0);
+    cc_setposition(if_getx($component2), if_gety($component2), 0, 0);
+    cc_setmodel(model_4611);
+    cc_setmodelangle(0, 0, 512, 0, 0, 768);
+    cc_setmodelanim(runeflash);
+    sound_synth(runelink_bottom, 1, 0);
+}
+if ($int0 = calc(43 - 1)) {
+    if_setobject(interface_725:com_45, boardgames_draughts_naturerune_king, -1);
+    if_setobject(interface_725:bs, boardgames_draughts_naturerune_king, -1);
+    if_setobject(interface_725:com_57, boardgames_draughts_naturerune_king, -1);
+    if_setobject(interface_725:com_63, boardgames_draughts_naturerune_king, -1);
+    sound_jingle(110, 6656);
+    if_settext(interface_725:text_1, "<\"Fairtrade\"><\" wins!\">");
+    if_settext(interface_725:text_2, "Player got four in a row.");
+    return;
+}

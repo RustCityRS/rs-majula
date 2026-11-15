@@ -1,0 +1,7 @@
+// 5292
+[proc,clientscript_5292](int $int0, int $int1, component $component2)
+if ($int0 = $int1) {
+    if_sethide($component2, false);
+} else {
+    if_sethide($component2, true);
+}

@@ -1,0 +1,83 @@
+// 5913
+[proc,clientscript_5913](int $int0)
+def_component $component1 = interface_1253:com_86;
+def_component $component2 = interface_1253:com_87;
+def_component $component3 = interface_1253:com_38;
+$int0 = calc($int0 + 1);
+if ($int0 >= 50) {
+    $int0 = 0;
+}
+if ((%varplayerbit_11768 = 2 | %varplayerbit_11768 = 4) & if_gethide(interface_1253:com_39) = true & if_gethide(interface_1253:com_38) = false) {
+    switch_int ($int0) {
+        case 0, 10, 20, 30, 40 :
+            sound_vorbis_volume(~clientscript_2336(16830));
+    }
+}
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_graphic $graphic7 = null;
+def_int $int8 = op2613($component1);
+if ($int0 > 25) {
+    $int8 = max(61659, calc($int8 - 154));
+} else {
+    $int8 = min(65535, calc($int8 + 154));
+}
+if_set2dangle($component1, $int8);
+def_int $int9 = 0;
+def_int $int10 = calc(189 - 151);
+def_int $int11 = calc($int0 % 25);
+def_int $int12 = ~scale_round($int11, 25, $int10);
+if ($int0 < 25) {
+    $int9 = calc(189 - $int12);
+    if ($int0 = 0 & if_gethide(interface_1253:com_39) = true) {
+        sound_vorbis_volume(~clientscript_2336(14239));
+    }
+} else {
+    $int9 = calc(151 + $int12);
+    if ($int0 = 26 & if_gethide(interface_1253:com_39) = true) {
+        sound_vorbis_volume(~clientscript_2336(9873));
+    }
+}
+if_setposition($component2, if_getx($component2), $int9, ^setpos_abs_left, ^setpos_abs_top);
+switch_int ($int0) {
+    case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 :
+        $int5 = 1;
+        $int5 = 7;
+        $graphic7 = 9887;
+        if ($int0 = 0 & if_gethide(interface_1253:com_39) = true & if_gethide(interface_1253:com_38) = false) {
+            switch_int (random(10)) {
+                case 0 :
+                    sound_vorbis_volume(~clientscript_2337(5705));
+                case 1 :
+                    sound_vorbis_volume(~clientscript_2337(5706));
+                case 2 :
+                    sound_vorbis_volume(~clientscript_2337(5707));
+                case 3 :
+                    sound_vorbis_volume(~clientscript_2337(5708));
+                case 4 :
+                    sound_vorbis_volume(~clientscript_2337(5710));
+                case default :
+                    sound_vorbis_volume(~clientscript_2336(2901));
+            }
+        }
+    case 18, 19, 20, 21, 22, 23, 24 :
+        $int5 = 19;
+        $int6 = 90;
+        $graphic7 = 9888;
+    case 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 :
+        $int5 = 1;
+        $int6 = 84;
+        $graphic7 = 9889;
+        if ($int0 = 25 & if_gethide(interface_1253:com_39) = true & if_gethide(interface_1253:com_38) = false) {
+            sound_vorbis_volume(~clientscript_2337(5709));
+        }
+    case default :
+        $int5 = 19;
+        $int6 = 90;
+        $graphic7 = 9888;
+}
+if_setposition($component3, $int5, $int6, ^setpos_abs_left, ^setpos_abs_bottom);
+if_setgraphic($component3, ~clientscript_6267($graphic7));
+if_setontimer(interface_1253:com_53, "clientscript_5912($int0)");
+%varclient_1802 = $int0;

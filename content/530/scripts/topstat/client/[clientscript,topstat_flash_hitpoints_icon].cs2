@@ -1,0 +1,31 @@
+// 808
+[clientscript,topstat_flash_hitpoints_icon]
+if_sethide(topstat_hitpoints:com_5, false);
+def_int $int0 = ~topstat_calculate_percent(hitpoints);
+def_int $int1 = calc(clientclock % 32);
+if ($int0 > 25) {
+    %hitpoints_boomboom_time = 0;
+    if (if_gettrans(topstat_hitpoints:com_5) ! 0) {
+        if_settrans(topstat_hitpoints:com_5, 0);
+    } else {
+        return;
+    }
+} else {
+    if ($int1 = 1) {
+        if (%hitpoints_boomboom_time <= 0) {
+            %hitpoints_boomboom_time = clientclock;
+        }
+        if (calc(clientclock - %hitpoints_boomboom_time) < 1500) {
+            sound_synth(synth_5644, 1, 0);
+        }
+    }
+    if ($int1 < 8) {
+        if_settrans(topstat_hitpoints:com_5, 0);
+    } else if ($int1 < 16) {
+        if_settrans(topstat_hitpoints:com_5, 85);
+    } else if ($int1 < 24) {
+        if_settrans(topstat_hitpoints:com_5, 255);
+    } else {
+        if_settrans(topstat_hitpoints:com_5, 85);
+    }
+}

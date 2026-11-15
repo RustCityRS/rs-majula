@@ -1,0 +1,4 @@
+// 5229
+[proc,clientscript_5229]
+~clientscript_5340;
+if_setsize(toplevel_fullscreen:mainoverlay, viewport_geteffectivesize, ^setsize_abs, ^setsize_abs);

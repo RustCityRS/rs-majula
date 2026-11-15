@@ -1,0 +1,12 @@
+// 6497
+[proc,clientscript_6497](component $component0)
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic($component0, 11774);
+    case 1 :
+        if_setgraphic($component0, 11776);
+    case 2 :
+        if_setgraphic($component0, 11778);
+    case 3 :
+        if_setgraphic($component0, 11780);
+}

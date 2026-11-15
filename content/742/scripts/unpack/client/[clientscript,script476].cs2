@@ -1,0 +1,4 @@
+// 476
+[clientscript,script476]
+if_setsize(conq_rewards:requirements_layer, if_getwidth(conq_rewards:requirements_layer), calc(paraheight(if_gettext(conq_rewards:requirements_text), calc(if_getwidth(conq_rewards:requirements_layer) - 10), p11_full) * 10 + 10), ^setsize_abs, ^setsize_abs);
+if_sethide(conq_rewards:requirements_layer, true);

@@ -6,6 +6,7 @@ use rs_pack::pack::pack;
 use rs_pack::pack::pack_registry::{PackFile, PackRegistry};
 use rs_pack::types::ScriptVarType;
 use rs_pack::{ParamValue, startup};
+use rs_ver::TypeId;
 use std::panic::catch_unwind;
 use std::path::{Path, PathBuf};
 use std::{env, fs};
@@ -111,16 +112,18 @@ fn authored_properties_reach_the_packed_configs() {
     )
     .unwrap();
     let config = &result.store;
-    let id = |pack: &PackFile, name: &str| -> u16 {
+    let id = |pack: &PackFile, name: &str| -> TypeId {
         pack.get_by_debugname(name)
-            .unwrap_or_else(|| panic!("{name} is not registered")) as u16
+            .unwrap_or_else(|| panic!("{name} is not registered"))
+            .try_into()
+            .unwrap()
     };
 
     assert_eq!(config.categories.count(), registry.category.max as usize);
     for (&id, name) in &registry.category.id_to_debugname {
         assert_eq!(
             config.categories.get_by_debugname(name).unwrap().id,
-            id as u16
+            TypeId::try_from(id).unwrap()
         );
     }
 
@@ -142,7 +145,9 @@ fn authored_properties_reach_the_packed_configs() {
             registry
                 .category
                 .get_by_debugname("gate_main_closed")
-                .unwrap() as u16
+                .unwrap()
+                .try_into()
+                .unwrap()
         )
     );
 
@@ -197,7 +202,7 @@ fn authored_properties_reach_the_packed_configs() {
     // _unpack/all.area and maps/a*.jm2 -- multi-combat, the first area, painted.
     let multiway = id(&registry.area, "multiway");
     assert!(config.areas.get_by_id(multiway).unwrap().trigger);
-    assert!(!config.areas.get_by_id(1).unwrap().trigger);
+    assert!(!config.areas.get_by_id(TypeId::new(1)).unwrap().trigger);
     assert_eq!(config.multiway_area, Some(multiway));
     let painted = |x, z| config.area_map.get(0, x, z).contains(&multiway);
     assert!(painted(3082, 3420), "Barbarian Village");
@@ -212,7 +217,10 @@ fn authored_properties_reach_the_packed_configs() {
     assert_eq!(varp.scope, VarPlayerScope::Perm);
 
     // donor/configs/donor.loc -- a whole definition 786 does not have.
-    assert!(config.locs.get_by_id(864).is_some(), "donor loc_864");
+    assert!(
+        config.locs.get_by_id(TypeId::new(864)).is_some(),
+        "donor loc_864"
+    );
 
     // ... and a cache definition that is no longer dropped (config_loc 179).
     assert!(

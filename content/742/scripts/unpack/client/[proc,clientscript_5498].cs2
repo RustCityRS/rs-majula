@@ -1,0 +1,9 @@
+// 5498
+[proc,clientscript_5498](int $int0, component $component1)
+if (cc_find($component1, $int0) = true & cc_gettrans < 255) {
+    if (calc(cc_gettrans + 5) > 255) {
+        cc_settrans(255);
+    } else {
+        cc_settrans(calc(cc_gettrans + 5));
+    }
+}

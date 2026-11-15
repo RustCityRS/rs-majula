@@ -1,0 +1,26 @@
+// 715:0
+[com_0]
+type=text
+y=25
+width=104
+height=16
+textfont=b12_full
+text=Favour points:
+textalignh=right
+textshadow=yes
+colour=0xff981f
+onload=vm_kudos_set
+onvartransmit=vm_kudos_set{vm}
+
+// 715:1
+[com_1]
+type=text
+y=41
+width=104
+height=16
+textfont=p12_full
+textalignh=right
+textshadow=yes
+colour=0xff981f
+onload=clientscript_5212(event_com)
+onvartransmit=clientscript_5212(event_com){varplayer_2250}

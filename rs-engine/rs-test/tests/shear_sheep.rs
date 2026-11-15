@@ -13,16 +13,17 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const UNSHORN: u16 = 43;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// The sheep of `kind` nearest Lumbridge's pen (3205,3262): index and tile.
@@ -32,7 +33,7 @@ fn sheep_of(engine: &Engine, kind: u16) -> (u16, u16, u16) {
         .npcs
         .iter()
         .flatten()
-        .filter(|n| n.npc.base_type == kind)
+        .filter(|n| n.npc.base_type == TypeId::new(kind))
         .map(|n| {
             let c = n.npc.pathing.coord;
             (n.npc.uid.nid(), c.x(), c.z())
@@ -57,7 +58,7 @@ fn shear_takes_wool_with_shears_and_asks_for_them_without() {
         engine.harness_reset();
         let mut client = engine.harness_login_returning("shepherd").expect("login");
         engine.cycle();
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (wool, shears) = (obj(engine, "wool"), obj(engine, "shears"));
 
         let (nid, x, z) = sheep(engine);
@@ -124,7 +125,7 @@ fn a_2011_sheep_shears_to_its_own_shorn_sheep() {
         engine.harness_reset();
         let mut client = engine.harness_login_returning("shepherd2").expect("login");
         engine.cycle();
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let (wool, shears) = (obj(engine, "wool"), obj(engine, "shears"));
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&inv).unwrap().set(0, shears, 1);
@@ -159,18 +160,22 @@ fn a_2011_sheep_shears_to_its_own_shorn_sheep() {
                 break;
             }
         }
-        assert_eq!(shorn, Some(1764), "sheared, and now 1764");
+        assert_eq!(shorn, Some(TypeId::new(1764)), "sheared, and now 1764");
     });
 }
 
 /// Shears the sheep of `kind` nearest Lumbridge's pen, with shears, until wool
 /// comes (289's sheep get away one time in four) or 12 tries pass. Returns the
 /// sheep's type after the last try, the wool got, and what the game said.
-fn shear_until_wool(engine: &mut Engine, name: &str, kind: u16) -> (Option<u16>, u32, Vec<String>) {
+fn shear_until_wool(
+    engine: &mut Engine,
+    name: &str,
+    kind: u16,
+) -> (Option<TypeId>, u32, Vec<String>) {
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     engine.cycle();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let (wool, shears) = (obj(engine, "wool"), obj(engine, "shears"));
     let player = engine.harness_player_mut(client.pid).unwrap();
     player.invs.get_mut(&inv).unwrap().set(0, shears, 1);
@@ -236,7 +241,7 @@ fn sheep_5161_shears_to_5153() {
     runner::on_loaded_engine(|engine| {
         let (now, wool, said) = shear_until_wool(engine, "shepherd3", 5161);
         assert_eq!(wool, 1, "{said:?}");
-        assert_eq!(now, Some(5153), "sheared, and now 5153");
+        assert_eq!(now, Some(TypeId::new(5153)), "sheared, and now 5153");
     });
 }
 
@@ -248,7 +253,7 @@ fn the_thing_always_gets_away() {
     runner::on_loaded_engine(|engine| {
         let (now, wool, said) = shear_until_wool(engine, "shepherd4", 3579);
         assert_eq!(wool, 0, "no wool: {said:?}");
-        assert_eq!(now, Some(3579), "still The Thing");
+        assert_eq!(now, Some(TypeId::new(3579)), "still The Thing");
         assert_eq!(
             said.iter()
                 .filter(|m| *m == "The... whatever it is... manages to get away from you!")

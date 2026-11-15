@@ -1,0 +1,4 @@
+// 5294
+[proc,clientscript_5294](component $component0, component $component1)
+if_sethide($component1, false);
+if_setontargetleave($component0, "clientscript_5295($component0, $component1)");

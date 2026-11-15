@@ -1,0 +1,18 @@
+// 1440
+[clientscript,pog_machine_transmit](component $component0)
+switch_component ($component0) {
+    case pog_coin_machine:pog_target_1_1 :
+        if_setobject_nonum(pog_coin_machine:pog_target_1_1, %pog_coin_target1_1_obj, 1);
+    case pog_coin_machine:pog_target_1_2 :
+        if_setobject_nonum(pog_coin_machine:pog_target_1_2, %pog_coin_target1_2_obj, 1);
+    case pog_coin_machine:pog_target_2 :
+        if_setobject_nonum(pog_coin_machine:pog_target_2, %pog_coin_target2_obj, 1);
+    case pog_coin_machine:pog_coin_display1_1 :
+        if_setobject_nonum(pog_coin_machine:pog_coin_display1_1, %pog_coin_display1_obj, 1);
+    case pog_coin_machine:pog_coin_display2_1 :
+        if_setobject_nonum(pog_coin_machine:pog_coin_display2_1, %pog_coin_display2_1_obj, 1);
+    case pog_coin_machine:pog_coin_display2_2 :
+        if_setobject_nonum(pog_coin_machine:pog_coin_display2_2, %pog_coin_display2_2_obj, 1);
+    case pog_coin_machine:pog_operate_current_coin :
+        if_setobject_nonum(pog_coin_machine:pog_operate_current_coin, %eyeglo_coin_selected, 1);
+}

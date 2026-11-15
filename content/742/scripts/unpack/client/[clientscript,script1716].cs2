@@ -1,0 +1,6 @@
+// 1716
+[clientscript,script1716]
+if (%prayer_last_mode ! %prayer_mode) {
+    %prayer_last_mode = %prayer_mode;
+    ~prayer_init_buttons;
+}

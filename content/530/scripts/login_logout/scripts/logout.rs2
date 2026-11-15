@@ -1,0 +1,27 @@
+[logout,_]()(boolean)
+// 289's logout hooks (login_logout/logout.rs2), as their systems are ported.
+~set_antifire_logout; // TODO: should be timer
+~macro_event_logout;
+return(true);
+
+// 289's logout button (logout:try_logout) is com_6 of the logout tab (logout, 182), "Click here to
+// logout". There is no lobby: p_logout's flag is unused on this revision.
+[if_button,logout:com_6]
+if_close;
+if (p_finduid(uid) = true) {
+    if (~logout_allowed = true) {
+        p_logout(false);
+    }
+}
+
+[proc,logout_allowed]()(boolean)
+if (~in_duel_arena(coord) = true) {
+    mes("You can't log out during a duel."); //https://youtu.be/xLE8au7T50Q?t=227
+    return(false);
+}
+
+if (~inzone_coord_pair_table(gnomeball_zones, coord) = true) {
+    mes("You can't log out on a gnomeball pitch."); // osrs
+    return(false);
+}
+return(true);

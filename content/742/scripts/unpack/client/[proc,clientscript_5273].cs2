@@ -1,0 +1,7 @@
+// 5273
+[proc,clientscript_5273](int $int0, string $string0)
+if_sethide(interface_1137:com_7, false);
+if_settext(interface_1137:com_10, $string0);
+if (if_find(interface_1137:com_7) = true) {
+    cc_setparam_int(param_1103, $int0);
+}
