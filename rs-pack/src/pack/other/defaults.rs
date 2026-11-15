@@ -1,6 +1,8 @@
 use crate::pack::names::AssetNames;
 use crate::pack::packed_data::PackedData;
 #[cfg(since_742)]
+use crate::pack::util::parse_colour;
+#[cfg(since_742)]
 use crate::types::WearPos;
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
@@ -11,10 +13,10 @@ use std::fmt::Write;
 const GROUP_UNKNOWN1: u32 = 1;
 const GROUP_GRAPHICS: u32 = 3;
 #[cfg(since_742)]
-const GROUP_UNKNOWN4: u32 = 4;
+const GROUP_AUDIO: u32 = 4;
 const GROUP_WEARPOS: u32 = 6;
 #[cfg(since_742)]
-const GROUP_UNKNOWN7: u32 = 7;
+const GROUP_MINIMENU: u32 = 7;
 #[cfg(since_742)]
 const GROUP_UNKNOWN8: u32 = 8;
 /// How many player recolours the graphics group holds: ten sets of four slots.
@@ -116,7 +118,34 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
                 }
             }
             #[cfg(since_742)]
-            (GROUP_UNKNOWN4, 1) => {
+            (GROUP_MINIMENU, 1 | 3 | 4) => {
+                let key = match code {
+                    1 => "primaryclick",
+                    3 => "tertiaryclick",
+                    _ => "selectclick",
+                };
+                writeln!(out, "{key}={}", unpack_input(&mut buf))?;
+            }
+            #[cfg(since_742)]
+            (GROUP_MINIMENU, 6 | 7) => {
+                let key = if code == 6 {
+                    "secondarymodifier"
+                } else {
+                    "tertiarymodifier"
+                };
+                writeln!(out, "{key}={}", unpack_keys(&mut buf))?;
+            }
+            #[cfg(since_742)]
+            (GROUP_MINIMENU, 12 | 13) => {
+                let key = if code == 12 {
+                    "membersobjectcolour"
+                } else {
+                    "freeobjectcolour"
+                };
+                writeln!(out, "{key}=0x{:06x}", buf.g4s())?;
+            }
+            #[cfg(since_742)]
+            (GROUP_AUDIO, 1) => {
                 writeln!(
                     out,
                     "titlescreensong={}",
@@ -208,7 +237,26 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
                 }
             }
             #[cfg(since_742)]
-            (GROUP_UNKNOWN4, "titlescreensong") => {
+            (GROUP_MINIMENU, "primaryclick" | "tertiaryclick" | "selectclick") => {
+                out.p1(match key {
+                    "primaryclick" => 1,
+                    "tertiaryclick" => 3,
+                    _ => 4,
+                });
+                pack_input(&mut out, value)?;
+            }
+            #[cfg(since_742)]
+            (GROUP_MINIMENU, "secondarymodifier" | "tertiarymodifier") => {
+                out.p1(if key == "secondarymodifier" { 6 } else { 7 });
+                pack_bytes(&mut out, &parse_keys(list)?);
+            }
+            #[cfg(since_742)]
+            (GROUP_MINIMENU, "membersobjectcolour" | "freeobjectcolour") => {
+                out.p1(if key == "membersobjectcolour" { 12 } else { 13 });
+                out.p4(parse_colour(value));
+            }
+            #[cfg(since_742)]
+            (GROUP_AUDIO, "titlescreensong") => {
                 out.p1(1);
                 out.p2(names.id("songs", value)? as u16);
             }
@@ -303,7 +351,6 @@ fn player_recols(text: &str) -> Result<Vec<(u16, Vec<u16>)>> {
 enum Field {
     Flag,
     U8,
-    I32,
     ByteList,
     Value,
 }
@@ -311,11 +358,10 @@ enum Field {
 #[cfg(since_742)]
 fn field(group: u32, code: u8) -> Option<Field> {
     Some(match (group, code) {
-        (GROUP_GRAPHICS, 4 | 8 | 10) | (GROUP_UNKNOWN7, 11) => Field::Flag,
+        (GROUP_GRAPHICS, 4 | 8 | 10) | (GROUP_MINIMENU, 11) => Field::Flag,
         (GROUP_GRAPHICS, 9 | 11 | 13..=15) => Field::U8,
-        (GROUP_UNKNOWN7, 12 | 13) => Field::I32,
-        (GROUP_UNKNOWN7, 5..=7) => Field::ByteList,
-        (GROUP_UNKNOWN7, 1..=4 | 8..=10) | (GROUP_UNKNOWN8, 1) => Field::Value,
+        (GROUP_MINIMENU, 5) => Field::ByteList,
+        (GROUP_MINIMENU, 2 | 8..=10) | (GROUP_UNKNOWN8, 1) => Field::Value,
         _ => return None,
     })
 }
@@ -328,68 +374,121 @@ fn field_key(group: u32, key: &str) -> Option<(u8, Field)> {
 
 #[cfg(since_742)]
 fn unpack_field(buf: &mut Packet, kind: Field) -> String {
-    let list = |buf: &mut Packet| {
-        (0..buf.g1())
-            .map(|_| buf.g1().to_string())
-            .collect::<Vec<_>>()
-            .join(",")
-    };
     match kind {
         Field::Flag => "yes".to_owned(),
         Field::U8 => buf.g1().to_string(),
-        Field::I32 => buf.g4s().to_string(),
-        Field::ByteList => list(buf),
-        Field::Value => {
-            let tag = buf.g1();
-            let mut parts = vec![tag.to_string()];
-            if tag != 2 {
-                parts.push(buf.g1().to_string());
-                parts.push(buf.g1().to_string());
-            }
-            if tag != 1 {
-                let items = list(buf);
-                parts.push(items);
-            }
-            parts.join(",")
-        }
+        Field::ByteList => unpack_bytes(buf),
+        Field::Value => unpack_input(buf),
     }
 }
 
 #[cfg(since_742)]
 fn pack_field(out: &mut PackedData, kind: Field, value: &str) -> Result<()> {
-    let numbers = value
-        .split(',')
-        .filter(|part| !part.is_empty())
-        .map(str::parse)
-        .collect::<std::result::Result<Vec<i64>, _>>()?;
-    let list = |out: &mut PackedData, values: &[i64]| {
-        out.p1(values.len() as u8);
-        for &value in values {
-            out.p1(value as u8);
-        }
-    };
     match kind {
         Field::Flag => {}
-        Field::U8 => out.p1(numbers[0] as u8),
-        Field::I32 => out.p4(numbers[0] as i32),
-        Field::ByteList => list(out, &numbers),
-        Field::Value => {
-            let tag = *numbers.first().context("Expected a value tag")? as u8;
-            out.p1(tag);
-            match tag {
-                0 => {
-                    out.p1(numbers[1] as u8);
-                    out.p1(numbers[2] as u8);
-                    list(out, &numbers[3..]);
-                }
-                1 => {
-                    out.p1(numbers[1] as u8);
-                    out.p1(numbers[2] as u8);
-                }
-                2 => list(out, &numbers[1..]),
-                _ => bail!("Unknown value tag {tag}"),
-            }
-        }
+        Field::U8 => out.p1(value.parse()?),
+        Field::ByteList => pack_bytes(out, &parse_bytes(value.split(','))?),
+        Field::Value => pack_input(out, value)?,
     }
     Ok(())
+}
+
+/// A tag 0 input is `mouse,mouse_<n>,<n>` then its keys; the other tags keep
+/// their numbers.
+#[cfg(since_742)]
+fn unpack_input(buf: &mut Packet) -> String {
+    let tag = buf.g1();
+    let mut parts = vec![];
+    if tag == 0 {
+        parts.push("mouse".to_owned());
+        parts.push(format!("mouse_{}", buf.g1()));
+        parts.push(buf.g1().to_string());
+        let keys = unpack_keys(buf);
+        if !keys.is_empty() {
+            parts.push(keys);
+        }
+        return parts.join(",");
+    }
+    parts.push(tag.to_string());
+    if tag != 2 {
+        parts.push(buf.g1().to_string());
+        parts.push(buf.g1().to_string());
+    }
+    if tag != 1 {
+        parts.push(unpack_bytes(buf));
+    }
+    parts.join(",")
+}
+
+#[cfg(since_742)]
+fn pack_input(out: &mut PackedData, value: &str) -> Result<()> {
+    let parts: Vec<_> = value.split(',').collect();
+    if let ["mouse", button, count, keys @ ..] = parts.as_slice() {
+        out.p1(0);
+        out.p1(numbered(button, "mouse_")?);
+        out.p1(count.parse()?);
+        pack_bytes(out, &parse_keys(keys.iter().copied())?);
+        return Ok(());
+    }
+    let numbers = parse_bytes(parts)?;
+    let tag = *numbers.first().context("Expected an input")?;
+    out.p1(tag);
+    match tag {
+        1 => {
+            out.p1(numbers[1]);
+            out.p1(numbers[2]);
+        }
+        2 => pack_bytes(out, &numbers[1..]),
+        _ => bail!("Unknown input tag {tag}"),
+    }
+    Ok(())
+}
+
+#[cfg(since_742)]
+fn unpack_bytes(buf: &mut Packet) -> String {
+    (0..buf.g1())
+        .map(|_| buf.g1().to_string())
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+#[cfg(since_742)]
+fn unpack_keys(buf: &mut Packet) -> String {
+    (0..buf.g1())
+        .map(|_| format!("key_{}", buf.g1()))
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+#[cfg(since_742)]
+fn parse_bytes<'a>(values: impl IntoIterator<Item = &'a str>) -> Result<Vec<u8>> {
+    values
+        .into_iter()
+        .filter(|value| !value.is_empty())
+        .map(|value| Ok(value.parse()?))
+        .collect()
+}
+
+#[cfg(since_742)]
+fn parse_keys<'a>(keys: impl IntoIterator<Item = &'a str>) -> Result<Vec<u8>> {
+    keys.into_iter()
+        .filter(|key| !key.is_empty())
+        .map(|key| numbered(key, "key_"))
+        .collect()
+}
+
+#[cfg(since_742)]
+fn numbered(value: &str, prefix: &str) -> Result<u8> {
+    let number = value
+        .strip_prefix(prefix)
+        .with_context(|| format!("Expected {prefix}<n>, got {value}"))?;
+    Ok(number.parse()?)
+}
+
+#[cfg(since_742)]
+fn pack_bytes(out: &mut PackedData, values: &[u8]) {
+    out.p1(values.len() as u8);
+    for &value in values {
+        out.p1(value);
+    }
 }
