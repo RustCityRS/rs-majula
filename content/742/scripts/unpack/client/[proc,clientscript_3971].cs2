@@ -1,0 +1,8 @@
+// 3971
+[proc,clientscript_3971]
+if (map_members = false) {
+    if_sethide(interface_1344:com_19, false);
+    if (playermember = true) {
+        if_settext(interface_1344:com_105, "The minigames tab is a members-only feature. Please log in to a Member's world.");
+    }
+}

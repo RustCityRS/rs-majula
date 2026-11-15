@@ -1,0 +1,7 @@
+// 248
+[clientscript,snapshot_report_v1](int $int0)
+if (string_length(%snapshot_name) > 0) {
+    chat_sendabusereport(%snapshot_name, $int0, %snapshot_mute, "");
+}
+~script675;
+%snapshot_open = false;

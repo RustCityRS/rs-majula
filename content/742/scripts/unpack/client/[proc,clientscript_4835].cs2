@@ -1,0 +1,26 @@
+// 4835
+[proc,clientscript_4835]
+def_component $component0 = null;
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int (%varplayerbit_9558) {
+    case 1 :
+        $component0 = ~clientscript_4817(%varplayerbit_9563, 1);
+        $component1 = ~clientscript_4817(%varplayerbit_9563, 2);
+        $component2 = ~clientscript_4817(%varplayerbit_9563, 3);
+    case 2 :
+        $component0 = ~clientscript_4817(%varplayerbit_9572, 1);
+        $component1 = ~clientscript_4817(%varplayerbit_9572, 2);
+        $component2 = ~clientscript_4817(%varplayerbit_9572, 3);
+    case 3 :
+        $component0 = ~clientscript_4817(%varplayerbit_9581, 1);
+        $component1 = ~clientscript_4817(%varplayerbit_9581, 2);
+        $component2 = ~clientscript_4817(%varplayerbit_9581, 3);
+}
+def_int $int3 = calc(if_getnextsubid($component0) - 1);
+while ($int3 >= 0) {
+    if (cc_find($component0, $int3) = true) {
+        cc_setgraphic("aif_checkbox_large,5");
+    }
+    $int3 = calc($int3 - 1);
+}

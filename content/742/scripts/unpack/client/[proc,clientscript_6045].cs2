@@ -1,0 +1,6 @@
+// 6045
+[proc,clientscript_6045](component $component0, int $int1)
+if ($int1 = 1) {
+    if_setonvarcstrtransmit($component0, clientscript_6045, $component0, 0, 358, 1, "I1Y");
+}
+~clientscript_6046(%varclient_2380, $component0, 60);

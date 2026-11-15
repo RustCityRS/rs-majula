@@ -1,0 +1,9 @@
+// 2238
+[clientscript,easter10_tegg_repair_click]
+sound_synth(synth_8729, 1, 0);
+if (%easter10_teggrepair = false) {
+    %easter10_teggrepair = true;
+} else {
+    %easter10_teggrepair = false;
+}
+~script2220;

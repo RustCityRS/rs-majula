@@ -1,0 +1,32 @@
+// 1853
+[proc,clientscript_1853]()(int)
+def_int $int0 = op6505;
+def_int $int1 = 0;
+if (testbit($int0, 14) = ^true) {
+    $int1 = setbit($int1, 0);
+}
+if (testbit($int0, 15) = ^true) {
+    $int1 = setbit($int1, 1);
+}
+if (testbit($int0, 16) = ^true) {
+    $int1 = setbit($int1, 2);
+}
+if (testbit($int0, 17) = ^true) {
+    $int1 = setbit($int1, 3);
+}
+if (testbit($int0, 18) = ^true) {
+    $int1 = setbit($int1, 4);
+}
+if (testbit($int0, 19) = ^true) {
+    $int1 = setbit($int1, 5);
+}
+if (testbit($int0, 20) = ^true) {
+    $int1 = setbit($int1, 6);
+}
+if (testbit($int0, 21) = ^true) {
+    $int1 = setbit($int1, 7);
+}
+if (testbit($int0, 22) = ^true) {
+    $int1 = setbit($int1, 8);
+}
+return($int1);

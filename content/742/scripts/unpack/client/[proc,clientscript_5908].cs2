@@ -1,0 +1,13 @@
+// 5908
+[proc,clientscript_5908](obj $obj0)(string)
+def_string $string0 = "";
+if (map_members = false) {
+    $string0 = " (Member's item)";
+}
+if (oc_members($obj0) = 0) {
+    return(oc_name($obj0));
+}
+if (map_members = true) {
+    return("<oc_name($obj0)><$string0>");
+}
+return("<enum(obj, string, enum_5703, $obj0)><$string0>");

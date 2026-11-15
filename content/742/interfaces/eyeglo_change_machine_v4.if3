@@ -1,0 +1,542 @@
+// 442:0
+[contents]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 442:1
+[eyeglo_change_machine_background]
+type=rectangle
+x=7
+y=7
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_centre
+ymode=proportion_centre
+layer=contents
+colour=0x34270f
+fill=yes
+trans=50
+
+// 442:2
+[eyeglo_change_machine]
+type=model
+x=126
+y=18
+width=385
+height=317
+layer=contents
+model=model_17189
+modelorigin=-33,42
+modelzoom=750
+
+// 442:3
+[eyeglo_exchange_window]
+type=model
+x=333
+y=59
+width=144
+height=144
+layer=contents
+model=model_17195
+modelorigin=-1,-1
+modelzoom=750
+
+// 442:4
+[eyeglo_exchange_coinslot]
+type=model
+x=169
+y=60
+width=33
+height=67
+layer=contents
+model=model_17192
+modelzoom=750
+transmitop=1
+op1=Insert coin
+
+// 442:5
+[eyeglo_exchange_cancel]
+type=model
+x=163
+y=160
+width=61
+height=51
+layer=contents
+model=model_17190
+modelorigin=0,-4
+modelzoom=750
+
+// 442:6
+[eyeglo_exchange_takecoins]
+type=model
+x=172
+y=250
+width=56
+height=45
+layer=contents
+model=model_17191
+modelzoom=750
+
+// 442:7
+[eyeglo_take_button]
+type=model
+x=149
+y=165
+width=98
+height=106
+layer=contents
+model=model_17193
+modelorigin=-5,0
+modelzoom=750
+
+// 442:8
+[eyeglo_exchange_hand]
+type=model
+x=-37
+y=113
+width=224
+height=153
+layer=contents
+model=model_17187
+modelorigin=15,2
+modelangle=119,290,73
+modelzoom=385
+
+// 442:9
+[eyeglo_exchange_current_coin]
+type=model
+x=58
+y=147
+width=40
+height=40
+layer=contents
+model=null
+modelorigin=2,2
+modelangle=381,0,62
+modelzoom=300
+onvartransmit=eyeglo_machine_transmit(event_com){eyeglo_coin_selected}
+
+// 442:10
+[eyeglo_exchange_button]
+type=model
+x=279
+y=120
+width=55
+height=23
+layer=contents
+model=model_17194
+modelzoom=750
+transmitop=1
+op1=Exchange
+
+// 442:11
+[eyeglo_exchange_cancel_clicker]
+type=rectangle
+x=177
+y=166
+width=32
+height=32
+layer=contents
+colour=0xffff00
+trans=255
+transmitop=1
+op1=Cancel exchange
+
+// 442:12
+[eyeglo_take_button_clicker]
+type=rectangle
+x=177
+y=202
+width=32
+height=32
+layer=contents
+colour=0xffff00
+trans=255
+transmitop=1
+op1=Accept exchange
+
+// 442:13
+[eyeglo_change_machine_border]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=contents
+colour=0x000000
+
+// 442:14
+[in]
+type=layer
+x=229
+y=77
+width=36
+height=159
+layer=contents
+onload=eyeglo_exchanger_in(eyeglo_change_machine_v4:in_0, eyeglo_change_machine_v4:in_1, eyeglo_change_machine_v4:in_2)
+oninvtransmit=eyeglo_exchanger_in(eyeglo_change_machine_v4:in_0, eyeglo_change_machine_v4:in_1, eyeglo_change_machine_v4:in_2){eyeglo_inv_in}
+
+// 442:15
+[in_0]
+type=graphic
+y=1
+width=36
+height=32
+layer=in
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:16
+[in_1]
+type=graphic
+y=63
+width=36
+height=32
+layer=in
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:17
+[in_2]
+type=graphic
+y=125
+width=36
+height=32
+layer=in
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:18
+[out]
+type=layer
+x=358
+y=81
+width=99
+height=99
+layer=contents
+onload=eyeglo_exchanger_out(eyeglo_change_machine_v4:out_0, eyeglo_change_machine_v4:out_1, eyeglo_change_machine_v4:out_2, eyeglo_change_machine_v4:out_3)
+oninvtransmit=eyeglo_exchanger_out(eyeglo_change_machine_v4:out_0, eyeglo_change_machine_v4:out_1, eyeglo_change_machine_v4:out_2, eyeglo_change_machine_v4:out_3){eyeglo_inv_out}
+
+// 442:19
+[out_0]
+type=graphic
+y=1
+width=36
+height=32
+layer=out
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:20
+[out_1]
+type=graphic
+x=63
+y=1
+width=36
+height=32
+layer=out
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:21
+[out_2]
+type=graphic
+y=65
+width=36
+height=32
+layer=out
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:22
+[out_3]
+type=graphic
+x=63
+y=65
+width=36
+height=32
+layer=out
+outline=1
+graphicshadow=6579300
+colour=0x000000
+transmitop=10
+op10=Examine
+
+// 442:23
+[com_23]
+type=graphic
+x=479
+y=5
+width=26
+height=23
+layer=contents
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 442:24
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 442:25
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 442:26
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 442:27
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 442:28
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 442:29
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 442:30
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 442:31
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 442:32
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 442:33
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 442:34
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 442:35
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 442:36
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 442:37
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 442:38
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 442:39
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 442:40
+[com_40]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 442:41
+[com_41]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 442:42
+[com_42]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 442:43
+[com_43]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

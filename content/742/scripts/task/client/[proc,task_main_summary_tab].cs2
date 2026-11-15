@@ -1,0 +1,38 @@
+// 4019
+[proc,task_main_summary_tab](int $int0)
+sound_vorbis_volume(6185, 1, 0, 100);
+switch_int ($int0) {
+    case 0 :
+        if_sethide(task_main:com_95, false);
+        if_sethide(task_main:com_97, true);
+        if_sethide(task_main:com_90_, true);
+        if_sethide(task_main:com_102, true);
+        if_setgraphic(task_main:summary_hints_tab_l, "task_tab,4");
+        if_setgraphic(task_main:summary_hints_tab_r, "task_tab,4");
+        if_setgraphic(task_main:summary_hints_tab_m, "task_tab,5");
+    case 1 :
+        if_sethide(task_main:com_95, true);
+        if_sethide(task_main:com_97, false);
+        if_sethide(task_main:com_90_, true);
+        if_sethide(task_main:com_102, true);
+        if_setgraphic(task_main:summary_rewards_tab_l, "task_tab,4");
+        if_setgraphic(task_main:summary_rewards_tab_r, "task_tab,4");
+        if_setgraphic(task_main:summary_rewards_tab_m, "task_tab,5");
+    case 2 :
+        if_sethide(task_main:com_95, true);
+        if_sethide(task_main:com_97, true);
+        if_sethide(task_main:com_90_, false);
+        if_sethide(task_main:com_102, true);
+        if_setgraphic(task_main:com_26, "task_tab,4");
+        if_setgraphic(task_main:com_28, "task_tab,4");
+        if_setgraphic(task_main:com_27, "task_tab,5");
+    case 3 :
+        if_sethide(task_main:com_95, true);
+        if_sethide(task_main:com_97, true);
+        if_sethide(task_main:com_90_, true);
+        if_sethide(task_main:com_102, false);
+        if_setgraphic(task_main:com_135, "task_tab,4");
+        if_setgraphic(task_main:com_137, "task_tab,4");
+        if_setgraphic(task_main:com_136, "task_tab,5");
+}
+~task_main_tab_hover(0);

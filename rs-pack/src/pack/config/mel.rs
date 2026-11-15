@@ -95,13 +95,13 @@ pub fn pack_mels(
                     // 1
                     "sprite" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(1);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 2
                     "mouseovergraphic" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(2);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 3
@@ -187,7 +187,7 @@ pub fn pack_mels(
                     // 18
                     "worldmaparrow" => parse_ref(sprites, "sprites", value, |v| {
                         client.p1(18);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 19

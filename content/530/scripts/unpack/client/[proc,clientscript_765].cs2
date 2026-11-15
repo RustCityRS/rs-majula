@@ -1,0 +1,71 @@
+// 765
+[proc,clientscript_765](component $component0, int $int1, int $int2, string $string0, string $string1, string $string2, string $string3, string $string4)
+cc_deleteall($component0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (if_getscrollwidth($component0) > 0) {
+    $int3 = calc((if_getscrollwidth($component0) - 36 * $int1) / ($int1 - 1));
+} else {
+    $int3 = calc((if_getwidth($component0) - 36 * $int1) / ($int1 - 1));
+}
+if (if_getscrollheight($component0) > 0) {
+    $int4 = calc((if_getscrollheight($component0) - 64 * $int2) / ($int2 - 1));
+} else {
+    $int4 = calc((if_getheight($component0) - 64 * $int2) / ($int2 - 1));
+}
+def_int $int5 = 0;
+def_int $int6 = 1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = -1;
+def_obj $obj10 = null;
+def_obj $obj11 = null;
+def_string $string5 = "hello";
+def_int $int12 = 0;
+while ($int5 < 78) {
+    $obj10 = enum(int, obj, enum_1277, $int6);
+    $int8 = calc($int5 % $int1);
+    cc_create($component0, 5, $int5);
+    cc_setsize(36, 32, 0, 0);
+    cc_setposition(~clientscript_761($int8), calc($int5 / $int1 * (64 + $int4)), 0, 0);
+    $obj11 = enum(int, obj, enum_1188, $int6);
+    if ($obj11 = lore_pouch_spell_grey) {
+        ~lore_interface_inv_draw_slot($obj11, $obj11, $component0, $int5, $string0, $string1, $string2, $string3, $string4, "");
+    } else if (~lore_magic_pouch_checker($obj11, $obj10) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj10)) {
+        ~lore_interface_inv_draw_slot($obj11, $obj11, $component0, $int5, $string0, $string1, $string2, $string3, $string4, "");
+    } else {
+        ~lore_interface_inv_draw_slot(enum(int, obj, enum_1184, $int6), $obj11, $component0, $int5, $string0, $string1, $string2, $string3, $string4, "");
+    }
+    if ($obj11 = lore_pouch_spell_grey) {
+        cc_setonmouserepeat("lore_blanktip(event_comsubid, interface_673:tool_tip_build_layer, interface_673:scroll_icons, $int12, $string5)");
+        cc_setonmouseleave("deltooltip(interface_673:tool_tip_build_layer)");
+    } else {
+        $string5 = enum(obj, string, enum_1187, $obj11);
+        $int12 = enum(obj, int, enum_1185, $obj10);
+        cc_setonmouserepeat("lore_addtooltip(event_comsubid, interface_673:tool_tip_build_layer, interface_673:scroll_icons, $int12, $string5, $obj10, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1, null, 1)");
+        cc_setonmouseleave("deltooltip(interface_673:tool_tip_build_layer)");
+    }
+    $int5 = calc($int5 + 1);
+    $int6 = calc($int6 + 1);
+}
+$int6 = 1;
+while ($int7 < 78) {
+    $int8 = calc($int7 % $int1);
+    cc_create($component0, 4, $int5);
+    cc_setposition(~clientscript_762($int8), calc(32 + $int7 / $int1 * (64 + $int4)), 0, 0);
+    $obj10 = enum(int, obj, enum_1277, $int6);
+    $obj11 = enum(int, obj, enum_1188, $int6);
+    cc_settext(enum(obj, string, enum_1187, $obj11));
+    cc_settextfont(496);
+    cc_setsize(90, 50, 0, 0);
+    if (~lore_magic_pouch_checker($obj11, $obj10) = 1 & stat_base(summoning) >= enum(obj, int, enum_1185, $obj10)) {
+        cc_setcolour(0xffff64);
+    } else {
+        cc_setcolour(0x111111);
+    }
+    cc_settextshadow(true);
+    cc_settextalign(1, 0, 0);
+    $int7 = calc($int7 + 1);
+    $int5 = calc($int5 + 1);
+    $int6 = calc($int6 + 1);
+}

@@ -1,0 +1,17 @@
+// 2685
+[proc,script2685](int $int0)
+if ($int0 = 0) {
+    if_setgraphic(poh_house_options:com_31, "miscgraphics,8");
+    if_setgraphic(poh_house_options:com_32, "miscgraphics,7");
+    if_setgraphic(poh_house_options:com_33, "miscgraphics,14");
+    if_setgraphic(poh_house_options:com_7, "miscgraphics,6");
+    if_setgraphic(poh_house_options:com_8, "miscgraphics,4");
+    if_setgraphic(poh_house_options:com_23, "miscgraphics,13");
+} else {
+    if_setgraphic(poh_house_options:com_31, "miscgraphics,6");
+    if_setgraphic(poh_house_options:com_32, "miscgraphics,4");
+    if_setgraphic(poh_house_options:com_33, "miscgraphics,13");
+    if_setgraphic(poh_house_options:com_7, "miscgraphics,8");
+    if_setgraphic(poh_house_options:com_8, "miscgraphics,7");
+    if_setgraphic(poh_house_options:com_23, "miscgraphics,14");
+}

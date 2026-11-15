@@ -9,6 +9,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -16,16 +17,14 @@ static TURN: Mutex<()> = Mutex::new(());
 
 const SMITHING: usize = 13;
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
-    let names = match kind {
-        "obj" => &engine.cache.objs.debugnames,
-        "npc" => &engine.cache.npcs.debugnames,
-        "varp" => &engine.cache.varps.debugnames,
-        _ => &engine.cache.invs.debugnames,
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
+    let id = match kind {
+        "obj" => engine.cache.objs.get_by_debugname(name).map(|t| t.id),
+        "npc" => engine.cache.npcs.get_by_debugname(name).map(|t| t.id),
+        "varp" => engine.cache.varps.get_by_debugname(name).map(|t| t.id),
+        _ => engine.cache.invs.get_by_debugname(name).map(|t| t.id),
     };
-    *names
-        .get(name)
-        .unwrap_or_else(|| panic!("no {kind} {name}"))
+    id.unwrap_or_else(|| panic!("no {kind} {name}"))
 }
 
 /// Moves the player beside npc `name`: its nid.
@@ -73,13 +72,13 @@ fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, items: &[(&str, u32)]) {
     let inv = id(engine, "inv", "inv");
-    let ids: Vec<(u16, u32)> = items
+    let ids: Vec<(TypeId, u32)> = items
         .iter()
         .map(|&(n, c)| (id(engine, "obj", n), c))
         .collect();

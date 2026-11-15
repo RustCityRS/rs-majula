@@ -1,0 +1,13 @@
+// 6061
+[proc,clientscript_6061](component $component0, component $component1, component $component2, int $int3)
+def_graphic $graphic4 = 10285;
+def_graphic $graphic5 = 10286;
+def_graphic $graphic6 = 10287;
+if ($int3 = 1) {
+    $graphic4 = 10288;
+    $graphic5 = 10289;
+    $graphic6 = 10290;
+}
+if_setgraphic($component0, $graphic4);
+if_setgraphic($component1, $graphic5);
+if_setgraphic($component2, $graphic6);

@@ -1,0 +1,49 @@
+// 5887
+[proc,clientscript_5887](int $int0, int $int1)(int)
+def_int $int2 = 8;
+def_int $int3 = 20;
+def_int $int4 = calc($int1 / 20);
+def_int $int5 = calc($int1 % 20);
+def_int $int6 = 0;
+if ($int4 > 0) {
+    $int6 = calc($int6 + 140);
+}
+if ($int4 > 1) {
+    $int6 = calc($int6 + 120);
+}
+if ($int4 > 2) {
+    $int6 = calc($int6 + 100);
+}
+if ($int4 > 3) {
+    $int6 = calc($int6 + 80);
+}
+if ($int4 > 4) {
+    $int6 = calc($int6 + 60);
+}
+if ($int4 > 5) {
+    $int6 = calc($int6 + 40);
+}
+if ($int4 > 6) {
+    $int6 = calc($int6 + 20);
+}
+def_int $int7 = 8;
+switch_int ($int4) {
+    case 0 :
+        $int7 = 8;
+    case 1 :
+        $int7 = 7;
+    case 2 :
+        $int7 = 6;
+    case 3 :
+        $int7 = 5;
+    case 4 :
+        $int7 = 4;
+    case 5 :
+        $int7 = 3;
+    case 6 :
+        $int7 = 2;
+    case 7 :
+        $int7 = 1;
+}
+$int6 = calc($int6 + $int7 * $int5);
+return(~clientscript_5888($int0, $int6));

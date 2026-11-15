@@ -1,0 +1,7 @@
+// 1420
+[proc,clientscript_1420]()(int)
+if (%camera_control_mode ! 1 & (%cutscene_status ! 1 | %cutscene_status = 1 & %varplayerbit_10196 = 1) & op5516 = 1) {
+    return(1);
+} else {
+    return(0);
+}

@@ -1,0 +1,10 @@
+// 1772
+[proc,clientscript_1772]
+if (%clanwars_rulevarc_nostragglers = false) {
+    if_setgraphic(clanwars_setup:stragglers_indicator, 699);
+    if_setgraphic(clanwars_setup:nostragglers_indicator, 697);
+} else {
+    if_setgraphic(clanwars_setup:stragglers_indicator, 697);
+    if_setgraphic(clanwars_setup:nostragglers_indicator, 699);
+}
+~clanwars_updateside;

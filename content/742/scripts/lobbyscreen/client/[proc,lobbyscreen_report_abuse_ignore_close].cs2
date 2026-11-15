@@ -1,0 +1,4 @@
+// 3205
+[proc,lobbyscreen_report_abuse_ignore_close]
+if_closesubclient(lobbyscreen:report_abuse_ignore_body);
+if_sethide(lobbyscreen:report_abuse_ignore, true);

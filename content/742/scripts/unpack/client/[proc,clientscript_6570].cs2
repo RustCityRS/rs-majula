@@ -1,0 +1,40 @@
+// 6570
+[proc,clientscript_6570]
+~clientscript_6571;
+def_int $int0 = calc(%varplayerbit_11155 - 1 - %varplayerbit_10860);
+def_int $int1 = 0;
+while ($int0 < 0) {
+    $int0 = calc($int0 + 13);
+    $int1 = calc($int1 + 1);
+    if ($int1 > 10) {
+        return;
+    }
+}
+switch_int ($int0) {
+    case 0 :
+        if_sethide(interface_1253:com_149, true);
+    case 1 :
+        if_sethide(interface_1253:com_150, true);
+    case 2 :
+        if_sethide(interface_1253:com_151, true);
+    case 3 :
+        if_sethide(interface_1253:com_152, true);
+    case 4 :
+        if_sethide(interface_1253:com_153, true);
+    case 5 :
+        if_sethide(interface_1253:com_154, true);
+    case 6 :
+        if_sethide(interface_1253:com_155, true);
+    case 7 :
+        if_sethide(interface_1253:com_156, true);
+    case 8 :
+        if_sethide(interface_1253:com_157, true);
+    case 9 :
+        if_sethide(interface_1253:com_158, true);
+    case 10 :
+        if_sethide(interface_1253:com_159, true);
+    case 11 :
+        if_sethide(interface_1253:com_160, true);
+    case 12 :
+        if_sethide(interface_1253:com_161, true);
+}

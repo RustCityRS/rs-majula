@@ -1,0 +1,13 @@
+// 165
+[clientscript,cws_graphic_swap_2](component $component0, int $int1)
+def_int $int2 = ~cws_cc_getvar($int1);
+if ($int2 = 7) {
+    if_setgraphic($component0, "wild_ditch_sign_button,0");
+    if_setcolour(enum(int, component, enum_688, $int1), ^red);
+} else if ($int2 = 6) {
+    if_setgraphic($component0, "wild_ditch_sign_button,1");
+    if_setcolour(enum(int, component, enum_688, $int1), ^green);
+} else {
+    if_setgraphic($component0, "wild_ditch_sign_button,2");
+    if_setcolour(enum(int, component, enum_688, $int1), 0xcccccc);
+}

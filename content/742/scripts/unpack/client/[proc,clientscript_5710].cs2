@@ -1,0 +1,8 @@
+// 5710
+[proc,clientscript_5710](int $int0, int $int1)
+if_sethide(interface_1218:com_161, true);
+%varclient_1754 = $int1;
+if (cc_find(interface_1218:com_161, $int1) = true) {
+    if_settext(interface_1218:com_172, cc_gettext);
+}
+~clientscript_5691($int0);

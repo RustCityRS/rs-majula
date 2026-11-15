@@ -1,0 +1,23 @@
+// 6316
+[proc,clientscript_6316](string $string0, obj $obj0, component $component1, component $component2, component $component3, component $component4)
+if_setpausetext($component1, $string0);
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+~script4513($component2, struct_1746);
+~script4513($component3, struct_1747);
+~script4513($component4, struct_1748);
+def_int $int5 = if_getheight($component1);
+cc_deleteall($component1);
+cc_create($component1, ^iftype_model, 0);
+cc_setsize(calc($int5 - 1), calc($int5 - 1), ^setsize_abs, ^setsize_abs);
+cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setobject($obj0, 1);
+cc_create($component1, ^iftype_text, 1);
+cc_setsize($int5, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextfont(p12_full);
+cc_setcolour(0xcccccc);
+cc_settextshadow(true);
+cc_settext($string0);

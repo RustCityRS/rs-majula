@@ -1,0 +1,192 @@
+// 1216:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_16
+
+// 1216:1
+[com_1]
+type=model
+x=1
+y=-144
+width=786
+height=480
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_32167
+modelorigin=5,-45
+modelangle=512,0,0
+modelzoom=800
+modelanim=seq_15752
+
+// 1216:2
+[com_2]
+type=model
+x=-32
+y=-1
+width=353
+height=161
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_32141
+modelorigin=39,-60
+modelangle=512,0,0
+modelzoom=800
+modelanim=seq_15751
+
+// 1216:3
+[com_3]
+type=layer
+height=120
+widthmode=minus
+ymode=abs_bottom
+layer=com_11
+
+// 1216:4
+[com_4]
+type=graphic
+width=85
+height=33
+widthmode=minus
+xmode=abs_centre
+layer=com_10
+graphic=graphic_9240
+tiling=yes
+
+// 1216:5
+[com_5]
+type=graphic
+width=50
+height=33
+layer=com_10
+graphic=graphic_9239
+
+// 1216:6
+[com_6]
+type=graphic
+width=50
+height=33
+xmode=abs_right
+layer=com_10
+graphic=graphic_9241
+
+// 1216:7
+[com_7]
+type=graphic
+y=5
+width=193
+height=23
+xmode=abs_centre
+layer=com_10
+graphic=graphic_9245
+
+// 1216:8
+[com_8]
+type=graphic
+y=-40
+width=143
+height=146
+xmode=abs_centre
+layer=com_11
+graphic=graphic_9233
+vflip=yes
+
+// 1216:9
+[com_9]
+type=graphic
+y=20
+width=87
+height=86
+xmode=abs_centre
+layer=com_11
+graphic=graphic_9271
+2dangle=65353
+
+// 1216:10
+[com_10]
+type=layer
+width=150
+height=32
+xmode=abs_centre
+layer=com_11
+
+// 1216:11
+[com_11]
+type=layer
+height=180
+widthmode=minus
+xmode=abs_centre
+layer=com_16
+
+// 1216:12
+[com_12]
+type=graphic
+x=-10
+y=45
+width=22
+height=33
+xmode=abs_centre
+layer=com_11
+hide=yes
+graphic=graphic_9255
+
+// 1216:13
+[com_13]
+type=graphic
+y=45
+width=22
+height=33
+xmode=abs_centre
+layer=com_11
+hide=yes
+graphic=graphic_9248
+
+// 1216:14
+[com_14]
+type=graphic
+x=10
+y=45
+width=22
+height=33
+xmode=abs_centre
+layer=com_11
+hide=yes
+graphic=graphic_9255
+
+// 1216:15
+[com_15]
+type=graphic
+y=35
+width=52
+height=52
+xmode=abs_centre
+layer=com_11
+graphic="staticons_high_res_clean,0"
+
+// 1216:16
+[com_16]
+type=layer
+y=-3
+widthmode=minus
+heightmode=minus
+onvarctransmit=clientscript_336{varclient_1756}
+
+// 1216:17
+[com_17]
+type=model
+x=3
+y=-143
+width=786
+height=487
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_32167
+modelorigin=3,-49
+modelangle=512,0,0
+modelzoom=800
+modelanim=seq_15753

@@ -1,0 +1,2479 @@
+// 824:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_213
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to change the colour of the spotlight.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 824:1
+[com_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_176
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to change the colour of the spotlight.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 824:2
+[com_2]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_123
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to change the colour of the spotlight.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 824:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_28
+onclick=clientscript_5305
+
+// 824:4
+[com_4]
+type=layer
+y=164
+height=4065
+widthmode=minus
+heightmode=proportion
+layer=com_29
+
+// 824:5
+[com_5]
+type=layer
+y=109
+height=4065
+widthmode=minus
+heightmode=proportion
+layer=com_29
+
+// 824:6
+[com_6]
+type=layer
+y=55
+height=4065
+widthmode=minus
+heightmode=proportion
+layer=com_29
+
+// 824:7
+[com_7]
+type=layer
+height=4065
+widthmode=minus
+heightmode=proportion
+layer=com_29
+
+// 824:8
+[com_8]
+type=layer
+x=10
+y=40
+width=25
+height=55
+layer=com_29
+hide=yes
+noclickthrough=yes
+
+// 824:9
+[com_9]
+type=layer
+x=11
+y=92
+width=25
+height=55
+layer=com_29
+hide=yes
+noclickthrough=yes
+
+// 824:10
+[com_10]
+type=layer
+x=11
+y=145
+width=25
+height=55
+layer=com_29
+hide=yes
+noclickthrough=yes
+
+// 824:11
+[com_11]
+type=layer
+x=10
+y=124
+width=25
+height=55
+layer=com_29
+hide=yes
+noclickthrough=yes
+
+// 824:12
+[com_12]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_8
+
+// 824:13
+[com_13]
+type=rectangle
+x=5
+width=4
+height=15
+ymode=abs_centre
+layer=com_58
+colour=0xffffff
+fill=yes
+
+// 824:14
+[com_14]
+type=layer
+width=25
+height=25
+layer=com_19
+
+// 824:15
+[com_15]
+type=text
+height=15
+widthmode=minus
+layer=com_7
+textfont=p11_full
+text=Spotlight 1
+colour=0xcdcaab
+
+// 824:16
+[com_16]
+type=text
+y=39
+height=15
+widthmode=minus
+layer=com_7
+textfont=p11_full
+colour=0x817a72
+
+// 824:17
+[com_17]
+type=layer
+x=108
+y=14
+width=53
+height=25
+layer=com_7
+onvartransmit=clientscript_5300{varplayer_2387, varplayer_2387, varplayer_2387, varplayer_2387}
+onop=clientscript_5296
+
+// 824:18
+[com_18]
+type=layer
+x=-5
+y=14
+width=38
+height=25
+xmode=abs_centre
+layer=com_7
+
+// 824:19
+[com_19]
+type=layer
+x=10
+y=14
+width=38
+height=25
+layer=com_7
+
+// 824:20
+[com_20]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_19
+noclickthrough=yes
+onmouseleave=clan_colour_popout_mouseover(interface_824:com_71, "aif_browngrad_topbot,1", interface_824:com_72, "aif_browngrad_fill,1", interface_824:com_73, "aif_browngrad_topbot,1")
+onmouserepeat=clan_colour_popout_mouseover(interface_824:com_71, "aif_browngrad_topbot,0", interface_824:com_72, "aif_browngrad_fill,0", interface_824:com_73, "aif_browngrad_topbot,0")
+onclick=clientscript_5302(interface_824:com_8, interface_824:com_74)
+
+// 824:21
+[com_21]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_20
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to change the colour of the spotlight.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 824:22
+[com_22]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_8
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_8, interface_824:com_74)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "White", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:23
+[com_23]
+type=rectangle
+y=14
+width=17
+height=6
+xmode=abs_centre
+layer=com_8
+colour=0xffff00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_8, interface_824:com_74)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Yellow", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:24
+[com_24]
+type=rectangle
+y=24
+width=17
+height=6
+xmode=abs_centre
+layer=com_8
+colour=0x00cc00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_8, interface_824:com_74)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Green", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:25
+[com_25]
+type=rectangle
+y=34
+width=17
+height=6
+xmode=abs_centre
+layer=com_8
+colour=0x0066cc
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_8, interface_824:com_74)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Blue", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:26
+[com_26]
+type=rectangle
+y=44
+width=17
+height=6
+xmode=abs_centre
+layer=com_8
+colour=0xcc0000
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_8, interface_824:com_74)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Red", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:27
+[com_27]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_8
+colour=0xb6b49a
+
+// 824:28
+[com_28]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 824:29
+[com_29]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_28
+
+// 824:30
+[com_30]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_28
+
+// 824:31
+[com_31]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_28
+onload=aif_build_close_button_layer(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=clientscript_5332(event_com, interface_824:com_33, "Closing this interface will stop using the Spotlight Machine.", 20, 170)
+
+// 824:32
+[com_32]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_28
+
+// 824:33
+[com_33]
+type=layer
+width=190
+height=261
+layer=com_32
+
+// 824:34
+[com_34]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+textfont=palatino_linotype_14pt_regular
+text=Spotlight Control
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=aif_text_layer_build_new(event_com, "Spot Light Control", palatino_linotype_14pt_regular, 0xebe0bc, ^black)
+
+// 824:35
+[com_35]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 824:36
+[com_36]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+onload=aif_build_close_button_over(event_com)
+
+// 824:37
+[com_37]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+onload=script4525(event_com, struct_1799)
+
+// 824:38
+[com_38]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+onload=script4525(event_com, struct_1800)
+
+// 824:39
+[com_39]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+onload=script4525(event_com, struct_1801)
+
+// 824:40
+[com_40]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+onload=script4525(event_com, struct_1802)
+
+// 824:41
+[com_41]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+targetmask=player,heldobj
+targetverb=Spotlight
+targetcursor2=cursor_target
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+ontargetenter=clientscript_5294(event_com, interface_824:com_40)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 824:42
+[com_42]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+
+// 824:43
+[com_43]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+graphic="aif_spotlighticons,1"
+
+// 824:44
+[com_44]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_18
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:45
+[com_45]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_44
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:46
+[com_46]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+onload=script4525(event_com, struct_1799)
+
+// 824:47
+[com_47]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+onload=script4213(event_com)
+
+// 824:48
+[com_48]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+
+// 824:49
+[com_49]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+graphic="aif_spotlighticons,0"
+
+// 824:50
+[com_50]
+type=rectangle
+y=20
+width=17
+height=3
+xmode=abs_centre
+layer=com_48
+colour=0x1a2df5
+fill=yes
+onvartransmit=clientscript_5304(event_com){varplayer_2387}
+
+// 824:51
+[com_51]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:52
+[com_52]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_51
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:53
+[com_53]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1799)
+
+// 824:54
+[com_54]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1800)
+
+// 824:55
+[com_55]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1801)
+
+// 824:56
+[com_56]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1802)
+
+// 824:57
+[com_57]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 824:58
+[com_58]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+
+// 824:59
+[com_59]
+type=text
+x=4
+width=15
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_58
+textfont=p11_full
+text=Off
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 824:60
+[com_60]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:61
+[com_61]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_60
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:62
+[com_62]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+graphic=window_texture_2
+tiling=yes
+
+// 824:63
+[com_63]
+type=graphic
+width=10
+height=10
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 824:64
+[com_64]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 824:65
+[com_65]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 824:66
+[com_66]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 824:67
+[com_67]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 824:68
+[com_68]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 824:69
+[com_69]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 824:70
+[com_70]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_12
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 824:71
+[com_71]
+type=graphic
+width=10
+height=9
+layer=com_20
+graphic="aif_browngrad_topbot,0"
+
+// 824:72
+[com_72]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=com_20
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 824:73
+[com_73]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=com_20
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 824:74
+[com_74]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=com_20
+graphic="aif_symbol_set_1,4"
+
+// 824:75
+[com_75]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 824:76
+[com_76]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_75
+graphic=window_texture_2
+tiling=yes
+
+// 824:77
+[com_77]
+type=graphic
+width=10
+height=10
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 824:78
+[com_78]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 824:79
+[com_79]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 824:80
+[com_80]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 824:81
+[com_81]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 824:82
+[com_82]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 824:83
+[com_83]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 824:84
+[com_84]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_75
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 824:85
+[com_85]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_9
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_9, interface_824:com_127)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "White", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:86
+[com_86]
+type=rectangle
+y=14
+width=17
+height=6
+xmode=abs_centre
+layer=com_9
+colour=0xffff00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_9, interface_824:com_127)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Yellow", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:87
+[com_87]
+type=rectangle
+y=24
+width=17
+height=6
+xmode=abs_centre
+layer=com_9
+colour=0x00cc00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_9, interface_824:com_127)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Green", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:88
+[com_88]
+type=rectangle
+y=34
+width=17
+height=6
+xmode=abs_centre
+layer=com_9
+colour=0x0066cc
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_9, interface_824:com_127)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Blue", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:89
+[com_89]
+type=rectangle
+y=44
+width=17
+height=6
+xmode=abs_centre
+layer=com_9
+colour=0xcc0000
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_9, interface_824:com_127)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Red", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:90
+[com_90]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_9
+colour=0xb6b49a
+
+// 824:91
+[com_91]
+type=text
+height=15
+widthmode=minus
+layer=com_6
+textfont=p11_full
+text=Spotlight 2
+colour=0xcdcaab
+
+// 824:92
+[com_92]
+type=text
+y=39
+height=15
+widthmode=minus
+layer=com_6
+textfont=p11_full
+colour=0x817a72
+
+// 824:93
+[com_93]
+type=layer
+x=108
+y=14
+width=53
+height=25
+layer=com_6
+onvartransmit=clientscript_5300{varplayer_2387, varplayer_2387, varplayer_2387, varplayer_2387}
+onop=clientscript_5296
+
+// 824:94
+[com_94]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+onload=script4525(event_com, struct_1799)
+
+// 824:95
+[com_95]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+onload=script4525(event_com, struct_1800)
+
+// 824:96
+[com_96]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+onload=script4525(event_com, struct_1801)
+
+// 824:97
+[com_97]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+onload=script4525(event_com, struct_1802)
+
+// 824:98
+[com_98]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 824:99
+[com_99]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+
+// 824:100
+[com_100]
+type=rectangle
+x=5
+width=4
+height=15
+ymode=abs_centre
+layer=com_99
+colour=0xffffff
+fill=yes
+
+// 824:101
+[com_101]
+type=text
+x=4
+width=15
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_99
+textfont=p11_full
+text=Off
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 824:102
+[com_102]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_93
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:103
+[com_103]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_102
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:104
+[com_104]
+type=layer
+x=-5
+y=14
+width=38
+height=25
+xmode=abs_centre
+layer=com_6
+
+// 824:105
+[com_105]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4525(event_com, struct_1799)
+
+// 824:106
+[com_106]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4525(event_com, struct_1800)
+
+// 824:107
+[com_107]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4525(event_com, struct_1801)
+
+// 824:108
+[com_108]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4525(event_com, struct_1802)
+
+// 824:109
+[com_109]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+targetmask=player,heldobj
+targetverb=Spotlight
+targetcursor2=cursor_target
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+ontargetenter=clientscript_5294(event_com, interface_824:com_108)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)
+
+// 824:110
+[com_110]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+
+// 824:111
+[com_111]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_110
+graphic="aif_spotlighticons,1"
+
+// 824:112
+[com_112]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_104
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:113
+[com_113]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_112
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:114
+[com_114]
+type=layer
+x=10
+y=14
+width=38
+height=25
+layer=com_6
+
+// 824:115
+[com_115]
+type=layer
+width=25
+height=25
+layer=com_114
+
+// 824:116
+[com_116]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_115
+onload=script4525(event_com, struct_1799)
+
+// 824:117
+[com_117]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_115
+onload=script4213(event_com)
+
+// 824:118
+[com_118]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_115
+
+// 824:119
+[com_119]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_118
+graphic="aif_spotlighticons,0"
+
+// 824:120
+[com_120]
+type=rectangle
+y=20
+width=17
+height=3
+xmode=abs_centre
+layer=com_118
+colour=0x1a2df5
+fill=yes
+onvartransmit=clientscript_5304(event_com){varplayer_2387}
+
+// 824:121
+[com_121]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_115
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:122
+[com_122]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_121
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:123
+[com_123]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_114
+noclickthrough=yes
+onmouseleave=clan_colour_popout_mouseover(interface_824:com_124, "aif_browngrad_topbot,1", interface_824:com_125, "aif_browngrad_fill,1", interface_824:com_126, "aif_browngrad_topbot,1")
+onmouserepeat=clan_colour_popout_mouseover(interface_824:com_124, "aif_browngrad_topbot,0", interface_824:com_125, "aif_browngrad_fill,0", interface_824:com_126, "aif_browngrad_topbot,0")
+onclick=clientscript_5302(interface_824:com_9, interface_824:com_127)
+
+// 824:124
+[com_124]
+type=graphic
+width=10
+height=9
+layer=com_123
+graphic="aif_browngrad_topbot,0"
+
+// 824:125
+[com_125]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=com_123
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 824:126
+[com_126]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=com_123
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 824:127
+[com_127]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=com_123
+graphic="aif_symbol_set_1,4"
+
+// 824:128
+[com_128]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+
+// 824:129
+[com_129]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_128
+graphic=window_texture_2
+tiling=yes
+
+// 824:130
+[com_130]
+type=graphic
+width=10
+height=10
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 824:131
+[com_131]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 824:132
+[com_132]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 824:133
+[com_133]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 824:134
+[com_134]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 824:135
+[com_135]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 824:136
+[com_136]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 824:137
+[com_137]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_128
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 824:138
+[com_138]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_10
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_10, interface_824:com_180)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "White", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:139
+[com_139]
+type=rectangle
+y=14
+width=17
+height=6
+xmode=abs_centre
+layer=com_10
+colour=0xffff00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_10, interface_824:com_180)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Yellow", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:140
+[com_140]
+type=rectangle
+y=24
+width=17
+height=6
+xmode=abs_centre
+layer=com_10
+colour=0x00cc00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_10, interface_824:com_180)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Green", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:141
+[com_141]
+type=rectangle
+y=34
+width=17
+height=6
+xmode=abs_centre
+layer=com_10
+colour=0x0066cc
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_10, interface_824:com_180)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Blue", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:142
+[com_142]
+type=rectangle
+y=44
+width=17
+height=6
+xmode=abs_centre
+layer=com_10
+colour=0xcc0000
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_10, interface_824:com_180)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Red", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:143
+[com_143]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_10
+colour=0xb6b49a
+
+// 824:144
+[com_144]
+type=text
+height=15
+widthmode=minus
+layer=com_5
+textfont=p11_full
+text=Spotlight 3
+colour=0xcdcaab
+
+// 824:145
+[com_145]
+type=text
+y=39
+height=15
+widthmode=minus
+layer=com_5
+textfont=p11_full
+colour=0x817a72
+
+// 824:146
+[com_146]
+type=layer
+x=108
+y=14
+width=53
+height=25
+layer=com_5
+onvartransmit=clientscript_5300{varplayer_2387, varplayer_2387, varplayer_2387, varplayer_2387}
+onop=clientscript_5296
+
+// 824:147
+[com_147]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4525(event_com, struct_1799)
+
+// 824:148
+[com_148]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4525(event_com, struct_1800)
+
+// 824:149
+[com_149]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4525(event_com, struct_1801)
+
+// 824:150
+[com_150]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4525(event_com, struct_1802)
+
+// 824:151
+[com_151]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 824:152
+[com_152]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+
+// 824:153
+[com_153]
+type=rectangle
+x=5
+width=4
+height=15
+ymode=abs_centre
+layer=com_152
+colour=0xffffff
+fill=yes
+
+// 824:154
+[com_154]
+type=text
+x=4
+width=15
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_152
+textfont=p11_full
+text=Off
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 824:155
+[com_155]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_146
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:156
+[com_156]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_155
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:157
+[com_157]
+type=layer
+x=-5
+y=14
+width=38
+height=25
+xmode=abs_centre
+layer=com_5
+
+// 824:158
+[com_158]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+onload=script4525(event_com, struct_1799)
+
+// 824:159
+[com_159]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+onload=script4525(event_com, struct_1800)
+
+// 824:160
+[com_160]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+onload=script4525(event_com, struct_1801)
+
+// 824:161
+[com_161]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+onload=script4525(event_com, struct_1802)
+
+// 824:162
+[com_162]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+targetmask=player,heldobj
+targetverb=Spotlight
+targetcursor2=cursor_target
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+ontargetenter=clientscript_5294(event_com, interface_824:com_161)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 824:163
+[com_163]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+
+// 824:164
+[com_164]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_163
+graphic="aif_spotlighticons,1"
+
+// 824:165
+[com_165]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_157
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:166
+[com_166]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_165
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:167
+[com_167]
+type=layer
+x=10
+y=14
+width=38
+height=25
+layer=com_5
+
+// 824:168
+[com_168]
+type=layer
+width=25
+height=25
+layer=com_167
+
+// 824:169
+[com_169]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_168
+onload=script4525(event_com, struct_1799)
+
+// 824:170
+[com_170]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_168
+onload=script4213(event_com)
+
+// 824:171
+[com_171]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_168
+
+// 824:172
+[com_172]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_171
+graphic="aif_spotlighticons,0"
+
+// 824:173
+[com_173]
+type=rectangle
+y=20
+width=17
+height=3
+xmode=abs_centre
+layer=com_171
+colour=0x1a2df5
+fill=yes
+onvartransmit=clientscript_5304(event_com){varplayer_2387}
+
+// 824:174
+[com_174]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_168
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:175
+[com_175]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_174
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:176
+[com_176]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_167
+noclickthrough=yes
+onmouseleave=clan_colour_popout_mouseover(interface_824:com_177, "aif_browngrad_topbot,1", interface_824:com_178, "aif_browngrad_fill,1", interface_824:com_179, "aif_browngrad_topbot,1")
+onmouserepeat=clan_colour_popout_mouseover(interface_824:com_177, "aif_browngrad_topbot,0", interface_824:com_178, "aif_browngrad_fill,0", interface_824:com_179, "aif_browngrad_topbot,0")
+onclick=clientscript_5302(interface_824:com_10, interface_824:com_180)
+
+// 824:177
+[com_177]
+type=graphic
+width=10
+height=9
+layer=com_176
+graphic="aif_browngrad_topbot,0"
+
+// 824:178
+[com_178]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=com_176
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 824:179
+[com_179]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=com_176
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 824:180
+[com_180]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=com_176
+graphic="aif_symbol_set_1,4"
+
+// 824:181
+[com_181]
+type=text
+height=15
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=Spotlight 4
+colour=0xcdcaab
+
+// 824:182
+[com_182]
+type=text
+y=39
+height=15
+widthmode=minus
+layer=com_4
+textfont=p11_full
+colour=0x817a72
+
+// 824:183
+[com_183]
+type=layer
+x=108
+y=14
+width=53
+height=25
+layer=com_4
+onvartransmit=clientscript_5300{varplayer_2387, varplayer_2387, varplayer_2387, varplayer_2387}
+onop=clientscript_5296
+
+// 824:184
+[com_184]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+onload=script4525(event_com, struct_1799)
+
+// 824:185
+[com_185]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+onload=script4525(event_com, struct_1800)
+
+// 824:186
+[com_186]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+onload=script4525(event_com, struct_1801)
+
+// 824:187
+[com_187]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+onload=script4525(event_com, struct_1802)
+
+// 824:188
+[com_188]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Toggles the spotlight on and off.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 824:189
+[com_189]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+
+// 824:190
+[com_190]
+type=rectangle
+x=5
+width=4
+height=15
+ymode=abs_centre
+layer=com_189
+colour=0xffffff
+fill=yes
+
+// 824:191
+[com_191]
+type=text
+x=4
+width=15
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_189
+textfont=p11_full
+text=Off
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+
+// 824:192
+[com_192]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_183
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:193
+[com_193]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_192
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:194
+[com_194]
+type=layer
+x=-5
+y=14
+width=38
+height=25
+xmode=abs_centre
+layer=com_4
+
+// 824:195
+[com_195]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+onload=script4525(event_com, struct_1799)
+
+// 824:196
+[com_196]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+onload=script4525(event_com, struct_1800)
+
+// 824:197
+[com_197]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+onload=script4525(event_com, struct_1801)
+
+// 824:198
+[com_198]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+onload=script4525(event_com, struct_1802)
+
+// 824:199
+[com_199]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+targetmask=player,heldobj
+targetverb=Spotlight
+targetcursor2=cursor_target
+onload=script4213(event_com)
+onmouseleave=deltooltip(interface_824:com_33)
+ontargetenter=clientscript_5294(event_com, interface_824:com_198)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Allows you to target the spotlight at someone on stage. Click this, then click on the person you wish to target.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 824:200
+[com_200]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+
+// 824:201
+[com_201]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_200
+graphic="aif_spotlighticons,1"
+
+// 824:202
+[com_202]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_194
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:203
+[com_203]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_202
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:204
+[com_204]
+type=layer
+x=10
+y=14
+width=38
+height=25
+layer=com_4
+
+// 824:205
+[com_205]
+type=layer
+width=25
+height=25
+layer=com_204
+
+// 824:206
+[com_206]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_205
+onload=script4525(event_com, struct_1799)
+
+// 824:207
+[com_207]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_205
+onload=script4213(event_com)
+
+// 824:208
+[com_208]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_205
+
+// 824:209
+[com_209]
+type=graphic
+width=30
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_208
+graphic="aif_spotlighticons,0"
+
+// 824:210
+[com_210]
+type=rectangle
+y=20
+width=17
+height=3
+xmode=abs_centre
+layer=com_208
+colour=0x1a2df5
+fill=yes
+onvartransmit=clientscript_5304(event_com){varplayer_2387}
+
+// 824:211
+[com_211]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_205
+hide=yes
+noclickthrough=yes
+onload=script4525(event_com, struct_1803)
+
+// 824:212
+[com_212]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_211
+colour=0x000000
+fill=yes
+trans=100
+
+// 824:213
+[com_213]
+type=layer
+width=10
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_204
+noclickthrough=yes
+onmouseleave=clan_colour_popout_mouseover(interface_824:com_214, "aif_browngrad_topbot,1", interface_824:com_215, "aif_browngrad_fill,1", interface_824:com_216, "aif_browngrad_topbot,1")
+onmouserepeat=clan_colour_popout_mouseover(interface_824:com_214, "aif_browngrad_topbot,0", interface_824:com_215, "aif_browngrad_fill,0", interface_824:com_216, "aif_browngrad_topbot,0")
+onclick=clientscript_5302(interface_824:com_11, interface_824:com_217)
+
+// 824:214
+[com_214]
+type=graphic
+width=10
+height=9
+layer=com_213
+graphic="aif_browngrad_topbot,0"
+
+// 824:215
+[com_215]
+type=graphic
+width=10
+height=18
+heightmode=minus
+ymode=abs_centre
+layer=com_213
+graphic="aif_browngrad_fill,0"
+tiling=yes
+
+// 824:216
+[com_216]
+type=graphic
+width=10
+height=9
+ymode=abs_bottom
+layer=com_213
+graphic="aif_browngrad_topbot,0"
+vflip=yes
+
+// 824:217
+[com_217]
+type=graphic
+x=-5
+width=20
+height=20
+ymode=abs_centre
+layer=com_213
+graphic="aif_symbol_set_1,4"
+
+// 824:218
+[com_218]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_11
+
+// 824:219
+[com_219]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_218
+graphic=window_texture_2
+tiling=yes
+
+// 824:220
+[com_220]
+type=graphic
+width=10
+height=10
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 824:221
+[com_221]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 824:222
+[com_222]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 824:223
+[com_223]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 824:224
+[com_224]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 824:225
+[com_225]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 824:226
+[com_226]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 824:227
+[com_227]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_218
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 824:228
+[com_228]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_11
+colour=0xffffff
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_11, interface_824:com_217)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "White", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:229
+[com_229]
+type=rectangle
+y=14
+width=17
+height=6
+xmode=abs_centre
+layer=com_11
+colour=0xffff00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_11, interface_824:com_217)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Yellow", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:230
+[com_230]
+type=rectangle
+y=24
+width=17
+height=6
+xmode=abs_centre
+layer=com_11
+colour=0x00cc00
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_11, interface_824:com_217)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Green", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:231
+[com_231]
+type=rectangle
+y=34
+width=17
+height=6
+xmode=abs_centre
+layer=com_11
+colour=0x0066cc
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_11, interface_824:com_217)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Blue", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:232
+[com_232]
+type=rectangle
+y=44
+width=17
+height=6
+xmode=abs_centre
+layer=com_11
+colour=0xcc0000
+fill=yes
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseleave=deltooltip(interface_824:com_33)
+onop=clientscript_5302(interface_824:com_11, interface_824:com_217)
+onmouserepeat=aif_tooltip(interface_824:com_33, event_com, -1, "Red", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 824:233
+[com_233]
+type=rectangle
+y=4
+width=17
+height=6
+xmode=abs_centre
+layer=com_11
+colour=0xb6b49a

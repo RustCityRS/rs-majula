@@ -1,0 +1,17 @@
+// 9
+[clientscript,bank_v2_bankpinshow](component $component0, component $component1, component $component2)
+if (%varclient_169 = true) {
+    if_sethide($component0, false);
+    if_sethide($component1, false);
+    if_sethide($component2, false);
+    ~v2_stone_button_filled($component0);
+    if_setonmouseover($component0, "v2_stone_button_in_filled($component0)");
+    if_setonmouseleave($component0, "v2_stone_button_filled($component0)");
+} else {
+    cc_deleteall($component0);
+    if_sethide($component0, true);
+    if_sethide($component1, true);
+    if_sethide($component2, true);
+    if_setonmouseover($component0, null);
+    if_setonmouseleave($component0, null);
+}

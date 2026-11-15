@@ -1,0 +1,6 @@
+// 5679
+[proc,clientscript_5679](component $component0, component $component1)
+if (if_gethide($component1) = true) {
+    if_setontimer($component0, null);
+    if_sethide($component0, true);
+}

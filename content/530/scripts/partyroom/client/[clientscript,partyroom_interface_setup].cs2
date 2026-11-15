@@ -1,0 +1,8 @@
+// 678
+[clientscript,partyroom_interface_setup]
+~clientscript_31(partydrop_main_rwt:scrollbar_left, partydrop_main_rwt:chest_inv_layer, 792, 789, 790, 791, 773, 788);
+if_setscrollpos(partydrop_main_rwt:scrollbar_left, 0, 0);
+~scrollbar_ondrag_doscroll(partydrop_main_rwt:scrollbar_left, partydrop_main_rwt:chest_inv_layer, 0, 1);
+~clientscript_31(partydrop_main_rwt:scrollbar_right, partydrop_main_rwt:drop_inv_layer, 792, 789, 790, 791, 773, 788);
+if_setscrollpos(partydrop_main_rwt:scrollbar_right, 0, 0);
+~scrollbar_ondrag_doscroll(partydrop_main_rwt:scrollbar_right, partydrop_main_rwt:drop_inv_layer, 0, 1);

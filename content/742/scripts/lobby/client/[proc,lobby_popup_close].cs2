@@ -1,0 +1,23 @@
+// 3097
+[proc,lobby_popup_close]
+if_clearops(lobbyscreen:popup_small_button);
+if_clearops(lobbyscreen:popup_big_button);
+if_setonop(lobbyscreen:popup_small_button, null);
+if_setonop(lobbyscreen:popup_big_button, null);
+if_setonmouseover(lobbyscreen:popup_big_button, null);
+if_setonmouseleave(lobbyscreen:popup_big_button, null);
+if_setonmouseover(lobbyscreen:popup_small_button, null);
+if_setonmouseleave(lobbyscreen:popup_small_button, null);
+if_setposition(lobbyscreen:popup_small_button, 6, 5, ^setpos_abs_left, ^setpos_abs_bottom);
+if_setposition(lobbyscreen:popup_big_button, 6, 5, ^setpos_abs_left, ^setpos_abs_bottom);
+if_settext(lobbyscreen:popup_small_button_text, "");
+if_settext(lobbyscreen:popup_big_button_text, "");
+if_sethide(lobbyscreen:popup_small_button, true);
+if_sethide(lobbyscreen:popup_big_button, true);
+if_settext(lobbyscreen:popup_text, "");
+%throbber_last = 0;
+if_setgraphic(lobbyscreen:popup_throbber, null);
+if_setontimer(lobbyscreen:popup_throbber, null);
+if_setonkey(lobbyscreen:popup, null);
+if_sethide(lobbyscreen:popup, true);
+if_sethide(lobbyscreen:popup_body, true);

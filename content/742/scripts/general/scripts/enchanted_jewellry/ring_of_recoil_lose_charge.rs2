@@ -1,0 +1,9 @@
+// From 289's ring_of_recoil.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,ring_of_recoil_lose_charge](int $recoil_damage)
+%ring_of_recoil = add(max(%ring_of_recoil, 0), $recoil_damage);
+if (%ring_of_recoil >= 400) { // 289's 40 hitpoints of recoil
+    %ring_of_recoil = 0;
+    inv_delslot(worn, ^wearpos_ring);
+    mes("Your Ring of Recoil has shattered.");
+}

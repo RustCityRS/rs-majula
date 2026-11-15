@@ -25,8 +25,16 @@ pub fn pack_flus(
 
         let section_name = pack.get_by_id(id).unwrap_or("");
         let Some(props) = configs.get(section_name) else {
-            server.finish_entry();
-            client.finish_entry();
+            #[cfg(before_530)]
+            {
+                server.finish_entry();
+                client.finish_entry();
+            }
+            #[cfg(since_530)]
+            {
+                server.skip_entry();
+                client.skip_entry();
+            }
             continue;
         };
 
@@ -54,6 +62,7 @@ pub fn pack_flus(
                 "hardshadow" => client.p1(4),
 
                 // 5
+                #[cfg(since_647)]
                 "occlude" => client.p1(5),
 
                 _ => panic!("Unrecognized flu config key: {key}"),

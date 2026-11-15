@@ -1,0 +1,9 @@
+// 2324
+[proc,easter09_nuts_reset_model4]
+def_component $component0 = easter09_nuts:model4;
+%easter09_nuts_model4 = enum(int, model, enum_208, random(enum_getoutputcount(enum_208)));
+if (%easter09_nuts_model4 ! null) {
+    if_setmodel($component0, %easter09_nuts_model4);
+}
+if_setposition($component0, calc(0 - if_getwidth($component0)), 120, ^setpos_abs_left, ^setpos_abs_top);
+if_setontimer(easter09_nuts:control4, null);

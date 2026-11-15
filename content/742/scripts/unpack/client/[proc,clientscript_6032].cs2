@@ -1,0 +1,11 @@
+// 6032
+[proc,clientscript_6032]
+if (clientclock < calc(%varclient_1795 + 200)) {
+    return;
+} else {
+    if_setontimer(lobbyscreen:com_236, null);
+    if_setonvartransmit(lobbyscreen:com_236, "clientscript_5951{varplayer_2527}");
+    ~lobby_popup_close;
+    ~lobby_popup(-3, 0, "After you have completed your transaction, click continue to return to the game.", 0, 10150, 0, -1, "", "", 1, "Continue", "Continue");
+    if_setonop(lobbyscreen:popup_big_button, "clientscript_5953");
+}

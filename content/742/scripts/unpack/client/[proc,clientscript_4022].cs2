@@ -1,0 +1,26 @@
+// 4022
+[proc,clientscript_4022](component $component0, component $component1)
+def_string $string0 = %varclient_2381;
+def_component $component2 = if_getlayer($component0);
+def_fontmetrics $fontmetrics3 = op1028($component0);
+def_int $int4 = if_getwidth(if_getlayer($component2));
+def_int $int5 = if_getheight(if_getlayer($component2));
+def_int $int6 = calc(paraheight($string0, $int4, $fontmetrics3) * 15);
+if ($int6 <= $int5) {
+    if_setsize($component2, 0, $int6, ^setsize_minus, ^setsize_abs);
+    if_setposition($component2, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setsize($component0, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_sethide($component1, true);
+    cc_deleteall($component1);
+} else {
+    $int6 = calc(paraheight($string0, calc($int4 - 16), $fontmetrics3) * 15);
+    if_setsize($component2, 16, 0, ^setsize_minus, ^setsize_minus);
+    if_setposition($component2, 0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    if_setsize($component0, 0, $int6, ^setsize_minus, ^setsize_abs);
+    if_setscrollsize($component2, 0, $int6);
+    if_setscrollpos($component2, 0, 0);
+    if_sethide($component1, false);
+    cc_deleteall($component1);
+    ~scrollbar_vertical($component1, $component2, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}
+if_settext($component0, $string0);

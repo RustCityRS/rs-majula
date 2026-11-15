@@ -1,0 +1,24 @@
+// 5382
+[proc,clientscript_5382](int $int0)
+switch_int ($int0) {
+    case 75497503 :
+        if (if_find(interface_1152:com_11) = true) {
+            cc_setgraphic(6367);
+        }
+        if (if_find(interface_1152:com_12) = true) {
+            cc_setgraphic(6368);
+        }
+        if (if_find(interface_1152:com_13) = true) {
+            cc_setgraphic(6369);
+        }
+    case 75497541 :
+        if (if_find(interface_1152:com_7) = true) {
+            cc_setgraphic(6382);
+        }
+        if (if_find(interface_1152:com_8) = true) {
+            cc_setgraphic(6383);
+        }
+        if (if_find(interface_1152:com_9) = true) {
+            cc_setgraphic(6384);
+        }
+}

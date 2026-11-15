@@ -1,0 +1,39 @@
+// 5881
+[proc,clientscript_5881]
+def_int $int0 = max(0, calc(%varclient_1800 + %varplayerbit_10862 + %varplayerbit_11026));
+if_settext(interface_1253:com_103, tostring($int0));
+if_settext(interface_1253:com_168, tostring($int0));
+if_settext(interface_1253:com_98, tostring(%varplayerbit_10862));
+if_settext(interface_1253:com_99, tostring(%varclient_1800));
+if_settext(interface_1253:com_100, tostring(%varplayerbit_11026));
+if_settext(interface_1139:com_6, tostring($int0));
+if_setcolour(interface_1253:com_98, 0xd5d9dc);
+if_setcolour(interface_1253:com_99, 0xd5d9dc);
+if_setcolour(interface_1253:com_100, 0xd5d9dc);
+if_setcolour(interface_1253:com_95, 0xd5d9dc);
+if_setcolour(interface_1253:com_96, 0xd5d9dc);
+if_setcolour(interface_1253:com_97, 0xd5d9dc);
+if (%varplayerbit_10862 > 0) {
+    if_setcolour(interface_1253:com_98, 0xf2b741);
+    if_setcolour(interface_1253:com_95, 0xf2b741);
+} else if (%varplayerbit_11026 > 0) {
+    if_setcolour(interface_1253:com_100, 0xf2b741);
+    if_setcolour(interface_1253:com_97, 0xf2b741);
+} else if (%varclient_1800 > 0) {
+    if_setcolour(interface_1253:com_99, 0xf2b741);
+    if_setcolour(interface_1253:com_96, 0xf2b741);
+}
+def_int $int1 = 1;
+if (playermember = true) {
+    $int1 = 2;
+}
+if (%varplayerbit_10862 >= $int1) {
+    if_setcolour(interface_1253:com_98, 0xe22c2c);
+}
+if (%varclient_1800 >= 600) {
+    if_setcolour(interface_1253:com_99, 0xe22c2c);
+}
+if (%varplayerbit_11026 >= 10) {
+    if_setcolour(interface_1253:com_100, 0xe22c2c);
+}
+~clientscript_1968;

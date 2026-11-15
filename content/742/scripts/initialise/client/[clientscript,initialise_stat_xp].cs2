@@ -1,0 +1,11 @@
+// 521
+[clientscript,initialise_stat_xp]
+%runecraftxp = stat_visible_xp(runecraft);
+%craftingxp = stat_visible_xp(crafting);
+%fletchingxp = stat_visible_xp(fletching);
+%cookingxp = stat_visible_xp(cooking);
+%constructionxp = stat_visible_xp(construction);
+%herblorexp = stat_visible_xp(herblore);
+%magicxp = stat_visible_xp(magic);
+%smithingxp = stat_visible_xp(smithing);
+%farmingxp = stat_visible_xp(farming);

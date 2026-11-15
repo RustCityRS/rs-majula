@@ -1,0 +1,29 @@
+// 6048
+[proc,clientscript_6048](component $component0, int $int1, int $int2)
+def_int $int3 = if_gettrans($component0);
+switch_int ($int1) {
+    case 0 :
+        $int3 = max(0, calc($int3 - 20));
+        if ($int3 = 0) {
+            $int1 = -1;
+            $int2 = 0;
+        }
+    case 1 :
+        $int3 = min(255, calc($int3 + 20));
+        if ($int3 = 255) {
+            if (if_getgraphic($component0) = 10245) {
+                if_setgraphic($component0, ~clientscript_6267(10246));
+            } else {
+                if_setgraphic($component0, ~clientscript_6267(10245));
+            }
+            $int1 = 0;
+        }
+    case default :
+        $int2 = calc($int2 + 1);
+        if ($int2 >= 20) {
+            $int1 = 1;
+            $int2 = 0;
+        }
+}
+if_setontimer($component0, "clientscript_6048(event_com, $int1, $int2)");
+if_settrans($component0, $int3);

@@ -1,0 +1,24 @@
+// 6476
+[proc,clientscript_6476](int $int0, int $int1, component $component2, component $component3, component $component4)
+if ($int1 = 1) {
+    if ($int0 = 1) {
+        if_setgraphic($component2, 11892);
+        if_setgraphic($component3, 11893);
+        if_setgraphic($component4, 11894);
+    } else {
+        if_setgraphic($component2, 11889);
+        if_setgraphic($component3, 11890);
+        if_setgraphic($component4, 11891);
+    }
+} else {
+    if ($int0 = 1) {
+        if_setgraphic($component2, 11892);
+        if_setgraphic($component3, 11893);
+        if_setgraphic($component4, 11894);
+    } else {
+        if_setgraphic($component2, 11886);
+        if_setgraphic($component3, 11887);
+        if_setgraphic($component4, 11888);
+    }
+    ~deltooltip_action(interface_1311:com_87);
+}

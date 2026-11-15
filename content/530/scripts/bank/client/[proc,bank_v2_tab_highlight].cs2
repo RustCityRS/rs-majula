@@ -1,0 +1,31 @@
+// 1463
+[proc,bank_v2_tab_highlight](int $int0)
+if_setgraphic(bank_v2_main:tab_1, 1421);
+if_setgraphic(bank_v2_main:tab_2, 1421);
+if_setgraphic(bank_v2_main:tab_3, 1421);
+if_setgraphic(bank_v2_main:tab_4, 1421);
+if_setgraphic(bank_v2_main:tab_5, 1421);
+if_setgraphic(bank_v2_main:tab_6, 1421);
+if_setgraphic(bank_v2_main:tab_7, 1421);
+if_setgraphic(bank_v2_main:tab_8, 1421);
+if_setgraphic(bank_v2_main:tab_9, 1421);
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic(bank_v2_main:tab_1, 1419);
+    case 2 :
+        if_setgraphic(bank_v2_main:tab_2, 1419);
+    case 3 :
+        if_setgraphic(bank_v2_main:tab_3, 1419);
+    case 4 :
+        if_setgraphic(bank_v2_main:tab_4, 1419);
+    case 5 :
+        if_setgraphic(bank_v2_main:tab_5, 1419);
+    case 6 :
+        if_setgraphic(bank_v2_main:tab_6, 1419);
+    case 7 :
+        if_setgraphic(bank_v2_main:tab_7, 1419);
+    case 8 :
+        if_setgraphic(bank_v2_main:tab_8, 1419);
+    case 9 :
+        if_setgraphic(bank_v2_main:tab_9, 1419);
+}

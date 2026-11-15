@@ -1,0 +1,7 @@
+// 6442
+[proc,clientscript_6442](int $int0, int $int1, int $int2)
+if ($int2 ! %varclient_1968) {
+    ~clientscript_6443(0, 0, 1);
+} else if (cc_find(interface_1311:com_55, 0) = true & cc_getmodelzoom > 500 & %varclient_1968 = 0) {
+    ~clientscript_6443(0, 0, 1);
+}

@@ -1,4 +1,4 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::JagArchive;
 use crate::pack::util::media::{emit_group, read_group, read_index_order};
 use crate::pack::util::palette;

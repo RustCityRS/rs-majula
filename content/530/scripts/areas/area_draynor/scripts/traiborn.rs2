@@ -1,0 +1,251 @@
+// 289's Traiborn (areas/area_draynor/scripts/traiborn.rs2), on the Wizards'
+// Tower's first floor, as 2011's: he holds the third key to Silverlight's case
+// and wants 25 sets of bones for the ritual that opens his closet (2011 wiki,
+// Demon Slayer). His lines are void-634's (Traiborn.kt) unless marked.
+// %demon_slayer_bones is the bones he still wants: 0 until he asks,
+// ^demon_bones_given once he has them all.
+[opnpc1,traiborn]
+~chatnpc("<p,confused>Ello young thingummywut.");
+if (%demonslayer_main = ^demon_key_hunt) {
+    if (inv_total(inv, silverlight_key_1) > 0) {
+        ~chatnpc("<p,confused>Don't you have somewhere to be, young thingummywut? You still have that key you asked me for.");
+        ~chatplayer("<p,neutral>You're right. I've got a demon to slay.");
+        return;
+    }
+    if (%demon_slayer_bones = ^demon_bones_given) {
+        ~chatplayer("<p,sad>I've lost the key you gave to me.");
+        ~chatnpc("<p,confused>Yes I know, it was returned to me. If you want it back you're going to have to collect another 25 sets of bones.");
+        %demon_slayer_bones = ^demon_bones_wanted;
+        return;
+    }
+    if (%demon_slayer_bones > 0) {
+        ~chatnpc("<p,confused>How are you doing finding bones?");
+        if (inv_total(inv, bones) < 1) {
+            ~chatplayer("<p,neutral>I haven't got any at the moment.");
+            ~chatnpc("<p,neutral>Nevermind, keep working on it.");
+            return;
+        }
+        ~chatplayer("<p,neutral>I have some bones.");
+        ~chatnpc("<p,neutral>Give 'em here then.");
+        @traiborn_give_bones;
+    }
+    switch_int (~p_choice3("What's a thingummywut?", 1, "Teach me to be a mighty and powerful wizard.", 2, "I need to get a key given to you by Sir Prysin.", 3)) {
+        case 1 : @traiborn_thingummywut;
+        case 2 : @traiborn_teach_me;
+        case 3 : @traiborn_need_a_key;
+    }
+    return;
+}
+switch_int (~p_choice3("What's a thingummywut?", 1, "Teach me to be a mighty and powerful wizard.", 2, "I'd better go.", 3)) {
+    case 1 : @traiborn_thingummywut;
+    case 2 : @traiborn_teach_me;
+    case 3 :
+        ~chatplayer("<p,confused>I'd better go.");
+        ~chatnpc("<p,neutral>Cheerrio then.");
+}
+
+// Bones used on him while he wants them (void-634's itemOnNPCOperate).
+[opnpcu,traiborn]
+if (last_useitem ! bones | %demonslayer_main ! ^demon_key_hunt | %demon_slayer_bones <= 0) {
+    ~displaymessage(^dm_default);
+    return;
+}
+@traiborn_give_bones;
+
+[label,traiborn_thingummywut]
+~chatplayer("<p,confused>What's a thingummywut?");
+~chatnpc("<p,confused>A thingummywut? Where? Where?");
+~chatnpc("<p,confused>Those pesky thingummywuts. They get everywhere. They leave a terrible mess too.");
+switch_int (~p_choice2("Err you just called me thingummywut.", 1, "Tell me what they look like and I'll mash 'em.", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Err you just called me thingummywut.");
+        ~chatnpc("<p,confused>You're a thingummywut? I've never seen one up close before. They said I was mad!");
+        ~chatnpc("<p,confused>Now you are my proof! There ARE thingummywuts in this tower. Now where can I find a cage big enough to keep you?");
+        @traiborn_better_be_off_choice;
+    case 2 :
+        ~chatplayer("<p,angry>Tell me what they look like and I'll mash 'em.");
+        ~chatnpc("<p,confused>Don't be ridiculous. No-one has ever seen one.");
+        ~chatnpc("<p,confused>They're invisible, or a myth, or a figment of my imagination. Can't remember which right now.");
+}
+
+[label,traiborn_better_be_off_choice]
+switch_int (~p_choice2("Err I'd better be off really.", 1, "They're right, you are mad.", 2)) {
+    case 1 : @traiborn_better_be_off;
+    case 2 :
+        ~chatplayer("<p,neutral>They're right, you are mad.");
+        ~chatnpc("<p,sad>That's a pity. I thought maybe they were winding me up.");
+}
+
+[label,traiborn_better_be_off]
+~chatplayer("<p,neutral>Err I'd better be off really.");
+~chatnpc("<p,confused>Oh ok, have a good time, and watch out for sheep! They're more cunning than they look.");
+
+[label,traiborn_teach_me]
+~chatplayer("<p,neutral>Teach me to be a mighty and powerful wizard.");
+~chatnpc("<p,confused>Wizard eh? You don't want any truck with that sort. They're not to be trusted. That's what I've heard anyways.");
+switch_int (~p_choice2("So aren't you a wizard?", 1, "Oh I'd better stop talking to you then.", 2)) {
+    case 1 :
+        ~chatplayer("<p,quiz>So aren't you a wizard?");
+        ~chatnpc("<p,angry>How dare you? Of course I'm a wizard. Now don't be so cheeky or I'll turn you into a frog.");
+    case 2 :
+        ~chatplayer("<p,neutral>Oh I'd better stop talking to you then.");
+        ~chatnpc("<p,neutral>Cheerio then. It was nice chatting to you.");
+}
+
+[label,traiborn_need_a_key]
+~chatplayer("<p,neutral>I need to get a key given to you by Sir Prysin.");
+~chatnpc("<p,confused>Sir Prysin? Who's that? What would I want his key for?");
+switch_int (~p_choice3("He told me you were looking after it for him.", 1, "He's one of the king's knights.", 2, "Well, have you got any keys knocking around?", 3)) {
+    case 1 :
+        ~chatplayer("<p,neutral>He told me you were looking after it for him.");
+        ~chatnpc("<p,confused>That wasn't very clever of him. I'd lose my head if it wasn't screwed on. Go and tell him to find someone else to look after his valuables in future.");
+        switch_int (~p_choice2("Okay, I'll go and tell him that.", 1, "Well, have you got any keys knocking around?", 2)) {
+            case 1 :
+                ~chatplayer("<p,neutral>Okay, I'll go and tell him that.");
+                ~chatnpc("<p,neutral>Oh that's great, if it wouldn't be too much trouble.");
+                @traiborn_be_off_or_keys;
+            case 2 : @traiborn_any_keys;
+        }
+    case 2 :
+        ~chatplayer("<p,neutral>He's one of the king's knights.");
+        ~chatnpc("<p,happy>Say, I remember one of the King's knights. He had nice shoes...");
+        ~chatnpc("<p,sad>...and didn't like my homemade spinach rolls. Would you like a spinach roll?");
+        switch_int (~p_choice2("Yes please.", 1, "Just tell me if you have the key.", 2)) {
+            case 1 :
+                ~chatplayer("<p,neutral>Yes please.");
+                if (inv_freespace(inv) > 0) {
+                    inv_add(inv, spinach_roll, 1);
+                } else {
+                    obj_add(coord, spinach_roll, 1, 300);
+                }
+                ~objbox(spinach_roll, "Traiborn digs around in the pockets of his robes. After a few moments he triumphantly presents you with a spinach roll.", 250, 0, 0);
+                ~chatplayer("<p,neutral>Thank you very much.");
+                @traiborn_better_be_off_choice;
+            case 2 : @traiborn_just_tell_me;
+        }
+    case 3 : @traiborn_any_keys;
+}
+
+[label,traiborn_just_tell_me]
+~chatplayer("<p,neutral>Just tell me if you have the key.");
+~chatnpc("<p,confused>The key? The key to what?");
+~chatnpc("<p,confused>There's more than one key in the world don't you know? Would be a bit odd if there was only the one.");
+switch_int (~p_choice2("It's the key to get a sword called Silverlight.", 1, "You've lost it haven't you?", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>It's the key to get a sword called Silverlight.");
+        ~chatnpc("<p,confused>Silverlight? Never heard of that. Sounds a good name for a ship. Are you sure it's not the name of a ship rather than a sword?");
+        switch_int (~p_choice2("Yeah, pretty sure.", 1, "Well, have you got any keys knocking around?", 2)) {
+            case 1 :
+                ~chatplayer("<p,neutral>Yeah, pretty sure.");
+                ~chatnpc("<p,sad>That's a pity, waste of a name.");
+                // 289's next choice: void-634's code offers its Err-I'd-better-be-off
+                // option here but never shows it.
+                @traiborn_be_off_or_keys;
+            case 2 : @traiborn_any_keys;
+        }
+    case 2 :
+        ~chatplayer("<p,neutral>You've lost it haven't you?");
+        ~chatnpc("<p,sad>Me? Lose things? That's a nasty accusation.");
+        // 289 goes on to the key; void-634's code means to.
+        @traiborn_any_keys;
+}
+
+[label,traiborn_be_off_or_keys]
+switch_int (~p_choice2("Err I'd better be off really.", 1, "Well, have you got any keys knocking around?", 2)) {
+    case 1 : @traiborn_better_be_off;
+    case 2 : @traiborn_any_keys;
+}
+
+[label,traiborn_any_keys]
+~chatplayer("<p,neutral>Well, have you got any keys knocking around?");
+~chatnpc("<p,confused>Now you come to mention it, yes I do have a key. It's in my special closet of valuable stuff. Now, how do I get into that?");
+~chatnpc("<p,confused>I sealed it using one of my magic rituals. It would make sense, then, that another ritual would open it again.");
+~chatplayer("<p,neutral>Do you know what ritual to use?");
+~chatnpc("<p,neutral>Let me think a second.");
+~chatnpc("<p,confused>Yes, a simple drazier-style ritual should suffice. Hmm, main problem with that is I'll need 25 sets of bones. Now, where am I going to get hold of something like that?");
+switch_int (~p_choice2("Hmm, that's too bad. I really need that key.", 1, "I'll help get the bones for you.", 2)) {
+    case 1 :
+        ~chatplayer("<p,sad>Hmm, that's too bad. I really need that key.");
+        ~chatnpc("<p,neutral>Ah well, sorry I couldn't be any more help.");
+    case 2 :
+        ~chatplayer("<p,neutral>I'll help get the bones for you.");
+        if (%demonslayer_main = ^demon_key_hunt) {
+            %demon_slayer_bones = ^demon_bones_wanted;
+        }
+        ~chatnpc("<p,neutral>Ooh, that would be very good of you.");
+        ~chatplayer("<p,neutral>Okay, I'll speak to you when I've got some bones.");
+}
+
+[label,traiborn_give_bones]
+def_int $given = min(inv_total(inv, bones), %demon_slayer_bones);
+inv_del(inv, bones, $given);
+if ($given = 1) {
+    ~mesbox("You give Traiborn 1 set of bones.");
+} else {
+    ~mesbox("You give Traiborn <tostring($given)> sets of bones.");
+}
+%demon_slayer_bones = sub(%demon_slayer_bones, $given);
+if (%demon_slayer_bones > 0) {
+    ~chatplayer("<p,neutral>That's all of them.");
+    ~chatnpc("<p,confused>I still need <tostring(%demon_slayer_bones)> more.");
+    ~chatplayer("<p,neutral>Ok, I'll keep looking.");
+    return;
+}
+%demon_slayer_bones = ^demon_bones_given;
+~chatnpc("<p,happy>Hurrah! That's all 25 sets of bones.");
+npc_anim(qip_ds_bones_wizard_anim, 0); // void-634: traiborn_bone_spell
+spotanim_npc(qip_ds_bone_spotanim, 0, 0); // void-634: traiborn_bone_spell
+sound_synth(ds_bone_spell, 1, 0); // void-634: demon_slayer_bone_spell
+// 2011-04-20 recording (415.6s): the verse on four lines.
+~chatnpc("<p,confused>Wings of dark and colour too,|Spreading in the morning dew;|Locked away I have a key;|Return it now, please, unto me.");
+sound_synth(ds_cupboard_appear, 1, 0); // void-634: demon_slayer_cupboard_appear
+if_close;
+// The closet: 2011's wardrobe_17434 (void-634's demon_slayer_spell_wardrobe),
+// for 5 ticks on the first free tile beside him, facing him.
+def_coord $closet = ~traiborn_closet_tile;
+if ($closet ! null) {
+    loc_add($closet, qip_ds_wizards_key_wardrobe_magic, ~traiborn_closet_angle($closet), centrepiece_straight, 5);
+    npc_facesquare($closet);
+}
+p_delay(0);
+npc_anim(human_openchest, 0); // void-634: open_chest
+sound_synth(chest_open, 1, 0);
+p_delay(0);
+inv_add(inv, silverlight_key_1, 1);
+if ($closet ! null & loc_find($closet, qip_ds_wizards_key_wardrobe_magic) = true) {
+    loc_anim(qip_ds_wardrobe_disappear); // void-634: demon_slayer_cupboard_disappear
+}
+sound_synth(ds_cupboard_dissappear, 1, 0); // void-634: demon_slayer_cupboard_disappear
+npc_facesquare(coord);
+~objbox(silverlight_key_1, "Traiborn hands you a key.", 250, 0, 0);
+~chatplayer("<p,neutral>Thank you very much.");
+~chatnpc("<p,neutral>Not a problem for a friend of Sir What's-his-face.");
+
+[proc,traiborn_closet_tile]()(coord)
+def_coord $at = npc_coord;
+if (map_blocked(movecoord($at, -1, 0, 0)) = false) {
+    return(movecoord($at, -1, 0, 0));
+}
+if (map_blocked(movecoord($at, 0, 0, 1)) = false) {
+    return(movecoord($at, 0, 0, 1));
+}
+if (map_blocked(movecoord($at, 1, 0, 0)) = false) {
+    return(movecoord($at, 1, 0, 0));
+}
+if (map_blocked(movecoord($at, 0, 0, -1)) = false) {
+    return(movecoord($at, 0, 0, -1));
+}
+return(null);
+
+[proc,traiborn_closet_angle](coord $closet)(int)
+def_coord $at = npc_coord;
+if (coordx($closet) < coordx($at)) {
+    return(2);
+}
+if (coordz($closet) > coordz($at)) {
+    return(3);
+}
+if (coordx($closet) > coordx($at)) {
+    return(0);
+}
+return(1);

@@ -1,0 +1,63 @@
+// 4733
+[proc,clientscript_4733](int $int0)(int)
+def_int $int1 = calc($int0 / 32);
+def_int $int2 = calc($int0 % 32);
+switch_int ($int1) {
+    case 0 :
+        return(testbit(%trade_pricechecker_value_0, $int2));
+    case 1 :
+        return(testbit(%trade_pricechecker_value_1, $int2));
+    case 2 :
+        return(testbit(%trade_pricechecker_value_2, $int2));
+    case 3 :
+        return(testbit(%trade_pricechecker_value_3, $int2));
+    case 4 :
+        return(testbit(%trade_pricechecker_value_4, $int2));
+    case 5 :
+        return(testbit(%trade_pricechecker_value_5, $int2));
+    case 6 :
+        return(testbit(%trade_pricechecker_value_6, $int2));
+    case 7 :
+        return(testbit(%trade_pricechecker_value_7, $int2));
+    case 8 :
+        return(testbit(%trade_pricechecker_value_8, $int2));
+    case 9 :
+        return(testbit(%trade_pricechecker_value_9, $int2));
+    case 10 :
+        return(testbit(%trade_pricechecker_value_10, $int2));
+    case 11 :
+        return(testbit(%trade_pricechecker_value_11, $int2));
+    case 12 :
+        return(testbit(%trade_pricechecker_value_12, $int2));
+    case 13 :
+        return(testbit(%trade_pricechecker_value_13, $int2));
+    case 14 :
+        return(testbit(%trade_pricechecker_value_14, $int2));
+    case 15 :
+        return(testbit(%trade_pricechecker_value_15, $int2));
+    case 16 :
+        return(testbit(%trade_pricechecker_value_16, $int2));
+    case 17 :
+        return(testbit(%trade_pricechecker_value_17, $int2));
+    case 18 :
+        return(testbit(%trade_pricechecker_value_18, $int2));
+    case 19 :
+        return(testbit(%trade_pricechecker_value_19, $int2));
+    case 20 :
+        return(testbit(%trade_pricechecker_value_20, $int2));
+    case 21 :
+        return(testbit(%trade_pricechecker_value_21, $int2));
+    case 22 :
+        return(testbit(%trade_pricechecker_value_22, $int2));
+    case 23 :
+        return(testbit(%trade_pricechecker_value_23, $int2));
+    case 24 :
+        return(testbit(%trade_pricechecker_value_24, $int2));
+    case 25 :
+        return(testbit(%trade_pricechecker_value_25, $int2));
+    case 26 :
+        return(testbit(%trade_pricechecker_value_26, $int2));
+    case 27 :
+        return(testbit(%trade_pricechecker_value_27, $int2));
+}
+return(^false);

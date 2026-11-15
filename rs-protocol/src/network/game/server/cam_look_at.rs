@@ -1,17 +1,17 @@
-﻿#[cfg(before_647)]
+﻿#[cfg(before_530)]
 use crate::network::game::server::ServerProtMessage;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::network::game::server_prot::ServerProt;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_io::{Packet, PacketFrame};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol_macros::server_prot;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 #[server_prot(CamLookAt, Buffered, Fixed)]
 pub struct CamLookAt {
     pub x: u8,
@@ -21,7 +21,7 @@ pub struct CamLookAt {
     pub rate2: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for CamLookAt {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.x);

@@ -1,0 +1,50 @@
+// 757:0
+[chathead]
+type=model
+x=41
+y=51
+width=32
+height=32
+model=null
+modelangle=40,166,0
+modelzoom=796
+modelunknown=0,796,0
+
+// 757:1
+[com_1]
+type=text
+x=132
+y=1
+width=370
+height=17
+textfont=fontmetrics_497
+text=Name
+textalignh=centre
+colour=0x800000
+
+// 757:2
+[com_2]
+type=text
+x=132
+y=17
+width=370
+height=95
+textfont=fontmetrics_497
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 757:3
+[com_3]
+type=text
+x=132
+y=111
+width=370
+height=17
+textfont=fontmetrics_497
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

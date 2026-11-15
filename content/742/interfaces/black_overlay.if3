@@ -1,0 +1,19 @@
+// 969:0
+[blackout]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+noclickthrough=yes
+
+// 969:1
+[com_1]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=blackout
+colour=0x000000
+fill=yes

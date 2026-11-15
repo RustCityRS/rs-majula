@@ -1,0 +1,6 @@
+// 6282
+[proc,clientscript_6282]
+%varclient_1930 = calc(%varclient_1930 - 1);
+if (%varclient_1930 = 0) {
+    if_setontimer(interface_1297:com_165, null);
+}

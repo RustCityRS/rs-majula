@@ -1,0 +1,12 @@
+// 134
+[proc,clientscript_134]
+if (%snapshot_mute = true) {
+    %snapshot_mute = false;
+} else {
+    %snapshot_mute = true;
+}
+if (%snapshot_mute = false) {
+    if_settext(interface_553:mutetoggle, "Moderator option: Mute player for 48 hours: <lt>OFF<gt>");
+} else {
+    if_settext(interface_553:mutetoggle, "<col=ff0000>Moderator option: Mute player for 48 hours: <lt>ON<gt>");
+}

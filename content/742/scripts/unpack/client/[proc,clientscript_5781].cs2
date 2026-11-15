@@ -1,0 +1,15 @@
+// 5781
+[proc,clientscript_5781](int $int0, int $int1, component $component2, int $int3)
+if (cc_find($component2, $int3) = true) {
+    if ($int1 = 1) {
+        if ($int0 = 1) {
+            cc_setgraphic(9616);
+        } else {
+            cc_setgraphic(9615);
+        }
+    } else if ($int0 = 1) {
+        cc_setgraphic(9617);
+    } else {
+        cc_setgraphic(9618);
+    }
+}

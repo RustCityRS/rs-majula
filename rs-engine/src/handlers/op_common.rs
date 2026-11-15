@@ -4,9 +4,12 @@ use rs_entity::{InteractionTarget, Loc, Obj};
 use rs_grid::CoordGrid;
 use rs_inv::Inventory;
 use rs_pack::cache::r#if::IfType;
-#[cfg(since_647)]
+#[cfg(all(since_530, before_647))]
+use rs_pack::types::IfButtonType;
+#[cfg(since_530)]
 use rs_pack::types::IfEvents;
 use rs_pack::types::InvScope;
+use rs_ver::TypeId;
 use rs_vm::engine::ScriptEngine;
 use rs_vm::{ComId, ScriptError};
 
@@ -25,7 +28,9 @@ pub mod action_target {
     pub const HELD: u16 = 0x10;
     #[cfg(since_647)]
     pub const HELD: u16 = 0x20;
-    #[cfg(since_647)]
+    #[cfg(all(since_530, before_647))]
+    pub const COMPONENT: u16 = 0x20;
+    #[cfg(since_530)]
     pub const COORD: u16 = 0x40;
 }
 
@@ -34,9 +39,9 @@ pub fn component(active: &ActivePlayer, com: ComId) -> Result<&'static IfType, S
         .interfaces()
         .get_by_id(com)
         .ok_or_else(|| ScriptError::Client(format!("No interface with id: {com}")))?;
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let visible = active.player.is_interface_visible(interface.root_layer);
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let visible = active.player.is_interface_open((com as u32 >> 16) as u16);
     if !visible {
         return Err(ScriptError::Client(format!(
@@ -48,7 +53,7 @@ pub fn component(active: &ActivePlayer, com: ComId) -> Result<&'static IfType, S
 }
 
 pub fn component_protected(active: &ActivePlayer, com: ComId) -> bool {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         let _ = active;
         engine()
@@ -57,7 +62,7 @@ pub fn component_protected(active: &ActivePlayer, com: ComId) -> bool {
             .and_then(|interface| engine().interfaces().get_by_id(interface.root_layer))
             .is_some_and(|root| !root.overlay)
     }
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         let mut iface = (com as u32 >> 16) as u16;
         for _ in 0..16 {
@@ -85,16 +90,35 @@ pub fn component_protected(active: &ActivePlayer, com: ComId) -> bool {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn component_events(active: &ActivePlayer, com: ComId, slot: u16) -> Option<IfEvents> {
     let interface = component(active, com).ok()?;
+    #[cfg(all(since_530, before_647))]
+    let events = interface.active_properties | if1_events(interface);
+    #[cfg(since_647)]
+    let events = interface.active_properties;
     active
         .player
         .if_events
         .get(&(com, slot))
         .copied()
-        .or_else(|| (slot == u16::MAX).then_some(interface.active_properties))
+        .or_else(|| (slot == u16::MAX).then_some(events))
         .map(IfEvents)
+}
+
+/// The events the 530 client gives an if1 component from its own fields
+/// (`aj.E`), as far as the checks here read them: its spell targets, the
+/// targetable bit of a normal, toggle or select button, and the pause bit of
+/// a pause button. An if3 component has none of these fields.
+#[cfg(all(since_530, before_647))]
+fn if1_events(interface: &IfType) -> u32 {
+    let targetable = matches!(
+        interface.button_type,
+        IfButtonType::Normal | IfButtonType::Toggle | IfButtonType::Select
+    );
+    let targets = (interface.action_target & 0x3F) as i32;
+    let pause = u32::from(interface.button_type == IfButtonType::Pause);
+    IfEvents::new(0, targets, 0, false, targetable).0 | pause
 }
 
 /// Returns `true` if the tile is inside the player's build area.
@@ -132,7 +156,7 @@ pub fn in_build_area(active: &ActivePlayer, x: u16, z: u16) -> bool {
 ///
 /// The matching [`Loc`], or `None` if the zone is not loaded or holds no such
 /// location.
-pub fn zone_loc(x: u16, y: u8, z: u16, id: u16) -> Option<&'static Loc> {
+pub fn zone_loc(x: u16, y: u8, z: u16, id: TypeId) -> Option<&'static Loc> {
     engine().zones.loc_at(x, y, z, id)
 }
 
@@ -152,7 +176,9 @@ pub fn zone_loc(x: u16, y: u8, z: u16, id: u16) -> Option<&'static Loc> {
 /// The matching [`Obj`], or `None` if the zone is not loaded or holds no such
 /// object visible to this receiver.
 pub fn zone_obj(x: u16, y: u8, z: u16, id: u16, receiver37: u64) -> Option<&'static Obj> {
-    engine().zones.obj_at(x, y, z, id, Some(receiver37))
+    engine()
+        .zones
+        .obj_at(x, y, z, TypeId::new(id), Some(receiver37))
 }
 
 /// Builds the [`InteractionTarget::Loc`] for a placed location.
@@ -217,20 +243,30 @@ pub fn use_component_ok(active: &ActivePlayer, com: ComId, slot: u16, target: u1
 ///
 /// `true` if the component exists, accepts this target kind, and is currently
 /// visible to the player; `false` otherwise (a bad or lagging client).
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub fn spell_component_ok(active: &ActivePlayer, com: ComId, _: u16, target: u16) -> bool {
     component(active, com).is_ok_and(|interface| interface.action_target & target != 0)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn spell_component_ok(active: &ActivePlayer, com: ComId, slot: u16, target: u16) -> bool {
-    use_component_ok(active, com, slot, target)
+    component_events(active, com, slot).is_some_and(|events| events.allows_target(target))
 }
 
 pub fn held_component_ok(active: &ActivePlayer, com: ComId, slot: u16) -> bool {
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     {
         use_component_ok(active, com, slot, action_target::HELD)
+    }
+    // The 530 client aims at an obj in an if1 inventory whose objs have ops,
+    // or at an if3 component that takes targets.
+    #[cfg(all(since_530, before_647))]
+    {
+        match component(active, com) {
+            Ok(interface) if interface.iop.is_some() => interface.operable,
+            Ok(_) => component_events(active, com, slot).is_some_and(IfEvents::is_targetable),
+            Err(_) => false,
+        }
     }
     #[cfg(since_647)]
     {
@@ -238,7 +274,7 @@ pub fn held_component_ok(active: &ActivePlayer, com: ComId, slot: u16) -> bool {
     }
 }
 
-pub fn inventory(active: &mut ActivePlayer, inv_id: u16) -> Option<&mut Inventory> {
+pub fn inventory(active: &mut ActivePlayer, inv_id: TypeId) -> Option<&mut Inventory> {
     if engine()
         .invs()
         .get_by_id(inv_id)
@@ -302,7 +338,12 @@ pub fn player_target_ok(active: &ActivePlayer, pid: u16) -> bool {
 /// When blocked, sends the members-server game message and unsets the map flag.
 pub fn members_blocked(active: &mut ActivePlayer, obj: u16) -> bool {
     let engine = engine();
-    if engine.objs().get_by_id(obj).is_some_and(|o| o.members) && !engine.members {
+    if engine
+        .objs()
+        .get_by_id(TypeId::new(obj))
+        .is_some_and(|o| o.members)
+        && !engine.members
+    {
         active.message_game("To use this item please login to a members' server.");
         active.unset_map_flag();
         return true;
@@ -311,13 +352,34 @@ pub fn members_blocked(active: &mut ActivePlayer, obj: u16) -> bool {
 }
 
 /// The inventory transmitted to component `com`, if any.
-pub fn transmitted_inv(active: &ActivePlayer, com: ComId) -> Option<u16> {
+pub fn transmitted_inv(active: &ActivePlayer, com: ComId) -> Option<TypeId> {
     active
         .player
         .inv_transmits
         .iter()
         .find(|(_, coms)| coms.contains(&com))
         .map(|(id, _)| *id)
+}
+
+/// Another player's inventory transmitted to `com` (trade's other offer).
+#[cfg(since_530)]
+pub fn other_inv(active: &ActivePlayer, com: ComId) -> Option<&'static Inventory> {
+    let &(uid, inv) = active.player.inv_other_transmits.get(&com)?;
+    engine()
+        .get_player((uid & 0x7FF) as u16)
+        .filter(|source| source.player.uid.packed() as i32 == uid)
+        .and_then(|source| source.player.invs.get(&inv))
+}
+
+/// The obj at `slot` of the inventory transmitted to `com`, the player's own
+/// or another's, which the 530 client's if3 buttons leave out; null for none.
+#[cfg(all(since_530, before_647))]
+pub fn obj_at(active: &mut ActivePlayer, com: ComId, slot: u16) -> TypeId {
+    let item = match transmitted_inv(active, com) {
+        Some(id) => inventory(active, id).and_then(|inv| inv.get(slot)),
+        None => other_inv(active, com).and_then(|inv| inv.get(slot)),
+    };
+    item.map_or(TypeId::NULL, |item| item.obj)
 }
 
 /// Outcome of [`check_held`].
@@ -352,13 +414,13 @@ pub enum HeldCheck {
 ///
 /// [`HeldCheck::Ok`] when the item is really there, otherwise the specific
 /// reason the claim was rejected.
-pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: u16) -> HeldCheck {
+pub fn check_held(active: &mut ActivePlayer, com: ComId, slot: u16, obj: TypeId) -> HeldCheck {
     let Some(inv_id) = transmitted_inv(active, com) else {
         return HeldCheck::NoTransmit;
     };
 
     let Some(inventory) = inventory(active, inv_id) else {
-        return HeldCheck::NoInv(inv_id);
+        return HeldCheck::NoInv(inv_id.g2());
     };
 
     if !inventory.valid_slot(slot) {
@@ -376,7 +438,7 @@ pub fn require_held(
     active: &mut ActivePlayer,
     com: ComId,
     slot: u16,
-    obj: u16,
+    obj: TypeId,
 ) -> Result<bool, ScriptError> {
     match check_held(active, com, slot, obj) {
         HeldCheck::Ok => Ok(true),

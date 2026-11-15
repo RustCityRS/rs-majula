@@ -1,0 +1,14 @@
+// 4067
+[clientscript,warguild_hover_tokens](component $component0)
+switch_component ($component0) {
+    case warguild_token_choice:balance_layer :
+        if_setposition($component0, -160, 13, ^setpos_abs_centre, ^setpos_abs_top);
+    case warguild_token_choice:strength_layer :
+        if_setposition($component0, -80, 13, ^setpos_abs_centre, ^setpos_abs_top);
+    case warguild_token_choice:combat_layer :
+        if_setposition($component0, 0, 13, ^setpos_abs_centre, ^setpos_abs_top);
+    case warguild_token_choice:defence_layer :
+        if_setposition($component0, 80, 13, ^setpos_abs_centre, ^setpos_abs_top);
+    case warguild_token_choice:attack_layer :
+        if_setposition($component0, 160, 13, ^setpos_abs_centre, ^setpos_abs_top);
+}

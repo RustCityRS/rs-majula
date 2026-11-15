@@ -1,0 +1,24 @@
+// 5594
+[proc,clientscript_5594](component $component0, component $component1)
+def_int $int2 = 240;
+def_int $int3 = 20;
+if (string_length(if_gettext($component1)) > 0) {
+    $int2 = calc(parawidth(if_gettext($component1), 500, verdana_11pt_regular) + 80);
+    $int3 = calc(max(1, paraheight(if_gettext($component1), 500, verdana_11pt_regular)) * 18);
+    if ($int3 > 18 & string_length(if_gettext(interface_1188:com_14)) = 0) {
+        if_setposition(interface_1188:com_11, 0, 35, ^setpos_abs_centre, ^setpos_abs_top);
+        if_setposition(interface_1188:com_13, 0, 80, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    if ($int2 > if_getwidth($component0)) {
+        if_setsize(interface_1188:com_11, $int2, $int3, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1188:com_13, $int2, $int3, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1188:com_14, $int2, $int3, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1188:com_15, $int2, $int3, ^setsize_abs, ^setsize_abs);
+        if_setsize(interface_1188:com_16, $int2, $int3, ^setsize_abs, ^setsize_abs);
+    }
+    $int2 = calc(parawidth(if_gettext(interface_1188:com_20), 500, verdana_13pt_regular) + 80);
+    if ($int2 > if_getwidth(interface_1188:com_5)) {
+        if_setsize(interface_1188:com_5, $int2, 30, ^setsize_abs, ^setsize_abs);
+    }
+    if_setontimer($component0, null);
+}

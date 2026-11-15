@@ -1,0 +1,23 @@
+// 5593
+[proc,clientscript_5593](int $int0, int $int1)
+if ($int0 = 16 | $int1 = 49) {
+    if_setcolour(interface_1188:com_3, 0xdb9000);
+    if_setcolour(interface_1188:com_12, 0xdb9000);
+    if_sendtofront(interface_1188:com_11);
+} else if (($int0 = 17 | $int1 = 50) & if_gethide(interface_1188:com_13) = false) {
+    if_setcolour(interface_1188:com_24, 0xdb9000);
+    if_setcolour(interface_1188:com_25, 0xdb9000);
+    if_sendtofront(interface_1188:com_13);
+} else if (($int0 = 18 | $int1 = 51) & if_gethide(interface_1188:com_14) = false) {
+    if_setcolour(interface_1188:com_29, 0xdb9000);
+    if_setcolour(interface_1188:com_30, 0xdb9000);
+    if_sendtofront(interface_1188:com_14);
+} else if (($int0 = 19 | $int1 = 52) & if_gethide(interface_1188:com_15) = false) {
+    if_setcolour(interface_1188:com_34, 0xdb9000);
+    if_setcolour(interface_1188:com_35, 0xdb9000);
+    if_sendtofront(interface_1188:com_15);
+} else if (($int0 = 20 | $int1 = 53) & if_gethide(interface_1188:com_16) = false) {
+    if_setcolour(interface_1188:com_39, 0xdb9000);
+    if_setcolour(interface_1188:com_40, 0xdb9000);
+    if_sendtofront(interface_1188:com_16);
+}

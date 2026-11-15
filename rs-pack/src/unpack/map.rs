@@ -1,34 +1,34 @@
 #[cfg(since_244)]
 use crate::archive;
 use crate::cache::map::parse_landscape_binary;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::cache::map::parse_terrain_binary;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::cache::map::{
     CameraPlane, LocEntry, TerrainData, load_xtea_keys, parse_npc_spawn_binary,
     parse_terrain_binary_levels,
 };
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::other::map::{is_landscape, is_npc_spawns};
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 use crate::versionlist::VersionList;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, Result};
 #[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::compression::{decompress, decompress_xtea};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::java_string_hash;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::collections::HashMap;
 #[cfg(rev = "225")]
 use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use tracing::debug;
 
 #[cfg(rev = "225")]
@@ -136,7 +136,7 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 pub fn unpack_maps(
     cache: &mut Js5Store,
     version_list: &VersionList,
@@ -184,7 +184,7 @@ pub fn unpack_maps(
     Ok(())
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn decode_terrain(data: &[u8], lines: &mut Vec<String>) {
     for (index, tile) in parse_terrain_binary(data).tiles.iter().enumerate() {
         let mut parts = Vec::new();
@@ -219,7 +219,7 @@ fn decode_terrain(data: &[u8], lines: &mut Vec<String>) {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
     for loc in parse_landscape_binary(data) {
         let mut line = format!(
@@ -233,7 +233,7 @@ fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn unpack_maps(
     store: &mut Js5Store,
     cache_dir: &Path,
@@ -265,14 +265,16 @@ pub fn unpack_maps(
         .context("Missing map table")?
         .groups
         .clone();
+    let mut registry = String::new();
     for info in &groups {
         let name = lookup
             .get(&info.name_hash)
             .cloned()
             .unwrap_or_else(|| names.name("map", info.id));
-        let raw = store
-            .read_raw_group_bytes(archive::MAPS, info.id)?
-            .context("Missing map group")?;
+        registry.push_str(&format!("{}={name}\n", info.id));
+        let Some(raw) = store.read_raw_group_bytes(archive::MAPS, info.id)? else {
+            continue;
+        };
         let landscape = is_landscape(&name);
         let data = if landscape {
             match decompress_xtea(&raw, &keys.get(&info.name_hash).copied().unwrap_or([0; 4])) {
@@ -309,10 +311,11 @@ pub fn unpack_maps(
         let text = map_references::convert(&text, &name, &names, true)?;
         fs::write(dir.join(format!("{name}.jm2")), text)?;
     }
+    fs::write(pack_dir.join("map.pack"), registry)?;
     Ok(groups.len() as u32)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn build_name_lookup() -> HashMap<i32, String> {
     let mut lookup = HashMap::new();
     for prefix in ["m", "l", "n", "um", "ul"] {
@@ -326,12 +329,12 @@ pub fn build_name_lookup() -> HashMap<i32, String> {
     lookup
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn terrain_levels(name: &str) -> usize {
     if name.starts_with("um") { 1 } else { 4 }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn emit_terrain_text(terrain: &TerrainData) -> String {
     let mut out = String::new();
 
@@ -484,7 +487,7 @@ pub fn emit_terrain_text(terrain: &TerrainData) -> String {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn emit_landscape_text(locs: &[LocEntry]) -> String {
     let mut out = String::new();
 
@@ -498,7 +501,7 @@ pub fn emit_landscape_text(locs: &[LocEntry]) -> String {
     out
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub fn emit_npc_spawn_text(data: &[u8]) -> String {
     if data.is_empty() {
         return String::new();
@@ -511,7 +514,7 @@ pub fn emit_npc_spawn_text(data: &[u8]) -> String {
     out
 }
 
-#[cfg(all(test, since_647))]
+#[cfg(all(test, since_530))]
 mod tests {
     use super::*;
     use crate::cache::map::*;

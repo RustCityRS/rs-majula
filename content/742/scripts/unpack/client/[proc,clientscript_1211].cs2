@@ -1,0 +1,21 @@
+// 1211
+[proc,clientscript_1211](int $int0, int $int1, int $int2, string $string0)
+%varclient_1700 = $int2;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (if_find(toplevel_fullscreen:com_84) = true) {
+    cc_setontimer(null);
+    cc_setontimer("clientscript_1213(calc(%varclient_1694 + string_length($string0) * 2))");
+}
+if (if_find(toplevel_fullscreen:com_84) = true) {
+    $int3 = min(200, calc(20 + parawidth($string0, 180, b12_full)));
+    $int4 = calc(22 + 15 * paraheight($string0, 180, b12_full));
+    if (compare(if_gettext(toplevel_fullscreen:com_84), "") ! 0) {
+        cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
+    }
+    ~clientscript_1212($string0, $int3, $int4);
+    if_setsize(toplevel_fullscreen:com_84, $int3, $int4, ^setsize_abs, ^setsize_abs);
+    if_setposition(toplevel_fullscreen:com_84, $int0, $int1, ^setpos_abs_centre, ^setpos_abs_centre);
+}

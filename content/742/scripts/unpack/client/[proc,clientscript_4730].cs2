@@ -1,0 +1,116 @@
+// 4730
+[proc,clientscript_4730](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(boolean)
+if (string_length(%varclient_2023) >= 3) {
+    if (compare(substring(%varclient_2023, 0, 3), "///") = 0) {
+        if ($int0 >= 0) {
+            if ($int1 >= $int2) {
+                chat_setmode(3);
+                %varclient_2023 = substring(%varclient_2023, 3, string_length(%varclient_2023));
+                if (compare(%varclient_2023, "") ! 0) {
+                    chat_sendpublic(%varclient_2023);
+                }
+                chat_setmode(%varclient_1651);
+                return(true);
+            } else {
+                mes_typed(^chattype_clanmessage, 0, "Guests cannot chat in this Clan Chat channel.");
+                %varclient_2023 = "";
+                %chat_caret = 0;
+                ~script1558(false);
+                return(true);
+            }
+        } else {
+            %chat_view = 0;
+            ~chat_alert_reset(0);
+            ~redraw_chat_buttons;
+            ~rebuildchatbox;
+            ~rebuildpmbox;
+            mes("You aren't a guest in a visited Clan Chat channel.");
+            %varclient_2023 = "";
+            %chat_caret = 0;
+            return(true);
+        }
+    } else if (compare(substring(%varclient_2023, 0, 2), "//") = 0) {
+        if ($int3 >= 0) {
+            if ($int4 >= $int5) {
+                chat_setmode(2);
+                %varclient_2023 = substring(%varclient_2023, 2, string_length(%varclient_2023));
+                if (compare(%varclient_2023, "") ! 0) {
+                    chat_sendpublic(%varclient_2023);
+                }
+                chat_setmode(%varclient_1651);
+                return(true);
+            } else {
+                mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                %varclient_2023 = "";
+                %chat_caret = 0;
+                ~script1558(false);
+                return(true);
+            }
+        } else {
+            %chat_view = 0;
+            ~chat_alert_reset(0);
+            ~redraw_chat_buttons;
+            ~rebuildchatbox;
+            ~rebuildpmbox;
+            mes("You aren't in a Clan Chat channel.");
+            %varclient_2023 = "";
+            %chat_caret = 0;
+            return(true);
+        }
+    } else if (compare(substring(%varclient_2023, 0, 1), "/") = 0) {
+        chat_setmode(1);
+        %varclient_2023 = substring(%varclient_2023, 1, string_length(%varclient_2023));
+        if (compare(%varclient_2023, "") ! 0) {
+            chat_sendpublic(%varclient_2023);
+        }
+        chat_setmode(%varclient_1651);
+        return(true);
+    }
+} else if (string_length(%varclient_2023) >= 2) {
+    if (compare(substring(%varclient_2023, 0, 2), "//") = 0) {
+        if ($int3 >= 0) {
+            if ($int4 >= $int5) {
+                chat_setmode(2);
+                %varclient_2023 = substring(%varclient_2023, 2, string_length(%varclient_2023));
+                if (compare(%varclient_2023, "") ! 0) {
+                    chat_sendpublic(%varclient_2023);
+                }
+                chat_setmode(%varclient_1651);
+                return(true);
+            } else {
+                mes_typed(^chattype_clanmessage, 0, "Your rank is not high enough to talk in your clan chat.");
+                %varclient_2023 = "";
+                %chat_caret = 0;
+                ~script1558(false);
+                return(true);
+            }
+        } else {
+            %chat_view = 0;
+            ~chat_alert_reset(0);
+            ~redraw_chat_buttons;
+            ~rebuildchatbox;
+            ~rebuildpmbox;
+            mes("You aren't in a Clan Chat channel.");
+            %varclient_2023 = "";
+            %chat_caret = 0;
+            return(true);
+        }
+    } else if (compare(substring(%varclient_2023, 0, 1), "/") = 0) {
+        chat_setmode(1);
+        %varclient_2023 = substring(%varclient_2023, 1, string_length(%varclient_2023));
+        if (compare(%varclient_2023, "") ! 0) {
+            chat_sendpublic(%varclient_2023);
+        }
+        chat_setmode(%varclient_1651);
+        return(true);
+    }
+} else if (string_length(%varclient_2023) >= 1 & compare(substring(%varclient_2023, 0, 1), "/") = 0) {
+    chat_setmode(1);
+    %varclient_2023 = substring(%varclient_2023, 1, string_length(%varclient_2023));
+    if (compare(%varclient_2023, "") ! 0) {
+        chat_sendpublic(%varclient_2023);
+    }
+    chat_setmode(%varclient_1651);
+    return(true);
+}
+return(false);

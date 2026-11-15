@@ -1,0 +1,333 @@
+// 649:0
+[com_0]
+type=graphic
+x=80
+y=202
+width=36
+height=36
+graphic="miscgraphics,7"
+colour=0x000000
+
+// 649:1
+[com_1]
+type=model
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=centre
+model=null
+modelzoom=0
+modelobjwidth=80
+transmitop=10
+op10=  
+onload=clanwars_orb(event_com)
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
+
+// 649:2
+[com_2]
+type=model
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=ne
+model=null
+modelzoom=0
+modelobjwidth=80
+transmitop=10
+op10= 
+onload=clanwars_orb(event_com)
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
+
+// 649:3
+[com_3]
+type=model
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=se
+model=null
+modelzoom=0
+modelobjwidth=80
+transmitop=10
+op10= 
+onload=clanwars_orb(event_com)
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
+
+// 649:4
+[com_4]
+type=model
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=sw
+model=null
+modelzoom=0
+modelobjwidth=80
+transmitop=10
+op10= 
+onload=clanwars_orb(event_com)
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
+
+// 649:5
+[com_5]
+type=graphic
+x=65
+y=202
+width=36
+height=36
+graphic="miscgraphics,7"
+colour=0x000000
+
+// 649:6
+[com_6]
+type=graphic
+x=39
+y=202
+width=36
+height=36
+graphic="miscgraphics,7"
+colour=0x000000
+
+// 649:7
+[com_7]
+type=graphic
+x=97
+y=202
+width=36
+height=36
+graphic="miscgraphics,8"
+colour=0x000000
+
+// 649:8
+[com_8]
+type=graphic
+x=119
+y=202
+width=36
+height=36
+graphic="miscgraphics,8"
+colour=0x000000
+
+// 649:9
+[clanwars_orb_off]
+type=text
+x=39
+y=202
+width=116
+height=36
+textfont=b12_full
+text=Stop viewing
+textalignh=centre
+textalignv=centre
+textshadow=yes
+transmitop=1
+op1=Exit
+opcursor0=cursor_enter
+targetverb=Exit
+onmouseover=text_colour_swapper(event_com, ^yellow)
+onmouseleave=text_colour_swapper(event_com, ^white)
+
+// 649:10
+[nw]
+type=layer
+width=80
+height=80
+
+// 649:11
+[com_11]
+type=model
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=nw
+model=null
+modelzoom=0
+modelobjwidth=80
+onload=clanwars_orb(event_com)
+onvarctransmit=clanwars_orb(event_com){clanwars_orb_graphic}
+
+// 649:12
+[nw_text]
+type=text
+width=80
+height=20
+ymode=abs_bottom
+layer=nw
+textfont=p12_full
+text=North-west
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 649:13
+[nw_button]
+type=rectangle
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=nw
+colour=0x000000
+fill=yes
+trans=255
+transmitop=1
+opbase=<col=ff9040>North-west
+op1=View
+onmouseover=text_colour_swapper(clanwars_viewing_orb:nw_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:nw_text, 0xff981f)
+
+// 649:14
+[ne]
+type=layer
+width=80
+height=80
+xmode=abs_right
+
+// 649:15
+[ne_text]
+type=text
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=ne
+textfont=p12_full
+text=North-east
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 649:16
+[ne_button]
+type=rectangle
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=ne
+colour=0x000000
+fill=yes
+trans=255
+transmitop=1
+opbase=<col=ff9040>North-east
+op1=View
+onmouseover=text_colour_swapper(clanwars_viewing_orb:ne_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:ne_text, 0xff981f)
+
+// 649:17
+[sw]
+type=layer
+y=116
+width=80
+height=80
+
+// 649:18
+[sw_text]
+type=text
+height=20
+widthmode=minus
+ymode=abs_bottom
+layer=sw
+textfont=p12_full
+text=South-west
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 649:19
+[sw_button]
+type=rectangle
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=sw
+colour=0x000000
+fill=yes
+trans=255
+transmitop=1
+opbase=<col=ff9040>South-west
+op1=View
+onmouseover=text_colour_swapper(clanwars_viewing_orb:sw_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:sw_text, 0xff981f)
+
+// 649:20
+[se]
+type=layer
+y=116
+width=80
+height=80
+xmode=abs_right
+
+// 649:21
+[se_text]
+type=text
+height=20
+widthmode=minus
+ymode=abs_bottom
+layer=se
+textfont=p12_full
+text=South-east
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 649:22
+[se_button]
+type=rectangle
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=se
+colour=0x000000
+fill=yes
+trans=255
+transmitop=1
+opbase=<col=ff9040>South-east
+op1=View
+onmouseover=text_colour_swapper(clanwars_viewing_orb:se_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:se_text, 0xff981f)
+
+// 649:23
+[centre]
+type=layer
+y=58
+width=80
+height=80
+xmode=abs_centre
+
+// 649:24
+[centre_text]
+type=text
+height=20
+widthmode=minus
+ymode=abs_bottom
+layer=centre
+textfont=p12_full
+text=Centre
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 649:25
+[centre_button]
+type=rectangle
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=centre
+colour=0x000000
+fill=yes
+trans=255
+transmitop=1
+opbase=<col=ff9040>Centre
+op1=View
+onmouseover=text_colour_swapper(clanwars_viewing_orb:centre_text, ^white)
+onmouseleave=text_colour_swapper(clanwars_viewing_orb:centre_text, 0xff981f)

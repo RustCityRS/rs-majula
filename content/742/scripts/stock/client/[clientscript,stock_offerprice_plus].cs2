@@ -1,0 +1,10 @@
+// 605
+[clientscript,stock_offerprice_plus]
+if (%varplayer_1109 = null) {
+    return;
+}
+if (%stock_offerprice_visible < ^max_32bit_int) {
+    %stock_offerprice_visible = calc(%stock_offerprice_visible + 1);
+    if_settext(stockmarket:offerprice, "<tostring_localised(%stock_offerprice_visible, true)> gp");
+    ~sm_offerprice_settimer;
+}

@@ -1,0 +1,5 @@
+// 3455
+[proc,script3455]
+%machinima_livecamera_plannedmove_savedstates = 0;
+if_settext(machinima_livecamera:storedtext, tostring(%machinima_livecamera_plannedmove_savedstates));
+return;

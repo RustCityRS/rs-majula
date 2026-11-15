@@ -1,0 +1,9 @@
+// 5052
+[proc,clientscript_5052](component $component0, int $int1)
+if (cc_find($component0, 3) = true) {
+    if ($int1 = 1) {
+        cc_dragpickup(0, calc(cc_getheight / 2));
+    } else {
+        cc_dragpickup(calc(cc_getwidth / 2), 0);
+    }
+}

@@ -1,0 +1,6 @@
+// 4696
+[proc,clientscript_4696]
+if_setontimer(interface_500:com_8, "clientscript_4697(0)");
+if (if_gethide(interface_500:com_11) = false) {
+    if_setontimer(interface_500:com_11, "clientscript_4695(0, 0)");
+}

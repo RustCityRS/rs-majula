@@ -1,0 +1,25 @@
+// 1113
+[proc,script1113]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %atvar_str_potion);
+$int0 = calc($int0 + %atvar_enter_champions);
+$int0 = calc($int0 + %atvar_use_chaos);
+$int0 = calc($int0 + %atvar_full_rats);
+$int0 = calc($int0 + %atvar_collect_egg);
+$int0 = calc($int0 + %atvar_spirit_tree);
+$int0 = calc($int0 + %atvar_perform_emotes);
+$int0 = calc($int0 + %atvar_kitten_colour);
+$int0 = calc($int0 + %atvar_under_wall);
+$int0 = calc($int0 + %atvar_enter_tolna);
+$int0 = calc($int0 + %atvar_necklace_digsite);
+$int0 = calc($int0 + %atvar_earth_tiara);
+$int0 = calc($int0 + %atvar_pickpocket_guard);
+$int0 = calc($int0 + %atvar_tele_varrock);
+$int0 = calc($int0 + %atvar_slayer_task);
+$int0 = calc($int0 + %atvar_20_planks);
+$int0 = calc($int0 + %atvar_pick_fruit);
+$int0 = calc($int0 + %atvar_use_balloon);
+$int0 = calc($int0 + %atvar_rat_medal);
+$int0 = calc($int0 + %atvar_fairy_circle);
+$int0 = calc($int0 + %atvar_runite_armour);
+return($int0);

@@ -1,0 +1,15 @@
+// 4703
+[proc,clientscript_4703]
+if_sethide(loginscreen:com_103, true);
+if_setgraphic(loginscreen:com_97, "corner_flourish,0");
+%login_reply_last = -1;
+~login_popup_close;
+login_resetreply;
+if_settext(south_progress9:login_button_text, "Play Game");
+if_settext(login:login_button_text, "Play Game");
+if_settext(south_progress9:com_48, "Play Game");
+if_settext(login:login_button_text_shadow, "Play Game");
+if_setonclick(south_progress9:login_button, "login_dologin");
+if_setonclick(login:login_button, "login_dologin");
+if_setontimer(south_progress9:popup, null);
+if_setontimer(login:popup, null);

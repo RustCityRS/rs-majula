@@ -1,5 +1,6 @@
 use super::UnpackedPacks;
 use crate::cache::bas::BasType;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn anim_key(code: u8) -> String {
@@ -17,11 +18,17 @@ fn anim_key(code: u8) -> String {
         40 => "walkanim_b".into(),
         41 => "walkanim_l".into(),
         42 => "walkanim_r".into(),
+        #[cfg(since_647)]
         46 => "crawlturn_l".into(),
+        #[cfg(since_647)]
         47 => "crawlturn_r".into(),
+        #[cfg(since_647)]
         48 => "runturn_l".into(),
+        #[cfg(since_647)]
         49 => "runturn_r".into(),
+        #[cfg(since_647)]
         50 => "walkturn_l".into(),
+        #[cfg(since_647)]
         51 => "walkturn_r".into(),
         _ => format!("unknown{code}"),
     }
@@ -36,8 +43,8 @@ pub fn emit_bas_props(
 ) -> Vec<(String, String)> {
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if opcode == 1 {
-        let ready = packs.reference("seq", def.readyanim.unwrap_or(u16::MAX));
-        let walk = packs.reference("seq", def.walkanim.unwrap_or(u16::MAX));
+        let ready = packs.reference("seq", def.readyanim.unwrap_or(TypeId::NULL));
+        let walk = packs.reference("seq", def.walkanim.unwrap_or(TypeId::NULL));
         p.push((1, "readyanim".into(), format!("{ready},{walk}")));
     }
     if let Some((code, anim)) = def.anims.last() {
@@ -51,6 +58,7 @@ pub fn emit_bas_props(
         let values = values.map(|v| v.to_string()).join(",");
         p.push((27, "transform".into(), format!("{slot},{values}")));
     }
+    #[cfg(since_647)]
     if opcode == 28 {
         let values: Vec<_> = def
             .op28
@@ -79,20 +87,25 @@ pub fn emit_bas_props(
     if let Some(height) = def.overlayheight {
         p.push((45, "overlayheight".into(), height.to_string()));
     }
+    #[cfg(since_647)]
     for (anim, weight) in &def.readyanim_random {
         let anim = packs.reference("seq", *anim);
         p.push((52, "randomreadyanim".into(), format!("{anim},{weight}")));
     }
+    #[cfg(since_647)]
     if def.noshadow {
         p.push((53, "unknown53".into(), "no".into()));
     }
+    #[cfg(since_647)]
     if opcode == 54 {
         let (a, b) = def.op54;
         p.push((54, "hillrotatelimit".into(), format!("{a},{b}")));
     }
+    #[cfg(since_647)]
     if let Some((slot, value)) = def.op55.last() {
         p.push((55, "unknown55".into(), format!("{slot},{value}")));
     }
+    #[cfg(since_647)]
     if let Some((slot, values)) = def.slotoffset.last() {
         let values = values.map(|v| v.to_string()).join(",");
         p.push((56, "slotoffset".into(), format!("{slot},{values}")));

@@ -1,0 +1,8 @@
+// 1209
+[proc,clientscript_1209](int $int0, component $component1)
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = 0) {
+    detail_waterdetail_high(false);
+} else {
+    detail_waterdetail_high(true);
+}

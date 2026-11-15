@@ -1,0 +1,7 @@
+// 2102
+[clientscript,script2102]
+~scrollbar_vertical(sandwich_tray:key_scrollbar, sandwich_tray:key_items, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
+def_int $int0 = calc(paraheight(if_gettext(sandwich_tray:key_text), if_getwidth(sandwich_tray:key_text), p12_full) * 12 + 5);
+if_setsize(sandwich_tray:key_text, if_getwidth(sandwich_tray:key_text), $int0, ^setsize_abs, ^setsize_abs);
+if_setposition(sandwich_tray:back, if_getx(sandwich_tray:back), calc(if_gety(sandwich_tray:key_text) + $int0 + 5), ^setpos_abs_left, ^setpos_abs_top);
+~script2104(0);

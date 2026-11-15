@@ -1,0 +1,37 @@
+// 3457
+[clientscript,script3457](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+if ($int2 < 100 & %machinima_livecamera_plannedmove_savedstates > 0) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord1, %machinima_livecamera_lookatheight1, 3000, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position1, %machinima_livecamera_height1, 3000, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 200 & %machinima_livecamera_plannedmove_savedstates > 1) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord2, %machinima_livecamera_lookatheight2, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position2, %machinima_livecamera_height2, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 300 & %machinima_livecamera_plannedmove_savedstates > 2) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord3, %machinima_livecamera_lookatheight3, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position3, %machinima_livecamera_height3, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 400 & %machinima_livecamera_plannedmove_savedstates > 3) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord4, %machinima_livecamera_lookatheight4, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position4, %machinima_livecamera_height4, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 500 & %machinima_livecamera_plannedmove_savedstates > 4) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord5, %machinima_livecamera_lookatheight5, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position5, %machinima_livecamera_height5, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 600 & %machinima_livecamera_plannedmove_savedstates > 5) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord6, %machinima_livecamera_lookatheight6, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position6, %machinima_livecamera_height6, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 700 & %machinima_livecamera_plannedmove_savedstates > 6) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord7, %machinima_livecamera_lookatheight7, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position7, %machinima_livecamera_height7, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+} else if ($int2 < 800 & %machinima_livecamera_plannedmove_savedstates > 7) {
+    cam_lookat(%machinima_livecamera_lookatpositioncoord8, %machinima_livecamera_lookatheight8, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    cam_moveto(%machinima_livecamera_position8, %machinima_livecamera_height8, 0, %machinima_livecamera_plannedmove_cameraspeed);
+    return;
+}
+if_setontimer($component0, null);

@@ -1,0 +1,13 @@
+// 4784
+[proc,clientscript_4784](string $string0, component $component0, int $int1)
+def_int $int2 = 2;
+def_int $int3 = calc(if_getwidth($component0) / 2);
+def_int $int4 = if_gety($component0);
+if ($int1 ! -1 & cc_find($component0, $int1) = true) {
+    $int3 = calc(cc_getwidth / 2);
+    $int4 = cc_gety;
+}
+if (calc($int4 - if_getscrolly($component0)) > 114) {
+    $int2 = 0;
+}
+~aif_tooltip(interface_1115:com_186, $component0, $int1, $string0, 150, null, null, null, 13, 4, $int2, $int3, $int4);

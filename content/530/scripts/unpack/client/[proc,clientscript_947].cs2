@@ -1,0 +1,8 @@
+// 947
+[proc,clientscript_947]
+if (%varplayerbit_4538 >= 61) {
+    return;
+}
+if_settext(interface_726:com_115, "<\"Teapotspout\"><\" (1000)\">");
+if_settext(interface_726:com_117, "<\"Hotwater\"><\" (1000)\">");
+%if_side_modal2_stone = -1;

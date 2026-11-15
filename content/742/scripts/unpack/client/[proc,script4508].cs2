@@ -1,0 +1,24 @@
+// 4508
+[proc,script4508](component $component0, int $int1)
+def_int $int2 = 0;
+def_int $intarray0($int1);
+def_int $int3 = 0;
+def_int $int4 = 5;
+while ($int2 <= $int1) {
+    if (cc_find($component0, $int2) = true & string_length(cc_gettext) > 0) {
+        $intarray0($int3) = $int2;
+        $int3 = calc($int3 + 1);
+    }
+    $int2 = calc($int2 + 1);
+}
+if ($int3 > 1) {
+    ~script4424(intarray0, $component0, 0, calc($int3 - 1));
+}
+$int2 = 0;
+while ($int2 < $int3) {
+    if (cc_find($component0, $intarray0($int2)) = true) {
+        cc_setposition(5, $int4, ^setpos_abs_left, ^setpos_abs_top);
+        $int4 = calc($int4 + cc_getheight);
+    }
+    $int2 = calc($int2 + 1);
+}

@@ -1,0 +1,25 @@
+#testscript
+
+// 289's Cook's Assistant completes on 530's quest scroll (questscroll_ver3):
+// 289's quest point counted in %qp (530's quest tab shows it), 289's message,
+// and one of 289's three quest-complete jingles (152-154).
+[label,test_cooks_assistant_completes]
+setup_player("test_player")
+~test_skip_design
+%cookquest = 1
+queue(cooks_quest_complete, 0, 0)
+test_tick(2)
+assert_eq(%cookquest, ^cook_complete)
+assert_eq(%qp, ^cook_questpoints)
+assert_called_with("mes", "Congratulations! Quest complete!")
+assert_called("midi_jingle", 1)
+
+// 289's reward, 300 Cooking XP: level 4.
+[label,test_cooks_assistant_gives_300_cooking_xp]
+setup_player("test_player")
+~test_skip_design
+%cookquest = 1
+queue(cooks_quest_complete, 0, 0)
+test_tick(2)
+assert_eq(%cookquest, ^cook_complete)
+assert_eq(stat_base(cooking), 4)

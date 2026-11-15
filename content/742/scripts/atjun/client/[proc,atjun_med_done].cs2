@@ -1,0 +1,23 @@
+// 519
+[proc,atjun_med_done]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %atjun_med_agility);
+$int0 = calc($int0 + %atjun_med_volcano);
+$int0 = calc($int0 + %atjun_med_crandor);
+$int0 = calc($int0 + %atjun_med_cart);
+$int0 = calc($int0 + %atjun_med_cleanup);
+$int0 = calc($int0 + %atjun_med_spider);
+$int0 = calc($int0 + %atjun_med_topaz);
+$int0 = calc($int0 + %atjun_med_teak);
+$int0 = calc($int0 + %atjun_med_mahogany);
+$int0 = calc($int0 + %atjun_med_karambwan);
+$int0 = calc($int0 + %atjun_med_machette);
+$int0 = calc($int0 + %atjun_med_glider);
+$int0 = calc($int0 + %atjun_med_farming);
+$int0 = calc($int0 + %atjun_med_graahk);
+$int0 = calc($int0 + %atjun_med_shilo_vines);
+$int0 = calc($int0 + %atjun_med_shilo_lava);
+$int0 = calc($int0 + %atjun_med_shilo_stairs);
+$int0 = calc($int0 + %atjun_med_charter);
+$int0 = calc($int0 + %atjun_med_khazard);
+return($int0);

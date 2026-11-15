@@ -1,0 +1,36 @@
+// 6936
+[proc,clientscript_6936]
+def_string $string0 = "Absolutely nothing";
+def_string $string1 = $string0;
+def_int $int0 = calc(9 - 1);
+def_int $int1 = 1;
+while ($int0 >= 0) {
+    if (invother_getnum(dueloffer, $int0) > 0) {
+        $int1 = 0;
+        $int0 = 0;
+    }
+    $int0 = calc($int0 - 1);
+}
+if (inv_freespace(dueloffer) < 9) {
+    if (%varclient_546 >= 0) {
+        $string0 = "<tostring_localised(%varclient_546, true)> gp";
+    } else {
+        $string0 = "Unknown value";
+    }
+}
+if ($int1 = 0) {
+    if (%varclient_1333 >= 0) {
+        $string1 = "<tostring_localised(%varclient_1333, true)> gp";
+    } else {
+        $string1 = "Unknown value";
+    }
+}
+if (%varclient_546 < 0 | %varclient_1333 < 0) {
+    $string0, $string1 = "<col=ff0000><$string0></col>", "<col=ff0000><$string1></col>";
+} else if (%varclient_546 > %varclient_1333) {
+    $string1 = "<col=ff0000><$string1></col>";
+} else if (%varclient_546 < %varclient_1333) {
+    $string0 = "<col=ff0000><$string0></col>";
+}
+if_settext(interface_1367:com_10, $string0);
+if_settext(interface_1367:com_15, $string1);

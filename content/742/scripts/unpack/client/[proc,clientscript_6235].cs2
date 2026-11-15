@@ -1,0 +1,7 @@
+// 6235
+[proc,clientscript_6235](int $int0)
+if ($int0 = 1) {
+    if_sethide(interface_1285:com_0, false);
+} else {
+    if_sethide(interface_1285:com_0, true);
+}

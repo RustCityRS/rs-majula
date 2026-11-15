@@ -1,0 +1,13 @@
+// 1848
+[proc,clientscript_1848](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+if ($int2 > 500) {
+    ~clientscript_1849($component0);
+    return;
+}
+def_int $int3 = calc(10 - $int2 / 50);
+if ($int3 = 1) {
+    if_settext($component0, "Reverting in 1 second...");
+} else {
+    if_settext($component0, "Reverting in <tostring($int3)> seconds...");
+}

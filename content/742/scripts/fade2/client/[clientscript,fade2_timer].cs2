@@ -1,0 +1,8 @@
+// 2802
+[clientscript,fade2_timer](int $int0, component $component1)
+def_int $int2 = if_gettrans($component1);
+def_int $int3 = min(max(calc($int2 + $int0), 0), 255);
+if_settrans($component1, $int3);
+if ($int3 = 0 | $int3 = 255) {
+    if_setontimer($component1, null);
+}

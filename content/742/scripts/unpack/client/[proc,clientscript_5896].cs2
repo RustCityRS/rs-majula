@@ -1,0 +1,44 @@
+// 5896
+[proc,clientscript_5896](int $int0, int $int1)
+def_component $component2 = interface_1253:com_89;
+if ($int1 < 0) {
+    $int1 = calc($int1 + 1);
+    if_setontimer($component2, "clientscript_5895($int0, $int1)");
+    return;
+}
+if_setontimer($component2, "clientscript_5895($int0, 0)");
+def_int $int3 = ~scale_round(op2613($component2), 65535, 360);
+def_int $int4 = 0;
+switch_int ($int3) {
+    case 359 :
+        if ($int0 = 2) {
+            if_setontimer($component2, null);
+            return;
+        } else {
+            $int4 = 355;
+        }
+    case 357 :
+        if ($int0 = 2) {
+            $int4 = 359;
+        } else {
+            $int4 = 355;
+        }
+    case 355 :
+        if ($int0 = 2) {
+            $int4 = 357;
+        } else {
+            $int4 = 354;
+        }
+    case 354 :
+        if ($int0 = 2) {
+            $int4 = 355;
+        } else {
+            $int4 = 353;
+        }
+    case 353 :
+        $int4 = 354;
+        $int0 = 2;
+        if_setontimer(interface_1253:com_89, "clientscript_5895($int0, 0)");
+}
+def_int $int5 = ~scale_round($int4, 360, 65535);
+if_set2dangle($component2, $int5);

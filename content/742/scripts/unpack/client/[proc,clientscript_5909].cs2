@@ -1,0 +1,33 @@
+// 5909
+[proc,clientscript_5909](int $int0, int $int1, obj $obj2, int $int3)(string)
+def_string $string0 = "";
+switch_int (~clientscript_5907($int0, $int1)) {
+    case 0 :
+        if ($int3 > 1) {
+            $string0 = "You won: <tostring($int3)> x <~clientscript_5908($obj2)>";
+        } else {
+            $string0 = "You won: <~clientscript_5908($obj2)><br>";
+        }
+        if (oc_members($obj2) = 1 & map_members = false) {
+            $string0 = "<$string0> This is a members item. Subscribe now to claim it!";
+        }
+    case 1 :
+        if ($int3 > 1) {
+            $string0 = "Not bad! You won: <tostring($int3)> x <~clientscript_5908($obj2)><br>";
+        } else {
+            $string0 = "Not bad! You won: <~clientscript_5908($obj2)><br>";
+        }
+        if ((oc_members($obj2) = 1 | $int0 = 1 | $int0 = 2 | $int0 = 4) & map_members = false) {
+            $string0 = "<$string0> This is a members item. Subscribe now to claim it!";
+        }
+    case 2 :
+        if ($int3 > 1) {
+            $string0 = "Congratulations! You won: <tostring($int3)> x <~clientscript_5908($obj2)><br><enum(obj, string, enum_5704, $obj2)>";
+        } else {
+            $string0 = "Congratulations! You won: <~clientscript_5908($obj2)><br><enum(obj, string, enum_5704, $obj2)>";
+        }
+        if (map_members = false) {
+            $string0 = "<$string0> This is a members item. Subscribe now to claim it!";
+        }
+}
+return($string0);

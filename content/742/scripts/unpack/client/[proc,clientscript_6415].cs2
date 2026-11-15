@@ -1,0 +1,46 @@
+// 6415
+[proc,clientscript_6415](component $component0)
+def_component $component1 = null;
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_component ($component0) {
+    case interface_1308:com_23 :
+        $component1 = interface_1308:com_24;
+        $component2 = interface_1308:com_47;
+        $component3 = interface_1308:com_46;
+        $component4 = interface_1308:com_48;
+    case interface_1308:com_25 :
+        $component1 = interface_1308:com_26;
+        $component2 = interface_1308:com_365;
+        $component3 = interface_1308:com_364;
+        $component4 = interface_1308:com_366;
+    case interface_1308:com_27 :
+        $component1 = interface_1308:com_28;
+        $component2 = interface_1308:com_378;
+        $component3 = interface_1308:com_377;
+        $component4 = interface_1308:com_379;
+    case interface_1308:com_29 :
+        $component1 = interface_1308:com_30;
+        $component2 = interface_1308:com_391;
+        $component3 = interface_1308:com_390;
+        $component4 = interface_1308:com_392;
+    case interface_1308:com_31 :
+        $component1 = interface_1308:com_32;
+        $component2 = interface_1308:com_404;
+        $component3 = interface_1308:com_403;
+        $component4 = interface_1308:com_405;
+    case interface_1308:com_33 :
+        $component1 = interface_1308:com_34;
+        $component2 = interface_1308:com_417;
+        $component3 = interface_1308:com_416;
+        $component4 = interface_1308:com_418;
+}
+if ($component1 = null | $component2 = null | $component3 = null) {
+    return;
+}
+if_setcolour($component2, 0x5b5959);
+if_sethide($component3, true);
+if_sethide($component1, false);
+if_settext($component2, "Nothing");
+if_sethide($component4, true);

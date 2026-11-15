@@ -1,0 +1,24 @@
+// 6088
+[proc,clientscript_6088](int $int0, int $int1)
+def_component $component2 = interface_1265:com_20;
+def_component $component3 = interface_1265:com_25;
+def_component $component4 = interface_1265:com_26;
+def_component $component5 = interface_1265:com_24;
+def_component $component6 = interface_1265:com_23;
+def_component $component7 = interface_1265:com_27;
+if ($int1 = 1) {
+    $component2 = interface_1265:com_21;
+    $component3 = interface_1265:com_96;
+    $component4 = interface_1265:com_97;
+    $component5 = null;
+    $component6 = interface_1265:com_95;
+    $component7 = interface_1265:com_98;
+}
+cc_create($component2, ^iftype_graphic, $int0);
+cc_create($component3, ^iftype_text, $int0);
+cc_create($component4, ^iftype_graphic, $int0);
+cc_create($component6, ^iftype_text, $int0);
+if ($component5 ! null) {
+    cc_create($component5, ^iftype_graphic, $int0);
+}
+cc_create($component7, ^iftype_graphic, $int0);

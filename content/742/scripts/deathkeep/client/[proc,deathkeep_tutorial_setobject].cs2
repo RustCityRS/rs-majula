@@ -1,0 +1,11 @@
+// 4599
+[proc,deathkeep_tutorial_setobject](obj $obj0, int $int1, string $string0, component $component2)
+if ($int1 > 1) {
+    if_setobject_alwaysnum($component2, $obj0, $int1);
+} else {
+    if_setobject_nonum($component2, $obj0, 1);
+}
+if_setonop($component2, "script1620(event_com, event_comsubid, 100, 0, 8)");
+if_setop($component2, 10, "Examine");
+if_setopbase($component2, "<col=ff9040><oc_name($obj0)></col>");
+if_setonop($component2, "deathkeep_tutorial_examine(event_op, $string0)");

@@ -1,0 +1,74 @@
+// 14
+[proc,skill_advance_guide_entry](int $int0, int $int1, int $int2)(int, obj, string, string)
+if ($int0 = 1) {
+    return(~clientscript_982($int1, $int2));
+}
+if ($int0 = 2) {
+    return(~clientscript_984($int1, $int2));
+}
+if ($int0 = 5) {
+    return(~clientscript_978($int1, $int2));
+}
+if ($int0 = 3) {
+    return(~clientscript_1010($int1, $int2));
+}
+if ($int0 = 7) {
+    return(~clientscript_1004($int1, $int2));
+}
+if ($int0 = 4) {
+    return(~clientscript_996($int1, $int2));
+}
+if ($int0 = 6) {
+    return(~clientscript_994($int1, $int2));
+}
+if ($int0 = 8) {
+    return(~clientscript_1008($int1, $int2));
+}
+if ($int0 = 9) {
+    return(~clientscript_1002($int1, $int2));
+}
+if ($int0 = 10) {
+    return(~clientscript_992($int1, $int2));
+}
+if ($int0 = 11) {
+    return(~clientscript_1000($int1, $int2));
+}
+if ($int0 = 19) {
+    return(~clientscript_980($int1, $int2));
+}
+if ($int0 = 13) {
+    return(~clientscript_1016($int1, $int2));
+}
+if ($int0 = 14) {
+    return(~clientscript_1022($int1, $int2));
+}
+if ($int0 = 15) {
+    return(~clientscript_998($int1, $int2));
+}
+if ($int0 = 16) {
+    return(~skill_advance_guide_entry_cooking($int1, $int2));
+}
+if ($int0 = 17) {
+    return(~skill_advance_guide_entry_firemaking($int1, $int2));
+}
+if ($int0 = 18) {
+    return(~clientscript_990($int1, $int2));
+}
+if ($int0 = 12) {
+    return(~skill_advance_guide_entry_runecraft($int1, $int2));
+}
+if ($int0 = 20) {
+    return(~skill_advance_guide_entry_slayer($int1, $int2));
+}
+if ($int0 = 21) {
+    return(~clientscript_1014($int1, $int2));
+}
+if ($int0 = 22) {
+    return(~skill_advance_guide_entry_construction($int1, $int2));
+}
+if ($int0 = 23) {
+    return(~clientscript_1006($int1, $int2));
+}
+if ($int0 = 24) {
+    return(~clientscript_1020($int1, $int2));
+}

@@ -1,0 +1,5 @@
+// 3299
+[clientscript,rand_inspect_examine](inv $inv0, int $int1)
+if (invother_getobj($inv0, $int1) ! null) {
+    mes(oc_name(invother_getobj($inv0, $int1)));
+}

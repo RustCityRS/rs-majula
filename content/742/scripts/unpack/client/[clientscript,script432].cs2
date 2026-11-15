@@ -1,0 +1,42 @@
+// 432
+[clientscript,script432](component $component0, int $int1)
+def_struct $struct2 = null;
+def_component $component3 = conq_side_command:tooltip_content_layer;
+switch_component ($component0) {
+    case default :
+        return;
+    case conq_side_command:backing_1 :
+        if (%conq_in_tutorial = 1) {
+            $struct2 = struct_293;
+        } else {
+            $struct2 = ~script488(%conq_command_ability_1);
+        }
+    case conq_side_command:backing_2 :
+        if (%conq_in_tutorial = 1) {
+            $struct2 = struct_300;
+        } else {
+            $struct2 = ~script488(%conq_command_ability_2);
+        }
+    case conq_side_command:backing_3 :
+        if (%conq_in_tutorial = 1) {
+            $struct2 = struct_305;
+        } else {
+            $struct2 = ~script488(%conq_command_ability_3);
+        }
+    case conq_side_command:backing_4 :
+        if (%conq_in_tutorial = 1) {
+            $struct2 = struct_1044;
+        } else {
+            $struct2 = ~script488(%conq_command_ability_4);
+        }
+}
+if ($struct2 ! null) {
+    if_settext(conq_side_command:tooltip_name, struct_param($struct2, param_1150));
+    if_settext(conq_side_command:tooltip_desc, struct_param($struct2, param_1151));
+    if_settext(conq_side_command:tooltip_cost, "Cost: <tostring(struct_param($struct2, param_1154))>");
+    if_settext(conq_side_command:tooltip_cooldown, "Cooldown: <tostring(struct_param($struct2, param_1155))>");
+    if_setposition($component3, if_getx($component3), $int1, ^setpos_abs_left, ^setpos_abs_top);
+    if_sethide($component3, false);
+} else {
+    if_sethide($component3, true);
+}

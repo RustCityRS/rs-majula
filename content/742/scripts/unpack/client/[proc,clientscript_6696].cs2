@@ -1,0 +1,6 @@
+// 6696
+[proc,clientscript_6696](string $string0, int $int0)(string)
+if ($int0 >= 1500) {
+    return(append($string0, "<br><col=ffff00><tostring_localised(1500, true)></col>"));
+}
+return(append($string0, "<br><col=ffffff><tostring_localised($int0, true)></col>"));

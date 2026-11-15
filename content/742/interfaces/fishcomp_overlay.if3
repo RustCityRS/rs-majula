@@ -1,0 +1,1345 @@
+// 919:0
+[com_0]
+type=layer
+width=171
+height=28
+layer=com_49
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "Time remaining until competition starts", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:1
+[com_1]
+type=rectangle
+x=164
+y=87
+width=1
+height=32
+layer=com_56
+colour=0x929194
+
+// 919:2
+[com_2]
+type=rectangle
+x=165
+y=87
+width=1
+height=32
+layer=com_56
+colour=0x6c6e6c
+
+// 919:3
+[com_3]
+type=rectangle
+x=149
+y=87
+width=16
+height=1
+layer=com_56
+colour=0xc5c5c5
+
+// 919:4
+[com_4]
+type=rectangle
+x=148
+y=88
+width=16
+height=1
+layer=com_56
+colour=0x717171
+
+// 919:5
+[com_5]
+type=rectangle
+x=21
+y=68
+width=1
+height=32
+xmode=abs_right
+layer=com_56
+colour=0x696a69
+
+// 919:6
+[com_6]
+type=rectangle
+x=20
+y=68
+width=1
+height=32
+xmode=abs_right
+layer=com_56
+colour=0x919093
+
+// 919:7
+[com_7]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+onload=clientscript_1969(event_com)
+
+// 919:8
+[com_8]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+onload=clientscript_6250(event_com)
+
+// 919:9
+[com_9]
+type=text
+width=44288
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_112
+textfont=verdana_13pt_regular
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f
+
+// 919:10
+[com_10]
+type=text
+x=8
+y=-3
+width=34
+height=19952
+heightmode=proportion
+layer=com_51
+textfont=verdana_13pt_regular
+text=00
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f
+
+// 919:11
+[com_11]
+type=text
+x=24
+y=-3
+width=10
+height=19952
+heightmode=proportion
+layer=com_51
+textfont=verdana_13pt_regular
+text=:
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f
+
+// 919:12
+[com_12]
+type=text
+x=30
+y=-3
+width=25
+height=19952
+heightmode=proportion
+layer=com_51
+textfont=verdana_13pt_regular
+text=00
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f
+
+// 919:13
+[com_13]
+type=layer
+x=22
+y=112
+width=106
+height=28
+layer=com_18
+noclickthrough=yes
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "As fish are caught in this habitat, this bar fills.<br>When it's full, the habitat will gain a depletion level.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:14
+[com_14]
+type=graphic
+width=33
+height=28
+layer=com_16
+graphic=graphic_9277
+hflip=yes
+
+// 919:15
+[com_15]
+type=graphic
+x=33
+width=113
+height=28
+layer=com_16
+graphic=graphic_9276
+
+// 919:16
+[com_16]
+type=layer
+x=2
+y=90
+width=171
+height=28
+layer=com_49
+noclickthrough=yes
+
+// 919:17
+[com_17]
+type=layer
+x=27
+y=93
+width=76
+height=18
+layer=com_49
+
+// 919:18
+[com_18]
+type=layer
+width=512
+height=200
+layer=com_49
+
+// 919:19
+[com_19]
+type=layer
+x=125
+y=112
+width=28
+height=28
+layer=com_18
+noclickthrough=yes
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "The greater the depletion level, the longer it takes to catch fish in this habitat.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:20
+[com_20]
+type=graphic
+width=33
+height=28
+layer=com_0
+graphic=graphic_9277
+hflip=yes
+
+// 919:21
+[com_21]
+type=graphic
+x=33
+width=113
+height=28
+layer=com_0
+graphic=graphic_9276
+
+// 919:22
+[com_22]
+type=graphic
+width=33
+height=28
+xmode=abs_right
+layer=com_0
+graphic=graphic_9277
+
+// 919:23
+[com_23]
+type=layer
+x=98
+width=50
+height=23
+layer=com_0
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "Time remaining until competition starts", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:24
+[com_24]
+type=layer
+x=296
+y=9
+width=99
+height=52
+layer=com_49
+
+// 919:25
+[com_25]
+type=layer
+width=46
+height=18
+layer=history_scrolllayer
+transmitop=10
+op10= 
+
+// 919:26
+[com_26]
+type=text
+y=-22
+width=72
+height=16
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=Heaviest:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xf1d8b0
+transmitop=10
+op10= 
+
+// 919:27
+[com_27]
+type=text
+y=-8
+width=72
+height=10
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=Total fish:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xf1d8b0
+transmitop=10
+op10=  
+
+// 919:28
+[com_28]
+type=text
+y=8
+width=72
+height=14
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=Total weight:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xf1d8b0
+transmitop=10
+op10=  
+
+// 919:29
+[com_29]
+type=text
+y=22
+width=72
+height=14
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=Total assists:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xf1d8b0
+
+// 919:30
+[com_30]
+type=text
+x=76
+y=-22
+width=41
+height=17
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10= 
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "The heaviest fish you've caught this competition", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:31
+[com_31]
+type=text
+x=76
+y=-8
+width=41
+height=17
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10= 
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "The number of fish you've caught this competition", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:32
+[com_32]
+type=text
+x=76
+y=8
+width=41
+height=17
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa4a467
+transmitop=10
+op10= 
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "The combined weight of all the fish you've caught this competition", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:33
+[com_33]
+type=text
+x=76
+y=22
+width=41
+height=17
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xa4a467
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "The number of times you've helped to catch a Big Fish this competition", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:34
+[com_34]
+type=text
+x=117
+width=40
+height=35
+ymode=abs_centre
+layer=com_84
+textfont=p11_full
+text=Last catch:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf1d8b0
+transmitop=10
+op10= 
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "On this row is the fish you caught most recently", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:35
+[com_35]
+type=rectangle
+x=169
+width=16384
+height=25
+widthmode=proportion
+layer=com_83
+colour=0x15222a
+fill=yes
+
+// 919:36
+[com_36]
+type=rectangle
+x=90
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:37
+[com_37]
+type=rectangle
+x=126
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:38
+[com_38]
+type=rectangle
+x=169
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:39
+[com_39]
+type=rectangle
+x=224
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:40
+[com_40]
+type=rectangle
+x=270
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:41
+[com_41]
+type=rectangle
+x=313
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:42
+[com_42]
+type=rectangle
+x=347
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:43
+[com_43]
+type=rectangle
+x=398
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:44
+[com_44]
+type=rectangle
+x=438
+width=1
+height=5
+heightmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:45
+[com_45]
+type=rectangle
+x=170
+y=25
+width=170
+height=1
+widthmode=minus
+layer=com_83
+colour=0x606060
+
+// 919:46
+[com_46]
+type=layer
+x=7
+width=505
+height=95
+xmode=abs_right
+layer=main_layer
+
+// 919:47
+[com_47]
+type=layer
+width=505
+height=200
+xmode=abs_right
+layer=main_layer
+
+// 919:48
+[com_48]
+type=layer
+x=158
+width=340
+height=120
+ymode=abs_bottom
+layer=com_47
+
+// 919:49
+[com_49]
+type=layer
+width=512
+height=200
+xmode=abs_right
+layer=main_layer
+
+// 919:50
+[com_50]
+type=graphic
+width=33
+height=28
+xmode=abs_right
+layer=com_16
+graphic=graphic_9277
+
+// 919:51
+[com_51]
+type=layer
+x=98
+width=50
+height=23
+layer=com_16
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "Time remaining until competition ends", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:52
+[main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+onload=fishcomp_overlay_load
+
+// 919:53
+[com_53]
+type=layer
+x=170
+y=57
+width=328
+height=84
+heightmode=minus
+layer=com_47
+noclickthrough=yes
+
+// 919:54
+[com_54]
+type=layer
+x=170
+y=33
+width=321
+height=70
+heightmode=minus
+layer=com_47
+
+// 919:55
+[com_55]
+type=layer
+x=180
+y=13
+width=298
+height=22
+ymode=abs_bottom
+layer=com_47
+
+// 919:56
+[com_56]
+type=layer
+width=512
+height=334
+layer=com_47
+
+// 919:57
+[com_57]
+type=rectangle
+x=47
+width=1
+height=16384
+heightmode=proportion
+layer=com_53
+colour=0x606060
+transmitop=10
+op10=   
+
+// 919:58
+[com_58]
+type=layer
+x=6
+y=1
+width=16
+height=1
+heightmode=minus
+xmode=abs_right
+layer=com_54
+
+// 919:59
+[history_scrolllayer]
+type=layer
+width=21
+height=16384
+widthmode=minus
+heightmode=proportion
+layer=com_54
+
+// 919:60
+[history_habitat_layer]
+type=layer
+x=49
+width=43
+height=18
+layer=history_scrolllayer
+
+// 919:61
+[history_weight_layer]
+type=layer
+x=95
+width=40
+height=18
+layer=history_scrolllayer
+transmitop=10
+op10= 
+
+// 919:62
+[history_bait_layer]
+type=layer
+x=139
+width=32
+height=18
+layer=history_scrolllayer
+transmitop=10
+op10= 
+
+// 919:63
+[history_hook_layer]
+type=layer
+x=172
+width=48
+height=18
+layer=history_scrolllayer
+transmitop=10
+op10= 
+
+// 919:64
+[history_distance_layer]
+type=layer
+x=223
+width=37
+height=18
+layer=history_scrolllayer
+transmitop=10
+op10= 
+
+// 919:65
+[history_rating_layer]
+type=layer
+x=263
+width=38
+height=18
+layer=history_scrolllayer
+transmitop=10
+op10= 
+
+// 919:66
+[com_66]
+type=layer
+width=512
+height=334
+layer=com_24
+
+// 919:67
+[com_67]
+type=layer
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_55
+
+// 919:68
+[com_68]
+type=graphic
+x=10
+y=5
+width=15
+height=13
+layer=com_55
+graphic=graphic_6288
+tiling=yes
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 919:69
+[com_69]
+type=graphic
+x=10
+y=5
+width=15
+height=13
+xmode=abs_right
+layer=com_55
+graphic=graphic_6288
+tiling=yes
+vflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 919:70
+[com_70_]
+type=text
+x=170
+y=9
+width=54
+height=17
+layer=com_83
+textfont=p11_full
+text=Species
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10=  
+
+// 919:71
+[text_11]
+type=text
+x=225
+y=9
+width=46
+height=17
+layer=com_83
+textfont=p11_full
+text=Habitat
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10= 
+
+// 919:72
+[com_70]
+type=text
+x=272
+y=9
+width=40
+height=17
+layer=com_83
+textfont=p11_full
+text=Weight
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10= 
+
+// 919:73
+[com_71]
+type=text
+x=313
+y=9
+width=34
+height=17
+layer=com_83
+textfont=p11_full
+text=Bait
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10= 
+
+// 919:74
+[com_72]
+type=text
+x=348
+y=9
+width=50
+height=17
+layer=com_83
+textfont=p11_full
+text=Hook
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10= 
+
+// 919:75
+[com_73]
+type=text
+x=399
+y=9
+width=39
+height=17
+layer=com_83
+textfont=p11_full
+text=Range
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10= 
+
+// 919:76
+[com_74]
+type=text
+x=439
+y=9
+width=55
+height=17
+layer=com_83
+textfont=p11_full
+text=Rating
+textalignh=centre
+textshadow=yes
+colour=0xf4b041
+transmitop=10
+op10= 
+
+// 919:77
+[com_77]
+type=rectangle
+x=93
+width=1
+height=16384
+heightmode=proportion
+layer=com_53
+colour=0x606060
+transmitop=10
+op10=  
+
+// 919:78
+[com_78]
+type=rectangle
+x=136
+width=1
+height=16384
+heightmode=proportion
+layer=com_53
+colour=0x606060
+transmitop=10
+op10= 
+
+// 919:79
+[com_79]
+type=rectangle
+x=170
+width=1
+height=16384
+heightmode=proportion
+layer=com_53
+colour=0x606060
+transmitop=10
+op10= 
+
+// 919:80
+[com_80]
+type=rectangle
+x=221
+width=1
+height=16384
+heightmode=proportion
+layer=com_53
+colour=0x606060
+transmitop=10
+op10= 
+
+// 919:81
+[com_81]
+type=rectangle
+x=261
+width=1
+height=16384
+heightmode=proportion
+layer=com_53
+colour=0x606060
+transmitop=10
+op10= 
+
+// 919:82
+[com_82]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_46
+onload=clientscript_1969(event_com)
+
+// 919:83
+[com_83]
+type=layer
+y=2
+width=7
+height=8
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_46
+noclickthrough=yes
+
+// 919:84
+[com_84]
+type=layer
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_46
+
+// 919:85
+[com_85]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_46
+onload=clientscript_6060(event_com)
+
+// 919:86
+[com_86]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_85
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 919:87
+[com_87]
+type=graphic
+width=12
+height=30
+ymode=abs_centre
+layer=com_13
+graphic="aif_progress_bar_frame_2,0"
+
+// 919:88
+[com_88]
+type=graphic
+width=12
+height=30
+xmode=abs_right
+ymode=abs_centre
+layer=com_13
+graphic="aif_progress_bar_frame_2,0"
+hflip=yes
+
+// 919:89
+[com_89]
+type=graphic
+width=12
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+graphic="aif_progress_bar_frame_2,1"
+tiling=yes
+hflip=yes
+
+// 919:90
+[com_90]
+type=layer
+x=6
+width=12
+height=19
+widthmode=minus
+ymode=abs_centre
+layer=com_13
+
+// 919:91
+[com_91]
+type=layer
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_90
+
+// 919:92
+[com_92]
+type=graphic
+width=6
+height=19
+ymode=abs_centre
+layer=com_91
+graphic="aif_progress_bar_red_fill_2,0"
+
+// 919:93
+[com_93]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=com_91
+graphic="aif_progress_bar_red_fill_2,2"
+
+// 919:94
+[com_94]
+type=graphic
+width=12
+height=19
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_91
+graphic="aif_progress_bar_red_fill_2,1"
+tiling=yes
+
+// 919:95
+[com_95]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+
+// 919:96
+[com_96]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_95
+textfont=verdana_11pt_regular
+text=0%
+textalignh=centre
+textalignv=centre
+colour=0xd5d9d3
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)
+
+// 919:97
+[com_97]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1799)
+
+// 919:98
+[com_98]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1800)
+
+// 919:99
+[com_99]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+onload=script4525(event_com, struct_1801)
+
+// 919:100
+[com_100]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "Press this button to display the habitats in which you've achieved 100% rating this competition.", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:101
+[com_101]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+
+// 919:102
+[com_102]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_101
+textfont=p11_full
+text=Ratings
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+
+// 919:103
+[com_103]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_67
+onload=script4525(event_com, struct_1799)
+
+// 919:104
+[com_104]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_67
+onload=script4525(event_com, struct_1800)
+
+// 919:105
+[com_105]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_67
+onload=script4525(event_com, struct_1801)
+
+// 919:106
+[com_106]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_67
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 919:107
+[com_107]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_67
+
+// 919:108
+[com_108]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_107
+textfont=verdana_11pt_regular
+text=Catch History
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onmouseleave=deltooltip(fishcomp_overlay:com_24)
+onmouserepeat=aif_tooltip(fishcomp_overlay:com_24, event_com, -1, "Open/close the full history of catches", 200, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)
+
+// 919:109
+[com_109]
+type=graphic
+width=12
+height=30
+ymode=abs_centre
+layer=com_19
+graphic="aif_progress_bar_frame_2,0"
+
+// 919:110
+[com_110]
+type=graphic
+width=12
+height=30
+xmode=abs_right
+ymode=abs_centre
+layer=com_19
+graphic="aif_progress_bar_frame_2,0"
+hflip=yes
+
+// 919:111
+[com_111]
+type=graphic
+width=12
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+graphic="aif_progress_bar_frame_2,1"
+tiling=yes
+hflip=yes
+
+// 919:112
+[com_112]
+type=layer
+y=-1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+
+// 919:113
+[com_113]
+type=text
+x=8
+y=-3
+width=34
+height=19952
+heightmode=proportion
+layer=com_23
+textfont=verdana_13pt_regular
+text=00
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f
+
+// 919:114
+[com_114]
+type=text
+x=24
+y=-3
+width=10
+height=19952
+heightmode=proportion
+layer=com_23
+textfont=verdana_13pt_regular
+text=:
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f
+
+// 919:115
+[com_115]
+type=text
+x=30
+y=-3
+width=25
+height=19952
+heightmode=proportion
+layer=com_23
+textfont=verdana_13pt_regular
+text=00
+textalignv=centre
+textshadow=yes
+colour=0xf4b33f

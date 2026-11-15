@@ -1,0 +1,7 @@
+// 1406
+[proc,script1406](component $component0)
+if_sethide(boardgames_options:com_3, true);
+if_sethide(boardgames_options:com_4, true);
+if_sethide(boardgames_options:com_6, true);
+if_sethide(boardgames_options:com_8, true);
+if_sethide($component0, false);

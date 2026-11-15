@@ -1,0 +1,8 @@
+// 6700
+[proc,clientscript_6700](component $component0, component $component1, int $int2)
+if_settext($component1, ~clientscript_6702(%varclient_2012));
+if (%varclient_2012 > 0) {
+    if_setontimer($component0, "clientscript_6701($component0, $component1, calc(clientclock + $int2))");
+} else {
+    if_setontimer($component0, null);
+}

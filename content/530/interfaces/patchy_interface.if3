@@ -1,0 +1,1394 @@
+// 419:0
+[content_layer]
+type=layer
+width=512
+height=334
+
+// 419:1
+[background_layer]
+type=layer
+x=-1
+y=13
+width=512
+height=334
+
+// 419:2
+[com_2]
+type=model
+x=5
+y=-8
+width=502
+height=320
+layer=background_layer
+model=model_26445
+modelorigin=-3,2
+modelangle=507,0,0
+modelzoom=323
+modelunknown=65204,3000,0
+transmitop=10
+op10= 
+
+// 419:3
+[com_3]
+type=text
+x=57
+y=296
+width=390
+height=16
+layer=background_layer
+textfont=fontmetrics_497
+text=Ahoy!  What would ye like to be sewn together, matey?
+textalignh=centre
+colour=0xffffcc
+transmitop=10
+op10= 
+
+// 419:4
+[com_4]
+type=layer
+x=82
+y=8
+width=67
+height=61
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_39, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_39, 0xcccccc)
+
+// 419:5
+[bandana_red_layer]
+type=layer
+x=176
+y=8
+width=61
+height=63
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_41, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_41, 0xcccccc)
+
+// 419:6
+[bandana_blue_layer]
+type=layer
+x=269
+y=8
+width=62
+height=62
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_43, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_43, 0xcccccc)
+
+// 419:7
+[bandana_brown_layer]
+type=layer
+x=361
+y=8
+width=61
+height=63
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_45, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_45, 0xcccccc)
+
+// 419:8
+[bandana_grey_layer]
+type=layer
+x=133
+y=68
+width=56
+height=61
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_47, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_47, 0xcccccc)
+
+// 419:9
+[bandana_purple_layer]
+type=layer
+x=227
+y=68
+width=59
+height=62
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_49, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_49, 0xcccccc)
+
+// 419:10
+[bandana_orange_layer]
+type=layer
+x=321
+y=68
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_51, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_51, 0xcccccc)
+
+// 419:11
+[com_11]
+type=layer
+x=133
+y=218
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_53, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_53, 0xcccccc)
+
+// 419:12
+[com_12]
+type=layer
+x=227
+y=218
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_55, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_55, 0xcccccc)
+
+// 419:13
+[com_13]
+type=layer
+x=321
+y=218
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_57, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_57, 0xcccccc)
+
+// 419:14
+[com_14]
+type=layer
+x=263
+y=476
+width=59
+height=84
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_59, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_59, 0xcccccc)
+
+// 419:15
+[com_15]
+type=layer
+x=176
+y=158
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_61, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_61, 0xcccccc)
+
+// 419:16
+[com_16]
+type=layer
+x=361
+y=158
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_63, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_63, 0xcccccc)
+
+// 419:17
+[com_17]
+type=layer
+x=269
+y=158
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_65, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_65, 0xcccccc)
+
+// 419:18
+[com_18]
+type=layer
+x=82
+y=158
+width=55
+height=60
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_67, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_67, 0xcccccc)
+
+// 419:19
+[com_19]
+type=layer
+x=82
+y=308
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_69, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_69, 0xcccccc)
+
+// 419:20
+[com_20]
+type=layer
+x=176
+y=308
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_71, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_71, 0xcccccc)
+
+// 419:21
+[com_21]
+type=layer
+x=269
+y=308
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_73, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_73, 0xcccccc)
+
+// 419:22
+[com_22]
+type=layer
+x=361
+y=308
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_75, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_75, 0xcccccc)
+
+// 419:23
+[com_23]
+type=layer
+x=133
+y=378
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_77, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_77, 0xcccccc)
+
+// 419:24
+[com_24]
+type=layer
+x=227
+y=378
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_79, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_79, 0xcccccc)
+
+// 419:25
+[com_25]
+type=layer
+x=321
+y=378
+width=55
+height=71
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_81, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_81, 0xcccccc)
+
+// 419:26
+[hat_layer]
+type=layer
+x=167
+y=476
+width=65
+height=55
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_83, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_83, 0xcccccc)
+
+// 419:27
+[com_27]
+type=layer
+x=72
+y=473
+width=71
+height=85
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_85, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_85, 0xcccccc)
+
+// 419:28
+[com_28]
+type=layer
+x=326
+y=562
+width=46
+height=78
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_87, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_87, 0xcccccc)
+
+// 419:29
+[claw_layer]
+type=layer
+x=351
+y=476
+width=76
+height=58
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_89, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_89, 0xcccccc)
+
+// 419:30
+[cavalier_layer]
+type=layer
+x=217
+y=558
+width=83
+height=84
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_91, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_91, 0xcccccc)
+
+// 419:31
+[barret_layer]
+type=layer
+x=118
+y=558
+width=85
+height=75
+layer=scrolling_layer
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(patchy_interface:com_93, ^white)
+onmouseleave=text_colour_swapper(patchy_interface:com_93, 0xcccccc)
+
+// 419:32
+[com_32]
+type=rectangle
+x=77
+y=460
+width=343
+height=2
+layer=scrolling_layer
+colour=0x4b070f
+fill=yes
+transmitop=10
+op10= 
+
+// 419:33
+[com_33]
+type=rectangle
+x=77
+y=291
+width=343
+height=2
+layer=scrolling_layer
+colour=0x4b070f
+fill=yes
+transmitop=10
+op10= 
+
+// 419:34
+[com_34]
+type=rectangle
+x=77
+y=141
+width=343
+height=2
+layer=scrolling_layer
+colour=0x4b070f
+fill=yes
+transmitop=10
+op10= 
+
+// 419:35
+[scrolling_layer]
+type=layer
+y=34
+width=504
+height=263
+scrollheight=715
+onload=clientscript_956
+
+// 419:36
+[scrollbar]
+type=layer
+x=473
+y=45
+width=16
+height=240
+onload=scrollbar_vertical_graphics(event_com, patchy_interface:scrolling_layer, 792, 789, 790, 791, 773, 788)
+
+// 419:37
+[com_37]
+type=graphic
+x=473
+y=5
+width=26
+height=23
+graphic=graphic_541
+transmitop=10
+op10= 
+onmouseover=graphic_swapper(patchy_interface:com_37, 542)
+onmouseleave=graphic_swapper(patchy_interface:com_37, 541)
+onclick=if_close
+
+// 419:38
+[patchy_bandana_white]
+type=model
+x=10
+width=47
+height=38
+layer=com_4
+model=model_16003
+modelorigin=-10,-4
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:39
+[com_39]
+type=text
+x=4
+y=37
+width=58
+height=24
+layer=com_4
+textfont=fontmetrics_494
+text=White<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:40
+[patchy_bandana_red]
+type=model
+x=9
+width=47
+height=38
+layer=bandana_red_layer
+model=model_16005
+modelorigin=-10,-4
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:41
+[com_41]
+type=text
+x=3
+y=37
+width=58
+height=22
+layer=bandana_red_layer
+textfont=fontmetrics_494
+text=Red<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:42
+[patchy_bandana_blue]
+type=model
+x=7
+width=47
+height=38
+layer=bandana_blue_layer
+model=model_16002
+modelorigin=-10,-4
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:43
+[com_43]
+type=text
+x=5
+y=37
+width=53
+height=23
+layer=bandana_blue_layer
+textfont=fontmetrics_494
+text=Blue<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:44
+[patchy_bandana_brown]
+type=model
+x=6
+width=47
+height=38
+layer=bandana_brown_layer
+model=model_16004
+modelorigin=-10,-4
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:45
+[com_45]
+type=text
+x=2
+y=37
+width=58
+height=23
+layer=bandana_brown_layer
+textfont=fontmetrics_494
+text=Brown<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:46
+[patchy_bandana_grey]
+type=model
+x=6
+y=1
+width=47
+height=38
+layer=bandana_grey_layer
+model=model_34867
+modelorigin=-10,-4
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:47
+[com_47]
+type=text
+y=38
+width=56
+height=23
+layer=bandana_grey_layer
+textfont=fontmetrics_494
+text=Grey<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:48
+[patchy_bandana_purple]
+type=model
+x=6
+y=1
+width=47
+height=38
+layer=bandana_purple_layer
+model=model_34855
+modelorigin=-10,-4
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:49
+[com_49]
+type=text
+x=1
+y=38
+width=58
+height=24
+layer=bandana_purple_layer
+textfont=fontmetrics_494
+text=Purple<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:50
+[patchy_bandana_orange]
+type=model
+x=3
+y=-3
+width=51
+height=41
+layer=bandana_orange_layer
+model=model_34866
+modelorigin=-11,-4
+modelangle=387,75,0
+modelzoom=1622
+modelunknown=64036,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:51
+[com_51]
+type=text
+x=-3
+y=35
+width=58
+height=24
+layer=bandana_orange_layer
+textfont=fontmetrics_494
+text=Orange<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:52
+[patchy_bandana_grey_double]
+type=model
+x=-3
+width=62
+height=41
+layer=com_11
+model=model_34853
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63805,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:53
+[com_53]
+type=text
+y=37
+width=58
+height=24
+layer=com_11
+textfont=fontmetrics_494
+text=Grey<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:54
+[patchy_bandana_purple_double]
+type=model
+y=-1
+width=62
+height=41
+layer=com_12
+model=model_34857
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63792,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:55
+[com_55]
+type=text
+y=39
+width=58
+height=24
+layer=com_12
+textfont=fontmetrics_494
+text=Purple<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:56
+[patchy_bandana_orange_double]
+type=model
+y=-1
+width=62
+height=41
+layer=com_13
+model=model_34865
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:57
+[com_57]
+type=text
+x=-2
+y=39
+width=58
+height=24
+layer=com_13
+textfont=fontmetrics_494
+text=Orange<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:58
+[com_58]
+type=model
+x=4
+width=62
+height=48
+layer=com_14
+model=model_34859
+modelorigin=-3,-2
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63787,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:59
+[com_59]
+type=text
+x=3
+y=50
+width=58
+height=24
+layer=com_14
+textfont=fontmetrics_494
+text=Hat & double patches
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:60
+[com_60]
+type=model
+x=-4
+width=62
+height=41
+layer=com_15
+model=model_34864
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63792,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:61
+[com_61]
+type=text
+y=37
+width=58
+height=24
+layer=com_15
+textfont=fontmetrics_494
+text=Red<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:62
+[com_62]
+type=model
+x=-4
+width=62
+height=41
+layer=com_16
+model=model_34870
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63792,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:63
+[com_63]
+type=text
+y=37
+width=58
+height=24
+layer=com_16
+textfont=fontmetrics_494
+text=Brown<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:64
+[com_64]
+type=model
+x=-5
+y=-1
+width=62
+height=41
+layer=com_17
+model=model_34868
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:65
+[com_65]
+type=text
+y=37
+width=58
+height=24
+layer=com_17
+textfont=fontmetrics_494
+text=Blue<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:66
+[com_66]
+type=model
+x=-4
+width=62
+height=41
+layer=com_18
+model=model_34856
+modelorigin=-3,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=64036,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:67
+[com_67]
+type=text
+y=37
+width=58
+height=24
+layer=com_18
+textfont=fontmetrics_494
+text=White<br>bandana
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:68
+[com_68]
+type=model
+x=-4
+width=60
+height=41
+layer=com_19
+model=model_34869
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63861,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:69
+[com_69]
+type=text
+y=37
+width=58
+height=34
+layer=com_19
+textfont=fontmetrics_494
+text=White<br>bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:70
+[com_70]
+type=model
+x=-4
+width=60
+height=41
+layer=com_20
+model=model_34854
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63803,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:71
+[com_71]
+type=text
+y=37
+width=58
+height=34
+layer=com_20
+textfont=fontmetrics_494
+text=Red<br>bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:72
+[com_72]
+type=model
+x=-4
+width=60
+height=41
+layer=com_21
+model=model_34861
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63832,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:73
+[com_73]
+type=text
+y=37
+width=58
+height=34
+layer=com_21
+textfont=fontmetrics_494
+text=Blue<br> bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:74
+[com_74]
+type=model
+x=-4
+width=60
+height=41
+layer=com_22
+model=model_34871
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63818,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:75
+[com_75]
+type=text
+y=37
+width=58
+height=34
+layer=com_22
+textfont=fontmetrics_494
+text=Brown<br>bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:76
+[com_76]
+type=model
+x=-4
+width=60
+height=41
+layer=com_23
+model=model_34860
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63805,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:77
+[com_77]
+type=text
+y=37
+width=58
+height=34
+layer=com_23
+textfont=fontmetrics_494
+text=Grey<br>bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:78
+[com_78]
+type=model
+x=-4
+width=60
+height=41
+layer=com_24
+model=model_34862
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63792,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:79
+[com_79]
+type=text
+y=37
+width=58
+height=34
+layer=com_24
+textfont=fontmetrics_494
+text=Purple<br>bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:80
+[com_80]
+type=model
+x=-4
+width=60
+height=41
+layer=com_25
+model=model_34872
+modelorigin=-2,-5
+modelangle=387,75,0
+modelzoom=1750
+modelunknown=63780,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:81
+[com_81]
+type=text
+y=37
+width=58
+height=34
+layer=com_25
+textfont=fontmetrics_494
+text=Orange<br>bandana<br>left eye
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:82
+[patchy_hat]
+type=model
+x=9
+width=53
+height=38
+layer=hat_layer
+model=model_16007
+modelorigin=-3,7
+modelangle=285,3,0
+modelzoom=1500
+modelunknown=63848,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:83
+[com_83]
+type=text
+x=-3
+y=44
+width=74
+height=14
+layer=hat_layer
+textfont=fontmetrics_494
+text=Hat & patch
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:84
+[com_84]
+type=model
+x=10
+y=3
+width=64
+height=51
+layer=com_27
+model=model_34863
+modelorigin=-8,0
+modelangle=386,73,0
+modelzoom=1500
+modelunknown=63850,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:85
+[com_85]
+type=text
+x=2
+y=57
+width=76
+height=25
+layer=com_27
+textfont=fontmetrics_494
+text=Hat & patch<br>left
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:86
+[com_86]
+type=model
+x=4
+y=-2
+width=37
+height=66
+layer=com_28
+model=model_34858
+modelorigin=0,3
+modelangle=398,40,0
+modelzoom=1500
+modelunknown=63820,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:87
+[com_87]
+type=text
+x=-9
+y=50
+width=61
+height=65479
+layer=com_28
+textfont=fontmetrics_494
+text=Double<br>patch
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:88
+[patchy_hook_claw]
+type=model
+x=15
+width=41
+height=44
+layer=claw_layer
+model=model_16006
+modelorigin=-1,2
+modelangle=1474,414,0
+modelzoom=1500
+modelunknown=63815,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:89
+[com_89]
+type=text
+x=-6
+y=48
+width=84
+height=12
+layer=claw_layer
+textfont=fontmetrics_494
+text=Hook & claw
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:90
+[patchy_cavalier_black]
+type=model
+x=11
+width=58
+height=48
+layer=cavalier_layer
+model=model_26444
+modelorigin=0,2
+modelangle=2038,3,0
+modelzoom=1750
+modelunknown=63786,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:91
+[com_91]
+type=text
+y=52
+width=81
+height=35
+layer=cavalier_layer
+textfont=fontmetrics_494
+text=Cavalier & highwayman mask
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:92
+[patchy_barret_black]
+type=model
+x=16
+width=42
+height=49
+layer=barret_layer
+model=model_26443
+modelorigin=6,-8
+modelangle=2038,3,0
+modelzoom=1500
+modelunknown=63823,3000,0
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 419:93
+[com_93]
+type=text
+x=-1
+y=53
+width=88
+height=24
+layer=barret_layer
+textfont=fontmetrics_494
+text=Beret & mime mask
+textalignh=centre
+textshadow=yes
+colour=0xcccccc
+transmitop=1,10
+op1=Buy
+op10= 
