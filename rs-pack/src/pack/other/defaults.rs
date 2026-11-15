@@ -17,9 +17,9 @@ const GROUP_WEARPOS: u32 = 6;
 const GROUP_UNKNOWN7: u32 = 7;
 #[cfg(since_742)]
 const GROUP_UNKNOWN8: u32 = 8;
-/// How many lists the graphics group's opcode 7 holds.
+/// How many player recolours the graphics group holds: ten sets of four slots.
 #[cfg(since_742)]
-const SPLAT_SETS: usize = 10 << 2;
+const PLAYER_RECOLS: usize = 10 << 2;
 /// How many hitmarks a graphics group holds offsets for when it doesn't say.
 const DEFAULT_HITMARKS: usize = 4;
 
@@ -95,14 +95,29 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
                 writeln!(out, "{key}={}", slots.join(","))?;
             }
             #[cfg(since_742)]
+            (GROUP_GRAPHICS, 5 | 6) => {
+                let key = if code == 5 {
+                    "titleinterface"
+                } else {
+                    "lobbyinterface"
+                };
+                writeln!(out, "{key}={}", names.name("interface", buf.g3() as u32))?;
+            }
+            #[cfg(since_742)]
             (GROUP_GRAPHICS, 7) => {
-                for _ in 0..SPLAT_SETS {
-                    write!(out, "unknown7={}", buf.g2())?;
-                    for _ in 0..buf.g2() {
-                        write!(out, ",{}", buf.g2())?;
+                for i in 0..PLAYER_RECOLS {
+                    let (set, slot) = (i >> 2, i & 3);
+                    let source = buf.g2();
+                    let dests: Vec<_> = (0..buf.g2()).map(|_| buf.g2().to_string()).collect();
+                    if source != u16::MAX || !dests.is_empty() {
+                        writeln!(out, "playerrecol{set}s{slot}={source}")?;
+                        writeln!(out, "playerrecol{set}d{slot}={}", dests.join(","))?;
                     }
-                    out.push('\n');
                 }
+            }
+            #[cfg(since_742)]
+            (GROUP_GRAPHICS, 12) => {
+                writeln!(out, "initialwindowsize={},{}", buf.g2(), buf.g2())?;
             }
             #[cfg(since_742)]
             (_, code) if field(group, code).is_some() => {
@@ -124,7 +139,7 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
     let mut out = PackedData::default();
     let mut offsets = false;
     #[cfg(since_742)]
-    let mut splats = 0;
+    let mut recols = false;
     for line in text.lines() {
         if line.is_empty() {
             continue;
@@ -166,19 +181,30 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
                 out.pbigid(TypeId::from_int(names.resolve("model", value)? as i32));
             }
             #[cfg(since_742)]
-            (GROUP_GRAPHICS, "unknown7") => {
-                if splats % SPLAT_SETS == 0 {
+            (GROUP_GRAPHICS, "titleinterface" | "lobbyinterface") => {
+                out.p1(if key == "titleinterface" { 5 } else { 6 });
+                out.p3(names.id("interface", value)? as i32);
+            }
+            #[cfg(since_742)]
+            (GROUP_GRAPHICS, _) if key.starts_with("playerrecol") => {
+                if !recols {
+                    recols = true;
                     out.p1(7);
+                    for (source, dests) in player_recols(text)? {
+                        out.p2(source);
+                        out.p2(dests.len() as u16);
+                        for dest in dests {
+                            out.p2(dest);
+                        }
+                    }
                 }
-                splats += 1;
-                let values = list
-                    .map(str::parse)
-                    .collect::<std::result::Result<Vec<u16>, _>>()?;
-                out.p2(values[0]);
-                out.p2(values.len() as u16 - 1);
-                for &value in &values[1..] {
-                    out.p2(value);
-                }
+            }
+            #[cfg(since_742)]
+            (GROUP_GRAPHICS, "initialwindowsize") => {
+                out.p1(12);
+                let (width, height) = value.split_once(',').context("Expected width,height")?;
+                out.p2(width.parse()?);
+                out.p2(height.parse()?);
             }
             (GROUP_GRAPHICS, _) if key.starts_with("hitmarkoffset") => {
                 if !offsets {
@@ -225,13 +251,37 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
             _ => bail!("Unknown defaults {group} property {key}"),
         }
     }
-    #[cfg(since_742)]
-    ensure!(
-        splats % SPLAT_SETS == 0,
-        "unknown7 takes {SPLAT_SETS} lines"
-    );
     out.p1(0);
     Ok(out.dat)
+}
+
+/// Every `playerrecol<set>s<slot>` source and `playerrecol<set>d<slot>`
+/// destination list; a slot without lines has no source and no destinations.
+#[cfg(since_742)]
+fn player_recols(text: &str) -> Result<Vec<(u16, Vec<u16>)>> {
+    let mut recols = vec![(u16::MAX, Vec::new()); PLAYER_RECOLS];
+    for (key, value) in text.lines().filter_map(|line| line.split_once('=')) {
+        let Some(rest) = key.strip_prefix("playerrecol") else {
+            continue;
+        };
+        let at = rest
+            .find(['s', 'd'])
+            .with_context(|| format!("Invalid key {key}"))?;
+        let set: usize = rest[..at].parse()?;
+        let slot: usize = rest[at + 1..].parse()?;
+        ensure!(set < PLAYER_RECOLS >> 2 && slot < 4, "Invalid key {key}");
+        let recol = &mut recols[set << 2 | slot];
+        if rest.as_bytes()[at] == b's' {
+            recol.0 = value.parse()?;
+        } else {
+            recol.1 = value
+                .split(',')
+                .filter(|dest| !dest.is_empty())
+                .map(str::parse)
+                .collect::<std::result::Result<_, _>>()?;
+        }
+    }
+    Ok(recols)
 }
 
 /// How a 742 defaults opcode without a name of its own holds its value.
@@ -241,9 +291,7 @@ enum Field {
     Flag,
     U8,
     U16,
-    U24,
     I32,
-    U16Pair,
     ByteList,
     Value,
 }
@@ -254,9 +302,7 @@ fn field(group: u32, code: u8) -> Option<Field> {
         (GROUP_GRAPHICS, 4 | 8 | 10) | (GROUP_UNKNOWN7, 11) => Field::Flag,
         (GROUP_GRAPHICS, 9 | 11 | 13..=15) => Field::U8,
         (GROUP_UNKNOWN4, 1) => Field::U16,
-        (GROUP_GRAPHICS, 5 | 6) => Field::U24,
         (GROUP_UNKNOWN7, 12 | 13) => Field::I32,
-        (GROUP_GRAPHICS, 12) => Field::U16Pair,
         (GROUP_UNKNOWN7, 5..=7) => Field::ByteList,
         (GROUP_UNKNOWN7, 1..=4 | 8..=10) | (GROUP_UNKNOWN8, 1) => Field::Value,
         _ => return None,
@@ -281,9 +327,7 @@ fn unpack_field(buf: &mut Packet, kind: Field) -> String {
         Field::Flag => "yes".to_owned(),
         Field::U8 => buf.g1().to_string(),
         Field::U16 => buf.g2().to_string(),
-        Field::U24 => buf.g3().to_string(),
         Field::I32 => buf.g4s().to_string(),
-        Field::U16Pair => format!("{},{}", buf.g2(), buf.g2()),
         Field::ByteList => list(buf),
         Field::Value => {
             let tag = buf.g1();
@@ -318,12 +362,7 @@ fn pack_field(out: &mut PackedData, kind: Field, value: &str) -> Result<()> {
         Field::Flag => {}
         Field::U8 => out.p1(numbers[0] as u8),
         Field::U16 => out.p2(numbers[0] as u16),
-        Field::U24 => out.p3(numbers[0] as i32),
         Field::I32 => out.p4(numbers[0] as i32),
-        Field::U16Pair => {
-            out.p2(numbers[0] as u16);
-            out.p2(numbers[1] as u16);
-        }
         Field::ByteList => list(out, &numbers),
         Field::Value => {
             let tag = *numbers.first().context("Expected a value tag")? as u8;
