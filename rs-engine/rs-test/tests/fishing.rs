@@ -32,6 +32,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const FISHING: usize = 10;
@@ -55,9 +56,9 @@ static TURN: Mutex<()> = Mutex::new(());
 fn a_2011_spot_gives_shrimps() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let net = *engine.cache.objs.debugnames.get("net").unwrap();
-        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimp").unwrap();
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let net = engine.cache.objs.get_by_debugname("net").unwrap().id;
+        let shrimps = engine.cache.objs.get_by_debugname("raw_shrimp").unwrap().id;
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let (nid, x, z) = engine
@@ -65,7 +66,7 @@ fn a_2011_spot_gives_shrimps() {
             .npcs
             .iter()
             .flatten()
-            .filter(|n| n.npc.uid.id() == SPOT)
+            .filter(|n| n.npc.uid.id() == TypeId::new(SPOT))
             .map(|n| (n.npc.uid.nid(), n.npc.pathing.coord))
             .map(|(nid, c)| (nid, c.x(), c.z()))
             .next()
@@ -126,7 +127,7 @@ fn spot(engine: &Engine, id: u16, near: (u16, u16)) -> (u16, u16, u16) {
         .npcs
         .iter()
         .flatten()
-        .filter(|n| n.npc.uid.id() == id)
+        .filter(|n| n.npc.uid.id() == TypeId::new(id))
         .map(|n| (n.npc.uid.nid(), n.npc.pathing.coord))
         .map(|(nid, c)| (nid, c.x(), c.z()))
         .min_by_key(|&(_, x, z)| x.abs_diff(near.0) as u32 + z.abs_diff(near.1) as u32)
@@ -142,10 +143,10 @@ fn fisher(
     level: u16,
     held: &[&str],
 ) -> HarnessClient {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let held: Vec<u16> = held
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let held: Vec<TypeId> = held
         .iter()
-        .map(|o| *engine.cache.objs.debugnames.get(*o).unwrap())
+        .map(|o| engine.cache.objs.get_by_debugname(o).unwrap().id)
         .collect();
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
@@ -224,14 +225,14 @@ fn run(
 fn a_karambwanji_spot_nets_karambwanji_or_shrimps() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let karambwanji = *engine
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let karambwanji = engine
             .cache
             .objs
-            .debugnames
-            .get("tbwt_raw_karambwanji")
-            .unwrap();
-        let shrimps = *engine.cache.objs.debugnames.get("raw_shrimp").unwrap();
+            .get_by_debugname("tbwt_raw_karambwanji")
+            .unwrap()
+            .id;
+        let shrimps = engine.cache.objs.get_by_debugname("raw_shrimp").unwrap().id;
         let (nid, x, z) = spot(engine, KARAMBWANJI, (2791, 3019));
         let mut client = fisher(engine, "netter", (x, z), 5, &["net"]);
         let pid = client.pid;
@@ -301,19 +302,19 @@ fn a_karambwan_spot_wants_lubufus_teaching() {
 fn a_taught_player_lowers_the_karambwan_vessel() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let empty = *engine
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let empty = engine
             .cache
             .objs
-            .debugnames
-            .get("tbwt_karambwan_vessel")
-            .unwrap();
-        let karambwan = *engine
+            .get_by_debugname("tbwt_karambwan_vessel")
+            .unwrap()
+            .id;
+        let karambwan = engine
             .cache
             .objs
-            .debugnames
-            .get("tbwt_raw_karambwan")
-            .unwrap();
+            .get_by_debugname("tbwt_raw_karambwan")
+            .unwrap()
+            .id;
         let (nid, x, z) = spot(engine, KARAMBWAN, (2899, 3119));
         let mut client = fisher(
             engine,
@@ -323,12 +324,17 @@ fn a_taught_player_lowers_the_karambwan_vessel() {
             &["tbwt_karambwan_vessel_loaded_with_karambwanji"],
         );
         let pid = client.pid;
-        let lubufu = *engine.cache.varps.debugnames.get("varplayer_324").unwrap();
+        let lubufu = engine
+            .cache
+            .varps
+            .get_by_debugname("varplayer_324")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(pid)
             .unwrap()
             .vars
-            .set(lubufu, VarValue::Int(31));
+            .set(lubufu.g2(), VarValue::Int(31));
         op_npc1(&mut client, nid);
         let emptied = |e: &Engine| {
             e.harness_player(pid)
@@ -394,16 +400,16 @@ fn spots_and_the_master_fisher_take_289s_ranges() {
             ("0_41_53_compofishspot", 0, 20),
             ("master_fisher", 3, 3),
         ] {
-            let id = *engine.cache.npcs.debugnames.get(name).expect(name);
+            let id = engine.cache.npcs.get_by_debugname(name).expect(name).id;
             let t = engine.cache.npcs.get_by_id(id).expect(name);
             assert_eq!((t.wanderrange, t.maxrange), (wander, max), "{name}");
         }
-        let lava = *engine
+        let lava = engine
             .cache
             .npcs
-            .debugnames
-            .get("0_45_152_lavafish")
-            .unwrap();
+            .get_by_debugname("0_45_152_lavafish")
+            .unwrap()
+            .id;
         assert_eq!(engine.cache.npcs.get_by_id(lava).unwrap().maxrange, 20);
     });
 }

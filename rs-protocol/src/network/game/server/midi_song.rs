@@ -34,10 +34,21 @@ pub struct MidiSong {
     pub id: u16,
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(all(since_244, before_530))]
 impl ServerProtMessage for MidiSong {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.id)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for MidiSong {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt3(self.id);
     }
 
     fn sizeof(&self) -> usize {
@@ -56,9 +67,18 @@ pub struct MidiSong {
 #[cfg(since_647)]
 impl ServerProtMessage for MidiSong {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt3(self.volume);
-        buf.p2_alt3(self.id);
-        buf.p1_alt1(self.delay);
+        #[cfg(before_742)]
+        {
+            buf.p1_alt3(self.volume);
+            buf.p2_alt3(self.id);
+            buf.p1_alt1(self.delay);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p2(self.id);
+            buf.p1_alt2(self.volume);
+            buf.p1(self.delay);
+        }
     }
 
     fn sizeof(&self) -> usize {

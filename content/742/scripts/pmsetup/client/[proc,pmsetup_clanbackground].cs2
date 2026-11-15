@@ -1,0 +1,13 @@
+// 2730
+[proc,pmsetup_clanbackground](component $component0, component $component1, int $windowmode2)
+if ($windowmode2 ! ^windowmode_small) {
+    if_setgraphic($component0, tradebacking);
+    if_setsize($component0, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_settiling($component0, true);
+    if_settextshadow($component1, true);
+} else {
+    if_setgraphic($component0, chat_background);
+    if_setsize($component0, 519, 142, ^setsize_abs, ^setsize_abs);
+    if_settiling($component0, false);
+    if_settextshadow($component1, false);
+}

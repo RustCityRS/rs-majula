@@ -1,0 +1,16 @@
+// 5489
+[proc,clientscript_5489](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+switch_int (op3346) {
+    case 36, 37, 38, 39, 40 :
+        $int4 = 15;
+    case default :
+        $int4 = 30;
+}
+def_int $int5 = 20;
+if_setsize(toplevel_fullscreen:com_256, $int0, $int1, ^setsize_abs, ^setsize_abs);
+$int2 = min(calc(get_mousex + $int4), calc(if_getwidth(toplevel_fullscreen:com_93) - $int0));
+$int3 = min(calc(get_mousey + $int5), calc(if_getheight(toplevel_fullscreen:com_93) - $int1));
+if_setposition(toplevel_fullscreen:com_256, $int2, $int3, ^setpos_abs_left, ^setpos_abs_top);

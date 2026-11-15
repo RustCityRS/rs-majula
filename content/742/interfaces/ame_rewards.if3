@@ -1,0 +1,315 @@
+// 202:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 202:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 202:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 202:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 202:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 202:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 202:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 202:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 202:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 202:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 202:10
+[com_10]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 202:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 202:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 202:13
+[com_13]
+type=text
+x=19
+y=30
+width=474
+height=16
+textfont=b12_full
+text=Choose your reward
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 202:14
+[com_14]
+type=graphic
+x=473
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 202:15
+[menu]
+type=layer
+x=24
+y=58
+width=342
+height=257
+onload=ame_reward_init(event_com, ame_rewards:scrollbar, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text)
+oninvtransmit=ame_reward_init(event_com, ame_rewards:scrollbar, ame_rewards:scrollhint, ame_rewards:accept, ame_rewards:confirm_text){macro_certer}
+ontimer=ame_rewards_scrollhint(event_com, ame_rewards:scrollhint)
+
+// 202:16
+[com_16]
+type=graphic
+x=39
+y=58
+width=312
+height=32
+graphic="v2_stone_borders_alt,0"
+tiling=yes
+colour=0x000000
+
+// 202:17
+[com_17]
+type=graphic
+x=39
+y=283
+width=312
+height=32
+graphic="v2_stone_borders_alt,2"
+tiling=yes
+colour=0x000000
+
+// 202:18
+[com_18]
+type=graphic
+x=24
+y=73
+width=32
+height=227
+graphic="v2_stone_borders_alt,1"
+tiling=yes
+colour=0x000000
+
+// 202:19
+[com_19]
+type=graphic
+x=334
+y=73
+width=32
+height=227
+graphic="v2_stone_borders_alt,3"
+tiling=yes
+colour=0x000000
+
+// 202:20
+[com_20]
+type=graphic
+x=24
+y=58
+width=32
+height=32
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 202:21
+[com_21]
+type=graphic
+x=334
+y=58
+width=32
+height=32
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 202:22
+[com_22]
+type=graphic
+x=24
+y=283
+width=32
+height=32
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 202:23
+[com_23]
+type=graphic
+x=334
+y=283
+width=32
+height=32
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 202:24
+[scrollbar]
+type=layer
+x=366
+y=58
+width=16
+height=257
+
+// 202:25
+[com_25]
+type=graphic
+width=90
+height=56
+layer=accept
+graphic="wild_ditch_sign_button,2"
+colour=0x000000
+
+// 202:26
+[accept]
+type=layer
+x=392
+y=154
+width=90
+height=56
+
+// 202:27
+[scrollhint]
+type=text
+x=392
+y=250
+width=90
+height=56
+hide=yes
+textfont=p11_full
+text=Scroll down for more options!
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+
+// 202:28
+[confirm_text]
+type=text
+x=392
+y=154
+width=90
+height=56
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f

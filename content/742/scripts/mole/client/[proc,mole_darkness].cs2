@@ -1,0 +1,12 @@
+// 834
+[proc,mole_darkness](component $component0)
+switch_int (%darkness_level) {
+    case 1 :
+        if_settrans($component0, 200);
+    case 2 :
+        if_settrans($component0, 150);
+    case 3 :
+        if_settrans($component0, 50);
+    case default :
+        if_settrans($component0, 255);
+}

@@ -1,0 +1,178 @@
+// 688:0
+[background]
+type=rectangle
+width=514
+height=335
+colour=0xc0b8a0
+fill=yes
+trans=32
+
+// 688:1
+[com_1]
+type=rectangle
+x=11
+y=5
+width=181
+height=179
+colour=0x8c7c6c
+fill=yes
+
+// 688:2
+[com_2]
+type=rectangle
+x=316
+y=146
+width=181
+height=179
+colour=0x8c7c6c
+fill=yes
+
+// 688:3
+[paragraph01]
+type=text
+x=208
+y=8
+width=286
+height=169
+textfont=fontmetrics_497
+text=While you are in the area, you will be able to see your points total in the top-right corner of your screen. Your points are saved, so you can leave if you wish and return another time to pick up from where you left off.
+colour=0x000000
+
+// 688:4
+[paragraph02]
+type=text
+x=14
+y=190
+width=286
+height=169
+textfont=fontmetrics_497
+text=You can trade your points in for prizes or Farming experience by speaking to Mrs. Winkin in the Winkin shop.
+colour=0x000000
+
+// 688:5
+[seed]
+type=model
+x=26
+y=134
+width=65
+height=44
+model=model_32266
+modelorigin=2,8
+modelangle=147,1759,0
+modelzoom=400
+modelunknown=0,3000,0
+
+// 688:6
+[flag]
+type=model
+x=60
+y=27
+width=59
+height=123
+model=model_32286
+modelorigin=-14,56
+modelangle=52,1839,2010
+modelzoom=1000
+modelunknown=0,3000,0
+
+// 688:7
+[pointsbox]
+type=rectangle
+x=116
+y=7
+width=74
+height=36
+colour=0x525252
+fill=yes
+trans=100
+
+// 688:8
+[pointstext]
+type=text
+x=138
+y=11
+width=46
+height=16
+textfont=fontmetrics_494
+text=Points
+textshadow=yes
+colour=0x999999
+
+// 688:9
+[points]
+type=text
+x=118
+y=27
+width=65
+height=17
+textfont=fontmetrics_494
+text=234,567
+textalignh=right
+textshadow=yes
+onload=rabbit_load_points
+onvartransmit=rabbit_load_points{rabbit_main}
+
+// 688:10
+[mrs_winkin]
+type=model
+x=329
+y=152
+width=67
+height=161
+model=model_32251
+modelorigin=-5,72
+modelangle=133,1787,0
+modelzoom=550
+modelunknown=0,3000,0
+
+// 688:11
+[xp]
+type=text
+x=416
+y=158
+width=33
+height=32
+textfont=fontmetrics_645
+text=XP
+textshadow=yes
+colour=0x00cc00
+
+// 688:12
+[supercompost]
+type=model
+x=413
+y=217
+width=35
+height=51
+model=model_32238
+modelorigin=0,15
+modelangle=259,0,0
+modelzoom=300
+modelunknown=0,3000,0
+
+// 688:13
+[acorn]
+type=model
+x=449
+y=259
+width=38
+height=29
+model=model_7142
+modelorigin=-4,4
+modelangle=259,0,0
+modelzoom=1000
+modelunknown=0,3000,0
+
+// 688:14
+[closebutton]
+type=graphic
+x=488
+y=2
+width=26
+height=23
+graphic=graphic_535
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 536)
+onmouseleave=graphic_swapper(event_com, 535)
+onop=if_close

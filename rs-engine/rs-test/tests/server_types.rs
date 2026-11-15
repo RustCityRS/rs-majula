@@ -16,6 +16,7 @@ use std::fs;
 
 use rs_pack::types::HuntModeType;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 fn content(path: &str) -> String {
     let path = format!("{}/../../content/647/{path}", env!("CARGO_MANIFEST_DIR"));
@@ -59,7 +60,7 @@ fn every_members_op_is_the_servers() {
             let has = engine
                 .cache
                 .npcs
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .and_then(|t| t.op.as_ref())
                 .and_then(|ops| ops.get(slot - 1).cloned().flatten());
             if has.is_none() {
@@ -74,7 +75,7 @@ fn every_members_op_is_the_servers() {
             let has = engine
                 .cache
                 .locs
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .and_then(|t| t.op.as_ref())
                 .and_then(|ops| ops.get(slot - 1).cloned().flatten());
             if has.is_none() {
@@ -116,12 +117,16 @@ fn an_npc_keeps_its_hunt_mode() {
     runner::on_loaded_engine(|engine| {
         let cowardly = pack_ids("hunt")["cowardly"];
         let dragon = pack_ids("npc")["green_dragon"];
-        let mode = engine.cache.npcs.get_by_id(dragon).and_then(|t| t.huntmode);
-        assert_eq!(mode, Some(cowardly), "green_dragon's huntmode");
+        let mode = engine
+            .cache
+            .npcs
+            .get_by_id(TypeId::new(dragon))
+            .and_then(|t| t.huntmode);
+        assert_eq!(mode, Some(TypeId::new(cowardly)), "green_dragon's huntmode");
         let hunt = engine
             .cache
             .hunts
-            .get_by_id(cowardly)
+            .get_by_id(TypeId::new(cowardly))
             .expect("the cowardly hunt");
         assert_eq!(hunt.hunt_type, HuntModeType::Player);
     });

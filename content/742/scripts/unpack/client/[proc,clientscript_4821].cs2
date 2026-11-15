@@ -1,0 +1,44 @@
+// 4821
+[proc,clientscript_4821](int $int0)(enum)
+switch_int ($int0) {
+    case 21, 22, 23, 24, 25, 26, 27, 28 :
+        return(enum_4047);
+    case 31, 32, 33, 34, 35 :
+        return(enum_4050);
+    case 41, 42, 43, 44, 45 :
+        return(enum_4053);
+    case 51 :
+        return(enum_4056);
+    case 61 :
+        return(enum_6094);
+    case 100 :
+        return(enum_4062);
+    case 101 :
+        return(enum_4065);
+    case 102 :
+        return(enum_4068);
+    case 103 :
+        return(enum_4071);
+    case 104 :
+        return(enum_4074);
+    case 105 :
+        return(enum_4077);
+    case 106 :
+        return(enum_4080);
+    case 107 :
+        return(enum_4083);
+    case 108 :
+        return(enum_4086);
+    case 109 :
+        return(enum_4089);
+    case 110 :
+        return(enum_4092);
+    case 111 :
+        return(enum_4095);
+    case 112 :
+        return(enum_4098);
+    case 113 :
+        return(enum_4101);
+    case default :
+        return(null);
+}

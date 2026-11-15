@@ -1,0 +1,8 @@
+// 5191
+[proc,clientscript_5191](int $int0, int $int1)
+if_setscrollpos(interface_1122:com_68, calc(if_getscrollx(interface_1122:com_68) + $int1), 0);
+if ($int1 < 0 & if_getscrollx(interface_1122:com_68) <= $int0 | $int1 > 0 & if_getscrollx(interface_1122:com_68) >= $int0) {
+    if_setscrollpos(interface_1122:com_68, $int0, 0);
+    if_setontimer(interface_1122:com_68, null);
+    if_sethide(interface_1122:com_69, true);
+}

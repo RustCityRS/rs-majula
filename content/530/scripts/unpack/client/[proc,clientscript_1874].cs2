@@ -1,0 +1,21 @@
+// 1874
+[proc,clientscript_1874]
+if (map_world = -1) {
+    if_settext(loginscreen:com_124, "World: Auto");
+    if_sethide(loginscreen:com_181, true);
+    return;
+}
+if_settext(loginscreen:com_124, ~world_x_pvp);
+def_int $int0 = 0;
+def_string $string0 = "";
+def_int $int1 = 0;
+def_string $string1 = "";
+def_int $int2 = 0;
+$int0, $string0, $int1, $string1, $int2 = worldlist_specific(map_world);
+if (testbit($int0, 0) = ^true) {
+    if_setgraphic(loginscreen:com_181, 1531);
+} else {
+    if_setgraphic(loginscreen:com_181, 1532);
+}
+if_setposition(loginscreen:com_181, calc(if_getx(loginscreen:com_124) + if_getwidth(loginscreen:com_124) - (parawidth(if_gettext(loginscreen:com_124), 512, 495) + if_getwidth(loginscreen:com_181) + 5)), 0, 0, 2);
+if_sethide(loginscreen:com_181, false);

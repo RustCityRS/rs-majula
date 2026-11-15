@@ -1,0 +1,165 @@
+// 5515
+[proc,clientscript_5515](component $component0, component $component1, string $string0)
+def_int $int2 = if_getnextsubid($component0);
+def_int $int3 = 0;
+def_int $int4 = max(84, calc(stringwidth($string0, verdana_13pt_regular) + 22));
+def_int $int5 = ~if_getx_absolute($component1);
+def_int $int6 = ~if_gety_absolute($component1);
+def_int $int7 = calc($int5 + if_getwidth($component1) / 2 - 6);
+def_int $int8 = 0;
+if (calc($int5 - 4) <= calc(if_getwidth($component0) - $int4)) {
+    $int8 = calc($int5 - 4);
+} else {
+    $int8 = calc(if_getwidth($component0) - $int4);
+}
+def_int $int9 = calc($int6 - 38);
+if (if_find($component1) = true) {
+    if (cc_param(param_358) > 0) {
+        if (.cc_find($component0, calc(cc_param(param_358) - 1)) = false) {
+            cc_setparam_int(param_358, calc($int2 + 1));
+        } else {
+            $int2 = calc(cc_param(param_358) - 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition(calc($int8 + $int4 - 10), $int9, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition(calc($int8 + $int4 - 10), calc($int9 + 18), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition($int8, calc($int9 + 18), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition(calc($int8 + 10), $int9, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize(calc($int4 - 20), 11, ^setsize_abs, ^setsize_abs);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition(calc($int8 + 10), calc($int9 + 18), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize(calc($int4 - 20), 11, ^setsize_abs, ^setsize_abs);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition($int8, calc($int9 + 11), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition(calc($int8 + $int4 - 10), calc($int9 + 11), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition(calc($int8 + 10), calc($int9 + 11), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize(calc($int4 - 20), 7, ^setsize_abs, ^setsize_abs);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition($int7, calc($int9 + 24), ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            $int2 = calc($int2 + 1);
+            if (.cc_find($component0, $int2) = true) {
+                .cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setsize($int4, 29, ^setsize_abs, ^setsize_abs);
+                .cc_settext($string0);
+                .cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+            }
+            return;
+        }
+    } else {
+        cc_setparam_int(param_358, calc($int2 + 1));
+    }
+}
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8511);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(calc($int8 + $int4 - 10), $int9, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8513);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(calc($int8 + $int4 - 10), calc($int9 + 18), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8519);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition($int8, calc($int9 + 18), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8517);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(calc($int8 + 10), $int9, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int4 - 20), 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8512);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(calc($int8 + 10), calc($int9 + 18), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int4 - 20), 11, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8518);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition($int8, calc($int9 + 11), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 7, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8514);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(calc($int8 + $int4 - 10), calc($int9 + 11), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(10, 7, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8516);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition(calc($int8 + 10), calc($int9 + 11), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(calc($int4 - 20), 7, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8515);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setposition($int7, calc($int9 + 24), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+cc_setgraphic(8541);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");
+$int2 = calc($int2 + 1);
+cc_create($component0, ^iftype_text, $int2);
+cc_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize($int4, 29, ^setsize_abs, ^setsize_abs);
+cc_settext($string0);
+cc_settextfont(verdana_13pt_regular);
+cc_setcolour(0xf5b241);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settrans(255);
+cc_setontimer("clientscript_5517(event_com, event_comsubid)");

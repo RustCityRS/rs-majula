@@ -1,0 +1,9 @@
+// 4779
+[proc,clientscript_4779](component $component0, int $int1, int $int2)
+if (cc_find($component0, $int1) = true) {
+    if ($int2 = 0) {
+        cc_sethide(true);
+    } else {
+        cc_sethide(false);
+    }
+}

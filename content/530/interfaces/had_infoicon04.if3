@@ -1,0 +1,139 @@
+// 598:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=100
+
+// 598:1
+[layer_1]
+type=layer
+y=491
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=proportion_top
+
+// 598:2
+[com_2]
+type=text
+x=9
+y=9
+width=70
+height=14
+layer=layer_1
+textfont=fontmetrics_494
+text=NPC Killcount
+textshadow=yes
+colour=0xff9933
+
+// 598:3
+[com_3]
+type=text
+x=9
+y=33
+width=84
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=Armadyl kills
+textshadow=yes
+colour=0xff9933
+
+// 598:4
+[com_4]
+type=text
+x=9
+y=47
+width=84
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=Bandos kills
+textshadow=yes
+colour=0xff9933
+
+// 598:5
+[com_5]
+type=text
+x=9
+y=61
+width=95
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=Saradomin kills
+textshadow=yes
+colour=0xff9933
+
+// 598:6
+[com_6]
+type=text
+x=9
+y=75
+width=87
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=Zamorak kills
+textshadow=yes
+colour=0xff9933
+
+// 598:7
+[armadyl_total]
+type=text
+x=110
+y=33
+width=32
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0x66ffff
+
+// 598:8
+[bandos_total]
+type=text
+x=110
+y=47
+width=32
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0x66ffff
+
+// 598:9
+[saradomin_total]
+type=text
+x=110
+y=61
+width=32
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0x66ffff
+
+// 598:10
+[zamorak_total]
+type=text
+x=110
+y=75
+width=32
+height=15
+layer=layer_1
+textfont=fontmetrics_494
+text=0
+textshadow=yes
+colour=0x66ffff

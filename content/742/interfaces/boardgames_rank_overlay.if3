@@ -1,0 +1,96 @@
+// 768:0
+[content_layer]
+type=layer
+width=88
+height=122
+xmode=abs_right
+onload=boardgames_rank_update(boardgames_rank_overlay:game_name, boardgames_rank_overlay:rank, boardgames_rank_overlay:draughts_board, boardgames_rank_overlay:runelink_board, boardgames_rank_overlay:runesquares_board, boardgames_rank_overlay:runeversi_board)
+onvartransmit=boardgames_rank_update(boardgames_rank_overlay:game_name, boardgames_rank_overlay:rank, boardgames_rank_overlay:draughts_board, boardgames_rank_overlay:runelink_board, boardgames_rank_overlay:runesquares_board, boardgames_rank_overlay:runeversi_board){boardgames_draughts_rank, boardgames_runelink_rank, boardgames_runesquares_rank, boardgames_runeversi_rank}
+onvarctransmit=boardgames_rank_update(boardgames_rank_overlay:game_name, boardgames_rank_overlay:rank, boardgames_rank_overlay:draughts_board, boardgames_rank_overlay:runelink_board, boardgames_rank_overlay:runesquares_board, boardgames_rank_overlay:runeversi_board){boardgames_area}
+
+// 768:1
+[draughts_board]
+type=model
+x=-1
+y=7
+width=69
+height=69
+xmode=abs_centre
+layer=content_layer
+hide=yes
+model=model_4607
+modelangle=512,0,0
+modelzoom=1600
+
+// 768:2
+[runelink_board]
+type=model
+x=-1
+y=5
+width=74
+height=66
+xmode=abs_centre
+layer=content_layer
+hide=yes
+model=model_4608
+modelorigin=0,25
+modelzoom=512
+transmitop=10
+op10= 
+
+// 768:3
+[runesquares_board]
+type=model
+x=1
+y=4
+width=73
+height=73
+xmode=abs_centre
+layer=content_layer
+hide=yes
+model=model_11101
+modelangle=512,0,0
+modelzoom=459
+transmitop=10
+op10= 
+
+// 768:4
+[runeversi_board]
+type=model
+y=-16
+width=111
+height=111
+xmode=abs_centre
+layer=content_layer
+hide=yes
+model=model_11102
+modelangle=512,0,0
+modelzoom=470
+transmitop=10
+op10= 
+
+// 768:5
+[game_name]
+type=text
+y=77
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=content_layer
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+
+// 768:6
+[rank]
+type=text
+y=96
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=content_layer
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa

@@ -1,0 +1,330 @@
+// 4747
+[proc,clientscript_4747](obj $obj0)(string)
+switch_obj ($obj0) {
+    case default :
+        return("You should get rid of the <oc_name($obj0)>");
+    case wom_book_1, wom_book_2, wom_chicken_book :
+        return("That's my book! What's it doing in your bank?");
+    case tutorial3_book :
+        return("You have Roddeck's book on dragon rearing in your bank. I don't think it's a great discourse on the subject, to be quite honest.");
+    case tutorial3_diary :
+        return("I see you're hanging on to Roddeck's diary. It's got a seeking spell on it, you know. If you get rid of it, it'll find its way back to him.");
+    case silverlight_key_1, silverlight_key_2, silverlight_key_3 :
+        return("You've killed Delrith, so you don't need any of the little grey keys that you collected to get Silverlight.");
+    case mappart1, mappart2, mappart3, dragonmap :
+        if (%dragonslayer_crandor_found_secret_door = 1) {
+            return("You've opened a secret passageway to Crandor Island, so you won't need the map that showed you how to get there by sea.");
+        } else {
+            return("Ned knows the way to Crandor now, so you don't need the map any more. Also, if you go there, look around for secret passages. There might be another way to get back to Crandor.");
+        }
+    case redkey, orangekey, yellowkey, bluekey, magentakey, greenkey :
+        return("The coloured keys from Melzar's maze are very pretty, but you don't really need to keep them. If you ever go there again, the creatures in the maze will drop more coloured keys for you.");
+    case melzarkey :
+        return("You don't really need to keep the key to Melzar's Maze. If you ever go there again, you can ask for a new one from the Guildmaster of the Champions' Guild.");
+    case pressure_gauge :
+        return("Since you've already helped to repair Professor Oddenstein's machine, you can get rid of the pressure gauge.");
+    case fish_food, poisoned_fish_food :
+        return("You really don't need to keep fish food in your bank.");
+    case closet_key :
+        return("The little key that opens a closet in Draynor Manor? I think you can afford to get rid of it.");
+    case rubber_tube :
+        return("You aren't going to need that rubber tube again.");
+    case oil_can :
+        return("No need to keep that oil can.");
+    case knights_portrait :
+        return("That's a nice picture of Sir Vyvin, but you don't really need it.");
+    case blurite_ore :
+        return("Blurite ore's handy for making ceremonial swords, but you've already done that quest. Members can make crossbows and bolts out of it, but it has no other use.");
+    case faladian_sword :
+        return("You don't really need a copy of Sir Vyvin's sword, although it's a fairly nice weapon.");
+    case chest_key :
+        return("I see you've got the key to One-Eyed Hector's chest. That's not much use to you.");
+    case piratemessage :
+        return("You've already found the pirate's treasure, so you can get rid of the pirate's message.");
+    case pirate_casket :
+        return("You've already found the pirate's treasure, so you can get rid of the pirate's casket.");
+    case piratetreasure_apron :
+        return("You've already found the pirate's treasure, so you can get rid of the pirate's apron.");
+    case princeskey :
+        return("You aren't going to need to get back into Prince Ali's cell.");
+    case blondwig, plainwig :
+        return("You don't need a wig. Your head looks fine.");
+    case keyprint :
+        return("I can't imagine why you've kept the imprint of Lady Keli's key.");
+    case skinpaste :
+        return("If you want to change your appearance, go to the Makeover Mage. You don't need this skin paste.");
+    case skull :
+        return("I suggest you get rid of the skull. It's unhygienic.");
+    case julietmessage :
+        return("You have a message from Juliet to Romeo. There's no point in keeping that now that they've split up.");
+    case cadava :
+        return("A potion made from cadava berries? There's not much you can do with one of those.");
+    case cadavaberries :
+        return("If you get rid of those cadava berries, you'll still be able to pick more near Varrock, and you'll save bank space.");
+    case research_package :
+        return("Sedridor's research into the mysteries of the runes is very interesting, but you don't need it.");
+    case research_notes :
+        return("Aubury's notes won't be of any further use to you. You can't even read them!");
+    case intelligence_report :
+        return("You won't need Jonny the Beard's intelligence report now that you've found the Shield of Arrav.");
+    case arravshield1, arravshield2 :
+        return("You don't need to keep bits of the Shield of Arrav now that you've completed that quest.");
+    case arravcertificate :
+        return("You can get rid of the little certificate from the Museum of Varrock. You've already been rewarded for taking one to the King.");
+    case stake :
+        return("Now that you've slain Count Draynor, you don't need that stake. It's not much use against other vampyres.");
+    case rats_tail :
+        return("Ugh... A rat's tail! Get rid of it!");
+    case swept_ointment :
+        return("I don't think you'll need the broom ointment.");
+    case swept_newt :
+        return("That newt doesn't look very useful.");
+    case swept_hetty_label_newts :
+        return("You probably won't need the 'Newts' label.");
+    case swept_hetty_label_toads :
+        return("You probably won't need the 'Toads' label.");
+    case swept_hetty_label_newts_and_toads :
+        return("You certainly won't need the 'Newts & Toads' label.");
+    case swept_wand :
+        return("Betty's wand? I don't think you should be messing around with that.");
+    case swept_slate :
+        return("There's no point in hanging on to that slate.");
+    case swept_puzzle2_reptile :
+        return("You shouldn't be keeping that reptile in there.");
+    case swept_puzzle2_blackbird :
+        return("You shouldn't be keeping that blackbird in there.");
+    case swept_puzzle2_bat :
+        return("You shouldn't be keeping that bat in there.");
+    case swept_puzzle2_spider :
+        return("You shouldn't be keeping that spider in there.");
+    case swept_puzzle2_rat :
+        return("You shouldn't be keeping that rat in there.");
+    case swept_puzzle2_snail :
+        return("You shouldn't be keeping that snail in there.");
+    case bk_dossier :
+        return("You don't need to keep the dossier from the White Knight.");
+    case bkfortress_cauldron_broken :
+        return("You completed the Black Knights' fortress; you don't need this old cauldron anymore.");
+    case enchanted_beef, enchanted_rat_meat, enchanted_bear_meat, enchanted_chicken, enchanted_pawya_meat :
+        return("You have completed the druidic ritual. You don't need the enchanted meat any longer.");
+    case witches_doorkey :
+        return("You don't need the witch's door key any longer.");
+    case witches_diary :
+        return("You don't need to keep the witch's diary. You can get it from the bookshelf again, if you need to.");
+    case magnet :
+        return("You don't need the magnet. You opened the witch's back door.");
+    case witches_shedkey :
+        return("You don't really need the witch's shed key any more.");
+    case grim_beans, grim_golden_goblin, grim_griffin_feather, grim_musicsheet, grim_pendant, grim_shrinking_potion, grim_shrink_recipe, grim_witch_todolist :
+        return("You don't need that grim looking item.");
+    case id_papers :
+        return("You've already given the id papers to Grip. This must be a forgery!");
+    case scorpioncagefull, scorpioncageempty, scorpioncagea, scorpioncageb, scorpioncagec, scorpioncageab, scorpioncageac, scorpioncagebc :
+        return("You don't need that scorpion cage anymore.");
+    case perfect_ruby_ring, perfect_ruby_necklace :
+        return("You've obtained Avan's part of the crest. You don't need the perfect ruby jewellery.");
+    case ardougne_book :
+        return("You've already read from the Ardougne tourist guide.");
+    case tribal_totem, tribal_totem_label :
+        return("You've finished the Tribal Totem quest. Why do you still have this?");
+    case childs_blanket :
+        return("You've given this blanket to the monk already. Did you steal it back again?");
+    case ikov_lever :
+        return("You already fixed the lever in The Temple of Ikov.");
+    case whitecog, blackcog, bluecog, redcog :
+        return("You've finished the Clock Tower quest. You don't need that cog.");
+    case holy_table_napkin :
+        return("You completed the Holy Grail quest. You don't need Sir Galahad's table napkin.");
+    case grail_bell :
+        return("You completed the Holy Grail quest. You don't need the grail bell anymore.");
+    case magic_golden_feather :
+        return("You completed the Holy Grail quest. You have no need of King Arthur's golden feather.");
+    case holy_grail :
+        return("You completed the Holy Grail quest. Why do you have the grail?");
+    case orb_of_protection, orbs_of_protection :
+        return("You have finished with Tree Gnome Village. You don't need the orbs.");
+    case khali_brew :
+        return("You already got the keys from the lazy guard. You don't need the brew.");
+    case khazard_cellkeys :
+        return("You have already used the keys from the lazy guard.");
+    case hazeel_scroll :
+        return("You already completed the Hazeel Cult Quest; no need to hang onto one of those scrolls.");
+    case carnilleanchestkey :
+        return("You have already opened the chest in the Carnillean household.");
+    case scruffy_note :
+        return("You have already made Bravek a hangover cure. You don't need his scrawled note.");
+    case warrant :
+        return("You have no need of a warrant to the plague house.");
+    case turnip_book :
+        return("You have already given this book to Ted Rehnison. You don't need it.");
+    case elena_picture :
+        return("You have already shown Elena's picture to Jethick.");
+    case seasluginv :
+        return("Yuck! A sea slug! Get rid of it!");
+    case seaslug_torch :
+        return("A sea slug torch... Fascinating! You don't need it; lit, unlit, smouldering or otherwise.");
+    case baxtorian_book_waterfall_quest :
+        return("You have completed the Waterfall quest, so you don't need the book about Baxtorian.");
+    case baxtorian_key_waterfall_quest :
+        return("You have completed the Waterfall quest, so you don't need this key.");
+    case glarials_urn_full_waterfall_quest, glarials_urn_empty_waterfall_quest :
+        return("You have finished the Waterfall quest, so you certainly don't need that urn; empty or full.");
+    case mournerkeytw :
+        return("You've freed Elena already, so you don't need the key.");
+    case birdfeed, pigeoncage, pigeons :
+        return("You have already distracted the guards with the pigeons.");
+    case distillator :
+        return("You've already retreived Elena's distillator.");
+    case ethenea, liquid_honey, sulphuric_broline, plaguesample, touch_paper :
+        return("Guidor has already tested the plague sample. you don't need that any more.");
+    case grandtree_barksample :
+        return("You have given the bark sample to Hazelmere already.");
+    case grandtree_translationbook :
+        return("You have already translated the ancient message told to you by Hazelmere.");
+    case grandtree_journal :
+        return("You have completed the Grand Tree quest. You have no need of Glough's Journal.");
+    case grandtree_scroll :
+        return("You have completed the Grand Tree quest. You have no need of Hazelmere's scroll.");
+    case grandtree_daconiarock :
+        return("You have completed the Grand Tree quest. You don't need this rock.");
+    case grandtree_gloughskey :
+        return("You have already searched the Glough's chest. You have no possible use for the key.");
+    case grandtree_invasionplans :
+        return("You have already given the invasion plans to the King.");
+    case grandtree_order :
+        return("You have completed the Grand Tree quest. You don't need to hold on to this lumber order.");
+    case grandtree_twigt, grandtree_twigu, grandtree_twigz, grandtree_twigo :
+        return("You have already opened the watchtower entrance; you don't need twigs.");
+    case caveorb1, caveorb2, caveorb3, caveorb4, caveorb4dot :
+        return("The orbs are pretty, but you have already found your way down the well in the underground pass.");
+    case caverailing :
+        return("Railings... Useful for poking undead in cages, I guess, but of no value otherwise.");
+    case cave_unicorn_horn, paladinbadge1, paladinbadge2, paladinbadge3, upass_journal :
+        return("You have already passed the gate of Zamorak. You don't need this.");
+    case old_journal :
+        return("You have killed Iban. You have little use for his journal.");
+    case ibansshadow :
+        return("You have already done all you can with Iban's shadow.");
+    case othainian_amulet, doomion_amulet, holthion_amulet, ibansdove, ibans_ashes, upassdwarfbrew :
+        return("You have completed the four tasks with the doll.");
+    case lens, lens_mould :
+        return("The professor has already fixed his telescope. You don't need this.");
+    case thbedobinkey :
+        return("You have already opened the Captain's chest with the copied key.");
+    case tentipineapple :
+        return("A pineapple! How wonderful... You don't need it.");
+    case thminebarrel_empty :
+        return("You have already returned Ana to the Shantay Pass. You don't need to carry the barrel around.");
+    case thanainabarrel :
+        return("You have already returned Ana to the Shantay Pass. You don't need to carry the barrel around... or Ana.");
+    case thprotodart :
+    case thpunishrock :
+        return("You don't need that rock unless you plan on being caught by the guards agasin.");
+    case tourtrap_qip_sailing_book :
+        return("The book on sailing is rather dull.");
+    case fingernails, watchtowerrobe, watchtowerarmour, watchtowerdagger, watch_eye_patch :
+        return("You have already given evidence to the wizard.");
+    case relicpart1, relicpart2, relicpart3 :
+        return("You have already received the ogre relic. You don't need these relic parts.");
+    case powering_crystal1, powering_crystal2, powering_crystal3, powering_crystal4 :
+        return("You have already used the powering crystals.");
+    case rockcake, ogretooth, stolen_gold, toban_key, ogre_potion, magic_ogre_potion, shaman_robe :
+        return("You have already received the powering crystals from this item.");
+    case mcannonremains :
+        return("You have already returned the dwarf remains to Captain Lawgof.");
+    case mcannontoolkit :
+        return("You have already returned the dwarven toolkit to Captain Lawgof.");
+    case murderfingerprint1 :
+        return("You have already solved the murder mystery. You don't need this fingerprint.");
+    case thkaramjamap, thkaramjamapcomp :
+        return("You have already presented the Radimus notes.");
+    case thtotempolegift :
+        return("You have already presented the gilded totem.");
+    case scrawled_note1, scrawled_note2, scrawled_note3, goldbowlpic, shamans_tome :
+        return("You have freed Ungadulu from possession. You don't have any use for the scrawled notes, books, tomes or pictures of dirty old bowls.");
+    case elem1_qip_rockremains :
+        return("What are you going to do with that rock?");
+    case elemental_workshop_lava_bowl, elemental_workshop_lava_bowl_full :
+        return("You do not need the Elemental workshop bowl.");
+    case bucket_murkywater, bucket_blessedwater :
+        return("You have doused the vampyre's coffin already. You don't need this old bucket of stale water.");
+    case filliman_journal :
+        return("You don't need Filliman's Journal.");
+    case death_combination, death_iou :
+        return("You have already recovered the combination for Denulf.");
+    case death_secretwaymap :
+        return("You have already recovered the secret way map for Denulf.");
+    case death_cannonball_red, death_cannonball_blue, death_cannonball_green, death_cannonball_purple, death_cannonball_yellow :
+        return("You don't need those coloured cannonballs");
+    case regicide_quest_kings_summons, regicide_iorwerth_message :
+        return("You don't need the king's summons or messages.");
+    case regicide_crystal_pendant :
+        return("You can get rid of the crystal pendant. It has served its purpose.");
+    case eadgar_dirty_druid_robe :
+        return("You don't need that dirty old druid's robe.");
+    case eadgar_fake_man :
+        return("Argh! Is that a man in your backpack? Wait...no! It's a fake man, you crafty so-and-so. Still, you don't need it.");
+    case serum_book :
+        return("You have already sold the apothecary this book.");
+    case frisd_reciept :
+        return("You've already given King Sorvott's decree to Burgher.");
+    case frisd_taxbag_empty, frisd_taxbag_light, frisd_taxbag_normal, frisd_taxbag_hefty, frisd_taxbag_bulging :
+        return("You have already collected King Sorvott IV's window taxes.");
+    case frisr_trollkinghead :
+        return("You have already handed in the troll's talking head to the Burgher.");
+    case horror_diary1, horror_diary2, horror_diary3 :
+        return("You have completed the Horror from the Deep quest. You probably don't need this book.");
+    case misc_awful_anthem, misc_good_anthem :
+        return("You have already given the Etceteria anthem to Queen Sigrid.");
+    case misc_treaty :
+        return("You have already given the treaty to King Vargas to sign.");
+    case damp_tinderbox :
+        return("A damp tinderbox; not at all useful for anything.");
+    case fenk_cane, fenk_brush0, fenk_brush1, fenk_brush2, fenk_brush3 :
+        return("You already retrieved the lightning conductor mould from the chimney. You don't need this brush.");
+    case fenk_letter :
+        return("You don't need the dusty old letter from the clock.");
+    case roving_old_consecration_seed, roving_new_consecration_seed :
+        return("You have already planted this seed for Eluned.");
+    case ectoplasm_puddle :
+        return("Yuck! An ectoplasm puddle.");
+    case ahoy_robes_of_necrovarus, ahoy_book_of_haricanto, ahoy_translation_manual, ahoy_bone_key :
+        return("You have already given that to the crone.");
+    case ahoy_chest_key :
+        return("You have already made the toy boat. You don't need this key.");
+    case favour_jungleforesteraxe_blunt :
+        return("You already have an axe that's been sharpened by Brian. You don't need this blunt one.");
+    case mdaughter_mud :
+        return("You have already spread enough mud over that poor tree.");
+    case mdaughter_broken_stick :
+        return("A broken stick. Really? You kept a broken stick?");
+    case dwarf_rock_book :
+        return("You have already retrieved the schematic from that book.");
+    case feud_fib_hint, feud_nos_note :
+        return("You have already solved the safe combination.");
+    case basket_for_snake :
+        return("You have already caught the snake with this basket.");
+    case golem_letter, golem_notes :
+        return("You have already found out about the golem. You don't need the note or letter.");
+    case golem_statuettekey :
+        return("You have already retrieved the statuette from the display case.");
+    case golem_pen :
+        return("You have already reprogrammed the golem. You don't need this pen.");
+    case golem_golemkey :
+        return("You have already opened the golem's head. You don't need this key.");
+    case ics_little_linen :
+        return("You don't need more linen for mummification, however much you might like to.");
+    case ics_little_bookofembalming :
+        return("You don't need the book on embalming.");
+    case zogre_sithik_portrait_good, zogre_sithik_portrait_bad, zogre_portrait_book :
+        return("You have already shown the portrait to Zavistic Rarve.");
+    case mourning_soap :
+        return("You have already washed the mourner's top.");
+    case mourning_book1, mourning_book2, mourning_book3, mourning_book4 :
+        return("You have finished the Mourning's End quest. You don't need the mourner's books.");
+    case mourning_gnome_key, mourning_excavation_key :
+        return("You have finished the Mourning's End quest. You don't need that key.");
+    case twocats_chores, twocats_recipe :
+        return("You have already completed all the chores for Bob.");
+}
+return("");

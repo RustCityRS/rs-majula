@@ -1,0 +1,13 @@
+// 2984
+[proc,ecosystem_tutorial_cam_8](component $component0)
+def_coord $coord1 = ~coord_0_0(coord);
+spline_new(0, 3);
+spline_new(1, 3);
+spline_addpoint(0, 0, movecoord($coord1, 26, 0, 3), 400, movecoord($coord1, 26, 0, 3), 400, 0);
+spline_addpoint(1, 0, movecoord($coord1, 12, 0, 23), 300, movecoord($coord1, 12, 0, 23), 300, 0);
+spline_addpoint(0, 1, movecoord($coord1, 28, 0, 16), 700, movecoord($coord1, 28, 0, 16), 700, 0);
+spline_addpoint(1, 1, movecoord($coord1, 13, 0, 22), 400, movecoord($coord1, 13, 0, 22), 400, 0);
+spline_addpoint(0, 2, movecoord($coord1, 36, 0, 16), 800, movecoord($coord1, 36, 0, 16), 800, 0);
+spline_addpoint(1, 2, movecoord($coord1, 36, 0, 22), 400, movecoord($coord1, 36, 0, 22), 400, 0);
+cam_movealong(0, 0, 450, 450, 1, 0);
+if_setoncamfinished($component0, "ecosystem_tutorial_cam_8_2($component0)");

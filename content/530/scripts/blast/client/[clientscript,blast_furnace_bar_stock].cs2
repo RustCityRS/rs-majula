@@ -1,0 +1,74 @@
+// 2041
+[clientscript,blast_furnace_bar_stock]
+if_settext(blast_furnace_bar_stock:bf_bronze, "Bronze: <tostring(%blast_furnace_bronze_bars)>");
+if (%blast_furnace_bronze_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_bronzeall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_bronze, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_bronzeall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_bronze, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_iron, "Iron: <tostring(%blast_furnace_iron_bars)>");
+if (%blast_furnace_iron_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_ironall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_iron, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_ironall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_iron, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_steel, "Steel: <tostring(%blast_furnace_steel_bars)>");
+if (%blast_furnace_steel_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_steelall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_steel, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_steelall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_steel, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_mithril, "Mithril: <tostring(%blast_furnace_mithril_bars)>");
+if (%blast_furnace_mithril_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_mithrilall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_mithril, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_mithrilall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_mithril, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_adamantite, "Adamantite: <tostring(%blast_furnace_adamantite_bars)>");
+if (%blast_furnace_adamantite_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_adamantiteall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_adamantite, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_adamantiteall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_adamantite, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_runite, "Runite: <tostring(%blast_furnace_runite_bars)>");
+if (%blast_furnace_runite_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_runiteall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_runite, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_runiteall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_runite, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_silver, "Silver: <tostring(%blast_furnace_silver_bars)>");
+if (%blast_furnace_silver_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_silverall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_silver, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_silverall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_silver, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:bf_gold, "Gold: <tostring(%blast_furnace_gold_bars)>");
+if (%blast_furnace_gold_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:bf_goldall, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:bf_gold, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:bf_goldall, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:bf_gold, 0x999999);
+}
+if_settext(blast_furnace_bar_stock:com_2, "Perfect Gold: <tostring(%blast_furnace_perfect_gold_bars)>");
+if (%blast_furnace_perfect_gold_bars > 0) {
+    if_setcolour(blast_furnace_bar_stock:com_4, 0xff981f);
+    if_setcolour(blast_furnace_bar_stock:com_2, 0xff981f);
+} else {
+    if_setcolour(blast_furnace_bar_stock:com_4, 0x999999);
+    if_setcolour(blast_furnace_bar_stock:com_2, 0x999999);
+}

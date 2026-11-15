@@ -1,0 +1,18 @@
+// 6448
+[proc,clientscript_6448](component $component0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = 0;
+def_int $int6 = calc(150 + $int4);
+def_int $int7 = calc(500 + $int4);
+if ($int3 = 1) {
+    $int6 = calc(700 + $int4);
+    $int7 = calc(1000 + $int4);
+}
+if (cc_find($component0, $int1) = true) {
+    $int5 = cc_getmodelzoom;
+    if ($int2 < 0) {
+        $int5 = max($int6, calc($int5 - 15));
+    } else {
+        $int5 = min($int7, calc($int5 + 15));
+    }
+    op1123($int5);
+}

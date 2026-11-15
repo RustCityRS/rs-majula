@@ -1,0 +1,309 @@
+// 400:0
+[com_0]
+type=model
+x=-77
+y=-21
+width=659
+height=384
+model=model_15194
+modelangle=514,0,0
+modelzoom=300
+onload=poh_tablets_setup
+onvarctransmit=poh_tablets_setup{poh_tablet_interface_lectern_type}
+
+// 400:1
+[com_1]
+type=model
+x=-2
+y=-15
+width=519
+height=364
+model=model_15195
+modelangle=514,0,0
+modelzoom=430
+
+// 400:2
+[poh_tablet_ardougneteleport]
+type=model
+x=298
+y=135
+width=67
+height=67
+model=model_15178
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Ardougne Teleport tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:3
+[poh_tablet_bonestobananas]
+type=model
+x=383
+y=136
+width=67
+height=67
+model=model_15180
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Bones to Bananas tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:4
+[poh_tablet_bonestopeaches]
+type=model
+x=383
+y=218
+width=67
+height=67
+model=model_15182
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Bones to Peaches tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:5
+[poh_tablet_camelotteleport]
+type=model
+x=298
+y=217
+width=67
+height=67
+model=model_15184
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Camelot Teleport tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:6
+[poh_tablet_enchantdiamond]
+type=model
+x=214
+y=54
+width=67
+height=67
+model=model_15186
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Enchant Diamond tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:7
+[poh_tablet_enchantdragonstone]
+type=model
+x=48
+y=215
+width=67
+height=67
+model=model_15188
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Enchant Dragonstone tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:8
+[poh_tablet_enchantemerald]
+type=model
+x=49
+y=132
+width=67
+height=67
+model=model_15189
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Enchant Emerald tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:9
+[poh_tablet_enchantonyx]
+type=model
+x=50
+y=51
+width=67
+height=67
+model=model_15190
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Enchant Onyx tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:10
+[poh_tablet_enchantruby]
+type=model
+x=130
+y=215
+width=67
+height=67
+model=model_15191
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Enchant Ruby tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:11
+[poh_tablet_enchantsapphire]
+type=model
+x=131
+y=134
+width=67
+height=67
+model=model_15192
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Enchant Sapphire tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:12
+[poh_tablet_faladorteleport]
+type=model
+x=214
+y=133
+width=67
+height=67
+model=model_15193
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Falador Teleport tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:13
+[poh_tablet_lumbridgeteleport]
+type=model
+x=132
+y=52
+width=67
+height=67
+model=model_15197
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Lumbridge Teleport tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:14
+[poh_tablet_teleporttohouse]
+type=model
+x=384
+y=55
+width=67
+height=67
+model=model_15201
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Teleport to House tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:15
+[poh_tablet_varrockteleport]
+type=model
+x=214
+y=216
+width=67
+height=67
+model=model_15203
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Varrock Teleport tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:16
+[poh_tablet_watchtowerteleport]
+type=model
+x=299
+y=54
+width=67
+height=67
+model=model_15205
+modelangle=514,0,0
+modelzoom=200
+transmitop=1,2,3,4,5
+opbase=Watchtower Teleport tablet
+op1=Make
+op2=Make-5
+op3=Make-10
+op4=Make-X
+op5=Make-All
+
+// 400:17
+[close_button]
+type=graphic
+x=482
+y=11
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click

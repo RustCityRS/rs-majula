@@ -1,0 +1,40 @@
+// 3966
+[proc,clientscript_3966](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+def_int $int7 = 0;
+%varclient_1883 = $int0;
+def_int $int8 = ~rgb_to_hex($int1, $int2, $int3);
+def_int $int9 = ~rgb_to_hex($int4, $int5, $int6);
+op2126(interface_1050:com_2, 4);
+switch_int ($int0) {
+    case 0 :
+        ~clientscript_6118($int8, $int9);
+        if_setgraphic(interface_1050:com_1, 7526);
+        if_settext(interface_1050:com_2, "And so Thok made good on his word and made Bone Face pay for getting in the way of his next adventure.");
+    case 1 :
+        ~clientscript_6118($int8, $int9);
+        if_setgraphic(interface_1050:com_1, 7526);
+        if_settext(interface_1050:com_2, "Thok returned Mini-Marm and Mrs Mini-Marm to their pool, where they made a start on building a mighty crab army.");
+    case 2 :
+        ~clientscript_6118($int8, $int9);
+        $int7 = calc(%varplayerbit_11074 - %varplayerbit_11075);
+        if ($int7 > 0) {
+            if_setgraphic(interface_1050:com_1, 7526);
+            if_settext(interface_1050:com_2, "Thok triumphed over his brother Marmaros, beating him by a mighty <tostring(%varplayerbit_11074)> kills to Marmaros's <tostring(%varplayerbit_11075)>.<br>Thok is the greatest brother! Marmaros never stood a chance.");
+        } else if ($int7 < 0) {
+            if_setgraphic(interface_1050:com_1, 7526);
+            if_settext(interface_1050:com_2, "Marmaros defeated his brother Thok, barely beating him with <tostring(%varplayerbit_11075)> kills to Thok's <tostring(%varplayerbit_11074)>.<br>Marmaros is the greatest brother! Play again; maybe you can defeat him next time.");
+        } else {
+            if_setgraphic(interface_1050:com_1, 7526);
+            if_settext(interface_1050:com_2, "Thok and Marmaros both killed the same number of enemies, each with a kill count of <tostring(%varplayerbit_11075)>.<br>Who can be the better brother? Play again to find out!");
+        }
+    case 3 :
+        ~clientscript_6118($int8, $int9);
+        if_setgraphic(interface_1050:com_1, 7526);
+        if_settext(interface_1050:com_2, "Pretty Lass is quietly waiting for Thok to ask her out on a date.");
+    case 4 :
+        ~clientscript_6118($int8, $int9);
+        if_setgraphic(interface_1050:com_1, 7526);
+        if_settext(interface_1050:com_2, "Bone Face still hasn't woken up yet.");
+}
+%varclient_1884 = calc((%varclient_1884 + 1) % 4);
+~clientscript_6115(1);

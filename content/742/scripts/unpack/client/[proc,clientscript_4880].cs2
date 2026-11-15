@@ -1,0 +1,74 @@
+// 4880
+[proc,clientscript_4880](component $component0)
+def_string $string0 = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 3;
+def_int $int4 = 0;
+def_int $int5 = 2236962;
+def_graphic $graphic6 = null;
+def_int $int7 = 0;
+def_int $int8 = ~clientscript_4964($component0);
+def_int $int9 = 0;
+def_int $int10 = 0;
+switch_component ($component0) {
+    case interface_1258:com_503, interface_1258:com_506, interface_1258:com_509, interface_1258:com_512, interface_1258:com_515, interface_1258:com_518, interface_1258:com_522, interface_1258:com_525, interface_1258:com_528, interface_1258:com_531, interface_1258:com_534, interface_1258:com_537, interface_1258:com_540, interface_1258:com_543, interface_1258:com_546, interface_1258:com_549, interface_1258:com_552, interface_1258:com_555, interface_1258:com_558 :
+        $int10 = 1;
+}
+if (op718 = 1) {
+    cc_deleteall($component0);
+    ~clientscript_4407($component0, 1, cursor_178);
+    $int7 = ~clientscript_4971($int8);
+    $graphic6 = ~clientscript_5171($int7);
+    cc_create($component0, ^iftype_graphic, 0);
+    cc_setsize(18, 18, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if ($int10 = 1) {
+        cc_settrans(255);
+    }
+    switch_int ($int8) {
+        case 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48 :
+            $int2 = 1;
+            $int3 = 1;
+        case default :
+            $int2 = 0;
+            $int3 = 3;
+    }
+    if ($int9 > 0) {
+        $int1 = 1;
+        $int5 = 12303291;
+    } else {
+        $int1 = 0;
+        $int5 = 2236962;
+    }
+    if ($int2 = 1) {
+        if ($int1 = 1) {
+            $string0 = "Build over the existing blanket change.";
+        } else {
+            $string0 = "Build a new blanket change.";
+        }
+    } else {
+        switch_int ($int8) {
+            case 24, 25, 26, 27, 28 :
+                if ($int1 = 1) {
+                    $string0 = "Build over the existing statue.";
+                } else {
+                    $string0 = "Build a new statue.";
+                }
+            case default :
+                if ($int1 = 1) {
+                    $string0 = "Build over the existing customisation.";
+                } else {
+                    $string0 = "Build a new customisation.";
+                }
+        }
+    }
+}
+def_component $component11 = ~clientscript_5216($int8);
+if ($int2 = 0) {
+    if_sethide(op543($component0), true);
+    if ($component11 ! null) {
+        if_setonmouserepeat($component11, "clientscript_4882(event_com, $string0, $int3)");
+    }
+}
+if_setonmouserepeat($component0, "clientscript_4882(event_com, $string0, $int3)");

@@ -1,0 +1,12 @@
+// 6159
+[proc,clientscript_6159](component $component0, component $component1)
+switch_int (%varclient_1917) {
+    case 1 :
+        ~addtooltip_action_dynamic($component0, -1, $component1, "Current Floor: Bottom Floor", 25, 190);
+    case 2 :
+        ~addtooltip_action_dynamic($component0, -1, $component1, "Current Floor: Middle Floor", 25, 190);
+    case 3 :
+        ~addtooltip_action_dynamic($component0, -1, $component1, "Current Floor: Top Floor", 25, 190);
+    case default :
+        ~addtooltip_action_dynamic($component0, -1, $component1, "Current Floor.", 25, 190);
+}

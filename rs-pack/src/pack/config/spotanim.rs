@@ -3,15 +3,17 @@ use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::colour::rgb15_to_hsl16;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::parse_bool;
-#[cfg(since_647)]
+#[cfg(since_742)]
+use crate::pack::util::parse_mask_indices;
+#[cfg(since_530)]
 use crate::pack::util::{pack_pairs, parse_retex};
-use crate::pack::util::{parse_number, parse_recol, parse_ref};
+use crate::pack::util::{parse_bigid, parse_number, parse_recol};
 use anyhow::Result;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::bail;
 use std::collections::HashMap;
 
@@ -37,30 +39,32 @@ pub fn pack_spotanims(
             continue;
         };
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let (mut recol_s, mut recol_d, mut retex_s, mut retex_d) =
             (Vec::new(), Vec::new(), Vec::new(), Vec::new());
+        #[cfg(since_742)]
+        let mut indices = [None; 2];
 
         for (key, value) in props {
             match key.as_str() {
                 // 1
-                "model" => parse_ref(&registry.model, "model", value, |v| {
+                "model" => parse_bigid(&registry.model, "model", value, |v| {
                     client.p1(1);
-                    client.p2(v);
+                    client.pbigid(v);
                     server.p1(1);
-                    server.p2(v);
+                    server.pbigid(v);
                 }),
 
                 // 2
-                "anim" => parse_ref(&registry.seq, "seq", value, |v| {
+                "anim" => parse_bigid(&registry.seq, "seq", value, |v| {
                     client.p1(2);
-                    client.p2(v);
+                    client.pbigid(v);
                     server.p1(2);
-                    server.p2(v);
+                    server.pbigid(v);
                 }),
 
                 // 3
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "hasalpha" => parse_bool(value, |v| {
                     if v {
                         client.p1(3);
@@ -85,7 +89,7 @@ pub fn pack_spotanims(
                 }),
 
                 // 6
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "angle" => parse_number(value, |v| {
                     client.p1(6);
                     client.p2(v);
@@ -93,7 +97,7 @@ pub fn pack_spotanims(
                     server.p2(v);
                 }),
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "rotation" => parse_number(value, |v| {
                     client.p1(6);
                     client.p2(v);
@@ -116,6 +120,15 @@ pub fn pack_spotanims(
                     server.p1(8);
                     server.p1(v);
                 }),
+
+                #[cfg(all(since_530, before_647))]
+                "hillchange" => {
+                    if value != "rotate" {
+                        bail!("{debugname}: invalid hillchange '{value}'");
+                    }
+                    server.p1(9);
+                    client.p1(9);
+                }
 
                 #[cfg(since_647)]
                 "hillchange" => {
@@ -151,7 +164,7 @@ pub fn pack_spotanims(
                 }
 
                 // 40-60
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
                     RecolType::S(idx, v) => {
                         client.p1((39 + idx) as u8);
@@ -167,13 +180,19 @@ pub fn pack_spotanims(
                     }
                 }),
 
-                #[cfg(since_647)]
+                #[cfg(since_742)]
+                "recolindices" => indices[0] = Some(parse_mask_indices(value)),
+
+                #[cfg(since_742)]
+                "retexindices" => indices[1] = Some(parse_mask_indices(value)),
+
+                #[cfg(since_530)]
                 _ if key.starts_with("recol") => parse_recol(key, value, |value| match value {
                     RecolType::S(index, value) => recol_s.push((index, value)),
                     RecolType::D(index, value) => recol_d.push((index, value)),
                 }),
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 _ if key.starts_with("retex") => {
                     parse_retex(registry, key, value, |value| match value {
                         RecolType::S(index, value) => retex_s.push((index, value)),
@@ -186,7 +205,7 @@ pub fn pack_spotanims(
             }
         }
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             recol_s.sort_by_key(|(index, _)| *index);
             recol_d.sort_by_key(|(index, _)| *index);
@@ -195,6 +214,13 @@ pub fn pack_spotanims(
             for stream in [&mut server, &mut client] {
                 pack_pairs(stream, 40, &recol_s, &recol_d);
                 pack_pairs(stream, 41, &retex_s, &retex_d);
+                #[cfg(since_742)]
+                for (code, mask) in [44, 45].into_iter().zip(indices) {
+                    if let Some(mask) = mask {
+                        stream.p1(code);
+                        stream.p2(mask);
+                    }
+                }
             }
         }
 

@@ -1,0 +1,3189 @@
+// 473:0
+[background]
+type=layer
+width=512
+height=334
+
+// 473:1
+[points_layer]
+type=layer
+y=280
+width=455
+height=31
+xmode=abs_centre
+
+// 473:2
+[darker]
+type=rectangle
+width=1
+widthmode=minus
+heightmode=minus
+layer=points_layer
+colour=0x000000
+fill=yes
+trans=40
+transmitop=10
+op10=  
+
+// 473:3
+[highlite]
+type=rectangle
+x=1
+y=1
+widthmode=minus
+heightmode=minus
+layer=points_layer
+colour=0x999999
+fill=yes
+trans=36
+transmitop=10
+op10=  
+
+// 473:4
+[colour]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=points_layer
+colour=0x333333
+fill=yes
+transmitop=10
+op10= 
+
+// 473:5
+[com_5]
+type=text
+x=39
+y=3
+width=144
+height=16
+layer=points_layer
+textfont=p11_full
+text=Attacker Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:6
+[com_6]
+type=text
+x=39
+y=-2
+width=144
+height=16
+ymode=abs_bottom
+layer=points_layer
+textfont=p11_full
+text=Defender Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:7
+[com_7]
+type=text
+x=255
+y=3
+width=144
+height=16
+layer=points_layer
+textfont=p11_full
+text=Collector Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:8
+[com_8]
+type=text
+x=255
+y=-3
+width=144
+height=16
+ymode=abs_bottom
+layer=points_layer
+textfont=p11_full
+text=Healer Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:9
+[barbassault_reward_pts_att]
+type=text
+x=182
+y=3
+width=32
+height=16
+layer=points_layer
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:10
+[barbassault_reward_pts_def]
+type=text
+x=182
+y=-2
+width=32
+height=16
+ymode=abs_bottom
+layer=points_layer
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:11
+[barbassault_reward_pts_col]
+type=text
+x=397
+y=3
+width=32
+height=16
+layer=points_layer
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:12
+[barbassault_reward_pts_heal]
+type=text
+x=397
+y=-3
+width=32
+height=16
+ymode=abs_bottom
+layer=points_layer
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:13
+[com_13]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=background
+colour=0xffff00
+fill=yes
+trans=255
+
+// 473:14
+[com_14]
+type=rectangle
+x=13
+y=23
+width=486
+height=299
+layer=background
+colour=0x000000
+fill=yes
+transmitop=10
+op10=     
+
+// 473:15
+[com_15]
+type=rectangle
+x=14
+y=24
+width=486
+height=299
+layer=background
+colour=0x000000
+fill=yes
+trans=120
+transmitop=10
+op10=      
+
+// 473:16
+[com_16]
+type=rectangle
+x=15
+y=25
+width=486
+height=299
+layer=background
+colour=0x000000
+fill=yes
+trans=150
+transmitop=10
+op10=       
+
+// 473:17
+[com_17]
+type=rectangle
+x=16
+y=26
+width=486
+height=299
+layer=background
+colour=0x000000
+fill=yes
+trans=180
+transmitop=10
+op10=        
+
+// 473:18
+[com_18]
+type=rectangle
+x=17
+y=27
+width=486
+height=299
+layer=background
+colour=0x000000
+fill=yes
+trans=210
+transmitop=10
+op10=         
+
+// 473:19
+[background_1]
+type=graphic
+x=21
+y=47
+width=470
+height=70
+layer=background
+graphic=graphic_2045
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 473:20
+[com_20]
+type=graphic
+x=21
+y=117
+width=470
+height=151
+layer=background
+graphic=km_middlefillcolour
+colour=0xffffffff
+
+// 473:21
+[com_21]
+type=graphic
+x=21
+y=268
+width=470
+height=46
+layer=background
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+
+// 473:22
+[right_side]
+type=graphic
+x=479
+y=26
+width=22
+height=281
+layer=background
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:23
+[bottom]
+type=graphic
+x=15
+y=302
+width=468
+height=23
+layer=background
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 473:24
+[top]
+type=graphic
+x=45
+y=23
+width=422
+height=32
+layer=background
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:25
+[bottom_right]
+type=graphic
+x=467
+y=290
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:26
+[bottom_left]
+type=graphic
+x=13
+y=290
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 473:27
+[left_side]
+type=graphic
+y=26
+width=37
+height=276
+layer=background
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:28
+[top_left]
+type=graphic
+x=13
+y=23
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:29
+[top_right]
+type=graphic
+x=467
+y=23
+width=32
+height=32
+layer=background
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:30
+[close_button]
+type=graphic
+x=471
+y=26
+width=16
+height=16
+layer=background
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 473:31
+[title]
+type=text
+y=27
+width=443
+height=17
+xmode=abs_centre
+layer=background
+textfont=b12_full
+text=Barbarian Assault Rewards
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+onload=barbassault_onload
+
+// 473:32
+[roles_button]
+type=layer
+x=27
+y=49
+width=112
+height=31
+transmitop=1,10
+op1=Roles rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_roles_button
+
+// 473:33
+[armour_button]
+type=layer
+x=142
+y=50
+width=112
+height=31
+transmitop=1,10
+op1=Penance armour rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_armour_button
+
+// 473:34
+[weapons_button]
+type=layer
+x=257
+y=50
+width=112
+height=31
+transmitop=1,10
+op1=Weapon rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_weapons_button
+
+// 473:35
+[misc_button]
+type=layer
+x=372
+y=49
+width=112
+height=31
+transmitop=1,10
+op1=Misc rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_misc_button
+
+// 473:36
+[misc_text]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=misc_button
+textfont=p12_full
+text=Misc
+textalignh=centre
+textalignv=centre
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:37
+[misc_button_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=misc_button
+hide=yes
+
+// 473:38
+[com_38]
+type=line
+y=4
+width=4103
+widthmode=proportion
+xmode=abs_centre
+layer=misc_button_line
+colour=0xffff00
+
+// 473:39
+[roles_layer]
+type=layer
+x=25
+y=80
+width=462
+height=200
+hide=yes
+
+// 473:40
+[att]
+type=layer
+x=1
+y=39
+width=222
+height=45
+layer=roles_layer
+transmitop=1
+op1=Buy
+
+// 473:41
+[barbassault_attacker_lvl_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=att
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:42
+[barbassault_attacker_lvl_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=att
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:43
+[barbassault_attacker_lvl]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=att
+model=model_20522
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:44
+[barbassault_attacker_lvl_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=att
+textfont=p11_full
+text=Attacker level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:45
+[barbassault_attacker_lvl_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=att
+textfont=p11_full
+text=100 Attacker points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:46
+[barbassault_attacker_lvl_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=att
+textfont=p11_full
+text=+2 bonus damage
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:47
+[def]
+type=layer
+x=1
+y=97
+width=222
+height=45
+layer=roles_layer
+transmitop=1
+op1=Buy
+
+// 473:48
+[barbassault_defender_lvl_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=def
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:49
+[barbassault_defender_lvl_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=def
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:50
+[barbassault_defender_lvl]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=def
+model=model_20531
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:51
+[barbassault_defender_lvl_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=def
+textfont=p11_full
+text=Defender level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:52
+[barbassault_defender_lvl_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=def
+textfont=p11_full
+text=100 Defender points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:53
+[barbassault_defender_lvl_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=def
+textfont=p11_full
+text=Lure range 5
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:54
+[col]
+type=layer
+x=236
+y=38
+width=222
+height=45
+layer=roles_layer
+transmitop=1
+op1=Buy
+
+// 473:55
+[barbassault_collector_lvl_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=col
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:56
+[barbassault_collector_lvl_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=col
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:57
+[barbassault_collector_lvl]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=col
+model=model_20526
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:58
+[barbassault_collector_lvl_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=col
+textfont=p11_full
+text=Collector level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:59
+[barbassault_collector_lvl_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=col
+textfont=p11_full
+text=100 Collector points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:60
+[barbassault_collector_lvl_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=col
+textfont=p11_full
+text=Bag stores 4
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:61
+[heal]
+type=layer
+x=236
+y=96
+width=222
+height=45
+layer=roles_layer
+transmitop=1
+op1=Buy
+
+// 473:62
+[barbassault_healer_lvl_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=heal
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:63
+[barbassault_healer_lvl_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=heal
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:64
+[barbassault_healer_lvl]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=heal
+model=model_20538
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:65
+[barbassault_healer_lvl_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=heal
+textfont=p11_full
+text=Defender level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:66
+[barbassault_healer_lvl_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=heal
+textfont=p11_full
+text=100 Healer points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:67
+[barbassault_healer_lvl_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=heal
+textfont=p11_full
+text=Class 2 healing
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:68
+[armour_layer]
+type=layer
+x=25
+y=80
+width=462
+height=200
+
+// 473:69
+[fight_hat]
+type=layer
+x=3
+y=2
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:70
+[ranger_hat]
+type=layer
+x=3
+y=52
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:71
+[runner_hat]
+type=layer
+x=3
+y=102
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:72
+[healer_hat]
+type=layer
+x=3
+y=151
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:73
+[torso]
+type=layer
+x=236
+y=3
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:74
+[skirt]
+type=layer
+x=236
+y=52
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:75
+[boots]
+type=layer
+x=236
+y=102
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:76
+[gloves]
+type=layer
+x=236
+y=151
+width=222
+height=45
+layer=armour_layer
+transmitop=1
+op1=Buy
+
+// 473:77
+[barbassault_penance_gloves_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=gloves
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:78
+[barbassault_penance_gloves_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=gloves
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:79
+[barbassault_penance_gloves]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=gloves
+model=model_20549
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:80
+[barbassault_penance_gloves_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=gloves
+textfont=p11_full
+text=Penance gloves
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:81
+[barbassault_penance_gloves_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=gloves
+textfont=p11_full
+text=150 points in each role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:82
+[barbassault_penance_gloves_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=gloves
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:83
+[barbassault_penance_boots_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=boots
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:84
+[barbassault_penance_boots_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=boots
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:85
+[barbassault_penance_boots]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=boots
+model=model_20546
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:86
+[barbassault_penance_boots_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=boots
+textfont=p11_full
+text=Penance boots
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:87
+[barbassault_penance_boots_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=boots
+textfont=p11_full
+text=100 points in each role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:88
+[barbassault_penance_boots_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=boots
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:89
+[barbassault_penance_legs_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=skirt
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:90
+[barbassault_penance_legs_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=skirt
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:91
+[barbassault_penance_legs]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=skirt
+model=model_20552
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:92
+[barbassault_penance_legs_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=skirt
+textfont=p11_full
+text=Penance skirt
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:93
+[barbassault_penance_legs_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=skirt
+textfont=p11_full
+text=375 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:94
+[barbassault_penance_legs_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=skirt
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:95
+[barbassault_penance_legs_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=skirt
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:96
+[barbassault_penance_torso_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=torso
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:97
+[barbassault_penance_torso_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=torso
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:98
+[barbassault_penance_torso]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=torso
+model=model_20557
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:99
+[barbassault_penance_torso_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=torso
+textfont=p11_full
+text=Penance torso
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:100
+[barbassault_penance_torso_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=torso
+textfont=p11_full
+text=375 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:101
+[barbassault_penance_torso_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=torso
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:102
+[barbassault_penance_torso_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=torso
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:103
+[barbassault_penance_healer_hat_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=healer_hat
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:104
+[barbassault_penance_healer_hat_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=healer_hat
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:105
+[barbassault_penance_healer_hat]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=healer_hat
+model=model_20547
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:106
+[barbassault_penance_healer_hat_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=healer_hat
+textfont=p11_full
+text=Penance Healer hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:107
+[barbassault_penance_healer_hat_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=healer_hat
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:108
+[barbassault_penance_healer_hat_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=healer_hat
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:109
+[barbassault_penance_healer_hat_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=healer_hat
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:110
+[barbassault_penance_runner_hat_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=runner_hat
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:111
+[barbassault_penance_runner_hat_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=runner_hat
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:112
+[barbassault_penance_runner_hat]
+type=model
+x=4
+width=33
+height=34
+ymode=abs_centre
+layer=runner_hat
+model=model_20554
+modelorigin=-1,-1
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:113
+[barbassault_penance_runner_hat_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=runner_hat
+textfont=p11_full
+text=Penance Runner hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:114
+[barbassault_penance_runner_hat_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=runner_hat
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:115
+[barbassault_penance_runner_hat_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=runner_hat
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:116
+[barbassault_penance_runner_hat_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=runner_hat
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:117
+[barbassault_penance_ranger_hat_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=ranger_hat
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:118
+[barbassault_penance_ranger_hat_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=ranger_hat
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:119
+[barbassault_penance_ranger_hat]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=ranger_hat
+model=model_20550
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:120
+[barbassault_penance_ranger_hat_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=ranger_hat
+textfont=p11_full
+text=Penance Ranger hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:121
+[barbassault_penance_ranger_hat_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=ranger_hat
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:122
+[barbassault_penance_collector_hat_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=ranger_hat
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:123
+[barbassault_penance_ranger_hat_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=ranger_hat
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:124
+[barbassault_penance_fighter_hat_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=fight_hat
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:125
+[barbassault_penance_fighter_hat_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=fight_hat
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:126
+[barbassault_penance_fighter_hat]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=fight_hat
+model=model_20536
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:127
+[barbassault_penance_fighter_hat_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=fight_hat
+textfont=p11_full
+text=Penance Fighter hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:128
+[barbassault_penance_fighter_hat_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=fight_hat
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:129
+[barbassault_penance_fighter_hat_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=fight_hat
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:130
+[barbassault_penance_fighter_hat_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=fight_hat
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:131
+[weapons_layer]
+type=layer
+x=25
+y=80
+width=462
+height=200
+hide=yes
+
+// 473:132
+[trident]
+type=layer
+x=7
+y=13
+width=222
+height=45
+layer=weapons_layer
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:133
+[trident_master]
+type=layer
+x=232
+y=13
+width=222
+height=45
+layer=weapons_layer
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:134
+[barbassault_trident_button_master]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=trident_master
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:135
+[barbassault_trident_button_master_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=trident_master
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 473:136
+[barbassault_trident_master]
+type=model
+x=10
+y=1
+width=27
+height=31
+ymode=abs_centre
+layer=trident_master
+model=model_51783
+modelorigin=-5,3
+modelangle=122,1822,1678
+modelzoom=1236
+transmitop=10
+op10=   
+
+// 473:137
+[plus_1]
+type=line
+x=28
+y=25
+height=10
+layer=trident_master
+colour=0xccccff
+
+// 473:138
+[plus_2]
+type=line
+x=23
+y=30
+width=10
+layer=trident_master
+colour=0xccccff
+
+// 473:139
+[barbassault_trident_txt_master]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=trident_master
+textfont=p11_full
+text=Penance Trident Upgrade
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:140
+[barbassault_trident_cost_master]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=trident_master
+textfont=p11_full
+text=A penance trident
+colour=0xff0000
+transmitop=10
+op10=   
+
+// 473:141
+[barbassault_trident_info_master]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=trident_master
+textfont=p11_full
+text=Upgrades melee stats
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:142
+[barbassault_trident_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=trident
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:143
+[barbassault_trident_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=trident
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 473:144
+[barbassault_trident]
+type=model
+x=8
+y=2
+width=24
+height=32
+ymode=abs_centre
+layer=trident
+model=model_51543
+modelorigin=-2,2
+modelangle=119,0,1678
+modelzoom=1108
+transmitop=10
+op10=   
+
+// 473:145
+[barbassault_trident_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=trident
+textfont=p11_full
+text=Penance Trident
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:146
+[barbassault_trident_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=trident
+textfont=p11_full
+text=390 points in each role
+colour=0xff0000
+transmitop=10
+op10=   
+
+// 473:147
+[barbassault_trident_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=trident
+textfont=p11_full
+text=A 2 handed weapon
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:148
+[yellow]
+type=layer
+x=232
+y=130
+width=222
+height=45
+layer=weapons_layer
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:149
+[blue]
+type=layer
+x=6
+y=130
+width=222
+height=45
+layer=weapons_layer
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:150
+[white]
+type=layer
+x=7
+y=71
+width=222
+height=45
+layer=weapons_layer
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:151
+[green]
+type=layer
+x=232
+y=71
+width=222
+height=45
+layer=weapons_layer
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:152
+[barbassault_green_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=green
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:153
+[barbassault_green_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=green
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:154
+[barbassault_green]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=green
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:155
+[barbassault_green_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=green
+textfont=p11_full
+text=Penance Egg Paint (Green)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:156
+[barbassault_green_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=green
+textfont=p11_full
+text=50 points in any role
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:157
+[barbassault_green_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=green
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:158
+[barbassault_white_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=white
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:159
+[barbassault_white_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=white
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:160
+[barbassault_white]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=white
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:161
+[barbassault_white_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=white
+textfont=p11_full
+text=Penance Egg Paint (White)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:162
+[barbassault_white_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=white
+textfont=p11_full
+text=50 points in any role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:163
+[barbassault_white_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=white
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:164
+[barbassault_blue_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=blue
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:165
+[barbassault_blue_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=blue
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:166
+[barbassault_blue]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=blue
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:167
+[barbassault_blue_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=blue
+textfont=p11_full
+text=Penance Egg Paint (Blue)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:168
+[barbassault_blue_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=blue
+textfont=p11_full
+text=50 points in any role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:169
+[barbassault_blue_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=blue
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:170
+[barbassault_yellow_button]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=yellow
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:171
+[barbassault_yellow_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=yellow
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:172
+[barbassault_yellow]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=yellow
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:173
+[barbassault_yellow_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=yellow
+textfont=p11_full
+text=Penance egg paint (Yellow)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:174
+[barbassault_yellow_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=yellow
+textfont=p11_full
+text=50 points in any role
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:175
+[barbassault_yellow_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=yellow
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:176
+[misc_layer]
+type=layer
+x=25
+y=80
+width=462
+height=200
+hide=yes
+
+// 473:177
+[horn]
+type=layer
+x=7
+y=13
+width=222
+height=45
+layer=misc_layer
+transmitop=1
+op1=Buy
+
+// 473:178
+[horn_upgrade]
+type=layer
+x=232
+y=13
+width=222
+height=45
+layer=misc_layer
+transmitop=1
+op1=Buy
+
+// 473:179
+[barbassault_horn_button_upgrade]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=horn_upgrade
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:180
+[barbassault_horn_button_upgrade_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=horn_upgrade
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:181
+[barbassault_horn_upgrade]
+type=model
+x=7
+y=-1
+width=28
+height=31
+ymode=abs_centre
+layer=horn_upgrade
+model=model_51545
+modelorigin=0,5
+modelangle=563,570,0
+modelzoom=852
+transmitop=10
+op10=  
+
+// 473:182
+[barbassault_horn_upgrade_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=horn_upgrade
+textfont=p11_full
+text=Penance Horn Upgrade
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:183
+[barbassault_horn_upgrade_cost]
+type=text
+x=45
+y=2
+width=83
+height=13
+ymode=abs_bottom
+layer=horn_upgrade
+textfont=p11_full
+text=Lvl 5 in any role
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:184
+[barbassault_horn_upgrade_cost_2]
+type=text
+x=135
+y=2
+width=83
+height=13
+ymode=abs_bottom
+layer=horn_upgrade
+textfont=p11_full
+text=A penance horn
+textalignh=right
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:185
+[barbassault_horn_upgrade_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=horn_upgrade
+textfont=p11_full
+text=Blow the horn to show your might!
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:186
+[granite_body]
+type=layer
+x=232
+y=71
+width=222
+height=45
+layer=misc_layer
+transmitop=1
+op1=Buy
+
+// 473:187
+[gamble_low]
+type=layer
+x=7
+y=71
+width=222
+height=45
+layer=misc_layer
+transmitop=1
+op1=Buy
+
+// 473:188
+[gamble_med]
+type=layer
+x=6
+y=130
+width=222
+height=45
+layer=misc_layer
+transmitop=1
+op1=Buy
+
+// 473:189
+[gamble_high]
+type=layer
+x=232
+y=130
+width=222
+height=45
+layer=misc_layer
+transmitop=1
+op1=Buy
+
+// 473:190
+[barbassault_gamble_250_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=gamble_high
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:191
+[barbassault_gamble_250_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=gamble_high
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:192
+[barbassault_gamble_250]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=gamble_high
+model=model_20535
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:193
+[barbassault_gamble_250_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=gamble_high
+textfont=p11_full
+text=Gamble points - high items
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:194
+[barbassault_gamble_250_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=gamble_high
+textfont=p11_full
+text=30 points (any role)
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:195
+[barbassault_gamble_250_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=gamble_high
+textfont=p11_full
+text=Receive a random item
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:196
+[barbassault_gamble_150_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=gamble_med
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:197
+[barbassault_gamble_150_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=gamble_med
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:198
+[barbassault_gamble_150]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=gamble_med
+model=model_20535
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:199
+[barbassault_gamble_150_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=gamble_med
+textfont=p11_full
+text=Gamble points - medium items
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:200
+[barbassault_gamble_150_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=gamble_med
+textfont=p11_full
+text=20 points (any role)
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:201
+[barbassault_gamble_150_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=gamble_med
+textfont=p11_full
+text=Receive a random item
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:202
+[barbassault_gamble_50_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=gamble_low
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:203
+[barbassault_gamble_50_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=gamble_low
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:204
+[barbassault_gamble_50]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=gamble_low
+model=model_20535
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:205
+[barbassault_gamble_50_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=gamble_low
+textfont=p11_full
+text=Gamble points - low items
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:206
+[barbassault_gamble_50_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=gamble_low
+textfont=p11_full
+text=10 points (any role)
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:207
+[barbassault_gamble_50_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=gamble_low
+textfont=p11_full
+text=Receive a random item
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:208
+[barbassault_granite_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=granite_body
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:209
+[barbassault_granite_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=granite_body
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:210
+[barbassault_granite_body]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=granite_body
+model=model_20537
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:211
+[barbassault_granite_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=granite_body
+textfont=p11_full
+text=Granite body
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:212
+[barbassault_granite_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=granite_body
+textfont=p11_full
+text=95,000 coins
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:213
+[barbassault_granite_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=granite_body
+textfont=p11_full
+text=Requires Defence 50
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:214
+[barbassault_granite_cost_queen]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=granite_body
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:215
+[barbassault_horn_button]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=horn
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:216
+[barbassault_horn_button_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=horn
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:217
+[barbassault_horn]
+type=model
+x=13
+y=-1
+width=16
+height=25
+ymode=abs_centre
+layer=horn
+model=model_51544
+modelorigin=0,1
+modelangle=563,501,0
+modelzoom=980
+transmitop=10
+op10=  
+
+// 473:218
+[barbassault_horn_txt]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=horn
+textfont=p11_full
+text=Penance Horn
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:219
+[barbassault_horn_cost]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=horn
+textfont=p11_full
+text=Free !
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:220
+[barbassault_horn_info]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=horn
+textfont=p11_full
+text=Lets you earn and spend XP
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:221
+[weapons_text]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=weapons_button
+textfont=p12_full
+text=Weapons
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:222
+[weapons_button_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=weapons_button
+hide=yes
+
+// 473:223
+[com_223]
+type=line
+y=4
+width=4103
+widthmode=proportion
+xmode=abs_centre
+layer=weapons_button_line
+colour=0xffff00
+
+// 473:224
+[armour_text]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=armour_button
+textfont=p12_full
+text=Penance Armour
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:225
+[armour_button_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=armour_button
+hide=yes
+
+// 473:226
+[com_226]
+type=line
+y=4
+width=4103
+widthmode=proportion
+xmode=abs_centre
+layer=armour_button_line
+colour=0xffff00
+
+// 473:227
+[text_roles]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=roles_button
+textfont=p12_full
+text=Roles
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:228
+[roles_button_line]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=roles_button
+
+// 473:229
+[com_229]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=roles_button_line
+colour=0xffff00

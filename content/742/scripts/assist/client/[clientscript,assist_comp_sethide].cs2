@@ -1,0 +1,8 @@
+// 526
+[clientscript,assist_comp_sethide](boolean $boolean0, component $component1, component $component2)
+if_sethide($component1, $boolean0);
+if ($boolean0 = true) {
+    if_setfill($component2, false);
+}
+~deltooltip_action(assister_interface:assist_tooltip_build_layer);
+%tooltip_time = 0;

@@ -1,0 +1,26 @@
+// 1076
+[proc,quickchat_phrase_obj](component $component0, chatphrase $chatphrase1, obj $obj2)
+switch_int (%quickchat_phrase_count) {
+    case 0 :
+        %quickchat_phrase_obj0 = $obj2;
+    case 1 :
+        %quickchat_phrase_obj1 = $obj2;
+    case 2 :
+        %quickchat_phrase_obj2 = $obj2;
+    case 3 :
+        %quickchat_phrase_obj3 = $obj2;
+    case 4 :
+        %quickchat_phrase_obj4 = $obj2;
+    case 5 :
+        %quickchat_phrase_obj5 = $obj2;
+    case 6 :
+        %quickchat_phrase_obj6 = $obj2;
+    case 7 :
+        %quickchat_phrase_obj7 = $obj2;
+    case 8 :
+        %quickchat_phrase_obj8 = $obj2;
+    case 9 :
+        %quickchat_phrase_obj9 = $obj2;
+}
+%quickchat_phrase_count = calc(%quickchat_phrase_count + 1);
+~quickchat_phrase_setup($component0, $chatphrase1);

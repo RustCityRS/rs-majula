@@ -1,0 +1,9 @@
+// 6164
+[proc,clientscript_6164](component $component0, int $int1)
+if ($int1 < 1) {
+    $int1 = calc($int1 + 1);
+    if_setontimer(interface_1273:com_13, "clientscript_6164(interface_1273:com_13, $int1)");
+} else {
+    if_setontimer($component0, null);
+    ~clientscript_6165(0);
+}

@@ -29,6 +29,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::fs;
 
 /// 647 SYNTH_SOUND: `p2 synth; p1 loops; p2 delay; p1 volume; p2 speed`.
@@ -79,7 +80,7 @@ fn loc_id(_: &Engine, name: &str) -> u16 {
 fn loc_at(engine: &Engine, name: &str, x: u16, z: u16) -> Option<u8> {
     let id = loc_id(engine, name);
     let zone = engine.zones.zone(x, 0, z)?;
-    let idx = zone.get_loc(x, z, id)?;
+    let idx = zone.get_loc(x, z, TypeId::from(id))?;
     Some(zone.locs[idx].angle() as u8)
 }
 

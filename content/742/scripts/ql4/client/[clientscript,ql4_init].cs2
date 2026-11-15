@@ -1,0 +1,9 @@
+// 2165
+[clientscript,ql4_init]
+def_int $int0 = max(stringwidth(if_gettext(questlist_v4:button_filter), op1028(questlist_v4:button_filter)), stringwidth(if_gettext(questlist_v4:com_35), op1028(questlist_v4:com_35)));
+$int0 = calc($int0 + if_getwidth(questlist_v4:com_28) + 1);
+if_setsize(questlist_v4:com_27, $int0, if_getheight(questlist_v4:com_27), ^setsize_abs, ^setsize_abs);
+if_setsize(questlist_v4:com_51, calc($int0 + 1 + if_getx(questlist_v4:com_51) * 2), if_getheight(questlist_v4:com_51), ^setsize_minus, ^setsize_abs);
+~ql4_init_general(1);
+if_setonvartransmit(questlist_v4:quests, "ql4_refresh{varplayer_1384}");
+if_setonvarctransmit(questlist_v4:quests, "ql4_refresh{ql4_reinit}");

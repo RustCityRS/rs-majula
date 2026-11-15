@@ -1,0 +1,219 @@
+// 4814
+[proc,clientscript_4814]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "";
+if_settext(interface_1258:com_448, "");
+if_settext(interface_1258:com_382, "");
+if_settext(interface_1258:com_310, "");
+if_sethide(interface_1258:com_446, false);
+if_sethide(interface_1258:com_380, false);
+if_sethide(interface_1258:com_308, false);
+if_sethide(interface_1258:com_448, true);
+if_sethide(interface_1258:com_382, true);
+if_sethide(interface_1258:com_310, true);
+if_setonmouseleave(interface_1258:com_454, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_388, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_316, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_442, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_376, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_304, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_453, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_387, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_315, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_441, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_375, "deltooltip(interface_1258:com_149)");
+if_setonmouseleave(interface_1258:com_303, "deltooltip(interface_1258:com_149)");
+if (op718 = 1) {
+    if (~clientscript_5008 = 0 | ~clientscript_5144(-1) = 0) {
+        if_sethide(interface_1258:com_454, false);
+        if_sethide(interface_1258:com_388, false);
+        if_sethide(interface_1258:com_316, false);
+        if_sethide(interface_1258:com_442, false);
+        if_sethide(interface_1258:com_376, false);
+        if_sethide(interface_1258:com_304, false);
+        $string0 = "Your rank may not currently make alterations to this item";
+        if_setonmouserepeat(interface_1258:com_454, "aif_tooltip(interface_1258:com_149, interface_1258:com_454, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setonmouserepeat(interface_1258:com_388, "aif_tooltip(interface_1258:com_149, interface_1258:com_388, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setonmouserepeat(interface_1258:com_316, "aif_tooltip(interface_1258:com_149, interface_1258:com_316, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setonmouserepeat(interface_1258:com_442, "aif_tooltip(interface_1258:com_149, interface_1258:com_442, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setonmouserepeat(interface_1258:com_376, "aif_tooltip(interface_1258:com_149, interface_1258:com_376, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setonmouserepeat(interface_1258:com_304, "aif_tooltip(interface_1258:com_149, interface_1258:com_304, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    } else {
+        switch_int (%varplayerbit_9558) {
+            case 1 :
+                $int0 = %varplayerbit_9563;
+            case 2 :
+                $int0 = %varplayerbit_9572;
+            case 3 :
+                $int0 = %varplayerbit_9581;
+        }
+        switch_int (~clientscript_4829(%varplayerbit_9558)) {
+            case 1 :
+                $string0 = "You may submit this customisation to the build queue.";
+                switch_int ($int0) {
+                    case 1 :
+                        if_sethide(interface_1258:com_448, true);
+                        if_sethide(interface_1258:com_446, false);
+                        if_sethide(interface_1258:com_454, true);
+                        if_setonmouserepeat(interface_1258:com_453, "aif_tooltip(interface_1258:com_149, interface_1258:com_453, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 2 :
+                        if_sethide(interface_1258:com_382, true);
+                        if_sethide(interface_1258:com_380, false);
+                        if_sethide(interface_1258:com_388, true);
+                        if_setonmouserepeat(interface_1258:com_387, "aif_tooltip(interface_1258:com_149, interface_1258:com_387, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 3 :
+                        if_sethide(interface_1258:com_310, true);
+                        if_sethide(interface_1258:com_308, false);
+                        if_sethide(interface_1258:com_316, true);
+                        if_setonmouserepeat(interface_1258:com_315, "aif_tooltip(interface_1258:com_149, interface_1258:com_315, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                }
+            case 2 :
+                switch_int ($int0) {
+                    case 1 :
+                        $string0 = "Your citadel is of an insufficient tier to buy this customisation.";
+                        if_settext(interface_1258:com_448, $string0);
+                        if_sethide(interface_1258:com_454, false);
+                        if_sethide(interface_1258:com_448, false);
+                        if_sethide(interface_1258:com_446, true);
+                        if_setonmouserepeat(interface_1258:com_454, "aif_tooltip(interface_1258:com_149, interface_1258:com_454, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_441, "aif_tooltip(interface_1258:com_149, interface_1258:com_441, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_442, "aif_tooltip(interface_1258:com_149, interface_1258:com_442, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 2 :
+                        $string0 = "Your citadel is of an insufficient tier to buy this customisation.";
+                        if_settext(interface_1258:com_382, $string0);
+                        if_sethide(interface_1258:com_388, false);
+                        if_sethide(interface_1258:com_382, false);
+                        if_sethide(interface_1258:com_380, true);
+                        if_setonmouserepeat(interface_1258:com_388, "aif_tooltip(interface_1258:com_149, interface_1258:com_388, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_375, "aif_tooltip(interface_1258:com_149, interface_1258:com_375, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_376, "aif_tooltip(interface_1258:com_149, interface_1258:com_376, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 3 :
+                        $string0 = "Your citadel is of an insufficient tier to buy this customisation.";
+                        if_settext(interface_1258:com_310, $string0);
+                        if_sethide(interface_1258:com_316, false);
+                        if_sethide(interface_1258:com_310, false);
+                        if_sethide(interface_1258:com_308, true);
+                        if_setonmouserepeat(interface_1258:com_316, "aif_tooltip(interface_1258:com_149, interface_1258:com_316, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_303, "aif_tooltip(interface_1258:com_149, interface_1258:com_303, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_304, "aif_tooltip(interface_1258:com_149, interface_1258:com_304, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                }
+            case 3 :
+                switch_int ($int0) {
+                    case 1 :
+                        $string0 = "Select valid options for each part of the customisation before adding to the build queue.";
+                        if_settext(interface_1258:com_448, $string0);
+                        if_sethide(interface_1258:com_454, false);
+                        if_sethide(interface_1258:com_448, false);
+                        if_sethide(interface_1258:com_446, true);
+                        if_setonmouserepeat(interface_1258:com_454, "aif_tooltip(interface_1258:com_149, interface_1258:com_454, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_441, "aif_tooltip(interface_1258:com_149, interface_1258:com_441, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_442, "aif_tooltip(interface_1258:com_149, interface_1258:com_442, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 2 :
+                        $string0 = "You must select valid options for each part of the customisation before you can add it to the build queue.";
+                        if_settext(interface_1258:com_382, $string0);
+                        if_sethide(interface_1258:com_388, false);
+                        if_sethide(interface_1258:com_382, false);
+                        if_sethide(interface_1258:com_380, true);
+                        if_setonmouserepeat(interface_1258:com_388, "aif_tooltip(interface_1258:com_149, interface_1258:com_388, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_375, "aif_tooltip(interface_1258:com_149, interface_1258:com_375, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_376, "aif_tooltip(interface_1258:com_149, interface_1258:com_376, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 3 :
+                        $string0 = "You must select valid options for each part of the customisation before you can add it to the build queue.";
+                        if_settext(interface_1258:com_310, $string0);
+                        if_sethide(interface_1258:com_316, false);
+                        if_sethide(interface_1258:com_310, false);
+                        if_sethide(interface_1258:com_308, true);
+                        if_setonmouserepeat(interface_1258:com_316, "aif_tooltip(interface_1258:com_149, interface_1258:com_316, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_303, "aif_tooltip(interface_1258:com_149, interface_1258:com_303, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_304, "aif_tooltip(interface_1258:com_149, interface_1258:com_304, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                }
+            case 4 :
+                switch_int ($int0) {
+                    case 1 :
+                        $string0 = "The selection you have chosen is already built in the citadel.";
+                        if_settext(interface_1258:com_448, $string0);
+                        if_sethide(interface_1258:com_454, false);
+                        if_sethide(interface_1258:com_448, false);
+                        if_sethide(interface_1258:com_446, true);
+                        if_setonmouserepeat(interface_1258:com_454, "aif_tooltip(interface_1258:com_149, interface_1258:com_454, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_441, "aif_tooltip(interface_1258:com_149, interface_1258:com_441, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_442, "aif_tooltip(interface_1258:com_149, interface_1258:com_442, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 2 :
+                        $string0 = "The selection you have chosen is already built in the citadel.";
+                        if_settext(interface_1258:com_382, $string0);
+                        if_sethide(interface_1258:com_388, false);
+                        if_sethide(interface_1258:com_382, false);
+                        if_sethide(interface_1258:com_380, true);
+                        if_setonmouserepeat(interface_1258:com_388, "aif_tooltip(interface_1258:com_149, interface_1258:com_388, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_375, "aif_tooltip(interface_1258:com_149, interface_1258:com_375, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_376, "aif_tooltip(interface_1258:com_149, interface_1258:com_376, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 3 :
+                        $string0 = "The selection you have chosen is already built in the citadel.";
+                        if_settext(interface_1258:com_310, $string0);
+                        if_sethide(interface_1258:com_316, false);
+                        if_sethide(interface_1258:com_310, false);
+                        if_sethide(interface_1258:com_308, true);
+                        if_setonmouserepeat(interface_1258:com_316, "aif_tooltip(interface_1258:com_149, interface_1258:com_316, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You may cancel this customisation from the build queue but you will lose any resources already spent.";
+                        if_setonmouserepeat(interface_1258:com_303, "aif_tooltip(interface_1258:com_149, interface_1258:com_303, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_304, "aif_tooltip(interface_1258:com_149, interface_1258:com_304, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                }
+            case 5 :
+                switch_int ($int0) {
+                    case 1 :
+                        $string0 = "This hotspot is currently queued to be reset, you may cancel this reset at no cost.";
+                        if_settext(interface_1258:com_448, $string0);
+                        if_sethide(interface_1258:com_454, false);
+                        if_sethide(interface_1258:com_448, false);
+                        if_sethide(interface_1258:com_446, true);
+                        if_setonmouserepeat(interface_1258:com_454, "aif_tooltip(interface_1258:com_149, interface_1258:com_388, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "This hotspot is currently queued to be reset, you may cancel this reset at no cost.";
+                        if_setonmouserepeat(interface_1258:com_441, "aif_tooltip(interface_1258:com_149, interface_1258:com_441, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_442, "aif_tooltip(interface_1258:com_149, interface_1258:com_442, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 2 :
+                        $string0 = "This hotspot is currently queued to be reset, you may cancel this reset at no cost.";
+                        if_settext(interface_1258:com_382, $string0);
+                        if_sethide(interface_1258:com_388, false);
+                        if_sethide(interface_1258:com_382, false);
+                        if_sethide(interface_1258:com_380, true);
+                        if_setonmouserepeat(interface_1258:com_388, "aif_tooltip(interface_1258:com_149, interface_1258:com_388, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "This hotspot is currently queued to be reset, you may cancel this reset at no cost.";
+                        if_setonmouserepeat(interface_1258:com_375, "aif_tooltip(interface_1258:com_149, interface_1258:com_375, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_376, "aif_tooltip(interface_1258:com_149, interface_1258:com_376, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                    case 3 :
+                        $string0 = "This hotspot is currently queued to be reset, you may cancel this reset at no cost.";
+                        if_settext(interface_1258:com_310, $string0);
+                        if_sethide(interface_1258:com_316, false);
+                        if_sethide(interface_1258:com_310, false);
+                        if_sethide(interface_1258:com_308, true);
+                        if_setonmouserepeat(interface_1258:com_316, "aif_tooltip(interface_1258:com_149, interface_1258:com_316, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "This hotspot is currently queued to be reset, you may cancel this reset at no cost.";
+                        if_setonmouserepeat(interface_1258:com_303, "aif_tooltip(interface_1258:com_149, interface_1258:com_303, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                        $string0 = "You do not have the rank to cancel this job.";
+                        if_setonmouserepeat(interface_1258:com_304, "aif_tooltip(interface_1258:com_149, interface_1258:com_304, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+                }
+        }
+    }
+}

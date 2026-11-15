@@ -1,0 +1,29 @@
+// 523
+[proc,enum_var](stat $stat0)(int)
+if ($stat0 = runecraft) {
+    return(%runecraftxp);
+}
+if ($stat0 = crafting) {
+    return(%craftingxp);
+}
+if ($stat0 = fletching) {
+    return(%fletchingxp);
+}
+if ($stat0 = cooking) {
+    return(%cookingxp);
+}
+if ($stat0 = construction) {
+    return(%constructionxp);
+}
+if ($stat0 = herblore) {
+    return(%herblorexp);
+}
+if ($stat0 = magic) {
+    return(%magicxp);
+}
+if ($stat0 = smithing) {
+    return(%smithingxp);
+}
+if ($stat0 = farming) {
+    return(%farmingxp);
+}

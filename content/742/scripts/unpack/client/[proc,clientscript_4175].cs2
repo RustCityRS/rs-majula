@@ -1,0 +1,6 @@
+// 4175
+[proc,clientscript_4175](struct $struct0)(obj)
+if ($struct0 = null) {
+    return(null);
+}
+return(~clientscript_4173(struct_param($struct0, param_2788)));

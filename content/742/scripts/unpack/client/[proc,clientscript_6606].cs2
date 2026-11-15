@@ -1,0 +1,40 @@
+// 6606
+[proc,clientscript_6606](component $component0)
+def_int $int1 = 100;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int3 = enum_getoutputcount(enum_6060);
+$int3 = calc($int3 + $int1);
+if (if_find(interface_1324:com_15) = true) {
+    $int4 = cc_getx;
+    $int5 = cc_gety;
+    $int6 = cc_getx;
+    $int7 = cc_gety;
+    $int8 = calc(cc_getheight + cc_gety);
+    $int9 = calc(cc_getx + cc_getwidth);
+}
+while ($int1 < $int3) {
+    if (cc_find($component0, $int1) = true) {
+        if (~clientscript_6613($int2) < 1) {
+            if (.if_find($component0) = true & cc_getx > .cc_getx & cc_getx < calc(.cc_getx + .cc_getwidth) & cc_gety > .cc_gety & cc_gety < calc(.cc_getx + .cc_getwidth)) {
+                if (cc_getwidth > cc_getheight) {
+                    cc_setposition($int6, $int5, ^setpos_abs_left, ^setpos_abs_top);
+                } else {
+                    cc_setposition($int4, $int7, ^setpos_abs_left, ^setpos_abs_top);
+                }
+                $int4 = calc($int4 + cc_getwidth);
+                $int5 = calc($int5 + cc_getheight);
+            }
+        } else if (.cc_find($component0, calc(~clientscript_6613($int2) - 1)) = true) {
+            cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        }
+    }
+    $int1 = calc($int1 + 1);
+    $int2 = calc($int2 + 1);
+}

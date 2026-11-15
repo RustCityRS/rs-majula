@@ -1,0 +1,16 @@
+// 36
+[clientscript,scrollbar_vertical_wheel](component $component0, component $component1, int $int2)
+def_int $int3 = if_getscrolly($component1);
+switch_component ($component1) {
+    case interface_590:com_8 :
+        if ($int2 > 0) {
+            $int3 = ~clientscript_4754($component1, $int3, 0);
+        } else {
+            $int3 = ~clientscript_4754($component1, $int3, 1);
+        }
+    case default :
+        $int3 = calc($int3 + $int2 * 45);
+}
+if (cc_find($component0, 1) = true) {
+    ~scrollbar_vertical_doscroll($component0, $component1, $int3, true);
+}

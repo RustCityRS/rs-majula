@@ -1,0 +1,66 @@
+// 4908
+[proc,clientscript_4908](int $int0)
+def_int $int1 = -1;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = ~clientscript_4950($int0);
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_component $component11 = null;
+def_struct $struct12 = null;
+def_graphic $graphic13 = null;
+def_int $int14 = 1;
+if (op718 = 1) {
+    if (%varclient_1794 = 0) {
+        $struct12 = ~clientscript_5116(%varclan_2598, %varclan_2580);
+    } else {
+        $struct12 = ~clientscript_5116(%varclan_2074, %varclan_2580);
+    }
+    if ($struct12 = null) {
+        return;
+    }
+    if ($int6 = 6 | $int6 = 5) {
+        $int5 = ~clientscript_4971($int0);
+        $graphic13 = ~clientscript_5171($int5);
+    } else {
+        $graphic13 = ~clientscript_4973($int0);
+    }
+    $int4 = ~clientscript_4949($int0);
+    $int7 = ~clientscript_4961($int0, 1);
+    $int8 = ~clientscript_4953($int7);
+    if ($int8 > 0) {
+        $graphic13 = 7432;
+    }
+    $int9 = ~clientscript_4961($int0, 3);
+    $int10 = ~clientscript_4953($int9);
+    if (($int6 = 6 | $int6 = 6 | $int6 = 5) & (%varclan_2148 = $int5 | %varclan_2165 = $int5 | %varclan_2182 = $int5)) {
+        $graphic13 = 7432;
+    }
+    if ($int10 > 0) {
+        $graphic13 = 7432;
+    }
+    if ($int6 = 5) {
+        if (%varclan_2148 = $int5 | %varclan_2165 = $int5 | %varclan_2182 = $int5) {
+            if_setgraphic(~clientscript_5216($int0), 7659);
+            if_setop(~clientscript_4972($int0), 2, "");
+        } else if ($int4 > 0) {
+            if_setgraphic(~clientscript_5216($int0), 7657);
+            if_setop(~clientscript_4972($int0), 2, "Reset hotspot to its default state");
+        } else {
+            if_setgraphic(~clientscript_5216($int0), 7658);
+            if_setop(~clientscript_4972($int0), 2, "");
+        }
+    }
+    $component11 = ~clientscript_4972($int0);
+    if ($component11 = null) {
+        return;
+    }
+    if (cc_find($component11, 0) = true) {
+        cc_setgraphic($graphic13);
+    } else {
+    }
+}

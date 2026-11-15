@@ -1,0 +1,44 @@
+// 524
+[clientscript,script524](component $component0, component $component1)
+def_int $int2 = 0;
+if (%assist_earned_xp >= 300000) {
+    if_setcolour($component0, ^red);
+    return;
+}
+if ($component0 = assister_interface:runecraft_text) {
+    $int2 = %assist_runecraft_xp_on;
+}
+if ($component0 = assister_interface:crafting_text) {
+    $int2 = %assist_crafting_xp_on;
+}
+if ($component0 = assister_interface:fletching_text) {
+    $int2 = %assist_fletching_xp_on;
+}
+if ($component0 = assister_interface:construction_text) {
+    $int2 = %assist_construction_xp_on;
+}
+if ($component0 = assister_interface:farming_text) {
+    $int2 = %assist_farming_xp_on;
+}
+if ($component0 = assister_interface:magic_text) {
+    $int2 = %assist_magic_xp_on;
+}
+if ($component0 = assister_interface:smithing_text) {
+    $int2 = %assist_smithing_xp_on;
+}
+if ($component0 = assister_interface:cooking_text) {
+    $int2 = %assist_cooking_xp_on;
+}
+if ($component0 = assister_interface:herblore_text) {
+    $int2 = %assist_herblore_xp_on;
+}
+if ($component0 = assister_interface:assist_total_text | $component0 = assister_interface:assist_total_xp_display) {
+    $int2 = 1;
+}
+if ($int2 = 1) {
+    if_setcolour($component0, 0xfab432);
+    if_setcolour($component1, 0xfab432);
+} else {
+    if_setcolour($component0, 0x606060);
+    if_setcolour($component1, 0x606060);
+}

@@ -1,0 +1,53 @@
+// 5195
+[proc,clientscript_5195]
+if_sethide(interface_1122:com_61, true);
+if_sethide(interface_1122:com_162, true);
+if_sethide(interface_1122:com_163, true);
+if_sethide(interface_1122:com_164, true);
+if_setcolour(interface_1122:com_63, 0xb59d69);
+if_setcolour(interface_1122:com_149, 0x78664b);
+if_setcolour(interface_1122:com_153, 0x78664b);
+if_setcolour(interface_1122:com_157, 0x78664b);
+if_setcolour(interface_1122:com_161, 0x78664b);
+if_setgraphic(interface_1122:com_25, 7653);
+if_setgraphic(interface_1122:com_147, 7652);
+if_setgraphic(interface_1122:com_151, 7652);
+if_setgraphic(interface_1122:com_155, 7652);
+if_setgraphic(interface_1122:com_159, 7652);
+if_sethide(interface_1122:com_26, true);
+if_sethide(interface_1122:com_148, true);
+if_sethide(interface_1122:com_152, true);
+if_sethide(interface_1122:com_156, true);
+if_sethide(interface_1122:com_160, true);
+if (%varclient_1595 >= 1) {
+    if_sethide(interface_1122:com_61, false);
+    if_setgraphic(interface_1122:com_147, 7653);
+    if_setcolour(interface_1122:com_149, 0xb59d69);
+}
+if (%varclient_1595 >= 2) {
+    if_sethide(interface_1122:com_162, false);
+    if_setgraphic(interface_1122:com_151, 7653);
+    if_setcolour(interface_1122:com_153, 0xb59d69);
+}
+if (%varclient_1595 >= 3) {
+    if_sethide(interface_1122:com_163, false);
+    if_setgraphic(interface_1122:com_155, 7653);
+    if_setcolour(interface_1122:com_157, 0xb59d69);
+}
+if (%varclient_1595 >= 4) {
+    if_sethide(interface_1122:com_164, false);
+    if_setgraphic(interface_1122:com_159, 7653);
+    if_setcolour(interface_1122:com_161, 0xb59d69);
+}
+switch_int (%varclient_1595) {
+    case 0 :
+        if_sethide(interface_1122:com_26, false);
+    case 1 :
+        if_sethide(interface_1122:com_148, false);
+    case 2 :
+        if_sethide(interface_1122:com_152, false);
+    case 3 :
+        if_sethide(interface_1122:com_156, false);
+    case 4 :
+        if_sethide(interface_1122:com_160, false);
+}

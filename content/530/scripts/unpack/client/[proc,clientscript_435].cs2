@@ -1,0 +1,11 @@
+// 435
+[proc,clientscript_435]
+if_sethide(interface_591:listlayer, true);
+if_sethide(interface_591:com_175, true);
+if_sethide(interface_591:com_177, false);
+if_sethide(interface_591:tops_scrollbar, true);
+if_sethide(interface_591:com_176, true);
+if_sethide(interface_591:com_178, false);
+if_setgraphic(interface_591:com_182, 1052);
+if_setgraphic(interface_591:com_183, 1053);
+if_setgraphic(interface_591:com_184, 1046);

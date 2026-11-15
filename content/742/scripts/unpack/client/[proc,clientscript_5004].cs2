@@ -1,0 +1,11 @@
+// 5004
+[proc,clientscript_5004]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (op718 = 1) {
+    $int0 = ~clientscript_4948(%varplayerbit_9550);
+    $int1 = ~clientscript_4978($int0);
+    if ($int1 = $int0 | $int1 <= 0) {
+        ~clientscript_4899(3);
+    }
+}

@@ -1,0 +1,69 @@
+// 289's Morgan (areas/area_draynor/scripts/morgan.rs2), who starts Vampire
+// Slayer. 2011: Dr Harlow drinks at the Blue Moon Inn (2011 wiki, Vampire
+// Slayer: Morgan "will tell you to go to the Blue Moon Inn and talk to Dr.
+// Harlow"; Dr. Harlow: he "used to be located in the Jolly Boar Inn"), and
+// the quest ends here once the Count is staked. Lines are 289's.
+[opnpc1,morgan]
+if (%vampire = ^vampire_complete) {
+    @morgan_after_vampire_slayer;
+}
+if (%vampire_count_slain = ^true) {
+    // 2011-05-04 recording (289.6-291.4s).
+    ~chatplayer("<p,happy>I've killed the vampire!");
+    ~chatnpc("<p,happy>Praise Saradomin! Bless you! We are all saved, the vampire is slayed!");
+    ~quest_vampire_complete;
+    return;
+}
+switch_int (%vampire) {
+    case ^quest_vampire_not_started : @morgan_before_vampire_slayer;
+    case ^quest_vampire_started, ^quest_vampire_spoke_to_harlow : @morgan_during_vampire_slayer;
+    case default : ~displaymessage(^dm_default);
+}
+
+[label,morgan_before_vampire_slayer]
+// 2011-05-04 recording (YouTube 8rnPUf2QQv4, 34.3-52.9s), word for word. The menu's title is
+// "Choose an option:" (37.9s); the Yes/No after is "Select an Option" (45.1s).
+~chatnpc("<p,happy>Praise Saradomin! He has brought you here to save us all!");
+~chatplayer("<p,confused>Wha-");
+~chatnpc("<p,neutral>He has guided your steps to my door, so that I may beseech you to save my village from a terrible threat!");
+// Only "What terrible threat?" is recorded (38.4s: the player says "What is this terrible
+// threat?"). The other two echo their option, as every 2011 option does, then go on to the
+// threat: Morgan's own answers to them are unknown.
+switch_int (~p_choice3_header("Why don't you save your own village?", 1, "What terrible threat?", 2, "Anything else I can do for you?", 3, "Choose an option:")) {
+    case 1 : ~chatplayer("<p,quiz>Why don't you save your own village?");
+    case 3 : ~chatplayer("<p,quiz>Anything else I can do for you?");
+    case default : ~chatplayer("<p,quiz>What is this terrible threat?");
+}
+~chatnpc("<p,sad>Our village is plagued by a vampire. He visits us frequently and demands blood payments or he will terrorise us all!");
+~chatplayer("<p,quiz>This vampire showed up all of a sudden and started attacking your village?");
+~chatnpc("<p,sad>I don't know; I just moved here with my wife. We'd move on again, but we're down on our luck and can't afford to.");
+~chatnpc("<p,neutral>Besides, I don't want to abandon other innocents to this fate. This could be a good community, if only that vampire would leave us.");
+~chatnpc("<p,quiz>Will you help me, brave adventurer?");
+if (~p_choice2("Yes.", 1, "No.", 2) = 2) {
+    @morgan_decline_vampire_slayer;
+}
+~chatplayer("<p,happy>Yes, I'll help you.");
+~quest_vampire_set_progress(^quest_vampire_started);
+~chatnpc("<p,happy>Wonderful! You will succeed, I'm sure of it. You are very brave to take this on, but I think you should speak to my friend Harlow before you do anything else.");
+~chatplayer("<p,quiz>Who is this Harlow?");
+~chatnpc("<p,neutral>He is a retired vampire slayer! I met him when I was a missionary, long ago. He will be able to advise you on the best methods to vanquish this vampire.");
+~chatplayer("<p,quiz>You already know a vampire slayer? What do you need me for?");
+~chatnpc("<p,sad>Harlow is...past his prime. He's seen too many evil things in his life and, to forget them, he drinks himself into oblivion. I fear he will slay vampires no more.");
+~chatplayer("<p,quiz>Where can I find this Harlow?");
+~chatnpc("<p,neutral>He spends his time at the Blue Moon inn, located in Varrock. If you enter Varrock from the south, it is the second building on your right. I'm sure it's filled with lively people, so you shouldn't miss it.");
+~chatplayer("<p,neutral>Okay, I'll go find Harlow.");
+~chatnpc("<p,happy>May Saradomin protect you, my friend!");
+
+[label,morgan_decline_vampire_slayer]
+// 289's: no 2011 recording of No is found.
+~chatplayer("<p,shock>No, vampires are scary!");
+~chatnpc("<p,sad>I don't blame you.");
+
+[label,morgan_during_vampire_slayer]
+~chatnpc("<p,happy>How are you doing with the quest?");
+~chatplayer("<p,confused>I'm still working on it.");
+~chatnpc("<p,shock>Please hurry! Every day we live in fear that we will be the vampire's next victim!");
+
+[label,morgan_after_vampire_slayer]
+~chatplayer("<p,happy>I have slain the foul creature!");
+~chatnpc("<p,neutral>Thank you, thank you! You will always be a hero in our village!");

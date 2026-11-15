@@ -1,0 +1,5 @@
+// 4300
+[clientscript,clansettings_list_build]
+if (activeclansettings_find_affined = true) {
+    ~clansettings_list_build;
+}

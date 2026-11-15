@@ -1,0 +1,41 @@
+// 6708
+[proc,clientscript_6708]
+def_component $component0 = null;
+switch_int (%varplayerbit_11965) {
+    case 1 :
+        $component0 = interface_94:com_24;
+    case 2 :
+        $component0 = interface_94:com_48;
+    case 3 :
+        $component0 = interface_94:com_52;
+    case 4 :
+        $component0 = interface_94:com_56;
+    case 5 :
+        $component0 = interface_94:com_60;
+    case 6 :
+        $component0 = interface_94:com_64;
+    case 7 :
+        $component0 = interface_94:com_68;
+    case 8 :
+        $component0 = interface_94:com_72;
+    case 9 :
+        $component0 = interface_94:com_76;
+}
+if_sethide(interface_94:com_24, true);
+if_sethide(interface_94:com_48, true);
+if_sethide(interface_94:com_52, true);
+if_sethide(interface_94:com_56, true);
+if_sethide(interface_94:com_60, true);
+if_sethide(interface_94:com_64, true);
+if_sethide(interface_94:com_68, true);
+if_sethide(interface_94:com_72, true);
+if_sethide(interface_94:com_76, true);
+if ($component0 = null) {
+    if_sethide(interface_94:com_4, true);
+    if_sethide(interface_94:com_44, false);
+    return;
+} else {
+    if_sethide(interface_94:com_4, false);
+    if_sethide(interface_94:com_44, true);
+}
+if_sethide($component0, false);

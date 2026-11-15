@@ -1,0 +1,14 @@
+// 4392
+[proc,script4392](component $component0)
+if (%clan_custom_motif_colour1_varp > 0) {
+    if_setrecol($component0, 0, 31690, %clan_custom_motif_colour1_varp);
+}
+if (%clan_custom_motif_colour2_varp > 0) {
+    if_setrecol($component0, 1, 60362, %clan_custom_motif_colour2_varp);
+}
+if (%clan_custom_colour1_varp > 0) {
+    if_setrecol($component0, 3, 55246, %clan_custom_colour1_varp);
+}
+if (%clan_custom_colour2_varp > 0) {
+    if_setrecol($component0, 4, 17358, %clan_custom_colour2_varp);
+}

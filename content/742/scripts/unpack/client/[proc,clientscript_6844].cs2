@@ -1,0 +1,8 @@
+// 6844
+[proc,clientscript_6844](component $component0)
+def_graphic $graphic1 = null;
+def_component $component2 = null;
+$graphic1, $component2 = ~clientscript_6845($component0);
+if (if_getgraphic($component2) = null) {
+    if_setgraphic($component2, $graphic1);
+}

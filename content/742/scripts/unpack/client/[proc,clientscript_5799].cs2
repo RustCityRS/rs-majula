@@ -1,0 +1,66 @@
+// 5799
+[proc,clientscript_5799](int $int0, struct $struct1, int $int2, component $component3, string $string0)(int)
+if (~script3999($int0) = 0) {
+    $struct1 = ~clientscript_5795($int0);
+} else {
+    $struct1 = ~clientscript_5795(struct_param($struct1, param_1268));
+}
+if ($struct1 = null) {
+    return(0);
+}
+def_string $string1 = "";
+def_int $int4 = 0;
+switch_int ($int2) {
+    case 0 :
+        $string1 = $string0;
+    case 1 :
+        $string1 = struct_param($struct1, param_1274);
+        if (struct_param($struct1, param_1282) ! null) {
+            $int4 = 1;
+        }
+    case 2 :
+        $string1 = struct_param($struct1, param_1275);
+        if (struct_param($struct1, param_1283) ! null) {
+            $int4 = 1;
+        }
+    case 3 :
+        $string1 = struct_param($struct1, param_1276);
+        if (struct_param($struct1, param_1284) ! null) {
+            $int4 = 1;
+        }
+    case 4 :
+        $string1 = struct_param($struct1, param_1277);
+        if (struct_param($struct1, param_1285) ! null) {
+            $int4 = 1;
+        }
+    case 5 :
+        $string1 = struct_param($struct1, param_1278);
+        if (struct_param($struct1, param_1286) ! null) {
+            $int4 = 1;
+        }
+    case 6 :
+        $string1 = struct_param($struct1, param_1279);
+        if (struct_param($struct1, param_1287) ! null) {
+            $int4 = 1;
+        }
+    case 7 :
+        $string1 = struct_param($struct1, param_1280);
+        if (struct_param($struct1, param_1288) ! null) {
+            $int4 = 1;
+        }
+    case 8 :
+        $string1 = struct_param($struct1, param_1281);
+        if (struct_param($struct1, param_1289) ! null) {
+            $int4 = 1;
+        }
+}
+if (compare($string1, "") = 0) {
+    return(0);
+}
+def_int $int5 = calc(if_getwidth($component3) - 24);
+def_int $int6 = 20;
+if ($int4 = 0) {
+    $int5 = calc($int5 + 24);
+    $int6 = 0;
+}
+def_int $int7 = max(calc($int6 + 5), calc(15 * paraheight($string1, $int5, verdana_11pt_regular)));

@@ -1,0 +1,7 @@
+// 6710
+[proc,clientscript_6710](int $int0, int $int1)
+if (%varplayerbit_11956 < $int0) {
+    if_settext(interface_94:com_1, "You do not have enough bonus xp remaining to select this lamp.");
+} else {
+    if_settext(interface_94:com_1, "You need a skill of <tostring($int1)> or more before you can select this lamp.");
+}

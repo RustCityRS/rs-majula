@@ -1,0 +1,13 @@
+// 6481
+[proc,clientscript_6481](component $component0, int $int1)
+if ($component0 = null) {
+    return;
+}
+%varclient_1964 = $component0;
+%varclient_1965 = $int1;
+def_component $component2 = interface_1311:com_173;
+if (cc_find($component0, $int1) = true) {
+    %varclient_1966 = op1506;
+    if_setsize($component2, cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+    if_setposition($component2, cc_getx, calc(cc_gety + if_gety(op1506)), ^setpos_abs_left, ^setpos_abs_top);
+}

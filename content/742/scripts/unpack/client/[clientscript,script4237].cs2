@@ -1,0 +1,7 @@
+// 4237
+[clientscript,script4237]
+if (%acs_cooldown_varc = 0 & %acs_battleships_reloading > 0) {
+    %acs_cooldown_varc = clientclock;
+} else {
+    return;
+}

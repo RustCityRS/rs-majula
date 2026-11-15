@@ -1,0 +1,114 @@
+// 738:0
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 738:1
+[com_1]
+type=model
+x=154
+y=6
+width=205
+height=318
+layer=layer_1
+model=model_34302
+modelorigin=-1,-44
+modelangle=0,0,1024
+modelzoom=1040
+
+// 738:2
+[com_2]
+type=text
+x=230
+y=103
+width=119
+height=46
+layer=layer_1
+textfont=b12_full
+text=Tok-Xil-Im
+textshadow=yes
+colour=0xbf751d
+
+// 738:3
+[com_3]
+type=text
+x=230
+y=149
+width=119
+height=46
+layer=layer_1
+textfont=b12_full
+text=Tok-Ket-Hurt
+textshadow=yes
+colour=0xbf751d
+
+// 738:4
+[com_4]
+type=text
+x=230
+y=195
+width=119
+height=46
+layer=layer_1
+textfont=b12_full
+text=TokJal-Hurt
+textshadow=yes
+colour=0xbf751d
+
+// 738:5
+[com_5]
+type=text
+x=215
+y=105
+width=32
+height=32
+layer=layer_1
+textfont=tzhaar_numbers
+text=a
+textshadow=yes
+colour=0xbf751d
+
+// 738:6
+[com_6]
+type=text
+x=204
+y=151
+width=32
+height=32
+layer=layer_1
+textfont=tzhaar_numbers
+text=ah
+textshadow=yes
+colour=0xbf751d
+
+// 738:7
+[com_7]
+type=text
+x=204
+y=196
+width=32
+height=32
+layer=layer_1
+textfont=tzhaar_numbers
+text=ac
+textshadow=yes
+colour=0xbf751d
+
+// 738:8
+[com_8]
+type=graphic
+x=320
+y=14
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click

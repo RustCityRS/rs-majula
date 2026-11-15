@@ -16,6 +16,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -24,18 +25,18 @@ static TURN: Mutex<()> = Mutex::new(());
 const CAULDRON: (u16, u16, u16) = (2024, 2967, 3205);
 const MAGIC: usize = 6;
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// Hetty's nid, and a walkable tile beside her.
 fn hetty(engine: &Engine) -> (u16, u16, u16) {
-    let id = *engine.cache.npcs.debugnames.get("hetty").unwrap();
+    let id = engine.cache.npcs.get_by_debugname("hetty").unwrap().id;
     let (nid, x, z) = engine
         .npc_list
         .npcs
@@ -81,9 +82,9 @@ fn hetty_var(engine: &Engine, client: &HarnessClient, varp: u16) -> i32 {
 fn witchs_potion_as_2011s_miniquest() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let varp = *engine.cache.varps.debugnames.get("hetty").unwrap();
-        assert_eq!(varp, 67, "289's hetty is the cache's varp 67");
-        let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let varp = engine.cache.varps.get_by_debugname("hetty").unwrap().id;
+        assert_eq!(varp, TypeId::new(67), "289's hetty is the cache's varp 67");
+        let backpack = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let ingredients = [
             obj(engine, "burnt_meat"),
             obj(engine, "rats_tail"),
@@ -126,7 +127,7 @@ fn witchs_potion_as_2011s_miniquest() {
         ] {
             assert!(talk.said(line), "shows {line:?}; {:?}", talk.texts);
         }
-        assert_eq!(hetty_var(engine, &client, varp), 1, "started");
+        assert_eq!(hetty_var(engine, &client, varp.g2()), 1, "started");
 
         // The ingredients: into her cauldron, and varp 67 at 2 reaches the client.
         {
@@ -153,7 +154,11 @@ fn witchs_potion_as_2011s_miniquest() {
         ] {
             assert!(talk.said(line), "shows {line:?}; {:?}", talk.texts);
         }
-        assert_eq!(hetty_var(engine, &client, varp), 2, "the ingredients given");
+        assert_eq!(
+            hetty_var(engine, &client, varp.g2()),
+            2,
+            "the ingredients given"
+        );
         assert!(
             varps_small(&talk.packets).contains(&(67, 2)),
             "varp 67 = 2 is sent, so the client offers Drink-from: {:?}",
@@ -189,7 +194,7 @@ fn witchs_potion_as_2011s_miniquest() {
         for _ in 0..3 {
             engine.cycle();
         }
-        assert_eq!(hetty_var(engine, &client, varp), 3, "complete");
+        assert_eq!(hetty_var(engine, &client, varp.g2()), 3, "complete");
         assert_eq!(
             engine.harness_player(client.pid).unwrap().stats.xp[MAGIC] - xp,
             3250,

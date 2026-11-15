@@ -2,11 +2,12 @@ use super::ScriptVarType;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type VarsTypeProvider = TypeProvider<VarsType>;
 
 pub struct VarsType {
-    pub id: u16,
+    pub id: TypeId,
     pub var_type: ScriptVarType,
     pub(crate) debugname: Box<str>,
 }
@@ -14,7 +15,7 @@ pub struct VarsType {
 impl CacheType for VarsType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         VarsType {
             id,
             var_type: ScriptVarType::Int,

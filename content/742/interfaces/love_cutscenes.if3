@@ -1,0 +1,146 @@
+// 990:0
+[control]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=love_cutscenes(event_com, love_cutscenes:dummy_hud, love_cutscenes:instructions, love_cutscenes:text, love_cutscenes:clanwars)
+onvarctransmit=love_cutscenes(event_com, love_cutscenes:dummy_hud, love_cutscenes:instructions, love_cutscenes:text, love_cutscenes:clanwars){tutorial3_cutscene_tracker}
+
+// 990:1
+[dummy_hud]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=control
+hide=yes
+
+// 990:2
+[com_2]
+type=model
+width=21959
+height=33361
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=dummy_hud
+model=model_11232
+modelorigin=0,504
+modelzoom=130
+modelanim=seq_14289
+modelnodepth=yes
+modelobjwidth=1025
+modelobjheight=1024
+
+// 990:3
+[instructions]
+type=layer
+x=10
+width=80
+height=200
+ymode=abs_centre
+layer=dummy_hud
+
+// 990:4
+[clanwars]
+type=layer
+x=5
+width=64
+height=72
+xmode=abs_right
+ymode=abs_centre
+layer=control
+hide=yes
+transmitop=10
+op10= 
+
+// 990:5
+[clanwars_background]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=clanwars
+tiling=yes
+trans=125
+colour=0x000000
+transmitop=10
+op10= 
+
+// 990:6
+[clanwars_icon]
+type=graphic
+y=15
+width=32
+height=32
+xmode=abs_centre
+layer=clanwars
+graphic="options_icons,18"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 990:7
+[clanwars_header]
+type=text
+y=3
+height=13
+widthmode=minus
+layer=clanwars
+textfont=p11_full
+text=On death:
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 990:8
+[clanwars_text]
+type=text
+y=46
+height=23
+widthmode=minus
+layer=clanwars
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 990:9
+[com_9]
+type=graphic
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=instructions
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 990:10
+[text]
+type=text
+width=4
+height=70
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=instructions
+textfont=p11_full
+text=Click on the ground to move the dummy.<br><br>Click on doors and stairs to use them.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff980f

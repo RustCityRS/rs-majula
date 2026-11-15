@@ -1,0 +1,54 @@
+// 5:0
+[com_0]
+type=rectangle
+x=485
+y=5
+width=22
+height=22
+layer=content_layer
+colour=0xcccccc
+trans=40
+
+// 5:1
+[com_1]
+type=rectangle
+x=485
+y=26
+width=22
+height=22
+layer=content_layer
+colour=0xcccccc
+trans=40
+
+// 5:2
+[red]
+type=rectangle
+x=486
+y=27
+width=20
+height=20
+layer=content_layer
+colour=0x670000
+fill=yes
+trans=40
+onload=agilityarena_overlay
+onvartransmit=agilityarena_overlay{agilityarena_varbit}
+
+// 5:3
+[green]
+type=rectangle
+x=486
+y=6
+width=20
+height=20
+layer=content_layer
+colour=0x006c00
+fill=yes
+trans=40
+
+// 5:4
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=abs_right

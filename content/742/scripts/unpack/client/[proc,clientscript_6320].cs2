@@ -1,0 +1,209 @@
+// 6320
+[proc,clientscript_6320](component $component0, coord $coord1)
+if_setoncamfinished($component0, null);
+if_setontimer($component0, null);
+switch_int (%tutorial3_cutscene_tracker) {
+    case default :
+        cam_inc_x;
+    case 201 :
+        cc_deleteall($component0);
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 202 :
+        spline_new(0, 5);
+        spline_new(1, 5);
+        spline_addpoint(0, 0, ~clientscript_6318(11, 3, $coord1), 900, ~clientscript_6318(16, 3, $coord1), 900, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(7, 3, $coord1), 700, ~clientscript_6318(12, 3, $coord1), 700, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(33, 6, $coord1), 1000, ~clientscript_6318(39, 7, $coord1), 1000, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(17, 5, $coord1), 700, ~clientscript_6318(20, 8, $coord1), 700, 0);
+        spline_addpoint(0, 2, ~clientscript_6318(39, 15, $coord1), 1700, ~clientscript_6318(39, 17, $coord1), 1700, 0);
+        spline_addpoint(1, 2, ~clientscript_6318(20, 21, $coord1), 1000, ~clientscript_6318(22, 26, $coord1), 1000, 0);
+        spline_addpoint(0, 3, ~clientscript_6318(39, 19, $coord1), 1800, ~clientscript_6318(39, 21, $coord1), 1800, 0);
+        spline_addpoint(1, 3, ~clientscript_6318(30, 30, $coord1), 900, ~clientscript_6318(33, 33, $coord1), 900, 0);
+        spline_addpoint(0, 4, ~clientscript_6318(37, 32, $coord1), 1600, ~clientscript_6318(37, 34, $coord1), 1600, 0);
+        spline_addpoint(1, 4, ~clientscript_6318(34, 44, $coord1), 800, ~clientscript_6318(34, 47, $coord1), 800, 0);
+        cam_movealong(0, 0, 100, 400, 1, 0);
+        ~tutorial3_fadein(50, $component0);
+        if_setoncamfinished($component0, "script3468($component0, 1, 400, 400, 400, 300, 300, 0, 0, 0, 0, 0)");
+    case 203 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6318(29, 6, $coord1), 550, ~clientscript_6318(29, 6, $coord1), 550, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(20, 5, $coord1), 550, ~clientscript_6318(20, 5, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(31, 6, $coord1), 600, ~clientscript_6318(31, 6, $coord1), 600, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(21, 5, $coord1), 600, ~clientscript_6318(21, 5, $coord1), 600, 0);
+        cam_movealong(0, 0, 100, 0, 1, 0);
+    case 204 :
+        spline_new(0, 4);
+        spline_new(1, 4);
+        spline_addpoint(0, 0, ~clientscript_6318(15, 15, $coord1), 1500, ~clientscript_6318(15, 15, $coord1), 1500, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(19, 21, $coord1), 600, ~clientscript_6318(19, 21, $coord1), 600, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(14, 14, $coord1), 1600, ~clientscript_6318(14, 14, $coord1), 1600, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(18, 21, $coord1), 500, ~clientscript_6318(18, 21, $coord1), 500, 0);
+        spline_addpoint(0, 2, ~clientscript_6318(16, 27, $coord1), 900, ~clientscript_6318(16, 27, $coord1), 900, 0);
+        spline_addpoint(1, 2, ~clientscript_6318(27, 29, $coord1), 600, ~clientscript_6318(27, 29, $coord1), 600, 0);
+        spline_addpoint(0, 3, ~clientscript_6318(16, 28, $coord1), 900, ~clientscript_6318(16, 28, $coord1), 900, 0);
+        spline_addpoint(1, 3, ~clientscript_6318(30, 28, $coord1), 600, ~clientscript_6318(30, 28, $coord1), 600, 0);
+        cam_movealong(0, 0, 400, 400, 1, 0);
+    case 205 :
+        if (spline_length(0) = 4) {
+            cam_movealong(0, 1, 500, 400, 1, 1);
+        }
+    case 206 :
+        if (spline_length(0) = 4) {
+            cam_movealong(0, 2, 500, 400, 1, 2);
+        }
+    case 207 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6318(16, 24, $coord1), 1200, ~clientscript_6318(17, 24, $coord1), 1200, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(52, 19, $coord1), 250, ~clientscript_6318(52, 19, $coord1), 250, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(40, 23, $coord1), 900, ~clientscript_6318(40, 23, $coord1), 900, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(56, 18, $coord1), 200, ~clientscript_6318(56, 18, $coord1), 200, 0);
+        cam_movealong(0, 0, 500, 0, 1, 0);
+    case 208 :
+        ~tutorial3_fadeout(^black, 25, $component0);
+    case 209 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(34, 38, $coord1), 1200, ~clientscript_6319(34, 38, $coord1), 1200, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(31, 46, $coord1), 550, ~clientscript_6319(31, 46, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(37, 36, $coord1), 1250, ~clientscript_6319(37, 36, $coord1), 1250, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(32, 46, $coord1), 650, ~clientscript_6319(32, 46, $coord1), 650, 0);
+        cam_movealong(0, 0, 300, 0, 1, 0);
+    case 210 :
+        spline_new(0, 3);
+        spline_new(1, 3);
+        spline_addpoint(0, 0, ~clientscript_6319(26, 50, $coord1), 1200, ~clientscript_6319(26, 50, $coord1), 1200, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(33, 67, $coord1), 550, ~clientscript_6319(33, 67, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(25, 49, $coord1), 1600, ~clientscript_6319(25, 49, $coord1), 1600, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(32, 66, $coord1), 550, ~clientscript_6319(32, 66, $coord1), 550, 0);
+        spline_addpoint(0, 2, ~clientscript_6319(20, 19, $coord1), 1200, ~clientscript_6319(20, 19, $coord1), 1200, 0);
+        spline_addpoint(1, 2, ~clientscript_6319(27, 36, $coord1), 700, ~clientscript_6319(27, 36, $coord1), 700, 0);
+        cam_movealong(0, 0, 300, 200, 1, 0);
+    case 211 :
+        if (spline_length(0) = 3) {
+            cam_movealong(0, 1, 300, 400, 1, 1);
+        }
+        if_setontimer($component0, "script3467($component0, clientclock, 100)");
+    case 212 :
+        if (cc_find($component0, 0) = true) {
+            cc_settrans(0);
+            cc_setontimer(null);
+        } else {
+            ~tutorial3_fadeout(^black, 0, $component0);
+        }
+    case 213 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(34, 67, $coord1), 600, ~clientscript_6319(34, 67, $coord1), 600, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(33, 64, $coord1), 550, ~clientscript_6319(33, 64, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(29, 70, $coord1), 700, ~clientscript_6319(29, 70, $coord1), 700, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(34, 65, $coord1), 600, ~clientscript_6319(34, 65, $coord1), 600, 0);
+        cam_movealong(0, 0, 0, 0, 1, 0);
+        ~tutorial3_fadein(25, $component0);
+    case 214 :
+        if (spline_length(0) = 2) {
+            cam_movealong(0, 0, 600, 600, 1, 0);
+        }
+    case 215 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(31, 62, $coord1), 600, ~clientscript_6319(31, 62, $coord1), 600, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(34, 65, $coord1), 550, ~clientscript_6319(34, 65, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(35, 59, $coord1), 600, ~clientscript_6319(35, 59, $coord1), 600, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(33, 65, $coord1), 550, ~clientscript_6319(33, 65, $coord1), 550, 0);
+        cam_movealong(0, 0, 75, 0, 1, 0);
+    case 216 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(35, 68, $coord1), 600, ~clientscript_6319(35, 68, $coord1), 600, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(33, 65, $coord1), 450, ~clientscript_6319(33, 65, $coord1), 450, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(35, 67, $coord1), 550, ~clientscript_6319(35, 67, $coord1), 550, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(33, 65, $coord1), 425, ~clientscript_6319(33, 65, $coord1), 425, 0);
+        cam_movealong(0, 0, 100, 0, 1, 0);
+    case 217 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(35, 59, $coord1), 700, ~clientscript_6319(35, 59, $coord1), 700, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(33, 65, $coord1), 550, ~clientscript_6319(33, 65, $coord1), 550, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(43, 31, $coord1), 600, ~clientscript_6319(43, 31, $coord1), 600, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(36, 65, $coord1), 550, ~clientscript_6319(36, 65, $coord1), 550, 0);
+        cam_movealong(0, 0, 100, 300, 1, 0);
+        if_setontimer($component0, "script3467($component0, clientclock, 200)");
+    case 218 :
+        ~tutorial3_fadein(25, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6318(47, 35, $coord1), 1300, ~clientscript_6318(49, 25, $coord1), 1300, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(54, 1, $coord1), 300, ~clientscript_6318(54, 1, $coord1), 300, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(54, 8, $coord1), 500, ~clientscript_6318(54, 8, $coord1), 500, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(54, 0, $coord1), 100, ~clientscript_6318(54, 0, $coord1), 100, 0);
+        cam_movealong(0, 0, 400, 100, 1, 0);
+    case 219 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6318(36, 67, $coord1), 550, ~clientscript_6318(36, 67, $coord1), 550, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(33, 65, $coord1), 500, ~clientscript_6318(33, 65, $coord1), 500, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(36, 67, $coord1), 600, ~clientscript_6318(36, 67, $coord1), 600, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(33, 65, $coord1), 550, ~clientscript_6318(33, 65, $coord1), 550, 0);
+        cam_movealong(0, 0, 10, 0, 1, 0);
+    case 220 :
+        cc_create($component0, ^iftype_rectangle, 0);
+        cc_settrans(0);
+        cc_setfill(true);
+        cc_setcolour(^black);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+        cc_setontimer("tutorial3_fadein(calc(clientclock + 15), event_com)");
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6318(54, 4, $coord1), 230, ~clientscript_6318(54, 4, $coord1), 230, 0);
+        spline_addpoint(1, 0, ~clientscript_6318(55, 7, $coord1), 240, ~clientscript_6318(55, 7, $coord1), 240, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(57, 11, $coord1), 280, ~clientscript_6318(57, 11, $coord1), 280, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(57, 15, $coord1), 250, ~clientscript_6318(57, 15, $coord1), 250, 0);
+        cam_movealong(0, 0, 300, 800, 1, 0);
+    case 221 :
+        spline_new(0, 7);
+        spline_new(1, 7);
+        spline_addpoint(0, 0, ~clientscript_6318(52, 21, $coord1), 500, ~clientscript_6318(52, 21, $coord1), 500, 250);
+        spline_addpoint(1, 0, ~clientscript_6318(50, 27, $coord1), 450, ~clientscript_6318(50, 27, $coord1), 450, 0);
+        spline_addpoint(0, 1, ~clientscript_6318(51, 24, $coord1), 550, ~clientscript_6318(51, 24, $coord1), 550, 0);
+        spline_addpoint(1, 1, ~clientscript_6318(51, 30, $coord1), 500, ~clientscript_6318(51, 30, $coord1), 500, 0);
+        spline_addpoint(0, 2, ~clientscript_6318(50, 27, $coord1), 600, ~clientscript_6318(50, 27, $coord1), 600, -250);
+        spline_addpoint(1, 2, ~clientscript_6318(52, 33, $coord1), 550, ~clientscript_6318(52, 33, $coord1), 550, 0);
+        spline_addpoint(0, 3, ~clientscript_6318(51, 30, $coord1), 650, ~clientscript_6318(51, 30, $coord1), 650, 0);
+        spline_addpoint(1, 3, ~clientscript_6318(50, 36, $coord1), 600, ~clientscript_6318(50, 36, $coord1), 600, 0);
+        spline_addpoint(0, 4, ~clientscript_6318(52, 33, $coord1), 700, ~clientscript_6318(52, 33, $coord1), 700, 100);
+        spline_addpoint(1, 4, ~clientscript_6318(47, 37, $coord1), 600, ~clientscript_6318(47, 37, $coord1), 600, 0);
+        spline_addpoint(0, 5, ~clientscript_6318(49, 35, $coord1), 700, ~clientscript_6318(49, 35, $coord1), 700, 0);
+        spline_addpoint(1, 5, ~clientscript_6318(44, 39, $coord1), 600, ~clientscript_6318(44, 39, $coord1), 600, 0);
+        spline_addpoint(0, 6, ~clientscript_6318(45, 38, $coord1), 700, ~clientscript_6318(45, 38, $coord1), 700, 0);
+        spline_addpoint(1, 6, ~clientscript_6318(43, 45, $coord1), 600, ~clientscript_6318(43, 45, $coord1), 600, 0);
+        if_setoncamfinished($component0, "script3468($component0, 1, 2500, 2000, 2500, 2000, 2500, 2000, 2500, 2000, 2500, 2000)");
+        cam_movealong(0, 0, 2500, 2000, 1, 0);
+    case 222 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(35, 65, $coord1), 600, ~clientscript_6319(35, 65, $coord1), 600, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(33, 65, $coord1), 500, ~clientscript_6319(33, 65, $coord1), 500, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(34, 65, $coord1), 700, ~clientscript_6319(34, 65, $coord1), 700, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(33, 65, $coord1), 550, ~clientscript_6319(33, 65, $coord1), 550, 0);
+        cam_movealong(0, 0, 100, 0, 1, 0);
+    case 223 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(32, 55, $coord1), 600, ~clientscript_6319(32, 55, $coord1), 600, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(32, 48, $coord1), 600, ~clientscript_6319(32, 48, $coord1), 600, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(32, 75, $coord1), 800, ~clientscript_6319(32, 75, $coord1), 800, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(32, 55, $coord1), 600, ~clientscript_6319(32, 55, $coord1), 600, 0);
+        cam_movealong(0, 0, 200, 0, 1, 0);
+    case 224 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~clientscript_6319(31, 67, $coord1), 500, ~clientscript_6319(31, 67, $coord1), 500, 0);
+        spline_addpoint(1, 0, ~clientscript_6319(32, 70, $coord1), 500, ~clientscript_6319(32, 70, $coord1), 500, 0);
+        spline_addpoint(0, 1, ~clientscript_6319(31, 68, $coord1), 500, ~clientscript_6319(31, 68, $coord1), 500, 0);
+        spline_addpoint(1, 1, ~clientscript_6319(32, 71, $coord1), 500, ~clientscript_6319(32, 71, $coord1), 500, 0);
+        cam_movealong(0, 0, 100, 0, 1, 0);
+}

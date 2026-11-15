@@ -19,6 +19,7 @@ use rs_entity::player::StaffModLevel;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server::npc_info::add_direction;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::forget_calls;
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
@@ -28,23 +29,28 @@ const GIFT_CHOICES: i32 = (202 << 16) | 15;
 /// Lumbridge, east of the castle.
 const HOME: (u16, u16) = (3222, 3218);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn varp(engine: &Engine, pid: u16, name: &str) -> i32 {
-    let id = *engine
+    let id = engine
         .cache
         .varps
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("no varp {name}"));
-    engine.harness_player(pid).unwrap().vars.get(id).as_int()
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("no varp {name}"))
+        .id;
+    engine
+        .harness_player(pid)
+        .unwrap()
+        .vars
+        .get(id.g2())
+        .as_int()
 }
 
 fn coord(engine: &Engine, pid: u16) -> (u16, u8, u16) {
@@ -53,8 +59,8 @@ fn coord(engine: &Engine, pid: u16) -> (u16, u8, u16) {
 }
 
 /// `(obj, count)` in each slot of the player's `inv`.
-fn inv(engine: &Engine, pid: u16, name: &str) -> Vec<Option<(u16, u32)>> {
-    let id = *engine.cache.invs.debugnames.get(name).unwrap();
+fn inv(engine: &Engine, pid: u16, name: &str) -> Vec<Option<(TypeId, u32)>> {
+    let id = engine.cache.invs.get_by_debugname(name).unwrap().id;
     let inv = engine
         .harness_player(pid)
         .unwrap()
@@ -193,7 +199,7 @@ fn the_mime_takes_a_player_to_his_stage_and_four_right_answers_bring_a_gift() {
             "on the stage; said {said:?}"
         );
 
-        let npc_int = *engine.cache.varns.debugnames.get("npc_int").unwrap();
+        let npc_int = engine.cache.varns.get_by_debugname("npc_int").unwrap().id;
         let mut answered = 0;
         for _ in 0..400 {
             ticks(engine, &mut client, 1);
@@ -212,8 +218,8 @@ fn the_mime_takes_a_player_to_his_stage_and_four_right_answers_bring_a_gift() {
                 .npcs
                 .iter()
                 .flatten()
-                .find(|n| n.npc.base_type == 1056)
-                .map(|n| n.npc.vars.get(npc_int).as_int())
+                .find(|n| n.npc.base_type == TypeId::new(1056))
+                .map(|n| n.npc.vars.get(npc_int.g2()).as_int())
                 .expect("the mime");
             button1(
                 &mut client,
@@ -250,7 +256,7 @@ fn open_gift(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
         .iter()
         .position(|s| matches!(s, Some((o, _)) if *o == gift))
         .expect("the gift");
-    button1(client, BACKPACK, slot as i32, gift as i32);
+    button1(client, BACKPACK, slot as i32, gift.int());
     ticks(engine, client, 2)
 }
 
@@ -352,7 +358,7 @@ fn the_mime_s_audience_faces_the_stage() {
             .npcs
             .iter()
             .flatten()
-            .filter(|n| (1057..=1059).contains(&n.npc.base_type))
+            .filter(|n| (1057..=1059).contains(&n.npc.base_type.raw()))
             .map(|n| {
                 // As NPC_INFO's add block reports it (info.rs).
                 let c = n.npc.pathing.coord;

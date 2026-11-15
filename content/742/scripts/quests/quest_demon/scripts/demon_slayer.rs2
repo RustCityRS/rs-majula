@@ -1,0 +1,130 @@
+// 289's Demon Slayer (quests/quest_demon) as 2011's rework (2011 wiki, Demon
+// Slayer): Gypsy Aris tells the fortune for a coin and deals each player their
+// own incantation, the three keys come from Captain Rovin, Traiborn (25 bones)
+// and the palace drain, washed into the sewer with water, and Delrith is
+// banished with that incantation. The npcs are in areas/area_varrock
+// (gypsy.rs2, sir_prysin.rs2, captain_rovin.rs2) and area_draynor
+// (traiborn.rs2); Delrith is in delrith.rs2. Lines are void-634's unless
+// marked.
+
+// void-634's DemonSlayerSpell: each of the five words holds its place (1-5)
+// in this player's incantation (varbits 2562-2566).
+[proc,demon_slayer_word](int $place)(string)
+if (%delrith_incantation_1 = $place) {
+    return("Aber");
+}
+if (%delrith_incantation_2 = $place) {
+    return("Camerinthum");
+}
+if (%delrith_incantation_3 = $place) {
+    return("Carlem");
+}
+if (%delrith_incantation_4 = $place) {
+    return("Gabindo");
+}
+if (%delrith_incantation_5 = $place) {
+    return("Purchai");
+}
+return("null");
+
+// The five words in a random order (void-634's randomiseOrder).
+[proc,demon_slayer_deal_incantation]
+def_int $taken = 0;
+%delrith_incantation_1 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_1);
+%delrith_incantation_2 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_2);
+%delrith_incantation_3 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_3);
+%delrith_incantation_4 = ~demon_slayer_free_place($taken);
+$taken = setbit($taken, %delrith_incantation_4);
+%delrith_incantation_5 = ~demon_slayer_free_place($taken);
+
+[proc,demon_slayer_free_place](int $taken)(int)
+def_int $place = calc(random(5) + 1);
+while (testbit($taken, $place) = ^true) {
+    $place = calc(random(5) + 1);
+}
+return($place);
+
+[proc,demon_owns_silverlight]()(boolean)
+if (inv_total(inv, silverlight) > 0 | inv_total(worn, silverlight) > 0 | inv_total(bank, silverlight) > 0) {
+    return(true);
+}
+return(false);
+
+[proc,demon_owns_key](obj $key)(boolean)
+if (inv_total(inv, $key) > 0 | inv_total(bank, $key) > 0) {
+    return(true);
+}
+return(false);
+
+// The palace kitchen's drain (loc_31759 at 3225,3496): Sir Prysin's key is
+// stuck inside until water washes it down into the sewer. The key is back in
+// the drain whenever the player has lost theirs (void-634's destroy text:
+// "You can get another one from the drain outside the Varrock Palace
+// kitchen.").
+[oploc1,loc_31759]
+anim(human_pickupfloor, 0); // void-634: climb_down
+~demon_slayer_key_lost;
+// 289: nothing is there once Silverlight is had.
+if (%delrith_drain_key ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_3) = true
+    | %delrith_silverlight_case = ^true | %demonslayer_main = ^demon_complete) {
+    mes("Nothing interesting seems to have been dropped down here today.");
+} else if (%demonslayer_main = ^demon_not_started) {
+    ~chatplayer("<p,shifty>This is the drainpipe running from the kitchen sink to the sewer. I can see a key just inside the drain.");
+} else {
+    ~chatplayer("<p,neutral>That must be the key Sir Prysin dropped.");
+    ~chatplayer("<p,shifty>I don't seem to be able to reach it. I wonder if I can dislodge it somehow. That way it may go down into the sewers.");
+}
+
+[oplocu,loc_31759]
+def_namedobj $empty;
+switch_obj (last_useitem) {
+    case bucket_water : $empty = bucket_empty;
+    case jug_water : $empty = jug_empty;
+    case bowl_water : $empty = bowl_empty;
+    case default :
+        ~displaymessage(^dm_default);
+        return;
+}
+inv_setslot(inv, last_useslot, $empty, 1);
+mes("You pour the liquid down the drain.");
+anim(seq_12643, 0); // void-634: toss_water
+spotanim_pl(spotanim_779, 0, 0); // void-634: toss_water
+sound_synth(synth_2982, 1, 0); // void-634: demon_slayer_drain
+~demon_slayer_key_lost;
+// 289: only a key still in the drain is washed down.
+if (%delrith_drain_key ! ^demon_key_in_drain | ~demon_owns_key(silverlight_key_3) = true
+    | %delrith_silverlight_case = ^true | %demonslayer_main = ^demon_complete) {
+    return;
+}
+sound_synth(ds_key_fall, 1, 0); // void-634: demon_slayer_key_fall
+%delrith_drain_key = ^demon_key_in_sewer;
+if (%demonslayer_main = ^demon_key_hunt) {
+    ~chatplayer("<p,happy>OK, I think I've washed the key down into the sewer. I'd better go down and get it!");
+} else {
+    ~chatplayer("<p,shifty>I think that dislodged something from the drain. It's probably gone down to the sewers below.");
+}
+
+// A taken key that the player no longer has is back in the drain.
+[proc,demon_slayer_key_lost]
+if (%delrith_drain_key = ^demon_key_taken & ~demon_owns_key(silverlight_key_3) = false) {
+    %delrith_drain_key = ^demon_key_in_drain;
+}
+
+// The key in the Varrock sewer (loc_17431 at 3225,9897), under the drain:
+// rusty_key, with Take, while it lies there. Once taken the cache's multilocs
+// show mud there and the drain empty (value 2), which void-634 does not use.
+[oploc1,loc_17431]
+if (%delrith_drain_key ! ^demon_key_in_sewer) {
+    return;
+}
+if (inv_freespace(inv) = 0) {
+    ~displaymessage(^dm_invspace);
+    return;
+}
+inv_add(inv, silverlight_key_3, 1);
+%delrith_drain_key = ^demon_key_taken;
+// With the comma, as the 2011-04-20 recording shows it (YouTube bHxrbaUN3AI, 344s).
+~objbox(silverlight_key_3, "You pick up an old, rusty key.", 250, 0, 0);

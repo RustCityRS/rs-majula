@@ -20,6 +20,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
@@ -31,13 +32,13 @@ const FIRE_TILE: (u16, u16) = (3221, 3219);
 /// The `object_id` the client sends for a source holding no item.
 const NO_OBJ: i32 = 0xFFFF;
 
-fn id(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn id(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 /// A fresh world with one player at the fire tile, holding `items` from
@@ -47,13 +48,13 @@ fn player_holding(engine: &mut Engine, name: &str, items: &[u16]) -> HarnessClie
     let client = engine.harness_login_returning(name).expect("login");
     engine.harness_telejump(client.pid, FIRE_TILE.0, 0, FIRE_TILE.1);
     engine.cycle();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let backpack = engine
         .harness_player_mut(client.pid)
         .and_then(|p| p.invs.get_mut(&inv))
         .expect("backpack");
     for (slot, &obj) in items.iter().enumerate() {
-        backpack.set(slot as u16, obj, 1);
+        backpack.set(slot as u16, TypeId::new(obj), 1);
     }
     forget_calls();
     client
@@ -79,7 +80,7 @@ fn lit_logs(engine: &Engine, pid: u16) -> bool {
     let tried = calls_for("mes")
         .iter()
         .any(|m| m == "You attempt to light the logs.");
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let logs_gone = engine
         .harness_player(pid)
         .and_then(|p| p.invs.get(&inv))
@@ -90,8 +91,8 @@ fn lit_logs(engine: &Engine, pid: u16) -> bool {
 #[test]
 fn something_used_on_an_item_reaches_its_held_trigger() {
     runner::on_loaded_engine(|engine| {
-        let tinderbox = id(engine, "tinderbox") as i32;
-        let logs = id(engine, "logs") as i32;
+        let tinderbox = id(engine, "tinderbox").int();
+        let logs = id(engine, "logs").int();
 
         // Tinderbox (slot 0) used on the logs (slot 1). No `[opheldu,logs]`
         // exists at 647, so the search falls to the item used.
@@ -108,12 +109,12 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(
             player.last_item,
-            Some(tinderbox as u16),
+            Some(TypeId::from_int(tinderbox)),
             "keyed on the tinderbox"
         );
         assert_eq!(
             player.last_use_item,
-            Some(logs as u16),
+            Some(TypeId::from_int(logs)),
             "the logs are the other item"
         );
         assert_eq!(player.last_use_slot, Some(1));
@@ -153,8 +154,8 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         );
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(player.last_item, Some(tinderbox as u16));
-        assert_eq!(player.last_use_item, Some(logs as u16));
+        assert_eq!(player.last_item, Some(TypeId::from_int(tinderbox)));
+        assert_eq!(player.last_use_item, Some(TypeId::from_int(logs)));
         assert!(lit_logs(engine, client.pid), "either order lights the logs");
 
         // A spell cast on an item drives `[opheldt]`, with the item as
@@ -177,7 +178,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(
             player.last_item,
-            Some(logs as u16),
+            Some(TypeId::from_int(logs)),
             "the target is last_item"
         );
         assert_eq!(player.last_slot, Some(1));
@@ -204,7 +205,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
 fn eating_cave_nightshade_hurts_150_life_points() {
     runner::on_loaded_engine(|engine| {
         let nightshade = id(engine, "nightshade");
-        let mut client = player_holding(engine, "nightshade", &[nightshade]);
+        let mut client = player_holding(engine, "nightshade", &[nightshade.g2()]);
         // %life_points: varbit 7198, bits 1-15 of varp 1240.
         let life = |e: &Engine, pid: u16| {
             (e.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
@@ -220,7 +221,7 @@ fn eating_cave_nightshade_hurts_150_life_points() {
         assert_eq!(before, 990);
         // The client puts an obj's iop4 on the slot's op 7.
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(nightshade as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(nightshade.int()).p2_alt1(0);
         client.send(ClientProt::IfButton7, &p.finish());
         for _ in 0..5 {
             engine.cycle();
@@ -253,7 +254,7 @@ fn eating_cave_nightshade_hurts_150_life_points() {
             engine.cycle();
         }
         assert_eq!(before - life(engine, client.pid), 150, "150 life points");
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let held = engine
             .harness_player(client.pid)
             .and_then(|p| p.invs.get(&inv))
@@ -268,15 +269,15 @@ fn eating_cave_nightshade_hurts_150_life_points() {
 fn a_bucket_of_water_pours_into_a_jug() {
     runner::on_loaded_engine(|engine| {
         let (water, jug) = (id(engine, "bucket_water"), id(engine, "jug_empty"));
-        let mut client = player_holding(engine, "pourer", &[water, jug]);
+        let mut client = player_holding(engine, "pourer", &[water.g2(), jug.g2()]);
         client.send(
             ClientProt::IfButtonT,
-            &if_buttont((0, water as i32), (1, jug as i32)),
+            &if_buttont((0, water.int()), (1, jug.int())),
         );
         for _ in 0..3 {
             engine.cycle();
         }
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let backpack = engine
             .harness_player(client.pid)
             .and_then(|p| p.invs.get(&inv))
@@ -300,8 +301,8 @@ fn a_bucket_of_water_pours_into_a_jug() {
 fn drop_runs_the_objs_own_op5_or_puts_it_down() {
     runner::on_loaded_engine(|engine| {
         let (thistle, logs) = (id(engine, "eadgar_troll_thistle"), id(engine, "logs"));
-        let mut client = player_holding(engine, "thistle", &[thistle, logs]);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let mut client = player_holding(engine, "thistle", &[thistle.g2(), logs.g2()]);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         // The drop's sound, by its id in 647's synth registry.
         let pack = concat!(
             env!("CARGO_MANIFEST_DIR"),
@@ -321,11 +322,11 @@ fn drop_runs_the_objs_own_op5_or_puts_it_down() {
         let empty = |e: &Engine, pid: u16, slot: u16, obj: u16| {
             e.harness_player(pid)
                 .and_then(|p| p.invs.get(&inv))
-                .is_some_and(|b| !b.has_at(slot, obj))
+                .is_some_and(|b| !b.has_at(slot, TypeId::new(obj)))
         };
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(thistle as i32).p2_alt1(0);
+        p.p4(BACKPACK).p2_alt3(thistle.int()).p2_alt1(0);
         client.send(ClientProt::IfButton8, &p.finish());
         for _ in 0..2 {
             engine.cycle();
@@ -336,16 +337,22 @@ fn drop_runs_the_objs_own_op5_or_puts_it_down() {
                 .any(|m| m == "The Troll Thistle withers away as soon as it hits the ground."),
             "{said:?}"
         );
-        assert!(empty(engine, client.pid, 0, thistle), "the thistle is gone");
+        assert!(
+            empty(engine, client.pid, 0, thistle.g2()),
+            "the thistle is gone"
+        );
         assert_eq!(put_downs(), 0, "the thistle is not put down");
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(logs as i32).p2_alt1(1);
+        p.p4(BACKPACK).p2_alt3(logs.int()).p2_alt1(1);
         client.send(ClientProt::IfButton8, &p.finish());
         for _ in 0..2 {
             engine.cycle();
         }
-        assert!(empty(engine, client.pid, 1, logs), "the logs are dropped");
+        assert!(
+            empty(engine, client.pid, 1, logs.g2()),
+            "the logs are dropped"
+        );
         assert_eq!(put_downs(), 1, "the logs are put down");
     });
 }

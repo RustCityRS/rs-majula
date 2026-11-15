@@ -1,0 +1,273 @@
+// 2476
+[proc,player_prefix_check](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        if (%varplayer_1447 < 1) {
+            return(0);
+        }
+    case 2 :
+        if (%varplayer_1447 < enum(int, int, enum_2461, 2)) {
+            return(0);
+        }
+    case 3 :
+        if (%varplayer_1447 < enum(int, int, enum_2461, 3)) {
+            return(0);
+        }
+    case 4 :
+        if (%varplayer_1447 < enum(int, int, enum_2461, 4)) {
+            return(0);
+        }
+    case 5 :
+        if (testbit(%varplayer_2232, 0) = ^false) {
+            return(0);
+        }
+    case 6 :
+        if (testbit(%varplayer_2232, 1) = ^false) {
+            return(0);
+        }
+    case 7 :
+        if (testbit(%varplayer_2232, 2) = ^false) {
+            return(0);
+        }
+    case 8 :
+        if (testbit(%varplayer_2232, 3) = ^false) {
+            return(0);
+        }
+    case 9 :
+        if (testbit(%varplayer_2232, 4) = ^false) {
+            return(0);
+        }
+    case 10 :
+        if (testbit(%varplayer_2232, 5) = ^false) {
+            return(0);
+        }
+    case 11 :
+        if (testbit(%varplayer_2232, 6) = ^false) {
+            return(0);
+        }
+    case 12 :
+        if (testbit(%varplayer_2232, 7) = ^false) {
+            return(0);
+        }
+    case 13 :
+        if (testbit(%varplayer_2232, 8) = ^false) {
+            return(0);
+        }
+    case 14 :
+        if (testbit(%varplayer_2232, 9) = ^false) {
+            return(0);
+        }
+    case 15 :
+        if (testbit(%varplayer_2232, 10) = ^false) {
+            return(0);
+        }
+    case 16 :
+        if (testbit(%varplayer_2232, 11) = ^false) {
+            return(0);
+        }
+    case 17 :
+        if (testbit(%varplayer_2232, 12) = ^false) {
+            return(0);
+        }
+    case 18 :
+        if (testbit(%varplayer_2232, 13) = ^false) {
+            return(0);
+        }
+    case 19 :
+        if (testbit(%varplayer_2232, 14) = ^false) {
+            return(0);
+        }
+    case 20 :
+        if (testbit(%varplayer_2232, 15) = ^false) {
+            return(0);
+        }
+    case 21 :
+        if (%varplayerbit_9809 = 0) {
+            return(0);
+        }
+    case 22 :
+        if (%varplayerbit_9809 = 0) {
+            return(0);
+        }
+    case 23 :
+        if (%varplayerbit_9809 = 0) {
+            return(0);
+        }
+    case 24 :
+        if (%varplayerbit_9809 = 0) {
+            return(0);
+        }
+    case 25 :
+        if (%varplayerbit_10809 < 170) {
+            return(0);
+        }
+    case 26 :
+        if (testbit(%varplayer_2447, 0) = ^false) {
+            return(0);
+        }
+    case 27 :
+        if (testbit(%varplayer_2447, 1) = ^false) {
+            return(0);
+        }
+    case 28 :
+        if (testbit(%varplayer_2447, 2) = ^false) {
+            return(0);
+        }
+    case 29 :
+        if (testbit(%varplayer_2447, 3) = ^false) {
+            return(0);
+        }
+    case 30 :
+        if (testbit(%varplayer_2447, 4) = ^false) {
+            return(0);
+        }
+    case 31 :
+        if (testbit(%varplayer_2447, 5) = ^false) {
+            return(0);
+        }
+    case 32 :
+        if (testbit(%varplayer_2447, 6) = ^false) {
+            return(0);
+        }
+    case 33 :
+        if (testbit(%varplayer_2447, 7) = ^false) {
+            return(0);
+        }
+    case 34 :
+        if (testbit(%varplayer_2447, 8) = ^false) {
+            return(0);
+        }
+    case 35 :
+        if (testbit(%varplayer_2447, 9) = ^false) {
+            return(0);
+        }
+    case 36 :
+        if (testbit(%varplayer_2447, 10) = ^false) {
+            return(0);
+        }
+    case 37 :
+        if (testbit(%varplayer_2447, 11) = ^false) {
+            return(0);
+        }
+    case 38 :
+        if (%varplayerbit_11161 = 0) {
+            return(0);
+        }
+    case 59 :
+        if (%varplayerbit_11602 = 0) {
+            return(0);
+        }
+    case 60 :
+        if (%varplayerbit_11603 = 0) {
+            return(0);
+        }
+    case 61 :
+        if (%varplayerbit_11604 = 0) {
+            return(0);
+        }
+    case 62 :
+        if (%varplayerbit_11605 = 0) {
+            return(0);
+        }
+    case 63 :
+        if (%varplayerbit_11606 = 0) {
+            return(0);
+        }
+    case 64 :
+        if (%varplayerbit_11607 = 0) {
+            return(0);
+        }
+    case 65 :
+        if (%varplayerbit_11608 = 0) {
+            return(0);
+        }
+    case 66 :
+        if (%varplayerbit_11609 = 0) {
+            return(0);
+        }
+    case 67 :
+        if (%varplayerbit_11610 = 0) {
+            return(0);
+        }
+    case 68 :
+        if (%varplayerbit_11611 = 0) {
+            return(0);
+        }
+    case 69 :
+        if (%varplayerbit_11612 = 0) {
+            return(0);
+        }
+    case 70 :
+        if (%varplayerbit_11613 = 0) {
+            return(0);
+        }
+    case 71 :
+        if (%varplayerbit_11679 = 0) {
+            return(0);
+        }
+    case 72 :
+        if (%varplayerbit_11729 = 0) {
+            return(0);
+        }
+    case 73 :
+        if (%varplayerbit_11730 = 0) {
+            return(0);
+        }
+    case 74 :
+        if (%varplayerbit_11875 = 0) {
+            return(0);
+        }
+    case 75 :
+        if (%varplayerbit_11876 = 0) {
+            return(0);
+        }
+    case 76 :
+        if (%varplayerbit_11877 = 0) {
+            return(0);
+        }
+    case 77 :
+        if (%varplayerbit_11878 = 0) {
+            return(0);
+        }
+    case 78 :
+        if (%varplayerbit_11879 = 0) {
+            return(0);
+        }
+    case 79 :
+        if (%varplayerbit_11880 = 0) {
+            return(0);
+        }
+    case 80 :
+        if (%varplayerbit_12052 < 105) {
+            return(0);
+        }
+    case 81 :
+        if (%varplayerbit_12052 < 105) {
+            return(0);
+        }
+    case 82 :
+        if (%varplayerbit_12052 < 105) {
+            return(0);
+        }
+    case 83 :
+        if (%varplayerbit_12052 < 105) {
+            return(0);
+        }
+    case 84 :
+        if (%varplayerbit_12116 = 0) {
+            return(0);
+        }
+    case 85 :
+        if (%varplayerbit_12117 = 0) {
+            return(0);
+        }
+    case 86 :
+        if (%varplayerbit_12241 = 0) {
+            return(0);
+        }
+    case 87 :
+        if (%varplayerbit_12242 = 0) {
+            return(0);
+        }
+}
+return(1);

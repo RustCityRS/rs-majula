@@ -1,0 +1,18 @@
+// 6455
+[proc,clientscript_6455](int $int0)
+if (%varclient_1963 ! %varplayerbit_11475) {
+    ~clientscript_6463(%varplayerbit_11475);
+    ~clientscript_6464(%varplayerbit_11475, %varplayerbit_11480, 1);
+    if_sethide(interface_1311:com_60, true);
+    if_sethide(interface_1311:com_61, true);
+}
+if ($int0 = 1) {
+    %varclient_1969 = false;
+    ~clientscript_6443(0, 0, 1);
+    ~clientscript_6233(0, interface_1311:com_181);
+    ~clientscript_6457;
+    ~script4501(interface_1311:com_121, enum(int, string, enum_5957, %varplayerbit_11484));
+}
+~clientscript_6873;
+~clientscript_6878;
+~clientscript_6880;

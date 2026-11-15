@@ -1,0 +1,114 @@
+// 1750
+[clientscript,emote_unlock]
+if (%sos_emote_flap = 1) {
+    if_setgraphic(emotes:emote_flap, 731);
+} else {
+    if_setgraphic(emotes:emote_flap, 751);
+}
+if (%sos_emote_doh = 1) {
+    if_setgraphic(emotes:emote_doh, 729);
+} else {
+    if_setgraphic(emotes:emote_doh, 749);
+}
+if (%sos_emote_idea = 1) {
+    if_setgraphic(emotes:emote_idea, 732);
+} else {
+    if_setgraphic(emotes:emote_idea, 752);
+}
+if (%sos_emote_stamp = 1) {
+    if_setgraphic(emotes:emote_stamp, 730);
+} else {
+    if_setgraphic(emotes:emote_stamp, 750);
+}
+if (%lost_tribe_quest >= 7) {
+    if_setgraphic(emotes:emote_goblin_bow, 726);
+    if_setgraphic(emotes:emote_goblin_salute, 727);
+} else {
+    if_setgraphic(emotes:emote_goblin_bow, 746);
+    if_setgraphic(emotes:emote_goblin_salute, 747);
+}
+if (%emote_glasswall = 1) {
+    if_setgraphic(emotes:emote_glasswall, 725);
+} else {
+    if_setgraphic(emotes:emote_glasswall, 745);
+}
+if (%emote_glassbox = 1) {
+    if_setgraphic(emotes:emote_glassbox, 722);
+} else {
+    if_setgraphic(emotes:emote_glassbox, 742);
+}
+if (%emote_climbrope = 1) {
+    if_setgraphic(emotes:emote_climbrope, 723);
+} else {
+    if_setgraphic(emotes:emote_climbrope, 743);
+}
+if (%emote_lean = 1) {
+    if_setgraphic(emotes:emote_lean, 724);
+} else {
+    if_setgraphic(emotes:emote_lean, 744);
+}
+if (%emote_terrified = 1) {
+    if_setgraphic(emotes:emote_terrified, 728);
+} else {
+    if_setgraphic(emotes:emote_terrified, 748);
+}
+if (%emote_zombie_dance = 1) {
+    if_setgraphic(emotes:emote_zombie_dance, 734);
+} else {
+    if_setgraphic(emotes:emote_zombie_dance, 754);
+}
+if (%emote_zombie_walk = 1) {
+    if_setgraphic(emotes:emote_zombie_walk, 733);
+} else {
+    if_setgraphic(emotes:emote_zombie_walk, 753);
+}
+if (%emote_bunny_hop = 1) {
+    if_setgraphic(emotes:emote_rabbit, 735);
+} else {
+    if_setgraphic(emotes:emote_rabbit, 755);
+}
+if (%emote_skillcape = 1) {
+    if_setgraphic(emotes:emote_skillcape, 736);
+} else {
+    if_setgraphic(emotes:emote_skillcape, 756);
+}
+if (%hw07_prog = 12) {
+    if_setgraphic(emotes:emote_zombie_hand, 737);
+} else {
+    if_setgraphic(emotes:emote_zombie_hand, 757);
+}
+if (%emote_xmas07 = 1) {
+    if_setgraphic(emotes:emote_snowman_dance, 738);
+} else {
+    if_setgraphic(emotes:emote_snowman_dance, 758);
+}
+if (%emote_music = 1) {
+    if_setgraphic(emotes:emote_music, 739);
+} else {
+    if_setgraphic(emotes:emote_music, 759);
+}
+if (%emote_sops = 1) {
+    if_setgraphic(emotes:com_42, 0);
+} else {
+    if_setgraphic(emotes:com_42, 5);
+}
+if (%emote_atlum = 1) {
+    if_setgraphic(emotes:com_43, 1416);
+} else {
+    if_setgraphic(emotes:com_43, 1417);
+}
+if (%swept_hw08_emote = 1) {
+    if_setgraphic(emotes:emote_scare, 1585);
+} else {
+    if_setgraphic(emotes:emote_scare, 1588);
+}
+if (%emote_xmas08 = 1) {
+    if_setgraphic(emotes:emote_freeze, 1587);
+} else {
+    if_setgraphic(emotes:emote_freeze, 1590);
+}
+if (%emote_tg08 = 1) {
+    if_setgraphic(emotes:emote_thanksgiving, 1592);
+} else {
+    if_setgraphic(emotes:emote_thanksgiving, 1593);
+}

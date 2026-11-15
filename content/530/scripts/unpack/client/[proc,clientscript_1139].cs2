@@ -1,0 +1,8 @@
+// 1139
+[proc,clientscript_1139](int $int0, component $component1)
+def_int $int2 = ~dropdownbox_getselected($int0, $component1);
+if ($int2 = 0) {
+    set_clientopt_6010(0);
+} else if ($int2 = 1) {
+    set_clientopt_6010(1);
+}

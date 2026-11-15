@@ -1,0 +1,43 @@
+// 4641
+[proc,clientscript_4641]
+~clientscript_4639;
+if (testbit(%varplayer_2189, 1) = ^true) {
+    if_setgraphic(interface_153:com_15, 6268);
+    if_setonop(interface_153:com_100, "clientscript_4637(1)");
+    ~clientscript_4645(1);
+} else {
+    if_setgraphic(interface_153:com_15, 6271);
+    if_setonop(interface_153:com_100, "clientscript_6154");
+}
+if (testbit(%varplayer_2189, 2) = ^true) {
+    if_setgraphic(interface_153:com_12, 6270);
+    if_setonop(interface_153:com_113, "clientscript_4637(2)");
+    ~clientscript_4645(2);
+} else {
+    if_setgraphic(interface_153:com_12, 6271);
+    if_setonop(interface_153:com_113, "clientscript_6154");
+}
+if (testbit(%varplayer_2189, 4) = ^true) {
+    if_setgraphic(interface_153:com_9, 6269);
+    if_setonop(interface_153:com_126, "clientscript_4637(4)");
+    ~clientscript_4645(4);
+} else {
+    if_setgraphic(interface_153:com_9, 6271);
+    if_setonop(interface_153:com_126, "clientscript_6154");
+}
+if (testbit(%varplayer_2189, 3) = ^true) {
+    if_setgraphic(interface_153:com_200, 10569);
+    if_setonop(interface_153:com_199, "clientscript_4637(3)");
+    ~clientscript_4645(3);
+} else {
+    if_setgraphic(interface_153:com_200, 6271);
+    if_setonop(interface_153:com_199, "clientscript_6154");
+}
+if (testbit(%varplayer_2189, 6) = ^true) {
+    if_setgraphic(interface_153:com_184, 10568);
+    if_setonop(interface_153:com_183, "clientscript_4637(6)");
+    ~clientscript_4645(6);
+} else {
+    if_setgraphic(interface_153:com_184, 6271);
+    if_setonop(interface_153:com_183, "clientscript_6154");
+}

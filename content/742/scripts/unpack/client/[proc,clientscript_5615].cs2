@@ -1,0 +1,4 @@
+// 5615
+[proc,clientscript_5615](component $component0)
+def_int $int1 = calc(clientclock + 100);
+if_setontimer($component0, "clientscript_5612($component0, random(63), random(127), random(2), $int1, 25, 18)");

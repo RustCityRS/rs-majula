@@ -1,6 +1,6 @@
 use crate::pack::incremental::{Hash, Key, Lookups, Registry, answer};
 use crate::pack::pack::FileCache;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::pack::{load_constants_from_cache, parse_config_sections_cached};
 use crate::pack::pack_dir::replace;
 use crate::pack::packed_data::PackedData;
@@ -14,9 +14,9 @@ use std::sync::Arc;
 use std::{fs, io};
 use tracing::debug;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub type PackId = u16;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub type PackId = u32;
 
 /// A registry's names. Copies share them, and a pack cache view of a
@@ -171,17 +171,21 @@ pub struct PackRegistry {
     pub midi: PackFile,
     #[cfg(since_254)]
     pub varbit: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub flu: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub bas: PackFile,
     #[cfg(since_647)]
     pub cursor: PackFile,
     #[cfg(since_647)]
     pub hitmark: PackFile,
+    #[cfg(since_742)]
+    pub skybox: PackFile,
+    #[cfg(since_742)]
+    pub headbar: PackFile,
     #[cfg(since_647)]
     pub billboard: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fontmetrics: PackFile,
     #[cfg(since_647)]
     pub particleeffector: PackFile,
@@ -191,31 +195,31 @@ pub struct PackRegistry {
     pub light: PackFile,
     #[cfg(since_647)]
     pub mel: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub msi: PackFile,
     #[cfg(since_647)]
     pub quest: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub chatcat: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub chatphrase: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub sprites: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varc: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varcstr: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varpstr: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varsstr: PackFile,
     #[cfg(since_647)]
     pub varclansetting: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub stat: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub area: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varobj: PackFile,
     #[cfg(since_647)]
     pub controller: PackFile,
@@ -223,7 +227,7 @@ pub struct PackRegistry {
     pub varcon: PackFile,
     #[cfg(since_647)]
     pub varconbit: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub varnbit: PackFile,
     #[cfg(since_647)]
     pub varclan: PackFile,
@@ -237,9 +241,21 @@ pub struct PackRegistry {
     pub config39: PackFile,
     #[cfg(since_647)]
     pub config45: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_742)]
+    pub config49: PackFile,
+    #[cfg(since_742)]
+    pub config50: PackFile,
+    #[cfg(since_742)]
+    pub config51: PackFile,
+    #[cfg(since_742)]
+    pub config53: PackFile,
+    #[cfg(since_742)]
+    pub gamelogevent: PackFile,
+    #[cfg(since_742)]
+    pub config74: PackFile,
+    #[cfg(since_530)]
     pub wma: PackFile,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub component_hashes: Arc<HashMap<String, i32>>,
     pack_dir: PathBuf,
     lookups: Option<Arc<Lookups>>,
@@ -291,7 +307,7 @@ macro_rules! registry_files {
             fn files_mut(&mut self) -> Vec<(&'static str, &mut PackFile)> {
                 let PackRegistry {
                     $($(#[$cfg])* $field,)*
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     component_hashes: _,
                     pack_dir: _,
                     lookups: _,
@@ -331,17 +347,21 @@ registry_files! {
     "midi" => midi,
     #[cfg(since_254)]
     "varpbit" => varbit,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "flu" => flu,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "bas" => bas,
     #[cfg(since_647)]
     "cursor" => cursor,
     #[cfg(since_647)]
     "hitmark" => hitmark,
+    #[cfg(since_742)]
+    "skybox" => skybox,
+    #[cfg(since_742)]
+    "headbar" => headbar,
     #[cfg(since_647)]
     "billboard" => billboard,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "fontmetrics" => fontmetrics,
     #[cfg(since_647)]
     "particleeffector" => particleeffector,
@@ -351,31 +371,31 @@ registry_files! {
     "light" => light,
     #[cfg(since_647)]
     "mel" => mel,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "msi" => msi,
     #[cfg(since_647)]
     "quest" => quest,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "chatcat" => chatcat,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "chatphrase" => chatphrase,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "sprites" => sprites,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "varc" => varc,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "varcstr" => varcstr,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "varpstr" => varpstr,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "varsstr" => varsstr,
     #[cfg(since_647)]
     "varclansetting" => varclansetting,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "stat" => stat,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "area" => area,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "varobj" => varobj,
     #[cfg(since_647)]
     "controller" => controller,
@@ -383,7 +403,7 @@ registry_files! {
     "varcon" => varcon,
     #[cfg(since_647)]
     "varconbit" => varconbit,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     "varnbit" => varnbit,
     #[cfg(since_647)]
     "varclan" => varclan,
@@ -397,7 +417,19 @@ registry_files! {
     "config39" => config39,
     #[cfg(since_647)]
     "config45" => config45,
-    #[cfg(since_647)]
+    #[cfg(since_742)]
+    "config49" => config49,
+    #[cfg(since_742)]
+    "config50" => config50,
+    #[cfg(since_742)]
+    "config51" => config51,
+    #[cfg(since_742)]
+    "config53" => config53,
+    #[cfg(since_742)]
+    "gamelogevent" => gamelogevent,
+    #[cfg(since_742)]
+    "config74" => config74,
+    #[cfg(since_530)]
     "wma" => wma,
 }
 
@@ -426,7 +458,7 @@ impl PackRegistry {
         let vars = load("vars")?;
         let model = load("model")?;
         let interface = load("interface")?;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let component_hashes = load_component_hashes(&pack_dir.join("interface.pack"), &interface);
         let dbrow = load("dbrow")?;
         let synth = load("synth")?;
@@ -487,17 +519,21 @@ impl PackRegistry {
             midi,
             #[cfg(since_254)]
             varbit,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             flu: load("flu")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             bas: load("bas")?,
             #[cfg(since_647)]
             cursor: load("cursor")?,
             #[cfg(since_647)]
             hitmark: load("hitmark")?,
+            #[cfg(since_742)]
+            skybox: load("skybox")?,
+            #[cfg(since_742)]
+            headbar: load("headbar")?,
             #[cfg(since_647)]
             billboard: load("billboard")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             fontmetrics: load("fontmetrics")?,
             #[cfg(since_647)]
             particleeffector: load("particleeffector")?,
@@ -507,31 +543,31 @@ impl PackRegistry {
             light: load("light")?,
             #[cfg(since_647)]
             mel: load("mel")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             msi: load("msi")?,
             #[cfg(since_647)]
             quest: load("quest")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             chatcat: load("chatcat")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             chatphrase: load("chatphrase")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             sprites: load("sprites")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varc: load("varc")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varcstr: load("varcstr")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varpstr: load("varpstr")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varsstr: load("varsstr")?,
             #[cfg(since_647)]
             varclansetting: load("varclansetting")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             stat: load("stat")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             area: load("area")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varobj: load("varobj")?,
             #[cfg(since_647)]
             controller: load("controller")?,
@@ -539,7 +575,7 @@ impl PackRegistry {
             varcon: load("varcon")?,
             #[cfg(since_647)]
             varconbit: load("varconbit")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             varnbit: load("varnbit")?,
             #[cfg(since_647)]
             varclan: load("varclan")?,
@@ -553,9 +589,21 @@ impl PackRegistry {
             config39: load("config39")?,
             #[cfg(since_647)]
             config45: load("config45")?,
-            #[cfg(since_647)]
+            #[cfg(since_742)]
+            config49: load("config49")?,
+            #[cfg(since_742)]
+            config50: load("config50")?,
+            #[cfg(since_742)]
+            config51: load("config51")?,
+            #[cfg(since_742)]
+            config53: load("config53")?,
+            #[cfg(since_742)]
+            gamelogevent: load("gamelogevent")?,
+            #[cfg(since_742)]
+            config74: load("config74")?,
+            #[cfg(since_530)]
             wma: load("wma")?,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             component_hashes: Arc::new(component_hashes),
             pack_dir: pack_dir.to_path_buf(),
             lookups: None,
@@ -567,7 +615,7 @@ impl PackRegistry {
     }
 
     /// A component's hash by its `interface:component` name.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub fn component_hash(&self, name: &str) -> Option<i32> {
         let hash = self.component_hashes.get(name).copied();
         if let Some(lookups) = &self.lookups {
@@ -590,7 +638,7 @@ impl PackRegistry {
         Some(match op {
             b'i' => answer(self.file(kind)?.find(query)),
             b'n' => answer(self.file(kind)?.id_to_debugname.get(&query.parse().ok()?)),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             b'c' => answer(self.component_hashes.get(query)),
             b'w' => answer(self.file(kind).map(|file| file.key)),
             _ => return None,
@@ -694,7 +742,7 @@ impl PackRegistry {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn load_component_hashes(path: &Path, interfaces: &PackFile) -> HashMap<String, i32> {
     let mut map = HashMap::new();
     let Ok(text) = fs::read_to_string(path) else {
@@ -771,7 +819,7 @@ pub fn validate_config_packs(fc: &FileCache, pack_dir: &Path, verify: bool) -> R
                     }
                 }
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if ext == "varc" {
                 let configs =
                     parse_config_sections_cached(fc, ext, &load_constants_from_cache(fc))?;
@@ -798,6 +846,8 @@ fn register_config_names(path: &Path, ext: &str, names: Vec<String>) -> Result<(
         Err(error) if error.kind() == io::ErrorKind::NotFound => (String::new(), true),
         Err(error) => return Err(error.into()),
     };
+    #[cfg(since_647)]
+    let from_cache = !changed;
     let mut pack = PackFile::parse(&text);
     for name in names {
         // Leave aliases and stale placeholder names for check_content to diagnose.
@@ -809,6 +859,13 @@ fn register_config_names(path: &Path, ext: &str, names: Vec<String>) -> Result<(
                 .is_some_and(|id| pack.get_by_id(id).is_some())
         {
             continue;
+        }
+        #[cfg(since_647)]
+        if from_cache && !matches!(ext, "dbtable" | "dbrow") {
+            bail!(
+                "{}: `{name}` has no id; give it one of the cache's empty entries by renaming that placeholder",
+                path.display()
+            );
         }
         let id = pack.max;
         pack.max = id
@@ -834,7 +891,7 @@ mod tests {
     use crate::pack::pack::{ConfigFiles, check_configs};
     use std::{env, process};
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn the_cache_tables_hold_the_unpack_sections_of_every_kind() {
         use crate::pack::config::client_table;
@@ -981,7 +1038,7 @@ mod tests {
             )
             .unwrap();
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         fs::write(scripts.join("strings.varc"), "[new_string]\ntype=string\n").unwrap();
         let files = ConfigFiles::new(&scripts);
         let error = check_configs(&files, &dir, true).unwrap_err().to_string();
@@ -997,20 +1054,59 @@ mod tests {
                 "2=existing\n"
             );
         }
+        #[cfg(before_647)]
+        {
+            check_configs(&files, &dir, false).unwrap();
+            check_configs(&files, &dir, true).unwrap();
+            check_configs(&files, &dir, false).unwrap();
+            for ext in &kinds {
+                assert_eq!(
+                    fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                    "2=existing\n3=new_name\n"
+                );
+            }
+            #[cfg(since_530)]
+            assert_eq!(
+                fs::read_to_string(dir.join("varcstr.pack")).unwrap(),
+                "0=new_string\n"
+            );
+        }
+        #[cfg(since_647)]
+        {
+            let error = check_configs(&files, &dir, false).unwrap_err().to_string();
+            assert!(error.contains("`new_name` has no id"), "{error}");
+            for ext in &kinds {
+                assert_eq!(
+                    fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
+                    "2=existing\n"
+                );
+            }
+        }
+        fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn only_dbtable_and_dbrow_take_ids_the_cache_lacks() {
+        let dir = env::temp_dir().join(format!("rs-majula-db-ids-{}", process::id()));
+        let scripts = dir.join("scripts");
+        fs::create_dir_all(&scripts).unwrap();
+        for ext in ["dbtable", "dbrow"] {
+            fs::write(dir.join(format!("{ext}.pack")), "2=existing\n").unwrap();
+            fs::write(
+                scripts.join(format!("custom.{ext}")),
+                "[existing]\n[new_name]\n",
+            )
+            .unwrap();
+        }
+        let files = ConfigFiles::new(&scripts);
         check_configs(&files, &dir, false).unwrap();
-        check_configs(&files, &dir, true).unwrap();
-        check_configs(&files, &dir, false).unwrap();
-        for ext in &kinds {
+        for ext in ["dbtable", "dbrow"] {
             assert_eq!(
                 fs::read_to_string(dir.join(format!("{ext}.pack"))).unwrap(),
                 "2=existing\n3=new_name\n"
             );
         }
-        #[cfg(since_647)]
-        assert_eq!(
-            fs::read_to_string(dir.join("varcstr.pack")).unwrap(),
-            "0=new_string\n"
-        );
         fs::remove_dir_all(&dir).unwrap();
     }
 }

@@ -1,0 +1,28 @@
+// 5439
+[proc,clientscript_5439]
+if (%varplayerbit_9987 = 0) {
+    if_sethide(interface_1168:com_289, true);
+    if_sethide(interface_1168:com_290, false);
+} else {
+    if_sethide(interface_1168:com_289, false);
+    if_sethide(interface_1168:com_290, true);
+}
+if (%varplayerbit_10849 = 0) {
+    if_sethide(interface_1168:com_357, true);
+    if_sethide(interface_1168:com_358, false);
+} else {
+    if_sethide(interface_1168:com_357, false);
+    if_sethide(interface_1168:com_358, true);
+}
+if (%varplayerbit_10850 = 0) {
+    if_sethide(interface_1168:com_360, true);
+    if_sethide(interface_1168:com_361, false);
+} else {
+    if_sethide(interface_1168:com_360, false);
+    if_sethide(interface_1168:com_361, true);
+}
+if_sethide(interface_1168:com_13, true);
+if_sethide(interface_1168:com_12, true);
+~clientscript_5441;
+~clientscript_5444(1);
+%tooltip_built = 0;

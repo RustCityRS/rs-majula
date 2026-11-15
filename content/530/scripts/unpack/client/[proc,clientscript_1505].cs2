@@ -1,0 +1,7 @@
+// 1505
+[proc,clientscript_1505]
+if_setsize(interface_769:textbox, 490, 93, 0, 0);
+if_setsize(interface_769:com_2, 490, 93, 0, 0);
+if_setposition(interface_769:textbox, 10, 20, 0, 0);
+if_setposition(interface_769:com_2, 10, 20, 0, 0);
+if_sethide(interface_769:com_3, true);

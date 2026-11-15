@@ -1,0 +1,28 @@
+// 5322
+[proc,clientscript_5322](component $component0)
+switch_component ($component0) {
+    case interface_797:com_21 :
+        %varplayerbit_9887 = 1;
+        ~clientscript_5324(1);
+    case interface_797:com_35 :
+        %varplayerbit_9887 = 2;
+        ~clientscript_5324(2);
+    case interface_797:com_49 :
+        %varplayerbit_9887 = 3;
+        ~clientscript_5324(3);
+    case interface_797:com_63 :
+        %varplayerbit_9887 = 4;
+        ~clientscript_5324(4);
+    case interface_797:com_77 :
+        %varplayerbit_9887 = 5;
+        ~clientscript_5324(5);
+    case interface_797:com_91 :
+        %varplayerbit_9887 = 6;
+        ~clientscript_5324(6);
+    case interface_797:com_105 :
+        %varplayerbit_9887 = 7;
+        ~clientscript_5324(7);
+    case interface_797:com_119 :
+        %varplayerbit_9887 = 8;
+        ~clientscript_5324(8);
+}

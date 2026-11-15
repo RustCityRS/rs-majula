@@ -1,11 +1,18 @@
+#[cfg(all(since_530, before_647))]
+use std::array::from_fn;
+
 #[derive(Debug, Clone)]
 pub struct TextureDef {
     pub ops: Vec<TextureOp>,
     pub connections: Vec<Vec<u8>>,
     pub color_op: u8,
     pub alpha_op: u8,
+    #[cfg(since_647)]
     pub mod_op: u8,
+    #[cfg(since_647)]
     pub trailing_material: Vec<u8>,
+    #[cfg(all(since_530, before_647))]
+    pub material: [u8; 9],
 }
 
 #[derive(Debug, Clone)]
@@ -364,8 +371,12 @@ pub fn parse_texture(data: &[u8]) -> TextureDef {
 
     let color_op = read_u8(data, &mut pos);
     let alpha_op = read_u8(data, &mut pos);
+    #[cfg(since_647)]
     let mod_op = read_u8(data, &mut pos);
+    #[cfg(all(since_530, before_647))]
+    let material = from_fn(|_| read_u8(data, &mut pos));
 
+    #[cfg(since_647)]
     let trailing_material = data[pos..].to_vec();
 
     TextureDef {
@@ -373,8 +384,12 @@ pub fn parse_texture(data: &[u8]) -> TextureDef {
         connections,
         color_op,
         alpha_op,
+        #[cfg(since_647)]
         mod_op,
+        #[cfg(since_647)]
         trailing_material,
+        #[cfg(all(since_530, before_647))]
+        material,
     }
 }
 
@@ -394,6 +409,20 @@ fn read_i16_be(data: &[u8], pos: &mut usize) -> i16 {
 fn skip(data: &[u8], pos: &mut usize, n: usize) {
     *pos = (*pos + n).min(data.len());
 }
+
+/// The material record after a texture's ops: each byte's key, and whether it is signed.
+#[cfg(all(since_530, before_647))]
+pub(crate) const MATERIAL_FIELDS: [(&str, bool); 9] = [
+    ("unknown0", false),
+    ("unknown1", false),
+    ("unknown2", false),
+    ("unknown3", false),
+    ("unknown4", false),
+    ("unknown5", true),
+    ("unknown6", true),
+    ("unknown7", false),
+    ("unknown8", false),
+];
 
 pub(crate) const OP_NAMES: [&str; 40] = [
     "constant_mono",

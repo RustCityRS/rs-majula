@@ -1,0 +1,131 @@
+// 6108
+[proc,clientscript_6108](inv $inv0, int $int1)
+if (%varplayer_2561 = null | %varplayer_2563 = -1) {
+    return;
+}
+if_sethide(interface_1265:com_172, false);
+if_sethide(interface_1265:com_82, false);
+if_sethide(interface_1265:com_202, false);
+def_obj $obj2 = inv_getobj($inv0, $int1);
+if ($obj2 = null | inv_total($inv0, $obj2) = -1) {
+    if_settext(interface_1265:com_39, "Select an item");
+    if_setobject(interface_1265:com_41, null, -1);
+    if_settext(interface_1265:com_205, "N/A");
+    if_setgraphic(interface_1265:com_18, null);
+    if_setcolour(interface_1265:com_204, 0x827f79);
+    if_settext(interface_1265:com_204, "N/A");
+    return;
+}
+if_setcolour(interface_1265:com_204, 0xe5b051);
+if_settext(interface_1265:com_39, oc_name($obj2));
+if_setobject(interface_1265:com_41, $obj2, -1);
+if_settext(interface_1265:com_40, %varclient_2384);
+def_int $int3 = ~clientscript_6075($obj2, %varplayer_2564);
+if ($inv0 = inv) {
+    if_settext(interface_1265:com_78, "Value:");
+    if_settext(interface_1265:com_204, "Sell");
+    $int3 = ~clientscript_6076($obj2, %varplayer_2564);
+    if (testbit(%varclient_1879, $int1) = ^false) {
+        $int3 = -1;
+    }
+} else if ($inv0 = %shop_sample) {
+    if_settext(interface_1265:com_78, "Price:");
+    if_settext(interface_1265:com_204, "Take");
+} else {
+    if_settext(interface_1265:com_78, "Price:");
+    if_settext(interface_1265:com_204, "Buy");
+}
+def_int $int4 = inv_total(inv, %shop_currency);
+if (%shop_currency = coins) {
+    $int4 = calc($int4 + inv_total(inv_623, %shop_currency));
+}
+if ($int4 = 0) {
+    if_settext(interface_1265:com_207, "None!");
+    if_setgraphic(interface_1265:com_206, "km_shopitems,0");
+} else {
+    if_settext(interface_1265:com_207, ~tostring_shortform($int4));
+    if_setgraphic(interface_1265:com_206, enum(obj, graphic, enum_200, %shop_currency));
+}
+def_int $int5 = parawidth(if_gettext(interface_1265:com_207), if_getwidth(interface_1265:com_77), verdana_11pt_regular);
+$int5 = calc($int5 + 2 + if_getwidth(interface_1265:com_206));
+if_setsize(interface_1265:com_16, $int5, 15, ^setsize_abs, ^setsize_abs);
+if ($int3 = -1) {
+    if_settext(interface_1265:com_205, "N/A");
+    if_setgraphic(interface_1265:com_18, "km_shopitems,0");
+} else if ($inv0 = %shop_sample) {
+    if_settext(interface_1265:com_205, "Free!");
+    if_setgraphic(interface_1265:com_18, null);
+} else {
+    if_settext(interface_1265:com_205, ~tostring_shortform($int3));
+    if_setgraphic(interface_1265:com_18, enum(obj, graphic, enum_200, %shop_currency));
+}
+$int5 = parawidth(if_gettext(interface_1265:com_205), if_getwidth(interface_1265:com_79), verdana_11pt_regular);
+if ($inv0 ! %shop_sample) {
+    $int5 = calc($int5 + 2 + if_getwidth(interface_1265:com_18));
+}
+if_setsize(interface_1265:com_17, $int5, 15, ^setsize_abs, ^setsize_abs);
+if ($int3 ! -1) {
+    if_sethide(interface_1265:com_82, true);
+    if_sethide(interface_1265:com_202, true);
+}
+if ((oc_members(%varplayer_2562) = 0 | map_members = true) & (%varclient_1876 >= 0 & %varclient_1876 < 30 | %varclient_1876 = 32 | %varplayer_2562 = bronze_pickaxe | %varplayer_2562 = bronze_axe)) {
+    if_sethide(interface_1265:com_172, true);
+}
+def_component $component6 = interface_1265:com_20;
+if (%varclient_1881 ! null & %varclient_1880 ! -1) {
+    if_sethide(interface_1266:com_3, true);
+    if (%varclient_1881 = %shop_sample) {
+        $component6 = interface_1265:com_21;
+    }
+    if (cc_find($component6, %varclient_1880) = true) {
+        cc_setonmouseover("clientscript_6100(%varplayerbit_11055, 0, 1, event_com, event_comsubid)");
+        cc_setonmouseleave("clientscript_6100(%varplayerbit_11055, 0, 0, event_com, event_comsubid)");
+        if (%varplayerbit_11055 = 0) {
+            cc_setgraphic(10448);
+        } else {
+            cc_setgraphic(10453);
+        }
+    }
+}
+$component6 = interface_1265:com_20;
+if (%varplayer_2561 = %shop_sample) {
+    $component6 = interface_1265:com_21;
+}
+if ($inv0 = %varplayer_2561) {
+    if ($inv0 = inv & cc_find(interface_1266:com_0, $int1) = true) {
+        if_setposition(interface_1266:com_3, calc(cc_getx + 2 - 2), calc(cc_gety + 2 - 2), ^setpos_abs_left, ^setpos_abs_top);
+        if_sethide(interface_1266:com_3, false);
+    }
+    if (cc_find($component6, $int1) = true & ($inv0 ! inv | %varplayer_2565 = 1)) {
+        cc_setonmouseover("clientscript_6100(%varplayerbit_11055, 1, 1, event_com, event_comsubid)");
+        cc_setonmouseleave("clientscript_6100(%varplayerbit_11055, 1, 0, event_com, event_comsubid)");
+        if (%varplayerbit_11055 = 0) {
+            cc_setgraphic(10451);
+        } else {
+            cc_setgraphic(10456);
+        }
+    }
+    %varclient_1881 = $inv0;
+    %varclient_1880 = $int1;
+}
+def_string $string0 = ~obj_warning_arg($obj2);
+~deltooltip_action(interface_1265:com_89);
+if_setonmouseleave(interface_1265:com_42, "deltooltip(interface_1265:com_89)");
+if_setonmouseleave(interface_1265:com_41, "deltooltip(interface_1265:com_89)");
+if (compare($string0, "") ! 0) {
+    if (compare(%objreq_wearable, "") ! 0) {
+        $string0 = append($string0, %objreq_wearable);
+    }
+    if (compare(%objreq_useable, "") ! 0) {
+        $string0 = append($string0, "<br><%objreq_useable>");
+    }
+    if_setgraphic(interface_1265:com_42, "km_shopitems,0");
+    if_setonmouserepeat(interface_1265:com_42, "aif_tooltip(interface_1265:com_89, event_com, -1, $string0, 160, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1265:com_41, "aif_tooltip(interface_1265:com_89, event_com, -1, $string0, 160, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+    if_setonmouserepeat(interface_1265:com_39, "aif_tooltip(interface_1265:com_89, event_com, -1, $string0, 160, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+} else {
+    if_setgraphic(interface_1265:com_42, null);
+    if_setonmouserepeat(interface_1265:com_42, null);
+    if_setonmouserepeat(interface_1265:com_41, null);
+    if_setonmouserepeat(interface_1265:com_39, null);
+}

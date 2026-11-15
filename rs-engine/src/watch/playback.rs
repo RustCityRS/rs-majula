@@ -1,20 +1,20 @@
 use super::format::{Entry, Reader};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use super::input::decode;
 use super::input::{Input, InputDecoder, Timed};
 use flate2::read::DeflateDecoder;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client::message_private::MessagePrivate;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client_prot::ClientProt;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_protocol::network::game::server_prot::ServerProt;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_util::base37::{to_raw_username, to_screen_name};
-#[cfg(before_647)]
+#[cfg(before_530)]
 use rs_util::wordpack;
 use serde_json::{Map, Value, json};
 use std::io::Read;
@@ -34,14 +34,14 @@ const MINIMAP_LAG_MS: u32 = 3000;
 
 /// The prefixes the client reads a chat line's colour and effect from, by
 /// number.
-#[cfg(before_647)]
+#[cfg(before_530)]
 const CHAT_COLOURS: [&str; 12] = [
     "", "red:", "green:", "cyan:", "purple:", "white:", "flash1:", "flash2:", "flash3:", "glow1:",
     "glow2:", "glow3:",
 ];
 #[cfg(before_289)]
 const CHAT_EFFECTS: [&str; 3] = ["", "wave:", "scroll:"];
-#[cfg(all(since_289, before_647))]
+#[cfg(all(since_289, before_530))]
 const CHAT_EFFECTS: [&str; 6] = ["", "wave:", "wave2:", "shake:", "scroll:", "slide:"];
 
 pub const MAGIC: &[u8; 4] = b"RSRP";
@@ -98,12 +98,12 @@ fn click_time_minimaps(inputs: &mut [Value], clicks: &[u32]) {
 /// again, and how the timeline puts it.
 fn typed_line(prot: &ClientProt, data: &[u8]) -> Option<(String, String)> {
     // Rev 647's chat packets differ, and its sessions aren't replayed yet.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
         let _ = (prot, data);
         None
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     match prot {
         ClientProt::MessagePublic => {
             let msg: MessagePublic = decode(data)?;
@@ -351,7 +351,7 @@ impl Builder {
         self.open = None;
 
         let mut header = extra;
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         header.insert("logout".into(), json!(ServerProt::Logout as u8));
         #[cfg(any(rev = "225", since_254))]
         header.insert(
@@ -395,7 +395,7 @@ mod tests {
         // 225's camera report isn't from a click.
         assert_eq!(inputs[2][0], 2_000);
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     use crate::watch::format::CLIENT;
     use crate::watch::format::{
         KEYFRAME, LOGIN, NOTE, SERVER, TICK, TICK_DELTA, put_bytes, put_error, put_flag, put_varint,
@@ -556,7 +556,7 @@ mod tests {
     }
 
     // 647's sessions are not replayed yet (`typed_line`).
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn types_sent_chat_again() {
         let mut rec = Vec::new();

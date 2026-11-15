@@ -1,0 +1,10 @@
+// 5264
+[proc,clientscript_5264](component $component0, component $component1)
+if_setsize($component0, stringwidth("<tostring(~clientscript_5255)> / <tostring(~clientscript_5255)>", p12_full), if_getheight($component0), ^setsize_abs, ^setsize_abs);
+def_int $int2 = 190;
+def_int $int3 = 8;
+def_int $int4 = calc(if_getwidth($component0) + if_getwidth($component1) + $int3);
+def_int $int5 = calc(($int2 - $int4) / 2);
+if_setposition($component1, $int5, if_gety($component1), ^setpos_abs_left, ^setpos_abs_top);
+$int5 = calc($int5 + if_getwidth($component1) + $int3);
+if_setposition($component0, $int5, if_gety($component0), ^setpos_abs_left, ^setpos_abs_top);

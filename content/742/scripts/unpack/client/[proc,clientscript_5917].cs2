@@ -1,0 +1,5 @@
+// 5917
+[proc,clientscript_5917]
+def_component $component0 = interface_1253:com_85;
+if_setsize($component0, 0, if_getheight($component0), ^setsize_abs, ^setsize_abs);
+if_setontimer($component0, null);

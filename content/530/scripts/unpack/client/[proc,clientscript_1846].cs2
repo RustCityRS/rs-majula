@@ -1,0 +1,20 @@
+// 1846
+[proc,clientscript_1846](component $component0, int $int1)
+%selectedresolution = ~dropdownbox_getselected($int1, $component0);
+if (getwindowmode = 3) {
+    if (playermember = false) {
+        setwindowmode(getdefaultwindowmode);
+        %last_windowmode = getwindowmode;
+        mes("Fullscreen mode is only available to members.");
+        return;
+    }
+    if (fullscreen_lastmode ! %selectedresolution) {
+        if (fullscreen_enter(fullscreen_getmode(%selectedresolution)) = true) {
+        } else {
+            setwindowmode(getdefaultwindowmode);
+            %last_windowmode = getwindowmode;
+            mes("That resolution didn't seem to work.");
+            mes("Please try a different resolution.");
+        }
+    }
+}

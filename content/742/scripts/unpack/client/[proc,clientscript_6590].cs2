@@ -1,0 +1,14 @@
+// 6590
+[proc,clientscript_6590]
+if (%varclient_1971 < 170) {
+    %varclient_1971 = 270;
+}
+def_int $int0 = scale(4, 5, %varclient_1971);
+if ($int0 < 170) {
+    $int0 = 170;
+} else if ($int0 > 216) {
+    $int0 = 216;
+}
+viewport_setzoom($int0, %varclient_1971);
+viewport_setfov(180, 180);
+op889(400);

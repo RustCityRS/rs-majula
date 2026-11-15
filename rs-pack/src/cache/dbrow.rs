@@ -1,8 +1,9 @@
 use super::ScriptVarType;
-use super::decode::read_array;
+use super::decode::{read_array, read_id};
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type DbRowTypeProvider = TypeProvider<DbRowType>;
 
@@ -16,10 +17,10 @@ pub enum DbRowValue {
 }
 
 pub struct DbRowType {
-    pub id: u16,
+    pub id: TypeId,
     pub types: DbRowTypes,
     pub columns: DbRowColumns,
-    pub table: u16,
+    pub table: TypeId,
     debugname: Box<str>,
 }
 
@@ -43,12 +44,12 @@ impl DbRowType {
 impl CacheType for DbRowType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         DbRowType {
             id,
             types: None,
             columns: None,
-            table: 0,
+            table: TypeId::default(),
             debugname: Box::default(),
         }
     }
@@ -70,7 +71,7 @@ impl CacheType for DbRowType {
                 self.types = Some(types);
                 self.columns = Some(columns);
             }
-            4 => self.table = buf.g2(),
+            4 => self.table = read_id(buf),
             250 => self.debugname = buf.gjstr(STRING_TERMINATOR).into_boxed_str(),
             _ => crate::unknown_opcode!("dbrow", code),
         }
@@ -107,7 +108,7 @@ mod tests {
         table.p1(250);
         table.pjstr("table", STRING_TERMINATOR);
         table.p1(0);
-        let mut definition = DbTableType::new(0);
+        let mut definition = DbTableType::new(TypeId::new(0));
         definition.decode(&mut Packet::from(table.data[..table.pos].to_vec()));
         let tables = TypeProvider::<DbTableType>::from_types(vec![definition], ());
         let defaults = tables
@@ -132,7 +133,7 @@ mod tests {
         row.p1(250);
         row.pjstr("row", STRING_TERMINATOR);
         row.p1(0);
-        let mut definition = DbRowType::new(0);
+        let mut definition = DbRowType::new(TypeId::new(0));
         definition.decode(&mut Packet::from(row.data[..row.pos].to_vec()));
         let rows = TypeProvider::<DbRowType>::from_types(vec![definition], ());
         let row = rows.get_by_debugname("row").unwrap();
@@ -143,6 +144,6 @@ mod tests {
         assert!(matches!(&values[0], DbRowValue::Int(7)));
         assert!(matches!(&values[1], DbRowValue::String(s) if s.as_ref() == "value"));
         let index = DbTableIndex::build(&tables, &rows);
-        assert_eq!(index.find(&DbIndexKey::Int(7), 2 << 4), &[0]);
+        assert_eq!(index.find(&DbIndexKey::Int(7), 2 << 4), &[TypeId::new(0)]);
     }
 }

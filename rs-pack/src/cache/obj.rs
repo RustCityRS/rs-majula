@@ -1,12 +1,13 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::decode::read_array;
-use super::decode::read_pairs;
+use super::decode::{read_big_id, read_id, read_pairs};
 use super::param::ParamType;
 use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
 use crate::types::{DummyItem, WearPos};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub type ObjTypeProvider = TypeProvider<ObjType>;
@@ -17,8 +18,8 @@ pub struct ObjContext {
 }
 
 pub struct ObjType {
-    pub id: u16,
-    #[cfg(since_647)]
+    pub id: TypeId,
+    #[cfg(since_530)]
     pub wearid: Option<u16>,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
@@ -31,21 +32,21 @@ pub struct ObjType {
     pub wearpos3: Option<WearPos>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub stockmarket: bool,
     pub weight: i16,
-    pub category: Option<u16>,
+    pub category: Option<TypeId>,
     pub dummyitem: DummyItem,
-    pub certlink: Option<u16>,
-    pub certtemplate: Option<u16>,
+    pub certlink: Option<TypeId>,
+    pub certtemplate: Option<TypeId>,
+    #[cfg(since_530)]
+    pub lenttemplate: Option<TypeId>,
     #[cfg(since_647)]
-    pub lenttemplate: Option<u16>,
-    #[cfg(since_647)]
-    pub boughttemplate: Option<u16>,
+    pub boughttemplate: Option<TypeId>,
     pub respawnrate: u16,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     #[cfg(since_647)]
-    pub objvar: Option<Box<[u16]>>,
+    pub objvar: Option<Box<[TypeId]>>,
     pub debugname: Box<str>,
 }
 
@@ -62,18 +63,18 @@ impl From<ObjTypeRaw> for ObjType {
             tradeable: raw.tradeable,
             members: raw.members,
             wearpos3: raw.wearpos3,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             wearid: raw.wearid,
             op: raw.op,
             iop: raw.iop,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             stockmarket: raw.stockmarket,
             weight: raw.weight,
             category: raw.category,
             dummyitem: raw.dummyitem,
             certlink: raw.certlink,
             certtemplate: raw.certtemplate,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             lenttemplate: raw.lenttemplate,
             #[cfg(since_647)]
             boughttemplate: raw.boughttemplate,
@@ -86,10 +87,10 @@ impl From<ObjTypeRaw> for ObjType {
     }
 }
 
-#[cfg_attr(since_647, derive(Debug, Clone))]
+#[cfg_attr(since_530, derive(Debug, Clone))]
 pub struct ObjTypeRaw {
-    pub id: u16,
-    pub model: u16,
+    pub id: TypeId,
+    pub model: TypeId,
     pub name: Option<Box<str>>,
     pub desc: Option<Box<str>>,
     pub zoom2d: u16,
@@ -106,41 +107,47 @@ pub struct ObjTypeRaw {
     pub tradeable: bool,
     pub members: bool,
     #[cfg(since_647)]
-    pub multistack: Option<u16>,
-    pub manwear: Option<u16>,
+    pub multistack: Option<TypeId>,
+    pub manwear: Option<TypeId>,
     pub manweary: i8,
-    pub manwear2: Option<u16>,
-    pub womanwear: Option<u16>,
+    pub manwear2: Option<TypeId>,
+    pub womanwear: Option<TypeId>,
     pub womanweary: i8,
-    pub womanwear2: Option<u16>,
+    pub womanwear2: Option<TypeId>,
     pub wearpos3: Option<WearPos>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub wearid: Option<u16>,
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub iop: Option<Box<[Option<Box<str>>]>>,
     pub recol_s: Option<Box<[u16]>>,
     pub recol_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_742)]
+    pub minimenucolour: Option<i32>,
+    #[cfg(since_742)]
+    pub recolindices: Option<u16>,
+    #[cfg(since_742)]
+    pub retexindices: Option<u16>,
+    #[cfg(since_530)]
     pub retex_d: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub retex_s: Option<Box<[u16]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub recol_palette: Option<Box<[i8]>>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub stockmarket: bool,
     pub weight: i16,
-    pub manwear3: Option<u16>,
-    pub womanwear3: Option<u16>,
-    pub manhead: Option<u16>,
-    pub womanhead: Option<u16>,
-    pub manhead2: Option<u16>,
-    pub womanhead2: Option<u16>,
-    pub category: Option<u16>,
+    pub manwear3: Option<TypeId>,
+    pub womanwear3: Option<TypeId>,
+    pub manhead: Option<TypeId>,
+    pub womanhead: Option<TypeId>,
+    pub manhead2: Option<TypeId>,
+    pub womanhead2: Option<TypeId>,
+    pub category: Option<TypeId>,
     pub zan2d: u16,
     pub dummyitem: DummyItem,
-    pub certlink: Option<u16>,
-    pub certtemplate: Option<u16>,
-    pub countobj: Option<Box<[u16]>>,
+    pub certlink: Option<TypeId>,
+    pub certtemplate: Option<TypeId>,
+    pub countobj: Option<Box<[TypeId]>>,
     pub countco: Option<Box<[u16]>>,
     #[cfg(since_244)]
     pub resizex: Option<u16>,
@@ -154,38 +161,42 @@ pub struct ObjTypeRaw {
     pub contrast: i8,
     #[cfg(since_289)]
     pub team: u8,
-    #[cfg(since_647)]
-    pub lentlink: Option<u16>,
-    #[cfg(since_647)]
-    pub lenttemplate: Option<u16>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
+    pub lentlink: Option<TypeId>,
+    #[cfg(since_530)]
+    pub lenttemplate: Option<TypeId>,
+    #[cfg(since_530)]
     pub manwear_xoff: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub manwear_zoff: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub womanwear_xoff: i8,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub womanwear_zoff: i8,
+    #[cfg(all(since_530, before_742))]
+    pub cursor1: Option<(u8, TypeId)>,
+    #[cfg(all(since_530, before_742))]
+    pub cursor2: Option<(u8, TypeId)>,
+    #[cfg(all(since_530, before_742))]
+    pub icursor1: Option<(u8, TypeId)>,
+    #[cfg(all(since_530, before_742))]
+    pub icursor2: Option<(u8, TypeId)>,
+    #[cfg(since_742)]
+    pub cursor: [Option<TypeId>; 5],
+    #[cfg(since_742)]
+    pub icursor: [Option<TypeId>; 5],
     #[cfg(since_647)]
-    pub cursor1: Option<(u8, u16)>,
-    #[cfg(since_647)]
-    pub cursor2: Option<(u8, u16)>,
-    #[cfg(since_647)]
-    pub icursor1: Option<(u8, u16)>,
-    #[cfg(since_647)]
-    pub icursor2: Option<(u8, u16)>,
-    #[cfg(since_647)]
-    pub quests: Option<Box<[u16]>>,
+    pub quests: Option<Box<[TypeId]>>,
     #[cfg(since_647)]
     pub picksizeshift: u8,
     #[cfg(since_647)]
-    pub boughtlink: Option<u16>,
+    pub boughtlink: Option<TypeId>,
     #[cfg(since_647)]
-    pub boughttemplate: Option<u16>,
+    pub boughttemplate: Option<TypeId>,
     #[cfg(since_647)]
-    pub objvar: Option<Box<[u16]>>,
+    pub objvar: Option<Box<[TypeId]>>,
     pub respawnrate: u16,
-    pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
     debugname: Box<str>,
 }
 
@@ -193,7 +204,7 @@ impl ObjTypeRaw {
     #[allow(clippy::too_many_arguments)]
     fn cert_template(
         &mut self,
-        model: u16,
+        model: TypeId,
         zoom2d: u16,
         xan2d: u16,
         yan2d: u16,
@@ -237,9 +248,8 @@ impl ObjTypeRaw {
 
             if let Some(params) = &mut self.params {
                 params.retain(|key, _| {
-                    !usize::try_from(*key)
-                        .ok()
-                        .and_then(|id| ctx.autodisable_params.get(id))
+                    !ctx.autodisable_params
+                        .get(key.index())
                         .copied()
                         .unwrap_or(false)
                 });
@@ -247,12 +257,15 @@ impl ObjTypeRaw {
                     self.params = None;
                 }
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 self.name = Some("Members object".into());
                 self.stockmarket = false;
                 self.team = 0;
-                self.quests = None;
+                #[cfg(since_647)]
+                {
+                    self.quests = None;
+                }
             }
         }
     }
@@ -261,10 +274,10 @@ impl ObjTypeRaw {
 impl CacheType for ObjTypeRaw {
     type Context = ObjContext;
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         ObjTypeRaw {
             id,
-            model: 0,
+            model: TypeId::default(),
             name: None,
             desc: None,
             zoom2d: 2000,
@@ -289,19 +302,25 @@ impl CacheType for ObjTypeRaw {
             womanweary: 0,
             womanwear2: None,
             wearpos3: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             wearid: None,
             op: Some(Box::new([None, None, Some("Take".into()), None, None])),
             iop: Some(Box::new([None, None, None, None, Some("Drop".into())])),
             recol_s: None,
             recol_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_742)]
+            minimenucolour: None,
+            #[cfg(since_742)]
+            recolindices: None,
+            #[cfg(since_742)]
+            retexindices: None,
+            #[cfg(since_530)]
             retex_d: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             retex_s: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             recol_palette: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             stockmarket: false,
             weight: 0,
             manwear3: None,
@@ -329,26 +348,30 @@ impl CacheType for ObjTypeRaw {
             contrast: 0,
             #[cfg(since_289)]
             team: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             lentlink: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             lenttemplate: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             manwear_xoff: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             manwear_zoff: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             womanwear_xoff: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             womanwear_zoff: 0,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_742))]
             cursor1: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_742))]
             cursor2: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_742))]
             icursor1: None,
-            #[cfg(since_647)]
+            #[cfg(all(since_530, before_742))]
             icursor2: None,
+            #[cfg(since_742)]
+            cursor: [None; 5],
+            #[cfg(since_742)]
+            icursor: [None; 5],
             #[cfg(since_647)]
             quests: None,
             #[cfg(since_647)]
@@ -367,7 +390,7 @@ impl CacheType for ObjTypeRaw {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.model = buf.g2(),
+            1 => self.model = read_big_id(buf),
             2 => self.name = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             3 => self.desc = Some(buf.gjstr(STRING_TERMINATOR).into_boxed_str()),
             4 => self.zoom2d = buf.g2(),
@@ -375,9 +398,9 @@ impl CacheType for ObjTypeRaw {
             6 => self.yan2d = buf.g2(),
             7 => self.xof2d = buf.g2s(),
             8 => self.yof2d = buf.g2s(),
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             9 => self.code9 = true, // animHasAlpha from code10?
-            #[cfg(before_647)]
+            #[cfg(before_530)]
             10 => self.code10 = Some(buf.g2()), // seq?
             11 => self.stackable = true,
             12 => self.cost = buf.g4s(),
@@ -386,25 +409,25 @@ impl CacheType for ObjTypeRaw {
             15 => self.tradeable = false,
             16 => self.members = true,
             #[cfg(since_647)]
-            17 => self.objvar = Some(read_array(buf, Packet::g2)),
+            17 => self.objvar = Some(read_array(buf, read_id)),
             #[cfg(since_647)]
-            18 => self.multistack = Some(buf.g2()),
+            18 => self.multistack = Some(read_id(buf)),
             23 => {
-                self.manwear = Some(buf.g2());
-                #[cfg(before_647)]
+                self.manwear = Some(read_big_id(buf));
+                #[cfg(before_530)]
                 {
                     self.manweary = buf.g1s();
                 }
             }
-            24 => self.manwear2 = Some(buf.g2()),
+            24 => self.manwear2 = Some(read_big_id(buf)),
             25 => {
-                self.womanwear = Some(buf.g2());
-                #[cfg(before_647)]
+                self.womanwear = Some(read_big_id(buf));
+                #[cfg(before_530)]
                 {
                     self.womanweary = buf.g1s();
                 }
             }
-            26 => self.womanwear2 = Some(buf.g2()),
+            26 => self.womanwear2 = Some(read_big_id(buf)),
             27 => self.wearpos3 = Some(WearPos::try_from(buf.g1()).unwrap()),
             30..=34 => {
                 let op = buf.gjstr(STRING_TERMINATOR);
@@ -419,28 +442,34 @@ impl CacheType for ObjTypeRaw {
                     Some(op.into_boxed_str());
             }
             40 => read_pairs(buf, &mut self.recol_s, &mut self.recol_d),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             41 => read_pairs(buf, &mut self.retex_d, &mut self.retex_s),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             42 => self.recol_palette = Some(read_array(buf, Packet::g1s)),
-            #[cfg(since_647)]
+            #[cfg(since_742)]
+            43 => self.minimenucolour = Some(buf.g4s()),
+            #[cfg(since_742)]
+            44 => self.recolindices = Some(buf.g2()),
+            #[cfg(since_742)]
+            45 => self.retexindices = Some(buf.g2()),
+            #[cfg(since_530)]
             65 => self.stockmarket = true,
             75 => self.weight = buf.g2s(),
-            78 => self.manwear3 = Some(buf.g2()),
-            79 => self.womanwear3 = Some(buf.g2()),
-            90 => self.manhead = Some(buf.g2()),
-            91 => self.womanhead = Some(buf.g2()),
-            92 => self.manhead2 = Some(buf.g2()),
-            93 => self.womanhead2 = Some(buf.g2()),
-            94 => self.category = Some(buf.g2()),
+            78 => self.manwear3 = Some(read_big_id(buf)),
+            79 => self.womanwear3 = Some(read_big_id(buf)),
+            90 => self.manhead = Some(read_big_id(buf)),
+            91 => self.womanhead = Some(read_big_id(buf)),
+            92 => self.manhead2 = Some(read_big_id(buf)),
+            93 => self.womanhead2 = Some(read_big_id(buf)),
+            94 => self.category = Some(read_id(buf)),
             95 => self.zan2d = buf.g2(),
             96 => self.dummyitem = DummyItem::try_from(buf.g1()).unwrap(),
-            97 => self.certlink = Some(buf.g2()),
-            98 => self.certtemplate = Some(buf.g2()),
+            97 => self.certlink = Some(read_id(buf)),
+            98 => self.certtemplate = Some(read_id(buf)),
             100..=109 => {
                 self.countobj
-                    .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 100] =
-                    buf.g2();
+                    .get_or_insert_with(|| vec![TypeId::default(); 10].into_boxed_slice())
+                    [code as usize - 100] = read_id(buf);
                 self.countco
                     .get_or_insert_with(|| vec![0; 10].into_boxed_slice())[code as usize - 100] =
                     buf.g2();
@@ -457,38 +486,42 @@ impl CacheType for ObjTypeRaw {
             114 => self.contrast = buf.g1s(),
             #[cfg(since_289)]
             115 => self.team = buf.g1(),
-            #[cfg(since_647)]
-            121 => self.lentlink = Some(buf.g2()),
-            #[cfg(since_647)]
-            122 => self.lenttemplate = Some(buf.g2()),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
+            121 => self.lentlink = Some(read_id(buf)),
+            #[cfg(since_530)]
+            122 => self.lenttemplate = Some(read_id(buf)),
+            #[cfg(since_530)]
             125 => {
                 self.manwear_xoff = buf.g1() as i8;
                 self.manweary = buf.g1() as i8;
                 self.manwear_zoff = buf.g1() as i8;
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             126 => {
                 self.womanwear_xoff = buf.g1() as i8;
                 self.womanweary = buf.g1() as i8;
                 self.womanwear_zoff = buf.g1() as i8;
             }
+            #[cfg(all(since_530, before_742))]
+            127 => self.cursor1 = Some((buf.g1(), read_id(buf))),
+            #[cfg(all(since_530, before_742))]
+            128 => self.cursor2 = Some((buf.g1(), read_id(buf))),
+            #[cfg(all(since_530, before_742))]
+            129 => self.icursor1 = Some((buf.g1(), read_id(buf))),
+            #[cfg(all(since_530, before_742))]
+            130 => self.icursor2 = Some((buf.g1(), read_id(buf))),
             #[cfg(since_647)]
-            127 => self.cursor1 = Some((buf.g1(), buf.g2())),
-            #[cfg(since_647)]
-            128 => self.cursor2 = Some((buf.g1(), buf.g2())),
-            #[cfg(since_647)]
-            129 => self.icursor1 = Some((buf.g1(), buf.g2())),
-            #[cfg(since_647)]
-            130 => self.icursor2 = Some((buf.g1(), buf.g2())),
-            #[cfg(since_647)]
-            132 => self.quests = Some(read_array(buf, Packet::g2)),
+            132 => self.quests = Some(read_array(buf, read_id)),
             #[cfg(since_647)]
             134 => self.picksizeshift = buf.g1(),
             #[cfg(since_647)]
-            139 => self.boughtlink = Some(buf.g2()),
+            139 => self.boughtlink = Some(read_id(buf)),
             #[cfg(since_647)]
-            140 => self.boughttemplate = Some(buf.g2()),
+            140 => self.boughttemplate = Some(read_id(buf)),
+            #[cfg(since_742)]
+            142..=146 => self.cursor[code as usize - 142] = Some(read_id(buf)),
+            #[cfg(since_742)]
+            150..=154 => self.icursor[code as usize - 150] = Some(read_id(buf)),
             201 => self.respawnrate = buf.g2(),
             249 => {
                 ParamType::decode_params(
@@ -503,15 +536,15 @@ impl CacheType for ObjTypeRaw {
     }
 
     fn post_decode(objs: &mut Vec<Self>, ctx: &Self::Context) {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let mut wearid = 0;
         for id in 0..objs.len() {
             if let Some(certtemplate) = objs.get(id).and_then(|obj| obj.certtemplate) {
                 let template = objs
-                    .get(certtemplate as usize)
+                    .get(certtemplate.index())
                     .expect("Obj not found for a certtemplate!");
 
-                let model: u16 = template.model;
+                let model = template.model;
                 let zoom2d: u16 = template.zoom2d;
                 let xan2d: u16 = template.xan2d;
                 let yan2d: u16 = template.yan2d;
@@ -520,18 +553,18 @@ impl CacheType for ObjTypeRaw {
                 let yof2d: i16 = template.yof2d;
                 let recol_s: Option<Box<[u16]>> = template.recol_s.clone();
                 let recol_d: Option<Box<[u16]>> = template.recol_d.clone();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let retex_s = template.retex_s.clone();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let retex_d = template.retex_d.clone();
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 let recol_palette = template.recol_palette.clone();
 
                 if let Some(obj) = objs.get_mut(id) {
                     obj.cert_template(
                         model, zoom2d, xan2d, yan2d, zan2d, xof2d, yof2d, recol_s, recol_d,
                     );
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         obj.retex_s = retex_s;
                         obj.retex_d = retex_d;
@@ -541,7 +574,7 @@ impl CacheType for ObjTypeRaw {
 
                 if let Some(certlink) = objs.get(id).and_then(|obj| obj.certlink) {
                     let link = objs
-                        .get(certlink as usize)
+                        .get(certlink.index())
                         .expect("Obj not found for a certlink!");
 
                     let name = link.name.clone();
@@ -554,24 +587,25 @@ impl CacheType for ObjTypeRaw {
                     }
                 }
             }
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 if let (Some(template_id), Some(link_id)) =
                     (objs[id].lenttemplate, objs[id].lentlink)
                 {
-                    let template_id = template_id as usize;
-                    let link_id = link_id as usize;
+                    let template_id = template_id.index();
+                    let link_id = link_id.index();
                     if template_id < objs.len() && link_id < objs.len() {
                         let template = objs[template_id].clone();
                         let link = objs[link_id].clone();
                         gen_lent(&mut objs[id], &template, &link);
                     }
                 }
+                #[cfg(since_647)]
                 if let (Some(template_id), Some(link_id)) =
                     (objs[id].boughttemplate, objs[id].boughtlink)
                 {
-                    let template_id = template_id as usize;
-                    let link_id = link_id as usize;
+                    let template_id = template_id.index();
+                    let link_id = link_id.index();
                     if template_id < objs.len() && link_id < objs.len() {
                         let template = objs[template_id].clone();
                         let link = objs[link_id].clone();
@@ -592,7 +626,7 @@ impl CacheType for ObjTypeRaw {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn gen_lent(obj: &mut ObjTypeRaw, template: &ObjTypeRaw, link: &ObjTypeRaw) {
     obj.params = link.params.clone();
     obj.womanweary = link.womanweary;

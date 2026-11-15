@@ -1,0 +1,38 @@
+// 4803
+[proc,clientscript_4803](int $int0)
+def_enum $enum1 = ~clientscript_4819(%varplayerbit_9558);
+def_int $int2 = enum(int, int, $enum1, $int0);
+switch_int (%varplayerbit_9558) {
+    case 1 :
+        if ($int2 ! %varplayerbit_9562) {
+            %varplayerbit_9562 = $int2;
+            %varplayerbit_9563 = 1;
+            %varplayerbit_9567 = 0;
+            %varplayerbit_9568 = 0;
+            %varplayerbit_9569 = 0;
+        }
+    case 2 :
+        if ($int2 ! %varplayerbit_9571) {
+            %varplayerbit_9571 = $int2;
+            %varplayerbit_9572 = 1;
+            %varplayerbit_9576 = 0;
+            %varplayerbit_9577 = 0;
+            %varplayerbit_9578 = 0;
+        }
+    case 3 :
+        if ($int2 ! %varplayerbit_9580) {
+            %varplayerbit_9580 = $int2;
+            %varplayerbit_9581 = 1;
+            %varplayerbit_9585 = 0;
+            %varplayerbit_9586 = 0;
+            %varplayerbit_9587 = 0;
+        }
+}
+def_int $int3 = 0;
+if (~clientscript_4828(%varplayerbit_9558) = false) {
+    $int3 = calc(28 * ($int0 - 1));
+    if_sethide(interface_1258:com_203, false);
+    if_setposition(interface_1258:com_203, 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+}
+~clientscript_4846(1);
+~clientscript_4804;

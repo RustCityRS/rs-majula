@@ -21,7 +21,7 @@ pub fn pack_cursors(
                     // 1
                     "graphic" => parse_ref(&registry.sprites, "sprites", value, |v| {
                         client.p1(1);
-                        client.p2(v);
+                        client.pid(v);
                     }),
 
                     // 2

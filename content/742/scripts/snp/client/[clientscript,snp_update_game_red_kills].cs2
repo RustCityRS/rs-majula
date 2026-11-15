@@ -1,0 +1,3 @@
+// 2080
+[clientscript,snp_update_game_red_kills]
+if_settext(snp_game_overlay:red_kills, tostring(%snp_red_boss_kills_client));

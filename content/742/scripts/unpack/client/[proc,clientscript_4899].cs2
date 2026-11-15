@@ -1,0 +1,60 @@
+// 4899
+[proc,clientscript_4899](int $int0)
+%varplayerbit_9552 = $int0;
+~clientscript_4935;
+~clientscript_4940;
+switch_int ($int0) {
+    case 0 :
+        if_sethide(interface_1261:com_47, true);
+        if_sethide(interface_1258:com_106, true);
+        if_sethide(interface_1258:com_105, true);
+        if_sethide(interface_1259:com_5, false);
+        if_settext(interface_1259:com_153, "");
+        if_sethide(interface_1259:com_150, true);
+    case 1 :
+        if_sethide(interface_1261:com_47, false);
+        if_sethide(interface_1258:com_106, true);
+        if_sethide(interface_1258:com_105, true);
+        if_settext(interface_1261:com_266, "");
+        if_sethide(interface_1261:com_263, true);
+        if_sethide(interface_1259:com_5, true);
+        ~clientscript_5009;
+        ~clientscript_5011;
+    case 2 :
+        ~clientscript_4860;
+        ~clientscript_4863;
+        ~clientscript_4859;
+        if_sethide(interface_1261:com_47, true);
+        if_sethide(interface_1258:com_106, false);
+        if_sethide(interface_1258:com_105, false);
+        if_settext(interface_1258:com_197, "");
+        if_sethide(interface_1258:com_194, true);
+        if_sethide(interface_1259:com_5, true);
+        ~clientscript_5009;
+    case 4 :
+        if_sethide(interface_1261:com_47, false);
+        if_sethide(interface_1258:com_106, true);
+        if_sethide(interface_1258:com_105, true);
+        if_settext(interface_1261:com_266, "Please select an available spot from the map.");
+        if_sethide(interface_1261:com_263, false);
+        if_sethide(interface_1259:com_5, true);
+        ~clientscript_5010;
+        ~clientscript_4935;
+    case 3 :
+        if_sethide(interface_1261:com_47, false);
+        if_sethide(interface_1258:com_106, true);
+        if_sethide(interface_1258:com_105, true);
+        if_settext(interface_1261:com_266, "Please select a spot from the map.");
+        if_sethide(interface_1261:com_263, false);
+        if_sethide(interface_1259:com_5, true);
+        ~clientscript_5010;
+    case 5 :
+        if_sethide(interface_1261:com_47, true);
+        if_sethide(interface_1258:com_106, false);
+        if_sethide(interface_1258:com_105, false);
+        if_settext(interface_1258:com_197, "Please select an available spot from the map.");
+        if_sethide(interface_1258:com_194, false);
+        if_sethide(interface_1259:com_5, true);
+        ~clientscript_5009;
+}
+~clientscript_4853;

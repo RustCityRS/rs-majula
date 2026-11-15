@@ -1,0 +1,488 @@
+// 138:0
+[contents]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=gnomeglider_init
+onvartransmit=gnomeglider_update{pilot_journey}
+
+// 138:1
+[gnomemap]
+type=model
+width=507
+height=319
+xmode=abs_centre
+ymode=abs_centre
+layer=contents
+model=model_3048
+modelorigin=3,-14
+modelangle=503,1,0
+modelzoom=585
+modelunknown=260,1171,0
+
+// 138:2
+[grandtree]
+type=model
+x=16
+y=33
+width=143
+height=110
+layer=contents
+model=model_3043
+modelorigin=2,-21
+modelangle=539,2044,0
+modelzoom=1061
+modelunknown=65251,2134,0
+
+// 138:3
+[mountains]
+type=model
+x=226
+y=29
+width=94
+height=80
+layer=contents
+model=model_3030
+modelorigin=0,-10
+modelangle=424,8,0
+modelzoom=2073
+modelunknown=63607,4179,0
+
+// 138:4
+[varrock]
+type=model
+x=394
+y=36
+width=64
+height=49
+layer=contents
+model=model_3038
+modelorigin=-17,-10
+modelangle=506,2043,0
+modelzoom=1438
+modelunknown=64329,2875,0
+
+// 138:5
+[com_5]
+type=model
+x=387
+y=110
+width=113
+height=137
+layer=contents
+model=model_3025
+modelorigin=2,-13
+modelangle=470,8,0
+modelzoom=887
+modelunknown=64632,1785,0
+
+// 138:6
+[karamja]
+type=model
+x=211
+y=202
+width=74
+height=96
+layer=contents
+model=model_3047
+modelorigin=-6,-10
+modelangle=469,11,0
+modelzoom=851
+modelunknown=64788,1709,0
+
+// 138:7
+[com_7]
+type=model
+x=35
+y=211
+width=101
+height=91
+layer=contents
+model=model_5730
+modelorigin=4,10
+modelangle=416,29,0
+modelzoom=958
+modelunknown=65359,1947,0
+
+// 138:8
+[grand_tree]
+type=text
+x=43
+y=118
+width=140
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Ta Quir Priw
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:9
+[varrocktext2]
+type=text
+x=374
+y=89
+width=103
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Lemanto Andra
+colour=0x2b1c0f
+
+// 138:10
+[mountainstext]
+type=text
+x=173
+y=31
+width=90
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Sindarpos
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:11
+[jungle]
+type=text
+x=199
+y=282
+width=83
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Gandius
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:12
+[deserttext]
+type=text
+x=335
+y=137
+width=95
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Kar-Hewo
+textalignh=centre
+colour=0x3b1c0f
+
+// 138:13
+[com_13]
+type=text
+x=35
+y=189
+width=100
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Lemantolly
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:14
+[com_14]
+type=text
+x=83
+y=210
+width=60
+height=17
+layer=contents
+textfont=fontmetrics_497
+text=Undri
+textalignh=centre
+colour=0x2b1c0f
+
+// 138:15
+[jungle_button]
+type=model
+x=214
+y=220
+width=59
+height=81
+layer=contents
+model=null
+modelzoom=400
+modelunknown=33790,400,0
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:karamja, model_3029)
+onmouseleave=model_swapper(glidermap:karamja, model_3047)
+
+// 138:16
+[grandtree_button]
+type=model
+x=41
+y=32
+width=101
+height=106
+layer=contents
+model=null
+modelzoom=400
+modelunknown=33790,400,0
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:grandtree, model_3045)
+onmouseleave=model_swapper(glidermap:grandtree, model_3043)
+
+// 138:17
+[mountains_button]
+type=model
+x=185
+y=29
+width=139
+height=56
+layer=contents
+model=null
+modelzoom=400
+modelunknown=33790,400,0
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:mountains, model_3036)
+onmouseleave=model_swapper(glidermap:mountains, model_3030)
+
+// 138:18
+[varrock_button]
+type=model
+x=373
+y=41
+width=102
+height=65
+layer=contents
+model=null
+modelorigin=45,14
+modelzoom=400
+modelunknown=33790,400,0
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:varrock, model_3026)
+onmouseleave=model_swapper(glidermap:varrock, model_3038)
+
+// 138:19
+[desert_button]
+type=model
+x=360
+y=139
+width=127
+height=61
+layer=contents
+model=null
+modelzoom=400
+modelunknown=33790,400,0
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:com_5, model_3027)
+onmouseleave=model_swapper(glidermap:com_5, model_3025)
+
+// 138:20
+[com_20]
+type=model
+x=40
+y=212
+width=90
+height=100
+layer=contents
+model=null
+modelangle=416,29,0
+modelzoom=958
+modelunknown=33790,958,0
+transmitop=1
+op1=Travel
+onmouseover=model_swapper(glidermap:com_7, model_5731)
+onmouseleave=model_swapper(glidermap:com_7, model_5730)
+
+// 138:21
+[close]
+type=graphic
+x=28
+y=14
+width=26
+height=23
+xmode=abs_right
+layer=contents
+hide=yes
+graphic=graphic_539
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 540)
+onmouseleave=graphic_swapper(event_com, 539)
+onop=if_close
+
+// 138:22
+[com_22]
+type=model
+x=54
+y=37
+width=73
+height=216
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-14,7
+modelangle=267,469,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+modelunknown=65449,1541,0
+
+// 138:23
+[com_23]
+type=model
+x=40
+y=26
+width=89
+height=255
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=26,-43
+modelangle=255,1584,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+modelunknown=65258,1485,0
+
+// 138:24
+[varrockgo]
+type=model
+x=89
+y=45
+width=319
+height=63
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=33,22
+modelangle=365,2031,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+modelunknown=65135,1387,0
+
+// 138:25
+[crashback]
+type=model
+x=32
+y=19
+width=169
+height=292
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-3,25
+modelangle=435,364,0
+modelzoom=650
+modelanim=human_blown_end_getup_priority
+modelunknown=65100,1342,0
+
+// 138:26
+[crashgo]
+type=model
+x=35
+y=57
+width=164
+height=315
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-7,-45
+modelangle=412,1401,0
+modelzoom=650
+modelanim=human_blown_end_getup_priority
+modelunknown=65049,1328,0
+
+// 138:27
+[jungleback]
+type=model
+x=101
+y=35
+width=166
+height=206
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=2,20
+modelangle=430,306,0
+modelzoom=832
+modelanim=human_blown_end_getup_priority
+modelunknown=64776,1704,0
+
+// 138:28
+[junglego]
+type=model
+x=83
+y=66
+width=178
+height=210
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-12,-28
+modelangle=405,1319,0
+modelzoom=832
+modelanim=human_blown_end_getup_priority
+modelunknown=64745,1689,0
+
+// 138:29
+[mountainback]
+type=model
+x=96
+y=54
+width=207
+height=73
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-97,2
+modelangle=494,982,0
+modelzoom=689
+modelanim=seq_786
+modelunknown=64895,1372,0
+
+// 138:30
+[mountaingo]
+type=model
+x=102
+y=59
+width=206
+height=57
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=98,7
+modelangle=404,2039,0
+modelzoom=689
+modelanim=seq_786
+modelunknown=64877,1382,0
+
+// 138:31
+[desertback]
+type=model
+x=135
+y=100
+width=315
+height=117
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=-32,-16
+modelangle=375,1126,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+modelunknown=64861,1384,0
+
+// 138:32
+[desertgo]
+type=model
+x=115
+y=68
+width=302
+height=117
+layer=contents
+hide=yes
+model=model_3063
+modelorigin=22,19
+modelangle=425,105,0
+modelzoom=689
+modelanim=human_blown_end_getup_priority
+modelunknown=64823,1394,0

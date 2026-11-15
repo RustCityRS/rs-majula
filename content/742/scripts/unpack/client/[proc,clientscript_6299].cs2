@@ -1,0 +1,35 @@
+// 6299
+[proc,clientscript_6299]()(string)
+def_string $string0 = "";
+def_int $int0 = calc(date_runeday % 28);
+def_int $int1 = random(3);
+def_string $string1 = "Did you know that most monsters can drop bonus spins?";
+if ($int0 >= 0 & $int0 <= 6) {
+    $string0 = "Earn a bonus spin this week for redeeming penguin points.";
+} else if ($int0 >= 7 & $int0 <= 13) {
+    $string0 = "Earn a bonus spin this week at the Circus.";
+} else if ($int0 >= 14 & $int0 <= 20) {
+    $string0 = "Earn a bonus spin this week from an Evil Tree.";
+} else if ($int0 >= 21 & $int0 <= 27) {
+    $string0 = "Earn a bonus spin this week from a Shooting Star.";
+}
+if (%varplayerbit_11033 = 0) {
+    $string1 = $string0;
+} else if ($int1 = 0) {
+    if (%varclient_1800 >= 20) {
+        $string1 = "Once the wheel is slowing down, press the button again to skip to a stop.";
+    } else {
+        $string1 = ~clientscript_790;
+    }
+} else if ($int1 = 1) {
+    if (%varclient_1800 >= 20) {
+        $string1 = "Once a prize is selected, press the button again to skip to the next screen.";
+    } else {
+        $string1 = ~clientscript_790;
+    }
+} else if (%varclient_1804 = %varplayerbit_9472) {
+    $string1 = "Complete Troll Invasion this month for great rewards and a bonus spin.";
+} else {
+    $string1 = ~clientscript_790;
+}
+return($string1);

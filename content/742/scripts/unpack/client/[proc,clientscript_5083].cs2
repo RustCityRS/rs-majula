@@ -1,0 +1,9 @@
+// 5083
+[proc,clientscript_5083](component $component0, int $int1, int $int2)
+if (clientclock < $int2) {
+    return;
+}
+if_setontimer($component0, null);
+if ($int1 = %varclient_160) {
+    ~scrollbar_resize(interface_1114:com_27, interface_1114:com_26, if_getscrolly(interface_1114:com_26));
+}

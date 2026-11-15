@@ -1,0 +1,210 @@
+// 1338:0
+[com_0]
+type=layer
+width=186
+height=218
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_5924(event_com)
+
+// 1338:1
+[com_1]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+
+// 1338:2
+[com_2]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+graphic=graphic_8384
+tiling=yes
+
+// 1338:3
+[com_3]
+type=text
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_13pt_regular
+text=Game Over!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1338:4
+[com_4]
+type=text
+y=35
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+text=Your final score was:
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1338:5
+[com_5]
+type=text
+y=55
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1338:6
+[com_6]
+type=text
+y=80
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+text=You gain:<br>(Competence Points)
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1338:7
+[com_7]
+type=text
+y=110
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1338:8
+[com_8]
+type=text
+y=135
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+text=Total Competence Points:
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1338:9
+[com_9]
+type=text
+y=155
+height=25
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=verdana_11pt_regular
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1338:10
+[com_10]
+type=layer
+y=4
+width=125
+height=26
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+
+// 1338:11
+[com_11]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5724(event_com, struct_2834)
+
+// 1338:12
+[com_12]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5724(event_com, struct_2835)
+
+// 1338:13
+[com_13]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5724(event_com, struct_2836)
+
+// 1338:14
+[com_14]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_10
+transmitop=1
+op1=Continue
+onload=script4213(event_com)
+onop=closebutton_click
+
+// 1338:15
+[com_15]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_10
+
+// 1338:16
+[com_16]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+textfont=verdana_11pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)

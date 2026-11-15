@@ -3,6 +3,7 @@ use crate::controls::DISABLED_MESSAGE;
 use crate::core::Engine;
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
 use rs_pack::cache::script::Script;
+use rs_ver::TypeId;
 use rs_vm::engine::with_engine;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
@@ -20,14 +21,14 @@ impl Engine {
     pub(crate) fn queued_script(
         &self,
         request: &QueuedScript,
-        type_id: u16,
+        type_id: TypeId,
         category: Option<i32>,
     ) -> Option<Arc<Script>> {
         if request.named {
             return self.scripts.get_by_id(request.script_id).cloned();
         }
         let trigger = ServerTriggerType::try_from(request.script_id as u8).ok()?;
-        self.script_by_key(trigger, Some(type_id as i32), category)
+        self.script_by_key(trigger, Some(type_id.int()), category)
     }
 
     /// Finds the script bound to a server trigger for a type id or category.
@@ -503,7 +504,7 @@ impl Engine {
                         // A dialogue that ends on a choice leaves its resume buttons: with no
                         // suspended script left, close_modal does not clear them, and 647's
                         // RESUME_PAUSEBUTTON check would refuse the next dialogue's button.
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             active.player.resume_buttons = None;
                         }

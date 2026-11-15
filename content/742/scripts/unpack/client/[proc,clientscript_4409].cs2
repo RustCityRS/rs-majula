@@ -1,0 +1,106 @@
+// 4409
+[proc,clientscript_4409](component $component0)
+def_coord $coord1 = ~coord_0_0(coord);
+switch_int (%tutorial3_cutscene_tracker) {
+    case 1 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 11 :
+        if (getwindowmode >= 2) {
+            if_setonvartransmit(toplevel_fullscreen:com_46, "clientscript_5210(event_com){cutscene_var}");
+            ~clientscript_5211(true);
+        }
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 28, 0, 27), 900, movecoord($coord1, 28, 0, 27), 900, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 28, 0, 27), 750, movecoord($coord1, 28, 0, 27), 750, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 23, 0, 8), 200, movecoord($coord1, 23, 0, 8), 200, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 23, 0, 8), 250, movecoord($coord1, 23, 0, 8), 250, 0);
+        cam_movealong(0, 0, 50, 0, 1, 0);
+    case 12 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 21 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 16, 0, 26), 900, movecoord($coord1, 16, 0, 26), 900, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 16, 0, 26), 900, movecoord($coord1, 16, 0, 26), 900, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 24, 0, 37), 500, movecoord($coord1, 24, 0, 37), 500, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 24, 0, 37), 500, movecoord($coord1, 24, 0, 37), 500, 0);
+        cam_movealong(0, 0, 100, 0, 1, 0);
+    case 22 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 31 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 31, 0, 11), 700, movecoord($coord1, 31, 0, 11), 700, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 24, 0, 11), 800, movecoord($coord1, 24, 0, 11), 800, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 28, 0, 19), 350, movecoord($coord1, 28, 0, 19), 350, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 28, 0, 19), 350, movecoord($coord1, 28, 0, 19), 350, 0);
+        cam_movealong(0, 0, 50, 0, 1, 0);
+    case 32 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 41 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 37, 0, 41), 1200, movecoord($coord1, 37, 0, 41), 1200, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 37, 0, 41), 800, movecoord($coord1, 37, 0, 41), 800, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 27, 0, 49), 700, movecoord($coord1, 27, 0, 49), 700, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 27, 0, 49), 650, movecoord($coord1, 27, 0, 49), 650, 0);
+        cam_movealong(0, 0, 50, 0, 1, 0);
+    case 42 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 51 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 37, 0, 9), 1300, movecoord($coord1, 37, 0, 9), 1300, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 37, 0, 9), 1300, movecoord($coord1, 37, 0, 9), 1300, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 27, 0, 17), 700, movecoord($coord1, 27, 0, 17), 700, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 27, 0, 17), 700, movecoord($coord1, 27, 0, 17), 700, 0);
+        cam_movealong(0, 0, 50, 0, 1, 0);
+    case 52 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 61 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 33, 0, 30), 600, movecoord($coord1, 33, 0, 30), 600, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 33, 0, 30), 550, movecoord($coord1, 33, 0, 30), 550, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 24, 0, 33), 180, movecoord($coord1, 24, 0, 33), 180, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 24, 0, 33), 180, movecoord($coord1, 24, 0, 33), 180, 0);
+        cam_movealong(0, 0, 30, 0, 1, 0);
+    case 62 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 71 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 18, 1, 34), 1000, movecoord($coord1, 18, 1, 34), 1000, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 18, 1, 44), 1000, movecoord($coord1, 18, 1, 44), 1000, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 24, 1, 39), 800, movecoord($coord1, 24, 1, 39), 800, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 24, 1, 39), 700, movecoord($coord1, 24, 1, 39), 700, 0);
+        cam_movealong(0, 0, 80, 0, 1, 0);
+    case 72 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 81 :
+        ~tutorial3_fadein(50, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, movecoord($coord1, 15, 1, 18), 700, movecoord($coord1, 15, 1, 18), 700, 0);
+        spline_addpoint(0, 1, movecoord($coord1, 15, 1, 18), 700, movecoord($coord1, 15, 1, 18), 700, 0);
+        spline_addpoint(1, 0, movecoord($coord1, 24, 1, 30), 300, movecoord($coord1, 24, 1, 30), 300, 0);
+        spline_addpoint(1, 1, movecoord($coord1, 24, 1, 12), 600, movecoord($coord1, 24, 1, 12), 600, 0);
+        cam_movealong(0, 0, 300, 0, 1, 0);
+    case 82 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 999 :
+        ~tutorial3_fadeout(^black, 50, $component0);
+    case 1000 :
+        cam_inc_x;
+        ~tutorial3_fadein(50, $component0);
+    case default :
+        cam_inc_x;
+}

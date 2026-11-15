@@ -1,0 +1,41 @@
+// 4692
+[proc,clientscript_4692](component $component0, int $int1)
+def_component $component2 = interface_551:com_23;
+def_int $int3 = -1;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string2 = "";
+def_int $int6 = 0;
+switch_component ($component0) {
+    case interface_551:com_10 :
+        $int6 = 1;
+        $string1 = "Nothing breaks for 30 seconds.";
+    case interface_551:com_36 :
+        $int6 = 2;
+        $string1 = "Kill twice as many trolls when repairing things.";
+    case interface_551:com_50 :
+        $int6 = 3;
+        $string1 = "Fix twice as fast and counter-acts troll magic run energy effects.";
+    case interface_551:com_64 :
+        $int6 = 4;
+        $string1 = "Broken things don't hurt gatehouse health for 30 seconds.";
+    case default :
+        if_sethide($component2, true);
+        return;
+}
+if_settext(interface_551:com_29, enum(int, string, enum_3855, $int6));
+if_settext(interface_551:com_30, $string1);
+if_settext(interface_551:com_31, "Cost: <tostring(enum(int, int, enum_3856, $int6))>");
+$int5 = enum(int, int, enum_3857, $int6);
+if ($int5 = 50) {
+    $string2 = "30 sec";
+}
+if ($int5 = 100) {
+    $string2 = "1 min";
+}
+if_settext(interface_551:com_32, "Cooldown: <$string2>");
+if_setcolour($component0, 0x363536);
+if_setposition($component2, if_getx($component2), $int1, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide($component2, false);

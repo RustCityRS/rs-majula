@@ -1,0 +1,415 @@
+// 462:0
+[com_0]
+type=graphic
+x=21
+y=148
+width=88
+height=60
+graphic=tradebacking
+
+// 462:1
+[com_1]
+type=graphic
+x=86
+y=148
+width=88
+height=60
+graphic=tradebacking
+
+// 462:2
+[com_2]
+type=graphic
+x=21
+y=188
+width=88
+height=60
+graphic=tradebacking
+
+// 462:3
+[com_3]
+type=graphic
+x=86
+y=188
+width=88
+height=60
+graphic=tradebacking
+
+// 462:4
+[com_4]
+type=graphic
+x=21
+y=148
+width=25
+height=30
+graphic="steelborder,0"
+
+// 462:5
+[com_5]
+type=graphic
+x=149
+y=148
+width=25
+height=30
+graphic="steelborder,1"
+
+// 462:6
+[com_6]
+type=graphic
+x=153
+y=192
+width=36
+height=36
+graphic="steelborder2,1"
+
+// 462:7
+[com_7]
+type=graphic
+x=149
+y=218
+width=25
+height=30
+graphic="steelborder,3"
+
+// 462:8
+[com_8]
+type=graphic
+x=153
+y=168
+width=36
+height=36
+graphic="steelborder2,1"
+
+// 462:9
+[com_9]
+type=graphic
+x=46
+y=133
+width=36
+height=36
+graphic="steelborder2,0"
+
+// 462:10
+[com_10]
+type=graphic
+x=82
+y=133
+width=36
+height=36
+graphic="steelborder2,0"
+
+// 462:11
+[com_11]
+type=graphic
+x=114
+y=133
+width=36
+height=36
+graphic="steelborder2,0"
+
+// 462:12
+[com_12]
+type=graphic
+x=6
+y=173
+width=36
+height=36
+graphic="miscgraphics,2"
+
+// 462:13
+[com_13]
+type=graphic
+x=6
+y=203
+width=36
+height=36
+graphic="miscgraphics,2"
+
+// 462:14
+[com_14]
+type=graphic
+x=21
+y=218
+width=25
+height=30
+graphic="steelborder,2"
+
+// 462:15
+[com_15]
+type=graphic
+x=46
+y=227
+width=36
+height=36
+graphic="miscgraphics,3"
+
+// 462:16
+[com_16]
+type=graphic
+x=113
+y=227
+width=36
+height=36
+graphic="miscgraphics,3"
+
+// 462:17
+[com_17]
+type=graphic
+x=82
+y=227
+width=36
+height=36
+graphic="miscgraphics,3"
+
+// 462:18
+[slug2_text_paper_1]
+type=text
+x=64
+y=1
+width=65
+height=15
+layer=com_34
+textfont=p12_full
+text=Piece 1
+textshadow=yes
+colour=0xac8a24
+
+// 462:19
+[slug2_text_paper_2]
+type=text
+x=64
+y=1
+width=65
+height=14
+layer=com_35
+textfont=p12_full
+text=Piece 2
+textshadow=yes
+colour=0xac8a24
+
+// 462:20
+[slug2_text_paper_3]
+type=text
+x=64
+y=1
+width=65
+height=14
+layer=com_36
+textfont=p12_full
+text=Piece 3
+textshadow=yes
+colour=0xac8a24
+
+// 462:21
+[slug2_text_hide]
+type=text
+x=31
+y=157
+width=136
+height=15
+textfont=b12_full
+text=Show/Select
+textshadow=yes
+colour=0xac8a24
+
+// 462:22
+[slug2_select1]
+type=graphic
+x=70
+y=180
+width=36
+height=36
+graphic="miscgraphics,10"
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 462:23
+[slug2_select2]
+type=graphic
+x=70
+y=200
+width=36
+height=36
+graphic="miscgraphics,10"
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 462:24
+[slug2_select3]
+type=graphic
+x=70
+y=220
+width=36
+height=36
+graphic="miscgraphics,10"
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 462:25
+[slug2_hide1]
+type=graphic
+x=39
+y=180
+width=36
+height=36
+graphic="miscgraphics,10"
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 462:26
+[slug2_hide2]
+type=graphic
+x=39
+y=200
+width=36
+height=36
+graphic="miscgraphics,10"
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 462:27
+[slug2_hide3]
+type=graphic
+x=39
+y=220
+width=36
+height=36
+graphic="miscgraphics,10"
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+
+// 462:28
+[slug2_rotate_button]
+type=model
+x=76
+y=56
+width=41
+height=41
+model=model_18391
+modelangle=500,0,0
+modelzoom=1000
+transmitop=1
+op1=Rotate
+onmouseleave=deltooltip(slug2_ressembling_torn_paper_controll:com_38)
+onmouserepeat=addtooltip(event_com, slug2_ressembling_torn_paper_controll:com_38, "Rotate the piece", 25, 180)
+
+// 462:29
+[slug2_move_up]
+type=model
+x=76
+y=16
+width=41
+height=41
+model=model_18389
+modelangle=500,0,0
+modelzoom=1000
+transmitop=1
+op1=Move Up
+onmouseleave=deltooltip(slug2_ressembling_torn_paper_controll:com_38)
+onmouserepeat=addtooltip(event_com, slug2_ressembling_torn_paper_controll:com_38, "Move the piece up", 25, 180)
+
+// 462:30
+[slug2_move_right]
+type=model
+x=116
+y=55
+width=43
+height=42
+model=model_18389
+modelorigin=0,-1
+modelangle=500,500,0
+modelzoom=1000
+transmitop=1
+op1=Move Right
+onmouseleave=deltooltip(slug2_ressembling_torn_paper_controll:com_38)
+onmouserepeat=addtooltip(event_com, slug2_ressembling_torn_paper_controll:com_38, "Move the piece right", 25, 180)
+
+// 462:31
+[slug2_move_left]
+type=model
+x=37
+y=55
+width=41
+height=42
+model=model_18389
+modelorigin=0,-1
+modelangle=500,1530,0
+modelzoom=1000
+transmitop=1
+op1=Move Left
+onmouseleave=deltooltip(slug2_ressembling_torn_paper_controll:com_38)
+onmouserepeat=addtooltip(event_com, slug2_ressembling_torn_paper_controll:com_38, "Move the piece left", 25, 180)
+
+// 462:32
+[slug2_move_down]
+type=model
+x=76
+y=95
+width=41
+height=42
+model=model_18389
+modelorigin=0,-1
+modelangle=500,1015,0
+modelzoom=1000
+transmitop=1
+op1=Move Down
+onmouseleave=deltooltip(slug2_ressembling_torn_paper_controll:com_38)
+onmouserepeat=addtooltip(event_com, slug2_ressembling_torn_paper_controll:com_38, "Move the piece down", 25, 180)
+
+// 462:33
+[slug2_flip_button]
+type=model
+x=124
+y=103
+width=31
+height=30
+model=model_18390
+modelorigin=0,-1
+modelangle=500,1015,0
+modelzoom=1384
+transmitop=1
+op1=Flip Piece
+onmouseleave=deltooltip(slug2_ressembling_torn_paper_controll:com_38)
+onmouserepeat=addtooltip(event_com, slug2_ressembling_torn_paper_controll:com_38, "Flip the piece", 25, 180)
+
+// 462:34
+[com_34]
+type=layer
+x=38
+y=179
+width=150
+height=17
+
+// 462:35
+[com_35]
+type=layer
+x=38
+y=199
+width=150
+height=17
+
+// 462:36
+[com_36]
+type=layer
+x=38
+y=219
+width=150
+height=17
+
+// 462:37
+[com_37]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 462:38
+[com_38]
+type=layer
+width=5
+height=5
+layer=com_37

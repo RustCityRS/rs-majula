@@ -1,0 +1,61 @@
+// 747:0
+[topstat_lore]
+type=layer
+width=57
+height=34
+
+// 747:1
+[topstat_background_lore]
+type=graphic
+width=57
+height=34
+layer=topstat_lore
+graphic=graphic_1206
+
+// 747:2
+[topstat_circle_lore]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_lore
+graphic=graphic_1244
+
+// 747:3
+[com_3]
+type=graphic
+x=1
+y=1
+width=31
+height=31
+layer=topstat_lore
+graphic=graphic_1245
+tiling=yes
+onload=clientscript_815
+
+// 747:4
+[topstat_text_lore]
+type=text
+x=31
+y=15
+width=24
+height=14
+layer=topstat_lore
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xca9800
+onload=topstat_set_text_skill(event_com, summoning)
+onstattransmit=topstat_set_text_skill(event_com, summoning){summoning}
+
+// 747:5
+[topstat_graphic_lore]
+type=graphic
+x=6
+y=7
+width=20
+height=20
+layer=topstat_lore
+graphic=graphic_1200

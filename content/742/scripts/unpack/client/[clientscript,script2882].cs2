@@ -1,0 +1,10 @@
+// 2882
+[clientscript,script2882]
+if (%music_v3_protect = 1 | %cutscene_status = 1) {
+    return;
+}
+if (%playlist_mode = 0) {
+    ~addtooltip_action(music_v3:playlist_on, music_v3:music_tooltip_layer, "Playlist on", 25, 189);
+} else {
+    ~addtooltip_action(music_v3:playlist_on, music_v3:music_tooltip_layer, "Playlist off", 25, 189);
+}

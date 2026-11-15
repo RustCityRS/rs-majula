@@ -1,0 +1,452 @@
+// 5540
+[proc,clientscript_5540](int $int0, component $component1, component $component2, component $component3)(int)
+def_int $int4 = 0;
+if (%varclient_1725 = 1) {
+    if (map_members = false & (%varclient_1724 = 7 | %varclient_1724 = 8 | %varclient_1724 = 9 | %varclient_1724 = 10 | %varclient_1724 = 11 | %varclient_1724 = 13)) {
+        if_settext(interface_1178:com_81, "Members Item");
+    } else {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5350, %varclient_1724)));
+    }
+    switch_int ($int0) {
+        case 1 :
+            $int4 = %varplayerbit_10259;
+        case 2 :
+            $int4 = %varplayerbit_10260;
+        case 3 :
+            $int4 = %varplayerbit_10247;
+        case 4 :
+            $int4 = %varplayerbit_10261;
+        case 5 :
+            $int4 = %varplayerbit_10244;
+        case 6 :
+            $int4 = %varplayerbit_10262;
+        case 7 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10264;
+            }
+        case 8 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10275;
+            }
+        case 9 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10278;
+            }
+        case 10 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10280;
+            }
+        case 11 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10281;
+            }
+        case 12 :
+            $int4 = %varplayerbit_10245;
+        case 13 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10283;
+            }
+        case default :
+            $int4 = -1;
+    }
+    if ($int4 = 1) {
+        if_setgraphic($component2, enum(int, graphic, enum_5348, $int0));
+        if_setobject($component3, null, -1);
+    } else if ($int4 = 0) {
+        if_setgraphic($component2, enum(int, graphic, enum_5349, $int0));
+        if_setobject($component3, null, -1);
+    }
+} else if (%varclient_1725 = 2) {
+    if (map_members = false & (%varclient_1724 = 4 | %varclient_1724 = 8)) {
+        if_settext(interface_1178:com_81, "Members Item");
+    } else {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5353, %varclient_1724)));
+    }
+    switch_int ($int0) {
+        case 1 :
+            $int4 = %varplayerbit_10253;
+        case 2 :
+            $int4 = %varplayerbit_10254;
+        case 3 :
+            $int4 = %varplayerbit_10258;
+        case 4 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10277;
+            }
+        case 5 :
+            $int4 = %varplayerbit_10255;
+        case 6 :
+            $int4 = %varplayerbit_10256;
+        case 7 :
+            $int4 = %varplayerbit_10257;
+        case 8 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10279;
+            }
+        case default :
+            $int4 = -1;
+    }
+    if ($int4 = 1) {
+        if_setgraphic($component2, enum(int, graphic, enum_5351, $int0));
+        if_setobject($component3, null, -1);
+    } else if ($int4 = 0) {
+        if_setgraphic($component2, enum(int, graphic, enum_5352, $int0));
+        if_setobject($component3, null, -1);
+    }
+} else if (%varclient_1725 = 3) {
+    if (map_members = false & (%varclient_1724 = 2 | %varclient_1724 = 8 | %varclient_1724 = 9 | %varclient_1724 = 4 | %varclient_1724 = 11 | %varclient_1724 = 12 | %varclient_1724 = 13)) {
+        if_settext(interface_1178:com_81, "Members Item");
+    } else {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5356, %varclient_1724)));
+    }
+    switch_int ($int0) {
+        case 1 :
+            $int4 = %varplayerbit_10250;
+        case 2 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10268;
+            }
+        case 3 :
+            $int4 = %varplayerbit_10246;
+        case 4 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10267;
+            }
+        case 5 :
+            $int4 = %varplayerbit_10249;
+        case 6 :
+            $int4 = %varplayerbit_10251;
+        case 7 :
+            $int4 = %varplayerbit_10252;
+        case 8 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10265;
+            }
+        case 9 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10266;
+            }
+        case 10 :
+            $int4 = %varplayerbit_10248;
+        case 11 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10270;
+            }
+        case 12 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10269;
+            }
+        case 13 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10282;
+            }
+        case default :
+            $int4 = -1;
+    }
+    if ($int4 = 1) {
+        if_setgraphic($component2, enum(int, graphic, enum_5354, $int0));
+        if_setobject($component3, null, -1);
+    } else if ($int4 = 0) {
+        if_setgraphic($component2, enum(int, graphic, enum_5355, $int0));
+        if_setobject($component3, null, -1);
+    }
+} else if (%varclient_1725 = 4) {
+    if (map_members = false & (%varclient_1724 = 1 | %varclient_1724 = 2 | %varclient_1724 = 4 | %varclient_1724 = 5)) {
+        if_settext(interface_1178:com_81, "Members Item");
+    } else {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5359, %varclient_1724)));
+    }
+    switch_int ($int0) {
+        case 1 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10273;
+            }
+        case 2 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10271;
+            }
+        case 3 :
+            $int4 = %varplayerbit_10276;
+        case 4 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10272;
+            }
+        case 5 :
+            if (map_members = false) {
+                $int4 = 0;
+            } else {
+                $int4 = %varplayerbit_10274;
+            }
+        case default :
+            $int4 = -1;
+    }
+    if ($int4 = 1) {
+        if_setgraphic($component2, enum(int, graphic, enum_5357, $int0));
+        if_setobject($component3, null, -1);
+    } else if ($int4 = 0) {
+        if_setgraphic($component2, enum(int, graphic, enum_5358, $int0));
+        if_setobject($component3, null, -1);
+    }
+} else if (%varclient_1725 = 11) {
+    if (%varclient_1808 = 1) {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5732, %varplayerbit_4293)));
+    } else if (%varclient_1808 = 2) {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5733, %varplayerbit_11047)));
+    } else {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5731, %varclient_1808)));
+    }
+    switch_int ($int0) {
+        case 1 :
+            $int4 = %varplayerbit_4293;
+        case 2 :
+            $int4 = %varplayerbit_11047;
+        case 3 :
+            $int4 = %varplayerbit_11051;
+        case 4 :
+            $int4 = %varplayerbit_11048;
+        case 5 :
+            $int4 = %varplayerbit_11053;
+        case 6 :
+            $int4 = %varplayerbit_11050;
+        case 7 :
+            $int4 = %varplayerbit_11052;
+        case 8 :
+            $int4 = %varplayerbit_11049;
+        case default :
+            $int4 = -1;
+    }
+    if ($int4 >= 1) {
+        if ($int0 = 1) {
+            if_setgraphic($component2, enum(int, graphic, enum_335, $int4));
+            if_setobject($component3, null, -1);
+        } else if ($int0 = 2) {
+            if_setgraphic($component2, enum(int, graphic, enum_5729, $int4));
+            if_setobject($component3, null, -1);
+        } else {
+            if_setgraphic($component2, enum(int, graphic, enum_334, $int0));
+            if_setobject($component3, null, -1);
+        }
+    } else if ($int4 = 0) {
+        if_setgraphic($component2, enum(int, graphic, enum_5730, $int0));
+        if_setobject($component3, null, -1);
+    }
+} else if (%varclient_1725 = 12) {
+    if (%varclient_1808 < 1) {
+        if_settext(interface_1178:com_81, "Empty");
+    } else {
+        if_settext(interface_1178:com_81, oc_name(enum(int, obj, enum_5734, %varclient_1808)));
+    }
+    while ($int4 = 0) {
+        switch_int ($int0) {
+            case 1 :
+                $int4 = %varclient_1812;
+            case 2 :
+                $int4 = %varclient_1813;
+            case 3 :
+                $int4 = %varclient_1814;
+            case 4 :
+                $int4 = %varclient_1815;
+            case 5 :
+                $int4 = %varclient_1816;
+            case 6 :
+                $int4 = %varclient_1817;
+            case 7 :
+                $int4 = %varclient_1818;
+            case 8 :
+                $int4 = %varclient_1819;
+            case 9 :
+                $int4 = %varclient_1820;
+            case 10 :
+                $int4 = %varclient_1821;
+            case 11 :
+                $int4 = %varclient_1822;
+            case 12 :
+                $int4 = %varclient_1823;
+            case 13 :
+                $int4 = %varclient_1824;
+            case 14 :
+                $int4 = %varclient_1825;
+            case 15 :
+                $int4 = %varclient_1826;
+            case 16 :
+                $int4 = %varclient_1827;
+            case 17 :
+                $int4 = %varclient_1828;
+            case 18 :
+                $int4 = %varclient_1829;
+            case 19 :
+                $int4 = %varclient_1830;
+            case 20 :
+                $int4 = %varclient_1831;
+            case 21 :
+                $int4 = %varclient_1832;
+            case 22 :
+                $int4 = %varclient_1833;
+            case 23 :
+                $int4 = %varclient_1834;
+            case 24 :
+                $int4 = %varclient_1835;
+            case 25 :
+                $int4 = %varclient_1836;
+            case 26 :
+                $int4 = %varclient_1837;
+            case 27 :
+                $int4 = %varclient_1838;
+            case 28 :
+                $int4 = %varclient_1839;
+            case 29 :
+                $int4 = %varclient_1840;
+            case 30 :
+                $int4 = %varclient_1841;
+            case 31 :
+                $int4 = %varclient_1842;
+            case 32 :
+                $int4 = %varclient_1843;
+            case 33 :
+                $int4 = %varclient_1844;
+            case 34 :
+                $int4 = %varclient_1845;
+            case 35 :
+                $int4 = %varclient_1846;
+            case 36 :
+                $int4 = %varclient_1847;
+            case 37 :
+                $int4 = %varclient_1848;
+            case 38 :
+                $int4 = %varclient_1849;
+            case 39 :
+                $int4 = %varclient_1850;
+            case 40 :
+                $int4 = %varclient_1851;
+            case 41 :
+                $int4 = %varclient_1852;
+            case 42 :
+                $int4 = %varclient_1853;
+            case 43 :
+                $int4 = %varclient_1854;
+            case 44 :
+                $int4 = %varclient_1855;
+            case 45 :
+                $int4 = %varclient_1856;
+            case 46 :
+                $int4 = %varclient_1857;
+            case 47 :
+                $int4 = %varclient_1858;
+            case 48 :
+                $int4 = %varclient_1859;
+            case 49 :
+                $int4 = %varclient_1860;
+            case 50 :
+                $int4 = %varclient_1861;
+            case 51 :
+                $int4 = %varclient_1862;
+            case 52 :
+                $int4 = %varclient_1863;
+            case 53 :
+                $int4 = %varclient_1864;
+            case 54 :
+                $int4 = %varclient_1865;
+            case 55 :
+                $int4 = %varclient_1866;
+            case 56 :
+                $int4 = %varclient_1867;
+            case 57 :
+                $int4 = %varclient_1868;
+            case 58 :
+                $int4 = %varclient_1869;
+            case 59 :
+                $int4 = %varclient_1870;
+            case 60 :
+                $int4 = %varclient_1871;
+            case 61 :
+                $int4 = %varclient_1872;
+            case 62 :
+                $int4 = %varclient_1873;
+            case 63 :
+                $int4 = %varclient_1874;
+            case 64 :
+                $int4 = %varclient_1875;
+            case default :
+                $int4 = -1;
+        }
+        if ($int4 = 0) {
+            if ($int0 < %varclient_1808) {
+                $int0 = calc($int0 - 1);
+            } else if ($int0 >= %varclient_1808) {
+                $int0 = calc($int0 + 1);
+            }
+        }
+    }
+    if ($int4 = 1) {
+        if_setobject($component3, enum(int, obj, enum_5734, $int0), -1);
+        if_setgraphic($component2, null);
+    } else if ($int4 = 0) {
+        if_setgraphic($component2, null);
+    }
+} else {
+    if_settext(interface_1178:com_81, "");
+    if_sethide($component1, false);
+    if_sethide($component2, false);
+    if_sethide($component3, false);
+    if_setgraphic($component1, null);
+    if_setgraphic($component2, null);
+    return(-1);
+}
+if ($int4 >= 1) {
+    if_sethide($component1, false);
+    if_sethide($component2, false);
+    if_sethide($component3, false);
+    if_setgraphic($component1, 8754);
+} else if ($int4 = 0) {
+    if_sethide($component1, false);
+    if_sethide($component2, false);
+    if_sethide($component3, false);
+    if_setgraphic($component1, 8756);
+} else {
+    if_sethide($component1, true);
+    if_sethide($component2, true);
+    if_sethide($component3, true);
+    if_setgraphic($component1, null);
+    if_setgraphic($component2, null);
+}
+if ($int4 >= 0) {
+    return($int0);
+} else {
+    return(-1);
+}

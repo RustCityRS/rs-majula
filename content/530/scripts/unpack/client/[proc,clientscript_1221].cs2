@@ -1,0 +1,153 @@
+// 1221
+[proc,clientscript_1221](int $key0, char $char1)
+if (%loginscreen_focus = 6) {
+    return;
+}
+if (%loginscreen_focus = 7 & $key0 = 13) {
+    ~clientscript_723(0);
+    return;
+}
+if (%loginscreen_focus = 0) {
+    if ($key0 = 84) {
+        if (if_gethide(loginscreen:com_226) = false) {
+            ~clientscript_1174(loginscreen:com_241);
+        }
+        return;
+    }
+    if ($key0 = 13 & if_gethide(loginscreen:com_226) = true) {
+        ~clientscript_1174(loginscreen:com_226);
+    }
+    return;
+}
+if (%loginscreen_focus = 1) {
+    if (login_reply = -3 | login_reply = 21 | login_reply = 1) {
+        return;
+    }
+    if ($key0 = 84 | $key0 = 80) {
+        if (%loginscreen_focustime >= clientclock) {
+            return;
+        }
+        %loginscreen_focus = 2;
+        %loginscreen_focustime = clientclock;
+        return;
+    }
+    if ($key0 = 13) {
+        ~clientscript_1174(loginscreen:com_226);
+        return;
+    }
+    if (string_length(%varclient_664) >= 12 & $key0 ! 85) {
+        return;
+    }
+    %varclient_664 = removetags(~clientscript_74(%varclient_664, 0, $key0, $char1));
+    if_settext(loginscreen:username, %varclient_664);
+    return;
+}
+if (%loginscreen_focus = 3) {
+    if (create_reply = -3) {
+        return;
+    }
+    if ($key0 = 13) {
+        ~clientscript_1174(loginscreen:com_226);
+        return;
+    }
+    if (string_length(%varclient_666) >= 12 & $key0 ! 85) {
+        return;
+    }
+    %varclient_666 = removetags(~clientscript_74(%varclient_666, 0, $key0, $char1));
+    if_settext(loginscreen:com_394, %varclient_666);
+    return;
+}
+def_string $string0 = "";
+def_int $int2 = 0;
+if (%loginscreen_focus = 2) {
+    if (login_reply = -3 | login_reply = 21 | login_reply = 1) {
+        return;
+    }
+    if ($key0 = 84) {
+        if (%loginscreen_focustime >= clientclock) {
+            return;
+        }
+        %loginscreen_focustime = clientclock;
+        ~clientscript_1183;
+        return;
+    }
+    if ($key0 = 80) {
+        if (%loginscreen_focustime >= clientclock) {
+            return;
+        }
+        %loginscreen_focus = 1;
+        %loginscreen_focustime = clientclock;
+        return;
+    }
+    if ($key0 = 13) {
+        ~clientscript_1174(loginscreen:com_226);
+        return;
+    }
+    if (string_length(%varclient_665) >= 20 & $key0 ! 85) {
+        return;
+    }
+    %varclient_665 = ~clientscript_74(%varclient_665, 0, $key0, $char1);
+    $int2 = string_length(%varclient_665);
+    while ($int2 > 0) {
+        $string0 = append($string0, "*");
+        $int2 = calc($int2 - 1);
+    }
+    if_settext(loginscreen:password, $string0);
+    return;
+}
+if (%loginscreen_focus = 4) {
+    if (create_reply = -3) {
+        return;
+    }
+    if ($key0 = 84 | $key0 = 80) {
+        if (%loginscreen_focustime >= clientclock) {
+            return;
+        }
+        %loginscreen_focustime = clientclock;
+        %loginscreen_focus = 5;
+        return;
+    }
+    if ($key0 = 13) {
+        ~clientscript_1174(loginscreen:com_226);
+        return;
+    }
+    if (string_length(%varclient_667) >= 20 & $key0 ! 85) {
+        return;
+    }
+    %varclient_667 = ~clientscript_74(%varclient_667, 0, $key0, $char1);
+    $int2 = string_length(%varclient_667);
+    while ($int2 > 0) {
+        $string0 = append($string0, "*");
+        $int2 = calc($int2 - 1);
+    }
+    if_settext(loginscreen:com_421, $string0);
+    return;
+}
+if (%loginscreen_focus = 5) {
+    if (create_reply = -3) {
+        return;
+    }
+    if ($key0 = 80) {
+        if (%loginscreen_focustime >= clientclock) {
+            return;
+        }
+        %loginscreen_focustime = clientclock;
+        %loginscreen_focus = 4;
+        return;
+    }
+    if ($key0 = 13) {
+        ~clientscript_1174(loginscreen:com_226);
+        return;
+    }
+    if (string_length(%varclient_668) >= 20 & $key0 ! 85) {
+        return;
+    }
+    %varclient_668 = ~clientscript_74(%varclient_668, 0, $key0, $char1);
+    $int2 = string_length(%varclient_668);
+    while ($int2 > 0) {
+        $string0 = append($string0, "*");
+        $int2 = calc($int2 - 1);
+    }
+    if_settext(loginscreen:com_426, $string0);
+    return;
+}

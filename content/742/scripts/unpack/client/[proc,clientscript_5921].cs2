@@ -1,0 +1,10 @@
+// 5921
+[proc,clientscript_5921]
+def_component $component0 = interface_1253:com_31;
+def_component $component1 = interface_1253:com_178;
+if_setposition($component1, 118, -16, ^setpos_abs_centre, ^setpos_abs_centre);
+if_sethide($component0, true);
+if_sethide($component1, false);
+if_setontimer($component1, "clientscript_5922(event_com, 118)");
+%varclient_1784 = 0;
+sound_vorbis_rate(~clientscript_5996(9882));

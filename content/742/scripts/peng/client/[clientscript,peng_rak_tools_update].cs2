@@ -1,0 +1,39 @@
+// 2415
+[clientscript,peng_rak_tools_update]
+if_setmodel(peng_rak_engine:wrench, model_46997);
+if_setmodel(peng_rak_engine:wirecutter, model_46976);
+if_setmodel(peng_rak_engine:sparewire, model_46974);
+if_setmodel(peng_rak_engine:tape, model_46995);
+if_setmodel(peng_rak_engine:bellows, model_46986);
+if_setmodel(peng_rak_engine:swordfish, model_46987);
+if_setmodel(peng_rak_engine:crab, model_46978);
+if_setmodel(peng_rak_engine:sharktooth, model_46990);
+if_setmodel(peng_rak_engine:eel, model_46991);
+if_setmodel(peng_rak_engine:seaweed, model_46993);
+if_setmodel(peng_rak_engine:blowfish, model_46977);
+if_setmodel(peng_rak_engine:octopus, model_46975);
+if (%peng_rak_eng_tools = 1) {
+    if_setmodel(peng_rak_engine:wrench, model_46982);
+} else if (%peng_rak_eng_tools = 2) {
+    if_setmodel(peng_rak_engine:wirecutter, model_46979);
+} else if (%peng_rak_eng_tools = 3) {
+    if_setmodel(peng_rak_engine:sparewire, model_46989);
+} else if (%peng_rak_eng_tools = 4) {
+    if_setmodel(peng_rak_engine:tape, model_46981);
+} else if (%peng_rak_eng_tools = 5) {
+    if_setmodel(peng_rak_engine:bellows, model_46996);
+} else if (%peng_rak_eng_tools = 6) {
+    if_setmodel(peng_rak_engine:swordfish, model_46983);
+} else if (%peng_rak_eng_tools = 7) {
+    if_setmodel(peng_rak_engine:crab, model_46980);
+} else if (%peng_rak_eng_tools = 8) {
+    if_setmodel(peng_rak_engine:sharktooth, model_46984);
+} else if (%peng_rak_eng_tools = 9) {
+    if_setmodel(peng_rak_engine:eel, model_46992);
+} else if (%peng_rak_eng_tools = 10) {
+    if_setmodel(peng_rak_engine:seaweed, model_46994);
+} else if (%peng_rak_eng_tools = 11) {
+    if_setmodel(peng_rak_engine:blowfish, model_46985);
+} else if (%peng_rak_eng_tools = 12) {
+    if_setmodel(peng_rak_engine:octopus, model_46988);
+}

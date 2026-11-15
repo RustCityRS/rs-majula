@@ -1,0 +1,7 @@
+// From 289's crest_chronozon.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,chronozon_weaken](int $used)
+%crest_spells_levers_gauntlets = setbit(%crest_spells_levers_gauntlets, $used);
+// Message is shown multiple times for repeated casts of the same spell
+// https://youtu.be/AKFPNpw2ROQ?t=76
+mes("Chronozon weakens...");

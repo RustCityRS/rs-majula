@@ -1,0 +1,12 @@
+// 5184
+[proc,clientscript_5184]
+~clientscript_5192;
+~clientscript_5190(1, 0);
+switch_int (%varplayerbit_9646) {
+    case 1 :
+        if_settext(interface_1122:com_65, "Lumbridge herald cape");
+    case 2 :
+        if_settext(interface_1122:com_65, "Varrock herald cape");
+    case 3 :
+        if_settext(interface_1122:com_65, "Falador herald cape");
+}

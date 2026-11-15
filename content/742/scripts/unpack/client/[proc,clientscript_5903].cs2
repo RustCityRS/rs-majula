@@ -1,0 +1,62 @@
+// 5903
+[proc,clientscript_5903]
+def_int $int0 = calc(%varplayerbit_11155 - 1);
+if ($int0 < 0) {
+    return;
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_component $component4 = null;
+def_component $component5 = null;
+while ($int1 < 13) {
+    $int2 = calc($int1 - $int0);
+    if ($int2 < 0) {
+        $int2 = calc($int2 + 13);
+    }
+    $component4 = ~clientscript_5935($int1);
+    $component5 = ~clientscript_5933($int1);
+    if_setgraphic($component5, ~clientscript_6267(9801));
+    if_setsize($component5, 55, 55, ^setsize_abs, ^setsize_abs);
+    if_setposition($component5, 0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+    if_settiling($component5, true);
+    switch_int ($int2) {
+        case 0 :
+            $int3 = 349;
+            if_setgraphic($component5, ~clientscript_6267(9882));
+            if_setsize($component5, 55, 77, ^setsize_abs, ^setsize_abs);
+            %varclient_1789 = $int1;
+            if_setposition(interface_1253:com_162, $int3, if_gety(interface_1253:com_162), ^setpos_abs_left, ^setpos_abs_top);
+            if_setposition($component5, 0, -3, ^setpos_abs_left, ^setpos_abs_bottom);
+        case 1 :
+            $int3 = 407;
+        case 2 :
+            $int3 = 465;
+        case 3 :
+            $int3 = 523;
+        case 4 :
+            $int3 = 581;
+        case 5 :
+            $int3 = 639;
+        case 6 :
+            $int3 = 697;
+        case 7 :
+            $int3 = -1;
+        case 8 :
+            $int3 = 57;
+        case 9 :
+            $int3 = 116;
+        case 10 :
+            $int3 = 174;
+        case 11 :
+            $int3 = 232;
+        case 12 :
+            $int3 = 290;
+    }
+    if_setposition($component4, $int3, if_gety($component4), ^setpos_abs_left, ^setpos_abs_top);
+    $int1 = calc($int1 + 1);
+}
+if (if_gethide(interface_1253:com_34) = true & %varplayerbit_10861 > 0) {
+    ~clientscript_5892;
+    ~clientscript_5890(%varplayerbit_10860);
+}

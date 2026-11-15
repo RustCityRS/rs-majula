@@ -1,0 +1,13 @@
+// 3164
+[clientscript,lobbyscreen_pane_clanchat_build](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if (activeclanchannel_find_affined = true) {
+    ~lobbyscreen_pane_clanchat_build($component0, $component1, $component2, $component3, $component4, $component5);
+    if (if_gethide(lobbyscreen:clanchat_panel) = false) {
+        ~script3161(1);
+    } else {
+        ~script3161(0);
+    }
+} else {
+    ~lobbyscreen_pane_clanchat_clear($component0, $component1, $component2, $component3, $component4, $component5);
+    ~script3161(0);
+}

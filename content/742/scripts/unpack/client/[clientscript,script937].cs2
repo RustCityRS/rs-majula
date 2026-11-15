@@ -1,0 +1,29 @@
+// 937
+[clientscript,script937]
+cc_deleteall(trademain:other_offer_layer_back);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 4;
+def_int $int3 = 7;
+if (if_getscrollwidth(trademain:other_offer_layer_back) > 0) {
+    $int0 = calc((if_getscrollwidth(trademain:other_offer_layer_back) - 36 * $int2) / ($int2 - 1));
+} else {
+    $int0 = calc((if_getwidth(trademain:other_offer_layer_back) - 36 * $int2) / ($int2 - 1));
+}
+if (if_getscrollheight(trademain:other_offer_layer_back) > 0) {
+    $int1 = calc((if_getscrollheight(trademain:other_offer_layer_back) - 32 * $int3) / ($int3 - 1));
+} else {
+    $int1 = calc((if_getheight(trademain:other_offer_layer_back) - 32 * $int3) / ($int3 - 1));
+}
+def_int $int4 = 0;
+def_int $int5 = -1;
+while ($int4 < inv_size(tradeoffer)) {
+    cc_create(trademain:other_offer_layer_back, ^iftype_rectangle, $int4);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((36 + $int0) * ($int4 % $int2)), calc($int4 / $int2 * (32 + $int1)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_setcolour(^red);
+    cc_settrans(255);
+    $int4 = calc($int4 + 1);
+}
+if_setoninvtransmit(trademain:other_offer_layer_back, "script938{tradeoffer}");
