@@ -1,0 +1,29 @@
+// The incinerator (289's quests/quest_sheepherder/scripts/locs/sheepherder_furnace.rs2),
+// line for line. 289's human_furnace keeps its id, seq 899, named seq_899 at
+// 647, and its sound is synth 2725 as smelting has them
+// (skill_smithing/scripts/smelting/smelting.rs2).
+[oplocu,plaguesheep_furnace]
+if (last_useitem = sheepbonesa) {
+    @incinerate_bones(last_useitem, 1);
+} else if (last_useitem = sheepbonesb) {
+    @incinerate_bones(last_useitem, 4);
+} else if (last_useitem = sheepbonesc) {
+    @incinerate_bones(last_useitem, 7);
+} else if (last_useitem = sheepbonesd) {
+    @incinerate_bones(last_useitem, 10);
+} else if (oc_category(last_useitem) = category_91) {
+    ~mesbox("This is a special incinerator for hazardous waste.|It is not suitable for crafting or smithing.");
+} else {
+    mes("Nothing interesting happens.");
+}
+
+// The bones come as an argument: runec does not carry last_useitem into a label.
+[label,incinerate_bones](obj $bones, int $starting_bit) {
+    anim(seq_899, 0);
+    sound_synth(furnace, 1, 0);
+    mes("You put the remains into the furnace.");
+    inv_del(inv, $bones, 1);
+    p_delay(3);
+    mes("The remains burn to dust.");
+    %sheepherdervar = setbit_range_toint(%sheepherdervar, 6, $starting_bit, calc($starting_bit + 2));
+}

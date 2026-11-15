@@ -1,0 +1,31 @@
+// 289's rows. sheep_in_pen_coord is where cache 786 spawns each sheep's
+// herder_plaguesheep_N_enclosure npc (maps/n40_52.jm2), the player's own
+// sheep in the pen: 289's first two stood a tile off (_36_34, _37_35).
+[herder_plaguesheep_1]
+table=sheep_table
+data=sheep_type,plaguesheep_1
+data=sheep_in_pen_coord,0_40_52_37_34
+data=sheep_start_bit,1
+data=sheep_bones,sheepbonesa
+
+[herder_plaguesheep_2]
+table=sheep_table
+data=sheep_type,plaguesheep_2
+data=sheep_in_pen_coord,0_40_52_38_33
+data=sheep_start_bit,4
+data=sheep_bones,sheepbonesb
+
+[herder_plaguesheep_3]
+table=sheep_table
+data=sheep_type,plaguesheep_3
+data=sheep_in_pen_coord,0_40_52_37_32
+data=sheep_start_bit,7
+data=sheep_bones,sheepbonesc
+
+[herder_plaguesheep_4]
+table=sheep_table
+data=sheep_type,plaguesheep_4
+data=sheep_in_pen_coord,0_40_52_36_31
+data=sheep_start_bit,10
+data=sheep_bones,sheepbonesd
+
