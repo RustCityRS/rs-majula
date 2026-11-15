@@ -16,6 +16,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -54,7 +55,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -64,7 +65,7 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 fn login(engine: &mut Engine, name: &str, stage: i32) -> HarnessClient {
@@ -169,7 +170,7 @@ fn op_loc1(
     let loc = id(engine, "loc", loc);
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -186,13 +187,13 @@ fn use_on_loc(
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
     let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj) as i32)
+    p.p2_alt2(id(engine, "obj", obj).int())
         .p2_alt2(slot)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
         .p2_alt2(x as i32)
         .p1_alt1(0)
-        .p2_alt1(id(engine, "loc", loc) as i32);
+        .p2_alt1(id(engine, "loc", loc).int());
     client.send(ClientProt::OpLocT, &p.finish());
     converse(engine, client, &[], 12)
 }
@@ -300,7 +301,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> String {
     plain
 }
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let map = match kind {
         "obj" => &engine.cache.objs.debugnames,
         "npc" => &engine.cache.npcs.debugnames,
@@ -460,7 +461,7 @@ fn morris_wants_the_pass_at_the_gate() {
             let loc = id(engine, "loc", "fishinggateclosedl");
             let mut p = ClientPacket::new();
             p.p2_alt1(GATE.1 as i32)
-                .p2_alt1(loc as i32)
+                .p2_alt1(loc.int())
                 .p1(0)
                 .p2_alt2(GATE.0 as i32);
             client.send(ClientProt::OpLoc1, &p.finish());
@@ -634,7 +635,7 @@ fn the_garlic_wins_the_contest() {
             let loc = id(engine, "loc", "garlicpipe");
             let mut p = ClientPacket::new();
             p.p2_alt1(PIPE.1 as i32)
-                .p2_alt1(loc as i32)
+                .p2_alt1(loc.int())
                 .p1(0)
                 .p2_alt2((PIPE.0 - 1) as i32);
             client.send(ClientProt::OpLoc1, &p.finish());
