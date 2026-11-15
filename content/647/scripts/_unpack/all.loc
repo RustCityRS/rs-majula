@@ -38906,6 +38906,8 @@ model=1,model_27408
 name=Gate
 cursor1=1,cursor_open
 desc=A sturdy metal gate.
+// 289's other form, which its script opens it by.
+param=next_loc_stage,inacpip_underground_door
 
 // 3445
 [pip_underground_door2]
@@ -38925,6 +38927,8 @@ model=1,model_27408
 name=Gate
 cursor1=1,cursor_open
 desc=A sturdy metal gate.
+// 289's other form, which its script opens it by.
+param=next_loc_stage,inacpip_underground_door
 
 // 3446
 [inacpip_underground_door]
@@ -38979,6 +38983,9 @@ model=1,model_27408
 name=Cell door
 cursor1=1,cursor_open
 desc=A hastily constructed yet sturdy prison door.
+// 289's category and other form, which its script opens it by.
+category=door_open_and_close
+param=next_loc_stage,inactive_pipprisondoor
 
 // 3464
 [inactive_pipprisondoor]
@@ -364339,6 +364346,9 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=960
 desc=Sturdy looking door.
+// 289's priestperiltempledoorl's category, and cache 786's open form of this door, which the temple doors' script opens it by.
+category=double_door_open_and_close_left
+param=next_loc_stage,inactive_fai_morytania_doorl
 
 // 30708
 [large_door_30708]
@@ -364353,6 +364363,9 @@ cursor1=1,cursor_open
 occlude=yes
 unknown170=960
 desc=Sturdy looking door.
+// 289's priestperiltempledoorr's category, and cache 786's open form of this door, which the temple doors' script opens it by.
+category=double_door_open_and_close_right
+param=next_loc_stage,inactive_fai_morytania_door
 
 // 30709
 [inactive_fai_morytania_doorl]

@@ -1429,7 +1429,10 @@ transmit=yes
 scope=perm
 
 // 303
-[varplayer_303]
+[priestperilvar]
+// 289's priestperilvar (the mausoleum monuments' layout and swaps) on its own id, 303: cache 786
+// does not transmit varp 303 and no 647 content read it.
+scope=perm
 
 // 304
 [bankinsert]
