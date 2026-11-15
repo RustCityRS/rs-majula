@@ -12,6 +12,7 @@ use rs_test::runner;
 #[cfg(since_647)]
 use rs_test::talk::explore;
 use rs_test::talk::{converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
@@ -93,6 +94,8 @@ fn visit(engine: &mut Engine, npc: &str, stage: i32, key: i32) -> HarnessClient 
         engine.cycle();
     }
     let (nid, x, y, z) = beside(engine, npc);
+    // Draynor jail's guards hunt every player; a swing on the talk tick turns it into a fight.
+    world::calm(engine, x, z, 12);
     engine.harness_telejump(client.pid, x, y, z);
     let player = engine.harness_player_mut(client.pid).unwrap();
     player.vars.set(quest, VarValue::Int(stage));

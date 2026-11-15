@@ -32,7 +32,8 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
             .find(|n| {
                 let c = n.npc.pathing.coord;
                 n.npc.uid.id() == TypeId::new(COW)
-                    && (3254..3265).contains(&c.x())
+                    // The player stands 2 west: the field's west fence is on x = 3252.
+                    && (3256..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
                     && n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS
             })
@@ -71,17 +72,19 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
         client.op_npc(2, nid);
         let mut on_cow = Vec::new();
         // Ticks where a recoil landed with no bite on the player in that same tick.
+        // A bite's own damage call, not the life total: regen can refill a bite of 1 that tick.
         let mut late = Vec::new();
-        let life = |engine: &rs_engine::Engine, pid| life::get(engine, pid);
         for tick in 0..80 {
-            let before = life(engine, client.pid);
             engine.cycle();
             client.packets();
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
+            let bit = calls_for("damage")
+                .iter()
+                .any(|a| a.split(',').nth(1).and_then(|v| v.parse::<i32>().ok()) > Some(0));
             let calls = calls_for("npc_damage");
-            if calls.iter().any(|a| a.starts_with("4,")) && life(engine, client.pid) >= before {
+            if calls.iter().any(|a| a.starts_with("4,")) && !bit {
                 late.push(tick);
             }
             on_cow.extend(calls);

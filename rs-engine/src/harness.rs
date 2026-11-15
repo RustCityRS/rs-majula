@@ -954,9 +954,14 @@ impl Engine {
 
     /// Registers the `#testscript` commands on this engine and turns the
     /// call log on. Without this, a test command is an unknown opcode.
+    ///
+    /// Also stops the 500-tick AFK random-event roll: the reset clock starts
+    /// at 0, so every test's first tick would roll it, and skilling scripts
+    /// then spawn an event instead of their product.
     pub fn harness_enable_tests(&mut self) {
         self.ops.extend(ops());
         test::set_recording(true);
+        self.afk_events = false;
     }
 
     /// Returns the world to its just-started state between tests: every

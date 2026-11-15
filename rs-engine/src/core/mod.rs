@@ -180,6 +180,7 @@ pub struct Engine {
     pub logs: LogBatch,
     pub script_errors: ScriptErrors,
     pub random: JavaRandom,
+    pub afk_events: bool,
     pub vars: VarSet,
     pub(crate) reusable_script: Option<ScriptState>,
 }
@@ -367,6 +368,7 @@ impl Engine {
             logs: LogBatch::default(),
             script_errors: ScriptErrors::default(),
             random: JavaRandom::new(1084838400000),
+            afk_events: true,
             vars,
             reusable_script: None,
         };

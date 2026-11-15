@@ -19,3 +19,5 @@ pub mod runner;
 pub mod server;
 #[cfg(since_530)]
 pub mod talk;
+#[cfg(since_530)]
+pub mod world;

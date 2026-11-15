@@ -200,11 +200,21 @@ fn the_sextant_moves_on_2011s_coordinates() {
         assert_eq!(sx, 409, "{moved:?}");
         assert!((131 - 60..=131 + 58).contains(&sy), "{moved:?}");
 
-        // Tilt Down: the horizon 7 lower, the sun 2 higher.
-        client.if_button(1, tilt_down(), 0xFFFF, TypeId::NULL);
+        // Tilt Down: the horizon 7 lower, the sun 2 higher. The sextant opens on a random frame,
+        // and on the last one (horizon at 33 + 42) only the other button moves it, back.
+        let (button, step) = if hy < 33 + 42 {
+            (tilt_down(), 1)
+        } else {
+            (com("trail_sextant:sextant_tilt_down"), -1)
+        };
+        client.if_button(1, button, 0xFFFF, TypeId::NULL);
         let moved = positions(&ticks(engine, &mut client, 2));
-        assert_eq!(at(&moved, horizon()), Some((370, hy + 7)), "{moved:?}");
-        assert_eq!(at(&moved, sun()), Some((409, sy - 2)), "{moved:?}");
+        assert_eq!(
+            at(&moved, horizon()),
+            Some((370, hy + 7 * step)),
+            "{moved:?}"
+        );
+        assert_eq!(at(&moved, sun()), Some((409, sy - 2 * step)), "{moved:?}");
     });
 }
 

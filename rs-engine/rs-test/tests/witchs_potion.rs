@@ -11,6 +11,7 @@ use rs_engine::harness::HarnessClient;
 use rs_test::runner;
 use rs_test::server;
 use rs_test::talk::{converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
@@ -46,11 +47,7 @@ fn hetty(engine: &Engine) -> (u16, u16, u16) {
             )
         })
         .expect("Hetty is spawned");
-    let (sx, sz) = [(1i16, 0i16), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1)]
-        .into_iter()
-        .map(|(dx, dz)| (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz)))
-        .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
-        .expect("a walkable tile beside Hetty");
+    let (sx, sz) = world::beside(0, x, z).expect("a tile beside Hetty");
     (nid, sx, sz)
 }
 

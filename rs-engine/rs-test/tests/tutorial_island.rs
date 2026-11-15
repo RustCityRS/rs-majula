@@ -469,8 +469,8 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
 
 /// 289's tutorial rat (tutorial/scripts/npcs/tut_giant_rat.rs2) bites with
 /// 2011's melee mark, as every npc melee hit paints (hitmark.rs2), not the
-/// plain mark a bare damage gets. Fought for 60 ticks, every bite it paints
-/// is a melee hit, its crit or a miss, and at least one lands.
+/// plain mark a bare damage gets. Fought until a bite lands, every bite it
+/// paints is a melee hit, its crit or a miss.
 #[test]
 fn the_tutorial_rat_bites_with_the_melee_mark() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -490,9 +490,11 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
         set_recording(true);
         forget_calls();
         client.op_npc(2, rat);
-        let mut bites = Vec::new();
+        let mut bites: Vec<(i32, i32)> = Vec::new();
         let mut said = Vec::new();
-        for tick in 0..60 {
+        // 530's rat hits for 0 or 1 hitpoint, so a swing lands damage about 3 times in 10.
+        let landed = |(mark, amount): &(i32, i32)| (*mark == 0 || *mark == 10) && *amount > 0;
+        for tick in 0..300 {
             engine.cycle();
             for (_, m) in HarnessClient::game_messages(&client.packets()) {
                 said.push(m);
@@ -505,6 +507,9 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
                 bites.push((parts[0], parts[1]));
             }
             forget_calls();
+            if bites.iter().any(landed) {
+                break;
+            }
         }
         set_recording(false);
         assert!(
@@ -512,9 +517,7 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
             "melee, its crit or a miss: {bites:?}"
         );
         assert!(
-            bites
-                .iter()
-                .any(|(mark, amount)| (*mark == 0 || *mark == 10) && *amount > 0),
+            bites.iter().any(landed),
             "a bite lands: {bites:?}; said {said:?}; rat hp {:?}",
             engine
                 .get_npc(rat)
@@ -548,6 +551,9 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
         client.op_npc(2, rat);
         let mut bites = Vec::new();
         for tick in 0..40 {
+            // Held on the last hitpoint: the 10-tick regen would lift the player off it, and a bite
+            // could then kill.
+            life::set(engine.harness_player_mut(pid).unwrap(), life::SCALE);
             let before = life::get(engine, pid);
             engine.cycle();
             client.packets();

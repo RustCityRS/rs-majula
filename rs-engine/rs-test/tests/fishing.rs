@@ -25,6 +25,7 @@
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::server;
 use rs_ver::TypeId;
@@ -81,7 +82,11 @@ fn a_2011_spot_gives_shrimps() {
 
         client.op_npc(1, nid);
         let mut said = Vec::new();
-        for _ in 0..150 {
+        // Fishing 1 catches a shrimp 49 times in 256, a roll every 6 ticks.
+        for tick in 0..600 {
+            if tick % 20 == 19 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
             engine.cycle();
             said.extend(
                 HarnessClient::game_messages(&client.packets())

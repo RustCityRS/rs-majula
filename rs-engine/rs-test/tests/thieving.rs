@@ -36,6 +36,7 @@ use rs_protocol::network::game::client_prot::ClientProt;
 #[cfg(since_647)]
 use rs_test::life;
 use rs_test::runner;
+use rs_test::world;
 use rs_ver::TypeId;
 use std::fs;
 use std::ops::RangeInclusive;
@@ -136,9 +137,18 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
             .find(|(_, id, _)| LUMBRIDGE_MEN.contains(&id.g2()))
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
             .expect("a man of Lumbridge");
-        let mut client = thief(engine, "pickpocket", x + 1, z);
-        client.op_npc(3, nid);
-        let said = run(engine, &mut client, 20, |e, pid| count(e, pid, "coins") > 0);
+        let (tx, tz) = world::beside(0, x, z).expect("a tile beside the man");
+        let mut client = thief(engine, "pickpocket", tx, tz);
+        // 99 Thieving pockets a man 241 times in 256 (success_chance 180,240); a failure stuns
+        // for 8 ticks, then the thief tries again.
+        let mut said = Vec::new();
+        for _ in 0..8 {
+            client.op_npc(3, nid);
+            said = run(engine, &mut client, 20, |e, pid| count(e, pid, "coins") > 0);
+            if count(engine, client.pid, "coins") > 0 {
+                break;
+            }
+        }
         assert_eq!(
             count(engine, client.pid, "coins"),
             3,

@@ -86,6 +86,13 @@ fn load_engine_inner(pack_cache: bool, compile_tests: bool) -> anyhow::Result<En
         ether_rx, None, db_rx,
     );
     engine.harness_enable_tests();
+    // RS_TEST_SEED starts the engine's random elsewhere, to check a test leans on no one roll.
+    if let Some(seed) = std::env::var("RS_TEST_SEED")
+        .ok()
+        .and_then(|s| s.parse().ok())
+    {
+        engine.random = rs_util::random::JavaRandom::new(seed);
+    }
     Ok(engine)
 }
 

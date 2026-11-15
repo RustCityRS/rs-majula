@@ -13,6 +13,7 @@ use rs_test::life;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
@@ -954,6 +955,11 @@ fn crandor_s_hole_rope_wall_and_secret_door() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "crandor");
+        // Skeletons by the rope's landing, a giant skeleton at the wall and a lesser demon by the
+        // secret door hunt the player, on ticks their wander rolls decide.
+        for (x, z) in [(2833, 9658), (2845, 9635), (2836, 9600)] {
+            world::calm(engine, x, z, 12);
+        }
         tele(engine, &mut client, 2833, 0, 3257);
         oploc1(&mut client, CRANDOR_HOLE);
         let said = messages(engine, &mut client, 12);

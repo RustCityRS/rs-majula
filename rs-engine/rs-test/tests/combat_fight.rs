@@ -52,7 +52,8 @@ fn a_fight_runs_on_life_points() {
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
             .find(|(_, id, c)| {
                 *id == TypeId::new(COW)
-                    && (3254..3265).contains(&c.x())
+                    // The player stands 2 west: the field's west fence is on x = 3252.
+                    && (3256..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
             })
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
@@ -315,7 +316,8 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
             .find(|n| {
                 let c = n.npc.pathing.coord;
                 n.npc.uid.id() == TypeId::new(COW)
-                    && (3254..3265).contains(&c.x())
+                    // The player stands 2 west: the field's west fence is on x = 3252.
+                    && (3256..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
                     && n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS
             })

@@ -20,6 +20,7 @@ use rs_engine::harness::HarnessClient;
 use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rs_test::world;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
@@ -429,6 +430,8 @@ fn the_gate_to_the_blue_dragons_needs_the_dusty_key() {
 
         // 289: the key is needed from the gate's own tile, the lesser demons' side.
         let mut client = visitor(engine, "dusty", DUSTY_GATE);
+        // The lesser demons' room: one spawns 2 tiles from the gate.
+        world::calm(engine, DUSTY_GATE.0, DUSTY_GATE.1, 12);
         let said = open(engine, &mut client, "deepdungeondoor", DUSTY_GATE, 3);
         assert_eq!(said, ["This gate is locked."]);
         assert_eq!(at(engine, &client), DUSTY_GATE);

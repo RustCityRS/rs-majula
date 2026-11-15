@@ -80,7 +80,9 @@ impl Engine {
         };
         self.input_paths.current = Some(active.player.uid);
 
-        Self::check_afk(self.clock, active);
+        if self.afk_events {
+            Self::check_afk(self.clock, active);
+        }
         if active.decode() {
             active.player.last_response = self.clock;
         }
