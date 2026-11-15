@@ -1,9 +1,7 @@
 use super::client_config_table;
 use crate::pack::pack::FileCache;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
-use crate::pack::util::{
-    parse_bigid, parse_bool, parse_colour, parse_number, parse_numbers, parse_ref,
-};
+use crate::pack::util::{parse_bigid, parse_number, parse_ref};
 use anyhow::Result;
 use std::collections::HashMap;
 
@@ -27,19 +25,30 @@ pub fn pack_skyboxes(
                     }),
 
                     // 2
-                    "op2" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(2);
-                        }
-                    }),
-
-                    // 3 and 7
-                    "staticmodels" | "op7" => {
-                        client.p1(if key == "staticmodels" { 3 } else { 7 });
-                        for v in parse_numbers::<i16, 3>(value) {
-                            client.p2(v as u16);
+                    "op2" => {
+                        let ids: Vec<u16> = value
+                            .split(',')
+                            .map(str::trim)
+                            .filter(|v| !v.is_empty())
+                            .map(|v| {
+                                v.parse()
+                                    .unwrap_or_else(|_| panic!("Invalid skybox op2 id: {v}"))
+                            })
+                            .collect();
+                        let count = u8::try_from(ids.len())
+                            .unwrap_or_else(|_| panic!("Too many skybox op2 ids: {value}"));
+                        client.p1(2);
+                        client.p1(count);
+                        for id in ids {
+                            client.p2(id);
                         }
                     }
+
+                    // 3
+                    "op3" => parse_number(value, |v: u8| {
+                        client.p1(3);
+                        client.p1(v);
+                    }),
 
                     // 4
                     "fillmode" => parse_number(value, |v: u8| {
@@ -52,12 +61,6 @@ pub fn pack_skyboxes(
                         client.p1(5);
                         client.pbigid(v);
                     }),
-
-                    // 6
-                    "op6" => {
-                        client.p1(6);
-                        client.p3(parse_colour(value));
-                    }
 
                     // not found
                     _ => panic!("Unrecognized skybox config key: {key}"),

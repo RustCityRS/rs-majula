@@ -476,16 +476,16 @@ pub fn emit_loc_props(
     }
 
     #[cfg(all(since_530, before_647))]
-    if let Some(value) = def.unknown_101 {
-        p.push((101, "unknown101".into(), value.to_string()));
+    if let Some(value) = def.msi_rotate_offset {
+        p.push((101, "msirotateoffset".into(), value.to_string()));
     }
 
     #[cfg(since_647)]
     if opcode == 101 {
         p.push((
             101,
-            "mapfunction".into(),
-            def.mapfunction.map_or(0, TypeId::g2).to_string(),
+            "msirotateoffset".into(),
+            def.msi_rotate_offset.unwrap_or(0).to_string(),
         ));
     }
 

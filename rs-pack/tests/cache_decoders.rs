@@ -744,7 +744,7 @@ fn particles_keep_their_keys_in_cache_order_and_repeats() {
     .unwrap();
     fs::write(
         path.join("_unpack/all.particleeffector"),
-        "// 0\n[pef_0]\nfalloff=1,409\nforcedirection=98,0,-42\nunknown9=yes\nforcetype=2\n",
+        "// 0\n[pef_0]\nfalloff=1,409\nforcedirection=98,0,-42\nunknown9=yes\nunknown6=2\n",
     )
     .unwrap();
     let registry = PackRegistry::load(&path).unwrap();
@@ -814,7 +814,7 @@ fn particles_keep_their_keys_in_cache_order_and_repeats() {
         ("falloff", "1,409"),
         ("forcedirection", "98,0,-42"),
         ("unknown9", "yes"),
-        ("forcetype", "2"),
+        ("unknown6", "2"),
     ]
     .map(|(key, value)| (key.to_owned(), value.to_owned()));
     assert_eq!(props, expected);

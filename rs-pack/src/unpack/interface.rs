@@ -1022,8 +1022,8 @@ fn emit_text(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Result<(
         writeln!(out, "trans={}", comp.trans)?;
     }
     #[cfg(since_742)]
-    if comp.text_byte0 != 0 {
-        writeln!(out, "textbyte0={}", comp.text_byte0)?;
+    if comp.text_max_lines != 0 {
+        writeln!(out, "maxlines={}", comp.text_max_lines)?;
     }
     Ok(())
 }
@@ -1074,8 +1074,8 @@ fn emit_graphic(out: &mut String, comp: &IfTypeRaw, names: &AssetNames) -> Resul
         writeln!(out, "hflip=yes")?;
     }
     #[cfg(since_742)]
-    if comp.graphic_flag3 {
-        writeln!(out, "graphicflag3=yes")?;
+    if comp.click_mask {
+        writeln!(out, "clickmask=yes")?;
     }
     #[cfg(since_647)]
     if comp.colour != DEFAULT_COLOUR {

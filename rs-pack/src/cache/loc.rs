@@ -260,8 +260,8 @@ pub struct LocTypeRaw {
     pub cursor_op1: Option<(u8, TypeId)>,
     #[cfg(all(since_530, before_742))]
     pub cursor_op2: Option<(u8, TypeId)>,
-    #[cfg(all(since_530, before_647))]
-    pub unknown_101: Option<u8>,
+    #[cfg(since_530)]
+    pub msi_rotate_offset: Option<u8>,
     #[cfg(since_530)]
     pub msi_id: Option<TypeId>,
     #[cfg(since_647)]
@@ -401,8 +401,8 @@ impl CacheType for LocTypeRaw {
             cursor_op1: None,
             #[cfg(all(since_530, before_742))]
             cursor_op2: None,
-            #[cfg(all(since_530, before_647))]
-            unknown_101: None,
+            #[cfg(since_530)]
+            msi_rotate_offset: None,
             #[cfg(since_530)]
             msi_id: None,
             #[cfg(since_647)]
@@ -589,10 +589,8 @@ impl CacheType for LocTypeRaw {
             99 => self.cursor_op1 = Some((buf.g1(), read_id(buf))),
             #[cfg(all(since_530, before_742))]
             100 => self.cursor_op2 = Some((buf.g1(), read_id(buf))),
-            #[cfg(all(since_530, before_647))]
-            101 => self.unknown_101 = Some(buf.g1()),
-            #[cfg(since_647)]
-            101 => self.mapfunction = Some(TypeId::new(buf.g1().into())),
+            #[cfg(since_530)]
+            101 => self.msi_rotate_offset = Some(buf.g1()),
             #[cfg(since_530)]
             102 => self.msi_id = Some(read_id(buf)),
             #[cfg(since_647)]

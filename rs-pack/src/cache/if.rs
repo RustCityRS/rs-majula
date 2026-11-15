@@ -275,11 +275,11 @@ pub struct IfTypeRaw {
     #[cfg(since_530)]
     pub target_leave_cursor: Option<TypeId>,
     #[cfg(since_742)]
-    pub graphic_flag3: bool,
+    pub click_mask: bool,
     #[cfg(since_742)]
     pub text_flag2: bool,
     #[cfg(since_742)]
-    pub text_byte0: u8,
+    pub text_max_lines: u8,
     #[cfg(since_742)]
     pub cursor: Option<TypeId>,
     #[cfg(since_742)]
@@ -450,7 +450,7 @@ impl IfTypeRaw {
                 }
                 #[cfg(since_742)]
                 if com.format_version() >= 0 {
-                    com.text_byte0 = buf.g1();
+                    com.text_max_lines = buf.g1();
                 }
             }
             IfComponentType::Graphic => {
@@ -477,7 +477,7 @@ impl IfTypeRaw {
                     }
                     #[cfg(since_742)]
                     if com.format_version() >= 3 {
-                        com.graphic_flag3 = buf.g1() == 1;
+                        com.click_mask = buf.g1() == 1;
                     }
                 }
             }

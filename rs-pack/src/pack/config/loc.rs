@@ -530,14 +530,8 @@ pub fn pack_locs(
                     "cursor2" => pack_cursor(&mut client, 100, value, registry),
 
                     // 101
-                    #[cfg(all(since_530, before_647))]
-                    "unknown101" => parse_number(value, |v: u8| {
-                        client.p1(101);
-                        client.p1(v);
-                    }),
-
-                    #[cfg(since_647)]
-                    "mapfunction" => parse_number(value, |v: u8| {
+                    #[cfg(since_530)]
+                    "msirotateoffset" => parse_number(value, |v: u8| {
                         client.p1(101);
                         client.p1(v);
                     }),
@@ -1238,7 +1232,7 @@ mod tests {
         assert_eq!(def.hd_models.unwrap()[0].model, TypeId::new(3));
         assert_eq!(def.hillskew, 5);
         assert!(def.unknown_96);
-        assert_eq!(def.unknown_101, Some(7));
+        assert_eq!(def.msi_rotate_offset, Some(7));
         fs::remove_file(dir.join("all.loc")).unwrap();
         fs::remove_dir(dir).unwrap();
     }

@@ -946,7 +946,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p4(comp.colour);
         #[cfg(since_742)]
         if var2 >= 3 {
-            out.p1(comp.graphic_flag3 as u8);
+            out.p1(comp.click_mask as u8);
         }
     }
 
@@ -1016,7 +1016,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p1(comp.trans);
         #[cfg(since_742)]
         if var2 >= 0 {
-            out.p1(comp.text_byte0);
+            out.p1(comp.text_max_lines);
         }
     }
 
@@ -1434,11 +1434,11 @@ fn parse_property(
         "vflip" => comp.vflip = true,
         "hflip" => comp.hflip = true,
         #[cfg(since_742)]
-        "graphicflag3" => comp.graphic_flag3 = true,
+        "clickmask" => comp.click_mask = true,
         #[cfg(since_742)]
         "textflag2" => comp.text_flag2 = true,
         #[cfg(since_742)]
-        "textbyte0" => comp.text_byte0 = value.parse()?,
+        "maxlines" => comp.text_max_lines = value.parse()?,
         #[cfg(since_742)]
         "cursor" => {
             comp.cursor = TypeId::from_int(reference("cursor")?).non_null();
