@@ -36,6 +36,7 @@ fn expected(x: u16, z: u16) -> Vec<u32> {
         0,
         25,
         CollisionType::Normal,
+        true,
     )
     .to_vec()
 }

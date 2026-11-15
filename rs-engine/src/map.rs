@@ -1116,6 +1116,7 @@ impl GameMap {
                     layer,
                     angle,
                     loc_type.blockrange,
+                    loc_type.breakroutefinding,
                     length,
                     width,
                     loc_type.active,
@@ -1135,6 +1136,7 @@ impl GameMap {
                     angle,
                     loc_type.blockwalk,
                     loc_type.blockrange,
+                    loc_type.breakroutefinding,
                     width,
                     length,
                 );
@@ -1280,9 +1282,9 @@ impl GameMap {
 /// flags stored on the loc itself.
 ///
 /// Only modifies collision if the loc has `blockwalk` set. The `blockwalk`,
-/// `blockrange`, `width` and `length` fields are all bit-packed into the loc (see
-/// [`Loc`]), so no cache lookup is needed -- a [`revert`](Loc::revert) restores
-/// them along with the rest of the base state.
+/// `blockrange`, `breakroutefinding`, `width` and `length` fields are all bit-packed
+/// into the loc (see [`Loc`]), so no cache lookup is needed -- a
+/// [`revert`](Loc::revert) restores them along with the rest of the base state.
 ///
 /// # Arguments
 /// * `loc` - The location entity whose collision is being changed.
@@ -1300,6 +1302,7 @@ pub fn apply_loc_collision(loc: &Loc, coord: CoordGrid, add: bool) {
         loc.layer(),
         loc.angle(),
         loc.blockrange(),
+        loc.breakroutefinding(),
         loc.length(),
         loc.width(),
         Some(true),
@@ -1317,6 +1320,7 @@ pub fn apply_loc_collision(loc: &Loc, coord: CoordGrid, add: bool) {
 /// * `layer` - The loc layer (Wall, WallDecor, Ground, GroundDecor).
 /// * `angle` - The rotation angle of the loc.
 /// * `blockrange` - Whether the loc blocks ranged projectiles.
+/// * `breakroutefinding` - Whether routes run through the loc.
 /// * `length` - The loc's Z-axis tile size.
 /// * `width` - The loc's X-axis tile size.
 /// * `active` - If `Some(true)` for GroundDecor, a floor collision flag is
@@ -1336,6 +1340,7 @@ pub fn change_loc_collision(
     layer: LocLayer,
     angle: LocAngle,
     blockrange: bool,
+    breakroutefinding: bool,
     length: u8,
     width: u8,
     active: Option<bool>,
@@ -1346,16 +1351,23 @@ pub fn change_loc_collision(
     let y = coord.y();
     let z = coord.z();
     match layer {
-        LocLayer::Wall => {
-            rsmod::change_wall(x, z, y, angle as u8, shape as i8, blockrange, false, add)
-        }
+        LocLayer::Wall => rsmod::change_wall(
+            x,
+            z,
+            y,
+            angle as u8,
+            shape as i8,
+            blockrange,
+            !breakroutefinding,
+            add,
+        ),
         LocLayer::WallDecor => {}
         LocLayer::Ground => match angle {
             LocAngle::North | LocAngle::South => {
-                rsmod::change_loc(x, z, y, length, width, blockrange, false, add)
+                rsmod::change_loc(x, z, y, length, width, blockrange, !breakroutefinding, add)
             }
             LocAngle::West | LocAngle::East => {
-                rsmod::change_loc(x, z, y, width, length, blockrange, false, add)
+                rsmod::change_loc(x, z, y, width, length, blockrange, !breakroutefinding, add)
             }
         },
         LocLayer::GroundDecor => {

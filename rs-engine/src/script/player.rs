@@ -2065,6 +2065,7 @@ impl ScriptPlayer for ActivePlayer {
             block_access_flags: 0,
             max_waypoints: 25,
             collision: CollisionType::Normal,
+            route_blockers: false,
         });
     }
 

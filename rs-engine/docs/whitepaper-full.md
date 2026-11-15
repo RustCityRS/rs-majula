@@ -4684,8 +4684,9 @@ Two engineering details:
   the *pair* of complementary edge flags on the two tiles a wall separates (e.g. a West wall sets `WallWest` on the tile
   and `WallEast` on `x-1`, `lib.rs:270-277`). It also handles the `blockrange`/`breakroutefinding` mirrors by
   *recursing* to lay down the movement, projectile, and route-blocker copies in one call (`lib.rs:307-312`). The engine
-  passes `breakroutefinding = false` and `blockrange = loc_type.blockrange` at every site, so route-blocker bits come
-  only from the wall-mirror recursion, never from the engine directly.
+  passes `blockrange` and the inverse of the loc type's `breakroutefinding`, so as in the client every wall and loc gets
+  route-blocker bits unless it has `breakroutefinding`. When the server pathfinds (`client_pathfinder` off), player
+  routes search with `route_blockers`, so they run through bank booths and counters while a step into them still fails.
 
 The same dispatch serves three callers, which is the key to runtime coherence:
 

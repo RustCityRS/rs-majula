@@ -33,6 +33,7 @@ pub struct LocType {
     pub op: Option<Box<[Option<Box<str>>]>>,
     pub category: Option<TypeId>,
     pub forceapproach: ForceApproach,
+    pub breakroutefinding: bool,
     pub multivar: Option<MultiVar>,
     pub multiloc: Option<Box<[TypeId]>>,
     pub params: Option<Box<FxHashMap<TypeId, ParamValue>>>,
@@ -157,6 +158,10 @@ impl From<LocTypeRaw> for LocType {
             op,
             category: raw.category,
             forceapproach: raw.forceapproach,
+            #[cfg(since_245_2)]
+            breakroutefinding: raw.breakroutefinding,
+            #[cfg(before_245_2)]
+            breakroutefinding: false,
             multivar: MultiVar::new(raw.transform_varbit, raw.transform_varp),
             multiloc: raw.multiloc,
             params: raw.params,

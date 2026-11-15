@@ -501,6 +501,7 @@ fn cheat_loc_add(args: &mut Split<char>, active: &mut ActivePlayer) -> Result<()
             loc_type.length,
             loc_type.blockwalk,
             loc_type.blockrange,
+            loc_type.breakroutefinding,
             500,
         );
         active.message_game(&format!(

@@ -781,9 +781,10 @@ impl Engine {
             }
             active.player.interaction.last_path_src = src;
             active.player.interaction.last_path_dst = dst;
-            if let Some(request) =
+            if let Some(mut request) =
                 Self::entity_path_request(&mut active.player.pathing, target, client_pathfinder)
             {
+                request.route_blockers = !client_pathfinder;
                 active.request_path(request);
             }
         };

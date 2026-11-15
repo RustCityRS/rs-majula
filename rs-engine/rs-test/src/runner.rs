@@ -126,6 +126,7 @@ pub fn on_loaded_engine<R: Send + 'static>(f: impl FnOnce(&mut Engine) -> R + Se
             0,
             1,
             CollisionType::Normal,
+            false,
         );
     });
     // Those statics are shared by every engine in the process, and the

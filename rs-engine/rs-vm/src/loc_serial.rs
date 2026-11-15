@@ -4,9 +4,9 @@ pub struct LocSerial(u16);
 impl LocSerial {
     /// How many bits a serial takes in a packed loc: 742's 17-bit loc ids take two.
     #[cfg(before_742)]
-    pub const BITS: u32 = 14;
-    #[cfg(since_742)]
     pub const BITS: u32 = 12;
+    #[cfg(since_742)]
+    pub const BITS: u32 = 10;
 
     /// The first serial a zone hands out.
     pub const FIRST: Self = Self(0);

@@ -737,6 +737,7 @@ fn collision_by_a_copys_edge_leaves_the_void_beside_it() {
                 1,
                 true,
                 false,
+                false,
                 0,
             );
             assert_ne!(flags(wall.x(), wall.z(), 0) & WALL_WEST, 0);

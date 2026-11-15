@@ -792,9 +792,19 @@ impl ScriptEngine for Engine {
         angle: LocAngle,
         duration: u64,
     ) -> rs_vm::Result<LocRef> {
-        let (width, length, blockwalk, blockrange) = self.placeable_loc_type(coord, id, angle)?;
+        let (width, length, blockwalk, blockrange, breakroutefinding) =
+            self.placeable_loc_type(coord, id, angle)?;
         let loc = self.add_or_change_loc(
-            coord, id, shape, angle, width, length, blockwalk, blockrange, duration,
+            coord,
+            id,
+            shape,
+            angle,
+            width,
+            length,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            duration,
         );
         Ok(loc_ref(coord, &loc))
     }
@@ -812,10 +822,19 @@ impl ScriptEngine for Engine {
         duration: u64,
     ) -> rs_vm::Result<Option<LocRef>> {
         let live = self.live_loc(loc);
-        let (width, length, blockwalk, blockrange) =
+        let (width, length, blockwalk, blockrange, breakroutefinding) =
             self.placeable_loc_type(loc.coord, id, live.angle)?;
         let changed = self.change_loc(
-            loc.coord, loc.layer, loc.serial, id, width, length, blockwalk, blockrange, duration,
+            loc.coord,
+            loc.layer,
+            loc.serial,
+            id,
+            width,
+            length,
+            blockwalk,
+            blockrange,
+            breakroutefinding,
+            duration,
         );
         Ok(changed.map(|changed| loc_ref(loc.coord, &changed)))
     }

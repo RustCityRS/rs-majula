@@ -574,6 +574,7 @@ impl Engine {
             block_access_flags: 0,
             max_waypoints: 25,
             collision,
+            route_blockers: false,
         };
 
         match target {

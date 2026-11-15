@@ -1481,6 +1481,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         )
@@ -1495,6 +1496,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         )
@@ -2116,6 +2118,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2149,6 +2152,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2172,6 +2176,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2212,6 +2217,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2230,6 +2236,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2259,6 +2266,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2276,6 +2284,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2291,6 +2300,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2314,6 +2324,7 @@ mod tests {
             LocAngle::North,
             false,
             false,
+            false,
             2,
             4,
         );
@@ -2325,6 +2336,7 @@ mod tests {
             LocAngle::East,
             true,
             true,
+            false,
             5,
             3,
         );
@@ -2348,6 +2360,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2390,6 +2403,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2420,6 +2434,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2491,6 +2506,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2511,6 +2527,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2553,6 +2570,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2598,6 +2616,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2644,6 +2663,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2698,6 +2718,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2791,6 +2812,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
@@ -2907,6 +2929,7 @@ mod tests {
             LocAngle::North,
             true,
             true,
+            false,
             1,
             1,
         );
