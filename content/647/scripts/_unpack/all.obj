@@ -56546,6 +56546,8 @@ name=Troll thistle
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's tough and spiky.
+// 289's (quest_eadgar.obj): dried over a fire by the cooking table's row for it.
+category=cooking_generic
 
 // 3263
 [eadgar_dried_troll_thistle]
@@ -56569,6 +56571,9 @@ name=Dried thistle
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It'll be easier to grind now.
+// 289's (quest_eadgar.obj): ground with a pestle and mortar.
+param=grindable_ingredient_refined,eadgar_ground_troll_thistle
+param=grindable_ingredient_message,You grind the Troll Thistle.
 
 // 3264
 [eadgar_ground_troll_thistle]
@@ -56585,6 +56590,8 @@ name=Ground thistle
 param=param_1397,1
 cursor1=3,cursor_take
 desc=It's ready for mixing.
+// 289's (quest_eadgar.obj): mixed into the troll potion.
+param=brew_potion_struct,eadgar_ground_troll_thistle_potion
 
 // 3265
 [eadgar_ground_troll_thistle_potion]
