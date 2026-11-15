@@ -1,0 +1,1201 @@
+// 301:0
+[com_0]
+type=rectangle
+x=19
+y=24
+width=476
+height=232
+colour=0x999999
+fill=yes
+trans=150
+
+// 301:1
+[com_1]
+type=graphic
+x=27
+y=69
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+
+// 301:2
+[com_2]
+type=graphic
+x=27
+y=100
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+
+// 301:3
+[com_3]
+type=graphic
+x=27
+y=131
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+
+// 301:4
+[com_4]
+type=graphic
+x=27
+y=162
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+opbase= 
+
+// 301:5
+[com_5]
+type=graphic
+x=27
+y=193
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+opbase= 
+
+// 301:6
+[com_6]
+type=graphic
+x=275
+y=69
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+opbase= 
+
+// 301:7
+[com_7]
+type=graphic
+x=275
+y=100
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+
+// 301:8
+[com_8]
+type=graphic
+x=275
+y=131
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+opbase= 
+
+// 301:9
+[com_9]
+type=graphic
+x=275
+y=162
+width=210
+height=25
+graphic=graphic_1072
+trans=180
+
+// 301:10
+[assist_bottom_message]
+type=text
+x=27
+y=221
+width=460
+height=32
+textfont=fontmetrics_494
+text=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfab432
+
+// 301:11
+[assist_total_xp_backdrop]
+type=rectangle
+x=274
+y=192
+width=212
+height=27
+colour=0x000000
+fill=yes
+trans=150
+opbase= 
+onmouserepeat=assist_tooltip(event_com)
+
+// 301:12
+[assist_total_xp_backdrop_1]
+type=rectangle
+x=274
+y=192
+width=212
+height=27
+colour=0xb19773
+trans=150
+opbase= 
+onmouserepeat=assist_tooltip(event_com)
+
+// 301:13
+[runecraft_layer]
+type=layer
+x=26
+y=68
+width=212
+height=27
+hide=yes
+
+// 301:14
+[runecraft_selected_box]
+type=rectangle
+x=26
+y=68
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+opbase= 
+
+// 301:15
+[runecrafting_event_area]
+type=rectangle
+x=10
+y=18
+width=212
+height=27
+layer=com_97
+colour=0xffff33
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:runecraft_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:runecraft_layer, assister_interface:runecrafting_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:runecrafting_icon, 215, 1103, assister_interface:runecraft_selected_box)
+onrelease=assist_clear_button(assister_interface:runecrafting_1)
+onhold=assist_flash_button(assister_interface:runecrafting_1)
+
+// 301:16
+[runecrafting_box]
+type=rectangle
+width=212
+height=27
+layer=runecraft_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:17
+[runecrafting_1]
+type=rectangle
+width=212
+height=27
+layer=runecraft_layer
+colour=0xffffff
+trans=25
+
+// 301:18
+[crafting_layer]
+type=layer
+x=26
+y=99
+width=212
+height=27
+hide=yes
+
+// 301:19
+[crafting_selected_box]
+type=rectangle
+x=26
+y=99
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:20
+[crafting_event_area]
+type=rectangle
+x=10
+y=49
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:crafting_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:crafting_layer, assister_interface:crafting_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:crafting_icon_on, 207, 1095, assister_interface:crafting_selected_box)
+onrelease=assist_clear_button(assister_interface:crafting_1)
+onhold=assist_flash_button(assister_interface:crafting_1)
+
+// 301:21
+[crafting_box]
+type=rectangle
+width=212
+height=27
+layer=crafting_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:22
+[crafting_1]
+type=rectangle
+width=212
+height=27
+layer=crafting_layer
+colour=0xffffff
+trans=25
+
+// 301:23
+[fletching_layer]
+type=layer
+x=26
+y=130
+width=212
+height=27
+hide=yes
+
+// 301:24
+[fletching_selected_box]
+type=rectangle
+x=26
+y=130
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:25
+[fletching_event_area]
+type=rectangle
+x=10
+y=80
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:fletching_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:fletching_layer, assister_interface:fletching_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:fletching_icon_on, 208, 1096, assister_interface:fletching_selected_box)
+onrelease=assist_clear_button(assister_interface:fletching_1)
+onhold=assist_flash_button(assister_interface:fletching_1)
+
+// 301:26
+[fletching_box]
+type=rectangle
+width=212
+height=27
+layer=fletching_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:27
+[fletching_1]
+type=rectangle
+width=212
+height=27
+layer=fletching_layer
+colour=0xffffff
+trans=25
+
+// 301:28
+[construction_layer]
+type=layer
+x=26
+y=161
+width=212
+height=27
+hide=yes
+
+// 301:29
+[construction_selected_box]
+type=rectangle
+x=26
+y=161
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:30
+[construction_event_area]
+type=rectangle
+x=10
+y=111
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:construction_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:construction_layer, assister_interface:construction_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:construction_icon_on, 221, 1109, assister_interface:construction_selected_box)
+onrelease=assist_clear_button(assister_interface:construction_1)
+onhold=assist_flash_button(assister_interface:construction_1)
+
+// 301:31
+[construction_box]
+type=rectangle
+width=212
+height=27
+layer=construction_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:32
+[construction_1]
+type=rectangle
+width=212
+height=27
+layer=construction_layer
+colour=0xffffff
+trans=25
+
+// 301:33
+[farming_layer]
+type=layer
+x=26
+y=192
+width=212
+height=27
+hide=yes
+opbase= 
+
+// 301:34
+[farming_selected_box]
+type=rectangle
+x=26
+y=192
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:35
+[farming_event_area]
+type=rectangle
+x=10
+y=142
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:farming_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:farming_layer, assister_interface:farming_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:farming_icon_on, 217, 1105, assister_interface:farming_selected_box)
+onrelease=assist_clear_button(assister_interface:farming_1)
+onhold=assist_flash_button(assister_interface:farming_1)
+
+// 301:36
+[farming_box]
+type=rectangle
+width=212
+height=27
+layer=farming_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:37
+[farming_1]
+type=rectangle
+width=212
+height=27
+layer=farming_layer
+colour=0xffffff
+trans=25
+
+// 301:38
+[magic_layer]
+type=layer
+x=274
+y=68
+width=212
+height=27
+hide=yes
+
+// 301:39
+[magic_selected_box]
+type=rectangle
+x=274
+y=68
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:40
+[magic_event_area]
+type=rectangle
+x=258
+y=18
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:magic_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:magic_layer, assister_interface:magic_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:magic_icon_on, 202, 1090, assister_interface:magic_selected_box)
+onrelease=assist_clear_button(assister_interface:magic_1)
+onhold=assist_flash_button(assister_interface:magic_1)
+
+// 301:41
+[magic_box]
+type=rectangle
+width=212
+height=27
+layer=magic_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:42
+[magic_1]
+type=rectangle
+width=212
+height=27
+layer=magic_layer
+colour=0xffffff
+trans=25
+
+// 301:43
+[smithing_layer]
+type=layer
+x=274
+y=99
+width=212
+height=27
+hide=yes
+
+// 301:44
+[smithing_selected_box]
+type=rectangle
+x=274
+y=99
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:45
+[smithing_event_area]
+type=rectangle
+x=258
+y=49
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:smithing_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:smithing_layer, assister_interface:smithing_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:smithing_icon_on, 210, 1098, assister_interface:smithing_selected_box)
+onrelease=assist_clear_button(assister_interface:smithing_1)
+onhold=assist_flash_button(assister_interface:smithing_1)
+
+// 301:46
+[smithing_box]
+type=rectangle
+width=212
+height=27
+layer=smithing_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:47
+[smithing_1]
+type=rectangle
+width=212
+height=27
+layer=smithing_layer
+colour=0xffffff
+trans=25
+
+// 301:48
+[cooking_layer]
+type=layer
+x=274
+y=130
+width=212
+height=27
+hide=yes
+
+// 301:49
+[cooking_selected_box]
+type=rectangle
+x=274
+y=130
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:50
+[cooking_event_area]
+type=rectangle
+x=258
+y=80
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:cooking_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:cooking_layer, assister_interface:cooking_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:cooking_icon_on, 212, 1100, assister_interface:cooking_selected_box)
+onrelease=assist_clear_button(assister_interface:cooking_1)
+onhold=assist_flash_button(assister_interface:cooking_1)
+
+// 301:51
+[cooking_box]
+type=rectangle
+width=212
+height=27
+layer=cooking_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:52
+[cooking_1]
+type=rectangle
+width=212
+height=27
+layer=cooking_layer
+colour=0xffffff
+trans=25
+
+// 301:53
+[herblore_layer]
+type=layer
+x=274
+y=161
+width=212
+height=27
+hide=yes
+
+// 301:54
+[herblore_selected_box]
+type=rectangle
+x=274
+y=161
+width=212
+height=27
+colour=0x006666
+fill=yes
+trans=125
+
+// 301:55
+[herblore_event_area]
+type=rectangle
+x=258
+y=111
+width=212
+height=27
+layer=com_97
+colour=0xffff00
+fill=yes
+trans=254
+transmitop=1
+op1=Toggle Skill On / Off
+onmouseover=assist_comp_sethide(false, assister_interface:herblore_layer, null)
+onmouseleave=assist_comp_sethide(true, assister_interface:herblore_layer, assister_interface:herblore_1)
+onmouserepeat=assist_tooltip(event_com)
+onclick=clientscript_531(assister_interface:herblore_icon_on, 205, 1093, assister_interface:herblore_selected_box)
+onrelease=assist_clear_button(assister_interface:herblore_1)
+onhold=assist_flash_button(assister_interface:herblore_1)
+
+// 301:56
+[herblore_box]
+type=rectangle
+width=212
+height=27
+layer=herblore_layer
+colour=0x006666
+fill=yes
+trans=225
+
+// 301:57
+[herblore_1]
+type=rectangle
+width=212
+height=27
+layer=herblore_layer
+colour=0xffffff
+trans=25
+
+// 301:58
+[com_58]
+type=graphic
+x=472
+y=32
+width=16
+height=16
+graphic=graphic_831
+trans=20
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 301:59
+[com_59]
+type=graphic
+x=16
+y=24
+width=32
+height=27
+graphic=graphic_991
+tiling=yes
+trans=64
+
+// 301:60
+[com_60]
+type=graphic
+x=16
+y=227
+width=32
+height=32
+graphic=graphic_993
+trans=64
+
+// 301:61
+[com_61]
+type=graphic
+x=465
+y=227
+width=32
+height=32
+graphic=graphic_994
+trans=64
+opbase= 
+
+// 301:62
+[com_62]
+type=graphic
+x=465
+y=24
+width=32
+height=27
+graphic=graphic_992
+tiling=yes
+trans=64
+
+// 301:63
+[com_63]
+type=graphic
+x=48
+y=11
+width=417
+height=32
+graphic=graphic_987
+tiling=yes
+trans=64
+
+// 301:64
+[com_64]
+type=graphic
+x=3
+y=63
+width=32
+height=164
+graphic=graphic_988
+tiling=yes
+trans=64
+
+// 301:65
+[com_65]
+type=graphic
+x=48
+y=243
+width=417
+height=32
+graphic=graphic_987
+tiling=yes
+trans=64
+
+// 301:66
+[com_66]
+type=graphic
+x=477
+y=62
+width=32
+height=165
+graphic=graphic_990
+tiling=yes
+trans=64
+
+// 301:67
+[com_67]
+type=graphic
+x=16
+y=40
+width=32
+height=32
+graphic=graphic_996
+trans=64
+
+// 301:68
+[com_68]
+type=graphic
+x=23
+y=38
+width=466
+height=32
+graphic=graphic_995
+tiling=yes
+trans=64
+
+// 301:69
+[com_69]
+type=graphic
+x=465
+y=40
+width=32
+height=32
+graphic=graphic_997
+trans=64
+
+// 301:70
+[runecraft_text]
+type=text
+x=58
+y=75
+width=135
+height=16
+textfont=fontmetrics_495
+text=Runecrafting XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:runecraft_xp){assist_xp_cap_var, assist_var}
+
+// 301:71
+[runecraft_xp]
+type=text
+x=192
+y=75
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP
+textshadow=yes
+colour=0xf3922a
+onload=initialise_stat_xp
+onstattransmit=assist_skill_update(event_com, runecraft){runecraft}
+
+// 301:72
+[crafting_text]
+type=text
+x=58
+y=106
+width=135
+height=16
+textfont=fontmetrics_495
+text=Crafting XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:crafting_xp){assist_xp_cap_var, assist_var}
+
+// 301:73
+[crafting_xp]
+type=text
+x=192
+y=106
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP
+textshadow=yes
+colour=0xf3922a
+onstattransmit=assist_skill_update(event_com, crafting){crafting}
+
+// 301:74
+[fletching_text]
+type=text
+x=58
+y=136
+width=135
+height=16
+textfont=fontmetrics_495
+text=Fletching XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:fletching_xp){assist_xp_cap_var, assist_var}
+
+// 301:75
+[fletching_xp]
+type=text
+x=192
+y=136
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP
+textshadow=yes
+colour=0xf3922a
+opbase=m
+onstattransmit=assist_skill_update(event_com, fletching){fletching}
+
+// 301:76
+[construction_text]
+type=text
+x=58
+y=168
+width=135
+height=16
+textfont=fontmetrics_495
+text=Construction XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:construction_xp){assist_xp_cap_var, assist_var}
+
+// 301:77
+[construction_xp]
+type=text
+x=192
+y=168
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP
+textshadow=yes
+colour=0xf3922a
+onstattransmit=assist_skill_update(event_com, construction){construction}
+
+// 301:78
+[farming_text]
+type=text
+x=58
+y=199
+width=135
+height=16
+textfont=fontmetrics_495
+text=Farming XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:farming_xp){assist_xp_cap_var, assist_var}
+
+// 301:79
+[farming_xp]
+type=text
+x=192
+y=199
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP
+textshadow=yes
+colour=0xf3922a
+opbase=m
+onstattransmit=assist_skill_update(event_com, farming){farming}
+
+// 301:80
+[magic_text]
+type=text
+x=305
+y=75
+width=135
+height=16
+textfont=fontmetrics_495
+text=Magic XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:magic_xp){assist_xp_cap_var, assist_var}
+
+// 301:81
+[magic_xp]
+type=text
+x=439
+y=75
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP 
+textshadow=yes
+colour=0xf3922a
+onload=initialise_stat_xp
+onstattransmit=assist_skill_update(event_com, magic){magic}
+
+// 301:82
+[smithing_text]
+type=text
+x=305
+y=106
+width=135
+height=16
+textfont=fontmetrics_495
+text=Smithing XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:smithing_xp){assist_xp_cap_var, assist_var}
+
+// 301:83
+[smithing_xp]
+type=text
+x=439
+y=106
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP 
+textshadow=yes
+colour=0xf3922a
+onload=initialise_stat_xp
+onstattransmit=assist_skill_update(event_com, smithing){smithing}
+
+// 301:84
+[cooking_text]
+type=text
+x=305
+y=136
+width=135
+height=16
+textfont=fontmetrics_495
+text=Cooking XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:cooking_xp){assist_xp_cap_var, assist_var}
+
+// 301:85
+[cooking_xp]
+type=text
+x=439
+y=136
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP 
+textshadow=yes
+colour=0xf3922a
+onload=initialise_stat_xp
+onstattransmit=assist_skill_update(event_com, cooking){cooking}
+
+// 301:86
+[herblore_text]
+type=text
+x=305
+y=168
+width=135
+height=16
+textfont=fontmetrics_495
+text=Herblore XP
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:herblore_xp){assist_xp_cap_var, assist_var}
+
+// 301:87
+[herblore_xp]
+type=text
+x=439
+y=168
+width=35
+height=16
+textfont=fontmetrics_495
+text=XP 
+textshadow=yes
+colour=0xf3922a
+opbase=m
+onstattransmit=assist_skill_update(event_com, herblore){herblore}
+
+// 301:88
+[runecrafting_icon]
+type=graphic
+x=29
+y=69
+width=25
+height=25
+graphic=graphic_215
+trans=20
+onload=assist_display_icon
+onvartransmit=assist_display_icon{assist_var}
+
+// 301:89
+[crafting_icon_on]
+type=graphic
+x=29
+y=101
+width=25
+height=25
+graphic=graphic_207
+trans=20
+
+// 301:90
+[fletching_icon_on]
+type=graphic
+x=29
+y=130
+width=25
+height=25
+graphic=graphic_208
+trans=20
+
+// 301:91
+[construction_icon_on]
+type=graphic
+x=29
+y=161
+width=25
+height=25
+graphic=graphic_221
+trans=20
+
+// 301:92
+[farming_icon_on]
+type=graphic
+x=29
+y=193
+width=25
+height=25
+graphic=graphic_217
+trans=20
+
+// 301:93
+[magic_icon_on]
+type=graphic
+x=277
+y=68
+width=25
+height=25
+graphic=graphic_202
+trans=20
+
+// 301:94
+[smithing_icon_on]
+type=graphic
+x=277
+y=100
+width=25
+height=25
+graphic=graphic_210
+trans=20
+
+// 301:95
+[cooking_icon_on]
+type=graphic
+x=277
+y=131
+width=25
+height=25
+graphic=graphic_212
+trans=20
+
+// 301:96
+[herblore_icon_on]
+type=graphic
+x=277
+y=163
+width=25
+height=25
+graphic=graphic_205
+trans=20
+
+// 301:97
+[com_97]
+type=layer
+x=16
+y=50
+width=486
+height=212
+
+// 301:98
+[assist_total_text]
+type=text
+x=273
+y=149
+width=135
+height=16
+layer=com_97
+textfont=fontmetrics_495
+text=Total XP earned
+textshadow=yes
+colour=0xfab432
+onvartransmit=clientscript_524(event_com, assister_interface:assist_total_xp_display){assist_xp_cap_var}
+
+// 301:99
+[assist_total_xp_display]
+type=text
+x=425
+y=149
+width=35
+height=16
+layer=com_97
+textfont=fontmetrics_495
+text=XP 
+textshadow=yes
+colour=0xf3922a
+onvartransmit=clientscript_535(event_com){assist_xp_cap_var}
+
+// 301:100
+[assist_tooltip_build_layer]
+type=layer
+x=179
+y=52
+width=115
+height=133
+layer=com_97
+onmouseleave=deltooltip(assister_interface:assist_tooltip_build_layer)
+
+// 301:101
+[assist_display_message]
+type=text
+x=20
+y=34
+width=448
+height=18
+textfont=fontmetrics_496
+text=Assist System XP Display - You are assisting <name>
+textalignh=centre
+textshadow=yes
+colour=0xff9900

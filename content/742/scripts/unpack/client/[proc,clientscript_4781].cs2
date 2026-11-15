@@ -1,0 +1,10 @@
+// 4781
+[proc,clientscript_4781](component $component0, int $int1, int $int2)
+if (cc_find($component0, $int1) = true) {
+    if ($int2 = 1) {
+        cc_setgraphic(7543);
+    } else {
+        cc_setgraphic(7542);
+        ~deltooltip_action(interface_1115:com_186);
+    }
+}

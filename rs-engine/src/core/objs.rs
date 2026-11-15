@@ -5,6 +5,7 @@ use rs_entity::{EntityLifeTime, Obj, ObjSerial, REVEAL_TICKS};
 use rs_grid::CoordGrid;
 use rs_inv::{Item, STACK_LIMIT};
 use rs_protocol::network::game::server::obj_count::ObjCount;
+use rs_ver::TypeId;
 use rs_zone::{ZoneEventType, ZoneMessage};
 use std::collections::BTreeMap;
 use std::time::Instant;
@@ -148,7 +149,7 @@ impl Engine {
     ) -> ObjSerial {
         let obj = Obj::new(coord, EntityLifeTime::Despawn, item.obj, item.num);
         let serial = self.add_obj(coord, obj, receiver, duration);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if item.var != 0 {
             self.zones
                 .zone_mut(coord.x(), coord.y(), coord.z())
@@ -263,7 +264,7 @@ impl Engine {
     pub fn remove_obj(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         duration: u64,
     ) -> Option<u32> {
@@ -315,7 +316,7 @@ const fn obj_revealable(tradeable: bool, members: bool, world_members: bool) -> 
 fn cancel_one_pending_obj_reveal(
     pending: &mut BTreeMap<u32, Vec<PendingZoneEvent>>,
     coord: CoordGrid,
-    id: u16,
+    id: TypeId,
     receiver37: u64,
 ) {
     let target = PendingZoneEvent::ObjReveal {

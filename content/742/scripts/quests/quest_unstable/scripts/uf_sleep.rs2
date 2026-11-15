@@ -1,0 +1,229 @@
+// Unstable Foundations: "Put the Dragon to Sleep" (Task 3510, varp 281 80-90), the bowl and the
+// sleep cutscene, as 4KO2h2xPtdM (2011-04-30) shows them (refs GAPS 20):
+// - @190-199 the player walks to the nest and puts the meat in the bowl beside it;
+// - @199.1 s019 "It's smelled the meat! Hide!" (Sir Vant, V52 clip 715); @202 the player runs;
+// - the cutscene: clientscript 2762's shots, cut by cut (ffmpeg scene detection on the recording):
+//   101 @202.67 (the minimap black), 102 @206.27, 103 @211.04, 104 @215.35, 105 @216.45 (6, 8, 7,
+//   2 and 25 ticks), a fade to black ~231.4-234.53 (106, 5 ticks), 107 from 234.53, s020 @237.1,
+//   and the minimap back @244.81, after s020 is continued.
+// The bowl is loc 45795, a multiloc on varbit 6487 (cache 786): 0 loc 1758, the bowl with a bone
+// in it and no op; else loc 1761, the bowl with the meat (op Search). 2011 shows the bone bowl
+// before the meat (@196, @198.6), the meat from @200.2 to @223.65 as the dragon reaches the nest,
+// and the bone bowl again from @227.9, the first frame it shows past the dragon: the dragon eats
+// the meat, so the varbit goes back to 0 in the cutscene.
+
+// The meat in the bowl.
+[oplocu,tutorial3_foodbowl_empty_big]
+if (last_useitem ! tutorial3_meat) {
+    // N48 (clip 1737) is for an item on the dragon; for the bowl, the default.
+    ~displaymessage(^dm_default);
+    return;
+}
+if (%tutorial ! 80) {
+    ~displaymessage(^dm_default);
+    return;
+}
+// The player takes the meat out, crouches and puts it in the bowl: seq 12283 (cache 786: 3.0 s,
+// the right hand holding obj 15277, the meat). 4KO2h2xPtdM: the meat is in the hand @197.45, in
+// the bowl @199.0, and s019 opens @199.07, three ticks after the first frame.
+anim(seq_12283, 0);
+p_delay(2);
+inv_del(inv, tutorial3_meat, 1);
+%tutorial3_meatplacement = 1;
+%tutorial = 82;
+~uf_task_pin;
+~uf_hint_box_close;
+~speech_line(vorbis_715);
+// s019's box has no "Click here to continue" (4KO2h2xPtdM @199.07-202.67): it stays up while the
+// player runs to hide, with no click (the cursor still @200.6-202.4), until the cutscene cuts in.
+split_init("<p,shock>It's smelled the meat! Hide!", 380, 4, q8_full);
+~chatnpc_cutscene_page("Sir Vant", tutorial3_knight_waitingforbattle, 0);
+~uf_sleep_cutscene;
+
+// Searching the bowl once the meat is in: V106 (clip 992; V107, clip 703, is another take of the
+// same line). Texts from the takes: no recording shows the box.
+[oploc1,tutorial3_foodbowl_full_big]
+~speech_line(vorbis_992);
+~chatnpc_specific("Sir Vant", tutorial3_knight_waitingforbattle, "<p,neutral>You've already lured the dragon to the right place. We don't need to mess around with its food anymore.");
+
+// The hiding place: "your character will run to a hole" (the 2011 wiki, Unstable Foundations,
+// 2011-05-05). The hole is the wooden recess in the wall south of the nest, cache 786's (20, 29):
+// l57_77 sets the wall along z 29 (x 16-24) back a tile at x 20, loc 49098 (wood-recoloured, a
+// minimap icon) behind it and the pair 2030/2031 at its sides. 4KO2h2xPtdM (2011-04-30): the
+// player runs from the bowl towards that wall @200.6-202.4; when the camera comes back @245.4 they
+// stand in a wooden recess facing out, and the minimap's two npc dots and the player's place them
+// at about (20.6, 28.3); from there they walk to Sir Vant @245.8-249. Where Sir Vant waits after:
+// by the wooden pillar south-east of the nest (Task 1715's hint: "by the wooden pillar just
+// south-east of the dragon's nest"; the pillar is cache 786's loc 45564 on (24, 31)).
+[proc,uf_sleep_cutscene]
+if (region_findbycoord(coord) = false) {
+    return;
+}
+%tutorial = 83;
+// The player stands ~1.5 s with the box up, then runs (@199.07-200.6); the cutscene cuts in 6 ticks
+// after the box (@202.67), the run all but over.
+p_delay(1);
+p_walk(~uf_cellar_coord(20, 29));
+p_delay(3);
+if_close;
+~uf_cutscene_open;
+%tutorial3_cutscene_tracker = 101;
+// Shot 101 (6 ticks): Sir Vant at the wall, "Grub's up! Shoo!" (from @203.27, V23 clip 850). He is
+// in the doorway to @203.67, steps out of it to the west (@203.87-204.37) and stops a tile along
+// the wall, his feet by the doorway's west post. From @204.47 to the cut he is down behind his
+// shield there, sword upright (@204.87-206.17): which seq that crouch is, no source says. Not his
+// 8848-8854 stances nor seq 12226-12230, 12233, 12267, 12268 or 12272 (in-client takes); 12229 has
+// the pose but rises after half a second. Here he stands at the tile.
+p_delay(0);
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 2, 0) = true) {
+    npc_facesquare(~uf_cellar_coord(30, 21));
+    npc_say("Grub's up! Shoo!");
+    ~speech_line(vorbis_850);
+    npc_walk(~uf_cellar_coord(31, 16));
+}
+p_delay(4);
+// Shot 102 (8 ticks, @206.27-211.04): 2762's 102, high, moving north and looking south at the
+// wall: the dragon turns from the wall and goes. The doorway Sir Vant stood in is empty by the
+// shot's end (@210.5-211.0), and no shot shows him again until 107, by his bag: where he is
+// meanwhile, no recording shows. Here he leaves the cellar at the cut and is added back for 107.
+%tutorial3_cutscene_tracker = 102;
+// In the hole by now, turned to face out of it (@245.4).
+facesquare(~uf_cellar_coord(20, 30));
+if (npc_find(~uf_cellar_coord(32, 16), tutorial3_knight_distracting, 6, 0) = true) {
+    npc_del;
+}
+// The dragon goes north in one walk from (28, 19) (uf_cellar.rs2) to the nest's row, (29, 33):
+// a step east, then up x 29 (the step north-east is not open to its size-5 body there, and on
+// x 30 it would meet the barrel and crates on x 34, z 33-37: l57_77). From z 33 its walk west is
+// straight, its last step west, so it stops facing the bowl (walked from z 31, its path ended on
+// a step north, side-on on the nest: in-client runs ufrest16-18).
+// Its tiles are read off 4KO2's frames against ours filmed through the same cameras, each to
+// about a tile:
+// - shot 102: it faces the wall 1.4 s in and is turning 1.8 s in (@207.67, @208.07), faces north
+//   @209.3 and leaves the frame's bottom (@209.4-210.6);
+// - shot 103 (looking north along x 32): it faces north from the first frame (@211.12), a little
+//   left of the frame's middle, about (29, 26), and still strides @215.1;
+// - shot 104 (looking east from the nest): it is about (29, 33), facing north, and all but still
+//   (@215.45-216.35).
+// Asked for on the shot's second tick, its first step is on the third: it is on z 25 as 103
+// opens, on z 32 as 104 opens and on z 33 a tick later, a tile short of both readings, and it
+// turns from the wall a tick sooner than 2011's does. A tick later it would turn when 2011's does
+// and be two tiles short. Fitted between the two; no frame shows its first step.
+// Earlier it went to (30, 26), then to (29, 31) and stood, then two steps on in 104: behind
+// 2011's in each shot, and turning in shot 103's first frames.
+p_delay(0);
+if (npc_find(~uf_cellar_coord(28, 19), tutorial3_dragon_initial, 4, 0) = true) {
+    npc_walk(~uf_cellar_coord(29, 33));
+}
+p_delay(6);
+// Shot 103 (7 ticks, @211.04-215.35): 2762's 103, the camera following the dragon north along
+// x 32 from z 21 to 26, looking north: the dragon walks away from it the whole shot (@211.2-215.1).
+// Shot 104 (2 ticks, @215.35-216.45): 2762's 104, low by the nest looking east at (32, 29): the
+// dragon side-on facing north, no one else in view (@215.8); and 105 opens with it under the
+// camera on (32, 31).
+%tutorial3_cutscene_tracker = 103;
+p_delay(6);
+%tutorial3_cutscene_tracker = 104;
+p_delay(1);
+// Shot 105 (25 ticks, @216.45-231.4): 2762's 105, high, moving west and looking west down at the
+// nest (18, 35). The dragon (size 5) passes under the camera (@216.5-219) and walks west onto the
+// nest, cache 786's 5x5 floor at x 18-22, z 33-37 (locs 45732-45754), its corner (18, 33), there
+// by @223.4, facing the bowl on (17, 35) (its back to the camera). @227.3 it comes round to its
+// left on its feet, wings held up (side-on, tail to the camera's left, @229.4-230.4), drops
+// @230.6 and is flat by @230.8-231.0, head to the camera's right. That is one seq, 12254, played
+// facing the bowl: 65 frames, 4.08 s, its own steps (synth_6645 on frames 5 to 45) and thud
+// (synth_7284 on frame 56, 3.36 s in), and it holds its last frame. Set beside 2011 every 0.2 s
+// (probe uf_nest3_probe, facing west) it is the same pose by pose, started on the tick @227.25.
+// Earlier this was three turns a tick apart and seq 14260, whose last pose is the same but which
+// spreads its wings low for ~2 s first, which 2011 does not show. The eat seq 14255 (wings
+// opening, 13.3 s) shows nowhere in 2011.
+%tutorial3_cutscene_tracker = 105;
+p_delay(0);
+// West to the nest, there by 105's 12th tick (@223.4 in 2011, ~7 s in). Its face target is the
+// bowl, so it stays facing it: the one it kept from the dragon cutscene (Sir Vant's (32, 16))
+// turned it on the nest (runs ufrest16 and 17).
+if (npc_find(~uf_cellar_coord(29, 33), tutorial3_dragon_initial, 8, 0) = true) {
+    npc_facesquare(~uf_cellar_coord(17, 35));
+    npc_walk(~uf_cellar_coord(18, 33));
+}
+p_delay(16);
+// The meat is eaten: the bone bowl again. 2011's tick for it is not seen, the dragon standing
+// over the bowl hides it from @223.9 to @227.8; it has the meat @223.65 and the bone @227.9, a
+// tick after the lie-down starts (@227.25). Put on the lie-down's tick, which fits; which tick
+// of those seven 2011 used is unknown.
+%tutorial3_meatplacement = 0;
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 2, 0) = true) {
+    npc_anim(seq_12254, 0);
+}
+// Seven ticks to the end of shot 105 (its 25 ticks end @231.45), as the turns and 14260 took.
+p_delay(6);
+// Shot 106 (5 ticks): the fade to black. Once the screen is black the dragon is the sleeping one
+// (8861, its ready seq 12255 a breathing loop) and Sir Vant is back, each added where it now
+// stays: an npc moved by a script walks back to where it was added once its mode goes back to
+// its default (run ufrest15: Sir Vant teleported to the pillars was back in the doorway for the
+// sabotage, where 2011 has him by the pillars @244-366).
+%tutorial3_cutscene_tracker = 106;
+p_delay(1);
+if (npc_find(~uf_cellar_coord(18, 33), tutorial3_dragon_initial, 8, 0) = true) {
+    npc_del;
+}
+~uf_dragon_asleep;
+// Stage 2's cellar (cache 786's tutorial3_2 from 93): its start room, rebuilt in the black, the
+// client's "Loading - please wait." with it (@233); the bag by the pillars.
+~uf_cellar_stage2;
+// 107 opens on Sir Vant beside his bag (27, 29), facing it, who then walks west to the pillar
+// (@234.6-237.6). He is added on his place by the pillars (25, 30), as a login after the cutscene
+// finds him (uf_cellar.rs2), and stands at the bag, on (27, 30), for the shot.
+// Both tiles are from 8848 filmed in-client through shot 107's camera on each tile of rows 29-31:
+// on (27, 30) his feet are where 4KO2h2xPtdM has them @234.9-236.3, and on (25, 30) he is where
+// it has him @240-244 (a tile east of it he is out of the frame's left by @243, a tile west he
+// stands in the rack). He stands there facing west, as his walk leaves him.
+// @234.9 he leans over the bag: whether that is a seq, no source says; not played.
+// From here to the collapse he is tutorial3_knight (8848): in shot 107 and after it he stands at
+// ease, sword down at his right and shield at his left side (4KO2h2xPtdM @235.7-236.3, @240.5-243,
+// @246-262), the stance bas_1613 gives 8848, 8849 and 8854; 8850's (bas_1614) holds the shield
+// up before him, as he stands in the doorway before the dragon comes.
+~uf_bag_by_pillars;
+npc_add(~uf_cellar_coord(25, 30), tutorial3_knight, 0);
+npc_setmode(none);
+npc_tele(~uf_cellar_coord(27, 30));
+npc_facesquare(~uf_cellar_coord(27, 29));
+p_delay(2);
+// Shot 107 (from @234.53): s020 (V88 clip 958) ~4 ticks in, the cutscene open until it is
+// continued.
+%tutorial3_cutscene_tracker = 107;
+p_delay(1);
+if (npc_find(~uf_cellar_coord(27, 30), tutorial3_knight, 2, 0) = true) {
+    npc_walk(~uf_cellar_coord(25, 30));
+}
+p_delay(1);
+// The side panel turns to the Task, Talk to Sir Vant Again, with s020 (@237.1; the panel still
+// the pack @237.25, the Task from @237.5).
+%tutorial = 93;
+~uf_task_tab;
+~uf_task_pin;
+// The ending waits in the queue, which runs once the box is gone: by its continue, or by a click
+// on the floor, which drops this script with the cutscene open.
+queue(uf_sleep_end, 0, 0);
+~speech_line(vorbis_958);
+split_init("<p,neutral>Well done. Come out of hiding and I'll tell you what we're doing next.", 380, 4, q8_full);
+~chatnpc_page("Sir Vant", tutorial3_knight, 0);
+p_pausebutton;
+if_close;
+
+[queue,uf_sleep_end]
+if (region_findbycoord(coord) = false) {
+    return;
+}
+// s020 continued @244.6 ("Please wait..." to @244.8): the camera back on the player in the hole
+// and the minimap back @244.9, and in that frame TASK COMPLETE! Put the Dragon to Sleep starts
+// to open (full by @245.6). 4KO2h2xPtdM shows no banner over shot 107 (@236-244.8). They walk
+// out to Sir Vant themselves, with no hint on him: no ring at the player's feet (@245.2-248.2)
+// and no arrow over Sir Vant (@247.2-251.2), where the same recording has both after the dragon
+// cutscene (@54.8-57.8).
+~uf_cutscene_release;
+%varclient_1425 = 3510;
+if (npc_find(~uf_cellar_coord(25, 30), tutorial3_knight, 2, 0) = true) {
+    npc_facesquare(~uf_cellar_coord(24, 30));
+}
+~uf_cutscene_end;

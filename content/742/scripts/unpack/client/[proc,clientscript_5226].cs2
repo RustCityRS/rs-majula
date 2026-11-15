@@ -1,0 +1,5 @@
+// 5226
+[proc,clientscript_5226]
+if (activeclansettings_find_affined = true) {
+    ~script4328(clansettings:com_352);
+}

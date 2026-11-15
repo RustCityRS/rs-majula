@@ -47,18 +47,18 @@ fn bones_bury_and_altars_recharge() {
 /// 289's `bury_bone.rs2`: the hole is dug at once, and the bones go a tick
 /// later with their `bone_exp` (45 tenths of an xp for plain bones).
 fn bury(engine: &mut Engine) {
-    let bones = *engine.cache.objs.debugnames.get("bones").unwrap();
+    let bones = engine.cache.objs.get_by_debugname("bones").unwrap().id;
     engine.harness_reset();
     let mut client = engine.harness_login_returning("buryer").expect("login");
     engine.cycle();
     client.packets();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let player = engine.harness_player_mut(client.pid).unwrap();
     player.invs.get_mut(&inv).unwrap().set(0, bones, 1);
     let xp = player.stats.xp[PRAYER];
 
     let mut p = ClientPacket::new();
-    p.p4(BACKPACK).p2_alt3(bones as i32).p2_alt1(0);
+    p.p4(BACKPACK).p2_alt3(bones.int()).p2_alt1(0);
     client.send(ClientProt::IfButton1, &p.finish());
     engine.cycle();
     assert_eq!(
@@ -336,14 +336,14 @@ fn protect_from_melee_shows_its_head_icon() {
 fn prayer_runs_out_with_2011s_message() {
     runner::on_loaded_engine(|engine| {
         let mut client = prayer_player(engine, "drained", 43);
-        let resistance = *engine
+        let resistance = engine
             .cache
             .varps
-            .debugnames
-            .get("prayer_drain_resistance")
-            .unwrap();
+            .get_by_debugname("prayer_drain_resistance")
+            .unwrap()
+            .id;
         let player = engine.harness_player(client.pid).unwrap();
-        assert_eq!(player.vars.get(resistance).as_int(), 60);
+        assert_eq!(player.vars.get(resistance.g2()).as_int(), 60);
         engine.harness_player_mut(client.pid).unwrap().stats.levels[PRAYER] = 1;
         click(engine, &mut client, PROTECT_FROM_MELEE.0);
         assert_eq!(active(engine, &client), 1 << PROTECT_FROM_MELEE.1);

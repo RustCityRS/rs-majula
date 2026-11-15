@@ -1,0 +1,9 @@
+// 6500
+[proc,clientscript_6500](int $int0)(boolean)
+if (%varplayerbit_11479 = 1) {
+    if ($int0 = 1) {
+        mes("You cannot display cosmetic gear at the moment.");
+    }
+    return(false);
+}
+return(true);

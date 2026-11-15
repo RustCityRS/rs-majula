@@ -1,0 +1,74 @@
+// 5675
+[proc,clientscript_5675]
+def_int $int0 = 0;
+switch_int (%varplayer_2478) {
+    case default :
+        $int0 = %varplayerbit_10440;
+    case 2 :
+        $int0 = %varplayerbit_10441;
+    case 3 :
+        $int0 = %varplayerbit_10442;
+}
+def_component $component1 = null;
+switch_int ($int0) {
+    case default :
+        $component1 = interface_1214:com_31;
+    case 2 :
+        $component1 = interface_1214:com_32;
+    case 5 :
+        $component1 = interface_1214:com_33;
+    case 6 :
+        $component1 = interface_1214:com_36;
+    case 3 :
+        $component1 = interface_1214:com_34;
+    case 4 :
+        $component1 = interface_1214:com_35;
+    case 7 :
+        $component1 = interface_1214:com_37;
+    case 12 :
+        $component1 = interface_1214:com_49;
+    case 11 :
+        $component1 = interface_1214:com_41;
+    case 13 :
+        $component1 = interface_1214:com_43;
+    case 14 :
+        $component1 = interface_1214:com_44;
+    case 15 :
+        $component1 = interface_1214:com_45;
+    case 16 :
+        $component1 = interface_1214:com_46;
+    case 17 :
+        $component1 = interface_1214:com_47;
+    case 18 :
+        $component1 = interface_1214:com_48;
+    case 8 :
+        $component1 = interface_1214:com_38;
+    case 9 :
+        $component1 = interface_1214:com_39;
+    case 10 :
+        $component1 = interface_1214:com_40;
+    case 19 :
+        $component1 = interface_1214:com_42;
+    case 20 :
+        $component1 = interface_1214:com_50;
+    case 21 :
+        $component1 = interface_1214:com_51;
+    case 22 :
+        $component1 = interface_1214:com_52;
+    case 23 :
+        $component1 = interface_1214:com_53;
+    case 24 :
+        $component1 = interface_1214:com_54;
+    case 25 :
+        $component1 = interface_1214:com_55;
+    case 30 :
+        $component1 = interface_1214:com_56;
+    case 31 :
+        $component1 = interface_1214:com_57;
+}
+def_int $int2 = calc(if_getx($component1) - 1);
+def_int $int3 = calc(if_gety($component1) - 1);
+if_setposition(interface_1214:com_58, $int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if_setposition(interface_1214:com_30, $int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(interface_1214:com_58, false);
+if_sethide(interface_1214:com_30, false);

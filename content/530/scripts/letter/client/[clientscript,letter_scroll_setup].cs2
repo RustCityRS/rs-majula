@@ -1,0 +1,4 @@
+// 1336
+[clientscript,letter_scroll_setup]
+if_setscrollsize(letter_lj:lj_layer1, 400, 1810);
+~clientscript_31(letter_lj:lj_scroll_bar, letter_lj:lj_layer1, 792, 789, 790, 791, 773, 788);

@@ -1,0 +1,21 @@
+// 4728
+[proc,clientscript_4728](int $int0)
+if (op718 = 1) {
+    ~clientscript_4896;
+    switch_int (%varclan_2074) {
+        case 0, 1, 2, 3 :
+            ~clientscript_4897(%varclan_2074);
+        case default :
+            ~clientscript_4897(%varclan_2598);
+    }
+    ~scrollbar_vertical(interface_1261:com_55, interface_1261:com_56, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+    ~clientscript_4991;
+    ~clientscript_4900;
+    ~clientscript_4905;
+    ~clientscript_5012;
+    ~clientscript_4859;
+    ~clientscript_4928;
+    ~clientscript_4989($int0);
+} else {
+    mes("Clan stronghold information not yet available.");
+}

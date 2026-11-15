@@ -22,6 +22,7 @@ use rs_pack::ParamValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use std::collections::HashMap;
 use std::fs;
@@ -53,7 +54,9 @@ fn a_fight_runs_on_life_points() {
             .filter(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS)
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
             .find(|(_, id, c)| {
-                *id == COW && (3254..3265).contains(&c.x()) && (3256..3297).contains(&c.z())
+                *id == TypeId::new(COW)
+                    && (3254..3265).contains(&c.x())
+                    && (3256..3297).contains(&c.z())
             })
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
             .expect("a cow in the Lumbridge field");
@@ -143,7 +146,7 @@ fn the_field_cow_fights_with_2011s_animations_and_sounds() {
         let params = engine
             .cache
             .npcs
-            .get_by_id(COW)
+            .get_by_id(TypeId::new(COW))
             .and_then(|n| n.params.as_deref())
             .expect("the field cow has params");
         for (param, kind, id, name) in [
@@ -154,7 +157,7 @@ fn the_field_cow_fights_with_2011s_animations_and_sounds() {
             ("defend_sound", "synth", 371, "cow_hit"),
             ("death_sound", "synth", 370, "cow_death"),
         ] {
-            let value = params.get(&pack_id("param", param));
+            let value = params.get(&TypeId::from_int(pack_id("param", param)));
             assert!(
                 matches!(value, Some(ParamValue::Int(v)) if *v == id),
                 "{param} is {value:?}, not {id}"
@@ -192,7 +195,9 @@ fn the_player_fights_beside_the_cow_not_inside_it() {
             .filter(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS)
             .map(|n| (n.npc.uid.nid(), n.npc.uid.id(), n.npc.pathing.coord))
             .find(|(_, id, c)| {
-                *id == COW && (3254..3262).contains(&c.x()) && (3256..3297).contains(&c.z())
+                *id == TypeId::new(COW)
+                    && (3254..3262).contains(&c.x())
+                    && (3256..3297).contains(&c.z())
             })
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
             .expect("a cow in the Lumbridge field");
@@ -268,7 +273,11 @@ fn the_server_knows_every_npcs_size_and_combat_level() {
             let size: u8 = key("size").map_or(1, |v| v.parse().unwrap());
             let vislevel: Option<u16> =
                 key("vislevel").map(|v| if v == "hide" { 0 } else { v.parse().unwrap() });
-            let npc = engine.cache.npcs.get_by_id(id as u16).expect(name);
+            let npc = engine
+                .cache
+                .npcs
+                .get_by_id(TypeId::from_int(id))
+                .expect(name);
             if npc.size != size || npc.vislevel != vislevel {
                 wrong.push(format!(
                     "{name} ({id}): size {} vislevel {:?}, the cache's {size} {vislevel:?}",
@@ -306,7 +315,7 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
             .flatten()
             .find(|n| {
                 let c = n.npc.pathing.coord;
-                n.npc.uid.id() == COW
+                n.npc.uid.id() == TypeId::new(COW)
                     && (3254..3265).contains(&c.x())
                     && (3256..3297).contains(&c.z())
                     && n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS

@@ -1,0 +1,15 @@
+// 6256
+[proc,clientscript_6256](component $component0)
+if ($component0 = fishcomp_side:com_102) {
+    if_sethide(fishcomp_side:com_5, false);
+} else if ($component0 = fishcomp_side:com_98) {
+    if_sethide(fishcomp_side:com_0, false);
+} else if ($component0 = fishcomp_side:com_94) {
+    if_sethide(fishcomp_side:com_7, false);
+} else if ($component0 = fishcomp_side:com_91) {
+    if_sethide(fishcomp_side:com_9, false);
+} else if ($component0 = fishcomp_side:com_87) {
+    if_sethide(fishcomp_side:com_11, false);
+} else if ($component0 = fishcomp_side:com_83) {
+    if_sethide(fishcomp_side:com_13, false);
+}

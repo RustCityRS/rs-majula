@@ -1,0 +1,412 @@
+// 884:0
+[com_0]
+type=text
+x=38
+y=1
+width=42
+height=25
+widthmode=minus
+textfont=verdana_11pt_regular
+text=%1
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xed9d3b
+onload=combat_side_title(event_com)
+oninvtransmit=combat_side_title(event_com){worn}
+
+// 884:1
+[com_1]
+type=text
+x=38
+y=24
+width=42
+height=12
+widthmode=minus
+textfont=verdana_11pt_regular
+text=Combat Lvl: %1
+textalignh=centre
+textshadow=yes
+colour=0xed9d3b
+onload=combat_side_comlevel(event_com)
+oninvtransmit=combat_side_comlevel(event_com){worn}
+onstattransmit=combat_side_comlevel(event_com){hitpoints, summoning, defence, attack, strength, ranged, magic, prayer}
+onvarctransmit=combat_side_comlevel(event_com){comlevel_potential_varc}
+
+// 884:2
+[com_2]
+type=graphic
+x=6
+y=4
+width=32
+height=32
+graphic=graphic_9286
+
+// 884:3
+[sp_attack_layer]
+type=layer
+width=190
+height=261
+onload=combat_side_special(combat_side:com_4)
+oninvtransmit=combat_side_special(combat_side:com_4){worn}
+
+// 884:4
+[com_4]
+type=layer
+y=204
+width=150
+height=30
+xmode=abs_centre
+transmitop=1
+op1=Toggle Special Attack
+
+// 884:5
+[tooltip_bound]
+type=layer
+width=190
+height=261
+
+// 884:6
+[buttons]
+type=layer
+x=4
+y=40
+width=182
+height=219
+layer=tooltip_bound
+onload=combat_side_setup
+oninvtransmit=combat_side_setup{worn}
+
+// 884:7
+[button1]
+type=layer
+x=16
+y=5
+width=70
+height=46
+layer=buttons
+
+// 884:8
+[button2]
+type=layer
+x=100
+y=5
+width=70
+height=46
+layer=buttons
+
+// 884:9
+[button3]
+type=layer
+x=16
+y=58
+width=70
+height=46
+layer=buttons
+
+// 884:10
+[button4]
+type=layer
+x=99
+y=58
+width=70
+height=46
+layer=buttons
+
+// 884:11
+[auto_retaliate]
+type=layer
+x=17
+y=112
+width=150
+height=46
+layer=buttons
+transmitop=1
+op1=Auto Retaliate
+
+// 884:12
+[optnodef]
+type=graphic
+width=150
+height=46
+layer=auto_retaliate
+graphic="combatboxes_very_large,0"
+colour=0xffffffff
+onload=combat_side_auto_retaliate_graphic(event_com)
+onvartransmit=combat_side_auto_retaliate_graphic(event_com){option_nodef}
+
+// 884:13
+[auto_text]
+type=text
+x=36
+y=2
+width=112
+height=42
+layer=auto_retaliate
+textfont=verdana_11pt_regular
+text=Auto Retaliate <br>(Off)
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=combat_side_auto_retaliate(event_com)
+onvartransmit=combat_side_auto_retaliate(event_com){option_nodef}
+
+// 884:14
+[tooltip]
+type=layer
+x=-4
+y=-40
+width=50
+height=50
+layer=buttons
+
+// 884:15
+[button4_back]
+type=graphic
+width=70
+height=46
+layer=button4
+graphic="combatboxes_large,0"
+colour=0xffffffff
+onload=combat_side_button_highlight(event_com, 3)
+onvartransmit=combat_side_button_highlight(event_com, 3){com_mode}
+
+// 884:16
+[icon4]
+type=graphic
+x=19
+y=5
+width=34
+height=24
+layer=button4
+colour=0xffffffff
+
+// 884:17
+[text4]
+type=text
+y=30
+width=70
+height=13
+layer=button4
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 884:18
+[button3_back]
+type=graphic
+width=70
+height=46
+layer=button3
+graphic="combatboxes_large,0"
+colour=0xffffffff
+onload=combat_side_button_highlight(event_com, 2)
+onvartransmit=combat_side_button_highlight(event_com, 2){com_mode}
+
+// 884:19
+[icon3]
+type=graphic
+x=20
+y=5
+width=34
+height=24
+layer=button3
+colour=0xffffffff
+
+// 884:20
+[text3]
+type=text
+y=30
+width=70
+height=13
+layer=button3
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 884:21
+[button2_back]
+type=graphic
+width=70
+height=46
+layer=button2
+graphic="combatboxes_large,0"
+colour=0xffffffff
+onload=combat_side_button_highlight(event_com, 1)
+onvartransmit=combat_side_button_highlight(event_com, 1){com_mode}
+
+// 884:22
+[text2]
+type=text
+y=30
+width=70
+height=13
+layer=button2
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 884:23
+[icon2]
+type=graphic
+x=18
+y=5
+width=34
+height=24
+layer=button2
+colour=0xffffffff
+
+// 884:24
+[button1_back]
+type=graphic
+width=70
+height=46
+layer=button1
+graphic="combatboxes_large,0"
+colour=0xffffffff
+onload=combat_side_button_highlight(event_com, 0)
+onmouseleave=deltooltip(combat_side:tooltip)
+onvartransmit=combat_side_button_highlight(event_com, 0){com_mode}
+
+// 884:25
+[icon1]
+type=graphic
+x=20
+y=5
+width=34
+height=24
+layer=button1
+colour=0xffffffff
+
+// 884:26
+[text1]
+type=text
+y=30
+width=70
+height=13
+layer=button1
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 884:27
+[com_27]
+type=graphic
+width=12
+height=30
+ymode=abs_centre
+layer=com_4
+graphic="aif_progress_bar_frame_2,0"
+
+// 884:28
+[com_28]
+type=graphic
+width=12
+height=30
+xmode=abs_right
+ymode=abs_centre
+layer=com_4
+graphic="aif_progress_bar_frame_2,0"
+hflip=yes
+
+// 884:29
+[com_29]
+type=graphic
+width=12
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+graphic="aif_progress_bar_frame_2,1"
+tiling=yes
+hflip=yes
+
+// 884:30
+[com_30]
+type=layer
+x=6
+width=12
+height=19
+widthmode=minus
+ymode=abs_centre
+layer=com_4
+onload=combat_side_special_level(combat_side:com_31, combat_side:com_36)
+onvartransmit=combat_side_special_level(combat_side:com_31, combat_side:com_36){sa_energy}
+
+// 884:31
+[com_31]
+type=layer
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_30
+
+// 884:32
+[com_32]
+type=graphic
+width=6
+height=19
+ymode=abs_centre
+layer=com_31
+graphic="aif_progress_bar_green_fill_2,0"
+
+// 884:33
+[com_33]
+type=graphic
+width=6
+height=19
+xmode=abs_right
+ymode=abs_centre
+layer=com_31
+graphic="aif_progress_bar_green_fill_2,2"
+
+// 884:34
+[com_34]
+type=graphic
+width=12
+height=19
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+graphic="aif_progress_bar_green_fill_2,1"
+tiling=yes
+
+// 884:35
+[com_35]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+onload=combat_side_special_highlight(combat_side:com_36)
+
+// 884:36
+[com_36]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+textfont=verdana_11pt_regular
+text=0%
+textalignh=centre
+textalignv=centre
+colour=0xd5d9d3
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xd5d9d3, ^black)
+onvartransmit=combat_side_special_highlight(event_com){sa_attack}

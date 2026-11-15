@@ -1,0 +1,284 @@
+[debugproc,open_cc]()
+if (p_finduid(uid) = false) {
+    return;
+}
+%tutorial = 0;
+if (%tutorial < 1000) {
+    ~cc_open_interface();
+    return;
+}
+
+// ── Style tab buttons (com48-com67 = styles 1-20) ────────────────────
+[if_button,playerdesign4:role0]
+if (p_finduid(uid) = true) { ~cc_style(1); }
+[if_button,playerdesign4:role1]
+if (p_finduid(uid) = true) { ~cc_style(2); }
+[if_button,playerdesign4:role2]
+if (p_finduid(uid) = true) { ~cc_style(3); }
+[if_button,playerdesign4:role3]
+if (p_finduid(uid) = true) { ~cc_style(4); }
+[if_button,playerdesign4:role4]
+if (p_finduid(uid) = true) { ~cc_style(5); }
+[if_button,playerdesign4:role5]
+if (p_finduid(uid) = true) { ~cc_style(6); }
+[if_button,playerdesign4:role6]
+if (p_finduid(uid) = true) { ~cc_style(7); }
+[if_button,playerdesign4:role7]
+if (p_finduid(uid) = true) { ~cc_style(8); }
+[if_button,playerdesign4:role8]
+if (p_finduid(uid) = true) { ~cc_style(9); }
+[if_button,playerdesign4:role9]
+if (p_finduid(uid) = true) { ~cc_style(10); }
+[if_button,playerdesign4:role10]
+if (p_finduid(uid) = true) { ~cc_style(11); }
+[if_button,playerdesign4:role11]
+if (p_finduid(uid) = true) { ~cc_style(12); }
+[if_button,playerdesign4:role12]
+if (p_finduid(uid) = true) { ~cc_style(13); }
+[if_button,playerdesign4:role13]
+if (p_finduid(uid) = true) { ~cc_style(14); }
+[if_button,playerdesign4:role14]
+if (p_finduid(uid) = true) { ~cc_style(15); }
+[if_button,playerdesign4:role15]
+if (p_finduid(uid) = true) { ~cc_style(16); }
+[if_button,playerdesign4:role16]
+if (p_finduid(uid) = true) { ~cc_style(17); }
+[if_button,playerdesign4:role17]
+if (p_finduid(uid) = true) { ~cc_style(18); }
+[if_button,playerdesign4:role18]
+if (p_finduid(uid) = true) { ~cc_style(19); }
+[if_button,playerdesign4:role19]
+if (p_finduid(uid) = true) { ~cc_style(20); }
+
+[proc,cc_style](int $index)
+%character_creation_style = $index;
+%character_creation_sub_style = 1;
+~cc_update_outfit_varcs();
+
+// ── Sub-style / type buttons (com83-com88 = types 1-6) ───────────────
+[if_button,playerdesign4:outfit0]
+if (p_finduid(uid) = true) { %character_creation_sub_style = 1; ~cc_update_outfit_varcs(); }
+[if_button,playerdesign4:outfit1]
+if (p_finduid(uid) = true) { %character_creation_sub_style = 2; ~cc_update_outfit_varcs(); }
+[if_button,playerdesign4:outfit2]
+if (p_finduid(uid) = true) { %character_creation_sub_style = 3; ~cc_update_outfit_varcs(); }
+[if_button,playerdesign4:outfit3]
+if (p_finduid(uid) = true) { %character_creation_sub_style = 4; ~cc_update_outfit_varcs(); }
+[if_button,playerdesign4:outfit4]
+if (p_finduid(uid) = true) { %character_creation_sub_style = 5; ~cc_update_outfit_varcs(); }
+[if_button,playerdesign4:outfit5]
+if (p_finduid(uid) = true) { %character_creation_sub_style = 6; ~cc_update_outfit_varcs(); }
+
+// ── Gender buttons ───────────────────────────────────────────────────
+[if_button,playerdesign4:male]
+if (p_finduid(uid) = true) {
+    %character_creation_female = 0;
+    %character_creation_sub_style = 1;
+    def_int $hair_struct = enum(105, 74, enum_3304, %character_creation_hair_style);
+    if ($hair_struct ! -1) {
+        def_int $hair = struct_param($hair_struct, param_788);
+        if ($hair ! -1) { %playerdesign3_head = $hair; }
+    }
+    def_int $beard = enum(105, 75, enum_3307, calc(%character_creation_hair_style / 2));
+    if ($beard ! -1) { %playerdesign3_jaw = $beard; }
+    ~cc_update_outfit_varcs();
+}
+[if_button,playerdesign4:female]
+if (p_finduid(uid) = true) {
+    %character_creation_female = 1;
+    %character_creation_sub_style = 1;
+    def_int $hair_struct = enum(105, 74, enum_3302, %character_creation_hair_style);
+    if ($hair_struct ! -1) {
+        def_int $hair = struct_param($hair_struct, param_788);
+        if ($hair ! -1) { %playerdesign3_head = $hair; }
+    }
+    %playerdesign3_jaw = -1
+    ~cc_update_outfit_varcs();
+}
+
+// ── Body part tabs ───────────────────────────────────────────────────
+[if_button,playerdesign4:skin]
+if (p_finduid(uid) = true) { %character_part = 0; ~cc_rearm_grids(); }
+[if_button,playerdesign4:hair]
+if (p_finduid(uid) = true) { %character_part = 1; ~cc_rearm_grids(); }
+[if_button,playerdesign4:torso]
+if (p_finduid(uid) = true) { %character_part = 3; ~cc_rearm_grids(); }
+[if_button,playerdesign4:legs]
+if (p_finduid(uid) = true) { %character_part = 6; ~cc_rearm_grids(); }
+[if_button,playerdesign4:boots]
+if (p_finduid(uid) = true) { %character_part = 7; ~cc_rearm_grids(); }
+[if_button,playerdesign4:beard]
+if (p_finduid(uid) = true) { %character_part = 2; ~cc_rearm_grids(); }
+
+[proc,cc_rearm_grids]()
+if_setevents(playerdesign4:menu, 0, 200, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:colours, 0, 200, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:skincolours, 0, 20, ^if_op1, 0, 0, ^false, ^false)
+
+// ── Choose colour button (com102) — cycles through 8 color profiles ──
+[if_button,playerdesign4:colour_set]
+if (p_finduid(uid) = true) {
+    def_int $offset = calc((%character_creation_colour_offset + 1) % 8);
+    %character_creation_colour_offset = $offset;
+    ~cc_update_colour_varcs();
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// Helper procs: update varcs for client preview (no server body changes)
+// ═════════════════════════════════════════════════════════════════════════
+
+[proc,cc_update_outfit_varcs]()
+def_int $style_index = calc(%character_creation_style - 1);
+def_int $sub_index = calc(%character_creation_sub_style - 1);
+def_int $female = %character_creation_female;
+
+if ($style_index < 0) { $style_index = 0; }
+if ($sub_index < 0) { $sub_index = 0; }
+
+def_int $style_struct = enum(105, 74, enum_3278, $style_index);
+if ($style_struct = -1) { return; }
+
+def_int $sub_param = calc(1169 + $sub_index);
+if ($female = 1) {
+    $sub_param = calc(1175 + $sub_index);
+}
+def_int $sub_struct = struct_param($style_struct, $sub_param);
+if ($sub_struct <= 0) { return; }
+
+def_int $torso = struct_param($sub_struct, param_1182);
+def_int $arms = struct_param($sub_struct, param_1183);
+def_int $hands = struct_param($sub_struct, param_1184);
+def_int $legs = struct_param($sub_struct, param_1185);
+def_int $feet = struct_param($sub_struct, param_1186);
+
+def_int $offset = %character_creation_colour_offset;
+def_int $base_param = calc(1187 + ($offset * 3));
+def_int $colour_top = struct_param($sub_struct, $base_param);
+def_int $colour_legs = struct_param($sub_struct, calc($base_param + 1));
+def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
+
+%playerdesign3_torso = $torso
+%playerdesign3_arms = $arms
+%playerdesign3_hands = $hands
+%playerdesign3_legs = $legs
+%playerdesign3_feet = $feet
+%playerdesign3_torsocol = $colour_top
+%playerdesign3_legscol = $colour_legs
+%playerdesign3_feetcol = $colour_feet
+
+[proc,cc_update_colour_varcs]()
+def_int $style_index = calc(%character_creation_style - 1);
+def_int $sub_index = calc(%character_creation_sub_style - 1);
+def_int $female = %character_creation_female;
+def_int $offset = %character_creation_colour_offset;
+
+if ($style_index < 0) { $style_index = 0; }
+if ($sub_index < 0) { $sub_index = 0; }
+
+def_int $style_struct = enum(105, 74, enum_3278, $style_index);
+if ($style_struct = -1) { return; }
+
+def_int $sub_param = calc(1169 + $sub_index);
+if ($female = 1) {
+    $sub_param = calc(1175 + $sub_index);
+}
+def_int $sub_struct = struct_param($style_struct, $sub_param);
+if ($sub_struct <= 0) { return; }
+
+def_int $base_param = calc(1187 + ($offset * 3));
+def_int $colour_top = struct_param($sub_struct, $base_param);
+def_int $colour_legs = struct_param($sub_struct, calc($base_param + 1));
+def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
+
+%playerdesign3_torsocol = $colour_top
+%playerdesign3_legscol = $colour_legs
+%playerdesign3_feetcol = $colour_feet
+
+// TODO color feet didn't appear to save correct for certain colors.
+
+// ═════════════════════════════════════════════════════════════════════════
+// Grid handlers: individual body part / colour selection
+// ═════════════════════════════════════════════════════════════════════════
+
+[if_button1,playerdesign4:menu]
+if (p_finduid(uid) = true) {
+    def_int $slot = last_slot;
+    def_int $part = %character_part;
+    def_int $female = %character_creation_female;
+    def_int $idk = -1;
+
+    if ($part = 1) {
+        if ($female = 1) {
+            def_int $struct = enum(105, 74, enum_3302, $slot);
+            if ($struct ! -1) { $idk = struct_param($struct, param_788); }
+        } else {
+            def_int $struct = enum(105, 74, enum_3304, $slot);
+            if ($struct ! -1) { $idk = struct_param($struct, param_788); }
+        }
+        if ($idk ! -1) { %playerdesign3_head = $idk; }
+    } else if ($part = 2) {
+        if ($female = 0) {
+            def_int $struct = enum(105, 74, enum_3307, $slot);
+            if ($struct ! -1) { $idk = struct_param($struct, param_788); }
+        }
+        if ($idk ! -1) { %playerdesign3_jaw = $idk; }
+    } else if ($part = 3) {
+        if ($female = 1) {
+            $idk = enum(105, 75, enum_3299, $slot);
+        } else {
+            $idk = enum(105, 75, enum_3287, $slot);
+        }
+        if ($idk ! -1) { %playerdesign3_torso = $idk; }
+    } else if ($part = 6) {
+        if ($female = 1) {
+            $idk = enum(105, 75, enum_3301, $slot);
+        } else {
+            $idk = enum(105, 75, enum_3289, $slot);
+        }
+        if ($idk ! -1) { %playerdesign3_legs = $idk; }
+    } else if ($part = 7) {
+        if ($female = 1) {
+            $idk = enum(105, 75, enum_1137, $slot);
+        } else {
+            $idk = enum(105, 75, enum_1136, $slot);
+        }
+        if ($idk ! -1) { %playerdesign3_feet = $idk; }
+    }
+    ~cc_rearm_grids();
+}
+
+// ── Colours grid (com111) — individual colour pick ───────────────────
+[if_button1,playerdesign4:colours]
+if (p_finduid(uid) = true) {
+    def_int $slot = last_slot;
+    def_int $part = %character_part;
+    def_int $colour = -1;
+
+    if ($part = 0) {
+        $colour = enum(105, 105, enum_748, $slot);
+        if ($colour ! -1) { %playerdesign3_skincol = $colour; }
+    } else if ($part = 1 | $part = 2) {
+        $colour = enum(105, 105, enum_2345, $slot);
+        if ($colour ! -1) { %playerdesign3_haircol = $colour; }
+    } else if ($part = 3) {
+        $colour = enum(105, 105, enum_3283, $slot);
+        if ($colour ! -1) { %playerdesign3_torsocol = $colour; }
+    } else if ($part = 6) {
+        $colour = enum(105, 105, enum_3283, $slot);
+        if ($colour ! -1) { %playerdesign3_legscol = $colour; }
+    } else if ($part = 7) {
+        $colour = enum(105, 105, enum_3297, $slot);
+        if ($colour ! -1) { %playerdesign3_feetcol = $colour; }
+    }
+    ~cc_rearm_grids();
+}
+
+// ── Skin colour grid (com45) ─────────────────────────────────────────
+[if_button1,playerdesign4:skincolours]
+if (p_finduid(uid) = true) {
+    def_int $slot = last_slot;
+    def_int $colour = enum(105, 105, enum_748, $slot);
+    if ($colour ! -1) {
+        %playerdesign3_skincol = $colour
+    }
+}

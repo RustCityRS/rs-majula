@@ -1,0 +1,20 @@
+// 2726
+[proc,clientscript_2726](component $component0, int $int1, int $int2)
+def_int $int3 = 18;
+def_int $int4 = 16;
+def_int $int5 = 5;
+def_int $int6 = 4;
+def_int $int7 = min($int5, calc($int2 + 1));
+def_int $int8 = calc($int2 / $int5 + 1);
+def_int $int9 = calc($int2 % $int5 * ($int3 + $int6) + $int6);
+def_int $int10 = calc($int2 / $int5 * ($int4 + $int6) + $int6);
+cc_create($component0, ^iftype_graphic, $int2);
+cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
+cc_setobject(enum(int, obj, enum_5734, $int1), -1);
+cc_setposition($int9, $int10, ^setpos_abs_left, ^setpos_abs_top);
+def_string $string0 = oc_name(enum(int, obj, enum_5734, $int1));
+cc_setonmouserepeat("aif_tooltip(rand_overlay:com_33, event_com, -1, $string0, 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+cc_setonmouseleave("deltooltip(rand_overlay:com_33)");
+def_int $int11 = calc($int7 * ($int3 + $int6) + $int6);
+def_int $int12 = calc($int8 * ($int4 + $int6) + $int6);
+if_setsize(rand_overlay:com_20, $int11, $int12, ^setsize_abs, ^setsize_abs);

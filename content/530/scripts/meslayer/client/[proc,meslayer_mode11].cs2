@@ -1,0 +1,19 @@
+// 1549
+[proc,meslayer_mode11]
+if (%snapshot_open = 1) {
+    if_close;
+}
+if (getwindowmode >= 2) {
+    if_sethide(toplevel_fullscreen:chattop, false);
+}
+if_sethide(chattop:mes_layer, false);
+if_sethide(chattop:mes_layer_large, true);
+if_sethide(chattop:mes_layer_hide, true);
+if_settext(chattop:mes_text, "Enter the name of the item you wish to search for:");
+if_settext(chattop:mes_text2, "*");
+%meslayermode = 11;
+%varclient_654 = "";
+if_setonclick(chattop:mes_layer, null);
+~clientscript_2026;
+if_setonkey(chattop:mes_text2, "clientscript_112(event_keycode, event_keychar)");
+~clientscript_1188;

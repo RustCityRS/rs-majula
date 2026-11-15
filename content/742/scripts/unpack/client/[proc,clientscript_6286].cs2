@@ -1,0 +1,16 @@
+// 6286
+[proc,clientscript_6286]
+if (%varclient_1929 < 0) {
+    %varclient_1929 = 0;
+}
+if (%varclient_1929 = 0) {
+    %varclient_1929 = 1;
+    if_sethide(interface_1296:com_22, true);
+    if_sethide(interface_1296:com_6, false);
+    if_setposition(interface_1296:com_23, 120, 2, ^setpos_abs_right, ^setpos_abs_top);
+} else {
+    %varclient_1929 = 0;
+    if_sethide(interface_1296:com_22, false);
+    if_sethide(interface_1296:com_6, true);
+    if_setposition(interface_1296:com_23, 120, 60, ^setpos_abs_right, ^setpos_abs_top);
+}

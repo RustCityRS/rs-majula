@@ -1,0 +1,11 @@
+// 4030
+[proc,clientscript_4030]
+unknown_command_5606;
+if (string_length(op977) > 0) {
+    ~create_focus(7, 1);
+} else {
+    ~create_focus(6, 1);
+}
+%loginscreen_focus_last = -1;
+~create_please_wait(1);
+if_setontimer(account_create:continue, "clientscript_5633");

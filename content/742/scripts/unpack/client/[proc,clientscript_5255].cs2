@@ -1,0 +1,3 @@
+// 5255
+[proc,clientscript_5255]()(int)
+return(calc(max(stat_base(prayer), 1) * 10));

@@ -1,0 +1,11 @@
+// 1637
+[proc,clientscript_1637](stat $stat0, component $component1)
+def_int $int2 = enum(stat, int, enum_1482, $stat0);
+if (~clientscript_1636($stat0) = true) {
+    if (testbit(%varplayer_2812, $int2) = ^false) {
+        %varplayer_2812 = setbit(%varplayer_2812, $int2);
+    } else {
+        %varplayer_2812 = clearbit(%varplayer_2812, $int2);
+    }
+    op2927($component1);
+}

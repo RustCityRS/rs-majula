@@ -1,0 +1,179 @@
+// 787:0
+[drop_shadow]
+type=rectangle
+x=69
+y=141
+width=516
+height=278
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10= 
+
+// 787:1
+[notice_board]
+type=model
+y=8
+width=563
+height=435
+xmode=abs_centre
+ymode=abs_centre
+model=model_42151
+modelorigin=0,360
+modelzoom=238
+transmitop=10
+op10= 
+
+// 787:2
+[layer_1]
+type=layer
+x=32
+y=26
+width=579
+height=389
+xmode=abs_centre
+ymode=abs_centre
+transmitop=10
+op10= 
+
+// 787:3
+[close_button]
+type=graphic
+x=472
+y=8
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 787:4
+[star_discovered_by]
+type=text
+x=278
+y=122
+width=170
+height=32
+textfont=quill_oblique_large
+text=Discovered by:
+textshadow=yes
+colour=0xbf751d
+
+// 787:5
+[star_landing_time]
+type=text
+x=68
+y=122
+width=147
+height=32
+textfont=quill_oblique_large
+text=Landing time:
+textshadow=yes
+colour=0xbf751d
+
+// 787:6
+[star_time_1]
+type=text
+x=68
+y=162
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:7
+[star_time_2]
+type=text
+x=68
+y=192
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:8
+[star_time_3]
+type=text
+x=68
+y=222
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:9
+[star_time_4]
+type=text
+x=68
+y=252
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:10
+[star_time_5]
+type=text
+x=68
+y=282
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:11
+[star_finder_1]
+type=text
+x=278
+y=162
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:12
+[star_finder_2]
+type=text
+x=278
+y=192
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:13
+[star_finder_3]
+type=text
+x=278
+y=222
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:14
+[star_finder_4]
+type=text
+x=278
+y=252
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:15
+[star_finder_5]
+type=text
+x=278
+y=282
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d

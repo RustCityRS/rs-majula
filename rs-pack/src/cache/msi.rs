@@ -1,9 +1,11 @@
+use super::decode::read_big_id;
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct MsiType {
-    pub id: u16,
-    pub sprite: u16,
+    pub id: TypeId,
+    pub sprite: TypeId,
     pub colour: i32,
     pub locsize: bool,
     pub nosprite: bool,
@@ -12,10 +14,10 @@ pub struct MsiType {
 impl CacheType for MsiType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
-            sprite: 0,
+            sprite: TypeId::default(),
             colour: 0,
             locsize: false,
             nosprite: false,
@@ -24,7 +26,7 @@ impl CacheType for MsiType {
 
     fn decode_opcode(&mut self, buf: &mut Packet, code: u8) {
         match code {
-            1 => self.sprite = buf.g2(),
+            1 => self.sprite = read_big_id(buf),
             2 => self.colour = buf.g3(),
             3 => self.locsize = true,
             4 => self.nosprite = true,

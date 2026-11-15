@@ -1,0 +1,139 @@
+// 1212
+[proc,clientscript_1212](string $string0, int $int0, int $int1)
+cc_deleteall(toplevel_fullscreen:com_84);
+cc_deleteall(interface_1177:com_0);
+def_int $int2 = 0;
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(20, 22, ^setsize_minus, ^setsize_minus);
+cc_settiling(true);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(10, 22, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_settiling(true);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(10, 22, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_settiling(true);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(20, 11, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settiling(true);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(20, 11, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_settiling(true);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_graphic, $int2);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+$int2 = calc($int2 + 1);
+cc_create(toplevel_fullscreen:com_84, ^iftype_text, $int2);
+cc_setsize(22, 20, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(b12_full);
+cc_setcolour(0xebe0bc);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+cc_settextshadow(false);
+cc_settext($string0);
+$int2 = calc($int2 + 1);
+$int2 = 0;
+while ($int2 < 9) {
+    if (%varclient_1700 = -1 | %varclient_1700 = 0) {
+        switch_int ($int2) {
+            case 0 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8515);
+                }
+            case 1 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8514);
+                }
+            case 2 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8516);
+                }
+            case 3 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8512);
+                }
+            case 4 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8518);
+                }
+            case 5 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8513);
+                }
+            case 6 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8511);
+                }
+            case 7 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8517);
+                }
+            case 8 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8519);
+                }
+        }
+        $int2 = calc($int2 + 1);
+    } else if (%varclient_1700 = 1) {
+        switch_int ($int2) {
+            case 0 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8524);
+                }
+            case 1 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8523);
+                }
+            case 2 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8525);
+                }
+            case 3 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8521);
+                }
+            case 4 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8527);
+                }
+            case 5 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8522);
+                }
+            case 6 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8520);
+                }
+            case 7 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8526);
+                }
+            case 8 :
+                if (cc_find(toplevel_fullscreen:com_84, $int2) = true) {
+                    cc_setgraphic(8528);
+                }
+        }
+        $int2 = calc($int2 + 1);
+    }
+}

@@ -1,0 +1,18 @@
+// 694
+[proc,lightcombine](int $int0, int $int1)(int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int2, $int3, $int4 = ~hex_to_rgb($int0);
+$int5, $int6, $int7 = ~hex_to_rgb($int1);
+$int2 = calc($int2 + $int5);
+$int3 = calc($int3 + $int6);
+$int4 = calc($int4 + $int7);
+def_int $int8 = max($int2, max($int3, $int4));
+$int5 = ~scale_round(255, $int8, $int2);
+$int6 = ~scale_round(255, $int8, $int3);
+$int7 = ~scale_round(255, $int8, $int4);
+return(~rgb_to_hex($int5, $int6, $int7));

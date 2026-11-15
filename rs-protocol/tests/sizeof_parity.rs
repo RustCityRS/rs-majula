@@ -1,6 +1,6 @@
 //! The jag-era server packets (225 to 289). Rev 647's encoders are sized in
 //! `wire_647*.rs`.
-#![cfg(before_647)]
+#![cfg(before_530)]
 
 use std::any::type_name;
 use std::collections::BTreeSet;
@@ -9,6 +9,7 @@ use rs_io::Packet;
 use rs_protocol::network::game::server::*;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_message::ServerProtMessage;
+use rs_ver::TypeId;
 
 const PAD: usize = 512;
 
@@ -94,7 +95,13 @@ fn sizeof_matches_encode_for_every_server_packet() {
     check(seen, if_openmain::IfOpenMain { com: 2000 });
     check(seen, if_openmain_side::IfOpenMainSide { com: 10, side: 20 });
     check(seen, if_openside::IfOpenSide { com: 3213 });
-    check(seen, if_setanim::IfSetAnim { com: 5, seq: 808 });
+    check(
+        seen,
+        if_setanim::IfSetAnim {
+            com: 5,
+            seq: TypeId::new(808),
+        },
+    );
     check(
         seen,
         if_setcolour::IfSetColour {
@@ -107,15 +114,21 @@ fn sizeof_matches_encode_for_every_server_packet() {
         seen,
         if_setmodel::IfSetModel {
             com: 8,
-            model: 1337,
+            model: TypeId::new(1337),
         },
     );
-    check(seen, if_setnpchead::IfSetNpcHead { com: 9, npc: 44 });
+    check(
+        seen,
+        if_setnpchead::IfSetNpcHead {
+            com: 9,
+            npc: TypeId::new(44),
+        },
+    );
     check(
         seen,
         if_setobject::IfSetObject {
             com: 10,
-            obj: 995,
+            obj: TypeId::new(995),
             scale: 100,
         },
     );
@@ -179,7 +192,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         loc_add_change::LocAddChange {
             coord: 0x42,
             shape_angle: 0x1f,
-            id: 1276,
+            id: TypeId::new(1276),
         },
     );
     check(
@@ -187,7 +200,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         loc_anim::LocAnim {
             coord: 0x11,
             shape_angle: 0x22,
-            seq: 33,
+            seq: TypeId::new(33),
         },
     );
     check(
@@ -202,7 +215,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         loc_merge::LocMerge {
             coord: 0x55,
             shape_angle: 0x66,
-            id: 77,
+            id: TypeId::new(77),
             start: 88,
             end: 99,
             pid: 1,
@@ -218,7 +231,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         seen,
         obj_add::ObjAdd {
             coord: 0x12,
-            id: 995,
+            id: TypeId::new(995),
             count: 65535,
         },
     );
@@ -226,7 +239,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         seen,
         obj_count::ObjCount {
             coord: 0x13,
-            id: 995,
+            id: TypeId::new(995),
             old_count: 1,
             new_count: 2,
         },
@@ -235,14 +248,14 @@ fn sizeof_matches_encode_for_every_server_packet() {
         seen,
         obj_del::ObjDel {
             coord: 0x14,
-            id: 995,
+            id: TypeId::new(995),
         },
     );
     check(
         seen,
         obj_reveal::ObjReveal {
             coord: 0x15,
-            id: 995,
+            id: TypeId::new(995),
             count: 3,
             receiver: 4,
         },
@@ -253,7 +266,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
         seen,
         map_anim::MapAnim {
             coord: 0x16,
-            spotanim: 111,
+            spotanim: TypeId::new(111),
             height: 92,
             delay: 5,
         },
@@ -265,7 +278,7 @@ fn sizeof_matches_encode_for_every_server_packet() {
             dx: -1,
             dz: 2,
             target: -3,
-            spotanim: 222,
+            spotanim: TypeId::new(222),
             src_height: 30,
             dst_height: 40,
             start_delay: 10,
@@ -319,12 +332,12 @@ fn sizeof_matches_encode_for_every_server_packet() {
 
     // Inventory. The `count >= u8::MAX` arm swaps a 1-byte count for a 5-byte
     // one, so both arms plus the empty/hole/trailing-hole shapes matter.
-    let stacks: &[Option<(u16, i32)>] = &[
-        Some((995, 1)),
+    let stacks: &[Option<(TypeId, i32)>] = &[
+        Some((TypeId::new(995), 1)),
         None,
-        Some((995, 254)),
-        Some((995, 255)),
-        Some((995, i32::MAX)),
+        Some((TypeId::new(995), 254)),
+        Some((TypeId::new(995), 255)),
+        Some((TypeId::new(995), i32::MAX)),
         None,
     ];
     check(
@@ -348,11 +361,12 @@ fn sizeof_matches_encode_for_every_server_packet() {
             objs: &[None, None],
         },
     );
-    let partial: &[(u16, Option<(u16, i32)>)] = &[
-        (0, Some((995, 1))),
+    let partial: &[(u16, Option<(TypeId, i32)>)] = &[
+        (0, Some((TypeId::new(995), 1))),
         (7, None),
-        (27, Some((995, 255))),
-        (28, Some((995, i32::MAX))),
+        (27, Some((TypeId::new(995), 255))),
+        (28, Some((TypeId::new(995), i32::MAX))),
+        (300, Some((TypeId::new(995), 2))),
     ];
     check(
         seen,
@@ -589,7 +603,12 @@ fn sizeof_matches_encode_for_every_server_packet() {
 /// `ServerProt::NAMES` is generated by the same macro that defines the enum, so
 /// adding a packet without a parity case is a test failure, not a silent gap.
 fn coverage_is_complete(seen: &BTreeSet<String>) {
-    let declared: BTreeSet<String> = ServerProt::NAMES.iter().map(|s| s.to_string()).collect();
+    // Unknown prots have an id but nothing that sends them yet.
+    let declared: BTreeSet<String> = ServerProt::NAMES
+        .iter()
+        .filter(|name| !name.starts_with("Unknown"))
+        .map(|s| s.to_string())
+        .collect();
     let missing: Vec<&String> = declared.difference(seen).collect();
     assert!(
         missing.is_empty(),

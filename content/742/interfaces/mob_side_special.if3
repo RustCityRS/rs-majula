@@ -1,0 +1,608 @@
+// 855:0
+[buttons]
+type=layer
+width=190
+height=261
+onload=script2481
+
+// 855:1
+[cannon_n]
+type=layer
+y=11
+width=43
+height=43
+layer=cannon_layer
+targetmask=coord
+targetverb=Place cannon
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire north.", 50, 150)
+
+// 855:2
+[cannon_e]
+type=layer
+x=45
+y=11
+width=43
+height=43
+layer=cannon_layer
+targetmask=coord
+targetverb=Place cannon
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire east.", 50, 150)
+
+// 855:3
+[cannon_s]
+type=layer
+x=91
+y=11
+width=43
+height=43
+layer=cannon_layer
+targetmask=coord
+targetverb=Place cannon
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire south.", 50, 150)
+
+// 855:4
+[cannon_1s]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=cannon_s
+graphic="mob_special_unit_icon,11"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 855:5
+[cannon_1e]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=cannon_e
+graphic="mob_special_unit_icon,10"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 855:6
+[cannon_1n]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=cannon_n
+graphic="mob_special_unit_icon,9"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 855:7
+[cannon_w]
+type=layer
+x=136
+y=11
+width=43
+height=43
+layer=cannon_layer
+targetmask=coord
+targetverb=Place cannon
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to drop a cannon to fire west.", 50, 150)
+
+// 855:8
+[cannon_1w]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=cannon_w
+graphic="mob_special_unit_icon,8"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 855:9
+[barricade1]
+type=layer
+x=1
+y=10
+width=43
+height=43
+layer=barricade_layer
+targetmask=coord
+targetverb=Place Barricade
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+
+// 855:10
+[barricade_up]
+type=graphic
+width=35
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=barricade1
+graphic="mob_special_unit_icon,4"
+colour=0xffffffff
+
+// 855:11
+[barricade2]
+type=layer
+x=46
+y=10
+width=43
+height=43
+layer=barricade_layer
+targetmask=coord
+targetverb=Place Barricade
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+
+// 855:12
+[barricade_right]
+type=graphic
+width=30
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=barricade2
+graphic="mob_special_unit_icon,5"
+colour=0xffffffff
+
+// 855:13
+[barricade3]
+type=layer
+x=91
+y=10
+width=43
+height=43
+layer=barricade_layer
+targetmask=coord
+targetverb=Place Barricade
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+
+// 855:14
+[barricade_down]
+type=graphic
+width=35
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=barricade3
+graphic="mob_special_unit_icon,6"
+colour=0xffffffff
+
+// 855:15
+[barricade4]
+type=layer
+x=136
+y=10
+width=43
+height=43
+layer=barricade_layer
+targetmask=coord
+targetverb=Place Barricade
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on empty ground where you wish to errect a barricade.", 50, 150)
+
+// 855:16
+[barricade_left]
+type=graphic
+width=30
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=barricade4
+graphic="mob_special_unit_icon,7"
+colour=0xffffffff
+
+// 855:17
+[distract]
+type=layer
+y=5
+width=43
+height=43
+layer=distract_layer
+targetmask=coord
+targetverb=Place Distractor
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on the ground near the squads you wish to affect.", 50, 150)
+
+// 855:18
+[com_18]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=distract
+graphic="mob_special_unit_icon,3"
+colour=0xffffffff
+
+// 855:19
+[glider]
+type=layer
+x=2
+y=5
+width=43
+height=43
+layer=glider_layer
+targetmask=npc,player
+targetverb=Target
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on the squad you wish to target.", 50, 150)
+
+// 855:20
+[com_20]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=glider
+graphic="mob_special_unit_icon,2"
+colour=0xffffffff
+
+// 855:21
+[cannon_title]
+type=text
+y=72
+width=16384
+height=17
+widthmode=proportion
+layer=cannon_layer
+textfont=p11_full
+text=Cannon
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+
+// 855:22
+[cannon_num]
+type=text
+x=109
+y=68
+width=20
+height=20
+layer=cannon_layer
+textfont=quill_oblique_large
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x009900
+
+// 855:23
+[cannon_n_text]
+type=text
+x=15
+y=58
+width=14
+height=14
+layer=cannon_layer
+textfont=p11_full
+text=N
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79900
+
+// 855:24
+[cannon_s_text]
+type=text
+x=105
+y=58
+width=14
+height=14
+layer=cannon_layer
+textfont=p11_full
+text=S
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79900
+
+// 855:25
+[cannon_e_text]
+type=text
+x=60
+y=58
+width=14
+height=14
+layer=cannon_layer
+textfont=p11_full
+text=E
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79900
+
+// 855:26
+[cannon_w_text]
+type=text
+x=150
+y=58
+width=14
+height=14
+layer=cannon_layer
+textfont=p11_full
+text=W
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79900
+
+// 855:27
+[barricade_num]
+type=text
+x=117
+y=52
+width=20
+height=20
+layer=barricade_layer
+textfont=quill_oblique_large
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x009900
+
+// 855:28
+[com_28]
+type=text
+y=56
+width=16384
+height=17
+widthmode=proportion
+layer=barricade_layer
+textfont=p11_full
+text=Barricade
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+
+// 855:29
+[distract_num]
+type=text
+x=30
+y=34
+width=20
+height=20
+layer=distract_layer
+textfont=quill_oblique_large
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x009900
+
+// 855:30
+[com_30]
+type=text
+x=-1
+y=56
+width=50
+height=17
+layer=distract_layer
+textfont=p11_full
+text=Distractor
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+
+// 855:31
+[glider_layer]
+type=layer
+x=16
+y=110
+width=55
+height=70
+layer=buttons
+
+// 855:32
+[mine_layer]
+type=layer
+x=73
+y=110
+width=53
+height=70
+layer=buttons
+
+// 855:33
+[mine]
+type=layer
+y=5
+width=43
+height=43
+layer=mine_layer
+targetmask=coord
+targetverb=Place Chompa
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button_deltooltip(mob_side_special:tooltip, event_com)
+onmouserepeat=script1160(event_com, event_comsubid, mob_side_special:tooltip, "Click this button then click on the ground near the squads you wish to affect.", 50, 150)
+
+// 855:34
+[mine_num]
+type=text
+x=30
+y=34
+width=20
+height=20
+layer=mine_layer
+textfont=quill_oblique_large
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x009900
+
+// 855:35
+[com_35]
+type=text
+x=-4
+y=56
+width=50
+height=17
+layer=mine_layer
+textfont=p11_full
+text=Chompa
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+
+// 855:36
+[com_36]
+type=graphic
+width=35
+height=35
+xmode=abs_centre
+ymode=abs_centre
+layer=mine
+graphic="mob_special_unit_icon,0"
+colour=0xffffffff
+
+// 855:37
+[distract_layer]
+type=layer
+x=127
+y=110
+width=53
+height=70
+layer=buttons
+
+// 855:38
+[barricade_layer]
+type=layer
+y=184
+width=180
+height=75
+xmode=abs_centre
+layer=buttons
+
+// 855:39
+[cannon_layer]
+type=layer
+y=14
+width=180
+height=92
+xmode=abs_centre
+layer=buttons
+
+// 855:40
+[glider_num]
+type=text
+x=32
+y=34
+width=20
+height=20
+layer=glider_layer
+textfont=quill_oblique_large
+text=0
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x009900
+
+// 855:41
+[com_41]
+type=text
+x=-2
+y=56
+width=50
+height=17
+layer=glider_layer
+textfont=p11_full
+text=Glider
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+
+// 855:42
+[top_title]
+type=text
+x=8
+y=3
+width=175
+height=16
+layer=buttons
+textfont=b12_full
+text=Special Units
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe79935
+transmitop=10
+op10= 
+
+// 855:43
+[com_43]
+type=graphic
+x=24
+y=93
+width=145
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 855:44
+[com_44]
+type=graphic
+x=22
+y=171
+width=145
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 855:45
+[tooltip_bound]
+type=layer
+width=190
+height=261
+
+// 855:46
+[tooltip]
+type=layer
+width=190
+height=261
+layer=tooltip_bound

@@ -32,6 +32,7 @@ use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::zone_prot::ZoneProt;
 use rs_test::runner;
 use rs_test::talk::{converse, converse_until, talk_to};
+use rs_ver::TypeId;
 use rs_vm::subject::ScriptSubject;
 
 /// Square 57_77's south-west tile.
@@ -53,7 +54,7 @@ const POPUP_TASK: u16 = 1425;
 const FLASH_SIDE: u16 = 3756;
 
 fn varbit(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
-    let bit = engine.cache.varbits.get_by_id(id).unwrap();
+    let bit = engine.cache.varbits.get_by_id(TypeId::new(id)).unwrap();
     let value = engine
         .harness_player(client.pid)
         .unwrap()
@@ -104,7 +105,7 @@ fn walk_near(engine: &Engine, client: &mut HarnessClient) {
 }
 
 fn varp(engine: &Engine, name: &str) -> u16 {
-    *engine.cache.varps.debugnames.get(name).unwrap()
+    engine.cache.varps.get_by_debugname(name).unwrap().id.g2()
 }
 
 fn progress(engine: &Engine, client: &HarnessClient) -> i32 {
@@ -135,7 +136,7 @@ fn shot(engine: &Engine, client: &HarnessClient) -> i32 {
 
 /// The world tile of the first npc of a type, if one is in the world.
 fn npc_tile(engine: &Engine, name: &str) -> Option<(u16, u16)> {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     engine
         .npc_list
         .npcs
@@ -148,7 +149,12 @@ fn npc_tile(engine: &Engine, name: &str) -> Option<(u16, u16)> {
 /// The world tile of the tutorial's Roddeck: the one in a region copy, not Lumbridge's (one npc
 /// type, 8867).
 fn roddeck_tile(engine: &Engine) -> Option<(u16, u16)> {
-    let id = *engine.cache.npcs.debugnames.get("roddeck_8867").unwrap();
+    let id = engine
+        .cache
+        .npcs
+        .get_by_debugname("roddeck_8867")
+        .unwrap()
+        .id;
     engine
         .npc_list
         .npcs
@@ -165,7 +171,7 @@ type NpcTrace = ((u16, u16), (u16, u16), Option<u8>);
 
 /// The first npc of a type, traced.
 fn npc_trace(engine: &Engine, name: &str) -> Option<NpcTrace> {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     let npc = &engine
         .npc_list
         .npcs
@@ -183,7 +189,7 @@ fn npc_trace(engine: &Engine, name: &str) -> Option<NpcTrace> {
 /// The fine coords an npc was last told to face (npc_facesquare): compare with
 /// `CoordGrid::fine` of the tile (u16, so they wrap at these world coords).
 fn npc_face(engine: &Engine, name: &str) -> Option<(u16, u16)> {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     let npc = &engine
         .npc_list
         .npcs
@@ -196,7 +202,7 @@ fn npc_face(engine: &Engine, name: &str) -> Option<(u16, u16)> {
 
 /// Whether the first npc of a type is turned to someone (chatnpc's face mode keeps its target).
 fn npc_has_target(engine: &Engine, name: &str) -> bool {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     engine
         .npc_list
         .npcs
@@ -226,7 +232,7 @@ fn cellar_origin(engine: &Engine) -> (u16, u16) {
 }
 
 /// The ids of the locs whose south-west tile is (x, z), on level 0.
-fn loc_ids(engine: &Engine, x: u16, z: u16) -> Vec<u16> {
+fn loc_ids(engine: &Engine, x: u16, z: u16) -> Vec<TypeId> {
     let Some(zone) = engine.zones.zone(x, 0, z) else {
         return Vec::new();
     };
@@ -535,7 +541,12 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         let player = engine.harness_player(client.pid).unwrap();
         let here = player.pathing.coord;
         let (x, z) = (here.x() + 5, here.z() + 6);
-        let plank = *engine.cache.objs.debugnames.get("tutorial3_plank").unwrap();
+        let plank = engine
+            .cache
+            .objs
+            .get_by_debugname("tutorial3_plank")
+            .unwrap()
+            .id;
         assert!(
             engine
                 .zones
@@ -602,12 +613,12 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "no arrow after");
 
         // Talk to Sir Vant: "Hello!" and his warning, each with its voiced take (s001, s002).
-        let vant = *engine
+        let vant = engine
             .cache
             .npcs
-            .debugnames
-            .get("tutorial3_knight_waitingforbattle")
-            .unwrap();
+            .get_by_debugname("tutorial3_knight_waitingforbattle")
+            .unwrap()
+            .id;
         let nid = engine
             .npc_list
             .npcs
@@ -1023,19 +1034,19 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
         let at = |x: u16, z: u16| (origin.0 + x, origin.1 + z);
         let receiver = engine.harness_player(client.pid).unwrap().uid.username37();
         for name in ["bronze_platebody", "bronze_sq_shield", "bronze_sword"] {
-            let id = *engine.cache.objs.debugnames.get(name).unwrap();
+            let id = engine.cache.objs.get_by_debugname(name).unwrap().id;
             let (x, z) = at(32, 13);
             assert!(
                 engine.zones.find_obj(x, 0, z, id, Some(receiver)).is_some(),
                 "{name} on (32, 13)"
             );
         }
-        let burnt = *engine
+        let burnt = engine
             .cache
             .locs
-            .debugnames
-            .get("tutorial3_cellar_ladder_breaking")
-            .unwrap();
+            .get_by_debugname("tutorial3_cellar_ladder_breaking")
+            .unwrap()
+            .id;
         let (x, z) = at(32, 12);
         assert!(
             loc_ids(engine, x, z).contains(&burnt),
@@ -1098,7 +1109,7 @@ fn cheat(client: &mut HarnessClient, input: &str) {
 /// The index of the npc of a type nearest the first harness player (the static world can hold
 /// the same type as a copy, Explorer Jack's house).
 fn npc_nid(engine: &Engine, name: &str) -> u16 {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     let me = engine
         .player_list
         .players
@@ -1124,8 +1135,8 @@ fn npc_nid(engine: &Engine, name: &str) -> u16 {
         .unwrap_or_else(|| panic!("{name} in the world"))
 }
 
-fn obj_id(engine: &Engine, name: &str) -> u16 {
-    *engine.cache.objs.debugnames.get(name).unwrap()
+fn obj_id(engine: &Engine, name: &str) -> TypeId {
+    engine.cache.objs.get_by_debugname(name).unwrap().id
 }
 
 fn cycles(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16, Vec<u8>)> {
@@ -1161,10 +1172,10 @@ fn wear(client: &mut HarnessClient, obj: u16, slot: u16) {
 }
 
 /// Op 1 on a loc at world (x, z).
-fn oploc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
+fn oploc1(client: &mut HarnessClient, loc: TypeId, x: u16, z: u16) {
     let mut p = ClientPacket::new();
     p.p2_alt1(i32::from(z))
-        .p2_alt1(i32::from(loc))
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(i32::from(x));
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -1178,7 +1189,7 @@ fn opnpc1(client: &mut HarnessClient, nid: u16) {
 }
 
 /// A backpack item used on a loc at world (x, z).
-fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: u16, x: u16, z: u16) {
+fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: TypeId, x: u16, z: u16) {
     let mut p = ClientPacket::new();
     p.p2_alt2(i32::from(obj))
         .p2_alt2(i32::from(slot))
@@ -1186,15 +1197,15 @@ fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: u16, x: u16,
         .p4_alt2(i32::from(INVENTORY) << 16)
         .p2_alt2(i32::from(x))
         .p1_alt1(0)
-        .p2_alt1(i32::from(loc));
+        .p2_alt1(loc.int());
     client.send(ClientProt::OpLocT, &p.finish());
 }
 
 fn slot_of(engine: &Engine, client: &HarnessClient, obj: u16) -> Option<u16> {
     let player = engine.harness_player(client.pid).unwrap();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let inv = player.invs.get(&inv)?;
-    (0..28u16).find(|&slot| inv.get(slot).map(|o| o.obj) == Some(obj))
+    (0..28u16).find(|&slot| inv.get(slot).map(|o| o.obj) == Some(TypeId::new(obj)))
 }
 
 /// A fresh character in the cellar, put at step `stage` of varp 281 (::ufstage rebuilds the
@@ -1286,7 +1297,7 @@ fn the_squires_gear_and_the_goblin() {
             ["bronze_platebody", "bronze_sq_shield", "bronze_sword"].map(|n| obj_id(engine, n));
         let mut gathering = Vec::new();
         for (i, obj) in kit.iter().enumerate() {
-            take(&mut client, *obj, gx, gz);
+            take(&mut client, obj.g2(), gx, gz);
             gathering = cycles(engine, &mut client, 12);
             if i < 2 {
                 assert_eq!(progress(engine, &client), 15);
@@ -1314,8 +1325,8 @@ fn the_squires_gear_and_the_goblin() {
 
         let mut wearing = Vec::new();
         for (i, obj) in kit.iter().enumerate() {
-            let slot = slot_of(engine, &client, *obj).expect("in the backpack");
-            wear(&mut client, *obj, slot);
+            let slot = slot_of(engine, &client, obj.g2()).expect("in the backpack");
+            wear(&mut client, obj.g2(), slot);
             let worn = cycles(engine, &mut client, 2);
             // The box goes with the first piece worn (4KO2h2xPtdM @81.5) and stays away.
             assert_eq!(equip_hint_hidden(&worn), i == 0, "piece {i}");
@@ -1595,12 +1606,12 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
         assert_eq!(progress(engine, &client), 65, "Climb the Wall");
 
         // The bag: one parcel of meat.
-        let bag = *engine
+        let bag = engine
             .cache
             .locs
-            .debugnames
-            .get("tutorial3_knights_bag")
-            .unwrap();
+            .get_by_debugname("tutorial3_knights_bag")
+            .unwrap()
+            .id;
         let (bx, bz) = at(35, 13);
         oploc1(&mut client, bag, bx, bz);
         let search = converse(engine, &mut client, &[], 60);
@@ -1608,7 +1619,7 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             "The bag contains several parcels of meat, all wrapped up in paper. You take one."
         ));
         let meat = obj_id(engine, "tutorial3_meat");
-        assert!(slot_of(engine, &client, meat).is_some(), "the meat");
+        assert!(slot_of(engine, &client, meat.g2()).is_some(), "the meat");
 
         // The wall (Climb the Wall at 65: the quest journal, world map and minimap steps between
         // are their own stage).
@@ -1619,12 +1630,12 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             .vars
             .set(ropes, VarValue::Int(65));
         cycles(engine, &mut client, 2);
-        let wall = *engine
+        let wall = engine
             .cache
             .locs
-            .debugnames
-            .get("tutorial3_cellar_barricade_clickarea")
-            .unwrap();
+            .get_by_debugname("tutorial3_cellar_barricade_clickarea")
+            .unwrap()
+            .id;
         let (wx, wz) = at(35, 16);
         oploc1(&mut client, wall, wx, wz);
         let high = converse(engine, &mut client, &[], 60);
@@ -1633,14 +1644,14 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
 
         let plank = obj_id(engine, "tutorial3_plank");
         let (px, pz) = at(35, 15);
-        take(&mut client, plank, px, pz);
+        take(&mut client, plank.g2(), px, pz);
         cycles(engine, &mut client, 12);
-        let slot = slot_of(engine, &client, plank).expect("the plank");
-        use_on_loc(&mut client, plank, slot, wall, wx, wz);
+        let slot = slot_of(engine, &client, plank.g2()).expect("the plank");
+        use_on_loc(&mut client, plank.g2(), slot, wall, wx, wz);
         let ramp = converse(engine, &mut client, &[], 60);
         assert!(ramp.said("You use the plank to construct a crude ramp."));
         assert_eq!(progress(engine, &client), 75, "Climb the Wall, the ramp up");
-        assert!(slot_of(engine, &client, plank).is_none());
+        assert!(slot_of(engine, &client, plank.g2()).is_none());
     });
 }
 
@@ -1652,23 +1663,23 @@ fn player_origin(engine: &Engine, client: &HarnessClient) -> (u16, u16) {
 }
 
 fn give(engine: &mut Engine, client: &HarnessClient, slot: u16, obj: u16, num: u32) {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
         .invs
         .get_mut(&inv)
         .unwrap()
-        .set(slot, obj, num);
+        .set(slot, TypeId::new(obj), num);
 }
 
-fn loc_id(engine: &Engine, name: &str) -> u16 {
-    *engine.cache.locs.debugnames.get(name).unwrap()
+fn loc_id(engine: &Engine, name: &str) -> TypeId {
+    engine.cache.locs.get_by_debugname(name).unwrap().id
 }
 
 fn varbit_named(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
-    let id = *engine.cache.varbits.debugnames.get(name).unwrap();
-    varbit(engine, client, id)
+    let id = engine.cache.varbits.get_by_debugname(name).unwrap().id;
+    varbit(engine, client, id.g2())
 }
 
 /// Op 1 (the held item's first op) on a backpack slot.
@@ -1758,12 +1769,12 @@ fn the_dragon_is_put_to_sleep() {
             Some((32, 16))
         );
         let meat = obj_id(engine, "tutorial3_meat");
-        give(engine, &client, 0, meat, 1);
+        give(engine, &client, 0, meat.g2(), 1);
         engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
         cycles(engine, &mut client, 3);
         use_on_loc(
             &mut client,
-            meat,
+            meat.g2(),
             0,
             loc_id(engine, "tutorial3_foodbowl_west"),
             origin.0 + 17,
@@ -1774,7 +1785,7 @@ fn the_dragon_is_put_to_sleep() {
         let early = cycles(engine, &mut client, 2);
         assert_eq!(varbit_named(engine, &client, "tutorial3_meatplacement"), 0);
         assert!(
-            slot_of(engine, &client, meat).is_some(),
+            slot_of(engine, &client, meat.g2()).is_some(),
             "still in the hand"
         );
         let mut first = early;
@@ -2044,15 +2055,15 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         ];
         for name in names {
             assert!(
-                slot_of(engine, &client, obj_id(engine, name)).is_some(),
+                slot_of(engine, &client, obj_id(engine, name).g2()).is_some(),
                 "{name}"
             );
         }
 
         // Rip, soak both rags.
         let cloth = obj_id(engine, "tutorial3_bigcloth");
-        let c = slot_of(engine, &client, cloth).unwrap();
-        held1(&mut client, cloth, c);
+        let c = slot_of(engine, &client, cloth.g2()).unwrap();
+        held1(&mut client, cloth.g2(), c);
         assert!(
             converse(engine, &mut client, &[], 30)
                 .said("You rip the cloth and end up with two rags.")
@@ -2060,9 +2071,9 @@ fn the_pillars_burn_and_the_roof_comes_down() {
         let rag = obj_id(engine, "tutorial3_rag");
         let oil = obj_id(engine, "tutorial3_oilcan");
         for _ in 0..2 {
-            let r = slot_of(engine, &client, rag).expect("a rag");
-            let o = slot_of(engine, &client, oil).unwrap();
-            use_on_item(&mut client, (oil, o), (rag, r));
+            let r = slot_of(engine, &client, rag.g2()).expect("a rag");
+            let o = slot_of(engine, &client, oil.g2()).unwrap();
+            use_on_item(&mut client, (oil.g2(), o), (rag.g2(), r));
             assert!(converse(engine, &mut client, &[], 30).said("You soak the rag in oil."));
         }
         assert_eq!(progress(engine, &client), 100);
@@ -2082,14 +2093,21 @@ fn the_pillars_burn_and_the_roof_comes_down() {
             } else {
                 "tutorial3_pillar_wooden_right"
             };
-            let r = slot_of(engine, &client, oily).unwrap();
-            use_on_loc(&mut client, oily, r, loc_id(engine, pillar), wx, wz);
+            let r = slot_of(engine, &client, oily.g2()).unwrap();
+            use_on_loc(&mut client, oily.g2(), r, loc_id(engine, pillar), wx, wz);
             assert!(
                 converse(engine, &mut client, &[], 60)
                     .said("You wrap the oily rag around the pillar.")
             );
-            let f = slot_of(engine, &client, fuses[i]).unwrap();
-            use_on_loc(&mut client, fuses[i], f, loc_id(engine, pillar), wx, wz);
+            let f = slot_of(engine, &client, fuses[i].g2()).unwrap();
+            use_on_loc(
+                &mut client,
+                fuses[i].g2(),
+                f,
+                loc_id(engine, pillar),
+                wx,
+                wz,
+            );
             assert!(
                 converse(engine, &mut client, &[], 60).said("You attach the fuse to the pillar.")
             );
@@ -2100,21 +2118,21 @@ fn the_pillars_burn_and_the_roof_comes_down() {
 
         // The tinderbox to Sir Vant, then the far pillar.
         let tinderbox = obj_id(engine, "tinderbox");
-        let t = slot_of(engine, &client, tinderbox).unwrap();
+        let t = slot_of(engine, &client, tinderbox.g2()).unwrap();
         use_on_npc(
             &mut client,
-            tinderbox,
+            tinderbox.g2(),
             t,
             npc_nid(engine, "tutorial3_knight"),
         );
         let given = converse(engine, &mut client, &[], 60);
         assert!(given.said("You offer Sir Vant a tinderbox."));
         assert_eq!(progress(engine, &client), 115);
-        let t = slot_of(engine, &client, tinderbox).unwrap();
+        let t = slot_of(engine, &client, tinderbox.g2()).unwrap();
         let (wx, wz) = at(24, 39);
         use_on_loc(
             &mut client,
-            tinderbox,
+            tinderbox.g2(),
             t,
             loc_id(engine, "tutorial3_pillar_wooden_right"),
             wx,
@@ -2367,7 +2385,7 @@ fn the_way_out_to_lumbridge() {
             "tutorial3_oilcan",
         ];
         for (slot, name) in names.iter().enumerate() {
-            give(engine, &client, slot as u16, obj_id(engine, name), 1);
+            give(engine, &client, slot as u16, obj_id(engine, name).g2(), 1);
         }
         cycles(engine, &mut client, 1);
         let vant = npc_nid(engine, "tutorial3_knight_waitingforbattle");
@@ -2377,7 +2395,7 @@ fn the_way_out_to_lumbridge() {
         assert_eq!(progress(engine, &client), 120);
         let mut last = None;
         for (slot, name) in names.iter().enumerate() {
-            use_on_npc(&mut client, obj_id(engine, name), slot as u16, vant);
+            use_on_npc(&mut client, obj_id(engine, name).g2(), slot as u16, vant);
             last = Some(converse(
                 engine,
                 &mut client,
@@ -2520,10 +2538,10 @@ fn the_way_out_to_lumbridge() {
         // pickaxe back; TASK COMPLETE! Discover an Exit once that box is closed
         // (4KO2h2xPtdM @582.9-589.7).
         let pickaxe = obj_id(engine, "bronze_pickaxe");
-        assert!(slot_of(engine, &client, pickaxe).is_some());
+        assert!(slot_of(engine, &client, pickaxe.g2()).is_some());
         let hole = cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 170, "To Freedom!");
-        assert!(slot_of(engine, &client, pickaxe).is_none());
+        assert!(slot_of(engine, &client, pickaxe.g2()).is_none());
         assert_eq!(varbit(engine, &client, PINNED_TASK), 3519);
         assert!(
             rs_test::talk::settexts(&hole)
@@ -2736,7 +2754,7 @@ fn house_login(engine: &mut Engine, name: &str) -> (HarnessClient, (i32, i32)) {
 
 /// Whether an npc of a type stands within `distance` tiles of the player.
 fn npc_near(engine: &Engine, client: &HarnessClient, name: &str, distance: i32) -> bool {
-    let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+    let id = engine.cache.npcs.get_by_debugname(name).unwrap().id;
     let me = engine.harness_player(client.pid).unwrap().pathing.coord;
     engine.npc_list.npcs.iter().flatten().any(|n| {
         let at = n.npc.pathing.coord;
@@ -2899,10 +2917,14 @@ fn the_tutorials_state_outlives_a_logout() {
             "tutorial3_leftpillar",
             "tutorial3_rightpillar",
         ] {
-            let bit = *engine.cache.varbits.debugnames.get(name).unwrap();
+            let bit = engine.cache.varbits.get_by_debugname(name).unwrap().id;
             let base = engine.cache.varbits.get_by_id(bit).unwrap().basevar;
             assert_eq!(
-                engine.cache.varps.get_by_id(base).map(|v| v.scope),
+                engine
+                    .cache
+                    .varps
+                    .get_by_id(TypeId::new(base))
+                    .map(|v| v.scope),
                 Some(VarPlayerScope::Perm),
                 "{name} saved"
             );
@@ -2939,12 +2961,15 @@ fn the_books_the_cabbage_and_the_drop_hint() {
             engine.harness_player(client.pid).unwrap().pathing.coord
         );
         assert!(speech(&books.packets).contains(&1345));
-        assert!(slot_of(engine, &client, diary).is_some(), "the diary");
-        assert!(slot_of(engine, &client, manual).is_some(), "the manual");
+        assert!(slot_of(engine, &client, diary.g2()).is_some(), "the diary");
+        assert!(
+            slot_of(engine, &client, manual.g2()).is_some(),
+            "the manual"
+        );
 
         // Read: spread one as 4KO2h2xPtdM @483-491 shows it, the narrator reading it (clip 691).
-        let at_slot = slot_of(engine, &client, diary).unwrap();
-        held1(&mut client, diary, at_slot);
+        let at_slot = slot_of(engine, &client, diary.g2()).unwrap();
+        held1(&mut client, diary.g2(), at_slot);
         let read = cycles(engine, &mut client, 3);
         let shown: Vec<String> = rs_test::talk::settexts(&read)
             .into_iter()
@@ -2971,21 +2996,21 @@ fn the_books_the_cabbage_and_the_drop_hint() {
             "{:?}",
             take.texts
         );
-        let slot = slot_of(engine, &client, cabbage).expect("a cabbage");
+        let slot = slot_of(engine, &client, cabbage.g2()).expect("a cabbage");
         oploc1(&mut client, crate_loc, origin.0 + 42, origin.1 + 35);
         let again = converse(engine, &mut client, &[], 60);
         assert!(again.said("It's full of cabbages. You've already got one."));
 
-        held1(&mut client, cabbage, slot);
+        held1(&mut client, cabbage.g2(), slot);
         let eat = converse(engine, &mut client, &[], 60);
         assert!(eat.said("You eat the cabbage."), "{:?}", eat.texts);
-        assert!(slot_of(engine, &client, cabbage).is_none(), "eaten");
+        assert!(slot_of(engine, &client, cabbage.g2()).is_none(), "eaten");
 
         // Drop (op 8 on the backpack): the hint, with the dropped book in the box.
-        let slot = slot_of(engine, &client, manual).expect("the manual");
+        let slot = slot_of(engine, &client, manual.g2()).expect("the manual");
         let mut p = ClientPacket::new();
         p.p4(i32::from(INVENTORY) << 16)
-            .p2_alt3(i32::from(manual))
+            .p2_alt3(manual.int())
             .p2_alt1(i32::from(slot));
         client.send(ClientProt::IfButton8, &p.finish());
         let drop = converse(engine, &mut client, &[], 60);
@@ -2998,16 +3023,16 @@ fn the_books_the_cabbage_and_the_drop_hint() {
 
         // The diary dropped and taken back: "You won't be needing that again." (the 2011 wiki's
         // Roddeck's diary), N9 (clip 1558); it stays where it lies.
-        let slot = slot_of(engine, &client, diary).expect("the diary");
+        let slot = slot_of(engine, &client, diary.g2()).expect("the diary");
         let mut p = ClientPacket::new();
         p.p4(i32::from(INVENTORY) << 16)
-            .p2_alt3(i32::from(diary))
+            .p2_alt3(diary.int())
             .p2_alt1(i32::from(slot));
         client.send(ClientProt::IfButton8, &p.finish());
         converse(engine, &mut client, &[], 60);
-        assert!(slot_of(engine, &client, diary).is_none(), "dropped");
+        assert!(slot_of(engine, &client, diary.g2()).is_none(), "dropped");
         let here = engine.harness_player(client.pid).unwrap().pathing.coord;
-        crate::take(&mut client, diary, here.x(), here.z());
+        crate::take(&mut client, diary.g2(), here.x(), here.z());
         let back = cycles(engine, &mut client, 3);
         assert!(
             HarnessClient::game_messages(&back)
@@ -3017,7 +3042,7 @@ fn the_books_the_cabbage_and_the_drop_hint() {
             HarnessClient::game_messages(&back)
         );
         assert!(speech(&back).contains(&1558));
-        assert!(slot_of(engine, &client, diary).is_none(), "not taken");
+        assert!(slot_of(engine, &client, diary.g2()).is_none(), "not taken");
     });
 }
 
@@ -3080,7 +3105,7 @@ fn the_way_out_is_walkable_from_roddeck() {
 }
 
 fn set_varbit(engine: &mut Engine, client: &HarnessClient, name: &str, value: u32) {
-    let id = *engine.cache.varbits.debugnames.get(name).unwrap();
+    let id = engine.cache.varbits.get_by_debugname(name).unwrap().id;
     let bit = engine.cache.varbits.get_by_id(id).unwrap();
     let (basevar, start) = (bit.basevar, u32::from(bit.start_bit));
     let width = u32::from(bit.end_bit - bit.start_bit) + 1;
@@ -3149,7 +3174,7 @@ fn the_roots_way_out_brings_them_through_too() {
         let origin = player_origin(engine, &client);
         let at = |x: u16, z: u16| (origin.0 + x, origin.1 + z);
         let axe = obj_id(engine, "bronze_axe");
-        give(engine, &client, 0, axe, 1);
+        give(engine, &client, 0, axe.g2(), 1);
         let (hx, hz) = at(14, 38);
         assert!(
             loc_ids(engine, hx, hz).contains(&loc_id(engine, "tutorial3_vine_wall_end")),
@@ -3175,7 +3200,7 @@ fn the_roots_way_out_brings_them_through_too() {
             trail.push((vant, roddeck));
         }
         assert_eq!(progress(engine, &client), 170, "To Freedom!");
-        assert!(slot_of(engine, &client, axe).is_none());
+        assert!(slot_of(engine, &client, axe.g2()).is_none());
         assert!(
             rs_test::talk::settexts(&hole)
                 .iter()
@@ -3252,8 +3277,8 @@ fn walking_off_the_plans_last_line_still_opens_the_quest_list() {
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
 
         let meat = obj_id(engine, "tutorial3_meat");
-        give(engine, &client, 5, meat, 1);
-        held1(&mut client, meat, 5);
+        give(engine, &client, 5, meat.g2(), 1);
+        held1(&mut client, meat.g2(), 5);
         let eat = converse(engine, &mut client, &[], 30);
         assert!(
             eat.said("Are you mad? Don't eat that! It's raw, and it's covered in sleeping potion!"),
@@ -3261,7 +3286,11 @@ fn walking_off_the_plans_last_line_still_opens_the_quest_list() {
             eat.texts
         );
         assert_eq!(speech(&eat.packets), vec![930]);
-        assert_eq!(slot_of(engine, &client, meat), Some(5), "the meat is kept");
+        assert_eq!(
+            slot_of(engine, &client, meat.g2()),
+            Some(5),
+            "the meat is kept"
+        );
     });
 }
 
@@ -3274,7 +3303,7 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
         let mut client = at_stage(engine, "uf_walk_level", 135);
         let origin = player_origin(engine, &client);
         let pickaxe = obj_id(engine, "bronze_pickaxe");
-        give(engine, &client, 0, pickaxe, 1);
+        give(engine, &client, 0, pickaxe.g2(), 1);
         engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
         cycles(engine, &mut client, 3);
         let (rx, rz) = (origin.0 + 14, origin.1 + 35);
@@ -3310,9 +3339,9 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
         converse(engine, &mut client, &[], 30);
 
         // The pickaxe in the hand.
-        wear(&mut client, pickaxe, 0);
+        wear(&mut client, pickaxe.g2(), 0);
         cycles(engine, &mut client, 2);
-        let worn_inv = *engine.cache.invs.debugnames.get("worn").unwrap();
+        let worn_inv = engine.cache.invs.get_by_debugname("worn").unwrap().id;
         let pid = client.pid;
         let wielded = move |engine: &Engine| {
             let player = engine.harness_player(pid).unwrap();
@@ -3322,7 +3351,7 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
                 .is_some_and(|inv| (0..14u16).any(|s| inv.get(s).map(|o| o.obj) == Some(pickaxe)))
         };
         assert!(
-            slot_of(engine, &client, pickaxe).is_none() && wielded(engine),
+            slot_of(engine, &client, pickaxe.g2()).is_none() && wielded(engine),
             "wielded"
         );
         engine.harness_telejump(client.pid, origin.0 + 15, 0, origin.1 + 35);
@@ -3342,7 +3371,7 @@ fn walking_off_the_level_box_still_reaches_roddecks_word() {
         cycles(engine, &mut client, 8);
         assert_eq!(progress(engine, &client), 170);
         assert!(!wielded(engine), "Roddeck has his pickaxe");
-        assert!(slot_of(engine, &client, pickaxe).is_none());
+        assert!(slot_of(engine, &client, pickaxe.g2()).is_none());
     });
 }
 
@@ -3368,12 +3397,12 @@ fn walking_off_a_cutscenes_line_still_ends_the_cutscene() {
         let mut client = at_stage(engine, "uf_walk_sleep", 80);
         let origin = player_origin(engine, &client);
         let meat = obj_id(engine, "tutorial3_meat");
-        give(engine, &client, 0, meat, 1);
+        give(engine, &client, 0, meat.g2(), 1);
         engine.harness_telejump(client.pid, origin.0 + 17, 0, origin.1 + 37);
         cycles(engine, &mut client, 3);
         use_on_loc(
             &mut client,
-            meat,
+            meat.g2(),
             0,
             loc_id(engine, "tutorial3_foodbowl_west"),
             origin.0 + 17,
@@ -3415,12 +3444,12 @@ fn walking_off_its_burning_still_brings_the_roof_down() {
 
         let origin = player_origin(engine, &client);
         let tinderbox = obj_id(engine, "tinderbox");
-        give(engine, &client, 0, tinderbox, 1);
+        give(engine, &client, 0, tinderbox.g2(), 1);
         engine.harness_telejump(client.pid, origin.0 + 25, 0, origin.1 + 35);
         cycles(engine, &mut client, 3);
         use_on_loc(
             &mut client,
-            tinderbox,
+            tinderbox.g2(),
             0,
             loc_id(engine, "tutorial3_pillar_wooden_right"),
             origin.0 + 24,

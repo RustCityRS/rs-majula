@@ -1,0 +1,5 @@
+// 302
+[clientscript,worldmap_elements_samemap_op](int $int0, coord $coord1, boolean $boolean2)
+if ($int0 = 1 & $coord1 ! null) {
+    ~worldmap_elements_samemap_scroll($coord1, $boolean2);
+}

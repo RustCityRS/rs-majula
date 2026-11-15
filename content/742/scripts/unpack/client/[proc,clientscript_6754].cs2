@@ -1,0 +1,104 @@
+// 6754
+[proc,clientscript_6754]
+def_struct $struct0 = null;
+def_enum $enum1 = null;
+def_graphic $graphic2 = null;
+def_int $int3 = 0;
+def_int $int4 = 0;
+switch_int (%varplayerbit_11980) {
+    case 1 :
+        $int3 = %varplayerbit_11985;
+        $int4 = %varplayerbit_11986;
+        if_sethide(interface_1345:com_75, false);
+    case 2 :
+        $int3 = %varplayerbit_11989;
+        $int4 = %varplayerbit_11990;
+        if_sethide(interface_1345:com_75, false);
+    case 3 :
+        $int3 = %varplayerbit_11993;
+        $int4 = %varplayerbit_11994;
+        if_sethide(interface_1345:com_75, false);
+    case 4 :
+        $int3 = %varplayerbit_11997;
+        $int4 = %varplayerbit_11998;
+        if_sethide(interface_1345:com_75, false);
+    case 5 :
+        $int3 = %varplayerbit_12001;
+        $int4 = %varplayerbit_12002;
+        if_sethide(interface_1345:com_75, false);
+    case default :
+        $int3 = %varplayerbit_11977;
+        $int4 = %varplayerbit_11978;
+        if_sethide(interface_1345:com_75, true);
+}
+switch_int ($int3) {
+    case 8 :
+        $enum1 = enum_5530;
+        $graphic2 = 13169;
+    case 1 :
+        $enum1 = enum_5513;
+        $graphic2 = 13170;
+    case 22 :
+        $enum1 = enum_5526;
+        $graphic2 = 13172;
+    case 16 :
+        $enum1 = enum_5515;
+        $graphic2 = 13173;
+    case 11 :
+        $enum1 = enum_5532;
+        $graphic2 = 13174;
+    case 25 :
+        $enum1 = enum_5519;
+        $graphic2 = 13175;
+    case 21 :
+        $enum1 = enum_5522;
+        $graphic2 = 13176;
+    case 17 :
+        $enum1 = enum_5520;
+        $graphic2 = 13177;
+    case 15 :
+        $enum1 = enum_5524;
+        $graphic2 = 13178;
+    case 19 :
+        $enum1 = enum_5523;
+        $graphic2 = 13179;
+    case 9 :
+        $enum1 = enum_5525;
+        $graphic2 = 13180;
+    case 23 :
+        $enum1 = enum_5514;
+        $graphic2 = 13181;
+    case 13 :
+        $enum1 = enum_5516;
+        $graphic2 = 13183;
+    case 7 :
+        $enum1 = enum_5529;
+        $graphic2 = 13184;
+    case 12 :
+        $enum1 = enum_5521;
+        $graphic2 = 13187;
+    case 20 :
+        $enum1 = enum_5527;
+        $graphic2 = 13188;
+    case 14 :
+        $enum1 = enum_5528;
+        $graphic2 = 13189;
+    case 24 :
+        $enum1 = enum_5517;
+        $graphic2 = 13190;
+    case 10 :
+        $enum1 = enum_5518;
+        $graphic2 = 13191;
+    case 18 :
+        $enum1 = enum_5531;
+        $graphic2 = 13192;
+}
+if ($enum1 = null) {
+    return;
+}
+$struct0 = enum(int, struct, $enum1, $int4);
+if_settext(interface_1345:com_72, struct_param($struct0, param_1266));
+if_setgraphic(interface_1345:com_70, $graphic2);
+def_string $string0 = struct_param($struct0, param_1273);
+if_setonmouserepeat(interface_1345:com_26, "aif_tooltip(interface_1345:com_36, interface_1345:com_26, -1, $string0, 304, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1345:com_26, "deltooltip(interface_1345:com_36)");

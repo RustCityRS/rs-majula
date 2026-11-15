@@ -1,0 +1,74 @@
+// 5734
+[proc,clientscript_5734]
+def_struct $struct0 = %varplayer_2501;
+def_string $string0 = struct_param($struct0, param_1266);
+def_string $string1 = struct_param($struct0, param_1273);
+def_int $int1 = struct_param($struct0, param_1268);
+if (~task_get_progress(struct_param($struct0, param_1268)) = 2 & ~clientscript_5732($struct0) = 0) {
+    $string1 = append($string1, "<br><col=00ff00>You have already completed this.");
+    if (struct_param($struct0, param_2231) ! null) {
+        ~clientscript_5743(81068081, "Teleport");
+        if_sethide(interface_1237:com_55, true);
+    } else {
+        ~clientscript_5743(81068081, "Accept");
+        if_sethide(interface_1237:com_55, false);
+    }
+} else if (struct_param($struct0, param_1268) = 943) {
+    ~clientscript_5743(81068081, "Accept");
+    if_sethide(interface_1237:com_55, false);
+} else if (~task_requirements_fulfilled(struct_param($struct0, param_1268)) = true) {
+    ~clientscript_5743(81068081, "Accept");
+    if_sethide(interface_1237:com_55, true);
+} else {
+    ~clientscript_5743(81068081, "Accept");
+    if_sethide(interface_1237:com_55, false);
+}
+if (%varplayer_2504 ! null & %varplayerbit_10682 ! 0) {
+    if (~clientscript_5764(%varplayer_2504, ~clientscript_5763(%varplayer_2504), calc(%varplayerbit_10682 - 1)) = -1) {
+        if_sethide(interface_1237:com_100, false);
+    } else {
+        if_sethide(interface_1237:com_100, true);
+    }
+}
+if_settext(interface_1237:com_70, $string0);
+def_graphic $graphic2 = null;
+if (struct_param($struct0, param_1270) ! 4094) {
+    $graphic2 = struct_param(enum(int, struct, enum_2252, struct_param($struct0, param_1270)), param_952);
+} else {
+    $graphic2 = struct_param($struct0, param_1271);
+}
+if_setgraphic(interface_1237:com_43, $graphic2);
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3 = ~clientscript_5739(1, if_gety(interface_1237:com_0), $string1, interface_1237:com_0, interface_1237:com_16);
+$int3 = calc(if_getheight(interface_1237:com_16) / 2 - if_getheight(interface_1237:com_0) / 2);
+if_setposition(interface_1237:com_0, 0, $int3, ^setpos_abs_left, ^setpos_abs_top);
+$int3 = if_gety(interface_1237:com_17);
+if_setposition(interface_1237:com_18, if_getx(interface_1237:com_18), calc($int4 + if_gety(interface_1237:com_18)), ^setpos_abs_left, ^setpos_abs_top);
+if_setgraphic(interface_1237:com_20, 9606);
+$int4 = ~clientscript_5735;
+def_string $string2 = "";
+def_int $int5 = 1;
+if ($int4 > calc(if_gety(interface_1237:com_1) + if_getheight(interface_1237:com_1))) {
+    if_sethide(interface_1237:com_18, false);
+    $int4 = calc($int4 + 10);
+    $int3 = calc($int3 + $int4);
+    $string2 = "Click the stats button on the bottom right of the screen to check all your current stats.";
+    if_setonmouserepeat(interface_1237:com_20, "aif_tooltip(interface_1237:com_14, interface_1237:com_20, -1, $string2, 175, null, null, null, 12, 3, $int5, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1237:com_20, "deltooltip(interface_1237:com_14)");
+} else {
+    if_sethide(interface_1237:com_18, true);
+    $int4 = 0;
+}
+if_setposition(interface_1237:com_33, if_getx(interface_1237:com_33), calc(if_gety(interface_1237:com_18) + $int4), ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + ~clientscript_5737);
+$int3 = max(calc($int3 + 10), if_getheight(interface_1237:com_12));
+if_setscrollsize(interface_1237:com_12, 0, $int3);
+if_setscrollpos(interface_1237:com_12, 0, 0);
+~scrollbar_vertical(interface_1237:com_13, interface_1237:com_12, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+if ($int3 > if_getheight(interface_1237:com_12)) {
+    if_sethide(interface_1237:com_13, false);
+} else {
+    if_sethide(interface_1237:com_13, true);
+}
+~clientscript_5738;

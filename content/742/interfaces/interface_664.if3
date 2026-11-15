@@ -1,0 +1,572 @@
+// 664:0
+[com_0]
+type=layer
+width=17410
+height=19140
+widthmode=proportion
+heightmode=proportion
+layer=com_35
+
+// 664:1
+[com_1]
+type=layer
+x=114
+y=192
+width=180
+height=26
+xmode=abs_centre
+layer=com_35
+
+// 664:2
+[com_2]
+type=layer
+x=114
+y=222
+width=180
+height=26
+xmode=abs_centre
+layer=com_35
+
+// 664:3
+[com_3]
+type=layer
+x=52
+y=28
+width=180
+height=26
+layer=com_35
+
+// 664:4
+[com_4]
+type=text
+x=116
+y=30
+width=200
+height=100
+xmode=abs_centre
+layer=com_35
+textfont=q8_full
+text=Once you've finished subscribing, click the button and you'll move to a members' world where you can play exclusive members' content and get your free axe!
+textalignh=centre
+textshadow=yes
+opbase=text
+
+// 664:5
+[com_5]
+type=graphic
+width=121
+height=143
+layer=com_0
+graphic=graphic_6962
+
+// 664:6
+[com_6]
+type=graphic
+x=121
+width=121
+height=143
+layer=com_0
+graphic=graphic_6963
+
+// 664:7
+[com_7]
+type=graphic
+x=242
+width=121
+height=143
+layer=com_0
+graphic=graphic_6964
+
+// 664:8
+[com_8]
+type=graphic
+x=363
+width=121
+height=143
+layer=com_0
+graphic=graphic_6965
+
+// 664:9
+[com_9]
+type=graphic
+y=143
+width=121
+height=143
+layer=com_0
+graphic=graphic_6966
+
+// 664:10
+[com_10]
+type=graphic
+x=121
+y=143
+width=121
+height=143
+layer=com_0
+graphic=graphic_6967
+
+// 664:11
+[com_11]
+type=graphic
+x=242
+y=143
+width=121
+height=143
+layer=com_0
+graphic=graphic_6968
+
+// 664:12
+[com_12]
+type=graphic
+x=363
+y=143
+width=121
+height=143
+layer=com_0
+graphic=graphic_6969
+
+// 664:13
+[com_13]
+type=layer
+width=490
+height=294
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+
+// 664:14
+[com_14]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+noclickthrough=yes
+
+// 664:15
+[com_15]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 664:16
+[com_16]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 664:17
+[com_17]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 664:18
+[com_18]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 664:19
+[com_19]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 664:20
+[com_20]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 664:21
+[com_21]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+textfont=verdana_13pt_regular
+text=Give me my axe!
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 664:22
+[com_22]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 664:23
+[com_23]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_22
+colour=0x000000
+fill=yes
+trans=100
+
+// 664:24
+[com_24]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 664:25
+[com_25]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 664:26
+[com_26]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 664:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 664:28
+[com_28]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 664:29
+[com_29]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+
+// 664:30
+[com_30]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+textfont=verdana_13pt_regular
+text=Not just now
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 664:31
+[com_31]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_2
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 664:32
+[com_32]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+colour=0x000000
+fill=yes
+trans=100
+
+// 664:33
+[com_33]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4758(event_com)
+
+// 664:34
+[com_34]
+type=layer
+x=12
+y=10
+width=23
+height=20
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_13
+
+// 664:35
+[com_35]
+type=layer
+width=482
+height=286
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+
+// 664:36
+[com_36]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+onload=clientscript_4759(event_com)
+
+// 664:37
+[com_37]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_13
+onload=aif_build_close_button_layer(event_com)
+
+// 664:38
+[com_38]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 664:39
+[com_39]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+onload=aif_build_close_button_over(event_com)
+
+// 664:40
+[com_40]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_3
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 664:41
+[com_41]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_3
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 664:42
+[com_42]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_3
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 664:43
+[com_43]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 664:44
+[com_44]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 664:45
+[com_45]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 664:46
+[com_46]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+onload=aif_build_button_layer(event_com, struct_1739)
+
+// 664:47
+[com_47]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 664:48
+[com_48]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 664:49
+[com_49]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_48
+textfont=verdana_13pt_regular
+text=Back to sign-up
+textalignh=centre
+textalignv=centre
+colour=0x42e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 664:50
+[com_50]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_3
+hide=yes
+noclickthrough=yes
+onload=aif_build_button_layer(event_com, struct_1740)
+
+// 664:51
+[com_51]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_50
+colour=0x000000
+fill=yes
+trans=100

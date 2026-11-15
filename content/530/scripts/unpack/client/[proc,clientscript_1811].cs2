@@ -1,0 +1,28 @@
+// 1811
+[proc,clientscript_1811](component $component0, component $component1, component $component2)
+if (string_length(%varclient_670) = 0) {
+    ~clientscript_1812("", $component2);
+    return;
+}
+def_int $int3 = calc(min(chat_gethistorylength, 100) - 1);
+def_string $string0 = "";
+def_int $int4 = -1;
+while ($int3 >= 0) {
+    switch_int (chat_gethistorytype($int3)) {
+        case 1, 2, 3, 7, 9, 11, 17, 18, 20 :
+            if (compare(lowercase(removetags(chat_gethistoryname($int3))), %varclient_670) = 0) {
+                $string0 = chat_gethistorymessage($int3);
+                $int4 = $int3;
+            }
+    }
+    $int3 = calc($int3 - 1);
+}
+if ($int4 < 0) {
+    %clanwars_caller_lastindex = -1;
+    ~clientscript_1812("", $component2);
+    return;
+}
+if (%clanwars_caller_lastindex = -1 | $int4 <= %clanwars_caller_lastindex | compare($string0, %varclient_671) ! 0) {
+    ~clientscript_1812($string0, $component2);
+}
+%clanwars_caller_lastindex = $int4;

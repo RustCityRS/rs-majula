@@ -1,0 +1,34 @@
+// 5370
+[proc,clientscript_5370](int $int0, int $int1, string $string0, string $string1)
+if ($int0 = 1) {
+    if_sethide(interface_951:com_14, true);
+} else {
+    if_sethide(interface_951:com_14, false);
+}
+if ($int1 = 1) {
+    if_sethide(interface_951:com_2, true);
+} else {
+    if_sethide(interface_951:com_2, false);
+}
+if_settext(interface_951:com_48, $string0);
+if_settext(interface_951:com_51, $string1);
+def_int $int2 = stringwidth($string1, verdana_13pt_regular);
+if_setsize(interface_951:com_1, calc($int2 + 16), if_getheight(interface_951:com_1), ^setsize_abs, ^setsize_abs);
+$int2 = stringwidth($string0, verdana_13pt_regular);
+if_setsize(interface_951:com_3, calc($int2 + 16), if_getheight(interface_951:com_3), ^setsize_abs, ^setsize_abs);
+$int2 = max(if_getwidth(interface_951:com_1), if_getwidth(interface_951:com_3));
+if ($int1 = 0) {
+    $int2 = max($int2, if_getwidth(interface_951:com_2));
+}
+if ($int0 = 0) {
+    $int2 = max($int2, if_getwidth(interface_951:com_14));
+}
+if_setsize(interface_951:com_49, calc($int2 + 48), if_getheight(interface_951:com_49), ^setsize_abs, ^setsize_abs);
+def_int $int3 = calc(if_getheight(interface_951:com_1) + if_getheight(interface_951:com_3));
+if ($int1 = 0) {
+    $int3 = calc($int3 + if_getheight(interface_951:com_2));
+}
+if_setsize(interface_951:com_49, if_getwidth(interface_951:com_49), $int3, ^setsize_abs, ^setsize_abs);
+if ($int0 = 0) {
+    if_setposition(interface_951:com_14, 0, calc(7 + if_getheight(interface_951:com_49)), ^setpos_abs_centre, ^setpos_abs_top);
+}

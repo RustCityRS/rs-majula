@@ -6,17 +6,17 @@ pub const MAX_PLAYERS: usize = 2048;
 /// Maximum number of NPCs supported by the engine.
 #[cfg(before_254)]
 pub const MAX_NPCS: usize = 8192;
-#[cfg(all(since_254, before_647))]
+#[cfg(all(since_254, before_530))]
 pub const MAX_NPCS: usize = 16384;
-/// Rev-647: the npc-info add format carries a 15-bit npc id.
-#[cfg(since_647)]
+/// Rev-530: the npc-info add format carries a 15-bit npc id.
+#[cfg(since_530)]
 pub const MAX_NPCS: usize = 32768;
 
 /// Number of player skills.
-#[cfg(before_647)]
+#[cfg(before_530)]
 pub const STAT_COUNT: usize = 21;
-/// Rev-647 adds construction, hunter, summoning and dungeoneering.
-#[cfg(since_647)]
+/// Rev-530: the client keeps 25 skills.
+#[cfg(since_530)]
 pub const STAT_COUNT: usize = 25;
 
 /// A compact set of entity IDs backed by a bit vector for O(1) membership checks
@@ -152,9 +152,9 @@ pub struct BuildArea {
     pub skipping: Box<[u64; MAX_PLAYERS >> 6]>,
     #[cfg(since_647)]
     pub locals: Box<[u64; MAX_PLAYERS >> 6]>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub rebuild: bool,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub dynamic: bool,
 }
 
@@ -194,9 +194,9 @@ impl BuildArea {
             skipping: Box::new([0; MAX_PLAYERS >> 6]),
             #[cfg(since_647)]
             locals: Box::new([0; MAX_PLAYERS >> 6]),
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             rebuild: false,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             dynamic: false,
         }
     }
@@ -248,7 +248,7 @@ impl BuildArea {
         {
             self.loading = false;
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             self.rebuild = false;
             self.dynamic = false;

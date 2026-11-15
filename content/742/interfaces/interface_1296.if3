@@ -1,0 +1,308 @@
+// 1296:0
+[com_0]
+type=text
+x=8
+y=2
+width=160
+height=365
+layer=com_9
+textfont=p11_full
+text=Supreme Champions:<br>None
+textlineheight=12
+textshadow=yes
+
+// 1296:1
+[com_1]
+type=layer
+y=67
+width=205
+height=122
+xmode=abs_right
+layer=com_22
+hide=yes
+noclickthrough=yes
+
+// 1296:2
+[com_2]
+type=layer
+x=79
+y=48
+width=65
+height=50
+layer=com_22
+
+// 1296:3
+[com_3]
+type=layer
+x=175
+y=48
+width=93
+height=50
+layer=com_22
+
+// 1296:4
+[com_4]
+type=graphic
+width=15
+height=15
+layer=com_17
+graphic=graphic_11215
+
+// 1296:5
+[com_5]
+type=graphic
+x=30
+y=2
+width=187
+height=13
+xmode=abs_centre
+layer=com_6
+graphic=graphic_11223
+
+// 1296:6
+[com_6]
+type=layer
+width=284
+height=100
+xmode=abs_right
+layer=com_21
+hide=yes
+
+// 1296:7
+[com_7]
+type=graphic
+width=185
+height=89
+layer=com_1
+graphic=graphic_11221
+tiling=yes
+
+// 1296:8
+[com_8]
+type=graphic
+width=185
+height=33
+ymode=abs_bottom
+layer=com_1
+graphic=graphic_11222
+
+// 1296:9
+[com_9]
+type=layer
+x=6
+y=6
+width=160
+height=107
+layer=com_1
+scrollheight=410
+
+// 1296:10
+[com_10]
+type=layer
+x=23
+y=6
+width=17
+height=107
+xmode=abs_right
+layer=com_1
+onload=scrollbar_vertical_graphics(event_com, interface_1296:com_9, 8383, 8380, 8381, 8382, 8375, 8374)
+
+// 1296:11
+[com_11]
+type=graphic
+x=12
+y=1
+width=271
+height=90
+layer=com_15
+graphic=graphic_11214
+
+// 1296:12
+[com_12]
+type=graphic
+width=20
+height=20
+layer=com_23
+graphic=graphic_11253
+onmouseover=graphic_swapper(event_com, 11252)
+onmouseleave=graphic_swapper(event_com, 11253)
+
+// 1296:13
+[com_13]
+type=graphic
+x=12
+y=1
+width=271
+height=90
+layer=com_22
+graphic=graphic_11212
+
+// 1296:14
+[com_14]
+type=layer
+x=196
+y=6
+width=60
+height=60
+xmode=abs_right
+layer=com_22
+
+// 1296:15
+[com_15]
+type=layer
+width=283
+height=100
+layer=com_22
+hide=yes
+
+// 1296:16
+[com_16]
+type=graphic
+x=24
+y=59
+width=65
+height=33
+layer=com_15
+graphic=graphic_11224
+
+// 1296:17
+[com_17]
+type=layer
+x=50
+y=76
+width=15
+height=15
+layer=com_15
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=graphic_swapper(interface_1296:com_4, 11216)
+onmouseleave=graphic_swapper(interface_1296:com_4, 11215)
+onop=clientscript_6287
+
+// 1296:18
+[com_18]
+type=text
+x=41
+y=56
+width=32
+height=32
+layer=com_15
+textfont=p11_full
+text=6
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1296:19
+[com_19]
+type=text
+x=101
+y=18
+width=57
+height=12
+layer=com_22
+textfont=p11_full
+text=Target:
+textalignv=centre
+textshadow=yes
+
+// 1296:20
+[com_20]
+type=text
+x=111
+y=32
+width=57
+height=12
+layer=com_22
+textfont=p11_full
+text=Immunity:
+textalignv=centre
+textshadow=yes
+
+// 1296:21
+[com_21]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+
+// 1296:22
+[com_22]
+type=layer
+width=284
+height=193
+xmode=abs_right
+layer=com_21
+
+// 1296:23
+[com_23]
+type=layer
+x=112
+y=59
+width=20
+height=20
+xmode=abs_right
+layer=com_21
+transmitop=1
+op1=Resize
+onop=clientscript_6286
+
+// 1296:24
+[com_24]
+type=text
+x=122
+y=46
+width=57
+height=12
+layer=com_22
+textfont=p11_full
+text=Ranking:
+textalignv=centre
+textshadow=yes
+
+// 1296:25
+[com_25]
+type=text
+x=26
+y=18
+width=99
+height=12
+xmode=abs_right
+layer=com_22
+textfont=p11_full
+text=None
+textalignh=right
+textalignv=centre
+textshadow=yes
+
+// 1296:26
+[com_26]
+type=text
+x=26
+y=32
+width=92
+height=12
+xmode=abs_right
+layer=com_22
+textfont=p11_full
+text=None
+textalignh=right
+textalignv=centre
+textshadow=yes
+
+// 1296:27
+[com_27]
+type=text
+x=31
+y=46
+width=78
+height=12
+xmode=abs_right
+layer=com_22
+textfont=p11_full
+text=xxxxxxx
+textalignh=right
+textalignv=centre
+textshadow=yes

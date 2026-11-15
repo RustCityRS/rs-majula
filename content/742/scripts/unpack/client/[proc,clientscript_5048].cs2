@@ -1,0 +1,12 @@
+// 5048
+[proc,clientscript_5048]
+def_int $int0 = calc(%varclient_1396 * (112 + 2 + 2));
+def_int $int1 = 0;
+while ($int1 < 200) {
+    if (cc_find(interface_1111:com_15, $int1) = true) {
+        cc_setsize(calc(%varclient_1396 * cc_param(param_1476) - 1), calc(%varclient_1396 * cc_param(param_1477) - 1), ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc((cc_param(param_1474) + 2) * %varclient_1396), calc($int0 - ((cc_param(param_1475) + 2) * %varclient_1396 + 1 + cc_getheight)), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_setposition(interface_1111:com_48, scale(max(calc(%varclient_1396 - 3), 0), max(calc(21 - 3), 1), calc(if_getwidth(if_getlayer(interface_1111:com_48)) - if_getwidth(interface_1111:com_48))), 0, ^setpos_abs_left, ^setpos_abs_centre);

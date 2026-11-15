@@ -1,0 +1,228 @@
+// 5438
+[proc,clientscript_5438]
+def_string $string0 = "";
+def_int $int0 = 0;
+if (~ql4_getprogress_detail(%vkq2_quest, 2, 63) = 2) {
+    $string0 = "<str=f5af44><col=f5af44>A Void Dance<br>";
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = "A Void Dance<br>";
+}
+if (~ql4_getprogress_basic(%chosen_quest, 110) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Chosen Commander<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Chosen Commander<br>");
+}
+if (~ql4_getprogress_basic(%dwarfrock_quest, 110) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Between a Rock<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Between a Rock<br>");
+}
+if (~ql4_getprogress_detail(%evq_quest, 3, 147) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Blood Runs Deep<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Blood Runs Deep<br>");
+}
+if (~ql4_getprogress_basic(%contact, 130) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Contact!<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Contact!<br>");
+}
+if (~ql4_getprogress_basic(%mah3_main, 240) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Curse of Arrav<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Curse of Arrav<br>");
+}
+if (~ql4_getprogress_basic(%demonslayer_main, 3) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Demon Slayer<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Demon Slayer<br>");
+}
+if (~ql4_getprogress_basic(%deserttreasure, 15) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Desert Treasure<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Desert Treasure<br>");
+}
+if (~ql4_getprogress_detail(%apmeken_master, 10, 315) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Do No Evil<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Do No Evil<br>");
+}
+if (~ql4_getprogress_basic(%dragonquest, 10) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Dragon Slayer<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Dragon Slayer<br>");
+}
+if (~ql4_getprogress_basic(%dream_prog, 28) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Dream Mentor<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Dream Mentor<br>");
+}
+if (~ql4_getprogress_basic(%crestquest, 11) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Family Crest<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Family Crest<br>");
+}
+if (~ql4_getprogress_basic(%arenaquest, 14) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Fight Arena<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Fight Arena<br>");
+}
+if (~ql4_getprogress_basic(%viking, 10) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Fremennik Trials<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Fremennik Trials<br>");
+}
+if (~ql4_getprogress_basic(%hauntedmine, 11) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Haunted Mine<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Haunted Mine<br>");
+}
+if (~ql4_getprogress_basic(%grail, 10) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Holy Grail<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Holy Grail<br>");
+}
+if (~ql4_getprogress_basic(%horrorquest, 10) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Horror from the Deep<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Horror from the Deep<br>");
+}
+if (~ql4_getprogress_basic(%legendsquest, 75) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Legend's Quest<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Legend's Quest<br>");
+}
+if (~ql4_getprogress_basic(%zanaris, 6) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Lost City<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Lost City<br>");
+}
+if (~ql4_getprogress_basic(%love, 150) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Love Story<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Love Story<br>");
+}
+if (~ql4_getprogress_basic(%mom2_main, 60) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Missing my Mummy<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Missing my Mummy<br>");
+}
+if (~ql4_getprogress_detail(%mm_main, 1, 9) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Monkey Madness<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Monkey Madness<br>");
+}
+if (~ql4_getprogress_basic(%mdaughter_quest_var, 70) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Mountain Daughter<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Mountain Daughter<br>");
+}
+if (~ql4_getprogress_basic(%myarm, 320) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>My Arm's Big Adventure<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "My Arm's Big Adventure<br>");
+}
+if (~ql4_getprogress_basic(%nom_quest, 12) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Nomad's Requiem<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Nomad's Requiem<br>");
+}
+if (~ql4_getprogress_basic(%hundred_main_quest_var, 5) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Recipe for Disaster<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Recipe for Disaster<br>");
+}
+if (~ql4_getprogress_basic(%agrith_quest, 125) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Shadow of the Storm<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Shadow of the Storm<br>");
+}
+if (~ql4_getprogress_basic(%elidquest, 60) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Spirits of Elid<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Spirits of Elid<br>");
+}
+if (~ql4_getprogress_basic(%brain_quest_var, 130) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>The Great Brain Robbery<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "The Great Brain Robbery<br>");
+}
+if (~ql4_getprogress_basic(%mah4_main, 90) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>The Temple at Senntisten<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "The Temple at Senntisten<br>");
+}
+if (~ql4_getprogress_basic(%vkq3_quest, 40) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>The Void Stares Back<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "The Void Stares Back<br>");
+}
+if (~ql4_getprogress_basic(%dillo_quest, 63) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>TokTz-Ket-Dill<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "TokTz-Ket-Dill<br>");
+}
+if (~ql4_getprogress_basic(%troll_love, 45) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Troll Romance<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Troll Romance<br>");
+}
+if (~ql4_getprogress_basic(%troll_quest, 50) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Troll Stronghold<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Troll Stronghold<br>");
+}
+if (~ql4_getprogress_basic(%vampire_quest, 3) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Vampyre Slayer<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Vampyre Slayer<br>");
+}
+if (~ql4_getprogress_basic(%wanted_main, 11) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>Wanted<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "Wanted<br>");
+}
+if (~ql4_getprogress_basic(%luc2_main_quest, 910) = 2) {
+    $string0 = append($string0, "<str=f5af44><col=f5af44>While Guthix Sleeps<br>");
+    $int0 = calc($int0 + 1);
+} else {
+    $string0 = append($string0, "While Guthix Sleeps<br>");
+}
+if_settext(interface_1166:com_1, $string0);
+if_settext(interface_1166:com_2, "Quests completed: <tostring($int0)>. You need at least: <tostring(20)>");

@@ -1,0 +1,251 @@
+// 1361:0
+[com_0]
+type=layer
+version=3
+x=98
+y=34
+width=333
+height=217
+opkey11=1,0
+
+// 1361:1
+[com_1]
+type=layer
+version=3
+x=111
+y=220
+width=270
+height=20
+hide=yes
+pausebutton=yes
+opkey11=1,0
+
+// 1361:2
+[com_2]
+type=layer
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+opkey11=1,0
+onload=script4260(event_com)
+
+// 1361:3
+[com_3]
+type=layer
+version=3
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_0
+opkey11=1,0
+
+// 1361:4
+[com_4]
+type=layer
+version=3
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+opkey11=1,0
+onload=script4261(event_com)
+
+// 1361:5
+[com_5]
+type=layer
+version=3
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+opkey11=1,0
+
+// 1361:6
+[com_6]
+type=text
+version=3
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+textfont=palatino_linotype_18pt_regular
+textflag2=yes
+text=Warning!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+opkey11=1,0
+onload=script4262(event_com)
+
+// 1361:7
+[com_7]
+type=layer
+version=3
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_0
+opkey11=1,0
+onload=aif_build_close_button_layer(event_com)
+
+// 1361:8
+[com_8]
+type=graphic
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+transmitop=1
+op1=Close
+opkey11=1,0
+onload=aif_build_close_button_on(event_com)
+
+// 1361:9
+[com_9]
+type=graphic
+version=3
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+opkey11=1,0
+onload=aif_build_close_button_over(event_com)
+
+// 1361:10
+[com_10]
+type=text
+version=3
+x=108
+y=68
+width=315
+height=87
+textfont=p12_full
+textflag2=yes
+text=This artefact will transport you directly to the King Black Dragon's Lair. The King Black Dragon's Lair is extremely dangerous. Are you sure you want to continue?<br><br>(A combat level of 100+ is recommended)
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+opkey11=1,0
+
+// 1361:11
+[com_11]
+type=graphic
+version=3
+x=191
+y=42
+width=19
+height=19
+graphic="warning_icons,0"
+opkey11=1,0
+
+// 1361:12
+[com_12]
+type=graphic
+version=3
+x=319
+y=42
+width=19
+height=19
+graphic="warning_icons,0"
+opkey11=1,0
+
+// 1361:13
+[com_13]
+type=text
+version=3
+x=108
+y=157
+width=315
+height=15
+textfont=p12_full
+textflag2=yes
+text=Go in - I don't mind dying
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+pausebutton=yes
+transmitop=1
+op1=Yes
+opkey11=1,0
+onmouseover=cws_mouseover(event_com, ^green)
+onmouseleave=cws_mouseover(event_com, ^red)
+
+// 1361:14
+[com_14]
+type=text
+version=3
+x=108
+y=189
+width=315
+height=15
+textfont=p12_full
+textflag2=yes
+text=No - I'm holding too much stuff
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+pausebutton=yes
+transmitop=1
+op1=No
+opkey11=1,0
+onmouseover=cws_mouseover(event_com, ^green)
+onmouseleave=cws_mouseover(event_com, ^red)
+
+// 1361:15
+[com_15]
+type=text
+version=3
+x=1
+y=2
+width=315
+height=15
+layer=com_1
+textfont=p12_full
+textflag2=yes
+text=Don't ask me this again
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+opkey11=1,0
+
+// 1361:16
+[com_16]
+type=graphic
+version=3
+x=2
+width=19
+height=19
+layer=com_1
+graphic="warning_icons,1"
+opkey11=1,0
+onvartransmit=cws_graphic_swap(interface_1361:com_16, 36){varplayer_1501}
+onclick=cws_toggle(interface_1361:com_16)

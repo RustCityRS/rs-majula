@@ -1,0 +1,18 @@
+// 6406
+[proc,clientscript_6406]
+if_settext(interface_1308:com_342, tostring(%varplayerbit_4781));
+if (%varplayerbit_4781 = 0) {
+    if_setcolour(interface_1308:com_342, 0xb52f10);
+}
+if (%varplayerbit_4781 < 400) {
+    ~clientscript_6414(interface_1308:com_14, 0);
+    if (%varplayerbit_4781 < 75) {
+        ~clientscript_6414(interface_1308:com_70, 0);
+        if (%varplayerbit_4781 < 35) {
+            ~clientscript_6414(interface_1308:com_72, 0);
+            ~clientscript_6414(interface_1308:com_74, 0);
+            ~clientscript_6414(interface_1308:com_76, 0);
+        }
+    }
+}
+~clientscript_6403;

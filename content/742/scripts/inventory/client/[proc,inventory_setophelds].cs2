@@ -1,0 +1,41 @@
+// 2833
+[proc,inventory_setophelds](obj $obj0)
+cc_setopbase("<~clientscript_4033($obj0)><oc_name($obj0)>");
+switch_obj ($obj0) {
+    case mourning_teleport_crystal_4, mourning_teleport_crystal_3, mourning_teleport_crystal_2, mourning_teleport_crystal_1 :
+        ~script2411($obj0);
+        return;
+    case atlum_ring_med, atlum_ring_elite, atlum_ring_hard :
+        ~script2431($obj0);
+        return;
+    case rand_reward_coal_bag :
+        ~script1273($obj0);
+        return;
+    case rcu_pouch_small :
+        ~clientscript_5862(rcu_pouch_small);
+        return;
+    case rcu_pouch_medium, rcu_pouch_medium_degrade :
+        ~clientscript_5862(rcu_pouch_medium);
+        return;
+    case rcu_pouch_large, rcu_pouch_large_degrade :
+        ~clientscript_5862(rcu_pouch_large);
+        return;
+    case rcu_pouch_giant, rcu_pouch_giant_degrade :
+        ~clientscript_5862(rcu_pouch_giant);
+        return;
+    case runic_staff_24200, greater_runic_staff_24203, runic_staff_24199, greater_runic_staff_24202 :
+        ~script2431($obj0);
+        return;
+    case rand_bolt_blast_box, rand_bolt_blast_box_b, rand_wave_surge_box, rand_wave_surge_box_b :
+        ~script2431($obj0);
+        return;
+    case massive_pouch_24205 :
+        ~clientscript_6186($obj0);
+        return;
+}
+if (oc_uncert($obj0) ! $obj0 & %varplayerbit_9030 = 1) {
+    ~inventory_setophelds_specified("Read", cursor_read, oc_iop($obj0, 2), oc_icursor($obj0, 2), oc_iop($obj0, 3), oc_icursor($obj0, 3), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));
+    return;
+}
+cc_setonvartransmit(null);
+~inventory_setophelds_specified(oc_iop($obj0, 1), oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), oc_iop($obj0, 3), oc_icursor($obj0, 3), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));

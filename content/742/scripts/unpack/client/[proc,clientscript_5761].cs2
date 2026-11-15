@@ -1,0 +1,17 @@
+// 5761
+[proc,clientscript_5761](component $component0, component $component1, component $component2, component $component3)
+def_string $string0 = "You're about to get a recommendation.<br><br>These are suggestions for activities you might like to try.<br><br>Most recommendations can't be 'completed' - just do them for as long as you want and stop whenever you want.";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+if (if_find($component0) = true) {
+    ~clientscript_5739(1, 0, $string0, $component0, op1506);
+    if_setsize($component1, calc(if_getwidth($component0) + 10), calc(if_getheight($component0) + 10), ^setsize_abs, ^setsize_abs);
+    if_setsize(op1506, if_getwidth($component1), if_getheight($component1), ^setsize_abs, ^setsize_abs);
+    if_setsize(op543($component1), if_getwidth(op543($component1)), calc(if_getheight($component1) + if_getheight($component3) + if_getheight($component2) + 20), ^setsize_abs, ^setsize_abs);
+    $int5 = calc(if_gety($component2) + if_getheight($component2));
+    $int6 = if_gety($component3);
+    if_setposition(op1506, 0, calc(($int6 - $int5) / 2 + $int5 - if_getheight(op1506) / 2), ^setpos_abs_centre, ^setpos_abs_top);
+    if_setposition($component1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setposition($component0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+}

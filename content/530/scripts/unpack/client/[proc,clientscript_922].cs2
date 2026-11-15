@@ -1,0 +1,37 @@
+// 922
+[proc,clientscript_922](component $component0, component $component1, component $component2, component $component3, component $component4)
+if (string_length(%varclient_657) = 0) {
+    mes("How odd. The signpost doesn't seem to be working.");
+}
+def_int $int5 = calc(paraheight(%varclient_657, calc(170 + 16), 307) * 12 + 5);
+if ($int5 <= if_getheight($component0)) {
+    if_setsize($component0, calc(170 + 16), if_getheight($component0), 0, 0);
+    if_setsize($component2, calc(170 + 16), $int5, 0, 0);
+    if_setscrollsize($component0, 0, 0);
+    if_setscrollpos($component0, 0, 0);
+    if_sethide($component1, true);
+} else {
+    if_sethide($component1, false);
+    if_setsize($component0, 170, if_getheight($component0), 0, 0);
+    $int5 = calc(paraheight(%varclient_657, 170, 307) * 12 + 5);
+    if_setsize($component2, 170, $int5, 0, 0);
+    if_setscrollsize($component0, 0, $int5);
+    if_setscrollpos($component0, 0, 0);
+    ~clientscript_31($component1, $component0, 792, 789, 790, 791, 773, 788);
+    ~clientscript_72($component1, $component0, 0);
+}
+if_settext($component2, %varclient_657);
+~clientscript_680($component3);
+%tooltip_built = 0;
+if_setcolour($component4, 0xcc9900);
+if (string_length(%varclient_658) > 0) {
+    if_setop($component3, 1, %varclient_658);
+    if_setonmouserepeat($component3, "clientscript_953($component3, $component4)");
+    if_setonmouseleave($component3, "clientscript_924($component3, $component4)");
+    if_settext($component4, %varclient_658);
+} else {
+    if_clearops($component3);
+    if_setonmouseover($component3, null);
+    if_setonmouseleave($component3, null);
+    if_settext($component4, "~ Gnomecopter Tours ~");
+}

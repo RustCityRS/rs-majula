@@ -1,0 +1,318 @@
+// 1248:0
+[com_0]
+type=text
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 1248:1
+[com_1]
+type=text
+y=14
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xe6c27a
+
+// 1248:2
+[com_2]
+type=text
+y=28
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 1248:3
+[com_3]
+type=text
+y=42
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xe6c27a
+
+// 1248:4
+[com_4]
+type=text
+y=56
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 1248:5
+[com_5]
+type=text
+y=70
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xe6c27a
+
+// 1248:6
+[com_6]
+type=text
+y=84
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 1248:7
+[com_7]
+type=text
+y=98
+height=14
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+textalignh=centre
+textshadow=yes
+colour=0xe6c27a
+
+// 1248:8
+[com_8]
+type=layer
+x=-8
+y=-7
+width=521
+height=349
+
+// 1248:9
+[com_9]
+type=layer
+x=230
+y=55
+width=276
+height=240
+
+// 1248:10
+[com_10]
+type=layer
+x=112
+y=130
+width=125
+height=26
+xmode=abs_centre
+ymode=abs_centre
+
+// 1248:11
+[com_11]
+type=text
+y=174
+width=74
+height=50
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+textfont=verdana_11pt_regular
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xf7edb7
+
+// 1248:12
+[com_12]
+type=text
+width=74
+height=50
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+textfont=verdana_11pt_regular
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xe5b051
+
+// 1248:13
+[com_13]
+type=layer
+y=56
+width=8
+height=112
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+
+// 1248:14
+[com_14]
+type=graphic
+width=174
+height=174
+layer=com_8
+graphic=graphic_9706
+
+// 1248:15
+[com_15]
+type=graphic
+x=174
+width=174
+height=174
+layer=com_8
+graphic=graphic_9707
+
+// 1248:16
+[com_16]
+type=graphic
+x=348
+width=174
+height=174
+layer=com_8
+graphic=graphic_9708
+
+// 1248:17
+[com_17]
+type=graphic
+y=174
+width=174
+height=174
+layer=com_8
+graphic=graphic_9709
+
+// 1248:18
+[com_18]
+type=graphic
+x=174
+y=174
+width=174
+height=174
+layer=com_8
+graphic=graphic_9710
+
+// 1248:19
+[com_19]
+type=graphic
+x=348
+y=174
+width=174
+height=174
+layer=com_8
+graphic=graphic_9711
+
+// 1248:20
+[com_20]
+type=layer
+x=236
+width=286
+height=64
+layer=com_8
+
+// 1248:21
+[com_21]
+type=graphic
+width=286
+height=64
+layer=com_20
+graphic=graphic_9712
+
+// 1248:22
+[com_22]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5387(event_com, struct_2750)
+
+// 1248:23
+[com_23]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5387(event_com, struct_2751)
+
+// 1248:24
+[com_24]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5387(event_com, struct_2753)
+
+// 1248:25
+[com_25]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+onload=clientscript_5387(event_com, struct_2752)
+
+// 1248:26
+[com_26]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+layer=com_10
+transmitop=1
+op1=Continue
+onload=script4213(event_com)
+onop=closebutton_click
+
+// 1248:27
+[com_27]
+type=layer
+width=16391
+height=26
+widthmode=proportion
+ymode=abs_centre
+layer=com_10
+noclickthrough=yes
+onload=clientscript_5387(event_com, struct_2754)
+
+// 1248:28
+[com_28]
+type=layer
+width=16391
+height=22
+widthmode=proportion
+layer=com_10
+
+// 1248:29
+[com_29]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+textfont=verdana_11pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+colour=0xe3cccf
+onload=aif_text_layer_build(event_com, verdana_11pt_regular, 0xe3cccf, 0x27220f)

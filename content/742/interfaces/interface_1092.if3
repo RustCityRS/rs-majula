@@ -1,0 +1,824 @@
+// 1092:0
+[com_0]
+type=layer
+y=34
+width=512
+height=384
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+
+// 1092:1
+[com_1]
+type=graphic
+width=8199
+height=5468
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+graphic=graphic_10134
+
+// 1092:2
+[com_2]
+type=graphic
+width=8199
+height=5468
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_0
+graphic=graphic_10135
+
+// 1092:3
+[com_3]
+type=graphic
+width=8192
+height=5468
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_0
+graphic=graphic_10136
+
+// 1092:4
+[com_4]
+type=graphic
+width=8192
+height=5468
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic=graphic_10137
+
+// 1092:5
+[com_5]
+type=graphic
+width=8192
+height=5468
+widthmode=proportion
+heightmode=proportion
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_10138
+
+// 1092:6
+[com_6]
+type=graphic
+width=8192
+height=5468
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_10139
+
+// 1092:7
+[com_7]
+type=graphic
+x=65
+y=122
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10114
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Bandit<br>Camp")
+
+// 1092:8
+[com_8]
+type=graphic
+y=1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_56
+hide=yes
+graphic=window_texture_1
+tiling=yes
+
+// 1092:9
+[com_9]
+type=graphic
+width=125
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_56
+graphic=aif_window_stone_header_fill
+tiling=yes
+
+// 1092:10
+[com_10]
+type=graphic
+width=366
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_bot_brdr_left
+
+// 1092:11
+[com_11]
+type=graphic
+y=28
+width=8
+height=68
+xmode=abs_right
+layer=com_56
+graphic=aif_window_stone_close_corner_3
+
+// 1092:12
+[com_12]
+type=graphic
+width=8
+height=192
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_56
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1092:13
+[com_13]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_56
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1092:14
+[com_14]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+xmode=abs_right
+layer=com_56
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+hflip=yes
+
+// 1092:15
+[com_15]
+type=graphic
+x=64
+width=119
+height=7
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_bot_brdr_left
+
+// 1092:16
+[com_16]
+type=graphic
+x=64
+width=119
+height=7
+xmode=abs_right
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_bot_brdr_left
+
+// 1092:17
+[com_17]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1092:18
+[com_18]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_56
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1092:19
+[com_19]
+type=graphic
+y=29
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_56
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1092:20
+[com_20]
+type=graphic
+x=8
+y=28
+width=4
+height=3
+heightmode=minus
+layer=com_56
+graphic=aif_innerwin_dropshadow_2
+tiling=yes
+
+// 1092:21
+[com_21]
+type=graphic
+width=8
+height=192
+heightmode=minus
+ymode=abs_centre
+layer=com_56
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1092:22
+[com_22]
+type=graphic
+y=53
+width=8
+height=43
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_side_brdr_small
+
+// 1092:23
+[com_23]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1092:24
+[com_24]
+type=graphic
+x=8
+width=55
+height=29
+xmode=abs_right
+layer=com_56
+graphic=aif_window_stone_close_corner_1
+
+// 1092:25
+[com_25]
+type=graphic
+x=8
+width=55
+height=29
+layer=com_56
+graphic=aif_window_stone_left_corner_1
+
+// 1092:26
+[com_26]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_56
+graphic=aif_window_stone_bot_corn
+
+// 1092:27
+[com_27]
+type=graphic
+width=8
+height=29
+layer=com_56
+graphic=aif_window_stone_left_corner_2
+
+// 1092:28
+[com_28]
+type=graphic
+width=8
+height=29
+xmode=abs_right
+layer=com_56
+graphic=aif_window_stone_close_corner_2
+
+// 1092:29
+[com_29]
+type=graphic
+width=246
+height=46
+xmode=abs_centre
+ymode=abs_centre
+layer=com_55
+graphic=window_texture_1
+
+// 1092:30
+[com_30]
+type=graphic
+x=-2
+y=-2
+width=12
+height=11
+xmode=abs_right
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+outline=1
+
+// 1092:31
+[com_31]
+type=graphic
+x=-2
+y=-2
+width=12
+height=11
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+outline=1
+hflip=yes
+
+// 1092:32
+[com_32]
+type=graphic
+x=-2
+y=-2
+width=12
+height=11
+xmode=abs_right
+ymode=abs_bottom
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+outline=1
+vflip=yes
+
+// 1092:33
+[com_33]
+type=graphic
+x=-2
+y=-2
+width=12
+height=11
+ymode=abs_bottom
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,0"
+outline=1
+vflip=yes
+hflip=yes
+
+// 1092:34
+[com_34]
+type=graphic
+x=-5
+y=9
+width=12
+height=32
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,1"
+
+// 1092:35
+[com_35]
+type=graphic
+x=-2
+y=9
+width=12
+height=32
+xmode=abs_right
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,1"
+
+// 1092:36
+[com_36]
+type=graphic
+x=10
+y=-2
+width=230
+height=11
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,2"
+
+// 1092:37
+[com_37]
+type=graphic
+x=10
+y=-4
+width=230
+height=11
+ymode=abs_bottom
+layer=com_55
+graphic="aif_overlay_frame_gold_corner_1_shadow,2"
+
+// 1092:38
+[com_38]
+type=layer
+width=500
+height=300
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_6001
+
+// 1092:39
+[com_39]
+type=graphic
+x=-215
+y=-95
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10115
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Lunar<br>Isle")
+
+// 1092:40
+[com_40]
+type=graphic
+x=102
+y=55
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10113
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Al Kharid")
+
+// 1092:41
+[com_41]
+type=graphic
+x=-93
+y=40
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10104
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Ardougne")
+
+// 1092:42
+[com_42]
+type=graphic
+x=-9
+y=-27
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10106
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Burthorpe")
+
+// 1092:43
+[com_43]
+type=graphic
+x=-38
+y=10
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10107
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Catherby")
+
+// 1092:44
+[com_44]
+type=graphic
+x=48
+y=39
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10110
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Draynor<br>Village")
+
+// 1092:45
+[com_45]
+type=graphic
+x=32
+y=-15
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10112
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Edgeville")
+
+// 1092:46
+[com_46]
+type=graphic
+x=17
+y=32
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10103
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Falador")
+
+// 1092:47
+[com_47]
+type=graphic
+x=66
+y=70
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10101
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Lumbridge")
+
+// 1092:48
+[com_48]
+type=graphic
+x=15
+y=75
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10109
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Port<br>Sarim")
+
+// 1092:49
+[com_49]
+type=graphic
+x=-69
+y=-12
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10108
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Seers'<br>Village")
+
+// 1092:50
+[com_50]
+type=graphic
+x=-8
+y=8
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10105
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Taverley")
+
+// 1092:51
+[com_51]
+type=graphic
+x=85
+y=10
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10102
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Varrock")
+
+// 1092:52
+[com_52]
+type=graphic
+x=-101
+y=91
+width=40
+height=40
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=graphic_10111
+transmitop=1
+op1=Teleport
+onmouseleave=clientscript_6004
+onmouserepeat=clientscript_6002(event_com, "Yanille")
+
+// 1092:53
+[com_53]
+type=layer
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+hide=yes
+
+// 1092:54
+[com_54]
+type=graphic
+width=50
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_53
+graphic=graphic_10069
+
+// 1092:55
+[com_55]
+type=layer
+width=250
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+hide=yes
+
+// 1092:56
+[com_56]
+type=layer
+width=500
+height=300
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+
+// 1092:57
+[com_57]
+type=layer
+width=500
+height=300
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+
+// 1092:58
+[com_58]
+type=layer
+width=16391
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_38
+
+// 1092:59
+[com_59]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_38
+
+// 1092:60
+[com_60]
+type=graphic
+width=16
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=com_59
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1092:61
+[com_61]
+type=graphic
+width=16
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=com_59
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1092:62
+[com_62]
+type=graphic
+width=16
+height=15
+xmode=abs_centre
+ymode=abs_centre
+layer=com_59
+graphic="aif_bronze_close_button_1,2"
+trans=255
+onclick=script4207(event_com, 0)
+onrelease=script4207(event_com, 1)
+
+// 1092:63
+[com_63]
+type=text
+y=4
+width=8199
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_58
+textfont=palatino_linotype_18pt_regular
+text=Lodestone Network
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 1092:64
+[com_64]
+type=graphic
+x=2
+width=50
+height=50
+ymode=abs_centre
+layer=com_55
+graphic=graphic_10079
+
+// 1092:65
+[com_65]
+type=text
+x=-31
+width=90
+height=44
+xmode=abs_centre
+ymode=abs_centre
+layer=com_55
+textfont=verdana_13pt_regular
+text=Yanille
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 1092:66
+[com_66]
+type=text
+x=3
+width=110
+height=44
+xmode=abs_right
+ymode=abs_centre
+layer=com_55
+textfont=p12_full
+text=Click to teleport<br>to this lodestone.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc

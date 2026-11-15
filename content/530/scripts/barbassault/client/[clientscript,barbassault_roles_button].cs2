@@ -1,0 +1,11 @@
+// 434
+[clientscript,barbassault_roles_button]
+if_sethide(interface_591:listlayer, true);
+if_sethide(interface_591:com_175, false);
+if_sethide(interface_591:com_177, true);
+if_sethide(interface_591:tops_scrollbar, true);
+if_sethide(interface_591:com_176, false);
+if_sethide(interface_591:com_178, true);
+if_setgraphic(interface_591:com_182, 1052);
+if_setgraphic(interface_591:com_183, 1045);
+if_setgraphic(interface_591:com_184, 1054);

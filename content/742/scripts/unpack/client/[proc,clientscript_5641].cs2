@@ -1,0 +1,4 @@
+// 5641
+[proc,clientscript_5641](component $component0, int $int1)
+if_setonmouseover($component0, "clientscript_5642($component0, $int1, 1)");
+if_setonmouseleave($component0, "clientscript_5642($component0, $int1, 0)");

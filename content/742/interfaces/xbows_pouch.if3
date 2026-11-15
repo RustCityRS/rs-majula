@@ -1,0 +1,289 @@
+// 433:0
+[pouch_model]
+type=model
+x=141
+y=38
+width=45
+height=51
+model=model_16961
+modelorigin=1,1
+modelangle=340,104,0
+modelzoom=475
+
+// 433:1
+[slot1]
+type=graphic
+x=11
+y=42
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1,2
+op1=Remove from Pouch
+op2=Wield Bolts
+
+// 433:2
+[xbows_model1]
+type=model
+x=13
+y=44
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:3
+[slot2]
+type=graphic
+x=11
+y=78
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1,2
+op1=Remove from Pouch
+op2=Wield Bolts
+
+// 433:4
+[xbows_model2]
+type=model
+x=13
+y=80
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:5
+[slot3]
+type=graphic
+x=11
+y=114
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1,2
+op1=Remove from Pouch
+op2=Wield Bolts
+
+// 433:6
+[xbows_model3]
+type=model
+x=13
+y=116
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:7
+[slot4]
+type=graphic
+x=11
+y=150
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1,2
+op1=Remove from Pouch
+op2=Wield Bolts
+
+// 433:8
+[xbows_model4]
+type=model
+x=13
+y=152
+width=32
+height=32
+model=null
+modelzoom=400
+
+// 433:9
+[slot_worn]
+type=graphic
+x=11
+y=208
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1
+op1=Unwield Ammo
+
+// 433:10
+[xbows_model5]
+type=model
+x=13
+y=210
+width=32
+height=32
+model=null
+modelzoom=10
+
+// 433:11
+[num1]
+type=text
+x=51
+y=44
+width=17
+height=14
+textfont=p12_full
+text=%1
+textshadow=yes
+colour=0xff0033
+onload=xbows_pouch_num
+onvartransmit=xbows_pouch_num{xbows_pouch1, xbows_pouch1, xbows_pouch2, xbows_pouch2}
+
+// 433:12
+[num2]
+type=text
+x=52
+y=80
+width=17
+height=14
+textfont=p12_full
+text=%1
+textshadow=yes
+colour=0xff0033
+
+// 433:13
+[num3]
+type=text
+x=52
+y=115
+width=17
+height=14
+textfont=p12_full
+text=%1
+textshadow=yes
+colour=0xff0033
+
+// 433:14
+[num4]
+type=text
+x=52
+y=152
+width=17
+height=14
+textfont=p12_full
+text=%1
+textshadow=yes
+colour=0xff0033
+
+// 433:15
+[num5]
+type=text
+x=50
+y=210
+width=8
+height=14
+textfont=p12_full
+text=0
+textshadow=yes
+colour=0xff0033
+
+// 433:16
+[text1]
+type=text
+x=52
+y=63
+width=133
+height=13
+textfont=p12_full
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:17
+[text2]
+type=text
+x=52
+y=98
+width=133
+height=15
+textfont=p12_full
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:18
+[text3]
+type=text
+x=52
+y=134
+width=133
+height=15
+textfont=p12_full
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:19
+[text4]
+type=text
+x=52
+y=170
+width=133
+height=15
+textfont=p12_full
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:20
+[text5]
+type=text
+x=50
+y=228
+width=133
+height=13
+textfont=p12_full
+text=Text
+textshadow=yes
+colour=0xff9933
+
+// 433:21
+[title]
+type=text
+x=6
+y=21
+width=175
+height=13
+textfont=b12_full
+text=Crossbow Bolt Pouch
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+onload=xbows_setfont
+
+// 433:22
+[current_title]
+type=text
+x=17
+y=192
+width=158
+height=14
+textfont=b12_full
+text=Current Ammo
+textshadow=yes
+colour=0xff9933
+
+// 433:23
+[close_button]
+type=graphic
+x=171
+y=3
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=     
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

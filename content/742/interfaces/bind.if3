@@ -1,0 +1,750 @@
+// 952:0
+[bind]
+type=layer
+width=496
+height=318
+xmode=abs_centre
+ymode=abs_centre
+transmitop=10
+op10= 
+
+// 952:1
+[bind_back]
+type=graphic
+width=2
+height=12
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=bind
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 952:2
+[bind_back_tl]
+type=graphic
+width=32
+height=32
+layer=bind
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:3
+[bind_back_t]
+type=graphic
+y=-13
+width=64
+height=34
+widthmode=minus
+xmode=abs_centre
+layer=bind
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:4
+[bind_back_tr]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=bind
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:5
+[bind_back_l]
+type=graphic
+x=-13
+width=32
+height=64
+heightmode=minus
+ymode=abs_centre
+layer=bind
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:6
+[bind_back_r]
+type=graphic
+x=-12
+width=32
+height=64
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=bind
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:7
+[bind_back_bl]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=bind
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:8
+[bind_back_b]
+type=graphic
+y=-12
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=bind
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:9
+[bind_back_br]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=bind
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 952:10
+[worn_items_layer]
+type=layer
+x=15
+y=-12
+width=163
+height=200
+ymode=abs_centre
+layer=bind
+transmitop=10
+op10= 
+
+// 952:11
+[com_11]
+type=graphic
+x=120
+y=116
+width=32
+height=50
+layer=worn_items_layer
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 952:12
+[com_12]
+type=graphic
+x=66
+y=35
+width=32
+height=130
+layer=worn_items_layer
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 952:13
+[com_13]
+type=graphic
+x=11
+y=116
+width=32
+height=50
+layer=worn_items_layer
+graphic="v2_stone_borders,13"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 952:14
+[com_14]
+type=graphic
+x=59
+y=44
+width=48
+height=32
+layer=worn_items_layer
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 952:15
+[com_15]
+type=graphic
+x=43
+y=82
+width=82
+height=32
+layer=worn_items_layer
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 952:16
+[headslot]
+type=graphic
+x=64
+y=3
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:headmodel, bind:headback, worn, 0)
+oninvtransmit=script2246(bind:headmodel, bind:headback, worn, 0){worn}
+
+// 952:17
+[headback]
+type=graphic
+x=66
+y=5
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,0"
+colour=0xffffffff
+
+// 952:18
+[headmodel]
+type=graphic
+x=64
+y=5
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:19
+[capeslot]
+type=graphic
+x=23
+y=42
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:capemodel, bind:capeback, worn, 1)
+oninvtransmit=script2246(bind:capemodel, bind:capeback, worn, 1){worn}
+
+// 952:20
+[capeback]
+type=graphic
+x=25
+y=44
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,1"
+colour=0xffffffff
+
+// 952:21
+[capemodel]
+type=graphic
+x=23
+y=44
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:22
+[necklaceslot]
+type=graphic
+x=64
+y=42
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:necklacemodel, bind:necklaceback, worn, 2)
+oninvtransmit=script2246(bind:necklacemodel, bind:necklaceback, worn, 2){worn}
+
+// 952:23
+[necklaceback]
+type=graphic
+x=66
+y=44
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,2"
+colour=0xffffffff
+
+// 952:24
+[necklacemodel]
+type=graphic
+x=64
+y=44
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:25
+[arrowslot]
+type=graphic
+x=105
+y=42
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:arrowmodel, bind:arrowback, worn, 13)
+oninvtransmit=script2246(bind:arrowmodel, bind:arrowback, worn, 13){worn}
+
+// 952:26
+[arrowback]
+type=graphic
+x=107
+y=44
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,10"
+colour=0xffffffff
+
+// 952:27
+[arrowmodel]
+type=graphic
+x=105
+y=44
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:28
+[weaponslot]
+type=graphic
+x=10
+y=81
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+opbase=weaponslot
+op10= 
+onload=script2246(bind:weaponmodel, bind:weaponback, worn, 3)
+oninvtransmit=script2246(bind:weaponmodel, bind:weaponback, worn, 3){worn}
+
+// 952:29
+[weaponback]
+type=graphic
+x=12
+y=83
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,3"
+colour=0xffffffff
+
+// 952:30
+[weaponmodel]
+type=graphic
+x=10
+y=83
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:31
+[bodyslot]
+type=graphic
+x=64
+y=81
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:bodymodel, bind:bodyback, worn, 4)
+oninvtransmit=script2246(bind:bodymodel, bind:bodyback, worn, 4){worn}
+
+// 952:32
+[bodyback]
+type=graphic
+x=66
+y=83
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,5"
+colour=0xffffffff
+
+// 952:33
+[bodymodel]
+type=graphic
+x=64
+y=83
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:34
+[shieldslot]
+type=graphic
+x=118
+y=81
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:shieldmodel, bind:shieldback, worn, 5)
+oninvtransmit=script2246(bind:shieldmodel, bind:shieldback, worn, 5){worn}
+
+// 952:35
+[shieldback]
+type=graphic
+x=120
+y=83
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,6"
+colour=0xffffffff
+
+// 952:36
+[shieldmodel]
+type=graphic
+x=118
+y=83
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:37
+[legslot]
+type=graphic
+x=64
+y=121
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:legmodel, bind:legback, worn, 7)
+oninvtransmit=script2246(bind:legmodel, bind:legback, worn, 7){worn}
+
+// 952:38
+[legback]
+type=graphic
+x=66
+y=123
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,7"
+colour=0xffffffff
+
+// 952:39
+[legmodel]
+type=graphic
+x=64
+y=123
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:40
+[handslot]
+type=graphic
+x=10
+y=161
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:handmodel, bind:handback, worn, 9)
+oninvtransmit=script2246(bind:handmodel, bind:handback, worn, 9){worn}
+
+// 952:41
+[handback]
+type=graphic
+x=12
+y=163
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,8"
+colour=0xffffffff
+
+// 952:42
+[handmodel]
+type=graphic
+x=10
+y=163
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:43
+[footslot]
+type=graphic
+x=64
+y=161
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:footmodel, bind:footback, worn, 10)
+oninvtransmit=script2246(bind:footmodel, bind:footback, worn, 10){worn}
+
+// 952:44
+[footback]
+type=graphic
+x=66
+y=163
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,9"
+colour=0xffffffff
+
+// 952:45
+[footmodel]
+type=graphic
+x=64
+y=163
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:46
+[ringslot]
+type=graphic
+x=118
+y=161
+width=36
+height=36
+layer=worn_items_layer
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+onload=script2246(bind:ringmodel, bind:ringback, worn, 12)
+oninvtransmit=script2246(bind:ringmodel, bind:ringback, worn, 12){worn}
+
+// 952:47
+[ringback]
+type=graphic
+x=120
+y=163
+width=32
+height=32
+layer=worn_items_layer
+graphic="wornicons,4"
+colour=0xffffffff
+
+// 952:48
+[ringmodel]
+type=graphic
+x=118
+y=163
+width=36
+height=32
+layer=worn_items_layer
+outline=1
+graphicshadow=1971220
+colour=0xffffffff
+
+// 952:49
+[inventory]
+type=layer
+x=313
+y=38
+width=162
+height=248
+layer=bind
+
+// 952:50
+[com_50]
+type=rectangle
+width=162
+height=248
+layer=inventory
+colour=0xffff00
+
+// 952:51
+[safe_text]
+type=text
+y=23
+width=467
+height=15
+xmode=abs_centre
+textfont=p11_full
+text=Select items to bind. Only bound items will be kept between dungeons.
+textalignh=centre
+textshadow=yes
+colour=0xaea250
+transmitop=10
+op10= 
+
+// 952:52
+[bound_items_text]
+type=text
+y=55
+width=150
+height=15
+xmode=abs_centre
+textfont=p11_full
+text=Items bound: 0/1
+textalignh=centre
+textshadow=yes
+colour=0xaea250
+transmitop=10
+op10= 
+
+// 952:53
+[bound_ammo_text]
+type=text
+y=71
+width=150
+height=15
+xmode=abs_centre
+textfont=p11_full
+text=Ammo types bound: 0/1
+textalignh=centre
+textshadow=yes
+colour=0xaea250
+transmitop=10
+op10= 
+
+// 952:54
+[destroy_text]
+type=text
+x=357
+y=274
+width=134
+height=40
+textfont=p11_full
+text=Any items you have chosen to unbind will be permanently destroyed.
+textalignh=centre
+textshadow=yes
+colour=0xaea250
+transmitop=10
+op10= 
+
+// 952:55
+[com_55]
+type=graphic
+width=36
+height=32
+layer=inventory
+colour=0xffffffff
+
+// 952:56
+[com_56]
+type=graphic
+x=126
+width=36
+height=32
+layer=inventory
+colour=0xffffffff
+
+// 952:57
+[com_57]
+type=graphic
+y=216
+width=36
+height=32
+layer=inventory
+colour=0xffffffff
+
+// 952:58
+[com_58]
+type=graphic
+x=126
+y=216
+width=36
+height=32
+layer=inventory
+colour=0xffffffff

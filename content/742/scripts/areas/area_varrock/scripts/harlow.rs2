@@ -1,0 +1,65 @@
+// 289's Dr Harlow (areas/area_varrock/scripts/harlow.rs2), at 2011's Blue
+// Moon Inn. 2011 (2011 wiki, Dr. Harlow): for a beer he gives "a stake and a
+// stake hammer", and gives either again to a player who lost it (Stake hammer:
+// "You can get another from Dr Harlow at the Blue Moon Inn of Varrock").
+// Lines are 289's; where a line of his would be wrong in 2011 it is marked.
+[opnpc1,dr_harlow]
+// 2011-05-04 recording (YouTube 8rnPUf2QQv4, 92.1-138.2s), word for word, Harlow's slur and all.
+~chatnpc("<p,confused>Buy me a drrink pleassh.");
+switch_int (%vampire) {
+    case ^quest_vampire_started : @harlow_during_vampire_slayer;
+    case ^quest_vampire_spoke_to_harlow : @harlow_during_vampire_slayer_buy_beer;
+    case default : ~chatplayer("<p,quiz>I think you've had enough."); // 289's
+}
+
+[label,harlow_during_vampire_slayer]
+// 93.8s: "Select an Option". Only the second is recorded; the third goes to it, unverified.
+switch_int (~p_choice3("No, you've had enough.", 1, "Are you Dr Harlow, the famous vampire slayer?", 2, "You couldn't possibly be Dr Harlow, you're just a drunk.", 3)) {
+    case 1 : @harlow_decline_drink;
+    case default : ~chatplayer("<p,quiz>Are you Dr Harlow, the famous vampire slayer?");
+}
+~chatnpc("<p,confused>Dependsh whose ashking.");
+~chatplayer("<p,neutral>Your friend Morgan sent me. He said you could teach me how to slay a vampire.");
+~chatnpc("<p,confused>Shure, I can teash you. I wash the best vampire shhlayer ever.");
+~chatnpc("<p,confused>Buy me a beer and I'll teash you.");
+~chatplayer("<p,angry>Your good friend Morgan is living in fear of a vampire and all you can think about is beer?");
+~chatnpc("<p,confused>Buy ush a drink anyway.");
+~quest_vampire_set_progress(^quest_vampire_spoke_to_harlow);
+
+[label,harlow_during_vampire_slayer_buy_beer]
+~chatnpc("<p,confused>Did you buy ush a drrink?"); // 105.1s
+if (inv_total(inv, beer) < 1) {
+    ~chatplayer("<p,quiz>I'll just go and buy one."); // 289's
+    return;
+}
+~chatplayer("<p,happy>Okay, here you go.");
+inv_del(inv, beer, 1);
+// 107.6s: no full stop.
+~objbox(beer, "You give a beer to Dr Harlow", 250, 0, ^objbox_height);
+~chatnpc("<p,confused>Cheersh, matey.");
+~chatplayer("<p,quiz>So, tell me how to kill vampires then.");
+~chatnpc("<p,neutral>Yes, yes, vampires. I was very good at killing 'em once.");
+~chatnpc("<p,neutral>Vampire slaying is not to be undertaken lightly. You must go in prepared, or you will die.");
+~chatnpc("<p,sad>*Sigh*");
+~chatnpc("<p,neutral>A stake is an essential tool for any vampire slayer. The stake must be used in the final blow against the vampire or his dark magic will regenerate him to full health.");
+~chatnpc("<p,neutral>I always carry a spare, so you can have one.");
+inv_add(inv, stake, 1);
+~objbox(stake, "Dr Harlow hands you a stake.", 250, 0, 0);
+~chatnpc("<p,neutral>You'll need a special hammer as well, to drive it in properly.");
+~chatnpc("<p,neutral>Hmm, I think I have a spare hammer you can have.");
+inv_add(inv, vampire_hammer, 1);
+~objbox(vampire_hammer, "Dr Harlow hands you a strange hammer.", 250, 0, 0);
+~chatnpc("<p,neutral>One last thing. It's wise to carry garlic with you; vampires are slightly weakened if they can smell garlic.");
+~chatnpc("<p,neutral>Garlic is pretty common, I know I always advised Morgan to keep a supply, so you might be able to get some from him. If not, I know they sell it in Port Sarim.");
+// 132.2s: "how I do I", 2011's typo.
+~chatplayer("<p,quiz>Okay, so those are the supplies I need, but how I do I actually kill him?");
+~chatnpc("<p,happy>You are an eager one.");
+~chatnpc("<p,angry>Killing a vampire is DANGEROUS! Never forget that. Go in prepared, with food and armour, but understand that you may die. It's a risk we all take in this business.");
+~chatnpc("<p,sad>I've seen many fine men and women die at the hands of vampires.");
+~chatnpc("<p,neutral>Enter the vampire's lair and attempt to open the coffin. He should be asleep in there, so try to use the stake on him. As you're new at this, you'll probably just wake him up and the real fight begins.");
+~chatnpc("<p,neutral>Fight him until he's nearly dead, and, when the moment is right, stake him through the heart and hammer it in.");
+~chatnpc("<p,neutral>It's gruesome, but it's the only way. Once he's dead, speak to Morgan so he can notify the village.");
+~chatplayer("<p,happy>Thank you very much!");
+
+[label,harlow_decline_drink]
+~chatplayer("<p,quiz>No, you've had enough.");

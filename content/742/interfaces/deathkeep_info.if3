@@ -1,0 +1,343 @@
+// 17:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=500
+height=320
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+
+// 17:1
+[universe]
+type=layer
+width=500
+height=320
+xmode=abs_centre
+ymode=abs_centre
+onload=deathkeep_info_init(event_com)
+
+// 17:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+graphic=tradebacking
+tiling=yes
+
+// 17:3
+[com_3]
+type=graphic
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=universe
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 17:4
+[com_4]
+type=graphic
+y=-12
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 17:5
+[com_5]
+type=graphic
+x=-13
+width=32
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 17:6
+[com_6]
+type=graphic
+x=-12
+width=32
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 17:7
+[com_7]
+type=graphic
+width=32
+height=32
+layer=universe
+graphic="v2_stone_borders,35"
+
+// 17:8
+[com_8]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=universe
+graphic="v2_stone_borders,37"
+
+// 17:9
+[com_9]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,6"
+
+// 17:10
+[com_10]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,7"
+
+// 17:11
+[com_11]
+type=graphic
+x=315
+y=22
+width=32
+height=29
+heightmode=minus
+layer=universe
+graphic="v2_stone_borders,34"
+tiling=yes
+
+// 17:12
+[title]
+type=text
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=universe
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 17:13
+[com_13]
+type=graphic
+x=10
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 17:14
+[items_container]
+type=layer
+x=8
+y=8
+width=306
+height=31
+heightmode=minus
+ymode=abs_bottom
+layer=universe
+
+// 17:15
+[items]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=items_container
+
+// 17:16
+[0_header]
+type=text
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=items
+textfont=p12_full
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 17:17
+[com_17]
+type=layer
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=items
+
+// 17:18
+[protected]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+
+// 17:19
+[1_header]
+type=text
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=items
+textfont=p12_full
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 17:20
+[com_20]
+type=layer
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=items
+
+// 17:21
+[2_header]
+type=text
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=items
+textfont=p12_full
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 17:22
+[com_22]
+type=layer
+height=35
+widthmode=minus
+xmode=abs_centre
+layer=items
+
+// 17:23
+[appendix]
+type=text
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=items
+textfont=p12_full
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 17:24
+[items_scrollbar]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=items_container
+hide=yes
+
+// 17:25
+[explanation_container]
+type=layer
+x=8
+y=8
+width=326
+height=31
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+
+// 17:26
+[explanation]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=explanation_container
+
+// 17:27
+[explanation_scrollbar]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=explanation_container
+hide=yes
+
+// 17:28
+[com_28]
+type=layer
+width=10
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=explanation_container
+hide=yes
+transmitop=1
+op1=Toggle
+
+// 17:29
+[com_29]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+
+// 17:30
+[com_30]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f

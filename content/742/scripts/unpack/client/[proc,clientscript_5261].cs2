@@ -1,0 +1,14 @@
+// 5261
+[proc,clientscript_5261](component $component0)
+switch_component ($component0) {
+    case interface_1132:com_10 :
+        if_sethide(interface_1132:com_22, false);
+        if_settext(interface_1132:com_23, "4");
+        if_sethide(interface_1132:com_23, false);
+        if_setontimer($component0, "clientscript_5262(4, 0, interface_1132:com_10)");
+    case interface_1132:com_11 :
+        if_sethide(interface_1132:com_27, false);
+        if_settext(interface_1132:com_28, "2");
+        if_sethide(interface_1132:com_28, false);
+        if_setontimer($component0, "clientscript_5262(2, 0, interface_1132:com_11)");
+}

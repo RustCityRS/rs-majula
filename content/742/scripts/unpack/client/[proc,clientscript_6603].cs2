@@ -1,0 +1,6 @@
+// 6603
+[proc,clientscript_6603](component $component0)
+if (if_find(interface_1327:com_45) = true & .if_find($component0) = true) {
+    cc_setsize(.cc_getwidth, .cc_getheight, ^setsize_abs, ^setsize_abs);
+    cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}

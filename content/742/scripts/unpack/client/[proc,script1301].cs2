@@ -1,0 +1,24 @@
+// 1301
+[proc,script1301](component $component0, component $component1)
+def_int $int2 = 0;
+if (getwindowmode >= 2) {
+    if (if_getnextsubid($component0) = 8) {
+        return;
+    } else {
+        cc_deleteall($component0);
+    }
+    ~clientscript_186($component0, $component1, 8605, 8606, 8607, 8602, 8603, 8604, 8597, 8596, 8599, 8598, 8601, 8600);
+} else {
+    if (if_getnextsubid($component0) = 6) {
+        return;
+    } else {
+        cc_deleteall($component0);
+    }
+    ~scrollbar_vertical($component0, $component1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    while ($int2 < if_getnextsubid($component0)) {
+        if (cc_find($component0, $int2) = true) {
+            cc_setalpha(false);
+        }
+        $int2 = calc($int2 + 1);
+    }
+}

@@ -1,0 +1,917 @@
+// 173:0
+[com_0]
+type=layer
+width=320
+height=320
+xmode=abs_centre
+ymode=abs_centre
+
+// 173:1
+[com_1]
+type=layer
+x=1
+y=15
+width=135
+height=195
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+onload=clientscript_4646
+onvartransmit=clientscript_4646{varplayer_2194}
+
+// 173:2
+[com_2]
+type=layer
+x=189
+y=85
+width=134
+height=165
+hide=yes
+
+// 173:3
+[com_3]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 173:4
+[com_4]
+type=layer
+width=36
+height=38
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+hide=yes
+
+// 173:5
+[com_5]
+type=graphic
+x=2
+y=2
+width=32
+height=32
+layer=com_4
+graphic="rand_map_rooms_on,4"
+
+// 173:6
+[com_6]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+layer=com_4
+graphic="rand_map_room_special,2"
+
+// 173:7
+[com_7]
+type=layer
+width=36
+height=38
+layer=com_4
+
+// 173:8
+[com_8]
+type=layer
+width=33
+height=34
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+hide=yes
+
+// 173:9
+[com_9]
+type=layer
+x=2
+y=24
+width=191
+height=199
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+
+// 173:10
+[com_10]
+type=graphic
+x=1
+y=65
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,7"
+
+// 173:11
+[com_11]
+type=graphic
+x=33
+y=65
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,13"
+
+// 173:12
+[com_12]
+type=graphic
+x=33
+y=33
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,17"
+
+// 173:13
+[com_13]
+type=graphic
+x=33
+y=1
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,8"
+
+// 173:14
+[com_14]
+type=graphic
+x=1
+y=1
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,7"
+
+// 173:15
+[com_15]
+type=graphic
+x=65
+y=65
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,15"
+
+// 173:16
+[com_16]
+type=graphic
+x=97
+y=65
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,15"
+
+// 173:17
+[com_17]
+type=graphic
+x=65
+y=97
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,14"
+
+// 173:18
+[com_18]
+type=graphic
+x=65
+y=128
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,9"
+
+// 173:19
+[com_19]
+type=graphic
+x=33
+y=128
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,10"
+
+// 173:20
+[com_20]
+type=graphic
+x=33
+y=96
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,4"
+
+// 173:21
+[com_21]
+type=graphic
+x=97
+y=97
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,16"
+
+// 173:22
+[com_22]
+type=graphic
+x=97
+y=129
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,6"
+
+// 173:23
+[com_23]
+type=graphic
+x=129
+y=97
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,9"
+
+// 173:24
+[com_24]
+type=graphic
+x=129
+y=65
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,15"
+
+// 173:25
+[com_25]
+type=graphic
+x=161
+y=65
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,9"
+
+// 173:26
+[com_26]
+type=graphic
+x=159
+y=66
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,0"
+
+// 173:27
+[com_27]
+type=graphic
+x=161
+y=33
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,8"
+
+// 173:28
+[com_28]
+type=graphic
+x=129
+y=33
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,13"
+
+// 173:29
+[com_29]
+type=graphic
+x=97
+y=33
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,18"
+
+// 173:30
+[com_30]
+type=graphic
+x=65
+y=33
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,7"
+
+// 173:31
+[com_31]
+type=graphic
+x=129
+y=2
+width=32
+height=32
+layer=com_9
+graphic="rand_map_rooms_on,4"
+
+// 173:32
+[com_32]
+type=graphic
+x=2
+y=3
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,2"
+
+// 173:33
+[com_33]
+type=graphic
+x=2
+y=66
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,2"
+
+// 173:34
+[com_34]
+type=graphic
+x=33
+y=97
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,2"
+
+// 173:35
+[com_35]
+type=graphic
+x=97
+y=131
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,2"
+
+// 173:36
+[com_36]
+type=graphic
+x=129
+y=3
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,2"
+
+// 173:37
+[com_37]
+type=graphic
+x=66
+y=35
+width=32
+height=32
+layer=com_9
+graphic="rand_map_room_special,2"
+
+// 173:38
+[com_38]
+type=layer
+width=191
+height=196
+layer=com_9
+
+// 173:39
+[com_39]
+type=graphic
+x=1
+y=1
+width=32
+height=32
+layer=com_8
+graphic="rand_map_rooms_on,4"
+
+// 173:40
+[com_40]
+type=graphic
+x=1
+y=2
+width=32
+height=32
+layer=com_8
+graphic="rand_map_room_special,2"
+
+// 173:41
+[com_41]
+type=layer
+width=33
+height=34
+layer=com_8
+
+// 173:42
+[com_42]
+type=graphic
+x=3
+y=71
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,4"
+
+// 173:43
+[com_43]
+type=graphic
+x=3
+y=102
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,17"
+
+// 173:44
+[com_44]
+type=graphic
+x=3
+y=134
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,10"
+
+// 173:45
+[com_45]
+type=graphic
+x=35
+y=134
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,13"
+
+// 173:46
+[com_46]
+type=graphic
+x=67
+y=134
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,5"
+
+// 173:47
+[com_47]
+type=graphic
+x=35
+y=102
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,17"
+
+// 173:48
+[com_48]
+type=graphic
+x=35
+y=70
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,11"
+
+// 173:49
+[com_49]
+type=graphic
+x=67
+y=70
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,8"
+
+// 173:50
+[com_50]
+type=graphic
+x=67
+y=102
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,10"
+
+// 173:51
+[com_51]
+type=graphic
+x=99
+y=102
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,9"
+
+// 173:52
+[com_52]
+type=graphic
+x=99
+y=70
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,17"
+
+// 173:53
+[com_53]
+type=graphic
+x=99
+y=38
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,12"
+
+// 173:54
+[com_54]
+type=graphic
+x=99
+y=6
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,8"
+
+// 173:55
+[com_55]
+type=graphic
+x=67
+y=6
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,15"
+
+// 173:56
+[com_56]
+type=graphic
+x=67
+y=38
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,10"
+
+// 173:57
+[com_57]
+type=graphic
+x=3
+y=6
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,7"
+
+// 173:58
+[com_58]
+type=graphic
+x=1
+y=72
+width=32
+height=32
+layer=com_2
+graphic="rand_map_room_special,0"
+
+// 173:59
+[com_59]
+type=graphic
+x=4
+y=7
+width=32
+height=32
+layer=com_2
+graphic="rand_map_room_special,2"
+
+// 173:60
+[com_60]
+type=graphic
+x=35
+y=6
+width=32
+height=32
+layer=com_2
+graphic="rand_map_rooms_on,18"
+
+// 173:61
+[com_61]
+type=layer
+width=134
+height=165
+layer=com_2
+
+// 173:62
+[com_62]
+type=graphic
+x=2
+y=65
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,12"
+hflip=yes
+
+// 173:63
+[com_63]
+type=graphic
+x=1
+y=65
+width=32
+height=32
+layer=com_1
+graphic="rand_map_room_special,0"
+
+// 173:64
+[com_64]
+type=graphic
+x=2
+y=97
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,17"
+
+// 173:65
+[com_65]
+type=graphic
+x=2
+y=33
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,14"
+
+// 173:66
+[com_66]
+type=graphic
+x=2
+y=129
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,10"
+
+// 173:67
+[com_67]
+type=graphic
+x=34
+y=129
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,18"
+
+// 173:68
+[com_68]
+type=graphic
+x=66
+y=129
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,9"
+
+// 173:69
+[com_69]
+type=graphic
+x=66
+y=97
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,4"
+
+// 173:70
+[com_70]
+type=graphic
+x=2
+y=2
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,4"
+
+// 173:71
+[com_71]
+type=graphic
+x=2
+y=3
+width=32
+height=32
+layer=com_1
+graphic="rand_map_room_special,2"
+
+// 173:72
+[com_72]
+type=graphic
+x=34
+y=65
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,8"
+
+// 173:73
+[com_73]
+type=graphic
+x=34
+y=97
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,6"
+
+// 173:74
+[com_74]
+type=graphic
+x=34
+y=33
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,18"
+
+// 173:75
+[com_75]
+type=graphic
+x=66
+y=33
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,16"
+
+// 173:76
+[com_76]
+type=graphic
+x=66
+y=1
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,4"
+
+// 173:77
+[com_77]
+type=graphic
+x=98
+y=33
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,5"
+
+// 173:78
+[com_78]
+type=graphic
+x=66
+y=65
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,10"
+
+// 173:79
+[com_79]
+type=graphic
+x=98
+y=65
+width=32
+height=32
+layer=com_1
+graphic="rand_map_rooms_on,5"
+
+// 173:80
+[com_80]
+type=layer
+width=134
+height=194
+layer=com_1
+
+// 173:81
+[com_81]
+type=graphic
+width=160
+heightmode=minus
+ymode=abs_centre
+layer=com_0
+graphic=rand_map_background
+
+// 173:82
+[com_82]
+type=graphic
+width=160
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic=rand_map_background
+hflip=yes
+
+// 173:83
+[com_83]
+type=layer
+width=96
+height=128
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+
+// 173:84
+[com_84]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+layer=com_83
+graphic="rand_map_rooms_on,8"
+
+// 173:85
+[com_85]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+layer=com_83
+graphic="rand_map_room_special,0"
+
+// 173:86
+[com_86]
+type=graphic
+width=32
+height=32
+layer=com_83
+
+// 173:87
+[com_87]
+type=graphic
+y=32
+width=32
+height=32
+xmode=abs_centre
+layer=com_83
+
+// 173:88
+[com_88]
+type=graphic
+y=64
+width=32
+height=32
+xmode=abs_centre
+layer=com_83
+
+// 173:89
+[com_89]
+type=graphic
+y=64
+width=32
+height=32
+layer=com_83
+
+// 173:90
+[com_90]
+type=graphic
+y=96
+width=32
+height=32
+xmode=abs_centre
+layer=com_83
+
+// 173:91
+[com_91]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_83
+
+// 173:92
+[com_92]
+type=graphic
+y=64
+width=32
+height=32
+xmode=abs_right
+layer=com_83
+
+// 173:93
+[com_93]
+type=graphic
+x=7
+y=7
+width=16
+height=16
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

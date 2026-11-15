@@ -1,0 +1,20 @@
+// 6709
+[proc,clientscript_6709](component $component0)
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+switch_int (map_lang) {
+    case 0 :
+        $graphic1 = 12950;
+        $graphic2 = 12954;
+    case 1 :
+        $graphic1 = 12951;
+        $graphic2 = 12955;
+    case 2 :
+        $graphic1 = 12952;
+        $graphic2 = 12956;
+    case 3 :
+        $graphic1 = 12953;
+        $graphic2 = 12957;
+}
+if_setgraphic($component0, $graphic1);
+if_setgraphic(interface_94:com_31, $graphic2);

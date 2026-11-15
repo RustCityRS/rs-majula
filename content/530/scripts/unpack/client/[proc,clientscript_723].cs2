@@ -1,0 +1,11 @@
+// 723
+[proc,clientscript_723](int $int0)
+%loginscreen_pvp_warned = $int0;
+%loginscreen_focus = 2;
+if_sethide(loginscreen:com_132, true);
+if_sethide(loginscreen:com_131, false);
+if_sethide(loginscreen:com_242, true);
+if_sethide(loginscreen:com_241, false);
+if (%loginscreen_pvp_warned = 1) {
+    ~clientscript_1183;
+}

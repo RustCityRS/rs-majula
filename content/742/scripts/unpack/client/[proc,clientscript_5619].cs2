@@ -1,0 +1,25 @@
+// 5619
+[proc,clientscript_5619](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int ($int0) {
+    case 0 :
+        $component1 = interface_1199:com_7;
+        $component2 = interface_1199:com_8;
+    case 2 :
+        $component1 = interface_1199:com_5;
+        $component2 = interface_1199:com_6;
+    case 4 :
+        $component1 = interface_1199:com_1;
+        $component2 = interface_1199:com_2;
+    case 5 :
+        $component1 = interface_1199:com_9;
+        $component2 = interface_1199:com_10;
+    case 6 :
+        $component1 = interface_1199:com_3;
+        $component2 = interface_1199:com_4;
+    case 7 :
+        $component1 = interface_1199:com_11;
+        $component2 = interface_1199:com_12;
+}
+if_setontimer($component1, "clientscript_5620($component1, $component2)");

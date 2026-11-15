@@ -1,0 +1,16 @@
+// 6933
+[proc,clientscript_6933](component $component0)
+~aif_build_button_layer_init(interface_1367:com_57, struct_1773);
+~aif_build_button_layer_init(interface_1367:com_58, struct_1774);
+~aif_build_button_layer_init(interface_1367:com_61, struct_1776);
+~aif_build_button_layer_init(interface_1367:com_59, struct_1775);
+~aif_build_button_layer_init(interface_1367:com_60, struct_1777);
+~aif_build_button_layer_init(interface_1367:com_72, struct_1736);
+~aif_build_button_layer_init(interface_1367:com_73, struct_1737);
+~aif_build_button_layer_init(interface_1367:com_74, struct_1738);
+~clientscript_3984(interface_1367:com_76, struct_7253);
+if_setonvartransmit($component0, "clientscript_6934{varplayer_283}");
+if_setonvarctransmit($component0, "clientscript_6934{varclient_1332, varclient_9}");
+if_setonvarcstrtransmit($component0, "clientscript_6934{varclient_2400}");
+if_setonmisctransmit($component0, "clientscript_6934");
+~clientscript_6935;

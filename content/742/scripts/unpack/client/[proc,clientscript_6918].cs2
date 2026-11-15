@@ -1,0 +1,14 @@
+// 6918
+[proc,clientscript_6918]
+if (%duel2_spectator = null) {
+    return;
+}
+def_int $int0 = calc(coordx(%duel2_spectator) - coordx(coord));
+if ($int0 > 10 | $int0 < -10) {
+    return;
+}
+def_int $int1 = calc(coordz(%duel2_spectator) - coordz(coord));
+if ($int1 > 10 | $int1 < -10) {
+    return;
+}
+op763(%duel2_spectator);

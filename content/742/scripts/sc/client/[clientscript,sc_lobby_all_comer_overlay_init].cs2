@@ -1,0 +1,4 @@
+// 1922
+[clientscript,sc_lobby_all_comer_overlay_init]
+if_setonvarctransmit(sc_lobby_team_overlay:init_rect, "sc_lobby_all_comer_overlay_refresh{sc_lobby_all_comer_countdown, sc_lobby_all_comer_size_1, sc_lobby_all_comer_size_2}");
+return;

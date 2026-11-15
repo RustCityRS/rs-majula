@@ -1,0 +1,6 @@
+// 2987
+[proc,ecosystem_show_critter](component $component0, component $component1, component $component2, component $component3)
+if_sethide($component0, false);
+if_sethide($component1, false);
+if_sethide($component3, false);
+if_sethide($component2, true);

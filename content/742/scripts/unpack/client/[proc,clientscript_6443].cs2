@@ -1,0 +1,54 @@
+// 6443
+[proc,clientscript_6443](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (%varclient_1968 = 1) {
+    $int3 = 200;
+    $int4 = 850;
+    $int1 = 80;
+} else {
+    $int3 = 200;
+    $int4 = calc(300 + $int0);
+    $int1 = calc(110 + $int1);
+}
+if (cc_find(interface_1311:com_55, 0) = true & $int2 = 0) {
+    $int3 = cc_getmodelangle_y;
+    $int4 = cc_getmodelzoom;
+    $int1 = cc_getmodelyof;
+}
+cc_deleteall(interface_1311:com_55);
+cc_create(interface_1311:com_55, ^iftype_model, if_getnextsubid(interface_1311:com_55));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if (%varclient_1968 = 1) {
+    cc_setplayerhead_self;
+    if ($int3 > 1024) {
+        $int3 = max($int3, 1572);
+    } else {
+        $int3 = min($int3, 512);
+    }
+} else {
+    cc_setplayermodel_self;
+}
+cc_setmodelangle(0, $int1, 10, $int3, 10, $int4);
+cc_setonhold("clientscript_6447(event_com, event_comsubid, event_mousex, %varclient_1968)");
+cc_setonscrollwheel("clientscript_6448(event_com, event_comsubid, event_mousey, %varclient_1968, $int0)");
+if (%varclient_1968 = 1) {
+    cc_setmodelanim(seq_12287);
+} else {
+    if (%player_kit_torso_client ! null) {
+        cc_setmodelanim(bas_getanim_ready(%player_kit_torso_client));
+    } else {
+        cc_setmodelanim(bas_getanim_ready(bas_1426));
+    }
+    cc_setonvarctransmit("script1517(event_com, event_comsubid){player_kit_torso_client}");
+}
+if (%varclient_1969 = false) {
+    if_setontimer(interface_1311:com_138, "clientscript_6449(event_com, interface_1311:com_55, 0, %varclient_1968)");
+} else {
+    if_setontimer(interface_1311:com_138, clientscript_6450, event_com, interface_1311:com_55, 0, %varclient_1968, "IIii");
+}
+%varclient_1969 = false;
+def_int $int5 = %varclient_1968;
+if_setonvarctransmit(interface_1311:com_55, "clientscript_6442($int0, $int1, $int5){varclient_1968}");
+if_setonvarctransmit(interface_1311:com_138, clientscript_6445, interface_1311:com_55, %varclient_1969, %varclient_1968, 1969, 1, "I1iY");

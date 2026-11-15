@@ -1,0 +1,11 @@
+// 1334
+[proc,lobbyscreen_input_link_highlight](component $component0, string $string0, boolean $boolean1)
+if ($component0 ! null) {
+    if ($boolean1 = true) {
+        if_settext($component0, "<u=91b1f4><$string0></u>");
+        if_setcolour($component0, 0x91b1f4);
+    } else {
+        if_settext($component0, "<u=2c6ff8><$string0></u>");
+        if_setcolour($component0, 0x2c6ff8);
+    }
+}

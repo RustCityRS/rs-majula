@@ -1,0 +1,21 @@
+// 3010
+[proc,script3010](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+def_graphic $graphic7 = graphic_4677;
+def_graphic $graphic8 = graphic_4678;
+def_graphic $graphic9 = graphic_4679;
+def_graphic $graphic10 = graphic_4680;
+if_setsize($component1, 13, 30, ^setsize_abs, ^setsize_abs);
+if_setgraphic($component1, $graphic7);
+if_setsize($component2, 26, 30, ^setsize_minus, ^setsize_abs);
+if_setgraphic($component2, $graphic8);
+if_setsize($component3, 13, 30, ^setsize_abs, ^setsize_abs);
+if_setgraphic($component3, $graphic10);
+if_setgraphic($component5, graphic_2673);
+if_setsize($component6, 13, 30, ^setsize_abs, ^setsize_abs);
+if_setgraphic($component6, graphic_4679);
+if_setonmouseleave($component0, "script4164($component1, $graphic7, $component2, $graphic8, $component6, $graphic9, $component3, $graphic10)");
+$graphic7 = graphic_4673;
+$graphic8 = graphic_4674;
+$graphic9 = graphic_4675;
+$graphic10 = graphic_4676;
+if_setonmouseover($component0, "script4164($component1, $graphic7, $component2, $graphic8, $component6, $graphic9, $component3, $graphic10)");

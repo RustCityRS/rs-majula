@@ -1,0 +1,9 @@
+// 5437
+[proc,clientscript_5437]
+%varclient_1683 = calc(%varclient_1683 + 1);
+if (%varclient_1683 < 0) {
+    if_setposition(interface_1173:com_54, 0, %varclient_1683, ^setpos_abs_centre, ^setpos_abs_bottom);
+} else {
+    if_setposition(interface_1173:com_54, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+    if_setontimer(interface_1173:com_8, null);
+}

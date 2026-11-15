@@ -1,0 +1,102 @@
+// 5798
+[proc,clientscript_5798](int $int0, struct $struct1, int $int2, string $string0, int $int3, component $component4, component $component5, int $int6)(int)
+def_int $int7 = calc($int2 - 1);
+if ($int7 = -1) {
+    $int7 = if_getnextsubid($component4);
+}
+if (~script3999($int0) = 0) {
+    $struct1 = ~clientscript_5795($int0);
+} else {
+    $struct1 = ~clientscript_5795(struct_param($struct1, param_1268));
+}
+if ($struct1 = null) {
+    return($int3);
+}
+def_string $string1 = "";
+def_string $string2 = "Click to toggle a map hint for this step.";
+def_int $int8 = 0;
+switch_int ($int2) {
+    case 0 :
+        $string1 = $string0;
+    case 1 :
+        $string1 = struct_param($struct1, param_1274);
+        if (struct_param($struct1, param_1282) ! null & struct_param($struct1, param_1282) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 2 :
+        $string1 = struct_param($struct1, param_1275);
+        if (struct_param($struct1, param_1283) ! null & struct_param($struct1, param_1283) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 3 :
+        $string1 = struct_param($struct1, param_1276);
+        if (struct_param($struct1, param_1284) ! null & struct_param($struct1, param_1284) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 4 :
+        $string1 = struct_param($struct1, param_1277);
+        if (struct_param($struct1, param_1285) ! null & struct_param($struct1, param_1285) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 5 :
+        $string1 = struct_param($struct1, param_1278);
+        if (struct_param($struct1, param_1286) ! null & struct_param($struct1, param_1286) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 6 :
+        $string1 = struct_param($struct1, param_1279);
+        if (struct_param($struct1, param_1287) ! null & struct_param($struct1, param_1287) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 7 :
+        $string1 = struct_param($struct1, param_1280);
+        if (struct_param($struct1, param_1288) ! null & struct_param($struct1, param_1288) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+    case 8 :
+        $string1 = struct_param($struct1, param_1281);
+        if (struct_param($struct1, param_1289) ! null & struct_param($struct1, param_1289) ! 0_99_99_0_0) {
+            $int8 = 1;
+        }
+}
+if (compare($string1, "") = 0) {
+    return($int3);
+}
+def_int $int9 = calc(if_getwidth($component4) - 26);
+def_int $int10 = 20;
+if ($int8 = 0) {
+    $int9 = calc($int9 + 20);
+    $int10 = 0;
+}
+def_int $int11 = max(calc($int10 + 5), calc(15 * paraheight($string1, $int9, verdana_11pt_regular)));
+cc_create($component4, ^iftype_text, $int7);
+cc_settext($string1);
+cc_sethide(false);
+cc_settextfont(verdana_11pt_regular);
+cc_setcolour(0xf7edb7);
+if ($int8 = 1) {
+    cc_setop(1, "Toggle-hint");
+    cc_setopcursor(1, cursor_info);
+}
+cc_settextalign(^settextalign_left, ^settextalign_centre, 13);
+cc_setsize($int9, $int11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, $int3, ^setpos_rel_left, ^setpos_abs_top);
+if ($component5 ! null) {
+    cc_create($component5, ^iftype_graphic, $int7);
+    if ($int8 = 1) {
+        cc_sethide(false);
+        cc_setop(1, "Toggle-hint");
+        cc_setopcursor(1, cursor_info);
+        cc_setsize(17, 18, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, calc($int3 + ($int11 - cc_getheight) / 2), ^setpos_rel_left, ^setpos_abs_top);
+        if (%varplayerbit_8578 = $int2 & %varplayerbit_8594 = $int0) {
+            cc_setgraphic(9615);
+            ~clientscript_5779(1, $int7, $component5);
+        } else {
+            cc_setgraphic(9618);
+            ~clientscript_5779(0, $int7, $component5);
+        }
+    }
+}
+$int3 = calc($int3 + $int11);
+return($int3);

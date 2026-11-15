@@ -1,0 +1,14 @@
+// 1449
+[clientscript,bank_v2_build_init]
+%varclient_188 = false;
+~bank_cert_button;
+~bank_sort_button;
+~bank_v2_build_slots;
+~bank_v2_tab_hide_separator;
+~bank_v2_hide_all;
+~bank_v2_build_tabs;
+~bank_v2_tab_highlight(%open_bank_tab);
+if_setonvarctransmit(bank_v2_main:bank_search_button, "script1472{varclient_190}");
+if_setonvarctransmit(bank_v2_main:bank_space_layer, "script1465{varclient_192, varclient_1038, varclient_1324}");
+if_setscrollpos(bank_v2_main:bank_v2_inv, 0, ~bank_v2_get_tab_scrollpos(%open_bank_tab));
+~scrollbar_ondrag_doscroll(bank_v2_main:scrollbar, bank_v2_main:bank_v2_inv, if_getscrolly(bank_v2_main:bank_v2_inv), 1);

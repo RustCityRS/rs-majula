@@ -1,0 +1,14 @@
+// 6456
+[proc,clientscript_6456](int $int0)(int)
+switch_int ($int0) {
+    case default :
+        return(0);
+    case 2 :
+        return(%varplayerbit_11485);
+    case 3 :
+        return(%varplayerbit_11486);
+    case 4 :
+        return(%varplayerbit_11487);
+    case 1 :
+        return(%varplayerbit_12194);
+}

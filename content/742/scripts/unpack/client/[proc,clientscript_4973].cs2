@@ -1,0 +1,44 @@
+// 4973
+[proc,clientscript_4973](int $int0)(graphic)
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (op718 = 1) {
+    $int1 = ~clientscript_4949($int0);
+    switch_int ($int0) {
+        case 1 :
+            return(7431);
+        case 2 :
+            return(7430);
+        case 3 :
+            return(7433);
+        case 4 :
+            return(~clientscript_4974(%varclan_2553));
+        case 5 :
+            return(~clientscript_4974(%varclan_2554));
+        case 6 :
+            return(~clientscript_4974(%varclan_2555));
+        case 7 :
+            return(~clientscript_4974(%varclan_2556));
+        case 8 :
+            return(~clientscript_4974(%varclan_2557));
+        case 9 :
+            return(~clientscript_4974(%varclan_2558));
+        case 10 :
+            return(~clientscript_4974(%varclan_2560));
+        case 11 :
+            return(~clientscript_4974(%varclan_2561));
+        case 12 :
+            return(~clientscript_4974(%varclan_2562));
+        case 13 :
+            return(~clientscript_4974(%varclan_2563));
+        case 14 :
+            return(~clientscript_4974(%varclan_2564));
+        case 15 :
+            return(~clientscript_4974(%varclan_2565));
+        case 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 49 :
+            return(~clientscript_4974($int1));
+        case 35, 36, 37, 40, 38, 39, 41, 42, 43, 45, 46, 47, 48, 44 :
+            return(enum(int, graphic, enum_4061, $int1));
+    }
+}
+return(null);

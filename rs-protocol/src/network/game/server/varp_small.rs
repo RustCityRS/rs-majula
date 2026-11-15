@@ -11,7 +11,7 @@ pub struct VarpSmall {
     pub val: u8,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for VarpSmall {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.id);
@@ -23,11 +23,31 @@ impl ServerProtMessage for VarpSmall {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for VarpSmall {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt2(self.id);
+        buf.p1_alt2(self.val);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.id) + size_of_val(&self.val)
+    }
+}
+
 #[cfg(since_647)]
 impl ServerProtMessage for VarpSmall {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt3(self.val);
-        buf.p2(self.id);
+        #[cfg(before_742)]
+        {
+            buf.p1_alt3(self.val);
+            buf.p2(self.id);
+        }
+        #[cfg(since_742)]
+        {
+            buf.p1_alt1(self.val);
+            buf.p2_alt1(self.id);
+        }
     }
 
     fn sizeof(&self) -> usize {

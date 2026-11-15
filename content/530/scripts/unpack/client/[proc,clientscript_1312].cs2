@@ -1,0 +1,62 @@
+// 1312
+[proc,clientscript_1312](int $int0)
+def_int $int1 = ~current_side_if;
+if ($int0 = 1) {
+    if ($int1 ! 0) {
+        if_setgraphic(toplevel:stone0, null);
+    }
+    if ($int1 ! 1) {
+        if_setgraphic(toplevel:stone1, null);
+    }
+    if ($int1 ! 2) {
+        if_setgraphic(toplevel:stone2, null);
+    }
+    if ($int1 ! 3) {
+        if_setgraphic(toplevel:stone3, null);
+    }
+    if ($int1 ! 4) {
+        if_setgraphic(toplevel:stone4, null);
+    }
+    if ($int1 ! 5) {
+        if_setgraphic(toplevel:stone5, null);
+    }
+    if ($int1 ! 6) {
+        if_setgraphic(toplevel:stone6, null);
+    }
+    if ($int1 ! 7) {
+        if_setgraphic(toplevel:stone7, null);
+    }
+    if ($int1 ! 8) {
+        if_setgraphic(toplevel:stone8, null);
+    }
+    if ($int1 ! 9) {
+        if_setgraphic(toplevel:stone9, null);
+    }
+    if ($int1 ! 10) {
+        if_setgraphic(toplevel:stone10, null);
+    }
+    if ($int1 ! 11) {
+        if_setgraphic(toplevel:stone11, null);
+    }
+    if ($int1 ! 12) {
+        if_setgraphic(toplevel:stone12, null);
+    }
+    if ($int1 ! 13) {
+        if_setgraphic(toplevel:stone13, null);
+    }
+} else {
+    if_setgraphic(toplevel:stone0, null);
+    if_setgraphic(toplevel:stone1, null);
+    if_setgraphic(toplevel:stone2, null);
+    if_setgraphic(toplevel:stone3, null);
+    if_setgraphic(toplevel:stone4, null);
+    if_setgraphic(toplevel:stone5, null);
+    if_setgraphic(toplevel:stone6, null);
+    if_setgraphic(toplevel:stone7, null);
+    if_setgraphic(toplevel:stone8, null);
+    if_setgraphic(toplevel:stone9, null);
+    if_setgraphic(toplevel:stone10, null);
+    if_setgraphic(toplevel:stone11, null);
+    if_setgraphic(toplevel:stone12, null);
+    if_setgraphic(toplevel:stone13, null);
+}

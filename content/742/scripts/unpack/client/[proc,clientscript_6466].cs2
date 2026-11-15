@@ -1,0 +1,132 @@
+// 6466
+[proc,clientscript_6466](struct $struct0, int $int1, int $int2)(int, int)
+if (gender = 0 & struct_param($struct0, param_2531) = 1 & (struct_param($struct0, param_2532) = 1 | struct_param($struct0, param_2532) = 3 | struct_param($struct0, param_2532) = 4) & struct_param($struct0, param_2772) ! 0 & enum(int, struct, enum_2338, struct_param($struct0, param_2772)) = struct_741) {
+    return($int1, $int2);
+}
+def_component $component3 = enum(int, component, enum_5961, struct_param($struct0, param_2532));
+if ($component3 = null) {
+    return($int1, $int2);
+}
+def_int $int4 = if_getnextsubid($component3);
+def_graphic $graphic5 = 11898;
+def_graphic $graphic6 = 11899;
+def_int $rgb7 = 0xb6b6b6;
+def_obj $obj8 = null;
+def_obj $obj9 = null;
+def_obj $obj10 = null;
+def_obj $obj11 = null;
+def_bas $bas12 = bas_1426;
+if (~clientscript_6488($struct0) = 0) {
+    $graphic5 = 11900;
+    $graphic6 = 11900;
+    $rgb7 = 0x666666;
+} else if (~clientscript_6489($struct0) = 1) {
+    $graphic5 = 11901;
+    $graphic6 = 11902;
+    $rgb7 = 0xb6b6b6;
+} else if (struct_param($struct0, param_2531) = 2 & struct_param($struct0, param_2532) = 3) {
+    $obj8 = enum(int, obj, struct_param($struct0, param_2542), 3);
+    $obj9 = inv_getobj(inv_670, 3);
+    if ($obj9 ! null) {
+        $bas12 = oc_param($obj9, render_emote);
+    }
+    if ($obj8 ! null) {
+        if ($obj8 = %varplayer_2685) {
+            $graphic5 = 11901;
+            $graphic6 = 11902;
+            $rgb7 = 0xb6b6b6;
+        } else if (oc_param($obj8, render_emote) ! bas_1426 & oc_param($obj8, render_emote) ! $bas12) {
+            $graphic5 = 11900;
+            $graphic6 = 11900;
+            $rgb7 = 0x661111;
+        }
+    }
+} else if (struct_param($struct0, param_2531) = 2 & struct_param($struct0, param_2532) = 5) {
+    $obj11 = enum(int, obj, struct_param($struct0, param_2542), 5);
+    $obj10 = inv_getobj(worn, 5);
+    if ($obj10 ! null) {
+        if ($obj11 = %varplayer_2728) {
+            $graphic5 = 11901;
+            $graphic6 = 11902;
+            $rgb7 = 0xb6b6b6;
+        } else if (op650($obj9) = 5) {
+            $graphic5 = 11900;
+            $graphic6 = 11900;
+            $rgb7 = 0x661111;
+        }
+    } else {
+        $graphic5 = 11900;
+        $graphic6 = 11900;
+        $rgb7 = 0x661111;
+    }
+}
+def_int $int13 = 0;
+if (struct_param($struct0, param_2531) = 1) {
+    $int13 = 155;
+} else {
+    $int13 = 196;
+}
+cc_create($component3, ^iftype_graphic, $int4);
+cc_setgraphic($graphic5);
+cc_setsize(calc($int13 - 10), calc(29 - 5), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int2 * $int13 + ($int13 - cc_getwidth) / 2), calc($int1 + (29 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_setop(1, "Preview");
+if ($graphic5 = 11901 & struct_param($struct0, param_2531) ! 1) {
+    cc_setop(2, "Deactivate");
+} else if ($graphic5 = 11898) {
+    cc_setop(2, "Activate");
+} else {
+    cc_setop(2, "");
+}
+cc_setonop("clientscript_6480(event_com, event_comsubid)");
+cc_setonmouseover("cc_graphic_swapper(event_com, cc_getid, $graphic6)");
+cc_setonmouseleave("cc_graphic_swapper(event_com, cc_getid, $graphic5)");
+if (struct_param($struct0, param_2531) = 2 & struct_param($struct0, param_2532) = 15) {
+    if (~clientscript_4174($struct0) = 1 | ~clientscript_4175($struct0) = skillcape_qp | ~clientscript_4175($struct0) = skillcape_qp_hood | ~clientscript_4175($struct0) = skillcape_completionist | ~clientscript_4175($struct0) = skillcape_completionist_hood | ~clientscript_4175($struct0) = skillcape_completionist_insane | ~clientscript_4175($struct0) = skillcape_completionist_insane_hood) {
+        cc_setop(3, "Reclaim-item");
+    } else {
+        cc_setop(3, "");
+    }
+}
+def_string $string0 = "";
+def_enum $enum14 = null;
+if (struct_param($struct0, param_2531) = 1) {
+    if (struct_param($struct0, param_2532) = 1 | struct_param($struct0, param_2532) = 3 | struct_param($struct0, param_2532) = 4) {
+        if (gender = 1) {
+            $enum14 = enum_2341;
+        } else {
+            $enum14 = enum_2338;
+        }
+        $string0 = struct_param(enum(int, struct, $enum14, struct_param($struct0, param_2772)), param_792);
+    } else if (struct_param($struct0, param_2532) = 2 | struct_param($struct0, param_2532) = 5) {
+        $string0 = enum(int, string, enum_2340, struct_param($struct0, param_2772));
+    }
+} else if (struct_param($struct0, param_2532) = 15) {
+    if (~clientscript_4175($struct0) = null) {
+        $string0 = struct_param($struct0, param_2533);
+    } else {
+        $string0 = "Cosmetic <oc_name(~clientscript_4175($struct0))>";
+        if (string_length($string0) > 27) {
+            $string0 = "<substring($string0, 0, 24)>...";
+        }
+    }
+} else {
+    $string0 = struct_param($struct0, param_2533);
+}
+cc_create($component3, ^iftype_text, calc($int4 + 1));
+cc_settext($string0);
+cc_settextfont(verdana_11pt_regular);
+cc_setcolour($rgb7);
+cc_setsize(calc($int13 - 10), calc(29 - 5), ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int2 * $int13 + ($int13 - cc_getwidth) / 2), calc($int1 + (29 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+cc_create($component3, ^iftype_graphic, calc($int4 + 2));
+cc_setgraphic(struct_param($struct0, param_2534));
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition(calc($int2 * $int13 + ($int13 - cc_getwidth) / 2), calc($int1 + (29 - cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component3, 0, calc($int1 + 29), ^setsize_minus, ^setsize_abs);
+$int2 = calc(($int2 + 1) % 2);
+if ($int2 = 0) {
+    $int1 = calc($int1 + 29);
+}
+return($int1, $int2);

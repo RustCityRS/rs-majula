@@ -1,0 +1,139 @@
+// 6508
+[proc,clientscript_6508](component $component0, int $int1)
+def_graphic $graphic2 = if_getgraphic($component0);
+def_graphic $graphic3 = null;
+switch_graphic ($graphic2) {
+    case null :
+        $graphic3 = 11656;
+    case 11655 :
+        $graphic3 = 11656;
+    case 11685 :
+        $graphic3 = 11686;
+    case 11667 :
+        $graphic3 = 11668;
+    case 11658 :
+        $graphic3 = 11659;
+    case 11688 :
+        $graphic3 = 11689;
+    case 11703 :
+        $graphic3 = 11704;
+    case 11676 :
+        $graphic3 = 11677;
+    case 11673 :
+        $graphic3 = 11674;
+    case 11709 :
+        $graphic3 = 11710;
+    case 11697 :
+        $graphic3 = 11698;
+    case 11670 :
+        $graphic3 = 11671;
+    case 11661 :
+        $graphic3 = 11662;
+    case 11682 :
+        $graphic3 = 11683;
+    case 11694 :
+        $graphic3 = 11695;
+    case 11679 :
+        $graphic3 = 11680;
+    case 11664 :
+        $graphic3 = 11665;
+    case 11691 :
+        $graphic3 = 11692;
+    case 11700 :
+        $graphic3 = 11701;
+    case 11706 :
+        $graphic3 = 11707;
+    case 11654 :
+        $graphic3 = 11656;
+    case 11684 :
+        $graphic3 = 11686;
+    case 11666 :
+        $graphic3 = 11668;
+    case 11657 :
+        $graphic3 = 11659;
+    case 11687 :
+        $graphic3 = 11689;
+    case 11702 :
+        $graphic3 = 11704;
+    case 11675 :
+        $graphic3 = 11677;
+    case 11672 :
+        $graphic3 = 11674;
+    case 11708 :
+        $graphic3 = 11710;
+    case 11696 :
+        $graphic3 = 11698;
+    case 11669 :
+        $graphic3 = 11671;
+    case 11660 :
+        $graphic3 = 11662;
+    case 11681 :
+        $graphic3 = 11683;
+    case 11693 :
+        $graphic3 = 11695;
+    case 11678 :
+        $graphic3 = 11680;
+    case 11663 :
+        $graphic3 = 11665;
+    case 11690 :
+        $graphic3 = 11692;
+    case 11699 :
+        $graphic3 = 11701;
+    case 11705 :
+        $graphic3 = 11707;
+    case 11656 :
+        $graphic3 = 11656;
+    case 11686 :
+        $graphic3 = 11686;
+    case 11668 :
+        $graphic3 = 11668;
+    case 11659 :
+        $graphic3 = 11659;
+    case 11689 :
+        $graphic3 = 11689;
+    case 11704 :
+        $graphic3 = 11704;
+    case 11677 :
+        $graphic3 = 11677;
+    case 11674 :
+        $graphic3 = 11674;
+    case 11710 :
+        $graphic3 = 11710;
+    case 11698 :
+        $graphic3 = 11698;
+    case 11671 :
+        $graphic3 = 11671;
+    case 11662 :
+        $graphic3 = 11662;
+    case 11683 :
+        $graphic3 = 11683;
+    case 11695 :
+        $graphic3 = 11695;
+    case 11680 :
+        $graphic3 = 11680;
+    case 11665 :
+        $graphic3 = 11665;
+    case 11692 :
+        $graphic3 = 11692;
+    case 11701 :
+        $graphic3 = 11701;
+    case 11707 :
+        $graphic3 = 11707;
+}
+if_setgraphic($component0, $graphic3);
+switch_int (random(6)) {
+    case 0 :
+        sound_vorbis_volume(16777, 1, 0, 255);
+    case 1 :
+        sound_vorbis_volume(16774, 1, 0, 255);
+    case 2 :
+        sound_vorbis_volume(16781, 1, 0, 255);
+    case 3 :
+        sound_vorbis_volume(16773, 1, 0, 255);
+    case 4 :
+        sound_vorbis_volume(16775, 1, 0, 255);
+    case 5 :
+        sound_vorbis_volume(16779, 1, 0, 255);
+}
+~clientscript_6511($int1);
+~clientscript_6514($int1);

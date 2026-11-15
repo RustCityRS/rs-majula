@@ -1,0 +1,22 @@
+// 6755
+[proc,clientscript_6755]
+def_struct $struct0 = enum(int, struct, enum_2252, %varplayerbit_11981);
+def_string $string0 = "Click here to view quests!";
+if ($struct0 ! null) {
+    if_settext(interface_1345:com_19, struct_param($struct0, param_845));
+    if (map_members = true) {
+        if_setgraphic(interface_1345:com_17, enum(int, graphic, enum_6164, %varplayerbit_11981));
+    } else {
+        if_setgraphic(interface_1345:com_17, enum(int, graphic, enum_6460, %varplayerbit_11981));
+    }
+    if (map_members = true) {
+        $string0 = enum(int, string, enum_6163, %varplayerbit_11981);
+    } else {
+        $string0 = enum(int, string, enum_6459, %varplayerbit_11981);
+    }
+    if_setonmouserepeat(interface_1345:com_23, "aif_tooltip(interface_1345:com_36, interface_1345:com_23, -1, $string0, 304, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1345:com_23, "deltooltip(interface_1345:com_36)");
+} else {
+    if_setonmouserepeat(interface_1345:com_23, "aif_tooltip(interface_1345:com_36, interface_1345:com_23, -1, $string0, 304, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1345:com_23, "deltooltip(interface_1345:com_36)");
+}

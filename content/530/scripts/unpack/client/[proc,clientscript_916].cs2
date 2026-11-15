@@ -1,0 +1,10 @@
+// 916
+[proc,clientscript_916](component $component0)
+sound_synth(synth_4726, 1, 0);
+if (%varplayerbit_4536 = 0) {
+    if_setop($component0, 1, "Turn on");
+    if_setgraphic($component0, 782);
+} else {
+    if_setop($component0, 1, "Turn off");
+    if_setgraphic($component0, 781);
+}

@@ -1,0 +1,10 @@
+// 1807
+[clientscript,clanwars_caller_init](component $component0, component $component1, component $component2)
+if (~bool_to_int(%clanwars_caller_init) = 0) {
+    %varclient_670 = "";
+    %varclient_671 = "";
+    %clanwars_caller_init = true;
+}
+~clientscript_1809($component0, $component1, $component2);
+if_setonvarcstrtransmit($component0, "clanwars_caller_namechange($component0, $component1, $component2){varclient_670}");
+if_setonchattransmit($component0, "clientscript_1810($component0, $component1, $component2)");

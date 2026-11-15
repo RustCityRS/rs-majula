@@ -1,0 +1,24 @@
+// 6711
+[proc,clientscript_6711]
+switch_int (map_lang) {
+    case 0 :
+        if_setgraphic(interface_1342:com_3, 12921);
+        if_setgraphic(interface_1342:com_4, 12922);
+        if_setgraphic(interface_1342:com_5, 12923);
+        if_setgraphic(interface_1342:com_6, 12924);
+    case 1 :
+        if_setgraphic(interface_1342:com_3, 12925);
+        if_setgraphic(interface_1342:com_4, 12926);
+        if_setgraphic(interface_1342:com_5, 12927);
+        if_setgraphic(interface_1342:com_6, 12928);
+    case 2 :
+        if_setgraphic(interface_1342:com_3, 12929);
+        if_setgraphic(interface_1342:com_4, 12930);
+        if_setgraphic(interface_1342:com_5, 12931);
+        if_setgraphic(interface_1342:com_6, 12932);
+    case 3 :
+        if_setgraphic(interface_1342:com_3, 12933);
+        if_setgraphic(interface_1342:com_4, 12934);
+        if_setgraphic(interface_1342:com_5, 12935);
+        if_setgraphic(interface_1342:com_6, 12936);
+}

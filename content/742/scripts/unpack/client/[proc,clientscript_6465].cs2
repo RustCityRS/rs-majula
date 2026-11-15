@@ -1,0 +1,62 @@
+// 6465
+[proc,clientscript_6465](int $int0, int $int1)
+if (gender = 1) {
+    if ($int0 = 1 & ($int1 = 2 | $int1 = 5 | $int1 = 4)) {
+        return;
+    }
+} else if (gender = 0 & $int0 = 1 & $int1 = 3) {
+    return;
+}
+def_component $component2 = enum(int, component, enum_5960, $int1);
+def_component $component3 = enum(int, component, enum_5961, $int1);
+if ($component2 = null) {
+    return;
+}
+if_setsize($component2, 0, 34, ^setsize_minus, ^setsize_abs);
+cc_create($component2, ^iftype_graphic, 0);
+if (if_gethide($component3) = true) {
+    cc_setgraphic(11863);
+} else {
+    cc_setgraphic(11866);
+}
+cc_setsize(17, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(1, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_create($component2, ^iftype_graphic, 1);
+if (if_gethide($component3) = true) {
+    cc_setgraphic(11864);
+} else {
+    cc_setgraphic(11867);
+}
+cc_setsize(calc(17 * 2 + 2), 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_create($component2, ^iftype_graphic, 2);
+if (if_gethide($component3) = true) {
+    cc_setgraphic(11865);
+} else {
+    cc_setgraphic(11868);
+}
+cc_setsize(17, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(1, 0, ^setpos_abs_right, ^setpos_abs_top);
+def_enum $enum4 = enum(int, enum, enum_5959, $int0);
+def_string $string0 = enum(int, string, $enum4, $int1);
+cc_create($component2, ^iftype_text, 3);
+cc_settext($string0);
+cc_settextfont(verdana_13pt_regular);
+cc_setcolour(0xe5b051);
+cc_setsize(calc(stringwidth($string0, verdana_13pt_regular) + 20), 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(4, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+cc_create($component2, ^iftype_graphic, 4);
+cc_setsize(12, 19, ^setsize_abs, ^setsize_abs);
+if (if_gethide($component3) = true) {
+    cc_setgraphic(11808);
+    cc_set2dangle(0);
+    cc_setvflip(false);
+} else {
+    cc_setgraphic(11808);
+    cc_set2dangle(49152);
+    cc_setvflip(true);
+}
+cc_setposition(10, 0, ^setpos_abs_right, ^setpos_abs_centre);
+if_setonclick($component2, "clientscript_6469($int1)");
+if_sethide($component2, false);

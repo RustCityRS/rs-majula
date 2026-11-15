@@ -1,0 +1,12 @@
+// 1834
+[clientscript,clanwars_setup_accept_button](int $int0)
+if ($int0 ! 1) {
+    return;
+}
+if (%clanwars_rulevarc_nomelee = true & %clanwars_rulevarc_nomagic >= 2 & %clanwars_rulevarc_noranged = true & (map_members = false | %clanwars_rulevarc_nosummoning = true)) {
+    return;
+}
+if (%clanwars_rulevarc_accept = false) {
+    %clanwars_rulevarc_accept = true;
+    ~clanwars_resynch_accept;
+}

@@ -1,0 +1,48 @@
+// 6305
+[proc,clientscript_6305](component $component0, int $int1)
+def_graphic $graphic2 = if_getgraphic($component0);
+def_graphic $graphic3 = null;
+switch_graphic ($graphic2) {
+    case 11654 :
+        $graphic3 = 11655;
+    case 11684 :
+        $graphic3 = 11685;
+    case 11666 :
+        $graphic3 = 11667;
+    case 11657 :
+        $graphic3 = 11658;
+    case 11687 :
+        $graphic3 = 11688;
+    case 11702 :
+        $graphic3 = 11703;
+    case 11675 :
+        $graphic3 = 11676;
+    case 11672 :
+        $graphic3 = 11673;
+    case 11708 :
+        $graphic3 = 11709;
+    case 11696 :
+        $graphic3 = 11697;
+    case 11669 :
+        $graphic3 = 11670;
+    case 11660 :
+        $graphic3 = 11661;
+    case 11681 :
+        $graphic3 = 11682;
+    case 11693 :
+        $graphic3 = 11694;
+    case 11678 :
+        $graphic3 = 11679;
+    case 11663 :
+        $graphic3 = 11664;
+    case 11690 :
+        $graphic3 = 11691;
+    case 11699 :
+        $graphic3 = 11700;
+    case 11705 :
+        $graphic3 = 11706;
+}
+if_setgraphic($component0, $graphic3);
+sound_vorbis_volume(16778, 1, 0, 50);
+~clientscript_6509($int1);
+~clientscript_6512($int1);

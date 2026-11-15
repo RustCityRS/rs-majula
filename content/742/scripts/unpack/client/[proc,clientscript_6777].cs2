@@ -1,0 +1,26 @@
+// 6777
+[proc,clientscript_6777](int $int0)(int)
+if (stat_base(crafting) < struct_param(enum(int, struct, enum_5532, $int0), param_2236)) {
+    return(0);
+}
+switch_int ($int0) {
+    case 4 :
+        if (stat_base(runecraft) < 2) {
+            return(0);
+        }
+    case 6 :
+        if (stat_base(runecraft) < 2) {
+            return(0);
+        }
+    case 5 :
+        if (stat_base(runecraft) < 2) {
+            return(0);
+        }
+    case 7 :
+        if (stat_base(runecraft) < 2) {
+            return(0);
+        }
+    case default :
+        return(1);
+}
+return(1);

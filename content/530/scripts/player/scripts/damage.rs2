@@ -1,0 +1,87 @@
+// 289's player/scripts/damage.rs2. 530's damage command only paints, so the
+// hit comes off the hitpoints stat here and the engine is handed the health
+// bar's fill (0-255).
+[proc,player_damage](int $type, int $amount)
+def_int $dealt = min($amount, stat(hitpoints));
+if ($dealt < 0) {
+    $dealt = 0;
+}
+stat_sub(hitpoints, $dealt, 0);
+// A boosted hitpoints level over the base still fills the bar.
+damage(uid, $type, $dealt, 0, min(255, calc(stat(hitpoints) * 255 / stat_base(hitpoints))));
+
+[proc,damage_self](int $amount)
+~damage_self_hitmark($amount, ^hitmark_damage);
+
+// A hit with its hitmark: a combat style's or the plain one.
+[proc,damage_self_hitmark](int $amount, int $hitmark)
+if (stat(hitpoints) = 0) {
+    return;
+}
+if_close;
+if ($amount > 0) {
+    ~player_damage($hitmark, $amount);
+    ~human_hit_sound;
+} else {
+    ~player_damage(^hitmark_block, 0);
+    sound_synth(%armourhitsound, 1, 20);
+}
+
+if (stat(hitpoints) = 0) {
+    queue(player_death, 0, 0);
+    return;
+}
+
+~ring_of_life_check;
+
+[queue,damage_player](int $amount)
+~damage_self($amount);
+
+[proc,human_hit_sound]
+def_int $rand;
+def_synth $sound;
+if (gender() = 0) {
+    $rand = random(3);
+    switch_int($rand) {
+        case 0 : $sound = human_hit2;
+        case 1 : $sound = human_hit3;
+        case 2 : $sound = human_hit4;
+        case default : $sound = human_hit2;
+    }
+} else {
+    $rand = random(2);
+    switch_int($rand) {
+        case 0 : $sound = female_hit1;
+        case 1 : $sound = female_hit2;
+        case default : $sound = female_hit1;
+    }
+}
+sound_synth($sound, 1, 20);
+
+// Dev: `::hit [amount]` hits yourself, healing to the base level first when the
+// hit would be lethal so repeated calls stay observable. Defaults to 1.
+[debugproc,hit](int $amount)
+if (p_finduid(uid) = false) {
+    return;
+}
+def_int $hit = $amount;
+if ($hit <= 0) {
+    $hit = 1;
+}
+if (stat(hitpoints) <= $hit) {
+    stat_heal(hitpoints, 0, 100);
+}
+~damage_self($hit);
+mes("Hitsplat: <tostring($hit)> (hitpoints <tostring(stat(hitpoints))> / <tostring(stat_base(hitpoints))>)");
+
+// Dev: `::hitas <hitmark> <amount>` lands a hit with a hitmark (0-2 a combat
+// style's, 3 plain), healing to the base level first when it would be lethal.
+[debugproc,hitas](int $hitmark, int $amount)
+if (p_finduid(uid) = false) {
+    return;
+}
+if (stat(hitpoints) <= $amount) {
+    stat_heal(hitpoints, 0, 100);
+}
+~damage_self_hitmark($amount, $hitmark);
+mes("Hit <tostring($amount)> as hitmark <tostring($hitmark)> (hitpoints <tostring(stat(hitpoints))> / <tostring(stat_base(hitpoints))>)");

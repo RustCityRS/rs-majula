@@ -3,7 +3,9 @@ use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
-use crate::pack::util::{config_key_index, parse_numbers, parse_sound};
+use crate::pack::util::parse_numbers;
+#[cfg(since_530)]
+use crate::pack::util::{config_key_index, parse_sound};
 use crate::pack::util::{parse_bool, parse_number, parse_ref};
 use anyhow::Result;
 use std::collections::HashMap;
@@ -32,14 +34,14 @@ pub fn pack_seqs(
 
         let mut frames: Vec<(usize, u16, u16, u16)> = Vec::new();
         let mut iframes: Vec<(usize, u16, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut delays: Vec<(usize, u16)> = Vec::new();
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let mut sounds = Vec::new();
 
         for (key, value) in props {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             {
                 if config_key_index(key, "frame").is_none()
                     && config_key_index(key, "delay").is_none()
@@ -59,11 +61,11 @@ pub fn pack_seqs(
                     let Some(frame) = key.strip_prefix("frame") else {
                         panic!("Unknown frame index: {key}");
                     };
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     parse_number(frame, |v| {
                         parse_ref(&registry.anim, "anim", value, |x| frames.push((v, 0, x, 0)));
                     });
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         let (file, group) = parse_frame(value);
                         frames.push((frame.parse().unwrap(), 0, file, group));
@@ -74,11 +76,11 @@ pub fn pack_seqs(
                     let Some(iframe) = key.strip_prefix("iframe") else {
                         panic!("Unknown iframe index: {key}");
                     };
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     parse_number(iframe, |v| {
                         parse_ref(&registry.anim, "anim", value, |x| iframes.push((v, x, 0)));
                     });
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         let (file, group) = parse_frame(value);
                         iframes.push((iframe.parse().unwrap(), file, group));
@@ -89,11 +91,11 @@ pub fn pack_seqs(
                     let Some(delay) = key.strip_prefix("delay") else {
                         panic!("Unknown delay index: {key}");
                     };
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     parse_number(delay, |v| {
                         parse_number(value, |x| delays.push((v, x)));
                     });
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     {
                         let index: usize = delay.parse().unwrap();
                         let frame = frames
@@ -106,13 +108,13 @@ pub fn pack_seqs(
                 }
 
                 // 2
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "loops" => parse_number(value, |v| {
                     client.p1(2);
                     client.p2(v);
                 }),
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "loops" => parse_number(value, |v: i16| {
                     client.p1(2);
                     client.p2(v as u16);
@@ -155,7 +157,7 @@ pub fn pack_seqs(
                 }),
 
                 // 6
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "replaceheldleft" => {
                     client.p1(6);
 
@@ -168,14 +170,14 @@ pub fn pack_seqs(
                     }
                 }
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "replaceheldleft" => {
                     client.p1(6);
                     client.p2(parse_replace_held(value, registry));
                 }
 
                 // 7
-                #[cfg(before_647)]
+                #[cfg(before_530)]
                 "replaceheldright" => {
                     client.p1(7);
 
@@ -188,7 +190,7 @@ pub fn pack_seqs(
                     }
                 }
 
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "replaceheldright" => {
                     client.p1(7);
                     client.p2(parse_replace_held(value, registry));
@@ -250,7 +252,7 @@ pub fn pack_seqs(
                 #[cfg(since_289)]
                 "duplicatebehaviour" => {
                     let v: u8 = match value.as_str() {
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         "ignore" => 0,
                         "reset" => 1,
                         "reset_loop" => 2,
@@ -263,21 +265,21 @@ pub fn pack_seqs(
                 }
 
                 // 13, and 18 when the sounds are vorbis files
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 _ if config_key_index(key, "sound").is_some() => {
                     sounds.push((config_key_index(key, "sound").unwrap(), value.as_str()))
                 }
 
                 // 14
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "unknown14" => client.p1(14),
 
                 // 15
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "unknown15" => client.p1(15),
 
                 // 16
-                #[cfg(since_647)]
+                #[cfg(since_530)]
                 "unknown16" => client.p1(16),
 
                 // 19
@@ -299,12 +301,18 @@ pub fn pack_seqs(
                     client.p2(max);
                 }
 
+                #[cfg(since_742)]
+                "tertiaryvolumefactor" => parse_number(value, |v: u8| {
+                    client.p1(22);
+                    client.p1(v);
+                }),
+
                 // not found
                 _ => panic!("Unrecognized seq config key: {key}"),
             }
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             // handle 1
             if !frames.is_empty() {
@@ -328,7 +336,7 @@ pub fn pack_seqs(
                 }
             }
         }
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             flush_frames(&mut client, &mut frames);
             flush_iframes(&mut client, &mut iframes);
@@ -352,7 +360,7 @@ pub fn pack_seqs(
     })
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn flush_frames(out: &mut PackedData, buf: &mut Vec<(usize, u16, u16, u16)>) {
     if buf.is_empty() {
         return;
@@ -372,7 +380,7 @@ fn flush_frames(out: &mut PackedData, buf: &mut Vec<(usize, u16, u16, u16)>) {
     buf.clear();
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn flush_iframes(out: &mut PackedData, buf: &mut Vec<(usize, u16, u16)>) {
     if buf.is_empty() {
         return;
@@ -390,7 +398,7 @@ fn flush_iframes(out: &mut PackedData, buf: &mut Vec<(usize, u16, u16)>) {
 }
 
 /// `animframe_{group}_{file}`, as (file, group).
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_frame(value: &str) -> (u16, u16) {
     let (group, file) = value
         .strip_prefix("animframe_")
@@ -404,7 +412,7 @@ fn parse_frame(value: &str) -> (u16, u16) {
 
 /// The inverse of how a dump prints these: below the objs' range the number
 /// is the raw value less 512, wrapped.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn parse_replace_held(value: &str, registry: &PackRegistry) -> u16 {
     if value == "hide" {
         return u16::MAX;
@@ -421,7 +429,7 @@ fn parse_replace_held(value: &str, registry: &PackRegistry) -> u16 {
     id
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn flush_sounds(out: &mut PackedData, buf: &mut Vec<(usize, &str)>, registry: &PackRegistry) {
     let Some(last) = buf.iter().map(|(index, _)| *index).max() else {
         return;
@@ -453,6 +461,9 @@ fn flush_sounds(out: &mut PackedData, buf: &mut Vec<(usize, &str)>, registry: &P
         }
     }
     if vorbis {
+        #[cfg(all(since_530, before_647))]
+        panic!("Vorbis sequence sounds need 647");
+        #[cfg(since_647)]
         out.p1(18);
     }
     buf.clear();

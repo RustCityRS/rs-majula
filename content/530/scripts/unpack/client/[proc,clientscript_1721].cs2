@@ -1,0 +1,22 @@
+// 1721
+[proc,clientscript_1721]
+def_graphic $graphic0 = 1438;
+def_graphic $graphic1 = 1437;
+if_setgraphic(interface_771:com_307, 1437);
+if_setgraphic(interface_771:com_308, 1437);
+if_setgraphic(interface_771:com_309, 1437);
+if_setgraphic(interface_771:com_310, 1437);
+if_setgraphic(interface_771:com_311, 1437);
+if_setgraphic(interface_771:com_312, 1437);
+if_setonmouseover(interface_771:com_307, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_308, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_309, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_310, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_311, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseover(interface_771:com_312, "graphic_swapper(event_com, $graphic0)");
+if_setonmouseleave(interface_771:com_307, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_308, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_309, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_310, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_311, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");
+if_setonmouseleave(interface_771:com_312, "deltooltip_graphic_swapper(interface_771:com_400, event_com, $graphic1)");

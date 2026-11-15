@@ -1,0 +1,5 @@
+// 1512
+[proc,clientscript_1512]
+if (calc(clientclock % 10) = 0) {
+    ~clientscript_1514;
+}

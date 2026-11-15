@@ -1,0 +1,31 @@
+// 5085
+[proc,clientscript_5085](component $component0)
+if_sethide(interface_1114:com_22, true);
+%varclient_160 = -1;
+cc_deleteall(interface_1114:com_26);
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(enum_3921);
+while ($int1 < $int2) {
+    if (%varclient_1095 = true) {
+        if (cc_find($component0, calc($int1 * 10 + 3)) = true) {
+            cc_setgraphic("aif_drop_down_button_1,1");
+        }
+        if (cc_find($component0, calc($int1 * 10 + 5)) = true) {
+            cc_setgraphic("aif_drop_down_button_1,0");
+        }
+        if (cc_find($component0, calc($int1 * 10 + 7)) = true) {
+            cc_setgraphic("aif_drop_down_button_1,2");
+        }
+    } else {
+        if (cc_find($component0, calc($int1 * 10 + 3)) = true) {
+            cc_setgraphic("aif_drop_down_button_1,10");
+        }
+        if (cc_find($component0, calc($int1 * 10 + 5)) = true) {
+            cc_setgraphic("aif_drop_down_button_1,9");
+        }
+        if (cc_find($component0, calc($int1 * 10 + 7)) = true) {
+            cc_setgraphic("aif_drop_down_button_1,11");
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

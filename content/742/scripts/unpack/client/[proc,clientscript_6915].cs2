@@ -1,0 +1,7 @@
+// 6915
+[proc,clientscript_6915](component $component0, component $component1)
+if_setposition($component1, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+if_setontimer($component1, "clientscript_6916(event_com, calc(clientclock + 15))");
+if_setonvarctransmit($component0, clientscript_6917, 1, 1002, 1, "1Y");
+if_setontimer($component0, clientscript_6917, 0, "1");
+~clientscript_6918;

@@ -1,0 +1,9 @@
+// 3938
+[clientscript,script3938]
+if (%create_send_me_news = true) {
+    %create_send_me_news = false;
+    if_setgraphic(account_create:com_28, "check_box_2,1");
+} else {
+    %create_send_me_news = true;
+    if_setgraphic(account_create:com_28, "check_box_2,3");
+}

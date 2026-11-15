@@ -1,0 +1,30 @@
+// 5301
+[proc,clientscript_5301]
+if (%varplayerbit_9888 = 1) {
+    if_setcolour(interface_824:com_13, 0xaaaa00);
+    if_settext(interface_824:com_59, "On");
+} else {
+    if_setcolour(interface_824:com_13, ^black);
+    if_settext(interface_824:com_59, "Off");
+}
+if (%varplayerbit_9889 = 1) {
+    if_setcolour(interface_824:com_100, 0xaaaa00);
+    if_settext(interface_824:com_101, "On");
+} else {
+    if_setcolour(interface_824:com_100, ^black);
+    if_settext(interface_824:com_101, "Off");
+}
+if (%varplayerbit_9890 = 1) {
+    if_setcolour(interface_824:com_153, 0xaaaa00);
+    if_settext(interface_824:com_154, "On");
+} else {
+    if_setcolour(interface_824:com_153, ^black);
+    if_settext(interface_824:com_154, "Off");
+}
+if (%varplayerbit_9891 = 1) {
+    if_setcolour(interface_824:com_190, 0xaaaa00);
+    if_settext(interface_824:com_191, "On");
+} else {
+    if_setcolour(interface_824:com_190, ^black);
+    if_settext(interface_824:com_191, "Off");
+}

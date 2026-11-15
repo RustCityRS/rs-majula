@@ -1,0 +1,905 @@
+// 192:0
+[sb48]
+type=graphic
+x=13
+y=12
+width=24
+height=24
+graphic=graphic_356
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 356, 406, 0, "Lumbridge Home Teleport", "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+
+// 192:1
+[sb0]
+type=graphic
+x=37
+y=12
+width=24
+height=24
+graphic=graphic_15
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 15, 65, 1, "Wind Strike", "A basic Air missile", airrune, 1, mindrune, 1, null, 0, null, 0)
+
+// 192:2
+[sb1]
+type=graphic
+x=61
+y=12
+width=24
+height=24
+graphic=graphic_16
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 16, 66, 3, "Confuse", "Reduces your opponent's attack by 5%", waterrune, 3, earthrune, 2, bodyrune, 1, null, 0)
+
+// 192:3
+[xbows_enchant]
+type=graphic
+x=85
+y=12
+width=24
+height=24
+graphic=graphic_358
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 358, 408, 4, "Enchant Crossbow Bolt", "Minimum level 4 Magic Multiple other requirements", null, 0, null, 0, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 358, 408, 4, "Enchant Crossbow Bolt", "Minimum level 4 Magic Multiple other requirements", null, 0, null, 0, null, 0, null, 0){assist_stat_magic}
+
+// 192:4
+[sb2]
+type=graphic
+x=109
+y=12
+width=24
+height=24
+graphic=graphic_17
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 17, 67, 5, "Water Strike", "A basic Water missile", waterrune, 1, airrune, 1, mindrune, 1, null, 0)
+
+// 192:5
+[sb3]
+type=graphic
+x=133
+y=12
+width=24
+height=24
+graphic=graphic_18
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 18, 68, 7, "Lvl-1 Enchant", "For use on sapphire jewellery", waterrune, 1, cosmicrune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 18, 68, 7, "Lvl-1 Enchant", "For use on sapphire jewellery", waterrune, 1, cosmicrune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:6
+[sb4]
+type=graphic
+x=157
+y=12
+width=24
+height=24
+graphic=graphic_19
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 19, 69, 9, "Earth Strike", "A basic Earth missile", earthrune, 2, airrune, 1, mindrune, 1, null, 0)
+
+// 192:7
+[sb5]
+type=graphic
+x=13
+y=36
+width=24
+height=24
+graphic=graphic_70
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 20, 70, 11, "Weaken", "Reduces your opponent's<br>strength by 5%", waterrune, 3, earthrune, 2, bodyrune, 1, null, 0)
+
+// 192:8
+[sb6]
+type=graphic
+x=37
+y=36
+width=24
+height=24
+graphic=graphic_71
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 21, 71, 13, "Fire Strike", "A basic Fire missile", firerune, 3, airrune, 2, mindrune, 1, null, 0)
+
+// 192:9
+[sb7]
+type=graphic
+x=61
+y=36
+width=24
+height=24
+graphic=graphic_72
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 22, 72, 15, "Bones to Bananas", "Changes all held bones into bananas", earthrune, 2, waterrune, 2, naturerune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 22, 72, 15, "Bones to Bananas", "Changes all held bones into bananas", earthrune, 2, waterrune, 2, naturerune, 1, null, 0){assist_stat_magic}
+
+// 192:10
+[sb8]
+type=graphic
+x=85
+y=36
+width=24
+height=24
+graphic=graphic_73
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 23, 73, 17, "Wind Bolt", "A low level Air missile", airrune, 2, chaosrune, 1, null, 0, null, 0)
+
+// 192:11
+[sb9]
+type=graphic
+x=109
+y=36
+width=24
+height=24
+graphic=graphic_74
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 24, 74, 19, "Curse", "Reduces your opponent's<br>defence by 5%", waterrune, 2, earthrune, 3, bodyrune, 1, null, 0)
+
+// 192:12
+[sb44]
+type=graphic
+x=133
+y=36
+width=24
+height=24
+graphic=graphic_369
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 319, 369, 20, "Bind", "Holds your opponent for 5 seconds", earthrune, 3, waterrune, 3, naturerune, 2, null, 0)
+
+// 192:13
+[sb10]
+type=graphic
+x=157
+y=36
+width=24
+height=24
+graphic=graphic_75
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 25, 75, 21, "Low Level Alchemy", "Converts an item into gold", firerune, 3, naturerune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 25, 75, 21, "Low Level Alchemy", "Converts an item into gold", firerune, 3, naturerune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:14
+[sb11]
+type=graphic
+x=13
+y=60
+width=24
+height=24
+graphic=graphic_76
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 26, 76, 23, "Water Bolt", "A low level Water missile", waterrune, 2, airrune, 2, chaosrune, 1, null, 0)
+
+// 192:15
+[sb12]
+type=graphic
+x=37
+y=60
+width=24
+height=24
+graphic=graphic_77
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 27, 77, 25, "Varrock Teleport", "Teleports you to Varrock", firerune, 1, airrune, 3, lawrune, 1, null, 0)
+
+// 192:16
+[sb13]
+type=graphic
+x=61
+y=60
+width=24
+height=24
+graphic=graphic_78
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 28, 78, 27, "Lvl-2 Enchant", "For use on emerald jewellery", airrune, 3, cosmicrune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 28, 78, 27, "Lvl-2 Enchant", "For use on emerald jewellery", airrune, 3, cosmicrune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:17
+[sb14]
+type=graphic
+x=85
+y=60
+width=24
+height=24
+graphic=graphic_79
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 29, 79, 29, "Earth Bolt", "A low level Earth missile", earthrune, 3, airrune, 2, chaosrune, 1, null, 0)
+
+// 192:18
+[sb15]
+type=graphic
+x=109
+y=60
+width=24
+height=24
+graphic=graphic_80
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 30, 80, 31, "Lumbridge Teleport", "Teleports you to Lumbridge", earthrune, 1, airrune, 3, lawrune, 1, null, 0)
+
+// 192:19
+[sb16]
+type=graphic
+x=157
+y=60
+width=24
+height=24
+graphic=graphic_81
+targetmask=obj,npc
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 31, 81, 33, "Telekinetic Grab", "Take an item you can see but can't reach", airrune, 1, lawrune, 1, null, 0, null, 0)
+
+// 192:20
+[sb17]
+type=graphic
+x=13
+y=84
+width=24
+height=24
+graphic=graphic_82
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 32, 82, 35, "Fire Bolt", "A low level Fire missile", firerune, 4, airrune, 3, chaosrune, 1, null, 0)
+
+// 192:21
+[sb18]
+type=graphic
+x=37
+y=84
+width=24
+height=24
+graphic=graphic_83
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 33, 83, 37, "Falador Teleport", "Teleports you to Falador", waterrune, 1, airrune, 3, lawrune, 1, null, 0)
+
+// 192:22
+[sb19]
+type=graphic
+x=61
+y=84
+width=24
+height=24
+graphic=graphic_84
+targetmask=npc
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 34, 84, 39, "Crumble Undead", "Hits skeletons, ghosts, shades & zombies hard", earthrune, 2, airrune, 2, chaosrune, 1, null, 0)
+
+// 192:23
+[teleport_to_your_house]
+type=graphic
+x=85
+y=84
+width=24
+height=24
+graphic=graphic_405
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 355, 405, 40, "Teleport to House", "Teleports you to your house", lawrune, 1, airrune, 1, earthrune, 1, null, 0)
+
+// 192:24
+[sb20]
+type=graphic
+x=109
+y=84
+width=24
+height=24
+graphic=graphic_85
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 35, 85, 41, "Wind Blast", "A medium level Air missile", airrune, 3, deathrune, 1, null, 0, null, 0)
+
+// 192:25
+[sb21]
+type=graphic
+x=133
+y=84
+width=24
+height=24
+graphic=graphic_86
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 36, 86, 43, "Superheat Item", "Smelt ore without a furnace", firerune, 4, naturerune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 36, 86, 43, "Superheat Item", "Smelt ore without a furnace", firerune, 4, naturerune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:26
+[sb22]
+type=graphic
+x=157
+y=84
+width=24
+height=24
+graphic=graphic_87
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 37, 87, 45, "Camelot Teleport", "Teleports you to Camelot", airrune, 5, lawrune, 1, null, 0, null, 0)
+
+// 192:27
+[sb23]
+type=graphic
+x=13
+y=108
+width=24
+height=24
+graphic=graphic_88
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 38, 88, 47, "Water Blast", "A medium level Water missile", waterrune, 3, airrune, 3, deathrune, 1, null, 0)
+
+// 192:28
+[sb24]
+type=graphic
+x=37
+y=108
+width=24
+height=24
+graphic=graphic_89
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 39, 89, 49, "Lvl-3 Enchant", "For use on ruby jewellery", firerune, 5, cosmicrune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 39, 89, 49, "Lvl-3 Enchant", "For use on ruby jewellery", firerune, 5, cosmicrune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:29
+[sb25]
+type=graphic
+x=61
+y=108
+width=24
+height=24
+graphic=graphic_103
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 53, 103, 50, "Iban Blast", "Summons the wrath of Iban", firerune, 5, deathrune, 1, ibanstaff, 1, null, 0)
+
+// 192:30
+[sb45]
+type=graphic
+x=85
+y=108
+width=24
+height=24
+graphic=graphic_370
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 320, 370, 50, "Snare", "Holds your opponent for 10 seconds", earthrune, 4, waterrune, 4, naturerune, 3, null, 0)
+
+// 192:31
+[com_31]
+type=graphic
+x=109
+y=108
+width=24
+height=24
+graphic=graphic_374
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 324, 374, 50, "Magic Dart", "A magic dart of slaying", slayer_staff, 1, deathrune, 1, mindrune, 4, null, 0)
+
+// 192:32
+[sb26]
+type=graphic
+x=133
+y=108
+width=24
+height=24
+graphic=graphic_104
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 54, 104, 51, "Ardougne Teleport", "Teleports you to Ardougne", waterrune, 2, lawrune, 2, null, 0, null, 0)
+
+// 192:33
+[sb27]
+type=graphic
+x=157
+y=108
+width=24
+height=24
+graphic=graphic_90
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 40, 90, 53, "Earth Blast", "A medium level Earth missile", earthrune, 4, airrune, 3, deathrune, 1, null, 0)
+
+// 192:34
+[sb28]
+type=graphic
+x=13
+y=132
+width=24
+height=24
+graphic=graphic_91
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 41, 91, 55, "High Level Alchemy", "Converts an item into more gold", firerune, 5, naturerune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 41, 91, 55, "High Level Alchemy", "Converts an item into more gold", firerune, 5, naturerune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:35
+[sb29]
+type=graphic
+x=37
+y=132
+width=24
+height=24
+graphic=graphic_92
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 42, 92, 56, "Charge Water Orb", "Needs to be cast on a water obelisk", waterrune, 30, cosmicrune, 3, stafforb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 42, 92, 56, "Charge Water Orb", "Needs to be cast on a water obelisk", waterrune, 30, cosmicrune, 3, stafforb, 1, null, 0){assist_stat_magic}
+
+// 192:36
+[sb30]
+type=graphic
+x=61
+y=132
+width=24
+height=24
+graphic=graphic_93
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 43, 93, 57, "Lvl-4 Enchant", "For use on diamond jewellery", earthrune, 10, cosmicrune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 43, 93, 57, "Lvl-4 Enchant", "For use on diamond jewellery", earthrune, 10, cosmicrune, 1, null, 0, null, 0){assist_stat_magic}
+
+// 192:37
+[sb31]
+type=graphic
+x=85
+y=132
+width=24
+height=24
+graphic=graphic_105
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 55, 105, 58, "Watchtower Teleport", "Teleports you to the Watchtower", earthrune, 2, lawrune, 2, null, 0, null, 0)
+
+// 192:38
+[sb32]
+type=graphic
+x=109
+y=132
+width=24
+height=24
+graphic=graphic_94
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 44, 94, 59, "Fire Blast", "A medium level Fire missile", firerune, 5, airrune, 4, deathrune, 1, null, 0)
+
+// 192:39
+[sb33]
+type=graphic
+x=133
+y=132
+width=24
+height=24
+graphic=graphic_95
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 45, 95, 60, "Charge Earth Orb", "Needs to be cast on an earth obelisk", earthrune, 30, cosmicrune, 3, stafforb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 45, 95, 60, "Charge Earth Orb", "Needs to be cast on an earth obelisk", earthrune, 30, cosmicrune, 3, stafforb, 1, null, 0){assist_stat_magic}
+
+// 192:40
+[com_40]
+type=graphic
+x=157
+y=132
+width=24
+height=24
+graphic=graphic_404
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 354, 404, 60, "Bones to Peaches", "Turns Bones into Peaches", naturerune, 2, waterrune, 4, earthrune, 4, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 354, 404, 60, "Bones to Peaches", "Turns Bones into Peaches", naturerune, 2, waterrune, 4, earthrune, 4, null, 0){assist_stat_magic}
+
+// 192:41
+[com_41]
+type=graphic
+x=13
+y=156
+width=24
+height=24
+graphic=graphic_111
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 61, 111, 60, "Saradomin strike", "Summons the power of Saradomin", firerune, 2, bloodrune, 2, airrune, 4, saradomin_staff, 1)
+
+// 192:42
+[com_42]
+type=graphic
+x=37
+y=156
+width=24
+height=24
+graphic=graphic_110
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 60, 110, 60, "Claws of Guthix", "Summons the power of Guthix", firerune, 1, bloodrune, 2, airrune, 4, pest_interface_staffs, 1)
+
+// 192:43
+[com_43]
+type=graphic
+x=61
+y=156
+width=24
+height=24
+graphic=graphic_109
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 59, 109, 60, "Flames of Zamorak", "Summons the power of Zamorak", firerune, 4, bloodrune, 2, airrune, 1, zamorak_staff, 1)
+
+// 192:44
+[sb47]
+type=graphic
+x=85
+y=156
+width=24
+height=24
+graphic=graphic_373
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 323, 373, 61, "Trollheim Teleport", "Teleports you to Trollheim", firerune, 2, lawrune, 2, null, 0, null, 0)
+
+// 192:45
+[sb34]
+type=graphic
+x=109
+y=156
+width=24
+height=24
+graphic=graphic_96
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 46, 96, 62, "Wind Wave", "A high level Air missile", airrune, 5, bloodrune, 1, null, 0, null, 0)
+
+// 192:46
+[sb35]
+type=graphic
+x=133
+y=156
+width=24
+height=24
+graphic=graphic_97
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 47, 97, 63, "Charge Fire Orb", "Needs to be cast on a fire obelisk", firerune, 30, cosmicrune, 3, stafforb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 47, 97, 63, "Charge Fire Orb", "Needs to be cast on a fire obelisk", firerune, 30, cosmicrune, 3, stafforb, 1, null, 0){assist_stat_magic}
+
+// 192:47
+[ape_teleport]
+type=graphic
+x=157
+y=156
+width=24
+height=24
+graphic=graphic_407
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 357, 407, 64, "Teleport to Ape Atoll", "Teleports you to Ape Atoll", firerune, 2, waterrune, 2, lawrune, 2, banana, 1)
+
+// 192:48
+[sb36]
+type=graphic
+x=13
+y=179
+width=24
+height=24
+graphic=graphic_98
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 48, 98, 65, "Water Wave", "A high level Water missile", waterrune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 192:49
+[sb37]
+type=graphic
+x=37
+y=179
+width=24
+height=24
+graphic=graphic_99
+targetmask=loc
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 49, 99, 66, "Charge Air Orb", "Needs to be cast on an air obelisk", airrune, 30, cosmicrune, 3, stafforb, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 49, 99, 66, "Charge Air Orb", "Needs to be cast on an air obelisk", airrune, 30, cosmicrune, 3, stafforb, 1, null, 0){assist_stat_magic}
+
+// 192:50
+[sb38]
+type=graphic
+x=61
+y=179
+width=24
+height=24
+graphic=graphic_106
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 56, 106, 66, "Vulnerability", "Reduces your opponent's defence by 10%", earthrune, 5, waterrune, 5, soulrune, 1, null, 0)
+
+// 192:51
+[sb39]
+type=graphic
+x=85
+y=179
+width=24
+height=24
+graphic=graphic_100
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 50, 100, 68, "Lvl-5 Enchant", "For use on dragonstone jewellery", waterrune, 15, earthrune, 15, cosmicrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 50, 100, 68, "Lvl-5 Enchant", "For use on dragonstone jewellery", waterrune, 15, earthrune, 15, cosmicrune, 1, null, 0){assist_stat_magic}
+
+// 192:52
+[sb40]
+type=graphic
+x=109
+y=179
+width=24
+height=24
+graphic=graphic_101
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 51, 101, 70, "Earth Wave", "A high level Earth missile", earthrune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 192:53
+[sb41]
+type=graphic
+x=133
+y=179
+width=24
+height=24
+graphic=graphic_107
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 57, 107, 73, "Enfeeble", "Reduces your opponent's strength by 10%", earthrune, 8, waterrune, 8, soulrune, 1, null, 0)
+
+// 192:54
+[teleother_lumbridge]
+type=graphic
+x=157
+y=180
+width=24
+height=24
+graphic=graphic_399
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 349, 399, 74, "Teleother Lumbridge", "Teleports target to Lumbridge", soulrune, 1, lawrune, 1, earthrune, 1, null, 0)
+
+// 192:55
+[sb42]
+type=graphic
+x=13
+y=204
+width=24
+height=24
+graphic=graphic_102
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 52, 102, 75, "Fire Wave", "A high level Fire missile", firerune, 7, airrune, 5, bloodrune, 1, null, 0)
+
+// 192:56
+[sb46]
+type=graphic
+x=37
+y=204
+width=24
+height=24
+graphic=graphic_371
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 321, 371, 79, "Entangle", "Holds your opponent for 15 seconds", earthrune, 5, waterrune, 5, naturerune, 4, null, 0)
+
+// 192:57
+[sb43]
+type=graphic
+x=61
+y=204
+width=24
+height=24
+graphic=graphic_108
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 58, 108, 80, "Stun", "Reduces your opponent's attack by 10%", earthrune, 12, waterrune, 12, soulrune, 1, null, 0)
+
+// 192:58
+[com_58]
+type=graphic
+x=85
+y=204
+width=24
+height=24
+graphic=graphic_372
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 322, 372, 80, "Charge", "Temporarily increases the power<br>of the three arena spells when wearing Mage Arena capes", firerune, 3, bloodrune, 3, airrune, 3, null, 0)
+
+// 192:59
+[teleother_falador]
+type=graphic
+x=109
+y=204
+width=24
+height=24
+graphic=graphic_400
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 350, 400, 82, "Teleother Falador", "Teleports target to Falador", soulrune, 1, waterrune, 1, lawrune, 1, null, 0)
+
+// 192:60
+[com_60]
+type=graphic
+x=133
+y=60
+width=24
+height=24
+graphic=graphic_402
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, magic:tooltip, 352, 402, 32, "Bounty Locate", "Teleports you to your target in Bounty Hunter", airrune, 1, firerune, 1, lawrune, 1, null, 0)
+
+// 192:61
+[com_61]
+type=graphic
+x=157
+y=204
+width=24
+height=24
+graphic=graphic_403
+targetmask=heldobj
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 353, 403, 87, "Lvl-6 Enchant", "For use on onyx jewellery", earthrune, 20, firerune, 20, cosmicrune, 1, null, 0)
+onvartransmit=magic_init(event_com, magic:tooltip, 353, 403, 87, "Lvl-6 Enchant", "For use on onyx jewellery", earthrune, 20, firerune, 20, cosmicrune, 1, null, 0){assist_stat_magic}
+
+// 192:62
+[teleother_camelot]
+type=graphic
+x=13
+y=228
+width=24
+height=24
+graphic=graphic_401
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 351, 401, 90, "Teleother Camelot", "Teleports target to Camelot", soulrune, 2, lawrune, 1, null, 0, null, 0)
+
+// 192:63
+[teleport_block]
+type=graphic
+x=133
+y=204
+width=24
+height=24
+graphic=graphic_1571
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, magic:tooltip, 1565, 1571, 85, "Teleport Block", "Blocks target from teleporting.", chaosrune, 1, lawrune, 1, deathrune, 1, null, 0)
+
+// 192:64
+[order0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1701
+transmitop=1,10
+op1=Sort
+op10=  
+onmouseleave=magre_button_restore(event_com)
+onvartransmit=magre_sort{varplayer_1376}
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(0)
+
+// 192:65
+[order1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1702
+transmitop=1,10
+op1=Sort
+op10=   
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(1)
+
+// 192:66
+[order2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1702
+transmitop=1,10
+op1=Sort
+op10=   
+onmouseleave=magre_button_restore(event_com)
+onmouserepeat=magre_button_mouserepeat(event_com)
+onclick=clientscript_2058(2)
+
+// 192:67
+[order_icon0]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1704
+transmitop=10
+op10=   
+
+// 192:68
+[order_icon1]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1705
+transmitop=10
+op10=    
+
+// 192:69
+[order_icon2]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+graphic=graphic_1706
+transmitop=10
+op10=    
+
+// 192:70
+[tooltip2_bounds]
+type=layer
+y=29
+width=10
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+transmitop=10
+op10=  
+
+// 192:71
+[tooltip2]
+type=layer
+x=3
+y=2
+width=42
+height=14
+layer=tooltip2_bounds
+transmitop=10
+op10=  
+
+// 192:72
+[tooltip]
+type=layer
+width=190
+height=261

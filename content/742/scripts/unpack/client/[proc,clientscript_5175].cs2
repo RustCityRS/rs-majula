@@ -1,0 +1,17 @@
+// 5175
+[proc,clientscript_5175](int $int0)(int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_struct $struct4 = null;
+while ($int1 <= 1094) {
+    $struct4 = ~clientscript_6798($int1);
+    if (struct_param($struct4, param_1267) = $int0 & struct_param($struct4, param_1322) = 0) {
+        $int3 = calc($int3 + 1);
+        if (~task_get_progress($int1) = 2) {
+            $int2 = calc($int2 + 1);
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+return($int2, $int3);

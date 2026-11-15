@@ -1,0 +1,22 @@
+// 6362
+[proc,clientscript_6362](int $int0)(component)
+switch_int ($int0) {
+    case 0 :
+        return(%varclient_1939);
+    case 1 :
+        return(%varclient_1940);
+    case 2 :
+        return(%varclient_1941);
+    case 3 :
+        return(%varclient_1942);
+    case 4 :
+        return(%varclient_1943);
+    case 5 :
+        return(%varclient_1944);
+    case 6 :
+        return(%varclient_1945);
+    case 7 :
+        return(%varclient_1946);
+    case default :
+        return(null);
+}

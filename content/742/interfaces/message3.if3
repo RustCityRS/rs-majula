@@ -1,0 +1,66 @@
+// 212:0
+[layer_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 212:1
+[mes3a]
+type=text
+y=-4565
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 212:2
+[mes3b]
+type=text
+y=-1517
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line2
+textalignh=centre
+colour=0x000000
+
+// 212:3
+[mes3c]
+type=text
+y=1531
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=layer_1
+textfont=q8_full
+text=Line3
+textalignh=centre
+colour=0x000000
+
+// 212:4
+[mes3next]
+type=text
+y=1277
+width=350
+height=17
+xmode=abs_centre
+ymode=proportion_bottom
+layer=layer_1
+textfont=q8_full
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

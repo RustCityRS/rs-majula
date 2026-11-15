@@ -1,0 +1,14 @@
+// 289's ring of forging: 140 iron ores refined, counted on the player, then
+// the ring worn melts. The 2011 wiki (Ring of forging, 21 May 2011) has the
+// same: "After smelting 140 such ores, the ring will disintegrate", the
+// charges "kept with whoever equips the ring".
+[proc,lose_charge_ring_of_forging]
+// + 1 charge used
+%ring_of_forging = calc(%ring_of_forging + 1);
+// once the charges used counter reaches 140, reset back to 0
+if (%ring_of_forging >= 140) {
+    %ring_of_forging = 0;
+    // not purple text https://i.imgur.com/vTRIzDR.png
+    mes("Your Ring of Forging has melted.");
+    inv_del(worn, ring_of_forging, 1);
+}

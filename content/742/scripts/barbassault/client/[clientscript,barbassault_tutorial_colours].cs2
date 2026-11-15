@@ -1,0 +1,90 @@
+// 2329
+[clientscript,barbassault_tutorial_colours]
+if_setcolour(barbassault_tutorial:barbassault_tut_01, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_02, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_03, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_04, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_05, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_06, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_07, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_08, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_09, ^red);
+if_setcolour(barbassault_tutorial:barbassault_tut_10, ^red);
+if (%barbassault_arenanewb = 1) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^yellow);
+} else if (%barbassault_arenanewb = 2) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^yellow);
+} else if (%barbassault_arenanewb = 3) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^yellow);
+} else if (%barbassault_arenanewb = 4) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^yellow);
+} else if (%barbassault_arenanewb = 5) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^yellow);
+} else if (%barbassault_arenanewb = 6) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_06, ^yellow);
+} else if (%barbassault_arenanewb = 7) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_06, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_07, ^yellow);
+} else if (%barbassault_arenanewb = 8) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_06, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_07, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_08, ^yellow);
+} else if (%barbassault_arenanewb = 9) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_06, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_07, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_08, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_09, ^yellow);
+} else if (%barbassault_arenanewb = 10) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_06, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_07, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_08, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_09, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_10, ^yellow);
+} else if (%barbassault_arenanewb = 11) {
+    if_setcolour(barbassault_tutorial:barbassault_tut_01, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_02, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_03, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_04, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_05, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_06, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_07, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_08, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_09, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_09, ^green);
+    if_setcolour(barbassault_tutorial:barbassault_tut_10, ^green);
+}
