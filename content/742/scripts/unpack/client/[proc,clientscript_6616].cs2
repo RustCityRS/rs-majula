@@ -1,0 +1,5 @@
+// 6616
+[proc,clientscript_6616](string $string0)
+if_sethide(interface_1323:com_3, false);
+if_settext(interface_1323:com_59, $string0);
+if_setontimer(interface_1323:com_3, "clientscript_6617(7, 0, 0, 255, 0, interface_1323:com_3)");

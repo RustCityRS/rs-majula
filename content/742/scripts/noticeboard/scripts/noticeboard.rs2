@@ -1,0 +1,65 @@
+// 742's Noticeboard: five pages, each its own wide interface with the same tab bar along the
+// bottom, shown alone on the black full-screen toplevel (753) as in Jagex's own client
+// (YouTube u85xBf3StAA, 2012-11-09, 00:58). The engine brings the gameframe back once the page
+// closes. The Noticeboard tab's "Open Noticeboard" (stone 1, interface 1056) opens it on
+// Featured. 742 has no quest tab: the quest list is the Quests page.
+[if_button,interface_1056:com_55] ~noticeboard_open(^noticeboard_featured);
+
+[proc,noticeboard_open](int $page)
+if_opentop(interface_753);
+~noticeboard_page($page);
+
+[proc,noticeboard_page](int $page)
+switch_int ($page) {
+    case ^noticeboard_featured : if_openmain(interface_1345);
+    case ^noticeboard_challenges : if_openmain(interface_1343);
+    case ^noticeboard_quests :
+        if_openmain(questlist_v4);
+        // The client draws a row per quest id (0-193 in enum 2252) with three ops.
+        if_setevents(questlist_v4:quests, 0, 300, calc(^if_op1 | ^if_op2 | ^if_op3), 0, 0, false, false);
+        ~update_questlist;
+        ~uf_quest_list_opened;
+    case ^noticeboard_achievements : if_openmain(task_main);
+    case ^noticeboard_minigames : if_openmain(interface_1344);
+}
+
+// Featured (1345). Its Quest box reads "Click here to view the quest list!".
+[if_button,interface_1345:com_23] ~noticeboard_page(^noticeboard_quests);
+[if_button,interface_1345:com_178] ~noticeboard_page(^noticeboard_featured);
+[if_button,interface_1345:com_183] ~noticeboard_page(^noticeboard_challenges);
+[if_button,interface_1345:com_188] ~noticeboard_page(^noticeboard_quests);
+[if_button,interface_1345:com_193] ~noticeboard_page(^noticeboard_achievements);
+[if_button,interface_1345:com_198] ~noticeboard_page(^noticeboard_minigames);
+[if_button,interface_1345:com_33] if_close;
+
+// Challenges (1343).
+[if_button,interface_1343:com_27] ~noticeboard_page(^noticeboard_featured);
+[if_button,interface_1343:com_28] ~noticeboard_page(^noticeboard_challenges);
+[if_button,interface_1343:com_29] ~noticeboard_page(^noticeboard_quests);
+[if_button,interface_1343:com_30] ~noticeboard_page(^noticeboard_achievements);
+[if_button,interface_1343:com_44] ~noticeboard_page(^noticeboard_minigames);
+[if_button,interface_1343:com_56] if_close;
+
+// Quests (190).
+[if_button,questlist_v4:com_481] ~noticeboard_page(^noticeboard_featured);
+[if_button,questlist_v4:com_486] ~noticeboard_page(^noticeboard_challenges);
+[if_button,questlist_v4:com_491] ~noticeboard_page(^noticeboard_quests);
+[if_button,questlist_v4:com_496] ~noticeboard_page(^noticeboard_achievements);
+[if_button,questlist_v4:com_501] ~noticeboard_page(^noticeboard_minigames);
+[if_button,questlist_v4:com_7] if_close;
+
+// Achievements (917).
+[if_button,task_main:com_211] ~noticeboard_page(^noticeboard_featured);
+[if_button,task_main:com_216] ~noticeboard_page(^noticeboard_challenges);
+[if_button,task_main:com_221] ~noticeboard_page(^noticeboard_quests);
+[if_button,task_main:com_226] ~noticeboard_page(^noticeboard_achievements);
+[if_button,task_main:com_231] ~noticeboard_page(^noticeboard_minigames);
+[if_button,task_main:com_5] if_close;
+
+// Minigames (1344).
+[if_button,interface_1344:com_65] ~noticeboard_page(^noticeboard_featured);
+[if_button,interface_1344:com_70] ~noticeboard_page(^noticeboard_challenges);
+[if_button,interface_1344:com_75] ~noticeboard_page(^noticeboard_quests);
+[if_button,interface_1344:com_80] ~noticeboard_page(^noticeboard_achievements);
+[if_button,interface_1344:com_85] ~noticeboard_page(^noticeboard_minigames);
+[if_button,interface_1344:com_10] if_close;

@@ -1,0 +1,75 @@
+// 1299
+[proc,lobbyscreen_load](boolean $boolean0, int $int1)
+~clientscript_6382;
+if_setonvartransmit(lobbyscreen:com_0, "clientscript_2354{varplayer_2411}");
+if_setonvartransmit(lobbyscreen:com_236, "clientscript_5950{varplayer_2536}");
+if (%varplayerbit_11162 < 1 & userdetail_quickchat = false) {
+    if_setonvartransmit(lobbyscreen:com_235, "clientscript_5937{varplayer_2610}");
+}
+if_settrans(lobbyscreen:com_336, 0);
+if ($int1 = 0) {
+    ~loginscreen_initialisecamera(lobbyscreen:com_14, lobbyscreen:fader, lobbyscreen:com_31, lobbyscreen_pane_options:com_16, lobbyscreen_pane_options:com_22, lobbyscreen_pane_options:com_21);
+}
+if_setgraphic(lobbyscreen:com_237, battle_title_widescreen_2);
+if_setgraphic(lobbyscreen:com_238, battle_title_widescreen_1);
+if_setgraphic(lobbyscreen:com_239, battle_title_widescreen_3);
+if_setgraphic(lobbyscreen:com_240, battle_title_widescreen_4);
+if_setgraphic(lobbyscreen:telekinetic_push, battle_title_widescreen_6);
+if_setgraphic(lobbyscreen:com_242, battle_title_widescreen_5);
+if_setgraphic(lobbyscreen:com_243, battle_title_widescreen_7);
+if_setgraphic(lobbyscreen:com_244, battle_title_widescreen_8);
+if_setgraphic(lobbyscreen:com_246, "corner_flourish,0");
+if_setgraphic(lobbyscreen:com_248, "corner_flourish,0");
+if_setgraphic(lobbyscreen:com_251, "corner_flourish,0");
+if_setgraphic(lobbyscreen:popup_top_left, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_top_left, true);
+if_sethflip(lobbyscreen:popup_top_left, true);
+if_setgraphic(lobbyscreen:popup_top_right, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_top_right, true);
+if_sethflip(lobbyscreen:popup_top_right, false);
+if_setgraphic(lobbyscreen:popup_bottom_left, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_bottom_left, false);
+if_sethflip(lobbyscreen:popup_bottom_left, true);
+if_setgraphic(lobbyscreen:popup_bottom_right, "corner_frame_1,2");
+if_setvflip(lobbyscreen:popup_bottom_right, false);
+if_sethflip(lobbyscreen:popup_bottom_right, false);
+if_setonresize(lobbyscreen:com_0, "lobby_resize");
+def_int $int2 = string_indexof_string(%varclient_2054, "@", 0);
+if ($int2 = -1) {
+    %loginscreen_previous_login_type = 1;
+} else {
+    %loginscreen_previous_login_type = 2;
+}
+~lobby_popup_close;
+~lobbyscreen_loadpanels;
+~lobbyscreen_tabswitch(0);
+~lobbyscreen_loginbutton_text(1);
+%lobbyscreen_input = "";
+%loginscreen_pvp_warned = 0;
+mes("Welcome to the RuneScape Lobby.");
+mes_typed(^chattype_clanmessage, 0, "Welcome to the RuneScape Lobby.");
+if (userdetail_quickchat = true) {
+    mes("Users restricted to quick-chat cannot send messages from the Lobby.");
+    mes_typed(^chattype_clanmessage, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
+}
+~toplevel_minimenu_setup;
+if_setonkey(lobbyscreen:com_0, "script1328(event_keycode)");
+def_string $string0 = ~script2781;
+if (string_length($string0) > 0) {
+    ~lobby_popup_size(-3000, 0, "<$string0><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_boolean $boolean5 = false;
+if (userdetail_lobby_lastloginday < date_runeday) {
+    $int3, $int4, $boolean5 = userdetail_lobby_membership;
+    if ($int4 < 10080 & $boolean5 = false) {
+        ~lobby_popup(-2000, 0, "You have less than 1 week of membership credit remaining. To enjoy the benefits of Sizzling Summer, re-subscribe now!", 0, 10151, 1, 0, "Re-subscribe", "Re-subscribe", 1, "Close", "Close");
+        if (%varplayerbit_11162 < 1) {
+            if_setposition(lobbyscreen:popup_body, 0, 150, ^setpos_abs_centre, ^setpos_abs_top);
+        }
+    }
+}
+if_setontimer(lobbyscreen:update_timer, "script1868(lobbyscreen:update_timer)");
+~lobby_resize;
+if_setontimer(lobbyscreen:com_335, "clientscript_5954(lobbyscreen:com_336)");

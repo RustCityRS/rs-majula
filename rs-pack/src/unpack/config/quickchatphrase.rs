@@ -3,6 +3,7 @@ use crate::archive::QUICKCHAT_GLOBAL_FIRST;
 use crate::cache::quickchatphrase::{
     QuickChatCommand, QuickChatDynamicCommand, QuickChatPhraseType,
 };
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 fn command_text(command: &QuickChatCommand, packs: &UnpackedPacks) -> String {
@@ -11,7 +12,7 @@ fn command_text(command: &QuickChatCommand, packs: &UnpackedPacks) -> String {
         .params
         .iter()
         .zip(command.params.iter())
-        .map(|(kind, &id)| packs.reference(kind, id))
+        .map(|(kind, &id)| packs.reference(kind, TypeId::from_g2(id)))
         .collect();
     format!("{}({})", dynamic.name, params.join(","))
 }
@@ -23,7 +24,7 @@ pub fn emit_quickchatphrase_props(
     packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    let first = def.id & QUICKCHAT_GLOBAL_FIRST;
+    let first = def.id.g2() & QUICKCHAT_GLOBAL_FIRST;
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if let Some(text) = &def.text {
         // The commands fill the text's `<`s, in order.
@@ -48,7 +49,7 @@ pub fn emit_quickchatphrase_props(
         p.push((
             2,
             "autoresponse".into(),
-            packs.reference("chatphrase", id + first),
+            packs.reference("chatphrase", TypeId::from_g2(id + first)),
         ));
     }
     if opcode == 4 {

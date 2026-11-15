@@ -1,0 +1,7 @@
+// 522
+[clientscript,assist_skill_update](component $component0, stat $stat1)
+def_int $int2 = stat_visible_xp($stat1);
+def_int $int3 = stat_visible_xp($stat1);
+$int2 = ~enum_var($stat1);
+def_int $int4 = calc($int3 - $int2);
+if_settext($component0, tostring($int4));

@@ -1,4 +1,4 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::markup::markup;
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
@@ -16,7 +16,7 @@ pub struct MessageGame<'a> {
     pub text: &'a str,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ServerProtMessage for MessageGame<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.pjstr(self.text, STRING_TERMINATOR);
@@ -24,6 +24,17 @@ impl ServerProtMessage for MessageGame<'_> {
 
     fn sizeof(&self) -> usize {
         Packet::sizejstr(self.text)
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for MessageGame<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.pjstr(&markup(self.text), STRING_TERMINATOR);
+    }
+
+    fn sizeof(&self) -> usize {
+        Packet::sizejstr(&markup(self.text))
     }
 }
 

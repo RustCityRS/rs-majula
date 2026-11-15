@@ -1,0 +1,13 @@
+// 5194
+[proc,clientscript_5194]()(int)
+def_int $int0 = -1;
+def_int $int1 = -1;
+switch_int (%varplayerbit_9646) {
+    case 1 :
+        $int0, $int1 = ~clientscript_5172;
+    case 2 :
+        $int0, $int1 = ~clientscript_5173;
+    case 3 :
+        $int0, $int1 = ~clientscript_5174;
+}
+return($int0);

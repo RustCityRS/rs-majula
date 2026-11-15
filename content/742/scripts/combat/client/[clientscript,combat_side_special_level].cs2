@@ -1,0 +1,12 @@
+// 1137
+[clientscript,combat_side_special_level](component $component0, component $component1)
+def_string $string0 = "Special Attack (<tostring(calc(%sa_energy / 10))>%)";
+if (%varplayerbit_9306 = 3 & %varplayerbit_11084 = 1) {
+    $string0 = "Portal Energy (<tostring(calc(%sa_energy / 10))>%)";
+}
+~aif_progressbar_set(scale(%sa_energy, 1000, 100), $component0, $component1);
+def_int $rgb2 = 0xd5d9d3;
+if (%sa_attack > 0) {
+    $rgb2 = 0xff981f;
+}
+~aif_text_layer_build_new($component1, $string0, verdana_11pt_regular, $rgb2, ^black);

@@ -18,9 +18,16 @@ pub struct SetMapFlag {
 
 #[cfg(since_647)]
 impl ServerProtMessage for SetMapFlag {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p1_alt3(self.x);
         buf.p1_alt3(self.z);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt1(self.x);
+        buf.p1(self.z);
     }
 
     fn sizeof(&self) -> usize {

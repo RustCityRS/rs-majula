@@ -315,9 +315,9 @@ dependencies = [
 
 [[package]]
 name = "bumpalo"
-version = "3.20.3"
+version = "3.20.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
+checksum = "87a0cf66fd1eb2fb7b822cb78370d82303750809bc6ba855f3f58e517d3238db"
 
 [[package]]
 name = "by_address"
@@ -354,9 +354,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.11.1"
+version = "1.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ff2a8126fff0f8c839080d619675a585e61720bb12d2baceae45769fd66f155"
+checksum = "33ef9e3e8154a45c7a95cff4c1299702106ad94062d7bb85fdc5d3a5afd91d45"
 dependencies = [
  "find-msvc-tools",
  "jobserver",
@@ -1862,9 +1862,9 @@ dependencies = [
 
 [[package]]
 name = "mio"
-version = "1.2.4"
+version = "1.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1788edb87fdc09c7e26304471e2f5be8cdefb1b6930d6e3985fc02ff53bf86ee"
+checksum = "20521a903f02b0a573cd6840e9d0a5a0cc043d361fe924092cd70f8556cc9c4a"
 dependencies = [
  "libc",
  "log",
@@ -2790,7 +2790,7 @@ dependencies = [
 
 [[package]]
 name = "rs-admin-api"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "hmac",
  "serde",
@@ -2799,7 +2799,7 @@ dependencies = [
 
 [[package]]
 name = "rs-cam"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-datastruct",
  "rs-ver",
@@ -2808,7 +2808,7 @@ dependencies = [
 
 [[package]]
 name = "rs-console"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "anyhow",
  "argon2",
@@ -2847,14 +2847,14 @@ dependencies = [
 
 [[package]]
 name = "rs-datastruct"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-db"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "argon2",
  "rs-stat",
@@ -2866,7 +2866,7 @@ dependencies = [
 
 [[package]]
 name = "rs-engine"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "flate2",
  "num_enum",
@@ -2899,7 +2899,7 @@ dependencies = [
 
 [[package]]
 name = "rs-entity"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-cam",
  "rs-grid",
@@ -2919,21 +2919,21 @@ dependencies = [
 
 [[package]]
 name = "rs-grid"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-hero"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-info"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-grid",
  "rs-io",
@@ -2943,16 +2943,16 @@ dependencies = [
 
 [[package]]
 name = "rs-inv"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-ver",
 ]
 
 [[package]]
 name = "rs-io"
-version = "0.4.2"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "388d3d2d8058a2fd4aad8c33ebfde0ca7b676f94d4fb925b8f730c58fca9e88f"
+checksum = "197e89f547231494c26c923adda6d9ecebdee285f4d8f6613c3cbce258eb83df"
 dependencies = [
  "cc",
  "crc32fast",
@@ -2965,7 +2965,7 @@ dependencies = [
 
 [[package]]
 name = "rs-pack"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "anyhow",
  "clap",
@@ -2997,19 +2997,20 @@ dependencies = [
 
 [[package]]
 name = "rs-protocol"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "anyhow",
  "rs-crypto",
  "rs-io",
  "rs-protocol-macros",
+ "rs-util",
  "rs-ver",
  "tracing",
 ]
 
 [[package]]
 name = "rs-protocol-macros"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3018,7 +3019,7 @@ dependencies = [
 
 [[package]]
 name = "rs-queue"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-datastruct",
  "rs-ver",
@@ -3027,9 +3028,9 @@ dependencies = [
 
 [[package]]
 name = "rs-runec"
-version = "0.5.23"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "446a2f25dd3ccd9bb0fbed51ebd5c7ac094035fba0bc14f8f269451d7cbe86c7"
+checksum = "21cad0c69c67abbf1bdd96633623d0f49e5ad9b7d10c5079ae6f670a5a4aee2f"
 dependencies = [
  "anyhow",
  "clap",
@@ -3040,7 +3041,7 @@ dependencies = [
 
 [[package]]
 name = "rs-server"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "anyhow",
  "axum",
@@ -3077,11 +3078,11 @@ dependencies = [
 
 [[package]]
 name = "rs-stat"
-version = "0.1.24"
+version = "0.1.26"
 
 [[package]]
 name = "rs-test"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "anyhow",
  "clap",
@@ -3103,7 +3104,7 @@ dependencies = [
 
 [[package]]
 name = "rs-timer"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-ver",
  "rs-vm",
@@ -3111,7 +3112,7 @@ dependencies = [
 
 [[package]]
 name = "rs-util"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-ver",
  "tokio",
@@ -3119,7 +3120,7 @@ dependencies = [
 
 [[package]]
 name = "rs-var"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-pack",
  "rs-ver",
@@ -3127,11 +3128,11 @@ dependencies = [
 
 [[package]]
 name = "rs-ver"
-version = "0.1.24"
+version = "0.1.26"
 
 [[package]]
 name = "rs-vm"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "itoa",
  "num_enum",
@@ -3148,7 +3149,7 @@ dependencies = [
 
 [[package]]
 name = "rs-web"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "ammonia",
  "anyhow",
@@ -3175,7 +3176,7 @@ dependencies = [
 
 [[package]]
 name = "rs-zone"
-version = "0.1.24"
+version = "0.1.26"
 dependencies = [
  "rs-entity",
  "rs-grid",

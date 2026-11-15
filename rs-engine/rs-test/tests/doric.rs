@@ -12,6 +12,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -28,12 +29,12 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[(&str, u32)]) -> (HarnessCli
     for _ in 0..10 {
         engine.cycle();
     }
-    let doric = *engine
+    let doric = engine
         .cache
         .npcs
-        .debugnames
-        .get("doric")
-        .expect("npc doric");
+        .get_by_debugname("doric")
+        .expect("npc doric")
+        .id;
     let (nid, x, z) = engine
         .npc_list
         .npcs
@@ -67,14 +68,19 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[(&str, u32)]) -> (HarnessCli
         })
         .expect("a walkable tile beside Doric");
     engine.harness_telejump(client.pid, sx, 0, sz);
-    let varp = *engine.cache.varps.debugnames.get("doricquest").unwrap();
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let ids: Vec<(u16, u32)> = objs
+    let varp = engine
+        .cache
+        .varps
+        .get_by_debugname("doricquest")
+        .unwrap()
+        .id;
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let ids: Vec<(TypeId, u32)> = objs
         .iter()
-        .map(|(o, n)| (*engine.cache.objs.debugnames.get(*o).unwrap(), *n))
+        .map(|(o, n)| (engine.cache.objs.get_by_debugname(o).unwrap().id, *n))
         .collect();
     let player = engine.harness_player_mut(client.pid).unwrap();
-    player.vars.set(varp, VarValue::Int(stage));
+    player.vars.set(varp.g2(), VarValue::Int(stage));
     let backpack = player.invs.get_mut(&inv).unwrap();
     let mut slot = 0u16;
     for (id, n) in ids {
@@ -91,18 +97,23 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[(&str, u32)]) -> (HarnessCli
 }
 
 fn stage(engine: &Engine, client: &HarnessClient) -> i32 {
-    let varp = *engine.cache.varps.debugnames.get("doricquest").unwrap();
+    let varp = engine
+        .cache
+        .varps
+        .get_by_debugname("doricquest")
+        .unwrap()
+        .id;
     engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 
 fn carried(engine: &Engine, client: &HarnessClient, obj: &str) -> i64 {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let id = *engine.cache.objs.debugnames.get(obj).unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let id = engine.cache.objs.get_by_debugname(obj).unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()

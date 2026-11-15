@@ -57,10 +57,10 @@ const STAT_TRIGGERS: [&str; 2] = ["advancestat", "changestat"];
 
 /// The parameter types `rs-engine` passes `trigger` at `rev`, `,`-joined; `None`
 /// when it passes no arguments. `add_xp` passes `[advancestat]` the levels crossed
-/// from 647 (`#[cfg(since_647)]`); everything else is enqueued with `None`.
+/// from 530 (`#[cfg(since_530)]`); everything else is enqueued with `None`.
 fn engine_params(trigger: &str, rev: &str) -> Option<&'static str> {
-    let since_647 = rev.parse::<f64>().is_ok_and(|r| r >= 647.0);
-    (trigger == "advancestat" && since_647).then_some("int")
+    let since_530 = rev.parse::<f64>().is_ok_and(|r| r >= 530.0);
+    (trigger == "advancestat" && since_530).then_some("int")
 }
 
 /// Below this, the walk found too little to be believed and the test is failing

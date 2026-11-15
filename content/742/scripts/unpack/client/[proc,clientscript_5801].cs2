@@ -1,0 +1,8 @@
+// 5801
+[proc,clientscript_5801]
+def_int $int0 = if_getwidth(toplevel_fullscreen:com_50);
+def_int $int1 = if_getheight(toplevel_fullscreen:com_50);
+if_setposition(toplevel_fullscreen:com_48, if_getx(toplevel_fullscreen:com_50), if_gety(toplevel_fullscreen:com_50), ^setpos_abs_left, ^setpos_abs_top);
+if_setsize(toplevel_fullscreen:com_48, $int0, $int1, ^setsize_abs, ^setsize_abs);
+if_sethide(toplevel_fullscreen:com_48, false);
+if_setontimer(toplevel_fullscreen:com_48, "clientscript_5802");

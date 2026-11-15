@@ -1,0 +1,21 @@
+// 5488
+[proc,clientscript_5488](string $string0)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if_sethide(toplevel_fullscreen:com_256, false);
+%varclient_1688 = true;
+cc_deleteall(toplevel_fullscreen:com_256);
+if (%varclient_1691 ! null & %varclient_1692 ! -1) {
+    $int1 = max(parawidth($string0, 1000000, b12_full), parawidth("Cost : <~tostring_shortform(%varclient_1692)>", 1000000, b12_full));
+    $int2 = calc(paraheight($string0, $int1, b12_full) * 28);
+} else {
+    $int1 = parawidth($string0, 1000000, b12_full);
+    $int2 = calc(paraheight($string0, $int1, b12_full) * 14);
+}
+~clientscript_5490(toplevel_fullscreen:com_256, $string0, $int1, $int2);
+$int3 = calc($int1 + 15);
+$int4 = calc($int2 + 15);
+~clientscript_5489($int3, $int4);

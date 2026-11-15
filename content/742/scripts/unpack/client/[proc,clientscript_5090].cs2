@@ -1,0 +1,6 @@
+// 5090
+[proc,clientscript_5090](component $component0)
+~aif_gold_frame_2(interface_1112:com_2);
+~clientscript_5092;
+if_setonvartransmit($component0, "clientscript_5091{varplayer_1736, varplayer_1735}");
+if_setonvarctransmit($component0, "clientscript_5091{varclient_786, varclient_788, varclient_787}");

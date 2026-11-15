@@ -1,0 +1,36 @@
+// 5633
+[proc,clientscript_5633]
+def_int $int0 = create_reply;
+if ($int0 = -3) {
+    return;
+}
+if_setontimer(account_create:continue, null);
+def_string $string0 = "";
+def_int $int1 = 1;
+def_int $int2 = 0;
+def_graphic $graphic3 = "loadingwheel,9";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_string $string1 = "";
+def_int $int6 = 1;
+def_string $string2 = "Back";
+def_int $int7 = -1;
+if ($int0 = 2) {
+    ~create_please_wait(0);
+} else {
+    ~create_exit;
+    switch_int ($int0) {
+        case default :
+            $int7 = 25;
+            $string0 = "Unexpected server response.";
+        case 37 :
+            $int7 = 6;
+            $int1 = 0;
+            $graphic3 = "loadingwheel,11";
+            $string0 = "RuneScape has been updated! Please reload this page.";
+        case -5 :
+            $int7 = -5;
+            $string0 = "No response from server.";
+    }
+    ~login_popup($int7, $int1, $string0, $int2, $graphic3, $int4, $int5, $string1, $int6, $string2);
+}

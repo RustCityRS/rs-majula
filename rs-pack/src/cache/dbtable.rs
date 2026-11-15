@@ -4,6 +4,7 @@ use super::decode::read_array;
 use super::provider::{CacheType, TypeProvider};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub type DbTableTypeProvider = TypeProvider<DbTableType>;
@@ -19,7 +20,7 @@ pub enum DbTableValue {
 }
 
 pub struct DbTableType {
-    pub id: u16,
+    pub id: TypeId,
     pub types: DbTableTypes,
     pub defaults: DbTableDefaults,
     debugname: Box<str>,
@@ -70,7 +71,7 @@ impl DbTableType {
 impl CacheType for DbTableType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         DbTableType {
             id,
             types: None,
@@ -126,12 +127,12 @@ pub enum DbIndexKey {
 }
 
 pub struct DbTableIndex {
-    rows: HashMap<u32, HashMap<DbIndexKey, Vec<u16>>>,
+    rows: HashMap<u32, HashMap<DbIndexKey, Vec<TypeId>>>,
 }
 
 impl DbTableIndex {
     pub fn build(tables: &TypeProvider<DbTableType>, rows: &TypeProvider<DbRowType>) -> Self {
-        let mut index: HashMap<u32, HashMap<DbIndexKey, Vec<u16>>> = HashMap::new();
+        let mut index: HashMap<u32, HashMap<DbIndexKey, Vec<TypeId>>> = HashMap::new();
 
         for table in tables.types.iter() {
             let Some(props) = &table.props else { continue };
@@ -168,7 +169,7 @@ impl DbTableIndex {
                         let field_count = values.len() / col_types.len();
                         for field_id in 0..field_count {
                             for id in 0..col_types.len() {
-                                let packed = ((table.id as u32 & 0xFFFF) << 12)
+                                let packed = ((table.id.raw() & 0xFFFF) << 12)
                                     | ((column as u32 & 0x7F) << 4)
                                     | (id as u32 & 0xF);
                                 let idx = id + field_id * col_types.len();
@@ -188,7 +189,7 @@ impl DbTableIndex {
                         }
                     } else {
                         let packed =
-                            ((table.id as u32 & 0xFFFF) << 12) | ((column as u32 & 0x7F) << 4);
+                            ((table.id.raw() & 0xFFFF) << 12) | ((column as u32 & 0x7F) << 4);
                         for value in values.iter() {
                             let key = match value {
                                 DbRowValue::Int(v) => DbIndexKey::Int(*v),
@@ -209,7 +210,7 @@ impl DbTableIndex {
         DbTableIndex { rows: index }
     }
 
-    pub fn find(&self, query: &DbIndexKey, table_column_packed: u32) -> &[u16] {
+    pub fn find(&self, query: &DbIndexKey, table_column_packed: u32) -> &[TypeId] {
         let tuple = table_column_packed & 0xF;
         let lookup_key = if tuple == 0 {
             table_column_packed

@@ -1,0 +1,14 @@
+// 5054
+[proc,clientscript_5054](int $int0, int $int1)
+$int0 = calc($int0 - if_getscrollx(interface_1111:com_12));
+$int1 = calc($int1 - if_getscrolly(interface_1111:com_12));
+if ($int0 < 10) {
+    ~clientscript_5050(-10, 1, 0);
+} else if ($int0 > calc(if_getwidth(interface_1111:com_12) - (%varclient_1396 + 10))) {
+    ~clientscript_5050(10, 1, 0);
+}
+if ($int1 < 10) {
+    ~clientscript_5050(-10, 1, 1);
+} else if ($int1 > calc(if_getheight(interface_1111:com_12) - (%varclient_1396 + 10))) {
+    ~clientscript_5050(10, 1, 1);
+}

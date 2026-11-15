@@ -10,7 +10,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4100
         none!(m, LC_CATEGORY => |s| {
             let loc = pop_loc::<E>(s)?;
-            s.push_int(loc.category.map(|x| x as i32).unwrap_or(-1));
+            s.push_int(loc.category.map(|x| x.int()).unwrap_or(-1));
         });
 
         // 4101

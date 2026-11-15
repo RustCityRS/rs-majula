@@ -1,0 +1,243 @@
+// Witch's House (289's quests/quest_ball/scripts/quest_ball.rs2), line for
+// line. Sources for what 2011 changes: C is cache 786, W is the 2011 wiki's
+// Witch's House page (2011-05-20). Anything neither shows is 289's.
+// - 289's door sound (door_open) has no synth of that name at 647; the doors
+//   take nicedoor_open as 647's other doors do. No source has 2011's sound.
+// - The open doors: C's grim_inactiveposhdoor is the front door's model and
+//   colours with no ops; C has no such twin on the back door's model
+//   (model_26063), so it takes the same one, as 289's two doors share
+//   loc_1535. The shed's is inactivepoordoor, 289's loc_1532, its own model.
+
+[oploc1,witchpot]
+// https://youtu.be/stROSTIJ2q8?si=4wvlodUkO9x6pAV9&t=62
+// The 2011 wiki's Door key page (2011-05-20) guesses at this message ("a
+// player may need to start the quest first ... or the key may be in the
+// player's bank"); it states neither as a rule, so the check stays 289's.
+if(inv_total(inv, witches_doorkey) > 0) { // no bank check (osrs)
+    mes("You don't find anything interesting.");
+    return;
+}
+~mesbox("You find a key hidden under the flower pot.");
+inv_add(inv, witches_doorkey, 1);
+
+// C has the front door on the tile west of the wall line (0_45_54_20_17,
+// angle 2) where 289's stood east of it (_21_17, angle 0), so check_axis is
+// true outside the house here: 289's $leaving is its opposite, $outside.
+[oploc1,witchhousedoor]
+def_boolean $outside = ~check_axis(coord, loc_coord, loc_angle);
+if(inv_total(inv, witches_doorkey) > 0 | $outside = false) {
+    @open_witch_house_door($outside);
+}
+mes("The door is locked.");
+
+[oplocu,witchhousedoor]
+def_boolean $outside = ~check_axis(coord, loc_coord, loc_angle);
+if(last_useitem = witches_doorkey | $outside = false) {
+    @open_witch_house_door($outside);
+}
+~displaymessage(^dm_default);
+
+[label,open_witch_house_door](boolean $outside)
+if($outside = true & (%ballquest < ^ball_started | %ballquest = ^ball_complete)) {
+    ~chatplayer("<p,neutral>It would be rude to break into this house.");
+    return;
+}
+~open_and_close_door2(grim_inactiveposhdoor, $outside, nicedoor_open);
+
+// W: "If you are not wearing the leather gloves, safety gloves, void gloves,
+// ghostly gloves or penance gloves, you will be hit"; 289 has the leather
+// gloves alone. The penance gloves are two objs in C (10553, and 10554 as
+// worn in Barbarian Assault).
+[proc,ball_insulated]()(boolean)
+if (inv_total(worn, leather_gloves) > 0 | inv_total(worn, sops_gloves) > 0 | inv_total(worn, pest_void_knight_gloves) > 0) {
+    return(true);
+}
+if (inv_total(worn, secret_ghost_gloves) > 0 | inv_total(worn, barbassault_penance_gloves) > 0 | inv_total(worn, barbassault_penance_gloves_worn) > 0) {
+    return(true);
+}
+return(false);
+
+[oploc1,_ball_irongate]
+if(~ball_insulated = false) {
+    // 289's stat(hitpoints) / 10 + 1 hitpoints; 2011's current hitpoints are
+    // its life points (%life_points), ten to a hitpoint, as is the damage. W
+    // has "around 90 to 180 life points" and no rule.
+    queue(damage_player, 0, calc(((%life_points / 100) + 1) * 10));
+    ~mesbox("As your bare hands touch the gate you feel a shock.");
+    return;
+}
+def_boolean $entering = ~check_axis(coord, loc_coord, loc_angle);
+def_int $x;
+def_int $z;
+def_locshape $shape = loc_shape;
+def_coord $loc_coord = loc_coord;
+def_int $next_angle = calc(loc_angle - 1);
+def_loc $next_loc = loc_param(next_loc_stage);
+$x, $z = ~door_open(loc_angle, loc_shape);
+sound_synth(iron_door_open, 1, 0);
+def_coord $dest = $loc_coord;
+if ($entering = true) {
+    $dest = movecoord($loc_coord, $x, 0, $z);
+}
+// The south leaf (shockgater) swings the other way, as 289's does; its open
+// form is named in all.loc.
+if($next_loc = zombiequeengateopenr) {
+    $next_angle = calc(loc_angle + 1);
+}
+p_teleport($dest);
+// Temp note: dur updated
+loc_change(inviswall, 3);
+loc_add(movecoord($loc_coord, 1, 0, 0), $next_loc, $next_angle, $shape, 3);
+
+// this cupboard just opens/closes with loc_add/del
+[oploc1,magnetcbshut]
+// Temp note: dur does not need updated
+loc_change(magnetcbopen, 500);
+
+[oploc1,magnetcbopen]
+//https://youtu.be/stROSTIJ2q8?si=124VnPXM19WEO-Ny&t=104
+if(~obj_gettotal(magnet) > 0) {
+    mes("You don't find anything interesting.");
+    return;
+}
+~mesbox("You find a magnet in the cupboard.");
+if(%ballquest = ^ball_started) {
+    %ballquest = ^ball_found_magnet;
+}
+inv_add(inv, magnet, 1);
+
+[oploc2,magnetcbopen]
+loc_change(magnetcbshut, 500);
+
+[label,ball_cheese](string $pref)
+inv_del(inv, cheese, 1);
+if (npc_find(coord, witchrat, 5, 0) = true) {
+    npc_del;
+}
+npc_add(^witchrat_coord, witchrat, 50);
+~mesbox("A mouse runs out of <$pref> hole.");
+
+// todo: figure out what oploc1 interaction on this loc and opnpc1 on the mouse is supposed to do here
+[oplocu,witchmousehole]
+if(last_useitem = cheese) {
+    @ball_cheese("the");
+}
+~displaymessage(^dm_default);
+
+[opheld5,cheese]
+if(inzone(0_45_54_21_10, 0_45_54_23_11, coord) = true) {
+    @ball_cheese("a");
+}
+inv_dropslot(inv, coord, last_slot, ^lootdrop_duration);
+sound_synth(put_down, 1, 0);
+
+[opnpcu,witchrat]
+if(last_useitem = magnet) {
+    if(%ballquest >= ^ball_unlocked_mousedoor) {
+        mes("You have already unlocked this door.");
+        return;
+    } else if(%ballquest < ^ball_found_magnet) {
+        ~mesbox("This doesn't seem to be the right magnet to open this door...");
+        return;
+    }
+    %ballquest = ^ball_unlocked_mousedoor;
+    inv_del(inv, magnet, 1);
+    npc_del;
+    ~mesbox("You attach the magnet to the mouse's harness. The mouse finishes the cheese and runs back into its hole. You hear some odd noises from inside the walls. There is a strange whirring noise from above the door frame.");
+    return;
+}
+~displaymessage(^dm_default);
+
+[oploc1,witchbackdoor]
+if(%ballquest < ^ball_unlocked_mousedoor) {
+    ~mesbox("This door is locked.");
+    ~chatplayer("<p,confused>Strange... I can't see any kind of lock or handle to open this door...");
+    return;
+}
+~open_and_close_door2(grim_inactiveposhdoor, ~check_axis(coord, loc_coord, loc_angle), nicedoor_open);
+
+[oploc1,witchsheddoor]
+if(%ballquest >= ^ball_defeated_experiment) {
+    ~open_and_close_door2(inactivepoordoor, ~check_axis(coord, loc_coord, loc_angle), nicedoor_open);
+    return;
+}
+mes("The shed door is locked.");
+
+[oplocu,witchsheddoor]
+if(last_useitem = witches_shedkey) {
+    // angles on these doors don't visually match osrs, but they actually do have the same loc_angle
+    // prob just something weird with the new models
+    def_boolean $entering = ~check_axis(coord, loc_coord, loc_angle);
+    if($entering = false) {
+        // this mechanic existed on OSRS release (2007), i'm not sure if it originally existed
+        // but no proof otherwise
+        huntall(coord, 5, 0);
+        while(.huntnext = true) {
+            if(inzone(0_45_54_54_3, 0_45_54_57_11, .coord) = true) {
+                ~chatplayer("<p,neutral>I'd better not go in there yet... I think I can hear someone inside!");
+                return;
+            }
+        }
+        npc_huntall(coord, 7, 0);
+        while (npc_findnext = true) {
+            if (npc_category = witches_experiment) {
+                npc_del;
+            }
+        }
+        npc_add(^ball_experiment_spawn_coord, shapeshifterglob, 500);
+    }
+    ~open_and_close_door2(inactivepoordoor, $entering, nicedoor_open);
+    return;
+}
+mes("The shed door is locked.");
+
+[oploc2,witchfountain]
+if(~obj_gettotal(witches_shedkey) > 0) { // checks bank
+    mes("There is nothing in the fountain.");
+    return;
+}
+// this does always mention the diary whether you've read/picked it up or not
+// (W's trivia has the same of 2011, with this message word for word)
+~mesbox("You search for the secret compartment mentioned in the diary. Inside it you find a small key. You take the key.");
+inv_add(inv, witches_shedkey, 1);
+
+[opobj3,ball]
+if(%ballquest = ^ball_complete) {
+    mes("Another ball! The witch must have found another one. You decide to leave this one");
+    mes("here.");
+    return;
+}
+if(%ballquest = ^ball_defeated_experiment) {
+    if(inv_total(inv, ball) > 0) { // doesn't check bank
+        mes("You already have the boys ball...");
+        return;
+    }
+    @pickup_obj;
+}
+npc_huntall(coord, 7, 0);
+while (npc_findnext = true) {
+    if (npc_category = witches_experiment) {
+        mes("The shapeshifter glares at you. You feel slightly weakened.");
+        stat_sub(attack, 1, 5);
+        stat_sub(defence, 1, 5);
+        ~npc_retaliate(0);
+        // 289's 1 + stat(hitpoints) * 5 / 100 hitpoints, in life points.
+        queue(damage_player, 0, calc(((%life_points / 200) + 1) * 10));
+        return;
+    }
+}
+npc_add(^ball_experiment_spawn_coord, shapeshifterglob, 500);
+mes("A shapeshifter appears, and knocks you back from the ball!");
+
+[queue,ball_quest_complete]
+// https://web.archive.org/web/20060908030634im_/http://www.runeweb.net/fireball/Witchs%20House%20Images/Witch3.PNG
+%ballquest = ^ball_complete;
+inv_del(inv, ball, 1);
+// W: "4 Quest points", "6,325 Constitution experience" (289's 6,325
+// Hitpoints experience).
+stat_advance(hitpoints, 63250);
+session_log(^log_adventure, "Quest complete: Witches House");
+// No source found shows 2011's scroll (W's picture of it is not on the local
+// wiki or the Wayback Machine): the sentence is 289's with the quest's name
+// as C has it ([witches_house] name=Witch's House), the reward line is W's.
+~send_quest_complete2(^questlist_ball, ball, 180, ^ball_questpoints, "You have completed the Witch's House Quest!", "6,325 Constitution XP");

@@ -1,0 +1,6 @@
+// 5230
+[proc,clientscript_5230](int $int0, component $component1, component $component2)
+if (activeclansettings_find_listened = true) {
+    ~script4340($int0, %clan_time_offset_varclan, $component1, $component2);
+    if_setonclanchanneltransmit($component2, null);
+}

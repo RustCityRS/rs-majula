@@ -11,6 +11,20 @@ use std::path::PathBuf;
 pub const KIND: &str = "texture";
 pub const EXTENSION: &str = "material";
 
+#[cfg(all(since_530, before_647))]
+const FIELDS: [(&str, Number); 9] = [
+    ("unknown0", Number::U8),
+    ("unknown1", Number::U8),
+    ("unknown2", Number::U8),
+    ("unknown3", Number::U8),
+    ("unknown4", Number::I8),
+    ("unknown5", Number::I8),
+    ("unknown6", Number::I8),
+    ("unknown7", Number::I8),
+    ("unknown8", Number::U16),
+];
+
+#[cfg(since_647)]
 const FIELDS: [(&str, Number); 19] = [
     ("highdetail", Number::U8),
     ("lowmem", Number::U8),

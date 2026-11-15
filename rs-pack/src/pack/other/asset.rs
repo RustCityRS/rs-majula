@@ -1,5 +1,8 @@
 use crate::archive;
 use crate::pack::names::AssetNames;
+#[cfg(all(since_530, before_647))]
+use crate::pack::other::worldmap_layers;
+#[cfg(since_647)]
 use crate::pack::other::{defaults, loading, worldmap_source};
 use crate::pack::sound::instrument;
 use crate::pack::text::{Number, TextCodec};
@@ -15,17 +18,18 @@ pub fn pack_file(
     names: &AssetNames,
 ) -> Result<Vec<(u32, Vec<u8>)>> {
     let text = fs::read_to_string(path).with_context(|| path.display().to_string())?;
-    pack_sections(aid, gid, &text, names, |body| {
-        if aid == archive::WORLDMAP {
-            worldmap_source::pack_squares(path, body, names)
-        } else {
-            pack(aid, gid, body, names)
-        }
+    pack_sections(aid, gid, &text, names, |body| match aid {
+        #[cfg(since_647)]
+        archive::WORLDMAP => worldmap_source::pack_squares(path, body, names),
+        #[cfg(all(since_530, before_647))]
+        archive::WORLDMAP => worldmap_layers::pack(path, body, names),
+        _ => pack(aid, gid, body, names),
     })
 }
 
 pub fn entry_kind(aid: u8, gid: u32) -> Option<&'static str> {
     match (aid, gid) {
+        #[cfg(since_647)]
         (archive::LOADING_SCREENS, 1) => Some("screen"),
         (archive::WORLDMAP, _) => Some("file"),
         _ => None,
@@ -90,24 +94,33 @@ fn pack_sections(
 
 /// Whether an asset's file holds a section for each of its group's files.
 pub fn has_sections(aid: u8) -> bool {
-    aid != archive::DEFAULTS
+    match aid {
+        #[cfg(since_647)]
+        archive::DEFAULTS => false,
+        _ => true,
+    }
 }
 
 pub fn extension(aid: u8) -> Option<&'static str> {
     Some(match aid {
-        archive::BASES => "base",
         archive::BINARY => "huffman",
         archive::FONTMETRICS => "fontmetrics",
+        #[cfg(since_647)]
         archive::DEFAULTS => "defaults",
         archive::SYNTH => "synth",
         archive::INSTRUMENTS => "instrument",
+        #[cfg(since_647)]
         archive::LOADING_SCREENS => "screen",
+        #[cfg(since_647)]
         archive::WORLDMAP => "fm",
+        #[cfg(all(since_530, before_647))]
+        archive::WORLDMAP => worldmap_layers::EXTENSION,
         _ => return None,
     })
 }
 
 pub fn unpack(aid: u8, gid: u32, data: &[u8], names: &AssetNames) -> Result<String> {
+    #[cfg(since_647)]
     if aid == archive::DEFAULTS {
         return defaults::unpack(gid, data, names);
     }
@@ -117,6 +130,7 @@ pub fn unpack(aid: u8, gid: u32, data: &[u8], names: &AssetNames) -> Result<Stri
 }
 
 pub fn pack(aid: u8, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
+    #[cfg(since_647)]
     if aid == archive::DEFAULTS {
         return defaults::pack(gid, text, names);
     }
@@ -127,7 +141,6 @@ pub fn pack(aid: u8, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>
 
 fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
     match aid {
-        archive::BASES => base(c),
         archive::BINARY => {
             c.array("code_lengths", Number::U8, 256)?;
             Ok(())
@@ -135,29 +148,27 @@ fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
         archive::FONTMETRICS => font(c),
         archive::SYNTH => synth(c),
         archive::INSTRUMENTS => instrument::transcode(c),
+        #[cfg(since_647)]
         archive::LOADING_SCREENS => loading::transcode(gid, c),
+        #[cfg(since_647)]
         archive::WORLDMAP => worldmap_source::transcode(c),
         _ => bail!("Unsupported text asset {aid}/{gid}"),
     }
 }
 
-fn base(c: &mut TextCodec<'_>) -> Result<()> {
-    let count = c.number("bones", Number::U8)? as usize;
-    c.array("transforms", Number::U8, count)?;
-    c.array("active", Number::U8, count)?;
-    c.array("masks", Number::U16, count)?;
-    let lengths = c.array("label_counts", Number::U8, count)?;
-    for (i, count) in lengths.into_iter().enumerate() {
-        c.array(&format!("bone{i}"), Number::U8, count as usize)?;
-    }
-    Ok(())
-}
-
 fn font(c: &mut TextCodec<'_>) -> Result<()> {
+    #[cfg(since_647)]
     c.number("version", Number::U8)?;
-    let spacing = c.number("has_spacing", Number::U8)?;
+    #[cfg(since_647)]
+    let spacing = c.number("has_spacing", Number::U8)? == 1;
     c.array("glyph_widths", Number::U8, 256)?;
-    if spacing == 1 {
+    // Without a header, only the length tells the short form from the spaced one.
+    #[cfg(all(since_530, before_647))]
+    let spacing = match c.source_len() {
+        Some(len) => len != 257,
+        None => !c.more("space_height"),
+    };
+    if spacing {
         let heights = c.array("glyph_heights", Number::U8, 256)?;
         c.array("glyph_spacings", Number::U8, 256)?;
         for side in ["left", "right"] {
@@ -170,9 +181,12 @@ fn font(c: &mut TextCodec<'_>) -> Result<()> {
     } else {
         c.number("space_height", Number::U8)?;
     }
-    c.array("padding", Number::U8, 2)?;
-    c.number("baseline_adjust", Number::U8)?;
-    c.number("ascent_adjust", Number::U8)?;
+    #[cfg(since_647)]
+    {
+        c.array("padding", Number::U8, 2)?;
+        c.number("baseline_adjust", Number::U8)?;
+        c.number("ascent_adjust", Number::U8)?;
+    }
     Ok(())
 }
 

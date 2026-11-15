@@ -1,0 +1,10 @@
+// 1894
+[proc,clientscript_1894](component $component0)
+switch_int (login_disallowresult) {
+    case 0 :
+        if_settext($component0, "You must have a Combat Level of at least 20 (without Summoning) to enter a PvP world.");
+    case 1 :
+        if_settext($component0, "You are currently carrying lent items and cannot enter a PvP world.");
+    case default :
+        if_settext($component0, "Unexpected server response. Please try using a different world.");
+}

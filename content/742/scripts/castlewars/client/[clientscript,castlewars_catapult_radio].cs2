@@ -1,0 +1,22 @@
+// 3434
+[clientscript,castlewars_catapult_radio](int $int0)
+if (%castlewars_catapult_firing = 1) {
+    return;
+}
+if (%castlewars_catapult_view_radio ! $int0) {
+    sound_synth(synth_9439, 1, 0);
+}
+%castlewars_catapult_view_radio = $int0;
+if_setgraphic(castlewars_catapult:com_16, "radio_buttons,0");
+if_setgraphic(castlewars_catapult:com_17, "radio_buttons,0");
+if_setgraphic(castlewars_catapult:com_18, "radio_buttons,0");
+if (%castlewars_catapult_view_radio = 1) {
+    if_setgraphic(castlewars_catapult:com_16, "radio_buttons,1");
+} else if (%castlewars_catapult_view_radio = 2) {
+    if_setgraphic(castlewars_catapult:com_17, "radio_buttons,1");
+} else if (%castlewars_catapult_view_radio = 3) {
+    if_setgraphic(castlewars_catapult:com_18, "radio_buttons,1");
+} else {
+    %castlewars_catapult_view_radio = 1;
+    if_setgraphic(castlewars_catapult:com_16, "radio_buttons,1");
+}

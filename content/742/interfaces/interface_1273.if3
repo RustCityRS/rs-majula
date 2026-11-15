@@ -1,0 +1,1215 @@
+// 1273:0
+[com_0]
+type=graphic
+width=301
+height=210
+layer=com_38
+graphic=graphic_10739
+
+// 1273:1
+[com_1]
+type=text
+y=23
+width=43
+height=32
+xmode=abs_centre
+layer=com_38
+textfont=verdana_15pt_regular
+text=You  are buying
+textalignh=centre
+colour=0x502828
+
+// 1273:2
+[com_2]
+type=text
+y=46
+width=202
+height=25
+xmode=abs_centre
+layer=com_38
+textfont=palatino_linotype_14pt_regular
+text=10000000 x Greater Runic Staff
+textalignh=centre
+colour=0x502828
+
+// 1273:3
+[com_3]
+type=text
+y=68
+width=32
+height=32
+xmode=abs_centre
+layer=com_38
+textfont=verdana_15pt_regular
+text=for
+textalignh=centre
+colour=0x502828
+
+// 1273:4
+[com_4]
+type=text
+y=93
+width=152
+height=22
+xmode=abs_centre
+layer=com_38
+textfont=palatino_linotype_14pt_regular
+text=10000000 Points
+textalignh=centre
+colour=0x502828
+
+// 1273:5
+[com_5]
+type=rectangle
+y=116
+width=200
+height=1
+xmode=abs_centre
+layer=com_38
+colour=0x502828
+
+// 1273:6
+[com_6]
+type=text
+y=117
+width=109
+height=30
+xmode=abs_centre
+layer=com_38
+textfont=verdana_15pt_regular
+text=Are you sure?
+textalignh=centre
+colour=0x502828
+
+// 1273:7
+[com_7]
+type=layer
+x=22
+y=161
+width=120
+height=30
+layer=com_38
+transmitop=1
+op1=Buy
+
+// 1273:8
+[com_8]
+type=layer
+x=22
+y=161
+width=120
+height=30
+xmode=abs_right
+layer=com_38
+transmitop=1
+op1=Cancel
+
+// 1273:9
+[com_9]
+type=rectangle
+y=3
+width=68
+height=18
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+colour=0x000000
+fill=yes
+trans=128
+
+// 1273:10
+[com_10]
+type=layer
+width=765
+height=503
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_6160
+
+// 1273:11
+[com_11]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+
+// 1273:12
+[com_12]
+type=layer
+x=195
+y=76
+width=555
+height=375
+layer=com_10
+
+// 1273:13
+[com_13]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+
+// 1273:14
+[com_14]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_13
+
+// 1273:15
+[com_15]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_13
+
+// 1273:16
+[com_16]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_13
+hide=yes
+
+// 1273:17
+[com_17]
+type=graphic
+width=84
+height=78
+layer=com_13
+hide=yes
+graphic=graphic_10734
+
+// 1273:18
+[com_18]
+type=layer
+width=182
+height=100
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+
+// 1273:19
+[com_19]
+type=layer
+width=555
+height=375
+layer=com_16
+
+// 1273:20
+[com_20]
+type=layer
+x=34
+y=63
+width=208
+height=338
+layer=com_16
+
+// 1273:21
+[com_21]
+type=model
+x=34
+y=34
+width=32
+height=32
+layer=com_20
+model=null
+modelzoom=800
+
+// 1273:22
+[com_22]
+type=model
+x=106
+y=106
+width=32
+height=32
+layer=com_20
+model=null
+modelzoom=800
+
+// 1273:23
+[com_23]
+type=model
+x=58
+y=58
+width=32
+height=32
+layer=com_20
+model=null
+modelzoom=800
+
+// 1273:24
+[com_24]
+type=model
+x=82
+y=82
+width=32
+height=32
+layer=com_20
+model=null
+modelzoom=800
+
+// 1273:25
+[com_25]
+type=layer
+x=25
+width=240
+height=312
+xmode=abs_right
+ymode=abs_centre
+layer=com_16
+
+// 1273:26
+[com_26]
+type=layer
+width=240
+height=312
+layer=com_25
+
+// 1273:27
+[com_27]
+type=layer
+x=18
+y=457
+width=167
+height=34
+layer=com_10
+
+// 1273:28
+[com_28]
+type=layer
+x=205
+y=458
+width=443
+height=34
+layer=com_10
+
+// 1273:29
+[com_29]
+type=layer
+x=655
+y=459
+width=90
+height=31
+layer=com_10
+transmitop=1
+op1=Buy
+
+// 1273:30
+[com_30]
+type=layer
+x=655
+y=459
+width=90
+height=31
+layer=com_10
+hide=yes
+noclickthrough=yes
+onmouseleave=deltooltip(interface_1273:com_36)
+onmouserepeat=addtooltip(event_com, interface_1273:com_36, "Only members can purchase items in the shop.", 5, 300)
+
+// 1273:31
+[com_31]
+type=graphic
+x=8
+y=2
+width=74
+height=23
+xmode=abs_right
+ymode=abs_centre
+layer=com_29
+graphic=graphic_9082
+onmouseover=graphic_swapper(event_com, 9085)
+onmouseleave=graphic_swapper(event_com, 9082)
+
+// 1273:32
+[com_32]
+type=text
+y=1
+width=79
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+textfont=verdana_13pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:33
+[com_33]
+type=layer
+x=11
+y=78
+width=182
+height=43
+layer=com_10
+transmitop=1
+op1=Items
+onmouseleave=deltooltip(interface_1273:com_36)
+onop=clientscript_6163(0)
+onmouserepeat=addtooltip(event_com, interface_1273:com_36, "Buy runecrafting related rewards.", 5, 300)
+
+// 1273:34
+[com_34]
+type=layer
+x=11
+y=116
+width=182
+height=43
+layer=com_10
+transmitop=1
+op1=Esteem
+onmouseleave=deltooltip(interface_1273:com_36)
+onop=clientscript_6163(1)
+onmouserepeat=addtooltip(event_com, interface_1273:com_36, "Show off your achievements in the runespan with an esteem icon for your wicked robes.", 5, 300)
+
+// 1273:35
+[com_35]
+type=layer
+x=11
+y=154
+width=182
+height=43
+layer=com_10
+transmitop=1
+op1=Re-colour
+onmouseleave=deltooltip(interface_1273:com_36)
+onop=clientscript_6163(2)
+onmouserepeat=addtooltip(event_com, interface_1273:com_36, "Change the colour of your wicked robes.", 5, 300)
+
+// 1273:36
+[com_36]
+type=layer
+width=765
+height=503
+layer=com_10
+
+// 1273:37
+[com_37]
+type=layer
+width=735
+height=503
+ymode=abs_bottom
+layer=com_10
+hide=yes
+noclickthrough=yes
+
+// 1273:38
+[com_38]
+type=layer
+x=232
+y=147
+width=301
+height=210
+ymode=abs_bottom
+layer=com_37
+
+// 1273:39
+[com_39]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_11
+colour=0x000000
+fill=yes
+
+// 1273:40
+[com_40]
+type=rectangle
+x=8
+y=6
+width=16
+height=11
+widthmode=minus
+heightmode=minus
+layer=com_11
+colour=0x0b1114
+fill=yes
+
+// 1273:41
+[com_41]
+type=graphic
+x=14
+y=13
+width=737
+height=57
+layer=com_11
+graphic=graphic_10717
+
+// 1273:42
+[com_42]
+type=graphic
+x=14
+y=454
+width=28
+height=464
+widthmode=minus
+heightmode=minus
+layer=com_11
+graphic=graphic_10738
+tiling=yes
+
+// 1273:43
+[com_43]
+type=graphic
+x=8
+y=6
+width=38
+height=38
+layer=com_11
+graphic=graphic_9031
+2dangle=16384
+
+// 1273:44
+[com_44]
+type=graphic
+x=8
+y=6
+width=38
+height=38
+xmode=abs_right
+layer=com_11
+graphic=graphic_9031
+
+// 1273:45
+[com_45]
+type=graphic
+x=8
+y=4
+width=38
+height=38
+xmode=abs_right
+ymode=abs_bottom
+layer=com_11
+graphic=graphic_9031
+2dangle=49152
+
+// 1273:46
+[com_46]
+type=graphic
+x=8
+y=4
+width=38
+height=38
+ymode=abs_bottom
+layer=com_11
+graphic=graphic_9031
+2dangle=32768
+
+// 1273:47
+[com_47]
+type=graphic
+x=8
+y=44
+width=7
+height=417
+layer=com_11
+graphic=graphic_9033
+tiling=yes
+hflip=yes
+
+// 1273:48
+[com_48]
+type=graphic
+x=189
+y=71
+width=7
+height=427
+layer=com_11
+graphic=graphic_9033
+tiling=yes
+hflip=yes
+
+// 1273:49
+[com_49]
+type=graphic
+x=750
+y=44
+width=7
+height=417
+layer=com_11
+graphic=graphic_9033
+tiling=yes
+
+// 1273:50
+[com_50]
+type=graphic
+x=46
+y=492
+width=673
+height=6
+layer=com_11
+graphic=graphic_9032
+tiling=yes
+vflip=yes
+
+// 1273:51
+[com_51]
+type=graphic
+x=46
+y=6
+width=673
+height=6
+layer=com_11
+graphic=graphic_9032
+tiling=yes
+
+// 1273:52
+[com_52]
+type=graphic
+x=14
+y=450
+width=737
+height=6
+layer=com_11
+graphic=graphic_9032
+tiling=yes
+vflip=yes
+
+// 1273:53
+[com_53]
+type=graphic
+x=14
+y=70
+width=737
+height=6
+layer=com_11
+graphic=graphic_9032
+tiling=yes
+vflip=yes
+
+// 1273:54
+[com_54]
+type=layer
+x=10
+y=10
+width=19
+height=17
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Close
+
+// 1273:55
+[com_55]
+type=graphic
+width=19
+height=17
+xmode=abs_right
+layer=com_54
+graphic="intro_close_button,0"
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+
+// 1273:56
+[com_56]
+type=graphic
+width=182
+height=43
+layer=com_35
+graphic=graphic_7844
+onmouseover=graphic_swapper(event_com, 7845)
+onmouseleave=graphic_swapper(event_com, 7844)
+
+// 1273:57
+[com_57]
+type=graphic
+x=4
+width=42
+height=42
+layer=com_35
+graphic=graphic_7884
+
+// 1273:58
+[com_58]
+type=text
+x=25
+y=-1
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_35
+textfont=verdana_13pt_regular
+text=Re-colour
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:59
+[com_59]
+type=graphic
+width=182
+height=43
+layer=com_34
+graphic=graphic_7844
+onmouseover=graphic_swapper(event_com, 7845)
+onmouseleave=graphic_swapper(event_com, 7844)
+
+// 1273:60
+[com_60]
+type=graphic
+x=4
+width=42
+height=42
+layer=com_34
+graphic=graphic_10694
+
+// 1273:61
+[com_61]
+type=text
+x=25
+y=-1
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_34
+textfont=verdana_13pt_regular
+text=Esteem
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:62
+[com_62]
+type=graphic
+width=182
+height=43
+layer=com_33
+graphic=graphic_7844
+onmouseover=graphic_swapper(event_com, 7845)
+onmouseleave=graphic_swapper(event_com, 7844)
+
+// 1273:63
+[com_63]
+type=model
+x=12
+y=6
+width=24
+height=34
+layer=com_33
+model=model_2268
+modelorigin=-1,16
+modelzoom=614
+
+// 1273:64
+[com_64]
+type=text
+x=25
+y=-1
+width=25
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_33
+textfont=verdana_13pt_regular
+text=Items
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:65
+[com_65]
+type=text
+x=2
+width=67
+height=32
+layer=com_27
+textfont=verdana_13pt_regular
+text=My Points:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:66
+[com_66]
+type=text
+x=76
+width=84
+height=32
+layer=com_27
+textfont=verdana_13pt_regular
+text=2147000000
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+onvarctransmit=clientscript_6161{varclient_1909}
+
+// 1273:67
+[com_67]
+type=text
+x=3
+width=39
+height=32
+layer=com_28
+textfont=verdana_13pt_regular
+text=Cost:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:68
+[com_68]
+type=text
+x=48
+width=391
+height=32
+layer=com_28
+textfont=verdana_13pt_regular
+text=0
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+onvartransmit=clientscript_6183{varplayer_2575}
+
+// 1273:69
+[com_69]
+type=layer
+x=29
+y=113
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 0)
+
+// 1273:70
+[com_70]
+type=layer
+x=82
+y=113
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 1)
+onclick=clientscript_6182(event_com, 1)
+
+// 1273:71
+[com_71]
+type=layer
+x=84
+y=113
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 2)
+
+// 1273:72
+[com_72]
+type=layer
+x=31
+y=113
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 3)
+
+// 1273:73
+[com_73]
+type=layer
+x=29
+y=163
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 4)
+
+// 1273:74
+[com_74]
+type=layer
+x=82
+y=163
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 5)
+
+// 1273:75
+[com_75]
+type=layer
+x=84
+y=163
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 6)
+
+// 1273:76
+[com_76]
+type=layer
+x=31
+y=163
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 7)
+
+// 1273:77
+[com_77]
+type=layer
+x=29
+y=213
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 8)
+
+// 1273:78
+[com_78]
+type=layer
+x=82
+y=213
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 9)
+
+// 1273:79
+[com_79]
+type=layer
+x=84
+y=213
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 10)
+
+// 1273:80
+[com_80]
+type=layer
+x=31
+y=213
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 11)
+
+// 1273:81
+[com_81]
+type=layer
+x=29
+y=263
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 12)
+
+// 1273:82
+[com_82]
+type=layer
+x=82
+y=263
+width=20
+height=20
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 13)
+
+// 1273:83
+[com_83]
+type=layer
+x=84
+y=263
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 14)
+
+// 1273:84
+[com_84]
+type=layer
+x=31
+y=263
+width=20
+height=20
+xmode=abs_right
+layer=com_25
+transmitop=1
+op1=Select colour
+onop=clientscript_6182(event_com, 15)
+
+// 1273:85
+[com_85]
+type=graphic
+width=40
+height=30
+layer=com_7
+graphic=graphic_7865
+
+// 1273:86
+[com_86]
+type=graphic
+x=40
+width=80
+height=30
+widthmode=minus
+layer=com_7
+graphic=graphic_7866
+tiling=yes
+
+// 1273:87
+[com_87]
+type=graphic
+width=40
+height=30
+xmode=abs_right
+layer=com_7
+graphic=graphic_7867
+
+// 1273:88
+[com_88]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_7
+onmouseover=clientscript_5364(interface_1273:com_89, interface_1273:com_90, interface_1273:com_91, 0)
+onmouseleave=clientscript_5364(interface_1273:com_89, interface_1273:com_90, interface_1273:com_91, 1)
+
+// 1273:89
+[com_89]
+type=graphic
+width=40
+height=30
+layer=com_88
+graphic=graphic_7868
+trans=255
+
+// 1273:90
+[com_90]
+type=graphic
+x=40
+width=80
+height=30
+widthmode=minus
+layer=com_88
+graphic=graphic_7869
+tiling=yes
+trans=255
+
+// 1273:91
+[com_91]
+type=graphic
+width=40
+height=30
+xmode=abs_right
+layer=com_88
+graphic=graphic_7870
+trans=255
+
+// 1273:92
+[com_92]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_7
+onclick=clientscript_5361(interface_1273:com_93, interface_1273:com_94, interface_1273:com_95, 0)
+onrelease=clientscript_5361(interface_1273:com_93, interface_1273:com_94, interface_1273:com_95, 1)
+
+// 1273:93
+[com_93]
+type=graphic
+width=40
+height=30
+layer=com_92
+graphic=graphic_7871
+trans=255
+
+// 1273:94
+[com_94]
+type=graphic
+x=40
+width=80
+height=30
+widthmode=minus
+layer=com_92
+graphic=graphic_7872
+tiling=yes
+trans=255
+
+// 1273:95
+[com_95]
+type=graphic
+width=40
+height=30
+xmode=abs_right
+layer=com_92
+graphic=graphic_7873
+trans=255
+
+// 1273:96
+[com_96]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_7
+textfont=verdana_13pt_regular
+text=Buy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6be78
+
+// 1273:97
+[com_97]
+type=graphic
+width=40
+height=30
+layer=com_8
+graphic=graphic_7847
+
+// 1273:98
+[com_98]
+type=graphic
+x=40
+width=80
+height=30
+widthmode=minus
+layer=com_8
+graphic=graphic_7848
+tiling=yes
+
+// 1273:99
+[com_99]
+type=graphic
+width=40
+height=30
+xmode=abs_right
+layer=com_8
+graphic=graphic_7849
+
+// 1273:100
+[com_100]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_8
+onmouseover=clientscript_5364(interface_1273:com_101, interface_1273:com_102, interface_1273:com_103, 0)
+onmouseleave=clientscript_5364(interface_1273:com_101, interface_1273:com_102, interface_1273:com_103, 1)
+
+// 1273:101
+[com_101]
+type=graphic
+width=40
+height=30
+layer=com_100
+graphic=graphic_7850
+trans=255
+
+// 1273:102
+[com_102]
+type=graphic
+x=40
+width=80
+height=30
+widthmode=minus
+layer=com_100
+graphic=graphic_7851
+tiling=yes
+trans=255
+
+// 1273:103
+[com_103]
+type=graphic
+width=40
+height=30
+xmode=abs_right
+layer=com_100
+graphic=graphic_7852
+trans=255
+
+// 1273:104
+[com_104]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_8
+onclick=clientscript_5361(interface_1273:com_105, interface_1273:com_106, interface_1273:com_107, 0)
+onrelease=clientscript_5361(interface_1273:com_105, interface_1273:com_106, interface_1273:com_107, 1)
+
+// 1273:105
+[com_105]
+type=graphic
+width=40
+height=30
+layer=com_104
+graphic=graphic_7853
+trans=255
+
+// 1273:106
+[com_106]
+type=graphic
+x=40
+width=80
+height=30
+widthmode=minus
+layer=com_104
+graphic=graphic_7854
+tiling=yes
+trans=255
+
+// 1273:107
+[com_107]
+type=graphic
+width=40
+height=30
+xmode=abs_right
+layer=com_104
+graphic=graphic_7855
+trans=255
+
+// 1273:108
+[com_108]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_8
+textfont=verdana_13pt_regular
+text=Cancel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6be78

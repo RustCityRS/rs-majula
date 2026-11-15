@@ -26,7 +26,7 @@ fn every_fixed_decoder_reads_exactly_its_frame() {
         // bytes we own and shows up in the count instead of in memory.
         let data = vec![0u8; size + 256];
         let read = prot.decoded_len(&data, size);
-        let discarded = cfg!(before_647) && read == 0;
+        let discarded = cfg!(before_530) && read == 0;
         if read != size && !discarded {
             wrong.push(format!("{prot:?} (Fixed {size}) read {read}"));
         }

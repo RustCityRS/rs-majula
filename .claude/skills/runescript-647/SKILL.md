@@ -24,7 +24,11 @@ description: Port RuneScript scripts and configs from content/289 to content/647
 3. Many 2005 locs, objs and npcs got new ids by 2011. Find the 2011 id in the maps or configs,
    and give it 289's categories and params.
 4. Configs: put server keys (stats, params, categories, weight) on the cache's own section in
-   `_unpack/all.<type>`. Never write a second definition.
+   `_unpack/all.<type>`. Never write a second definition, and never add a `.pack` line: every
+   config `.pack` holds exactly the cache's entries. The cache's empty entries are Jagex's
+   server-only entries; new server content takes one of those (rename the placeholder, add
+   keys). Only dbtable, dbrow and what upstream 2004scape needs that the cache lacks may add
+   entries. Ask when unsure.
 5. Put each comment on its own line. A comment after a value on the same line breaks packing.
 6. Lint: `runec lint --source content/647/scripts --pack content/647/pack`. It
    registers new script ids in `script.pack`. When you delete a script, remove its id line by

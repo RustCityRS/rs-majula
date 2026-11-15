@@ -1,0 +1,19 @@
+// 6054
+[proc,clientscript_6054]
+def_component $component0 = interface_1253:com_90;
+sound_vorbis_rate(~clientscript_5996(14351));
+def_int $int1 = 1;
+if (%varclient_1803 = 1) {
+    %varclient_1803 = 0;
+    $int1 = 1;
+    if_sethflip(interface_1253:com_104, false);
+    if_sethflip(interface_1253:com_105, false);
+    if_sethflip(interface_1253:com_106, false);
+} else {
+    %varclient_1803 = 1;
+    $int1 = 0;
+    if_sethflip(interface_1253:com_104, true);
+    if_sethflip(interface_1253:com_105, true);
+    if_sethflip(interface_1253:com_106, true);
+}
+if_setontimer($component0, "clientscript_6055(event_com, $int1)");

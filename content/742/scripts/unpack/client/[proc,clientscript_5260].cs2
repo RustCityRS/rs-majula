@@ -1,0 +1,9 @@
+// 5260
+[proc,clientscript_5260](int $int0)
+def_component $component1 = interface_1133:com_2;
+if (if_getheight($component1) >= $int0) {
+    if_setsize($component1, if_getwidth($component1), $int0, ^setsize_abs, ^setsize_abs);
+    if_setontimer($component1, null);
+} else {
+    if_setsize($component1, if_getwidth($component1), calc(if_getheight($component1) + 1), ^setsize_abs, ^setsize_abs);
+}

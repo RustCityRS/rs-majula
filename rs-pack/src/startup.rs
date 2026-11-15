@@ -1,6 +1,7 @@
 use crate::cache::CacheStore;
 use crate::cache::area::{AreaMap, AreaType, MULTIWAY};
 use crate::cache::category::CategoryType;
+#[cfg(since_647)]
 use crate::cache::controller::ControllerType;
 use crate::cache::dbrow::DbRowType;
 use crate::cache::dbtable::{DbTableIndex, DbTableType};
@@ -28,6 +29,7 @@ use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varbit::VarbitType;
 use crate::cache::varc::VarClientTypeProvider;
+#[cfg(since_647)]
 use crate::cache::varcon::VarConType;
 use crate::cache::varn::VarnType;
 use crate::cache::varobj::VarObjType;
@@ -44,6 +46,7 @@ use crate::types::ParamValue;
 use crate::zone_csv::load_csv_zones;
 use crate::{archive, compile_scripts, unwrap_thread};
 use anyhow::{Context, Result};
+use rs_ver::TypeId;
 use runec::symbol::identifier_form;
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
@@ -68,6 +71,7 @@ pub struct InterfaceLayout {
     pub main_screen: HashMap<u16, u16>,
     pub wide_screen: HashMap<u16, u16>,
     pub wide_screen_ifaces: HashSet<u16>,
+    pub fullscreen_tops: HashSet<u16>,
     pub overlay_tab: HashMap<u16, u16>,
     pub overlay: HashMap<u16, u16>,
     pub chatbox: HashMap<u16, u16>,
@@ -198,6 +202,12 @@ fn load_cache(
     let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
     let varbits = load_config::<VarbitType, _>(assets, "varpbit", ())?;
     let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
+    #[cfg(all(since_530, before_647))]
+    let varcs = VarClientTypeProvider::from_indexed_bytes(
+        server_config(assets, "varc")?,
+        server_config(assets, "varcstr")?,
+    )?;
+    #[cfg(since_647)]
     let varcs = VarClientTypeProvider::from_indexed_bytes(
         client_config(assets, "varc")?,
         client_config(assets, "varcstr")?,
@@ -215,8 +225,11 @@ fn load_cache(
     let categories = load_config::<CategoryType, _>(assets, "category", ())?;
     let areas: TypeProvider<AreaType> = load_config::<AreaType, _>(assets, "area", ())?;
     let varobjs: TypeProvider<VarObjType> = load_config::<VarObjType, _>(assets, "varobj", ())?;
+    #[cfg(since_647)]
     let varcons = load_config::<VarConType, _>(assets, "varcon", ())?;
+    #[cfg(since_647)]
     let varconbits = load_config::<VarbitType, _>(assets, "varconbit", ())?;
+    #[cfg(since_647)]
     let controllers = load_config::<ControllerType, _>(assets, "controller", ())?;
     let phrases = client_config(assets, "quickchatphrase")?;
     let chatphrases = QuickChatPhraseProvider::from_indexed_bytes(&phrases.dat, &phrases.idx)?;
@@ -275,8 +288,11 @@ fn load_cache(
         areas,
         area_map,
         varobjs,
+        #[cfg(since_647)]
         varcons,
+        #[cfg(since_647)]
         varconbits,
+        #[cfg(since_647)]
         controllers,
         chatphrases,
     }))
@@ -285,7 +301,10 @@ fn load_cache(
 /// Rev-647 chatbox child component that hosts dialogue_box interfaces
 /// (npc/player chat, message box, multi-choice): `chattop:chatmodallarge`,
 /// void's `dialogue_box parent="chat_box" index=13`.
+#[cfg(any(before_530, since_647))]
 const DIALOGUE_BOX_INDEX: i32 = 13;
+#[cfg(all(since_530, before_647))]
+const DIALOGUE_BOX_INDEX: i32 = 12;
 
 const CHATBOX_INTERFACE: &str = "chattop";
 
@@ -296,6 +315,23 @@ const SWITCH_SIDE: &str = "if_switchside_varc";
 
 /// The varcs of the character design screen, in the order `applydesign`
 /// reads them: seven body kits, then five colours.
+#[cfg(all(since_530, before_647))]
+const DESIGN: [&str; 12] = [
+    "playerdesign2_client_head",
+    "playerdesign2_client_jaw",
+    "playerdesign2_client_torso",
+    "playerdesign2_client_arms",
+    "playerdesign2_client_hands",
+    "playerdesign2_client_legs",
+    "playerdesign2_client_feet",
+    "playerdesign2_client_haircol",
+    "varclient_95",
+    "varclient_96",
+    "playerdesign2_client_feetcol",
+    "playerdesign2_client_skincol",
+];
+
+#[cfg(since_647)]
 const DESIGN: [&str; 12] = [
     "playerdesign3_head",
     "playerdesign3_jaw",
@@ -311,11 +347,15 @@ const DESIGN: [&str; 12] = [
     "playerdesign3_skincol",
 ];
 
+const FULLSCREEN_INTERFACE: &str = "fullscreen_interface";
+
 /// The clientscript `p_countdialog` runs to ask for a number in the chat box.
 const COUNT_DIALOG: &str = "[clientscript,meslayer_mode7]";
 
 /// The layout slot a component of the fixed (`toplevel`, 548) or resizable
-/// (`toplevel_fullscreen`, 746) toplevel fills, by Jagex's names.
+/// (`toplevel_fullscreen`, 746) toplevel fills, by Jagex's names. A toplevel
+/// with a `fullscreen_interface` (753) is a black screen around one wide
+/// interface, raised over the gameframe while that interface is open.
 fn toplevel_slot<'a>(
     layout: &'a mut InterfaceLayout,
     interface: &str,
@@ -323,9 +363,9 @@ fn toplevel_slot<'a>(
 ) -> Option<&'a mut HashMap<u16, u16>> {
     Some(match (interface, component) {
         ("toplevel" | "toplevel_fullscreen", "mainmodal") => &mut layout.main_screen,
-        ("toplevel", "mainoverlay_clipped") | ("toplevel_fullscreen", "mainmodal_fullscreen") => {
-            &mut layout.wide_screen
-        }
+        ("toplevel", "mainoverlay_clipped")
+        | ("toplevel_fullscreen", "mainmodal_fullscreen")
+        | (_, FULLSCREEN_INTERFACE) => &mut layout.wide_screen,
         ("toplevel" | "toplevel_fullscreen", "mainoverlay") => &mut layout.overlay,
         ("toplevel" | "toplevel_fullscreen", "sidemodal") => &mut layout.overlay_tab,
         ("toplevel" | "toplevel_fullscreen", "chattop") => &mut layout.chatbox,
@@ -373,6 +413,9 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
         if let Some(slot) = toplevel_slot(&mut layout, interface, name) {
             slot.insert(iface, comp);
         }
+        if name == FULLSCREEN_INTERFACE {
+            layout.fullscreen_tops.insert(iface);
+        }
         layout.component_roots.insert(comp, iface as i32);
         layout.component_names.insert(
             ((iface as i32) << 16) | comp as i32,
@@ -404,7 +447,7 @@ fn load_dialogue_slots(
     let enum_id = contents.lines().find_map(|line| {
         let (id, name) = line.trim().split_once('=')?;
         (name == ENUM_NAME)
-            .then(|| id.parse::<u16>().ok())
+            .then(|| id.parse::<u16>().ok().map(TypeId::new))
             .flatten()
     });
     let Some(enum_id) = enum_id else { return };
@@ -440,7 +483,7 @@ fn load_wide_screen_ifaces(
         .find_map(|line| {
             let (id, name) = line.trim().split_once('=')?;
             (name == ENUM_NAME)
-                .then(|| id.parse::<u16>().ok())
+                .then(|| id.parse::<u16>().ok().map(TypeId::new))
                 .flatten()
         })
         .and_then(|id| enums.get_by_id(id))
@@ -462,6 +505,17 @@ fn client_config<'a>(
         .get(name)
         .and_then(|asset| asset.client.as_ref())
         .with_context(|| format!("Missing {name} client config"))
+}
+
+#[cfg(all(since_530, before_647))]
+fn server_config<'a>(
+    assets: &'a HashMap<String, PackedFile>,
+    name: &str,
+) -> Result<&'a PackedData> {
+    assets
+        .get(name)
+        .map(|asset| &asset.server)
+        .with_context(|| format!("Missing {name} config"))
 }
 
 fn load_config<Raw: CacheType, Stored: From<Raw>>(

@@ -1,0 +1,25 @@
+// 5732
+[proc,clientscript_5732](struct $struct0)(int)
+if (~script3999(struct_param($struct0, param_1270)) = 0) {
+    return(0);
+}
+def_int $int1 = 0;
+def_int $int2 = enum_getoutputcount(enum_5508);
+while ($int1 < $int2) {
+    if (struct_param(enum(int, struct, enum_5508, $int1), param_1268) = struct_param($struct0, param_1268)) {
+        return(0);
+    }
+    $int1 = calc($int1 + 1);
+}
+$int1 = 0;
+def_int $int3 = enum_getoutputcount(enum_5507);
+while ($int1 < $int3) {
+    if (struct_param(enum(int, struct, enum_5507, $int1), param_1268) = struct_param($struct0, param_1268)) {
+        return(1);
+    }
+    $int1 = calc($int1 + 1);
+}
+if (~task_get_progress(struct_param($struct0, param_1268)) = 3) {
+    return(3);
+}
+return(2);

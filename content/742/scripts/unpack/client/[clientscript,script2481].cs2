@@ -1,0 +1,14 @@
+// 2481
+[clientscript,script2481]
+if_settargetcursors(mob_side_special:distract, cursor_14, cursor_15);
+if_settargetcursors(mob_side_special:mine, cursor_16, cursor_17);
+if_settargetcursors(mob_side_special:glider, cursor_18, cursor_19);
+if_settargetcursors(mob_side_special:barricade1, cursor_20, cursor_21);
+if_settargetcursors(mob_side_special:barricade2, cursor_26, cursor_27);
+if_settargetcursors(mob_side_special:barricade3, cursor_22, cursor_23);
+if_settargetcursors(mob_side_special:barricade4, cursor_24, cursor_25);
+if_settargetcursors(mob_side_special:cannon_w, cursor_28, cursor_29);
+if_settargetcursors(mob_side_special:cannon_e, cursor_30, cursor_31);
+if_settargetcursors(mob_side_special:cannon_s, cursor_32, cursor_33);
+if_settargetcursors(mob_side_special:cannon_n, cursor_34, cursor_35);
+return;

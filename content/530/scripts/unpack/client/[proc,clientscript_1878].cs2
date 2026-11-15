@@ -1,0 +1,92 @@
+// 1878
+[proc,clientscript_1878](int $int0)
+def_int $int1 = ~clientscript_1851;
+if ($int1 = $int0) {
+    return;
+}
+~clientscript_1875;
+~clientscript_1299;
+switch_int ($int0) {
+    case 0 :
+        if ($int1 = 1) {
+            ~clientscript_1855(0);
+            return;
+        }
+    case 2 :
+        if ($int1 = 3) {
+            ~clientscript_1855(2);
+            return;
+        }
+    case 4 :
+        if ($int1 = 5) {
+            ~clientscript_1855(4);
+            return;
+        }
+    case 6 :
+        if ($int1 = 7) {
+            ~clientscript_1855(6);
+            return;
+        }
+    case 8 :
+        if ($int1 = 9) {
+            ~clientscript_1855(8);
+            return;
+        }
+    case 14 :
+        if ($int1 = 15) {
+            ~clientscript_1855(14);
+            return;
+        }
+    case 10 :
+        if ($int1 = 11) {
+            ~clientscript_1855(10);
+            return;
+        }
+    case 12 :
+        if ($int1 = 13) {
+            ~clientscript_1855(12);
+            return;
+        }
+    case 1 :
+        if ($int1 = 0) {
+            ~clientscript_1855(1);
+            return;
+        }
+    case 3 :
+        if ($int1 = 2) {
+            ~clientscript_1855(3);
+            return;
+        }
+    case 5 :
+        if ($int1 = 4) {
+            ~clientscript_1855(5);
+            return;
+        }
+    case 7 :
+        if ($int1 = 6) {
+            ~clientscript_1855(7);
+            return;
+        }
+    case 9 :
+        if ($int1 = 8) {
+            ~clientscript_1855(9);
+            return;
+        }
+    case 15 :
+        if ($int1 = 14) {
+            ~clientscript_1855(15);
+            return;
+        }
+    case 11 :
+        if ($int1 = 10) {
+            ~clientscript_1855(11);
+            return;
+        }
+    case 13 :
+        if ($int1 = 12) {
+            ~clientscript_1855(13);
+            return;
+        }
+}
+~clientscript_1856($int1);
+~clientscript_1855($int0);

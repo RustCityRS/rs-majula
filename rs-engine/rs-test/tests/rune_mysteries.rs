@@ -22,6 +22,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -41,7 +42,7 @@ fn npc(engine: &Engine, id: u16) -> (u16, u16, u16) {
         .npcs
         .iter()
         .flatten()
-        .filter(|n| n.npc.uid.id() == id)
+        .filter(|n| n.npc.uid.id() == TypeId::new(id))
         .map(|n| (n.npc.uid.nid(), n.npc.pathing.coord))
         .map(|(nid, c)| (nid, c.x(), c.z()))
         .next()
@@ -67,12 +68,17 @@ fn visitor(engine: &mut Engine, name: &str, id: u16, stage: i32) -> (HarnessClie
         .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
         .expect("a walkable tile beside the npc");
     engine.harness_telejump(client.pid, sx, 0, sz);
-    let varp = *engine.cache.varps.debugnames.get("runemysteries").unwrap();
+    let varp = engine
+        .cache
+        .varps
+        .get_by_debugname("runemysteries")
+        .unwrap()
+        .id;
     engine
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(varp, VarValue::Int(stage));
+        .set(varp.g2(), VarValue::Int(stage));
     for _ in 0..3 {
         engine.cycle();
     }
@@ -164,14 +170,19 @@ fn sedridor_takes_the_talisman_and_sends_a_research_package() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let (mut client, nid) = visitor(engine, "sedridor_2011", SEDRIDOR, 1);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let talisman = *engine.cache.objs.debugnames.get("air_talisman").unwrap();
-        let package = *engine
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let talisman = engine
             .cache
             .objs
-            .debugnames
-            .get("research_package")
-            .unwrap();
+            .get_by_debugname("air_talisman")
+            .unwrap()
+            .id;
+        let package = engine
+            .cache
+            .objs
+            .get_by_debugname("research_package")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -222,9 +233,19 @@ fn sedridor_takes_the_notes_and_returns_the_talisman() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let (mut client, nid) = visitor(engine, "sedridor_notes", SEDRIDOR, 5);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let notes = *engine.cache.objs.debugnames.get("research_notes").unwrap();
-        let talisman = *engine.cache.objs.debugnames.get("air_talisman").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let notes = engine
+            .cache
+            .objs
+            .get_by_debugname("research_notes")
+            .unwrap()
+            .id;
+        let talisman = engine
+            .cache
+            .objs
+            .get_by_debugname("air_talisman")
+            .unwrap()
+            .id;
         engine
             .harness_player_mut(client.pid)
             .unwrap()
@@ -269,13 +290,18 @@ fn sedridor_takes_the_notes_and_returns_the_talisman() {
             .unwrap();
         assert_eq!(pack.total(notes), 0, "the notes are given");
         assert_eq!(pack.total(talisman), 1, "the air talisman comes back");
-        let varp = *engine.cache.varps.debugnames.get("runemysteries").unwrap();
+        let varp = engine
+            .cache
+            .varps
+            .get_by_debugname("runemysteries")
+            .unwrap()
+            .id;
         assert_eq!(
             engine
                 .harness_player(client.pid)
                 .unwrap()
                 .vars
-                .get(varp)
+                .get(varp.g2())
                 .as_int(),
             COMPLETE,
             "Rune Mysteries complete"
@@ -294,15 +320,25 @@ const BRIDGE: (u16, u16) = (3113, 3186);
 fn aubury_takes_the_package_and_teleports_the_player_back() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let package = *engine
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let package = engine
             .cache
             .objs
-            .debugnames
-            .get("research_package")
-            .unwrap();
-        let notes = *engine.cache.objs.debugnames.get("research_notes").unwrap();
-        let varp = *engine.cache.varps.debugnames.get("runemysteries").unwrap();
+            .get_by_debugname("research_package")
+            .unwrap()
+            .id;
+        let notes = engine
+            .cache
+            .objs
+            .get_by_debugname("research_notes")
+            .unwrap()
+            .id;
+        let varp = engine
+            .cache
+            .varps
+            .get_by_debugname("runemysteries")
+            .unwrap()
+            .id;
         for (name, answer) in [
             ("aubury_yes", "Yes, please."),
             ("aubury_no", "No, thank you."),
@@ -345,7 +381,7 @@ fn aubury_takes_the_package_and_teleports_the_player_back() {
             let pack = player.invs.get(&inv).unwrap();
             assert_eq!(pack.total(package), 0, "the package is given");
             assert_eq!(pack.total(notes), 1, "the notes at once");
-            assert_eq!(player.vars.get(varp).as_int(), 5, "notes received");
+            assert_eq!(player.vars.get(varp.g2()).as_int(), 5, "notes received");
             let at = player.pathing.coord;
             if answer == "Yes, please." {
                 assert_eq!(

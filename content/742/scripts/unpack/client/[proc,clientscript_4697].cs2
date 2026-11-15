@@ -1,0 +1,93 @@
+// 4697
+[proc,clientscript_4697](int $int0)
+def_int $int1 = clientclock;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 1;
+if ($int1 >= calc($int0 + 200) | $int0 = 0) {
+    $int0 = $int1;
+    if (%varclient_1540 < 1) {
+        $string0 = "Destroyed";
+    } else if (%varclient_1540 < calc(5 / 2)) {
+        $string0 = "Under attack";
+    } else if (%varclient_1540 < 5) {
+        $string0 = "Unlit ammo";
+    } else {
+        $string0 = "Fine";
+    }
+    if (%varclient_1541 < 1) {
+        $string1 = "Empty";
+    } else if (%varclient_1541 < calc(10 / 2)) {
+        $string1 = "Low";
+    } else if (%varclient_1541 < 10) {
+        $string1 = "Almost full";
+    } else {
+        $string1 = "Full";
+    }
+    if (%varclient_1542 = 1) {
+        $string2 = "1 broken";
+    } else if (%varclient_1542 > 0) {
+        $string2 = "<tostring(%varclient_1542)> broken";
+    } else {
+        $string2 = "Repaired";
+    }
+    if (%varclient_1543 = 1) {
+        $string3 = "<tostring($int5)> broken";
+    } else if (%varclient_1543 > 0) {
+        $string3 = "<tostring(%varclient_1543)> broken";
+    } else {
+        $string3 = "Repaired";
+    }
+    $int2 = calc(%varclient_1545 / 2);
+    if_setsize(interface_500:com_12, calc($int2 * 16384 / 100), if_getheight(interface_500:com_12), ^setsize_rel, ^setsize_abs);
+    if ($int2 < 97) {
+        if_sethide(interface_500:com_13, true);
+    }
+    $string4 = tostring(calc(%varclient_1544 * 10));
+    if_settext(interface_500:com_29, "<tostring(%varclient_1546)> min");
+    if (%varclient_1547 ! 0) {
+        if_sethide(interface_500:com_10, false);
+        if_setsize(interface_500:com_2, if_getwidth(interface_500:com_2), 253, ^setsize_abs, ^setsize_abs);
+        switch_int (%varclient_1547) {
+            case 1 :
+                $string5 = "Clobbering Time!";
+            case 2 :
+                $string5 = "Slow-mo";
+            case 3 :
+                $string5 = "No Well";
+            case 4 :
+                $string5 = "Oil Spill";
+            case 5 :
+                $string5 = "Fire in the Hole!";
+            case 6 :
+                $string5 = "Armoured Trolls";
+        }
+    } else {
+        if_sethide(interface_500:com_10, true);
+        if_setsize(interface_500:com_2, if_getwidth(interface_500:com_2), 225, ^setsize_abs, ^setsize_abs);
+    }
+    $int3 = ~clientscript_4699(interface_500:com_8, interface_500:com_21, interface_500:com_22, "Ballista", $string0);
+    $int4 = ~clientscript_4699(interface_500:com_5, interface_500:com_19, interface_500:com_20, "Oil", $string1);
+    $int3 = max($int3, $int4);
+    $int4 = ~clientscript_4699(interface_500:com_6, interface_500:com_39, interface_500:com_40, "Barricades", $string2);
+    $int3 = max($int3, $int4);
+    $int4 = ~clientscript_4699(interface_500:com_7, interface_500:com_17, interface_500:com_18, "Walls", $string3);
+    $int3 = max($int3, $int4);
+    $int4 = ~clientscript_4699(interface_500:com_9, interface_500:com_41, interface_500:com_42, "Trolls", $string4);
+    $int3 = max($int3, $int4);
+    if (%varclient_1547 ! 0) {
+        $int4 = ~clientscript_4699(interface_500:com_10, interface_500:com_15, interface_500:com_16, "Troll Attack", $string5);
+        $int3 = max($int3, $int4);
+    }
+    if (calc($int3 + 15) > if_getwidth(interface_500:com_2)) {
+        if_setsize(interface_500:com_2, calc($int3 + 15), if_getheight(interface_500:com_2), ^setsize_abs, ^setsize_abs);
+    }
+}
+if_setontimer(interface_500:com_8, "clientscript_4697($int0)");

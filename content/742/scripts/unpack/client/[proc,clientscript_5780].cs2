@@ -1,0 +1,13 @@
+// 5780
+[proc,clientscript_5780](int $int0, int $int1, component $component2)
+if ($int1 = 1) {
+    if ($int0 = 1) {
+        if_setgraphic($component2, 9616);
+    } else {
+        if_setgraphic($component2, 9615);
+    }
+} else if ($int0 = 1) {
+    if_setgraphic($component2, 9617);
+} else {
+    if_setgraphic($component2, 9618);
+}

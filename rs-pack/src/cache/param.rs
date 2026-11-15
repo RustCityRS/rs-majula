@@ -3,12 +3,13 @@ use super::provider::{CacheType, TypeProvider};
 use crate::ParamValue;
 use rs_io::packet::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 pub type ParamTypeProvider = TypeProvider<ParamType>;
 
 pub struct ParamType {
-    pub id: u16,
+    pub id: TypeId,
     pub var_type: ScriptVarType,
     pub default_int: i32,
     pub autodisable: bool,
@@ -17,16 +18,16 @@ pub struct ParamType {
 }
 
 impl ParamType {
-    pub fn decode_params(buf: &mut Packet, params: &mut FxHashMap<i32, ParamValue>) {
+    pub fn decode_params(buf: &mut Packet, params: &mut FxHashMap<TypeId, ParamValue>) {
         for _ in 0..buf.g1() {
             let (key, value) = Self::decode_param(buf);
             params.insert(key, value);
         }
     }
 
-    pub(crate) fn decode_param(buf: &mut Packet) -> (i32, ParamValue) {
+    pub(crate) fn decode_param(buf: &mut Packet) -> (TypeId, ParamValue) {
         let is_string = buf.g1() == 1;
-        let key = buf.g3();
+        let key = TypeId::from_int(buf.g3());
         let value = if is_string {
             ParamValue::String(buf.gjstr(STRING_TERMINATOR).into_boxed_str())
         } else {
@@ -37,9 +38,9 @@ impl ParamType {
 
     pub fn get_param_or_default(
         &self,
-        params: &'static FxHashMap<i32, ParamValue>,
+        params: &'static FxHashMap<TypeId, ParamValue>,
     ) -> Option<&'static ParamValue> {
-        params.get(&(self.id as i32))
+        params.get(&self.id)
     }
 
     pub fn default_param(&self) -> ParamValue {
@@ -52,7 +53,7 @@ impl ParamType {
 }
 
 pub struct ParamTypeRaw {
-    pub id: u16,
+    pub id: TypeId,
     pub var_type: ScriptVarType,
     pub default_int: i32,
     pub autodisable: bool,
@@ -63,7 +64,7 @@ pub struct ParamTypeRaw {
 impl CacheType for ParamTypeRaw {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             var_type: ScriptVarType::Int,

@@ -1,0 +1,11 @@
+// 5779
+[proc,clientscript_5779](int $int0, int $int1, component $component2)
+if (cc_find($component2, calc($int1 - 1)) = true) {
+    if ($int0 = 1) {
+        cc_setgraphic(9615);
+    } else {
+        cc_setgraphic(9618);
+    }
+    cc_setonmouseover("task_hintarrow_hover(1, $int0, event_com, calc($int1 - 1))");
+    cc_setonmouseleave("task_hintarrow_hover(0, $int0, event_com, calc($int1 - 1))");
+}

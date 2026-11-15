@@ -1,0 +1,94 @@
+// 2778
+[clientscript,tutorial3_chatoverlay_build](component $component0, component $component1, component $component2, component $component3)
+def_boolean $boolean4 = if_gethide($component1);
+def_int $int5 = 0;
+if (%tutorial3_skipoffered = 1 & %tutorial < 1000) {
+    if ($boolean4 = true) {
+        $int5 = 1;
+    }
+    if_sethide($component1, false);
+    if_setsize($component0, 0, calc(if_getheight($component1) + 1), ^setsize_minus, ^setsize_minus);
+} else {
+    if ($boolean4 = false) {
+        $int5 = 1;
+    }
+    if_sethide($component1, true);
+    if_setsize($component0, 0, 0, ^setsize_minus, ^setsize_minus);
+}
+def_string $string0 = %tutorial3_2buttonstring;
+if (string_length(%tutorial3_1buttonstring) > 0 & %option_mouse = 1) {
+    $string0 = %tutorial3_1buttonstring;
+}
+def_obj $obj6 = null;
+if (cc_find($component0, 0) = true) {
+    $obj6 = cc_getinvobject;
+}
+def_graphic $graphic7 = null;
+if (cc_find($component0, 1) = true) {
+    $graphic7 = cc_getgraphic;
+}
+if (cc_find($component2, 0) = true & compare($string0, cc_gettext) = 0 & $obj6 = %tutorial3_object & $graphic7 = %tutorial3_graphic & $int5 = 0) {
+    return;
+}
+cc_deleteall($component0);
+cc_deleteall($component2);
+cc_deleteall($component3);
+def_int $int8 = if_getwidth($component0);
+if ($int8 <= 0) {
+    return;
+}
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (%tutorial3_object ! null) {
+    cc_create($component0, ^iftype_model, 0);
+    cc_setsize(%tutorial3_imagewidth, %tutorial3_imageheight, ^setsize_abs, ^setsize_abs);
+    if (%tutorial3_imagewidth < 70) {
+        $int10 = calc((70 - %tutorial3_imagewidth) / 2);
+    }
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setobject_nonum(%tutorial3_object, 1);
+    $int9 = calc(max(%tutorial3_imagewidth, 70) + 5);
+    $int8 = calc($int8 - $int9);
+    cc_create($component0, ^iftype_rectangle, 1);
+    cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_sethide(true);
+} else if (%tutorial3_graphic ! null) {
+    cc_create($component0, ^iftype_rectangle, 0);
+    cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_sethide(true);
+    cc_create($component0, ^iftype_graphic, 1);
+    cc_setsize(%tutorial3_imagewidth, %tutorial3_imageheight, ^setsize_abs, ^setsize_abs);
+    if (%tutorial3_imagewidth < 70) {
+        $int10 = calc((70 - %tutorial3_imagewidth) / 2);
+    }
+    cc_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setgraphic(%tutorial3_graphic);
+    $int9 = calc(max(%tutorial3_imagewidth, 70) + 5);
+    $int8 = calc($int8 - $int9);
+}
+if_setscrollpos($component2, 0, 0);
+if_setposition($component2, $int9, 0, ^setpos_abs_left, ^setpos_abs_centre);
+def_int $int11 = calc(paraheight($string0, $int8, tutorial_font) * 12 + 3);
+if ($int11 > if_getheight($component0)) {
+    $int8 = calc($int8 - (if_getwidth($component3) + 5));
+    if_setsize($component2, $int8, 0, ^setsize_abs, ^setsize_minus);
+    $int11 = calc(paraheight($string0, $int8, tutorial_font) * 12 + 3);
+    if_setscrollsize($component2, 0, $int11);
+    if_sethide($component3, false);
+    ~scrollbar_vertical($component3, $component2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    $int11 = if_getheight($component0);
+    if_setsize($component2, $int8, 0, ^setsize_abs, ^setsize_minus);
+    if_setscrollsize($component2, 0, 0);
+    if_sethide($component3, true);
+}
+cc_create($component2, ^iftype_text, 0);
+cc_setsize(0, $int11, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextfont(tutorial_font);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(^black);
+cc_settextshadow(false);
+cc_settext($string0);

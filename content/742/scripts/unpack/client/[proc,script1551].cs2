@@ -1,0 +1,8 @@
+// 1551
+[proc,script1551](int $int0, string $string0, fontmetrics $fontmetrics1, int $int2)(int)
+$string0 = ~script1602($string0);
+$int0 = min(string_length($string0), $int0);
+if ($int0 <= 0) {
+    return($int2);
+}
+return(calc(stringwidth(substring($string0, 0, $int0), $fontmetrics1) + $int2));

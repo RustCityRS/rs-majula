@@ -1,0 +1,12 @@
+// 2021
+[proc,clientscript_2021](component $component0)
+if (if_gethide(interface_378:com_195) = true) {
+    if_setvflip(interface_378:com_198, true);
+    if_sethide(interface_378:com_195, false);
+} else {
+    if ($component0 = interface_378:com_202 | $component0 = interface_378:com_203) {
+        if_settext(interface_378:com_199, if_gettext($component0));
+    }
+    if_setvflip(interface_378:com_198, false);
+    if_sethide(interface_378:com_195, true);
+}

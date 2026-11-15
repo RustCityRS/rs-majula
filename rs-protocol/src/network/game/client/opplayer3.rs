@@ -13,17 +13,27 @@ pub struct OpPlayer3 {
     pub ctrl: bool,
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 impl ClientProtMessage for OpPlayer3 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpPlayer3 { pid: buf.g2() }
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtMessage for OpPlayer3 {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        OpPlayer3 { pid: buf.g2_alt3() }
+    }
+}
+
 #[cfg(since_647)]
 impl ClientProtMessage for OpPlayer3 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
+        #[cfg(since_742)]
+        let ctrl = buf.g1() != 0;
         let pid = buf.g2_alt1();
+        #[cfg(before_742)]
         let ctrl = buf.g1() != 0;
         OpPlayer3 { pid, ctrl }
     }

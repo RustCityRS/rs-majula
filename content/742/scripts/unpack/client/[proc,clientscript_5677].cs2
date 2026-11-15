@@ -1,0 +1,69 @@
+// 5677
+[proc,clientscript_5677](component $component0)
+def_stat $stat1 = null;
+switch_component ($component0) {
+    case default :
+        if_sethide(interface_1213:com_4, true);
+        return;
+    case interface_1213:com_30 :
+        $stat1 = attack;
+    case interface_1213:com_31 :
+        $stat1 = strength;
+    case interface_1213:com_32 :
+        $stat1 = defence;
+    case interface_1213:com_33 :
+        $stat1 = ranged;
+    case interface_1213:com_34 :
+        $stat1 = prayer;
+    case interface_1213:com_35 :
+        $stat1 = magic;
+    case interface_1213:com_36 :
+        $stat1 = hitpoints;
+    case interface_1213:com_37 :
+        $stat1 = agility;
+    case interface_1213:com_38 :
+        $stat1 = herblore;
+    case interface_1213:com_39 :
+        $stat1 = thieving;
+    case interface_1213:com_40 :
+        $stat1 = crafting;
+    case interface_1213:com_41 :
+        $stat1 = fletching;
+    case interface_1213:com_42 :
+        $stat1 = mining;
+    case interface_1213:com_43 :
+        $stat1 = smithing;
+    case interface_1213:com_44 :
+        $stat1 = fishing;
+    case interface_1213:com_45 :
+        $stat1 = cooking;
+    case interface_1213:com_46 :
+        $stat1 = firemaking;
+    case interface_1213:com_47 :
+        $stat1 = woodcutting;
+    case interface_1213:com_48 :
+        $stat1 = runecraft;
+    case interface_1213:com_49 :
+        $stat1 = slayer;
+    case interface_1213:com_50 :
+        $stat1 = farming;
+    case interface_1213:com_51 :
+        $stat1 = hunter;
+    case interface_1213:com_52 :
+        $stat1 = construction;
+    case interface_1213:com_53 :
+        $stat1 = summoning;
+    case interface_1213:com_54 :
+        $stat1 = dungeoneering;
+}
+def_string $string0 = append(enum(stat, string, enum_680, $stat1), ": <tostring(stat($stat1))>/<tostring(stat_base($stat1))><br>");
+$string0 = append($string0, "Current Xp: <tostring_localised(stat_visible_xp($stat1), true)><br>");
+$string0 = append($string0, "Next level: <tostring_localised(enum(int, int, enum_716, calc(stat_base($stat1) + 1)), true)><br>");
+$string0 = append($string0, "Remainder: <tostring_localised(calc(enum(int, int, enum_716, calc(stat_base($stat1) + 1)) - stat_visible_xp($stat1)), true)>");
+def_int $int2 = calc(parawidth($string0, 512, op1028(interface_1213:com_6)) + 8);
+def_int $int3 = calc(paraheight($string0, 512, op1028(interface_1213:com_6)) * 12 + 8);
+if_setsize(interface_1213:com_4, $int2, $int3, ^setsize_abs, ^setsize_abs);
+if_settext(interface_1213:com_6, $string0);
+if_sethide(interface_1213:com_4, false);
+if_setposition(interface_1213:com_4, calc(if_getx(interface_1213:com_2) + if_getx($component0) + if_getwidth($component0)), calc(if_gety($component0) + if_getheight($component0)), ^setpos_abs_left, ^setpos_abs_top);
+if_setontimer(interface_1213:com_4, "clientscript_5679(event_com, $component0)");

@@ -1,0 +1,7 @@
+// 4711
+[proc,clientscript_4711](component $component0, component $component1, component $component2, component $component3, int $int4)
+if (if_gethide($component1) = true) {
+    ~clientscript_4712($component0, $component1, $component2, $component3, $int4);
+} else {
+    ~clientscript_4714($component0, $component1, $component2, $component3, $int4);
+}

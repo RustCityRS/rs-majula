@@ -1,0 +1,7 @@
+// 1049
+[proc,clientscript_1049](int $int0)
+if ($int0 = 1) {
+    ~clientscript_1050(0, "");
+} else if ($int0 = 2) {
+    ~clientscript_1050(2, "");
+}

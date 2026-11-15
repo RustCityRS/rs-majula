@@ -1,0 +1,13 @@
+// 5463
+[proc,clientscript_5463]
+if (%varclient_1676 = 0) {
+    %varclient_1676 = 1;
+    if_sethide(interface_1159:com_31, true);
+    if_setsize(interface_1159:com_23, if_getwidth(interface_1159:com_23), 37, ^setsize_abs, ^setsize_abs);
+    if_set2dangle(interface_1159:com_55, 16384);
+} else {
+    %varclient_1676 = 0;
+    if_sethide(interface_1159:com_31, false);
+    if_set2dangle(interface_1159:com_55, 49152);
+    ~clientscript_5464;
+}

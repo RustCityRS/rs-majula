@@ -1,0 +1,106 @@
+// 4889
+[proc,clientscript_4889]
+def_string $string0 = "";
+if_sethide(interface_1258:com_560, true);
+if_sethide(interface_1258:com_568, true);
+if_sethide(interface_1258:com_564, true);
+if_sethide(interface_1258:com_572, true);
+if_sethide(interface_1258:com_576, true);
+if_sethide(interface_1258:com_580, true);
+if_sethide(interface_1258:com_584, true);
+if_sethide(interface_1258:com_588, true);
+if_sethide(interface_1258:com_592, true);
+if_sethide(interface_1258:com_596, true);
+if_sethide(interface_1258:com_600, true);
+if_sethide(interface_1258:com_604, true);
+if_sethide(interface_1258:com_608, true);
+if (%varclan_2580 > 1) {
+    if_sethide(interface_1258:com_596, false);
+    if_sethide(interface_1258:com_572, false);
+    if_sethide(interface_1258:com_597, true);
+    if_sethide(interface_1258:com_573, true);
+} else {
+    if_sethide(interface_1258:com_597, false);
+    if_sethide(interface_1258:com_573, false);
+    $string0 = "You need at least a tier 2 citadel to customise the keep fireplace.";
+    if_setonmouserepeat(interface_1258:com_597, "aif_tooltip(interface_1258:com_121, interface_1258:com_597, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_597, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 2 citadel to customise the potted plants.";
+    if_setonmouserepeat(interface_1258:com_573, "aif_tooltip(interface_1258:com_121, interface_1258:com_573, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_573, "deltooltip(interface_1258:com_121)");
+}
+if (%varclan_2580 > 2) {
+    if_sethide(interface_1258:com_560, false);
+    if_sethide(interface_1258:com_568, false);
+    if_sethide(interface_1258:com_576, false);
+    if_sethide(interface_1258:com_584, false);
+    if_sethide(interface_1258:com_588, false);
+    if_sethide(interface_1258:com_608, false);
+    if_sethide(interface_1258:com_561, true);
+    if_sethide(interface_1258:com_569, true);
+    if_sethide(interface_1258:com_577, true);
+    if_sethide(interface_1258:com_581, true);
+    if_sethide(interface_1258:com_585, true);
+    if_sethide(interface_1258:com_589, true);
+    if_sethide(interface_1258:com_609, true);
+} else {
+    if_sethide(interface_1258:com_561, false);
+    if_sethide(interface_1258:com_569, false);
+    if_sethide(interface_1258:com_577, false);
+    if_sethide(interface_1258:com_585, false);
+    if_sethide(interface_1258:com_589, false);
+    if_sethide(interface_1258:com_609, false);
+    $string0 = "You need at least a tier 3 citadel to customise the party room chairs.";
+    if_setonmouserepeat(interface_1258:com_561, "aif_tooltip(interface_1258:com_121, interface_1258:com_561, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_561, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 3 citadel to customise the party room tables.";
+    if_setonmouserepeat(interface_1258:com_569, "aif_tooltip(interface_1258:com_121, interface_1258:com_569, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_569, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 3 citadel to customise the sundials.";
+    if_setonmouserepeat(interface_1258:com_577, "aif_tooltip(interface_1258:com_121, interface_1258:com_577, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_577, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 3 citadel to customise the keep tapestry.";
+    if_setonmouserepeat(interface_1258:com_585, "aif_tooltip(interface_1258:com_121, interface_1258:com_585, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_585, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 3 citadel to customise the keep banners.";
+    if_setonmouserepeat(interface_1258:com_589, "aif_tooltip(interface_1258:com_121, interface_1258:com_589, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_589, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 3 citadel to customise the keep door.";
+    if_setonmouserepeat(interface_1258:com_609, "aif_tooltip(interface_1258:com_121, interface_1258:com_609, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_609, "deltooltip(interface_1258:com_121)");
+}
+if (%varclan_2580 > 3) {
+    if_sethide(interface_1258:com_600, false);
+    if_sethide(interface_1258:com_604, false);
+    if_sethide(interface_1258:com_564, false);
+    if_sethide(interface_1258:com_592, false);
+    if_sethide(interface_1258:com_601, true);
+    if_sethide(interface_1258:com_605, true);
+    if_sethide(interface_1258:com_565, true);
+    if_sethide(interface_1258:com_593, true);
+} else {
+    if_sethide(interface_1258:com_601, false);
+    if_sethide(interface_1258:com_605, false);
+    if_sethide(interface_1258:com_565, false);
+    if_sethide(interface_1258:com_593, false);
+    $string0 = "You need at least a tier 4 citadel to customise the keep lower windows.";
+    if_setonmouserepeat(interface_1258:com_601, "aif_tooltip(interface_1258:com_121, interface_1258:com_601, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_601, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 4 citadel to customise the keep upper windows.";
+    if_setonmouserepeat(interface_1258:com_605, "aif_tooltip(interface_1258:com_121, interface_1258:com_605, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_605, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 4 citadel to customise the citadel flags.";
+    if_setonmouserepeat(interface_1258:com_565, "aif_tooltip(interface_1258:com_121, interface_1258:com_565, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_565, "deltooltip(interface_1258:com_121)");
+    $string0 = "You need at least a tier 4 citadel to customise the keep shields.";
+    if_setonmouserepeat(interface_1258:com_593, "aif_tooltip(interface_1258:com_121, interface_1258:com_593, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_593, "deltooltip(interface_1258:com_121)");
+}
+if (%varclan_2580 > 4) {
+    if_sethide(interface_1258:com_580, false);
+} else {
+    if_sethide(interface_1258:com_581, false);
+    $string0 = "You need at least a tier 5 citadel to customise the keep flag.";
+    if_setonmouserepeat(interface_1258:com_581, "aif_tooltip(interface_1258:com_121, interface_1258:com_581, -1, $string0, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 1, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1258:com_581, "deltooltip(interface_1258:com_121)");
+}

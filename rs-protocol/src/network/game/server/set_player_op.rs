@@ -21,7 +21,7 @@ pub struct SetPlayerOp<'a> {
     pub primary: u8,
 }
 
-#[cfg(all(since_254, before_647))]
+#[cfg(all(since_254, before_530))]
 impl ServerProtMessage for SetPlayerOp<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.op);
@@ -34,13 +34,36 @@ impl ServerProtMessage for SetPlayerOp<'_> {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ServerProtMessage for SetPlayerOp<'_> {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt3(0xFFFF);
+        buf.p1(self.primary);
+        buf.p1(self.op);
+        buf.pjstr(self.value, STRING_TERMINATOR);
+    }
+
+    fn sizeof(&self) -> usize {
+        2 + size_of_val(&self.op) + size_of_val(&self.primary) + Packet::sizejstr(self.value)
+    }
+}
+
 #[cfg(since_647)]
 impl ServerProtMessage for SetPlayerOp<'_> {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p2_alt2(0xFFFF);
         buf.p1_alt3(self.primary);
         buf.pjstr(self.value, STRING_TERMINATOR);
         buf.p1_alt3(self.op);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(0xFFFF);
+        buf.p1(self.primary);
+        buf.p1_alt3(self.op);
+        buf.pjstr(self.value, STRING_TERMINATOR);
     }
 
     fn sizeof(&self) -> usize {

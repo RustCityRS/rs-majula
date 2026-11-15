@@ -1,0 +1,12 @@
+// 4244
+[proc,clientscript_4244]()(any)
+switch_int (map_lang) {
+    case 0 :
+        return(9954);
+    case 1 :
+        return(9991);
+    case 2 :
+        return(9955);
+    case 3 :
+        return(9956);
+}

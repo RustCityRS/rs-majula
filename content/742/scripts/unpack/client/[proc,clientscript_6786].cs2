@@ -1,0 +1,9 @@
+// 6786
+[proc,clientscript_6786]
+if (if_gethide(questlist_v4:com_3) = true & if_gethide(questlist_v4:com_4) = true | %varplayer_1385 = 0) {
+    if_sethide(questlist_v4:com_0, false);
+    if_sethide(questlist_v4:com_1, false);
+} else {
+    if_sethide(questlist_v4:com_0, true);
+    if_sethide(questlist_v4:com_1, true);
+}

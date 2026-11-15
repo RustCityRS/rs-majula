@@ -1,0 +1,76 @@
+// 4866
+[proc,clientscript_4866](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_component $component6 = ~clientscript_4867($int0);
+def_component $component7 = ~clientscript_4868($int0);
+def_component $component8 = ~clientscript_4869($int0);
+def_component $component9 = ~clientscript_4870($int0);
+def_int $int10 = op543($component7);
+def_int $int11 = op543($int10);
+def_component $component12 = op543($int11);
+def_int $int13 = 1;
+if (op718 = 1) {
+    $int13 = %varclan_2581;
+}
+def_int $int14 = ~clientscript_5215($int0);
+def_int $int15 = if_getwidth(op543($component7));
+$int1 = calc($int1 / 100);
+$int5 = max($int5, $int14);
+def_int $int16 = calc($int1 * $int15 / $int5);
+def_int $int17 = calc($int14 * $int15 / $int5);
+def_int $int18 = calc($int2 * $int15 / $int5);
+def_int $int19 = calc($int3 * $int15 / $int5);
+def_int $int20 = calc($int1 - ($int2 + $int3));
+def_int $int21 = calc($int20 * $int15 / $int5);
+if_settext($component6, tostring($int1));
+def_int $int22 = 0;
+if_setsize($component7, min(calc($int18 - 2), $int16), 9, ^setsize_abs, ^setsize_abs);
+if_setposition($component7, 1, 0, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component8, min($int19, calc($int16 - $int18)), 9, ^setsize_abs, ^setsize_abs);
+if_setposition($component8, $int18, 0, ^setpos_abs_left, ^setpos_abs_top);
+if_setsize($component9, min(calc($int21 - 2), calc($int16 - ($int18 + $int19))), 9, ^setsize_abs, ^setsize_abs);
+if_setposition($component9, calc($int18 + $int19 + 1), 0, ^setpos_abs_left, ^setpos_abs_top);
+def_component $component23 = null;
+def_component $component24 = null;
+def_graphic $graphic25 = 7317;
+def_graphic $graphic26 = 7314;
+$component23, $component24 = ~clientscript_5223($int0);
+if ($component23 ! null & $component24 ! null) {
+    $int17 = calc($int17 + 82);
+    $int17 = calc($int17 - if_getwidth($component24) / 2);
+    if (%varclan_2744 = $int0) {
+        $graphic25 = 7316;
+        $graphic26 = 7315;
+    }
+    if_sethide($component23, true);
+    if_sethide($component24, true);
+    if ($int14 > 0) {
+        if_setgraphic($component23, $graphic25);
+        if_setgraphic($component24, $graphic26);
+        if_sethide($component23, false);
+        if_sethide($component24, false);
+        if_setposition($component24, $int17, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    }
+}
+if (~clientscript_5956($int0) = 3 | ~clientscript_5956($int0) = 2) {
+    if_sethide(~clientscript_5967($int0), false);
+    if_setgraphic(~clientscript_5967($int0), 9996);
+} else if (~clientscript_5956($int0) = 1) {
+    if_sethide(~clientscript_5967($int0), false);
+    if_setgraphic(~clientscript_5967($int0), 9997);
+} else {
+    if_sethide(~clientscript_5967($int0), true);
+}
+def_string $string0 = enum(int, string, enum_4285, $int0);
+def_string $string1 = "<$string0><br>Total : <tostring($int1)><br>Upkeep : <tostring($int2)><br>Upgrades : <tostring($int3)><br>(Upgrades part-paid : <tostring($int4)>)<br>Surplus : <tostring($int20)>";
+if ($int14 > 0) {
+    $string1 = append($string1, "<br>Goal: <tostring($int14)>");
+}
+if (%varclan_2744 = $int0) {
+    $string1 = append($string1, " (Primary)");
+}
+def_int $int27 = 2;
+if (if_gety($component12) > calc(if_getheight(op543($component12)) / 2 - 10)) {
+    $int27 = 0;
+}
+if_setonmouserepeat($component12, "aif_tooltip(interface_1260:com_324, event_com, -1, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, $int27, event_mousex, event_mousey)");
+if_setonmouseleave($component12, "deltooltip(interface_1260:com_324)");

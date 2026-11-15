@@ -1,0 +1,23 @@
+// 5432
+[proc,clientscript_5432]
+def_int $int0 = 0;
+if (%varclient_1663 = 1) {
+    $int0 = 16;
+} else if (%varclient_1663 = 2) {
+    $int0 = 17;
+} else if (%varclient_1663 = 3) {
+    $int0 = 18;
+} else if (%varclient_1663 = 4) {
+    $int0 = 19;
+} else if (%varclient_1663 = 5) {
+    $int0 = 20;
+} else if (%varclient_1663 = 6) {
+    $int0 = 21;
+} else if (%varclient_1663 = 7) {
+    $int0 = 22;
+} else {
+    $int0 = calc(%varclient_1663 - 7);
+}
+if (%varclient_1666 = $int0) {
+    %varclient_1667 = 1;
+}

@@ -1,0 +1,18 @@
+// 6167
+[proc,clientscript_6167](int $int0, int $int1)
+def_int $int2 = 0;
+if ($int0 < 1) {
+    $int0 = calc($int0 + 1);
+    if_setontimer(interface_1273:com_14, "clientscript_6167($int0, $int1)");
+} else {
+    if_setontimer(interface_1273:com_14, null);
+    $int2 = calc(enum_getoutputcount(enum_5838) / 2);
+    while ($int2 < enum_getoutputcount(enum_5838)) {
+        if (cc_find(interface_1273:com_14, $int2) = true) {
+            op377;
+            $int1 = ~clientscript_6172($int2, $int1);
+        }
+        $int2 = calc($int2 + 1);
+    }
+    op400(interface_1273:com_18);
+}

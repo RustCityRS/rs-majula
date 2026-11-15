@@ -1,0 +1,36 @@
+// 6182
+[proc,clientscript_6182](component $component0, int $int1)
+def_int $int2 = 0;
+def_component $component3 = null;
+while ($int2 < enum_getoutputcount(enum_5840)) {
+    $component3 = enum(int, component, enum_5840, $int2);
+    if ($component3 ! null & cc_find($component3, 1) = true) {
+        if ($int1 = $int2) {
+            cc_setgraphic("km_colourpickerbox,1");
+        } else {
+            cc_setgraphic("km_colourpickerbox,0");
+        }
+    }
+    $int2 = calc($int2 + 1);
+    $component3 = null;
+}
+def_struct $struct4 = enum(int, struct, enum_5841, $int1);
+if ($struct4 = null) {
+    return;
+}
+if_setrecol(interface_1273:com_21, 1, 62904, struct_param($struct4, param_2396));
+if_setrecol(interface_1273:com_21, 2, 62894, struct_param($struct4, param_2397));
+if_setrecol(interface_1273:com_21, 3, 62884, struct_param($struct4, param_2398));
+if_setrecol(interface_1273:com_21, 4, 62874, struct_param($struct4, param_2399));
+if_setrecol(interface_1273:com_22, 1, 62904, struct_param($struct4, param_2396));
+if_setrecol(interface_1273:com_22, 2, 62894, struct_param($struct4, param_2397));
+if_setrecol(interface_1273:com_22, 3, 62884, struct_param($struct4, param_2398));
+if_setrecol(interface_1273:com_22, 4, 62874, struct_param($struct4, param_2399));
+if_setrecol(interface_1273:com_23, 1, 62904, struct_param($struct4, param_2396));
+if_setrecol(interface_1273:com_23, 2, 62894, struct_param($struct4, param_2397));
+if_setrecol(interface_1273:com_23, 3, 62884, struct_param($struct4, param_2398));
+if_setrecol(interface_1273:com_23, 4, 62874, struct_param($struct4, param_2399));
+if_setrecol(interface_1273:com_24, 1, 62904, struct_param($struct4, param_2396));
+if_setrecol(interface_1273:com_24, 2, 62894, struct_param($struct4, param_2397));
+if_setrecol(interface_1273:com_24, 3, 62884, struct_param($struct4, param_2398));
+if_setrecol(interface_1273:com_24, 4, 62874, struct_param($struct4, param_2399));

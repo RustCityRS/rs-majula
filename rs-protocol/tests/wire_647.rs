@@ -16,7 +16,7 @@
 //! with the correct byte COUNT but the wrong byte ORDER -- a class of bug that
 //! neither the compiler, the CRC gate, nor a size check can catch.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 use rs_io::{Packet, PacketFrame};
 use rs_protocol::network::game::server::ServerProtMessage;
@@ -32,6 +32,7 @@ use rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial;
 use rs_protocol::network::game::server::update_runweight::UpdateRunWeight;
 use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
 use rs_protocol::network::game::zone_prot::ZoneProt;
+use rs_ver::TypeId;
 
 // ---------------------------------------------------------------------------
 // Client `Packet` reader port. Line-for-line from the deob-647 client.
@@ -297,7 +298,7 @@ fn obj_add_matches_client() {
     use rs_protocol::network::game::server::obj_add::ObjAdd;
     let bytes = encode(&ObjAdd {
         coord: 0x35,
-        id: 995,
+        id: TypeId::new(995),
         count: 1000,
     });
     let mut p = ClientPacket::new(&bytes);
@@ -313,7 +314,7 @@ fn obj_del_matches_client() {
     use rs_protocol::network::game::server::obj_del::ObjDel;
     let bytes = encode(&ObjDel {
         coord: 0x35,
-        id: 995,
+        id: TypeId::new(995),
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g1_alt2(), 0x35, "packed local coord");
@@ -327,7 +328,7 @@ fn obj_count_matches_client() {
     use rs_protocol::network::game::server::obj_count::ObjCount;
     let bytes = encode(&ObjCount {
         coord: 0x35,
-        id: 995,
+        id: TypeId::new(995),
         old_count: 5,
         new_count: 9,
     });
@@ -505,7 +506,7 @@ fn if_setgraphic_matches_client() {
     let hash = (178i32 << 16) | 79;
     let bytes = encode(&IfSetGraphic {
         com: hash,
-        graphic: 2379,
+        graphic: TypeId::new(2379),
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g4s_alt1(), hash, "component hash");
@@ -587,7 +588,7 @@ fn loc_anim_matches_client() {
         let message = LocAnim {
             coord: 0x35,
             shape_angle: 10 << 2 | 1,
-            seq,
+            seq: TypeId::new(seq),
         };
         let bytes = encode(&message);
         let mut p = ClientPacket::new(&bytes);
@@ -605,7 +606,7 @@ fn projanim() -> MapProjAnim {
         dx: -4,
         dz: 6,
         target: -(42 + 1),
-        spotanim: 91,
+        spotanim: TypeId::new(91),
         src_height: 43,
         dst_height: 31,
         start_delay: 51,
@@ -653,7 +654,7 @@ fn map_projanim_halfsq_matches_client() {
         dz: 12,
         source: 43,
         target: -(42 + 1),
-        spotanim: 91,
+        spotanim: TypeId::new(91),
         src_height: -20i8 as u8,
         dst_height: 31,
         start_delay: 51,
@@ -690,7 +691,7 @@ fn map_projanim_halfsq_matches_client() {
 #[test]
 fn loc_prefetch_matches_client() {
     let message = LocPrefetch {
-        id: 0x1234,
+        id: TypeId::new(0x1234),
         shape: 10,
     };
     let bytes = encode(&message);
@@ -782,7 +783,7 @@ fn loc_merge_matches_client() {
 
     let merge = LocMerge {
         coord: 0x35,
-        id: 0x1234,
+        id: TypeId::new(0x1234),
         shape_angle: 10 << 2 | 3,
         models: None,
         recol: Some(Box::new([960, 8353])),
@@ -899,7 +900,7 @@ fn spotanim_specific_matches_client() {
         packed: 15 << 3 | 2,
         channel: 1,
         target: npc,
-        spotanim: 74,
+        spotanim: TypeId::new(74),
         height: 92,
         delay: 30,
     });
@@ -995,16 +996,19 @@ fn update_inv_full_matches_client() {
     use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
     for other in [false, true] {
         let inv = UpdateInvFull {
-            inv_id: 90,
+            inv_id: TypeId::new(90),
             other,
             capacity: 3,
             slots: vec![
                 Some(InvItem {
-                    id: 995,
+                    id: TypeId::new(995),
                     count: 100_000,
                 }),
                 None,
-                Some(InvItem { id: 1351, count: 1 }),
+                Some(InvItem {
+                    id: TypeId::new(1351),
+                    count: 1,
+                }),
             ],
         };
         let bytes = encode(&inv);
@@ -1032,12 +1036,12 @@ fn update_inv_full_matches_client() {
 fn update_inv_full_of_large_stacks_is_sized_whole() {
     use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
     let inv = UpdateInvFull {
-        inv_id: 93,
+        inv_id: TypeId::new(93),
         other: false,
         capacity: 28,
         slots: vec![
             Some(InvItem {
-                id: 554,
+                id: TypeId::new(554),
                 count: 1_000,
             });
             28
@@ -1051,16 +1055,16 @@ fn update_inv_full_of_large_stacks_is_sized_whole() {
 #[test]
 fn update_inv_partial_matches_client() {
     let changes = [
-        (0, Some((995, 1))),
+        (0, Some((TypeId::new(995), 1))),
         (127, None),
-        (128, Some((1351, 254))),
-        (255, Some((995, 255))),
-        (32767, Some((995, i32::MAX))),
+        (128, Some((TypeId::new(1351), 254))),
+        (255, Some((TypeId::new(995), 255))),
+        (32767, Some((TypeId::new(995), i32::MAX))),
     ];
     for other in [false, true] {
         for objs in [&changes[..], &[]] {
             let update = UpdateInvPartial {
-                inv_id: 90,
+                inv_id: TypeId::new(90),
                 other,
                 objs,
             };
@@ -1077,7 +1081,10 @@ fn update_inv_partial_matches_client() {
                     None
                 } else {
                     let count = p.g1();
-                    Some(((obj - 1) as u16, if count == 255 { p.g4s() } else { count }))
+                    Some((
+                        TypeId::new((obj - 1) as u16),
+                        if count == 255 { p.g4s() } else { count },
+                    ))
                 };
                 slots.push((slot, item));
             }
@@ -1205,7 +1212,7 @@ fn hint_arrow_tile_matches_client() {
                 height: 40,
                 range: 65535,
             },
-            model_id: 0xFFFF,
+            model_id: TypeId::new(0xFFFF),
         });
         assert_eq!(bytes.len(), 12);
         let hint = read_hint(&bytes);
@@ -1240,7 +1247,7 @@ fn hint_arrow_slot_zero_keeps_its_bytes() {
             height: 20,
             range: 0,
         },
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     });
     assert_eq!(
         tile,
@@ -1251,7 +1258,7 @@ fn hint_arrow_slot_zero_keeps_its_bytes() {
         slot: 0,
         icon: 0,
         kind: HintArrowKind::Npc { npc_index: 300 },
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     });
     assert_eq!(
         npc,
@@ -1262,7 +1269,7 @@ fn hint_arrow_slot_zero_keeps_its_bytes() {
         slot: 0,
         icon: 0,
         kind: HintArrowKind::Player { player_index: 5 },
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     });
     assert_eq!(
         player,
@@ -1273,7 +1280,7 @@ fn hint_arrow_slot_zero_keeps_its_bytes() {
         slot: 0,
         icon: 0,
         kind: HintArrowKind::Stop,
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     });
     assert_eq!(stop, [0; 12], "stop");
 }
@@ -1286,7 +1293,7 @@ fn hint_arrow_stop_names_its_slot() {
         slot: 7,
         icon: 0,
         kind: HintArrowKind::Stop,
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     });
     assert_eq!(bytes.len(), 12);
     let hint = read_hint(&bytes);
@@ -1301,7 +1308,7 @@ fn hint_arrow_entity_matches_client() {
         slot: 3,
         icon: 1,
         kind: HintArrowKind::Npc { npc_index: 1234 },
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     }));
     assert_eq!(
         (npc.slot, npc.kind, npc.icon, npc.index),
@@ -1311,7 +1318,7 @@ fn hint_arrow_entity_matches_client() {
         slot: 4,
         icon: 0,
         kind: HintArrowKind::Player { player_index: 2047 },
-        model_id: 0xFFFF,
+        model_id: TypeId::new(0xFFFF),
     }));
     assert_eq!(
         (player.slot, player.kind, player.icon, player.index),

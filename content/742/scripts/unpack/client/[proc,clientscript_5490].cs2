@@ -1,0 +1,119 @@
+// 5490
+[proc,clientscript_5490](component $component0, string $string0, int $int1, int $int2)
+cc_deleteall($component0);
+if_setsize($component0, $int1, $int2, ^setsize_abs, ^setsize_abs);
+def_int $int3 = 0;
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(20, 22, ^setsize_minus, ^setsize_minus);
+cc_settiling(true);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(10, 22, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_settiling(true);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(10, 22, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_settiling(true);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(20, 11, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settiling(true);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(20, 11, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_settiling(true);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+$int3 = calc($int3 + 1);
+cc_create($component0, ^iftype_graphic, $int3);
+cc_setsize(10, 11, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+$int3 = calc($int3 + 1);
+if (%varclient_1692 ! -1) {
+    cc_create($component0, ^iftype_text, $int3);
+    cc_setsize(15, 30, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_setcolour(0xebe0bc);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+    cc_settextshadow(false);
+    cc_settext($string0);
+    op817(1);
+    $int3 = calc($int3 + 1);
+    cc_create($component0, ^iftype_text, $int3);
+    cc_setsize(15, 30, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, 15, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_setcolour(0xebe0bc);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+    cc_settextshadow(false);
+    cc_settext("Cost : <~tostring_shortform(%varclient_1692)>");
+    $int3 = calc($int3 + 1);
+} else {
+    cc_create($component0, ^iftype_text, $int3);
+    cc_setsize(15, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_settextfont(b12_full);
+    cc_setcolour(0xebe0bc);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 15);
+    cc_settextshadow(false);
+    cc_settext($string0);
+    $int3 = calc($int3 + 1);
+}
+$int3 = 0;
+while ($int3 < 9) {
+    switch_int ($int3) {
+        case 0 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8515);
+            }
+        case 1 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8514);
+            }
+        case 2 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8516);
+            }
+        case 3 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8512);
+            }
+        case 4 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8518);
+            }
+        case 5 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8513);
+            }
+        case 6 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8511);
+            }
+        case 7 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8517);
+            }
+        case 8 :
+            if (cc_find($component0, $int3) = true) {
+                cc_setgraphic(8519);
+            }
+    }
+    $int3 = calc($int3 + 1);
+}

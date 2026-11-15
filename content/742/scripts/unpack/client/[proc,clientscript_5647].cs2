@@ -1,0 +1,11 @@
+// 5647
+[proc,clientscript_5647](string $string0)
+def_int $int0 = 5;
+def_int $int1 = 13;
+if_sethide(interface_1215:com_13, false);
+if_settext(interface_1215:com_16, $string0);
+def_int $int2 = calc($int0 * 2 + parawidth($string0, 500, op1028(interface_1215:com_16)));
+def_int $int3 = calc($int0 * 2 + paraheight($string0, $int2, op1028(interface_1215:com_16)) * $int1);
+if_setsize(interface_1215:com_13, $int2, $int3, ^setsize_abs, ^setsize_abs);
+$int3 = calc(%varplayerbit_10444 * 25 + %varplayerbit_10445 * 25 + %varplayerbit_10446 * 25);
+if_setposition(interface_1215:com_13, 0, $int3, ^setpos_abs_right, ^setpos_abs_top);

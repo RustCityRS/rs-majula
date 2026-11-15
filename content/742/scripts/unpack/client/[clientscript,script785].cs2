@@ -1,0 +1,73 @@
+// 785
+[clientscript,script785](component $component0)
+%magre_over_combat_filter_button = 0;
+%magre_over_tele_filter_button = 0;
+%magre_over_misc_filter_button = 0;
+%magre_over_skill_filter_button = 0;
+switch_component ($component0) {
+    case magic:com_7 :
+        %magre_over_combat_filter_button = 1;
+        if (%varplayerbit_6459 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic:com_9 :
+        %magre_over_tele_filter_button = 1;
+        if (%varplayerbit_6462 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic:filter_misc_button :
+        %magre_over_misc_filter_button = 1;
+        if (%varplayerbit_6461 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic:com_13 :
+        %magre_over_skill_filter_button = 1;
+        if (%varplayerbit_6460 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic_lunar:com_5 :
+        %magre_over_combat_filter_button = 1;
+        if (%varplayerbit_6463 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic_lunar:filter_misc_button :
+        %magre_over_misc_filter_button = 1;
+        if (%varplayerbit_6464 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic_lunar:com_7 :
+        %magre_over_tele_filter_button = 1;
+        if (%varplayerbit_6465 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic_zaros:com_5 :
+        %magre_over_combat_filter_button = 1;
+        if (%varplayerbit_6466 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case magic_zaros:com_7 :
+        %magre_over_tele_filter_button = 1;
+        if (%varplayerbit_6467 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case rand_magic:com_7 :
+        %magre_over_combat_filter_button = 1;
+        if (%varplayerbit_7348 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case rand_magic:com_9 :
+        %magre_over_tele_filter_button = 1;
+        if (%varplayerbit_7351 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case rand_magic:filter_misc_button :
+        %magre_over_misc_filter_button = 1;
+        if (%varplayerbit_7350 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+    case rand_magic:com_13 :
+        %magre_over_skill_filter_button = 1;
+        if (%varplayerbit_7349 = 1) {
+            if_setgraphic($component0, "magic_icon_set,1");
+        }
+}

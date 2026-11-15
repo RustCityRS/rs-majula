@@ -1,0 +1,15 @@
+// 6353
+[proc,clientscript_6353]()(boolean)
+def_component $component0 = null;
+def_component $component1 = toplevel_fullscreen:com_86;
+if (getwindowmode < 2) {
+    $component1 = toplevel:com_0;
+}
+$component0 = op1506;
+while ($component0 ! null) {
+    if ($component0 = $component1) {
+        return(true);
+    }
+    $component0 = op543($component0);
+}
+return(false);

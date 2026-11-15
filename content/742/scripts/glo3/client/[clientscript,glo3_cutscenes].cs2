@@ -1,0 +1,14 @@
+// 4128
+[clientscript,glo3_cutscenes](component $component0)
+if (%glo3_cutscene <= 100) {
+    ~script4130($component0);
+    return;
+}
+if (%glo3_cutscene <= 200) {
+    ~script4131($component0, ~coord_0_0(coord));
+    return;
+}
+if (%glo3_cutscene <= 300) {
+    ~script4132($component0, ~coord_0_0(coord));
+    return;
+}

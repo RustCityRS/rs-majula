@@ -1,0 +1,45 @@
+// 5311
+[proc,clientscript_5311](component $component0, component $component1, component $component2, component $component3)
+def_int $int4 = 0;
+def_int $int5 = enum_getoutputcount(enum_5177);
+def_int $int6 = enum_getoutputcount(enum_5176);
+def_int $intarray0(min($int5, $int6));
+def_int $int7 = 0;
+while ($int4 < min($int5, $int6)) {
+    if (cc_find($component1, $int4) = true & string_length(cc_gettext) > 0) {
+        $intarray0($int7) = $int4;
+        $int7 = calc($int7 + 1);
+    }
+    $int4 = calc($int4 + 1);
+}
+if ($int7 > 1) {
+    if (%varclient_1607 = 1) {
+        ~script4425(intarray0, $component1, 0, calc($int7 - 1));
+        %varclient_1607 = -1;
+    } else {
+        ~script4424(intarray0, $component1, 0, calc($int7 - 1));
+        %varclient_1607 = 1;
+    }
+}
+def_int $int8 = 15;
+$int4 = 0;
+while ($int4 < $int7) {
+    if (cc_find($component1, $intarray0($int4)) = true) {
+        cc_setposition(2, calc($int8 * $int4), ^setpos_abs_left, ^setpos_abs_top);
+        if (.cc_find($component2, $intarray0($int4)) = true) {
+            .cc_setposition(140, calc($int8 * $int4 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        }
+        if (.cc_find($component3, $intarray0($int4)) = true) {
+            .cc_setposition(152, calc($int8 * $int4 + 1), ^setpos_abs_left, ^setpos_abs_top);
+        }
+        if (.cc_find($component0, $intarray0($int4)) = true) {
+            .cc_setposition(0, calc($int8 * $int4), ^setpos_abs_left, ^setpos_abs_top);
+            if (calc($int4 % 2) = 0) {
+                .cc_setcolour(0x222222);
+            } else {
+                .cc_setcolour(0x111111);
+            }
+        }
+    }
+    $int4 = calc($int4 + 1);
+}

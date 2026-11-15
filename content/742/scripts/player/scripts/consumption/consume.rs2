@@ -1,0 +1,118 @@
+// Ported/adapted from Jordan's rev-225: player/scripts/consumption/consume.rs2
+// Single-bite staple foods (fish/meat/bread). Per-item [opheld1,<obj>] triggers
+// (rev-225 grouped by food category; we use explicit objs to avoid the
+// rev-225->647 category remapping for now). The opheld1 wiring already exists
+// (handle_inv_button -> p_opheld -> [opheld1,<obj>]). Multi-bite, specials and
+// potions are still deferred; the eat-throttle + skill-delay + duel-arena gate
+// are now wired through [label,player_consume_item] (eat_delay, skill_delay).
+
+// ***** TRIGGERS *****
+// Normal food: eat_delay 2 (3-tick eat throttle), skill_delay 3 (delays the
+// next skilling action) — matches rev-225 @player_consume_item(..., 2, 3).
+[opheld1,anchovies] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,shrimp] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,cooked_chicken] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,cooked_meat] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,sardine] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,bread] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,herring] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,mackerel] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,trout] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,cod] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,pike] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,salmon] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,tuna] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,lobster] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,bass] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,swordfish] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,monkfish] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,tbwt_cooked_karambwan] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,shark] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,seaturtle] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,mantaray] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,lrc_rocktail_cooked] @player_consume_item(consume_effect_stat, 2, 3);
+
+// Raw vegetables (low-tier staples) — heal 1 HP (10 LP) each.
+[opheld1,potato] @player_consume_item(consume_effect_stat, 2, 3);
+[opheld1,cabbage] @player_consume_item(consume_effect_stat, 2, 3);
+
+// Multi-bite foods (pies/cakes/pizzas). Each stage (incl. the half-pie / 2-3
+// cake / half-pizza) is its own trigger and uses consume_effect_stat2 (inv_add
+// the next_obj_stage). eat_delay=2 uniformly. The 2011 wiki contradicts this
+// for pies and pizzas: a slice of pie follows another "in quick succession"
+// (Pie, 2011-04-09) and a two-bite pizza's first bite eats with a lower delay
+// (Anchovy pizza, 2011-04-17). Not ported.
+// Pies -> half -> pie_dish
+[opheld1,apple_pie] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_an_apple_pie] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,redberry_pie] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_a_redberry_pie] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,meat_pie] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_a_meat_pie] @player_consume_item(consume_effect_stat2, 2, 3);
+// Cakes -> 2/3 -> slice -> gone
+[opheld1,cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,partial_cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,cake_slice] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,chocolate_cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,partial_chocolate_cake] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,chocolate_slice] @player_consume_item(consume_effect_stat2, 2, 3);
+// Pizzas -> half -> gone
+[opheld1,plain_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_plain_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,meat_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_meat_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,anchovie_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_anchovie_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,pineapple_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,half_pineapple_pizza] @player_consume_item(consume_effect_stat2, 2, 3);
+
+// Specials. Kebab has random outcomes (its own consume_effect_kebab label).
+// Stew/curry are heal foods that leave an empty bowl (consume_effect_stat2 +
+// next_obj_stage=bowl).
+[opheld1,kebab] @player_consume_item(consume_effect_kebab, 2, 3);
+[opheld1,stew] @player_consume_item(consume_effect_stat2, 2, 3);
+[opheld1,curry] @player_consume_item(consume_effect_stat2, 2, 3);
+
+// potions (289's consume.rs2). 289 drinks every potion here; 647 has only the
+// antifire's effect so far, so the others wait for the consumption port and
+// say nothing new.
+[opheld1,_potion]
+switch_obj(last_item) {
+    // anti dragon
+    case 1dose1antidragon, 2dose1antidragon, 3dose1antidragon, 4dose1antidragon :
+        @player_consume_item(consume_effect_antidragon, null, null);
+    // anti posions
+    // case 1doseantipoison, 2doseantipoison, 3doseantipoison, 4doseantipoison :
+    //     @player_consume_item(consume_effect_antipoison, null, null);
+    // case 1dose2antipoison, 2dose2antipoison, 3dose2antipoison, 4dose2antipoison :
+    //     @player_consume_item(consume_effect_super_antipoison, null, null);
+    // case default : @player_consume_item(consume_effect_stat, null, null);
+    case default : ~displaymessage(^dm_default);
+}
+
+// ***** ENTRY *****
+// Central consume entry (rev-225 [label,player_consume_item]). Gates on the
+// duel-arena rules, applies the eat-throttle (%eat_delay vs map_clock) and the
+// skilling delay (%action_delay), then jumps to the per-food effect label.
+//   $eat_delay  null -> no throttle; else block until map_clock passes %eat_delay
+//   $skill_delay null -> no skill delay; else push %action_delay forward
+[label,player_consume_item](label $consume_effect, int $eat_delay, int $skill_delay)
+def_obj $obj = last_item;
+
+if (~duel_arena_consume_check($obj) = false) {
+    return;
+}
+
+if ($eat_delay ! null) {
+    if (%eat_delay >= map_clock) {
+        return;
+    }
+    %eat_delay = calc(map_clock + $eat_delay);
+}
+
+if ($skill_delay ! null) {
+    %action_delay = calc(%action_delay + $skill_delay);
+}
+
+// consume effect
+jump($consume_effect);

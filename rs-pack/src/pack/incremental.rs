@@ -1,12 +1,12 @@
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::pack::js5::PreparedGroup;
 use crate::pack::pack_registry::PackedFile;
 use crate::pack::packed_data::PackedData;
 use anyhow::{Context, Result, ensure};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rayon::prelude::*;
 use rs_io::Packet;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_io::js5::reference::FileInfo;
 use rustc_hash::FxHashMap;
 use siphasher::sip128::{Hasher128, SipHasher13};
@@ -24,7 +24,7 @@ use std::os::unix::fs::FileExt;
 #[cfg(windows)]
 use std::os::windows::fs::FileExt;
 use std::path::{Path, PathBuf};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::slice;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex, MutexGuard, OnceLock, PoisonError, RwLock};
@@ -636,7 +636,7 @@ impl Stage {
     }
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 impl Stage {
     /// The groups `build` makes from `items`, each reused from an earlier pack
     /// while its `sources` and the names it looked up in `registry` are
@@ -719,7 +719,7 @@ impl Stage {
 
 /// A group's header, with its container kept as a blob of its own: the memo
 /// that made it keeps the same bytes.
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn write_groups(store: &Store, groups: &[PreparedGroup]) -> Option<Vec<u8>> {
     let mut size = 4;
     for group in groups {
@@ -766,7 +766,7 @@ fn write_groups(store: &Store, groups: &[PreparedGroup]) -> Option<Vec<u8>> {
     Some(buf.data)
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn read_groups(store: &Store, payload: &[u8]) -> Option<Vec<PreparedGroup>> {
     let mut reader = Reader::new(payload);
     let count = reader.g4().ok()?;

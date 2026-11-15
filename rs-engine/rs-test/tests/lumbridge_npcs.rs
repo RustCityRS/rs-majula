@@ -13,12 +13,12 @@ use rs_test::talk::{explore, talk_to};
 /// The nearest spawn of npc `name` to (x, z): its nid, and a walkable tile
 /// beside it.
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, x, z) = engine
         .npc_list
         .npcs
@@ -44,7 +44,7 @@ fn beside(engine: &Engine, name: &str) -> (u16, u16, u16) {
 /// Explores every branch of `npc`'s Talk-to with varp `varp` at `value`, and
 /// checks each said something and no script failed.
 fn every_branch(engine: &mut Engine, npc: &str, varp: &str, value: i32) {
-    let varp_id = *engine.cache.varps.debugnames.get(varp).unwrap();
+    let varp_id = engine.cache.varps.get_by_debugname(varp).unwrap().id;
     let _ = engine.script_errors.take();
     let branches = explore(
         engine,
@@ -62,7 +62,7 @@ fn every_branch(engine: &mut Engine, npc: &str, varp: &str, value: i32) {
                 .harness_player_mut(client.pid)
                 .unwrap()
                 .vars
-                .set(varp_id, VarValue::Int(value));
+                .set(varp_id.g2(), VarValue::Int(value));
             for _ in 0..3 {
                 engine.cycle();
             }

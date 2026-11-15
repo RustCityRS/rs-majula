@@ -1,0 +1,7 @@
+// 6516
+[proc,clientscript_6516](component $component0)
+if (getwindowmode = ^windowmode_small) {
+    if_setposition($component0, 0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+} else {
+    if_setposition($component0, 0, 70, ^setpos_abs_centre, ^setpos_abs_bottom);
+}

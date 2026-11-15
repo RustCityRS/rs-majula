@@ -1,0 +1,2176 @@
+// 1015:0
+[unit_type_text]
+type=text
+y=7
+height=16
+widthmode=minus
+layer=purchase_current_details_layer
+textfont=welcome_font_tiny
+text=Mage
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:1
+[unit_type_underline]
+type=rectangle
+x=37
+y=22
+width=206
+height=1
+layer=purchase_current_details_layer
+colour=0xff991f
+
+// 1015:2
+[current_unit_image]
+type=graphic
+x=20
+y=42
+width=50
+height=50
+layer=purchase_current_details_layer
+graphic="conq_unit_icons,3"
+colour=0x000000
+
+// 1015:3
+[reset_abilities_button]
+type=graphic
+x=15
+y=23
+width=20
+height=16
+layer=com_34
+graphic="gnome_copter_arrows,0"
+transmitop=1
+op1=Reset Commands
+onmouseover=conq_highlight_reset_button(event_com, 1)
+onmouseleave=conq_highlight_reset_button(event_com, 0)
+
+// 1015:4
+[reset_units_button]
+type=graphic
+x=15
+y=23
+width=20
+height=16
+layer=com_105
+graphic="gnome_copter_arrows,0"
+transmitop=1
+op1=Reset Troops
+onmouseover=conq_highlight_reset_button(event_com, 1)
+onmouseleave=conq_highlight_reset_button(event_com, 0)
+
+// 1015:5
+[com_5]
+type=layer
+width=512
+height=334
+
+// 1015:6
+[points_left_layer]
+type=layer
+width=512
+height=334
+
+// 1015:7
+[com_7]
+type=rectangle
+x=341
+y=51
+width=149
+height=16
+layer=points_left_layer
+colour=0x5a5349
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:8
+[com_8]
+type=rectangle
+x=341
+y=51
+width=148
+height=15
+layer=points_left_layer
+colour=0x403931
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:9
+[com_9]
+type=rectangle
+x=340
+y=50
+width=151
+height=18
+layer=points_left_layer
+colour=0x16120f
+transmitop=10
+op10= 
+
+// 1015:10
+[com_10]
+type=rectangle
+x=342
+y=52
+width=147
+height=14
+layer=points_left_layer
+colour=0x474135
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:11
+[points_left_text]
+type=text
+x=343
+y=52
+width=117
+height=14
+layer=points_left_layer
+textfont=p11_full
+text=Squad Resources:
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:12
+[points_left_number]
+type=text
+x=460
+y=52
+width=28
+height=14
+layer=points_left_layer
+textfont=p11_full
+text=1000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+onvartransmit=script479{conq_base_temp}
+
+// 1015:13
+[com_13]
+type=graphic
+x=12
+y=27
+width=488
+height=289
+layer=com_5
+graphic=km_middlefillcolour
+colour=0xffffffff
+
+// 1015:14
+[bottom_left_corner]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+layer=com_5
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 1015:15
+[top_left_corner]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+layer=com_5
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+
+// 1015:16
+[top_right_corner]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+xmode=abs_right
+layer=com_5
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+
+// 1015:17
+[bottom_right_corner]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+xmode=abs_right
+layer=com_5
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 1015:18
+[left_side]
+type=graphic
+x=-8
+y=52
+width=32
+height=240
+layer=com_5
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 1015:19
+[right_side]
+type=graphic
+x=-7
+y=52
+width=32
+height=239
+xmode=abs_right
+layer=com_5
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 1015:20
+[top_side]
+type=graphic
+x=37
+y=20
+width=438
+height=32
+layer=com_5
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+
+// 1015:21
+[bottom_side]
+type=graphic
+y=303
+width=444
+height=32
+xmode=abs_centre
+layer=com_5
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 1015:22
+[border_shadow]
+type=rectangle
+x=11
+y=41
+width=489
+height=275
+layer=com_5
+colour=0x000000
+
+// 1015:23
+[border_shadow_3]
+type=rectangle
+x=12
+y=6
+width=489
+height=275
+layer=com_5
+hide=yes
+colour=0x000000
+
+// 1015:24
+[border_shadow_2]
+type=rectangle
+x=13
+y=43
+width=485
+height=271
+layer=com_5
+colour=0x000000
+trans=192
+
+// 1015:25
+[border_shadow_1]
+type=rectangle
+x=12
+y=42
+width=487
+height=273
+layer=com_5
+colour=0x000000
+trans=64
+
+// 1015:26
+[close_button]
+type=graphic
+x=481
+y=23
+width=16
+height=16
+layer=com_5
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1015:27
+[com_27]
+type=rectangle
+x=19
+y=71
+width=473
+height=237
+layer=com_5
+colour=0x5a5349
+transmitop=10
+op10= 
+
+// 1015:28
+[com_28]
+type=rectangle
+x=19
+y=71
+width=472
+height=236
+layer=com_5
+colour=0x403931
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:29
+[com_29]
+type=rectangle
+x=21
+y=73
+width=469
+height=233
+layer=com_5
+colour=0x2d261e
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:30
+[com_30]
+type=rectangle
+x=20
+y=72
+width=471
+height=235
+layer=com_5
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:31
+[main_title_text]
+type=text
+x=12
+y=23
+width=488
+height=15
+layer=com_5
+textfont=b12_full
+text=Squad Selection
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 1015:32
+[com_32]
+type=layer
+width=512
+height=334
+
+// 1015:33
+[com_33]
+type=layer
+width=512
+height=334
+hide=yes
+transmitop=10
+op10= 
+
+// 1015:34
+[com_34]
+type=layer
+width=512
+height=334
+layer=com_33
+transmitop=10
+op10= 
+onvartransmit=script487{conq_base_temp}
+
+// 1015:35
+[command_ability_1_layer]
+type=layer
+x=23
+y=79
+width=180
+height=50
+layer=com_33
+onvartransmit=script490{conq_base_4, conq_base_4, conq_base_4, conq_base_4}
+
+// 1015:36
+[command_ability_2_layer]
+type=layer
+x=23
+y=136
+width=180
+height=50
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:37
+[command_ability_3_layer]
+type=layer
+x=23
+y=193
+width=180
+height=50
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:38
+[command_ability_4_layer]
+type=layer
+x=23
+y=250
+width=180
+height=50
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:39
+[command_details_layer]
+type=layer
+x=207
+y=75
+width=281
+height=229
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:40
+[command_background_layer]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=command_details_layer
+
+// 1015:41
+[com_41]
+type=rectangle
+width=281
+height=229
+layer=command_background_layer
+colour=0x201c17
+
+// 1015:42
+[com_42]
+type=rectangle
+x=1
+y=1
+width=279
+height=227
+layer=command_background_layer
+colour=0x595143
+
+// 1015:43
+[command_details_background_rect]
+type=rectangle
+x=2
+y=2
+width=277
+height=225
+layer=command_background_layer
+colour=0x161410
+fill=yes
+
+// 1015:44
+[com_44]
+type=graphic
+x=2
+y=69
+width=277
+height=32
+layer=command_background_layer
+graphic="v2_borders_slim,11"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:45
+[no_ability_selected_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_details_layer
+
+// 1015:46
+[no_ability_selected_text]
+type=text
+width=16391
+height=86
+widthmode=proportion
+layer=no_ability_selected_layer
+textfont=welcome_font_tiny
+text=No Command Selected
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:47
+[no_ability_selected_desc_text]
+type=text
+y=86
+width=16391
+height=143
+widthmode=proportion
+layer=no_ability_selected_layer
+textfont=welcome_font_tiny
+text=Select A Command Slot To See What Commands Are Available
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:48
+[active_ability_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_details_layer
+hide=yes
+
+// 1015:49
+[no_ability_text]
+type=text
+width=281
+height=86
+layer=active_ability_layer
+hide=yes
+textfont=welcome_font_tiny
+text=No Command
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:50
+[command_details_icon]
+type=graphic
+x=21
+y=31
+width=25
+height=25
+layer=active_ability_layer
+graphic="conq_command_icon,0"
+colour=0x000000
+
+// 1015:51
+[command_details_name]
+type=text
+y=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=active_ability_layer
+textfont=welcome_font_tiny
+text=Battle Cry
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:52
+[command_details_desc]
+type=text
+x=20
+y=22
+width=195
+height=47
+xmode=abs_right
+layer=active_ability_layer
+textfont=p11_full
+text=A target troop you control gains +200 damage and +200 health until the start of your next turn
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:53
+[command_details_cooldown]
+type=text
+x=6
+y=69
+width=111
+height=16
+layer=active_ability_layer
+textfont=p11_full
+text=Cooldown: 2 turns
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:54
+[command_details_cost]
+type=text
+x=6
+y=69
+width=111
+height=16
+xmode=abs_right
+layer=active_ability_layer
+textfont=p11_full
+text=Cost: 200
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:55
+[replacement_abilities_layer]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=command_details_layer
+hide=yes
+
+// 1015:56
+[com_56]
+type=text
+y=87
+width=16391
+height=16
+widthmode=proportion
+layer=replacement_abilities_layer
+textfont=p11_full
+text=Select a Command to place in this slot:
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:57
+[battle_cry_tick]
+type=graphic
+x=8
+y=112
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:58
+[battle_cry_name_text]
+type=text
+x=26
+y=111
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Battle Cry
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Battle Cry
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:59
+[stoicism_tick]
+type=graphic
+x=8
+y=135
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:60
+[stoicism_name_text]
+type=text
+x=26
+y=134
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Stoicism
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Stoicism
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:61
+[regenerate_tick]
+type=graphic
+x=8
+y=158
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:62
+[regenerate_name_text]
+type=text
+x=26
+y=157
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Regenerate
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Regenerate
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:63
+[barrage_tick]
+type=graphic
+x=8
+y=181
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:64
+[barrage_name_text]
+type=text
+x=26
+y=180
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Bombard
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Bombard
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:65
+[com_65]
+type=graphic
+x=8
+y=204
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:66
+[com_66]
+type=text
+x=26
+y=203
+width=120
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Winds Of Fate
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Winds Of Change
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:67
+[bloodlust_tick]
+type=graphic
+x=150
+y=112
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:68
+[bloodlust_name_text]
+type=text
+x=168
+y=111
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Charge
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Charge
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:69
+[chastise_tick]
+type=graphic
+x=150
+y=135
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:70
+[chastise_name_text]
+type=text
+x=168
+y=134
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Chastise
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Chastise
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:71
+[vigilance_tick]
+type=graphic
+x=150
+y=158
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:72
+[vigilance_name_text]
+type=text
+x=168
+y=157
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Vigilance
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Vigilance
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:73
+[shield_wall_tick]
+type=graphic
+x=150
+y=181
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:74
+[shield_wall_name_text]
+type=text
+x=168
+y=180
+width=100
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=Shield Wall
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Shield Wall
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:75
+[com_75]
+type=graphic
+x=150
+y=204
+width=14
+height=14
+layer=replacement_abilities_layer
+graphic="conq_tick_box,1"
+
+// 1015:76
+[com_76]
+type=text
+x=168
+y=203
+width=120
+height=14
+layer=replacement_abilities_layer
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=No Command
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1015:77
+[command_ability_4_background]
+type=graphic
+width=180
+height=50
+layer=command_ability_4_layer
+graphic=graphic_3263
+colour=0x000000
+transmitop=1,10
+op1=Select Slot
+op10= 
+
+// 1015:78
+[command_ability_4_details_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_4_layer
+hide=yes
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
+
+// 1015:79
+[command_ability_4_icon]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=command_ability_4_details_layer
+graphic="conq_command_icon,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:80
+[command_ability_4_name]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=command_ability_4_details_layer
+textfont=welcome_font_tiny
+text=Command 4
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=10
+op10= 
+
+// 1015:81
+[com_81]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_4_layer
+transmitop=10
+op10=    
+
+// 1015:82
+[command_ability_4_no_ability_text]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_81
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:83
+[command_ability_3_background]
+type=graphic
+width=180
+height=50
+layer=command_ability_3_layer
+graphic=graphic_3263
+colour=0x000000
+transmitop=1,10
+op1=Select Slot
+op10= 
+
+// 1015:84
+[command_ability_3_details_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_3_layer
+hide=yes
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
+
+// 1015:85
+[command_ability_3_icon]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=command_ability_3_details_layer
+graphic="conq_command_icon,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:86
+[command_ability_3_name]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=command_ability_3_details_layer
+textfont=welcome_font_tiny
+text=Command 3
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=10
+op10= 
+
+// 1015:87
+[com_87]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_3_layer
+transmitop=10
+op10=   
+
+// 1015:88
+[command_ability_3_no_ability_text]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_87
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:89
+[command_ability_2_background]
+type=graphic
+width=180
+height=50
+layer=command_ability_2_layer
+graphic=graphic_3263
+colour=0x000000
+transmitop=1,10
+op1=Select Slot
+op10= 
+
+// 1015:90
+[command_ability_2_details_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_2_layer
+hide=yes
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
+
+// 1015:91
+[command_ability_2_icon]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=command_ability_2_details_layer
+graphic="conq_command_icon,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:92
+[command_ability_2_name]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=command_ability_2_details_layer
+textfont=welcome_font_tiny
+text=Command 2
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=10
+op10= 
+
+// 1015:93
+[com_93]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_2_layer
+transmitop=10
+op10=  
+
+// 1015:94
+[command_ability_2_no_ability_text]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_93
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:95
+[command_ability_1_background]
+type=graphic
+width=180
+height=50
+layer=command_ability_1_layer
+graphic=graphic_3263
+colour=0x000000
+transmitop=1
+op1=Select Slot
+
+// 1015:96
+[command_ability_1_details_layer]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_1_layer
+hide=yes
+onmouseover=conq_highlight_ability_text_mouseover(event_com)
+onmouseleave=conq_highlight_ability_text_mouseleave(event_com)
+
+// 1015:97
+[com_97]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=command_ability_1_layer
+transmitop=10
+op10= 
+
+// 1015:98
+[command_ability_1_no_ability_text]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_97
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:99
+[command_ability_1_icon]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=command_ability_1_details_layer
+graphic="conq_command_icon,0"
+colour=0x000000
+
+// 1015:100
+[command_ability_1_name]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=command_ability_1_details_layer
+textfont=welcome_font_tiny
+text=Command 1
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1015:101
+[command_left_tab]
+type=graphic
+x=19
+y=49
+width=131
+height=24
+layer=com_34
+graphic="conq_buy_tabs,1"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:102
+[com_102]
+type=text
+x=21
+y=51
+width=127
+height=22
+layer=com_34
+textfont=p11_full
+text=Select Troops
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c501f
+transmitop=1,10
+op1=Select Troops
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1015:103
+[command_right_tab]
+type=graphic
+x=151
+y=49
+width=131
+height=24
+layer=com_34
+graphic="conq_buy_tabs,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:104
+[com_104]
+type=text
+x=153
+y=51
+width=127
+height=22
+layer=com_34
+textfont=p11_full
+text=Select Commands
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:105
+[com_105]
+type=layer
+width=512
+height=334
+layer=com_32
+
+// 1015:106
+[left_tab]
+type=graphic
+x=19
+y=49
+width=131
+height=24
+layer=com_105
+graphic="conq_buy_tabs,0"
+colour=0x000000
+
+// 1015:107
+[com_107]
+type=text
+x=21
+y=51
+width=127
+height=22
+layer=com_105
+textfont=p11_full
+text=Select Troops
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:108
+[right_tab]
+type=graphic
+x=151
+y=49
+width=131
+height=24
+layer=com_105
+graphic="conq_buy_tabs,1"
+colour=0x000000
+
+// 1015:109
+[com_109]
+type=text
+x=153
+y=51
+width=127
+height=22
+layer=com_105
+textfont=p11_full
+text=Select Commands
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Select Commands
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1015:110
+[com_110]
+type=rectangle
+x=207
+y=75
+width=281
+height=229
+layer=com_105
+colour=0x201c17
+
+// 1015:111
+[com_111]
+type=rectangle
+x=208
+y=76
+width=279
+height=227
+layer=com_105
+colour=0x595143
+
+// 1015:112
+[unit_details_background_rect]
+type=rectangle
+x=209
+y=77
+width=277
+height=225
+layer=com_105
+colour=0x161410
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:113
+[com_113]
+type=graphic
+x=209
+y=22
+width=277
+height=32
+ymode=abs_centre
+layer=com_105
+graphic="v2_borders_slim,11"
+colour=0x000000
+
+// 1015:114
+[unit_buttons_layer]
+type=layer
+width=512
+height=334
+layer=com_32
+
+// 1015:115
+[purchase_current_details_layer]
+type=layer
+x=207
+y=75
+width=281
+height=116
+layer=com_32
+hide=yes
+
+// 1015:116
+[purchase_replace_details_layer]
+type=layer
+x=207
+y=190
+width=281
+height=114
+layer=com_32
+hide=yes
+
+// 1015:117
+[replace_title_text]
+type=text
+y=5
+width=16384
+height=16
+widthmode=proportion
+layer=purchase_replace_details_layer
+textfont=p11_full
+text=Select a troop to place in this slot:
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:118
+[scout_tick]
+type=graphic
+x=22
+y=27
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:119
+[scout_text]
+type=text
+x=40
+y=27
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Scout
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Scout
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:120
+[footman_tick]
+type=graphic
+x=22
+y=47
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:121
+[footman_text]
+type=text
+x=40
+y=47
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Foot Soldier
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Foot Soldier
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:122
+[halbadier_tick]
+type=graphic
+x=22
+y=67
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:123
+[halbadier_text]
+type=text
+x=40
+y=67
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Halberdier
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Halberdier
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:124
+[archer_tick]
+type=graphic
+x=22
+y=87
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:125
+[archer_text]
+type=text
+x=40
+y=87
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Archer
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Archer
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:126
+[mage_tick]
+type=graphic
+x=161
+y=27
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:127
+[mage_text]
+type=text
+x=179
+y=27
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Mage
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Mage
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:128
+[knight_tick]
+type=graphic
+x=161
+y=47
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:129
+[knight_text]
+type=text
+x=179
+y=47
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Knight
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Knight
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:130
+[champion_tick]
+type=graphic
+x=161
+y=67
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:131
+[champion_text]
+type=text
+x=179
+y=67
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=Champion
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Champion
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:132
+[no_unit_tick]
+type=graphic
+x=161
+y=87
+width=14
+height=14
+layer=purchase_replace_details_layer
+graphic="conq_tick_box,1"
+
+// 1015:133
+[no_unit_text]
+type=text
+x=179
+y=87
+width=85
+height=14
+layer=purchase_replace_details_layer
+textfont=welcome_font_tiny
+text=No Troop
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=No Troop
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1015:134
+[no_unit_selected_layer]
+type=layer
+x=207
+y=75
+width=281
+height=229
+layer=com_32
+
+// 1015:135
+[no_unit_selected_text]
+type=text
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+layer=no_unit_selected_layer
+textfont=welcome_font_tiny
+text=No Troop Selected
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1015:136
+[select_a_unit_text]
+type=text
+width=275
+height=8163
+heightmode=proportion
+ymode=abs_bottom
+layer=no_unit_selected_layer
+textfont=welcome_font_tiny
+text=Select A Slot To See What Troops Are Available
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:137
+[purchase_current_text_layer]
+type=layer
+x=88
+width=200
+height=116
+layer=purchase_current_details_layer
+
+// 1015:138
+[unit_movement_text]
+type=text
+y=27
+width=19
+height=20
+widthmode=minus
+layer=purchase_current_text_layer
+textfont=welcome_font_tiny
+text=Movement: 4
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:139
+[unit_damage_text]
+type=text
+y=42
+width=19
+height=20
+widthmode=minus
+layer=purchase_current_text_layer
+textfont=welcome_font_tiny
+text=Damage: 200
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:140
+[unit_health_text]
+type=text
+y=57
+width=19
+height=20
+widthmode=minus
+layer=purchase_current_text_layer
+textfont=welcome_font_tiny
+text=Health: 200
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:141
+[unit_range_text]
+type=text
+y=72
+width=19
+height=20
+widthmode=minus
+layer=purchase_current_text_layer
+textfont=welcome_font_tiny
+text=Range: 1
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:142
+[unit_cost_text]
+type=text
+y=87
+width=19
+height=20
+widthmode=minus
+layer=purchase_current_text_layer
+textfont=welcome_font_tiny
+text=Cost: 200
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:143
+[unit_1_border]
+type=graphic
+x=23
+y=76
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+onvartransmit=script481{conq_base_temp}
+
+// 1015:144
+[com_144]
+type=text
+x=23
+y=76
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+onvartransmit=script480{conq_base_1, conq_base_1, conq_base_2, conq_base_2, conq_base_3, conq_base_3, conq_base_3, conq_base_3, conq_base_3, conq_base_4}
+
+// 1015:145
+[unit_2_border]
+type=graphic
+x=115
+y=76
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:146
+[com_146]
+type=text
+x=115
+y=76
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:147
+[unit_3_border]
+type=graphic
+x=23
+y=122
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:148
+[com_148]
+type=text
+x=23
+y=122
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:149
+[unit_4_border]
+type=graphic
+x=115
+y=122
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:150
+[com_150]
+type=text
+x=115
+y=122
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:151
+[unit_5_border]
+type=graphic
+x=23
+y=168
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:152
+[com_152]
+type=text
+x=23
+y=168
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:153
+[unit_6_border]
+type=graphic
+x=115
+y=168
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:154
+[com_154]
+type=text
+x=115
+y=168
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:155
+[unit_7_border]
+type=graphic
+x=23
+y=214
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:156
+[com_156]
+type=text
+x=23
+y=214
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:157
+[unit_8_border]
+type=graphic
+x=115
+y=214
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:158
+[com_158]
+type=text
+x=115
+y=214
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:159
+[unit_9_border]
+type=graphic
+x=23
+y=260
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:160
+[com_160]
+type=text
+x=23
+y=260
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)
+
+// 1015:161
+[unit_10_border]
+type=graphic
+x=115
+y=260
+width=90
+height=43
+layer=unit_buttons_layer
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:162
+[com_162]
+type=text
+x=115
+y=260
+width=90
+height=43
+layer=unit_buttons_layer
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=conq_unit_text_mouseover(event_com)
+onmouseleave=conq_unit_text_mouseleave(event_com)

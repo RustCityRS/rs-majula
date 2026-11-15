@@ -1,0 +1,38 @@
+// 702:0
+[plaque]
+type=model
+x=3
+y=3
+width=475
+height=91
+model=model_32404
+modelorigin=0,1
+modelangle=1980,0,0
+modelzoom=268
+
+// 702:1
+[crime_desc]
+type=text
+x=29
+y=17
+width=420
+height=60
+textfont=p12_full
+text=This foul-mouthed gublinch was flaming and insulting other players. They used the Report Abuse button and he was instantly apprehended.
+textshadow=yes
+colour=0xccbe00
+
+// 702:2
+[continue]
+type=graphic
+x=435
+y=52
+width=23
+height=23
+graphic="ame_confirm_button_no_back,1"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "ame_confirm_button_no_back,0")
+onmouseleave=graphic_swapper(event_com, "ame_confirm_button_no_back,1")
+onop=closebutton_click

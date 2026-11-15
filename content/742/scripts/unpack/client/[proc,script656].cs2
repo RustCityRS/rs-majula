@@ -1,0 +1,8 @@
+// 656
+[proc,script656]
+if (cc_find(lore_stats_side:spell_icon, 0) = true) {
+    cc_delete;
+}
+if (cc_find(topstat_lore:spell_icon, 0) = true) {
+    cc_delete;
+}

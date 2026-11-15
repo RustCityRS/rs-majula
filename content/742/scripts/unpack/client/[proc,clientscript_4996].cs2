@@ -1,0 +1,32 @@
+// 4996
+[proc,clientscript_4996](component $component0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = 0;
+def_struct $struct4 = null;
+def_struct $struct5 = null;
+def_int $int6 = -1;
+if_sethide(interface_1261:com_115, false);
+if (op718 = 1) {
+    ~clientscript_4899(1);
+    $int2 = ~clientscript_4963($component0);
+    %varplayerbit_9550 = $int2;
+    if ($int2 <= 0) {
+        mes("You must first select a building.");
+        return;
+    }
+    $int1 = ~clientscript_4948($int2);
+    $struct4 = ~clientscript_4954($int2);
+    if ($struct4 = null) {
+        return;
+    }
+    $struct5 = ~clientscript_4955($int2);
+    if ($struct5 = null) {
+        return;
+    }
+    if ($int1 > 0) {
+        $int3 = ~clientscript_4959($int1);
+    }
+    ~clientscript_4988(%varplayerbit_9550);
+    ~clientscript_4937;
+}

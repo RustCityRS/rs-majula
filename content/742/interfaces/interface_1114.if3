@@ -1,0 +1,297 @@
+// 1114:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+
+// 1114:1
+[com_1]
+type=layer
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_5078(event_com)
+
+// 1114:2
+[com_2]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4260(event_com)
+
+// 1114:3
+[com_3]
+type=layer
+y=10
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+
+// 1114:4
+[com_4]
+type=layer
+width=10
+height=55
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_3
+
+// 1114:5
+[com_5]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_4
+
+// 1114:6
+[com_6]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_4
+
+// 1114:7
+[com_7]
+type=layer
+height=50
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+
+// 1114:8
+[com_8]
+type=text
+height=28
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_7
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1114:9
+[com_9]
+type=layer
+x=32
+y=2
+width=146
+height=24
+xmode=abs_right
+ymode=abs_bottom
+layer=com_7
+transmitop=1
+op1=Confirm
+
+// 1114:10
+[com_10]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_9
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 1114:11
+[com_11]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_9
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 1114:12
+[com_12]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 1114:13
+[com_13]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+textfont=verdana_13pt_regular
+text=Confirm
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1114:14
+[com_14]
+type=layer
+x=32
+y=2
+width=146
+height=24
+ymode=abs_bottom
+layer=com_7
+transmitop=1
+op1=Quit
+
+// 1114:15
+[com_15]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1114:16
+[com_16]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1114:17
+[com_17]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_14
+
+// 1114:18
+[com_18]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+textfont=verdana_13pt_regular
+text=Quit
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1114:19
+[com_19]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4261(event_com)
+
+// 1114:20
+[com_20]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 1114:21
+[com_21]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_20
+textfont=palatino_linotype_18pt_regular
+text=Clan Battlefield Setup
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1114:22
+[com_22]
+type=layer
+y=45
+width=33
+height=78
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+hide=yes
+
+// 1114:23
+[com_23]
+type=layer
+width=100
+height=100
+layer=com_22
+noclickthrough=yes
+
+// 1114:24
+[com_24]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_23
+
+// 1114:25
+[com_25]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+graphic=window_texture_4
+tiling=yes
+
+// 1114:26
+[com_26]
+type=layer
+x=3
+y=4
+width=24
+height=8
+widthmode=minus
+heightmode=minus
+layer=com_23
+
+// 1114:27
+[com_27]
+type=layer
+x=3
+y=4
+width=16
+height=8
+heightmode=minus
+xmode=abs_right
+layer=com_23

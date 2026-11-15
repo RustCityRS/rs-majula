@@ -1,0 +1,49 @@
+// 6662
+[proc,clientscript_6662]
+op2203(interface_1321:com_18, 15747);
+def_model $model0 = null;
+def_model $model1 = null;
+def_model $model2 = null;
+def_model $model3 = null;
+def_model $model4 = null;
+def_model $model5 = null;
+def_model $model6 = null;
+def_model $model7 = null;
+def_model $model8 = null;
+if (~clientscript_6663(%varplayerbit_11860) ! null) {
+    $model0 = struct_param(~clientscript_6663(%varplayerbit_11860), param_2583);
+}
+if (~clientscript_6663(%varplayerbit_11861) ! null) {
+    $model1 = struct_param(~clientscript_6663(%varplayerbit_11861), param_2584);
+}
+if (~clientscript_6663(%varplayerbit_11862) ! null) {
+    $model2 = struct_param(~clientscript_6663(%varplayerbit_11862), param_2591);
+}
+if (~clientscript_6663(%varplayerbit_11863) ! null) {
+    $model3 = struct_param(~clientscript_6663(%varplayerbit_11863), param_2585);
+}
+if (~clientscript_6663(%varplayerbit_11865) ! null) {
+    $model4 = struct_param(~clientscript_6663(%varplayerbit_11865), param_2586);
+}
+if (~clientscript_6663(%varplayerbit_11864) ! null) {
+    $model5 = struct_param(~clientscript_6663(%varplayerbit_11864), param_2587);
+}
+if (~clientscript_6663(%varplayerbit_11866) ! null) {
+    $model6 = struct_param(~clientscript_6663(%varplayerbit_11866), param_2588);
+}
+if (~clientscript_6663(%varplayerbit_11868) ! null) {
+    $model7 = struct_param(~clientscript_6663(%varplayerbit_11868), param_2589);
+}
+if (~clientscript_6663(%varplayerbit_11867) ! null) {
+    $model8 = struct_param(~clientscript_6663(%varplayerbit_11867), param_2590);
+}
+op729(1, $model0, 86573074);
+op729(2, $model1, 86573074);
+op729(3, $model2, 86573074);
+op729(4, $model3, 86573074);
+op729(5, $model6, 86573074);
+op729(6, $model4, 86573074);
+op729(7, $model7, 86573074);
+op729(8, $model5, 86573074);
+op729(9, $model8, 86573074);
+if_setmodelangle(interface_1321:com_18, if_getmodelxof(interface_1321:com_18), if_getmodelyof(interface_1321:com_18), 100, if_getmodelangle_y(interface_1321:com_18), if_getmodelangle_z(interface_1321:com_18), 950);

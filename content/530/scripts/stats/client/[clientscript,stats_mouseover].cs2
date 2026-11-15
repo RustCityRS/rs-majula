@@ -1,0 +1,4 @@
+// 545
+[clientscript,stats_mouseover](component $component0, stat $stat1, component $component2)
+%stats_mouseover = stat_base($stat1);
+~clientscript_547($component0, $stat1, $component2);

@@ -1,0 +1,15 @@
+// 5280
+[proc,clientscript_5280]()(boolean)
+if (if_hassub(lobbyscreen:report_abuse_stage1_body) = true) {
+    return(true);
+}
+if (if_hassub(lobbyscreen:com_43) = true) {
+    return(true);
+}
+if (if_hassub(lobbyscreen:report_abuse_stage2_body) = true) {
+    return(true);
+}
+if (if_hassub(lobbyscreen:report_abuse_ignore_body) = true) {
+    return(true);
+}
+return(false);

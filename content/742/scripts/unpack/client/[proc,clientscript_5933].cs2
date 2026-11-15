@@ -1,0 +1,30 @@
+// 5933
+[proc,clientscript_5933](int $int0)(component)
+switch_int ($int0) {
+    case 0 :
+        return(interface_1253:com_116);
+    case 1 :
+        return(interface_1253:com_118);
+    case 2 :
+        return(interface_1253:com_121);
+    case 3 :
+        return(interface_1253:com_124);
+    case 4 :
+        return(interface_1253:com_127);
+    case 5 :
+        return(interface_1253:com_130);
+    case 6 :
+        return(interface_1253:com_133);
+    case 7 :
+        return(interface_1253:com_136);
+    case 8 :
+        return(interface_1253:com_139);
+    case 9 :
+        return(interface_1253:com_142);
+    case 10 :
+        return(interface_1253:com_145);
+    case 11 :
+        return(interface_1253:com_164);
+    case 12 :
+        return(interface_1253:com_166);
+}

@@ -1,0 +1,5 @@
+// 1662
+[clientscript,script1662](component $component0, int $int1, component $component2)
+if (cc_find($component2, 0) = true) {
+    ~script1663($component0, $int1, $component2);
+}

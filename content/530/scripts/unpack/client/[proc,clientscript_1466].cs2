@@ -1,0 +1,7 @@
+// 1466
+[proc,clientscript_1466]()(int)
+if (playermember = true) {
+    return(496);
+} else {
+    return(calc(496 - 429 + 1));
+}

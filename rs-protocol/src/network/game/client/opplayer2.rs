@@ -23,7 +23,10 @@ impl ClientProtMessage for OpPlayer2 {
 #[cfg(since_647)]
 impl ClientProtMessage for OpPlayer2 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
+        #[cfg(before_742)]
         let (ctrl, pid) = (buf.g1_alt2() != 0, buf.g2());
+        #[cfg(since_742)]
+        let (ctrl, pid) = (buf.g1() != 0, buf.g2_alt1());
         OpPlayer2 { pid, ctrl }
     }
 }

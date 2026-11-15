@@ -1,0 +1,32 @@
+// 381:0
+[com_0]
+type=graphic
+x=15
+width=25
+height=25
+layer=wilderness_layer
+graphic=graphic_1184
+trans=100
+
+// 381:1
+[wilderness_level_text]
+type=text
+x=1
+y=26
+width=52
+height=6
+layer=wilderness_layer
+textfont=fontmetrics_495
+textalignh=centre
+textshadow=yes
+colour=0xe1981d
+ontimer=clientscript_54
+
+// 381:2
+[wilderness_layer]
+type=layer
+x=12
+y=12
+width=53
+height=41
+xmode=abs_right

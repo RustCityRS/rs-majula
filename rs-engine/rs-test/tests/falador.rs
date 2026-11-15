@@ -13,6 +13,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{explore, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -27,12 +28,12 @@ const GUILD_DOOR: (u16, u16, u16) = (2112, 3046, 9756);
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
 /// the npc reaches (npcs wander).
 fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
-    let id = *engine
+    let id = engine
         .cache
         .npcs
-        .debugnames
-        .get(name)
-        .unwrap_or_else(|| panic!("npc.pack names {name}"));
+        .get_by_debugname(name)
+        .unwrap_or_else(|| panic!("npc.pack names {name}"))
+        .id;
     let (nid, nx, y, nz) = engine
         .npc_list
         .npcs
@@ -144,7 +145,7 @@ fn the_mining_guild_door_wants_mining_60() {
                     engine
                         .zones
                         .zone(x, 0, z)
-                        .is_some_and(|zone| zone.get_loc(x, z, 1532).is_some())
+                        .is_some_and(|zone| zone.get_loc(x, z, TypeId::new(1532)).is_some())
                 })
             })
         };

@@ -1,0 +1,428 @@
+// 686:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=484
+height=315
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=220
+
+// 686:1
+[universe]
+type=layer
+width=484
+height=315
+xmode=abs_centre
+ymode=abs_centre
+onload=rabbit_shop_init
+
+// 686:2
+[com_2]
+type=rectangle
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+colour=0x453d32
+fill=yes
+
+// 686:3
+[com_3]
+type=layer
+y=22
+width=4
+height=70
+widthmode=minus
+xmode=abs_centre
+layer=universe
+
+// 686:4
+[bottomgradient]
+type=layer
+y=5
+width=4
+height=50
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+
+// 686:5
+[items_container]
+type=layer
+y=26
+width=18
+height=50
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=universe
+
+// 686:6
+[items]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=items_container
+
+// 686:7
+[items_scrollbar]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=items_container
+hide=yes
+
+// 686:8
+[com_8]
+type=text
+y=10
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+textfont=p11_full
+text=Right-click on an item in the shop to see the available options.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 686:9
+[xp_container]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=universe
+hide=yes
+noclickthrough=yes
+
+// 686:10
+[com_10]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=xp_container
+colour=0x453d32
+fill=yes
+trans=150
+
+// 686:11
+[xp]
+type=layer
+width=200
+height=150
+xmode=abs_centre
+ymode=abs_centre
+layer=xp_container
+
+// 686:12
+[com_12]
+type=rectangle
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=xp
+colour=0x453d32
+fill=yes
+
+// 686:13
+[xp_message]
+type=text
+y=25
+width=14
+height=55
+widthmode=minus
+xmode=abs_centre
+layer=xp
+textfont=p12_full
+textlineheight=20
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 686:14
+[xp_confirm]
+type=layer
+y=40
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=xp
+transmitop=1
+op1=Proceed
+
+// 686:15
+[com_15]
+type=text
+y=40
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=xp
+textfont=b12_full
+text=Proceed
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 686:16
+[xp_cancel]
+type=layer
+y=10
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=xp
+transmitop=1
+op1=Cancel
+
+// 686:17
+[com_17]
+type=text
+y=10
+width=40
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=xp
+textfont=b12_full
+text=Cancel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 686:18
+[com_18]
+type=graphic
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=xp
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 686:19
+[com_19]
+type=graphic
+x=-13
+width=32
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=xp
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 686:20
+[com_20]
+type=graphic
+x=-12
+width=32
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=xp
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 686:21
+[com_21]
+type=graphic
+y=-12
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=xp
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 686:22
+[com_22]
+type=graphic
+width=32
+height=32
+layer=xp
+graphic="v2_stone_borders,35"
+
+// 686:23
+[com_23]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=xp
+graphic="v2_stone_borders,37"
+
+// 686:24
+[com_24]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=xp
+graphic="v2_stone_borders,6"
+
+// 686:25
+[com_25]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=xp
+graphic="v2_stone_borders,7"
+
+// 686:26
+[com_26]
+type=graphic
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=universe
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 686:27
+[com_27]
+type=graphic
+x=-13
+width=32
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 686:28
+[com_28]
+type=graphic
+x=-12
+width=32
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=universe
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 686:29
+[com_29]
+type=graphic
+y=-12
+width=40
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 686:30
+[com_30]
+type=graphic
+width=32
+height=32
+layer=universe
+graphic="v2_stone_borders,35"
+
+// 686:31
+[com_31]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=universe
+graphic="v2_stone_borders,37"
+
+// 686:32
+[com_32]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,6"
+
+// 686:33
+[com_33]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=universe
+graphic="v2_stone_borders,7"
+
+// 686:34
+[com_34]
+type=text
+height=22
+widthmode=minus
+xmode=abs_centre
+layer=universe
+textfont=b12_full
+text=Mrs Winkin's World of Seeds
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 686:35
+[com_35]
+type=graphic
+x=10
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=universe
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

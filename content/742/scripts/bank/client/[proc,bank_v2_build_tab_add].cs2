@@ -1,0 +1,15 @@
+// 1461
+[proc,bank_v2_build_tab_add](int $int0)
+def_component $component1 = enum(int, component, enum_1614, $int0);
+def_component $component2 = enum(int, component, enum_1615, $int0);
+if_sethide($component1, false);
+if_sethide($component2, false);
+if_setobject($component2, null, -1);
+if_setgraphic($component2, "bank_misc_graphics,1");
+if_setoutline($component2, 0);
+if_setgraphicshadow($component2, ^black);
+if_clearops($component1);
+if_setonclick($component1, "bank_v2_clickaddbutton");
+def_string $string0 = "Drag an item here to create a new tab";
+if_setonmouserepeat($component1, "addtooltip(event_com, bank_v2_main:tooltip, $string0, 25, 150)");
+if_setonmouseleave($component1, "deltooltip(bank_v2_main:tooltip)");

@@ -1,0 +1,5 @@
+// 4326
+[clientscript,clan_flag_background_mouseover](int $int0, component $component1)
+if (cc_find($component1, $int0) = true) {
+    cc_setgraphic("aif_smalltabs_whole,1");
+}

@@ -1,0 +1,9 @@
+// 1227
+[proc,clientscript_1227]
+if (calc(clientclock % 40) < 20 & create_reply ! -3) {
+    if (%loginscreen_focus = 3) {
+        if_settext(loginscreen:com_394, append(%varclient_666, "|"));
+    }
+} else {
+    if_settext(loginscreen:com_394, %varclient_666);
+}

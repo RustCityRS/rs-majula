@@ -1,0 +1,8 @@
+// 2051
+[proc,script2051](component $component0, int $int1, string $string0, int $int2, int $int3, int $int4, int $int5, int $rgb6, string $string1, string $string2, coord $coord7)
+if (cc_find($component0, $int1) = true) {
+    ~worldmap_setuptext($string0, $int2, $int3, $int4, $int5, $rgb6, $string1, $string2, $coord7);
+} else {
+    cc_create($component0, ^iftype_text, $int1);
+    ~worldmap_setuptext($string0, $int2, $int3, $int4, $int5, $rgb6, $string1, $string2, $coord7);
+}

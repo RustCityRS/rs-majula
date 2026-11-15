@@ -1,0 +1,23 @@
+// 6155
+[proc,clientscript_6155](int $int0)
+if ($int0 = 0) {
+    if_setgraphic(interface_153:com_53, "aif_smalltabs_crnrtop,2");
+    if_setgraphic(interface_153:com_55, "aif_smalltabs_crnrtop,3");
+    if_setgraphic(interface_153:com_59, "aif_smalltabs_crnrtop,2");
+    if_setgraphic(interface_153:com_54, "aif_smalltabs_fill,2");
+    if_setgraphic(interface_153:com_60, "aif_smalltabs_fill,2");
+    if_setgraphic(interface_153:com_57, "aif_smalltabs_fill,3");
+    if_setgraphic(interface_153:com_58, "aif_smalltabs_crnrtop,12");
+    if_setgraphic(interface_153:com_61, "aif_smalltabs_crnrtop,12");
+    if_setgraphic(interface_153:com_56, "aif_smalltabs_crnrtop,13");
+} else {
+    if_setgraphic(interface_153:com_53, "aif_smalltabs_crnrtop,0");
+    if_setgraphic(interface_153:com_55, "aif_smalltabs_crnrtop,1");
+    if_setgraphic(interface_153:com_59, "aif_smalltabs_crnrtop,0");
+    if_setgraphic(interface_153:com_54, "aif_smalltabs_fill,0");
+    if_setgraphic(interface_153:com_60, "aif_smalltabs_fill,0");
+    if_setgraphic(interface_153:com_57, "aif_smalltabs_fill,1");
+    if_setgraphic(interface_153:com_58, "aif_smalltabs_crnrtop,10");
+    if_setgraphic(interface_153:com_61, "aif_smalltabs_crnrtop,10");
+    if_setgraphic(interface_153:com_56, "aif_smalltabs_crnrtop,11");
+}
