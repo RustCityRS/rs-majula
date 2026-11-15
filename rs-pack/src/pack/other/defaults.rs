@@ -18,7 +18,7 @@ const GROUP_WEARPOS: u32 = 6;
 #[cfg(since_742)]
 const GROUP_MINIMENU: u32 = 7;
 #[cfg(since_742)]
-const GROUP_UNKNOWN8: u32 = 8;
+const GROUP_CUTSCENE: u32 = 8;
 /// How many player recolours the graphics group holds: ten sets of four slots.
 #[cfg(since_742)]
 const PLAYER_RECOLS: usize = 10 << 2;
@@ -118,13 +118,17 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
                 }
             }
             #[cfg(since_742)]
+            (GROUP_CUTSCENE, 1) => {
+                writeln!(out, "cancel={}", unpack_input(&mut buf)?)?;
+            }
+            #[cfg(since_742)]
             (GROUP_MINIMENU, 1 | 3 | 4) => {
                 let key = match code {
                     1 => "primaryclick",
                     3 => "tertiaryclick",
                     _ => "selectclick",
                 };
-                writeln!(out, "{key}={}", unpack_input(&mut buf))?;
+                writeln!(out, "{key}={}", unpack_input(&mut buf)?)?;
             }
             #[cfg(since_742)]
             (GROUP_MINIMENU, 6 | 7) => {
@@ -158,7 +162,7 @@ pub fn unpack(group: u32, data: &[u8], names: &AssetNames) -> Result<String> {
             }
             #[cfg(since_742)]
             (_, code) if field(group, code).is_some() => {
-                let value = unpack_field(&mut buf, field(group, code).unwrap());
+                let value = unpack_field(&mut buf, field(group, code).unwrap())?;
                 writeln!(out, "unknown{code}={value}")?;
             }
             _ => bail!("Unknown defaults {group} opcode {code}"),
@@ -235,6 +239,11 @@ pub fn pack(group: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
                         }
                     }
                 }
+            }
+            #[cfg(since_742)]
+            (GROUP_CUTSCENE, "cancel") => {
+                out.p1(1);
+                pack_input(&mut out, value)?;
             }
             #[cfg(since_742)]
             (GROUP_MINIMENU, "primaryclick" | "tertiaryclick" | "selectclick") => {
@@ -361,7 +370,7 @@ fn field(group: u32, code: u8) -> Option<Field> {
         (GROUP_GRAPHICS, 4 | 8 | 10) | (GROUP_MINIMENU, 11) => Field::Flag,
         (GROUP_GRAPHICS, 9 | 11 | 13..=15) => Field::U8,
         (GROUP_MINIMENU, 5) => Field::ByteList,
-        (GROUP_MINIMENU, 2 | 8..=10) | (GROUP_UNKNOWN8, 1) => Field::Value,
+        (GROUP_MINIMENU, 2 | 8..=10) => Field::Value,
         _ => return None,
     })
 }
@@ -373,13 +382,13 @@ fn field_key(group: u32, key: &str) -> Option<(u8, Field)> {
 }
 
 #[cfg(since_742)]
-fn unpack_field(buf: &mut Packet, kind: Field) -> String {
-    match kind {
+fn unpack_field(buf: &mut Packet, kind: Field) -> Result<String> {
+    Ok(match kind {
         Field::Flag => "yes".to_owned(),
         Field::U8 => buf.g1().to_string(),
         Field::ByteList => unpack_bytes(buf),
-        Field::Value => unpack_input(buf),
-    }
+        Field::Value => unpack_input(buf)?,
+    })
 }
 
 #[cfg(since_742)]
@@ -393,53 +402,45 @@ fn pack_field(out: &mut PackedData, kind: Field, value: &str) -> Result<()> {
     Ok(())
 }
 
-/// A tag 0 input is `mouse,mouse_<n>,<n>` then its keys; the other tags keep
-/// their numbers.
+/// An input is `mouse,mouse_<n>,<n>` then its keys, `keypress,key_<n>,<n>`,
+/// or tag 2 and its numbers.
 #[cfg(since_742)]
-fn unpack_input(buf: &mut Packet) -> String {
-    let tag = buf.g1();
-    let mut parts = vec![];
-    if tag == 0 {
-        parts.push("mouse".to_owned());
-        parts.push(format!("mouse_{}", buf.g1()));
-        parts.push(buf.g1().to_string());
-        let keys = unpack_keys(buf);
-        if !keys.is_empty() {
-            parts.push(keys);
+fn unpack_input(buf: &mut Packet) -> Result<String> {
+    Ok(match buf.g1() {
+        0 => {
+            let mut input = format!("mouse,mouse_{},{}", buf.g1(), buf.g1());
+            let keys = unpack_keys(buf);
+            if !keys.is_empty() {
+                write!(input, ",{keys}")?;
+            }
+            input
         }
-        return parts.join(",");
-    }
-    parts.push(tag.to_string());
-    if tag != 2 {
-        parts.push(buf.g1().to_string());
-        parts.push(buf.g1().to_string());
-    }
-    if tag != 1 {
-        parts.push(unpack_bytes(buf));
-    }
-    parts.join(",")
+        1 => format!("keypress,key_{},{}", buf.g1(), buf.g1()),
+        2 => format!("2,{}", unpack_bytes(buf)),
+        tag => bail!("Unknown input tag {tag}"),
+    })
 }
 
 #[cfg(since_742)]
 fn pack_input(out: &mut PackedData, value: &str) -> Result<()> {
     let parts: Vec<_> = value.split(',').collect();
-    if let ["mouse", button, count, keys @ ..] = parts.as_slice() {
-        out.p1(0);
-        out.p1(numbered(button, "mouse_")?);
-        out.p1(count.parse()?);
-        pack_bytes(out, &parse_keys(keys.iter().copied())?);
-        return Ok(());
-    }
-    let numbers = parse_bytes(parts)?;
-    let tag = *numbers.first().context("Expected an input")?;
-    out.p1(tag);
-    match tag {
-        1 => {
-            out.p1(numbers[1]);
-            out.p1(numbers[2]);
+    match parts.as_slice() {
+        ["mouse", button, arg, keys @ ..] => {
+            out.p1(0);
+            out.p1(numbered(button, "mouse_")?);
+            out.p1(arg.parse()?);
+            pack_bytes(out, &parse_keys(keys.iter().copied())?);
         }
-        2 => pack_bytes(out, &numbers[1..]),
-        _ => bail!("Unknown input tag {tag}"),
+        ["keypress", key, arg] => {
+            out.p1(1);
+            out.p1(numbered(key, "key_")?);
+            out.p1(arg.parse()?);
+        }
+        ["2", items @ ..] => {
+            out.p1(2);
+            pack_bytes(out, &parse_bytes(items.iter().copied())?);
+        }
+        _ => bail!("Invalid input {value}"),
     }
     Ok(())
 }
