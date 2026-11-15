@@ -164,7 +164,7 @@ impl BuildArea {
     /// Maximum preferred number of tracked players before shrinking view distance.
     pub const PREFERRED_PLAYERS: u8 = 250;
     /// Maximum preferred number of tracked NPCs.
-    pub const PREFERRED_NPCS: u8 = 255;
+    pub const PREFERRED_NPCS: u8 = 128;
     /// The maximum and default view distance in zones.
     pub const PREFERRED_VIEW_DISTANCE: u8 = 15;
 
