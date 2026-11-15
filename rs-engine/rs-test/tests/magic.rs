@@ -1,39 +1,48 @@
 //! 289's magic on 2011's spellbook (interface 192, the spells at void-634's
-//! ids): a spell with an op is cast with IF_BUTTON1 on its component
-//! (`p4(com) p2_alt3(obj) p2_alt1(slot)`), a spell cast on an item with
-//! IF_BUTTONT from the spell to the backpack slot (`p4(to_com) p2_alt1(to_slot)
-//! p2_alt1(from_slot) p2_alt2(from_obj) p4_alt1(from_com) p2(to_obj)`, the spell's
-//! obj and slot -1). 289's checks, runes and experience ride along.
+//! ids): a spell with an op is cast with IF_BUTTON1 on its component, a spell
+//! cast on an item with IF_BUTTONT from the spell to the backpack slot (the
+//! spell's obj and slot -1). 289's checks, runes and experience ride along.
 //!
-//! Telekinetic Grab is cast on a ground obj with OPOBJT (`p2_alt1(from_obj)
-//! p2_alt1(obj) p2(from_slot) p4_alt2(from_com) p1_alt1(ctrl) p2_alt2(z)
-//! p2_alt2(x)`, `op_obj_t.rs`). The PR's 289 refuses the finished Zamorak and
-//! Guthix books (2011's unholy_book and book_of_balance), where it had listed
-//! the unfinished two twice.
+//! Telekinetic Grab is cast on a ground obj with OPOBJT. The PR's 289 refuses
+//! the finished Zamorak and Guthix books (2011's unholy_book and
+//! book_of_balance), where it had listed the unfinished two twice.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 
-const SPELLBOOK: i32 = 192 << 16;
-const VARROCK_TELEPORT: i32 = SPELLBOOK | 40;
-const BONES_TO_BANANAS: i32 = SPELLBOOK | 33;
-const LVL_1_ENCHANT: i32 = SPELLBOOK | 29;
-const SUPERHEAT_ITEM: i32 = SPELLBOOK | 50;
-const HIGH_LEVEL_ALCHEMY: i32 = SPELLBOOK | 59;
-const TELEKINETIC_GRAB: i32 = SPELLBOOK | 44;
-/// `inventory:inv`.
-const BACKPACK: i32 = 149 << 16;
+#[cfg(before_742)]
+fn varrock_teleport() -> i32 {
+    com("magic:sb12")
+}
+
+fn bones_to_bananas() -> i32 {
+    com("magic:sb7")
+}
+
+fn lvl_1_enchant() -> i32 {
+    com("magic:sb3")
+}
+
+fn superheat_item() -> i32 {
+    com("magic:sb21")
+}
+
+fn high_level_alchemy() -> i32 {
+    com("magic:sb28")
+}
+
+fn telekinetic_grab() -> i32 {
+    com("magic:sb16")
+}
+
 const MAGIC: usize = 6;
 const SMITHING: usize = 13;
 /// Lumbridge, outside the castle.
@@ -80,34 +89,22 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16,
 
 /// Each VARC_SMALL set, `(varc, value)`: `p1_alt2 value, p2_alt1 varc`.
 fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
-    let opcode = ServerProt::VarcSmall as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            (
-                u16::from_le_bytes([p[1], p[2]]),
-                0u8.wrapping_sub(p[0]) as i8 as i32,
-            )
-        })
-        .collect()
+    server::varcs(packets)
 }
 
 fn cast(client: &mut HarnessClient, spell: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(spell).p2_alt3(-1).p2_alt1(-1);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, spell, u16::MAX, TypeId::NULL);
 }
 
 fn cast_on(client: &mut HarnessClient, spell: i32, slot: u16, obj: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(slot as i32)
-        .p2_alt1(-1)
-        .p2_alt2(-1)
-        .p4_alt1(spell)
-        .p2(obj as i32);
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(
+        spell,
+        u16::MAX,
+        TypeId::NULL,
+        BACKPACK,
+        slot,
+        TypeId::from_int(obj as i32),
+    );
 }
 
 fn count(engine: &Engine, pid: u16, obj: u16) -> u32 {
@@ -126,13 +123,17 @@ fn xp(engine: &Engine, pid: u16, stat: usize) -> i32 {
 
 /// 289's Varrock Teleport: its runes and 35 experience, and the caster lands
 /// within two squares of its spell row's coord (3213, 3424).
+// 742: magic:sb12 (192:40) and stats:ranged_button (320:40) share an interface
+// trigger lookup key (it keeps only iface mod 64), so Varrock Teleport runs the
+// ranged guide.
+#[cfg(before_742)]
 #[test]
 fn varrock_teleport_takes_its_runes_and_lands_in_varrock() {
     runner::on_loaded_engine(|engine| {
         let runes = [("firerune", 1), ("airrune", 3), ("lawrune", 1)];
         let mut client = caster(engine, "teleporter", 25, &runes);
         let before = xp(engine, client.pid, MAGIC);
-        cast(&mut client, VARROCK_TELEPORT);
+        cast(&mut client, varrock_teleport());
         ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
         let (x, z) = (
@@ -155,12 +156,16 @@ fn varrock_teleport_takes_its_runes_and_lands_in_varrock() {
 }
 
 /// Below the spell's level, 289's refusal; the caster stays.
+// 742: magic:sb12 (192:40) and stats:ranged_button (320:40) share an interface
+// trigger lookup key (it keeps only iface mod 64), so Varrock Teleport runs the
+// ranged guide.
+#[cfg(before_742)]
 #[test]
 fn a_spell_above_the_level_is_refused() {
     runner::on_loaded_engine(|engine| {
         let runes = [("firerune", 1), ("airrune", 3), ("lawrune", 1)];
         let mut client = caster(engine, "lowmagic", 1, &runes);
-        cast(&mut client, VARROCK_TELEPORT);
+        cast(&mut client, varrock_teleport());
         ticks(engine, &mut client, 4);
         assert_eq!(
             calls_for("mes"),
@@ -173,11 +178,15 @@ fn a_spell_above_the_level_is_refused() {
 }
 
 /// Without the runes, 289's message names the first one missing.
+// 742: magic:sb12 (192:40) and stats:ranged_button (320:40) share an interface
+// trigger lookup key (it keeps only iface mod 64), so Varrock Teleport runs the
+// ranged guide.
+#[cfg(before_742)]
 #[test]
 fn a_spell_without_its_runes_is_refused() {
     runner::on_loaded_engine(|engine| {
         let mut client = caster(engine, "noruns", 25, &[("airrune", 3)]);
-        cast(&mut client, VARROCK_TELEPORT);
+        cast(&mut client, varrock_teleport());
         ticks(engine, &mut client, 4);
         assert_eq!(
             calls_for("mes"),
@@ -196,11 +205,19 @@ fn high_alchemy_turns_an_item_to_coins() {
         let gold_bar = id(engine, "gold_bar");
         let cost = engine.cache.objs.get_by_id(gold_bar).unwrap().cost;
         let before = xp(engine, client.pid, MAGIC);
-        cast_on(&mut client, HIGH_LEVEL_ALCHEMY, 2, gold_bar.g2());
+        cast_on(&mut client, high_level_alchemy(), 2, gold_bar.g2());
         let packets = ticks(engine, &mut client, 3);
         // 289 turns back to the spellbook: 2011's selected tab, varc 168, is
-        // the magic tab (7).
-        assert!(varcs(&packets).contains(&(168, 7)), "{:?}", varcs(&packets));
+        // the magic tab (7; 530's is 6).
+        #[cfg(before_647)]
+        let magic_tab = 6;
+        #[cfg(since_647)]
+        let magic_tab = 7;
+        assert!(
+            varcs(&packets).contains(&(168, magic_tab)),
+            "{:?}",
+            varcs(&packets)
+        );
         assert_eq!(count(engine, client.pid, gold_bar.g2()), 0);
         assert_eq!(
             count(engine, client.pid, id(engine, "coins").g2()) as i32,
@@ -222,7 +239,7 @@ fn superheat_smelts_iron_ore() {
         player.stats.base_levels[SMITHING] = 15;
         player.stats.levels[SMITHING] = 15;
         let iron_ore = id(engine, "iron_ore");
-        cast_on(&mut client, SUPERHEAT_ITEM, 2, iron_ore.g2());
+        cast_on(&mut client, superheat_item(), 2, iron_ore.g2());
         ticks(engine, &mut client, 3);
         let said = calls_for("mes");
         assert_eq!(count(engine, client.pid, iron_ore.g2()), 0, "{said:?}");
@@ -244,7 +261,7 @@ fn bones_to_bananas_turns_every_bone() {
             ("bones", 1),
         ];
         let mut client = caster(engine, "bananas", 15, &items);
-        cast(&mut client, BONES_TO_BANANAS);
+        cast(&mut client, bones_to_bananas());
         ticks(engine, &mut client, 3);
         let said = calls_for("mes");
         assert_eq!(
@@ -263,7 +280,7 @@ fn lvl_1_enchant_makes_a_ring_of_recoil() {
         let items = [("waterrune", 1), ("cosmicrune", 1), ("sapphire_ring", 1)];
         let mut client = caster(engine, "enchanter", 7, &items);
         let ring = id(engine, "sapphire_ring");
-        cast_on(&mut client, LVL_1_ENCHANT, 2, ring.g2());
+        cast_on(&mut client, lvl_1_enchant(), 2, ring.g2());
         ticks(engine, &mut client, 3);
         assert_eq!(count(engine, client.pid, ring.g2()), 0);
         assert_eq!(
@@ -286,15 +303,7 @@ fn telekinetic_grab_refuses_the_finished_god_books() {
             engine.harness_add_obj(x, 0, z, obj, 1);
             engine.cycle();
             client.packets();
-            let mut p = ClientPacket::new();
-            p.p2_alt1(-1)
-                .p2_alt1(obj.int())
-                .p2(-1)
-                .p4_alt2(TELEKINETIC_GRAB)
-                .p1_alt1(0)
-                .p2_alt2(z as i32)
-                .p2_alt2(x as i32);
-            client.send(ClientProt::OpObjT, &p.finish());
+            client.op_obj_t(x, z, obj, telekinetic_grab(), u16::MAX, TypeId::NULL);
             let said: Vec<String> = HarnessClient::game_messages(&ticks(engine, &mut client, 12))
                 .into_iter()
                 .map(|(_, t)| t)

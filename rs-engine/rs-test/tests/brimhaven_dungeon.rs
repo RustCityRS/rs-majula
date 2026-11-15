@@ -10,35 +10,46 @@
 //! (loc 5111 at 2647,9558) costs 289's tenth of the current hitpoints and one
 //! more, in life points: 100 of 990.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
+use rs_test::life;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const AGILITY: usize = 16;
+#[cfg(since_647)]
 const HITPOINTS: usize = 3;
-/// Holds the life points, shifted by one.
-const LIFE: u16 = 1240;
-
-const TREE: (u16, u16, u16) = (5083, 2743, 3153);
+const TREE: (i32, u16, u16) = (5083, 2743, 3153);
 const BY_TREE: (u16, u16) = (2745, 3152);
-const EXIT: (u16, u16, u16) = (5084, 2714, 9564);
+/// The exit and the south pipe; 742 rebuilt the dungeon with its own locs.
+#[cfg(all(since_530, before_742))]
+const EXIT: (i32, u16, u16) = (5084, 2714, 9564);
+#[cfg(since_742)]
+const EXIT: (i32, u16, u16) = (77421, 2711, 9563);
+#[cfg(all(since_530, before_742))]
 const INSIDE: (u16, u16) = (2713, 9564);
-const SOUTH_PIPE: (u16, u16, u16) = (5100, 2655, 9567);
+#[cfg(since_742)]
+const INSIDE: (u16, u16) = (2710, 9564);
+#[cfg(all(since_530, before_742))]
+const SOUTH_PIPE: (i32, u16, u16) = (5100, 2655, 9567);
+#[cfg(since_742)]
+const SOUTH_PIPE: (i32, u16, u16) = (77423, 2655, 9567);
 const PIPE_SOUTH_END: (u16, u16) = (2655, 9566);
 const PIPE_NORTH_END: (u16, u16) = (2655, 9573);
-const SOUTH_STONE: (u16, u16, u16) = (5111, 2647, 9558);
+#[cfg(all(since_647, before_742))]
+const SOUTH_STONE: (i32, u16, u16) = (5111, 2647, 9558);
+#[cfg(since_742)]
+const SOUTH_STONE: (i32, u16, u16) = (77572, 2647, 9558);
+#[cfg(since_647)]
 const STONES_SOUTH_END: (u16, u16) = (2647, 9557);
+#[cfg(since_647)]
 const STONES_NORTH_END: (u16, u16) = (2649, 9562);
+#[cfg(since_647)]
 const LAVA_BANK: (u16, u16) = (2648, 9557);
 
 // The cases share one loaded engine and each starts with a reset, which would
@@ -60,13 +71,8 @@ fn visitor(engine: &mut Engine, name: &str, at: (u16, u16)) -> HarnessClient {
     client
 }
 
-fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+fn op_loc1(client: &mut HarnessClient, (loc, x, z): (i32, u16, u16)) {
+    client.op_loc(1, x, z, TypeId::from_int(loc));
 }
 
 fn at(engine: &Engine, client: &HarnessClient) -> (u16, u16) {
@@ -234,15 +240,14 @@ fn the_moss_giant_pipe_runs_between_289s_tiles_at_22_agility() {
 /// (level 42, hunting only those not too strong for it) leaves it alone, and
 /// its 89 Hitpoints cap the natural recovery at 890 life points, so none
 /// lands on the tick of the hit: the fall is the only change.
+#[cfg(since_647)]
 #[test]
 fn a_fall_into_the_lava_costs_a_tenth_of_the_life_points_and_ten_more() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
         let mut client = visitor(engine, "stumbler", STONES_SOUTH_END);
-        let life = |engine: &Engine, pid| {
-            (engine.harness_player(pid).unwrap().vars.get(LIFE).as_int() >> 1) & 0x7FFF
-        };
+        let life = |engine: &Engine, pid| life::get(engine, pid);
         let mut lost = None;
         for _ in 0..40 {
             engine.harness_telejump(client.pid, STONES_SOUTH_END.0, 0, STONES_SOUTH_END.1);
@@ -253,8 +258,7 @@ fn a_fall_into_the_lava_costs_a_tenth_of_the_life_points_and_ten_more() {
             }
             player.combat_level = player.get_combat_level();
             assert!(player.combat_level > 84, "too strong for a moss giant");
-            let lp = player.vars.get(LIFE).as_int();
-            player.vars.set(LIFE, VarValue::Int((lp & 1) | 990 << 1));
+            life::set(player, 99 * life::SCALE);
             engine.cycle();
             engine.cycle();
             client.packets();

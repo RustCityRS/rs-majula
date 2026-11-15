@@ -28,7 +28,6 @@ if ($entering = true) {
         p_teleport($loc_coord);
         // initially thought p_delay(0); was the right speed.
         // but it seems to have buggy clipping; you move through too early
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(1);
     }
     $dest = movecoord($loc_coord, $x, 0, $z);
@@ -53,7 +52,6 @@ sound_synth($sound, 1, 0);
 if ($entering = true) {
     if (coord ! $loc_coord) {
         p_teleport($loc_coord);
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(1);
     }
     $dest = movecoord(loc_coord, $x, 0, $z);
@@ -76,7 +74,6 @@ sound_synth($sound, 1, 0);
 if ($entering = true) {
     if (coord ! $loc_coord) {
         p_teleport($loc_coord);
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(1);
     }
     $dest = movecoord(loc_coord, $x, 0, $z);
@@ -99,7 +96,6 @@ sound_synth($sound, 1, 0);
 if ($entering = true) {
     if (coord ! $loc_coord) {
         p_teleport($loc_coord);
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(0);
     }
     $dest = movecoord(loc_coord, $x, 0, $z);
@@ -121,7 +117,6 @@ sound_synth($sound, 1, 0);
 if ($entering = true) {
     if (coord ! $loc_coord) {
         p_teleport($loc_coord);
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(1);
     }
     $dest = movecoord(loc_coord, $x, 0, $z);
@@ -158,7 +153,6 @@ if ($entering = true) {
         p_teleport($loc_coord);
         // initially thought p_delay(0); was the right speed.
         // but it seems to have buggy clipping; you move through too early
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(1);
     }
     $dest = movecoord($loc_coord, $telex, 0, $telez);
@@ -195,7 +189,6 @@ if ($entering = true) {
         p_teleport($loc_coord);
         // initially thought p_delay(0); was the right speed.
         // but it seems to have buggy clipping; you move through too early
-        loc_prefetchall(movecoord($loc_coord, $x, 0, $z), $replacement, $shape);
         p_delay(1);
     }
     $dest = movecoord($loc_coord, $telex, 0, $telez);

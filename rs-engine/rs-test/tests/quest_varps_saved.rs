@@ -7,7 +7,7 @@
 //! Each varp `rs-pack/tests/quest_varps_647.tsv` lists -- the quest varps 289
 //! and the 647 client share -- must load as perm.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_pack::cache::varp::VarPlayerScope;
 use rs_test::runner;

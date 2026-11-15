@@ -41,9 +41,7 @@ fn developer(engine: &mut Engine, name: &str) -> HarnessClient {
 
 /// Opens a dev cheat's dialog.
 fn open(engine: &mut Engine, client: &mut HarnessClient, cheat: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(cheat);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(cheat);
     engine.cycle();
     client.packets();
 }

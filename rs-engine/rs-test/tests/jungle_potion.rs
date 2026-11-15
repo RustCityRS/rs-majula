@@ -4,16 +4,13 @@
 //! that each herb is found only once Trufitus has asked for it. Cache 786's map has the herbs'
 //! spots; the cave's fungus wall is loc 32106 there, 289's id being a chair.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(all(since_647, before_742))]
+use rs_test::names::com;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
 use rs_ver::TypeId;
@@ -23,9 +20,18 @@ static TURN: Mutex<()> = Mutex::new(());
 
 const HERBLORE: usize = 15;
 /// View on the quest list's row (questlist_v4:quests) and the journal's first line (qj1).
-const QUEST_LIST: i32 = 190 << 16 | 18;
+#[cfg(all(since_647, before_742))]
+fn quest_list() -> i32 {
+    com("questlist_v4:quests")
+}
+
+#[cfg(all(since_647, before_742))]
 const JUNGLE_POTION: i32 = 66;
-const JOURNAL_LINE_1: u32 = 275 << 16 | 16;
+#[cfg(all(since_647, before_742))]
+fn journal_line_1() -> u32 {
+    com("questjournal_scroll:qj1") as u32
+}
+
 /// Druidic Ritual complete (`^druid_complete`).
 const DRUID_COMPLETE: i32 = 4;
 
@@ -238,24 +244,12 @@ fn says(t: &Conversation, lines: &[&str]) {
     }
 }
 
-/// `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
 fn op_loc1(client: &mut HarnessClient, loc: TypeId, (x, z): (u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc.int())
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, loc);
 }
 
-/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
 fn op_loc2(client: &mut HarnessClient, loc: TypeId, (x, z): (u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(loc.int())
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+    client.op_loc(2, x, z, loc);
 }
 
 /// Stands at the spot and searches it, answering whatever box follows.
@@ -270,10 +264,9 @@ fn search(engine: &mut Engine, client: &mut HarnessClient, spot: &Spot) -> Conve
 }
 
 /// The journal's lines once View is clicked on the quest's row, their colour tags taken off.
+#[cfg(all(since_647, before_742))]
 fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
-    let mut p = ClientPacket::new();
-    p.p4(QUEST_LIST).p2_alt3(-1).p2_alt1(JUNGLE_POTION);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, quest_list(), JUNGLE_POTION as u16, TypeId::NULL);
     let mut texts = Vec::new();
     for _ in 0..3 {
         engine.cycle();
@@ -283,7 +276,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
         .map(|line| {
             let text = texts
                 .iter()
-                .find(|(c, _)| *c == JOURNAL_LINE_1 + line)
+                .find(|(c, _)| *c == journal_line_1() + line)
                 .map_or("", |(_, t)| t.as_str());
             let mut plain = String::new();
             let mut tag = false;
@@ -313,15 +306,18 @@ fn trufitus_starts_the_quest_once_druidic_ritual_is_done() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "jungle_herbalist", 0);
-        let lines = journal(engine, &mut client);
-        assert_eq!(
-            lines[..3],
-            [
-                "I can start this quest by speaking to Trufitus Shakaya",
-                "who lives in the main hut in Tai Bwo Wannai",
-                "village on the island of Karamja.",
-            ]
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(
+                lines[..3],
+                [
+                    "I can start this quest by speaking to Trufitus Shakaya",
+                    "who lives in the main hut in Tai Bwo Wannai",
+                    "village on the island of Karamja.",
+                ]
+            );
+        }
 
         // Without Druidic Ritual he does not start it (289).
         set_var(engine, &client, "druidquest", 0);
@@ -352,16 +348,19 @@ fn trufitus_starts_the_quest_once_druidic_ritual_is_done() {
         );
         assert_eq!(stage(engine, &client), 1, "sent for snake weed");
 
-        let lines = journal(engine, &mut client);
-        assert_eq!(
-            lines[..4],
-            [
-                "I spoke to Trufitus, he needs to commune with the",
-                "gods, he's asked me to help him by collecting herbs.",
-                "",
-                "I need to pick some fresh Snakeweed for Trufitus.",
-            ]
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(
+                lines[..4],
+                [
+                    "I spoke to Trufitus, he needs to commune with the",
+                    "gods, he's asked me to help him by collecting herbs.",
+                    "",
+                    "I need to pick some fresh Snakeweed for Trufitus.",
+                ]
+            );
+        }
     });
 }
 
@@ -490,12 +489,15 @@ fn the_last_herb_completes_the_quest_with_2011s_scroll() {
         let gained = engine.harness_player(client.pid).unwrap().stats.xp[HERBLORE] - xp;
         assert_eq!(gained, 7750, "775 Herblore xp (tenths)");
 
-        let lines = journal(engine, &mut client);
-        assert_eq!(
-            lines[0],
-            "Trufitus Shakaya of the Tai Bwo Wannai village needed"
-        );
-        assert!(lines.iter().any(|l| l == "QUEST COMPLETE!"), "{lines:?}");
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(
+                lines[0],
+                "Trufitus Shakaya of the Tai Bwo Wannai village needed"
+            );
+            assert!(lines.iter().any(|l| l == "QUEST COMPLETE!"), "{lines:?}");
+        }
 
         // Until Tai Bwo Wannai Trio moves on, he sends the player to Timfraku (289).
         // The first click on him shuts the scroll, and the level-up box (Herblore 1 to 7, 775 xp)

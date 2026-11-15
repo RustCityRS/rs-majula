@@ -48,11 +48,11 @@ graphic=graphic_9286
 type=layer
 width=190
 height=261
-onload=combat_side_special(combat_side:com_4)
-oninvtransmit=combat_side_special(combat_side:com_4){worn}
+onload=combat_side_special(combat_side:sp_attack_button)
+oninvtransmit=combat_side_special(combat_side:sp_attack_button){worn}
 
 // 884:4
-[com_4]
+[sp_attack_button]
 type=layer
 y=204
 width=150
@@ -302,7 +302,7 @@ type=graphic
 width=12
 height=30
 ymode=abs_centre
-layer=com_4
+layer=sp_attack_button
 graphic="aif_progress_bar_frame_2,0"
 
 // 884:28
@@ -312,7 +312,7 @@ width=12
 height=30
 xmode=abs_right
 ymode=abs_centre
-layer=com_4
+layer=sp_attack_button
 graphic="aif_progress_bar_frame_2,0"
 hflip=yes
 
@@ -324,7 +324,7 @@ height=30
 widthmode=minus
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=sp_attack_button
 graphic="aif_progress_bar_frame_2,1"
 tiling=yes
 hflip=yes
@@ -337,7 +337,7 @@ width=12
 height=19
 widthmode=minus
 ymode=abs_centre
-layer=com_4
+layer=sp_attack_button
 onload=combat_side_special_level(combat_side:com_31, combat_side:com_36)
 onvartransmit=combat_side_special_level(combat_side:com_31, combat_side:com_36){sa_energy}
 
@@ -390,7 +390,7 @@ widthmode=proportion
 heightmode=proportion
 xmode=abs_centre
 ymode=abs_centre
-layer=com_4
+layer=sp_attack_button
 onload=combat_side_special_highlight(combat_side:com_36)
 
 // 884:36

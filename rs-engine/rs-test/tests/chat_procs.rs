@@ -13,45 +13,28 @@
 //!   com1, 519 com1), 4 lines 380 wide to a page.
 //! - `.mesbox`: message1 (210) opened for the second player.
 //!
-//! "Click here to continue" and an option are RESUME_PAUSEBUTTON,
-//! `p2(slot) p4_alt2(com)`.
+//! "Click here to continue" and an option are RESUME_PAUSEBUTTON.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 
 const NONE: i32 = 0xFFFF;
 /// Lumbridge, east of the castle.
 const HOME: (u16, u16) = (3222, 3218);
 
-fn com(iface: u16, index: u16) -> i32 {
+fn com_id(iface: u16, index: u16) -> i32 {
     (iface as i32) << 16 | index as i32
 }
 
 /// Every IF_SETTEXT, `p4(com) jstr(text)`.
 fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, String)> {
-    let opcode = ServerProt::IfSetText as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let com = i32::from_be_bytes([p[0], p[1], p[2], p[3]]);
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            (com, String::from_utf8_lossy(&p[4..end]).into_owned())
-        })
-        .collect()
+    server::settexts(packets)
 }
 
 /// The text last set on `com`.
@@ -65,57 +48,31 @@ fn text_of(texts: &[(i32, String)], com: i32) -> Option<&str> {
 
 /// Every IF_SETMODEL, `p2_alt3(model) p4(com)`, as (com, model).
 fn setmodels(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
-    let opcode = ServerProt::IfSetModel as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let model = (p[0].wrapping_sub(128) as u16) | (p[1] as u16) << 8;
-            (i32::from_be_bytes([p[2], p[3], p[4], p[5]]), model)
-        })
+    server::models(packets)
+        .into_iter()
+        .map(|(c, m)| (c, m as u16))
         .collect()
 }
 
 /// Every IF_SETANIM, `p4_alt1(com) p2_alt1(seq)`, as (com, seq).
 fn setanims(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
-    let opcode = ServerProt::IfSetAnim as u16;
-    packets
-        .iter()
-        .filter(|(op, p)| *op == opcode && p.len() >= 6)
-        .map(|(_, p)| {
-            (
-                i32::from_le_bytes([p[0], p[1], p[2], p[3]]),
-                u16::from_le_bytes([p[4], p[5]]),
-            )
-        })
+    server::anims(packets)
+        .into_iter()
+        .map(|(c, s)| (c, s as u16))
         .collect()
 }
 
 /// Every IF_SETOBJECT, `p4_alt1(com) p4_alt3(scale) p2(obj)`, as (com, obj).
 fn setobjects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
-    let opcode = ServerProt::IfSetObject as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let com = i32::from_le_bytes([p[0], p[1], p[2], p[3]]);
-            (com, u16::from_be_bytes([p[8], p[9]]))
-        })
+    server::objects(packets)
+        .into_iter()
+        .map(|(c, o)| (c, o as u16))
         .collect()
 }
 
 /// Every IF_SETHIDE, `p4_alt3(com) p1_alt2(hidden)`, as (com, hidden).
 fn sethides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
-    let opcode = ServerProt::IfSetHide as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            // p4_alt3 writes `>>16, >>24, v, >>8`; p1_alt2 writes `-v`.
-            let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
-            (com, p[4] != 0)
-        })
-        .collect()
+    server::hides(packets)
 }
 
 fn developer(engine: &mut Engine, name: &str, x: u16) -> HarnessClient {
@@ -134,15 +91,11 @@ fn developer(engine: &mut Engine, name: &str, x: u16) -> HarnessClient {
 }
 
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
 fn resume(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p2(NONE).p4_alt2(com);
-    client.send(ClientProt::ResumePauseButton, &p.finish());
+    client.resume_pausebutton(com, NONE as u16);
 }
 
 /// Cycles `n` ticks and returns the packets sent meanwhile.
@@ -180,13 +133,16 @@ fn npc_chats_name_their_speaker_on_2011_s_npc_boxes() {
         let packets = ticks(engine, &mut client, 2);
         let texts = settexts(&packets);
         assert!(is_open(engine, &client, 246), "npcchat_np2; sent {texts:?}");
-        assert_eq!(text_of(&texts, com(246, 3)), Some("Man"));
         assert_eq!(
-            text_of(&texts, com(246, 4)),
+            text_of(&texts, com("npcchat_np2:npcchat_np2name")),
+            Some("Man")
+        );
+        assert_eq!(
+            text_of(&texts, com("npcchat_np2:npcchat_np2a")),
             Some("Hey, what's that mist coming in through the door!")
         );
         assert_eq!(
-            text_of(&texts, com(246, 5)),
+            text_of(&texts, com("npcchat_np2:npcchat_np2b")),
             Some("Team, we have a vampire in the room!")
         );
         assert!(
@@ -197,7 +153,7 @@ fn npc_chats_name_their_speaker_on_2011_s_npc_boxes() {
         let head = setanims(&packets);
         assert!(
             head.iter()
-                .any(|&(c, seq)| c == com(246, 2) && seq != u16::MAX),
+                .any(|&(c, seq)| c == com("npcchat_np2:npcchat_np2head_1") && seq != u16::MAX),
             "the man's head plays his expression; anims sent {head:?}"
         );
         // The cutscene's box stays up for the cutscene to close; an open
@@ -210,14 +166,20 @@ fn npc_chats_name_their_speaker_on_2011_s_npc_boxes() {
         let packets = ticks(engine, &mut client, 2);
         let texts = settexts(&packets);
         assert!(is_open(engine, &client, 241), "npcchat1; sent {texts:?}");
-        assert_eq!(text_of(&texts, com(241, 3)), Some("Parrot"));
-        assert_eq!(text_of(&texts, com(241, 4)), Some("Pieces of eight!"));
+        assert_eq!(
+            text_of(&texts, com("npcchat1:npcchat1name")),
+            Some("Parrot")
+        );
+        assert_eq!(
+            text_of(&texts, com("npcchat1:npcchat1a")),
+            Some("Pieces of eight!")
+        );
         assert!(
-            setmodels(&packets).contains(&(com(241, 2), 3624)),
+            setmodels(&packets).contains(&(com("npcchat1:npcchat1head_1"), 3624)),
             "the head is model 3624; {:?}",
             setmodels(&packets)
         );
-        resume(&mut client, com(241, 5));
+        resume(&mut client, com("npcchat1:npcchat1next"));
         let packets = ticks(engine, &mut client, 2);
         assert!(messages(&packets).contains(&"chat_model done".to_string()));
 
@@ -229,10 +191,14 @@ fn npc_chats_name_their_speaker_on_2011_s_npc_boxes() {
             let texts = settexts(&packets);
             assert!(is_open(engine, &client, 241), "npcchat1; sent {texts:?}");
             said.push((
-                text_of(&texts, com(241, 3)).unwrap_or_default().to_string(),
-                text_of(&texts, com(241, 4)).unwrap_or_default().to_string(),
+                text_of(&texts, com("npcchat1:npcchat1name"))
+                    .unwrap_or_default()
+                    .to_string(),
+                text_of(&texts, com("npcchat1:npcchat1a"))
+                    .unwrap_or_default()
+                    .to_string(),
             ));
-            resume(&mut client, com(241, 5));
+            resume(&mut client, com("npcchat1:npcchat1next"));
         }
         let packets = ticks(engine, &mut client, 2);
         assert_eq!(
@@ -259,14 +225,20 @@ fn five_options_under_the_caller_s_header() {
         let packets = ticks(engine, &mut client, 2);
         let texts = settexts(&packets);
         assert!(is_open(engine, &client, 234), "multi5; sent {texts:?}");
-        assert_eq!(text_of(&texts, com(234, 1)), Some("Pick a number"));
-        assert_eq!(text_of(&texts, com(234, 6)), Some("Five"));
+        assert_eq!(
+            text_of(&texts, com("multi5:multi5t")),
+            Some("Pick a number")
+        );
+        assert_eq!(text_of(&texts, com("multi5:multi5e")), Some("Five"));
         let hides = sethides(&packets);
-        assert!(hides.contains(&(com(234, 9), true)), "{hides:?}");
-        assert!(hides.contains(&(com(234, 10), false)), "{hides:?}");
+        assert!(
+            hides.contains(&(com("multi5:multi5swords"), true)),
+            "{hides:?}"
+        );
+        assert!(hides.contains(&(com("multi5:com_10"), false)), "{hides:?}");
 
         // The third option, com4.
-        resume(&mut client, com(234, 4));
+        resume(&mut client, com("multi5:multi5c"));
         let packets = ticks(engine, &mut client, 2);
         assert!(
             messages(&packets).contains(&"picked 3".to_string()),
@@ -274,12 +246,12 @@ fn five_options_under_the_caller_s_header() {
             messages(&packets)
         );
         assert_eq!(
-            text_of(&settexts(&packets), com(234, 1)),
+            text_of(&settexts(&packets), com("multi5:multi5t")),
             Some("Pick again")
         );
 
         // multi5_header jumps to the fifth option's label.
-        resume(&mut client, com(234, 6));
+        resume(&mut client, com("multi5:multi5e"));
         let packets = ticks(engine, &mut client, 2);
         assert!(
             messages(&packets).contains(&"label five".to_string()),
@@ -310,7 +282,7 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
             let packets = ticks(engine, &mut client, 2);
             let texts = settexts(&packets);
             assert!(is_open(engine, &client, iface), "{iface}; sent {texts:?}");
-            let page1 = text_of(&texts, com(iface, 1))
+            let page1 = text_of(&texts, com_id(iface, 1))
                 .unwrap_or_default()
                 .to_string();
             assert_eq!(
@@ -322,7 +294,7 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
             let mut pages = vec![page1];
             let mut finished = false;
             for _ in 0..5 {
-                resume(&mut client, com(iface, continue_com));
+                resume(&mut client, com_id(iface, continue_com));
                 let packets = ticks(engine, &mut client, 2);
                 if messages(&packets).contains(&done.to_string()) {
                     finished = true;
@@ -331,7 +303,7 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
                 let texts = settexts(&packets);
                 assert!(is_open(engine, &client, iface), "{cheat_name}: a next page");
                 pages.push(
-                    text_of(&texts, com(iface, 1))
+                    text_of(&texts, com_id(iface, 1))
                         .unwrap_or_default()
                         .to_string(),
                 );
@@ -357,13 +329,19 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
             "doubleobjbox; sent {texts:?}"
         );
         assert_eq!(
-            text_of(&texts, com(131, 1)),
+            text_of(&texts, com("doubleobjbox:doubleobjbox_text")),
             Some("You can now craft Bowls and Gold Amulets.")
         );
         let objs = setobjects(&packets);
-        assert!(objs.contains(&(com(131, 0), amulet.g2())), "{objs:?}");
-        assert!(objs.contains(&(com(131, 2), bowl.g2())), "{objs:?}");
-        resume(&mut client, com(131, 3));
+        assert!(
+            objs.contains(&(com("doubleobjbox:doubleobjboxmodel1"), amulet.g2())),
+            "{objs:?}"
+        );
+        assert!(
+            objs.contains(&(com("doubleobjbox:doubleobjboxmodel2"), bowl.g2())),
+            "{objs:?}"
+        );
+        resume(&mut client, com("doubleobjbox:doubleobjbox_pausebutton"));
         let packets = ticks(engine, &mut client, 2);
         assert!(messages(&packets).contains(&"chat_doubleobjbox2 done".to_string()));
     });
@@ -383,7 +361,7 @@ fn a_message_box_for_the_second_player() {
         assert!(is_open(engine, &b, 210), "message1 for b; sent {texts:?}");
         assert!(!is_open(engine, &a, 210), "not for a");
         assert_eq!(
-            text_of(&texts, com(210, 1)),
+            text_of(&texts, com("message1:mes1a")),
             Some("A message for the other player.")
         );
     });

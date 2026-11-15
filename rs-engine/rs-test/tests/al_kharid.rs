@@ -2,17 +2,13 @@
 //! its npcs' Talk-to says something and fails no script, 2011's tanner (Ellis)
 //! and the gem and silk traders (2011 wiki: both in Al Kharid) included.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{explore, talk_to};
+#[cfg(before_742)]
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
@@ -123,6 +119,7 @@ fn al_kharid_s_npcs_answer_every_branch() {
 /// 2011's tanning interface (324): eight hide rows with Tan 1, 5, 10, X and
 /// All (op1-5, cache 786). At Ellis, Tan 1 on soft leather (com1) takes a
 /// cowhide and 1 gp; Tan All on hard leather (com2) the rest at 3 gp each.
+#[cfg(before_742)]
 #[test]
 fn ellis_tans_on_2011_s_tanning_interface() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -157,9 +154,7 @@ fn ellis_tans_on_2011_s_tanning_interface() {
             engine.cycle();
         }
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
+        client.op_npc(3, nid);
         for _ in 0..6 {
             engine.cycle();
         }
@@ -170,10 +165,8 @@ fn ellis_tans_on_2011_s_tanning_interface() {
                 .is_interface_open(324),
             "Trade opens the tanning interface"
         );
-        let press = |client: &mut HarnessClient, prot: ClientProt, com: i32| {
-            let mut p = ClientPacket::new();
-            p.p4((324 << 16) | com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-            client.send(prot, &p.finish());
+        let press = |client: &mut HarnessClient, op: u8, com: i32| {
+            client.if_button(op, (324 << 16) | com, 0xFFFF, TypeId::NULL);
         };
         let pid = client.pid;
         let total = |engine: &Engine, o: u16| {
@@ -185,7 +178,7 @@ fn ellis_tans_on_2011_s_tanning_interface() {
                 .unwrap()
                 .total(TypeId::new(o))
         };
-        press(&mut client, ClientProt::IfButton1, 1);
+        press(&mut client, 1, 1);
         for _ in 0..3 {
             engine.cycle();
         }
@@ -197,14 +190,20 @@ fn ellis_tans_on_2011_s_tanning_interface() {
             ),
             (1, 2, 9)
         );
-        // The first tan closed the interface (289's tan_leather); Trade again.
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
-        for _ in 0..6 {
+        // The first tan closed the interface (289's tan_leather); Trade again, after him if he
+        // walks off.
+        client.op_npc(3, nid);
+        for _ in 0..20 {
             engine.cycle();
+            if engine
+                .harness_player(client.pid)
+                .unwrap()
+                .is_interface_open(324)
+            {
+                break;
+            }
         }
-        press(&mut client, ClientProt::IfButton5, 2);
+        press(&mut client, 5, 2);
         for _ in 0..3 {
             engine.cycle();
         }

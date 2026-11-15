@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -8,6 +12,7 @@ use rs_ver::TypeId;
 
 #[cfg(before_530)]
 #[client_prot(Fixed(8), UserEvent)]
+#[derive(Debug)]
 pub struct OpObjT {
     pub x: u16,
     pub z: u16,
@@ -30,6 +35,7 @@ impl ClientProtMessage for OpObjT {
 #[cfg(since_530)]
 #[cfg_attr(before_647, client_prot(Fixed(12), UserEvent))]
 #[cfg_attr(since_647, client_prot(Fixed(15), UserEvent))]
+#[derive(Debug)]
 pub struct OpObjT {
     pub obj: TypeId,
     pub x: u16,
@@ -60,6 +66,19 @@ impl ClientProtMessage for OpObjT {
     }
 }
 
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for OpObjT {
+    const PROT: ClientProt = ClientProt::OpObjT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt2(self.com);
+        buf.p2(self.z);
+        buf.p2_alt3(self.obj.g2());
+        buf.p2_alt3(self.x);
+        buf.p2_alt1(self.slot);
+    }
+}
+
 #[cfg(since_647)]
 #[cfg(before_742)]
 impl ClientProtMessage for OpObjT {
@@ -83,6 +102,22 @@ impl ClientProtMessage for OpObjT {
     }
 }
 
+#[cfg(since_647)]
+#[cfg(before_742)]
+impl ClientProtEncode for OpObjT {
+    const PROT: ClientProt = ClientProt::OpObjT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.obj2.g2());
+        buf.p2_alt1(self.obj.g2());
+        buf.p2(self.slot);
+        buf.p4_alt2(self.com);
+        buf.p1_alt1(self.ctrl as u8);
+        buf.p2_alt2(self.z);
+        buf.p2_alt2(self.x);
+    }
+}
+
 #[cfg(since_742)]
 impl ClientProtMessage for OpObjT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
@@ -102,5 +137,20 @@ impl ClientProtMessage for OpObjT {
             com,
             ctrl,
         }
+    }
+}
+
+#[cfg(since_742)]
+impl ClientProtEncode for OpObjT {
+    const PROT: ClientProt = ClientProt::OpObjT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.obj.g2());
+        buf.p2_alt3(self.slot);
+        buf.p2_alt2(self.z);
+        buf.p2_alt3(self.x);
+        buf.p2_alt1(self.obj2.g2());
+        buf.p1_alt3(self.ctrl as u8);
+        buf.p4_alt2(self.com);
     }
 }

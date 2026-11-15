@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -11,6 +15,7 @@ use rs_ver::STRING_TERMINATOR;
 
 #[cfg(before_647)]
 #[client_prot(Fixed(10), UserEvent)]
+#[derive(Debug)]
 pub struct SendSnapshot {
     pub offender: i64,
     pub reason: u8,
@@ -27,8 +32,21 @@ impl ClientProtMessage for SendSnapshot {
         }
     }
 }
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for SendSnapshot {
+    const PROT: ClientProt = ClientProt::SendSnapshot;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p8(self.offender);
+        buf.p1(self.reason);
+        buf.p1(self.mute as u8);
+    }
+}
+
 #[cfg(since_647)]
 #[client_prot(VarByte { min: 4 }, UserEvent)]
+#[derive(Debug)]
 pub struct SendSnapshot {
     pub offender: String,
     pub reason: u8,
@@ -51,5 +69,17 @@ impl ClientProtMessage for SendSnapshot {
             mute: buf.g1() != 0,
             text: buf.gjstr(STRING_TERMINATOR),
         }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtEncode for SendSnapshot {
+    const PROT: ClientProt = ClientProt::SendSnapshot;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.pjstr(&self.offender, STRING_TERMINATOR);
+        buf.p1(self.reason);
+        buf.p1(self.mute as u8);
+        buf.pjstr(&self.text, STRING_TERMINATOR);
     }
 }

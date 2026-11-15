@@ -7,14 +7,9 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 
@@ -37,9 +32,7 @@ fn developer(engine: &mut Engine, name: &str) -> HarnessClient {
 }
 
 fn cheat(engine: &mut Engine, client: &mut HarnessClient, input: &str) -> Vec<(u16, Vec<u8>)> {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
     let mut packets = Vec::new();
     for _ in 0..2 {
         engine.cycle();

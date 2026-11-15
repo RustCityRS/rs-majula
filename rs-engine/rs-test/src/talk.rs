@@ -4,7 +4,7 @@
 //! [`talk_to`] sends Talk-to (OPNPC1). [`converse`] then cycles the engine:
 //! on each chat box it clicks "Click here to continue", and on each
 //! multi-choice box the option whose text starts with the next of the given
-//! choices. Each click is a RESUME_PAUSEBUTTON (`p2(slot) p4_alt2(com)`) on a
+//! choices. Each click is a RESUME_PAUSEBUTTON on a
 //! pause button of an open interface, as the handler checks
 //! (`handlers/resume_pause_button.rs`): a chat box's is its "Click here to
 //! continue", found by the cache's active properties.
@@ -19,7 +19,6 @@
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use std::collections::HashMap;
 
@@ -28,7 +27,7 @@ const CHAT_BOXES: &[u16] = &[
 ];
 /// (interface, option count).
 const MULTI: &[(u16, u16)] = &[(228, 2), (230, 3), (232, 4), (234, 5)];
-const NO_SLOT: i32 = 0xFFFF;
+const NO_SLOT: u16 = 0xFFFF;
 
 /// What a conversation showed.
 #[derive(Debug, Default)]
@@ -65,10 +64,9 @@ impl Conversation {
     }
 }
 
-/// Talk-to on npc `nid` (OPNPC1: `p1_alt3(ctrl) p2(nid)`).
+/// Talk-to on npc `nid` (OPNPC1).
 pub fn talk_to(client: &mut HarnessClient, nid: u16) {
-    let p = [128u8, (nid >> 8) as u8, nid as u8];
-    client.send(ClientProt::OpNpc1, &p);
+    client.op_npc(1, nid);
 }
 
 /// Each IF_SETTEXT in `packets`: (component hash, text).
@@ -78,6 +76,9 @@ pub fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(u32, String)> {
         .iter()
         .filter(|(op, p)| *op == opcode && p.len() >= 4)
         .map(|(_, p)| {
+            #[cfg(before_647)]
+            let com = u32::from_be_bytes([p[1], p[0], p[3], p[2]]);
+            #[cfg(since_647)]
             let com = u32::from_be_bytes([p[0], p[1], p[2], p[3]]);
             let end = p[4..]
                 .iter()
@@ -120,16 +121,7 @@ fn continue_button(engine: &Engine, iface: u16) -> u16 {
 }
 
 fn resume(client: &mut HarnessClient, iface: u16, com: u16) {
-    let v = ((iface as i32) << 16) | com as i32;
-    let p = [
-        (NO_SLOT >> 8) as u8,
-        NO_SLOT as u8,
-        (v >> 8) as u8,
-        v as u8,
-        (v >> 24) as u8,
-        (v >> 16) as u8,
-    ];
-    client.send(ClientProt::ResumePauseButton, &p);
+    client.resume_pausebutton(((iface as i32) << 16) | com as i32, NO_SLOT);
 }
 
 /// Cycles up to `max` ticks, answering every dialogue box: continue on a chat

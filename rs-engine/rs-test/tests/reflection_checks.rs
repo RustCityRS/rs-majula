@@ -7,7 +7,7 @@
 //! id, failing its CRC or with other results comes from a modified client and
 //! says nothing; it answers the check it claimed to.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 #[path = "../../../rs-protocol/tests/support/client_packet.rs"]
 mod client_packet;
@@ -16,7 +16,7 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client::reflection_check_reply::ReflectionCheckReply;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 
@@ -35,9 +35,7 @@ fn developer(engine: &mut Engine, name: &str) -> HarnessClient {
 
 /// The REFLECTION_CHECKER a cheat has the server send: its id and body.
 fn request(engine: &mut Engine, client: &mut HarnessClient, cheat: &str) -> (i32, Vec<u8>) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(cheat);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(cheat);
     engine.cycle();
     let mut checks: Vec<_> = client
         .packets()
@@ -73,14 +71,13 @@ fn reply(
     results: &[u8],
     crc_ok: bool,
 ) -> Vec<String> {
-    let mut p = ClientPacket::new();
-    p.p4(id);
-    let mut payload = p.finish();
-    payload.extend_from_slice(results);
-    let mut crc = ClientPacket::new();
-    crc.p4(crc32(&payload).wrapping_add(!crc_ok as i32));
-    payload.extend(crc.finish());
-    client.send(ClientProt::ReflectionCheckReply, &payload);
+    let mut covered = id.to_be_bytes().to_vec();
+    covered.extend_from_slice(results);
+    client.send_msg(&ReflectionCheckReply {
+        id,
+        bytes: results.to_vec(),
+        crc: crc32(&covered).wrapping_add(!crc_ok as i32),
+    });
     engine.cycle();
     HarnessClient::game_messages(&client.packets())
         .into_iter()

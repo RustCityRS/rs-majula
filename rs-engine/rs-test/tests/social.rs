@@ -20,10 +20,17 @@ use rs_engine::harness::HarnessClient;
 use rs_engine::{Engine, EtherOutbound};
 use rs_entity::player::{CHAT_MODE_CLAN, CHAT_MODE_PUBLIC};
 use rs_pack::types::PlayerStat;
+use rs_protocol::network::game::client::chat_setmode::ChatSetMode;
+use rs_protocol::network::game::client::message_private::MessagePrivate;
+use rs_protocol::network::game::client::message_public::MessagePublic;
+use rs_protocol::network::game::client::message_quickchat_private::MessageQuickchatPrivate;
+use rs_protocol::network::game::client::message_quickchat_public::MessageQuickchatPublic;
+use rs_protocol::network::game::client::set_chatfiltersettings::SetChatfiltersettings;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_util::base37::to_userhash;
+use rs_ver::TypeId;
 use std::iter;
 use std::time::{Duration, Instant};
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -73,11 +80,11 @@ fn quick_chat(
     phrase: u16,
     values: &mut ClientPacket,
 ) -> Option<Vec<u8>> {
-    let mut p = ClientPacket::new();
-    p.p1(chat).p2(phrase as i32);
-    let mut payload = p.finish();
-    payload.extend(values.finish());
-    client.send(ClientProt::MessageQuickchatPublic, &payload);
+    client.send_msg(&MessageQuickchatPublic {
+        chat: chat as u8,
+        id: TypeId::new(phrase),
+        bytes: values.finish(),
+    });
     engine.harness_inputs();
     let staged = engine
         .harness_player(client.pid)
@@ -217,14 +224,18 @@ fn private_chat_echoes_to_the_sender(engine: &mut Engine) {
         chat
     };
     let typed = |engine: &Engine| {
-        let mut p = ClientPacket::new();
-        p.pjstr("Mod Ash");
-        let mut payload = p.finish();
-        payload.extend(huffman(engine, b"hello"));
-        payload
+        let chat = huffman(engine, b"hello");
+        MessagePrivate {
+            name: "Mod Ash".into(),
+            chars: chat[0] as u16,
+            bytes: chat[1..].to_vec(),
+        }
     };
-    let mut phrase = ClientPacket::new();
-    phrase.pjstr("Mod Ash").p2(ATTACK_LEVEL as i32).p1(0);
+    let phrase = MessageQuickchatPrivate {
+        name: "Mod Ash".into(),
+        id: TypeId::new(ATTACK_LEVEL),
+        bytes: vec![0],
+    };
     let mut name = ClientPacket::new();
     name.pjstr("Mod Ash");
     let echoes = |client: &mut HarnessClient, engine: &mut Engine| {
@@ -244,8 +255,8 @@ fn private_chat_echoes_to_the_sender(engine: &mut Engine) {
     };
     client.packets();
 
-    client.send(ClientProt::MessagePrivate, &typed(engine));
-    client.send(ClientProt::MessageQuickchatPrivate, &phrase.finish());
+    client.send_msg(&typed(engine));
+    client.send_msg(&phrase);
     assert!(echoes(&mut client, engine).is_empty(), "not a friend");
 
     engine
@@ -253,7 +264,7 @@ fn private_chat_echoes_to_the_sender(engine: &mut Engine) {
         .unwrap()
         .friends
         .push(to_userhash("Mod Ash") as i64);
-    client.send(ClientProt::MessagePrivate, &typed(engine));
+    client.send_msg(&typed(engine));
     let mut body = name.finish();
     body.extend(huffman(engine, b"Hello"));
     assert_eq!(
@@ -264,8 +275,8 @@ fn private_chat_echoes_to_the_sender(engine: &mut Engine) {
 
     engine.get_player_mut(pid).unwrap().muted_until =
         Some(Instant::now() + Duration::from_secs(60));
-    client.send(ClientProt::MessagePrivate, &typed(engine));
-    client.send(ClientProt::MessageQuickchatPrivate, &phrase.finish());
+    client.send_msg(&typed(engine));
+    client.send_msg(&phrase);
     let mut body = name.finish();
     body.extend([0, ATTACK_LEVEL as u8, 63]);
     assert_eq!(
@@ -300,7 +311,11 @@ fn privacy_filters(engine: &mut Engine) {
     let (mut client, mut ether) = session(engine, "social_filters");
     drain(&mut ether);
 
-    client.send(ClientProt::SetChatfiltersettings, &[1, 2, 1]);
+    client.send_msg(&SetChatfiltersettings {
+        public: 1,
+        private: 2,
+        trade: 1,
+    });
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -327,7 +342,11 @@ fn privacy_filters(engine: &mut Engine) {
 fn a_filter_out_of_range_drops_the_packet(engine: &mut Engine) {
     let (mut client, _ether) = session(engine, "social_range");
 
-    client.send(ClientProt::SetChatfiltersettings, &[1, 3, 1]);
+    client.send_msg(&SetChatfiltersettings {
+        public: 1,
+        private: 3,
+        trade: 1,
+    });
     engine.harness_inputs();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -343,13 +362,18 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
         let text = b"Hello";
         let mut huffman = vec![0u8; text.len() * 2 + 1];
         let len = engine.cache.huffman.encode(text, &mut huffman);
-        let mut payload = vec![0, 0, text.len() as u8];
-        payload.extend_from_slice(&huffman[..len]);
-        payload
+        MessagePublic {
+            colour: 0,
+            effect: 0,
+            chars: text.len() as u16,
+            bytes: huffman[..len].to_vec(),
+        }
     };
 
-    client.send(ClientProt::ChatSetMode, &[CHAT_MODE_CLAN]);
-    client.send(ClientProt::MessagePublic, &say(engine));
+    client.send_msg(&ChatSetMode {
+        mode: CHAT_MODE_CLAN,
+    });
+    client.send_msg(&say(engine));
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(player.chat_mode, CHAT_MODE_CLAN, "mode set");
@@ -358,8 +382,10 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
         "clan-mode chat stays off public chat"
     );
 
-    client.send(ClientProt::ChatSetMode, &[CHAT_MODE_PUBLIC]);
-    client.send(ClientProt::MessagePublic, &say(engine));
+    client.send_msg(&ChatSetMode {
+        mode: CHAT_MODE_PUBLIC,
+    });
+    client.send_msg(&say(engine));
     engine.harness_inputs();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(player.chat_mode, CHAT_MODE_PUBLIC, "mode set back");
@@ -383,7 +409,10 @@ fn chat_mode_routes_typed_chat(engine: &mut Engine) {
         [(pid >> 8) as u8, pid as u8, 0, 0],
         "pid, colour, effect"
     );
-    assert_eq!(body[5..], say(engine)[2..], "char count and text");
+    let said = say(engine);
+    let mut text = vec![said.chars as u8];
+    text.extend(&said.bytes);
+    assert_eq!(body[5..], text[..], "char count and text");
     assert!(
         engine
             .harness_player(pid)

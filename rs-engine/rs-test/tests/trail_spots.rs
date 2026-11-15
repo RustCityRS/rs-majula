@@ -8,7 +8,7 @@
 //! reads each spot's locs from the loaded 647 map and needs one whose
 //! category 289's hooks answer.
 
-#![cfg(since_647)]
+#![cfg(all(since_647, before_742))]
 
 use rs_engine::Engine;
 use rs_pack::types::ParamValue;
@@ -64,8 +64,9 @@ const OPEN: [(&str, &str); 2] = [
 
 fn pack(kind: &str) -> Vec<(i32, String)> {
     let path = format!(
-        "{}/../../content/647/pack/{kind}.pack",
-        env!("CARGO_MANIFEST_DIR")
+        "{}/../../{}/pack/{kind}.pack",
+        env!("CARGO_MANIFEST_DIR"),
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(&path)
         .expect(&path)

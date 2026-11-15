@@ -4,10 +4,10 @@
 //! 2011's appearance carries one render anim (BAS), which pairs a ready and a
 //! walk seq, so 289's log-balance seqs (763, 762) are 2011's BAS 155
 //! (`void-634`'s `rope_balance`). The case walks the Gnome Stronghold course's
-//! log (loc 2295) as the client clicks it (OPLOC1: `p2_alt1(z) p2_alt1(loc) p1(ctrl)
-//! p2_alt2(x)`): the player crosses seven tiles south in the balance stance,
-//! takes 7.5 xp, and stands as before on the far side. Agility pays through
-//! `~givexp`, so 2011's xp counter (varp 1801, in tenths) counts it.
+//! log (loc 2295) as the client clicks it (OPLOC1): the player crosses seven
+//! tiles south in the balance stance, takes 7.5 xp, and stands as before on the
+//! far side. Agility pays through `~givexp`, so 2011's xp counter (varp 1801,
+//! in tenths) counts it.
 //!
 //! The Barbarian Outpost's obstacle net (loc 20211 at 2538,3545) pays 2011's
 //! 8.2 xp (2011 wiki, Barbarian Outpost), where 289 pays 7.5, and lifts the
@@ -19,21 +19,17 @@
 //! stepping stones wait for the player to arrive and land the last jump a tick
 //! sooner.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const AGILITY: usize = 16;
-/// 2011's xp counter, which counts ten times what `~givexp` pays.
+/// 2011's xp counter, which counts ten times what `~givexp` pays. 530 has none.
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
 
 // The cases share one loaded engine and each starts with a reset, which would
@@ -41,7 +37,22 @@ const XP_COUNTER: u16 = 1801;
 static TURN: Mutex<()> = Mutex::new(());
 
 /// 289's `log_balance`, the course's first obstacle, at 2474,3435.
-const LOG: (u16, u16, u16) = (2295, 2474, 3435);
+#[cfg(all(since_530, before_742))]
+const LOG: (i32, u16, u16) = (2295, 2474, 3435);
+#[cfg(since_742)]
+const LOG: (i32, u16, u16) = (69526, 2474, 3435);
+/// The course's two pipes, east then west, each entered from the tile south.
+#[cfg(all(since_530, before_647))]
+const PIPES: [(i32, u16, u16); 2] = [(4058, 2487, 3431), (154, 2484, 3431)];
+#[cfg(all(since_647, before_742))]
+const PIPES: [(i32, u16, u16); 2] = [(43543, 2487, 3431), (43544, 2483, 3431)];
+#[cfg(since_742)]
+const PIPES: [(i32, u16, u16); 2] = [(69377, 2487, 3431), (69378, 2483, 3431)];
+/// The Wilderness course's stepping stone at 3001,3960.
+#[cfg(all(since_530, before_742))]
+const STONE: (i32, u16, u16) = (37704, 3001, 3960);
+#[cfg(since_742)]
+const STONE: (i32, u16, u16) = (64699, 3001, 3960);
 const START: (u16, u16) = (2474, 3436);
 const END: (u16, u16) = (2474, 3429);
 const BALANCE_BAS: u16 = 155;
@@ -58,6 +69,7 @@ fn the_gnome_course_log_in_2011s_balance_stance() {
         engine.cycle();
         engine.cycle();
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[AGILITY];
+        #[cfg(since_647)]
         let counted = engine
             .harness_player(client.pid)
             .unwrap()
@@ -67,12 +79,7 @@ fn the_gnome_course_log_in_2011s_balance_stance() {
         client.packets();
 
         let (loc, x, z) = LOG;
-        let mut p = ClientPacket::new();
-        p.p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(x as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, x, z, TypeId::from_int(loc));
 
         let mut said = Vec::new();
         let mut stances = Vec::new();
@@ -101,6 +108,7 @@ fn the_gnome_course_log_in_2011s_balance_stance() {
             ]
         );
         assert_eq!(player.stats.xp[AGILITY] - xp, 75);
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 750);
         assert!(
             stances.contains(&Some(TypeId::new(BALANCE_BAS))),
@@ -128,15 +136,11 @@ fn the_barbarian_net_pays_2011s_xp() {
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
         let xp = player.stats.xp[AGILITY];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
         client.packets();
 
-        let mut p = ClientPacket::new();
-        p.p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(x as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, x, z, TypeId::new(loc));
         let mut said = Vec::new();
         for _ in 0..10 {
             engine.cycle();
@@ -152,6 +156,7 @@ fn the_barbarian_net_pays_2011s_xp() {
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(said, ["You climb the netting..."]);
         assert_eq!(player.stats.xp[AGILITY] - xp, 82, "8.2 xp");
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, 820);
         let c = player.pathing.coord;
         assert_eq!(
@@ -180,13 +185,8 @@ fn athlete(engine: &mut Engine, name: &str, x: u16, z: u16, agility: u16) -> Har
     client
 }
 
-fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+fn op_loc1(client: &mut HarnessClient, (loc, x, z): (i32, u16, u16)) {
+    client.op_loc(1, x, z, TypeId::from_int(loc));
 }
 
 #[test]
@@ -194,10 +194,11 @@ fn two_players_squeeze_through_the_two_gnome_pipes_at_once() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
-        let mut east = athlete(engine, "pipeeast", 2487, 3430, 99);
-        let mut west = athlete(engine, "pipewest", 2483, 3430, 99);
-        op_loc1(&mut east, (43543, 2487, 3431));
-        op_loc1(&mut west, (43544, 2483, 3431));
+        let [(_, east_x, _), (_, west_x, _)] = PIPES;
+        let mut east = athlete(engine, "pipeeast", east_x, 3430, 99);
+        let mut west = athlete(engine, "pipewest", west_x, 3430, 99);
+        op_loc1(&mut east, PIPES[0]);
+        op_loc1(&mut west, PIPES[1]);
         let mut said = Vec::new();
         for _ in 0..20 {
             engine.cycle();
@@ -213,7 +214,7 @@ fn two_players_squeeze_through_the_two_gnome_pipes_at_once() {
             !said.iter().any(|s| s == "The pipe is being used"),
             "{said:?}"
         );
-        for (client, x) in [(&east, 2487), (&west, 2483)] {
+        for (client, x) in [(&east, east_x), (&west, west_x)] {
             let c = engine.harness_player(client.pid).unwrap().pathing.coord;
             assert_eq!((c.x(), c.z()), (x, 3437), "through the pipe");
         }
@@ -227,7 +228,7 @@ fn two_players_squeeze_through_the_two_gnome_pipes_at_once() {
 fn the_wilderness_stepping_stones_wait_for_arrival_and_land_sooner() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
-        let stone = (37704u16, 3001u16, 3960u16);
+        let stone = STONE;
         let mut timings = Vec::new();
         // 99 Agility still falls about one crossing in 43: up to five tries.
         for attempt in 0..5 {

@@ -5,36 +5,36 @@
 //! the muddy skull and raise a skeleton warlock; the skull in the open coffin
 //! (15061) ends it with the 2011 wiki's reward (The Restless Ghost,
 //! 2011-05-22): 125 Prayer experience and 5 ancient bones.
-//!
-//! Loc ops are OPLOC1 (`p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`) and OPLOCT
-//! (`p2_alt2(obj) p2_alt2(slot) p2(z) p4_alt2(com) p2_alt2(x) p1_alt1(ctrl)
-//! p2_alt1(loc)`).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
+use rs_test::names::BACKPACK;
 use rs_test::runner;
-use rs_test::talk::{converse, settexts, talk_to};
+#[cfg(since_647)]
+use rs_test::talk::settexts;
+use rs_test::talk::{converse, talk_to};
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
+#[cfg(all(since_647, before_742))]
 const AERECK: u16 = 456;
+#[cfg(since_647)]
 const GHOST: u16 = 457;
 const URHNEY: u16 = 458;
+#[cfg(since_647)]
 const WARLOCK: u16 = 459;
 const PRIESTSTART: u16 = 107;
+#[cfg(since_647)]
 const PRAYER: usize = 5;
-/// `inventory:inv`.
-const BACKPACK: i32 = 149 << 16;
+#[cfg(since_647)]
 const COFFIN: (u16, u16, u16) = (2145, 3249, 3192);
+#[cfg(since_647)]
 const OPEN_COFFIN: u16 = 15061;
+#[cfg(since_647)]
 const ROCKS: (u16, u16, u16) = (47713, 3234, 3145);
 
 fn id(engine: &Engine, obj: &str) -> TypeId {
@@ -115,17 +115,14 @@ fn total(engine: &Engine, client: &HarnessClient, inv: &str, obj: &str) -> i64 {
         .total(id(engine, obj)) as i64
 }
 
+#[cfg(since_647)]
 fn oploc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::new(loc));
 }
 
 /// Opens the shut coffin. A case before this one on the shared engine may have left it
 /// open (300 ticks, and the harness reset leaves locs as they are): closed first, then.
+#[cfg(since_647)]
 fn open_the_coffin(engine: &mut Engine, client: &mut HarnessClient) {
     let (shut, x, z) = COFFIN;
     let here = |engine: &Engine, id: u16| {
@@ -151,6 +148,7 @@ fn open_the_coffin(engine: &mut Engine, client: &mut HarnessClient) {
     oploc1(client, COFFIN);
 }
 
+#[cfg(since_647)]
 fn messages(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
     let mut said = Vec::new();
     for _ in 0..n {
@@ -195,6 +193,8 @@ fn beside(engine: &Engine, npc: u16) -> (u16, (u16, u16)) {
 /// "I'm looking for a quest." opens 2011's quest-start window (interface 178), and its Yes
 /// (component 73, IF_BUTTON1 `p4(com) p2_alt3(obj) p2_alt1(slot)`) starts the quest with 2011's
 /// lines (2011-04-20 and 2011-06-24 recordings).
+#[cfg(before_742)]
+#[cfg(since_647)]
 #[test]
 fn father_aereck_starts_the_quest() {
     runner::on_loaded_engine(|engine| {
@@ -211,9 +211,7 @@ fn father_aereck_starts_the_quest() {
             "the quest-start window; {:?}",
             talk.texts
         );
-        let mut p = ClientPacket::new();
-        p.p4((178 << 16) | 73).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, (178 << 16) | 73, 0xFFFF, TypeId::NULL);
         let talk = converse(engine, &mut client, &[], 60);
         assert!(
             talk.said("He's currently living in a little shack in the south of Lumbridge Swamps, near the coast."),
@@ -251,6 +249,8 @@ fn father_urhney_gives_the_amulet() {
     });
 }
 
+// 2011's rework; 530 has the quest before it.
+#[cfg(since_647)]
 #[test]
 fn the_ghost_rises_and_asks_for_its_skull() {
     runner::on_loaded_engine(|engine| {
@@ -271,6 +271,8 @@ fn the_ghost_rises_and_asks_for_its_skull() {
     });
 }
 
+// 2011's rework; 530 has the quest before it.
+#[cfg(since_647)]
 #[test]
 fn the_rocks_give_the_skull_and_raise_a_warlock() {
     runner::on_loaded_engine(|engine| {
@@ -316,6 +318,8 @@ fn the_rocks_give_the_skull_and_raise_a_warlock() {
     });
 }
 
+// 2011's rework; 530 has the quest before it.
+#[cfg(since_647)]
 #[test]
 fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
     runner::on_loaded_engine(|engine| {
@@ -324,15 +328,14 @@ fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
         let prayer = engine.harness_player(client.pid).unwrap().stats.xp[PRAYER];
         open_the_coffin(engine, &mut client);
         messages(engine, &mut client, 6);
-        let mut p = ClientPacket::new();
-        p.p2_alt2(skull.int())
-            .p2_alt2(0)
-            .p2(COFFIN.2 as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(COFFIN.1 as i32)
-            .p1_alt1(0)
-            .p2_alt1(OPEN_COFFIN as i32);
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(
+            COFFIN.1,
+            COFFIN.2,
+            TypeId::new(OPEN_COFFIN),
+            BACKPACK,
+            0,
+            skull,
+        );
         let said = messages(engine, &mut client, 10);
         assert!(
             said.iter().any(|m| m == "You put the skull in the coffin."),

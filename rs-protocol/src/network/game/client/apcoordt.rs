@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -9,6 +13,7 @@ use rs_ver::TypeId;
 
 #[cfg_attr(before_647, client_prot(Fixed(10), UserEvent))]
 #[cfg_attr(since_647, client_prot(Fixed(12), UserEvent))]
+#[derive(Debug)]
 pub struct ApCoordT {
     pub x: u16,
     pub z: u16,
@@ -26,6 +31,18 @@ impl ClientProtMessage for ApCoordT {
         let slot = buf.g2_alt3();
         let z = buf.g2_alt2();
         ApCoordT { x, z, slot, com }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for ApCoordT {
+    const PROT: ClientProt = ClientProt::ApCoordT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt3(self.com);
+        buf.p2_alt2(self.x);
+        buf.p2_alt3(self.slot);
+        buf.p2_alt2(self.z);
     }
 }
 
@@ -61,5 +78,28 @@ impl ClientProtMessage for ApCoordT {
             slot,
             com,
         }
+    }
+}
+
+#[cfg(since_647)]
+impl ClientProtEncode for ApCoordT {
+    const PROT: ClientProt = ClientProt::ApCoordT;
+
+    #[cfg(before_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt1(self.x);
+        buf.p2(self.slot);
+        buf.p2_alt2(self.obj.g2());
+        buf.p2_alt2(self.z);
+        buf.p4(self.com);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.obj.g2());
+        buf.p2(self.slot);
+        buf.p2_alt3(self.x);
+        buf.p4_alt3(self.com);
+        buf.p2_alt3(self.z);
     }
 }

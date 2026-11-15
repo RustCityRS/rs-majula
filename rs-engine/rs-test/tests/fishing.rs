@@ -20,23 +20,20 @@
 //! Ape Atoll's two spots (2011's 1405 and 1406, 289's 0_43_42_memberfish and
 //! 0_42_42_memberfish) move between 289's two tiles each.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
 const FISHING: usize = 10;
 /// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
 const SPOT: u16 = 4908;
 const KARAMBWANJI: u16 = 1174;
@@ -77,13 +74,12 @@ fn a_2011_spot_gives_shrimps() {
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&inv).unwrap().set(0, net, 1);
         let xp = player.stats.xp[FISHING];
+        #[cfg(since_647)]
         let counter = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
 
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2(nid as i32);
-        client.send(ClientProt::OpNpc1, &p.finish());
+        client.op_npc(1, nid);
         let mut said = Vec::new();
         for _ in 0..150 {
             engine.cycle();
@@ -104,6 +100,7 @@ fn a_2011_spot_gives_shrimps() {
             "one raw shrimp; the game said {said:?}"
         );
         assert_eq!(player.stats.xp[FISHING] - xp, 100, "shrimps' productexp");
+        #[cfg(since_647)]
         assert_eq!(
             player.vars.get(XP_COUNTER).as_int() - counter,
             1000,
@@ -174,24 +171,14 @@ fn fisher(
 }
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2(nid as i32);
-    client.send(ClientProt::OpNpc1, &p.finish());
+    client.op_npc(1, nid);
 }
 
 /// Every IF_SETTEXT's text in `packets`: what a mesbox or chat line says.
 fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
-    let opcode = ServerProt::IfSetText as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            String::from_utf8_lossy(&p[4..end]).into_owned()
-        })
+    server::settexts(packets)
+        .into_iter()
+        .map(|(_, t)| t)
         .collect()
 }
 
@@ -376,6 +363,28 @@ fn the_master_fisher_turns_away_a_low_level() {
     runner::on_loaded_engine(|engine| {
         let (nid, x, z) = spot(engine, MASTER_FISHER, (2613, 3394));
         let mut client = fisher(engine, "hopeful", (x, z), 1, &[]);
+        // A tile one step from him: 530's fisher stands in a house, walled from the first free
+        // tile around him.
+        let (sx, sz) = [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)]
+            .into_iter()
+            .find(|&(dx, dz)| {
+                let (tx, tz) = (
+                    x.wrapping_add_signed(dx as i16),
+                    z.wrapping_add_signed(dz as i16),
+                );
+                rsmod::can_travel(0, x, z, dx, dz, 1, 0, CollisionType::Normal)
+                    && !rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000)
+            })
+            .map(|(dx, dz)| {
+                (
+                    x.wrapping_add_signed(dx as i16),
+                    z.wrapping_add_signed(dz as i16),
+                )
+            })
+            .expect("a tile beside the master fisher");
+        engine.harness_telejump(client.pid, sx, 0, sz);
+        engine.cycle();
+        client.packets();
         op_npc1(&mut client, nid);
         let (_, texts) = run(engine, &mut client, 20, |_| false);
         assert!(
@@ -427,9 +436,7 @@ fn a_low_harpoon_says_harpoon() {
         }
         let (nid, x, z) = spot(engine, GUILD_RAREFISH, (2602, 3415));
         let mut client = fisher(engine, "lowharpoon", (x, z), 1, &["harpoon"]);
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
+        client.op_npc(3, nid);
         let (said, texts) = run(engine, &mut client, 20, |_| false);
         assert!(
             texts

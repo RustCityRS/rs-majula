@@ -5,7 +5,7 @@
 //! The reward is the 2011 wiki's (Doric's Quest, 2011-04-21): 1 quest point,
 //! 180 coins, 1,300 Mining xp, and a bronze pickaxe when the quest starts.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;

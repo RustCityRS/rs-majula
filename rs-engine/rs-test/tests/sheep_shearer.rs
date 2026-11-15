@@ -5,15 +5,11 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, explore, talk_to};
 use rs_ver::TypeId;
@@ -21,7 +17,6 @@ use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
 const CRAFTING: usize = 12;
-const BACKPACK: i32 = 149 << 16;
 const SHEEP: u16 = 179;
 /// Lumbridge Castle's spinning wheel, first floor, and the tile used from.
 const WHEEL: (u16, u16, u16) = (36970, 3209, 3212);
@@ -107,22 +102,19 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
 }
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2(nid as i32);
-    client.send(ClientProt::OpNpc1, &p.finish());
+    client.op_npc(1, nid);
 }
 
 /// Uses the obj in `slot` on the loc `loc` at `(x, z)` (OPLOCT).
 fn use_on(client: &mut HarnessClient, o: u16, slot: i32, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    p.p2_alt2(o as i32)
-        .p2_alt2(slot)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(loc as i32);
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        x,
+        z,
+        TypeId::from_int(loc as i32),
+        BACKPACK,
+        slot as u16,
+        TypeId::from_int(o as i32),
+    );
 }
 
 fn total(engine: &Engine, client: &HarnessClient, inv_id: u16, o: u16) -> i32 {

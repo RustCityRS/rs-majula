@@ -3,18 +3,15 @@
 //! stages that change what they say, and Aggie's 2011 skin paste, which takes
 //! no flour (2011 wiki, Skin paste).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
-use rs_test::talk::{converse, explore, talk_to};
+#[cfg(since_647)]
+use rs_test::talk::explore;
+use rs_test::talk::{converse, talk_to};
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
@@ -110,6 +107,7 @@ fn visit(engine: &mut Engine, npc: &str, stage: i32, key: i32) -> HarnessClient 
 
 /// Explores every branch of `npc`'s Talk-to at `stage`, and checks each said
 /// something and no script failed.
+#[cfg(since_647)]
 fn every_branch(engine: &mut Engine, npc: &str, stage: i32, key: i32) {
     let _ = engine.script_errors.take();
     let branches = explore(engine, |engine| visit(engine, npc, stage, key), 48);
@@ -135,6 +133,7 @@ fn every_branch(engine: &mut Engine, npc: &str, stage: i32, key: i32) {
 }
 
 /// Each npc before the quest, at the stages its lines turn on, and after it.
+#[cfg(since_647)]
 #[test]
 fn every_prince_ali_rescue_npc_answers_every_branch() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -250,9 +249,7 @@ fn aggie_makes_dyes_from_her_2011_menu() {
             engine.cycle();
         }
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
+        client.op_npc(3, nid);
         let talk = converse(
             engine,
             &mut client,

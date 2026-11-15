@@ -11,25 +11,25 @@
 //! A backpack or bank op is IF_BUTTON{n}: `p4(com) p2_alt3(obj) p2_alt1(slot)`;
 //! RESUME_P_COUNTDIALOG is `p4(number)`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
 use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 
 const BANK: u16 = 762;
 const SIDE: u16 = 763;
-const BANK_INV: i32 = (BANK as i32) << 16 | 93;
-const SIDE_INV: i32 = (SIDE as i32) << 16;
-const NOTE_MODE: i32 = (BANK as i32) << 16 | 19;
+/// The bank's last slot: 496 slots before 647, 516 from.
+#[cfg(before_647)]
+const BANK_LAST_SLOT: u16 = 495;
+#[cfg(since_647)]
+const BANK_LAST_SLOT: u16 = 515;
 /// Lumbridge castle's top-floor bank: a 2011 booth (36786, forceapproach 10).
 const BOOTH: (u16, u8, u16, u16) = (36786, 2, 3208, 3221);
 /// 289's bankcert (2011's note mode) and 2011's last X.
@@ -54,34 +54,23 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16,
     packets
 }
 
-fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec<u8>> {
-    let opcode = prot as u16;
-    packets
-        .iter()
-        .filter(move |(op, _)| *op == opcode)
-        .map(|(_, p)| p)
+fn bank_inv() -> i32 {
+    com("bank_v2_main:bank_v2_inv")
 }
 
-/// Each IF_SETEVENTS: `p2_alt2(from) p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
-fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
-    of(packets, ServerProt::IfSetEvents)
-        .map(|p| {
-            let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
-            let ops = i32::from_be_bytes([p[3], p[2], p[5], p[4]]);
-            let com = i32::from_be_bytes([p[7], p[6], p[9], p[8]]);
-            let to = u16::from_le_bytes([p[10].wrapping_sub(128), p[11]]);
-            (com, from, to, ops)
-        })
-        .collect()
+fn side_inv() -> i32 {
+    com("bank_v2_side:inventory_layer")
 }
 
-/// The clientscripts RUNCLIENTSCRIPT ran (`... p4 script_id` last).
+fn note_mode() -> i32 {
+    com("bank_v2_main:bank_cert_button")
+}
+
+/// The clientscripts RUNCLIENTSCRIPT ran.
 fn scripts(packets: &[(u16, Vec<u8>)]) -> Vec<i32> {
-    of(packets, ServerProt::RunClientScript)
-        .map(|p| {
-            let n = p.len();
-            i32::from_be_bytes([p[n - 4], p[n - 3], p[n - 2], p[n - 1]])
-        })
+    server::scripts(packets)
+        .into_iter()
+        .map(|(s, _)| s)
         .collect()
 }
 
@@ -105,19 +94,8 @@ fn slot_of(engine: &Engine, pid: u16, obj: u16) -> u16 {
 }
 
 fn button(client: &mut HarnessClient, op: u8, com: i32, obj: u16, slot: u16) {
-    let prot = match op {
-        1 => ClientProt::IfButton1,
-        2 => ClientProt::IfButton2,
-        3 => ClientProt::IfButton3,
-        4 => ClientProt::IfButton4,
-        5 => ClientProt::IfButton5,
-        6 => ClientProt::IfButton6,
-        7 => ClientProt::IfButton7,
-        _ => ClientProt::IfButton10,
-    };
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
-    client.send(prot, &p.finish());
+    let op = if op <= 7 { op } else { 10 };
+    client.if_button(op, com, slot, TypeId::new(obj));
 }
 
 /// A logged-in player.
@@ -155,19 +133,10 @@ fn use_booth(engine: &mut Engine, client: &mut HarnessClient, op: u8) -> Vec<(u1
             (z as i32 + dz) as u16,
         );
         ticks(engine, client, 2);
-        let mut p = ClientPacket::new();
         if op == 2 {
-            p.p2_alt1(loc as i32)
-                .p1_alt2(0)
-                .p2_alt2(z as i32)
-                .p2_alt3(x as i32);
-            client.send(ClientProt::OpLoc2, &p.finish());
+            client.op_loc(2, x, z, TypeId::from_int(loc as i32));
         } else {
-            p.p2_alt1(z as i32)
-                .p2_alt1(loc as i32)
-                .p1(0)
-                .p2_alt2(x as i32);
-            client.send(ClientProt::OpLoc1, &p.finish());
+            client.op_loc(1, x, z, TypeId::from_int(loc as i32));
         }
         packets = ticks(engine, client, 4);
         let player = engine.harness_player(client.pid).unwrap();
@@ -187,21 +156,21 @@ fn a_booth_s_use_quickly_opens_2011s_bank() {
         let player = engine.harness_player(client.pid).unwrap();
         assert!(player.is_interface_open(BANK), "2011's bank");
         assert!(player.is_interface_open(SIDE), "and the backpack beside it");
-        let sent: Vec<u16> = of(&packets, ServerProt::UpdateInvFull)
-            .map(|p| u16::from_be_bytes([p[0], p[1]]))
-            .collect();
+        let sent: Vec<i32> = server::invs(&packets).iter().map(|i| i.inv).collect();
         assert!(sent.contains(&95), "the bank's inventory; sent {sent:?}");
-        let ev = events(&packets);
+        let ev = server::events(&packets);
         assert!(
             ev.iter()
-                .any(|&(c, f, t, _)| c == BANK_INV && f == 0 && t == 515),
+                .any(|&(c, f, t, _)| c == bank_inv() && f == 0 && t == BANK_LAST_SLOT),
             "the bank's slots enabled; sent {ev:?}"
         );
         assert!(
             ev.iter()
-                .any(|&(c, f, t, _)| c == SIDE_INV && f == 0 && t == 27),
+                .any(|&(c, f, t, _)| c == side_inv() && f == 0 && t == 27),
             "the backpack's slots enabled; sent {ev:?}"
         );
+        // 530 counts the slots in script (bank_spaces_used).
+        #[cfg(since_647)]
         assert!(
             scripts(&packets).contains(&1465),
             "2011's bank layout script"
@@ -219,7 +188,7 @@ fn withdraw_and_deposit_take_289s_amounts_on_2011s_ops() {
         let pid = client.pid;
         // Withdraw-1, -5, -10.
         for (op, n) in [(1, 1), (2, 5), (3, 10)] {
-            button(&mut client, op, BANK_INV, coins.g2(), 0);
+            button(&mut client, op, bank_inv(), coins.g2(), 0);
             ticks(engine, &mut client, 1);
             assert_eq!(
                 count(engine, pid, "inv", coins.g2()),
@@ -229,15 +198,15 @@ fn withdraw_and_deposit_take_289s_amounts_on_2011s_ops() {
         }
         // Deposit-All of the backpack's coins.
         let slot = slot_of(engine, pid, coins.g2());
-        button(&mut client, 6, SIDE_INV, coins.g2(), slot);
+        button(&mut client, 6, side_inv(), coins.g2(), slot);
         ticks(engine, &mut client, 1);
         assert_eq!(count(engine, pid, "inv", coins.g2()), 0, "Deposit-All");
         assert_eq!(count(engine, pid, "bank", coins.g2()), 1000);
         // 2011's Withdraw-All but one, then Withdraw-All.
-        button(&mut client, 7, BANK_INV, coins.g2(), 0);
+        button(&mut client, 7, bank_inv(), coins.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(count(engine, pid, "inv", coins.g2()), 999, "All but one");
-        button(&mut client, 6, BANK_INV, coins.g2(), 0);
+        button(&mut client, 6, bank_inv(), coins.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(count(engine, pid, "inv", coins.g2()), 1000, "All");
     });
@@ -250,15 +219,13 @@ fn withdraw_x_asks_and_withdraw_star_takes_the_same_again() {
         let mut client = banker(engine, "xteller");
         use_booth(engine, &mut client, 2);
         fill_bank(engine, &mut client, &[("coins", 1000)]);
-        button(&mut client, 5, BANK_INV, coins.g2(), 0);
+        button(&mut client, 5, bank_inv(), coins.g2(), 0);
         let asked = ticks(engine, &mut client, 1);
         assert!(
             scripts(&asked).contains(&108),
             "2011 asks how many (clientscript 108)"
         );
-        let mut p = ClientPacket::new();
-        p.p4(7);
-        client.send(ClientProt::ResumePCountDialog, &p.finish());
+        client.resume_p_countdialog(7);
         ticks(engine, &mut client, 2);
         assert_eq!(
             count(engine, client.pid, "inv", coins.g2()),
@@ -272,7 +239,7 @@ fn withdraw_x_asks_and_withdraw_star_takes_the_same_again() {
             .get(LAST_AMOUNT)
             .as_int();
         assert_eq!(last, 7, "the X remembered (varp 1249)");
-        button(&mut client, 4, BANK_INV, coins.g2(), 0);
+        button(&mut client, 4, bank_inv(), coins.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(
             count(engine, client.pid, "inv", coins.g2()),
@@ -289,7 +256,7 @@ fn note_mode_withdraws_notes() {
         let mut client = banker(engine, "notes");
         use_booth(engine, &mut client, 2);
         fill_bank(engine, &mut client, &[("logs", 10)]);
-        button(&mut client, 1, NOTE_MODE, 0xFFFF, 0xFFFF);
+        button(&mut client, 1, note_mode(), 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 1);
         let mode = engine
             .harness_player(client.pid)
@@ -298,7 +265,7 @@ fn note_mode_withdraws_notes() {
             .get(BANKCERT)
             .as_int();
         assert_eq!(mode, 1, "note mode on (varp 115)");
-        button(&mut client, 6, BANK_INV, logs.g2(), 0);
+        button(&mut client, 6, bank_inv(), logs.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(
             count(engine, client.pid, "inv", cert.g2()),
@@ -312,7 +279,7 @@ fn note_mode_withdraws_notes() {
             .unwrap()
             .vars
             .set(BANKCERT, VarValue::Int(1));
-        button(&mut client, 1, NOTE_MODE, 0xFFFF, 0xFFFF);
+        button(&mut client, 1, note_mode(), 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 1);
         let mode = engine
             .harness_player(client.pid)
@@ -324,6 +291,7 @@ fn note_mode_withdraws_notes() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_2011_booths_keep_their_two_sided_approach() {
     runner::on_loaded_engine(|engine| {
@@ -339,6 +307,8 @@ fn the_2011_booths_keep_their_two_sided_approach() {
     });
 }
 
+#[cfg(since_647)]
+#[cfg(before_742)]
 #[test]
 fn a_varrock_booth_s_use_talks_to_the_teller_behind_it() {
     runner::on_loaded_engine(|engine| {
@@ -350,9 +320,7 @@ fn a_varrock_booth_s_use_talks_to_the_teller_behind_it() {
         engine.cycle();
         engine.harness_telejump(client.pid, 3182, 0, 3436);
         ticks(engine, &mut client, 3);
-        let mut p = ClientPacket::new();
-        p.p2_alt1(3436).p2_alt1(782).p1(0).p2_alt2(3181);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, 3181, 3436, TypeId::from_int(782));
         let packets = ticks(engine, &mut client, 4);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(
@@ -365,20 +333,19 @@ fn a_varrock_booth_s_use_talks_to_the_teller_behind_it() {
 
 // --- 2011's bank buttons, Equipment Stats screen and tabs -----------------
 
+#[cfg(since_647)]
 const SCREEN: u16 = 667;
+#[cfg(since_647)]
 const WEAR_SIDE: u16 = 670;
-const WORN_TAB: u16 = 387;
-const DEPOSIT_CARRIED: i32 = (BANK as i32) << 16 | 33;
-const DEPOSIT_WORN: i32 = (BANK as i32) << 16 | 35;
-const DEPOSIT_BURDEN: i32 = (BANK as i32) << 16 | 37;
-const SHOW_STATS: i32 = (BANK as i32) << 16 | 117;
-const SHOW_BANK: i32 = (SCREEN as i32) << 16 | 48;
-const SCREEN_WORN: i32 = (SCREEN as i32) << 16 | 7;
-const SCREEN_SIDE: i32 = (WEAR_SIDE as i32) << 16;
-const WORN_SHOW_STATS: i32 = (WORN_TAB as i32) << 16 | 39;
-/// The tab buttons: all of the bank, then tabs 1-8 (com62, com60 .. com46).
+/// The tab buttons: all of the bank, then tabs 1-8.
 fn tab_button(tab: i32) -> i32 {
-    (BANK as i32) << 16 | (62 - 2 * tab)
+    com(&format!("bank_v2_main:tab_{}", tab + 1))
+}
+
+/// The stats screen's component `name`.
+#[cfg(since_647)]
+fn screen(name: &str) -> i32 {
+    com(&format!("equip_screen2:{name}"))
 }
 
 fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> u32 {
@@ -403,11 +370,13 @@ fn open_tab(engine: &Engine, client: &HarnessClient) -> u32 {
 }
 
 /// "Show bank" on the stats screen (varbit 4894: varp 1248 bit 31).
+#[cfg(since_647)]
 fn from_bank(engine: &Engine, client: &HarnessClient) -> u32 {
     varp(engine, client, 1248) >> 31
 }
 
 /// The bank hidden by its client (varbit 8348: varp 638 bit 19).
+#[cfg(since_647)]
 fn bank_hidden(engine: &Engine, client: &HarnessClient) -> u32 {
     (varp(engine, client, 638) >> 19) & 1
 }
@@ -437,41 +406,20 @@ fn give(engine: &mut Engine, client: &HarnessClient, inv: &str, slot: u16, obj: 
 }
 
 /// Each IF_SETTEXT on `iface` as `(com, text)`.
-fn texts_on(packets: &[(u16, Vec<u8>)], iface: u16) -> Vec<(u16, String)> {
-    of(packets, ServerProt::IfSetText)
-        .filter_map(|p| {
-            let com = u32::from_be_bytes([p[0], p[1], p[2], p[3]]);
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            ((com >> 16) as u16 == iface).then(|| {
-                (
-                    (com & 0xFFFF) as u16,
-                    String::from_utf8_lossy(&p[4..end]).into_owned(),
-                )
-            })
-        })
+#[cfg(since_647)]
+fn texts_on(packets: &[(u16, Vec<u8>)], iface: u16) -> Vec<(i32, String)> {
+    server::settexts(packets)
+        .into_iter()
+        .filter(|(com, _)| (com >> 16) as u16 == iface)
         .collect()
 }
 
 /// Each MESSAGE_GAME's text.
+#[cfg(since_647)]
 fn game_messages(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
-    of(packets, ServerProt::MessageGame)
-        .map(|p| {
-            let mut pos = 5;
-            let mask = p[pos];
-            pos += 1;
-            if mask & 1 == 1 {
-                pos += p[pos..].iter().position(|&b| b == 0).unwrap() + 1;
-            }
-            let end = pos
-                + p[pos..]
-                    .iter()
-                    .position(|&b| b == 0)
-                    .unwrap_or(p.len() - pos);
-            String::from_utf8_lossy(&p[pos..end]).into_owned()
-        })
+    HarnessClient::game_messages(packets)
+        .into_iter()
+        .map(|(_, t)| t)
         .collect()
 }
 
@@ -486,7 +434,7 @@ fn bank_drag(
     to_slot: i32,
 ) {
     let bank = engine.cache.invs.get_by_debugname("bank").unwrap().id;
-    let target = if to_com == BANK_INV {
+    let target = if to_com == bank_inv() {
         engine
             .harness_player(client.pid)
             .unwrap()
@@ -497,14 +445,14 @@ fn bank_drag(
     } else {
         -1
     };
-    let mut p = ClientPacket::new();
-    p.p4(BANK_INV)
-        .p2_alt3(from as i32)
-        .p2_alt3(to_slot)
-        .p4_alt2(to_com)
-        .p2_alt1(from_obj as i32)
-        .p2(target);
-    client.send(ClientProt::IfButtonD, &p.finish());
+    client.if_button_d(
+        bank_inv(),
+        from,
+        TypeId::from_int(from_obj as i32),
+        to_com,
+        to_slot as u16,
+        TypeId::from_int(target),
+    );
 }
 
 /// A player at the booth with its bank open.
@@ -520,6 +468,7 @@ fn at_the_bank(engine: &mut Engine, name: &str) -> HarnessClient {
     client
 }
 
+#[cfg(since_647)]
 #[test]
 fn deposit_carried_and_worn_empty_them_into_the_bank() {
     runner::on_loaded_engine(|engine| {
@@ -530,7 +479,13 @@ fn deposit_carried_and_worn_empty_them_into_the_bank() {
         give(engine, &client, "worn", 3, sword.g2(), 1);
         ticks(engine, &mut client, 1);
 
-        button(&mut client, 1, DEPOSIT_CARRIED, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:bank_inv_button"),
+            0xFFFF,
+            0xFFFF,
+        );
         ticks(engine, &mut client, 2);
         assert_eq!(
             count(engine, client.pid, "inv", logs.g2()),
@@ -539,7 +494,13 @@ fn deposit_carried_and_worn_empty_them_into_the_bank() {
         );
         assert_eq!(count(engine, client.pid, "bank", logs.g2()), 2);
 
-        button(&mut client, 1, DEPOSIT_WORN, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:bank_worn_button"),
+            0xFFFF,
+            0xFFFF,
+        );
         ticks(engine, &mut client, 2);
         assert_eq!(
             count(engine, client.pid, "worn", sword.g2()),
@@ -549,9 +510,27 @@ fn deposit_carried_and_worn_empty_them_into_the_bank() {
         assert_eq!(count(engine, client.pid, "bank", sword.g2()), 1);
 
         // Both empty now, and no familiar: each says so.
-        button(&mut client, 1, DEPOSIT_CARRIED, 0xFFFF, 0xFFFF);
-        button(&mut client, 1, DEPOSIT_WORN, 0xFFFF, 0xFFFF);
-        button(&mut client, 1, DEPOSIT_BURDEN, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:bank_inv_button"),
+            0xFFFF,
+            0xFFFF,
+        );
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:bank_worn_button"),
+            0xFFFF,
+            0xFFFF,
+        );
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:bank_bob_button"),
+            0xFFFF,
+            0xFFFF,
+        );
         let said = game_messages(&ticks(engine, &mut client, 2));
         for line in [
             "You have no items in your inventory to deposit.",
@@ -563,6 +542,7 @@ fn deposit_carried_and_worn_empty_them_into_the_bank() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_banks_equipment_button_shows_the_stats_screen_and_show_bank_returns() {
     runner::on_loaded_engine(|engine| {
@@ -571,7 +551,13 @@ fn the_banks_equipment_button_shows_the_stats_screen_and_show_bank_returns() {
         give(engine, &client, "worn", 3, sword.g2(), 1);
         ticks(engine, &mut client, 1);
 
-        button(&mut client, 1, SHOW_STATS, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:equipscreen_button"),
+            0xFFFF,
+            0xFFFF,
+        );
         let packets = ticks(engine, &mut client, 2);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(player.is_interface_open(SCREEN), "the stats screen");
@@ -584,23 +570,23 @@ fn the_banks_equipment_button_shows_the_stats_screen_and_show_bank_returns() {
         assert_eq!(bank_hidden(engine, &client), 1);
         // 289's lines for a bronze sword, at 2011's components and labels.
         let lines = texts_on(&packets, SCREEN);
-        for (com, text) in [
-            (30, "Stab: +4"),
-            (31, "Slash: +3"),
-            (32, "Crush: -2"),
-            (34, "Ranged: +0"),
-            (36, "Slash: +2"),
-            (37, "Crush: +1"),
-            (44, "Strength: +5"),
-            (46, "Prayer: +0"),
+        for (name, text) in [
+            ("stabatt", "Stab: +4"),
+            ("slashatt", "Slash: +3"),
+            ("crushatt", "Crush: -2"),
+            ("rangeatt", "Ranged: +0"),
+            ("slashdef", "Slash: +2"),
+            ("crushdef", "Crush: +1"),
+            ("wearstrength", "Strength: +5"),
+            ("wearprayer", "Prayer: +0"),
         ] {
             assert!(
-                lines.iter().any(|(c, t)| *c == com && t == text),
-                "667:{com} {text:?} in {lines:?}"
+                lines.iter().any(|(c, t)| *c == screen(name) && t == text),
+                "{name} {text:?} in {lines:?}"
             );
         }
 
-        button(&mut client, 1, SHOW_BANK, 0xFFFF, 0xFFFF);
+        button(&mut client, 1, screen("bank_button"), 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 2);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(player.is_interface_open(BANK), "the bank again");
@@ -609,11 +595,18 @@ fn the_banks_equipment_button_shows_the_stats_screen_and_show_bank_returns() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_worn_tabs_button_shows_the_screen_without_show_bank() {
     runner::on_loaded_engine(|engine| {
         let mut client = banker(engine, "statstab");
-        button(&mut client, 1, WORN_SHOW_STATS, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("wornitems:equipscreen_container"),
+            0xFFFF,
+            0xFFFF,
+        );
         let packets = ticks(engine, &mut client, 2);
         assert!(
             engine
@@ -637,7 +630,7 @@ fn the_worn_tabs_button_shows_the_screen_without_show_bank() {
         );
         assert_eq!(from_bank(engine, &client), 0);
         // Show bank does nothing from here.
-        button(&mut client, 1, SHOW_BANK, 0xFFFF, 0xFFFF);
+        button(&mut client, 1, screen("bank_button"), 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 2);
         assert!(
             !engine
@@ -651,6 +644,7 @@ fn the_worn_tabs_button_shows_the_screen_without_show_bank() {
 /// 2011's Equipment Stats screen totals the worn armour's soak percents
 /// (player/scripts/damage.rs2 `~worn_absorb`): full dragon is the 2011 wiki's
 /// 30% absorb ranged (Damage soaking), 14% melee and nothing against magic.
+#[cfg(since_647)]
 #[test]
 fn the_stats_screen_totals_the_worn_absorb() {
     runner::on_loaded_engine(|engine| {
@@ -665,22 +659,29 @@ fn the_stats_screen_totals_the_worn_absorb() {
             give(engine, &client, "worn", slot, id.g2(), 1);
         }
         ticks(engine, &mut client, 1);
-        button(&mut client, 1, WORN_SHOW_STATS, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("wornitems:equipscreen_container"),
+            0xFFFF,
+            0xFFFF,
+        );
         let packets = ticks(engine, &mut client, 2);
         let lines = texts_on(&packets, SCREEN);
-        for (com, text) in [
-            (41, "Absorb Melee: +14%"),
-            (42, "Absorb Magic: +0%"),
-            (43, "Absorb Ranged: +30%"),
+        for (name, text) in [
+            ("com_41", "Absorb Melee: +14%"),
+            ("com_42", "Absorb Magic: +0%"),
+            ("com_43", "Absorb Ranged: +30%"),
         ] {
             assert!(
-                lines.iter().any(|(c, t)| *c == com && t == text),
-                "667:{com} {text:?} in {lines:?}"
+                lines.iter().any(|(c, t)| *c == screen(name) && t == text),
+                "{name} {text:?} in {lines:?}"
             );
         }
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn remove_and_equip_on_the_stats_screen_keep_it_open() {
     runner::on_loaded_engine(|engine| {
@@ -688,10 +689,16 @@ fn remove_and_equip_on_the_stats_screen_keep_it_open() {
         let sword = obj(engine, "bronze_sword");
         give(engine, &client, "worn", 3, sword.g2(), 1);
         ticks(engine, &mut client, 1);
-        button(&mut client, 1, WORN_SHOW_STATS, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("wornitems:equipscreen_container"),
+            0xFFFF,
+            0xFFFF,
+        );
         ticks(engine, &mut client, 2);
 
-        button(&mut client, 1, SCREEN_WORN, sword.g2(), 3);
+        button(&mut client, 1, screen("worn_items_layer"), sword.g2(), 3);
         let packets = ticks(engine, &mut client, 2);
         assert_eq!(count(engine, client.pid, "worn", sword.g2()), 0, "removed");
         assert_eq!(count(engine, client.pid, "inv", sword.g2()), 1);
@@ -704,12 +711,18 @@ fn remove_and_equip_on_the_stats_screen_keep_it_open() {
         assert!(
             texts_on(&packets, SCREEN)
                 .iter()
-                .any(|(c, t)| *c == 30 && t == "Stab: +0"),
+                .any(|(c, t)| *c == screen("stabatt") && t == "Stab: +0"),
             "the bonuses follow"
         );
 
         let slot = slot_of(engine, client.pid, sword.g2());
-        button(&mut client, 1, SCREEN_SIDE, sword.g2(), slot);
+        button(
+            &mut client,
+            1,
+            com("inventory_wear2:layer_1"),
+            sword.g2(),
+            slot,
+        );
         let packets = ticks(engine, &mut client, 2);
         assert_eq!(
             count(engine, client.pid, "worn", sword.g2()),
@@ -725,7 +738,7 @@ fn remove_and_equip_on_the_stats_screen_keep_it_open() {
         assert!(
             texts_on(&packets, SCREEN)
                 .iter()
-                .any(|(c, t)| *c == 30 && t == "Stab: +4")
+                .any(|(c, t)| *c == screen("stabatt") && t == "Stab: +4")
         );
     });
 }
@@ -765,7 +778,7 @@ fn a_drag_onto_a_tab_button_makes_a_tab_and_taking_it_all_out_ends_it() {
         button(&mut client, 1, tab_button(2), 0xFFFF, 0xFFFF);
         ticks(engine, &mut client, 1);
         assert_eq!(open_tab(engine, &client), 3);
-        button(&mut client, 6, BANK_INV, bar.g2(), 0);
+        button(&mut client, 6, bank_inv(), bar.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![coins, logs], "no gap left");
         assert_eq!(
@@ -793,7 +806,7 @@ fn a_new_item_goes_into_the_tab_on_view_and_collapse_returns_it() {
         ticks(engine, &mut client, 1);
 
         // Deposit-1 from the backpack beside the bank.
-        button(&mut client, 1, SIDE_INV, bar.g2(), 0);
+        button(&mut client, 1, side_inv(), bar.g2(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![coins, bar, logs]);
         assert_eq!(tab_size(engine, &client, 1), 2);
@@ -824,9 +837,15 @@ fn inserting_into_another_tab_moves_the_item_to_it() {
         bank_drag(engine, &mut client, 2, bar.g2(), tab_button(1), -1);
         ticks(engine, &mut client, 1);
         // Insert mode (com15), then logs from the rest onto the bar.
-        button(&mut client, 1, (BANK as i32) << 16 | 15, 0xFFFF, 0xFFFF);
+        button(
+            &mut client,
+            1,
+            com("bank_v2_main:bank_sort_button"),
+            0xFFFF,
+            0xFFFF,
+        );
         ticks(engine, &mut client, 1);
-        bank_drag(engine, &mut client, 1, logs.g2(), BANK_INV, 0);
+        bank_drag(engine, &mut client, 1, logs.g2(), bank_inv(), 0);
         ticks(engine, &mut client, 1);
         assert_eq!(bank_objs(engine, &client), vec![logs, bar, coins]);
         assert_eq!(tab_size(engine, &client, 1), 2, "the logs joined tab 1");
@@ -844,7 +863,7 @@ fn all_but_one_of_one_says_it_does_nothing() {
         use_booth(engine, &mut client, 2);
         fill_bank(engine, &mut client, &[("leather_gloves", 1)]);
         let pid = client.pid;
-        button(&mut client, 7, BANK_INV, gloves.g2(), 0);
+        button(&mut client, 7, bank_inv(), gloves.g2(), 0);
         let said: Vec<String> = HarnessClient::game_messages(&ticks(engine, &mut client, 2))
             .into_iter()
             .map(|(_, m)| m)

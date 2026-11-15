@@ -3,7 +3,7 @@
 //! crossbows", the squire's "try and get"), the player speaking first at the hand-over, and the
 //! scroll's "12,725 Smithing XP". %squire is the cache's varp 122, which quest 152 counts to 7.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;

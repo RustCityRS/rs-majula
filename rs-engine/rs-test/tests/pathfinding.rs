@@ -1,22 +1,15 @@
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::fs;
 
 fn click(client: &mut HarnessClient, x: u16, z: u16) {
-    let mut packet = ClientPacket::new();
-    packet.p2_alt1(x as i32).p1_alt1(0).p2(z as i32);
-    client.send(ClientProt::MoveGameClick, &packet.finish());
+    client.move_gameclick(x, z);
 }
 
 fn route(engine: &Engine, pid: u16) -> Vec<u32> {
@@ -132,7 +125,7 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
             .coord;
         assert_eq!((coord.x(), coord.z()), (3222, 3218));
 
-        let door = fs::read_to_string("content/647/pack/loc.pack")
+        let door = fs::read_to_string(format!("{}/pack/loc.pack", rs_pack::CONTENT_DIR))
             .unwrap()
             .lines()
             .find_map(|line| {
@@ -149,9 +142,7 @@ fn last_input_route_wins_without_skipping_walk_triggers() {
         engine.harness_telejump(clients[0].pid, 2551, 0, 3099);
         engine.cycle();
         click(&mut clients[0], 2552, 3099);
-        let mut packet = ClientPacket::new();
-        packet.p2_alt1(3098).p2_alt1(door.int()).p1(0).p2_alt2(2551);
-        clients[0].send(ClientProt::OpLoc1, &packet.finish());
+        clients[0].op_loc(1, 2551, 3098, door);
         engine.harness_inputs();
         assert_eq!(engine.pathfinding_stats().requests, 2);
         assert_eq!(engine.pathfinding_stats().searches, 1);

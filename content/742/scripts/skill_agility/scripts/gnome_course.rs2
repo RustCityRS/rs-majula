@@ -1,4 +1,4 @@
-[oploc1,gnome_log_balance1]
+[oploc1,log_balance_69526]
 ~gnome_trainer_say("Okay get over that log, quick quick!");
 p_arrivedelay;
 mes("You walk carefully across the slippery log...");
@@ -7,7 +7,7 @@ sound_synth(log_balance, 4, 0);
 mes("...You make it safely to the other side.");
 ~update_gnome_varp(1);
 
-[oploc1,obstical_net2]
+[oploc1,obstacle_net_69383]
 if(coordz(coord) <= coordz(loc_coord)) {
     mes("You can not do that from here.");
     return;
@@ -18,11 +18,11 @@ p_arrivedelay;
 ~agility_climb_up(75, movecoord(coord, 0, 1, -2));
 ~update_gnome_varp(2);
 
-[oploc1,climbing_branch_low]
+[oploc1,tree_branch_69508]
 mes("You climb the tree..");
 ~gnome_trainer_say("That's it - straight up");
 p_arrivedelay;
-~agility_climb_up(50, movecoord(loc_coord, 0, 1, -2));
+~agility_climb_up(50, movecoord(loc_coord, 0, 1, -1));
 mes("...To the platform above.");
 ~update_gnome_varp(3);
 
@@ -34,8 +34,7 @@ sound_synth(tightrope, 5, 0);
 ~agility_force_move(75, human_walk_logbalance, movecoord(coord, 6, 0, 0));
 ~update_gnome_varp(4);
 
-[oploc1,climbing_tree] @climbdown_gnome_tree_branch;
-[oploc1,climbing_tree2] @climbdown_gnome_tree_branch;
+[oploc1,tree_branch_69507] @climbdown_gnome_tree_branch;
 
 [label,climbdown_gnome_tree_branch]
 mes("You climb down the tree...");
@@ -44,7 +43,7 @@ p_arrivedelay;
 mes("You land on the ground.");
 ~update_gnome_varp(5);
 
-[oploc1,obstical_net3]
+[oploc1,obstacle_net_69384]
 if(coordz(coord) >= coordz(loc_coord)) {
     mes("You can not do that from here.");
     return;
@@ -69,7 +68,7 @@ if(%gnome_obstacle_pipe_used >= map_clock) {
 %gnome_obstacle_pipe_used = calc(map_clock + 12);
 @enter_gnome_obstacle_pipe;
 
-[oploc1,hla_pipe_right]
+[oploc1,obstacle_pipe_69377]
 if(coordz(coord) > coordz(loc_coord)) {
     mes("You can't enter the pipe from this side.");
     return;
@@ -84,10 +83,9 @@ if(%gnome_obstacle_pipe_used2 >= map_clock) {
 @enter_gnome_obstacle_pipe;
 
 // 289's two pipes (its loc_154 and its gnome_obstacle_pipe, 4058) are not on
-// 2011's map; 2011's are 43543 (gnome_obstacle_pipe above, 2487,3431) and 43544
-// west of it (2483,3431), void-634's gnome_obstacle_pipe_east and _west. 289
-// gives each pipe a timer; this one takes loc_154's.
-[oploc1,hla_pipe_left]
+// 742's map; 742's are 69377 (above, 2487,3431) and 69378 west of it
+// (2483,3431). 289 gives each pipe a timer; this one takes loc_154's.
+[oploc1,obstacle_pipe_69378]
 if(coordz(coord) > coordz(loc_coord)) {
     mes("You can't enter the pipe from this side.");
     return;

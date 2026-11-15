@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -11,6 +15,7 @@ use rs_ver::STRING_TERMINATOR;
 
 #[cfg_attr(before_647, client_prot(VarByte { min: 1 }, UserEvent))]
 #[cfg_attr(since_647, client_prot(VarByte { min: 3 }, UserEvent))]
+#[derive(Debug)]
 pub struct ClientCheat {
     pub cheat: String,
     #[cfg(since_647)]
@@ -36,5 +41,19 @@ impl ClientProtMessage for ClientCheat {
             #[cfg(since_647)]
             flags,
         }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtEncode for ClientCheat {
+    const PROT: ClientProt = ClientProt::ClientCheat;
+
+    fn encode(&self, buf: &mut Packet) {
+        #[cfg(since_647)]
+        {
+            buf.p1(self.flags[0]);
+            buf.p1(self.flags[1]);
+        }
+        buf.pjstr(&self.cheat, STRING_TERMINATOR);
     }
 }

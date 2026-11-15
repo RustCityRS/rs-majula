@@ -2,6 +2,8 @@
 pub use crate::network::game::client_prot::{ClientProt, ClientProtInfo};
 #[cfg(since_647)]
 pub use crate::network::game::client_prot_category::ClientProtCategory;
+#[cfg(since_530)]
+pub use crate::network::game::client_prot_message::ClientProtEncode;
 pub use crate::network::game::client_prot_message::ClientProtMessage;
 
 pub mod anticheat_cyclelogic1;

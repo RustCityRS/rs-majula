@@ -3,41 +3,49 @@
 //! 289 asks what to cut from a log with `skill_multi3` (Make 1/5/10/X under
 //! each item). 2011 asks in skillmulti2010 (905) with its number panel
 //! skillmulti2010_numbers (916): the amount first, from 1/5/10/All/+1/-1
-//! (IF_BUTTON1: `p4(com) p2_alt3(obj) p2_alt1(slot)`), then the item, a pause
-//! button (RESUME_PAUSEBUTTON: `p2(slot) p4_alt2(com)`). The case uses a
-//! knife on logs (IF_BUTTONT), picks 1 and then arrow shafts, and cuts one
-//! log of three; then picks 5, which the two left cannot fill, and cuts both.
+//! (IF_BUTTON1), then the item, a pause button (RESUME_PAUSEBUTTON). The case
+//! uses a knife on logs (IF_BUTTONT), picks 1 and then arrow shafts, and cuts
+//! one log of three; then picks 5, which the two left cannot fill, and cuts
+//! both.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
+#[cfg(since_647)]
+use rs_test::names::com;
 use rs_test::runner;
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 const FLETCHING: usize = 9;
 /// 2011's xp counter, which counts ten times what `~givexp` pays.
+#[cfg(since_647)]
 const XP_COUNTER: u16 = 1801;
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' fletchers out: one at a time.
 static TURN: Mutex<()> = Mutex::new(());
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
-const MAKE: i32 = 905 << 16;
-const NUMBERS: i32 = 916 << 16;
 /// skillmulti2010_numbers' 1 and 5, and skillmulti2010's first item.
-const ONE: i32 = NUMBERS | 5;
-const FIVE: i32 = NUMBERS | 6;
-const FIRST_ITEM: i32 = MAKE | 14;
+#[cfg(since_647)]
+fn one() -> i32 {
+    com("skillmulti2010_numbers:com_5")
+}
+
+#[cfg(since_647)]
+fn five() -> i32 {
+    com("skillmulti2010_numbers:com_6")
+}
+
+#[cfg(since_647)]
+fn first_item() -> i32 {
+    com("skillmulti2010:a")
+}
+
+#[cfg(since_647)]
 const NONE: i32 = 0xFFFF;
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
@@ -50,26 +58,17 @@ fn obj(engine: &Engine, name: &str) -> TypeId {
 }
 
 fn knife_on_logs(client: &mut HarnessClient, knife: TypeId, logs: TypeId, logs_slot: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(logs_slot as i32)
-        .p2_alt1(0)
-        .p2_alt2(knife.int())
-        .p4_alt1(BACKPACK)
-        .p2(logs.int());
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(BACKPACK, 0, knife, BACKPACK, logs_slot, logs);
 }
 
+#[cfg(since_647)]
 fn button(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(NONE).p2_alt1(NONE);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, NONE as u16, TypeId::NULL);
 }
 
+#[cfg(since_647)]
 fn resume(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p2(NONE).p4_alt2(com);
-    client.send(ClientProt::ResumePauseButton, &p.finish());
+    client.resume_pausebutton(com, NONE as u16);
 }
 
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<String> {
@@ -85,6 +84,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
     said
 }
 
+#[cfg(since_647)]
 #[test]
 fn cutting_logs_through_2011s_make_x() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -104,6 +104,7 @@ fn cutting_logs_through_2011s_make_x() {
         backpack.set(2, logs, 1);
         backpack.set(3, logs, 1);
         let xp = player.stats.xp[FLETCHING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
@@ -116,10 +117,10 @@ fn cutting_logs_through_2011s_make_x() {
         assert!(player.is_interface_open(916), "its number panel is open");
 
         // 1, then arrow shafts: one log becomes 15 shafts.
-        button(&mut client, ONE);
+        button(&mut client, one());
         let said = ticks(engine, &mut client, 1);
         assert!(said.is_empty(), "the one button said {said:?}");
-        resume(&mut client, FIRST_ITEM);
+        resume(&mut client, first_item());
         let said = ticks(engine, &mut client, 8);
         let player = engine.harness_player(client.pid).unwrap();
         assert!(!player.is_interface_open(905), "the dialogue closed");
@@ -128,6 +129,7 @@ fn cutting_logs_through_2011s_make_x() {
         assert_eq!(backpack.total(logs), 2);
         assert_eq!(said, ["You carefully cut the wood into 15 arrow shafts."]);
         assert_eq!(player.stats.xp[FLETCHING] - xp, 75);
+        #[cfg(since_647)]
         assert_eq!(
             player.vars.get(XP_COUNTER).as_int() - counted,
             750,
@@ -137,10 +139,10 @@ fn cutting_logs_through_2011s_make_x() {
         // 5, with two logs left: both are cut, and then the logs run out.
         knife_on_logs(&mut client, knife, logs, 2);
         ticks(engine, &mut client, 2);
-        button(&mut client, FIVE);
+        button(&mut client, five());
         let said = ticks(engine, &mut client, 1);
         assert!(said.is_empty(), "the five button said {said:?}");
-        resume(&mut client, FIRST_ITEM);
+        resume(&mut client, first_item());
         let said = ticks(engine, &mut client, 16);
         let player = engine.harness_player(client.pid).unwrap();
         let backpack = player.invs.get(&inv).unwrap();
@@ -189,6 +191,7 @@ fn a_knife_cuts_achey_logs_into_ogre_arrow_shafts() {
         player.stats.base_levels[FLETCHING] = 5;
         player.vars.set(chompybird.g2(), VarValue::Int(1));
         let xp = player.stats.xp[FLETCHING];
+        #[cfg(since_647)]
         let counted = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();
         client.packets();
@@ -211,6 +214,7 @@ fn a_knife_cuts_achey_logs_into_ogre_arrow_shafts() {
         );
         let paid = player.stats.xp[FLETCHING] - xp;
         assert_eq!(paid, 18 * cut as i32);
+        #[cfg(since_647)]
         assert_eq!(player.vars.get(XP_COUNTER).as_int() - counted, paid * 10);
     });
 }

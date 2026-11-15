@@ -5,17 +5,13 @@
 //! cache 786's quest 137 reads. Lines from the 2011-06-14 and 2011-08-29 recordings
 //! (runescape/target/refs/gobdip/transcript_0614.md).
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
+use rs_test::server;
 use rs_test::talk::{Conversation, converse, talk_to};
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
@@ -24,7 +20,6 @@ use std::sync::Mutex;
 static TURN: Mutex<()> = Mutex::new(());
 
 const CRAFTING: usize = 12;
-const BACKPACK: i32 = 149 << 16;
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
     engine
@@ -38,13 +33,14 @@ fn obj(engine: &Engine, name: &str) -> TypeId {
 /// Varp 62: %varplayerbit_2378 is bits 0-5 (the quest), %varplayerbit_1782 bits 9-10
 /// (Grubfoot's mail).
 fn varp62(engine: &Engine, client: &HarnessClient) -> (i32, i32) {
-    let v = engine
-        .harness_player(client.pid)
-        .unwrap()
-        .vars
-        .get(62)
-        .as_int();
-    (v & 0x3f, (v >> 9) & 0x3)
+    let vars = &engine.harness_player(client.pid).unwrap().vars;
+    let main = vars.get(62).as_int() & 0x3f;
+    // 530 keeps %gobdip_grubfoot_colour in varp 666 bits 23-25.
+    #[cfg(before_647)]
+    let grubfoot = (vars.get(666).as_int() >> 23) & 0x7;
+    #[cfg(since_647)]
+    let grubfoot = (vars.get(62).as_int() >> 9) & 0x3;
+    (main, grubfoot)
 }
 
 /// A spawn of npc `name`: its nid, and a tile beside it one step from it reaches.
@@ -89,12 +85,7 @@ fn beside(engine: &Engine, name: &str) -> (u16, u16, u8, u16) {
 
 /// Each MINIMAP_TOGGLE's state, in order.
 fn minimap_states(packets: &[(u16, Vec<u8>)]) -> Vec<u8> {
-    let opcode = ServerProt::MinimapToggle as u16;
-    packets
-        .iter()
-        .filter(|(op, p)| *op == opcode && p.len() == 1)
-        .map(|(_, p)| p[0])
-        .collect()
+    server::minimap_states(packets)
 }
 
 /// Talks to General Bentnoze and answers `answers`, then lets any timed boxes and pauses play
@@ -273,14 +264,7 @@ fn goblin_mail_dyes_as_2011_says() {
         engine.cycle();
         client.packets();
         // IF_BUTTONT: the dye (slot 0) on the mail (slot 1).
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK)
-            .p2_alt1(1)
-            .p2_alt1(0)
-            .p2_alt2(blue_dye.int())
-            .p4_alt1(BACKPACK)
-            .p2(mail.int());
-        client.send(ClientProt::IfButtonT, &p.finish());
+        client.if_button_t(BACKPACK, 0, blue_dye, BACKPACK, 1, mail);
         let mut said = Vec::new();
         for _ in 0..4 {
             engine.cycle();
@@ -309,6 +293,7 @@ fn goblin_mail_dyes_as_2011_says() {
 
 /// The crate behind the generals' hut (loc 16559, 46_54 15,58): "You find some goblin armour."
 /// in an item box, before the quest is started (2011-05-27 recording, YouTube coiqGsbSVks, 66s).
+#[cfg(before_742)]
 #[test]
 fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -334,12 +319,7 @@ fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
             engine.cycle();
         }
         client.packets();
-        let mut p = ClientPacket::new();
-        p.p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(x as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, x, z, TypeId::new(loc));
         let talk = converse(engine, &mut client, &[], 60);
         assert!(
             talk.said("You find some goblin armour."),

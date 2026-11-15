@@ -8,29 +8,23 @@
 //! switch aborted at its first `if_movesub` (opcode 5012 had no handler),
 //! leaving the gameframe on the old root.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::MoveSpeed;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client::window_status::WindowStatus;
+use rs_test::names::INVENTORY as BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const FIXED: u16 = 548;
 const RESIZABLE: u16 = 746;
-const BACKPACK: u16 = 149;
 const MAGIC: u16 = 192;
 const RUN_ORB: u16 = 750;
 const BANK: u16 = 762;
 const BANK_SIDE: u16 = 763;
-
-fn hash(iface: u16, com: u16) -> i32 {
-    ((iface as i32) << 16) | com as i32
-}
 
 fn fresh(engine: &mut Engine, name: &str) -> HarnessClient {
     engine.harness_reset();
@@ -43,12 +37,10 @@ fn open(engine: &Engine, pid: u16, iface: u16) -> bool {
     engine.harness_player(pid).unwrap().is_interface_open(iface)
 }
 
-/// `IF_BUTTON1` as `Class199.method1317` writes it: `p4(com) p2_alt3(obj)
-/// p2_alt1(slot)`, with no obj or slot for a plain button.
-fn button1(com: i32) -> Vec<u8> {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    p.finish()
+/// `IF_BUTTON1` as `Class199.method1317` writes it, with no obj or slot for a
+/// plain button.
+fn button1(client: &mut HarnessClient, com: i32) {
+    client.if_button(1, com, 0xFFFF, TypeId::NULL);
 }
 
 #[test]
@@ -78,8 +70,11 @@ fn a_returning_login_opens_the_gameframe(engine: &mut Engine) {
 /// refused and run stays as it was.
 fn a_button_on_a_closed_interface_does_nothing(engine: &mut Engine) {
     let mut client = fresh(engine, "iface_button");
-    let orb = hash(RUN_ORB, 1);
-    client.send(ClientProt::IfButton1, &button1(orb));
+    #[cfg(before_647)]
+    let orb = com("topstat_run:button");
+    #[cfg(since_647)]
+    let orb = com("topstat_run:run_background");
+    button1(&mut client, orb);
     engine.cycle();
     assert_eq!(
         engine.harness_player(client.pid).unwrap().move_speed,
@@ -87,10 +82,10 @@ fn a_button_on_a_closed_interface_does_nothing(engine: &mut Engine) {
         "the orb turns run on"
     );
 
-    // `toplevel:com_orb_energy`, where `[login]` mounted the orb.
-    engine.harness_close_sub(client.pid, hash(FIXED, 185));
+    // `toplevel:topstat_run`, where `[login]` mounted the orb.
+    engine.harness_close_sub(client.pid, com("toplevel:topstat_run"));
     assert!(!open(engine, client.pid, RUN_ORB));
-    client.send(ClientProt::IfButton1, &button1(orb));
+    button1(&mut client, orb);
     engine.cycle();
     assert_eq!(
         engine.harness_player(client.pid).unwrap().move_speed,
@@ -108,12 +103,12 @@ fn main_and_side_modals_mount_on_their_slots(engine: &mut Engine) {
     engine.cycle();
     let player = engine.harness_player(client.pid).unwrap();
     assert_eq!(
-        player.open_subs.get(&hash(FIXED, 18)),
+        player.open_subs.get(&com("toplevel:mainmodal")),
         Some(&(BANK, 0)),
         "the bank on 548:18, as a modal"
     );
     assert_eq!(
-        player.open_subs.get(&hash(FIXED, 198)),
+        player.open_subs.get(&com("toplevel:sidemodal")),
         Some(&(BANK_SIDE, 1)),
         "its inventory over the side panels, 548:198, permanent as void-634's overlay_tab"
     );
@@ -134,9 +129,12 @@ fn a_window_switch_carries_everything_across(engine: &mut Engine) {
     engine.harness_open_side(client.pid, BANK_SIDE);
     engine.cycle();
 
-    let mut p = ClientPacket::new();
-    p.p1(2).p2(1024).p2(768).p1(0);
-    client.send(ClientProt::WindowStatus, &p.finish());
+    client.send_msg(&WindowStatus {
+        mode: 2,
+        width: 1024,
+        height: 768,
+        antialias: 0,
+    });
     engine.cycle();
 
     let player = engine.harness_player(client.pid).unwrap();
@@ -145,12 +143,18 @@ fn a_window_switch_carries_everything_across(engine: &mut Engine) {
         assert!(open(engine, client.pid, iface), "{iface} moved across");
     }
     assert_eq!(
-        player.open_subs.get(&hash(RESIZABLE, 9)).map(|s| s.0),
+        player
+            .open_subs
+            .get(&com("toplevel_fullscreen:mainmodal"))
+            .map(|s| s.0),
         Some(BANK),
         "the bank on 746:9"
     );
     assert_eq!(
-        player.open_subs.get(&hash(RESIZABLE, 84)).map(|s| s.0),
+        player
+            .open_subs
+            .get(&com("toplevel_fullscreen:sidemodal"))
+            .map(|s| s.0),
         Some(BANK_SIDE),
         "its side on 746:84"
     );

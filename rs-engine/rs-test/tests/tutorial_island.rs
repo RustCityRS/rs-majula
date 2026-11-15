@@ -22,18 +22,17 @@
 //! - Off the island, a 2011 player (island varp 0) wields a bronze dagger as
 //!   289's players past the island do.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
@@ -42,16 +41,40 @@ use std::fs;
 use std::sync::Mutex;
 
 /// The chatbox's foreground slot, `chatbox:com7`.
-const CHAT_FOREGROUND: i32 = 752 << 16 | 7;
+fn chat_foreground() -> i32 {
+    com("chattop:mes_layer_large")
+}
+
 const TUTORIAL_TEXT: u16 = 372;
 /// toplevel (548) tab stones: Stats and Inventory.
-const STATS_STONE: i32 = 548 << 16 | 130;
-const INVENTORY_STONE: i32 = 548 << 16 | 132;
+/// 530's stats and backpack stones are 1 and 3 (its tabs.constant).
+fn stats_stone() -> i32 {
+    com(if cfg!(before_647) {
+        "toplevel:stone1"
+    } else {
+        "toplevel:stone2"
+    })
+}
+
+fn inventory_stone() -> i32 {
+    com(if cfg!(before_647) {
+        "toplevel:stone3"
+    } else {
+        "toplevel:stone4"
+    })
+}
+
 /// The run orb's button, `topstat_run:com1`.
-const RUN_ORB: i32 = 750 << 16 | 1;
+#[cfg(since_647)]
+fn run_orb() -> i32 {
+    com("topstat_run:run_background")
+}
+
 /// multi2's second option.
-const MULTI2_SECOND: i32 = 228 << 16 | 3;
-const BACKPACK: i32 = 149 << 16;
+fn multi2_second() -> i32 {
+    com("multi2:multi2b")
+}
+
 /// The island's start, 0_48_48_22_34.
 const START: (u16, u16) = (3094, 3106);
 
@@ -62,7 +85,9 @@ const INTERACTED_WITH_DOOR: i32 = 10;
 const OPEN_INVENTORY: i32 = 20;
 const CUT_TREE: i32 = 30;
 const BUILD_FIRE: i32 = 40;
+#[cfg(since_647)]
 const OPEN_PLAYER_CONTROLS: i32 = 195;
+#[cfg(since_647)]
 const TOGGLED_ON_RUN: i32 = 200;
 const BEFORE_ATTACKING_MELEE: i32 = 430;
 
@@ -118,11 +143,12 @@ fn coord(engine: &Engine, pid: u16) -> (u16, u16) {
     (c.x(), c.z())
 }
 
-/// A loc's 647 id by its name in `content/647/pack/loc.pack`.
+/// A loc's id by its name in the rev's `pack/loc.pack`.
 fn loc_id(name: &str) -> u16 {
-    let pack = concat!(
+    let pack = &format!(
+        "{}/../../{}/pack/loc.pack",
         env!("CARGO_MANIFEST_DIR"),
-        "/../../content/647/pack/loc.pack"
+        rs_pack::CONTENT_DIR
     );
     fs::read_to_string(pack)
         .expect("loc.pack")
@@ -168,36 +194,23 @@ fn developer(engine: &mut Engine, name: &str, at: (u16, u16)) -> HarnessClient {
 }
 
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
 fn button1(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, 0xFFFF, TypeId::NULL);
 }
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2(nid as i32);
-    client.send(ClientProt::OpNpc1, &p.finish());
+    client.op_npc(1, nid);
 }
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(loc as i32));
 }
 
 fn resume(client: &mut HarnessClient, com: i32) {
-    let mut p = ClientPacket::new();
-    p.p2(0xFFFF).p4_alt2(com);
-    client.send(ClientProt::ResumePauseButton, &p.finish());
+    client.resume_pausebutton(com, 0xFFFF);
 }
 
 /// The "Click here to continue" of the dialogue open in the chatbox: 2011's client names the
@@ -261,7 +274,7 @@ fn instructions_open(engine: &Engine, pid: u16) -> bool {
         .harness_player(pid)
         .unwrap()
         .open_subs
-        .get(&CHAT_FOREGROUND)
+        .get(&chat_foreground())
         .is_some_and(|&(sub, _)| sub == TUTORIAL_TEXT)
 }
 
@@ -310,7 +323,7 @@ fn the_cheat_enters_the_island_and_the_guide_and_door_move_it_on() {
         let chat = open_chat(engine, client.pid);
         resume(&mut client, chat);
         assert!(until_paused(engine, &mut client, 3), "skip the tutorial?");
-        resume(&mut client, MULTI2_SECOND);
+        resume(&mut client, multi2_second());
         let mut lines = 0;
         while until_paused(engine, &mut client, 3) {
             lines += 1;
@@ -339,7 +352,7 @@ fn the_step_s_tab_stone_hands_out_the_axe_and_tinderbox() {
         let mut client = developer(engine, "tabclicker", (3102, 3094));
         set_tutorial(engine, client.pid, OPEN_INVENTORY);
 
-        button1(&mut client, STATS_STONE);
+        button1(&mut client, stats_stone());
         ticks(engine, &mut client, 2);
         assert_eq!(
             tutorial(engine, client.pid),
@@ -348,7 +361,7 @@ fn the_step_s_tab_stone_hands_out_the_axe_and_tinderbox() {
         );
         assert_eq!(backpack_total(engine, client.pid, "tinderbox"), 0);
 
-        button1(&mut client, INVENTORY_STONE);
+        button1(&mut client, inventory_stone());
         ticks(engine, &mut client, 2);
         assert_eq!(tutorial(engine, client.pid), CUT_TREE);
         assert_eq!(backpack_total(engine, client.pid, "bronze_axe"), 1);
@@ -415,13 +428,14 @@ fn the_rat_pen_gate_takes_the_player_through_both_ways() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn the_run_orb_is_the_island_s_run_button() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "islandrunner", START);
         set_tutorial(engine, client.pid, OPEN_PLAYER_CONTROLS);
-        button1(&mut client, RUN_ORB);
+        button1(&mut client, run_orb());
         ticks(engine, &mut client, 2);
         assert_eq!(tutorial(engine, client.pid), TOGGLED_ON_RUN);
     });
@@ -443,9 +457,7 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
             .unwrap()
             .set(0, dagger, 1);
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(dagger.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton2, &p.finish());
+        client.if_button(2, BACKPACK, 0, dagger);
         ticks(engine, &mut client, 2);
         assert_eq!(
             backpack_total(engine, client.pid, "bronze_dagger"),
@@ -477,9 +489,7 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
         engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
         set_recording(true);
         forget_calls();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(rat as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, rat);
         let mut bites = Vec::new();
         let mut said = Vec::new();
         for tick in 0..60 {
@@ -513,16 +523,15 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
     });
 }
 
-/// 289's tutorial rat spares the player's last hitpoint, 10 life points at
-/// 647 (`%life_points`, varbit 7198: varp 1240 bits 1-15). At 10, a bite it
-/// paints is a miss; it still swings.
+/// 289's tutorial rat spares the player's last hitpoint (10 life points from
+/// 647). There, a bite it paints is a miss; it still swings.
 #[test]
 fn the_tutorial_rat_spares_the_last_hitpoint() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = developer(engine, "ratspared", (3258, 3270));
         cheat(&mut client, "npcadd newbiegiantrat");
-        cheat(&mut client, "setvar life_points 10");
+        life::set(engine.harness_player_mut(client.pid).unwrap(), life::SCALE);
         engine.cycle();
         engine.harness_telejump(client.pid, 3255, 0, 3270);
         for _ in 0..3 {
@@ -530,21 +539,16 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
         }
         client.packets();
         let pid = client.pid;
-        let life = |engine: &Engine| {
-            (engine.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
-        };
-        assert_eq!(life(engine), 10);
+        assert_eq!(life::get(engine, pid), life::SCALE);
         let rat = rat_beside(engine);
         // Alive the whole fight: the bites are under test, not the kill.
         engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
         set_recording(true);
         forget_calls();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(rat as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, rat);
         let mut bites = Vec::new();
         for tick in 0..40 {
-            let before = life(engine);
+            let before = life::get(engine, pid);
             engine.cycle();
             client.packets();
             if tick % 20 == 0 {
@@ -560,19 +564,19 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
         assert!(
             bites
                 .iter()
-                .all(|(_, before, _, amount)| *before > 10 || *amount == 0),
-            "nothing bitten off the last 10: {bites:?}"
+                .all(|(_, before, _, amount)| *before > life::SCALE || *amount == 0),
+            "nothing bitten off the last hitpoint: {bites:?}"
         );
         assert!(
             bites.iter().any(|(_, _, mark, _)| *mark == 8),
             "the rat swings: {bites:?}"
         );
-        assert!(life(engine) > 0);
+        assert!(life::get(engine, pid) > 0);
     });
 }
 
 /// The rat `npcadd` put down in the cow field (3258,3270), not one of the
-/// island's own.
+/// island's own, which are far off.
 fn rat_beside(engine: &Engine) -> u16 {
     let id = engine
         .cache
@@ -585,10 +589,14 @@ fn rat_beside(engine: &Engine) -> u16 {
         .npcs
         .iter()
         .flatten()
-        .find(|n| {
+        .filter(|n| n.npc.uid.id() == id)
+        .map(|n| {
             let c = n.npc.pathing.coord;
-            n.npc.uid.id() == id && c.x().abs_diff(3258) <= 2 && c.z().abs_diff(3270) <= 2
+            (n.npc.uid.nid(), c.x().abs_diff(3258) + c.z().abs_diff(3270))
         })
-        .map(|n| n.npc.uid.nid())
+        // It wanders from the tile it was put down on before it is looked for.
+        .filter(|&(_, d)| d <= 10)
+        .min_by_key(|&(_, d)| d)
+        .map(|(nid, _)| nid)
         .expect("the rat npcadd spawned")
 }

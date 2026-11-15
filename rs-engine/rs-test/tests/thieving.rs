@@ -25,18 +25,16 @@
 //! Etceteria's stalls be robbed, and calls the guards that carry its
 //! `market_guard` param.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::ParamValue;
 use rs_pack::cache::VarValue;
 use rs_pack::types::MoveRestrict;
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(since_647)]
+use rs_test::life;
 use rs_test::runner;
 use rs_ver::TypeId;
 use std::fs;
@@ -45,6 +43,7 @@ use std::ops::RangeInclusive;
 const THIEVING: usize = 17;
 const LUMBRIDGE_MEN: RangeInclusive<u16> = 7873..=7879;
 const BAKERS_STALL: (u16, u16, u16) = (34384, 2667, 3310);
+#[cfg(since_647)]
 const CHEST_10_COINS: (u16, u16, u16) = (2566, 2676, 3310);
 /// Miscellania's veg stall, 289's `misc_veg_market` (786 places it at
 /// 0_39_60_21_22).
@@ -52,22 +51,12 @@ const MISC_VEG_STALL: (u16, u16, u16) = (4706, 2517, 3862);
 /// 289's `marketthief`, the cache's varp 174; `marketthief_cake` is its bit 1.
 const MARKETTHIEF: u16 = 174;
 
-/// Each 647 OPLOC has its own field order (`op_loc1.rs`, `op_loc2.rs`).
 fn op_loc(client: &mut HarnessClient, prot: ClientProt, (loc, x, z): (u16, u16, u16)) {
-    let mut p = ClientPacket::new();
-    match prot {
-        ClientProt::OpLoc1 => p
-            .p2_alt1(z as i32)
-            .p2_alt1(loc as i32)
-            .p1(0)
-            .p2_alt2(x as i32),
-        _ => p
-            .p2_alt1(loc as i32)
-            .p1_alt2(0)
-            .p2_alt2(z as i32)
-            .p2_alt3(x as i32),
+    let op = match prot {
+        ClientProt::OpLoc1 => 1,
+        _ => 2,
     };
-    client.send(prot, &p.finish());
+    client.op_loc(op, x, z, TypeId::from_int(loc as i32));
 }
 
 /// A logged-in player at 99 Thieving, standing at `x`,`z`.
@@ -129,7 +118,8 @@ fn xp(engine: &Engine, pid: u16) -> i32 {
     engine.harness_player(pid).unwrap().stats.xp[THIEVING]
 }
 
-/// 2011's xp counter, which counts ten times what `~givexp` pays.
+/// 2011's xp counter, which counts ten times what `~givexp` pays. 530 has none.
+#[cfg(since_647)]
 fn counted(engine: &Engine, pid: u16) -> i32 {
     engine.harness_player(pid).unwrap().vars.get(1801).as_int()
 }
@@ -147,9 +137,7 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
             .map(|(nid, _, c)| (nid, c.x(), c.z()))
             .expect("a man of Lumbridge");
         let mut client = thief(engine, "pickpocket", x + 1, z);
-        let mut p = ClientPacket::new();
-        p.p1_alt3(0).p2_alt2(nid as i32);
-        client.send(ClientProt::OpNpc3, &p.finish());
+        client.op_npc(3, nid);
         let said = run(engine, &mut client, 20, |e, pid| count(e, pid, "coins") > 0);
         assert_eq!(
             count(engine, client.pid, "coins"),
@@ -157,6 +145,7 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
             "the game said {said:?}"
         );
         assert_eq!(xp(engine, client.pid), 80, "8 xp");
+        #[cfg(since_647)]
         assert_eq!(counted(engine, client.pid), 800, "the xp counter counts it");
         assert_eq!(
             said.iter().map(String::as_str).collect::<Vec<_>>(),
@@ -211,6 +200,7 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
             .sum();
         assert_eq!(goods, 1, "one of the stall's goods; the game said {said:?}");
         assert_eq!(xp(engine, client.pid), 160, "16 xp");
+        #[cfg(since_647)]
         assert_eq!(
             counted(engine, client.pid),
             1600,
@@ -241,6 +231,7 @@ fn the_bakers_stall_hides_a_thief_from_the_baker() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_chest_opened_unsearched_springs_its_trap_and_a_searched_one_pays() {
     runner::on_loaded_engine(|engine| {
@@ -248,19 +239,15 @@ fn a_chest_opened_unsearched_springs_its_trap_and_a_searched_one_pays() {
         // current hitpoints (10 at level 10, so 4) as life points: 40. The
         // chest stays shut.
         let mut client = thief(engine, "trapthief", 2675, 3310);
-        // %life_points: varbit 7198, bits 1-15 of varp 1240.
-        let life = |e: &Engine, pid: u16| {
-            (e.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
-        };
-        let before = life(engine, client.pid);
+        let before = life::get(engine, client.pid);
         op_loc(&mut client, ClientProt::OpLoc1, CHEST_10_COINS);
-        let said = run(engine, &mut client, 12, |e, pid| life(e, pid) < before);
+        let said = run(engine, &mut client, 12, |e, pid| life::get(e, pid) < before);
         assert!(
             said.contains(&"You have activated a trap on the chest.".to_string()),
             "{said:?}"
         );
         assert_eq!(
-            before - life(engine, client.pid),
+            before - life::get(engine, client.pid),
             40,
             "the trap's 4 hitpoints"
         );
@@ -275,6 +262,7 @@ fn a_chest_opened_unsearched_springs_its_trap_and_a_searched_one_pays() {
             "the game said {said:?}"
         );
         assert_eq!(xp(engine, client.pid), 78, "7.8 xp");
+        #[cfg(since_647)]
         assert_eq!(counted(engine, client.pid), 780, "the xp counter counts it");
         assert!(
             said.contains(&"You find treasure inside!".to_string()),
@@ -305,8 +293,9 @@ fn miscellanias_veg_stall_can_be_robbed() {
 fn the_market_guards_carry_market_guard() {
     runner::on_loaded_engine(|engine| {
         let param: i32 = fs::read_to_string(format!(
-            "{}/../../content/647/pack/param.pack",
-            env!("CARGO_MANIFEST_DIR")
+            "{}/../../{}/pack/param.pack",
+            env!("CARGO_MANIFEST_DIR"),
+            rs_pack::CONTENT_DIR
         ))
         .unwrap()
         .lines()
@@ -367,9 +356,7 @@ fn a_stunned_player_cannot_walk() {
             .map(|(a, b): (i32, i32)| ((x as i32 + a) as u16, (z as i32 + b) as u16))
             .find(|&(tx, tz)| !rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000))
             .expect("a walkable tile near the thief");
-        let mut p = ClientPacket::new();
-        p.p2_alt1(dx as i32).p1_alt1(0).p2(dz as i32);
-        client.send(ClientProt::MoveGameClick, &p.finish());
+        client.move_gameclick(dx, dz);
         let said = run(engine, &mut client, 5, |_, _| false);
         assert!(said.contains(&"You're stunned!".to_string()), "{said:?}");
         let c = engine.harness_player(client.pid).unwrap().pathing.coord;

@@ -3,13 +3,9 @@
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
-use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
@@ -57,11 +53,10 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
             .id;
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.invs.get_mut(&worn).unwrap().set(12, ring, 1);
-        // Enough life points (varp 1240 holds them shifted by one) to take a strong cow's bites.
+        // Enough life to take a strong cow's bites.
         player.stats.levels[HITPOINTS] = 99;
         player.stats.base_levels[HITPOINTS] = 99;
-        let lp = player.vars.get(1240).as_int();
-        player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+        life::set(player, 99 * life::SCALE);
         engine.harness_telejump(client.pid, x - 2, 0, z);
         for _ in 0..10 {
             engine.cycle();
@@ -73,15 +68,11 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
         cow[NpcStat::Strength as usize] = 99;
         set_recording(true);
         forget_calls();
-        let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt3(nid as i32);
-        client.send(ClientProt::OpNpc2, &p.finish());
+        client.op_npc(2, nid);
         let mut on_cow = Vec::new();
         // Ticks where a recoil landed with no bite on the player in that same tick.
         let mut late = Vec::new();
-        let life = |engine: &rs_engine::Engine, pid| {
-            (engine.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
-        };
+        let life = |engine: &rs_engine::Engine, pid| life::get(engine, pid);
         for tick in 0..80 {
             let before = life(engine, client.pid);
             engine.cycle();

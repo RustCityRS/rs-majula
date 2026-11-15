@@ -47,7 +47,7 @@ if(loc_find(movecoord(coord, 0, 0, -1), door_2309) = true) {
 sound_synth(nicedoor_open, 1, 0);
 p_teleport(movecoord(coord, 0, 0, -2));
 
-[oploc1,obstical_pipe2] 
+[oploc1,obstacle_pipe_65362] 
 if(coordz(coord) >= 3939) {
     mes("You can't enter the pipe from this side.");
     return;
@@ -78,7 +78,7 @@ p_delay(0);
 ~givexp(agility, 125);
 ~update_wilderness_varp(1);
 
-[oploc1,obstical_ropeswing2]
+[oploc1,ropeswing_64696]
 def_coord $start_pos = movecoord(loc_coord, 0, 0, 1);
 def_int $delay = distance(coord, $start_pos);
 if(coordz(coord) > coordz($start_pos)) {
@@ -104,7 +104,7 @@ sound_synth(swing_across, 1, 0);
 ~givexp(agility, 200);
 ~update_wilderness_varp(2);
 
-[oploc1,wilderness_stepping_stone]
+[oploc1,stepping_stone_64699]
 p_arrivedelay;
 mes("You carefully start crossing the stepping stones...");
 sound_synth(jump_no_land, 1, 0);
@@ -128,7 +128,7 @@ sound_synth(jump_no_land, 1, 0);
 mes("...You safely cross to the other side.");
 ~update_wilderness_varp(3);
 
-[oploc1,wilderness_log_balance1]
+[oploc1,log_balance_64698]
 p_teleport(movecoord(loc_coord, 1, 0, 0));
 p_arrivedelay;
 mes("You walk carefully across the slippery log...");

@@ -10,42 +10,58 @@
 //! accessed during combat" (2011 wiki, World map, rev 2011-05-10; Jagex
 //! Knowledge Base, Controls - World Map View, snapshot 2011-05-20).
 //!
-//! An IF_BUTTON{n} is `p4(com) p2_alt3(obj) p2_alt1(slot)`. IF_OPENTOP is
-//! `p2_alt1(interface) p1_alt1(mode)`; CLIENT_SETVARC_LARGE is
+//! IF_OPENTOP is `p2_alt1(interface) p1_alt1(mode)`; CLIENT_SETVARC_LARGE is
 //! `p4_alt1(value) p2_alt3(id)`.
 
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_pack::cache::varp::VarPlayerScope;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client::click_world_map::ClickWorldMap;
+use rs_protocol::network::game::client::window_status::WindowStatus;
 use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::INVENTORY as BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const FIXED: u16 = 548;
 const RESIZABLE: u16 = 746;
 const WORLDMAP: u16 = 755;
-const BACKPACK: u16 = 149;
 /// The globe: toplevel:worldmap_icon, toplevel_fullscreen:worldmap_button.
-const GLOBE_FIXED: i32 = (FIXED as i32) << 16 | 179;
-const GLOBE_RESIZABLE: i32 = (RESIZABLE as i32) << 16 | 179;
+fn globe_fixed() -> i32 {
+    com("toplevel:worldmap_icon")
+}
+
+fn globe_resizable() -> i32 {
+    com("toplevel_fullscreen:worldmap_button")
+}
+
 /// worldmap:close, worldmap:sort_button.
-const CLOSE: i32 = (WORLDMAP as i32) << 16 | 44;
-const SORT: i32 = (WORLDMAP as i32) << 16 | 54;
+fn close() -> i32 {
+    com("worldmap:close")
+}
+
+fn sort() -> i32 {
+    com("worldmap:sort_button")
+}
+
 /// worldmap:com_49, the key: its option lines are dynamic slots 0-19.
-const KEY_LIST: i32 = (WORLDMAP as i32) << 16 | 49;
+fn key_list() -> i32 {
+    com("worldmap:com_49")
+}
+
 /// The key's order (varbit 5367, bits 0-1) and options (6174-6177, bits 2-5).
 const KEY_VARP: u16 = 463;
 /// worldmap:arrow_waypoint, the marker on the map ("Clear marker", op10).
-const WAYPOINT: i32 = (WORLDMAP as i32) << 16 | 42;
+fn waypoint() -> i32 {
+    com("worldmap:arrow_waypoint")
+}
+
 /// "Your marker", a coord.
 const MARKER: u16 = 1159;
 /// The map's centre and "You are here".
@@ -73,14 +89,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Packets {
 }
 
 fn button(client: &mut HarnessClient, op: u8, com: i32, slot: u16) {
-    let prot = match op {
-        1 => ClientProt::IfButton1,
-        2 => ClientProt::IfButton2,
-        _ => ClientProt::IfButton10,
-    };
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(0xFFFF).p2_alt1(slot as i32);
-    client.send(prot, &p.finish());
+    client.if_button(op, com, slot, TypeId::NULL);
 }
 
 /// Each IF_OPENTOP's interface, in the order sent.
@@ -90,25 +99,12 @@ fn tops(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
 
 /// Each IF_OPENTOP as `(interface, mode)`.
 fn top_modes(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u8)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::IfOpentop as u16)
-        .map(|(_, p)| (u16::from_le_bytes([p[0], p[1]]), p[2].wrapping_sub(128)))
-        .collect()
+    server::tops(packets)
 }
 
-/// Each CLIENT_SETVARC_LARGE as `(id, value)`.
+/// Each varc set as `(id, value)`.
 fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::VarcLarge as u16)
-        .map(|(_, p)| {
-            (
-                u16::from_le_bytes([p[4].wrapping_sub(128), p[5]]),
-                i32::from_le_bytes([p[0], p[1], p[2], p[3]]),
-            )
-        })
-        .collect()
+    server::varcs(packets)
 }
 
 /// Where a packet first appears among `packets`.
@@ -132,9 +128,12 @@ fn player(engine: &mut Engine, name: &str, mode: u8) -> HarnessClient {
         .expect("login");
     engine.cycle();
     if mode != 1 {
-        let mut p = ClientPacket::new();
-        p.p1(mode as i32).p2(1024).p2(768).p1(0);
-        client.send(ClientProt::WindowStatus, &p.finish());
+        client.send_msg(&WindowStatus {
+            mode,
+            width: 1024,
+            height: 768,
+            antialias: 0,
+        });
     }
     // A new player's %lastcombat is 0: on a fresh engine's first eight ticks
     // that reads as a fight that has just ended.
@@ -155,7 +154,7 @@ fn globe_opens_the_map_on_the_players_tile() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "wm_open", 1);
         assert_eq!(toplevel(engine, client.pid), FIXED);
-        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        button(&mut client, 1, globe_fixed(), 0xFFFF);
         let packets = ticks(engine, &mut client, 1);
         let here = packed(0, TILE.0, TILE.1);
         let sent = varcs(&packets);
@@ -189,7 +188,7 @@ fn resizable_globe_opens_the_map() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "wm_resizable", 2);
         assert_eq!(toplevel(engine, client.pid), RESIZABLE);
-        button(&mut client, 1, GLOBE_RESIZABLE, 0xFFFF);
+        button(&mut client, 1, globe_resizable(), 0xFFFF);
         let packets = ticks(engine, &mut client, 1);
         let here = packed(0, TILE.0, TILE.1);
         assert!(varcs(&packets).contains(&(VARC_CENTRE, here)));
@@ -206,14 +205,14 @@ fn resizable_globe_opens_the_map() {
 fn close_returns_to_the_players_frame() {
     runner::on_loaded_engine(|engine| {
         for (name, mode, frame, globe) in [
-            ("wm_close_fixed", 1, FIXED, GLOBE_FIXED),
-            ("wm_close_resizable", 2, RESIZABLE, GLOBE_RESIZABLE),
+            ("wm_close_fixed", 1, FIXED, globe_fixed()),
+            ("wm_close_resizable", 2, RESIZABLE, globe_resizable()),
         ] {
             let mut client = player(engine, name, mode);
             button(&mut client, 1, globe, 0xFFFF);
             ticks(engine, &mut client, 1);
             assert_eq!(toplevel(engine, client.pid), WORLDMAP, "{name}: open");
-            button(&mut client, 1, CLOSE, 0xFFFF);
+            button(&mut client, 1, close(), 0xFFFF);
             let packets = ticks(engine, &mut client, 1);
             assert_eq!(
                 top_modes(&packets),
@@ -250,7 +249,7 @@ fn the_map_will_not_open_in_combat() {
             .unwrap()
             .vars
             .set(LASTCOMBAT, VarValue::Int(clock));
-        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        button(&mut client, 1, globe_fixed(), 0xFFFF);
         let packets = ticks(engine, &mut client, 1);
         assert_eq!(tops(&packets), Vec::<u16>::new(), "not in combat");
         assert_eq!(toplevel(engine, client.pid), FIXED);
@@ -262,7 +261,7 @@ fn the_map_will_not_open_in_combat() {
 
         // Eight ticks after the last hit, it opens.
         ticks(engine, &mut client, 8);
-        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        button(&mut client, 1, globe_fixed(), 0xFFFF);
         let packets = ticks(engine, &mut client, 1);
         assert_eq!(tops(&packets), vec![WORLDMAP], "out of combat");
     });
@@ -278,7 +277,7 @@ fn the_map_will_not_open_while_busy() {
             player.state.delayed = true;
             player.state.delayed_until = clock + 5;
         }
-        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        button(&mut client, 1, globe_fixed(), 0xFFFF);
         let packets = ticks(engine, &mut client, 1);
         assert_eq!(tops(&packets), Vec::<u16>::new(), "not while delayed");
         assert!(
@@ -295,15 +294,15 @@ fn the_map_will_not_open_while_busy() {
 fn map_buttons_are_refused_when_the_map_is_shut() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "wm_shut", 1);
-        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        button(&mut client, 1, globe_fixed(), 0xFFFF);
         ticks(engine, &mut client, 1);
         assert_eq!(toplevel(engine, client.pid), WORLDMAP, "open");
-        button(&mut client, 1, CLOSE, 0xFFFF);
+        button(&mut client, 1, close(), 0xFFFF);
         ticks(engine, &mut client, 1);
         assert_eq!(toplevel(engine, client.pid), FIXED, "shut");
 
-        button(&mut client, 1, CLOSE, 0xFFFF);
-        button(&mut client, 1, SORT, 0xFFFF);
+        button(&mut client, 1, close(), 0xFFFF);
+        button(&mut client, 1, sort(), 0xFFFF);
         let packets = ticks(engine, &mut client, 1);
         assert_eq!(tops(&packets), Vec::<u16>::new(), "nothing re-opens");
         assert_eq!(toplevel(engine, client.pid), FIXED);
@@ -318,11 +317,11 @@ fn the_map_shows_the_player_reading() {
         let mut client = player(engine, "wm_reading", 1);
         set_recording(true);
         forget_calls();
-        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        button(&mut client, 1, globe_fixed(), 0xFFFF);
         ticks(engine, &mut client, 1);
         let opened = calls_for("anim");
         forget_calls();
-        button(&mut client, 1, CLOSE, 0xFFFF);
+        button(&mut client, 1, close(), 0xFFFF);
         ticks(engine, &mut client, 1);
         let closed = calls_for("anim");
         set_recording(false);
@@ -333,17 +332,7 @@ fn the_map_shows_the_player_reading() {
 /// Each IF_SETEVENTS as `(com, from, to, events)`: `p2_alt2(from)
 /// p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
 fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
-    packets
-        .iter()
-        .filter(|(op, _)| *op == ServerProt::IfSetEvents as u16)
-        .map(|(_, p)| {
-            let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
-            let ops = i32::from_be_bytes([p[3], p[2], p[5], p[4]]);
-            let com = i32::from_be_bytes([p[7], p[6], p[9], p[8]]);
-            let to = u16::from_le_bytes([p[10].wrapping_sub(128), p[11]]);
-            (com, from, to, ops)
-        })
-        .collect()
+    server::events(packets)
 }
 
 fn varp(engine: &Engine, pid: u16, id: u16) -> i32 {
@@ -352,7 +341,7 @@ fn varp(engine: &Engine, pid: u16, id: u16) -> i32 {
 
 /// Opens the map from the fixed globe.
 fn open_map(engine: &mut Engine, client: &mut HarnessClient) -> Packets {
-    button(client, 1, GLOBE_FIXED, 0xFFFF);
+    button(client, 1, globe_fixed(), 0xFFFF);
     let packets = ticks(engine, client, 1);
     assert_eq!(toplevel(engine, client.pid), WORLDMAP, "the map is open");
     packets
@@ -368,7 +357,7 @@ fn opening_allows_the_key_options() {
         let ev = events(&packets);
         assert!(
             ev.iter()
-                .any(|&(c, f, t, ops)| c == KEY_LIST && f == 0 && t == 19 && ops & (1 << 1) != 0),
+                .any(|&(c, f, t, ops)| c == key_list() && f == 0 && t == 19 && ops & (1 << 1) != 0),
             "755:49 slots 0-19, op1; sent {ev:?}"
         );
     });
@@ -383,7 +372,7 @@ fn resort_steps_traditional_alphabetical_categorised() {
         open_map(engine, &mut client);
         assert_eq!(varp(engine, client.pid, KEY_VARP) & 3, 0, "Traditional");
         for want in [1, 2, 0] {
-            button(&mut client, 1, SORT, 0xFFFF);
+            button(&mut client, 1, sort(), 0xFFFF);
             ticks(engine, &mut client, 1);
             assert_eq!(varp(engine, client.pid, KEY_VARP) & 3, want);
         }
@@ -410,14 +399,14 @@ fn each_key_option_flips_its_own_bit() {
             (16, 5),
         ] {
             let before = varp(engine, client.pid, KEY_VARP);
-            button(&mut client, 1, KEY_LIST, slot);
+            button(&mut client, 1, key_list(), slot);
             ticks(engine, &mut client, 1);
             let after = varp(engine, client.pid, KEY_VARP);
             assert_eq!(after ^ before, 1 << bit, "slot {slot} flips bit {bit}");
         }
         for slot in [2, 5, 6, 7, 8, 9, 10, 13, 15, 17, 20, 40] {
             let before = varp(engine, client.pid, KEY_VARP);
-            button(&mut client, 1, KEY_LIST, slot);
+            button(&mut client, 1, key_list(), slot);
             ticks(engine, &mut client, 1);
             assert_eq!(
                 varp(engine, client.pid, KEY_VARP),
@@ -466,30 +455,16 @@ fn hints(packets: &[(u16, Vec<u8>)]) -> Vec<Hint> {
         .collect()
 }
 
-/// Each varp the client was sent, as `(varp, value)`: VARP_SMALL is `p1_alt3
-/// value, p2 varp` (a signed byte), VARP_LARGE `p2 varp, p4_alt2 value`.
+/// Each varp the client was sent, as `(varp, value)`.
 fn varp_sends(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
-    packets
-        .iter()
-        .filter_map(|(op, p)| {
-            if *op == ServerProt::VarpSmall as u16 {
-                let value = 128u8.wrapping_sub(p[0]) as i8 as i32;
-                Some((u16::from_be_bytes([p[1], p[2]]), value))
-            } else if *op == ServerProt::VarpLarge as u16 {
-                let value = i32::from_be_bytes([p[4], p[5], p[2], p[3]]);
-                Some((u16::from_be_bytes([p[0], p[1]]), value))
-            } else {
-                None
-            }
-        })
-        .collect()
+    server::varps(packets)
 }
 
-/// CLICKWORLDMAP: `p4_alt2(level << 28 | x << 14 | z)`.
+/// CLICKWORLDMAP: `level << 28 | x << 14 | z`.
 fn press(client: &mut HarnessClient, coord: i32) {
-    let mut p = ClientPacket::new();
-    p.p4_alt2(coord);
-    client.send(ClientProt::ClickWorldMap, &p.finish());
+    client.send_msg(&ClickWorldMap {
+        coord: coord as u32,
+    });
 }
 
 /// A press on the map at `x`, `z`.
@@ -572,16 +547,16 @@ fn every_clear_path_clears_the_marker() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "wm_clear", 1);
         for (what, op, com, slot, map_up) in [
-            ("poh_globe_1", 2, GLOBE_FIXED, 0xFFFF, false),
-            ("key 18", 1, KEY_LIST, 18, true),
-            ("key 19", 1, KEY_LIST, 19, true),
-            ("marker", 10, WAYPOINT, 0xFFFF, true),
+            ("poh_globe_1", 2, globe_fixed(), 0xFFFF, false),
+            ("key 18", 1, key_list(), 18, true),
+            ("key 19", 1, key_list(), 19, true),
+            ("marker", 10, waypoint(), 0xFFFF, true),
         ] {
             open_map(engine, &mut client);
             double_click(engine, &mut client, SPOT.0, SPOT.1);
             assert_eq!(varp(engine, client.pid, MARKER), packed(0, SPOT.0, SPOT.1));
             if !map_up {
-                button(&mut client, 1, CLOSE, 0xFFFF);
+                button(&mut client, 1, close(), 0xFFFF);
                 ticks(engine, &mut client, 1);
             }
             button(&mut client, op, com, slot);
@@ -597,7 +572,7 @@ fn every_clear_path_clears_the_marker() {
                 "{what} stops slot 7"
             );
             if map_up {
-                button(&mut client, 1, CLOSE, 0xFFFF);
+                button(&mut client, 1, close(), 0xFFFF);
                 ticks(engine, &mut client, 1);
             }
         }
@@ -613,7 +588,7 @@ fn the_marker_arrow_leaves_quest_arrows_alone() {
         let mut client = player(engine, "wm_slots", 1);
         open_map(engine, &mut client);
         let mut sent = double_click(engine, &mut client, SPOT.0, SPOT.1);
-        button(&mut client, 1, KEY_LIST, 19);
+        button(&mut client, 1, key_list(), 19);
         sent.extend(ticks(engine, &mut client, 1));
         let slots: Vec<u8> = hints(&sent).iter().map(|h| h.0).collect();
         assert_eq!(slots, vec![7, 7], "set and stop, both in slot 7");

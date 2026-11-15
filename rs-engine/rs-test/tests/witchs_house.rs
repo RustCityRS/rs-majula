@@ -4,32 +4,48 @@
 //! experiment page (2011-05-16) gives the last form's 550 life points. Cache 786's map has the
 //! reworked house: the doors, the gate, the mouse hole and the hedges are where it puts them.
 
-#![cfg(since_647)]
+// 742 rebuilt Taverley: the house, its garden and its basement are not where 289 had them.
+#![cfg(all(since_530, before_742))]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
+use rs_test::names::BACKPACK;
+#[cfg(since_647)]
+use rs_test::names::com;
 use rs_test::runner;
-use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_test::talk::{Conversation, converse};
+#[cfg(since_647)]
+use rs_test::talk::{settexts, talk_to};
 use rs_ver::TypeId;
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
 
 const ATTACK: usize = 0;
+#[cfg(since_647)]
 const HITPOINTS: usize = 3;
-const BACKPACK: i32 = 149 << 16;
 /// View on the quest list's row (questlist_v4:quests) and the journal's first line (qj1).
-const QUEST_LIST: i32 = 190 << 16 | 18;
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
+fn quest_list() -> i32 {
+    com("questlist_v4:quests")
+}
+
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
 const WITCHS_HOUSE: i32 = 109;
-const JOURNAL_LINE_1: u32 = 275 << 16 | 16;
+#[cfg(since_647)]
+#[cfg(all(since_647, before_742))]
+fn journal_line_1() -> u32 {
+    com("questjournal_scroll:qj1") as u32
+}
+
 /// The worn inventory's hands slot (`^wearpos_hands`).
+#[cfg(since_647)]
 const HANDS: u16 = 9;
 
 /// `^ball_started` .. `^ball_complete`.
@@ -38,6 +54,7 @@ const FOUND_MAGNET: i32 = 2;
 const UNLOCKED: i32 = 3;
 const READ_DIARY: i32 = 5;
 const DEFEATED: i32 = 6;
+#[cfg(since_647)]
 const COMPLETE: i32 = 7;
 
 /// maps/l45_54.jm2 and, for the basement, maps/l45_154.jm2.
@@ -50,8 +67,11 @@ const MOUSE_HOLE: (u16, u16) = (2903, 3466);
 const FOUNTAIN: (u16, u16) = (2909, 3470);
 const SHED_DOOR: (u16, u16) = (2934, 3463);
 const BALL: (u16, u16) = (2935, 3460);
+#[cfg(since_647)]
 const GATE_NORTH: (u16, u16) = (2902, 9874);
+#[cfg(since_647)]
 const GATE_SOUTH: (u16, u16) = (2902, 9873);
+#[cfg(since_647)]
 const CUPBOARD: (u16, u16) = (2898, 9873);
 
 const FORMS: [&str; 4] = [
@@ -123,18 +143,6 @@ fn held(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .total(o) as i32
 }
 
-/// %life_points: varbit 7198, bits 1-15 of varp 1240.
-fn life_points(engine: &Engine, client: &HarnessClient) -> i32 {
-    (engine
-        .harness_player(client.pid)
-        .unwrap()
-        .vars
-        .get(1240)
-        .as_int()
-        >> 1)
-        & 0x7FFF
-}
-
 /// Levels of 99 in the melee skills and 990 life points, for the shed.
 fn fighter(engine: &mut Engine, client: &HarnessClient) {
     let player = engine.harness_player_mut(client.pid).unwrap();
@@ -143,8 +151,7 @@ fn fighter(engine: &mut Engine, client: &HarnessClient) {
         player.stats.base_levels[skill] = 99;
         player.stats.xp[skill] = 130_344_310;
     }
-    let bit0 = player.vars.get(1240).as_int() & 1;
-    player.vars.set(1240, VarValue::Int((990 << 1) | bit0));
+    life::set(player, 99 * life::SCALE);
 }
 
 fn settle(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) {
@@ -207,6 +214,7 @@ fn npcs(engine: &Engine, name: &str) -> Vec<(u16, u16, u16)> {
 }
 
 /// Talks to the boy, taking `choices`.
+#[cfg(since_647)]
 fn talk(engine: &mut Engine, client: &mut HarnessClient, choices: &[&str]) -> Conversation {
     let (nid, x, z) = npcs(engine, "boy")
         .into_iter()
@@ -244,7 +252,7 @@ fn tells(t: &Conversation, line: &str) {
     );
 }
 
-/// `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`, and what it shows.
+/// `OPLOC1`, and what it shows.
 fn op_loc1(
     engine: &mut Engine,
     client: &mut HarnessClient,
@@ -252,16 +260,11 @@ fn op_loc1(
     (x, z): (u16, u16),
 ) -> Conversation {
     let loc = loc_id(engine, loc);
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(loc.int())
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, loc);
     converse(engine, client, &[], 12)
 }
 
-/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`, and what it shows.
+/// `OPLOC2`, and what it shows.
 fn op_loc2(
     engine: &mut Engine,
     client: &mut HarnessClient,
@@ -269,12 +272,7 @@ fn op_loc2(
     (x, z): (u16, u16),
 ) -> Conversation {
     let loc = loc_id(engine, loc);
-    let mut p = ClientPacket::new();
-    p.p2_alt1(loc.int())
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+    client.op_loc(2, x, z, loc);
     converse(engine, client, &[], 12)
 }
 
@@ -301,15 +299,14 @@ fn use_on_loc(
     (x, z): (u16, u16),
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
-    let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj).int())
-        .p2_alt2(slot)
-        .p2(z as i32)
-        .p4_alt2(BACKPACK)
-        .p2_alt2(x as i32)
-        .p1_alt1(0)
-        .p2_alt1(loc_id(engine, loc).int());
-    client.send(ClientProt::OpLocT, &p.finish());
+    client.op_loc_t(
+        x,
+        z,
+        loc_id(engine, loc),
+        BACKPACK,
+        slot as u16,
+        id(engine, "obj", obj),
+    );
     converse(engine, client, &[], 12)
 }
 
@@ -321,32 +318,20 @@ fn use_on_npc(
     nid: u16,
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
-    let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj).int())
-        .p2_alt2(slot)
-        .p2_alt1(nid as i32)
-        .p4_alt3(BACKPACK)
-        .p1_alt2(0);
-    client.send(ClientProt::OpNpcT, &p.finish());
+    client.op_npc_t(nid, BACKPACK, slot as u16, id(engine, "obj", obj));
     converse(engine, client, &[], 12)
 }
 
 /// Take on the ball in the shed (`OPOBJ3`), and what it shows.
 fn take_ball(engine: &mut Engine, client: &mut HarnessClient) -> Conversation {
-    let mut p = ClientPacket::new();
-    p.p2_alt1(id(engine, "obj", "ball").int())
-        .p2_alt2(BALL.1 as i32)
-        .p1(0)
-        .p2(BALL.0 as i32);
-    client.send(ClientProt::OpObj3, &p.finish());
+    client.op_obj(3, BALL.0, BALL.1, id(engine, "obj", "ball"));
     converse(engine, client, &[], 12)
 }
 
 /// The journal's lines once View is clicked on the quest's row, their colour tags taken off.
+#[cfg(all(since_647, before_742))]
 fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
-    let mut p = ClientPacket::new();
-    p.p4(QUEST_LIST).p2_alt3(-1).p2_alt1(WITCHS_HOUSE);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, quest_list(), WITCHS_HOUSE as u16, TypeId::NULL);
     let mut texts = Vec::new();
     for _ in 0..3 {
         engine.cycle();
@@ -357,7 +342,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
         .map(|line| {
             let text = texts
                 .iter()
-                .find(|(c, _)| *c == JOURNAL_LINE_1 + line)
+                .find(|(c, _)| *c == journal_line_1() + line)
                 .map_or("", |(_, t)| t.as_str());
             let mut plain = String::new();
             let mut tag = false;
@@ -376,6 +361,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> Vec<String> {
 
 /// The boy and the tile the witch's curse sends a player to stand on open ground at 2011, and
 /// he starts the quest with 289's lines.
+#[cfg(since_647)]
 #[test]
 fn the_boy_starts_the_quest() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -390,15 +376,18 @@ fn the_boy_starts_the_quest() {
             "the boy stands by the garden"
         );
 
-        let lines = journal(engine, &mut client);
-        assert_eq!(
-            lines[..3],
-            [
-                "I can start this quest by speaking to the little boy",
-                "standing by the long garden just north of taverley",
-                "I must be able to defeat a level 53 enemy",
-            ]
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(
+                lines[..3],
+                [
+                    "I can start this quest by speaking to the little boy",
+                    "standing by the long garden just north of taverley",
+                    "I must be able to defeat a level 53 enemy",
+                ]
+            );
+        }
 
         let t = talk(
             engine,
@@ -439,15 +428,18 @@ fn the_boy_starts_the_quest() {
         says(&t, &["Ok, I'll see what I can do.", "Thanks mister!"]);
         assert_eq!(stage(engine, &client), STARTED);
 
-        let lines = journal(engine, &mut client);
-        assert_eq!(
-            lines[..3],
-            [
-                "A small boy has kicked his ball over the fence into the",
-                "nearby garden, and I have agreed to retrieve it for him.",
-                "I should find a way into the garden where the ball is",
-            ]
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(
+                lines[..3],
+                [
+                    "A small boy has kicked his ball over the fence into the",
+                    "nearby garden, and I have agreed to retrieve it for him.",
+                    "I should find a way into the garden where the ball is",
+                ]
+            );
+        }
 
         let t = talk(engine, &mut client, &[]);
         says(
@@ -524,6 +516,7 @@ fn the_pot_hides_the_key_to_the_front_door() {
 
 /// The basement: the gate shocks bare hands for a tenth of the player's hitpoints and one
 /// more (in 2011's life points), opens to gloved ones, and the cupboard holds the magnet.
+#[cfg(since_647)]
 #[test]
 fn the_basements_gate_shocks_bare_hands_and_the_cupboard_holds_the_magnet() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -533,14 +526,9 @@ fn the_basements_gate_shocks_bare_hands_and_the_cupboard_holds_the_magnet() {
         let east = (GATE_NORTH.0 + 1, GATE_NORTH.1);
         tele(engine, &mut client, east);
         fighter(engine, &client);
-        let before = life_points(engine, &client);
+        let before = life::get(engine, client.pid);
         let gate = loc_id(engine, "shockgatel");
-        let mut p = ClientPacket::new();
-        p.p2_alt1(GATE_NORTH.1 as i32)
-            .p2_alt1(gate.int())
-            .p1(0)
-            .p2_alt2(GATE_NORTH.0 as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(1, GATE_NORTH.0, GATE_NORTH.1, gate);
         // The shock is the one tick's drop: a regeneration tick may fall among these.
         let mut texts = Vec::new();
         let mut shock = 0;
@@ -552,7 +540,7 @@ fn the_basements_gate_shocks_bare_hands_and_the_cupboard_holds_the_magnet() {
             }
             engine.cycle();
             texts.extend(settexts(&client.packets()).into_iter().map(|(_, t)| t));
-            let now = life_points(engine, &client);
+            let now = life::get(engine, client.pid);
             shock = shock.max(was - now);
             was = now;
         }
@@ -674,11 +662,7 @@ fn cheese_brings_the_mouse_and_the_magnet_unlocks_the_back_door() {
         set_stage(engine, &client, FOUND_MAGNET);
 
         // Dropped by the hole, the cheese brings a new mouse for the old.
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK)
-            .p2_alt3(id(engine, "obj", "cheese").int())
-            .p2_alt1(1);
-        client.send(ClientProt::IfButton8, &p.finish());
+        client.if_button(8, BACKPACK, 1, id(engine, "obj", "cheese"));
         let t = converse(engine, &mut client, &[], 12);
         says(&t, &["A mouse runs out of a hole."]);
         assert_eq!(held(engine, &client, "cheese"), 0);
@@ -800,9 +784,7 @@ fn the_four_forms(engine: &mut Engine) {
             stats[NpcStat::Defence as usize] = 1;
             if target != Some(nid) || tick % 8 == 0 {
                 target = Some(nid);
-                let mut p = ClientPacket::new();
-                p.p1_alt2(0).p2_alt3(nid as i32);
-                client.send(ClientProt::OpNpc2, &p.finish());
+                client.op_npc(2, nid);
             }
         }
         engine.cycle();
@@ -852,6 +834,7 @@ fn the_four_forms(engine: &mut Engine) {
 
 /// The four forms' stats: 289's levels, its hitpoints as life points, and the 2011 wiki's 550
 /// for the last.
+#[cfg(since_647)]
 #[test]
 fn the_experiments_forms_have_2011s_life_points() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -965,6 +948,7 @@ fn the_witch_catches_a_player_in_the_open_and_not_behind_a_hedge() {
 
 /// Read opens the diary on 2011's book, and reading it once the back door is unlocked moves
 /// the quest on a stage (289).
+#[cfg(since_647)]
 #[test]
 fn the_diary_opens_as_a_book() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -972,11 +956,7 @@ fn the_diary_opens_as_a_book() {
         let mut client = login(engine, "wh_diary", FOUND_MAGNET);
         give(engine, &client, 0, "witches_diary");
         let read = |engine: &mut Engine, client: &mut HarnessClient| {
-            let mut p = ClientPacket::new();
-            p.p4(BACKPACK)
-                .p2_alt3(id(engine, "obj", "witches_diary").int())
-                .p2_alt1(0);
-            client.send(ClientProt::IfButton1, &p.finish());
+            client.if_button(1, BACKPACK, 0, id(engine, "obj", "witches_diary"));
             let mut texts = Vec::new();
             for _ in 0..3 {
                 engine.cycle();
@@ -1004,16 +984,20 @@ fn the_diary_opens_as_a_book() {
 
 /// The boy takes his ball: 4 quest points and 6,325 Constitution xp (2011 wiki, Witch's
 /// House, 2011-05-20).
+#[cfg(since_647)]
 #[test]
 fn the_boy_takes_his_ball_back() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(|engine| {
         let mut client = login(engine, "wh_reward", DEFEATED);
-        let lines = journal(engine, &mut client);
-        assert_eq!(
-            lines[2],
-            "Now the shapeshifter is dead I should return the boy's ball"
-        );
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert_eq!(
+                lines[2],
+                "Now the shapeshifter is dead I should return the boy's ball"
+            );
+        }
         give(engine, &client, 0, "ball");
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[HITPOINTS];
         let qp = {
@@ -1057,8 +1041,11 @@ fn the_boy_takes_his_ball_back() {
 
         engine.harness_close_modal(client.pid);
         settle(engine, &mut client, 2);
-        let lines = journal(engine, &mut client);
-        assert!(lines.iter().any(|l| l == "QUEST COMPLETE!"), "{lines:?}");
+        #[cfg(all(since_647, before_742))]
+        {
+            let lines = journal(engine, &mut client);
+            assert!(lines.iter().any(|l| l == "QUEST COMPLETE!"), "{lines:?}");
+        }
         let t = talk(engine, &mut client, &[]);
         says(&t, &["Thank you for getting my ball back!"]);
         leave(engine, &mut client);

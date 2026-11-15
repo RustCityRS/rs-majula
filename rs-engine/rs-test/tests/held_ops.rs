@@ -7,30 +7,21 @@
 //! the witness here -- tinderbox and logs, in either order, should drop and
 //! light the logs.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_grid::CoordGrid;
-use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
+use rs_test::life;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls};
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
-
 /// Lumbridge, east of the castle: open ground a fire may be lit on.
 const FIRE_TILE: (u16, u16) = (3221, 3219);
-
-/// The `object_id` the client sends for a source holding no item.
-const NO_OBJ: i32 = 0xFFFF;
 
 fn id(engine: &Engine, name: &str) -> TypeId {
     engine
@@ -60,20 +51,17 @@ fn player_holding(engine: &mut Engine, name: &str, items: &[u16]) -> HarnessClie
     client
 }
 
-/// `IfButtonT`, as `Class141.method876`'s target branch writes it:
-/// `p4(to_com) p2_alt1(to_slot) p2_alt1(from_slot) p2_alt2(from_obj) p4_alt1(from_com)
-/// p2(to_obj)`.
-fn if_buttont(from: (i32, i32), to: (i32, i32)) -> Vec<u8> {
+fn if_buttont(client: &mut HarnessClient, from: (i32, i32), to: (i32, i32)) {
     let (from_slot, from_obj) = from;
     let (to_slot, to_obj) = to;
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(to_slot)
-        .p2_alt1(from_slot)
-        .p2_alt2(from_obj)
-        .p4_alt1(BACKPACK)
-        .p2(to_obj);
-    p.finish()
+    client.if_button_t(
+        BACKPACK,
+        from_slot as u16,
+        TypeId::from_int(from_obj),
+        BACKPACK,
+        to_slot as u16,
+        TypeId::from_int(to_obj),
+    );
 }
 
 fn lit_logs(engine: &Engine, pid: u16) -> bool {
@@ -101,10 +89,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
             "held_tinderbox_on_logs",
             &[tinderbox as u16, logs as u16],
         );
-        client.send(
-            ClientProt::IfButtonT,
-            &if_buttont((0, tinderbox), (1, logs)),
-        );
+        if_buttont(&mut client, (0, tinderbox), (1, logs));
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(
@@ -148,10 +133,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
             "held_logs_on_tinderbox",
             &[tinderbox as u16, logs as u16],
         );
-        client.send(
-            ClientProt::IfButtonT,
-            &if_buttont((1, logs), (0, tinderbox)),
-        );
+        if_buttont(&mut client, (1, logs), (0, tinderbox));
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.last_item, Some(TypeId::from_int(tinderbox)));
@@ -165,15 +147,15 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
             "held_spell_on_item",
             &[tinderbox as u16, logs as u16],
         );
-        let high_alchemy = (192 << 16) | 59;
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK)
-            .p2_alt1(1)
-            .p2_alt1(NO_OBJ)
-            .p2_alt2(NO_OBJ)
-            .p4_alt1(high_alchemy)
-            .p2(logs);
-        client.send(ClientProt::IfButtonT, &p.finish());
+        let high_alchemy = com("magic:sb28");
+        client.if_button_t(
+            high_alchemy,
+            0xFFFF,
+            TypeId::NULL,
+            BACKPACK,
+            1,
+            TypeId::from_int(logs),
+        );
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(
@@ -186,10 +168,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
 
         // A target the slot does not hold is dropped: nothing runs.
         let mut client = player_holding(engine, "held_forged", &[tinderbox as u16, logs as u16]);
-        client.send(
-            ClientProt::IfButtonT,
-            &if_buttont((0, tinderbox), (1, tinderbox)),
-        );
+        if_buttont(&mut client, (0, tinderbox), (1, tinderbox));
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.last_use_item, None, "nothing recorded as used");
@@ -206,23 +185,16 @@ fn eating_cave_nightshade_hurts_150_life_points() {
     runner::on_loaded_engine(|engine| {
         let nightshade = id(engine, "nightshade");
         let mut client = player_holding(engine, "nightshade", &[nightshade.g2()]);
-        // %life_points: varbit 7198, bits 1-15 of varp 1240.
-        let life = |e: &Engine, pid: u16| {
-            (e.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
-        };
         // Level 99 Constitution and 990 life points, so 150 does not kill.
         let player = engine.harness_player_mut(client.pid).unwrap();
         player.stats.levels[3] = 99;
         player.stats.base_levels[3] = 99;
-        let bit0 = player.vars.get(1240).as_int() & 1;
-        player.vars.set(1240, VarValue::Int((990 << 1) | bit0));
+        life::set(player, 99 * life::SCALE);
         engine.cycle();
-        let before = life(engine, client.pid);
-        assert_eq!(before, 990);
+        let before = life::get(engine, client.pid);
+        assert_eq!(before, 99 * life::SCALE);
         // The client puts an obj's iop4 on the slot's op 7.
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(nightshade.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton7, &p.finish());
+        client.if_button(7, BACKPACK, 0, nightshade);
         for _ in 0..5 {
             engine.cycle();
         }
@@ -239,7 +211,6 @@ fn eating_cave_nightshade_hurts_150_life_points() {
             .unwrap()
             .modal_chat
             .expect("the player says Ahhhh");
-        let mut p = ClientPacket::new();
         let com = engine
             .cache
             .interfaces
@@ -248,12 +219,15 @@ fn eating_cave_nightshade_hurts_150_life_points() {
             .find(|(_, com)| com.root_layer == chat as i32 && com.active_properties & 1 != 0)
             .map(|(&id, _)| id)
             .expect("continue button");
-        p.p2_alt1(0xFFFF).p4_alt2(com);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(com, 0xFFFF);
         for _ in 0..3 {
             engine.cycle();
         }
-        assert_eq!(before - life(engine, client.pid), 150, "150 life points");
+        assert_eq!(
+            before - life::get(engine, client.pid),
+            15 * life::SCALE,
+            "150 life points, 15 hitpoints before 647"
+        );
         let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         let held = engine
             .harness_player(client.pid)
@@ -270,10 +244,7 @@ fn a_bucket_of_water_pours_into_a_jug() {
     runner::on_loaded_engine(|engine| {
         let (water, jug) = (id(engine, "bucket_water"), id(engine, "jug_empty"));
         let mut client = player_holding(engine, "pourer", &[water.g2(), jug.g2()]);
-        client.send(
-            ClientProt::IfButtonT,
-            &if_buttont((0, water.int()), (1, jug.int())),
-        );
+        if_buttont(&mut client, (0, water.int()), (1, jug.int()));
         for _ in 0..3 {
             engine.cycle();
         }
@@ -303,10 +274,11 @@ fn drop_runs_the_objs_own_op5_or_puts_it_down() {
         let (thistle, logs) = (id(engine, "eadgar_troll_thistle"), id(engine, "logs"));
         let mut client = player_holding(engine, "thistle", &[thistle.g2(), logs.g2()]);
         let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
-        // The drop's sound, by its id in 647's synth registry.
-        let pack = concat!(
+        // The drop's sound, by its id in the rev's synth registry.
+        let pack = &format!(
+            "{}/../../{}/pack/synth.pack",
             env!("CARGO_MANIFEST_DIR"),
-            "/../../content/647/pack/synth.pack"
+            rs_pack::CONTENT_DIR
         );
         let put_down = std::fs::read_to_string(pack)
             .expect(pack)
@@ -325,9 +297,7 @@ fn drop_runs_the_objs_own_op5_or_puts_it_down() {
                 .is_some_and(|b| !b.has_at(slot, TypeId::new(obj)))
         };
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(thistle.int()).p2_alt1(0);
-        client.send(ClientProt::IfButton8, &p.finish());
+        client.if_button(8, BACKPACK, 0, thistle);
         for _ in 0..2 {
             engine.cycle();
         }
@@ -343,9 +313,7 @@ fn drop_runs_the_objs_own_op5_or_puts_it_down() {
         );
         assert_eq!(put_downs(), 0, "the thistle is not put down");
 
-        let mut p = ClientPacket::new();
-        p.p4(BACKPACK).p2_alt3(logs.int()).p2_alt1(1);
-        client.send(ClientProt::IfButton8, &p.finish());
+        client.if_button(8, BACKPACK, 1, logs);
         for _ in 0..2 {
             engine.cycle();
         }

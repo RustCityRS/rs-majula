@@ -5,16 +5,12 @@
 //! completed 17 Tasks in total."). A first Task prints no total: 4KO2h2xPtdM (2011-04-30) @610 has
 //! "You have completed the Task 'How To Train and Level'!" alone, @680 "... 2 Tasks in total.".
 
+// 2009 has no task system.
 #![cfg(since_647)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
 use rs_ver::TypeId;
@@ -23,11 +19,15 @@ use std::sync::Mutex;
 static TURN: Mutex<()> = Mutex::new(());
 
 /// Lumbridge/Draynor's first task (enum_3482 1 -> 346, "The Blood Pact").
+#[cfg(before_742)]
 const LUMBRIDGE_FIRST: i32 = 346;
 const COOKS_ASSISTANT_TASK: i32 = 348;
 /// The set's length: enum_3482's start, then each struct's param_1269 to the 4094 default (cache
 /// 786's structs, walked outside the engine).
+#[cfg(before_742)]
 const LUMBRIDGE_TASKS: i32 = 133;
+#[cfg(since_742)]
+const LUMBRIDGE_TASKS: i32 = 135;
 
 fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
     engine
@@ -43,6 +43,7 @@ fn bits(v: i32, start: u32, end: u32) -> i32 {
 }
 
 /// task_area (varbit 8575: varp 1960 bits 0-6).
+#[cfg(before_742)]
 fn area(engine: &Engine, client: &HarnessClient) -> i32 {
     bits(varp(engine, client, 1960), 0, 6)
 }
@@ -83,6 +84,9 @@ fn login(engine: &mut Engine, name: &str) -> HarnessClient {
     client
 }
 
+// 742's task slots are not 647's varbits 8587-8592 (on 742 those are 1-bit flags in
+// varp 2742), so its tab is not ported.
+#[cfg(before_742)]
 #[test]
 fn the_tab_shows_lumbridges_set_at_login() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -209,9 +213,7 @@ fn five_plantation_bananas_complete_five_a_day() {
             (2909, 3161),
             (2909, 3164),
         ] {
-            let mut p = ClientPacket::new();
-            p.p2_alt1(z).p2_alt1(2073).p1(0).p2_alt2(x);
-            client.send(ClientProt::OpLoc1, &p.finish());
+            client.op_loc(1, x, z, TypeId::from_int(2073));
             let mut these = Vec::new();
             for _ in 0..25 {
                 engine.cycle();

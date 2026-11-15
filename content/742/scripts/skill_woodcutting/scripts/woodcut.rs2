@@ -342,18 +342,18 @@ assert_called_with("mes", "You do not have a hatchet which you have the woodcutt
 assert_eq($found, null)
 
 // ── Integration ────────────────────────────────────────────────
-// tree_1276 at x=2552,z=3450. Player on the tile west of it.
+// 742's tree_38785 at x=2551,z=3449. Player on the tile north of it.
 [label,test_wc_attempt_cut_tree_no_hatchet]
 setup_player("test_player");
 p_telejump(0_39_53_55_58);
-test_op(oploc1, tree, 0_39_53_56_58);
+test_op(oploc1, tree_38785, 0_39_53_55_57);
 assert_eq(inv_total(inv, logs), 0)
 
 [label,test_wc_attempt_cut_tree_with_hatchet]
 setup_player("test_player");
 p_telejump(0_39_53_55_58);
 inv_add(inv, bronze_axe, 1);
-test_op(oploc1, tree, 0_39_53_56_58);
+test_op(oploc1, tree_38785, 0_39_53_55_57);
 // The first op only books the swing (%action_delay, then p_oploc(1)); the
 // re-op a tick later swings.
 wait_for("mes", 5);
@@ -365,7 +365,7 @@ p_telejump(0_39_53_55_58);
 stat_add(woodcutting, 98, 0);
 inv_add(inv, dragon_axe, 1);
 def_int $logs_before = inv_total(inv, logs);
-test_op(oploc1, tree, 0_39_53_56_58);
+test_op(oploc1, tree_38785, 0_39_53_55_57);
 // A normal tree falls with its one log: wait for that, not the first
 // message, which is the swing.
 wait_for("loc_change", 20);
@@ -373,11 +373,12 @@ assert_called_with("mes", "You get some logs.");
 assert_gt(inv_total(inv, logs), $logs_before);
 assert_called("loc_change", 1);
 
-// Yew at x=2754, z=3433. Player on the tile west of it.
+// 742's yews outside Zanaris are not in the trees table: Zanaris's yew at
+// x=2412, z=4463. Player on the tile south of it.
 [label,test_wc_yew_requires_level]
 setup_player("test_player");
-p_telejump(0_43_53_1_41);
-test_op(oploc1, yewtree, 0_43_53_2_41);
+p_telejump(0_37_69_44_46);
+test_op(oploc1, fairykit_yewtree, 0_37_69_44_47);
 wait_for("mes", 5);
 assert_called_with("mes", "You need a Woodcutting level of 60 to chop down this tree.");
 assert_eq(inv_total(inv, yew_logs), 0)

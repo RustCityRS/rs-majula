@@ -14,19 +14,6 @@ assert_eq(~inv_getslot(inv, coins), 1);
 assert_eq(~inv_getslot(inv, bronze_dagger), 0);
 assert_null(~inv_getslot(inv, iron_dagger));
 
-[label,test_inv_delenum_deletes_every_obj_the_enum_lists]
-// enum_738 lists objs (530: net, fishing rod, fly fishing rod, ...).
-setup_player("test_player");
-~test_skip_design;
-inv_clear(inv);
-inv_add(inv, net, 1);
-inv_add(inv, fishing_rod, 1);
-inv_add(inv, coins, 25);
-~inv_delenum(inv, enum_738);
-assert_eq(inv_total(inv, net), 0);
-assert_eq(inv_total(inv, fishing_rod), 0);
-assert_eq(inv_total(inv, coins), 25);
-
 [label,test_loc_addsafe_coord_keeps_a_free_tile]
 setup_player("test_player");
 ~test_skip_design;

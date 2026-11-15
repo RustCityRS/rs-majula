@@ -19,29 +19,25 @@
 //!   socket buffer is full, which empties it, so its reader thread stalls and
 //!   15 s later the client reconnects.
 //!
-//! A tab button is IF_BUTTON1, `p4(com) p2_alt3(obj) p2_alt1(slot)`.
+//! A tab button is IF_BUTTON1.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
+use rs_ver::TypeId;
 
 const OPTIONS: u16 = 261;
+#[cfg(since_647)]
 const PMSETUP: u16 = 982;
 const EMOTES: u16 = 464;
-
-fn com(iface: u16, index: u16) -> i32 {
-    (iface as i32) << 16 | index as i32
-}
 
 fn player(engine: &mut Engine, name: &str) -> HarnessClient {
     engine.harness_reset();
@@ -56,9 +52,7 @@ fn player(engine: &mut Engine, name: &str) -> HarnessClient {
 }
 
 fn click(engine: &mut Engine, client: &mut HarnessClient, com: i32) -> Vec<(u16, Vec<u8>)> {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, 0xFFFF, TypeId::NULL);
     let mut packets = Vec::new();
     for _ in 0..2 {
         engine.cycle();
@@ -84,17 +78,9 @@ fn is_open(engine: &Engine, client: &HarnessClient, iface: u16) -> bool {
 }
 
 fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
-    let opcode = ServerProt::IfSetText as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            String::from_utf8_lossy(&p[4..end]).into_owned()
-        })
+    server::settexts(packets)
+        .into_iter()
+        .map(|(_, t)| t)
         .collect()
 }
 
@@ -105,27 +91,37 @@ fn the_options_tab_toggles_289_s_options() {
         assert!(is_open(engine, &client, OPTIONS), "the options tab");
 
         let mouse = varp(engine, &client, 170);
-        click(engine, &mut client, com(OPTIONS, 6));
+        click(engine, &mut client, com("options:optmouse"));
         assert_eq!(varp(engine, &client, 170), 1 - mouse, "mouse buttons flip");
-        click(engine, &mut client, com(OPTIONS, 6));
+        click(engine, &mut client, com("options:optmouse"));
         assert_eq!(varp(engine, &client, 170), mouse, "and back");
 
         let effects = varp(engine, &client, 171);
-        click(engine, &mut client, com(OPTIONS, 4));
+        click(engine, &mut client, com("options:optchat"));
         assert_eq!(varp(engine, &client, 171), 1 - effects, "chat effects flip");
 
-        click(engine, &mut client, com(OPTIONS, 5));
-        assert!(is_open(engine, &client, PMSETUP), "Chat Setup in the tab");
-        click(engine, &mut client, com(PMSETUP, 52));
-        assert_eq!(varp(engine, &client, 287), 4, "split, in the fourth colour");
-        click(engine, &mut client, com(PMSETUP, 41));
-        assert_eq!(varp(engine, &client, 287), 0, "no split");
-        click(engine, &mut client, com(PMSETUP, 5));
-        assert!(
-            is_open(engine, &client, OPTIONS),
-            "Close puts the options back"
-        );
-        assert!(!is_open(engine, &client, PMSETUP));
+        // 530 has no Chat Setup: its button toggles split private chat.
+        #[cfg(before_647)]
+        {
+            let split = varp(engine, &client, 287);
+            click(engine, &mut client, com("options:optpm"));
+            assert_eq!(varp(engine, &client, 287), 1 - split, "split chat flips");
+        }
+        #[cfg(since_647)]
+        {
+            click(engine, &mut client, com("options:optpm"));
+            assert!(is_open(engine, &client, PMSETUP), "Chat Setup in the tab");
+            click(engine, &mut client, com("pmsetup:colour4"));
+            assert_eq!(varp(engine, &client, 287), 4, "split, in the fourth colour");
+            click(engine, &mut client, com("pmsetup:nosplit"));
+            assert_eq!(varp(engine, &client, 287), 0, "no split");
+            click(engine, &mut client, com("pmsetup:close"));
+            assert!(
+                is_open(engine, &client, OPTIONS),
+                "Close puts the options back"
+            );
+            assert!(!is_open(engine, &client, PMSETUP));
+        }
     });
 }
 
@@ -134,7 +130,7 @@ fn the_mimes_emotes_stay_locked_until_given() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "mimefan");
         assert!(is_open(engine, &client, EMOTES), "the emotes tab");
-        let texts = settexts(&click(engine, &mut client, com(EMOTES, 29)));
+        let texts = settexts(&click(engine, &mut client, com("emotes:emote_glasswall")));
         assert!(
             texts.iter().any(|t| t == "You can't use that emote yet."),
             "Glass Wall is locked; sent {texts:?}"
@@ -145,7 +141,7 @@ fn the_mimes_emotes_stay_locked_until_given() {
             .unwrap()
             .vars
             .set(313, VarValue::Int(1));
-        let texts = settexts(&click(engine, &mut client, com(EMOTES, 29)));
+        let texts = settexts(&click(engine, &mut client, com("emotes:emote_glasswall")));
         assert!(
             !texts.iter().any(|t| t == "You can't use that emote yet."),
             "Glass Wall given; sent {texts:?}"
@@ -154,9 +150,7 @@ fn the_mimes_emotes_stay_locked_until_given() {
 }
 
 fn cheat(client: &mut HarnessClient, input: &str) {
-    let mut p = ClientPacket::new();
-    p.p1(0).p1(0).pjstr(input);
-    client.send(ClientProt::ClientCheat, &p.finish());
+    client.client_cheat(input);
 }
 
 fn messages(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
@@ -214,14 +208,21 @@ fn logged_out(packets: &[(u16, Vec<u8>)]) -> bool {
 }
 
 // 289's logout button is 2011's Exit to Lobby (182 com5) and Exit to Login
-// (com10): both log out, and not during a duel.
+// (com10): both log out, and not during a duel. 530's is com6.
 #[test]
 fn the_logout_tab_logs_out() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "leaver");
         engine.harness_open_side(client.pid, 182);
         engine.cycle();
-        click(engine, &mut client, com(182, 10));
+        // 530's logout button is an if1 one: IF_BUTTON.
+        #[cfg(before_647)]
+        {
+            client.if1_button(com("logout:com_6"));
+            engine.cycle();
+        }
+        #[cfg(since_647)]
+        click(engine, &mut client, com("logout:button2"));
         let mut gone = false;
         for _ in 0..6 {
             engine.cycle();
@@ -234,24 +235,26 @@ fn the_logout_tab_logs_out() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn exit_to_lobby_sends_logout() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "lobbyist");
         engine.harness_open_side(client.pid, 182);
         engine.cycle();
-        let packets = click(engine, &mut client, com(182, 5));
+        let packets = click(engine, &mut client, com("logout:button1"));
         assert!(logged_out(&packets), "told to log out");
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn exit_to_login_sends_logout_full() {
     runner::on_loaded_engine(|engine| {
         let mut client = player(engine, "loginward");
         engine.harness_open_side(client.pid, 182);
         engine.cycle();
-        let packets = click(engine, &mut client, com(182, 10));
+        let packets = click(engine, &mut client, com("logout:button2"));
         assert!(
             packets
                 .iter()
@@ -262,6 +265,7 @@ fn exit_to_login_sends_logout_full() {
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn readerstall_fills_the_client_socket_buffer() {
     runner::on_loaded_engine(|engine| {

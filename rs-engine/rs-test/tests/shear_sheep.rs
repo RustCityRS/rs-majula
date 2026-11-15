@@ -1,17 +1,11 @@
 //! 289's sheep shearing (`general_use/scripts/shear_sheep.rs2`) on 2011's
 //! sheep, which have a Shear op (op1, cache 786): it shears with shears in the
 //! pack (2011 wiki, Wool) and says void-634's line without them.
-//! `OPNPC1`: `p1_alt3(ctrl) p2(npc index)`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_ver::TypeId;
 
@@ -47,9 +41,7 @@ fn sheep(engine: &Engine) -> (u16, u16, u16) {
 }
 
 fn shear(client: &mut HarnessClient, nid: u16) {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2(nid as i32);
-    client.send(ClientProt::OpNpc1, &p.finish());
+    client.op_npc(1, nid);
 }
 
 #[test]

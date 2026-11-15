@@ -6,12 +6,14 @@
 //! fell through to the unhandled catch-all and the report was never
 //! acknowledged.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::client::send_snapshot::SendSnapshot;
 use rs_test::runner;
+#[cfg(before_647)]
+use rs_util::base37::to_userhash;
 
 const RECEIVED: &str = "Thank-you, your abuse report has been received";
 
@@ -28,13 +30,22 @@ fn an_abuse_report_is_acknowledged() {
 fn report(engine: &mut Engine, rule: u8) -> Vec<(i32, String)> {
     engine.harness_reset();
     let mut client = engine.harness_login_returning("reporter").expect("login");
-    engine.cycle();
+    // Past what the first ticks say (530 unlocks the spawn's track).
+    for _ in 0..3 {
+        engine.cycle();
+    }
     client.packets();
 
-    let mut frame = b"offender\0".to_vec();
-    frame.extend([rule, 0]);
-    frame.extend(b"\0");
-    client.send(ClientProt::SendSnapshot, &frame);
+    client.send_msg(&SendSnapshot {
+        #[cfg(before_647)]
+        offender: to_userhash("offender") as i64,
+        #[cfg(since_647)]
+        offender: "offender".into(),
+        reason: rule,
+        mute: false,
+        #[cfg(since_647)]
+        text: String::new(),
+    });
     engine.cycle();
     HarnessClient::game_messages(&client.packets())
 }

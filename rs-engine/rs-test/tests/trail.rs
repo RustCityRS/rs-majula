@@ -10,32 +10,36 @@
 //! A backpack op is IF_BUTTON1 on `inventory:inv`: `p4(com) p2_alt3(obj)
 //! p2_alt1(slot)`.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::BACKPACK;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
-/// `inventory:inv`, the backpack component `[login]` binds `inv` to.
-const BACKPACK: i32 = 149 << 16;
 const CLUE_BOX: u16 = 345;
 const PUZZLE: u16 = 363;
 const REWARD: u16 = 364;
 const SEXTANT: u16 = 365;
 /// 2011's sextant parts: the horizon (com2, cache position 370,33), the sun
 /// (com5, 409,131) and the Tilt Down button (com3).
-const HORIZON: i32 = (SEXTANT as i32) << 16 | 2;
-const SUN: i32 = (SEXTANT as i32) << 16 | 5;
-const TILT_DOWN: i32 = (SEXTANT as i32) << 16 | 3;
+fn horizon() -> i32 {
+    com("trail_sextant:sextant_horizon")
+}
+
+fn sun() -> i32 {
+    com("trail_sextant:sextant_sun")
+}
+
+fn tilt_down() -> i32 {
+    com("trail_sextant:sextant_tilt_up")
+}
 
 fn obj(engine: &Engine, name: &str) -> TypeId {
     engine
@@ -64,9 +68,7 @@ fn holder(engine: &mut Engine, name: &str, items: &[&str]) -> HarnessClient {
 }
 
 fn op1(client: &mut HarnessClient, com: i32, obj: u16, slot: u16) {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, slot, TypeId::from_int(obj as i32));
 }
 
 fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16, Vec<u8>)> {
@@ -78,51 +80,28 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16,
     packets
 }
 
-fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec<u8>> {
-    let opcode = prot as u16;
-    packets
-        .iter()
-        .filter(move |(op, _)| *op == opcode)
-        .map(|(_, p)| p)
-}
-
 /// Each IF_SETTEXT on `iface`: its component and text.
 fn texts(packets: &[(u16, Vec<u8>)], iface: u16) -> Vec<(u16, String)> {
-    of(packets, ServerProt::IfSetText)
-        .filter_map(|p| {
-            let com = u32::from_be_bytes([p[0], p[1], p[2], p[3]]);
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            ((com >> 16) as u16 == iface).then(|| {
-                (
-                    (com & 0xFFFF) as u16,
-                    String::from_utf8_lossy(&p[4..end]).into_owned(),
-                )
-            })
-        })
+    server::settexts(packets)
+        .into_iter()
+        .filter(|(com, _)| (com >> 16) as u16 == iface)
+        .map(|(com, text)| (com as u16, text))
         .collect()
 }
 
 /// Each IF_SETPOSITION: `p4_alt3(com) p2_alt3(x) p2_alt3(y)` (the client
 /// takes the second as x and the third as y: VarbitType, state change 11).
 fn positions(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i16, i16)> {
-    of(packets, ServerProt::IfSetPosition)
-        .map(|p| {
-            let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
-            let x = i16::from_le_bytes([p[4].wrapping_sub(128), p[5]]);
-            let y = i16::from_le_bytes([p[6].wrapping_sub(128), p[7]]);
-            (com, x, y)
-        })
-        .collect()
+    server::positions(packets)
 }
 
-/// The inventory ids UPDATE_INV_FULL sent (`p2 inv`).
+/// The inventory ids UPDATE_INV_FULL and UPDATE_INV_PARTIAL sent.
 fn invs_sent(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
-    of(packets, ServerProt::UpdateInvFull)
-        .map(|p| u16::from_be_bytes([p[0], p[1]]))
-        .collect()
+    let full = server::invs(packets).into_iter().map(|i| i.inv as u16);
+    let partial = server::inv_changes(packets)
+        .into_iter()
+        .map(|(inv, _, _)| inv as u16);
+    full.chain(partial).collect()
 }
 
 #[test]
@@ -214,20 +193,18 @@ fn the_sextant_moves_on_2011s_coordinates() {
                 .map(|&(_, x, y)| (x, y))
         };
         // 289 starts the horizon -56..42 and the sun -60..58 from their places.
-        let (hx, hy) = at(&moved, HORIZON).expect("the horizon placed");
+        let (hx, hy) = at(&moved, horizon()).expect("the horizon placed");
         assert_eq!(hx, 370, "{moved:?}");
         assert!((33 - 56..=33 + 42).contains(&hy), "{moved:?}");
-        let (sx, sy) = at(&moved, SUN).expect("the sun placed");
+        let (sx, sy) = at(&moved, sun()).expect("the sun placed");
         assert_eq!(sx, 409, "{moved:?}");
         assert!((131 - 60..=131 + 58).contains(&sy), "{moved:?}");
 
         // Tilt Down: the horizon 7 lower, the sun 2 higher.
-        let mut p = ClientPacket::new();
-        p.p4(TILT_DOWN).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, tilt_down(), 0xFFFF, TypeId::NULL);
         let moved = positions(&ticks(engine, &mut client, 2));
-        assert_eq!(at(&moved, HORIZON), Some((370, hy + 7)), "{moved:?}");
-        assert_eq!(at(&moved, SUN), Some((409, sy - 2)), "{moved:?}");
+        assert_eq!(at(&moved, horizon()), Some((370, hy + 7)), "{moved:?}");
+        assert_eq!(at(&moved, sun()), Some((409, sy - 2)), "{moved:?}");
     });
 }
 
@@ -251,20 +228,12 @@ fn a_puzzle_box_shows_its_pieces() {
             "the pieces and the hint; sent {sent:?}"
         );
         // The client sends a piece's Move only for the slots IF_SETEVENTS
-        // enabled: `p2_alt2(from) p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
-        let events: Vec<(i32, u16, u16, i32)> = of(&packets, ServerProt::IfSetEvents)
-            .map(|p| {
-                let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
-                let ops = i32::from_be_bytes([p[3], p[2], p[5], p[4]]);
-                let com = i32::from_be_bytes([p[7], p[6], p[9], p[8]]);
-                let to = u16::from_le_bytes([p[10].wrapping_sub(128), p[11]]);
-                (com, from, to, ops)
-            })
-            .collect();
+        // enabled.
+        let events = server::events(&packets);
         assert!(
             events
                 .iter()
-                .any(|&(com, from, to, ops)| com == (PUZZLE as i32) << 16 | 4
+                .any(|&(c, from, to, ops)| c == com("trail_puzzle:puzzle_layer")
                     && from == 0
                     && to == 24
                     && ops != 0),
@@ -298,11 +267,7 @@ fn a_puzzle_box_shows_its_pieces() {
             gap - 1
         };
         let piece = before[beside as usize].expect("a piece beside the gap");
-        let mut p = ClientPacket::new();
-        p.p4((PUZZLE as i32) << 16 | 4)
-            .p2_alt3(piece.int())
-            .p2_alt1(beside as i32);
-        client.send(ClientProt::IfButton1, &p.finish());
+        client.if_button(1, com("trail_puzzle:puzzle_layer"), beside, piece);
         let moved = ticks(engine, &mut client, 2);
         assert!(
             invs_sent(&moved).contains(&140),

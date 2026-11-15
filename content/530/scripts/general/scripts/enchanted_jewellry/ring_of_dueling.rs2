@@ -2,19 +2,19 @@
 // of duelling: Rub is op 4 (cache 786). 289 offers the Duel Arena and Castle
 // Wars; 2011 adds Mobilising Armies and the Fist of Guthix (2011 wiki, Ring of
 // duelling, 21 May 2011: rubbed, it goes to "Al Kharid Duel Arena, Castle Wars
-// Arena, Mobilising Armies Command Centre or Fist of Guthix"). The two new
-// options are worded as void-634's (RingOfDuelling.kt), and they land in
-// void-634's teleport areas (mobilising_armies_teleport, 2412-2415 x
-// 2847-2849; fist_of_guthix_teleport, 1692-1696 x 5599-5603). The messages
-// are 289's: no source gives 2011's.
+// Arena, Mobilising Armies Command Centre or Fist of Guthix"). 530's map has no
+// Mobilising Armies (June 2009, map square 37_44), so it is not offered here.
+// The Fist of Guthix option is worded as void-634's (RingOfDuelling.kt) and
+// lands in void-634's teleport area (fist_of_guthix_teleport, 1692-1696 x
+// 5599-5603). The messages are 289's: no source gives 2011's.
 [opheld4,_category_136]
 // https://youtu.be/vGH1Nyp4IBU
 mes("You rub the ring...");
 def_obj $item = last_item;
 def_int $slot = last_slot;
 p_delay(1);
-def_int $choice = ~p_choice5_header("Al Kharid Duel Arena.", 1, "Castle Wars Arena.", 2, "Mobilising Armies Command Centre.", 3, "Fist of Guthix.", 4, "Nowhere.", 5, "Where would you like to teleport to?");
-if($choice = 5) {
+def_int $choice = ~p_choice4_header("Al Kharid Duel Arena.", 1, "Castle Wars Arena.", 2, "Fist of Guthix.", 3, "Nowhere.", 4, "Where would you like to teleport to?");
+if($choice = 4) {
     return;
 }
 if (~wilderness_level(coord) > 20) {
@@ -30,8 +30,6 @@ if($choice = 1) {
     ~player_teleport_normal(map_findsquare(0_51_50_51_35, 0, 2, ^map_findsquare_lineofwalk));
 } else if ($choice = 2) {
     ~player_teleport_normal(map_findsquare(0_38_48_8_18, 0, 2, ^map_findsquare_lineofwalk));
-} else if ($choice = 3) {
-    ~player_teleport_normal(map_findsquare(0_37_44_45_32, 0, 2, ^map_findsquare_lineofwalk));
 } else {
     ~player_teleport_normal(map_findsquare(0_26_87_30_33, 0, 2, ^map_findsquare_lineofwalk));
 }

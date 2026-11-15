@@ -239,14 +239,6 @@
 [command,sound_synth](synth $sound, int $loops, int $delay)
 // info: Play a $sound for the secondary player
 [command,.sound_synth](synth $sound, int $loops, int $delay)
-// info: Play voice-over $clip at $volume, heard only with voice-over volume on
-[command,sound_speech_volume](vorbis $clip, int $loops, int $delay, int $volume)
-// info: Play voice-over $clip at $volume for the secondary player
-[command,.sound_speech_volume](vorbis $clip, int $loops, int $delay, int $volume)
-// info: Stop the player's voice-over clips
-[command,sound_speech_stop]
-// info: Stop the secondary player's voice-over clips
-[command,.sound_speech_stop]
 // info: Get the permissions level the player has
 [command,staffmodlevel]()(int)
 // info: Get the permissions level the secondary player has
@@ -822,10 +814,6 @@
 [command,loc_shape]()(locshape)
 // info: Get the secondary loc's shape
 [command,.loc_shape]()(locshape)
-// info: Start the player's client downloading $loc's models for $shape, a tick before it needs them
-[command,loc_prefetch](loc $loc, locshape $shape)
-// info: Start every client that can see $coord's zone downloading $loc's models for $shape, a tick before they need them
-[command,loc_prefetchall](coord $coord, loc $loc, locshape $shape)
 // info: Make the loc look like $look for everyone, in its models for the loc's shape, recolours and retextures that match in count; null resets it
 [command,loc_merge](loc $look)
 

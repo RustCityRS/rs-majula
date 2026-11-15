@@ -9,34 +9,39 @@
 //! In the stats tab (interface 320) a click on a flashing stat opens 2011's
 //! level-up details (741) once, at varp 1230 = the stat's menu index times 8,
 //! and stops the flash; a click on a quiet stat opens 2011's guide (499) at
-//! varp 965 = its menu index. The click is IF_BUTTON1 as the client writes it,
-//! `p4(com) p2_alt3(obj) p2_alt1(slot)`.
+//! varp 965 = its menu index. The click is IF_BUTTON1 as the client writes it.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::varp::VarPlayerScope;
-use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
+use rs_test::names::com;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const ATTACK: usize = 0;
 /// 83 xp, level 2, in the engine's tenths.
+#[cfg(since_647)]
 const LEVEL_2_XP: i32 = 830;
 const LEVELUP: u16 = 740;
+#[cfg(since_647)]
 const LEVELUP_DETAILS: u16 = 741;
+#[cfg(since_647)]
 const SKILL_GUIDE: u16 = 499;
 /// The stats tab's attack: its View menu (void-634's id).
-const STATS_ATTACK: i32 = 320 << 16 | 200;
+#[cfg(since_647)]
+fn stats_attack() -> i32 {
+    com("stats:attack_button")
+}
+
+#[cfg(since_647)]
 const SKILL_STAT_FLASH: u16 = 1179;
+#[cfg(since_647)]
 const LEVEL_UP_DETAILS: u16 = 1230;
+#[cfg(since_647)]
 const SKILL_GUIDE_VARP: u16 = 965;
 /// 289's `advance attack`: 2011's jingle 29 (void-634's level_up_attack).
 const ADVANCE_ATTACK: u16 = 29;
@@ -48,55 +53,30 @@ const MASTERY_ROCKET: u16 = 4859;
 const LEVEL_98_XP: i32 = 118_056_060;
 const LEVEL_99_XP: i32 = 130_344_310;
 
+#[cfg(since_647)]
 fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(u32, String)> {
-    let opcode = ServerProt::IfSetText as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            let com = u32::from_be_bytes([p[0], p[1], p[2], p[3]]);
-            let end = p[4..]
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(p.len(), |i| 4 + i);
-            (com, String::from_utf8_lossy(&p[4..end]).into_owned())
-        })
+    server::settexts(packets)
+        .into_iter()
+        .map(|(c, t)| (c as u32, t))
         .collect()
 }
 
 /// Each MIDI_JINGLE's jingle: `p2_alt3(id) p3_alt2(length) p1(volume)`.
 fn jingles(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
-    let opcode = ServerProt::MidiJingle as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| (p[0].wrapping_sub(128) as u16) | (p[1] as u16) << 8)
-        .collect()
+    server::jingles(packets)
 }
 
 /// Each SYNTH_SOUND's synth and delay: `p2(synth) p1(loops) p2(delay) p1(volume) p2(speed)`.
 fn synths(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u16)> {
-    let opcode = ServerProt::SynthSound as u16;
-    packets
-        .iter()
-        .filter(|(op, _)| *op == opcode)
-        .map(|(_, p)| {
-            (
-                u16::from_be_bytes([p[0], p[1]]),
-                u16::from_be_bytes([p[3], p[4]]),
-            )
-        })
-        .collect()
+    server::synths(packets)
 }
 
-/// Clicks the level-up box's "Click here to continue" (740:3): RESUME_PAUSEBUTTON,
-/// `p2(slot) p4_alt2(com)`.
+/// Clicks the level-up box's "Click here to continue" (740:3): RESUME_PAUSEBUTTON.
 fn continue_box(client: &mut HarnessClient) {
-    let mut p = ClientPacket::new();
-    p.p2(0xFFFF).p4_alt2((LEVELUP as i32) << 16 | 3);
-    client.send(ClientProt::ResumePauseButton, &p.finish());
+    client.resume_pausebutton(com("interface_740:close"), 0xFFFF);
 }
 
+#[cfg(since_647)]
 fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
     engine
         .harness_player(client.pid)
@@ -107,10 +87,9 @@ fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
 }
 
 /// Clicks `com`; the game messages said meanwhile.
+#[cfg(since_647)]
 fn click(engine: &mut Engine, client: &mut HarnessClient, com: i32) -> Vec<String> {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
-    client.send(ClientProt::IfButton1, &p.finish());
+    client.if_button(1, com, 0xFFFF, TypeId::NULL);
     let mut said = Vec::new();
     for _ in 0..2 {
         engine.cycle();
@@ -123,6 +102,17 @@ fn click(engine: &mut Engine, client: &mut HarnessClient, com: i32) -> Vec<Strin
     said
 }
 
+/// The toplevel's full-size slot: 548's `mainoverlay_clipped` fixed, 746's
+/// `mainmodal_fullscreen` resizable.
+#[cfg(since_647)]
+fn full_size_slot(toplevel: u16) -> i32 {
+    match toplevel {
+        548 => com("toplevel:mainoverlay_clipped"),
+        746 => com("toplevel_fullscreen:mainmodal_fullscreen"),
+        other => panic!("toplevel {other}"),
+    }
+}
+
 fn is_open(engine: &Engine, client: &HarnessClient, iface: u16) -> bool {
     engine
         .harness_player(client.pid)
@@ -130,6 +120,7 @@ fn is_open(engine: &Engine, client: &HarnessClient, iface: u16) -> bool {
         .is_interface_open(iface)
 }
 
+#[cfg(since_647)]
 #[test]
 fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
     runner::on_loaded_engine(|engine| {
@@ -182,18 +173,15 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
             "attack's flash bit and its icon (1)"
         );
 
-        // "Click here to continue" (740:3): RESUME_PAUSEBUTTON,
-        // `p2(slot) p4_alt2(com)`.
-        let mut p = ClientPacket::new();
-        p.p2(0xFFFF).p4_alt2((LEVELUP as i32) << 16 | 3);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        // "Click here to continue" (740:3): RESUME_PAUSEBUTTON.
+        client.resume_pausebutton(com("interface_740:close"), 0xFFFF);
         for _ in 0..2 {
             engine.cycle();
         }
         assert!(!is_open(engine, &client, LEVELUP), "the box closes");
 
         // The flashing stat opens its level-up details once.
-        let said = click(engine, &mut client, STATS_ATTACK);
+        let said = click(engine, &mut client, stats_attack());
         assert!(
             is_open(engine, &client, LEVELUP_DETAILS),
             "lvl_scroll; said {said:?}"
@@ -201,14 +189,9 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
         // In the full-size slot like the guide: its root is the same
         // backdrop sized to its parent.
         let player = engine.harness_player(client.pid).unwrap();
-        let wide = match player.toplevel {
-            548 => 8,
-            746 => 8,
-            other => panic!("toplevel {other}"),
-        };
+        let wide = full_size_slot(player.toplevel);
         assert_eq!(
-            player.modal_main_parent,
-            (player.toplevel as i32) << 16 | wide,
+            player.modal_main_parent, wide,
             "lvl_scroll in the full-size slot"
         );
         assert_eq!(
@@ -223,7 +206,7 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
         );
 
         // Then it opens attack's guide.
-        let said = click(engine, &mut client, STATS_ATTACK);
+        let said = click(engine, &mut client, stats_attack());
         assert!(
             is_open(engine, &client, SKILL_GUIDE),
             "skill_guide_v2; said {said:?}"
@@ -234,11 +217,7 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
         // `mainmodal_fullscreen` resizable. In the 512x334 main slot it
         // showed as a tinted box.
         let player = engine.harness_player(client.pid).unwrap();
-        let wide = match player.toplevel {
-            548 => 8,
-            746 => 8,
-            other => panic!("toplevel {other}"),
-        };
+        let wide = full_size_slot(player.toplevel);
         assert_eq!(
             player.modal_main_parent,
             (player.toplevel as i32) << 16 | wide
@@ -336,9 +315,7 @@ fn from_level_50_a_level_plays_the_second_jingle() {
         for _ in 0..3 {
             engine.cycle();
         }
-        let mut p = ClientPacket::new();
-        p.p2(0xFFFF).p4_alt2((LEVELUP as i32) << 16 | 3);
-        client.send(ClientProt::ResumePauseButton, &p.finish());
+        client.resume_pausebutton(com("interface_740:close"), 0xFFFF);
         for _ in 0..2 {
             engine.cycle();
         }
@@ -373,9 +350,7 @@ fn ranged_and_defence_change_at_level_50_too() {
                 played.extend(jingles(&client.packets()));
             }
             assert_eq!(played, [first], "the first jingle at level 49");
-            let mut p = ClientPacket::new();
-            p.p2(0xFFFF).p4_alt2((LEVELUP as i32) << 16 | 3);
-            client.send(ClientProt::ResumePauseButton, &p.finish());
+            client.resume_pausebutton(com("interface_740:close"), 0xFFFF);
             for _ in 0..2 {
                 engine.cycle();
             }

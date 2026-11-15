@@ -1,4 +1,8 @@
+#[cfg(since_530)]
+use crate::network::game::client::ClientProtEncode;
 use crate::network::game::client::ClientProtMessage;
+#[cfg(since_530)]
+use crate::network::game::client_prot::ClientProt;
 use crate::network::game::client_prot_category::ClientProtCategory;
 use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
@@ -9,6 +13,7 @@ use rs_ver::TypeId;
 
 #[cfg(before_530)]
 #[client_prot(Fixed(4), UserEvent)]
+#[derive(Debug)]
 pub struct OpNpcT {
     pub nid: u16,
     pub com: u16,
@@ -27,6 +32,7 @@ impl ClientProtMessage for OpNpcT {
 #[cfg(since_530)]
 #[cfg_attr(before_647, client_prot(Fixed(8), UserEvent))]
 #[cfg_attr(since_647, client_prot(Fixed(11), UserEvent))]
+#[derive(Debug)]
 pub struct OpNpcT {
     pub nid: u16,
     #[cfg(since_647)]
@@ -44,6 +50,17 @@ impl ClientProtMessage for OpNpcT {
         let slot = buf.g2_alt2();
         let nid = buf.g2_alt3();
         OpNpcT { nid, slot, com }
+    }
+}
+
+#[cfg(all(since_530, before_647))]
+impl ClientProtEncode for OpNpcT {
+    const PROT: ClientProt = ClientProt::OpNpcT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt1(self.com);
+        buf.p2_alt2(self.slot);
+        buf.p2_alt3(self.nid);
     }
 }
 
@@ -66,6 +83,20 @@ impl ClientProtMessage for OpNpcT {
     }
 }
 
+#[cfg(since_647)]
+#[cfg(before_742)]
+impl ClientProtEncode for OpNpcT {
+    const PROT: ClientProt = ClientProt::OpNpcT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2_alt2(self.obj.g2());
+        buf.p2_alt2(self.slot);
+        buf.p2_alt1(self.nid);
+        buf.p4_alt3(self.com);
+        buf.p1_alt2(self.ctrl as u8);
+    }
+}
+
 #[cfg(since_742)]
 impl ClientProtMessage for OpNpcT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
@@ -81,5 +112,18 @@ impl ClientProtMessage for OpNpcT {
             com,
             ctrl,
         }
+    }
+}
+
+#[cfg(since_742)]
+impl ClientProtEncode for OpNpcT {
+    const PROT: ClientProt = ClientProt::OpNpcT;
+
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1_alt3(self.ctrl as u8);
+        buf.p2(self.nid);
+        buf.p4(self.com);
+        buf.p2_alt3(self.obj.g2());
+        buf.p2_alt1(self.slot);
     }
 }

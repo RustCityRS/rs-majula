@@ -3,7 +3,7 @@
 //! `skill_creation_saved`. Varp 1363, which holds the client's copy beside
 //! character creation's varbits, is not saved.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
 use rs_pack::cache::varp::VarPlayerScope;
 use rs_test::runner;

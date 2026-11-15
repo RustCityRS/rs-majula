@@ -17,28 +17,33 @@
 //!   base.
 //! - Closed, the shop stops going to the client; reopened, it goes whole.
 
-#![cfg(since_647)]
+#![cfg(all(since_530, before_742))]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
-use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_test::server;
 use rs_ver::TypeId;
 
 const SHOP: u16 = 620;
+#[cfg(since_647)]
 const SIDE: u16 = 621;
 const STOCK: i32 = 620 << 16 | 25;
 const BACKPACK: i32 = 621 << 16;
+#[cfg(since_647)]
 const TITLE: i32 = 620 << 16 | 20;
+#[cfg(since_647)]
 const SHOP_VARP: u16 = 118;
+/// The steel axe's name: 2011 renamed it.
+#[cfg(all(since_530, before_647))]
+const STEEL_AXE: &str = "Steel axe";
+#[cfg(since_647)]
+const STEEL_AXE: &str = "Steel hatchet";
+#[cfg(since_647)]
 const BASE_VARC: u16 = 946;
+#[cfg(since_647)]
 const SLOT_COMPONENTS: i32 = 6;
-const NONE: i32 = 0xFFFF;
 
 fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let id = match kind {
@@ -112,9 +117,7 @@ fn customer_of(
 
 /// Trade on Bob; the packets until his shop is open.
 fn trade(engine: &mut Engine, client: &mut HarnessClient, nid: u16) -> Vec<(u16, Vec<u8>)> {
-    let mut p = ClientPacket::new();
-    p.p1_alt3(0).p2_alt2(nid as i32);
-    client.send(ClientProt::OpNpc3, &p.finish());
+    client.op_npc(3, nid);
     let mut packets = Vec::new();
     for _ in 0..10 {
         engine.cycle();
@@ -133,9 +136,12 @@ fn trade(engine: &mut Engine, client: &mut HarnessClient, nid: u16) -> Vec<(u16,
 }
 
 fn button(client: &mut HarnessClient, prot: ClientProt, com: i32, slot: i32) {
-    let mut p = ClientPacket::new();
-    p.p4(com).p2_alt3(NONE).p2_alt1(slot);
-    client.send(prot, &p.finish());
+    let op = match prot {
+        ClientProt::IfButton1 => 1,
+        ClientProt::IfButton2 => 2,
+        _ => unreachable!(),
+    };
+    client.if_button(op, com, slot as u16, TypeId::NULL);
 }
 
 /// A click on the side panel's slot: there the client's slot component carries the obj
@@ -147,11 +153,12 @@ fn side_button(
     slot: i32,
     obj: &str,
 ) {
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt3(id(engine, "obj", obj).int())
-        .p2_alt1(slot);
-    client.send(prot, &p.finish());
+    let op = match prot {
+        ClientProt::IfButton1 => 1,
+        ClientProt::IfButton2 => 2,
+        _ => unreachable!(),
+    };
+    client.if_button(op, BACKPACK, slot as u16, id(engine, "obj", obj));
 }
 
 /// The game messages over `ticks`.
@@ -168,21 +175,12 @@ fn said(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Vec<St
     said
 }
 
-fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec<u8>> {
-    let opcode = prot as u16;
-    packets
-        .iter()
-        .filter(move |(op, _)| *op == opcode)
-        .map(|(_, p)| p)
-}
-
 /// The inventory ids UPDATE_INV_FULL sent (`p2 inv`).
 fn invs_sent(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
-    of(packets, ServerProt::UpdateInvFull)
-        .map(|p| u16::from_be_bytes([p[0], p[1]]))
-        .collect()
+    server::invs(packets).iter().map(|i| i.inv as u16).collect()
 }
 
+#[cfg(since_647)]
 #[test]
 fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
     runner::on_loaded_engine(|engine| {
@@ -210,20 +208,17 @@ fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
             TypeId::new(1),
             "289's axeshop is 2011's inventory 1"
         );
-        // VARP_SMALL: p1_alt3 value, p2 varp.
         assert!(
-            of(&packets, ServerProt::VarpSmall)
-                .any(|p| u16::from_be_bytes([p[1], p[2]]) == SHOP_VARP
-                    && 128u8.wrapping_sub(p[0]) as u16 == axeshop.g2()),
+            server::varps(&packets).contains(&(SHOP_VARP, axeshop.int())),
             "varp 118 names the shop's inventory"
         );
         assert!(
             invs_sent(&packets).contains(&axeshop.g2()),
             "the stock goes to the client"
         );
-        // VARC_SMALL: p1_alt2 value, p2_alt1 varc. Bob's base stock, slot by slot.
-        let bases: Vec<(u16, i32)> = of(&packets, ServerProt::VarcSmall)
-            .map(|p| (u16::from_le_bytes([p[1], p[2]]), -(p[0] as i8) as i32))
+        // Bob's base stock, slot by slot.
+        let bases: Vec<(u16, i32)> = server::varcs(&packets)
+            .into_iter()
             .filter(|(v, _)| (BASE_VARC..BASE_VARC + 40).contains(v))
             .collect();
         assert_eq!(bases.len(), 40, "every slot's base stock");
@@ -232,19 +227,18 @@ fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
             [5, 10, 5, 3, 5, 2, 1, 0],
             "289's stock counts as each slot's base"
         );
-        let titled = of(&packets, ServerProt::IfSetText).any(|p| {
-            i32::from_be_bytes([p[0], p[1], p[2], p[3]]) == TITLE
-                && p[4..].starts_with(b"Bob's Brilliant Axes.")
-        });
+        let titled = server::settexts(&packets)
+            .iter()
+            .any(|(com, text)| *com == TITLE && text.starts_with("Bob's Brilliant Axes."));
         assert!(titled, "289's title on 2011's");
         assert!(
-            of(&packets, ServerProt::RunClientScript)
-                .any(|p| p[p.len() - 4..] == 150i32.to_be_bytes()),
+            server::scripts(&packets).iter().any(|(s, _)| *s == 150),
             "the backpack grid (clientscript 150)"
         );
     });
 }
 
+#[cfg(since_647)]
 #[test]
 fn a_buy_costs_2011_s_price_by_the_shop_s_stock() {
     runner::on_loaded_engine(|engine| {
@@ -306,7 +300,7 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
         side_button(engine, &mut client, ClientProt::IfButton1, 0, "steel_axe");
         assert_eq!(
             said(engine, &mut client, 1),
-            [format!("Steel hatchet: shop will buy for {}gp.", price(0))]
+            [format!("{STEEL_AXE}: shop will buy for {}gp.", price(0))]
         );
         side_button(engine, &mut client, ClientProt::IfButton2, 0, "steel_axe");
         said(engine, &mut client, 1);
@@ -315,7 +309,7 @@ fn a_sale_pays_289_s_price_and_bob_takes_only_his_stock() {
         side_button(engine, &mut client, ClientProt::IfButton1, 1, "steel_axe");
         assert_eq!(
             said(engine, &mut client, 1),
-            [format!("Steel hatchet: shop will buy for {}gp.", price(1))]
+            [format!("{STEEL_AXE}: shop will buy for {}gp.", price(1))]
         );
 
         side_button(
@@ -375,6 +369,7 @@ fn a_closed_shop_stops_going_to_the_client_and_reopens_whole() {
 /// at 2011's Musa Point by Shopkeeper Kofi (npc 11674; no source found for a
 /// rebuild of the store): 289's own keepers, 532 and 533, are 2011's
 /// gravecreepers.
+#[cfg(since_647)]
 #[test]
 fn kofi_keeps_289_s_karamja_general_store() {
     runner::on_loaded_engine(|engine| {

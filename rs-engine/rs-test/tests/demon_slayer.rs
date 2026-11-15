@@ -5,19 +5,19 @@
 //! Silverlight's case; Delrith, summoned in the stone circle, is banished with
 //! the incantation.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::life;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
-use rs_test::talk::{converse, explore, talk_to};
+#[cfg(since_647)]
+use rs_test::talk::explore;
+use rs_test::talk::{converse, talk_to};
 use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
@@ -26,8 +26,6 @@ use std::sync::Mutex;
 /// collision map: the cases take turns.
 static TURN: Mutex<()> = Mutex::new(());
 
-/// `inventory:inv`.
-const BACKPACK: i32 = 149 << 16;
 /// The palace kitchen's drain (loc_31759) and the key's spot in the sewer
 /// below (loc_17431), from 647's maps.
 const DRAIN: (u16, u16, u16) = (31759, 3225, 3496);
@@ -226,10 +224,12 @@ fn no_script_errors(engine: &mut Engine, what: &str) {
 }
 
 /// An npc, the quest's state, %demon_slayer_bones and the backpack.
+#[cfg(since_647)]
 type Case = (&'static str, Demon, i32, &'static [(&'static str, i32)]);
 
 /// Each npc at each step of the quest says something down every branch, and
 /// fails no script.
+#[cfg(since_647)]
 #[test]
 fn every_demon_slayer_npc_answers_every_branch() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -305,6 +305,7 @@ fn every_demon_slayer_npc_answers_every_branch() {
 /// For a coin the gypsy tells the fortune and Wally's story, which deals the
 /// player's incantation (the five words, each in its own place) and starts the
 /// quest; she then recites the same incantation.
+#[cfg(since_647)]
 #[test]
 fn gypsy_aris_deals_the_incantation_and_starts_the_quest() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -455,15 +456,14 @@ fn water_washes_the_drain_key_into_the_sewer() {
             0,
             &[("bucket_water", 1)],
         );
-        let mut p = ClientPacket::new();
-        p.p2_alt2(bucket.int())
-            .p2_alt2(0)
-            .p2(DRAIN.2 as i32)
-            .p4_alt2(BACKPACK)
-            .p2_alt2(DRAIN.1 as i32)
-            .p1_alt1(0)
-            .p2_alt1(DRAIN.0 as i32);
-        client.send(ClientProt::OpLocT, &p.finish());
+        client.op_loc_t(
+            DRAIN.1,
+            DRAIN.2,
+            TypeId::from_int(DRAIN.0 as i32),
+            BACKPACK,
+            0,
+            bucket,
+        );
         let talk = converse(engine, &mut client, &[], 60);
         assert!(
             talk.said("washed the key down into the sewer"),
@@ -479,12 +479,12 @@ fn water_washes_the_drain_key_into_the_sewer() {
 
         engine.harness_telejump(client.pid, SEWER_KEY.1 + 1, 0, SEWER_KEY.2);
         ticks(engine, &mut client, 3);
-        let mut p = ClientPacket::new();
-        p.p2_alt1(SEWER_KEY.2 as i32)
-            .p2_alt1(SEWER_KEY.0 as i32)
-            .p1(0)
-            .p2_alt2(SEWER_KEY.1 as i32);
-        client.send(ClientProt::OpLoc1, &p.finish());
+        client.op_loc(
+            1,
+            SEWER_KEY.1,
+            SEWER_KEY.2,
+            TypeId::from_int(SEWER_KEY.0 as i32),
+        );
         let talk = converse(engine, &mut client, &[], 60);
         no_script_errors(engine, "the drain");
         assert!(
@@ -498,6 +498,7 @@ fn water_washes_the_drain_key_into_the_sewer() {
 }
 
 /// With the three keys Sir Prysin opens the case and hands Silverlight over.
+#[cfg(since_647)]
 #[test]
 fn sir_prysin_hands_over_silverlight_for_the_three_keys() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -583,8 +584,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
             // Level 99's xp, in tenths.
             player.stats.xp[skill] = 130_344_310;
         }
-        let lp = player.vars.get(1240).as_int();
-        player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+        life::set(player, 99 * life::SCALE);
         // Past 289's "under attack" window.
         ticks(engine, &mut client, 12);
 
@@ -615,9 +615,7 @@ fn delrith_is_banished_with_the_player_s_incantation() {
         stats[NpcStat::Defence as usize] = 1;
 
         let fight = |engine: &mut Engine, client: &mut HarnessClient, nid: u16, which: &str| {
-            let mut p = ClientPacket::new();
-            p.p1_alt2(0).p2_alt3(nid as i32);
-            client.send(ClientProt::OpNpc2, &p.finish());
+            client.op_npc(2, nid);
             let mut said = Vec::new();
             for tick in 0..300 {
                 // The engine drops a client silent for 100 ticks.

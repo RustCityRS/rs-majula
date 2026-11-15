@@ -12,6 +12,9 @@
 
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_protocol::network::game::client::oploc6::OpLoc6;
+use rs_protocol::network::game::client::opnpc6::OpNpc6;
+use rs_protocol::network::game::client::opobj6::OpObj6;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_ver::TypeId;
@@ -60,17 +63,40 @@ fn examine_answers_with_the_types_desc() {
 fn examine(engine: &mut Engine, prot: ClientProt, id: u16) -> Vec<(i32, String)> {
     engine.harness_reset();
     let mut client = engine.harness_login_returning("examiner").expect("login");
-    engine.cycle();
+    // Past what the first ticks say (530 unlocks the spawn's track).
+    for _ in 0..3 {
+        engine.cycle();
+    }
     client.packets();
 
-    #[cfg(all(since_530, before_647))]
-    let payload = match prot {
-        ClientProt::OpNpc6 => id.to_be_bytes(),
-        _ => [(id as u8).wrapping_add(128), (id >> 8) as u8],
-    };
-    #[cfg(since_647)]
-    let payload = id.to_be_bytes();
-    client.send(prot, &payload);
+    // Examine names only the type; 742's coords and ctrl go unread.
+    let id = TypeId::new(id);
+    match prot {
+        ClientProt::OpLoc6 => client.send_msg(&OpLoc6 {
+            #[cfg(since_742)]
+            x: 0,
+            #[cfg(since_742)]
+            z: 0,
+            loc: id,
+            #[cfg(since_742)]
+            ctrl: false,
+        }),
+        ClientProt::OpNpc6 => client.send_msg(&OpNpc6 {
+            npc: id,
+            #[cfg(since_742)]
+            ctrl: false,
+        }),
+        ClientProt::OpObj6 => client.send_msg(&OpObj6 {
+            #[cfg(since_742)]
+            x: 0,
+            #[cfg(since_742)]
+            z: 0,
+            obj: id,
+            #[cfg(since_742)]
+            ctrl: false,
+        }),
+        _ => panic!("{prot:?} is not an examine"),
+    }
     engine.cycle();
     HarnessClient::game_messages(&client.packets())
 }

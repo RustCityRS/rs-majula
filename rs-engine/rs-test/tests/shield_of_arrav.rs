@@ -3,23 +3,18 @@
 //! Gang, TSNR-A0LI8s Black Arm Gang) and the 2011-03-02 one (UgONltQDj38); transcripts in
 //! runescape/target/refs/arrav.
 
-#![cfg(since_647)]
+#![cfg(since_530)]
 
-#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
-mod client_packet;
-
-use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
-use rs_protocol::network::game::client_prot::ClientProt;
+use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
 use rs_ver::TypeId;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
-const BACKPACK: i32 = 149 << 16;
 /// Locs in cache 786's map (maps/l*.jm2): the Phoenix chest underground (l50_152 35,33) and the
 /// Black Arm cupboard upstairs (l49_52 level 1, 53,57).
 const PHOENIX_CHEST: (u16, u16, u16) = (2403, 3235, 9761);
@@ -89,8 +84,8 @@ fn tele(engine: &mut Engine, client: &mut HarnessClient, x: u16, level: u8, z: u
     settle(engine, client, 3);
 }
 
-/// The nid of the nearest npc of that name to (x, z), and a walkable tile beside it.
-fn npc_near(engine: &Engine, name: &str, x: u16, z: u16) -> (u16, u16, u16) {
+/// The nid of the nearest npc of that name to (x, z), and the walkable tiles beside it.
+fn npc_near(engine: &Engine, name: &str, x: u16, z: u16) -> (u16, Vec<(u16, u16)>) {
     let want = id(engine, "npc", name);
     let (nid, nx, nz) = engine
         .npc_list
@@ -107,7 +102,7 @@ fn npc_near(engine: &Engine, name: &str, x: u16, z: u16) -> (u16, u16, u16) {
         })
         .min_by_key(|&(_, nx, nz)| nx.abs_diff(x) as u32 + nz.abs_diff(z) as u32)
         .unwrap_or_else(|| panic!("{name} is spawned"));
-    let (sx, sz) = [
+    let beside: Vec<(u16, u16)> = [
         (1i16, 0i16),
         (-1, 0),
         (0, 1),
@@ -119,9 +114,31 @@ fn npc_near(engine: &Engine, name: &str, x: u16, z: u16) -> (u16, u16, u16) {
     ]
     .into_iter()
     .map(|(dx, dz)| (nx.wrapping_add_signed(dx), nz.wrapping_add_signed(dz)))
-    .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
-    .unwrap_or_else(|| panic!("a walkable tile beside {name}"));
-    (nid, sx, sz)
+    .filter(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+    .collect();
+    assert!(!beside.is_empty(), "a walkable tile beside {name}");
+    (nid, beside)
+}
+
+/// Runs `op` from each tile beside the npc in turn until it is not out of reach: a tile can be
+/// walkable yet across a counter or wall from the npc.
+fn from_beside(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    beside: &[(u16, u16)],
+    mut op: impl FnMut(&mut Engine, &mut HarnessClient) -> Conversation,
+) -> Conversation {
+    let mut t = None;
+    for &(sx, sz) in beside {
+        tele(engine, client, sx, 0, sz);
+        let c = op(engine, client);
+        let unreached = c.messages.iter().any(|m| m == "I can't reach that!");
+        t = Some(c);
+        if !unreached {
+            break;
+        }
+    }
+    t.unwrap()
 }
 
 fn talk(
@@ -132,16 +149,17 @@ fn talk(
     z: u16,
     choices: &[&str],
 ) -> Conversation {
-    let (nid, sx, sz) = npc_near(engine, name, x, z);
-    tele(engine, client, sx, 0, sz);
-    talk_to(client, nid);
-    converse(engine, client, choices, 300)
+    let (nid, beside) = npc_near(engine, name, x, z);
+    from_beside(engine, client, &beside, |engine, client| {
+        talk_to(client, nid);
+        converse(engine, client, choices, 300)
+    })
 }
 
 /// King Roald on his throne (3222,3476): the tiles beside him are behind it, so he is spoken to
 /// from the carpet in front.
 fn talk_to_king(engine: &mut Engine, client: &mut HarnessClient) -> Conversation {
-    let (nid, _, _) = npc_near(engine, "king_roald", 3222, 3476);
+    let (nid, _) = npc_near(engine, "king_roald", 3222, 3476);
     tele(engine, client, 3222, 0, 3473);
     talk_to(client, nid);
     converse(engine, client, &[], 300)
@@ -149,12 +167,7 @@ fn talk_to_king(engine: &mut Engine, client: &mut HarnessClient) -> Conversation
 
 fn oploc1(client: &mut HarnessClient, loc: (u16, u16, u16)) {
     let (id, x, z) = loc;
-    let mut p = ClientPacket::new();
-    p.p2_alt1(z as i32)
-        .p2_alt1(id as i32)
-        .p1(0)
-        .p2_alt2(x as i32);
-    client.send(ClientProt::OpLoc1, &p.finish());
+    client.op_loc(1, x, z, TypeId::from_int(id as i32));
 }
 
 fn says(t: &Conversation, lines: &[&str]) {
@@ -178,12 +191,7 @@ fn login(engine: &mut Engine, name: &str) -> HarnessClient {
 
 fn oploc2(client: &mut HarnessClient, loc: (u16, u16, u16)) {
     let (id, x, z) = loc;
-    let mut p = ClientPacket::new();
-    p.p2_alt1(id as i32)
-        .p1_alt2(0)
-        .p2_alt2(z as i32)
-        .p2_alt3(x as i32);
-    client.send(ClientProt::OpLoc2, &p.finish());
+    client.op_loc(2, x, z, TypeId::from_int(id as i32));
 }
 
 /// The backpack slot holding `name`.
@@ -211,17 +219,12 @@ fn use_on_npc(
     z: u16,
     choices: &[&str],
 ) -> Conversation {
-    let (nid, sx, sz) = npc_near(engine, npc, x, z);
-    tele(engine, client, sx, 0, sz);
-    let slot = slot_of(engine, client, obj);
-    let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj).int())
-        .p2_alt2(slot)
-        .p2_alt1(nid as i32)
-        .p4_alt3(BACKPACK)
-        .p1_alt2(0);
-    client.send(ClientProt::OpNpcT, &p.finish());
-    converse(engine, client, choices, 300)
+    let (nid, beside) = npc_near(engine, npc, x, z);
+    from_beside(engine, client, &beside, |engine, client| {
+        let slot = slot_of(engine, client, obj);
+        client.op_npc_t(nid, BACKPACK, slot as u16, id(engine, "obj", obj));
+        converse(engine, client, choices, 300)
+    })
 }
 
 /// Uses the backpack's `used` on its `target` (IF_BUTTONT) and answers what follows.
@@ -236,14 +239,14 @@ fn use_on_obj(
         slot_of(engine, client, used),
         slot_of(engine, client, target),
     );
-    let mut p = ClientPacket::new();
-    p.p4(BACKPACK)
-        .p2_alt1(ts)
-        .p2_alt1(us)
-        .p2_alt2(id(engine, "obj", used).int())
-        .p4_alt1(BACKPACK)
-        .p2(id(engine, "obj", target).int());
-    client.send(ClientProt::IfButtonT, &p.finish());
+    client.if_button_t(
+        BACKPACK,
+        us as u16,
+        id(engine, "obj", used),
+        BACKPACK,
+        ts as u16,
+        id(engine, "obj", target),
+    );
     converse(engine, client, choices, 300)
 }
 
