@@ -22420,6 +22420,7 @@ cursor1=1,cursor_talkto
 desc=An ancient looking gnome.
 param=death_anim,midget_death
 param=death_sound,gnome_death
+wanderrange=0
 
 // 670
 [grandtree_narnode]
@@ -22470,6 +22471,7 @@ desc=A rough looking gnome.
 param=death_anim,midget_death
 param=death_sound,gnome_death
 wanderrange=1
+maxrange=1
 
 // 672
 [grandtree_anita]
@@ -197371,6 +197373,8 @@ vislevel=0
 multivar=luc2_hero_part_1_vis
 multinpc=0,grandtree_hazelmere
 unknown119=3
+// The spawned npc at 2011: 289's server key of grandtree_hazelmere.
+wanderrange=0
 
 // 8461
 [turael_8461]

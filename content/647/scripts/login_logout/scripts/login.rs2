@@ -62,6 +62,10 @@ if (%tutorial3_postquest < 5) {
         %tutorial3_postquest = 5;
     }
 }
+// 289's login.rs2: Charlie is back in his cell for a player who logs in beside it (The Grand Tree).
+if(inzone(movecoord(^grandtree_jail_coord, 0, 0, -2), movecoord(^grandtree_jail_coord, 3, 0, 2), coord) = true) {
+    ~grandtree_spawn_charlie;
+}
 // 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
 // island; here only one the player entered (%tutorial past 0): 2011's new
 // players spawn on the island without entering it (tutorial.rs2).

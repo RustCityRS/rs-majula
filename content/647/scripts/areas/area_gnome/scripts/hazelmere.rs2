@@ -1,0 +1,61 @@
+// 289's areas/area_gnome/scripts/hazelmere.rs2, line for line.
+//
+// 2011 (cache 786): the npc spawned in his house is grandtree_hazelmere_multi, which the client draws
+// as grandtree_hazelmere while the varbit luc2_hero_part_1_vis is 0 (a later quest's; nothing here
+// sets it). The engine runs the spawned type's trigger, and the multinpc has no name or head of its
+// own, so his lines are said as grandtree_hazelmere.
+[opnpc1,grandtree_hazelmere_multi]
+if(inv_total(inv, trail_clue_medium_anagram001) > 0) {
+    @trail_hazelmere;
+}
+switch_int(%grandtree) {
+    case ^grandtree_spoken_hazelmere : @hazelmere_write_scroll;
+    case ^grandtree_started :
+        ~mesbox("The mage starts to speak but all you hear is:");
+        ~hazelmere_chatnpc("<p,happy>Blah. Blah, blah, blah, blah...blah!");
+        if(inv_total(inv, grandtree_barksample) = 0) {
+            ~mesbox("You still can't understand the mage.|King Narnode said to give him the bark sample.");
+            return;
+        }
+        ~objbox(grandtree_barksample, "You give the bark sample to Hazelmere.", 250, 0, 0);
+        ~mesbox("The mage carefully examines the sample.");
+        inv_del(inv, grandtree_barksample, 1);
+        %grandtree = ^grandtree_spoken_hazelmere;
+        @hazelmere_write_scroll;
+    case default :
+        ~mesbox("The mage starts to speak but all you hear is:");
+        ~hazelmere_chatnpc("<p,happy>Blah. Blah, blah, blah, blah...blah!");
+    
+}
+
+[label,hazelmere_write_scroll]
+~hazelmere_chatnpc("<p,neutral>Blah, blah...Daconia...blah, blah.");
+// https://youtu.be/LFvLBRCxFwk?si=R4nV14tr_dJApo7u&t=299
+if(~obj_gettotal(grandtree_scroll) > 0) {
+    ~mesbox("You still can't understand Hazelmere.|The mage wrote it down for you on a scroll.");
+    return;
+}
+~chatplayer("<p,neutral>Can you write this down and I'll try and translate it?");
+~hazelmere_chatnpc("<p,quiz>Blah, blah?");
+~mesbox("You make a writing motion.|The mage scribbles something down on a scroll.");
+~objbox(grandtree_scroll, "Hazelmere has given you the scroll.", 250, 0, 0);
+inv_add(inv, grandtree_scroll, 1);
+
+[label,trail_hazelmere]
+if(inv_total(inv, trail_clue_medium_anagram001_challenge) > 0) {
+    @trail_challengenpc_prompt("<p,neutral>Blah, blah?", "<p,happy>Blah, blah, blah!", "<p,angry>Blah!",
+        "Hazelmere has given you another clue scroll!", trail_clue_medium_anagram001, trail_clue_medium_anagram001_challenge);
+}
+~hazelmere_chatnpc("<p,neutral>Blah, blah, blah...blah!");
+~chatplayer("<p,confused>What?");
+~hazelmere_chatnpc("<p,neutral>Blah, blah.");
+inv_add(inv, trail_clue_medium_anagram001_challenge, 1);
+~objbox(trail_clue_medium_anagram001_challenge, "Hazelmere has given you a challenge scroll!", 250, 0, 0);
+
+// Hazelmere's chat line, with chatnpc's facing (interface_chat's chat.rs2).
+[proc,hazelmere_chatnpc](string $string)
+facesquare(npc_coord);
+if (npc_getmode ! opplayer2 & npc_getmode ! applayer2) {
+    npc_setmode(playerfaceclose);
+}
+~chatnpc_specific("Hazelmere", grandtree_hazelmere, $string);
