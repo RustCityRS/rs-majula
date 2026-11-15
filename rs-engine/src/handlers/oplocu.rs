@@ -9,19 +9,24 @@ use crate::watch::{Target, Using};
 use rs_grid::CoordGrid;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::oplocu::OpLocU;
+use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ComId, ScriptError};
 
 #[cfg(before_647)]
 impl ClientGameHandler for OpLocU {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(before_530)]
+        let com = self.com.into();
+        #[cfg(since_530)]
+        let com = self.com;
         handle(
             self.x,
             self.z,
             self.loc,
-            self.com.into(),
+            com,
             self.slot,
-            self.obj,
+            self.obj.g2(),
             active,
         )
     }
@@ -30,13 +35,13 @@ impl ClientGameHandler for OpLocU {
 pub(super) fn handle(
     x: u16,
     z: u16,
-    loc: u16,
+    loc: TypeId,
     com: ComId,
     slot: u16,
     obj: u16,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    active.watch_use(Using::Item(obj), Target::Loc { id: loc, x, z });
+    active.watch_use(Using::Item(TypeId::new(obj)), Target::Loc { id: loc, x, z });
     if active.player.state.delayed {
         active.unset_map_flag();
         return Ok(());
@@ -64,7 +69,7 @@ pub(super) fn handle(
         return Ok(());
     }
 
-    if check_held(active, com, slot, obj) != HeldCheck::Ok {
+    if check_held(active, com, slot, TypeId::new(obj)) != HeldCheck::Ok {
         active.unset_map_flag();
         return Ok(());
     }
@@ -75,7 +80,7 @@ pub(super) fn handle(
         return Ok(());
     }
 
-    active.player.last_use_item = Some(obj);
+    active.player.last_use_item = Some(TypeId::new(obj));
     active.player.last_use_slot = Some(slot);
     active.player.last_use_com = Some(com);
 

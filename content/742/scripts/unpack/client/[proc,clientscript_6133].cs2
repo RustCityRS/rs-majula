@@ -1,0 +1,5 @@
+// 6133
+[proc,clientscript_6133](int $int0, int $int1, int $int2, int $int3)(int)
+$int0 = calc($int2 - $int0);
+$int1 = calc($int3 - $int1);
+return(calc($int0 * $int0 + $int1 * $int1));

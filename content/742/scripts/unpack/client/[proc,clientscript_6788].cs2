@@ -1,0 +1,24 @@
+// 6788
+[proc,clientscript_6788](int $int0)
+if (%varplayerbit_9030 = 1) {
+    if_sethide(interface_1220:com_12, true);
+    ~aif_text_layer_build_new(interface_1220:com_32, "Next Task", verdana_13pt_regular, 0xebe0bc, ^black);
+    if_setposition(interface_1220:com_26, if_getx(interface_1220:com_26), calc(if_gety(interface_1220:com_16) + 1), ^setpos_abs_left, ^setpos_abs_top);
+} else {
+    if_sethide(interface_1220:com_12, false);
+    ~aif_text_layer_build_new(interface_1220:com_32, "Active Task", verdana_13pt_regular, 0xebe0bc, ^black);
+    if_setposition(interface_1220:com_26, if_getx(interface_1220:com_26), calc(if_gety(interface_1220:com_16) + 1), ^setpos_abs_left, ^setpos_abs_top);
+}
+if (%varplayerbit_10700 = 0 & $int0 = 0) {
+    if_sethide(interface_1220:com_0, true);
+} else {
+    if_sethide(interface_1220:com_0, false);
+}
+def_struct $struct1 = ~clientscript_5795($int0);
+if ($struct1 = null) {
+    return;
+}
+~clientscript_5796($int0, 0, interface_1220:com_24, interface_1220:com_23, interface_1220:com_22, null, null, null);
+~clientscript_5791;
+~clientscript_6793($int0, %varplayerbit_8578);
+~clientscript_6794($int0, %varplayerbit_8578);

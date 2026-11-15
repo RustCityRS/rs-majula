@@ -1,0 +1,166 @@
+// 4914
+[proc,clientscript_4914](int $int0)(string)
+def_enum $enum1 = ~clientscript_4824($int0);
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+switch_int ($int0) {
+    case 21 :
+        $int3 = %varclan_2330;
+        $int2 = %varclan_2331;
+        $int4 = %varclan_2336;
+    case 22 :
+        $int3 = %varclan_2340;
+        $int2 = %varclan_2341;
+        $int4 = %varclan_2346;
+    case 23 :
+        $int3 = %varclan_2350;
+        $int2 = %varclan_2351;
+        $int4 = %varclan_2356;
+    case 24 :
+        $int3 = %varclan_2360;
+        $int2 = %varclan_2361;
+        $int4 = %varclan_2366;
+    case 25 :
+        $int3 = %varclan_2370;
+        $int2 = %varclan_2371;
+        $int4 = %varclan_2376;
+    case 26 :
+        $int3 = %varclan_2380;
+        $int2 = %varclan_2381;
+        $int4 = %varclan_2386;
+    case 27 :
+        $int3 = %varclan_2390;
+        $int2 = %varclan_2391;
+        $int4 = %varclan_2396;
+    case 28 :
+        $int3 = %varclan_2400;
+        $int2 = %varclan_2401;
+        $int4 = %varclan_2406;
+    case 31 :
+        $int3 = %varclan_2460;
+        $int2 = %varclan_2461;
+        $int4 = %varclan_2466;
+    case 32 :
+        $int3 = %varclan_2470;
+        $int2 = %varclan_2471;
+        $int4 = %varclan_2476;
+    case 33 :
+        $int3 = %varclan_2480;
+        $int2 = %varclan_2481;
+        $int4 = %varclan_2486;
+    case 34 :
+        $int3 = %varclan_2490;
+        $int2 = %varclan_2491;
+        $int4 = %varclan_2496;
+    case 35 :
+        $int3 = %varclan_2500;
+        $int2 = %varclan_2501;
+        $int4 = %varclan_2506;
+    case 41 :
+        $int3 = %varclan_2410;
+        $int2 = %varclan_2411;
+        $int4 = %varclan_2416;
+    case 42 :
+        $int3 = %varclan_2420;
+        $int2 = %varclan_2421;
+        $int4 = %varclan_2426;
+    case 43 :
+        $int3 = %varclan_2430;
+        $int2 = %varclan_2431;
+        $int4 = %varclan_2436;
+    case 44 :
+        $int3 = %varclan_2440;
+        $int2 = %varclan_2441;
+        $int4 = %varclan_2446;
+    case 45 :
+        $int3 = %varclan_2450;
+        $int2 = %varclan_2451;
+        $int4 = %varclan_2456;
+    case 51 :
+        $int3 = %varclan_2510;
+        $int2 = %varclan_2511;
+        $int4 = %varclan_2516;
+    case 61 :
+        $int3 = %varclan_2846;
+        $int2 = %varclan_2847;
+        $int4 = %varclan_2852;
+    case 100 :
+        $int3 = %varclan_2210;
+        $int2 = %varclan_2211;
+        $int4 = %varclan_2216;
+    case 101 :
+        $int3 = %varclan_2220;
+        $int2 = %varclan_2221;
+        $int4 = %varclan_2226;
+    case 102 :
+        $int3 = %varclan_2240;
+        $int2 = %varclan_2241;
+        $int4 = %varclan_2246;
+    case 103 :
+        $int3 = %varclan_2190;
+        $int2 = %varclan_2191;
+        $int4 = %varclan_2196;
+    case 104 :
+        $int3 = %varclan_2230;
+        $int2 = %varclan_2231;
+        $int4 = %varclan_2236;
+    case 105 :
+        $int3 = %varclan_2200;
+        $int2 = %varclan_2201;
+        $int4 = %varclan_2206;
+    case 106 :
+        $int3 = %varclan_2260;
+        $int2 = %varclan_2261;
+        $int4 = %varclan_2266;
+    case 107 :
+        $int3 = %varclan_2270;
+        $int2 = %varclan_2271;
+        $int4 = %varclan_2276;
+    case 108 :
+        $int3 = %varclan_2280;
+        $int2 = %varclan_2281;
+        $int4 = %varclan_2286;
+    case 109 :
+        $int3 = %varclan_2250;
+        $int2 = %varclan_2251;
+        $int4 = %varclan_2256;
+    case 110 :
+        $int3 = %varclan_2290;
+        $int2 = %varclan_2291;
+        $int4 = %varclan_2296;
+    case 111 :
+        $int3 = %varclan_2300;
+        $int2 = %varclan_2301;
+        $int4 = %varclan_2306;
+    case 112 :
+        $int3 = %varclan_2310;
+        $int2 = %varclan_2311;
+        $int4 = %varclan_2316;
+    case 113 :
+        $int3 = %varclan_2320;
+        $int2 = %varclan_2321;
+        $int4 = %varclan_2326;
+}
+if ($int3 <= 0) {
+    return("empty customisation");
+}
+def_enum $enum5 = enum(int, enum, enum_4043, $int3);
+if ($enum5 = null) {
+    return("");
+}
+def_enum $enum6 = enum(int, enum, $enum5, $int2);
+if ($enum6 = null) {
+    return("");
+}
+def_enum $enum7 = enum(int, enum, $enum6, 1);
+if ($enum7 = null) {
+    return("");
+}
+def_struct $struct8 = enum(int, struct, $enum7, $int4);
+if ($struct8 = null) {
+    return("");
+}
+$string0 = struct_param($struct8, param_1566);
+return($string0);

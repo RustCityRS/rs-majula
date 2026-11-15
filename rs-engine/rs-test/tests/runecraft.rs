@@ -22,6 +22,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 const RUNECRAFT: usize = 20;
 
@@ -42,17 +43,17 @@ const MINE_PORTALS: [(u16, u16); 4] = [(2885, 4850), (2889, 4813), (2932, 4854),
 /// `^essence_mine_to_sedridor`, the way back for a player with no other.
 const SEDRIDOR: (u16, u16) = (3106, 9572);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
-fn inv(engine: &Engine) -> u16 {
-    *engine.cache.invs.debugnames.get("inv").unwrap()
+fn inv(engine: &Engine) -> TypeId {
+    engine.cache.invs.get_by_debugname("inv").unwrap().id
 }
 
 /// A fresh world with one player logged in and standing at `x, z`.
@@ -125,7 +126,7 @@ fn runecrafting_at_2011s_air_temple() {
 
         let (loc, x, z) = AIR_RUINS;
         let mut p = ClientPacket::new();
-        p.p2_alt2(talisman as i32)
+        p.p2_alt2(talisman.int())
             .p2_alt2(0)
             .p2(z as i32)
             .p4_alt2(BACKPACK)
@@ -185,19 +186,18 @@ fn the_essence_mine_portals_are_2011s_npcs() {
         let portal = engine
             .cache
             .npcs
-            .debugnames
-            .get("essence_mine_exit_1")
-            .copied()
-            .expect("the first portal npc");
+            .get_by_debugname("essence_mine_exit_1")
+            .expect("the first portal npc")
+            .id;
         let mut client = player_at(engine, "miner_of_essence", 2932, 4816);
 
-        let spawned: Vec<(u16, u16, u16)> = engine
+        let spawned: Vec<(TypeId, u16, u16)> = engine
             .npc_list
             .npcs
             .iter()
             .flatten()
             .map(|n| (n.npc.uid.id(), n.npc.pathing.coord))
-            .filter(|&(id, _)| (portal..portal + 4).contains(&id))
+            .filter(|&(id, _)| (portal.raw()..portal.raw() + 4).contains(&id.raw()))
             .map(|(id, c)| (id, c.x(), c.z()))
             .collect();
         let mut corners: Vec<(u16, u16)> = spawned.iter().map(|&(_, x, z)| (x, z)).collect();

@@ -1,0 +1,45 @@
+// 6357
+[proc,clientscript_6357](int $int0)(component)
+if ($int0 < 0 | $int0 >= 8) {
+    return(null);
+}
+if (getwindowmode >= 2) {
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel_fullscreen:com_18);
+        case 1 :
+            return(toplevel_fullscreen:com_22);
+        case 2 :
+            return(toplevel_fullscreen:com_25);
+        case 3 :
+            return(toplevel_fullscreen:com_28);
+        case 4 :
+            return(toplevel_fullscreen:com_31);
+        case 5 :
+            return(toplevel_fullscreen:com_34);
+        case 6 :
+            return(toplevel_fullscreen:com_37);
+        case 7 :
+            return(toplevel_fullscreen:com_87);
+    }
+} else {
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel:com_250);
+        case 1 :
+            return(toplevel:com_272);
+        case 2 :
+            return(toplevel:com_294);
+        case 3 :
+            return(toplevel:com_316);
+        case 4 :
+            return(toplevel:com_338);
+        case 5 :
+            return(toplevel:com_360);
+        case 6 :
+            return(toplevel:com_382);
+        case 7 :
+            return(toplevel:com_404);
+    }
+}
+return(null);

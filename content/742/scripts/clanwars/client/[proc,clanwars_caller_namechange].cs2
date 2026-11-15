@@ -1,0 +1,14 @@
+// 1809
+[proc,clanwars_caller_namechange](component $component0, component $component1, component $component2)
+def_string $string0 = "";
+if (string_length(%clanwars_caller) > 0) {
+    $string0 = ~script1814(%clanwars_caller);
+    if_settext($component1, $string0);
+    if_setsize($component1, parawidth($string0, 512, b12_full), 15, ^setsize_abs, ^setsize_abs);
+} else {
+    if_settext($component1, "");
+    if_setsize($component1, 0, 15, ^setsize_abs, ^setsize_abs);
+}
+%clanwars_caller_lastindex = -1;
+%clanwars_caller_lastusedstring = "";
+~script1811($component0, $component1, $component2);

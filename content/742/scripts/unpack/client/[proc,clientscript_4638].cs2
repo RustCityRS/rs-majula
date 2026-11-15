@@ -1,0 +1,24 @@
+// 4638
+[proc,clientscript_4638](int $int0)
+if_sethide(interface_153:com_99, true);
+if_sethide(interface_153:com_112, true);
+if_sethide(interface_153:com_125, true);
+if_sethide(interface_153:com_138, true);
+if_sethide(interface_153:com_168, true);
+if_sethide(interface_153:com_152, true);
+if_sethide(interface_153:com_198, true);
+if_sethide(interface_153:com_182, true);
+switch_int ($int0) {
+    case 1 :
+        if_sethide(interface_153:com_99, false);
+    case 2 :
+        if_sethide(interface_153:com_112, false);
+    case 4 :
+        if_sethide(interface_153:com_125, false);
+    case 5 :
+        if_sethide(interface_153:com_168, false);
+    case 3 :
+        if_sethide(interface_153:com_198, false);
+    case 6 :
+        if_sethide(interface_153:com_182, false);
+}

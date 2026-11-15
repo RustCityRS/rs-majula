@@ -1,0 +1,114 @@
+// 6103
+[proc,clientscript_6103]
+if_settext(interface_1265:com_40, %varclient_2384);
+def_string $string0 = "";
+def_string $string1 = "";
+switch_int (%varclient_1876) {
+    case 0, 1, 3, 4, 5, 6 :
+        $string0 = "This is a piece of apparel.";
+    case 2, 7 :
+        $string0 = "This is a piece of jewellery.";
+    case 9 :
+        $string0 = "This is a shield.";
+    case 11, 14 :
+        $string0 = "This is a melee weapon.";
+    case 12, 15 :
+        $string0 = "This is a ranged weapon.";
+    case 13 :
+        $string0 = "This is a weapon for mages.";
+    case 8 :
+        $string0 = "This is ammunition for a ranged weapon.";
+    case 60 :
+        $string0 = "This is an aura focus.";
+    case 30, 31, 32 :
+        $string0 = "This is a tool.";
+    case 33, 34 :
+        $string0 = "This is a piece of food.";
+    case 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109 :
+        $string0 = "This is a usable item.";
+    case 36 :
+        $string0 = "This is a magic rune.";
+}
+if_settext(interface_1265:com_43, $string0);
+switch_int (%varclient_1876) {
+    case 0 :
+        $string1 = "It is worn on the head.";
+    case 1 :
+        $string1 = "It is worn on the back.";
+    case 3 :
+        $string1 = "It is worn on the torso.";
+    case 4 :
+        $string1 = "It is worn on the legs.";
+    case 5 :
+        $string1 = "It is worn on the hands.";
+    case 6 :
+        $string1 = "It is worn on the feet.";
+    case 9 :
+        $string1 = "It is held in the left hand.";
+    case 11, 12, 13 :
+        $string1 = "It is wielded in the right hand.";
+    case 14, 15 :
+        $string1 = "It is wielded in both hands.";
+    case 2 :
+        $string1 = "It is worn around the neck.";
+    case 7 :
+        $string1 = "It is worn on the hand.";
+    case 8 :
+        $string1 = "It is carried in the quiver.";
+    case 60 :
+        $string1 = "It imbues you when activated.";
+    case 30 :
+        $string1 = "You can place it in your tool belt to save space.";
+    case 31 :
+        $string1 = "You have one in your tool belt already.";
+    case 34 :
+        $string1 = "It needs cooking to be edible.";
+    case 36 :
+        $string1 = "Runes are needed to cast spells.";
+    case 90 :
+        $string1 = "It is mainly used in combat.";
+    case 91 :
+        $string1 = "It is mainly used in prayer.";
+    case 92 :
+        $string1 = "It is mainly used in agility.";
+    case 93 :
+        $string1 = "It is mainly used in herblore.";
+    case 94 :
+        $string1 = "It is mainly used in thieving.";
+    case 95 :
+        $string1 = "It is mainly used in crafting.";
+    case 96 :
+        $string1 = "It is mainly used in runecrafting.";
+    case 97 :
+        $string1 = "It is mainly used in mining.";
+    case 98 :
+        $string1 = "It is mainly used in smithing.";
+    case 99 :
+        $string1 = "It is mainly used in fishing.";
+    case 100 :
+        $string1 = "It is mainly used in cooking.";
+    case 101 :
+        $string1 = "It is mainly used in firemaking.";
+    case 102 :
+        $string1 = "It is mainly used in woodcutting.";
+    case 103 :
+        $string1 = "It is mainly used in fletching.";
+    case 104 :
+        $string1 = "It is mainly used in slaying.";
+    case 105 :
+        $string1 = "It is mainly used in farming.";
+    case 106 :
+        $string1 = "It is mainly used in construction.";
+    case 107 :
+        $string1 = "It is mainly used in hunting.";
+    case 108 :
+        $string1 = "It is mainly used in summoning.";
+    case 109 :
+        $string1 = "It is mainly used in dungeoneering.";
+}
+if_settext(interface_1265:com_44, $string1);
+if ((oc_members(%varplayer_2562) = 0 | map_members = true) & (%varclient_1876 >= 0 & %varclient_1876 < 30 | %varclient_1876 = 32 | %varplayer_2562 = bronze_pickaxe | %varplayer_2562 = bronze_axe)) {
+    if_sethide(interface_1265:com_172, true);
+} else {
+    if_sethide(interface_1265:com_172, false);
+}

@@ -1,0 +1,13 @@
+// 6148
+[proc,clientscript_6148](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if (%varclient_1903 >= 3) {
+    if_setoncamfinished($component0, null);
+    return;
+}
+if ($int5 < calc(spline_length(0) - 2)) {
+    $int5 = calc($int5 + 1);
+    cam_movealong(0, $int5, $int4, $int4, 1, 0);
+    if_setoncamfinished($component0, "clientscript_6148($component0, $int1, $int2, $int3, $int4, $int5)");
+} else {
+    ~clientscript_6147($component0, $int1, $int2, $int4, $int3);
+}

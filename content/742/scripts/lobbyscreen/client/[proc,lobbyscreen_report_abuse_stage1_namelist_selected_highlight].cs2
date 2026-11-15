@@ -1,0 +1,12 @@
+// 3395
+[proc,lobbyscreen_report_abuse_stage1_namelist_selected_highlight]
+def_int $int0 = 0;
+while ($int0 < if_getnextsubid(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer)) {
+    if (cc_find(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer, $int0) = true) {
+        cc_settrans(255);
+    }
+    $int0 = calc($int0 + 1);
+}
+if (cc_find(lobbyscreen_report_abuse_stage1_namelist:selected_name_layer, %snapshot_last_selected_highlight) = true) {
+    cc_settrans(0);
+}

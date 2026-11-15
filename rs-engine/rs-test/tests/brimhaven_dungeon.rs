@@ -75,23 +75,23 @@ fn at(engine: &Engine, client: &HarnessClient) -> (u16, u16) {
 }
 
 fn paid(engine: &Engine, client: &HarnessClient) -> i32 {
-    let varp = *engine
+    let varp = engine
         .cache
         .varps
-        .debugnames
-        .get("karam_dungeon_varbit")
-        .unwrap();
+        .get_by_debugname("karam_dungeon_varbit")
+        .unwrap()
+        .id;
     engine
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(varp)
+        .get(varp.g2())
         .as_int()
 }
 
 fn coins(engine: &Engine, client: &HarnessClient) -> u32 {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-    let coins = *engine.cache.objs.debugnames.get("coins").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+    let coins = engine.cache.objs.get_by_debugname("coins").unwrap().id;
     engine
         .harness_player(client.pid)
         .unwrap()
@@ -126,14 +126,14 @@ fn saniboch_takes_875_coins_for_one_trip_down_and_the_exit_leads_back() {
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
         let mut client = visitor(engine, "wealthy", BY_TREE);
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
-        let coin = *engine.cache.objs.debugnames.get("coins").unwrap();
-        let saniboch = *engine
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
+        let coin = engine.cache.objs.get_by_debugname("coins").unwrap().id;
+        let saniboch = engine
             .cache
             .npcs
-            .debugnames
-            .get("tribesman_doorman")
-            .unwrap();
+            .get_by_debugname("tribesman_doorman")
+            .unwrap()
+            .id;
         let sanibochs: Vec<u16> = engine
             .npc_list
             .npcs

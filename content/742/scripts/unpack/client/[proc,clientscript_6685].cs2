@@ -1,0 +1,8 @@
+// 6685
+[proc,clientscript_6685](component $component0)
+cc_deleteall(interface_1340:com_24);
+~clientscript_5923(interface_1340:com_24);
+if_sethide(interface_1340:com_24, true);
+%varclient_2015 = null;
+if_setonclick($component0, "clientscript_6687");
+if_setonclick(interface_1340:com_26, "clientscript_6687");

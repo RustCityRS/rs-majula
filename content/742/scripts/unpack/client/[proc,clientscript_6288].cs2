@@ -1,0 +1,17 @@
+// 6288
+[proc,clientscript_6288](int $int0)
+cc_create(interface_1296:com_2, ^iftype_text, 0);
+cc_setsize(65, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+%varclient_1932 = 0;
+if ($int0 < 1) {
+    cc_settext("- all rank pts");
+    cc_setcolour(^red);
+} else {
+    cc_settext("+ <tostring($int0)> rank pt");
+    cc_setcolour(^green);
+}
+cc_settextshadow(true);
+if_setontimer(interface_1296:com_2, "clientscript_6289");

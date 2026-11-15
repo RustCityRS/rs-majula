@@ -1,0 +1,4 @@
+// 3037
+[proc,script3037]
+if_sethide(lobbyscreen_pane_friendslist:ignore_mo_bg, true);
+~friend_deltooltip(lobbyscreen_pane_friendslist:ignore_tooltip, lobbyscreen_pane_friendslist:ignore_tooltip_text);

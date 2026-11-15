@@ -1,0 +1,68 @@
+// 718:0
+[title]
+type=text
+x=3
+y=8
+width=480
+height=17
+textfont=q8_full
+text=Select an Option
+textalignh=centre
+colour=0x800000
+
+// 718:1
+[option1]
+type=text
+x=3
+y=51
+width=480
+height=17
+textfont=q8_full
+text=option1
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 718:2
+[option2]
+type=text
+x=3
+y=78
+width=480
+height=17
+textfont=q8_full
+text=option2
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 718:3
+[com_3]
+type=layer
+x=5
+y=10
+width=476
+height=13
+
+// 718:4
+[com_4]
+type=graphic
+width=57
+height=13
+layer=com_3
+graphic="sworddecor,1"
+colour=0x000000
+
+// 718:5
+[com_5]
+type=graphic
+x=419
+width=57
+height=13
+layer=com_3
+graphic="sworddecor,0"
+colour=0x000000

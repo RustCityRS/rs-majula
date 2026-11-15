@@ -8,8 +8,10 @@ use rs_protocol::network::game::server::loc_merge::LocMerge;
 use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::server::map_projanim_halfsq::ServerProt530_104;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::obj_del::ObjDel;
@@ -95,8 +97,10 @@ zone_messages! {
     LocPrefetch(LocPrefetch),
     MapAnim(MapAnim),
     MapProjAnim(MapProjAnim),
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     MapProjAnimHalfsq(MapProjAnimHalfsq),
+    #[cfg(all(since_530, before_647))]
+    ServerProt530_104(ServerProt530_104),
     #[cfg(since_289)]
     SoundArea(SoundArea),
     #[cfg(since_647)]

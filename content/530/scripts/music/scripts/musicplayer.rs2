@@ -1,0 +1,24 @@
+// 289's music/scripts/musicplayer.rs2 on 530's music player (music_v3, 187).
+//
+// 289's tab is a button per track, with Auto, Manual and Loop. 530's lists
+// its tracks as com1's children, built by clientscript 828: a track's name at
+// its index (enum 1345's order). Click to play is op1 and Unlock hint op2.
+// 289's Auto and Manual are gone: a song plays to its end before the area's
+// follows (music.rs2).
+
+[if_button1,music_v3:jukebox] @music_playbybutton(last_slot);
+
+// Unlock hint: the client says where the track unlocks (clientscript 833,
+// enum 1349) and asks nothing of the server.
+[if_button2,music_v3:jukebox]
+
+[if_button,music_v3:com_11]
+if (%musicloop = 0) {
+    %musicloop = 1;
+    // July 2006 mes:
+    mes("Music looping now enabled.");
+} else {
+    %musicloop = 0;
+    // inferred from enabled
+    mes("Music looping now disabled.");
+}

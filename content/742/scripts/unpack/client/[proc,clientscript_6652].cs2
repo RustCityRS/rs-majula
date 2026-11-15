@@ -1,0 +1,24 @@
+// 6652
+[proc,clientscript_6652](component $component0)
+~clientscript_6653;
+switch_int (%varplayerbit_11870) {
+    case 1 :
+        if_sethide(interface_1321:com_88, false);
+    case 2 :
+        if_sethide(interface_1321:com_95, false);
+    case 4 :
+        if_sethide(interface_1321:com_137, false);
+    case 6 :
+        if_sethide(interface_1321:com_123, false);
+    case 8 :
+        if_sethide(interface_1321:com_116, false);
+    case 5 :
+        if_sethide(interface_1321:com_144, false);
+    case 7 :
+        if_sethide(interface_1321:com_130, false);
+    case 9 :
+        if_sethide(interface_1321:com_109, false);
+    case 3 :
+        if_sethide(interface_1321:com_102, false);
+}
+~clientscript_6654($component0);

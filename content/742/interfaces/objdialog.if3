@@ -1,0 +1,168 @@
+// 389:0
+[com_0]
+type=rectangle
+width=506
+height=130
+hide=yes
+colour=0x808080
+fill=yes
+
+// 389:1
+[com_1]
+type=rectangle
+y=110
+width=506
+height=20
+colour=0x423329
+fill=yes
+trans=180
+
+// 389:2
+[com_2]
+type=rectangle
+y=110
+width=506
+height=3
+colour=0x372424
+fill=yes
+trans=200
+
+// 389:3
+[com_3]
+type=rectangle
+y=110
+width=506
+height=2
+colour=0x372424
+fill=yes
+trans=220
+
+// 389:4
+[resultlist]
+type=layer
+x=60
+width=430
+height=107
+
+// 389:5
+[resultlist_hide]
+type=layer
+x=64
+y=3
+width=422
+height=105
+
+// 389:6
+[objdialog_title]
+type=text
+x=4
+y=10
+width=414
+height=16
+layer=resultlist_hide
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+colour=0xa05a00
+
+// 389:7
+[com_7]
+type=text
+x=4
+y=48
+width=414
+height=31
+layer=resultlist_hide
+textfont=p11_full
+text=To search for an item, start by typing part of its name.<br>Then, simply select the item you want from the results on display.
+textlineheight=15
+textalignh=centre
+textalignv=centre
+colour=0xa05a00
+
+// 389:8
+[resultscrollbar]
+type=layer
+x=490
+width=16
+height=108
+
+// 389:9
+[searchtext]
+type=text
+x=27
+y=111
+width=457
+height=15
+textfont=p12_full
+textshadow=yes
+
+// 389:10
+[closebutton]
+type=graphic
+x=490
+y=111
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=objdialog_close
+onclick=objdialog_close
+
+// 389:11
+[com_11]
+type=graphic
+y=94
+width=506
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0x000000
+
+// 389:12
+[indent_box]
+type=graphic
+x=46
+width=32
+height=108
+graphic="v2_borders_slim,12"
+tiling=yes
+trans=150
+colour=0x000000
+opbase=   
+
+// 389:13
+[com_13]
+type=graphic
+x=6
+y=113
+width=16
+height=14
+graphic="grand_exchange_misc_graphics,4"
+colour=0x000000
+opbase=  
+
+// 389:14
+[com_14]
+type=graphic
+x=10
+y=8
+width=40
+height=36
+graphic="bank_slot,2"
+colour=0x000000
+opbase=  
+
+// 389:15
+[objgraphic]
+type=graphic
+x=12
+y=10
+width=36
+height=32
+graphicshadow=1
+colour=0x000000

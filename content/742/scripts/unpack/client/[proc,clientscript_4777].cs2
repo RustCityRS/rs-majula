@@ -1,0 +1,445 @@
+// 4777
+[proc,clientscript_4777](int $int0, int $int1, int $int2)
+def_graphic $graphic3 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = calc(%varclan_2724 / 100);
+def_int $int8 = calc(%varclan_2725 / 100);
+def_int $int9 = calc(%varclan_2728 / 100);
+def_int $int10 = calc(%varclan_2732 / 100);
+def_int $int11 = calc(%varclan_2731 / 100);
+def_int $int12 = calc(%varclan_2730 / 100);
+def_int $int13 = calc(%varclan_2733 / 100);
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_int $int35 = 0;
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_int $int38 = $int0;
+def_int $int39 = 0;
+def_int $int40 = 0;
+def_int $int41 = 0;
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int42 = calc(if_getwidth(interface_1115:com_8) - 2);
+if ($int0 < 1 | $int0 > 900) {
+    return;
+}
+if (op718 = 1) {
+    ~deltooltip_action(interface_1115:com_186);
+    if_sethide(interface_1115:com_34, false);
+    $graphic3, $string0, $int4, $int5, $int6, $int39, $int40, $int41 = ~clientscript_4791($int0);
+    $int14, $int15, $int16, $int17, $int18, $int19, $int20, $int21, $int22, $int23, $int24, $int25, $int26, $int27, $int28, $int29, $int30, $int31, $int32, $int33, $int34, $int35, $int36, $int37, $int38 = ~clientscript_4794($int2, $int7, $int8, $int9, $int10, $int11, $int12, $int13);
+    if ($int0 > 300 & $int0 < 600) {
+        $int4 = calc($int4 - $int5);
+    }
+    if ($int39 = 5) {
+        if ($int4 = 1) {
+            $string3 = "(Basic)";
+        } else if ($int4 = 2) {
+            $string3 = "(Medium)";
+        } else if ($int4 = 3) {
+            $string3 = "(Grand)";
+        }
+    } else {
+        $string3 = "(Tier <tostring($int4)>)";
+    }
+    if (paraheight($string0, if_getwidth(interface_1115:com_37), verdana_11pt_regular) > 1) {
+        if_settext(interface_1115:com_37, "<$string0> <$string3>");
+    } else {
+        if_settext(interface_1115:com_37, "<$string0><br><$string3>");
+    }
+    if_setgraphic(interface_1115:com_36, $graphic3);
+    if ($int0 > 600) {
+        $string1 = "Upgrade";
+        if_sethide(interface_1115:com_80, true);
+        if_sethide(interface_1115:com_42, true);
+        if_sethide(interface_1115:com_41, false);
+        if_sethide(interface_1115:com_119, false);
+        if ($int14 = 0) {
+            if_sethide(interface_1115:com_8, true);
+            if_sethide(interface_1115:com_9, false);
+        } else {
+            if_sethide(interface_1115:com_8, false);
+            if_sethide(interface_1115:com_9, true);
+        }
+        if ($int15 = 0) {
+            if_sethide(interface_1115:com_45, true);
+            if_sethide(interface_1115:com_46, false);
+        } else {
+            if_sethide(interface_1115:com_45, false);
+            if_sethide(interface_1115:com_46, true);
+        }
+        if ($int16 = 0) {
+            if_sethide(interface_1115:com_82, true);
+            if_sethide(interface_1115:com_83, false);
+        } else {
+            if_sethide(interface_1115:com_82, false);
+            if_sethide(interface_1115:com_83, true);
+        }
+        if ($int17 = 0) {
+            if_sethide(interface_1115:com_86, true);
+            if_sethide(interface_1115:com_87, false);
+        } else {
+            if_sethide(interface_1115:com_86, false);
+            if_sethide(interface_1115:com_87, true);
+        }
+        if ($int18 = 0) {
+            if_sethide(interface_1115:com_90, true);
+            if_sethide(interface_1115:com_91, false);
+        } else {
+            if_sethide(interface_1115:com_90, false);
+            if_sethide(interface_1115:com_91, true);
+        }
+        if ($int19 = 0) {
+            if_sethide(interface_1115:com_117, true);
+            if_sethide(interface_1115:com_118, false);
+        } else {
+            if_sethide(interface_1115:com_117, false);
+            if_sethide(interface_1115:com_118, true);
+        }
+        if_setsize(interface_1115:com_12, calc($int20 * $int42 / max(1, $int14)), if_getheight(interface_1115:com_12), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int20)><br>of<br><tostring($int14)>";
+        if_setonmouserepeat(interface_1115:com_12, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_98, calc($int21 * $int42 / max(1, $int15)), if_getheight(interface_1115:com_98), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int21)><br>of<br><tostring($int15)>";
+        if_setonmouserepeat(interface_1115:com_98, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_103, calc($int22 * $int42 / max(1, $int16)), if_getheight(interface_1115:com_103), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int22)><br>of<br><tostring($int16)>";
+        if_setonmouserepeat(interface_1115:com_103, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_108, calc($int23 * $int42 / max(1, $int17)), if_getheight(interface_1115:com_108), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int23)><br>of<br><tostring($int17)>";
+        if_setonmouserepeat(interface_1115:com_108, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_113, calc($int24 * $int42 / max(1, $int18)), if_getheight(interface_1115:com_113), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int24)><br>of<br><tostring($int18)>";
+        if_setonmouserepeat(interface_1115:com_113, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_121, calc($int25 * $int42 / max(1, $int19)), if_getheight(interface_1115:com_121), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int25)><br>of<br><tostring($int19)>";
+        if_setonmouserepeat(interface_1115:com_121, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setposition(interface_1115:com_94, calc(if_getx(interface_1115:com_12) + if_getwidth(interface_1115:com_12) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_99, calc(if_getx(interface_1115:com_98) + if_getwidth(interface_1115:com_98) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_104, calc(if_getx(interface_1115:com_103) + if_getwidth(interface_1115:com_103) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_109, calc(if_getx(interface_1115:com_108) + if_getwidth(interface_1115:com_108) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_114, calc(if_getx(interface_1115:com_113) + if_getwidth(interface_1115:com_113) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_122, calc(if_getx(interface_1115:com_121) + if_getwidth(interface_1115:com_121) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setsize(interface_1115:com_94, calc($int26 * $int42 / max(1, $int14)), if_getheight(interface_1115:com_94), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int26)><br>of<br><tostring($int14)>";
+        if_setonmouserepeat(interface_1115:com_94, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_99, calc($int27 * $int42 / max(1, $int15)), if_getheight(interface_1115:com_99), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int27)><br>of<br><tostring($int15)>";
+        if_setonmouserepeat(interface_1115:com_99, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_104, calc($int28 * $int42 / max(1, $int16)), if_getheight(interface_1115:com_104), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int28)><br>of<br><tostring($int16)>";
+        if_setonmouserepeat(interface_1115:com_104, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_109, calc($int29 * $int42 / max(1, $int17)), if_getheight(interface_1115:com_109), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int29)><br>of<br><tostring($int17)>";
+        if_setonmouserepeat(interface_1115:com_109, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_114, calc($int30 * $int42 / max(1, $int18)), if_getheight(interface_1115:com_114), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int30)><br>of<br><tostring($int18)>";
+        if_setonmouserepeat(interface_1115:com_114, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_122, calc($int31 * $int42 / max(1, $int19)), if_getheight(interface_1115:com_122), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int31)><br>of<br><tostring($int19)>";
+        if_setonmouserepeat(interface_1115:com_122, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setposition(interface_1115:com_95, calc(if_getx(interface_1115:com_94) + if_getwidth(interface_1115:com_94) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_100, calc(if_getx(interface_1115:com_99) + if_getwidth(interface_1115:com_99) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_105, calc(if_getx(interface_1115:com_104) + if_getwidth(interface_1115:com_104) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_110, calc(if_getx(interface_1115:com_109) + if_getwidth(interface_1115:com_109) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_115, calc(if_getx(interface_1115:com_114) + if_getwidth(interface_1115:com_114) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_123, calc(if_getx(interface_1115:com_122) + if_getwidth(interface_1115:com_122) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setsize(interface_1115:com_95, calc($int32 * $int42 / max(1, $int14)), if_getheight(interface_1115:com_95), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int32)><br>of<br><tostring($int14)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_95, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_100, calc($int33 * $int42 / max(1, $int15)), if_getheight(interface_1115:com_100), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int33)><br>of<br><tostring($int15)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_100, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_105, calc($int34 * $int42 / max(1, $int16)), if_getheight(interface_1115:com_105), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int34)><br>of<br><tostring($int16)><br>3:1 ratio";
+        if_setonmouserepeat(interface_1115:com_105, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_110, calc($int35 * $int42 / max(1, $int17)), if_getheight(interface_1115:com_110), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int35)><br>of<br><tostring($int17)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_110, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_115, calc($int36 * $int42 / max(1, $int18)), if_getheight(interface_1115:com_115), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int36)><br>of<br><tostring($int18)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_115, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_123, calc($int37 * $int42 / max(1, $int19)), if_getheight(interface_1115:com_123), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int37)><br>of<br><tostring($int19)><br>3:1 ratio";
+        if_setonmouserepeat(interface_1115:com_123, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setposition(interface_1115:com_96, calc(if_getx(interface_1115:com_95) + if_getwidth(interface_1115:com_95) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_101, calc(if_getx(interface_1115:com_100) + if_getwidth(interface_1115:com_100) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_106, calc(if_getx(interface_1115:com_105) + if_getwidth(interface_1115:com_105) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_111, calc(if_getx(interface_1115:com_110) + if_getwidth(interface_1115:com_110) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_116, calc(if_getx(interface_1115:com_115) + if_getwidth(interface_1115:com_115) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_124, calc(if_getx(interface_1115:com_123) + if_getwidth(interface_1115:com_123) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setsize(interface_1115:com_96, calc($int42 - (if_getwidth(interface_1115:com_12) + 1) - (if_getwidth(interface_1115:com_94) + 1) - (if_getwidth(interface_1115:com_95) + 1)), if_getheight(interface_1115:com_96), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int14 - ($int20 + $int26 + $int32)))><br>of<br><tostring($int14)>";
+        if_setonmouserepeat(interface_1115:com_96, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_101, calc($int42 - (if_getwidth(interface_1115:com_98) + 1) - (if_getwidth(interface_1115:com_99) + 1) - (if_getwidth(interface_1115:com_100) + 1)), if_getheight(interface_1115:com_101), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int15 - ($int21 + $int27 + $int33)))><br>of<br><tostring($int15)>";
+        if_setonmouserepeat(interface_1115:com_101, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_106, calc($int42 - (if_getwidth(interface_1115:com_103) + 1) - (if_getwidth(interface_1115:com_104) + 1) - (if_getwidth(interface_1115:com_105) + 1)), if_getheight(interface_1115:com_106), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int16 - ($int22 + $int28 + $int34)))><br>of<br><tostring($int16)>";
+        if_setonmouserepeat(interface_1115:com_106, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_111, calc($int42 - (if_getwidth(interface_1115:com_108) + 1) - (if_getwidth(interface_1115:com_109) + 1) - (if_getwidth(interface_1115:com_110) + 1)), if_getheight(interface_1115:com_111), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int17 - ($int23 + $int29 + $int35)))><br>of<br><tostring($int17)>";
+        if_setonmouserepeat(interface_1115:com_111, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_116, calc($int42 - (if_getwidth(interface_1115:com_113) + 1) - (if_getwidth(interface_1115:com_114) + 1) - (if_getwidth(interface_1115:com_115) + 1)), if_getheight(interface_1115:com_116), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int18 - ($int24 + $int30 + $int36)))><br>of<br><tostring($int18)>";
+        if_setonmouserepeat(interface_1115:com_116, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_124, calc($int42 - (if_getwidth(interface_1115:com_121) + 1) - (if_getwidth(interface_1115:com_122) + 1) - (if_getwidth(interface_1115:com_123) + 1)), if_getheight(interface_1115:com_124), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int19 - ($int25 + $int31 + $int37)))><br>of<br><tostring($int19)>";
+        if_setonmouserepeat(interface_1115:com_124, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        $string2 = "<tostring($int20)> paid<br><tostring($int26)> available<br><tostring($int32)> from wildcard<br><tostring(calc($int14 - ($int20 + $int26 + $int32)))> shortfall";
+        if ($int14 = 0) {
+            if_setonmouserepeat(interface_1115:com_7, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_7, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int21)> paid<br><tostring($int27)> available<br><tostring($int33)> from wildcard<br><tostring(calc($int15 - ($int21 + $int27 + $int33)))> shortfall";
+        if ($int15 = 0) {
+            if_setonmouserepeat(interface_1115:com_44, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_44, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int22)> paid<br><tostring($int28)> available<br><tostring($int34)> from wildcard<br><tostring(calc($int16 - ($int22 + $int28 + $int34)))> shortfall";
+        if ($int16 = 0) {
+            if_setonmouserepeat(interface_1115:com_81, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_81, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int23)> paid<br><tostring($int29)> available<br><tostring($int35)> from wildcard<br><tostring(calc($int17 - ($int23 + $int29 + $int35)))> shortfall";
+        if ($int17 = 0) {
+            if_setonmouserepeat(interface_1115:com_85, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_85, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int24)> paid<br><tostring($int30)> available<br><tostring($int36)> from wildcard<br><tostring(calc($int18 - ($int24 + $int30 + $int36)))> shortfall";
+        if ($int18 = 0) {
+            if_setonmouserepeat(interface_1115:com_89, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_89, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int25)> paid<br><tostring($int31)> available<br><tostring($int37)> from wildcard<br><tostring(calc($int19 - ($int25 + $int31 + $int37)))> shortfall";
+        if ($int19 = 0) {
+            if_setonmouserepeat(interface_1115:com_93, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_93, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        }
+    } else if ($int0 < 300) {
+        $string1 = "Downgrade -<tostring($int5)>";
+        if_sethide(interface_1115:com_80, false);
+        if_sethide(interface_1115:com_42, false);
+        if_sethide(interface_1115:com_41, true);
+        if_sethide(interface_1115:com_119, true);
+        if_settext(interface_1115:com_137, tostring($int14));
+        if_settext(interface_1115:com_139, tostring($int15));
+        if_settext(interface_1115:com_141, tostring($int16));
+        if_settext(interface_1115:com_143, tostring($int17));
+        if_settext(interface_1115:com_145, tostring($int18));
+        if_settext(interface_1115:com_147, tostring($int19));
+        $int14, $int15, $int16, $int17, $int18, $int19 = ~clientscript_4792($int0, max(calc($int4 - $int5), 0));
+        if_settext(interface_1115:com_138, tostring($int14));
+        if_settext(interface_1115:com_140, tostring($int15));
+        if_settext(interface_1115:com_142, tostring($int16));
+        if_settext(interface_1115:com_144, tostring($int17));
+        if_settext(interface_1115:com_146, tostring($int18));
+        if_settext(interface_1115:com_148, tostring($int19));
+    } else {
+        $string1 = "Upkeep";
+        if_sethide(interface_1115:com_80, true);
+        if_sethide(interface_1115:com_42, true);
+        if_sethide(interface_1115:com_41, false);
+        if_sethide(interface_1115:com_119, true);
+        if ($int14 = 0) {
+            if_sethide(interface_1115:com_8, true);
+            if_sethide(interface_1115:com_9, false);
+        } else {
+            if_sethide(interface_1115:com_8, false);
+            if_sethide(interface_1115:com_9, true);
+        }
+        if ($int15 = 0) {
+            if_sethide(interface_1115:com_45, true);
+            if_sethide(interface_1115:com_46, false);
+        } else {
+            if_sethide(interface_1115:com_45, false);
+            if_sethide(interface_1115:com_46, true);
+        }
+        if ($int16 = 0) {
+            if_sethide(interface_1115:com_82, true);
+            if_sethide(interface_1115:com_83, false);
+        } else {
+            if_sethide(interface_1115:com_82, false);
+            if_sethide(interface_1115:com_83, true);
+        }
+        if ($int17 = 0) {
+            if_sethide(interface_1115:com_86, true);
+            if_sethide(interface_1115:com_87, false);
+        } else {
+            if_sethide(interface_1115:com_86, false);
+            if_sethide(interface_1115:com_87, true);
+        }
+        if ($int18 = 0) {
+            if_sethide(interface_1115:com_90, true);
+            if_sethide(interface_1115:com_91, false);
+        } else {
+            if_sethide(interface_1115:com_90, false);
+            if_sethide(interface_1115:com_91, true);
+        }
+        if ($int19 = 0) {
+            if_sethide(interface_1115:com_117, true);
+            if_sethide(interface_1115:com_118, false);
+        } else {
+            if_sethide(interface_1115:com_117, false);
+            if_sethide(interface_1115:com_118, true);
+        }
+        if_setsize(interface_1115:com_12, calc($int20 * $int42 / max(1, $int14)), if_getheight(interface_1115:com_12), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int20)><br>of<br><tostring($int14)>";
+        if_setonmouserepeat(interface_1115:com_12, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_98, calc($int21 * $int42 / max(1, $int15)), if_getheight(interface_1115:com_98), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int21)><br>of<br><tostring($int15)>";
+        if_setonmouserepeat(interface_1115:com_98, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_103, calc($int22 * $int42 / max(1, $int16)), if_getheight(interface_1115:com_103), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int22)><br>of<br><tostring($int16)>";
+        if_setonmouserepeat(interface_1115:com_103, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_108, calc($int23 * $int42 / max(1, $int17)), if_getheight(interface_1115:com_108), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int23)><br>of<br><tostring($int17)>";
+        if_setonmouserepeat(interface_1115:com_108, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_113, calc($int24 * $int42 / max(1, $int18)), if_getheight(interface_1115:com_113), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int24)><br>of<br><tostring($int18)>";
+        if_setonmouserepeat(interface_1115:com_113, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_121, calc($int25 * $int42 / max(1, $int19)), if_getheight(interface_1115:com_121), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int25)><br>of<br><tostring($int19)>";
+        if_setonmouserepeat(interface_1115:com_121, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setposition(interface_1115:com_94, calc(if_getx(interface_1115:com_12) + if_getwidth(interface_1115:com_12) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_99, calc(if_getx(interface_1115:com_98) + if_getwidth(interface_1115:com_98) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_104, calc(if_getx(interface_1115:com_103) + if_getwidth(interface_1115:com_103) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_109, calc(if_getx(interface_1115:com_108) + if_getwidth(interface_1115:com_108) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_114, calc(if_getx(interface_1115:com_113) + if_getwidth(interface_1115:com_113) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_122, calc(if_getx(interface_1115:com_121) + if_getwidth(interface_1115:com_121) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setsize(interface_1115:com_94, calc($int26 * $int42 / max(1, $int14)), if_getheight(interface_1115:com_94), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int26)><br>of<br><tostring($int14)>";
+        if_setonmouserepeat(interface_1115:com_94, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_99, calc($int27 * $int42 / max(1, $int15)), if_getheight(interface_1115:com_99), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int27)><br>of<br><tostring($int15)>";
+        if_setonmouserepeat(interface_1115:com_99, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_104, calc($int28 * $int42 / max(1, $int16)), if_getheight(interface_1115:com_104), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int28)><br>of<br><tostring($int16)>";
+        if_setonmouserepeat(interface_1115:com_104, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_109, calc($int29 * $int42 / max(1, $int17)), if_getheight(interface_1115:com_109), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int29)><br>of<br><tostring($int17)>";
+        if_setonmouserepeat(interface_1115:com_109, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_114, calc($int30 * $int42 / max(1, $int18)), if_getheight(interface_1115:com_114), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int30)><br>of<br><tostring($int18)>";
+        if_setonmouserepeat(interface_1115:com_114, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_122, calc($int31 * $int42 / max(1, $int19)), if_getheight(interface_1115:com_122), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int31)><br>of<br><tostring($int19)>";
+        if_setonmouserepeat(interface_1115:com_122, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setposition(interface_1115:com_95, calc(if_getx(interface_1115:com_94) + if_getwidth(interface_1115:com_94) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_100, calc(if_getx(interface_1115:com_99) + if_getwidth(interface_1115:com_99) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_105, calc(if_getx(interface_1115:com_104) + if_getwidth(interface_1115:com_104) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_110, calc(if_getx(interface_1115:com_109) + if_getwidth(interface_1115:com_109) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_115, calc(if_getx(interface_1115:com_114) + if_getwidth(interface_1115:com_114) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_123, calc(if_getx(interface_1115:com_122) + if_getwidth(interface_1115:com_122) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setsize(interface_1115:com_95, calc($int32 * $int42 / max(1, $int14)), if_getheight(interface_1115:com_95), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int32)><br>of<br><tostring($int14)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_95, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_100, calc($int33 * $int42 / max(1, $int15)), if_getheight(interface_1115:com_100), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int33)><br>of<br><tostring($int15)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_100, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_105, calc($int34 * $int42 / max(1, $int16)), if_getheight(interface_1115:com_105), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int34)><br>of<br><tostring($int16)><br>3:1 ratio";
+        if_setonmouserepeat(interface_1115:com_105, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_110, calc($int35 * $int42 / max(1, $int17)), if_getheight(interface_1115:com_110), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int35)><br>of<br><tostring($int17)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_110, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_115, calc($int36 * $int42 / max(1, $int18)), if_getheight(interface_1115:com_115), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int36)><br>of<br><tostring($int18)><br>1:1 ratio";
+        if_setonmouserepeat(interface_1115:com_115, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_123, calc($int37 * $int42 / max(1, $int19)), if_getheight(interface_1115:com_123), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring($int37)><br>of<br><tostring($int19)><br>3:1 ratio";
+        if_setonmouserepeat(interface_1115:com_123, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setposition(interface_1115:com_96, calc(if_getx(interface_1115:com_95) + if_getwidth(interface_1115:com_95) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_101, calc(if_getx(interface_1115:com_100) + if_getwidth(interface_1115:com_100) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_106, calc(if_getx(interface_1115:com_105) + if_getwidth(interface_1115:com_105) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_111, calc(if_getx(interface_1115:com_110) + if_getwidth(interface_1115:com_110) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_116, calc(if_getx(interface_1115:com_115) + if_getwidth(interface_1115:com_115) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setposition(interface_1115:com_124, calc(if_getx(interface_1115:com_123) + if_getwidth(interface_1115:com_123) + 1), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if_setsize(interface_1115:com_96, calc($int42 - (if_getwidth(interface_1115:com_12) + 1) - (if_getwidth(interface_1115:com_94) + 1) - (if_getwidth(interface_1115:com_95) + 1)), if_getheight(interface_1115:com_96), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int14 - ($int20 + $int26 + $int32)))><br>of<br><tostring($int14)>";
+        if_setonmouserepeat(interface_1115:com_96, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_101, calc($int42 - (if_getwidth(interface_1115:com_98) + 1) - (if_getwidth(interface_1115:com_99) + 1) - (if_getwidth(interface_1115:com_100) + 1)), if_getheight(interface_1115:com_101), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int15 - ($int21 + $int27 + $int33)))><br>of<br><tostring($int15)>";
+        if_setonmouserepeat(interface_1115:com_101, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_106, calc($int42 - (if_getwidth(interface_1115:com_103) + 1) - (if_getwidth(interface_1115:com_104) + 1) - (if_getwidth(interface_1115:com_105) + 1)), if_getheight(interface_1115:com_106), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int16 - ($int22 + $int28 + $int34)))><br>of<br><tostring($int16)>";
+        if_setonmouserepeat(interface_1115:com_106, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_111, calc($int42 - (if_getwidth(interface_1115:com_108) + 1) - (if_getwidth(interface_1115:com_109) + 1) - (if_getwidth(interface_1115:com_110) + 1)), if_getheight(interface_1115:com_111), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int17 - ($int23 + $int29 + $int35)))><br>of<br><tostring($int17)>";
+        if_setonmouserepeat(interface_1115:com_111, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_116, calc($int42 - (if_getwidth(interface_1115:com_113) + 1) - (if_getwidth(interface_1115:com_114) + 1) - (if_getwidth(interface_1115:com_115) + 1)), if_getheight(interface_1115:com_116), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int18 - ($int24 + $int30 + $int36)))><br>of<br><tostring($int18)>";
+        if_setonmouserepeat(interface_1115:com_116, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        if_setsize(interface_1115:com_124, calc($int42 - (if_getwidth(interface_1115:com_121) + 1) - (if_getwidth(interface_1115:com_122) + 1) - (if_getwidth(interface_1115:com_123) + 1)), if_getheight(interface_1115:com_124), ^setsize_abs, ^setsize_abs);
+        $string2 = "<tostring(calc($int19 - ($int25 + $int31 + $int37)))><br>of<br><tostring($int19)>";
+        if_setonmouserepeat(interface_1115:com_124, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        $string2 = "<tostring($int26)> available<br><tostring($int32)> from wildcard<br><tostring(calc($int14 - ($int26 + $int32)))> shortfall";
+        if ($int14 = 0) {
+            if_setonmouserepeat(interface_1115:com_7, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_7, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int27)> available<br><tostring($int33)> from wildcard<br><tostring(calc($int15 - ($int27 + $int33)))> shortfall";
+        if ($int15 = 0) {
+            if_setonmouserepeat(interface_1115:com_44, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_44, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int28)> available<br><tostring($int34)> from wildcard<br><tostring(calc($int16 - ($int28 + $int34)))> shortfall";
+        if ($int16 = 0) {
+            if_setonmouserepeat(interface_1115:com_81, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_81, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int29)> available<br><tostring($int35)> from wildcard<br><tostring(calc($int17 - ($int29 + $int35)))> shortfall";
+        if ($int17 = 0) {
+            if_setonmouserepeat(interface_1115:com_85, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_85, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int30)> available<br><tostring($int36)> from wildcard<br><tostring(calc($int18 - ($int30 + $int36)))> shortfall";
+        if ($int18 = 0) {
+            if_setonmouserepeat(interface_1115:com_89, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_89, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        }
+        $string2 = "<tostring($int31)> available<br><tostring($int37)> from wildcard<br><tostring(calc($int19 - ($int31 + $int37)))> shortfall";
+        if ($int19 = 0) {
+            if_setonmouserepeat(interface_1115:com_93, null);
+        } else {
+            if_setonmouserepeat(interface_1115:com_93, "aif_tooltip(interface_1115:com_186, event_com, -1, $string2, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)");
+        }
+    }
+    if_settext(interface_1115:com_79, $string1);
+}
+return;

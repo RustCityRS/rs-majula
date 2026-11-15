@@ -1,0 +1,74 @@
+// 5879
+[proc,clientscript_5879]
+def_component $component0 = interface_1253:com_53;
+def_component $component1 = interface_1253:com_56;
+def_int $int2 = max(0, calc(%varclient_1800 + %varplayerbit_10862 + %varplayerbit_11026));
+if_sethide(interface_1253:com_31, true);
+if_sethide(interface_1253:com_178, true);
+def_int $int3 = 82116656;
+~clientscript_6678;
+if (%varplayerbit_10861 > 0 | %varclient_1784 = 1 | %varclient_1781 > 0) {
+    ~clientscript_6669;
+    ~clientscript_6570;
+} else {
+    if_sethide(interface_1253:com_34, false);
+    if_sethide(interface_1253:com_39, true);
+    ~clientscript_6572;
+}
+~clientscript_6505;
+~clientscript_5910(%varplayerbit_10860);
+~clientscript_5889(0);
+~clientscript_6266;
+~clientscript_6580;
+if (%varplayerbit_10861 > 0 | %varclient_1781 > 0) {
+    ~clientscript_6669;
+} else {
+    if_sethide(interface_1253:com_34, false);
+    if_sethide(interface_1253:com_39, true);
+}
+~clientscript_6505;
+~clientscript_5910(%varplayerbit_10860);
+%varclient_1781 = -1;
+%varclient_1785 = 0;
+if_setonvarctransmit($component0, "clientscript_5884{varclient_1781}");
+if_setonvartransmit($component0, "clientscript_5901{varplayer_2594}");
+if_setonvarctransmit($component1, "clientscript_6265{varclient_1928}");
+if_setoninvtransmit(interface_1253:com_40, "clientscript_5901{inv_665}");
+if_setonvartransmit(interface_1253:com_103, "clientscript_5880{varplayer_2533}");
+if_setonvarctransmit(interface_1253:com_103, "clientscript_5880{varclient_1800}");
+if_setonvarctransmit(interface_1253:com_57, "clientscript_6573{varclient_1993}");
+if_setontimer(interface_1253:com_88, "clientscript_5883(0, 0, 0, 0)");
+if_setontimer(interface_1253:com_53, "clientscript_5912(0)");
+if_settext(interface_1253:com_103, tostring(%varplayerbit_10862));
+if_sethide(interface_1253:com_38, false);
+if (%varplayerbit_10866 = 5) {
+    if_sethide(interface_1253:com_109, true);
+    if_sethide(interface_1253:com_110, true);
+} else {
+    if_sethide(interface_1253:com_109, false);
+    if_sethide(interface_1253:com_110, false);
+}
+if_setonvarctransmit(interface_1253:com_266, "clientscript_5905{varclient_1790}");
+~clientscript_5219(interface_1253:com_52);
+%varclient_1784 = 0;
+def_graphic $graphic4 = ~clientscript_4074;
+if_setgraphic(interface_1253:com_78, ~clientscript_6267($graphic4));
+def_graphic $graphic5 = ~clientscript_6066;
+if_setgraphic(interface_1253:com_20, ~clientscript_6267($graphic5));
+if_setgraphic(interface_1253:com_313, ~clientscript_6267($graphic5));
+def_component $component6 = interface_1253:com_90;
+def_int $int7 = 1;
+if (%varclient_1803 = 1) {
+    $int7 = 223;
+    if_sethflip(interface_1253:com_104, true);
+    if_sethflip(interface_1253:com_105, true);
+    if_sethflip(interface_1253:com_106, true);
+} else {
+    $int7 = 5;
+    if_sethflip(interface_1253:com_104, false);
+    if_sethflip(interface_1253:com_105, false);
+    if_sethflip(interface_1253:com_106, false);
+}
+if_setsize($component6, $int7, if_getheight($component6), ^setsize_abs, ^setsize_abs);
+~clientscript_6569;
+~clientscript_1968;

@@ -11,6 +11,7 @@
 
 use rs_pack::cache::varp::VarPlayerScope;
 use rs_test::runner;
+use rs_ver::TypeId;
 
 #[test]
 fn every_shared_quest_varp_is_saved() {
@@ -26,7 +27,7 @@ fn every_shared_quest_varp_is_saved() {
             let varp = engine
                 .cache
                 .varps
-                .get_by_id(id)
+                .get_by_id(TypeId::new(id))
                 .unwrap_or_else(|| panic!("no varp {id} ({name})"));
             if varp.scope != VarPlayerScope::Perm {
                 temp.push(format!("{name} ({id})"));
@@ -50,13 +51,16 @@ fn tai_bwo_wannai_trios_varps_are_the_caches_and_saved() {
             "varplayer_324",
             "tbwt_bits",
         ] {
-            let id = *engine
+            let id = engine
                 .cache
                 .varps
-                .debugnames
-                .get(name)
-                .unwrap_or_else(|| panic!("{name} is not registered"));
-            assert!(id < 2181, "{name} ({id}) is one of the cache's varps");
+                .get_by_debugname(name)
+                .unwrap_or_else(|| panic!("{name} is not registered"))
+                .id;
+            assert!(
+                id < TypeId::new(2181),
+                "{name} ({id}) is one of the cache's varps"
+            );
             let varp = engine.cache.varps.get_by_id(id).unwrap();
             assert_eq!(varp.scope, VarPlayerScope::Perm, "{name} is saved");
         }

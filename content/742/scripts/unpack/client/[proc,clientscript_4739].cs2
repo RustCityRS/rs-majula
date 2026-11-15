@@ -1,0 +1,16 @@
+// 4739
+[proc,clientscript_4739](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+def_obj $obj4 = null;
+def_inv $inv5 = null;
+if (%varplayerbit_9903 ! 0) {
+    $inv5 = enum(int, inv, enum_3879, %varplayerbit_9903);
+    if ($int2 = 1 & cc_find(interface_1144:com_0, $int1) = true) {
+        $obj4 = inv_getobj($inv5, $int1);
+        if ($obj4 ! null) {
+            %varplayerbit_9904 = $int1;
+            ~clientscript_4741;
+        }
+    }
+}
+return;

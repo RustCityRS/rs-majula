@@ -1,0 +1,43 @@
+// 6935
+[proc,clientscript_6935]
+if (string_length(%varclient_2400) > 0) {
+    if_sethide(interface_1367:com_56, true);
+    if_sethide(interface_1367:com_71, true);
+    if_setsize(interface_1367:com_55, 4, 0, ^setsize_minus, ^setsize_minus);
+    if_settext(interface_1367:com_55, %varclient_2400);
+    return;
+}
+if_sethide(interface_1367:com_56, false);
+if_sethide(interface_1367:com_71, false);
+if_setsize(interface_1367:com_55, 4, if_getheight(interface_1367:com_56), ^setsize_minus, ^setsize_minus);
+def_string $string0 = "";
+def_string $string1 = "<col=ff0000>You will forfeit if the server reboots during your duel.</col>";
+if (%varclient_1332 = true) {
+    if_sethide(interface_1367:com_61, true);
+    if_sethide(interface_1367:com_60, false);
+    if_settext(interface_1367:com_63, "---");
+    $string0 = "<col=ff0000>Check the options carefully.</col>";
+} else if (%varplayerbit_12247 = 1) {
+    if_sethide(interface_1367:com_61, false);
+    if_sethide(interface_1367:com_60, false);
+    if_settext(interface_1367:com_63, "Wait...");
+    if (reboottimer > 0) {
+        $string0 = $string1;
+    } else {
+        $string0 = "Waiting for opponent...";
+    }
+} else {
+    if_sethide(interface_1367:com_61, true);
+    if_sethide(interface_1367:com_60, true);
+    if_settext(interface_1367:com_63, "Accept");
+    if (reboottimer > 0) {
+        $string0 = $string1;
+    } else {
+        $string0 = "Press 'Accept' when you're happy.";
+        if (%varclient_9 = true) {
+            $string0 = append($string0, "<br>(Your opponent has accepted.)");
+        }
+    }
+}
+if_settext(interface_1367:com_55, $string0);
+~clientscript_3984(interface_1367:com_63, struct_7251);

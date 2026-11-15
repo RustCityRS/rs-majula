@@ -1,0 +1,25 @@
+#testscript
+
+// The random events of 289's that 2011 kept (macro events/; 2011 wiki,
+// Random events, 2011-05-13, which lists 2011's others): a roll brings the
+// Maze, the Mime or nothing, a quarter of the time an event (289's odds for
+// its teleport events, which 2011's all are, per that page).
+[label,test_a_roll_brings_the_maze_the_mime_or_nothing]
+setup_player("test_player")
+~test_skip_design
+p_telejump(0_50_50_21_18)
+test_tick(1)
+def_int $i = 0;
+def_int $event;
+def_int $events = 0;
+while ($i < 400) {
+    $event = ~macro_event_set_random;
+    if ($event = ^macro_mime | $event = ^macro_maze) {
+        $events = add($events, 1);
+    } else if ($event ! ^no_macro_event) {
+        test_fail("a roll brought <tostring($event)>")
+    }
+    $i = add($i, 1);
+}
+assert_gt($events, 50)
+assert_lt($events, 150)

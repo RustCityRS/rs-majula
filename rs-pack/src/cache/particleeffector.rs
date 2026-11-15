@@ -1,8 +1,9 @@
 use super::provider::CacheType;
 use rs_io::Packet;
+use rs_ver::TypeId;
 
 pub struct ParticleEffectorType {
-    pub id: u16,
+    pub id: TypeId,
     pub angle: u16,
     pub unused: u8,
     pub force: [i32; 3],
@@ -15,7 +16,7 @@ pub struct ParticleEffectorType {
 impl CacheType for ParticleEffectorType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         Self {
             id,
             angle: 0,

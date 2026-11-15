@@ -1,0 +1,9 @@
+// 5519
+[proc,clientscript_5519]
+if_sethide(lobbyscreen:com_300, true);
+if_settext(lobbyscreen:com_306, "");
+%varclient_1660 = 0;
+if_setposition(lobbyscreen:com_307, 4, if_gety(lobbyscreen:com_307), ^setpos_abs_left, ^setpos_abs_top);
+if_sethide(lobbyscreen:com_315, false);
+if_sethide(lobbyscreen:com_301, false);
+%varclient_1661 = 0;

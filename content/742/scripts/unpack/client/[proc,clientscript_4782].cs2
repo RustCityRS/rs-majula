@@ -1,0 +1,24 @@
+// 4782
+[proc,clientscript_4782](component $component0, int $int1, int $int2)
+def_graphic $graphic3 = null;
+def_graphic $graphic4 = null;
+switch_int ($int1) {
+    case 1 :
+        $graphic3 = 7541;
+        $graphic4 = 7537;
+    case 2 :
+        $graphic3 = 7540;
+        $graphic4 = 7536;
+    case 3 :
+        $graphic3 = 7539;
+        $graphic4 = 7535;
+    case 4 :
+        $graphic3 = 7538;
+        $graphic4 = 7534;
+}
+if ($int2 = 1) {
+    if_setgraphic($component0, $graphic3);
+} else {
+    if_setgraphic($component0, $graphic4);
+    ~deltooltip_action(interface_1115:com_186);
+}

@@ -1,0 +1,69 @@
+// 6698
+[proc,clientscript_6698](component $component0, component $component1, component $component2, component $component3, int $int4)
+def_string $string0 = "This shows how many moths you have collected in your jar.";
+if (%varclient_2013 = -1) {
+    if_settext($component1, "-<br>-");
+    if_setonmouserepeat($component0, "script1160($component0, -1, $component3, $string0, 25, $int4)");
+    if_setonmouseleave($component0, "deltooltip($component3)");
+    if_sethide($component2, true);
+    return;
+}
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+while ($int13 < 32) {
+    switch_int (calc($int13 / 4)) {
+        case 0 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int5 = setbit($int5, calc($int13 % 4));
+            }
+        case 1 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int6 = setbit($int6, calc($int13 % 4));
+            }
+        case 2 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int7 = setbit($int7, calc($int13 % 4));
+            }
+        case 3 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int8 = setbit($int8, calc($int13 % 4));
+            }
+        case 4 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int9 = setbit($int9, calc($int13 % 4));
+            }
+        case 5 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int10 = setbit($int10, calc($int13 % 4));
+            }
+        case 6 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int11 = setbit($int11, calc($int13 % 4));
+            }
+        case 7 :
+            if (testbit(%varclient_2013, $int13) = ^true) {
+                $int12 = setbit($int12, calc($int13 % 4));
+            }
+    }
+    $int13 = calc($int13 + 1);
+}
+def_int $int14 = calc($int5 + $int6 + $int7 + $int8 + $int9 + $int10 + $int11 + $int12);
+if_settext($component1, "<col=ffffff><tostring(min($int14, 15))></col><br>15");
+if_settext(interface_1341:com_39, tostring($int5));
+if_settext(interface_1341:com_40, tostring($int6));
+if_settext(interface_1341:com_41, tostring($int7));
+if_settext(interface_1341:com_42, tostring($int8));
+if_settext(interface_1341:com_43, tostring($int9));
+if_settext(interface_1341:com_44, tostring($int10));
+if_settext(interface_1341:com_45, tostring($int11));
+if_settext(interface_1341:com_46, tostring($int12));
+if_setonmouserepeat($component0, "comp_sethide(false, $component2)");
+if_setonmouseleave($component0, "comp_sethide(true, $component2)");
+~deltooltip_action($component3);

@@ -1,0 +1,8 @@
+// 5425
+[proc,clientscript_5425]
+%varclient_1685 = calc(%varclient_1685 + 2);
+if (%varclient_1685 <= 40) {
+    if_setposition(interface_1159:com_28, %varclient_1685, 0, ^setpos_abs_left, ^setpos_abs_centre);
+} else {
+    if_setontimer(interface_1159:com_30, "clientscript_5426");
+}

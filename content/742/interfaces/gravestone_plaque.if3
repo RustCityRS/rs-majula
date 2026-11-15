@@ -1,0 +1,294 @@
+// 266:0
+[com_0]
+type=layer
+width=512
+height=334
+layer=content_layer
+
+// 266:1
+[com_1]
+type=graphic
+x=175
+y=46
+width=352
+height=87
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 266:2
+[com_2]
+type=graphic
+x=335
+y=46
+width=160
+height=247
+layer=com_0
+
+// 266:3
+[com_3]
+type=graphic
+x=15
+y=46
+width=352
+height=87
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 266:4
+[com_4]
+type=graphic
+x=26
+y=58
+width=19
+height=19
+xmode=abs_right
+layer=com_0
+graphic=graphic_8278
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 8279)
+onmouseleave=graphic_swapper(event_com, 8278)
+onop=closebutton_click
+
+// 266:5
+[com_5]
+type=text
+x=58
+y=95
+width=394
+height=147
+layer=com_0
+textfont=p11_full
+text=---
+textshadow=yes
+colour=0x000000
+onload=gravestone_plaque_setup(gravestone_plaque:com_5, gravestone_plaque:com_3, gravestone_plaque:com_1, gravestone_plaque:com_2)
+onvartransmit=gravestone_plaque_setup(gravestone_plaque:com_5, gravestone_plaque:com_3, gravestone_plaque:com_1, gravestone_plaque:com_2){gravestone}
+
+// 266:6
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 266:7
+[fsborder_main_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 266:8
+[fsborder_resizing_layer]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_main_layer
+
+// 266:9
+[fsborder_graphic_1]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 266:10
+[fsborder_graphic_2]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+
+// 266:11
+[fsborder_graphic_3]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 266:12
+[fsborder_graphic_4]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 266:13
+[fsborder_graphic_5]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+
+// 266:14
+[fsborder_graphic_6]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+
+// 266:15
+[fsborder_graphic_7]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+
+// 266:16
+[fsborder_graphic_8]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+
+// 266:17
+[fsborder_right_layer]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 266:18
+[fsborder_left_layer]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 266:19
+[fsborder_upper_layer]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=fsborder_resizing_layer
+
+// 266:20
+[fsborder_lower_layer]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_resizing_layer
+
+// 266:21
+[fsborder_interface_layer]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=fsborder_resizing_layer
+
+// 266:22
+[com_19]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=fsborder_left_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+
+// 266:23
+[com_20]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=fsborder_right_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+
+// 266:24
+[com_21]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=fsborder_upper_layer
+graphic=tradebacking
+tiling=yes
+outline=2
+
+// 266:25
+[com_22]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=fsborder_lower_layer
+graphic=tradebacking
+tiling=yes
+outline=2

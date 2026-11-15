@@ -1,0 +1,1224 @@
+// 746:0
+[maingame]
+type=layer
+clientcode=1337
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 746:1
+[maindebug]
+type=layer
+clientcode=1405
+x=225
+y=5
+width=150
+height=100
+xmode=abs_right
+
+// 746:2
+[noclickthru]
+type=layer
+width=160
+height=158
+xmode=abs_right
+noclickthrough=yes
+
+// 746:3
+[mainoverlay_clipped]
+type=layer
+width=219
+height=164
+widthmode=minus
+heightmode=minus
+
+// 746:4
+[mainoverlay]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_1433
+onvartransmit=clientscript_1094{fov_status}
+
+// 746:5
+[mainmodal_fullscreen]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+onload=mainmodal_fullscreen_background_load(event_com, toplevel_fullscreen:mainmodal)
+
+// 746:6
+[mainmodal]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 746:7
+[com_7]
+type=layer
+width=220
+height=186
+xmode=abs_right
+noclickthrough=yes
+
+// 746:8
+[map]
+type=graphic
+clientcode=1338
+x=7
+y=5
+width=152
+height=152
+xmode=abs_right
+layer=com_7
+graphic=graphic_1185
+
+// 746:9
+[mapring]
+type=graphic
+width=164
+height=164
+xmode=abs_right
+layer=com_7
+graphic=graphic_1130
+
+// 746:10
+[compass]
+type=graphic
+clientcode=1339
+x=131
+y=5
+width=33
+height=33
+xmode=abs_right
+layer=com_7
+graphic=graphic_1186
+
+// 746:11
+[compassring]
+type=graphic
+x=126
+width=43
+height=43
+xmode=abs_right
+layer=com_7
+graphic=graphic_1129
+
+// 746:12
+[logoutbutton]
+type=graphic
+x=1
+y=1
+width=22
+height=21
+xmode=abs_right
+layer=com_7
+graphic=graphic_1201
+transmitop=1
+op1=Log Out
+onmouseover=graphic_swapper(event_com, 1202)
+onmouseleave=graphic_swapper(event_com, 1201)
+onop=clientscript_1303(99)
+
+// 746:13
+[topstat_hitpoints]
+type=layer
+x=152
+y=38
+width=57
+height=34
+xmode=abs_right
+layer=com_7
+
+// 746:14
+[topstat_prayer]
+type=layer
+x=155
+y=74
+width=57
+height=34
+xmode=abs_right
+layer=com_7
+
+// 746:15
+[topstat_run]
+type=layer
+x=143
+y=107
+width=57
+height=34
+xmode=abs_right
+layer=com_7
+noclickthrough=yes
+
+// 746:16
+[topstat_lore]
+type=layer
+x=120
+y=136
+width=57
+height=34
+xmode=abs_right
+layer=com_7
+
+// 746:17
+[statusicons]
+type=layer
+x=5
+y=172
+width=115
+height=35
+xmode=abs_right
+
+// 746:18
+[statusicon_tooltip]
+type=layer
+x=42
+y=177
+width=38
+height=17
+xmode=abs_right
+hide=yes
+transmitop=10
+op10= 
+
+// 746:19
+[com_19]
+type=text
+x=36
+y=207
+width=53
+height=19
+xmode=abs_right
+textfont=fontmetrics_495
+textalignh=centre
+textshadow=yes
+colour=0xff981d
+onload=clientscript_1141
+
+// 746:20
+[statusicon_tooltip_bg]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=statusicon_tooltip
+colour=0xffffa0
+fill=yes
+transmitop=10
+op10= 
+
+// 746:21
+[statusicon_tooltip_outline]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=statusicon_tooltip
+colour=0x000000
+transmitop=10
+op10= 
+
+// 746:22
+[statusicon_tooltip_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=statusicon_tooltip
+textfont=fontmetrics_495
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 746:23
+[filterbuttons]
+type=layer
+width=519
+height=23
+ymode=abs_bottom
+noclickthrough=yes
+onload=subchanged_init(event_com)
+onvartransmit=clientscript_1389{cutscene_var}
+
+// 746:24
+[backbase2]
+type=layer
+width=462
+height=36
+xmode=abs_right
+ymode=abs_bottom
+noclickthrough=yes
+
+// 746:25
+[stones_off]
+type=layer
+width=462
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=backbase2
+
+// 746:26
+[off0]
+type=graphic
+x=396
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:27
+[off1]
+type=graphic
+x=363
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:28
+[off2]
+type=graphic
+x=330
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:29
+[off3]
+type=graphic
+x=297
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:30
+[off4]
+type=graphic
+x=264
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:31
+[off5]
+type=graphic
+x=231
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:32
+[off6]
+type=graphic
+x=198
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:33
+[off7]
+type=graphic
+x=429
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:34
+[off8]
+type=graphic
+x=165
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:35
+[off9]
+type=graphic
+x=132
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:36
+[off10]
+type=graphic
+x=99
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:37
+[off11]
+type=graphic
+x=66
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:38
+[off12]
+type=graphic
+x=33
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:39
+[off13]
+type=graphic
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_off
+graphic=graphic_1128
+
+// 746:40
+[stones_on]
+type=layer
+width=462
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=backbase2
+onload=switchside_init
+
+// 746:41
+[stone0]
+type=graphic
+x=396
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Combat Styles
+opkey1=1,0
+onop=clientscript_1303(0)
+
+// 746:42
+[stone1]
+type=graphic
+x=363
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Stats
+opkey1=2,0
+onop=clientscript_1303(1)
+
+// 746:43
+[stone2]
+type=graphic
+x=330
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Quest List
+opkey1=3,0
+onop=clientscript_1303(2)
+
+// 746:44
+[stone3]
+type=graphic
+x=297
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Inventory
+opkey1=4,0
+onload=clan_noticeboard_watch_tick_update(-1)
+onop=clientscript_1303(3)
+
+// 746:45
+[stone4]
+type=graphic
+x=264
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Worn Equipment
+opkey1=5,0
+onop=clientscript_1303(4)
+
+// 746:46
+[stone5]
+type=graphic
+x=231
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Prayer List
+opkey1=6,0
+onop=clientscript_1303(5)
+
+// 746:47
+[stone6]
+type=graphic
+x=198
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Magic Spellbook
+opkey1=7,0
+onop=clientscript_1303(6)
+
+// 746:48
+[stone7]
+type=graphic
+x=429
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Follower Details
+onop=clientscript_1303(7)
+
+// 746:49
+[stone8]
+type=graphic
+x=165
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Friends List
+opkey1=8,0
+onop=clientscript_1303(8)
+
+// 746:50
+[stone9]
+type=graphic
+x=132
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Ignore List
+onop=clientscript_1303(9)
+
+// 746:51
+[stone10]
+type=graphic
+x=99
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Clan Chat
+onop=clientscript_1303(10)
+
+// 746:52
+[stone11]
+type=graphic
+x=66
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Options
+onop=clientscript_1303(11)
+
+// 746:53
+[stone12]
+type=graphic
+x=33
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Emotes
+onop=clientscript_1303(12)
+
+// 746:54
+[stone13]
+type=graphic
+width=33
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=stones_on
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Music Player
+onop=clientscript_1303(13)
+
+// 746:55
+[icons]
+type=layer
+width=462
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=backbase2
+onvarctransmit=if_side_stone_set{if_side_combat, if_side_stats, if_side_journal, if_side_inv, if_side_worn, if_side_prayer, if_side_magic, varclient_239, if_side_friends, if_side_ignore, if_side_clanchat, if_side_options1, if_side_options2, if_side_music}
+
+// 746:56
+[icon0]
+type=graphic
+x=394
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_168
+
+// 746:57
+[icon1]
+type=graphic
+x=364
+y=1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_898
+
+// 746:58
+[icon2]
+type=graphic
+x=330
+y=-1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_899
+
+// 746:59
+[icon3]
+type=graphic
+x=298
+y=2
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_900
+
+// 746:60
+[icon4]
+type=graphic
+x=265
+y=-2
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_901
+
+// 746:61
+[icon5]
+type=graphic
+x=232
+y=1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_902
+
+// 746:62
+[icon6]
+type=graphic
+x=199
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_903
+
+// 746:63
+[icon7]
+type=graphic
+x=430
+y=-1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_1242
+
+// 746:64
+[icon8]
+type=graphic
+x=165
+y=-1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_904
+
+// 746:65
+[icon9]
+type=graphic
+x=132
+y=-1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_905
+
+// 746:66
+[icon10]
+type=graphic
+x=99
+y=-1
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_1241
+
+// 746:67
+[icon11]
+type=graphic
+x=65
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_907
+
+// 746:68
+[icon12]
+type=graphic
+x=33
+y=-3
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_908
+
+// 746:69
+[icon13]
+type=graphic
+y=-3
+width=32
+height=36
+xmode=abs_right
+ymode=abs_bottom
+layer=icons
+graphic=graphic_909
+
+// 746:70
+[chattop]
+type=layer
+y=23
+width=519
+height=142
+ymode=abs_bottom
+
+// 746:71
+[pmchat]
+type=layer
+x=9
+y=164
+width=512
+height=69
+ymode=abs_bottom
+
+// 746:72
+[pvp_warning]
+type=layer
+x=9
+y=164
+width=512
+height=69
+ymode=abs_bottom
+
+// 746:73
+[side]
+type=layer
+y=36
+width=200
+height=271
+xmode=abs_right
+ymode=abs_bottom
+
+// 746:74
+[side_border]
+type=layer
+width=200
+height=271
+layer=side
+hide=yes
+onload=clientscript_1087(event_com, 0)
+
+// 746:75
+[com_75]
+type=graphic
+width=190
+height=261
+layer=sidemodal
+graphic=graphic_1131
+alpha=yes
+
+// 746:76
+[sidemodal]
+type=layer
+clientcode=1354
+x=5
+y=5
+width=190
+height=261
+layer=side
+noclickthrough=yes
+
+// 746:77
+[side_hide]
+type=layer
+x=5
+y=5
+width=190
+height=261
+layer=side
+
+// 746:78
+[com_78]
+type=graphic
+width=190
+height=261
+layer=side99
+graphic=graphic_1131
+alpha=yes
+
+// 746:79
+[com_79]
+type=graphic
+width=190
+height=261
+layer=side13
+graphic=graphic_1131
+alpha=yes
+
+// 746:80
+[com_80]
+type=graphic
+width=190
+height=261
+layer=side12
+graphic=graphic_1131
+alpha=yes
+
+// 746:81
+[com_81]
+type=graphic
+width=190
+height=261
+layer=side11
+graphic=graphic_1131
+alpha=yes
+
+// 746:82
+[com_82]
+type=graphic
+width=190
+height=261
+layer=side10
+graphic=graphic_1131
+alpha=yes
+
+// 746:83
+[com_83]
+type=graphic
+width=190
+height=261
+layer=side9
+graphic=graphic_1131
+alpha=yes
+
+// 746:84
+[com_84]
+type=graphic
+width=190
+height=261
+layer=side8
+graphic=graphic_1131
+alpha=yes
+
+// 746:85
+[com_85]
+type=graphic
+width=190
+height=261
+layer=side7
+graphic=graphic_1131
+alpha=yes
+
+// 746:86
+[com_86]
+type=graphic
+width=190
+height=261
+layer=side6
+graphic=graphic_1131
+alpha=yes
+
+// 746:87
+[com_87]
+type=graphic
+width=190
+height=261
+layer=side5
+graphic=graphic_1131
+alpha=yes
+
+// 746:88
+[com_88]
+type=graphic
+width=190
+height=261
+layer=side4
+graphic=graphic_1131
+alpha=yes
+
+// 746:89
+[com_89]
+type=graphic
+width=190
+height=261
+layer=side3
+graphic=graphic_1131
+alpha=yes
+
+// 746:90
+[com_90]
+type=graphic
+width=190
+height=261
+layer=side2
+graphic=graphic_1131
+alpha=yes
+
+// 746:91
+[com_91]
+type=graphic
+width=190
+height=261
+layer=side1
+graphic=graphic_1131
+alpha=yes
+
+// 746:92
+[com_92]
+type=graphic
+width=190
+height=261
+layer=side0
+graphic=graphic_1131
+alpha=yes
+
+// 746:93
+[side0]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:94
+[side1]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:95
+[side2]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:96
+[side3]
+type=layer
+width=190
+height=261
+layer=side_hide
+noclickthrough=yes
+
+// 746:97
+[side4]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:98
+[side5]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:99
+[side6]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:100
+[side7]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:101
+[side8]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:102
+[side9]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:103
+[side10]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:104
+[side11]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:105
+[side12]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:106
+[side13]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:107
+[side99]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+noclickthrough=yes
+
+// 746:108
+[arrow]
+type=model
+x=8
+y=11
+width=31
+height=52
+hide=yes
+model=model_41760
+modelorigin=0,-4
+modelangle=512,0,0
+modelzoom=1512
+modelanim=seq_10221
+modelorthog=yes
+modelunknown=64598,3015,0
+transmitop=10
+opbase=<col=ff9040>Arrow
+op10=Examine
+
+// 746:109
+[world_map_ring]
+type=graphic
+x=1
+y=129
+width=43
+height=43
+xmode=abs_right
+layer=com_7
+graphic=graphic_1129
+transmitop=10
+op10=  
+
+// 746:110
+[worldmap_button]
+type=graphic
+x=181
+y=134
+width=34
+height=34
+layer=com_7
+graphic=graphic_1408
+transmitop=1,10
+op1=World Map
+op10= 
+
+// 746:111
+[com_111]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion

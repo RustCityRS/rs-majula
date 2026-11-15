@@ -20,11 +20,20 @@ pub struct IfSetRetex {
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetRetex {
+    #[cfg(before_742)]
     fn encode(&self, buf: &mut Packet) {
         buf.p4(self.com);
         buf.p1_alt3(self.index);
         buf.p2_alt2(self.src);
         buf.p2_alt2(self.dst);
+    }
+
+    #[cfg(since_742)]
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.src);
+        buf.p1_alt3(self.index);
+        buf.p2_alt3(self.dst);
+        buf.p4_alt2(self.com);
     }
 
     fn sizeof(&self) -> usize {

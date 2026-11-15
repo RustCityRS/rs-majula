@@ -1,0 +1,77 @@
+// 73
+[proc,clientscript_73](int $key0, char $char1)
+if ($key0 = 9) {
+    if (%quickchat_respond_phrase ! null) {
+        ~quickchat_respond(%quickchat_respond_mode, %varclient_661, %quickchat_respond_phrase);
+    }
+    return;
+}
+if ($key0 = 10) {
+    if (~clientscript_1036 ! null) {
+        ~quickchat_open_context(0, "");
+    }
+    return;
+}
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($key0 = 11) {
+    $int2 = 150;
+    $int3 = calc(clientclock - %quickchat_phraserepeat_lastclock);
+    if ($int3 > 1500) {
+        %quickchat_phraserepeat_count = 0;
+    }
+    if (%quickchat_phraserepeat_count >= 7) {
+        $int2 = 600;
+    } else if (%quickchat_phraserepeat_count >= 5) {
+        $int2 = 450;
+    } else if (%quickchat_phraserepeat_count >= 3) {
+        $int2 = 300;
+    }
+    if ($int3 >= $int2) {
+        %quickchat_phraserepeat_lastclock = clientclock;
+        %quickchat_phraserepeat_count = calc(%quickchat_phraserepeat_count + 1);
+        if (%quickchat_last_phrase ! null) {
+            ~quickchat_phrase_resend;
+        }
+        return;
+    }
+}
+if (staffmodlevel > 0) {
+    if ($key0 = 104) {
+        ~chatout_scrollup;
+    } else if ($key0 = 105) {
+        ~chatout_scrolldown;
+    }
+} else if (op3328 = 1 | map_quickchat = true) {
+    if ($key0 = 84) {
+        ~clientscript_1050(0, "");
+        return;
+    }
+    if (char_isprintable($char1) = true & compare("/", append_char("", $char1)) = 0) {
+        ~clientscript_1050(2, "");
+        return;
+    }
+    return;
+}
+if ($key0 = 84) {
+    if (string_length(%varclient_633) <= 0) {
+        %varclient_633 = "";
+        ~clientscript_1050(0, "");
+        return;
+    }
+    if (compare("/", %varclient_633) = 0) {
+        %varclient_633 = "";
+        ~clientscript_1050(2, "");
+        return;
+    }
+    chat_sendpublic(%varclient_633);
+    ~chatout_add(%varclient_633);
+    %varclient_633 = "";
+} else {
+    %varclient_633 = ~clientscript_74(%varclient_633, 0, $key0, $char1);
+}
+if (getwindowmode >= 2) {
+    if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=7fa9ff><escape(%varclient_633)>*");
+} else {
+    if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=0000ff><escape(%varclient_633)>*");
+}

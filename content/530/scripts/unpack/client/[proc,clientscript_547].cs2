@@ -1,0 +1,103 @@
+// 547
+[proc,clientscript_547](component $component0, stat $stat1, component $component2)
+def_string $string0 = "<enum(stat, string, enum_680, $stat1)>: <tostring(stat($stat1))>/<tostring(stat_base($stat1))>";
+def_string $string1 = ~tostring_spacer(stat_visible_xp($stat1), ",");
+def_string $string2 = "";
+def_string $string3 = "";
+def_int $int3 = 2;
+if (stat_base($stat1) < 99) {
+    $string2 = ~tostring_spacer(enum(int, int, enum_716, calc(stat_base($stat1) + 1)), ",");
+    $string3 = ~tostring_spacer(calc(enum(int, int, enum_716, calc(stat_base($stat1) + 1)) - stat_visible_xp($stat1)), ",");
+    $int3 = 4;
+}
+def_int $int4 = calc(parawidth($string0, 190, 495) + 10);
+def_int $int5 = parawidth("Current Xp:", 190, 495);
+def_int $int6 = parawidth($string1, 190, 495);
+def_int $int7 = calc($int5 + 10 + $int6);
+$int4 = max($int4, $int7);
+if (stat_base($stat1) < 99) {
+    $int5 = parawidth("Next level:", 190, 495);
+    $int6 = parawidth($string2, 190, 495);
+    $int7 = calc($int5 + 3 + $int6);
+} else {
+    $int7 = 0;
+}
+$int4 = max($int4, $int7);
+if (stat_base($stat1) < 99) {
+    $int5 = parawidth("Remainder:", 190, 495);
+    $int6 = parawidth($string3, 190, 495);
+    $int7 = calc($int5 + 3 + $int6);
+} else {
+    $int7 = 0;
+}
+$int4 = max($int4, $int7);
+$int5 = calc(if_getx($component0) + 32);
+$int6 = calc(if_gety($component0) - if_getscrolly(if_getlayer($component0)) + 32);
+if (calc($int5 + $int4 + 4) > 190) {
+    $int5 = calc(190 - ($int4 + 4));
+}
+if (calc($int6 + $int3 * 16 + 4) > if_getheight($component2)) {
+    $int6 = calc(if_gety($component0) - if_getscrolly(if_getlayer($component0)) - ($int3 * 16 + 5));
+}
+cc_create($component2, 3, 0);
+cc_setsize(calc($int4 + 4), calc(4 + $int3 * 16), 0, 0);
+cc_setposition($int5, $int6, 0, 0);
+cc_setfill(true);
+cc_setcolour(0xffffa0);
+cc_setonstattransmit("clientscript_548(2, 4, 8, $stat1, $component0, $component2){$stat1}");
+cc_create($component2, 3, 1);
+cc_setsize(calc($int4 + 4), calc(4 + $int3 * 16), 0, 0);
+cc_setposition($int5, $int6, 0, 0);
+cc_setfill(false);
+cc_setcolour(^black);
+cc_create($component2, 4, 2);
+cc_setposition(calc($int5 + 2), calc($int6 + 2), 0, 0);
+cc_setsize($int4, 16, 0, 0);
+cc_settextfont(495);
+cc_settextalign(0, 0, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+cc_create($component2, 4, 3);
+cc_setposition(calc($int5 + 2), calc($int6 + 18), 0, 0);
+cc_setsize($int4, 16, 0, 0);
+cc_settextfont(495);
+cc_settextalign(0, 0, 0);
+cc_settextshadow(false);
+cc_settext("Current Xp:");
+cc_create($component2, 4, 4);
+cc_setposition(calc($int5 + 2), calc($int6 + 18), 0, 0);
+cc_setsize($int4, 16, 0, 0);
+cc_settextfont(495);
+cc_settextalign(2, 0, 0);
+cc_settextshadow(false);
+cc_settext($string1);
+if (stat_base($stat1) < 99) {
+    cc_create($component2, 4, 5);
+    cc_setposition(calc($int5 + 2), calc($int6 + 35), 0, 0);
+    cc_setsize($int4, 16, 0, 0);
+    cc_settextfont(495);
+    cc_settextalign(0, 0, 0);
+    cc_settextshadow(false);
+    cc_settext("Next level:");
+    cc_create($component2, 4, 6);
+    cc_setposition(calc($int5 + 2), calc($int6 + 35), 0, 0);
+    cc_setsize($int4, 16, 0, 0);
+    cc_settextfont(495);
+    cc_settextalign(2, 0, 0);
+    cc_settextshadow(false);
+    cc_settext($string2);
+    cc_create($component2, 4, 7);
+    cc_setposition(calc($int5 + 2), calc($int6 + 52), 0, 0);
+    cc_setsize($int4, 16, 0, 0);
+    cc_settextfont(495);
+    cc_settextalign(0, 0, 0);
+    cc_settextshadow(false);
+    cc_settext("Remainder:");
+    cc_create($component2, 4, 8);
+    cc_setposition(calc($int5 + 2), calc($int6 + 52), 0, 0);
+    cc_setsize($int4, 16, 0, 0);
+    cc_settextfont(495);
+    cc_settextalign(2, 0, 0);
+    cc_settextshadow(false);
+    cc_settext($string3);
+}

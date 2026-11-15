@@ -1,0 +1,4 @@
+// 133
+[proc,clientscript_133](int $key0, char $char1)
+%varclient_656 = ~clientscript_74(%varclient_656, 2, $key0, $char1);
+if_settext(interface_553:name, "<escape(%varclient_656)><col=ffff00>|");

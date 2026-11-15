@@ -1,0 +1,6 @@
+// 4865
+[proc,clientscript_4865](component $component0, int $int1)
+if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
+    cc_setsize(0, scale(9, 10, 16384), ^setsize_aspect, ^setsize_rel);
+    cc_setaspectratio(214, 336);
+}

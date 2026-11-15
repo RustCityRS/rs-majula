@@ -1,0 +1,40 @@
+// 6818
+[proc,clientscript_6818](component $component0)(int)
+switch_component ($component0) {
+    case interface_1351:com_98 :
+        return(1);
+    case interface_1351:com_101 :
+        return(1);
+    case interface_1351:com_102 :
+        return(1);
+    case interface_1351:com_103 :
+        return(1);
+    case interface_1351:com_104 :
+        return(1);
+    case interface_1351:com_105 :
+        return(1);
+    case interface_1351:com_106 :
+        return(1);
+    case interface_1351:com_107 :
+        return(1);
+    case interface_1351:com_108 :
+        return(1);
+    case interface_1351:com_120 :
+        return(1);
+    case interface_1351:com_121 :
+        return(1);
+    case interface_1351:com_122 :
+        return(1);
+    case interface_1351:com_125 :
+        return(1);
+    case interface_1351:com_126 :
+        return(1);
+    case interface_1351:com_127 :
+        return(1);
+    case interface_1351:com_109 :
+        return(1);
+    case null :
+        return(0);
+    case default :
+        return(0);
+}

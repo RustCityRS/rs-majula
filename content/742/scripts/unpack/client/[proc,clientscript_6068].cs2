@@ -1,0 +1,9 @@
+// 6068
+[proc,clientscript_6068](int $int0, int $int1, component $component2, component $component3, component $component4, component $component5)
+if (map_lang = 0 & $int0 = 37 | map_lang = 1 & $int0 = 54 | map_lang = 2 & $int0 = 40 | map_lang = 3 & $int0 = 49) {
+    if_settrans($component4, 0);
+    if_sendtofront($component2);
+} else if ($int0 = 69) {
+    if_settrans($component5, 0);
+    if_sendtofront($component3);
+}

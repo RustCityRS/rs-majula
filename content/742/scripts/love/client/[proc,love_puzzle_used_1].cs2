@@ -1,0 +1,76 @@
+// 3484
+[proc,love_puzzle_used_1](int $int0)(int)
+def_int $int1 = 0;
+if (%love_puzzle_1_a1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_b1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_c1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_c2 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_c3 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_d1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_d3 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_d4 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_e1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_e2 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_e4 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_e5 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_f1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_f2 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_f4 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_f5 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_f6 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g1 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g2 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g3 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g4 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g5 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g6 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+if (%love_puzzle_1_g7 = $int0) {
+    $int1 = calc($int1 + 1);
+}
+return($int1);

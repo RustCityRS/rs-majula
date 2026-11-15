@@ -1,0 +1,36 @@
+// 2435
+[clientscript,gravestone_update_timer]
+if (%gravestone_countdown > 0) {
+    %gravestone_countdown = calc(%gravestone_countdown - 1);
+} else {
+    ~gravestone_stop_timer;
+    return;
+}
+def_int $int0 = calc(%gravestone_countdown / 50);
+def_int $int1 = calc($int0 / 60);
+$int0 = calc($int0 - $int1 * 60);
+def_string $string0 = "";
+def_string $string1 = "";
+if ($int1 = 0) {
+    $string0 = "00";
+} else if ($int1 < 10) {
+    $string0 = "0<tostring($int1)>";
+} else {
+    $string0 = tostring($int1);
+}
+if ($int0 = 0) {
+    $string1 = "00";
+} else if ($int0 < 10) {
+    $string1 = "0<tostring($int0)>";
+} else {
+    $string1 = tostring($int0);
+}
+if (getwindowmode < 2) {
+    if_sethide(toplevel:gravestone_timer, false);
+    if_sethide(toplevel:gravestone_background, false);
+    if_settext(toplevel:gravestone_timer, "<$string0>:<$string1>");
+} else {
+    if_sethide(toplevel_fullscreen:gravestone_timer, false);
+    if_sethide(toplevel_fullscreen:gravestone_background, false);
+    if_settext(toplevel_fullscreen:gravestone_timer, "<$string0>:<$string1>");
+}

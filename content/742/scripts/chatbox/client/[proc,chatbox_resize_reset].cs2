@@ -1,0 +1,3 @@
+// 1652
+[proc,chatbox_resize_reset](boolean $boolean0)
+~chatbox_resize(calc(if_getheight(toplevel_fullscreen:com_93) - 258), $boolean0);

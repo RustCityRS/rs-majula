@@ -1,0 +1,217 @@
+// 568:0
+[com_0]
+type=layer
+x=98
+y=34
+width=333
+height=217
+
+// 568:1
+[com_1]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4260(event_com)
+
+// 568:2
+[com_2]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 568:3
+[warn1]
+type=text
+x=-2
+y=90
+width=315
+height=15
+layer=com_2
+textfont=p12_full
+text=Proceed regardless
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+transmitop=1
+op1=Yes
+onmouseover=cws_mouseover(event_com, ^green)
+onmouseleave=cws_mouseover(event_com, ^red)
+
+// 568:4
+[warn2]
+type=text
+x=-2
+y=122
+width=315
+height=15
+layer=com_2
+textfont=p12_full
+text=Stay out
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000
+transmitop=1
+op1=No
+onmouseover=cws_mouseover(event_com, ^green)
+onmouseleave=cws_mouseover(event_com, ^red)
+
+// 568:5
+[com_5]
+type=layer
+x=1
+y=153
+width=307
+height=22
+layer=com_2
+hide=yes
+
+// 568:6
+[warn3]
+type=text
+x=1
+y=2
+width=315
+height=15
+layer=com_5
+textfont=p12_full
+text=Don't ask me this again
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 568:7
+[cws_toggle_button]
+type=graphic
+x=2
+width=19
+height=19
+layer=com_5
+graphic="warning_icons,1"
+transmitop=1
+op1=Off/On
+onvartransmit=cws_graphic_swap(cws_warning_3:cws_toggle_button, 5){cws_var}
+onclick=cws_toggle(cws_warning_3:cws_toggle_button)
+
+// 568:8
+[com_8]
+type=text
+x=-2
+y=1
+width=315
+height=87
+layer=com_2
+textfont=p12_full
+text=This area is very dark. Do not extinquish your light source!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff7d1f
+
+// 568:9
+[com_9]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4261(event_com)
+
+// 568:10
+[com_10]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 568:11
+[com_11]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+textfont=palatino_linotype_18pt_regular
+text=Warning!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 568:12
+[com_12]
+type=graphic
+x=89
+y=4
+width=19
+height=19
+layer=com_10
+graphic="warning_icons,0"
+
+// 568:13
+[com_13]
+type=graphic
+x=217
+y=4
+width=19
+height=19
+layer=com_10
+graphic="warning_icons,0"
+
+// 568:14
+[com_14]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_0
+onload=aif_build_close_button_layer(event_com)
+
+// 568:15
+[com_15]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 568:16
+[com_16]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+onload=aif_build_close_button_over(event_com)

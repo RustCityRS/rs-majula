@@ -1,0 +1,11 @@
+// 833
+[proc,clientscript_833](int $int0)
+if ($int0 < 80) {
+    $int0 = 80;
+}
+def_int $int1 = calc($int0 / 2);
+if ($int1 < 40) {
+    $int1 = 40;
+}
+if_settrans(interface_1202:com_0, $int0);
+if_settrans(interface_1202:com_2, $int1);

@@ -1,0 +1,17 @@
+// 6123
+[proc,clientscript_6123](component $component0, int $int1, int $int2)
+def_int $int3 = if_gety($component0);
+if ($int3 > $int1) {
+    $int3 = calc($int3 - $int2);
+    if ($int3 <= $int1) {
+        $int3 = $int1;
+        if_setontimer($component0, null);
+    }
+} else {
+    $int3 = calc($int3 + $int2);
+    if ($int3 >= $int1) {
+        $int3 = $int1;
+        if_setontimer($component0, null);
+    }
+}
+if_setposition($component0, if_getx($component0), $int3, ^setpos_abs_left, ^setpos_abs_top);

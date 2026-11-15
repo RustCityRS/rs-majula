@@ -1,0 +1,10 @@
+// 5348
+[proc,clientscript_5348](component $component0)
+def_string $string0 = "";
+if (%varclient_1648 > 0) {
+    $string0 = tostring_localised(%varclient_1648, true);
+} else {
+    %varclient_1648 = 0;
+    $string0 = "0";
+}
+if_settext($component0, $string0);

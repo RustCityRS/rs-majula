@@ -1,0 +1,31 @@
+// 6307
+[proc,clientscript_6307](int $int0, int $int1)
+def_int $int2 = calc($int1 + $int0 * 25);
+if (clientclock > calc($int2 + 50)) {
+    cc_deleteall(interface_1301:com_3);
+    if_setontimer(interface_1301:com_0, null);
+    if_setontimer(interface_1301:com_1, null);
+    if_setontimer(interface_1301:com_2, null);
+    if_setontimer(interface_1301:com_5, null);
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = calc(random(150) + 150);
+def_int $int5 = calc(random(50) + 150);
+while ($int3 < $int0) {
+    if (clientclock = calc($int1 + $int3 * 25)) {
+        cc_deleteall(interface_1301:com_3);
+        cc_create(interface_1301:com_3, ^iftype_model, if_getnextsubid(interface_1301:com_3));
+        cc_setsize(121, 114, ^setsize_abs, ^setsize_abs);
+        cc_setmodel(model_32150);
+        cc_setmodelanim(seq_15754);
+        cc_setmodelangle(0, 0, 512, 0, 0, calc(900 + random(1000)));
+        $int4 = calc(random(150) + 0);
+        $int5 = calc(random(50) + 150);
+        if (random(2) = 1) {
+            $int4 = calc($int4 * -1);
+        }
+        cc_setposition($int4, $int5, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+    $int3 = calc($int3 + 1);
+}

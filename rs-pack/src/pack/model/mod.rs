@@ -1,44 +1,15 @@
-#[cfg(before_647)]
 use crate::archive::JagArchive;
-#[cfg(since_647)]
-use crate::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
-use crate::cache::js5::PackedCache;
-#[cfg(since_647)]
-use crate::cache::seq_frame::split_frame_into_stripes;
-#[cfg(since_647)]
-use crate::cache::seq_frame::{AnimFrame, FrameBone};
-#[cfg(since_647)]
-use crate::pack::incremental::Stage;
-#[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive, versions_dep};
-#[cfg(since_647)]
-use crate::pack::names::AssetNames;
-#[cfg(before_647)]
 use crate::pack::pack_registry::PackFile;
-#[cfg(before_647)]
 use crate::pack::pack_registry::PackRegistry;
-#[cfg(before_647)]
 use crate::pack::util::{load_order, walk};
-#[cfg(before_647)]
 use crate::types::BoneType;
-#[cfg(since_647)]
-use anyhow::{Context, Result, bail, ensure};
-#[cfg(before_647)]
 use rs_io::Packet;
-#[cfg(before_647)]
 use rs_io::jag::JagFile;
-#[cfg(since_647)]
-use rs_io::js5::{encode_group_entries, encode_group_entries_striped, reference::FileInfo};
-#[cfg(since_647)]
-use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-#[cfg(before_647)]
 use tracing::{debug, warn};
 
-#[cfg(before_647)]
 pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path) -> Vec<u8> {
     let models_dir = content_dir.join("models");
     if !models_dir.exists() {
@@ -340,7 +311,6 @@ pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     jag.build(JagArchive::Models.compression())
 }
 
-#[cfg(before_647)]
 fn parse_text_props(text: &str) -> HashMap<String, String> {
     let mut map = HashMap::new();
     for line in text.lines() {
@@ -355,7 +325,6 @@ fn parse_text_props(text: &str) -> HashMap<String, String> {
     map
 }
 
-#[cfg(before_647)]
 fn axis_flags_id(name: &str) -> u8 {
     match name {
         "none" => 0,
@@ -370,7 +339,6 @@ fn axis_flags_id(name: &str) -> u8 {
     }
 }
 
-#[cfg(before_647)]
 fn parse_frame_bone(s: &str) -> (u8, Vec<i32>) {
     if s == "none" {
         return (0, Vec::new());
@@ -382,7 +350,6 @@ fn parse_frame_bone(s: &str) -> (u8, Vec<i32>) {
     (flags, deltas)
 }
 
-#[cfg(before_647)]
 fn parse_bone_entry(s: &str) -> (u8, Vec<u8>) {
     let mut parts = s.splitn(2, ',');
     let type_name = parts.next().unwrap().trim();
@@ -391,7 +358,6 @@ fn parse_bone_entry(s: &str) -> (u8, Vec<u8>) {
     (bone_type, labels)
 }
 
-#[cfg(before_647)]
 fn parse_csv_u8(s: &str) -> Vec<u8> {
     if s.is_empty() {
         return Vec::new();
@@ -401,7 +367,6 @@ fn parse_csv_u8(s: &str) -> Vec<u8> {
         .collect()
 }
 
-#[cfg(before_647)]
 fn parse_csv_i32(s: &str) -> Vec<i32> {
     if s.is_empty() {
         return Vec::new();
@@ -410,118 +375,3 @@ fn parse_csv_i32(s: &str) -> Vec<i32> {
         .filter_map(|v| v.trim().parse::<i32>().ok())
         .collect()
 }
-
-#[cfg(since_647)]
-pub fn parse_frames(
-    text: &str,
-    names: &crate::pack::names::AssetNames,
-) -> Result<BTreeMap<u32, Vec<u8>>> {
-    let mut frames = BTreeMap::new();
-    let mut id = None;
-    let mut frame = AnimFrame {
-        type_marker: 0,
-        base_id: 0,
-        bone_count: 0,
-        bones: Vec::new(),
-    };
-    for line in text.lines() {
-        let line = line.split("//").next().unwrap_or("").trim();
-        if line.is_empty() || line.starts_with('#') {
-            continue;
-        }
-        if let Some(section) = line.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
-            if let Some(id) = id {
-                frames.insert(id, frame.encode());
-            }
-            id = Some(
-                section
-                    .strip_prefix("frame_")
-                    .context("Invalid animation frame")?
-                    .parse()?,
-            );
-            frame.type_marker = 0;
-            frame.base_id = 0;
-            frame.bone_count = 0;
-            frame.bones.clear();
-            continue;
-        }
-        ensure!(id.is_some(), "Animation property before frame header");
-        let (key, value) = line.split_once('=').context("Invalid animation property")?;
-        let value = value.trim();
-        match key.trim() {
-            "type" => frame.type_marker = value.parse()?,
-            "base" => frame.base_id = names.id("base", value)?.try_into()?,
-            "bone_count" => frame.bone_count = value.parse()?,
-            "bone" => {
-                let mut fields = value.split(':');
-                let bone = FrameBone {
-                    bone_index: fields.next().context("Missing bone index")?.parse()?,
-                    mask: fields.next().context("Missing bone mask")?.parse()?,
-                    dx: fields.next().context("Missing bone x")?.parse()?,
-                    dy: fields.next().context("Missing bone y")?.parse()?,
-                    dz: fields.next().context("Missing bone z")?.parse()?,
-                };
-                ensure!(fields.next().is_none(), "Invalid animation bone: {value}");
-                frame.bones.push(bone);
-            }
-            key => bail!("Unrecognized animation config key: {key}"),
-        }
-    }
-    if let Some(id) = id {
-        frames.insert(id, frame.encode());
-    }
-    Ok(frames)
-}
-
-#[cfg(since_647)]
-pub fn pack_archive(
-    store: &mut PackedCache,
-    content_dir: &Path,
-    versions: &HashMap<u8, ArchiveVersions>,
-    names: &AssetNames,
-) -> Result<()> {
-    let aid = archive::ANIMS;
-    let anim_dir = content_dir.join("animations");
-    let files = names.files(&anim_dir, "anim", &["anim"])?;
-    let stage = Stage::new("anims", vec![versions_dep(versions, aid)]);
-    let prepared = stage.groups(
-        names,
-        &files,
-        |path| vec![path.clone()],
-        |gid, path, names| {
-            let frames = parse_frames(&fs::read_to_string(path)?, names)
-                .with_context(|| format!("Reading animation {}", path.display()))?;
-            let refs: Vec<_> = frames
-                .iter()
-                .map(|(&id, data)| (id, data.as_slice()))
-                .collect();
-            let data = if refs.len() > 1 {
-                encode_group_entries_striped(&refs, 3, split_frame_into_stripes)
-            } else {
-                encode_group_entries(&refs)
-            };
-            let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
-            group.files = frames
-                .keys()
-                .map(|&id| FileInfo {
-                    id,
-                    name_hash: None,
-                })
-                .collect();
-            Ok(group)
-        },
-    )?;
-    stage.finish(Vec::new());
-    insert_archive(
-        store,
-        aid,
-        archive::archive_format(aid).unwrap(),
-        versions,
-        prepared,
-        "from animations",
-    )
-}
-#[cfg(since_647)]
-mod geometry;
-#[cfg(since_647)]
-pub mod source;

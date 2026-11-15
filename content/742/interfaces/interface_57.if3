@@ -1,0 +1,38 @@
+// 57:0
+[com_0]
+type=layer
+y=2116
+height=45
+widthmode=minus
+xmode=abs_centre
+ymode=proportion_top
+onload=script1366(interface_57:com_1, interface_57:com_2)
+onvartransmit=script1366(interface_57:com_1, interface_57:com_2){castlewars_timer}
+
+// 57:1
+[com_1]
+type=text
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+
+// 57:2
+[com_2]
+type=text
+height=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+hide=yes
+textfont=p11_full
+text=Although you may be invited to join the game, you may not be eligible for rewards.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000

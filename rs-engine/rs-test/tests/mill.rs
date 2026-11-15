@@ -21,6 +21,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
@@ -31,19 +32,19 @@ const HOPPER: (i32, u16, u16) = (36881, 3166, 3307);
 const CONTROLS: (i32, u16, u16) = (2718, 3166, 3305);
 const FLOUR_BIN: (i32, u16, u16) = (36880, 3166, 3306);
 
-fn obj(engine: &Engine, name: &str) -> u16 {
-    *engine
+fn obj(engine: &Engine, name: &str) -> TypeId {
+    engine
         .cache
         .objs
-        .debugnames
-        .get(name)
+        .get_by_debugname(name)
         .unwrap_or_else(|| panic!("no obj {name}"))
+        .id
 }
 
 fn slot_of(engine: &Engine, pid: u16, obj: u16) -> Option<u16> {
-    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
     let inv = engine.harness_player(pid).unwrap().invs.get(&inv).unwrap();
-    (0..inv.capacity as u16).find(|&s| inv.get(s).is_some_and(|i| i.obj == obj))
+    (0..inv.capacity as u16).find(|&s| inv.get(s).is_some_and(|i| i.obj == TypeId::new(obj)))
 }
 
 fn flour(engine: &Engine, pid: u16) -> i32 {
@@ -80,7 +81,7 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
             obj(engine, "pot_empty"),
             obj(engine, "pot_flour"),
         );
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         {
             let backpack = engine
                 .harness_player_mut(client.pid)
@@ -95,7 +96,7 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
         assert_eq!(flour(engine, client.pid), 0);
 
         let mut p = ClientPacket::new();
-        p.p2_alt2(grain as i32)
+        p.p2_alt2(grain.int())
             .p2_alt2(0)
             .p2(HOPPER.2 as i32)
             .p4_alt2(BACKPACK)
@@ -113,7 +114,7 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
             "said {said:?}"
         );
         assert_eq!(
-            slot_of(engine, client.pid, grain),
+            slot_of(engine, client.pid, grain.g2()),
             None,
             "the grain went in"
         );
@@ -146,7 +147,7 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
             "said {said:?}"
         );
         assert!(
-            slot_of(engine, client.pid, flour_pot).is_some(),
+            slot_of(engine, client.pid, flour_pot.g2()).is_some(),
             "a pot of flour"
         );
         assert_eq!(flour(engine, client.pid), 0, "the bin is empty again");
@@ -164,7 +165,7 @@ fn a_dairy_cow_fills_an_empty_bucket() {
         let mut client = engine.harness_login_returning("milkmaid").expect("login");
         engine.cycle();
         let (bucket, milk) = (obj(engine, "bucket_empty"), obj(engine, "bucket_milk"));
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         engine
             .harness_player_mut(client.pid)
             .and_then(|p| p.invs.get_mut(&inv))
@@ -182,24 +183,24 @@ fn a_dairy_cow_fills_an_empty_bucket() {
             "said {said:?}"
         );
         assert_eq!(
-            slot_of(engine, client.pid, bucket),
+            slot_of(engine, client.pid, bucket.g2()),
             None,
             "the bucket is used"
         );
         assert!(
-            slot_of(engine, client.pid, milk).is_some(),
+            slot_of(engine, client.pid, milk.g2()).is_some(),
             "a bucket of milk"
         );
     });
 }
 
 fn set_varp(engine: &mut Engine, pid: u16, name: &str, value: i32) {
-    let id = *engine.cache.varps.debugnames.get(name).unwrap();
+    let id = engine.cache.varps.get_by_debugname(name).unwrap().id;
     engine
         .harness_player_mut(pid)
         .unwrap()
         .vars
-        .set(id, VarValue::Int(value));
+        .set(id.g2(), VarValue::Int(value));
 }
 
 /// Cook's Assistant's rework (15 December 2009, 2011 wiki): once Millie
@@ -216,7 +217,7 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
             obj(engine, "pot_empty"),
             obj(engine, "cook_flour"),
         );
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         {
             let backpack = engine
                 .harness_player_mut(client.pid)
@@ -230,7 +231,7 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
         engine.harness_telejump(client.pid, 3165, 2, 3307);
         ticks(engine, &mut client, 10);
         let mut p = ClientPacket::new();
-        p.p2_alt2(grain as i32)
+        p.p2_alt2(grain.int())
             .p2_alt2(0)
             .p2(HOPPER.2 as i32)
             .p4_alt2(BACKPACK)
@@ -254,7 +255,7 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
             "said {said:?}"
         );
         assert!(
-            slot_of(engine, client.pid, fine).is_some(),
+            slot_of(engine, client.pid, fine.g2()).is_some(),
             "extra fine flour"
         );
     });
@@ -271,7 +272,7 @@ fn the_prized_cow_gives_top_quality_milk() {
             .expect("login");
         engine.cycle();
         let (bucket, top) = (obj(engine, "bucket_empty"), obj(engine, "cook_milk"));
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
         engine
             .harness_player_mut(client.pid)
             .and_then(|p| p.invs.get_mut(&inv))
@@ -283,9 +284,9 @@ fn the_prized_cow_gives_top_quality_milk() {
         op_loc1(&mut client, (47721, 3264, 3277));
         ticks(engine, &mut client, 10);
         assert!(
-            slot_of(engine, client.pid, top).is_some(),
+            slot_of(engine, client.pid, top.g2()).is_some(),
             "top-quality milk"
         );
-        assert_eq!(slot_of(engine, client.pid, bucket), None);
+        assert_eq!(slot_of(engine, client.pid, bucket.g2()), None);
     });
 }

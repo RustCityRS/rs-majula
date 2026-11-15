@@ -1,6 +1,7 @@
 use rs_grid::CoordGrid;
 use rs_info::{EntityMasks, FocusKind};
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
 use rs_vm::{ComId, LocSerial, ObjSerial};
 
@@ -16,14 +17,14 @@ pub enum InteractionTarget {
     /// serial of the exact obj that was clicked.
     Obj {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
     },
     /// A placed location target, identified by its coordinate, type id, dimensions,
     /// shape, angle, layer, and the serial of the exact loc that was clicked.
     Loc {
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         width: u8,
         length: u8,
         shape: LocShape,
@@ -96,7 +97,7 @@ impl InteractionTarget {
 pub struct InteractionState {
     pub target: Option<InteractionTarget>,
     pub target_op: Option<u8>,
-    pub target_subject_type: Option<u16>,
+    pub target_subject_type: Option<TypeId>,
     pub target_subject_com: Option<ComId>,
     pub ap_range: Option<u16>,
     pub ap_range_called: bool,
@@ -104,7 +105,7 @@ pub struct InteractionState {
     pub target_z: i32,
     pub last_path_src: u32,
     pub last_path_dst: u32,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub script_focus: Option<InteractionTarget>,
 }
 
@@ -124,7 +125,7 @@ impl InteractionState {
             target_x: -1,
             target_z: -1,
             last_path_src: 0,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             script_focus: None,
             last_path_dst: 0,
         }
@@ -143,7 +144,10 @@ impl InteractionState {
         self.target_subject_com = None;
 
         match &target {
-            InteractionTarget::Obj { id, .. } | InteractionTarget::Loc { id, .. } => {
+            InteractionTarget::Obj { id, .. } => {
+                self.target_subject_type = Some(*id);
+            }
+            InteractionTarget::Loc { id, .. } => {
                 self.target_subject_type = Some(*id);
             }
             InteractionTarget::Npc { .. }
@@ -208,9 +212,9 @@ impl InteractionState {
         let temp = info.face_entity;
         // 647: a player stays turned to the npc or player its op script was started on for as
         // long as that script is suspended (see `script_focus`).
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let target = self.target.or(self.script_focus);
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let target = self.target;
         if let Some(target) = target {
             match &target {
@@ -274,7 +278,7 @@ mod tests {
     fn obj_target(x: u16, z: u16) -> InteractionTarget {
         InteractionTarget::Obj {
             coord: CoordGrid::new(x, 0, z),
-            id: 100,
+            id: TypeId::new(100),
             serial: ObjSerial::FIRST,
         }
     }
@@ -282,7 +286,7 @@ mod tests {
     fn loc_target(x: u16, z: u16) -> InteractionTarget {
         InteractionTarget::Loc {
             coord: CoordGrid::new(x, 0, z),
-            id: 200,
+            id: TypeId::new(200),
             width: 1,
             length: 1,
             shape: LocShape::CentrepieceStraight,

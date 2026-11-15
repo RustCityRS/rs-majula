@@ -1,24 +1,26 @@
 use super::config_entry;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use super::{cache_params, mark_client_params};
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::pack::util::colour::{RecolType, rgb15_to_hsl16};
 use crate::pack::util::*;
 use crate::types::ForceApproach;
 #[cfg(before_647)]
 use crate::types::LocShape;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::types::loc_shape_from_key;
 use anyhow::Result;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use anyhow::{Context, bail};
+#[cfg(since_530)]
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 struct LocModelShape {
     model: u16,
     shape: u8,
@@ -45,7 +47,7 @@ pub fn pack_locs(
 
     let configs = parse_config_sections_cached(file_cache, "loc", constants)?;
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     let cache_params = cache_params(file_cache, &registry.param);
 
     let mut server = PackedData::new(pack.max);
@@ -75,28 +77,28 @@ pub fn pack_locs(
             continue;
         }
 
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         let props = &mark_client_params(props, &registry.param, &cache_params);
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut src_models: Vec<&str> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut recol_s: Vec<(usize, u16)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut recol_d: Vec<(usize, u16)> = Vec::new();
-        #[cfg(all(since_289, before_647))]
+        #[cfg(all(since_289, before_530))]
         let mut multivar: Option<&str> = None;
-        #[cfg(all(since_289, before_647))]
+        #[cfg(all(since_289, before_530))]
         let mut multiloc: Vec<(usize, &str)> = Vec::new();
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut active = -1;
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut name = None;
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         let mut desc = None;
 
         for group in props.chunk_by(|a, b| batch_code(a) == batch_code(b)) {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             if batch_code(&group[0]) != 0 {
                 let start = client.dat.len();
                 pack_batch(&mut client, group, registry, param_types, debugname)?;
@@ -107,16 +109,16 @@ pub fn pack_locs(
                 let start = client.dat.len();
                 match key.as_str() {
                     // 1
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key.starts_with("model") => src_models.push(value),
 
                     // 2
                     "name" => {
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             name = Some(value.to_string());
                         }
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             client.p1(2);
                             client.pjstr(value);
@@ -125,11 +127,11 @@ pub fn pack_locs(
 
                     // 3
                     "desc" => {
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             desc = Some(value);
                         }
-                        #[cfg(since_647)]
+                        #[cfg(since_530)]
                         {
                             server.p1(3);
                             server.pjstr(value);
@@ -152,7 +154,7 @@ pub fn pack_locs(
                     "blockwalk" => parse_bool(value, |v| {
                         if !v {
                             client.p1(17);
-                        } else if cfg!(since_647) {
+                        } else if cfg!(since_530) {
                             client.p1(27);
                         }
                     }),
@@ -169,7 +171,7 @@ pub fn pack_locs(
                         let v = flag(value);
                         client.p1(19);
                         client.p1(v);
-                        #[cfg(before_647)]
+                        #[cfg(before_530)]
                         {
                             active = v as i8;
                         }
@@ -199,9 +201,9 @@ pub fn pack_locs(
                     }),
 
                     // 24
-                    "anim" => parse_ref(&registry.seq, "seq", value, |v| {
+                    "anim" => parse_bigid(&registry.seq, "seq", value, |v| {
                         client.p1(24);
-                        client.p2(v);
+                        client.pbigid(v);
                     }),
 
                     // 25
@@ -241,14 +243,14 @@ pub fn pack_locs(
                     }),
 
                     // 40
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key.starts_with("recol") => parse_recol(key, value, |v| match v {
                         RecolType::S(idx, v) => recol_s.push((idx, rgb15_to_hsl16(v))),
                         RecolType::D(idx, v) => recol_d.push((idx, rgb15_to_hsl16(v))),
                     }),
 
                     // retextures stored in recol until rev 465
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     _ if key.starts_with("retex") => {
                         parse_retex(registry, key, value, |v| match v {
                             RecolType::S(idx, v) => recol_s.push((idx, v)),
@@ -302,7 +304,7 @@ pub fn pack_locs(
                     }),
 
                     // 68
-                    #[cfg(before_647)]
+                    #[cfg(before_530)]
                     "mapscene" => parse_number(value, |v| {
                         client.p1(68);
                         client.p2(v);
@@ -359,10 +361,10 @@ pub fn pack_locs(
                     }
 
                     // 77 (collected, emitted after the loop)
-                    #[cfg(all(since_289, before_647))]
+                    #[cfg(all(since_289, before_530))]
                     "multivar" => multivar = Some(value.as_str()),
 
-                    #[cfg(all(since_289, before_647))]
+                    #[cfg(all(since_289, before_530))]
                     "multiloc" => {
                         let (idx, loc_name) = value
                             .split_once(',')
@@ -374,7 +376,7 @@ pub fn pack_locs(
                     }
 
                     // 78, and 168 when the sound is a vorbis file
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "bgsound" => {
                         let (sound, range) = value
                             .split_once(',')
@@ -384,12 +386,15 @@ pub fn pack_locs(
                         client.p2(id);
                         parse_number(range.trim(), |v: u8| client.p1(v));
                         if vorbis {
+                            #[cfg(all(since_530, before_647))]
+                            bail!("{debugname}: vorbis bgsound '{value}' needs 647");
+                            #[cfg(since_647)]
                             client.p1(168);
                         }
                     }
 
                     // 79, and 169 when the sounds are vorbis files
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "randomsound" => {
                         let parts: Vec<_> = value.split(',').collect();
                         let [min, max, range, sounds @ ..] = &parts[..] else {
@@ -407,12 +412,15 @@ pub fn pack_locs(
                             client.p2(id);
                         }
                         if vorbis {
+                            #[cfg(all(since_530, before_647))]
+                            bail!("{debugname}: vorbis randomsound '{value}' needs 647");
+                            #[cfg(since_647)]
                             client.p1(169);
                         }
                     }
 
                     // 81, 93, 94, 95 or 162
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "hillchange" => {
                         let (mode, param) = value
                             .split_once(',')
@@ -422,6 +430,12 @@ pub fn pack_locs(
                                 client.p1(81);
                                 client.p1(v);
                             }),
+                            #[cfg(all(since_530, before_647))]
+                            "rotate" => parse_number(param, |v: u16| {
+                                client.p1(93);
+                                client.p2(v);
+                            }),
+                            #[cfg(since_647)]
                             "rotate" => parse_number(param, |v: i32| {
                                 if let Ok(v) = u16::try_from(v) {
                                     client.p1(93);
@@ -432,6 +446,9 @@ pub fn pack_locs(
                                 }
                             }),
                             "ceiling_skew" => client.p1(94),
+                            #[cfg(all(since_530, before_647))]
+                            "skew_to_fit" => client.p1(95),
+                            #[cfg(since_647)]
                             "skew_to_fit" => parse_number(param, |v: u16| {
                                 client.p1(95);
                                 client.p2(v);
@@ -441,7 +458,7 @@ pub fn pack_locs(
                     }
 
                     // 82
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "istexture" => parse_bool(value, |v| {
                         if v {
                             client.p1(82);
@@ -449,7 +466,7 @@ pub fn pack_locs(
                     }),
 
                     // 88
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "hardshadow" => parse_bool(value, |v| {
                         if !v {
                             client.p1(88);
@@ -457,7 +474,7 @@ pub fn pack_locs(
                     }),
 
                     // 89
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "randomanimframe" => parse_bool(value, |v| {
                         if !v {
                             client.p1(89);
@@ -465,7 +482,7 @@ pub fn pack_locs(
                     }),
 
                     // 90
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "unknown90" => parse_bool(value, |v| {
                         if v {
                             client.p1(90);
@@ -473,15 +490,23 @@ pub fn pack_locs(
                     }),
 
                     // 91
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "members" => parse_bool(value, |v| {
                         if v {
                             client.p1(91);
                         }
                     }),
 
+                    // 96
+                    #[cfg(all(since_530, before_647))]
+                    "unknown96" => parse_bool(value, |v| {
+                        if v {
+                            client.p1(96);
+                        }
+                    }),
+
                     // 97
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "msirotate" => parse_bool(value, |v| {
                         if v {
                             client.p1(97);
@@ -489,7 +514,7 @@ pub fn pack_locs(
                     }),
 
                     // 98
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "hasparticles" => parse_bool(value, |v| {
                         if v {
                             client.p1(98);
@@ -497,14 +522,20 @@ pub fn pack_locs(
                     }),
 
                     // 99
-                    #[cfg(since_647)]
+                    #[cfg(all(since_530, before_742))]
                     "cursor1" => pack_cursor(&mut client, 99, value, registry),
 
                     // 100
-                    #[cfg(since_647)]
+                    #[cfg(all(since_530, before_742))]
                     "cursor2" => pack_cursor(&mut client, 100, value, registry),
 
                     // 101
+                    #[cfg(all(since_530, before_647))]
+                    "unknown101" => parse_number(value, |v: u8| {
+                        client.p1(101);
+                        client.p1(v);
+                    }),
+
                     #[cfg(since_647)]
                     "mapfunction" => parse_number(value, |v: u8| {
                         client.p1(101);
@@ -512,7 +543,7 @@ pub fn pack_locs(
                     }),
 
                     // 102
-                    #[cfg(since_647)]
+                    #[cfg(since_530)]
                     "msi" => parse_ref(&registry.msi, "msi", value, |v| {
                         client.p1(102);
                         client.p2(v);
@@ -622,6 +653,33 @@ pub fn pack_locs(
                         client.p1(v);
                     }),
 
+                    #[cfg(since_742)]
+                    "recolindices" => {
+                        client.p1(44);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "retexindices" => {
+                        client.p1(45);
+                        client.p2(parse_mask_indices(value));
+                    }
+
+                    #[cfg(since_742)]
+                    "antimacro" => parse_bool(value, |v| {
+                        if v {
+                            client.p1(189);
+                        }
+                    }),
+
+                    #[cfg(since_742)]
+                    _ if let Some(n) = config_key_index(key, "cursor") => {
+                        parse_ref(&registry.cursor, "cursor", value, |v| {
+                            client.p1(189 + n as u8);
+                            client.p2(v);
+                        })
+                    }
+
                     // 249
                     "param" => {} // handled at the end
 
@@ -632,7 +690,7 @@ pub fn pack_locs(
             }
         }
 
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             let start = client.dat.len();
             // handle 40
@@ -815,13 +873,18 @@ pub fn pack_locs(
 }
 
 fn batch_code(prop: &(String, String)) -> u8 {
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     {
-        let (key, value) = prop;
+        let key = &prop.0;
         match key.as_str() {
             "model" => return 1,
+            #[cfg(all(since_530, before_647))]
+            "modelsd" => return 5,
+            #[cfg(since_647)]
             "modelhd" | "modelsd" => return 5,
-            "anim" if value.contains(',') => return 106,
+            #[cfg(since_647)]
+            "anim" if prop.1.contains(',') => return 106,
+            #[cfg(since_647)]
             "quest" => return 160,
             "multivar" | "multiloc" => return 77,
             "clientparam" => return 249,
@@ -830,6 +893,10 @@ fn batch_code(prop: &(String, String)) -> u8 {
         if config_key_index(key, "recolpalette").is_some() {
             return 42;
         }
+        #[cfg(since_742)]
+        if key == "recolindices" || key == "retexindices" {
+            return 0;
+        }
         if key.starts_with("recol") {
             return 40;
         }
@@ -837,12 +904,12 @@ fn batch_code(prop: &(String, String)) -> u8 {
             return 41;
         }
     }
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     let _ = prop;
     0
 }
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn pack_batch(
     packed: &mut PackedData,
     props: &[(String, String)],
@@ -852,6 +919,9 @@ fn pack_batch(
 ) -> Result<()> {
     let code = batch_code(&props[0]);
     match code {
+        #[cfg(all(since_530, before_647))]
+        1 | 5 => pack_models(packed, props, registry)?,
+        #[cfg(since_647)]
         1 | 5 => {
             packed.p1(code);
             if code == 1 {
@@ -870,6 +940,7 @@ fn pack_batch(
                 parse_number(value, |v: i8| packed.p1(v as u8));
             }
         }
+        #[cfg(since_647)]
         106 => {
             packed.p1(106);
             packed.p1(u8::try_from(props.len()).expect("Too many loc values"));
@@ -877,10 +948,11 @@ fn pack_batch(
                 let (seq, weight) = value
                     .split_once(',')
                     .with_context(|| format!("{name}: invalid anim '{value}'"))?;
-                parse_ref(&registry.seq, "seq", seq.trim(), |v| packed.p2(v));
+                parse_bigid(&registry.seq, "seq", seq.trim(), |v| packed.pbigid(v));
                 parse_number(weight.trim(), |v: u8| packed.p1(v));
             }
         }
+        #[cfg(since_647)]
         160 => {
             let quests: Vec<_> = props
                 .iter()
@@ -897,11 +969,44 @@ fn pack_batch(
             (77, 92),
             props,
             ("loc", &registry.loc),
+            write_loc_id,
             registry,
             name,
         )?,
         249 => parse_params(registry, param_types, packed, props, name),
         _ => unreachable!(),
+    }
+    Ok(())
+}
+
+/// One model per line, as opcode 5 when every shape is a centrepiece.
+#[cfg(all(since_530, before_647))]
+fn pack_models(
+    packed: &mut PackedData,
+    props: &[(String, String)],
+    registry: &PackRegistry,
+) -> Result<()> {
+    let models = props
+        .iter()
+        .map(|(key, value)| {
+            let (shape, model) = value
+                .split_once(',')
+                .with_context(|| format!("Invalid {key} '{value}'"))?;
+            let shape = loc_shape_from_key(shape.trim())
+                .with_context(|| format!("Invalid {key} shape '{shape}'"))?;
+            Ok((shape, model.trim()))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let centrepiece = models
+        .iter()
+        .all(|&(shape, _)| shape == LocShape::CentrepieceStraight as u8);
+    packed.p1(if centrepiece { 5 } else { 1 });
+    packed.p1(u8::try_from(models.len()).expect("Too many models"));
+    for (shape, model) in models {
+        parse_bigid(&registry.model, "model", model, |v| packed.pbigid(v));
+        if !centrepiece {
+            packed.p1(shape);
+        }
     }
     Ok(())
 }
@@ -931,10 +1036,15 @@ fn pack_models(
         packed.p1(shape);
         packed.p1(u8::try_from(group.len()).expect("Too many models"));
         for (_, model) in group {
-            parse_ref(&registry.model, "model", model.trim(), |v| packed.p2(v));
+            parse_bigid(&registry.model, "model", model.trim(), |v| packed.pbigid(v));
         }
     }
     Ok(())
+}
+
+#[cfg(since_530)]
+fn write_loc_id(packed: &mut PackedData, id: i32) {
+    packed.pbigid(TypeId::from_int(id));
 }
 
 #[cfg(since_647)]
@@ -946,16 +1056,23 @@ fn emit_smart_packed(out: &mut PackedData, value: i32) {
     }
 }
 
-#[cfg(all(test, since_647))]
+#[cfg(all(test, since_530))]
 mod tests {
     use super::pack_locs;
+    #[cfg(before_742)]
     use crate::cache::loc::{LocType, LocTypeRaw};
+    #[cfg(before_742)]
     use crate::cache::provider::CacheType;
     use crate::pack::pack::FileCache;
     use crate::pack::pack_registry::PackRegistry;
+    #[cfg(before_742)]
     use crate::types::MultiVar;
+    #[cfg(before_742)]
     use crate::unpack::config::{UnpackedPacks, decode_record, loc::emit_loc_props};
+    #[cfg(before_742)]
     use rs_io::Packet;
+    #[cfg(before_742)]
+    use rs_ver::TypeId;
     use std::collections::HashMap;
     use std::{env, fs, process};
 
@@ -990,6 +1107,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(before_742)]
     fn multiloc_config_preserves_both_selectors_and_defaults() {
         let dir = env::temp_dir().join(format!("rs-majula-multiloc-{}", process::id()));
         fs::create_dir_all(&dir).unwrap();
@@ -1010,19 +1128,19 @@ mod tests {
         for (bytes, var) in [
             (
                 vec![77, 0, 3, 255, 255, 2, 0, 9, 255, 255, 255, 255, 0],
-                Some(MultiVar::Varbit(3)),
+                Some(MultiVar::Varbit(TypeId::new(3))),
             ),
             (
                 vec![77, 255, 255, 0, 7, 0, 0, 9, 0],
-                Some(MultiVar::Varp(7)),
+                Some(MultiVar::Varp(TypeId::new(7))),
             ),
             (
                 vec![92, 0, 3, 0, 7, 0, 11, 2, 0, 9, 255, 255, 255, 255, 0],
-                Some(MultiVar::Varbit(3)),
+                Some(MultiVar::Varbit(TypeId::new(3))),
             ),
             (vec![92, 255, 255, 255, 255, 255, 255, 0, 255, 255, 0], None),
         ] {
-            let mut def = LocTypeRaw::new(0);
+            let mut def = LocTypeRaw::new(TypeId::new(0));
             def.decode(&mut Packet::from(bytes.clone()));
             let mut text = "[subject]\n".to_string();
             for (key, value) in decode_record(
@@ -1051,7 +1169,7 @@ mod tests {
             let loc = LocType::from(def);
             assert_eq!(loc.multivar, var);
             let default = if bytes[0] == 92 && var.is_some() {
-                Some(11)
+                Some(TypeId::new(11))
             } else {
                 None
             };
@@ -1059,6 +1177,68 @@ mod tests {
             assert_eq!(loc.multi_loc(1), default);
             assert_eq!(loc.multi_loc(256), default);
         }
+        fs::remove_file(dir.join("all.loc")).unwrap();
+        fs::remove_dir(dir).unwrap();
+    }
+
+    /// Real 530 records, with two model sets or a hill change after the name.
+    #[cfg(before_647)]
+    #[test]
+    fn model_sets_and_old_opcodes_keep_their_cache_bytes() {
+        let dir = env::temp_dir().join(format!("rs-majula-loc-530-{}", process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let mut registry = PackRegistry::load(&dir).unwrap();
+        registry.loc.max = 1;
+        registry.loc.id_to_debugname.insert(0, "subject".into());
+        registry.loc.debugname_to_id.insert("subject".into(), 0);
+        for bytes in [
+            vec![73, 60, 0, 38, 1, 1, 4, 81, 22, 0],
+            vec![
+                21, 19, 0, 1, 2, 32, 144, 10, 32, 145, 1, 1, 2, 32, 156, 10, 32, 157, 1, 0,
+            ],
+            vec![
+                22, 39, 15, 29, 20, 27, 18, 1, 2, 107, 106, 0, 107, 121, 2, 1, 2, 107, 106, 0, 107,
+                121, 2, 0,
+            ],
+            vec![
+                39, 15, 29, 25, 27, 40, 1, 40, 82, 40, 74, 5, 1, 118, 14, 2, 71, 114, 97, 118, 101,
+                115, 116, 111, 110, 101, 0, 93, 32, 32, 0,
+            ],
+            vec![19, 0, 95, 1, 2, 136, 186, 0, 137, 156, 9, 0],
+            vec![19, 0, 21, 29, 25, 39, 15, 22, 88, 96, 1, 1, 144, 179, 22, 0],
+            vec![101, 7, 5, 1, 0, 1, 0],
+        ] {
+            let mut text = "[subject]\n".to_string();
+            for (key, value) in decode_record(
+                &mut Packet::from(bytes.clone()),
+                0,
+                &HashMap::new(),
+                &mut UnpackedPacks::new(),
+                emit_loc_props,
+            ) {
+                text.push_str(&format!("{key}={value}\n"));
+            }
+            fs::write(dir.join("all.loc"), text).unwrap();
+            let packed = pack_locs(
+                &FileCache::new(&dir),
+                &registry,
+                &HashMap::new(),
+                &HashMap::new(),
+            )
+            .unwrap()
+            .client
+            .unwrap();
+            assert_eq!(packed.dat[2..], bytes);
+        }
+        let mut def = LocTypeRaw::new(TypeId::new(0));
+        def.decode(&mut Packet::from(vec![
+            1, 1, 0, 2, 10, 5, 1, 0, 3, 95, 96, 101, 7, 0,
+        ]));
+        assert_eq!(def.models.unwrap()[0].model, TypeId::new(2));
+        assert_eq!(def.hd_models.unwrap()[0].model, TypeId::new(3));
+        assert_eq!(def.hillskew, 5);
+        assert!(def.unknown_96);
+        assert_eq!(def.unknown_101, Some(7));
         fs::remove_file(dir.join("all.loc")).unwrap();
         fs::remove_dir(dir).unwrap();
     }

@@ -1,0 +1,38 @@
+#testscript
+
+// Combat runs on 289's hitpoints (skill_combat/scripts/combat.rs2, npc
+// hitpoints in the ported .npc configs).
+
+// 289's max hit is (S + 320) / 640 whole hitpoints, so S = 1000 and S = 1100
+// are both 2.
+[label,test_the_max_hit_is_in_hitpoints]
+assert_eq(~combat_maxhit(1000), 2)
+assert_eq(~combat_maxhit(1100), 2)
+
+// An npc's hitpoints are 289's (Kolodion's human form, 3), or a tenth of
+// void-634's life points (the dagannoth, 120).
+[label,test_npc_hitpoints_are_hitpoints]
+setup_player("test_player")
+~test_skip_design
+npc_add(movecoord(coord, 2, 0, 0), kolhuman, 50)
+assert_eq(npc_basestat(hitpoints), 3)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
+assert_eq(npc_basestat(hitpoints), 120)
+
+// An npc's hit on a player takes hitpoints.
+[label,test_an_npc_hit_takes_hitpoints]
+setup_player("test_player")
+~test_skip_design
+queue(combat_damage_player, 0, 4)
+test_tick(2)
+assert_eq(stat(hitpoints), 6)
+
+// Hitpoints boosted over the base level still paint a full bar: the bar's
+// fill is a byte, and the hit is painted, not refused.
+[label,test_hitpoints_over_the_base_paint_a_full_bar]
+setup_player("test_player")
+~test_skip_design
+stat_add(hitpoints, 10, 0)
+~player_damage(^hitmark_damage, 1)
+assert_eq(stat(hitpoints), 19)
+assert_called_with("damage", "3,1,0,255")

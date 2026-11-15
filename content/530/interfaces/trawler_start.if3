@@ -1,0 +1,154 @@
+// 368:0
+[subsection_title]
+type=text
+x=46
+y=81
+width=291
+height=13
+layer=layer_1
+textfont=fontmetrics_497
+text=Body Text
+colour=0x46320a
+
+// 368:1
+[com_1]
+type=model
+x=14
+y=22
+width=482
+height=303
+layer=layer_1
+model=model_26397
+modelorigin=-2,33
+modelangle=512,3,0
+modelzoom=1009
+modelunknown=63959,3000,0
+
+// 368:2
+[com_2]
+type=model
+x=88
+y=88
+width=57
+height=36
+layer=layer_1
+model=model_1842
+modelorigin=-4,7
+modelangle=155,2037,0
+modelzoom=591
+modelunknown=64092,3000,0
+
+// 368:3
+[com_3]
+type=model
+x=85
+y=151
+width=56
+height=42
+layer=layer_1
+model=model_2386
+modelorigin=1,-2
+modelangle=218,115,0
+modelzoom=385
+modelunknown=64250,3000,0
+
+// 368:4
+[com_4]
+type=model
+x=87
+y=215
+width=50
+height=63
+layer=layer_1
+model=model_2504
+modelorigin=-3,24
+modelangle=148,1752,0
+modelzoom=478
+modelunknown=64175,3000,0
+
+// 368:5
+[com_5]
+type=text
+x=150
+y=92
+width=299
+height=49
+layer=layer_1
+textfont=fontmetrics_497
+text=Use rope to repair the Trawler's nets.
+colour=0x46320a
+
+// 368:6
+[com_6]
+type=text
+x=150
+y=152
+width=301
+height=48
+layer=layer_1
+textfont=fontmetrics_497
+text=Use Swamp Paste to repair leaks in the Ship's hull.
+textlineheight=20
+colour=0x46320a
+
+// 368:7
+[com_7]
+type=text
+x=148
+y=225
+width=235
+height=47
+layer=layer_1
+textfont=fontmetrics_497
+text=If all else fails you can always try and bail the water out as well!
+textlineheight=20
+colour=0x46320a
+
+// 368:8
+[com_8]
+type=text
+x=203
+y=60
+width=141
+height=17
+layer=layer_1
+textfont=fontmetrics_645
+text=How to play:
+textalignh=centre
+textalignv=centre
+colour=0x46320a
+
+// 368:9
+[com_9]
+type=rectangle
+x=167
+y=85
+width=200
+height=1
+layer=layer_1
+colour=0x46320a
+fill=yes
+trans=200
+
+// 368:10
+[com_10]
+type=graphic
+x=433
+y=52
+width=26
+height=23
+layer=layer_1
+graphic=graphic_541
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 542)
+onmouseleave=graphic_swapper(event_com, 541)
+onop=if_close
+
+// 368:11
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre

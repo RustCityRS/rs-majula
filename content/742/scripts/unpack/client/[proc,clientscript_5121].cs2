@@ -1,0 +1,67 @@
+// 5121
+[proc,clientscript_5121]
+cc_deleteall(interface_1119:com_16);
+def_int $int0 = 0;
+def_int $int1 = calc(126 + 1);
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+while ($int0 <= $int1) {
+    if ($int0 > %varplayerbit_9545) {
+        if (cc_find(interface_1119:com_11, calc($int0 * 3)) = true & cc_gethide = false) {
+            cc_clearhooks;
+            if (.cc_find(interface_1119:com_11, calc($int0 * 3 + 1)) = true) {
+                if (%varclient_777 = $int0) {
+                    .cc_setgraphic("aif_checkbox_small,2");
+                } else {
+                    .cc_setgraphic("aif_checkbox_small,6");
+                }
+            }
+            if (.cc_find(interface_1119:com_11, calc($int0 * 3 + 2)) = true) {
+                .cc_setcolour(0x7f7f7f);
+            }
+        }
+    } else if (%varclient_777 = $int0) {
+        $graphic2 = "aif_checkbox_small,1";
+        $graphic3 = "aif_checkbox_small,0";
+        if (cc_find(interface_1119:com_11, calc($int0 * 3)) = true & cc_gethide = false) {
+            cc_setonmouseover("clientscript_5122(event_com, event_comsubid, $graphic2, ^white)");
+            cc_setonmouseleave("clientscript_5122(event_com, event_comsubid, $graphic3, 0xdfdfcf)");
+            if (.cc_find(interface_1119:com_11, calc($int0 * 3 + 1)) = true) {
+                .cc_setgraphic($graphic3);
+            }
+            if (.cc_find(interface_1119:com_11, calc($int0 * 3 + 2)) = true) {
+                .cc_setcolour(0xdfdfcf);
+            }
+        }
+    } else {
+        $graphic2 = "aif_checkbox_small,5";
+        $graphic3 = "aif_checkbox_small,4";
+        if (cc_find(interface_1119:com_11, calc($int0 * 3)) = true & cc_gethide = false) {
+            cc_setonmouseover("clientscript_5122(event_com, event_comsubid, $graphic2, ^white)");
+            cc_setonmouseleave("clientscript_5122(event_com, event_comsubid, $graphic3, 0xcfbfaf)");
+            if (.cc_find(interface_1119:com_11, calc($int0 * 3 + 1)) = true) {
+                .cc_setgraphic($graphic3);
+            }
+            if (.cc_find(interface_1119:com_11, calc($int0 * 3 + 2)) = true) {
+                .cc_setcolour(0xcfbfaf);
+            }
+        }
+    }
+    if ($int0 <= %varclient_777) {
+        cc_create(interface_1119:com_16, ^iftype_rectangle, $int0);
+        if ($int0 = %varclient_777) {
+            cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+            cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+            cc_settrans(255);
+            cc_setop(1, "Confirm");
+        } else {
+            cc_sethide(true);
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+if (%varclient_777 >= 0) {
+    if_sethide(interface_1119:com_19, true);
+} else {
+    if_sethide(interface_1119:com_19, false);
+}

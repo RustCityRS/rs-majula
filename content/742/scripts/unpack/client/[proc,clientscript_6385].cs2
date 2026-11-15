@@ -1,0 +1,16 @@
+// 6385
+[proc,clientscript_6385]
+def_graphic $graphic0 = null;
+if (map_lang = 0) {
+    $graphic0 = 11621;
+} else if (map_lang = 1) {
+    $graphic0 = 11623;
+} else if (map_lang = 2) {
+    $graphic0 = 11622;
+} else if (map_lang = 3) {
+    $graphic0 = 11625;
+}
+if_setgraphic(interface_396:com_11, $graphic0);
+~clientscript_6387;
+def_string $string0 = "Cooking - <enum(int, string, enum_5926, %varplayerbit_11457)>, <enum(int, string, enum_5926, %varplayerbit_11458)> and <enum(int, string, enum_5926, %varplayerbit_11459)>";
+if_settext(interface_396:com_18, $string0);

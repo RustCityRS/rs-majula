@@ -1,6 +1,7 @@
 use super::UnpackedPacks;
 use crate::archive::QUICKCHAT_GLOBAL_FIRST;
 use crate::cache::quickchatcat::QuickChatCatType;
+use rs_ver::TypeId;
 use std::collections::HashMap;
 
 pub fn emit_quickchatcat_props(
@@ -10,7 +11,7 @@ pub fn emit_quickchatcat_props(
     packs: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
-    let first = def.id & QUICKCHAT_GLOBAL_FIRST;
+    let first = def.id.g2() & QUICKCHAT_GLOBAL_FIRST;
     let mut p: Vec<(u8, String, String)> = Vec::new();
     if let Some(desc) = &def.desc {
         p.push((1, "desc".into(), desc.to_string()));
@@ -20,7 +21,7 @@ pub fn emit_quickchatcat_props(
         ("chatphrase", 3, "phrase", &def.phrases),
     ] {
         for &(id, shortcut) in targets.iter() {
-            let target = packs.reference(kind, id + first);
+            let target = packs.reference(kind, TypeId::from_g2(id + first));
             p.push((code, key.into(), format!("{target},{shortcut}")));
         }
     }

@@ -1,0 +1,31 @@
+// 5088
+[proc,clientscript_5088](component $component0, int $int1)
+def_int $int2 = 0;
+if (.cc_find($component0, calc(cc_getid + 4)) = true) {
+    $int2 = .cc_gettrans;
+    if ($int1 = 0) {
+        $int2 = max(calc($int2 - 22), 0);
+        .cc_settrans($int2);
+        if (.cc_find($component0, calc(cc_getid + 6)) = true) {
+            .cc_settrans($int2);
+        }
+        if (.cc_find($component0, calc(cc_getid + 8)) = true) {
+            .cc_settrans($int2);
+        }
+        if ($int2 <= 0) {
+            cc_setontimer(null);
+        }
+    } else {
+        $int2 = min(calc($int2 + 22), 255);
+        .cc_settrans($int2);
+        if (.cc_find($component0, calc(cc_getid + 6)) = true) {
+            .cc_settrans($int2);
+        }
+        if (.cc_find($component0, calc(cc_getid + 8)) = true) {
+            .cc_settrans($int2);
+        }
+        if ($int2 >= 255) {
+            cc_setontimer(null);
+        }
+    }
+}

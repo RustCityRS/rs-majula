@@ -1,0 +1,129 @@
+// 1318:0
+[com_0]
+type=layer
+x=10
+y=108
+width=223
+height=42
+layer=com_1
+hide=yes
+
+// 1318:1
+[com_1]
+type=layer
+width=765
+height=503
+
+// 1318:2
+[com_2]
+type=layer
+width=263
+height=245
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 1318:3
+[com_3]
+type=graphic
+width=200
+height=200
+xmode=proportion_centre
+ymode=proportion_centre
+layer=com_2
+graphic=graphic_9249
+ontimer=clientscript_6562(event_com)
+
+// 1318:4
+[com_4]
+type=layer
+x=10
+y=10
+width=80
+height=72
+layer=com_1
+hide=yes
+
+// 1318:5
+[com_5]
+type=text
+x=6
+width=115
+height=24
+ymode=abs_centre
+layer=com_0
+hide=yes
+textfont=b12_full
+text=Resource Points:
+textalignv=centre
+textshadow=yes
+colour=0xebe0b9
+
+// 1318:6
+[com_6]
+type=text
+x=121
+width=93
+height=24
+ymode=abs_centre
+layer=com_0
+hide=yes
+textfont=b12_full
+text=0
+textalignv=centre
+textshadow=yes
+colour=0xebe0b9
+
+// 1318:7
+[com_7]
+type=graphic
+x=6
+y=9
+width=68
+height=57
+layer=com_4
+graphic=graphic_11974
+
+// 1318:8
+[com_8]
+type=text
+x=16
+y=42
+width=17
+height=19
+layer=com_4
+textfont=verdana_15pt_regular
+text=5
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x81fa13
+
+// 1318:9
+[com_9]
+type=text
+x=28
+y=40
+width=15
+height=21
+layer=com_4
+textfont=verdana_15pt_regular
+text=:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x81fa13
+
+// 1318:10
+[com_10]
+type=text
+x=33
+y=40
+width=35
+height=24
+layer=com_4
+textfont=verdana_15pt_regular
+text=00
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x81fa13

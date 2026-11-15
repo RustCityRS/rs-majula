@@ -1,0 +1,189 @@
+// 1357:0
+[com_0]
+type=layer
+width=15591
+height=15017
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+onload=clientscript_6861
+
+// 1357:1
+[com_1]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+graphic=window_texture
+
+// 1357:2
+[com_2]
+type=layer
+x=3
+y=3
+width=485
+height=299
+layer=com_0
+onload=clientscript_6711
+
+// 1357:3
+[com_3]
+type=graphic
+x=1
+y=1
+width=240
+height=150
+layer=com_2
+graphic=graphic_13711
+
+// 1357:4
+[com_4]
+type=graphic
+x=240
+y=1
+width=240
+height=150
+layer=com_2
+graphic=graphic_13712
+
+// 1357:5
+[com_5]
+type=graphic
+x=1
+y=151
+width=240
+height=150
+layer=com_2
+graphic=graphic_13713
+
+// 1357:6
+[com_6]
+type=graphic
+x=240
+y=151
+width=240
+height=150
+layer=com_2
+graphic=graphic_13714
+
+// 1357:7
+[com_7]
+type=layer
+x=4
+y=6
+width=20
+height=16
+xmode=abs_right
+layer=com_0
+
+// 1357:8
+[com_8]
+type=graphic
+width=19
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+graphic=graphic_8278
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(event_com, 8278)
+onop=closebutton_click
+onmouserepeat=graphic_swapper(event_com, 8279)
+
+// 1357:9
+[com_9]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+
+// 1357:10
+[com_10]
+type=graphic
+width=10
+height=10
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+hflip=yes
+
+// 1357:11
+[com_11]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+
+// 1357:12
+[com_12]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+hflip=yes
+
+// 1357:13
+[com_13]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,1"
+vflip=yes
+
+// 1357:14
+[com_14]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,0"
+vflip=yes
+hflip=yes
+
+// 1357:15
+[com_15]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,0"
+
+// 1357:16
+[com_16]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,2"
+
+// 1357:17
+[com_17]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_9
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes

@@ -1,0 +1,28 @@
+#testscript
+
+// An obj trades unless its config says `tradeable=no` (Jordan's ObjType:
+// tradeable by default, server opcode 15 clears it). 647 had no such key and
+// read every obj as untradeable, so inv_dropall deleted a dead player's
+// inventory instead of dropping it. The `tradeable=no` lines come from
+// tools/obj_tradeable_2011.py.
+
+// Most objs trade.
+[label,test_an_obj_trades_unless_its_config_says_not]
+assert_true(oc_tradeable(vial_water))
+assert_true(oc_tradeable(coins))
+
+// 289's untradeables (Family Crest's perfect gold ore) and void-634's (a
+// treasure-trail storage copy of the adamant (g) platebody).
+[label,test_289s_and_2011s_untradeables_do_not_trade]
+assert_false(oc_tradeable(perfect_gold_ore))
+assert_false(oc_tradeable(dummy_adamant_platebody_gold))
+
+// A cert trades as its obj does (Jordan's cert_link).
+[label,test_a_cert_trades_as_its_obj_does]
+assert_false(oc_tradeable(cocktail_shaker))
+assert_false(oc_tradeable(cert_cocktail_shaker))
+
+// 2011's cache puts the law talisman on the Grand Exchange; 289's was
+// untradeable.
+[label,test_2011s_grand_exchange_objs_trade]
+assert_true(oc_tradeable(law_talisman))

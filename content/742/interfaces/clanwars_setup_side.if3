@@ -1,0 +1,49 @@
+// 792:0
+[universe]
+type=layer
+width=190
+height=261
+
+// 792:1
+[com_1]
+type=rectangle
+width=190
+height=261
+layer=universe
+colour=0x000000
+fill=yes
+trans=150
+
+// 792:2
+[com_2]
+type=text
+x=7
+y=7
+width=176
+height=32
+layer=universe
+textfont=b12_full
+text=Game overview
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 792:3
+[contents]
+type=layer
+x=7
+y=46
+width=176
+height=208
+layer=universe
+onload=script1803(event_com, 32)
+
+// 792:4
+[scrollbar]
+type=layer
+x=174
+y=46
+width=16
+height=208
+layer=universe

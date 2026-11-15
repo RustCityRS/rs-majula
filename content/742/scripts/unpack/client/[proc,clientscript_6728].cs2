@@ -1,0 +1,169 @@
+// 6728
+[proc,clientscript_6728]
+def_enum $enum0 = null;
+switch_int (%varplayer_2751) {
+    case 8 :
+        $enum0 = enum_5530;
+    case 1 :
+        $enum0 = enum_5513;
+    case 22 :
+        $enum0 = enum_5526;
+    case 16 :
+        $enum0 = enum_5515;
+    case 11 :
+        $enum0 = enum_5532;
+    case 25 :
+        $enum0 = enum_5519;
+    case 21 :
+        $enum0 = enum_5522;
+    case 17 :
+        $enum0 = enum_5520;
+    case 15 :
+        $enum0 = enum_5524;
+    case 19 :
+        $enum0 = enum_5523;
+    case 9 :
+        $enum0 = enum_5525;
+    case 23 :
+        $enum0 = enum_5514;
+    case 13 :
+        $enum0 = enum_5516;
+    case 7 :
+        $enum0 = enum_5529;
+    case 12 :
+        $enum0 = enum_5521;
+    case 20 :
+        $enum0 = enum_5527;
+    case 14 :
+        $enum0 = enum_5528;
+    case 24 :
+        $enum0 = enum_5517;
+    case 10 :
+        $enum0 = enum_5518;
+    case 18 :
+        $enum0 = enum_5531;
+}
+cc_deleteall(interface_1343:com_59);
+cc_deleteall(interface_1343:com_67);
+cc_deleteall(interface_1343:com_69);
+cc_deleteall(interface_1343:com_68);
+cc_deleteall(interface_1343:com_70);
+cc_deleteall(interface_1343:com_71);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = enum_getoutputcount($enum0);
+def_struct $struct4 = null;
+while ($int1 < $int3) {
+    if (~clientscript_6784(%varplayer_2751, calc(1 + $int1)) = 1) {
+        $struct4 = enum(int, struct, $enum0, calc(1 + $int1));
+        cc_create(interface_1343:com_59, ^iftype_graphic, $int1);
+        if (calc(%varplayer_2752 - 1) = $int1) {
+            if (~clientscript_6742(%varplayer_2751, calc(1 + $int1)) = 1) {
+                cc_setgraphic(13135);
+            } else {
+                cc_setgraphic(13136);
+            }
+        } else if (~clientscript_6742(%varplayer_2751, calc(1 + $int1)) = 1) {
+            cc_setgraphic(13133);
+            cc_setonmouserepeat("clientscript_6731(interface_1343:com_59, event_comsubid)");
+            cc_setonmouseleave("clientscript_6732(interface_1343:com_59, event_comsubid)");
+        } else {
+            cc_setgraphic(13133);
+            cc_setonmouserepeat("clientscript_6729(interface_1343:com_59, event_comsubid)");
+            cc_setonmouseleave("clientscript_6730(interface_1343:com_59, event_comsubid)");
+        }
+        cc_setsize(254, 43, ^setsize_abs, ^setsize_abs);
+        cc_setposition(1, calc(0 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_create(interface_1343:com_67, ^iftype_graphic, $int1);
+        cc_setgraphic(struct_param($struct4, param_1271));
+        cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+        cc_setposition(4, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_create(interface_1343:com_68, ^iftype_text, $int1);
+        cc_settextfont(verdana_11pt_regular_multiline);
+        cc_setcolour(^white);
+        cc_settext(struct_param($struct4, param_1266));
+        cc_settextalign(^settextalign_centre, ^settextalign_centre, 13);
+        cc_setsize(179, 43, ^setsize_abs, ^setsize_abs);
+        cc_setposition(40, calc(2 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_create(interface_1343:com_69, ^iftype_graphic, $int1);
+        if (~clientscript_6783(1) = $struct4) {
+            if (%varplayerbit_11987 >= struct_param($struct4, param_2235)) {
+                cc_setgraphic(13902);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            } else {
+                cc_setgraphic(13901);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            }
+        } else if (~clientscript_6783(2) = $struct4) {
+            if (%varplayerbit_11991 >= struct_param($struct4, param_2235)) {
+                cc_setgraphic(13902);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            } else {
+                cc_setgraphic(13901);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            }
+        } else if (~clientscript_6783(3) = $struct4) {
+            if (%varplayerbit_11995 >= struct_param($struct4, param_2235)) {
+                cc_setgraphic(13902);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            } else {
+                cc_setgraphic(13901);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            }
+        } else if (~clientscript_6783(4) = $struct4) {
+            if (%varplayerbit_11999 >= struct_param($struct4, param_2235)) {
+                cc_setgraphic(13902);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            } else {
+                cc_setgraphic(13901);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            }
+        } else if (~clientscript_6783(5) = $struct4) {
+            if (%varplayerbit_12003 >= struct_param($struct4, param_2235)) {
+                cc_setgraphic(13902);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            } else {
+                cc_setgraphic(13901);
+                cc_setsize(35, 35, ^setsize_abs, ^setsize_abs);
+                cc_setposition(215, calc(3 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+            }
+        } else {
+            cc_sethide(true);
+        }
+        cc_create(interface_1343:com_70, ^iftype_rectangle, $int1);
+        cc_setsize(254, 43, ^setsize_abs, ^setsize_abs);
+        cc_setposition(1, calc(0 + (43 + 3) * $int2), ^setpos_abs_left, ^setpos_abs_bottom);
+        cc_settrans(255);
+        cc_setop(1, "Select");
+        cc_setonop("clientscript_6733(interface_1343:com_59, event_comsubid)");
+        $int2 = calc($int2 + 1);
+    } else {
+        cc_create(interface_1343:com_59, ^iftype_graphic, $int1);
+        cc_sethide(true);
+        cc_create(interface_1343:com_67, ^iftype_graphic, $int1);
+        cc_sethide(true);
+        cc_create(interface_1343:com_68, ^iftype_text, $int1);
+        cc_sethide(true);
+        cc_create(interface_1343:com_69, ^iftype_graphic, $int1);
+        cc_sethide(true);
+        cc_create(interface_1343:com_70, ^iftype_rectangle, $int1);
+        cc_sethide(true);
+    }
+    $int1 = calc($int1 + 1);
+}
+if_setscrollsize(interface_1343:com_66, 0, calc($int2 * (3 + 43)));
+if_setscrollpos(interface_1343:com_66, 0, 0);
+if (if_getscrollheight(interface_1343:com_66) > if_getheight(interface_1343:com_39)) {
+    ~scrollbar_vertical(interface_1343:com_71, interface_1343:com_66, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+} else {
+    ~scrollbar_vertical(interface_1343:com_71, interface_1343:com_39, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+}

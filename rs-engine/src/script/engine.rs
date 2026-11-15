@@ -3,7 +3,7 @@ use crate::active_npc::ActiveNpc;
 use crate::clients::client_db::DbRequest;
 use crate::core::{Engine, ObjDelayedRequest};
 use crate::counters::{self, COUNTERS};
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::region::REGION_X;
 use crate::script::errors::{Context, Subject};
 use rs_entity::StaffModLevel;
@@ -35,12 +35,12 @@ use rs_pack::cache::spotanim::SpotAnimTypeProvider;
 use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::varc::VarClientTypeProvider;
 #[cfg(since_647)]
 use rs_pack::cache::varcon::VarConTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
@@ -48,8 +48,10 @@ use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 #[cfg(since_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
+#[cfg(all(since_530, before_647))]
+use rs_protocol::network::game::server::map_projanim_halfsq::ServerProt530_104;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
 #[cfg(since_647)]
@@ -58,15 +60,18 @@ use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
 use rs_protocol::network::game::server::text_coord::TextCoord;
 use rs_util::random::JavaRandom;
 use rs_var::VarSet;
-use rs_vm::ScriptError;
+use rs_ver::TypeId;
 #[cfg(since_647)]
+use rs_vm::ControllerUid;
+#[cfg(since_530)]
+use rs_vm::RegionUid;
+use rs_vm::ScriptError;
+#[cfg(since_530)]
 use rs_vm::engine::ProjAnimHalfsq;
 use rs_vm::engine::{ScriptEngine, ScriptFault, ScriptNpc, ScriptPlayer};
 use rs_vm::state::*;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
-#[cfg(since_647)]
-use rs_vm::{ControllerUid, RegionUid};
 #[cfg(since_647)]
 use rs_zone::ZoneEventType;
 use rs_zone::ZoneMessage;
@@ -118,7 +123,7 @@ impl ScriptEngine for Engine {
         &self.cache.varps
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varcs(&self) -> &VarClientTypeProvider {
         &self.cache.varcs
     }
@@ -128,7 +133,7 @@ impl ScriptEngine for Engine {
         &self.cache.varbits
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn varobjs(&self) -> &VarObjTypeProvider {
         &self.cache.varobjs
     }
@@ -232,6 +237,15 @@ impl ScriptEngine for Engine {
             .flatten()
     }
 
+    #[cfg(all(since_254, before_530))]
+    fn midi_length_ms(&self, id: i32) -> Option<u32> {
+        self.cache
+            .midi_lengths_ms
+            .get(id as usize)
+            .copied()
+            .flatten()
+    }
+
     #[cfg(rev = "225")]
     fn jingle_by_name(&self, name: &str) -> Option<&MidiType> {
         self.cache.jingles.get_by_name(name)
@@ -293,7 +307,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `FxHashMap::entry`, `Inventory::with_stack_mode`, `Inventory::set`
-    fn get_shared_inv(&mut self, id: u16, size: usize, stack_mode: StackMode) -> &mut Inventory {
+    fn get_shared_inv(&mut self, id: TypeId, size: usize, stack_mode: StackMode) -> &mut Inventory {
         self.invs.entry(id).or_insert_with(|| {
             let mut inv = Inventory::with_stack_mode(size, stack_mode);
             if let Some(inv_type) = self.cache.invs.get_by_id(id) {
@@ -326,7 +340,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `FxHashMap::get_mut`
-    fn get_shared_inv_mut(&mut self, id: u16) -> Option<&mut Inventory> {
+    fn get_shared_inv_mut(&mut self, id: TypeId) -> Option<&mut Inventory> {
         self.invs.get_mut(&id)
     }
 
@@ -370,7 +384,7 @@ impl ScriptEngine for Engine {
             .and_then(|pid| self.player_list.get(pid).map(|p| p.player.uid))
     }
 
-    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: u16, slot: u16) {
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj: TypeId, slot: u16) {
         let Some(trigger) = u8::try_from(op).ok().and_then(ServerTriggerType::op_held) else {
             return;
         };
@@ -379,7 +393,7 @@ impl ScriptEngine for Engine {
             .objs
             .get_by_id(obj)
             .and_then(|o| o.category)
-            .map_or(-1, |c| c as i32);
+            .map_or(-1, |c| c.int());
         let Some(active) = self.player_list.get_mut(uid.pid()) else {
             return;
         };
@@ -387,7 +401,7 @@ impl ScriptEngine for Engine {
         active.player.last_slot = Some(slot);
         let held = active.player.state.protect;
         if let Err(e) = self.run_script_by_trigger(
-            (trigger, Some(obj as i32), Some(category)),
+            (trigger, Some(obj.int()), Some(category)),
             Some(ScriptSubject::Player(uid)),
             None,
             Some(true),
@@ -395,7 +409,7 @@ impl ScriptEngine for Engine {
             None,
         ) && !matches!(e, ScriptError::TriggerNotFound(_))
         {
-            warn!(error = %e, op, obj, "[P_OPHELD] opheld script error");
+            warn!(error = %e, op, obj = %obj, "[P_OPHELD] opheld script error");
         }
         if held && let Some(active) = self.player_list.get_mut(uid.pid()) {
             active.player.state.protect = true;
@@ -510,14 +524,14 @@ impl ScriptEngine for Engine {
     fn add_npc_spawned(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         duration: i32,
     ) -> rs_vm::Result<Option<NpcUid>> {
         let npc_type = self
             .cache
             .npcs
             .get_by_id(id)
-            .ok_or(ScriptError::NpcNotFound(id as i32))?;
+            .ok_or(ScriptError::NpcNotFound(id.int()))?;
         let size = npc_type.size.max(1) as u16;
         let (max_x, max_z) = (coord.x() + size - 1, coord.z() + size - 1);
         for zone_x in CoordGrid::zone(coord.x())..=CoordGrid::zone(max_x) {
@@ -534,7 +548,7 @@ impl ScriptEngine for Engine {
         let mut active = ActiveNpc::new(id, 0, coord, npc_type.size, vars, self.cache);
         active.npc.lifecycle = EntityLifeTime::Despawn;
         active.npc.lifecycle_at = Some(duration.max(1) as u32);
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if duration == 0 && coord.x() >= REGION_X {
             active.npc.lifecycle_at = None;
         }
@@ -607,7 +621,7 @@ impl ScriptEngine for Engine {
     fn remove_obj(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         duration: u64,
     ) -> Option<u32> {
@@ -623,7 +637,7 @@ impl ScriptEngine for Engine {
     fn valid_obj_count(
         &self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         serial: ObjSerial,
         receiver37: Option<u64>,
     ) -> Option<u32> {
@@ -638,21 +652,21 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::obj_dropped_for`
-    fn obj_dropped_for(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> Option<u64> {
+    fn obj_dropped_for(&self, coord: CoordGrid, id: TypeId, serial: ObjSerial) -> Option<u64> {
         self.zones
             .zone(coord.x(), coord.y(), coord.z())?
             .obj_dropped_for(coord.x(), coord.z(), id, serial)
     }
 
-    #[cfg(since_647)]
-    fn obj_var(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> i32 {
+    #[cfg(since_530)]
+    fn obj_var(&self, coord: CoordGrid, id: TypeId, serial: ObjSerial) -> i32 {
         self.zones
             .zone(coord.x(), coord.y(), coord.z())
             .map_or(0, |zone| zone.obj_var(coord.x(), coord.z(), id, serial))
     }
 
-    #[cfg(since_647)]
-    fn set_obj_var(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, var: i32) -> bool {
+    #[cfg(since_530)]
+    fn set_obj_var(&mut self, coord: CoordGrid, id: TypeId, serial: ObjSerial, var: i32) -> bool {
         self.zones.zone(coord.x(), coord.y(), coord.z()).is_some()
             && self
                 .zones
@@ -677,7 +691,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `ZoneMap::find_obj`
-    fn find_obj(&self, coord: CoordGrid, id: u16, receiver37: Option<u64>) -> Option<ObjRef> {
+    fn find_obj(&self, coord: CoordGrid, id: TypeId, receiver37: Option<u64>) -> Option<ObjRef> {
         let (zone, idx) = self
             .zones
             .find_obj(coord.x(), coord.y(), coord.z(), id, receiver37)?;
@@ -754,7 +768,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `ZoneMap::find_loc`
-    fn find_loc(&self, coord: CoordGrid, id: u16) -> Option<LocRef> {
+    fn find_loc(&self, coord: CoordGrid, id: TypeId) -> Option<LocRef> {
         let (zone, idx) = self.zones.find_loc(coord.x(), coord.y(), coord.z(), id)?;
         let loc = &zone.locs[idx];
         Some(loc_ref(loc.world_coord(zone.coord), loc))
@@ -773,7 +787,7 @@ impl ScriptEngine for Engine {
     fn add_or_change_loc(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         shape: LocShape,
         angle: LocAngle,
         duration: u64,
@@ -791,7 +805,12 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Engine::change_loc` (inherent)
-    fn change_loc(&mut self, loc: LocRef, id: u16, duration: u64) -> rs_vm::Result<Option<LocRef>> {
+    fn change_loc(
+        &mut self,
+        loc: LocRef,
+        id: TypeId,
+        duration: u64,
+    ) -> rs_vm::Result<Option<LocRef>> {
         let live = self.live_loc(loc);
         let (width, length, blockwalk, blockrange) =
             self.placeable_loc_type(loc.coord, id, live.angle)?;
@@ -837,7 +856,7 @@ impl ScriptEngine for Engine {
         coord: CoordGrid,
         shape: LocShape,
         angle: LocAngle,
-        id: u16,
+        id: TypeId,
         start: u16,
         end: u16,
         pid: u16,
@@ -892,7 +911,7 @@ impl ScriptEngine for Engine {
         _coord: CoordGrid,
         _shape: LocShape,
         _angle: LocAngle,
-        _id: u16,
+        _id: TypeId,
         _start: u16,
         _end: u16,
         _pid: u16,
@@ -923,7 +942,7 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::loc_index`, `Zone::anim_loc`, `Engine::track_zone`
-    fn anim_loc(&mut self, loc: LocRef, seq: u16) {
+    fn anim_loc(&mut self, loc: LocRef, seq: TypeId) {
         let (x, y, z) = (loc.coord.x(), loc.coord.y(), loc.coord.z());
         let zone = self.zones.zone_mut(x, y, z);
         if let Some(idx) = zone.loc_index(x, z, loc.layer, loc.serial) {
@@ -940,7 +959,7 @@ impl ScriptEngine for Engine {
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::prefetch_loc`, `Engine::track_zone`
     #[cfg(since_647)]
-    fn loc_prefetchall(&mut self, coord: CoordGrid, id: u16, shape: u8) {
+    fn loc_prefetchall(&mut self, coord: CoordGrid, id: TypeId, shape: u8) {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
         self.zones.zone_mut(x, y, z).prefetch_loc(id, shape);
         self.track_zone(x, y, z);
@@ -958,7 +977,7 @@ impl ScriptEngine for Engine {
     fn loc_merge(
         &mut self,
         loc: LocRef,
-        models: Option<Box<[u16]>>,
+        models: Option<Box<[TypeId]>>,
         recol: Option<Box<[u16]>>,
         retex: Option<Box<[u16]>>,
     ) {
@@ -1003,7 +1022,7 @@ impl ScriptEngine for Engine {
         dst_x: u16,
         dst_z: u16,
         target: i16,
-        id: u16,
+        id: TypeId,
         src_height: u8,
         dst_height: u8,
         start: u16,
@@ -1031,6 +1050,8 @@ impl ScriptEngine for Engine {
                 end_delay: end,
                 peak,
                 arc,
+                #[cfg(since_742)]
+                trailing: 0,
             },
         );
         self.zones.zone_mut(x, y, z).map_proj_anim(message);
@@ -1043,13 +1064,15 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::anim_map`, `Engine::track_zone`
-    fn anim_map(&mut self, y: u8, x: u16, z: u16, spotanim: u16, height: u8, delay: u16) {
+    fn anim_map(&mut self, y: u8, x: u16, z: u16, spotanim: TypeId, height: u8, delay: u16) {
         let coord = CoordGrid::packed_zone_coord(x, z);
         let message = ZoneMessage::MapAnim(rs_protocol::network::game::server::map_anim::MapAnim {
             coord,
             spotanim,
             height,
             delay,
+            #[cfg(since_742)]
+            trailing: 0,
         });
         self.zones.zone_mut(x, y, z).anim_map(message);
         self.track_zone(x, y, z);
@@ -1101,6 +1124,8 @@ impl ScriptEngine for Engine {
             delay,
             volume: 255,
             speed: 256,
+            #[cfg(since_742)]
+            unknown: 0,
         });
         self.zones.zone_mut(x, y, z).sound_area(message);
         self.track_zone(x, y, z);
@@ -1129,17 +1154,52 @@ impl ScriptEngine for Engine {
     }
 
     /// Queues a half-square projectile in the zone holding its start, whose
-    /// 16 by 16 half squares the coord byte indexes.
+    /// 16 by 16 half squares the coord byte indexes. The 530 client has no
+    /// source in MAP_PROJANIM_HALFSQ: one leaving a source's wear position
+    /// goes as its own zone message.
     ///
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::map_proj_anim`, `Engine::track_zone`
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn map_proj_anim_halfsq(&mut self, projectile: ProjAnimHalfsq) {
         let (x, y, z) = (projectile.x >> 1, projectile.level, projectile.z >> 1);
+        let coord = ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8;
+        #[cfg(all(since_530, before_647))]
+        let message = match projectile.wearpos {
+            Some(wearpos) => ZoneMessage::ServerProt530_104(ServerProt530_104 {
+                coord,
+                dx: projectile.dx,
+                dz: projectile.dz,
+                source: projectile.source,
+                wearpos,
+                target: projectile.target,
+                spotanim: projectile.spotanim,
+                src_height: projectile.src_height,
+                dst_height: projectile.dst_height,
+                start_delay: projectile.start,
+                end_delay: projectile.end,
+                peak: projectile.peak,
+                arc: projectile.arc,
+            }),
+            None => ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
+                coord,
+                dx: projectile.dx,
+                dz: projectile.dz,
+                target: projectile.target,
+                spotanim: projectile.spotanim,
+                src_height: projectile.src_height,
+                dst_height: projectile.dst_height,
+                start_delay: projectile.start,
+                end_delay: projectile.end,
+                peak: projectile.peak,
+                arc: projectile.arc,
+            }),
+        };
+        #[cfg(since_647)]
         let message = ZoneMessage::MapProjAnimHalfsq(MapProjAnimHalfsq {
-            coord: ((projectile.x & 0xF) << 4 | projectile.z & 0xF) as u8,
+            coord,
             ground: false,
             wearpos: projectile.wearpos,
             dx: projectile.dx,
@@ -1153,6 +1213,8 @@ impl ScriptEngine for Engine {
             end_delay: projectile.end,
             peak: projectile.peak,
             arc: projectile.arc,
+            #[cfg(since_742)]
+            trailing: 0,
         });
         self.zones.zone_mut(x, y, z).map_proj_anim(message);
         self.track_zone(x, y, z);
@@ -1342,10 +1404,10 @@ impl ScriptEngine for Engine {
         Ok(self.multiway(coord))
     }
 
-    #[cfg(since_647)]
-    fn inarea(&self, area: u16, coord: CoordGrid) -> bool {
+    #[cfg(since_530)]
+    fn inarea(&self, area: TypeId, coord: CoordGrid) -> bool {
         let coord = self.area_tile(coord);
-        area != u16::MAX
+        !area.is_null()
             && self
                 .cache
                 .area_map
@@ -1353,29 +1415,29 @@ impl ScriptEngine for Engine {
                 .contains(&area)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_find(&self, coord: CoordGrid) -> Option<RegionUid> {
         self.regions
             .find(coord.x(), coord.z())
             .map(|region| region.uid)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_exists(&self, uid: RegionUid) -> bool {
         self.regions.get(uid).is_some()
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_coord(&self, uid: RegionUid, level: i32, x: i32, z: i32) -> rs_vm::Result<CoordGrid> {
         Engine::region_coord(self, uid, level, x, z)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_create(&mut self, levels: i32, east: i32, north: i32) -> rs_vm::Result<RegionUid> {
         Engine::region_create(self, levels, east, north)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_set(
         &mut self,
         uid: RegionUid,
@@ -1388,12 +1450,12 @@ impl ScriptEngine for Engine {
         Engine::region_set(self, uid, level, east, north, source, rotation)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_set_exit(&mut self, uid: RegionUid, exit: CoordGrid) -> rs_vm::Result<()> {
         Engine::region_set_exit(self, uid, exit)
     }
 
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     fn region_allows(&self, from: CoordGrid, to: CoordGrid, selected: Option<RegionUid>) -> bool {
         Engine::region_allows(self, from, to, selected)
     }
@@ -1402,7 +1464,7 @@ impl ScriptEngine for Engine {
     fn controller_add(
         &mut self,
         coord: CoordGrid,
-        id: u16,
+        id: TypeId,
         duration: i32,
     ) -> rs_vm::Result<ControllerUid> {
         Engine::controller_add(self, coord, id, duration)
@@ -1419,7 +1481,7 @@ impl ScriptEngine for Engine {
     }
 
     #[cfg(since_647)]
-    fn controller_findexact(&self, coord: CoordGrid, id: u16) -> Option<ControllerUid> {
+    fn controller_findexact(&self, coord: CoordGrid, id: TypeId) -> Option<ControllerUid> {
         self.controllers.find_exact(coord, id)
     }
 
@@ -1528,7 +1590,7 @@ impl ScriptEngine for Engine {
             let coord = active.coord();
             let id = active.npc.uid.id();
             Context {
-                subject: Subject::Npc(id),
+                subject: Subject::Npc(id.g2()),
                 npc: Some(
                     <Self as ScriptEngine>::npcs(self)
                         .get_by_id(id)

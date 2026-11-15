@@ -1,0 +1,3 @@
+// 2413
+[proc,hex_to_rgb](int $int0)(int, int, int)
+return(calc($int0 / 65536), calc(($int0 & 65280) / 256), calc($int0 & 255));

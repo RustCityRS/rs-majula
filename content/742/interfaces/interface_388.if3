@@ -1,0 +1,2486 @@
+// 388:0
+[com_0]
+type=layer
+x=10
+y=17
+width=488
+height=302
+
+// 388:1
+[com_1]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4260(event_com)
+
+// 388:2
+[com_2]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 388:3
+[com_3]
+type=layer
+x=350
+y=14
+width=105
+height=203
+layer=com_2
+
+// 388:4
+[com_4]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+graphic=window_texture_2
+tiling=yes
+
+// 388:5
+[com_5]
+type=text
+x=2
+y=4
+width=8
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+textfont=p11_full
+text=Choose lighting theme:
+textshadow=yes
+colour=0xe6e0c6
+
+// 388:6
+[com_6]
+type=layer
+x=40
+y=42
+width=25
+height=25
+layer=com_3
+onmouseleave=deltooltip(interface_388:com_217)
+onmouserepeat=aif_tooltip(interface_388:com_217, event_com, -1, "Day time lighting - <col=0xFF0000>setting can only be changed when initially creating your theatre.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 388:7
+[com_7]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:8
+[com_8]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:9
+[com_9]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_6
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:10
+[com_10]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1746)
+
+// 388:11
+[com_11]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1747)
+
+// 388:12
+[com_12]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1748)
+
+// 388:13
+[com_13]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+onload=script4205(event_com, struct_1749)
+
+// 388:14
+[com_14]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:15
+[com_15]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+
+// 388:16
+[com_16]
+type=rectangle
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+colour=0xa3e2e4
+fill=yes
+
+// 388:17
+[com_17]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_6
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:18
+[com_18]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:19
+[com_19]
+type=layer
+x=40
+y=71
+width=25
+height=25
+layer=com_3
+onmouseleave=deltooltip(interface_388:com_217)
+onmouserepeat=aif_tooltip(interface_388:com_217, event_com, -1, "Night time lighting - <col=0xFF0000>setting can only be changed when initially creating your theatre.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 388:20
+[com_20]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_19
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:21
+[com_21]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_19
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:22
+[com_22]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_19
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:23
+[com_23]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+onload=script4205(event_com, struct_1746)
+
+// 388:24
+[com_24]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+onload=script4205(event_com, struct_1747)
+
+// 388:25
+[com_25]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+onload=script4205(event_com, struct_1748)
+
+// 388:26
+[com_26]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+onload=script4205(event_com, struct_1749)
+
+// 388:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:28
+[com_28]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+
+// 388:29
+[com_29]
+type=rectangle
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+colour=0x0d0d5d
+fill=yes
+
+// 388:30
+[com_30]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:31
+[com_31]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:32
+[com_32]
+type=layer
+x=40
+y=99
+width=25
+height=25
+layer=com_3
+onmouseleave=deltooltip(interface_388:com_217)
+onmouserepeat=aif_tooltip(interface_388:com_217, event_com, -1, "Green lighting - <col=0xFF0000>setting can only be changed when initially creating your theatre.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 388:33
+[com_33]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:34
+[com_34]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:35
+[com_35]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:36
+[com_36]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1746)
+
+// 388:37
+[com_37]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1747)
+
+// 388:38
+[com_38]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1748)
+
+// 388:39
+[com_39]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4205(event_com, struct_1749)
+
+// 388:40
+[com_40]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:41
+[com_41]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+
+// 388:42
+[com_42]
+type=rectangle
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_41
+colour=0x0d5d14
+fill=yes
+
+// 388:43
+[com_43]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:44
+[com_44]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_43
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:45
+[com_45]
+type=layer
+x=40
+y=127
+width=25
+height=25
+layer=com_3
+onmouseleave=deltooltip(interface_388:com_217)
+onmouserepeat=aif_tooltip(interface_388:com_217, event_com, -1, "Dusk lighting with a red tinge - <col=0xFF0000>setting can only be changed when initially creating your theatre.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 388:46
+[com_46]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_45
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:47
+[com_47]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_45
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:48
+[com_48]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_45
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:49
+[com_49]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+onload=script4205(event_com, struct_1746)
+
+// 388:50
+[com_50]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+onload=script4205(event_com, struct_1747)
+
+// 388:51
+[com_51]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+onload=script4205(event_com, struct_1748)
+
+// 388:52
+[com_52]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+onload=script4205(event_com, struct_1749)
+
+// 388:53
+[com_53]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:54
+[com_54]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+
+// 388:55
+[com_55]
+type=rectangle
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_54
+colour=0xa10a0a
+fill=yes
+
+// 388:56
+[com_56]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_45
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:57
+[com_57]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_56
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:58
+[com_58]
+type=layer
+x=40
+y=155
+width=25
+height=25
+layer=com_3
+onmouseleave=deltooltip(interface_388:com_217)
+onmouserepeat=aif_tooltip(interface_388:com_217, event_com, -1, "Dawn lighting with a yellow tinge - <col=0xFF0000>setting can only be changed when initially creating your theatre.", 180, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 388:59
+[com_59]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_58
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:60
+[com_60]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_58
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:61
+[com_61]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_58
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:62
+[com_62]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+onload=script4205(event_com, struct_1746)
+
+// 388:63
+[com_63]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+onload=script4205(event_com, struct_1747)
+
+// 388:64
+[com_64]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+onload=script4205(event_com, struct_1748)
+
+// 388:65
+[com_65]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+onload=script4205(event_com, struct_1749)
+
+// 388:66
+[com_66]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:67
+[com_67]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+
+// 388:68
+[com_68]
+type=rectangle
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_67
+colour=0xfcf103
+fill=yes
+
+// 388:69
+[com_69]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:70
+[com_70]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_69
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:71
+[com_71]
+type=graphic
+width=10
+height=10
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 388:72
+[com_72]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 388:73
+[com_73]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 388:74
+[com_74]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 388:75
+[com_75]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 388:76
+[com_76]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 388:77
+[com_77]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 388:78
+[com_78]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_3
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 388:79
+[com_79]
+type=layer
+x=98
+y=224
+width=126
+height=24
+xmode=abs_centre
+layer=com_2
+
+// 388:80
+[com_80]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_79
+onload=aif_build_button_layer(event_com, struct_1773)
+
+// 388:81
+[com_81]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_79
+onload=aif_build_button_layer(event_com, struct_1774)
+
+// 388:82
+[com_82]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_79
+onload=aif_build_button_layer(event_com, struct_1775)
+
+// 388:83
+[com_83]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_79
+transmitop=1
+op1=Accept
+onload=script4213(event_com)
+
+// 388:84
+[com_84]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_79
+onload=aif_build_button_layer(event_com, struct_1777)
+
+// 388:85
+[com_85]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_79
+
+// 388:86
+[com_86]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_85
+textfont=verdana_13pt_regular
+text=Accept
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 388:87
+[com_87]
+type=layer
+x=9
+y=14
+width=328
+height=203
+layer=com_2
+
+// 388:88
+[com_88]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_87
+graphic=window_texture_2
+tiling=yes
+
+// 388:89
+[com_89]
+type=text
+x=7
+y=5
+width=285
+height=16
+layer=com_87
+textfont=p11_full
+text=Choose the backdrop for your play:
+textshadow=yes
+colour=0xdfd8bc
+
+// 388:90
+[com_90]
+type=layer
+x=10
+y=29
+width=75
+height=75
+layer=com_87
+
+// 388:91
+[com_91]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_100
+graphic="aif_theatre_icons,7"
+
+// 388:92
+[com_92]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_90
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:93
+[com_93]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_90
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:94
+[com_94]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_90
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:95
+[com_95]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+onload=script4205(event_com, struct_1746)
+
+// 388:96
+[com_96]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+onload=script4205(event_com, struct_1747)
+
+// 388:97
+[com_97]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+onload=script4205(event_com, struct_1748)
+
+// 388:98
+[com_98]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+onload=script4205(event_com, struct_1749)
+
+// 388:99
+[com_99]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:100
+[com_100]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+
+// 388:101
+[com_101]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_100
+textfont=p11_full
+text=Greenscreen
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:102
+[com_102]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_90
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:103
+[com_103]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_102
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:104
+[com_104]
+type=layer
+x=89
+y=29
+width=75
+height=75
+layer=com_87
+
+// 388:105
+[com_105]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_104
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:106
+[com_106]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_104
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:107
+[com_107]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_104
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:108
+[com_108]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4205(event_com, struct_1746)
+
+// 388:109
+[com_109]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4205(event_com, struct_1747)
+
+// 388:110
+[com_110]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4205(event_com, struct_1748)
+
+// 388:111
+[com_111]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+onload=script4205(event_com, struct_1749)
+
+// 388:112
+[com_112]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:113
+[com_113]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+
+// 388:114
+[com_114]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_113
+graphic="aif_theatre_icons,4"
+
+// 388:115
+[com_115]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_113
+textfont=p11_full
+text=Cave
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:116
+[com_116]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_104
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:117
+[com_117]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_116
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:118
+[com_118]
+type=layer
+x=168
+y=29
+width=75
+height=75
+layer=com_87
+
+// 388:119
+[com_119]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_118
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:120
+[com_120]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_118
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:121
+[com_121]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_118
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:122
+[com_122]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+onload=script4205(event_com, struct_1746)
+
+// 388:123
+[com_123]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+onload=script4205(event_com, struct_1747)
+
+// 388:124
+[com_124]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+onload=script4205(event_com, struct_1748)
+
+// 388:125
+[com_125]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+onload=script4205(event_com, struct_1749)
+
+// 388:126
+[com_126]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:127
+[com_127]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+
+// 388:128
+[com_128]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_127
+graphic="aif_theatre_icons,3"
+
+// 388:129
+[com_129]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_127
+textfont=p11_full
+text=Crypt
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:130
+[com_130]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_118
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:131
+[com_131]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_130
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:132
+[com_132]
+type=layer
+x=246
+y=29
+width=75
+height=75
+layer=com_87
+
+// 388:133
+[com_133]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_132
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:134
+[com_134]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_132
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:135
+[com_135]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_132
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:136
+[com_136]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+onload=script4205(event_com, struct_1746)
+
+// 388:137
+[com_137]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+onload=script4205(event_com, struct_1747)
+
+// 388:138
+[com_138]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+onload=script4205(event_com, struct_1748)
+
+// 388:139
+[com_139]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+onload=script4205(event_com, struct_1749)
+
+// 388:140
+[com_140]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:141
+[com_141]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+
+// 388:142
+[com_142]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_141
+textfont=p11_full
+text=Forest
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:143
+[com_143]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_132
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:144
+[com_144]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_143
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:145
+[com_145]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_141
+graphic="aif_theatre_icons,2"
+
+// 388:146
+[com_146]
+type=layer
+x=10
+y=111
+width=75
+height=75
+layer=com_87
+
+// 388:147
+[com_147]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_146
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:148
+[com_148]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_146
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:149
+[com_149]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_146
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:150
+[com_150]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4205(event_com, struct_1746)
+
+// 388:151
+[com_151]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4205(event_com, struct_1747)
+
+// 388:152
+[com_152]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4205(event_com, struct_1748)
+
+// 388:153
+[com_153]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+onload=script4205(event_com, struct_1749)
+
+// 388:154
+[com_154]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:155
+[com_155]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+
+// 388:156
+[com_156]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_155
+graphic="aif_theatre_icons,6"
+
+// 388:157
+[com_157]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_155
+textfont=p11_full
+text=Ocean
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:158
+[com_158]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_146
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:159
+[com_159]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_158
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:160
+[com_160]
+type=layer
+x=89
+y=111
+width=75
+height=75
+layer=com_87
+
+// 388:161
+[com_161]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_160
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:162
+[com_162]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_160
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:163
+[com_163]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_160
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:164
+[com_164]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+onload=script4205(event_com, struct_1746)
+
+// 388:165
+[com_165]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+onload=script4205(event_com, struct_1747)
+
+// 388:166
+[com_166]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+onload=script4205(event_com, struct_1748)
+
+// 388:167
+[com_167]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+onload=script4205(event_com, struct_1749)
+
+// 388:168
+[com_168]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:169
+[com_169]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+
+// 388:170
+[com_170]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_169
+graphic="aif_theatre_icons,0"
+
+// 388:171
+[com_171]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_169
+textfont=p11_full
+text=Hills
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:172
+[com_172]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_160
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:173
+[com_173]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_172
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:174
+[com_174]
+type=layer
+x=169
+y=111
+width=75
+height=75
+layer=com_87
+
+// 388:175
+[com_175]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_174
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:176
+[com_176]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_174
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:177
+[com_177]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_174
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:178
+[com_178]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+onload=script4205(event_com, struct_1746)
+
+// 388:179
+[com_179]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+onload=script4205(event_com, struct_1747)
+
+// 388:180
+[com_180]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+onload=script4205(event_com, struct_1748)
+
+// 388:181
+[com_181]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+onload=script4205(event_com, struct_1749)
+
+// 388:182
+[com_182]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:183
+[com_183]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+
+// 388:184
+[com_184]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_183
+graphic="aif_theatre_icons,5"
+
+// 388:185
+[com_185]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_183
+textfont=p11_full
+text=Interior
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:186
+[com_186]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_174
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:187
+[com_187]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_186
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:188
+[com_188]
+type=layer
+x=247
+y=111
+width=75
+height=75
+layer=com_87
+
+// 388:189
+[com_189]
+type=graphic
+y=4
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_188
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 388:190
+[com_190]
+type=graphic
+x=4
+width=4
+height=4
+widthmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_188
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 388:191
+[com_191]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_188
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 388:192
+[com_192]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+onload=script4205(event_com, struct_1746)
+
+// 388:193
+[com_193]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+onload=script4205(event_com, struct_1747)
+
+// 388:194
+[com_194]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+onload=script4205(event_com, struct_1748)
+
+// 388:195
+[com_195]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+onload=script4205(event_com, struct_1749)
+
+// 388:196
+[com_196]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onload=script4213(event_com)
+
+// 388:197
+[com_197]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+
+// 388:198
+[com_198]
+type=graphic
+y=7
+width=50
+height=50
+xmode=abs_centre
+layer=com_197
+graphic="aif_theatre_icons,1"
+
+// 388:199
+[com_199]
+type=text
+width=4
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_197
+textfont=p11_full
+text=Village
+textalignh=centre
+colour=0xb8b2a2
+
+// 388:200
+[com_200]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_188
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 388:201
+[com_201]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_200
+colour=0x000000
+fill=yes
+trans=150
+
+// 388:202
+[com_202]
+type=graphic
+width=10
+height=10
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 388:203
+[com_203]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 388:204
+[com_204]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 388:205
+[com_205]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 388:206
+[com_206]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 388:207
+[com_207]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 388:208
+[com_208]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 388:209
+[com_209]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_87
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 388:210
+[com_210]
+type=layer
+x=-98
+y=224
+width=126
+height=24
+xmode=abs_centre
+layer=com_2
+
+// 388:211
+[com_211]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_210
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 388:212
+[com_212]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_210
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 388:213
+[com_213]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_210
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 388:214
+[com_214]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_210
+transmitop=1
+op1=Quit
+onload=script4213(event_com)
+
+// 388:215
+[com_215]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_210
+
+// 388:216
+[com_216]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_215
+textfont=verdana_13pt_regular
+text=Quit
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 388:217
+[com_217]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_2
+
+// 388:218
+[com_218]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+onload=script4261(event_com)
+
+// 388:219
+[com_219]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+
+// 388:220
+[com_220]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_219
+textfont=palatino_linotype_18pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=clientscript_5277(event_com)

@@ -1,0 +1,47 @@
+// 944
+[proc,clientscript_944](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10)
+def_int $int11 = -1;
+def_int $int12 = -1;
+def_int $int13 = calc(clientclock - $int1);
+if (cc_find(interface_727:board, $int0) = true) {
+    if ($int10 ! %varplayerbit_4538) {
+        ~clientscript_943($int4, $int5, $int6, $int7, $int8, $int9);
+        cc_setontimer(null);
+        return;
+    }
+    $int11, $int12 = ~clientscript_946($int4);
+    if ($int13 >= 16) {
+        cc_setposition($int11, $int12, 0, 0);
+        if (cc_getinvobject = soulrune) {
+            if ($int4 >= 29) {
+                cc_setobject(boardgames_draughts_soulrune_king, -1);
+                sound_synth(king, 1, 0);
+            }
+        } else if (cc_getinvobject = chaosrune & $int4 > 0 & $int4 <= 4) {
+            cc_setobject(boardgames_draughts_chaosrune_king, -1);
+            sound_synth(king, 1, 0);
+        }
+        if ($int5 ! -1) {
+            cc_setontimer("clientscript_944($int0, clientclock, $int11, $int12, $int5, $int6, $int7, $int8, $int9, -1, $int10)");
+            return;
+        }
+        cc_setontimer(null);
+        .cc_create(interface_727:board, 6, 24);
+        .cc_setsize(32, 32, 0, 0);
+        .cc_setposition(cc_getx, cc_gety, 0, 0);
+        .cc_setmodel(model_4611);
+        .cc_setmodelangle(0, 0, 512, 0, 0, 768);
+        .cc_setmodelanim(runeflash);
+        return;
+    }
+    if ($int13 = 1) {
+        sound_synth(chesspiece_move, 1, 0);
+    }
+    $int11 = calc($int11 - $int2);
+    $int12 = calc($int12 - $int3);
+    $int11 = calc($int11 / 16);
+    $int12 = calc($int12 / 16);
+    $int11 = calc($int11 * $int13);
+    $int12 = calc($int12 * $int13);
+    cc_setposition(calc($int2 + $int11), calc($int3 + $int12), 0, 0);
+}

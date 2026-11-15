@@ -1,0 +1,1437 @@
+// 1167:0
+[com_0]
+type=rectangle
+x=25
+y=46
+width=321
+height=141
+layer=com_31
+colour=0x010000
+fill=yes
+
+// 1167:1
+[com_1]
+type=layer
+y=-57
+width=245
+height=270
+xmode=abs_centre
+layer=com_32
+onload=clientscript_5427
+
+// 1167:2
+[com_2]
+type=graphic
+x=68
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8202
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Reduced Melee Attack - Your chance to hit with melee will be reduced.", 5, 160)
+
+// 1167:3
+[com_3]
+type=graphic
+x=213
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8208
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Shield - You can't equip anything in your left hand.", 5, 160)
+
+// 1167:4
+[com_4]
+type=graphic
+x=213
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8209
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Food - You can't use any food in the match.", 5, 160)
+
+// 1167:5
+[com_5]
+type=graphic
+x=97
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8205
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Reduced Melee Defence - Your chance of being damaged by melee attacks is increased.", 5, 160)
+
+// 1167:6
+[com_6]
+type=graphic
+x=39
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8211
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Random Freeze - You will occasionally be frozen to the spot and won't be able to act.", 5, 160)
+
+// 1167:7
+[com_7]
+type=graphic
+x=271
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8212
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Halved Hitpoints - At the start of the battle your hitpoints will be halved.", 5, 160)
+
+// 1167:8
+[com_8]
+type=graphic
+x=184
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8210
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Body Armour - You won't be able to equip anything to your body slot.", 5, 160)
+
+// 1167:9
+[com_9]
+type=graphic
+x=10
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8203
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Reduced Ranged Attack - Your chance to hit with any ranged weapon will be reduced.", 5, 160)
+
+// 1167:10
+[com_10]
+type=graphic
+x=242
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8215
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Familiar - You can't summon or take in a familiar.", 5, 160)
+
+// 1167:11
+[com_11]
+type=graphic
+x=155
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8223
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Monster Stun - At the start of the match all enemies won't fight for the first few seconds.", 5, 160)
+
+// 1167:12
+[com_12]
+type=graphic
+x=271
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8217
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Prayers - You can't use any prayers or curses in the match.", 5, 160)
+
+// 1167:13
+[com_13]
+type=graphic
+x=10
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8214
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Slippery Fingers - Your weapon will be periodically unequipped.", 5, 160)
+
+// 1167:14
+[com_14]
+type=graphic
+x=126
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8204
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Reduced Mage Attack - You will have a lower chance to hit with any magic spell.", 5, 160)
+
+// 1167:15
+[com_15]
+type=graphic
+x=68
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8216
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Disease - You will be diseased at the start of the match. You can heal yourself.", 5, 160)
+
+// 1167:16
+[com_16]
+type=graphic
+x=97
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8219
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Special Attacks - You won't be able to use any special attacks in the match.", 5, 160)
+
+// 1167:17
+[com_17]
+type=graphic
+x=155
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8207
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Reduced Mage Defence - There will be a higher chance of you being damaged by magic.", 5, 160)
+
+// 1167:18
+[com_18]
+type=graphic
+x=184
+y=47
+width=23
+height=23
+layer=com_54
+graphic=graphic_8220
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Random Daze - Combat will be interrupted, you will stop fighting and auto-retaliate will be switched off.", 5, 160)
+
+// 1167:19
+[com_19]
+type=graphic
+x=242
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8213
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Poison - You will be poisoned at the start of the match. You can heal yourself.", 5, 160)
+
+// 1167:20
+[com_20]
+type=graphic
+x=39
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8206
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Reduced Ranged Defence - You will be more likely to be damaged by ranged attacks.", 5, 160)
+
+// 1167:21
+[com_21]
+type=graphic
+x=126
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8221
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Power-ups - You won't be able to use any of the Dominion Tower power-up items.", 5, 160)
+
+// 1167:22
+[com_22]
+type=graphic
+x=299
+y=46
+width=23
+height=23
+layer=com_54
+graphic=graphic_8218
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "No Potions - You won't be able to use any potions in the match.", 5, 160)
+
+// 1167:23
+[com_23]
+type=graphic
+x=299
+y=18
+width=23
+height=23
+layer=com_54
+graphic=graphic_8222
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Life Saver - If your health falls too low, all your stats and ailments will be healed once per match.", 5, 160)
+
+// 1167:24
+[com_24]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_39
+graphic=graphic_8444
+
+// 1167:25
+[com_25]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_39
+graphic=graphic_8446
+
+// 1167:26
+[com_26]
+type=graphic
+width=70
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+graphic=graphic_8445
+
+// 1167:27
+[com_27]
+type=graphic
+width=12
+height=24
+ymode=abs_centre
+layer=com_125
+graphic=graphic_8403
+
+// 1167:28
+[com_28]
+type=graphic
+width=12
+height=24
+xmode=abs_right
+ymode=abs_centre
+layer=com_125
+graphic=graphic_8403
+hflip=yes
+
+// 1167:29
+[com_29]
+type=graphic
+width=206
+height=24
+xmode=abs_centre
+ymode=abs_centre
+layer=com_125
+graphic=graphic_8404
+tiling=yes
+hflip=yes
+
+// 1167:30
+[com_30]
+type=text
+width=151
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_125
+textfont=p11_full
+text=----
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb5864e
+
+// 1167:31
+[com_31]
+type=layer
+width=370
+height=343
+xmode=abs_centre
+
+// 1167:32
+[com_32]
+type=layer
+x=95
+y=46
+width=323
+height=143
+
+// 1167:33
+[com_33]
+type=layer
+width=98
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_51
+transmitop=1
+op1=Stop!
+onmouseover=clientscript_5411(interface_1167:com_46, interface_1167:com_48, interface_1167:com_47)
+onmouseleave=clientscript_5415(interface_1167:com_46, interface_1167:com_48, interface_1167:com_47)
+
+// 1167:34
+[com_34]
+type=text
+y=-2
+width=68
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+textfont=p12_full
+text=Stick
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb5864e
+
+// 1167:35
+[com_35]
+type=layer
+width=98
+height=26
+ymode=abs_centre
+layer=com_50
+transmitop=1
+op1=Respin
+onmouseover=clientscript_5407(interface_1167:com_36, interface_1167:com_38, interface_1167:com_37)
+onmouseleave=clientscript_5408(interface_1167:com_36, interface_1167:com_38, interface_1167:com_37)
+
+// 1167:36
+[com_36]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_35
+graphic=graphic_8291
+
+// 1167:37
+[com_37]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_35
+graphic=graphic_8293
+
+// 1167:38
+[com_38]
+type=graphic
+width=69
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+graphic=graphic_8292
+hflip=yes
+
+// 1167:39
+[com_39]
+type=layer
+width=98
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_50
+transmitop=1
+op1=Stick
+onmouseover=clientscript_5411(interface_1167:com_24, interface_1167:com_26, interface_1167:com_25)
+onmouseleave=clientscript_5415(interface_1167:com_24, interface_1167:com_26, interface_1167:com_25)
+
+// 1167:40
+[com_40]
+type=layer
+width=98
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_50
+transmitop=1
+op1=Nudge down
+onmouseover=clientscript_5407(interface_1167:com_43, interface_1167:com_44, interface_1167:com_45)
+onmouseleave=clientscript_5408(interface_1167:com_43, interface_1167:com_44, interface_1167:com_45)
+
+// 1167:41
+[com_41]
+type=graphic
+x=79
+y=-2
+width=40
+height=40
+ymode=abs_centre
+layer=com_50
+graphic=graphic_8399
+onmouseleave=deltooltip(interface_1167:com_105)
+onmouserepeat=script1160(event_com, event_comsubid, interface_1167:com_105, "Remaining actions allowed. You receive 1 extra actions every floor, but they are capped at 3.", 10, 150)
+
+// 1167:42
+[com_42]
+type=text
+x=90
+y=8
+width=18
+height=16
+layer=com_50
+textfont=p12_full
+text=-
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xfaca78
+
+// 1167:43
+[com_43]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_40
+graphic=graphic_8291
+
+// 1167:44
+[com_44]
+type=graphic
+width=68
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_40
+graphic=graphic_8292
+hflip=yes
+
+// 1167:45
+[com_45]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_40
+graphic=graphic_8293
+
+// 1167:46
+[com_46]
+type=graphic
+width=15
+height=26
+ymode=abs_centre
+layer=com_33
+graphic=graphic_8444
+
+// 1167:47
+[com_47]
+type=graphic
+width=15
+height=26
+xmode=abs_right
+ymode=abs_centre
+layer=com_33
+graphic=graphic_8446
+
+// 1167:48
+[com_48]
+type=graphic
+width=74
+height=26
+xmode=abs_centre
+ymode=abs_centre
+layer=com_33
+graphic=graphic_8445
+
+// 1167:49
+[com_49]
+type=text
+y=-2
+width=68
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=com_33
+textfont=p12_full
+text=Stop
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb5864e
+
+// 1167:50
+[com_50]
+type=layer
+y=208
+width=300
+height=34
+xmode=abs_centre
+
+// 1167:51
+[com_51]
+type=layer
+y=208
+width=300
+height=34
+xmode=abs_centre
+hide=yes
+
+// 1167:52
+[com_52]
+type=layer
+x=101
+y=66
+width=101
+height=103
+hide=yes
+
+// 1167:53
+[com_53]
+type=layer
+y=16
+width=330
+height=74
+xmode=abs_centre
+ymode=abs_bottom
+
+// 1167:54
+[com_54]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_53
+
+// 1167:55
+[com_55]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+
+// 1167:56
+[com_56]
+type=text
+width=95
+height=40
+ymode=abs_centre
+layer=com_52
+textfont=p11_full
+text=Nudging to next available handicap!
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb5864e
+
+// 1167:57
+[com_57]
+type=text
+y=-1
+width=230
+height=16
+xmode=abs_centre
+layer=com_53
+textfont=p11_full
+text=Your current handicaps:
+textalignh=centre
+textshadow=yes
+colour=0xa1a1a0
+
+// 1167:58
+[com_58]
+type=layer
+x=68
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:59
+[com_59]
+type=layer
+x=213
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:60
+[com_60]
+type=layer
+x=213
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:61
+[com_61]
+type=layer
+x=97
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:62
+[com_62]
+type=layer
+x=39
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:63
+[com_63]
+type=layer
+x=271
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:64
+[com_64]
+type=layer
+x=184
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:65
+[com_65]
+type=layer
+x=10
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:66
+[com_66]
+type=layer
+x=242
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:67
+[com_67]
+type=layer
+x=155
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:68
+[com_68]
+type=layer
+x=271
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:69
+[com_69]
+type=layer
+x=10
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:70
+[com_70]
+type=layer
+x=126
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:71
+[com_71]
+type=layer
+x=68
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:72
+[com_72]
+type=layer
+x=97
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:73
+[com_73]
+type=layer
+x=155
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:74
+[com_74]
+type=layer
+x=184
+y=47
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:75
+[com_75]
+type=layer
+x=242
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:76
+[com_76]
+type=layer
+x=39
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:77
+[com_77]
+type=layer
+x=126
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:78
+[com_78]
+type=layer
+x=299
+y=46
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:79
+[com_79]
+type=layer
+x=299
+y=18
+width=23
+height=23
+layer=com_53
+hide=yes
+
+// 1167:80
+[com_80]
+type=graphic
+width=23
+height=23
+layer=com_58
+graphic=graphic_8178
+
+// 1167:81
+[com_81]
+type=graphic
+y=95
+width=80
+height=80
+xmode=abs_centre
+layer=com_1
+
+// 1167:82
+[com_82]
+type=text
+y=-2
+width=68
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=com_40
+textfont=p12_full
+text=Nudge
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb5864e
+
+// 1167:83
+[com_83]
+type=text
+y=-2
+width=68
+height=20
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+textfont=p12_full
+text=Re-spin
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb5864e
+
+// 1167:84
+[com_84]
+type=graphic
+width=23
+height=23
+layer=com_59
+graphic=graphic_8184
+
+// 1167:85
+[com_85]
+type=graphic
+width=23
+height=23
+layer=com_60
+graphic=graphic_8185
+
+// 1167:86
+[com_86]
+type=graphic
+width=23
+height=23
+layer=com_61
+graphic=graphic_8181
+
+// 1167:87
+[com_87]
+type=graphic
+width=23
+height=23
+layer=com_62
+graphic=graphic_8187
+
+// 1167:88
+[com_88]
+type=graphic
+width=23
+height=23
+layer=com_63
+graphic=graphic_8188
+
+// 1167:89
+[com_89]
+type=graphic
+width=23
+height=23
+layer=com_64
+graphic=graphic_8186
+
+// 1167:90
+[com_90]
+type=graphic
+width=23
+height=23
+layer=com_65
+graphic=graphic_8179
+
+// 1167:91
+[com_91]
+type=graphic
+width=23
+height=23
+layer=com_66
+graphic=graphic_8191
+
+// 1167:92
+[com_92]
+type=graphic
+width=23
+height=23
+layer=com_67
+graphic=graphic_8199
+
+// 1167:93
+[com_93]
+type=graphic
+width=23
+height=23
+layer=com_68
+graphic=graphic_8193
+
+// 1167:94
+[com_94]
+type=graphic
+width=23
+height=23
+layer=com_69
+graphic=graphic_8190
+
+// 1167:95
+[com_95]
+type=graphic
+width=23
+height=23
+layer=com_70
+graphic=graphic_8180
+
+// 1167:96
+[com_96]
+type=graphic
+width=23
+height=23
+layer=com_71
+graphic=graphic_8192
+
+// 1167:97
+[com_97]
+type=graphic
+width=23
+height=23
+layer=com_72
+graphic=graphic_8195
+
+// 1167:98
+[com_98]
+type=graphic
+width=23
+height=23
+layer=com_73
+graphic=graphic_8183
+
+// 1167:99
+[com_99]
+type=graphic
+width=23
+height=23
+layer=com_74
+graphic=graphic_8196
+
+// 1167:100
+[com_100]
+type=graphic
+width=23
+height=23
+layer=com_75
+graphic=graphic_8189
+
+// 1167:101
+[com_101]
+type=graphic
+width=23
+height=23
+layer=com_76
+graphic=graphic_8182
+
+// 1167:102
+[com_102]
+type=graphic
+width=23
+height=23
+layer=com_77
+graphic=graphic_8197
+
+// 1167:103
+[com_103]
+type=graphic
+width=23
+height=23
+layer=com_78
+graphic=graphic_8194
+
+// 1167:104
+[com_104]
+type=graphic
+width=23
+height=23
+layer=com_79
+graphic=graphic_8198
+
+// 1167:105
+[com_105]
+type=layer
+width=512
+height=334
+layer=com_55
+
+// 1167:106
+[com_106]
+type=graphic
+x=9
+y=9
+width=353
+height=316
+layer=com_31
+graphic=graphic_8384
+tiling=yes
+
+// 1167:107
+[com_107]
+type=graphic
+y=9
+width=96
+height=22
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_8385
+
+// 1167:108
+[com_108]
+type=graphic
+y=9
+width=96
+height=22
+xmode=abs_right
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_8385
+hflip=yes
+
+// 1167:109
+[com_109]
+type=graphic
+y=10
+width=190
+height=21
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_8387
+tiling=yes
+hflip=yes
+
+// 1167:110
+[com_110]
+type=graphic
+y=30
+width=22
+height=78
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_8388
+
+// 1167:111
+[com_111]
+type=graphic
+x=1
+width=21
+height=185
+ymode=abs_centre
+layer=com_31
+graphic=graphic_8389
+tiling=yes
+
+// 1167:112
+[com_112]
+type=graphic
+x=1
+y=41
+width=21
+height=56
+layer=com_31
+graphic=graphic_8390
+
+// 1167:113
+[com_113]
+type=graphic
+y=30
+width=22
+height=78
+xmode=abs_right
+ymode=abs_bottom
+layer=com_31
+graphic=graphic_8388
+hflip=yes
+
+// 1167:114
+[com_114]
+type=graphic
+x=1
+width=21
+height=185
+xmode=abs_right
+ymode=abs_centre
+layer=com_31
+graphic=graphic_8389
+tiling=yes
+hflip=yes
+
+// 1167:115
+[com_115]
+type=graphic
+x=1
+y=41
+width=21
+height=56
+xmode=abs_right
+layer=com_31
+graphic=graphic_8390
+hflip=yes
+
+// 1167:116
+[com_116]
+type=graphic
+x=25
+y=49
+width=321
+height=139
+layer=com_31
+graphic=graphic_8401
+
+// 1167:117
+[com_117]
+type=graphic
+x=95
+y=1
+width=183
+height=43
+layer=com_31
+graphic=graphic_8394
+tiling=yes
+hflip=yes
+
+// 1167:118
+[com_118]
+type=graphic
+width=96
+height=44
+layer=com_31
+graphic=graphic_8393
+
+// 1167:119
+[com_119]
+type=graphic
+width=96
+height=44
+xmode=abs_right
+layer=com_31
+graphic=graphic_8393
+hflip=yes
+
+// 1167:120
+[com_120]
+type=graphic
+x=61
+y=7
+width=42
+height=35
+layer=com_31
+graphic=graphic_8391
+tiling=yes
+
+// 1167:121
+[com_121]
+type=graphic
+x=61
+y=7
+width=42
+height=35
+xmode=abs_right
+layer=com_31
+graphic=graphic_8391
+tiling=yes
+hflip=yes
+
+// 1167:122
+[com_122]
+type=graphic
+y=7
+width=172
+height=35
+xmode=abs_centre
+layer=com_31
+graphic=graphic_8392
+tiling=yes
+hflip=yes
+
+// 1167:123
+[com_123]
+type=text
+y=6
+width=483
+height=309
+heightmode=minus
+xmode=abs_centre
+layer=com_31
+textfont=p12_full
+text=Decide Your Handicap
+textalignh=centre
+textalignv=centre
+colour=0xf5b241
+
+// 1167:124
+[com_124]
+type=layer
+y=43
+width=329
+height=149
+xmode=abs_centre
+
+// 1167:125
+[com_125]
+type=layer
+y=177
+width=228
+height=26
+xmode=abs_centre
+
+// 1167:126
+[com_126]
+type=graphic
+x=96
+y=47
+width=4
+height=19
+graphic=graphic_8400
+tiling=yes
+vflip=yes
+
+// 1167:127
+[com_127]
+type=graphic
+width=10
+height=10
+layer=com_124
+graphic=graphic_8396
+
+// 1167:128
+[com_128]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_124
+graphic=graphic_8396
+hflip=yes
+
+// 1167:129
+[com_129]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_124
+graphic=graphic_8396
+vflip=yes
+
+// 1167:130
+[com_130]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_124
+graphic=graphic_8396
+vflip=yes
+hflip=yes
+
+// 1167:131
+[com_131]
+type=graphic
+width=312
+height=10
+xmode=abs_centre
+layer=com_124
+graphic=graphic_8397
+tiling=yes
+
+// 1167:132
+[com_132]
+type=graphic
+width=314
+height=10
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_124
+graphic=graphic_8397
+tiling=yes
+vflip=yes
+
+// 1167:133
+[com_133]
+type=graphic
+width=10
+height=130
+ymode=abs_centre
+layer=com_124
+graphic=graphic_8398
+tiling=yes
+
+// 1167:134
+[com_134]
+type=graphic
+width=10
+height=130
+xmode=abs_right
+ymode=abs_centre
+layer=com_124
+graphic=graphic_8398
+tiling=yes
+hflip=yes
+
+// 1167:135
+[com_135]
+type=layer
+x=410
+y=12
+width=19
+height=19
+transmitop=1
+op1=Close
+onmouseover=clientscript_5399(interface_1167:com_136)
+onmouseleave=clientscript_5400(interface_1167:com_136)
+onop=closebutton_click
+
+// 1167:136
+[com_136]
+type=graphic
+width=19
+height=19
+layer=com_135
+graphic=graphic_8278

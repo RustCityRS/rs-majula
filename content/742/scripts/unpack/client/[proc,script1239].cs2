@@ -1,0 +1,22 @@
+// 1239
+[proc,script1239](int $int0)(coord, int)
+def_int $int1 = calc(%varclient_176 / 10);
+if ($int1 > 5) {
+    $int1 = 1;
+    %varclient_176 = calc($int1 * 10);
+}
+def_coord $coord2 = null;
+def_int $rgb3 = ^black;
+switch_int ($int1) {
+    case 0, 1 :
+        $coord2, $rgb3 = ~script3415($int0);
+    case 2 :
+        $coord2, $rgb3 = ~script3371($int0);
+    case 3 :
+        $coord2, $rgb3 = ~script3372($int0);
+    case 4 :
+        $coord2, $rgb3 = ~script3373($int0);
+    case 5 :
+        $coord2, $rgb3 = ~script3374($int0);
+}
+return($coord2, $rgb3);

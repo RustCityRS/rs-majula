@@ -1,0 +1,16 @@
+// 4850
+[proc,clientscript_4850](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+cc_deleteall($component2);
+cc_deleteall($component3);
+cc_deleteall($component4);
+if_sethide($component5, true);
+if_setscrollpos($component0, 0, 0);
+if_setscrollsize($component0, 0, 0);
+~scrollbar_vertical($component1, $component0, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+cc_create($component2, ^iftype_text, 0);
+cc_setsize(10, 10, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settext("Please select a hotspot to customise from the map on the right.");
+cc_setcolour(0xe5e1bb);
+cc_settextfont(p12_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);

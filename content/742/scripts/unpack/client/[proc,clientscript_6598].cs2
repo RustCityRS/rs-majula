@@ -1,0 +1,11 @@
+// 6598
+[proc,clientscript_6598](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+$int3 = scale($int1, $int2, 100);
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (if_find($component0) = true) {
+    $int4, $int5 = op706;
+    $int3 = calc($int4 * $int3 / 100);
+    cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+}

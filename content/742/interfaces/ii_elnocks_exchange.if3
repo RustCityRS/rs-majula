@@ -1,0 +1,973 @@
+// 540:0
+[drop_shadow_1]
+type=rectangle
+x=13
+y=2
+width=487
+height=328
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=      
+
+// 540:1
+[drop_shadow_2]
+type=rectangle
+x=14
+y=3
+width=487
+height=328
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=      
+
+// 540:2
+[drop_shadow_3]
+type=rectangle
+x=15
+y=4
+width=487
+height=328
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=      
+
+// 540:3
+[drop_shadow_4]
+type=rectangle
+x=16
+y=5
+width=487
+height=328
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=      
+
+// 540:4
+[frame]
+type=layer
+x=12
+y=1
+width=487
+height=327
+onload=script2913(event_com, 0)
+
+// 540:5
+[close_button]
+type=graphic
+x=473
+y=4
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=      
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 540:6
+[background_2]
+type=graphic
+height=77
+widthmode=minus
+ymode=abs_bottom
+layer=frame
+graphic=graphic_2042
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 540:7
+[background]
+type=layer
+y=22
+height=99
+widthmode=minus
+heightmode=minus
+layer=frame
+
+// 540:8
+[background_top]
+type=graphic
+height=70
+widthmode=minus
+xmode=abs_centre
+layer=background
+graphic=graphic_2042
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 540:9
+[background_mid]
+type=graphic
+y=70
+height=116
+widthmode=minus
+heightmode=minus
+layer=background
+graphic=km_middlefillcolour
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 540:10
+[background_bot]
+type=graphic
+height=46
+widthmode=minus
+ymode=abs_bottom
+layer=background
+graphic=graphic_2038
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 540:11
+[tooltipbox]
+type=layer
+y=249
+width=16
+height=24
+widthmode=minus
+xmode=abs_centre
+layer=frame
+
+// 540:12
+[com_12]
+type=rectangle
+height=19
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=tooltipbox
+colour=0x1a1611
+fill=yes
+transmitop=10
+op10=      
+
+// 540:13
+[tooltiptext]
+type=text
+width=10
+height=16
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=tooltipbox
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+colour=0xcbcccc
+
+// 540:14
+[line_2]
+type=line
+widthmode=minus
+xmode=abs_centre
+layer=tooltipbox
+colour=0x666666
+transmitop=10
+op10= 
+
+// 540:15
+[line_3]
+type=line
+y=2
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=tooltipbox
+colour=0x333333
+transmitop=10
+op10= 
+
+// 540:16
+[line_01]
+type=line
+y=295
+width=35
+widthmode=minus
+xmode=abs_centre
+layer=frame
+colour=0x000000
+transmitop=10
+op10= 
+
+// 540:17
+[line_02]
+type=line
+y=296
+width=35
+widthmode=minus
+xmode=abs_centre
+layer=frame
+colour=0x666666
+transmitop=10
+op10=  
+
+// 540:18
+[shoptitle]
+type=text
+x=101
+y=4
+width=315
+height=18
+textfont=b12_full
+text=Elnock's Exchange
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 540:19
+[content_layer]
+type=layer
+y=25
+width=469
+height=253
+xmode=abs_centre
+
+// 540:20
+[repellent]
+type=layer
+y=44
+width=43
+height=51
+widthmode=minus
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, 1)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Baby x 3, Young x 2, Gourmet x 1 for Imp repellent x 1.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:impling_jar_fill, 1)
+
+// 540:21
+[repellent_highlight]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=repellent
+hide=yes
+colour=0xffffcc
+
+// 540:22
+[magic_net]
+type=layer
+y=95
+width=43
+height=51
+widthmode=minus
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, 2)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Gourmet x 3, Earth x 2, Essence x 1 for Magic Butterfly Net x 1.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:impling_jar_fill, 2)
+
+// 540:23
+[magic_net_highlight]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=magic_net
+hide=yes
+colour=0xffffcc
+
+// 540:24
+[jar_generator]
+type=layer
+y=146
+width=43
+height=51
+widthmode=minus
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, 3)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:tooltiptext, "Exchange Essence x 3, Eclectic x 2, Nature x 1 for Jar Generator x 1.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:repellent_fill, ii_elnocks_exchange:impling_jar_fill, 3)
+
+// 540:25
+[jar_generator_highlight]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=jar_generator
+hide=yes
+colour=0xffffcc
+
+// 540:26
+[impling_jar]
+type=layer
+y=197
+width=43
+height=51
+widthmode=minus
+xmode=abs_centre
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onmouseover=ii_exchange_mouseover(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
+onmouseleave=ii_exchange_mouseleave(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, 4)
+onmouserepeat=ii_exchange_mouseover(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:tooltiptext, "Exchange any jarred impling x 1 for Impling Jar x 3.")
+onclick=ii_exchange_onclick(ii_elnocks_exchange:impling_jar_highlight, ii_elnocks_exchange:impling_jar_fill, ii_elnocks_exchange:magic_net_highlight, ii_elnocks_exchange:jar_generator_highlight, ii_elnocks_exchange:repellent_highlight, ii_elnocks_exchange:magic_net_fill, ii_elnocks_exchange:jar_generator_fill, ii_elnocks_exchange:repellent_fill, 4)
+
+// 540:27
+[impling_jar_highlight]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=impling_jar
+hide=yes
+colour=0xffffcc
+
+// 540:28
+[impling_jar_fill]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=impling_jar
+hide=yes
+colour=0xffffcc
+fill=yes
+trans=225
+
+// 540:29
+[jar_generator_fill]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=jar_generator
+hide=yes
+colour=0xffffcc
+fill=yes
+trans=225
+
+// 540:30
+[magic_net_fill]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=magic_net
+hide=yes
+colour=0xffffcc
+fill=yes
+trans=225
+
+// 540:31
+[repellent_fill]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=repellent
+hide=yes
+colour=0xffffcc
+fill=yes
+trans=225
+
+// 540:32
+[com_32]
+type=text
+x=23
+y=276
+width=337
+height=19
+textfont=b12_full
+text=Make your selection and press confirm
+textalignh=right
+textshadow=yes
+colour=0xe4cc50
+
+// 540:33
+[content_sublayer]
+type=layer
+y=16
+width=76
+height=45
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=content_layer
+
+// 540:34
+[content_layer_1]
+type=layer
+x=18
+width=89
+heightmode=minus
+xmode=abs_right
+layer=content_sublayer
+
+// 540:35
+[content_layer_2]
+type=layer
+x=28
+width=186
+heightmode=minus
+layer=content_sublayer
+
+// 540:36
+[ii_impling_trade1]
+type=graphic
+x=136
+y=2
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,1"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Baby impling", 50, 150)
+
+// 540:37
+[com_37]
+type=text
+x=124
+y=36
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x3
+textshadow=yes
+colour=0xff981f
+
+// 540:38
+[ii_impling_trade2]
+type=graphic
+x=74
+y=2
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,6"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Young impling", 50, 150)
+
+// 540:39
+[com_39]
+type=text
+x=62
+y=36
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x2
+textshadow=yes
+colour=0xff981f
+
+// 540:40
+[ii_impling_trade3]
+type=graphic
+x=12
+y=2
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,0"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Gourmet impling", 50, 150)
+
+// 540:41
+[com_41]
+type=text
+y=36
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x1
+textshadow=yes
+colour=0xff981f
+
+// 540:42
+[ii_impling_trade4]
+type=graphic
+x=136
+y=53
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,0"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Gourmet impling", 50, 150)
+
+// 540:43
+[com_43]
+type=text
+x=124
+y=87
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x3
+textshadow=yes
+colour=0xff981f
+
+// 540:44
+[ii_impling_trade5]
+type=graphic
+x=74
+y=53
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,9"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Earth impling", 50, 150)
+
+// 540:45
+[com_45]
+type=text
+x=62
+y=87
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x2
+textshadow=yes
+colour=0xff981f
+
+// 540:46
+[ii_impling_trade6]
+type=graphic
+x=12
+y=53
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,8"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Essence impling", 50, 150)
+
+// 540:47
+[com_47]
+type=text
+y=87
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x1
+textshadow=yes
+colour=0xff981f
+
+// 540:48
+[ii_impling_trade7]
+type=graphic
+x=136
+y=104
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,8"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Essence impling", 50, 150)
+
+// 540:49
+[com_49]
+type=text
+x=124
+y=138
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x3
+textshadow=yes
+colour=0xff981f
+
+// 540:50
+[ii_impling_trade8]
+type=graphic
+x=74
+y=104
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,4"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Eclectic impling", 50, 150)
+
+// 540:51
+[com_51]
+type=text
+x=62
+y=138
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x2
+textshadow=yes
+colour=0xff981f
+
+// 540:52
+[ii_impling_trade9]
+type=graphic
+x=12
+y=104
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,3"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Nature impling", 50, 150)
+
+// 540:53
+[com_53]
+type=text
+y=138
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_2
+textfont=p12_full
+text=x1
+textshadow=yes
+colour=0xff981f
+
+// 540:54
+[ii_impling_trade10]
+type=graphic
+x=136
+y=155
+width=50
+height=50
+xmode=abs_right
+layer=content_layer_2
+graphic="ii_impling_icons,5"
+colour=0xffffffff
+onmouseleave=deltooltip(ii_elnocks_exchange:tooltip)
+onmouserepeat=addtooltip(event_com, ii_elnocks_exchange:tooltip, "Any impling", 50, 150)
+
+// 540:55
+[com_55]
+type=text
+x=41
+y=169
+width=144
+height=36
+layer=content_layer_2
+textfont=p12_full
+text=x1 of any impling type
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+
+// 540:56
+[ii_reward1]
+type=graphic
+x=27
+y=14
+width=36
+height=32
+xmode=abs_right
+layer=content_layer_1
+colour=0xffffffff
+
+// 540:57
+[ii_reward1_1]
+type=graphic
+x=29
+y=65
+width=36
+height=32
+xmode=abs_right
+layer=content_layer_1
+colour=0xffffffff
+
+// 540:58
+[ii_reward1_2]
+type=graphic
+x=29
+y=116
+width=36
+height=32
+xmode=abs_right
+layer=content_layer_1
+colour=0xffffffff
+
+// 540:59
+[ii_reward1_3]
+type=graphic
+x=30
+y=167
+width=36
+height=32
+xmode=abs_right
+layer=content_layer_1
+colour=0xffffffff
+
+// 540:60
+[com_60]
+type=graphic
+x=4
+y=21
+width=15
+height=15
+xmode=abs_right
+layer=content_layer_1
+hide=yes
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onclick=script1422(event_com, ii_elnocks_exchange:com_61, ii_elnocks_exchange:com_62, ii_elnocks_exchange:com_63)
+
+// 540:61
+[com_61]
+type=graphic
+x=4
+y=72
+width=15
+height=15
+xmode=abs_right
+layer=content_layer_1
+hide=yes
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onclick=script1422(event_com, ii_elnocks_exchange:com_60, ii_elnocks_exchange:com_62, ii_elnocks_exchange:com_63)
+
+// 540:62
+[com_62]
+type=graphic
+x=4
+y=123
+width=15
+height=15
+xmode=abs_right
+layer=content_layer_1
+hide=yes
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onclick=script1422(event_com, ii_elnocks_exchange:com_60, ii_elnocks_exchange:com_61, ii_elnocks_exchange:com_63)
+
+// 540:63
+[com_63]
+type=graphic
+x=4
+y=174
+width=15
+height=15
+xmode=abs_right
+layer=content_layer_1
+hide=yes
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_use
+onclick=script1422(event_com, ii_elnocks_exchange:com_60, ii_elnocks_exchange:com_61, ii_elnocks_exchange:com_62)
+
+// 540:64
+[com_64]
+type=text
+y=36
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_1
+textfont=p12_full
+text=x1
+textshadow=yes
+colour=0xff981f
+
+// 540:65
+[com_65]
+type=text
+y=87
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_1
+textfont=p12_full
+text=x1
+textshadow=yes
+colour=0xff981f
+
+// 540:66
+[com_66]
+type=text
+y=138
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_1
+textfont=p12_full
+text=x1
+textshadow=yes
+colour=0xff981f
+
+// 540:67
+[com_67]
+type=text
+y=189
+width=20
+height=16
+xmode=abs_right
+layer=content_layer_1
+textfont=p12_full
+text=x3
+textshadow=yes
+colour=0xff981f
+
+// 540:68
+[com_68]
+type=text
+x=1
+y=-1
+width=476
+height=19
+layer=content_layer
+textfont=b12_full
+text=Exchange jarred implings
+textshadow=yes
+colour=0xff981f
+
+// 540:69
+[button_up]
+type=layer
+x=22
+y=276
+width=125
+height=19
+xmode=abs_right
+transmitop=1,10
+op1=Confirm
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 540:70
+[com_70]
+type=text
+x=23
+y=300
+width=337
+height=19
+textfont=b12_full
+text=Buy empty impling jars
+textalignh=right
+textshadow=yes
+colour=0xe4cc50
+
+// 540:71
+[shop_layer]
+type=layer
+x=22
+y=300
+width=125
+height=19
+xmode=abs_right
+transmitop=1,10
+op1=Go to shop
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 540:72
+[tooltip]
+type=layer
+x=20
+y=31
+width=50
+height=50
+
+// 540:73
+[com_73]
+type=text
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=shop_layer
+textfont=b12_full
+text=Go to shop
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe4cc50
+transmitop=10
+op10=  
+
+// 540:74
+[com_74]
+type=text
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=button_up
+textfont=b12_full
+text=Confirm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe4cc50
+transmitop=10
+op10= 

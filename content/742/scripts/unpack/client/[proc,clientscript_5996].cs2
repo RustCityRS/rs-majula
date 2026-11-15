@@ -1,0 +1,17 @@
+// 5996
+[proc,clientscript_5996](int $int0)(any, int, int, int, int)
+if (%varclient_1928 = 0) {
+    switch_int ($int0) {
+        case 14351 :
+            return(14351, 1, 0, 50, 255);
+        case 9882 :
+            return(9882, 1, 0, 100, 127);
+    }
+} else if (%varclient_1928 = 1) {
+    switch_int ($int0) {
+        case 14351 :
+            return(14351, 1, 0, 50, 255);
+        case 9882 :
+            return(9882, 1, 0, 100, 127);
+    }
+}

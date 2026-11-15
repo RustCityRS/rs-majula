@@ -7,17 +7,17 @@
 //! Run from the workspace root. Exits non-zero if any test fails.
 
 use std::process;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use std::thread::Builder;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 use clap::Parser;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use rs_test::runner;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use tracing_subscriber::EnvFilter;
 
-#[cfg(since_647)]
+#[cfg(since_530)]
 fn main() {
     #[derive(Parser)]
     #[command(
@@ -66,8 +66,8 @@ fn main() {
     }
 }
 
-#[cfg(before_647)]
+#[cfg(before_530)]
 fn main() {
-    eprintln!("rs-test runs rev-647 content only (REV={})", env!("REV"));
+    eprintln!("rs-test runs rev-530+ content only (REV={})", env!("REV"));
     process::exit(2);
 }

@@ -1,0 +1,9 @@
+// 1608
+[clientscript,booth_playermodel_update]
+def_obj $obj0 = inv_getobj(worn, 3);
+if (~clientscript_6500(0) = true & inv_freespace(inv_670) < inv_size(inv_670)) {
+    $obj0 = inv_getobj(inv_670, 3);
+}
+def_seq $seq1 = bas_getanim_ready(oc_param($obj0, render_emote));
+if_setmodelanim(boothpreview:playermodel, $seq1);
+if_setplayermodel_self(boothpreview:playermodel);

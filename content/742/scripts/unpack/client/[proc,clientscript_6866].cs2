@@ -1,0 +1,26 @@
+// 6866
+[proc,clientscript_6866]
+cc_deleteall(interface_1360:com_0);
+cc_deleteall(interface_1360:com_2);
+cc_deleteall(interface_1360:com_1);
+def_int $int0 = enum_getoutputcount(enum_6570);
+def_int $int1 = 0;
+def_int $int2 = 1;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $intarray0($int0);
+def_int $intarray1($int0);
+while ($int1 < $int0) {
+    $intarray0($int1) = struct_param(enum(int, struct, enum_6570, $int2), param_2769);
+    $intarray1($int1) = $int3;
+    $int3 = ~clientscript_6867($int3, $int2);
+    $int1 = calc($int1 + 1);
+    $int2 = calc($int2 + 1);
+}
+op137($int0, 0, 1);
+$int1 = 0;
+$int3 = 0;
+while ($int1 < $int0) {
+    $int3 = ~clientscript_6868($intarray1($int1), $int1, $int3);
+    $int1 = calc($int1 + 1);
+}

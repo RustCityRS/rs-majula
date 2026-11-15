@@ -1,0 +1,10 @@
+// 5235
+[proc,clientscript_5235](component $component0)
+switch_component ($component0) {
+    case interface_1126:com_120 :
+        if_sethide(interface_1126:com_121, true);
+    case interface_1126:com_193 :
+        if_sethide(interface_1126:com_194, true);
+    case interface_1126:com_195 :
+        if_sethide(interface_1126:com_196, true);
+}

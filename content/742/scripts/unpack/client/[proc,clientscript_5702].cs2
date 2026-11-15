@@ -1,0 +1,18 @@
+// 5702
+[proc,clientscript_5702](int $int0)
+switch_int ($int0) {
+    case default :
+        %varclient_1755 = 0;
+        if_settext(interface_1218:com_71, "Level: Low-High");
+    case 1 :
+        %varclient_1755 = 1;
+        if_settext(interface_1218:com_71, "Level: High-Low");
+    case 2 :
+        %varclient_1755 = 2;
+        if_settext(interface_1218:com_71, "Name: A-Z");
+    case 3 :
+        %varclient_1755 = 3;
+        if_settext(interface_1218:com_71, "Name: Z-A");
+}
+if_sethide(interface_1218:com_66, true);
+~clientscript_5691(%varclient_1753);

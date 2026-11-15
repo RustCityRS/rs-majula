@@ -1,0 +1,5 @@
+// 6917
+[proc,clientscript_6917](int $int0)
+if ($int0 = 1 | calc(clientclock % 50) = 0) {
+    ~clientscript_6918;
+}

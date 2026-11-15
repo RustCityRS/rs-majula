@@ -1,0 +1,37 @@
+#testscript
+
+// The rest of 289's player/scripts/equip.rs2 (the PR's): the staff of Iban
+// says so as it is wielded, and a special-attack
+// weapon taken off by ~try_unequip (the Duel Arena's rules) clears the special
+// bar's attack, as ~unequip's does.
+
+[label,test_player_port_iban_staff_says_so]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+inv_add(inv, ibanstaff, 1);
+~equip(0);
+assert_eq(inv_total(worn, ibanstaff), 1);
+assert_called_with("mes", "You equip the staff of Iban.");
+
+[label,test_player_port_try_unequip_clears_the_special]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+inv_add(inv, dragon_dagger, 1);
+~equip(0);
+%sa_attack = ^true;
+~try_unequip(^wearpos_rhand);
+assert_eq(inv_total(worn, dragon_dagger), 0);
+assert_eq(%sa_attack, ^false);
+
+// On the gnomeball pitch (gnomeball_zones), nothing but a gnomeball may be held.
+[label,test_player_port_gnomeball_pitch_refuses_weapons]
+setup_player("test_player");
+inv_clear(inv);
+inv_clear(worn);
+p_telejump(0_37_54_25_32);
+inv_add(inv, bronze_sword, 1);
+~equip(0);
+assert_eq(inv_total(worn, bronze_sword), 0);
+assert_called_with("mes", "You feel it would be cheating to hold anything other than a gnomeball on the");

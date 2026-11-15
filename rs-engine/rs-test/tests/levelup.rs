@@ -24,6 +24,7 @@ use rs_pack::cache::varp::VarPlayerScope;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const ATTACK: usize = 0;
@@ -397,7 +398,11 @@ fn ranged_and_defence_change_at_level_50_too() {
 #[test]
 fn the_stat_flash_is_not_saved() {
     runner::on_loaded_engine(|engine| {
-        let flash = engine.cache.varps.get_by_id(1179).expect("varp 1179");
+        let flash = engine
+            .cache
+            .varps
+            .get_by_id(TypeId::new(1179))
+            .expect("varp 1179");
         assert_ne!(
             flash.scope,
             VarPlayerScope::Perm,

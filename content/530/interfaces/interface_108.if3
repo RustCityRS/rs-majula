@@ -1,0 +1,1030 @@
+// 108:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 108:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=graphic_297
+tiling=yes
+
+// 108:2
+[com_2]
+type=graphic
+x=13
+y=53
+width=7
+height=241
+graphic=graphic_955
+tiling=yes
+
+// 108:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic=graphic_958
+
+// 108:4
+[com_4]
+type=graphic
+x=468
+y=51
+width=32
+height=243
+graphic=graphic_957
+tiling=yes
+
+// 108:5
+[com_5]
+type=graphic
+x=44
+y=20
+width=424
+height=7
+graphic=graphic_954
+tiling=yes
+
+// 108:6
+[com_6]
+type=graphic
+x=45
+y=294
+width=423
+height=32
+graphic=graphic_956
+tiling=yes
+
+// 108:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic=graphic_960
+
+// 108:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic=graphic_959
+
+// 108:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic=graphic_961
+
+// 108:10
+[com_10]
+type=graphic
+x=24
+y=49
+width=465
+height=6
+graphic=graphic_962
+tiling=yes
+
+// 108:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic=graphic_963
+
+// 108:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic=graphic_964
+
+// 108:13
+[closebutton]
+type=graphic
+x=473
+y=30
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+onclick=if_close
+
+// 108:14
+[title]
+type=text
+x=21
+y=30
+width=471
+height=16
+textfont=fontmetrics_496
+text=Grand Exchange
+textalignh=centre
+textshadow=yes
+colour=0xcc9800
+
+// 108:15
+[com_15]
+type=graphic
+x=25
+y=26
+width=25
+height=25
+graphic=graphic_1164
+
+// 108:16
+[backbutton]
+type=graphic
+x=25
+y=276
+width=35
+height=35
+graphic=graphic_1147
+
+// 108:17
+[com_17]
+type=graphic
+x=19
+y=249
+width=474
+height=32
+graphic=graphic_851
+tiling=yes
+
+// 108:18
+[box1]
+type=layer
+x=43
+y=60
+width=426
+height=90
+onload=clientscript_100(event_com)
+
+// 108:19
+[com_19]
+type=graphic
+x=187
+y=61
+width=32
+height=87
+graphic=graphic_1075
+tiling=yes
+
+// 108:20
+[box2]
+type=layer
+x=43
+y=152
+width=426
+height=84
+onload=clientscript_100(event_com)
+
+// 108:21
+[com_21]
+type=graphic
+x=244
+y=153
+width=32
+height=81
+graphic=graphic_1075
+tiling=yes
+
+// 108:22
+[offertype_text]
+type=text
+x=43
+y=66
+width=159
+height=16
+textfont=fontmetrics_496
+text=Buy Offer
+textalignh=centre
+textshadow=yes
+colour=0xcc9800
+
+// 108:23
+[offertype_icon]
+type=graphic
+x=175
+y=67
+width=16
+height=14
+graphic=graphic_1157
+
+// 108:24
+[com_24]
+type=graphic
+x=44
+y=68
+width=157
+height=32
+graphic=graphic_1074
+tiling=yes
+
+// 108:25
+[offeritem_backing]
+type=graphic
+x=102
+y=92
+width=40
+height=36
+graphic=graphic_1137
+
+// 108:26
+[offeritem_model]
+type=graphic
+x=104
+y=94
+width=36
+height=32
+graphicshadow=3158064
+
+// 108:27
+[offeritem_marketpriceicon]
+type=graphic
+x=88
+y=132
+width=16
+height=14
+graphic=graphic_1158
+
+// 108:28
+[offeritem_marketprice]
+type=text
+x=116
+y=131
+width=29
+height=16
+textfont=fontmetrics_494
+text=1,281 gp
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x999900
+
+// 108:29
+[offeritem_name]
+type=text
+x=210
+y=66
+width=250
+height=16
+textfont=fontmetrics_496
+text=Choose an item to exchange
+textshadow=yes
+colour=0xcc9900
+
+// 108:30
+[com_30]
+type=text
+x=47
+y=157
+width=208
+height=16
+textfont=fontmetrics_496
+text=Quantity:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 108:31
+[com_31]
+type=graphic
+x=75
+y=178
+width=20
+height=20
+graphic=graphic_1161
+
+// 108:32
+[com_32]
+type=graphic
+x=95
+y=178
+width=113
+height=20
+graphic=graphic_1162
+tiling=yes
+
+// 108:33
+[com_33]
+type=graphic
+x=208
+y=178
+width=20
+height=20
+graphic=graphic_1163
+tiling=yes
+
+// 108:34
+[offercount]
+type=text
+x=83
+y=180
+width=136
+height=16
+textfont=fontmetrics_496
+text=2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffa861
+
+// 108:35
+[com_35]
+type=text
+x=262
+y=157
+width=202
+height=16
+textfont=fontmetrics_496
+text=Price per item:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 108:36
+[com_36]
+type=graphic
+x=289
+y=178
+width=20
+height=20
+graphic=graphic_1161
+
+// 108:37
+[com_37]
+type=graphic
+x=309
+y=178
+width=108
+height=20
+graphic=graphic_1162
+tiling=yes
+
+// 108:38
+[com_38]
+type=graphic
+x=417
+y=178
+width=20
+height=20
+graphic=graphic_1163
+tiling=yes
+
+// 108:39
+[offerprice]
+type=text
+x=295
+y=180
+width=136
+height=16
+textfont=fontmetrics_496
+text=1,281 gp
+textalignh=centre
+textshadow=yes
+colour=0xffa861
+
+// 108:40
+[com_40]
+type=graphic
+x=55
+y=181
+width=16
+height=14
+graphic=graphic_1152
+
+// 108:41
+[com_41]
+type=graphic
+x=235
+y=181
+width=16
+height=14
+graphic=graphic_1153
+
+// 108:42
+[com_42]
+type=graphic
+x=52
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:43
+[offercount_1]
+type=text
+x=52
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+text=1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 108:44
+[com_44]
+type=graphic
+x=93
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:45
+[offercount_10]
+type=text
+x=93
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+text=10
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:46
+[com_46]
+type=graphic
+x=134
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:47
+[offercount_100]
+type=text
+x=134
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+text=100
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:48
+[com_48]
+type=graphic
+x=175
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:49
+[offercount_500]
+type=text
+x=175
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+text=500
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:50
+[com_50]
+type=graphic
+x=216
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:51
+[offercount_set]
+type=text
+x=216
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+text=...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:52
+[com_52]
+type=graphic
+x=269
+y=181
+width=16
+height=14
+graphic=graphic_1152
+
+// 108:53
+[com_53]
+type=graphic
+x=444
+y=181
+width=16
+height=14
+graphic=graphic_1153
+
+// 108:54
+[com_54]
+type=graphic
+x=266
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:55
+[com_55]
+type=graphic
+x=276
+y=211
+width=16
+height=14
+graphic=graphic_1150
+
+// 108:56
+[com_56]
+type=text
+x=266
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:57
+[com_57]
+type=graphic
+x=319
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:58
+[com_58]
+type=graphic
+x=328
+y=211
+width=16
+height=14
+graphic=graphic_1158
+
+// 108:59
+[offerprice_market]
+type=text
+x=319
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:60
+[com_60]
+type=graphic
+x=372
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:61
+[com_61]
+type=graphic
+x=382
+y=211
+width=16
+height=14
+graphic=graphic_1151
+
+// 108:62
+[com_62]
+type=text
+x=372
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:63
+[com_63]
+type=graphic
+x=425
+y=200
+width=35
+height=35
+graphic=graphic_1146
+
+// 108:64
+[offerprice_set]
+type=text
+x=425
+y=205
+width=35
+height=25
+textfont=fontmetrics_494
+text=...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9800
+
+// 108:65
+[com_65]
+type=graphic
+x=186
+y=239
+width=20
+height=20
+graphic=graphic_1161
+
+// 108:66
+[com_66]
+type=graphic
+x=206
+y=239
+width=108
+height=20
+graphic=graphic_1162
+tiling=yes
+
+// 108:67
+[com_67]
+type=graphic
+x=314
+y=239
+width=20
+height=20
+graphic=graphic_1163
+tiling=yes
+
+// 108:68
+[com_68]
+type=text
+x=189
+y=242
+width=136
+height=16
+textfont=fontmetrics_496
+text=2,562 gp
+textalignh=centre
+textshadow=yes
+colour=0xdbd884
+
+// 108:69
+[totalvalue]
+type=text
+x=186
+y=239
+width=148
+height=20
+textfont=fontmetrics_496
+textlineheight=13
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe573
+
+// 108:70
+[makeofferbutton]
+type=layer
+x=200
+y=270
+width=120
+height=43
+onload=v2_stone_button_filled(event_com)
+
+// 108:71
+[com_71]
+type=text
+x=200
+y=270
+width=120
+height=43
+textfont=fontmetrics_496
+text=Confirm Offer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xcc9800
+
+// 108:72
+[com_72]
+type=model
+x=111
+y=95
+width=23
+height=29
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=1490
+modelunknown=0,3000,0
+
+// 108:73
+[divider]
+type=model
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 108:74
+[com_74]
+type=rectangle
+x=195
+y=266
+width=130
+height=5
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:75
+[com_75]
+type=rectangle
+x=195
+y=314
+width=130
+height=5
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:76
+[com_76]
+type=rectangle
+x=195
+y=266
+width=5
+height=53
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:77
+[com_77]
+type=rectangle
+x=195
+y=266
+width=5
+height=53
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:78
+[highlight]
+type=layer
+width=512
+height=334
+
+// 108:79
+[com_79]
+type=rectangle
+x=195
+y=266
+width=130
+height=5
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:80
+[com_80]
+type=rectangle
+x=195
+y=314
+width=130
+height=5
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:81
+[com_81]
+type=rectangle
+x=195
+y=266
+width=5
+height=53
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:82
+[com_82]
+type=rectangle
+x=320
+y=266
+width=5
+height=53
+layer=highlight
+colour=0xffcc33
+fill=yes
+
+// 108:83
+[divider_1]
+type=model
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 108:84
+[com_84]
+type=rectangle
+x=174
+y=90
+width=317
+height=83
+colour=0x000000
+fill=yes
+trans=200
+
+// 108:85
+[com_85]
+type=rectangle
+x=176
+y=92
+width=305
+height=71
+colour=0x83765e
+fill=yes
+opbase=  
+
+// 108:86
+[com_86]
+type=graphic
+x=171
+y=86
+width=32
+height=32
+graphic=graphic_846
+
+// 108:87
+[com_87]
+type=graphic
+x=203
+y=72
+width=252
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 108:88
+[com_88]
+type=graphic
+x=455
+y=86
+width=32
+height=32
+graphic=graphic_847
+tiling=yes
+
+// 108:89
+[com_89]
+type=graphic
+x=157
+y=118
+width=32
+height=32
+graphic=graphic_841
+tiling=yes
+
+// 108:90
+[com_90]
+type=graphic
+x=171
+y=136
+width=32
+height=32
+graphic=graphic_848
+tiling=yes
+
+// 108:91
+[com_91]
+type=graphic
+x=203
+y=148
+width=252
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 108:92
+[com_92]
+type=graphic
+x=455
+y=136
+width=32
+height=32
+graphic=graphic_849
+tiling=yes
+
+// 108:93
+[com_93]
+type=graphic
+x=467
+y=110
+width=32
+height=32
+graphic=graphic_841
+tiling=yes
+
+// 108:94
+[tip_text]
+type=text
+x=181
+y=96
+width=298
+height=64
+textfont=fontmetrics_495
+text=Jetzt ist Ihr Angebot eingegangen! Sie können jederzeit darauf klicken, um sich die Einzelheiten anzuschauen. Unten wird der Fortschritt mit einem Balken angezeigt. 
+textshadow=yes
+
+// 108:95
+[continue_button]
+type=graphic
+x=462
+y=143
+width=16
+height=16
+graphic=graphic_1174
+transmitop=1
+op1= Continue
+onmouseover=graphic_swapper(event_com, 1175)
+onmouseleave=graphic_swapper(event_com, 1174)
+
+// 108:96
+[divider_2]
+type=model
+model=null
+modelzoom=400
+modelunknown=0,3000,0
+
+// 108:97
+[continue_button_txt]
+type=text
+x=365
+y=143
+width=106
+height=16
+textfont=fontmetrics_495
+text=Click to continue
+colour=0x0000ff
+transmitop=1
+op1=Continue
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

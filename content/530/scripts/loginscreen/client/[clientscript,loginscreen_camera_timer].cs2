@@ -1,0 +1,27 @@
+// 1249
+[clientscript,loginscreen_camera_timer](component $component0, component $component1, component $component2)
+if (clientclock < %loginscreen_camera_delaytime) {
+    return;
+}
+def_int $int3 = calc(%varclient_176 / 10);
+def_int $int4 = calc(%varclient_176 % 10);
+def_coord $coord5 = null;
+def_int $rgb6 = ^black;
+if ($int4 = 0) {
+    if_sethide($component2, false);
+    if_setontimer($component2, null);
+    if_settrans($component2, 0);
+    $coord5, $rgb6 = ~clientscript_1239(0);
+    cam_moveto($coord5, 1000, 100, 100);
+    cam_lookat($coord5, 0, 100, 100);
+    %loginscreen_camera_delaytime = calc(clientclock + 30);
+    %varclient_176 = calc(%varclient_176 + 2);
+} else if ($int4 = 2) {
+    if (if_gethide($component1) = false) {
+        if_setontimer($component1, "clientscript_1252($component1, 2)");
+    }
+    if_setontimer($component2, "clientscript_1252($component2, 1)");
+    $coord5, $rgb6 = ~clientscript_1239(1);
+    ~clientscript_1251(0, $component0, $component1, $component2, $rgb6);
+    if_setontimer($component0, null);
+}

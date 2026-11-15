@@ -1,0 +1,8 @@
+// 1757
+[clientscript,script1757](component $component0, component $component1)
+if (%brew_varc_hopper_fire > 0) {
+    if_sethide($component0, false);
+} else {
+    if_sethide($component0, true);
+}
+if_settext($component1, tostring(%brew_varc_hopper_fire));

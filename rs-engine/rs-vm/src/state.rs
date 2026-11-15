@@ -1,14 +1,17 @@
+#[cfg(since_647)]
+use crate::ControllerUid;
+#[cfg(since_530)]
+use crate::RegionUid;
 pub use crate::iterators::*;
 use crate::pointer::{ScriptPointer, ScriptPointerSet};
 use crate::subject::ScriptSubject;
 use crate::trigger::ServerTriggerType;
-#[cfg(since_647)]
-use crate::{ControllerUid, RegionUid};
 use crate::{LocSerial, NpcUid, ObjSerial, PlayerUid, ScriptError};
 use num_enum::TryFromPrimitive;
 use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
+use rs_ver::TypeId;
 use std::any::type_name;
 use std::mem;
 use std::sync::Arc;
@@ -66,15 +69,15 @@ pub struct ScriptState {
     pub active_controller: Option<ControllerUid>,
     #[cfg(since_647)]
     pub active_controller2: Option<ControllerUid>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub active_region: Option<RegionUid>,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub active_region2: Option<RegionUid>,
 
     pub last_int: Option<i32>,
     /// Rev-647: the string carried by RESUME_P_STRINGDIALOG (or a display-name
     /// result), read back by the `last_string` command.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub last_string: Option<String>,
     // The player whose script queued this one, when it runs from a queue: a
     // hit it paints is theirs (2011's hitsplats are bright for the hit's
@@ -83,11 +86,11 @@ pub struct ScriptState {
     pub queue_source: Option<u16>,
 
     pub(crate) split_pages: Option<Vec<Vec<String>>>,
-    pub(crate) split_mesanim: Option<u16>,
+    pub(crate) split_mesanim: Option<TypeId>,
 
-    pub(crate) db_table: Option<u16>,
+    pub(crate) db_table: Option<TypeId>,
     pub(crate) db_row: Option<u16>,
-    pub(crate) db_row_query: Vec<u16>,
+    pub(crate) db_row_query: Vec<TypeId>,
 
     pub(crate) npc_iterator: Option<NpcIteratorState>,
     pub(crate) loc_iterator: Option<LocIteratorState>,
@@ -185,12 +188,12 @@ impl ScriptState {
             active_controller: None,
             #[cfg(since_647)]
             active_controller2: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             active_region: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             active_region2: None,
             last_int: None,
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             last_string: None,
             #[cfg(since_647)]
             queue_source: None,
@@ -347,6 +350,9 @@ impl ScriptState {
         {
             self.active_controller = None;
             self.active_controller2 = None;
+        }
+        #[cfg(since_530)]
+        {
             self.active_region = None;
             self.active_region2 = None;
         }
@@ -356,7 +362,7 @@ impl ScriptState {
 
         // -- Misc state --
         self.last_int = None;
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             self.last_string = None;
         }
@@ -1101,14 +1107,14 @@ pub enum ExecutionState {
     CountDialog,
     /// Rev-647: suspended while waiting for the player to type a string
     /// (`p_stringdialog`), resumed by RESUME_P_STRINGDIALOG.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     StringDialog,
     /// Rev-647: waiting for a name (`p_namedialog`), resumed by RESUME_P_NAMEDIALOG.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     NameDialog,
     /// Rev-647: waiting for an obj from the stockmarket search (`p_objdialog`),
     /// resumed by RESUME_P_OBJDIALOG.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ObjDialog,
     /// Rev-647: waiting for a colour (`p_hsldialog`), resumed by RESUME_P_HSLDIALOG.
     #[cfg(since_647)]
@@ -1133,12 +1139,10 @@ impl ExecutionState {
     pub fn awaits_input(self) -> bool {
         match self {
             Self::PauseButton | Self::CountDialog => true,
+            #[cfg(since_530)]
+            Self::StringDialog | Self::NameDialog | Self::ObjDialog => true,
             #[cfg(since_647)]
-            Self::StringDialog
-            | Self::NameDialog
-            | Self::ObjDialog
-            | Self::HslDialog
-            | Self::ClanforumqfcDialog => true,
+            Self::HslDialog | Self::ClanforumqfcDialog => true,
             _ => false,
         }
     }
@@ -1270,7 +1274,7 @@ pub struct TimedScript {
 #[derive(Debug, Clone, Copy)]
 pub struct NpcRef {
     pub nid: u16,
-    pub id: u16,
+    pub id: TypeId,
     pub coord: CoordGrid,
 }
 
@@ -1287,7 +1291,7 @@ pub struct NpcRef {
 #[derive(Debug, Clone, Copy)]
 pub struct LocRef {
     pub coord: CoordGrid,
-    pub id: u16,
+    pub id: TypeId,
     pub shape: LocShape,
     pub angle: LocAngle,
     pub layer: LocLayer,
@@ -1306,7 +1310,7 @@ pub struct LocRef {
 #[derive(Debug, Clone, Copy)]
 pub struct ObjRef {
     pub coord: CoordGrid,
-    pub id: u16,
+    pub id: TypeId,
     pub serial: ObjSerial,
 }
 

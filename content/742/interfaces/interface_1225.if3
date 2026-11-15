@@ -1,0 +1,273 @@
+// 1225:0
+[com_0]
+type=layer
+y=87
+width=130
+height=28
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+
+// 1225:1
+[com_1]
+type=layer
+width=400
+height=250
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+
+// 1225:2
+[com_2]
+type=layer
+widthmode=minus
+heightmode=minus
+noclickthrough=yes
+
+// 1225:3
+[com_3]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4260(event_com)
+
+// 1225:4
+[com_4]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 1225:5
+[com_5]
+type=text
+y=5
+width=30
+height=40
+widthmode=minus
+xmode=abs_centre
+layer=com_4
+textfont=verdana_13pt_regular
+text=You are free to explore the world of RuneScape however you wish.
+textlineheight=18
+textalignh=centre
+textshadow=yes
+
+// 1225:6
+[com_6]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+onload=script4261(event_com)
+
+// 1225:7
+[com_7]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 1225:8
+[com_8]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+textfont=palatino_linotype_18pt_regular
+text=Welcome to RuneScape!
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1225:9
+[com_9]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_1
+onload=aif_build_close_button_layer(event_com)
+
+// 1225:10
+[com_10]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1225:11
+[com_11]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+onload=aif_build_close_button_over(event_com)
+
+// 1225:12
+[com_12]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1225:13
+[com_13]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1225:14
+[com_14]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1225:15
+[com_15]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1736)
+
+// 1225:16
+[com_16]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1737)
+
+// 1225:17
+[com_17]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=aif_build_button_layer(event_com, struct_1738)
+
+// 1225:18
+[com_18]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+transmitop=1
+op1=Continue
+onload=script4213(event_com)
+onop=closebutton_click
+
+// 1225:19
+[com_19]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1225:20
+[com_20]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+textfont=verdana_13pt_regular
+text=Onwards!
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_bronze_button_text_onload(event_com)
+
+// 1225:21
+[com_21]
+type=text
+y=46
+width=30
+height=62
+widthmode=minus
+xmode=abs_centre
+layer=com_4
+textfont=verdana_13pt_regular
+text=We recommend that you use the Task System if you are new to the game as it will guide you through the basics of play.
+textlineheight=18
+textalignh=centre
+textshadow=yes
+
+// 1225:22
+[com_22]
+type=text
+y=108
+width=30
+height=64
+widthmode=minus
+xmode=abs_centre
+layer=com_4
+textfont=verdana_13pt_regular
+text=The Task System is found in the lower right of your screen by default; if you close it you can retrieve it with the second icon in your bar.
+textlineheight=18
+textalignh=centre
+textshadow=yes

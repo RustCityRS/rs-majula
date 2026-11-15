@@ -1,0 +1,5 @@
+// 720
+[proc,clientscript_720](component $component0, int $int1, int $int2)
+if (cc_find($component0, 3) = true) {
+    cc_dragpickup(0, calc(cc_getheight / 2));
+}

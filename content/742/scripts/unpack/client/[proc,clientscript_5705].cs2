@@ -1,0 +1,18 @@
+// 5705
+[proc,clientscript_5705](int $int0)
+if (%varclient_1752 = 1) {
+    return;
+}
+if ($int0 = 1) {
+    if (if_gety(interface_1218:com_32) = 0) {
+        return;
+    } else {
+        %varclient_1752 = 1;
+        if_setontimer(interface_1218:com_74, "clientscript_5706(interface_1218:com_32, calc(if_gety(interface_1218:com_32) + 320))");
+    }
+} else if (if_gety(interface_1218:com_32) <= -960) {
+    return;
+} else {
+    %varclient_1752 = 1;
+    if_setontimer(interface_1218:com_74, "clientscript_5706(interface_1218:com_32, calc(if_gety(interface_1218:com_32) - 320))");
+}

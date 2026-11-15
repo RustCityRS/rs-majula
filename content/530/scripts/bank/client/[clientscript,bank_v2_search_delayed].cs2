@@ -1,0 +1,6 @@
+// 1476
+[clientscript,bank_v2_search_delayed](int $int0)
+if (clientclock >= $int0) {
+    ~bank_v2_show_search(%varclient_654);
+    if_setontimer(bank_v2_main:bank_search_button, null);
+}

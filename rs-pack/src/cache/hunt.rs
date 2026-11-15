@@ -1,12 +1,14 @@
+use super::decode::read_id;
 use super::provider::{CacheType, TypeProvider};
 use crate::types::*;
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use rs_ver::TypeId;
 
 pub type HuntTypeProvider = TypeProvider<HuntType>;
 
 pub struct HuntType {
-    pub id: u16,
+    pub id: TypeId,
     pub hunt_type: HuntModeType,
     pub check_vis: HuntCheckVis,
     pub check_nottoostrong: HuntCheckNotTooStrong,
@@ -14,14 +16,14 @@ pub struct HuntType {
     pub find_keephunting: HuntFindKeepHunting,
     pub find_newmode: NpcMode,
     pub nobodynear: HuntNobodyNear,
-    pub check_notcombat: Option<u16>,
-    pub check_notcombat_self: Option<u16>,
+    pub check_notcombat: Option<TypeId>,
+    pub check_notcombat_self: Option<TypeId>,
     pub check_afk: HuntCheckAfk,
     pub rate: u16,
-    pub check_category: Option<u16>,
-    pub check_npc: Option<u16>,
-    pub check_obj: Option<u16>,
-    pub check_loc: Option<u16>,
+    pub check_category: Option<TypeId>,
+    pub check_npc: Option<TypeId>,
+    pub check_obj: Option<TypeId>,
+    pub check_loc: Option<TypeId>,
     pub check_inv: Option<HuntCheckInv>,
     pub check_invparam: Option<HuntCheckInvParam>,
     pub check_invcat: Option<HuntCheckInvCat>,
@@ -30,28 +32,28 @@ pub struct HuntType {
 }
 
 pub struct HuntCheckInv {
-    pub inv: u16,
-    pub obj: u16,
+    pub inv: TypeId,
+    pub obj: TypeId,
     pub condition: String,
     pub value: i32,
 }
 
 pub struct HuntCheckInvParam {
-    pub inv: u16,
-    pub param: u16,
+    pub inv: TypeId,
+    pub param: TypeId,
     pub condition: String,
     pub value: i32,
 }
 
 pub struct HuntCheckInvCat {
-    pub inv: u16,
-    pub category: u16,
+    pub inv: TypeId,
+    pub category: TypeId,
     pub condition: String,
     pub value: i32,
 }
 
 pub struct HuntExtraCheckVar {
-    pub varp: u16,
+    pub varp: TypeId,
     pub condition: String,
     pub value: i32,
 }
@@ -59,7 +61,7 @@ pub struct HuntExtraCheckVar {
 impl CacheType for HuntType {
     type Context = ();
 
-    fn new(id: u16) -> Self {
+    fn new(id: TypeId) -> Self {
         HuntType {
             id,
             hunt_type: HuntModeType::Off,
@@ -94,17 +96,20 @@ impl CacheType for HuntType {
             5 => self.find_keephunting = HuntFindKeepHunting::On,
             6 => self.find_newmode = NpcMode::try_from(buf.g1()).unwrap(),
             7 => self.nobodynear = HuntNobodyNear::try_from(buf.g1()).unwrap(),
-            8 => self.check_notcombat = Some(buf.g2()),
-            9 => self.check_notcombat_self = Some(buf.g2()),
+            8 => self.check_notcombat = Some(read_id(buf)),
+            9 => self.check_notcombat_self = Some(read_id(buf)),
             10 => self.check_afk = HuntCheckAfk::Off,
             11 => self.rate = buf.g2(),
-            12 => self.check_category = Some(buf.g2()),
-            13 => self.check_npc = Some(buf.g2()),
-            14 => self.check_obj = Some(buf.g2()),
-            15 => self.check_loc = Some(buf.g2()),
+            12 => self.check_category = Some(read_id(buf)),
+            13 => self.check_npc = Some(read_id(buf)),
+            14 => self.check_obj = Some(read_id(buf)),
+            #[cfg(before_742)]
+            15 => self.check_loc = Some(read_id(buf)),
+            #[cfg(since_742)]
+            15 => self.check_loc = Some(TypeId::from_int(buf.g4s())),
             16 => {
-                let inv = buf.g2();
-                let obj = buf.g2();
+                let inv = read_id(buf);
+                let obj = read_id(buf);
                 let condition = buf.gjstr(STRING_TERMINATOR);
                 let value = buf.g4s();
                 self.check_inv = Some(HuntCheckInv {
@@ -115,8 +120,8 @@ impl CacheType for HuntType {
                 });
             }
             17 => {
-                let inv = buf.g2();
-                let param = buf.g2();
+                let inv = read_id(buf);
+                let param = read_id(buf);
                 let condition = buf.gjstr(STRING_TERMINATOR);
                 let value = buf.g4s();
                 self.check_invparam = Some(HuntCheckInvParam {
@@ -127,8 +132,8 @@ impl CacheType for HuntType {
                 });
             }
             18 => {
-                let inv = buf.g2();
-                let category = buf.g2();
+                let inv = read_id(buf);
+                let category = read_id(buf);
                 let condition = buf.gjstr(STRING_TERMINATOR);
                 let value = buf.g4s();
                 self.check_invcat = Some(HuntCheckInvCat {
@@ -151,7 +156,7 @@ impl CacheType for HuntType {
 
 impl HuntType {
     fn decode_check_var(&mut self, buf: &mut Packet) {
-        let varp = buf.g2();
+        let varp = read_id(buf);
         let condition = buf.gjstr(STRING_TERMINATOR);
         let value = buf.g4s();
         self.extracheck_vars.push(HuntExtraCheckVar {

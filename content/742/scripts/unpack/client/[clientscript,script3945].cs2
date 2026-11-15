@@ -1,0 +1,52 @@
+// 3945
+[clientscript,script3945](int $int0, int $int1, int $int2)
+if ($int2 = 1) {
+    %create_displayname_in_progress = true;
+}
+switch_int ($int0) {
+    case default :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2352);
+        }
+    case 1 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2353);
+        }
+        %varclient_2352 = %varclient_2353;
+    case 2 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2354);
+        }
+        %varclient_2352 = %varclient_2354;
+    case 3 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2355);
+        }
+        %varclient_2352 = %varclient_2355;
+    case 4 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2356);
+        }
+        %varclient_2352 = %varclient_2356;
+    case 5 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2357);
+        }
+        %varclient_2352 = %varclient_2357;
+    case 6 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_2358);
+        }
+        %varclient_2352 = %varclient_2358;
+}
+def_component $component3 = playerdesign4:com_181;
+def_component $component4 = playerdesign4:com_182;
+def_component $component5 = playerdesign4:com_183;
+if ($int1 = 0) {
+    $component3 = no_displayname:com_59;
+    $component4 = no_displayname:com_60;
+    $component5 = no_displayname:com_61;
+}
+if_settext($component4, %varclient_2352);
+%login_caret = string_length(%varclient_2352);
+~script3218($component3, $component4, $component5, %varclient_2352, 16);

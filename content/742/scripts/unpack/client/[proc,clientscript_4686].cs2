@@ -1,0 +1,14 @@
+// 4686
+[proc,clientscript_4686]
+if (%varclient_1538 >= 160) {
+    return;
+} else if (%varclient_1539 = 1) {
+    %varclient_1538 = 160;
+    if_setposition(interface_447:com_15, 0, 75, ^setpos_abs_left, ^setpos_abs_top);
+    return;
+} else if (%varclient_1538 = 158) {
+    if_sethide(interface_447:com_15, true);
+} else {
+    if_setposition(interface_447:com_15, calc(-2 - %varclient_1538), 75, ^setpos_abs_left, ^setpos_abs_top);
+    %varclient_1538 = calc(%varclient_1538 + 2);
+}
