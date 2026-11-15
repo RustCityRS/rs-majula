@@ -15,6 +15,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, settexts, talk_to};
+use rs_ver::TypeId;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::sync::Mutex;
 
@@ -45,7 +46,7 @@ fn var(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
         .harness_player(client.pid)
         .unwrap()
         .vars
-        .get(v)
+        .get(v.g2())
         .as_int()
 }
 
@@ -55,7 +56,7 @@ fn set_var(engine: &mut Engine, client: &HarnessClient, name: &str, value: i32) 
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(v, VarValue::Int(value));
+        .set(v.g2(), VarValue::Int(value));
 }
 
 /// %life_points: varbit 7198, bits 1-15 of varp 1240.
@@ -182,7 +183,7 @@ fn op_loc1(
     let loc = id(engine, "loc", loc);
     let mut p = ClientPacket::new();
     p.p2_alt1(z as i32)
-        .p2_alt1(loc as i32)
+        .p2_alt1(loc.int())
         .p1(0)
         .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
@@ -198,7 +199,7 @@ fn use_on_npc(
 ) -> Conversation {
     let slot = slot_of(engine, client, obj);
     let mut p = ClientPacket::new();
-    p.p2_alt2(id(engine, "obj", obj) as i32)
+    p.p2_alt2(id(engine, "obj", obj).int())
         .p2_alt2(slot)
         .p2_alt1(nid as i32)
         .p4_alt3(BACKPACK)
@@ -238,7 +239,7 @@ fn journal(engine: &mut Engine, client: &mut HarnessClient) -> String {
     plain
 }
 
-fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
+fn id(engine: &Engine, kind: &str, name: &str) -> TypeId {
     let map = match kind {
         "obj" => &engine.cache.objs.debugnames,
         "npc" => &engine.cache.npcs.debugnames,
