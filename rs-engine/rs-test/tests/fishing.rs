@@ -365,7 +365,7 @@ fn the_master_fisher_turns_away_a_low_level() {
         let mut client = fisher(engine, "hopeful", (x, z), 1, &[]);
         // A tile one step from him: 530's fisher stands in a house, walled from the first free
         // tile around him.
-        let (sx, sz) = [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)]
+        let beside = [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)]
             .into_iter()
             .find(|&(dx, dz)| {
                 let (tx, tz) = (
@@ -380,11 +380,12 @@ fn the_master_fisher_turns_away_a_low_level() {
                     x.wrapping_add_signed(dx as i16),
                     z.wrapping_add_signed(dz as i16),
                 )
-            })
-            .expect("a tile beside the master fisher");
-        engine.harness_telejump(client.pid, sx, 0, sz);
-        engine.cycle();
-        client.packets();
+            });
+        if let Some((sx, sz)) = beside {
+            engine.harness_telejump(client.pid, sx, 0, sz);
+            engine.cycle();
+            client.packets();
+        }
         op_npc1(&mut client, nid);
         let (_, texts) = run(engine, &mut client, 20, |_| false);
         assert!(

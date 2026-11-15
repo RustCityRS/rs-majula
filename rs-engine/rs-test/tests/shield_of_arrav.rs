@@ -12,6 +12,7 @@ use rs_test::names::BACKPACK;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
 use rs_ver::TypeId;
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
@@ -102,8 +103,9 @@ fn npc_near(engine: &Engine, name: &str, x: u16, z: u16) -> (u16, Vec<(u16, u16)
         })
         .min_by_key(|&(_, nx, nz)| nx.abs_diff(x) as u32 + nz.abs_diff(z) as u32)
         .unwrap_or_else(|| panic!("{name} is spawned"));
+    // A walkable tile can be across a counter or wall from the npc: only steps it can take.
     let beside: Vec<(u16, u16)> = [
-        (1i16, 0i16),
+        (1i8, 0i8),
         (-1, 0),
         (0, 1),
         (0, -1),
@@ -113,7 +115,13 @@ fn npc_near(engine: &Engine, name: &str, x: u16, z: u16) -> (u16, Vec<(u16, u16)
         (-1, 1),
     ]
     .into_iter()
-    .map(|(dx, dz)| (nx.wrapping_add_signed(dx), nz.wrapping_add_signed(dz)))
+    .filter(|&(dx, dz)| rsmod::can_travel(0, nx, nz, dx, dz, 1, 0, CollisionType::Normal))
+    .map(|(dx, dz)| {
+        (
+            nx.wrapping_add_signed(dx as i16),
+            nz.wrapping_add_signed(dz as i16),
+        )
+    })
     .filter(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
     .collect();
     assert!(!beside.is_empty(), "a walkable tile beside {name}");

@@ -11,25 +11,25 @@ static IDS: LazyLock<HashMap<String, i32>> = LazyLock::new(|| {
         rs_pack::CONTENT_DIR
     );
     let pack = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{path}: {e}"));
-    let mut interfaces = HashMap::new();
-    let mut ids = HashMap::new();
-    for line in pack.lines() {
-        let Some((key, name)) = line.split_once('=') else {
+    let lines: Vec<(&str, &str)> = pack.lines().filter_map(|l| l.split_once('=')).collect();
+    // 647's pack names some interfaces after their components.
+    let interfaces: HashMap<i32, &str> = lines
+        .iter()
+        .filter(|(key, _)| !key.contains(':'))
+        .map(|&(key, name)| (key.parse().expect("interface id"), name))
+        .collect();
+    let mut ids: HashMap<String, i32> = interfaces
+        .iter()
+        .map(|(&id, &name)| (name.to_owned(), id))
+        .collect();
+    for (key, name) in lines {
+        let Some((interface, com)) = key.split_once(':') else {
             continue;
         };
-        match key.split_once(':') {
-            None => {
-                let id: i32 = key.parse().expect("interface id");
-                interfaces.insert(id, name);
-                ids.insert(name.to_owned(), id);
-            }
-            Some((interface, com)) => {
-                let interface: i32 = interface.parse().expect("interface id");
-                let com: i32 = com.parse().expect("component id");
-                let parent = interfaces[&interface];
-                ids.insert(format!("{parent}:{name}"), (interface << 16) | com);
-            }
-        }
+        let interface: i32 = interface.parse().expect("interface id");
+        let com: i32 = com.parse().expect("component id");
+        let parent = interfaces[&interface];
+        ids.insert(format!("{parent}:{name}"), (interface << 16) | com);
     }
     ids
 });

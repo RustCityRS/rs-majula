@@ -995,16 +995,10 @@ fn character_creation_starts_unstable_foundations_in_the_cellar() {
             "and is not restarted as shot 3 opens"
         );
 
-        // Shot 6: Sir Vant's swing, seq 12232, from the shot's first tick (NPC_INFO's anim block:
-        // four ids, each big-endian with 128 added to its low byte).
-        let swing = [0x2F, 0xC8u8.wrapping_add(128)].repeat(4);
+        // Shot 6: Sir Vant's swing, seq 12232, from the shot's first tick.
         let six = shot_at(6);
         assert!(
-            ticks[six]
-                .1
-                .iter()
-                .any(|(op, body)| *op == ServerProt::NpcInfo as u16
-                    && body.windows(8).any(|w| w == swing)),
+            npc_anim_sent(&ticks[six].1, 12232),
             "Sir Vant's swing, seq 12232, as shot 6 opens"
         );
 
@@ -1497,29 +1491,46 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             "two shots, then the player's camera"
         );
         assert_eq!(progress(engine, &client), 50, "Check your Quest Journal");
-        // 742 opens the quest list from its Noticeboard's Quests page, not a tab.
         #[cfg(before_742)]
         {
             assert!(is_open(engine, &client, 190), "the quest list tab");
             assert_eq!(varbit(engine, &client, FLASH_SIDE), 4);
         }
+        // 742 has no quest tab: the arrow is at the Noticeboard's stone.
+        #[cfg(since_742)]
+        assert_eq!(varbit(engine, &client, FLASH_SIDE), 2);
 
-        // The journal (quest list row 147), the world map (548:179, then its close 755:44) and
-        // the compass (548:177 "Face North").
-        let button = |client: &mut HarnessClient, iface: i32, com: i32, slot: i32| {
-            client.if_button(1, (iface << 16) | com, slot as u16, TypeId::NULL);
+        // The journal (quest list row 147), the world map (then its close) and the compass
+        // ("Face North").
+        let button = |client: &mut HarnessClient, name: &str, slot: i32| {
+            client.if_button(1, com(name), slot as u16, TypeId::NULL);
         };
-        // The quest list tab clicked at its arrow (toplevel:stone3, 548:131): the arrow stops
-        // (4KO2h2xPtdM @118-120; worn equipment's @85.5-86.5).
-        button(&mut client, 548, 131, NONE);
+        // The tab clicked at its arrow: the arrow stops (4KO2h2xPtdM @118-120; worn equipment's
+        // @85.5-86.5).
+        #[cfg(before_742)]
+        button(&mut client, "toplevel:stone3", NONE);
+        #[cfg(since_742)]
+        button(&mut client, "toplevel:stone1", NONE);
         cycles(engine, &mut client, 2);
         assert_eq!(varbit(engine, &client, FLASH_SIDE), 0, "the tab clicked");
+        assert_eq!(varbit(engine, &client, 4895), 3, "tutorial_version");
         // The arrow moves to the quest's row: the client draws it at 55 on an Unstable
         // Foundations account (clientscript 1661; 4KO2h2xPtdM @119.0-120.0).
-        assert_eq!(progress(engine, &client), 55, "the quest list opened");
-        assert_eq!(varbit(engine, &client, 4895), 3, "tutorial_version");
-        button(&mut client, 190, 18, 147);
-        let journal = cycles(engine, &mut client, 3);
+        #[cfg(before_742)]
+        let journal = {
+            assert_eq!(progress(engine, &client), 55, "the quest list opened");
+            button(&mut client, "questlist_v4:quests", 147);
+            cycles(engine, &mut client, 3)
+        };
+        // 742: "Open Noticeboard", then the Featured page's Quests box, which has no row for the
+        // quest and opens its journal.
+        #[cfg(since_742)]
+        let journal = {
+            button(&mut client, "interface_1056:com_55", NONE);
+            cycles(engine, &mut client, 2);
+            button(&mut client, "interface_1345:com_23", NONE);
+            cycles(engine, &mut client, 3)
+        };
         assert_eq!(progress(engine, &client), 60, "Check your World Map");
         assert_eq!(
             varbit(engine, &client, FLASH_SIDE),
@@ -1531,7 +1542,10 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             "a new Task brings the panel to the task system (4KO2h2xPtdM @83.75, @103.75)"
         );
         engine.harness_close_modal(client.pid);
-        button(&mut client, 548, 179, NONE);
+        // 742: the Noticeboard's full-screen toplevel gives the gameframe back at the tick's end.
+        #[cfg(since_742)]
+        cycles(engine, &mut client, 1);
+        button(&mut client, "toplevel:worldmap_icon", NONE);
         let map = cycles(engine, &mut client, 3);
         // The map opens on the cellar the copy was made from (square 57_77, the "Tutorial
         // Cellar" areas), not the copy's own tiles, with the arrow at its close button.
@@ -1551,10 +1565,10 @@ fn sir_vants_plan_the_meat_and_the_ramp() {
             server::hides(&map).iter().any(|(c, _)| *c == closearrow),
             "the arrow at the world map's close button (755:45)"
         );
-        button(&mut client, 755, 44, NONE);
+        button(&mut client, "worldmap:close", NONE);
         cycles(engine, &mut client, 3);
         assert_eq!(progress(engine, &client), 62, "Realign your Minimap");
-        button(&mut client, 548, 177, NONE);
+        button(&mut client, "toplevel:compass_clickzone", NONE);
         cycles(engine, &mut client, 3);
         assert_eq!(progress(engine, &client), 65, "Climb the Wall");
 
