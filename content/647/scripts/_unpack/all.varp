@@ -1591,6 +1591,9 @@ protect=no
 
 // 340
 [morttonmulti]
+// Sent to the client: cache 786's shades_razmire_multinpc and shades_ulsquire_multinpc pick their
+// form by its varbits razmire_visible and ulsquire_visible.
+transmit=yes
 scope=perm
 protect=no
 

@@ -188064,6 +188064,10 @@ multivar=ulsquire_visible
 multinpc=0,ulsquire_shauncy_afflicted
 multinpc=1,ulsquire_shauncy
 unknown119=3
+// The spawned npc at 2011: 289's server keys of ulsquire_shauncy_afflicted, the type 289 spawns.
+wanderrange=5
+moverestrict=indoors
+param=damagetype,^crush_style
 
 // 7899
 [shades_razmire_multinpc]
@@ -188074,6 +188078,11 @@ multinpc=0,razmire_keelgan_afflicted
 multinpc=1,razmire_keelgan
 unknown119=3
 desc=A local villager of Mort'ton.
+// The spawned npc at 2011: 289's server keys of razmire_keelgan_afflicted, the type 289 spawns.
+wanderrange=5
+moverestrict=indoors
+param=damagetype,^crush_style
+timer=4
 
 // 7900
 [vkq3_korasi_nosword]

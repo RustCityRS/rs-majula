@@ -63,7 +63,15 @@ while ($i < 20) {
     %life_points = 990;
     %dragonresist = add(map_clock, 600);
     ~metal_dragon_dragonfire_far;
-    test_tick(2);
+    // The far breath lands about three ticks on (its projectile's flight), one tick sooner or
+    // later as the dragon wanders, so two breaths can land within two ticks of each other:
+    // each tick's loss is measured on its own.
+    test_tick(1);
+    if_close;
+    assert_true(p_finduid($uid));
+    $worst = max($worst, sub(990, %life_points));
+    %life_points = 990;
+    test_tick(1);
     if_close;
     assert_true(p_finduid($uid));
     $worst = max($worst, sub(990, %life_points));
