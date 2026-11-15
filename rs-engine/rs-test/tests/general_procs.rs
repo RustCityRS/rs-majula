@@ -262,7 +262,7 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
         ticks(engine, &mut client, 2);
         assert_eq!(inv_total(engine, &client, lamp.g2()), 1, "the lamp given");
 
-        button1(&mut client, BACKPACK, 0, lamp as i32);
+        button1(&mut client, BACKPACK, 0, lamp.int());
         ticks(engine, &mut client, 2);
         assert!(is_open(engine, &client, LAMP), "Rub opens 2011's lamp");
 
@@ -299,7 +299,11 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
             engine.harness_player(client.pid).unwrap().stats.xp[ATTACK] - xp,
             100_000
         );
-        assert_eq!(inv_total(engine, &client, lamp.g2()), 0, "the lamp is used up");
+        assert_eq!(
+            inv_total(engine, &client, lamp.g2()),
+            0,
+            "the lamp is used up"
+        );
         assert!(!is_open(engine, &client, LAMP), "the lamp closes");
         assert!(
             texts
