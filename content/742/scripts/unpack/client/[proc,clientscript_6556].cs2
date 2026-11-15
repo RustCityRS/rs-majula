@@ -1,0 +1,145 @@
+// 6556
+[proc,clientscript_6556](int $int0)
+def_graphic $graphic1 = 7893;
+def_graphic $graphic2 = 7891;
+def_graphic $graphic3 = 7893;
+def_graphic $graphic4 = 7891;
+def_int $intbool5 = testbit(%varplayer_2702, $int0);
+def_component $component6 = interface_1317:com_25;
+def_component $component7 = interface_1317:com_27;
+switch_int ($int0) {
+    case 0 :
+        $component6 = interface_1317:com_25;
+        $component7 = interface_1317:com_27;
+    case 1 :
+        $component6 = interface_1317:com_128;
+        $component7 = interface_1317:com_130;
+    case 2 :
+        $component6 = interface_1317:com_133;
+        $component7 = interface_1317:com_135;
+    case 3 :
+        $component6 = interface_1317:com_138;
+        $component7 = interface_1317:com_140;
+    case 4 :
+        $component6 = interface_1317:com_143;
+        $component7 = interface_1317:com_145;
+    case 5 :
+        $component6 = interface_1317:com_148;
+        $component7 = interface_1317:com_150;
+    case 6 :
+        $component6 = interface_1317:com_153;
+        $component7 = interface_1317:com_155;
+    case 7 :
+        $component6 = interface_1317:com_158;
+        $component7 = interface_1317:com_160;
+    case 8 :
+        $component6 = interface_1317:com_163;
+        $component7 = interface_1317:com_165;
+    case 9 :
+        $component6 = interface_1317:com_168;
+        $component7 = interface_1317:com_170;
+    case 10 :
+        $component6 = interface_1317:com_173;
+        $component7 = interface_1317:com_175;
+    case 11 :
+        $component6 = interface_1317:com_178;
+        $component7 = interface_1317:com_180;
+    case 12 :
+        $component6 = interface_1317:com_183;
+        $component7 = interface_1317:com_185;
+    case 13 :
+        $component6 = interface_1317:com_188;
+        $component7 = interface_1317:com_190;
+    case 14 :
+        $component6 = interface_1317:com_193;
+        $component7 = interface_1317:com_195;
+    case 15 :
+        $component6 = interface_1317:com_198;
+        $component7 = interface_1317:com_200;
+    case 16 :
+        $component6 = interface_1317:com_203;
+        $component7 = interface_1317:com_205;
+    case 17 :
+        $component6 = interface_1317:com_208;
+        $component7 = interface_1317:com_210;
+    case 18 :
+        $component6 = interface_1317:com_212;
+        $component7 = interface_1317:com_214;
+    case 19 :
+        $component6 = interface_1317:com_217;
+        $component7 = interface_1317:com_219;
+    case 20 :
+        $component6 = interface_1317:com_222;
+        $component7 = interface_1317:com_224;
+    case 21 :
+        $component6 = interface_1317:com_227;
+        $component7 = interface_1317:com_229;
+    case 22 :
+        $component6 = interface_1317:com_232;
+        $component7 = interface_1317:com_234;
+    case 23 :
+        $component6 = interface_1317:com_237;
+        $component7 = interface_1317:com_239;
+    case 24 :
+        $component6 = interface_1317:com_242;
+        $component7 = interface_1317:com_244;
+    case 25 :
+        $component6 = interface_1317:com_247;
+        $component7 = interface_1317:com_249;
+}
+def_obj $obj8 = null;
+if ($intbool5 = ^false) {
+    if_setop($component6, 1, "Buy");
+    if_settext($component7, tostring(enum(int, int, enum_5996, $int0)));
+    if_setgraphic($component6, 7891);
+    if_setonclick($component6, "graphic_swapper(event_com, $graphic1)");
+    if_setonrelease($component6, "graphic_swapper(event_com, $graphic2)");
+    if_setonmouseover($component6, "graphic_swapper(event_com, $graphic3)");
+    if_setonmouseleave($component6, "graphic_swapper(event_com, $graphic4)");
+} else if ($intbool5 = ^true) {
+    if ($int0 = 0 | $int0 = 8 | $int0 = 23 | $int0 = 24 | $int0 = 25) {
+        if_setop($component6, 1, "");
+        if_settext($component7, "Purchased");
+        if_setgraphic($component6, 7892);
+        if_setonclick($component6, null);
+        if_setonrelease($component6, null);
+        if_setonmouseover($component6, null);
+        if_setonmouseleave($component6, null);
+    } else if ($int0 = 1 | $int0 = 9 | $int0 = 16) {
+        if ($int0 = 1) {
+            $obj8 = victor_s_bronze_ring;
+        } else if ($int0 = 9) {
+            $obj8 = exalted_silver_ring;
+        } else if ($int0 = 16) {
+            $obj8 = herculean_gold_ring;
+        }
+        $graphic1 = 7894;
+        $graphic2 = 7892;
+        $graphic3 = 7894;
+        $graphic4 = 7892;
+        if (~clientscript_259($obj8) = 0) {
+            if_setop($component6, 1, "Reclaim");
+            if_settext($component7, "Reclaim");
+        } else {
+            if_setop($component6, 1, "Recharge");
+            if_settext($component7, "Recharge");
+        }
+        if_setgraphic($component6, 7892);
+        if_setonclick($component6, "graphic_swapper(event_com, $graphic1)");
+        if_setonrelease($component6, "graphic_swapper(event_com, $graphic2)");
+        if_setonmouseover($component6, "graphic_swapper(event_com, $graphic3)");
+        if_setonmouseleave($component6, "graphic_swapper(event_com, $graphic4)");
+    } else {
+        $graphic1 = 7894;
+        $graphic2 = 7892;
+        $graphic3 = 7894;
+        $graphic4 = 7892;
+        if_setop($component6, 1, "Reclaim");
+        if_settext($component7, "Reclaim");
+        if_setgraphic($component6, 7892);
+        if_setonclick($component6, "graphic_swapper(event_com, $graphic1)");
+        if_setonrelease($component6, "graphic_swapper(event_com, $graphic2)");
+        if_setonmouseover($component6, "graphic_swapper(event_com, $graphic3)");
+        if_setonmouseleave($component6, "graphic_swapper(event_com, $graphic4)");
+    }
+}

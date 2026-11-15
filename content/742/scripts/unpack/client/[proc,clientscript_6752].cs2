@@ -1,0 +1,7 @@
+// 6752
+[proc,clientscript_6752]
+if_settext(interface_1345:com_61, struct_param(struct_11515, param_1266));
+if_setgraphic(interface_1345:com_59, struct_param(struct_11515, param_1271));
+def_string $string0 = struct_param(struct_11515, param_1273);
+if_setonmouserepeat(interface_1345:com_24, "aif_tooltip(interface_1345:com_36, interface_1345:com_24, -1, $string0, 304, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+if_setonmouseleave(interface_1345:com_24, "deltooltip(interface_1345:com_36)");

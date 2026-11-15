@@ -1,0 +1,25 @@
+// 5612
+[proc,clientscript_5612](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if (clientclock > $int4) {
+    $int4 = calc(clientclock + 50);
+    if ($int3 = 1) {
+        if (calc($int2 + 5) <= 120) {
+            $int2 = calc($int2 + 5);
+        } else {
+            $int2 = 120;
+            $int3 = 0;
+        }
+    } else if (calc($int2 - 5) >= 0) {
+        $int2 = calc($int2 - 5);
+    } else {
+        $int2 = 0;
+        $int3 = 1;
+    }
+    op713($int1, 3, 50, $int2, $component0);
+}
+if (calc(clientclock % 1000) < 500) {
+    if_setmodelangle($component0, 0, 0, calc(if_getmodelangle_x($component0) + $int5 & 2047), calc(if_getmodelangle_y($component0) + $int6 & 2047), calc(if_getmodelangle_z($component0) + 0 & 2047), if_getmodelzoom($component0));
+} else {
+    if_setmodelangle($component0, 0, 0, calc(if_getmodelangle_x($component0) + $int6 & 2047), calc(if_getmodelangle_y($component0) + $int5 & 2047), calc(if_getmodelangle_z($component0) + 0 & 2047), if_getmodelzoom($component0));
+}
+if_setontimer($component0, "clientscript_5612($component0, $int1, $int2, $int3, $int4, $int5, $int6)");

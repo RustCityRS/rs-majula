@@ -1,0 +1,48 @@
+// 5763
+[proc,clientscript_5763](stat $stat0)(enum)
+def_enum $enum1 = null;
+switch_stat ($stat0) {
+    case attack :
+        $enum1 = enum_5487;
+    case agility :
+        $enum1 = enum_5488;
+    case herblore :
+        $enum1 = enum_5489;
+    case thieving :
+        $enum1 = enum_5490;
+    case fletching :
+        $enum1 = enum_5491;
+    case farming :
+        $enum1 = enum_5492;
+    case construction :
+        $enum1 = enum_5493;
+    case hunter :
+        $enum1 = enum_5494;
+    case summoning :
+        $enum1 = enum_5495;
+    case slayer :
+        $enum1 = enum_5496;
+    case mining :
+        $enum1 = enum_5497;
+    case runecraft :
+        $enum1 = enum_5498;
+    case smithing :
+        $enum1 = enum_5499;
+    case crafting :
+        $enum1 = enum_5500;
+    case fishing :
+        $enum1 = enum_5501;
+    case cooking :
+        $enum1 = enum_5502;
+    case firemaking :
+        $enum1 = enum_5503;
+    case woodcutting :
+        $enum1 = enum_5504;
+    case prayer :
+        $enum1 = enum_5505;
+    case dungeoneering :
+        $enum1 = enum_5506;
+    case default :
+        return(null);
+}
+return($enum1);

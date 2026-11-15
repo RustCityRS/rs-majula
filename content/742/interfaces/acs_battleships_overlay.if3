@@ -1,0 +1,483 @@
+// 1077:0
+[murphy_layer]
+type=layer
+x=1
+y=1
+width=96
+height=37
+layer=display_layer
+
+// 1077:1
+[migor_layer]
+type=layer
+x=1
+y=38
+width=96
+height=37
+layer=display_layer
+
+// 1077:2
+[zomboat1_layer]
+type=layer
+x=1
+y=75
+width=96
+height=37
+layer=display_layer
+
+// 1077:3
+[zomboat2_layer]
+type=layer
+x=1
+y=112
+width=96
+height=37
+layer=display_layer
+
+// 1077:4
+[zomboat3_layer]
+type=layer
+x=1
+y=149
+width=96
+height=37
+layer=display_layer
+
+// 1077:5
+[display_layer]
+type=layer
+y=70
+width=98
+height=187
+layer=main
+
+// 1077:6
+[murphy_label_2]
+type=text
+x=1
+y=9
+width=92
+height=16
+layer=murphy_layer
+textfont=p11_full
+text=Murphy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:7
+[murphy_label_3]
+type=text
+x=3
+y=9
+width=92
+height=16
+layer=murphy_layer
+textfont=p11_full
+text=Murphy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:8
+[murphy_label_4]
+type=text
+x=3
+y=11
+width=92
+height=16
+layer=murphy_layer
+textfont=p11_full
+text=Murphy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:9
+[murphy_label_5]
+type=text
+x=1
+y=11
+width=92
+height=16
+layer=murphy_layer
+textfont=p11_full
+text=Murphy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:10
+[murphy_label_1]
+type=text
+x=2
+y=10
+width=92
+height=16
+layer=murphy_layer
+textfont=p11_full
+text=Murphy
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1077:11
+[murphy_cross]
+type=graphic
+x=30
+y=1
+width=35
+height=35
+layer=murphy_layer
+hide=yes
+graphic="mob_cross_icon,0"
+
+// 1077:12
+[main]
+type=layer
+width=512
+height=334
+
+// 1077:13
+[migor_label_2]
+type=text
+x=1
+y=9
+width=92
+height=16
+layer=migor_layer
+textfont=p11_full
+text=Mi-Gor
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:14
+[migor_label_3]
+type=text
+x=3
+y=9
+width=92
+height=16
+layer=migor_layer
+textfont=p11_full
+text=Mi-Gor
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:15
+[migor_label_4]
+type=text
+x=3
+y=11
+width=92
+height=16
+layer=migor_layer
+textfont=p11_full
+text=Mi-Gor
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:16
+[migor_label_5]
+type=text
+x=1
+y=11
+width=92
+height=16
+layer=migor_layer
+textfont=p11_full
+text=Mi-Gor
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:17
+[migor_label_1]
+type=text
+x=2
+y=10
+width=92
+height=16
+layer=migor_layer
+textfont=p11_full
+text=Mi-Gor
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1077:18
+[migor_cross]
+type=graphic
+x=30
+y=1
+width=35
+height=35
+layer=migor_layer
+hide=yes
+graphic="mob_cross_icon,0"
+
+// 1077:19
+[zomboat1_label_2]
+type=text
+x=1
+y=9
+width=92
+height=16
+layer=zomboat1_layer
+textfont=p11_full
+text=Zomboat 1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:20
+[zomboat1_label_3]
+type=text
+x=3
+y=9
+width=92
+height=16
+layer=zomboat1_layer
+textfont=p11_full
+text=Zomboat 1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:21
+[zomboat1_label_4]
+type=text
+x=3
+y=11
+width=92
+height=16
+layer=zomboat1_layer
+textfont=p11_full
+text=Zomboat 1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:22
+[zomboat1_label_5]
+type=text
+x=1
+y=11
+width=92
+height=16
+layer=zomboat1_layer
+textfont=p11_full
+text=Zomboat 1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:23
+[zomboat1_label_1]
+type=text
+x=2
+y=10
+width=92
+height=16
+layer=zomboat1_layer
+textfont=p11_full
+text=Zomboat 1
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1077:24
+[zomboat1_cross]
+type=graphic
+x=30
+y=1
+width=35
+height=35
+layer=zomboat1_layer
+hide=yes
+graphic="mob_cross_icon,0"
+
+// 1077:25
+[zomboat2_label_2]
+type=text
+x=1
+y=9
+width=92
+height=16
+layer=zomboat2_layer
+textfont=p11_full
+text=Zomboat 2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:26
+[zomboat2_label_3]
+type=text
+x=3
+y=9
+width=92
+height=16
+layer=zomboat2_layer
+textfont=p11_full
+text=Zomboat 2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:27
+[zomboat2_label_4]
+type=text
+x=3
+y=11
+width=92
+height=16
+layer=zomboat2_layer
+textfont=p11_full
+text=Zomboat 2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:28
+[zomboat2_label_5]
+type=text
+x=1
+y=11
+width=92
+height=16
+layer=zomboat2_layer
+textfont=p11_full
+text=Zomboat 2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:29
+[zomboat2_label_1]
+type=text
+x=2
+y=10
+width=92
+height=16
+layer=zomboat2_layer
+textfont=p11_full
+text=Zomboat 2
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1077:30
+[zomboat2_cross]
+type=graphic
+x=30
+y=1
+width=35
+height=35
+layer=zomboat2_layer
+hide=yes
+graphic="mob_cross_icon,0"
+
+// 1077:31
+[zomboat3_label_2]
+type=text
+x=1
+y=9
+width=92
+height=16
+layer=zomboat3_layer
+textfont=p11_full
+text=Zomboat 3
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:32
+[zomboat3_label_3]
+type=text
+x=3
+y=9
+width=92
+height=16
+layer=zomboat3_layer
+textfont=p11_full
+text=Zomboat 3
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:33
+[zomboat3_label_4]
+type=text
+x=3
+y=11
+width=92
+height=16
+layer=zomboat3_layer
+textfont=p11_full
+text=Zomboat 3
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:34
+[zomboat3_label_5]
+type=text
+x=1
+y=11
+width=92
+height=16
+layer=zomboat3_layer
+textfont=p11_full
+text=Zomboat 3
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000000
+
+// 1077:35
+[zomboat3_label_1]
+type=text
+x=2
+y=10
+width=92
+height=16
+layer=zomboat3_layer
+textfont=p11_full
+text=Zomboat 3
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1077:36
+[zomboat3_cross]
+type=graphic
+x=30
+y=1
+width=35
+height=35
+layer=zomboat3_layer
+hide=yes
+graphic="mob_cross_icon,0"

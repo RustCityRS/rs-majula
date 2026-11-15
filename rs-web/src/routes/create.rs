@@ -201,11 +201,11 @@ fn page(
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     use rs_pack::cache::wordenc::WordEncProvider;
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     use rs_pack::pack::wordenc::pack_wordenc;
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     use std::path::Path;
 
     fn form(password: &str, password2: &str, terms: &str) -> CreateForm {
@@ -234,7 +234,7 @@ mod tests {
         assert!(check_password(&form("hunter2", "hunter2", "")).is_err());
     }
 
-    #[cfg(before_647)]
+    #[cfg(before_530)]
     #[test]
     fn game_word_filter_catches_names() {
         let dir = Path::new(env!("CARGO_MANIFEST_DIR"))

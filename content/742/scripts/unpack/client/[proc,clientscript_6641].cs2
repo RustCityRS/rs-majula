@@ -1,0 +1,29 @@
+// 6641
+[proc,clientscript_6641]
+if (%varplayerbit_11846 > 0) {
+    if_setgraphic(interface_1334:com_13, enum(int, graphic, enum_6103, %varplayerbit_11846));
+    if_setonmouserepeat(interface_1334:com_13, "aif_tooltip(interface_1334:com_47, event_com, -1, enum(int, string, enum_6106, %varplayerbit_11846), 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1334:com_13, "deltooltip(interface_1334:com_47)");
+} else {
+    if_setgraphic(interface_1334:com_13, null);
+    if_setonmouserepeat(interface_1334:com_13, null);
+    if_setonmouseleave(interface_1334:com_13, null);
+}
+if (%varplayerbit_11847 > 0) {
+    if_setgraphic(interface_1334:com_14, enum(int, graphic, enum_6103, %varplayerbit_11847));
+    if_setonmouserepeat(interface_1334:com_14, "aif_tooltip(interface_1334:com_47, event_com, -1, enum(int, string, enum_6106, %varplayerbit_11847), 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1334:com_14, "deltooltip(interface_1334:com_47)");
+} else {
+    if_setgraphic(interface_1334:com_14, null);
+    if_setonmouserepeat(interface_1334:com_14, null);
+    if_setonmouseleave(interface_1334:com_14, null);
+}
+if (%varplayerbit_11848 > 0) {
+    if_setgraphic(interface_1334:com_15, enum(int, graphic, enum_6103, %varplayerbit_11848));
+    if_setonmouserepeat(interface_1334:com_15, "aif_tooltip(interface_1334:com_47, event_com, -1, enum(int, string, enum_6106, %varplayerbit_11848), 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 2, event_mousex, event_mousey)");
+    if_setonmouseleave(interface_1334:com_15, "deltooltip(interface_1334:com_47)");
+} else {
+    if_setgraphic(interface_1334:com_15, null);
+    if_setonmouserepeat(interface_1334:com_15, null);
+    if_setonmouseleave(interface_1334:com_15, null);
+}

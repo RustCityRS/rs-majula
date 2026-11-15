@@ -1,0 +1,24 @@
+// 6898
+[proc,clientscript_6898](component $component0, component $component1)
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $int2 = calc(paraheight(%varclient_2401, if_getwidth($component0), p12_full) * 12 + 5);
+cc_create($component0, ^iftype_text, 0);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(0, $int2, ^setsize_minus, ^setsize_abs);
+cc_settextfont(p12_full);
+cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
+cc_setcolour(^white);
+cc_settext(%varclient_2401);
+if ($int2 > if_getheight($component0)) {
+    if_setposition($component0, 0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    if_setscrollsize($component0, 0, $int2);
+    if_setscrollpos($component0, 0, 0);
+    if_sethide($component1, false);
+    ~aif_scrollbar_build_layer($component1, $component0, struct_7337);
+} else {
+    if_setposition($component0, 0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    if_setscrollsize($component0, 0, 0);
+    if_setscrollpos($component0, 0, 0);
+    if_sethide($component1, true);
+}

@@ -1,0 +1,17 @@
+// 6622
+[proc,clientscript_6622](int $int0, int $int1, int $int2)
+def_graphic $graphic3 = "close_buttons,6";
+if ($int2 = 2) {
+    $graphic3 = "close_buttons,4";
+}
+def_component $component4 = interface_1323:com_46;
+def_component $component5 = interface_1323:com_47;
+if ($int0 = 674) {
+    $component4 = interface_1323:com_7;
+    $component5 = interface_1323:com_8;
+}
+if (if_find($component5) = true & .cc_find($component4, $int1) = true) {
+    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setontimer("clientscript_6623(calc(clientclock + 100), 0, $graphic3, $component5)");
+}

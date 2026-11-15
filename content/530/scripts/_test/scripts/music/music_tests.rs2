@@ -1,0 +1,34 @@
+#testscript
+
+// 289's music keeps its `midi` names (pack/midi.pack): a 289 jingle plays
+// 530's jingle with its notes, a 289 song 530's song of its name, each by its
+// cache id, and each has 530's length in ticks.
+
+[label,test_a_289_jingle_plays_530s_jingle]
+setup_player("test_player")
+~test_skip_design
+midi_jingle("quest complete 1")
+assert_called_with("midi_jingle", "152")
+midi_jingle("quest complete 3")
+assert_called_with("midi_jingle", "154")
+midi_jingle(death2)
+assert_called_with("midi_jingle", "90")
+
+[label,test_a_289_song_plays_530s_song_of_its_name]
+setup_player("test_player")
+~test_skip_design
+midi_song("autumn voyage")
+assert_called_with("midi_song", "2")
+
+[label,test_music_has_530s_lengths]
+assert_gt(midi_length("quest complete 1"), 1)
+assert_gt(midi_length("autumn voyage"), 50)
+
+// The music commands play a cache song or jingle by id.
+[label,test_music_commands_play_by_id]
+setup_player("test_player")
+~test_skip_design
+music_playsong(2)
+assert_called_with("music_playsong", "2")
+music_playjingle(152, 0)
+assert_called_with("music_playjingle", "152")

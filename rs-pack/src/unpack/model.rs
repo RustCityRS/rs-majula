@@ -1,43 +1,23 @@
-#[cfg(before_647)]
 use super::config::ModelCategory;
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 use crate::PACK_DIR;
 #[cfg(since_244)]
 use crate::archive;
-#[cfg(before_647)]
 use crate::archive::JagArchive;
-#[cfg(since_647)]
-use crate::cache::seq_frame::AnimFrame;
-#[cfg(since_647)]
-use crate::pack::{model::source, names::AssetNames};
 #[cfg(rev = "225")]
 use crate::types::BoneType;
-#[cfg(since_647)]
-use anyhow::{Context, Result, ensure};
-#[cfg(since_647)]
-use rayon::prelude::*;
-#[cfg(before_647)]
 use rs_io::Packet;
-#[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-#[cfg(before_647)]
 use std::collections::HashMap;
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 use std::collections::HashSet;
 #[cfg(rev = "225")]
 use std::fmt::Write as _;
 use std::fs;
-#[cfg(since_647)]
-use std::fs::File;
-#[cfg(since_647)]
-use std::io::Write;
 use std::path::Path;
-#[cfg(before_647)]
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::info;
 
 #[cfg(rev = "225")]
 const JAG_ENTRY_NAMES: [&str; 21] = [
@@ -169,7 +149,6 @@ pub fn unpack_models(
     Ok(())
 }
 
-#[cfg(before_647)]
 pub fn pack_models_from_raw(raw_dir: &Path) -> Vec<u8> {
     let order: Vec<String> = fs::read_to_string(raw_dir.join("_jag_order.txt"))
         .unwrap_or_default()
@@ -187,7 +166,6 @@ pub fn pack_models_from_raw(raw_dir: &Path) -> Vec<u8> {
     jag.build(JagArchive::Models.compression())
 }
 
-#[cfg(before_647)]
 pub(crate) fn load_existing_pack(pack_dir: &Path, name: &str) -> HashMap<u16, String> {
     let mut map = HashMap::new();
     if let Ok(text) = fs::read_to_string(pack_dir.join(format!("{name}.pack"))) {
@@ -374,7 +352,6 @@ fn extract_frames(
     Ok(count)
 }
 
-#[cfg(before_647)]
 fn model_subdir(category: Option<&ModelCategory>) -> &'static str {
     match category {
         Some(ModelCategory::Npc) => "npc",
@@ -564,7 +541,7 @@ fn compute_vertex_delta_len(vertex_count: usize, p1: &[u8], axis: u8) -> usize {
     len
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 pub fn unpack_models(
     cache: &mut Js5Store,
     output_dir: &Path,
@@ -610,7 +587,7 @@ pub fn unpack_models(
     Ok(())
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 pub fn ob2_textures(data: &[u8]) -> Vec<u16> {
     if data.len() < 18 {
         return Vec::new();
@@ -663,7 +640,7 @@ pub fn ob2_textures(data: &[u8]) -> Vec<u16> {
     textures
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 pub fn build_model_textures(cache: &mut Js5Store) -> HashMap<u16, HashSet<u16>> {
     let mut map = HashMap::new();
     for id in 0..cache.group_count(archive::MODELS).unwrap_or(0) as usize {
@@ -683,7 +660,7 @@ pub fn build_model_textures(cache: &mut Js5Store) -> HashMap<u16, HashSet<u16>> 
     map
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 pub fn unpack_anims(
     cache: &mut Js5Store,
     output_dir: &Path,
@@ -736,7 +713,7 @@ pub fn unpack_anims(
     Ok(())
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 fn anim_set_frame_ids(set: &[u8]) -> Vec<u16> {
     if set.len() < 2 {
         return Vec::new();
@@ -753,88 +730,4 @@ fn anim_set_frame_ids(set: &[u8]) -> Vec<u16> {
         ids.push(frame_id);
     }
     ids
-}
-
-#[cfg(since_647)]
-pub fn unpack_models(cache_dir: &Path, pack_dir: &Path, output_dir: &Path) -> Result<u32> {
-    let store = Js5Store::open(cache_dir)?;
-    let names = AssetNames::load(pack_dir)?;
-    let groups = store
-        .reference_table(archive::MODELS)
-        .context("Missing model table")?
-        .groups
-        .clone();
-    let dir = output_dir.join("models");
-    fs::create_dir_all(&dir)?;
-    groups
-        .par_chunks(2048)
-        .try_for_each(|chunk| -> Result<()> {
-            let mut store = Js5Store::open(cache_dir)?;
-            for info in chunk {
-                let data = store
-                    .read_group_raw_decompressed(archive::MODELS, info.id)?
-                    .context("Missing model group")?;
-                let text = source::unpack(&data, &names)?;
-                ensure!(
-                    source::pack(&text, &names)? == data,
-                    "Model {} text round trip changed bytes",
-                    info.id
-                );
-                fs::write(
-                    dir.join(format!("{}.model", names.name("model", info.id))),
-                    text,
-                )?;
-            }
-            Ok(())
-        })?;
-    Ok(groups.len() as u32)
-}
-
-#[cfg(since_647)]
-pub fn unpack_anims(store: &mut Js5Store, pack_dir: &Path, output_dir: &Path) -> Result<u32> {
-    let group_count = store.group_count(archive::ANIMS).unwrap_or(0);
-    if group_count == 0 {
-        return Ok(0);
-    }
-
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
-    let anim_dir = output_dir.join("animations");
-    fs::create_dir_all(&anim_dir)?;
-    let mut total = 0u32;
-
-    for gid in 0..group_count {
-        let Some(group) = store.read_group(archive::ANIMS, gid)? else {
-            continue;
-        };
-        let anim_name = names.name("anim", gid);
-        let file_path = anim_dir.join(format!("{anim_name}.anim"));
-        let mut file = std::io::BufWriter::new(File::create(&file_path)?);
-
-        for entry in &group.entries {
-            if entry.data().is_empty() {
-                continue;
-            }
-            let frame = AnimFrame::decode(entry.data());
-            writeln!(file, "[frame_{}]", entry.id)?;
-            writeln!(file, "type={}", frame.type_marker)?;
-            writeln!(file, "base={}", names.name("base", frame.base_id as u32))?;
-            writeln!(file, "bone_count={}", frame.bone_count)?;
-            for bone in &frame.bones {
-                writeln!(
-                    file,
-                    "bone={}:{}:{}:{}:{}",
-                    bone.bone_index, bone.mask, bone.dx, bone.dy, bone.dz
-                )?;
-            }
-            writeln!(file)?;
-            total += 1;
-        }
-    }
-
-    info!(
-        "  {} animation frames unpacked to {}",
-        total,
-        anim_dir.display()
-    );
-    Ok(total)
 }

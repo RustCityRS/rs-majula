@@ -1,0 +1,8 @@
+// 5428
+[proc,clientscript_5428](int $int0)
+%varclient_1668 = 2;
+%varclient_1665 = 3;
+%varclient_1667 = 1;
+%varclient_1663 = $int0;
+if_setontimer(interface_1167:com_1, "clientscript_5430");
+sound_vorbis_volume(8096, 1, 0, 255);

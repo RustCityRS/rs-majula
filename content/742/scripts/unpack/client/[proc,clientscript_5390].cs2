@@ -1,0 +1,24 @@
+// 5390
+[proc,clientscript_5390](string $string0)(string)
+def_int $int0 = string_length($string0);
+if ($int0 < 10) {
+    return($string0);
+}
+if ($int0 > 10) {
+    return(tostring(^max_32bit_int));
+}
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+while ($int3 < 10) {
+    $int1 = string_indexof_string("0123456789", substring($string0, $int3, calc($int3 + 1)), 0);
+    $int2 = calc(^max_32bit_int / pow(10, calc(9 - $int3)) % 10);
+    if ($int1 < $int2) {
+        return($string0);
+    }
+    if ($int1 > $int2) {
+        return(tostring(^max_32bit_int));
+    }
+    $int3 = calc($int3 + 1);
+}
+return($string0);

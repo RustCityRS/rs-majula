@@ -1,0 +1,11 @@
+// From 289's duel_arena_settings.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,duel_arena_ranged_check]()(boolean)
+if (~in_duel_arena(coord) = false) {
+    return(true);
+}
+if (testbit(%dueloptions, ^no_ranged) = ^true) {
+    mes("Ranging has been turned off for this duel."); // https://imgur.com/dm6F5xi
+    return(false);
+}
+return(true);

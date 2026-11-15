@@ -6,6 +6,7 @@ use rs_entity::EntityLifeTime;
 use rs_entity::NpcUid;
 use rs_pack::cache::script::Script;
 use rs_pack::types::BlockWalk;
+use rs_ver::TypeId;
 use rs_vm::trigger::ServerTriggerType;
 use std::ops::Deref;
 use std::slice::Iter;
@@ -200,14 +201,14 @@ impl Engine {
 
     /// The NPC's `ai_spawn` / `ai_despawn` script, if one is bound to its
     /// type or category.
-    fn npc_trigger(&self, trigger: ServerTriggerType, type_id: u16) -> Option<Arc<Script>> {
+    fn npc_trigger(&self, trigger: ServerTriggerType, type_id: TypeId) -> Option<Arc<Script>> {
         let category = self
             .cache
             .npcs
             .get_by_id(type_id)
             .and_then(|t| t.category)
-            .map(|c| c as i32);
-        self.script_by_key(trigger, Some(type_id as i32), category)
+            .map(|c| c.int());
+        self.script_by_key(trigger, Some(type_id.int()), category)
     }
 
     /// Queues the NPC's `ai_spawn` script, if it has one. Like the reference
@@ -218,7 +219,7 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** `add_npc`, the NPC phase's respawn.
-    pub fn ai_spawn(&mut self, uid: NpcUid, type_id: u16) {
+    pub fn ai_spawn(&mut self, uid: NpcUid, type_id: TypeId) {
         if let Some(script) = self.npc_trigger(ServerTriggerType::AiSpawn, type_id) {
             self.npc_events.add_tail(NpcEvent {
                 kind: NpcEventKind::Spawn,

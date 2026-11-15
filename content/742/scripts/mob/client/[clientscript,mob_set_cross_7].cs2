@@ -1,0 +1,11 @@
+// 2554
+[clientscript,mob_set_cross_7]
+if (%mob_side_unit_cross_7 = 1) {
+    if_setgraphic(mob_side_units:unit7_cross, "mob_cross_icon,0");
+} else if (%mob_side_unit_cross_7 = 2) {
+    if_setgraphic(mob_side_units:unit7_cross, "mob_cross_icon,2");
+} else if (%mob_side_unit_cross_7 = 3) {
+    if_setgraphic(mob_side_units:unit7_cross, "mob_cross_icon,3");
+} else if (%mob_side_unit_cross_7 = 4) {
+    if_setgraphic(mob_side_units:unit7_cross, "mob_cross_icon,1");
+}

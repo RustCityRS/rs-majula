@@ -1,0 +1,76 @@
+// 1362
+[proc,clientscript_1362]
+def_int $int0 = 0;
+if_setonkey(chatdefault:input, "clientscript_73(event_keycode, event_keychar)");
+if_setonchattransmit(filterbuttons:container, "clientscript_81");
+if_setonfriendtransmit(filterbuttons:container, "clientscript_81");
+if_setonmisctransmit(filterbuttons:container, "rebootwatch");
+if_setonvarcstrtransmit(filterbuttons:container, "clientscript_710{varclient_632}");
+%varclient_633 = "";
+%chat_highlight = -1;
+%chat_view = 0;
+%chat_lastcount = chat_gethistorylength;
+%chatout_readpos = -1;
+%chatout_writepos = 0;
+%varclient_634 = "";
+%varclient_635 = "";
+%varclient_636 = "";
+%varclient_637 = "";
+%varclient_638 = "";
+%varclient_639 = "";
+%varclient_640 = "";
+%varclient_641 = "";
+%varclient_642 = "";
+%varclient_643 = "";
+%varclient_644 = "";
+%varclient_645 = "";
+%varclient_646 = "";
+%varclient_647 = "";
+%varclient_648 = "";
+%varclient_649 = "";
+%varclient_650 = "";
+%varclient_651 = "";
+%varclient_652 = "";
+%varclient_653 = "";
+if (op3328 = 1 | map_quickchat = true) {
+    if_settext(chatdefault:input, "Left-click here to enter Public Quick Chat or right-click for Clan Quick Chat.");
+    if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), 0, 0);
+    if_setsize(chatdefault:quickchat_op, parawidth("Left-click here to enter Public Quick Chat or right-click for Clan Quick Chat.", if_getwidth(chatdefault:input), 495), if_getheight(chatdefault:input), 0, 0);
+} else {
+    if_settext(chatdefault:input, "<chat_playername_unfiltered><img=3>: <col=0000ff><escape(%varclient_633)>*");
+    if_setposition(chatdefault:quickchat_op, if_getx(chatdefault:input), if_gety(chatdefault:input), 0, 0);
+    if_setsize(chatdefault:quickchat_op, parawidth("<chat_playername_unfiltered><img=3>:", if_getwidth(chatdefault:input), 495), if_getheight(chatdefault:input), 0, 0);
+}
+if (getwindowmode >= 2) {
+    if_sethide(chattop:chat_border, true);
+    if_setgraphic(chattop:chat_graphic, 1247);
+    if_setalpha(chattop:chat_graphic, true);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chatdefault:divider_line, true);
+    if_sethide(chatdefault:divider_graphic, false);
+    if_sethide(chatdefault:divider_graphic_top, false);
+    while ($int0 < 100) {
+        if_settextshadow(enum(int, component, enum_579, $int0), true);
+        if_setcolour(enum(int, component, enum_579, $int0), ^white);
+        $int0 = calc($int0 + 1);
+    }
+    if_settextshadow(chatdefault:input, true);
+    if_setcolour(chatdefault:input, ^white);
+} else {
+    if_setgraphic(chattop:chat_graphic, 1017);
+    if_sethide(chattop:chat_graphic, false);
+    if_sethide(chattop:chat_border, false);
+    if_sethide(chatdefault:divider_line, false);
+    if_sethide(chatdefault:divider_graphic, true);
+    if_sethide(chatdefault:divider_graphic_top, true);
+    while ($int0 < 100) {
+        if_settextshadow(enum(int, component, enum_579, $int0), false);
+        if_setcolour(enum(int, component, enum_579, $int0), ^black);
+        $int0 = calc($int0 + 1);
+    }
+    if_settextshadow(chatdefault:input, false);
+    if_setcolour(chatdefault:input, ^black);
+}
+%chat_lastscrollpos = if_getheight(chatdefault:scrollarea);
+~clientscript_178;
+%varclient_632 = "";

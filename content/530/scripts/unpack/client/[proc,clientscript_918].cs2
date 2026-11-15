@@ -1,0 +1,23 @@
+// 918
+[proc,clientscript_918](component $component0, component $component1, int $int2, component $component3, component $component4, component $component5, component $component6)
+if (%varplayerbit_4537 ! 0 | if_gethide($component3) = true) {
+    ~deltooltip_action($component1);
+    return;
+}
+~addtooltip_action($component0, $component1, "Use the arrow buttons to read the commentary.", 25, if_getwidth(if_getlayer($component1)));
+if (%tooltip_built = 0) {
+    return;
+}
+$int2 = calc(($int2 + 20) % 400);
+if ($int2 <= 200) {
+    if_settrans($component3, $int2);
+    if_settrans($component4, $int2);
+    if_settrans($component5, $int2);
+    if_settrans($component6, $int2);
+} else {
+    if_settrans($component3, calc(400 - $int2));
+    if_settrans($component4, calc(400 - $int2));
+    if_settrans($component5, calc(400 - $int2));
+    if_settrans($component6, calc(400 - $int2));
+}
+if_setonmouserepeat($component0, "clientscript_918(event_com, $component1, $int2, $component3, $component4, $component5, $component6)");

@@ -1,0 +1,19 @@
+// 1388
+[proc,clientscript_1388]
+%varclient_666 = "";
+%varclient_667 = "";
+%varclient_668 = "";
+%signpost_if_model = 1;
+%mourning_mirror = 0;
+%prayer_custom_view_client = 2009;
+if_settext(loginscreen:com_394, %varclient_666);
+if_settext(loginscreen:com_421, %varclient_667);
+if_settext(loginscreen:com_426, %varclient_668);
+~clientscript_1346(enum_1601, 0, 31, loginscreen:com_381, loginscreen:com_382, loginscreen:com_383, loginscreen:com_384, 884, 1248, 1250, 1402, 0x663300, 0xffe1be, 494, 798, 795, 796, 797, 793, 794);
+~clientscript_1346(enum_1602, 0, 12, loginscreen:com_377, loginscreen:com_378, loginscreen:com_379, loginscreen:com_380, 884, 1248, 1250, 1402, 0x663300, 0xffe1be, 494, 798, 795, 796, 797, 793, 794);
+~clientscript_1346(enum_1603, 0, 120, loginscreen:com_373, loginscreen:com_374, loginscreen:com_375, loginscreen:com_376, 884, 1248, 1250, 1402, 0x663300, 0xffe1be, 494, 798, 795, 796, 797, 793, 794);
+~clientscript_1346(enum_1626, 0, 241, loginscreen:com_369, loginscreen:com_370, loginscreen:com_371, loginscreen:com_372, 884, 1248, 1250, 1402, 0x663300, 0xffe1be, 494, 798, 795, 796, 797, 793, 794);
+%topstat_prayer_button_client = enum(int, int, enum_1669, 0);
+if_settext(loginscreen:com_412, "Please note that your account has been locked into Quick Chat until you are of suitable age - please review our Terms & Conditions for more information.");
+if_setcolour(loginscreen:com_412, 0x461e00);
+if_sethide(loginscreen:com_430, true);

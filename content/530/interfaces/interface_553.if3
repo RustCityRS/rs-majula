@@ -1,0 +1,399 @@
+// 553:0
+[background]
+type=graphic
+x=12
+y=20
+width=488
+height=305
+graphic=graphic_297
+tiling=yes
+
+// 553:1
+[com_1]
+type=graphic
+x=12
+y=20
+width=25
+height=30
+graphic=graphic_310
+
+// 553:2
+[com_2]
+type=graphic
+x=475
+y=20
+width=25
+height=30
+graphic=graphic_310
+hflip=yes
+
+// 553:3
+[com_3]
+type=graphic
+x=12
+y=295
+width=25
+height=30
+graphic=graphic_310
+vflip=yes
+
+// 553:4
+[com_4]
+type=graphic
+x=475
+y=295
+width=25
+height=30
+graphic=graphic_310
+vflip=yes
+hflip=yes
+
+// 553:5
+[com_5]
+type=graphic
+x=37
+y=5
+width=440
+height=23
+graphic=graphic_314
+tiling=yes
+
+// 553:6
+[com_6]
+type=graphic
+x=17
+y=34
+width=482
+height=32
+graphic=graphic_314
+tiling=yes
+
+// 553:7
+[com_7]
+type=graphic
+x=37
+y=304
+width=442
+height=31
+graphic=graphic_314
+tiling=yes
+vflip=yes
+
+// 553:8
+[com_8]
+type=graphic
+x=-3
+y=50
+width=35
+height=245
+graphic=graphic_172
+tiling=yes
+
+// 553:9
+[com_9]
+type=graphic
+x=479
+y=38
+width=38
+height=261
+graphic=graphic_172
+tiling=yes
+hflip=yes
+
+// 553:10
+[closebutton]
+type=graphic
+x=471
+y=26
+width=26
+height=23
+graphic=graphic_535
+onmouseover=graphic_swapper(event_com, 536)
+onmouseleave=graphic_swapper(event_com, 535)
+onclick=if_close
+
+// 553:11
+[title]
+type=text
+x=19
+y=30
+width=471
+height=16
+textfont=fontmetrics_496
+text=Report abuse
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 553:12
+[com_12]
+type=text
+x=25
+y=55
+width=466
+height=32
+textfont=fontmetrics_494
+text=This form is for reporting players who are breaking our rules. <br>Using it sends a snapshot of the last 60 secs of activity to us.
+textlineheight=12
+textalignh=centre
+textshadow=yes
+
+// 553:13
+[com_13]
+type=text
+x=130
+y=81
+width=249
+height=14
+textfont=fontmetrics_495
+text=If you misuse this form, you will be banned.
+textshadow=yes
+colour=0xff981f
+
+// 553:14
+[com_14]
+type=text
+x=76
+y=96
+width=357
+height=29
+textfont=fontmetrics_495
+text=First please enter the name of the offending player below:
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xff981f
+
+// 553:15
+[name]
+type=text
+x=133
+y=127
+width=258
+height=14
+textfont=fontmetrics_496
+text=*
+textalignh=centre
+textshadow=yes
+
+// 553:16
+[mutetoggle]
+type=text
+x=20
+y=144
+width=473
+height=22
+hide=yes
+textfont=fontmetrics_495
+text=Moderator option: Mute player for 48 hours: <lt>OFF<gt>
+textalignh=centre
+textshadow=yes
+onclick=clientscript_134
+
+// 553:17
+[com_17]
+type=text
+x=18
+y=169
+width=477
+height=33
+textfont=fontmetrics_494
+text=Then click below to indicate which of our 13 rules is being broken.<br>For a detailed explanation of each rule please read the manual on our website.
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 553:18
+[com_18]
+type=text
+x=37
+y=206
+width=200
+height=14
+textfont=fontmetrics_494
+text=1: Offensive language
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(1)
+
+// 553:19
+[com_19]
+type=text
+x=35
+y=221
+width=200
+height=14
+textfont=fontmetrics_494
+text=2: Item scamming
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(2)
+
+// 553:20
+[com_20]
+type=text
+x=35
+y=236
+width=200
+height=14
+textfont=fontmetrics_494
+text=3: Password scamming
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(3)
+
+// 553:21
+[com_21]
+type=text
+x=35
+y=251
+width=200
+height=14
+textfont=fontmetrics_494
+text=4: Bug abuse
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(4)
+
+// 553:22
+[com_22]
+type=text
+x=35
+y=266
+width=200
+height=14
+textfont=fontmetrics_494
+text=5: Jagex staff impersonation
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(5)
+
+// 553:23
+[com_23]
+type=text
+x=35
+y=281
+width=200
+height=14
+textfont=fontmetrics_494
+text=6: Account sharing/trading
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(6)
+
+// 553:24
+[com_24]
+type=text
+x=242
+y=206
+width=200
+height=14
+textfont=fontmetrics_494
+text=7: Macroing
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(7)
+
+// 553:25
+[com_25]
+type=text
+x=242
+y=221
+width=240
+height=14
+textfont=fontmetrics_494
+text=8: Multiple logging in
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(8)
+
+// 553:26
+[com_26]
+type=text
+x=242
+y=236
+width=240
+height=14
+textfont=fontmetrics_494
+text=9: Encouraging others to break rules
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(9)
+
+// 553:27
+[com_27]
+type=text
+x=241
+y=251
+width=240
+height=14
+textfont=fontmetrics_494
+text=11: Advertising / website
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(11)
+
+// 553:28
+[com_28]
+type=text
+x=238
+y=266
+width=240
+height=14
+textfont=fontmetrics_494
+text=12: Real world item trading
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(12)
+
+// 553:29
+[com_29]
+type=text
+x=239
+y=281
+width=240
+height=14
+textfont=fontmetrics_494
+text=13: Asking for personal details
+textshadow=yes
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, ^white)
+onclick=clientscript_135(13)
+
+// 553:30
+[com_30]
+type=model
+x=23
+y=90
+width=52
+height=78
+model=model_3180
+modelorigin=-7,101
+modelangle=1489,1024,0
+modelzoom=578
+modelunknown=64931,1179,0
+
+// 553:31
+[com_31]
+type=model
+x=434
+y=89
+width=52
+height=78
+model=model_3180
+modelorigin=-7,101
+modelangle=1489,1024,0
+modelzoom=578
+modelunknown=64931,1179,0

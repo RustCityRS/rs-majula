@@ -1,0 +1,18 @@
+// 2128
+[proc,macro_beekeeper_setcomponent](component $component0, int $int1)
+switch_int ($int1) {
+    case 1 :
+        if_setmodel($component0, model_16036);
+        if_setmodelangle($component0, 0, 0, ~script686(%beekeeper_lid_x, 2048), %beekeeper_lid_y, ~script686(%beekeeper_lid_z, 2048), 800);
+    case 2 :
+        if_setmodel($component0, model_16025);
+        if_setmodelangle($component0, 0, 17, ~script686(%beekeeper_uppermiddle_x, 2048), %beekeeper_uppermiddle_y, ~script686(%beekeeper_uppermiddle_z, 2048), 800);
+    case 3 :
+        if_setmodel($component0, model_16022);
+        if_setmodelangle($component0, 0, 0, ~script686(%beekeeper_lowermiddle_x, 2048), %beekeeper_lowermiddle_y, ~script686(%beekeeper_lowermiddle_z, 2048), 800);
+    case 4 :
+        if_setmodel($component0, model_16034);
+        if_setmodelangle($component0, 0, 0, ~script686(%beekeeper_legs_x, 2048), %beekeeper_legs_y, ~script686(%beekeeper_legs_z, 2048), 800);
+    case default :
+        if_setmodel($component0, null);
+}

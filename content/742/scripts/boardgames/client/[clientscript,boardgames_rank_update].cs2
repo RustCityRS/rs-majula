@@ -1,0 +1,39 @@
+// 1183
+[clientscript,boardgames_rank_update](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+switch_int (%boardgames_area) {
+    case 1 :
+        if_sethide($component3, true);
+        if_sethide($component4, true);
+        if_sethide($component5, true);
+        if_sethide($component2, false);
+        if_settext($component0, "Draughts");
+        if_settext($component1, tostring(%boardgames_draughts_rank));
+    case 2 :
+        if_sethide($component2, true);
+        if_sethide($component4, true);
+        if_sethide($component5, true);
+        if_sethide($component3, false);
+        if_settext($component0, "Runelink");
+        if_settext($component1, tostring(%boardgames_runelink_rank));
+    case 3 :
+        if_sethide($component2, true);
+        if_sethide($component3, true);
+        if_sethide($component5, true);
+        if_sethide($component4, false);
+        if_settext($component0, "Runesquares");
+        if_settext($component1, tostring(%boardgames_runesquares_rank));
+    case 4 :
+        if_sethide($component2, true);
+        if_sethide($component3, true);
+        if_sethide($component4, true);
+        if_sethide($component5, false);
+        if_settext($component0, "Runeversi");
+        if_settext($component1, tostring(%boardgames_runeversi_rank));
+    case default :
+        if_sethide($component3, true);
+        if_sethide($component4, true);
+        if_sethide($component5, true);
+        if_sethide($component2, true);
+        if_settext($component0, "");
+        if_settext($component1, "");
+}

@@ -1,0 +1,12 @@
+// 6031
+[proc,clientscript_6031](int $int0)(int, int)
+switch_int ($int0) {
+    case 1 :
+        return(16, 5);
+    case 2 :
+        return(100, 5);
+    case 3 :
+        return(16, 58);
+    case 4 :
+        return(100, 58);
+}

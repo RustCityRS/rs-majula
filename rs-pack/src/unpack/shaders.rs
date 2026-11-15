@@ -14,9 +14,9 @@ pub fn unpack_shaders(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path)
         .groups
         .clone();
     for info in &groups {
-        let group = store
-            .read_group(archive::SHADERS, info.id)?
-            .context("Missing shader group")?;
+        let Some(group) = store.read_group(archive::SHADERS, info.id)? else {
+            continue;
+        };
         let group_name = names.name("shaders", info.id);
         let dir = content_dir.join("shaders").join(&group_name);
         fs::create_dir_all(&dir)?;
@@ -29,6 +29,8 @@ pub fn unpack_shaders(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path)
                     let text = shader::unpack(data)?;
                     let packed = shader::pack(&text)?;
                     ("shader", text.into_bytes(), packed)
+                } else if cfg!(since_742) && data.starts_with(&[4, 0]) {
+                    ("program", data.to_vec(), data.to_vec())
                 } else {
                     std::str::from_utf8(data)?;
                     (

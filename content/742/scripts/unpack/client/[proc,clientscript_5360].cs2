@@ -1,0 +1,23 @@
+// 5360
+[proc,clientscript_5360](component $component0, int $int1, int $int2, int $int3, int $int4)
+if ($int4 = 1) {
+    if (cc_find($component0, $int1) = true) {
+        cc_setgraphic(7829);
+    }
+    if (cc_find($component0, $int2) = true) {
+        cc_setgraphic(7830);
+    }
+    if (cc_find($component0, $int3) = true) {
+        cc_setgraphic(7831);
+    }
+} else {
+    if (cc_find($component0, $int1) = true) {
+        cc_setgraphic(7826);
+    }
+    if (cc_find($component0, $int2) = true) {
+        cc_setgraphic(7827);
+    }
+    if (cc_find($component0, $int3) = true) {
+        cc_setgraphic(7828);
+    }
+}

@@ -1,0 +1,9 @@
+// 5018
+[proc,clientscript_5018](component $component0, component $component1, int $int2, int $int3, int $int4)
+if ($int4 >= 5) {
+    if_setcolour($component0, op879($int2));
+    if_setcolour($component1, op879($int3));
+} else {
+    if_setcolour($component0, op879(42550));
+    if_setcolour($component1, op879(39382));
+}

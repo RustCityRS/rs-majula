@@ -1,0 +1,22 @@
+// 5099
+[proc,clientscript_5099](int $int0, graphic $graphic1, graphic $graphic2, int $int3, int $int4, int $int5, int $int6, int $int7, boolean $boolean8, int $int9, string $string0)
+switch_int ($int0) {
+    case 1 :
+        ~clientscript_5100(1, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_157, 73138179, interface_1116:com_35, interface_1116:com_53, interface_1116:com_34, interface_1116:com_52, interface_1116:com_60, interface_1116:com_62, interface_1116:com_72, interface_1116:com_81, interface_1116:com_82);
+    case 2 :
+        ~clientscript_5100(2, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_202, 73138179, interface_1116:com_163, interface_1116:com_205, interface_1116:com_162, interface_1116:com_203, interface_1116:com_191, interface_1116:com_166, interface_1116:com_177, interface_1116:com_187, interface_1116:com_188);
+    case 3 :
+        ~clientscript_5100(3, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_251, 73138179, interface_1116:com_212, interface_1116:com_254, interface_1116:com_211, interface_1116:com_252, interface_1116:com_240, interface_1116:com_215, interface_1116:com_226, interface_1116:com_236, interface_1116:com_237);
+    case 4 :
+        ~clientscript_5100(4, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_300, 73138179, interface_1116:com_261, interface_1116:com_303, interface_1116:com_260, interface_1116:com_301, interface_1116:com_289, interface_1116:com_264, interface_1116:com_275, interface_1116:com_285, interface_1116:com_286);
+    case 5 :
+        ~clientscript_5100(5, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_349, 73138179, interface_1116:com_310, interface_1116:com_352, interface_1116:com_309, interface_1116:com_350, interface_1116:com_338, interface_1116:com_313, interface_1116:com_324, interface_1116:com_334, interface_1116:com_335);
+    case 6 :
+        ~clientscript_5100(6, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_398, 73138179, interface_1116:com_359, interface_1116:com_401, interface_1116:com_358, interface_1116:com_399, interface_1116:com_387, interface_1116:com_362, interface_1116:com_373, interface_1116:com_383, interface_1116:com_384);
+    case 7 :
+        ~clientscript_5100(7, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_447, 73138179, interface_1116:com_408, interface_1116:com_450, interface_1116:com_407, interface_1116:com_448, interface_1116:com_436, interface_1116:com_411, interface_1116:com_422, interface_1116:com_432, interface_1116:com_433);
+    case 8 :
+        ~clientscript_5100(8, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_496, 73138179, interface_1116:com_457, interface_1116:com_499, interface_1116:com_456, interface_1116:com_497, interface_1116:com_485, interface_1116:com_460, interface_1116:com_471, interface_1116:com_481, interface_1116:com_482);
+    case 9 :
+        ~clientscript_5100(9, $string0, $graphic1, $graphic2, $int3, $int4, $int5, $int6, $int7, $boolean8, $int9, interface_1116:com_545, 73138179, interface_1116:com_506, interface_1116:com_548, interface_1116:com_505, interface_1116:com_546, interface_1116:com_534, interface_1116:com_509, interface_1116:com_520, interface_1116:com_530, interface_1116:com_531);
+}

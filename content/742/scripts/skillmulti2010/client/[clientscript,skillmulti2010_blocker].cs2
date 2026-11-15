@@ -1,0 +1,7 @@
+// 2024
+[clientscript,skillmulti2010_blocker](int $int0)
+if (clientclock < $int0) {
+    return;
+}
+if_setontimer(skillmulti2010:blocker, null);
+if_sethide(skillmulti2010:blocker, true);

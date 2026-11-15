@@ -8,6 +8,7 @@ use crate::unpack::interface::{decode_interfaces, write_interfaces};
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
 use rs_io::js5::Js5Store;
+use rs_ver::TypeId;
 use runec::clientscript;
 use runec::clientscript::decode::Script;
 use runec::clientscript::decompile::{decompile, infer_signatures};
@@ -89,13 +90,12 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     let mut store = Js5Store::open(cache_dir)?;
     let names = AssetNames::load(pack_dir)?;
     let scripts_dir = output_dir.join("scripts");
-    let configs = scripts_dir.join("configs");
     // The standalone clientscript importer also needs the declarations that
     // grant scripts access to cache configs. The full importer writes these first.
-    if !configs.join("_unpack").is_dir() {
-        fs::create_dir_all(configs.join("_unpack"))?;
+    if !scripts_dir.join("_unpack/all.varc").is_file() {
+        fs::create_dir_all(scripts_dir.join("_unpack"))?;
         let mut results = Vec::new();
-        super::unpack_configs(&mut results, cache_dir, pack_dir, &configs);
+        super::unpack_configs(&mut results, cache_dir, pack_dir, &scripts_dir);
         super::report::write_report(&results, &output_dir.join("unpack_report.txt"))?;
     }
     let template = pack_dir.with_file_name("scripts");
@@ -143,9 +143,9 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     let mut scripts = HashMap::new();
     let format = clientscript::format::Format::load(&pack_dir.join("cs2_command.pack"))?;
     for info in &groups {
-        let data = store
-            .read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)?
-            .context("Missing clientscript")?;
+        let Some(data) = store.read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)? else {
+            continue;
+        };
         scripts.insert(info.id, Script::decode(&data, &format)?);
         original.insert(info.id, data);
     }
@@ -153,7 +153,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     let mut registry = clientscript::registry(&scripts_dir, pack_dir)?;
     if let Some(group) = store.read_group(archive::CONFIG, archive::CONFIG_GROUP_PARAM)? {
         for entry in &group.entries {
-            let mut param = ParamTypeRaw::new(entry.id as u16);
+            let mut param = ParamTypeRaw::new(TypeId::try_from(entry.id).expect("type id"));
             param.decode(&mut Packet::from(entry.data().to_vec()));
             params.insert(entry.id as i32, param.var_type == ScriptVarType::String);
             registry.register_param_type(
@@ -228,8 +228,8 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
             variables.insert((category.as_str(), *var_id), name);
         }
     }
-    let table = fs::read_to_string(configs.join("_unpack/all.varc"))?;
-    let path = configs.join("client/all.varc");
+    let table = fs::read_to_string(scripts_dir.join("_unpack/all.varc"))?;
+    let path = scripts_dir.join("client/all.varc");
     let mut text = fs::read_to_string(&path).unwrap_or_default();
     let existing: HashSet<String> = table
         .lines()
@@ -316,9 +316,9 @@ pub fn scan_cs2_varp_refs(store: &mut Js5Store) -> Result<(HashSet<u32>, HashSet
         .groups
         .clone();
     for info in groups {
-        let data = store
-            .read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)?
-            .context("Missing clientscript")?;
+        let Some(data) = store.read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)? else {
+            continue;
+        };
         let script = Script::decode(&data, &format)?;
         for (&opcode, &operand) in script.opcodes.iter().zip(&script.int_operands) {
             match opcode {

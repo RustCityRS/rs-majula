@@ -1,0 +1,86 @@
+// 1130:0
+[com_0]
+type=model
+x=8
+y=11
+width=500
+height=314
+model=model_26397
+modelorigin=-2,34
+modelangle=512,0,0
+modelzoom=967
+
+// 1130:1
+[com_1]
+type=text
+x=39
+y=41
+width=408
+height=20
+textfont=quill_oblique_large
+text=Safalaan Hallow,
+colour=0x46320a
+
+// 1130:2
+[com_2]
+type=text
+x=61
+y=87
+width=398
+height=73
+textfont=verdana_11pt_regular_multiline
+text=I have desired to speak with you for so long. You may not know me, but I have been following you with great interest.
+colour=0x46320a
+
+// 1130:3
+[com_3]
+type=text
+x=60
+y=147
+width=397
+height=68
+textfont=verdana_11pt_regular_multiline
+text=I shall get straight to the point, for there is little time. I knew your parents, Safalaan. I was very close to them and to you as a child, centuries ago when this land was free. 
+colour=0x46320a
+
+// 1130:4
+[com_4]
+type=text
+x=58
+y=222
+width=384
+height=69
+textfont=verdana_11pt_regular_multiline
+text=I know you feel that you are different; that some part of your history is missing to you.
+colour=0x46320a
+
+// 1130:5
+[com_5]
+type=layer
+x=420
+y=271
+width=45
+height=36
+pausebutton=yes
+pausetext=Turn over
+
+// 1130:6
+[com_6]
+type=graphic
+x=443
+y=40
+width=26
+height=23
+graphic="close_buttons,6"
+pausebutton=yes
+pausetext=Close
+onmouseover=graphic_swapper(interface_1130:com_6, "close_buttons,7")
+onmouseleave=graphic_swapper(interface_1130:com_6, "close_buttons,6")
+
+// 1130:7
+[com_7]
+type=graphic
+width=39
+height=39
+layer=com_5
+graphic="v2_book_arrows,4"

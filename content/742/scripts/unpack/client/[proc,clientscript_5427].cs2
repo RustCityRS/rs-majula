@@ -1,0 +1,14 @@
+// 5427
+[proc,clientscript_5427]
+%varclient_1664 = 1;
+%varclient_1665 = 1;
+%varclient_1663 = 0;
+%varclient_1667 = 0;
+%varclient_1668 = 1;
+%tooltip_built = 0;
+~clientscript_5433(0, 0);
+~clientscript_5433(1, 90);
+~clientscript_5433(2, 180);
+if_setontimer(interface_1167:com_1, "clientscript_5430");
+if_settext(interface_1167:com_42, tostring(%varplayerbit_10013));
+~clientscript_5434;

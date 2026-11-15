@@ -1,0 +1,21 @@
+// 4685
+[proc,clientscript_4685]
+def_string $string0 = tostring(%varplayerbit_9467);
+def_string $string1 = "Waiting for next wave...";
+if (%varclient_1537 ! 0) {
+    if_sethide(interface_447:com_14, false);
+    if_setsize(interface_447:com_1, if_getwidth(interface_447:com_1), 79, ^setsize_abs, ^setsize_abs);
+} else {
+    if_sethide(interface_447:com_14, true);
+    if_setsize(interface_447:com_1, if_getwidth(interface_447:com_1), 45, ^setsize_abs, ^setsize_abs);
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = ~clientscript_4699(interface_447:com_11, interface_447:com_12, interface_447:com_13, "Wave", $string0);
+if (%varclient_1537 ! 0) {
+    $int1 = ~clientscript_4699(interface_447:com_14, interface_447:com_16, interface_447:com_17, "Waiting?", $string1);
+}
+$int0 = max($int0, $int1);
+if ($int0 > if_getwidth(interface_447:com_1)) {
+    if_setsize(interface_447:com_1, calc($int0 + 5), if_getheight(interface_447:com_1), ^setsize_abs, ^setsize_abs);
+}

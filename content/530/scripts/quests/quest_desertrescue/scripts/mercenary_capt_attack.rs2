@@ -1,0 +1,26 @@
+// From 289's mercenary_captain.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,mercenary_capt_attack](boolean $npct)(boolean)
+if(%npc_attacking_uid = uid | %desertrescue >= ^desertrescue_killed_capt) {
+    return (true);
+}
+if($npct = true) { 
+    p_delay(0); 
+}
+~mesbox("This mercenary Captain looks very fierce.|Are you sure you want to attack him?");
+def_int $op = ~p_choice2("Yes, I can take him on!", 1, "Er, no thanks, I've had second thoughts about it.", 2);
+if($op = 2) {
+    ~mesbox("You decide not to fight the Mercenary Captain.");
+    return (false);
+}
+switch_int(random(4)) {
+    case 0 : npc_say("Destroy this low life desert rat guards!");
+    case 1 : npc_say("Guards! Attack that Desert Jackal!");
+    case 2 : npc_say("Kill that intruder guards!");
+    case 3 : npc_say("Men! Kill this filthy vermin.");
+    case 4 : npc_say("Kill this madman guards!");
+}
+npc_say("Kill that intruder guards!");
+npc_setmode(playerescape);
+if(npc_find(coord, tourtrap_qip_desert_mining_merc_1, 7, 0) = true) ~mercenary_attack;
+return (false);

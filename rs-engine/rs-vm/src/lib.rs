@@ -9,7 +9,7 @@ pub mod obj_serial;
 pub mod ops;
 pub mod player_uid;
 pub mod pointer;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub mod region_uid;
 pub mod register;
 pub mod state;
@@ -25,10 +25,10 @@ pub use npc_uid::NpcUid;
 pub use obj_serial::ObjSerial;
 
 /// An interface component as scripts and packets address it: the component's
-/// own id before rev 647, and from 647 the `interface << 16 | component` hash.
+/// own id before rev 530, and from 530 the `interface << 16 | component` hash.
 pub type ComId = i32;
 pub use player_uid::PlayerUid;
-#[cfg(since_647)]
+#[cfg(since_530)]
 pub use region_uid::RegionUid;
 
 use crate::trigger::ServerTriggerType;

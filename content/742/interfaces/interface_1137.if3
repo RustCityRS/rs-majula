@@ -1,0 +1,1191 @@
+// 1137:0
+[com_0]
+type=layer
+x=1
+y=1
+width=2
+height=27
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_5
+
+// 1137:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=clientscript_5265
+
+// 1137:2
+[com_2]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_1
+colour=0x5a5245
+fill=yes
+
+// 1137:3
+[com_3]
+type=layer
+height=26
+widthmode=minus
+layer=com_1
+
+// 1137:4
+[com_4]
+type=layer
+x=1
+y=1
+width=2
+height=26
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_1
+
+// 1137:5
+[com_5]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+hide=yes
+noclickthrough=yes
+
+// 1137:6
+[com_6]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 1137:7
+[com_7]
+type=layer
+width=26
+height=24
+widthmode=minus
+layer=com_1
+hide=yes
+onmouseover=comp_sethide(true, event_com)
+ontimer=clientscript_5274
+
+// 1137:8
+[com_8]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_7
+colour=0x2b251e
+fill=yes
+
+// 1137:9
+[com_9]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_7
+colour=0xfffefe
+
+// 1137:10
+[com_10]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_7
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1137:11
+[com_11]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_14
+graphic=sm_digit_bar_end
+
+// 1137:12
+[com_12]
+type=graphic
+width=24
+heightmode=minus
+layer=com_13
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:13
+[com_13]
+type=layer
+width=14
+widthmode=minus
+heightmode=minus
+layer=com_97
+
+// 1137:14
+[com_14]
+type=layer
+width=14
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_97
+
+// 1137:15
+[com_15]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_4
+
+// 1137:16
+[com_16]
+type=layer
+width=252
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_4
+hide=yes
+
+// 1137:17
+[com_17]
+type=layer
+width=8199
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+hide=yes
+
+// 1137:18
+[com_18]
+type=layer
+height=26
+widthmode=minus
+xmode=abs_centre
+layer=com_5
+
+// 1137:19
+[com_19]
+type=rectangle
+x=12
+y=12
+width=24
+height=24
+widthmode=minus
+heightmode=minus
+layer=com_15
+colour=0x1f1912
+fill=yes
+
+// 1137:20
+[com_20]
+type=graphic
+width=14
+height=14
+layer=com_15
+graphic="lobby_popup_frame,0"
+
+// 1137:21
+[com_21]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+layer=com_15
+graphic="lobby_popup_frame,0"
+hflip=yes
+
+// 1137:22
+[com_22]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_15
+graphic="lobby_popup_frame,0"
+vflip=yes
+hflip=yes
+
+// 1137:23
+[com_23]
+type=graphic
+width=14
+height=14
+ymode=abs_bottom
+layer=com_15
+graphic="lobby_popup_frame,0"
+vflip=yes
+
+// 1137:24
+[com_24]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_15
+graphic="lobby_popup_frame,2"
+
+// 1137:25
+[com_25]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_15
+graphic="lobby_popup_frame,2"
+vflip=yes
+
+// 1137:26
+[com_26]
+type=graphic
+width=14
+height=28
+heightmode=minus
+ymode=abs_centre
+layer=com_15
+graphic="lobby_popup_frame,1"
+
+// 1137:27
+[com_27]
+type=graphic
+width=14
+height=28
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_15
+graphic="lobby_popup_frame,1"
+hflip=yes
+
+// 1137:28
+[com_28]
+type=layer
+width=506
+heightmode=minus
+layer=com_15
+
+// 1137:29
+[com_29]
+type=graphic
+width=28
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_30
+graphic=sm_digit_bar_fill
+
+// 1137:30
+[com_30]
+type=layer
+width=182
+heightmode=minus
+layer=com_3
+transmitop=1
+op1=Kill-all
+
+// 1137:31
+[com_31]
+type=layer
+x=184
+width=92
+heightmode=minus
+layer=com_3
+
+// 1137:32
+[com_32]
+type=layer
+x=273
+width=27
+heightmode=minus
+layer=com_3
+transmitop=1
+op1=Refresh numbers
+
+// 1137:33
+[com_33]
+type=layer
+x=297
+width=107
+heightmode=minus
+layer=com_3
+
+// 1137:34
+[com_34]
+type=layer
+x=27
+width=73
+heightmode=minus
+xmode=abs_right
+layer=com_3
+transmitop=1
+op1=Change scenario
+onop=clientscript_5266
+
+// 1137:35
+[com_35]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_33
+graphic=sm_digit_bar_end
+
+// 1137:36
+[com_36]
+type=graphic
+width=24
+heightmode=minus
+layer=com_33
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:37
+[com_37]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_33
+graphic=sm_digit_bar_fill
+
+// 1137:38
+[com_38]
+type=text
+x=3
+width=6
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_33
+textfont=p12_full
+text=NPC total:
+textalignv=centre
+textshadow=yes
+
+// 1137:39
+[com_39]
+type=text
+x=3
+width=6
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_33
+textfont=p12_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 1137:40
+[com_40]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_30
+graphic=sm_digit_bar_end
+
+// 1137:41
+[com_41]
+type=graphic
+width=24
+heightmode=minus
+layer=com_30
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:42
+[com_42]
+type=graphic
+x=4
+width=19
+height=18
+ymode=abs_centre
+layer=com_30
+graphic="login_lobby_infoicon,0"
+onmouseover=graphic_swapper(event_com, clan_icon_skull)
+onmouseleave=graphic_swapper(event_com, "login_lobby_infoicon,0")
+
+// 1137:43
+[com_43]
+type=text
+x=26
+width=29
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_30
+textfont=p11_full
+textlineheight=9
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1137:44
+[com_44]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_31
+graphic=sm_digit_bar_end
+
+// 1137:45
+[com_45]
+type=graphic
+width=24
+heightmode=minus
+layer=com_31
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:46
+[com_46]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_31
+graphic=sm_digit_bar_fill
+
+// 1137:47
+[com_47]
+type=text
+x=3
+width=6
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_31
+textfont=p12_full
+text=Players:
+textalignv=centre
+textshadow=yes
+
+// 1137:48
+[com_48]
+type=text
+x=3
+width=6
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_31
+textfont=p12_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 1137:49
+[com_49]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_32
+graphic=sm_digit_bar_end
+
+// 1137:50
+[com_50]
+type=graphic
+width=24
+heightmode=minus
+layer=com_32
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:51
+[com_51]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_32
+graphic=sm_digit_bar_fill
+
+// 1137:52
+[com_52]
+type=graphic
+x=4
+width=19
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_32
+graphic=world_select_refresh_arrow
+tiling=yes
+graphicshadow=256
+colour=0x00ac00
+onmouseover=text_colour_swapper(event_com, ^green)
+onmouseleave=text_colour_swapper(event_com, 0x00ac00)
+onclick=text_colour_swapper(event_com, 0x001100)
+
+// 1137:53
+[com_53]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_34
+graphic=sm_digit_bar_end
+
+// 1137:54
+[com_54]
+type=graphic
+width=24
+heightmode=minus
+layer=com_34
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:55
+[com_55]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_34
+graphic=sm_digit_bar_fill
+
+// 1137:56
+[com_56]
+type=graphic
+x=4
+width=16
+height=16
+xmode=abs_right
+ymode=abs_centre
+layer=com_34
+graphic="aif_arrow_button_set_1,1"
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,5")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,1")
+onclick=graphic_swapper(event_com, "aif_arrow_button_set_1,9")
+
+// 1137:57
+[com_57]
+type=text
+x=24
+width=6
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_34
+textfont=p11_full
+text=Change scenario
+textlineheight=9
+textalignh=right
+textalignv=centre
+textshadow=yes
+
+// 1137:58
+[com_58]
+type=graphic
+width=28
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_18
+graphic=sm_digit_bar_fill
+
+// 1137:59
+[com_59]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_18
+graphic=sm_digit_bar_end
+
+// 1137:60
+[com_60]
+type=graphic
+width=24
+heightmode=minus
+layer=com_18
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:61
+[com_61]
+type=text
+x=11
+y=1
+width=29
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+textfont=b12_full
+text=Pick a scenario
+textlineheight=9
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1137:62
+[com_62]
+type=graphic
+x=4
+width=16
+height=16
+xmode=abs_right
+ymode=abs_centre
+layer=com_18
+graphic="aif_arrow_button_set_1,0"
+transmitop=1
+op1=Back
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,4")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,0")
+onop=clientscript_5267
+onclick=graphic_swapper(event_com, "aif_arrow_button_set_1,8")
+
+// 1137:63
+[com_63]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_84
+graphic=sm_digit_bar_end
+
+// 1137:64
+[com_64]
+type=graphic
+width=24
+heightmode=minus
+layer=com_84
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:65
+[com_65]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_84
+graphic=sm_digit_bar_fill
+
+// 1137:66
+[com_66]
+type=text
+x=22
+width=6
+widthmode=minus
+heightmode=minus
+layer=com_84
+textfont=p12_full
+text=NPCs on Team 1:
+textalignv=centre
+textshadow=yes
+
+// 1137:67
+[com_67]
+type=text
+x=3
+width=6
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_84
+textfont=p12_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 1137:68
+[com_68]
+type=graphic
+x=2
+width=18
+height=18
+ymode=abs_centre
+layer=com_84
+graphic=clan_icon_skull
+transmitop=1
+op1=Kill-all
+
+// 1137:69
+[com_69]
+type=graphic
+width=24
+heightmode=minus
+xmode=abs_right
+layer=com_95
+graphic=sm_digit_bar_end
+
+// 1137:70
+[com_70]
+type=graphic
+width=24
+heightmode=minus
+layer=com_95
+graphic=sm_digit_bar_end
+hflip=yes
+
+// 1137:71
+[com_71]
+type=graphic
+width=20
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_95
+graphic=sm_digit_bar_fill
+
+// 1137:72
+[com_72]
+type=text
+x=22
+width=6
+widthmode=minus
+heightmode=minus
+layer=com_95
+textfont=p12_full
+text=NPCs on Team 2:
+textalignv=centre
+textshadow=yes
+
+// 1137:73
+[com_73]
+type=text
+x=3
+width=6
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_95
+textfont=p12_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 1137:74
+[com_74]
+type=rectangle
+x=12
+y=12
+width=24
+height=24
+widthmode=minus
+heightmode=minus
+layer=com_16
+colour=0x1f1912
+fill=yes
+
+// 1137:75
+[com_75]
+type=graphic
+width=14
+height=14
+layer=com_16
+graphic="lobby_popup_frame,0"
+
+// 1137:76
+[com_76]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+layer=com_16
+graphic="lobby_popup_frame,0"
+hflip=yes
+
+// 1137:77
+[com_77]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_16
+graphic="lobby_popup_frame,0"
+vflip=yes
+hflip=yes
+
+// 1137:78
+[com_78]
+type=graphic
+width=14
+height=14
+ymode=abs_bottom
+layer=com_16
+graphic="lobby_popup_frame,0"
+vflip=yes
+
+// 1137:79
+[com_79]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_16
+graphic="lobby_popup_frame,2"
+
+// 1137:80
+[com_80]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_16
+graphic="lobby_popup_frame,2"
+vflip=yes
+
+// 1137:81
+[com_81]
+type=graphic
+width=14
+height=28
+heightmode=minus
+ymode=abs_centre
+layer=com_16
+graphic="lobby_popup_frame,1"
+
+// 1137:82
+[com_82]
+type=graphic
+width=14
+height=28
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_16
+graphic="lobby_popup_frame,1"
+hflip=yes
+
+// 1137:83
+[com_83]
+type=layer
+x=1
+width=2
+height=19
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_16
+
+// 1137:84
+[com_84]
+type=layer
+y=1
+width=16391
+height=18
+widthmode=proportion
+layer=com_16
+
+// 1137:85
+[com_85]
+type=rectangle
+x=12
+y=12
+width=24
+height=24
+widthmode=minus
+heightmode=minus
+layer=com_17
+colour=0x1f1912
+fill=yes
+
+// 1137:86
+[com_86]
+type=graphic
+width=14
+height=14
+layer=com_17
+graphic="lobby_popup_frame,0"
+
+// 1137:87
+[com_87]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+layer=com_17
+graphic="lobby_popup_frame,0"
+hflip=yes
+
+// 1137:88
+[com_88]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_17
+graphic="lobby_popup_frame,0"
+vflip=yes
+hflip=yes
+
+// 1137:89
+[com_89]
+type=graphic
+width=14
+height=14
+ymode=abs_bottom
+layer=com_17
+graphic="lobby_popup_frame,0"
+vflip=yes
+
+// 1137:90
+[com_90]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_17
+graphic="lobby_popup_frame,2"
+
+// 1137:91
+[com_91]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+graphic="lobby_popup_frame,2"
+vflip=yes
+
+// 1137:92
+[com_92]
+type=graphic
+width=14
+height=28
+heightmode=minus
+ymode=abs_centre
+layer=com_17
+graphic="lobby_popup_frame,1"
+
+// 1137:93
+[com_93]
+type=graphic
+width=14
+height=28
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_17
+graphic="lobby_popup_frame,1"
+hflip=yes
+
+// 1137:94
+[com_94]
+type=layer
+width=2
+height=19
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_17
+
+// 1137:95
+[com_95]
+type=layer
+y=1
+width=16391
+height=18
+widthmode=proportion
+xmode=abs_right
+layer=com_17
+
+// 1137:96
+[com_96]
+type=graphic
+x=2
+width=18
+height=18
+ymode=abs_centre
+layer=com_95
+graphic=clan_icon_skull
+transmitop=1
+op1=Kill-all
+
+// 1137:97
+[com_97]
+type=layer
+width=25
+heightmode=minus
+xmode=abs_right
+layer=com_3
+
+// 1137:98
+[com_98]
+type=graphic
+x=-1
+width=19
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+layer=com_97
+graphic=sm_digit_bar_fill
+
+// 1137:99
+[com_99]
+type=graphic
+x=4
+width=16
+height=15
+xmode=abs_right
+ymode=abs_centre
+layer=com_97
+graphic="aif_bronze_close_button_1,0"
+tiling=yes
+graphicshadow=256
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "aif_bronze_close_button_1,1")
+onmouseleave=graphic_swapper(event_com, "aif_bronze_close_button_1,0")
+onop=closebutton_click
+onclick=graphic_swapper(event_com, "aif_bronze_close_button_1,2")
+
+// 1137:100
+[com_100]
+type=rectangle
+x=12
+y=12
+width=24
+height=24
+widthmode=minus
+heightmode=minus
+layer=com_0
+colour=0x1f1912
+fill=yes
+
+// 1137:101
+[com_101]
+type=graphic
+width=14
+height=14
+layer=com_0
+graphic="lobby_popup_frame,0"
+
+// 1137:102
+[com_102]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+layer=com_0
+graphic="lobby_popup_frame,0"
+hflip=yes
+
+// 1137:103
+[com_103]
+type=graphic
+width=14
+height=14
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic="lobby_popup_frame,0"
+vflip=yes
+hflip=yes
+
+// 1137:104
+[com_104]
+type=graphic
+width=14
+height=14
+ymode=abs_bottom
+layer=com_0
+graphic="lobby_popup_frame,0"
+vflip=yes
+
+// 1137:105
+[com_105]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+graphic="lobby_popup_frame,2"
+
+// 1137:106
+[com_106]
+type=graphic
+width=28
+height=14
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+graphic="lobby_popup_frame,2"
+vflip=yes
+
+// 1137:107
+[com_107]
+type=graphic
+width=14
+height=28
+heightmode=minus
+ymode=abs_centre
+layer=com_0
+graphic="lobby_popup_frame,1"
+
+// 1137:108
+[com_108]
+type=graphic
+width=14
+height=28
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_0
+graphic="lobby_popup_frame,1"
+hflip=yes
+
+// 1137:109
+[com_109]
+type=layer
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1137:110
+[com_110]
+type=layer
+x=1
+y=1
+width=16
+height=2
+heightmode=minus
+xmode=abs_right
+layer=com_0

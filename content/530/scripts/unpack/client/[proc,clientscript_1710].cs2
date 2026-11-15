@@ -1,0 +1,16 @@
+// 1710
+[proc,clientscript_1710]
+%playerdesign2_client_head = %wc_update09_target_short;
+if (gender < 1) {
+    %playerdesign2_client_jaw = %wc_update09_target_long;
+}
+%playerdesign2_client_torso = %wc_update09_target_diag;
+%playerdesign2_client_arms = %wc_update09_target_tooth;
+%playerdesign2_client_hands = %wc_update09_target_groove;
+%playerdesign2_client_legs = %wc_update09_target_curve;
+%playerdesign2_client_feet = %wc_update09_plank_count;
+%playerdesign2_client_haircol = %wc_update09_got_job;
+%varclient_95 = %varplayerbit_4216;
+%varclient_96 = %varplayerbit_4217;
+%playerdesign2_client_feetcol = %varplayerbit_4218;
+%playerdesign2_client_skincol = %varplayerbit_4219;

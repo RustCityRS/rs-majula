@@ -1,0 +1,276 @@
+// 6783
+[proc,clientscript_6783](int $int0)(struct)
+switch_int ($int0) {
+    case 1 :
+        switch_int (%varplayerbit_11985) {
+            case 1 :
+                return(enum(int, struct, enum_5513, %varplayerbit_11986));
+            case 8 :
+                return(enum(int, struct, enum_5530, %varplayerbit_11986));
+            case 9 :
+                return(enum(int, struct, enum_5525, %varplayerbit_11986));
+            case 10 :
+                return(enum(int, struct, enum_5518, %varplayerbit_11986));
+            case 19 :
+                return(enum(int, struct, enum_5523, %varplayerbit_11986));
+            case 21 :
+                return(enum(int, struct, enum_5522, %varplayerbit_11986));
+            case 22 :
+                return(enum(int, struct, enum_5526, %varplayerbit_11986));
+            case 23 :
+                return(enum(int, struct, enum_5514, %varplayerbit_11986));
+            case 24 :
+                return(enum(int, struct, enum_5517, %varplayerbit_11986));
+            case 20 :
+                return(enum(int, struct, enum_5527, %varplayerbit_11986));
+            case 13 :
+                return(enum(int, struct, enum_5516, %varplayerbit_11986));
+            case 12 :
+                return(enum(int, struct, enum_5521, %varplayerbit_11986));
+            case 14 :
+                return(enum(int, struct, enum_5528, %varplayerbit_11986));
+            case 11 :
+                return(enum(int, struct, enum_5532, %varplayerbit_11986));
+            case 15 :
+                return(enum(int, struct, enum_5524, %varplayerbit_11986));
+            case 16 :
+                return(enum(int, struct, enum_5515, %varplayerbit_11986));
+            case 17 :
+                return(enum(int, struct, enum_5520, %varplayerbit_11986));
+            case 18 :
+                return(enum(int, struct, enum_5531, %varplayerbit_11986));
+            case 7 :
+                return(enum(int, struct, enum_5529, %varplayerbit_11986));
+            case 25 :
+                return(enum(int, struct, enum_5519, %varplayerbit_11986));
+            case default :
+                return(null);
+        }
+    case 2 :
+        switch_int (%varplayerbit_11989) {
+            case 1 :
+                return(enum(int, struct, enum_5513, %varplayerbit_11990));
+            case 8 :
+                return(enum(int, struct, enum_5530, %varplayerbit_11990));
+            case 9 :
+                return(enum(int, struct, enum_5525, %varplayerbit_11990));
+            case 10 :
+                return(enum(int, struct, enum_5518, %varplayerbit_11990));
+            case 19 :
+                return(enum(int, struct, enum_5523, %varplayerbit_11990));
+            case 21 :
+                return(enum(int, struct, enum_5522, %varplayerbit_11990));
+            case 22 :
+                return(enum(int, struct, enum_5526, %varplayerbit_11990));
+            case 23 :
+                return(enum(int, struct, enum_5514, %varplayerbit_11990));
+            case 24 :
+                return(enum(int, struct, enum_5517, %varplayerbit_11990));
+            case 20 :
+                return(enum(int, struct, enum_5527, %varplayerbit_11990));
+            case 13 :
+                return(enum(int, struct, enum_5516, %varplayerbit_11990));
+            case 12 :
+                return(enum(int, struct, enum_5521, %varplayerbit_11990));
+            case 14 :
+                return(enum(int, struct, enum_5528, %varplayerbit_11990));
+            case 11 :
+                return(enum(int, struct, enum_5532, %varplayerbit_11990));
+            case 15 :
+                return(enum(int, struct, enum_5524, %varplayerbit_11990));
+            case 16 :
+                return(enum(int, struct, enum_5515, %varplayerbit_11990));
+            case 17 :
+                return(enum(int, struct, enum_5520, %varplayerbit_11990));
+            case 18 :
+                return(enum(int, struct, enum_5531, %varplayerbit_11990));
+            case 7 :
+                return(enum(int, struct, enum_5529, %varplayerbit_11990));
+            case 25 :
+                return(enum(int, struct, enum_5519, %varplayerbit_11990));
+            case default :
+                return(null);
+        }
+    case 3 :
+        switch_int (%varplayerbit_11993) {
+            case 1 :
+                return(enum(int, struct, enum_5513, %varplayerbit_11994));
+            case 8 :
+                return(enum(int, struct, enum_5530, %varplayerbit_11994));
+            case 9 :
+                return(enum(int, struct, enum_5525, %varplayerbit_11994));
+            case 10 :
+                return(enum(int, struct, enum_5518, %varplayerbit_11994));
+            case 19 :
+                return(enum(int, struct, enum_5523, %varplayerbit_11994));
+            case 21 :
+                return(enum(int, struct, enum_5522, %varplayerbit_11994));
+            case 22 :
+                return(enum(int, struct, enum_5526, %varplayerbit_11994));
+            case 23 :
+                return(enum(int, struct, enum_5514, %varplayerbit_11994));
+            case 24 :
+                return(enum(int, struct, enum_5517, %varplayerbit_11994));
+            case 20 :
+                return(enum(int, struct, enum_5527, %varplayerbit_11994));
+            case 13 :
+                return(enum(int, struct, enum_5516, %varplayerbit_11994));
+            case 12 :
+                return(enum(int, struct, enum_5521, %varplayerbit_11994));
+            case 14 :
+                return(enum(int, struct, enum_5528, %varplayerbit_11994));
+            case 11 :
+                return(enum(int, struct, enum_5532, %varplayerbit_11994));
+            case 15 :
+                return(enum(int, struct, enum_5524, %varplayerbit_11994));
+            case 16 :
+                return(enum(int, struct, enum_5515, %varplayerbit_11994));
+            case 17 :
+                return(enum(int, struct, enum_5520, %varplayerbit_11994));
+            case 18 :
+                return(enum(int, struct, enum_5531, %varplayerbit_11994));
+            case 7 :
+                return(enum(int, struct, enum_5529, %varplayerbit_11994));
+            case 25 :
+                return(enum(int, struct, enum_5519, %varplayerbit_11994));
+            case default :
+                return(null);
+        }
+    case 4 :
+        switch_int (%varplayerbit_11997) {
+            case 1 :
+                return(enum(int, struct, enum_5513, %varplayerbit_11998));
+            case 8 :
+                return(enum(int, struct, enum_5530, %varplayerbit_11998));
+            case 9 :
+                return(enum(int, struct, enum_5525, %varplayerbit_11998));
+            case 10 :
+                return(enum(int, struct, enum_5518, %varplayerbit_11998));
+            case 19 :
+                return(enum(int, struct, enum_5523, %varplayerbit_11998));
+            case 21 :
+                return(enum(int, struct, enum_5522, %varplayerbit_11998));
+            case 22 :
+                return(enum(int, struct, enum_5526, %varplayerbit_11998));
+            case 23 :
+                return(enum(int, struct, enum_5514, %varplayerbit_11998));
+            case 24 :
+                return(enum(int, struct, enum_5517, %varplayerbit_11998));
+            case 20 :
+                return(enum(int, struct, enum_5527, %varplayerbit_11998));
+            case 13 :
+                return(enum(int, struct, enum_5516, %varplayerbit_11998));
+            case 12 :
+                return(enum(int, struct, enum_5521, %varplayerbit_11998));
+            case 14 :
+                return(enum(int, struct, enum_5528, %varplayerbit_11998));
+            case 11 :
+                return(enum(int, struct, enum_5532, %varplayerbit_11998));
+            case 15 :
+                return(enum(int, struct, enum_5524, %varplayerbit_11998));
+            case 16 :
+                return(enum(int, struct, enum_5515, %varplayerbit_11998));
+            case 17 :
+                return(enum(int, struct, enum_5520, %varplayerbit_11998));
+            case 18 :
+                return(enum(int, struct, enum_5531, %varplayerbit_11998));
+            case 7 :
+                return(enum(int, struct, enum_5529, %varplayerbit_11998));
+            case 25 :
+                return(enum(int, struct, enum_5519, %varplayerbit_11998));
+            case default :
+                return(null);
+        }
+    case 5 :
+        switch_int (%varplayerbit_12001) {
+            case 1 :
+                return(enum(int, struct, enum_5513, %varplayerbit_12002));
+            case 8 :
+                return(enum(int, struct, enum_5530, %varplayerbit_12002));
+            case 9 :
+                return(enum(int, struct, enum_5525, %varplayerbit_12002));
+            case 10 :
+                return(enum(int, struct, enum_5518, %varplayerbit_12002));
+            case 19 :
+                return(enum(int, struct, enum_5523, %varplayerbit_12002));
+            case 21 :
+                return(enum(int, struct, enum_5522, %varplayerbit_12002));
+            case 22 :
+                return(enum(int, struct, enum_5526, %varplayerbit_12002));
+            case 23 :
+                return(enum(int, struct, enum_5514, %varplayerbit_12002));
+            case 24 :
+                return(enum(int, struct, enum_5517, %varplayerbit_12002));
+            case 20 :
+                return(enum(int, struct, enum_5527, %varplayerbit_12002));
+            case 13 :
+                return(enum(int, struct, enum_5516, %varplayerbit_12002));
+            case 12 :
+                return(enum(int, struct, enum_5521, %varplayerbit_12002));
+            case 14 :
+                return(enum(int, struct, enum_5528, %varplayerbit_12002));
+            case 11 :
+                return(enum(int, struct, enum_5532, %varplayerbit_12002));
+            case 15 :
+                return(enum(int, struct, enum_5524, %varplayerbit_12002));
+            case 16 :
+                return(enum(int, struct, enum_5515, %varplayerbit_12002));
+            case 17 :
+                return(enum(int, struct, enum_5520, %varplayerbit_12002));
+            case 18 :
+                return(enum(int, struct, enum_5531, %varplayerbit_12002));
+            case 7 :
+                return(enum(int, struct, enum_5529, %varplayerbit_12002));
+            case 25 :
+                return(enum(int, struct, enum_5519, %varplayerbit_12002));
+            case default :
+                return(null);
+        }
+    case 6 :
+        switch_int (%varplayerbit_12005) {
+            case 1 :
+                return(enum(int, struct, enum_5513, %varplayerbit_12006));
+            case 8 :
+                return(enum(int, struct, enum_5530, %varplayerbit_12006));
+            case 9 :
+                return(enum(int, struct, enum_5525, %varplayerbit_12006));
+            case 10 :
+                return(enum(int, struct, enum_5518, %varplayerbit_12006));
+            case 19 :
+                return(enum(int, struct, enum_5523, %varplayerbit_12006));
+            case 21 :
+                return(enum(int, struct, enum_5522, %varplayerbit_12006));
+            case 22 :
+                return(enum(int, struct, enum_5526, %varplayerbit_12006));
+            case 23 :
+                return(enum(int, struct, enum_5514, %varplayerbit_12006));
+            case 24 :
+                return(enum(int, struct, enum_5517, %varplayerbit_12006));
+            case 20 :
+                return(enum(int, struct, enum_5527, %varplayerbit_12006));
+            case 13 :
+                return(enum(int, struct, enum_5516, %varplayerbit_12006));
+            case 12 :
+                return(enum(int, struct, enum_5521, %varplayerbit_12006));
+            case 14 :
+                return(enum(int, struct, enum_5528, %varplayerbit_12006));
+            case 11 :
+                return(enum(int, struct, enum_5532, %varplayerbit_12006));
+            case 15 :
+                return(enum(int, struct, enum_5524, %varplayerbit_12006));
+            case 16 :
+                return(enum(int, struct, enum_5515, %varplayerbit_12006));
+            case 17 :
+                return(enum(int, struct, enum_5520, %varplayerbit_12006));
+            case 18 :
+                return(enum(int, struct, enum_5531, %varplayerbit_12006));
+            case 7 :
+                return(enum(int, struct, enum_5529, %varplayerbit_12006));
+            case 25 :
+                return(enum(int, struct, enum_5519, %varplayerbit_12006));
+            case default :
+                return(null);
+        }
+    case default :
+        return(null);
+}

@@ -1,0 +1,4 @@
+// 5333
+[proc,clientscript_5333](component $component0, component $component1, int $int2, int $int3, graphic $graphic4, string $string0)
+if_setgraphic($component0, $graphic4);
+~clientscript_5335($component0, -1, $component1, $string0, $int2, $int3, 1);

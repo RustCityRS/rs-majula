@@ -1,0 +1,22 @@
+// 949
+[proc,script949]
+if (%rand_exists_1 = 1) {
+    if_sethide(rand_dungeon_rewards_v2:readybutton_player1, false);
+    if_sethide(rand_dungeon_rewards_v2:readyborder_player1, false);
+}
+if (%rand_exists_2 = 1) {
+    if_sethide(rand_dungeon_rewards_v2:readybutton_player2, false);
+    if_sethide(rand_dungeon_rewards_v2:readyborder_player2, false);
+}
+if (%rand_exists_3 = 1) {
+    if_sethide(rand_dungeon_rewards_v2:readybutton_player3, false);
+    if_sethide(rand_dungeon_rewards_v2:readyborder_player3, false);
+}
+if (%rand_exists_4 = 1) {
+    if_sethide(rand_dungeon_rewards_v2:readybutton_player4, false);
+    if_sethide(rand_dungeon_rewards_v2:readyborder_player4, false);
+}
+if (%rand_exists_5 = 1) {
+    if_sethide(rand_dungeon_rewards_v2:readybutton_player5, false);
+    if_sethide(rand_dungeon_rewards_v2:readyborder_player5, false);
+}

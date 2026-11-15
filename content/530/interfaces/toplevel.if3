@@ -1,0 +1,970 @@
+// 548:0
+[filterbuttons_container]
+type=layer
+y=480
+width=519
+height=23
+
+// 548:1
+[main]
+type=layer
+x=4
+y=4
+width=512
+height=334
+onload=clientscript_1433
+
+// 548:2
+[maingame]
+type=layer
+clientcode=1337
+width=512
+height=334
+layer=main
+
+// 548:3
+[maindebug]
+type=layer
+clientcode=1405
+x=364
+y=2
+width=145
+height=90
+layer=main
+
+// 548:4
+[mainoverlay]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=main
+
+// 548:5
+[mainoverlay_clipped]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=main
+
+// 548:6
+[com_6]
+type=text
+x=431
+y=320
+width=53
+height=19
+layer=main
+textfont=fontmetrics_495
+textalignh=centre
+textshadow=yes
+colour=0xff981d
+onload=clientscript_1141
+
+// 548:7
+[statusicons]
+type=layer
+x=15
+y=13
+width=82
+height=25
+xmode=abs_right
+ymode=abs_bottom
+layer=main
+
+// 548:8
+[statusicon_tooltip]
+type=layer
+x=434
+y=300
+width=38
+height=17
+layer=main
+hide=yes
+transmitop=10
+op10=  
+
+// 548:9
+[pmchat]
+type=layer
+width=512
+height=69
+ymode=abs_bottom
+layer=main
+
+// 548:10
+[pvp_warning]
+type=layer
+width=512
+height=69
+ymode=abs_bottom
+layer=main
+
+// 548:11
+[mainmodal]
+type=layer
+width=512
+height=334
+layer=main
+
+// 548:12
+[minimap]
+type=layer
+x=516
+width=249
+height=168
+opbase= 
+
+// 548:13
+[com_13]
+type=graphic
+width=519
+height=23
+layer=filterbuttons_container
+graphic=graphic_1018
+
+// 548:14
+[filterbuttons]
+type=layer
+width=519
+height=23
+layer=filterbuttons_container
+
+// 548:15
+[filterbuttons_disable]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=filterbuttons_container
+hide=yes
+noclickthrough=yes
+
+// 548:16
+[backbase2]
+type=layer
+x=519
+y=466
+width=246
+height=37
+
+// 548:17
+[com_17]
+type=graphic
+width=246
+height=37
+layer=backbase2
+graphic=graphic_1032
+
+// 548:18
+[backbase2_hide]
+type=layer
+width=269
+height=37
+layer=backbase2
+
+// 548:19
+[com_19]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=backbase2
+hide=yes
+noclickthrough=yes
+
+// 548:20
+[stone7]
+type=graphic
+x=3
+width=38
+height=36
+layer=backbase2_hide
+graphic=graphic_1028
+transmitop=1
+op1=Follower Details
+onop=clientscript_1303(7)
+
+// 548:21
+[stone8]
+type=graphic
+x=41
+width=38
+height=36
+layer=backbase2_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Friends List
+opkey1=8,0
+onop=clientscript_1303(8)
+
+// 548:22
+[stone9]
+type=graphic
+x=74
+width=33
+height=36
+layer=backbase2_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Ignore List
+onop=clientscript_1303(9)
+
+// 548:23
+[stone10]
+type=graphic
+x=107
+width=33
+height=36
+layer=backbase2_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Clan Chat
+onop=clientscript_1303(10)
+
+// 548:24
+[stone11]
+type=graphic
+x=140
+width=33
+height=36
+layer=backbase2_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Options
+onop=clientscript_1303(11)
+
+// 548:25
+[stone12]
+type=graphic
+x=173
+width=33
+height=36
+layer=backbase2_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Emotes
+onop=clientscript_1303(12)
+
+// 548:26
+[stone13]
+type=graphic
+x=206
+width=38
+height=36
+layer=backbase2_hide
+graphic=graphic_1029
+transmitop=1
+op1=Music Player
+onop=clientscript_1303(13)
+
+// 548:27
+[icon7]
+type=graphic
+x=6
+y=1
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_1242
+
+// 548:28
+[icon8]
+type=graphic
+x=42
+y=2
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_904
+
+// 548:29
+[icon9]
+type=graphic
+x=75
+y=2
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_905
+
+// 548:30
+[icon10]
+type=graphic
+x=107
+y=2
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_1241
+
+// 548:31
+[icon11]
+type=graphic
+x=142
+y=1
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_907
+
+// 548:32
+[icon12]
+type=graphic
+x=175
+y=3
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_908
+
+// 548:33
+[icon13]
+type=graphic
+x=208
+y=3
+width=32
+height=36
+layer=backbase2_hide
+graphic=graphic_909
+
+// 548:34
+[backhmid1]
+type=layer
+x=516
+y=168
+width=249
+height=37
+onvarctransmit=if_side_stone_set{if_side_combat, if_side_stats, if_side_journal, if_side_inv, if_side_worn, if_side_prayer, if_side_magic, varclient_239, if_side_friends, if_side_ignore, if_side_clanchat, if_side_options1, if_side_options2, if_side_music}
+
+// 548:35
+[com_35]
+type=graphic
+width=249
+height=37
+layer=backhmid1
+graphic=graphic_1036
+
+// 548:36
+[backhmid1_hide]
+type=layer
+width=249
+height=37
+layer=backhmid1
+onload=switchside_init
+
+// 548:37
+[com_37]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=backhmid1
+hide=yes
+noclickthrough=yes
+
+// 548:38
+[stone0]
+type=graphic
+x=6
+width=38
+height=36
+layer=backhmid1_hide
+graphic=graphic_1026
+transmitop=1
+op1=Combat Styles
+opkey1=1,0
+onop=clientscript_1303(0)
+
+// 548:39
+[stone1]
+type=graphic
+x=44
+width=33
+height=36
+layer=backhmid1_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Stats
+opkey1=2,0
+onop=clientscript_1303(1)
+
+// 548:40
+[stone2]
+type=graphic
+x=77
+width=33
+height=36
+layer=backhmid1_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Quest List
+opkey1=3,0
+onop=clientscript_1303(2)
+
+// 548:41
+[stone3]
+type=graphic
+x=110
+width=33
+height=36
+layer=backhmid1_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Inventory
+opkey1=4,0
+onload=clan_noticeboard_watch_tick_update(3)
+onop=clientscript_1303(3)
+
+// 548:42
+[stone4]
+type=graphic
+x=143
+width=33
+height=36
+layer=backhmid1_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Worn Equipment
+opkey1=5,0
+onop=clientscript_1303(4)
+
+// 548:43
+[stone5]
+type=graphic
+x=176
+width=33
+height=36
+layer=backhmid1_hide
+graphic=graphic_1030
+tiling=yes
+transmitop=1
+op1=Prayer List
+opkey1=6,0
+onop=clientscript_1303(5)
+
+// 548:44
+[stone6]
+type=graphic
+x=209
+width=38
+height=36
+layer=backhmid1_hide
+graphic=graphic_1027
+transmitop=1
+op1=Magic Spellbook
+opkey1=7,0
+onop=clientscript_1303(6)
+
+// 548:45
+[icon0]
+type=graphic
+x=13
+y=1
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_168
+
+// 548:46
+[icon1]
+type=graphic
+x=44
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_898
+
+// 548:47
+[icon2]
+type=graphic
+x=79
+y=1
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_899
+
+// 548:48
+[icon3]
+type=graphic
+x=111
+y=-1
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_900
+
+// 548:49
+[icon4]
+type=graphic
+x=143
+y=2
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_901
+
+// 548:50
+[icon5]
+type=graphic
+x=176
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_902
+
+// 548:51
+[icon6]
+type=graphic
+x=210
+y=1
+width=32
+height=36
+layer=backhmid1_hide
+graphic=graphic_903
+
+// 548:52
+[backleft1]
+type=layer
+y=4
+width=4
+height=334
+
+// 548:53
+[com_53]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=backleft1
+graphic=graphic_4
+
+// 548:54
+[backright2]
+type=layer
+x=737
+y=205
+width=28
+height=261
+
+// 548:55
+[com_55]
+type=graphic
+width=28
+height=261
+layer=backright2
+graphic=graphic_1035
+
+// 548:56
+[backtop1]
+type=layer
+width=516
+height=4
+
+// 548:57
+[mainborder_right]
+type=layer
+x=516
+y=205
+width=3
+height=133
+
+// 548:58
+[com_58]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=mainborder_right
+graphic=graphic_1120
+
+// 548:59
+[com_59]
+type=graphic
+width=516
+height=4
+layer=backtop1
+graphic=graphic_1039
+
+// 548:60
+[backvmid2]
+type=layer
+x=519
+y=205
+width=28
+height=261
+
+// 548:61
+[com_61]
+type=graphic
+width=28
+height=133
+layer=backvmid2
+graphic=graphic_1033
+
+// 548:62
+[com_62]
+type=graphic
+y=133
+width=28
+height=128
+layer=backvmid2
+graphic=graphic_1034
+
+// 548:63
+[com_63]
+type=graphic
+width=249
+height=4
+layer=minimap
+graphic=graphic_1221
+tiling=yes
+
+// 548:64
+[map]
+type=graphic
+clientcode=1338
+x=35
+y=9
+width=152
+height=152
+layer=minimap
+graphic=graphic_1185
+
+// 548:65
+[compass]
+type=graphic
+clientcode=1339
+x=11
+y=8
+width=33
+height=33
+layer=minimap
+graphic=graphic_1186
+
+// 548:66
+[worldmap_icon]
+type=graphic
+x=10
+y=124
+width=34
+height=34
+layer=minimap
+graphic=graphic_1408
+transmitop=1
+op1=World Map
+
+// 548:67
+[mapback]
+type=graphic
+y=4
+width=249
+height=157
+layer=minimap
+graphic=graphic_12
+
+// 548:68
+[com_68]
+type=graphic
+y=161
+width=249
+height=7
+layer=minimap
+graphic=graphic_1126
+
+// 548:69
+[logoutbutton]
+type=graphic
+x=226
+y=1
+width=22
+height=21
+layer=minimap
+graphic=graphic_1201
+transmitop=1
+op1=Log Out
+onmouseover=graphic_swapper(event_com, 1202)
+onmouseleave=graphic_swapper(event_com, 1201)
+onop=clan_noticeboard_watch_tick_update(99)
+
+// 548:70
+[topstat_hitpoints]
+type=layer
+x=174
+y=11
+width=57
+height=34
+layer=minimap
+
+// 548:71
+[topstat_prayer]
+type=layer
+x=190
+y=50
+width=57
+height=34
+layer=minimap
+
+// 548:72
+[topstat_run]
+type=layer
+x=190
+y=89
+width=57
+height=34
+layer=minimap
+
+// 548:73
+[topstat_lore]
+type=layer
+x=174
+y=127
+width=57
+height=34
+layer=minimap
+
+// 548:74
+[minimap_disable]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=minimap
+hide=yes
+noclickthrough=yes
+
+// 548:75
+[chattop_container]
+type=layer
+y=338
+width=519
+height=142
+onload=subchanged_init(event_com)
+
+// 548:76
+[chattop]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=chattop_container
+
+// 548:77
+[chat_disable]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=chattop_container
+hide=yes
+noclickthrough=yes
+
+// 548:78
+[side]
+type=layer
+x=547
+y=205
+width=190
+height=261
+
+// 548:79
+[com_79]
+type=graphic
+width=190
+height=261
+layer=side
+graphic=graphic_1031
+
+// 548:80
+[sidemodal]
+type=layer
+clientcode=1354
+width=190
+height=261
+layer=side
+
+// 548:81
+[side_hide]
+type=layer
+width=190
+height=261
+layer=side
+
+// 548:82
+[side_disable]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=side
+hide=yes
+noclickthrough=yes
+
+// 548:83
+[side0]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:84
+[side1]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:85
+[side2]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:86
+[side3]
+type=layer
+width=190
+height=261
+layer=side_hide
+
+// 548:87
+[side4]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:88
+[side5]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:89
+[side6]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:90
+[side7]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:91
+[side8]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:92
+[side9]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:93
+[side10]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:94
+[side11]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:95
+[side12]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:96
+[side13]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:97
+[side99]
+type=layer
+width=190
+height=261
+layer=side_hide
+hide=yes
+
+// 548:98
+[statusicon_tooltip_bg]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=statusicon_tooltip
+colour=0xffffa0
+fill=yes
+transmitop=10
+op10=  
+
+// 548:99
+[statusicon_tooltip_outline]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=statusicon_tooltip
+colour=0x000000
+transmitop=10
+op10=  
+
+// 548:100
+[statusicon_tooltip_text]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=statusicon_tooltip
+textfont=fontmetrics_495
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=  

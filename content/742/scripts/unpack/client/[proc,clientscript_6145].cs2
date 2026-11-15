@@ -1,0 +1,23 @@
+// 6145
+[proc,clientscript_6145](component $component0, int $int1, int $int2, int $int3, int $int4)
+$int3 = calc($int3 + 1);
+if ($int3 < 100) {
+    if_setontimer($component0, "clientscript_6145(event_com, $int1, $int2, $int3, $int4)");
+}
+if ($int3 < 0) {
+    return;
+}
+def_int $int5 = 25;
+def_int $int6 = scale($int4, 6, $int5);
+$int6 = scale($int3, 100, $int6);
+def_int $int7 = random($int6);
+def_int $int8 = random($int6);
+if (random(2) = 0) {
+    $int7 = calc(0 - $int7);
+}
+if (random(2) = 0) {
+    $int8 = calc(0 - $int8);
+}
+if (cc_find($component0, 0) = true) {
+    cc_setposition(calc($int1 + $int7), calc($int2 + $int8), ^setpos_abs_left, ^setpos_abs_top);
+}

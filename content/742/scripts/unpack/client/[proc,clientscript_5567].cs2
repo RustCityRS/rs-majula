@@ -1,0 +1,14 @@
+// 5567
+[proc,clientscript_5567](obj $obj0, int $int1)(int)
+if ($obj0 ! coins) {
+    return(-1);
+}
+if (inv_total(inv, $obj0) >= $int1) {
+    return(1);
+}
+def_int $int2 = inv_total(inv, $obj0);
+def_int $int3 = inv_total(inv_623, $obj0);
+if ($int3 >= calc($int1 - $int2)) {
+    return(2);
+}
+return(0);

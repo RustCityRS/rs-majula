@@ -978,6 +978,7 @@ impl Engine {
         for nid in nids {
             self.deactivate_npc(nid);
         }
+        #[cfg(since_647)]
         self.controllers.remove_where(inside);
         let mut next = self.obj_delayed_queue.head();
         while let Some(idx) = next {

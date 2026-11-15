@@ -1,0 +1,132 @@
+// 530:0
+[qip_soa_newspaper_model]
+type=model
+y=-5
+width=513
+height=346
+layer=content_layer
+model=model_25725
+modelangle=512,0,0
+modelzoom=450
+modelunknown=64183,3000,0
+
+// 530:1
+[back_page_scroll_left]
+type=layer
+x=50
+y=77
+width=151
+height=199
+layer=content_layer
+scrollheight=430
+
+// 530:2
+[scroll_left]
+type=layer
+x=203
+y=77
+width=16
+height=199
+layer=content_layer
+onload=scrollbar_vertical_graphics(event_com, qip_soa_varrock_herald_newspaper:back_page_scroll_left, 792, 789, 790, 791, 773, 788)
+
+// 530:3
+[scroll_right]
+type=layer
+x=473
+y=77
+width=16
+height=199
+layer=content_layer
+onload=scrollbar_vertical_graphics(event_com, qip_soa_varrock_herald_newspaper:back_page_scroll_right, 792, 789, 790, 791, 773, 788)
+
+// 530:4
+[back_page_scroll_right]
+type=layer
+x=319
+y=77
+width=151
+height=199
+layer=content_layer
+scrollheight=930
+
+// 530:5
+[front_page]
+type=layer
+x=32
+y=50
+width=462
+height=252
+layer=content_layer
+hide=yes
+
+// 530:6
+[com_6]
+type=graphic
+x=467
+y=19
+width=26
+height=23
+layer=content_layer
+graphic=graphic_541
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 542)
+onmouseleave=graphic_swapper(event_com, 541)
+onop=if_close
+
+// 530:7
+[back_page_scroll_page_left]
+type=text
+x=3
+y=16
+width=145
+height=730
+layer=back_page_scroll_left
+textfont=fontmetrics_497
+text=Text
+colour=0x1b1b1b
+
+// 530:8
+[back_page_scroll_page_right]
+type=text
+x=3
+y=16
+width=145
+height=1230
+layer=back_page_scroll_right
+textfont=fontmetrics_497
+text=Text
+colour=0x1b1b1b
+
+// 530:9
+[front_page_text_left]
+type=text
+x=18
+y=27
+width=151
+height=199
+layer=front_page
+textfont=fontmetrics_497
+text=This is an interface type test.
+colour=0x1b1b1b
+
+// 530:10
+[front_page_text_right]
+type=text
+x=287
+y=27
+width=151
+height=199
+layer=front_page
+textfont=fontmetrics_497
+text=This is an interface type test.
+colour=0x1b1b1b
+
+// 530:11
+[content_layer]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

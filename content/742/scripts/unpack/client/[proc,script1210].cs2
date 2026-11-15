@@ -1,0 +1,12 @@
+// 1210
+[proc,script1210](int $int0, int $int1, int $int2, int $int3)(int)
+def_int $int4 = calc((clientclock + $int3 - $int2) % $int1);
+def_int $int5 = calc($int1 / 2);
+def_int $int6 = calc($int5 - $int4);
+if ($int6 = 0) {
+    return($int0);
+}
+if ($int6 > 0) {
+    return(calc($int0 - scale($int6, $int5, $int0)));
+}
+return(calc($int0 + scale($int6, $int5, $int0)));

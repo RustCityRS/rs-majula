@@ -1,0 +1,11 @@
+// 5569
+[proc,clientscript_5569](int $int0)
+if ($int0 = 1) {
+    if_setgraphic(interface_375:com_0, "set_but_1b,1");
+    if_setgraphic(interface_375:com_1, "set_but_1b,0");
+    if_setgraphic(interface_375:com_2, "set_but_1b,0");
+} else {
+    if_setgraphic(interface_375:com_0, "set_but_1b,3");
+    if_setgraphic(interface_375:com_1, "set_but_1b,2");
+    if_setgraphic(interface_375:com_2, "set_but_1b,2");
+}

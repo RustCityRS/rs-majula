@@ -1,0 +1,8 @@
+// 2874
+[clientscript,music_playlist_update_mode]
+if (%playlist_mode = 1) {
+    if_setgraphic(music_v3:playlist_on, "music_header_icons,3");
+} else {
+    if_setgraphic(music_v3:playlist_on, "music_header_icons,2");
+}
+%tooltip_built = 0;

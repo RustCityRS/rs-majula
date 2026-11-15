@@ -4,26 +4,52 @@ use crate::network::game::client_prot_frame::ClientProtFrame;
 use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
+use rs_ver::TypeId;
 
-#[client_prot(Fixed(12), UserEvent)]
+#[cfg_attr(before_530, client_prot(Fixed(12), UserEvent))]
+#[cfg_attr(since_530, client_prot(Fixed(14), UserEvent))]
 pub struct OpLocU {
     pub x: u16,
     pub z: u16,
-    pub loc: u16,
-    pub obj: u16,
+    pub loc: TypeId,
+    pub obj: TypeId,
     pub slot: u16,
+    #[cfg(before_530)]
     pub com: u16,
+    #[cfg(since_530)]
+    pub com: i32,
 }
 
+#[cfg(before_530)]
 impl ClientProtMessage for OpLocU {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         OpLocU {
             x: buf.g2(),
             z: buf.g2(),
-            loc: buf.g2(),
-            obj: buf.g2(),
+            loc: TypeId::from_g2(buf.g2()),
+            obj: TypeId::from_g2(buf.g2()),
             slot: buf.g2(),
             com: buf.g2(),
+        }
+    }
+}
+
+#[cfg(since_530)]
+impl ClientProtMessage for OpLocU {
+    fn decode(buf: &mut Packet, _: usize) -> Self {
+        let x = buf.g2_alt2();
+        let obj = TypeId::from_g2(buf.g2());
+        let z = buf.g2_alt1();
+        let slot = buf.g2();
+        let com = buf.g4s_alt3();
+        let loc = TypeId::from_g2(buf.g2_alt2());
+        OpLocU {
+            x,
+            z,
+            loc,
+            obj,
+            slot,
+            com,
         }
     }
 }

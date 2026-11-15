@@ -1,0 +1,8 @@
+// 6718
+[proc,clientscript_6718]
+def_component $component0 = login:login_button;
+if_setontimer(login:popup, null);
+if_setonclick($component0, "login_dologin");
+if_setontimer($component0, null);
+login_resetreply;
+~login_popup_close;

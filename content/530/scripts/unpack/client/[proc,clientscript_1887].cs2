@@ -1,0 +1,28 @@
+// 1887
+[proc,clientscript_1887](component $component0, component $component1, component $component2, component $component3, component $component4)
+if (if_find($component1) = true) {
+    cc_setsize(16384, 16384, 4, 2);
+    cc_setaspectratio(956, 503);
+    cc_settrans(0);
+    cc_setontimer(null);
+    cc_sethide(false);
+}
+if_setontimer($component0, null);
+if_setoncamfinished($component0, null);
+if_sethide($component0, true);
+if_setontimer($component2, null);
+if_setcolour($component2, ^black);
+if_settrans($component2, 0);
+if_sethide($component2, false);
+if (getwindowmode >= 1) {
+    if_sethide($component3, true);
+    if_sethide($component4, true);
+    detail_removeroofs_option_override(1);
+    ~clientscript_1886;
+    %loginscreen_camera_delaytime = calc(clientclock + 30 + 30);
+    if_setontimer($component1, "objectives_delegation_position($component0, $component1, $component2)");
+} else {
+    %varclient_176 = 0;
+    if_sethide($component3, false);
+    if_sethide($component4, false);
+}

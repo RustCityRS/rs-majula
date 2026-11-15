@@ -1,0 +1,33 @@
+// 6183
+[proc,clientscript_6183]
+def_int $int0 = 0;
+def_int $int1 = %varclient_1910;
+if (%varplayerbit_11105 = 0) {
+    if_settext(interface_1273:com_68, "0");
+    return;
+}
+if (%varplayerbit_11104 = 1) {
+    while ($int1 < %varplayerbit_11105) {
+        $int0 = calc($int0 + enum(int, int, enum_5842, $int1));
+        $int1 = calc($int1 + 1);
+    }
+    if_settext(interface_1273:com_68, "Rank <tostring(calc(11 - %varplayerbit_11105))> Esteem = <tostring($int0)> points");
+    return;
+}
+if (%varplayerbit_11104 = 2) {
+    if_settext(interface_1273:com_68, "Recolour = <tostring(2000)> points");
+    return;
+}
+def_struct $struct2 = enum(int, struct, enum_5838, calc(%varplayerbit_11105 - 1));
+if ($struct2 = null) {
+    return;
+}
+$int0 = struct_param($struct2, param_2379);
+$int0 = calc($int0 * %varplayerbit_11106);
+if (struct_param($struct2, param_2378) = 0) {
+    if_settext(interface_1273:com_68, "<tostring(%varplayerbit_11106)> x <struct_param($struct2, param_2376)> = <tostring($int0)>");
+} else if (map_lang = 3 | map_lang = 2) {
+    if_settext(interface_1273:com_68, "<tostring(%varplayerbit_11106)> x <struct_param($struct2, param_2377)> <struct_param($struct2, param_2376)> = <tostring($int0)>");
+} else {
+    if_settext(interface_1273:com_68, "<tostring(%varplayerbit_11106)> x <struct_param($struct2, param_2376)> <struct_param($struct2, param_2377)> = <tostring($int0)>");
+}

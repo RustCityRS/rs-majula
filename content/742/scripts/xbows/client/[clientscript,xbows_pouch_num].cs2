@@ -1,0 +1,26 @@
+// 396
+[clientscript,xbows_pouch_num]
+if_settext(xbows_pouch:num1, tostring(%xbows_pouch_num1));
+if_settext(xbows_pouch:num2, tostring(%xbows_pouch_num2));
+if_settext(xbows_pouch:num3, tostring(%xbows_pouch_num3));
+if_settext(xbows_pouch:num4, tostring(%xbows_pouch_num4));
+if (%xbows_pouch_num1 = 0) {
+    if_setcolour(xbows_pouch:num1, 0xff0033);
+} else {
+    if_setcolour(xbows_pouch:num1, 0x00c000);
+}
+if (%xbows_pouch_num2 = 0) {
+    if_setcolour(xbows_pouch:num2, 0xff0033);
+} else {
+    if_setcolour(xbows_pouch:num2, 0x00c000);
+}
+if (%xbows_pouch_num3 = 0) {
+    if_setcolour(xbows_pouch:num3, 0xff0033);
+} else {
+    if_setcolour(xbows_pouch:num3, 0x00c000);
+}
+if (%xbows_pouch_num4 = 0) {
+    if_setcolour(xbows_pouch:num4, 0xff0033);
+} else {
+    if_setcolour(xbows_pouch:num4, 0x00c000);
+}

@@ -1,0 +1,14 @@
+// 1576
+[proc,clientscript_1576]
+if (%varplayerbit_5009 = 0) {
+    return;
+}
+~v2_stone_button_in_filled_proc(interface_771:com_52);
+if_setonmouseleave(interface_771:com_52, "deltooltip(interface_771:com_399)");
+if_setonmouseover(interface_771:com_52, null);
+if_setonmouseleave(interface_771:com_49, "v2_stone_button_filled_deltooltip(interface_771:com_399, event_com)");
+if_setonmouseover(interface_771:com_49, "v2_stone_button_out_filled(event_com)");
+~clientscript_680(interface_771:com_49);
+setgender(1);
+%playerdesign2_client_gender = 1;
+~clientscript_1714;

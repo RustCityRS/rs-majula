@@ -1,0 +1,8 @@
+// 5584
+[proc,clientscript_5584](component $component0, component $component1, component $component2, component $component3)
+if_settrans($component1, 255);
+if_setonkey($component0, clientscript_5585, event_keycode, event_keychar, $component0, $component1, "izII");
+if ($component2 ! null) {
+    if_setsize($component2, 250, 30, ^setsize_abs, ^setsize_abs);
+    if_setontimer($component2, "clientscript_5586($component2, $component3)");
+}

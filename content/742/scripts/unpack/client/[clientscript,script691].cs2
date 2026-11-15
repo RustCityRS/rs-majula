@@ -1,0 +1,4 @@
+// 691
+[clientscript,script691](component $component0, component $component1, graphic $graphic2, int $int3)
+if_setgraphic($component0, $graphic2);
+if_settrans($component1, $int3);

@@ -1,0 +1,15 @@
+// 2099
+[clientscript,snp_tutorial_update_obelisk_bar]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = enum(int, int, enum_723, %snp_obelisk_control_is_client);
+$int1 = enum(int, int, enum_2196, %snp_obelisk_control_is_client);
+if (%snp_obelisk_control_is_client < 15) {
+    if_setcolour(snp_tutorial_game_overlay:obelisk_progress_bar, 0x3366ff);
+} else if (%snp_obelisk_control_is_client > 15) {
+    if_setcolour(snp_tutorial_game_overlay:obelisk_progress_bar, 0xe12323);
+} else {
+    if_setcolour(snp_tutorial_game_overlay:obelisk_progress_bar, 0x666666);
+}
+if_setposition(snp_tutorial_game_overlay:obelisk_progress_bar, $int0, 66, ^setpos_abs_right, ^setpos_abs_top);
+if_setsize(snp_tutorial_game_overlay:obelisk_progress_bar, $int1, 8, ^setsize_abs, ^setsize_abs);

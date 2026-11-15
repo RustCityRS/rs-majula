@@ -1,0 +1,58 @@
+// 611:0
+[com_0]
+type=rectangle
+width=16455
+height=16489
+widthmode=proportion
+heightmode=proportion
+colour=0x46341d
+fill=yes
+trans=160
+
+// 611:1
+[com_1]
+type=model
+x=262
+y=3
+width=187
+height=324
+layer=layer_1
+model=model_28324
+modelorigin=-2,4
+modelangle=535,2038,0
+modelzoom=679
+
+// 611:2
+[com_2]
+type=model
+x=28
+y=3
+width=187
+height=324
+layer=layer_1
+model=model_28316
+modelorigin=-2,4
+modelangle=535,2038,0
+modelzoom=679
+
+// 611:3
+[close_button]
+type=graphic
+x=461
+y=17
+width=26
+height=23
+layer=layer_1
+graphic="close_buttons,6"
+colour=0x000000
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onclick=closebutton_click
+
+// 611:4
+[layer_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre

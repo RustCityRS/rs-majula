@@ -1,0 +1,36 @@
+// 6580
+[proc,clientscript_6580]
+switch_int (%varplayerbit_11768) {
+    case 3 :
+        if_set2dangle(interface_1253:com_94, 6735);
+        if_sethide(interface_1253:com_356, false);
+        if_sethide(interface_1253:com_359, true);
+        if_setontimer(interface_1253:com_79, null);
+        if_setsize(interface_1253:com_79, 1, 1, ^setsize_abs, ^setsize_abs);
+        if_settrans(interface_1253:com_79, 255);
+        if_sethide(interface_1253:com_79, true);
+    case 4 :
+        if_set2dangle(interface_1253:com_94, 58982);
+        if_sethide(interface_1253:com_356, true);
+        if_sethide(interface_1253:com_359, false);
+        if_setsize(interface_1253:com_79, 1, 1, ^setsize_abs, ^setsize_abs);
+        if_settrans(interface_1253:com_79, 255);
+        if_setontimer(interface_1253:com_79, "clientscript_6582(event_com)");
+        if_sethide(interface_1253:com_79, false);
+    case 1 :
+        if_set2dangle(interface_1253:com_94, 6735);
+        if_sethide(interface_1253:com_356, false);
+        if_sethide(interface_1253:com_359, true);
+        if_setontimer(interface_1253:com_79, null);
+        if_setsize(interface_1253:com_79, 1, 1, ^setsize_abs, ^setsize_abs);
+        if_settrans(interface_1253:com_79, 255);
+        if_sethide(interface_1253:com_79, true);
+    case 2 :
+        if_set2dangle(interface_1253:com_94, 58982);
+        if_sethide(interface_1253:com_356, true);
+        if_sethide(interface_1253:com_359, false);
+        if_setsize(interface_1253:com_79, 1, 1, ^setsize_abs, ^setsize_abs);
+        if_settrans(interface_1253:com_79, 255);
+        if_setontimer(interface_1253:com_79, "clientscript_6582(event_com)");
+        if_sethide(interface_1253:com_79, false);
+}

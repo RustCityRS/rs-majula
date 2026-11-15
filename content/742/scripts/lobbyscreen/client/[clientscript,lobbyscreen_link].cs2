@@ -1,0 +1,9 @@
+// 3088
+[clientscript,lobbyscreen_link](string $string0, string $string1, boolean $boolean0)
+if (compare($string0, "dob") = 0 & compare($string1, "set_members_dob.ws") = 0) {
+    op14("billing_core", "purchasepopup.ws?externalName=rs", "packagegroupredirect.ws?value=rs", 1);
+    %varclient_1795 = clientclock;
+    if_setontimer(lobbyscreen:com_236, "clientscript_6032");
+} else if (compare($string0, "") ! 0 & compare($string1, "") ! 0) {
+    openurl($string0, $string1, $boolean0);
+}

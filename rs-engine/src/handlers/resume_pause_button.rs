@@ -1,7 +1,7 @@
 use crate::active_player::ActivePlayer;
 use crate::core::engine_mut;
 use crate::handlers::ClientGameHandler;
-#[cfg(since_647)]
+#[cfg(since_530)]
 use crate::handlers::op_common::component_events;
 use crate::watch::Op;
 use rs_protocol::network::game::client::resume_pause_button::ResumePauseButton;
@@ -39,7 +39,7 @@ impl ClientGameHandler for ResumePauseButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
         active.watch_note("Click here to continue");
-        #[cfg(before_647)]
+        #[cfg(before_530)]
         {
             active.player.last_com = Some(self.com.into());
         }
@@ -59,7 +59,7 @@ impl ClientGameHandler for ResumePauseButton {
         // The 647 client names the pause button it clicked. A dialogue of
         // several -- a choice, an item to make -- reads that as `last_com`;
         // left alone it would still hold whatever button came before.
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         {
             if component_events(active, self.com, self.slot)
                 .is_none_or(|events| !events.is_pause_button())

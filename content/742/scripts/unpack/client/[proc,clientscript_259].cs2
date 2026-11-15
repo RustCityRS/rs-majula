@@ -1,0 +1,3 @@
+// 259
+[proc,clientscript_259](obj $obj0)(int)
+return(calc(inv_total(inv, $obj0) + inv_total(bank, $obj0) + inv_total(worn, $obj0) + inv_total(lore_bob, $obj0) + inv_total(inv_675, $obj0)));

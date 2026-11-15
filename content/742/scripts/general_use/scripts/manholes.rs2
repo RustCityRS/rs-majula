@@ -1,0 +1,30 @@
+// 289's manholes. Cache 786's open manhole closes itself (manholeopen: op1
+// Climb-down, op2 Close) where 289 laid a cover beside it, loc_883, which is a
+// Gate in 786 (gate_883): the cover's lines run on the open manhole's Close.
+[oploc1,manholeclosed]
+mes("You pull back the cover from over the manhole.");
+sound_synth(coffin_open, 1, 0);
+// Temp note: dur does not need updated
+loc_change(manholeopen, 400);
+
+[oploc1,manholeopen]
+mes("You climb down through the manhole.");
+// 2011-04-20 recording (YouTube bHxrbaUN3AI, 318.6-321s): Varrock's sewer asks first, after the
+// line above. Other manholes aren't recorded.
+if (loc_coord = 0_50_54_37_2) {
+    ~mesbox("This sewer looks quite dangerous, are you sure you want to enter?");
+    if (~p_choice2_header("Yes, please.", 1, "No, thank you.", 2, "Enter the sewer?") = 2) {
+        return;
+    }
+}
+// The landing is void-634's record of each manhole's climb
+// (ladders+stairs/configs/loc_tele_2011.dbrow): the one at 0_50_54_37_2 lands
+// a tile west of 289's (dx -1). 289's own climb is the fallback.
+if (~loc_tele_2011(1) = false) {
+    p_telejump(movecoord(coord(), 0, 0, 6400));
+}
+
+[oploc2,manholeopen]
+mes("You place the cover back over the manhole.");
+// Temp note: dur does not need updated
+loc_change(manholeclosed, 400);

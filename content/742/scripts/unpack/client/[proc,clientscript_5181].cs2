@@ -1,0 +1,7 @@
+// 5181
+[proc,clientscript_5181](int $int0)
+if (if_getscrollwidth(interface_1122:com_82) = 0) {
+    return;
+}
+if_setscrollpos(interface_1122:com_82, calc(if_getscrollx(interface_1122:com_82) + 8 * $int0), 0);
+~clientscript_5182;

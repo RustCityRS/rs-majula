@@ -1,6 +1,7 @@
 use crate::zone::Zone;
 use rs_entity::{Loc, Obj};
 use rs_grid::ZoneCoordGrid;
+use rs_ver::TypeId;
 use rustc_hash::FxHashMap;
 
 /// Global lookup table mapping zone coordinates to their [`Zone`] instances.
@@ -101,7 +102,7 @@ impl ZoneMap {
     /// `Some((zone, index))` addressing `zone.locs[index]`, or `None` if the zone
     /// is not loaded or holds no such location.
     #[inline]
-    pub fn find_loc(&self, x: u16, y: u8, z: u16, id: u16) -> Option<(&Zone, usize)> {
+    pub fn find_loc(&self, x: u16, y: u8, z: u16, id: TypeId) -> Option<(&Zone, usize)> {
         let zone = self.zone(x, y, z)?;
         let idx = zone.get_loc(x, z, id)?;
         Some((zone, idx))
@@ -120,7 +121,7 @@ impl ZoneMap {
     ///
     /// `Some(&Loc)`, or `None` if the zone is not loaded or holds no such location.
     #[inline]
-    pub fn loc_at(&self, x: u16, y: u8, z: u16, id: u16) -> Option<&Loc> {
+    pub fn loc_at(&self, x: u16, y: u8, z: u16, id: TypeId) -> Option<&Loc> {
         let (zone, idx) = self.find_loc(x, y, z, id)?;
         Some(&zone.locs[idx])
     }
@@ -149,7 +150,7 @@ impl ZoneMap {
         x: u16,
         y: u8,
         z: u16,
-        id: u16,
+        id: TypeId,
         receiver37: Option<u64>,
     ) -> Option<(&Zone, usize)> {
         let zone = self.zone(x, y, z)?;
@@ -173,7 +174,14 @@ impl ZoneMap {
     /// `Some(&Obj)`, or `None` if the zone is not loaded or holds no such object
     /// visible to this receiver.
     #[inline]
-    pub fn obj_at(&self, x: u16, y: u8, z: u16, id: u16, receiver37: Option<u64>) -> Option<&Obj> {
+    pub fn obj_at(
+        &self,
+        x: u16,
+        y: u8,
+        z: u16,
+        id: TypeId,
+        receiver37: Option<u64>,
+    ) -> Option<&Obj> {
         let (zone, idx) = self.find_obj(x, y, z, id, receiver37)?;
         Some(&zone.objs[idx])
     }

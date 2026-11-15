@@ -1,0 +1,20 @@
+// 284:0
+[content_layer]
+type=layer
+x=7
+width=512
+height=334
+xmode=proportion_left
+ymode=abs_bottom
+
+// 284:1
+[com_1]
+type=graphic
+x=655
+y=655
+width=25
+height=25
+xmode=proportion_left
+ymode=proportion_bottom
+layer=content_layer
+graphic=graphic_219

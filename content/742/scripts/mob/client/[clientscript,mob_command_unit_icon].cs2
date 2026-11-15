@@ -1,0 +1,11 @@
+// 2637
+[clientscript,mob_command_unit_icon]
+if (%mob_side_command_head = 1) {
+    if_setgraphic(mob_side_command:unit_race, "mob_unit_heads,4");
+} else if (%mob_side_command_head = 2) {
+    if_setgraphic(mob_side_command:unit_race, "mob_unit_heads,1");
+} else if (%mob_side_command_head = 3) {
+    if_setgraphic(mob_side_command:unit_race, "mob_unit_heads,2");
+}
+if_settext(mob_side_command:command_title, "");
+if_settext(mob_side_command:command_desc, "");

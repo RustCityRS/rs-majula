@@ -1,0 +1,9 @@
+// 6435
+[proc,clientscript_6435](component $component0)
+if (%varplayer_2664 ! -1) {
+    ~clientscript_5335($component0, -1, interface_1309:com_0, "You are already in a group.", 60, 200, 1);
+} else if (%varplayer_2662 ! -1) {
+    ~clientscript_5335($component0, -1, interface_1309:com_0, "You are already being invited to a group.", 60, 200, 1);
+} else {
+    ~clientscript_5335($component0, -1, interface_1309:com_0, "You are already inviting someone to a group.", 60, 200, 1);
+}

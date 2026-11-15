@@ -1,0 +1,148 @@
+// 646:0
+[com_0]
+type=graphic
+x=5
+y=4
+width=502
+height=324
+graphic=graphic_297
+tiling=yes
+
+// 646:1
+[com_1]
+type=graphic
+x=-13
+y=30
+width=32
+height=273
+graphic=graphic_821
+tiling=yes
+
+// 646:2
+[com_2]
+type=graphic
+y=1
+width=32
+height=32
+graphic=graphic_824
+
+// 646:3
+[com_3]
+type=graphic
+x=492
+y=32
+width=32
+height=271
+graphic=graphic_823
+tiling=yes
+
+// 646:4
+[com_4]
+type=graphic
+x=32
+y=-12
+width=450
+height=29
+graphic=graphic_820
+tiling=yes
+
+// 646:5
+[com_5]
+type=graphic
+x=31
+y=314
+width=450
+height=36
+graphic=graphic_822
+tiling=yes
+
+// 646:6
+[com_6]
+type=graphic
+y=302
+width=32
+height=32
+graphic=graphic_826
+
+// 646:7
+[com_7]
+type=graphic
+x=480
+y=1
+width=32
+height=32
+graphic=graphic_825
+
+// 646:8
+[com_8]
+type=graphic
+x=480
+y=302
+width=32
+height=32
+graphic=graphic_827
+
+// 646:9
+[sand_timer]
+type=model
+x=184
+y=30
+width=146
+height=255
+model=model_29916
+modelorigin=0,102
+modelangle=135,24,0
+modelzoom=781
+modelanim=seq_7374
+modelunknown=0,3000,0
+
+// 646:10
+[com_10]
+type=graphic
+x=16
+y=16
+width=25
+height=25
+graphic=graphic_1164
+
+// 646:11
+[com_11]
+type=text
+x=50
+y=289
+width=408
+height=32
+textfont=fontmetrics_495
+text=Step 4 : With your items placed on the Grand Exchange system, just wait a while and we will let you know when your items are traded.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 646:12
+[continue_button]
+type=graphic
+x=472
+y=21
+width=16
+height=16
+graphic=graphic_1174
+transmitop=1
+op1=Continue
+onmouseover=graphic_swapper(event_com, 1175)
+onmouseleave=graphic_swapper(event_com, 1174)
+
+// 646:13
+[close_button]
+type=text
+x=375
+y=21
+width=106
+height=16
+textfont=fontmetrics_495
+text=Click to continue
+colour=0xbf751d
+transmitop=1
+op1=Continue
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)

@@ -1,0 +1,8 @@
+// 6577
+[proc,clientscript_6577]
+if (%varplayerbit_11768 = 2) {
+    %varplayerbit_11768 = 4;
+} else if (%varplayerbit_11768 = 1) {
+    %varplayerbit_11768 = 3;
+}
+~clientscript_6580;

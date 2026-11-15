@@ -80,6 +80,7 @@ fn describe(check: &ReflectionCheck) -> String {
             class,
             method,
             params,
+            ..
         } => format!("{class}.{method}({}) modifiers", params.join(", ")),
     }
 }

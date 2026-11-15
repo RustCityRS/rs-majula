@@ -1,0 +1,2839 @@
+// 592:0
+[loc_lie]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 592:1
+[bg]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=graphic_297
+tiling=yes
+opbase= 
+
+// 592:2
+[border_r]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic=graphic_823
+tiling=yes
+
+// 592:3
+[border_l]
+type=graphic
+y=53
+width=32
+height=241
+graphic=graphic_821
+tiling=yes
+
+// 592:4
+[border_mid]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic=graphic_828
+tiling=yes
+
+// 592:5
+[border_top]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic=graphic_820
+tiling=yes
+
+// 592:6
+[border_lower]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic=graphic_822
+tiling=yes
+opbase= 
+
+// 592:7
+[com_7]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic=graphic_824
+
+// 592:8
+[com_8]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic=graphic_826
+
+// 592:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic=graphic_827
+
+// 592:10
+[com_10]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic=graphic_825
+
+// 592:11
+[border_t_left]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic=graphic_829
+
+// 592:12
+[border_t_right]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic=graphic_830
+
+// 592:13
+[com_13]
+type=layer
+x=234
+y=61
+width=130
+height=246
+
+// 592:14
+[com_14]
+type=layer
+x=25
+y=73
+width=173
+height=120
+
+// 592:15
+[com_15]
+type=layer
+y=3
+width=512
+height=334
+
+// 592:16
+[com_16]
+type=layer
+x=25
+y=199
+width=190
+height=110
+
+// 592:17
+[com_17]
+type=layer
+x=234
+y=62
+width=129
+height=244
+
+// 592:18
+[shop_title]
+type=text
+x=21
+y=31
+width=469
+height=15
+textfont=fontmetrics_496
+text=Hairdresser's Salon
+textalignh=centre
+textshadow=yes
+colour=0xc9800d
+
+// 592:19
+[listlayer]
+type=layer
+x=25
+y=113
+width=173
+height=80
+
+// 592:20
+[com_20]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_177
+graphic=graphic_180
+transmitop=10
+op10=      
+
+// 592:21
+[com_21]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_177
+textfont=fontmetrics_495
+text=Odango
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=      
+
+// 592:22
+[com_22]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_176
+graphic=graphic_180
+transmitop=10
+op10=      
+
+// 592:23
+[com_23]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_176
+textfont=fontmetrics_495
+text=Pixie
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=      
+
+// 592:24
+[listitem_2]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_149
+textfont=fontmetrics_495
+text=Bun
+textshadow=yes
+colour=0xc9800d
+
+// 592:25
+[com_25]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_149
+graphic=graphic_180
+
+// 592:26
+[listitem_3]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_150
+textfont=fontmetrics_495
+text=Dreadlocks
+textshadow=yes
+colour=0xc9800d
+
+// 592:27
+[com_27]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_150
+graphic=graphic_180
+
+// 592:28
+[listitem_4]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_151
+textfont=fontmetrics_495
+text=Long
+textshadow=yes
+colour=0xc9800d
+
+// 592:29
+[com_29]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_151
+graphic=graphic_180
+
+// 592:30
+[listitem_5]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_152
+textfont=fontmetrics_495
+text=Short
+textshadow=yes
+colour=0xc9800d
+
+// 592:31
+[com_31]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_152
+graphic=graphic_180
+
+// 592:32
+[listitem_6]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_153
+textfont=fontmetrics_495
+text=Pigtails
+textshadow=yes
+colour=0xc9800d
+
+// 592:33
+[com_33]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_153
+graphic=graphic_180
+
+// 592:34
+[com_34]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_154
+textfont=fontmetrics_495
+text=Crew cut
+textshadow=yes
+colour=0xc9800d
+
+// 592:35
+[com_35]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_154
+graphic=graphic_180
+
+// 592:36
+[com_36]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_155
+textfont=fontmetrics_495
+text=Close-cropped
+textshadow=yes
+colour=0xc9800d
+
+// 592:37
+[com_37]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_155
+graphic=graphic_180
+
+// 592:38
+[com_38]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_156
+textfont=fontmetrics_495
+text=Wild spikes
+textshadow=yes
+colour=0xc9800d
+
+// 592:39
+[com_39]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_156
+graphic=graphic_180
+
+// 592:40
+[com_40]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_157
+textfont=fontmetrics_495
+text=Spikes
+textshadow=yes
+colour=0xc9800d
+
+// 592:41
+[com_41]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_157
+graphic=graphic_180
+
+// 592:42
+[com_42]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_158
+textfont=fontmetrics_495
+text=Side ponytail
+textshadow=yes
+colour=0xc9800d
+
+// 592:43
+[com_43]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_158
+graphic=graphic_180
+
+// 592:44
+[com_44]
+type=text
+x=17
+y=4
+width=124
+height=16
+layer=com_159
+textfont=fontmetrics_495
+text=Curls
+textshadow=yes
+colour=0xc9800d
+
+// 592:45
+[com_45]
+type=graphic
+y=3
+width=36
+height=36
+layer=com_159
+graphic=graphic_180
+
+// 592:46
+[com_46]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_160
+textfont=fontmetrics_495
+text=Wind braids
+textshadow=yes
+colour=0xc9800d
+
+// 592:47
+[com_47]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_160
+graphic=graphic_180
+
+// 592:48
+[com_48]
+type=text
+x=17
+y=4
+width=124
+height=16
+layer=com_161
+textfont=fontmetrics_495
+text=Ponytail
+textshadow=yes
+colour=0xc9800d
+
+// 592:49
+[com_49]
+type=graphic
+y=3
+width=36
+height=36
+layer=com_161
+graphic=graphic_180
+
+// 592:50
+[com_50]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_162
+textfont=fontmetrics_495
+text=Ring braids
+textshadow=yes
+colour=0xc9800d
+
+// 592:51
+[com_51]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_162
+graphic=graphic_180
+
+// 592:52
+[com_52]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_163
+textfont=fontmetrics_495
+text=Four ponies
+textshadow=yes
+colour=0xc9800d
+
+// 592:53
+[com_53]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_163
+graphic=graphic_180
+
+// 592:54
+[com_54]
+type=graphic
+x=1
+y=2
+width=36
+height=36
+layer=com_164
+graphic=graphic_180
+
+// 592:55
+[com_55]
+type=text
+x=18
+y=3
+width=124
+height=16
+layer=com_164
+textfont=fontmetrics_495
+text=Flip
+textshadow=yes
+colour=0xc9800d
+
+// 592:56
+[com_56]
+type=text
+x=18
+y=3
+width=124
+height=16
+layer=com_165
+textfont=fontmetrics_495
+text=Layered flip
+textshadow=yes
+colour=0xc9800d
+
+// 592:57
+[com_57]
+type=graphic
+x=1
+y=2
+width=36
+height=36
+layer=com_165
+graphic=graphic_180
+
+// 592:58
+[com_58]
+type=text
+x=18
+y=3
+width=124
+height=16
+layer=com_166
+textfont=fontmetrics_495
+text=Straight
+textshadow=yes
+colour=0xc9800d
+
+// 592:59
+[com_59]
+type=graphic
+x=1
+y=2
+width=36
+height=36
+layer=com_166
+graphic=graphic_180
+
+// 592:60
+[com_60]
+type=text
+x=18
+y=3
+width=124
+height=16
+layer=com_167
+textfont=fontmetrics_495
+text=Long braids
+textshadow=yes
+colour=0xc9800d
+
+// 592:61
+[com_61]
+type=graphic
+x=1
+y=2
+width=36
+height=36
+layer=com_167
+graphic=graphic_180
+
+// 592:62
+[com_62]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_168
+textfont=fontmetrics_495
+text=Curtains
+textshadow=yes
+colour=0xc9800d
+
+// 592:63
+[com_63]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_168
+graphic=graphic_180
+
+// 592:64
+[com_64]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_169
+graphic=graphic_180
+
+// 592:65
+[com_65]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_169
+textfont=fontmetrics_495
+text=Earmuffs
+textshadow=yes
+colour=0xc9800d
+
+// 592:66
+[listitem_1]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_148
+textfont=fontmetrics_495
+text=Bald
+textshadow=yes
+colour=0xc9800d
+
+// 592:67
+[com_67]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_148
+graphic=graphic_180
+
+// 592:68
+[paybutton]
+type=graphic
+x=408
+y=250
+width=42
+height=42
+graphic=graphic_1058
+transmitop=1
+op1=Confirm Purchase
+onmouseover=graphic_swapper(event_com, 1050)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1058)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Confirm Purchase", 25, 80)
+
+// 592:69
+[com_69]
+type=layer
+x=408
+y=250
+width=71
+height=71
+
+// 592:70
+[com_70]
+type=graphic
+x=37
+y=62
+width=42
+height=42
+graphic=graphic_1048
+transmitop=1
+op1=Hair
+onmouseleave=deltooltip(interface_592:com_246)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Show Hair Selections", 25, 80)
+
+// 592:71
+[com_71]
+type=layer
+x=198
+y=113
+width=16
+height=80
+scrollheight=400
+onload=poh_costume_room_interface_setup
+
+// 592:72
+[com_72]
+type=layer
+x=381
+y=62
+width=95
+height=195
+
+// 592:73
+[com_73]
+type=graphic
+x=384
+y=66
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Burgundy", 25, 40)
+onclick=clientscript_340
+
+// 592:74
+[com_74]
+type=graphic
+x=407
+y=66
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Red", 25, 40)
+onclick=clientscript_341
+
+// 592:75
+[com_75]
+type=graphic
+x=430
+y=66
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Vermillion", 25, 40)
+onclick=clientscript_342
+
+// 592:76
+[com_76]
+type=graphic
+x=453
+y=66
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Pink", 25, 40)
+onclick=clientscript_343
+
+// 592:77
+[com_77]
+type=graphic
+x=384
+y=89
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Orange", 25, 40)
+onclick=clientscript_344
+
+// 592:78
+[com_78]
+type=graphic
+x=407
+y=89
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Yellow", 25, 40)
+onclick=clientscript_345
+
+// 592:79
+[com_79]
+type=graphic
+x=430
+y=89
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Peach", 25, 40)
+onclick=clientscript_346
+
+// 592:80
+[com_80]
+type=graphic
+x=453
+y=89
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Brown", 25, 40)
+onclick=clientscript_347
+
+// 592:81
+[com_81]
+type=graphic
+x=384
+y=112
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Dark brown", 25, 40)
+onclick=clientscript_348
+
+// 592:82
+[com_82]
+type=graphic
+x=407
+y=112
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Light brown", 25, 40)
+onclick=clientscript_349
+
+// 592:83
+[com_83]
+type=graphic
+x=430
+y=112
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Mint green", 25, 40)
+onclick=clientscript_350
+
+// 592:84
+[com_84]
+type=graphic
+x=453
+y=112
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Green", 25, 40)
+onclick=clientscript_351
+
+// 592:85
+[com_85]
+type=graphic
+x=384
+y=135
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Dark green", 25, 40)
+onclick=clientscript_352
+
+// 592:86
+[com_86]
+type=graphic
+x=407
+y=135
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Dark blue", 25, 40)
+onclick=clientscript_353
+
+// 592:87
+[com_87]
+type=graphic
+x=430
+y=135
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Turquoise", 25, 40)
+onclick=clientscript_354
+
+// 592:88
+[com_88]
+type=graphic
+x=453
+y=135
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Cyan", 25, 40)
+onclick=clientscript_355
+
+// 592:89
+[com_89]
+type=graphic
+x=384
+y=158
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Purple", 25, 40)
+onclick=clientscript_356
+
+// 592:90
+[com_90]
+type=graphic
+x=407
+y=158
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Violet", 25, 40)
+onclick=clientscript_357
+
+// 592:91
+[com_91]
+type=graphic
+x=430
+y=158
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Indigo", 25, 40)
+onclick=clientscript_358
+
+// 592:92
+[com_92]
+type=graphic
+x=453
+y=158
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Dark grey", 25, 40)
+onclick=clientscript_359
+
+// 592:93
+[com_93]
+type=graphic
+x=384
+y=181
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Military grey", 25, 40)
+onclick=clientscript_360
+
+// 592:94
+[com_94]
+type=graphic
+x=407
+y=181
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "White", 25, 40)
+onclick=clientscript_361
+
+// 592:95
+[com_95]
+type=graphic
+x=430
+y=181
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Light grey", 25, 40)
+onclick=clientscript_362
+
+// 592:96
+[com_96]
+type=graphic
+x=453
+y=181
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Taupe", 25, 40)
+onclick=clientscript_363
+
+// 592:97
+[com_97]
+type=graphic
+x=384
+y=204
+width=21
+height=21
+graphic=graphic_1041
+transmitop=1
+op1=Select
+onmouseover=graphic_swapper(event_com, 1042)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, event_com, 1041)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Black", 25, 40)
+onclick=clientscript_364
+
+// 592:98
+[close_button]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic=graphic_831
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, 832)
+onmouseleave=graphic_swapper(event_com, 831)
+onop=if_close
+
+// 592:99
+[line_layer]
+type=layer
+width=512
+height=334
+
+// 592:100
+[paybutton_thumb]
+type=graphic
+x=451
+y=261
+width=23
+height=23
+graphic=graphic_938
+transmitop=1
+opbase=  
+op1=Confirm Purchase
+onmouseover=graphic_swapper(interface_592:paybutton, 1050)
+onmouseleave=deltooltip_graphic_swapper(interface_592:com_246, interface_592:paybutton, 1058)
+onmouserepeat=addtooltip(event_com, interface_592:com_246, "Confirm Purchase", 25, 80)
+
+// 592:101
+[tooltip_bounding_box]
+type=layer
+width=512
+height=334
+
+// 592:102
+[com_102]
+type=rectangle
+x=-1
+y=-5
+width=130
+height=10
+layer=com_13
+colour=0x483f33
+fill=yes
+
+// 592:103
+[com_103]
+type=rectangle
+x=-1
+y=5
+width=130
+height=10
+layer=com_13
+colour=0x473e33
+fill=yes
+
+// 592:104
+[com_104]
+type=rectangle
+x=-1
+y=15
+width=130
+height=10
+layer=com_13
+colour=0x463d32
+fill=yes
+
+// 592:105
+[com_105]
+type=rectangle
+x=-1
+y=25
+width=130
+height=10
+layer=com_13
+colour=0x453c32
+fill=yes
+
+// 592:106
+[com_106]
+type=rectangle
+x=-1
+y=35
+width=130
+height=10
+layer=com_13
+colour=0x443b31
+fill=yes
+
+// 592:107
+[com_107]
+type=rectangle
+x=-1
+y=45
+width=130
+height=10
+layer=com_13
+colour=0x433a31
+fill=yes
+
+// 592:108
+[com_108]
+type=rectangle
+x=-1
+y=55
+width=130
+height=10
+layer=com_13
+colour=0x423930
+fill=yes
+
+// 592:109
+[com_109]
+type=rectangle
+x=-1
+y=65
+width=130
+height=10
+layer=com_13
+colour=0x413830
+fill=yes
+
+// 592:110
+[com_110]
+type=rectangle
+x=-1
+y=75
+width=130
+height=10
+layer=com_13
+colour=0x40372f
+fill=yes
+
+// 592:111
+[com_111]
+type=rectangle
+x=-1
+y=85
+width=130
+height=10
+layer=com_13
+colour=0x3f362f
+fill=yes
+
+// 592:112
+[com_112]
+type=rectangle
+x=-1
+y=95
+width=130
+height=10
+layer=com_13
+colour=0x3e352e
+fill=yes
+
+// 592:113
+[com_113]
+type=rectangle
+x=-1
+y=105
+width=130
+height=10
+layer=com_13
+colour=0x3d342e
+fill=yes
+
+// 592:114
+[com_114]
+type=rectangle
+x=-1
+y=115
+width=130
+height=10
+layer=com_13
+colour=0x3c332d
+fill=yes
+
+// 592:115
+[com_115]
+type=rectangle
+x=-1
+y=125
+width=130
+height=10
+layer=com_13
+colour=0x3b322d
+fill=yes
+
+// 592:116
+[com_116]
+type=rectangle
+x=-1
+y=135
+width=130
+height=10
+layer=com_13
+colour=0x3a312c
+fill=yes
+
+// 592:117
+[com_117]
+type=rectangle
+x=-1
+y=145
+width=130
+height=10
+layer=com_13
+colour=0x39302c
+fill=yes
+
+// 592:118
+[com_118]
+type=rectangle
+x=-1
+y=155
+width=130
+height=10
+layer=com_13
+colour=0x382f2b
+fill=yes
+
+// 592:119
+[com_119]
+type=rectangle
+x=-1
+y=165
+width=130
+height=10
+layer=com_13
+colour=0x372e29
+fill=yes
+
+// 592:120
+[com_120]
+type=rectangle
+x=-1
+y=175
+width=130
+height=10
+layer=com_13
+colour=0x362d28
+fill=yes
+
+// 592:121
+[com_121]
+type=rectangle
+x=-1
+y=185
+width=130
+height=10
+layer=com_13
+colour=0x352d27
+fill=yes
+
+// 592:122
+[com_122]
+type=rectangle
+x=-1
+y=195
+width=130
+height=10
+layer=com_13
+colour=0x342c26
+fill=yes
+
+// 592:123
+[com_123]
+type=rectangle
+x=-1
+y=205
+width=130
+height=10
+layer=com_13
+colour=0x332b25
+fill=yes
+
+// 592:124
+[com_124]
+type=rectangle
+x=-1
+y=215
+width=130
+height=10
+layer=com_13
+colour=0x322a24
+fill=yes
+
+// 592:125
+[com_125]
+type=rectangle
+x=-1
+y=225
+width=130
+height=10
+layer=com_13
+colour=0x312923
+fill=yes
+
+// 592:126
+[com_126]
+type=rectangle
+x=-1
+y=235
+width=130
+height=10
+layer=com_13
+colour=0x302922
+fill=yes
+
+// 592:127
+[listbg_1]
+type=rectangle
+y=40
+width=173
+height=7
+layer=com_14
+colour=0x433a31
+fill=yes
+
+// 592:128
+[listbg_2]
+type=rectangle
+y=47
+width=173
+height=10
+layer=com_14
+colour=0x423930
+fill=yes
+
+// 592:129
+[listbg_3]
+type=rectangle
+y=57
+width=173
+height=10
+layer=com_14
+colour=0x413830
+fill=yes
+
+// 592:130
+[listbg_4]
+type=rectangle
+y=67
+width=173
+height=10
+layer=com_14
+colour=0x40372f
+fill=yes
+
+// 592:131
+[listbg_5]
+type=rectangle
+y=77
+width=173
+height=10
+layer=com_14
+colour=0x3f362f
+fill=yes
+
+// 592:132
+[listbg_6]
+type=rectangle
+y=87
+width=173
+height=10
+layer=com_14
+colour=0x3e352e
+fill=yes
+
+// 592:133
+[listbg_7]
+type=rectangle
+y=97
+width=173
+height=10
+layer=com_14
+colour=0x3d342e
+fill=yes
+
+// 592:134
+[listbg_8]
+type=rectangle
+y=107
+width=173
+height=13
+layer=com_14
+colour=0x3c332d
+fill=yes
+
+// 592:135
+[chatbg_grad_1]
+type=rectangle
+x=25
+y=196
+width=189
+height=10
+layer=com_15
+colour=0x3b322d
+fill=yes
+
+// 592:136
+[chatbg_grad_2]
+type=rectangle
+x=25
+y=206
+width=189
+height=10
+layer=com_15
+colour=0x3a312c
+fill=yes
+
+// 592:137
+[chatbg_grad_3]
+type=rectangle
+x=25
+y=216
+width=189
+height=10
+layer=com_15
+colour=0x39302c
+fill=yes
+
+// 592:138
+[chatbg_grad_4]
+type=rectangle
+x=25
+y=226
+width=189
+height=10
+layer=com_15
+colour=0x382f2b
+fill=yes
+
+// 592:139
+[chatbg_grad_5]
+type=rectangle
+x=25
+y=236
+width=189
+height=10
+layer=com_15
+colour=0x372e29
+fill=yes
+
+// 592:140
+[chatbg_grad_6]
+type=rectangle
+x=25
+y=246
+width=189
+height=10
+layer=com_15
+colour=0x362d28
+fill=yes
+
+// 592:141
+[chatbg_grad_7]
+type=rectangle
+x=25
+y=256
+width=189
+height=10
+layer=com_15
+colour=0x352d27
+fill=yes
+
+// 592:142
+[chatbg_grad_8]
+type=rectangle
+x=25
+y=266
+width=189
+height=10
+layer=com_15
+colour=0x342c26
+fill=yes
+
+// 592:143
+[chatbg_grad_9]
+type=rectangle
+x=25
+y=276
+width=189
+height=10
+layer=com_15
+colour=0x332b25
+fill=yes
+
+// 592:144
+[chatbg_grad_10]
+type=rectangle
+x=25
+y=286
+width=189
+height=10
+layer=com_15
+colour=0x322a24
+fill=yes
+
+// 592:145
+[chatbg_grad_11]
+type=rectangle
+x=25
+y=296
+width=189
+height=9
+layer=com_15
+colour=0x312923
+fill=yes
+
+// 592:146
+[chathead]
+type=model
+x=73
+y=56
+width=49
+height=21
+layer=com_16
+model=null
+modelangle=66,1882,0
+modelzoom=2100
+modelanim=seq_569
+modelunknown=0,3000,0
+
+// 592:147
+[com_147]
+type=model
+clientcode=328
+x=-5
+y=35
+width=115
+height=200
+layer=com_17
+model=model_6675
+modelorigin=16,88
+modelzoom=550
+modelanim=human_ready
+modelunknown=2000,3000,0
+
+// 592:148
+[com_148]
+type=layer
+x=3
+y=1
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_318
+
+// 592:149
+[com_149]
+type=layer
+x=3
+y=27
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_319
+
+// 592:150
+[com_150]
+type=layer
+x=3
+y=54
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_320
+
+// 592:151
+[com_151]
+type=layer
+x=3
+y=80
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_321
+
+// 592:152
+[com_152]
+type=layer
+x=3
+y=106
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_322
+
+// 592:153
+[com_153]
+type=layer
+x=4
+y=132
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_323
+
+// 592:154
+[com_154]
+type=layer
+x=4
+y=159
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_324
+
+// 592:155
+[com_155]
+type=layer
+x=4
+y=186
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_325
+
+// 592:156
+[com_156]
+type=layer
+x=4
+y=213
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_326
+
+// 592:157
+[com_157]
+type=layer
+x=4
+y=240
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_327
+
+// 592:158
+[com_158]
+type=layer
+x=4
+y=266
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_328
+
+// 592:159
+[com_159]
+type=layer
+x=4
+y=292
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_329
+
+// 592:160
+[com_160]
+type=layer
+x=4
+y=318
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_330
+
+// 592:161
+[com_161]
+type=layer
+x=4
+y=343
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_331
+
+// 592:162
+[com_162]
+type=layer
+x=4
+y=370
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_332
+
+// 592:163
+[com_163]
+type=layer
+x=4
+y=396
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_333
+
+// 592:164
+[com_164]
+type=layer
+x=3
+y=422
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_334
+
+// 592:165
+[com_165]
+type=layer
+x=3
+y=448
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_335
+
+// 592:166
+[com_166]
+type=layer
+x=3
+y=474
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_336
+
+// 592:167
+[com_167]
+type=layer
+x=3
+y=500
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_337
+
+// 592:168
+[com_168]
+type=layer
+x=4
+y=526
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_338
+
+// 592:169
+[com_169]
+type=layer
+x=4
+y=552
+width=147
+height=21
+layer=listlayer
+transmitop=1
+op1=Select
+onclick=clientscript_339
+
+// 592:170
+[com_170]
+type=layer
+x=4
+y=578
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10= 
+onclick=clientscript_2008
+
+// 592:171
+[com_171]
+type=layer
+x=4
+y=604
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=  
+onclick=clientscript_2009
+
+// 592:172
+[com_172]
+type=layer
+x=4
+y=630
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=   
+onclick=clientscript_2010
+
+// 592:173
+[com_173]
+type=layer
+x=4
+y=656
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=    
+onclick=clientscript_2011
+
+// 592:174
+[com_174]
+type=layer
+x=4
+y=682
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=     
+onclick=clientscript_2012
+
+// 592:175
+[com_175]
+type=layer
+x=4
+y=708
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=      
+onclick=clientscript_2013
+
+// 592:176
+[com_176]
+type=layer
+x=4
+y=734
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=      
+onclick=clientscript_2014
+
+// 592:177
+[com_177]
+type=layer
+x=4
+y=760
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=      
+onclick=clientscript_2015
+
+// 592:178
+[com_178]
+type=layer
+x=4
+y=786
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=       
+onclick=clientscript_2016
+
+// 592:179
+[com_179]
+type=layer
+x=4
+y=812
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=        
+onclick=clientscript_2017
+
+// 592:180
+[com_180]
+type=layer
+x=4
+y=838
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=         
+onclick=clientscript_2018
+
+// 592:181
+[com_181]
+type=layer
+x=4
+y=864
+width=147
+height=21
+layer=listlayer
+transmitop=1,10
+op1=Select
+op10=          
+onclick=clientscript_2019
+
+// 592:182
+[com_182]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_181
+graphic=graphic_180
+transmitop=10
+op10=          
+
+// 592:183
+[com_183]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_181
+textfont=fontmetrics_495
+text=Princess
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=          
+
+// 592:184
+[com_184]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_180
+graphic=graphic_180
+transmitop=10
+op10=         
+
+// 592:185
+[com_185]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_180
+textfont=fontmetrics_495
+text=French twist
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=         
+
+// 592:186
+[com_186]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_179
+graphic=graphic_180
+transmitop=10
+op10=        
+
+// 592:187
+[com_187]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_179
+textfont=fontmetrics_495
+text=Pigtails with fringe
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=        
+
+// 592:188
+[com_188]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_178
+graphic=graphic_180
+transmitop=10
+op10=       
+
+// 592:189
+[com_189]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_178
+textfont=fontmetrics_495
+text=Bun with fringe
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=       
+
+// 592:190
+[com_190]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_175
+graphic=graphic_180
+transmitop=10
+op10=      
+
+// 592:191
+[com_191]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_175
+textfont=fontmetrics_495
+text=Ponytail spiked
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=      
+
+// 592:192
+[com_192]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_174
+graphic=graphic_180
+transmitop=10
+op10=     
+
+// 592:193
+[com_193]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_174
+textfont=fontmetrics_495
+text=Pinned bun
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=     
+
+// 592:194
+[com_194]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_173
+graphic=graphic_180
+transmitop=10
+op10=    
+
+// 592:195
+[com_195]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_173
+textfont=fontmetrics_495
+text=Top knot
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=    
+
+// 592:196
+[com_196]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_172
+graphic=graphic_180
+transmitop=10
+op10=   
+
+// 592:197
+[com_197]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_172
+textfont=fontmetrics_495
+text=Layered
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=   
+
+// 592:198
+[com_198]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_171
+graphic=graphic_180
+transmitop=10
+op10=  
+
+// 592:199
+[com_199]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_171
+textfont=fontmetrics_495
+text=Pinned up
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10=  
+
+// 592:200
+[com_200]
+type=graphic
+y=2
+width=36
+height=36
+layer=com_170
+graphic=graphic_180
+transmitop=10
+op10= 
+
+// 592:201
+[com_201]
+type=text
+x=17
+y=3
+width=124
+height=16
+layer=com_170
+textfont=fontmetrics_495
+text=Fringe
+textshadow=yes
+colour=0xc9800d
+transmitop=10
+op10= 
+
+// 592:202
+[com_202]
+type=text
+x=1
+y=41
+width=70
+height=32
+layer=com_69
+textfont=fontmetrics_495
+text=2,000 Coins
+textshadow=yes
+colour=0xc9800d
+
+// 592:203
+[com_203]
+type=rectangle
+x=3
+y=4
+width=21
+height=21
+layer=com_72
+colour=0x300000
+fill=yes
+
+// 592:204
+[com_204]
+type=rectangle
+x=26
+y=4
+width=21
+height=21
+layer=com_72
+colour=0xb03838
+fill=yes
+
+// 592:205
+[com_205]
+type=rectangle
+x=49
+y=4
+width=21
+height=21
+layer=com_72
+colour=0x9f2800
+fill=yes
+
+// 592:206
+[com_206]
+type=rectangle
+x=72
+y=4
+width=21
+height=21
+layer=com_72
+colour=0xc87f80
+fill=yes
+
+// 592:207
+[com_207]
+type=rectangle
+x=3
+y=27
+width=21
+height=21
+layer=com_72
+colour=0xcb823e
+fill=yes
+
+// 592:208
+[com_208]
+type=rectangle
+x=26
+y=27
+width=21
+height=21
+layer=com_72
+colour=0xcdad53
+fill=yes
+
+// 592:209
+[com_209]
+type=rectangle
+x=49
+y=27
+width=21
+height=21
+layer=com_72
+colour=0xc06840
+fill=yes
+
+// 592:210
+[com_210]
+type=rectangle
+x=72
+y=27
+width=21
+height=21
+layer=com_72
+colour=0x50321e
+fill=yes
+
+// 592:211
+[com_211]
+type=rectangle
+x=3
+y=50
+width=21
+height=21
+layer=com_72
+colour=0x302008
+fill=yes
+
+// 592:212
+[com_212]
+type=rectangle
+x=26
+y=50
+width=21
+height=21
+layer=com_72
+colour=0x885f29
+fill=yes
+
+// 592:213
+[com_213]
+type=rectangle
+x=49
+y=50
+width=21
+height=21
+layer=com_72
+colour=0x60b060
+fill=yes
+
+// 592:214
+[com_214]
+type=rectangle
+x=72
+y=50
+width=21
+height=21
+layer=com_72
+colour=0x008300
+fill=yes
+
+// 592:215
+[com_215]
+type=rectangle
+x=3
+y=73
+width=21
+height=21
+layer=com_72
+colour=0x183028
+fill=yes
+
+// 592:216
+[com_216]
+type=rectangle
+x=26
+y=73
+width=21
+height=21
+layer=com_72
+colour=0x181890
+fill=yes
+
+// 592:217
+[com_217]
+type=rectangle
+x=49
+y=73
+width=21
+height=21
+layer=com_72
+colour=0x008383
+fill=yes
+
+// 592:218
+[com_218]
+type=rectangle
+x=72
+y=73
+width=21
+height=21
+layer=com_72
+colour=0x6088b0
+fill=yes
+
+// 592:219
+[com_219]
+type=rectangle
+x=26
+y=96
+width=21
+height=21
+layer=com_72
+colour=0x9860b0
+fill=yes
+
+// 592:220
+[com_220]
+type=rectangle
+x=3
+y=96
+width=21
+height=21
+layer=com_72
+colour=0xbe00c0
+fill=yes
+
+// 592:221
+[com_221]
+type=rectangle
+x=49
+y=96
+width=21
+height=21
+layer=com_72
+colour=0x581890
+fill=yes
+
+// 592:222
+[com_222]
+type=rectangle
+x=72
+y=96
+width=21
+height=21
+layer=com_72
+colour=0x2f2a2a
+fill=yes
+
+// 592:223
+[com_223]
+type=rectangle
+x=3
+y=119
+width=21
+height=21
+layer=com_72
+colour=0x76756c
+fill=yes
+
+// 592:224
+[com_224]
+type=rectangle
+x=26
+y=119
+width=21
+height=21
+layer=com_72
+colour=0xd6d1d1
+fill=yes
+
+// 592:225
+[com_225]
+type=rectangle
+x=49
+y=119
+width=21
+height=21
+layer=com_72
+colour=0x989878
+fill=yes
+
+// 592:226
+[com_226]
+type=rectangle
+x=72
+y=119
+width=21
+height=21
+layer=com_72
+colour=0x484038
+fill=yes
+
+// 592:227
+[com_227]
+type=rectangle
+x=3
+y=142
+width=21
+height=21
+layer=com_72
+colour=0x101010
+fill=yes
+
+// 592:228
+[line1]
+type=line
+x=23
+y=111
+width=176
+layer=line_layer
+colour=0x332b25
+
+// 592:229
+[line2]
+type=line
+x=23
+y=112
+height=82
+layer=line_layer
+colour=0x332b25
+
+// 592:230
+[line3]
+type=line
+x=199
+y=112
+height=82
+layer=line_layer
+colour=0x332b25
+
+// 592:231
+[line4]
+type=line
+x=24
+y=194
+width=174
+layer=line_layer
+colour=0x332b25
+
+// 592:232
+[line5]
+type=line
+x=23
+y=197
+width=192
+layer=line_layer
+colour=0x332b25
+
+// 592:233
+[line6]
+type=line
+x=23
+y=198
+height=110
+layer=line_layer
+colour=0x332b25
+
+// 592:234
+[line7]
+type=line
+x=215
+y=198
+height=110
+layer=line_layer
+colour=0x332b25
+
+// 592:235
+[line8]
+type=line
+x=23
+y=309
+width=192
+layer=line_layer
+colour=0x332b25
+
+// 592:236
+[line9]
+type=line
+x=232
+y=61
+width=132
+layer=line_layer
+colour=0x332b25
+
+// 592:237
+[line10]
+type=line
+x=232
+y=62
+height=244
+layer=line_layer
+colour=0x332b25
+
+// 592:238
+[line11]
+type=line
+x=364
+y=62
+height=244
+layer=line_layer
+colour=0x332b25
+
+// 592:239
+[line12]
+type=line
+x=232
+y=307
+width=132
+layer=line_layer
+colour=0x332b25
+
+// 592:240
+[line13]
+type=line
+x=382
+y=64
+width=93
+layer=line_layer
+colour=0x332b25
+
+// 592:241
+[line14]
+type=line
+x=382
+y=65
+height=160
+layer=line_layer
+colour=0x332b25
+
+// 592:242
+[line15]
+type=line
+x=475
+y=65
+height=137
+layer=line_layer
+colour=0x332b25
+
+// 592:243
+[line16]
+type=line
+x=382
+y=226
+width=24
+layer=line_layer
+colour=0x332b25
+
+// 592:244
+[line17]
+type=line
+x=406
+y=203
+width=69
+layer=line_layer
+colour=0x332b25
+
+// 592:245
+[line18]
+type=line
+x=406
+y=204
+height=21
+layer=line_layer
+colour=0x332b25
+
+// 592:246
+[com_246]
+type=layer
+x=309
+y=57
+width=200
+height=200
+layer=tooltip_bounding_box
+onmouseleave=deltooltip(interface_592:com_246)

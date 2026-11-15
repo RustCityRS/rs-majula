@@ -1,0 +1,24 @@
+// 948
+[proc,clientscript_948](int $int0, int $int1, string $string0)
+%varclient_1700 = $int1;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+if (if_find(toplevel_fullscreen:com_84) = true) {
+    cc_setontimer(null);
+    cc_setontimer("clientscript_1213(calc(%varclient_1694 + string_length($string0) * 2))");
+}
+if (if_find(toplevel_fullscreen:com_84) = true) {
+    $int2 = min(200, calc(20 + parawidth($string0, 180, b12_full)));
+    $int3 = calc(22 + 15 * paraheight($string0, 180, b12_full));
+    if (compare(if_gettext(toplevel_fullscreen:com_84), "") ! 0) {
+        cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
+    }
+    if (cc_find(inventory:inv, $int0) = true) {
+        $int4 = cc_getx;
+        $int5 = cc_gety;
+        ~clientscript_1212($string0, $int2, $int3);
+        ~clientscript_1222($int2, $int3, $int4, $int5);
+    }
+}

@@ -1,0 +1,15 @@
+// 1626
+[proc,script1626]
+def_string $string0 = "Curtsy";
+def_string $string1 = "Bow";
+if (gender > 0) {
+    if_setgraphic(emotes:emote_bow, "emotes,47");
+    if_setonmouserepeat(emotes:emote_bow, "addtooltip(event_com, emotes:emote_tool_tip, $string0, 50, 150)");
+    if_setop(emotes:emote_bow, 1, $string0);
+    if_setop(emotes:emote_bow, 2, $string1);
+} else {
+    if_setgraphic(emotes:emote_bow, "emotes,3");
+    if_setonmouserepeat(emotes:emote_bow, "addtooltip(event_com, emotes:emote_tool_tip, $string1, 50, 150)");
+    if_setop(emotes:emote_bow, 2, $string0);
+    if_setop(emotes:emote_bow, 1, $string1);
+}

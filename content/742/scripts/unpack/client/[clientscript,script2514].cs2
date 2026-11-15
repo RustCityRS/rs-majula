@@ -1,0 +1,11 @@
+// 2514
+[clientscript,script2514]
+if_settext(mob_special_units:com_11, "0");
+if_settext(mob_special_units:com_60, "0");
+if_settext(mob_special_units:com_52, "0");
+if_settext(mob_special_units:com_44, "0");
+if_settext(mob_special_units:com_69, "0");
+if_settext(mob_special_units:grand_total_qty, "0");
+if (%mob_client_invest >= 0) {
+    if_settext(mob_special_units:invest_remainder_qty, ~tostring_spacer(%mob_client_invest, ","));
+}

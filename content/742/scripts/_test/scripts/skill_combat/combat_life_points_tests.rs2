@@ -1,0 +1,36 @@
+#testscript
+
+// 2011's combat runs on life points, ten to 289's hitpoint and granular: a hit
+// can land on any life point, not only a tenth (skill_combat/scripts/combat.rs2,
+// npc hitpoints in the ported .npc configs).
+
+// 289's max hit is (S + 320) / 640 whole hitpoints, so S = 1000 and S = 1100
+// are both 2 (20 life points). 2011's is 5 + S / 64 (2011 wiki, Maximum
+// melee hit, 2011-05-20; void-634 Damage.kt): 20 and 22.
+[label,test_the_max_hit_is_2011s_life_points]
+assert_eq(~combat_maxhit(1000), 20)
+assert_eq(~combat_maxhit(1100), 22)
+
+// An npc's hitpoints are life points: 289's times ten (Kolodion's human form,
+// 3 hitpoints, is 30), or void-634's value (the dagannoth, 1200).
+[label,test_npc_hitpoints_are_life_points]
+setup_player("test_player")
+npc_add(movecoord(coord, 2, 0, 0), kolhuman, 50)
+assert_eq(npc_basestat(hitpoints), 30)
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
+assert_eq(npc_basestat(hitpoints), 1200)
+
+// A hit past a byte lands whole on an npc: 300 of the dagannoth's 1200.
+[label,test_a_hit_past_255_lands_whole_on_an_npc]
+setup_player("test_player")
+npc_add(movecoord(coord, 0, 0, 2), horror_dagganoth_jr, 50)
+npc_damage(^hitmark_damage, 300)
+assert_eq(npc_stat(hitpoints), 900)
+
+// An npc's hit on a player takes life points, on any life point.
+[label,test_an_npc_hit_takes_life_points]
+setup_player("test_player")
+%life_points = 100
+queue(combat_damage_player, 0, 37)
+test_tick(2)
+assert_eq(%life_points, 63)

@@ -1,0 +1,27 @@
+// 6427
+[proc,clientscript_6427](component $component0, component $component1, component $component2, component $component3)
+switch_component ($component3) {
+    case interface_1309:com_20 :
+        ~deltooltip_action(interface_1309:com_0);
+    case interface_1309:com_22 :
+        ~deltooltip_action(interface_1309:com_1);
+    case interface_1309:com_24 :
+        ~deltooltip_action(interface_1309:com_2);
+    case interface_1308:com_65, interface_1308:com_232, interface_1308:com_467 :
+        ~deltooltip_action(interface_1308:com_0);
+    case interface_1308:com_192, interface_1308:com_316, interface_1308:com_488 :
+        ~deltooltip_action(interface_1308:com_545);
+    case interface_1308:com_197, interface_1308:com_335 :
+        ~deltooltip_action(interface_1308:com_547);
+    case interface_1308:com_205, interface_1308:com_256, interface_1308:com_511 :
+        ~deltooltip_action(interface_1308:com_549);
+    case interface_1308:com_213, interface_1308:com_278, interface_1308:com_530 :
+        ~deltooltip_action(interface_1308:com_551);
+    case interface_1308:com_297 :
+        ~deltooltip_action(interface_1308:com_553);
+    case default :
+        return;
+}
+if_setgraphic($component0, 7920);
+if_setgraphic($component1, 7921);
+if_setgraphic($component2, 7922);

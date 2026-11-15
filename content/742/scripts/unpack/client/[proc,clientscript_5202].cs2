@@ -1,0 +1,39 @@
+// 5202
+[proc,clientscript_5202](int $int0)
+if ($int0 = 1) {
+    %varclient_1597 = %varplayerbit_9671;
+    %varclient_1598 = %varplayerbit_9672;
+    %varclient_1599 = %varplayerbit_9673;
+    %varclient_1600 = %varplayerbit_9674;
+    %varclient_1601 = %varplayerbit_9675;
+}
+switch_int (%varclient_1600) {
+    case 0 :
+        if_setmodel(interface_1122:com_74, model_43803);
+    case 1 :
+        if_setmodel(interface_1122:com_74, model_43796);
+    case 2 :
+        if_setmodel(interface_1122:com_74, model_43790);
+    case 3 :
+        if_setmodel(interface_1122:com_74, model_43779);
+    case 4 :
+        if_setmodel(interface_1122:com_74, model_43795);
+}
+switch_int (%varplayerbit_9646) {
+    case 1 :
+        if_setretex(interface_1122:com_74, 2, texture_1303, texture_1298);
+    case 2 :
+        if_setretex(interface_1122:com_74, 2, texture_1303, texture_1303);
+    case 3 :
+        if_setretex(interface_1122:com_74, 2, texture_1303, texture_1301);
+}
+def_struct $struct1 = enum(int, struct, enum_4850, %varclient_1601);
+if ($struct1 = null) {
+    if_setretex(interface_1122:com_74, 1, texture_1304, texture_1299);
+} else {
+    if_setretex(interface_1122:com_74, 1, texture_1304, struct_param($struct1, param_1884));
+}
+if_setrecol(interface_1122:com_74, 0, 41506, %varclient_1597);
+if_setrecol(interface_1122:com_74, 1, 41497, ~clientscript_5183(%varclient_1597, 0, 0, -9));
+if_setrecol(interface_1122:com_74, 2, 13434, %varclient_1598);
+if_setrecol(interface_1122:com_74, 3, 7102, %varclient_1599);

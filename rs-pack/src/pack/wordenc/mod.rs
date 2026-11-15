@@ -1,4 +1,4 @@
-#[cfg(before_647)]
+#[cfg(before_530)]
 use crate::archive::JagArchive;
 use rs_io::Packet;
 use rs_io::jag::JagFile;

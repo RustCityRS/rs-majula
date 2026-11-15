@@ -1,0 +1,18 @@
+// 2273
+[proc,script2273](component $component0, graphic $graphic1, graphic $graphic2, int $int3, boolean $boolean4, obj $obj5, int $int6, obj $obj7, int $int8, obj $obj9, int $int10, obj $obj11, int $int12)
+if (stat(magic) < $int3 & ($boolean4 = false | stat_base(magic) < $int3)) {
+    if (%assist_engaged = 1) {
+        if (%assist_stat_magic < $int3 | enum(component, int, enum_1061, $component0) = 0) {
+            if_setgraphic($component0, $graphic2);
+            return;
+        }
+    } else {
+        if_setgraphic($component0, $graphic2);
+        return;
+    }
+}
+if (%rand_gate_stone_coord = -1) {
+    if_setgraphic($component0, $graphic2);
+    return;
+}
+if_setgraphic($component0, $graphic1);

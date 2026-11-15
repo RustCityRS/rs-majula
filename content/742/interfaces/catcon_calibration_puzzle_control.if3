@@ -1,0 +1,509 @@
+// 682:0
+[com_0]
+type=rectangle
+x=26
+y=40
+width=140
+height=44
+colour=0x000000
+fill=yes
+trans=200
+
+// 682:1
+[com_1]
+type=rectangle
+x=11
+y=144
+width=170
+height=60
+colour=0x000000
+fill=yes
+trans=200
+
+// 682:2
+[com_2]
+type=model
+x=78
+y=155
+width=38
+height=36
+model=model_14936
+modelorigin=0,-1
+modelangle=400,2029,0
+modelzoom=2576
+
+// 682:3
+[com_3]
+type=model
+x=78
+y=155
+width=38
+height=36
+model=model_14938
+modelorigin=0,-1
+modelangle=400,2029,0
+modelzoom=2576
+transmitop=1
+op1=Fire-Catapult
+onmouseover=model_swapper(event_com, model_14936)
+onmouseleave=model_swapper(event_com, model_14938)
+onop=script860
+
+// 682:4
+[fire_tooltip]
+type=rectangle
+x=78
+y=156
+width=40
+height=34
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Fire the catapult.", 25, 180)
+
+// 682:5
+[com_5]
+type=model
+x=66
+y=145
+width=15
+height=14
+model=model_32157
+modelzoom=1936
+
+// 682:6
+[com_6]
+type=model
+x=114
+y=145
+width=15
+height=14
+model=model_32157
+modelzoom=1936
+
+// 682:7
+[com_7]
+type=model
+x=114
+y=188
+width=15
+height=14
+model=model_32157
+modelzoom=1936
+
+// 682:8
+[com_8]
+type=model
+x=66
+y=188
+width=15
+height=14
+model=model_32157
+modelzoom=1936
+
+// 682:9
+[com_9]
+type=model
+x=21
+y=160
+width=37
+height=27
+model=model_32196
+modelorigin=-3,0
+modelangle=0,0,508
+modelzoom=2320
+transmitop=1
+op1=Carve-Left
+onmouseover=model_swapper(event_com, model_32160)
+onmouseleave=model_swapper(event_com, model_32196)
+onop=script858
+
+// 682:10
+[left_tooltip]
+type=rectangle
+x=21
+y=160
+width=36
+height=29
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Aim the catapult left.", 25, 180)
+
+// 682:11
+[com_11]
+type=model
+x=135
+y=160
+width=37
+height=27
+model=model_32196
+modelorigin=3,0
+modelangle=0,0,1532
+modelzoom=2320
+transmitop=1
+op1=Carve-Right
+onmouseover=model_swapper(event_com, model_32160)
+onmouseleave=model_swapper(event_com, model_32196)
+onop=script859
+
+// 682:12
+[right_tooltip]
+type=rectangle
+x=135
+y=160
+width=36
+height=29
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Aim the catapult right.", 25, 180)
+
+// 682:13
+[com_13]
+type=rectangle
+x=170
+y=53
+width=17
+height=16
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Increase counterweight.", 25, 180)
+
+// 682:14
+[lighter_tooltip]
+type=rectangle
+x=3
+y=53
+width=17
+height=16
+colour=0xffff00
+fill=yes
+trans=254
+onmouseleave=deltooltip(catcon_calibration_puzzle_control:tooltip_layer)
+onmouserepeat=addtooltip(event_com, catcon_calibration_puzzle_control:tooltip_layer, "Decrease counterweight.", 25, 180)
+
+// 682:15
+[com_15]
+type=graphic
+x=-5
+y=142
+width=32
+height=64
+graphic="v2_borders_slim,12"
+colour=0x000000
+
+// 682:16
+[com_16]
+type=graphic
+x=168
+y=142
+width=32
+height=64
+graphic="v2_borders_slim,12"
+colour=0x000000
+
+// 682:17
+[com_17]
+type=graphic
+x=9
+y=126
+width=173
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 682:18
+[com_18]
+type=graphic
+x=9
+y=188
+width=173
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 682:19
+[com_19]
+type=graphic
+x=26
+y=22
+width=140
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 682:20
+[com_20]
+type=graphic
+x=26
+y=67
+width=139
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 682:21
+[com_21]
+type=graphic
+x=13
+y=39
+width=32
+height=44
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 682:22
+[com_22]
+type=graphic
+x=151
+y=39
+width=32
+height=44
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0x000000
+
+// 682:23
+[divider]
+type=model
+model=null
+modelzoom=400
+
+// 682:24
+[catcon_catapult_down]
+type=graphic
+x=4
+y=53
+width=16
+height=16
+graphic="catcon_catapult_arrows,0"
+colour=0x000000
+transmitop=1
+op1=Decrease-Weight
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,1")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,0")
+
+// 682:25
+[catcon_catapult_up]
+type=graphic
+x=171
+y=53
+width=16
+height=16
+graphic="catcon_catapult_arrows,2"
+colour=0x000000
+transmitop=1
+op1=Increase-Weight
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
+
+// 682:26
+[com_26]
+type=layer
+x=44
+y=56
+width=146
+height=14
+
+// 682:27
+[com_27]
+type=rectangle
+width=146
+height=14
+layer=com_26
+colour=0xffff00
+trans=255
+
+// 682:28
+[com_28]
+type=model
+x=3
+width=99
+height=13
+layer=com_26
+model=model_32231
+modelorigin=22,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:29
+[com_29]
+type=model
+x=2
+width=9
+height=13
+layer=com_26
+hide=yes
+model=model_31717
+modelorigin=67,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:30
+[com_30]
+type=model
+x=9
+width=9
+height=13
+layer=com_26
+model=model_31703
+modelorigin=60,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:31
+[com_31]
+type=model
+x=16
+width=9
+height=13
+layer=com_26
+hide=yes
+model=model_31709
+modelorigin=53,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:32
+[com_32]
+type=model
+x=23
+width=9
+height=13
+layer=com_26
+model=model_31718
+modelorigin=46,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:33
+[com_33]
+type=model
+x=31
+width=8
+height=13
+layer=com_26
+model=model_31705
+modelorigin=38,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:34
+[com_34]
+type=model
+x=38
+width=8
+height=13
+layer=com_26
+model=model_31715
+modelorigin=31,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:35
+[com_35]
+type=model
+x=45
+width=8
+height=13
+layer=com_26
+model=model_31714
+modelorigin=24,0
+modelangle=500,0,0
+modelzoom=1153
+
+// 682:36
+[catcon_power]
+type=text
+x=22
+y=16
+width=146
+height=15
+textfont=p11_full
+text=COUNTERWEIGHT
+textalignh=centre
+textalignv=bottom
+colour=0xffffcc
+
+// 682:37
+[catcon_power_1]
+type=text
+x=24
+y=120
+width=146
+height=15
+textfont=p11_full
+text=DIRECTION
+textalignh=centre
+textalignv=bottom
+colour=0xffffcc
+
+// 682:38
+[tooltip_layer]
+type=layer
+x=-3
+y=-14
+width=203
+height=263
+layer=tooltip_area
+
+// 682:39
+[com_39]
+type=model
+x=32
+y=42
+width=11
+height=10
+model=model_32157
+modelzoom=2960
+opbase= 
+
+// 682:40
+[com_40]
+type=model
+x=150
+y=42
+width=11
+height=10
+model=model_32157
+modelzoom=2960
+
+// 682:41
+[com_41]
+type=model
+x=32
+y=71
+width=11
+height=10
+model=model_32157
+modelzoom=2960
+
+// 682:42
+[com_42]
+type=model
+x=150
+y=71
+width=11
+height=10
+model=model_32157
+modelzoom=2960
+
+// 682:43
+[tooltip_area]
+type=layer
+x=12
+y=15
+width=167
+height=227

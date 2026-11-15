@@ -111,21 +111,21 @@ pub enum ServerTriggerType {
     OpPlayer5 = 98,
     OpPlayerU = 99,
     OpPlayerT = 100,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ApPlayer6 = 182,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ApPlayer7 = 183,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ApPlayer8 = 184,
     #[cfg(since_647)]
     ApPlayer9 = 185,
     #[cfg(since_647)]
     ApPlayer10 = 186,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     OpPlayer6 = 189,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     OpPlayer7 = 190,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     OpPlayer8 = 191,
     #[cfg(since_647)]
     OpPlayer9 = 192,
@@ -133,7 +133,7 @@ pub enum ServerTriggerType {
     OpPlayer10 = 193,
     // A component aimed at a tile (APCOORDT). A tile is only approached: 201,
     // where an op trigger would be, stays unmapped.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     ApCoordT = 194,
     AiApPlayer1 = 101,
     AiApPlayer2 = 102,
@@ -192,15 +192,15 @@ pub enum ServerTriggerType {
     // rs-runec's trigger table maps the extended `if_button6..10` triggers to
     // bytes 173-177 (149-153 stay `if_button1..5`); these must match that
     // numbering exactly — packed scripts key their lookup by it.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     InvButton6 = 173,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     InvButton7 = 174,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     InvButton8 = 175,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     InvButton9 = 176,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     InvButton10 = 177,
 
     WalkTrigger = 155,
@@ -217,9 +217,9 @@ pub enum ServerTriggerType {
     ChangeStat = 165,
     AiSpawn = 166,
     AiDespawn = 167,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     Area = 178,
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     AreaExit = 179,
     #[cfg(since_647)]
     AiConQueue = 180,
@@ -246,7 +246,7 @@ impl ServerTriggerType {
     /// The approach trigger for player op `op`: 1-5, and from 647 6-10.
     pub fn ap_player(op: u8) -> Option<Self> {
         match op {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             6..=10 => Self::numbered(Self::ApPlayer6, op - 5),
             _ => Self::numbered(Self::ApPlayer1, op),
         }
@@ -260,7 +260,7 @@ impl ServerTriggerType {
     /// The trigger for inventory button op `op`: 1-5, and from 647 6-10.
     pub fn inv_button(op: u8) -> Option<Self> {
         match op {
-            #[cfg(since_647)]
+            #[cfg(since_530)]
             6..=10 => Self::numbered(Self::InvButton6, op - 5),
             _ => Self::numbered(Self::InvButton1, op),
         }
@@ -304,7 +304,7 @@ impl ServerTriggerType {
     /// # Returns
     /// `true` for all `OpHeld*` and `InvButton*` triggers, `false` otherwise.
     pub(crate) fn allows_last_slot(self) -> bool {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if self.is_extended_inv_button() {
             return true;
         }
@@ -327,7 +327,7 @@ impl ServerTriggerType {
     }
 
     /// Rev-647 extended inventory-button triggers (`if_button6..10`).
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) fn is_extended_inv_button(self) -> bool {
         matches!(
             self,
@@ -347,7 +347,7 @@ impl ServerTriggerType {
     /// # Returns
     /// `true` for all `OpHeld*` and `InvButton1`-`InvButton5` triggers, `false` otherwise.
     pub(crate) fn allows_last_item(self) -> bool {
-        #[cfg(since_647)]
+        #[cfg(since_530)]
         if self.is_extended_inv_button() {
             return true;
         }
@@ -381,7 +381,7 @@ impl ServerTriggerType {
 
     /// Returns whether this trigger type provides `last_coord`, the tile a
     /// ground target was aimed at.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     pub(crate) fn allows_last_coord(self) -> bool {
         matches!(self, Self::ApCoordT)
     }
@@ -560,7 +560,7 @@ mod tests {
     /// rs-runec's trigger table maps `if_button6..10` to bytes 173-177. If
     /// these drift from the compiler's numbering, packed scripts stop
     /// resolving.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn extended_inv_button_values() {
         assert_eq!(ServerTriggerType::InvButton6 as u8, 173);
@@ -572,20 +572,27 @@ mod tests {
         assert!(ServerTriggerType::InvButton10.allows_last_item());
     }
 
-    /// Op `n` of each family is its `n`th trigger, player and inventory
-    /// button ops up to 10 from 647, and a player op's trigger is 7 past its
-    /// approach.
+    /// Op `n` of each family is its `n`th trigger, player ops up to 8 from
+    /// 530 and 10 from 647, inventory button ops up to 10 from 530, and a
+    /// player op's trigger is 7 past its approach.
     #[test]
     fn numbered_op_triggers() {
         type Family = (fn(u8) -> Option<ServerTriggerType>, &'static str, u8);
-        let ten = if cfg!(since_647) { 10 } else { 5 };
+        let players = if cfg!(since_647) {
+            10
+        } else if cfg!(since_530) {
+            8
+        } else {
+            5
+        };
+        let buttons = if cfg!(since_530) { 10 } else { 5 };
         let families: [Family; 6] = [
             (ServerTriggerType::ap_npc, "ApNpc", 5),
             (ServerTriggerType::ap_loc, "ApLoc", 5),
             (ServerTriggerType::ap_obj, "ApObj", 5),
-            (ServerTriggerType::ap_player, "ApPlayer", ten),
+            (ServerTriggerType::ap_player, "ApPlayer", players),
             (ServerTriggerType::op_held, "OpHeld", 5),
-            (ServerTriggerType::inv_button, "InvButton", ten),
+            (ServerTriggerType::inv_button, "InvButton", buttons),
         ];
         for (trigger, name, last) in families {
             assert_eq!(trigger(0), None, "{name}0");
@@ -595,7 +602,7 @@ mod tests {
             }
             assert_eq!(trigger(last + 1), None, "{name} past {last}");
         }
-        for op in 1..=ten {
+        for op in 1..=players {
             let ap = ServerTriggerType::ap_player(op).unwrap() as u8;
             let trigger = ServerTriggerType::try_from(ap + 7).unwrap();
             assert_eq!(format!("{trigger:?}"), format!("OpPlayer{op}"));
@@ -604,7 +611,7 @@ mod tests {
 
     /// A ground target has only an approach trigger, the one trigger that
     /// gives `last_coord`.
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn ground_target_is_approach_only() {
         assert_eq!(ServerTriggerType::ApCoordT as u8, 194);
@@ -826,10 +833,16 @@ mod compiler_contract {
 
         // Guards against losing coverage silently: a variant deleted here, or a
         // keyword the compiler stops emitting, moves one of these counts.
-        // The five `InvButton6..10` variants, the player ops 6-10,
-        // `Area`/`AreaExit`, the controllers' `AiConQueue`/`AiConTimer` and
-        // `ApCoordT` exist only from rev 647.
-        let expected = if cfg!(since_647) { (163, 8) } else { (143, 8) };
+        // The five `InvButton6..10` variants, the player ops 6-8,
+        // `Area`/`AreaExit` and `ApCoordT` exist from rev 530; the player ops
+        // 9-10 and the controllers' `AiConQueue`/`AiConTimer` only from 647.
+        let expected = if cfg!(since_647) {
+            (163, 8)
+        } else if cfg!(since_530) {
+            (157, 8)
+        } else {
+            (143, 8)
+        };
         assert_eq!(
             (matched, name_keyed),
             expected,
@@ -843,7 +856,7 @@ mod compiler_contract {
     /// triggers `if_button6..10` / `inv_button6..10` to bytes 173-177. If these
     /// drift from the compiler, scripts silently lose their trigger context
     /// (`state.rs` resolves the byte via `try_from_primitive(..).ok()`).
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn inv_button_6_10_bytes_match_compiler() {
         assert_eq!(ServerTriggerType::InvButton6 as u8, 173);
@@ -867,7 +880,7 @@ mod compiler_contract {
 
     /// inv_button6-10 carry `last_item` + `last_slot` pointer context, matching
     /// rs-compiler `pointer.rs` (`[ActivePlayer, LastItem, LastSlot]`).
-    #[cfg(since_647)]
+    #[cfg(since_530)]
     #[test]
     fn inv_button_6_10_allow_last_item_and_slot() {
         for t in [

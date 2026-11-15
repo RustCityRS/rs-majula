@@ -1,0 +1,19 @@
+// 1665
+[proc,bank_v2_help_slotsused](component $component0, component $component1, component $component2, component $component3)
+def_int $int4 = ~clientscript_1329;
+def_int $int5 = calc(~clientscript_1248 - $int4);
+def_int $int6 = %varclient_1038;
+def_int $int7 = calc(%varclient_192 - $int6);
+def_int $int8 = calc(($int4 - $int6) * -1);
+def_int $int9 = calc($int7 - (469 - 1));
+if ($int9 > 0) {
+    $int6 = calc($int6 + $int9);
+    $int7 = calc(469 - 1);
+} else if ($int8 > 0) {
+    $int7 = calc($int7 + $int8);
+    $int6 = $int4;
+}
+if_settext($component0, tostring($int6));
+if_settext($component2, tostring($int7));
+if_settext($component1, tostring($int4));
+if_settext($component3, tostring($int5));

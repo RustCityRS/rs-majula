@@ -1,0 +1,81 @@
+// 4769
+[proc,clientscript_4769](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, int $int8)(int, int, int, int, int, int, int, int)
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_component $component13 = null;
+def_component $component14 = null;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_int $int19 = 0;
+def_int $int20 = 0;
+def_int $int21 = 0;
+def_int $int22 = 0;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = 0;
+def_int $int27 = 0;
+def_int $int28 = 0;
+def_int $int29 = 0;
+def_int $int30 = 0;
+def_int $int31 = 0;
+def_int $int32 = 0;
+def_int $int33 = 0;
+def_int $int34 = 0;
+def_int $int35 = 0;
+def_int $int36 = 0;
+def_int $int37 = 0;
+def_int $int38 = 0;
+def_int $int39 = 0;
+def_int $int40 = 0;
+if ($int0 = 1) {
+    $int11 = 300;
+    $component13 = interface_1115:com_67;
+    $component14 = interface_1115:com_66;
+} else if ($int0 = 2) {
+    $int11 = 600;
+    $component13 = interface_1115:com_65;
+    $component14 = interface_1115:com_64;
+} else {
+    $int11 = 900;
+    $component13 = interface_1115:com_63;
+    $component14 = interface_1115:com_62;
+    %varclient_1561 = 0;
+    %varclient_1562 = 0;
+}
+while ($int1 <= 31 & $int12 = 0) {
+    $int10 = ~clientscript_4790($int1);
+    if ($int10 > $int11 | $int10 = 0) {
+        $int12 = 1;
+    } else {
+        $int2, $int3, $int4, $int5, $int6, $int7, $int8, $int15, $int16, $int17, $int18, $int19, $int20, $int21, $int22, $int23, $int24, $int25, $int26, $int27, $int28, $int29, $int30, $int31, $int32, $int33, $int34, $int35, $int36, $int37, $int38, $int39 = ~clientscript_4795($int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8);
+        if (calc($int15 + $int16 + $int17 + $int18 + $int19 + $int20) = 0) {
+            $int40 = 0;
+        } else if (calc($int33 + $int34 + $int35 + $int36 + $int37 + $int38) > 0) {
+            $int40 = 3;
+        } else if (calc($int27 + $int28 + $int29 + $int30 + $int31 + $int32) > 0) {
+            $int40 = 2;
+        } else if (calc($int21 + $int22 + $int23 + $int24 + $int25 + $int26) > 0) {
+            $int40 = 1;
+        }
+        $int9 = ~clientscript_4770($component13, $int9, $int10, $int39, $int40, $int1);
+        if ($int9 = 0) {
+            return(0, $int2, $int3, $int4, $int5, $int6, $int7, $int8);
+        }
+        $int1 = calc($int1 + 1);
+    }
+}
+def_int $int41 = 38;
+def_int $int42 = calc($int9 / 8 * $int41);
+if ($int9 > 0) {
+    $int9 = ~clientscript_4771($component13, $int9);
+}
+$int42 = calc($int42 + 10);
+if_setscrollsize($component13, if_getwidth($component13), $int42);
+if_setscrollpos($component13, 0, 0);
+~scrollbar_vertical($component14, $component13, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+return($int1, $int2, $int3, $int4, $int5, $int6, $int7, $int8);

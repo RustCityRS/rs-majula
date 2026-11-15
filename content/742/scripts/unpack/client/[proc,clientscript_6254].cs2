@@ -1,0 +1,20 @@
+// 6254
+[proc,clientscript_6254](component $component0)
+if ($component0 = fishcomp_side:com_63) {
+    if_sethide(fishcomp_side:com_16, true);
+} else if ($component0 = fishcomp_side:com_61) {
+    if_sethide(fishcomp_side:com_18, true);
+} else if ($component0 = fishcomp_side:com_59) {
+    if_sethide(fishcomp_side:com_20, true);
+} else if ($component0 = fishcomp_side:com_57) {
+    if_sethide(fishcomp_side:com_22, true);
+} else if ($component0 = fishcomp_side:com_55) {
+    if_sethide(fishcomp_side:com_24, true);
+} else if ($component0 = fishcomp_side:com_53) {
+    if_sethide(fishcomp_side:com_26, true);
+} else if ($component0 = fishcomp_side:com_51) {
+    if_sethide(fishcomp_side:com_28, true);
+} else if ($component0 = fishcomp_side:com_49) {
+    if_sethide(fishcomp_side:com_30, true);
+}
+~clientscript_5219(fishcomp_side:tooltip_area);

@@ -1,0 +1,17 @@
+// 3032
+[proc,script3032](component $component0, int $int1, int $int2)
+def_component $component3 = null;
+if ($int2 = 1) {
+    $component3 = lobbyscreen_pane_friendslist:friends_mo_bg;
+} else if ($int2 = 0) {
+    $component3 = lobbyscreen_pane_friendslist:ignore_mo_bg;
+}
+if (cc_find($component0, $int1) = true) {
+    if_sethide($component3, false);
+    if_setposition($component3, if_getx($component3), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}
+if ($int2 = 1) {
+    ~friend_deltooltip(lobbyscreen_pane_friendslist:friends_tooltip, lobbyscreen_pane_friendslist:friends_tooltip_text);
+} else {
+    ~friend_deltooltip(lobbyscreen_pane_friendslist:ignore_tooltip, lobbyscreen_pane_friendslist:ignore_tooltip_text);
+}

@@ -1,0 +1,4 @@
+// 5166
+[proc,clientscript_5166]
+%varclient_1591 = max(0, min(%varclient_1591, 65535));
+resume_hsldialog(%varclient_1591);

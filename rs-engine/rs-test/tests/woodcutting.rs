@@ -25,6 +25,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_ver::TypeId;
 use std::fs;
 use std::sync::Mutex;
 
@@ -124,11 +125,11 @@ fn chop(case: Chop) {
             "{} is not at {x},{z}",
             case.tree
         );
-        let hatchet = *engine.cache.objs.debugnames.get(case.hatchet).unwrap();
+        let hatchet = engine.cache.objs.get_by_debugname(case.hatchet).unwrap().id;
         let product = case
             .product
-            .map(|p| *engine.cache.objs.debugnames.get(p).unwrap());
-        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+            .map(|p| engine.cache.objs.get_by_debugname(p).unwrap().id);
+        let inv = engine.cache.invs.get_by_debugname("inv").unwrap().id;
 
         engine.harness_reset();
         let mut client = engine
@@ -163,7 +164,7 @@ fn chop(case: Chop) {
 
         let mut p = ClientPacket::new();
         p.p2_alt1(z as i32)
-            .p2_alt1(tree as i32)
+            .p2_alt1(tree.int())
             .p1(0)
             .p2_alt2(x as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
@@ -227,7 +228,7 @@ fn chop(case: Chop) {
 /// A loc's 647 id by its name in `content/647/pack/loc.pack` (the server
 /// loads 647 locs from the cache's data alone, which carries their display
 /// names but not these debug names).
-fn loc_id(name: &str) -> u16 {
+fn loc_id(name: &str) -> TypeId {
     let pack = concat!(
         env!("CARGO_MANIFEST_DIR"),
         "/../../content/647/pack/loc.pack"
@@ -236,11 +237,11 @@ fn loc_id(name: &str) -> u16 {
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
-        .and_then(|(id, _)| id.parse().ok())
+        .and_then(|(id, _)| id.parse().ok().map(TypeId::new))
         .unwrap_or_else(|| panic!("647 has no loc {name}"))
 }
 
-fn loc_here(engine: &Engine, id: u16, x: u16, z: u16) -> bool {
+fn loc_here(engine: &Engine, id: TypeId, x: u16, z: u16) -> bool {
     engine
         .zones
         .zone(x, 0, z)

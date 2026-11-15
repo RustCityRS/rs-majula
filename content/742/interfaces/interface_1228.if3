@@ -1,0 +1,302 @@
+// 1228:0
+[com_0]
+type=layer
+x=150
+y=5
+width=336
+height=172
+layer=com_11
+onload=clientscript_4003(event_com)
+
+// 1228:1
+[com_1]
+type=graphic
+width=487
+height=282
+layer=com_11
+graphic=graphic_9697
+
+// 1228:2
+[com_2]
+type=text
+x=150
+y=7
+width=153
+height=35
+widthmode=minus
+layer=com_11
+textfont=verdana_13pt_regular
+text=As a member you can be part of the exclusive Loyalty Programme.
+textlineheight=13
+textalignh=centre
+textshadow=yes
+colour=0xefb063
+
+// 1228:3
+[com_3]
+type=text
+x=155
+y=43
+width=163
+height=96
+widthmode=minus
+layer=com_11
+textfont=verdana_11pt_regular
+text=Collect Loyalty Points and earn rewards to give you the edge on your adventures. Join now, it's free and you'll get 500 points to spend.<br><br>If you subscribe now, you'll also get 1000 extra Loyalty Points to spend on these great rewards.
+textlineheight=13
+textalignh=centre
+textshadow=yes
+
+// 1228:4
+[com_4]
+type=text
+x=153
+y=140
+width=159
+height=44
+widthmode=minus
+layer=com_11
+textfont=verdana_13pt_regular
+text=You'll also keep any days of trial membership remaining. Hurry while this amazing offer lasts!
+textlineheight=16
+textalignh=centre
+textshadow=yes
+colour=0xefb063
+
+// 1228:5
+[com_5]
+type=graphic
+width=48
+height=55
+layer=com_12
+graphic=graphic_9644
+
+// 1228:6
+[com_6]
+type=graphic
+x=48
+width=95
+height=55
+widthmode=minus
+layer=com_12
+graphic=graphic_9645
+
+// 1228:7
+[com_7]
+type=graphic
+x=-1
+width=48
+height=55
+xmode=abs_right
+layer=com_12
+graphic=graphic_9646
+
+// 1228:8
+[com_8]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+
+// 1228:9
+[com_9]
+type=layer
+width=512
+height=325
+xmode=abs_centre
+ymode=abs_centre
+
+// 1228:10
+[com_10]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+onload=script4260(event_com)
+
+// 1228:11
+[com_11]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 1228:12
+[com_12]
+type=layer
+x=9
+y=176
+width=323
+height=55
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Activate
+onmouseover=clientscript_5803(interface_1228:com_5, interface_1228:com_6, interface_1228:com_7, 1, 1)
+onmouseleave=clientscript_5803(interface_1228:com_5, interface_1228:com_6, interface_1228:com_7, 0, 1)
+
+// 1228:13
+[com_13]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+onload=script4261(event_com)
+
+// 1228:14
+[com_14]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+
+// 1228:15
+[com_15]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+textfont=palatino_linotype_18pt_regular
+text=Members' Loyalty Programme
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1228:16
+[com_16]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_9
+onload=aif_build_close_button_layer(event_com)
+
+// 1228:17
+[com_17]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+transmitop=1
+op1=Close
+onload=aif_build_close_button_on(event_com)
+
+// 1228:18
+[com_18]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+onload=aif_build_close_button_over(event_com)
+
+// 1228:19
+[com_19]
+type=layer
+x=41
+y=232
+width=257
+height=42
+xmode=abs_right
+layer=com_11
+transmitop=1
+op1=Close
+onmouseover=clientscript_5803(interface_1228:com_20, interface_1228:com_21, interface_1228:com_22, 1, 0)
+onmouseleave=clientscript_5803(interface_1228:com_20, interface_1228:com_21, interface_1228:com_22, 0, 0)
+
+// 1228:20
+[com_20]
+type=graphic
+width=45
+height=43
+layer=com_19
+graphic=graphic_9620
+
+// 1228:21
+[com_21]
+type=graphic
+x=44
+width=88
+height=43
+widthmode=minus
+layer=com_19
+graphic=graphic_9621
+
+// 1228:22
+[com_22]
+type=graphic
+width=45
+height=43
+xmode=abs_right
+layer=com_19
+graphic=graphic_9622
+
+// 1228:23
+[com_23]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_19
+
+// 1228:24
+[com_24]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+textfont=verdana_13pt_regular
+text=I want to join the programme!
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)
+
+// 1228:25
+[com_25]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_23
+textfont=verdana_13pt_regular
+text=I don't want my free stuff.
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=aif_gold_button_text_onload(event_com)

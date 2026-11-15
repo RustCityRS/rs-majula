@@ -1,0 +1,11 @@
+// 2025
+[proc,clientscript_2025](int $int0)
+if ($int0 = 1) {
+    if_setgraphic(interface_378:com_175, 985);
+    if_setgraphic(interface_378:com_176, 986);
+    if_setgraphic(interface_378:com_177, 985);
+} else {
+    if_setgraphic(interface_378:com_175, 983);
+    if_setgraphic(interface_378:com_176, 984);
+    if_setgraphic(interface_378:com_177, 983);
+}

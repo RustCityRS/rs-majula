@@ -1,0 +1,10 @@
+// 864
+[proc,clientscript_864]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (stat_base(farming) > 39) {
+    $int1 = %rabbit_score;
+} else {
+    $int1 = calc(%rabbit_score * enum(int, int, enum_1369, stat_base(farming)) / 100);
+}
+if_settext(rabbit_shop:com_55, "<tostring($int1)> XP");

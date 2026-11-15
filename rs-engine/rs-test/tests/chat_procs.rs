@@ -294,13 +294,13 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
         let mut client = developer(engine, "objboxes", HOME.0);
-        let amulet = *engine
+        let amulet = engine
             .cache
             .objs
-            .debugnames
-            .get("strung_gold_amulet")
-            .unwrap();
-        let bowl = *engine.cache.objs.debugnames.get("bowl_empty").unwrap();
+            .get_by_debugname("strung_gold_amulet")
+            .unwrap()
+            .id;
+        let bowl = engine.cache.objs.get_by_debugname("bowl_empty").unwrap().id;
 
         for (cheat_name, iface, done) in [
             ("~chat_doubleobjbox", 131, "chat_doubleobjbox done"),
@@ -361,8 +361,8 @@ fn obj_boxes_page_their_text_in_2011_s_one_text_component() {
             Some("You can now craft Bowls and Gold Amulets.")
         );
         let objs = setobjects(&packets);
-        assert!(objs.contains(&(com(131, 0), amulet)), "{objs:?}");
-        assert!(objs.contains(&(com(131, 2), bowl)), "{objs:?}");
+        assert!(objs.contains(&(com(131, 0), amulet.g2())), "{objs:?}");
+        assert!(objs.contains(&(com(131, 2), bowl.g2())), "{objs:?}");
         resume(&mut client, com(131, 3));
         let packets = ticks(engine, &mut client, 2);
         assert!(messages(&packets).contains(&"chat_doubleobjbox2 done".to_string()));

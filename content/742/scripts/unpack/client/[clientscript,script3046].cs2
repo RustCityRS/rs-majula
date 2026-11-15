@@ -1,0 +1,14 @@
+// 3046
+[clientscript,script3046](int $int0)
+if ($int0 > 1) {
+    ~script3047(calc($int0 - 2));
+} else {
+    switch_int (chat_getfilter_private) {
+        case ^chatfilter_on :
+            ~script3047(1);
+        case ^chatfilter_friends :
+            ~script3047(2);
+        case ^chatfilter_off :
+            ~script3047(0);
+    }
+}

@@ -1,0 +1,1215 @@
+// 5
+[proc,clientscript_5](int $int0)(int)
+if ($int0 < 10) {
+    if ($int0 = 0) {
+        if (%anma_main = 240) {
+            return(2);
+        } else if (%anma_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 1) {
+        if (%dwarfrock_quest > 109) {
+            return(2);
+        } else if (%dwarfrock_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 2) {
+        if (%chompybird = 65) {
+            return(2);
+        } else if (%chompybird = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 3) {
+        if (%biohazard = 16) {
+            return(2);
+        } else if (%biohazard = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 4) {
+        if (%varplayer_655 > 130) {
+            return(2);
+        } else if (%varplayer_655 = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 5) {
+        if (%cogquest = 8) {
+            return(2);
+        } else if (%cogquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 6) {
+        if (%contact = 130) {
+            return(2);
+        } else if (%contact = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 7) {
+        if (%zogre > 12) {
+            return(2);
+        } else if (%zogre = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 8) {
+        if (%fenk_quest > 6) {
+            return(2);
+        } else if (%fenk_quest = 0) {
+            if (%fenk_read_signpost = 0) {
+                return(0);
+            } else {
+                return(1);
+            }
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 9) {
+        if (%myq3_main_quest = 320) {
+            return(2);
+        } else if (%myq3_main_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 20) {
+    if ($int0 = 10) {
+        if (%dttd_main = 13) {
+            return(2);
+        } else if (%dttd_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 11) {
+        if (%death_equiproom = 80) {
+            return(2);
+        } else if (%death_equiproom = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 12) {
+        if (%deserttreasure = 15) {
+            return(2);
+        } else if (%deserttreasure = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 13) {
+        if (%devious_main = 80) {
+            return(2);
+        } else if (%devious_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 14) {
+        if (%itexamlevel = 9) {
+            return(2);
+        } else if (%itexamlevel = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 15) {
+        if (%druidquest = 4) {
+            return(2);
+        } else if (%druidquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 16) {
+        if (%mcannon > 10) {
+            return(2);
+        } else if (%mcannon = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 17) {
+        if (%eadgar_quest = 110) {
+            return(2);
+        } else if (%eadgar_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 18) {
+        if (%eaglepeak_quest = 40) {
+            return(2);
+        } else if (%eaglepeak_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 19) {
+        if (testbit(%elemental_workshop_bits, 20) = ^true) {
+            return(2);
+        } else if (testbit(%elemental_workshop_bits, 1) = ^false) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 30) {
+    if ($int0 = 20) {
+        if (%elemental_quest_2_main = 11) {
+            return(2);
+        } else if (%elemental_quest_2_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 21) {
+        if (%enakh_quest > 69) {
+            return(2);
+        } else if (%enakh_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 22) {
+        if (%zep_quest = 200) {
+            return(2);
+        } else if (%zep_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 23) {
+        if (%eyeglo_quest = 60) {
+            return(2);
+        } else if (%eyeglo_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 24) {
+        if (%fairy_farmers_quest = 90) {
+            return(2);
+        } else if (%fairy_farmers_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 25) {
+        if (%fairy2_queencure_quest > 80) {
+            return(2);
+        } else if (%fairy2_queencure_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 26) {
+        if (%crestquest = 11) {
+            return(2);
+        } else if (%crestquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 27) {
+        if (%feud_var > 27) {
+            return(2);
+        } else if (%feud_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 28) {
+        if (%arenaquest > 13) {
+            return(2);
+        } else if (%arenaquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 29) {
+        if (%fishingcompo = 5) {
+            return(2);
+        } else if (%fishingcompo = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 40) {
+    if ($int0 = 30) {
+        if (%forget_quest >= 140) {
+            return(2);
+        } else if (%forget_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 31) {
+        if (%viking > 9) {
+            return(2);
+        } else if (%viking = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 32) {
+        if (%waterfall_quest = 10) {
+            return(2);
+        } else if (%waterfall_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 33) {
+        if (%garden_quest = 60) {
+            return(2);
+        } else if (%garden_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 34) {
+        if (%fluffs > 5) {
+            return(2);
+        } else if (%fluffs = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 35) {
+        if (%ahoy_questvar > 7) {
+            return(2);
+        } else if (%ahoy_questvar = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 36) {
+        if (%giantdwarf_quest > 49) {
+            return(2);
+        } else if (%giantdwarf_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 37) {
+        if (%golem_a > 9) {
+            return(2);
+        } else if (%golem_a = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 38) {
+        if (%grandtree = 160) {
+            return(2);
+        } else if (%grandtree = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 39) {
+        if (%handsand_quest > 159) {
+            return(2);
+        } else if (%handsand_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 50) {
+    if ($int0 = 40) {
+        if (%hauntedmine = 11) {
+            return(2);
+        } else if (%hauntedmine = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 41) {
+        if (%hazeelcultquest = 9) {
+            return(2);
+        } else if (%hazeelcultquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 42) {
+        if (%heroquest = 15) {
+            return(2);
+        } else if (%heroquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 43) {
+        if (%grail = 10) {
+            return(2);
+        } else if (%grail = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 44) {
+        if (%horrorquest > 9) {
+            return(2);
+        } else if (%horrorquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 45) {
+        if (%ics_little_var > 25) {
+            return(2);
+        } else if (%ics_little_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 46) {
+        if (%myreque_2_quest > 420) {
+            return(2);
+        } else if (%myreque_2_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 47) {
+        if (%routequest > 100) {
+            return(2);
+        } else if (%routequest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 48) {
+        if (%junglepotion > 11) {
+            return(2);
+        } else if (%junglepotion = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 49) {
+        if (%legendsquest = 75) {
+            return(2);
+        } else if (%legendsquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 60) {
+    if ($int0 = 50) {
+        if (%zanaris = 6) {
+            return(2);
+        } else if (%zanaris = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 51) {
+        if (%lost_tribe_quest > 10) {
+            return(2);
+        } else if (%lost_tribe_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 52) {
+        if (%lunar_quest_main = 190) {
+            return(2);
+        } else if (%lunar_quest_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 53) {
+        if (%makinghistory_prog > 3) {
+            return(2);
+        } else if (%makinghistory_prog = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 54) {
+        if (%arthur = 7) {
+            return(2);
+        } else if (%arthur = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 55) {
+        if (%mm_main > 8) {
+            return(2);
+        } else if (%mm_main < 1) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 56) {
+        if (%drunkmonkquest = 80) {
+            return(2);
+        } else if (%drunkmonkquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 57) {
+        if (%mdaughter_quest_var > 69) {
+            return(2);
+        } else if (%mdaughter_quest_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 58) {
+        if (%varplayer_517 > 7) {
+            return(2);
+        } else if (%varplayer_517 = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 59) {
+        if (%mourning_quest_main > 59) {
+            return(2);
+        } else if (%mourning_quest_main < 9) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 70) {
+    if ($int0 = 60) {
+        if (%murderquest = 2) {
+            return(2);
+        } else if (%murderquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 61) {
+        if (%myarm > 310) {
+            return(2);
+        } else if (%myarm = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 62) {
+        if (%druidspirit = 110) {
+            return(2);
+        } else if (%druidspirit = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 63) {
+        if (%itgronigen > 6) {
+            return(2);
+        } else if (%itgronigen = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 64) {
+        if (%varplayer_416 > 275) {
+            return(2);
+        } else if (%varplayer_416 = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 65) {
+        if (%elenaquest > 28) {
+            return(2);
+        } else if (%elenaquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 66) {
+        if (%priestperil > 59) {
+            return(2);
+        } else if (%priestperil = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 67) {
+        if (%rag_quest > 3) {
+            return(2);
+        } else if (%rag_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 68) {
+        if (%ratcatch_var > 126) {
+            return(2);
+        } else if (%ratcatch_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 69) {
+        if (%hundred_main_quest_var = 5) {
+            return(2);
+        } else if (%hundred_main_quest_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 80) {
+    if ($int0 = 70) {
+        if (%rd_main > 1) {
+            return(2);
+        } else if (%rd_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 71) {
+        if (%regicide_quest > 14) {
+            return(2);
+        } else if (%regicide_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 72) {
+        if (%varplayer_402 > 5) {
+            return(2);
+        } else if (%varplayer_402 = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+        if (testbit(%roving_elves_bits, 3) = ^true & %varplayer_402 < 6) {
+            return(0);
+        }
+    }
+    if ($int0 = 73) {
+        if (%royal_quest > 20) {
+            return(2);
+        } else if (%royal_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 74) {
+        if (%varplayer_600 > 18) {
+            return(2);
+        } else if (%varplayer_600 = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 75) {
+        if (%scorpcatcher = 6) {
+            return(2);
+        } else if (%scorpcatcher = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 76) {
+        if (%seaslugquest >= 12) {
+            return(2);
+        } else if (%seaslugquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 77) {
+        if (%slug2_main = 14) {
+            return(2);
+        } else if (%slug2_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 78) {
+        if (%morttonquest = 85) {
+            return(2);
+        } else if (%morttonquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 79) {
+        if (%agrith_quest > 124) {
+            return(2);
+        } else if (%agrith_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 90) {
+    if ($int0 = 80) {
+        if (%sheepherderquest = 3) {
+            return(2);
+        } else if (%sheepherderquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 81) {
+        if (%zombiequeen > 14) {
+            return(2);
+        } else if (%zombiequeen = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 82) {
+        if (%soulbane_prog > 12) {
+            return(2);
+        } else if (%soulbane_prog = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 83) {
+        if (%elidquest > 59) {
+            return(2);
+        } else if (%elidquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 84) {
+        if (%swansong = 200) {
+            return(2);
+        } else if (%swansong = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 85) {
+        if (%tbwt_main = 6) {
+            return(2);
+        } else if (%tbwt_main < 3) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 86) {
+        if (%twocats_quest = 70) {
+            return(2);
+        } else if (%twocats_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 87) {
+        if (%tog_juna_bowl > 1) {
+            return(2);
+        } else if (%tog_juna_bowl = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 88) {
+        if (%ikov = 80 | %ikov = 90) {
+            return(2);
+        } else if (%ikov = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 89) {
+        if (%misc_quest > 99) {
+            return(2);
+        } else if (%misc_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 100) {
+    if ($int0 = 90) {
+        if (%desertrescue = 30) {
+            return(2);
+        } else if (%desertrescue = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 91) {
+        if (%ballquest = 7) {
+            return(2);
+        } else if (%ballquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 92) {
+        if (%treequest = 9) {
+            return(2);
+        } else if (%treequest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 93) {
+        if (%totemquest = 5) {
+            return(2);
+        } else if (%totemquest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 94) {
+        if (%troll_love > 44) {
+            return(2);
+        } else if (%troll_love = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 95) {
+        if (%troll_quest = 50) {
+            return(2);
+        } else if (%troll_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 96) {
+        if (%upass = 10) {
+            return(2);
+        } else if (testbit(%ibanmulti, 11) = ^false) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 97) {
+        if (%wanted_main = 11) {
+            return(2);
+        } else if (%wanted_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 98) {
+        if (%itwatchtower > 12) {
+            return(2);
+        } else if (%itwatchtower = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 99) {
+        if (%peng_quest = 135) {
+            return(2);
+        } else if (%peng_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 110) {
+    if ($int0 = 100) {
+        if (%fris_quest = 340) {
+            return(2);
+        } else if (%fris_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 101) {
+        if (%tol_prog = 18) {
+            return(2);
+        } else if (%tol_prog = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 102) {
+        if (%brain_quest_var > 129) {
+            return(2);
+        } else if (%brain_quest_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 103) {
+        if (%surok_quest > 149) {
+            return(2);
+        } else if (%surok_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 104) {
+        if (%olaf_quest_var = 80) {
+            return(2);
+        } else if (%olaf_quest_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 105) {
+        if (%slice_quest = 11) {
+            return(2);
+        } else if (%slice_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 106) {
+        if (%dream_prog = 28) {
+            return(2);
+        } else if (%dream_prog = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 107) {
+        if (%grim_quest = 60) {
+            return(2);
+        } else if (%grim_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 108) {
+        if (%kr_quest = 90) {
+            return(2);
+        } else if (%kr_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 109) {
+        if (%pog_main = 200) {
+            return(2);
+        } else if (%pog_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 120) {
+    if ($int0 = 110) {
+        if (%roots_quest = 65) {
+            return(2);
+        } else if (%roots_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 111) {
+        if (%lotg_quest = 18) {
+            return(2);
+        } else if (%lotg_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 112) {
+        if (%scab = 700) {
+            return(2);
+        } else if (%scab = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 113) {
+        if (%wolf_quest = 110) {
+            return(2);
+        } else if (%wolf_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 114) {
+        if (%afr_quest = 200) {
+            return(2);
+        } else if (%afr_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 115) {
+        if (%catcon_main = 60) {
+            return(2);
+        } else if (%catcon_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 116) {
+        if (%ken_main = 100) {
+            return(2);
+        } else if (%ken_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 117) {
+        if (%myq4_main_quest = 500) {
+            return(2);
+        } else if (%myq4_main_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 118) {
+        if (%icemt_quest = 150) {
+            return(2);
+        } else if (%icemt_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 119) {
+        if (%dillo_quest = 63) {
+            return(2);
+        } else if (%dillo_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 < 130) {
+    if ($int0 = 120) {
+        if (%smki = 250) {
+            return(2);
+        } else if (%smki = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 121) {
+        if (%rocko_quest = 100) {
+            return(2);
+        } else if (%rocko_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 122) {
+        if (%sum1_quest >= 80) {
+            return(2);
+        } else if (%sum1_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 123) {
+        if (%hist_prog = 20) {
+            return(2);
+        } else if (%hist_prog = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 124) {
+        if (%firedup_quest >= 90) {
+            return(2);
+        } else if (%firedup_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 125) {
+        if (%sum2_quest >= 35) {
+            return(2);
+        } else if (%sum2_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 126) {
+        if (%zemo_main = 250) {
+            return(2);
+        } else if (%zemo_main = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 127) {
+        if (%swept_quest >= 50) {
+            return(2);
+        } else if (%swept_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 128) {
+        if (%luc2_main_quest > 900) {
+            return(2);
+        } else if (%luc2_main_quest = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+    if ($int0 = 129) {
+        if (%phoenix_quest_var = 30) {
+            return(2);
+        } else if (%phoenix_quest_var = 0) {
+            return(0);
+        } else {
+            return(1);
+        }
+    }
+}
+if ($int0 = 130) {
+    if (%motwl_main >= 60) {
+        return(2);
+    } else if (%motwl_main = 0) {
+        return(0);
+    } else {
+        return(1);
+    }
+}
+return(-1);

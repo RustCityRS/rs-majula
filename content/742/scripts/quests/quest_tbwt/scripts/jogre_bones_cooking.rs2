@@ -1,0 +1,16 @@
+// From 289's tbwt_jogre_bones.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,explode_cooked_jogre_bones](obj $bones)
+if(stat(cooking) < 30) {
+    // doesnt change for burnt bones
+    ~mesbox("You need a Cooking level of 30 to cook jogre bones covered in cooked karambwanji paste.");
+    return;
+}
+anim(human_fai_furnace, 0); // same on fire/range
+sound_synth(fry, 1, 0); // 289's fry: the same sound, 647's cook
+inv_del(inv, $bones, 1);
+p_delay(2);
+mes("The cooked karambwanji paste catches fire and explodes.");
+inv_add(inv, ashes, 1);
+sound_synth(explosion, 1, 0);
+spotanim_map(smokepuff, coord, 160, 0);
+~damage_self(20); // 289's hitpoints; 2011 counts life points, ten to a hitpoint

@@ -1,0 +1,359 @@
+// 126:0
+[rake_name]
+type=text
+x=25
+y=12
+width=90
+height=14
+textfont=fontmetrics_495
+text=Rake
+textshadow=yes
+colour=0x872300
+
+// 126:1
+[com_1]
+type=text
+x=25
+y=28
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:2
+[dibber_name]
+type=text
+x=117
+y=12
+width=90
+height=14
+textfont=fontmetrics_495
+text=Seed dibber
+textshadow=yes
+colour=0x872300
+
+// 126:3
+[com_3]
+type=text
+x=117
+y=28
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:4
+[spade_name]
+type=text
+x=25
+y=60
+width=90
+height=14
+textfont=fontmetrics_495
+text=Spade
+textshadow=yes
+colour=0x872300
+
+// 126:5
+[com_5]
+type=text
+x=25
+y=76
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:6
+[secateurs_name]
+type=text
+x=117
+y=60
+width=90
+height=14
+textfont=fontmetrics_495
+text=Secateurs
+textshadow=yes
+colour=0x872300
+
+// 126:7
+[com_7]
+type=text
+x=117
+y=76
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:8
+[wateringcan_name]
+type=text
+x=25
+y=108
+width=90
+height=14
+textfont=fontmetrics_495
+text=Watering Can
+textshadow=yes
+colour=0x872300
+
+// 126:9
+[com_9]
+type=text
+x=25
+y=124
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:10
+[trowel_name]
+type=text
+x=117
+y=108
+width=90
+height=14
+textfont=fontmetrics_495
+text=Trowel
+textshadow=yes
+colour=0x872300
+
+// 126:11
+[com_11]
+type=text
+x=117
+y=124
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:12
+[buckets_name]
+type=text
+x=25
+y=156
+width=90
+height=14
+textfont=fontmetrics_495
+text=Buckets
+textshadow=yes
+colour=0x872300
+
+// 126:13
+[com_13]
+type=text
+x=25
+y=172
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:14
+[compost_name]
+type=text
+x=117
+y=156
+width=90
+height=14
+textfont=fontmetrics_495
+text=Compost
+textshadow=yes
+colour=0x872300
+
+// 126:15
+[com_15]
+type=text
+x=117
+y=172
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:16
+[supercompost_name]
+type=text
+x=25
+y=204
+width=90
+height=14
+textfont=fontmetrics_495
+text=Supercompost
+textshadow=yes
+colour=0x872300
+
+// 126:17
+[com_17]
+type=text
+x=25
+y=220
+width=17
+height=14
+textfont=fontmetrics_495
+textshadow=yes
+colour=0x872300
+
+// 126:18
+[rake_store]
+type=graphic
+x=43
+y=27
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,10
+opbase=<col=ff9040>Rake
+op1=Store
+op10=Examine
+onload=clientscript_1292(event_com, rake, farming_tools_side:rake_name, farming_tools_side:com_1)
+oninvtransmit=clientscript_1292(event_com, rake, farming_tools_side:rake_name, farming_tools_side:com_1){inv}
+
+// 126:19
+[dibber_store]
+type=graphic
+x=135
+y=27
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,10
+opbase=<col=ff9040>Dibber
+op1=Store
+op10=Examine
+onload=clientscript_1292(event_com, dibber, farming_tools_side:dibber_name, farming_tools_side:com_3)
+oninvtransmit=clientscript_1292(event_com, dibber, farming_tools_side:dibber_name, farming_tools_side:com_3){inv}
+
+// 126:20
+[spade_store]
+type=graphic
+x=43
+y=75
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,10
+opbase=<col=ff9040>Spade
+op1=Store
+op10=Examine
+onload=clientscript_1292(event_com, spade, farming_tools_side:spade_name, farming_tools_side:com_5)
+oninvtransmit=clientscript_1292(event_com, spade, farming_tools_side:spade_name, farming_tools_side:com_5){inv}
+
+// 126:21
+[secateurs_store]
+type=graphic
+x=135
+y=75
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,10
+opbase=<col=ff9040>Secateurs
+op1=Store
+op10=Examine
+onload=clientscript_1292(event_com, secateurs, farming_tools_side:secateurs_name, farming_tools_side:com_7)
+oninvtransmit=clientscript_1292(event_com, secateurs, farming_tools_side:secateurs_name, farming_tools_side:com_7){inv}
+
+// 126:22
+[wateringcan_store]
+type=graphic
+x=43
+y=123
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,10
+opbase=<col=ff9040>Watering Can
+op1=Store
+op10=Examine
+onload=clientscript_1292(event_com, watering_can_dummy, farming_tools_side:wateringcan_name, farming_tools_side:com_9)
+oninvtransmit=clientscript_1292(event_com, watering_can_dummy, farming_tools_side:wateringcan_name, farming_tools_side:com_9){inv}
+
+// 126:23
+[trowel_store]
+type=graphic
+x=135
+y=123
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,10
+opbase=<col=ff9040>Trowel
+op1=Store
+op10=Examine
+onload=clientscript_1292(event_com, gardening_trowel, farming_tools_side:trowel_name, farming_tools_side:com_11)
+oninvtransmit=clientscript_1292(event_com, gardening_trowel, farming_tools_side:trowel_name, farming_tools_side:com_11){inv}
+
+// 126:24
+[buckets_store]
+type=graphic
+x=43
+y=171
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Buckets
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=clientscript_1292(event_com, bucket_empty, farming_tools_side:buckets_name, farming_tools_side:com_13)
+oninvtransmit=clientscript_1292(event_com, bucket_empty, farming_tools_side:buckets_name, farming_tools_side:com_13){inv}
+
+// 126:25
+[compost_store]
+type=graphic
+x=135
+y=171
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Compost
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=clientscript_1292(event_com, bucket_compost, farming_tools_side:compost_name, farming_tools_side:com_15)
+oninvtransmit=clientscript_1292(event_com, bucket_compost, farming_tools_side:compost_name, farming_tools_side:com_15){inv}
+
+// 126:26
+[supercompost_store]
+type=graphic
+x=43
+y=219
+width=36
+height=32
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Supercompost
+op1=Store 1
+op2=Store 5
+op3=Store All
+op4=Store X
+op10=Examine
+onload=clientscript_1292(event_com, bucket_supercompost, farming_tools_side:supercompost_name, farming_tools_side:com_17)
+oninvtransmit=clientscript_1292(event_com, bucket_supercompost, farming_tools_side:supercompost_name, farming_tools_side:com_17){inv}

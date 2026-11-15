@@ -1,0 +1,8 @@
+// 3087
+[proc,script3087](component $component0, int $int1)
+if_sethide(lobbyscreen:tooltip, true);
+if ($int1 < 0) {
+    if_setonmouserepeat($component0, null);
+} else if (cc_find($component0, $int1) = true) {
+    cc_setonmouserepeat(null);
+}

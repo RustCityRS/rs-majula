@@ -1,0 +1,41 @@
+// 5797
+[proc,clientscript_5797](int $int0, struct $struct1, int $int2, int $int3, int $int4, int $int5, component $component6, component $component7, component $component8, component $component9, int $int10)(int)
+def_int $int11 = 1;
+def_int $int12 = $int4;
+def_int $int13 = $int4;
+if_setsize($component6, 0, $int12, ^setsize_minus, ^setsize_abs);
+if ($int3 = 1) {
+    cc_deleteall($component6);
+    if ($component7 ! null) {
+        cc_deleteall($component7);
+    }
+    cc_deleteall($component8);
+    if_setscrollsize($component9, 0, 0);
+    if_setsize($component6, 0, 0, ^setsize_minus, ^setsize_minus);
+    if_setsize($component9, 17, 0, ^setsize_minus, ^setsize_minus);
+}
+while ($int11 < calc($int2 + 1)) {
+    $int13 = ~clientscript_5798($int0, $struct1, $int11, "", $int12, $component6, $component7, $int10);
+    if ($int12 = $int13) {
+        $int11 = calc($int2 + 1);
+    } else {
+        $int11 = calc($int11 + 1);
+    }
+    $int12 = $int13;
+}
+if_setsize($component6, if_getwidth($component6), $int12, ^setsize_abs, ^setsize_abs);
+if ($component7 ! null) {
+    if_setsize($component7, if_getwidth($component7), $int12, ^setsize_abs, ^setsize_abs);
+}
+if ($int12 < $int5) {
+    if_sethide($component8, true);
+    if_setsize($component9, 3, 0, ^setsize_minus, ^setsize_minus);
+} else {
+    $int12 = calc($int12 + 5);
+    if_setscrollsize($component9, 0, max($int12, if_getheight($component9)));
+    if_setsize($component9, calc(if_getwidth($component8) + 2), 0, ^setsize_minus, ^setsize_minus);
+    if_sethide($component8, false);
+    ~scrollbar_vertical($component8, $component9, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}
+%varclient_1772 = $int13;
+return($int13);

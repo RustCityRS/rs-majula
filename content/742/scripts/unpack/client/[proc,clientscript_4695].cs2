@@ -1,0 +1,15 @@
+// 4695
+[proc,clientscript_4695](int $int0, int $int1)
+def_int $int2 = clientclock;
+if ($int2 >= calc($int0 + 15) | $int0 = 0) {
+    if_settrans(interface_500:com_11, $int1);
+    $int0 = $int2;
+    if (%varclient_1548 = 0) {
+        $int1 = 255;
+    } else if ($int1 = 255) {
+        $int1 = 0;
+    } else {
+        $int1 = 255;
+    }
+}
+if_setontimer(interface_500:com_11, "clientscript_4695($int0, $int1)");
