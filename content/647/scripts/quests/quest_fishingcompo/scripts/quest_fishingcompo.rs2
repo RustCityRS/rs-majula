@@ -1,0 +1,167 @@
+// Fishing Contest (289's quests/quest_fishingcompo/scripts/quest_fishingcompo.rs2), line for
+// line. Sources for what 2011 changes: C is cache 786, W is the 2011 wiki's Fishing Contest
+// page (2011-05-17). Anything neither shows is 289's.
+// - 289's %hemenster_comp_stage is varp 12, which the 647 pack names garlicpipe.
+//   C has four varbits on it (fishingcompo_garlicpipe bit 0, _paid bit 2, _passed bit 3,
+//   _stranger bit 4) and the stranger as a multi-npc on the last (sinister_stranger0/1): 2011
+//   kept the contest in those bits. What sets each is in no source found, so 289's count (0 to
+//   4, with %hemenster_pipe_stashed beside it) stands; it never reaches bit 4, and the varp is
+//   not transmitted, so the stranger always shows as his first form.
+// - C has two dwarves at the tunnel, tunnel_dwarf (Austri, the east end) and tunnel_dwarf1
+//   (Vestri, the west end), where 289 has four of the one (W names both).
+[oploc1,tunnelstairstop] @dwarven_tunnel;
+[oploc1,tunnelstairstop2] @dwarven_tunnel;
+
+[oploc1,tunnelstairs] p_telejump(0_44_54_4_30);
+[oploc1,tunnelstairs2] p_telejump(0_44_54_61_26);
+
+[label,dwarven_tunnel]
+if(%fishingcompo = ^fishingcompo_complete) {
+    if(loc_type = tunnelstairstop) {
+        p_telejump(0_44_154_4_26);
+    } else if(loc_type = tunnelstairstop2) {
+        p_telejump(0_44_154_60_22);
+    }
+    return;
+} else if(npc_find(coord, tunnel_dwarf, 5, 0) = true) {
+    switch_int (%fishingcompo) {
+        case ^fishingcompo_not_started : @tunnel_dwarf_stairs;
+        case default : @tunnel_dwarf_won;
+    }
+} else if(npc_find(coord, tunnel_dwarf1, 5, 0) = true) {
+    // Vestri, at the west end (C).
+    switch_int (%fishingcompo) {
+        case ^fishingcompo_not_started : @tunnel_dwarf_stairs;
+        case default : @tunnel_dwarf_won;
+    }
+}
+
+// C: the gate stands a tile east of 289's and faces the other way (0_41_53_19_49 and _19_50,
+// angle 0, where 289 has _18_49 and _18_50, angle 2): the same fence line, but the gate's
+// tile is now the lane outside. So a player inside is west of the gate's tile where 289's
+// is on it or west of it, leaving lands on the gate's tile and entering a tile west of it.
+// C's gates carry 647's gate categories, not 289's hemenster_gate: the triggers are theirs.
+[oploc1,fishinggateclosedl] @hemenster_gate;
+[oploc1,fishinggateclosedr] @hemenster_gate;
+
+[label,hemenster_gate]
+if(coordx(coord) < coordx(loc_coord)) {
+    if(%fishingcompo >= ^fishingcompo_in_comp & %fishingcompo < ^fishingcompo_won_comp | loc_type = fishinggateclosedr & %fishingcompo < ^fishingcompo_won_comp) {
+        // On OSRS this dialogue always happens (during the quest) when leaving from the south side of the gate, and 
+        // on both sides during an active comp. Not sure if this is a rework thing since Bonzo is sitting on a table by the south side
+        // post-rework, but we'll use this behaviour for now
+        if(npc_find(coord, bonzo, 12, 0) = true) {
+            @bonzo_quits;
+        }
+    }
+    p_teleport(loc_coord);
+    ~open_fishingcompo_gate;
+    return;
+}
+~chatnpc_specific("Morris", morris, "<p,neutral>Competition pass please.");
+if(inv_total(inv, fishing_competition_pass) > 0) {
+    ~objbox(fishing_competition_pass, "You show Morris your pass.", 250, 0, 0);
+    ~chatnpc_specific("Morris", morris, "<p,happy>Move on through.");
+    if_close;
+    p_teleport(movecoord(loc_coord, -1, 0, 0));
+    ~open_fishingcompo_gate;
+    return;
+}
+def_int $option = ~p_choice2("I don't have one of them.", 1, "What do I need that for?", 2);
+if($option = 1) {
+    ~chatplayer("<p,sad>I don't have one of them.");
+} else if($option = 2) {
+    ~chatplayer("<p,confused>What do I need that for?");
+    ~chatnpc_specific("Morris", morris, "<p,neutral>This is the entrance to the Hemenster fishing|competition. It's a high class competition.|Invitation only.");
+}
+
+[proc,open_fishingcompo_gate]
+loc_findallzone(coord);
+while(loc_findnext = true) {
+     if(loc_type = fishinggateclosedl | loc_type = fishinggateclosedr) {
+            def_coord $central_coord = loc_coord;
+            def_loc $type = loc_type;
+            // Temp note: dur updated
+            loc_change(inviswall, 3);
+            if($type = fishinggateclosedl) {
+                // Temp note: dur updated
+                // 289 swings both leaves east from its north leaf, along that tile's north
+                // edge. C's left leaf is the south one, so they lie along its south edge,
+                // on the same two tiles of the lane. No source shows 2011's open gate.
+                loc_add($central_coord, inacfishinggateclosedl, 3, loc_shape, 3);
+                loc_add(movecoord($central_coord, 1, 0, 0), inacfishinggateclosedr, 3, loc_shape, 3);
+            }
+     }
+}
+// 289's door_open has no synth of that name at 647; gate_open is what 647's gates play
+// (general_use/scripts/gates.rs2). No source has 2011's sound.
+sound_synth(gate_open, 1, 0);
+p_delay(0);
+
+// The pipe has some odd interactions in OSRS, but I think this probably related
+// to the rework (https://oldschool.runescape.wiki/w/Wall_Pipe), based off this image
+// I think it probably works very similarly to RSC: https://web.archive.org/web/20130324085821im_/http://www.runeweb.net/fireball/Fishing%20Contest%20Images/FishingContest4.JPG
+//
+// C: the tiles under the three pipes are blocked ground (maps/m41_53.jm2, flag f1 on
+// 0_41_53_11_54 to _14_54) and a pipe of this shape is only operated from its own tile, so no
+// tile reaches them: the nearest shore is the tile south of the east pipe. 289's pipes stand on
+// walkable tiles. So the pipes answer from up to two tiles off, the reach of that shore tile to
+// all three. How 2011 let a player reach them is not in any source found; Old School's answer
+// from a distance too (289's note below).
+[aplocu,garlicpipe]
+if (distance(coord, loc_coord) > 2) {
+    p_aprange(2);
+    return;
+}
+switch_obj (last_useitem) {
+    case garlic : @stash_garlic;
+    case default : ~displaymessage(^dm_default);
+}
+
+[oplocu,garlicpipe]
+switch_obj (last_useitem) {
+    case garlic : @stash_garlic;
+    case default : ~displaymessage(^dm_default);
+}
+
+// option doesn't exist in RSC, but based off the 2005 image, I think it probably always sends nothing interesting happens
+// when searching it (this matches the behaviour of OSRS when searching it from 3-8 tiles away)
+[oploc1,garlicpipe] ~displaymessage(^dm_default);
+
+[aploc1,garlicpipe]
+if (distance(coord, loc_coord) > 2) {
+    p_aprange(2);
+    return;
+}
+~displaymessage(^dm_default);
+
+[label,stash_garlic]
+mes("You stash the garlic in the pipe.");
+p_delay(2);
+inv_del(inv, garlic, 1);
+%hemenster_pipe_stashed = true;
+if(%garlicpipe = ^hemenster_comp_paidfee) {
+    // This uses a new stage on OSRS (probably for quest journal?)
+    %fishingcompo = ^fishingcompo_garlic_comp;
+    ~move_hemenster_pipe;
+}
+
+[proc,move_hemenster_pipe]
+if(npc_find(coord, sinister_stranger, 8, 0) = true) {
+    ~chatnpc("<p,angry>Arrgh! WHAT is that GHASTLY smell???|I think I will move over here instead...");
+    npc_tele(0_41_53_7_43); // telejumps in classic
+    npc_facesquare(movecoord(npc_coord, 1, 0, 0));
+    if (npc_find(coord, bonzo, 12, 0) = true) {
+        %fishingcompo = ^fishingcompo_garlic_comp;
+        ~chatnpc("<p,confused>Hmm. You'd better go and take the area by the pipes then.");
+        ~mesbox("Your fishing competition spot is now beside the pipes.");
+    }
+}
+
+[queue,fishingcompo_quest_complete]
+%fishingcompo = ^fishingcompo_complete;
+session_log(^log_adventure, "Quest complete: Fishing Contest");
+// W: "1 Quest Point", "2,437 Fishing Experience", as 289. No source found shows 2011's scroll:
+// the sentence is 289's on one line (2011's scroll wraps its own), the reward line is W's.
+~send_quest_complete2(^questlist_fishingcompo, hemenster_fishing_trophy, 180, ^fishingcompo_questpoints, "You have completed the Fishing Competition Quest!", "2,437 Fishing XP");
+stat_advance(fishing, 24370);
