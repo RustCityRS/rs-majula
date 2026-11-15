@@ -260,7 +260,7 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
         let mut client = developer(engine, "lampmyst");
         cheat(&mut client, "~give law_reward_lamp 1");
         ticks(engine, &mut client, 2);
-        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp given");
+        assert_eq!(inv_total(engine, &client, lamp.g2()), 1, "the lamp given");
 
         button1(&mut client, BACKPACK, 0, lamp as i32);
         ticks(engine, &mut client, 2);
@@ -280,7 +280,7 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
             engine.harness_player(client.pid).unwrap().stats.xp[ATTACK],
             xp
         );
-        assert_eq!(inv_total(engine, &client, lamp), 1, "the lamp is kept");
+        assert_eq!(inv_total(engine, &client, lamp.g2()), 1, "the lamp is kept");
 
         // At level 30: 10,000 xp (the engine's tenths), and the lamp is used up.
         {
@@ -299,7 +299,7 @@ fn a_mysterious_lamp_gives_10_000_xp_at_level_30() {
             engine.harness_player(client.pid).unwrap().stats.xp[ATTACK] - xp,
             100_000
         );
-        assert_eq!(inv_total(engine, &client, lamp), 0, "the lamp is used up");
+        assert_eq!(inv_total(engine, &client, lamp.g2()), 0, "the lamp is used up");
         assert!(!is_open(engine, &client, LAMP), "the lamp closes");
         assert!(
             texts
